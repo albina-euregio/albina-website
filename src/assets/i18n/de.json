@@ -1,0 +1,391 @@
+{
+	"undefined" : "---",
+	"menu" : {
+		"title" : "SNOBS",
+		"startPage" : "Startseite",
+		"overviewPage" : "Profile",
+		"settingsPage" : "Einstellungen",
+		"newSnowProfilePage" : "Neues Schneeprofil",
+		"overviewTitle" : "Übersicht",
+		"settingsTitle" : "Einstellungen",
+		"newTitle" : "Neu",
+		"homeTitle" : "Start"
+	},
+
+	"connectivity" : {
+		"online" : {
+			"message" : "Wir sind ONLINE!"
+		},
+		"offline" : {
+			"message" : "Wir sind OFFLINE"
+		}
+	},
+
+	"start" : {
+		"title" : "SNOBS",
+		"newSnowProfile" : "Neues Schneeprofil"
+	},
+
+	"units" : {
+		"cm" : "cm"
+	},
+
+	"overview" : {
+		"title" : "Überblick",
+		"new" : "Neu",
+		"snowProfiles" : "Schneeprofile",
+		"snowProfile" : "Schneeprofil",
+		"noName" : "(kein Name)",
+		"deleteSnowProfileAlert" : {
+			"title" : "Schneeprofil löschen?",
+			"text" : "Möchtest du wirklich dieses Schneeprofil löschen?",
+			"delete" : "Löschen",
+			"cancel" : "Abbrechen"
+		}
+	},
+
+	"profile" : {
+		"title" : "Schneeprofile",
+		"new" : {
+			"title" : "Neues Schneeprofil",
+			"snowHeight" : "Schneehöhe",
+			"newProfile" : "Neu",
+			"saveProfile" : "Speichern",
+			"discardProfile" : "Verwerfen",
+			"save" : "Speichern",
+			"discard" : "Verwerfen",
+			"next" : "Weiter",
+			"inputs" : {
+				"title" : "Eingaben"
+			},
+			"discardAlert" : {
+				"title" : "Schneeprofil verwerfen?",
+				"text" : "Möchtest du wirklich dieses Schneeprofil verwerfen?",
+				"discard" : "Verwerfen",
+				"cancel" : "Abbrechen"
+			},
+			"discardChangesAlert" : {
+				"title" : "Änderungen verwerfen?",
+				"text" : "Möchtest du wirklich die Änderungen an diesem Schneeprofil verwerfen?",
+				"discard" : "Verwerfen",
+				"cancel" : "Abbrechen"
+			},
+			"snowHeightAlert" : {
+				"title" : "Keine Schneehöhe definiert",
+				"text" : "Bitte gib eine Schneehöhe ein.",
+				"ok" : "Schließen"
+			},
+			"layerAlert" : {
+				"title" : "Schichten überlappen",
+				"text" : "Bitte überprüfe die Schicht auf Überlappungen.",
+				"ok" : "Schließen"
+			},
+			"temperature" : {
+				"pageTitle" : "Temperaturmessungen",
+				"tabTitle" : "Temperatur",
+				"new" : {
+					"title" : "Neue Temperaturmessung",
+					"height" : "Höhe",
+					"temperature" : "Temperatur"
+				},
+				"toast" : {
+					"text" : "Temperaturemessung gelöscht!",
+					"undo" : "Rückgängig"
+				}
+			},
+			"density" : {
+				"pageTitle" : "Dichtemessungen",
+				"tabTitle" : "Dichte",
+				"new" : {
+					"title" : "Neue Dichtemessung",
+					"heightTop" : "Höhe oben",
+					"heightBottom" : "Höhe unten",
+					"density" : "Dichte"
+				},
+				"toast" : {
+					"text" : "Dichtemessung gelöscht!",
+					"undo" : "Rückgängig"
+				}
+			},
+			"ram" : {
+				"pageTitle" : "Rammmessungen",
+				"tabTitle" : "Ram",
+				"new" : {
+					"title" : "Neue Rammessung",
+					"dropHeight" : "Fallhöhe",
+					"count" : "Anzahl",
+					"penetrationDepth" : "Eindringtiefe"
+				},
+				"toast" : {
+					"text" : "Rammmessung gelöscht!",
+					"undo" : "Rückgängig"
+				}
+			},
+			"stability" : {
+				"pageTitle" : "Stabilitätstests",
+				"tabTitle" : "Stabilität",
+				"new" : {
+					"title" : "Neuer Stabilitätstest",
+					"testType" : "Test Typ",
+					"step" : "Stufe",
+					"height" : "Höhe",
+					"fractureType" : "Bruchtyp",
+					"fractureCharacteristic" : "Bruchcharakteristik",
+					"comment" : "Kommentar",
+					"cutLength" : "Schnittlänge",
+					"columnLength" : "Blocklänge",
+					"weakLayerId" : "ID der Schwachschicht"
+				},
+				"toast" : {
+					"text" : "Stabilitätstest gelöscht!",
+					"undo" : "Rückgängig"
+				}
+			},
+			"layer" : {
+				"pageTitle" : "Schichten",
+				"tabTitle" : "Schicht",
+				"new" : {
+					"title" : "Neue Schicht",
+					"thickness" : "Schichtdicke",
+					"heightTop" : "Höhe oben",
+					"heightBottom" : "Höhe unten",
+					"wetness" : "Feuchte",
+					"primaryGrainShape" : "Primäre Kornform",
+					"secondaryGrainShape" : "Sekundäre Kornform",
+					"grainSize" : "Korngröße",
+					"hardness" : "Härte"
+				},
+				"toast" : {
+					"text" : "Schicht gelöscht!",
+					"undo" : "Rückgängig"
+				}
+			},
+			"info" : {
+				"pageTitle" : "Info",
+				"tabTitle" : "Info",
+				"missing" : "fehlt"
+			}	
+		}
+	},
+
+	"author" : {
+		"title" : "Autor",
+		"name" : "Name",
+		"email" : "E-Mail",
+		"phone" : "Telefon",
+		"organization" : "Organisation",
+		"role" : "Rolle"
+	},
+
+	"comment" : {
+		"title" : "Kommentar"
+	},
+
+	"location" : {
+		"title" : "Örtlichkeit",
+		"country" : "Land",
+		"region" : "Region",
+		"subregion" : "Subregion",
+		"name" : "Name",
+		"latitude" : "Latitude",
+		"longitude" : "Longitude",
+		"elevation" : "Höhe",
+		"angle" : "Hangneigung",
+		"aspect" : "Himmelsrichtung",
+		"quality" : "Qualität"
+	},
+
+	"datetime" : {
+		"title" : "Datum/Zeit",
+		"date" : "Datum",
+		"time" : "Uhrzeit",
+		"quality" : "Qualität"
+	},
+	
+	"conditions" : {
+		"title" : "Bedingungen",
+		"airTemperature" : "Lufttemperatur",
+		"cloudiness" : "Bewölkung",
+		"precipitationType" : "Niederschlagsart",
+		"precipitationIntensity" : "Niederschlagsintensität",
+		"windSpeed" : "Windgeschwindigkeit",
+		"windDirection" : "Windrichtung"
+	},
+
+	"settings" : {
+		"title" : "Einstellungen",
+		"language" : {
+			"title" : "Sprache",
+			"en" : "Englisch",
+			"de" : "Deutsch"
+		},
+		"general" : "Allgemein",
+		"inputs" : {
+			"title" : "Eingaben",
+			"temperature" : "Temperaturprofil",
+			"density" : "Dichteprofil",
+			"ram" : "Rammprofil"
+		}
+	},
+
+	"wetness" : {
+		"dry" : "trocken",
+		"moist" : "feucht",
+		"wet" : "nass",
+		"very_wet" : "sehr nass",
+		"soaked" : "getränkt"
+	},
+
+	"handHardness" : {
+		"F" : "Faust",
+		"F_FF" : "Faust - Vier Finger",
+		"FF" : "Vier Finger",
+		"FF_OF" : "Vier Finger - Ein Finger",
+		"OF" : "Ein Finger",
+		"OF_P" : "Ein Finger - Bleistift",
+		"P" : "Bleistift",
+		"P_K" : "Bleistift - Messer",
+		"K" : "Messer",
+		"K_I" : "Messer - Eis",
+		"I" : "Eis"
+	},
+
+	"layerThickness" : {
+		"half" : "ca. 0.5 cm",
+		"one" : "ca. 1.0 cm",
+		"two" : "ca. 2.0 cm",
+		"five" : "ca. 5.0 cm",
+		"ten" : "ca. 10 cm",
+		"twenty" : "ca. 20 cm",
+		"thirty" : "ca. 30 cm",
+		"fourty" : "ca. 40 cm",
+		"fifty" : "ca. 50 cm",
+		"sixty" : "ca. 60 cm",
+		"seventy" : "ca. 70 cm",
+		"eighty" : "ca. 80 cm",
+		"ninety" : "ca. 90 cm",
+		"hundred" : "ca. 100 cm"
+	},
+
+	"grainSize" : {
+		"very_fine" : "< 0.2 mm",
+		"fine" : "< 0.5 mm",
+		"medium" : "0.5 - 1.0 mm",
+		"coarse" : "1.0 - 2.0 mm",
+		"very_coarse" : "2.0 - 5.0 mm",
+		"extreme" : "> 5.0 mm"
+	},
+
+	"precipitationType" : {
+		"none" : "kein Niederschlag",
+		"snow" : "Schnee",
+		"rain" : "Regen",
+		"graupel" : "Graupel"
+	},
+
+	"precipitationIntensity" : {
+		"light" : "leicht",
+		"moderate" : "moderat",
+		"heavy" : "stark"
+	},
+
+	"cloudiness" : {
+		"one_okta" : "1/8",
+		"two_okta" : "2/8",
+		"three_okta" : "3/8",
+		"four_okta" : "4/8",
+		"five_okta" : "5/8",
+		"six_okta" : "6/8",
+		"seven_okta" : "7/8",
+		"eight_okta" : "8/8"
+	},
+
+	"skyCondition" : {
+		"CLR" : "wolkenlos (0/8)",
+		"FEW" : "leicht bewölkt (1/8 - 2/8)",
+		"SCT" : "bewölkt (3/8 - 4/8)",
+		"BKN" : "stark bewölkt (5/8 - 7/8)",
+		"OVC" : "bedeckt (8/8)",
+		"X" : "Nebel"
+	},
+
+	"grainShape" : {
+		"PP" : "Neuschnee",
+		"PPgp" : "Graupel",
+		"MM" : "Kunstschnee",
+		"DF" : "Filziger Schnee",
+		"RG" : "Rundkörnig",
+		"FC" : "Kantigkörnig",
+		"FCxr" : "Kantig-abgerundet",
+		"DH" : "Tiefenreif",
+		"SH" : "Oberflächenreif",
+		"MF" : "Schmelzform",
+		"MFcr" : "Schmelzkruste",
+		"IF" : "Eislamelle"
+	},
+
+	"ectFractureType" : {
+		"propagation" : "plötzlicher Bruch (P) (ganzer Block)",
+		"noPropagation" : "Teilbruch (N)",
+		"noBreak" : "kein Bruch"
+	},
+
+	"ctFractureType" : {
+		"suddenPlanar" : "plötzlicher Bruch glatt (SP)",
+		"suddenCollapse" : "plötzlicher Bruch mit Kollaps (SC)",
+		"resistantPlanar" : "Bruch mit Widerstand glatt (RP)",
+		"progressiveCompression" : "Bruch mit Widerstand rau (PC)",
+		"nonPlanarBreak" : "Bruch mit Widerstand stufig (B)",
+		"noBreak" : "kein Bruch"
+	},
+
+	"rbFractureType" : {
+		"wholeBreak" : "ganzer Block",
+		"partialBreak" : "Teilbruch",
+		"noBreak" : "kein Bruch"
+	},
+
+	"pstFractureType" : {
+		"Arr" : "gestoppt",
+		"SF" : "Schneebrett gebrochen",
+		"End" : "Ende"
+	},
+
+	"testType" : {
+		"ECT" : "ECT",
+		"RB" : "RB",
+		"PST" : "PST",
+		"CT" : "CT"
+	},
+
+	"quality" : {
+		"measured" : "gemessen",
+		"estimated" : "geschätzt"
+	},
+
+	"windSpeed" : {
+		"calm" : "windstill (0 km/h)",
+		"gentle" : "leicht (< 20 km/h)",
+		"moderate" : "moderat (20 - 40 km/h)",
+		"strong" : "stark (40 - 60 km/h)",
+		"gale" : "sehr stark (60 - 100 km/h)",
+		"storm" : "Sturm (> 100 km/h)"
+	},
+
+	"aspect" : {
+		"N" : "N",
+		"NE" : "NO",
+		"E" : "O",
+		"SE" : "SO",
+		"S" : "S",
+		"SW" : "SW",
+		"W" : "W",
+		"NW" : "NW"
+	},
+
+	"stabilityTestClassification" : {
+		"weak" : "schwach",
+		"moderate" : "mittel",
+		"stable" : "stabil"
+	}
+}

@@ -1,0 +1,391 @@
+{
+	"undefined" : "---",
+	"menu" : {
+		"title" : "SNOBS",
+		"startPage" : "Home",
+		"overviewPage" : "Profiles",
+		"settingsPage" : "Settings",
+		"newSnowProfilePage" : "New Snow Profile",
+		"overviewTitle" : "Overview",
+		"settingsTitle" : "Settings",
+		"newTitle" : "New",
+		"homeTitle" : "Home"
+	},
+
+	"connectivity" : {
+		"online" : {
+			"message" : "We are ONLINE!"
+		},
+		"offline" : {
+			"message" : "We are OFFLINE"
+		}
+	},
+
+	"start" : {
+		"title" : "SNOBS",
+		"newSnowProfile" : "New Snow Profile"
+	},
+
+	"units" : {
+		"cm" : "cm"
+	},
+
+	"overview" : {
+		"title" : "Overview",
+		"new" : "New",
+		"snowProfiles" : "snow profiles",
+		"snowProfile" : "snow profile",
+		"noName" : "(no name)",
+		"deleteSnowProfileAlert" : {
+			"title" : "Delete snow profile?",
+			"text" : "Do you really want to delete this snow profile?",
+			"delete" : "Delete",
+			"cancel" : "Cancel"
+		}
+	},
+
+	"profile" : {
+		"title" : "Snow Profiles",
+		"new" : {
+			"title" : "New Snow Profile",
+			"snowHeight" : "Snow Height",
+			"newProfile" : "New",
+			"saveProfile" : "Save",
+			"discardProfile" : "Discard",
+			"save" : "Save",
+			"discard" : "Discard",
+			"next" : "Next",
+			"inputs" : {
+				"title" : "Add"
+			},
+			"discardAlert" : {
+				"title" : "Discard Snow Profile?",
+				"text" : "Do you really want to discard this snow profile?",
+				"discard" : "Discard",
+				"cancel" : "Cancel"
+			},
+			"discardChangesAlert" : {
+				"title" : "Discard Changes?",
+				"text" : "Do you really want to discard the changes to this snow profile?",
+				"discard" : "Discard",
+				"cancel" : "Cancel"
+			},
+			"snowHeightAlert" : {
+				"title" : "Snow height not defined",
+				"text" : "Please define the snow height.",
+				"ok" : "Close"
+			},
+			"layerAlert" : {
+				"title" : "Layer do overlap",
+				"text" : "Please check the layer for overlaps.",
+				"ok" : "Close"
+			},
+			"temperature" : {
+				"pageTitle" : "Temperature",
+				"tabTitle" : "Temperature",
+				"new" : {
+					"title" : "New Temperature Measurement",
+					"height" : "Height",
+					"temperature" : "Temperature"
+				},
+				"toast" : {
+					"text" : "Temperature measurement deleted!",
+					"undo" : "Undo"
+				}
+			},
+			"density" : {
+				"pageTitle" : "Density",
+				"tabTitle" : "Density",
+				"new" : {
+					"title" : "New Density Measurement",
+					"heightTop" : "Height Top",
+					"heightBottom" : "Height Bottom",
+					"density" : "Density"
+				},
+				"toast" : {
+					"text" : "Density measurement deleted!",
+					"undo" : "Undo"
+				}
+			},
+			"ram" : {
+				"pageTitle" : "Ram",
+				"tabTitle" : "Ram",
+				"new" : {
+					"title" : "New Ram Measurement",
+					"dropHeight" : "Drop Height",
+					"count" : "Count",
+					"penetrationDepth" : "Penetration Depth"
+				},
+				"toast" : {
+					"text" : "Ram measurement deleted!",
+					"undo" : "Undo"
+				}
+			},
+			"stability" : {
+				"pageTitle" : "Stability Tests",
+				"tabTitle" : "Stability",
+				"new" : {
+					"title" : "New Stability Test",
+					"testType" : "Test Type",
+					"step" : "Step",
+					"height" : "Height",
+					"fractureType" : "Fracture Type",
+					"fractureCharacteristic" : "Fracture Characteristic",
+					"comment" : "Comment",
+					"cutLength" : "Cut length",
+					"columnLength" : "Column Length",
+					"weakLayerId" : "Weak layer ID"
+				},
+				"toast" : {
+					"text" : "Stability test deleted!",
+					"undo" : "Undo"
+				}
+			},
+			"layer" : {
+				"pageTitle" : "Layers",
+				"tabTitle" : "Layer",
+				"new" : {
+					"title" : "New Layer",
+					"heightTop" : "Height Top",
+					"heightBottom" : "Height Bottom",
+					"thickness" : "Thickness",
+					"wetness" : "Wetness",
+					"primaryGrainShape" : "Primary Grain Shape",
+					"secondaryGrainShape" : "Secondary Grain Shape",
+					"grainSize" : "Grain Size",
+					"hardness" : "Hardness" 
+				},
+				"toast" : {
+					"text" : "Layer deleted!",
+					"undo" : "Undo"
+				}
+			},
+			"info" : {
+				"pageTitle" : "Info",
+				"tabTitle" : "Info",
+				"missing" : "missing"
+			}	
+		}
+	},
+
+	"author" : {
+		"title" : "Author",
+		"name" : "Name",
+		"email" : "E-Mail",
+		"phone" : "Phone",
+		"organization" : "Organization",
+		"role" : "Role"
+	},
+
+	"comment" : {
+		"title" : "Comment"
+	},
+
+	"conditions" : {
+		"title" : "Conditions",
+		"airTemperature" : "Air Temperature",
+		"cloudiness" : "Cloudiness",
+		"precipitationType" : "Precipitation Type",
+		"precipitationIntensity" : "Precipitation Intensity",
+		"windSpeed" : "Wind Speed",
+		"windDirection" : "Wind Direction"
+	},
+
+	"location" : {
+		"title" : "Location",
+		"country" : "Country",
+		"region" : "Region",
+		"subregion" : "Subregion",
+		"name" : "Name",
+		"latitude" : "Latitude",
+		"longitude" : "Longitude",
+		"elevation" : "Elevation",
+		"angle" : "Angle",
+		"aspect" : "Aspect",
+		"quality" : "Quality"
+	},
+	
+	"datetime" : {
+		"title" : "Date/Time",
+		"date" : "Date",
+		"time" : "Time",
+		"quality" : "Quality"
+	},
+
+	"settings" : {
+		"title" : "Settings",
+		"language" : {
+			"title" : "Language",
+			"en" : "English",
+			"de" : "German"
+		},
+		"general" : "General",
+		"inputs" : {
+			"title" : "Inputs",
+			"temperature" : "Temperature profile",
+			"density" : "Density profile",
+			"ram" : "Ram profile"
+		}
+	},
+
+	"wetness" : {
+		"dry" : "dry",
+		"moist" : "moist",
+		"wet" : "wet",
+		"very_wet" : "very wet",
+		"soaked" : "soaked"
+	},
+
+	"handHardness" : {
+		"F" : "Fist",
+		"F_FF" : "Fist - Four Fingers",
+		"FF" : "Four Fingers",
+		"FF_OF" : "Four Fingers - One Finger",
+		"OF" : "One Finger",
+		"OF_P" : "One Finger - Pencil",
+		"P" : "Pencil",
+		"P_K" : "Pencil - Knife",
+		"K" : "Knife",
+		"K_I" : "Knife - Ice",
+		"I" : "Ice"
+	},
+
+	"layerThickness" : {
+		"half" : "ca. 0.5 cm",
+		"one" : "ca. 1.0 cm",
+		"two" : "ca. 2.0 cm",
+		"five" : "ca. 5.0 cm",
+		"ten" : "ca. 10 cm",
+		"twenty" : "ca. 20 cm",
+		"thirty" : "ca. 30 cm",
+		"fourty" : "ca. 40 cm",
+		"fifty" : "ca. 50 cm",
+		"sixty" : "ca. 60 cm",
+		"seventy" : "ca. 70 cm",
+		"eighty" : "ca. 80 cm",
+		"ninety" : "ca. 90 cm",
+		"hundred" : "ca. 100 cm"
+	},
+
+	"grainSize" : {
+		"very_fine" : "< 0.2 mm",
+		"fine" : "< 0.5 mm",
+		"medium" : "0.5 - 1.0 mm",
+		"coarse" : "1.0 - 2.0 mm",
+		"very_coarse" : "2.0 - 5.0 mm",
+		"extreme" : "> 5.0 mm"
+	},
+
+	"precipitationType" : {
+		"none" : "none",
+		"snow" : "snow",
+		"rain" : "rain",
+		"graupel" : "graupel"
+	},
+
+	"precipitationIntensity" : {
+		"light" : "light",
+		"moderate" : "moderate",
+		"heavy" : "heavy"
+	},
+
+	"cloudiness" : {
+		"one_okta" : "1/8",
+		"two_okta" : "2/8",
+		"three_okta" : "3/8",
+		"four_okta" : "4/8",
+		"five_okta" : "5/8",
+		"six_okta" : "6/8",
+		"seven_okta" : "7/8",
+		"eight_okta" : "8/8"
+	},
+
+	"skyCondition" : {
+		"CLR" : "clear (0/8)",
+		"FEW" : "few (1/8 - 2/8)",
+		"SCT" : "scattered (3/8 - 4/8)",
+		"BKN" : "broken (5/8 - 7/8)",
+		"OVC" : "overcast (8/8)",
+		"X" : "Fog"
+	},
+
+	"grainShape" : {
+		"PP" : "Precipitation particles",
+		"PPgp" : "Graupel",
+		"MM" : "Machine made snow",
+		"DF" : "Decomposing and fragmented precipitation particles",
+		"RG" : "Rounded grains",
+		"FC" : "Faceted crystals",
+		"FCxr" : "Rounding faceted particles",
+		"DH" : "Depth hoar",
+		"SH" : "Surface hoar",
+		"MF" : "Melt forms",
+		"MFcr" : "Melt-freeze crust",
+		"IF" : "Ice layer"
+	},
+
+	"ectFractureType" : {
+		"propagation" : "propagation (P) (whole block)",
+		"noPropagation" : "no propagation (N)",
+		"noBreak" : "no break"
+	},
+
+	"ctFractureType" : {
+		"suddenPlanar" : "sudden planar (SP)",
+		"suddenCollapse" : "sudden collapse (SC)",
+		"resistantPlanar" : "resistant planar (RP)",
+		"progressiveCompression" : "progressive compression (PC)",
+		"nonPlanarBreak" : "non-planar break (B)",
+		"noBreak" : "no break"
+	},
+
+	"rbFractureType" : {
+		"wholeBlock" : "whole block",
+		"partialBreak" : "partial break",
+		"noBreak" : "no break"
+	},
+
+	"pstFractureType" : {
+		"Arr" : "self arrest",
+		"SF" : "slab fracture",
+		"End" : "end"
+	},
+
+	"testType" : {
+		"ECT" : "ECT",
+		"RB" : "RB",
+		"PST" : "PST",
+		"CT" : "CT"
+	},
+
+	"quality" : {
+		"measured" : "measured",
+		"estimated" : "estimated"
+	},
+
+	"windSpeed" : {
+		"calm" : "calm (0 km/h)",
+		"gentle" : "gentle (< 20 km/h)",
+		"moderate" : "moderate (20 - 40 km/h)",
+		"strong" : "strong (40 - 60 km/h)",
+		"gale" : "gale (60 - 100 km/h)",
+		"storm" : "storm (> 100 km/h)"
+	},
+
+	"aspect" : {
+		"N" : "N",
+		"NE" : "NE",
+		"E" : "E",
+		"SE" : "SE",
+		"S" : "S",
+		"SW" : "SW",
+		"W" : "W",
+		"NW" : "NW"
+	},
+
+	"stabilityTestClassification" : {
+		"weak" : "weak",
+		"moderate" : "moderate",
+		"stable" : "strong"
+	}
+}
