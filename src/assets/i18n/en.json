@@ -7,7 +7,9 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bulletins",
-		"pages" : "Pages"
+		"createBulletin" : "New Bulletin",
+		"news" : "News",
+		"createNews" : "New News"
 	},
 	"menu" : {
 		"logout" : "Logout"

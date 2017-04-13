@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Components'
+      title: 'Bulletins'
     },
     children: [
       {
@@ -15,6 +15,13 @@ const routes: Routes = [
         component: BulletinsComponent,
         data: {
           title: 'Bulletins'
+        }
+      },
+      {
+        path: 'new',
+        component: BulletinsComponent,
+        data: {
+          title: 'New Bulletin'
         }
       }
     ]
@@ -25,4 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ComponentsRoutingModule {}
+export class BulletinsRoutingModule {}

@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 // Layouts
 import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
-import { BulletinsComponent } from './components/bulletins.component';
+import { BulletinsComponent } from './bulletins/bulletins.component';
 import { LoginComponent } from './pages/login.component';
 
 import { AuthGuard } from './guards/auth.guard';
@@ -24,8 +24,8 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'components',
-        loadChildren: './components/components.module#ComponentsModule'
+        path: 'bulletins',
+        loadChildren: './bulletins/bulletins.module#BulletinsModule'
       }
     ]
   },

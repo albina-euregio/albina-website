@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 
 import { BulletinsComponent } from './bulletins.component';
 
-// Components Routing
-import { ComponentsRoutingModule } from './components-routing.module';
+// Bulletins Routing
+import { BulletinsRoutingModule } from './bulletins-routing.module';
 
 @NgModule({
   imports: [
-    ComponentsRoutingModule
+    BulletinsRoutingModule
   ],
   declarations: [
     BulletinsComponent
   ]
 })
-export class ComponentsModule { }
+export class BulletinsModule { }
