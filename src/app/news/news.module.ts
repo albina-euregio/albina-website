@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import { NewsComponent } from './news.component';
+import { CreateNewsComponent } from './create-news.component';
 
 // Bulletins Routing
 import { NewsRoutingModule } from './news-routing.module';
 
+
 @NgModule({
   imports: [
-    NewsRoutingModule
+    NewsRoutingModule,
+    FormsModule
   ],
   declarations: [
-    NewsComponent
+    NewsComponent,
+    CreateNewsComponent
   ]
 })
 export class NewsModule { }

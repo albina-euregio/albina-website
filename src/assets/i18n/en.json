@@ -18,5 +18,17 @@
 		"de" : " German",
 		"it" : " Italien",
 		"settings" : "Settings"
+	},
+	"news" : {
+		"create" : {
+			"formTitle" : "Create News",
+			"title" : "Title",
+			"contentIT" : "Text (Italien)",
+			"contentDE" : "Text (German)",
+			"contentEN" : "Text (English)",
+			"image" : "Image",
+			"submit" : "Submit",
+			"reset" : "Reset"
+		}
 	}
 }

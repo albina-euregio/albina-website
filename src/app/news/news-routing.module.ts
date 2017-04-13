@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NewsComponent } from './news.component';
+import { CreateNewsComponent } from './create-news.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: 'new',
-        component: NewsComponent,
+        component: CreateNewsComponent,
         data: {
           title: 'New News'
         }

@@ -37,9 +37,5 @@ export class FullLayoutComponent implements OnInit {
     this.authenticationService.logout();
   }
 
-  public changeLanguage(event) {
-    debugger
-  }
-
   ngOnInit(): void {}
 }

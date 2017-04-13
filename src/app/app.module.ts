@@ -69,6 +69,9 @@ export function createTranslateLoader(http: Http) {
     NewsService,
     SettingsService
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  exports: [
+    TranslateModule
+  ]
 })
 export class AppModule { }
