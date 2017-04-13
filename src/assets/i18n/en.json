@@ -12,6 +12,11 @@
 		"createNews" : "New News"
 	},
 	"menu" : {
-		"logout" : "Logout"
+		"logout" : "Logout",
+		"language" : "Language",
+		"en" : " English",
+		"de" : " German",
+		"it" : " Italien",
+		"settings" : "Settings"
 	}
 }

@@ -2,20 +2,6 @@
   <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button>
   <a class="navbar-brand" href="#"></a>
   
-  <ul class="nav navbar-nav hidden-md-down">
-    <li class="nav-item">
-      <a class="nav-link navbar-toggler sidebar-toggler" href="#">&#9776;</a>
-    </li>
-    <li class="nav-item px-1">
-      <a class="nav-link" href="#">Dashboard</a>
-    </li>
-    <li class="nav-item px-1">
-      <a class="nav-link" href="#">Users</a>
-    </li>
-    <li class="nav-item px-1">
-      <a class="nav-link" href="#">Settings</a>
-    </li>
-  </ul>
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item hidden-md-down">
       <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
@@ -26,7 +12,13 @@
         <span class="hidden-md-down">{{ authenticationService.getUsername() }}</span>
       </a>
       <div class="dropdown-menu dropdown-menu-right" dropdownMenu aria-labelledby="simple-dropdown">
-       <div class="divider"></div>
+        <div class="dropdown-header text-center"><strong>{{ "menu.language" | translate }}</strong></div>
+
+        <a class="dropdown-item" href="#" (click)='settingsService.setLang("it")'><img src="assets/img/flags/Italy.png" alt="Italy" style="height:24px;">&nbsp;{{ "menu.it" | translate }}</a>
+        <a class="dropdown-item" href="#" (click)='settingsService.setLang("de")'><img src="assets/img/flags/Germany.png" alt="Germany" style="height:24px;">&nbsp;{{ "menu.de" | translate }}</a>
+        <a class="dropdown-item" href="#" (click)='settingsService.setLang("en")'><img src="assets/img/flags/United-Kingdom.png" alt="England" style="height:24px;">&nbsp;{{ "menu.en" | translate }}</a>
+
+        <div class="dropdown-header text-center"><strong>{{ "menu.settings" | translate }}</strong></div>
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-lock"></i> {{ "menu.logout" | translate }}</a>
       </div>
     </li>
@@ -52,6 +44,16 @@
         </li>
         <li class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins/new']"><i class="icon-puzzle"></i> {{ "sidebar.createBulletin" | translate }}</a>
+        </li>
+        <li class="divider"></li>
+        <li class="nav-title">
+          {{ "sidebar.news" | translate }}
+        </li>
+        <li class="nav-item nav-dropdown" routerLinkActive="open">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/news/news']"><i class="icon-puzzle"></i> {{ "sidebar.news" | translate }}</a>
+        </li>
+        <li class="nav-item nav-dropdown" routerLinkActive="open">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/news/new']"><i class="icon-puzzle"></i> {{ "sidebar.createNews" | translate }}</a>
         </li>
       </ul>
     </nav>

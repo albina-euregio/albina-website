@@ -1,3 +1,22 @@
 {
-	"undefined" : "---"
+	"undefined" : "---",
+	"login" : {
+		"title" : "Login",
+		"text" : "Log dich mit deinem Account ein",
+		"button" : "Einloggen"
+	},
+	"sidebar" : {
+		"bulletins" : "Lageberichte",
+		"createBulletin" : "Neuer Lagebericht",
+		"news" : "News",
+		"createNews" : "Neue News"
+	},
+	"menu" : {
+		"logout" : "Ausloggen",
+		"language" : "Sprache",
+		"en" : " Englisch",
+		"de" : " Deutsch",
+		"it" : " Italienisch",
+		"settings" : "Einstellungen"
+	}
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
+import { SettingsService } from '../providers/settings-service/settings.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,8 @@ export class FullLayoutComponent implements OnInit {
 
   constructor(
     public translateService: TranslateService,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    public settingsService: SettingsService
   )
   {
     this.authenticationService = authService;
@@ -33,6 +35,10 @@ export class FullLayoutComponent implements OnInit {
 
   public logout() {
     this.authenticationService.logout();
+  }
+
+  public changeLanguage(event) {
+    debugger
   }
 
   ngOnInit(): void {}

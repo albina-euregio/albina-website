@@ -23,6 +23,7 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 import { AuthenticationService } from './providers/authentication-service/authentication.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { NewsService } from './providers/news-service/news.service';
+import { SettingsService } from './providers/settings-service/settings.service';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -65,7 +66,8 @@ export function createTranslateLoader(http: Http) {
     AuthenticationService,
     AuthGuard,
     ConstantsService,
-    NewsService
+    NewsService,
+    SettingsService
   ],
   bootstrap: [ AppComponent ]
 })

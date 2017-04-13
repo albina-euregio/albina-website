@@ -26,6 +26,10 @@ export const routes: Routes = [
       {
         path: 'bulletins',
         loadChildren: './bulletins/bulletins.module#BulletinsModule'
+      },
+      {
+        path: 'news',
+        loadChildren: './news/news.module#NewsModule'
       }
     ]
   },
