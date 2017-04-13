@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {TranslateService} from 'ng2-translate/src/translate.service';
+import { TranslateService } from 'ng2-translate/src/translate.service';
 
 
 @Component({

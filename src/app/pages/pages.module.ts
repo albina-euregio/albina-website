@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { HttpModule, Http } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
 import { P404Component } from './404.component';
 import { P500Component } from './500.component';
@@ -16,6 +17,7 @@ export function createTranslateLoader(http: Http) {
   imports: [
   	PagesRoutingModule,
     HttpModule,
+    FormsModule,
     TranslateModule.forRoot({ 
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),

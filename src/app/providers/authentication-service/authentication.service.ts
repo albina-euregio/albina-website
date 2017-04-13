@@ -8,6 +8,7 @@ import { ConstantsService } from '../constants-service/constants.service';
 export class AuthenticationService {
 
   private token: String;
+  private username: String;
   private constantsService: ConstantsService;
 
   constructor(
@@ -16,6 +17,7 @@ export class AuthenticationService {
   {
     this.constantsService = constants;
     this.token = null;
+    this.username = null;
   }
 
   isUserLoggedIn() : boolean {
@@ -25,20 +27,22 @@ export class AuthenticationService {
       return false;
   }
 
-  public login(username, password) {
-    this.authenticate(username, password).subscribe(
-      data => {
-        var result = data.json();
-        this.token = result.token;
-        console.log("[" + username + "] Logged in!");
-      },
-      error => {
-        console.error("[" + username + "] Login failed: " + JSON.stringify(error._body));
-      }
-    );
+  public logout() {
+    this.token = null;
+    console.log("[" + this.username + "] Logged out!");
+    this.username = null;
   }
 
-  private authenticate(username, password) : Observable<Response> {
+  public getUsername() {
+    return this.username;
+  }
+
+  public setUser(token, username) {
+    this.token = token;
+    this.username = username;
+  }
+
+  public authenticate(username, password) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'authentication';
     console.log(url);
 

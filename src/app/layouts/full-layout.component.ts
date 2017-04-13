@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from 'ng2-translate/src/translate.service';
+import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,6 +11,16 @@ export class FullLayoutComponent implements OnInit {
   public disabled: boolean = false;
   public status: {isopen: boolean} = {isopen: false};
 
+  public authenticationService: AuthenticationService;
+
+  constructor(
+    public translateService: TranslateService,
+    public authService: AuthenticationService
+  )
+  {
+    this.authenticationService = authService;
+  }
+
   public toggled(open: boolean): void {
     console.log('Dropdown is now: ', open);
   }
@@ -17,6 +29,10 @@ export class FullLayoutComponent implements OnInit {
     $event.preventDefault();
     $event.stopPropagation();
     this.status.isopen = !this.status.isopen;
+  }
+
+  public logout() {
+    this.authenticationService.logout();
   }
 
   ngOnInit(): void {}

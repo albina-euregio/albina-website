@@ -4,35 +4,28 @@ import { Routes, RouterModule } from '@angular/router';
 // Layouts
 import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
+import { BulletinsComponent } from './components/bulletins.component';
+import { LoginComponent } from './pages/login.component';
+
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
+    redirectTo: 'bulletins',
+    pathMatch: 'full'
   },
   {
     path: '',
     component: FullLayoutComponent,
+    canActivate: [AuthGuard], 
     data: {
-      title: 'Home'
+      title: 'ALBINA'
     },
     children: [
       {
-        path: 'dashboard',
-        loadChildren: './dashboard/dashboard.module#DashboardModule'
-      },
-      {
         path: 'components',
         loadChildren: './components/components.module#ComponentsModule'
-      },
-      {
-        path: 'icons',
-        loadChildren: './icons/icons.module#IconsModule'
-      },
-      {
-        path: 'charts',
-        loadChildren: './chartjs/chartjs.module#ChartJSModule'
       }
     ]
   },
@@ -49,6 +42,7 @@ export const routes: Routes = [
       }
     ]
   }
+
 ];
 
 @NgModule({

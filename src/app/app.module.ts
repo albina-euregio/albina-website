@@ -25,6 +25,8 @@ import { AuthenticationService } from './providers/authentication-service/authen
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { NewsService } from './providers/news-service/news.service';
 
+import { AuthGuard } from './guards/auth.guard';
+
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { HttpModule, Http } from '@angular/http';
 
@@ -63,6 +65,7 @@ export function createTranslateLoader(http: Http) {
       useClass: HashLocationStrategy
     },
     AuthenticationService,
+    AuthGuard,
     ConstantsService,
     NewsService
   ],

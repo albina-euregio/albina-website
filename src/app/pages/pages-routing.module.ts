@@ -5,6 +5,8 @@ import { P404Component } from './404.component';
 import { P500Component } from './500.component';
 import { LoginComponent } from './login.component';
 
+import { AuthGuard } from '../guards/auth.guard';
+
 const routes: Routes = [
   {
     path: '',
@@ -15,6 +17,7 @@ const routes: Routes = [
       {
         path: '404',
         component: P404Component,
+        canActivate: [AuthGuard], 
         data: {
           title: 'Page 404'
         }
@@ -22,6 +25,7 @@ const routes: Routes = [
       {
         path: '500',
         component: P500Component,
+        canActivate: [AuthGuard], 
         data: {
           title: 'Page 500'
         }

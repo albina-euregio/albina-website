@@ -4,5 +4,12 @@
 		"title" : "Login",
 		"text" : "Sign In to your account",
 		"button" : "Login"
+	},
+	"sidebar" : {
+		"bulletins" : "Bulletins",
+		"pages" : "Pages"
+	},
+	"menu" : {
+		"logout" : "Logout"
 	}
 }
