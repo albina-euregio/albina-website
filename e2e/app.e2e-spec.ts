@@ -1,10 +1,10 @@
-import { AlbinaAdminGuiPage } from './app.po';
+import { CoreUIPage } from './app.po';
 
-describe('albina-admin-gui App', () => {
-  let page: AlbinaAdminGuiPage;
+describe('core-ui App', function() {
+  let page: CoreUIPage;
 
   beforeEach(() => {
-    page = new AlbinaAdminGuiPage();
+    page = new CoreUIPage();
   });
 
   it('should display message saying app works', () => {
