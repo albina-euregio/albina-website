@@ -8,6 +8,7 @@
     </li>
     <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+        <img src="{{ authenticationService.getUserImageSanitized() }}" class="img-avatar">
         <span class="hidden-md-down">{{ authenticationService.getUsername() }}</span>
       </a>
       <div class="dropdown-menu dropdown-menu-right" dropdownMenu aria-labelledby="simple-dropdown">

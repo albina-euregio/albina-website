@@ -39,7 +39,7 @@ export class LoginComponent {
     this.authenticationService.authenticate(this.username, this.password).subscribe(
       data => {
         var result = data.json();
-        this.authenticationService.setUser(result.token, result.username);
+        this.authenticationService.setUser(result.token, result.username, result.image);
         console.log("[" + this.username + "] Logged in!");
         console.log("Navigate to " + this.returnUrl);
         this.router.navigate([this.returnUrl]);
@@ -47,6 +47,7 @@ export class LoginComponent {
       error => {
         console.error("[" + this.username + "] Login failed: " + JSON.stringify(error._body));
         this.loading = false;
+        // TODO show error on page
       }
     );
   }

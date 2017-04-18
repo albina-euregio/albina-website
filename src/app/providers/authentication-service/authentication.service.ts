@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Sanitizer, SecurityContext } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConstantsService } from '../constants-service/constants.service';
@@ -9,15 +9,18 @@ export class AuthenticationService {
 
   private token: String;
   private username: String;
+  private image: String;
   private constantsService: ConstantsService;
 
   constructor(
     public http: Http,
-    public constants: ConstantsService)
+    public constants: ConstantsService,
+    private sanitizer: Sanitizer)
   {
     this.constantsService = constants;
     this.token = null;
     this.username = null;
+    this.image = null;
   }
 
   isUserLoggedIn() : boolean {
@@ -31,15 +34,25 @@ export class AuthenticationService {
     this.token = null;
     console.log("[" + this.username + "] Logged out!");
     this.username = null;
+    this.image = null;
   }
 
   public getUsername() {
     return this.username;
   }
 
-  public setUser(token, username) {
+  public setUser(token, username, image) {
     this.token = token;
     this.username = username;
+    this.image = image;
+  }
+
+  public getUserImage() {
+    return this.image;
+  }
+
+  public getUserImageSanitized() {
+    return this.sanitizer.sanitize(SecurityContext.URL, 'data:image/jpg;base64,' + this.image);
   }
 
   public authenticate(username, password) : Observable<Response> {
@@ -61,4 +74,3 @@ export class AuthenticationService {
     return this.http.post(url, body, options);
   }
 }
-
