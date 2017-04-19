@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
+import { ChatService } from '../providers/chat-service/chat.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,15 +13,15 @@ export class FullLayoutComponent implements OnInit {
   public disabled: boolean = false;
   public status: {isopen: boolean} = {isopen: false};
 
-  public authenticationService: AuthenticationService;
+  public message: string;
 
   constructor(
     public translateService: TranslateService,
-    public authService: AuthenticationService,
-    public settingsService: SettingsService
+    public authenticationService: AuthenticationService,
+    public chatService: ChatService
   )
   {
-    this.authenticationService = authService;
+    this.message = "";
   }
 
   public toggled(open: boolean): void {
@@ -38,4 +39,10 @@ export class FullLayoutComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  sendChatMessage() {
+    if (this.message && this.message != undefined && this.message != "")
+      this.chatService.sendMessage(this.message);
+    this.message = "";
+  }
 }

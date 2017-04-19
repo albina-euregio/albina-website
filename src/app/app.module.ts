@@ -26,6 +26,7 @@ import { NewsService } from './providers/news-service/news.service';
 import { SettingsService } from './providers/settings-service/settings.service';
 import { BulletinsService } from './providers/bulletins-service/bulletins.service';
 import { RegionsService } from './providers/regions-service/regions.service';
+import { ChatService } from './providers/chat-service/chat.service';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -71,7 +72,8 @@ export function createTranslateLoader(http: Http) {
     NewsService,
     SettingsService,
     BulletinsService,
-    RegionsService
+    RegionsService,
+    ChatService
   ],
   bootstrap: [ AppComponent ],
   exports: [

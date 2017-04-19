@@ -17,5 +17,7 @@ export class BulletinsComponent {
   	this.bulletinsService = bulletinsService;
   }
 
-
+  sendMessage() {
+  	this.bulletinsService.sendMessage();
+  }
 }

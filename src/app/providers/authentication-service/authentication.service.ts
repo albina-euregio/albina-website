@@ -7,9 +7,9 @@ import { ConstantsService } from '../constants-service/constants.service';
 @Injectable()
 export class AuthenticationService {
 
-  private token: String;
-  private username: String;
-  private image: String;
+  private token: string;
+  private username: string;
+  private image: string;
   private constantsService: ConstantsService;
 
   constructor(
@@ -37,7 +37,7 @@ export class AuthenticationService {
     this.image = null;
   }
 
-  public getUsername() {
+  public getUsername() : string{
     return this.username;
   }
 

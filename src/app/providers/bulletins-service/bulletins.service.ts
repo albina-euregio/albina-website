@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { BulletinModel } from '../../models/bulletin.model';
 import * as Enums from '../../enums/enums';
 import { RegionsService } from '../regions-service/regions.service';
+import * as io from 'socket.io-client';
 
 
 @Injectable()
@@ -13,6 +14,8 @@ export class BulletinsService {
   constantsService: ConstantsService;
   regionsService: RegionsService;
 
+  private socket;
+
   constructor(
     public http: Http,
     public constants: ConstantsService,
@@ -20,6 +23,11 @@ export class BulletinsService {
   {
     this.constantsService = constants;
     this.regionsService = regions;
+
+    this.socket = io(this.constantsService.socketIOUrl);
+    this.socket.on('bulletinUpdate', function(data) {
+      console.log("SocketIO message recieved: " + data);
+    }.bind(this));
   }
 
   getEuregioBulletins() : Observable<Response> {
@@ -48,5 +56,10 @@ export class BulletinsService {
 
     return this.http.get(url, options);
   }
-}
 
+  sendMessage() {
+    let message = "BULLETIN UPDATE!";
+    this.socket.emit('bulletinUpdate', message);
+    console.log("SocketIO message sent: " + message);
+  }
+}

@@ -23,7 +23,7 @@
       </div>
     </li>
     <li class="nav-item hidden-md-down">
-      <a class="nav-link navbar-toggler aside-menu-toggler" href="#">&#9776;</a>
+      <a class="nav-link icon-speech aside-menu-toggler" href="#"></a>
     </li>
   </ul>
   
@@ -65,86 +65,22 @@
 
   <!-- Sidebar right -->
   <aside class="aside-menu">
-    <tabset>
-      <tab>
-        <template tabHeading><i class="icon-speech"></i></template>
-        <div class="p-1">
-          <div class="message">
-            <div class="py-1 pb-3 mr-1 float-left">
-              <div class="avatar">
-                <img src="assets/img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </div>
-            <div>
-              <small class="text-muted">Lukasz Holeczek</small>
-              <small class="text-muted float-right mt-q">1:52 PM</small>
-            </div>
-            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-            <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
+    <div class="p-1">
+      <div class="message">
+        <input type="text" class="form-control" id="chatMessage" placeholder="Write here ..." [(ngModel)]="message">
+        <button type="button" class="btn btn-primary btn-sm" (click)="sendChatMessage()">Send</button>
+        <hr>
+      </div>
+      <div *ngFor="let chatMessage of chatService.chatMessages">
+        <div class="message">
+          <div>
+            <small class="text-muted">{{ chatMessage.getUsername() }}</small>
+            <small class="text-muted float-right mt-q">{{ chatMessage.getTime() | date: 'hh:mm dd/MM'}}</small>
           </div>
-          <hr>
-          <div class="message">
-            <div class="py-1 pb-3 mr-1 float-left">
-              <div class="avatar">
-                <img src="assets/img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </div>
-            <div>
-              <small class="text-muted">Lukasz Holeczek</small>
-              <small class="text-muted float-right mt-q">1:52 PM</small>
-            </div>
-            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-            <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
-          </div>
-          <hr>
-          <div class="message">
-            <div class="py-1 pb-3 mr-1 float-left">
-              <div class="avatar">
-                <img src="assets/img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </div>
-            <div>
-              <small class="text-muted">Lukasz Holeczek</small>
-              <small class="text-muted float-right mt-q">1:52 PM</small>
-            </div>
-            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-            <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
-          </div>
-          <hr>
-          <div class="message">
-            <div class="py-1 pb-3 mr-1 float-left">
-              <div class="avatar">
-                <img src="assets/img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </div>
-            <div>
-              <small class="text-muted">Lukasz Holeczek</small>
-              <small class="text-muted float-right mt-q">1:52 PM</small>
-            </div>
-            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-            <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
-          </div>
-          <hr>
-          <div class="message">
-            <div class="py-1 pb-3 mr-1 float-left">
-              <div class="avatar">
-                <img src="assets/img/avatars/7.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
-                <span class="avatar-status badge-success"></span>
-              </div>
-            </div>
-            <div>
-              <small class="text-muted">Lukasz Holeczek</small>
-              <small class="text-muted float-right mt-q">1:52 PM</small>
-            </div>
-            <div class="text-truncate font-weight-bold">Lorem ipsum dolor sit amet</div>
-            <small class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt...</small>
-          </div>
+          <div class="text-truncate">{{ chatMessage.getText() }}</div>
         </div>
-      </tab>
-    </tabset>
+        <hr>
+      </div>
+    </div>
   </aside>
 </div>
