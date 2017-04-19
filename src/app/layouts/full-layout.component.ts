@@ -24,14 +24,24 @@ export class FullLayoutComponent implements OnInit {
     this.message = "";
   }
 
+  public showBadge(): boolean {
+    return this.chatService.getNewMessageCount() > 0 && !this.status.isopen;
+  }
+
   public toggled(open: boolean): void {
     console.log('Dropdown is now: ', open);
+    if (open)
+      this.chatService.resetNewMessageCount();
   }
 
   public toggleDropdown($event: MouseEvent): void {
     $event.preventDefault();
     $event.stopPropagation();
     this.status.isopen = !this.status.isopen;
+  }
+
+  public focusChat($event) {
+    this.chatService.resetNewMessageCount();
   }
 
   public logout() {
@@ -41,6 +51,7 @@ export class FullLayoutComponent implements OnInit {
   ngOnInit(): void {}
 
   sendChatMessage() {
+    this.chatService.resetNewMessageCount();
     if (this.message && this.message != undefined && this.message != "")
       this.chatService.sendMessage(this.message);
     this.message = "";

@@ -10,6 +10,7 @@ import { ChatMessageModel } from '../../models/chat-message.model';
 export class ChatService {
 
   public chatMessages: ChatMessageModel[];
+  private newMessageCount: number;
 
   private socket;
 
@@ -19,16 +20,20 @@ export class ChatService {
     public authenticationService: AuthenticationService)
   {
     this.chatMessages = new Array<ChatMessageModel>();
+    this.newMessageCount = 0;
 
     this.socket = io(this.constantsService.socketIOUrl);
     this.socket.on('chatEvent', function(data) {
       console.log("SocketIO chat event recieved: " + data);
-      this.chatMessages.push(ChatMessageModel.createFromJson(JSON.parse(data)));
+      let message = ChatMessageModel.createFromJson(JSON.parse(data));
+      this.chatMessages.push(message);
       this.chatMessages.sort((a, b) : number => {
         if (a.time < b.time) return 1;
         if (a.time > b.time) return -1;
-      return 0;
-    });
+        return 0;
+      });
+      if (message.getUsername() != this.authenticationService.getUsername())
+        this.newMessageCount++;
     }.bind(this));
   }
 
@@ -39,5 +44,13 @@ export class ChatService {
     message.setText(text);
     this.socket.emit('chatEvent', JSON.stringify(message.toJson()));
     console.log("SocketIO chat event sent: " + message);
+  }
+
+  getNewMessageCount() {
+    return this.newMessageCount;
+  }
+
+  resetNewMessageCount() {
+    this.newMessageCount = 0;
   }
 }

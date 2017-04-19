@@ -22,8 +22,8 @@
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-lock"></i> {{ "menu.logout" | translate }}</a>
       </div>
     </li>
-    <li class="nav-item hidden-md-down">
-      <a class="nav-link icon-speech aside-menu-toggler" href="#"></a>
+    <li class="nav-item hidden-md-down" (click)="focusChat($event)">
+      <a class="nav-link icon-speech aside-menu-toggler" href="#"><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount() }}</span></a>
     </li>
   </ul>
   
@@ -67,7 +67,7 @@
   <aside class="aside-menu">
     <div class="p-1">
       <div class="message">
-        <input type="text" class="form-control" id="chatMessage" placeholder="Write here ..." [(ngModel)]="message">
+        <input type="text" class="form-control" id="chatMessage" placeholder="Write here ..." [(ngModel)]="message" (click)="focusChat($event)">
         <button type="button" class="btn btn-primary btn-sm" (click)="sendChatMessage()">Send</button>
         <hr>
       </div>
