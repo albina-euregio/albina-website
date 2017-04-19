@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+import { TranslateModule } from 'ng2-translate';
 import { HttpModule, Http } from '@angular/http';
 
 import { P404Component } from './404.component';
@@ -9,19 +9,11 @@ import { LoginComponent } from './login.component';
 
 import { PagesRoutingModule } from './pages-routing.module';
 
-export function createTranslateLoader(http: Http) {
-    return new TranslateStaticLoader(http, '../assets/i18n', '.json');
-}
-
 @NgModule({
   imports: [
   	PagesRoutingModule,
     FormsModule,
-    TranslateModule.forRoot({ 
-      provide: TranslateLoader,
-      useFactory: (createTranslateLoader),
-      deps: [Http]
-    })
+    TranslateModule
   ],
   declarations: [
     P404Component,
