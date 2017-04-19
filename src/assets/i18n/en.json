@@ -7,7 +7,6 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bulletins",
-		"createBulletin" : "New Bulletin",
 		"news" : "News",
 		"createNews" : "New News"
 	},
@@ -29,6 +28,22 @@
 			"image" : "Image",
 			"submit" : "Submit",
 			"reset" : "Reset"
+		}
+	},
+	"bulletins" : {
+		"title" : "Bulletins",
+		"table" : {
+			"date" : "Date",
+			"status" : {
+				"trentino" : "Trentino",
+				"southTyrol" : "South Tyrol",
+				"tyrol" : "Tyrol",
+				"complete" : "COMPLETE",
+				"incomplete" : "INCOMPLETE",
+				"missing" : "MISSING"
+			},
+			"edit" : "Edit",
+			"show" : "Show"
 		}
 	}
 }

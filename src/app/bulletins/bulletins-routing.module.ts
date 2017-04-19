@@ -16,13 +16,6 @@ const routes: Routes = [
         data: {
           title: 'Bulletins'
         }
-      },
-      {
-        path: 'new',
-        component: BulletinsComponent,
-        data: {
-          title: 'New Bulletin'
-        }
       }
     ]
   }

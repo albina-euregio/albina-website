@@ -24,6 +24,8 @@ import { AuthenticationService } from './providers/authentication-service/authen
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { NewsService } from './providers/news-service/news.service';
 import { SettingsService } from './providers/settings-service/settings.service';
+import { BulletinsService } from './providers/bulletins-service/bulletins.service';
+import { RegionsService } from './providers/regions-service/regions.service';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -67,7 +69,9 @@ export function createTranslateLoader(http: Http) {
     AuthGuard,
     ConstantsService,
     NewsService,
-    SettingsService
+    SettingsService,
+    BulletinsService,
+    RegionsService
   ],
   bootstrap: [ AppComponent ],
   exports: [

@@ -33,3 +33,7 @@ export class AvalancheProblemUtil {
 		return 5;
 	}
 }
+
+export enum BulletinStatus {
+	missing, incomplete, complete
+}

@@ -18,5 +18,8 @@
 		"de" : " Deutsch",
 		"it" : " Italienisch",
 		"settings" : "Einstellungen"
+	},
+	"bulletins" : {
+		"title" : "Lageberichte"
 	}
 }

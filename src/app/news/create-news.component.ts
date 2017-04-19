@@ -7,7 +7,7 @@ import { TranslateService } from 'ng2-translate/src/translate.service';
 export class CreateNewsComponent {
 
   constructor(
-  	translate: TranslateService
-  ) { }
+  	translate: TranslateService)
+  { }
 
 }

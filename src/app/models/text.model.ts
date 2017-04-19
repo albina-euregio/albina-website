@@ -1,5 +1,7 @@
+import * as Enums from '../enums/enums';
+
 export class TextModel {
-	public languageCode: string;
+	public languageCode: Enums.CountryAlpha2Code;
 	public text: string;
 
 	constructor() {
@@ -26,7 +28,7 @@ export class TextModel {
 	toJson() {
 		var json = Object();
 
-		if (this.languageCode && this.languageCode != undefined && this.languageCode != "")
+		if (this.languageCode && this.languageCode != undefined)
 			json['languageCode'] = this.languageCode;
 		if (this.text && this.text != undefined && this.text != "")
 			json['text'] = this.text;

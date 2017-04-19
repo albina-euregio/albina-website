@@ -6,12 +6,14 @@ import { CreateNewsComponent } from './create-news.component';
 
 // Bulletins Routing
 import { NewsRoutingModule } from './news-routing.module';
+import { TranslateModule } from 'ng2-translate';
 
 
 @NgModule({
   imports: [
     NewsRoutingModule,
-    FormsModule
+    FormsModule,
+    TranslateModule
   ],
   declarations: [
     NewsComponent,

@@ -1,10 +1,10 @@
 <header class="app-header navbar">
   <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button>
-  <a class="navbar-brand" href="#"></a>
+<!--  <a class="navbar-brand" href="#"></a> -->
   
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item hidden-md-down">
-      <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
+<!--      <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a> -->
     </li>
     <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
@@ -42,10 +42,6 @@
         <li class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins/bulletins']"><i class="icon-puzzle"></i> {{ "sidebar.bulletins" | translate }}</a>
         </li>
-        <li class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins/new']"><i class="icon-puzzle"></i> {{ "sidebar.createBulletin" | translate }}</a>
-        </li>
-        <li class="divider"></li>
         <li class="nav-title">
           {{ "sidebar.news" | translate }}
         </li>
