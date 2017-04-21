@@ -1,7 +1,7 @@
 import * as Enums from '../enums/enums';
 
 export class TextModel {
-	public languageCode: Enums.CountryAlpha2Code;
+	public languageCode: Enums.LanguageCode;
 	public text: string;
 
 	constructor() {
@@ -13,7 +13,7 @@ export class TextModel {
 		return this.languageCode;
 	}
 
-	setLanguageCode(languageCode) {
+	setLanguageCode(languageCode: Enums.LanguageCode) {
 		this.languageCode = languageCode;
 	}
 
@@ -21,7 +21,7 @@ export class TextModel {
 		return this.text;
 	}
 
-	setText(text) {
+	setText(text: string) {
 		this.text = text;
 	}
 

@@ -22,13 +22,30 @@
 		"create" : {
 			"formTitle" : "Create News",
 			"title" : "Title",
-			"contentIT" : "Text (Italien)",
-			"contentDE" : "Text (German)",
-			"contentEN" : "Text (English)",
+			"it" : {
+				"title" : "Title (Italien)",
+				"content" : "Text (Italien)"
+			},
+			"de" : {
+				"title" : "Title (German)",
+				"content" : "Text (German)"
+			},
+			"en" : {
+				"title" : "Title (English)",
+				"content" : "Text (English)"
+			},
 			"image" : "Image",
-			"submit" : "Submit",
-			"reset" : "Reset"
-		}
+			"save" : "Save",
+			"discard" : "Discard"
+		},
+		"title" : "News",
+		"table" : {
+			"date" : "Date",
+			"title" : "Title",
+			"edit" : "Edit",
+			"show" : "Show",
+			"publish" : "Publish"
+		}		
 	},
 	"bulletins" : {
 		"title" : "Bulletins",

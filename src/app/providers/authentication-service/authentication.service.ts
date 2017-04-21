@@ -41,6 +41,10 @@ export class AuthenticationService {
     return this.username;
   }
 
+  public getToken() {
+    return this.token;
+  }
+
   public setUser(token, username, image) {
     this.token = token;
     this.username = username;

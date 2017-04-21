@@ -8,27 +8,39 @@
         <div class="card-block">
           <form action="" method="post" enctype="multipart/form-data" class="form-horizontal ">
             <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.title" | translate }}</label>
+              <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.it.title" | translate }}</label>
               <div class="col-md-9">
-                <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Title">
+                <input type="text" id="text-input" name="text-input" class="form-control" placeholder='{{ "news.create.it.title" | translate }}' [(ngModel)]="titleIT">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.contentIT" | translate }}</label>
+              <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.de.title" | translate }}</label>
               <div class="col-md-9">
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Content.."></textarea>
+                <input type="text" id="text-input" name="text-input" class="form-control" placeholder='{{ "news.create.de.title" | translate }}' [(ngModel)]="titleDE">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.contentDE" | translate }}</label>
+              <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.en.title" | translate }}</label>
               <div class="col-md-9">
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Content.."></textarea>
+                <input type="text" id="text-input" name="text-input" class="form-control" placeholder='{{ "news.create.en.title" | translate }}' [(ngModel)]="titleEN">
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.contentEN" | translate }}</label>
+              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.it.content" | translate }}</label>
               <div class="col-md-9">
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Content.."></textarea>
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder='{{ "news.create.it.content" | translate }}' [(ngModel)]="contentIT"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.de.content" | translate }}</label>
+              <div class="col-md-9">
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder='{{ "news.create.de.content" | translate }}' [(ngModel)]="contentDE"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.en.content" | translate }}</label>
+              <div class="col-md-9">
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder='{{ "news.create.en.content" | translate }}' [(ngModel)]="contentEN"></textarea>
               </div>
             </div>
             <div class="form-group row">
@@ -40,8 +52,8 @@
           </form>
         </div>
         <div class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-dot-circle-o"></i>{{ "news.create.submit" | translate }}</button>
-          <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i>{{ "news.create.reset" | translate }}</button>
+          <button type="submit" class="btn btn-sm btn-primary" (click)="save()"><i class="fa fa-check"></i>{{ "news.create.save" | translate }}</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="discard()"><i class="fa fa-close"></i>{{ "news.create.discard" | translate }}</button>
         </div>
       </div>
     </div>
