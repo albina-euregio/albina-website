@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { BulletinsComponent } from './bulletins.component';
 
@@ -11,6 +12,7 @@ import { TranslateModule } from 'ng2-translate';
   imports: [
     BulletinsRoutingModule,
     FormsModule,
+    CommonModule,
     TranslateModule
   ],
   declarations: [

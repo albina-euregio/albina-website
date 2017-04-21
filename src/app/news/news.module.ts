@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 import { NewsComponent } from './news.component';
 import { CreateNewsComponent } from './create-news.component';
@@ -13,6 +14,7 @@ import { TranslateModule } from 'ng2-translate';
   imports: [
     NewsRoutingModule,
     FormsModule,
+    CommonModule,
     TranslateModule
   ],
   declarations: [
