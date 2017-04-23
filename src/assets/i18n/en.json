@@ -44,7 +44,11 @@
 			"title" : "Title",
 			"edit" : "Edit",
 			"show" : "Show",
-			"publish" : "Publish"
+			"status" : {
+				"title" : "Status",
+				"published" : "published",
+				"pending" : "pending"
+			}
 		}		
 	},
 	"bulletins" : {

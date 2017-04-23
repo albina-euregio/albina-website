@@ -5,11 +5,13 @@ export class NewsModel {
 	public date: Date;
 	public title: TextModel[];
 	public content: TextModel[];
+	public published: boolean;
 
 	constructor() {
 		this.date = undefined;
 		this.title = undefined;
 		this.content = undefined;
+		this.published = undefined;
 	}
 
 	getDate() {
@@ -50,6 +52,14 @@ export class NewsModel {
 		this.content = content;
 	}
 
+	isPublished() {
+		return this.published;
+	}
+
+	setPublished(published) {
+		this.published = published;
+	}
+
 	toJson() {
 		var json = Object();
 
@@ -69,13 +79,15 @@ export class NewsModel {
 			}
 			json['content'] = content;
 		}
+		if (this.published && this.published != undefined)
+			json['published'] = this.published;
 
 		return json;
 	}
 
 	static createFromJson(json) {
 		let news = new NewsModel();
-
+		
 		news.setDate(new Date(json.date));
 
 		let jsonTitle = json.title;
@@ -90,7 +102,9 @@ export class NewsModel {
 		for (let i in jsonContent) {
 			content.push(TextModel.createFromJson(jsonContent[i]));
 		}
-		news.setTitle(content);
+		news.setContent(content);
+
+		news.setPublished(json.published);
 
 		return news;
 	}

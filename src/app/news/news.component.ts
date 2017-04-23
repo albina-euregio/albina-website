@@ -38,4 +38,9 @@ export class NewsComponent {
   createNews() {
   	this.router.navigate(['/news/new']);
   }
+
+  openNews() {
+    // TODO pass news model to view
+    this.router.navigate(['/news/new']);
+  }
 }

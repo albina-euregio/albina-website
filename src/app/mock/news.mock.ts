@@ -28,7 +28,8 @@ export const MockNews = [
         'languageCode': 'en',
         'text': 'New bulletin ...'
       }
-    ]
+    ],
+    'published': false
   },
   {
     'date': '2017-02-23T12:30:23+01:00',
@@ -59,7 +60,8 @@ export const MockNews = [
         'languageCode': 'en',
         'text': 'My name is ALBINA ...'
       }
-    ]
+    ],
+    'published': true
   }
 
 ]
