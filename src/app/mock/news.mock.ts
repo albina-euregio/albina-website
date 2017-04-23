@@ -18,6 +18,37 @@ export const MockNews = [
     'content': [
       {
         'languageCode': 'it',
+        'text': 'Bollettino nuovo ...'
+      },
+      {
+        'languageCode': 'de',
+        'text': 'Neuer Lagebericht ...'
+      },
+      {
+        'languageCode': 'en',
+        'text': 'New bulletin ...'
+      }
+    ]
+  },
+  {
+    'date': '2017-02-23T12:30:23+01:00',
+    'title': [
+      {
+        'languageCode': 'it',
+        'text': 'Benvenuti'
+      },
+      {
+        'languageCode': 'de',
+        'text': 'Willkommen'
+      },
+      {
+        'languageCode': 'en',
+        'text': 'Welcome'
+      }
+    ],
+    'content': [
+      {
+        'languageCode': 'it',
         'text': 'Mi chiamo ALBINA ...'
       },
       {
@@ -30,4 +61,5 @@ export const MockNews = [
       }
     ]
   }
+
 ]
