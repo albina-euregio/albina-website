@@ -1,4 +1,5 @@
 import { TextModel } from './text.model';
+import * as Enums from '../enums/enums';
 
 export class NewsModel {
 	public date: Date;
@@ -23,12 +24,26 @@ export class NewsModel {
 		return this.title;
 	}
 
+	getTitleIn(language: Enums.LanguageCode) {
+		for (var i = this.title.length - 1; i >= 0; i--) {
+			if (this.title[i].getLanguageCode() == language)
+				return this.title[i].getText();
+		}
+	}
+
 	setTitle(title) {
 		this.title = title;
 	}
 
 	getContent() {
 		return this.content;
+	}
+
+	getContentIn(language: Enums.LanguageCode) {
+		for (var i = this.content.length - 1; i >= 0; i--) {
+			if (this.content[i].getLanguageCode() == language)
+				return this.content[i].getText();
+		}
 	}
 
 	setContent(content) {
