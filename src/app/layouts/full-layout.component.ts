@@ -18,7 +18,8 @@ export class FullLayoutComponent implements OnInit {
   constructor(
     public translateService: TranslateService,
     public authenticationService: AuthenticationService,
-    public chatService: ChatService
+    public chatService: ChatService,
+    public settingsService: SettingsService
   )
   {
     this.message = "";
