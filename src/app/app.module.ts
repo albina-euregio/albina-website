@@ -22,12 +22,11 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 // Services
 import { AuthenticationService } from './providers/mock-service/authentication.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
-import { NewsService } from './providers/news-service/news.service';
 import { SettingsService } from './providers/settings-service/settings.service';
 import { BulletinsService } from './providers/bulletins-service/bulletins.service';
 import { RegionsService } from './providers/regions-service/regions.service';
 import { ChatService } from './providers/mock-service/chat.service';
-import { NewsMockService } from './providers/mock-service/news.service';
+import { NewsService } from './providers/mock-service/news.service';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -75,7 +74,7 @@ export function createTranslateLoader(http: Http) {
     BulletinsService,
     RegionsService,
     ChatService,
-    NewsMockService
+    NewsService
   ],
   bootstrap: [ AppComponent ],
   exports: [

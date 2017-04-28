@@ -2,6 +2,7 @@ import { TextModel } from './text.model';
 import * as Enums from '../enums/enums';
 
 export class NewsModel {
+	public id: string;
 	public date: Date;
 	public title: TextModel[];
 	public content: TextModel[];
@@ -14,49 +15,61 @@ export class NewsModel {
 		this.published = undefined;
 	}
 
-	getDate() {
+	getId() : string {
+		return this.id;
+	}
+
+	setId(id: string) {
+		this.id = id;
+	}
+
+	getDate() : Date {
 		return this.date;
 	}
 
-	setDate(date) {
+	setDate(date: Date) {
 		this.date = date;
 	}
 
-	getTitle() {
+	getTitle() : TextModel[] {
 		return this.title;
 	}
 
-	getTitleIn(language: Enums.LanguageCode) {
+	getTitleIn(language: Enums.LanguageCode) : string {
 		for (var i = this.title.length - 1; i >= 0; i--) {
 			if (this.title[i].getLanguageCode() == language)
 				return this.title[i].getText();
 		}
 	}
 
-	setTitle(title) {
+	getTitleInString(language: string) : string {
+		return this.getTitleIn(Enums.LanguageCode[language]);
+	}
+
+	setTitle(title: TextModel[]) {
 		this.title = title;
 	}
 
-	getContent() {
+	getContent() : TextModel[] {
 		return this.content;
 	}
 
-	getContentIn(language: Enums.LanguageCode) {
+	getContentIn(language: Enums.LanguageCode) : string {
 		for (var i = this.content.length - 1; i >= 0; i--) {
 			if (this.content[i].getLanguageCode() == language)
 				return this.content[i].getText();
 		}
 	}
 
-	setContent(content) {
+	setContent(content: TextModel[]) {
 		this.content = content;
 	}
 
-	isPublished() {
+	isPublished() : boolean {
 		return this.published;
 	}
 
-	setPublished(published) {
+	setPublished(published: boolean) {
 		this.published = published;
 	}
 

@@ -3,6 +3,8 @@ import { TranslateService } from 'ng2-translate/src/translate.service';
 import { AuthenticationService } from '../providers/mock-service/authentication.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { ChatService } from '../providers/mock-service/chat.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import * as Enums from '../enums/enums';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,8 +21,8 @@ export class FullLayoutComponent implements OnInit {
     public translateService: TranslateService,
     public authenticationService: AuthenticationService,
     public chatService: ChatService,
-    public settingsService: SettingsService
-  )
+    public settingsService: SettingsService,
+    public router: Router)
   {
     this.message = "";
   }

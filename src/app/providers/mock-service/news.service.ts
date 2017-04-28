@@ -8,7 +8,7 @@ import { MockNews } from '../../mock/news.mock';
 
 
 @Injectable()
-export class NewsMockService {
+export class NewsService {
 
   private activeNews: NewsModel;
 
@@ -31,6 +31,7 @@ export class NewsMockService {
     let response = new ResponseOptions({
       status: 201
     });
+    this.activeNews = undefined;
     console.log('MOCK: News saved!');
     return Observable.of(new Response(response));
   }

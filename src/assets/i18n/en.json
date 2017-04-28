@@ -36,7 +36,8 @@
 			},
 			"image" : "Image",
 			"save" : "Save",
-			"discard" : "Discard"
+			"discard" : "Discard",
+			"back" : "Back"
 		},
 		"title" : "News",
 		"table" : {

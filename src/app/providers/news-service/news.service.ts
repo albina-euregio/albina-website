@@ -50,6 +50,8 @@ export class NewsService {
     console.log(body);
     let options = new RequestOptions({ headers: headers });
 
+    this.activeNews = undefined;
+
     return this.http.post(url, body, options);
   }
 

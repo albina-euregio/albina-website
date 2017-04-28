@@ -10,7 +10,7 @@ import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'bulletins',
+    redirectTo: 'news/news',
     pathMatch: 'full'
   },
   {

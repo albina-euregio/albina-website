@@ -39,7 +39,7 @@ export class TextModel {
 	static createFromJson(json) {
 		let text = new TextModel();
 
-		text.setLanguageCode(json.languageCode);
+		text.setLanguageCode(Enums.LanguageCode[<string> json.languageCode]);
 		text.setText(json.text);
 
 		return text;

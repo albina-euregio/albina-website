@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { NewsModel } from '../models/news.model';
-import { NewsMockService } from '../providers/mock-service/news.service';
+import { NewsService } from '../providers/mock-service/news.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ export class NewsComponent {
   constructor(
   	private translate: TranslateService,
     private settingsService: SettingsService,
-	  private newsService: NewsMockService,
+	  private newsService: NewsService,
   	private route: ActivatedRoute,
     private router: Router)
   {
@@ -35,12 +35,11 @@ export class NewsComponent {
   	);
   }
 
-  createNews() {
-  	this.router.navigate(['/news/new']);
-  }
-
-  openNews() {
-    // TODO pass news model to view
+  createNews(item?: NewsModel) {
+    if (item)
+      this.newsService.setActiveNews(item);
+    else
+      this.newsService.setActiveNews(undefined);
     this.router.navigate(['/news/new']);
   }
 }

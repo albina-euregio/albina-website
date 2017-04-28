@@ -17,7 +17,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of newsList" (click)="openNews()">
+              <tr *ngFor="let item of newsList" (click)="createNews(item)">
                 <td>{{ item.getDate() }}</td>
                 <td>{{ item.getTitleIn(settingsService.getLang()) }}</td>
                 <td *ngIf="item.isPublished()">
