@@ -20,7 +20,7 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 
 // Services
-import { AuthenticationService } from './providers/authentication-service/authentication.service';
+import { AuthenticationService } from './providers/mock-service/authentication.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { NewsService } from './providers/news-service/news.service';
 import { SettingsService } from './providers/settings-service/settings.service';
