@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { AuthenticationService } from '../providers/mock-service/authentication.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
-import { ChatService } from '../providers/chat-service/chat.service';
+import { ChatService } from '../providers/mock-service/chat.service';
 
 @Component({
   selector: 'app-dashboard',
