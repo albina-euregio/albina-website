@@ -9,11 +9,14 @@ import { NewsModel } from '../../models/news.model';
 @Injectable()
 export class NewsService {
 
+  private activeNews: NewsModel;
+
   constructor(
     public http: Http,
     public constantsService: ConstantsService,
     public authenticationService: AuthenticationService)
   {
+    this.activeNews = undefined;
   }
 
   getNews() : Observable<Response> {
@@ -48,6 +51,14 @@ export class NewsService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(url, body, options);
+  }
+
+  setActiveNews(news: NewsModel) {
+    this.activeNews = news;
+  }
+
+  getActiveNews() : NewsModel {
+    return this.activeNews;
   }
 }
 
