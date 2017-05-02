@@ -1,4 +1,5 @@
 import { BulletinElevationDescriptionModel } from "./bulletin-elevation-description.model";
+import * as Enums from '../enums/enums';
 
 export class BulletinModel {
 	public validFrom: Date;
@@ -9,12 +10,15 @@ export class BulletinModel {
 	public above: BulletinElevationDescriptionModel;
 	public below: BulletinElevationDescriptionModel;
 
+	public status: Enums.BulletinStatus;
+
 	constructor() {
 		this.validFrom = undefined;
 		this.validUntil = undefined;
 		this.regions = new Array<String>();
 		this.above = new BulletinElevationDescriptionModel();
 		this.below = new BulletinElevationDescriptionModel();
+		this.status = undefined;
 	}
 
 	getValidFrom() {
@@ -65,6 +69,14 @@ export class BulletinModel {
 		this.below = below;
 	}
 
+	getStatus() : Enums.BulletinStatus {
+		return this.status;
+	}
+
+	setStatus(status: Enums.BulletinStatus) {
+		this.status = status;
+	}
+
 	toJson() {
 		var json = Object();
 		
@@ -89,14 +101,17 @@ export class BulletinModel {
 		if (this.below && this.below != undefined)
 			json['below'] = this.below.toJson();
 
+		if (this.status && this.status != undefined)
+			json['status'] = this.status;
+
 		return json;
 	}
 
 	static createFromJson(json) {
 		let bulletin = new BulletinModel();
 
-		bulletin.setValidFrom(new Date(json.validFrom));
-		bulletin.setValidUntil(new Date(json.validUntil));
+		bulletin.setValidFrom(new Date(json.validity.from));
+		bulletin.setValidUntil(new Date(json.validity.until));
 
 		let jsonRegions = json.regions;
 		let regions = new Array<String>();
@@ -107,6 +122,8 @@ export class BulletinModel {
 
 		bulletin.setAbove(BulletinElevationDescriptionModel.createFromJson(json.above));
 		bulletin.setBelow(BulletinElevationDescriptionModel.createFromJson(json.below));
+
+		bulletin.setStatus(Enums.BulletinStatus[<string>json.status]);
 
 		return bulletin;
 	}

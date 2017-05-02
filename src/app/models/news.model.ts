@@ -6,13 +6,13 @@ export class NewsModel {
 	public date: Date;
 	public title: TextModel[];
 	public content: TextModel[];
-	public published: boolean;
+	public status: Enums.NewsStatus;
 
 	constructor() {
 		this.date = undefined;
 		this.title = undefined;
 		this.content = undefined;
-		this.published = undefined;
+		this.status = undefined;
 	}
 
 	getId() : string {
@@ -65,12 +65,12 @@ export class NewsModel {
 		this.content = content;
 	}
 
-	isPublished() : boolean {
-		return this.published;
+	getStatus() : Enums.NewsStatus {
+		return this.status;
 	}
 
-	setPublished(published: boolean) {
-		this.published = published;
+	setStatus(status: Enums.NewsStatus) {
+		this.status = status;
 	}
 
 	toJson() {
@@ -92,8 +92,8 @@ export class NewsModel {
 			}
 			json['content'] = content;
 		}
-		if (this.published && this.published != undefined)
-			json['published'] = this.published;
+		if (this.status && this.status != undefined)
+			json['status'] = this.status;
 
 		return json;
 	}
@@ -117,7 +117,7 @@ export class NewsModel {
 		}
 		news.setContent(content);
 
-		news.setPublished(json.published);
+		news.setStatus(Enums.NewsStatus[<string>json.status]);
 
 		return news;
 	}

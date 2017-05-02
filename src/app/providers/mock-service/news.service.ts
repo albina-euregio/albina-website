@@ -44,12 +44,12 @@ export class NewsService {
     return Observable.of(new Response(response));
   }
 
-  setActiveNews(news: NewsModel) {
-    this.activeNews = news;
-  }
-
   getActiveNews() : NewsModel {
     return this.activeNews;
+  }
+
+  setActiveNews(news: NewsModel) {
+    this.activeNews = news;
   }
 }
 

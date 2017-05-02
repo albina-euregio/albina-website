@@ -29,7 +29,7 @@ export const MockNews = [
         'text': 'New bulletin ...'
       }
     ],
-    'published': false
+    'status': 'incomplete'
   },
   {
     'date': '2017-02-23T12:30:23+01:00',
@@ -61,7 +61,7 @@ export const MockNews = [
         'text': 'My name is ALBINA ...'
       }
     ],
-    'published': true
+    'status': 'published'
   }
 
 ]

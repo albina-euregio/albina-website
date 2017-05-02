@@ -5,69 +5,39 @@
       <div class="card">
         <div class="card-header">
           <i class="fa fa-align-justify"></i>{{ "bulletins.title" | translate }}
+          <button type="button" class="btn btn-primary float-right" (click)="createBulletin()">{{ "bulletins.create" | translate }}</button>
         </div>
+
+
         <div class="card-block">
           <table class="table table-bordered table-striped table-condensed">
             <thead>
               <tr>
-                <th>{{ "bulletins.table.date" | translate }}</th>
-<!--                <th>{{ "bulletins.table.status.trentino" | translate }}</th>
-                <th>{{ "bulletins.table.status.southTyrol" | translate }}</th>
-                <th>{{ "bulletins.table.status.tyrol" | translate }}</th> -->
-                <th>{{ "bulletins.table.show" | translate }}</th>
-                <th>{{ "bulletins.table.edit" | translate }}</th>
+                <th>{{ "news.table.date" | translate }}</th>
+                <th>{{ "news.table.status.title" | translate }}</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>2017-04-14 17:00</td>
-                <td>
+              <tr *ngFor="let item of bulletinList" (click)="createBulletin(item)">
+                <td>{{ item.getValidFrom() }}</td>
+                <td *ngIf="item.getStatus() == bulletinStatus.missing">
+                  <span class="badge badge-warning">{{ "news.table.status.published" | translate }}</span>
                 </td>
-                <td>
+                <td *ngIf="item.getStatus() == bulletinStatus.published">
+                  <span class="badge badge-default">{{ "news.table.status.published" | translate }}</span>
                 </td>
-              </tr>
-              <tr>
-                <td>2017-04-13 17:00</td>
-                <td>
+                <td *ngIf="item.getStatus() == bulletinStatus.pending">
+                  <span class="badge badge-default">{{ "news.table.status.pending" | translate }}</span>
                 </td>
-                <td>
+                <td *ngIf="item.getStatus() == bulletinStatus.complete">
+                  <span class="badge badge-success">{{ "news.table.status.complete" | translate }}</span>
                 </td>
-              </tr>
-              <tr>
-                <td>2017-04-12 17:00</td>
-                <td>
-                </td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td>2017-04-11 17:00</td>
-                <td>
-                </td>
-                <td>
-                </td>
-              </tr>
-              <tr>
-                <td>2017-04-10 17:00</td>
-                <td>
-                </td>
-                <td>
+                <td *ngIf="item.getStatus() == bulletinStatus.incomplete">
+                  <span class="badge badge-warning">{{ "news.table.status.incomplete" | translate }}</span>
                 </td>
               </tr>
             </tbody>
           </table>
-          <nav>
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-              <li class="page-item active">
-                <a class="page-link" href="#">1</a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
         </div>
       </div>
     </div>

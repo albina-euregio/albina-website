@@ -1,0 +1,64 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ "news.create.formTitle" | translate }}</strong>
+        </div>
+        <div class="card-block">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.it.title" | translate }}</label>
+              <div class="col-md-9">
+                <input [disabled]="disabled" type="text" id="text-input-title-it" name="text-input-title-it" class="form-control" placeholder='{{ "news.create.it.title" | translate }}' [(ngModel)]="titleIt">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.de.title" | translate }}</label>
+              <div class="col-md-9">
+                <input [disabled]="disabled" type="text" id="text-input-title-de" name="text-input-title-de" class="form-control" placeholder='{{ "news.create.de.title" | translate }}' [(ngModel)]="titleDe">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.en.title" | translate }}</label>
+              <div class="col-md-9">
+                <input [disabled]="disabled" type="text" id="text-input-title-en" name="text-input-title-en" class="form-control" placeholder='{{ "news.create.en.title" | translate }}' [(ngModel)]="titleEn">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.it.content" | translate }}</label>
+              <div class="col-md-9">
+                <textarea [disabled]="disabled" id="textarea-input-title-it" name="textarea-input-title-it" rows="9" class="form-control" placeholder='{{ "news.create.it.content" | translate }}' [(ngModel)]="contentIt"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.de.content" | translate }}</label>
+              <div class="col-md-9">
+                <textarea [disabled]="disabled" id="textarea-input-title-de" name="textarea-input-title-de" rows="9" class="form-control" placeholder='{{ "news.create.de.content" | translate }}' [(ngModel)]="contentDe"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.en.content" | translate }}</label>
+              <div class="col-md-9">
+                <textarea [disabled]="disabled" id="textarea-input-title-en" name="textarea-input-title-en" rows="9" class="form-control" placeholder='{{ "news.create.en.content" | translate }}' [(ngModel)]="contentEn"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label" for="file-input">{{ "news.create.image" | translate }}</label>
+              <div class="col-md-9">
+                <input [disabled]="disabled" type="file" id="file-input" name="file-input">
+              </div>
+            </div>
+          </form>
+        </div>
+        <div *ngIf="!disabled" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="save()"><i class="fa fa-check"></i>{{ "news.create.save" | translate }}</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="discard()"><i class="fa fa-close"></i>{{ "news.create.discard" | translate }}</button>
+        </div>
+        <div *ngIf="disabled" class="card-footer">
+          <button type="reset" class="btn btn-sm btn-primary" (click)="discard()"><i class="fa fa-arrow-left"></i>{{ "news.create.back" | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div><!--/.row-->
+</div>

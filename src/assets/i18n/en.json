@@ -40,6 +40,7 @@
 			"back" : "Back"
 		},
 		"title" : "News",
+		"create" : "Create",
 		"table" : {
 			"date" : "Date",
 			"title" : "Title",
@@ -48,21 +49,26 @@
 			"status" : {
 				"title" : "Status",
 				"published" : "published",
-				"pending" : "pending"
+				"pending" : "pending",
+				"complete" : "complete",
+				"incomplete" : "incomplete"
 			}
 		}		
 	},
 	"bulletins" : {
 		"title" : "Bulletins",
+		"create" : "Create",
 		"table" : {
 			"date" : "Date",
 			"status" : {
 				"trentino" : "Trentino",
 				"southTyrol" : "South Tyrol",
 				"tyrol" : "Tyrol",
-				"complete" : "COMPLETE",
-				"incomplete" : "INCOMPLETE",
-				"missing" : "MISSING"
+				"complete" : "complete",
+				"incomplete" : "incomplete",
+				"missing" : "missing",
+				"pending" : "pending",
+				"published" : "published"
 			},
 			"edit" : "Edit",
 			"show" : "Show"

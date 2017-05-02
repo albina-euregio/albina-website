@@ -4,6 +4,7 @@ import { SettingsService } from '../providers/settings-service/settings.service'
 import { NewsModel } from '../models/news.model';
 import { NewsService } from '../providers/mock-service/news.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import * as Enums from '../enums/enums';
 
 @Component({
   templateUrl: 'news.component.html'
@@ -11,6 +12,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class NewsComponent {
 
   private newsList: NewsModel[];
+  newsStatus = Enums.NewsStatus;
 
   constructor(
   	private translate: TranslateService,

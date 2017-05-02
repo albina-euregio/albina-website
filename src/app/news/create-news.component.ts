@@ -35,7 +35,7 @@ export class CreateNewsComponent {
       this.contentDe = this.newsService.getActiveNews().getContentIn(Enums.LanguageCode.de);
       this.contentEn = this.newsService.getActiveNews().getContentIn(Enums.LanguageCode.en);
 
-      if (this.newsService.getActiveNews().isPublished())
+      if (this.newsService.getActiveNews().getStatus() == Enums.NewsStatus.published || this.newsService.getActiveNews().getStatus() == Enums.NewsStatus.pending)
         this.disabled = true;
     }
   }
