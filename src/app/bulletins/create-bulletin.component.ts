@@ -47,4 +47,3 @@ export class CreateBulletinComponent {
 	  this.router.navigate(['/bulletins/bulletins']);
   }
 }
-#
