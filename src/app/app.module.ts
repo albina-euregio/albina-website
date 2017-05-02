@@ -27,6 +27,7 @@ import { NewsService } from './providers/mock-service/news.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { SettingsService } from './providers/settings-service/settings.service';
 import { RegionsService } from './providers/regions-service/regions.service';
+import { MapService } from './providers/map-service/map.service';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -74,7 +75,8 @@ export function createTranslateLoader(http: Http) {
     BulletinsService,
     RegionsService,
     ChatService,
-    NewsService
+    NewsService,
+    MapService
   ],
   bootstrap: [ AppComponent ],
   exports: [
