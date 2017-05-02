@@ -80,10 +80,12 @@ export class BulletinModel {
 	toJson() {
 		var json = Object();
 		
+		var validity = Object();
 		if (this.validFrom && this.validFrom != undefined)
-			json['validFrom'] = this.validFrom;
+			validity['from'] = this.validFrom;
 		if (this.validUntil && this.validUntil != undefined)
-			json['validUntil'] = this.validUntil;
+			validity['until'] = this.validUntil;
+		json['validity'] = validity;
 
 		if (this.regions && this.regions.length > 0) {
 			let regions = [];
