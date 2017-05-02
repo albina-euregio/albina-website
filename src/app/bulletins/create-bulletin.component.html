@@ -3,11 +3,14 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <strong>{{ "news.create.formTitle" | translate }}</strong>
+          <strong>{{ "bulletins.create.formTitle" | translate }}</strong>
         </div>
         <div class="card-block">
-            <div style="height: 700px" id="map"></div>
-            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+          <div class="form-group row">
+            <div class="col-md-12" style="height: 300px" id="map">
+            </div>
+          </div>
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group row">
               <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.it.title" | translate }}</label>
               <div class="col-md-9">

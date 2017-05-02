@@ -58,6 +58,9 @@
 	"bulletins" : {
 		"title" : "Bulletins",
 		"create" : "Create",
+		"create" : {
+			"formTitle" : "Create Bulletin"
+		},
 		"table" : {
 			"date" : "Date",
 			"status" : {

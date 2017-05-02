@@ -5,6 +5,7 @@ import { BulletinsService } from '../providers/mock-service/bulletins.service';
 import { BulletinModel } from '../models/bulletin.model';
 import * as Enums from '../enums/enums';
 import { MapService } from "../providers/map-service/map.service";
+import { RegionsTN } from "../mock/regions.tn";
 
 import "leaflet";
 
@@ -33,21 +34,19 @@ export class CreateBulletinComponent {
       let map = L.map("map", {
           zoomControl: false,
           center: L.latLng(46.65, 11.47),
-          zoom: 8,
-//            minZoom: 4,
-          maxZoom: 19,
-          layers: [this.mapService.baseMaps.Gdi_Winter]
+          zoom: 7,
+          //minZoom: 6,
+          maxZoom: 12,
+          layers: [this.mapService.baseMaps.Gdi_Winter, this.mapService.overlayMaps.regionsAT]
       });
 
       L.control.zoom({ position: "topleft" }).addTo(map);
-      L.control.layers(this.mapService.baseMaps).addTo(map);
       L.control.scale().addTo(map);
 
       this.mapService.map = map;
   }
-    
-  save() {
 
+  save() {
     let bulletin = new BulletinModel();
 
   	this.bulletinsService.saveBulletin(bulletin).subscribe(

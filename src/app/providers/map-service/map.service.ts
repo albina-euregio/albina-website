@@ -1,13 +1,18 @@
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
 import { Map } from "leaflet";
+import { RegionsAT } from "../../mock/regions.at";
+
 
 @Injectable()
 export class MapService {
     public map: Map;
     public baseMaps: any;
+    public overlayMaps: any;
     private vtLayer: any;
     private profiles;
+
+    private selectedRegions: String[];
 
     constructor(
         private http: Http
@@ -18,6 +23,12 @@ export class MapService {
                 printMapType: "gdi_winter"
             })
         };
+
+        this.overlayMaps = {
+            regionsAT : L.geoJSON(RegionsAT, { style: this.styleRegions, onEachFeature : this.onEachFeature })
+        }
+
+        this.selectedRegions = new Array<String>();
     }
 
     disableMouseEvent(elementId: string) {
@@ -25,5 +36,39 @@ export class MapService {
 
         L.DomEvent.disableClickPropagation(element);
         L.DomEvent.disableScrollPropagation(element);
+    }
+
+    saveAggregatedRegion() {
+        // TODO implement
+    }
+
+    onEachFeature(feature, layer) {
+        layer.on({
+            click: this.selectRegion
+        });
+    }
+
+    selectRegion(layer, feature) {
+        debugger
+
+        // this.selectedRegions.push(feature.id);
+
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+    }
+
+    styleRegions(feature) {
+        return {
+            fillColor: 'transient',
+            weight: 2,
+            opacity: 1,
+            color: 'black',
+            dashArray: '3',
+            fillOpacity: 0.0
+        };
     }
 }
