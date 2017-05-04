@@ -3,9 +3,7 @@ import { Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BulletinModel } from '../../models/bulletin.model';
 import { MockBulletinsTNIncomplete } from '../../mock/bulletin.mock';
-import { RegionsService } from './regions.service';
 import * as Enums from '../../enums/enums';
-import { RegionsTN } from '../../mock/regions.tn';
 
 
 @Injectable()
@@ -19,8 +17,7 @@ export class BulletinsService {
 
   private count: number;
 
-  constructor(
-    private regionsService: RegionsService)
+  constructor()
   {
     this.bulletins = new Array<BulletinModel>();
     this.activeBulletin = undefined;

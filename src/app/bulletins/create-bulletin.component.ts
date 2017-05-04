@@ -38,10 +38,11 @@ export class CreateBulletinComponent {
           zoom: 7,
           //minZoom: 6,
           maxZoom: 12,
-          layers: [this.mapService.baseMaps.Gdi_Winter, this.mapService.overlayMaps.regionsBulletins]
+          layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.regionsBulletins]
       });
 
       L.control.zoom({ position: "topleft" }).addTo(map);
+      //L.control.layers(this.mapService.baseMaps).addTo(map);
       L.control.scale().addTo(map);
 
       this.mapService.map = map;
