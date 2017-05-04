@@ -14,7 +14,6 @@ import "leaflet";
 })
 export class CreateBulletinComponent {
 
-  public aggregatedRegionSelected: boolean;
   public bulletinEditable: boolean;
 
   constructor(
@@ -24,7 +23,6 @@ export class CreateBulletinComponent {
     private bulletinsService: BulletinsService,
     private mapService: MapService)
   {
-    this.aggregatedRegionSelected = false;
     this.bulletinEditable = true;
     if (this.bulletinsService.getActiveBulletin() != null && this.bulletinsService.getActiveBulletin() != undefined) {
       if (this.bulletinsService.getActiveBulletin().getStatus() == Enums.BulletinStatus.published || this.bulletinsService.getActiveBulletin().getStatus() == Enums.BulletinStatus.pending)
@@ -60,38 +58,18 @@ export class CreateBulletinComponent {
   }
 
   selectAggregatedRegion(bulletin: BulletinModel) {
-    this.aggregatedRegionSelected = true;
     this.bulletinsService.setActiveBulletin(bulletin);
     this.mapService.selectAggregatedRegion(bulletin);
-  }
-
-  saveAggregatedRegion() {
-    // TODO create new aggregated region with selected regions
-    this.mapService.saveAggregatedRegion();
-
-    this.aggregatedRegionSelected = false;
-    // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
-    // TODO send newly created region via socketIO
-  }
-
-  discardAggregatedRegion() {
-    this.mapService.discardAggregatedRegion();
-    this.aggregatedRegionSelected = false;
-    // TODO reset selected regions
-    // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
   }
 
   deleteAggregatedRegion(bulletin: BulletinModel) {
     this.mapService.deleteAggregatedRegion(bulletin);
     this.bulletinsService.deleteBulletin(bulletin);
-    this.aggregatedRegionSelected = false;
     // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
     // TODO send newly created region via socketIO
   }
 
   save() {
-    this.aggregatedRegionSelected = false;
-
   	this.bulletinsService.saveBulletins().subscribe(
   		data => {
         this.bulletinsService.reset();
@@ -109,7 +87,6 @@ export class CreateBulletinComponent {
   discard() {
     this.bulletinsService.reset();
     console.log("Bulletin: changes discarded.");
-    this.aggregatedRegionSelected = false;
 	  this.router.navigate(['/bulletins/bulletins']);
   }
 }
