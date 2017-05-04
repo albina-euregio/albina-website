@@ -2,6 +2,8 @@ import { BulletinElevationDescriptionModel } from "./bulletin-elevation-descript
 import * as Enums from '../enums/enums';
 
 export class BulletinModel {
+	public id: string;
+
 	public validFrom: Date;
 	public validUntil: Date;
 
@@ -21,51 +23,59 @@ export class BulletinModel {
 		this.status = undefined;
 	}
 
-	getValidFrom() {
+	getId() : string {
+		return this.id;
+	}
+
+	setId(id: string) {
+		this.id = id;
+	}
+
+	getValidFrom() : Date{
 		return this.validFrom
 	}
 
-	setValidFrom(validFrom) {
+	setValidFrom(validFrom: Date) {
 		this.validFrom = validFrom;
 	}
 
-	getValidUntil() {
+	getValidUntil() : Date {
 		return this.validUntil;
 	}
 
-	setValidUntil(validUntil) {
+	setValidUntil(validUntil: Date) {
 		this.validUntil = validUntil;
 	}
 
-	getRegions() {
+	getRegions() : String[] {
 		return this.regions;
 	}
 
-	setRegions(regions) {
+	setRegions(regions: String[]) {
 		this.regions = regions;
 	}
 
-	getElevation() {
+	getElevation() : number {
 		return this.elevation
 	}
 
-	setElevation(elevation) {
+	setElevation(elevation: number) {
 		this.elevation = elevation;
 	}
 
-	getAbove() {
+	getAbove() : BulletinElevationDescriptionModel {
 		return this.above
 	}
 
-	setAbove(above) {
+	setAbove(above: BulletinElevationDescriptionModel) {
 		this.above = above;
 	}
 
-	getBelow() {
+	getBelow() : BulletinElevationDescriptionModel {
 		return this.below
 	}
 
-	setBelow(below) {
+	setBelow(below: BulletinElevationDescriptionModel) {
 		this.below = below;
 	}
 
@@ -79,6 +89,9 @@ export class BulletinModel {
 
 	toJson() {
 		var json = Object();
+
+		if (this.id && this.id != undefined)
+			json['id'] = this.id;
 		
 		var validity = Object();
 		if (this.validFrom && this.validFrom != undefined)
@@ -112,6 +125,8 @@ export class BulletinModel {
 	static createFromJson(json) {
 		let bulletin = new BulletinModel();
 
+		bulletin.setId(json.id);
+
 		bulletin.setValidFrom(new Date(json.validity.from));
 		bulletin.setValidUntil(new Date(json.validity.until));
 
@@ -122,8 +137,10 @@ export class BulletinModel {
 		}
 		bulletin.setRegions(regions);
 
-		bulletin.setAbove(BulletinElevationDescriptionModel.createFromJson(json.above));
-		bulletin.setBelow(BulletinElevationDescriptionModel.createFromJson(json.below));
+		if (json.above)
+			bulletin.setAbove(BulletinElevationDescriptionModel.createFromJson(json.above));
+		if (json.below)
+			bulletin.setBelow(BulletinElevationDescriptionModel.createFromJson(json.below));
 
 		bulletin.setStatus(Enums.BulletinStatus[<string>json.status]);
 

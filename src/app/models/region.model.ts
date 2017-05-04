@@ -3,98 +3,56 @@ import * as Enums from '../enums/enums';
 export class RegionModel {
 	public id: string;
 	public name: string;
-	public parentRegion: RegionModel;
-	public subregions: RegionModel[];
-	public aggregatedRegion: RegionModel;
+	public parentRegion: string;
+	public aggregatedRegion: string;
 
 	constructor() {
 		this.id = undefined;
 		this.name = undefined;
 		this.parentRegion = undefined;
-		this.subregions = new Array<RegionModel>();
 		this.aggregatedRegion = undefined;
 	}
 
-	getId() {
+	getId() : string {
 		return this.id;
 	}
 
-	setId(id) {
+	setId(id: string) {
 		this.id = id;
 	}
 
-	getName() {
+	getName() : string {
 		return this.name;
 	}
 
-	setName(name) {
+	setName(name: string) {
 		this.name = name;
 	}
 
-	getParentRegion() {
+	getParentRegion() : string {
 		return this.parentRegion;
 	}
 
-	setParentRegion(parentRegion) {
+	setParentRegion(parentRegion: string) {
 		this.parentRegion = parentRegion;
 	}
 
-	getSubregions() {
-		return this.subregions;
-	}
-
-	setSubregions(subregions) {
-		this.subregions = subregions;
-	}
-
-	getAggregatedRegion() {
+	getAggregatedRegion() : string {
 		return this.aggregatedRegion;
 	}
 
-	setAggregatedRegion(aggregatedRegion) {
+	setAggregatedRegion(aggregatedRegion: string) {
 		this.aggregatedRegion = aggregatedRegion;
-	}
-
-	toJson() {
-		var json = Object();
-		
-		if (this.id && this.id != undefined)
-			json['id'] = this.id;
-		if (this.name && this.name != undefined)
-			json['name'] = this.name;
-
-		if (this.parentRegion && this.parentRegion != undefined)
-			json['parentRegion'] = this.parentRegion.toJson();
-
-		if (this.subregions && this.subregions.length > 0) {
-			let subregions = [];
-			for (let i = 0; i <= this.subregions.length - 1; i++) {
-				subregions.push(this.subregions[i]);
-			}
-			json['subregions'] = subregions;
-		}
-
-		if (this.aggregatedRegion && this.aggregatedRegion != undefined)
-			json['aggregatedRegion'] = this.aggregatedRegion.toJson();
-
-		return json;
 	}
 
 	static createFromJson(json) {
 		let region = new RegionModel();
 
-		region.setId(json.id);
-		region.setName(json.name);
-		region.setParentRegion(RegionModel.createFromJson(json.parentRegion));
+		region.setId(json.properties.id);
+		region.setName(json.properties.name);
+		region.setParentRegion(json.properties.parentRegion);
 
-		let jsonSubregions = json.subregions;
-		let subregions = new Array<RegionModel>();
-		for (let i in jsonSubregions) {
-			subregions.push(RegionModel.createFromJson(jsonSubregions[i]));
-		}
-		region.setSubregions(subregions);
-
-		region.setAggregatedRegion(RegionModel.createFromJson(json.aggregatedRegion));
+		region.setAggregatedRegion(json.properties.aggregatedRegion);
 
 		return region;
 	}

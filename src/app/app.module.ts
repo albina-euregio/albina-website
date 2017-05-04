@@ -24,9 +24,9 @@ import { AuthenticationService } from './providers/mock-service/authentication.s
 import { BulletinsService } from './providers/mock-service/bulletins.service';
 import { ChatService } from './providers/mock-service/chat.service';
 import { NewsService } from './providers/mock-service/news.service';
+import { RegionsService } from './providers/mock-service/regions.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { SettingsService } from './providers/settings-service/settings.service';
-import { RegionsService } from './providers/regions-service/regions.service';
 import { MapService } from './providers/map-service/map.service';
 
 import { AuthGuard } from './guards/auth.guard';

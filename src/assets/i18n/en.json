@@ -57,16 +57,27 @@
 	},
 	"bulletins" : {
 		"title" : "Bulletins",
-		"create" : "Create",
 		"create" : {
-			"formTitle" : "Create Bulletin"
+			"button" : "Create",
+			"formTitle" : "Create Bulletin",
+			"save" : "Save",
+			"discard" : "Discard",
+			"back" : "Back",
+			"createAggregatedRegion" : "New region",
+			"saveAggregatedRegion" : "Save",
+			"discardAggregatedRegion" : "Discard",
+			"deleteAggregatedRegion" : "Delete"
 		},
 		"table" : {
-			"date" : "Date",
+			"title" : {
+				"date" : "Date",
+				"status" : {
+					"trentino" : "Trentino",
+					"southTyrol" : "South Tyrol",
+					"tyrol" : "Tyrol"
+				}
+			},
 			"status" : {
-				"trentino" : "Trentino",
-				"southTyrol" : "South Tyrol",
-				"tyrol" : "Tyrol",
 				"complete" : "complete",
 				"incomplete" : "incomplete",
 				"missing" : "missing",

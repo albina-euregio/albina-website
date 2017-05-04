@@ -7,60 +7,69 @@
         </div>
         <div class="card-block">
           <div class="form-group row">
-            <div class="col-md-12" style="height: 300px" id="map">
+            <div class="col-md-3">
+              <div class="form-group row">
+                <button *ngIf="bulletinEditable" (click)="createAggregatedRegion()" class="btn btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
+              </div>
+
+              <div class="col-md-12">
+                <div class="card-block">
+                  <table class="table">
+                    <tbody>
+                      <div *ngFor="let bulletin of bulletinsService.getBulletins()">
+                        <tr (click)="selectAggregatedRegion(bulletin)">
+                          <td>Region</td>
+                          <td>
+                            <button type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(bulletin)"><i class="fa fa-trash"></i></button>
+                          </td>
+                        </tr>
+                      </div>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+<!--
+              <div *ngIf="editRegions" class="col-md-12">
+                <div *ngFor="let region of mapService.getRegions()" class="checkbox">
+                  <label for="checkbox1">
+                    <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">{{ region.feature.properties.name }}
+                  </label>
+                </div>
+              </div>
+-->
+            </div>
+            <div class="col-md-9" style="height: 300px" id="map">
             </div>
           </div>
-          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+          <form *ngIf="aggregatedRegionSelected" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.it.title" | translate }}</label>
-              <div class="col-md-9">
-                <input [disabled]="disabled" type="text" id="text-input-title-it" name="text-input-title-it" class="form-control" placeholder='{{ "news.create.it.title" | translate }}' [(ngModel)]="titleIt">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.de.title" | translate }}</label>
-              <div class="col-md-9">
-                <input [disabled]="disabled" type="text" id="text-input-title-de" name="text-input-title-de" class="form-control" placeholder='{{ "news.create.de.title" | translate }}' [(ngModel)]="titleDe">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="text-input">{{ "news.create.en.title" | translate }}</label>
-              <div class="col-md-9">
-                <input [disabled]="disabled" type="text" id="text-input-title-en" name="text-input-title-en" class="form-control" placeholder='{{ "news.create.en.title" | translate }}' [(ngModel)]="titleEn">
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.it.content" | translate }}</label>
-              <div class="col-md-9">
-                <textarea [disabled]="disabled" id="textarea-input-title-it" name="textarea-input-title-it" rows="9" class="form-control" placeholder='{{ "news.create.it.content" | translate }}' [(ngModel)]="contentIt"></textarea>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.de.content" | translate }}</label>
-              <div class="col-md-9">
-                <textarea [disabled]="disabled" id="textarea-input-title-de" name="textarea-input-title-de" rows="9" class="form-control" placeholder='{{ "news.create.de.content" | translate }}' [(ngModel)]="contentDe"></textarea>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="textarea-input">{{ "news.create.en.content" | translate }}</label>
-              <div class="col-md-9">
-                <textarea [disabled]="disabled" id="textarea-input-title-en" name="textarea-input-title-en" rows="9" class="form-control" placeholder='{{ "news.create.en.content" | translate }}' [(ngModel)]="contentEn"></textarea>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 form-control-label" for="file-input">{{ "news.create.image" | translate }}</label>
-              <div class="col-md-9">
-                <input [disabled]="disabled" type="file" id="file-input" name="file-input">
+              <div class="col-md-12">
+                <label class="radio-inline" for="inline-radio1">
+                  <input type="radio" id="inline-radio1" name="inline-radios" value="1"> low
+                </label>
+                <label class="radio-inline" for="inline-radio2">
+                  <input type="radio" id="inline-radio2" name="inline-radios" value="2"> moderate
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio3" name="inline-radios" value="3"> considerable
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio4" name="inline-radios" value="4"> high
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio5" name="inline-radios" value="5"> very high
+                </label>
               </div>
             </div>
           </form>
         </div>
-        <div *ngIf="!disabled" class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary" (click)="save()"><i class="fa fa-check"></i>{{ "news.create.save" | translate }}</button>
-          <button type="reset" class="btn btn-sm btn-danger" (click)="discard()"><i class="fa fa-close"></i>{{ "news.create.discard" | translate }}</button>
+        <div *ngIf="bulletinEditable" class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary" (click)="save()"><i class="fa fa-check"></i>{{ "bulletins.create.save" | translate }}</button>
+          <button type="reset" class="btn btn-sm btn-danger" (click)="discard()"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
         </div>
-        <div *ngIf="disabled" class="card-footer">
-          <button type="reset" class="btn btn-sm btn-primary" (click)="discard()"><i class="fa fa-arrow-left"></i>{{ "news.create.back" | translate }}</button>
+        <div *ngIf="!bulletinEditable" class="card-footer">
+          <button type="reset" class="btn btn-sm btn-primary" (click)="discard()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
         </div>
       </div>
     </div>
