@@ -8,25 +8,31 @@
         <div class="card-block">
           <div class="form-group row">
             <div class="col-md-3">
-              <div class="form-group row">
-                <button *ngIf="bulletinEditable" (click)="createAggregatedRegion()" class="btn btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
+              <div class="card-block">
+                <div class="form-group row">
+                  <button *ngIf="bulletinEditable" (click)="createAggregatedRegion()" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
+                </div>
               </div>
 
               <div class="col-md-12">
-                <div class="card-block">
-                  <table class="table">
-                    <tbody>
-                      <div *ngFor="let bulletin of bulletinsService.getBulletins()">
-                        <tr (click)="selectAggregatedRegion(bulletin)">
-                          <td>Region</td>
-                          <td>
-                            <button type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(bulletin)"><i class="fa fa-trash"></i></button>
-                          </td>
-                        </tr>
-                      </div>
-                    </tbody>
-                  </table>
-                </div>
+                <table class="table">
+                  <tbody>
+                    <div *ngFor="let bulletin of bulletinsService.getBulletins()">
+                      <tr *ngIf="bulletinsService.getActiveBulletin().getInternalId() == bulletin.getInternalId()" class="table-active">
+                        <td>Region {{ bulletin.getInternalId() }}</td>
+                        <td>
+                          <button type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(bulletin)"><i class="fa fa-trash"></i></button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="bulletinsService.getActiveBulletin().getInternalId() != bulletin.getInternalId()" (click)="selectAggregatedRegion(bulletin)">
+                        <td>Region {{ bulletin.getInternalId() }}</td>
+                        <td>
+                          <button type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(bulletin)"><i class="fa fa-trash"></i></button>
+                        </td>
+                      </tr>
+                    </div>
+                  </tbody>
+                </table>
               </div>
 
 <!--

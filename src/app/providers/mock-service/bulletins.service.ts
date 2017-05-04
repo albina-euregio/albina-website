@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BulletinModel } from '../../models/bulletin.model';
-import { MockBulletins } from '../../mock/bulletin.mock';
+import { MockBulletinsTNIncomplete } from '../../mock/bulletin.mock';
 import { RegionsService } from './regions.service';
 import * as Enums from '../../enums/enums';
 import { RegionsTN } from '../../mock/regions.tn';
@@ -17,32 +17,59 @@ export class BulletinsService {
   // Bulletins the user is currently working on (different aggregated regions)
   private bulletins: BulletinModel[];
 
+  private count: number;
+
   constructor(
     private regionsService: RegionsService)
   {
     this.bulletins = new Array<BulletinModel>();
     this.activeBulletin = undefined;
+    this.count = 1;
+  }
+
+  reset() {
+    this.activeBulletin = undefined;
+    this.bulletins = new Array<BulletinModel>();
+    this.count = 1;
   }
 
   addBulletin() {
     let bulletin = new BulletinModel();
+    bulletin.setInternalId(this.count);
+    this.count++;
     this.bulletins.push(bulletin);
-    this.selectBulletin(bulletin);
+    this.setActiveBulletin(bulletin);
   }
 
-  selectBulletin(bulletin: BulletinModel) {
-    this.activeBulletin = bulletin;
+  addBulletins(date: Date) {
+    this.loadBulletins(date, date).subscribe(
+      data => {
+        let response = data.json();
+        for (let jsonBulletin of response) {
+          let bulletin = BulletinModel.createFromJson(jsonBulletin);
+          bulletin.setInternalId(this.count);
+          this.count++;
+          this.bulletins.push(bulletin);
+        }
+      },
+      error => {
+        console.error("News could not be loaded!");
+        // TODO
+      }
+    );
   }
 
   deleteBulletin(bulletin: BulletinModel) {
     let index = -1;
     for (var i = this.bulletins.length - 1; i >= 0; i--) {
-      if (this.bulletins[i].getId() == bulletin.getId())
+      if (this.bulletins[i].getInternalId() == bulletin.getInternalId()) {
         index = i;
+        break;
+      }
     }
 
     if (index > -1)
-      this.bulletins.splice(i, 1);
+      this.bulletins.splice(index, 1);
   }
 
   // TODO
@@ -90,7 +117,7 @@ export class BulletinsService {
 
   loadBulletins(from: Date, until: Date) : Observable<Response> {
     let response = new ResponseOptions({
-      body: JSON.stringify(MockBulletins)
+      body: JSON.stringify(MockBulletinsTNIncomplete)
     });
     console.log('MOCK: Bulletins loaded!');
     return Observable.of(new Response(response));
@@ -110,10 +137,5 @@ export class BulletinsService {
 
   setActiveBulletin(bulletin: BulletinModel) {
     this.activeBulletin = bulletin;
-  }
-
-  reset() {
-    this.activeBulletin = undefined;
-    this.bulletins = new Array<BulletinModel>();
   }
 }

@@ -54,26 +54,17 @@ export class BulletinsComponent {
   	);
   }
 
-  createBulletin(item?: BulletinModel) {
-    if (item)
-      this.bulletinsService.setActiveBulletin(item);
-    else
-      this.bulletinsService.setActiveBulletin(undefined);
+  createBulletin(date?: Date) {
+    this.bulletinsService.reset();
+
+    if (date)
+      this.bulletinsService.addBulletins(date);
+
     this.router.navigate(['/bulletins/new']);
   }
 
   getStatusTrentino(date: Date) : Enums.BulletinStatus {
     return this.getStatus(date, 'IT-32-TN');
-  }
-
-  getStatusSouthTyrol(date: Date) : Enums.BulletinStatus {
-    // TODO implement
-    return Enums.BulletinStatus.missing;
-  }
-
-  getStatusTyrol(date: Date) : Enums.BulletinStatus {
-    // TODO implement
-    return Enums.BulletinStatus.missing;
   }
 
   private getStatus(date: Date, region: string) : Enums.BulletinStatus {

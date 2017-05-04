@@ -56,7 +56,6 @@ export class CreateBulletinComponent {
     // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
     this.mapService.createAggregatedRegion();
     this.bulletinsService.addBulletin();
-    this.selectAggregatedRegion(this.bulletinsService.getActiveBulletin());
     // TODO show list of regions and aggregated regions (checkboxes)
   }
 

@@ -4,6 +4,8 @@ import * as Enums from '../enums/enums';
 export class BulletinModel {
 	public id: string;
 
+	public internalId: number;
+
 	public validFrom: Date;
 	public validUntil: Date;
 
@@ -29,6 +31,14 @@ export class BulletinModel {
 
 	setId(id: string) {
 		this.id = id;
+	}
+
+	getInternalId() : number {
+		return this.internalId;
+	}
+
+	setInternalId(internalId: number) {
+		this.internalId = internalId;
 	}
 
 	getValidFrom() : Date{

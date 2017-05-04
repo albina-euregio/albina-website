@@ -28,6 +28,12 @@ export class MapService {
                             onEachFeature : this.onEachFeature
                         }),
 
+            // overlay to select bigger regions
+            regionsAggrTN : L.geoJSON(RegionsTN, {
+                            style: this.styleRegions,
+                            onEachFeature : this.onEachFeature
+                        }),
+
             // overlay to show aggregated regions
             regionsBulletins : L.geoJSON(RegionsTN, {
                             style: this.styleRegions,
@@ -39,10 +45,12 @@ export class MapService {
 
     createAggregatedRegion() {
         this.map.addLayer(this.overlayMaps.regionsTN);
+        // TODO implement
     }
 
     discardAggregatedRegion() {
         this.map.removeLayer(this.overlayMaps.regionsTN);
+        // TODO implement
     }
 
     deleteAggregatedRegion(bulletin: BulletinModel) {

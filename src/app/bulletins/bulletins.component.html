@@ -18,7 +18,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let date of dates" (click)="createBulletin(item)">
+              <tr *ngFor="let date of dates" (click)="createBulletin(date)">
                 <td>{{ date }}</td>
                 <td *ngIf="getStatusTrentino(date) == bulletinStatus.missing">
                   <span class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
