@@ -16,7 +16,14 @@ export class CreateBulletinComponent {
 
   public bulletinEditable: boolean;
   public activeBulletin: BulletinModel;
+  public altitude: boolean;
+  public daytime: boolean;
 
+  private aspect: Enums.Aspect;
+
+  private avalancheProblems: Enums.AvalancheProblem;
+  private avalancheProblemValues = Object.keys(Enums.AvalancheProblem).filter( e => typeof( e ) == "number" );  
+  
   constructor(
   	private translate: TranslateService,
   	private route: ActivatedRoute,
@@ -26,6 +33,9 @@ export class CreateBulletinComponent {
   {
     // TODO check if bulletins are editable (not published yet)
     this.bulletinEditable = true;
+
+    this.daytime = false;
+    this.altitude = false;
   }
 
   ngOnInit() {
@@ -73,6 +83,7 @@ export class CreateBulletinComponent {
   }
 
   save() {
+    debugger
   	this.bulletinsService.saveBulletins().subscribe(
   		data => {
         this.bulletinsService.reset();
