@@ -15,6 +15,7 @@ import "leaflet";
 export class CreateBulletinComponent {
 
   public bulletinEditable: boolean;
+  public activeBulletin: BulletinModel;
 
   constructor(
   	private translate: TranslateService,
@@ -23,19 +24,15 @@ export class CreateBulletinComponent {
     private bulletinsService: BulletinsService,
     private mapService: MapService)
   {
-    // TODO this does not work with active bulletin, should consider all bulletins
+    // TODO check if bulletins are editable (not published yet)
     this.bulletinEditable = true;
-    if (this.bulletinsService.getActiveBulletin() != null && this.bulletinsService.getActiveBulletin() != undefined) {
-      if (this.bulletinsService.getActiveBulletin().getStatus() == Enums.BulletinStatus.published || this.bulletinsService.getActiveBulletin().getStatus() == Enums.BulletinStatus.pending)
-        this.bulletinEditable = false;
-    }
   }
 
   ngOnInit() {
       let map = L.map("map", {
           zoomControl: false,
-          center: L.latLng(46.65, 11.47),
-          zoom: 7,
+          center: L.latLng(46.05, 11.07),
+          zoom: 8,
           //minZoom: 6,
           maxZoom: 12,
           layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.regionsBulletins]
@@ -55,16 +52,20 @@ export class CreateBulletinComponent {
   createAggregatedRegion() {
     // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
     this.mapService.createAggregatedRegion();
-    this.bulletinsService.addBulletin();
+    let bulletin = new BulletinModel();
+    this.bulletinsService.addBulletin(bulletin);
+    this.activeBulletin = bulletin;
     // TODO show list of regions and aggregated regions (checkboxes)
   }
 
   selectAggregatedRegion(bulletin: BulletinModel) {
-    this.bulletinsService.setActiveBulletin(bulletin);
+    this.activeBulletin = bulletin;
     this.mapService.selectAggregatedRegion(bulletin);
   }
 
   deleteAggregatedRegion(bulletin: BulletinModel) {
+    if (this.activeBulletin && this.activeBulletin.getInternalId() == bulletin.getInternalId())
+      this.activeBulletin = undefined;
     this.mapService.deleteAggregatedRegion(bulletin);
     this.bulletinsService.deleteBulletin(bulletin);
     // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO

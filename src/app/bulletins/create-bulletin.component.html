@@ -18,13 +18,13 @@
                 <table class="table">
                   <tbody>
                     <div *ngFor="let bulletin of bulletinsService.getBulletins()">
-                      <tr *ngIf="bulletinsService.getActiveBulletin() && bulletinsService.getActiveBulletin().getInternalId() == bulletin.getInternalId()" class="table-info">
+                      <tr *ngIf="activeBulletin && activeBulletin.getInternalId() == bulletin.getInternalId()" class="table-info">
                         <td>Region {{ bulletin.getInternalId() }}</td>
                         <td>
                           <button type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(bulletin)"><i class="fa fa-trash"></i></button>
                         </td>
                       </tr>
-                      <tr *ngIf="!bulletinsService.getActiveBulletin() || bulletinsService.getActiveBulletin().getInternalId() != bulletin.getInternalId()" (click)="selectAggregatedRegion(bulletin)">
+                      <tr *ngIf="!activeBulletin || activeBulletin.getInternalId() != bulletin.getInternalId()" (click)="selectAggregatedRegion(bulletin)">
                         <td>Region {{ bulletin.getInternalId() }}</td>
                         <td>
                           <button type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(bulletin)"><i class="fa fa-trash"></i></button>
@@ -50,7 +50,7 @@
     </div>
   </div>
 
-  <div *ngIf="bulletinsService.getActiveBulletin()" class="row">
+  <div *ngIf="activeBulletin" class="row">
     <div class="col-md-6">
       <div class="card">
         <div class="card-header">
@@ -144,7 +144,7 @@
       </div>
     </div>
 
-    <div *ngIf="bulletinsService.getActiveBulletin()" class="col-md-6">
+    <div *ngIf="activeBulletin" class="col-md-6">
       <div class="card">
         <div class="card-header">
           <strong>{{ "bulletins.create.belowFormTitle" | translate }}</strong>

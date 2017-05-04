@@ -9,9 +9,6 @@ import * as Enums from '../../enums/enums';
 @Injectable()
 export class BulletinsService {
 
-  // The bulletin the user is currently working on in the detail view (problems, ...)
-  private activeBulletin: BulletinModel;
-
   // Bulletins the user is currently working on (different aggregated regions)
   private bulletins: BulletinModel[];
 
@@ -20,22 +17,18 @@ export class BulletinsService {
   constructor()
   {
     this.bulletins = new Array<BulletinModel>();
-    this.activeBulletin = undefined;
     this.count = 1;
   }
 
   reset() {
-    this.activeBulletin = undefined;
     this.bulletins = new Array<BulletinModel>();
     this.count = 1;
   }
 
-  addBulletin() {
-    let bulletin = new BulletinModel();
+  addBulletin(bulletin: BulletinModel) {
     bulletin.setInternalId(this.count);
     this.count++;
     this.bulletins.push(bulletin);
-    this.setActiveBulletin(bulletin);
   }
 
   addBulletins(date: Date) {
@@ -57,9 +50,6 @@ export class BulletinsService {
   }
 
   deleteBulletin(bulletin: BulletinModel) {
-    if (this.activeBulletin.getInternalId() == bulletin.getInternalId())
-      this.activeBulletin = undefined;
-    
     let index = -1;
     for (var i = this.bulletins.length - 1; i >= 0; i--) {
       if (this.bulletins[i].getInternalId() == bulletin.getInternalId()) {
@@ -129,13 +119,5 @@ export class BulletinsService {
     });
     console.log('MOCK: Bulletins saved!');
     return Observable.of(new Response(response));
-  }
-
-  getActiveBulletin() : BulletinModel {
-    return this.activeBulletin;
-  }
-
-  setActiveBulletin(bulletin: BulletinModel) {
-    this.activeBulletin = bulletin;
   }
 }
