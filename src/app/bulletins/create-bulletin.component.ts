@@ -23,6 +23,7 @@ export class CreateBulletinComponent {
     private bulletinsService: BulletinsService,
     private mapService: MapService)
   {
+    // TODO this does not work with active bulletin, should consider all bulletins
     this.bulletinEditable = true;
     if (this.bulletinsService.getActiveBulletin() != null && this.bulletinsService.getActiveBulletin() != undefined) {
       if (this.bulletinsService.getActiveBulletin().getStatus() == Enums.BulletinStatus.published || this.bulletinsService.getActiveBulletin().getStatus() == Enums.BulletinStatus.pending)
