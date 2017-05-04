@@ -60,6 +60,9 @@ export class BulletinsService {
   }
 
   deleteBulletin(bulletin: BulletinModel) {
+    if (this.activeBulletin.getInternalId() == bulletin.getInternalId())
+      this.activeBulletin = undefined;
+    
     let index = -1;
     for (var i = this.bulletins.length - 1; i >= 0; i--) {
       if (this.bulletins[i].getInternalId() == bulletin.getInternalId()) {

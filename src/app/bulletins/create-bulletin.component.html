@@ -34,21 +34,13 @@
                   </tbody>
                 </table>
               </div>
-
-<!--
-              <div *ngIf="editRegions" class="col-md-12">
-                <div *ngFor="let region of mapService.getRegions()" class="checkbox">
-                  <label for="checkbox1">
-                    <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">{{ region.feature.properties.name }}
-                  </label>
-                </div>
-              </div>
--->
             </div>
             <div class="col-md-9" style="height: 300px" id="map">
             </div>
           </div>
-          <form *ngIf="aggregatedRegionSelected" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+        </div>
+        <div class="card-block">
+          <form *ngIf="bulletinsService.getActiveBulletin()" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group row">
               <div class="col-md-12">
                 <label class="radio-inline" for="inline-radio1">
