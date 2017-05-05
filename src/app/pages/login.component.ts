@@ -8,19 +8,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent {
 
-  private authenticationService: AuthenticationService;
-  private username: String;
-  private password: String;
-  private returnUrl: String;
-  private loading: boolean;
+  public username: String;
+  public password: String;
+  public returnUrl: String;
+  public loading: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthenticationService,
-    public translateService: TranslateService)
+    private authenticationService: AuthenticationService,
+    private translateService: TranslateService)
   {
-    this.authenticationService = authService;
     this.loading = false;
   }
 

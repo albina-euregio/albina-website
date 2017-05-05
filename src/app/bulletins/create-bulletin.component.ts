@@ -19,16 +19,16 @@ export class CreateBulletinComponent {
   public altitude: boolean;
   public daytime: boolean;
 
-  private aspect: Enums.Aspect;
+  public aspect: Enums.Aspect;
 
-  private avalancheProblems: Enums.AvalancheProblem;
-  private avalancheProblemValues = Object.keys(Enums.AvalancheProblem).filter( e => typeof( e ) == "number" );  
+  public avalancheProblems: Enums.AvalancheProblem;
+  public avalancheProblemValues = Object.keys(Enums.AvalancheProblem).filter( e => typeof( e ) == "number" );  
   
   constructor(
   	private translate: TranslateService,
   	private route: ActivatedRoute,
     private router: Router,
-    private bulletinsService: BulletinsService,
+    public bulletinsService: BulletinsService,
     private mapService: MapService)
   {
     // TODO check if bulletins are editable (not published yet)

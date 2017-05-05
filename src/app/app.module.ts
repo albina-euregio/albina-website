@@ -11,6 +11,7 @@ import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
 import { AsideToggleDirective } from './shared/aside.directive';
+import { BreadcrumbsComponent } from './shared/breadcrumb.component';
 
 // Routing Module
 import { AppRoutingModule } from './app.routing';
@@ -58,6 +59,7 @@ export function createTranslateLoader(http: Http) {
     AppComponent,
     FullLayoutComponent,
     SimpleLayoutComponent,
+    BreadcrumbsComponent,
     NAV_DROPDOWN_DIRECTIVES,
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective,

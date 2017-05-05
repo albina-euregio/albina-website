@@ -11,8 +11,8 @@ import * as Enums from '../enums/enums';
 })
 export class NewsComponent {
 
-  private newsList: NewsModel[];
-  newsStatus = Enums.NewsStatus;
+  public newsList: NewsModel[];
+  public newsStatus = Enums.NewsStatus;
 
   constructor(
   	private translate: TranslateService,

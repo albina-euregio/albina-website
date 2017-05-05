@@ -10,9 +10,9 @@ import * as Enums from '../enums/enums';
 })
 export class BulletinsComponent {
 
-  private bulletinList: BulletinModel[];
-  private bulletinStatus = Enums.BulletinStatus;
-  private dates: Date[];
+  public bulletinList: BulletinModel[];
+  public bulletinStatus = Enums.BulletinStatus;
+  public dates: Date[];
 
   constructor(
   	private translate: TranslateService,
