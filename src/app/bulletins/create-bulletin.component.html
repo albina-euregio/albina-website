@@ -179,8 +179,29 @@
             <div class="form-group row">
               <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.labels.aspects" | translate }}</strong></label>
               <div class="col-md-9">
-                <label *ngFor="let aspect of aspects" class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" [(ngModel)]="activeBulletin.above.aspects">{{ aspect }}
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">N
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox2">
+                  <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="option2">NE
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox3">
+                  <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">E
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">SE
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">S
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">SW
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">W
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">NW
                 </label>
               </div>
             </div>
@@ -218,7 +239,6 @@
             </div>
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="email-input"><strong>{{ "bulletins.create.labels.avalancheProblem" | translate }}</strong></label>
-
               <div class="col-md-12">
                 <label class="radio-inline" for="inline-radio1">
                   <input type="radio" id="inline-radio1" name="inline-radios" value="1"> New snow
@@ -236,25 +256,33 @@
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5"> Gliding snow
                 </label>
               </div>
-<!--
-              <div class="col-md-12">
-                <div *ngFor="let problem of avalancheProblems">
-                  <label class="radio-inline" for="inline-radio1">                  
-                    <input type="radio"
-                           [(ngModel)]="activeBulletin.above.avalancheProblem"
-                           [checked]="activeBulletin.above.avalancheProblem==problem"
-                           [value]="problem" />
-                    {{AvalancheProblem[problem]}}<br>
-                  </label>
-                </div>
-              </div>
--->
             </div>
             <div class="form-group row">
               <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.labels.aspects" | translate }}</strong></label>
               <div class="col-md-9">
-                <label *ngFor="let aspect of aspects" class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" [(ngModel)]="activeBulletin.above.aspects">{{ aspect }}
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">N
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox2">
+                  <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="option2">NE
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox3">
+                  <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">E
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">SE
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">S
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">SW
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">W
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">NW
                 </label>
               </div>
             </div>
@@ -269,6 +297,77 @@
           <strong>{{ "bulletins.create.belowDetailFormTitle" | translate }}</strong>
         </div>
         <div class="card-block">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label" for="email-input"><strong>{{ "bulletins.create.labels.dangerRating" | translate }}</strong></label>
+              <div class="col-md-12">
+                <label class="radio-inline" for="inline-radio1">
+                  <input type="radio" id="inline-radio1" name="inline-radios" value="1"> low
+                </label>
+                <label class="radio-inline" for="inline-radio2">
+                  <input type="radio" id="inline-radio2" name="inline-radios" value="2"> moderate
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio3" name="inline-radios" value="3"> considerable
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio4" name="inline-radios" value="4"> high
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio5" name="inline-radios" value="5"> very high
+                </label>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label" for="email-input"><strong>{{ "bulletins.create.labels.avalancheProblem" | translate }}</strong></label>
+              <div class="col-md-12">
+                <label class="radio-inline" for="inline-radio1">
+                  <input type="radio" id="inline-radio1" name="inline-radios" value="1"> New snow
+                </label>
+                <label class="radio-inline" for="inline-radio2">
+                  <input type="radio" id="inline-radio2" name="inline-radios" value="2"> Wind-drifted snow
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio3" name="inline-radios" value="3"> Old snow
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio4" name="inline-radios" value="4"> Wet snow
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio5" name="inline-radios" value="5"> Gliding snow
+                </label>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.labels.aspects" | translate }}</strong></label>
+              <div class="col-md-9">
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">N
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox2">
+                  <input type="checkbox" id="inline-checkbox2" name="inline-checkbox2" value="option2">NE
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox3">
+                  <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">E
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">SE
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">S
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">SW
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">W
+                </label>
+                <label class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">NW
+                </label>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
