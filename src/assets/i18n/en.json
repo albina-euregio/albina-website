@@ -60,9 +60,10 @@
 		"create" : {
 			"button" : "Create",
 			"mapFormTitle" : "Bulletin Map",
-			"aboveFormTitle" : "Above",
-			"belowFormTitle" : "Below",
 			"generalFormTitle" : "General",
+			"detailFromTitle" : "Detail",
+			"aboveDetailFormTitle" : "Above",
+			"belowDetailFormTitle" : "Below",
 			"save" : "Save",
 			"discard" : "Discard",
 			"back" : "Back",
@@ -71,8 +72,8 @@
 			"discardAggregatedRegion" : "Discard",
 			"deleteAggregatedRegion" : "Delete",
 			"labels" : {
-				"avalancheSituationComment" : "Description",
-				"avalancheSituationHighlight" : "Title",
+				"avalancheSituationHighlight" : "Avalanche Situation Highlight",
+				"avalancheSituationComment" : "Avalanche Situation Comment",
 				"avalancheProblem" : "Avalanche Problem",
 				"dangerRating" : "Danger Rating",
 				"aspects" : "Aspects",
