@@ -1,4 +1,5 @@
 <div class="animated fadeIn">
+
   <div class="row">
     <div class="col-md-12">
       <div class="card">
@@ -79,10 +80,45 @@
 -->
 
   <div *ngIf="activeBulletin" class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <strong>{{ "bulletins.create.aboveFormTitle" | translate }}</strong>
+          <strong>{{ "bulletins.create.generalFormTitle" | translate }}</strong>
+        </div>
+        <div class="card-block">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.labels.avalancheSituationHighlight" | translate }}</strong></label>
+              <div class="col-md-12">
+                <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Text">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.labels.avalancheSituationComment" | translate }}</strong></label>
+              <div class="col-md-12">
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Content.."></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label"><strong>Altitude</strong></label>
+              <div class="col-md-9">
+                <label class="radio-inline" for="inline-radio1">
+                  <input [(ngModel)]="altitude" type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="activeBulletin" class="row">
+ 
+    <div *ngIf="!altitude" class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ "bulletins.create.detailFormTitle" | translate }}</strong>
         </div>
         <div class="card-block">
           <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
@@ -110,6 +146,24 @@
               <label class="col-md-12 form-control-label" for="email-input"><strong>{{ "bulletins.create.labels.avalancheProblem" | translate }}</strong></label>
 
               <div class="col-md-12">
+                <label class="radio-inline" for="inline-radio1">
+                  <input type="radio" id="inline-radio1" name="inline-radios" value="1"> New snow
+                </label>
+                <label class="radio-inline" for="inline-radio2">
+                  <input type="radio" id="inline-radio2" name="inline-radios" value="2"> Wind-drifted snow
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio3" name="inline-radios" value="3"> Old snow
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio4" name="inline-radios" value="4"> Wet snow
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio5" name="inline-radios" value="5"> Gliding snow
+                </label>
+              </div>
+<!--
+              <div class="col-md-12">
                 <div *ngFor="let problem of avalancheProblems">
                   <label class="radio-inline" for="inline-radio1">                  
                     <input type="radio"
@@ -120,6 +174,7 @@
                   </label>
                 </div>
               </div>
+-->
             </div>
             <div class="form-group row">
               <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.labels.aspects" | translate }}</strong></label>
@@ -129,16 +184,78 @@
                 </label>
               </div>
             </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="altitude" class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ "bulletins.create.aboveDetailFormTitle" | translate }}</strong>
+        </div>
+        <div class="card-block">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
             <div class="form-group row">
-              <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.labels.avalancheSituationHighlight" | translate }}</strong></label>
+              <label class="col-md-12 form-control-label" for="email-input"><strong>{{ "bulletins.create.labels.dangerRating" | translate }}</strong></label>
               <div class="col-md-12">
-                <input type="text" id="text-input" name="text-input" class="form-control" placeholder="Text">
+                <label class="radio-inline" for="inline-radio1">
+                  <input type="radio" id="inline-radio1" name="inline-radios" value="1"> low
+                </label>
+                <label class="radio-inline" for="inline-radio2">
+                  <input type="radio" id="inline-radio2" name="inline-radios" value="2"> moderate
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio3" name="inline-radios" value="3"> considerable
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio4" name="inline-radios" value="4"> high
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio5" name="inline-radios" value="5"> very high
+                </label>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.labels.avalancheSituationComment" | translate }}</strong></label>
+              <label class="col-md-12 form-control-label" for="email-input"><strong>{{ "bulletins.create.labels.avalancheProblem" | translate }}</strong></label>
+
               <div class="col-md-12">
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" placeholder="Content.."></textarea>
+                <label class="radio-inline" for="inline-radio1">
+                  <input type="radio" id="inline-radio1" name="inline-radios" value="1"> New snow
+                </label>
+                <label class="radio-inline" for="inline-radio2">
+                  <input type="radio" id="inline-radio2" name="inline-radios" value="2"> Wind-drifted snow
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio3" name="inline-radios" value="3"> Old snow
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio4" name="inline-radios" value="4"> Wet snow
+                </label>
+                <label class="radio-inline" for="inline-radio3">
+                  <input type="radio" id="inline-radio5" name="inline-radios" value="5"> Gliding snow
+                </label>
+              </div>
+<!--
+              <div class="col-md-12">
+                <div *ngFor="let problem of avalancheProblems">
+                  <label class="radio-inline" for="inline-radio1">                  
+                    <input type="radio"
+                           [(ngModel)]="activeBulletin.above.avalancheProblem"
+                           [checked]="activeBulletin.above.avalancheProblem==problem"
+                           [value]="problem" />
+                    {{AvalancheProblem[problem]}}<br>
+                  </label>
+                </div>
+              </div>
+-->
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.labels.aspects" | translate }}</strong></label>
+              <div class="col-md-9">
+                <label *ngFor="let aspect of aspects" class="checkbox-inline" for="inline-checkbox1">
+                  <input type="checkbox" [(ngModel)]="activeBulletin.above.aspects">{{ aspect }}
+                </label>
               </div>
             </div>
           </form>
@@ -146,10 +263,10 @@
       </div>
     </div>
 
-    <div *ngIf="activeBulletin" class="col-md-6">
+    <div *ngIf="altitude" class="col-md-6">
       <div class="card">
         <div class="card-header">
-          <strong>{{ "bulletins.create.belowFormTitle" | translate }}</strong>
+          <strong>{{ "bulletins.create.belowDetailFormTitle" | translate }}</strong>
         </div>
         <div class="card-block">
         </div>
