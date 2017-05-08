@@ -17,8 +17,13 @@
 		"it" : " Italienisch",
 		"settings" : "Einstellungen"
 	},
+	"chat" : {
+		"placeholder" : "Schreib hier ...",
+		"send" : "Senden"
+	},
 	"news" : {
 		"create" : {
+			"button" : "Neu",
 			"formTitle" : "Neue Nachricht",
 			"title" : "Titel",
 			"it" : {
@@ -39,7 +44,6 @@
 			"back" : "Zurück"
 		},
 		"title" : "Nachrichten",
-		"create" : "Neu",
 		"table" : {
 			"date" : "Datum",
 			"title" : "Titel",
@@ -65,6 +69,7 @@
 			"saveAggregatedRegion" : "Speichern",
 			"discardAggregatedRegion" : "Verwerfen",
 			"deleteAggregatedRegion" : "Löschen",
+			"regionName" : "Region ",
 			"label" : {
 				"avalancheSituationHighlight" : "Schlagzeile Gefahrensituation",
 				"avalancheSituationComment" : "Beurteilung der Lawinengefahr",

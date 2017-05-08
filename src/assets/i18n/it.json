@@ -17,8 +17,13 @@
 		"it" : " Italiano",
 		"settings" : "Impostazioni"
 	},
+	"chat" : {
+		"placeholder" : "Scrivi ...",
+		"send" : "Inviare"
+	},
 	"news" : {
 		"create" : {
+			"button" : "Crea",
 			"formTitle" : "Crea News",
 			"title" : "Titolo",
 			"it" : {
@@ -39,7 +44,6 @@
 			"back" : "Indietro"
 		},
 		"title" : "News",
-		"create" : "Crea",
 		"table" : {
 			"date" : "Data",
 			"title" : "Titolo",
@@ -65,6 +69,7 @@
 			"saveAggregatedRegion" : "Salve",
 			"discardAggregatedRegion" : "Scarta",
 			"deleteAggregatedRegion" : "Cancella",
+			"regionName" : "Regione ",
 			"label" : {
 				"avalancheSituationHighlight" : "Titolo situazione pericolo valanghe",
 				"avalancheSituationComment" : "Testo di discrezione pericolo valanghe",

@@ -17,8 +17,13 @@
 		"it" : " Italien",
 		"settings" : "Settings"
 	},
+	"chat" : {
+		"placeholder" : "Write here ...",
+		"send" : "Send"
+	},
 	"news" : {
 		"create" : {
+			"button" : "Create",
 			"formTitle" : "Create News",
 			"title" : "Title",
 			"it" : {
@@ -39,7 +44,6 @@
 			"back" : "Back"
 		},
 		"title" : "News",
-		"create" : "Create",
 		"table" : {
 			"date" : "Date",
 			"title" : "Title",
@@ -65,6 +69,7 @@
 			"saveAggregatedRegion" : "Save",
 			"discardAggregatedRegion" : "Discard",
 			"deleteAggregatedRegion" : "Delete",
+			"regionName" : "Region ",
 			"label" : {
 				"avalancheSituationHighlight" : "Headline avalanche situation",
 				"avalancheSituationComment" : "Description of avalanche danger",
