@@ -16,7 +16,7 @@ export class CreateBulletinComponent {
 
   public bulletinEditable: boolean;
   public activeBulletin: BulletinModel;
-  public altitude: boolean;
+  public elevation: boolean;
   public daytime: boolean;
 
   public aspect: Enums.Aspect;
@@ -35,7 +35,7 @@ export class CreateBulletinComponent {
     this.bulletinEditable = true;
 
     this.daytime = false;
-    this.altitude = false;
+    this.elevation = false;
   }
 
   ngOnInit() {

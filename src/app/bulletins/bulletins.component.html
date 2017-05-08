@@ -24,7 +24,7 @@
                   <span class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                 </td>
                 <td *ngIf="getStatusTrentino(date) == bulletinStatus.published">
-                  <span class="badge badge-default">{{ "bulletins.table.status.published" | translate }}</span>
+                  <span class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
                 </td>
                 <td *ngIf="getStatusTrentino(date) == bulletinStatus.pending">
                   <span class="badge badge-default">{{ "bulletins.table.status.pending" | translate }}</span>
