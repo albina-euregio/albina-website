@@ -59,11 +59,6 @@
 		"title" : "Bulletins",
 		"create" : {
 			"button" : "Create",
-			"mapFormTitle" : "Bulletin Map",
-			"generalFormTitle" : "General",
-			"detailFormTitle" : "Detail",
-			"aboveDetailFormTitle" : "Above",
-			"belowDetailFormTitle" : "Below",
 			"save" : "Save",
 			"discard" : "Discard",
 			"back" : "Back",
@@ -79,6 +74,19 @@
 				"aspects" : "Aspects",
 				"elevation" : "Elevation",
 				"daytime" : "Daytime"
+			},
+			"title" : {
+				"map" : "Map",
+				"general" : "General",
+				"detail" : "Details",
+				"above" : "Details - above",
+				"below" : "Details - below",
+				"forenoon" : "Details - forenoon",
+				"afternoon" : "Details - afternoon",
+				"forenoonAbove" : "Details - forenoon, above",
+				"afternoonAbove" : "Details - afternoon, above",
+				"forenoonBelow" : "Details - forenoon, below",
+				"afternoonBelow" : "Details - afternoon below"
 			}
 		},
 		"table" : {
