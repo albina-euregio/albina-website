@@ -1,3 +1,137 @@
 {
-	"undefined" : "---"
+	"undefined" : "---",
+	"login" : {
+		"title" : "Login",
+		"text" : "Sign In to your account",
+		"button" : "Login"
+	},
+	"sidebar" : {
+		"bulletins" : "Bulletins",
+		"news" : "News"
+	},
+	"menu" : {
+		"logout" : "Logout",
+		"language" : "Language",
+		"en" : " English",
+		"de" : " German",
+		"it" : " Italien",
+		"settings" : "Settings"
+	},
+	"news" : {
+		"create" : {
+			"formTitle" : "Create News",
+			"title" : "Title",
+			"it" : {
+				"title" : "Title (Italien)",
+				"content" : "Text (Italien)"
+			},
+			"de" : {
+				"title" : "Title (German)",
+				"content" : "Text (German)"
+			},
+			"en" : {
+				"title" : "Title (English)",
+				"content" : "Text (English)"
+			},
+			"image" : "Image",
+			"save" : "Save",
+			"discard" : "Discard",
+			"back" : "Back"
+		},
+		"title" : "News",
+		"create" : "Create",
+		"table" : {
+			"date" : "Date",
+			"title" : "Title",
+			"edit" : "Edit",
+			"show" : "Show",
+			"status" : {
+				"title" : "Status",
+				"published" : "published",
+				"pending" : "pending",
+				"complete" : "complete",
+				"incomplete" : "incomplete"
+			}
+		}		
+	},
+	"bulletins" : {
+		"title" : "Bulletins",
+		"create" : {
+			"button" : "Create",
+			"save" : "Save",
+			"discard" : "Discard",
+			"back" : "Back",
+			"createAggregatedRegion" : "New region",
+			"saveAggregatedRegion" : "Save",
+			"discardAggregatedRegion" : "Discard",
+			"deleteAggregatedRegion" : "Delete",
+			"label" : {
+				"avalancheSituationHighlight" : "Avalanche Situation Highlight",
+				"avalancheSituationComment" : "Avalanche Situation Comment",
+				"avalancheProblem" : "Avalanche Problem",
+				"dangerRating" : "Danger Rating",
+				"aspects" : "Aspects",
+				"elevation" : "Elevation",
+				"daytime" : "Daytime"
+			},
+			"title" : {
+				"map" : "Map",
+				"general" : "General",
+				"detail" : "Details",
+				"above" : "Details - above",
+				"below" : "Details - below",
+				"forenoon" : "Details - forenoon",
+				"afternoon" : "Details - afternoon",
+				"forenoonAbove" : "Details - forenoon, above",
+				"afternoonAbove" : "Details - afternoon, above",
+				"forenoonBelow" : "Details - forenoon, below",
+				"afternoonBelow" : "Details - afternoon, below"
+			}
+		},
+		"table" : {
+			"title" : {
+				"date" : "Date",
+				"status" : {
+					"trentino" : "Trentino",
+					"southTyrol" : "South Tyrol",
+					"tyrol" : "Tyrol"
+				}
+			},
+			"status" : {
+				"complete" : "complete",
+				"incomplete" : "incomplete",
+				"missing" : "missing",
+				"pending" : "pending",
+				"published" : "published"
+			},
+			"edit" : "Edit",
+			"show" : "Show"
+		}
+	},
+
+	"dangerRating" : {
+		"low" : "low",
+		"moderate" : "moderate",
+		"considerable" : "considerable",
+		"high" : "high",
+		"veryHigh" : "very high"
+	},
+	"avalancheProblem" : {
+		"newSnow" : "New snow",
+		"windDriftedSnow" : "Wind-drifted snow",
+		"oldSnow" : "Old snow",
+		"wetSnow" : "Wet snow",
+		"glidingSnow" : "Gliding snow"
+	},
+	"aspect" : {
+		"N" : "N",
+		"NE" : "NE",
+		"E" : "E",
+		"SE" : "SE",
+		"S" : "S",
+		"SW" : "SW",
+		"W" : "W",
+		"NW" : "NW"
+	}
+
 }

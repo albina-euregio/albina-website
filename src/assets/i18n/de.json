@@ -2,24 +2,136 @@
 	"undefined" : "---",
 	"login" : {
 		"title" : "Login",
-		"text" : "Log dich mit deinem Account ein",
-		"button" : "Einloggen"
+		"text" : "Melde dich mit deinem Account an",
+		"button" : "Login"
 	},
 	"sidebar" : {
 		"bulletins" : "Lageberichte",
-		"createBulletin" : "Neuer Lagebericht",
-		"news" : "News",
-		"createNews" : "Neue News"
+		"news" : "News"
 	},
 	"menu" : {
-		"logout" : "Ausloggen",
+		"logout" : "Logout",
 		"language" : "Sprache",
 		"en" : " Englisch",
 		"de" : " Deutsch",
 		"it" : " Italienisch",
 		"settings" : "Einstellungen"
 	},
+	"news" : {
+		"create" : {
+			"formTitle" : "Neue Nachricht",
+			"title" : "Titel",
+			"it" : {
+				"title" : "Titel (Italienisch)",
+				"content" : "Text (Italienisch)"
+			},
+			"de" : {
+				"title" : "Titel (Deutsch)",
+				"content" : "Text (Deutsch)"
+			},
+			"en" : {
+				"title" : "Titel (Englisch)",
+				"content" : "Text (Englisch)"
+			},
+			"image" : "Bild",
+			"save" : "Speichern",
+			"discard" : "Verwerfen",
+			"back" : "Zurück"
+		},
+		"title" : "Nachrichten",
+		"create" : "Neu",
+		"table" : {
+			"date" : "Datum",
+			"title" : "Titel",
+			"edit" : "Bearbeiten",
+			"show" : "Anzeigen",
+			"status" : {
+				"title" : "Status",
+				"published" : "publiziert",
+				"pending" : "in Verarbeitung",
+				"complete" : "vollständig",
+				"incomplete" : "unvollständig"
+			}
+		}		
+	},
 	"bulletins" : {
-		"title" : "Lageberichte"
+		"title" : "Lageberichte",
+		"create" : {
+			"button" : "Neu",
+			"save" : "Speichern",
+			"discard" : "Verwerfen",
+			"back" : "Zurück",
+			"createAggregatedRegion" : "Neue Region",
+			"saveAggregatedRegion" : "Speichern",
+			"discardAggregatedRegion" : "Verwerfen",
+			"deleteAggregatedRegion" : "Löschen",
+			"label" : {
+				"avalancheSituationHighlight" : "Avalanche Situation Highlight",
+				"avalancheSituationComment" : "Avalanche Situation Comment",
+				"avalancheProblem" : "Avalanche Problem",
+				"dangerRating" : "Gefahrenstufe",
+				"aspects" : "Exposition",
+				"elevation" : "Höhenabhängigkeit",
+				"daytime" : "Tageszeitliche Abhängigkeit"
+			},
+			"title" : {
+				"map" : "Karte",
+				"general" : "Allgemein",
+				"detail" : "Details",
+				"above" : "Details - oben",
+				"below" : "Details - unten",
+				"forenoon" : "Details - Vormittag",
+				"afternoon" : "Details - Nachmittag",
+				"forenoonAbove" : "Details - Vormittag, oben",
+				"afternoonAbove" : "Details - Nachmittag, oben",
+				"forenoonBelow" : "Details - Vormittag, unten",
+				"afternoonBelow" : "Details - Nachmittag, unten"
+			}
+		},
+		"table" : {
+			"title" : {
+				"date" : "Datum",
+				"status" : {
+					"trentino" : "Trentino",
+					"southTyrol" : "Südtirol",
+					"tyrol" : "Tirol"
+				}
+			},
+			"status" : {
+				"complete" : "vollständig",
+				"incomplete" : "unvollständig",
+				"missing" : "fehlt",
+				"pending" : "in Verarbeitung",
+				"published" : "publiziert"
+			},
+			"edit" : "Bearbeiten",
+			"show" : "Anzeigen"
+		}
+	},
+
+	"dangerRating" : {
+		"low" : "gering",
+		"moderate" : "mäßig",
+		"considerable" : "erheblich",
+		"high" : "groß",
+		"veryHigh" : "sehr groß"
+	},
+	"avalancheProblem" : {
+		"newSnow" : "Neuschnee",
+		"windDriftedSnow" : "Triebschnee",
+		"oldSnow" : "Altschnee",
+		"wetSnow" : "Nassschnee",
+		"glidingSnow" : "Gleitschnee"
+	},
+	"aspect" : {
+		"N" : "N",
+		"NE" : "NO",
+		"E" : "O",
+		"SE" : "SO",
+		"S" : "S",
+		"SW" : "SW",
+		"W" : "W",
+		"NW" : "NW"
 	}
+
 }

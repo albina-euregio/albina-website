@@ -7,8 +7,7 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bulletins",
-		"news" : "News",
-		"createNews" : "New News"
+		"news" : "News"
 	},
 	"menu" : {
 		"logout" : "Logout",
@@ -86,7 +85,7 @@
 				"forenoonAbove" : "Details - forenoon, above",
 				"afternoonAbove" : "Details - afternoon, above",
 				"forenoonBelow" : "Details - forenoon, below",
-				"afternoonBelow" : "Details - afternoon below"
+				"afternoonBelow" : "Details - afternoon, below"
 			}
 		},
 		"table" : {
