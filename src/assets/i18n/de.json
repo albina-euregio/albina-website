@@ -66,9 +66,9 @@
 			"discardAggregatedRegion" : "Verwerfen",
 			"deleteAggregatedRegion" : "Löschen",
 			"label" : {
-				"avalancheSituationHighlight" : "Avalanche Situation Highlight",
-				"avalancheSituationComment" : "Avalanche Situation Comment",
-				"avalancheProblem" : "Avalanche Problem",
+				"avalancheSituationHighlight" : "Schlagzeile Gefahrensituation",
+				"avalancheSituationComment" : "Beurteilung der Lawinengefahr",
+				"avalancheProblem" : "Lawinenproblem",
 				"dangerRating" : "Gefahrenstufe",
 				"aspects" : "Exposition",
 				"elevation" : "Höhenabhängigkeit",

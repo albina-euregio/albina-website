@@ -66,8 +66,8 @@
 			"discardAggregatedRegion" : "Discard",
 			"deleteAggregatedRegion" : "Delete",
 			"label" : {
-				"avalancheSituationHighlight" : "Avalanche Situation Highlight",
-				"avalancheSituationComment" : "Avalanche Situation Comment",
+				"avalancheSituationHighlight" : "Headline avalanche situation",
+				"avalancheSituationComment" : "Description of avalanche danger",
 				"avalancheProblem" : "Avalanche Problem",
 				"dangerRating" : "Danger Rating",
 				"aspects" : "Aspects",

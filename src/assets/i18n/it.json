@@ -2,126 +2,126 @@
 	"undefined" : "---",
 	"login" : {
 		"title" : "Login",
-		"text" : "Sign In to your account",
+		"text" : "Accedi al tuo account",
 		"button" : "Login"
 	},
 	"sidebar" : {
-		"bulletins" : "Bulletins",
+		"bulletins" : "Bollettino",
 		"news" : "News"
 	},
 	"menu" : {
 		"logout" : "Logout",
-		"language" : "Language",
-		"en" : " English",
-		"de" : " German",
-		"it" : " Italien",
-		"settings" : "Settings"
+		"language" : "Lingua",
+		"en" : " Inghlese",
+		"de" : " Tedesco",
+		"it" : " Italiano",
+		"settings" : "Impostazioni"
 	},
 	"news" : {
 		"create" : {
-			"formTitle" : "Create News",
-			"title" : "Title",
+			"formTitle" : "Crea News",
+			"title" : "Titolo",
 			"it" : {
-				"title" : "Title (Italien)",
-				"content" : "Text (Italien)"
+				"title" : "Titolo (Italiano)",
+				"content" : "Testo (Italiano)"
 			},
 			"de" : {
-				"title" : "Title (German)",
-				"content" : "Text (German)"
+				"title" : "Titolo (Tedesco)",
+				"content" : "Testo (Tedesco)"
 			},
 			"en" : {
-				"title" : "Title (English)",
-				"content" : "Text (English)"
+				"title" : "Titolo (Inghlese)",
+				"content" : "Testo (Inghlese)"
 			},
-			"image" : "Image",
-			"save" : "Save",
-			"discard" : "Discard",
-			"back" : "Back"
+			"image" : "Imagine",
+			"save" : "Salve",
+			"discard" : "Scarta",
+			"back" : "Indietro"
 		},
 		"title" : "News",
-		"create" : "Create",
+		"create" : "Crea",
 		"table" : {
-			"date" : "Date",
-			"title" : "Title",
-			"edit" : "Edit",
-			"show" : "Show",
+			"date" : "Data",
+			"title" : "Titolo",
+			"edit" : "Modifica",
+			"show" : "Mostra",
 			"status" : {
-				"title" : "Status",
-				"published" : "published",
-				"pending" : "pending",
-				"complete" : "complete",
-				"incomplete" : "incomplete"
+				"title" : "Stato",
+				"published" : "pubblicato",
+				"pending" : "pendente",
+				"complete" : "completato",
+				"incomplete" : "incompletato"
 			}
 		}		
 	},
 	"bulletins" : {
-		"title" : "Bulletins",
+		"title" : "Bollettini",
 		"create" : {
-			"button" : "Create",
-			"save" : "Save",
-			"discard" : "Discard",
-			"back" : "Back",
-			"createAggregatedRegion" : "New region",
-			"saveAggregatedRegion" : "Save",
-			"discardAggregatedRegion" : "Discard",
-			"deleteAggregatedRegion" : "Delete",
+			"button" : "Creato",
+			"save" : "Salva",
+			"discard" : "Scarta",
+			"back" : "Indietro",
+			"createAggregatedRegion" : "Nuova regione",
+			"saveAggregatedRegion" : "Salve",
+			"discardAggregatedRegion" : "Scarta",
+			"deleteAggregatedRegion" : "Cancella",
 			"label" : {
-				"avalancheSituationHighlight" : "Avalanche Situation Highlight",
-				"avalancheSituationComment" : "Avalanche Situation Comment",
-				"avalancheProblem" : "Avalanche Problem",
-				"dangerRating" : "Danger Rating",
-				"aspects" : "Aspects",
-				"elevation" : "Elevation",
-				"daytime" : "Daytime"
+				"avalancheSituationHighlight" : "Titolo situazione pericolo valanghe",
+				"avalancheSituationComment" : "Testo di discrezione pericolo valanghe",
+				"avalancheProblem" : "Problemi tipici valanghivi",
+				"dangerRating" : "Grado del pericolo valanghe",
+				"aspects" : "Versanti",
+				"elevation" : "Altezza",
+				"daytime" : "Mattina/pomeriggio"
 			},
 			"title" : {
-				"map" : "Map",
-				"general" : "General",
-				"detail" : "Details",
-				"above" : "Details - above",
-				"below" : "Details - below",
-				"forenoon" : "Details - forenoon",
-				"afternoon" : "Details - afternoon",
-				"forenoonAbove" : "Details - forenoon, above",
-				"afternoonAbove" : "Details - afternoon, above",
-				"forenoonBelow" : "Details - forenoon, below",
-				"afternoonBelow" : "Details - afternoon, below"
+				"map" : "Mappa",
+				"general" : "In generale",
+				"detail" : "Dettagli",
+				"above" : "Dettagli - al disopra",
+				"below" : "Dettagli - al disotto",
+				"forenoon" : "Dettagli - mattina",
+				"afternoon" : "Dettagli - pomeriggio",
+				"forenoonAbove" : "Dettagli - mattina, al disopra",
+				"afternoonAbove" : "Dettagli - pomeriggio, al disopra",
+				"forenoonBelow" : "Dettagli - mattina, al disotto",
+				"afternoonBelow" : "Dettagli - pomeriggio, al disotto"
 			}
 		},
 		"table" : {
 			"title" : {
-				"date" : "Date",
+				"date" : "Data",
 				"status" : {
 					"trentino" : "Trentino",
-					"southTyrol" : "South Tyrol",
-					"tyrol" : "Tyrol"
+					"southTyrol" : "Alto adige",
+					"tyrol" : "Tirolo"
 				}
 			},
 			"status" : {
-				"complete" : "complete",
-				"incomplete" : "incomplete",
-				"missing" : "missing",
-				"pending" : "pending",
-				"published" : "published"
+				"complete" : "completato",
+				"incomplete" : "incompletato",
+				"missing" : "manca",
+				"pending" : "pendente",
+				"published" : "pubblicato"
 			},
-			"edit" : "Edit",
-			"show" : "Show"
+			"edit" : "Modifica",
+			"show" : "Mostra"
 		}
 	},
 
 	"dangerRating" : {
-		"low" : "low",
-		"moderate" : "moderate",
-		"considerable" : "considerable",
-		"high" : "high",
-		"veryHigh" : "very high"
+		"low" : "debole",
+		"moderate" : "moderato",
+		"considerable" : "marcato",
+		"high" : "forte",
+		"veryHigh" : "molto forte"
 	},
 	"avalancheProblem" : {
-		"newSnow" : "New snow",
-		"windDriftedSnow" : "Wind-drifted snow",
-		"oldSnow" : "Old snow",
-		"wetSnow" : "Wet snow",
-		"glidingSnow" : "Gliding snow"
+		"newSnow" : "Neve fresca",
+		"windDriftedSnow" : "Neve vendata",
+		"oldSnow" : "Strati deboli persistenti",
+		"wetSnow" : "Neve bagnata",
+		"glidingSnow" : "Valanghe di slittamento"
 	},
 	"aspect" : {
 		"N" : "N",
@@ -129,9 +129,9 @@
 		"E" : "E",
 		"SE" : "SE",
 		"S" : "S",
-		"SW" : "SW",
-		"W" : "W",
-		"NW" : "NW"
+		"SW" : "SO",
+		"W" : "O",
+		"NW" : "NO"
 	}
 
 }
