@@ -64,8 +64,8 @@
   <aside class="aside-menu">
     <div class="p-1">
       <div class="message">
-        <input type="text" class="form-control" id="chatMessage" placeholder="Write here ..." [(ngModel)]="message" (click)="focusChat($event)">
-        <button type="button" class="btn btn-primary btn-sm" (click)="sendChatMessage()">Send</button>
+        <input type="text" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event)">
+        <button type="button" class="btn btn-primary btn-sm" (click)="sendChatMessage()">{{ "chat.send" | translate}}</button>
         <hr>
       </div>
       <div *ngFor="let chatMessage of chatService.chatMessages">
