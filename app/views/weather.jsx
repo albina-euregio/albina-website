@@ -15,9 +15,10 @@ export default class Weather extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
-        <SubNavigation sublinks={this._sublinks()}/>
+        <SubNavigation sublinks={this._sublinks()} viewPath="/weather/" />
         <h1 className="title">WEATHER</h1>
       </div>
     );

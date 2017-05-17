@@ -17,7 +17,7 @@ export default class PageHeadingNavigation extends React.Component {
     return (
       <div className="pagenavigation tabs is-centered is-boxed">
         <ul>
-          <li className={this._linkStyle('/', false)}><Link to="/">News</Link></li>
+          <li className={this._linkStyle('/news', false)}><Link to="/news">News</Link></li>
           <li className={this._linkStyle('/weather', true)}><Link to="/weather">Weather</Link></li>
           <li className={this._linkStyle('/info', true)}><Link to="/info">Info</Link></li>
         </ul>

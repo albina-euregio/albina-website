@@ -6,23 +6,23 @@ export default class SubNavigation extends React.Component {
     super(props);
   }
 
-  _linkStyle(path, allowedChildPaths) {
-    if (allowedChildPaths) {
-      return location.pathname.indexOf(path) > -1 ? 'is-active' : '';
-    }
-    return location.pathname === path ? 'is-active' : '';
+  _linkStyle(sectionPath) {
+    console.log(sectionPath);
+    console.log(location.pathname);
+    console.log(location.pathname);
+    console.log(location.pathname.indexOf(sectionPath));
+    return location.pathname.indexOf(sectionPath) > -1 ? 'is-active' : '';
   }
 
   _renderItem(sublink, key) {
     return (
-        <li key={key}>
-            <Link to={sublink.url}>{sublink.label}</Link>
+        <li key={key} className={this._linkStyle(sublink.url)} >
+            <Link to={this.props.viewPath + sublink.url}>{sublink.label}</Link>
         </li>
     )
   }
 
   render() {
-    console.log(this.props.sublinks);
     return (
       <div className="subnavigation tabs">
         <ul>

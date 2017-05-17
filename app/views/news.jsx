@@ -16,7 +16,7 @@ export default class News extends React.Component {
   render() {
     return (
       <div>
-        <SubNavigation sublinks={this._sublinks()}/>
+        <SubNavigation sublinks={this._sublinks()} viewPath="/news/" />
         <h1 className="title">NEWS</h1>
       </div>
     );

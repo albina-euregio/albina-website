@@ -7,9 +7,16 @@ export default class PageFooterWrapper extends React.Component {
 
   render() {
     return (
-      <div className="pagefooter" >
-        FOOTER
-      </div>
+      <footer  className="pagefooter footer" >
+        <div className="content has-text-centered">
+          <div>
+            <h1 className="title" >ALBINA</h1>
+          </div>
+          <div>
+            <h2 className="subtitle" >FOOTER</h2>
+          </div>
+        </div>
+      </footer >
     );
   }
 }

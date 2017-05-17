@@ -17,7 +17,7 @@ export default class Info extends React.Component {
   render() {
     return (
       <div>
-        <SubNavigation sublinks={this._sublinks()}/>
+        <SubNavigation sublinks={this._sublinks()} viewPath="/info/" />
         <h1 className="title">INFO</h1>
       </div>
     );
