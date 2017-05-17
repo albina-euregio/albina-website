@@ -1,0 +1,11 @@
+h1{
+  color: red;
+}
+
+.title:not(:last-child), .subtitle:not(:last-child) {
+    margin-bottom: 0;
+}
+
+.pagenavigation {
+  background-color: black;
+}
