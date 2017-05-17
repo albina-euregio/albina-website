@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserHistory } from 'react-router';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 
 import News from '../views/news';
@@ -59,11 +60,11 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <Router>
+      <BrowserRouter>
         {
           renderRoutes(this.routes())
         }
-      </Router>
+      </BrowserRouter>
     );
   }
 }

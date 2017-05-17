@@ -6,20 +6,17 @@ export default class PageHeadingNavigation extends React.Component {
     super(props);
   }
 
-  _linkStyle(path, allowedChildPaths) {
-    if (allowedChildPaths) {
-      return location.pathname.indexOf(path) > -1 ? 'column is-active' : 'column';
-    }
-    return location.pathname === path ? 'column is-active' : 'column';
+  _linkStyle(path) {
+    return location.pathname.indexOf(path) > -1 ? 'column is-active' : 'column';
   }
 
   render() {
     return (
       <div className="pagenavigation tabs is-centered is-boxed">
         <ul>
-          <li className={this._linkStyle('/news', false)}><Link to="/news">News</Link></li>
-          <li className={this._linkStyle('/weather', true)}><Link to="/weather">Weather</Link></li>
-          <li className={this._linkStyle('/info', true)}><Link to="/info">Info</Link></li>
+          <li className={this._linkStyle('/news')}><Link to="/news">News</Link></li>
+          <li className={this._linkStyle('/weather')}><Link to="/weather">Weather</Link></li>
+          <li className={this._linkStyle('/info')}><Link to="/info">Info</Link></li>
         </ul>
       </div>
     );

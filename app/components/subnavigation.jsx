@@ -7,10 +7,6 @@ export default class SubNavigation extends React.Component {
   }
 
   _linkStyle(sectionPath) {
-    console.log(sectionPath);
-    console.log(location.pathname);
-    console.log(location.pathname);
-    console.log(location.pathname.indexOf(sectionPath));
     return location.pathname.indexOf(sectionPath) > -1 ? 'is-active' : '';
   }
 
