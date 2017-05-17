@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 export default class PageNavigation extends React.Component {
   constructor(props) {
@@ -8,10 +8,9 @@ export default class PageNavigation extends React.Component {
 
   _linkStyle(path, allowedChildPaths) {
     if (allowedChildPaths) {
-        return location.pathname.indexOf(path) > -1 ? 'title column is-active' : 'title column';
-    } else {
-        return location.pathname === path ? 'title column is-active' : 'title column';
+      return location.pathname.indexOf(path) > -1 ? 'title column is-active' : 'title column';
     }
+    return location.pathname === path ? 'title column is-active' : 'title column';
   }
 
   render() {

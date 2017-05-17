@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import News from './news';
 import Weather from './weather';
@@ -22,16 +22,16 @@ export default class App extends React.Component {
   render() {
     console.log('router renders');
     return (
-        <Router>
-          <div>
-            <PageNavigation />
-            <div className="content-wrapper section">
-              <Route exact path="/" component={News}/>
-              <Route exact path="/weather" component={Weather}/>
-              <Route exact path="/info" component={Info}/>
-            </div>
+      <Router>
+        <div>
+          <PageNavigation />
+          <div className="content-wrapper section">
+            <Route exact path="/" component={News} />
+            <Route exact path="/weather" component={Weather} />
+            <Route exact path="/info" component={Info} />
           </div>
-        </Router>
+        </div>
+      </Router>
     );
   }
 }
