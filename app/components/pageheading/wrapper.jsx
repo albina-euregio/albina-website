@@ -1,5 +1,6 @@
 import React from 'react';
 import PageHeadingNavigation from './navigation';
+import { Link } from 'react-router-dom';
 
 export default class PageHeadingWrapper extends React.Component {
   constructor(props) {
@@ -12,8 +13,10 @@ export default class PageHeadingWrapper extends React.Component {
         <div className="hero-body">
           <div className="container has-text-centered">
             <div>
-              <h1 className="title">
-                Albina
+              <h1 className="title" >
+                <Link to="/">
+                  Albina
+                </Link>
               </h1>
             </div>
             <div>

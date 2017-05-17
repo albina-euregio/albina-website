@@ -11,7 +11,15 @@ export default class Page extends React.Component {
     super(props);
   }
 
-  componentWillMount() {
+  componentDidUpdate() {
+    this._didUpdate();
+  }
+
+  componentDidMount() {
+    this._didUpdate();
+  }
+
+  _didUpdate() {
     if (this.props.location.pathname === '' || this.props.location.pathname === '/' ) {
       this.props.history.push('news');
     }
