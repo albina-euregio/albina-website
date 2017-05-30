@@ -21,9 +21,9 @@ import { FullLayoutComponent } from './layouts/full-layout.component';
 import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 
 // Services
-import { AuthenticationService } from './providers/mock-service/authentication.service';
+import { AuthenticationService } from './providers/authentication-service/authentication.service';
 import { BulletinsService } from './providers/mock-service/bulletins.service';
-import { ChatService } from './providers/mock-service/chat.service';
+import { ChatService } from './providers/chat-service/chat.service';
 import { NewsService } from './providers/mock-service/news.service';
 import { RegionsService } from './providers/mock-service/regions.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
@@ -36,7 +36,7 @@ import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-tra
 import { HttpModule, Http } from '@angular/http';
 
 export function createTranslateLoader(http: Http) {
-    return new TranslateStaticLoader(http, '../assets/i18n', '.json');
+    return new TranslateStaticLoader(http, './assets/i18n', '.json');
 }
 
 @NgModule({

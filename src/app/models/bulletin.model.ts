@@ -1,11 +1,11 @@
-import { BulletinElevationDescriptionModel } from "./bulletin-elevation-description.model";
+ import { BulletinElevationDescriptionModel } from "./bulletin-elevation-description.model";
 import { TextModel } from './text.model';
 import * as Enums from '../enums/enums';
 
 export class BulletinModel {
 	public id: string;
 
-	public internalId: number;
+	public aggregatedRegionId: string;
 
 	public validFrom: Date;
 	public validUntil: Date;
@@ -29,6 +29,7 @@ export class BulletinModel {
 		this.status = undefined;
 		this.avalancheSituationHighlight = new Array<TextModel>();
 		this.avalancheSituationComment = new Array<TextModel>();
+		this.elevation = undefined;
 	}
 
 	getId() : string {
@@ -39,12 +40,12 @@ export class BulletinModel {
 		this.id = id;
 	}
 
-	getInternalId() : number {
-		return this.internalId;
+	getAggregatedRegionId() : string {
+		return this.aggregatedRegionId;
 	}
 
-	setInternalId(internalId: number) {
-		this.internalId = internalId;
+	setAggregatedRegionId(aggregatedRegionId: string) {
+		this.aggregatedRegionId = aggregatedRegionId;
 	}
 
 	getValidFrom() : Date{
@@ -142,6 +143,8 @@ export class BulletinModel {
 
 		if (this.id && this.id != undefined)
 			json['id'] = this.id;
+		if (this.aggregatedRegionId && this.aggregatedRegionId != undefined)
+			json['aggregatedRegionId'] = this.aggregatedRegionId;
 		
 		var validity = Object();
 		if (this.validFrom && this.validFrom != undefined)
@@ -191,6 +194,7 @@ export class BulletinModel {
 		let bulletin = new BulletinModel();
 
 		bulletin.setId(json.id);
+		bulletin.setAggregatedRegionId(json.aggregatedRegionId);
 
 		bulletin.setValidFrom(new Date(json.validity.from));
 		bulletin.setValidUntil(new Date(json.validity.until));

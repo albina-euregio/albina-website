@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Headers, RequestOptions, Response, ResponseOptions } from '@angular/http';
 import { ConstantsService } from '../constants-service/constants.service';
-import { AuthenticationService } from '../mock-service/authentication.service';
+import { AuthenticationService } from '../authentication-service/authentication.service';
 import { Observable } from 'rxjs/Observable';
 import { NewsModel } from '../../models/news.model';
 import { MockNews } from '../../mock/news.mock';

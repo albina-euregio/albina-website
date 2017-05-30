@@ -5,61 +5,21 @@ import { BulletinModel } from '../../models/bulletin.model';
 import { MockBulletinsTNIncomplete } from '../../mock/bulletin.mock';
 import * as Enums from '../../enums/enums';
 
-
 @Injectable()
 export class BulletinsService {
 
-  // Bulletins the user is currently working on (different aggregated regions)
-  private bulletins: BulletinModel[];
+  private activeDate: Date;
 
-  private count: number;
-
-  constructor()
-  {
-    this.bulletins = new Array<BulletinModel>();
-    this.count = 1;
+  constructor() {
+    this.activeDate = undefined;
   }
 
-  reset() {
-    this.bulletins = new Array<BulletinModel>();
-    this.count = 1;
+  getActiveDate() : Date {
+    return this.activeDate;
   }
 
-  addBulletin(bulletin: BulletinModel) {
-    bulletin.setInternalId(this.count);
-    this.count++;
-    this.bulletins.push(bulletin);
-  }
-
-  addBulletins(date: Date) {
-    this.loadBulletins(date, date).subscribe(
-      data => {
-        let response = data.json();
-        for (let jsonBulletin of response) {
-          let bulletin = BulletinModel.createFromJson(jsonBulletin);
-          bulletin.setInternalId(this.count);
-          this.count++;
-          this.bulletins.push(bulletin);
-        }
-      },
-      error => {
-        console.error("News could not be loaded!");
-        // TODO
-      }
-    );
-  }
-
-  deleteBulletin(bulletin: BulletinModel) {
-    let index = -1;
-    for (var i = this.bulletins.length - 1; i >= 0; i--) {
-      if (this.bulletins[i].getInternalId() == bulletin.getInternalId()) {
-        index = i;
-        break;
-      }
-    }
-
-    if (index > -1)
-      this.bulletins.splice(index, 1);
+  setActiveDate(date: Date) {
+    this.activeDate = date;
   }
 
   // TODO
@@ -98,18 +58,38 @@ export class BulletinsService {
     }
     return result;
 */
-    return Enums.BulletinStatus.incomplete;
+
+    let today = new Date();
+    today.setHours(0,0,0,0);
+
+    let tmpDate = date;
+    tmpDate.setHours(0,0,0,0);
+
+    if (tmpDate < today)
+      return Enums.BulletinStatus.published;
+    else if (tmpDate > today)
+      return Enums.BulletinStatus.missing;
+    else
+      return Enums.BulletinStatus.incomplete;
   }
 
-  getBulletins() : BulletinModel[] {
-    return this.bulletins;
-  }
+//  getBulletins() : BulletinModel[] {
+//    return this.bulletins;
+//  }
 
   loadBulletins(from: Date, until: Date) : Observable<Response> {
-    let response = new ResponseOptions({
-      body: JSON.stringify(MockBulletinsTNIncomplete)
-    });
-    console.log('MOCK: Bulletins loaded!');
+    let response;
+    if (from.getDate() == (new Date()).getDate()) {
+      response = new ResponseOptions({
+        body: JSON.stringify(MockBulletinsTNIncomplete)
+      });
+      console.log('MOCK: Bulletins loaded!');
+    } else {
+      response = new ResponseOptions({
+        body: {}
+      });
+      console.log('MOCK: No bulletins loaded!');
+    }
     return Observable.of(new Response(response));
   }
 

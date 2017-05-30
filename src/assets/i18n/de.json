@@ -76,7 +76,7 @@
 				"avalancheProblem" : "Lawinenproblem",
 				"dangerRating" : "Gefahrenstufe",
 				"aspects" : "Exposition",
-				"elevation" : "Höhenabhängigkeit",
+				"altitude" : "Höhenabhängigkeit",
 				"daytime" : "Tageszeitliche Abhängigkeit"
 			},
 			"title" : {

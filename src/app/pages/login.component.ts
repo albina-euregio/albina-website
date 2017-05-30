@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../providers/mock-service/authentication.service';
+import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -27,8 +27,9 @@ export class LoginComponent {
     this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
-    console.log("Return URL: " + this.route.snapshot.queryParams['returnUrl']);
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    // console.log("Return URL: " + this.route.snapshot.queryParams['returnUrl']);
+    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = '/bulletins/bulletins';
   }
 
   login() {

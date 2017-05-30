@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
-import { AuthenticationService } from '../mock-service/authentication.service';
+import { AuthenticationService } from '../authentication-service/authentication.service';
 import { ConstantsService } from '../constants-service/constants.service';
 import { ChatMessageModel } from '../../models/chat-message.model';
 

@@ -22,44 +22,28 @@ export class BulletinsComponent {
   {
   	this.bulletinList = new Array<BulletinModel>();
     this.dates = new Array<Date>();
-    for (let i = 0; i <= 10; i++) {
-      let date = new Date();
-      date.setDate(date.getDate() + 3 - i)
-      this.dates.push(date);
-    }
 
-    // TODO use real dates
+    // TODO sommerzeit/winterzeit?
     let from = new Date();
     from.setDate(from.getDate() - 5);
+    from.setHours(17, 0, 0);
 
     let to = new Date();
     to.setDate(to.getDate() + 3);
-
-  	this.bulletinsService.loadBulletins(from, to).subscribe(
-  	  data => {
-        let response = data.json();
-        for (let jsonBulletin of response) {
-        	this.bulletinList.push(BulletinModel.createFromJson(jsonBulletin));
-        }
-        this.bulletinList.sort((a, b) : number => {
-          if (a.getValidFrom() < b.getValidFrom()) return 1;
-          if (a.getValidFrom() > b.getValidFrom()) return -1;
-          return 0;
-        });
-      },
-      error => {
-        console.error("Bulletins could not be loaded!");
-        // TODO
-      }
-  	);
+    to.setHours(17, 0, 0);
   }
 
-  createBulletin(date?: Date) {
-    this.bulletinsService.reset();
+  ngOnInit() {
+    for (let i = 0; i <= 10; i++) {
+      let date = new Date();
+      date.setDate(date.getDate() + 3 - i)
+      date.setHours(17, 0, 0);
+      this.dates.push(date);
+    }
+  }
 
-    if (date)
-      this.bulletinsService.addBulletins(date);
-
+  editBulletin(date: Date) {
+    this.bulletinsService.setActiveDate(date);
     this.router.navigate(['/bulletins/new']);
   }
 

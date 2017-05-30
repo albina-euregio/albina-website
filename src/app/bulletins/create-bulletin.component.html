@@ -15,18 +15,15 @@
 
               <table class="table">
                 <tbody>
-                  <div *ngFor="let bulletin of bulletinsService.getBulletins()">
-                    <tr *ngIf="activeBulletin && activeBulletin.getInternalId() == bulletin.getInternalId()" class="table-info">
-                      <td>Region {{ bulletin.getInternalId() }}</td>
+                  <div *ngFor="let aggregatedRegionId of aggregatedRegionsIds">
+                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info">
+                      <td>{{ aggregatedRegionId }}</td>
                       <td>
-                        <button type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(bulletin)"><i class="fa fa-trash"></i></button>
+                        <button type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(aggregatedRegionId)"><i class="fa fa-trash"></i></button>
                       </td>
                     </tr>
-                    <tr *ngIf="!activeBulletin || activeBulletin.getInternalId() != bulletin.getInternalId()" (click)="selectAggregatedRegion(bulletin)">
-                      <td>{{ "bulletins.create.regionName" | translate }}{{ bulletin.getInternalId() }}</td>
-                      <td>
-                        <button type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(bulletin)"><i class="fa fa-trash"></i></button>
-                      </td>
+                    <tr *ngIf="!activeAggregatedRegionId || aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
+                      <td>{{ aggregatedRegionId }}</td>
                     </tr>
                   </div>
                 </tbody>
@@ -47,39 +44,7 @@
     </div>
   </div>
 
-<!--
-  <div *ngIf="activeBulletin" class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <strong>{{ "bulletins.create.generalFormTitle" | translate }}</strong>
-        </div>
-        <div class="card-block">
-          <div class="form-group row">
-            <div class="col-md-6">
-              <label class="col-md-6 form-control-label"><strong>{{ "bulletins.create.label.altitude" | translate }}</strong></label>
-              <div class="col-md-6">
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" [(ngModel)]="altitude" id="altitude-checkbox" name="daytime-checkbox" value="option1">
-                </label>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <label class="col-md-6 form-control-label"><strong>{{ "bulletins.create.label.daytime" | translate }}</strong></label>
-              <div class="col-md-6">
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" [(ngModel)]="daytime" id="daytime-checkbox" name="daytime-checkbox" value="option1">
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
--->
-
-  <div *ngIf="activeBulletin" class="row">
+  <div *ngIf="activeAggregatedRegionId" class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
@@ -100,11 +65,11 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.elevation" | translate }}</strong></label>
+              <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.altitude" | translate }}</strong></label>
               <div class="col-md-9">
                 <label class="radio-inline" for="inline-radio1">
-                  <input [(ngModel)]="elevation" type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
-                  <div *ngIf="elevation" class="input-prepend input-group">
+                  <input [(ngModel)]="hasAltitudeDependency" type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                  <div *ngIf="hasAltitudeDependency" class="input-prepend input-group">
                     <input id="appendedPrependedInput" class="form-control" size="16" type="number">
                     <span class="input-group-addon">m</span>
                   </div>
@@ -115,7 +80,7 @@
               <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.daytime" | translate }}</strong></label>
               <div class="col-md-9">
                 <label class="radio-inline" for="inline-radio1">
-                  <input [(ngModel)]="daytime" type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
+                  <input [(ngModel)]="hasDaytimeDependency" type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">
                 </label>
               </div>
             </div>
@@ -125,14 +90,14 @@
     </div>
   </div>
 
-  <div *ngIf="activeBulletin" class="row">
+  <div *ngIf="activeAggregatedRegionId" class="row">
  
-    <div *ngIf="!daytime" class="col-md-12">
+    <div *ngIf="!hasDaytimeDependency" class="col-md-12">
       <div class="card">
-        <div *ngIf="elevation" class="card-header">
+        <div *ngIf="hasAltitudeDependency" class="card-header">
           <strong>{{ "bulletins.create.title.above" | translate }}</strong>
         </div>
-        <div *ngIf="!elevation" class="card-header">
+        <div *ngIf="!hasAltitudeDependency" class="card-header">
           <strong>{{ "bulletins.create.title.detail" | translate }}</strong>
         </div>
         <div class="card-block">
@@ -149,10 +114,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "dangerRating.considerable" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "dangerRating.high" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "dangerRating.veryHigh" | translate }}
                 </label>
               </div>
@@ -169,10 +134,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "avalancheProblem.oldSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "avalancheProblem.wetSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "avalancheProblem.glidingSnow" | translate }}
                 </label>
               </div>
@@ -189,20 +154,20 @@
                 <label class="checkbox-inline" for="inline-checkbox3">
                   <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">{{ "aspect.E" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SE" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox4">
+                  <input type="checkbox" id="inline-checkbox4" name="inline-checkbox4" value="option1">{{ "aspect.SE" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.S" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox5">
+                  <input type="checkbox" id="inline-checkbox5" name="inline-checkbox5" value="option1">{{ "aspect.S" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox6">
+                  <input type="checkbox" id="inline-checkbox6" name="inline-checkbox6" value="option1">{{ "aspect.SW" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.W" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox7">
+                  <input type="checkbox" id="inline-checkbox7" name="inline-checkbox7" value="option1">{{ "aspect.W" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.NW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox8">
+                  <input type="checkbox" id="inline-checkbox8" name="inline-checkbox8" value="option1">{{ "aspect.NW" | translate }}
                 </label>
               </div>
             </div>
@@ -211,12 +176,12 @@
       </div>
     </div>
 
-    <div *ngIf="daytime" class="col-md-6">
+    <div *ngIf="hasDaytimeDependency" class="col-md-6">
       <div class="card">
-        <div *ngIf="elevation" class="card-header">
+        <div *ngIf="hasAltitudeDependency" class="card-header">
           <strong>{{ "bulletins.create.title.forenoonAbove" | translate }}</strong>
         </div>
-        <div *ngIf="!elevation" class="card-header">
+        <div *ngIf="!hasAltitudeDependency" class="card-header">
           <strong>{{ "bulletins.create.title.forenoon" | translate }}</strong>
         </div>
         <div class="card-block">
@@ -233,10 +198,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "dangerRating.considerable" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "dangerRating.high" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "dangerRating.veryHigh" | translate }}
                 </label>
               </div>
@@ -253,10 +218,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "avalancheProblem.oldSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "avalancheProblem.wetSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "avalancheProblem.glidingSnow" | translate }}
                 </label>
               </div>
@@ -273,20 +238,20 @@
                 <label class="checkbox-inline" for="inline-checkbox3">
                   <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">{{ "aspect.E" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SE" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox4">
+                  <input type="checkbox" id="inline-checkbox4" name="inline-checkbox4" value="option1">{{ "aspect.SE" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.S" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox5">
+                  <input type="checkbox" id="inline-checkbox5" name="inline-checkbox5" value="option1">{{ "aspect.S" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox6">
+                  <input type="checkbox" id="inline-checkbox6" name="inline-checkbox6" value="option1">{{ "aspect.SW" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.W" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox7">
+                  <input type="checkbox" id="inline-checkbox7" name="inline-checkbox7" value="option1">{{ "aspect.W" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.NW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox8">
+                  <input type="checkbox" id="inline-checkbox8" name="inline-checkbox8" value="option1">{{ "aspect.NW" | translate }}
                 </label>
               </div>
             </div>
@@ -295,12 +260,12 @@
       </div>
     </div>
 
-    <div *ngIf="daytime" class="col-md-6">
+    <div *ngIf="hasDaytimeDependency" class="col-md-6">
       <div class="card">
-        <div *ngIf="elevation" class="card-header">
+        <div *ngIf="hasAltitudeDependency" class="card-header">
           <strong>{{ "bulletins.create.title.afternoonAbove" | translate }}</strong>
         </div>
-        <div *ngIf="!elevation" class="card-header">
+        <div *ngIf="!hasAltitudeDependency" class="card-header">
           <strong>{{ "bulletins.create.title.afternoon" | translate }}</strong>
         </div>
         <div class="card-block">
@@ -317,10 +282,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "dangerRating.considerable" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "dangerRating.high" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "dangerRating.veryHigh" | translate }}
                 </label>
               </div>
@@ -337,10 +302,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "avalancheProblem.oldSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "avalancheProblem.wetSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "avalancheProblem.glidingSnow" | translate }}
                 </label>
               </div>
@@ -357,20 +322,20 @@
                 <label class="checkbox-inline" for="inline-checkbox3">
                   <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">{{ "aspect.E" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SE" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox4">
+                  <input type="checkbox" id="inline-checkbox4" name="inline-checkbox4" value="option1">{{ "aspect.SE" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.S" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox5">
+                  <input type="checkbox" id="inline-checkbox5" name="inline-checkbox5" value="option1">{{ "aspect.S" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox6">
+                  <input type="checkbox" id="inline-checkbox6" name="inline-checkbox6" value="option1">{{ "aspect.SW" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.W" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox7">
+                  <input type="checkbox" id="inline-checkbox7" name="inline-checkbox7" value="option1">{{ "aspect.W" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.NW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox8">
+                  <input type="checkbox" id="inline-checkbox8" name="inline-checkbox8" value="option1">{{ "aspect.NW" | translate }}
                 </label>
               </div>
             </div>
@@ -382,9 +347,9 @@
   </div><!--/.row-->
 
 
-  <div *ngIf="activeBulletin && elevation" class="row">
+  <div *ngIf="activeAggregatedRegionId && hasAltitudeDependency" class="row">
  
-    <div *ngIf="!daytime" class="col-md-12">
+    <div *ngIf="!hasDaytimeDependency" class="col-md-12">
       <div class="card">
         <div class="card-header">
           <strong>{{ "bulletins.create.title.below" | translate }}</strong>
@@ -403,10 +368,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "dangerRating.considerable" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "dangerRating.high" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "dangerRating.veryHigh" | translate }}
                 </label>
               </div>
@@ -423,10 +388,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "avalancheProblem.oldSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "avalancheProblem.wetSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "avalancheProblem.glidingSnow" | translate }}
                 </label>
               </div>
@@ -443,20 +408,20 @@
                 <label class="checkbox-inline" for="inline-checkbox3">
                   <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">{{ "aspect.E" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SE" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox4">
+                  <input type="checkbox" id="inline-checkbox4" name="inline-checkbox4" value="option1">{{ "aspect.SE" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.S" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox5">
+                  <input type="checkbox" id="inline-checkbox5" name="inline-checkbox5" value="option1">{{ "aspect.S" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox6">
+                  <input type="checkbox" id="inline-checkbox6" name="inline-checkbox6" value="option1">{{ "aspect.SW" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.W" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox7">
+                  <input type="checkbox" id="inline-checkbox7" name="inline-checkbox7" value="option1">{{ "aspect.W" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.NW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox8">
+                  <input type="checkbox" id="inline-checkbox8" name="inline-checkbox8" value="option1">{{ "aspect.NW" | translate }}
                 </label>
               </div>
             </div>
@@ -465,7 +430,7 @@
       </div>
     </div>
 
-    <div *ngIf="daytime" class="col-md-6">
+    <div *ngIf="hasDaytimeDependency" class="col-md-6">
       <div class="card">
         <div class="card-header">
           <strong>{{ "bulletins.create.title.forenoonBelow" | translate }}</strong>
@@ -484,10 +449,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "dangerRating.considerable" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "dangerRating.high" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "dangerRating.veryHigh" | translate }}
                 </label>
               </div>
@@ -504,10 +469,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "avalancheProblem.oldSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "avalancheProblem.wetSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "avalancheProblem.glidingSnow" | translate }}
                 </label>
               </div>
@@ -524,20 +489,20 @@
                 <label class="checkbox-inline" for="inline-checkbox3">
                   <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">{{ "aspect.E" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SE" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox4">
+                  <input type="checkbox" id="inline-checkbox4" name="inline-checkbox4" value="option1">{{ "aspect.SE" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.S" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox5">
+                  <input type="checkbox" id="inline-checkbox5" name="inline-checkbox5" value="option1">{{ "aspect.S" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox6">
+                  <input type="checkbox" id="inline-checkbox6" name="inline-checkbox6" value="option1">{{ "aspect.SW" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.W" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox7">
+                  <input type="checkbox" id="inline-checkbox7" name="inline-checkbox7" value="option1">{{ "aspect.W" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.NW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox8">
+                  <input type="checkbox" id="inline-checkbox8" name="inline-checkbox8" value="option1">{{ "aspect.NW" | translate }}
                 </label>
               </div>
             </div>
@@ -546,7 +511,7 @@
       </div>
     </div>
 
-    <div *ngIf="daytime" class="col-md-6">
+    <div *ngIf="hasDaytimeDependency" class="col-md-6">
       <div class="card">
         <div class="card-header">
           <strong>{{ "bulletins.create.title.afternoonBelow" | translate }}</strong>
@@ -565,10 +530,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "dangerRating.considerable" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "dangerRating.high" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "dangerRating.veryHigh" | translate }}
                 </label>
               </div>
@@ -585,10 +550,10 @@
                 <label class="radio-inline" for="inline-radio3">
                   <input type="radio" id="inline-radio3" name="inline-radios" value="3">{{ "avalancheProblem.oldSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio4">
                   <input type="radio" id="inline-radio4" name="inline-radios" value="4">{{ "avalancheProblem.wetSnow" | translate }}
                 </label>
-                <label class="radio-inline" for="inline-radio3">
+                <label class="radio-inline" for="inline-radio5">
                   <input type="radio" id="inline-radio5" name="inline-radios" value="5">{{ "avalancheProblem.glidingSnow" | translate }}
                 </label>
               </div>
@@ -605,20 +570,20 @@
                 <label class="checkbox-inline" for="inline-checkbox3">
                   <input type="checkbox" id="inline-checkbox3" name="inline-checkbox3" value="option3">{{ "aspect.E" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SE" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox4">
+                  <input type="checkbox" id="inline-checkbox4" name="inline-checkbox1" value="option4">{{ "aspect.SE" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.S" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox5">
+                  <input type="checkbox" id="inline-checkbox5" name="inline-checkbox1" value="option5">{{ "aspect.S" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.SW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox6">
+                  <input type="checkbox" id="inline-checkbox6" name="inline-checkbox1" value="option6">{{ "aspect.SW" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.W" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox7">
+                  <input type="checkbox" id="inline-checkbox7" name="inline-checkbox1" value="option7">{{ "aspect.W" | translate }}
                 </label>
-                <label class="checkbox-inline" for="inline-checkbox1">
-                  <input type="checkbox" id="inline-checkbox1" name="inline-checkbox1" value="option1">{{ "aspect.NW" | translate }}
+                <label class="checkbox-inline" for="inline-checkbox8">
+                  <input type="checkbox" id="inline-checkbox8" name="inline-checkbox1" value="option8">{{ "aspect.NW" | translate }}
                 </label>
               </div>
             </div>

@@ -5,9 +5,7 @@
       <div class="card">
         <div class="card-header">
           <i class="fa fa-align-justify"></i>{{ "bulletins.title" | translate }}
-          <button type="button" class="btn btn-primary float-right" (click)="createBulletin()">{{ "bulletins.create.button" | translate }}</button>
         </div>
-
 
         <div class="card-block">
           <table class="table table-bordered table-striped table-condensed">
@@ -18,8 +16,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let date of dates" (click)="createBulletin(date)">
-                <td>{{ date }}</td>
+              <tr *ngFor="let date of dates" (click)="editBulletin(date)">
+                <td>{{ date + 24 | date:'short' }} - {{ date | date:'short' }}</td>
                 <td *ngIf="getStatusTrentino(date) == bulletinStatus.missing">
                   <span class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                 </td>

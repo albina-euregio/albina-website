@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
-import { AuthenticationService } from '../providers/mock-service/authentication.service';
+import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
-import { ChatService } from '../providers/mock-service/chat.service';
+import { ChatService } from '../providers/chat-service/chat.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
 
