@@ -2,7 +2,9 @@ import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinsService } from '../providers/mock-service/bulletins.service';
+import { SettingsService } from '../providers/settings-service/settings.service';
 import { BulletinModel } from '../models/bulletin.model';
+import { BulletinInputModel } from '../models/bulletin-input.model';
 import * as Enums from '../enums/enums';
 import { MapService } from "../providers/map-service/map.service";
 import { RegionsTN } from "../mock/regions.tn";
@@ -16,33 +18,34 @@ import "leaflet";
 })
 export class CreateBulletinComponent {
 
+  public originalBulletins: BulletinModel[];
+
   public aggregatedRegionsIds: String[];
-  public aggregatedRegionsMap: Map<String, BulletinModel[]>;
+  public aggregatedRegionsMap: Map<String, BulletinInputModel>;
   public activeAggregatedRegionId: string;
+  public activeBulletinInput: BulletinInputModel;
 
   public bulletinEditable: boolean;
   public hasDaytimeDependency: boolean;
-  public hasAltitudeDependency: boolean;
-  public altitude: number;
-
-  public aspect: Enums.Aspect;
-  public avalancheProblems: Enums.AvalancheProblem;
-  public avalancheProblemValues = Object.keys(Enums.AvalancheProblem).filter( e => typeof( e ) == "number" );
+  public hasElevationDependency: boolean;
 
   constructor(
   	private translate: TranslateService,
   	private route: ActivatedRoute,
     private router: Router,
     private bulletinsService: BulletinsService,
+    private settingsService: SettingsService,
     private mapService: MapService)
   {
   }
 
   ngOnInit() {
-    this.aggregatedRegionsMap = new Map<string, BulletinModel[]>();
+    this.originalBulletins = new Array<BulletinModel>();
+    this.aggregatedRegionsMap = new Map<string, BulletinInputModel>();
     this.aggregatedRegionsIds = new Array<String>();
     this.activeAggregatedRegionId = undefined;
-    this.hasAltitudeDependency = false;
+    this.activeBulletinInput = undefined;
+    this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
 
     // TODO get region from user info (role)
@@ -57,10 +60,6 @@ export class CreateBulletinComponent {
         let response = data.json();
         for (let jsonBulletin of response) {
           let bulletin = BulletinModel.createFromJson(jsonBulletin);
-          if (bulletin.getElevation() > 0)
-            this.hasAltitudeDependency = true;
-          if (bulletin.getValidUntil().getHours() != 16)
-            this.hasDaytimeDependency = true;
           this.addBulletin(bulletin);
         }
       },
@@ -92,12 +91,39 @@ export class CreateBulletinComponent {
   }
 
   addBulletin(bulletin: BulletinModel) {
+    this.originalBulletins.push(bulletin);
+
     if (this.aggregatedRegionsMap.has(bulletin.getAggregatedRegionId())) {
-      this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).push(bulletin);
+      if (bulletin.below) {
+        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).elevationDependency = true;
+      }
+      if (bulletin.validFrom.getHours() == 12) {
+        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).daytimeDependency = true;
+        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonBelow = bulletin.below;
+        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonAbove = bulletin.above;
+      } else if (bulletin.validFrom.getHours() == 17) {
+        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonBelow = bulletin.below;
+        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonAbove = bulletin.above;
+      }
     } else {
-      let bulletins = new Array<BulletinModel>();
-      bulletins.push(bulletin);
-      this.aggregatedRegionsMap.set(bulletin.getAggregatedRegionId(), bulletins);
+      let bulletinInput = new BulletinInputModel();
+      bulletinInput.regions = bulletin.regions;
+      bulletinInput.avalancheSituationHighlight = bulletin.getAvalancheSituationHighlightIn(this.settingsService.getLang());
+      bulletinInput.avalancheSituationComment = bulletin.getAvalancheSituationCommentIn(this.settingsService.getLang());
+      bulletinInput.elevation = bulletin.elevation;
+      if (bulletin.below) {
+        bulletinInput.elevationDependency = true;
+      }
+      if (bulletin.validFrom.getHours() == 12) {
+        bulletinInput.daytimeDependency = true;
+        bulletinInput.afternoonBelow = bulletin.below;
+        bulletinInput.afternoonAbove = bulletin.above;
+      } else if (bulletin.validFrom.getHours() == 17) {
+        bulletinInput.forenoonBelow = bulletin.below;
+        bulletinInput.forenoonAbove = bulletin.above;
+      }
+
+      this.aggregatedRegionsMap.set(bulletin.getAggregatedRegionId(), bulletinInput);
       this.aggregatedRegionsIds.push(bulletin.getAggregatedRegionId());
     }
   }
@@ -105,39 +131,39 @@ export class CreateBulletinComponent {
   createAggregatedRegion() {
     // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
     let uuid = UUID.UUID();
-    this.aggregatedRegionsMap.set(uuid, []);
-    this.activeAggregatedRegionId = uuid;
+    let bulletinInput = new BulletinInputModel();
+    // TODO take values from currently active bulletin input? (if any is selected)
+    this.aggregatedRegionsMap.set(uuid, bulletinInput);
     this.aggregatedRegionsIds.push(uuid);
-    // TODO create bulletin (change validity if daytime is selected)
+
+    this.selectAggregatedRegion(uuid);
     // this.mapService.createAggregatedRegion();
-    // TODO show list of regions and aggregated regions (checkboxes)
   }
 
   selectAggregatedRegion(aggregatedRegionId: string) {
-    // this.mapService.selectAggregatedRegion(aggregatedRegionId);
     this.activeAggregatedRegionId = aggregatedRegionId;
-  }
-
-  getAggregatedRegionsIds() {
-    return this.aggregatedRegionsMap.keys();
-  }
-
-  getActiveAggregatedRegionId() {
-    this.activeAggregatedRegionId;
+    this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
+    // this.mapService.selectAggregatedRegion(aggregatedRegionId);
   }
 
   deleteAggregatedRegion(aggregatedRegionId: string) {
     this.aggregatedRegionsMap.delete(aggregatedRegionId);
 
-    // TODO delete id in aggregatedRegionsIds
-    // TODO delete bulletins
+    var index = this.aggregatedRegionsIds.indexOf(aggregatedRegionId);
+    if (index > -1)
+      this.aggregatedRegionsIds.splice(index, 1);
+
+    this.activeAggregatedRegionId = undefined;
+    this.activeBulletinInput = undefined;
+
     // this.mapService.deleteAggregatedRegion(bulletin);
     // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
   }
 
   save() {
     debugger
-  	this.bulletinsService.saveBulletins().subscribe(
+    // TODO copy information to original bulletins or create/delete bulletins
+  	this.bulletinsService.saveOrUpdateBulletins(this.originalBulletins).subscribe(
   		data => {
   			console.log("Bulletins saved on server.");
   			// TODO show toast

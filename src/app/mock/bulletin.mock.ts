@@ -83,7 +83,7 @@ export const MockBulletinsTNIncomplete = [
     ],
     "validity" : {
         "from" : "2015-12-10T17:00:00+01:00",
-        "until" : "2015-12-11T16:59:59+01:00"
+        "until" : "2015-12-11T11:59:59+01:00"
     },
 
     "regions" : [ "IT-32-TN-08", "IT-32-TN-09", "IT-32-TN-10", "IT-32-TN-11", "IT-32-TN-12", "IT-32-TN-13" ],
@@ -98,6 +98,59 @@ export const MockBulletinsTNIncomplete = [
 
     "below" : {
       "dangerRating" : 3,
+      "avalancheProblem" : "wind_drifted_snow",
+      "aspects" : [ "NW", "N", "NE" ]
+    },
+
+    "status" : "incomplete",
+    "aggregatedRegionId" : "5091f549-042e-f580-4c10-0723drff5fdc"
+  },
+  {
+    "avalancheSituationHighlight" : [
+      {
+        "languageCode" : "it",
+        "text" : "Italiano"
+      },
+      {
+        "languageCode" : "de",
+        "text" : "Am Morgen günstige Verhältnisse - dann rascher Anstieg der Lawinengefahr!"
+      },
+      {
+        "languageCode" : "en",
+        "text" : "Avalanche situation highlight in english."
+      }
+    ],
+    "avalancheSituationComment" : [
+      {
+        "languageCode" : "it",
+        "text" : "Italiano"
+      },
+      {
+        "languageCode" : "de",
+        "text" : "Vormittag steigt die Lawinengefahr dann aber markant an und erreicht verbreitet die Stufe 3 (erheblich). Grund dafür ist der Festigkeitsverlust der Schneedecke auf Grund von Tageserwärmung und starker Sonneneinstrahlung. Man muss dann zunehmend mit Selbstauslösungen von feuchten Lockerschneelawinen und Nassschneelawinen rechnen. In sonnseitigen Hängen sind vor allem Höhenlagen unterhalb 2800m betroffen, schattseitig unterhalb etwa 2200m. Auf steilen Wiesenhängen sind auch Gleitschneelawinen möglich. Weil ausgelöste Lawinen teilweise bis zum Untergrund durchreißen, können sie auch große Ausmaße erreichen. Skitouren und Variantenfahrten sollten daher unbedingt rechtzeitig beendet werden!"
+      },
+      {
+        "languageCode" : "en",
+        "text" : "Avalanche situation in english."
+      }
+    ],
+    "validity" : {
+        "from" : "2015-12-11T12:00:00+01:00",
+        "until" : "2015-12-11T16:59:59+01:00"
+    },
+
+    "regions" : [ "IT-32-TN-08", "IT-32-TN-09", "IT-32-TN-10", "IT-32-TN-11", "IT-32-TN-12", "IT-32-TN-13" ],
+    
+    "elevation" : 2000,
+
+    "above" : {
+      "dangerRating" : 2,
+      "avalancheProblem" : "new_snow",
+      "aspects" : [ "NW", "N", "NE"]
+    },
+
+    "below" : {
+      "dangerRating" : 1,
       "avalancheProblem" : "wind_drifted_snow",
       "aspects" : [ "NW", "N", "NE" ]
     },

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 
 import { BulletinsComponent } from './bulletins.component';
 import { CreateBulletinComponent } from './create-bulletin.component';
+import { BulletinDetailComponent } from './bulletin-detail.component';
 
 // Bulletins Routing
 import { BulletinsRoutingModule } from './bulletins-routing.module';
@@ -18,7 +19,8 @@ import { TranslateModule } from 'ng2-translate';
   ],
   declarations: [
     BulletinsComponent,
-    CreateBulletinComponent
+    CreateBulletinComponent,
+    BulletinDetailComponent
   ]
 })
 export class BulletinsModule { }

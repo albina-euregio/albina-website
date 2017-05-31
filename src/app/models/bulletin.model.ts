@@ -20,16 +20,30 @@ export class BulletinModel {
 
 	public status: Enums.BulletinStatus;
 
-	constructor() {
-		this.validFrom = undefined;
-		this.validUntil = undefined;
-		this.regions = new Array<String>();
-		this.above = new BulletinElevationDescriptionModel();
-		this.below = new BulletinElevationDescriptionModel();
-		this.status = undefined;
-		this.avalancheSituationHighlight = new Array<TextModel>();
-		this.avalancheSituationComment = new Array<TextModel>();
-		this.elevation = undefined;
+	constructor(bulletin?: BulletinModel) {
+		if (bulletin) {
+			this.aggregatedRegionId = bulletin.aggregatedRegionId;
+			this.validFrom = bulletin.validFrom;
+			this.validUntil = bulletin.validUntil;
+			this.regions = bulletin.regions;
+			this.above = bulletin.above;
+			this.below = bulletin.below;
+			this.status = bulletin.status;
+			this.avalancheSituationHighlight = bulletin.avalancheSituationHighlight;
+			this.avalancheSituationComment = bulletin.avalancheSituationComment;
+			this.elevation = bulletin.elevation;
+		} else {
+			this.aggregatedRegionId = undefined;
+			this.validFrom = undefined;
+			this.validUntil = undefined;
+			this.regions = new Array<String>();
+			this.above = new BulletinElevationDescriptionModel();
+			this.below = new BulletinElevationDescriptionModel();
+			this.status = undefined;
+			this.avalancheSituationHighlight = new Array<TextModel>();
+			this.avalancheSituationComment = new Array<TextModel>();
+			this.elevation = undefined;
+		}
 	}
 
 	getId() : string {
@@ -205,6 +219,8 @@ export class BulletinModel {
 			regions.push(jsonRegions[i]);
 		}
 		bulletin.setRegions(regions);
+
+		bulletin.setElevation(json.elevation);
 
 		if (json.above)
 			bulletin.setAbove(BulletinElevationDescriptionModel.createFromJson(json.above));

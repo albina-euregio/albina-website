@@ -76,7 +76,7 @@
 				"avalancheProblem" : "Problemi tipici valanghivi",
 				"dangerRating" : "Grado del pericolo valanghe",
 				"aspects" : "Versanti",
-				"altitude" : "Altezza",
+				"elevation" : "Altezza",
 				"daytime" : "Mattina/pomeriggio"
 			},
 			"title" : {

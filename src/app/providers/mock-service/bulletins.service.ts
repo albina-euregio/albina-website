@@ -100,4 +100,12 @@ export class BulletinsService {
     console.log('MOCK: Bulletins saved!');
     return Observable.of(new Response(response));
   }
+
+  saveOrUpdateBulletins(bulletins: BulletinModel[]) {
+    let response = new ResponseOptions({
+      status: 201,
+    });
+    console.log('MOCK: Bulletins saved!');
+    return Observable.of(new Response(response));
+  }
 }

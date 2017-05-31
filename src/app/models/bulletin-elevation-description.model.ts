@@ -6,8 +6,8 @@ export class BulletinElevationDescriptionModel {
 	public aspects: Enums.Aspect[];
 
 	constructor() {
-		this.dangerRating = null;
-		this.avalancheProblem = null;
+		this.dangerRating = undefined;
+		this.avalancheProblem = undefined;
 		this.aspects = new Array<Enums.Aspect>();
 	}
 
@@ -57,12 +57,12 @@ export class BulletinElevationDescriptionModel {
 		let bulletinElevationDescription = new BulletinElevationDescriptionModel();
 
 		bulletinElevationDescription.dangerRating = Enums.DangerRating[<string>json.dangerRating];
-		bulletinElevationDescription.avalancheProblem = Enums.AvalancheProblem[<string>json.avalancheProblem];
+		bulletinElevationDescription.avalancheProblem = json.avalancheProblem;
 
 		let jsonAspects = json.aspects;
 		let aspects = new Array<Enums.Aspect>();
 		for (let i in jsonAspects) {
-			aspects.push(Enums.Aspect[<string>jsonAspects[i]]);
+			aspects.push(jsonAspects[i]);
 		}
 		bulletinElevationDescription.setAspects(aspects);
 
