@@ -35,6 +35,17 @@ export class BulletinElevationDescriptionModel {
 		this.aspects = aspects;
 	}
 
+	addAspect(aspect) {
+		if (this.aspects.indexOf(aspect) == -1)
+			this.aspects.push(aspect);
+	}
+
+	removeAspect(aspect) {
+		let index = this.aspects.indexOf(aspect);
+		if (index > -1)
+			this.aspects.splice(index, 1);
+	}
+
 	toJson() {
 		var json = Object();
 

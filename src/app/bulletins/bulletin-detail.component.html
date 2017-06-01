@@ -47,29 +47,29 @@
       <div class="form-group row">
         <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.aspects" | translate }}</strong></label>
         <div class="col-md-9">
-          <label class="checkbox-inline" for="inline-checkbox1">
-            <input type="checkbox" name="inline-checkbox1" value="N">{{ "aspect.N" | translate }}
+          <label class="checkbox-inline" for="checkbox-N">
+            <input type="checkbox" [(ngModel)]="N" (click)="selectAspect($event)" name="checkbox-N" value="N">{{ "aspect.N" | translate }}
           </label>
-          <label class="checkbox-inline" for="inline-checkbox2">
-            <input type="checkbox" name="inline-checkbox2" value="NE">{{ "aspect.NE" | translate }}
+          <label class="checkbox-inline" for="checkbox-NE">
+            <input type="checkbox" [(ngModel)]="NE" (click)="selectAspect($event)" name="checkbox-NE" value="NE">{{ "aspect.NE" | translate }}
           </label>
-          <label class="checkbox-inline" for="inline-checkbox3">
-            <input type="checkbox" name="inline-checkbox3" value="E">{{ "aspect.E" | translate }}
+          <label class="checkbox-inline" for="checkbox-E">
+            <input type="checkbox" [(ngModel)]="E" (click)="selectAspect($event)" name="checkbox-E" value="E">{{ "aspect.E" | translate }}
           </label>
-          <label class="checkbox-inline" for="inline-checkbox4">
-            <input type="checkbox" name="inline-checkbox4" value="SE">{{ "aspect.SE" | translate }}
+          <label class="checkbox-inline" for="checkbox-SE">
+            <input type="checkbox" [(ngModel)]="SE" (click)="selectAspect($event)" name="checkbox-SE" value="SE">{{ "aspect.SE" | translate }}
           </label>
-          <label class="checkbox-inline" for="inline-checkbox5">
-            <input type="checkbox" name="inline-checkbox5" value="S">{{ "aspect.S" | translate }}
+          <label class="checkbox-inline" for="checkbox-S">
+            <input type="checkbox" [(ngModel)]="S" (click)="selectAspect($event)" name="checkbox-S" value="S">{{ "aspect.S" | translate }}
           </label>
-          <label class="checkbox-inline" for="inline-checkbox6">
-            <input type="checkbox" name="inline-checkbox6" value="SW">{{ "aspect.SW" | translate }}
+          <label class="checkbox-inline" for="checkbox-SW">
+            <input type="checkbox" [(ngModel)]="SW" (click)="selectAspect($event)" name="checkbox-SW" value="SW">{{ "aspect.SW" | translate }}
           </label>
-          <label class="checkbox-inline" for="inline-checkbox7">
-            <input type="checkbox" name="inline-checkbox7" value="W">{{ "aspect.W" | translate }}
+          <label class="checkbox-inline" for="checkbox-W">
+            <input type="checkbox" [(ngModel)]="W" (click)="selectAspect($event)" name="checkbox-W" value="W">{{ "aspect.W" | translate }}
           </label>
-          <label class="checkbox-inline" for="inline-checkbox8">
-            <input type="checkbox" name="inline-checkbox8" value="NW">{{ "aspect.NW" | translate }}
+          <label class="checkbox-inline" for="checkbox-NW">
+            <input type="checkbox" [(ngModel)]="NW" (click)="selectAspect($event)" name="checkbox-NW" value="NW">{{ "aspect.NW" | translate }}
           </label>
         </div>
       </div>

@@ -1,12 +1,13 @@
- import { BulletinElevationDescriptionModel } from "./bulletin-elevation-description.model";
+import { BulletinElevationDescriptionModel } from "./bulletin-elevation-description.model";
 import { TextModel } from './text.model';
+import { BulletinModel } from './bulletin.model';
 import * as Enums from '../enums/enums';
 
 export class BulletinInputModel {
 	public regions: String[];
 
-	public avalancheSituationHighlight: string;
-	public avalancheSituationComment: string;
+	public avalancheSituationHighlight: TextModel[];
+	public avalancheSituationComment: TextModel[];
 
 	public elevationDependency: boolean;
 	public daytimeDependency: boolean;
@@ -20,8 +21,8 @@ export class BulletinInputModel {
 
 	constructor() {
 		this.regions = new Array<String>();
-		this.avalancheSituationHighlight = undefined;
-		this.avalancheSituationComment = undefined;
+		this.avalancheSituationHighlight = new Array<TextModel>();
+		this.avalancheSituationComment = new Array<TextModel>();
 		this.elevationDependency = false;
 		this.daytimeDependency = false;
 		this.elevation = undefined;
@@ -79,19 +80,37 @@ export class BulletinInputModel {
 		this.afternoonBelow = afternoonBelow;
 	}
 
-	getAvalancheSituationHighlight() : string {
+	getAvalancheSituationHighlight() : TextModel[] {
 		return this.avalancheSituationHighlight;
 	}
 
-	setAvalancheSituationHighlight(avalancheSituationHighlight: string) {
+	getAvalancheSituationHighlightIn(language: Enums.LanguageCode) : string {
+		for (var i = this.avalancheSituationHighlight.length - 1; i >= 0; i--) {
+			if (this.avalancheSituationHighlight[i].getLanguageCode() == language)
+				return this.avalancheSituationHighlight[i].getText();
+		}
+	}
+
+	getAvalancheSituationHighlightInString(language: string) : string {
+		return this.getAvalancheSituationHighlightIn(Enums.LanguageCode[language]);
+	}
+
+	setAvalancheSituationHighlight(avalancheSituationHighlight: TextModel[]) {
 		this.avalancheSituationHighlight = avalancheSituationHighlight;
 	}
 
-	getAvalancheSituationComment() : string {
+	getAvalancheSituationComment() : TextModel[] {
 		return this.avalancheSituationComment;
 	}
 
-	setAvalancheSituationComment(avalancheSituationComment: string) {
+	getAvalancheSituationCommentIn(language: Enums.LanguageCode) : string {
+		for (var i = this.avalancheSituationComment.length - 1; i >= 0; i--) {
+			if (this.avalancheSituationComment[i].getLanguageCode() == language)
+				return this.avalancheSituationComment[i].getText();
+		}
+	}
+
+	setAvalancheSituationComment(avalancheSituationComment: TextModel[]) {
 		this.avalancheSituationComment = avalancheSituationComment;
 	}
 
@@ -109,5 +128,52 @@ export class BulletinInputModel {
 
 	setElevationDependency(elevationDependency: boolean) {
 		this.elevationDependency = elevationDependency;
-	}	
+	}
+
+	toBulletins(aggregatedRegionId: string, date: Date) : BulletinModel[] {
+		let result = new Array<BulletinModel>();
+		let forenoonBulletin = new BulletinModel();
+
+		forenoonBulletin.aggregatedRegionId = aggregatedRegionId;
+		forenoonBulletin.validFrom = date;
+
+		forenoonBulletin.regions = this.regions;
+		if (this.elevation)
+			forenoonBulletin.elevation = this.elevation;
+		
+		forenoonBulletin.above = this.forenoonAbove;
+		if (this.elevationDependency)
+			forenoonBulletin.below = this.forenoonBelow;
+
+		forenoonBulletin.avalancheSituationHighlight = this.avalancheSituationHighlight;
+		forenoonBulletin.avalancheSituationComment = this.avalancheSituationComment;
+
+		// TODO whats with the status?
+
+		if (this.daytimeDependency) {
+			date.setTime(date.getTime() + (19*60*60*1000));
+			forenoonBulletin.validUntil = date;
+
+			let afternoonBulletin = new BulletinModel(forenoonBulletin);
+			afternoonBulletin.aggregatedRegionId = aggregatedRegionId;
+			afternoonBulletin.validFrom = date;
+			date.setTime(date.getTime() + (5*60*60*1000));
+			afternoonBulletin.validUntil = date;
+
+			afternoonBulletin.above = this.afternoonAbove;
+			if (this.elevationDependency)
+				afternoonBulletin.below = this.afternoonBelow;
+
+			// TODO whats with the status?
+
+			result.push(afternoonBulletin);
+		} else {
+			date.setTime(date.getTime() + (24*60*60*1000));
+			forenoonBulletin.validUntil = date;
+		}
+
+		result.push(forenoonBulletin)
+
+		return result;
+	}
 }
