@@ -17,20 +17,20 @@
             </thead>
             <tbody>
               <tr *ngFor="let date of dates" (click)="editBulletin(date)">
-                <td>{{ date + 24 | date:'short' }} - {{ date | date:'short' }}</td>
-                <td *ngIf="getStatusTrentino(date) == bulletinStatus.missing">
+                <td>{{ date | date:'short' }}</td>
+                <td *ngIf="statusMap.get(date) == bulletinStatus.missing">
                   <span class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                 </td>
-                <td *ngIf="getStatusTrentino(date) == bulletinStatus.published">
+                <td *ngIf="statusMap.get(date) == bulletinStatus.published">
                   <span class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
                 </td>
-                <td *ngIf="getStatusTrentino(date) == bulletinStatus.pending">
+                <td *ngIf="statusMap.get(date) == bulletinStatus.pending">
                   <span class="badge badge-default">{{ "bulletins.table.status.pending" | translate }}</span>
                 </td>
-                <td *ngIf="getStatusTrentino(date) == bulletinStatus.complete">
+                <td *ngIf="statusMap.get(date) == bulletinStatus.complete">
                   <span class="badge badge-success">{{ "bulletins.table.status.complete" | translate }}</span>
                 </td>
-                <td *ngIf="getStatusTrentino(date) == bulletinStatus.incomplete">
+                <td *ngIf="statusMap.get(date) == bulletinStatus.incomplete">
                   <span class="badge badge-warning">{{ "bulletins.table.status.incomplete" | translate }}</span>
                 </td>
               </tr>

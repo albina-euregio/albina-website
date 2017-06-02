@@ -9,9 +9,11 @@ import * as Enums from '../../enums/enums';
 export class BulletinsService {
 
   private activeDate: Date;
+  private isEditable: boolean;
 
   constructor() {
     this.activeDate = undefined;
+    this.isEditable = false;
   }
 
   getActiveDate() : Date {
@@ -22,62 +24,36 @@ export class BulletinsService {
     this.activeDate = date;
   }
 
-  // TODO
-  // Returns the status of the region at the given date
-  getStatus(region: string, date: Date) : Enums.BulletinStatus {
-/*
-    let map = new Map<String, Enums.BulletinStatus>();
-
-    // map of alle subregions of region where a bulletin is present and the corresponding status
-    for (var i = this.bulletins.length - 1; i >= 0; i--) {
-      // TODO check if the comparsion of date does work
-      if (this.bulletins[i].getValidFrom().getDate() == date.getDate()) {
-        let regions = this.bulletins[i].getRegions(); 
-        for (var j = regions.length - 1; j >= 0; j--) {
-          if (regions[j].startsWith(region))
-            map.set(regions[j], this.bulletins[i].getStatus());
-        }
-      }
-    }
-
-    // TODO make it work
-    let result = Enums.BulletinStatus.published;
-    for (let i = this.regionsService.getRegionsTrentino().length - 1; i >= 0; i--) {
-      let hit = false;
-      for (let r in map.keys) {
-        if (this.regionsService.getRegionsTrentino()[i].properties.id == r) {
-          hit = true;
-
-          // get status from map
-          if (map.get(r) != Enums.BulletinStatus.published)
-            return Enums.BulletinStatus.incomplete;
-        }
-      }
-      if (!hit)
-        return Enums.BulletinStatus.incomplete;
-    }
-    return result;
-*/
-
-    let today = new Date();
-    today.setHours(0,0,0,0);
-
-    let tmpDate = date;
-    tmpDate.setHours(0,0,0,0);
-
-    if (tmpDate < today)
-      return Enums.BulletinStatus.published;
-    else if (tmpDate > today)
-      return Enums.BulletinStatus.missing;
-    else
-      return Enums.BulletinStatus.incomplete;
+  getIsEditable() : boolean {
+    return this.isEditable;
   }
 
-//  getBulletins() : BulletinModel[] {
-//    return this.bulletins;
-//  }
+  setIsEditable(isEditable: boolean) {
+    this.isEditable = isEditable;
+  }
 
-  loadBulletins(from: Date, until: Date) : Observable<Response> {
+  getStatus(region: string, date: Date) : Observable<Response> {
+    let tmpDate = new Date();
+
+    if (date.getFullYear() == tmpDate.getFullYear() && date.getMonth() == tmpDate.getMonth() && date.getDate() == tmpDate.getDate())
+      status = "incomplete";
+    else if (date.getFullYear() > tmpDate.getFullYear() || date.getMonth() > tmpDate.getMonth())
+      status = "missing";
+    else if ((date.getMonth() == tmpDate.getMonth() && date.getDate() > tmpDate.getDate()))
+      status = "missing";
+    else
+      status = "published";
+
+    let response = new ResponseOptions({
+      body: { "status" : status }
+    });
+    console.log('MOCK: Status loaded!');
+
+    return Observable.of(new Response(response));
+  }
+
+  loadBulletins(from: Date) : Observable<Response> {
+    // TODO load correct bulletins (from ist the start at 17:00)
     let response;
     if (from.getDate() == (new Date()).getDate()) {
       response = new ResponseOptions({

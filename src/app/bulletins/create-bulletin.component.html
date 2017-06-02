@@ -4,13 +4,14 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <strong>{{ "bulletins.create.title.map" | translate }}</strong>
+<!--          <strong>{{ "bulletins.create.title.map" | translate }}</strong> -->
+          <strong>{{ bulletinsService.getActiveDate() | date:'short' }}</strong>
         </div>
         <div class="card-block">
           <div class="form-group row">
             <div class="col-md-3">
               <div class="form-group row">
-                <button *ngIf="bulletinEditable" (click)="createAggregatedRegion()" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
+                <button *ngIf="bulletinsService.getIsEditable()" (click)="createAggregatedRegion()" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
               </div>
 
               <table class="table">
@@ -33,11 +34,11 @@
             </div>
           </div>
         </div>
-        <div *ngIf="bulletinEditable" class="card-footer">
+        <div *ngIf="bulletinsService.getIsEditable()" class="card-footer">
           <button type="submit" class="btn btn-sm btn-primary" (click)="save()"><i class="fa fa-check"></i>{{ "bulletins.create.save" | translate }}</button>
           <button type="reset" class="btn btn-sm btn-danger" (click)="discard()"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
         </div>
-        <div *ngIf="!bulletinEditable" class="card-footer">
+        <div *ngIf="!bulletinsService.getIsEditable()" class="card-footer">
           <button type="reset" class="btn btn-sm btn-primary" (click)="discard()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
         </div>
       </div>

@@ -18,6 +18,8 @@ import "leaflet";
 })
 export class CreateBulletinComponent {
 
+  public bulletinStatus = Enums.BulletinStatus;
+
   public originalBulletins: BulletinModel[];
 
   public aggregatedRegionsIds: String[];
@@ -28,13 +30,12 @@ export class CreateBulletinComponent {
   public activeAvalancheSituationHighlight: string;
   public activeAvalancheSituationComment: string;
 
-  public bulletinEditable: boolean;
   public hasDaytimeDependency: boolean;
   public hasElevationDependency: boolean;
 
   constructor(
-  	private translate: TranslateService,
-  	private route: ActivatedRoute,
+    private translate: TranslateService,
+    private route: ActivatedRoute,
     private router: Router,
     private bulletinsService: BulletinsService,
     private settingsService: SettingsService,
@@ -53,14 +54,7 @@ export class CreateBulletinComponent {
     this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
 
-    // TODO get region from user info (role)
-    let region = "IT-32-TN";
-    if (this.bulletinsService.getStatus(region, this.bulletinsService.getActiveDate()) == Enums.BulletinStatus.published)
-      this.bulletinEditable = false;
-    else 
-      this.bulletinEditable = true;
-
-    this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate(), this.bulletinsService.getActiveDate()).subscribe(
+    this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
         let response = data.json();
         for (let jsonBulletin of response) {
@@ -78,8 +72,8 @@ export class CreateBulletinComponent {
         zoomControl: false,
         center: L.latLng(46.05, 11.07),
         zoom: 8,
-        //minZoom: 6,
-        maxZoom: 12,
+        minZoom: 7,
+        maxZoom: 9,
         layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.regionsBulletins]
     });
 
@@ -92,6 +86,7 @@ export class CreateBulletinComponent {
 
   ngOnDestroy() {
     this.bulletinsService.setActiveDate(undefined);
+    this.bulletinsService.setIsEditable(false);
     // TODO unlock via socketIO
   }
 
@@ -202,21 +197,21 @@ export class CreateBulletinComponent {
 
     debugger
 
-  	this.bulletinsService.saveOrUpdateBulletins(bulletins).subscribe(
-  		data => {
-  			console.log("Bulletins saved on server.");
-  			// TODO show toast
-  			this.router.navigate(['/bulletins/bulletins']);
-  		},
-  		error => {
-  			console.error("Bulletins could not be saved on server!");
-  			// TODO show toast
-  		}
-  	);
+    this.bulletinsService.saveOrUpdateBulletins(bulletins).subscribe(
+      data => {
+        console.log("Bulletins saved on server.");
+        // TODO show toast
+        this.router.navigate(['/bulletins/bulletins']);
+      },
+      error => {
+        console.error("Bulletins could not be saved on server!");
+        // TODO show toast
+      }
+    );
   }
 
   discard() {
     console.log("Bulletin: changes discarded.");
-	  this.router.navigate(['/bulletins/bulletins']);
+    this.router.navigate(['/bulletins/bulletins']);
   }
 }

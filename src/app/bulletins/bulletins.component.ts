@@ -12,46 +12,47 @@ export class BulletinsComponent {
 
   public bulletinList: BulletinModel[];
   public bulletinStatus = Enums.BulletinStatus;
+
   public dates: Date[];
+  public statusMap: Map<Date, Enums.BulletinStatus>;
 
   constructor(
-  	private translate: TranslateService,
-  	private bulletinsService: BulletinsService,
-  	private route: ActivatedRoute,
+    private translate: TranslateService,
+    private bulletinsService: BulletinsService,
+    private route: ActivatedRoute,
     private router: Router)
   {
-  	this.bulletinList = new Array<BulletinModel>();
+    this.bulletinList = new Array<BulletinModel>();
     this.dates = new Array<Date>();
-
-    // TODO sommerzeit/winterzeit?
-    let from = new Date();
-    from.setDate(from.getDate() - 5);
-    from.setHours(17, 0, 0);
-
-    let to = new Date();
-    to.setDate(to.getDate() + 3);
-    to.setHours(17, 0, 0);
+    this.statusMap = new Map<Date, Enums.BulletinStatus>();
   }
 
   ngOnInit() {
     for (let i = 0; i <= 10; i++) {
       let date = new Date();
-      date.setDate(date.getDate() + 3 - i)
-      date.setHours(17, 0, 0);
+      date.setDate(date.getDate() + 3 - i);
+      date.setHours(17, 0, 0, 0);
       this.dates.push(date);
+      this.bulletinsService.getStatus("IT-32-TN", date).subscribe(
+        data => {
+          let response = data.json();
+          this.statusMap.set(date, Enums.BulletinStatus[<string>response.status]);
+        },
+        error => {
+          console.error("Status could not be loaded!");
+        }
+      );
     }
   }
 
   editBulletin(date: Date) {
     this.bulletinsService.setActiveDate(date);
+    let test = this.statusMap.get(date);
+    debugger
+    if (this.statusMap.get(date) === Enums.BulletinStatus.published)
+      this.bulletinsService.setIsEditable(false);
+    else
+      this.bulletinsService.setIsEditable(true);
     this.router.navigate(['/bulletins/new']);
-  }
-
-  getStatusTrentino(date: Date) : Enums.BulletinStatus {
-    return this.getStatus(date, 'IT-32-TN');
-  }
-
-  private getStatus(date: Date, region: string) : Enums.BulletinStatus {
-    return this.bulletinsService.getStatus(region, date);
   }
 }
