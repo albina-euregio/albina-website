@@ -47,6 +47,12 @@
 				"message" : "Willst du die Änderungen verwerfen?",
 				"accept" : "Ja",
 				"reject" : "Nein"
+			},
+			"deleteAggregatedRegionDialog" : {
+				"header" : "Region löschen",
+				"message" : "Willst du diese Region löschen?",
+				"accept" : "Ja",
+				"reject" : "Nein"
 			}
 		},
 		"title" : "Nachrichten",

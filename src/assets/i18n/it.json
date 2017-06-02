@@ -103,6 +103,12 @@
 				"message" : "TODO",
 				"accept" : "TODO",
 				"reject" : "TODO"
+			},
+			"deleteAggregatedRegionDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO",
+				"reject" : "TODO"
 			}
 		},
 		"table" : {
