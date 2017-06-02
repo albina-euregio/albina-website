@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 
 @Component({
   templateUrl: 'login.component.html'
@@ -17,7 +18,8 @@ export class LoginComponent {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private translateService: TranslateService)
+    private translateService: TranslateService,
+    private confirmationService: ConfirmationService)
   {
     this.loading = false;
   }
@@ -44,8 +46,14 @@ export class LoginComponent {
         this.router.navigate([this.returnUrl]);
       },
       error => {
-        console.error("[" + this.username + "] Login failed: " + JSON.stringify(error._body));
         this.loading = false;
+        console.error("[" + this.username + "] Login failed: " + JSON.stringify(error._body));
+        this.confirmationService.confirm({
+          header: this.translateService.instant("login.errorDialog.header"),
+          message: this.translateService.instant("login.errorDialog.message"),
+          accept: () => {
+          }
+        });
         // TODO show error on page
       }
     );

@@ -3,7 +3,12 @@
 	"login" : {
 		"title" : "Login",
 		"text" : "Accedi al tuo account",
-		"button" : "Login"
+		"button" : "Login",
+		"errorDialog" : {
+			"header" : "TODO",
+			"message" : "TODO",
+			"accept" : "TODO"
+		}
 	},
 	"sidebar" : {
 		"bulletins" : "Bollettino",

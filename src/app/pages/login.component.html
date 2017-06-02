@@ -27,3 +27,9 @@
     </div>
   </div>
 </div>
+
+<p-confirmDialog width="425" #cd>
+  <p-footer>
+    <button type="button" pButton label='{{ "login.errorDialog.accept" | translate }}' (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

@@ -8,12 +8,15 @@ import { P500Component } from './500.component';
 import { LoginComponent } from './login.component';
 
 import { PagesRoutingModule } from './pages-routing.module';
+import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
 
 @NgModule({
   imports: [
   	PagesRoutingModule,
     FormsModule,
-    TranslateModule
+    TranslateModule,
+    ConfirmDialogModule,
+    SharedModule
   ],
   declarations: [
     P404Component,

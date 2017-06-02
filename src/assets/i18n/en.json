@@ -3,7 +3,12 @@
 	"login" : {
 		"title" : "Login",
 		"text" : "Sign In to your account",
-		"button" : "Login"
+		"button" : "Login",
+		"errorDialog" : {
+			"header" : "Login failed",
+			"message" : "Incorrect username or password!",
+			"accept" : "Ok"
+		}
 	},
 	"sidebar" : {
 		"bulletins" : "Bulletins",

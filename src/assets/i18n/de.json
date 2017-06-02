@@ -3,7 +3,12 @@
 	"login" : {
 		"title" : "Login",
 		"text" : "Melde dich mit deinem Account an",
-		"button" : "Login"
+		"button" : "Login",
+		"errorDialog" : {
+			"header" : "Login fehlgeschlagen",
+			"message" : "Benutzername oder Passwort falsch!",
+			"accept" : "Ok"
+		}
 	},
 	"sidebar" : {
 		"bulletins" : "Lageberichte",

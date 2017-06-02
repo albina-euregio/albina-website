@@ -227,7 +227,7 @@ export class CreateBulletinComponent {
         this.goBack();
       }
     });
-  }    
+  }
 
   goBack() {
     console.log("Bulletin: changes discarded.");
