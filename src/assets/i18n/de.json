@@ -41,7 +41,13 @@
 			"image" : "Bild",
 			"save" : "Speichern",
 			"discard" : "Verwerfen",
-			"back" : "Zurück"
+			"back" : "Zurück",
+			"discardDialog" : {
+				"header" : "Änderungen verwerfen?",
+				"message" : "Willst du die Änderungen verwerfen?",
+				"accept" : "Ja",
+				"reject" : "Nein"
+			}
 		},
 		"title" : "Nachrichten",
 		"table" : {

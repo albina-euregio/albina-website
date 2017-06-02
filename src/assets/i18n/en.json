@@ -41,7 +41,13 @@
 			"image" : "Image",
 			"save" : "Save",
 			"discard" : "Discard",
-			"back" : "Back"
+			"back" : "Back",
+			"discardDialog" : {
+				"header" : "Discard changes?",
+				"message" : "Do you want to discard the changes?",
+				"accept" : "Yes",
+				"reject" : "No"
+			}
 		},
 		"title" : "News",
 		"table" : {

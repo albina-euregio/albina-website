@@ -8,6 +8,7 @@ import { CreateNewsComponent } from './create-news.component';
 // Bulletins Routing
 import { NewsRoutingModule } from './news-routing.module';
 import { TranslateModule } from 'ng2-translate';
+import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { TranslateModule } from 'ng2-translate';
     NewsRoutingModule,
     FormsModule,
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    ConfirmDialogModule,
+    SharedModule
   ],
   declarations: [
     NewsComponent,

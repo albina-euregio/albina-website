@@ -5,6 +5,7 @@ import { NewsModel } from '../models/news.model';
 import { TextModel } from '../models/text.model';
 import { NewsService } from '../providers/mock-service/news.service';
 import * as Enums from '../enums/enums';
+import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 
 @Component({
   templateUrl: 'create-news.component.html'
@@ -24,7 +25,8 @@ export class CreateNewsComponent {
   	private translate: TranslateService,
   	private route: ActivatedRoute,
     private router: Router,
-    private newsService: NewsService)
+    private newsService: NewsService,
+    private confirmationService: ConfirmationService)
   {
     this.disabled = false;
     if (this.newsService.getActiveNews() != null && this.newsService.getActiveNews() != undefined) {
@@ -88,6 +90,16 @@ export class CreateNewsComponent {
   }
 
   discard() {
+    this.confirmationService.confirm({
+      header: this.translate.instant("news.create.discardDialog.header"),
+      message: this.translate.instant("news.create.discardDialog.message"),
+      accept: () => {
+        this.goBack();
+      }
+    });
+  }    
+
+  goBack() {
     console.log("News: changes discarded.");
 	  this.router.navigate(['/news/news']);
   }
