@@ -48,7 +48,6 @@ export class BulletinsComponent {
   editBulletin(date: Date) {
     this.bulletinsService.setActiveDate(date);
     let test = this.statusMap.get(date);
-    debugger
     if (this.statusMap.get(date) === Enums.BulletinStatus.published)
       this.bulletinsService.setIsEditable(false);
     else

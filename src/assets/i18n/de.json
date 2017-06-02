@@ -91,6 +91,12 @@
 				"afternoonAbove" : "Details - Nachmittag, oben",
 				"forenoonBelow" : "Details - Vormittag, unten",
 				"afternoonBelow" : "Details - Nachmittag, unten"
+			},
+			"discardDialog" : {
+				"header" : "Änderungen verwerfen?",
+				"message" : "Willst du die Änderungen verwerfen?",
+				"accept" : "Ja",
+				"reject" : "Nein"
 			}
 		},
 		"table" : {

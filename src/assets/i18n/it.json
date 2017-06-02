@@ -91,6 +91,12 @@
 				"afternoonAbove" : "Dettagli - pomeriggio, al disopra",
 				"forenoonBelow" : "Dettagli - mattina, al disotto",
 				"afternoonBelow" : "Dettagli - pomeriggio, al disotto"
+			},
+			"discardDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO",
+				"reject" : "TODO"
 			}
 		},
 		"table" : {

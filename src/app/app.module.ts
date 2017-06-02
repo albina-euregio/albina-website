@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { DropdownModule } from 'ng2-bootstrap/dropdown';
 import { TabsModule } from 'ng2-bootstrap/tabs';
 import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
@@ -29,6 +30,7 @@ import { RegionsService } from './providers/mock-service/regions.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { SettingsService } from './providers/settings-service/settings.service';
 import { MapService } from './providers/map-service/map.service';
+import { ConfirmationService } from 'primeng/primeng';
 
 import { AuthGuard } from './guards/auth.guard';
 
@@ -49,6 +51,7 @@ export function createTranslateLoader(http: Http) {
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({ 
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
@@ -78,7 +81,8 @@ export function createTranslateLoader(http: Http) {
     RegionsService,
     ChatService,
     NewsService,
-    MapService
+    MapService,
+    ConfirmationService
   ],
   bootstrap: [ AppComponent ],
   exports: [

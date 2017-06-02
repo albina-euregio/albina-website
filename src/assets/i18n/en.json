@@ -91,6 +91,12 @@
 				"afternoonAbove" : "Details - afternoon, above",
 				"forenoonBelow" : "Details - forenoon, below",
 				"afternoonBelow" : "Details - afternoon, below"
+			},
+			"discardDialog" : {
+				"header" : "Discard changes?",
+				"message" : "Do you want to discard the changes?",
+				"accept" : "Yes",
+				"reject" : "No"
 			}
 		},
 		"table" : {

@@ -10,6 +10,7 @@ import { MapService } from "../providers/map-service/map.service";
 import { RegionsTN } from "../mock/regions.tn";
 import { UUID } from 'angular2-uuid';
 import 'rxjs/add/operator/switchMap';
+import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 
 import "leaflet";
 
@@ -38,8 +39,10 @@ export class CreateBulletinComponent {
     private route: ActivatedRoute,
     private router: Router,
     private bulletinsService: BulletinsService,
+    private translateService: TranslateService,
     private settingsService: SettingsService,
-    private mapService: MapService)
+    private mapService: MapService,
+    private confirmationService: ConfirmationService)
   {
   }
 
@@ -211,7 +214,17 @@ export class CreateBulletinComponent {
   }
 
   discard() {
+    this.confirmationService.confirm({
+      header: this.translateService.instant("bulletins.create.discardDialog.header"),
+      message: this.translateService.instant("bulletins.create.discardDialog.message"),
+      accept: () => {
+        this.goBack();
+      }
+    });
+  }    
+
+  goBack() {
     console.log("Bulletin: changes discarded.");
     this.router.navigate(['/bulletins/bulletins']);
-  }
+  }    
 }

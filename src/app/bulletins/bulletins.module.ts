@@ -9,13 +9,16 @@ import { BulletinDetailComponent } from './bulletin-detail.component';
 // Bulletins Routing
 import { BulletinsRoutingModule } from './bulletins-routing.module';
 import { TranslateModule } from 'ng2-translate';
+import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
 
 @NgModule({
   imports: [
     BulletinsRoutingModule,
     FormsModule,
     CommonModule,
-    TranslateModule
+    TranslateModule,
+    ConfirmDialogModule,
+    SharedModule
   ],
   declarations: [
     BulletinsComponent,

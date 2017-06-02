@@ -39,7 +39,7 @@
           <button type="reset" class="btn btn-sm btn-danger" (click)="discard()"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
         </div>
         <div *ngIf="!bulletinsService.getIsEditable()" class="card-footer">
-          <button type="reset" class="btn btn-sm btn-primary" (click)="discard()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
+          <button type="reset" class="btn btn-sm btn-primary" (click)="goBack()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
         </div>
       </div>
     </div>
@@ -125,3 +125,10 @@
     </div>
   </div><!--/.row-->
 </div>
+
+<p-confirmDialog icon="fa fa-question-circle" width="425" #cd>
+  <p-footer>
+    <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.discardDialog.reject" | translate }}' (click)="cd.reject()"></button>
+    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.discardDialog.accept" | translate }}' (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
