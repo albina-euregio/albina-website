@@ -85,7 +85,7 @@ export class CreateBulletinComponent {
         zoom: 8,
         minZoom: 7,
         maxZoom: 9,
-        layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.regionsBulletins]
+        layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions]
     });
 
     L.control.zoom({ position: "topleft" }).addTo(map);
@@ -165,7 +165,8 @@ export class CreateBulletinComponent {
     this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
     this.activeAvalancheSituationHighlight = this.activeBulletinInput.getAvalancheSituationHighlightIn(this.settingsService.getLang());
     this.activeAvalancheSituationComment = this.activeBulletinInput.getAvalancheSituationCommentIn(this.settingsService.getLang());
-    // this.mapService.selectAggregatedRegion(aggregatedRegionId);
+
+    this.mapService.selectAggregatedRegion(this.activeBulletinInput);
   }
 
   deleteAggregatedRegion(aggregatedRegionId: string) {
@@ -185,6 +186,7 @@ export class CreateBulletinComponent {
         this.activeAvalancheSituationComment = undefined;
 
         // this.mapService.deleteAggregatedRegion(bulletin);
+
         // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
       }
     });
@@ -201,14 +203,18 @@ export class CreateBulletinComponent {
     // TODO unlock whole day in TN
     this.editRegions = false;
 
-    // TODO delete regions from other aggregated regions
+    // save selected regions to active bulletin input
     let regions = this.mapService.getSelectedRegions();
-    this.aggregatedRegionsMap.get(aggregatedRegionId).setRegions(regions);
+    this.activeBulletinInput.setRegions(regions);
+
+    // delete regions from other aggregated regions (one region can only be within one aggregated region on this day)
     for (var i = regions.length - 1; i >= 0; i--) {
       for (var i = this.aggregatedRegionsMap.keys.length - 1; i >= 0; i--) {
         let index = this.aggregatedRegionsMap.get(this.aggregatedRegionsMap.keys[i]).getRegions().indexOf(regions[i]);
-        if (index != -1)
+        if (index != -1) {
+          debugger
           this.aggregatedRegionsMap.get(this.aggregatedRegionsMap.keys[i]).getRegions().splice(index, 1);
+        }
       }
     }
     this.mapService.discardAggregatedRegion();
