@@ -8,19 +8,19 @@
         <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.dangerRating" | translate }}</strong></label>
         <div class="col-md-12">
           <label class="radio-inline" for="inline-radio1">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="low">{{ "dangerRating.low" | translate }}
+            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="low" [disabled]="disabled">{{ "dangerRating.low" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio2">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="moderate">{{ "dangerRating.moderate" | translate }}
+            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="moderate" [disabled]="disabled">{{ "dangerRating.moderate" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio3">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="considerable">{{ "dangerRating.considerable" | translate }}
+            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="considerable" [disabled]="disabled">{{ "dangerRating.considerable" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio4">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="high">{{ "dangerRating.high" | translate }}
+            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="high" [disabled]="disabled">{{ "dangerRating.high" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio5">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="very_high">{{ "dangerRating.veryHigh" | translate }}
+            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="very_high" [disabled]="disabled">{{ "dangerRating.veryHigh" | translate }}
           </label>
         </div>
       </div>
@@ -28,19 +28,19 @@
         <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.avalancheProblem" | translate }}</strong></label>
         <div class="col-md-12">
           <label class="radio-inline" for="inline-radio1">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="new_snow">{{ "avalancheProblem.newSnow" | translate }}
+            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="new_snow" [disabled]="disabled">{{ "avalancheProblem.newSnow" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio2">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="wind_drifted_snow">{{ "avalancheProblem.windDriftedSnow" | translate }}
+            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="wind_drifted_snow" [disabled]="disabled">{{ "avalancheProblem.windDriftedSnow" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio3">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="old_snow">{{ "avalancheProblem.oldSnow" | translate }}
+            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="old_snow" [disabled]="disabled">{{ "avalancheProblem.oldSnow" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio4">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="wet_snow">{{ "avalancheProblem.wetSnow" | translate }}
+            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="wet_snow" [disabled]="disabled">{{ "avalancheProblem.wetSnow" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio5">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="gliding_snow">{{ "avalancheProblem.glidingSnow" | translate }}
+            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="gliding_snow" [disabled]="disabled">{{ "avalancheProblem.glidingSnow" | translate }}
           </label>
         </div>
       </div>
@@ -48,28 +48,28 @@
         <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.aspects" | translate }}</strong></label>
         <div class="col-md-9">
           <label class="checkbox-inline" for="checkbox-N">
-            <input type="checkbox" [(ngModel)]="N" (click)="selectAspect($event)" name="checkbox-N" value="N">{{ "aspect.N" | translate }}
+            <input type="checkbox" [(ngModel)]="N" (click)="selectAspect($event)" name="checkbox-N" value="N" [disabled]="disabled">{{ "aspect.N" | translate }}
           </label>
           <label class="checkbox-inline" for="checkbox-NE">
-            <input type="checkbox" [(ngModel)]="NE" (click)="selectAspect($event)" name="checkbox-NE" value="NE">{{ "aspect.NE" | translate }}
+            <input type="checkbox" [(ngModel)]="NE" (click)="selectAspect($event)" name="checkbox-NE" value="NE" [disabled]="disabled">{{ "aspect.NE" | translate }}
           </label>
           <label class="checkbox-inline" for="checkbox-E">
-            <input type="checkbox" [(ngModel)]="E" (click)="selectAspect($event)" name="checkbox-E" value="E">{{ "aspect.E" | translate }}
+            <input type="checkbox" [(ngModel)]="E" (click)="selectAspect($event)" name="checkbox-E" value="E" [disabled]="disabled">{{ "aspect.E" | translate }}
           </label>
           <label class="checkbox-inline" for="checkbox-SE">
-            <input type="checkbox" [(ngModel)]="SE" (click)="selectAspect($event)" name="checkbox-SE" value="SE">{{ "aspect.SE" | translate }}
+            <input type="checkbox" [(ngModel)]="SE" (click)="selectAspect($event)" name="checkbox-SE" value="SE" [disabled]="disabled">{{ "aspect.SE" | translate }}
           </label>
           <label class="checkbox-inline" for="checkbox-S">
-            <input type="checkbox" [(ngModel)]="S" (click)="selectAspect($event)" name="checkbox-S" value="S">{{ "aspect.S" | translate }}
+            <input type="checkbox" [(ngModel)]="S" (click)="selectAspect($event)" name="checkbox-S" value="S" [disabled]="disabled">{{ "aspect.S" | translate }}
           </label>
           <label class="checkbox-inline" for="checkbox-SW">
-            <input type="checkbox" [(ngModel)]="SW" (click)="selectAspect($event)" name="checkbox-SW" value="SW">{{ "aspect.SW" | translate }}
+            <input type="checkbox" [(ngModel)]="SW" (click)="selectAspect($event)" name="checkbox-SW" value="SW" [disabled]="disabled">{{ "aspect.SW" | translate }}
           </label>
           <label class="checkbox-inline" for="checkbox-W">
-            <input type="checkbox" [(ngModel)]="W" (click)="selectAspect($event)" name="checkbox-W" value="W">{{ "aspect.W" | translate }}
+            <input type="checkbox" [(ngModel)]="W" (click)="selectAspect($event)" name="checkbox-W" value="W" [disabled]="disabled">{{ "aspect.W" | translate }}
           </label>
           <label class="checkbox-inline" for="checkbox-NW">
-            <input type="checkbox" [(ngModel)]="NW" (click)="selectAspect($event)" name="checkbox-NW" value="NW">{{ "aspect.NW" | translate }}
+            <input type="checkbox" [(ngModel)]="NW" (click)="selectAspect($event)" name="checkbox-NW" value="NW" [disabled]="disabled">{{ "aspect.NW" | translate }}
           </label>
         </div>
       </div>

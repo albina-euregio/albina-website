@@ -20,6 +20,7 @@ export class BulletinDetailComponent {
 
 	@Input() bulletinElevationDescription: BulletinElevationDescriptionModel;
   @Input() title: string;
+  @Input() disabled: boolean;
 
   constructor(
   	private translate: TranslateService)

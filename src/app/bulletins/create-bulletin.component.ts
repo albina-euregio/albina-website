@@ -23,6 +23,8 @@ export class CreateBulletinComponent {
 
   public originalBulletins: BulletinModel[];
 
+  public editRegions: boolean;
+
   public aggregatedRegionsIds: String[];
   public aggregatedRegionsMap: Map<String, BulletinInputModel>;
   public activeAggregatedRegionId: string;
@@ -56,6 +58,7 @@ export class CreateBulletinComponent {
     this.activeAvalancheSituationComment = undefined;
     this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
+    this.editRegions = false;
 
     this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
@@ -174,6 +177,36 @@ export class CreateBulletinComponent {
         // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
       }
     });
+  }
+
+  editAggregatedRegion(aggregatedRegionId: string) {
+    // TODO allow selection of microregions in map
+    // TODO lock whole day in TN, check if any aggregated region is locked
+    this.editRegions = true;
+    this.mapService.editAggregatedRegion(this.activeBulletinInput);
+  }
+
+  saveAggregatedRegion(aggregatedRegionId: string) {
+    // TODO unlock whole day in TN
+    this.editRegions = false;
+
+    // TODO delete regions from other aggregated regions
+    let regions = this.mapService.getSelectedRegions();
+    this.aggregatedRegionsMap.get(aggregatedRegionId).setRegions(regions);
+    for (var i = regions.length - 1; i >= 0; i--) {
+      for (var i = this.aggregatedRegionsMap.keys.length - 1; i >= 0; i--) {
+        let index = this.aggregatedRegionsMap.get(this.aggregatedRegionsMap.keys[i]).getRegions().indexOf(regions[i]);
+        if (index != -1)
+          this.aggregatedRegionsMap.get(this.aggregatedRegionsMap.keys[i]).getRegions().splice(index, 1);
+      }
+    }
+    this.mapService.discardAggregatedRegion();
+  }
+
+  discardAggregatedRegion(aggregatedRegionId: string) {
+    // TODO unlock whole day in TN
+    this.editRegions = false;
+    this.mapService.discardAggregatedRegion();
   }
 
   save() {

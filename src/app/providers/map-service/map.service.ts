@@ -3,6 +3,8 @@ import { Http } from "@angular/http";
 import { Map } from "leaflet";
 import { RegionsTN } from "../../mock/regions.tn";
 import { BulletinModel } from "../../models/bulletin.model";
+import { BulletinInputModel } from "../../models/bulletin-input.model";
+import { BulletinsService } from '../mock-service/bulletins.service';
 
 
 @Injectable()
@@ -33,15 +35,9 @@ export class MapService {
         };
 
         this.overlayMaps = {
-            // overlay to select regions
-            regionsTN : L.geoJSON(RegionsTN, {
-                            style: this.styleRegions,
-                            onEachFeature : this.onEachFeature
-                        }),
-
-            // overlay to select bigger regions
-            regionsAggrTN : L.geoJSON(RegionsTN, {
-                            style: this.styleRegions,
+            // overlay to select regions (when editing an aggregated region)
+            selection : L.geoJSON(RegionsTN, {
+                            style: this.styleSelectedRegions,
                             onEachFeature : this.onEachFeature
                         }),
 
@@ -54,53 +50,39 @@ export class MapService {
         }
     }
 
-    createAggregatedRegion() {
-        this.map.addLayer(this.overlayMaps.regionsTN);
-        // TODO implement
-    }
-
-    discardAggregatedRegion() {
-        this.map.removeLayer(this.overlayMaps.regionsTN);
-        // TODO implement
-    }
-
     deleteAggregatedRegion(bulletin: BulletinModel) {
         // TODO implement
     }
 
-    selectAggregatedRegion(bulletin: BulletinModel) {
-        // TODO implement
+    selectAggregatedRegion(aggregatedRegionId: string) {
+        // TODO highlight all features within this aggregated region
     }
 
-    saveAggregatedRegion() {
-        for (let layer in this.overlayMaps.regionsBulletins.getLayers()) {
-            for (let i = this.getSelectedRegions().length - 1; i >= 0; i--) {
-                if (this.overlayMaps.regionsBulletins.getLayers()[i].feature.properties.id == this.getSelectedRegions()[this.overlayMaps.regionsBulletins.getLayers()[layer]]) {
-                    for (let k = this.getSelectedRegions().length - 1; k >= 0; k--) {
-                        debugger
-                        this.overlayMaps.regionsBulletins.getLayers()[i].feature.properties.aggregated[k] = this.getSelectedRegions()[k];
-                    }
-                }
+    editAggregatedRegion(bulletinInputModel: BulletinInputModel) {
+        // TODO select all features with this id
+        this.map.addLayer(this.overlayMaps.selection);
 
+        for (let i = this.overlayMaps.selection.getLayers().length - 1; i >= 0; i--) {
+            for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
+                let id = this.overlayMaps.selection.getLayers()[i].feature.properties.id;
+                let region = bulletinInputModel.regions[j];
+                debugger
+                if (this.overlayMaps.selection.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
+                    this.overlayMaps.selection.getLayers()[i].feature.properties.selected = true;
+                    this.overlayMaps.selection.getLayers()[i].setStyle({fillOpacity: 0.5});
+                }
             }
         }
+    }
 
-        debugger
-
-        for (let i = this.getSelectedRegions().length - 1; i >= 0; i--) {
-            let region = this.getSelectedRegions()[i];
-            let layer = this.overlayMaps.regionsBulletins.getLayers();
-            debugger
+    discardAggregatedRegion() {
+        for (let i = this.overlayMaps.selection.getLayers().length - 1; i >= 0; i--) {
+            this.overlayMaps.selection.getLayers()[i].feature.properties.selected = false;
+            this.overlayMaps.selection.getLayers()[i].setStyle({fillOpacity: 0.0});
         }
-
-        this.deselectRegions();
-        this.map.removeLayer(this.overlayMaps.regionsTN);
-    }
-
-    getRegions() {
-        // TODO return regions for the current user
-        return this.overlayMaps.regionsTN.getLayers();
-    }
+        debugger
+        this.map.removeLayer(this.overlayMaps.selection);
+     }
 
     private deselectRegions() {
         for (var i = this.overlayMaps.regionsTN.getLayers().length - 1; i >= 0; i--) {
@@ -129,7 +111,6 @@ export class MapService {
                 if (feature.properties.aggregated) {
                     for (var i = feature.properties.aggregated.length - 1; i >= 0; i--) {
                         let test = feature.properties.aggregated[i];
-                        debugger
                     }
                 }
             }
@@ -138,9 +119,9 @@ export class MapService {
 
     getSelectedRegions() : String[] {
         let result = new Array<String>();
-        for (var i = this.overlayMaps.regionsTN.getLayers().length - 1; i >= 0; i--) {
-            if (this.overlayMaps.regionsTN.getLayers()[i].feature.properties.selected)
-                result.push(this.overlayMaps.regionsTN.getLayers()[i].feature.properties.id);
+        for (var i = this.overlayMaps.selection.getLayers().length - 1; i >= 0; i--) {
+            if (this.overlayMaps.selection.getLayers()[i].feature.properties.selected)
+                result.push(this.overlayMaps.selection.getLayers()[i].feature.properties.id);
         }
         return result;
     }
@@ -153,5 +134,24 @@ export class MapService {
             color: 'black',
             fillOpacity: 0.0
         };
+    }
+
+    private styleSelectedRegions(feature) {
+        if (feature.properties.selected)
+            return {
+                fillColor: 'black',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.0
+            };
+        else
+            return {
+                fillColor: 'black',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.0
+            };
     }
 }
