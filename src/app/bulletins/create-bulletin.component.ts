@@ -104,6 +104,7 @@ export class CreateBulletinComponent {
   addBulletin(bulletin: BulletinModel) {
     this.originalBulletins.push(bulletin);
 
+    // a bulletin for this aggregated region is already in the map => use existend bulletin input object
     if (this.aggregatedRegionsMap.has(bulletin.getAggregatedRegionId())) {
       if (bulletin.below) {
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).elevationDependency = true;
@@ -118,11 +119,14 @@ export class CreateBulletinComponent {
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonBelow = bulletin.below;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonAbove = bulletin.above;
       }
+    // no bulletin with the aggregated region id is present => create a new bulletin input object
     } else {
       let bulletinInput = new BulletinInputModel();
       bulletinInput.regions = bulletin.regions;
       bulletinInput.avalancheSituationHighlight = bulletin.avalancheSituationHighlight;
       bulletinInput.avalancheSituationComment = bulletin.avalancheSituationComment;
+      bulletinInput.snowpackStructureHighlight = bulletin.snowpackStructureHighlight;
+      bulletinInput.snowpackStructureComment = bulletin.snowpackStructureComment;
       bulletinInput.elevation = bulletin.elevation;
       if (bulletin.below) {
         bulletinInput.elevationDependency = true;
@@ -137,6 +141,8 @@ export class CreateBulletinComponent {
         bulletinInput.forenoonBelow = bulletin.below;
         bulletinInput.forenoonAbove = bulletin.above;
       }
+
+      this.mapService.updateAggregatedRegion(bulletinInput);
 
       this.aggregatedRegionsMap.set(bulletin.getAggregatedRegionId(), bulletinInput);
       this.aggregatedRegionsIds.push(bulletin.getAggregatedRegionId());
@@ -161,6 +167,8 @@ export class CreateBulletinComponent {
       this.activeBulletinInput.setAvalancheSituationCommentIn(this.activeAvalancheSituationComment, this.settingsService.getLang());
     }
 
+    // TODO update map view (danger ratings)
+
     this.activeAggregatedRegionId = aggregatedRegionId;
     this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
     this.activeAvalancheSituationHighlight = this.activeBulletinInput.getAvalancheSituationHighlightIn(this.settingsService.getLang());
@@ -180,12 +188,12 @@ export class CreateBulletinComponent {
         if (index > -1)
           this.aggregatedRegionsIds.splice(index, 1);
 
+        this.mapService.deselectRegions(this.activeBulletinInput);
+
         this.activeAggregatedRegionId = undefined;
         this.activeBulletinInput = undefined;
         this.activeAvalancheSituationHighlight = undefined;
         this.activeAvalancheSituationComment = undefined;
-
-        this.mapService.deselectRegions();
 
         // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
       }
@@ -212,12 +220,12 @@ export class CreateBulletinComponent {
       for (var i = this.aggregatedRegionsMap.keys.length - 1; i >= 0; i--) {
         let index = this.aggregatedRegionsMap.get(this.aggregatedRegionsMap.keys[i]).getRegions().indexOf(regions[i]);
         if (index != -1) {
-          debugger
           this.aggregatedRegionsMap.get(this.aggregatedRegionsMap.keys[i]).getRegions().splice(index, 1);
         }
       }
     }
     this.mapService.discardAggregatedRegion();
+    this.mapService.addAggregatedRegion(this.activeBulletinInput);
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
   }
 
@@ -229,6 +237,7 @@ export class CreateBulletinComponent {
   }
 
   save() {
+    this.mapService.reset();
     let bulletins = Array<BulletinModel>();
 
     debugger
@@ -286,6 +295,7 @@ export class CreateBulletinComponent {
   }
 
   goBack() {
+    this.mapService.reset();
     console.log("Bulletin: changes discarded.");
     this.router.navigate(['/bulletins/bulletins']);
   }    

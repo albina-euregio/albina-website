@@ -5,6 +5,7 @@ import { RegionsTN } from "../../mock/regions.tn";
 import { BulletinModel } from "../../models/bulletin.model";
 import { BulletinInputModel } from "../../models/bulletin-input.model";
 import { BulletinsService } from '../mock-service/bulletins.service';
+import * as Enums from '../../enums/enums';
 
 
 @Injectable()
@@ -55,6 +56,38 @@ export class MapService {
         }
     }
 
+    reset() {
+        for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--)
+            this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getBaseStyle());
+        for (let i = this.overlayMaps.activeSelection.getLayers().length - 1; i >= 0; i--)
+            this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getBaseStyle());
+        for (let i = this.overlayMaps.editSelection.getLayers().length - 1; i >= 0; i--)
+            this.overlayMaps.editSelection.getLayers()[i].setStyle(this.getBaseStyle());
+    }
+
+    addAggregatedRegion(bulletinInputModel: BulletinInputModel) {
+        let dangerRating = bulletinInputModel.getHighestDangerRating();
+        for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--) {
+            for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
+                    this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getDangerRatingStyle(dangerRating));
+                }
+            }
+        }        
+    }
+
+    updateAggregatedRegion(bulletinInputModel: BulletinInputModel) {
+        let dangerRating = bulletinInputModel.getHighestDangerRating();
+        for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--) {
+            for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
+                let id = this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id;
+                let region = bulletinInputModel.regions[j];
+                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j])
+                    this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getDangerRatingStyle(dangerRating));
+            }
+        }
+    }
+
     deleteAggregatedRegion(bulletin: BulletinModel) {
         // TODO implement
     }
@@ -65,8 +98,6 @@ export class MapService {
             this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = false;
             this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getBaseStyle());
             for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
-                let id = this.overlayMaps.activeSelection.getLayers()[i].feature.properties.id;
-                let region = bulletinInputModel.regions[j];
                 if (this.overlayMaps.activeSelection.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
                     this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = true;
                     this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getActiveSelectionStyle());
@@ -80,8 +111,6 @@ export class MapService {
         this.map.addLayer(this.overlayMaps.editSelection);
         for (let i = this.overlayMaps.editSelection.getLayers().length - 1; i >= 0; i--) {
             for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
-                let id = this.overlayMaps.editSelection.getLayers()[i].feature.properties.id;
-                let region = bulletinInputModel.regions[j];
                 if (this.overlayMaps.editSelection.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
                     this.overlayMaps.editSelection.getLayers()[i].feature.properties.selected = true;
                     this.overlayMaps.editSelection.getLayers()[i].setStyle(this.getEditSelectionStyle());
@@ -98,11 +127,20 @@ export class MapService {
         this.map.removeLayer(this.overlayMaps.editSelection);
      }
 
-    deselectRegions() {
+    deselectRegions(bulletinInputModel: BulletinInputModel) {
+        for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--) {
+            for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
+                    this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getBaseStyle());
+                }
+            }
+        }
+
         for (let i = this.overlayMaps.activeSelection.getLayers().length - 1; i >= 0; i--) {
             this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = false;
             this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getBaseStyle());
         }
+
         this.map.removeLayer(this.overlayMaps.activeSelection);
     }
 
@@ -153,11 +191,7 @@ export class MapService {
 
     private getActiveSelectionStyle() {
         return {
-            fillColor: 'black',
-            weight: 1,
-            opacity: 1,
-            color: 'black',
-            fillOpacity: 0.5
+            fillOpacity: 1.0
         }
     }
 
@@ -169,5 +203,57 @@ export class MapService {
             color: 'black',
             fillOpacity: 0.0
         };
+    }
+
+    private getDangerRatingStyle(dangerRating) {
+        if (dangerRating == "very_high") {
+            return {
+                fillColor: 'black',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        } else if (dangerRating == "high") {
+            return {
+                fillColor: 'red',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        } else if (dangerRating == "considerable") {
+            return {
+                fillColor: 'orange',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        } else if (dangerRating == "moderate") {
+            return {
+                fillColor: 'yellow',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        } else if (dangerRating == "low") {
+            return {
+                fillColor: 'green',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        } else {
+            return {
+                fillColor: 'grey',
+                weight: 1,
+                opacity: 1,
+                color: 'grey',
+                fillOpacity: 0.5
+            }
+        }
     }
 }

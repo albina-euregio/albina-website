@@ -221,6 +221,18 @@ export class BulletinInputModel {
 		this.elevationDependency = elevationDependency;
 	}
 
+	getHighestDangerRating() : Enums.DangerRating {
+		let result = this.forenoonAbove.dangerRating;
+		if (this.forenoonBelow && this.forenoonBelow.dangerRating > result)
+			result = this.forenoonBelow.dangerRating
+		if (this.afternoonAbove && this.afternoonAbove.dangerRating > result)
+			result = this.afternoonAbove.dangerRating;
+		if (this.afternoonBelow && this.afternoonBelow.dangerRating > result)
+			result = this.afternoonBelow.dangerRating;
+
+		return result;
+	}
+
 	toBulletins(aggregatedRegionId: string, date: Date) : BulletinModel[] {
 		let result = new Array<BulletinModel>();
 		let forenoonBulletin = new BulletinModel();
