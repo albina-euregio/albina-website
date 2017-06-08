@@ -37,20 +37,20 @@ export class MapService {
         this.overlayMaps = {
             // overlay to show selected regions
             activeSelection : L.geoJSON(RegionsTN, {
-                            style: this.styleSelectedRegions
-                        }),
+                style: this.getBaseStyle
+            }),
 
             // overlay to select regions (when editing an aggregated region)
             editSelection : L.geoJSON(RegionsTN, {
-                            style: this.styleSelectedRegions,
-                            onEachFeature : this.onEachFeature
-                        }),
+                style: this.getBaseStyle,
+                onEachFeature : this.onEachFeature
+            }),
 
             // overlay to show aggregated regions
             aggregatedRegions : L.geoJSON(RegionsTN, {
-                            style: this.styleAggregatedRegions,
-                            onEachFeature : this.onEachAggregatedRegionsFeature
-                        })
+                style: this.getBaseStyle,
+                onEachFeature : this.onEachAggregatedRegionsFeature
+            })
 
         }
     }
@@ -63,19 +63,20 @@ export class MapService {
         this.map.addLayer(this.overlayMaps.activeSelection);
         for (let i = this.overlayMaps.activeSelection.getLayers().length - 1; i >= 0; i--) {
             this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = false;
-            this.overlayMaps.activeSelection.getLayers()[i].setStyle({fillOpacity: 0.0});
+            this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getBaseStyle());
             for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
                 let id = this.overlayMaps.activeSelection.getLayers()[i].feature.properties.id;
                 let region = bulletinInputModel.regions[j];
                 if (this.overlayMaps.activeSelection.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
                     this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = true;
-                    this.overlayMaps.activeSelection.getLayers()[i].setStyle({fillOpacity: 0.5});
+                    this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getActiveSelectionStyle());
                 }
             }
         }
     }
 
     editAggregatedRegion(bulletinInputModel: BulletinInputModel) {
+        this.map.removeLayer(this.overlayMaps.activeSelection);
         this.map.addLayer(this.overlayMaps.editSelection);
         for (let i = this.overlayMaps.editSelection.getLayers().length - 1; i >= 0; i--) {
             for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
@@ -83,7 +84,7 @@ export class MapService {
                 let region = bulletinInputModel.regions[j];
                 if (this.overlayMaps.editSelection.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
                     this.overlayMaps.editSelection.getLayers()[i].feature.properties.selected = true;
-                    this.overlayMaps.editSelection.getLayers()[i].setStyle({fillOpacity: 0.5});
+                    this.overlayMaps.editSelection.getLayers()[i].setStyle(this.getEditSelectionStyle());
                 }
             }
         }
@@ -92,16 +93,26 @@ export class MapService {
     discardAggregatedRegion() {
         for (let i = this.overlayMaps.editSelection.getLayers().length - 1; i >= 0; i--) {
             this.overlayMaps.editSelection.getLayers()[i].feature.properties.selected = false;
-            this.overlayMaps.editSelection.getLayers()[i].setStyle({fillOpacity: 0.0});
+            this.overlayMaps.editSelection.getLayers()[i].setStyle(this.getBaseStyle());
         }
         this.map.removeLayer(this.overlayMaps.editSelection);
      }
 
-    private deselectRegions() {
-        for (var i = this.overlayMaps.regionsTN.getLayers().length - 1; i >= 0; i--) {
-            this.overlayMaps.regionsTN.getLayers()[i].feature.properties.selected = false;
-            this.overlayMaps.regionsTN.getLayers()[i].setStyle({fillOpacity: 0.0});
+    deselectRegions() {
+        for (let i = this.overlayMaps.activeSelection.getLayers().length - 1; i >= 0; i--) {
+            this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = false;
+            this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getBaseStyle());
         }
+        this.map.removeLayer(this.overlayMaps.activeSelection);
+    }
+
+    getSelectedRegions() : String[] {
+        let result = new Array<String>();
+        for (let i = this.overlayMaps.editSelection.getLayers().length - 1; i >= 0; i--) {
+            if (this.overlayMaps.editSelection.getLayers()[i].feature.properties.selected)
+                result.push(this.overlayMaps.editSelection.getLayers()[i].feature.properties.id);
+        }
+        return result;
     }
 
     private onEachFeature(feature, layer) {
@@ -109,10 +120,10 @@ export class MapService {
             click: function(e) {
                 if (feature.properties.selected && feature.properties.selected == true) {
                     feature.properties.selected = false;
-                    layer.setStyle({fillOpacity: 0.0});
+                    layer.setStyle({fillColor: 'black', fillOpacity: 0.0, color: 'black', opacity: 1, weight: 1});
                 } else {
                     feature.properties.selected = true;
-                    layer.setStyle({fillOpacity: 0.5});
+                    layer.setStyle({fillColor: 'blue', fillOpacity: 0.5, color: 'blue', opacity: 1, weight: 1});
                 }
             }
         });
@@ -122,7 +133,7 @@ export class MapService {
         layer.on({
             click: function(e) {
                 if (feature.properties.aggregated) {
-                    for (var i = feature.properties.aggregated.length - 1; i >= 0; i--) {
+                    for (let i = feature.properties.aggregated.length - 1; i >= 0; i--) {
                         let test = feature.properties.aggregated[i];
                     }
                 }
@@ -130,17 +141,27 @@ export class MapService {
         });
     }
 
-    getSelectedRegions() : String[] {
-        let result = new Array<String>();
-        for (var i = this.overlayMaps.editSelection.getLayers().length - 1; i >= 0; i--) {
-            if (this.overlayMaps.editSelection.getLayers()[i].feature.properties.selected)
-                result.push(this.overlayMaps.editSelection.getLayers()[i].feature.properties.id);
+    private getEditSelectionStyle() {
+        return {
+            fillColor: 'blue',
+            weight: 1,
+            opacity: 1,
+            color: 'blue',
+            fillOpacity: 0.5
         }
-        return result;
     }
 
-    private styleAggregatedRegions(feature) {
-        if (feature.properties.id)
+    private getActiveSelectionStyle() {
+        return {
+            fillColor: 'black',
+            weight: 1,
+            opacity: 1,
+            color: 'black',
+            fillOpacity: 0.5
+        }
+    }
+
+    private getBaseStyle() {
         return {
             fillColor: 'black',
             weight: 1,
@@ -148,24 +169,5 @@ export class MapService {
             color: 'black',
             fillOpacity: 0.0
         };
-    }
-
-    private styleSelectedRegions(feature) {
-        if (feature.properties.selected)
-            return {
-                fillColor: 'black',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.0
-            };
-        else
-            return {
-                fillColor: 'black',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.0
-            };
     }
 }

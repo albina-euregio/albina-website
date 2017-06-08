@@ -185,7 +185,7 @@ export class CreateBulletinComponent {
         this.activeAvalancheSituationHighlight = undefined;
         this.activeAvalancheSituationComment = undefined;
 
-        // this.mapService.deleteAggregatedRegion(bulletin);
+        this.mapService.deselectRegions();
 
         // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
       }
@@ -218,12 +218,14 @@ export class CreateBulletinComponent {
       }
     }
     this.mapService.discardAggregatedRegion();
+    this.mapService.selectAggregatedRegion(this.activeBulletinInput);
   }
 
   discardAggregatedRegion(aggregatedRegionId: string) {
     // TODO unlock whole day in TN
     this.editRegions = false;
     this.mapService.discardAggregatedRegion();
+    this.mapService.selectAggregatedRegion(this.activeBulletinInput);
   }
 
   save() {
