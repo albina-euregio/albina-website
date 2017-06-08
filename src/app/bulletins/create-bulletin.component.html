@@ -134,6 +134,33 @@
       <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonBelow" [title]="'bulletins.create.title.afternoonBelow'" [disabled]="editRegions"></bulletin-detail>
     </div>
   </div><!--/.row-->
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ "bulletins.create.title.snowpackStructure" | translate }}</strong>
+        </div>
+        <div class="card-block">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.snowpackStructureHighlight" | translate }}</strong></label>
+              <div class="col-md-12">
+                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="editRegions" [(ngModel)]="activeSnowpackStructureHighlight">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
+              <div class="col-md-12">
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="editRegions" [(ngModel)]="activeSnowpackStructureComment"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <p-confirmDialog icon="fa fa-question-circle" width="425" #cd>

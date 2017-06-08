@@ -94,7 +94,9 @@
 				"dangerRating" : "Gefahrenstufe",
 				"aspects" : "Exposition",
 				"elevation" : "Höhenabhängigkeit",
-				"daytime" : "Tageszeitliche Abhängigkeit"
+				"daytime" : "Tageszeitliche Abhängigkeit",
+				"snowpackStructureHighlight" : "Schlagzeile Schneedeckenaufbau",
+				"snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus"
 			},
 			"title" : {
 				"map" : "Karte",
@@ -107,7 +109,8 @@
 				"forenoonAbove" : "Details - Vormittag, oben",
 				"afternoonAbove" : "Details - Nachmittag, oben",
 				"forenoonBelow" : "Details - Vormittag, unten",
-				"afternoonBelow" : "Details - Nachmittag, unten"
+				"afternoonBelow" : "Details - Nachmittag, unten",
+				"snowpackStructure" : "Schneedeckenaufbau"
 			},
 			"discardDialog" : {
 				"header" : "Änderungen verwerfen?",

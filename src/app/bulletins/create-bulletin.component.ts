@@ -33,6 +33,9 @@ export class CreateBulletinComponent {
   public activeAvalancheSituationHighlight: string;
   public activeAvalancheSituationComment: string;
 
+  public activeSnowpackStructureHighlight: string;
+  public activeSnowpackStructureComment: string;
+
   public hasDaytimeDependency: boolean;
   public hasElevationDependency: boolean;
 
@@ -56,6 +59,8 @@ export class CreateBulletinComponent {
     this.activeBulletinInput = undefined;
     this.activeAvalancheSituationHighlight = undefined;
     this.activeAvalancheSituationComment = undefined;
+    this.activeSnowpackStructureHighlight = undefined;
+    this.activeSnowpackStructureComment = undefined;
     this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
     this.editRegions = false;
@@ -150,6 +155,12 @@ export class CreateBulletinComponent {
   }
 
   selectAggregatedRegion(aggregatedRegionId: string) {
+    // save text parts
+    if (this.activeBulletinInput) {
+      this.activeBulletinInput.setAvalancheSituationHighlightIn(this.activeAvalancheSituationHighlight, this.settingsService.getLang());
+      this.activeBulletinInput.setAvalancheSituationCommentIn(this.activeAvalancheSituationComment, this.settingsService.getLang());
+    }
+
     this.activeAggregatedRegionId = aggregatedRegionId;
     this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
     this.activeAvalancheSituationHighlight = this.activeBulletinInput.getAvalancheSituationHighlightIn(this.settingsService.getLang());

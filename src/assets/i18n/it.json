@@ -88,7 +88,9 @@
 				"dangerRating" : "Grado del pericolo valanghe",
 				"aspects" : "Versanti",
 				"elevation" : "Altezza",
-				"daytime" : "Mattina/pomeriggio"
+				"daytime" : "Mattina/pomeriggio",
+				"snowpackStructureHighlight" : "TODO",
+				"snowpackStructureComment" : "TODO"
 			},
 			"title" : {
 				"map" : "Mappa",
@@ -101,7 +103,8 @@
 				"forenoonAbove" : "Dettagli - mattina, al disopra",
 				"afternoonAbove" : "Dettagli - pomeriggio, al disopra",
 				"forenoonBelow" : "Dettagli - mattina, al disotto",
-				"afternoonBelow" : "Dettagli - pomeriggio, al disotto"
+				"afternoonBelow" : "Dettagli - pomeriggio, al disotto",
+				"snowpackStructure" : "TODO"
 			},
 			"discardDialog" : {
 				"header" : "TODO",

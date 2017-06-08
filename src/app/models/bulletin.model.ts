@@ -18,6 +18,9 @@ export class BulletinModel {
 	public avalancheSituationHighlight: TextModel[];
 	public avalancheSituationComment: TextModel[];
 
+	public snowpackStructureHighlight: TextModel[];
+	public snowpackStructureComment: TextModel[];
+
 	public status: Enums.BulletinStatus;
 
 	constructor(bulletin?: BulletinModel) {
@@ -31,6 +34,8 @@ export class BulletinModel {
 			this.status = bulletin.status;
 			this.avalancheSituationHighlight = bulletin.avalancheSituationHighlight;
 			this.avalancheSituationComment = bulletin.avalancheSituationComment;
+			this.snowpackStructureHighlight = bulletin.snowpackStructureHighlight;
+			this.snowpackStructureComment = bulletin.snowpackStructureComment;
 			this.elevation = bulletin.elevation;
 		} else {
 			this.aggregatedRegionId = undefined;
@@ -42,6 +47,8 @@ export class BulletinModel {
 			this.status = undefined;
 			this.avalancheSituationHighlight = new Array<TextModel>();
 			this.avalancheSituationComment = new Array<TextModel>();
+			this.snowpackStructureHighlight = new Array<TextModel>();
+			this.snowpackStructureComment = new Array<TextModel>();
 			this.elevation = undefined;
 		}
 	}
@@ -152,6 +159,36 @@ export class BulletinModel {
 		this.avalancheSituationComment = avalancheSituationComment;
 	}
 
+	getSnowpackStructureHighlightIn(language: Enums.LanguageCode) : string {
+		for (var i = this.snowpackStructureHighlight.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureHighlight[i].getLanguageCode() == language)
+				return this.snowpackStructureHighlight[i].getText();
+		}
+	}
+
+	getSnowpackStructureHighlightInString(language: string) : string {
+		return this.getSnowpackStructureHighlightIn(Enums.LanguageCode[language]);
+	}
+
+	setSnowpackStructureHighlight(snowpackStructureHighlight: TextModel[]) {
+		this.snowpackStructureHighlight = snowpackStructureHighlight;
+	}
+
+	getSnowpackStructureComment() : TextModel[] {
+		return this.snowpackStructureComment;
+	}
+
+	getSnowpackStructureCommentIn(language: Enums.LanguageCode) : string {
+		for (var i = this.snowpackStructureComment.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureComment[i].getLanguageCode() == language)
+				return this.snowpackStructureComment[i].getText();
+		}
+	}
+
+	setSnowpackStructureComment(snowpackStructureComment: TextModel[]) {
+		this.snowpackStructureComment = snowpackStructureComment;
+	}
+
 	toJson() {
 		var json = Object();
 
@@ -201,6 +238,21 @@ export class BulletinModel {
 			json['avalancheSituationComment'] = avalancheSituationComment;
 		}
 
+		if (this.snowpackStructureHighlight && this.snowpackStructureHighlight.length > 0) {
+			let snowpackStructureHighlight = [];
+			for (let i = 0; i <= this.snowpackStructureHighlight.length - 1; i++) {
+				snowpackStructureHighlight.push(this.snowpackStructureHighlight[i].toJson());
+			}
+			json['snowpackStructureHighlight'] = snowpackStructureHighlight;
+		}
+		if (this.snowpackStructureComment && this.snowpackStructureComment.length > 0) {
+			let snowpackStructureComment = [];
+			for (let i = 0; i <= this.snowpackStructureComment.length - 1; i++) {
+				snowpackStructureComment.push(this.snowpackStructureComment[i].toJson());
+			}
+			json['snowpackStructureComment'] = snowpackStructureComment;
+		}
+
 		return json;
 	}
 
@@ -242,6 +294,20 @@ export class BulletinModel {
 			avalancheSituationComment.push(TextModel.createFromJson(jsonAvalancheSituationComment[i]));
 		}
 		bulletin.setAvalancheSituationComment(avalancheSituationComment);
+
+		let jsonSnowpackStructureHighlight = json.snowpackStructureHighlight;
+		let snowpackStructureHighlight = new Array<TextModel>();
+		for (let i in jsonSnowpackStructureHighlight) {
+			snowpackStructureHighlight.push(TextModel.createFromJson(jsonSnowpackStructureHighlight[i]));
+		}
+		bulletin.setSnowpackStructureHighlight(snowpackStructureHighlight);
+
+		let jsonSnowpackStructureComment = json.snowpackStructureComment;
+		let snowpackStructureComment = new Array<TextModel>();
+		for (let i in jsonSnowpackStructureComment) {
+			snowpackStructureComment.push(TextModel.createFromJson(jsonSnowpackStructureComment[i]));
+		}
+		bulletin.setSnowpackStructureComment(snowpackStructureComment);
 
 		return bulletin;
 	}

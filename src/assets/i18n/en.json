@@ -88,7 +88,9 @@
 				"dangerRating" : "Danger Rating",
 				"aspects" : "Aspects",
 				"elevation" : "Elevation",
-				"daytime" : "Daytime"
+				"daytime" : "Daytime",
+				"snowpackStructureHighlight" : "Headline snowpack strucure",
+				"snowpackStructureComment" : "Description of snowpack strucure"
 			},
 			"title" : {
 				"map" : "Map",
@@ -101,7 +103,8 @@
 				"forenoonAbove" : "Details - forenoon, above",
 				"afternoonAbove" : "Details - afternoon, above",
 				"forenoonBelow" : "Details - forenoon, below",
-				"afternoonBelow" : "Details - afternoon, below"
+				"afternoonBelow" : "Details - afternoon, below",
+				"snowpackStructure" : "Snowpack strucure"
 			},
 			"discardDialog" : {
 				"header" : "Discard changes",

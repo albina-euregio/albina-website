@@ -99,6 +99,19 @@ export class BulletinInputModel {
 		this.avalancheSituationHighlight = avalancheSituationHighlight;
 	}
 
+	setAvalancheSituationHighlightIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.avalancheSituationHighlight.length - 1; i >= 0; i--) {
+			if (this.avalancheSituationHighlight[i].getLanguageCode() == language) {
+				this.avalancheSituationHighlight[i].setText(text);
+				return;
+			}
+		}
+		let model = new TextModel();
+		model.setLanguageCode(language);
+		model.setText(text);
+		this.avalancheSituationHighlight.push(model);
+	}
+
 	getAvalancheSituationComment() : TextModel[] {
 		return this.avalancheSituationComment;
 	}
@@ -112,6 +125,19 @@ export class BulletinInputModel {
 
 	setAvalancheSituationComment(avalancheSituationComment: TextModel[]) {
 		this.avalancheSituationComment = avalancheSituationComment;
+	}
+
+	setAvalancheSituationCommentIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.avalancheSituationComment.length - 1; i >= 0; i--) {
+			if (this.avalancheSituationComment[i].getLanguageCode() == language) {
+				this.avalancheSituationComment[i].setText(text);
+				return;
+			}
+		}
+		let model = new TextModel();
+		model.setLanguageCode(language);
+		model.setText(text);
+		this.avalancheSituationComment.push(model);
 	}
 
 	getDaytimeDependency() : boolean {
