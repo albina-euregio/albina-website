@@ -226,6 +226,10 @@ export class CreateBulletinComponent {
     debugger
 
     this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+      // set snowpack structure texts
+      value.setSnowpackStructureHighlightIn(this.activeSnowpackStructureHighlight, this.settingsService.getLang());
+      value.setSnowpackStructureCommentIn(this.activeSnowpackStructureComment, this.settingsService.getLang());
+
       // create bulletins
       let b = value.toBulletins(key, this.bulletinsService.getActiveDate());
       for (var i = b.length - 1; i >= 0; i--) {

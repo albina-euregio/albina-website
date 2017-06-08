@@ -9,6 +9,9 @@ export class BulletinInputModel {
 	public avalancheSituationHighlight: TextModel[];
 	public avalancheSituationComment: TextModel[];
 
+	public snowpackStructureHighlight: TextModel[];
+	public snowpackStructureComment: TextModel[];
+
 	public elevationDependency: boolean;
 	public daytimeDependency: boolean;
 
@@ -23,6 +26,8 @@ export class BulletinInputModel {
 		this.regions = new Array<String>();
 		this.avalancheSituationHighlight = new Array<TextModel>();
 		this.avalancheSituationComment = new Array<TextModel>();
+		this.snowpackStructureHighlight = new Array<TextModel>();
+		this.snowpackStructureComment = new Array<TextModel>();
 		this.elevationDependency = false;
 		this.daytimeDependency = false;
 		this.elevation = undefined;
@@ -140,6 +145,66 @@ export class BulletinInputModel {
 		this.avalancheSituationComment.push(model);
 	}
 
+	getSnowpackStructureHighlight() : TextModel[] {
+		return this.snowpackStructureHighlight;
+	}
+
+	getSnowpackStructureHighlightIn(language: Enums.LanguageCode) : string {
+		for (var i = this.snowpackStructureHighlight.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureHighlight[i].getLanguageCode() == language)
+				return this.snowpackStructureHighlight[i].getText();
+		}
+	}
+
+	getSnowpackStructureHighlightInString(language: string) : string {
+		return this.getSnowpackStructureHighlightIn(Enums.LanguageCode[language]);
+	}
+
+	setSnowpackStructureHighlight(snowpackStructureHighlight: TextModel[]) {
+		this.snowpackStructureHighlight = snowpackStructureHighlight;
+	}
+
+	setSnowpackStructureHighlightIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.snowpackStructureHighlight.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureHighlight[i].getLanguageCode() == language) {
+				this.snowpackStructureHighlight[i].setText(text);
+				return;
+			}
+		}
+		let model = new TextModel();
+		model.setLanguageCode(language);
+		model.setText(text);
+		this.snowpackStructureHighlight.push(model);
+	}
+
+	getSnowpackStructureComment() : TextModel[] {
+		return this.snowpackStructureComment;
+	}
+
+	getSnowpackStructureCommentIn(language: Enums.LanguageCode) : string {
+		for (var i = this.snowpackStructureComment.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureComment[i].getLanguageCode() == language)
+				return this.snowpackStructureComment[i].getText();
+		}
+	}
+
+	setSnowpackStructureComment(snowpackStructureComment: TextModel[]) {
+		this.snowpackStructureComment = snowpackStructureComment;
+	}
+
+	setSnowpackStructureCommentIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.snowpackStructureComment.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureComment[i].getLanguageCode() == language) {
+				this.snowpackStructureComment[i].setText(text);
+				return;
+			}
+		}
+		let model = new TextModel();
+		model.setLanguageCode(language);
+		model.setText(text);
+		this.snowpackStructureComment.push(model);
+	}
+
 	getDaytimeDependency() : boolean {
 		return this.daytimeDependency;
 	}
@@ -173,6 +238,8 @@ export class BulletinInputModel {
 
 		forenoonBulletin.avalancheSituationHighlight = this.avalancheSituationHighlight;
 		forenoonBulletin.avalancheSituationComment = this.avalancheSituationComment;
+		forenoonBulletin.snowpackStructureHighlight = this.snowpackStructureHighlight;
+		forenoonBulletin.snowpackStructureComment = this.snowpackStructureComment;
 
 		// TODO whats with the status?
 

@@ -104,7 +104,7 @@
 				"afternoonAbove" : "Details - afternoon, above",
 				"forenoonBelow" : "Details - forenoon, below",
 				"afternoonBelow" : "Details - afternoon, below",
-				"snowpackStructure" : "Snowpack strucure"
+				"snowpackStructure" : "Snowpack structure"
 			},
 			"discardDialog" : {
 				"header" : "Discard changes",
