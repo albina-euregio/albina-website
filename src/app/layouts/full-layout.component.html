@@ -2,10 +2,24 @@
   <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button>
 <!--  <a class="navbar-brand" href="#"></a> -->
   
-  <ul class="nav navbar-nav ml-auto">
-    <li class="nav-item hidden-md-down">
-<!--      <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a> -->
+  <ul class="nav navbar-nav hidden-md-down">
+    <li class="nav-item">
+      <a class="nav-link navbar-toggler sidebar-toggler" href="#">&#9776;</a>
     </li>
+    <li class="nav-item px-1">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins/bulletins']">{{ "sidebar.bulletins" | translate }}</a>
+    </li>
+    <li class="nav-item px-1">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/news/news']">{{ "sidebar.news" | translate }}</a>
+    </li>
+  </ul>
+
+  <ul class="nav navbar-nav ml-auto">
+<!--
+    <li class="nav-item hidden-md-down">
+      <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
+    </li>
+-->
     <li class="nav-item dropdown" dropdown (onToggle)="toggled($event)">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
         <img src="{{ authenticationService.getUserImageSanitized() }}" class="img-avatar">
