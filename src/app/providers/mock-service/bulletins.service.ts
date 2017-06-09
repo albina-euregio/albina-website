@@ -3,6 +3,7 @@ import { Response, ResponseOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { BulletinModel } from '../../models/bulletin.model';
 import { MockBulletinsTNIncomplete } from '../../mock/bulletin.mock';
+import { MockCaaml } from '../../mock/bulletin.mock';
 import * as Enums from '../../enums/enums';
 
 @Injectable()
@@ -58,6 +59,23 @@ export class BulletinsService {
     if (from.getDate() == (new Date()).getDate()) {
       response = new ResponseOptions({
         body: JSON.stringify(MockBulletinsTNIncomplete)
+      });
+      console.log('MOCK: Bulletins loaded!');
+    } else {
+      response = new ResponseOptions({
+        body: {}
+      });
+      console.log('MOCK: No bulletins loaded!');
+    }
+    return Observable.of(new Response(response));
+  }
+
+  loadCaamlBulletins(from: Date) : Observable<Response> {
+    // TODO load correct caaml bulletins (from ist the start at 17:00)
+    let response;
+    if (from.getDate() == (new Date()).getDate()) {
+      response = new ResponseOptions({
+        body: MockCaaml
       });
       console.log('MOCK: Bulletins loaded!');
     } else {

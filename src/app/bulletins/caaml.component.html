@@ -1,0 +1,23 @@
+<div class="animated fadeIn">
+  <!--/.row-->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ "bulletins.caaml.title" | translate }} - {{ bulletinsService.getActiveDate() | date:'short' }}</strong>
+        </div>
+
+        <div class="card-block">
+          <div class="col-md-12">
+            <textarea id="textarea-input" name="textarea-input" rows="40" class="form-control" disabled [(ngModel)]="bulletins" style="font:courier;font-size:11px;white-space:pre-wrap"></textarea>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="reset" class="btn btn-sm btn-primary" (click)="goBack()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>

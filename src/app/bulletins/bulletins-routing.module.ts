@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BulletinsComponent } from './bulletins.component';
 import { CreateBulletinComponent } from './create-bulletin.component';
+import { CaamlComponent } from './caaml.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,13 @@ const routes: Routes = [
         component: CreateBulletinComponent,
         data: {
           title: 'New Bulletin'
+        }
+      },
+      {
+        path: 'caaml',
+        component: CaamlComponent,
+        data: {
+          title: 'CAAML'
         }
       }
     ]

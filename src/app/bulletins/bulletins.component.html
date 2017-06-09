@@ -13,6 +13,7 @@
               <tr>
                 <th>{{ "bulletins.table.title.date" | translate }}</th>
                 <th>{{ "bulletins.table.title.status.trentino" | translate }}</th>
+                <th>{{ "bulletins.table.title.caaml" | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -32,6 +33,9 @@
                 </td>
                 <td *ngIf="statusMap.get(date) == bulletinStatus.incomplete">
                   <span class="badge badge-warning">{{ "bulletins.table.status.incomplete" | translate }}</span>
+                </td>
+                <td>
+                  <i class="fa fa-align-justify" (click)="showCaaml(date)"></i>
                 </td>
               </tr>
             </tbody>

@@ -126,7 +126,8 @@
 					"trentino" : "Trentino",
 					"southTyrol" : "South Tyrol",
 					"tyrol" : "Tyrol"
-				}
+				},
+				"caaml" : "CAAML"
 			},
 			"status" : {
 				"complete" : "complete",
@@ -137,6 +138,9 @@
 			},
 			"edit" : "Edit",
 			"show" : "Show"
+		},
+		"caaml" : {
+			"title" : "CAAML"
 		}
 	},
 
