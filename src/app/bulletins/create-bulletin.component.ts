@@ -98,7 +98,9 @@ export class CreateBulletinComponent {
   ngOnDestroy() {
     this.bulletinsService.setActiveDate(undefined);
     this.bulletinsService.setIsEditable(false);
+
     // TODO unlock via socketIO
+
   }
 
   addBulletin(bulletin: BulletinModel) {
@@ -150,14 +152,15 @@ export class CreateBulletinComponent {
   }
 
   createAggregatedRegion() {
+
     // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
+
     let uuid = UUID.UUID();
     let bulletinInput = new BulletinInputModel();
     this.aggregatedRegionsMap.set(uuid, bulletinInput);
     this.aggregatedRegionsIds.push(uuid);
 
     this.selectAggregatedRegion(uuid);
-    // this.mapService.createAggregatedRegion();
   }
 
   selectAggregatedRegion(aggregatedRegionId: string) {
