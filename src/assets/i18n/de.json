@@ -123,7 +123,7 @@
 			"title" : {
 				"date" : "Datum",
 				"status" : {
-					"trentino" : "Trentino",
+					"trentino" : "Status",
 					"southTyrol" : "Südtirol",
 					"tyrol" : "Tirol"
 				},
