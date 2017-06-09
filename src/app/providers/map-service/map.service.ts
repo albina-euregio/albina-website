@@ -100,10 +100,6 @@ export class MapService {
         }
     }
 
-    deleteAggregatedRegion(bulletin: BulletinModel) {
-        // TODO implement
-    }
-
     selectAggregatedRegion(bulletinInputModel: BulletinInputModel) {
         this.map.addLayer(this.overlayMaps.activeSelection);
         for (let i = this.overlayMaps.activeSelection.getLayers().length - 1; i >= 0; i--) {
