@@ -56,13 +56,25 @@ export class MapService {
         }
     }
 
-    reset() {
+    resetAggregatedRegions() {
         for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--)
             this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getBaseStyle());
+    }
+
+    resetActiveSelection() {
         for (let i = this.overlayMaps.activeSelection.getLayers().length - 1; i >= 0; i--)
             this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getBaseStyle());
+    }
+
+    resetEditSelection() {
         for (let i = this.overlayMaps.editSelection.getLayers().length - 1; i >= 0; i--)
             this.overlayMaps.editSelection.getLayers()[i].setStyle(this.getBaseStyle());
+    }
+
+    resetAll() {
+        this.resetActiveSelection();
+        this.resetAggregatedRegions();
+        this.resetEditSelection();
     }
 
     addAggregatedRegion(bulletinInputModel: BulletinInputModel) {
@@ -100,7 +112,7 @@ export class MapService {
             for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
                 if (this.overlayMaps.activeSelection.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
                     this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = true;
-                    this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getActiveSelectionStyle());
+                    this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getActiveSelectionStyle(bulletinInputModel.getHighestDangerRating()));
                 }
             }
         }
@@ -153,6 +165,18 @@ export class MapService {
         return result;
     }
 
+    getSelectedRegion() : string {
+        for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--) {
+            if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.selected)
+                return this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id;
+        }
+    }
+
+    deselectAggregatedRegions() {
+        for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--)
+            this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.selected = false;
+    }
+
     private onEachFeature(feature, layer) {
         layer.on({
             click: function(e) {
@@ -170,11 +194,8 @@ export class MapService {
     private onEachAggregatedRegionsFeature(feature, layer) {
         layer.on({
             click: function(e) {
-                if (feature.properties.aggregated) {
-                    for (let i = feature.properties.aggregated.length - 1; i >= 0; i--) {
-                        let test = feature.properties.aggregated[i];
-                    }
-                }
+                debugger
+                feature.properties.selected = true;
             }
         });
     }
@@ -189,9 +210,55 @@ export class MapService {
         }
     }
 
-    private getActiveSelectionStyle() {
-        return {
-            fillOpacity: 1.0
+    private getActiveSelectionStyle(dangerRating) {
+        if (dangerRating == "very_high") {
+            return {
+                fillColor: 'black',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        } else if (dangerRating == "high") {
+            return {
+                fillColor: 'red',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        } else if (dangerRating == "considerable") {
+            return {
+                fillColor: 'orange',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        } else if (dangerRating == "moderate") {
+            return {
+                fillColor: 'yellow',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        } else if (dangerRating == "low") {
+            return {
+                fillColor: 'green',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        } else {
+            return {
+                fillColor: 'grey',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
         }
     }
 
@@ -212,7 +279,7 @@ export class MapService {
                 weight: 1,
                 opacity: 1,
                 color: 'black',
-                fillOpacity: 0.5
+                fillOpacity: 0.3
             }
         } else if (dangerRating == "high") {
             return {
@@ -220,7 +287,7 @@ export class MapService {
                 weight: 1,
                 opacity: 1,
                 color: 'black',
-                fillOpacity: 0.5
+                fillOpacity: 0.3
             }
         } else if (dangerRating == "considerable") {
             return {
@@ -228,7 +295,7 @@ export class MapService {
                 weight: 1,
                 opacity: 1,
                 color: 'black',
-                fillOpacity: 0.5
+                fillOpacity: 0.3
             }
         } else if (dangerRating == "moderate") {
             return {
@@ -236,7 +303,7 @@ export class MapService {
                 weight: 1,
                 opacity: 1,
                 color: 'black',
-                fillOpacity: 0.5
+                fillOpacity: 0.3
             }
         } else if (dangerRating == "low") {
             return {
@@ -244,15 +311,15 @@ export class MapService {
                 weight: 1,
                 opacity: 1,
                 color: 'black',
-                fillOpacity: 0.5
+                fillOpacity: 0.3
             }
         } else {
             return {
                 fillColor: 'grey',
                 weight: 1,
                 opacity: 1,
-                color: 'grey',
-                fillOpacity: 0.5
+                color: 'black',
+                fillOpacity: 0.3
             }
         }
     }

@@ -201,43 +201,49 @@ export class CreateBulletinComponent {
   }
 
   editAggregatedRegion(aggregatedRegionId: string) {
-    // TODO allow selection of microregions in map
+
     // TODO lock whole day in TN, check if any aggregated region is locked
+
     this.editRegions = true;
     this.mapService.editAggregatedRegion(this.activeBulletinInput);
   }
 
   saveAggregatedRegion(aggregatedRegionId: string) {
-    // TODO unlock whole day in TN
     this.editRegions = false;
 
     // save selected regions to active bulletin input
     let regions = this.mapService.getSelectedRegions();
     this.activeBulletinInput.setRegions(regions);
+    this.mapService.resetAggregatedRegions();
 
     // delete regions from other aggregated regions (one region can only be within one aggregated region on this day)
-    for (var i = regions.length - 1; i >= 0; i--) {
-      for (var i = this.aggregatedRegionsMap.keys.length - 1; i >= 0; i--) {
-        let index = this.aggregatedRegionsMap.get(this.aggregatedRegionsMap.keys[i]).getRegions().indexOf(regions[i]);
-        if (index != -1) {
-          this.aggregatedRegionsMap.get(this.aggregatedRegionsMap.keys[i]).getRegions().splice(index, 1);
+    this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+      if (key != this.activeAggregatedRegionId) {
+        for (var j = regions.length - 1; j >= 0; j--) {
+          let index = value.getRegions().indexOf(regions[j]);
+          if (index != -1) {
+            value.getRegions().splice(index, 1);
+          }
         }
       }
-    }
+      this.mapService.addAggregatedRegion(value);
+    });
     this.mapService.discardAggregatedRegion();
-    this.mapService.addAggregatedRegion(this.activeBulletinInput);
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+
+    // TODO unlock whole day in TN
   }
 
   discardAggregatedRegion(aggregatedRegionId: string) {
-    // TODO unlock whole day in TN
     this.editRegions = false;
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+
+    // TODO unlock whole day in TN
   }
 
   save() {
-    this.mapService.reset();
+    this.mapService.resetAll();
     let bulletins = Array<BulletinModel>();
 
     debugger
@@ -295,7 +301,7 @@ export class CreateBulletinComponent {
   }
 
   goBack() {
-    this.mapService.reset();
+    this.mapService.resetAll();
     console.log("Bulletin: changes discarded.");
     this.router.navigate(['/bulletins/bulletins']);
   }    

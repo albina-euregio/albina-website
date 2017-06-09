@@ -15,7 +15,7 @@
           <div class="form-group row">
             <div class="col-md-12">
               <div class="form-group row">
-                <button *ngIf="bulletinsService.getIsEditable()" (click)="createAggregatedRegion()" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
+                <button [disabled]="editRegions" *ngIf="bulletinsService.getIsEditable()" (click)="createAggregatedRegion()" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
               </div>
               <table class="table">
                 <tbody>
@@ -45,8 +45,8 @@
           </div>
         </div>
         <div *ngIf="bulletinsService.getIsEditable()" class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary" (click)="save()"><i class="fa fa-check"></i>{{ "bulletins.create.save" | translate }}</button>
-          <button type="reset" class="btn btn-sm btn-danger" (click)="discard()"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
+          <button [disabled]="editRegions" type="submit" class="btn btn-sm btn-primary" (click)="save()"><i class="fa fa-check"></i>{{ "bulletins.create.save" | translate }}</button>
+          <button [disabled]="editRegions" type="reset" class="btn btn-sm btn-danger" (click)="discard()"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
         </div>
         <div *ngIf="!bulletinsService.getIsEditable()" class="card-footer">
           <button type="reset" class="btn btn-sm btn-primary" (click)="goBack()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
