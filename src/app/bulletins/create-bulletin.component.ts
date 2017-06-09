@@ -249,7 +249,6 @@ export class CreateBulletinComponent {
   }
 
   getColor(aggregatedRegionId) {
-    debugger
     let dangerRating = "";
     if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined && this.aggregatedRegionsMap.get(aggregatedRegionId).getHighestDangerRating())
       dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getHighestDangerRating().toString();
