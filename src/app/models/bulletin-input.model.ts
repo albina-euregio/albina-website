@@ -222,15 +222,8 @@ export class BulletinInputModel {
 	}
 
 	getHighestDangerRating() : Enums.DangerRating {
-		let result = this.forenoonAbove.dangerRating;
-		if (this.forenoonBelow && this.forenoonBelow.dangerRating > result)
-			result = this.forenoonBelow.dangerRating
-		if (this.afternoonAbove && this.afternoonAbove.dangerRating > result)
-			result = this.afternoonAbove.dangerRating;
-		if (this.afternoonBelow && this.afternoonBelow.dangerRating > result)
-			result = this.afternoonBelow.dangerRating;
-
-		return result;
+		// TODO implement some clever method
+		return this.forenoonAbove.dangerRating;
 	}
 
 	toBulletins(aggregatedRegionId: string, date: Date) : BulletinModel[] {
