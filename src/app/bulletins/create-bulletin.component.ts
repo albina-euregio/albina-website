@@ -284,7 +284,7 @@ export class CreateBulletinComponent {
       data => {
         console.log("Bulletins saved on server.");
         // TODO show toast
-        this.router.navigate(['/bulletins/bulletins']);
+        this.router.navigate(['/bulletins']);
       },
       error => {
         console.error("Bulletins could not be saved on server!");
@@ -306,6 +306,6 @@ export class CreateBulletinComponent {
   goBack() {
     this.mapService.resetAll();
     console.log("Bulletin: changes discarded.");
-    this.router.navigate(['/bulletins/bulletins']);
+    this.router.navigate(['/bulletins']);
   }    
 }

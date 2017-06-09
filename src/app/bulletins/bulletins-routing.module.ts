@@ -8,32 +8,24 @@ import { CaamlComponent } from './caaml.component';
 const routes: Routes = [
   {
     path: '',
+    component: BulletinsComponent,
     data: {
       title: 'Bulletins'
-    },
-    children: [
-      {
-        path: 'bulletins',
-        component: BulletinsComponent,
-        data: {
-          title: 'Bulletins'
-        }
-      },
-      {
-        path: 'new',
-        component: CreateBulletinComponent,
-        data: {
-          title: 'New Bulletin'
-        }
-      },
-      {
-        path: 'caaml',
-        component: CaamlComponent,
-        data: {
-          title: 'CAAML'
-        }
-      }
-    ]
+    }
+  },
+  {
+    path: 'new',
+    component: CreateBulletinComponent,
+    data: {
+      title: 'New Bulletin'
+    }
+  },
+  {
+    path: 'caaml',
+    component: CaamlComponent,
+    data: {
+      title: 'CAAML'
+    }
   }
 ];
 

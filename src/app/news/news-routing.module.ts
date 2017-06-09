@@ -7,25 +7,15 @@ import { CreateNewsComponent } from './create-news.component';
 const routes: Routes = [
   {
     path: '',
+    component: NewsComponent,
+    pathMatch: 'full'
+  },
+  {
+    path: 'new',
+    component: CreateNewsComponent,
     data: {
-      title: 'News'
-    },
-    children: [
-      {
-        path: 'news',
-        component: NewsComponent,
-        data : {
-          title: 'News'
-        }
-      },
-      {
-        path: 'new',
-        component: CreateNewsComponent,
-        data: {
-          title: 'New News'
-        }
-      }
-    ]
+      title: 'New News'
+    }
   }
 ];
 

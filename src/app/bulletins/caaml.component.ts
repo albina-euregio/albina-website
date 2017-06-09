@@ -35,6 +35,6 @@ export class CaamlComponent {
   }
 
   goBack() {
-    this.router.navigate(['/bulletins/bulletins']);
+    this.router.navigate(['/bulletins']);
   }    
 }

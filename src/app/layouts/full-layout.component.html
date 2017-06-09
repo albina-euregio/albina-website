@@ -7,10 +7,10 @@
       <a class="nav-link navbar-toggler sidebar-toggler" href="#">&#9776;</a>
     </li>
     <li class="nav-item px-1">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins/bulletins']">{{ "sidebar.bulletins" | translate }}</a>
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins']">{{ "sidebar.bulletins" | translate }}</a>
     </li>
     <li class="nav-item px-1">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/news/news']">{{ "sidebar.news" | translate }}</a>
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/news']">{{ "sidebar.news" | translate }}</a>
     </li>
   </ul>
 
@@ -54,13 +54,13 @@
           {{ "sidebar.bulletins" | translate }}
         </li>
         <li class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins/bulletins']"><i class="icon-puzzle"></i> {{ "sidebar.bulletins" | translate }}</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins']"><i class="icon-puzzle"></i> {{ "sidebar.bulletins" | translate }}</a>
         </li>
         <li class="nav-title">
           {{ "sidebar.news" | translate }}
         </li>
         <li class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/news/news']"><i class="icon-puzzle"></i> {{ "sidebar.news" | translate }}</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/news']"><i class="icon-puzzle"></i> {{ "sidebar.news" | translate }}</a>
         </li>
       </ul>
     </nav>
@@ -68,11 +68,6 @@
 
   <!-- Main content -->
   <main class="main">
-
-    <ol class="breadcrumb">
-      <breadcrumbs></breadcrumbs>
-    </ol>
-
     <div class="container-fluid">
       <router-outlet></router-outlet>
     </div><!-- /.conainer-fluid -->

@@ -31,7 +31,7 @@ export class LoginComponent {
     // get return url from route parameters or default to '/'
     // console.log("Return URL: " + this.route.snapshot.queryParams['returnUrl']);
     // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.returnUrl = '/bulletins/bulletins';
+    this.returnUrl = '/bulletins';
   }
 
   login() {

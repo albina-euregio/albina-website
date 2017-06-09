@@ -80,7 +80,7 @@ export class CreateNewsComponent {
   		data => {
   			console.log("News saved on server.");
   			// TODO show toast
-  			this.router.navigate(['/news/news']);
+  			this.router.navigate(['/news']);
   		},
   		error => {
   			console.error("News could not be saved on server!");
@@ -101,6 +101,6 @@ export class CreateNewsComponent {
 
   goBack() {
     console.log("News: changes discarded.");
-	  this.router.navigate(['/news/news']);
+	  this.router.navigate(['/news']);
   }
 }

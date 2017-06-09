@@ -10,26 +10,20 @@ import { AuthGuard } from './guards/auth.guard';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'bulletins/bulletins',
+    redirectTo: 'bulletins',
     pathMatch: 'full'
   },
   {
-    path: '',
+    path: 'bulletins',
     component: FullLayoutComponent,
     canActivate: [AuthGuard], 
-    data: {
-      title: 'ALBINA'
-    },
-    children: [
-      {
-        path: 'bulletins',
-        loadChildren: './bulletins/bulletins.module#BulletinsModule'
-      },
-      {
-        path: 'news',
-        loadChildren: './news/news.module#NewsModule'
-      }
-    ]
+    loadChildren: './bulletins/bulletins.module#BulletinsModule'
+  },
+  {
+    path: 'news',
+    component: FullLayoutComponent,
+    canActivate: [AuthGuard], 
+    loadChildren: './news/news.module#NewsModule'
   },
   {
     path: 'pages',
