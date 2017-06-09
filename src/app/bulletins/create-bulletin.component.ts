@@ -248,6 +248,39 @@ export class CreateBulletinComponent {
     // TODO unlock whole day in TN
   }
 
+  getColor(aggregatedRegionId) {
+    debugger
+    let dangerRating = "";
+    if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined && this.aggregatedRegionsMap.get(aggregatedRegionId).getHighestDangerRating())
+      dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getHighestDangerRating().toString();
+
+    if (dangerRating == "very_high") {
+        return {
+            color: 'black'
+        }
+    } else if (dangerRating == "high") {
+        return {
+            color: 'red'
+        }
+    } else if (dangerRating == "considerable") {
+        return {
+            color: 'orange'
+        }
+    } else if (dangerRating == "moderate") {
+        return {
+            color: 'yellow'
+        }
+    } else if (dangerRating == "low") {
+        return {
+            color: 'green'
+        }
+    } else {
+        return {
+            color: 'grey'
+        }
+    }
+  }
+
   save() {
     this.mapService.resetAll();
     let bulletins = Array<BulletinModel>();
