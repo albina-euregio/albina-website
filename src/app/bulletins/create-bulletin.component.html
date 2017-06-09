@@ -20,7 +20,7 @@
               <table class="table">
                 <tbody>
                   <div *ngFor="let aggregatedRegionId of aggregatedRegionsIds">
-                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info">
+                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()">
                       <td>{{ aggregatedRegionId }}</td>
                       <td *ngIf="!editRegions">
                         <button type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion(aggregatedRegionId)"><i class="fa fa-pencil"></i></button>

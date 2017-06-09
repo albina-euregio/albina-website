@@ -167,14 +167,21 @@ export class CreateBulletinComponent {
       this.activeBulletinInput.setAvalancheSituationCommentIn(this.activeAvalancheSituationComment, this.settingsService.getLang());
     }
 
-    // TODO update map view (danger ratings)
-
     this.activeAggregatedRegionId = aggregatedRegionId;
     this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
     this.activeAvalancheSituationHighlight = this.activeBulletinInput.getAvalancheSituationHighlightIn(this.settingsService.getLang());
     this.activeAvalancheSituationComment = this.activeBulletinInput.getAvalancheSituationCommentIn(this.settingsService.getLang());
 
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+  }
+
+  deselectAggregatedRegion() {
+    this.mapService.deselectRegions(this.activeBulletinInput);
+
+    this.activeAggregatedRegionId = undefined;
+    this.activeBulletinInput = undefined;
+    this.activeAvalancheSituationHighlight = undefined;
+    this.activeAvalancheSituationComment = undefined;
   }
 
   deleteAggregatedRegion(aggregatedRegionId: string) {
@@ -188,14 +195,10 @@ export class CreateBulletinComponent {
         if (index > -1)
           this.aggregatedRegionsIds.splice(index, 1);
 
-        this.mapService.deselectRegions(this.activeBulletinInput);
-
-        this.activeAggregatedRegionId = undefined;
-        this.activeBulletinInput = undefined;
-        this.activeAvalancheSituationHighlight = undefined;
-        this.activeAvalancheSituationComment = undefined;
+        this.deselectAggregatedRegion();
 
         // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
+
       }
     });
   }
