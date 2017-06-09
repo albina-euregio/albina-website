@@ -18,7 +18,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of newsList" (click)="createNews(item)">
-                <td>{{ item.getDate() }}</td>
+                <td>{{ item.getDate() | date:'short' }}</td>
                 <td>{{ item.getTitleIn(settingsService.getLang()) }}</td>
                 <td *ngIf="item.getStatus() == newsStatus.published">
                   <span class="badge badge-default">{{ "news.table.status.published" | translate }}</span>
