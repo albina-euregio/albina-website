@@ -26,7 +26,7 @@ export class LoginComponent {
 
   ngOnInit() {
     // reset login status
-    this.authenticationService.logout();
+    // this.authenticationService.logout();
 
     // get return url from route parameters or default to '/'
     // console.log("Return URL: " + this.route.snapshot.queryParams['returnUrl']);
