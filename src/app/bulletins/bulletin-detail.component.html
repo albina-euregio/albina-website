@@ -8,19 +8,19 @@
         <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.dangerRating" | translate }}</strong></label>
         <div class="col-md-12">
           <label class="radio-inline" for="inline-radio1">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="low" [disabled]="disabled">{{ "dangerRating.low" | translate }}
+            <input type="radio"  [ngModel]="bulletinElevationDescription.dangerRating | async" (ngModelChange)="bulletinElevationDescription.dangerRating.next($event)" name="danger-rating" value="low" [disabled]="disabled">{{ "dangerRating.low" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio2">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="moderate" [disabled]="disabled">{{ "dangerRating.moderate" | translate }}
+            <input type="radio" [ngModel]="bulletinElevationDescription.dangerRating | async" (ngModelChange)="bulletinElevationDescription.dangerRating.next($event)" name="danger-rating" value="moderate" [disabled]="disabled">{{ "dangerRating.moderate" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio3">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="considerable" [disabled]="disabled">{{ "dangerRating.considerable" | translate }}
+            <input type="radio" [ngModel]="bulletinElevationDescription.dangerRating | async" (ngModelChange)="bulletinElevationDescription.dangerRating.next($event)" name="danger-rating" value="considerable" [disabled]="disabled">{{ "dangerRating.considerable" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio4">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="high" [disabled]="disabled">{{ "dangerRating.high" | translate }}
+            <input type="radio" [ngModel]="bulletinElevationDescription.dangerRating | async" (ngModelChange)="bulletinElevationDescription.dangerRating.next($event)" name="danger-rating" value="high" [disabled]="disabled">{{ "dangerRating.high" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio5">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.dangerRating" name="danger-rating" value="very_high" [disabled]="disabled">{{ "dangerRating.veryHigh" | translate }}
+            <input type="radio" [ngModel]="bulletinElevationDescription.dangerRating | async" (ngModelChange)="bulletinElevationDescription.dangerRating.next($event)" name="danger-rating" value="very_high" [disabled]="disabled">{{ "dangerRating.veryHigh" | translate }}
           </label>
         </div>
       </div>

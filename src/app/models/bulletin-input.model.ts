@@ -223,7 +223,7 @@ export class BulletinInputModel {
 
 	getHighestDangerRating() : Enums.DangerRating {
 		// TODO implement some clever method
-		return this.forenoonAbove.dangerRating;
+		return this.forenoonAbove.dangerRating.getValue();
 	}
 
 	toBulletins(aggregatedRegionId: string, date: Date) : BulletinModel[] {

@@ -1,22 +1,23 @@
 import * as Enums from '../enums/enums';
+import { BehaviorSubject } from 'rxjs/Rx';
 
 export class BulletinElevationDescriptionModel {
-	public dangerRating: Enums.DangerRating;
+	public dangerRating: BehaviorSubject<Enums.DangerRating>;
 	public avalancheProblem: Enums.AvalancheProblem;
 	public aspects: Enums.Aspect[];
 
 	constructor() {
-		this.dangerRating = undefined;
+		this.dangerRating = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.no_rating);
 		this.avalancheProblem = undefined;
 		this.aspects = new Array<Enums.Aspect>();
 	}
 
 	getDangerRating() {
-		return this.dangerRating
+		return this.dangerRating.getValue();
 	}
 
 	setDangerRating(dangerRating) {
-		this.dangerRating = dangerRating;
+		this.dangerRating.next(dangerRating);
 	}
 
 	getAvalancheProblem() {
@@ -50,7 +51,7 @@ export class BulletinElevationDescriptionModel {
 		var json = Object();
 
 		if (this.dangerRating && this.dangerRating != undefined)
-			json['dangerRating'] = Enums.DangerRating[this.dangerRating];
+			json['dangerRating'] = Enums.DangerRating[this.dangerRating.getValue()];
 		if (this.avalancheProblem && this.avalancheProblem != undefined)
 			json['avalancheProblem'] = Enums.AvalancheProblem[this.avalancheProblem];
 		if (this.aspects && this.aspects.length > 0) {
@@ -67,7 +68,7 @@ export class BulletinElevationDescriptionModel {
 	static createFromJson(json) {
 		let bulletinElevationDescription = new BulletinElevationDescriptionModel();
 
-		bulletinElevationDescription.dangerRating = Enums.DangerRating[<string>json.dangerRating];
+		bulletinElevationDescription.dangerRating.next(Enums.DangerRating[<string>json.dangerRating]);
 		bulletinElevationDescription.avalancheProblem = json.avalancheProblem;
 
 		let jsonAspects = json.aspects;

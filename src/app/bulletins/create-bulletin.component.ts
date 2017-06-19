@@ -144,7 +144,7 @@ export class CreateBulletinComponent {
         bulletinInput.forenoonAbove = bulletin.above;
       }
 
-      this.mapService.updateAggregatedRegion(bulletinInput);
+      this.mapService.addAggregatedRegion(bulletinInput);
 
       this.aggregatedRegionsMap.set(bulletin.getAggregatedRegionId(), bulletinInput);
       this.aggregatedRegionsIds.push(bulletin.getAggregatedRegionId());

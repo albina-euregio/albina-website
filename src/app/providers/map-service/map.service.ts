@@ -78,22 +78,33 @@ export class MapService {
     }
 
     addAggregatedRegion(bulletinInputModel: BulletinInputModel) {
-        let dangerRating = bulletinInputModel.getHighestDangerRating();
-        for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--) {
-            for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
-                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
-                    this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getDangerRatingStyle(dangerRating));
-                }
-            }
-        }        
+        bulletinInputModel.forenoonBelow.dangerRating.subscribe(dangerRating => {
+            this.updateAggregatedRegion(bulletinInputModel);
+            if (this.map)
+                this.selectAggregatedRegion(bulletinInputModel);
+        });
+        bulletinInputModel.forenoonAbove.dangerRating.subscribe(dangerRating => {
+            this.updateAggregatedRegion(bulletinInputModel);
+            if (this.map)
+                this.selectAggregatedRegion(bulletinInputModel);
+        });
+        bulletinInputModel.afternoonBelow.dangerRating.subscribe(dangerRating => {
+            this.updateAggregatedRegion(bulletinInputModel);
+            if (this.map)
+                this.selectAggregatedRegion(bulletinInputModel);
+        });
+        bulletinInputModel.afternoonAbove.dangerRating.subscribe(dangerRating => {
+            this.updateAggregatedRegion(bulletinInputModel);
+            if (this.map)
+                this.selectAggregatedRegion(bulletinInputModel);
+        });
+        this.updateAggregatedRegion(bulletinInputModel);
     }
 
     updateAggregatedRegion(bulletinInputModel: BulletinInputModel) {
         let dangerRating = bulletinInputModel.getHighestDangerRating();
         for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--) {
             for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
-                let id = this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id;
-                let region = bulletinInputModel.regions[j];
                 if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j])
                     this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getDangerRatingStyle(dangerRating));
             }
