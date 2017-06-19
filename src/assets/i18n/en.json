@@ -127,6 +127,7 @@
 					"southTyrol" : "South Tyrol",
 					"tyrol" : "Tyrol"
 				},
+				"action" : "Action",
 				"caaml" : "CAAML"
 			},
 			"status" : {
@@ -137,7 +138,10 @@
 				"published" : "published"
 			},
 			"edit" : "Edit",
-			"show" : "Show"
+			"show" : "Show",
+			"button" : {
+				"publish" : "Publish"
+			}
 		},
 		"caaml" : {
 			"title" : "CAAML"
@@ -145,6 +149,7 @@
 	},
 
 	"dangerRating" : {
+		"noRating" : "no rating",
 		"low" : "low",
 		"moderate" : "moderate",
 		"considerable" : "considerable",

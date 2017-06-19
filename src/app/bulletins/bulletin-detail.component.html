@@ -8,6 +8,9 @@
         <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.dangerRating" | translate }}</strong></label>
         <div class="col-md-12">
           <label class="radio-inline" for="inline-radio1">
+            <input type="radio"  [ngModel]="bulletinElevationDescription.dangerRating | async" (ngModelChange)="bulletinElevationDescription.dangerRating.next($event)" name="danger-rating" value="no_rating" [disabled]="disabled">{{ "dangerRating.noRating" | translate }}
+          </label>
+          <label class="radio-inline" for="inline-radio1">
             <input type="radio"  [ngModel]="bulletinElevationDescription.dangerRating | async" (ngModelChange)="bulletinElevationDescription.dangerRating.next($event)" name="danger-rating" value="low" [disabled]="disabled">{{ "dangerRating.low" | translate }}
           </label>
           <label class="radio-inline" for="inline-radio2">

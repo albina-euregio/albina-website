@@ -127,6 +127,7 @@
 					"southTyrol" : "Südtirol",
 					"tyrol" : "Tirol"
 				},
+				"action" : "Aktion",
 				"caaml" : "CAAML"
 			},
 			"status" : {
@@ -137,7 +138,10 @@
 				"published" : "publiziert"
 			},
 			"edit" : "Bearbeiten",
-			"show" : "Anzeigen"
+			"show" : "Anzeigen",
+			"button" : {
+				"publish" : "Publizieren"
+			}
 		},
 		"caaml" : {
 			"title" : "CAAML"
@@ -145,6 +149,7 @@
 	},
 
 	"dangerRating" : {
+		"noRating" : "keine Beurteilung",
 		"low" : "gering",
 		"moderate" : "mäßig",
 		"considerable" : "erheblich",

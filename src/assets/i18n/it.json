@@ -127,6 +127,7 @@
 					"southTyrol" : "Alto adige",
 					"tyrol" : "Tirolo"
 				},
+				"action" : "TODO",
 				"caaml" : "CAAML"
 			},
 			"status" : {
@@ -137,7 +138,10 @@
 				"published" : "pubblicato"
 			},
 			"edit" : "Modifica",
-			"show" : "Mostra"
+			"show" : "Mostra",
+			"button" : {
+				"publish" : "TODO"
+			}
 		},
 		"caaml" : {
 			"title" : "CAAML"
@@ -145,6 +149,7 @@
 	},
 
 	"dangerRating" : {
+		"noRating" : "TODO",
 		"low" : "debole",
 		"moderate" : "moderato",
 		"considerable" : "marcato",
