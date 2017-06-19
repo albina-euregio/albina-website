@@ -201,7 +201,7 @@ export class MapService {
     private onEachAggregatedRegionsFeature(feature, layer) {
         layer.on({
             click: function(e) {
-                debugger
+                // TODO allow selection of aggregated region in map
                 feature.properties.selected = true;
             }
         });
