@@ -148,13 +148,13 @@
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.snowpackStructureHighlight" | translate }}</strong></label>
               <div class="col-md-12">
-                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="editRegions" [(ngModel)]="activeSnowpackStructureHighlight">
+                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="editRegions || !bulletinsService.getIsEditable()" [(ngModel)]="activeSnowpackStructureHighlight">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
               <div class="col-md-12">
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="editRegions" [(ngModel)]="activeSnowpackStructureComment"></textarea>
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="editRegions || !bulletinsService.getIsEditable()" [(ngModel)]="activeSnowpackStructureComment"></textarea>
               </div>
             </div>
           </form>
