@@ -21,11 +21,11 @@ export class CountryAlpha2CodeUtil {
 }
 
 export enum DangerRating {
-	low = 1, moderate = 2, considerable = 3, high = 4, very_high = 5
+	no_rating = 0, low = 1, moderate = 2, considerable = 3, high = 4, very_high = 5
 }
 export class DangerRatingUtil {
 	public static getSize() {
-		return 5;
+		return 6;
 	}
 }
 
