@@ -1,82 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { ConstantsService } from '../constants-service/constants.service';
-import { Observable } from 'rxjs/Observable';
-import { RegionModel } from '../../models/region.model';
+
+import { RegionsTI } from '../../regions/regions.ti';
+import { RegionsTN } from '../../regions/regions.tn';
+import { RegionsBZ } from '../../regions/regions.bz';
 
 
 @Injectable()
 export class RegionsService {
 
-  constantsService: ConstantsService;
-
-  private regionsTyrol: RegionModel[];
-  private regionsSouthTyrol: RegionModel[];
-  private regionsTrentino: RegionModel[];
-
-  constructor(
-    public http: Http,
-    public constants: ConstantsService)
+  constructor()
   {
-    this.constantsService = constants;
-    this.regionsTyrol = new Array<RegionModel>();
-    this.regionsSouthTyrol = new Array<RegionModel>();
-    this.regionsTrentino = new Array<RegionModel>();
-
-    this.getRegions("AT-07").subscribe(
-      data => {
-        for (let region of data.json()) {
-          this.regionsTyrol.push(RegionModel.createFromJson(region));
-        }
-      },
-      error => {
-        // TODO implement
-      }
-    );
-
-    this.getRegions("IT-32-TN").subscribe(
-      data => {
-        for (let region of data.json()) {
-          this.regionsTrentino.push(RegionModel.createFromJson(region));
-        }
-      },
-      error => {
-        // TODO implement
-      }
-    );
-
-    this.getRegions("IT-32-BZ").subscribe(
-      data => {
-        for (let region of data.json()) {
-          this.regionsSouthTyrol.push(RegionModel.createFromJson(region));
-        }
-      },
-      error => {
-        // TODO implement
-      }
-    );
-  }
-
-  private getRegions(regionId) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'regions?regionsId=' + regionId;
-    console.log(url);
-    let headers = new Headers({
-      'Content-Type': 'application/json'});
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.get(url, options);
   }
 
   getRegionsTyrol() {
-    return this.regionsTyrol;
+    return RegionsTI;
   }
 
   getRegionsSouthTyrol() {
-    return this.regionsSouthTyrol;
+    return RegionsBZ;
   }
 
   getRegionsTrentino() {
-    return this.regionsTrentino;
+    return RegionsTN;
   }
 }
 

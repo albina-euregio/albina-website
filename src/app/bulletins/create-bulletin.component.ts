@@ -7,7 +7,6 @@ import { BulletinModel } from '../models/bulletin.model';
 import { BulletinInputModel } from '../models/bulletin-input.model';
 import * as Enums from '../enums/enums';
 import { MapService } from "../providers/map-service/map.service";
-import { RegionsTN } from "../mock/regions.tn";
 import { UUID } from 'angular2-uuid';
 import 'rxjs/add/operator/switchMap';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';

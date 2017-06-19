@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
 import { Map } from "leaflet";
-import { RegionsTN } from "../../mock/regions.tn";
 import { BulletinModel } from "../../models/bulletin.model";
 import { BulletinInputModel } from "../../models/bulletin-input.model";
 import { BulletinsService } from '../mock-service/bulletins.service';
+import { RegionsService } from '../regions-service/regions.service';
 import * as Enums from '../../enums/enums';
 
 
@@ -15,7 +15,8 @@ export class MapService {
     public overlayMaps: any;
 
     constructor(
-        private http: Http
+        private http: Http,
+        private regionsService: RegionsService
     ) {
         this.baseMaps = {
             Gdi_Winter: L.tileLayer('https://map3.mapservices.eu/gdi/gdi_base_winter/b6b4ce6df035dcfaa26f3bc32fb89e6a/{z}/{x}/{y}.jpg', {
@@ -37,18 +38,18 @@ export class MapService {
 
         this.overlayMaps = {
             // overlay to show selected regions
-            activeSelection : L.geoJSON(RegionsTN, {
+            activeSelection : L.geoJSON(this.regionsService.getRegionsTrentino(), {
                 style: this.getBaseStyle
             }),
 
             // overlay to select regions (when editing an aggregated region)
-            editSelection : L.geoJSON(RegionsTN, {
+            editSelection : L.geoJSON(this.regionsService.getRegionsTrentino(), {
                 style: this.getBaseStyle,
                 onEachFeature : this.onEachFeature
             }),
 
             // overlay to show aggregated regions
-            aggregatedRegions : L.geoJSON(RegionsTN, {
+            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsTrentino(), {
                 style: this.getBaseStyle,
                 onEachFeature : this.onEachAggregatedRegionsFeature
             })
