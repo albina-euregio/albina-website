@@ -89,8 +89,8 @@
 				"aspects" : "Aspects",
 				"elevation" : "Elevation",
 				"daytime" : "Daytime",
-				"snowpackStructureHighlight" : "Headline snowpack strucure",
-				"snowpackStructureComment" : "Description of snowpack strucure"
+				"snowpackStructureHighlight" : "Headline snowpack structure",
+				"snowpackStructureComment" : "Description of snowpack structure"
 			},
 			"title" : {
 				"map" : "Map",
