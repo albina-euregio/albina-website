@@ -32,12 +32,13 @@ export class BulletinsService {
   setIsEditable(isEditable: boolean) {
     this.isEditable = isEditable;
   }
-
+  
+  // Get the status for one region (IT-32-TN, AT-07, ...) and one day
   getStatus(region: string, date: Date) : Observable<Response> {
     let tmpDate = new Date();
 
     if (date.getFullYear() == tmpDate.getFullYear() && date.getMonth() == tmpDate.getMonth() && date.getDate() == tmpDate.getDate())
-      status = "incomplete";
+      status = "draft";
     else if (date.getFullYear() > tmpDate.getFullYear() || date.getMonth() > tmpDate.getMonth())
       status = "missing";
     else if ((date.getMonth() == tmpDate.getMonth() && date.getDate() > tmpDate.getDate()))
@@ -54,7 +55,7 @@ export class BulletinsService {
   }
 
   loadBulletins(from: Date) : Observable<Response> {
-    // TODO load correct bulletins (from ist the start at 17:00)
+    // TODO load correct bulletins (from is the start at 00:00)
     let response;
     if (from.getDate() == (new Date()).getDate()) {
       response = new ResponseOptions({
@@ -71,7 +72,7 @@ export class BulletinsService {
   }
 
   loadCaamlBulletins(from: Date) : Observable<Response> {
-    // TODO load correct caaml bulletins (from ist the start at 17:00)
+    // TODO load correct caaml bulletins (from is the start at 00:00)
     let response;
     if (from.getDate() == (new Date()).getDate()) {
       response = new ResponseOptions({

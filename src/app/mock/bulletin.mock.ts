@@ -29,8 +29,8 @@ export const MockBulletinsTNIncomplete = [
       }
     ],
     "validity" : {
-        "from" : "2015-12-10T17:00:00+01:00",
-        "until" : "2015-12-11T16:59:59+01:00"
+        "from" : "2015-12-11T00:00:00+01:00",
+        "until" : "2015-12-12T00:00:00+01:00"
     },
 
     "regions" : [ "IT-32-TN-01", "IT-32-TN-03", "IT-32-TN-04", "IT-32-TN-05", "IT-32-TN-02", "IT-32-TN-06" ],
@@ -49,7 +49,7 @@ export const MockBulletinsTNIncomplete = [
       "aspects" : [ "NW", "N", "NE" ]
     },
 
-    "status" : "incomplete",
+    "status" : "draft",
     "aggregatedRegionId" : "5091f549-042e-f580-4c10-0723drfe5fdc"
   },
   {
@@ -82,8 +82,8 @@ export const MockBulletinsTNIncomplete = [
       }
     ],
     "validity" : {
-        "from" : "2015-12-10T17:00:00+01:00",
-        "until" : "2015-12-11T11:59:59+01:00"
+        "from" : "2015-12-11T00:00:00+01:00",
+        "until" : "2015-12-11T12:00:00+01:00"
     },
 
     "regions" : [ "IT-32-TN-08", "IT-32-TN-09", "IT-32-TN-10", "IT-32-TN-11", "IT-32-TN-12", "IT-32-TN-13" ],
@@ -102,7 +102,7 @@ export const MockBulletinsTNIncomplete = [
       "aspects" : [ "NW", "N", "NE" ]
     },
 
-    "status" : "incomplete",
+    "status" : "draft",
     "aggregatedRegionId" : "5091f549-042e-f580-4c10-0723drff5fdc"
   },
   {
@@ -136,7 +136,7 @@ export const MockBulletinsTNIncomplete = [
     ],
     "validity" : {
         "from" : "2015-12-11T12:00:00+01:00",
-        "until" : "2015-12-11T16:59:59+01:00"
+        "until" : "2015-12-12T00:00:00+01:00"
     },
 
     "regions" : [ "IT-32-TN-08", "IT-32-TN-09", "IT-32-TN-10", "IT-32-TN-11", "IT-32-TN-12", "IT-32-TN-13" ],
@@ -155,7 +155,7 @@ export const MockBulletinsTNIncomplete = [
       "aspects" : [ "NW", "N", "NE" ]
     },
 
-    "status" : "incomplete",
+    "status" : "draft",
     "aggregatedRegionId" : "5091f549-042e-f580-4c10-0723drff5fdc"
   }
 ]
@@ -215,8 +215,8 @@ export const MockBulletinsTI = [
       }
     ],
     "validity" : {
-        "from" : "2015-12-10T17:00:00+01:00",
-        "until" : "2015-12-11T16:59:59+01:00"
+        "from" : "2015-12-11T00:00:00+01:00",
+        "until" : "2015-12-12T00:00:00+01:00"
     },
 
     "regions" : [ "AT-07-10", "AT-07-11", "AT-07-12" ],
@@ -290,8 +290,8 @@ export const MockBulletinsTI = [
       }
     ],
     "validity" : {
-        "from" : "2015-12-10T17:00:00+01:00",
-        "until" : "2015-12-11T16:59:59+01:00"
+        "from" : "2015-12-11T00:00:00+01:00",
+        "until" : "2015-12-12T00:00:00+01:00"
     },
 
     "regions" : [ "AT-07-01", "AT-07-02", "AT-07-03", "AT-07-04", "AT-07-05", "AT-07-06" ],
@@ -365,8 +365,8 @@ export const MockBulletinsTI = [
       }
     ],
     "validity" : {
-        "from" : "2015-12-10T17:00:00+01:00",
-        "until" : "2015-12-11T16:59:59+01:00"
+        "from" : "2015-12-11T00:00:00+01:00",
+        "until" : "2015-12-12T00:00:00+01:00"
     },
 
     "regions" : [ "AT-07-07", "AT-07-08", "AT-07-09" ],
@@ -440,8 +440,8 @@ export const MockBulletinsTI = [
       }
     ],
     "validity" : {
-        "from" : "2015-12-11T17:00:00+01:00",
-        "until" : "2015-12-12T16:59:59+01:00"
+        "from" : "2015-12-12T00:00:00+01:00",
+        "until" : "2015-12-13T00:00:00+01:00"
     },
 
     "regions" : [ "AT-07-10", "AT-07-11", "AT-07-12" ],
@@ -460,7 +460,7 @@ export const MockBulletinsTI = [
       "aspects" : [ "NW", "N", "NE" ]
     },
 
-    "status" : "complete",
+    "status" : "draft",
     "aggregatedRegionId" : "6"
   },
   {
@@ -515,8 +515,8 @@ export const MockBulletinsTI = [
       }
     ],
     "validity" : {
-        "from" : "2015-12-11T17:00:00+01:00",
-        "until" : "2015-12-12T16:59:59+01:00"
+        "from" : "2015-12-12T00:00:00+01:00",
+        "until" : "2015-12-13T00:00:00+01:00"
     },
 
     "regions" : [ "AT-07-01", "AT-07-02", "AT-07-03", "AT-07-04", "AT-07-05", "AT-07-06" ],
@@ -535,7 +535,7 @@ export const MockBulletinsTI = [
       "aspects" : [ "NW", "N", "NE" ]
     },
 
-    "status" : "complete",
+    "status" : "draft",
     "aggregatedRegionId" : "7"
   },
   {
@@ -590,8 +590,8 @@ export const MockBulletinsTI = [
       }
     ],
     "validity" : {
-        "from" : "2015-12-11T17:00:00+01:00",
-        "until" : "2015-12-12T16:59:59+01:00"
+        "from" : "2015-12-12T00:00:00+01:00",
+        "until" : "2015-12-13T00:00:00+01:00"
     },
 
     "regions" : [ "AT-07-07", "AT-07-08", "AT-07-09" ],
@@ -610,7 +610,7 @@ export const MockBulletinsTI = [
       "aspects" : [ "NW", "N", "NE" ]
     },
 
-    "status" : "complete",
+    "status" : "draft",
     "aggregatedRegionId" : "8"
   }
 ]

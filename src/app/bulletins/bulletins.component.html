@@ -18,21 +18,18 @@
             </thead>
             <tbody>
               <tr *ngFor="let date of dates" (click)="editBulletin(date)">
-                <td>{{ date | date:'short' }}</td>
+                <td>{{ date | date }}</td>
                 <td *ngIf="statusMap.get(date) == bulletinStatus.missing">
                   <span class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                 </td>
                 <td *ngIf="statusMap.get(date) == bulletinStatus.published">
                   <span class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
                 </td>
-                <td *ngIf="statusMap.get(date) == bulletinStatus.pending">
-                  <span class="badge badge-default">{{ "bulletins.table.status.pending" | translate }}</span>
+                <td *ngIf="statusMap.get(date) == bulletinStatus.draft">
+                  <span class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
                 </td>
-                <td *ngIf="statusMap.get(date) == bulletinStatus.complete">
-                  <span class="badge badge-success">{{ "bulletins.table.status.complete" | translate }}</span>
-                </td>
-                <td *ngIf="statusMap.get(date) == bulletinStatus.incomplete">
-                  <span class="badge badge-warning">{{ "bulletins.table.status.incomplete" | translate }}</span>
+                <td *ngIf="statusMap.get(date) == bulletinStatus.obsolete">
+                  <span class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
                 </td>
                 <td>
                   <i class="fa fa-file-text" (click)="showCaaml(date)"></i>

@@ -130,8 +130,8 @@
 				"caaml" : "CAAML"
 			},
 			"status" : {
-				"complete" : "complete",
-				"incomplete" : "incomplete",
+				"draft" : "draft",
+				"obsolete" : "obsolete",
 				"missing" : "missing",
 				"pending" : "pending",
 				"published" : "published"
