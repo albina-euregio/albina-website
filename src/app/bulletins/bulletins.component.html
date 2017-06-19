@@ -14,6 +14,7 @@
                 <th>{{ "bulletins.table.title.date" | translate }}</th>
                 <th>{{ "bulletins.table.title.status.trentino" | translate }}</th>
                 <th>{{ "bulletins.table.title.caaml" | translate }}</th>
+                <th>{{ "bulletins.table.title.action" | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -34,6 +35,9 @@
                 <td>
                   <i class="fa fa-file-text" (click)="showCaaml(date)"></i>
                 </td>
+                <td>
+                  <button *ngIf="statusMap.get(date) == bulletinStatus.draft" type="button" class="btn btn-primary" (click)="publish($event, date)">{{ "bulletins.table.button.publish" | translate }}</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -44,3 +48,9 @@
   </div>
   <!--/.row-->
 </div>
+
+<p-confirmDialog width="425" #cd>
+  <p-footer>
+    <button type="button" pButton label='{{ "bulletins.table.publishingErrorDialog.accept" | translate }}' (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

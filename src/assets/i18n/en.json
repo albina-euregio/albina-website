@@ -141,6 +141,11 @@
 			"show" : "Show",
 			"button" : {
 				"publish" : "Publish"
+			},
+			"publishingErrorDialog" : {
+				"header" : "Publishing error",
+				"message" : "Publishing is not implemented yet.",
+				"accept" : "Ok"
 			}
 		},
 		"caaml" : {
