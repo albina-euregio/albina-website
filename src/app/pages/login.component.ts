@@ -58,4 +58,11 @@ export class LoginComponent {
       }
     );
   }
+
+  keyDownFunction(event) {
+    if(event.keyCode == 13) {
+      this.login();
+    }
+  }
+
 }
