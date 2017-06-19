@@ -60,7 +60,7 @@ export class LoginComponent {
   }
 
   keyDownFunction(event) {
-    if(event.keyCode == 13) {
+    if (event.keyCode == 13 && !this.loading) {
       this.login();
     }
   }

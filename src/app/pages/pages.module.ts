@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from 'ng2-translate';
 import { HttpModule, Http } from '@angular/http';
+import { CommonModule } from '@angular/common';
 
 import { P404Component } from './404.component';
 import { P500Component } from './500.component';
@@ -15,6 +16,7 @@ import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
   	PagesRoutingModule,
     FormsModule,
     TranslateModule,
+    CommonModule,
     ConfirmDialogModule,
     SharedModule
   ],

@@ -16,8 +16,11 @@
                 <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password">
               </div>
               <div class="row">
-                <div class="col-6">
-                  <button type="button" class="btn btn-primary px-2" (click)="login()">{{ "login.button" | translate }}</button>
+                <div *ngIf="!loading" class="col-6">
+                  <button type="button" class="btn btn-primary px-3" (click)="login()">{{ "login.button" | translate }}</button>
+                </div>
+                <div *ngIf="loading" class="col-6">
+                  <button type="button" disabled class="btn btn-primary px-3"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
                 </div>
               </div>
             </div>
