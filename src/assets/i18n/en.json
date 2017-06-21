@@ -63,9 +63,7 @@
 			"status" : {
 				"title" : "Status",
 				"published" : "published",
-				"pending" : "pending",
-				"complete" : "complete",
-				"incomplete" : "incomplete"
+				"draft" : "draft"
 			}
 		}		
 	},

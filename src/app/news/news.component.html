@@ -21,16 +21,10 @@
                 <td>{{ item.getDate() | date:'short' }}</td>
                 <td>{{ item.getTitleIn(settingsService.getLang()) }}</td>
                 <td *ngIf="item.getStatus() == newsStatus.published">
-                  <span class="badge badge-default">{{ "news.table.status.published" | translate }}</span>
+                  <span class="badge badge-success">{{ "news.table.status.published" | translate }}</span>
                 </td>
-                <td *ngIf="item.getStatus() == newsStatus.pending">
-                  <span class="badge badge-warning">{{ "news.table.status.pending" | translate }}</span>
-                </td>
-                <td *ngIf="item.getStatus() == newsStatus.complete">
-                  <span class="badge badge-success">{{ "news.table.status.complete" | translate }}</span>
-                </td>
-                <td *ngIf="item.getStatus() == newsStatus.incomplete">
-                  <span class="badge badge-warning">{{ "news.table.status.incomplete" | translate }}</span>
+                <td *ngIf="item.getStatus() == newsStatus.draft">
+                  <span class="badge badge-warning">{{ "news.table.status.draft" | translate }}</span>
                 </td>
               </tr>
             </tbody>
