@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TranslateService } from 'ng2-translate/src/translate.service';
-import { BulletinsService } from '../providers/mock-service/bulletins.service';
+import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinInputModel } from '../models/bulletin-input.model';
@@ -20,12 +20,12 @@ export class CreateBulletinComponent {
 
   public bulletinStatus = Enums.BulletinStatus;
 
-  public originalBulletins: BulletinModel[];
+  public originalBulletins: Map<string, BulletinModel>;
 
   public editRegions: boolean;
 
-  public aggregatedRegionsIds: String[];
-  public aggregatedRegionsMap: Map<String, BulletinInputModel>;
+  public aggregatedRegionsIds: string[];
+  public aggregatedRegionsMap: Map<string, BulletinInputModel>;
   public activeAggregatedRegionId: string;
   public activeBulletinInput: BulletinInputModel;
 
@@ -51,9 +51,9 @@ export class CreateBulletinComponent {
   }
 
   ngOnInit() {
-    this.originalBulletins = new Array<BulletinModel>();
+    this.originalBulletins = new Map<string, BulletinModel>();
     this.aggregatedRegionsMap = new Map<string, BulletinInputModel>();
-    this.aggregatedRegionsIds = new Array<String>();
+    this.aggregatedRegionsIds = new Array<string>();
     this.activeAggregatedRegionId = undefined;
     this.activeBulletinInput = undefined;
     this.activeAvalancheSituationHighlight = undefined;
@@ -103,7 +103,7 @@ export class CreateBulletinComponent {
   }
 
   addBulletin(bulletin: BulletinModel) {
-    this.originalBulletins.push(bulletin);
+    this.originalBulletins.set(bulletin.getId(), bulletin);
 
     // a bulletin for this aggregated region is already in the map => use existend bulletin input object
     if (this.aggregatedRegionsMap.has(bulletin.getAggregatedRegionId())) {
@@ -281,12 +281,11 @@ export class CreateBulletinComponent {
 
   save() {
     this.mapService.resetAll();
-    let bulletins = Array<BulletinModel>();
-
-    debugger
 
     this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-      // set snowpack structure texts
+      let bulletins = Array<BulletinModel>();
+
+     // set snowpack structure texts
       value.setSnowpackStructureHighlightIn(this.activeSnowpackStructureHighlight, this.settingsService.getLang());
       value.setSnowpackStructureCommentIn(this.activeSnowpackStructureComment, this.settingsService.getLang());
 
@@ -298,33 +297,20 @@ export class CreateBulletinComponent {
 
       // TODO
       // delete original bulletins that are no longer existend
-      // update changed bulletins (keep bulletin id)
-      // create new bulletins (create bulletin id)
-      for (var i = this.originalBulletins.length - 1; i >= 0; i--) {
-        if (this.originalBulletins[i].aggregatedRegionId == key) {
-          if (this.originalBulletins[i].validFrom.getHours() == 12) {
-
-          } else if (this.originalBulletins[i].validFrom.getHours() == 17) {
-
-          }
-          break;
-        }
+      for (var i = bulletins.length - 1; i >= 0; i--) {
+        if (this.originalBulletins.has(bulletins[i].getId()))
+          this.bulletinsService.updateBulletin(bulletins[i]).subscribe(
+            data => {
+              debugger
+            },
+            error => {
+              debugger
+            }
+          );
+        else
+          this.bulletinsService.saveBulletin(bulletins[i]);
       }
     });
-
-    debugger
-
-    this.bulletinsService.saveOrUpdateBulletins(bulletins).subscribe(
-      data => {
-        console.log("Bulletins saved on server.");
-        // TODO show toast
-        this.router.navigate(['/bulletins']);
-      },
-      error => {
-        console.error("Bulletins could not be saved on server!");
-        // TODO show toast
-      }
-    );
   }
 
   discard() {

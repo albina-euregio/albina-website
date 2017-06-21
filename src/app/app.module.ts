@@ -23,7 +23,7 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 
 // Services
 import { AuthenticationService } from './providers/authentication-service/authentication.service';
-import { BulletinsService } from './providers/mock-service/bulletins.service';
+import { BulletinsService } from './providers/bulletins-service/bulletins.service';
 import { ChatService } from './providers/chat-service/chat.service';
 import { NewsService } from './providers/mock-service/news.service';
 import { RegionsService } from './providers/regions-service/regions.service';

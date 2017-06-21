@@ -3,7 +3,6 @@ import { Http } from "@angular/http";
 import { Map } from "leaflet";
 import { BulletinModel } from "../../models/bulletin.model";
 import { BulletinInputModel } from "../../models/bulletin-input.model";
-import { BulletinsService } from '../mock-service/bulletins.service';
 import { RegionsService } from '../regions-service/regions.service';
 import * as Enums from '../../enums/enums';
 

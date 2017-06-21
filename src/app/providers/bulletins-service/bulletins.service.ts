@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, RequestOptions, Response, ResponseOptions } from '@angular/http';
 import { ConstantsService } from '../constants-service/constants.service';
+import { AuthenticationService } from '../authentication-service/authentication.service';
 import { Observable } from 'rxjs/Observable';
 import { BulletinModel } from '../../models/bulletin.model';
 import * as Enums from '../../enums/enums';
@@ -11,50 +12,108 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class BulletinsService {
 
-  constantsService: ConstantsService;
-  regionsService: RegionsService;
+  private activeDate: Date;
+  private isEditable: boolean;
 
   private socket;
 
   constructor(
     public http: Http,
-    public constants: ConstantsService,
-    public regions: RegionsService)
+    private constantsService: ConstantsService,
+    private authenticationService: AuthenticationService)
   {
-    this.constantsService = constants;
-    this.regionsService = regions;
-
-    this.socket = io(this.constantsService.socketIOUrl);
-    this.socket.on('bulletinUpdate', function(data) {
-      console.log("SocketIO message recieved: " + data);
-    }.bind(this));
+    this.activeDate = undefined;
+    this.isEditable = false;
   }
 
-  getEuregioBulletins() : Observable<Response> {
-    var regions = [ "AT-07", "IT-32-TN", "IT-32-BZ" ];
-    return this.getBulletins(regions);
+  getActiveDate() : Date {
+    return this.activeDate;
   }
 
-  getBulletins(regions) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins?';
-    for (let region of regions)
-      url += 'regions=' + region + '&';
-    console.log(url);
+  setActiveDate(date: Date) {
+    this.activeDate = date;
+  }
+
+  getIsEditable() : boolean {
+    return this.isEditable;
+  }
+
+  setIsEditable(isEditable: boolean) {
+    this.isEditable = isEditable;
+  }
+  
+  getStatus(region: string, date: Date) : Observable<Response> {
+    // TODO check how to encode date with timezone in url
+    let url = this.constantsService.getServerUrl() + 'bulletins/status?date=' + date.toISOString() + '&region=' + region;
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
-      'Content-Type': 'application/json'});
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
+
+    // TODO delete
+    console.log(url);
+debugger
+    return this.http.get(url, options);
+  }
+
+  loadBulletins(date: Date) : Observable<Response> {
+    // TODO check how to encode date with timezone in url
+    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + date.toISOString();
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+
+    // TODO delete
+    console.log(url);
 
     return this.http.get(url, options);
   }
 
-  getBulletin(id) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins/' + id;
-    console.log(url);
+  loadCaamlBulletins(date: Date) : Observable<Response> {
+    // TODO check how to encode date with timezone in url
+    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + date.toISOString();
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
-      'Content-Type': 'application/json'});
+      'Content-Type': 'application/xml',
+      'Accept': 'application/xml',
+      'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
+    // TODO delete
+    console.log(url);
+
     return this.http.get(url, options);
+  }
+
+  saveBulletin(bulletin: BulletinModel) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins';
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify(bulletin.toJson());
+    console.log(body);
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(url, body, options);
+  }
+
+  updateBulletin(bulletin: BulletinModel) {
+    let url = this.constantsService.getServerUrl() + 'bulletins';
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify(bulletin.toJson());
+    console.log(body);
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(url, body, options);
   }
 
   sendMessage() {
