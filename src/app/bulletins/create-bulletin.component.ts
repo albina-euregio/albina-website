@@ -22,7 +22,7 @@ export class CreateBulletinComponent {
 
   public originalBulletins: Map<string, BulletinModel>;
 
-  public editRegions: boolean;
+  public disableInputs: boolean;
 
   public aggregatedRegionsIds: string[];
   public aggregatedRegionsMap: Map<string, BulletinInputModel>;
@@ -38,6 +38,8 @@ export class CreateBulletinComponent {
   public hasDaytimeDependency: boolean;
   public hasElevationDependency: boolean;
 
+  public loading: boolean;
+
   constructor(
     private translate: TranslateService,
     private route: ActivatedRoute,
@@ -48,6 +50,7 @@ export class CreateBulletinComponent {
     private mapService: MapService,
     private confirmationService: ConfirmationService)
   {
+    this.loading = false;
   }
 
   ngOnInit() {
@@ -62,7 +65,7 @@ export class CreateBulletinComponent {
     this.activeSnowpackStructureComment = undefined;
     this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
-    this.editRegions = false;
+    this.disableInputs = false;
 
     this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
@@ -74,7 +77,7 @@ export class CreateBulletinComponent {
       },
       error => {
         console.error("Bulletins could not be loaded!");
-        // TODO
+        // TODO show toast, navigate back
       }
     );
 
@@ -100,6 +103,7 @@ export class CreateBulletinComponent {
 
     // TODO unlock via socketIO
 
+    this.loading = false;
   }
 
   addBulletin(bulletin: BulletinModel) {
@@ -209,12 +213,12 @@ export class CreateBulletinComponent {
 
     // TODO lock whole day in TN, check if any aggregated region is locked
 
-    this.editRegions = true;
+    this.disableInputs = true;
     this.mapService.editAggregatedRegion(this.activeBulletinInput);
   }
 
   saveAggregatedRegion(aggregatedRegionId: string) {
-    this.editRegions = false;
+    this.disableInputs = false;
 
     // save selected regions to active bulletin input
     let regions = this.mapService.getSelectedRegions();
@@ -240,7 +244,7 @@ export class CreateBulletinComponent {
   }
 
   discardAggregatedRegion(aggregatedRegionId: string) {
-    this.editRegions = false;
+    this.disableInputs = false;
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
 
@@ -280,11 +284,13 @@ export class CreateBulletinComponent {
   }
 
   save() {
-    this.mapService.resetAll();
+    debugger
+    this.loading = true;
+    this.disableInputs = true;
+
+    let bulletins = Array<BulletinModel>();
 
     this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-      let bulletins = Array<BulletinModel>();
-
      // set snowpack structure texts
       value.setSnowpackStructureHighlightIn(this.activeSnowpackStructureHighlight, this.settingsService.getLang());
       value.setSnowpackStructureCommentIn(this.activeSnowpackStructureComment, this.settingsService.getLang());
@@ -294,23 +300,55 @@ export class CreateBulletinComponent {
       for (var i = b.length - 1; i >= 0; i--) {
         bulletins.push(b[i]);
       }
-
-      // TODO
-      // delete original bulletins that are no longer existend
-      for (var i = bulletins.length - 1; i >= 0; i--) {
-        if (this.originalBulletins.has(bulletins[i].getId()))
-          this.bulletinsService.updateBulletin(bulletins[i]).subscribe(
-            data => {
-              debugger
-            },
-            error => {
-              debugger
-            }
-          );
-        else
-          this.bulletinsService.saveBulletin(bulletins[i]);
-      }
     });
+
+    for (var i = bulletins.length - 1; i >= 0; i--) {
+      // update existing bulletin
+      if (this.originalBulletins.has(bulletins[i].getId()))
+        this.bulletinsService.updateBulletin(bulletins[i]).subscribe(
+          data => {
+            console.log("Bulletins updated on server.");
+         },
+          error => {
+            console.error("Bulletins could not be updated on server!");
+            // TODO show toast, try again?
+          }
+        );
+      // create new bulletin
+      else
+        this.bulletinsService.saveBulletin(bulletins[i]).subscribe(
+          data => {
+            console.log("Bulletins saved on server.");
+          },
+          error => {
+            console.error("Bulletins could not be saved on server!");
+            // TODO show toast, try again?
+          }
+        );
+    }
+
+    let hit = false;
+
+    // delete original bulletins that are no longer existend
+    this.originalBulletins.forEach((value: BulletinModel, key: string) => {
+      for (var i = bulletins.length - 1; i >= 0; i--) {
+        if (bulletins[i].getId() == key) {
+          hit = true;
+          break;
+        }
+      }
+      if (!hit)
+        this.bulletinsService.deleteBulletin(key).subscribe(
+          data => {
+            console.log("Bulletin deleted on server.");
+          },
+          error => {
+            console.error("Bulletin could not be deleted on server!");
+          }
+        );
+    });
+
+    this.goBack();
   }
 
   discard() {
@@ -318,6 +356,7 @@ export class CreateBulletinComponent {
       header: this.translateService.instant("bulletins.create.discardDialog.header"),
       message: this.translateService.instant("bulletins.create.discardDialog.message"),
       accept: () => {
+        console.log("Bulletin: changes discarded.");
         this.goBack();
       }
     });
@@ -325,7 +364,8 @@ export class CreateBulletinComponent {
 
   goBack() {
     this.mapService.resetAll();
-    console.log("Bulletin: changes discarded.");
     this.router.navigate(['/bulletins']);
+    this.loading = false;
+    this.disableInputs = false;
   }    
 }

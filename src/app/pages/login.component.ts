@@ -44,7 +44,6 @@ export class LoginComponent {
         console.log("[" + this.username + "] Logged in!");
         console.log("Navigate to " + this.returnUrl);
         this.router.navigate([this.returnUrl]);
-        this.loading = false;
       },
       error => {
         this.loading = false;

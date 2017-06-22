@@ -104,7 +104,7 @@ export class BulletinsService {
   }
 
   updateBulletin(bulletin: BulletinModel) {
-    let url = this.constantsService.getServerUrl() + 'bulletins';
+    let url = this.constantsService.getServerUrl() + 'bulletins/' + bulletin.getId();
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
@@ -114,6 +114,17 @@ export class BulletinsService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.put(url, body, options);
+  }
+
+  deleteBulletin(bulletinId: string) {
+    let url = this.constantsService.getServerUrl() + 'bulletins/' + bulletinId;
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.delete(url, options);
   }
 
   sendMessage() {

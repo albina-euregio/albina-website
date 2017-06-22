@@ -44,7 +44,7 @@ export class BulletinModel {
 			this.regions = new Array<String>();
 			this.above = new BulletinElevationDescriptionModel();
 			this.below = new BulletinElevationDescriptionModel();
-			this.status = undefined;
+			this.status = Enums.BulletinStatus.draft;
 			this.avalancheSituationHighlight = new Array<TextModel>();
 			this.avalancheSituationComment = new Array<TextModel>();
 			this.snowpackStructureHighlight = new Array<TextModel>();
@@ -238,6 +238,7 @@ export class BulletinModel {
 			json['avalancheSituationComment'] = avalancheSituationComment;
 		}
 
+		debugger
 		if (this.snowpackStructureHighlight && this.snowpackStructureHighlight.length > 0) {
 			let snowpackStructureHighlight = [];
 			for (let i = 0; i <= this.snowpackStructureHighlight.length - 1; i++) {
