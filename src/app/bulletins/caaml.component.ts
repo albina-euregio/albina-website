@@ -11,6 +11,7 @@ import * as Enums from '../enums/enums';
 export class CaamlComponent {
 
   public bulletins: string;
+  public loading: boolean;
 
   constructor(
     private translate: TranslateService,
@@ -19,17 +20,21 @@ export class CaamlComponent {
     private router: Router)
   {
     this.bulletins = undefined;
+    this.loading = false;
   }
 
   ngOnInit() {
+    this.loading = true;
     this.bulletinsService.loadCaamlBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
         let text = data.text();
         this.bulletins = text;
+        this.loading = false;
       },
       error => {
         console.error("Bulletins could not be loaded!");
         // TODO
+        this.loading = false;
       }
     );
   }

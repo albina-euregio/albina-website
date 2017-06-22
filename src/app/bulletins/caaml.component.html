@@ -9,7 +9,8 @@
 
         <div class="card-block">
           <div class="col-md-12">
-            <textarea id="textarea-input" name="textarea-input" rows="40" class="form-control" disabled [(ngModel)]="bulletins" style="font:courier;font-size:11px;white-space:pre-wrap"></textarea>
+            <textarea *ngIf="!loading" id="textarea-input" name="textarea-input" rows="40" class="form-control" disabled [(ngModel)]="bulletins" style="font:courier;font-size:11px;white-space:pre-wrap"></textarea>
+            <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
           </div>
         </div>
         <div class="card-footer">
