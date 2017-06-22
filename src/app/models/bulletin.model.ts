@@ -212,46 +212,46 @@ export class BulletinModel {
 			json['regions'] = regions;
 		}
 
-		if (this.elevation && this.elevation != undefined)
-			json['elevation'] = this.elevation;
-		
 		if (this.above && this.above != undefined)
 			json['above'] = this.above.toJson();
-		if (this.below && this.below != undefined)
-			json['below'] = this.below.toJson();
 
+		if (this.elevation && this.elevation != undefined) {
+			json['elevation'] = this.elevation;
+			if (this.below && this.below != undefined)
+				json['below'] = this.below.toJson();
+		}
+		
 		if (this.status && this.status != undefined)
-			json['status'] = this.status;
+			json['status'] = Enums.BulletinStatus[this.status];
 
-		if (this.avalancheSituationHighlight && this.avalancheSituationHighlight.length > 0) {
-			let avalancheSituationHighlight = [];
+		if (this.avalancheSituationHighlight && this.avalancheSituationHighlight != undefined && this.avalancheSituationHighlight.length > 0) {
+			let highlight = [];
 			for (let i = 0; i <= this.avalancheSituationHighlight.length - 1; i++) {
-				avalancheSituationHighlight.push(this.avalancheSituationHighlight[i].toJson());
+				highlight.push(this.avalancheSituationHighlight[i].toJson());
 			}
-			json['avalancheSituationHighlight'] = avalancheSituationHighlight;
+			json['avalancheSituationHighlight'] = highlight;
 		}
-		if (this.avalancheSituationComment && this.avalancheSituationComment.length > 0) {
-			let avalancheSituationComment = [];
+		if (this.avalancheSituationComment && this.avalancheSituationComment != undefined && this.avalancheSituationComment.length > 0) {
+			let comment = [];
 			for (let i = 0; i <= this.avalancheSituationComment.length - 1; i++) {
-				avalancheSituationComment.push(this.avalancheSituationComment[i].toJson());
+				comment.push(this.avalancheSituationComment[i].toJson());
 			}
-			json['avalancheSituationComment'] = avalancheSituationComment;
+			json['avalancheSituationComment'] = comment;
 		}
 
-		debugger
-		if (this.snowpackStructureHighlight && this.snowpackStructureHighlight.length > 0) {
-			let snowpackStructureHighlight = [];
+		if (this.snowpackStructureHighlight && this.snowpackStructureHighlight != undefined && this.snowpackStructureHighlight.length > 0) {
+			let highlight = [];
 			for (let i = 0; i <= this.snowpackStructureHighlight.length - 1; i++) {
-				snowpackStructureHighlight.push(this.snowpackStructureHighlight[i].toJson());
+				highlight.push(this.snowpackStructureHighlight[i].toJson());
 			}
-			json['snowpackStructureHighlight'] = snowpackStructureHighlight;
+			json['snowpackStructureHighlight'] = highlight;
 		}
-		if (this.snowpackStructureComment && this.snowpackStructureComment.length > 0) {
-			let snowpackStructureComment = [];
+		if (this.snowpackStructureComment && this.snowpackStructureComment != undefined && this.snowpackStructureComment.length > 0) {
+			let comment = [];
 			for (let i = 0; i <= this.snowpackStructureComment.length - 1; i++) {
-				snowpackStructureComment.push(this.snowpackStructureComment[i].toJson());
+				comment.push(this.snowpackStructureComment[i].toJson());
 			}
-			json['snowpackStructureComment'] = snowpackStructureComment;
+			json['snowpackStructureComment'] = comment;
 		}
 
 		return json;

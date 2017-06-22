@@ -53,11 +53,11 @@ export class BulletinElevationDescriptionModel {
 		if (this.dangerRating && this.dangerRating != undefined)
 			json['dangerRating'] = Enums.DangerRating[this.dangerRating.getValue()];
 		if (this.avalancheProblem && this.avalancheProblem != undefined)
-			json['avalancheProblem'] = Enums.AvalancheProblem[this.avalancheProblem];
+			json['avalancheProblem'] = this.avalancheProblem;
 		if (this.aspects && this.aspects.length > 0) {
 			let aspects = [];
 			for (let i = 0; i <= this.aspects.length - 1; i++) {
-				aspects.push(Enums.Aspect[this.aspects[i]]);
+				aspects.push(this.aspects[i]);
 			}
 			json['aspects'] = aspects;
 		}

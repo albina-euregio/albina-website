@@ -29,7 +29,7 @@ export class TextModel {
 		var json = Object();
 
 		if (this.languageCode && this.languageCode != undefined)
-			json['languageCode'] = this.languageCode;
+			json['languageCode'] = Enums.LanguageCode[this.languageCode];
 		if (this.text && this.text != undefined && this.text != "")
 			json['text'] = this.text;
 

@@ -15,7 +15,7 @@
           <div class="form-group row">
             <div class="col-md-12">
               <div class="form-group row">
-                <button [disabled]="disableInputs" *ngIf="bulletinsService.getIsEditable()" (click)="createAggregatedRegion()" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
+                <button [disabled]="editRegions" *ngIf="bulletinsService.getIsEditable()" (click)="createAggregatedRegion()" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
               </div>
               <table class="table">
                 <tbody>
@@ -23,16 +23,16 @@
                     <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info">
                       <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
                       <td>{{ aggregatedRegionId }}</td>
-                      <td *ngIf="!disableInputs">
-                        <button type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion(aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
+                      <td *ngIf="!editRegions">
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion(aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
                       </td>
-                      <td *ngIf="!disableInputs">
-                        <button type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(aggregatedRegionId)"><i class="fa fa-trash"></i></button>
+                      <td *ngIf="!editRegions">
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(aggregatedRegionId)"><i class="fa fa-trash"></i></button>
                       </td>
-                      <td *ngIf="disableInputs">
+                      <td *ngIf="editRegions">
                         <button type="reset" class="btn btn-sm btn-primary" (click)="saveAggregatedRegion(aggregatedRegionId)"><i class="fa fa-check"></i></button>
                       </td>
-                      <td *ngIf="disableInputs">
+                      <td *ngIf="editRegions">
                         <button type="reset" class="btn btn-sm btn-danger" (click)="discardAggregatedRegion(aggregatedRegionId)"><i class="fa fa-close"></i></button>
                       </td>
                     </tr>
@@ -47,9 +47,9 @@
           </div>
         </div>
         <div *ngIf="bulletinsService.getIsEditable()" class="card-footer">
-          <button *ngIf="!loading" [disabled]="disableInputs" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i>{{ "bulletins.create.save" | translate }}</button>
+          <button *ngIf="!loading" [disabled]="editRegions" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i>{{ "bulletins.create.save" | translate }}</button>
           <button *ngIf="loading" disabled class="btn btn-sm btn-primary px-3"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
-          <button [disabled]="disableInputs" type="reset" class="btn btn-sm btn-danger px-3" (click)="discard()"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
+          <button [disabled]="editRegions" type="reset" class="btn btn-sm btn-danger px-3" (click)="discard()"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
         </div>
         <div *ngIf="!bulletinsService.getIsEditable()" class="card-footer">
           <button type="reset" class="btn btn-sm btn-primary px-3" (click)="goBack()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
@@ -69,22 +69,22 @@
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avalancheSituationHighlight" | translate }}</strong></label>
               <div class="col-md-12">
-                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="disableInputs" [(ngModel)]="activeAvalancheSituationHighlight">
+                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="editRegions" [(ngModel)]="activeAvalancheSituationHighlight">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avalancheSituationComment" | translate }}</strong></label>
               <div class="col-md-12">
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="disableInputs" [(ngModel)]="activeAvalancheSituationComment"></textarea>
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="editRegions" [(ngModel)]="activeAvalancheSituationComment"></textarea>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.elevation" | translate }}</strong></label>
               <div class="col-md-9">
                 <label class="radio-inline" for="inline-radio1">
-                  <input [(ngModel)]="activeBulletinInput.elevationDependency" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="disableInputs">
+                  <input [(ngModel)]="activeBulletinInput.elevationDependency" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="editRegions">
                   <div *ngIf="activeBulletinInput.elevationDependency" class="input-prepend input-group">
-                    <input id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="disableInputs" [(ngModel)]="activeBulletinInput.elevation">
+                    <input id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="editRegions" [(ngModel)]="activeBulletinInput.elevation">
                     <span class="input-group-addon">m</span>
                   </div>
                 </label>
@@ -94,7 +94,7 @@
               <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.daytime" | translate }}</strong></label>
               <div class="col-md-9">
                 <label class="radio-inline" for="inline-radio1">
-                  <input [(ngModel)]="activeBulletinInput.daytimeDependency" type="checkbox" name="daytime-checkbox" value="option1" [disabled]="disableInputs">
+                  <input [(ngModel)]="activeBulletinInput.daytimeDependency" type="checkbox" name="daytime-checkbox" value="option1" [disabled]="editRegions">
                 </label>
               </div>
             </div>
@@ -106,35 +106,35 @@
 
   <div *ngIf="activeAggregatedRegionId" class="row">
     <div *ngIf="!activeBulletinInput.daytimeDependency && !activeBulletinInput.elevationDependency" class="col-md-12">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.detail'" [disabled]="disableInputs"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.detail'" [disabled]="editRegions"></bulletin-detail>
     </div>
     <div *ngIf="!activeBulletinInput.daytimeDependency && activeBulletinInput.elevationDependency" class="col-md-12">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.above'" [disabled]="disableInputs"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.above'" [disabled]="editRegions"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency && !activeBulletinInput.elevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.forenoon'" [disabled]="disableInputs"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.forenoon'" [disabled]="editRegions"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency && !activeBulletinInput.elevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonAbove" [title]="'bulletins.create.title.afternoon'" [disabled]="disableInputs"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonAbove" [title]="'bulletins.create.title.afternoon'" [disabled]="editRegions"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency && activeBulletinInput.elevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.forenoonAbove'" [disabled]="disableInputs"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.forenoonAbove'" [disabled]="editRegions"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency && activeBulletinInput.elevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonAbove" [title]="'bulletins.create.title.afternoonAbove'" [disabled]="disableInputs"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonAbove" [title]="'bulletins.create.title.afternoonAbove'" [disabled]="editRegions"></bulletin-detail>
     </div>
   </div><!--/.row-->
 
 
   <div *ngIf="activeAggregatedRegionId && activeBulletinInput.elevationDependency" class="row">
     <div *ngIf="!activeBulletinInput.daytimeDependency" class="col-md-12">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonBelow" [title]="'bulletins.create.title.below'" [disabled]="disableInputs"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonBelow" [title]="'bulletins.create.title.below'" [disabled]="editRegions"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonBelow" [title]="'bulletins.create.title.forenoonBelow'" [disabled]="disableInputs"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonBelow" [title]="'bulletins.create.title.forenoonBelow'" [disabled]="editRegions"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonBelow" [title]="'bulletins.create.title.afternoonBelow'" [disabled]="disableInputs"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonBelow" [title]="'bulletins.create.title.afternoonBelow'" [disabled]="editRegions"></bulletin-detail>
     </div>
   </div><!--/.row-->
 
@@ -149,13 +149,13 @@
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.snowpackStructureHighlight" | translate }}</strong></label>
               <div class="col-md-12">
-                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="disableInputs || !bulletinsService.getIsEditable()" [(ngModel)]="activeSnowpackStructureHighlight">
+                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="editRegions || !bulletinsService.getIsEditable()" [(ngModel)]="activeSnowpackStructureHighlight">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
               <div class="col-md-12">
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="disableInputs || !bulletinsService.getIsEditable()" [(ngModel)]="activeSnowpackStructureComment"></textarea>
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="editRegions || !bulletinsService.getIsEditable()" [(ngModel)]="activeSnowpackStructureComment"></textarea>
               </div>
             </div>
           </form>

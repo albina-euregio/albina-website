@@ -22,7 +22,7 @@ export class CreateBulletinComponent {
 
   public originalBulletins: Map<string, BulletinModel>;
 
-  public disableInputs: boolean;
+  public editRegions: boolean;
 
   public aggregatedRegionsIds: string[];
   public aggregatedRegionsMap: Map<string, BulletinInputModel>;
@@ -65,7 +65,7 @@ export class CreateBulletinComponent {
     this.activeSnowpackStructureComment = undefined;
     this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
-    this.disableInputs = false;
+    this.editRegions = false;
 
     this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
@@ -213,12 +213,12 @@ export class CreateBulletinComponent {
 
     // TODO lock whole day in TN, check if any aggregated region is locked
 
-    this.disableInputs = true;
+    this.editRegions = true;
     this.mapService.editAggregatedRegion(this.activeBulletinInput);
   }
 
   saveAggregatedRegion(aggregatedRegionId: string) {
-    this.disableInputs = false;
+    this.editRegions = false;
 
     // save selected regions to active bulletin input
     let regions = this.mapService.getSelectedRegions();
@@ -244,7 +244,7 @@ export class CreateBulletinComponent {
   }
 
   discardAggregatedRegion(aggregatedRegionId: string) {
-    this.disableInputs = false;
+    this.editRegions = false;
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
 
@@ -284,16 +284,17 @@ export class CreateBulletinComponent {
   }
 
   save() {
-    debugger
     this.loading = true;
-    this.disableInputs = true;
+    this.editRegions = true;
 
     let bulletins = Array<BulletinModel>();
 
     this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-     // set snowpack structure texts
-      value.setSnowpackStructureHighlightIn(this.activeSnowpackStructureHighlight, this.settingsService.getLang());
-      value.setSnowpackStructureCommentIn(this.activeSnowpackStructureComment, this.settingsService.getLang());
+      // set snowpack structure texts
+      if (this.activeSnowpackStructureHighlight != undefined && this.activeSnowpackStructureHighlight != "")
+        value.setSnowpackStructureHighlightIn(this.activeSnowpackStructureHighlight, this.settingsService.getLang());
+      if (this.activeSnowpackStructureComment != undefined && this.activeSnowpackStructureComment != "")
+        value.setSnowpackStructureCommentIn(this.activeSnowpackStructureComment, this.settingsService.getLang());
 
       // create bulletins
       let b = value.toBulletins(key, this.bulletinsService.getActiveDate());
@@ -321,6 +322,7 @@ export class CreateBulletinComponent {
             console.log("Bulletins saved on server.");
           },
           error => {
+            debugger
             console.error("Bulletins could not be saved on server!");
             // TODO show toast, try again?
           }
@@ -366,6 +368,6 @@ export class CreateBulletinComponent {
     this.mapService.resetAll();
     this.router.navigate(['/bulletins']);
     this.loading = false;
-    this.disableInputs = false;
-  }    
+    this.editRegions = false;
+  }
 }
