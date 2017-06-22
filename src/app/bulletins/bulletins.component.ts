@@ -17,6 +17,8 @@ export class BulletinsComponent {
   public dates: Date[];
   public statusMap: Map<Date, Enums.BulletinStatus>;
 
+  public loading: boolean;
+
   constructor(
     private translate: TranslateService,
     private bulletinsService: BulletinsService,
@@ -28,9 +30,11 @@ export class BulletinsComponent {
     this.bulletinList = new Array<BulletinModel>();
     this.dates = new Array<Date>();
     this.statusMap = new Map<Date, Enums.BulletinStatus>();
+    this.loading = false;
   }
 
   ngOnInit() {
+    this.loading = true;
     for (let i = 0; i <= 10; i++) {
       let date = new Date();
       date.setDate(date.getDate() + 3 - i);
@@ -40,10 +44,11 @@ export class BulletinsComponent {
         data => {
           let response = data.json();
           this.statusMap.set(date, Enums.BulletinStatus[<string>response.status]);
+          this.loading = false;
         },
         error => {
-          debugger
           console.error("Status could not be loaded!");
+          this.loading = false;
         }
       );
     }

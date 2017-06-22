@@ -20,16 +20,19 @@
             <tbody>
               <tr *ngFor="let date of dates" (click)="editBulletin(date)">
                 <td>{{ date | date }}</td>
-                <td *ngIf="statusMap.get(date) == bulletinStatus.missing">
+                <td *ngIf="loading">
+                  <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+                </td>
+                <td *ngIf="!loading && statusMap.get(date) == bulletinStatus.missing">
                   <span class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                 </td>
-                <td *ngIf="statusMap.get(date) == bulletinStatus.published">
+                <td *ngIf="!loading && statusMap.get(date) == bulletinStatus.published">
                   <span class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
                 </td>
-                <td *ngIf="statusMap.get(date) == bulletinStatus.draft">
+                <td *ngIf="!loading && statusMap.get(date) == bulletinStatus.draft">
                   <span class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
                 </td>
-                <td *ngIf="statusMap.get(date) == bulletinStatus.obsolete">
+                <td *ngIf="!loading && statusMap.get(date) == bulletinStatus.obsolete">
                   <span class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
                 </td>
                 <td>
