@@ -54,7 +54,7 @@ export class BulletinsService {
 
     // TODO delete
     console.log(url);
-debugger
+
     return this.http.get(url, options);
   }
 
