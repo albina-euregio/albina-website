@@ -29,7 +29,7 @@ export const MockNews = [
         'text': 'New bulletin ...'
       }
     ],
-    'status': 'incomplete'
+    'status': 'draft'
   },
   {
     'date': '2017-02-23T12:30:23+01:00',
