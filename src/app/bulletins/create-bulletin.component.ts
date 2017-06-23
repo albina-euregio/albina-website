@@ -50,7 +50,7 @@ export class CreateBulletinComponent {
     private mapService: MapService,
     private confirmationService: ConfirmationService)
   {
-    this.loading = false;
+    this.loading = true;
   }
 
   ngOnInit() {
@@ -67,17 +67,22 @@ export class CreateBulletinComponent {
     this.hasDaytimeDependency = false;
     this.editRegions = false;
 
+    // TODO wait until bulletins are loaded (disable inputs)
+
     this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
         let response = data.json();
         for (let jsonBulletin of response) {
           let bulletin = BulletinModel.createFromJson(jsonBulletin);
+          console.log(JSON.stringify(bulletin.toJson()));
           this.addBulletin(bulletin);
         }
+        this.loading = false;
       },
       error => {
         console.error("Bulletins could not be loaded!");
         // TODO show toast, navigate back
+        this.loading = false;
       }
     );
 
@@ -120,7 +125,7 @@ export class CreateBulletinComponent {
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonBelow = bulletin.below;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonAbove = bulletin.above;
       // TODO check if this a good method
-      } else if (bulletin.validFrom.getHours() == 17) {
+      } else if (bulletin.validFrom.getHours() == 0) {
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonBelow = bulletin.below;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonAbove = bulletin.above;
       }
@@ -142,7 +147,7 @@ export class CreateBulletinComponent {
         bulletinInput.afternoonBelow = bulletin.below;
         bulletinInput.afternoonAbove = bulletin.above;
       // TODO check if this a good method
-      } else if (bulletin.validFrom.getHours() == 17) {
+      } else if (bulletin.validFrom.getHours() == 0) {
         bulletinInput.forenoonBelow = bulletin.below;
         bulletinInput.forenoonAbove = bulletin.above;
       }
@@ -284,9 +289,6 @@ export class CreateBulletinComponent {
   }
 
   save() {
-    this.loading = true;
-    this.editRegions = true;
-
     let bulletins = Array<BulletinModel>();
 
     this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
@@ -303,52 +305,31 @@ export class CreateBulletinComponent {
       }
     });
 
-    for (var i = bulletins.length - 1; i >= 0; i--) {
-      // update existing bulletin
-      if (this.originalBulletins.has(bulletins[i].getId()))
-        this.bulletinsService.updateBulletin(bulletins[i]).subscribe(
-          data => {
-            console.log("Bulletins updated on server.");
-         },
-          error => {
-            console.error("Bulletins could not be updated on server!");
-            // TODO show toast, try again?
-          }
-        );
-      // create new bulletin
-      else
-        this.bulletinsService.saveBulletin(bulletins[i]).subscribe(
-          data => {
-            console.log("Bulletins saved on server.");
-          },
-          error => {
-            debugger
-            console.error("Bulletins could not be saved on server!");
-            // TODO show toast, try again?
-          }
-        );
-    }
-
-    let hit = false;
-
-    // delete original bulletins that are no longer existend
+    // delete original bulletins
     this.originalBulletins.forEach((value: BulletinModel, key: string) => {
-      for (var i = bulletins.length - 1; i >= 0; i--) {
-        if (bulletins[i].getId() == key) {
-          hit = true;
-          break;
+      console.log("[" + key + "] Delete bulletin ...");
+      this.bulletinsService.deleteBulletin(key).subscribe(
+        data => {
+          console.log("Bulletin deleted on server.");
+        },
+        error => {
+          console.error("Bulletin could not be deleted on server!");
         }
-      }
-      if (!hit)
-        this.bulletinsService.deleteBulletin(key).subscribe(
-          data => {
-            console.log("Bulletin deleted on server.");
-          },
-          error => {
-            console.error("Bulletin could not be deleted on server!");
-          }
-        );
+      );
     });
+
+    for (var i = bulletins.length - 1; i >= 0; i--) {
+      console.log("[" + bulletins[i].getId() + "] Save bulletin ...");
+      this.bulletinsService.saveBulletin(bulletins[i]).subscribe(
+        data => {
+          console.log("[" + data.json().bulletinId + "] Bulletin saved on server.");
+        },
+        error => {
+          console.error("Bulletins could not be saved on server!");
+          // TODO show toast, try again?
+        }
+      );
+    }
 
     this.goBack();
   }
