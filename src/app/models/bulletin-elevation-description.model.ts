@@ -51,7 +51,7 @@ export class BulletinElevationDescriptionModel {
 		var json = Object();
 
 		if (this.dangerRating && this.dangerRating != undefined)
-			json['dangerRating'] = Enums.DangerRating[this.dangerRating.getValue()];
+			json['dangerRating'] = this.dangerRating.getValue();
 		if (this.avalancheProblem && this.avalancheProblem != undefined)
 			json['avalancheProblem'] = this.avalancheProblem;
 		if (this.aspects && this.aspects.length > 0) {
@@ -68,7 +68,7 @@ export class BulletinElevationDescriptionModel {
 	static createFromJson(json) {
 		let bulletinElevationDescription = new BulletinElevationDescriptionModel();
 
-		bulletinElevationDescription.dangerRating.next(Enums.DangerRating[<string>json.dangerRating]);
+		bulletinElevationDescription.dangerRating.next(json.dangerRating);
 		bulletinElevationDescription.avalancheProblem = json.avalancheProblem;
 
 		let jsonAspects = json.aspects;
