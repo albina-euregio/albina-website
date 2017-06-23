@@ -231,10 +231,13 @@ export class BulletinInputModel {
 		let forenoonBulletin = new BulletinModel();
 
 		forenoonBulletin.aggregatedRegionId = aggregatedRegionId;
-		forenoonBulletin.validFrom = date;
+
+		let validFrom = new Date(date);
+		let validUntil = new Date(date);
+		forenoonBulletin.validFrom = validFrom;
 
 		forenoonBulletin.regions = this.regions;
-		if (this.elevation)
+		if (this.elevationDependency)
 			forenoonBulletin.elevation = this.elevation;
 		
 		forenoonBulletin.above = this.forenoonAbove;
@@ -249,14 +252,15 @@ export class BulletinInputModel {
 		// TODO whats with the status?
 
 		if (this.daytimeDependency) {
-			date.setTime(date.getTime() + (19*60*60*1000));
-			forenoonBulletin.validUntil = date;
+			validUntil.setTime(validUntil.getTime() + (12*60*60*1000));
+			forenoonBulletin.validUntil = validUntil;
 
 			let afternoonBulletin = new BulletinModel(forenoonBulletin);
 			afternoonBulletin.aggregatedRegionId = aggregatedRegionId;
-			afternoonBulletin.validFrom = date;
-			date.setTime(date.getTime() + (5*60*60*1000));
-			afternoonBulletin.validUntil = date;
+			afternoonBulletin.validFrom = new Date(validUntil);
+			let validUntilAfternoon = new Date(validUntil);
+			validUntilAfternoon.setTime(validUntilAfternoon.getTime() + (12*60*60*1000));
+			afternoonBulletin.validUntil = validUntilAfternoon;
 
 			afternoonBulletin.above = this.afternoonAbove;
 			if (this.elevationDependency)
@@ -266,8 +270,8 @@ export class BulletinInputModel {
 
 			result.push(afternoonBulletin);
 		} else {
-			date.setTime(date.getTime() + (24*60*60*1000));
-			forenoonBulletin.validUntil = date;
+			validUntil.setTime(validUntil.getTime() + (24*60*60*1000));
+			forenoonBulletin.validUntil = validUntil;
 		}
 
 		result.push(forenoonBulletin)
