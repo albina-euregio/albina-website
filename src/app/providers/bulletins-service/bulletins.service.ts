@@ -44,23 +44,20 @@ export class BulletinsService {
   
   getStatus(region: string, date: Date) : Observable<Response> {
     // TODO check how to encode date with timezone in url
-    let url = this.constantsService.getServerUrl() + 'bulletins/status?date=' + date.toISOString() + '&region=' + region;
+    let url = this.constantsService.getServerUrl() + 'bulletins/status?date=' + this.constantsService.getISOStringWithTimezoneOffset(date) + '&region=' + region;
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
-
-    // TODO delete
-    console.log(url);
 
     return this.http.get(url, options);
   }
 
   loadBulletins(date: Date) : Observable<Response> {
     // TODO check how to encode date with timezone in url
-    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + date.toISOString();
+    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffset(date);
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
@@ -68,25 +65,19 @@ export class BulletinsService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
-    // TODO delete
-    console.log(url);
-
     return this.http.get(url, options);
   }
 
   loadCaamlBulletins(date: Date) : Observable<Response> {
     // TODO check how to encode date with timezone in url
-    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + date.toISOString();
+    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffset(date);
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/xml',
       'Accept': 'application/xml',
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
-
-    // TODO delete
-    console.log(url);
-
+ 
     return this.http.get(url, options);
   }
 

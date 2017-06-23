@@ -16,4 +16,23 @@ export class ConstantsService {
   getServerUrl() {
     return this.serverUrl;
   }
+
+  getISOStringWithTimezoneOffset(date: Date) {
+    let offset = -date.getTimezoneOffset();
+    let dif = offset >= 0 ? '+' : '-';
+
+    return encodeURIComponent(date.getFullYear() + 
+      '-' + this.extend(date.getMonth() + 1) +
+      '-' + this.extend(date.getDate()) +
+      'T' + this.extend(date.getHours()) +
+      ':' + this.extend(date.getMinutes()) +
+      ':' + this.extend(date.getSeconds()) +
+      dif + this.extend(offset / 60) +
+      ':' + this.extend(offset % 60));
+  }
+
+  extend(num: number) {
+    let norm = Math.abs(Math.floor(num));
+    return (norm < 10 ? '0' : '') + norm;
+  }
 }
