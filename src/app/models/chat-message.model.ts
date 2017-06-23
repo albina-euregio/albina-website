@@ -41,7 +41,7 @@ export class ChatMessageModel {
 		if (this.username && this.username != undefined)
 			json['username'] = this.username;
 		if (this.time && this.time != undefined)
-			json['time'] = this.time;
+			json['time'] = this.getISOStringWithTimezoneOffset(this.time);
 		if (this.text && this.text != undefined && this.text != "")
 			json['text'] = this.text;
 
@@ -56,5 +56,24 @@ export class ChatMessageModel {
 		chatMessage.setText(json.text);
 
 		return chatMessage;
+	}
+
+	private getISOStringWithTimezoneOffset(date: Date) {
+		let offset = -date.getTimezoneOffset();
+		let dif = offset >= 0 ? '+' : '-';
+
+		return date.getFullYear() + 
+			'-' + this.extend(date.getMonth() + 1) +
+			'-' + this.extend(date.getDate()) +
+			'T' + this.extend(date.getHours()) +
+			':' + this.extend(date.getMinutes()) +
+			':' + this.extend(date.getSeconds()) +
+			dif + this.extend(offset / 60) +
+			':' + this.extend(offset % 60);
+	}
+
+	private extend(num: number) {
+		let norm = Math.abs(Math.floor(num));
+		return (norm < 10 ? '0' : '') + norm;
 	}
 }

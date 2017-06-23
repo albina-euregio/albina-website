@@ -77,7 +77,7 @@ export class NewsModel {
 		var json = Object();
 
 		if (this.date && this.date != undefined)
-			json['date'] = this.date;
+			json['date'] = this.getISOStringWithTimezoneOffset(this.date);
 		if (this.title && this.title.length > 0) {
 			let title = [];
 			for (let i = 0; i <= this.title.length - 1; i++) {
@@ -120,5 +120,24 @@ export class NewsModel {
 		news.setStatus(Enums.NewsStatus[<string>json.status]);
 
 		return news;
+	}
+
+	private getISOStringWithTimezoneOffset(date: Date) {
+		let offset = -date.getTimezoneOffset();
+		let dif = offset >= 0 ? '+' : '-';
+
+		return date.getFullYear() + 
+			'-' + this.extend(date.getMonth() + 1) +
+			'-' + this.extend(date.getDate()) +
+			'T' + this.extend(date.getHours()) +
+			':' + this.extend(date.getMinutes()) +
+			':' + this.extend(date.getSeconds()) +
+			dif + this.extend(offset / 60) +
+			':' + this.extend(offset % 60);
+	}
+
+	private extend(num: number) {
+		let norm = Math.abs(Math.floor(num));
+		return (norm < 10 ? '0' : '') + norm;
 	}
 }
