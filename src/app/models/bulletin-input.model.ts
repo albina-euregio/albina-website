@@ -256,7 +256,6 @@ export class BulletinInputModel {
 			forenoonBulletin.validUntil = validUntil;
 
 			let afternoonBulletin = new BulletinModel(forenoonBulletin);
-			afternoonBulletin.aggregatedRegionId = aggregatedRegionId;
 			afternoonBulletin.validFrom = new Date(validUntil);
 			let validUntilAfternoon = new Date(validUntil);
 			validUntilAfternoon.setTime(validUntilAfternoon.getTime() + (12*60*60*1000));
