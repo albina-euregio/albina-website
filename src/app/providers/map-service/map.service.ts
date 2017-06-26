@@ -77,25 +77,25 @@ export class MapService {
         this.resetEditSelection();
     }
 
-    addAggregatedRegion(bulletinInputModel: BulletinInputModel, select: boolean) {
+    addAggregatedRegion(bulletinInputModel: BulletinInputModel) {
         bulletinInputModel.forenoonBelow.dangerRating.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletinInputModel);
-            if (select && this.map)
+            if (this.map)
                 this.selectAggregatedRegion(bulletinInputModel);
         });
         bulletinInputModel.forenoonAbove.dangerRating.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletinInputModel);
-            if (select && this.map)
+            if (this.map)
                 this.selectAggregatedRegion(bulletinInputModel);
         });
         bulletinInputModel.afternoonBelow.dangerRating.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletinInputModel);
-            if (select && this.map)
+            if (this.map)
                 this.selectAggregatedRegion(bulletinInputModel);
         });
         bulletinInputModel.afternoonAbove.dangerRating.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletinInputModel);
-            if (select && this.map)
+            if (this.map)
                 this.selectAggregatedRegion(bulletinInputModel);
         });
         this.updateAggregatedRegion(bulletinInputModel);
@@ -123,6 +123,10 @@ export class MapService {
                 }
             }
         }
+    }
+
+    deselectAggregatedRegion() {
+        this.map.removeLayer(this.overlayMaps.activeSelection);
     }
 
     editAggregatedRegion(bulletinInputModel: BulletinInputModel) {

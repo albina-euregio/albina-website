@@ -78,6 +78,7 @@ export class CreateBulletinComponent {
           this.addBulletin(bulletin);
         }
         this.loading = false;
+        this.mapService.deselectAggregatedRegion();
       },
       error => {
         console.error("Bulletins could not be loaded!");
@@ -152,7 +153,7 @@ export class CreateBulletinComponent {
         bulletinInput.forenoonAbove = bulletin.above;
       }
 
-      this.mapService.addAggregatedRegion(bulletinInput, false);
+      this.mapService.addAggregatedRegion(bulletinInput);
 
       this.aggregatedRegionsMap.set(bulletin.getAggregatedRegionId(), bulletinInput);
       this.aggregatedRegionsIds.push(bulletin.getAggregatedRegionId());
@@ -240,7 +241,7 @@ export class CreateBulletinComponent {
           }
         }
       }
-      this.mapService.addAggregatedRegion(value, false);
+      this.mapService.addAggregatedRegion(value);
     });
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
