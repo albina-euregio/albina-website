@@ -70,6 +70,10 @@ export class BulletinsComponent {
 
   publish(event, date: Date) {
     // TODO implement
+    // disable row
+    // check if all values are set
+    // set status of all bulletins to published
+
     event.stopPropagation();
     this.confirmationService.confirm({
       header: this.translateService.instant("bulletins.table.publishingErrorDialog.header"),
