@@ -77,25 +77,25 @@ export class MapService {
         this.resetEditSelection();
     }
 
-    addAggregatedRegion(bulletinInputModel: BulletinInputModel) {
+    addAggregatedRegion(bulletinInputModel: BulletinInputModel, select: boolean) {
         bulletinInputModel.forenoonBelow.dangerRating.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletinInputModel);
-            if (this.map)
+            if (select && this.map)
                 this.selectAggregatedRegion(bulletinInputModel);
         });
         bulletinInputModel.forenoonAbove.dangerRating.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletinInputModel);
-            if (this.map)
+            if (select && this.map)
                 this.selectAggregatedRegion(bulletinInputModel);
         });
         bulletinInputModel.afternoonBelow.dangerRating.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletinInputModel);
-            if (this.map)
+            if (select && this.map)
                 this.selectAggregatedRegion(bulletinInputModel);
         });
         bulletinInputModel.afternoonAbove.dangerRating.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletinInputModel);
-            if (this.map)
+            if (select && this.map)
                 this.selectAggregatedRegion(bulletinInputModel);
         });
         this.updateAggregatedRegion(bulletinInputModel);

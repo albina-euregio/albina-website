@@ -138,7 +138,7 @@ export class CreateBulletinComponent {
       bulletinInput.snowpackStructureHighlight = bulletin.snowpackStructureHighlight;
       bulletinInput.snowpackStructureComment = bulletin.snowpackStructureComment;
       bulletinInput.elevation = bulletin.elevation;
-      if (bulletin.below) {
+      if (bulletin.elevation > 0 && bulletin.below) {
         bulletinInput.elevationDependency = true;
       }
       // TODO check if this a good method
@@ -152,7 +152,7 @@ export class CreateBulletinComponent {
         bulletinInput.forenoonAbove = bulletin.above;
       }
 
-      this.mapService.addAggregatedRegion(bulletinInput);
+      this.mapService.addAggregatedRegion(bulletinInput, false);
 
       this.aggregatedRegionsMap.set(bulletin.getAggregatedRegionId(), bulletinInput);
       this.aggregatedRegionsIds.push(bulletin.getAggregatedRegionId());
@@ -240,7 +240,7 @@ export class CreateBulletinComponent {
           }
         }
       }
-      this.mapService.addAggregatedRegion(value);
+      this.mapService.addAggregatedRegion(value, false);
     });
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
