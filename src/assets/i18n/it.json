@@ -54,6 +54,18 @@
 				"reject" : "TODO"
 			}
 		},
+		"deleteNewsDialog" : {
+			"header" : "TODO",
+			"message" : "TODO",
+			"accept" : "TODO",
+			"reject" : "TODO"
+		},
+		"deleteNewsDialog" : {
+			"header" : "TODO",
+			"message" : "TODO",
+			"accept" : "TODO",
+			"reject" : "TODO"
+		},
 		"title" : "News",
 		"table" : {
 			"date" : "Data",
@@ -64,6 +76,11 @@
 				"title" : "Stato",
 				"published" : "pubblicato",
 				"draft" : "TODO"
+			},
+			"action" : "TODO",
+			"button" : {
+				"publish" : "TODO",
+				"delete" : "TODO"
 			}
 		}		
 	},

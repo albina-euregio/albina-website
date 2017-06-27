@@ -21,7 +21,6 @@ export class NewsService {
 
   getNews() : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'news';
-    console.log(url);
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
@@ -70,6 +69,31 @@ export class NewsService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.put(url, body, options);
+  }
+
+  deleteNews(news: NewsModel) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'news/' + news.getId();
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.delete(url, options);
+  }
+
+  publishNews(news: NewsModel) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'news/' + news.getId() + '/publish';
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify(news.toJson());
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(url, body, options);
   }
 
   setActiveNews(news: NewsModel) {

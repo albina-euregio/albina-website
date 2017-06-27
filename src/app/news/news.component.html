@@ -14,6 +14,7 @@
                 <th>{{ "news.table.date" | translate }}</th>
                 <th>{{ "news.table.title" | translate }}</th>
                 <th>{{ "news.table.status.title" | translate }}</th>
+                <th>{{ "news.table.action" | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -26,6 +27,10 @@
                 <td *ngIf="item.getStatus() == newsStatus.draft">
                   <span class="badge badge-warning">{{ "news.table.status.draft" | translate }}</span>
                 </td>
+                <td>
+                  <button *ngIf="item.getStatus() == newsStatus.draft" type="button" class="btn btn-primary" (click)="publishNews($event, item)">{{ "news.table.button.publish" | translate }}</button>
+                  <button *ngIf="item.getStatus() == newsStatus.draft" type="button" class="btn btn-primary" (click)="deleteNews($event, item)">{{ "news.table.button.delete" | translate }}</button>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -36,3 +41,10 @@
   </div>
   <!--/.row-->
 </div>
+
+<p-confirmDialog width="425" #cd>
+  <p-footer>
+    <button type="button" pButton label='{{ "news.deleteNewsDialog.reject" | translate }}' (click)="cd.reject()"></button>
+    <button type="button" pButton label='{{ "news.deleteNewsDialog.accept" | translate }}' (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

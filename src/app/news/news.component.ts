@@ -5,6 +5,7 @@ import { NewsModel } from '../models/news.model';
 import { NewsService } from '../providers/news-service/news.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
+import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 
 @Component({
   templateUrl: 'news.component.html'
@@ -19,7 +20,8 @@ export class NewsComponent {
     private settingsService: SettingsService,
 	  private newsService: NewsService,
   	private route: ActivatedRoute,
-    private router: Router)
+    private router: Router,
+    private confirmationService: ConfirmationService)
   {
   	this.newsList = new Array<NewsModel>();
 
@@ -48,5 +50,46 @@ export class NewsComponent {
     else
       this.newsService.setActiveNews(undefined);
     this.router.navigate(['/news/new']);
+  }
+
+  deleteNews(event, item: NewsModel) {
+    event.stopPropagation();
+    this.confirmationService.confirm({
+      header: this.translate.instant("news.deleteNewsDialog.header"),
+      message: this.translate.instant("news.deleteNewsDialog.message"),
+      accept: () => {
+        this.newsService.deleteNews(item).subscribe(
+          data => {
+            let index = this.newsList.indexOf(item);
+            this.newsList.splice(index, 1);
+            console.log("News deleted.");
+          },
+          error => {
+            console.error("News could not be deleted!");
+            // TODO
+          }
+        );
+      }
+    });
+  }
+
+  publishNews(event, item: NewsModel) {
+    event.stopPropagation();
+    this.confirmationService.confirm({
+      header: this.translate.instant("news.publishNewsDialog.header"),
+      message: this.translate.instant("news.publishNewsDialog.message"),
+      accept: () => {
+        this.newsService.publishNews(item).subscribe(
+          data => {
+            item.setStatus(Enums.NewsStatus.published);
+            console.log("News published.");
+          },
+          error => {
+            console.error("News could not be published!");
+            // TODO
+          }
+        );
+      }
+    });
   }
 }

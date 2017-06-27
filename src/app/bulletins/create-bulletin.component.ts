@@ -332,6 +332,8 @@ export class CreateBulletinComponent {
       );
     }
 
+    // TODO wait until all async calls are done, then reload /bulletins page
+
     this.goBack();
   }
 

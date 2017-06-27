@@ -54,6 +54,18 @@
 				"reject" : "No"
 			}
 		},
+		"deleteNewsDialog" : {
+			"header" : "Delete news",
+			"message" : "Do you want to delete the news?",
+			"accept" : "Yes",
+			"reject" : "No"
+		},
+		"deleteNewsDialog" : {
+			"header" : "Publish news",
+			"message" : "Do you want to publish the news?",
+			"accept" : "Yes",
+			"reject" : "No"
+		},
 		"title" : "News",
 		"table" : {
 			"date" : "Date",
@@ -64,6 +76,11 @@
 				"title" : "Status",
 				"published" : "published",
 				"draft" : "draft"
+			},
+			"action" : "Actions",
+			"button" : {
+				"publish" : "publish",
+				"delete" : "delete"
 			}
 		}		
 	},
