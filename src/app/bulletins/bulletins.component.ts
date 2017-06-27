@@ -59,11 +59,13 @@ export class BulletinsComponent {
 
   editBulletin(date: Date) {
     this.bulletinsService.setActiveDate(date);
-    if (this.bulletinsService.statusMap.get(date) === Enums.BulletinStatus.published)
+    if (this.bulletinsService.statusMap.get(date) === Enums.BulletinStatus.published) {
       this.bulletinsService.setIsEditable(false);
-    else
+      this.router.navigate(['/bulletins/show']);
+    } else {
       this.bulletinsService.setIsEditable(true);
-    this.router.navigate(['/bulletins/new']);
+      this.router.navigate(['/bulletins/new']);
+    }
   }
 
   showCaaml(date: Date) {

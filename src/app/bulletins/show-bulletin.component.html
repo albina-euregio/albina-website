@@ -1,0 +1,154 @@
+<div class="animated fadeIn">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+<!--          <strong>{{ "bulletins.create.title.map" | translate }}</strong> -->
+          <strong>{{ bulletinsService.getActiveDate() | date:'short' }}</strong>
+        </div>
+        <div class="card-block">
+          <div class="form-group row">
+            <div class="col-md-12" style="height: 400px" id="map">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <table class="table">
+                <tbody>
+                  <div *ngFor="let aggregatedRegionId of aggregatedRegionsIds">
+                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info">
+                      <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
+                      <td>{{ aggregatedRegionId }}</td>
+                    </tr>
+                    <tr *ngIf="!activeAggregatedRegionId || aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
+                      <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
+                      <td>{{ aggregatedRegionId }}</td>
+                    </tr>
+                  </div>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="reset" class="btn btn-sm btn-primary px-3" (click)="goBack()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="activeAggregatedRegionId" class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ "bulletins.create.title.general" | translate }}</strong>
+        </div>
+        <div class="card-block">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avalancheSituationHighlight" | translate }}</strong></label>
+              <div class="col-md-12">
+                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="true" [(ngModel)]="activeAvalancheSituationHighlight">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avalancheSituationComment" | translate }}</strong></label>
+              <div class="col-md-12">
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvalancheSituationComment"></textarea>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.elevation" | translate }}</strong></label>
+              <div class="col-md-9">
+                <label class="radio-inline" for="inline-radio1">
+                  <input [(ngModel)]="activeBulletinInput.elevationDependency" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="true">
+                  <div *ngIf="activeBulletinInput.elevationDependency" class="input-prepend input-group">
+                    <input id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="true" [(ngModel)]="activeBulletinInput.elevation">
+                    <span class="input-group-addon">m</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.daytime" | translate }}</strong></label>
+              <div class="col-md-9">
+                <label class="radio-inline" for="inline-radio1">
+                  <input [(ngModel)]="activeBulletinInput.daytimeDependency" type="checkbox" name="daytime-checkbox" value="option1" [disabled]="true">
+                </label>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="activeAggregatedRegionId" class="row">
+    <div *ngIf="!activeBulletinInput.daytimeDependency && !activeBulletinInput.elevationDependency" class="col-md-12">
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.detail'" [disabled]="true"></bulletin-detail>
+    </div>
+    <div *ngIf="!activeBulletinInput.daytimeDependency && activeBulletinInput.elevationDependency" class="col-md-12">
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.above'" [disabled]="true"></bulletin-detail>
+    </div>
+    <div *ngIf="activeBulletinInput.daytimeDependency && !activeBulletinInput.elevationDependency" class="col-md-6">
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.forenoon'" [disabled]="true"></bulletin-detail>
+    </div>
+    <div *ngIf="activeBulletinInput.daytimeDependency && !activeBulletinInput.elevationDependency" class="col-md-6">
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonAbove" [title]="'bulletins.create.title.afternoon'" [disabled]="true"></bulletin-detail>
+    </div>
+    <div *ngIf="activeBulletinInput.daytimeDependency && activeBulletinInput.elevationDependency" class="col-md-6">
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.forenoonAbove'" [disabled]="true"></bulletin-detail>
+    </div>
+    <div *ngIf="activeBulletinInput.daytimeDependency && activeBulletinInput.elevationDependency" class="col-md-6">
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonAbove" [title]="'bulletins.create.title.afternoonAbove'" [disabled]="true"></bulletin-detail>
+    </div>
+  </div><!--/.row-->
+
+
+  <div *ngIf="activeAggregatedRegionId && activeBulletinInput.elevationDependency" class="row">
+    <div *ngIf="!activeBulletinInput.daytimeDependency" class="col-md-12">
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonBelow" [title]="'bulletins.create.title.below'" [disabled]="true"></bulletin-detail>
+    </div>
+    <div *ngIf="activeBulletinInput.daytimeDependency" class="col-md-6">
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonBelow" [title]="'bulletins.create.title.forenoonBelow'" [disabled]="true"></bulletin-detail>
+    </div>
+    <div *ngIf="activeBulletinInput.daytimeDependency" class="col-md-6">
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonBelow" [title]="'bulletins.create.title.afternoonBelow'" [disabled]="true"></bulletin-detail>
+    </div>
+  </div><!--/.row-->
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ "bulletins.create.title.snowpackStructure" | translate }}</strong>
+        </div>
+        <div class="card-block">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.snowpackStructureHighlight" | translate }}</strong></label>
+              <div class="col-md-12">
+                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="true || !bulletinsService.getIsEditable()" [(ngModel)]="activeSnowpackStructureHighlight">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
+              <div class="col-md-12">
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true || !bulletinsService.getIsEditable()" [(ngModel)]="activeSnowpackStructureComment"></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p-confirmDialog icon="fa fa-question-circle" width="425" #cd>
+  <p-footer>
+    <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.discardDialog.reject" | translate }}' (click)="cd.reject()"></button>
+    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.discardDialog.accept" | translate }}' (click)="cd.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
