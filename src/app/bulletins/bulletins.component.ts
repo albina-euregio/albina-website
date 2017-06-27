@@ -72,16 +72,26 @@ export class BulletinsComponent {
   }
 
   publish(event, date: Date) {
-    // TODO implement
-    // disable row
-    // check if all values are set
-    // set status of all bulletins to published
+
+    // TODO check if all values are set
 
     event.stopPropagation();
+
     this.confirmationService.confirm({
-      header: this.translateService.instant("bulletins.table.publishingErrorDialog.header"),
-      message: this.translateService.instant("bulletins.table.publishingErrorDialog.message"),
+      header: this.translateService.instant("bulletins.table.publishBulletinDialog.header"),
+      message: this.translateService.instant("bulletins.table.publishBulletinDialog.message"),
       accept: () => {
+        this.bulletinsService.publishBulletins(date).subscribe(
+          data => {
+            console.log("Bulletins published.");
+            this.bulletinsService.statusMap.set(date, Enums.BulletinStatus.published);
+          },
+          error => {
+            console.error("Bulletins could not be published!");
+          }
+        );
+      },
+      reject: () => {
       }
     });
   }

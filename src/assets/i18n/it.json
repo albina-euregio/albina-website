@@ -157,10 +157,11 @@
 			"button" : {
 				"publish" : "TODO"
 			},
-			"publishingErrorDialog" : {
+			"publishBulletinDialog" : {
 				"header" : "TODO",
 				"message" : "TODO",
-				"accept" : "TODO"
+				"accept" : "TODO",
+				"reject" : "TODO"
 			}
 		},
 		"caaml" : {

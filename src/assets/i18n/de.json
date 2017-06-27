@@ -157,10 +157,11 @@
 			"button" : {
 				"publish" : "Publizieren"
 			},
-			"publishingErrorDialog" : {
-				"header" : "Fehler beim Veröffentlichen",
-				"message" : "Veröffentlichung ist noch nicht möglich.",
-				"accept" : "Ok"
+			"publishBulletinDialog" : {
+				"header" : "Lagebericht publizieren",
+				"message" : "Willst du den Lagebericht publizieren?",
+				"accept" : "Ja",
+				"reject" : "Nein"
 			}
 		},
 		"caaml" : {

@@ -157,10 +157,11 @@
 			"button" : {
 				"publish" : "Publish"
 			},
-			"publishingErrorDialog" : {
-				"header" : "Publishing error",
-				"message" : "Publishing is not implemented yet.",
-				"accept" : "Ok"
+			"publishBulletinDialog" : {
+				"header" : "Publish bulletin",
+				"message" : "Do you want to publish the bulletin?",
+				"accept" : "Yes",
+				"reject" : "No"
 			}
 		},
 		"caaml" : {

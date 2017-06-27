@@ -54,6 +54,7 @@
 
 <p-confirmDialog width="425" #cd>
   <p-footer>
-    <button type="button" pButton label='{{ "bulletins.table.publishingErrorDialog.accept" | translate }}' (click)="cd.accept()"></button>
+    <button type="button" pButton label='{{ "bulletins.table.publishBulletinDialog.reject" | translate }}' (click)="cd.reject()"></button>
+    <button type="button" pButton label='{{ "bulletins.table.publishBulletinDialog.accept" | translate }}' (click)="cd.accept()"></button>
   </p-footer>
 </p-confirmDialog>

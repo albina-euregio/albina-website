@@ -89,6 +89,7 @@ export class BulletinsService {
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': authHeader });
     let body = JSON.stringify(bulletin.toJson());
     console.log(body);
@@ -97,11 +98,12 @@ export class BulletinsService {
     return this.http.post(url, body, options);
   }
 
-  updateBulletin(bulletin: BulletinModel) {
+  updateBulletin(bulletin: BulletinModel) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/' + bulletin.getId();
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': authHeader });
     let body = JSON.stringify(bulletin.toJson());
     console.log(body);
@@ -110,15 +112,29 @@ export class BulletinsService {
     return this.http.put(url, body, options);
   }
 
-  deleteBulletin(bulletinId: string) {
+  deleteBulletin(bulletinId: string) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/' + bulletinId;
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.delete(url, options);
+  }
+
+  publishBulletins(date: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/' + this.constantsService.getISOStringWithTimezoneOffset(date) + "/publish";
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify("");
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(url, body, options);
   }
 
   sendMessage() {
