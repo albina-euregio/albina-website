@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { NewsModel } from '../models/news.model';
 import { TextModel } from '../models/text.model';
-import { NewsService } from '../providers/mock-service/news.service';
+import { NewsService } from '../providers/news-service/news.service';
 import * as Enums from '../enums/enums';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 
@@ -29,6 +29,7 @@ export class CreateNewsComponent {
     private confirmationService: ConfirmationService)
   {
     this.disabled = false;
+
     if (this.newsService.getActiveNews() != null && this.newsService.getActiveNews() != undefined) {
       this.titleIt = this.newsService.getActiveNews().getTitleIn(Enums.LanguageCode.it);
       this.titleDe = this.newsService.getActiveNews().getTitleIn(Enums.LanguageCode.de);
@@ -37,7 +38,7 @@ export class CreateNewsComponent {
       this.contentDe = this.newsService.getActiveNews().getContentIn(Enums.LanguageCode.de);
       this.contentEn = this.newsService.getActiveNews().getContentIn(Enums.LanguageCode.en);
 
-      if (this.newsService.getActiveNews().getStatus() == Enums.NewsStatus.published || this.newsService.getActiveNews().getStatus() == Enums.NewsStatus.pending)
+      if (this.newsService.getActiveNews().getStatus() == Enums.NewsStatus.published)
         this.disabled = true;
     }
   }
@@ -75,18 +76,42 @@ export class CreateNewsComponent {
     news.setTitle(titleArray);
   	news.setContent(contentArray);
   	news.setDate(new Date());
+    
+    if (this.newsService.getActiveNews() != undefined) {
+      news.setId(this.newsService.getActiveNews().getId());
+    	this.newsService.updateNews(news).subscribe(
+    		data => {
+    			console.log("News updated on server.");
+          this.newsService.setActiveNews(undefined);
 
-  	this.newsService.saveNews(news).subscribe(
-  		data => {
-  			console.log("News saved on server.");
-  			// TODO show toast
-  			this.router.navigate(['/news']);
-  		},
-  		error => {
-  			console.error("News could not be saved on server!");
-  			// TODO show toast
-  		}
-  	);
+          // TODO show toast
+
+    			this.router.navigate(['/news']);
+    		},
+    		error => {
+    			console.error("News could not be updated on server!");
+
+    			// TODO show toast
+
+    		}
+    	);
+    } else {
+      this.newsService.saveNews(news).subscribe(
+        data => {
+          console.log("News saved on server.");
+
+          // TODO show toast
+
+          this.router.navigate(['/news']);
+        },
+        error => {
+          console.error("News could not be saved on server!");
+
+          // TODO show toast
+
+        }
+      );
+    }
   }
 
   discard() {

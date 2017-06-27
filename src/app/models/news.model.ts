@@ -12,7 +12,7 @@ export class NewsModel {
 		this.date = undefined;
 		this.title = undefined;
 		this.content = undefined;
-		this.status = undefined;
+		this.status = Enums.NewsStatus.draft;
 	}
 
 	getId() : string {
@@ -92,14 +92,16 @@ export class NewsModel {
 			}
 			json['content'] = content;
 		}
-		if (this.status && this.status != undefined)
-			json['status'] = this.status;
+		if (this.status != undefined)
+			json['status'] = Enums.NewsStatus[this.status];
 
 		return json;
 	}
 
 	static createFromJson(json) {
 		let news = new NewsModel();
+
+		news.setId(json.id);
 		
 		news.setDate(new Date(json.date));
 
@@ -116,9 +118,8 @@ export class NewsModel {
 			content.push(TextModel.createFromJson(jsonContent[i]));
 		}
 		news.setContent(content);
-
 		news.setStatus(Enums.NewsStatus[<string>json.status]);
-
+		
 		return news;
 	}
 

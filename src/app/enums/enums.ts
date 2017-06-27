@@ -43,5 +43,5 @@ export enum BulletinStatus {
 }
 
 export enum NewsStatus {
-	draft, pending, published
+	draft, published
 }

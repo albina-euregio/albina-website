@@ -22,8 +22,11 @@ export class NewsService {
   getNews() : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'news';
     console.log(url);
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
-      'Content-Type': 'application/json'});
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -31,9 +34,11 @@ export class NewsService {
 
   findNews(searchString : String) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'news/search?s=' + searchString;
-    console.log(url);
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
-      'Content-Type': 'application/json'});
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -41,18 +46,30 @@ export class NewsService {
 
   saveNews(news: NewsModel) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'news';
-    console.log(url);
-    let authHeader = 'Bearer' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': authHeader });
     let body = JSON.stringify(news.toJson());
-    console.log(body);
     let options = new RequestOptions({ headers: headers });
 
     this.activeNews = undefined;
 
     return this.http.post(url, body, options);
+  }
+
+  updateNews(news: NewsModel) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'news/' + news.getId();
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify(news.toJson());
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(url, body, options);
   }
 
   setActiveNews(news: NewsModel) {

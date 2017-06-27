@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { NewsModel } from '../models/news.model';
-import { NewsService } from '../providers/mock-service/news.service';
+import { NewsService } from '../providers/news-service/news.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
 
@@ -29,6 +29,11 @@ export class NewsComponent {
         for (let jsonNews of response) {
         	this.newsList.push(NewsModel.createFromJson(jsonNews));
         }
+        this.newsList.sort((a, b) : number => {
+            if (a.date < b.date) return 1;
+            if (a.date > b.date) return -1;
+            return 0;
+        });
       },
       error => {
         console.error("News could not be loaded!");
