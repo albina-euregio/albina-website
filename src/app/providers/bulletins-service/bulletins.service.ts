@@ -15,6 +15,8 @@ export class BulletinsService {
   private activeDate: Date;
   private isEditable: boolean;
 
+  public statusMap: Map<Date, Enums.BulletinStatus>;
+
   private socket;
 
   constructor(
@@ -24,6 +26,7 @@ export class BulletinsService {
   {
     this.activeDate = undefined;
     this.isEditable = false;
+    this.statusMap = new Map<Date, Enums.BulletinStatus>();
   }
 
   getActiveDate() : Date {

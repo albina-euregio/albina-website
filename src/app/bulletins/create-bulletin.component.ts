@@ -4,11 +4,13 @@ import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { BulletinModel } from '../models/bulletin.model';
+import { Observable } from 'rxjs/Observable';
 import { BulletinInputModel } from '../models/bulletin-input.model';
 import * as Enums from '../enums/enums';
 import { MapService } from "../providers/map-service/map.service";
 import { UUID } from 'angular2-uuid';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/forkJoin';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 
 import "leaflet";
@@ -306,35 +308,30 @@ export class CreateBulletinComponent {
       }
     });
 
+    let observableBatch = [];
+
     // delete original bulletins
     this.originalBulletins.forEach((value: BulletinModel, key: string) => {
       console.log("[" + key + "] Delete bulletin ...");
-      this.bulletinsService.deleteBulletin(key).subscribe(
-        data => {
-          console.log("Bulletin deleted on server.");
-        },
-        error => {
-          console.error("Bulletin could not be deleted on server!");
-        }
-      );
+      observableBatch.push(this.bulletinsService.deleteBulletin(key));
     });
 
     for (var i = bulletins.length - 1; i >= 0; i--) {
       console.log("[" + bulletins[i].getId() + "] Save bulletin ...");
-      this.bulletinsService.saveBulletin(bulletins[i]).subscribe(
-        data => {
-          console.log("[" + data.json().bulletinId + "] Bulletin saved on server.");
-        },
-        error => {
-          console.error("Bulletins could not be saved on server!");
-          // TODO show toast, try again?
-        }
-      );
+      observableBatch.push(this.bulletinsService.saveBulletin(bulletins[i]));
     }
 
-    // TODO wait until all async calls are done, then reload /bulletins page
-
-    this.goBack();
+    Observable.forkJoin(observableBatch).subscribe(
+      data => {
+        // TODO update list in bulletinsService
+        this.goBack();
+        console.log("Bulletins saved on server.");
+      },
+      error => {
+        console.error("Bulletins could not be saved on server!");
+        // TODO show toast, try again?
+      }
+    );
   }
 
   discard() {
