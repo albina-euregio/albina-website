@@ -114,6 +114,11 @@ export class CreateBulletinComponent {
     this.loading = false;
   }
 
+  updateElevation(){
+    if (this.activeBulletinInput)
+      this.activeBulletinInput.elevation = Math.round(this.activeBulletinInput.elevation/100)*100;
+  }
+
   addBulletin(bulletin: BulletinModel) {
     this.originalBulletins.set(bulletin.getId(), bulletin);
 

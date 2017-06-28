@@ -84,7 +84,7 @@
                 <label class="radio-inline" for="inline-radio1">
                   <input [(ngModel)]="activeBulletinInput.elevationDependency" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="editRegions">
                   <div *ngIf="activeBulletinInput.elevationDependency" class="input-prepend input-group">
-                    <input id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="editRegions" [(ngModel)]="activeBulletinInput.elevation">
+                    <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="editRegions" [(ngModel)]="activeBulletinInput.elevation" (change)="updateElevation(this.id)">
                     <span class="input-group-addon">m</span>
                   </div>
                 </label>
