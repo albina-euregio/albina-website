@@ -45,25 +45,25 @@ export class BulletinDetailComponent {
   				this.N = true;
   				break;
   			case 2:
-  				this.NW = true;
+  				this.NE = true;
   				break;
   			case 3:
-  				this.W = true;
+  				this.E = true;
   				break;
   			case 4:
-  				this.SW = true;
+  				this.SE = true;
   				break;
   			case 5:
   				this.S = true;
   				break;
   			case 6:
-  				this.SE = true;
+  				this.SW = true;
   				break;
   			case 7:
-  				this.E = true;
+  				this.W = true;
   				break;
   			case 8:
-  				this.NE = true;
+  				this.NW = true;
   				break;
   			
   			default:
