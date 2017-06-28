@@ -41,7 +41,7 @@
                 <td>
                   <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.missing && !copying" type="button" class="btn btn-primary" (click)="copy($event, date)"><i class="fa fa-copy"></i></button>
                   <button *ngIf="bulletinsService.statusMap.get(date) == bulletinStatus.draft && !copying" type="button" class="btn btn-primary" (click)="publish($event, date)"><i class="fa fa-send"></i></button>
-                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.published && copying && this.copyDate != date" type="button" class="btn btn-primary" (click)="paste($event, date)"><i class="fa fa-paste"></i></button>
+                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.published && copying && this.bulletinsService.getCopyDate() != date" type="button" class="btn btn-primary" (click)="paste($event, date)"><i class="fa fa-paste"></i></button>
                 </td>
               </tr>
             </tbody>
