@@ -55,7 +55,7 @@ export class CreateBulletinComponent {
     this.loading = true;
   }
 
-  ngOnInit() {
+  reset() {
     this.originalBulletins = new Map<string, BulletinModel>();
     this.aggregatedRegionsMap = new Map<string, BulletinInputModel>();
     this.aggregatedRegionsIds = new Array<string>();
@@ -68,6 +68,10 @@ export class CreateBulletinComponent {
     this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
     this.editRegions = false;
+  }
+
+  ngOnInit() {
+    this.reset();
 
     if (this.bulletinsService.getCopyDate()) {
       this.bulletinsService.loadBulletins(this.bulletinsService.getCopyDate()).subscribe(
@@ -148,6 +152,54 @@ export class CreateBulletinComponent {
   updateElevation(){
     if (this.activeBulletinInput)
       this.activeBulletinInput.elevation = Math.round(this.activeBulletinInput.elevation/100)*100;
+  }
+
+  loadBulletinsFromYesterday() {
+    this.confirmationService.confirm({
+      header: this.translateService.instant("bulletins.create.loadDialog.header"),
+      message: this.translateService.instant("bulletins.create.loadDialog.message"),
+      accept: () => {
+        this.loading = true;
+        
+        let date = new Date();
+        date.setHours(0, 0, 0, 0);
+        var dateOffset = (24*60*60*1000) * 1;
+        date.setTime(this.bulletinsService.getActiveDate().getTime() - dateOffset);
+
+        this.bulletinsService.loadBulletins(date).subscribe(
+        data => {
+          // reset everything
+          this.reset();
+          this.mapService.resetAggregatedRegions();
+
+          let response = data.json();
+          let idMap = new Map<string, string>();
+          for (let jsonBulletin of response) {
+            let originalBulletin = BulletinModel.createFromJson(jsonBulletin);
+            let bulletin = new BulletinModel(originalBulletin);
+
+            // TODO change aggregatedRegionId (same for same)
+            if (idMap.has(originalBulletin.getAggregatedRegionId()))
+              bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
+            else {
+              let uuid = UUID.UUID();
+              idMap.set(originalBulletin.getAggregatedRegionId(), uuid);
+              bulletin.setAggregatedRegionId(uuid);
+            }
+
+            this.addBulletin(bulletin);
+          }
+          this.loading = false;
+          this.mapService.deselectAggregatedRegion();
+        },
+        error => {
+          console.error("Bulletins could not be loaded!");
+          // TODO show toast, navigate back
+          this.loading = false;
+        }
+      );
+      }
+    });
   }
 
   addBulletin(bulletin: BulletinModel) {

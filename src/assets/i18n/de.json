@@ -132,6 +132,18 @@
 				"message" : "Willst du die Änderungen verwerfen?",
 				"accept" : "Ja",
 				"reject" : "Nein"
+			},
+			"deleteAggregatedRegionDialog" : {
+				"header" : "Region löschen",
+				"message" : "Willst du die Region löschen?",
+				"accept" : "Ja",
+				"reject" : "Nein"
+			},
+			"loadDialog" : {
+				"header" : "Lagebericht vom Vortag laden",
+				"message" : "Willst du den Lagebericht vom Vortag laden?",
+				"accept" : "Ja",
+				"reject" : "Nein"
 			}
 		},
 		"table" : {
