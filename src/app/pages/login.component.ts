@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -59,10 +59,10 @@ export class LoginComponent {
     );
   }
 
-  keyDownFunction(event) {
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
     if (event.keyCode == 13 && !this.loading) {
       this.login();
     }
   }
-
 }
