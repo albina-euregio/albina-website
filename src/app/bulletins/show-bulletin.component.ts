@@ -126,6 +126,10 @@ export class ShowBulletinComponent {
       bulletinInput.avActivityComment = bulletin.avActivityComment;
       bulletinInput.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
       bulletinInput.snowpackStructureComment = bulletin.snowpackStructureComment;
+
+      this.activeSnowpackStructureHighlights = bulletinInput.getSnowpackStructureHighlightsIn(this.settingsService.getLang());
+      this.activeSnowpackStructureComment = bulletinInput.getSnowpackStructureCommentIn(this.settingsService.getLang());
+
       bulletinInput.elevation = bulletin.elevation;
       if (bulletin.elevation > 0 && bulletin.below) {
         bulletinInput.elevationDependency = true;
