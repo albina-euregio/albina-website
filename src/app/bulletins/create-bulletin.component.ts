@@ -119,7 +119,7 @@ export class CreateBulletinComponent {
 
     // a bulletin for this aggregated region is already in the map => use existend bulletin input object
     if (this.aggregatedRegionsMap.has(bulletin.getAggregatedRegionId())) {
-      if (bulletin.below) {
+      if (bulletin.elevation > 0 && bulletin.below) {
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).elevationDependency = true;
       }
       // TODO check if this a good method
