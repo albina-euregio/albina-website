@@ -171,12 +171,18 @@ export class CreateBulletinComponent {
     }
   }
 
-  createAggregatedRegion() {
+  createAggregatedRegion(copy) {
 
     // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
 
     let uuid = UUID.UUID();
-    let bulletinInput = new BulletinInputModel();
+    let bulletinInput;
+
+    if (copy && this.activeBulletinInput)
+      bulletinInput = new BulletinInputModel(this.activeBulletinInput);
+    else
+      bulletinInput = new BulletinInputModel();
+
     this.aggregatedRegionsMap.set(uuid, bulletinInput);
     this.aggregatedRegionsIds.push(uuid);
 

@@ -22,19 +22,34 @@ export class BulletinInputModel {
 	public afternoonAbove: BulletinElevationDescriptionModel;
 	public afternoonBelow: BulletinElevationDescriptionModel;
 
-	constructor() {
-		this.regions = new Array<String>();
-		this.avActivityHighlights = new Array<TextModel>();
-		this.avActivityComment = new Array<TextModel>();
-		this.snowpackStructureHighlights = new Array<TextModel>();
-		this.snowpackStructureComment = new Array<TextModel>();
-		this.elevationDependency = false;
-		this.daytimeDependency = false;
-		this.elevation = undefined;
-		this.forenoonAbove = new BulletinElevationDescriptionModel();
-		this.forenoonBelow = new BulletinElevationDescriptionModel();
-		this.afternoonAbove = new BulletinElevationDescriptionModel();
-		this.afternoonBelow = new BulletinElevationDescriptionModel();
+	constructor(bulletinInput?: BulletinInputModel) {
+		if (!bulletinInput) {
+			this.regions = new Array<String>();
+			this.avActivityHighlights = new Array<TextModel>();
+			this.avActivityComment = new Array<TextModel>();
+			this.snowpackStructureHighlights = new Array<TextModel>();
+			this.snowpackStructureComment = new Array<TextModel>();
+			this.elevationDependency = false;
+			this.daytimeDependency = false;
+			this.elevation = undefined;
+			this.forenoonAbove = new BulletinElevationDescriptionModel();
+			this.forenoonBelow = new BulletinElevationDescriptionModel();
+			this.afternoonAbove = new BulletinElevationDescriptionModel();
+			this.afternoonBelow = new BulletinElevationDescriptionModel();
+		} else {
+			this.regions = new Array<String>();
+			this.avActivityHighlights = bulletinInput.avActivityHighlights;
+			this.avActivityComment = bulletinInput.avActivityComment;
+			this.snowpackStructureHighlights = bulletinInput.snowpackStructureHighlights;
+			this.snowpackStructureComment = bulletinInput.snowpackStructureComment;
+			this.elevationDependency = bulletinInput.elevationDependency;
+			this.daytimeDependency = bulletinInput.daytimeDependency;
+			this.elevation = bulletinInput.elevation;
+			this.forenoonAbove = bulletinInput.forenoonAbove;
+			this.forenoonBelow = bulletinInput.forenoonBelow;
+			this.afternoonAbove = bulletinInput.afternoonAbove;
+			this.afternoonBelow = bulletinInput.afternoonBelow;
+		}
 	}
 
 	getRegions() : String[] {

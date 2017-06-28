@@ -15,7 +15,7 @@
           <div class="form-group row">
             <div class="col-md-12">
               <div class="form-group row">
-                <button [disabled]="editRegions || loading" *ngIf="bulletinsService.getIsEditable()" (click)="createAggregatedRegion()" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
+                <button [disabled]="editRegions || loading" *ngIf="bulletinsService.getIsEditable()" (click)="createAggregatedRegion(false)" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
               </div>
               <table class="table">
                 <tbody>
@@ -25,6 +25,9 @@
                       <td>{{ aggregatedRegionId }}</td>
                       <td *ngIf="!editRegions">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion(aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
+                      </td>
+                      <td *ngIf="!editRegions">
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion(true)"><i class="fa fa-copy"></i></button>
                       </td>
                       <td *ngIf="!editRegions">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(aggregatedRegionId)"><i class="fa fa-trash"></i></button>
