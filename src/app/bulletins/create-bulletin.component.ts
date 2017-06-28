@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
@@ -270,7 +270,7 @@ export class CreateBulletinComponent {
     // TODO unlock whole day in TN
   }
 
-  discardAggregatedRegion(aggregatedRegionId: string) {
+  discardAggregatedRegion(aggregatedRegionId?: string) {
     this.editRegions = false;
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
@@ -371,5 +371,12 @@ export class CreateBulletinComponent {
     this.router.navigate(['/bulletins']);
     this.loading = false;
     this.editRegions = false;
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    if (event.keyCode == 27 && this.editRegions) {
+      this.discardAggregatedRegion();
+    }
   }
 }
