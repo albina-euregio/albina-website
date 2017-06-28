@@ -31,10 +31,10 @@ export class CreateBulletinComponent {
   public activeAggregatedRegionId: string;
   public activeBulletinInput: BulletinInputModel;
 
-  public activeAvalancheSituationHighlight: string;
-  public activeAvalancheSituationComment: string;
+  public activeAvActivityHighlights: string;
+  public activeAvActivityComment: string;
 
-  public activeSnowpackStructureHighlight: string;
+  public activeSnowpackStructureHighlights: string;
   public activeSnowpackStructureComment: string;
 
   public hasDaytimeDependency: boolean;
@@ -61,9 +61,9 @@ export class CreateBulletinComponent {
     this.aggregatedRegionsIds = new Array<string>();
     this.activeAggregatedRegionId = undefined;
     this.activeBulletinInput = undefined;
-    this.activeAvalancheSituationHighlight = undefined;
-    this.activeAvalancheSituationComment = undefined;
-    this.activeSnowpackStructureHighlight = undefined;
+    this.activeAvActivityHighlights = undefined;
+    this.activeAvActivityComment = undefined;
+    this.activeSnowpackStructureHighlights = undefined;
     this.activeSnowpackStructureComment = undefined;
     this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
@@ -136,10 +136,14 @@ export class CreateBulletinComponent {
     } else {
       let bulletinInput = new BulletinInputModel();
       bulletinInput.regions = bulletin.regions;
-      bulletinInput.avalancheSituationHighlight = bulletin.avalancheSituationHighlight;
-      bulletinInput.avalancheSituationComment = bulletin.avalancheSituationComment;
-      bulletinInput.snowpackStructureHighlight = bulletin.snowpackStructureHighlight;
+      bulletinInput.avActivityHighlights = bulletin.avActivityHighlights;
+      bulletinInput.avActivityComment = bulletin.avActivityComment;
+      bulletinInput.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
       bulletinInput.snowpackStructureComment = bulletin.snowpackStructureComment;
+
+      this.activeSnowpackStructureHighlights = bulletinInput.getSnowpackStructureHighlightsIn(this.settingsService.getLang());
+      this.activeSnowpackStructureComment = bulletinInput.getSnowpackStructureCommentIn(this.settingsService.getLang());
+
       bulletinInput.elevation = bulletin.elevation;
       if (bulletin.elevation > 0 && bulletin.below) {
         bulletinInput.elevationDependency = true;
@@ -175,16 +179,12 @@ export class CreateBulletinComponent {
   }
 
   selectAggregatedRegion(aggregatedRegionId: string) {
-    // save text parts
-    if (this.activeBulletinInput) {
-      this.activeBulletinInput.setAvalancheSituationHighlightIn(this.activeAvalancheSituationHighlight, this.settingsService.getLang());
-      this.activeBulletinInput.setAvalancheSituationCommentIn(this.activeAvalancheSituationComment, this.settingsService.getLang());
-    }
+    this.setAvActivityTexts();
 
     this.activeAggregatedRegionId = aggregatedRegionId;
     this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
-    this.activeAvalancheSituationHighlight = this.activeBulletinInput.getAvalancheSituationHighlightIn(this.settingsService.getLang());
-    this.activeAvalancheSituationComment = this.activeBulletinInput.getAvalancheSituationCommentIn(this.settingsService.getLang());
+    this.activeAvActivityHighlights = this.activeBulletinInput.getAvActivityHighlightsIn(this.settingsService.getLang());
+    this.activeAvActivityComment = this.activeBulletinInput.getAvActivityCommentIn(this.settingsService.getLang());
 
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
   }
@@ -194,8 +194,16 @@ export class CreateBulletinComponent {
 
     this.activeAggregatedRegionId = undefined;
     this.activeBulletinInput = undefined;
-    this.activeAvalancheSituationHighlight = undefined;
-    this.activeAvalancheSituationComment = undefined;
+    this.activeAvActivityHighlights = undefined;
+    this.activeAvActivityComment = undefined;
+  }
+
+  private setAvActivityTexts() {
+    // save text parts
+    if (this.activeBulletinInput) {
+      this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlights, this.settingsService.getLang());
+      this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityComment, this.settingsService.getLang());
+    }
   }
 
   deleteAggregatedRegion(aggregatedRegionId: string) {
@@ -292,12 +300,14 @@ export class CreateBulletinComponent {
   }
 
   save() {
+    this.setAvActivityTexts();
+
     let bulletins = Array<BulletinModel>();
 
     this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
       // set snowpack structure texts
-      if (this.activeSnowpackStructureHighlight != undefined && this.activeSnowpackStructureHighlight != "")
-        value.setSnowpackStructureHighlightIn(this.activeSnowpackStructureHighlight, this.settingsService.getLang());
+      if (this.activeSnowpackStructureHighlights != undefined && this.activeSnowpackStructureHighlights != "")
+        value.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlights, this.settingsService.getLang());
       if (this.activeSnowpackStructureComment != undefined && this.activeSnowpackStructureComment != "")
         value.setSnowpackStructureCommentIn(this.activeSnowpackStructureComment, this.settingsService.getLang());
 

@@ -103,14 +103,14 @@
 			"deleteAggregatedRegion" : "Löschen",
 			"regionName" : "Region ",
 			"label" : {
-				"avalancheSituationHighlight" : "Schlagzeile Gefahrensituation",
-				"avalancheSituationComment" : "Beurteilung der Lawinengefahr",
+				"avActivityHighlights" : "Schlagzeile Gefahrensituation",
+				"avActivityComment" : "Beurteilung der Lawinengefahr",
 				"avalancheProblem" : "Lawinenproblem",
 				"dangerRating" : "Gefahrenstufe",
 				"aspects" : "Exposition",
 				"elevation" : "Höhenabhängigkeit",
 				"daytime" : "Tageszeitliche Abhängigkeit",
-				"snowpackStructureHighlight" : "Schlagzeile Schneedeckenaufbau",
+				"snowpackStructureHighlights" : "Schlagzeile Schneedeckenaufbau",
 				"snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus"
 			},
 			"title" : {

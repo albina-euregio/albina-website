@@ -97,14 +97,14 @@
 			"deleteAggregatedRegion" : "Cancella",
 			"regionName" : "Regione ",
 			"label" : {
-				"avalancheSituationHighlight" : "Titolo situazione pericolo valanghe",
-				"avalancheSituationComment" : "Testo di discrezione pericolo valanghe",
+				"avActivityHighlights" : "Titolo situazione pericolo valanghe",
+				"avActivityComment" : "Testo di discrezione pericolo valanghe",
 				"avalancheProblem" : "Problemi tipici valanghivi",
 				"dangerRating" : "Grado del pericolo valanghe",
 				"aspects" : "Versanti",
 				"elevation" : "Altezza",
 				"daytime" : "Mattina/pomeriggio",
-				"snowpackStructureHighlight" : "TODO",
+				"snowpackStructureHighlights" : "TODO",
 				"snowpackStructureComment" : "TODO"
 			},
 			"title" : {

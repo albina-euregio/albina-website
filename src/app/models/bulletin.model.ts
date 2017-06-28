@@ -15,10 +15,10 @@ export class BulletinModel {
 	public above: BulletinElevationDescriptionModel;
 	public below: BulletinElevationDescriptionModel;
 
-	public avalancheSituationHighlight: TextModel[];
-	public avalancheSituationComment: TextModel[];
+	public avActivityHighlights: TextModel[];
+	public avActivityComment: TextModel[];
 
-	public snowpackStructureHighlight: TextModel[];
+	public snowpackStructureHighlights: TextModel[];
 	public snowpackStructureComment: TextModel[];
 
 	public status: Enums.BulletinStatus;
@@ -32,9 +32,9 @@ export class BulletinModel {
 			this.above = bulletin.above;
 			this.below = bulletin.below;
 			this.status = bulletin.status;
-			this.avalancheSituationHighlight = bulletin.avalancheSituationHighlight;
-			this.avalancheSituationComment = bulletin.avalancheSituationComment;
-			this.snowpackStructureHighlight = bulletin.snowpackStructureHighlight;
+			this.avActivityHighlights = bulletin.avActivityHighlights;
+			this.avActivityComment = bulletin.avActivityComment;
+			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
 			this.snowpackStructureComment = bulletin.snowpackStructureComment;
 			this.elevation = bulletin.elevation;
 		} else {
@@ -45,9 +45,9 @@ export class BulletinModel {
 			this.above = new BulletinElevationDescriptionModel();
 			this.below = new BulletinElevationDescriptionModel();
 			this.status = Enums.BulletinStatus.draft;
-			this.avalancheSituationHighlight = new Array<TextModel>();
-			this.avalancheSituationComment = new Array<TextModel>();
-			this.snowpackStructureHighlight = new Array<TextModel>();
+			this.avActivityHighlights = new Array<TextModel>();
+			this.avActivityComment = new Array<TextModel>();
+			this.snowpackStructureHighlights = new Array<TextModel>();
 			this.snowpackStructureComment = new Array<TextModel>();
 			this.elevation = undefined;
 		}
@@ -125,44 +125,44 @@ export class BulletinModel {
 		this.status = status;
 	}
 
-	getAvalancheSituationHighlight() : TextModel[] {
-		return this.avalancheSituationHighlight;
+	getAvActivityHighlights() : TextModel[] {
+		return this.avActivityHighlights;
 	}
 
-	getAvalancheSituationHighlightIn(language: Enums.LanguageCode) : string {
-		for (var i = this.avalancheSituationHighlight.length - 1; i >= 0; i--) {
-			if (this.avalancheSituationHighlight[i].getLanguageCode() == language)
-				return this.avalancheSituationHighlight[i].getText();
+	getAvActivityHighlightsIn(language: Enums.LanguageCode) : string {
+		for (var i = this.avActivityHighlights.length - 1; i >= 0; i--) {
+			if (this.avActivityHighlights[i].getLanguageCode() == language)
+				return this.avActivityHighlights[i].getText();
 		}
 	}
 
-	getAvalancheSituationHighlightInString(language: string) : string {
-		return this.getAvalancheSituationHighlightIn(Enums.LanguageCode[language]);
+	getAvActivityHighlightsInString(language: string) : string {
+		return this.getAvActivityHighlightsIn(Enums.LanguageCode[language]);
 	}
 
-	setAvalancheSituationHighlight(avalancheSituationHighlight: TextModel[]) {
-		this.avalancheSituationHighlight = avalancheSituationHighlight;
+	setAvActivityHighlights(avActivityHighlights: TextModel[]) {
+		this.avActivityHighlights = avActivityHighlights;
 	}
 
-	getAvalancheSituationComment() : TextModel[] {
-		return this.avalancheSituationComment;
+	getAvActivityComment() : TextModel[] {
+		return this.avActivityComment;
 	}
 
-	getAvalancheSituationCommentIn(language: Enums.LanguageCode) : string {
-		for (var i = this.avalancheSituationComment.length - 1; i >= 0; i--) {
-			if (this.avalancheSituationComment[i].getLanguageCode() == language)
-				return this.avalancheSituationComment[i].getText();
+	getAvActivityCommentIn(language: Enums.LanguageCode) : string {
+		for (var i = this.avActivityComment.length - 1; i >= 0; i--) {
+			if (this.avActivityComment[i].getLanguageCode() == language)
+				return this.avActivityComment[i].getText();
 		}
 	}
 
-	setAvalancheSituationComment(avalancheSituationComment: TextModel[]) {
-		this.avalancheSituationComment = avalancheSituationComment;
+	setAvActivityComment(avActivityComment: TextModel[]) {
+		this.avActivityComment = avActivityComment;
 	}
 
 	getSnowpackStructureHighlightIn(language: Enums.LanguageCode) : string {
-		for (var i = this.snowpackStructureHighlight.length - 1; i >= 0; i--) {
-			if (this.snowpackStructureHighlight[i].getLanguageCode() == language)
-				return this.snowpackStructureHighlight[i].getText();
+		for (var i = this.snowpackStructureHighlights.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureHighlights[i].getLanguageCode() == language)
+				return this.snowpackStructureHighlights[i].getText();
 		}
 	}
 
@@ -170,8 +170,8 @@ export class BulletinModel {
 		return this.getSnowpackStructureHighlightIn(Enums.LanguageCode[language]);
 	}
 
-	setSnowpackStructureHighlight(snowpackStructureHighlight: TextModel[]) {
-		this.snowpackStructureHighlight = snowpackStructureHighlight;
+	setSnowpackStructureHighlight(snowpackStructureHighlights: TextModel[]) {
+		this.snowpackStructureHighlights = snowpackStructureHighlights;
 	}
 
 	getSnowpackStructureComment() : TextModel[] {
@@ -224,27 +224,27 @@ export class BulletinModel {
 		if (this.status && this.status != undefined)
 			json['status'] = Enums.BulletinStatus[this.status];
 
-		if (this.avalancheSituationHighlight && this.avalancheSituationHighlight != undefined && this.avalancheSituationHighlight.length > 0) {
+		if (this.avActivityHighlights && this.avActivityHighlights != undefined && this.avActivityHighlights.length > 0) {
 			let highlight = [];
-			for (let i = 0; i <= this.avalancheSituationHighlight.length - 1; i++) {
-				highlight.push(this.avalancheSituationHighlight[i].toJson());
+			for (let i = 0; i <= this.avActivityHighlights.length - 1; i++) {
+				highlight.push(this.avActivityHighlights[i].toJson());
 			}
-			json['avalancheSituationHighlight'] = highlight;
+			json['avActivityHighlights'] = highlight;
 		}
-		if (this.avalancheSituationComment && this.avalancheSituationComment != undefined && this.avalancheSituationComment.length > 0) {
+		if (this.avActivityComment && this.avActivityComment != undefined && this.avActivityComment.length > 0) {
 			let comment = [];
-			for (let i = 0; i <= this.avalancheSituationComment.length - 1; i++) {
-				comment.push(this.avalancheSituationComment[i].toJson());
+			for (let i = 0; i <= this.avActivityComment.length - 1; i++) {
+				comment.push(this.avActivityComment[i].toJson());
 			}
-			json['avalancheSituationComment'] = comment;
+			json['avActivityComment'] = comment;
 		}
 
-		if (this.snowpackStructureHighlight && this.snowpackStructureHighlight != undefined && this.snowpackStructureHighlight.length > 0) {
+		if (this.snowpackStructureHighlights && this.snowpackStructureHighlights != undefined && this.snowpackStructureHighlights.length > 0) {
 			let highlight = [];
-			for (let i = 0; i <= this.snowpackStructureHighlight.length - 1; i++) {
-				highlight.push(this.snowpackStructureHighlight[i].toJson());
+			for (let i = 0; i <= this.snowpackStructureHighlights.length - 1; i++) {
+				highlight.push(this.snowpackStructureHighlights[i].toJson());
 			}
-			json['snowpackStructureHighlight'] = highlight;
+			json['snowpackStructureHighlights'] = highlight;
 		}
 		if (this.snowpackStructureComment && this.snowpackStructureComment != undefined && this.snowpackStructureComment.length > 0) {
 			let comment = [];
@@ -282,26 +282,26 @@ export class BulletinModel {
 
 		bulletin.setStatus(Enums.BulletinStatus[<string>json.status]);
 
-		let jsonAvalancheSituationHighlight = json.avalancheSituationHighlight;
-		let avalancheSituationHighlight = new Array<TextModel>();
-		for (let i in jsonAvalancheSituationHighlight) {
-			avalancheSituationHighlight.push(TextModel.createFromJson(jsonAvalancheSituationHighlight[i]));
+		let jsonAvActivityHighlights = json.avActivityHighlights;
+		let avActivityHighlights = new Array<TextModel>();
+		for (let i in jsonAvActivityHighlights) {
+			avActivityHighlights.push(TextModel.createFromJson(jsonAvActivityHighlights[i]));
 		}
-		bulletin.setAvalancheSituationHighlight(avalancheSituationHighlight);
+		bulletin.setAvActivityHighlights(avActivityHighlights);
 
-		let jsonAvalancheSituationComment = json.avalancheSituationComment;
-		let avalancheSituationComment = new Array<TextModel>();
-		for (let i in jsonAvalancheSituationComment) {
-			avalancheSituationComment.push(TextModel.createFromJson(jsonAvalancheSituationComment[i]));
+		let jsonAvActivityComment = json.avActivityComment;
+		let avActivityComment = new Array<TextModel>();
+		for (let i in jsonAvActivityComment) {
+			avActivityComment.push(TextModel.createFromJson(jsonAvActivityComment[i]));
 		}
-		bulletin.setAvalancheSituationComment(avalancheSituationComment);
+		bulletin.setAvActivityComment(avActivityComment);
 
-		let jsonSnowpackStructureHighlight = json.snowpackStructureHighlight;
-		let snowpackStructureHighlight = new Array<TextModel>();
+		let jsonSnowpackStructureHighlight = json.snowpackStructureHighlights;
+		let snowpackStructureHighlights = new Array<TextModel>();
 		for (let i in jsonSnowpackStructureHighlight) {
-			snowpackStructureHighlight.push(TextModel.createFromJson(jsonSnowpackStructureHighlight[i]));
+			snowpackStructureHighlights.push(TextModel.createFromJson(jsonSnowpackStructureHighlight[i]));
 		}
-		bulletin.setSnowpackStructureHighlight(snowpackStructureHighlight);
+		bulletin.setSnowpackStructureHighlight(snowpackStructureHighlights);
 
 		let jsonSnowpackStructureComment = json.snowpackStructureComment;
 		let snowpackStructureComment = new Array<TextModel>();

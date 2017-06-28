@@ -97,14 +97,14 @@
 			"deleteAggregatedRegion" : "Delete",
 			"regionName" : "Region ",
 			"label" : {
-				"avalancheSituationHighlight" : "Headline avalanche situation",
-				"avalancheSituationComment" : "Description of avalanche danger",
+				"avActivityHighlights" : "Headline avalanche situation",
+				"avActitvityComment" : "Description of avalanche danger",
 				"avalancheProblem" : "Avalanche Problem",
 				"dangerRating" : "Danger Rating",
 				"aspects" : "Aspects",
 				"elevation" : "Elevation",
 				"daytime" : "Daytime",
-				"snowpackStructureHighlight" : "Headline snowpack structure",
+				"snowpackStructureHighlights" : "Headline snowpack structure",
 				"snowpackStructureComment" : "Description of snowpack structure"
 			},
 			"title" : {

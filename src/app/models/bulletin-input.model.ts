@@ -6,10 +6,10 @@ import * as Enums from '../enums/enums';
 export class BulletinInputModel {
 	public regions: String[];
 
-	public avalancheSituationHighlight: TextModel[];
-	public avalancheSituationComment: TextModel[];
+	public avActivityHighlights: TextModel[];
+	public avActivityComment: TextModel[];
 
-	public snowpackStructureHighlight: TextModel[];
+	public snowpackStructureHighlights: TextModel[];
 	public snowpackStructureComment: TextModel[];
 
 	public elevationDependency: boolean;
@@ -24,9 +24,9 @@ export class BulletinInputModel {
 
 	constructor() {
 		this.regions = new Array<String>();
-		this.avalancheSituationHighlight = new Array<TextModel>();
-		this.avalancheSituationComment = new Array<TextModel>();
-		this.snowpackStructureHighlight = new Array<TextModel>();
+		this.avActivityHighlights = new Array<TextModel>();
+		this.avActivityComment = new Array<TextModel>();
+		this.snowpackStructureHighlights = new Array<TextModel>();
 		this.snowpackStructureComment = new Array<TextModel>();
 		this.elevationDependency = false;
 		this.daytimeDependency = false;
@@ -86,95 +86,95 @@ export class BulletinInputModel {
 	}
 
 	getAvalancheSituationHighlight() : TextModel[] {
-		return this.avalancheSituationHighlight;
+		return this.avActivityHighlights;
 	}
 
-	getAvalancheSituationHighlightIn(language: Enums.LanguageCode) : string {
-		for (var i = this.avalancheSituationHighlight.length - 1; i >= 0; i--) {
-			if (this.avalancheSituationHighlight[i].getLanguageCode() == language)
-				return this.avalancheSituationHighlight[i].getText();
+	getAvActivityHighlightsIn(language: Enums.LanguageCode) : string {
+		for (var i = this.avActivityHighlights.length - 1; i >= 0; i--) {
+			if (this.avActivityHighlights[i].getLanguageCode() == language)
+				return this.avActivityHighlights[i].getText();
 		}
 	}
 
-	getAvalancheSituationHighlightInString(language: string) : string {
-		return this.getAvalancheSituationHighlightIn(Enums.LanguageCode[language]);
+	getAvActivityHighlightsInString(language: string) : string {
+		return this.getAvActivityHighlightsIn(Enums.LanguageCode[language]);
 	}
 
-	setAvalancheSituationHighlight(avalancheSituationHighlight: TextModel[]) {
-		this.avalancheSituationHighlight = avalancheSituationHighlight;
+	setAvActivityHighlights(avActivityHighlights: TextModel[]) {
+		this.avActivityHighlights = avActivityHighlights;
 	}
 
-	setAvalancheSituationHighlightIn(text: string, language: Enums.LanguageCode) {
-		for (var i = this.avalancheSituationHighlight.length - 1; i >= 0; i--) {
-			if (this.avalancheSituationHighlight[i].getLanguageCode() == language) {
-				this.avalancheSituationHighlight[i].setText(text);
+	setAvActivityHighlightsIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.avActivityHighlights.length - 1; i >= 0; i--) {
+			if (this.avActivityHighlights[i].getLanguageCode() == language) {
+				this.avActivityHighlights[i].setText(text);
 				return;
 			}
 		}
 		let model = new TextModel();
 		model.setLanguageCode(language);
 		model.setText(text);
-		this.avalancheSituationHighlight.push(model);
+		this.avActivityHighlights.push(model);
 	}
 
-	getAvalancheSituationComment() : TextModel[] {
-		return this.avalancheSituationComment;
+	getAvActivityComment() : TextModel[] {
+		return this.avActivityComment;
 	}
 
-	getAvalancheSituationCommentIn(language: Enums.LanguageCode) : string {
-		for (var i = this.avalancheSituationComment.length - 1; i >= 0; i--) {
-			if (this.avalancheSituationComment[i].getLanguageCode() == language)
-				return this.avalancheSituationComment[i].getText();
+	getAvActivityCommentIn(language: Enums.LanguageCode) : string {
+		for (var i = this.avActivityComment.length - 1; i >= 0; i--) {
+			if (this.avActivityComment[i].getLanguageCode() == language)
+				return this.avActivityComment[i].getText();
 		}
 	}
 
-	setAvalancheSituationComment(avalancheSituationComment: TextModel[]) {
-		this.avalancheSituationComment = avalancheSituationComment;
+	setAvActivityComment(avActivityComment: TextModel[]) {
+		this.avActivityComment = avActivityComment;
 	}
 
-	setAvalancheSituationCommentIn(text: string, language: Enums.LanguageCode) {
-		for (var i = this.avalancheSituationComment.length - 1; i >= 0; i--) {
-			if (this.avalancheSituationComment[i].getLanguageCode() == language) {
-				this.avalancheSituationComment[i].setText(text);
+	setAvActivityCommentIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.avActivityComment.length - 1; i >= 0; i--) {
+			if (this.avActivityComment[i].getLanguageCode() == language) {
+				this.avActivityComment[i].setText(text);
 				return;
 			}
 		}
 		let model = new TextModel();
 		model.setLanguageCode(language);
 		model.setText(text);
-		this.avalancheSituationComment.push(model);
+		this.avActivityComment.push(model);
 	}
 
-	getSnowpackStructureHighlight() : TextModel[] {
-		return this.snowpackStructureHighlight;
+	getSnowpackStructureHighlights() : TextModel[] {
+		return this.snowpackStructureHighlights;
 	}
 
-	getSnowpackStructureHighlightIn(language: Enums.LanguageCode) : string {
-		for (var i = this.snowpackStructureHighlight.length - 1; i >= 0; i--) {
-			if (this.snowpackStructureHighlight[i].getLanguageCode() == language)
-				return this.snowpackStructureHighlight[i].getText();
+	getSnowpackStructureHighlightsIn(language: Enums.LanguageCode) : string {
+		for (var i = this.snowpackStructureHighlights.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureHighlights[i].getLanguageCode() == language)
+				return this.snowpackStructureHighlights[i].getText();
 		}
 	}
 
-	getSnowpackStructureHighlightInString(language: string) : string {
-		return this.getSnowpackStructureHighlightIn(Enums.LanguageCode[language]);
+	getSnowpackStructureHighlightsInString(language: string) : string {
+		return this.getSnowpackStructureHighlightsIn(Enums.LanguageCode[language]);
 	}
 
-	setSnowpackStructureHighlight(snowpackStructureHighlight: TextModel[]) {
-		this.snowpackStructureHighlight = snowpackStructureHighlight;
+	setSnowpackStructureHighlights(snowpackStructureHighlights: TextModel[]) {
+		this.snowpackStructureHighlights = snowpackStructureHighlights;
 	}
 
-	setSnowpackStructureHighlightIn(text: string, language: Enums.LanguageCode) {
-		for (var i = this.snowpackStructureHighlight.length - 1; i >= 0; i--) {
-			if (this.snowpackStructureHighlight[i].getLanguageCode() == language) {
-				this.snowpackStructureHighlight[i].setText(text);
+	setSnowpackStructureHighlightsIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.snowpackStructureHighlights.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureHighlights[i].getLanguageCode() == language) {
+				this.snowpackStructureHighlights[i].setText(text);
 				return;
 			}
 		}
 		let model = new TextModel();
 		model.setLanguageCode(language);
 		model.setText(text);
-		this.snowpackStructureHighlight.push(model);
+		this.snowpackStructureHighlights.push(model);
 	}
 
 	getSnowpackStructureComment() : TextModel[] {
@@ -244,9 +244,9 @@ export class BulletinInputModel {
 		if (this.elevationDependency)
 			forenoonBulletin.below = this.forenoonBelow;
 
-		forenoonBulletin.avalancheSituationHighlight = this.avalancheSituationHighlight;
-		forenoonBulletin.avalancheSituationComment = this.avalancheSituationComment;
-		forenoonBulletin.snowpackStructureHighlight = this.snowpackStructureHighlight;
+		forenoonBulletin.avActivityHighlights = this.avActivityHighlights;
+		forenoonBulletin.avActivityComment = this.avActivityComment;
+		forenoonBulletin.snowpackStructureHighlights = this.snowpackStructureHighlights;
 		forenoonBulletin.snowpackStructureComment = this.snowpackStructureComment;
 
 		// TODO whats with the status?

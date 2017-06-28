@@ -25,10 +25,10 @@ export class ShowBulletinComponent {
   public activeAggregatedRegionId: string;
   public activeBulletinInput: BulletinInputModel;
 
-  public activeAvalancheSituationHighlight: string;
-  public activeAvalancheSituationComment: string;
+  public activeAvActivityHighlights: string;
+  public activeAvActivityComment: string;
 
-  public activeSnowpackStructureHighlight: string;
+  public activeSnowpackStructureHighlights: string;
   public activeSnowpackStructureComment: string;
 
   public hasDaytimeDependency: boolean;
@@ -54,9 +54,9 @@ export class ShowBulletinComponent {
     this.aggregatedRegionsIds = new Array<string>();
     this.activeAggregatedRegionId = undefined;
     this.activeBulletinInput = undefined;
-    this.activeAvalancheSituationHighlight = undefined;
-    this.activeAvalancheSituationComment = undefined;
-    this.activeSnowpackStructureHighlight = undefined;
+    this.activeAvActivityHighlights = undefined;
+    this.activeAvActivityComment = undefined;
+    this.activeSnowpackStructureHighlights = undefined;
     this.activeSnowpackStructureComment = undefined;
     this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
@@ -122,9 +122,9 @@ export class ShowBulletinComponent {
     } else {
       let bulletinInput = new BulletinInputModel();
       bulletinInput.regions = bulletin.regions;
-      bulletinInput.avalancheSituationHighlight = bulletin.avalancheSituationHighlight;
-      bulletinInput.avalancheSituationComment = bulletin.avalancheSituationComment;
-      bulletinInput.snowpackStructureHighlight = bulletin.snowpackStructureHighlight;
+      bulletinInput.avActivityHighlights = bulletin.avActivityHighlights;
+      bulletinInput.avActivityComment = bulletin.avActivityComment;
+      bulletinInput.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
       bulletinInput.snowpackStructureComment = bulletin.snowpackStructureComment;
       bulletinInput.elevation = bulletin.elevation;
       if (bulletin.elevation > 0 && bulletin.below) {
@@ -151,14 +151,14 @@ export class ShowBulletinComponent {
   selectAggregatedRegion(aggregatedRegionId: string) {
     // save text parts
     if (this.activeBulletinInput) {
-      this.activeBulletinInput.setAvalancheSituationHighlightIn(this.activeAvalancheSituationHighlight, this.settingsService.getLang());
-      this.activeBulletinInput.setAvalancheSituationCommentIn(this.activeAvalancheSituationComment, this.settingsService.getLang());
+      this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlights, this.settingsService.getLang());
+      this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityComment, this.settingsService.getLang());
     }
 
     this.activeAggregatedRegionId = aggregatedRegionId;
     this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
-    this.activeAvalancheSituationHighlight = this.activeBulletinInput.getAvalancheSituationHighlightIn(this.settingsService.getLang());
-    this.activeAvalancheSituationComment = this.activeBulletinInput.getAvalancheSituationCommentIn(this.settingsService.getLang());
+    this.activeAvActivityHighlights = this.activeBulletinInput.getAvActivityHighlightsIn(this.settingsService.getLang());
+    this.activeAvActivityComment = this.activeBulletinInput.getAvActivityCommentIn(this.settingsService.getLang());
 
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
   }
@@ -168,8 +168,8 @@ export class ShowBulletinComponent {
 
     this.activeAggregatedRegionId = undefined;
     this.activeBulletinInput = undefined;
-    this.activeAvalancheSituationHighlight = undefined;
-    this.activeAvalancheSituationComment = undefined;
+    this.activeAvActivityHighlights = undefined;
+    this.activeAvActivityComment = undefined;
   }
 
   getColor(aggregatedRegionId) {
