@@ -13,8 +13,6 @@
               <tr>
                 <th>{{ "bulletins.table.title.date" | translate }}</th>
                 <th>{{ "bulletins.table.title.status.trentino" | translate }}</th>
-                <th>{{ "bulletins.table.title.caaml" | translate }}</th>
-                <th>{{ "bulletins.table.title.action" | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -36,12 +34,10 @@
                   <span class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
                 </td>
                 <td>
-                  <i class="fa fa-file-text" (click)="showCaaml(date)"></i>
-                </td>
-                <td>
-                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.missing && !copying" type="button" class="btn btn-primary" (click)="copy($event, date)"><i class="fa fa-copy"></i></button>
-                  <button *ngIf="bulletinsService.statusMap.get(date) == bulletinStatus.draft && !copying" type="button" class="btn btn-primary" (click)="publish($event, date)"><i class="fa fa-send"></i></button>
-                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.published && copying && this.bulletinsService.getCopyDate() != date" type="button" class="btn btn-primary" (click)="paste($event, date)"><i class="fa fa-paste"></i></button>
+                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.missing && !copying" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-file-text" (click)="showCaaml(date)"></i></button>
+                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.missing && !copying" type="button" class="btn btn-secondary btn-sm" (click)="copy($event, date)"><i class="fa fa-copy"></i></button>
+                  <button *ngIf="bulletinsService.statusMap.get(date) == bulletinStatus.draft && !copying" type="button" class="btn btn-danger btn-sm" (click)="publish($event, date)"><i class="fa fa-send"></i></button>
+                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.published && copying && this.bulletinsService.getCopyDate() != date" type="button" class="btn btn-secondary btn-sm" (click)="paste($event, date)"><i class="fa fa-paste"></i></button>
                 </td>
               </tr>
             </tbody>
