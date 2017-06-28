@@ -13,6 +13,7 @@ import * as io from 'socket.io-client';
 export class BulletinsService {
 
   private activeDate: Date;
+  private copyDate: Date;
   private isEditable: boolean;
 
   public statusMap: Map<Date, Enums.BulletinStatus>;
@@ -25,6 +26,7 @@ export class BulletinsService {
     private authenticationService: AuthenticationService)
   {
     this.activeDate = undefined;
+    this.copyDate = undefined;
     this.isEditable = false;
     this.statusMap = new Map<Date, Enums.BulletinStatus>();
   }
@@ -35,6 +37,14 @@ export class BulletinsService {
 
   setActiveDate(date: Date) {
     this.activeDate = date;
+  }
+
+  getCopyDate() : Date {
+    return this.copyDate;
+  }
+
+  setCopyDate(date: Date) {
+    this.copyDate = date;
   }
 
   getIsEditable() : boolean {

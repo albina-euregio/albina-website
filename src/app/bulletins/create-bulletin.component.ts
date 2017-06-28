@@ -69,25 +69,56 @@ export class CreateBulletinComponent {
     this.hasDaytimeDependency = false;
     this.editRegions = false;
 
-    // TODO wait until bulletins are loaded (disable inputs)
+    if (this.bulletinsService.getCopyDate()) {
+      this.bulletinsService.loadBulletins(this.bulletinsService.getCopyDate()).subscribe(
+        data => {
+          let response = data.json();
+          let idMap = new Map<string, string>();
+          for (let jsonBulletin of response) {
+            let originalBulletin = BulletinModel.createFromJson(jsonBulletin);
+            let bulletin = new BulletinModel(originalBulletin);
 
-    this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
-      data => {
-        let response = data.json();
-        for (let jsonBulletin of response) {
-          let bulletin = BulletinModel.createFromJson(jsonBulletin);
-          console.log(JSON.stringify(bulletin.toJson()));
-          this.addBulletin(bulletin);
+            // TODO change aggregatedRegionId (same for same)
+            if (idMap.has(originalBulletin.getAggregatedRegionId()))
+              bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
+            else {
+              let uuid = UUID.UUID();
+              idMap.set(originalBulletin.getAggregatedRegionId(), uuid);
+              bulletin.setAggregatedRegionId(uuid);
+            }
+
+            this.addBulletin(bulletin);
+          }
+          this.loading = false;
+          this.mapService.deselectAggregatedRegion();
+          this.bulletinsService.setCopyDate(undefined);
+        },
+        error => {
+          console.error("Bulletins could not be loaded!");
+          // TODO show toast, navigate back
+          this.loading = false;
         }
-        this.loading = false;
-        this.mapService.deselectAggregatedRegion();
-      },
-      error => {
-        console.error("Bulletins could not be loaded!");
-        // TODO show toast, navigate back
-        this.loading = false;
-      }
-    );
+      );
+    } else {
+      this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
+        data => {
+          let response = data.json();
+          for (let jsonBulletin of response) {
+            let bulletin = BulletinModel.createFromJson(jsonBulletin);
+
+            this.originalBulletins.set(bulletin.getId(), bulletin);
+            this.addBulletin(bulletin);
+          }
+          this.loading = false;
+          this.mapService.deselectAggregatedRegion();
+        },
+        error => {
+          console.error("Bulletins could not be loaded!");
+          // TODO show toast, navigate back
+          this.loading = false;
+        }
+      );
+    }
 
     let map = L.map("map", {
         zoomControl: false,
@@ -120,8 +151,6 @@ export class CreateBulletinComponent {
   }
 
   addBulletin(bulletin: BulletinModel) {
-    this.originalBulletins.set(bulletin.getId(), bulletin);
-
     // a bulletin for this aggregated region is already in the map => use existend bulletin input object
     if (this.aggregatedRegionsMap.has(bulletin.getAggregatedRegionId())) {
       if (bulletin.elevation > 0 && bulletin.below) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
@@ -18,6 +18,8 @@ export class BulletinsComponent {
   public dates: Date[];
 
   public loading: boolean;
+  public copying: boolean;
+  public copyDate: Date;
 
   constructor(
     private translate: TranslateService,
@@ -29,6 +31,8 @@ export class BulletinsComponent {
   {
     this.dates = new Array<Date>();
     this.loading = false;
+    this.copying = false;
+    this.copyDate = undefined;
   }
 
   ngOnInit() {
@@ -57,20 +61,38 @@ export class BulletinsComponent {
     );
   }
 
-  editBulletin(date: Date) {
-    this.bulletinsService.setActiveDate(date);
-    if (this.bulletinsService.statusMap.get(date) === Enums.BulletinStatus.published) {
-      this.bulletinsService.setIsEditable(false);
-      this.router.navigate(['/bulletins/show']);
-    } else {
-      this.bulletinsService.setIsEditable(true);
-      this.router.navigate(['/bulletins/new']);
+  ngOnDestroy() {
+    this.loading = false;
+    this.copying = false;
+    this.copyDate = undefined;
+  }
+
+  editBulletin(date: Date, copyDate?: Date) {
+    if (!this.copying) {
+      this.bulletinsService.setActiveDate(date);
+      if (this.bulletinsService.statusMap.get(date) === Enums.BulletinStatus.published) {
+        this.bulletinsService.setIsEditable(false);
+        this.router.navigate(['/bulletins/show']);
+      } else {
+        this.bulletinsService.setIsEditable(true);
+        this.router.navigate(['/bulletins/new']);
+      }
     }
   }
 
   showCaaml(date: Date) {
     this.bulletinsService.setActiveDate(date);
     this.router.navigate(['/bulletins/caaml']);
+  }
+
+  copy(event, date: Date) {
+    this.copying = true;
+    this.bulletinsService.setCopyDate(date);
+  }
+
+  paste(event, date: Date) {
+    this.copying = false;
+    this.editBulletin(date, this.copyDate);
   }
 
   publish(event, date: Date) {
@@ -96,5 +118,12 @@ export class BulletinsComponent {
       reject: () => {
       }
     });
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) { 
+    if (event.keyCode == 27 && this.copying) {
+      this.copying = false;
+    }
   }
 }

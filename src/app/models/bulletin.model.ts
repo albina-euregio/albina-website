@@ -69,7 +69,7 @@ export class BulletinModel {
 		this.aggregatedRegionId = aggregatedRegionId;
 	}
 
-	getValidFrom() : Date{
+	getValidFrom() : Date {
 		return this.validFrom
 	}
 

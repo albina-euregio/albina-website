@@ -19,7 +19,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let date of dates" (click)="editBulletin(date)">
-                <td>{{ date | date }}</td>
+                <td>{{ date | date:'fullDate' }}</td>
                 <td *ngIf="loading">
                   <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                 </td>
@@ -39,7 +39,9 @@
                   <i class="fa fa-file-text" (click)="showCaaml(date)"></i>
                 </td>
                 <td>
-                  <button *ngIf="bulletinsService.statusMap.get(date) == bulletinStatus.draft" type="button" class="btn btn-primary" (click)="publish($event, date)">{{ "bulletins.table.button.publish" | translate }}</button>
+                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.missing && !copying" type="button" class="btn btn-primary" (click)="copy($event, date)"><i class="fa fa-copy"></i></button>
+                  <button *ngIf="bulletinsService.statusMap.get(date) == bulletinStatus.draft && !copying" type="button" class="btn btn-primary" (click)="publish($event, date)"><i class="fa fa-send"></i></button>
+                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.published && copying && this.copyDate != date" type="button" class="btn btn-primary" (click)="paste($event, date)"><i class="fa fa-paste"></i></button>
                 </td>
               </tr>
             </tbody>
