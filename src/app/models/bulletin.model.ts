@@ -31,7 +31,7 @@ export class BulletinModel {
 			this.regions = bulletin.regions;
 			this.above = bulletin.above;
 			this.below = bulletin.below;
-			this.status = bulletin.status;
+			this.status = Enums.BulletinStatus.draft;
 			this.avActivityHighlights = bulletin.avActivityHighlights;
 			this.avActivityComment = bulletin.avActivityComment;
 			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
