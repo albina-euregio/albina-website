@@ -10,7 +10,10 @@ export class BulletinModel {
 	public validFrom: Date;
 	public validUntil: Date;
 
-	public regions: String[];
+	public suggestedRegions: String[];
+	public savedRegions: String[];
+	public publishedRegions: String[];
+
 	public elevation: number;
 	public above: BulletinElevationDescriptionModel;
 	public below: BulletinElevationDescriptionModel;
@@ -28,7 +31,9 @@ export class BulletinModel {
 			this.aggregatedRegionId = bulletin.aggregatedRegionId;
 			this.validFrom = bulletin.validFrom;
 			this.validUntil = bulletin.validUntil;
-			this.regions = bulletin.regions;
+			this.suggestedRegions = bulletin.suggestedRegions;
+			this.savedRegions = bulletin.savedRegions;
+			this.publishedRegions = bulletin.publishedRegions;
 			this.above = bulletin.above;
 			this.below = bulletin.below;
 			this.status = Enums.BulletinStatus.draft;
@@ -41,7 +46,9 @@ export class BulletinModel {
 			this.aggregatedRegionId = undefined;
 			this.validFrom = undefined;
 			this.validUntil = undefined;
-			this.regions = new Array<String>();
+			this.suggestedRegions = new Array<String>();
+			this.savedRegions = new Array<String>();
+			this.publishedRegions = new Array<String>();
 			this.above = new BulletinElevationDescriptionModel();
 			this.below = new BulletinElevationDescriptionModel();
 			this.status = Enums.BulletinStatus.draft;
@@ -85,12 +92,28 @@ export class BulletinModel {
 		this.validUntil = validUntil;
 	}
 
-	getRegions() : String[] {
-		return this.regions;
+	getSuggestedRegions() : String[] {
+		return this.suggestedRegions;
 	}
 
-	setRegions(regions: String[]) {
-		this.regions = regions;
+	setSuggestedRegions(suggestedRegions: String[]) {
+		this.suggestedRegions = suggestedRegions;
+	}
+
+	getSavedRegions() : String[] {
+		return this.savedRegions;
+	}
+
+	setSavedRegions(savedRegions: String[]) {
+		this.savedRegions = savedRegions;
+	}
+
+	getPublishedRegions() : String[] {
+		return this.publishedRegions;
+	}
+
+	setPublishedRegions(publishedRegions: String[]) {
+		this.publishedRegions = publishedRegions;
 	}
 
 	getElevation() : number {
@@ -204,12 +227,28 @@ export class BulletinModel {
 			validity['until'] = this.getISOStringWithTimezoneOffset(this.validUntil);
 		json['validity'] = validity;
 
-		if (this.regions && this.regions.length > 0) {
-			let regions = [];
-			for (let i = 0; i <= this.regions.length - 1; i++) {
-				regions.push(this.regions[i]);
+		if (this.suggestedRegions && this.suggestedRegions.length > 0) {
+			let suggestedRegions = [];
+			for (let i = 0; i <= this.suggestedRegions.length - 1; i++) {
+				suggestedRegions.push(this.suggestedRegions[i]);
 			}
-			json['regions'] = regions;
+			json['suggestedRegions'] = suggestedRegions;
+		}
+
+		if (this.savedRegions && this.savedRegions.length > 0) {
+			let savedRegions = [];
+			for (let i = 0; i <= this.savedRegions.length - 1; i++) {
+				savedRegions.push(this.savedRegions[i]);
+			}
+			json['savedRegions'] = savedRegions;
+		}
+
+		if (this.publishedRegions && this.publishedRegions.length > 0) {
+			let publishedRegions = [];
+			for (let i = 0; i <= this.publishedRegions.length - 1; i++) {
+				publishedRegions.push(this.publishedRegions[i]);
+			}
+			json['publishedRegions'] = publishedRegions;
 		}
 
 		if (this.above && this.above != undefined)
@@ -266,12 +305,26 @@ export class BulletinModel {
 		bulletin.setValidFrom(new Date(json.validity.from));
 		bulletin.setValidUntil(new Date(json.validity.until));
 
-		let jsonRegions = json.regions;
-		let regions = new Array<String>();
-		for (let i in jsonRegions) {
-			regions.push(jsonRegions[i]);
+		let jsonSuggestedRegions = json.suggestedRegions;
+		let suggestedRegions = new Array<String>();
+		for (let i in jsonSuggestedRegions) {
+			suggestedRegions.push(jsonSuggestedRegions[i]);
 		}
-		bulletin.setRegions(regions);
+		bulletin.setSuggestedRegions(suggestedRegions);
+
+		let jsonSavedRegions = json.savedRegions;
+		let savedRegions = new Array<String>();
+		for (let i in jsonSavedRegions) {
+			savedRegions.push(jsonSavedRegions[i]);
+		}
+		bulletin.setSavedRegions(savedRegions);
+
+		let jsonPublishedRegions = json.publishedRegions;
+		let publishedRegions = new Array<String>();
+		for (let i in jsonPublishedRegions) {
+			publishedRegions.push(jsonPublishedRegions[i]);
+		}
+		bulletin.setPublishedRegions(publishedRegions);
 
 		bulletin.setElevation(json.elevation);
 

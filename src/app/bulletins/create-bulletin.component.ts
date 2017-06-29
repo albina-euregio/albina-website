@@ -2,6 +2,7 @@ import { Component, Input, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
+import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { BulletinModel } from '../models/bulletin.model';
 import { Observable } from 'rxjs/Observable';
@@ -47,6 +48,7 @@ export class CreateBulletinComponent {
     private route: ActivatedRoute,
     private router: Router,
     private bulletinsService: BulletinsService,
+    private authenticationService: AuthenticationService,
     private translateService: TranslateService,
     private settingsService: SettingsService,
     private mapService: MapService,
@@ -128,7 +130,7 @@ export class CreateBulletinComponent {
         zoomControl: false,
         center: L.latLng(46.05, 11.07),
         zoom: 8,
-        minZoom: 7,
+        //minZoom: 7,
         maxZoom: 9,
         layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions]
     });
@@ -221,7 +223,9 @@ export class CreateBulletinComponent {
     // no bulletin with the aggregated region id is present => create a new bulletin input object
     } else {
       let bulletinInput = new BulletinInputModel();
-      bulletinInput.regions = bulletin.regions;
+      bulletinInput.suggestedRegions = bulletin.suggestedRegions;
+      bulletinInput.savedRegions = bulletin.savedRegions;
+      bulletinInput.publishedRegions = bulletin.publishedRegions;
       bulletinInput.avActivityHighlights = bulletin.avActivityHighlights;
       bulletinInput.avActivityComment = bulletin.avActivityComment;
       bulletinInput.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
@@ -330,16 +334,32 @@ export class CreateBulletinComponent {
 
     // save selected regions to active bulletin input
     let regions = this.mapService.getSelectedRegions();
-    this.activeBulletinInput.setRegions(regions);
+    for (var i = regions.length - 1; i >= 0; i--) {
+      if (regions[i].startsWith(this.authenticationService.getUserRegion()))
+        this.activeBulletinInput.getSavedRegions().push(regions[i]);
+      else
+        this.activeBulletinInput.getSuggestedRegions().push(regions[i]);
+    }
     this.mapService.resetAggregatedRegions();
 
     // delete regions from other aggregated regions (one region can only be within one aggregated region on this day)
     this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
       if (key != this.activeAggregatedRegionId) {
         for (var j = regions.length - 1; j >= 0; j--) {
-          let index = value.getRegions().indexOf(regions[j]);
-          if (index != -1) {
-            value.getRegions().splice(index, 1);
+          if (this.activeBulletinInput.getSavedRegions().indexOf(regions[j]) != -1) {
+            let index = value.getSavedRegions().indexOf(regions[j]);
+            if (index != -1) {
+              value.getSavedRegions().splice(index, 1);
+            }
+            index = value.getSuggestedRegions().indexOf(regions[j]);
+            if (index != -1) {
+              value.getSuggestedRegions().splice(index, 1);
+            }
+          } else if (this.activeBulletinInput.getSuggestedRegions().indexOf(regions[j]) != -1) {
+            let index = value.getSuggestedRegions().indexOf(regions[j]);
+            if (index != -1) {
+              value.getSuggestedRegions().splice(index, 1);
+            }
           }
         }
       }
@@ -392,6 +412,8 @@ export class CreateBulletinComponent {
   }
 
   save() {
+    this.loading = true;
+
     this.setAvActivityTexts();
 
     let bulletins = Array<BulletinModel>();
@@ -425,6 +447,7 @@ export class CreateBulletinComponent {
 
     Observable.forkJoin(observableBatch).subscribe(
       data => {
+        this.loading = false;
         // TODO update list in bulletinsService
         this.goBack();
         console.log("Bulletins saved on server.");

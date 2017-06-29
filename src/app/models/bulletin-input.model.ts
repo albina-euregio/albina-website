@@ -4,7 +4,9 @@ import { BulletinModel } from './bulletin.model';
 import * as Enums from '../enums/enums';
 
 export class BulletinInputModel {
-	public regions: String[];
+	public suggestedRegions: String[];
+	public savedRegions: String[];
+	public publishedRegions: String[];
 
 	public avActivityHighlights: TextModel[];
 	public avActivityComment: TextModel[];
@@ -23,8 +25,10 @@ export class BulletinInputModel {
 	public afternoonBelow: BulletinElevationDescriptionModel;
 
 	constructor(bulletinInput?: BulletinInputModel) {
+		this.suggestedRegions = new Array<String>();
+		this.savedRegions = new Array<String>();
+		this.publishedRegions = new Array<String>();
 		if (!bulletinInput) {
-			this.regions = new Array<String>();
 			this.avActivityHighlights = new Array<TextModel>();
 			this.avActivityComment = new Array<TextModel>();
 			this.snowpackStructureHighlights = new Array<TextModel>();
@@ -37,7 +41,6 @@ export class BulletinInputModel {
 			this.afternoonAbove = new BulletinElevationDescriptionModel();
 			this.afternoonBelow = new BulletinElevationDescriptionModel();
 		} else {
-			this.regions = new Array<String>();
 			this.avActivityHighlights = bulletinInput.avActivityHighlights;
 			this.avActivityComment = bulletinInput.avActivityComment;
 			this.snowpackStructureHighlights = bulletinInput.snowpackStructureHighlights;
@@ -52,12 +55,28 @@ export class BulletinInputModel {
 		}
 	}
 
-	getRegions() : String[] {
-		return this.regions;
+	getSuggestedRegions() : String[] {
+		return this.suggestedRegions;
 	}
 
-	setRegions(regions: String[]) {
-		this.regions = regions;
+	setSuggestedRegions(suggestedRegions: String[]) {
+		this.suggestedRegions = suggestedRegions;
+	}
+
+	getSavedRegions() : String[] {
+		return this.savedRegions;
+	}
+
+	setSavedRegions(savedRegions: String[]) {
+		this.savedRegions = savedRegions;
+	}
+
+	getPublishedRegions() : String[] {
+		return this.publishedRegions;
+	}
+
+	setPublishedRegions(publishedRegions: String[]) {
+		this.publishedRegions = publishedRegions;
 	}
 
 	getElevation() : number {
@@ -251,7 +270,10 @@ export class BulletinInputModel {
 		let validUntil = new Date(date);
 		forenoonBulletin.validFrom = validFrom;
 
-		forenoonBulletin.regions = this.regions;
+		forenoonBulletin.suggestedRegions = this.suggestedRegions;
+		forenoonBulletin.savedRegions = this.savedRegions;
+		forenoonBulletin.publishedRegions = this.publishedRegions;
+
 		if (this.elevationDependency)
 			forenoonBulletin.elevation = this.elevation;
 		

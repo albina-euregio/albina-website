@@ -6,7 +6,6 @@ import { BulletinInputModel } from "../../models/bulletin-input.model";
 import { RegionsService } from '../regions-service/regions.service';
 import * as Enums from '../../enums/enums';
 
-
 @Injectable()
 export class MapService {
     public map: Map;
@@ -37,18 +36,18 @@ export class MapService {
 
         this.overlayMaps = {
             // overlay to show selected regions
-            activeSelection : L.geoJSON(this.regionsService.getRegionsTrentino(), {
+            activeSelection : L.geoJSON(this.regionsService.getRegionsEuregio(), {
                 style: this.getBaseStyle
             }),
 
             // overlay to select regions (when editing an aggregated region)
-            editSelection : L.geoJSON(this.regionsService.getRegionsTrentino(), {
+            editSelection : L.geoJSON(this.regionsService.getRegionsEuregio(), {
                 style: this.getBaseStyle,
                 onEachFeature : this.onEachFeature
             }),
 
             // overlay to show aggregated regions
-            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsTrentino(), {
+            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsEuregio(), {
                 style: this.getBaseStyle,
                 onEachFeature : this.onEachAggregatedRegionsFeature
             })
@@ -104,9 +103,17 @@ export class MapService {
     updateAggregatedRegion(bulletinInputModel: BulletinInputModel) {
         let dangerRating = bulletinInputModel.getHighestDangerRating();
         for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--) {
-            for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
-                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j])
-                    this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getDangerRatingStyle(dangerRating));
+            for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.savedRegions[j])
+                    this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getDangerRatingStyleSaved(dangerRating));
+            }
+            for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.suggestedRegions[j])
+                    this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getDangerRatingStyleSuggested(dangerRating));
+            }
+            for (let j = bulletinInputModel.publishedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.publishedRegions[j])
+                    this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getDangerRatingStylePublished(dangerRating));
             }
         }
     }
@@ -116,10 +123,22 @@ export class MapService {
         for (let i = this.overlayMaps.activeSelection.getLayers().length - 1; i >= 0; i--) {
             this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = false;
             this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getBaseStyle());
-            for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
-                if (this.overlayMaps.activeSelection.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
+            for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.activeSelection.getLayers()[i].feature.properties.id == bulletinInputModel.savedRegions[j]) {
                     this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = true;
-                    this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getActiveSelectionStyle(bulletinInputModel.getHighestDangerRating()));
+                    this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getActiveSelectionStyleSaved(bulletinInputModel.getHighestDangerRating()));
+                }
+            }
+            for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.activeSelection.getLayers()[i].feature.properties.id == bulletinInputModel.suggestedRegions[j]) {
+                    this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = true;
+                    this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getActiveSelectionStyleSuggested(bulletinInputModel.getHighestDangerRating()));
+                }
+            }
+            for (let j = bulletinInputModel.publishedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.activeSelection.getLayers()[i].feature.properties.id == bulletinInputModel.publishedRegions[j]) {
+                    this.overlayMaps.activeSelection.getLayers()[i].feature.properties.selected = true;
+                    this.overlayMaps.activeSelection.getLayers()[i].setStyle(this.getActiveSelectionStylePublished(bulletinInputModel.getHighestDangerRating()));
                 }
             }
         }
@@ -133,10 +152,16 @@ export class MapService {
         this.map.removeLayer(this.overlayMaps.activeSelection);
         this.map.addLayer(this.overlayMaps.editSelection);
         for (let i = this.overlayMaps.editSelection.getLayers().length - 1; i >= 0; i--) {
-            for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
-                if (this.overlayMaps.editSelection.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
+            for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.editSelection.getLayers()[i].feature.properties.id == bulletinInputModel.savedRegions[j]) {
                     this.overlayMaps.editSelection.getLayers()[i].feature.properties.selected = true;
-                    this.overlayMaps.editSelection.getLayers()[i].setStyle(this.getEditSelectionStyle());
+                    this.overlayMaps.editSelection.getLayers()[i].setStyle(this.getEditSelectionStyleSaved());
+                }
+            }
+            for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.editSelection.getLayers()[i].feature.properties.id == bulletinInputModel.suggestedRegions[j]) {
+                    this.overlayMaps.editSelection.getLayers()[i].feature.properties.selected = true;
+                    this.overlayMaps.editSelection.getLayers()[i].setStyle(this.getEditSelectionStyleSuggested());
                 }
             }
         }
@@ -152,8 +177,18 @@ export class MapService {
 
     deselectRegions(bulletinInputModel: BulletinInputModel) {
         for (let i = this.overlayMaps.aggregatedRegions.getLayers().length - 1; i >= 0; i--) {
-            for (let j = bulletinInputModel.regions.length - 1; j >= 0; j--) {
-                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.regions[j]) {
+            for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.savedRegions[j]) {
+                    this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getBaseStyle());
+                }
+            }
+            for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.suggestedRegions[j]) {
+                    this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getBaseStyle());
+                }
+            }
+            for (let j = bulletinInputModel.publishedRegions.length - 1; j >= 0; j--) {
+                if (this.overlayMaps.aggregatedRegions.getLayers()[i].feature.properties.id == bulletinInputModel.publishedRegions[j]) {
                     this.overlayMaps.aggregatedRegions.getLayers()[i].setStyle(this.getBaseStyle());
                 }
             }
@@ -211,7 +246,7 @@ export class MapService {
         });
     }
 
-    private getEditSelectionStyle() {
+    private getEditSelectionStyleSaved() {
         return {
             fillColor: 'blue',
             weight: 1,
@@ -221,7 +256,122 @@ export class MapService {
         }
     }
 
-    private getActiveSelectionStyle(dangerRating) {
+    private getEditSelectionStyleSuggested() {
+        return {
+            fillColor: 'blue',
+            weight: 1,
+            opacity: 1,
+            color: 'blue',
+            fillOpacity: 0.3
+        }
+    }
+
+    private getActiveSelectionStyleSaved(dangerRating) {
+        if (dangerRating == "very_high") {
+            return {
+                fillColor: 'black',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        } else if (dangerRating == "high") {
+            return {
+                fillColor: 'red',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        } else if (dangerRating == "considerable") {
+            return {
+                fillColor: 'orange',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        } else if (dangerRating == "moderate") {
+            return {
+                fillColor: 'yellow',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        } else if (dangerRating == "low") {
+            return {
+                fillColor: 'green',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        } else {
+            return {
+                fillColor: 'grey',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 1.0
+            }
+        }
+    }
+
+    private getActiveSelectionStyleSuggested(dangerRating) {
+        if (dangerRating == "very_high") {
+            return {
+                fillColor: 'black',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        } else if (dangerRating == "high") {
+            return {
+                fillColor: 'red',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        } else if (dangerRating == "considerable") {
+            return {
+                fillColor: 'orange',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        } else if (dangerRating == "moderate") {
+            return {
+                fillColor: 'yellow',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        } else if (dangerRating == "low") {
+            return {
+                fillColor: 'green',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        } else {
+            return {
+                fillColor: 'grey',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.5
+            }
+        }
+    }
+
+    // TODO define style
+    private getActiveSelectionStylePublished(dangerRating) {
         if (dangerRating == "very_high") {
             return {
                 fillColor: 'black',
@@ -283,7 +433,112 @@ export class MapService {
         };
     }
 
-    private getDangerRatingStyle(dangerRating) {
+    private getDangerRatingStyleSaved(dangerRating) {
+        if (dangerRating == "very_high") {
+            return {
+                fillColor: 'black',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.3
+            }
+        } else if (dangerRating == "high") {
+            return {
+                fillColor: 'red',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.3
+            }
+        } else if (dangerRating == "considerable") {
+            return {
+                fillColor: 'orange',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.3
+            }
+        } else if (dangerRating == "moderate") {
+            return {
+                fillColor: 'yellow',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.3
+            }
+        } else if (dangerRating == "low") {
+            return {
+                fillColor: 'green',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.3
+            }
+        } else {
+            return {
+                fillColor: 'grey',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.3
+            }
+        }
+    }
+
+    private getDangerRatingStyleSuggested(dangerRating) {
+        if (dangerRating == "very_high") {
+            return {
+                fillColor: 'black',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.2
+            }
+        } else if (dangerRating == "high") {
+            return {
+                fillColor: 'red',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.2
+            }
+        } else if (dangerRating == "considerable") {
+            return {
+                fillColor: 'orange',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.2
+            }
+        } else if (dangerRating == "moderate") {
+            return {
+                fillColor: 'yellow',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.2
+            }
+        } else if (dangerRating == "low") {
+            return {
+                fillColor: 'green',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.2
+            }
+        } else {
+            return {
+                fillColor: 'grey',
+                weight: 1,
+                opacity: 1,
+                color: 'black',
+                fillOpacity: 0.2
+            }
+        }
+    }
+
+    // TODO define style
+    private getDangerRatingStylePublished(dangerRating) {
         if (dangerRating == "very_high") {
             return {
                 fillColor: 'black',

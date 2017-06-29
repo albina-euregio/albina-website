@@ -121,7 +121,9 @@ export class ShowBulletinComponent {
     // no bulletin with the aggregated region id is present => create a new bulletin input object
     } else {
       let bulletinInput = new BulletinInputModel();
-      bulletinInput.regions = bulletin.regions;
+      bulletinInput.suggestedRegions = bulletin.suggestedRegions;
+      bulletinInput.savedRegions = bulletin.savedRegions;
+      bulletinInput.publishedRegions = bulletin.publishedRegions;
       bulletinInput.avActivityHighlights = bulletin.avActivityHighlights;
       bulletinInput.avActivityComment = bulletin.avActivityComment;
       bulletinInput.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
