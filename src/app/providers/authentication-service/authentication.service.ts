@@ -10,17 +10,17 @@ export class AuthenticationService {
   private token: string;
   private username: string;
   private image: string;
-  private constantsService: ConstantsService;
+  private region: string;
 
   constructor(
     public http: Http,
-    public constants: ConstantsService,
+    public constantsService: ConstantsService,
     private sanitizer: Sanitizer)
   {
-    this.constantsService = constants;
     this.token = null;
     this.username = null;
     this.image = null;
+    this.region = null;
   }
 
   isUserLoggedIn() : boolean {
@@ -35,6 +35,7 @@ export class AuthenticationService {
     console.log("[" + this.username + "] Logged out!");
     this.username = null;
     this.image = null;
+    this.region = null;
   }
 
   public getUsername() : string{
@@ -45,14 +46,19 @@ export class AuthenticationService {
     return this.token;
   }
 
-  public setUser(token, username, image) {
+  public setUser(token, username, image, region) {
     this.token = token;
     this.username = username;
     this.image = image;
+    this.region = region;
   }
 
   public getUserImage() {
     return this.image;
+  }
+
+  public getUserRegion() {
+    return this.region;
   }
 
   public getUserImageSanitized() {

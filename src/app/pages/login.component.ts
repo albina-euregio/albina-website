@@ -40,7 +40,7 @@ export class LoginComponent {
     this.authenticationService.authenticate(this.username, this.password).subscribe(
       data => {
         var result = data.json();
-        this.authenticationService.setUser(result.token, result.username, result.image);
+        this.authenticationService.setUser(result.token, result.username, result.image, result.region);
         console.log("[" + this.username + "] Logged in!");
         console.log("Navigate to " + this.returnUrl);
         this.router.navigate([this.returnUrl]);
