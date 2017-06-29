@@ -11,6 +11,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-01",
         "Name_Zone": "Westlicher Oberer Vinschgau",
+        "provincia": "Alto Adige",
         "Shape_Leng": 71492.9278393,
         "Shape_Area": 176318673.788
       },
@@ -1188,6 +1189,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-02",
         "Name_Zone": "Westlicher Alpenhauptkamm",
+        "provincia": "Alto Adige",
         "Shape_Leng": 141701.496437,
         "Shape_Area": 681181136.119
       },
@@ -4321,6 +4323,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-03",
         "Name_Zone": "Zentraler Alpenhauptkamm",
+        "provincia": "Alto Adige",
         "Shape_Leng": 162444.973019,
         "Shape_Area": 716421211.022
       },
@@ -6438,6 +6441,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-04",
         "Name_Zone": "Oestlicher Alpenhauptkamm",
+        "provincia": "Alto Adige",
         "Shape_Leng": 189750.457217,
         "Shape_Area": 1009621475.78
       },
@@ -8591,6 +8595,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-05",
         "Name_Zone": "Sarntaler Alpen",
+        "provincia": "Alto Adige",
         "Shape_Leng": 141147.981857,
         "Shape_Area": 1104633615.87
       },
@@ -9700,6 +9705,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-06",
         "Name_Zone": "Hochpustertal",
+        "provincia": "Alto Adige",
         "Shape_Leng": 122898.568788,
         "Shape_Area": 529952810.77
       },
@@ -11381,6 +11387,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-07",
         "Name_Zone": "Oestliche Dolomiten",
+        "provincia": "Alto Adige",
         "Shape_Leng": 158193.974108,
         "Shape_Area": 639110327.12
       },
@@ -14510,6 +14517,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-08",
         "Name_Zone": "Zentrale Dolomiten",
+        "provincia": "Alto Adige",
         "Shape_Leng": 170496.219122,
         "Shape_Area": 931531799.877
       },
@@ -17779,6 +17787,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-09",
         "Name_Zone": "Westliche Dolomiten",
+        "provincia": "Alto Adige",
         "Shape_Leng": 122966.127388,
         "Shape_Area": 365370113.909
       },
@@ -19456,6 +19465,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-10",
         "Name_Zone": "Nonsberger Alpen",
+        "provincia": "Alto Adige",
         "Shape_Leng": 162124.874557,
         "Shape_Area": 363809943.998
       },
@@ -20385,6 +20395,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-11",
         "Name_Zone": "Ortler-Cevedale Gruppe",
+        "provincia": "Alto Adige",
         "Shape_Leng": 160463.523311,
         "Shape_Area": 881650173.655
       },
@@ -22030,6 +22041,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-12",
         "Name_Zone": "Ortler-Cevedale Gruppe",
+        "provincia": "Alto Adige",
         "Shape_Leng": 160463.523311,
         "Shape_Area": 881650173.655
       },
@@ -23179,6 +23191,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-13",
         "Name_Zone": "Nonsberger Alpen",
+        "provincia": "Alto Adige",
         "Shape_Leng": 162124.874557,
         "Shape_Area": 363809943.998
       },
@@ -24912,6 +24925,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-14",
         "Name_Zone": "Sarntaler Alpen",
+        "provincia": "Alto Adige",
         "Shape_Leng": 141147.981857,
         "Shape_Area": 1104633615.87
       },
@@ -26681,6 +26695,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-15",
         "Name_Zone": "Zentraler Alpenhauptkamm",
+        "provincia": "Alto Adige",
         "Shape_Leng": 162444.973019,
         "Shape_Area": 716421211.022
       },
@@ -28731,11 +28746,6 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
-        "stroke": "#555555",
-        "stroke-width": 2,
-        "stroke-opacity": 1,
-        "fill": "#555555",
-        "fill-opacity": 0.5,
         "name": "Defregger Alpen",
         "regione": "Alpi Pusteresi",
         "nome_zona": "Alpi Alta Pusteria",
@@ -28743,7 +28753,8 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-16",
         "Name_Zone": "Hochpustertal",
-        "Shape_Leng": 12898.568788,
+        "provincia": "Alto Adige",
+        "Shape_Leng": 122898.568788,
         "Shape_Area": 529952810.77
       },
       "geometry": {
@@ -30272,6 +30283,7 @@ export const RegionsEuregio = {
         "aggregatedRegionId": "AGGR-0004",
         "id": "IT-32-BZ-17",
         "Name_Zone": "Oestlicher Alpenhauptkamm",
+        "provincia": "Alto Adige",
         "Shape_Leng": 189750.457217,
         "Shape_Area": 1009621475.78
       },
@@ -32926,10 +32938,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-01",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Valle di Fassa",
         "Nr_Zone": 16,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 99170.3858421,
         "Shape_Area": 285910447.662
       },
@@ -34716,10 +34731,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-02",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Valle di Non",
         "Nr_Zone": 17,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 100088.224536,
         "Shape_Area": 296651038.267
       },
@@ -36754,10 +36772,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-03",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Sole, Pejo e Rabbi",
         "Nr_Zone": 19,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 114982.636975,
         "Shape_Area": 541009249.972
       },
@@ -39260,10 +39281,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-04",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Maddalene",
         "Nr_Zone": 20,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 53339.5933197,
         "Shape_Area": 121706264.004
       },
@@ -40342,10 +40366,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-05",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Latemar",
         "Nr_Zone": 9,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 72759.1067472,
         "Shape_Area": 153445006.582
       },
@@ -41588,10 +41615,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-06",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Brenta Nord - Peller",
         "Nr_Zone": 4,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 92938.4706553,
         "Shape_Area": 355351055.189
       },
@@ -43758,10 +43788,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-07",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Primiero - Pale di S. Martino",
         "Nr_Zone": 13,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 120473.491434,
         "Shape_Area": 484855899.688
       },
@@ -46228,10 +46261,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-08",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Adamello - Presanella",
         "Nr_Zone": 1,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 70530.8774026,
         "Shape_Area": 231232494.942
       },
@@ -47566,10 +47602,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-09",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Lagorai Nord",
         "Nr_Zone": 7,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 83316.835794,
         "Shape_Area": 260192818.548
       },
@@ -49340,10 +49379,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-10",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Valle di Cembra",
         "Nr_Zone": 15,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 113206.587633,
         "Shape_Area": 295738135.009
       },
@@ -51138,10 +51180,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-11",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Brenta Sud",
         "Nr_Zone": 5,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 95125.069878,
         "Shape_Area": 251975103.879
       },
@@ -53460,10 +53505,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-12",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Paganella",
         "Nr_Zone": 11,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 60776.8536917,
         "Shape_Area": 137403563.11
       },
@@ -54782,10 +54830,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-13",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Lagorai Sud",
         "Nr_Zone": 8,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 111762.111959,
         "Shape_Area": 369250410.701
       },
@@ -57164,10 +57215,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-14",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Pine' - Valle dei Mocheni",
         "Nr_Zone": 21,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 57543.4159929,
         "Shape_Area": 126835125.286
       },
@@ -58230,10 +58284,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-15",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Adamello Sud",
         "Nr_Zone": 2,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 114274.435182,
         "Shape_Area": 466995965.707
       },
@@ -61088,10 +61145,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-16",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Bondone e Stivo",
         "Nr_Zone": 3,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 101096.572934,
         "Shape_Area": 370697659.081
       },
@@ -63062,10 +63122,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-17",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Marzola - Valsugana",
         "Nr_Zone": 10,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 132234.521791,
         "Shape_Area": 354265510.209
       },
@@ -65980,10 +66043,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-18",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Valle di Ledro",
         "Nr_Zone": 18,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 121782.733184,
         "Shape_Area": 439615811.46
       },
@@ -69202,10 +69268,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-19",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Folgaria - Lavarone",
         "Nr_Zone": 6,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 104339.303918,
         "Shape_Area": 160341773.685
       },
@@ -71692,10 +71761,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-20",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Vallarsa",
         "Nr_Zone": 14,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 82581.5126009,
         "Shape_Area": 292543705.72
       },
@@ -73574,10 +73646,18 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "stroke": "#555555",
+        "stroke-width": 2,
+        "stroke-opacity": 1,
+        "fill": "#555555",
+        "fill-opacity": 0.5,
+        "id": "IT-32-TN-21",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Prealpi",
         "Nr_Zone": 12,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 78752.6799932,
         "Shape_Area": 207857589.231
       },
@@ -75040,10 +75120,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "IT-32-TN-22",
         "parentRegion": "IT-32-TN",
         "aggregatedRegionId": "AGGR-0001",
         "name": "Valle di Cembra",
         "Nr_Zone": 15,
+        "Provinz": "Trentino",
+        "provincia": "Trentino",
         "Shape_Leng": 113206.587633,
         "Shape_Area": 295738135.009
       },
@@ -75410,10 +75493,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-01",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Osttiroler Tauern",
         "Nr_Zone": 10,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 137978.173721,
         "Shape_Area": 839968591.971
       },
@@ -77452,10 +77538,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-02",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Zentral Osttirol",
         "Nr_Zone": 11,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 162849.717214,
         "Shape_Area": 807827059.032
       },
@@ -79610,10 +79699,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-03",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "SÃ¼dliches Osttirol",
         "Nr_Zone": 12,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 127372.92853,
         "Shape_Area": 374876219.971
       },
@@ -81832,10 +81924,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-04",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Zillertaler Alpen",
         "Nr_Zone": 9,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 157407.924025,
         "Shape_Area": 746284072.3
       },
@@ -85422,10 +85517,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-05",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Tuxer Alpen",
         "Nr_Zone": 6,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 135624.30771,
         "Shape_Area": 813234119.945
       },
@@ -87316,17 +87414,15 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
-        "stroke": "#555555",
-        "stroke-width": 2,
-        "stroke-opacity": 1,
-        "fill": "#555555",
-        "fill-opacity": 0.5,
+        "id": "AT-07-06",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "KitzbÃ¼heler Alpen",
         "Nr_Zone": 7,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 195517.885361,
-        "Shape_Area": 12273394065.64
+        "Shape_Area": 1273394065.64
       },
       "geometry": {
         "type": "Polygon",
@@ -90459,10 +90555,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-07",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Ã–stliche Nordalpen",
         "Nr_Zone": 3,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 261391.88495,
         "Shape_Area": 1201826216.98
       },
@@ -92197,10 +92296,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-08",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Arlberg-AuÃŸerfern",
         "Nr_Zone": 1,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 275865.792928,
         "Shape_Area": 307116149.0035297
       },
@@ -93279,10 +93381,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-09",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Silvretta-Samnaun",
         "Nr_Zone": 4,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 141794.880197,
         "Shape_Area": 490006931.792
       },
@@ -94981,10 +95086,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-10",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "SÃ¼dliche Ã–tztaler- und Stubaier Alpen",
         "Nr_Zone": 8,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 250829.802055,
         "Shape_Area": 1104795054.57
       },
@@ -98571,10 +98679,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-11",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "NÃ¶rdliche Ã–tztaler- und Stubaier Alpen",
         "Nr_Zone": 5,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 224803.399714,
         "Shape_Area": 1732455818.07
       },
@@ -100549,10 +100660,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-12",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Westliche Nordalpen",
         "Nr_Zone": 2,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 253677.63753,
         "Shape_Area": 1340175697.54
       },
@@ -103087,10 +103201,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-13",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Silvretta-Samnaun",
         "Nr_Zone": 4,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 141794.880197,
         "Shape_Area": 490006931.792
       },
@@ -103841,10 +103958,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-14",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
-        "name": "Arlberg-Aurfern",
+        "name": "Arlberg-AuÃŸerfern",
         "Nr_Zone": 1,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 275865.792928,
         "Shape_Area": 1926721561.33
       },
@@ -104663,10 +104783,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-15",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
-        "name": "Sdliche tztaler- und Stubaier Alpen",
+        "name": "SÃ¼dliche Ã–tztaler- und Stubaier Alpen",
         "Nr_Zone": 8,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 250829.802055,
         "Shape_Area": 1104795054.57
       },
@@ -107285,10 +107408,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-16",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
-        "name": "Nrdliche tztaler- und Stubaier Alpen",
+        "name": "NÃ¶rdliche Ã–tztaler- und Stubaier Alpen",
         "Nr_Zone": 5,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 224803.399714,
         "Shape_Area": 1732455818.07
       },
@@ -109999,10 +110125,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-17",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Arlberg-AuÃŸerfern",
         "Nr_Zone": 1,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 275865.792928,
         "Shape_Area": 1926721561.33
       },
@@ -111373,10 +111502,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-18",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Arlberg-AuÃŸerfern",
         "Nr_Zone": 1,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 275865.792928,
         "Shape_Area": 1926721561.33
       },
@@ -112415,10 +112547,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-19",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Arlberg-AuÃŸerfern",
         "Nr_Zone": 1,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 275865.792928,
         "Shape_Area": 1926721561.33
       },
@@ -113577,10 +113712,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-20",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Westliche Nordalpen",
         "Nr_Zone": 2,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 253677.63753,
         "Shape_Area": 1340175697.54
       },
@@ -114987,10 +115125,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-21",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Westliche Nordalpen",
         "Nr_Zone": 2,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 253677.63753,
         "Shape_Area": 1340175697.54
       },
@@ -115745,10 +115886,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-22",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Ã–stliche Nordalpen",
         "Nr_Zone": 3,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 261391.88495,
         "Shape_Area": 1201826216.98
       },
@@ -117051,10 +117195,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-23",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Ã–stliche Nordalpen",
         "Nr_Zone": 3,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 261391.88495,
         "Shape_Area": 1201826216.98
       },
@@ -117757,10 +117904,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-24",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Osttiroler Tauern",
         "Nr_Zone": 10,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 137978.173721,
         "Shape_Area": 839968591.971
       },
@@ -118423,10 +118573,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-25",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Zentral Osttirol",
         "Nr_Zone": 11,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 162849.717214,
         "Shape_Area": 807827059.032
       },
@@ -119317,10 +119470,13 @@ export const RegionsEuregio = {
     {
       "type": "Feature",
       "properties": {
+        "id": "AT-07-26",
         "parentRegion": "AT-07",
         "aggregatedRegionId": "AGGR-0005",
         "name": "Tuxer Alpen",
         "Nr_Zone": 6,
+        "Provinz": "Tirol",
+        "provincia": "Tirolo",
         "Shape_Leng": 135624.30771,
         "Shape_Area": 813234119.945
       },
