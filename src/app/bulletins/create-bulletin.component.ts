@@ -346,35 +346,44 @@ export class CreateBulletinComponent {
     if (hit) {
       this.editRegions = false;
 
-      for (var i = regions.length - 1; i >= 0; i--) {
-        if (regions[i].startsWith(this.authenticationService.getUserRegion()))
-          this.activeBulletinInput.getSavedRegions().push(regions[i]);
+      this.activeBulletinInput.setSavedRegions(new Array<String>());
+      this.activeBulletinInput.setSuggestedRegions(new Array<String>());
+      for (let region of regions) {
+        if (region.startsWith(this.authenticationService.getUserRegion()))
+          this.activeBulletinInput.getSavedRegions().push(region);
         else
-          this.activeBulletinInput.getSuggestedRegions().push(regions[i]);
+          this.activeBulletinInput.getSuggestedRegions().push(region);
       }
       this.mapService.resetAggregatedRegions();
 
       // delete regions from other aggregated regions (one region can only be within one aggregated region on this day)
       this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+
+        // not selected region
         if (key != this.activeAggregatedRegionId) {
-          for (var j = regions.length - 1; j >= 0; j--) {
-            if (this.activeBulletinInput.getSavedRegions().indexOf(regions[j]) != -1) {
-              let index = value.getSavedRegions().indexOf(regions[j]);
-              if (index != -1) {
-                value.getSavedRegions().splice(index, 1);
-              }
-              index = value.getSuggestedRegions().indexOf(regions[j]);
-              if (index != -1) {
-                value.getSuggestedRegions().splice(index, 1);
-              }
-            } else if (this.activeBulletinInput.getSuggestedRegions().indexOf(regions[j]) != -1) {
-              let index = value.getSuggestedRegions().indexOf(regions[j]);
-              if (index != -1) {
-                value.getSuggestedRegions().splice(index, 1);
-              }
-            }
+
+          // regions saved by me (only in own area possible)
+          for (let region of this.activeBulletinInput.getSavedRegions()) {
+            // region was saved in other aggregated region => delete
+            let index = value.getSavedRegions().indexOf(region);
+            if (index != -1)
+              value.getSavedRegions().splice(index, 1);
+
+            // region was suggested by other user (multiple suggestions possible for same region) => delete all)
+            index = value.getSuggestedRegions().indexOf(region);
+            if (index != -1)
+              value.getSuggestedRegions().splice(index, 1);
+          }
+
+          // regions suggested by me (only in foreign area possible)
+          // region was published => delete suggestion
+          for (let region of value.getPublishedRegions()) {
+            let index = this.activeBulletinInput.getSuggestedRegions().indexOf(region);
+            if (index != -1)
+              this.activeBulletinInput.getSuggestedRegions().splice(index, 1);
           }
         }
+
         this.mapService.addAggregatedRegion(value);
       });
       this.mapService.discardAggregatedRegion();
