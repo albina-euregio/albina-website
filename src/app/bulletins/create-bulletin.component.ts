@@ -394,6 +394,15 @@ export class CreateBulletinComponent {
     }
   }
 
+  hasSuggestions(aggregatedRegionId: string) : boolean {
+    let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
+    for (let region of bulletinInputModel.getSuggestedRegions()) {
+      if (region.startsWith(this.authenticationService.getUserRegion()))
+        return true;
+    }
+    return false;
+  }
+
   discardAggregatedRegion(aggregatedRegionId?: string) {
     this.editRegions = false;
     this.mapService.discardAggregatedRegion();

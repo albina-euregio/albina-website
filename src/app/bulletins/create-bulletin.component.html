@@ -23,6 +23,7 @@
                     <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info">
                       <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
                       <td>{{ aggregatedRegionId }}</td>
+                      <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
                       <td *ngIf="!editRegions">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion(aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
                       </td>
@@ -42,6 +43,7 @@
                     <tr *ngIf="!activeAggregatedRegionId || aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
                       <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
                       <td>{{ aggregatedRegionId }}</td>
+                      <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
                     </tr>
                   </div>
                 </tbody>
