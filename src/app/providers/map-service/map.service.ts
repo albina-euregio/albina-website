@@ -294,19 +294,15 @@ export class MapService {
 
     private getActiveSelectionStyle(region, dangerRating, status) {
         let fillOpacity = 1.0;
-        let opacity = 1.0;
 
         // own area
         if (region.startsWith(this.authenticationService.getUserRegion())) {
             if (status == Enums.RegionStatus.published) {
                 fillOpacity = 1.0;
-                opacity = 1.0
             } else if (status == Enums.RegionStatus.suggested) {
                 fillOpacity = 0.5;
-                opacity = 0.5
             } else if (status == Enums.RegionStatus.saved) {
                 fillOpacity = 1.0;
-                opacity = 1.0
             }
 
         // foreign area
@@ -328,28 +324,21 @@ export class MapService {
 
         return {
             fillColor: color,
-            weight: 1,
-            opacity: opacity,
-            color: 'black',
             fillOpacity: fillOpacity
         }
     }
 
     private getDangerRatingStyle(region, dangerRating, status) {
         let fillOpacity = 1.0;
-        let opacity = 1.0;
 
         // own area
         if (region.startsWith(this.authenticationService.getUserRegion())) {
             if (status == Enums.RegionStatus.published) {
                 fillOpacity = 0.5;
-                opacity = 1.0
             } else if (status == Enums.RegionStatus.suggested) {
                 fillOpacity = 0.3;
-                opacity = 0.5
             } else if (status == Enums.RegionStatus.saved) {
                 fillOpacity = 0.5;
-                opacity = 1.0
             }
 
         // foreign area
@@ -371,9 +360,6 @@ export class MapService {
 
         return {
             fillColor: color,
-            weight: 1,
-            opacity: opacity,
-            color: 'black',
             fillOpacity: fillOpacity
         }
     }
