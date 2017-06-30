@@ -109,15 +109,15 @@ export class MapService {
         for (let entry of this.overlayMaps.aggregatedRegions.getLayers()) {
             for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
                 if (entry.feature.properties.id == bulletinInputModel.savedRegions[j])
-                    entry.setStyle(this.getDangerRatingStyle(dangerRating, Enums.RegionStatus.saved));
+                    entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRating, Enums.RegionStatus.saved));
             }
             for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
                 if (entry.feature.properties.id == bulletinInputModel.suggestedRegions[j])
-                    entry.setStyle(this.getDangerRatingStyle(dangerRating, Enums.RegionStatus.suggested));
+                    entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRating, Enums.RegionStatus.suggested));
             }
             for (let j = bulletinInputModel.publishedRegions.length - 1; j >= 0; j--) {
                 if (entry.feature.properties.id == bulletinInputModel.publishedRegions[j])
-                    entry.setStyle(this.getDangerRatingStyle(dangerRating, Enums.RegionStatus.published));
+                    entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRating, Enums.RegionStatus.published));
             }
         }
     }
@@ -130,19 +130,19 @@ export class MapService {
             for (let region of bulletinInputModel.savedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
-                    entry.setStyle(this.getActiveSelectionStyle(bulletinInputModel.getHighestDangerRating(), Enums.RegionStatus.saved));
+                    entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getHighestDangerRating(), Enums.RegionStatus.saved));
                 }
             }
             for (let region of bulletinInputModel.suggestedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
-                    entry.setStyle(this.getActiveSelectionStyle(bulletinInputModel.getHighestDangerRating(), Enums.RegionStatus.suggested));
+                    entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getHighestDangerRating(), Enums.RegionStatus.suggested));
                 }
             }
             for (let region of bulletinInputModel.publishedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
-                    entry.setStyle(this.getActiveSelectionStyle(bulletinInputModel.getHighestDangerRating(), Enums.RegionStatus.published));
+                    entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getHighestDangerRating(), Enums.RegionStatus.published));
                 }
             }
         }
@@ -292,18 +292,26 @@ export class MapService {
         }
     }
 
-    private getActiveSelectionStyle(dangerRating, status) {
+    private getActiveSelectionStyle(region, dangerRating, status) {
         let fillOpacity = 1.0;
         let opacity = 1.0;
-        if (status == Enums.RegionStatus.published) {
-            fillOpacity = 1.0;
-            opacity = 1.0
-        } else if (status == Enums.RegionStatus.suggested) {
+
+        // own area
+        if (region.startsWith(this.authenticationService.getUserRegion())) {
+            if (status == Enums.RegionStatus.published) {
+                fillOpacity = 1.0;
+                opacity = 1.0
+            } else if (status == Enums.RegionStatus.suggested) {
+                fillOpacity = 0.5;
+                opacity = 0.5
+            } else if (status == Enums.RegionStatus.saved) {
+                fillOpacity = 1.0;
+                opacity = 1.0
+            }
+
+        // foreign area
+        } else {
             fillOpacity = 0.3;
-            opacity = 0.5
-        } else if (status == Enums.RegionStatus.saved) {
-            fillOpacity = 1.0;
-            opacity = 1.0
         }
 
         let color = 'grey';
@@ -327,18 +335,26 @@ export class MapService {
         }
     }
 
-    private getDangerRatingStyle(dangerRating, status) {
+    private getDangerRatingStyle(region, dangerRating, status) {
         let fillOpacity = 1.0;
         let opacity = 1.0;
-        if (status == Enums.RegionStatus.published) {
-            fillOpacity = 0.3;
-            opacity = 1.0
-        } else if (status == Enums.RegionStatus.suggested) {
+
+        // own area
+        if (region.startsWith(this.authenticationService.getUserRegion())) {
+            if (status == Enums.RegionStatus.published) {
+                fillOpacity = 0.5;
+                opacity = 1.0
+            } else if (status == Enums.RegionStatus.suggested) {
+                fillOpacity = 0.3;
+                opacity = 0.5
+            } else if (status == Enums.RegionStatus.saved) {
+                fillOpacity = 0.5;
+                opacity = 1.0
+            }
+
+        // foreign area
+        } else {
             fillOpacity = 0.1;
-            opacity = 0.5
-        } else if (status == Enums.RegionStatus.saved) {
-            fillOpacity = 0.3;
-            opacity = 1.0
         }
 
         let color = 'grey';
