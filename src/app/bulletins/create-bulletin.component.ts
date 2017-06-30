@@ -86,6 +86,19 @@ export class CreateBulletinComponent {
             let originalBulletin = BulletinModel.createFromJson(jsonBulletin);
             let bulletin = new BulletinModel(originalBulletin);
 
+            // reset regions
+            let saved = new Array<String>();
+            for (let region of bulletin.getSavedRegions())
+              if (region.startsWith(this.authenticationService.getUserRegion()))
+                saved.push(region);
+            for (let region of bulletin.getPublishedRegions())
+              if (region.startsWith(this.authenticationService.getUserRegion()))
+                saved.push(region);
+            bulletin.setSavedRegions(saved);
+
+            bulletin.setSuggestedRegions(new Array<String>());
+            bulletin.setPublishedRegions(new Array<String>());
+
             // TODO change aggregatedRegionId (same for same)
             if (idMap.has(originalBulletin.getAggregatedRegionId()))
               bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
@@ -158,6 +171,7 @@ export class CreateBulletinComponent {
       this.activeBulletinInput.elevation = Math.round(this.activeBulletinInput.elevation/100)*100;
   }
 
+  // TODO load only own area (no suggestions from others, no own suggestions)
   loadBulletinsFromYesterday() {
     this.confirmationService.confirm({
       header: this.translateService.instant("bulletins.create.loadDialog.header"),
@@ -170,7 +184,10 @@ export class CreateBulletinComponent {
         var dateOffset = (24*60*60*1000) * 1;
         date.setTime(this.bulletinsService.getActiveDate().getTime() - dateOffset);
 
-        this.bulletinsService.loadBulletins(date).subscribe(
+        let regions = new Array<String>();
+        regions.push(this.authenticationService.getUserRegion());
+
+        this.bulletinsService.loadBulletins(date, regions).subscribe(
         data => {
           // reset everything
           this.reset();
@@ -181,8 +198,20 @@ export class CreateBulletinComponent {
           for (let jsonBulletin of response) {
             let originalBulletin = BulletinModel.createFromJson(jsonBulletin);
             let bulletin = new BulletinModel(originalBulletin);
+            
+            // reset regions
+            let saved = new Array<String>();
+            for (let region of bulletin.getSavedRegions())
+              if (region.startsWith(this.authenticationService.getUserRegion()))
+                saved.push(region);
+            for (let region of bulletin.getPublishedRegions())
+              if (region.startsWith(this.authenticationService.getUserRegion()))
+                saved.push(region);
+            bulletin.setSavedRegions(saved);
 
-            // TODO change aggregatedRegionId (same for same)
+            bulletin.setSuggestedRegions(new Array<String>());
+            bulletin.setPublishedRegions(new Array<String>());
+
             if (idMap.has(originalBulletin.getAggregatedRegionId()))
               bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
             else {
@@ -346,8 +375,7 @@ export class CreateBulletinComponent {
     if (hit) {
       this.editRegions = false;
 
-      this.activeBulletinInput.setSavedRegions(new Array<String>());
-      this.activeBulletinInput.setSuggestedRegions(new Array<String>());
+      // TODO do not delete regions not in own area
       for (let region of regions) {
         if (region.startsWith(this.authenticationService.getUserRegion()))
           this.activeBulletinInput.getSavedRegions().push(region);

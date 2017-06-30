@@ -68,9 +68,13 @@ export class BulletinsService {
     return this.http.get(url, options);
   }
 
-  loadBulletins(date: Date) : Observable<Response> {
+  loadBulletins(date: Date, regions?: String[]) : Observable<Response> {
     // TODO check how to encode date with timezone in url
     let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffset(date);
+    if (regions) {
+      for (let region of regions)
+        url += "&regions=" + region;
+    }
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
