@@ -4,6 +4,7 @@ import { Map } from "leaflet";
 import { BulletinModel } from "../../models/bulletin.model";
 import { BulletinInputModel } from "../../models/bulletin-input.model";
 import { RegionsService } from '../regions-service/regions.service';
+import { AuthenticationService } from '../authentication-service/authentication.service';
 import * as Enums from '../../enums/enums';
 
 @Injectable()
@@ -14,8 +15,9 @@ export class MapService {
 
     constructor(
         private http: Http,
-        private regionsService: RegionsService
-    ) {
+        private regionsService: RegionsService,
+        private authenticationService: AuthenticationService)
+    {
         this.baseMaps = {
             Gdi_Winter: L.tileLayer('https://map3.mapservices.eu/gdi/gdi_base_winter/b6b4ce6df035dcfaa26f3bc32fb89e6a/{z}/{x}/{y}.jpg', {
                 tms: true,
@@ -54,22 +56,22 @@ export class MapService {
         }
 
         for (let entry of this.overlayMaps.aggregatedRegions.getLayers())
-            entry.setStyle(this.getBaseStyle());
+            entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
     }
 
     resetAggregatedRegions() {
         for (let entry of this.overlayMaps.aggregatedRegions.getLayers())
-            entry.setStyle(this.getBaseStyle());
+            entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
     }
 
     resetActiveSelection() {
         for (let entry of this.overlayMaps.activeSelection.getLayers())
-            entry.setStyle(this.getBaseStyle());
+            entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
     }
 
     resetEditSelection() {
         for (let entry of this.overlayMaps.editSelection.getLayers())
-            entry.setStyle(this.getBaseStyle());
+            entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
     }
 
     resetAll() {
@@ -107,15 +109,15 @@ export class MapService {
         for (let entry of this.overlayMaps.aggregatedRegions.getLayers()) {
             for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
                 if (entry.feature.properties.id == bulletinInputModel.savedRegions[j])
-                    entry.setStyle(this.getDangerRatingStyleSaved(dangerRating));
+                    entry.setStyle(this.getDangerRatingStyle(dangerRating, Enums.RegionStatus.saved));
             }
             for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
                 if (entry.feature.properties.id == bulletinInputModel.suggestedRegions[j])
-                    entry.setStyle(this.getDangerRatingStyleSuggested(dangerRating));
+                    entry.setStyle(this.getDangerRatingStyle(dangerRating, Enums.RegionStatus.suggested));
             }
             for (let j = bulletinInputModel.publishedRegions.length - 1; j >= 0; j--) {
                 if (entry.feature.properties.id == bulletinInputModel.publishedRegions[j])
-                    entry.setStyle(this.getDangerRatingStylePublished(dangerRating));
+                    entry.setStyle(this.getDangerRatingStyle(dangerRating, Enums.RegionStatus.published));
             }
         }
     }
@@ -124,23 +126,23 @@ export class MapService {
         this.map.addLayer(this.overlayMaps.activeSelection);
         for (let entry of this.overlayMaps.activeSelection.getLayers()) {
             entry.feature.properties.selected = false;
-            entry.setStyle(this.getBaseStyle());
-            for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.savedRegions[j]) {
+            entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
+            for (let region of bulletinInputModel.savedRegions) {
+                if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
-                    entry.setStyle(this.getActiveSelectionStyleSaved(bulletinInputModel.getHighestDangerRating()));
+                    entry.setStyle(this.getActiveSelectionStyle(bulletinInputModel.getHighestDangerRating(), Enums.RegionStatus.saved));
                 }
             }
-            for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.suggestedRegions[j]) {
+            for (let region of bulletinInputModel.suggestedRegions) {
+                if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
-                    entry.setStyle(this.getActiveSelectionStyleSuggested(bulletinInputModel.getHighestDangerRating()));
+                    entry.setStyle(this.getActiveSelectionStyle(bulletinInputModel.getHighestDangerRating(), Enums.RegionStatus.suggested));
                 }
             }
-            for (let j = bulletinInputModel.publishedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.publishedRegions[j]) {
+            for (let region of bulletinInputModel.publishedRegions) {
+                if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
-                    entry.setStyle(this.getActiveSelectionStylePublished(bulletinInputModel.getHighestDangerRating()));
+                    entry.setStyle(this.getActiveSelectionStyle(bulletinInputModel.getHighestDangerRating(), Enums.RegionStatus.published));
                 }
             }
         }
@@ -154,16 +156,16 @@ export class MapService {
         this.map.removeLayer(this.overlayMaps.activeSelection);
         this.map.addLayer(this.overlayMaps.editSelection);
         for (let entry of this.overlayMaps.editSelection.getLayers()) {
-            for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.savedRegions[j]) {
+            for (let region of bulletinInputModel.savedRegions) {
+                if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
-                    entry.setStyle(this.getEditSelectionStyleSaved());
+                    entry.setStyle(this.getEditSelectionStyle(Enums.RegionStatus.saved));
                 }
             }
-            for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.suggestedRegions[j]) {
+            for (let region of bulletinInputModel.suggestedRegions) {
+                if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
-                    entry.setStyle(this.getEditSelectionStyleSuggested());
+                    entry.setStyle(this.getEditSelectionStyle(Enums.RegionStatus.suggested));
                 }
             }
         }
@@ -179,21 +181,15 @@ export class MapService {
 
     deselectRegions(bulletinInputModel: BulletinInputModel) {
         for (let entry of this.overlayMaps.aggregatedRegions.getLayers()) {
-            for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.savedRegions[j]) {
+            for (let region of bulletinInputModel.savedRegions)
+                if (entry.feature.properties.id == region)
                     entry.setStyle(this.getBaseStyle());
-                }
-            }
-            for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.suggestedRegions[j]) {
+            for (let region of bulletinInputModel.suggestedRegions)
+                if (entry.feature.properties.id == region)
                     entry.setStyle(this.getBaseStyle());
-                }
-            }
-            for (let j = bulletinInputModel.publishedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.publishedRegions[j]) {
+            for (let region of bulletinInputModel.publishedRegions)
+                if (entry.feature.properties.id == region)
                     entry.setStyle(this.getBaseStyle());
-                }
-            }
         }
 
         for (let entry of this.overlayMaps.activeSelection.getLayers()) {
@@ -246,347 +242,113 @@ export class MapService {
         });
     }
 
-    private getEditSelectionStyleSaved() {
-        return {
-            fillColor: 'blue',
-            weight: 1,
-            opacity: 1,
-            color: 'blue',
-            fillOpacity: 0.5
-        }
-    }
-
-    private getEditSelectionStyleSuggested() {
-        return {
-            fillColor: 'blue',
-            weight: 1,
-            opacity: 1,
-            color: 'blue',
-            fillOpacity: 0.3
-        }
-    }
-
-    private getActiveSelectionStyleSaved(dangerRating) {
-        if (dangerRating == "very_high") {
-            return {
-                fillColor: 'black',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        } else if (dangerRating == "high") {
-            return {
-                fillColor: 'red',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        } else if (dangerRating == "considerable") {
-            return {
-                fillColor: 'orange',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        } else if (dangerRating == "moderate") {
-            return {
-                fillColor: 'yellow',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        } else if (dangerRating == "low") {
-            return {
-                fillColor: 'green',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        } else {
-            return {
-                fillColor: 'grey',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        }
-    }
-
-    private getActiveSelectionStyleSuggested(dangerRating) {
-        if (dangerRating == "very_high") {
-            return {
-                fillColor: 'black',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "high") {
-            return {
-                fillColor: 'red',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "considerable") {
-            return {
-                fillColor: 'orange',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "moderate") {
-            return {
-                fillColor: 'yellow',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "low") {
-            return {
-                fillColor: 'green',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else {
-            return {
-                fillColor: 'grey',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        }
-    }
-
-    // TODO define style
-    private getActiveSelectionStylePublished(dangerRating) {
-        if (dangerRating == "very_high") {
-            return {
-                fillColor: 'black',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        } else if (dangerRating == "high") {
-            return {
-                fillColor: 'red',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        } else if (dangerRating == "considerable") {
-            return {
-                fillColor: 'orange',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        } else if (dangerRating == "moderate") {
-            return {
-                fillColor: 'yellow',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        } else if (dangerRating == "low") {
-            return {
-                fillColor: 'green',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        } else {
-            return {
-                fillColor: 'grey',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 1.0
-            }
-        }
-    }
-
-    private getBaseStyle() {
+    private getBaseStyle(feature?) {
         return {
             fillColor: 'black',
             weight: 1,
-            opacity: 0.5,
+            opacity: 0.3,
             color: 'black',
             fillOpacity: 0.0
         };
     }
 
-    private getDangerRatingStyleSaved(dangerRating) {
-        if (dangerRating == "very_high") {
-            return {
-                fillColor: 'black',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "high") {
-            return {
-                fillColor: 'red',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "considerable") {
-            return {
-                fillColor: 'orange',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "moderate") {
-            return {
-                fillColor: 'yellow',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "low") {
-            return {
-                fillColor: 'green',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else {
-            return {
-                fillColor: 'grey',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
+    private getUserDependendBaseStyle(region) {
+        let opacity = 0.3;
+        if (region.startsWith(this.authenticationService.getUserRegion()))
+            opacity = 1.0;
+
+        return {
+            fillColor: 'black',
+            weight: 1,
+            opacity: opacity,
+            color: 'black',
+            fillOpacity: 0.0
+        };
+    }
+
+    private getEditSelectionStyle(status) {
+        let fillOpacity = 0.3;
+        if (status == Enums.RegionStatus.saved)
+            fillOpacity = 0.5;
+        else if (status == Enums.RegionStatus.suggested)
+            fillOpacity = 0.3;
+
+        return {
+            fillColor: 'blue',
+            weight: 1,
+            opacity: 1,
+            color: 'blue',
+            fillOpacity: fillOpacity
         }
     }
 
-    private getDangerRatingStyleSuggested(dangerRating) {
-        if (dangerRating == "very_high") {
-            return {
-                fillColor: 'black',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.1
-            }
-        } else if (dangerRating == "high") {
-            return {
-                fillColor: 'red',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.1
-            }
-        } else if (dangerRating == "considerable") {
-            return {
-                fillColor: 'orange',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.1
-            }
-        } else if (dangerRating == "moderate") {
-            return {
-                fillColor: 'yellow',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.1
-            }
-        } else if (dangerRating == "low") {
-            return {
-                fillColor: 'green',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.1
-            }
-        } else {
-            return {
-                fillColor: 'grey',
-                weight: 1,
-                opacity: 0.5,
-                color: 'black',
-                fillOpacity: 0.1
-            }
+    private getActiveSelectionStyle(dangerRating, status) {
+        let fillOpacity = 1.0;
+        let opacity = 1.0;
+        if (status == Enums.RegionStatus.published) {
+            fillOpacity = 1.0;
+            opacity = 1.0
+        } else if (status == Enums.RegionStatus.suggested) {
+            fillOpacity = 0.3;
+            opacity = 0.5
+        } else if (status == Enums.RegionStatus.saved) {
+            fillOpacity = 1.0;
+            opacity = 1.0
+        }
+
+        let color = 'grey';
+        if (dangerRating == "very_high")
+            color = 'black';
+        else if (dangerRating == "high")
+            color = 'red';
+        else if (dangerRating == "considerable")
+            color = 'orange';
+        else if (dangerRating == "moderate")
+            color = 'yellow';
+        else if (dangerRating == "low")
+            color = 'green';
+
+        return {
+            fillColor: color,
+            weight: 1,
+            opacity: opacity,
+            color: 'black',
+            fillOpacity: fillOpacity
         }
     }
 
-    // TODO define style
-    private getDangerRatingStylePublished(dangerRating) {
-        if (dangerRating == "very_high") {
-            return {
-                fillColor: 'black',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "high") {
-            return {
-                fillColor: 'red',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "considerable") {
-            return {
-                fillColor: 'orange',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "moderate") {
-            return {
-                fillColor: 'yellow',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else if (dangerRating == "low") {
-            return {
-                fillColor: 'green',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
-        } else {
-            return {
-                fillColor: 'grey',
-                weight: 1,
-                opacity: 1,
-                color: 'black',
-                fillOpacity: 0.3
-            }
+    private getDangerRatingStyle(dangerRating, status) {
+        let fillOpacity = 1.0;
+        let opacity = 1.0;
+        if (status == Enums.RegionStatus.published) {
+            fillOpacity = 0.3;
+            opacity = 1.0
+        } else if (status == Enums.RegionStatus.suggested) {
+            fillOpacity = 0.1;
+            opacity = 0.5
+        } else if (status == Enums.RegionStatus.saved) {
+            fillOpacity = 0.3;
+            opacity = 1.0
+        }
+
+        let color = 'grey';
+        if (dangerRating == "very_high")
+            color = 'black';
+        else if (dangerRating == "high")
+            color = 'red';
+        else if (dangerRating == "considerable")
+            color = 'orange';
+        else if (dangerRating == "moderate")
+            color = 'yellow';
+        else if (dangerRating == "low")
+            color = 'green';
+
+        return {
+            fillColor: color,
+            weight: 1,
+            opacity: opacity,
+            color: 'black',
+            fillOpacity: fillOpacity
         }
     }
 }

@@ -45,3 +45,7 @@ export enum BulletinStatus {
 export enum NewsStatus {
 	draft, published
 }
+
+export enum RegionStatus {
+	suggested, saved, published
+}
