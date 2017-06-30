@@ -8,6 +8,9 @@ export class BulletinInputModel {
 	public savedRegions: String[];
 	public publishedRegions: String[];
 
+	public creator: string;
+	public creatorRegion: string;
+
 	public avActivityHighlights: TextModel[];
 	public avActivityComment: TextModel[];
 
@@ -24,11 +27,20 @@ export class BulletinInputModel {
 	public afternoonAbove: BulletinElevationDescriptionModel;
 	public afternoonBelow: BulletinElevationDescriptionModel;
 
+	public forenoonBulletinId: string;
+	public afternoonBulletinId: string
+
 	constructor(bulletinInput?: BulletinInputModel) {
 		this.suggestedRegions = new Array<String>();
 		this.savedRegions = new Array<String>();
 		this.publishedRegions = new Array<String>();
+
+		this.forenoonBulletinId = undefined;
+		this.afternoonBulletinId = undefined;
+
 		if (!bulletinInput) {
+			this.creator = undefined;
+			this.creatorRegion = undefined;
 			this.avActivityHighlights = new Array<TextModel>();
 			this.avActivityComment = new Array<TextModel>();
 			this.snowpackStructureHighlights = new Array<TextModel>();
@@ -41,6 +53,8 @@ export class BulletinInputModel {
 			this.afternoonAbove = new BulletinElevationDescriptionModel();
 			this.afternoonBelow = new BulletinElevationDescriptionModel();
 		} else {
+			this.creator = bulletinInput.creator;
+			this.creatorRegion = bulletinInput.creatorRegion;
 			this.avActivityHighlights = bulletinInput.avActivityHighlights;
 			this.avActivityComment = bulletinInput.avActivityComment;
 			this.snowpackStructureHighlights = bulletinInput.snowpackStructureHighlights;
@@ -77,6 +91,22 @@ export class BulletinInputModel {
 
 	setPublishedRegions(publishedRegions: String[]) {
 		this.publishedRegions = publishedRegions;
+	}
+
+	getCreator() : string {
+		return this.creator;
+	}
+
+	setCreator(creator: string) {
+		this.creator = creator;
+	}
+
+	getCreatorRegion() : string {
+		return this.creatorRegion;
+	}
+
+	setCreatorRegion(creatorRegion: string) {
+		this.creatorRegion = creatorRegion;
 	}
 
 	getElevation() : number {
@@ -117,6 +147,22 @@ export class BulletinInputModel {
 
 	setAfternoonBelow(afternoonBelow: BulletinElevationDescriptionModel) {
 		this.afternoonBelow = afternoonBelow;
+	}
+
+	getForenoonBulletinId() : string {
+		return this.forenoonBulletinId;
+	}
+
+	setForenoonBulletinId(forenoonBulletinId: string) {
+		this.forenoonBulletinId = forenoonBulletinId;
+	}
+
+	getAfternoonBulletinId() : string {
+		return this.afternoonBulletinId;
+	}
+
+	setAfternoonBulletinId(afternoonBulletinId: string) {
+		this.afternoonBulletinId = afternoonBulletinId;
 	}
 
 	getAvalancheSituationHighlight() : TextModel[] {
@@ -264,11 +310,17 @@ export class BulletinInputModel {
 		let result = new Array<BulletinModel>();
 		let forenoonBulletin = new BulletinModel();
 
+		if (this.forenoonBulletinId != undefined)
+			forenoonBulletin.setId(this.forenoonBulletinId);
+
 		forenoonBulletin.aggregatedRegionId = aggregatedRegionId;
 
 		let validFrom = new Date(date);
 		let validUntil = new Date(date);
 		forenoonBulletin.validFrom = validFrom;
+
+		forenoonBulletin.creator = this.creator;
+		forenoonBulletin.creatorRegion = this.creatorRegion;
 
 		forenoonBulletin.suggestedRegions = this.suggestedRegions;
 		forenoonBulletin.savedRegions = this.savedRegions;
@@ -293,6 +345,8 @@ export class BulletinInputModel {
 			forenoonBulletin.validUntil = validUntil;
 
 			let afternoonBulletin = new BulletinModel(forenoonBulletin);
+			if (this.afternoonBulletinId != undefined)
+				afternoonBulletin.setId(this.afternoonBulletinId);
 			afternoonBulletin.validFrom = new Date(validUntil);
 			let validUntilAfternoon = new Date(validUntil);
 			validUntilAfternoon.setTime(validUntilAfternoon.getTime() + (12*60*60*1000));

@@ -1,4 +1,4 @@
- import { BulletinElevationDescriptionModel } from "./bulletin-elevation-description.model";
+import { BulletinElevationDescriptionModel } from "./bulletin-elevation-description.model";
 import { TextModel } from './text.model';
 import * as Enums from '../enums/enums';
 
@@ -6,6 +6,9 @@ export class BulletinModel {
 	public id: string;
 
 	public aggregatedRegionId: string;
+
+	public creator: string;
+	public creatorRegion: string;
 
 	public validFrom: Date;
 	public validUntil: Date;
@@ -27,6 +30,8 @@ export class BulletinModel {
 	public status: Enums.BulletinStatus;
 
 	constructor(bulletin?: BulletinModel) {
+		this.creator = undefined;
+		this.creatorRegion = undefined;
 		if (bulletin) {
 			this.aggregatedRegionId = bulletin.aggregatedRegionId;
 			this.validFrom = bulletin.validFrom;
@@ -74,6 +79,22 @@ export class BulletinModel {
 
 	setAggregatedRegionId(aggregatedRegionId: string) {
 		this.aggregatedRegionId = aggregatedRegionId;
+	}
+
+	getCreator() : string {
+		return this.creator;
+	}
+
+	setCreator(creator: string) {
+		this.creator = creator;
+	}
+
+	getCreatorRegion() : string {
+		return this.creatorRegion;
+	}
+
+	setCreatorRegion(creatorRegion: string) {
+		this.creatorRegion = creatorRegion;
 	}
 
 	getValidFrom() : Date {
@@ -219,6 +240,10 @@ export class BulletinModel {
 			json['id'] = this.id;
 		if (this.aggregatedRegionId && this.aggregatedRegionId != undefined)
 			json['aggregatedRegionId'] = this.aggregatedRegionId;
+		if (this.creator && this.creator != undefined)
+			json['creator'] = this.creator;
+		if (this.creatorRegion && this.creatorRegion != undefined)
+			json['creatorRegion'] = this.creatorRegion;
 		
 		var validity = Object();
 		if (this.validFrom && this.validFrom != undefined)
@@ -301,6 +326,8 @@ export class BulletinModel {
 
 		bulletin.setId(json.id);
 		bulletin.setAggregatedRegionId(json.aggregatedRegionId);
+		bulletin.setCreator(json.creator);
+		bulletin.setCreatorRegion(json.creatorRegion);
 
 		bulletin.setValidFrom(new Date(json.validity.from));
 		bulletin.setValidUntil(new Date(json.validity.until));

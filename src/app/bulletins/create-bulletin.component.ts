@@ -92,6 +92,7 @@ export class CreateBulletinComponent {
     } else {
       this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
         data => {
+          debugger
           let response = data.json();
           for (let jsonBulletin of response) {
             let bulletin = BulletinModel.createFromJson(jsonBulletin);
@@ -179,6 +180,8 @@ export class CreateBulletinComponent {
     for (let jsonBulletin of response) {
       let originalBulletin = BulletinModel.createFromJson(jsonBulletin);
       let bulletin = new BulletinModel(originalBulletin);
+      bulletin.setCreator(this.authenticationService.getUsername());
+      bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
       
       // reset regions
       let saved = new Array<String>();
@@ -219,11 +222,13 @@ export class CreateBulletinComponent {
       }
       // TODO check if this a good method
       if (bulletin.validFrom.getHours() == 12) {
+        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).setAfternoonBulletinId(bulletin.id);
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).daytimeDependency = true;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonBelow = bulletin.below;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonAbove = bulletin.above;
       // TODO check if this a good method
       } else if (bulletin.validFrom.getHours() == 0) {
+        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).setForenoonBulletinId(bulletin.id);
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonBelow = bulletin.below;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonAbove = bulletin.above;
       }
@@ -233,6 +238,8 @@ export class CreateBulletinComponent {
       bulletinInput.suggestedRegions = bulletin.suggestedRegions;
       bulletinInput.savedRegions = bulletin.savedRegions;
       bulletinInput.publishedRegions = bulletin.publishedRegions;
+      bulletinInput.creator = bulletin.creator;
+      bulletinInput.creatorRegion = bulletin.creatorRegion;
       bulletinInput.avActivityHighlights = bulletin.avActivityHighlights;
       bulletinInput.avActivityComment = bulletin.avActivityComment;
       bulletinInput.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
@@ -248,10 +255,12 @@ export class CreateBulletinComponent {
       // TODO check if this a good method
       if (bulletin.validFrom.getHours() == 12) {
         bulletinInput.daytimeDependency = true;
+        bulletinInput.setAfternoonBulletinId(bulletin.id);
         bulletinInput.afternoonBelow = bulletin.below;
         bulletinInput.afternoonAbove = bulletin.above;
       // TODO check if this a good method
       } else if (bulletin.validFrom.getHours() == 0) {
+        bulletinInput.setForenoonBulletinId(bulletin.id);
         bulletinInput.forenoonBelow = bulletin.below;
         bulletinInput.forenoonAbove = bulletin.above;
       }
@@ -295,6 +304,9 @@ export class CreateBulletinComponent {
     else
       bulletinInput = new BulletinInputModel();
 
+    bulletinInput.setCreator(this.authenticationService.getUsername());
+    bulletinInput.setCreatorRegion(this.authenticationService.getUserRegion());
+
     this.aggregatedRegionsMap.set(uuid, bulletinInput);
     this.aggregatedRegionsIds.push(uuid);
 
@@ -322,10 +334,11 @@ export class CreateBulletinComponent {
   }
 
   private setAvActivityTexts() {
-    // save text parts
     if (this.activeBulletinInput) {
-      this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlights, this.settingsService.getLang());
-      this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityComment, this.settingsService.getLang());
+      if (this.activeAvActivityHighlights != undefined && this.activeAvActivityHighlights != "")
+        this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlights, this.settingsService.getLang());
+      if (this.activeAvActivityComment != undefined && this.activeAvActivityComment != "")
+        this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityComment, this.settingsService.getLang());
     }
   }
 
@@ -373,10 +386,13 @@ export class CreateBulletinComponent {
 
       // TODO do not delete regions not in own area
       for (let region of regions) {
-        if (region.startsWith(this.authenticationService.getUserRegion()))
-          this.activeBulletinInput.getSavedRegions().push(region);
-        else
-          this.activeBulletinInput.getSuggestedRegions().push(region);
+        if (region.startsWith(this.authenticationService.getUserRegion())) {
+          if (this.activeBulletinInput.getSavedRegions().indexOf(region) == -1)
+            this.activeBulletinInput.getSavedRegions().push(region);
+        } else {
+          if ((this.activeBulletinInput.getSavedRegions().indexOf(region) == -1) && (this.activeBulletinInput.getSuggestedRegions().indexOf(region) == -1))
+            this.activeBulletinInput.getSuggestedRegions().push(region);
+        }
       }
       this.mapService.resetAggregatedRegions();
 
@@ -428,10 +444,18 @@ export class CreateBulletinComponent {
   }
 
   hasSuggestions(aggregatedRegionId: string) : boolean {
-    debugger
     let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
     for (let region of bulletinInputModel.getSuggestedRegions()) {
       if (region.startsWith(this.authenticationService.getUserRegion()))
+        return true;
+    }
+    return false;
+  }
+
+  isCreator(aggregatedRegionId: string) : boolean {
+    if (aggregatedRegionId != undefined) {
+      let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
+      if (bulletinInputModel.getCreatorRegion() != undefined && bulletinInputModel.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
         return true;
     }
     return false;
@@ -500,16 +524,29 @@ export class CreateBulletinComponent {
 
     let observableBatch = [];
 
-    // delete original bulletins
-    this.originalBulletins.forEach((value: BulletinModel, key: string) => {
-      console.log("[" + key + "] Delete bulletin ...");
-      observableBatch.push(this.bulletinsService.deleteBulletin(key));
-    });
-
-    for (var i = bulletins.length - 1; i >= 0; i--) {
-      console.log("[" + bulletins[i].getId() + "] Save bulletin ...");
-      observableBatch.push(this.bulletinsService.saveBulletin(bulletins[i]));
+    for (let bulletin of bulletins) {
+      if (bulletin.getId() == undefined) {
+        console.log("[" + bulletin.getId() + "] Save bulletin ...");
+        observableBatch.push(this.bulletinsService.saveBulletin(bulletin));
+      } else {
+        console.log("[" + bulletin.getId() + "] Update bulletin ...");
+        observableBatch.push(this.bulletinsService.updateBulletin(bulletin));
+      }
     }
+
+    // delete original bulletins
+    let hit = false;
+    this.originalBulletins.forEach((value: BulletinModel, key: string) => {
+      for (let bulletin of bulletins)
+        if (bulletin.id == key) {
+          hit = true;
+          break;
+        }
+      if (!hit) {
+        console.log("[" + key + "] Delete bulletin ...");
+        observableBatch.push(this.bulletinsService.deleteBulletin(key));
+      }
+    });
 
     Observable.forkJoin(observableBatch).subscribe(
       data => {

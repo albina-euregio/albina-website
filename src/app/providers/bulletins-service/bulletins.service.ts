@@ -106,6 +106,7 @@ export class BulletinsService {
       'Accept': 'application/json',
       'Authorization': authHeader });
     let body = JSON.stringify(bulletin.toJson());
+    console.log("SAVE bulletin:");
     console.log(body);
     let options = new RequestOptions({ headers: headers });
 
