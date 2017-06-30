@@ -80,40 +80,7 @@ export class CreateBulletinComponent {
     if (this.bulletinsService.getCopyDate()) {
       this.bulletinsService.loadBulletins(this.bulletinsService.getCopyDate()).subscribe(
         data => {
-          let response = data.json();
-          let idMap = new Map<string, string>();
-          for (let jsonBulletin of response) {
-            let originalBulletin = BulletinModel.createFromJson(jsonBulletin);
-            let bulletin = new BulletinModel(originalBulletin);
-
-            // reset regions
-            let saved = new Array<String>();
-            for (let region of bulletin.getSavedRegions())
-              if (region.startsWith(this.authenticationService.getUserRegion()))
-                saved.push(region);
-            for (let region of bulletin.getPublishedRegions())
-              if (region.startsWith(this.authenticationService.getUserRegion()))
-                saved.push(region);
-
-            if (saved.length > 0) {
-              bulletin.setSavedRegions(saved);
-
-              bulletin.setSuggestedRegions(new Array<String>());
-              bulletin.setPublishedRegions(new Array<String>());
-
-              if (idMap.has(originalBulletin.getAggregatedRegionId()))
-                bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
-              else {
-                let uuid = UUID.UUID();
-                idMap.set(originalBulletin.getAggregatedRegionId(), uuid);
-                bulletin.setAggregatedRegionId(uuid);
-              }
-
-              this.addBulletin(bulletin);
-            }
-          }
-          this.loading = false;
-          this.mapService.deselectAggregatedRegion();
+          this.copyBulletins(data.json());
           this.bulletinsService.setCopyDate(undefined);
         },
         error => {
@@ -191,44 +158,7 @@ export class CreateBulletinComponent {
 
         this.bulletinsService.loadBulletins(date, regions).subscribe(
         data => {
-          // reset everything
-          this.reset();
-          this.mapService.resetAggregatedRegions();
-
-          let response = data.json();
-          let idMap = new Map<string, string>();
-          for (let jsonBulletin of response) {
-            let originalBulletin = BulletinModel.createFromJson(jsonBulletin);
-            let bulletin = new BulletinModel(originalBulletin);
-            
-            // reset regions
-            let saved = new Array<String>();
-            for (let region of bulletin.getSavedRegions())
-              if (region.startsWith(this.authenticationService.getUserRegion()))
-                saved.push(region);
-            for (let region of bulletin.getPublishedRegions())
-              if (region.startsWith(this.authenticationService.getUserRegion()))
-                saved.push(region);
-
-            if (saved.length > 0) {
-              bulletin.setSavedRegions(saved);
-
-              bulletin.setSuggestedRegions(new Array<String>());
-              bulletin.setPublishedRegions(new Array<String>());
-
-              if (idMap.has(originalBulletin.getAggregatedRegionId()))
-                bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
-              else {
-                let uuid = UUID.UUID();
-                idMap.set(originalBulletin.getAggregatedRegionId(), uuid);
-                bulletin.setAggregatedRegionId(uuid);
-              }
-
-              this.addBulletin(bulletin);
-            }
-          }
-          this.loading = false;
-          this.mapService.deselectAggregatedRegion();
+          this.copyBulletins(data.json());
         },
         error => {
           console.error("Bulletins could not be loaded!");
@@ -239,6 +169,47 @@ export class CreateBulletinComponent {
       }
     });
   }
+
+  copyBulletins(response) {
+    // reset everything
+    this.reset();
+    this.mapService.resetAggregatedRegions();
+
+    let idMap = new Map<string, string>();
+    for (let jsonBulletin of response) {
+      let originalBulletin = BulletinModel.createFromJson(jsonBulletin);
+      let bulletin = new BulletinModel(originalBulletin);
+      
+      // reset regions
+      let saved = new Array<String>();
+      for (let region of bulletin.getSavedRegions())
+        if (region.startsWith(this.authenticationService.getUserRegion()))
+          saved.push(region);
+      for (let region of bulletin.getPublishedRegions())
+        if (region.startsWith(this.authenticationService.getUserRegion()))
+          saved.push(region);
+
+      if (saved.length > 0) {
+        bulletin.setSavedRegions(saved);
+
+        bulletin.setSuggestedRegions(new Array<String>());
+        bulletin.setPublishedRegions(new Array<String>());
+
+        if (idMap.has(originalBulletin.getAggregatedRegionId()))
+          bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
+        else {
+          let uuid = UUID.UUID();
+          idMap.set(originalBulletin.getAggregatedRegionId(), uuid);
+          bulletin.setAggregatedRegionId(uuid);
+        }
+
+        this.addBulletin(bulletin);
+      }
+    }
+    this.loading = false;
+    this.mapService.deselectAggregatedRegion();
+  }
+
 
   addBulletin(bulletin: BulletinModel) {
     // a bulletin for this aggregated region is already in the map => use existend bulletin input object
