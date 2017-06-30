@@ -263,6 +263,26 @@ export class CreateBulletinComponent {
     }
   }
 
+  acceptSuggestions(aggregatedRegionId: string) {
+    let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
+    let suggested = new Array<String>();
+    for (let region of bulletinInputModel.getSuggestedRegions())
+      if (region.startsWith(this.authenticationService.getUserRegion()))
+        bulletinInputModel.getSavedRegions().push(region);
+      else
+        suggested.push(region);
+    bulletinInputModel.setSuggestedRegions(suggested);
+  }
+
+  rejectSuggestions(aggregatedRegionId: string) {
+    let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
+    let suggested = new Array<String>();
+    for (let region of bulletinInputModel.getSuggestedRegions())
+      if (!region.startsWith(this.authenticationService.getUserRegion()))
+        suggested.push(region);
+    bulletinInputModel.setSuggestedRegions(suggested);
+  }
+
   createAggregatedRegion(copy) {
 
     // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
@@ -408,6 +428,7 @@ export class CreateBulletinComponent {
   }
 
   hasSuggestions(aggregatedRegionId: string) : boolean {
+    debugger
     let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
     for (let region of bulletinInputModel.getSuggestedRegions()) {
       if (region.startsWith(this.authenticationService.getUserRegion()))

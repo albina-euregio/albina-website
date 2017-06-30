@@ -24,21 +24,31 @@
                       <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
                       <td>{{ aggregatedRegionId }}</td>
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
-                      <td *ngIf="!editRegions">
+
+                      <td *ngIf="hasSuggestions(aggregatedRegionId) && !editRegions">
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions(aggregatedRegionId)"><i class="fa fa-check"></i></button>
+                      </td>
+                      <td *ngIf="hasSuggestions(aggregatedRegionId) && !editRegions">
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions(aggregatedRegionId)"><i class="fa fa-close"></i></button>
+                      </td>
+
+                      <td *ngIf="!editRegions && !hasSuggestions(aggregatedRegionId)">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion(aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
                       </td>
-                      <td *ngIf="!editRegions">
+                      <td *ngIf="!editRegions && !hasSuggestions(aggregatedRegionId)">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion(true)"><i class="fa fa-copy"></i></button>
                       </td>
-                      <td *ngIf="!editRegions">
+                      <td *ngIf="!editRegions && !hasSuggestions(aggregatedRegionId)">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(aggregatedRegionId)"><i class="fa fa-trash"></i></button>
                       </td>
+
                       <td *ngIf="editRegions">
                         <button type="reset" class="btn btn-sm btn-primary" (click)="saveAggregatedRegion(aggregatedRegionId)"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="editRegions">
                         <button type="reset" class="btn btn-sm btn-danger" (click)="discardAggregatedRegion(aggregatedRegionId)"><i class="fa fa-close"></i></button>
                       </td>
+
                     </tr>
                     <tr *ngIf="!activeAggregatedRegionId || aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
                       <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
