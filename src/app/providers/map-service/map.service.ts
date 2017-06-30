@@ -39,7 +39,7 @@ export class MapService {
         this.overlayMaps = {
             // overlay to show selected regions
             activeSelection : L.geoJSON(this.regionsService.getRegionsEuregio(), {
-                style: this.getBaseStyle
+                style: this.getActiveSelectionBaseStyle
             }),
 
             // overlay to select regions (when editing an aggregated region)
@@ -261,6 +261,16 @@ export class MapService {
             fillColor: 'black',
             weight: 1,
             opacity: opacity,
+            color: 'black',
+            fillOpacity: 0.0
+        };
+    }
+
+    private getActiveSelectionBaseStyle() {
+        return {
+            fillColor: 'black',
+            weight: 0,
+            opacity: 0.0,
             color: 'black',
             fillOpacity: 0.0
         };
