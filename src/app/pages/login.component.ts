@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
+import { MapService } from '../providers/map-service/map.service';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
@@ -18,6 +19,7 @@ export class LoginComponent {
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
+    private mapService: MapService,
     private translateService: TranslateService,
     private confirmationService: ConfirmationService)
   {
@@ -42,6 +44,7 @@ export class LoginComponent {
         var result = data.json();
         this.authenticationService.setUser(result.token, result.username, result.image, result.region);
         console.log("[" + this.username + "] Logged in!");
+        this.mapService.resetAll();
         console.log("Navigate to " + this.returnUrl);
         this.router.navigate([this.returnUrl]);
       },
