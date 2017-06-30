@@ -94,21 +94,23 @@ export class CreateBulletinComponent {
             for (let region of bulletin.getPublishedRegions())
               if (region.startsWith(this.authenticationService.getUserRegion()))
                 saved.push(region);
-            bulletin.setSavedRegions(saved);
 
-            bulletin.setSuggestedRegions(new Array<String>());
-            bulletin.setPublishedRegions(new Array<String>());
+            if (saved.length > 0) {
+              bulletin.setSavedRegions(saved);
 
-            // TODO change aggregatedRegionId (same for same)
-            if (idMap.has(originalBulletin.getAggregatedRegionId()))
-              bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
-            else {
-              let uuid = UUID.UUID();
-              idMap.set(originalBulletin.getAggregatedRegionId(), uuid);
-              bulletin.setAggregatedRegionId(uuid);
+              bulletin.setSuggestedRegions(new Array<String>());
+              bulletin.setPublishedRegions(new Array<String>());
+
+              if (idMap.has(originalBulletin.getAggregatedRegionId()))
+                bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
+              else {
+                let uuid = UUID.UUID();
+                idMap.set(originalBulletin.getAggregatedRegionId(), uuid);
+                bulletin.setAggregatedRegionId(uuid);
+              }
+
+              this.addBulletin(bulletin);
             }
-
-            this.addBulletin(bulletin);
           }
           this.loading = false;
           this.mapService.deselectAggregatedRegion();
@@ -207,20 +209,23 @@ export class CreateBulletinComponent {
             for (let region of bulletin.getPublishedRegions())
               if (region.startsWith(this.authenticationService.getUserRegion()))
                 saved.push(region);
-            bulletin.setSavedRegions(saved);
 
-            bulletin.setSuggestedRegions(new Array<String>());
-            bulletin.setPublishedRegions(new Array<String>());
+            if (saved.length > 0) {
+              bulletin.setSavedRegions(saved);
 
-            if (idMap.has(originalBulletin.getAggregatedRegionId()))
-              bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
-            else {
-              let uuid = UUID.UUID();
-              idMap.set(originalBulletin.getAggregatedRegionId(), uuid);
-              bulletin.setAggregatedRegionId(uuid);
+              bulletin.setSuggestedRegions(new Array<String>());
+              bulletin.setPublishedRegions(new Array<String>());
+
+              if (idMap.has(originalBulletin.getAggregatedRegionId()))
+                bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
+              else {
+                let uuid = UUID.UUID();
+                idMap.set(originalBulletin.getAggregatedRegionId(), uuid);
+                bulletin.setAggregatedRegionId(uuid);
+              }
+
+              this.addBulletin(bulletin);
             }
-
-            this.addBulletin(bulletin);
           }
           this.loading = false;
           this.mapService.deselectAggregatedRegion();
