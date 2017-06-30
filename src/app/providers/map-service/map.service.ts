@@ -183,13 +183,13 @@ export class MapService {
         for (let entry of this.overlayMaps.aggregatedRegions.getLayers()) {
             for (let region of bulletinInputModel.savedRegions)
                 if (entry.feature.properties.id == region)
-                    entry.setStyle(this.getBaseStyle());
+                    entry.setStyle(this.getUserDependendBaseStyle(region));
             for (let region of bulletinInputModel.suggestedRegions)
                 if (entry.feature.properties.id == region)
-                    entry.setStyle(this.getBaseStyle());
+                    entry.setStyle(this.getUserDependendBaseStyle(region));
             for (let region of bulletinInputModel.publishedRegions)
                 if (entry.feature.properties.id == region)
-                    entry.setStyle(this.getBaseStyle());
+                    entry.setStyle(this.getUserDependendBaseStyle(region));
         }
 
         for (let entry of this.overlayMaps.activeSelection.getLayers()) {
