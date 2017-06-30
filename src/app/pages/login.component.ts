@@ -49,12 +49,12 @@ export class LoginComponent {
         this.router.navigate([this.returnUrl]);
       },
       error => {
-        this.loading = false;
         console.error("[" + this.username + "] Login failed: " + JSON.stringify(error._body));
         this.confirmationService.confirm({
           header: this.translateService.instant("login.errorDialog.header"),
           message: this.translateService.instant("login.errorDialog.message"),
           accept: () => {
+            this.loading = false;
           }
         });
         // TODO show error on page
