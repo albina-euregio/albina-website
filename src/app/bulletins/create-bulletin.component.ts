@@ -290,6 +290,8 @@ export class CreateBulletinComponent {
       if (!region.startsWith(this.authenticationService.getUserRegion()))
         suggested.push(region);
     bulletinInputModel.setSuggestedRegions(suggested);
+
+    this.updateAggregatedRegions();
   }
 
   createAggregatedRegion(copy) {
@@ -394,40 +396,8 @@ export class CreateBulletinComponent {
             this.activeBulletinInput.getSuggestedRegions().push(region);
         }
       }
-      this.mapService.resetAggregatedRegions();
 
-      // delete regions from other aggregated regions (one region can only be within one aggregated region on this day)
-      this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-
-        // not selected region
-        if (key != this.activeAggregatedRegionId) {
-
-          // regions saved by me (only in own area possible)
-          for (let region of this.activeBulletinInput.getSavedRegions()) {
-            // region was saved in other aggregated region => delete
-            let index = value.getSavedRegions().indexOf(region);
-            if (index != -1)
-              value.getSavedRegions().splice(index, 1);
-
-            // region was suggested by other user (multiple suggestions possible for same region) => delete all)
-            index = value.getSuggestedRegions().indexOf(region);
-            if (index != -1)
-              value.getSuggestedRegions().splice(index, 1);
-          }
-
-          // regions suggested by me (only in foreign area possible)
-          // region was published => delete suggestion
-          for (let region of value.getPublishedRegions()) {
-            let index = this.activeBulletinInput.getSuggestedRegions().indexOf(region);
-            if (index != -1)
-              this.activeBulletinInput.getSuggestedRegions().splice(index, 1);
-          }
-        }
-
-        this.mapService.addAggregatedRegion(value);
-      });
-      this.mapService.discardAggregatedRegion();
-      this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+      this.updateAggregatedRegions();
 
       // TODO unlock whole day in TN
 
@@ -441,6 +411,43 @@ export class CreateBulletinComponent {
         }
       });
     }
+  }
+
+  private updateAggregatedRegions() {
+    this.mapService.resetAggregatedRegions();
+
+    // delete regions from other aggregated regions (one region can only be within one aggregated region on this day)
+    this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+
+      // not selected region
+      if (key != this.activeAggregatedRegionId) {
+
+        // regions saved by me (only in own area possible)
+        for (let region of this.activeBulletinInput.getSavedRegions()) {
+          // region was saved in other aggregated region => delete
+          let index = value.getSavedRegions().indexOf(region);
+          if (index != -1)
+            value.getSavedRegions().splice(index, 1);
+
+          // region was suggested by other user (multiple suggestions possible for same region) => delete all)
+          index = value.getSuggestedRegions().indexOf(region);
+          if (index != -1)
+            value.getSuggestedRegions().splice(index, 1);
+        }
+
+        // regions suggested by me (only in foreign area possible)
+        // region was published => delete suggestion
+        for (let region of value.getPublishedRegions()) {
+          let index = this.activeBulletinInput.getSuggestedRegions().indexOf(region);
+          if (index != -1)
+            this.activeBulletinInput.getSuggestedRegions().splice(index, 1);
+        }
+      }
+
+      this.mapService.addAggregatedRegion(value);
+    });
+    this.mapService.discardAggregatedRegion();
+    this.mapService.selectAggregatedRegion(this.activeBulletinInput);
   }
 
   hasSuggestions(aggregatedRegionId: string) : boolean {
