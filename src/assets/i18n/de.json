@@ -139,6 +139,11 @@
 				"accept" : "Ja",
 				"reject" : "Nein"
 			},
+			"noRegionDialog" : {
+				"header" : "Fischen in fremden Gewässern",
+				"message" : "Zumindest eine Region muss deine sein.",
+				"accept" : "Ok"
+			},
 			"loadDialog" : {
 				"header" : "Lagebericht vom Vortag laden",
 				"message" : "Willst du den Lagebericht vom Vortag laden?",

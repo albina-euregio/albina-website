@@ -133,6 +133,11 @@
 				"accept" : "TODO",
 				"reject" : "TODO"
 			},
+			"noRegionDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO"
+			},
 			"deleteAggregatedRegionDialog" : {
 				"header" : "TODO",
 				"message" : "TODO",

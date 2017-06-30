@@ -42,6 +42,7 @@ export class CreateBulletinComponent {
   public hasElevationDependency: boolean;
 
   public loading: boolean;
+  public noRegion: boolean;
 
   constructor(
     private translate: TranslateService,
@@ -55,6 +56,7 @@ export class CreateBulletinComponent {
     private confirmationService: ConfirmationService)
   {
     this.loading = true;
+    this.noRegion = false;
   }
 
   reset() {
@@ -330,45 +332,66 @@ export class CreateBulletinComponent {
   }
 
   saveAggregatedRegion(aggregatedRegionId: string) {
-    this.editRegions = false;
-
     // save selected regions to active bulletin input
     let regions = this.mapService.getSelectedRegions();
-    for (var i = regions.length - 1; i >= 0; i--) {
-      if (regions[i].startsWith(this.authenticationService.getUserRegion()))
-        this.activeBulletinInput.getSavedRegions().push(regions[i]);
-      else
-        this.activeBulletinInput.getSuggestedRegions().push(regions[i]);
-    }
-    this.mapService.resetAggregatedRegions();
 
-    // delete regions from other aggregated regions (one region can only be within one aggregated region on this day)
-    this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-      if (key != this.activeAggregatedRegionId) {
-        for (var j = regions.length - 1; j >= 0; j--) {
-          if (this.activeBulletinInput.getSavedRegions().indexOf(regions[j]) != -1) {
-            let index = value.getSavedRegions().indexOf(regions[j]);
-            if (index != -1) {
-              value.getSavedRegions().splice(index, 1);
-            }
-            index = value.getSuggestedRegions().indexOf(regions[j]);
-            if (index != -1) {
-              value.getSuggestedRegions().splice(index, 1);
-            }
-          } else if (this.activeBulletinInput.getSuggestedRegions().indexOf(regions[j]) != -1) {
-            let index = value.getSuggestedRegions().indexOf(regions[j]);
-            if (index != -1) {
-              value.getSuggestedRegions().splice(index, 1);
+    let hit = false;
+    for (let region of regions) {
+      if (region.startsWith(this.authenticationService.getUserRegion())) {
+        hit = true;
+        break
+      }
+    }
+
+    if (hit) {
+      this.editRegions = false;
+
+      for (var i = regions.length - 1; i >= 0; i--) {
+        if (regions[i].startsWith(this.authenticationService.getUserRegion()))
+          this.activeBulletinInput.getSavedRegions().push(regions[i]);
+        else
+          this.activeBulletinInput.getSuggestedRegions().push(regions[i]);
+      }
+      this.mapService.resetAggregatedRegions();
+
+      // delete regions from other aggregated regions (one region can only be within one aggregated region on this day)
+      this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+        if (key != this.activeAggregatedRegionId) {
+          for (var j = regions.length - 1; j >= 0; j--) {
+            if (this.activeBulletinInput.getSavedRegions().indexOf(regions[j]) != -1) {
+              let index = value.getSavedRegions().indexOf(regions[j]);
+              if (index != -1) {
+                value.getSavedRegions().splice(index, 1);
+              }
+              index = value.getSuggestedRegions().indexOf(regions[j]);
+              if (index != -1) {
+                value.getSuggestedRegions().splice(index, 1);
+              }
+            } else if (this.activeBulletinInput.getSuggestedRegions().indexOf(regions[j]) != -1) {
+              let index = value.getSuggestedRegions().indexOf(regions[j]);
+              if (index != -1) {
+                value.getSuggestedRegions().splice(index, 1);
+              }
             }
           }
         }
-      }
-      this.mapService.addAggregatedRegion(value);
-    });
-    this.mapService.discardAggregatedRegion();
-    this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+        this.mapService.addAggregatedRegion(value);
+      });
+      this.mapService.discardAggregatedRegion();
+      this.mapService.selectAggregatedRegion(this.activeBulletinInput);
 
-    // TODO unlock whole day in TN
+      // TODO unlock whole day in TN
+
+    } else {
+      this.noRegion = true;
+      this.confirmationService.confirm({
+        header: this.translateService.instant("bulletins.create.noRegionDialog.header"),
+        message: this.translateService.instant("bulletins.create.noRegionDialog.message"),
+        accept: () => {
+          this.noRegion = false;
+        }
+      });
+    }
   }
 
   discardAggregatedRegion(aggregatedRegionId?: string) {

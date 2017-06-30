@@ -172,7 +172,8 @@
 
 <p-confirmDialog icon="fa fa-question-circle" width="425" #cd>
   <p-footer>
-    <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.discardDialog.reject" | translate }}' (click)="cd.reject()"></button>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.discardDialog.accept" | translate }}' (click)="cd.accept()"></button>
+    <button *ngIf="!noRegion" type="button" pButton icon="fa-close" label='{{ "bulletins.create.discardDialog.reject" | translate }}' (click)="cd.reject()"></button>
+    <button *ngIf="!noRegion" type="button" pButton icon="fa-check" label='{{ "bulletins.create.discardDialog.accept" | translate }}' (click)="cd.accept()"></button>
+    <button *ngIf="noRegion" type="button" pButton icon="fa-check" label='{{ "bulletins.create.noRegionDialog.accept" | translate }}' (click)="cd.accept()"></button>
   </p-footer>
 </p-confirmDialog>

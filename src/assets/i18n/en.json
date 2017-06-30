@@ -133,6 +133,11 @@
 				"accept" : "Yes",
 				"reject" : "No"
 			},
+			"noRegionDialog" : {
+				"header" : "Fishing in foreign waters",
+				"message" : "At least one region has to be yours.",
+				"accept" : "Ok"
+			},
 			"loadDialog" : {
 				"header" : "Load bulletins from the day before",
 				"message" : "Do you want to load the bulletins from the day before?",
