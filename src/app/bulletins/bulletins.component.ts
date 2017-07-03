@@ -103,7 +103,6 @@ export class BulletinsComponent {
 
     this.bulletinsService.checkBulletins(date, this.authenticationService.getUserRegion()).subscribe(
       data => {
-        // TODO create confirmation message
         let result = data.json();
 
         let message = this.translateService.instant("bulletins.table.publishBulletinDialog.message") + '<br><br>';
@@ -141,7 +140,6 @@ export class BulletinsComponent {
       },
       error => {
         console.error("Bulletins could not be checked!");
-        debugger
       }
     );
   }
