@@ -85,9 +85,9 @@ export class CreateBulletinComponent {
           console.error("Bulletins could not be loaded!");
           this.loading = false;
           this.confirmationService.confirm({
-            key: "loadingBulletinsErrorDialog",
-            header: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.header"),
-            message: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.message"),
+            key: "loadingErrorDialog",
+            header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
+            message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
             accept: () => {
               this.goBack();
             }
@@ -111,9 +111,9 @@ export class CreateBulletinComponent {
           console.error("Bulletins could not be loaded!");
           this.loading = false;
           this.confirmationService.confirm({
-            key: "loadingBulletinsErrorDialog",
-            header: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.header"),
-            message: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.message"),
+            key: "loadingErrorDialog",
+            header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
+            message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
             accept: () => {
               this.goBack();
             }

@@ -86,6 +86,11 @@
 			"message" : "There was an error deleting the news!",
 			"accept" : "Ok"
 		},
+		"loadingNewsErrorDialog" : {
+			"header" : "Error loading news",
+			"message" : "There was an error loading the news!",
+			"accept" : "Ok"
+		},
 		"title" : "News",
 		"table" : {
 			"date" : "Date",
@@ -167,6 +172,11 @@
 			"saveErrorDialog" : {
 				"header" : "Error saving bulletins",
 				"message" : "There was an error saving the bulletins!",
+				"accept" : "Ok"
+			},
+			"loadingErrorDialog" : {
+				"header" : "Error loading bulletins",
+				"message" : "There was an error loading the bulletins!",
 				"accept" : "Ok"
 			}
 		},

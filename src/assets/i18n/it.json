@@ -86,6 +86,11 @@
 			"message" : "TODO",
 			"accept" : "TODO"
 		},
+		"loadingNewsErrorDialog" : {
+			"header" : "TODO",
+			"message" : "TODO",
+			"accept" : "TODO"
+		},
 		"title" : "News",
 		"table" : {
 			"date" : "Data",
@@ -158,12 +163,6 @@
 				"message" : "TODO",
 				"accept" : "TODO"
 			},
-			"deleteAggregatedRegionDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO",
-				"reject" : "TODO"
-			},
 			"loadDialog" : {
 				"header" : "TODO",
 				"message" : "TODO",
@@ -171,6 +170,11 @@
 				"reject" : "TODO"
 			},
 			"saveErrorDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO"
+			},
+			"loadingErrorDialog" : {
 				"header" : "TODO",
 				"message" : "TODO",
 				"accept" : "TODO"

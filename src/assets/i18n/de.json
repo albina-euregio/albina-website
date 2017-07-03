@@ -86,6 +86,11 @@
 			"message" : "Beim Löschen der News ist ein Fehler aufgetreten!",
 			"accept" : "Ok"
 		},
+		"loadingNewsErrorDialog" : {
+			"header" : "Fehler beim Laden",
+			"message" : "Beim Laden der News ist ein Fehler aufgetreten!",
+			"accept" : "Ok"
+		},
 		"title" : "Nachrichten",
 		"table" : {
 			"date" : "Datum",
@@ -164,15 +169,14 @@
 				"accept" : "Ja",
 				"reject" : "Nein"
 			},
-			"loadDialog" : {
-				"header" : "Lagebericht vom Vortag laden",
-				"message" : "Willst du den Lagebericht vom Vortag laden?",
-				"accept" : "Ja",
-				"reject" : "Nein"
-			},
 			"saveErrorDialog" : {
 				"header" : "Fehler beim Speichern",
 				"message" : "Beim Speichern der Lageberichte ist ein Fehler aufgetreten!",
+				"accept" : "Ok"
+			},
+			"loadingErrorDialog" : {
+				"header" : "Fehler beim Laden",
+				"message" : "Beim Laden der Lageberichte ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			}
 		},

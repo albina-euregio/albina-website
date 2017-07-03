@@ -16,7 +16,7 @@ export class NewsComponent {
   public newsStatus = Enums.NewsStatus;
 
   constructor(
-  	private translate: TranslateService,
+  	private translateService: TranslateService,
     private settingsService: SettingsService,
 	  private newsService: NewsService,
   	private route: ActivatedRoute,
@@ -39,7 +39,13 @@ export class NewsComponent {
       },
       error => {
         console.error("News could not be loaded!");
-        // TODO
+        this.confirmationService.confirm({
+          key: "loadingNewsErrorDialog",
+          header: this.translateService.instant("news.loadingNewsErrorDialog.header"),
+          message: this.translateService.instant("news.loadingNewsErrorDialog.message"),
+          accept: () => {
+          }
+        });
       }
   	);
   }
@@ -56,8 +62,8 @@ export class NewsComponent {
     event.stopPropagation();
     this.confirmationService.confirm({
       key: "deleteNewsDialog",
-      header: this.translate.instant("news.deleteNewsDialog.header"),
-      message: this.translate.instant("news.deleteNewsDialog.message"),
+      header: this.translateService.instant("news.deleteNewsDialog.header"),
+      message: this.translateService.instant("news.deleteNewsDialog.message"),
       accept: () => {
         this.newsService.deleteNews(item).subscribe(
           data => {
@@ -69,8 +75,8 @@ export class NewsComponent {
             console.error("News could not be deleted!");
             this.confirmationService.confirm({
               key: "deleteNewsErrorDialog",
-              header: this.translate.instant("news.deleteNewsErrorDialog.header"),
-              message: this.translate.instant("news.deleteNewsErrorDialog.message"),
+              header: this.translateService.instant("news.deleteNewsErrorDialog.header"),
+              message: this.translateService.instant("news.deleteNewsErrorDialog.message"),
               accept: () => {
               }
             });
@@ -84,8 +90,8 @@ export class NewsComponent {
     event.stopPropagation();
     this.confirmationService.confirm({
       key: "publishNewsDialog",
-      header: this.translate.instant("news.publishNewsDialog.header"),
-      message: this.translate.instant("news.publishNewsDialog.message"),
+      header: this.translateService.instant("news.publishNewsDialog.header"),
+      message: this.translateService.instant("news.publishNewsDialog.message"),
       accept: () => {
         this.newsService.publishNews(item).subscribe(
           data => {
@@ -96,8 +102,8 @@ export class NewsComponent {
             console.error("News could not be published!");
             this.confirmationService.confirm({
               key: "publishNewsErrorDialog",
-              header: this.translate.instant("news.publishNewsErrorDialog.header"),
-              message: this.translate.instant("news.publishNewsErrorDialog.message"),
+              header: this.translateService.instant("news.publishNewsErrorDialog.header"),
+              message: this.translateService.instant("news.publishNewsErrorDialog.message"),
               accept: () => {
               }
             });
