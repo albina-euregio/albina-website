@@ -74,7 +74,7 @@
   </main>
 
   <!-- Sidebar right -->
-  <aside class="aside-menu">
+  <aside class="aside-menu" style="overflow: auto">
     <div class="p-1">
       <div class="message">
         <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event)"></textarea>
