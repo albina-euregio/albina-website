@@ -171,6 +171,11 @@
 			"publishBulletinDialog" : {
 				"header" : "Publish bulletin",
 				"message" : "Do you want to publish the bulletin?",
+				"missingRegion" : "Regions no rated",
+				"duplicateRegion" : "Regions rated multiple times",
+				"missingAvActivityHighlights" : "Headline avalanche situation missing",
+				"missingAvActivityComment" : "Description of avalanche danger missing",
+				"pendingSuggestions" : "Pending suggestions",
 				"accept" : "Yes",
 				"reject" : "No"
 			}

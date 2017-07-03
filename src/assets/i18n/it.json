@@ -171,6 +171,11 @@
 			"publishBulletinDialog" : {
 				"header" : "TODO",
 				"message" : "TODO",
+				"missingRegion" : "TODO",
+				"duplicateRegion" : "TODO",
+				"missingAvActivityHighlights" : "TODO",
+				"missingAvActivityComment" : "TODO",
+				"pendingSuggestions" : "TODO",
 				"accept" : "TODO",
 				"reject" : "TODO"
 			}

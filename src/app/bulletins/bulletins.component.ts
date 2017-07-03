@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
+import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
@@ -26,6 +27,7 @@ export class BulletinsComponent {
     private bulletinsService: BulletinsService,
     private route: ActivatedRoute,
     private translateService: TranslateService,
+    private authenticationService: AuthenticationService,
     private router: Router,
     private confirmationService: ConfirmationService)
   {
@@ -97,27 +99,51 @@ export class BulletinsComponent {
 
   publish(event, date: Date) {
 
-    // TODO check if all values are set
-
     event.stopPropagation();
 
-    this.confirmationService.confirm({
-      header: this.translateService.instant("bulletins.table.publishBulletinDialog.header"),
-      message: this.translateService.instant("bulletins.table.publishBulletinDialog.message"),
-      accept: () => {
-        this.bulletinsService.publishBulletins(date).subscribe(
-          data => {
-            console.log("Bulletins published.");
-            this.bulletinsService.statusMap.set(date, Enums.BulletinStatus.published);
+    this.bulletinsService.checkBulletins(date, this.authenticationService.getUserRegion()).subscribe(
+      data => {
+        // TODO create confirmation message
+        let result = data.json();
+
+        let message = this.translateService.instant("bulletins.table.publishBulletinDialog.message") + '<br><br>';
+
+        for (let entry of result) {
+          if (entry == 'missingRegion')
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinDialog.missingRegion") + '<br>';
+          if (entry == 'duplicateRegion')
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinDialog.duplicateRegion") + '<br>';
+          if (entry == 'missingAvActivityHighlights')
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinDialog.missingAvActivityHighlights") + '<br>';
+          if (entry == 'missingAvActivityComment')
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinDialog.missingAvActivityComment") + '<br>';
+          if (entry == 'pendingSuggestions')
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinDialog.pendingSuggestions");
+        }
+
+        this.confirmationService.confirm({
+          header: this.translateService.instant("bulletins.table.publishBulletinDialog.header"),
+          message: message,
+          accept: () => {
+            this.bulletinsService.publishBulletins(date, this.authenticationService.getUserRegion()).subscribe(
+              data => {
+                console.log("Bulletins published.");
+                this.bulletinsService.statusMap.set(date, Enums.BulletinStatus.published);
+              },
+              error => {
+                console.error("Bulletins could not be published!");
+              }
+            );
           },
-          error => {
-            console.error("Bulletins could not be published!");
+          reject: () => {
           }
-        );
+        });
       },
-      reject: () => {
+      error => {
+        console.error("Bulletins could not be checked!");
+        debugger
       }
-    });
+    );
   }
 
   @HostListener('document:keydown', ['$event'])

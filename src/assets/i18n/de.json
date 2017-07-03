@@ -177,6 +177,11 @@
 			"publishBulletinDialog" : {
 				"header" : "Lagebericht publizieren",
 				"message" : "Willst du den Lagebericht publizieren?",
+				"missingRegion" : "Regionen nicht beurteilt",
+				"duplicateRegion" : "Regionen mehrfach beurteilt",
+				"missingAvActivityHighlights" : "Schlagzeile Gefahrensituation fehlt",
+				"missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
+				"pendingSuggestions" : "Unbeantwortete Vorschläge",
 				"accept" : "Ja",
 				"reject" : "Nein"
 			}

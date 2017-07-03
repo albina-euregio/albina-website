@@ -139,8 +139,8 @@ export class BulletinsService {
     return this.http.delete(url, options);
   }
 
-  publishBulletins(date: Date) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins/' + this.constantsService.getISOStringWithTimezoneOffset(date) + "/publish";
+  publishBulletins(date: Date, region: string) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/publish?date=' + this.constantsService.getISOStringWithTimezoneOffset(date) + '&region=' + region;
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
@@ -150,6 +150,18 @@ export class BulletinsService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(url, body, options);
+  }
+
+  checkBulletins(date: Date, region: string) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/check?date=' + this.constantsService.getISOStringWithTimezoneOffset(date) + '&region=' + region;
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(url, options);
   }
 
   sendMessage() {

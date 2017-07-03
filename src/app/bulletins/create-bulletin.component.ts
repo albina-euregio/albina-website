@@ -92,7 +92,6 @@ export class CreateBulletinComponent {
     } else {
       this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
         data => {
-          debugger
           let response = data.json();
           for (let jsonBulletin of response) {
             let bulletin = BulletinModel.createFromJson(jsonBulletin);
