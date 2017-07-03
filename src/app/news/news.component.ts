@@ -55,6 +55,7 @@ export class NewsComponent {
   deleteNews(event, item: NewsModel) {
     event.stopPropagation();
     this.confirmationService.confirm({
+      key: "deleteNewsDialog",
       header: this.translate.instant("news.deleteNewsDialog.header"),
       message: this.translate.instant("news.deleteNewsDialog.message"),
       accept: () => {
@@ -66,7 +67,13 @@ export class NewsComponent {
           },
           error => {
             console.error("News could not be deleted!");
-            // TODO
+            this.confirmationService.confirm({
+              key: "deleteNewsErrorDialog",
+              header: this.translate.instant("news.deleteNewsErrorDialog.header"),
+              message: this.translate.instant("news.deleteNewsErrorDialog.message"),
+              accept: () => {
+              }
+            });
           }
         );
       }
@@ -76,6 +83,7 @@ export class NewsComponent {
   publishNews(event, item: NewsModel) {
     event.stopPropagation();
     this.confirmationService.confirm({
+      key: "publishNewsDialog",
       header: this.translate.instant("news.publishNewsDialog.header"),
       message: this.translate.instant("news.publishNewsDialog.message"),
       accept: () => {
@@ -86,7 +94,13 @@ export class NewsComponent {
           },
           error => {
             console.error("News could not be published!");
-            // TODO
+            this.confirmationService.confirm({
+              key: "publishNewsErrorDialog",
+              header: this.translate.instant("news.publishNewsErrorDialog.header"),
+              message: this.translate.instant("news.publishNewsErrorDialog.message"),
+              accept: () => {
+              }
+            });
           }
         );
       }

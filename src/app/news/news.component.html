@@ -42,9 +42,21 @@
   <!--/.row-->
 </div>
 
-<p-confirmDialog width="425" #cd>
+<p-confirmDialog width="425" #deleteNewsDialog>
   <p-footer>
-    <button type="button" pButton label='{{ "news.deleteNewsDialog.reject" | translate }}' (click)="cd.reject()"></button>
-    <button type="button" pButton label='{{ "news.deleteNewsDialog.accept" | translate }}' (click)="cd.accept()"></button>
+    <button type="button" pButton label='{{ "news.deleteNewsDialog.reject" | translate }}' (click)="deleteNewsDialog.reject()"></button>
+    <button type="button" pButton label='{{ "news.deleteNewsDialog.accept" | translate }}' (click)="deleteNewsDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-confirmDialog width="425" #publishNewsDialog>
+  <p-footer>
+    <button type="button" pButton label='{{ "news.publishNewsDialog.accept" | translate }}' (click)="publishNewsDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-confirmDialog width="425" #deleteNewsDialog>
+  <p-footer>
+    <button type="button" pButton label='{{ "news.deleteNewsDialog.accept" | translate }}' (click)="deleteNewsDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>

@@ -20,29 +20,35 @@
             <tbody>
               <tr *ngFor="let date of dates" (click)="editBulletin(date)">
                 <td>{{ date | date:'fullDate' }}</td>
-                <td *ngIf="loading">
+                <td *ngIf="loadingTrentino">
                   <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                 </td>
                 <td>
-                  <span *ngIf="!loading && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
+                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
+                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
+                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
+                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
+                </td>
+                <td *ngIf="loadingSouthTyrol">
+                  <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                 </td>
                 <td>
-                  <span *ngIf="!loading && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
+                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
+                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
+                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
+                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
+                </td>
+                <td *ngIf="loadingTyrol">
+                  <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                 </td>
                 <td>
-                  <span *ngIf="!loading && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
+                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
+                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
+                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
+                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
                 </td>
                 <td>
-                  <button *ngIf="bulletinsService.getUserRegionStatus(date) && bulletinsService.getUserRegionStatus(date) != bulletinStatus.missing && !copying && !loading" type="button" class="btn btn-secondary btn-sm" (click)="copy($event, date)"><i class="fa fa-copy"></i></button>
+                  <button *ngIf="bulletinsService.getUserRegionStatus(date) && bulletinsService.getUserRegionStatus(date) != bulletinStatus.missing && !copying && !loadingTrentino && !loadingSouthTyrol && !loadingTyrol" type="button" class="btn btn-secondary btn-sm" (click)="copy($event, date)"><i class="fa fa-copy"></i></button>
                   <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.draft && !copying" type="button" class="btn btn-danger btn-sm" (click)="publish($event, date)"><i class="fa fa-send"></i></button>
                   <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.published && !copying" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-file-text" (click)="showCaaml(date)"></i></button>
                   <button *ngIf="bulletinsService.getUserRegionStatus(date) != bulletinStatus.published && copying && this.bulletinsService.getCopyDate() != date" type="button" class="btn btn-secondary btn-sm" (click)="paste($event, date)"><i class="fa fa-paste"></i></button>
@@ -58,9 +64,23 @@
   <!--/.row-->
 </div>
 
-<p-confirmDialog width="425" #cd>
+<p-confirmDialog width="425" #publishBulletinsDialog>
   <p-footer>
-    <button type="button" pButton label='{{ "bulletins.table.publishBulletinDialog.reject" | translate }}' (click)="cd.reject()"></button>
-    <button type="button" pButton label='{{ "bulletins.table.publishBulletinDialog.accept" | translate }}' (click)="cd.accept()"></button>
+    <button type="button" pButton label='{{ "bulletins.table.publishBulletinsDialog.reject" | translate }}' (click)="publishBulletinsDialog.reject()"></button>
+    <button type="button" pButton label='{{ "bulletins.table.publishBulletinsDialog.accept" | translate }}' (click)="publishBulletinsDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-confirmDialog width="425" #publishBulletinsErrorDialog>
+  <p-footer>
+    <button type="button" pButton label='{{ "bulletins.table.publishBulletinsErrorDialog.reject" | translate }}' (click)="publishBulletinsErrorDialog.reject()"></button>
+    <button type="button" pButton label='{{ "bulletins.table.publishBulletinsErrorDialog.accept" | translate }}' (click)="publishBulletinsErrorDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-confirmDialog width="425" #checkBulletinsErrorDialog>
+  <p-footer>
+    <button type="button" pButton label='{{ "bulletins.table.checkBulletinsErrorDialog.reject" | translate }}' (click)="checkBulletinsErrorDialog.reject()"></button>
+    <button type="button" pButton label='{{ "bulletins.table.checkBulletinsErrorDialog.accept" | translate }}' (click)="checkBulletinsErrorDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>

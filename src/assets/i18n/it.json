@@ -52,6 +52,16 @@
 				"message" : "TODO",
 				"accept" : "TODO",
 				"reject" : "TODO"
+			},
+			"saveErrorDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO"
+			},
+			"updateErrorDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO"
 			}
 		},
 		"deleteNewsDialog" : {
@@ -60,11 +70,21 @@
 			"accept" : "TODO",
 			"reject" : "TODO"
 		},
-		"deleteNewsDialog" : {
+		"publishNewsDialog" : {
 			"header" : "TODO",
 			"message" : "TODO",
 			"accept" : "TODO",
 			"reject" : "TODO"
+		},
+		"publishNewsErrorDialog" : {
+			"header" : "TODO",
+			"message" : "TODO",
+			"accept" : "TODO"
+		},
+		"deleteNewsErrorDialog" : {
+			"header" : "TODO",
+			"message" : "TODO",
+			"accept" : "TODO"
 		},
 		"title" : "News",
 		"table" : {
@@ -179,7 +199,7 @@
 			"button" : {
 				"publish" : "TODO"
 			},
-			"publishBulletinDialog" : {
+			"publishBulletinsDialog" : {
 				"header" : "TODO",
 				"message" : "TODO",
 				"missingRegion" : "TODO",
@@ -189,6 +209,16 @@
 				"pendingSuggestions" : "TODO",
 				"accept" : "TODO",
 				"reject" : "TODO"
+			},
+			"publishBulletinsErrorDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO",
+			},
+			"checkBulletinsErrorDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO",
 			}
 		},
 		"caaml" : {

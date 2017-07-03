@@ -52,6 +52,16 @@
 				"message" : "Do you want to discard the changes?",
 				"accept" : "Yes",
 				"reject" : "No"
+			},
+			"saveErrorDialog" : {
+				"header" : "Error saving news",
+				"message" : "There was an error saving the news!",
+				"accept" : "Ok"
+			},
+			"updateErrorDialog" : {
+				"header" : "Error updating news",
+				"message" : "There was an error updating the news!",
+				"accept" : "Ok"
 			}
 		},
 		"deleteNewsDialog" : {
@@ -60,11 +70,21 @@
 			"accept" : "Yes",
 			"reject" : "No"
 		},
-		"deleteNewsDialog" : {
+		"publishNewsDialog" : {
 			"header" : "Publish news",
 			"message" : "Do you want to publish the news?",
 			"accept" : "Yes",
 			"reject" : "No"
+		},
+		"publishNewsErrorDialog" : {
+			"header" : "Error publishing news",
+			"message" : "There was an error publishing the news!",
+			"accept" : "Ok"
+		},
+		"publishNewsErrorDialog" : {
+			"header" : "Error deleting news",
+			"message" : "There was an error deleting the news!",
+			"accept" : "Ok"
 		},
 		"title" : "News",
 		"table" : {
@@ -173,7 +193,7 @@
 			"button" : {
 				"publish" : "Publish"
 			},
-			"publishBulletinDialog" : {
+			"publishBulletinsDialog" : {
 				"header" : "Publish bulletin",
 				"message" : "Do you want to publish the bulletin?",
 				"missingRegion" : "Regions no rated",
@@ -183,6 +203,16 @@
 				"pendingSuggestions" : "Pending suggestions",
 				"accept" : "Yes",
 				"reject" : "No"
+			},
+			"publishBulletinsErrorDialog" : {
+				"header" : "Error deleting bulletins",
+				"message" : "There was an error deleting the bulletins!",
+				"accept" : "Ok"
+			},
+			"checkBulletinsErrorDialog" : {
+				"header" : "Error checking bulletins",
+				"message" : "There was an error checking the bulletins!",
+				"accept" : "Ok"
 			}
 		},
 		"caaml" : {

@@ -18,7 +18,9 @@ export class BulletinsComponent {
 
   public dates: Date[];
 
-  public loading: boolean;
+  public loadingTrentino: boolean;
+  public loadingSouthTyrol: boolean;
+  public loadingTyrol: boolean;
   public copying: boolean;
   public copyDate: Date;
 
@@ -32,13 +34,17 @@ export class BulletinsComponent {
     private confirmationService: ConfirmationService)
   {
     this.dates = new Array<Date>();
-    this.loading = false;
+    this.loadingTrentino = false;
+    this.loadingSouthTyrol = false;
+    this.loadingTyrol = false;
     this.copying = false;
     this.copyDate = undefined;
   }
 
   ngOnInit() {
-    this.loading = true;
+    this.loadingTrentino = true;
+    this.loadingSouthTyrol = true;
+    this.loadingTyrol = true;
 
     let observableBatchTrentino = [];
     let observableBatchSouthTyrol = [];
@@ -61,11 +67,11 @@ export class BulletinsComponent {
       data => {
         for (var i = this.dates.length - 1; i >= 0; i--)
           this.bulletinsService.statusMapTrentino.set(this.dates[i], Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
-        this.loading = false;
+        this.loadingTrentino = false;
       },
       error => {
         console.error("Status Trentino could not be loaded!");
-        this.loading = false;
+        this.loadingTrentino = false;
       }
     );
 
@@ -73,11 +79,11 @@ export class BulletinsComponent {
       data => {
         for (var i = this.dates.length - 1; i >= 0; i--)
           this.bulletinsService.statusMapSouthTyrol.set(this.dates[i], Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
-        this.loading = false;
+        this.loadingSouthTyrol = false;
       },
       error => {
         console.error("Status South Tyrol could not be loaded!");
-        this.loading = false;
+        this.loadingSouthTyrol = false;
       }
     );
 
@@ -85,17 +91,19 @@ export class BulletinsComponent {
       data => {
         for (var i = this.dates.length - 1; i >= 0; i--)
           this.bulletinsService.statusMapTyrol.set(this.dates[i], Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
-        this.loading = false;
+        this.loadingTyrol = false;
       },
       error => {
         console.error("Status Tyrol could not be loaded!");
-        this.loading = false;
+        this.loadingTyrol = false;
       }
     );
   }
 
   ngOnDestroy() {
-    this.loading = false;
+    this.loadingTrentino = false;
+    this.loadingSouthTyrol = false;
+    this.loadingTyrol = false;
     this.copying = false;
     this.copyDate = undefined;
   }
@@ -136,23 +144,24 @@ export class BulletinsComponent {
       data => {
         let result = data.json();
 
-        let message = this.translateService.instant("bulletins.table.publishBulletinDialog.message") + '<br><br>';
+        let message = this.translateService.instant("bulletins.table.publishBulletinsDialog.message") + '<br><br>';
 
         for (let entry of result) {
           if (entry == 'missingRegion')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinDialog.missingRegion") + '<br>';
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingRegion") + '<br>';
           if (entry == 'duplicateRegion')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinDialog.duplicateRegion") + '<br>';
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.duplicateRegion") + '<br>';
           if (entry == 'missingAvActivityHighlights')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinDialog.missingAvActivityHighlights") + '<br>';
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingAvActivityHighlights") + '<br>';
           if (entry == 'missingAvActivityComment')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinDialog.missingAvActivityComment") + '<br>';
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingAvActivityComment") + '<br>';
           if (entry == 'pendingSuggestions')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinDialog.pendingSuggestions");
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.pendingSuggestions");
         }
 
         this.confirmationService.confirm({
-          header: this.translateService.instant("bulletins.table.publishBulletinDialog.header"),
+          key: "publishBulletinsDialog",
+          header: this.translateService.instant("bulletins.table.publishBulletinsDialog.header"),
           message: message,
           accept: () => {
             this.bulletinsService.publishBulletins(date, this.authenticationService.getUserRegion()).subscribe(
@@ -162,6 +171,13 @@ export class BulletinsComponent {
               },
               error => {
                 console.error("Bulletins could not be published!");
+                this.confirmationService.confirm({
+                  key: "publishBulletinsErrorDialog",
+                  header: this.translate.instant("bulletins.table.publishBulletinsErrorDialog.header"),
+                  message: this.translate.instant("bulletins.table.publishBulletinsErrorDialog.message"),
+                  accept: () => {
+                  }
+                });
               }
             );
           },
@@ -171,6 +187,13 @@ export class BulletinsComponent {
       },
       error => {
         console.error("Bulletins could not be checked!");
+        this.confirmationService.confirm({
+          key: "checkBulletinsErrorDialog",
+          header: this.translate.instant("bulletins.table.checkBulletinsErrorDialog.header"),
+          message: this.translate.instant("bulletins.table.checkBulletinsErrorDialog.message"),
+          accept: () => {
+          }
+        });
       }
     );
   }

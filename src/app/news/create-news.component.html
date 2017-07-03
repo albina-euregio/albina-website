@@ -63,9 +63,21 @@
   </div><!--/.row-->
 </div>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #cd>
+<p-confirmDialog icon="fa fa-question-circle" width="425" #discardDialog>
   <p-footer>
-    <button type="button" pButton icon="fa-close" label='{{ "news.create.discardDialog.reject" | translate }}' (click)="cd.reject()"></button>
-    <button type="button" pButton icon="fa-check" label='{{ "news.create.discardDialog.accept" | translate }}' (click)="cd.accept()"></button>
+    <button type="button" pButton icon="fa-close" label='{{ "news.create.discardDialog.reject" | translate }}' (click)="discardDialog.reject()"></button>
+    <button type="button" pButton icon="fa-check" label='{{ "news.create.discardDialog.accept" | translate }}' (click)="discardDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-confirmDialog icon="fa fa-question-circle" width="425" #saveErrorDialog>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" label='{{ "news.create.saveErrorDialog.accept" | translate }}' (click)="saveErrorDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-confirmDialog icon="fa fa-question-circle" width="425" #updateErrorDialog>
+  <p-footer>
+    <button type="button" pButton icon="fa-check" label='{{ "news.create.updateErrorDialog.accept" | translate }}' (click)="updateErrorDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>

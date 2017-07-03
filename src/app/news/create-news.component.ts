@@ -83,32 +83,34 @@ export class CreateNewsComponent {
     		data => {
     			console.log("News updated on server.");
           this.newsService.setActiveNews(undefined);
-
-          // TODO show toast
-
     			this.router.navigate(['/news']);
     		},
     		error => {
     			console.error("News could not be updated on server!");
-
-    			// TODO show toast
-
+          this.confirmationService.confirm({
+            key: "updateErrorDialog",
+            header: this.translate.instant("news.create.updateErrorDialog.header"),
+            message: this.translate.instant("news.create.updateErrorDialog.message"),
+            accept: () => {
+            }
+          });
     		}
     	);
     } else {
       this.newsService.saveNews(news).subscribe(
         data => {
           console.log("News saved on server.");
-
-          // TODO show toast
-
           this.router.navigate(['/news']);
         },
         error => {
           console.error("News could not be saved on server!");
-
-          // TODO show toast
-
+          this.confirmationService.confirm({
+            key: "saveErrorDialog",
+            header: this.translate.instant("news.create.saveErrorDialog.header"),
+            message: this.translate.instant("news.create.saveErrorDialog.message"),
+            accept: () => {
+            }
+          });
         }
       );
     }
@@ -116,6 +118,7 @@ export class CreateNewsComponent {
 
   discard() {
     this.confirmationService.confirm({
+      key: "discardDialog",
       header: this.translate.instant("news.create.discardDialog.header"),
       message: this.translate.instant("news.create.discardDialog.message"),
       accept: () => {
