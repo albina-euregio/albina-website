@@ -40,24 +40,55 @@ export class BulletinsComponent {
   ngOnInit() {
     this.loading = true;
 
-    let observableBatch = [];
+    let observableBatchTrentino = [];
+    let observableBatchSouthTyrol = [];
+    let observableBatchTyrol = [];
 
     for (let i = 0; i <= 10; i++) {
       let date = new Date();
       date.setDate(date.getDate() + 3 - i);
       date.setHours(0, 0, 0, 0);
       this.dates.push(date);
-      observableBatch.push(this.bulletinsService.getStatus("IT-32-TN", date));
     }
 
-    Observable.forkJoin(observableBatch).subscribe(
+    for (let date of this.dates) {
+      observableBatchTrentino.push(this.bulletinsService.getStatus("IT-32-TN", date));
+      observableBatchSouthTyrol.push(this.bulletinsService.getStatus("IT-32-BZ", date));
+      observableBatchTyrol.push(this.bulletinsService.getStatus("AT-07", date));
+    }
+
+    Observable.forkJoin(observableBatchTrentino).subscribe(
       data => {
         for (var i = this.dates.length - 1; i >= 0; i--)
-          this.bulletinsService.statusMap.set(this.dates[i], Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
+          this.bulletinsService.statusMapTrentino.set(this.dates[i], Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
         this.loading = false;
       },
       error => {
-        console.error("Status could not be loaded!");
+        console.error("Status Trentino could not be loaded!");
+        this.loading = false;
+      }
+    );
+
+    Observable.forkJoin(observableBatchSouthTyrol).subscribe(
+      data => {
+        for (var i = this.dates.length - 1; i >= 0; i--)
+          this.bulletinsService.statusMapSouthTyrol.set(this.dates[i], Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
+        this.loading = false;
+      },
+      error => {
+        console.error("Status South Tyrol could not be loaded!");
+        this.loading = false;
+      }
+    );
+
+    Observable.forkJoin(observableBatchTyrol).subscribe(
+      data => {
+        for (var i = this.dates.length - 1; i >= 0; i--)
+          this.bulletinsService.statusMapTyrol.set(this.dates[i], Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
+        this.loading = false;
+      },
+      error => {
+        console.error("Status Tyrol could not be loaded!");
         this.loading = false;
       }
     );
@@ -72,7 +103,7 @@ export class BulletinsComponent {
   editBulletin(date: Date, copyDate?: Date) {
     if (!this.copying) {
       this.bulletinsService.setActiveDate(date);
-      if (this.bulletinsService.statusMap.get(date) === Enums.BulletinStatus.published) {
+      if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published) {
         this.bulletinsService.setIsEditable(false);
         this.router.navigate(['/bulletins/show']);
       } else {
@@ -127,7 +158,7 @@ export class BulletinsComponent {
             this.bulletinsService.publishBulletins(date, this.authenticationService.getUserRegion()).subscribe(
               data => {
                 console.log("Bulletins published.");
-                this.bulletinsService.statusMap.set(date, Enums.BulletinStatus.published);
+                this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.published);
               },
               error => {
                 console.error("Bulletins could not be published!");

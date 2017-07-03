@@ -16,7 +16,9 @@ export class BulletinsService {
   private copyDate: Date;
   private isEditable: boolean;
 
-  public statusMap: Map<Date, Enums.BulletinStatus>;
+  public statusMapTrentino: Map<Date, Enums.BulletinStatus>;
+  public statusMapSouthTyrol: Map<Date, Enums.BulletinStatus>;
+  public statusMapTyrol: Map<Date, Enums.BulletinStatus>;
 
   private socket;
 
@@ -28,7 +30,9 @@ export class BulletinsService {
     this.activeDate = undefined;
     this.copyDate = undefined;
     this.isEditable = false;
-    this.statusMap = new Map<Date, Enums.BulletinStatus>();
+    this.statusMapTrentino = new Map<Date, Enums.BulletinStatus>();
+    this.statusMapSouthTyrol = new Map<Date, Enums.BulletinStatus>();
+    this.statusMapTyrol = new Map<Date, Enums.BulletinStatus>();
   }
 
   getActiveDate() : Date {
@@ -53,6 +57,36 @@ export class BulletinsService {
 
   setIsEditable(isEditable: boolean) {
     this.isEditable = isEditable;
+  }
+
+  getUserRegionStatus(date: Date) : Enums.BulletinStatus {
+    let region = this.authenticationService.getUserRegion();
+    switch (region) {
+      case "IT-32-TN":
+        return this.statusMapTrentino.get(date);
+      case "IT-32-BZ":
+        return this.statusMapSouthTyrol.get(date);
+      case "AT-07":
+        return this.statusMapTyrol.get(date);
+      
+      default:
+        return undefined;
+    }
+  }
+  
+  setUserRegionStatus(date: Date, status: Enums.BulletinStatus) {
+    let region = this.authenticationService.getUserRegion();
+    switch (region) {
+      case "IT-32-TN":
+        this.statusMapTrentino.set(date, status);
+      case "IT-32-BZ":
+        this.statusMapSouthTyrol.set(date, status);
+      case "AT-07":
+        this.statusMapTyrol.set(date, status);
+      
+      default:
+        return undefined;
+    }
   }
   
   getStatus(region: string, date: Date) : Observable<Response> {

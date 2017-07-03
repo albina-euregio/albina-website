@@ -155,7 +155,7 @@
 			"title" : {
 				"date" : "Datum",
 				"status" : {
-					"trentino" : "Status",
+					"trentino" : "Trentino",
 					"southTyrol" : "Südtirol",
 					"tyrol" : "Tirol"
 				},

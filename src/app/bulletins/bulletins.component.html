@@ -13,6 +13,8 @@
               <tr>
                 <th>{{ "bulletins.table.title.date" | translate }}</th>
                 <th>{{ "bulletins.table.title.status.trentino" | translate }}</th>
+                <th>{{ "bulletins.table.title.status.southTyrol" | translate }}</th>
+                <th>{{ "bulletins.table.title.status.tyrol" | translate }}</th>
               </tr>
             </thead>
             <tbody>
@@ -22,16 +24,28 @@
                   <i class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                 </td>
                 <td>
-                  <span *ngIf="!loading && bulletinsService.statusMap.get(date) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMap.get(date) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMap.get(date) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
-                  <span *ngIf="!loading && bulletinsService.statusMap.get(date) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
+                  <span *ngIf="!loading && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
+                  <span *ngIf="!loading && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
+                  <span *ngIf="!loading && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
+                  <span *ngIf="!loading && bulletinsService.statusMapTrentino.get(date) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
                 </td>
                 <td>
-                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.missing && !copying && !loading" type="button" class="btn btn-secondary btn-sm" (click)="copy($event, date)"><i class="fa fa-copy"></i></button>
-                  <button *ngIf="bulletinsService.statusMap.get(date) == bulletinStatus.draft && !copying" type="button" class="btn btn-danger btn-sm" (click)="publish($event, date)"><i class="fa fa-send"></i></button>
-                  <button *ngIf="bulletinsService.statusMap.get(date) == bulletinStatus.published && !copying" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-file-text" (click)="showCaaml(date)"></i></button>
-                  <button *ngIf="bulletinsService.statusMap.get(date) != bulletinStatus.published && copying && this.bulletinsService.getCopyDate() != date" type="button" class="btn btn-secondary btn-sm" (click)="paste($event, date)"><i class="fa fa-paste"></i></button>
+                  <span *ngIf="!loading && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
+                  <span *ngIf="!loading && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
+                  <span *ngIf="!loading && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
+                  <span *ngIf="!loading && bulletinsService.statusMapSouthTyrol.get(date) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
+                </td>
+                <td>
+                  <span *ngIf="!loading && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
+                  <span *ngIf="!loading && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
+                  <span *ngIf="!loading && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
+                  <span *ngIf="!loading && bulletinsService.statusMapTyrol.get(date) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
+                </td>
+                <td>
+                  <button *ngIf="bulletinsService.getUserRegionStatus(date) && bulletinsService.getUserRegionStatus(date) != bulletinStatus.missing && !copying && !loading" type="button" class="btn btn-secondary btn-sm" (click)="copy($event, date)"><i class="fa fa-copy"></i></button>
+                  <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.draft && !copying" type="button" class="btn btn-danger btn-sm" (click)="publish($event, date)"><i class="fa fa-send"></i></button>
+                  <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.published && !copying" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-file-text" (click)="showCaaml(date)"></i></button>
+                  <button *ngIf="bulletinsService.getUserRegionStatus(date) != bulletinStatus.published && copying && this.bulletinsService.getCopyDate() != date" type="button" class="btn btn-secondary btn-sm" (click)="paste($event, date)"><i class="fa fa-paste"></i></button>
                 </td>
               </tr>
             </tbody>
