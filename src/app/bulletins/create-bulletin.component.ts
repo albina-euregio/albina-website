@@ -275,9 +275,20 @@ export class CreateBulletinComponent {
     let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
     let suggested = new Array<String>();
     for (let region of bulletinInputModel.getSuggestedRegions())
-      if (region.startsWith(this.authenticationService.getUserRegion()))
+      if (region.startsWith(this.authenticationService.getUserRegion())) {
+
+        // delete region from other bulletinInputModels
+        this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+          let savedRegions = new Array<String>();
+          for (let entry of value.getSavedRegions()) {
+            if (entry != region)
+              savedRegions.push(entry);
+          }
+          value.setSavedRegions(savedRegions);
+        });
+
         bulletinInputModel.getSavedRegions().push(region);
-      else
+      } else
         suggested.push(region);
     bulletinInputModel.setSuggestedRegions(suggested);
   }
@@ -374,18 +385,45 @@ export class CreateBulletinComponent {
     // save selected regions to active bulletin input
     let regions = this.mapService.getSelectedRegions();
 
-    let hit = false;
-    for (let region of regions) {
+    let oldRegionsHit = false;
+    for (let region of this.activeBulletinInput.getSavedRegions()) {
       if (region.startsWith(this.authenticationService.getUserRegion())) {
-        hit = true;
+        oldRegionsHit = true;
         break
       }
     }
 
-    if (hit) {
+    let newRegionsHit = false;
+    for (let region of regions) {
+      if (region.startsWith(this.authenticationService.getUserRegion())) {
+        newRegionsHit = true;
+        break
+      }
+    }
+
+    if (newRegionsHit || oldRegionsHit) {
       this.editRegions = false;
 
-      // TODO do not delete regions not in own area
+      // delete old saved regions in own area
+      let oldSavedRegions = new Array<String>();
+      for (let region of this.activeBulletinInput.getSavedRegions())
+        if (region.startsWith(this.authenticationService.getUserRegion()))
+          oldSavedRegions.push(region);
+      for (let region of oldSavedRegions) {
+        let index = this.activeBulletinInput.getSavedRegions().indexOf(region);
+        this.activeBulletinInput.getSavedRegions().splice(index, 1);
+      }
+
+      // delete old suggested regions outside own area
+      let oldSuggestedRegions = new Array<String>();
+      for (let region of this.activeBulletinInput.getSuggestedRegions())
+        if (!region.startsWith(this.authenticationService.getUserRegion()))
+          oldSuggestedRegions.push(region);
+      for (let region of oldSuggestedRegions) {
+        let index = this.activeBulletinInput.getSuggestedRegions().indexOf(region);
+        this.activeBulletinInput.getSuggestedRegions().splice(index, 1);
+      }
+
       for (let region of regions) {
         if (region.startsWith(this.authenticationService.getUserRegion())) {
           if (this.activeBulletinInput.getSavedRegions().indexOf(region) == -1)
