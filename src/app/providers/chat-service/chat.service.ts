@@ -10,7 +10,7 @@ import { ChatMessageModel } from '../../models/chat-message.model';
 export class ChatService {
 
   public chatMessages: ChatMessageModel[];
-  private newMessageCount: number;
+  public newMessageCount: number;
 
   private socket;
 
@@ -35,6 +35,18 @@ export class ChatService {
       if (message.getUsername() != this.authenticationService.getUsername())
         this.newMessageCount++;
     }.bind(this));
+  }
+
+  getMessages() : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'chat';
+    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(url, options);
   }
 
   sendMessage(text: string) {
