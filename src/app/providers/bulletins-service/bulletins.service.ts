@@ -90,7 +90,6 @@ export class BulletinsService {
   }
   
   getStatus(region: string, date: Date) : Observable<Response> {
-    // TODO check how to encode date with timezone in url
     let url = this.constantsService.getServerUrl() + 'bulletins/status?date=' + this.constantsService.getISOStringWithTimezoneOffset(date) + '&region=' + region;
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({
@@ -103,7 +102,6 @@ export class BulletinsService {
   }
 
   loadBulletins(date: Date, regions?: String[]) : Observable<Response> {
-    // TODO check how to encode date with timezone in url
     let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffset(date);
     if (regions) {
       for (let region of regions)
@@ -120,7 +118,6 @@ export class BulletinsService {
   }
 
   loadCaamlBulletins(date: Date) : Observable<Response> {
-    // TODO check how to encode date with timezone in url
     let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffset(date);
     let authHeader = 'Bearer ' + this.authenticationService.getToken();
     let headers = new Headers({

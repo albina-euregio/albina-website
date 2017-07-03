@@ -144,6 +144,17 @@
 				"accept" : "TODO",
 				"reject" : "TODO"
 			},
+			"loadDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO",
+				"reject" : "TODO"
+			},
+			"saveErrorDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO"
+			}
 		},
 		"table" : {
 			"title" : {
@@ -181,7 +192,12 @@
 			}
 		},
 		"caaml" : {
-			"title" : "CAAML"
+			"title" : "CAAML",
+			"caamlNotLoadedDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"accept" : "TODO"
+			}
 		}
 	},
 

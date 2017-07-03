@@ -143,6 +143,11 @@
 				"message" : "Do you want to load the bulletins from the day before?",
 				"accept" : "Yes",
 				"reject" : "No"
+			},
+			"saveErrorDialog" : {
+				"header" : "Error saving bulletins",
+				"message" : "There was an error saving the bulletins!",
+				"accept" : "Ok"
 			}
 		},
 		"table" : {
@@ -181,7 +186,12 @@
 			}
 		},
 		"caaml" : {
-			"title" : "CAAML"
+			"title" : "CAAML",
+			"caamlNotLoadedDialog" : {
+				"header" : "CAAML",
+				"message" : "CAAML could not be loaded!",
+				"accept" : "Ok"
+			}
 		}
 	},
 

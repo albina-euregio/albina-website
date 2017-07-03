@@ -55,7 +55,6 @@ export class BulletinsService {
   }
 
   loadBulletins(from: Date) : Observable<Response> {
-    // TODO load correct bulletins (from is the start at 00:00)
     let response;
     if (from.getDate() == (new Date()).getDate()) {
       response = new ResponseOptions({
@@ -72,7 +71,6 @@ export class BulletinsService {
   }
 
   loadCaamlBulletins(from: Date) : Observable<Response> {
-    // TODO load correct caaml bulletins (from is the start at 00:00)
     let response;
     if (from.getDate() == (new Date()).getDate()) {
       response = new ResponseOptions({

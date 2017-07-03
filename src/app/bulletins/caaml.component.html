@@ -22,3 +22,9 @@
   </div>
   <!--/.row-->
 </div>
+
+<p-confirmDialog icon="fa fa-question-circle" width="425" #caamlNotLoadedDialog key="caamlNotLoadedDialog">
+  <p-footer>
+    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.caamlNotLoadedDialog.accept" | translate }}' (click)="caamlNotLoadedDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

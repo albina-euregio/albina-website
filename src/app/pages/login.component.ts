@@ -57,7 +57,6 @@ export class LoginComponent {
             this.loading = false;
           }
         });
-        // TODO show error on page
       }
     );
   }

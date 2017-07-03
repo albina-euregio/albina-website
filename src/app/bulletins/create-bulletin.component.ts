@@ -42,7 +42,6 @@ export class CreateBulletinComponent {
   public hasElevationDependency: boolean;
 
   public loading: boolean;
-  public noRegion: boolean;
 
   constructor(
     private translate: TranslateService,
@@ -56,7 +55,6 @@ export class CreateBulletinComponent {
     private confirmationService: ConfirmationService)
   {
     this.loading = true;
-    this.noRegion = false;
   }
 
   reset() {
@@ -85,8 +83,15 @@ export class CreateBulletinComponent {
         },
         error => {
           console.error("Bulletins could not be loaded!");
-          // TODO show toast, navigate back
           this.loading = false;
+          this.confirmationService.confirm({
+            key: "loadingBulletinsErrorDialog",
+            header: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.header"),
+            message: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.message"),
+            accept: () => {
+              this.goBack();
+            }
+          });
         }
       );
     } else {
@@ -104,8 +109,15 @@ export class CreateBulletinComponent {
         },
         error => {
           console.error("Bulletins could not be loaded!");
-          // TODO show toast, navigate back
           this.loading = false;
+          this.confirmationService.confirm({
+            key: "loadingBulletinsErrorDialog",
+            header: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.header"),
+            message: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.message"),
+            accept: () => {
+              this.goBack();
+            }
+          });
         }
       );
     }
@@ -140,9 +152,9 @@ export class CreateBulletinComponent {
       this.activeBulletinInput.elevation = Math.round(this.activeBulletinInput.elevation/100)*100;
   }
 
-  // TODO load only own area (no suggestions from others, no own suggestions)
   loadBulletinsFromYesterday() {
     this.confirmationService.confirm({
+      key: "loadDialog",
       header: this.translateService.instant("bulletins.create.loadDialog.header"),
       message: this.translateService.instant("bulletins.create.loadDialog.message"),
       accept: () => {
@@ -157,15 +169,21 @@ export class CreateBulletinComponent {
         regions.push(this.authenticationService.getUserRegion());
 
         this.bulletinsService.loadBulletins(date, regions).subscribe(
-        data => {
-          this.copyBulletins(data.json());
-        },
-        error => {
-          console.error("Bulletins could not be loaded!");
-          // TODO show toast, navigate back
-          this.loading = false;
-        }
-      );
+          data => {
+            this.copyBulletins(data.json());
+          },
+          error => {
+            this.loading = false;
+            this.confirmationService.confirm({
+              key: "loadingBulletinsErrorDialog",
+              header: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.header"),
+              message: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.message"),
+              accept: () => {
+                this.goBack();
+              }
+            });
+          }
+        );
       }
     });
   }
@@ -356,6 +374,7 @@ export class CreateBulletinComponent {
 
   deleteAggregatedRegion(aggregatedRegionId: string) {
     this.confirmationService.confirm({
+      key: "deleteAggregatedRegionDialog",
       header: this.translateService.instant("bulletins.create.deleteAggregatedRegionDialog.header"),
       message: this.translateService.instant("bulletins.create.deleteAggregatedRegionDialog.message"),
       accept: () => {
@@ -439,12 +458,11 @@ export class CreateBulletinComponent {
       // TODO unlock whole day in TN
 
     } else {
-      this.noRegion = true;
       this.confirmationService.confirm({
+        key: "noRegionDialog",
         header: this.translateService.instant("bulletins.create.noRegionDialog.header"),
         message: this.translateService.instant("bulletins.create.noRegionDialog.message"),
         accept: () => {
-          this.noRegion = false;
         }
       });
     }
@@ -595,19 +613,26 @@ export class CreateBulletinComponent {
     Observable.forkJoin(observableBatch).subscribe(
       data => {
         this.loading = false;
-        // TODO update list in bulletinsService
         this.goBack();
         console.log("Bulletins saved on server.");
       },
       error => {
+        this.loading = false;
         console.error("Bulletins could not be saved on server!");
-        // TODO show toast, try again?
+        this.confirmationService.confirm({
+          key: "saveErrorDialog",
+          header: this.translateService.instant("bulletins.create.saveErrorDialog.header"),
+          message: this.translateService.instant("bulletins.create.saveErrorDialog.message"),
+          accept: () => {
+          }
+        });
       }
     );
   }
 
   discard() {
     this.confirmationService.confirm({
+      key: "discardDialog",
       header: this.translateService.instant("bulletins.create.discardDialog.header"),
       message: this.translateService.instant("bulletins.create.discardDialog.message"),
       accept: () => {

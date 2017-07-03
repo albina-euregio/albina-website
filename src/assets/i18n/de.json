@@ -149,6 +149,17 @@
 				"message" : "Willst du den Lagebericht vom Vortag laden?",
 				"accept" : "Ja",
 				"reject" : "Nein"
+			},
+			"loadDialog" : {
+				"header" : "Lagebericht vom Vortag laden",
+				"message" : "Willst du den Lagebericht vom Vortag laden?",
+				"accept" : "Ja",
+				"reject" : "Nein"
+			},
+			"saveErrorDialog" : {
+				"header" : "Fehler beim Speichern",
+				"message" : "Beim Speichern der Lageberichte ist ein Fehler aufgetreten!",
+				"accept" : "Ok"
 			}
 		},
 		"table" : {
@@ -187,7 +198,12 @@
 			}
 		},
 		"caaml" : {
-			"title" : "CAAML"
+			"title" : "CAAML",
+			"caamlNotLoadedDialog" : {
+				"header" : "CAAML",
+				"message" : "CAAML konnte nicht geladen werden!",
+				"accept" : "Ok"
+			}
 		}
 	},
 

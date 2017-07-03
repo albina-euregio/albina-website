@@ -338,8 +338,6 @@ export class BulletinInputModel {
 		forenoonBulletin.snowpackStructureHighlights = this.snowpackStructureHighlights;
 		forenoonBulletin.snowpackStructureComment = this.snowpackStructureComment;
 
-		// TODO whats with the status?
-
 		if (this.daytimeDependency) {
 			validUntil.setTime(validUntil.getTime() + (12*60*60*1000));
 			forenoonBulletin.validUntil = validUntil;
@@ -355,8 +353,6 @@ export class BulletinInputModel {
 			afternoonBulletin.above = this.afternoonAbove;
 			if (this.elevationDependency)
 				afternoonBulletin.below = this.afternoonBelow;
-
-			// TODO whats with the status?
 
 			result.push(afternoonBulletin);
 		} else {

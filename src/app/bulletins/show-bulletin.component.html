@@ -146,9 +146,9 @@
 
 </div>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #cd>
+<p-confirmDialog icon="fa fa-question-circle" width="425" #loadingBulletinsErrorDialog key="loadingBulletinsErrorDialog">
   <p-footer>
-    <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.discardDialog.reject" | translate }}' (click)="cd.reject()"></button>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.discardDialog.accept" | translate }}' (click)="cd.accept()"></button>
+    <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.loadingBulletinsErrorDialog.reject" | translate }}' (click)="loadingBulletinsErrorDialog.reject()"></button>
   </p-footer>
 </p-confirmDialog>
+

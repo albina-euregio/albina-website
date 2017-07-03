@@ -4,6 +4,7 @@ import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
+import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 
 @Component({
   templateUrl: 'caaml.component.html'
@@ -16,8 +17,10 @@ export class CaamlComponent {
   constructor(
     private translate: TranslateService,
     private bulletinsService: BulletinsService,
+    private translateService: TranslateService,
     private route: ActivatedRoute,
-    private router: Router)
+    private router: Router,
+    private confirmationService: ConfirmationService)
   {
     this.bulletins = undefined;
     this.loading = false;
@@ -32,9 +35,15 @@ export class CaamlComponent {
         this.loading = false;
       },
       error => {
-        console.error("Bulletins could not be loaded!");
-        // TODO
         this.loading = false;
+        this.confirmationService.confirm({
+          key: "caamlNotLoadedDialog",
+          header: this.translateService.instant("bulletins.caaml.caamlNotLoadedDialog.header"),
+          message: this.translateService.instant("bulletins.caaml.caamlNotLoadedDialog.message"),
+          accept: () => {
+            this.goBack();
+          }
+        });
       }
     );
   }
