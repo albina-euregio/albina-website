@@ -49,14 +49,28 @@
   </p-footer>
 </p-confirmDialog>
 
+<p-confirmDialog width="425" #deleteNewsErrorDialog>
+  <p-footer>
+    <button type="button" pButton label='{{ "news.deleteNewsErrorDialog.reject" | translate }}' (click)="deleteNewsErrorDialog.reject()"></button>
+    <button type="button" pButton label='{{ "news.deleteNewsErrorDialog.accept" | translate }}' (click)="deleteNewsErrorDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
 <p-confirmDialog width="425" #publishNewsDialog>
   <p-footer>
+    <button type="button" pButton label='{{ "news.publishNewsDialog.reject" | translate }}' (click)="publishNewsDialog.reject()"></button>
     <button type="button" pButton label='{{ "news.publishNewsDialog.accept" | translate }}' (click)="publishNewsDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
 
-<p-confirmDialog width="425" #deleteNewsDialog>
+<p-confirmDialog width="425" #publishNewsErrorDialog>
   <p-footer>
-    <button type="button" pButton label='{{ "news.deleteNewsDialog.accept" | translate }}' (click)="deleteNewsDialog.accept()"></button>
+    <button type="button" pButton label='{{ "news.publishNewsErrorDialog.accept" | translate }}' (click)="publishNewsErrorDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-confirmDialog width="425" #loadingNewsErrorDialog>
+  <p-footer>
+    <button type="button" pButton label='{{ "news.loadingNewsErrorDialog.accept" | translate }}' (click)="loadingNewsErrorDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
