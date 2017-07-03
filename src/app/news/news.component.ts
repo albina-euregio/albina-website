@@ -87,6 +87,7 @@ export class NewsComponent {
   }
 
   publishNews(event, item: NewsModel) {
+    debugger
     event.stopPropagation();
     this.confirmationService.confirm({
       key: "publishNewsDialog",
