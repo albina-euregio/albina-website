@@ -77,8 +77,8 @@
   <aside class="aside-menu">
     <div class="p-1">
       <div class="message">
-        <input type="text" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event)">
-        <button type="button" class="btn btn-primary btn-sm" (click)="sendChatMessage()">{{ "chat.send" | translate}}</button>
+        <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event)"></textarea>
+        <button type="button" class="btn btn-primary btn-sm btn-block" (click)="sendChatMessage()">{{ "chat.send" | translate}}</button>
         <hr>
       </div>
       <div *ngFor="let chatMessage of chatService.chatMessages">
@@ -87,7 +87,7 @@
             <small class="text-muted">{{ chatMessage.getUsername() }}</small>
             <small class="text-muted float-right mt-q">{{ chatMessage.getTime() | date: 'hh:mm dd/MM'}}</small>
           </div>
-          <div class="text-truncate">{{ chatMessage.getText() }}</div>
+          <div style="white-space: pre-wrap">{{ chatMessage.getText() }}</div>
         </div>
         <hr>
       </div>
