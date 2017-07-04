@@ -3,6 +3,7 @@ import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
+import { ConstantsService } from '../providers/constants-service/constants.service';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
@@ -30,6 +31,7 @@ export class BulletinsComponent {
     private route: ActivatedRoute,
     private translateService: TranslateService,
     private authenticationService: AuthenticationService,
+    private constantsService: ConstantsService,
     private router: Router,
     private confirmationService: ConfirmationService)
   {
@@ -58,9 +60,9 @@ export class BulletinsComponent {
     }
 
     for (let date of this.dates) {
-      observableBatchTrentino.push(this.bulletinsService.getStatus("IT-32-TN", date));
-      observableBatchSouthTyrol.push(this.bulletinsService.getStatus("IT-32-BZ", date));
-      observableBatchTyrol.push(this.bulletinsService.getStatus("AT-07", date));
+      observableBatchTrentino.push(this.bulletinsService.getStatus(this.constantsService.codeTrentino, date));
+      observableBatchSouthTyrol.push(this.bulletinsService.getStatus(this.constantsService.codeSouthTyrol, date));
+      observableBatchTyrol.push(this.bulletinsService.getStatus(this.constantsService.codeTyrol, date));
     }
 
     Observable.forkJoin(observableBatchTrentino).subscribe(
@@ -111,7 +113,7 @@ export class BulletinsComponent {
   editBulletin(date: Date, copyDate?: Date) {
     if (!this.copying) {
       this.bulletinsService.setActiveDate(date);
-      if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published) {
+      if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published || this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion())) {
         this.bulletinsService.setIsEditable(false);
         this.router.navigate(['/bulletins/show']);
       } else {

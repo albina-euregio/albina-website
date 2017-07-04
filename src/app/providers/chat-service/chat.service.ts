@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import * as io from 'socket.io-client';
 import { AuthenticationService } from '../authentication-service/authentication.service';
 import { ConstantsService } from '../constants-service/constants.service';
 import { ChatMessageModel } from '../../models/chat-message.model';
+import * as io from 'socket.io-client';
 
 @Injectable()
 export class ChatService {
@@ -23,6 +23,7 @@ export class ChatService {
     this.newMessageCount = 0;
 
     this.socket = io(this.constantsService.socketIOUrl);
+
     this.socket.on('chatEvent', function(data) {
       console.log("SocketIO chat event recieved: " + data);
       let message = ChatMessageModel.createFromJson(JSON.parse(data));
@@ -35,6 +36,23 @@ export class ChatService {
       if (message.getUsername() != this.authenticationService.getUsername())
         this.newMessageCount++;
     }.bind(this));
+
+    this.getMessages().subscribe(
+      data => {
+        let response = data.json();
+        for (let jsonChatMessage of response) {
+          this.chatMessages.push(ChatMessageModel.createFromJson(jsonChatMessage));
+        }
+        this.chatMessages.sort((a, b) : number => {
+            if (a.time < b.time) return 1;
+            if (a.time > b.time) return -1;
+            return 0;
+        });
+      },
+      error => {
+        console.error("Chat messages could not be loaded!");
+      }
+    );
   }
 
   getMessages() : Observable<Response> {

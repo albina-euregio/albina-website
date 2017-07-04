@@ -247,9 +247,9 @@ export class BulletinModel {
 		
 		var validity = Object();
 		if (this.validFrom && this.validFrom != undefined)
-			validity['from'] = this.getISOStringWithTimezoneOffset(this.validFrom);
+			validity['from'] = this.getISOStringWithTimezoneOffsetUrlEncoded(this.validFrom);
 		if (this.validUntil && this.validUntil != undefined)
-			validity['until'] = this.getISOStringWithTimezoneOffset(this.validUntil);
+			validity['until'] = this.getISOStringWithTimezoneOffsetUrlEncoded(this.validUntil);
 		json['validity'] = validity;
 
 		if (this.suggestedRegions && this.suggestedRegions.length > 0) {
@@ -393,7 +393,7 @@ export class BulletinModel {
 		return bulletin;
 	}
 	
-	private getISOStringWithTimezoneOffset(date: Date) {
+	private getISOStringWithTimezoneOffsetUrlEncoded(date: Date) {
 		let offset = -date.getTimezoneOffset();
 		let dif = offset >= 0 ? '+' : '-';
 

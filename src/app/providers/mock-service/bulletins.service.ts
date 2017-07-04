@@ -33,7 +33,6 @@ export class BulletinsService {
     this.isEditable = isEditable;
   }
   
-  // Get the status for one region (IT-32-TN, AT-07, ...) and one day
   getStatus(region: string, date: Date) : Observable<Response> {
     let tmpDate = new Date();
 

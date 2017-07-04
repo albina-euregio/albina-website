@@ -26,24 +26,6 @@ export class FullLayoutComponent implements OnInit {
     public router: Router)
   {
     this.message = "";
-
-    this.chatService.getMessages().subscribe(
-      data => {
-        let response = data.json();
-        for (let jsonChatMessage of response) {
-          this.chatService.chatMessages.push(ChatMessageModel.createFromJson(jsonChatMessage));
-          // this.chatService.newMessageCount += 1;
-        }
-        this.chatService.chatMessages.sort((a, b) : number => {
-            if (a.time < b.time) return 1;
-            if (a.time > b.time) return -1;
-            return 0;
-        });
-      },
-      error => {
-        console.error("Chat messages could not be loaded!");
-      }
-    );
   }
 
   public showBadge(): boolean {

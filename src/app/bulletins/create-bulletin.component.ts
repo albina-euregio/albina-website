@@ -1,18 +1,18 @@
 import { Component, Input, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { BulletinModel } from '../models/bulletin.model';
+import { BulletinInputModel } from '../models/bulletin-input.model';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
-import { SettingsService } from '../providers/settings-service/settings.service';
-import { BulletinModel } from '../models/bulletin.model';
-import { Observable } from 'rxjs/Observable';
-import { BulletinInputModel } from '../models/bulletin-input.model';
-import * as Enums from '../enums/enums';
 import { MapService } from "../providers/map-service/map.service";
+import { SettingsService } from '../providers/settings-service/settings.service';
+import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
+import { Observable } from 'rxjs/Observable';
+import * as Enums from '../enums/enums';
 import { UUID } from 'angular2-uuid';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
-import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 
 import "leaflet";
 
@@ -73,6 +73,8 @@ export class CreateBulletinComponent {
   }
 
   ngOnInit() {
+    this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+
     this.reset();
 
     if (this.bulletinsService.getCopyDate()) {
@@ -126,8 +128,8 @@ export class CreateBulletinComponent {
         zoomControl: false,
         center: L.latLng(46.05, 11.07),
         zoom: 8,
-        //minZoom: 7,
-        maxZoom: 9,
+        minZoom: 6,
+        maxZoom: 10,
         layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions]
     });
 
@@ -139,16 +141,16 @@ export class CreateBulletinComponent {
   }
 
   ngOnDestroy() {
+    this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+
     this.mapService.map.remove();
     this.bulletinsService.setActiveDate(undefined);
     this.bulletinsService.setIsEditable(false);
 
-    // TODO unlock via socketIO
-
     this.loading = false;
   }
 
-  updateElevation(){
+  updateElevation() {
     if (this.activeBulletinInput)
       this.activeBulletinInput.elevation = Math.round(this.activeBulletinInput.elevation/100)*100;
   }

@@ -10,6 +10,10 @@ export class ConstantsService {
   //public socketIOUrl: string = 'http://127.0.0.1:9092';
   //public socketIOUrl: string = 'http://212.47.231.185:9092';
 
+  public codeTyrol: string = 'AT-07';
+  public codeSouthTyrol: string = 'IT-32-BZ';
+  public codeTrentino: string = 'IT-32-TN';
+
   constructor() {
   }
 
@@ -17,18 +21,22 @@ export class ConstantsService {
     return this.serverUrl;
   }
 
+  getISOStringWithTimezoneOffsetUrlEncoded(date: Date) {
+    return encodeURIComponent(this.getISOStringWithTimezoneOffset(date));
+  }
+
   getISOStringWithTimezoneOffset(date: Date) {
     let offset = -date.getTimezoneOffset();
     let dif = offset >= 0 ? '+' : '-';
 
-    return encodeURIComponent(date.getFullYear() + 
+    return date.getFullYear() + 
       '-' + this.extend(date.getMonth() + 1) +
       '-' + this.extend(date.getDate()) +
       'T' + this.extend(date.getHours()) +
       ':' + this.extend(date.getMinutes()) +
       ':' + this.extend(date.getSeconds()) +
       dif + this.extend(offset / 60) +
-      ':' + this.extend(offset % 60));
+      ':' + this.extend(offset % 60);
   }
 
   extend(num: number) {

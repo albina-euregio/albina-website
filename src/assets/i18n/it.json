@@ -217,12 +217,12 @@
 			"publishBulletinsErrorDialog" : {
 				"header" : "TODO",
 				"message" : "TODO",
-				"accept" : "TODO",
+				"accept" : "TODO"
 			},
 			"checkBulletinsErrorDialog" : {
 				"header" : "TODO",
 				"message" : "TODO",
-				"accept" : "TODO",
+				"accept" : "TODO"
 			}
 		},
 		"caaml" : {
