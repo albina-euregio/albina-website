@@ -139,6 +139,7 @@ export class CreateBulletinComponent {
   }
 
   ngOnDestroy() {
+    this.mapService.map.remove();
     this.bulletinsService.setActiveDate(undefined);
     this.bulletinsService.setIsEditable(false);
 
