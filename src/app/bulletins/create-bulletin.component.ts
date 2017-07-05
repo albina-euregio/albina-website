@@ -47,7 +47,7 @@ export class CreateBulletinComponent {
     private translate: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
-    private bulletinsService: BulletinsService,
+    public bulletinsService: BulletinsService,
     private authenticationService: AuthenticationService,
     private translateService: TranslateService,
     private settingsService: SettingsService,

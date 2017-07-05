@@ -40,7 +40,7 @@ export class ShowBulletinComponent {
     private translate: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
-    private bulletinsService: BulletinsService,
+    public bulletinsService: BulletinsService,
     private translateService: TranslateService,
     private settingsService: SettingsService,
     private mapService: MapService,

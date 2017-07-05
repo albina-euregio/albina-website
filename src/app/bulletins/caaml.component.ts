@@ -16,7 +16,7 @@ export class CaamlComponent {
 
   constructor(
     private translate: TranslateService,
-    private bulletinsService: BulletinsService,
+    public bulletinsService: BulletinsService,
     private translateService: TranslateService,
     private route: ActivatedRoute,
     private router: Router,

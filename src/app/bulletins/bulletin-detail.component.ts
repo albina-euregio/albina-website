@@ -9,14 +9,14 @@ import * as Enums from '../enums/enums';
 })
 export class BulletinDetailComponent {
 
-	private N: boolean;
-	private NW: boolean;
-	private W: boolean;
-	private SW: boolean;
-	private S: boolean;
-	private SE: boolean;
-	private E: boolean;
-	private NE: boolean;
+	public N: boolean;
+	public NW: boolean;
+	public W: boolean;
+	public SW: boolean;
+	public S: boolean;
+	public SE: boolean;
+	public E: boolean;
+	public NE: boolean;
 
 	@Input() bulletinElevationDescription: BulletinElevationDescriptionModel;
   @Input() title: string;
