@@ -73,77 +73,83 @@ export class CreateBulletinComponent {
   }
 
   ngOnInit() {
-    this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+    if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
+      this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
 
-    this.reset();
+      this.reset();
 
-    if (this.bulletinsService.getCopyDate()) {
-      this.bulletinsService.loadBulletins(this.bulletinsService.getCopyDate()).subscribe(
-        data => {
-          this.copyBulletins(data.json());
-          this.bulletinsService.setCopyDate(undefined);
-        },
-        error => {
-          console.error("Bulletins could not be loaded!");
-          this.loading = false;
-          this.confirmationService.confirm({
-            key: "loadingErrorDialog",
-            header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
-            message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
-            accept: () => {
-              this.goBack();
-            }
-          });
-        }
-      );
-    } else {
-      this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
-        data => {
-          let response = data.json();
-          for (let jsonBulletin of response) {
-            let bulletin = BulletinModel.createFromJson(jsonBulletin);
-
-            this.originalBulletins.set(bulletin.getId(), bulletin);
-            this.addBulletin(bulletin);
+      if (this.bulletinsService.getCopyDate()) {
+        this.bulletinsService.loadBulletins(this.bulletinsService.getCopyDate()).subscribe(
+          data => {
+            this.copyBulletins(data.json());
+            this.bulletinsService.setCopyDate(undefined);
+          },
+          error => {
+            console.error("Bulletins could not be loaded!");
+            this.loading = false;
+            this.confirmationService.confirm({
+              key: "loadingErrorDialog",
+              header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
+              message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
+              accept: () => {
+                this.goBack();
+              }
+            });
           }
-          this.loading = false;
-          this.mapService.deselectAggregatedRegion();
-        },
-        error => {
-          console.error("Bulletins could not be loaded!");
-          this.loading = false;
-          this.confirmationService.confirm({
-            key: "loadingErrorDialog",
-            header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
-            message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
-            accept: () => {
-              this.goBack();
+        );
+      } else {
+        this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
+          data => {
+            let response = data.json();
+            for (let jsonBulletin of response) {
+              let bulletin = BulletinModel.createFromJson(jsonBulletin);
+
+              this.originalBulletins.set(bulletin.getId(), bulletin);
+              this.addBulletin(bulletin);
             }
-          });
-        }
-      );
-    }
+            this.loading = false;
+            this.mapService.deselectAggregatedRegion();
+          },
+          error => {
+            console.error("Bulletins could not be loaded!");
+            this.loading = false;
+            this.confirmationService.confirm({
+              key: "loadingErrorDialog",
+              header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
+              message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
+              accept: () => {
+                this.goBack();
+              }
+            });
+          }
+        );
+      }
 
-    let map = L.map("map", {
-        zoomControl: false,
-        center: L.latLng(46.05, 11.07),
-        zoom: 8,
-        minZoom: 6,
-        maxZoom: 10,
-        layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions]
-    });
+      let map = L.map("map", {
+          zoomControl: false,
+          center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
+          zoom: 8,
+          minZoom: 6,
+          maxZoom: 10,
+          layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions]
+      });
 
-    L.control.zoom({ position: "topleft" }).addTo(map);
-    //L.control.layers(this.mapService.baseMaps).addTo(map);
-    L.control.scale().addTo(map);
+      L.control.zoom({ position: "topleft" }).addTo(map);
+      //L.control.layers(this.mapService.baseMaps).addTo(map);
+      L.control.scale().addTo(map);
 
-    this.mapService.map = map;
+      this.mapService.map = map;
+    } else
+      this.goBack();     
   }
 
   ngOnDestroy() {
-    this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+    if (this.bulletinsService.getActiveDate())
+      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
 
-    this.mapService.map.remove();
+    if (this.mapService.map)
+      this.mapService.map.remove();
+    
     this.bulletinsService.setActiveDate(undefined);
     this.bulletinsService.setIsEditable(false);
 

@@ -14,6 +14,9 @@ export class ConstantsService {
   public codeSouthTyrol: string = 'IT-32-BZ';
   public codeTrentino: string = 'IT-32-TN';
 
+  public lat: Map<string, number> = new Map([[this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05]])
+  public lng: Map<string, number> = new Map([[this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07]])
+
   constructor() {
   }
 
@@ -42,5 +45,13 @@ export class ConstantsService {
   extend(num: number) {
     let norm = Math.abs(Math.floor(num));
     return (norm < 10 ? '0' : '') + norm;
+  }
+
+  getLat(region: string) {
+    return this.lat.get(region);
+  }
+
+  getLng(region: string) {
+    return this.lng.get(region);
   }
 }

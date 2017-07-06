@@ -69,6 +69,14 @@ export class AuthenticationService {
       null;
   }
 
+  public getUserLat() {
+    return this.constantsService.getLat(this.getUserRegion());
+  }
+
+  public getUserLng() {
+    return this.constantsService.getLng(this.getUserRegion());
+  }
+
   public login(username: string, password: string): Observable<boolean> {
     let url = this.constantsService.getServerUrl() + 'authentication';
     console.log(url);
