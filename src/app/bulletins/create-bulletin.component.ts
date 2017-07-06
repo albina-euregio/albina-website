@@ -613,24 +613,30 @@ export class CreateBulletinComponent {
       }
     });
 
-    Observable.forkJoin(observableBatch).subscribe(
-      data => {
-        this.loading = false;
-        this.goBack();
-        console.log("Bulletins saved on server.");
-      },
-      error => {
-        this.loading = false;
-        console.error("Bulletins could not be saved on server!");
-        this.confirmationService.confirm({
-          key: "saveErrorDialog",
-          header: this.translateService.instant("bulletins.create.saveErrorDialog.header"),
-          message: this.translateService.instant("bulletins.create.saveErrorDialog.message"),
-          accept: () => {
-          }
-        });
-      }
-    );
+    if (observableBatch.length > 0) {
+      Observable.forkJoin(observableBatch).subscribe(
+        data => {
+          this.loading = false;
+          this.goBack();
+          console.log("Bulletins saved on server.");
+        },
+        error => {
+          this.loading = false;
+          console.error("Bulletins could not be saved on server!");
+          this.confirmationService.confirm({
+            key: "saveErrorDialog",
+            header: this.translateService.instant("bulletins.create.saveErrorDialog.header"),
+            message: this.translateService.instant("bulletins.create.saveErrorDialog.message"),
+            accept: () => {
+            }
+          });
+        }
+      );
+    } else {
+      this.loading = false;
+      this.goBack();
+      console.log("No bulletins saved on server.");
+    }
   }
 
   discard() {
