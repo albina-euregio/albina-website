@@ -2,70 +2,74 @@ import { Injectable, Sanitizer, SecurityContext } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConstantsService } from '../constants-service/constants.service';
-
+import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
+import { UserModel } from '../../models/user.model';
 
 @Injectable()
 export class AuthenticationService {
 
-  private token: string;
-  private username: string;
-  private image: string;
-  private region: string;
+  public currentUser: UserModel;
+  public jwtHelper: JwtHelper;
 
   constructor(
     public http: Http,
     public constantsService: ConstantsService,
     private sanitizer: Sanitizer)
   {
-    this.token = null;
-    this.username = null;
-    this.image = null;
-    this.region = null;
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.jwtHelper = new JwtHelper();
   }
 
   isUserLoggedIn() : boolean {
-    if (this.token && this.token != undefined)
-      return true;
+    if (this.currentUser && this.currentUser.token)
+      return !this.jwtHelper.isTokenExpired(this.currentUser.token);
     else
       return false;
   }
 
   public logout() {
-    this.token = null;
-    console.log("[" + this.username + "] Logged out!");
-    this.username = null;
-    this.image = null;
-    this.region = null;
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
+    console.log("[" + this.currentUser.username + "] Logged out!");
+    this.currentUser = null;
   }
 
-  public getUsername() : string{
-    return this.username;
+  public getUsername() : string {
+    if (this.currentUser)
+      return this.currentUser.username;
+    else
+      null;
   }
 
   public getToken() {
-    return this.token;
-  }
-
-  public setUser(token, username, image, region) {
-    this.token = token;
-    this.username = username;
-    this.image = image;
-    this.region = region;
+    if (this.currentUser)
+      return this.currentUser.token;
+    else
+      null;
   }
 
   public getUserImage() {
-    return this.image;
+    if (this.currentUser)
+      return this.currentUser.image;
+    else
+      null;
   }
 
   public getUserRegion() {
-    return this.region;
+    if (this.currentUser)
+      return this.currentUser.region;
+    else
+      null;
   }
 
   public getUserImageSanitized() {
-    return this.sanitizer.sanitize(SecurityContext.URL, 'data:image/jpg;base64,' + this.image);
+    if (this.currentUser && this.currentUser.image)
+      return this.sanitizer.sanitize(SecurityContext.URL, 'data:image/jpg;base64,' + this.currentUser.image);
+    else
+      null;
   }
 
-  public authenticate(username, password) : Observable<Response> {
+  public login(username: string, password: string): Observable<boolean> {
     let url = this.constantsService.getServerUrl() + 'authentication';
     console.log(url);
 
@@ -80,6 +84,21 @@ export class AuthenticationService {
       'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(url, body, options);
+    return this.http.post(url, body, options)
+      .map((response: Response) => {
+        let token = response.json() && response.json().token;
+        if (token) {
+          this.currentUser = new UserModel();
+          this.currentUser.username = response.json().username;
+          this.currentUser.token = response.json().token;
+          this.currentUser.image = response.json().image;
+          this.currentUser.region = response.json().region;
+          localStorage.setItem('currentUser', JSON.stringify({ username: response.json().username, token: response.json().token, image: response.json().image, region: response.json().region }));
+          localStorage.setItem('token', response.json().token);
+          return true;
+        } else {
+          return false;
+        }
+      });
   }
 }

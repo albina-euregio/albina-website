@@ -55,8 +55,8 @@ export class MapService {
             })
         }
 
-        for (let entry of this.overlayMaps.aggregatedRegions.getLayers())
-            entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
+//        for (let entry of this.overlayMaps.aggregatedRegions.getLayers())
+//            entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
     }
 
     resetAggregatedRegions() {

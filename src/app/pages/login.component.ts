@@ -10,8 +10,8 @@ import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/
 })
 export class LoginComponent {
 
-  public username: String;
-  public password: String;
+  public username: string;
+  public password: string;
   public returnUrl: String;
   public loading: boolean;
 
@@ -39,14 +39,24 @@ export class LoginComponent {
   login() {
     this.loading = true;
 
-    this.authenticationService.authenticate(this.username, this.password).subscribe(
+    this.authenticationService.login(this.username, this.password).subscribe(
       data => {
-        var result = data.json();
-        this.authenticationService.setUser(result.token, result.username, result.image, result.region);
-        console.log("[" + this.username + "] Logged in!");
-        this.mapService.resetAll();
-        console.log("Navigate to " + this.returnUrl);
-        this.router.navigate([this.returnUrl]);
+        if (data === true) {
+          console.log("[" + this.username + "] Logged in!");
+          this.mapService.resetAll();
+          console.log("Navigate to " + this.returnUrl);
+          this.router.navigate([this.returnUrl]);
+          this.loading = false;
+        } else {
+          console.error("[" + this.username + "] Login failed!");
+          this.confirmationService.confirm({
+            header: this.translateService.instant("login.errorDialog.header"),
+            message: this.translateService.instant("login.errorDialog.message"),
+            accept: () => {
+              this.loading = false;
+            }
+          });
+        }
       },
       error => {
         console.error("[" + this.username + "] Login failed: " + JSON.stringify(error._body));

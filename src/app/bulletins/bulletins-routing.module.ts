@@ -6,10 +6,13 @@ import { CreateBulletinComponent } from './create-bulletin.component';
 import { ShowBulletinComponent } from './show-bulletin.component';
 import { CaamlComponent } from './caaml.component';
 
+import { AuthGuard } from '../guards/auth.guard';
+
 const routes: Routes = [
   {
     path: '',
     component: BulletinsComponent,
+    canActivate: [AuthGuard], 
     data: {
       title: 'Bulletins'
     }
@@ -17,6 +20,7 @@ const routes: Routes = [
   {
     path: 'new',
     component: CreateBulletinComponent,
+    canActivate: [AuthGuard], 
     data: {
       title: 'New Bulletin'
     }
@@ -24,6 +28,7 @@ const routes: Routes = [
   {
     path: 'show',
     component: ShowBulletinComponent,
+    canActivate: [AuthGuard], 
     data: {
       title: 'Show Bulletin'
     }
@@ -31,6 +36,7 @@ const routes: Routes = [
   {
     path: 'caaml',
     component: CaamlComponent,
+    canActivate: [AuthGuard], 
     data: {
       title: 'CAAML'
     }
