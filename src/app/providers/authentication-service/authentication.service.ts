@@ -76,7 +76,6 @@ export class AuthenticationService {
       json['password'] = password;
 
     let body = JSON.stringify(json);
-    console.log(body);
     let headers = new Headers({
       'Content-Type': 'application/json'});
     let options = new RequestOptions({ headers: headers });
