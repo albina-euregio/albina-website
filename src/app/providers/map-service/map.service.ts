@@ -7,6 +7,8 @@ import { RegionsService } from '../regions-service/regions.service';
 import { AuthenticationService } from '../authentication-service/authentication.service';
 import * as Enums from '../../enums/enums';
 
+var L = require('leaflet');
+
 @Injectable()
 export class MapService {
     public map: Map;
@@ -54,9 +56,6 @@ export class MapService {
                 onEachFeature : this.onEachAggregatedRegionsFeature
             })
         }
-
-//        for (let entry of this.overlayMaps.aggregatedRegions.getLayers())
-//            entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
     }
 
     resetAggregatedRegions() {
