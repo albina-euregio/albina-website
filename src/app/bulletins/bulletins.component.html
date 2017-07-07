@@ -61,21 +61,21 @@
   <!--/.row-->
 </div>
 
-<p-confirmDialog width="425" #publishBulletinsDialog>
+<p-confirmDialog width="425" key="publishBulletinsDialog" #publishBulletinsDialog>
   <p-footer>
     <button type="button" pButton label='{{ "bulletins.table.publishBulletinsDialog.reject" | translate }}' (click)="publishBulletinsDialog.reject()"></button>
     <button type="button" pButton label='{{ "bulletins.table.publishBulletinsDialog.accept" | translate }}' (click)="publishBulletinsDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
 
-<p-confirmDialog width="425" #publishBulletinsErrorDialog>
+<p-confirmDialog width="425" key="publishBulletinsErrorDialog" #publishBulletinsErrorDialog>
   <p-footer>
     <button type="button" pButton label='{{ "bulletins.table.publishBulletinsErrorDialog.reject" | translate }}' (click)="publishBulletinsErrorDialog.reject()"></button>
     <button type="button" pButton label='{{ "bulletins.table.publishBulletinsErrorDialog.accept" | translate }}' (click)="publishBulletinsErrorDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
 
-<p-confirmDialog width="425" #checkBulletinsErrorDialog>
+<p-confirmDialog width="425" key="checkBulletinsErrorDialog" #checkBulletinsErrorDialog>
   <p-footer>
     <button type="button" pButton label='{{ "bulletins.table.checkBulletinsErrorDialog.reject" | translate }}' (click)="checkBulletinsErrorDialog.reject()"></button>
     <button type="button" pButton label='{{ "bulletins.table.checkBulletinsErrorDialog.accept" | translate }}' (click)="checkBulletinsErrorDialog.accept()"></button>

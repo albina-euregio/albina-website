@@ -162,10 +162,13 @@ export class BulletinsService {
     switch (region) {
       case "IT-32-TN":
         this.statusMapTrentino.set(date, status);
+        break;
       case "IT-32-BZ":
         this.statusMapSouthTyrol.set(date, status);
+        break;
       case "AT-07":
         this.statusMapTyrol.set(date, status);
+        break;
       
       default:
         return undefined;
