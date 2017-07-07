@@ -21,7 +21,7 @@ export class NewsService {
 
   getNews() : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'news';
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -33,7 +33,7 @@ export class NewsService {
 
   findNews(searchString : String) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'news/search?s=' + searchString;
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -45,7 +45,7 @@ export class NewsService {
 
   saveNews(news: NewsModel) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'news';
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -60,7 +60,7 @@ export class NewsService {
 
   updateNews(news: NewsModel) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'news/' + news.getId();
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -73,7 +73,7 @@ export class NewsService {
 
   deleteNews(news: NewsModel) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'news/' + news.getId();
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -85,7 +85,7 @@ export class NewsService {
 
   publishNews(news: NewsModel) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'news/' + news.getId() + '/publish';
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',

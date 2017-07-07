@@ -174,7 +174,7 @@ export class BulletinsService {
   
   getStatus(region: string, date: Date) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/status?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + '&region=' + region;
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -190,7 +190,7 @@ export class BulletinsService {
       for (let region of regions)
         url += "&regions=" + region;
     }
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -202,7 +202,7 @@ export class BulletinsService {
 
   loadCaamlBulletins(date: Date) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/xml',
       'Accept': 'application/xml',
@@ -214,7 +214,7 @@ export class BulletinsService {
 
   saveBulletin(bulletin: BulletinModel) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins';
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -229,7 +229,7 @@ export class BulletinsService {
 
   updateBulletin(bulletin: BulletinModel) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/' + bulletin.getId();
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -243,7 +243,7 @@ export class BulletinsService {
 
   deleteBulletin(bulletinId: string) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/' + bulletinId;
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -255,7 +255,7 @@ export class BulletinsService {
 
   publishBulletins(date: Date, region: string) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/publish?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + '&region=' + region;
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -268,7 +268,7 @@ export class BulletinsService {
 
   checkBulletins(date: Date, region: string) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/check?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + '&region=' + region;
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -280,7 +280,7 @@ export class BulletinsService {
 
   getLockedRegions(region: string) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'regions/locked?region=' + region;
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
@@ -293,7 +293,7 @@ export class BulletinsService {
 /*
   getLockedBulletins() : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/locked';
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',

@@ -1,5 +1,6 @@
 export class UserModel {
-  public token: string;
+  public accessToken: string;
+  public refreshToken: string;
   public username: string;
   public image: string;
   public region: string;	

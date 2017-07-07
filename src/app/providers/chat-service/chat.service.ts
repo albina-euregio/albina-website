@@ -57,7 +57,7 @@ export class ChatService {
 
   getMessages() : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'chat';
-    let authHeader = 'Bearer ' + this.authenticationService.getToken();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',

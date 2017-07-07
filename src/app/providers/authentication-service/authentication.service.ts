@@ -16,13 +16,16 @@ export class AuthenticationService {
     public constantsService: ConstantsService,
     private sanitizer: Sanitizer)
   {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    localStorage.removeItem('currentUser');
+    localStorage.removeItem('token');
+    this.currentUser = null;
     this.jwtHelper = new JwtHelper();
   }
 
   isUserLoggedIn() : boolean {
-    if (this.currentUser && this.currentUser.token)
-      return !this.jwtHelper.isTokenExpired(this.currentUser.token);
+    if (this.currentUser && this.currentUser.accessToken)
+      return !this.jwtHelper.isTokenExpired(this.currentUser.accessToken);
     else
       return false;
   }
@@ -41,9 +44,16 @@ export class AuthenticationService {
       null;
   }
 
-  public getToken() {
+  public getAccessToken() {
     if (this.currentUser)
-      return this.currentUser.token;
+      return this.currentUser.accessToken;
+    else
+      null;
+  }
+
+  public getRefreshToken() {
+    if (this.currentUser)
+      return this.currentUser.refreshToken;
     else
       null;
   }
@@ -94,15 +104,16 @@ export class AuthenticationService {
 
     return this.http.post(url, body, options)
       .map((response: Response) => {
-        let token = response.json() && response.json().token;
-        if (token) {
+        let accessToken = response.json() && response.json().access_token;
+        if (accessToken) {
           this.currentUser = new UserModel();
           this.currentUser.username = response.json().username;
-          this.currentUser.token = response.json().token;
+          this.currentUser.accessToken = response.json().access_token;
+          this.currentUser.refreshToken = response.json().refresh_token;
           this.currentUser.image = response.json().image;
           this.currentUser.region = response.json().region;
-          localStorage.setItem('currentUser', JSON.stringify({ username: response.json().username, token: response.json().token, image: response.json().image, region: response.json().region }));
-          localStorage.setItem('token', response.json().token);
+          localStorage.setItem('currentUser', JSON.stringify({ username: response.json().username, accessToken: response.json().access_token, refreshToken: response.json().refresh_token, image: response.json().image, region: response.json().region }));
+          localStorage.setItem('accessToken', response.json().access_token);
           return true;
         } else {
           return false;
