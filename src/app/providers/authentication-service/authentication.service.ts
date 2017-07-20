@@ -18,7 +18,7 @@ export class AuthenticationService {
   {
     //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
     this.currentUser = null;
     this.jwtHelper = new JwtHelper();
   }
@@ -32,7 +32,7 @@ export class AuthenticationService {
 
   public logout() {
     localStorage.removeItem('currentUser');
-    localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
     console.log("[" + this.currentUser.username + "] Logged out!");
     this.currentUser = null;
   }
