@@ -291,12 +291,17 @@ export class CreateBulletinComponent {
         bulletinInput.forenoonBelow = bulletin.below;
         bulletinInput.forenoonAbove = bulletin.above;
       }
+      this.addAggregatedRegion(bulletin.getAggregatedRegionId(), bulletinInput);
+    }
+  }
 
+  private addAggregatedRegion(aggregatedRegionId, bulletinInput) {
       this.mapService.addAggregatedRegion(bulletinInput);
 
-      this.aggregatedRegionsMap.set(bulletin.getAggregatedRegionId(), bulletinInput);
-      this.aggregatedRegionsIds.push(bulletin.getAggregatedRegionId());
-    }
+      this.aggregatedRegionsMap.set(aggregatedRegionId, bulletinInput);
+      this.aggregatedRegionsIds.push(aggregatedRegionId);
+
+      // TODO sort aggregatedRegionsMap
   }
 
   getCreator(aggregatedRegionId: string) {
@@ -355,9 +360,7 @@ export class CreateBulletinComponent {
     bulletinInput.setCreator(this.authenticationService.getUsername());
     bulletinInput.setCreatorRegion(this.authenticationService.getUserRegion());
 
-    this.aggregatedRegionsMap.set(uuid, bulletinInput);
-    this.aggregatedRegionsIds.push(uuid);
-
+    this.addAggregatedRegion(uuid, bulletinInput);
     this.selectAggregatedRegion(uuid);
   }
 
