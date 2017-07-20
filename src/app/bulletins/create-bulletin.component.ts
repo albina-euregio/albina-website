@@ -147,6 +147,7 @@ export class CreateBulletinComponent {
     if (this.bulletinsService.getActiveDate())
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
 
+    this.mapService.resetAll();
     if (this.mapService.map)
       this.mapService.map.remove();
     
