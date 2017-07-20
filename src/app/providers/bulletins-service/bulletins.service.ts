@@ -336,6 +336,9 @@ export class BulletinsService {
   }
 
   lockRegion(date: Date, region: string) {
+
+    // TODO make rest call and subscribe then to result to be sure it was successfull
+
     var json = Object();
 
     json['date'] = this.constantsService.getISOStringWithTimezoneOffset(date);
@@ -354,6 +357,9 @@ export class BulletinsService {
   }
 
   lockBulletin(date: Date, bulletinId: string) {
+
+    // TODO make rest call and subscribe then to result to be sure it was successfull
+    
     var json = Object();
 
     json['date'] = this.constantsService.getISOStringWithTimezoneOffset(date);
