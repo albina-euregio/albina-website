@@ -123,7 +123,7 @@
 			"regionName" : "Region ",
 			"label" : {
 				"avActivityHighlights" : "Headline avalanche situation",
-				"avActitvityComment" : "Description of avalanche danger",
+				"avActivityComment" : "Description of avalanche danger",
 				"avalancheProblem" : "Avalanche Problem",
 				"dangerRating" : "Danger Rating",
 				"aspects" : "Aspects",
