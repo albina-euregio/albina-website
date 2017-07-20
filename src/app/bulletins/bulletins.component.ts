@@ -68,7 +68,7 @@ export class BulletinsComponent {
     Observable.forkJoin(observableBatchTrentino).subscribe(
       data => {
         for (var i = this.dates.length - 1; i >= 0; i--)
-          this.bulletinsService.statusMapTrentino.set(this.dates[i], Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
+          this.bulletinsService.statusMapTrentino.set(this.dates[i].getTime(), Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
         this.loadingTrentino = false;
       },
       error => {
@@ -80,7 +80,7 @@ export class BulletinsComponent {
     Observable.forkJoin(observableBatchSouthTyrol).subscribe(
       data => {
         for (var i = this.dates.length - 1; i >= 0; i--)
-          this.bulletinsService.statusMapSouthTyrol.set(this.dates[i], Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
+          this.bulletinsService.statusMapSouthTyrol.set(this.dates[i].getTime(), Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
         this.loadingSouthTyrol = false;
       },
       error => {
@@ -92,7 +92,7 @@ export class BulletinsComponent {
     Observable.forkJoin(observableBatchTyrol).subscribe(
       data => {
         for (var i = this.dates.length - 1; i >= 0; i--)
-          this.bulletinsService.statusMapTyrol.set(this.dates[i], Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
+          this.bulletinsService.statusMapTyrol.set(this.dates[i].getTime(), Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
         this.loadingTyrol = false;
       },
       error => {

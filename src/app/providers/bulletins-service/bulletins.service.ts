@@ -20,9 +20,9 @@ export class BulletinsService {
   public lockedRegions: Map<string, Date[]>;
   // public lockedBulletins: Map<string, String[]>;
 
-  public statusMapTrentino: Map<Date, Enums.BulletinStatus>;
-  public statusMapSouthTyrol: Map<Date, Enums.BulletinStatus>;
-  public statusMapTyrol: Map<Date, Enums.BulletinStatus>;
+  public statusMapTrentino: Map<number, Enums.BulletinStatus>;
+  public statusMapSouthTyrol: Map<number, Enums.BulletinStatus>;
+  public statusMapTyrol: Map<number, Enums.BulletinStatus>;
 
   constructor(
     public http: Http,
@@ -32,9 +32,9 @@ export class BulletinsService {
     this.activeDate = undefined;
     this.copyDate = undefined;
     this.isEditable = false;
-    this.statusMapTrentino = new Map<Date, Enums.BulletinStatus>();
-    this.statusMapSouthTyrol = new Map<Date, Enums.BulletinStatus>();
-    this.statusMapTyrol = new Map<Date, Enums.BulletinStatus>();
+    this.statusMapTrentino = new Map<number, Enums.BulletinStatus>();
+    this.statusMapSouthTyrol = new Map<number, Enums.BulletinStatus>();
+    this.statusMapTyrol = new Map<number, Enums.BulletinStatus>();
     this.lockedRegions = new Map<string, Date[]>();
     // this.lockedBulletins = new Map<string, String[]>();
 
@@ -52,6 +52,19 @@ export class BulletinsService {
       let message = JSON.parse(data);
       let date = new Date(message.date);
       this.removeLockedRegion(message.region, date);
+      this.getStatus(message.region, date).subscribe(
+        data => {
+          if (message.region.startsWith(this.constantsService.codeTyrol))
+            this.statusMapTyrol.set(date.getTime(), Enums.BulletinStatus[<string>(<Response>data).json()['status']]);
+          else if (message.region.startsWith(this.constantsService.codeSouthTyrol))
+            this.statusMapSouthTyrol.set(date, Enums.BulletinStatus[<string>(<Response>data).json()['status']]);
+          else if (message.region.startsWith(this.constantsService.codeTrentino))
+            this.statusMapTrentino.set(date.getTime(), Enums.BulletinStatus[<string>(<Response>data).json()['status']]);
+        },
+        error => {
+          console.error("Status could not be loaded!");
+        }
+      );
     }.bind(this));
 
 /*
@@ -146,11 +159,11 @@ export class BulletinsService {
     let region = this.authenticationService.getUserRegion();
     switch (region) {
       case "IT-32-TN":
-        return this.statusMapTrentino.get(date);
+        return this.statusMapTrentino.get(date.getTime());
       case "IT-32-BZ":
-        return this.statusMapSouthTyrol.get(date);
+        return this.statusMapSouthTyrol.get(date.getTime());
       case "AT-07":
-        return this.statusMapTyrol.get(date);
+        return this.statusMapTyrol.get(date.getTime());
       
       default:
         return undefined;
@@ -161,13 +174,13 @@ export class BulletinsService {
     let region = this.authenticationService.getUserRegion();
     switch (region) {
       case "IT-32-TN":
-        this.statusMapTrentino.set(date, status);
+        this.statusMapTrentino.set(date.getTime(), status);
         break;
       case "IT-32-BZ":
-        this.statusMapSouthTyrol.set(date, status);
+        this.statusMapSouthTyrol.set(date.getTime(), status);
         break;
       case "AT-07":
-        this.statusMapTyrol.set(date, status);
+        this.statusMapTyrol.set(date.getTime(), status);
         break;
       
       default:
