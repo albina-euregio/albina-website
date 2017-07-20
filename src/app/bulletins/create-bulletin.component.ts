@@ -143,6 +143,22 @@ export class CreateBulletinComponent {
       this.goBack();     
   }
 
+  getOwnAggregatedRegionIds() {
+    let result = new Array<string>();
+    for (let id of this.aggregatedRegionsIds)
+      if (this.aggregatedRegionsMap.get(id).getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+        result.push(id);
+    return result;
+  }
+
+  getForeignAggregatedRegionIds() {
+    let result = new Array<string>();
+    for (let id of this.aggregatedRegionsIds)
+      if (!this.aggregatedRegionsMap.get(id).getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+        result.push(id);
+    return result;
+  }
+
   ngOnDestroy() {
     if (this.bulletinsService.getActiveDate())
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());

@@ -120,7 +120,8 @@
 			"saveAggregatedRegion" : "Save",
 			"discardAggregatedRegion" : "Discard",
 			"deleteAggregatedRegion" : "Delete",
-			"regionName" : "Region ",
+			"ownRegions" : "Own regions",
+			"foreignRegions": "Foreign regions",
 			"label" : {
 				"avActivityHighlights" : "Headline avalanche situation",
 				"avActivityComment" : "Description of avalanche danger",
@@ -206,7 +207,7 @@
 			"publishBulletinsDialog" : {
 				"header" : "Publish bulletin",
 				"message" : "Do you want to publish the bulletin?",
-				"missingRegion" : "Regions no rated",
+				"missingRegion" : "Regions not rated",
 				"duplicateRegion" : "Regions rated multiple times",
 				"missingAvActivityHighlights" : "Headline avalanche situation missing",
 				"missingAvActivityComment" : "Description of avalanche danger missing",

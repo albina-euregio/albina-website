@@ -120,7 +120,8 @@
 			"saveAggregatedRegion" : "Speichern",
 			"discardAggregatedRegion" : "Verwerfen",
 			"deleteAggregatedRegion" : "Löschen",
-			"regionName" : "Region ",
+			"ownRegions" : "Eigene Regionen",
+			"foreignRegions": "Fremde Regionen",
 			"label" : {
 				"avActivityHighlights" : "Schlagzeile Gefahrensituation",
 				"avActivityComment" : "Beurteilung der Lawinengefahr",

@@ -120,7 +120,8 @@
 			"saveAggregatedRegion" : "Salve",
 			"discardAggregatedRegion" : "Scarta",
 			"deleteAggregatedRegion" : "Cancella",
-			"regionName" : "Regione ",
+			"ownRegions" : "TODO",
+			"foreignRegions": "TODO",
 			"label" : {
 				"avActivityHighlights" : "Titolo situazione pericolo valanghe",
 				"avActivityComment" : "Testo di discrezione pericolo valanghe",
