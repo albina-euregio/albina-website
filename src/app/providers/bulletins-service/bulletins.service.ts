@@ -52,14 +52,18 @@ export class BulletinsService {
       let message = JSON.parse(data);
       let date = new Date(message.date);
       this.removeLockedRegion(message.region, date);
-      this.getStatus(message.region, date).subscribe(
+  
+      let observableBatch = [];
+
+      observableBatch.push(this.getStatus(this.constantsService.codeTyrol, date));
+      observableBatch.push(this.getStatus(this.constantsService.codeSouthTyrol, date));
+      observableBatch.push(this.getStatus(this.constantsService.codeTrentino, date));
+
+      Observable.forkJoin(observableBatch).subscribe(
         data => {
-          if (message.region.startsWith(this.constantsService.codeTyrol))
-            this.statusMapTyrol.set(date.getTime(), Enums.BulletinStatus[<string>(<Response>data).json()['status']]);
-          else if (message.region.startsWith(this.constantsService.codeSouthTyrol))
-            this.statusMapSouthTyrol.set(date, Enums.BulletinStatus[<string>(<Response>data).json()['status']]);
-          else if (message.region.startsWith(this.constantsService.codeTrentino))
-            this.statusMapTrentino.set(date.getTime(), Enums.BulletinStatus[<string>(<Response>data).json()['status']]);
+          this.statusMapTyrol.set(date.getTime(), Enums.BulletinStatus[<string>(<Response>data[0]).json()['status']]);
+          this.statusMapSouthTyrol.set(date.getTime(), Enums.BulletinStatus[<string>(<Response>data[1]).json()['status']]);
+          this.statusMapTrentino.set(date.getTime(), Enums.BulletinStatus[<string>(<Response>data[2]).json()['status']]);
         },
         error => {
           console.error("Status could not be loaded!");
