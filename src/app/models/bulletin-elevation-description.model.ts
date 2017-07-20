@@ -6,11 +6,18 @@ export class BulletinElevationDescriptionModel {
 	public avalancheProblem: Enums.AvalancheProblem;
 	public aspects: Enums.Aspect[];
 
-	constructor() {
+	constructor(bulletinElevationDescription?: BulletinElevationDescriptionModel) {
 		this.dangerRating = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.no_rating);
-		this.setDangerRating("no_rating");
-		this.avalancheProblem = undefined;
 		this.aspects = new Array<Enums.Aspect>();
+		if (!bulletinElevationDescription) {
+			this.setDangerRating("no_rating");
+			this.avalancheProblem = undefined;
+		} else {
+			this.setDangerRating(bulletinElevationDescription.getDangerRating());
+			this.avalancheProblem = bulletinElevationDescription.getAvalancheProblem();
+			for (let aspect of bulletinElevationDescription.aspects)
+				this.addAspect(aspect);
+		}
 	}
 
 	getDangerRating() {

@@ -62,10 +62,10 @@ export class BulletinInputModel {
 			this.elevationDependency = bulletinInput.elevationDependency;
 			this.daytimeDependency = bulletinInput.daytimeDependency;
 			this.elevation = bulletinInput.elevation;
-			this.forenoonAbove = bulletinInput.forenoonAbove;
-			this.forenoonBelow = bulletinInput.forenoonBelow;
-			this.afternoonAbove = bulletinInput.afternoonAbove;
-			this.afternoonBelow = bulletinInput.afternoonBelow;
+			this.forenoonAbove = new BulletinElevationDescriptionModel(bulletinInput.forenoonAbove);
+			this.forenoonBelow = new BulletinElevationDescriptionModel(bulletinInput.forenoonBelow);
+			this.afternoonAbove = new BulletinElevationDescriptionModel(bulletinInput.afternoonAbove);
+			this.afternoonBelow = new BulletinElevationDescriptionModel(bulletinInput.afternoonBelow);
 		}
 	}
 

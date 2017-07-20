@@ -25,21 +25,22 @@ export class BulletinDetailComponent {
   constructor(
   	private translate: TranslateService)
   {
-  	this.N = false;
-  	this.NW = false;
-  	this.W = false;
-  	this.SW = false;
-  	this.S = false;
-  	this.SE = false;
-  	this.E = false;
-  	this.NE = false;
   }
 
   ngOnInit() {
+
   }
 
-  ngAfterContentInit() {
-  	for (var i = this.bulletinElevationDescription.aspects.length - 1; i >= 0; i--) {
+  ngAfterContentChecked() {
+    this.N = false;
+    this.NW = false;
+    this.W = false;
+    this.SW = false;
+    this.S = false;
+    this.SE = false;
+    this.E = false;
+    this.NE = false;
+   	for (var i = this.bulletinElevationDescription.aspects.length - 1; i >= 0; i--) {
   		switch (+Enums.Aspect[this.bulletinElevationDescription.aspects[i]]) {
   			case 1:
   				this.N = true;
