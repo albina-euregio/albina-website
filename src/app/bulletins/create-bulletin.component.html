@@ -20,11 +20,15 @@
               <table class="table">
                 <tbody>
                   <div *ngFor="let aggregatedRegionId of aggregatedRegionsIds">
-                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info">
+                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()">
 
                       <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
-
-                      <td>{{ aggregatedRegionId }}</td>
+                      <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
+                      <td>
+                        <div>
+                          <small class="text-muted">{{ getCreator(aggregatedRegionId) }}</small>
+                        </div>
+                      </td>
 
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
 
@@ -56,7 +60,12 @@
 
                     <tr *ngIf="aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
                       <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
-                      <td>{{ aggregatedRegionId }}</td>
+                      <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
+                      <td>
+                        <div>
+                          <small class="text-muted">{{ getCreator(aggregatedRegionId) }}</small>
+                        </div>
+                      </td>
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
                     </tr>
 

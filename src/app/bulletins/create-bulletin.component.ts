@@ -299,6 +299,14 @@ export class CreateBulletinComponent {
     }
   }
 
+  getCreator(aggregatedRegionId: string) {
+    return this.aggregatedRegionsMap.get(aggregatedRegionId).getCreator();
+  }
+
+  getCreatorRegion(aggregatedRegionId: string) {
+    return this.aggregatedRegionsMap.get(aggregatedRegionId).getCreatorRegion();
+  }
+
   acceptSuggestions(aggregatedRegionId: string) {
     let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
     let suggested = new Array<String>();
@@ -365,7 +373,8 @@ export class CreateBulletinComponent {
   }
 
   deselectAggregatedRegion() {
-    this.mapService.deselectRegions(this.activeBulletinInput);
+    //this.mapService.deselectRegions(this.activeBulletinInput);
+    this.mapService.deselectAggregatedRegion();
 
     this.activeAggregatedRegionId = undefined;
     this.activeBulletinInput = undefined;
@@ -383,6 +392,8 @@ export class CreateBulletinComponent {
   }
 
   deleteAggregatedRegion(aggregatedRegionId: string) {
+    event.stopPropagation();
+
     this.confirmationService.confirm({
       key: "deleteAggregatedRegionDialog",
       header: this.translateService.instant("bulletins.create.deleteAggregatedRegionDialog.header"),
@@ -393,6 +404,11 @@ export class CreateBulletinComponent {
         var index = this.aggregatedRegionsIds.indexOf(aggregatedRegionId);
         if (index > -1)
           this.aggregatedRegionsIds.splice(index, 1);
+        
+        this.mapService.resetAggregatedRegions();
+        this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+          this.mapService.addAggregatedRegion(value);
+        });
 
         this.deselectAggregatedRegion();
 
@@ -403,6 +419,7 @@ export class CreateBulletinComponent {
   }
 
   editAggregatedRegion(aggregatedRegionId: string) {
+    event.stopPropagation();
 
     // TODO lock whole day in TN, check if any aggregated region is locked
 
@@ -411,6 +428,8 @@ export class CreateBulletinComponent {
   }
 
   saveAggregatedRegion(aggregatedRegionId: string) {
+    event.stopPropagation();
+
     // save selected regions to active bulletin input
     let regions = this.mapService.getSelectedRegions();
 
@@ -534,6 +553,7 @@ export class CreateBulletinComponent {
   }
 
   discardAggregatedRegion(aggregatedRegionId?: string) {
+    event.stopPropagation();
     this.editRegions = false;
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletinInput);
