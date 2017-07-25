@@ -16,6 +16,7 @@ export class BulletinsService {
   private activeDate: Date;
   private copyDate: Date;
   private isEditable: boolean;
+  private isUpdate: boolean;
 
   public lockedRegions: Map<string, Date[]>;
   // public lockedBulletins: Map<string, String[]>;
@@ -32,6 +33,7 @@ export class BulletinsService {
     this.activeDate = undefined;
     this.copyDate = undefined;
     this.isEditable = false;
+    this.isUpdate = false;
     this.statusMapTrentino = new Map<number, Enums.BulletinStatus>();
     this.statusMapSouthTyrol = new Map<number, Enums.BulletinStatus>();
     this.statusMapTyrol = new Map<number, Enums.BulletinStatus>();
@@ -157,6 +159,14 @@ export class BulletinsService {
 
   setIsEditable(isEditable: boolean) {
     this.isEditable = isEditable;
+  }
+
+  getIsUpdate() {
+    return this.isUpdate;
+  }
+
+  setIsUpdate(isUpdate: boolean) {
+    this.isUpdate = isUpdate;
   }
 
   getUserRegionStatus(date: Date) : Enums.BulletinStatus {

@@ -16,6 +16,7 @@ export class BulletinModel {
 	public suggestedRegions: String[];
 	public savedRegions: String[];
 	public publishedRegions: String[];
+	public obsoleteRegions: String[];
 
 	public elevation: number;
 	public above: BulletinElevationDescriptionModel;
@@ -27,11 +28,10 @@ export class BulletinModel {
 	public snowpackStructureHighlights: TextModel[];
 	public snowpackStructureComment: TextModel[];
 
-	public status: Enums.BulletinStatus;
-
 	constructor(bulletin?: BulletinModel) {
 		this.creator = undefined;
 		this.creatorRegion = undefined;
+		this.obsoleteRegions = new Array<String>();
 		if (bulletin) {
 			this.aggregatedRegionId = bulletin.aggregatedRegionId;
 			this.validFrom = bulletin.validFrom;
@@ -41,7 +41,6 @@ export class BulletinModel {
 			this.publishedRegions = bulletin.publishedRegions;
 			this.above = bulletin.above;
 			this.below = bulletin.below;
-			this.status = Enums.BulletinStatus.draft;
 			this.avActivityHighlights = bulletin.avActivityHighlights;
 			this.avActivityComment = bulletin.avActivityComment;
 			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
@@ -56,7 +55,6 @@ export class BulletinModel {
 			this.publishedRegions = new Array<String>();
 			this.above = new BulletinElevationDescriptionModel();
 			this.below = new BulletinElevationDescriptionModel();
-			this.status = Enums.BulletinStatus.draft;
 			this.avActivityHighlights = new Array<TextModel>();
 			this.avActivityComment = new Array<TextModel>();
 			this.snowpackStructureHighlights = new Array<TextModel>();
@@ -137,6 +135,14 @@ export class BulletinModel {
 		this.publishedRegions = publishedRegions;
 	}
 
+	getObsoleteRegions() : String[] {
+		return this.obsoleteRegions;
+	}
+
+	setObsoleteRegions(obsoleteRegions: String[]) {
+		this.obsoleteRegions = obsoleteRegions;
+	}
+
 	getElevation() : number {
 		return this.elevation
 	}
@@ -159,14 +165,6 @@ export class BulletinModel {
 
 	setBelow(below: BulletinElevationDescriptionModel) {
 		this.below = below;
-	}
-
-	getStatus() : Enums.BulletinStatus {
-		return this.status;
-	}
-
-	setStatus(status: Enums.BulletinStatus) {
-		this.status = status;
 	}
 
 	getAvActivityHighlights() : TextModel[] {
@@ -276,6 +274,14 @@ export class BulletinModel {
 			json['publishedRegions'] = publishedRegions;
 		}
 
+		if (this.obsoleteRegions && this.obsoleteRegions.length > 0) {
+			let obsoleteRegions = [];
+			for (let i = 0; i <= this.obsoleteRegions.length - 1; i++) {
+				obsoleteRegions.push(this.obsoleteRegions[i]);
+			}
+			json['obsoleteRegions'] = obsoleteRegions;
+		}
+
 		if (this.above && this.above != undefined)
 			json['above'] = this.above.toJson();
 
@@ -285,9 +291,6 @@ export class BulletinModel {
 				json['below'] = this.below.toJson();
 		}
 		
-		if (this.status && this.status != undefined)
-			json['status'] = Enums.BulletinStatus[this.status];
-
 		if (this.avActivityHighlights && this.avActivityHighlights != undefined && this.avActivityHighlights.length > 0) {
 			let highlight = [];
 			for (let i = 0; i <= this.avActivityHighlights.length - 1; i++) {
@@ -353,14 +356,19 @@ export class BulletinModel {
 		}
 		bulletin.setPublishedRegions(publishedRegions);
 
+		let jsonObsoleteRegions = json.obsoleteRegions;
+		let obsoleteRegions = new Array<String>();
+		for (let i in jsonObsoleteRegions) {
+			obsoleteRegions.push(jsonObsoleteRegions[i]);
+		}
+		bulletin.setObsoleteRegions(obsoleteRegions);
+
 		bulletin.setElevation(json.elevation);
 
 		if (json.above)
 			bulletin.setAbove(BulletinElevationDescriptionModel.createFromJson(json.above));
 		if (json.below)
 			bulletin.setBelow(BulletinElevationDescriptionModel.createFromJson(json.below));
-
-		bulletin.setStatus(Enums.BulletinStatus[<string>json.status]);
 
 		let jsonAvActivityHighlights = json.avActivityHighlights;
 		let avActivityHighlights = new Array<TextModel>();

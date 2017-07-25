@@ -24,7 +24,6 @@ export class BulletinsComponent {
   public loadingTyrol: boolean;
   public publishing: boolean;
   public copying: boolean;
-  public copyDate: Date;
 
   constructor(
     private translate: TranslateService,
@@ -41,7 +40,6 @@ export class BulletinsComponent {
     this.loadingSouthTyrol = false;
     this.loadingTyrol = false;
     this.copying = false;
-    this.copyDate = undefined;
     this.publishing = false;
   }
 
@@ -109,13 +107,16 @@ export class BulletinsComponent {
     this.loadingSouthTyrol = false;
     this.loadingTyrol = false;
     this.copying = false;
-    this.copyDate = undefined;
   }
 
-  editBulletin(date: Date, copyDate?: Date) {
+  editBulletin(date: Date, isUpdate: boolean = false) {
     if (!this.copying) {
+      if (isUpdate)
+        this.bulletinsService.setIsUpdate(true);
+      else
+        this.bulletinsService.setIsUpdate(false);
       this.bulletinsService.setActiveDate(date);
-      if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published || this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion())) {
+      if ((this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion())) {
         this.bulletinsService.setIsEditable(false);
         this.router.navigate(['/bulletins/show']);
       } else {
@@ -137,13 +138,17 @@ export class BulletinsComponent {
 
   paste(event, date: Date) {
     this.copying = false;
-    this.editBulletin(date, this.copyDate);
+    this.editBulletin(date);
+  }
+
+  createUpdate(event, date: Date) {
+    event.stopPropagation();
+    this.bulletinsService.setCopyDate(date);
+    this.editBulletin(date, true);
   }
 
   publish(event, date: Date) {
-
     event.stopPropagation();
-
     this.publishing = true;
 
     this.bulletinsService.checkBulletins(date, this.authenticationService.getUserRegion()).subscribe(

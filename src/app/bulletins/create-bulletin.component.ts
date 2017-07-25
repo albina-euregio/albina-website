@@ -104,8 +104,11 @@ export class CreateBulletinComponent {
             for (let jsonBulletin of response) {
               let bulletin = BulletinModel.createFromJson(jsonBulletin);
 
-              this.originalBulletins.set(bulletin.getId(), bulletin);
-              this.addBulletin(bulletin);
+              // only add bulletins with published or saved regions
+              if ((bulletin.getPublishedRegions() && bulletin.getPublishedRegions().length > 0) || (bulletin.getSavedRegions() && bulletin.getSavedRegions().length > 0)) {
+                this.originalBulletins.set(bulletin.getId(), bulletin);
+                this.addBulletin(bulletin);
+              }
             }
             this.loading = false;
             this.mapService.deselectAggregatedRegion();
@@ -222,7 +225,12 @@ export class CreateBulletinComponent {
     let idMap = new Map<string, string>();
     for (let jsonBulletin of response) {
       let originalBulletin = BulletinModel.createFromJson(jsonBulletin);
+
+      if (this.bulletinsService.getIsUpdate())
+        this.originalBulletins.set(originalBulletin.getId(), originalBulletin);
+
       let bulletin = new BulletinModel(originalBulletin);
+
       bulletin.setCreator(this.authenticationService.getUsername());
       bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
       
@@ -645,19 +653,47 @@ export class CreateBulletinComponent {
       }
     }
 
-    // delete original bulletins
-    let hit = false;
-    this.originalBulletins.forEach((value: BulletinModel, key: string) => {
-      for (let bulletin of bulletins)
-        if (bulletin.id == key) {
-          hit = true;
-          break;
+    if (this.bulletinsService.getIsUpdate()) {
+      // set status of original bulletins to obsolete
+      let hit = false;
+      this.originalBulletins.forEach((value: BulletinModel, key: string) => {
+        console.log("[" + key + "] Set bulletin status to obsolete ...");
+
+        // TODO move all regions within user region to obsoleteRegions
+        let savedRegions = new Array<String>();
+        let publishedRegions = new Array<String>();
+        let obsoleteRegions = new Array<String>();
+        for (let region of value.getPublishedRegions())
+          if (region.startsWith(this.authenticationService.getUserRegion()))
+            obsoleteRegions.push(region);
+          else
+            publishedRegions.push(region);
+        for (let region of value.getSavedRegions())
+          if (region.startsWith(this.authenticationService.getUserRegion()))
+            obsoleteRegions.push(region);
+          else
+            savedRegions.push(region);
+        value.setSavedRegions(savedRegions);
+        value.setPublishedRegions(publishedRegions);
+        value.setObsoleteRegions(obsoleteRegions);
+
+        observableBatch.push(this.bulletinsService.updateBulletin(value));
+      });
+    } else {
+      // delete original bulletins
+      let hit = false;
+      this.originalBulletins.forEach((value: BulletinModel, key: string) => {
+        for (let bulletin of bulletins)
+          if (bulletin.id == key) {
+            hit = true;
+            break;
+          }
+        if (!hit) {
+          console.log("[" + key + "] Delete bulletin ...");
+          observableBatch.push(this.bulletinsService.deleteBulletin(key));
         }
-      if (!hit) {
-        console.log("[" + key + "] Delete bulletin ...");
-        observableBatch.push(this.bulletinsService.deleteBulletin(key));
-      }
-    });
+      });
+    }
 
     if (observableBatch.length > 0) {
       Observable.forkJoin(observableBatch).subscribe(

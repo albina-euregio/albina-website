@@ -12,19 +12,70 @@
             <div class="col-md-12" style="height: 400px" id="map">
             </div>
           </div>
-          <div class="form-group row">
-            <div class="col-md-12">
+
+          <div class="row">
+            <div *ngIf="getOwnAggregatedRegionIds().length > 0" class="col-md-7">
               <table class="table">
                 <tbody>
-                  <div *ngFor="let aggregatedRegionId of aggregatedRegionsIds">
-                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info">
+                  <tr>
+                    <strong>{{ "bulletins.create.ownRegions" | translate }}</strong>
+                  </tr>
+                  <div *ngFor="let aggregatedRegionId of getOwnAggregatedRegionIds()">
+                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()">
+
                       <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
-                      <td>{{ aggregatedRegionId }}</td>
+                      <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
+                      <td>
+                        <div>
+                          <small class="text-muted">{{ getCreator(aggregatedRegionId) }}</small>
+                        </div>
+                      </td>
+
                     </tr>
-                    <tr *ngIf="!activeAggregatedRegionId || aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
+
+                    <tr *ngIf="aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
                       <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
-                      <td>{{ aggregatedRegionId }}</td>
+                      <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
+                      <td>
+                        <div>
+                          <small class="text-muted">{{ getCreator(aggregatedRegionId) }}</small>
+                        </div>
+                      </td>
                     </tr>
+
+                  </div>
+                </tbody>
+              </table>
+            </div>
+            <div *ngIf="getForeignAggregatedRegionIds().length > 0" class="col-md-5">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <strong>{{ "bulletins.create.foreignRegions" | translate }}</strong>
+                  </tr>
+                  <div *ngFor="let aggregatedRegionId of getForeignAggregatedRegionIds()">
+                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()">
+
+                      <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
+                      <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
+                      <td>
+                        <div>
+                          <small class="text-muted">{{ getCreator(aggregatedRegionId) }}</small>
+                        </div>
+                      </td>
+
+                    </tr>
+
+                    <tr *ngIf="aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
+                      <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
+                      <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
+                      <td>
+                        <div>
+                          <small class="text-muted">{{ getCreator(aggregatedRegionId) }}</small>
+                        </div>
+                      </td>
+                    </tr>
+
                   </div>
                 </tbody>
               </table>

@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
+import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { BulletinModel } from '../models/bulletin.model';
 import { Observable } from 'rxjs/Observable';
@@ -44,65 +45,90 @@ export class ShowBulletinComponent {
     private translateService: TranslateService,
     private settingsService: SettingsService,
     private mapService: MapService,
+    private authenticationService: AuthenticationService,
     private confirmationService: ConfirmationService)
   {
     this.loading = true;
   }
 
   ngOnInit() {
-    this.aggregatedRegionsMap = new Map<string, BulletinInputModel>();
-    this.aggregatedRegionsIds = new Array<string>();
-    this.activeAggregatedRegionId = undefined;
-    this.activeBulletinInput = undefined;
-    this.activeAvActivityHighlights = undefined;
-    this.activeAvActivityComment = undefined;
-    this.activeSnowpackStructureHighlights = undefined;
-    this.activeSnowpackStructureComment = undefined;
-    this.hasElevationDependency = false;
-    this.hasDaytimeDependency = false;
+    if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
+      this.aggregatedRegionsMap = new Map<string, BulletinInputModel>();
+      this.aggregatedRegionsIds = new Array<string>();
+      this.activeAggregatedRegionId = undefined;
+      this.activeBulletinInput = undefined;
+      this.activeAvActivityHighlights = undefined;
+      this.activeAvActivityComment = undefined;
+      this.activeSnowpackStructureHighlights = undefined;
+      this.activeSnowpackStructureComment = undefined;
+      this.hasElevationDependency = false;
+      this.hasDaytimeDependency = false;
 
-    this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
-      data => {
-        let response = data.json();
-        for (let jsonBulletin of response) {
-          let bulletin = BulletinModel.createFromJson(jsonBulletin);
-          console.log(JSON.stringify(bulletin.toJson()));
-          this.addBulletin(bulletin);
-        }
-        this.loading = false;
-        this.mapService.deselectAggregatedRegion();
-      },
-      error => {
-        console.error("Bulletins could not be loaded!");
-        this.loading = false;
-        this.confirmationService.confirm({
-          key: "loadingBulletinsErrorDialog",
-          header: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.header"),
-          message: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.message"),
-          accept: () => {
-            this.goBack();
+      this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
+        data => {
+          let response = data.json();
+          for (let jsonBulletin of response) {
+            let bulletin = BulletinModel.createFromJson(jsonBulletin);
+
+            // only add bulletins with published or saved regions
+            if ((bulletin.getPublishedRegions() && bulletin.getPublishedRegions().length > 0) || (bulletin.getSavedRegions() && bulletin.getSavedRegions().length > 0))
+              this.addBulletin(bulletin);
           }
-        });
-      }
-    );
+          this.loading = false;
+          this.mapService.deselectAggregatedRegion();
+        },
+        error => {
+          console.error("Bulletins could not be loaded!");
+          this.loading = false;
+          this.confirmationService.confirm({
+            key: "loadingBulletinsErrorDialog",
+            header: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.header"),
+            message: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.message"),
+            accept: () => {
+              this.goBack();
+            }
+          });
+        }
+      );
 
-    let map = L.map("map", {
-        zoomControl: false,
-        center: L.latLng(46.05, 11.07),
-        zoom: 8,
-        minZoom: 7,
-        maxZoom: 9,
-        layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions]
-    });
+      let map = L.map("map", {
+          zoomControl: false,
+          center: L.latLng(46.05, 11.07),
+          zoom: 8,
+          minZoom: 7,
+          maxZoom: 9,
+          layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions]
+      });
 
-    L.control.zoom({ position: "topleft" }).addTo(map);
-    //L.control.layers(this.mapService.baseMaps).addTo(map);
-    L.control.scale().addTo(map);
+      L.control.zoom({ position: "topleft" }).addTo(map);
+      //L.control.layers(this.mapService.baseMaps).addTo(map);
+      L.control.scale().addTo(map);
 
-    this.mapService.map = map;
+      this.mapService.map = map;
+    }
+  }
+
+  getOwnAggregatedRegionIds() {
+    let result = new Array<string>();
+    for (let id of this.aggregatedRegionsIds)
+      if (this.aggregatedRegionsMap.get(id).getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+        result.push(id);
+    return result;
+  }
+
+  getForeignAggregatedRegionIds() {
+    let result = new Array<string>();
+    for (let id of this.aggregatedRegionsIds)
+      if (!this.aggregatedRegionsMap.get(id).getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+        result.push(id);
+    return result;
   }
 
   ngOnDestroy() {
+    this.mapService.resetAll();
+    if (this.mapService.map)
+      this.mapService.map.remove();
+    
     this.bulletinsService.setActiveDate(undefined);
     this.bulletinsService.setIsEditable(false);
 
@@ -112,16 +138,18 @@ export class ShowBulletinComponent {
   addBulletin(bulletin: BulletinModel) {
     // a bulletin for this aggregated region is already in the map => use existend bulletin input object
     if (this.aggregatedRegionsMap.has(bulletin.getAggregatedRegionId())) {
-      if (bulletin.below) {
+      if (bulletin.elevation > 0 && bulletin.below) {
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).elevationDependency = true;
       }
       // TODO check if this a good method
       if (bulletin.validFrom.getHours() == 12) {
+        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).setAfternoonBulletinId(bulletin.id);
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).daytimeDependency = true;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonBelow = bulletin.below;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonAbove = bulletin.above;
       // TODO check if this a good method
       } else if (bulletin.validFrom.getHours() == 0) {
+        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).setForenoonBulletinId(bulletin.id);
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonBelow = bulletin.below;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonAbove = bulletin.above;
       }
@@ -131,6 +159,8 @@ export class ShowBulletinComponent {
       bulletinInput.suggestedRegions = bulletin.suggestedRegions;
       bulletinInput.savedRegions = bulletin.savedRegions;
       bulletinInput.publishedRegions = bulletin.publishedRegions;
+      bulletinInput.creator = bulletin.creator;
+      bulletinInput.creatorRegion = bulletin.creatorRegion;
       bulletinInput.avActivityHighlights = bulletin.avActivityHighlights;
       bulletinInput.avActivityComment = bulletin.avActivityComment;
       bulletinInput.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
@@ -146,19 +176,34 @@ export class ShowBulletinComponent {
       // TODO check if this a good method
       if (bulletin.validFrom.getHours() == 12) {
         bulletinInput.daytimeDependency = true;
+        bulletinInput.setAfternoonBulletinId(bulletin.id);
         bulletinInput.afternoonBelow = bulletin.below;
         bulletinInput.afternoonAbove = bulletin.above;
       // TODO check if this a good method
       } else if (bulletin.validFrom.getHours() == 0) {
+        bulletinInput.setForenoonBulletinId(bulletin.id);
         bulletinInput.forenoonBelow = bulletin.below;
         bulletinInput.forenoonAbove = bulletin.above;
       }
+      this.addAggregatedRegion(bulletin.getAggregatedRegionId(), bulletinInput);
+    }
+  }
 
+  private addAggregatedRegion(aggregatedRegionId, bulletinInput) {
       this.mapService.addAggregatedRegion(bulletinInput);
 
-      this.aggregatedRegionsMap.set(bulletin.getAggregatedRegionId(), bulletinInput);
-      this.aggregatedRegionsIds.push(bulletin.getAggregatedRegionId());
-    }
+      this.aggregatedRegionsMap.set(aggregatedRegionId, bulletinInput);
+      this.aggregatedRegionsIds.push(aggregatedRegionId);
+
+      // TODO sort aggregatedRegionsMap
+  }
+
+  getCreator(aggregatedRegionId: string) {
+    return this.aggregatedRegionsMap.get(aggregatedRegionId).getCreator();
+  }
+
+  getCreatorRegion(aggregatedRegionId: string) {
+    return this.aggregatedRegionsMap.get(aggregatedRegionId).getCreatorRegion();
   }
 
   selectAggregatedRegion(aggregatedRegionId: string) {
@@ -177,7 +222,8 @@ export class ShowBulletinComponent {
   }
 
   deselectAggregatedRegion() {
-    this.mapService.deselectRegions(this.activeBulletinInput);
+    //this.mapService.deselectRegions(this.activeBulletinInput);
+    this.mapService.deselectAggregatedRegion();
 
     this.activeAggregatedRegionId = undefined;
     this.activeBulletinInput = undefined;
