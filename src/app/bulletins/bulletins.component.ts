@@ -22,7 +22,7 @@ export class BulletinsComponent {
   public loadingTrentino: boolean;
   public loadingSouthTyrol: boolean;
   public loadingTyrol: boolean;
-  public publishing: boolean;
+  public publishing: Date;
   public copying: boolean;
 
   constructor(
@@ -40,7 +40,7 @@ export class BulletinsComponent {
     this.loadingSouthTyrol = false;
     this.loadingTyrol = false;
     this.copying = false;
-    this.publishing = false;
+    this.publishing = undefined;
   }
 
   ngOnInit() {
@@ -149,7 +149,7 @@ export class BulletinsComponent {
 
   publish(event, date: Date) {
     event.stopPropagation();
-    this.publishing = true;
+    this.publishing = date;
 
     this.bulletinsService.checkBulletins(date, this.authenticationService.getUserRegion()).subscribe(
       data => {
@@ -179,7 +179,7 @@ export class BulletinsComponent {
               data => {
                 console.log("Bulletins published.");
                 this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.published);
-                this.publishing = false;
+                this.publishing = undefined;
               },
               error => {
                 console.error("Bulletins could not be published!");
@@ -188,14 +188,14 @@ export class BulletinsComponent {
                   header: this.translate.instant("bulletins.table.publishBulletinsErrorDialog.header"),
                   message: this.translate.instant("bulletins.table.publishBulletinsErrorDialog.message"),
                   accept: () => {
-                    this.publishing = false;
+                    this.publishing = undefined;
                   }
                 });
               }
             );
           },
           reject: () => {
-            this.publishing = false;
+            this.publishing = undefined;
           }
         });
       },
@@ -206,7 +206,7 @@ export class BulletinsComponent {
           header: this.translate.instant("bulletins.table.checkBulletinsErrorDialog.header"),
           message: this.translate.instant("bulletins.table.checkBulletinsErrorDialog.message"),
           accept: () => {
-            this.publishing = false;
+            this.publishing = undefined;
           }
         });
       }
