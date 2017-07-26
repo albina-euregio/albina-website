@@ -16,6 +16,7 @@ import 'rxjs/add/observable/forkJoin';
 
 import "leaflet";
 
+
 @Component({
   templateUrl: 'create-bulletin.component.html'
 })
@@ -43,6 +44,8 @@ export class CreateBulletinComponent {
 
   public loading: boolean;
 
+  public showAfternoonMap: boolean;
+
   constructor(
     private translate: TranslateService,
     private route: ActivatedRoute,
@@ -55,6 +58,7 @@ export class CreateBulletinComponent {
     private confirmationService: ConfirmationService)
   {
     this.loading = true;
+    this.showAfternoonMap = false;
   }
 
   reset() {
@@ -70,6 +74,7 @@ export class CreateBulletinComponent {
     this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
     this.editRegions = false;
+    this.showAfternoonMap = false;
   }
 
   ngOnInit() {
@@ -126,23 +131,71 @@ export class CreateBulletinComponent {
           }
         );
       }
-
-      let map = L.map("map", {
-          zoomControl: false,
-          center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
-          zoom: 8,
-          minZoom: 6,
-          maxZoom: 10,
-          layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions]
-      });
-
-      L.control.zoom({ position: "topleft" }).addTo(map);
-      //L.control.layers(this.mapService.baseMaps).addTo(map);
-      L.control.scale().addTo(map);
-
-      this.mapService.map = map;
     } else
       this.goBack();     
+  }
+
+  ngAfterViewInit() {
+    this.initMaps();
+  }
+
+  private initMaps() {
+    if (this.mapService.map)
+      this.mapService.map.remove();
+    if (this.mapService.afternoonMap)
+      this.mapService.afternoonMap.remove();
+
+    let map = L.map("map", {
+        zoomControl: false,
+        center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
+        zoom: 8,
+        minZoom: 6,
+        maxZoom: 10,
+        layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions]
+    });
+
+    L.control.zoom({ position: "topleft" }).addTo(map);
+    //L.control.layers(this.mapService.baseMaps).addTo(map);
+    L.control.scale().addTo(map);
+
+    this.mapService.map = map;
+
+    let afternoonMap = L.map("afternoonMap", {
+        zoomControl: false,
+        center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
+        zoom: 8,
+        minZoom: 6,
+        maxZoom: 10,
+        layers: [this.mapService.afternoonBaseMaps.OpenMapSurfer_Grayscale, this.mapService.afternoonOverlayMaps.aggregatedRegions]
+    });
+
+    //L.control.zoom({ position: "topleft" }).addTo(afternoonMap);
+    //L.control.layers(this.mapService.baseMaps).addTo(afternoonMap);
+    //L.control.scale().addTo(afternoonMap);
+
+    this.mapService.afternoonMap = afternoonMap;
+  }
+
+  onShowAfternoonMap(event) {
+    let id = this.activeAggregatedRegionId;
+
+    this.deselectAggregatedRegion();
+    let map = document.getElementById('map');
+    let afternoonMap = document.getElementById('afternoonMap');
+    if (event.currentTarget.checked) {
+      map.classList.remove("col-md-12");
+      map.classList.add("col-md-6");
+      afternoonMap.classList.remove("col-md-0");
+      afternoonMap.classList.add("col-md-6");
+    } else {
+      map.classList.remove("col-md-6");
+      map.classList.add("col-md-12");
+      afternoonMap.classList.remove("col-md-6");
+      afternoonMap.classList.add("col-md-0");
+    }
+    this.initMaps();
+
+    this.selectAggregatedRegion(id);
   }
 
   getOwnAggregatedRegionIds() {
@@ -168,6 +221,8 @@ export class CreateBulletinComponent {
     this.mapService.resetAll();
     if (this.mapService.map)
       this.mapService.map.remove();
+    if (this.mapService.afternoonMap)
+      this.mapService.afternoonMap.remove();
     
     this.bulletinsService.setActiveDate(undefined);
     this.bulletinsService.setIsEditable(false);
@@ -585,11 +640,26 @@ export class CreateBulletinComponent {
     // TODO unlock whole day in TN
   }
 
-  getColor(aggregatedRegionId) {
+  getForenoonColor(aggregatedRegionId) {
     let dangerRating = "";
-    if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined && this.aggregatedRegionsMap.get(aggregatedRegionId).getHighestDangerRating())
-      dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getHighestDangerRating().toString();
+    if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined && this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRating())
+      dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRating().toString();
 
+    return this.getDangerRatingColor(dangerRating);
+  }
+
+  getAfternoonColor(aggregatedRegionId) {
+    let dangerRating = "";
+    if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined) {
+      if (this.aggregatedRegionsMap.get(aggregatedRegionId).getAfternoonDangerRating())
+        dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getAfternoonDangerRating().toString();
+      else
+        dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRating().toString();
+    }
+    return this.getDangerRatingColor(dangerRating);
+  }
+
+  private getDangerRatingColor(dangerRating) {
     if (dangerRating == "very_high") {
         return {
             color: 'black'

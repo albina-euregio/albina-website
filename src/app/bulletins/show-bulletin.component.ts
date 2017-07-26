@@ -231,8 +231,8 @@ export class ShowBulletinComponent {
 
   getColor(aggregatedRegionId) {
     let dangerRating = "";
-    if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined && this.aggregatedRegionsMap.get(aggregatedRegionId).getHighestDangerRating())
-      dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getHighestDangerRating().toString();
+    if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined && this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRating())
+      dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRating().toString();
 
     if (dangerRating == "very_high") {
         return {

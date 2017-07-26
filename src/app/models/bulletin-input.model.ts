@@ -301,9 +301,17 @@ export class BulletinInputModel {
 		this.elevationDependency = elevationDependency;
 	}
 
-	getHighestDangerRating() : Enums.DangerRating {
+	getForenoonDangerRating() : Enums.DangerRating {
 		// TODO implement some clever method
 		return this.forenoonAbove.dangerRating.getValue();
+	}
+
+	getAfternoonDangerRating() : Enums.DangerRating {
+		// TODO implement some clever method
+		if (this.afternoonAbove)
+			return this.afternoonAbove.dangerRating.getValue();
+		else
+			return this.forenoonAbove.dangerRating.getValue();
 	}
 
 	toBulletins(aggregatedRegionId: string, date: Date) : BulletinModel[] {

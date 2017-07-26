@@ -6,10 +6,17 @@
         <div class="card-header">
 <!--          <strong>{{ "bulletins.create.title.map" | translate }}</strong> -->
           <strong>{{ bulletinsService.getActiveDate() | date:'fullDate' }}</strong>
+          <label class="switch switch-text switch-pill switch-primary switch-sm float-right">
+            <input [value]="showAfternoonMap" (click)="onShowAfternoonMap($event)" type="checkbox" class="switch-input">
+            <span class="switch-label" data-on="On" data-off="Off"></span>
+            <span class="switch-handle"></span>
+          </label>
         </div>
         <div class="card-block">
           <div class="form-group row">
             <div class="col-md-12" style="height: 400px" id="map">
+            </div>
+            <div class="col-md-0" style="height: 400px" id="afternoonMap">
             </div>
           </div>
           <div class="form-group row">
@@ -25,7 +32,7 @@
                   <div *ngFor="let aggregatedRegionId of getOwnAggregatedRegionIds()">
                     <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()">
 
-                      <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
+                      <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
                       <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
                       <td>
                         <div>
@@ -62,7 +69,7 @@
                     </tr>
 
                     <tr *ngIf="aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
-                      <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
+                      <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
                       <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
                       <td>
                         <div>
@@ -85,7 +92,7 @@
                   <div *ngFor="let aggregatedRegionId of getForeignAggregatedRegionIds()">
                     <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()">
 
-                      <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
+                      <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
                       <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
                       <td>
                         <div>
@@ -122,7 +129,7 @@
                     </tr>
 
                     <tr *ngIf="aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
-                      <td><i class="fa fa-circle" [ngStyle]="getColor(aggregatedRegionId)"></i></td>
+                      <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
                       <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
                       <td>
                         <div>
