@@ -386,8 +386,14 @@ export class BulletinsService {
   }
 
   sendMessage(type: string, message: Object) {
-    this.socketService.getSocket().emit(type, JSON.stringify(message));
-    console.log("[SocketIO] Message sent: " + type + " - " + JSON.stringify(message));
+    this.socketService.getSocket().emit(type, JSON.stringify(message), function(data) {
+      console.log("[SocketIO] Message sent: " + type + " - " + JSON.stringify(message));
+      // TODO create a return value somehow
+      if (data)
+        console.log("[SocketIO] Success!");
+      else
+        console.log("[SocketIO] Failure!");
+    });
   }
 
   addLockedRegion(region: string, date: Date) {
