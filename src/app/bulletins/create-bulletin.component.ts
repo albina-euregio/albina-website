@@ -324,8 +324,6 @@ export class CreateBulletinComponent {
 
       this.aggregatedRegionsMap.set(aggregatedRegionId, bulletinInput);
       this.aggregatedRegionsIds.push(aggregatedRegionId);
-
-      // TODO sort aggregatedRegionsMap
   }
 
   getCreator(aggregatedRegionId: string) {
@@ -659,7 +657,6 @@ export class CreateBulletinComponent {
       this.originalBulletins.forEach((value: BulletinModel, key: string) => {
         console.log("[" + key + "] Set bulletin status to obsolete ...");
 
-        // TODO move all regions within user region to obsoleteRegions
         let savedRegions = new Array<String>();
         let publishedRegions = new Array<String>();
         let obsoleteRegions = new Array<String>();

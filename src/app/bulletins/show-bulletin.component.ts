@@ -194,8 +194,6 @@ export class ShowBulletinComponent {
 
       this.aggregatedRegionsMap.set(aggregatedRegionId, bulletinInput);
       this.aggregatedRegionsIds.push(aggregatedRegionId);
-
-      // TODO sort aggregatedRegionsMap
   }
 
   getCreator(aggregatedRegionId: string) {
