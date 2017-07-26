@@ -115,13 +115,19 @@ export class BulletinsComponent {
         this.bulletinsService.setIsUpdate(true);
       else
         this.bulletinsService.setIsUpdate(false);
+
       this.bulletinsService.setActiveDate(date);
+
       if ((this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion())) {
         this.bulletinsService.setIsEditable(false);
         this.router.navigate(['/bulletins/show']);
       } else {
-        this.bulletinsService.setIsEditable(true);
-        this.router.navigate(['/bulletins/new']);
+        if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
+          let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+  
+          this.bulletinsService.setIsEditable(true);
+          this.router.navigate(['/bulletins/new']);
+        }
       }
     }
   }

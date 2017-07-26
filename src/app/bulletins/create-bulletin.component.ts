@@ -74,7 +74,6 @@ export class CreateBulletinComponent {
 
   ngOnInit() {
     if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
-      this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
 
       this.reset();
 
