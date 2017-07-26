@@ -30,6 +30,7 @@ import { RegionsService } from './providers/regions-service/regions.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { SettingsService } from './providers/settings-service/settings.service';
 import { MapService } from './providers/map-service/map.service';
+import { SocketService } from './providers/socket-service/socket.service';
 import { ConfirmationService } from 'primeng/primeng';
 
 import { AuthGuard } from './guards/auth.guard';
@@ -82,6 +83,7 @@ export function createTranslateLoader(http: Http) {
     ChatService,
     NewsService,
     MapService,
+    SocketService,
     ConfirmationService
   ],
   bootstrap: [ AppComponent ],

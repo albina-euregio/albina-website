@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthenticationService } from '../authentication-service/authentication.service';
 import { ConstantsService } from '../constants-service/constants.service';
+import { SocketService } from '../socket-service/socket.service';
 import { ChatMessageModel } from '../../models/chat-message.model';
 import * as io from 'socket.io-client';
 
@@ -12,19 +13,16 @@ export class ChatService {
   public chatMessages: ChatMessageModel[];
   public newMessageCount: number;
 
-  private socket;
-
   constructor(
     public http: Http,
     public constantsService: ConstantsService,
-    public authenticationService: AuthenticationService)
+    public authenticationService: AuthenticationService,
+    public socketService: SocketService)
   {
     this.chatMessages = new Array<ChatMessageModel>();
     this.newMessageCount = 0;
 
-    this.socket = io(this.constantsService.socketIOUrl);
-
-    this.socket.on('chatEvent', function(data) {
+    this.socketService.getSocket().on('chatEvent', function(data) {
       console.log("SocketIO chat event recieved: " + data);
       let message = ChatMessageModel.createFromJson(JSON.parse(data));
       this.chatMessages.push(message);
@@ -72,7 +70,7 @@ export class ChatService {
     message.setUsername(this.authenticationService.getUsername());
     message.setTime(new Date());
     message.setText(text);
-    this.socket.emit('chatEvent', JSON.stringify(message.toJson()));
+    this.socketService.getSocket().emit('chatEvent', JSON.stringify(message.toJson()));
     console.log("SocketIO chat event sent: " + message);
   }
 

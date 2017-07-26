@@ -3,6 +3,7 @@ import { Http, Headers, RequestOptions, Response, ResponseOptions } from '@angul
 import { ConstantsService } from '../constants-service/constants.service';
 import { RegionsService } from '../regions-service/regions.service';
 import { AuthenticationService } from '../authentication-service/authentication.service';
+import { SocketService } from '../socket-service/socket.service';
 import { Observable } from 'rxjs/Observable';
 import { BulletinModel } from '../../models/bulletin.model';
 import * as Enums from '../../enums/enums';
@@ -10,8 +11,6 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class BulletinsService {
-
-  private socket;
 
   private activeDate: Date;
   private copyDate: Date;
@@ -28,7 +27,8 @@ export class BulletinsService {
   constructor(
     public http: Http,
     private constantsService: ConstantsService,
-    private authenticationService: AuthenticationService)
+    private authenticationService: AuthenticationService,
+    private socketService: SocketService)
   {
     this.activeDate = undefined;
     this.copyDate = undefined;
@@ -40,16 +40,14 @@ export class BulletinsService {
     this.lockedRegions = new Map<string, Date[]>();
     // this.lockedBulletins = new Map<string, String[]>();
 
-    this.socket = io(this.constantsService.socketIOUrl);
-
-    this.socket.on('lockRegion', function(data) {
+    this.socketService.getSocket().on('lockRegion', function(data) {
       console.log("[SocketIO] Message received: lockRegion - " + data);
       let message = JSON.parse(data);
       let date = new Date(message.date);
       this.addLockedRegion(message.region, date);
     }.bind(this));
 
-    this.socket.on('unlockRegion', function(data) {
+    this.socketService.getSocket().on('unlockRegion', function(data) {
       console.log("[SocketIO] Message received: unlockRegion - " + data);
       let message = JSON.parse(data);
       let date = new Date(message.date);
@@ -74,13 +72,13 @@ export class BulletinsService {
     }.bind(this));
 
 /*
-    this.socket.on('lockBulletin', function(data) {
+    this.socketService.getSocket().on('lockBulletin', function(data) {
       console.log("[SocketIO] Message received: lockBulletin - " + data);
       let message = JSON.parse(data);
       this.addLockedBulletin(message);
     }.bind(this));
 
-    this.socket.on('unlockBulletin', function(data) {
+    this.socketService.getSocket().on('unlockBulletin', function(data) {
       console.log("[SocketIO] Message received: unlockBulletin - " + data);
       let message = JSON.parse(data);
       this.removeLockedBulletin(message);
@@ -388,7 +386,7 @@ export class BulletinsService {
   }
 
   sendMessage(type: string, message: Object) {
-    this.socket.emit(type, JSON.stringify(message));
+    this.socketService.getSocket().emit(type, JSON.stringify(message));
     console.log("[SocketIO] Message sent: " + type + " - " + JSON.stringify(message));
   }
 
