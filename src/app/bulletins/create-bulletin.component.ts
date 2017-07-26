@@ -114,6 +114,11 @@ export class CreateBulletinComponent {
                 this.addBulletin(bulletin);
               }
             }
+
+            this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+              this.mapService.addAggregatedRegion(value);
+            });
+
             this.loading = false;
             this.mapService.deselectAggregatedRegion();
           },
@@ -177,6 +182,7 @@ export class CreateBulletinComponent {
   }
 
   onShowAfternoonMap(event) {
+    debugger
     let id = this.activeAggregatedRegionId;
 
     this.deselectAggregatedRegion();
@@ -195,7 +201,8 @@ export class CreateBulletinComponent {
     }
     this.initMaps();
 
-    this.selectAggregatedRegion(id);
+    if (id)
+      this.selectAggregatedRegion(id);
   }
 
   getOwnAggregatedRegionIds() {
@@ -219,10 +226,6 @@ export class CreateBulletinComponent {
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
 
     this.mapService.resetAll();
-    if (this.mapService.map)
-      this.mapService.map.remove();
-    if (this.mapService.afternoonMap)
-      this.mapService.afternoonMap.remove();
     
     this.bulletinsService.setActiveDate(undefined);
     this.bulletinsService.setIsEditable(false);
@@ -314,6 +317,11 @@ export class CreateBulletinComponent {
         this.addBulletin(bulletin);
       }
     }
+
+    this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+      this.mapService.addAggregatedRegion(value);
+    });
+
     this.loading = false;
     this.mapService.deselectAggregatedRegion();
   }
@@ -369,7 +377,10 @@ export class CreateBulletinComponent {
         bulletinInput.forenoonBelow = bulletin.below;
         bulletinInput.forenoonAbove = bulletin.above;
       }
-      this.addAggregatedRegion(bulletin.getAggregatedRegionId(), bulletinInput);
+
+      //this.addAggregatedRegion(bulletin.getAggregatedRegionId(), bulletinInput);
+      this.aggregatedRegionsMap.set(bulletin.getAggregatedRegionId(), bulletinInput);
+      this.aggregatedRegionsIds.push(bulletin.getAggregatedRegionId());
     }
   }
 

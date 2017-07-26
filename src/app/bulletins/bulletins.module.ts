@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 
 import { BulletinsComponent } from './bulletins.component';
 import { CreateBulletinComponent } from './create-bulletin.component';
-import { ShowBulletinComponent } from './show-bulletin.component';
 import { BulletinDetailComponent } from './bulletin-detail.component';
 import { CaamlComponent } from './caaml.component';
 
@@ -25,7 +24,6 @@ import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
   declarations: [
     BulletinsComponent,
     CreateBulletinComponent,
-    ShowBulletinComponent,
     BulletinDetailComponent,
     CaamlComponent
   ]

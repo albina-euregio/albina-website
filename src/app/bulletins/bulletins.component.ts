@@ -120,7 +120,7 @@ export class BulletinsComponent {
 
       if ((this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion())) {
         this.bulletinsService.setIsEditable(false);
-        this.router.navigate(['/bulletins/show']);
+        this.router.navigate(['/bulletins/new']);
       } else {
         if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
           let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());

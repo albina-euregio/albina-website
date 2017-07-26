@@ -7,8 +7,8 @@
 <!--          <strong>{{ "bulletins.create.title.map" | translate }}</strong> -->
           <strong>{{ bulletinsService.getActiveDate() | date:'fullDate' }}</strong>
           <label class="switch switch-text switch-pill switch-primary switch-sm float-right">
-            <input [value]="showAfternoonMap" (click)="onShowAfternoonMap($event)" type="checkbox" class="switch-input">
-            <span class="switch-label" data-on="On" data-off="Off"></span>
+            <input [disabled]="editRegions || loading" [value]="showAfternoonMap" (click)="onShowAfternoonMap($event)" type="checkbox" class="switch-input">
+            <span class="switch-label" data-on="" data-off=""></span>
             <span class="switch-handle"></span>
           </label>
         </div>
@@ -42,20 +42,20 @@
 
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
 
-                      <td *ngIf="hasSuggestions(aggregatedRegionId) && !editRegions">
+                      <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions(aggregatedRegionId)"><i class="fa fa-check"></i></button>
                       </td>
-                      <td *ngIf="hasSuggestions(aggregatedRegionId) && !editRegions">
+                      <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions(aggregatedRegionId)"><i class="fa fa-close"></i></button>
                       </td>
 
-                      <td *ngIf="!editRegions && !hasSuggestions(aggregatedRegionId)">
+                      <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion(aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
                       </td>
-                      <td *ngIf="!editRegions && !hasSuggestions(aggregatedRegionId)">
+                      <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion(true)"><i class="fa fa-copy"></i></button>
                       </td>
-                      <td *ngIf="!editRegions && !hasSuggestions(aggregatedRegionId) && isCreator(aggregatedRegionId)">
+                      <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId) && isCreator(aggregatedRegionId)">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(aggregatedRegionId)"><i class="fa fa-trash"></i></button>
                       </td>
 
@@ -102,20 +102,20 @@
 
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
 
-                      <td *ngIf="hasSuggestions(aggregatedRegionId) && !editRegions">
+                      <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions(aggregatedRegionId)"><i class="fa fa-check"></i></button>
                       </td>
-                      <td *ngIf="hasSuggestions(aggregatedRegionId) && !editRegions">
+                      <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions(aggregatedRegionId)"><i class="fa fa-close"></i></button>
                       </td>
 
-                      <td *ngIf="!editRegions && !hasSuggestions(aggregatedRegionId)">
+                      <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion(aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
                       </td>
-                      <td *ngIf="!editRegions && !hasSuggestions(aggregatedRegionId)">
+                      <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion(true)"><i class="fa fa-copy"></i></button>
                       </td>
-                      <td *ngIf="!editRegions && !hasSuggestions(aggregatedRegionId) && isCreator(aggregatedRegionId)">
+                      <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId) && isCreator(aggregatedRegionId)">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(aggregatedRegionId)"><i class="fa fa-trash"></i></button>
                       </td>
 
@@ -169,22 +169,22 @@
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
               <div class="col-md-12">
-                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityHighlights">
+                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityHighlights">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
               <div class="col-md-12">
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityComment"></textarea>
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityComment"></textarea>
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.elevation" | translate }}</strong></label>
               <div class="col-md-9">
                 <label class="radio-inline" for="inline-radio1">
-                  <input [(ngModel)]="activeBulletinInput.elevationDependency" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)">
+                  <input [(ngModel)]="activeBulletinInput.elevationDependency" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)">
                   <div *ngIf="activeBulletinInput.elevationDependency" class="input-prepend input-group">
-                    <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeBulletinInput.elevation" (change)="updateElevation(this.id)">
+                    <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeBulletinInput.elevation" (change)="updateElevation(this.id)">
                     <span class="input-group-addon">m</span>
                   </div>
                 </label>
@@ -194,7 +194,7 @@
               <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.daytime" | translate }}</strong></label>
               <div class="col-md-9">
                 <label class="radio-inline" for="inline-radio1">
-                  <input [(ngModel)]="activeBulletinInput.daytimeDependency" type="checkbox" name="daytime-checkbox" value="option1" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)">
+                  <input [(ngModel)]="activeBulletinInput.daytimeDependency" type="checkbox" name="daytime-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)">
                 </label>
               </div>
             </div>
@@ -206,35 +206,35 @@
 
   <div *ngIf="activeAggregatedRegionId" class="row">
     <div *ngIf="!activeBulletinInput.daytimeDependency && !activeBulletinInput.elevationDependency" class="col-md-12">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.detail'" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.detail'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
     </div>
     <div *ngIf="!activeBulletinInput.daytimeDependency && activeBulletinInput.elevationDependency" class="col-md-12">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.above'" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.above'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency && !activeBulletinInput.elevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.forenoon'" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.forenoon'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency && !activeBulletinInput.elevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonAbove" [title]="'bulletins.create.title.afternoon'" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonAbove" [title]="'bulletins.create.title.afternoon'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency && activeBulletinInput.elevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.forenoonAbove'" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonAbove" [title]="'bulletins.create.title.forenoonAbove'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency && activeBulletinInput.elevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonAbove" [title]="'bulletins.create.title.afternoonAbove'" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonAbove" [title]="'bulletins.create.title.afternoonAbove'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
     </div>
   </div><!--/.row-->
 
 
   <div *ngIf="activeAggregatedRegionId && activeBulletinInput.elevationDependency" class="row">
     <div *ngIf="!activeBulletinInput.daytimeDependency" class="col-md-12">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonBelow" [title]="'bulletins.create.title.below'" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonBelow" [title]="'bulletins.create.title.below'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonBelow" [title]="'bulletins.create.title.forenoonBelow'" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.forenoonBelow" [title]="'bulletins.create.title.forenoonBelow'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
     </div>
     <div *ngIf="activeBulletinInput.daytimeDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonBelow" [title]="'bulletins.create.title.afternoonBelow'" [disabled]="editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
+      <bulletin-detail [bulletinElevationDescription]="activeBulletinInput.afternoonBelow" [title]="'bulletins.create.title.afternoonBelow'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)"></bulletin-detail>
     </div>
   </div><!--/.row-->
 
@@ -249,13 +249,13 @@
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.snowpackStructureHighlights" | translate }}</strong></label>
               <div class="col-md-12">
-                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="editRegions || !bulletinsService.getIsEditable() || loading || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeSnowpackStructureHighlights">
+                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !bulletinsService.getIsEditable() || loading || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeSnowpackStructureHighlights">
               </div>
             </div>
             <div class="form-group row">
               <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
               <div class="col-md-12">
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="editRegions || !bulletinsService.getIsEditable() || loading || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeSnowpackStructureComment"></textarea>
+                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !bulletinsService.getIsEditable() || loading || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeSnowpackStructureComment"></textarea>
               </div>
             </div>
           </form>

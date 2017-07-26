@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BulletinsComponent } from './bulletins.component';
 import { CreateBulletinComponent } from './create-bulletin.component';
-import { ShowBulletinComponent } from './show-bulletin.component';
 import { CaamlComponent } from './caaml.component';
 
 import { AuthGuard } from '../guards/auth.guard';
@@ -23,14 +22,6 @@ const routes: Routes = [
     canActivate: [AuthGuard], 
     data: {
       title: 'New Bulletin'
-    }
-  },
-  {
-    path: 'show',
-    component: ShowBulletinComponent,
-    canActivate: [AuthGuard], 
-    data: {
-      title: 'Show Bulletin'
     }
   },
   {

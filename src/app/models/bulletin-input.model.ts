@@ -351,6 +351,10 @@ export class BulletinInputModel {
 			forenoonBulletin.validUntil = validUntil;
 
 			let afternoonBulletin = new BulletinModel(forenoonBulletin);
+
+			afternoonBulletin.creator = this.creator;
+			afternoonBulletin.creatorRegion = this.creatorRegion;
+
 			if (this.afternoonBulletinId != undefined)
 				afternoonBulletin.setId(this.afternoonBulletinId);
 			afternoonBulletin.validFrom = new Date(validUntil);
