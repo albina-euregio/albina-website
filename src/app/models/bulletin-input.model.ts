@@ -308,7 +308,8 @@ export class BulletinInputModel {
 
 	getAfternoonDangerRating() : Enums.DangerRating {
 		// TODO implement some clever method
-		if (this.afternoonAbove)
+		let test : any = this.afternoonAbove.dangerRating.getValue();
+		if (this.afternoonAbove && this.afternoonAbove.dangerRating && test != "missing")
 			return this.afternoonAbove.dangerRating.getValue();
 		else
 			return this.forenoonAbove.dangerRating.getValue();

@@ -7,10 +7,10 @@ export class BulletinElevationDescriptionModel {
 	public aspects: Enums.Aspect[];
 
 	constructor(bulletinElevationDescription?: BulletinElevationDescriptionModel) {
-		this.dangerRating = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.no_rating);
+		this.dangerRating = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing);
 		this.aspects = new Array<Enums.Aspect>();
 		if (!bulletinElevationDescription) {
-			this.setDangerRating("no_rating");
+			this.setDangerRating("missing");
 			this.avalancheProblem = undefined;
 		} else {
 			this.setDangerRating(bulletinElevationDescription.getDangerRating());
