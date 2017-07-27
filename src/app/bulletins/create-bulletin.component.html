@@ -90,7 +90,7 @@
                     <strong>{{ "bulletins.create.foreignRegions" | translate }}</strong>
                   </tr>
                   <div *ngFor="let aggregatedRegionId of getForeignAggregatedRegionIds()">
-                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()">
+                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()" style="height: 52px">
 
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
                       <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
@@ -128,7 +128,7 @@
 
                     </tr>
 
-                    <tr *ngIf="aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)">
+                    <tr *ngIf="aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)" style="height: 52px">
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
                       <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
                       <td>
