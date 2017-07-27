@@ -451,24 +451,28 @@ export class CreateBulletinComponent {
   }
 
   selectAggregatedRegion(aggregatedRegionId: string) {
-    this.setAvActivityTexts();
+    if (!this.editRegions) {
+      this.setAvActivityTexts();
 
-    this.activeAggregatedRegionId = aggregatedRegionId;
-    this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
-    this.activeAvActivityHighlights = this.activeBulletinInput.getAvActivityHighlightsIn(this.settingsService.getLang());
-    this.activeAvActivityComment = this.activeBulletinInput.getAvActivityCommentIn(this.settingsService.getLang());
+      this.activeAggregatedRegionId = aggregatedRegionId;
+      this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
+      this.activeAvActivityHighlights = this.activeBulletinInput.getAvActivityHighlightsIn(this.settingsService.getLang());
+      this.activeAvActivityComment = this.activeBulletinInput.getAvActivityCommentIn(this.settingsService.getLang());
 
-    this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+      this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+    }
   }
 
   deselectAggregatedRegion() {
-    //this.mapService.deselectRegions(this.activeBulletinInput);
-    this.mapService.deselectAggregatedRegion();
+    if (!this.editRegions) {
+      //this.mapService.deselectRegions(this.activeBulletinInput);
+      this.mapService.deselectAggregatedRegion();
 
-    this.activeAggregatedRegionId = undefined;
-    this.activeBulletinInput = undefined;
-    this.activeAvActivityHighlights = undefined;
-    this.activeAvActivityComment = undefined;
+      this.activeAggregatedRegionId = undefined;
+      this.activeBulletinInput = undefined;
+      this.activeAvActivityHighlights = undefined;
+      this.activeAvActivityComment = undefined;
+    }
   }
 
   private setAvActivityTexts() {
