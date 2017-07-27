@@ -18,9 +18,9 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let date of dates" (click)="editBulletin(date)" style="height: 52px">
-                <td>{{ date | date:'fullDate' }}</td>
-                <td [style.background-color]="bulletinsService.isLocked(date, 'IT-32-TN') ? 'rgba(255,0,0,0.2)' : ''">
+              <tr *ngFor="let date of dates" style="height: 52px">
+                <td (click)="editBulletin(date, false)">{{ date | date:'fullDate' }}</td>
+                <td (click)="editBulletin(date, false)" [style.background-color]="bulletinsService.isLocked(date, 'IT-32-TN') ? 'rgba(255,0,0,0.2)' : ''">
                   <i *ngIf="loadingTrentino" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                   <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
@@ -28,7 +28,7 @@
                   <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
                   <i *ngIf="bulletinsService.isLocked(date, 'IT-32-TN')" class="fa fa-lock float-right"></i>
                 </td>
-                <td [style.background-color]="bulletinsService.isLocked(date, 'IT-32-BZ') ? 'rgba(255,0,0,0.2)' : ''">
+                <td (click)="editBulletin(date, false)" [style.background-color]="bulletinsService.isLocked(date, 'IT-32-BZ') ? 'rgba(255,0,0,0.2)' : ''">
                   <i *ngIf="loadingSouthTyrol" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
@@ -36,7 +36,7 @@
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
                   <i *ngIf="bulletinsService.isLocked(date, 'IT-32-BZ')" class="fa fa-lock float-right"></i>
                 </td>
-                <td [style.background-color]="bulletinsService.isLocked(date, 'AT-07') ? 'rgba(255,0,0,0.2)' : ''">
+                <td (click)="editBulletin(date, false)" [style.background-color]="bulletinsService.isLocked(date, 'AT-07') ? 'rgba(255,0,0,0.2)' : ''">
                   <i *ngIf="loadingTyrol" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                   <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
@@ -48,8 +48,8 @@
                   <button *ngIf="bulletinsService.getUserRegionStatus(date) && bulletinsService.getUserRegionStatus(date) != bulletinStatus.missing && !copying && !loadingTrentino && !loadingSouthTyrol && !loadingTyrol" type="button" class="btn btn-secondary btn-sm" (click)="copy($event, date)"><i class="fa fa-copy"></i></button>
                   <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.draft && !copying && (!publishing || publishing.getTime() != date.getTime())" type="button" class="btn btn-primary btn-sm float-right" (click)="publish($event, date)"><i class="fa fa-send"></i></button>
                   <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.draft && !copying && publishing && publishing.getTime() == date.getTime()" type="button" class="btn btn-primary btn-sm float-right" (click)="publish($event, date)"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
-                  <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.published && !copying" type="button" class="btn btn-secondary btn-sm"><i class="fa fa-file-text" (click)="showCaaml(date)"></i></button>
-                  <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.published && !copying" type="button" class="btn btn-danger btn-sm float-right"><i class="fa fa-plus" (click)="createUpdate($event, date)"></i></button>
+                  <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.published && !copying" type="button" class="btn btn-secondary btn-sm" (click)="showCaaml($event, date)"><i class="fa fa-file-text"></i></button>
+                  <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.published && !copying" type="button" class="btn btn-danger btn-sm float-right" (click)="createUpdate($event, date)"><i class="fa fa-plus"></i></button>
                   <button *ngIf="bulletinsService.getUserRegionStatus(date) != bulletinStatus.published && copying && this.bulletinsService.getCopyDate() != date" type="button" class="btn btn-secondary btn-sm" (click)="paste($event, date)"><i class="fa fa-paste"></i></button>
                 </td>
               </tr>

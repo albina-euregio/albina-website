@@ -109,7 +109,7 @@ export class BulletinsComponent {
     this.copying = false;
   }
 
-  editBulletin(date: Date, isUpdate: boolean = false) {
+  editBulletin(date: Date, isUpdate: boolean) {
     if (!this.copying) {
       if (isUpdate)
         this.bulletinsService.setIsUpdate(true);
@@ -132,19 +132,22 @@ export class BulletinsComponent {
     }
   }
 
-  showCaaml(date: Date) {
+  showCaaml(event, date: Date) {
+    event.stopPropagation();
     this.bulletinsService.setActiveDate(date);
     this.router.navigate(['/bulletins/caaml']);
   }
 
   copy(event, date: Date) {
+    event.stopPropagation();
     this.copying = true;
     this.bulletinsService.setCopyDate(date);
   }
 
   paste(event, date: Date) {
+    event.stopPropagation();
     this.copying = false;
-    this.editBulletin(date);
+    this.editBulletin(date, false);
   }
 
   createUpdate(event, date: Date) {
