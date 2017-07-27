@@ -403,7 +403,8 @@ export class CreateBulletinComponent {
     return this.aggregatedRegionsMap.get(aggregatedRegionId).getCreatorRegion();
   }
 
-  acceptSuggestions(aggregatedRegionId: string) {
+  acceptSuggestions(event, aggregatedRegionId: string) {
+    event.stopPropagation();
     let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
     let suggested = new Array<String>();
     for (let region of bulletinInputModel.getSuggestedRegions())
@@ -425,7 +426,8 @@ export class CreateBulletinComponent {
     bulletinInputModel.setSuggestedRegions(suggested);
   }
 
-  rejectSuggestions(aggregatedRegionId: string) {
+  rejectSuggestions(event, aggregatedRegionId: string) {
+    event.stopPropagation();
     let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
     let suggested = new Array<String>();
     for (let region of bulletinInputModel.getSuggestedRegions())
@@ -489,7 +491,7 @@ export class CreateBulletinComponent {
     }
   }
 
-  deleteAggregatedRegion(aggregatedRegionId: string) {
+  deleteAggregatedRegion(event, aggregatedRegionId: string) {
     event.stopPropagation();
 
     this.confirmationService.confirm({
@@ -516,7 +518,7 @@ export class CreateBulletinComponent {
     });
   }
 
-  editAggregatedRegion(aggregatedRegionId: string) {
+  editAggregatedRegion(event, aggregatedRegionId: string) {
     event.stopPropagation();
 
     // TODO lock whole day in TN, check if any aggregated region is locked
@@ -525,7 +527,7 @@ export class CreateBulletinComponent {
     this.mapService.editAggregatedRegion(this.activeBulletinInput);
   }
 
-  saveAggregatedRegion(aggregatedRegionId: string) {
+  saveAggregatedRegion(event, aggregatedRegionId: string) {
     event.stopPropagation();
 
     // save selected regions to active bulletin input
@@ -650,7 +652,7 @@ export class CreateBulletinComponent {
     return false;
   }
 
-  discardAggregatedRegion(aggregatedRegionId?: string) {
+  discardAggregatedRegion(event, aggregatedRegionId?: string) {
     event.stopPropagation();
     this.editRegions = false;
     this.mapService.discardAggregatedRegion();
@@ -828,7 +830,7 @@ export class CreateBulletinComponent {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) { 
     if (event.keyCode == 27 && this.editRegions) {
-      this.discardAggregatedRegion();
+      this.discardAggregatedRegion(event);
     }
   }
 }

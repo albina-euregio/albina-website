@@ -30,7 +30,7 @@
                     <strong>{{ "bulletins.create.ownRegions" | translate }}</strong>
                   </tr>
                   <div *ngFor="let aggregatedRegionId of getOwnAggregatedRegionIds()">
-                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" style="height: 52px">
+                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()" style="height: 52px">
 
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
                       <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
@@ -43,27 +43,27 @@
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions(aggregatedRegionId)"><i class="fa fa-check"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, aggregatedRegionId)"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions(aggregatedRegionId)"><i class="fa fa-close"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, aggregatedRegionId)"><i class="fa fa-close"></i></button>
                       </td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion(aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
                         <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion(true)"><i class="fa fa-copy"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId) && isCreator(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(aggregatedRegionId)"><i class="fa fa-trash"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-trash"></i></button>
                       </td>
 
                       <td *ngIf="editRegions">
-                        <button type="reset" class="btn btn-sm btn-primary" (click)="saveAggregatedRegion(aggregatedRegionId)"><i class="fa fa-check"></i></button>
+                        <button type="reset" class="btn btn-sm btn-primary" (click)="saveAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="editRegions">
-                        <button type="reset" class="btn btn-sm btn-danger" (click)="discardAggregatedRegion(aggregatedRegionId)"><i class="fa fa-close"></i></button>
+                        <button type="reset" class="btn btn-sm btn-danger" (click)="discardAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-close"></i></button>
                       </td>
 
                     </tr>
@@ -90,7 +90,7 @@
                     <strong>{{ "bulletins.create.foreignRegions" | translate }}</strong>
                   </tr>
                   <div *ngFor="let aggregatedRegionId of getForeignAggregatedRegionIds()">
-                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" style="height: 52px">
+                    <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()" style="height: 52px">
 
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
                       <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
@@ -103,27 +103,27 @@
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions(aggregatedRegionId)"><i class="fa fa-check"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, aggregatedRegionId)"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions(aggregatedRegionId)"><i class="fa fa-close"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, aggregatedRegionId)"><i class="fa fa-close"></i></button>
                       </td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion(aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion(true)"><i class="fa fa-copy"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion($event, true)"><i class="fa fa-copy"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId) && isCreator(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion(aggregatedRegionId)"><i class="fa fa-trash"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-trash"></i></button>
                       </td>
 
                       <td *ngIf="editRegions">
-                        <button type="reset" class="btn btn-sm btn-primary" (click)="saveAggregatedRegion(aggregatedRegionId)"><i class="fa fa-check"></i></button>
+                        <button type="reset" class="btn btn-sm btn-primary" (click)="saveAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="editRegions">
-                        <button type="reset" class="btn btn-sm btn-danger" (click)="discardAggregatedRegion(aggregatedRegionId)"><i class="fa fa-close"></i></button>
+                        <button type="reset" class="btn btn-sm btn-danger" (click)="discardAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-close"></i></button>
                       </td>
 
                     </tr>
