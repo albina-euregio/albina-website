@@ -83,19 +83,46 @@ export class CreateBulletinComponent {
       this.reset();
 
       if (this.bulletinsService.getCopyDate()) {
-        this.bulletinsService.loadBulletins(this.bulletinsService.getCopyDate()).subscribe(
+        // TODO load from today all other regions
+
+        // TODO load from copy date only own regions
+        let regions = new Array<String>();
+        regions.push(this.authenticationService.getUserRegion());
+
+        this.bulletinsService.loadBulletins(this.bulletinsService.getCopyDate(), regions).subscribe(
           data => {
             this.copyBulletins(data.json());
             this.bulletinsService.setCopyDate(undefined);
+            this.loading = false;
           },
           error => {
-            console.error("Bulletins could not be loaded!");
+            console.error("Own bulletins could not be loaded!");
             this.loading = false;
             this.confirmationService.confirm({
               key: "loadingErrorDialog",
               header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
               message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
               accept: () => {
+                this.loading = false;
+                this.goBack();
+              }
+            });
+          }
+        );
+
+        this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
+          data => {
+            this.addForeignBulletins(data.json());
+          },
+          error => {
+            console.error("Foreign bulletins could not be loaded!");
+            this.loading = false;
+            this.confirmationService.confirm({
+              key: "loadingErrorDialog",
+              header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
+              message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
+              accept: () => {
+                this.loading = false;
                 this.goBack();
               }
             });
@@ -119,17 +146,17 @@ export class CreateBulletinComponent {
               this.mapService.addAggregatedRegion(value);
             });
 
-            this.loading = false;
             this.mapService.deselectAggregatedRegion();
+            this.loading = false;
           },
           error => {
             console.error("Bulletins could not be loaded!");
-            this.loading = false;
             this.confirmationService.confirm({
               key: "loadingErrorDialog",
               header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
               message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
               accept: () => {
+                this.loading = false;
                 this.goBack();
               }
             });
@@ -266,14 +293,15 @@ export class CreateBulletinComponent {
               this.delAggregatedRegion(entry);
 
             this.copyBulletins(data.json());
+            this.loading = false;
           },
           error => {
-            this.loading = false;
             this.confirmationService.confirm({
               key: "loadingBulletinsErrorDialog",
               header: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.header"),
               message: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.message"),
               accept: () => {
+                this.loading = false;
                 this.goBack();
               }
             });
@@ -284,8 +312,6 @@ export class CreateBulletinComponent {
   }
 
   copyBulletins(response) {
-    // reset everything
-    // TODO if copyFromYesterday, only delete own regions and add new one
     // TODO if copy from other day, add own regions but load other regions from today
     this.mapService.resetAggregatedRegions();
 
@@ -332,10 +358,26 @@ export class CreateBulletinComponent {
       this.mapService.addAggregatedRegion(value);
     });
 
-    this.loading = false;
     this.mapService.deselectAggregatedRegion();
   }
 
+  addForeignBulletins(response) {
+    this.mapService.resetAggregatedRegions();
+
+    for (let jsonBulletin of response) {
+      let bulletin = BulletinModel.createFromJson(jsonBulletin);
+
+      if (!bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+        this.addBulletin(bulletin);
+    }
+
+    this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+      this.mapService.addAggregatedRegion(value);
+    });
+
+    this.loading = false;
+    this.mapService.deselectAggregatedRegion();
+  }
 
   addBulletin(bulletin: BulletinModel) {
     // a bulletin for this aggregated region is already in the map => use existend bulletin input object
