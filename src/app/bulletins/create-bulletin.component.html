@@ -23,7 +23,7 @@
             <button [disabled]="editRegions || loading" *ngIf="bulletinsService.getIsEditable()" (click)="createAggregatedRegion(false)" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
           </div>
           <div class="row">
-            <div *ngIf="getOwnAggregatedRegionIds().length > 0" class="col-md-7">
+            <div class="col-md-7">
               <table class="table">
                 <tbody>
                   <tr>
@@ -83,7 +83,7 @@
                 </tbody>
               </table>
             </div>
-            <div *ngIf="getForeignAggregatedRegionIds().length > 0" class="col-md-5">
+            <div class="col-md-5">
               <table class="table">
                 <tbody>
                   <tr>
