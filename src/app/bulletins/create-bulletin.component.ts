@@ -182,7 +182,6 @@ export class CreateBulletinComponent {
   }
 
   onShowAfternoonMap(event) {
-    debugger
     let id = this.activeAggregatedRegionId;
 
     this.deselectAggregatedRegion();
