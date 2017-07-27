@@ -7,7 +7,7 @@
 <!--          <strong>{{ "bulletins.create.title.map" | translate }}</strong> -->
           <strong>{{ bulletinsService.getActiveDate() | date:'fullDate' }}</strong>
           <label class="switch switch-text switch-pill switch-primary switch-sm float-right">
-            <input [disabled]="editRegions || loading" [value]="showAfternoonMap" (click)="onShowAfternoonMap($event)" type="checkbox" class="switch-input">
+            <input [disabled]="editRegions || loading" [(ngModel)]="showAfternoonMap" (change)="onShowAfternoonMapChange($event.currentTarget.checked)" type="checkbox" class="switch-input">
             <span class="switch-label" data-on="" data-off=""></span>
             <span class="switch-handle"></span>
           </label>

@@ -181,13 +181,14 @@ export class CreateBulletinComponent {
     this.mapService.afternoonMap = afternoonMap;
   }
 
-  onShowAfternoonMap(event) {
+  onShowAfternoonMapChange(checked) {
+    this.showAfternoonMap = checked;
     let id = this.activeAggregatedRegionId;
 
     this.deselectAggregatedRegion();
     let map = document.getElementById('map');
     let afternoonMap = document.getElementById('afternoonMap');
-    if (event.currentTarget.checked) {
+    if (this.showAfternoonMap) {
       map.classList.remove("col-md-12");
       map.classList.add("col-md-6");
       afternoonMap.classList.remove("col-md-0");
@@ -338,6 +339,8 @@ export class CreateBulletinComponent {
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).daytimeDependency = true;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonBelow = bulletin.below;
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonAbove = bulletin.above;
+        this.showAfternoonMap = true;
+        this.onShowAfternoonMapChange(true);
       // TODO check if this a good method
       } else if (bulletin.validFrom.getHours() == 0) {
         this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).setForenoonBulletinId(bulletin.id);
@@ -370,6 +373,8 @@ export class CreateBulletinComponent {
         bulletinInput.setAfternoonBulletinId(bulletin.id);
         bulletinInput.afternoonBelow = bulletin.below;
         bulletinInput.afternoonAbove = bulletin.above;
+        this.showAfternoonMap = true;
+        this.onShowAfternoonMapChange(true);
       // TODO check if this a good method
       } else if (bulletin.validFrom.getHours() == 0) {
         bulletinInput.setForenoonBulletinId(bulletin.id);
