@@ -256,6 +256,15 @@ export class CreateBulletinComponent {
 
         this.bulletinsService.loadBulletins(date, regions).subscribe(
           data => {
+            // delete own regions
+            let entries = new Array<string>();
+            this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+              if (value.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+                entries.push(key);
+            });
+            for (let entry of entries)
+              this.delAggregatedRegion(entry);
+
             this.copyBulletins(data.json());
           },
           error => {
@@ -276,7 +285,8 @@ export class CreateBulletinComponent {
 
   copyBulletins(response) {
     // reset everything
-    this.reset();
+    // TODO if copyFromYesterday, only delete own regions and add new one
+    // TODO if copy from other day, add own regions but load other regions from today
     this.mapService.resetAggregatedRegions();
 
     let idMap = new Map<string, string>();
@@ -499,6 +509,12 @@ export class CreateBulletinComponent {
       header: this.translateService.instant("bulletins.create.deleteAggregatedRegionDialog.header"),
       message: this.translateService.instant("bulletins.create.deleteAggregatedRegionDialog.message"),
       accept: () => {
+        this.delAggregatedRegion(aggregatedRegionId);
+      }
+    });
+  }
+
+  private delAggregatedRegion(aggregatedRegionId: string) {
         this.aggregatedRegionsMap.delete(aggregatedRegionId);
 
         var index = this.aggregatedRegionsIds.indexOf(aggregatedRegionId);
@@ -513,9 +529,6 @@ export class CreateBulletinComponent {
         this.deselectAggregatedRegion();
 
         // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
-
-      }
-    });
   }
 
   editAggregatedRegion(event, aggregatedRegionId: string) {
