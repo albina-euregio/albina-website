@@ -22,6 +22,8 @@ export class BulletinDetailComponent {
   @Input() title: string;
   @Input() disabled: boolean;
 
+  avalancheProblem = Enums.AvalancheProblem;
+
   constructor(
   	private translate: TranslateService)
   {
@@ -71,6 +73,16 @@ export class BulletinDetailComponent {
   				break;
   		}
   	}
+  }
+
+  isAvalancheProblem(problem) {
+    if (this.bulletinElevationDescription.avalancheProblem && this.bulletinElevationDescription.avalancheProblem == problem)
+      return true;
+    return false;
+  }
+
+  selectAvalancheProblem(problem) {
+    this.bulletinElevationDescription.setAvalancheProblem(Enums.AvalancheProblem[problem]);
   }
 
   selectAspect(e) {

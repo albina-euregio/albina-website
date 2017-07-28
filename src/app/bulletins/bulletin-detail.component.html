@@ -49,41 +49,46 @@
       </div>
       <div class="form-group row">
         <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.avalancheProblem" | translate }}</strong></label>
-        <div *ngIf="disabled" class="col-md-12">
-          <label class="radio-inline" for="inline-radio1">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="new_snow" disabled>{{ "avalancheProblem.newSnow" | translate }}
-          </label>
-          <label class="radio-inline" for="inline-radio2">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="wind_drifted_snow" disabled>{{ "avalancheProblem.windDriftedSnow" | translate }}
-          </label>
-          <label class="radio-inline" for="inline-radio3">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="old_snow" disabled>{{ "avalancheProblem.oldSnow" | translate }}
-          </label>
-          <label class="radio-inline" for="inline-radio4">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="wet_snow" disabled>{{ "avalancheProblem.wetSnow" | translate }}
-          </label>
-          <label class="radio-inline" for="inline-radio5">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="gliding_snow" disabled>{{ "avalancheProblem.glidingSnow" | translate }}
-          </label>
-        </div>
         <div *ngIf="!disabled" class="col-md-12">
-          <label class="radio-inline" for="inline-radio1">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="new_snow">{{ "avalancheProblem.newSnow" | translate }}
-          </label>
-          <label class="radio-inline" for="inline-radio2">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="wind_drifted_snow">{{ "avalancheProblem.windDriftedSnow" | translate }}
-          </label>
-          <label class="radio-inline" for="inline-radio3">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="old_snow">{{ "avalancheProblem.oldSnow" | translate }}
-          </label>
-          <label class="radio-inline" for="inline-radio4">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="wet_snow">{{ "avalancheProblem.wetSnow" | translate }}
-          </label>
-          <label class="radio-inline" for="inline-radio5">
-            <input type="radio" [(ngModel)]="bulletinElevationDescription.avalancheProblem" name="avalanche-problem" value="gliding_snow">{{ "avalancheProblem.glidingSnow" | translate }}
-          </label>
+          <img *ngIf="isAvalancheProblem('new_snow')" src="../assets/img/New_snow_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem('new_snow')" src="../assets/img/New_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.new_snow)" width="80" height="80" style="opacity: 0.3">
+
+          <img *ngIf="isAvalancheProblem('wind_drifted_snow')" src="../assets/img/Drifting_snow_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem('wind_drifted_snow')" src="../assets/img/Drifting_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.wind_drifted_snow)" width="80" height="80" style="opacity: 0.3">
+
+          <img *ngIf="isAvalancheProblem('old_snow')" src="../assets/img/Old_snow_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem('old_snow')" src="../assets/img/Old_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.old_snow)" width="80" height="80" style="opacity: 0.3">
+
+          <img *ngIf="isAvalancheProblem('wet_snow')" src="../assets/img/Wet_snow_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem('wet_snow')" src="../assets/img/Wet_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.wet_snow)" width="80" height="80" style="opacity: 0.3">
+
+          <img *ngIf="isAvalancheProblem('gliding_snow')" src="../assets/img/Gliding_snow_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem('gliding_snow')" src="../assets/img/Gliding_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.gliding_snow)" width="80" height="80" style="opacity: 0.3">
+
+          <img *ngIf="isAvalancheProblem('favourable_situation')" src="../assets/img/Favourable_situation_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem('favourable_situation')" src="../assets/img/Favourable_situation_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.favourable_situation)" width="80" height="80" style="opacity: 0.3">
+        </div>
+        <div *ngIf="disabled" class="col-md-12">
+          <img *ngIf="isAvalancheProblem(0)" src="../assets/img/New_snow_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem(0)" src="../assets/img/New_snow_bw.svg" width="80" height="80">
+
+          <img *ngIf="isAvalancheProblem(1)" src="../assets/img/Drifting_snow_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem(1)" src="../assets/img/Drifting_snow_bw.svg" width="80" height="80">
+
+          <img *ngIf="isAvalancheProblem(2)" src="../assets/img/Old_snow_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem(2)" src="../assets/img/Old_snow_bw.svg" width="80" height="80">
+
+          <img *ngIf="isAvalancheProblem(3)" src="../assets/img/Wet_snow_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem(3)" src="../assets/img/Wet_snow_bw.svg" width="80" height="80">
+
+          <img *ngIf="isAvalancheProblem(4)" src="../assets/img/Gliding_snow_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem(4)" src="../assets/img/Gliding_snow_bw.svg" width="80" height="80">
+
+          <img *ngIf="isAvalancheProblem(5)" src="../assets/img/Favourable_situation_c.svg" width="80" height="80">
+          <img *ngIf="!isAvalancheProblem(5)" src="../assets/img/Favourable_situation_bw.svg" width="80" height="80">
         </div>
       </div>
+
       <div class="form-group row">
         <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.aspects" | translate }}</strong></label>
         <div class="col-md-9">

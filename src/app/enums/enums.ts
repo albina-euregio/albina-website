@@ -30,7 +30,7 @@ export class DangerRatingUtil {
 }
 
 export enum AvalancheProblem {
-	new_snow, wind_drifted_snow, old_snow, wet_snow, gliding_snow
+	new_snow = 0, wind_drifted_snow = 1, old_snow = 2, wet_snow = 3, gliding_snow = 4, favourable_situation = 5
 }
 export class AvalancheProblemUtil {
 	public static getSize() {
