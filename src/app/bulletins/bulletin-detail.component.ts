@@ -23,6 +23,7 @@ export class BulletinDetailComponent {
   @Input() disabled: boolean;
 
   avalancheProblem = Enums.AvalancheProblem;
+  dangerRating = Enums.DangerRating;
 
   constructor(
   	private translate: TranslateService)
@@ -73,6 +74,16 @@ export class BulletinDetailComponent {
   				break;
   		}
   	}
+  }
+
+  isDangerRating(dangerRating) {
+    if (this.bulletinElevationDescription.dangerRating && this.bulletinElevationDescription.dangerRating.getValue() == dangerRating)
+      return true;
+    return false;
+  }
+
+  selectDangerRating(dangerRating) {
+    this.bulletinElevationDescription.setDangerRating(Enums.DangerRating[dangerRating]);
   }
 
   isAvalancheProblem(problem) {
