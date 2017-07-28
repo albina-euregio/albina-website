@@ -15,7 +15,9 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
 
 import "leaflet";
+import "leaflet.sync";
 
+declare var L:any;
 
 @Component({
   templateUrl: 'create-bulletin.component.html'
@@ -206,6 +208,9 @@ export class CreateBulletinComponent {
     //L.control.scale().addTo(afternoonMap);
 
     this.mapService.afternoonMap = afternoonMap;
+
+    map.sync(afternoonMap);
+    afternoonMap.sync(map);
   }
 
   onShowAfternoonMapChange(checked) {

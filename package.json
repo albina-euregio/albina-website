@@ -39,6 +39,7 @@
     "chart.js": "2.5.0",
     "core-js": "2.4.1",
     "leaflet": "^1.0.3",
+    "leaflet.sync": "0.2.1",
     "moment": "2.18.1",
     "ng2-bootstrap": "1.4.2",
     "ng2-charts": "1.5.0",
