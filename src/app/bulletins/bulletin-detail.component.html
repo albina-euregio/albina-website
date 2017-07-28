@@ -25,20 +25,20 @@
 
         </div>
         <div *ngIf="disabled" class="col-md-12">
-          <img *ngIf="isDangerRating(0)" src="../assets/img/danger_rating_low_c.svg" width="80">
-          <img *ngIf="!isDangerRating(0)" src="../assets/img/danger_rating_low_bw.svg" width="80">
+          <img *ngIf="isDangerRating('low')" src="../assets/img/danger_rating_low_c.svg" width="80">
+          <img *ngIf="!isDangerRating('low')" src="../assets/img/danger_rating_low_bw.svg" width="80" style="opacity: 0.3">
 
-          <img *ngIf="isDangerRating(1)" src="../assets/img/danger_rating_moderate_c.svg" width="80">
-          <img *ngIf="!isDangerRating(1)" src="../assets/img/danger_rating_moderate_bw.svg" width="80">
+          <img *ngIf="isDangerRating('moderate')" src="../assets/img/danger_rating_moderate_c.svg" width="80">
+          <img *ngIf="!isDangerRating('moderate')" src="../assets/img/danger_rating_moderate_bw.svg" width="80" style="opacity: 0.3">
 
-          <img *ngIf="isDangerRating(2)" src="../assets/img/danger_rating_considerable_c.svg" width="80">
-          <img *ngIf="!isDangerRating(2)" src="../assets/img/danger_rating_considerable_bw.svg" width="80">
+          <img *ngIf="isDangerRating('considerable')" src="../assets/img/danger_rating_considerable_c.svg" width="80">
+          <img *ngIf="!isDangerRating('considerable')" src="../assets/img/danger_rating_considerable_bw.svg" width="80" style="opacity: 0.3">
 
-          <img *ngIf="isDangerRating(3)" src="../assets/img/danger_rating_high_c.svg" width="80">
-          <img *ngIf="!isDangerRating(3)" src="../assets/img/danger_rating_high_bw.svg" width="80">
+          <img *ngIf="isDangerRating('high')" src="../assets/img/danger_rating_high_c.svg" width="80">
+          <img *ngIf="!isDangerRating('high')" src="../assets/img/danger_rating_high_bw.svg" width="80" style="opacity: 0.3">
 
-          <img *ngIf="isDangerRating(4)" src="../assets/img/danger_rating_very_high_c.svg" width="80">
-          <img *ngIf="!isDangerRating(4)" src="../assets/img/danger_rating_very_high_bw.svg" width="80">
+          <img *ngIf="isDangerRating('very_high')" src="../assets/img/danger_rating_very_high_c.svg" width="80">
+          <img *ngIf="!isDangerRating('very_high')" src="../assets/img/danger_rating_very_high_bw.svg" width="80" style="opacity: 0.3">
         </div>
       </div>
       <div class="form-group row">
@@ -64,22 +64,22 @@
         </div>
         <div *ngIf="disabled" class="col-md-12">
           <img *ngIf="isAvalancheProblem('new_snow')" src="../assets/img/New_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('new_snow')" src="../assets/img/New_snow_bw.svg" width="60">
+          <img *ngIf="!isAvalancheProblem('new_snow')" src="../assets/img/New_snow_bw.svg" width="60" style="opacity: 0.3">
 
           <img *ngIf="isAvalancheProblem('wind_drifted_snow')" src="../assets/img/Drifting_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('wind_drifted_snow')" src="../assets/img/Drifting_snow_bw.svg" width="60">
+          <img *ngIf="!isAvalancheProblem('wind_drifted_snow')" src="../assets/img/Drifting_snow_bw.svg" width="60" style="opacity: 0.3">
 
           <img *ngIf="isAvalancheProblem('old_snow')" src="../assets/img/Old_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('old_snow')" src="../assets/img/Old_snow_bw.svg" width="60">
+          <img *ngIf="!isAvalancheProblem('old_snow')" src="../assets/img/Old_snow_bw.svg" width="60" style="opacity: 0.3">
 
           <img *ngIf="isAvalancheProblem('wet_snow')" src="../assets/img/Wet_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('wet_snow')" src="../assets/img/Wet_snow_bw.svg" width="60">
+          <img *ngIf="!isAvalancheProblem('wet_snow')" src="../assets/img/Wet_snow_bw.svg" width="60" style="opacity: 0.3">
 
           <img *ngIf="isAvalancheProblem('gliding_snow')" src="../assets/img/Gliding_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('gliding_snow')" src="../assets/img/Gliding_snow_bw.svg" width="60">
+          <img *ngIf="!isAvalancheProblem('gliding_snow')" src="../assets/img/Gliding_snow_bw.svg" width="60" style="opacity: 0.3">
 
           <img *ngIf="isAvalancheProblem('favourable_situation')" src="../assets/img/Favourable_situation_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('favourable_situation')" src="../assets/img/Favourable_situation_bw.svg" width="60">
+          <img *ngIf="!isAvalancheProblem('favourable_situation')" src="../assets/img/Favourable_situation_bw.svg" width="60" style="opacity: 0.3">
         </div>
       </div>
 
