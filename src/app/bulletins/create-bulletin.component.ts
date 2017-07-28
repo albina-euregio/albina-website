@@ -85,9 +85,6 @@ export class CreateBulletinComponent {
       this.reset();
 
       if (this.bulletinsService.getCopyDate()) {
-        // TODO load from today all other regions
-
-        // TODO load from copy date only own regions
         let regions = new Array<String>();
         regions.push(this.authenticationService.getUserRegion());
 
