@@ -84,9 +84,5 @@ export class BulletinDetailComponent {
       document.getElementById(Enums.Aspect[aspect]).style.fill = "#000000";
       document.getElementById(Enums.Aspect[aspect]).focus();
     }
-
-    console.log("Aspects:");
-    for (let a of this.bulletinElevationDescription.aspects)
-      console.log(a);
   }
 }
