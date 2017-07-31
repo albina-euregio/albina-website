@@ -86,14 +86,14 @@
       <div class="form-group row">
         <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.aspects" | translate }}</strong></label>
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="150px" height="150px" viewBox="0 0 600 600" enable-background="new 0 0 600 600" xml:space="preserve">
-          <polygon id="NW" fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 100,200 100,100 200,100 " (click)="selectAspect(aspect.NW)"/>
-          <polygon id="W" fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 100,200 0,300 100,400 " (click)="selectAspect(aspect.W)"/>
-          <polygon id="SW" fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 200,500 100,500 100,400 " (click)="selectAspect(aspect.SW)"/>
-          <polygon id="S" fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 200,500 300,600 400,500 " (click)="selectAspect(aspect.S)"/>
-          <polygon id="SE" fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 500,400 500,500 400,500 " (click)="selectAspect(aspect.SE)"/>
-          <polygon id="E" fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 500,200 600,300 500,400 " (click)="selectAspect(aspect.E)"/>
-          <polygon id="NE" fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 400,100 500,100 500,200 " (click)="selectAspect(aspect.NE)"/>
-          <polygon id="N" fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 200,100 300,0 400,100 " (click)="selectAspect(aspect.N)"/>
+          <polygon id="NW" #NW fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 100,200 100,100 200,100 " (click)="selectAspect(aspect.NW)"/>
+          <polygon id="W" #W fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 100,200 0,300 100,400 " (click)="selectAspect(aspect.W)"/>
+          <polygon id="SW" #SW fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 200,500 100,500 100,400 " (click)="selectAspect(aspect.SW)"/>
+          <polygon id="S" #S fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 200,500 300,600 400,500 " (click)="selectAspect(aspect.S)"/>
+          <polygon id="SE" #SE fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 500,400 500,500 400,500 " (click)="selectAspect(aspect.SE)"/>
+          <polygon id="E" #E fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 500,200 600,300 500,400 " (click)="selectAspect(aspect.E)"/>
+          <polygon id="NE" #NE fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 400,100 500,100 500,200 " (click)="selectAspect(aspect.NE)"/>
+          <polygon id="N" #N fill="#FFFFFF" stroke="#999999" stroke-width="5" points="300,300 200,100 300,0 400,100 " (click)="selectAspect(aspect.N)"/>
           <text transform="matrix(1 0 0 1 274 137.479)" fill="#999999" font-family="'Roboto', 'Trebuchet MS', Arial, Helvetica, sans-serif" font-size="72" (click)="selectAspect(aspect.N)">{{ "aspect.N" | translate }}</text>
           <text transform="matrix(1 0 0 1 276.167 507.168)" fill="#999999" font-family="'Roboto', 'Trebuchet MS', Arial, Helvetica, sans-serif" font-size="72" (click)="selectAspect(aspect.S)">{{ "aspect.S" | translate }}</text>
           <text transform="matrix(1 0 0 1 88.832 324.3125)" fill="#999999" font-family="'Roboto', 'Trebuchet MS', Arial, Helvetica, sans-serif" font-size="72" (click)="selectAspect(aspect.W)">{{ "aspect.W" | translate }}</text>

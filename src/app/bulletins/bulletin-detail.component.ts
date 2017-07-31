@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinElevationDescriptionModel } from '../models/bulletin-elevation-description.model';
 import * as Enums from '../enums/enums';
@@ -13,6 +13,15 @@ export class BulletinDetailComponent {
   @Input() title: string;
   @Input() disabled: boolean;
 
+  @ViewChild('N') aspectN: ElementRef;
+  @ViewChild('NE') aspectNE: ElementRef;
+  @ViewChild('E') aspectE: ElementRef;
+  @ViewChild('SE') aspectSE: ElementRef;
+  @ViewChild('S') aspectS: ElementRef;
+  @ViewChild('SW') aspectSW: ElementRef;
+  @ViewChild('W') aspectW: ElementRef;
+  @ViewChild('NW') aspectNW: ElementRef;
+
   avalancheProblem = Enums.AvalancheProblem;
   dangerRating = Enums.DangerRating;
   aspect = Enums.Aspect;
@@ -24,8 +33,43 @@ export class BulletinDetailComponent {
 
   ngAfterViewInit() {
     for (let a of this.bulletinElevationDescription.aspects) {
-      document.getElementById(a.toString()).style.fill = "#000000";
-      document.getElementById(a.toString()).focus();
+      switch (+Enums.Aspect[a]) {
+        case Enums.Aspect.N:
+          this.aspectN.nativeElement.style.fill = "#000000";
+          this.aspectN.nativeElement.focus();
+          break;
+        case Enums.Aspect.NE:
+          this.aspectNE.nativeElement.style.fill = "#000000";
+          this.aspectNE.nativeElement.focus();
+          break;
+        case Enums.Aspect.E:
+          this.aspectE.nativeElement.style.fill = "#000000";
+          this.aspectE.nativeElement.focus();
+          break;
+        case Enums.Aspect.SE:
+          this.aspectSE.nativeElement.style.fill = "#000000";
+          this.aspectSE.nativeElement.focus();
+          break;
+        case Enums.Aspect.S:
+          this.aspectS.nativeElement.style.fill = "#000000";
+          this.aspectS.nativeElement.focus();
+          break;
+        case Enums.Aspect.SW:
+          this.aspectSW.nativeElement.style.fill = "#000000";
+          this.aspectSW.nativeElement.focus();
+          break;
+        case Enums.Aspect.W:
+          this.aspectW.nativeElement.style.fill = "#000000";
+          this.aspectW.nativeElement.focus();
+          break;
+        case Enums.Aspect.NW:
+          this.aspectNW.nativeElement.style.fill = "#000000";
+          this.aspectNW.nativeElement.focus();
+          break;
+        
+        default:
+          break;
+      }
     }
   }
 
@@ -56,33 +100,141 @@ export class BulletinDetailComponent {
       if (a == aspect || a == aspect + 1) {
         for (var i = 0; i < 8; i++) {
           this.bulletinElevationDescription.addAspect(Enums.Aspect[i]);
-          document.getElementById(Enums.Aspect[i]).style.fill = "#000000";
-          document.getElementById(Enums.Aspect[i]).focus();
         }
+        this.aspectN.nativeElement.style.fill = "#000000";
+        this.aspectN.nativeElement.focus();
+        this.aspectNE.nativeElement.style.fill = "#000000";
+        this.aspectNE.nativeElement.focus();
+        this.aspectE.nativeElement.style.fill = "#000000";
+        this.aspectE.nativeElement.focus();
+        this.aspectSE.nativeElement.style.fill = "#000000";
+        this.aspectSE.nativeElement.focus();
+        this.aspectS.nativeElement.style.fill = "#000000";
+        this.aspectS.nativeElement.focus();
+        this.aspectSW.nativeElement.style.fill = "#000000";
+        this.aspectSW.nativeElement.focus();
+        this.aspectW.nativeElement.style.fill = "#000000";
+        this.aspectW.nativeElement.focus();
+        this.aspectNW.nativeElement.style.fill = "#000000";
+        this.aspectNW.nativeElement.focus();
       } else {
-        for (var i = 0; i < 8; i++) {
-          document.getElementById(Enums.Aspect[i]).style.fill = "#FFFFFF";
-          document.getElementById(Enums.Aspect[i]).focus();
-        }
+        this.aspectN.nativeElement.style.fill = "#FFFFFF";
+        this.aspectN.nativeElement.focus();
+        this.aspectNE.nativeElement.style.fill = "#FFFFFF";
+        this.aspectNE.nativeElement.focus();
+        this.aspectE.nativeElement.style.fill = "#FFFFFF";
+        this.aspectE.nativeElement.focus();
+        this.aspectSE.nativeElement.style.fill = "#FFFFFF";
+        this.aspectSE.nativeElement.focus();
+        this.aspectS.nativeElement.style.fill = "#FFFFFF";
+        this.aspectS.nativeElement.focus();
+        this.aspectSW.nativeElement.style.fill = "#FFFFFF";
+        this.aspectSW.nativeElement.focus();
+        this.aspectW.nativeElement.style.fill = "#FFFFFF";
+        this.aspectW.nativeElement.focus();
+        this.aspectNW.nativeElement.style.fill = "#FFFFFF";
+        this.aspectNW.nativeElement.focus();
 
         let end = (aspect + 1) % 8;
         while (a != end) {
           this.bulletinElevationDescription.addAspect(Enums.Aspect[a]);
-          document.getElementById(Enums.Aspect[a]).style.fill = "#000000";
-          document.getElementById(Enums.Aspect[a]).focus();
+          switch (+a) {
+            case Enums.Aspect.N:
+              this.aspectN.nativeElement.style.fill = "#000000";
+              this.aspectN.nativeElement.focus();
+              break;
+            case Enums.Aspect.NE:
+              this.aspectNE.nativeElement.style.fill = "#000000";
+              this.aspectNE.nativeElement.focus();
+              break;
+            case Enums.Aspect.E:
+              this.aspectE.nativeElement.style.fill = "#000000";
+              this.aspectE.nativeElement.focus();
+              break;
+            case Enums.Aspect.SE:
+              this.aspectSE.nativeElement.style.fill = "#000000";
+              this.aspectSE.nativeElement.focus();
+              break;
+            case Enums.Aspect.S:
+              this.aspectS.nativeElement.style.fill = "#000000";
+              this.aspectS.nativeElement.focus();
+              break;
+            case Enums.Aspect.SW:
+              this.aspectSW.nativeElement.style.fill = "#000000";
+              this.aspectSW.nativeElement.focus();
+              break;
+            case Enums.Aspect.W:
+              this.aspectW.nativeElement.style.fill = "#000000";
+              this.aspectW.nativeElement.focus();
+              break;
+            case Enums.Aspect.NW:
+              this.aspectNW.nativeElement.style.fill = "#000000";
+              this.aspectNW.nativeElement.focus();
+              break;
+            
+            default:
+              break;
+          }
           a = (a + 1) % 8;
         }
       }
     } else {
       this.bulletinElevationDescription.setAspects(new Array<Enums.Aspect>());
-      for (var i = 0; i < 8; i++) {
-        document.getElementById(Enums.Aspect[i]).style.fill = "#FFFFFF";
-        document.getElementById(Enums.Aspect[i]).focus();
-      }
+      this.aspectN.nativeElement.style.fill = "#FFFFFF";
+      this.aspectN.nativeElement.focus();
+      this.aspectNE.nativeElement.style.fill = "#FFFFFF";
+      this.aspectNE.nativeElement.focus();
+      this.aspectE.nativeElement.style.fill = "#FFFFFF";
+      this.aspectE.nativeElement.focus();
+      this.aspectSE.nativeElement.style.fill = "#FFFFFF";
+      this.aspectSE.nativeElement.focus();
+      this.aspectS.nativeElement.style.fill = "#FFFFFF";
+      this.aspectS.nativeElement.focus();
+      this.aspectSW.nativeElement.style.fill = "#FFFFFF";
+      this.aspectSW.nativeElement.focus();
+      this.aspectW.nativeElement.style.fill = "#FFFFFF";
+      this.aspectW.nativeElement.focus();
+      this.aspectNW.nativeElement.style.fill = "#FFFFFF";
+      this.aspectNW.nativeElement.focus();
 
       this.bulletinElevationDescription.addAspect(Enums.Aspect[aspect]);
-      document.getElementById(Enums.Aspect[aspect]).style.fill = "#000000";
-      document.getElementById(Enums.Aspect[aspect]).focus();
+      switch (+aspect) {
+        case Enums.Aspect.N:
+          this.aspectN.nativeElement.style.fill = "#000000";
+          this.aspectN.nativeElement.focus();
+          break;
+        case Enums.Aspect.NE:
+          this.aspectNE.nativeElement.style.fill = "#000000";
+          this.aspectNE.nativeElement.focus();
+          break;
+        case Enums.Aspect.E:
+          this.aspectE.nativeElement.style.fill = "#000000";
+          this.aspectE.nativeElement.focus();
+          break;
+        case Enums.Aspect.SE:
+          this.aspectSE.nativeElement.style.fill = "#000000";
+          this.aspectSE.nativeElement.focus();
+          break;
+        case Enums.Aspect.S:
+          this.aspectS.nativeElement.style.fill = "#000000";
+          this.aspectS.nativeElement.focus();
+          break;
+        case Enums.Aspect.SW:
+          this.aspectSW.nativeElement.style.fill = "#000000";
+          this.aspectSW.nativeElement.focus();
+          break;
+        case Enums.Aspect.W:
+          this.aspectW.nativeElement.style.fill = "#000000";
+          this.aspectW.nativeElement.focus();
+          break;
+        case Enums.Aspect.NW:
+          this.aspectNW.nativeElement.style.fill = "#000000";
+          this.aspectNW.nativeElement.focus();
+          break;
+        
+        default:
+          break;
+      }
     }
   }
 }
