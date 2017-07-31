@@ -55,6 +55,13 @@ export class BulletinElevationDescriptionModel {
 			this.aspects.splice(index, 1);
 	}
 
+	containsAspect(aspect) {
+		if (this.aspects.includes(aspect))
+			return true;
+		else
+			return false;
+	}
+
 	toJson() {
 		var json = Object();
 

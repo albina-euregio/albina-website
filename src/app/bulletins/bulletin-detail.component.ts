@@ -24,56 +24,18 @@ export class BulletinDetailComponent {
 
   avalancheProblem = Enums.AvalancheProblem;
   dangerRating = Enums.DangerRating;
+  aspect = Enums.Aspect;
 
   constructor(
   	private translate: TranslateService)
   {
   }
 
-  ngOnInit() {
-
-  }
-
-  ngAfterContentChecked() {
-    this.N = false;
-    this.NW = false;
-    this.W = false;
-    this.SW = false;
-    this.S = false;
-    this.SE = false;
-    this.E = false;
-    this.NE = false;
-   	for (var i = this.bulletinElevationDescription.aspects.length - 1; i >= 0; i--) {
-  		switch (+Enums.Aspect[this.bulletinElevationDescription.aspects[i]]) {
-  			case 1:
-  				this.N = true;
-  				break;
-  			case 2:
-  				this.NE = true;
-  				break;
-  			case 3:
-  				this.E = true;
-  				break;
-  			case 4:
-  				this.SE = true;
-  				break;
-  			case 5:
-  				this.S = true;
-  				break;
-  			case 6:
-  				this.SW = true;
-  				break;
-  			case 7:
-  				this.W = true;
-  				break;
-  			case 8:
-  				this.NW = true;
-  				break;
-  			
-  			default:
-  				break;
-  		}
-  	}
+  ngAfterViewInit() {
+    for (let a of this.bulletinElevationDescription.aspects) {
+      document.getElementById(a.toString()).style.fill = "#000000";
+      document.getElementById(a.toString()).focus();
+    }
   }
 
   isDangerRating(dangerRating) {
@@ -96,69 +58,15 @@ export class BulletinDetailComponent {
     this.bulletinElevationDescription.setAvalancheProblem(Enums.AvalancheProblem[problem]);
   }
 
-  selectAspect(e) {
-  	if (e.currentTarget.checked) {
-  		this.bulletinElevationDescription.addAspect(e.currentTarget.value);
-  		switch (e.currentTarget.value) {
-  			case "N":
-  				this.N = true;
-  				break;
-  			case "NW":
-  				this.NW = true;
-  				break;
-  			case "W":
-  				this.W = true;
-  				break;
-  			case "SW":
-  				this.SW = true;
-  				break;
-  			case "S":
-  				this.S = true;
-  				break;
-  			case "SE":
-  				this.SE = true;
-  				break;
-  			case "E":
-  				this.E = true;
-  				break;
-  			case "NE":
-  				this.NE = true;
-  				break;
-  			
-  			default:
-  				break;
-  		}
-  	} else {
-  		this.bulletinElevationDescription.removeAspect(e.currentTarget.value);
-  		switch (e.currentTarget.value) {
-  			case "N":
-  				this.N = false;
-  				break;
-  			case "NW":
-  				this.NW = false;
-  				break;
-  			case "W":
-  				this.W = false;
-  				break;
-  			case "SW":
-  				this.SW = false;
-  				break;
-  			case "S":
-  				this.S = false;
-  				break;
-  			case "SE":
-  				this.SE = false;
-  				break;
-  			case "E":
-  				this.E = false;
-  				break;
-  			case "NE":
-  				this.NE = false;
-  				break;
-  			
-  			default:
-  				break;
-  		}
-  	}
+  selectAspect(aspect) {
+    if (this.bulletinElevationDescription.containsAspect(Enums.Aspect[aspect])) {
+      this.bulletinElevationDescription.removeAspect(Enums.Aspect[aspect]);
+      document.getElementById(Enums.Aspect[aspect]).style.fill = "#FFFFFF";
+      document.getElementById(Enums.Aspect[aspect]).focus();
+    } else {
+  		this.bulletinElevationDescription.addAspect(Enums.Aspect[aspect]);
+      document.getElementById(Enums.Aspect[aspect]).style.fill = "#000000";
+      document.getElementById(Enums.Aspect[aspect]).focus();
+    }
   }
 }
