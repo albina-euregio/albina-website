@@ -207,6 +207,7 @@
 			"publishBulletinsDialog" : {
 				"header" : "Lagebericht publizieren",
 				"message" : "Willst du den Lagebericht publizieren?",
+				"missingDangerRating" : "Gefahrenstufe nicht definiert",
 				"missingRegion" : "Regionen nicht beurteilt",
 				"duplicateRegion" : "Regionen mehrfach beurteilt",
 				"missingAvActivityHighlights" : "Schlagzeile Gefahrensituation fehlt",

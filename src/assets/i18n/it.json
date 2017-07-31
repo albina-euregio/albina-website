@@ -207,6 +207,7 @@
 			"publishBulletinsDialog" : {
 				"header" : "TODO",
 				"message" : "TODO",
+				"missingDangerRating" : "TODO",
 				"missingRegion" : "TODO",
 				"duplicateRegion" : "TODO",
 				"missingAvActivityHighlights" : "TODO",

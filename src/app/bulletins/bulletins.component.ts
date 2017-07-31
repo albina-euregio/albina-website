@@ -167,6 +167,8 @@ export class BulletinsComponent {
         let message = this.translateService.instant("bulletins.table.publishBulletinsDialog.message") + '<br><br>';
 
         for (let entry of result) {
+          if (entry == 'missingDangerRating')
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingDangerRating") + '<br>';
           if (entry == 'missingRegion')
             message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingRegion") + '<br>';
           if (entry == 'duplicateRegion')
