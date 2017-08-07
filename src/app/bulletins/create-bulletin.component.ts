@@ -251,7 +251,7 @@ export class CreateBulletinComponent {
   }
 
   ngOnDestroy() {
-    if (this.bulletinsService.getActiveDate())
+    if (this.bulletinsService.getActiveDate() && this.bulletinsService.getIsEditable())
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
 
     this.mapService.resetAll();
@@ -260,6 +260,7 @@ export class CreateBulletinComponent {
     this.bulletinsService.setIsEditable(false);
 
     this.loading = false;
+    this.editRegions = false;
   }
 
   updateElevation() {
@@ -878,10 +879,7 @@ export class CreateBulletinComponent {
   }
 
   goBack() {
-    this.mapService.resetAll();
     this.router.navigate(['/bulletins']);
-    this.loading = false;
-    this.editRegions = false;
   }
 
   @HostListener('document:keydown', ['$event'])
