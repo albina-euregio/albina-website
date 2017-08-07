@@ -228,6 +228,7 @@ export class BulletinsComponent {
   handleKeyboardEvent(event: KeyboardEvent) { 
     if (event.keyCode == 27 && this.copying) {
       this.copying = false;
+      this.bulletinsService.setCopyDate(undefined);
     }
   }
 }
