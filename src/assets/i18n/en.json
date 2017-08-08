@@ -111,7 +111,26 @@
 	},
 	"bulletins" : {
 		"title" : "Bulletins",
+		"tooltip" : {
+			"publish" : "Publish bulletin",
+			"copy" : "Copy bulletin",
+			"paste" : "Paste bulletin",
+			"update" : "Create update of bulletin",
+			"caaml" : "Show CAAML"
+		},
 		"create" : {
+			"tooltip" : {
+				"edit" : "Edit region",
+				"copy" : "Copy region",
+				"delete" : "Delete region",
+				"acceptSuggestion" : "Accept suggested regions",
+				"rejectSuggestion" : "Decline suggested regions",
+				"saveChanges" : "Save changes",
+				"discardChanges" : "Discard changes",
+				"saveBulletin" : "Save bulletin",
+				"discardBulletin" : "Discard bulletin changes",
+				"loadBulletin" : "Load bulletin from the day before"
+		},
 			"button" : "Create",
 			"save" : "Save",
 			"discard" : "Discard",

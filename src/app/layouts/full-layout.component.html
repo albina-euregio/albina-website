@@ -25,7 +25,7 @@
         <img src="{{ authenticationService.getUserImageSanitized() }}" class="img-avatar">
         <span class="hidden-md-down">{{ authenticationService.getUsername() }}</span>
       </a>
-      <div class="dropdown-menu dropdown-menu-right" dropdownMenu aria-labelledby="simple-dropdown">
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
         <div class="dropdown-header text-center"><strong>{{ "menu.language" | translate }}</strong></div>
 
         <a class="dropdown-item" href="#" (click)='settingsService.setLangString("it")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.it" | translate }}<i *ngIf="settingsService.getLangString()=='it'" class="fa fa-check float-right"></i></a>

@@ -43,27 +43,27 @@
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, aggregatedRegionId)"><i class="fa fa-check"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.acceptSuggestions' | translate }}"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, aggregatedRegionId)"><i class="fa fa-close"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.rejectSuggestions' | translate }}"><i class="fa fa-close"></i></button>
                       </td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.edit' | translate }}"><i class="fa fa-pencil"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion(true)"><i class="fa fa-copy"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion(true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId) && isCreator(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-trash"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.delete' | translate }}"><i class="fa fa-trash"></i></button>
                       </td>
 
                       <td *ngIf="editRegions">
-                        <button type="reset" class="btn btn-sm btn-primary" (click)="saveAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-check"></i></button>
+                        <button type="reset" class="btn btn-sm btn-primary" (click)="saveAggregatedRegion($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.saveChanges' | translate }}"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="editRegions">
-                        <button type="reset" class="btn btn-sm btn-danger" (click)="discardAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-close"></i></button>
+                        <button type="reset" class="btn btn-sm btn-danger" (click)="discardAggregatedRegion($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.discardChanges' | translate }}"><i class="fa fa-close"></i></button>
                       </td>
 
                     </tr>
@@ -103,27 +103,27 @@
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, aggregatedRegionId)"><i class="fa fa-check"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.acceptSuggestions' | translate }}"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, aggregatedRegionId)"><i class="fa fa-close"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.rejectSuggestions' | translate }}"><i class="fa fa-close"></i></button>
                       </td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-pencil"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editAggregatedRegion($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.edit' | translate }}"><i class="fa fa-pencil"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion($event, true)"><i class="fa fa-copy"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createAggregatedRegion($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId) && isCreator(aggregatedRegionId)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-trash"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteAggregatedRegion($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.delete' | translate }}"><i class="fa fa-trash"></i></button>
                       </td>
 
                       <td *ngIf="editRegions">
-                        <button type="reset" class="btn btn-sm btn-primary" (click)="saveAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-check"></i></button>
+                        <button type="reset" class="btn btn-sm btn-primary" (click)="saveAggregatedRegion($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.saveChanges' | translate }}"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="editRegions">
-                        <button type="reset" class="btn btn-sm btn-danger" (click)="discardAggregatedRegion($event, aggregatedRegionId)"><i class="fa fa-close"></i></button>
+                        <button type="reset" class="btn btn-sm btn-danger" (click)="discardAggregatedRegion($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.discardChanges' | translate }}"><i class="fa fa-close"></i></button>
                       </td>
 
                     </tr>
@@ -146,10 +146,10 @@
           </div>
         </div>
         <div *ngIf="bulletinsService.getIsEditable()" class="card-footer">
-          <button *ngIf="!loading" [disabled]="editRegions" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i>{{ "bulletins.create.save" | translate }}</button>
+          <button *ngIf="!loading" [disabled]="editRegions" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.saveBulletin' | translate }}"><i class="fa fa-check"></i>{{ "bulletins.create.save" | translate }}</button>
           <button *ngIf="loading" disabled class="btn btn-sm btn-primary px-3"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
-          <button [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-danger px-3" (click)="discard()"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
-          <button *ngIf="!bulletinsService.getIsUpdate()" [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-primary px-3" style="float: right" (click)="loadBulletinsFromYesterday()"><i class="fa fa-copy"></i></button>
+          <button [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-danger px-3" (click)="discard()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.discardBulletin' | translate }}"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
+          <button *ngIf="!bulletinsService.getIsUpdate()" [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-primary px-3" style="float: right" (click)="loadBulletinsFromYesterday()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.loadBulletin' | translate }}"><i class="fa fa-copy"></i></button>
         </div>
         <div *ngIf="!bulletinsService.getIsEditable()" class="card-footer">
           <button type="reset" class="btn btn-sm btn-primary px-3" (click)="goBack()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>

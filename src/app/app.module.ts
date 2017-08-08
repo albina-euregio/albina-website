@@ -4,12 +4,9 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { DropdownModule } from 'ng2-bootstrap/dropdown';
-import { TabsModule } from 'ng2-bootstrap/tabs';
 import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
 import { AsideToggleDirective } from './shared/aside.directive';
 import { BreadcrumbsComponent } from './shared/breadcrumb.component';
@@ -38,6 +35,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { HttpModule, Http } from '@angular/http';
 
+import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+
 export function createTranslateLoader(http: Http) {
     return new TranslateStaticLoader(http, './assets/i18n', '.json');
 }
@@ -46,9 +45,8 @@ export function createTranslateLoader(http: Http) {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,

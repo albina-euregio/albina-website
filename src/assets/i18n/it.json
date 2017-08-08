@@ -111,7 +111,26 @@
 	},
 	"bulletins" : {
 		"title" : "Bollettini",
+		"tooltip" : {
+			"publish" : "TODO",
+			"copy" : "TODO",
+			"paste" : "TODO",
+			"update" : "TODO",
+			"caaml" : "TODO"
+		},
 		"create" : {
+			"tooltip" : {
+				"edit" : "TODO",
+				"copy" : "TODO",
+				"delete" : "TODO",
+				"acceptSuggestion" : "TODO",
+				"rejectSuggestion" : "TODO",
+				"saveChanges" : "TODO",
+				"discardChanges" : "TODO",			
+				"saveBulletin" : "TODO",
+				"discardBulletin" : "TODO",
+				"loadBulletin" : "TODO"
+			},
 			"button" : "Creato",
 			"save" : "Salva",
 			"discard" : "Scarta",

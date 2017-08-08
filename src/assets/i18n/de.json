@@ -111,7 +111,26 @@
 	},
 	"bulletins" : {
 		"title" : "Lageberichte",
+		"tooltip" : {
+			"publish" : "Lagebericht publizieren",
+			"copy" : "Lagebericht kopieren",
+			"paste" : "Lagebericht einfügen",
+			"update" : "Update zum Lagebericht erstellen",
+			"caaml" : "CAAML anzeigen"
+		},
 		"create" : {
+			"tooltip" : {
+				"edit" : "Region editieren",
+				"copy" : "Region kopieren",
+				"delete" : "Region löschen",
+				"acceptSuggestion" : "Vorgeschlagene Regionen annehmen",
+				"rejectSuggestion" : "Vorgeschlagene Regionen ablehnen",
+				"saveChanges" : "Änderungen speichern",
+				"discardChanges" : "Änderungen verwerfen",
+				"saveBulletin" : "Lagebericht speichern",
+				"discardBulletin" : "Änderungen am Lagebericht verwerfen",
+				"loadBulletin" : "Lagebericht vom Vortag laden"
+			},
 			"button" : "Neu",
 			"save" : "Speichern",
 			"discard" : "Verwerfen",
