@@ -26,6 +26,11 @@
 		"placeholder" : "Scrivi ...",
 		"send" : "Inviare"
 	},
+	"languages" : {
+		"german" : "Tedesco",
+		"english" : "Inghlese",
+		"italian" : "Italiano"
+	},
 	"news" : {
 		"create" : {
 			"button" : "Crea",

@@ -165,40 +165,72 @@
           <strong>{{ "bulletins.create.title.general" | translate }}</strong>
         </div>
         <div class="card-block">
-          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-            <div class="form-group row">
-              <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
-              <div class="col-md-12">
-                <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityHighlights">
+
+          <tabs>
+            <tab tabTitle="{{ 'languages.german' | translate }}">
+              <div class="form-group row">
+                <label class="col-md-12 form-control-label" for="text-input"><strong>Schlagzeile Gefahrensituation</strong></label>
+                <div class="col-md-12">
+                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityHighlightsDe">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
-              <div class="col-md-12">
-                <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityComment"></textarea>
+              <div class="form-group row">
+                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Beurteilung der Lawinengefahr</strong></label>
+                <div class="col-md-12">
+                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityCommentDe"></textarea>
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.elevation" | translate }}</strong></label>
-              <div class="col-md-9">
-                <label class="radio-inline" for="inline-radio1">
-                  <input [(ngModel)]="activeBulletinInput.elevationDependency" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)">
-                  <div *ngIf="activeBulletinInput.elevationDependency" class="input-prepend input-group">
-                    <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeBulletinInput.elevation" (change)="updateElevation(this.id)">
-                    <span class="input-group-addon">m</span>
-                  </div>
-                </label>
+            </tab>
+            <tab tabTitle="{{ 'languages.italian' | translate }}">
+              <div class="form-group row">
+                <label class="col-md-12 form-control-label" for="text-input"><strong>Titolo situazione pericolo valanghe</strong></label>
+                <div class="col-md-12">
+                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityHighlightsIt">
+                </div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.daytime" | translate }}</strong></label>
-              <div class="col-md-9">
-                <label class="radio-inline" for="inline-radio1">
-                  <input [(ngModel)]="activeBulletinInput.daytimeDependency" type="checkbox" name="daytime-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)">
-                </label>
+              <div class="form-group row">
+                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Testo di discrezione pericolo valanghe</strong></label>
+                <div class="col-md-12">
+                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityCommentIt"></textarea>
+                </div>
               </div>
+            </tab>
+            <tab tabTitle="{{ 'languages.english' | translate }}">
+              <div class="form-group row">
+                <label class="col-md-12 form-control-label" for="text-input"><strong>Headline avalanche situation</strong></label>
+                <div class="col-md-12">
+                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityHighlightsEn">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Description of avalanche danger</strong></label>
+                <div class="col-md-12">
+                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityCommentEn"></textarea>
+                </div>
+              </div>
+            </tab>
+          </tabs>
+
+          <div class="form-group row">
+            <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.elevation" | translate }}</strong></label>
+            <div class="col-md-9">
+              <label class="radio-inline" for="inline-radio1">
+                <input [(ngModel)]="activeBulletinInput.elevationDependency" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)">
+                <div *ngIf="activeBulletinInput.elevationDependency" class="input-prepend input-group">
+                  <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeBulletinInput.elevation" (change)="updateElevation(this.id)">
+                  <span class="input-group-addon">m</span>
+                </div>
+              </label>
             </div>
-          </form>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.daytime" | translate }}</strong></label>
+            <div class="col-md-9">
+              <label class="radio-inline" for="inline-radio1">
+                <input [(ngModel)]="activeBulletinInput.daytimeDependency" type="checkbox" name="daytime-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)">
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>

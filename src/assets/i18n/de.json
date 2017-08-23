@@ -26,6 +26,11 @@
 		"placeholder" : "Schreib hier ...",
 		"send" : "Senden"
 	},
+	"languages" : {
+		"german" : "Deutsch",
+		"english" : "Englisch",
+		"italian" : "Italienisch"
+	},
 	"news" : {
 		"create" : {
 			"button" : "Neu",

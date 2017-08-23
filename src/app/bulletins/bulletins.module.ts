@@ -6,6 +6,8 @@ import { BulletinsComponent } from './bulletins.component';
 import { CreateBulletinComponent } from './create-bulletin.component';
 import { BulletinDetailComponent } from './bulletin-detail.component';
 import { CaamlComponent } from './caaml.component';
+import { Tabs } from './tabs.component';
+import { Tab } from './tab.component';
 
 // Bulletins Routingd
 import { BulletinsRoutingModule } from './bulletins-routing.module';
@@ -25,7 +27,9 @@ import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
     BulletinsComponent,
     CreateBulletinComponent,
     BulletinDetailComponent,
-    CaamlComponent
+    CaamlComponent,
+    Tabs,
+    Tab
   ]
 })
 export class BulletinsModule { }

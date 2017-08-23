@@ -17,6 +17,9 @@ import 'rxjs/add/observable/forkJoin';
 import "leaflet";
 import "leaflet.sync";
 
+import { Tabs } from './tabs.component';
+import { Tab } from './tab.component';
+
 declare var L:any;
 
 @Component({
@@ -35,8 +38,12 @@ export class CreateBulletinComponent {
   public activeAggregatedRegionId: string;
   public activeBulletinInput: BulletinInputModel;
 
-  public activeAvActivityHighlights: string;
-  public activeAvActivityComment: string;
+  public activeAvActivityHighlightsDe: string;
+  public activeAvActivityCommentDe: string;
+  public activeAvActivityHighlightsIt: string;
+  public activeAvActivityCommentIt: string;
+  public activeAvActivityHighlightsEn: string;
+  public activeAvActivityCommentEn: string;
 
   public activeSnowpackStructureHighlights: string;
   public activeSnowpackStructureComment: string;
@@ -69,8 +76,12 @@ export class CreateBulletinComponent {
     this.aggregatedRegionsIds = new Array<string>();
     this.activeAggregatedRegionId = undefined;
     this.activeBulletinInput = undefined;
-    this.activeAvActivityHighlights = undefined;
-    this.activeAvActivityComment = undefined;
+    this.activeAvActivityHighlightsDe = undefined;
+    this.activeAvActivityCommentDe = undefined;
+    this.activeAvActivityHighlightsIt = undefined;
+    this.activeAvActivityCommentIt = undefined;
+    this.activeAvActivityHighlightsEn = undefined;
+    this.activeAvActivityCommentEn = undefined;
     this.activeSnowpackStructureHighlights = undefined;
     this.activeSnowpackStructureComment = undefined;
     this.hasElevationDependency = false;
@@ -518,8 +529,12 @@ export class CreateBulletinComponent {
 
       this.activeAggregatedRegionId = aggregatedRegionId;
       this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
-      this.activeAvActivityHighlights = this.activeBulletinInput.getAvActivityHighlightsIn(this.settingsService.getLang());
-      this.activeAvActivityComment = this.activeBulletinInput.getAvActivityCommentIn(this.settingsService.getLang());
+      this.activeAvActivityHighlightsDe = this.activeBulletinInput.getAvActivityHighlightsIn(Enums.LanguageCode.de);
+      this.activeAvActivityCommentDe = this.activeBulletinInput.getAvActivityCommentIn(Enums.LanguageCode.de);
+      this.activeAvActivityHighlightsIt = this.activeBulletinInput.getAvActivityHighlightsIn(Enums.LanguageCode.it);
+      this.activeAvActivityCommentIt = this.activeBulletinInput.getAvActivityCommentIn(Enums.LanguageCode.it);
+      this.activeAvActivityHighlightsEn = this.activeBulletinInput.getAvActivityHighlightsIn(Enums.LanguageCode.en);
+      this.activeAvActivityCommentEn = this.activeBulletinInput.getAvActivityCommentIn(Enums.LanguageCode.en);
 
       this.mapService.selectAggregatedRegion(this.activeBulletinInput);
     }
@@ -532,17 +547,29 @@ export class CreateBulletinComponent {
 
       this.activeAggregatedRegionId = undefined;
       this.activeBulletinInput = undefined;
-      this.activeAvActivityHighlights = undefined;
-      this.activeAvActivityComment = undefined;
+      this.activeAvActivityHighlightsDe = undefined;
+      this.activeAvActivityCommentDe = undefined;
+      this.activeAvActivityHighlightsIt = undefined;
+      this.activeAvActivityCommentIt = undefined;
+      this.activeAvActivityHighlightsEn = undefined;
+      this.activeAvActivityCommentEn = undefined;
     }
   }
 
   private setAvActivityTexts() {
     if (this.activeBulletinInput) {
-      if (this.activeAvActivityHighlights != undefined && this.activeAvActivityHighlights != "")
-        this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlights, this.settingsService.getLang());
-      if (this.activeAvActivityComment != undefined && this.activeAvActivityComment != "")
-        this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityComment, this.settingsService.getLang());
+      if (this.activeAvActivityHighlightsDe != undefined && this.activeAvActivityHighlightsDe != "")
+        this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
+      if (this.activeAvActivityCommentDe != undefined && this.activeAvActivityCommentDe != "")
+        this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
+      if (this.activeAvActivityHighlightsIt != undefined && this.activeAvActivityHighlightsIt != "")
+        this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
+      if (this.activeAvActivityCommentIt != undefined && this.activeAvActivityCommentIt != "")
+        this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityCommentIt, Enums.LanguageCode.it);
+      if (this.activeAvActivityHighlightsEn != undefined && this.activeAvActivityHighlightsEn != "")
+        this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
+      if (this.activeAvActivityCommentEn != undefined && this.activeAvActivityCommentEn != "")
+        this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityCommentEn, Enums.LanguageCode.en);
     }
   }
 
