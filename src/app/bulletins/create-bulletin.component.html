@@ -165,9 +165,8 @@
           <strong>{{ "bulletins.create.title.general" | translate }}</strong>
         </div>
         <div class="card-block">
-
-          <tabs>
-            <tab tabTitle="{{ 'languages.german' | translate }}">
+         <div class="form-group row">
+            <div class="col-md-4">
               <div class="form-group row">
                 <label class="col-md-12 form-control-label" for="text-input"><strong>Schlagzeile Gefahrensituation</strong></label>
                 <div class="col-md-12">
@@ -180,8 +179,8 @@
                   <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityCommentDe"></textarea>
                 </div>
               </div>
-            </tab>
-            <tab tabTitle="{{ 'languages.italian' | translate }}">
+            </div>
+            <div class="col-md-4">
               <div class="form-group row">
                 <label class="col-md-12 form-control-label" for="text-input"><strong>Titolo situazione pericolo valanghe</strong></label>
                 <div class="col-md-12">
@@ -194,8 +193,8 @@
                   <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityCommentIt"></textarea>
                 </div>
               </div>
-            </tab>
-            <tab tabTitle="{{ 'languages.english' | translate }}">
+            </div>
+            <div class="col-md-4">
               <div class="form-group row">
                 <label class="col-md-12 form-control-label" for="text-input"><strong>Headline avalanche situation</strong></label>
                 <div class="col-md-12">
@@ -208,9 +207,8 @@
                   <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityCommentEn"></textarea>
                 </div>
               </div>
-            </tab>
-          </tabs>
-
+            </div>
+          </div>
           <div class="form-group row">
             <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.elevation" | translate }}</strong></label>
             <div class="col-md-9">
