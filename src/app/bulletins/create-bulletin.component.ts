@@ -45,8 +45,12 @@ export class CreateBulletinComponent {
   public activeAvActivityHighlightsEn: string;
   public activeAvActivityCommentEn: string;
 
-  public activeSnowpackStructureHighlights: string;
-  public activeSnowpackStructureComment: string;
+  public activeSnowpackStructureHighlightsDe: string;
+  public activeSnowpackStructureCommentDe: string;
+  public activeSnowpackStructureHighlightsIt: string;
+  public activeSnowpackStructureCommentIt: string;
+  public activeSnowpackStructureHighlightsEn: string;
+  public activeSnowpackStructureCommentEn: string;
 
   public hasDaytimeDependency: boolean;
   public hasElevationDependency: boolean;
@@ -82,8 +86,12 @@ export class CreateBulletinComponent {
     this.activeAvActivityCommentIt = undefined;
     this.activeAvActivityHighlightsEn = undefined;
     this.activeAvActivityCommentEn = undefined;
-    this.activeSnowpackStructureHighlights = undefined;
-    this.activeSnowpackStructureComment = undefined;
+    this.activeSnowpackStructureHighlightsDe = undefined;
+    this.activeSnowpackStructureCommentDe = undefined;
+    this.activeSnowpackStructureHighlightsIt = undefined;
+    this.activeSnowpackStructureCommentIt = undefined;
+    this.activeSnowpackStructureHighlightsEn = undefined;
+    this.activeSnowpackStructureCommentEn = undefined;
     this.hasElevationDependency = false;
     this.hasDaytimeDependency = false;
     this.editRegions = false;
@@ -426,8 +434,12 @@ export class CreateBulletinComponent {
       bulletinInput.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
       bulletinInput.snowpackStructureComment = bulletin.snowpackStructureComment;
 
-      this.activeSnowpackStructureHighlights = bulletinInput.getSnowpackStructureHighlightsIn(this.settingsService.getLang());
-      this.activeSnowpackStructureComment = bulletinInput.getSnowpackStructureCommentIn(this.settingsService.getLang());
+      this.activeSnowpackStructureHighlightsDe = bulletinInput.getSnowpackStructureHighlightsIn(Enums.LanguageCode.de);
+      this.activeSnowpackStructureCommentDe = bulletinInput.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
+      this.activeSnowpackStructureHighlightsIt = bulletinInput.getSnowpackStructureHighlightsIn(Enums.LanguageCode.it);
+      this.activeSnowpackStructureCommentIt = bulletinInput.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
+      this.activeSnowpackStructureHighlightsEn = bulletinInput.getSnowpackStructureHighlightsIn(Enums.LanguageCode.en);
+      this.activeSnowpackStructureCommentEn = bulletinInput.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
 
       bulletinInput.elevation = bulletin.elevation;
       if (bulletin.elevation > 0 && bulletin.below) {
@@ -802,10 +814,18 @@ export class CreateBulletinComponent {
 
     this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
       // set snowpack structure texts
-      if (this.activeSnowpackStructureHighlights != undefined && this.activeSnowpackStructureHighlights != "")
-        value.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlights, this.settingsService.getLang());
-      if (this.activeSnowpackStructureComment != undefined && this.activeSnowpackStructureComment != "")
-        value.setSnowpackStructureCommentIn(this.activeSnowpackStructureComment, this.settingsService.getLang());
+      if (this.activeSnowpackStructureHighlightsDe != undefined && this.activeSnowpackStructureHighlightsDe != "")
+        value.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
+      if (this.activeSnowpackStructureCommentDe != undefined && this.activeSnowpackStructureCommentDe != "")
+        value.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
+      if (this.activeSnowpackStructureHighlightsIt != undefined && this.activeSnowpackStructureHighlightsIt != "")
+        value.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsIt, Enums.LanguageCode.it);
+      if (this.activeSnowpackStructureCommentIt != undefined && this.activeSnowpackStructureCommentIt != "")
+        value.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt, Enums.LanguageCode.it);
+      if (this.activeSnowpackStructureHighlightsEn != undefined && this.activeSnowpackStructureHighlightsEn != "")
+        value.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEn, Enums.LanguageCode.en);
+      if (this.activeSnowpackStructureCommentEn != undefined && this.activeSnowpackStructureCommentEn != "")
+        value.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEn, Enums.LanguageCode.en);
 
       // create bulletins
       let b = value.toBulletins(key, this.bulletinsService.getActiveDate());
