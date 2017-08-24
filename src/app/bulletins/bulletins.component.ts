@@ -156,6 +156,24 @@ export class BulletinsComponent {
     this.editBulletin(date, true);
   }
 
+  edit(event, date: Date) {
+    event.stopPropagation();
+
+    this.bulletinsService.setActiveDate(date);
+
+    if (this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion())) {
+      this.bulletinsService.setIsEditable(false);
+      this.router.navigate(['/bulletins/new']);
+    } else {
+      if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
+        let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+
+        this.bulletinsService.setIsEditable(true);
+        this.router.navigate(['/bulletins/new']);
+      }
+    }
+  }
+
   publish(event, date: Date) {
     event.stopPropagation();
     this.publishing = date;

@@ -121,7 +121,8 @@
 			"copy" : "Lagebericht kopieren",
 			"paste" : "Lagebericht einfügen",
 			"update" : "Update zum Lagebericht erstellen",
-			"caaml" : "CAAML anzeigen"
+			"caaml" : "CAAML anzeigen",
+			"edit" : "Lagebericht editieren (keine erneute Veröffentlichung)"
 		},
 		"create" : {
 			"tooltip" : {
