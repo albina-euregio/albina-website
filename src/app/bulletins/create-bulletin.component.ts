@@ -2,6 +2,7 @@ import { Component, Input, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinInputModel } from '../models/bulletin-input.model';
+import { BulletinElevationDescriptionModel } from '../models/bulletin-elevation-description.model';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
@@ -13,6 +14,7 @@ import * as Enums from '../enums/enums';
 import { UUID } from 'angular2-uuid';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
+import { BehaviorSubject } from 'rxjs/Rx';
 
 import "leaflet";
 import "leaflet.sync";
@@ -52,9 +54,6 @@ export class CreateBulletinComponent {
   public activeSnowpackStructureHighlightsEn: string;
   public activeSnowpackStructureCommentEn: string;
 
-  public hasDaytimeDependency: boolean;
-  public hasElevationDependency: boolean;
-
   public loading: boolean;
 
   public showAfternoonMap: boolean;
@@ -92,8 +91,6 @@ export class CreateBulletinComponent {
     this.activeSnowpackStructureCommentIt = undefined;
     this.activeSnowpackStructureHighlightsEn = undefined;
     this.activeSnowpackStructureCommentEn = undefined;
-    this.hasElevationDependency = false;
-    this.hasDaytimeDependency = false;
     this.editRegions = false;
     this.showAfternoonMap = false;
   }
@@ -549,6 +546,50 @@ export class CreateBulletinComponent {
       this.activeAvActivityCommentEn = this.activeBulletinInput.getAvActivityCommentIn(Enums.LanguageCode.en);
 
       this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+    }
+  }
+
+  elevationDependencyChanged() {
+    if (this.activeBulletinInput.elevationDependency) {
+      this.activeBulletinInput.forenoonBelow.setDangerRating(this.activeBulletinInput.forenoonAbove.getDangerRating());
+      this.activeBulletinInput.forenoonBelow.setAspects(this.activeBulletinInput.forenoonAbove.getAspects());
+      this.activeBulletinInput.forenoonBelow.setAvalancheProblem(this.activeBulletinInput.forenoonAbove.getAvalancheProblem());
+      if (this.activeBulletinInput.daytimeDependency) {
+        this.activeBulletinInput.afternoonBelow.setDangerRating(this.activeBulletinInput.forenoonBelow.getDangerRating());
+        this.activeBulletinInput.afternoonBelow.setAspects(this.activeBulletinInput.forenoonBelow.getAspects());
+        this.activeBulletinInput.afternoonBelow.setAvalancheProblem(this.activeBulletinInput.forenoonBelow.getAvalancheProblem());
+      }
+    } else {
+      this.activeBulletinInput.forenoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+      this.activeBulletinInput.forenoonBelow.setAspects(new Array<Enums.Aspect>());
+      this.activeBulletinInput.forenoonBelow.setAvalancheProblem(undefined);
+      if (this.activeBulletinInput.daytimeDependency) {
+        this.activeBulletinInput.afternoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+        this.activeBulletinInput.afternoonBelow.setAspects(new Array<Enums.Aspect>());
+        this.activeBulletinInput.afternoonBelow.setAvalancheProblem(undefined);
+      }
+    }
+  }
+
+  daytimeDependencyChanged() {
+    if (this.activeBulletinInput.daytimeDependency) {
+      this.activeBulletinInput.afternoonAbove.setDangerRating(this.activeBulletinInput.forenoonAbove.getDangerRating());
+      this.activeBulletinInput.afternoonAbove.setAspects(this.activeBulletinInput.forenoonAbove.getAspects());
+      this.activeBulletinInput.afternoonAbove.setAvalancheProblem(this.activeBulletinInput.forenoonAbove.getAvalancheProblem());
+      if (this.activeBulletinInput.elevationDependency) {
+        this.activeBulletinInput.afternoonBelow.setDangerRating(this.activeBulletinInput.forenoonBelow.getDangerRating());
+        this.activeBulletinInput.afternoonBelow.setAspects(this.activeBulletinInput.forenoonBelow.getAspects());
+        this.activeBulletinInput.afternoonBelow.setAvalancheProblem(this.activeBulletinInput.forenoonBelow.getAvalancheProblem());
+      }
+    } else {
+      this.activeBulletinInput.afternoonAbove.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+      this.activeBulletinInput.afternoonAbove.setAspects(new Array<Enums.Aspect>());
+      this.activeBulletinInput.afternoonAbove.setAvalancheProblem(undefined);
+      if (this.activeBulletinInput.elevationDependency) {
+        this.activeBulletinInput.afternoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+        this.activeBulletinInput.afternoonBelow.setAspects(new Array<Enums.Aspect>());
+        this.activeBulletinInput.afternoonBelow.setAvalancheProblem(undefined);
+      }
     }
   }
 

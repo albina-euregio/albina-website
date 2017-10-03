@@ -76,7 +76,7 @@ export class MapService {
 
         this.afternoonOverlayMaps = {
             // overlay to show selected regions
-            activeSelection : L.geoJSON(this.regionsService.getRegionsEuregio()),
+            activeSelection : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
 
             // overlay to select regions (when editing an aggregated region)
             editSelection : L.geoJSON(this.regionsService.getRegionsEuregio(), {

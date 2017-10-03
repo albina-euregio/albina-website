@@ -307,7 +307,7 @@ export class BulletinInputModel {
 
 	getAfternoonDangerRatingAbove() : Enums.DangerRating {
 		let test : any = this.afternoonAbove.dangerRating.getValue();
-		if (this.afternoonAbove && this.afternoonAbove.dangerRating && test != "missing")
+		if (this.daytimeDependency && this.afternoonAbove && this.afternoonAbove.dangerRating && test != "missing")
 			return this.afternoonAbove.dangerRating.getValue();
 		else
 			return this.forenoonAbove.dangerRating.getValue();
@@ -321,14 +321,17 @@ export class BulletinInputModel {
 	}
 
 	getAfternoonDangerRatingBelow() : Enums.DangerRating {
-		if (this.elevationDependency) {
-			let test : any = this.afternoonAbove.dangerRating.getValue();
-			if (this.afternoonAbove && this.afternoonAbove.dangerRating && test != "missing")
-				return this.afternoonAbove.dangerRating.getValue();
-			else
-				return this.forenoonAbove.dangerRating.getValue();
+		if (this.daytimeDependency) {
+			if (this.elevationDependency) {
+				let test : any = this.afternoonBelow.dangerRating.getValue();
+				if (this.afternoonBelow && this.afternoonBelow.dangerRating && test != "missing")
+					return this.afternoonBelow.dangerRating.getValue();
+				else
+					return this.forenoonBelow.dangerRating.getValue();
+			} else
+				return this.getAfternoonDangerRatingAbove();
 		} else
-			return this.getAfternoonDangerRatingAbove();
+			return this.getForenoonDangerRatingBelow();
 	}
 
 	toBulletins(aggregatedRegionId: string, date: Date) : BulletinModel[] {

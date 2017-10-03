@@ -213,7 +213,7 @@
             <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.elevation" | translate }}</strong></label>
             <div class="col-md-9">
               <label class="radio-inline" for="inline-radio1">
-                <input [(ngModel)]="activeBulletinInput.elevationDependency" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)">
+                <input [(ngModel)]="activeBulletinInput.elevationDependency" (change)="elevationDependencyChanged()" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)">
                 <div *ngIf="activeBulletinInput.elevationDependency" class="input-prepend input-group">
                   <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeBulletinInput.elevation" (change)="updateElevation(this.id)">
                   <span class="input-group-addon">m</span>
@@ -225,7 +225,7 @@
             <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.daytime" | translate }}</strong></label>
             <div class="col-md-9">
               <label class="radio-inline" for="inline-radio1">
-                <input [(ngModel)]="activeBulletinInput.daytimeDependency" type="checkbox" name="daytime-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)">
+                <input [(ngModel)]="activeBulletinInput.daytimeDependency" (change)="daytimeDependencyChanged()" type="checkbox" name="daytime-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)">
               </label>
             </div>
           </div>
