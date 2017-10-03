@@ -20,7 +20,7 @@
             <tbody>
               <tr *ngFor="let date of dates" style="height: 52px">
                 <td (click)="editBulletin(date, false)">{{ date | date:'fullDate' }}</td>
-                <td (click)="editBulletin(date, false)" [style.background-color]="bulletinsService.isLocked(date, 'IT-32-TN') ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="isOwnRegion('IT-32-TN') ? 'rgba(0,0,102,0.1)' : ''">
+                <td (click)="editBulletin(date, false)" [style.background-color]="bulletinsService.isLocked(date, 'IT-32-TN') ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="isOwnRegion('IT-32-TN') ? 'rgba(0,0,0,0.05)' : ''">
                   <i *ngIf="loadingTrentino" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                   <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
@@ -28,7 +28,7 @@
                   <span *ngIf="!loadingTrentino && bulletinsService.statusMapTrentino.get(date.getTime()) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
                   <i *ngIf="bulletinsService.isLocked(date, 'IT-32-TN')" class="fa fa-lock float-right"></i>
                 </td>
-                <td (click)="editBulletin(date, false)" [style.background-color]="bulletinsService.isLocked(date, 'IT-32-BZ') ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="isOwnRegion('IT-32-BZ') ? 'rgba(0,0,102,0.1)' : ''">
+                <td (click)="editBulletin(date, false)" [style.background-color]="bulletinsService.isLocked(date, 'IT-32-BZ') ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="isOwnRegion('IT-32-BZ') ? 'rgba(0,0,0,0.05)' : ''">
                   <i *ngIf="loadingSouthTyrol" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
@@ -36,7 +36,7 @@
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.obsolete" class="badge badge-secondary">{{ "bulletins.table.status.obsolete" | translate }}</span>
                   <i *ngIf="bulletinsService.isLocked(date, 'IT-32-BZ')" class="fa fa-lock float-right"></i>
                 </td>
-                <td (click)="editBulletin(date, false)" [style.background-color]="bulletinsService.isLocked(date, 'AT-07') ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="isOwnRegion('AT-07') ? 'rgba(0,0,102,0.1)' : ''">
+                <td (click)="editBulletin(date, false)" [style.background-color]="bulletinsService.isLocked(date, 'AT-07') ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="isOwnRegion('AT-07') ? 'rgba(0,0,0,0.05)' : ''">
                   <i *ngIf="loadingTyrol" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                   <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.published" class="badge badge-success">{{ "bulletins.table.status.published" | translate }}</span>
