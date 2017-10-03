@@ -5,9 +5,9 @@
 		"text" : "Accedi al tuo account",
 		"button" : "Login",
 		"errorDialog" : {
-			"header" : "TODO",
-			"message" : "TODO",
-			"accept" : "TODO"
+			"header" : "Errore di login",
+			"message" : "Errore nome o password!",
+			"accept" : "Ok"
 		}
 	},
 	"sidebar" : {
@@ -28,7 +28,7 @@
 	},
 	"languages" : {
 		"german" : "Tedesco",
-		"english" : "Inghlese",
+		"english" : "Inglese",
 		"italian" : "Italiano"
 	},
 	"news" : {
@@ -45,56 +45,56 @@
 				"content" : "Testo (Tedesco)"
 			},
 			"en" : {
-				"title" : "Titolo (Inghlese)",
-				"content" : "Testo (Inghlese)"
+				"title" : "Titolo (Inglese)",
+				"content" : "Testo (Inglese)"
 			},
 			"image" : "Imagine",
 			"save" : "Salve",
 			"discard" : "Scarta",
 			"back" : "Indietro",
 			"discardDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
+				"header" : "Scarta modifica",
+				"message" : "Vuoi scartare le modifiche?",
 				"accept" : "Sí",
 				"reject" : "No"
 			},
 			"saveErrorDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO"
+				"header" : "Errore durante salvare",
+				"message" : "Errore salvando news!",
+				"accept" : "Ok"
 			},
 			"updateErrorDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO"
+				"header" : "Errore durante update",
+				"message" : "Errore salvando il update dei news!",
+				"accept" : "Ok"
 			}
 		},
 		"deleteNewsDialog" : {
-			"header" : "TODO",
-			"message" : "TODO",
+			"header" : "Scartare news",
+			"message" : "Vuoi scartare i news?",
 			"accept" : "Sí",
 			"reject" : "No"
 		},
 		"publishNewsDialog" : {
-			"header" : "TODO",
-			"message" : "TODO",
+			"header" : "Publicare news",
+			"message" : "Vuoi publicare i news?",
 			"accept" : "Sí",
 			"reject" : "No"
 		},
 		"publishNewsErrorDialog" : {
-			"header" : "TODO",
-			"message" : "TODO",
-			"accept" : "TODO"
+			"header" : "Errore durante la pubblicazione",
+			"message" : "Errore durante la pubblicazione dei news!",
+			"accept" : "Ok"
 		},
 		"deleteNewsErrorDialog" : {
-			"header" : "TODO",
-			"message" : "TODO",
-			"accept" : "TODO"
+			"header" : "Errore durante il cancellare",
+			"message" : "Errore cancellando i news!",
+			"accept" : "Ok"
 		},
 		"loadingNewsErrorDialog" : {
-			"header" : "TODO",
-			"message" : "TODO",
-			"accept" : "TODO"
+			"header" : "Errore durante il caricare",
+			"message" : "Errore caricando i news!",
+			"accept" : "Ok"
 		},
 		"title" : "News",
 		"table" : {
@@ -105,36 +105,36 @@
 			"status" : {
 				"title" : "Stato",
 				"published" : "pubblicato",
-				"draft" : "TODO"
+				"draft" : "abbozzo"
 			},
-			"action" : "TODO",
+			"action" : "Azzioni",
 			"button" : {
-				"publish" : "TODO",
-				"delete" : "TODO"
+				"publish" : "publicare",
+				"delete" : "cancellare"
 			}
 		}		
 	},
 	"bulletins" : {
 		"title" : "Bollettini",
 		"tooltip" : {
-			"publish" : "TODO",
-			"copy" : "TODO",
-			"paste" : "TODO",
-			"update" : "TODO",
-			"caaml" : "TODO",
-			"edit" : "TODO"
+			"publish" : "Pubblicare bollettino valanghe",
+			"copy" : "Copiare bollettino valanghe",
+			"paste" : "Incollare bollettino valanghe",
+			"update" : "Update bollettino valanghe",
+			"caaml" : "Mostrare CAAML",
+			"edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)"
 		},
 		"create" : {
 			"tooltip" : {
 				"edit" : "Modifica",
 				"copy" : "Copia",
 				"delete" : "Elimina",
-				"acceptSuggestion" : "TODO",
-				"rejectSuggestion" : "TODO",
-				"saveChanges" : "TODO",
-				"discardChanges" : "TODO",			
-				"saveBulletin" : "TODO",
-				"discardBulletin" : "TODO",
+				"acceptSuggestion" : "Acceta micro-aree suggerite",
+				"rejectSuggestion" : "Scarta micro-aree suggerite",
+				"saveChanges" : "Salva modifiche",
+				"discardChanges" : "Scarta modifiche",
+				"saveBulletin" : "Salva bollettino valanghe",
+				"discardBulletin" : "Scarta modifiche del bollettino valanghe",
 				"loadBulletin" : "Copia da giorno precedente"
 			},
 			"button" : "Creato",
@@ -155,8 +155,8 @@
 				"aspects" : "Versanti",
 				"elevation" : "Altezza",
 				"daytime" : "Mattina/pomeriggio",
-				"snowpackStructureHighlights" : "TODO",
-				"snowpackStructureComment" : "TODO"
+				"snowpackStructureHighlights" : "Titolo struttura manto nevoso",
+				"snowpackStructureComment" : "Descrizione struttura manto nevoso"
 			},
 			"title" : {
 				"map" : "Mappa",
@@ -170,40 +170,40 @@
 				"afternoonAbove" : "Dettagli - pomeriggio, al disopra",
 				"forenoonBelow" : "Dettagli - mattina, al disotto",
 				"afternoonBelow" : "Dettagli - pomeriggio, al disotto",
-				"snowpackStructure" : "TODO"
+				"snowpackStructure" : "Struttura manto nevoso"
 			},
 			"discardDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO",
-				"reject" : "TODO"
+				"header" : "Scarta modifiche",
+				"message" : "Vuoi scartare le modifiche?",
+				"accept" : "Sí",
+				"reject" : "No"
 			},
 			"deleteAggregatedRegionDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO",
-				"reject" : "TODO"
+				"header" : "Cancella micro-area",
+				"message" : "Vuoi scartare la micro-area?",
+				"accept" : "Sí",
+				"reject" : "No"
 			},
 			"noRegionDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO"
+				"header" : "Pescare nelle acqua altrui",
+				"message" : "Almeno una micro-area é neccesaria.",
+				"accept" : "Ok"
 			},
 			"loadDialog" : {
-				"header" : "Carica bollettino del giorno precedente",
-				"message" : "Vuoi caricare il bollettino di ieri?",
+				"header" : "Carica bollettino valanghe del giorno precedente",
+				"message" : "Vuoi caricare il bollettino valanghe di ieri?",
 				"accept" : "Sí",
 				"reject" : "No"
 			},
 			"saveErrorDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO"
+				"header" : "Errore durante salvare",
+				"message" : "Errore salvando il bollettino valanghe!",
+				"accept" : "Ok"
 			},
 			"loadingErrorDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO"
+				"header" : "Errore durante caricare",
+				"message" : "Errore caricando il bollettino valanghe!",
+				"accept" : "Ok"
 			}
 		},
 		"table" : {
@@ -214,12 +214,12 @@
 					"southTyrol" : "Alto adige",
 					"tyrol" : "Tirolo"
 				},
-				"action" : "TODO",
+				"action" : "Azzioni",
 				"caaml" : "CAAML"
 			},
 			"status" : {
-				"draft" : "TODO",
-				"obsolete" : "TODO",
+				"draft" : "abbozzo",
+				"obsolete" : "obsolete",
 				"missing" : "manca",
 				"pending" : "pendente",
 				"published" : "pubblicato"
@@ -227,43 +227,43 @@
 			"edit" : "Modifica",
 			"show" : "Mostra",
 			"button" : {
-				"publish" : "TODO"
+				"publish" : "Pubblicare"
 			},
 			"publishBulletinsDialog" : {
 				"header" : "Pubblicazione bollettino",
 				"message" : "Vuoi pubblicare il bollettino?",
-				"missingDangerRating" : "TODO",
-				"missingRegion" : "TODO",
-				"duplicateRegion" : "TODO",
-				"missingAvActivityHighlights" : "TODO",
-				"missingAvActivityComment" : "TODO",
-				"pendingSuggestions" : "TODO",
+				"missingDangerRating" : "Grado di pericolo non definato",
+				"missingRegion" : "Micro-aree non valutate",
+				"duplicateRegion" : "Micro-aree valutate più volte",
+				"missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
+				"missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
+				"pendingSuggestions" : "Proposta non confermata",
 				"accept" : "Sí",
 				"reject" : "No"
 			},
 			"publishBulletinsErrorDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO"
+				"header" : "Errore durante pubblicare",
+				"message" : "Errore pubblicando il bollettino valanghe!",
+				"accept" : "Ok"
 			},
 			"checkBulletinsErrorDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO"
+				"header" : "Errore durante verifica",
+				"message" : "Errore verficando il bollettino valanghe!",
+				"accept" : "Ok"
 			}
 		},
 		"caaml" : {
 			"title" : "CAAML",
 			"caamlNotLoadedDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO"
+				"header" : "CAAML",
+				"message" : "Errore caricando CAAML!",
+				"accept" : "Ok"
 			}
 		}
 	},
 
 	"dangerRating" : {
-		"noRating" : "TODO",
+		"noRating" : "senza valutazione",
 		"low" : "debole",
 		"moderate" : "moderato",
 		"considerable" : "marcato",
@@ -272,7 +272,7 @@
 	},
 	"avalancheProblem" : {
 		"newSnow" : "Neve fresca",
-		"windDriftedSnow" : "Neve vendata",
+		"windDriftedSnow" : "Neve ventata",
 		"oldSnow" : "Strati deboli persistenti",
 		"wetSnow" : "Neve bagnata",
 		"glidingSnow" : "Valanghe di slittamento"

@@ -11,7 +11,7 @@
 		}
 	},
 	"sidebar" : {
-		"bulletins" : "Lageberichte",
+		"bulletins" : "Lawinenlageberichte",
 		"news" : "News"
 	},
 	"menu" : {
@@ -115,14 +115,14 @@
 		}		
 	},
 	"bulletins" : {
-		"title" : "Lageberichte",
+		"title" : "Lawinenlageberichte",
 		"tooltip" : {
-			"publish" : "Lagebericht publizieren",
-			"copy" : "Lagebericht kopieren",
-			"paste" : "Lagebericht einfügen",
-			"update" : "Update zum Lagebericht erstellen",
+			"publish" : "Lawinenlagebericht publizieren",
+			"copy" : "Lawinenlagebericht kopieren",
+			"paste" : "Lawinenlagebericht einfügen",
+			"update" : "Update zum Lawinenlagebericht erstellen",
 			"caaml" : "CAAML anzeigen",
-			"edit" : "Lagebericht editieren (keine erneute Veröffentlichung)"
+			"edit" : "Lawinenlagebericht editieren (keine erneute Veröffentlichung)"
 		},
 		"create" : {
 			"tooltip" : {
@@ -173,7 +173,7 @@
 				"snowpackStructure" : "Schneedeckenaufbau"
 			},
 			"discardDialog" : {
-				"header" : "Änderungen verwerfen?",
+				"header" : "Änderungen verwerfen",
 				"message" : "Willst du die Änderungen verwerfen?",
 				"accept" : "Ja",
 				"reject" : "Nein"
@@ -197,12 +197,12 @@
 			},
 			"saveErrorDialog" : {
 				"header" : "Fehler beim Speichern",
-				"message" : "Beim Speichern der Lageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Speichern der Lawinenlageberichte ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
 			"loadingErrorDialog" : {
 				"header" : "Fehler beim Laden",
-				"message" : "Beim Laden der Lageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Laden der Lawinenlageberichte ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			}
 		},
@@ -243,12 +243,12 @@
 			},
 			"publishBulletinsErrorDialog" : {
 				"header" : "Fehler beim Publizieren",
-				"message" : "Beim Publizieren der Lageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Publizieren der Lawinenlageberichte ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
 			"checkBulletinsErrorDialog" : {
 				"header" : "Fehler beim Überprüfen",
-				"message" : "Beim Überprüfen der Lageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Überprüfen der Lawinenlageberichte ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			}
 		},
