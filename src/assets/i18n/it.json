@@ -17,7 +17,7 @@
 	"menu" : {
 		"logout" : "Logout",
 		"language" : "Lingua",
-		"en" : " Inghlese",
+		"en" : " Inglese",
 		"de" : " Tedesco",
 		"it" : " Italiano",
 		"settings" : "Impostazioni"
@@ -126,16 +126,16 @@
 		},
 		"create" : {
 			"tooltip" : {
-				"edit" : "TODO",
-				"copy" : "TODO",
-				"delete" : "TODO",
+				"edit" : "Modifica",
+				"copy" : "Copia",
+				"delete" : "Elimina",
 				"acceptSuggestion" : "TODO",
 				"rejectSuggestion" : "TODO",
 				"saveChanges" : "TODO",
 				"discardChanges" : "TODO",			
 				"saveBulletin" : "TODO",
 				"discardBulletin" : "TODO",
-				"loadBulletin" : "TODO"
+				"loadBulletin" : "Copia da giorno precedente"
 			},
 			"button" : "Creato",
 			"save" : " Salva",
@@ -145,8 +145,8 @@
 			"saveAggregatedRegion" : "Salve",
 			"discardAggregatedRegion" : "Scarta",
 			"deleteAggregatedRegion" : "Cancella",
-			"ownRegions" : "TODO",
-			"foreignRegions": "TODO",
+			"ownRegions" : "Propria provincia",
+			"foreignRegions": "Altra provincia",
 			"label" : {
 				"avActivityHighlights" : "Titolo situazione pericolo valanghe",
 				"avActivityComment" : "Testo di discrezione pericolo valanghe",
@@ -190,10 +190,10 @@
 				"accept" : "TODO"
 			},
 			"loadDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
-				"accept" : "TODO",
-				"reject" : "TODO"
+				"header" : "Carica bollettino del giorno precedente",
+				"message" : "Vuoi caricare il bollettino di ieri?",
+				"accept" : "Sí",
+				"reject" : "No"
 			},
 			"saveErrorDialog" : {
 				"header" : "TODO",
@@ -230,16 +230,16 @@
 				"publish" : "TODO"
 			},
 			"publishBulletinsDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
+				"header" : "Pubblicazione bollettino",
+				"message" : "Vuoi pubblicare il bollettino?",
 				"missingDangerRating" : "TODO",
 				"missingRegion" : "TODO",
 				"duplicateRegion" : "TODO",
 				"missingAvActivityHighlights" : "TODO",
 				"missingAvActivityComment" : "TODO",
 				"pendingSuggestions" : "TODO",
-				"accept" : "TODO",
-				"reject" : "TODO"
+				"accept" : "Sí",
+				"reject" : "No"
 			},
 			"publishBulletinsErrorDialog" : {
 				"header" : "TODO",

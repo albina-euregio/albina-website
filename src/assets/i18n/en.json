@@ -136,7 +136,7 @@
 				"saveBulletin" : "Save bulletin",
 				"discardBulletin" : "Discard bulletin changes",
 				"loadBulletin" : "Load bulletin from the day before"
-		},
+			},
 			"button" : "Create",
 			"save" : " Save",
 			"discard" : " Discard",
