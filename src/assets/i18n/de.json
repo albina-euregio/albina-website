@@ -138,8 +138,8 @@
 				"loadBulletin" : "Lagebericht vom Vortag laden"
 			},
 			"button" : "Neu",
-			"save" : "Speichern",
-			"discard" : "Verwerfen",
+			"save" : " Speichern",
+			"discard" : " Verwerfen",
 			"back" : "Zurück",
 			"createAggregatedRegion" : "Neue Region",
 			"saveAggregatedRegion" : "Speichern",
