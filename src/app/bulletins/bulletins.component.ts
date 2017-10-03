@@ -109,6 +109,10 @@ export class BulletinsComponent {
     this.copying = false;
   }
 
+  isOwnRegion(region) {
+    return this.authenticationService.getUserRegion().startsWith(region);
+  }
+
   editBulletin(date: Date, isUpdate: boolean) {
     if (!this.copying) {
       if (isUpdate)
