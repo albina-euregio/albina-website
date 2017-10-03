@@ -55,8 +55,8 @@
 			"discardDialog" : {
 				"header" : "TODO",
 				"message" : "TODO",
-				"accept" : "TODO",
-				"reject" : "TODO"
+				"accept" : "Sí",
+				"reject" : "No"
 			},
 			"saveErrorDialog" : {
 				"header" : "TODO",
@@ -72,14 +72,14 @@
 		"deleteNewsDialog" : {
 			"header" : "TODO",
 			"message" : "TODO",
-			"accept" : "TODO",
-			"reject" : "TODO"
+			"accept" : "Sí",
+			"reject" : "No"
 		},
 		"publishNewsDialog" : {
 			"header" : "TODO",
 			"message" : "TODO",
-			"accept" : "TODO",
-			"reject" : "TODO"
+			"accept" : "Sí",
+			"reject" : "No"
 		},
 		"publishNewsErrorDialog" : {
 			"header" : "TODO",
@@ -138,9 +138,9 @@
 				"loadBulletin" : "TODO"
 			},
 			"button" : "Creato",
-			"save" : "Salva",
-			"discard" : "Scarta",
-			"back" : "Indietro",
+			"save" : " Salva",
+			"discard" : " Scarta",
+			"back" : " Indietro",
 			"createAggregatedRegion" : "Nuova regione",
 			"saveAggregatedRegion" : "Salve",
 			"discardAggregatedRegion" : "Scarta",

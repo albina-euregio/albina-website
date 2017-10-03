@@ -138,9 +138,9 @@
 				"loadBulletin" : "Load bulletin from the day before"
 		},
 			"button" : "Create",
-			"save" : "Save",
-			"discard" : "Discard",
-			"back" : "Back",
+			"save" : " Save",
+			"discard" : " Discard",
+			"back" : " Back",
 			"createAggregatedRegion" : "New region",
 			"saveAggregatedRegion" : "Save",
 			"discardAggregatedRegion" : "Discard",
