@@ -760,8 +760,8 @@ export class CreateBulletinComponent {
 
   getForenoonColor(aggregatedRegionId) {
     let dangerRating = "";
-    if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined && this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRating())
-      dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRating().toString();
+    if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined && this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRatingAbove())
+      dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRatingAbove().toString();
 
     return this.getDangerRatingColor(dangerRating);
   }
@@ -769,10 +769,10 @@ export class CreateBulletinComponent {
   getAfternoonColor(aggregatedRegionId) {
     let dangerRating = "";
     if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined) {
-      if (this.aggregatedRegionsMap.get(aggregatedRegionId).getAfternoonDangerRating())
-        dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getAfternoonDangerRating().toString();
+      if (this.aggregatedRegionsMap.get(aggregatedRegionId).getAfternoonDangerRatingAbove())
+        dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getAfternoonDangerRatingAbove().toString();
       else
-        dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRating().toString();
+        dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRatingAbove().toString();
     }
     return this.getDangerRatingColor(dangerRating);
   }

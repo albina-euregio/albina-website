@@ -301,18 +301,34 @@ export class BulletinInputModel {
 		this.elevationDependency = elevationDependency;
 	}
 
-	getForenoonDangerRating() : Enums.DangerRating {
-		// TODO implement some clever method
+	getForenoonDangerRatingAbove() : Enums.DangerRating {
 		return this.forenoonAbove.dangerRating.getValue();
 	}
 
-	getAfternoonDangerRating() : Enums.DangerRating {
-		// TODO implement some clever method
+	getAfternoonDangerRatingAbove() : Enums.DangerRating {
 		let test : any = this.afternoonAbove.dangerRating.getValue();
 		if (this.afternoonAbove && this.afternoonAbove.dangerRating && test != "missing")
 			return this.afternoonAbove.dangerRating.getValue();
 		else
 			return this.forenoonAbove.dangerRating.getValue();
+	}
+
+	getForenoonDangerRatingBelow() : Enums.DangerRating {
+		if (this.elevationDependency)
+			return this.forenoonBelow.dangerRating.getValue();
+		else
+			return this.getForenoonDangerRatingAbove();
+	}
+
+	getAfternoonDangerRatingBelow() : Enums.DangerRating {
+		if (this.elevationDependency) {
+			let test : any = this.afternoonAbove.dangerRating.getValue();
+			if (this.afternoonAbove && this.afternoonAbove.dangerRating && test != "missing")
+				return this.afternoonAbove.dangerRating.getValue();
+			else
+				return this.forenoonAbove.dangerRating.getValue();
+		} else
+			return this.getAfternoonDangerRatingAbove();
 	}
 
 	toBulletins(aggregatedRegionId: string, date: Date) : BulletinModel[] {
