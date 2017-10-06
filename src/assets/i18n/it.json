@@ -201,8 +201,8 @@
 				"accept" : "Ok"
 			},
 			"loadingErrorDialog" : {
-				"header" : "Errore durante caricare",
-				"message" : "Errore caricando il bollettino valanghe!",
+				"header" : "Errore di caricamento",
+				"message" : "Errore durante il caricamento del bollettino valanghe!",
 				"accept" : "Ok"
 			}
 		},
