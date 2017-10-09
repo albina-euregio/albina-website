@@ -33,7 +33,7 @@
                     <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()" style="height: 52px">
 
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
-                      <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
+                      <td>{{ "region." + getCreatorRegion(aggregatedRegionId) | translate }}</td>
                       <td>
                         <div>
                           <small class="text-muted">{{ getCreator(aggregatedRegionId) }}</small>
@@ -70,7 +70,7 @@
 
                     <tr *ngIf="aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)" style="height: 52px">
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
-                      <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
+                      <td>{{ "region." + getCreatorRegion(aggregatedRegionId) | translate }}</td>
                       <td>
                         <div>
                           <small class="text-muted">{{ getCreator(aggregatedRegionId) }}</small>
@@ -93,7 +93,7 @@
                     <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()" style="height: 52px">
 
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
-                      <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
+                      <td>{{ "region." + getCreatorRegion(aggregatedRegionId) | translate }}</td>
                       <td>
                         <div>
                           <small class="text-muted">{{ getCreator(aggregatedRegionId) }}</small>
@@ -130,7 +130,7 @@
 
                     <tr *ngIf="aggregatedRegionId != activeAggregatedRegionId" (click)="selectAggregatedRegion(aggregatedRegionId)" style="height: 52px">
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
-                      <td>{{ getCreatorRegion(aggregatedRegionId) }}</td>
+                      <td>{{ "region." + getCreatorRegion(aggregatedRegionId) | translate }}</td>
                       <td>
                         <div>
                           <small class="text-muted">{{ getCreator(aggregatedRegionId) }}</small>

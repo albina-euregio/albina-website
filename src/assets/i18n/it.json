@@ -286,6 +286,11 @@
 		"SW" : "SO",
 		"W" : "O",
 		"NW" : "NO"
+	},
+	"region" : {
+		"AT-07" : "Tirolo",
+		"IT-32-BZ" : "Alto Adige",
+		"IT-32-TN" : "Trentino"
 	}
 
 }

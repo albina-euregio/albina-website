@@ -286,6 +286,11 @@
 		"SW" : "SW",
 		"W" : "W",
 		"NW" : "NW"
+	},
+	"region" : {
+		"AT-07" : "Tirol",
+		"IT-32-BZ" : "Südtirol",
+		"IT-32-TN" : "Trentino"
 	}
 
 }
