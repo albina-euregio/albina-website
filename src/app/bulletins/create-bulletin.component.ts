@@ -108,29 +108,26 @@ export class CreateBulletinComponent {
           data => {
             this.copyBulletins(data.json());
             this.bulletinsService.setCopyDate(undefined);
-            this.loading = false;
+            this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
+              data => {
+                this.addForeignBulletins(data.json());
+              },
+              error => {
+                console.error("Foreign bulletins could not be loaded!");
+                this.loading = false;
+                this.confirmationService.confirm({
+                  key: "loadingErrorDialog",
+                  header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
+                  message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
+                  accept: () => {
+                    this.goBack();
+                  }
+                });
+              }
+            );
           },
           error => {
             console.error("Own bulletins could not be loaded!");
-            this.loading = false;
-            this.confirmationService.confirm({
-              key: "loadingErrorDialog",
-              header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
-              message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
-              accept: () => {
-                this.loading = false;
-                this.goBack();
-              }
-            });
-          }
-        );
-
-        this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
-          data => {
-            this.addForeignBulletins(data.json());
-          },
-          error => {
-            console.error("Foreign bulletins could not be loaded!");
             this.loading = false;
             this.confirmationService.confirm({
               key: "loadingErrorDialog",
