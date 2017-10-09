@@ -54,14 +54,15 @@ export class ChatService {
   }
 
   getMessages() : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'chat';
+    let date = new Date();
+    date.setHours(0,0,0,0);
+    let url = this.constantsService.getServerUrl() + 'chat?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
-
     return this.http.get(url, options);
   }
 
