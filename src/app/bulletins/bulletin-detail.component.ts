@@ -96,8 +96,7 @@ export class BulletinDetailComponent {
   selectAspect(aspect) {
     if (this.bulletinElevationDescription.aspects.length == 1) {
       let a : any = Enums.Aspect[this.bulletinElevationDescription.aspects[0]];
-
-      if (a == aspect || a == aspect + 1) {
+      if (a == aspect || a == (aspect + 1) % 8) {
         for (var i = 0; i < 8; i++) {
           this.bulletinElevationDescription.addAspect(Enums.Aspect[i]);
         }
