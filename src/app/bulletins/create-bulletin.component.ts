@@ -277,8 +277,13 @@ export class CreateBulletinComponent {
   }
 
   updateElevation() {
-    if (this.activeBulletinInput)
+    if (this.activeBulletinInput) {
       this.activeBulletinInput.elevation = Math.round(this.activeBulletinInput.elevation/100)*100;
+      if (this.activeBulletinInput.elevation > 9000)
+        this.activeBulletinInput.elevation = 9000;
+      else if (this.activeBulletinInput.elevation < 0)
+        this.activeBulletinInput.elevation = 0;
+    }
   }
 
   loadBulletinsFromYesterday() {
