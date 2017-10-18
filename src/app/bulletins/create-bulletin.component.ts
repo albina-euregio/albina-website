@@ -195,7 +195,7 @@ export class CreateBulletinComponent {
         zoom: 8,
         minZoom: 6,
         maxZoom: 10,
-        layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions]
+        layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions, this.mapService.overlayMaps.regions]
     });
 
     L.control.zoom({ position: "topleft" }).addTo(map);
@@ -210,7 +210,7 @@ export class CreateBulletinComponent {
         zoom: 8,
         minZoom: 6,
         maxZoom: 10,
-        layers: [this.mapService.afternoonBaseMaps.OpenMapSurfer_Grayscale, this.mapService.afternoonOverlayMaps.aggregatedRegions]
+        layers: [this.mapService.afternoonBaseMaps.OpenMapSurfer_Grayscale, this.mapService.afternoonOverlayMaps.aggregatedRegions, this.mapService.afternoonOverlayMaps.regions]
     });
 
     //L.control.zoom({ position: "topleft" }).addTo(afternoonMap);

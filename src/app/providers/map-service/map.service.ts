@@ -60,6 +60,9 @@ export class MapService {
         };
 
         this.overlayMaps = {
+            // overlay to show regions
+            regions : L.geoJSON(this.regionsService.getRegionsEuregio()),
+
             // overlay to show selected regions
             activeSelection : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
 
@@ -75,6 +78,9 @@ export class MapService {
         }
 
         this.afternoonOverlayMaps = {
+            // overlay to show regions
+            regions : L.geoJSON(this.regionsService.getRegionsEuregio()),
+
             // overlay to show selected regions
             activeSelection : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
 
@@ -97,6 +103,13 @@ export class MapService {
             entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
     }
 
+    resetRegions() {
+        for (let entry of this.overlayMaps.regions.getLayers())
+            entry.setStyle(this.getUserDependendRegionStyle(entry.feature.properties.id));
+        for (let entry of this.afternoonOverlayMaps.regions.getLayers())
+            entry.setStyle(this.getUserDependendRegionStyle(entry.feature.properties.id));
+    }
+
     resetActiveSelection() {
         for (let entry of this.overlayMaps.activeSelection.getLayers())
             entry.setStyle(this.getActiveSelectionBaseStyle());
@@ -112,6 +125,7 @@ export class MapService {
     }
 
     resetAll() {
+        this.resetRegions();
         this.resetActiveSelection();
         this.resetAggregatedRegions();
         this.resetEditSelection();
@@ -202,6 +216,8 @@ export class MapService {
     }
 
     selectAggregatedRegion(bulletinInputModel: BulletinInputModel) {
+        this.map.removeLayer(this.overlayMaps.regions);
+        this.afternoonMap.removeLayer(this.afternoonOverlayMaps.regions);
         this.map.addLayer(this.overlayMaps.activeSelection);
         this.afternoonMap.addLayer(this.afternoonOverlayMaps.activeSelection);
 
@@ -268,6 +284,8 @@ export class MapService {
                 }
             }
         }
+        this.map.addLayer(this.overlayMaps.regions);
+        this.afternoonMap.addLayer(this.afternoonOverlayMaps.regions);
     }
 
     deselectAggregatedRegion() {
@@ -398,7 +416,7 @@ export class MapService {
         return {
             fillColor: 'black',
             weight: 1,
-            opacity: 0.3,
+            opacity: 0.0,
             color: 'black',
             fillOpacity: 0.0
         };
@@ -415,6 +433,20 @@ export class MapService {
     }
 
     private getUserDependendBaseStyle(region) {
+        let opacity = 0.0;
+        if (region.startsWith(this.authenticationService.getUserRegion()))
+            opacity = 0.0;
+
+        return {
+            fillColor: 'black',
+            weight: 1,
+            opacity: opacity,
+            color: 'black',
+            fillOpacity: 0.0
+        };
+    }
+
+    private getUserDependendRegionStyle(region) {
         let opacity = 0.3;
         if (region.startsWith(this.authenticationService.getUserRegion()))
             opacity = 1.0;
@@ -466,7 +498,7 @@ export class MapService {
 
     private getActiveSelectionStyle(region, dangerRating, status) {
         let fillOpacity = 1.0;
-        let opacity = 1.0;
+        let opacity = 0.0;
 
         // own area
         if (region.startsWith(this.authenticationService.getUserRegion())) {
@@ -480,7 +512,7 @@ export class MapService {
 
         // foreign area
         } else {
-            opacity = 0.3;
+            opacity = 0.0;
             fillOpacity = 0.3;
         }
 
@@ -506,7 +538,7 @@ export class MapService {
 
     private getDangerRatingStyle(region, dangerRating, status) {
         let fillOpacity = 1.0;
-        let opacity = 1.0;
+        let opacity = 0.0;
 
         // own area
         if (region.startsWith(this.authenticationService.getUserRegion())) {
@@ -520,7 +552,7 @@ export class MapService {
 
         // foreign area
         } else {
-            opacity = 0.3;
+            opacity = 0.0;
             fillOpacity = 0.1;
         }
 
