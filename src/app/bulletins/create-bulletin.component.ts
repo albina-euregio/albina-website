@@ -8,6 +8,7 @@ import { BulletinsService } from '../providers/bulletins-service/bulletins.servi
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { MapService } from "../providers/map-service/map.service";
 import { SettingsService } from '../providers/settings-service/settings.service';
+import { ConstantsService } from '../providers/constants-service/constants.service';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 import { Observable } from 'rxjs/Observable';
 import * as Enums from '../enums/enums';
@@ -66,6 +67,7 @@ export class CreateBulletinComponent {
     private authenticationService: AuthenticationService,
     private translateService: TranslateService,
     private settingsService: SettingsService,
+    private constantsService: ConstantsService,
     private mapService: MapService,
     private confirmationService: ConfirmationService)
   {
@@ -191,11 +193,15 @@ export class CreateBulletinComponent {
 
     let map = L.map("map", {
         zoomControl: false,
+        doubleClickZoom: true,
+        scrollWheelZoom: false,
+        touchZoom: true,
         center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
         zoom: 8,
-        minZoom: 6,
+        minZoom: 8,
         maxZoom: 10,
-        layers: [this.mapService.baseMaps.OpenMapSurfer_Grayscale, this.mapService.overlayMaps.aggregatedRegions, this.mapService.overlayMaps.regions]
+        maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
+        layers: [this.mapService.baseMaps.AlbinaBaseMap, this.mapService.overlayMaps.aggregatedRegions, this.mapService.overlayMaps.regions]
     });
 
     L.control.zoom({ position: "topleft" }).addTo(map);
@@ -206,11 +212,15 @@ export class CreateBulletinComponent {
 
     let afternoonMap = L.map("afternoonMap", {
         zoomControl: false,
+        doubleClickZoom: true,
+        scrollWheelZoom: false,
+        touchZoom: true,
         center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
         zoom: 8,
-        minZoom: 6,
+        minZoom: 8,
         maxZoom: 10,
-        layers: [this.mapService.afternoonBaseMaps.OpenMapSurfer_Grayscale, this.mapService.afternoonOverlayMaps.aggregatedRegions, this.mapService.afternoonOverlayMaps.regions]
+        maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
+        layers: [this.mapService.afternoonBaseMaps.AlbinaBaseMap, this.mapService.afternoonOverlayMaps.aggregatedRegions, this.mapService.afternoonOverlayMaps.regions]
     });
 
     //L.control.zoom({ position: "topleft" }).addTo(afternoonMap);
