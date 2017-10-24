@@ -17,6 +17,11 @@ export class ConstantsService {
   public lat: Map<string, number> = new Map([[this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05]])
   public lng: Map<string, number> = new Map([[this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07]])
 
+  public mapBoundaryN: number = 48.0;
+  public mapBoundaryE: number = 13.5;
+  public mapBoundaryS: number = 45.0;
+  public mapBoundaryW: number = 9.0;
+
   constructor() {
   }
 
