@@ -43,10 +43,10 @@
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.acceptSuggestions' | translate }}"><i class="fa fa-check"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.acceptSuggestion' | translate }}"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.rejectSuggestions' | translate }}"><i class="fa fa-close"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.rejectSuggestion' | translate }}"><i class="fa fa-close"></i></button>
                       </td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
@@ -103,10 +103,10 @@
                       <td *ngIf="hasSuggestions(aggregatedRegionId)"><i class="fa fa-lightbulb-o"></i></td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.acceptSuggestions' | translate }}"><i class="fa fa-check"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.acceptSuggestion' | translate }}"><i class="fa fa-check"></i></button>
                       </td>
                       <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(aggregatedRegionId) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.rejectSuggestions' | translate }}"><i class="fa fa-close"></i></button>
+                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, aggregatedRegionId)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.rejectSuggestion' | translate }}"><i class="fa fa-close"></i></button>
                       </td>
 
                       <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(aggregatedRegionId)">
