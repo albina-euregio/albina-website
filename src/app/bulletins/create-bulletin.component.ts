@@ -859,7 +859,7 @@ export class CreateBulletinComponent {
 
   save() {
     this.loading = true;
-debugger
+
     this.setAvActivityTexts();
 
     let bulletins = Array<BulletinModel>();
