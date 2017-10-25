@@ -343,7 +343,6 @@ export class CreateBulletinComponent {
   }
 
   copyBulletins(response) {
-    // TODO if copy from other day, add own regions but load other regions from today
     this.mapService.resetAggregatedRegions();
 
     let idMap = new Map<string, string>();
@@ -860,7 +859,7 @@ export class CreateBulletinComponent {
 
   save() {
     this.loading = true;
-
+debugger
     this.setAvActivityTexts();
 
     let bulletins = Array<BulletinModel>();

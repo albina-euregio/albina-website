@@ -10,6 +10,8 @@ export class BulletinModel {
 	public creator: string;
 	public creatorRegion: string;
 
+	public publicationDate: Date;
+
 	public validFrom: Date;
 	public validUntil: Date;
 
@@ -32,6 +34,7 @@ export class BulletinModel {
 		this.creator = undefined;
 		this.creatorRegion = undefined;
 		this.obsoleteRegions = new Array<String>();
+		this.publicationDate = undefined;
 		if (bulletin) {
 			this.aggregatedRegionId = bulletin.aggregatedRegionId;
 			this.validFrom = bulletin.validFrom;
@@ -93,6 +96,14 @@ export class BulletinModel {
 
 	setCreatorRegion(creatorRegion: string) {
 		this.creatorRegion = creatorRegion;
+	}
+
+	getPublicationDate() {
+		return this.publicationDate;
+	}
+
+	setPublicationDate(publicationDate: Date) {
+		this.publicationDate = publicationDate;
 	}
 
 	getValidFrom() : Date {
@@ -243,6 +254,9 @@ export class BulletinModel {
 		if (this.creatorRegion && this.creatorRegion != undefined)
 			json['creatorRegion'] = this.creatorRegion;
 		
+		if (this.publicationDate && this.publicationDate != undefined)
+			json['publicationDate'] = this.getISOStringWithTimezoneOffsetUrlEncoded(this.publicationDate);
+
 		var validity = Object();
 		if (this.validFrom && this.validFrom != undefined)
 			validity['from'] = this.getISOStringWithTimezoneOffsetUrlEncoded(this.validFrom);
@@ -331,6 +345,9 @@ export class BulletinModel {
 		bulletin.setAggregatedRegionId(json.aggregatedRegionId);
 		bulletin.setCreator(json.creator);
 		bulletin.setCreatorRegion(json.creatorRegion);
+
+		if (json.publicationDate)
+			bulletin.setPublicationDate(new Date(json.publicationDate));
 
 		bulletin.setValidFrom(new Date(json.validity.from));
 		bulletin.setValidUntil(new Date(json.validity.until));
