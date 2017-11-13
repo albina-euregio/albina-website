@@ -118,6 +118,7 @@
 		"title" : "Bollettini",
 		"tooltip" : {
 			"publish" : "Pubblicare bollettino valanghe",
+			"submit" : "TODO",
 			"copy" : "Copiare bollettino valanghe",
 			"paste" : "Incollare bollettino valanghe",
 			"update" : "Update bollettino valanghe",
@@ -218,11 +219,13 @@
 				"caaml" : "CAAML"
 			},
 			"status" : {
-				"draft" : "abbozzo",
-				"obsolete" : "obsolete",
 				"missing" : "manca",
-				"pending" : "pendente",
-				"published" : "pubblicato"
+				"draft" : "abbozzo",
+				"submitted" : "TODO",
+				"published" : "pubblicato",
+				"updated" : "TODO",
+				"resubmitted" : "TODO",
+				"republished" : "TODO"
 			},
 			"edit" : "Modifica",
 			"show" : "Mostra",
@@ -244,6 +247,23 @@
 			"publishBulletinsErrorDialog" : {
 				"header" : "Errore durante pubblicare",
 				"message" : "Errore pubblicando il bollettino valanghe!",
+				"accept" : "Ok"
+			},
+			"submitBulletinsDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"missingDangerRating" : "Grado di pericolo non definato",
+				"missingRegion" : "Micro-aree non valutate",
+				"duplicateRegion" : "Micro-aree valutate più volte",
+				"missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
+				"missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
+				"pendingSuggestions" : "Proposta non confermata",
+				"accept" : "Sí",
+				"reject" : "No"
+			},
+			"submitBulletinsErrorDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
 				"accept" : "Ok"
 			},
 			"checkBulletinsErrorDialog" : {

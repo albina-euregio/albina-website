@@ -18,7 +18,6 @@ export class BulletinModel {
 	public suggestedRegions: String[];
 	public savedRegions: String[];
 	public publishedRegions: String[];
-	public obsoleteRegions: String[];
 
 	public elevation: number;
 	public above: BulletinElevationDescriptionModel;
@@ -33,7 +32,6 @@ export class BulletinModel {
 	constructor(bulletin?: BulletinModel) {
 		this.creator = undefined;
 		this.creatorRegion = undefined;
-		this.obsoleteRegions = new Array<String>();
 		this.publicationDate = undefined;
 		if (bulletin) {
 			this.aggregatedRegionId = bulletin.aggregatedRegionId;
@@ -144,14 +142,6 @@ export class BulletinModel {
 
 	setPublishedRegions(publishedRegions: String[]) {
 		this.publishedRegions = publishedRegions;
-	}
-
-	getObsoleteRegions() : String[] {
-		return this.obsoleteRegions;
-	}
-
-	setObsoleteRegions(obsoleteRegions: String[]) {
-		this.obsoleteRegions = obsoleteRegions;
 	}
 
 	getElevation() : number {
@@ -288,14 +278,6 @@ export class BulletinModel {
 			json['publishedRegions'] = publishedRegions;
 		}
 
-		if (this.obsoleteRegions && this.obsoleteRegions.length > 0) {
-			let obsoleteRegions = [];
-			for (let i = 0; i <= this.obsoleteRegions.length - 1; i++) {
-				obsoleteRegions.push(this.obsoleteRegions[i]);
-			}
-			json['obsoleteRegions'] = obsoleteRegions;
-		}
-
 		if (this.above && this.above != undefined)
 			json['above'] = this.above.toJson();
 
@@ -372,13 +354,6 @@ export class BulletinModel {
 			publishedRegions.push(jsonPublishedRegions[i]);
 		}
 		bulletin.setPublishedRegions(publishedRegions);
-
-		let jsonObsoleteRegions = json.obsoleteRegions;
-		let obsoleteRegions = new Array<String>();
-		for (let i in jsonObsoleteRegions) {
-			obsoleteRegions.push(jsonObsoleteRegions[i]);
-		}
-		bulletin.setObsoleteRegions(obsoleteRegions);
 
 		bulletin.setElevation(json.elevation);
 

@@ -118,6 +118,7 @@
 		"title" : "Bulletins",
 		"tooltip" : {
 			"publish" : "Publish bulletin",
+			"submit" : "Submit bulletin",
 			"copy" : "Copy bulletin",
 			"paste" : "Paste bulletin",
 			"update" : "Create update of bulletin",
@@ -218,11 +219,13 @@
 				"caaml" : "CAAML"
 			},
 			"status" : {
-				"draft" : "draft",
-				"obsolete" : "obsolete",
 				"missing" : "missing",
-				"pending" : "pending",
-				"published" : "published"
+				"draft" : "draft",
+				"submitted" : "submitted",
+				"published" : "published",
+				"updated" : "updated",
+				"resubmitted" : "resubmitted",
+				"republished" : "republished"
 			},
 			"edit" : "Edit",
 			"show" : "Show",
@@ -232,7 +235,7 @@
 			"publishBulletinsDialog" : {
 				"header" : "Publish bulletin",
 				"message" : "Do you want to publish the bulletin?",
-				"missingDangerRating" : "Damger rating not set",
+				"missingDangerRating" : "Danger rating not set",
 				"missingRegion" : "Regions not rated",
 				"duplicateRegion" : "Regions rated multiple times",
 				"missingAvActivityHighlights" : "Headline avalanche situation missing",
@@ -242,8 +245,25 @@
 				"reject" : "No"
 			},
 			"publishBulletinsErrorDialog" : {
-				"header" : "Error deleting bulletins",
-				"message" : "There was an error deleting the bulletins!",
+				"header" : "Error publishing bulletins",
+				"message" : "There was an error publishing the bulletins!",
+				"accept" : "Ok"
+			},
+			"submitBulletinsDialog" : {
+				"header" : "Submit bulletin",
+				"message" : "Do you want to submit the bulletin?",
+				"missingDangerRating" : "Danger rating not set",
+				"missingRegion" : "Regions not rated",
+				"duplicateRegion" : "Regions rated multiple times",
+				"missingAvActivityHighlights" : "Headline avalanche situation missing",
+				"missingAvActivityComment" : "Description of avalanche danger missing",
+				"pendingSuggestions" : "Pending suggestions",
+				"accept" : "Yes",
+				"reject" : "No"
+			},
+			"submitBulletinsErrorDialog" : {
+				"header" : "Error submitting bulletins",
+				"message" : "There was an error submitting the bulletins!",
 				"accept" : "Ok"
 			},
 			"checkBulletinsErrorDialog" : {

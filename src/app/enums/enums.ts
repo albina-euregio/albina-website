@@ -39,7 +39,7 @@ export class AvalancheProblemUtil {
 }
 
 export enum BulletinStatus {
-	missing, draft, published, obsolete
+	missing, draft, submitted, published, updated, resubmitted, republished
 }
 
 export enum NewsStatus {

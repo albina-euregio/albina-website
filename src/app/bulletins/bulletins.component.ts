@@ -156,7 +156,6 @@ export class BulletinsComponent {
 
   createUpdate(event, date: Date) {
     event.stopPropagation();
-    this.bulletinsService.setCopyDate(date);
     this.editBulletin(date, true);
   }
 
@@ -220,6 +219,74 @@ export class BulletinsComponent {
                   key: "publishBulletinsErrorDialog",
                   header: this.translate.instant("bulletins.table.publishBulletinsErrorDialog.header"),
                   message: this.translate.instant("bulletins.table.publishBulletinsErrorDialog.message"),
+                  accept: () => {
+                    this.publishing = undefined;
+                  }
+                });
+              }
+            );
+          },
+          reject: () => {
+            this.publishing = undefined;
+          }
+        });
+      },
+      error => {
+        console.error("Bulletins could not be checked!");
+        this.confirmationService.confirm({
+          key: "checkBulletinsErrorDialog",
+          header: this.translate.instant("bulletins.table.checkBulletinsErrorDialog.header"),
+          message: this.translate.instant("bulletins.table.checkBulletinsErrorDialog.message"),
+          accept: () => {
+            this.publishing = undefined;
+          }
+        });
+      }
+    );
+  }
+
+  submit(event, date: Date) {
+    event.stopPropagation();
+    this.publishing = date;
+
+    this.bulletinsService.checkBulletins(date, this.authenticationService.getUserRegion()).subscribe(
+      data => {
+        let result = data.json();
+
+        let message = this.translateService.instant("bulletins.table.submitBulletinsDialog.message") + '<br><br>';
+
+        for (let entry of result) {
+          if (entry == 'missingDangerRating')
+            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingDangerRating") + '<br>';
+          if (entry == 'missingRegion')
+            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingRegion") + '<br>';
+          if (entry == 'duplicateRegion')
+            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.duplicateRegion") + '<br>';
+          if (entry == 'missingAvActivityHighlights')
+            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityHighlights") + '<br>';
+          if (entry == 'missingAvActivityComment')
+            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityComment") + '<br>';
+          if (entry == 'pendingSuggestions')
+            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.pendingSuggestions");
+        }
+
+        this.confirmationService.confirm({
+          key: "submitBulletinsDialog",
+          header: this.translateService.instant("bulletins.table.submitBulletinsDialog.header"),
+          message: message,
+          accept: () => {
+            this.bulletinsService.submitBulletins(date, this.authenticationService.getUserRegion()).subscribe(
+              data => {
+                console.log("Bulletins submitted.");
+                this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.submitted);
+                this.publishing = undefined;
+              },
+              error => {
+                console.error("Bulletins could not be submitted!");
+                this.confirmationService.confirm({
+                  key: "submitBulletinsErrorDialog",
+                  header: this.translate.instant("bulletins.table.submitBulletinsErrorDialog.header"),
+                  message: this.translate.instant("bulletins.table.submitBulletinsErrorDialog.message"),
                   accept: () => {
                     this.publishing = undefined;
                   }

@@ -228,6 +228,7 @@ export class BulletinsService {
     return this.http.get(url, options);
   }
 
+  // TODO load CAAML just for own region?
   loadCaamlBulletins(date: Date) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
@@ -240,45 +241,35 @@ export class BulletinsService {
     return this.http.get(url, options);
   }
 
-  saveBulletin(bulletin: BulletinModel) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins';
+  saveBulletins(bulletins, date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/test?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getUserRegion();
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': authHeader });
-    let body = JSON.stringify(bulletin.toJson());
-    console.log("SAVE bulletin:");
+    let jsonBulletins = [];
+    for (var i = bulletins.length - 1; i >= 0; i--)
+      jsonBulletins.push(bulletins[i].toJson());
+    let body = JSON.stringify(jsonBulletins);
+    console.log("SAVE bulletins:");
     console.log(body);
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(url, body, options);
   }
 
-  updateBulletin(bulletin: BulletinModel) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins/' + bulletin.getId();
+  submitBulletins(date: Date, region: string) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/submit?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + '&region=' + region;
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': authHeader });
-    let body = JSON.stringify(bulletin.toJson());
-    console.log(body);
+    let body = JSON.stringify("");
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put(url, body, options);
-  }
-
-  deleteBulletin(bulletinId: string) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins/' + bulletinId;
-    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': authHeader });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.delete(url, options);
+    return this.http.post(url, body, options);
   }
 
   publishBulletins(date: Date, region: string) : Observable<Response> {

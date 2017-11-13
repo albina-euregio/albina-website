@@ -118,6 +118,7 @@
 		"title" : "Lawinenlageberichte",
 		"tooltip" : {
 			"publish" : "Lawinenlagebericht publizieren",
+			"submit" : "TODO",
 			"copy" : "Lawinenlagebericht kopieren",
 			"paste" : "Lawinenlagebericht einfügen",
 			"update" : "Update zum Lawinenlagebericht erstellen",
@@ -218,11 +219,13 @@
 				"caaml" : "CAAML"
 			},
 			"status" : {
-				"draft" : "Entwurf",
-				"obsolete" : "veraltet",
 				"missing" : "fehlt",
-				"pending" : "in Verarbeitung",
-				"published" : "publiziert"
+				"draft" : "Entwurf",
+				"submitted" : "TODO",
+				"published" : "publiziert",
+				"updated" : "verändert",
+				"resubmitted" : "TODO",
+				"republished" : "neu publiziert"
 			},
 			"edit" : "Bearbeiten",
 			"show" : "Anzeigen",
@@ -244,6 +247,23 @@
 			"publishBulletinsErrorDialog" : {
 				"header" : "Fehler beim Publizieren",
 				"message" : "Beim Publizieren der Lawinenlageberichte ist ein Fehler aufgetreten!",
+				"accept" : "Ok"
+			},
+			"submitBulletinsDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
+				"missingDangerRating" : "Gefahrenstufe nicht definiert",
+				"missingRegion" : "Regionen nicht beurteilt",
+				"duplicateRegion" : "Regionen mehrfach beurteilt",
+				"missingAvActivityHighlights" : "Schlagzeile Gefahrensituation fehlt",
+				"missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
+				"pendingSuggestions" : "Unbeantwortete Vorschläge",
+				"accept" : "Ja",
+				"reject" : "Nein"
+			},
+			"submitBulletinsErrorDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
 				"accept" : "Ok"
 			},
 			"checkBulletinsErrorDialog" : {
