@@ -201,6 +201,11 @@
 				"message" : "Beim Speichern der Lawinenlageberichte ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
+			"changeErrorDialog" : {
+				"header" : "Fehler beim Ändern",
+				"message" : "Beim Ändern der Lawinenlageberichte ist ein Fehler aufgetreten!",
+				"accept" : "Ok"
+			},
 			"loadingErrorDialog" : {
 				"header" : "Fehler beim Laden",
 				"message" : "Beim Laden der Lawinenlageberichte ist ein Fehler aufgetreten!",

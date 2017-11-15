@@ -201,6 +201,11 @@
 				"message" : "There was an error saving the bulletins!",
 				"accept" : "Ok"
 			},
+			"changeErrorDialog" : {
+				"header" : "Error changing bulletins",
+				"message" : "There was an error changing the bulletins!",
+				"accept" : "Ok"
+			},
 			"loadingErrorDialog" : {
 				"header" : "Error loading bulletins",
 				"message" : "There was an error loading the bulletins!",

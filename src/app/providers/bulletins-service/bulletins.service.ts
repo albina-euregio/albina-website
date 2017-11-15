@@ -16,6 +16,7 @@ export class BulletinsService {
   private copyDate: Date;
   private isEditable: boolean;
   private isUpdate: boolean;
+  private isSmallChange: boolean;
 
   public lockedRegions: Map<string, Date[]>;
   // public lockedBulletins: Map<string, String[]>;
@@ -34,6 +35,7 @@ export class BulletinsService {
     this.copyDate = undefined;
     this.isEditable = false;
     this.isUpdate = false;
+    this.isSmallChange = false;
     this.statusMapTrentino = new Map<number, Enums.BulletinStatus>();
     this.statusMapSouthTyrol = new Map<number, Enums.BulletinStatus>();
     this.statusMapTyrol = new Map<number, Enums.BulletinStatus>();
@@ -167,6 +169,14 @@ export class BulletinsService {
     this.isUpdate = isUpdate;
   }
 
+  getIsSmallChange() {
+    return this.isSmallChange;
+  }
+
+  setIsSmallChange(isSmallChange: boolean) {
+    this.isSmallChange = isSmallChange;
+  }
+
   getUserRegionStatus(date: Date) : Enums.BulletinStatus {
     let region = this.authenticationService.getUserRegion();
     switch (region) {
@@ -242,7 +252,25 @@ export class BulletinsService {
   }
 
   saveBulletins(bulletins, date) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins/test?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getUserRegion();
+    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getUserRegion();
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let jsonBulletins = [];
+    for (var i = bulletins.length - 1; i >= 0; i--)
+      jsonBulletins.push(bulletins[i].toJson());
+    let body = JSON.stringify(jsonBulletins);
+    console.log("SAVE bulletins:");
+    console.log(body);
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(url, body, options);
+  }
+
+  changeBulletins(bulletins, date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/change?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getUserRegion();
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',

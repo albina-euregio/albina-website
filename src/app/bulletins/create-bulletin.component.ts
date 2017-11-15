@@ -305,6 +305,8 @@ export class CreateBulletinComponent {
     
     this.bulletinsService.setActiveDate(undefined);
     this.bulletinsService.setIsEditable(false);
+    this.bulletinsService.setIsSmallChange(false);
+    this.bulletinsService.setIsUpdate(false);
 
     this.loading = false;
     this.editRegions = false;
@@ -925,24 +927,45 @@ export class CreateBulletinComponent {
     });
 
     if (bulletins.length > 0) {
-      this.bulletinsService.saveBulletins(bulletins, this.bulletinsService.getActiveDate()).subscribe(
-          data => {
-            this.loading = false;
-            this.goBack();
-            console.log("Bulletins saved on server.");
-          },
-          error => {
-            this.loading = false;
-            console.error("Bulletins could not be saved on server!");
-            this.confirmationService.confirm({
-              key: "saveErrorDialog",
-              header: this.translateService.instant("bulletins.create.saveErrorDialog.header"),
-              message: this.translateService.instant("bulletins.create.saveErrorDialog.message"),
-              accept: () => {
-              }
-            });
-          }
-      );
+      if (this.bulletinsService.getIsSmallChange()) {
+        this.bulletinsService.changeBulletins(bulletins, this.bulletinsService.getActiveDate()).subscribe(
+            data => {
+              this.loading = false;
+              this.goBack();
+              console.log("Bulletins changed on server.");
+            },
+            error => {
+              this.loading = false;
+              console.error("Bulletins could not be changed on server!");
+              this.confirmationService.confirm({
+                key: "changeErrorDialog",
+                header: this.translateService.instant("bulletins.create.changeErrorDialog.header"),
+                message: this.translateService.instant("bulletins.create.changeErrorDialog.message"),
+                accept: () => {
+                }
+              });
+            }
+        );
+      } else {
+        this.bulletinsService.saveBulletins(bulletins, this.bulletinsService.getActiveDate()).subscribe(
+            data => {
+              this.loading = false;
+              this.goBack();
+              console.log("Bulletins saved on server.");
+            },
+            error => {
+              this.loading = false;
+              console.error("Bulletins could not be saved on server!");
+              this.confirmationService.confirm({
+                key: "saveErrorDialog",
+                header: this.translateService.instant("bulletins.create.saveErrorDialog.header"),
+                message: this.translateService.instant("bulletins.create.saveErrorDialog.message"),
+                accept: () => {
+                }
+              });
+            }
+        );
+      }
     } else {
       this.loading = false;
       this.goBack();

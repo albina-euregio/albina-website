@@ -159,6 +159,9 @@ export class BulletinsComponent {
     this.editBulletin(date, true);
   }
 
+  /*
+    Create a small change in the bulletin, no new publication
+  */
   edit(event, date: Date) {
     event.stopPropagation();
 
@@ -172,6 +175,7 @@ export class BulletinsComponent {
         let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
 
         this.bulletinsService.setIsEditable(true);
+        this.bulletinsService.setIsSmallChange(true);
         this.router.navigate(['/bulletins/new']);
       }
     }

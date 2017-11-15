@@ -201,6 +201,11 @@
 				"message" : "Errore salvando il bollettino valanghe!",
 				"accept" : "Ok"
 			},
+			"changeErrorDialog" : {
+				"header" : "Errore durante TODO",
+				"message" : "Errore TODO il bollettino valanghe!",
+				"accept" : "Ok"
+			},
 			"loadingErrorDialog" : {
 				"header" : "Errore di caricamento",
 				"message" : "Errore durante il caricamento del bollettino valanghe!",
