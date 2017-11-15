@@ -118,7 +118,7 @@
 		"title" : "Lawinenlageberichte",
 		"tooltip" : {
 			"publish" : "Lawinenlagebericht publizieren",
-			"submit" : "TODO",
+			"submit" : "Lawinenlagebericht absenden",
 			"copy" : "Lawinenlagebericht kopieren",
 			"paste" : "Lawinenlagebericht einfügen",
 			"update" : "Update zum Lawinenlagebericht erstellen",
@@ -255,8 +255,8 @@
 				"accept" : "Ok"
 			},
 			"submitBulletinsDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
+				"header" : "Lagebericht absenden",
+				"message" : "Willst du den Lagebericht absenden?",
 				"missingDangerRating" : "Gefahrenstufe nicht definiert",
 				"missingRegion" : "Regionen nicht beurteilt",
 				"duplicateRegion" : "Regionen mehrfach beurteilt",
@@ -267,8 +267,8 @@
 				"reject" : "Nein"
 			},
 			"submitBulletinsErrorDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
+				"header" : "Fehler beim Absenden",
+				"message" : "Beim Absenden der Lawinenlageberichte ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
 			"checkBulletinsErrorDialog" : {
