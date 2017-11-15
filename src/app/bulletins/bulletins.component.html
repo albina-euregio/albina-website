@@ -65,7 +65,7 @@
                   <!-- spinning icon -->
                   <button *ngIf="bulletinsService.getUserRegionStatus(date) == bulletinStatus.draft && !copying && publishing && publishing.getTime() == date.getTime()" type="button" class="btn btn-primary btn-sm float-right"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
                   <!-- caaml -->
-                  <button *ngIf="(bulletinsService.getUserRegionStatus(date) == bulletinStatus.published || bulletinsService.getUserRegionStatus(date) == bulletinStatus.republished || bulletinsService.getUserRegionStatus(date) == bulletinStatus.submitted || bulletinsService.getUserRegionStatus(date) == bulletinStatus.resubmitted) && !copying" type="button" class="btn btn-secondary btn-sm" (click)="showCaaml($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.caaml' | translate }}"><i class="fa fa-file-text"></i></button>
+                  <button *ngIf="(bulletinsService.getUserRegionStatus(date) != bulletinStatus.missing) && !copying" type="button" class="btn btn-secondary btn-sm" (click)="showCaaml($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.caaml' | translate }}"><i class="fa fa-file-text"></i></button>
                   <!-- edit -->
                   <button *ngIf="(bulletinsService.getUserRegionStatus(date) == bulletinStatus.published || bulletinsService.getUserRegionStatus(date) == bulletinStatus.republished) && !copying" type="button" class="btn btn-secondary btn-sm" (click)="edit($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.edit' | translate }}"><i class="fa fa-pencil"></i></button>
                   <!-- update -->

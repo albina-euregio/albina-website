@@ -210,7 +210,10 @@ export class BulletinsComponent {
             this.bulletinsService.publishBulletins(date, this.authenticationService.getUserRegion()).subscribe(
               data => {
                 console.log("Bulletins published.");
-                this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.published);
+                if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.resubmitted)
+                  this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.republished);
+                else if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.submitted)
+                  this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.published);
                 this.publishing = undefined;
               },
               error => {
@@ -278,7 +281,10 @@ export class BulletinsComponent {
             this.bulletinsService.submitBulletins(date, this.authenticationService.getUserRegion()).subscribe(
               data => {
                 console.log("Bulletins submitted.");
-                this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.submitted);
+                if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.updated)
+                  this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.resubmitted);
+                else if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.draft)
+                  this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.submitted);
                 this.publishing = undefined;
               },
               error => {
