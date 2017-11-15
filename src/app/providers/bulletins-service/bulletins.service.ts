@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response, ResponseOptions } from '@angular/http';
 import { ConstantsService } from '../constants-service/constants.service';
 import { RegionsService } from '../regions-service/regions.service';
+import { SettingsService } from '../settings-service/settings.service';
 import { AuthenticationService } from '../authentication-service/authentication.service';
 import { SocketService } from '../socket-service/socket.service';
 import { Observable } from 'rxjs/Observable';
@@ -29,6 +30,7 @@ export class BulletinsService {
     public http: Http,
     private constantsService: ConstantsService,
     private authenticationService: AuthenticationService,
+    private settingsService: SettingsService,
     private socketService: SocketService)
   {
     this.activeDate = undefined;
@@ -240,7 +242,7 @@ export class BulletinsService {
 
   // TODO load CAAML just for own region?
   loadCaamlBulletins(date: Date) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + '&lang=' + this.settingsService.getLangString();
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/xml',
