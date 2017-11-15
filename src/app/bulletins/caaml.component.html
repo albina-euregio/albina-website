@@ -28,3 +28,9 @@
     <button type="button" pButton icon="fa-check" label='{{ "bulletins.caaml.caamlNotLoadedDialog.accept" | translate }}' (click)="caamlNotLoadedDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
+
+<p-confirmDialog icon="fa fa-question-circle" width="425" #noCaamlDialog key="noCaamlDialog">
+  <p-footer>
+    <button type="button" pButton icon="fa-check" label='{{ "bulletins.caaml.noCaamlDialog.accept" | translate }}' (click)="noCaamlDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

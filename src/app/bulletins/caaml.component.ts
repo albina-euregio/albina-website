@@ -30,8 +30,19 @@ export class CaamlComponent {
     this.loading = true;
     this.bulletinsService.loadCaamlBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
-        let text = data.text();
-        this.bulletins = text;
+        if (data.status == 204) {
+          this.confirmationService.confirm({
+            key: "noCaamlDialog",
+            header: this.translateService.instant("bulletins.caaml.noCaamlDialog.header"),
+            message: this.translateService.instant("bulletins.caaml.noCaamlDialog.message"),
+            accept: () => {
+              this.goBack();
+            }
+          });
+        } else {
+          let text = data.text();
+          this.bulletins = text;
+        }
         this.loading = false;
       },
       error => {

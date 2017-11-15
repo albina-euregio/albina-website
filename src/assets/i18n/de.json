@@ -278,6 +278,11 @@
 				"header" : "CAAML",
 				"message" : "CAAML konnte nicht geladen werden!",
 				"accept" : "Ok"
+			},
+			"noCaamlDialog" : {
+				"header" : "CAAML",
+				"message" : "Kein publizierter Lagebericht vorhanden!",
+				"accept" : "Ok"
 			}
 		}
 	},

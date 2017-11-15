@@ -278,6 +278,11 @@
 				"header" : "CAAML",
 				"message" : "CAAML could not be loaded!",
 				"accept" : "Ok"
+			},
+			"noCaamlDialog" : {
+				"header" : "CAAML",
+				"message" : "No published bulletin available!",
+				"accept" : "Ok"
 			}
 		}
 	},

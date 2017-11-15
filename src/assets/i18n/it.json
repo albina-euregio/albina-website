@@ -278,6 +278,11 @@
 				"header" : "CAAML",
 				"message" : "Errore caricando CAAML!",
 				"accept" : "Ok"
+			},
+			"noCaamlDialog" : {
+				"header" : "CAAML",
+				"message" : "TODO",
+				"accept" : "Ok"
 			}
 		}
 	},
