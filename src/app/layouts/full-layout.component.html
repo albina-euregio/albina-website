@@ -1,8 +1,9 @@
 <header class="app-header navbar">
-  <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button>
+<!--  <button class="navbar-toggler mobile-sidebar-toggler hidden-lg-up" type="button">&#9776;</button> -->
 <!--  <a class="navbar-brand" href="#"></a> -->
   
   <ul class="nav navbar-nav hidden-md-down">
+<!--
     <li class="nav-item">
       <a class="nav-link navbar-toggler sidebar-toggler" href="#">&#9776;</a>
     </li>
@@ -12,6 +13,7 @@
     <li class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/news']">{{ "sidebar.news" | translate }}</a>
     </li>
+-->
   </ul>
 
   <ul class="nav navbar-nav ml-auto">
@@ -36,7 +38,7 @@
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-lock"></i> {{ "menu.logout" | translate }}</a>
       </div>
     </li>
-    <li class="nav-item hidden-md-down" (click)="focusChat($event)">
+    <li class="nav-item" (click)="focusChat($event)">
       <a class="nav-link icon-speech aside-menu-toggler" href="#"><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount() }}</span></a>
     </li>
   </ul>
