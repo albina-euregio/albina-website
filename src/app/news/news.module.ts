@@ -10,6 +10,9 @@ import { NewsRoutingModule } from './news-routing.module';
 import { TranslateModule } from 'ng2-translate';
 import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
 
+// Pipes
+import { PipeModule }    from '../pipes/pipes.module';
+
 
 @NgModule({
   imports: [
@@ -18,7 +21,8 @@ import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
     CommonModule,
     TranslateModule,
     ConfirmDialogModule,
-    SharedModule
+    SharedModule,
+    PipeModule.forRoot()
   ],
   declarations: [
     NewsComponent,

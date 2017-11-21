@@ -87,7 +87,7 @@
         <div class="message">
           <div>
             <small class="text-muted">{{ chatMessage.getUsername() }}</small>
-            <small class="text-muted float-right mt-q">{{ chatMessage.getTime() | date: 'hh:mm dd/MM'}}</small>
+            <small class="text-muted float-right mt-q">{{ chatMessage.getTime() | localizedDate: 'hh:mm dd/MM'}}</small>
           </div>
           <div style="white-space: pre-wrap">{{ chatMessage.getText() }}</div>
         </div>

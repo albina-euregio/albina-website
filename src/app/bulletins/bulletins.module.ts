@@ -9,10 +9,14 @@ import { CaamlComponent } from './caaml.component';
 import { Tabs } from './tabs.component';
 import { Tab } from './tab.component';
 
-// Bulletins Routingd
+// Bulletins Routing
 import { BulletinsRoutingModule } from './bulletins-routing.module';
 import { TranslateModule } from 'ng2-translate';
 import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
+
+// Pipes
+import { PipeModule }    from '../pipes/pipes.module';
+
 
 @NgModule({
   imports: [
@@ -21,7 +25,8 @@ import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
     CommonModule,
     TranslateModule,
     ConfirmDialogModule,
-    SharedModule
+    SharedModule,
+    PipeModule.forRoot()
   ],
   declarations: [
     BulletinsComponent,

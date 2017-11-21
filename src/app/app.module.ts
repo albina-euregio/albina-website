@@ -30,12 +30,16 @@ import { MapService } from './providers/map-service/map.service';
 import { SocketService } from './providers/socket-service/socket.service';
 import { ConfirmationService } from 'primeng/primeng';
 
+// Pipes
+import { PipeModule }    from './pipes/pipes.module';
+
 import { AuthGuard } from './guards/auth.guard';
 
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { HttpModule, Http } from '@angular/http';
 
 import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+
 
 export function createTranslateLoader(http: Http) {
     return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -51,6 +55,7 @@ export function createTranslateLoader(http: Http) {
     ReactiveFormsModule,
     HttpModule,
     BrowserAnimationsModule,
+    PipeModule.forRoot(),
     TranslateModule.forRoot({ 
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
@@ -64,7 +69,7 @@ export function createTranslateLoader(http: Http) {
     BreadcrumbsComponent,
     NAV_DROPDOWN_DIRECTIVES,
     SIDEBAR_TOGGLE_DIRECTIVES,
-    AsideToggleDirective,
+    AsideToggleDirective
   ],
   providers: [
     {
