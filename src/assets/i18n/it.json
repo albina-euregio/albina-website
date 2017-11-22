@@ -118,7 +118,7 @@
 		"title" : "Bollettini",
 		"tooltip" : {
 			"publish" : "Pubblicare bollettino valanghe",
-			"submit" : "TODO",
+			"submit" : "Inviare bollettino valanghe",
 			"copy" : "Copiare bollettino valanghe",
 			"paste" : "Incollare bollettino valanghe",
 			"update" : "Update bollettino valanghe",
@@ -202,8 +202,8 @@
 				"accept" : "Ok"
 			},
 			"changeErrorDialog" : {
-				"header" : "Errore durante TODO",
-				"message" : "Errore TODO il bollettino valanghe!",
+				"header" : "Errore durante la modificazione",
+				"message" : "Errore durante la modificazione del bollettino valanghe!",
 				"accept" : "Ok"
 			},
 			"loadingErrorDialog" : {
@@ -224,13 +224,13 @@
 				"caaml" : "CAAML"
 			},
 			"status" : {
-				"missing" : "manca",
+				"missing" : "mancha",
 				"draft" : "abbozzo",
-				"submitted" : "TODO",
+				"submitted" : "inviato",
 				"published" : "pubblicato",
-				"updated" : "TODO",
-				"resubmitted" : "TODO",
-				"republished" : "TODO"
+				"updated" : "aggiornato",
+				"resubmitted" : "versione aggiornata inviato",
+				"republished" : "versione aggiornata pubblicato"
 			},
 			"edit" : "Modifica",
 			"show" : "Mostra",
@@ -255,8 +255,8 @@
 				"accept" : "Ok"
 			},
 			"submitBulletinsDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
+				"header" : "inviare bollettino valanghe",
+				"message" : "Vuoi inviare il bollettino valanghe?",
 				"missingDangerRating" : "Grado di pericolo non definato",
 				"missingRegion" : "Micro-aree non valutate",
 				"duplicateRegion" : "Micro-aree valutate più volte",
@@ -267,8 +267,8 @@
 				"reject" : "No"
 			},
 			"submitBulletinsErrorDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
+				"header" : "Errore durante l'invio",
+				"message" : "Errore durante l'invio del bollettino valanghe!",
 				"accept" : "Ok"
 			},
 			"checkBulletinsErrorDialog" : {
@@ -286,7 +286,7 @@
 			},
 			"noCaamlDialog" : {
 				"header" : "CAAML",
-				"message" : "TODO",
+				"message" : "Mancha il bolletino valanghe pubblicato!",
 				"accept" : "Ok"
 			}
 		}
