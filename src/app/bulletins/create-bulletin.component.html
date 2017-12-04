@@ -166,45 +166,17 @@
         </div>
         <div class="card-block">
          <div class="form-group row">
-            <div class="col-md-4">
+            <div class="col-md-12">
               <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="text-input"><strong>Schlagzeile Gefahrensituation</strong></label>
+                <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
                 <div class="col-md-12">
                   <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityHighlightsDe">
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Beurteilung der Lawinengefahr</strong></label>
+                <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
                 <div class="col-md-12">
                   <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityCommentDe"></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="text-input"><strong>Titolo situazione pericolo valanghe</strong></label>
-                <div class="col-md-12">
-                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityHighlightsIt">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Testo di discrezione pericolo valanghe</strong></label>
-                <div class="col-md-12">
-                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityCommentIt"></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="text-input"><strong>Headline avalanche situation</strong></label>
-                <div class="col-md-12">
-                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityHighlightsEn">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Description of avalanche danger</strong></label>
-                <div class="col-md-12">
-                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeAggregatedRegionId)" [(ngModel)]="activeAvActivityCommentEn"></textarea>
                 </div>
               </div>
             </div>
