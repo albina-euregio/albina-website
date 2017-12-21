@@ -306,11 +306,14 @@ export class CreateBulletinComponent {
       map.classList.add("col-md-6");
       afternoonMap.classList.remove("col-md-0");
       afternoonMap.classList.add("col-md-6");
+      afternoonMap.style.border = "1px solid";
+      afternoonMap.style.borderColor = "#cfd8dc";
     } else {
       map.classList.remove("col-md-6");
       map.classList.add("col-md-12");
       afternoonMap.classList.remove("col-md-6");
       afternoonMap.classList.add("col-md-0");
+      afternoonMap.style.border = "";
     }
     this.initMaps();
 
