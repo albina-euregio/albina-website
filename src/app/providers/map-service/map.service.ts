@@ -204,6 +204,8 @@ export class MapService {
     selectAggregatedRegion(bulletinInputModel: BulletinInputModel) {
         this.map.removeLayer(this.overlayMaps.regions);
         this.afternoonMap.removeLayer(this.afternoonOverlayMaps.regions);
+        //this.map.removeLayer(this.overlayMaps.aggregatedRegions);
+        //this.afternoonMap.removeLayer(this.afternoonOverlayMaps.aggregatedRegions);
         this.map.addLayer(this.overlayMaps.activeSelection);
         this.afternoonMap.addLayer(this.afternoonOverlayMaps.activeSelection);
 
@@ -277,6 +279,8 @@ export class MapService {
     deselectAggregatedRegion() {
         this.map.removeLayer(this.overlayMaps.activeSelection);
         this.afternoonMap.removeLayer(this.afternoonOverlayMaps.activeSelection);
+        //this.map.addLayer(this.overlayMaps.aggregatedRegions);
+        //this.afternoonMap.addLayer(this.afternoonOverlayMaps.aggregatedRegions);
     }
 
     editAggregatedRegion(bulletinInputModel: BulletinInputModel) {
