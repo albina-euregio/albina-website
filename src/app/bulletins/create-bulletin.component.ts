@@ -621,6 +621,10 @@ export class CreateBulletinComponent {
   }
 
   daytimeDependencyChanged() {
+    if (this.activeBulletinInput.daytimeDependency && this.showAfternoonMap == false) {
+      this.showAfternoonMap = true;
+      this.onShowAfternoonMapChange(true);
+    }
     if (this.activeBulletinInput.daytimeDependency) {
       this.activeBulletinInput.afternoonAbove.setDangerRating(this.activeBulletinInput.forenoonAbove.getDangerRating());
       this.activeBulletinInput.afternoonAbove.setAspects(this.activeBulletinInput.forenoonAbove.getAspects());
