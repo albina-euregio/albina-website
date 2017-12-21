@@ -109,6 +109,15 @@ export class BulletinsComponent {
     this.copying = false;
   }
 
+  isPast(date) {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    if (today > date)
+      return true;
+    else
+      return false;
+  }
+
   isOwnRegion(region) {
     return this.authenticationService.getUserRegion().startsWith(region);
   }
