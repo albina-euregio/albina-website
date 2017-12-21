@@ -7,6 +7,7 @@ import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { MapService } from "../providers/map-service/map.service";
+import { RegionsService } from "../providers/regions-service/regions.service";
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
@@ -19,6 +20,9 @@ import { BehaviorSubject } from 'rxjs/Rx';
 
 import "leaflet";
 import "leaflet.sync";
+
+import * as d3 from "d3";
+import { geoPath } from "d3-geo";
 
 import { Tabs } from './tabs.component';
 import { Tab } from './tab.component';
@@ -69,6 +73,7 @@ export class CreateBulletinComponent {
     private settingsService: SettingsService,
     private constantsService: ConstantsService,
     private mapService: MapService,
+    private regionsService: RegionsService,
     private confirmationService: ConfirmationService)
   {
     this.loading = true;
@@ -255,6 +260,39 @@ export class CreateBulletinComponent {
 
     map.sync(afternoonMap);
     afternoonMap.sync(map);
+  }
+
+  private addThumbnailMap(id) {
+    // Load map data
+    var features = this.regionsService.getRegionsTrentino().features;
+
+    var width = 40;
+    var height = 40;
+
+    //var projection = d3.geoMercator().scale(0).translate([0, 0]);
+    var projection = d3.geoMercator().scale(1200).translate([-215, 1110]);
+    
+    if (!d3.select("#" + id).empty()) {
+      d3.select("#" + id).select("svg").remove();
+      var svg = d3.select("#" + id).append("svg")
+          .attr("width", width)
+          .attr("height", height);
+
+      var path : any = d3.geoPath()
+          .projection(projection);
+
+      var g = svg.append("g");
+      
+      var mapLayer = g.append('g')
+        .classed('map-layer', true);
+
+      // Draw each province as a path
+      mapLayer.selectAll('path')
+          .data(features)
+        .enter().append('path')
+          .attr('d', path)
+          .attr('vector-effect', 'non-scaling-stroke');
+    }
   }
 
   onShowAfternoonMapChange(checked) {

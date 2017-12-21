@@ -31,7 +31,6 @@
                   </tr>
                   <div *ngFor="let aggregatedRegionId of getOwnAggregatedRegionIds()">
                     <tr *ngIf="activeAggregatedRegionId && aggregatedRegionId == activeAggregatedRegionId" class="table-info" (click)="deselectAggregatedRegion()" style="height: 52px">
-
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(aggregatedRegionId)"></i></td>
                       <td>{{ "region." + getCreatorRegion(aggregatedRegionId) | translate }}</td>
                       <td>
