@@ -269,7 +269,6 @@ export class CreateBulletinComponent {
     var width = 40;
     var height = 40;
 
-    //var projection = d3.geoMercator().scale(0).translate([0, 0]);
     var projection = d3.geoMercator().scale(1200).translate([-215, 1110]);
     
     if (!d3.select("#" + id).empty()) {
