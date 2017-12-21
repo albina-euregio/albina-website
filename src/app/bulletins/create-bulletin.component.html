@@ -20,12 +20,17 @@
             </div>
           </div>
           <div class="form-group row">
-            <button [disabled]="editRegions || loading" *ngIf="bulletinsService.getIsEditable()" (click)="createAggregatedRegion(false)" class="btn btn-block btn-sm btn-primary">{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
+            <div class="col-md-6">
+              <button [disabled]="editRegions || loading" *ngIf="bulletinsService.getIsEditable()" (click)="createAggregatedRegion(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAggregatedRegion" | translate }}</button>
+            </div>
           </div>
           <div class="row">
             <div class="col-md-7">
               <table class="table">
                 <tbody>
+                  <tr>
+                    <div id="test"></div>
+                  </tr>
                   <tr>
                     <strong>{{ "bulletins.create.ownRegions" | translate }}</strong>
                   </tr>
