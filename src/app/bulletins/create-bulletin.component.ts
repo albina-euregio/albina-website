@@ -237,6 +237,29 @@ export class CreateBulletinComponent {
     //L.control.layers(this.mapService.baseMaps).addTo(map);
     //L.control.scale().addTo(map);
 
+    if (this.showAfternoonMap) {
+      L.Control.AM = L.Control.extend({
+          onAdd: function(map) {
+              var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+              container.style.backgroundColor = 'white';
+              container.style.width = '52px';
+              container.style.height = '35px';
+              container.innerHTML = '<p style="font-size: 1.75em; color: #989898; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)"><b>AM</b></p>';
+              return container;
+          },
+
+          onRemove: function(map) {
+              // Nothing to do here
+          }
+      });
+
+      L.control.am = function(opts) {
+          return new L.Control.AM(opts);
+      }
+
+      L.control.am({ position: 'topright' }).addTo(map);
+    }
+
     this.mapService.map = map;
 
     let afternoonMap = L.map("afternoonMap", {
@@ -255,6 +278,27 @@ export class CreateBulletinComponent {
     //L.control.zoom({ position: "topleft" }).addTo(afternoonMap);
     //L.control.layers(this.mapService.baseMaps).addTo(afternoonMap);
     //L.control.scale().addTo(afternoonMap);
+
+    L.Control.PM = L.Control.extend({
+        onAdd: function(map) {
+            var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+            container.style.backgroundColor = 'white';
+            container.style.width = '52px';
+            container.style.height = '35px';
+            container.innerHTML = '<p style="font-size: 1.75em; color: #989898; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)"><b>PM</b></p>';
+            return container;
+        },
+
+        onRemove: function(map) {
+            // Nothing to do here
+        }
+    });
+
+    L.control.pm = function(opts) {
+        return new L.Control.PM(opts);
+    }
+
+    L.control.pm({ position: 'topright' }).addTo(afternoonMap);
 
     this.mapService.afternoonMap = afternoonMap;
 
