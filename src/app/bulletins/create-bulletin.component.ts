@@ -235,7 +235,7 @@ export class CreateBulletinComponent {
 
     L.control.zoom({ position: "topleft" }).addTo(map);
     //L.control.layers(this.mapService.baseMaps).addTo(map);
-    L.control.scale().addTo(map);
+    //L.control.scale().addTo(map);
 
     this.mapService.map = map;
 
