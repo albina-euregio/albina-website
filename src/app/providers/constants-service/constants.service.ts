@@ -16,6 +16,9 @@ export class ConstantsService {
   //public socketIOUrl: string = 'http://192.168.30.189:9092';
 
   public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';
+  public natlefsServerUrl: string = 'https://natlefs.snowobserver.com/snowobserver/api/';
+  public natlefsUsername: string = 'norbert.lanzanasto@tirol.gv.at';
+  public natlefsPassword: string = 'FRYLjTQ2';
 
   public codeTyrol: string = 'AT-07';
   public codeSouthTyrol: string = 'IT-32-BZ';
@@ -46,6 +49,18 @@ export class ConstantsService {
 
   getSnowObserverServerUrl() {
     return this.snowObserverServerUrl;
+  }
+
+  getNatlefsServerUrl() {
+    return this.natlefsServerUrl;
+  }
+
+  getNatlefsUsername() {
+    return this.natlefsUsername;
+  }
+
+  getNatlefsPassword() {
+    return this.natlefsPassword;
   }
 
   getTimeframe() {

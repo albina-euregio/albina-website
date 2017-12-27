@@ -8,10 +8,6 @@ import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
-import 'rxjs/add/observable/forkJoin';
-
-import "leaflet";
-import "leaflet.sync";
 
 declare var L: any;
 
@@ -45,6 +41,7 @@ export class ObservationsComponent {
     this.loadSnowProfiles();
     this.loadHastyPits();
     this.loadQuickReports();
+    this.loadNatlefs();
   }
 
   private initMaps() {
@@ -96,7 +93,7 @@ export class ObservationsComponent {
             let response = data.json();
             for (var i = response.length - 1; i >= 0; i--) {
                 if (response[i].location && response[i].location.geo && response[i].location.geo.latitude && response[i].location.geo.longitude) {
-                  this.createHastyPitMarker(response[i]);
+                    this.createHastyPitMarker(response[i]);
                     console.debug("Hasty pit added.");
                 } else {
                     console.debug("No coordinates in hasty pit.");
@@ -116,10 +113,29 @@ export class ObservationsComponent {
             let response = data.json();
             for (var i = response.length - 1; i >= 0; i--) {
                 if (response[i].location && response[i].location.geo && response[i].location.geo.latitude && response[i].location.geo.longitude) {
-                  this.createQuickReportMarker(response[i]);
+                    this.createQuickReportMarker(response[i]);
                     console.debug("Quick report added.");
                 } else {
                     console.debug("No coordinates in quick report.");
+                }
+            }
+         },
+          error => {
+            console.error("Quick reports could not be loaded from server: " + JSON.stringify(error._body));
+          }
+        );
+    }
+
+    private loadNatlefs() {
+        this.observationsService.getNatlefs().subscribe(
+          data => {
+            let response = data.json();
+            for (var i = response.length - 1; i >= 0; i--) {
+                if (response[i].location && response[i].location.geo && response[i].location.geo.latitude && response[i].location.geo.longitude) {
+                    this.createNatlefsMarker(response[i]);
+                    console.debug("NATLEFS added.");
+                } else {
+                    console.debug("No coordinates in NATLEFS.");
                 }
             }
          },
@@ -144,6 +160,12 @@ export class ObservationsComponent {
     private createQuickReportMarker(quickReport) {
       new L.Marker(new L.LatLng(quickReport.location.geo.latitude, quickReport.location.geo.longitude), {icon: this.mapService.createQuickReportMarker()})
             .on({click: () => this.quickReportMarkerClicked(quickReport)})
+            .addTo(this.mapService.layerGroups.observations);
+    }
+
+    private createNatlefsMarker(natlefs) {
+      new L.Marker(new L.LatLng(natlefs.location.geo.latitude, natlefs.location.geo.longitude), {icon: this.mapService.createNatlefsMarker()})
+            .on({click: () => this.quickReportMarkerClicked(natlefs)})
             .addTo(this.mapService.layerGroups.observations);
     }
 
