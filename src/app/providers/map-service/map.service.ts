@@ -7,16 +7,22 @@ import { RegionsService } from '../regions-service/regions.service';
 import { AuthenticationService } from '../authentication-service/authentication.service';
 import * as Enums from '../../enums/enums';
 
+import "leaflet";
+import "leaflet.markercluster";
+
 var L = require('leaflet');
 
 @Injectable()
 export class MapService {
     public map: Map;
     public afternoonMap: Map;
+    public observationsMap: Map;
     public baseMaps: any;
     public afternoonBaseMaps: any;
+    public observationsMaps: any;
     public overlayMaps: any;
     public afternoonOverlayMaps: any;
+    public layerGroups: any;
 
     constructor(
         private http: Http,
@@ -44,6 +50,18 @@ export class MapService {
                 maxZoom: 10
             })
         };
+
+        this.observationsMaps = {
+            OpenTopoMap: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                maxZoom: 17,
+                attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+            })
+        };
+
+        this.layerGroups = {
+            observations : L.markerClusterGroup([])
+        };
+
 
         this.overlayMaps = {
             // overlay to show regions
@@ -80,6 +98,39 @@ export class MapService {
                 onEachFeature : this.onEachAggregatedRegionsFeature
             })
         }
+    }
+
+    createSnowProfileMarker() {
+        return new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+    }
+
+    createHastyPitMarker() {
+        return new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+    }
+
+    createQuickReportMarker() {
+        return new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
     }
 
     resetAggregatedRegions() {

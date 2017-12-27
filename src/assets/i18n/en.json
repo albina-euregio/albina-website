@@ -12,7 +12,8 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bulletins",
-		"news" : "News"
+		"news" : "News",
+		"observations" : "Observations"
 	},
 	"menu" : {
 		"logout" : "Logout",

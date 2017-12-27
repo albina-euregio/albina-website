@@ -12,7 +12,8 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bollettino",
-		"news" : "News"
+		"news" : "News",
+		"observations" : "TODO"
 	},
 	"menu" : {
 		"logout" : "Logout",

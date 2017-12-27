@@ -26,6 +26,12 @@ export const routes: Routes = [
     loadChildren: './news/news.module#NewsModule'
   },
   {
+    path: 'observations',
+    component: FullLayoutComponent,
+    canActivate: [AuthGuard], 
+    loadChildren: './observations/observations.module#ObservationsModule'
+  },
+  {
     path: 'pages',
     component: SimpleLayoutComponent,
     data: {
