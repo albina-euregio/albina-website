@@ -1,8 +1,9 @@
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-md-12" id="mapDiv">
     <div class="observations-map" id="map">
     </div>
   </div>
-  <div class="col-md-0">
+  <div *ngIf="showQuickReport" class="col-md-5">
+    <quick-report [quickReport]="activeQuickReport"></quick-report>
   </div>
 </div>

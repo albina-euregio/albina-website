@@ -4,6 +4,7 @@ import { AuthenticationService } from '../providers/authentication-service/authe
 import { ConstantsService } from '../providers/constants-service/constants.service';
 import { ObservationsService } from '../providers/observations-service/observations.service';
 import { MapService } from "../providers/map-service/map.service";
+import { QuickReportModel } from "../models/quick-report.model";
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
@@ -16,6 +17,8 @@ declare var L: any;
 })
 export class ObservationsComponent {
 
+  public showQuickReport: boolean = false;
+  public activeQuickReport: QuickReportModel;
 
   constructor(
     private translate: TranslateService,
@@ -57,7 +60,6 @@ export class ObservationsComponent {
         zoom: 8,
         minZoom: 8,
         maxZoom: 16,
-        maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
         layers: [this.mapService.observationsMaps.OpenTopoMap, this.mapService.layerGroups.observations]
     });
 
@@ -170,14 +172,25 @@ export class ObservationsComponent {
     }
 
     quickReportMarkerClicked(quickReport) {
-/*
-        this.nav.push(QuickReportPage, {
-            quickReport: QuickReportModel.createFromJson(quickReport)
-        });
-*/
+      this.activeQuickReport = QuickReportModel.createFromJson(quickReport);
+
+      let mapDiv = document.getElementById('mapDiv');
+      let quickReportDiv = document.getElementById('quickReport');
+      mapDiv.classList.remove("col-md-12");
+      mapDiv.classList.add("col-md-7");
+      this.mapService.centerObservationsMap(this.activeQuickReport.getInfo().getLocation().getLatitude(), this.activeQuickReport.getInfo().getLocation().getLongitude());
+
+      this.showQuickReport = true;
     }
 
     snowProfileMarkerClicked(snowProfile) {
+      this.activeQuickReport = undefined;
+
+      let mapDiv = document.getElementById('mapDiv');
+      mapDiv.classList.remove("col-md-7");
+      mapDiv.classList.add("col-md-12");
+
+      this.showQuickReport = false;
 /*
       this.observationsService.getSnowProfile(snowProfile.serverId).subscribe(
         data => {
@@ -207,6 +220,13 @@ export class ObservationsComponent {
     }
 
     hastyPitMarkerClicked(profile) {
+      this.activeQuickReport = undefined;
+
+      let mapDiv = document.getElementById('mapDiv');
+      mapDiv.classList.remove("col-md-7");
+      mapDiv.classList.add("col-md-12");
+
+      this.showQuickReport = false;
 /*
       this.observationsService.getHastyPit(profile.serverId).subscribe(
         data => {
