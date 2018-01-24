@@ -735,15 +735,7 @@ export class CreateBulletinComponent {
     if (!this.editRegions) {
       //this.mapService.deselectRegions(this.activeBulletinInput);
       this.mapService.deselectAggregatedRegion();
-
       this.activeAggregatedRegionId = undefined;
-      this.activeBulletinInput = undefined;
-      this.activeAvActivityHighlightsDe = undefined;
-      this.activeAvActivityCommentDe = undefined;
-      this.activeAvActivityHighlightsIt = undefined;
-      this.activeAvActivityCommentIt = undefined;
-      this.activeAvActivityHighlightsEn = undefined;
-      this.activeAvActivityCommentEn = undefined;
     }
   }
 
