@@ -77,17 +77,17 @@
                       <table>
                         <tbody>
                           <tr style="height: 60px">
-                            <td *ngIf="bulletinsService.getIsEditable() && !editRegions && isCreator(bulletin) && bulletin.hasDaytimeDependency">
-                              <button [disabled]="loading" type="reset" class="btn btn-primary" (click)="daytimeDependencyChanged($event, false)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
+                            <td *ngIf="bulletin.hasDaytimeDependency">
+                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-primary" (click)="daytimeDependencyChanged($event, false)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
                             </td>
-                            <td *ngIf="bulletinsService.getIsEditable() && !editRegions && isCreator(bulletin) && !bulletin.hasDaytimeDependency">
-                              <button [disabled]="loading" type="reset" class="btn btn-secondary" (click)="daytimeDependencyChanged($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
+                            <td *ngIf="!bulletin.hasDaytimeDependency">
+                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="daytimeDependencyChanged($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
                             </td>
-                            <td *ngIf="bulletinsService.getIsEditable() && !editRegions && isCreator(bulletin) && bulletin.hasElevationDependency">
-                              <button [disabled]="loading" type="reset" class="btn btn-primary" (click)="elevationDependencyChanged($event, false)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
+                            <td *ngIf="bulletin.hasElevationDependency">
+                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-primary" (click)="elevationDependencyChanged($event, false)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
                             </td>
-                            <td *ngIf="bulletinsService.getIsEditable() && !editRegions && isCreator(bulletin) && !bulletin.hasElevationDependency">
-                              <button [disabled]="loading" type="reset" class="btn btn-secondary" (click)="elevationDependencyChanged($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
+                            <td *ngIf="!bulletin.hasElevationDependency">
+                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="elevationDependencyChanged($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
                             </td>
                             <td *ngIf="activeBulletin.hasElevationDependency" class="input-prepend input-group">
                               <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="14" type="number" name="elevation-input" (click)="elevationInputClicked($event)" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin) || !activeBulletin.hasElevationDependency" [(ngModel)]="activeBulletin.elevation" (change)="updateElevation(this.id)">
@@ -121,41 +121,67 @@
                   </tr>
                   <div *ngFor="let bulletin of getForeignBulletins()">
                     <tr *ngIf="activeBulletin && bulletin == activeBulletin" class="table-info" (click)="deselectBulletin()" style="height: 52px">
+                      <table>
+                        <tbody>
+                          <tr>
+                            <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(bulletin)"></i></td>
+                            <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
+                            <td>
+                              <div>
+                                <small class="text-muted">{{ bulletin.getCreator() }}</small>
+                              </div>
+                            </td>
 
-                      <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(bulletin)"></i></td>
-                      <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
-                      <td>
-                        <div>
-                          <small class="text-muted">{{ bulletin.getCreator() }}</small>
-                        </div>
-                      </td>
+                            <td *ngIf="hasSuggestions(bulletin)"><i class="fa fa-lightbulb-o"></i></td>
 
-                      <td *ngIf="hasSuggestions(bulletin)"><i class="fa fa-lightbulb-o"></i></td>
+                            <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(bulletin) && !editRegions">
+                              <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.acceptSuggestion' | translate }}"><i class="fa fa-check"></i></button>
+                            </td>
+                            <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(bulletin) && !editRegions">
+                              <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.rejectSuggestion' | translate }}"><i class="fa fa-close"></i></button>
+                            </td>
 
-                      <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(bulletin) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="acceptSuggestions($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.acceptSuggestion' | translate }}"><i class="fa fa-check"></i></button>
-                      </td>
-                      <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(bulletin) && !editRegions">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="rejectSuggestions($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.rejectSuggestion' | translate }}"><i class="fa fa-close"></i></button>
-                      </td>
+                            <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin)">
+                              <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.edit' | translate }}"><i class="fa fa-pencil"></i></button>
+                            </td>
+                            <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin)">
+                              <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createBulletin($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
+                            </td>
+                            <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin) && isCreator(bulletin)">
+                              <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.delete' | translate }}"><i class="fa fa-trash"></i></button>
+                            </td>
 
-                      <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.edit' | translate }}"><i class="fa fa-pencil"></i></button>
-                      </td>
-                      <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createBulletin($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
-                      </td>
-                      <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin) && isCreator(bulletin)">
-                        <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.delete' | translate }}"><i class="fa fa-trash"></i></button>
-                      </td>
-
-                      <td *ngIf="editRegions">
-                        <button type="reset" class="btn btn-sm btn-primary" (click)="saveBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.saveChanges' | translate }}"><i class="fa fa-check"></i></button>
-                      </td>
-                      <td *ngIf="editRegions">
-                        <button type="reset" class="btn btn-sm btn-danger" (click)="discardBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.discardChanges' | translate }}"><i class="fa fa-close"></i></button>
-                      </td>
-
+                            <td *ngIf="editRegions">
+                              <button type="reset" class="btn btn-sm btn-primary" (click)="saveBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.saveChanges' | translate }}"><i class="fa fa-check"></i></button>
+                            </td>
+                            <td *ngIf="editRegions">
+                              <button type="reset" class="btn btn-sm btn-danger" (click)="discardBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.discardChanges' | translate }}"><i class="fa fa-close"></i></button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <table>
+                        <tbody>
+                          <tr style="height: 60px">
+                            <td *ngIf="bulletin.hasDaytimeDependency">
+                              <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
+                            </td>
+                            <td *ngIf="!bulletin.hasDaytimeDependency">
+                              <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
+                            </td>
+                            <td *ngIf="bulletin.hasElevationDependency">
+                              <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
+                            </td>
+                            <td *ngIf="!bulletin.hasElevationDependency">
+                              <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
+                            </td>
+                            <td *ngIf="activeBulletin.hasElevationDependency" class="input-prepend input-group">
+                              <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="14" type="number" name="elevation-input" (click)="elevationInputClicked($event)" [disabled]="true" [(ngModel)]="activeBulletin.elevation">
+                              <span class="input-group-addon">m</span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </tr>
 
                     <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
