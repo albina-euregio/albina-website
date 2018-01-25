@@ -814,7 +814,7 @@ export class CreateBulletinComponent {
     this.mapService.resetAggregatedRegions();
 
     for (let bulletin of this.bulletinsList) {
-      if (bulletin.getId() != this.activeBulletin.getId()) {
+      if (bulletin != this.activeBulletin) {
         // regions saved by me (only in own area possible)
         for (let region of this.activeBulletin.getSavedRegions()) {
           // region was saved in other aggregated region => delete
