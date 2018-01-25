@@ -210,10 +210,6 @@ export class CreateBulletinComponent {
     this.initMaps();
   }
 
-  elevationInputClicked(event) {
-    event.stopPropagation();
-  }
-
   private initMaps() {
     if (this.mapService.map)
       this.mapService.map.remove();
@@ -618,6 +614,10 @@ export class CreateBulletinComponent {
     }
   }
 
+  elevationInputClicked(event) {
+    event.stopPropagation();
+  }
+
   elevationDependencyChanged(event, value) {
     event.stopPropagation();
     this.activeBulletin.setHasElevationDependency(value);
@@ -668,6 +668,17 @@ export class CreateBulletinComponent {
         this.activeBulletin.afternoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
         this.activeBulletin.afternoonBelow.setAspects(new Array<Enums.Aspect>());
         this.activeBulletin.afternoonBelow.setAvalancheProblem(undefined);
+      }
+      let daytimeDependency = false;
+      for (let bulletin of this.bulletinsList) {
+        if (bulletin.hasDaytimeDependency) {
+          daytimeDependency = true;
+          break;
+        }
+      }
+      if (!daytimeDependency && this.showAfternoonMap) {
+        this.showAfternoonMap = false;
+        this.onShowAfternoonMapChange(false);
       }
     }
   }
