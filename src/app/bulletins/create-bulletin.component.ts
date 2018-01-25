@@ -482,8 +482,8 @@ export class CreateBulletinComponent {
         bulletin.setSuggestedRegions(new Array<String>());
         bulletin.setPublishedRegions(new Array<String>());
 
-        let uuid = UUID.UUID();
-        bulletin.setId(uuid);
+        //let uuid = UUID.UUID();
+        //bulletin.setId(uuid);
 
         this.addBulletin(bulletin);
       }
@@ -517,6 +517,11 @@ export class CreateBulletinComponent {
 
   private addBulletin(bulletin: BulletinModel) {
     this.bulletinsList.push(bulletin);
+
+    if (bulletin.hasDaytimeDependency && this.showAfternoonMap == false) {
+      this.showAfternoonMap = true;
+      this.onShowAfternoonMapChange(true);
+    }
   }
 
   acceptSuggestions(event, bulletin: BulletinModel) {
@@ -538,8 +543,9 @@ export class CreateBulletinComponent {
         bulletin.getSavedRegions().push(region);
       } else
         suggested.push(region);
-
     bulletin.setSuggestedRegions(suggested);
+
+    this.updateAggregatedRegions();
   }
 
   rejectSuggestions(event, bulletin: BulletinModel) {
@@ -554,9 +560,9 @@ export class CreateBulletinComponent {
   }
 
   private createInitialAggregatedRegion() {
-    let uuid = UUID.UUID();
     let bulletin = new BulletinModel();
-    bulletin.setId(uuid);
+    //let uuid = UUID.UUID();
+    //bulletin.setId(uuid);
     bulletin.setCreator(this.authenticationService.getUsername());
     bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
     bulletin.setSavedRegions(this.constantsService.regions.get(this.authenticationService.getUserRegion()));
@@ -568,7 +574,6 @@ export class CreateBulletinComponent {
 
     // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
 
-    let uuid = UUID.UUID();
     let bulletin;
 
     if (copy && this.activeBulletin)
@@ -576,12 +581,13 @@ export class CreateBulletinComponent {
     else
       bulletin = new BulletinModel();
 
-    bulletin.setId(uuid);
+    //let uuid = UUID.UUID();
+    //bulletin.setId(uuid);
     bulletin.setCreator(this.authenticationService.getUsername());
     bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
 
     this.addBulletin(bulletin);
-    this.mapService.addAggregatedRegion(bulletin);
+    //this.mapService.addAggregatedRegion(bulletin);
     this.selectBulletin(bulletin);
   }
 

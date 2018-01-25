@@ -35,7 +35,7 @@
                     <strong>{{ "bulletins.create.ownRegions" | translate }}</strong>
                   </tr>
                   <div *ngFor="let bulletin of getOwnBulletins()">
-                    <tr *ngIf="activeBulletin && activeBulletin.id && bulletin.id == activeBulletin.id" class="table-info" (click)="deselectBulletin()" style="height: 52px">
+                    <tr *ngIf="activeBulletin && bulletin == activeBulletin" class="table-info" (click)="deselectBulletin()" style="height: 52px">
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(bulletin)"></i></td>
                       <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                       <td>
@@ -72,7 +72,7 @@
 
                     </tr>
 
-                    <tr *ngIf="!activeBulletin || !activeBulletin.id || bulletin.id != activeBulletin.id" (click)="selectBulletin(bulletin)" style="height: 52px">
+                    <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(bulletin)"></i></td>
                       <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                       <td>
@@ -94,7 +94,7 @@
                     <strong>{{ "bulletins.create.foreignRegions" | translate }}</strong>
                   </tr>
                   <div *ngFor="let bulletin of getForeignBulletins()">
-                    <tr *ngIf="activeBulletin && activeBulletin.id && bulletin.id == activeBulletin.id" class="table-info" (click)="deselectBulletin()" style="height: 52px">
+                    <tr *ngIf="activeBulletin && bulletin == activeBulletin" class="table-info" (click)="deselectBulletin()" style="height: 52px">
 
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(bulletin)"></i></td>
                       <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
@@ -132,7 +132,7 @@
 
                     </tr>
 
-                    <tr *ngIf="!activeBulletin || !activeBulletin.id || bulletin.id != activeBulletin.id" (click)="selectBulletin(bulletin)" style="height: 52px">
+                    <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
                       <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(bulletin)"></i></td>
                       <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                       <td>
