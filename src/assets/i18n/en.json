@@ -137,7 +137,9 @@
 				"discardChanges" : "Discard changes",
 				"saveBulletin" : "Save bulletin",
 				"discardBulletin" : "Discard bulletin changes",
-				"loadBulletin" : "Load bulletin from the day before"
+				"loadBulletin" : "Load bulletin from the day before",
+				"elevationDependency" : "Elevation dependency",
+				"daytimeDependency" : "Daytime dependency"
 			},
 			"button" : "Create",
 			"save" : " Save",
@@ -162,7 +164,7 @@
 			},
 			"title" : {
 				"map" : "Map",
-				"general" : "General",
+				"general" : "Description of avalanche danger",
 				"detail" : "Details",
 				"above" : "Details - above",
 				"below" : "Details - below",

@@ -137,7 +137,9 @@
 				"discardChanges" : "Änderungen verwerfen",
 				"saveBulletin" : "Lagebericht speichern",
 				"discardBulletin" : "Änderungen am Lagebericht verwerfen",
-				"loadBulletin" : "Lagebericht vom Vortag laden"
+				"loadBulletin" : "Lagebericht vom Vortag laden",
+				"elevationDependency" : "Höhenabhängigkeit",
+				"daytimeDependency" : "Tageszeitliche Abhängigkeit"
 			},
 			"button" : "Neu",
 			"save" : " Speichern",
@@ -162,7 +164,7 @@
 			},
 			"title" : {
 				"map" : "Karte",
-				"general" : "Allgemein",
+				"general" : "Gefahrenbeurteilung",
 				"detail" : "Details",
 				"above" : "Details - oben",
 				"below" : "Details - unten",

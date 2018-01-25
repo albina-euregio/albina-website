@@ -137,7 +137,9 @@
 				"discardChanges" : "Scarta modifiche",
 				"saveBulletin" : "Salva bollettino valanghe",
 				"discardBulletin" : "Scarta modifiche del bollettino valanghe",
-				"loadBulletin" : "Copia da giorno precedente"
+				"loadBulletin" : "Copia da giorno precedente",
+				"elevationDependency" : "TODO",
+				"daytimeDependency" : "TODO"
 			},
 			"button" : "Creato",
 			"save" : " Salva",
@@ -162,7 +164,7 @@
 			},
 			"title" : {
 				"map" : "Mappa",
-				"general" : "In generale",
+				"general" : "TODO",
 				"detail" : "Dettagli",
 				"above" : "Dettagli - al disopra",
 				"below" : "Dettagli - al disotto",

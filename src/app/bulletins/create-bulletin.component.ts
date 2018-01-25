@@ -613,7 +613,10 @@ export class CreateBulletinComponent {
     }
   }
 
-  elevationDependencyChanged() {
+  elevationDependencyChanged(event, value) {
+    event.stopPropagation();
+    this.activeBulletin.setHasElevationDependency(value);
+
     if (this.activeBulletin.hasElevationDependency) {
       this.activeBulletin.forenoonBelow.setDangerRating(this.activeBulletin.forenoonAbove.getDangerRating());
       this.activeBulletin.forenoonBelow.setAspects(this.activeBulletin.forenoonAbove.getAspects());
@@ -635,12 +638,15 @@ export class CreateBulletinComponent {
     }
   }
 
-  daytimeDependencyChanged() {
-    if (this.activeBulletin.hasDaytimeDependency && this.showAfternoonMap == false) {
-      this.showAfternoonMap = true;
-      this.onShowAfternoonMapChange(true);
-    }
+  daytimeDependencyChanged(event, value) {
+    event.stopPropagation();
+    this.activeBulletin.setHasDaytimeDependency(value);
+
     if (this.activeBulletin.hasDaytimeDependency) {
+      if (this.showAfternoonMap == false) {
+        this.showAfternoonMap = true;
+        this.onShowAfternoonMapChange(true);
+      }
       this.activeBulletin.afternoonAbove.setDangerRating(this.activeBulletin.forenoonAbove.getDangerRating());
       this.activeBulletin.afternoonAbove.setAspects(this.activeBulletin.forenoonAbove.getAspects());
       this.activeBulletin.afternoonAbove.setAvalancheProblem(this.activeBulletin.forenoonAbove.getAvalancheProblem());
