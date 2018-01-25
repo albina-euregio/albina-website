@@ -1,7 +1,6 @@
 import { Component, Input, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BulletinModel } from '../models/bulletin.model';
-import { BulletinInputModel } from '../models/bulletin-input.model';
 import { BulletinElevationDescriptionModel } from '../models/bulletin-elevation-description.model';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
@@ -39,11 +38,13 @@ export class CreateBulletinComponent {
   public originalBulletins: Map<string, BulletinModel>;
 
   public editRegions: boolean;
+  public loading: boolean;
+  public showAfternoonMap: boolean;
 
   public aggregatedRegionsIds: string[];
-  public aggregatedRegionsMap: Map<string, BulletinInputModel>;
-  public activeAggregatedRegionId: string;
-  public activeBulletinInput: BulletinInputModel;
+
+  public activeBulletin: BulletinModel;
+  public bulletinsList: BulletinModel[];
 
   public activeAvActivityHighlightsDe: string;
   public activeAvActivityCommentDe: string;
@@ -58,10 +59,6 @@ export class CreateBulletinComponent {
   public activeSnowpackStructureCommentIt: string;
   public activeSnowpackStructureHighlightsEn: string;
   public activeSnowpackStructureCommentEn: string;
-
-  public loading: boolean;
-
-  public showAfternoonMap: boolean;
 
   constructor(
     private translate: TranslateService,
@@ -82,10 +79,10 @@ export class CreateBulletinComponent {
 
   reset() {
     this.originalBulletins = new Map<string, BulletinModel>();
-    this.aggregatedRegionsMap = new Map<string, BulletinInputModel>();
     this.aggregatedRegionsIds = new Array<string>();
-    this.activeAggregatedRegionId = undefined;
-    this.activeBulletinInput = undefined;
+    this.activeBulletin = undefined;
+    this.bulletinsList = new Array<BulletinModel>();
+
     this.activeAvActivityHighlightsDe = undefined;
     this.activeAvActivityCommentDe = undefined;
     this.activeAvActivityHighlightsIt = undefined;
@@ -182,12 +179,10 @@ export class CreateBulletinComponent {
               }
             }
 
-            if (this.getOwnAggregatedRegionIds().length == 0)
+            if (this.getOwnBulletins().length == 0)
               this.createInitialAggregatedRegion();
 
-            this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-              this.mapService.addAggregatedRegion(value);
-            });
+            this.updateMap();
 
             this.mapService.deselectAggregatedRegion();
             this.loading = false;
@@ -340,9 +335,11 @@ export class CreateBulletinComponent {
 
   onShowAfternoonMapChange(checked) {
     this.showAfternoonMap = checked;
-    let id = this.activeAggregatedRegionId;
+    this.setTexts();
 
-    this.deselectAggregatedRegion();
+    let bulletin = this.activeBulletin;
+
+    this.deselectBulletin();
     let map = document.getElementById('map');
     let afternoonMap = document.getElementById('afternoonMap');
     if (this.showAfternoonMap) {
@@ -362,23 +359,23 @@ export class CreateBulletinComponent {
     }
     this.initMaps();
 
-    if (id)
-      this.selectAggregatedRegion(id);
+    if (bulletin)
+      this.selectBulletin(bulletin);
   }
 
-  getOwnAggregatedRegionIds() {
-    let result = new Array<string>();
-    for (let id of this.aggregatedRegionsIds)
-      if (this.aggregatedRegionsMap.get(id).getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
-        result.push(id);
+  getOwnBulletins() {
+    let result = new Array<BulletinModel>();
+    for (let bulletin of this.bulletinsList)
+      if (bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+        result.push(bulletin);
     return result;
   }
 
-  getForeignAggregatedRegionIds() {
-    let result = new Array<string>();
-    for (let id of this.aggregatedRegionsIds)
-      if (!this.aggregatedRegionsMap.get(id).getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
-        result.push(id);
+  getForeignBulletins() {
+    let result = new Array<BulletinModel>();
+    for (let bulletin of this.bulletinsList)
+      if (!bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+        result.push(bulletin);
     return result;
   }
 
@@ -398,12 +395,12 @@ export class CreateBulletinComponent {
   }
 
   updateElevation() {
-    if (this.activeBulletinInput) {
-      this.activeBulletinInput.elevation = Math.round(this.activeBulletinInput.elevation/100)*100;
-      if (this.activeBulletinInput.elevation > 9000)
-        this.activeBulletinInput.elevation = 9000;
-      else if (this.activeBulletinInput.elevation < 0)
-        this.activeBulletinInput.elevation = 0;
+    if (this.activeBulletin) {
+      this.activeBulletin.elevation = Math.round(this.activeBulletin.elevation/100)*100;
+      if (this.activeBulletin.elevation > 9000)
+        this.activeBulletin.elevation = 9000;
+      else if (this.activeBulletin.elevation < 0)
+        this.activeBulletin.elevation = 0;
     }
   }
 
@@ -425,14 +422,16 @@ export class CreateBulletinComponent {
 
         this.bulletinsService.loadBulletins(date, regions).subscribe(
           data => {
-            // delete own regions
-            let entries = new Array<string>();
-            this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-              if (value.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
-                entries.push(key);
-            });
+
+            // TODO delete own regions
+            let entries = new Array<BulletinModel>();
+
+            for (let bulletin of this.bulletinsList) {
+              if (bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+                entries.push(bulletin);
+            }
             for (let entry of entries)
-              this.delAggregatedRegion(entry);
+              this.delBulletin(entry);
 
             this.copyBulletins(data.json());
             this.loading = false;
@@ -457,7 +456,6 @@ export class CreateBulletinComponent {
   private copyBulletins(response) {
     this.mapService.resetAggregatedRegions();
 
-    let idMap = new Map<string, string>();
     for (let jsonBulletin of response) {
       let originalBulletin = BulletinModel.createFromJson(jsonBulletin);
 
@@ -484,21 +482,14 @@ export class CreateBulletinComponent {
         bulletin.setSuggestedRegions(new Array<String>());
         bulletin.setPublishedRegions(new Array<String>());
 
-        if (idMap.has(originalBulletin.getAggregatedRegionId()))
-          bulletin.setAggregatedRegionId(idMap.get(originalBulletin.getAggregatedRegionId()));
-        else {
-          let uuid = UUID.UUID();
-          idMap.set(originalBulletin.getAggregatedRegionId(), uuid);
-          bulletin.setAggregatedRegionId(uuid);
-        }
+        let uuid = UUID.UUID();
+        bulletin.setId(uuid);
 
         this.addBulletin(bulletin);
       }
     }
 
-    this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-      this.mapService.addAggregatedRegion(value);
-    });
+    this.updateMap();
 
     this.mapService.deselectAggregatedRegion();
   }
@@ -513,250 +504,195 @@ export class CreateBulletinComponent {
         this.addBulletin(bulletin);
     }
 
-    this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-      this.mapService.addAggregatedRegion(value);
-    });
+    this.updateMap();
 
     this.loading = false;
     this.mapService.deselectAggregatedRegion();
   }
 
+  private updateMap() {
+    for (let bulletin of this.bulletinsList)
+      this.mapService.addAggregatedRegion(bulletin);
+  }
+
   private addBulletin(bulletin: BulletinModel) {
-    // a bulletin for this aggregated region is already in the map => use existend bulletin input object
-    if (this.aggregatedRegionsMap.has(bulletin.getAggregatedRegionId())) {
-      if (bulletin.elevation > 0 && bulletin.below) {
-        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).elevationDependency = true;
-      }
-      // TODO check if this a good method
-      if (bulletin.validFrom.getHours() == 12) {
-        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).setAfternoonBulletinId(bulletin.id);
-        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).daytimeDependency = true;
-        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonBelow = bulletin.below;
-        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).afternoonAbove = bulletin.above;
-        this.showAfternoonMap = true;
-        this.onShowAfternoonMapChange(true);
-      // TODO check if this a good method
-      } else if (bulletin.validFrom.getHours() == 0) {
-        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).setForenoonBulletinId(bulletin.id);
-        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonBelow = bulletin.below;
-        this.aggregatedRegionsMap.get(bulletin.getAggregatedRegionId()).forenoonAbove = bulletin.above;
-      }
-    // no bulletin with the aggregated region id is present => create a new bulletin input object
-    } else {
-      let bulletinInput = new BulletinInputModel();
-      bulletinInput.suggestedRegions = bulletin.suggestedRegions;
-      bulletinInput.savedRegions = bulletin.savedRegions;
-      bulletinInput.publishedRegions = bulletin.publishedRegions;
-      bulletinInput.creator = bulletin.creator;
-      bulletinInput.creatorRegion = bulletin.creatorRegion;
-      bulletinInput.avActivityHighlights = bulletin.avActivityHighlights;
-      bulletinInput.avActivityComment = bulletin.avActivityComment;
-      bulletinInput.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
-      bulletinInput.snowpackStructureComment = bulletin.snowpackStructureComment;
-
-      this.activeSnowpackStructureHighlightsDe = bulletinInput.getSnowpackStructureHighlightsIn(Enums.LanguageCode.de);
-      this.activeSnowpackStructureCommentDe = bulletinInput.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
-      this.activeSnowpackStructureHighlightsIt = bulletinInput.getSnowpackStructureHighlightsIn(Enums.LanguageCode.it);
-      this.activeSnowpackStructureCommentIt = bulletinInput.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
-      this.activeSnowpackStructureHighlightsEn = bulletinInput.getSnowpackStructureHighlightsIn(Enums.LanguageCode.en);
-      this.activeSnowpackStructureCommentEn = bulletinInput.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
-
-      bulletinInput.elevation = bulletin.elevation;
-      if (bulletin.elevation > 0 && bulletin.below) {
-        bulletinInput.elevationDependency = true;
-      }
-      // TODO check if this a good method
-      if (bulletin.validFrom.getHours() == 12) {
-        bulletinInput.daytimeDependency = true;
-        bulletinInput.setAfternoonBulletinId(bulletin.id);
-        bulletinInput.afternoonBelow = bulletin.below;
-        bulletinInput.afternoonAbove = bulletin.above;
-        this.showAfternoonMap = true;
-        this.onShowAfternoonMapChange(true);
-      // TODO check if this a good method
-      } else if (bulletin.validFrom.getHours() == 0) {
-        bulletinInput.setForenoonBulletinId(bulletin.id);
-        bulletinInput.forenoonBelow = bulletin.below;
-        bulletinInput.forenoonAbove = bulletin.above;
-      }
-
-      //this.addAggregatedRegion(bulletin.getAggregatedRegionId(), bulletinInput);
-      this.aggregatedRegionsMap.set(bulletin.getAggregatedRegionId(), bulletinInput);
-      this.aggregatedRegionsIds.push(bulletin.getAggregatedRegionId());
-    }
+    this.bulletinsList.push(bulletin);
   }
 
-  private addAggregatedRegion(aggregatedRegionId, bulletinInput) {
-      this.mapService.addAggregatedRegion(bulletinInput);
-
-      this.aggregatedRegionsMap.set(aggregatedRegionId, bulletinInput);
-      this.aggregatedRegionsIds.push(aggregatedRegionId);
-  }
-
-  getCreator(aggregatedRegionId: string) {
-    return this.aggregatedRegionsMap.get(aggregatedRegionId).getCreator();
-  }
-
-  getCreatorRegion(aggregatedRegionId: string) {
-    return this.aggregatedRegionsMap.get(aggregatedRegionId).getCreatorRegion();
-  }
-
-  acceptSuggestions(event, aggregatedRegionId: string) {
+  acceptSuggestions(event, bulletin: BulletinModel) {
     event.stopPropagation();
-    let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
     let suggested = new Array<String>();
-    for (let region of bulletinInputModel.getSuggestedRegions())
+    for (let region of bulletin.getSuggestedRegions())
       if (region.startsWith(this.authenticationService.getUserRegion())) {
 
         // delete region from other bulletinInputModels
-        this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
+        for (let b of this.bulletinsList) {
           let savedRegions = new Array<String>();
-          for (let entry of value.getSavedRegions()) {
+          for (let entry of b.getSavedRegions()) {
             if (entry != region)
               savedRegions.push(entry);
           }
-          value.setSavedRegions(savedRegions);
-        });
+          b.setSavedRegions(savedRegions);
+        }
 
-        bulletinInputModel.getSavedRegions().push(region);
+        bulletin.getSavedRegions().push(region);
       } else
         suggested.push(region);
-    bulletinInputModel.setSuggestedRegions(suggested);
+
+    bulletin.setSuggestedRegions(suggested);
   }
 
-  rejectSuggestions(event, aggregatedRegionId: string) {
+  rejectSuggestions(event, bulletin: BulletinModel) {
     event.stopPropagation();
-    let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
     let suggested = new Array<String>();
-    for (let region of bulletinInputModel.getSuggestedRegions())
+    for (let region of bulletin.getSuggestedRegions())
       if (!region.startsWith(this.authenticationService.getUserRegion()))
         suggested.push(region);
-    bulletinInputModel.setSuggestedRegions(suggested);
+    bulletin.setSuggestedRegions(suggested);
 
     this.updateAggregatedRegions();
   }
 
   private createInitialAggregatedRegion() {
     let uuid = UUID.UUID();
-    let bulletinInput;
-    bulletinInput = new BulletinInputModel();
-    bulletinInput.setCreator(this.authenticationService.getUsername());
-    bulletinInput.setCreatorRegion(this.authenticationService.getUserRegion());
-    bulletinInput.setSavedRegions(this.constantsService.regions.get(this.authenticationService.getUserRegion()));
+    let bulletin = new BulletinModel();
+    bulletin.setId(uuid);
+    bulletin.setCreator(this.authenticationService.getUsername());
+    bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
+    bulletin.setSavedRegions(this.constantsService.regions.get(this.authenticationService.getUserRegion()));
 
-    this.addAggregatedRegion(uuid, bulletinInput);
+    this.addBulletin(bulletin);
   }
 
-  createAggregatedRegion(copy) {
+  createBulletin(copy) {
 
     // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
 
     let uuid = UUID.UUID();
-    let bulletinInput;
+    let bulletin;
 
-    if (copy && this.activeBulletinInput)
-      bulletinInput = new BulletinInputModel(this.activeBulletinInput);
+    if (copy && this.activeBulletin)
+      bulletin = new BulletinModel(this.activeBulletin);
     else
-      bulletinInput = new BulletinInputModel();
+      bulletin = new BulletinModel();
 
-    bulletinInput.setCreator(this.authenticationService.getUsername());
-    bulletinInput.setCreatorRegion(this.authenticationService.getUserRegion());
+    bulletin.setId(uuid);
+    bulletin.setCreator(this.authenticationService.getUsername());
+    bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
 
-    this.addAggregatedRegion(uuid, bulletinInput);
-    this.selectAggregatedRegion(uuid);
+    this.addBulletin(bulletin);
+    this.mapService.addAggregatedRegion(bulletin);
+    this.selectBulletin(bulletin);
   }
 
-  selectAggregatedRegion(aggregatedRegionId: string) {
+  selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
-      this.setAvActivityTexts();
+      this.setTexts();
 
-      this.activeAggregatedRegionId = aggregatedRegionId;
-      this.activeBulletinInput = this.aggregatedRegionsMap.get(aggregatedRegionId);
-      this.activeAvActivityHighlightsDe = this.activeBulletinInput.getAvActivityHighlightsIn(Enums.LanguageCode.de);
-      this.activeAvActivityCommentDe = this.activeBulletinInput.getAvActivityCommentIn(Enums.LanguageCode.de);
-      this.activeAvActivityHighlightsIt = this.activeBulletinInput.getAvActivityHighlightsIn(Enums.LanguageCode.it);
-      this.activeAvActivityCommentIt = this.activeBulletinInput.getAvActivityCommentIn(Enums.LanguageCode.it);
-      this.activeAvActivityHighlightsEn = this.activeBulletinInput.getAvActivityHighlightsIn(Enums.LanguageCode.en);
-      this.activeAvActivityCommentEn = this.activeBulletinInput.getAvActivityCommentIn(Enums.LanguageCode.en);
+      this.activeBulletin = bulletin;
+      this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
+      this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
+      this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
+      this.activeAvActivityCommentIt = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it);
+      this.activeAvActivityHighlightsEn = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.en);
+      this.activeAvActivityCommentEn = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en);
+      this.activeSnowpackStructureHighlightsDe = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.de);
+      this.activeSnowpackStructureCommentDe = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
+      this.activeSnowpackStructureHighlightsIt = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.it);
+      this.activeSnowpackStructureCommentIt = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
+      this.activeSnowpackStructureHighlightsEn = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.en);
+      this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
 
-      this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+      this.mapService.selectAggregatedRegion(this.activeBulletin);
     }
   }
 
   elevationDependencyChanged() {
-    if (this.activeBulletinInput.elevationDependency) {
-      this.activeBulletinInput.forenoonBelow.setDangerRating(this.activeBulletinInput.forenoonAbove.getDangerRating());
-      this.activeBulletinInput.forenoonBelow.setAspects(this.activeBulletinInput.forenoonAbove.getAspects());
-      this.activeBulletinInput.forenoonBelow.setAvalancheProblem(this.activeBulletinInput.forenoonAbove.getAvalancheProblem());
-      if (this.activeBulletinInput.daytimeDependency) {
-        this.activeBulletinInput.afternoonBelow.setDangerRating(this.activeBulletinInput.forenoonBelow.getDangerRating());
-        this.activeBulletinInput.afternoonBelow.setAspects(this.activeBulletinInput.forenoonBelow.getAspects());
-        this.activeBulletinInput.afternoonBelow.setAvalancheProblem(this.activeBulletinInput.forenoonBelow.getAvalancheProblem());
+    if (this.activeBulletin.hasElevationDependency) {
+      this.activeBulletin.forenoonBelow.setDangerRating(this.activeBulletin.forenoonAbove.getDangerRating());
+      this.activeBulletin.forenoonBelow.setAspects(this.activeBulletin.forenoonAbove.getAspects());
+      this.activeBulletin.forenoonBelow.setAvalancheProblem(this.activeBulletin.forenoonAbove.getAvalancheProblem());
+      if (this.activeBulletin.hasDaytimeDependency) {
+        this.activeBulletin.afternoonBelow.setDangerRating(this.activeBulletin.forenoonBelow.getDangerRating());
+        this.activeBulletin.afternoonBelow.setAspects(this.activeBulletin.forenoonBelow.getAspects());
+        this.activeBulletin.afternoonBelow.setAvalancheProblem(this.activeBulletin.forenoonBelow.getAvalancheProblem());
       }
     } else {
-      this.activeBulletinInput.forenoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
-      this.activeBulletinInput.forenoonBelow.setAspects(new Array<Enums.Aspect>());
-      this.activeBulletinInput.forenoonBelow.setAvalancheProblem(undefined);
-      if (this.activeBulletinInput.daytimeDependency) {
-        this.activeBulletinInput.afternoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
-        this.activeBulletinInput.afternoonBelow.setAspects(new Array<Enums.Aspect>());
-        this.activeBulletinInput.afternoonBelow.setAvalancheProblem(undefined);
+      this.activeBulletin.forenoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+      this.activeBulletin.forenoonBelow.setAspects(new Array<Enums.Aspect>());
+      this.activeBulletin.forenoonBelow.setAvalancheProblem(undefined);
+      if (this.activeBulletin.hasDaytimeDependency) {
+        this.activeBulletin.afternoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+        this.activeBulletin.afternoonBelow.setAspects(new Array<Enums.Aspect>());
+        this.activeBulletin.afternoonBelow.setAvalancheProblem(undefined);
       }
     }
   }
 
   daytimeDependencyChanged() {
-    if (this.activeBulletinInput.daytimeDependency && this.showAfternoonMap == false) {
+    if (this.activeBulletin.hasDaytimeDependency && this.showAfternoonMap == false) {
       this.showAfternoonMap = true;
       this.onShowAfternoonMapChange(true);
     }
-    if (this.activeBulletinInput.daytimeDependency) {
-      this.activeBulletinInput.afternoonAbove.setDangerRating(this.activeBulletinInput.forenoonAbove.getDangerRating());
-      this.activeBulletinInput.afternoonAbove.setAspects(this.activeBulletinInput.forenoonAbove.getAspects());
-      this.activeBulletinInput.afternoonAbove.setAvalancheProblem(this.activeBulletinInput.forenoonAbove.getAvalancheProblem());
-      if (this.activeBulletinInput.elevationDependency) {
-        this.activeBulletinInput.afternoonBelow.setDangerRating(this.activeBulletinInput.forenoonBelow.getDangerRating());
-        this.activeBulletinInput.afternoonBelow.setAspects(this.activeBulletinInput.forenoonBelow.getAspects());
-        this.activeBulletinInput.afternoonBelow.setAvalancheProblem(this.activeBulletinInput.forenoonBelow.getAvalancheProblem());
+    if (this.activeBulletin.hasDaytimeDependency) {
+      this.activeBulletin.afternoonAbove.setDangerRating(this.activeBulletin.forenoonAbove.getDangerRating());
+      this.activeBulletin.afternoonAbove.setAspects(this.activeBulletin.forenoonAbove.getAspects());
+      this.activeBulletin.afternoonAbove.setAvalancheProblem(this.activeBulletin.forenoonAbove.getAvalancheProblem());
+      if (this.activeBulletin.hasElevationDependency) {
+        this.activeBulletin.afternoonBelow.setDangerRating(this.activeBulletin.forenoonBelow.getDangerRating());
+        this.activeBulletin.afternoonBelow.setAspects(this.activeBulletin.forenoonBelow.getAspects());
+        this.activeBulletin.afternoonBelow.setAvalancheProblem(this.activeBulletin.forenoonBelow.getAvalancheProblem());
       }
     } else {
-      this.activeBulletinInput.afternoonAbove.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
-      this.activeBulletinInput.afternoonAbove.setAspects(new Array<Enums.Aspect>());
-      this.activeBulletinInput.afternoonAbove.setAvalancheProblem(undefined);
-      if (this.activeBulletinInput.elevationDependency) {
-        this.activeBulletinInput.afternoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
-        this.activeBulletinInput.afternoonBelow.setAspects(new Array<Enums.Aspect>());
-        this.activeBulletinInput.afternoonBelow.setAvalancheProblem(undefined);
+      this.activeBulletin.afternoonAbove.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+      this.activeBulletin.afternoonAbove.setAspects(new Array<Enums.Aspect>());
+      this.activeBulletin.afternoonAbove.setAvalancheProblem(undefined);
+      if (this.activeBulletin.hasElevationDependency) {
+        this.activeBulletin.afternoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+        this.activeBulletin.afternoonBelow.setAspects(new Array<Enums.Aspect>());
+        this.activeBulletin.afternoonBelow.setAvalancheProblem(undefined);
       }
     }
   }
 
-  deselectAggregatedRegion() {
+  deselectBulletin() {
     if (!this.editRegions) {
-      //this.mapService.deselectRegions(this.activeBulletinInput);
       this.mapService.deselectAggregatedRegion();
-      this.activeAggregatedRegionId = undefined;
+      this.activeBulletin = undefined;
     }
   }
 
-  private setAvActivityTexts() {
-    if (this.activeBulletinInput) {
+  private setTexts() {
+    if (this.activeBulletin) {
       if (this.activeAvActivityHighlightsDe != undefined && this.activeAvActivityHighlightsDe != "")
-        this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
       if (this.activeAvActivityCommentDe != undefined && this.activeAvActivityCommentDe != "")
-        this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
       if (this.activeAvActivityHighlightsIt != undefined && this.activeAvActivityHighlightsIt != "")
-        this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
       if (this.activeAvActivityCommentIt != undefined && this.activeAvActivityCommentIt != "")
-        this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityCommentIt, Enums.LanguageCode.it);
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentIt, Enums.LanguageCode.it);
       if (this.activeAvActivityHighlightsEn != undefined && this.activeAvActivityHighlightsEn != "")
-        this.activeBulletinInput.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
       if (this.activeAvActivityCommentEn != undefined && this.activeAvActivityCommentEn != "")
-        this.activeBulletinInput.setAvActivityCommentIn(this.activeAvActivityCommentEn, Enums.LanguageCode.en);
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEn, Enums.LanguageCode.en);
+
+      if (this.activeSnowpackStructureHighlightsDe != undefined && this.activeSnowpackStructureHighlightsDe != "")
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
+      if (this.activeSnowpackStructureCommentDe != undefined && this.activeSnowpackStructureCommentDe != "")
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
+      if (this.activeSnowpackStructureHighlightsIt != undefined && this.activeSnowpackStructureHighlightsIt != "")
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsIt, Enums.LanguageCode.it);
+      if (this.activeSnowpackStructureCommentIt != undefined && this.activeSnowpackStructureCommentIt != "")
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt, Enums.LanguageCode.it);
+      if (this.activeSnowpackStructureHighlightsEn != undefined && this.activeSnowpackStructureHighlightsEn != "")
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEn, Enums.LanguageCode.en);
+      if (this.activeSnowpackStructureCommentEn != undefined && this.activeSnowpackStructureCommentEn != "")
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEn, Enums.LanguageCode.en);
     }
   }
 
-  deleteAggregatedRegion(event, aggregatedRegionId: string) {
+  deleteBulletin(event, bulletin: BulletinModel) {
     event.stopPropagation();
 
     this.confirmationService.confirm({
@@ -764,45 +700,42 @@ export class CreateBulletinComponent {
       header: this.translateService.instant("bulletins.create.deleteAggregatedRegionDialog.header"),
       message: this.translateService.instant("bulletins.create.deleteAggregatedRegionDialog.message"),
       accept: () => {
-        this.delAggregatedRegion(aggregatedRegionId);
+        this.delBulletin(bulletin);
+
+        // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
+
       }
     });
   }
 
-  private delAggregatedRegion(aggregatedRegionId: string) {
-        this.aggregatedRegionsMap.delete(aggregatedRegionId);
-
-        var index = this.aggregatedRegionsIds.indexOf(aggregatedRegionId);
-        if (index > -1)
-          this.aggregatedRegionsIds.splice(index, 1);
-        
-        this.mapService.resetAggregatedRegions();
-        this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-          this.mapService.addAggregatedRegion(value);
-        });
-
-        this.deselectAggregatedRegion();
-
-        // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
+  private delBulletin(bulletin: BulletinModel) {
+    var index = this.bulletinsList.indexOf(bulletin);
+    if (index > -1)
+      this.bulletinsList.splice(index, 1);
+    
+    this.mapService.resetAggregatedRegions();
+    this.updateMap();
+    this.deselectBulletin();
   }
 
-  editAggregatedRegion(event, aggregatedRegionId: string) {
+  editBulletin(event, bulletin: BulletinModel) {
     event.stopPropagation();
 
     // TODO lock whole day in TN, check if any aggregated region is locked
 
     this.editRegions = true;
-    this.mapService.editAggregatedRegion(this.activeBulletinInput);
+
+    this.mapService.editAggregatedRegion(this.activeBulletin);
   }
 
-  saveAggregatedRegion(event, aggregatedRegionId: string) {
+  saveBulletin(event, bulletin) {
     event.stopPropagation();
 
     // save selected regions to active bulletin input
     let regions = this.mapService.getSelectedRegions();
 
     let oldRegionsHit = false;
-    for (let region of this.activeBulletinInput.getSavedRegions()) {
+    for (let region of this.activeBulletin.getSavedRegions()) {
       if (region.startsWith(this.authenticationService.getUserRegion())) {
         oldRegionsHit = true;
         break
@@ -822,31 +755,31 @@ export class CreateBulletinComponent {
 
       // delete old saved regions in own area
       let oldSavedRegions = new Array<String>();
-      for (let region of this.activeBulletinInput.getSavedRegions())
+      for (let region of this.activeBulletin.getSavedRegions())
         if (region.startsWith(this.authenticationService.getUserRegion()))
           oldSavedRegions.push(region);
       for (let region of oldSavedRegions) {
-        let index = this.activeBulletinInput.getSavedRegions().indexOf(region);
-        this.activeBulletinInput.getSavedRegions().splice(index, 1);
+        let index = this.activeBulletin.getSavedRegions().indexOf(region);
+        this.activeBulletin.getSavedRegions().splice(index, 1);
       }
 
       // delete old suggested regions outside own area
       let oldSuggestedRegions = new Array<String>();
-      for (let region of this.activeBulletinInput.getSuggestedRegions())
+      for (let region of this.activeBulletin.getSuggestedRegions())
         if (!region.startsWith(this.authenticationService.getUserRegion()))
           oldSuggestedRegions.push(region);
       for (let region of oldSuggestedRegions) {
-        let index = this.activeBulletinInput.getSuggestedRegions().indexOf(region);
-        this.activeBulletinInput.getSuggestedRegions().splice(index, 1);
+        let index = this.activeBulletin.getSuggestedRegions().indexOf(region);
+        this.activeBulletin.getSuggestedRegions().splice(index, 1);
       }
 
       for (let region of regions) {
         if (region.startsWith(this.authenticationService.getUserRegion())) {
-          if (this.activeBulletinInput.getSavedRegions().indexOf(region) == -1)
-            this.activeBulletinInput.getSavedRegions().push(region);
+          if (this.activeBulletin.getSavedRegions().indexOf(region) == -1)
+            this.activeBulletin.getSavedRegions().push(region);
         } else {
-          if ((this.activeBulletinInput.getSavedRegions().indexOf(region) == -1) && (this.activeBulletinInput.getSuggestedRegions().indexOf(region) == -1))
-            this.activeBulletinInput.getSuggestedRegions().push(region);
+          if ((this.activeBulletin.getSavedRegions().indexOf(region) == -1) && (this.activeBulletin.getSuggestedRegions().indexOf(region) == -1))
+            this.activeBulletin.getSuggestedRegions().push(region);
         }
       }
 
@@ -868,83 +801,73 @@ export class CreateBulletinComponent {
   private updateAggregatedRegions() {
     this.mapService.resetAggregatedRegions();
 
-    // delete regions from other aggregated regions (one region can only be within one aggregated region on this day)
-    this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-
-      // not selected region
-      if (key != this.activeAggregatedRegionId) {
-
+    for (let bulletin of this.bulletinsList) {
+      if (bulletin.getId() != this.activeBulletin.getId()) {
         // regions saved by me (only in own area possible)
-        for (let region of this.activeBulletinInput.getSavedRegions()) {
+        for (let region of this.activeBulletin.getSavedRegions()) {
           // region was saved in other aggregated region => delete
-          let index = value.getSavedRegions().indexOf(region);
+          let index = bulletin.getSavedRegions().indexOf(region);
           if (index != -1)
-            value.getSavedRegions().splice(index, 1);
+            bulletin.getSavedRegions().splice(index, 1);
 
           // region was suggested by other user (multiple suggestions possible for same region) => delete all)
-          index = value.getSuggestedRegions().indexOf(region);
+          index = bulletin.getSuggestedRegions().indexOf(region);
           if (index != -1)
-            value.getSuggestedRegions().splice(index, 1);
+            bulletin.getSuggestedRegions().splice(index, 1);
         }
 
         // regions suggested by me (only in foreign area possible)
         // region was published => delete suggestion
-        for (let region of value.getPublishedRegions()) {
-          let index = this.activeBulletinInput.getSuggestedRegions().indexOf(region);
+        for (let region of bulletin.getPublishedRegions()) {
+          let index = this.activeBulletin.getSuggestedRegions().indexOf(region);
           if (index != -1)
-            this.activeBulletinInput.getSuggestedRegions().splice(index, 1);
+            this.activeBulletin.getSuggestedRegions().splice(index, 1);
         }
       }
 
-      this.mapService.addAggregatedRegion(value);
-    });
+      this.mapService.addAggregatedRegion(bulletin);
+
+    }
+
     this.mapService.discardAggregatedRegion();
-    this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+    this.mapService.selectAggregatedRegion(this.activeBulletin);
   }
 
-  hasSuggestions(aggregatedRegionId: string) : boolean {
-    let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
-    for (let region of bulletinInputModel.getSuggestedRegions()) {
+  hasSuggestions(bulletin: BulletinModel) : boolean {
+    for (let region of bulletin.getSuggestedRegions()) {
       if (region.startsWith(this.authenticationService.getUserRegion()))
         return true;
     }
     return false;
   }
 
-  isCreator(aggregatedRegionId: string) : boolean {
-    if (aggregatedRegionId != undefined) {
-      let bulletinInputModel = this.aggregatedRegionsMap.get(aggregatedRegionId);
-      if (bulletinInputModel.getCreatorRegion() != undefined && bulletinInputModel.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+  isCreator(bulletin: BulletinModel) : boolean {
+    if (bulletin.getCreatorRegion() != undefined && bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
         return true;
-    }
     return false;
   }
 
-  discardAggregatedRegion(event, aggregatedRegionId?: string) {
+  discardBulletin(event, bulletin?: BulletinModel) {
     event.stopPropagation();
     this.editRegions = false;
+
     this.mapService.discardAggregatedRegion();
-    this.mapService.selectAggregatedRegion(this.activeBulletinInput);
+    this.mapService.selectAggregatedRegion(this.activeBulletin);
 
     // TODO unlock whole day in TN
   }
 
-  getForenoonColor(aggregatedRegionId) {
-    let dangerRating = "";
-    if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined && this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRatingAbove())
-      dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRatingAbove().toString();
-
+  getForenoonColor(bulletin: BulletinModel) {
+    let dangerRating = bulletin.getForenoonDangerRatingAbove().toString();
     return this.getDangerRatingColor(dangerRating);
   }
 
-  getAfternoonColor(aggregatedRegionId) {
+  getAfternoonColor(bulletin: BulletinModel) {
     let dangerRating = "";
-    if (this.aggregatedRegionsMap.get(aggregatedRegionId) && this.aggregatedRegionsMap.get(aggregatedRegionId) != undefined) {
-      if (this.aggregatedRegionsMap.get(aggregatedRegionId).getAfternoonDangerRatingAbove())
-        dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getAfternoonDangerRatingAbove().toString();
-      else
-        dangerRating = this.aggregatedRegionsMap.get(aggregatedRegionId).getForenoonDangerRatingAbove().toString();
-    }
+    if (bulletin.getAfternoonDangerRatingAbove())
+      dangerRating = bulletin.getAfternoonDangerRatingAbove().toString();
+    else
+      dangerRating = bulletin.getForenoonDangerRatingAbove().toString();
     return this.getDangerRatingColor(dangerRating);
   }
 
@@ -979,37 +902,20 @@ export class CreateBulletinComponent {
   save() {
     this.loading = true;
 
-    this.setAvActivityTexts();
+    this.setTexts();
 
-    let bulletins = Array<BulletinModel>();
+    let validFrom = new Date(this.bulletinsService.getActiveDate());
+    let validUntil = new Date(this.bulletinsService.getActiveDate());
+    validUntil.setTime(validUntil.getTime() + (24*60*60*1000));
 
-    this.aggregatedRegionsMap.forEach((value: BulletinInputModel, key: string) => {
-      if (value.getCreatorRegion().startsWith(this.authenticationService.getUserRegion())) {
-        // set snowpack structure texts
-        if (this.activeSnowpackStructureHighlightsDe != undefined && this.activeSnowpackStructureHighlightsDe != "")
-          value.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
-        if (this.activeSnowpackStructureCommentDe != undefined && this.activeSnowpackStructureCommentDe != "")
-          value.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
-        if (this.activeSnowpackStructureHighlightsIt != undefined && this.activeSnowpackStructureHighlightsIt != "")
-          value.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsIt, Enums.LanguageCode.it);
-        if (this.activeSnowpackStructureCommentIt != undefined && this.activeSnowpackStructureCommentIt != "")
-          value.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt, Enums.LanguageCode.it);
-        if (this.activeSnowpackStructureHighlightsEn != undefined && this.activeSnowpackStructureHighlightsEn != "")
-          value.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEn, Enums.LanguageCode.en);
-        if (this.activeSnowpackStructureCommentEn != undefined && this.activeSnowpackStructureCommentEn != "")
-          value.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEn, Enums.LanguageCode.en);
-      }
+    for (let bulletin of this.bulletinsList) {
+      bulletin.setValidFrom(validFrom);
+      bulletin.setValidUntil(validUntil);
+    }
 
-      // create bulletins
-      let b = value.toBulletins(key, this.bulletinsService.getActiveDate());
-      for (var i = b.length - 1; i >= 0; i--) {
-        bulletins.push(b[i]);
-      }
-    });
-
-    if (bulletins.length > 0) {
+    if (this.bulletinsList.length > 0) {
       if (this.bulletinsService.getIsSmallChange()) {
-        this.bulletinsService.changeBulletins(bulletins, this.bulletinsService.getActiveDate()).subscribe(
+        this.bulletinsService.changeBulletins(this.bulletinsList, this.bulletinsService.getActiveDate()).subscribe(
             data => {
               this.loading = false;
               this.goBack();
@@ -1028,7 +934,7 @@ export class CreateBulletinComponent {
             }
         );
       } else {
-        this.bulletinsService.saveBulletins(bulletins, this.bulletinsService.getActiveDate()).subscribe(
+        this.bulletinsService.saveBulletins(this.bulletinsList, this.bulletinsService.getActiveDate()).subscribe(
             data => {
               this.loading = false;
               this.goBack();
@@ -1073,7 +979,7 @@ export class CreateBulletinComponent {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) { 
     if (event.keyCode == 27 && this.editRegions) {
-      this.discardAggregatedRegion(event);
+      this.discardBulletin(event);
     }
   }
 }
