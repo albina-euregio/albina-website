@@ -186,7 +186,6 @@ export class CreateBulletinComponent {
 
             this.mapService.deselectAggregatedRegion();
             this.loading = false;
-            debugger
           },
           error => {
             console.error("Bulletins could not be loaded!");
