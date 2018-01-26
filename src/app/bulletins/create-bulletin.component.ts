@@ -561,8 +561,6 @@ export class CreateBulletinComponent {
 
   private createInitialAggregatedRegion() {
     let bulletin = new BulletinModel();
-    //let uuid = UUID.UUID();
-    //bulletin.setId(uuid);
     bulletin.setCreator(this.authenticationService.getUsername());
     bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
     bulletin.setSavedRegions(this.constantsService.regions.get(this.authenticationService.getUserRegion()));
@@ -574,20 +572,20 @@ export class CreateBulletinComponent {
 
     // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
 
-    let bulletin;
+    let bulletin: BulletinModel;
 
-    if (copy && this.activeBulletin)
+    if (copy && this.activeBulletin) {
       bulletin = new BulletinModel(this.activeBulletin);
-    else
+      bulletin.setSavedRegions(new Array<String>());
+      bulletin.setPublishedRegions(new Array<String>());
+      bulletin.setSuggestedRegions(new Array<String>());
+    } else
       bulletin = new BulletinModel();
 
-    //let uuid = UUID.UUID();
-    //bulletin.setId(uuid);
     bulletin.setCreator(this.authenticationService.getUsername());
     bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
 
     this.addBulletin(bulletin);
-    //this.mapService.addAggregatedRegion(bulletin);
     this.selectBulletin(bulletin);
   }
 
