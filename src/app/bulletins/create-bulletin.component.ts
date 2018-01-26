@@ -587,6 +587,8 @@ export class CreateBulletinComponent {
 
     this.addBulletin(bulletin);
     this.selectBulletin(bulletin);
+    this.mapService.selectAggregatedRegion(bulletin);
+    this.editBulletinRegions(bulletin);
   }
 
   selectBulletin(bulletin: BulletinModel) {
@@ -769,11 +771,14 @@ export class CreateBulletinComponent {
 
   editBulletin(event, bulletin: BulletinModel) {
     event.stopPropagation();
+    this.editBulletinRegions(bulletin);
+  }
+
+  private editBulletinRegions(bulletin: BulletinModel) {
 
     // TODO lock whole day in TN, check if any aggregated region is locked
 
     this.editRegions = true;
-
     this.mapService.editAggregatedRegion(this.activeBulletin);
   }
 
