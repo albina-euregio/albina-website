@@ -305,28 +305,6 @@
               </div>
             </div>
           </div>
-<!--
-          <div class="form-group row">
-            <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.elevation" | translate }}</strong></label>
-            <div class="col-md-9">
-              <label class="radio-inline" for="inline-radio1">
-                <input [(ngModel)]="activeBulletin.hasElevationDependency" (change)="elevationDependencyChanged()" type="checkbox" name="elevation-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)">
-                <div *ngIf="activeBulletin.hasElevationDependency" class="input-prepend input-group">
-                  <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="16" type="number" name="elevation-input" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [(ngModel)]="activeBulletin.elevation" (change)="updateElevation(this.id)">
-                  <span class="input-group-addon">m</span>
-                </div>
-              </label>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 form-control-label"><strong>{{ "bulletins.create.label.daytime" | translate }}</strong></label>
-            <div class="col-md-9">
-              <label class="radio-inline" for="inline-radio1">
-                <input [(ngModel)]="activeBulletin.hasDaytimeDependency" (change)="daytimeDependencyChanged()" type="checkbox" name="daytime-checkbox" value="option1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)">
-              </label>
-            </div>
-          </div>
--->
         </div>
       </div>
     </div>
