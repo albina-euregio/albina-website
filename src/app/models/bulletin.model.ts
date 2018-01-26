@@ -44,10 +44,10 @@ export class BulletinModel {
 			this.suggestedRegions = bulletin.suggestedRegions;
 			this.savedRegions = bulletin.savedRegions;
 			this.publishedRegions = bulletin.publishedRegions;
-			this.forenoonAbove = bulletin.forenoonAbove;
-			this.forenoonBelow = bulletin.forenoonBelow;
-			this.afternoonAbove = bulletin.afternoonAbove;
-			this.afternoonBelow = bulletin.afternoonBelow;
+			this.forenoonAbove = new BulletinElevationDescriptionModel(bulletin.forenoonAbove);
+			this.forenoonBelow = new BulletinElevationDescriptionModel(bulletin.forenoonBelow);
+			this.afternoonAbove = new BulletinElevationDescriptionModel(bulletin.afternoonAbove);
+			this.afternoonBelow = new BulletinElevationDescriptionModel(bulletin.afternoonBelow);
 			this.avActivityHighlights = bulletin.avActivityHighlights;
 			this.avActivityComment = bulletin.avActivityComment;
 			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
