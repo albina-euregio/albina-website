@@ -228,6 +228,8 @@ export class CreateBulletinComponent {
         layers: [this.mapService.baseMaps.AlbinaBaseMap, this.mapService.overlayMaps.aggregatedRegions, this.mapService.overlayMaps.regions]
     });
 
+    map.on('click', (e)=>{this.onMapClick(e)});
+
     L.control.zoom({ position: "topleft" }).addTo(map);
     //L.control.layers(this.mapService.baseMaps).addTo(map);
     //L.control.scale().addTo(map);
@@ -295,10 +297,25 @@ export class CreateBulletinComponent {
 
     L.control.pm({ position: 'topright' }).addTo(afternoonMap);
 
+    afternoonMap.on('click', (e)=>{this.onMapClick(e)});
+
     this.mapService.afternoonMap = afternoonMap;
 
     map.sync(afternoonMap);
     afternoonMap.sync(map);
+  }
+
+  private onMapClick(e) {
+    if (!this.editRegions) {
+      let test = this.mapService.getClickedRegion();
+      for (let bulletin of this.bulletinsList) {
+        if (bulletin.getSavedRegions().indexOf(test) > -1)
+          if (this.activeBulletin == bulletin)
+            this.deselectBulletin();
+          else
+            this.selectBulletin(bulletin);
+      }
+    }
   }
 
   private addThumbnailMap(id) {

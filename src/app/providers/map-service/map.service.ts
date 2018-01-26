@@ -64,7 +64,9 @@ export class MapService {
 
         this.overlayMaps = {
             // overlay to show regions
-            regions : L.geoJSON(this.regionsService.getRegionsEuregio()),
+            regions : L.geoJSON(this.regionsService.getRegionsEuregio(), {
+                onEachFeature : this.onEachAggregatedRegionsFeature
+            }),
 
             // overlay to show selected regions
             activeSelection : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
@@ -75,14 +77,14 @@ export class MapService {
             }),
 
             // overlay to show aggregated regions
-            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation(), {
-                onEachFeature : this.onEachAggregatedRegionsFeature
-            })
+            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation())
         }
 
         this.afternoonOverlayMaps = {
             // overlay to show regions
-            regions : L.geoJSON(this.regionsService.getRegionsEuregio()),
+            regions : L.geoJSON(this.regionsService.getRegionsEuregio(), {
+                onEachFeature : this.onEachAggregatedRegionsFeature
+            }),
 
             // overlay to show selected regions
             activeSelection : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
@@ -93,10 +95,25 @@ export class MapService {
             }),
 
             // overlay to show aggregated regions
-            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation(), {
-                onEachFeature : this.onEachAggregatedRegionsFeature
-            })
+            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation())
         }
+    }
+
+    private onEachAggregatedRegionsFeature(feature, layer) {
+        layer.on({
+            click: function(e) {
+                feature.properties.selected = true;
+            }
+        });
+    }
+
+    getClickedRegion() : String {
+        for (let entry of this.overlayMaps.regions.getLayers())
+            if (entry.feature.properties.selected) {
+                entry.feature.properties.selected = false;
+                return entry.feature.properties.id;
+            }
+        return null;
     }
 
     createSnowProfileMarker() {
@@ -454,15 +471,6 @@ export class MapService {
                     feature.properties.selected = true;
                     layer.setStyle({fillColor: 'blue', fillOpacity: 0.5});
                 }
-            }
-        });
-    }
-
-    private onEachAggregatedRegionsFeature(feature, layer) {
-        layer.on({
-            click: function(e) {
-                // TODO allow selection of aggregated region in map (create method with this parameter?)
-                feature.properties.selected = true;
             }
         });
     }
