@@ -139,7 +139,8 @@
 				"discardBulletin" : "Scarta modifiche del bollettino valanghe",
 				"loadBulletin" : "Copia da giorno precedente",
 				"elevationDependency" : "TODO",
-				"daytimeDependency" : "TODO"
+				"daytimeDependency" : "TODO",
+				"treeline" : "TODO"
 			},
 			"button" : "Creato",
 			"save" : " Salva",

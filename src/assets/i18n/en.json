@@ -139,7 +139,8 @@
 				"discardBulletin" : "Discard bulletin changes",
 				"loadBulletin" : "Load bulletin from the day before",
 				"elevationDependency" : "Elevation dependency",
-				"daytimeDependency" : "Daytime dependency"
+				"daytimeDependency" : "Daytime dependency",
+				"treeline" : "Treeline"
 			},
 			"button" : "Create",
 			"save" : " Save",

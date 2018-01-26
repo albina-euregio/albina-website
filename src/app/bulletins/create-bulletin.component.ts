@@ -613,6 +613,14 @@ export class CreateBulletinComponent {
     }
   }
 
+  treelineClicked(event) {
+    event.stopPropagation();
+    if (this.activeBulletin.treeline)
+      this.activeBulletin.treeline = false;
+    else
+      this.activeBulletin.treeline = true;
+  }
+
   elevationInputClicked(event) {
     event.stopPropagation();
   }

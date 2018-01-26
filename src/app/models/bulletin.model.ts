@@ -21,6 +21,7 @@ export class BulletinModel {
 	public hasDaytimeDependency: boolean;
 
 	public elevation: number;
+	public treeline: boolean;
 
 	public forenoonAbove: BulletinElevationDescriptionModel;
 	public forenoonBelow: BulletinElevationDescriptionModel;
@@ -52,6 +53,7 @@ export class BulletinModel {
 			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
 			this.snowpackStructureComment = bulletin.snowpackStructureComment;
 			this.elevation = bulletin.elevation;
+			this.treeline = bulletin.treeline;
 			this.hasDaytimeDependency = bulletin.hasDaytimeDependency;
 			this.hasElevationDependency = bulletin.hasElevationDependency;
 		} else {
@@ -69,6 +71,7 @@ export class BulletinModel {
 			this.snowpackStructureHighlights = new Array<TextModel>();
 			this.snowpackStructureComment = new Array<TextModel>();
 			this.elevation = undefined;
+			this.treeline = false;
 			this.hasDaytimeDependency = false;
 			this.hasElevationDependency = false;
 		}
@@ -152,6 +155,14 @@ export class BulletinModel {
 
 	setElevation(elevation: number) {
 		this.elevation = elevation;
+	}
+
+	getTreeline() : boolean {
+		return this.treeline
+	}
+
+	setTreeline(treeline: boolean) {
+		this.treeline = treeline;
 	}
 
 	getHasElevationDependency() {
@@ -402,9 +413,10 @@ export class BulletinModel {
 
 		if (this.hasElevationDependency) {
 			json['hasElevationDependency'] = true;
-			if (this.elevation && this.elevation != undefined) {
+			if (this.treeline)
+				json['treeline'] = this.treeline;
+			else if (this.elevation && this.elevation != undefined)
 				json['elevation'] = this.elevation;
-			}
 		} else
 			json['hasElevationDependency'] = false;
 
@@ -488,6 +500,7 @@ export class BulletinModel {
 		bulletin.setPublishedRegions(publishedRegions);
 
 		bulletin.setElevation(json.elevation);
+		bulletin.setTreeline(json.treeline);
 		bulletin.setHasDaytimeDependency(json.hasDaytimeDependency);
 		bulletin.setHasElevationDependency(json.hasElevationDependency);
 

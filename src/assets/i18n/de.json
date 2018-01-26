@@ -139,7 +139,8 @@
 				"discardBulletin" : "Änderungen am Lagebericht verwerfen",
 				"loadBulletin" : "Lagebericht vom Vortag laden",
 				"elevationDependency" : "Höhenabhängigkeit",
-				"daytimeDependency" : "Tageszeitliche Abhängigkeit"
+				"daytimeDependency" : "Tageszeitliche Abhängigkeit",
+				"treeline" : "Waldgrenze"
 			},
 			"button" : "Neu",
 			"save" : " Speichern",
