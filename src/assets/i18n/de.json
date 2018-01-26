@@ -214,6 +214,11 @@
 				"header" : "Fehler beim Laden",
 				"message" : "Beim Laden der Lawinenlageberichte ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
+			},
+			"noElevationDialog" : {
+				"header" : "Keine Höhe definiert",
+				"message" : "Bitte definier eine Höhe für diese Region!",
+				"accept" : "Ok"
 			}
 		},
 		"table" : {

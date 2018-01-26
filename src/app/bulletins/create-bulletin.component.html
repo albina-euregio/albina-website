@@ -390,47 +390,53 @@
 
 </div>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #loadingErrorDialog key="loadingErrorDialog">
+<p-confirmDialog icon="fa fa-exclamation" width="425" #loadingErrorDialog key="loadingErrorDialog">
   <p-footer>
     <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.loadingErrorDialog.accept" | translate }}' (click)="loadingErrorDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #loadDialog key="loadDialog">
+<p-confirmDialog icon="fa fa-question" width="425" #loadDialog key="loadDialog">
   <p-footer>
     <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.loadDialog.reject" | translate }}' (click)="loadDialog.reject()"></button>
     <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.loadDialog.accept" | translate }}' (click)="loadDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #deleteAggregatedRegionDialog key="deleteAggregatedRegionDialog">
+<p-confirmDialog icon="fa fa-question" width="425" #deleteAggregatedRegionDialog key="deleteAggregatedRegionDialog">
   <p-footer>
     <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.deleteAggregatedRegionDialog.reject" | translate }}' (click)="deleteAggregatedRegionDialog.reject()"></button>
     <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.deleteAggregatedRegionDialog.accept" | translate }}' (click)="deleteAggregatedRegionDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #noRegionDialog key="noRegionDialog">
+<p-confirmDialog icon="fa fa-exclamation" width="425" #noRegionDialog key="noRegionDialog">
   <p-footer>
     <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.noRegionDialog.accept" | translate }}' (click)="noRegionDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #discardDialog key="discardDialog">
+<p-confirmDialog icon="fa fa-question" width="425" #discardDialog key="discardDialog">
   <p-footer>
     <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.discardDialog.reject" | translate }}' (click)="discardDialog.reject()"></button>
     <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.discardDialog.accept" | translate }}' (click)="discardDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #saveErrorDialog key="saveErrorDialog">
+<p-confirmDialog icon="fa fa-exclamation" width="425" #saveErrorDialog key="saveErrorDialog">
   <p-footer>
     <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.saveErrorDialog.accept" | translate }}' (click)="saveErrorDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #changeErrorDialog key="changeErrorDialog">
+<p-confirmDialog icon="fa fa-exclamation" width="425" #changeErrorDialog key="changeErrorDialog">
   <p-footer>
     <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.changeErrorDialog.accept" | translate }}' (click)="changeErrorDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-confirmDialog icon="fa fa-exclamation" width="425" #noElevationDialog key="noElevationDialog">
+  <p-footer>
+    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.noElevationDialog.accept" | translate }}' (click)="noElevationDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>

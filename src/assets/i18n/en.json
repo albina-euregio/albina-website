@@ -214,6 +214,11 @@
 				"header" : "Error loading bulletins",
 				"message" : "There was an error loading the bulletins!",
 				"accept" : "Ok"
+			},
+			"noElevationDialog" : {
+				"header" : "No elevation defined",
+				"message" : "Please specify an elevation for this region!",
+				"accept" : "Ok"
 			}
 		},
 		"table" : {
