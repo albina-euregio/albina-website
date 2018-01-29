@@ -13,7 +13,8 @@
 	"sidebar" : {
 		"bulletins" : "Lawinenlageberichte",
 		"news" : "News",
-		"observations" : "Rückmeldungen"
+		"observations" : "Rückmeldungen",
+		"catalogueOfPhrases" : "Satzkatalog"
 	},
 	"menu" : {
 		"logout" : "Logout",

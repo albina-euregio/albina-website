@@ -13,7 +13,8 @@
 	"sidebar" : {
 		"bulletins" : "Bollettino",
 		"news" : "News",
-		"observations" : "TODO"
+		"observations" : "TODO",
+		"catalogueOfPhrases" : "TODO"
 	},
 	"menu" : {
 		"logout" : "Logout",
