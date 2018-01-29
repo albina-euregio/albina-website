@@ -5,8 +5,6 @@ import * as Enums from '../enums/enums';
 export class BulletinModel {
 	public id: string;
 
-	public aggregatedRegionId: string;
-
 	public creator: string;
 	public creatorRegion: string;
 
@@ -19,9 +17,16 @@ export class BulletinModel {
 	public savedRegions: String[];
 	public publishedRegions: String[];
 
+	public hasElevationDependency: boolean;
+	public hasDaytimeDependency: boolean;
+
 	public elevation: number;
-	public above: BulletinElevationDescriptionModel;
-	public below: BulletinElevationDescriptionModel;
+	public treeline: boolean;
+
+	public forenoonAbove: BulletinElevationDescriptionModel;
+	public forenoonBelow: BulletinElevationDescriptionModel;
+	public afternoonAbove: BulletinElevationDescriptionModel;
+	public afternoonBelow: BulletinElevationDescriptionModel;
 
 	public avActivityHighlights: TextModel[];
 	public avActivityComment: TextModel[];
@@ -34,33 +39,41 @@ export class BulletinModel {
 		this.creatorRegion = undefined;
 		this.publicationDate = undefined;
 		if (bulletin) {
-			this.aggregatedRegionId = bulletin.aggregatedRegionId;
 			this.validFrom = bulletin.validFrom;
 			this.validUntil = bulletin.validUntil;
 			this.suggestedRegions = bulletin.suggestedRegions;
 			this.savedRegions = bulletin.savedRegions;
 			this.publishedRegions = bulletin.publishedRegions;
-			this.above = bulletin.above;
-			this.below = bulletin.below;
+			this.forenoonAbove = new BulletinElevationDescriptionModel(bulletin.forenoonAbove);
+			this.forenoonBelow = new BulletinElevationDescriptionModel(bulletin.forenoonBelow);
+			this.afternoonAbove = new BulletinElevationDescriptionModel(bulletin.afternoonAbove);
+			this.afternoonBelow = new BulletinElevationDescriptionModel(bulletin.afternoonBelow);
 			this.avActivityHighlights = bulletin.avActivityHighlights;
 			this.avActivityComment = bulletin.avActivityComment;
 			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
 			this.snowpackStructureComment = bulletin.snowpackStructureComment;
 			this.elevation = bulletin.elevation;
+			this.treeline = bulletin.treeline;
+			this.hasDaytimeDependency = bulletin.hasDaytimeDependency;
+			this.hasElevationDependency = bulletin.hasElevationDependency;
 		} else {
-			this.aggregatedRegionId = undefined;
 			this.validFrom = undefined;
 			this.validUntil = undefined;
 			this.suggestedRegions = new Array<String>();
 			this.savedRegions = new Array<String>();
 			this.publishedRegions = new Array<String>();
-			this.above = new BulletinElevationDescriptionModel();
-			this.below = new BulletinElevationDescriptionModel();
+			this.forenoonAbove = new BulletinElevationDescriptionModel();
+			this.forenoonBelow = new BulletinElevationDescriptionModel();
+			this.afternoonAbove = new BulletinElevationDescriptionModel();
+			this.afternoonBelow = new BulletinElevationDescriptionModel();
 			this.avActivityHighlights = new Array<TextModel>();
 			this.avActivityComment = new Array<TextModel>();
 			this.snowpackStructureHighlights = new Array<TextModel>();
 			this.snowpackStructureComment = new Array<TextModel>();
 			this.elevation = undefined;
+			this.treeline = false;
+			this.hasDaytimeDependency = false;
+			this.hasElevationDependency = false;
 		}
 	}
 
@@ -70,14 +83,6 @@ export class BulletinModel {
 
 	setId(id: string) {
 		this.id = id;
-	}
-
-	getAggregatedRegionId() : string {
-		return this.aggregatedRegionId;
-	}
-
-	setAggregatedRegionId(aggregatedRegionId: string) {
-		this.aggregatedRegionId = aggregatedRegionId;
 	}
 
 	getCreator() : string {
@@ -152,20 +157,60 @@ export class BulletinModel {
 		this.elevation = elevation;
 	}
 
-	getAbove() : BulletinElevationDescriptionModel {
-		return this.above
+	getTreeline() : boolean {
+		return this.treeline
 	}
 
-	setAbove(above: BulletinElevationDescriptionModel) {
-		this.above = above;
+	setTreeline(treeline: boolean) {
+		this.treeline = treeline;
 	}
 
-	getBelow() : BulletinElevationDescriptionModel {
-		return this.below
+	getHasElevationDependency() {
+		return this.hasElevationDependency;
 	}
 
-	setBelow(below: BulletinElevationDescriptionModel) {
-		this.below = below;
+	setHasElevationDependency(hasElevationDependency: boolean) {
+		this.hasElevationDependency = hasElevationDependency;
+	}
+
+	getHasDaytimeDependency() {
+		return this.hasDaytimeDependency;
+	}
+
+	setHasDaytimeDependency(hasDaytimeDependency: boolean) {
+		this.hasDaytimeDependency = hasDaytimeDependency;
+	}
+
+	getForenoonAbove() : BulletinElevationDescriptionModel {
+		return this.forenoonAbove
+	}
+
+	setForenoonAbove(forenoonAbove: BulletinElevationDescriptionModel) {
+		this.forenoonAbove = forenoonAbove;
+	}
+
+	getForenoonBelow() : BulletinElevationDescriptionModel {
+		return this.forenoonBelow
+	}
+
+	setForenoonBelow(forenoonBelow: BulletinElevationDescriptionModel) {
+		this.forenoonBelow = forenoonBelow;
+	}
+
+	getAfternoonAbove() : BulletinElevationDescriptionModel {
+		return this.afternoonAbove
+	}
+
+	setAfternoonAbove(afternoonAbove: BulletinElevationDescriptionModel) {
+		this.afternoonAbove = afternoonAbove;
+	}
+
+	getAfternoonBelow() : BulletinElevationDescriptionModel {
+		return this.afternoonBelow
+	}
+
+	setAfternoonBelow(afternoonBelow: BulletinElevationDescriptionModel) {
+		this.afternoonBelow = afternoonBelow;
 	}
 
 	getAvActivityHighlights() : TextModel[] {
@@ -187,6 +232,19 @@ export class BulletinModel {
 		this.avActivityHighlights = avActivityHighlights;
 	}
 
+	setAvActivityHighlightsIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.avActivityHighlights.length - 1; i >= 0; i--) {
+			if (this.avActivityHighlights[i].getLanguageCode() == language) {
+				this.avActivityHighlights[i].setText(text);
+				return;
+			}
+		}
+		let model = new TextModel();
+		model.setLanguageCode(language);
+		model.setText(text);
+		this.avActivityHighlights.push(model);
+	}
+
 	getAvActivityComment() : TextModel[] {
 		return this.avActivityComment;
 	}
@@ -200,6 +258,19 @@ export class BulletinModel {
 
 	setAvActivityComment(avActivityComment: TextModel[]) {
 		this.avActivityComment = avActivityComment;
+	}
+
+	setAvActivityCommentIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.avActivityComment.length - 1; i >= 0; i--) {
+			if (this.avActivityComment[i].getLanguageCode() == language) {
+				this.avActivityComment[i].setText(text);
+				return;
+			}
+		}
+		let model = new TextModel();
+		model.setLanguageCode(language);
+		model.setText(text);
+		this.avActivityComment.push(model);
 	}
 
 	getSnowpackStructureHighlightIn(language: Enums.LanguageCode) : string {
@@ -217,6 +288,19 @@ export class BulletinModel {
 		this.snowpackStructureHighlights = snowpackStructureHighlights;
 	}
 
+	setSnowpackStructureHighlightsIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.snowpackStructureHighlights.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureHighlights[i].getLanguageCode() == language) {
+				this.snowpackStructureHighlights[i].setText(text);
+				return;
+			}
+		}
+		let model = new TextModel();
+		model.setLanguageCode(language);
+		model.setText(text);
+		this.snowpackStructureHighlights.push(model);
+	}
+
 	getSnowpackStructureComment() : TextModel[] {
 		return this.snowpackStructureComment;
 	}
@@ -232,13 +316,57 @@ export class BulletinModel {
 		this.snowpackStructureComment = snowpackStructureComment;
 	}
 
+	setSnowpackStructureCommentIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.snowpackStructureComment.length - 1; i >= 0; i--) {
+			if (this.snowpackStructureComment[i].getLanguageCode() == language) {
+				this.snowpackStructureComment[i].setText(text);
+				return;
+			}
+		}
+		let model = new TextModel();
+		model.setLanguageCode(language);
+		model.setText(text);
+		this.snowpackStructureComment.push(model);
+	}
+
+	getForenoonDangerRatingAbove() : Enums.DangerRating {
+		return this.forenoonAbove.dangerRating.getValue();
+	}
+
+	getAfternoonDangerRatingAbove() : Enums.DangerRating {
+		let test : any = this.afternoonAbove.dangerRating.getValue();
+		if (this.hasDaytimeDependency && this.afternoonAbove && this.afternoonAbove.dangerRating && test != "missing")
+			return this.afternoonAbove.dangerRating.getValue();
+		else
+			return this.forenoonAbove.dangerRating.getValue();
+	}
+
+	getForenoonDangerRatingBelow() : Enums.DangerRating {
+		if (this.hasElevationDependency)
+			return this.forenoonBelow.dangerRating.getValue();
+		else
+			return this.getForenoonDangerRatingAbove();
+	}
+
+	getAfternoonDangerRatingBelow() : Enums.DangerRating {
+		if (this.hasDaytimeDependency) {
+			if (this.hasElevationDependency) {
+				let test : any = this.afternoonBelow.dangerRating.getValue();
+				if (this.afternoonBelow && this.afternoonBelow.dangerRating && test != "missing")
+					return this.afternoonBelow.dangerRating.getValue();
+				else
+					return this.forenoonBelow.dangerRating.getValue();
+			} else
+				return this.getAfternoonDangerRatingAbove();
+		} else
+			return this.getForenoonDangerRatingBelow();
+	}
+
 	toJson() {
 		var json = Object();
 
 		if (this.id && this.id != undefined)
 			json['id'] = this.id;
-		if (this.aggregatedRegionId && this.aggregatedRegionId != undefined)
-			json['aggregatedRegionId'] = this.aggregatedRegionId;
 		if (this.creator && this.creator != undefined)
 			json['creator'] = this.creator;
 		if (this.creatorRegion && this.creatorRegion != undefined)
@@ -278,15 +406,32 @@ export class BulletinModel {
 			json['publishedRegions'] = publishedRegions;
 		}
 
-		if (this.above && this.above != undefined)
-			json['above'] = this.above.toJson();
+		if (this.hasDaytimeDependency)
+			json['hasDaytimeDependency'] = true;
+		else
+			json['hasDaytimeDependency'] = false;
 
-		if (this.elevation && this.elevation != undefined) {
-			json['elevation'] = this.elevation;
-			if (this.below && this.below != undefined)
-				json['below'] = this.below.toJson();
-		}
-		
+		if (this.hasElevationDependency) {
+			json['hasElevationDependency'] = true;
+			if (this.treeline)
+				json['treeline'] = this.treeline;
+			else if (this.elevation && this.elevation != undefined)
+				json['elevation'] = this.elevation;
+		} else
+			json['hasElevationDependency'] = false;
+
+		if (this.hasElevationDependency && this.forenoonBelow && this.forenoonBelow != undefined)
+			json['forenoonBelow'] = this.forenoonBelow.toJson();
+
+		if (this.forenoonAbove && this.forenoonAbove != undefined)
+			json['forenoonAbove'] = this.forenoonAbove.toJson();
+
+		if (this.hasElevationDependency && this.hasDaytimeDependency && this.afternoonBelow && this.afternoonBelow != undefined)
+			json['afternoonBelow'] = this.afternoonBelow.toJson();
+
+		if (this.hasDaytimeDependency && this.afternoonAbove && this.afternoonAbove != undefined)
+			json['afternoonAbove'] = this.afternoonAbove.toJson();
+
 		if (this.avActivityHighlights && this.avActivityHighlights != undefined && this.avActivityHighlights.length > 0) {
 			let highlight = [];
 			for (let i = 0; i <= this.avActivityHighlights.length - 1; i++) {
@@ -324,7 +469,6 @@ export class BulletinModel {
 		let bulletin = new BulletinModel();
 
 		bulletin.setId(json.id);
-		bulletin.setAggregatedRegionId(json.aggregatedRegionId);
 		bulletin.setCreator(json.creator);
 		bulletin.setCreatorRegion(json.creatorRegion);
 
@@ -356,11 +500,18 @@ export class BulletinModel {
 		bulletin.setPublishedRegions(publishedRegions);
 
 		bulletin.setElevation(json.elevation);
+		bulletin.setTreeline(json.treeline);
+		bulletin.setHasDaytimeDependency(json.hasDaytimeDependency);
+		bulletin.setHasElevationDependency(json.hasElevationDependency);
 
-		if (json.above)
-			bulletin.setAbove(BulletinElevationDescriptionModel.createFromJson(json.above));
-		if (json.below)
-			bulletin.setBelow(BulletinElevationDescriptionModel.createFromJson(json.below));
+		if (json.forenoonAbove)
+			bulletin.setForenoonAbove(BulletinElevationDescriptionModel.createFromJson(json.forenoonAbove));
+		if (json.forenoonBelow)
+			bulletin.setForenoonBelow(BulletinElevationDescriptionModel.createFromJson(json.forenoonBelow));
+		if (json.afternoonAbove)
+			bulletin.setAfternoonAbove(BulletinElevationDescriptionModel.createFromJson(json.afternoonAbove));
+		if (json.afternoonBelow)
+			bulletin.setAfternoonBelow(BulletinElevationDescriptionModel.createFromJson(json.afternoonBelow));
 
 		let jsonAvActivityHighlights = json.avActivityHighlights;
 		let avActivityHighlights = new Array<TextModel>();

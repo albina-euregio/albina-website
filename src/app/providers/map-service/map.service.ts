@@ -2,21 +2,26 @@ import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
 import { Map } from "leaflet";
 import { BulletinModel } from "../../models/bulletin.model";
-import { BulletinInputModel } from "../../models/bulletin-input.model";
 import { RegionsService } from '../regions-service/regions.service';
 import { AuthenticationService } from '../authentication-service/authentication.service';
 import * as Enums from '../../enums/enums';
 
-var L = require('leaflet');
+import "leaflet";
+import "leaflet.markercluster";
+
+declare var L: any;
 
 @Injectable()
 export class MapService {
     public map: Map;
     public afternoonMap: Map;
+    public observationsMap: Map;
     public baseMaps: any;
     public afternoonBaseMaps: any;
+    public observationsMaps: any;
     public overlayMaps: any;
     public afternoonOverlayMaps: any;
+    public layerGroups: any;
 
     constructor(
         private http: Http,
@@ -45,9 +50,23 @@ export class MapService {
             })
         };
 
+        this.observationsMaps = {
+            OpenTopoMap: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+                maxZoom: 17,
+                attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+            })
+        };
+
+        this.layerGroups = {
+            observations : L.markerClusterGroup([])
+        };
+
+
         this.overlayMaps = {
             // overlay to show regions
-            regions : L.geoJSON(this.regionsService.getRegionsEuregio()),
+            regions : L.geoJSON(this.regionsService.getRegionsEuregio(), {
+                onEachFeature : this.onEachAggregatedRegionsFeature
+            }),
 
             // overlay to show selected regions
             activeSelection : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
@@ -58,14 +77,14 @@ export class MapService {
             }),
 
             // overlay to show aggregated regions
-            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation(), {
-                onEachFeature : this.onEachAggregatedRegionsFeature
-            })
+            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation())
         }
 
         this.afternoonOverlayMaps = {
             // overlay to show regions
-            regions : L.geoJSON(this.regionsService.getRegionsEuregio()),
+            regions : L.geoJSON(this.regionsService.getRegionsEuregio(), {
+                onEachFeature : this.onEachAggregatedRegionsFeature
+            }),
 
             // overlay to show selected regions
             activeSelection : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
@@ -76,10 +95,69 @@ export class MapService {
             }),
 
             // overlay to show aggregated regions
-            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation(), {
-                onEachFeature : this.onEachAggregatedRegionsFeature
-            })
+            aggregatedRegions : L.geoJSON(this.regionsService.getRegionsEuregioWithElevation())
         }
+    }
+
+    private onEachAggregatedRegionsFeature(feature, layer) {
+        layer.on({
+            click: function(e) {
+                feature.properties.selected = true;
+            }
+        });
+    }
+
+    getClickedRegion() : String {
+        for (let entry of this.overlayMaps.regions.getLayers())
+            if (entry.feature.properties.selected) {
+                entry.feature.properties.selected = false;
+                return entry.feature.properties.id;
+            }
+        return null;
+    }
+
+    createSnowProfileMarker() {
+        return new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+    }
+
+    createHastyPitMarker() {
+        return new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+    }
+
+    createQuickReportMarker() {
+        return new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+    }
+
+    createNatlefsMarker() {
+        return new L.Icon({
+            iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
     }
 
     resetAggregatedRegions() {
@@ -117,52 +195,56 @@ export class MapService {
         this.resetEditSelection();
     }
 
-    addAggregatedRegion(bulletinInputModel: BulletinInputModel) {
-        bulletinInputModel.forenoonBelow.dangerRating.subscribe(dangerRating => {
-            this.updateAggregatedRegion(bulletinInputModel);
-            if (this.map)
-                this.selectAggregatedRegion(bulletinInputModel);
-        });
-        bulletinInputModel.forenoonAbove.dangerRating.subscribe(dangerRating => {
-            this.updateAggregatedRegion(bulletinInputModel);
-            if (this.map)
-                this.selectAggregatedRegion(bulletinInputModel);
-        });
-        bulletinInputModel.afternoonBelow.dangerRating.subscribe(dangerRating => {
-            this.updateAggregatedRegion(bulletinInputModel);
-            if (this.map)
-                this.selectAggregatedRegion(bulletinInputModel);
-        });
-        bulletinInputModel.afternoonAbove.dangerRating.subscribe(dangerRating => {
-            this.updateAggregatedRegion(bulletinInputModel);
-            if (this.map)
-                this.selectAggregatedRegion(bulletinInputModel);
-        });
-        this.updateAggregatedRegion(bulletinInputModel);
+    centerObservationsMap(lat, lon) {
+        this.observationsMap.panTo(L.latLng(lat, lon))
     }
 
-    updateAggregatedRegion(bulletinInputModel: BulletinInputModel) {
-        let dangerRatingAbove = bulletinInputModel.getForenoonDangerRatingAbove();
-        let dangerRatingBelow = bulletinInputModel.getForenoonDangerRatingBelow();
+    addAggregatedRegion(bulletin: BulletinModel) {
+        bulletin.forenoonBelow.dangerRating.subscribe(dangerRating => {
+            this.updateAggregatedRegion(bulletin);
+            if (this.map)
+                this.selectAggregatedRegion(bulletin);
+        });
+        bulletin.forenoonAbove.dangerRating.subscribe(dangerRating => {
+            this.updateAggregatedRegion(bulletin);
+            if (this.map)
+                this.selectAggregatedRegion(bulletin);
+        });
+        bulletin.afternoonBelow.dangerRating.subscribe(dangerRating => {
+            this.updateAggregatedRegion(bulletin);
+            if (this.map)
+                this.selectAggregatedRegion(bulletin);
+        });
+        bulletin.afternoonAbove.dangerRating.subscribe(dangerRating => {
+            this.updateAggregatedRegion(bulletin);
+            if (this.map)
+                this.selectAggregatedRegion(bulletin);
+        });
+        this.updateAggregatedRegion(bulletin);
+    }
+
+    updateAggregatedRegion(bulletin: BulletinModel) {
+        let dangerRatingAbove = bulletin.getForenoonDangerRatingAbove();
+        let dangerRatingBelow = bulletin.getForenoonDangerRatingBelow();
         for (let entry of this.overlayMaps.aggregatedRegions.getLayers()) {
-            for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.savedRegions[j]) {
+            for (let j = bulletin.savedRegions.length - 1; j >= 0; j--) {
+                if (entry.feature.properties.id == bulletin.savedRegions[j]) {
                     if (entry.feature.properties.elevation == "h")
                         entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingAbove, Enums.RegionStatus.saved));
                     else
                         entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingBelow, Enums.RegionStatus.saved));
                 }
             }
-            for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.suggestedRegions[j]) {
+            for (let j = bulletin.suggestedRegions.length - 1; j >= 0; j--) {
+                if (entry.feature.properties.id == bulletin.suggestedRegions[j]) {
                     if (entry.feature.properties.elevation == "h")
                         entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingAbove, Enums.RegionStatus.suggested));
                     else
                         entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingBelow, Enums.RegionStatus.suggested));
                 }
             }
-            for (let j = bulletinInputModel.publishedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.publishedRegions[j]) {
+            for (let j = bulletin.publishedRegions.length - 1; j >= 0; j--) {
+                if (entry.feature.properties.id == bulletin.publishedRegions[j]) {
                     if (entry.feature.properties.elevation == "h")
                         entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingAbove, Enums.RegionStatus.published));
                     else
@@ -171,27 +253,27 @@ export class MapService {
             }
         }
 
-        let afternoonDangerRatingAbove = bulletinInputModel.getAfternoonDangerRatingAbove();
-        let afternoonDangerRatingBelow = bulletinInputModel.getAfternoonDangerRatingBelow();
+        let afternoonDangerRatingAbove = bulletin.getAfternoonDangerRatingAbove();
+        let afternoonDangerRatingBelow = bulletin.getAfternoonDangerRatingBelow();
         for (let entry of this.afternoonOverlayMaps.aggregatedRegions.getLayers()) {
-            for (let j = bulletinInputModel.savedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.savedRegions[j]) {
+            for (let j = bulletin.savedRegions.length - 1; j >= 0; j--) {
+                if (entry.feature.properties.id == bulletin.savedRegions[j]) {
                     if (entry.feature.properties.elevation == "h")
                         entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingAbove, Enums.RegionStatus.saved));
                     else
                         entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingBelow, Enums.RegionStatus.saved));
                 }
             }
-            for (let j = bulletinInputModel.suggestedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.suggestedRegions[j]) {
+            for (let j = bulletin.suggestedRegions.length - 1; j >= 0; j--) {
+                if (entry.feature.properties.id == bulletin.suggestedRegions[j]) {
                     if (entry.feature.properties.elevation == "h")
                         entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingAbove, Enums.RegionStatus.suggested));
                     else
                         entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingBelow, Enums.RegionStatus.suggested));
                 }
             }
-            for (let j = bulletinInputModel.publishedRegions.length - 1; j >= 0; j--) {
-                if (entry.feature.properties.id == bulletinInputModel.publishedRegions[j]) {
+            for (let j = bulletin.publishedRegions.length - 1; j >= 0; j--) {
+                if (entry.feature.properties.id == bulletin.publishedRegions[j]) {
                     if (entry.feature.properties.elevation == "h")
                         entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingAbove, Enums.RegionStatus.published));
                     else
@@ -201,40 +283,42 @@ export class MapService {
         }
     }
 
-    selectAggregatedRegion(bulletinInputModel: BulletinInputModel) {
+    selectAggregatedRegion(bulletin: BulletinModel) {
         this.map.removeLayer(this.overlayMaps.regions);
         this.afternoonMap.removeLayer(this.afternoonOverlayMaps.regions);
+        //this.map.removeLayer(this.overlayMaps.aggregatedRegions);
+        //this.afternoonMap.removeLayer(this.afternoonOverlayMaps.aggregatedRegions);
         this.map.addLayer(this.overlayMaps.activeSelection);
         this.afternoonMap.addLayer(this.afternoonOverlayMaps.activeSelection);
 
         for (let entry of this.overlayMaps.activeSelection.getLayers()) {
             entry.feature.properties.selected = false;
             entry.setStyle(this.getActiveSelectionBaseStyle());
-            for (let region of bulletinInputModel.savedRegions) {
+            for (let region of bulletin.savedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
                     if (entry.feature.properties.elevation == "h")
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getForenoonDangerRatingAbove(), Enums.RegionStatus.saved));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingAbove(), Enums.RegionStatus.saved));
                     else
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getForenoonDangerRatingBelow(), Enums.RegionStatus.saved));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingBelow(), Enums.RegionStatus.saved));
                 }
             }
-            for (let region of bulletinInputModel.suggestedRegions) {
+            for (let region of bulletin.suggestedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
                     if (entry.feature.properties.elevation == "h")
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getForenoonDangerRatingAbove(), Enums.RegionStatus.suggested));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingAbove(), Enums.RegionStatus.suggested));
                     else
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getForenoonDangerRatingBelow(), Enums.RegionStatus.suggested));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingBelow(), Enums.RegionStatus.suggested));
                 }
             }
-            for (let region of bulletinInputModel.publishedRegions) {
+            for (let region of bulletin.publishedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
                     if (entry.feature.properties.elevation == "h")
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getForenoonDangerRatingAbove(), Enums.RegionStatus.published));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingAbove(), Enums.RegionStatus.published));
                     else
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getForenoonDangerRatingBelow(), Enums.RegionStatus.published));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingBelow(), Enums.RegionStatus.published));
                 }
             }
         }
@@ -242,31 +326,31 @@ export class MapService {
         for (let entry of this.afternoonOverlayMaps.activeSelection.getLayers()) {
             entry.feature.properties.selected = false;
             entry.setStyle(this.getActiveSelectionBaseStyle());
-            for (let region of bulletinInputModel.savedRegions) {
+            for (let region of bulletin.savedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
                     if (entry.feature.properties.elevation == "h")
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getAfternoonDangerRatingAbove(), Enums.RegionStatus.saved));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingAbove(), Enums.RegionStatus.saved));
                     else
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getAfternoonDangerRatingBelow(), Enums.RegionStatus.saved));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingBelow(), Enums.RegionStatus.saved));
                 }
             }
-            for (let region of bulletinInputModel.suggestedRegions) {
+            for (let region of bulletin.suggestedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
                     if (entry.feature.properties.elevation == "h")
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getAfternoonDangerRatingAbove(), Enums.RegionStatus.suggested));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingAbove(), Enums.RegionStatus.suggested));
                     else
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getAfternoonDangerRatingBelow(), Enums.RegionStatus.suggested));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingBelow(), Enums.RegionStatus.suggested));
                 }
             }
-            for (let region of bulletinInputModel.publishedRegions) {
+            for (let region of bulletin.publishedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
                     if (entry.feature.properties.elevation == "h")
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getAfternoonDangerRatingAbove(), Enums.RegionStatus.published));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingAbove(), Enums.RegionStatus.published));
                     else
-                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletinInputModel.getAfternoonDangerRatingBelow(), Enums.RegionStatus.published));
+                        entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingBelow(), Enums.RegionStatus.published));
                 }
             }
         }
@@ -277,21 +361,23 @@ export class MapService {
     deselectAggregatedRegion() {
         this.map.removeLayer(this.overlayMaps.activeSelection);
         this.afternoonMap.removeLayer(this.afternoonOverlayMaps.activeSelection);
+        //this.map.addLayer(this.overlayMaps.aggregatedRegions);
+        //this.afternoonMap.addLayer(this.afternoonOverlayMaps.aggregatedRegions);
     }
 
-    editAggregatedRegion(bulletinInputModel: BulletinInputModel) {
+    editAggregatedRegion(bulletin: BulletinModel) {
         this.map.removeLayer(this.overlayMaps.activeSelection);
 
         this.map.addLayer(this.overlayMaps.editSelection);
 
         for (let entry of this.overlayMaps.editSelection.getLayers()) {
-            for (let region of bulletinInputModel.savedRegions) {
+            for (let region of bulletin.savedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
                     entry.setStyle(this.getEditSelectionStyle(Enums.RegionStatus.saved));
                 }
             }
-            for (let region of bulletinInputModel.suggestedRegions) {
+            for (let region of bulletin.suggestedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
                     entry.setStyle(this.getEditSelectionStyle(Enums.RegionStatus.suggested));
@@ -315,27 +401,27 @@ export class MapService {
         this.afternoonMap.removeLayer(this.afternoonOverlayMaps.editSelection);
      }
 
-    deselectRegions(bulletinInputModel: BulletinInputModel) {
+    deselectRegions(bulletin: BulletinModel) {
         for (let entry of this.overlayMaps.aggregatedRegions.getLayers()) {
-            for (let region of bulletinInputModel.savedRegions)
+            for (let region of bulletin.savedRegions)
                 if (entry.feature.properties.id == region)
                     entry.setStyle(this.getUserDependendBaseStyle(region));
-            for (let region of bulletinInputModel.suggestedRegions)
+            for (let region of bulletin.suggestedRegions)
                 if (entry.feature.properties.id == region)
                     entry.setStyle(this.getUserDependendBaseStyle(region));
-            for (let region of bulletinInputModel.publishedRegions)
+            for (let region of bulletin.publishedRegions)
                 if (entry.feature.properties.id == region)
                     entry.setStyle(this.getUserDependendBaseStyle(region));
         }
 
         for (let entry of this.afternoonOverlayMaps.aggregatedRegions.getLayers()) {
-            for (let region of bulletinInputModel.savedRegions)
+            for (let region of bulletin.savedRegions)
                 if (entry.feature.properties.id == region)
                     entry.setStyle(this.getUserDependendBaseStyle(region));
-            for (let region of bulletinInputModel.suggestedRegions)
+            for (let region of bulletin.suggestedRegions)
                 if (entry.feature.properties.id == region)
                     entry.setStyle(this.getUserDependendBaseStyle(region));
-            for (let region of bulletinInputModel.publishedRegions)
+            for (let region of bulletin.publishedRegions)
                 if (entry.feature.properties.id == region)
                     entry.setStyle(this.getUserDependendBaseStyle(region));
         }
@@ -385,15 +471,6 @@ export class MapService {
                     feature.properties.selected = true;
                     layer.setStyle({fillColor: 'blue', fillOpacity: 0.5});
                 }
-            }
-        });
-    }
-
-    private onEachAggregatedRegionsFeature(feature, layer) {
-        layer.on({
-            click: function(e) {
-                // TODO allow selection of aggregated region in map (create method with this parameter?)
-                feature.properties.selected = true;
             }
         });
     }

@@ -15,6 +15,11 @@ export class ConstantsService {
   //public serverUrl: string = 'http://192.168.30.189:8080/albina/api/';
   //public socketIOUrl: string = 'http://192.168.30.189:9092';
 
+  public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';
+  public natlefsServerUrl: string = 'https://natlefs.snowobserver.com/snowobserver/api/';
+  public natlefsUsername: string = 'norbert.lanzanasto@tirol.gv.at';
+  public natlefsPassword: string = 'FRYLjTQ2';
+
   public codeTyrol: string = 'AT-07';
   public codeSouthTyrol: string = 'IT-32-BZ';
   public codeTrentino: string = 'IT-32-TN';
@@ -27,6 +32,8 @@ export class ConstantsService {
   public mapBoundaryS: number = 45.0;
   public mapBoundaryW: number = 9.0;
 
+  public timeframe: number = 14;
+
   public regions: Map<string, String[]> = new Map([
     [this.codeTyrol, ['AT-07-01', 'AT-07-02', 'AT-07-03', 'AT-07-04', 'AT-07-05', 'AT-07-06', 'AT-07-07', 'AT-07-08', 'AT-07-09', 'AT-07-10', 'AT-07-11', 'AT-07-12', 'AT-07-13', 'AT-07-14', 'AT-07-15', 'AT-07-16', 'AT-07-17', 'AT-07-18', 'AT-07-19', 'AT-07-20', 'AT-07-21', 'AT-07-22', 'AT-07-23', 'AT-07-24', 'AT-07-25', 'AT-07-26']],
     [this.codeSouthTyrol, ['IT-32-BZ-01', 'IT-32-BZ-02', 'IT-32-BZ-03', 'IT-32-BZ-04', 'IT-32-BZ-05', 'IT-32-BZ-06', 'IT-32-BZ-07', 'IT-32-BZ-08', 'IT-32-BZ-09', 'IT-32-BZ-10', 'IT-32-BZ-11', 'IT-32-BZ-12', 'IT-32-BZ-13', 'IT-32-BZ-14', 'IT-32-BZ-15', 'IT-32-BZ-16', 'IT-32-BZ-17']],
@@ -38,6 +45,26 @@ export class ConstantsService {
 
   getServerUrl() {
     return this.serverUrl;
+  }
+
+  getSnowObserverServerUrl() {
+    return this.snowObserverServerUrl;
+  }
+
+  getNatlefsServerUrl() {
+    return this.natlefsServerUrl;
+  }
+
+  getNatlefsUsername() {
+    return this.natlefsUsername;
+  }
+
+  getNatlefsPassword() {
+    return this.natlefsPassword;
+  }
+
+  getTimeframe() {
+    return this.timeframe;
   }
 
   getISOStringWithTimezoneOffsetUrlEncoded(date: Date) {

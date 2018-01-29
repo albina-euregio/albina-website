@@ -12,7 +12,8 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bollettino",
-		"news" : "News"
+		"news" : "News",
+		"observations" : "TODO"
 	},
 	"menu" : {
 		"logout" : "Logout",
@@ -136,13 +137,16 @@
 				"discardChanges" : "Scarta modifiche",
 				"saveBulletin" : "Salva bollettino valanghe",
 				"discardBulletin" : "Scarta modifiche del bollettino valanghe",
-				"loadBulletin" : "Copia da giorno precedente"
+				"loadBulletin" : "Copia da giorno precedente",
+				"elevationDependency" : "TODO",
+				"daytimeDependency" : "TODO",
+				"treeline" : "Linea del bosco"
 			},
 			"button" : "Creato",
 			"save" : " Salva",
 			"discard" : " Scarta",
 			"back" : " Indietro",
-			"createAggregatedRegion" : "Nuova regione",
+			"createAggregatedRegion" : " Nuova regione",
 			"saveAggregatedRegion" : "Salve",
 			"discardAggregatedRegion" : "Scarta",
 			"deleteAggregatedRegion" : "Cancella",
@@ -161,7 +165,7 @@
 			},
 			"title" : {
 				"map" : "Mappa",
-				"general" : "In generale",
+				"general" : "TODO",
 				"detail" : "Dettagli",
 				"above" : "Dettagli - al disopra",
 				"below" : "Dettagli - al disotto",
@@ -209,6 +213,11 @@
 			"loadingErrorDialog" : {
 				"header" : "Errore di caricamento",
 				"message" : "Errore durante il caricamento del bollettino valanghe!",
+				"accept" : "Ok"
+			},
+			"noElevationDialog" : {
+				"header" : "TODO",
+				"message" : "TODO",
 				"accept" : "Ok"
 			}
 		},

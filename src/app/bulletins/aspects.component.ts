@@ -103,8 +103,11 @@ export class AspectsComponent {
     if (!this.disabled) {
       if (this.object.aspects.length == 1) {
         let a : any = Enums.Aspect[this.object.aspects[0]];
-        if (a == aspect || a == (aspect + 1) % 8) {
-          for (var i = 0; i < 8; i++) {
+        if (a == aspect) {
+          this.object.setAspects(new Array<Enums.Aspect>());
+          this.resetAspects();
+        } else if (a == (aspect + 1) % 8) {
+          for (var i = 1; i < 9; i++) {
             this.object.addAspect(Enums.Aspect[i]);
           }
           this.aspectN.nativeElement.style.fill = "#000000";
@@ -141,7 +144,7 @@ export class AspectsComponent {
           this.aspectNW.nativeElement.style.fill = "#FFFFFF";
           this.aspectNW.nativeElement.focus();
 
-          let end = (aspect + 1) % 8;
+          let end = (aspect + 1) % 9;
           while (a != end) {
             this.object.addAspect(Enums.Aspect[a]);
             switch (+a) {
@@ -181,7 +184,9 @@ export class AspectsComponent {
               default:
                 break;
             }
-            a = (a + 1) % 8;
+            a = (a + 1) % 9;
+            if (a == 0)
+              a = a + 1;
           }
         }
       } else {

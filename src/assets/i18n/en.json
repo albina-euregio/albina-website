@@ -12,7 +12,8 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bulletins",
-		"news" : "News"
+		"news" : "News",
+		"observations" : "Observations"
 	},
 	"menu" : {
 		"logout" : "Logout",
@@ -136,13 +137,16 @@
 				"discardChanges" : "Discard changes",
 				"saveBulletin" : "Save bulletin",
 				"discardBulletin" : "Discard bulletin changes",
-				"loadBulletin" : "Load bulletin from the day before"
+				"loadBulletin" : "Load bulletin from the day before",
+				"elevationDependency" : "Elevation dependency",
+				"daytimeDependency" : "Daytime dependency",
+				"treeline" : "Treeline"
 			},
 			"button" : "Create",
 			"save" : " Save",
 			"discard" : " Discard",
 			"back" : " Back",
-			"createAggregatedRegion" : "New region",
+			"createAggregatedRegion" : " New region",
 			"saveAggregatedRegion" : "Save",
 			"discardAggregatedRegion" : "Discard",
 			"deleteAggregatedRegion" : "Delete",
@@ -161,7 +165,7 @@
 			},
 			"title" : {
 				"map" : "Map",
-				"general" : "General",
+				"general" : "Description of avalanche danger",
 				"detail" : "Details",
 				"above" : "Details - above",
 				"below" : "Details - below",
@@ -209,6 +213,11 @@
 			"loadingErrorDialog" : {
 				"header" : "Error loading bulletins",
 				"message" : "There was an error loading the bulletins!",
+				"accept" : "Ok"
+			},
+			"noElevationDialog" : {
+				"header" : "No elevation defined",
+				"message" : "Please specify an elevation for this region!",
 				"accept" : "Ok"
 			}
 		},
