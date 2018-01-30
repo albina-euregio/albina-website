@@ -28,6 +28,9 @@ export class BulletinModel {
 	public afternoonAbove: BulletinElevationDescriptionModel;
 	public afternoonBelow: BulletinElevationDescriptionModel;
 
+	public avActivityHighlightsTextcat: string;
+	public avActivityCommentTextcat: string;
+
 	public avActivityHighlights: TextModel[];
 	public avActivityComment: TextModel[];
 
@@ -48,6 +51,8 @@ export class BulletinModel {
 			this.forenoonBelow = new BulletinElevationDescriptionModel(bulletin.forenoonBelow);
 			this.afternoonAbove = new BulletinElevationDescriptionModel(bulletin.afternoonAbove);
 			this.afternoonBelow = new BulletinElevationDescriptionModel(bulletin.afternoonBelow);
+			this.avActivityHighlightsTextcat = bulletin.avActivityHighlightsTextcat;
+			this.avActivityCommentTextcat = bulletin.avActivityCommentTextcat;
 			this.avActivityHighlights = bulletin.avActivityHighlights;
 			this.avActivityComment = bulletin.avActivityComment;
 			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
@@ -66,6 +71,8 @@ export class BulletinModel {
 			this.forenoonBelow = new BulletinElevationDescriptionModel();
 			this.afternoonAbove = new BulletinElevationDescriptionModel();
 			this.afternoonBelow = new BulletinElevationDescriptionModel();
+			this.avActivityHighlightsTextcat = undefined;
+			this.avActivityCommentTextcat = undefined;
 			this.avActivityHighlights = new Array<TextModel>();
 			this.avActivityComment = new Array<TextModel>();
 			this.snowpackStructureHighlights = new Array<TextModel>();
@@ -211,6 +218,22 @@ export class BulletinModel {
 
 	setAfternoonBelow(afternoonBelow: BulletinElevationDescriptionModel) {
 		this.afternoonBelow = afternoonBelow;
+	}
+
+	getAvActivityHighlightsTextcat() : string {
+		return this.avActivityHighlightsTextcat;
+	}
+
+	setAvActivityHighlightsTextcat(avActivityHighlightsTextcat: string) {
+		this.avActivityHighlightsTextcat = avActivityHighlightsTextcat;
+	}
+
+	getAvActivityCommentTextcat() : string {
+		return this.avActivityCommentTextcat;
+	}
+
+	setAvActivityCommentTextcat(avActivityCommentTextcat: string) {
+		this.avActivityCommentTextcat = avActivityCommentTextcat;
 	}
 
 	getAvActivityHighlights() : TextModel[] {
@@ -432,6 +455,12 @@ export class BulletinModel {
 		if (this.hasDaytimeDependency && this.afternoonAbove && this.afternoonAbove != undefined)
 			json['afternoonAbove'] = this.afternoonAbove.toJson();
 
+		if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat != undefined)
+			json['avActivityHighlightsTextcat'] = this.avActivityHighlightsTextcat;
+
+		if (this.avActivityCommentTextcat && this.avActivityHighlightsTextcat != undefined)
+			json['avActivityCommentTextcat'] = this.avActivityCommentTextcat;
+
 		if (this.avActivityHighlights && this.avActivityHighlights != undefined && this.avActivityHighlights.length > 0) {
 			let highlight = [];
 			for (let i = 0; i <= this.avActivityHighlights.length - 1; i++) {
@@ -512,6 +541,11 @@ export class BulletinModel {
 			bulletin.setAfternoonAbove(BulletinElevationDescriptionModel.createFromJson(json.afternoonAbove));
 		if (json.afternoonBelow)
 			bulletin.setAfternoonBelow(BulletinElevationDescriptionModel.createFromJson(json.afternoonBelow));
+
+		if (json.avActivityHighlightsTextcat)
+			bulletin.setAvActivityHighlightsTextcat(json.avActivityHighlightsTextcat);
+		if (json.avActivityCommentTextcat)
+			bulletin.setAvActivityCommentTextcat(json.avActivityCommentTextcat);
 
 		let jsonAvActivityHighlights = json.avActivityHighlights;
 		let avActivityHighlights = new Array<TextModel>();

@@ -1,4 +1,4 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, Input, HostListener, ViewChild, ElementRef, NgZone, ApplicationRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinElevationDescriptionModel } from '../models/bulletin-elevation-description.model';
@@ -41,8 +41,6 @@ export class CreateBulletinComponent {
   public loading: boolean;
   public showAfternoonMap: boolean;
 
-  public aggregatedRegionsIds: string[];
-
   public activeBulletin: BulletinModel;
   public bulletinsList: BulletinModel[];
 
@@ -66,8 +64,8 @@ export class CreateBulletinComponent {
   public phraseURL = "../../assets/json/phrase.json";
   public indexURL = "../../assets/json/index.json";
 
-
-  loadAPI: Promise<any>;
+  @ViewChild('avActivityHighlightsTextcat') avActivityHighlightsTextcat;
+  @ViewChild('avActivityCommentTextcat') avActivityCommentTextcat;
 
   constructor(
     private translate: TranslateService,
@@ -80,43 +78,16 @@ export class CreateBulletinComponent {
     private constantsService: ConstantsService,
     private mapService: MapService,
     private regionsService: RegionsService,
-    private confirmationService: ConfirmationService)
+    private confirmationService: ConfirmationService,
+    private ngZone: NgZone,
+    private applicationRef: ApplicationRef)
   {
     this.loading = true;
     this.showAfternoonMap = false;
-
-    this.loadAPI = new Promise((resolve) => {
-        this.loadScript();
-        resolve(true);
-    });
-  }
-
-  public loadScript() {        
-      var isFound = false;
-      var scripts = document.getElementsByTagName("script")
-      for (var i = 0; i < scripts.length; ++i) {
-          if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes("loader")) {
-              isFound = true;
-          }
-      }
-
-      if (!isFound) {
-          var dynamicScripts = ["assets/javascript/jquery-1.11.1.js", "assets/javascript/phrasemaker.js", "assets/javascript/util.js", "assets/javascript/jquery.tmpl.min.js", "assets/javascript/jquery-ui.min.js"];
-
-          for (var i = 0; i < dynamicScripts .length; i++) {
-              let node = document.createElement('script');
-              node.src = dynamicScripts [i];
-              node.type = 'text/javascript';
-              node.async = false;
-              node.charset = 'utf-8';
-              document.getElementsByTagName('head')[0].appendChild(node);
-          }
-      }
   }
 
   reset() {
     this.originalBulletins = new Map<string, BulletinModel>();
-    this.aggregatedRegionsIds = new Array<string>();
     this.activeBulletin = undefined;
     this.bulletinsList = new Array<BulletinModel>();
 
@@ -624,7 +595,8 @@ export class CreateBulletinComponent {
 
   createBulletin(copy) {
 
-    // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
+    // TODO unlock bulletin (Tirol, Südtirol or Trentino) via socketIO
+    // TODO lock bulletin (Tirol, Südtirol or Trentino) via socketIO
 
     let bulletin: BulletinModel;
 
@@ -647,7 +619,7 @@ export class CreateBulletinComponent {
 
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
-      this.setTexts();
+      this.deselectBulletin();
 
       this.activeBulletin = bulletin;
       this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
@@ -664,6 +636,26 @@ export class CreateBulletinComponent {
       this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
 
       this.mapService.selectAggregatedRegion(this.activeBulletin);
+    }
+  }
+
+  deselectBulletin() {
+    if (this.checkElevation()) {
+      if (!this.editRegions) {
+
+        this.setTexts();
+
+        // TODO this can be done nicer 
+        if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat.textcat && this.avActivityHighlightsTextcat.textcat.nativeElement && this.avActivityHighlightsTextcat.textcat.nativeElement.value)
+          this.activeBulletin.setAvActivityHighlightsTextcat(this.avActivityHighlightsTextcat.textcat.nativeElement.value);
+        if (this.avActivityCommentTextcat && this.avActivityCommentTextcat.textcat && this.avActivityCommentTextcat.textcat.nativeElement && this.avActivityCommentTextcat.textcat.nativeElement.value)
+          this.activeBulletin.setAvActivityCommentTextcat(this.avActivityCommentTextcat.textcat.nativeElement.value);
+
+        this.mapService.deselectAggregatedRegion();
+        this.activeBulletin = undefined;
+
+        this.applicationRef.tick();
+      }
     }
   }
 
@@ -740,15 +732,6 @@ export class CreateBulletinComponent {
       if (!daytimeDependency && this.showAfternoonMap) {
         this.showAfternoonMap = false;
         this.onShowAfternoonMapChange(false);
-      }
-    }
-  }
-
-  deselectBulletin() {
-    if (this.checkElevation()) {
-      if (!this.editRegions) {
-        this.mapService.deselectAggregatedRegion();
-        this.activeBulletin = undefined;
       }
     }
   }
@@ -1012,6 +995,8 @@ export class CreateBulletinComponent {
       this.loading = true;
 
       this.setTexts();
+
+      this.deselectBulletin();
 
       let validFrom = new Date(this.bulletinsService.getActiveDate());
       let validUntil = new Date(this.bulletinsService.getActiveDate());

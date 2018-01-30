@@ -6,6 +6,7 @@ import { BulletinsComponent } from './bulletins.component';
 import { CreateBulletinComponent } from './create-bulletin.component';
 import { BulletinDetailComponent } from './bulletin-detail.component';
 import { AspectsComponent } from './aspects.component';
+import { CopComponent } from './cop.component';
 import { CaamlComponent } from './caaml.component';
 import { Tabs } from './tabs.component';
 import { Tab } from './tab.component';
@@ -34,6 +35,7 @@ import { PipeModule }    from '../pipes/pipes.module';
     CreateBulletinComponent,
     BulletinDetailComponent,
     AspectsComponent,
+    CopComponent,
     CaamlComponent,
     Tabs,
     Tab
