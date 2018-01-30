@@ -741,15 +741,20 @@ var PM = function() {
 //------------------------------------------------------------------------------------------------
 	
 	//var contextPath = getEnvValue(window.contextPath, '/' + location.pathname.split('/')[1] + '/');
-	var contextPath = 'http://localhost:4200/assets/';
+	//var contextPath = 'http://localhost:4200/assets/';
+	var contextPath = 'http://212.47.231.185:8080/albina-admin-gui-dev/assets/';
 	//var sentenceURL = getEnvValue(window.sentenceURL, contextPath+"textcat?type=sentence");
-	var sentenceURL = "http://localhost:4200/assets/json/V1/sentence.json";
+	//var sentenceURL = "http://localhost:4200/assets/json/V1/sentence.json";
+	var sentenceURL = "http://212.47.231.185:8080/albina-admin-gui-dev/assets/json/V1/sentence.json";
 	//var optionURL   = getEnvValue(window.optionURL,   contextPath+"textcat?type=option");
-	var optionURL = "http://localhost:4200/assets/json/V1/option.json";
+	//var optionURL = "http://localhost:4200/assets/json/V1/option.json";
+	var optionURL = "http://212.47.231.185:8080/albina-admin-gui-dev/assets/json/V1/option.json";
 	//var phraseURL   = getEnvValue(window.phraseURL,   contextPath+"textcat?type=phrase");
-	var phraseURL = "http://localhost:4200/assets/json/V1/phrase.json";
+	//var phraseURL = "http://localhost:4200/assets/json/V1/phrase.json";
+	var phraseURL = "http://212.47.231.185:8080/albina-admin-gui-dev/assets/json/V1/phrase.json";
 	//var indexURL   = getEnvValue(window.indexURL,     contextPath+"textcat?type=indexfull");
-	var indexURL = "http://localhost:4200/assets/json/V1/index.json";
+	//var indexURL = "http://localhost:4200/assets/json/V1/index.json";
+	var indexURL = "http://212.47.231.185:8080/albina-admin-gui-dev/assets/json/V1/index.json";
 	var saveJokerURL = getEnvValue(window.saveJokerURL, contextPath+"textcat");
 	function getEnvValue(envValue, defaultValue) {
 	  return envValue==undefined ? defaultValue : envValue;  
