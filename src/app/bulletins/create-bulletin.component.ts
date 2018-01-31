@@ -942,24 +942,28 @@ export class CreateBulletinComponent {
     // TODO unlock whole day in TN
   }
 
-  getForenoonColor(bulletin: BulletinModel) {
+  getForenoonColorAbove(bulletin: BulletinModel) {
     let dangerRating = bulletin.getForenoonDangerRatingAbove().toString();
     return this.getDangerRatingColor(dangerRating);
   }
 
-  getAfternoonColor(bulletin: BulletinModel) {
-    let dangerRating = "";
-    if (bulletin.getAfternoonDangerRatingAbove())
-      dangerRating = bulletin.getAfternoonDangerRatingAbove().toString();
-    else
-      dangerRating = bulletin.getForenoonDangerRatingAbove().toString();
+  getForenoonColorBelow(bulletin: BulletinModel) {
+    let dangerRating = bulletin.getForenoonDangerRatingBelow().toString();
+    return this.getDangerRatingColor(dangerRating);
+  }
+
+  getAfternoonColorAbove(bulletin: BulletinModel) {
+    let dangerRating = bulletin.getAfternoonDangerRatingAbove().toString();
+    return this.getDangerRatingColor(dangerRating);
+  }
+
+  getAfternoonColorBelow(bulletin: BulletinModel) {
+    let dangerRating = bulletin.getAfternoonDangerRatingBelow().toString();
     return this.getDangerRatingColor(dangerRating);
   }
 
   private getDangerRatingColor(dangerRating) {
-    return {
-      color: this.constantsService.getDangerRatingColor(dangerRating)
-    }
+    return this.constantsService.getDangerRatingColor(dangerRating);
   }
 
   save() {

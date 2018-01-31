@@ -4,3 +4,10 @@
 	height: 800px;
 	width: 100%;
 }
+
+.grid-container {
+	display: inline-grid;
+	grid-template-columns: 10px 10px;
+	grid-template-rows: 10px 10px;
+	vertical-align: top;
+}
