@@ -181,9 +181,15 @@
                             <td *ngIf="!bulletin.hasElevationDependency">
                               <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
                             </td>
-                            <td *ngIf="activeBulletin.hasElevationDependency" class="input-prepend input-group">
-                              <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="14" type="number" name="elevation-input" (click)="elevationInputClicked($event)" [disabled]="true" [(ngModel)]="activeBulletin.elevation">
+                            <td *ngIf="bulletin.hasElevationDependency" class="input-prepend input-group">
+                              <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="14" type="number" name="elevation-input" [disabled]="true" [(ngModel)]="activeBulletin.elevation">
                               <span class="input-group-addon">m</span>
+                            </td>
+                            <td *ngIf="bulletin.hasElevationDependency && bulletin.treeline">
+                              <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
+                            </td>
+                            <td *ngIf="bulletin.hasElevationDependency && !bulletin.treeline">
+                              <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
                             </td>
                           </tr>
                         </tbody>
