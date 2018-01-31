@@ -957,30 +957,8 @@ export class CreateBulletinComponent {
   }
 
   private getDangerRatingColor(dangerRating) {
-    if (dangerRating == "very_high") {
-        return {
-            color: 'black'
-        }
-    } else if (dangerRating == "high") {
-        return {
-            color: 'red'
-        }
-    } else if (dangerRating == "considerable") {
-        return {
-            color: 'orange'
-        }
-    } else if (dangerRating == "moderate") {
-        return {
-            color: 'yellow'
-        }
-    } else if (dangerRating == "low") {
-        return {
-            color: 'green'
-        }
-    } else {
-        return {
-            color: 'grey'
-        }
+    return {
+      color: this.constantsService.getDangerRatingColor(dangerRating)
     }
   }
 
