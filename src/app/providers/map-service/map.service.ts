@@ -620,7 +620,6 @@ export class MapService {
         }
 
         let color = this.constantsService.getDangerRatingColor(dangerRating);
-
         return {
             color: this.constantsService.lineColor,
             opacity: opacity,
