@@ -106,46 +106,11 @@ export class AspectsComponent {
         if (a == aspect) {
           this.object.setAspects(new Array<Enums.Aspect>());
           this.resetAspects();
-        } else if (a == (aspect + 1) % 8) {
-          for (var i = 1; i < 9; i++) {
-            this.object.addAspect(Enums.Aspect[i]);
-          }
-          this.aspectN.nativeElement.style.fill = "#000000";
-          this.aspectN.nativeElement.focus();
-          this.aspectNE.nativeElement.style.fill = "#000000";
-          this.aspectNE.nativeElement.focus();
-          this.aspectE.nativeElement.style.fill = "#000000";
-          this.aspectE.nativeElement.focus();
-          this.aspectSE.nativeElement.style.fill = "#000000";
-          this.aspectSE.nativeElement.focus();
-          this.aspectS.nativeElement.style.fill = "#000000";
-          this.aspectS.nativeElement.focus();
-          this.aspectSW.nativeElement.style.fill = "#000000";
-          this.aspectSW.nativeElement.focus();
-          this.aspectW.nativeElement.style.fill = "#000000";
-          this.aspectW.nativeElement.focus();
-          this.aspectNW.nativeElement.style.fill = "#000000";
-          this.aspectNW.nativeElement.focus();
         } else {
-          this.aspectN.nativeElement.style.fill = "#FFFFFF";
-          this.aspectN.nativeElement.focus();
-          this.aspectNE.nativeElement.style.fill = "#FFFFFF";
-          this.aspectNE.nativeElement.focus();
-          this.aspectE.nativeElement.style.fill = "#FFFFFF";
-          this.aspectE.nativeElement.focus();
-          this.aspectSE.nativeElement.style.fill = "#FFFFFF";
-          this.aspectSE.nativeElement.focus();
-          this.aspectS.nativeElement.style.fill = "#FFFFFF";
-          this.aspectS.nativeElement.focus();
-          this.aspectSW.nativeElement.style.fill = "#FFFFFF";
-          this.aspectSW.nativeElement.focus();
-          this.aspectW.nativeElement.style.fill = "#FFFFFF";
-          this.aspectW.nativeElement.focus();
-          this.aspectNW.nativeElement.style.fill = "#FFFFFF";
-          this.aspectNW.nativeElement.focus();
-
           let end = (aspect + 1) % 9;
-          while (a != end) {
+          if (end == 0)
+            end = 1;
+          do {
             this.object.addAspect(Enums.Aspect[a]);
             switch (+a) {
               case Enums.Aspect.N:
@@ -187,7 +152,7 @@ export class AspectsComponent {
             a = (a + 1) % 9;
             if (a == 0)
               a = a + 1;
-          }
+          } while (a != end)
         }
       } else {
         this.object.setAspects(new Array<Enums.Aspect>());
