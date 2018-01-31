@@ -58,12 +58,6 @@ export class CreateBulletinComponent {
   public activeSnowpackStructureHighlightsEn: string;
   public activeSnowpackStructureCommentEn: string;
 
-  public contextPath = "";
-  public sentenceURL = "../../assets/json/sentence.json";
-  public optionURL = "../../assets/json/option.json";
-  public phraseURL = "../../assets/json/phrase.json";
-  public indexURL = "../../assets/json/index.json";
-
   @ViewChild('avActivityHighlightsTextcat') avActivityHighlightsTextcat;
   @ViewChild('avActivityCommentTextcat') avActivityCommentTextcat;
 
