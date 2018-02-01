@@ -40,11 +40,11 @@ export class ConstantsService {
     [this.codeTrentino, ['IT-32-TN-01', 'IT-32-TN-02', 'IT-32-TN-03', 'IT-32-TN-04', 'IT-32-TN-05', 'IT-32-TN-06', 'IT-32-TN-07', 'IT-32-TN-08', 'IT-32-TN-09', 'IT-32-TN-10', 'IT-32-TN-11', 'IT-32-TN-12', 'IT-32-TN-13', 'IT-32-TN-14', 'IT-32-TN-15', 'IT-32-TN-16', 'IT-32-TN-17', 'IT-32-TN-18', 'IT-32-TN-19', 'IT-32-TN-20', 'IT-32-TN-21']]
   ]);
 
-  public colorDangerRatingLow = '#cbd859';
-  public colorDangerRatingModerate = '#f3e500';
-  public colorDangerRatingConsiderable = '#f49719';
-  public colorDangerRatingHigh = '#e42420';
-  public colorDangerRatingVeryHigh = '#000000';
+  public colorDangerRatingLow = '#CCFF66';
+  public colorDangerRatingModerate = '#FFFF00';
+  public colorDangerRatingConsiderable = '#FF9900';
+  public colorDangerRatingHigh = '#FF0000';
+  public colorDangerRatingVeryHigh = '#800000';
   public colorDangerRatingMissing = '#969696';
   public colorActiveSelection = '#3852A4';
 
