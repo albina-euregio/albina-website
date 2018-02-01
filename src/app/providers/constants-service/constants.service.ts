@@ -44,6 +44,7 @@ export class ConstantsService {
   public colorDangerRatingModerate = '#FFFF00';
   public colorDangerRatingConsiderable = '#FF9900';
   public colorDangerRatingHigh = '#FF0000';
+  // not standardized
   public colorDangerRatingVeryHigh = '#800000';
   public colorDangerRatingMissing = '#969696';
   public colorActiveSelection = '#3852A4';
