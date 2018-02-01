@@ -34,6 +34,7 @@ declare var L:any;
 export class CreateBulletinComponent {
 
   public bulletinStatus = Enums.BulletinStatus;
+  public dangerPattern = Enums.DangerPattern;
 
   public originalBulletins: Map<string, BulletinModel>;
 

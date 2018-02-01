@@ -162,7 +162,8 @@
 				"elevation" : "Altezza",
 				"daytime" : "Mattina/pomeriggio",
 				"snowpackStructureHighlights" : "Titolo struttura manto nevoso",
-				"snowpackStructureComment" : "Descrizione struttura manto nevoso"
+				"snowpackStructureComment" : "Descrizione struttura manto nevoso",
+				"dangerPatterns" : "TODO"
 			},
 			"title" : {
 				"map" : "Mappa",
@@ -316,6 +317,18 @@
 		"oldSnow" : "Strati deboli persistenti",
 		"wetSnow" : "Neve bagnata",
 		"glidingSnow" : "Valanghe di slittamento"
+	},
+	"dangerPattern" : {
+		"dp1" : "TODO",
+		"dp2" : "TODO",
+		"dp3" : "TODO",
+		"dp4" : "TODO",
+		"dp5" : "TODO",
+		"dp6" : "TODO",
+		"dp7" : "TODO",
+		"dp8" : "TODO",
+		"dp9" : "TODO",
+		"dp10" : "TODO"
 	},
 	"aspect" : {
 		"N" : "N",

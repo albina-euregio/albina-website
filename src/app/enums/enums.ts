@@ -1017,6 +1017,42 @@ export class AvalancheProblemUtil {
 	}
 }
 
+export enum DangerPattern {
+	dp1, dp2, dp3, dp4, dp5, dp6, dp7, dp8, dp9, dp10
+}
+export class DangerPatternUtil {
+	public static getString(dangerPattern: DangerPattern) {
+		switch (dangerPattern) {
+			case DangerPattern.dp1:
+				return "dangerPattern.dp1";
+			case DangerPattern.dp2:
+				return "dangerPattern.dp2";
+			case DangerPattern.dp3:
+				return "dangerPattern.dp3";
+			case DangerPattern.dp4:
+				return "dangerPattern.dp4";
+			case DangerPattern.dp5:
+				return "dangerPattern.dp5";
+			case DangerPattern.dp6:
+				return "dangerPattern.dp6";
+			case DangerPattern.dp7:
+				return "dangerPattern.dp7";
+			case DangerPattern.dp8:
+				return "dangerPattern.dp8";
+			case DangerPattern.dp9:
+				return "dangerPattern.dp9";
+			case DangerPattern.dp10:
+				return "dangerPattern.dp10";
+
+			default:
+				return "undefined";
+		}
+	}
+	public static getSize() {
+		return 10;
+	}
+}
+
 export enum Tracks {
 	none, some, many 
 }

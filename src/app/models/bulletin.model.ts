@@ -30,9 +30,14 @@ export class BulletinModel {
 
 	public avActivityHighlightsTextcat: string;
 	public avActivityCommentTextcat: string;
+	public snowpackStructureHighlightsTextcat: string;
+	public snowpackStructureCommentTextcat: string;
 
 	public avActivityHighlights: TextModel[];
 	public avActivityComment: TextModel[];
+
+	public dangerPattern1: Enums.DangerPattern;
+	public dangerPattern2: Enums.DangerPattern;
 
 	public snowpackStructureHighlights: TextModel[];
 	public snowpackStructureComment: TextModel[];
@@ -53,8 +58,12 @@ export class BulletinModel {
 			this.afternoonBelow = new BulletinElevationDescriptionModel(bulletin.afternoonBelow);
 			this.avActivityHighlightsTextcat = bulletin.avActivityHighlightsTextcat;
 			this.avActivityCommentTextcat = bulletin.avActivityCommentTextcat;
+			this.snowpackStructureHighlightsTextcat = bulletin.snowpackStructureHighlightsTextcat;
+			this.snowpackStructureCommentTextcat = bulletin.snowpackStructureCommentTextcat;
 			this.avActivityHighlights = bulletin.avActivityHighlights;
 			this.avActivityComment = bulletin.avActivityComment;
+			this.dangerPattern1 = bulletin.dangerPattern1;
+			this.dangerPattern2 = bulletin.dangerPattern2;
 			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
 			this.snowpackStructureComment = bulletin.snowpackStructureComment;
 			this.elevation = bulletin.elevation;
@@ -73,8 +82,12 @@ export class BulletinModel {
 			this.afternoonBelow = new BulletinElevationDescriptionModel();
 			this.avActivityHighlightsTextcat = undefined;
 			this.avActivityCommentTextcat = undefined;
+			this.snowpackStructureHighlights = undefined;
+			this.snowpackStructureComment = undefined;
 			this.avActivityHighlights = new Array<TextModel>();
 			this.avActivityComment = new Array<TextModel>();
+			this.dangerPattern1 = undefined;
+			this.dangerPattern2 = undefined;
 			this.snowpackStructureHighlights = new Array<TextModel>();
 			this.snowpackStructureComment = new Array<TextModel>();
 			this.elevation = undefined;
@@ -236,6 +249,22 @@ export class BulletinModel {
 		this.avActivityCommentTextcat = avActivityCommentTextcat;
 	}
 
+	getSnowpackStructureHighlightsTextcat() : string {
+		return this.snowpackStructureHighlightsTextcat;
+	}
+
+	setSnowpackStructureHighlightsTextcat(snowpackStructureHighlightsTextcat: string) {
+		this.snowpackStructureHighlightsTextcat = snowpackStructureHighlightsTextcat;
+	}
+
+	getSnowpackStructureCommentTextcat() : string {
+		return this.snowpackStructureCommentTextcat;
+	}
+
+	setSnowpackStructureCommentTextcat(snowpackStructureCommentTextcat: string) {
+		this.snowpackStructureCommentTextcat = snowpackStructureCommentTextcat;
+	}
+
 	getAvActivityHighlights() : TextModel[] {
 		return this.avActivityHighlights;
 	}
@@ -294,6 +323,22 @@ export class BulletinModel {
 		model.setLanguageCode(language);
 		model.setText(text);
 		this.avActivityComment.push(model);
+	}
+
+	getDangerPattern1() {
+		return this.dangerPattern1;
+	}
+
+	setDangerPattern1(dangerPattern: Enums.DangerPattern) {
+		this.dangerPattern1 = dangerPattern;
+	}
+
+	getDangerPattern2() {
+		return this.dangerPattern2;
+	}
+
+	setDangerPattern2(dangerPattern: Enums.DangerPattern) {
+		this.dangerPattern2 = dangerPattern;
 	}
 
 	getSnowpackStructureHighlightIn(language: Enums.LanguageCode) : string {
@@ -461,6 +506,12 @@ export class BulletinModel {
 		if (this.avActivityCommentTextcat && this.avActivityHighlightsTextcat != undefined)
 			json['avActivityCommentTextcat'] = this.avActivityCommentTextcat;
 
+		if (this.snowpackStructureHighlightsTextcat && this.snowpackStructureHighlightsTextcat != undefined)
+			json['snowpackStructureHighlightsTextcat'] = this.snowpackStructureHighlightsTextcat;
+
+		if (this.snowpackStructureCommentTextcat && this.snowpackStructureHighlightsTextcat != undefined)
+			json['snowpackStructureCommentTextcat'] = this.snowpackStructureCommentTextcat;
+
 		if (this.avActivityHighlights && this.avActivityHighlights != undefined && this.avActivityHighlights.length > 0) {
 			let highlight = [];
 			for (let i = 0; i <= this.avActivityHighlights.length - 1; i++) {
@@ -475,6 +526,12 @@ export class BulletinModel {
 			}
 			json['avActivityComment'] = comment;
 		}
+
+		if (this.dangerPattern1 && this.dangerPattern1 != undefined)
+			json['dangerPattern1'] = this.dangerPattern1;
+
+		if (this.dangerPattern2 && this.dangerPattern2 != undefined)
+			json['dangerPattern2'] = this.dangerPattern2;
 
 		if (this.snowpackStructureHighlights && this.snowpackStructureHighlights != undefined && this.snowpackStructureHighlights.length > 0) {
 			let highlight = [];
@@ -546,6 +603,10 @@ export class BulletinModel {
 			bulletin.setAvActivityHighlightsTextcat(json.avActivityHighlightsTextcat);
 		if (json.avActivityCommentTextcat)
 			bulletin.setAvActivityCommentTextcat(json.avActivityCommentTextcat);
+		if (json.snowpackStructureHighlightsTextcat)
+			bulletin.setSnowpackStructureHighlightsTextcat(json.snowpackStructureHighlightsTextcat);
+		if (json.snowpackStructureCommentTextcat)
+			bulletin.setSnowpackStructureCommentTextcat(json.snowpackStructureCommentTextcat);
 
 		let jsonAvActivityHighlights = json.avActivityHighlights;
 		let avActivityHighlights = new Array<TextModel>();
@@ -560,6 +621,11 @@ export class BulletinModel {
 			avActivityComment.push(TextModel.createFromJson(jsonAvActivityComment[i]));
 		}
 		bulletin.setAvActivityComment(avActivityComment);
+
+		if (json.dangerPattern1)
+			bulletin.setDangerPattern1(json.dangerPattern1);
+		if (json.dangerPattern2)
+			bulletin.setDangerPattern2(json.dangerPattern2);
 
 		let jsonSnowpackStructureHighlight = json.snowpackStructureHighlights;
 		let snowpackStructureHighlights = new Array<TextModel>();
