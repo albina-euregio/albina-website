@@ -42,17 +42,7 @@
                         <tbody>
                           <tr>
                             <td>
-                              <div class="grid-container">
-                                <div class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                                <div *ngIf="bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorAbove(bulletin)"></div>
-                                <div *ngIf="!bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                                <div *ngIf="bulletin.hasElevationDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                                <div *ngIf="!bulletin.hasElevationDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                                <div *ngIf="bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorBelow(bulletin)"></div>
-                                <div *ngIf="bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                                <div *ngIf="!bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                                <div *ngIf="!bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                              </div>
+                              <danger-rating [bulletin]="bulletin"></danger-rating>
                             </td>
                             <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                             <td>
@@ -118,17 +108,7 @@
 
                     <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
                       <td>
-                        <div class="grid-container">
-                          <div class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                          <div *ngIf="bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorAbove(bulletin)"></div>
-                          <div *ngIf="!bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                          <div *ngIf="bulletin.hasElevationDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                          <div *ngIf="!bulletin.hasElevationDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                          <div *ngIf="bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorBelow(bulletin)"></div>
-                          <div *ngIf="bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                          <div *ngIf="!bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                          <div *ngIf="!bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                        </div>
+                        <danger-rating [bulletin]="bulletin"></danger-rating>
                       </td>
                       <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                       <td>
@@ -154,17 +134,7 @@
                         <tbody>
                           <tr>
                             <td>
-                              <div class="grid-container">
-                                <div class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                                <div *ngIf="bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorAbove(bulletin)"></div>
-                                <div *ngIf="!bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                                <div *ngIf="bulletin.hasElevationDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                                <div *ngIf="!bulletin.hasElevationDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                                <div *ngIf="bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorBelow(bulletin)"></div>
-                                <div *ngIf="bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                                <div *ngIf="!bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                                <div *ngIf="!bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                              </div>
+                              <danger-rating [bulletin]="bulletin"></danger-rating>
                             </td>
                             <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                             <td>
@@ -233,17 +203,7 @@
 
                     <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
                       <td>
-                        <div class="grid-container">
-                          <div class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                          <div *ngIf="bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorAbove(bulletin)"></div>
-                          <div *ngIf="!bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                          <div *ngIf="bulletin.hasElevationDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                          <div *ngIf="!bulletin.hasElevationDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                          <div *ngIf="bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorBelow(bulletin)"></div>
-                          <div *ngIf="bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                          <div *ngIf="!bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorAbove(bulletin)"></div>
-                          <div *ngIf="!bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorBelow(bulletin)"></div>
-                        </div>
+                        <danger-rating [bulletin]="bulletin"></danger-rating>
                       </td>
                       <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                       <td>

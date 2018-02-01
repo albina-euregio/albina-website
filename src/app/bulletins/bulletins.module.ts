@@ -6,6 +6,7 @@ import { BulletinsComponent } from './bulletins.component';
 import { CreateBulletinComponent } from './create-bulletin.component';
 import { BulletinDetailComponent } from './bulletin-detail.component';
 import { AspectsComponent } from './aspects.component';
+import { DangerRatingComponent } from './danger-rating.component';
 import { CopComponent } from './cop.component';
 import { CaamlComponent } from './caaml.component';
 import { Tabs } from './tabs.component';
@@ -35,6 +36,7 @@ import { PipeModule }    from '../pipes/pipes.module';
     CreateBulletinComponent,
     BulletinDetailComponent,
     AspectsComponent,
+    DangerRatingComponent,
     CopComponent,
     CaamlComponent,
     Tabs,
