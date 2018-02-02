@@ -4,6 +4,7 @@ import { Map } from "leaflet";
 import { BulletinModel } from "../../models/bulletin.model";
 import { RegionsService } from '../regions-service/regions.service';
 import { AuthenticationService } from '../authentication-service/authentication.service';
+import { ConstantsService } from '../constants-service/constants.service';
 import * as Enums from '../../enums/enums';
 
 import "leaflet";
@@ -26,7 +27,8 @@ export class MapService {
     constructor(
         private http: Http,
         private regionsService: RegionsService,
-        private authenticationService: AuthenticationService)
+        private authenticationService: AuthenticationService,
+        private constantsService: ConstantsService)
     {
         this.baseMaps = {
             AlbinaBaseMap: L.tileLayer('https://data1.geo.univie.ac.at/TMS/ALBINA/EUREGIO-TMS/{z}/{x}/{y}.png', {
@@ -466,10 +468,12 @@ export class MapService {
             click: function(e) {
                 if (feature.properties.selected && feature.properties.selected == true) {
                     feature.properties.selected = false;
-                    layer.setStyle({fillColor: 'black', fillOpacity: 0.0});
+                    // TODO use constantsService
+                    layer.setStyle({fillColor: '#000000', fillOpacity: 0.0});
                 } else {
                     feature.properties.selected = true;
-                    layer.setStyle({fillColor: 'blue', fillOpacity: 0.5});
+                    // TODO use constantsService
+                    layer.setStyle({fillColor: '#3852A4', fillOpacity: 0.5});
                 }
             }
         });
@@ -477,122 +481,113 @@ export class MapService {
 
     private getBaseStyle(feature?) {
         return {
-            fillColor: 'black',
-            weight: 1,
+            fillColor: this.constantsService.getDangerRatingColor("missing"),
+            weight: this.constantsService.lineWeight,
             opacity: 0.0,
-            color: 'black',
+            color: this.constantsService.lineColor,
             fillOpacity: 0.0
         };
     }
 
     private getAggregatedRegionsBaseStyle(feature?) {
         return {
-            fillColor: 'black',
-            weight: 1,
+            fillColor: this.constantsService.getDangerRatingColor("missing"),
+            weight: this.constantsService.lineWeight,
             opacity: 0.0,
-            color: 'black',
+            color: this.constantsService.lineColor,
             fillOpacity: 0.0
         };
     }
 
     private getUserDependendBaseStyle(region) {
-        let opacity = 0.0;
-        if (region.startsWith(this.authenticationService.getUserRegion()))
-            opacity = 0.0;
-
         return {
-            fillColor: 'black',
-            weight: 1,
-            opacity: opacity,
-            color: 'black',
+            fillColor: this.constantsService.getDangerRatingColor("missing"),
+            weight: this.constantsService.lineWeight,
+            opacity: 0.0,
+            color: this.constantsService.lineColor,
             fillOpacity: 0.0
         };
     }
 
     private getUserDependendRegionStyle(region) {
-        let opacity = 0.3;
+        let opacity = this.constantsService.lineOpacityForeignRegion;
         if (region.startsWith(this.authenticationService.getUserRegion()))
-            opacity = 1.0;
+            opacity = this.constantsService.lineOpacityOwnRegion;
 
         return {
-            fillColor: 'black',
-            weight: 1,
+            fillColor: this.constantsService.getDangerRatingColor("missing"),
+            weight: this.constantsService.lineWeight,
             opacity: opacity,
-            color: 'black',
+            color: this.constantsService.lineColor,
             fillOpacity: 0.0
         };
     }
 
     private getActiveSelectionBaseStyle() {
         return {
-            fillColor: 'black',
-            weight: 1,
+            fillColor: this.constantsService.getDangerRatingColor("missing"),
+            weight: this.constantsService.lineWeight,
             opacity: 0.0,
-            color: 'black',
+            color: this.constantsService.lineColor,
             fillOpacity: 0.0
         };
     }
 
     private getEditSelectionBaseStyle() {
         return {
-            fillColor: 'black',
-            weight: 1,
+            fillColor: this.constantsService.getDangerRatingColor("missing"),
+            weight: this.constantsService.lineWeight,
             opacity: 0.0,
-            color: 'black',
+            color: this.constantsService.lineColor,
             fillOpacity: 0.0
         };
     }
 
     private getEditSelectionStyle(status) {
-        let fillOpacity = 0.3;
+        let fillOpacity = this.constantsService.fillOpacityEditSuggested;
         if (status == Enums.RegionStatus.saved)
-            fillOpacity = 0.5;
+            fillOpacity = this.constantsService.fillOpacityEditSelected;
         else if (status == Enums.RegionStatus.suggested)
-            fillOpacity = 0.3;
+            fillOpacity = this.constantsService.fillOpacityEditSuggested;
 
         return {
-            fillColor: 'blue',
-            weight: 1,
+            fillColor: this.constantsService.colorActiveSelection,
+            weight: this.constantsService.lineWeight,
             opacity: 1,
-            color: 'blue',
+            color: this.constantsService.colorActiveSelection,
             fillOpacity: fillOpacity
         }
     }
 
     private getActiveSelectionStyle(region, dangerRating, status) {
-        let fillOpacity = 1.0;
+        let fillOpacity = this.constantsService.fillOpacityOwnSelected;
         let opacity = 0.0;
 
         // own area
         if (region.startsWith(this.authenticationService.getUserRegion())) {
             if (status == Enums.RegionStatus.published) {
-                fillOpacity = 1.0;
+                fillOpacity = this.constantsService.fillOpacityOwnSelected;
             } else if (status == Enums.RegionStatus.suggested) {
-                fillOpacity = 0.5;
+                fillOpacity = this.constantsService.fillOpacityOwnSelectedSuggested;
             } else if (status == Enums.RegionStatus.saved) {
-                fillOpacity = 1.0;
+                fillOpacity = this.constantsService.fillOpacityOwnSelected;
             }
 
         // foreign area
         } else {
-            opacity = 0.0;
-            fillOpacity = 0.3;
+            if (status == Enums.RegionStatus.published) {
+                fillOpacity = this.constantsService.fillOpacityForeignSelected;
+            } else if (status == Enums.RegionStatus.suggested) {
+                fillOpacity = this.constantsService.fillOpacityForeignSelectedSuggested;
+            } else if (status == Enums.RegionStatus.saved) {
+                fillOpacity = this.constantsService.fillOpacityForeignSelected;
+            }
         }
 
-        let fillColor = 'grey';
-        if (dangerRating == "very_high")
-            fillColor = 'black';
-        else if (dangerRating == "high")
-            fillColor = 'red';
-        else if (dangerRating == "considerable")
-            fillColor = 'orange';
-        else if (dangerRating == "moderate")
-            fillColor = 'yellow';
-        else if (dangerRating == "low")
-            fillColor = 'green';
+        let fillColor = this.constantsService.getDangerRatingColor(dangerRating);
 
         return {
-            color: 'black',
+            color: this.constantsService.lineColor,
             opacity: opacity,
             fillColor: fillColor,
             fillOpacity: fillOpacity
@@ -600,39 +595,33 @@ export class MapService {
     }
 
     private getDangerRatingStyle(region, dangerRating, status) {
-        let fillOpacity = 1.0;
+        let fillOpacity = this.constantsService.fillOpacityOwnDeselected;
         let opacity = 0.0;
 
         // own area
         if (region.startsWith(this.authenticationService.getUserRegion())) {
             if (status == Enums.RegionStatus.published) {
-                fillOpacity = 0.5;
+                fillOpacity = this.constantsService.fillOpacityOwnDeselected;
             } else if (status == Enums.RegionStatus.suggested) {
-                fillOpacity = 0.3;
+                fillOpacity = this.constantsService.fillOpacityOwnDeselectedSuggested;
             } else if (status == Enums.RegionStatus.saved) {
-                fillOpacity = 0.5;
+                fillOpacity = this.constantsService.fillOpacityOwnDeselected;
             }
 
         // foreign area
         } else {
-            opacity = 0.0;
-            fillOpacity = 0.1;
+            if (status == Enums.RegionStatus.published) {
+                fillOpacity = this.constantsService.fillOpacityForeignDeselected;
+            } else if (status == Enums.RegionStatus.suggested) {
+                fillOpacity = this.constantsService.fillOpacityForeignDeselectedSuggested;
+            } else if (status == Enums.RegionStatus.saved) {
+                fillOpacity = this.constantsService.fillOpacityForeignDeselected;
+            }
         }
 
-        let color = 'grey';
-        if (dangerRating == "very_high")
-            color = 'black';
-        else if (dangerRating == "high")
-            color = 'red';
-        else if (dangerRating == "considerable")
-            color = 'orange';
-        else if (dangerRating == "moderate")
-            color = 'yellow';
-        else if (dangerRating == "low")
-            color = 'green';
-
+        let color = this.constantsService.getDangerRatingColor(dangerRating);
         return {
-            color: 'black',
+            color: this.constantsService.lineColor,
             opacity: opacity,
             fillColor: color,
             fillOpacity: fillOpacity

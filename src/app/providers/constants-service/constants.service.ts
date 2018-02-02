@@ -40,7 +40,53 @@ export class ConstantsService {
     [this.codeTrentino, ['IT-32-TN-01', 'IT-32-TN-02', 'IT-32-TN-03', 'IT-32-TN-04', 'IT-32-TN-05', 'IT-32-TN-06', 'IT-32-TN-07', 'IT-32-TN-08', 'IT-32-TN-09', 'IT-32-TN-10', 'IT-32-TN-11', 'IT-32-TN-12', 'IT-32-TN-13', 'IT-32-TN-14', 'IT-32-TN-15', 'IT-32-TN-16', 'IT-32-TN-17', 'IT-32-TN-18', 'IT-32-TN-19', 'IT-32-TN-20', 'IT-32-TN-21']]
   ]);
 
+  public colorDangerRatingLow = '#CCFF66';
+  public colorDangerRatingModerate = '#FFFF00';
+  public colorDangerRatingConsiderable = '#FF9900';
+  public colorDangerRatingHigh = '#FF0000';
+  // not standardized
+  public colorDangerRatingVeryHigh = '#800000';
+  public colorDangerRatingMissing = '#969696';
+  public colorActiveSelection = '#3852A4';
+
+  public lineColor = '#000000';
+  public lineWeight = 0.5;
+  public lineOpacityOwnRegion = 1.0;
+  public lineOpacityForeignRegion = 0.3;
+
+  public fillOpacityOwnSelected = 1.0;
+  public fillOpacityOwnDeselected = 0.6;
+  public fillOpacityOwnSelectedSuggested = 0.8;
+  public fillOpacityOwnDeselectedSuggested = 0.5;
+
+  public fillOpacityForeignSelected = 0.5;
+  public fillOpacityForeignDeselected = 0.3;
+  public fillOpacityForeignSelectedSuggested = 0.5;
+  public fillOpacityForeignDeselectedSuggested = 0.2;
+
+  public fillOpacityEditSelected = 0.5;
+  public fillOpacityEditSuggested = 0.3;
+
+
   constructor() {
+  }
+
+  getDangerRatingColor(dangerRating) {
+    switch (dangerRating) {
+      case "very_high":
+        return this.colorDangerRatingVeryHigh;
+      case "high":
+        return this.colorDangerRatingHigh;
+      case "considerable":
+        return this.colorDangerRatingConsiderable;
+      case "moderate":
+        return this.colorDangerRatingModerate;
+      case "low":
+        return this.colorDangerRatingLow;
+      
+      default:
+        return this.colorDangerRatingMissing;
+    }
   }
 
   getServerUrl() {

@@ -13,7 +13,8 @@
 	"sidebar" : {
 		"bulletins" : "Lawinenlageberichte",
 		"news" : "News",
-		"observations" : "Rückmeldungen"
+		"observations" : "Rückmeldungen",
+		"catalogueOfPhrases" : "Satzkatalog"
 	},
 	"menu" : {
 		"logout" : "Logout",
@@ -161,7 +162,8 @@
 				"elevation" : "Höhenabhängigkeit",
 				"daytime" : "Tageszeitliche Abhängigkeit",
 				"snowpackStructureHighlights" : "Schlagzeile Schneedeckenaufbau",
-				"snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus"
+				"snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus",
+				"dangerPatterns" : "Gefahrenmuster"
 			},
 			"title" : {
 				"map" : "Karte",
@@ -315,6 +317,18 @@
 		"oldSnow" : "Altschnee",
 		"wetSnow" : "Nassschnee",
 		"glidingSnow" : "Gleitschnee"
+	},
+	"dangerPattern" : {
+		"dp1" : "gm1: Bodennahe Schachschicht vom Frühwinter",
+		"dp2" : "gm2: Gleitschnee",
+		"dp3" : "gm3: Regen",
+		"dp4" : "gm4: Kalt auf warm / warm auf kalt",
+		"dp5" : "gm5: Schnee nach langer Kälteperiode",
+		"dp6" : "gm6: Lockerer Schnee und Wind",
+		"dp7" : "gm7: Schneearm neben schneereich",
+		"dp8" : "gm8: Eingeschneiter Oberflächenreif",
+		"dp9" : "gm9: Eingeschneiter Graupel",
+		"dp10" : "gm10: Frühjahrssituation"
 	},
 	"aspect" : {
 		"N" : "N",

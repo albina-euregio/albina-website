@@ -41,7 +41,9 @@
                       <table>
                         <tbody>
                           <tr>
-                            <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(bulletin)"></i></td>
+                            <td>
+                              <danger-rating [bulletin]="bulletin"></danger-rating>
+                            </td>
                             <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                             <td>
                               <div>
@@ -105,7 +107,9 @@
                     </tr>
 
                     <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
-                      <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(bulletin)"></i></td>
+                      <td>
+                        <danger-rating [bulletin]="bulletin"></danger-rating>
+                      </td>
                       <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                       <td>
                         <div>
@@ -114,7 +118,6 @@
                       </td>
                       <td *ngIf="hasSuggestions(bulletin)"><i class="fa fa-lightbulb-o"></i></td>
                     </tr>
-
                   </div>
                 </tbody>
               </table>
@@ -130,7 +133,9 @@
                       <table>
                         <tbody>
                           <tr>
-                            <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(bulletin)"></i></td>
+                            <td>
+                              <danger-rating [bulletin]="bulletin"></danger-rating>
+                            </td>
                             <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                             <td>
                               <div>
@@ -181,9 +186,15 @@
                             <td *ngIf="!bulletin.hasElevationDependency">
                               <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
                             </td>
-                            <td *ngIf="activeBulletin.hasElevationDependency" class="input-prepend input-group">
-                              <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="14" type="number" name="elevation-input" (click)="elevationInputClicked($event)" [disabled]="true" [(ngModel)]="activeBulletin.elevation">
+                            <td *ngIf="bulletin.hasElevationDependency" class="input-prepend input-group">
+                              <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="14" type="number" name="elevation-input" [disabled]="true" [(ngModel)]="activeBulletin.elevation">
                               <span class="input-group-addon">m</span>
+                            </td>
+                            <td *ngIf="bulletin.hasElevationDependency && bulletin.treeline">
+                              <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
+                            </td>
+                            <td *ngIf="bulletin.hasElevationDependency && !bulletin.treeline">
+                              <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
                             </td>
                           </tr>
                         </tbody>
@@ -191,7 +202,9 @@
                     </tr>
 
                     <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
-                      <td><i class="fa fa-circle" [ngStyle]="getForenoonColor(bulletin)"></i></td>
+                      <td>
+                        <danger-rating [bulletin]="bulletin"></danger-rating>
+                      </td>
                       <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                       <td>
                         <div>
@@ -262,45 +275,19 @@
         </div>
         <div class="card-block">
          <div class="form-group row">
-            <div class="col-md-4">
+            <div class="col-md-12">
               <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="text-input"><strong>Schlagzeile Gefahrensituation</strong></label>
+                <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
                 <div class="col-md-12">
-                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [(ngModel)]="activeAvActivityHighlightsDe">
+                  <!-- TODO disable cop if editRegions -->
+                  <cop #avActivityHighlightsTextcat [text]="activeBulletin.avActivityHighlightsTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
                 </div>
               </div>
               <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Beurteilung der Lawinengefahr</strong></label>
+                <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
                 <div class="col-md-12">
-                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [(ngModel)]="activeAvActivityCommentDe"></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="text-input"><strong>Titolo situazione pericolo valanghe</strong></label>
-                <div class="col-md-12">
-                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [(ngModel)]="activeAvActivityHighlightsIt">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Testo di discrezione pericolo valanghe</strong></label>
-                <div class="col-md-12">
-                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [(ngModel)]="activeAvActivityCommentIt"></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="text-input"><strong>Headline avalanche situation</strong></label>
-                <div class="col-md-12">
-                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [(ngModel)]="activeAvActivityHighlightsEn">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Description of avalanche danger</strong></label>
-                <div class="col-md-12">
-                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [(ngModel)]="activeAvActivityCommentEn"></textarea>
+                  <!-- TODO disable cop if editRegions -->
+                  <cop #avActivityCommentTextcat [text]="activeBulletin.avActivityCommentTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
                 </div>
               </div>
             </div>
@@ -318,45 +305,47 @@
         </div>
         <div class="card-block">
           <div class="form-group row">
-            <div class="col-md-4">
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="text-input"><strong>Schlagzeile Schneedeckenaufbau</strong></label>
-                <div class="col-md-12">
-                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !bulletinsService.getIsEditable() || loading || !isCreator(activeBulletin)" [(ngModel)]="activeSnowpackStructureHighlightsDe">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Beschreibung des Schneedeckenaufbaus</strong></label>
-                <div class="col-md-12">
-                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !bulletinsService.getIsEditable() || loading || !isCreator(activeBulletin)" [(ngModel)]="activeSnowpackStructureCommentDe"></textarea>
-                </div>
-              </div>
+            <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.dangerPatterns" | translate }}</strong></label>
+            <div class="col-md-12">
+              <select [(ngModel)]="activeBulletin.dangerPattern1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                  <option selected></option>
+                  <option value="dp1">{{ "dangerPattern.dp1" | translate }}</option>
+                  <option value="dp2">{{ "dangerPattern.dp2" | translate }}</option>
+                  <option value="dp3">{{ "dangerPattern.dp3" | translate }}</option>
+                  <option value="dp4">{{ "dangerPattern.dp4" | translate }}</option>
+                  <option value="dp5">{{ "dangerPattern.dp5" | translate }}</option>
+                  <option value="dp6">{{ "dangerPattern.dp6" | translate }}</option>
+                  <option value="dp7">{{ "dangerPattern.dp7" | translate }}</option>
+                  <option value="dp8">{{ "dangerPattern.dp8" | translate }}</option>
+                  <option value="dp9">{{ "dangerPattern.dp9" | translate }}</option>
+                  <option value="dp10">{{ "dangerPattern.dp10" | translate }}</option>
+              </select>
             </div>
-            <div class="col-md-4">
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="text-input"><strong>Titolo struttura manto nevoso</strong></label>
-                <div class="col-md-12">
-                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !bulletinsService.getIsEditable() || loading || !isCreator(activeBulletin)" [(ngModel)]="activeSnowpackStructureHighlightsIt">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Descrizione struttura manto nevoso</strong></label>
-                <div class="col-md-12">
-                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !bulletinsService.getIsEditable() || loading || !isCreator(activeBulletin)" [(ngModel)]="activeSnowpackStructureCommentIt"></textarea>
-                </div>
-              </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <select [(ngModel)]="activeBulletin.dangerPattern2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                  <option selected></option>
+                  <option value="dp1">{{ "dangerPattern.dp1" | translate }}</option>
+                  <option value="dp2">{{ "dangerPattern.dp2" | translate }}</option>
+                  <option value="dp3">{{ "dangerPattern.dp3" | translate }}</option>
+                  <option value="dp4">{{ "dangerPattern.dp4" | translate }}</option>
+                  <option value="dp5">{{ "dangerPattern.dp5" | translate }}</option>
+                  <option value="dp6">{{ "dangerPattern.dp6" | translate }}</option>
+                  <option value="dp7">{{ "dangerPattern.dp7" | translate }}</option>
+                  <option value="dp8">{{ "dangerPattern.dp8" | translate }}</option>
+                  <option value="dp9">{{ "dangerPattern.dp9" | translate }}</option>
+                  <option value="dp10">{{ "dangerPattern.dp10" | translate }}</option>
+              </select>
             </div>
-            <div class="col-md-4">
+          </div>
+          <div class="form-group row">
+            <div class="col-md-12">
               <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="text-input"><strong>Headline snowpack structure</strong></label>
+                <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
                 <div class="col-md-12">
-                  <input type="text" id="text-input" name="text-input" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !bulletinsService.getIsEditable() || loading || !isCreator(activeBulletin)" [(ngModel)]="activeSnowpackStructureHighlightsEn">
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>Description of snowpack structure</strong></label>
-                <div class="col-md-12">
-                  <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="!bulletinsService.getIsEditable() || editRegions || !bulletinsService.getIsEditable() || loading || !isCreator(activeBulletin)" [(ngModel)]="activeSnowpackStructureCommentEn"></textarea>
+                  <!-- TODO disable cop if editRegions -->
+                  <cop #snowpackStructureCommentTextcat [text]="activeBulletin.snowpackStructureCommentTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
                 </div>
               </div>
             </div>

@@ -1,0 +1,93 @@
+<script id='dialogTemplate' type='x-jquery-tmpl'>
+<div id='dialog'>
+	<input type='text' id='filterInput' onKeyUp='PM.closeJokerSentenceForm();PM.search(false)'/>
+	<img src='${ContextPath}images/document_find.png' onclick='PM.closeJokerSentenceForm();PM.search(true)' />
+	<img src='${ContextPath}images/document_edit.png' onclick='PM.openJokerSentenceForm()' />
+	<span class='status'>Status:</span><span id='status' class='status'> </span>
+    <div id="dialog_jokerSentenceArea" />
+	<table id='sTable' />
+</div>
+</script>
+
+<script id='sentenceTemplate' type='x-jquery-tmpl'>
+<tr class='sentence' id='${Id}'>
+	<td>${Title}</td>
+	<td>
+		<input type='checkbox' onclick='PM.onSentenceClick(this)'>
+	</td>
+	<td>
+		<table class='optionTable'>
+			<tr class='option' id='${Id}'>
+			{{each(i, option) Options}}
+				<td>
+					<table class='phraseTable'>
+						<tr>
+							<td class='optionTitle'>${option.Title}</td>
+						</tr>
+						<tr>
+							<td class='${option.Class}' id='${option.Id}'>${option.Text}</td>
+						</tr>
+						{{each(i, phrase) option.Phrases}}
+						<tr class='phraseRow' style='visibility:collapse'>
+							<td id='${phrase.Id}' class='${phrase.Class}' onClick='PM.onPhraseClick(this)'>${phrase.Text}</td>
+						</tr>
+						{{/each}}
+					</table>
+				</td>
+			{{/each}}
+			</tr>
+		</table>
+	</td>
+	<td>
+		<img src='${ContextPath}images/document_into.png' onclick='PM.addSentenceClick(this.parentNode.parentNode,true)'></img>
+		<img src='${ContextPath}images/replace2.png' onclick='PM.addSentenceClick(this.parentNode.parentNode,false)'></img>
+	</td>
+</tr>
+</script>
+
+<script id='phraseOptionTemplate' type='x-jquery-tmpl'>
+<tr id='phraseOptionId' index=${Index}>
+	<td>
+		<div class='scrollable'>
+			<table class='phraseOptionTable'>
+			{{each(i, phrase) Phrases}}
+				<tr>
+					<td id='${phrase.Id}' class='subPhrase' onClick='PM.onSubPhraseClick(this)'>${phrase.Text}</td>
+				</tr>
+			{{/each}}
+			</table>
+		</div>
+	</td>
+</tr>
+</script>
+
+<script id='jokerSentenceFormTemplate' type='x-jquery-tmpl'>
+<div id='jokerSentenceForm'>
+  <form>
+    <fieldset>
+      <legend>Joker-Satz</legend>
+      <p id='jokerSentenceForm_validateTips' class='validateTips'>Alle Sprachen erforderlich.</p>
+      <div class="jokerSentenceForm_input">
+        <label for='jokerSentenceForm_de'>de</label>
+        <input id='jokerSentenceForm_de' type='text' onkeyup='PM.validateCharsetISO8859(this);' />
+      </div>
+      <div class="jokerSentenceForm_input">
+        <label for='jokerSentenceForm_en'>en</label>
+        <input id='jokerSentenceForm_en' type='text' onkeyup='PM.validateCharsetISO8859(this);'/>
+      </div>
+      <div class="jokerSentenceForm_input">
+        <label for='jokerSentenceForm_fr'>fr</label>
+        <input id='jokerSentenceForm_fr' type='text' onkeyup='PM.validateCharsetISO8859(this);'/>
+      </div>
+      <div class="jokerSentenceForm_input">
+        <label for='jokerSentenceForm_it'>it</label>
+        <input id='jokerSentenceForm_it' type='text' onkeyup='PM.validateCharsetISO8859(this);'/>
+      </div>
+      <div class="saveExit">
+        <img src='${ContextPath}images/disk_blue_16x16.png' onclick='PM.saveJokerSentence()' />
+        <img src='${ContextPath}images/exit.png' onclick='PM.closeJokerSentenceForm()' />
+      </div>
+    </fieldset>
+  </form>
+</div>
+</script>

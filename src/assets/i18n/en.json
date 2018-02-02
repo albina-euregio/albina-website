@@ -13,7 +13,8 @@
 	"sidebar" : {
 		"bulletins" : "Bulletins",
 		"news" : "News",
-		"observations" : "Observations"
+		"observations" : "Observations",
+		"catalogueOfPhrases" : "Catalogue of Phrases"
 	},
 	"menu" : {
 		"logout" : "Logout",
@@ -161,7 +162,8 @@
 				"elevation" : "Elevation",
 				"daytime" : "Daytime",
 				"snowpackStructureHighlights" : "Headline snowpack structure",
-				"snowpackStructureComment" : "Description of snowpack structure"
+				"snowpackStructureComment" : "Description of snowpack structure",
+				"dangerPatterns" : "Danger patterns"
 			},
 			"title" : {
 				"map" : "Map",
@@ -315,6 +317,18 @@
 		"oldSnow" : "Old snow",
 		"wetSnow" : "Wet snow",
 		"glidingSnow" : "Gliding snow"
+	},
+	"dangerPattern" : {
+		"dp1" : "dp1: deep persistent weak layer",
+		"dp2" : "dp2: gliding avalanches",
+		"dp3" : "dp3: rain",
+		"dp4" : "dp4: cold following warm / warm following cold",
+		"dp5" : "dp5: snowfall after a long period of cold",
+		"dp6" : "dp6: cold, loose snow and wind",
+		"dp7" : "dp7: snow-poor zones in snow-rich surrounding",
+		"dp8" : "dp8: surface hoar blanketed with snow",
+		"dp9" : "dp9: graupel blanketed with snow",
+		"dp10" : "dp10: springtime scenario"
 	},
 	"aspect" : {
 		"N" : "N",

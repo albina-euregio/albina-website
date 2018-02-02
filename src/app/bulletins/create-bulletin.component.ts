@@ -1,4 +1,4 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, Input, HostListener, ViewChild, ElementRef, NgZone, ApplicationRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinElevationDescriptionModel } from '../models/bulletin-elevation-description.model';
@@ -34,14 +34,13 @@ declare var L:any;
 export class CreateBulletinComponent {
 
   public bulletinStatus = Enums.BulletinStatus;
+  public dangerPattern = Enums.DangerPattern;
 
   public originalBulletins: Map<string, BulletinModel>;
 
   public editRegions: boolean;
   public loading: boolean;
   public showAfternoonMap: boolean;
-
-  public aggregatedRegionsIds: string[];
 
   public activeBulletin: BulletinModel;
   public bulletinsList: BulletinModel[];
@@ -60,6 +59,9 @@ export class CreateBulletinComponent {
   public activeSnowpackStructureHighlightsEn: string;
   public activeSnowpackStructureCommentEn: string;
 
+  @ViewChild('avActivityHighlightsTextcat') avActivityHighlightsTextcat;
+  @ViewChild('avActivityCommentTextcat') avActivityCommentTextcat;
+
   constructor(
     private translate: TranslateService,
     private route: ActivatedRoute,
@@ -71,7 +73,9 @@ export class CreateBulletinComponent {
     private constantsService: ConstantsService,
     private mapService: MapService,
     private regionsService: RegionsService,
-    private confirmationService: ConfirmationService)
+    private confirmationService: ConfirmationService,
+    private ngZone: NgZone,
+    private applicationRef: ApplicationRef)
   {
     this.loading = true;
     this.showAfternoonMap = false;
@@ -79,7 +83,6 @@ export class CreateBulletinComponent {
 
   reset() {
     this.originalBulletins = new Map<string, BulletinModel>();
-    this.aggregatedRegionsIds = new Array<string>();
     this.activeBulletin = undefined;
     this.bulletinsList = new Array<BulletinModel>();
 
@@ -587,7 +590,8 @@ export class CreateBulletinComponent {
 
   createBulletin(copy) {
 
-    // TODO lock region (Tirol, Südtirol or Trentino) via socketIO
+    // TODO unlock bulletin (Tirol, Südtirol or Trentino) via socketIO
+    // TODO lock bulletin (Tirol, Südtirol or Trentino) via socketIO
 
     let bulletin: BulletinModel;
 
@@ -610,7 +614,7 @@ export class CreateBulletinComponent {
 
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
-      this.setTexts();
+      this.deselectBulletin();
 
       this.activeBulletin = bulletin;
       this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
@@ -627,6 +631,26 @@ export class CreateBulletinComponent {
       this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
 
       this.mapService.selectAggregatedRegion(this.activeBulletin);
+    }
+  }
+
+  deselectBulletin() {
+    if (this.checkElevation()) {
+      if (!this.editRegions) {
+
+        this.setTexts();
+
+        // TODO this can be done nicer 
+        if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat.textcat && this.avActivityHighlightsTextcat.textcat.nativeElement && this.avActivityHighlightsTextcat.textcat.nativeElement.value)
+          this.activeBulletin.setAvActivityHighlightsTextcat(this.avActivityHighlightsTextcat.textcat.nativeElement.value);
+        if (this.avActivityCommentTextcat && this.avActivityCommentTextcat.textcat && this.avActivityCommentTextcat.textcat.nativeElement && this.avActivityCommentTextcat.textcat.nativeElement.value)
+          this.activeBulletin.setAvActivityCommentTextcat(this.avActivityCommentTextcat.textcat.nativeElement.value);
+
+        this.mapService.deselectAggregatedRegion();
+        this.activeBulletin = undefined;
+
+        this.applicationRef.tick();
+      }
     }
   }
 
@@ -703,15 +727,6 @@ export class CreateBulletinComponent {
       if (!daytimeDependency && this.showAfternoonMap) {
         this.showAfternoonMap = false;
         this.onShowAfternoonMapChange(false);
-      }
-    }
-  }
-
-  deselectBulletin() {
-    if (this.checkElevation()) {
-      if (!this.editRegions) {
-        this.mapService.deselectAggregatedRegion();
-        this.activeBulletin = undefined;
       }
     }
   }
@@ -928,53 +943,13 @@ export class CreateBulletinComponent {
     // TODO unlock whole day in TN
   }
 
-  getForenoonColor(bulletin: BulletinModel) {
-    let dangerRating = bulletin.getForenoonDangerRatingAbove().toString();
-    return this.getDangerRatingColor(dangerRating);
-  }
-
-  getAfternoonColor(bulletin: BulletinModel) {
-    let dangerRating = "";
-    if (bulletin.getAfternoonDangerRatingAbove())
-      dangerRating = bulletin.getAfternoonDangerRatingAbove().toString();
-    else
-      dangerRating = bulletin.getForenoonDangerRatingAbove().toString();
-    return this.getDangerRatingColor(dangerRating);
-  }
-
-  private getDangerRatingColor(dangerRating) {
-    if (dangerRating == "very_high") {
-        return {
-            color: 'black'
-        }
-    } else if (dangerRating == "high") {
-        return {
-            color: 'red'
-        }
-    } else if (dangerRating == "considerable") {
-        return {
-            color: 'orange'
-        }
-    } else if (dangerRating == "moderate") {
-        return {
-            color: 'yellow'
-        }
-    } else if (dangerRating == "low") {
-        return {
-            color: 'green'
-        }
-    } else {
-        return {
-            color: 'grey'
-        }
-    }
-  }
-
   save() {
     if (this.checkElevation()) {
       this.loading = true;
 
       this.setTexts();
+
+      this.deselectBulletin();
 
       let validFrom = new Date(this.bulletinsService.getActiveDate());
       let validUntil = new Date(this.bulletinsService.getActiveDate());
