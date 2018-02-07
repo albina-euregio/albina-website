@@ -8,6 +8,7 @@ import { BulletinDetailComponent } from './bulletin-detail.component';
 import { AspectsComponent } from './aspects.component';
 import { DangerRatingComponent } from './danger-rating.component';
 import { CopComponent } from './cop.component';
+import { MatrixComponent } from './matrix.component';
 import { CaamlComponent } from './caaml.component';
 import { Tabs } from './tabs.component';
 import { Tab } from './tab.component';
@@ -38,6 +39,7 @@ import { PipeModule }    from '../pipes/pipes.module';
     AspectsComponent,
     DangerRatingComponent,
     CopComponent,
+    MatrixComponent,
     CaamlComponent,
     Tabs,
     Tab

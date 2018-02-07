@@ -1078,3 +1078,91 @@ export class TracksUtil {
 export enum Status {
 	draft, published, deleted
 }
+
+export enum HazardSiteDistribution {
+	single, some, many, many_most, moderately_steep
+}
+export class HazardSiteDistributionUtil {
+	public static getString(hazardSiteDistribution: HazardSiteDistribution) {
+		switch (hazardSiteDistribution) {
+			case HazardSiteDistribution.single:
+				return "hazardSiteDistribution.single";
+			case HazardSiteDistribution.some:
+				return "hazardSiteDistribution.some";
+			case HazardSiteDistribution.many:
+				return "hazardSiteDistribution.many";
+			case HazardSiteDistribution.many_most:
+				return "hazardSiteDistribution.many_most";
+			case HazardSiteDistribution.moderately_steep:
+				return "hazardSiteDistribution.moderately_steep";
+			
+			default:
+				return "undefined";
+		}
+	}
+}
+
+export enum SpontaneousAvalancheReleaseProbability {
+	one, two, three, four
+}
+export class SpontaneousAvalancheReleaseProbabilityUtil {
+	public static getString(spontaneousAvalancheReleaseProbability: SpontaneousAvalancheReleaseProbability) {
+		switch (spontaneousAvalancheReleaseProbability) {
+			case SpontaneousAvalancheReleaseProbability.one:
+				return "spontaneousAvalancheReleaseProbability.one";
+			case SpontaneousAvalancheReleaseProbability.two:
+				return "spontaneousAvalancheReleaseProbability.two";
+			case SpontaneousAvalancheReleaseProbability.three:
+				return "spontaneousAvalancheReleaseProbability.three";
+			case SpontaneousAvalancheReleaseProbability.four:
+				return "spontaneousAvalancheReleaseProbability.four";
+			
+			default:
+				return "undefined";
+		}
+	}
+}
+
+export enum AvalancheReleaseProbability {
+	one, two, three, four
+}
+export class AvalancheReleaseProbabilityUtil {
+	public static getString(avalancheReleaseProbability: AvalancheReleaseProbability) {
+		switch (avalancheReleaseProbability) {
+			case AvalancheReleaseProbability.one:
+				return "avalancheReleaseProbability.one";
+			case AvalancheReleaseProbability.two:
+				return "avalancheReleaseProbability.two";
+			case AvalancheReleaseProbability.three:
+				return "avalancheReleaseProbability.three";
+			case AvalancheReleaseProbability.four:
+				return "avalancheReleaseProbability.four";
+			
+			default:
+				return "undefined";
+		}
+	}
+}
+
+export enum AvalancheSize {
+	small, medium, large, very_large, extreme
+}
+export class AvalancheSizeUtil {
+	public static getString(avalancheSize: AvalancheSize) {
+		switch (avalancheSize) {
+			case AvalancheSize.small:
+				return "avalancheSize.small";
+			case AvalancheSize.medium:
+				return "AvalancheSize.medium";
+			case AvalancheSize.large:
+				return "avalancheSize.large";
+			case AvalancheSize.very_large:
+				return "avalancheSize.very_large";
+			case AvalancheSize.extreme:
+				return "avalancheSize.extreme";
+			
+			default:
+				return "undefined";
+		}
+	}
+}

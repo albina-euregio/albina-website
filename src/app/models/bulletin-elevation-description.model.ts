@@ -1,8 +1,10 @@
 import * as Enums from '../enums/enums';
 import { BehaviorSubject } from 'rxjs/Rx';
+import { MatrixInformationModel } from './matrix-information.model';
 
 export class BulletinElevationDescriptionModel {
 	public dangerRating: BehaviorSubject<Enums.DangerRating>;
+	public matrixInformation: MatrixInformationModel;
 	public avalancheProblem: Enums.AvalancheProblem;
 	public aspects: Enums.Aspect[];
 
@@ -11,9 +13,11 @@ export class BulletinElevationDescriptionModel {
 		this.aspects = new Array<Enums.Aspect>();
 		if (!bulletinElevationDescription) {
 			this.setDangerRating("missing");
+			this.matrixInformation = new MatrixInformationModel();
 			this.avalancheProblem = undefined;
 		} else {
 			this.setDangerRating(bulletinElevationDescription.getDangerRating());
+			this.matrixInformation = new MatrixInformationModel(bulletinElevationDescription.getMatrixInformation());
 			this.avalancheProblem = bulletinElevationDescription.getAvalancheProblem();
 			for (let aspect of bulletinElevationDescription.aspects)
 				this.addAspect(aspect);
@@ -26,6 +30,14 @@ export class BulletinElevationDescriptionModel {
 
 	setDangerRating(dangerRating) {
 		this.dangerRating.next(dangerRating);
+	}
+
+	getMatrixInformation() {
+		return this.matrixInformation;
+	}
+
+	setMatrixInformation(matrixInformation) {
+		this.matrixInformation = matrixInformation;
 	}
 
 	getAvalancheProblem() {
@@ -67,6 +79,8 @@ export class BulletinElevationDescriptionModel {
 
 		if (this.dangerRating && this.dangerRating != undefined)
 			json['dangerRating'] = this.dangerRating.getValue();
+		if (this.matrixInformation && this.matrixInformation != undefined)
+			json['matrixInformation'] = this.matrixInformation.toJson();
 		if (this.avalancheProblem && this.avalancheProblem != undefined)
 			json['avalancheProblem'] = this.avalancheProblem;
 		if (this.aspects && this.aspects.length > 0) {
@@ -84,6 +98,8 @@ export class BulletinElevationDescriptionModel {
 		let bulletinElevationDescription = new BulletinElevationDescriptionModel();
 
 		bulletinElevationDescription.dangerRating.next(json.dangerRating);
+		if (json.matrixInformation)
+			bulletinElevationDescription.matrixInformation = MatrixInformationModel.createFromJson(json.matrixInformation);
 		bulletinElevationDescription.avalancheProblem = json.avalancheProblem;
 
 		let jsonAspects = json.aspects;
