@@ -17,7 +17,7 @@ export class SettingsService {
     translate.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     let lang = navigator.language.split('-')[0];
-    lang = /(en|de|it)/gi.test(lang) ? lang : 'en';
+    lang = /(de|it)/gi.test(lang) ? lang : 'de';
     translate.use(lang);
     this.lang = Enums.LanguageCode[lang];
   }
@@ -28,7 +28,7 @@ export class SettingsService {
 
   setLang(lang: Enums.LanguageCode) {
     if (lang) {
-      let language = /(en|de|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : 'en';
+      let language = /(de|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : 'de';
       this.translateService.use(language);
       this.lang = Enums.LanguageCode[language];
     }
