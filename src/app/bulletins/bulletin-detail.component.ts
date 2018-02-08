@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
+import { SettingsService } from '../providers/settings-service/settings.service';
 import { BulletinElevationDescriptionModel } from '../models/bulletin-elevation-description.model';
 import * as Enums from '../enums/enums';
 
@@ -17,7 +18,8 @@ export class BulletinDetailComponent {
   dangerRating = Enums.DangerRating;
 
   constructor(
-  	private translate: TranslateService)
+  	private translate: TranslateService,
+    public settingsService: SettingsService)
   {
   }
 

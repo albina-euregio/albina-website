@@ -7,6 +7,7 @@ export class SettingsService {
 
   public translateService;
   public lang: Enums.LanguageCode;
+  public useMatrix: boolean;
 
   constructor(
     public translate: TranslateService)
@@ -20,6 +21,8 @@ export class SettingsService {
     lang = /(de|it)/gi.test(lang) ? lang : 'de';
     translate.use(lang);
     this.lang = Enums.LanguageCode[lang];
+
+    this.useMatrix = false;
   }
 
   getLang() : Enums.LanguageCode {
@@ -41,5 +44,13 @@ export class SettingsService {
   setLangString(lang: string) {
     let language = Enums.LanguageCode[lang];
     this.setLang(language);
+  }
+
+  getUseMatrix() : boolean {
+    return this.useMatrix;
+  }
+
+  setUseMatrix(useMatrix: boolean) {
+    this.useMatrix = useMatrix;
   }
 }
