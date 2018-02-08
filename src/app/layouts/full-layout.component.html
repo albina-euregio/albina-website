@@ -11,14 +11,9 @@
     <li class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins']">{{ "sidebar.bulletins" | translate }}</a>
     </li>
-<!--
-    <li class="nav-item px-1">
+    <li *ngIf="settingsService.getShowObservations()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/observations']">{{ "sidebar.observations" | translate }}</a>
     </li>
-    <li class="nav-item px-1">
-      <a class="nav-link" routerLinkActive="false" href="http://212.47.231.185:8080/catalogue-of-phrases/testpm.html" target="_blank">{{ "sidebar.catalogueOfPhrases" | translate }}</a>
-    </li>
--->
   </ul>
 
   <ul class="nav navbar-nav ml-auto">

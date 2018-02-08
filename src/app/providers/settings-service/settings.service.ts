@@ -8,6 +8,7 @@ export class SettingsService {
   public translateService;
   public lang: Enums.LanguageCode;
   public useMatrix: boolean;
+  public showObservations: boolean;
 
   constructor(
     public translate: TranslateService)
@@ -23,6 +24,7 @@ export class SettingsService {
     this.lang = Enums.LanguageCode[lang];
 
     this.useMatrix = true;
+    this.showObservations = false;
   }
 
   getLang() : Enums.LanguageCode {
@@ -52,5 +54,13 @@ export class SettingsService {
 
   setUseMatrix(useMatrix: boolean) {
     this.useMatrix = useMatrix;
+  }
+
+  getShowObservations() : boolean {
+    return this.showObservations;
+  }
+
+  setShowObservations(showObservations: boolean) {
+    this.showObservations = showObservations;
   }
 }
