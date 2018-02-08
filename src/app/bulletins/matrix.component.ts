@@ -121,7 +121,8 @@ export class MatrixComponent {
     this.bulletinElevationDescription.getMatrixInformation().setHazardSiteDistribution(Enums.HazardSiteDistribution[this.getHazardSiteDistribution(cell)]);
     this.bulletinElevationDescription.getMatrixInformation().setAvalancheSize(Enums.AvalancheSize[this.getAvalancheSize(cell)]);
     let element = this.getElement(cell);
-    element.nativeElement.style.fill = this.getColor(cell);
+    if (element && element != undefined)
+      element.nativeElement.style.fill = this.getColor(cell);
   }
 
   private selectSpontaneousCell(cell) {
@@ -129,7 +130,8 @@ export class MatrixComponent {
     this.bulletinElevationDescription.getMatrixInformation().setSpontaneousAvalancheReleaseProbability(Enums.SpontaneousAvalancheReleaseProbability[this.getSpontaneousAvalancheReleaseProability(cell)]);
     this.bulletinElevationDescription.getMatrixInformation().setSpontaneousHazardSiteDistribution(Enums.HazardSiteDistribution[this.getSpontaneousHazardSiteDistribution(cell)]);
     let element = this.getElement(cell);
-    element.nativeElement.style.fill = this.getColor(cell);
+    if (element && element != undefined)
+      element.nativeElement.style.fill = this.getColor(cell);
   }
 
   private deselectCell(cell) {
