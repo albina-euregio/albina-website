@@ -7,8 +7,8 @@
       <div class="form-group row">
         <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.dangerRating" | translate }}</strong></label>
 
-        <div *ngIf="!disabled" class="col-md-12">
-          <matrix [bulletinElevationDescription]="bulletinElevationDescription"></matrix>
+        <div class="col-md-12">
+          <matrix [bulletinElevationDescription]="bulletinElevationDescription" [disabled]="disabled"></matrix>
         </div>
 
         <div *ngIf="disabled" class="col-md-12">

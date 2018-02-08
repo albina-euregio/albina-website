@@ -12,11 +12,26 @@ export class MatrixInformationModel {
 	public spontaneousHazardSiteDistribution: Enums.HazardSiteDistribution;
 
 	constructor(matrixInformation?: MatrixInformationModel) {
-		this.dangerRating = Enums.DangerRating.missing;
-		this.spontaneousDangerRating = Enums.DangerRating.missing;
+		if (!matrixInformation) {
+			this.setDangerRating('missing');
+			this.avalancheSize = undefined;
+			this.avalancheReleaseProbability = undefined;
+			this.hazardSiteDistribution = undefined;
+			this.setSpontaneousDangerRating('missing');
+			this.spontaneousAvalancheReleaseProbability = undefined;
+			this.spontaneousHazardSiteDistribution = undefined;
+		} else {
+			this.dangerRating = matrixInformation.getDangerRating();
+			this.avalancheSize = matrixInformation.getAvalancheSize();
+			this.avalancheReleaseProbability = matrixInformation.getAvalancheReleaseProbability();
+			this.hazardSiteDistribution = matrixInformation.getHazardSiteDistribution();
+			this.spontaneousDangerRating = matrixInformation.getSpontaneousDangerRating();
+			this.spontaneousAvalancheReleaseProbability = matrixInformation.getSpontaneousAvalancheReleaseProbability();
+			this.spontaneousHazardSiteDistribution = matrixInformation.getSpontaneousHazardSiteDistribution();
+		}
 	}
 
-	getDangerRating() {
+	getDangerRating() : Enums.DangerRating {
 		return this.dangerRating;
 	}
 
@@ -24,7 +39,7 @@ export class MatrixInformationModel {
 		this.dangerRating = dangerRating
 	}
 
-	getAvalancheSize() {
+	getAvalancheSize() : Enums.AvalancheSize {
 		return this.avalancheSize;
 	}
 
@@ -32,7 +47,7 @@ export class MatrixInformationModel {
 		this.avalancheSize = avalancheSize;
 	}
 
-	getAvalancheReleaseProbability() {
+	getAvalancheReleaseProbability() : Enums.AvalancheReleaseProbability {
 		return this.avalancheReleaseProbability;
 	}
 
@@ -40,7 +55,7 @@ export class MatrixInformationModel {
 		this.avalancheReleaseProbability = avalancheReleaseProbability;
 	}
 
-	getHazardSiteDistribution() {
+	getHazardSiteDistribution() : Enums.HazardSiteDistribution {
 		return this.hazardSiteDistribution;
 	}
 
@@ -48,7 +63,7 @@ export class MatrixInformationModel {
 		this.hazardSiteDistribution = hazardSiteDistribution;
 	}
 
-	getSpontaneousDangerRating() {
+	getSpontaneousDangerRating() : Enums.DangerRating {
 		return this.spontaneousDangerRating;
 	}
 
@@ -56,7 +71,7 @@ export class MatrixInformationModel {
 		this.spontaneousDangerRating = spontaneousDangerRating
 	}
 
-	getSpontaneousAvalancheReleaseProbability() {
+	getSpontaneousAvalancheReleaseProbability() : Enums.SpontaneousAvalancheReleaseProbability {
 		return this.spontaneousAvalancheReleaseProbability;
 	}
 
@@ -64,7 +79,7 @@ export class MatrixInformationModel {
 		this.spontaneousAvalancheReleaseProbability = spontaneousAvalancheReleaseProbability;
 	}
 
-	getSpontaneousHazardSiteDistribution() {
+	getSpontaneousHazardSiteDistribution() : Enums.HazardSiteDistribution {
 		return this.spontaneousHazardSiteDistribution;
 	}
 
@@ -75,7 +90,7 @@ export class MatrixInformationModel {
 	toJson() {
 		var json = Object();
 
-		if (this.dangerRating && this.dangerRating != undefined)
+		if (this.dangerRating && this.dangerRating != undefined && this.dangerRating != Enums.DangerRating.missing)
 			json['dangerRating'] = this.dangerRating;
 		if (this.avalancheSize && this.avalancheSize != undefined)
 			json['avalancheSize'] = this.avalancheSize;
@@ -83,7 +98,7 @@ export class MatrixInformationModel {
 			json['avalancheReleaseProbability'] = this.avalancheReleaseProbability;
 		if (this.hazardSiteDistribution && this.hazardSiteDistribution != undefined)
 			json['hazardSiteDistribution'] = this.hazardSiteDistribution;
-		if (this.spontaneousDangerRating && this.spontaneousDangerRating != undefined)
+		if (this.spontaneousDangerRating && this.spontaneousDangerRating != undefined && this.spontaneousDangerRating != Enums.DangerRating.missing)
 			json['spontaneousDangerRating'] = this.spontaneousDangerRating;
 		if (this.spontaneousAvalancheReleaseProbability && this.spontaneousAvalancheReleaseProbability != undefined)
 			json['spontaneousAvalancheReleaseProbability'] = this.spontaneousAvalancheReleaseProbability;
