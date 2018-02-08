@@ -22,7 +22,7 @@ export class SettingsService {
     translate.use(lang);
     this.lang = Enums.LanguageCode[lang];
 
-    this.useMatrix = false;
+    this.useMatrix = true;
   }
 
   getLang() : Enums.LanguageCode {
