@@ -142,14 +142,17 @@ export class MatrixComponent {
   }
 
   public selectDangerRating(event) {
+    this.selectDangerRatingById(event.currentTarget.id);
+  }
+
+  public selectDangerRatingById(id) {
     if (!this.disabled) {
       let oldCell = this.getCell(this.bulletinElevationDescription.getMatrixInformation());
-      let newCell = event.currentTarget.id;
 
       this.deselectCell(oldCell);
 
-      if (oldCell != newCell)
-        this.selectCell(newCell);
+      if (oldCell != id)
+        this.selectCell(id);
       else {
         this.bulletinElevationDescription.getMatrixInformation().setDangerRating(Enums.DangerRating.missing);
         this.bulletinElevationDescription.getMatrixInformation().setAvalancheReleaseProbability(undefined);
@@ -162,14 +165,17 @@ export class MatrixComponent {
   }
 
   public selectDangerRatingSpontaneous(event) {
+    this.selectDangerRatingSpontaneousById(event.currentTarget.id);
+  }
+
+  public selectDangerRatingSpontaneousById(id) {
     if (!this.disabled) {
       let oldCell = this.getCellSpontaneous(this.bulletinElevationDescription.getMatrixInformation());
-      let newCell = event.currentTarget.id;
 
       this.deselectCell(oldCell);
 
-      if (oldCell != newCell)
-        this.selectSpontaneousCell(newCell);
+      if (oldCell != id)
+        this.selectSpontaneousCell(id);
       else {
         this.bulletinElevationDescription.getMatrixInformation().setSpontaneousDangerRating(Enums.DangerRating.missing);
         this.bulletinElevationDescription.getMatrixInformation().setSpontaneousAvalancheReleaseProbability(undefined);
@@ -333,10 +339,23 @@ export class MatrixComponent {
   }
 
   private setDangerRating() {
-    if (Enums.DangerRating[this.bulletinElevationDescription.getMatrixInformation().getDangerRating()] < Enums.DangerRating[this.bulletinElevationDescription.getMatrixInformation().getSpontaneousDangerRating()])
-      this.bulletinElevationDescription.setDangerRating(this.bulletinElevationDescription.getMatrixInformation().getSpontaneousDangerRating());
-    else
-      this.bulletinElevationDescription.setDangerRating(this.bulletinElevationDescription.getMatrixInformation().getDangerRating());
+    let dangerRating = Enums.DangerRating[this.bulletinElevationDescription.getMatrixInformation().getDangerRating()];
+    let spontaneousDangerRating = Enums.DangerRating[this.bulletinElevationDescription.getMatrixInformation().getSpontaneousDangerRating()];
+    
+    if (dangerRating != undefined) {
+      if (spontaneousDangerRating != undefined) {
+        if (Enums.DangerRating[this.bulletinElevationDescription.getMatrixInformation().getDangerRating()] < Enums.DangerRating[this.bulletinElevationDescription.getMatrixInformation().getSpontaneousDangerRating()])
+          this.bulletinElevationDescription.setDangerRating(this.bulletinElevationDescription.getMatrixInformation().getSpontaneousDangerRating());
+        else
+          this.bulletinElevationDescription.setDangerRating(this.bulletinElevationDescription.getMatrixInformation().getDangerRating());
+      } else
+        this.bulletinElevationDescription.setDangerRating(this.bulletinElevationDescription.getMatrixInformation().getDangerRating());
+    } else {
+      if (spontaneousDangerRating != undefined)
+        this.bulletinElevationDescription.setDangerRating(this.bulletinElevationDescription.getMatrixInformation().getSpontaneousDangerRating());
+      else
+        this.bulletinElevationDescription.setDangerRating("missing");
+    }
   }
 
   private getDangerRating(id) {
