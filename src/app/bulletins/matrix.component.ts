@@ -89,7 +89,7 @@ export class MatrixComponent {
   languageCode = Enums.LanguageCode;
 
   constructor(
-    private settingsService: SettingsService)
+    public settingsService: SettingsService)
   {
   }
 
