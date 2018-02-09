@@ -60,6 +60,9 @@ export class CreateBulletinComponent {
   public activeSnowpackStructureHighlightsEn: string;
   public activeSnowpackStructureCommentEn: string;
 
+  //private preventClick: boolean;
+  //private timer;
+
   @ViewChild('avActivityHighlightsTextcat') avActivityHighlightsTextcat;
   @ViewChild('avActivityCommentTextcat') avActivityCommentTextcat;
 
@@ -80,6 +83,8 @@ export class CreateBulletinComponent {
   {
     this.loading = true;
     this.showAfternoonMap = false;
+    //this.preventClick = false;
+    //this.timer = 0;
   }
 
   reset() {
@@ -222,7 +227,7 @@ export class CreateBulletinComponent {
 
     let map = L.map("map", {
         zoomControl: false,
-        doubleClickZoom: true,
+        doubleClickZoom: false,
         scrollWheelZoom: false,
         touchZoom: true,
         center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
@@ -234,6 +239,7 @@ export class CreateBulletinComponent {
     });
 
     map.on('click', (e)=>{this.onMapClick(e)});
+    //map.on('dblclick', (e)=>{this.onMapDoubleClick(e)});
 
     L.control.zoom({ position: "topleft" }).addTo(map);
     //L.control.layers(this.mapService.baseMaps).addTo(map);
@@ -266,7 +272,7 @@ export class CreateBulletinComponent {
 
     let afternoonMap = L.map("afternoonMap", {
         zoomControl: false,
-        doubleClickZoom: true,
+        doubleClickZoom: false,
         scrollWheelZoom: false,
         touchZoom: true,
         center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
@@ -303,6 +309,7 @@ export class CreateBulletinComponent {
     L.control.pm({ position: 'topright' }).addTo(afternoonMap);
 
     afternoonMap.on('click', (e)=>{this.onMapClick(e)});
+    //afternoonMap.on('dblclick', (e)=>{this.onMapDoubleClick(e)});
 
     this.mapService.afternoonMap = afternoonMap;
 
@@ -322,6 +329,32 @@ export class CreateBulletinComponent {
       }
     }
   }
+
+/*
+  private onMapClick(e) {
+    var parent = this;
+    this.timer = setTimeout(function () {
+      if (!parent.preventClick) {
+        if (!parent.editRegions) {
+          let test = parent.mapService.getClickedRegion();
+          for (let bulletin of parent.bulletinsList) {
+            if (bulletin.getSavedRegions().indexOf(test) > -1)
+              if (parent.activeBulletin == bulletin)
+                parent.deselectBulletin();
+              else
+                parent.selectBulletin(bulletin);
+          }
+        }
+      }
+      parent.preventClick = false;
+    }, 150);
+  }
+
+  private onMapDoubleClick(e) {
+    clearTimeout(this.timer);
+    this.preventClick = true;
+  }
+*/
 
   private addThumbnailMap(id) {
     // Load map data
