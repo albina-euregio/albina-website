@@ -675,7 +675,6 @@ export class MatrixComponent {
       case "3":
       case "5":
       case "6":
-      case "10":
       case "13":
       case "17":
       case "21":
@@ -744,6 +743,7 @@ export class MatrixComponent {
       case "4":
       case "8":
       case "9":
+      case "10":
       case "11":
       case "12":
       case "20":
