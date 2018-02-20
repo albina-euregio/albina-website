@@ -32,15 +32,18 @@ export class BulletinModel {
 	public avActivityCommentTextcat: string;
 	public snowpackStructureHighlightsTextcat: string;
 	public snowpackStructureCommentTextcat: string;
+	public tendencyTextcat: string;
 
 	public avActivityHighlights: TextModel[];
 	public avActivityComment: TextModel[];
 
-	public dangerPattern1: Enums.DangerPattern;
-	public dangerPattern2: Enums.DangerPattern;
-
 	public snowpackStructureHighlights: TextModel[];
 	public snowpackStructureComment: TextModel[];
+
+	public tendency: TextModel[];
+
+	public dangerPattern1: Enums.DangerPattern;
+	public dangerPattern2: Enums.DangerPattern;
 
 	constructor(bulletin?: BulletinModel) {
 		this.creator = undefined;
@@ -60,12 +63,14 @@ export class BulletinModel {
 			this.avActivityCommentTextcat = bulletin.avActivityCommentTextcat;
 			this.snowpackStructureHighlightsTextcat = bulletin.snowpackStructureHighlightsTextcat;
 			this.snowpackStructureCommentTextcat = bulletin.snowpackStructureCommentTextcat;
+			this.tendencyTextcat = bulletin.tendencyTextcat;
 			this.avActivityHighlights = bulletin.avActivityHighlights;
 			this.avActivityComment = bulletin.avActivityComment;
-			this.dangerPattern1 = bulletin.dangerPattern1;
-			this.dangerPattern2 = bulletin.dangerPattern2;
 			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
 			this.snowpackStructureComment = bulletin.snowpackStructureComment;
+			this.dangerPattern1 = bulletin.dangerPattern1;
+			this.dangerPattern2 = bulletin.dangerPattern2;
+			this.tendency = bulletin.tendency;
 			this.elevation = bulletin.elevation;
 			this.treeline = bulletin.treeline;
 			this.hasDaytimeDependency = bulletin.hasDaytimeDependency;
@@ -82,14 +87,18 @@ export class BulletinModel {
 			this.afternoonBelow = new BulletinElevationDescriptionModel();
 			this.avActivityHighlightsTextcat = undefined;
 			this.avActivityCommentTextcat = undefined;
+			this.snowpackStructureHighlightsTextcat = undefined;
+			this.getSnowpackStructureCommentTextcat = undefined;
+			this.tendencyTextcat = undefined;
 			this.snowpackStructureHighlights = undefined;
 			this.snowpackStructureComment = undefined;
 			this.avActivityHighlights = new Array<TextModel>();
 			this.avActivityComment = new Array<TextModel>();
-			this.dangerPattern1 = undefined;
-			this.dangerPattern2 = undefined;
 			this.snowpackStructureHighlights = new Array<TextModel>();
 			this.snowpackStructureComment = new Array<TextModel>();
+			this.tendency = new Array<TextModel>();
+			this.dangerPattern1 = undefined;
+			this.dangerPattern2 = undefined;
 			this.elevation = undefined;
 			this.treeline = false;
 			this.hasDaytimeDependency = false;
@@ -265,6 +274,14 @@ export class BulletinModel {
 		this.snowpackStructureCommentTextcat = snowpackStructureCommentTextcat;
 	}
 
+	getTendencyTextcat() : string {
+		return this.tendencyTextcat;
+	}
+
+	setTendencyTextcat(tendencyTextcat: string) {
+		this.tendencyTextcat = tendencyTextcat;
+	}
+
 	getAvActivityHighlights() : TextModel[] {
 		return this.avActivityHighlights;
 	}
@@ -397,6 +414,34 @@ export class BulletinModel {
 		this.snowpackStructureComment.push(model);
 	}
 
+	getTendency() : TextModel[] {
+		return this.tendency;
+	}
+
+	getTendencyIn(language: Enums.LanguageCode) : string {
+		for (var i = this.tendency.length - 1; i >= 0; i--) {
+			if (this.tendency[i].getLanguageCode() == language)
+				return this.tendency[i].getText();
+		}
+	}
+
+	setTendency(tendency: TextModel[]) {
+		this.tendency = tendency;
+	}
+
+	setTendencyIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.tendency.length - 1; i >= 0; i--) {
+			if (this.tendency[i].getLanguageCode() == language) {
+				this.tendency[i].setText(text);
+				return;
+			}
+		}
+		let model = new TextModel();
+		model.setLanguageCode(language);
+		model.setText(text);
+		this.tendency.push(model);
+	}
+
 	getForenoonDangerRatingAbove() : Enums.DangerRating {
 		return this.forenoonAbove.dangerRating.getValue();
 	}
@@ -509,8 +554,11 @@ export class BulletinModel {
 		if (this.snowpackStructureHighlightsTextcat && this.snowpackStructureHighlightsTextcat != undefined)
 			json['snowpackStructureHighlightsTextcat'] = this.snowpackStructureHighlightsTextcat;
 
-		if (this.snowpackStructureCommentTextcat && this.snowpackStructureHighlightsTextcat != undefined)
+		if (this.snowpackStructureCommentTextcat && this.snowpackStructureCommentTextcat != undefined)
 			json['snowpackStructureCommentTextcat'] = this.snowpackStructureCommentTextcat;
+
+		if (this.tendencyTextcat && this.tendencyTextcat != undefined)
+			json['tendencyTextcat'] = this.tendencyTextcat;
 
 		if (this.avActivityHighlights && this.avActivityHighlights != undefined && this.avActivityHighlights.length > 0) {
 			let highlight = [];
@@ -527,12 +575,6 @@ export class BulletinModel {
 			json['avActivityComment'] = comment;
 		}
 
-		if (this.dangerPattern1 && this.dangerPattern1 != undefined)
-			json['dangerPattern1'] = this.dangerPattern1;
-
-		if (this.dangerPattern2 && this.dangerPattern2 != undefined)
-			json['dangerPattern2'] = this.dangerPattern2;
-
 		if (this.snowpackStructureHighlights && this.snowpackStructureHighlights != undefined && this.snowpackStructureHighlights.length > 0) {
 			let highlight = [];
 			for (let i = 0; i <= this.snowpackStructureHighlights.length - 1; i++) {
@@ -547,6 +589,20 @@ export class BulletinModel {
 			}
 			json['snowpackStructureComment'] = comment;
 		}
+
+		if (this.tendency && this.tendency != undefined && this.tendency.length > 0) {
+			let comment = [];
+			for (let i = 0; i <= this.tendency.length - 1; i++) {
+				comment.push(this.tendency[i].toJson());
+			}
+			json['tendency'] = comment;
+		}
+
+		if (this.dangerPattern1 && this.dangerPattern1 != undefined)
+			json['dangerPattern1'] = this.dangerPattern1;
+
+		if (this.dangerPattern2 && this.dangerPattern2 != undefined)
+			json['dangerPattern2'] = this.dangerPattern2;
 
 		return json;
 	}
@@ -607,6 +663,8 @@ export class BulletinModel {
 			bulletin.setSnowpackStructureHighlightsTextcat(json.snowpackStructureHighlightsTextcat);
 		if (json.snowpackStructureCommentTextcat)
 			bulletin.setSnowpackStructureCommentTextcat(json.snowpackStructureCommentTextcat);
+		if (json.tendencyTextcat)
+			bulletin.setTendencyTextcat(json.tendencyTextcat);
 
 		let jsonAvActivityHighlights = json.avActivityHighlights;
 		let avActivityHighlights = new Array<TextModel>();
@@ -622,11 +680,6 @@ export class BulletinModel {
 		}
 		bulletin.setAvActivityComment(avActivityComment);
 
-		if (json.dangerPattern1)
-			bulletin.setDangerPattern1(json.dangerPattern1);
-		if (json.dangerPattern2)
-			bulletin.setDangerPattern2(json.dangerPattern2);
-
 		let jsonSnowpackStructureHighlight = json.snowpackStructureHighlights;
 		let snowpackStructureHighlights = new Array<TextModel>();
 		for (let i in jsonSnowpackStructureHighlight) {
@@ -640,6 +693,18 @@ export class BulletinModel {
 			snowpackStructureComment.push(TextModel.createFromJson(jsonSnowpackStructureComment[i]));
 		}
 		bulletin.setSnowpackStructureComment(snowpackStructureComment);
+
+		let jsonTendency = json.tendency;
+		let tendency = new Array<TextModel>();
+		for (let i in jsonTendency) {
+			tendency.push(TextModel.createFromJson(jsonTendency[i]));
+		}
+		bulletin.setTendency(tendency);
+
+		if (json.dangerPattern1)
+			bulletin.setDangerPattern1(json.dangerPattern1);
+		if (json.dangerPattern2)
+			bulletin.setDangerPattern2(json.dangerPattern2);
 
 		return bulletin;
 	}

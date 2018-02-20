@@ -1166,3 +1166,21 @@ export class AvalancheSizeUtil {
 		}
 	}
 }
+
+export enum Tendency {
+	decreasing, steady, increasing
+}
+export class TendencyUtil {
+	public static getString(tendency: Tendency) {
+		switch (tendency) {
+			case Tendency.decreasing:
+				return "tendency.decreasing";
+			case Tendency.steady:
+				return "tendency.steady";
+			case Tendency.increasing:
+				return "tendency.increasing";
+			default:
+				return "undefined";
+		}
+	}
+}
