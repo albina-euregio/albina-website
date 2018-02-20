@@ -46,20 +46,6 @@ export class CreateBulletinComponent {
   public activeBulletin: BulletinModel;
   public bulletinsList: BulletinModel[];
 
-  public activeAvActivityHighlightsDe: string;
-  public activeAvActivityCommentDe: string;
-  public activeAvActivityHighlightsIt: string;
-  public activeAvActivityCommentIt: string;
-  public activeAvActivityHighlightsEn: string;
-  public activeAvActivityCommentEn: string;
-
-  public activeSnowpackStructureHighlightsDe: string;
-  public activeSnowpackStructureCommentDe: string;
-  public activeSnowpackStructureHighlightsIt: string;
-  public activeSnowpackStructureCommentIt: string;
-  public activeSnowpackStructureHighlightsEn: string;
-  public activeSnowpackStructureCommentEn: string;
-
   //private preventClick: boolean;
   //private timer;
 
@@ -92,18 +78,6 @@ export class CreateBulletinComponent {
     this.activeBulletin = undefined;
     this.bulletinsList = new Array<BulletinModel>();
 
-    this.activeAvActivityHighlightsDe = undefined;
-    this.activeAvActivityCommentDe = undefined;
-    this.activeAvActivityHighlightsIt = undefined;
-    this.activeAvActivityCommentIt = undefined;
-    this.activeAvActivityHighlightsEn = undefined;
-    this.activeAvActivityCommentEn = undefined;
-    this.activeSnowpackStructureHighlightsDe = undefined;
-    this.activeSnowpackStructureCommentDe = undefined;
-    this.activeSnowpackStructureHighlightsIt = undefined;
-    this.activeSnowpackStructureCommentIt = undefined;
-    this.activeSnowpackStructureHighlightsEn = undefined;
-    this.activeSnowpackStructureCommentEn = undefined;
     this.editRegions = false;
     this.showAfternoonMap = false;
   }
@@ -390,7 +364,6 @@ export class CreateBulletinComponent {
 
   onShowAfternoonMapChange(checked) {
     this.showAfternoonMap = checked;
-    this.setTexts();
 
     let bulletin = this.activeBulletin;
 
@@ -650,21 +623,7 @@ export class CreateBulletinComponent {
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
       this.deselectBulletin();
-
       this.activeBulletin = bulletin;
-      this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
-      this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
-      this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
-      this.activeAvActivityCommentIt = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it);
-      this.activeAvActivityHighlightsEn = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.en);
-      this.activeAvActivityCommentEn = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en);
-      this.activeSnowpackStructureHighlightsDe = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.de);
-      this.activeSnowpackStructureCommentDe = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
-      this.activeSnowpackStructureHighlightsIt = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.it);
-      this.activeSnowpackStructureCommentIt = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
-      this.activeSnowpackStructureHighlightsEn = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.en);
-      this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
-
       this.mapService.selectAggregatedRegion(this.activeBulletin);
     }
   }
@@ -672,8 +631,6 @@ export class CreateBulletinComponent {
   deselectBulletin() {
     if (this.checkElevation()) {
       if (!this.editRegions) {
-
-        this.setTexts();
 
         // TODO this can be done nicer 
         if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat.textcat && this.avActivityHighlightsTextcat.textcat.nativeElement && this.avActivityHighlightsTextcat.textcat.nativeElement.value)
@@ -786,36 +743,6 @@ export class CreateBulletinComponent {
       });
     } else
       return true;
-  }
-
-  private setTexts() {
-    if (this.activeBulletin) {
-      if (this.activeAvActivityHighlightsDe != undefined && this.activeAvActivityHighlightsDe != "")
-        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
-      if (this.activeAvActivityCommentDe != undefined && this.activeAvActivityCommentDe != "")
-        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
-      if (this.activeAvActivityHighlightsIt != undefined && this.activeAvActivityHighlightsIt != "")
-        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
-      if (this.activeAvActivityCommentIt != undefined && this.activeAvActivityCommentIt != "")
-        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentIt, Enums.LanguageCode.it);
-      if (this.activeAvActivityHighlightsEn != undefined && this.activeAvActivityHighlightsEn != "")
-        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
-      if (this.activeAvActivityCommentEn != undefined && this.activeAvActivityCommentEn != "")
-        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEn, Enums.LanguageCode.en);
-
-      if (this.activeSnowpackStructureHighlightsDe != undefined && this.activeSnowpackStructureHighlightsDe != "")
-        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
-      if (this.activeSnowpackStructureCommentDe != undefined && this.activeSnowpackStructureCommentDe != "")
-        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
-      if (this.activeSnowpackStructureHighlightsIt != undefined && this.activeSnowpackStructureHighlightsIt != "")
-        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsIt, Enums.LanguageCode.it);
-      if (this.activeSnowpackStructureCommentIt != undefined && this.activeSnowpackStructureCommentIt != "")
-        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt, Enums.LanguageCode.it);
-      if (this.activeSnowpackStructureHighlightsEn != undefined && this.activeSnowpackStructureHighlightsEn != "")
-        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEn, Enums.LanguageCode.en);
-      if (this.activeSnowpackStructureCommentEn != undefined && this.activeSnowpackStructureCommentEn != "")
-        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEn, Enums.LanguageCode.en);
-    }
   }
 
   deleteBulletin(event, bulletin: BulletinModel) {
@@ -989,8 +916,6 @@ export class CreateBulletinComponent {
   save() {
     if (this.checkElevation()) {
       this.loading = true;
-
-      this.setTexts();
 
       this.deselectBulletin();
 
