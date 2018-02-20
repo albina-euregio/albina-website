@@ -141,7 +141,12 @@
 				"loadBulletin" : "Copia da giorno precedente",
 				"elevationDependency" : "TODO",
 				"daytimeDependency" : "TODO",
-				"treeline" : "Linea del bosco"
+				"treeline" : "Linea del bosco",
+				"tendency" : {
+					"decreasing" : "TODO",
+					"steady" : "TODO",
+					"increasing" : "TODO"
+				}
 			},
 			"button" : "Creato",
 			"save" : " Salva",
@@ -177,7 +182,8 @@
 				"afternoonAbove" : "Dettagli - pomeriggio, al disopra",
 				"forenoonBelow" : "Dettagli - mattina, al disotto",
 				"afternoonBelow" : "Dettagli - pomeriggio, al disotto",
-				"snowpackStructure" : "Struttura manto nevoso"
+				"snowpackStructure" : "Struttura manto nevoso",
+				"tendency" : "TODO"
 			},
 			"discardDialog" : {
 				"header" : "Scarta modifiche",
@@ -344,6 +350,10 @@
 		"AT-07" : "Tirolo",
 		"IT-32-BZ" : "Alto Adige",
 		"IT-32-TN" : "Trentino"
+	},
+	"tendency" : {
+		"decreasing" : " TODO",
+		"steady" : " TODO",
+		"increasing" : " TODO"
 	}
-
 }

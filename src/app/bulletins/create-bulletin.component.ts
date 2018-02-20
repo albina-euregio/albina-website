@@ -36,6 +36,7 @@ export class CreateBulletinComponent {
 
   public bulletinStatus = Enums.BulletinStatus;
   public dangerPattern = Enums.DangerPattern;
+  public tendency = Enums.Tendency;
 
   public originalBulletins: Map<string, BulletinModel>;
 
@@ -51,6 +52,10 @@ export class CreateBulletinComponent {
 
   @ViewChild('avActivityHighlightsTextcat') avActivityHighlightsTextcat;
   @ViewChild('avActivityCommentTextcat') avActivityCommentTextcat;
+
+  @ViewChild('snowpackStructureCommentTextcat') snowpackStructureCommentTextcat;
+
+  @ViewChild('tendencyTextcat') tendencyTextcat;
 
   constructor(
     private translate: TranslateService,
@@ -362,6 +367,11 @@ export class CreateBulletinComponent {
     }
   }
 
+  setTendencySymbol(event, tendency) {
+    event.stopPropagation();
+    this.activeBulletin.tendencySymbol = tendency;
+  } 
+
   onShowAfternoonMapChange(checked) {
     this.showAfternoonMap = checked;
 
@@ -637,6 +647,12 @@ export class CreateBulletinComponent {
           this.activeBulletin.setAvActivityHighlightsTextcat(this.avActivityHighlightsTextcat.textcat.nativeElement.value);
         if (this.avActivityCommentTextcat && this.avActivityCommentTextcat.textcat && this.avActivityCommentTextcat.textcat.nativeElement && this.avActivityCommentTextcat.textcat.nativeElement.value)
           this.activeBulletin.setAvActivityCommentTextcat(this.avActivityCommentTextcat.textcat.nativeElement.value);
+
+        if (this.snowpackStructureCommentTextcat && this.snowpackStructureCommentTextcat.textcat && this.snowpackStructureCommentTextcat.textcat.nativeElement && this.snowpackStructureCommentTextcat.textcat.nativeElement.value)
+          this.activeBulletin.setSnowpackStructureCommentTextcat(this.snowpackStructureCommentTextcat.textcat.nativeElement.value);
+
+        if (this.tendencyTextcat && this.tendencyTextcat.textcat && this.tendencyTextcat.textcat.nativeElement && this.tendencyTextcat.textcat.nativeElement.value)
+          this.activeBulletin.setTendencyTextcat(this.tendencyTextcat.textcat.nativeElement.value);
 
         this.mapService.deselectAggregatedRegion();
         this.activeBulletin = undefined;

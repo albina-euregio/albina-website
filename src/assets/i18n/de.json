@@ -141,7 +141,12 @@
 				"loadBulletin" : "Lagebericht vom Vortag laden",
 				"elevationDependency" : "Höhenabhängigkeit",
 				"daytimeDependency" : "Tageszeitliche Abhängigkeit",
-				"treeline" : "Waldgrenze"
+				"treeline" : "Waldgrenze",
+				"tendency" : {
+					"decreasing" : "Lawinengefahr nimmt ab",
+					"steady" : "Lawinengefahr bleibt unverändert",
+					"increasing" : "Lawinengefahr steigt"
+				}
 			},
 			"button" : "Neu",
 			"save" : " Speichern",
@@ -177,7 +182,8 @@
 				"afternoonAbove" : "Details - Nachmittag, oben",
 				"forenoonBelow" : "Details - Vormittag, unten",
 				"afternoonBelow" : "Details - Nachmittag, unten",
-				"snowpackStructure" : "Schneedeckenaufbau"
+				"snowpackStructure" : "Schneedeckenaufbau",
+				"tendency" : "Tendenz"
 			},
 			"discardDialog" : {
 				"header" : "Änderungen verwerfen",
@@ -344,6 +350,11 @@
 		"AT-07" : "Tirol",
 		"IT-32-BZ" : "Südtirol",
 		"IT-32-TN" : "Trentino"
+	},
+	"tendency" : {
+		"decreasing" : " Lawinengefahr sinkt",
+		"steady" : " Lawinengefahr bleibt gleich",
+		"increasing" : " Lawinengefahr steigt"
 	},
 
 	"quickReport" : {

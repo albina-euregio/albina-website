@@ -42,6 +42,8 @@ export class BulletinModel {
 
 	public tendency: TextModel[];
 
+	public tendencySymbol: Enums.Tendency;
+
 	public dangerPattern1: Enums.DangerPattern;
 	public dangerPattern2: Enums.DangerPattern;
 
@@ -68,9 +70,10 @@ export class BulletinModel {
 			this.avActivityComment = bulletin.avActivityComment;
 			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
 			this.snowpackStructureComment = bulletin.snowpackStructureComment;
+			this.tendency = bulletin.tendency;
+			this.tendencySymbol = bulletin.tendencySymbol;
 			this.dangerPattern1 = bulletin.dangerPattern1;
 			this.dangerPattern2 = bulletin.dangerPattern2;
-			this.tendency = bulletin.tendency;
 			this.elevation = bulletin.elevation;
 			this.treeline = bulletin.treeline;
 			this.hasDaytimeDependency = bulletin.hasDaytimeDependency;
@@ -97,6 +100,7 @@ export class BulletinModel {
 			this.snowpackStructureHighlights = new Array<TextModel>();
 			this.snowpackStructureComment = new Array<TextModel>();
 			this.tendency = new Array<TextModel>();
+			this.tendencySymbol = undefined;
 			this.dangerPattern1 = undefined;
 			this.dangerPattern2 = undefined;
 			this.elevation = undefined;
@@ -340,6 +344,14 @@ export class BulletinModel {
 		model.setLanguageCode(language);
 		model.setText(text);
 		this.avActivityComment.push(model);
+	}
+
+	getTendencySymbol() {
+		return this.tendencySymbol;
+	}
+
+	setTendencySymbol(tendencySymbol: Enums.Tendency) {
+		this.tendencySymbol = tendencySymbol;
 	}
 
 	getDangerPattern1() {
@@ -598,6 +610,9 @@ export class BulletinModel {
 			json['tendency'] = comment;
 		}
 
+		if (this.tendencySymbol && this.tendencySymbol != undefined)
+			json['tendencySymbol'] = this.tendencySymbol;
+
 		if (this.dangerPattern1 && this.dangerPattern1 != undefined)
 			json['dangerPattern1'] = this.dangerPattern1;
 
@@ -700,6 +715,9 @@ export class BulletinModel {
 			tendency.push(TextModel.createFromJson(jsonTendency[i]));
 		}
 		bulletin.setTendency(tendency);
+
+		if (json.tendencySymbol)
+			bulletin.setTendencySymbol(json.tendencySymbol);
 
 		if (json.dangerPattern1)
 			bulletin.setDangerPattern1(json.dangerPattern1);
