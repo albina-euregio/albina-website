@@ -32,7 +32,7 @@ export class BulletinModel {
 	public avActivityCommentTextcat: string;
 	public snowpackStructureHighlightsTextcat: string;
 	public snowpackStructureCommentTextcat: string;
-	public tendencyTextcat: string;
+	public tendencyCommentTextcat: string;
 
 	public avActivityHighlights: TextModel[];
 	public avActivityComment: TextModel[];
@@ -40,9 +40,9 @@ export class BulletinModel {
 	public snowpackStructureHighlights: TextModel[];
 	public snowpackStructureComment: TextModel[];
 
-	public tendency: TextModel[];
+	public tendencyComment: TextModel[];
 
-	public tendencySymbol: Enums.Tendency;
+	public tendency: Enums.Tendency;
 
 	public dangerPattern1: Enums.DangerPattern;
 	public dangerPattern2: Enums.DangerPattern;
@@ -65,13 +65,13 @@ export class BulletinModel {
 			this.avActivityCommentTextcat = bulletin.avActivityCommentTextcat;
 			this.snowpackStructureHighlightsTextcat = bulletin.snowpackStructureHighlightsTextcat;
 			this.snowpackStructureCommentTextcat = bulletin.snowpackStructureCommentTextcat;
-			this.tendencyTextcat = bulletin.tendencyTextcat;
+			this.tendencyCommentTextcat = bulletin.tendencyCommentTextcat;
 			this.avActivityHighlights = bulletin.avActivityHighlights;
 			this.avActivityComment = bulletin.avActivityComment;
 			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
 			this.snowpackStructureComment = bulletin.snowpackStructureComment;
+			this.tendencyComment = bulletin.tendencyComment;
 			this.tendency = bulletin.tendency;
-			this.tendencySymbol = bulletin.tendencySymbol;
 			this.dangerPattern1 = bulletin.dangerPattern1;
 			this.dangerPattern2 = bulletin.dangerPattern2;
 			this.elevation = bulletin.elevation;
@@ -92,15 +92,15 @@ export class BulletinModel {
 			this.avActivityCommentTextcat = undefined;
 			this.snowpackStructureHighlightsTextcat = undefined;
 			this.getSnowpackStructureCommentTextcat = undefined;
-			this.tendencyTextcat = undefined;
+			this.tendencyCommentTextcat = undefined;
 			this.snowpackStructureHighlights = undefined;
 			this.snowpackStructureComment = undefined;
 			this.avActivityHighlights = new Array<TextModel>();
 			this.avActivityComment = new Array<TextModel>();
 			this.snowpackStructureHighlights = new Array<TextModel>();
 			this.snowpackStructureComment = new Array<TextModel>();
-			this.tendency = new Array<TextModel>();
-			this.tendencySymbol = undefined;
+			this.tendencyComment = new Array<TextModel>();
+			this.tendency = undefined;
 			this.dangerPattern1 = undefined;
 			this.dangerPattern2 = undefined;
 			this.elevation = undefined;
@@ -278,12 +278,12 @@ export class BulletinModel {
 		this.snowpackStructureCommentTextcat = snowpackStructureCommentTextcat;
 	}
 
-	getTendencyTextcat() : string {
-		return this.tendencyTextcat;
+	getTendencyCommentTextcat() : string {
+		return this.tendencyCommentTextcat;
 	}
 
-	setTendencyTextcat(tendencyTextcat: string) {
-		this.tendencyTextcat = tendencyTextcat;
+	setTendencyCommentTextcat(tendencyCommentTextcat: string) {
+		this.tendencyCommentTextcat = tendencyCommentTextcat;
 	}
 
 	getAvActivityHighlights() : TextModel[] {
@@ -346,12 +346,12 @@ export class BulletinModel {
 		this.avActivityComment.push(model);
 	}
 
-	getTendencySymbol() {
-		return this.tendencySymbol;
+	getTendency() {
+		return this.tendency;
 	}
 
-	setTendencySymbol(tendencySymbol: Enums.Tendency) {
-		this.tendencySymbol = tendencySymbol;
+	setTendency(tendency: Enums.Tendency) {
+		this.tendency = tendency;
 	}
 
 	getDangerPattern1() {
@@ -426,32 +426,32 @@ export class BulletinModel {
 		this.snowpackStructureComment.push(model);
 	}
 
-	getTendency() : TextModel[] {
-		return this.tendency;
+	getTendencyComment() : TextModel[] {
+		return this.tendencyComment;
 	}
 
-	getTendencyIn(language: Enums.LanguageCode) : string {
-		for (var i = this.tendency.length - 1; i >= 0; i--) {
-			if (this.tendency[i].getLanguageCode() == language)
-				return this.tendency[i].getText();
+	getTendencyCommentIn(language: Enums.LanguageCode) : string {
+		for (var i = this.tendencyComment.length - 1; i >= 0; i--) {
+			if (this.tendencyComment[i].getLanguageCode() == language)
+				return this.tendencyComment[i].getText();
 		}
 	}
 
-	setTendency(tendency: TextModel[]) {
-		this.tendency = tendency;
+	setTendencyComment(tendencyComment: TextModel[]) {
+		this.tendencyComment = tendencyComment;
 	}
 
-	setTendencyIn(text: string, language: Enums.LanguageCode) {
-		for (var i = this.tendency.length - 1; i >= 0; i--) {
-			if (this.tendency[i].getLanguageCode() == language) {
-				this.tendency[i].setText(text);
+	setTendencyCommentIn(text: string, language: Enums.LanguageCode) {
+		for (var i = this.tendencyComment.length - 1; i >= 0; i--) {
+			if (this.tendencyComment[i].getLanguageCode() == language) {
+				this.tendencyComment[i].setText(text);
 				return;
 			}
 		}
 		let model = new TextModel();
 		model.setLanguageCode(language);
 		model.setText(text);
-		this.tendency.push(model);
+		this.tendencyComment.push(model);
 	}
 
 	getForenoonDangerRatingAbove() : Enums.DangerRating {
@@ -569,8 +569,8 @@ export class BulletinModel {
 		if (this.snowpackStructureCommentTextcat && this.snowpackStructureCommentTextcat != undefined)
 			json['snowpackStructureCommentTextcat'] = this.snowpackStructureCommentTextcat;
 
-		if (this.tendencyTextcat && this.tendencyTextcat != undefined)
-			json['tendencyTextcat'] = this.tendencyTextcat;
+		if (this.tendencyCommentTextcat && this.tendencyCommentTextcat != undefined)
+			json['tendencyCommentTextcat'] = this.tendencyCommentTextcat;
 
 		if (this.avActivityHighlights && this.avActivityHighlights != undefined && this.avActivityHighlights.length > 0) {
 			let highlight = [];
@@ -602,16 +602,16 @@ export class BulletinModel {
 			json['snowpackStructureComment'] = comment;
 		}
 
-		if (this.tendency && this.tendency != undefined && this.tendency.length > 0) {
+		if (this.tendencyComment && this.tendencyComment != undefined && this.tendencyComment.length > 0) {
 			let comment = [];
-			for (let i = 0; i <= this.tendency.length - 1; i++) {
-				comment.push(this.tendency[i].toJson());
+			for (let i = 0; i <= this.tendencyComment.length - 1; i++) {
+				comment.push(this.tendencyComment[i].toJson());
 			}
-			json['tendency'] = comment;
+			json['tendencyComment'] = comment;
 		}
 
-		if (this.tendencySymbol && this.tendencySymbol != undefined)
-			json['tendencySymbol'] = this.tendencySymbol;
+		if (this.tendency && this.tendency != undefined)
+			json['tendency'] = this.tendency;
 
 		if (this.dangerPattern1 && this.dangerPattern1 != undefined)
 			json['dangerPattern1'] = this.dangerPattern1;
@@ -678,8 +678,8 @@ export class BulletinModel {
 			bulletin.setSnowpackStructureHighlightsTextcat(json.snowpackStructureHighlightsTextcat);
 		if (json.snowpackStructureCommentTextcat)
 			bulletin.setSnowpackStructureCommentTextcat(json.snowpackStructureCommentTextcat);
-		if (json.tendencyTextcat)
-			bulletin.setTendencyTextcat(json.tendencyTextcat);
+		if (json.tendencyCommentTextcat)
+			bulletin.setTendencyCommentTextcat(json.tendencyCommentTextcat);
 
 		let jsonAvActivityHighlights = json.avActivityHighlights;
 		let avActivityHighlights = new Array<TextModel>();
@@ -709,15 +709,15 @@ export class BulletinModel {
 		}
 		bulletin.setSnowpackStructureComment(snowpackStructureComment);
 
-		let jsonTendency = json.tendency;
-		let tendency = new Array<TextModel>();
-		for (let i in jsonTendency) {
-			tendency.push(TextModel.createFromJson(jsonTendency[i]));
+		let jsonTendencyComment = json.tendencyComment;
+		let tendencyComment = new Array<TextModel>();
+		for (let i in jsonTendencyComment) {
+			tendencyComment.push(TextModel.createFromJson(jsonTendencyComment[i]));
 		}
-		bulletin.setTendency(tendency);
+		bulletin.setTendencyComment(tendencyComment);
 
-		if (json.tendencySymbol)
-			bulletin.setTendencySymbol(json.tendencySymbol);
+		if (json.tendency)
+			bulletin.setTendency(json.tendency);
 
 		if (json.dangerPattern1)
 			bulletin.setDangerPattern1(json.dangerPattern1);

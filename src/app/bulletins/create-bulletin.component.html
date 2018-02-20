@@ -367,23 +367,23 @@
               <table>
                 <tbody>
                   <tr style="height: 60px">
-                    <td *ngIf="activeBulletin.tendencySymbol == 'decreasing'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendencySymbol($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.decreasing' | translate }}"><i class="fa fa-arrow-down"></i>{{ "tendency.decreasing" | translate }}</button>
+                    <td *ngIf="activeBulletin.tendency == 'decreasing'">
+                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendency($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.decreasing' | translate }}"><i class="fa fa-arrow-down"></i>{{ "tendency.decreasing" | translate }}</button>
                     </td>
-                    <td *ngIf="activeBulletin.tendencySymbol != 'decreasing'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendencySymbol($event, 'decreasing')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.decreasing' | translate }}"><i class="fa fa-arrow-down"></i>{{ "tendency.decreasing" | translate }}</button>
+                    <td *ngIf="activeBulletin.tendency != 'decreasing'">
+                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendency($event, 'decreasing')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.decreasing' | translate }}"><i class="fa fa-arrow-down"></i>{{ "tendency.decreasing" | translate }}</button>
                     </td>
-                    <td *ngIf="activeBulletin.tendencySymbol == 'steady'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendencySymbol($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.steady' | translate }}"><i class="fa fa-arrow-right"></i>{{ "tendency.steady" | translate }}</button>
+                    <td *ngIf="activeBulletin.tendency == 'steady'">
+                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendency($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.steady' | translate }}"><i class="fa fa-arrow-right"></i>{{ "tendency.steady" | translate }}</button>
                     </td>
-                    <td *ngIf="activeBulletin.tendencySymbol != 'steady'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendencySymbol($event, 'steady')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.steady' | translate }}"><i class="fa fa-arrow-right"></i>{{ "tendency.steady" | translate }}</button>
+                    <td *ngIf="activeBulletin.tendency != 'steady'">
+                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendency($event, 'steady')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.steady' | translate }}"><i class="fa fa-arrow-right"></i>{{ "tendency.steady" | translate }}</button>
                     </td>
-                    <td *ngIf="activeBulletin.tendencySymbol == 'increasing'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendencySymbol($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.increasing' | translate }}"><i class="fa fa-arrow-up"></i>{{ "tendency.increasing" | translate }}</button>
+                    <td *ngIf="activeBulletin.tendency == 'increasing'">
+                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendency($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.increasing' | translate }}"><i class="fa fa-arrow-up"></i>{{ "tendency.increasing" | translate }}</button>
                     </td>
-                    <td *ngIf="activeBulletin.tendencySymbol != 'increasing'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendencySymbol($event, 'increasing')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.increasing' | translate }}"><i class="fa fa-arrow-up"></i>{{ "tendency.increasing" | translate }}</button>
+                    <td *ngIf="activeBulletin.tendency != 'increasing'">
+                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendency($event, 'increasing')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.increasing' | translate }}"><i class="fa fa-arrow-up"></i>{{ "tendency.increasing" | translate }}</button>
                     </td>
                   </tr>
                 </tbody>
@@ -393,7 +393,7 @@
           <div class="form-group row">
             <div class="col-md-12">
               <!-- TODO disable cop if editRegions -->
-              <cop #tendencyTextcat [text]="activeBulletin.tendencyTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
+              <cop #tendencyCommentTextcat [text]="activeBulletin.tendencyCommentTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
             </div>
           </div>
         </div>

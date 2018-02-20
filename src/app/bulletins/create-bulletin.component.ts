@@ -55,7 +55,7 @@ export class CreateBulletinComponent {
 
   @ViewChild('snowpackStructureCommentTextcat') snowpackStructureCommentTextcat;
 
-  @ViewChild('tendencyTextcat') tendencyTextcat;
+  @ViewChild('tendencyCommentTextcat') tendencyCommentTextcat;
 
   constructor(
     private translate: TranslateService,
@@ -367,9 +367,9 @@ export class CreateBulletinComponent {
     }
   }
 
-  setTendencySymbol(event, tendency) {
+  setTendency(event, tendency) {
     event.stopPropagation();
-    this.activeBulletin.tendencySymbol = tendency;
+    this.activeBulletin.tendency = tendency;
   } 
 
   onShowAfternoonMapChange(checked) {
@@ -651,8 +651,8 @@ export class CreateBulletinComponent {
         if (this.snowpackStructureCommentTextcat && this.snowpackStructureCommentTextcat.textcat && this.snowpackStructureCommentTextcat.textcat.nativeElement && this.snowpackStructureCommentTextcat.textcat.nativeElement.value)
           this.activeBulletin.setSnowpackStructureCommentTextcat(this.snowpackStructureCommentTextcat.textcat.nativeElement.value);
 
-        if (this.tendencyTextcat && this.tendencyTextcat.textcat && this.tendencyTextcat.textcat.nativeElement && this.tendencyTextcat.textcat.nativeElement.value)
-          this.activeBulletin.setTendencyTextcat(this.tendencyTextcat.textcat.nativeElement.value);
+        if (this.tendencyCommentTextcat && this.tendencyCommentTextcat.textcat && this.tendencyCommentTextcat.textcat.nativeElement && this.tendencyCommentTextcat.textcat.nativeElement.value)
+          this.activeBulletin.setTendencyCommentTextcat(this.tendencyCommentTextcat.textcat.nativeElement.value);
 
         this.mapService.deselectAggregatedRegion();
         this.activeBulletin = undefined;
