@@ -26,7 +26,6 @@
       ],
       "scripts": [
         "assets/javascript/jquery-1.11.1.js", 
-        "assets/javascript/phrasemaker.js", 
         "assets/javascript/util.js", 
         "assets/javascript/jquery.tmpl.min.js", 
         "assets/javascript/jquery-ui.min.js"

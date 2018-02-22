@@ -37,7 +37,7 @@ export class CopComponent {
 
     if (!isFound) {
       var dynamicScripts = [
-        "assets/javascript/phrasemaker.js"
+        "assets/javascript/phrasemaker_it.js"
       ];
 
       for (var i = 0; i < dynamicScripts .length; i++) {
