@@ -1,5 +1,5 @@
 import React from 'react';
-import SubNavigation from './../components/subnavigation';
+import SubNavigation from './../components/subnavigation.jsx';
 
 export default class Info extends React.Component {
   constructor(props) {
@@ -8,17 +8,19 @@ export default class Info extends React.Component {
 
   _sublinks() {
     return [
-      {url: 'about', label: 'about us'},
-      {url: 'contact', label: 'contact us'},
-      {url: 'come', label: 'come and say hi'},
-    ]
+      { url: 'about', label: 'about us' },
+      { url: 'contact', label: 'contact us' },
+      { url: 'come', label: 'come and say hi' }
+    ];
   }
 
   render() {
     return (
       <div>
         <SubNavigation sublinks={this._sublinks()} viewPath="/info/" />
-        <h1 className="title">INFO</h1>
+        <div className="content-wrapper">
+          <h1 className="title">INFO</h1>
+        </div>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
-import PageHeadingWrapper from './pageheading/wrapper';
-import PageFooterWrapper from './pagefooter/wrapper';
-import { renderRoutes } from 'react-router-config'
+import PageHeadingWrapper from './pageheading/wrapper.jsx';
+import PageFooterWrapper from './pagefooter/wrapper.jsx';
+import { renderRoutes } from 'react-router-config';
 
 require('../css/bulma.css');
 require('../css/app.css');
@@ -20,7 +20,10 @@ export default class Page extends React.Component {
   }
 
   _didUpdate() {
-    if (this.props.location.pathname === '' || this.props.location.pathname === '/' ) {
+    if (
+      this.props.location.pathname === '' ||
+      this.props.location.pathname === '/'
+    ) {
       this.props.history.push('news');
     }
   }
@@ -29,9 +32,7 @@ export default class Page extends React.Component {
     return (
       <div>
         <PageHeadingWrapper />
-        <div className="container">
-          { renderRoutes(this.props.route.routes) }
-        </div>
+        <div className="container">{renderRoutes(this.props.route.routes)}</div>
         <PageFooterWrapper />
       </div>
     );

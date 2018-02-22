@@ -12,21 +12,19 @@ export default class SubNavigation extends React.Component {
 
   _renderItem(sublink, key) {
     return (
-        <li key={key} className={this._linkStyle(sublink.url)} >
-            <Link to={this.props.viewPath + sublink.url}>{sublink.label}</Link>
-        </li>
-    )
+      <li key={key} className={this._linkStyle(sublink.url)}>
+        <Link to={this.props.viewPath + sublink.url}>{sublink.label}</Link>
+      </li>
+    );
   }
 
   render() {
     return (
       <div className="subnavigation tabs">
         <ul>
-            {
-                this.props.sublinks.map((item, i) => {
-                    return this._renderItem(item, i);
-                })
-            }
+          {this.props.sublinks.map((item, i) => {
+            return this._renderItem(item, i);
+          })}
         </ul>
       </div>
     );
