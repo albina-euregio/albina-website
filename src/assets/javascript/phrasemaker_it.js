@@ -782,8 +782,10 @@ var PM = function () {
 	if  (typeof srcLang === "undefined")
 		 srcLang="de";
 
-	var contextPath = getEnvValue(window.contextPath, '/' + location.pathname.split('/')[1] + '/');
-	var contextApiPath = getEnvValue(window.contextApiPath, '/' + location.pathname.split('/')[1] + '/');
+	// var contextPath = getEnvValue(window.contextPath, '/' + location.pathname.split('/')[1] + '/');
+	var contextPath = "assets/";
+	// var contextApiPath = getEnvValue(window.contextApiPath, '/' + location.pathname.split('/')[1] + '/');
+	var contextApiPath = "http://albina.clesius.it/textcat/";
 	var sentenceURL = getEnvValue( contextApiPath + window.sentenceURL + "&l=" + srcLang, contextApiPath + "textcat?type=sentence");
 	var optionURL = getEnvValue( contextApiPath + window.optionURL + "&l=" + srcLang, contextApiPath + "textcat?type=option");
 	var phraseURL = getEnvValue( contextApiPath + window.phraseURL + "&l=" + srcLang, contextApiPath + "textcat?type=phrase");
