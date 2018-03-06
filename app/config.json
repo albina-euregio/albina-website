@@ -1,0 +1,23 @@
+{
+  "blogs": [
+  	{
+  	  "lang": "de",
+  	  "name": "lawinenwarndienst.blogspot.co.at",
+  	  "apiType": "blogger",
+  	  "tags": [
+  	    "Tirol"
+  	  ],
+  	  "params": {
+  	    "id": "7062477220886068374"
+      }
+    }
+  ],
+  "apis": {
+  	"content": "http://localhost/projects/albina-cms/web/",
+  	"bulletin": "http://212.47.231.185:8080/swagger/",
+  	"blogger": "https://www.googleapis.com/blogger/v3/blogs/"
+  },
+  "apiKeys": {
+    "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo"
+  }
+}
