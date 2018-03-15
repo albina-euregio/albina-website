@@ -42,7 +42,7 @@
                         <tbody>
                           <tr>
                             <td>
-                              <danger-rating [bulletin]="bulletin"></danger-rating>
+                              <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
                             </td>
                             <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                             <td>
@@ -108,7 +108,7 @@
 
                     <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
                       <td>
-                        <danger-rating [bulletin]="bulletin"></danger-rating>
+                        <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
                       </td>
                       <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                       <td>
@@ -134,7 +134,7 @@
                         <tbody>
                           <tr>
                             <td>
-                              <danger-rating [bulletin]="bulletin"></danger-rating>
+                              <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
                             </td>
                             <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                             <td>
@@ -203,7 +203,7 @@
 
                     <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
                       <td>
-                        <danger-rating [bulletin]="bulletin"></danger-rating>
+                        <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
                       </td>
                       <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
                       <td>
@@ -233,48 +233,58 @@
     </div>
   </div>
 
-  <div *ngIf="activeBulletin" class="row">
-    <div *ngIf="!activeBulletin.hasDaytimeDependency && !activeBulletin.hasElevationDependency" class="col-md-12">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletin.forenoonAbove" [title]="'bulletins.create.title.detail'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
-    </div>
-    <div *ngIf="!activeBulletin.hasDaytimeDependency && activeBulletin.hasElevationDependency" class="col-md-12">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletin.forenoonAbove" [title]="'bulletins.create.title.above'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
-    </div>
-    <div *ngIf="activeBulletin.hasDaytimeDependency && !activeBulletin.hasElevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletin.forenoonAbove" [title]="'bulletins.create.title.forenoon'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
-    </div>
-    <div *ngIf="activeBulletin.hasDaytimeDependency && !activeBulletin.hasElevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletin.afternoonAbove" [title]="'bulletins.create.title.afternoon'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
-    </div>
-    <div *ngIf="activeBulletin.hasDaytimeDependency && activeBulletin.hasElevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletin.forenoonAbove" [title]="'bulletins.create.title.forenoonAbove'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
-    </div>
-    <div *ngIf="activeBulletin.hasDaytimeDependency && activeBulletin.hasElevationDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletin.afternoonAbove" [title]="'bulletins.create.title.afternoonAbove'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
-    </div>
-  </div><!--/.row-->
-
-
-  <div *ngIf="activeBulletin && activeBulletin.hasElevationDependency" class="row">
-    <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletin.forenoonBelow" [title]="'bulletins.create.title.below'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
-    </div>
-    <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletin.forenoonBelow" [title]="'bulletins.create.title.forenoonBelow'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
-    </div>
-    <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
-      <bulletin-detail [bulletinElevationDescription]="activeBulletin.afternoonBelow" [title]="'bulletins.create.title.afternoonBelow'" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
-    </div>
-  </div><!--/.row-->
-
+  <!-- Danger rating -->
   <div *ngIf="activeBulletin" class="row">
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <strong>{{ "bulletins.create.title.general" | translate }}</strong>
+          <strong>{{ "bulletins.create.title.dangerRating" | translate }}</strong>
+        </div>
+        <bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
+      </div>
+    </div>
+  </div>
+
+  <!-- Avalanche situation -->
+  <div *ngIf="activeBulletin" class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ "bulletins.create.title.avalancheSituation" | translate }}</strong>
         </div>
         <div class="card-block">
-         <div class="form-group row">
+          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+            <div class="form-group row">
+              <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
+                <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="disabled"></avalanche-situation>
+                <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="disabled"></avalanche-situation>
+              </div>
+              <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
+                <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+                <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="disabled"></avalanche-situation>
+                <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="disabled"></avalanche-situation>
+              </div>
+              <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
+                <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+                <avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation1" [disabled]="disabled"></avalanche-situation>
+                <avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation2" [disabled]="disabled"></avalanche-situation>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Danger description -->
+  <div *ngIf="activeBulletin" class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ "bulletins.create.title.dangerDescription" | translate }}</strong>
+        </div>
+        <div class="card-block">
+          <div class="form-group row">
             <div class="col-md-12">
               <div class="form-group row">
                 <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>

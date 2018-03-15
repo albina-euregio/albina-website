@@ -20,7 +20,7 @@ export class QuickReportComponent {
 	avalanches = Enums.Avalanches;
 	penetrationDepth = Enums.PenetrationDepth;
 	surfaceSnowWetness = Enums.SurfaceSnowWetness;
-	avalancheProblem = Enums.AvalancheProblem;
+	avalancheSituation = Enums.AvalancheSituation;
 	tracks = Enums.Tracks;
 
   constructor(
@@ -68,7 +68,7 @@ export class QuickReportComponent {
 	getAvalancheProblemsString() {
 		let result = "";
 		for (var i = this.quickReport.avalancheProblems.length - 1; i >= 0; i--) {
-			result = result + this.translateService.instant("avalancheProblem." + Enums.AvalancheProblem[this.quickReport.avalancheProblems[i]]);
+			result = result + this.translateService.instant("avalancheProblem." + Enums.AvalancheSituation[this.quickReport.avalancheProblems[i]]);
 			if (i > 0)
 				result = result + ", ";
 		}

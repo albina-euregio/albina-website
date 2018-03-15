@@ -1,7 +1,7 @@
 import { Component, Input, HostListener, ViewChild, ElementRef, NgZone, ApplicationRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BulletinModel } from '../models/bulletin.model';
-import { BulletinElevationDescriptionModel } from '../models/bulletin-elevation-description.model';
+import { BulletinDaytimeDescriptionModel } from '../models/bulletin-daytime-description.model';
 import { MatrixInformationModel } from '../models/matrix-information.model';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
@@ -722,26 +722,18 @@ export class CreateBulletinComponent {
     this.activeBulletin.setHasElevationDependency(value);
 
     if (this.activeBulletin.hasElevationDependency) {
-      this.activeBulletin.forenoonBelow.setDangerRating(this.activeBulletin.forenoonAbove.getDangerRating());
-      this.activeBulletin.forenoonBelow.setMatrixInformation(new MatrixInformationModel(this.activeBulletin.forenoonAbove.getMatrixInformation()));
-      this.activeBulletin.forenoonBelow.setAspects(this.activeBulletin.forenoonAbove.getAspects());
-      this.activeBulletin.forenoonBelow.setAvalancheProblem(this.activeBulletin.forenoonAbove.getAvalancheProblem());
+      this.activeBulletin.forenoon.setDangerRatingBelow(this.activeBulletin.forenoon.getDangerRatingAbove());
+      this.activeBulletin.forenoon.setMatrixInformationBelow(new MatrixInformationModel(this.activeBulletin.forenoon.getMatrixInformationAbove()));
       if (this.activeBulletin.hasDaytimeDependency) {
-        this.activeBulletin.afternoonBelow.setDangerRating(this.activeBulletin.afternoonAbove.getDangerRating());
-        this.activeBulletin.afternoonBelow.setMatrixInformation(new MatrixInformationModel(this.activeBulletin.afternoonAbove.getMatrixInformation()));
-        this.activeBulletin.afternoonBelow.setAspects(this.activeBulletin.afternoonAbove.getAspects());
-        this.activeBulletin.afternoonBelow.setAvalancheProblem(this.activeBulletin.afternoonAbove.getAvalancheProblem());
+        this.activeBulletin.afternoon.setDangerRatingBelow(this.activeBulletin.afternoon.getDangerRatingAbove());
+        this.activeBulletin.afternoon.setMatrixInformationBelow(new MatrixInformationModel(this.activeBulletin.afternoon.getMatrixInformationAbove()));
       }
     } else {
-      this.activeBulletin.forenoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
-      this.activeBulletin.forenoonBelow.setMatrixInformation(undefined);
-      this.activeBulletin.forenoonBelow.setAspects(new Array<Enums.Aspect>());
-      this.activeBulletin.forenoonBelow.setAvalancheProblem(undefined);
+      this.activeBulletin.forenoon.setDangerRatingBelow(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+      this.activeBulletin.forenoon.setMatrixInformationBelow(undefined);
       if (this.activeBulletin.hasDaytimeDependency) {
-        this.activeBulletin.afternoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
-        this.activeBulletin.afternoonBelow.setMatrixInformation(undefined);
-        this.activeBulletin.afternoonBelow.setAspects(new Array<Enums.Aspect>());
-        this.activeBulletin.afternoonBelow.setAvalancheProblem(undefined);
+        this.activeBulletin.afternoon.setDangerRatingBelow(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+        this.activeBulletin.afternoon.setMatrixInformationBelow(undefined);
       }
     }
   }
@@ -755,26 +747,18 @@ export class CreateBulletinComponent {
         this.showAfternoonMap = true;
         this.onShowAfternoonMapChange(true);
       }
-      this.activeBulletin.afternoonAbove.setDangerRating(this.activeBulletin.forenoonAbove.getDangerRating());
-      this.activeBulletin.afternoonAbove.setMatrixInformation(new MatrixInformationModel(this.activeBulletin.forenoonAbove.getMatrixInformation()));
-      this.activeBulletin.afternoonAbove.setAspects(this.activeBulletin.forenoonAbove.getAspects());
-      this.activeBulletin.afternoonAbove.setAvalancheProblem(this.activeBulletin.forenoonAbove.getAvalancheProblem());
+      this.activeBulletin.afternoon.setDangerRatingAbove(this.activeBulletin.forenoon.getDangerRatingAbove());
+      this.activeBulletin.afternoon.setMatrixInformationAbove(new MatrixInformationModel(this.activeBulletin.forenoon.getMatrixInformationAbove()));
       if (this.activeBulletin.hasElevationDependency) {
-        this.activeBulletin.afternoonBelow.setDangerRating(this.activeBulletin.forenoonBelow.getDangerRating());
-        this.activeBulletin.afternoonBelow.setMatrixInformation(new MatrixInformationModel(this.activeBulletin.forenoonBelow.getMatrixInformation()));
-        this.activeBulletin.afternoonBelow.setAspects(this.activeBulletin.forenoonBelow.getAspects());
-        this.activeBulletin.afternoonBelow.setAvalancheProblem(this.activeBulletin.forenoonBelow.getAvalancheProblem());
+        this.activeBulletin.afternoon.setDangerRatingBelow(this.activeBulletin.forenoon.getDangerRatingBelow());
+        this.activeBulletin.afternoon.setMatrixInformationBelow(new MatrixInformationModel(this.activeBulletin.forenoon.getMatrixInformationBelow()));
       }
     } else {
-      this.activeBulletin.afternoonAbove.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
-      this.activeBulletin.afternoonAbove.setMatrixInformation(undefined);
-      this.activeBulletin.afternoonAbove.setAspects(new Array<Enums.Aspect>());
-      this.activeBulletin.afternoonAbove.setAvalancheProblem(undefined);
+      this.activeBulletin.afternoon.setDangerRatingAbove(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+      this.activeBulletin.afternoon.setMatrixInformationAbove(undefined);
       if (this.activeBulletin.hasElevationDependency) {
-        this.activeBulletin.afternoonBelow.setDangerRating(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
-        this.activeBulletin.afternoonBelow.setMatrixInformation(undefined);
-        this.activeBulletin.afternoonBelow.setAspects(new Array<Enums.Aspect>());
-        this.activeBulletin.afternoonBelow.setAvalancheProblem(undefined);
+        this.activeBulletin.afternoon.setDangerRatingBelow(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
+        this.activeBulletin.afternoon.setMatrixInformationBelow(undefined);
       }
       let daytimeDependency = false;
       for (let bulletin of this.bulletinsList) {

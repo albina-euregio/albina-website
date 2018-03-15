@@ -1,4 +1,4 @@
-import { BulletinElevationDescriptionModel } from "./bulletin-elevation-description.model";
+import { BulletinDaytimeDescriptionModel } from "./bulletin-daytime-description.model";
 import { TextModel } from './text.model';
 import * as Enums from '../enums/enums';
 
@@ -23,10 +23,8 @@ export class BulletinModel {
 	public elevation: number;
 	public treeline: boolean;
 
-	public forenoonAbove: BulletinElevationDescriptionModel;
-	public forenoonBelow: BulletinElevationDescriptionModel;
-	public afternoonAbove: BulletinElevationDescriptionModel;
-	public afternoonBelow: BulletinElevationDescriptionModel;
+	public forenoon: BulletinDaytimeDescriptionModel;
+	public afternoon: BulletinDaytimeDescriptionModel;
 
 	public avActivityHighlightsTextcat: string;
 	public avActivityCommentTextcat: string;
@@ -57,10 +55,8 @@ export class BulletinModel {
 			this.suggestedRegions = bulletin.suggestedRegions;
 			this.savedRegions = bulletin.savedRegions;
 			this.publishedRegions = bulletin.publishedRegions;
-			this.forenoonAbove = new BulletinElevationDescriptionModel(bulletin.forenoonAbove);
-			this.forenoonBelow = new BulletinElevationDescriptionModel(bulletin.forenoonBelow);
-			this.afternoonAbove = new BulletinElevationDescriptionModel(bulletin.afternoonAbove);
-			this.afternoonBelow = new BulletinElevationDescriptionModel(bulletin.afternoonBelow);
+			this.forenoon = new BulletinDaytimeDescriptionModel(bulletin.forenoon);
+			this.afternoon = new BulletinDaytimeDescriptionModel(bulletin.afternoon);
 			this.avActivityHighlightsTextcat = bulletin.avActivityHighlightsTextcat;
 			this.avActivityCommentTextcat = bulletin.avActivityCommentTextcat;
 			this.snowpackStructureHighlightsTextcat = bulletin.snowpackStructureHighlightsTextcat;
@@ -84,10 +80,8 @@ export class BulletinModel {
 			this.suggestedRegions = new Array<String>();
 			this.savedRegions = new Array<String>();
 			this.publishedRegions = new Array<String>();
-			this.forenoonAbove = new BulletinElevationDescriptionModel();
-			this.forenoonBelow = new BulletinElevationDescriptionModel();
-			this.afternoonAbove = new BulletinElevationDescriptionModel();
-			this.afternoonBelow = new BulletinElevationDescriptionModel();
+			this.forenoon = new BulletinDaytimeDescriptionModel();
+			this.afternoon = new BulletinDaytimeDescriptionModel();
 			this.avActivityHighlightsTextcat = undefined;
 			this.avActivityCommentTextcat = undefined;
 			this.snowpackStructureHighlightsTextcat = undefined;
@@ -214,36 +208,20 @@ export class BulletinModel {
 		this.hasDaytimeDependency = hasDaytimeDependency;
 	}
 
-	getForenoonAbove() : BulletinElevationDescriptionModel {
-		return this.forenoonAbove
+	getForenoon() : BulletinDaytimeDescriptionModel {
+		return this.forenoon
 	}
 
-	setForenoonAbove(forenoonAbove: BulletinElevationDescriptionModel) {
-		this.forenoonAbove = forenoonAbove;
+	setForenoon(forenoon: BulletinDaytimeDescriptionModel) {
+		this.forenoon = forenoon;
 	}
 
-	getForenoonBelow() : BulletinElevationDescriptionModel {
-		return this.forenoonBelow
+	getAfternoon() : BulletinDaytimeDescriptionModel {
+		return this.afternoon
 	}
 
-	setForenoonBelow(forenoonBelow: BulletinElevationDescriptionModel) {
-		this.forenoonBelow = forenoonBelow;
-	}
-
-	getAfternoonAbove() : BulletinElevationDescriptionModel {
-		return this.afternoonAbove
-	}
-
-	setAfternoonAbove(afternoonAbove: BulletinElevationDescriptionModel) {
-		this.afternoonAbove = afternoonAbove;
-	}
-
-	getAfternoonBelow() : BulletinElevationDescriptionModel {
-		return this.afternoonBelow
-	}
-
-	setAfternoonBelow(afternoonBelow: BulletinElevationDescriptionModel) {
-		this.afternoonBelow = afternoonBelow;
+	setAfternoon(afternoon: BulletinDaytimeDescriptionModel) {
+		this.afternoon = afternoon;
 	}
 
 	getAvActivityHighlightsTextcat() : string {
@@ -455,20 +433,20 @@ export class BulletinModel {
 	}
 
 	getForenoonDangerRatingAbove() : Enums.DangerRating {
-		return this.forenoonAbove.dangerRating.getValue();
+		return this.forenoon.dangerRatingAbove.getValue();
 	}
 
 	getAfternoonDangerRatingAbove() : Enums.DangerRating {
-		let test : any = this.afternoonAbove.dangerRating.getValue();
-		if (this.hasDaytimeDependency && this.afternoonAbove && this.afternoonAbove.dangerRating && test != "missing")
-			return this.afternoonAbove.dangerRating.getValue();
+		let test : any = this.afternoon.dangerRatingAbove.getValue();
+		if (this.hasDaytimeDependency && this.afternoon && this.afternoon.dangerRatingAbove && test != "missing")
+			return this.afternoon.dangerRatingAbove.getValue();
 		else
-			return this.forenoonAbove.dangerRating.getValue();
+			return this.forenoon.dangerRatingAbove.getValue();
 	}
 
 	getForenoonDangerRatingBelow() : Enums.DangerRating {
 		if (this.hasElevationDependency)
-			return this.forenoonBelow.dangerRating.getValue();
+			return this.forenoon.dangerRatingBelow.getValue();
 		else
 			return this.getForenoonDangerRatingAbove();
 	}
@@ -476,11 +454,11 @@ export class BulletinModel {
 	getAfternoonDangerRatingBelow() : Enums.DangerRating {
 		if (this.hasDaytimeDependency) {
 			if (this.hasElevationDependency) {
-				let test : any = this.afternoonBelow.dangerRating.getValue();
-				if (this.afternoonBelow && this.afternoonBelow.dangerRating && test != "missing")
-					return this.afternoonBelow.dangerRating.getValue();
+				let test : any = this.afternoon.dangerRatingBelow.getValue();
+				if (this.afternoon && this.afternoon.dangerRatingBelow && test != "missing")
+					return this.afternoon.dangerRatingBelow.getValue();
 				else
-					return this.forenoonBelow.dangerRating.getValue();
+					return this.forenoon.dangerRatingBelow.getValue();
 			} else
 				return this.getAfternoonDangerRatingAbove();
 		} else
@@ -545,17 +523,11 @@ export class BulletinModel {
 		} else
 			json['hasElevationDependency'] = false;
 
-		if (this.hasElevationDependency && this.forenoonBelow && this.forenoonBelow != undefined)
-			json['forenoonBelow'] = this.forenoonBelow.toJson();
+		if (this.forenoon && this.forenoon != undefined)
+			json['forenoon'] = this.forenoon.toJson();
 
-		if (this.forenoonAbove && this.forenoonAbove != undefined)
-			json['forenoonAbove'] = this.forenoonAbove.toJson();
-
-		if (this.hasElevationDependency && this.hasDaytimeDependency && this.afternoonBelow && this.afternoonBelow != undefined)
-			json['afternoonBelow'] = this.afternoonBelow.toJson();
-
-		if (this.hasDaytimeDependency && this.afternoonAbove && this.afternoonAbove != undefined)
-			json['afternoonAbove'] = this.afternoonAbove.toJson();
+		if (this.hasDaytimeDependency && this.afternoon && this.afternoon != undefined)
+			json['afternoon'] = this.afternoon.toJson();
 
 		if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat != undefined)
 			json['avActivityHighlightsTextcat'] = this.avActivityHighlightsTextcat;
@@ -661,14 +633,10 @@ export class BulletinModel {
 		bulletin.setHasDaytimeDependency(json.hasDaytimeDependency);
 		bulletin.setHasElevationDependency(json.hasElevationDependency);
 
-		if (json.forenoonAbove)
-			bulletin.setForenoonAbove(BulletinElevationDescriptionModel.createFromJson(json.forenoonAbove));
-		if (json.forenoonBelow)
-			bulletin.setForenoonBelow(BulletinElevationDescriptionModel.createFromJson(json.forenoonBelow));
-		if (json.afternoonAbove)
-			bulletin.setAfternoonAbove(BulletinElevationDescriptionModel.createFromJson(json.afternoonAbove));
-		if (json.afternoonBelow)
-			bulletin.setAfternoonBelow(BulletinElevationDescriptionModel.createFromJson(json.afternoonBelow));
+		if (json.forenoon)
+			bulletin.setForenoon(BulletinDaytimeDescriptionModel.createFromJson(json.forenoon));
+		if (json.afternoon)
+			bulletin.setAfternoon(BulletinDaytimeDescriptionModel.createFromJson(json.afternoon));
 
 		if (json.avActivityHighlightsTextcat)
 			bulletin.setAvActivityHighlightsTextcat(json.avActivityHighlightsTextcat);

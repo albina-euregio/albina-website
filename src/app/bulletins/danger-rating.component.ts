@@ -1,6 +1,8 @@
 import { Component, Input, ViewChild, ElementRef, SimpleChange } from '@angular/core';
-import { ConstantsService } from '../providers/constants-service/constants.service';
-import { BulletinModel } from '../models/bulletin.model';
+import { BulletinDaytimeDescriptionModel } from '../models/bulletin-daytime-description.model';
+import { MatrixInformationModel } from '../models/matrix-information.model';
+import { SettingsService } from '../providers/settings-service/settings.service';
+import * as Enums from '../enums/enums';
 
 @Component({
 	selector: 'danger-rating',
@@ -8,34 +10,31 @@ import { BulletinModel } from '../models/bulletin.model';
 })
 export class DangerRatingComponent {
 
-	@Input() bulletin: BulletinModel;
-
+  @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
+  @Input() below: boolean;
+  @Input() disabled: boolean;
+	
   constructor(
-    private constantsService: ConstantsService)
+    public settingsService: SettingsService)
   {
   }
 
-  getForenoonColorAbove() {
-    let dangerRating = this.bulletin.getForenoonDangerRatingAbove().toString();
-    return this.getDangerRatingColor(dangerRating);
+	isDangerRating(dangerRating) {
+    if (this.below) {
+      if (this.bulletinDaytimeDescription.dangerRatingBelow && this.bulletinDaytimeDescription.dangerRatingBelow.getValue() == dangerRating)
+        return true;
+      return false;
+    } else {
+      if (this.bulletinDaytimeDescription.dangerRatingAbove && this.bulletinDaytimeDescription.dangerRatingAbove.getValue() == dangerRating)
+        return true;
+      return false;
+    }
   }
 
-  getForenoonColorBelow() {
-    let dangerRating = this.bulletin.getForenoonDangerRatingBelow().toString();
-    return this.getDangerRatingColor(dangerRating);
-  }
-
-  getAfternoonColorAbove() {
-    let dangerRating = this.bulletin.getAfternoonDangerRatingAbove().toString();
-    return this.getDangerRatingColor(dangerRating);
-  }
-
-  getAfternoonColorBelow() {
-    let dangerRating = this.bulletin.getAfternoonDangerRatingBelow().toString();
-    return this.getDangerRatingColor(dangerRating);
-  }
-
-  private getDangerRatingColor(dangerRating) {
-    return this.constantsService.getDangerRatingColor(dangerRating);
+  selectDangerRating(dangerRating) {
+    if (this.below)
+      this.bulletinDaytimeDescription.setDangerRatingBelow(Enums.DangerRating[dangerRating]);
+    else
+      this.bulletinDaytimeDescription.setDangerRatingAbove(Enums.DangerRating[dangerRating]);
   }
 }

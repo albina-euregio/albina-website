@@ -25,7 +25,7 @@ export class QuickReportModel {
 	public avalanches: Enums.Avalanches;
 	public penetrationDepth: Enums.PenetrationDepth;
 	public surfaceSnowWetness: Enums.SurfaceSnowWetness;
-	public avalancheProblems: Enums.AvalancheProblem[];
+	public avalancheProblems: Enums.AvalancheSituation[];
 	public tracks: Enums.Tracks;
 
 	constructor(showUsername, quickReport?) {
@@ -64,7 +64,7 @@ export class QuickReportModel {
 			this.avalanches = undefined;
 			this.penetrationDepth = undefined;
 			this.surfaceSnowWetness = undefined;
-			this.avalancheProblems = new Array<Enums.AvalancheProblem>();
+			this.avalancheProblems = new Array<Enums.AvalancheSituation>();
 			this.tracks = undefined;
 		}
 	}
@@ -326,7 +326,7 @@ export class QuickReportModel {
 		if (this.avalancheProblems != undefined) {
 			let jsonAvalancheProblems = [];
 			for (let i = this.avalancheProblems.length - 1; i >= 0; i--) {
-				jsonAvalancheProblems.push(Enums.AvalancheProblem[this.avalancheProblems[i]]);
+				jsonAvalancheProblems.push(Enums.AvalancheSituation[this.avalancheProblems[i]]);
 			}
 			json['avalancheProblems'] = jsonAvalancheProblems;
 		}
@@ -411,7 +411,7 @@ export class QuickReportModel {
 		if (json.avalancheProblems) {
 			let avalancheProblems = new Array<string>();
 			for (let i = json.avalancheProblems.length - 1; i >= 0; i--) {
-				avalancheProblems.push(Enums.AvalancheProblem[json.avalancheProblems[i]]);
+				avalancheProblems.push(Enums.AvalancheSituation[json.avalancheProblems[i]]);
 			}
 			quickReport.setAvalancheProblems(avalancheProblems);
 		}

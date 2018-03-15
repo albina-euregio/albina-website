@@ -202,22 +202,22 @@ export class MapService {
     }
 
     addAggregatedRegion(bulletin: BulletinModel) {
-        bulletin.forenoonBelow.dangerRating.subscribe(dangerRating => {
+        bulletin.forenoon.dangerRatingBelow.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletin);
             if (this.map)
                 this.selectAggregatedRegion(bulletin);
         });
-        bulletin.forenoonAbove.dangerRating.subscribe(dangerRating => {
+        bulletin.forenoon.dangerRatingAbove.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletin);
             if (this.map)
                 this.selectAggregatedRegion(bulletin);
         });
-        bulletin.afternoonBelow.dangerRating.subscribe(dangerRating => {
+        bulletin.afternoon.dangerRatingBelow.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletin);
             if (this.map)
                 this.selectAggregatedRegion(bulletin);
         });
-        bulletin.afternoonAbove.dangerRating.subscribe(dangerRating => {
+        bulletin.afternoon.dangerRatingAbove.subscribe(dangerRating => {
             this.updateAggregatedRegion(bulletin);
             if (this.map)
                 this.selectAggregatedRegion(bulletin);

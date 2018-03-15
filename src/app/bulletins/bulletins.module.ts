@@ -7,6 +7,8 @@ import { CreateBulletinComponent } from './create-bulletin.component';
 import { BulletinDetailComponent } from './bulletin-detail.component';
 import { AspectsComponent } from './aspects.component';
 import { DangerRatingComponent } from './danger-rating.component';
+import { DangerRatingIconComponent } from './danger-rating-icon.component';
+import { AvalancheSituationComponent } from './avalanche-situation.component';
 import { CopComponent } from './cop.component';
 import { MatrixComponent } from './matrix.component';
 import { CaamlComponent } from './caaml.component';
@@ -38,6 +40,8 @@ import { PipeModule }    from '../pipes/pipes.module';
     BulletinDetailComponent,
     AspectsComponent,
     DangerRatingComponent,
+    DangerRatingIconComponent,
+    AvalancheSituationComponent,
     CopComponent,
     MatrixComponent,
     CaamlComponent,
