@@ -278,10 +278,13 @@
             <div class="col-md-12">
               <div class="form-group row">
                 <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
-                <div class="col-md-12">
-                  <!-- TODO disable cop if editRegions -->
+                <!--<div class="col-md-12"  >-->
+                   <input type="text" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsTextcat" (click)="openTextcat($event,'activeAvActivityHighlights',this.activeBulletin.avActivityHighlightsTextcat['0'].languageCode)"><br>
+                 <!-- TODO disable cop if editRegions 
                   <cop #avActivityHighlightsTextcat [text]="activeBulletin.avActivityHighlightsTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
-                </div>
+                </div>-->
+                <input type="text" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsIt">
+                <input type="text" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsDe">
               </div>
               <div class="form-group row">
                 <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
@@ -452,3 +455,18 @@
     <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.noElevationDialog.accept" | translate }}' (click)="noElevationDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
+
+<!-- <p-confirmDialog icon="fa fa-question-circle" width="1024" #textCatDialog key="textCatDialog">
+  <p-footer>
+    <iframe id="receiver" #receiver [src]="pmUrl" height="200px" width="100%">
+			<p>Your browser does not support iframes.</p>
+    </iframe>
+    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.textCatDialog.accept" | translate }}' (click)="textCatDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog> 
+-->
+<p-dialog header="Catalogo delle frasi" [(visible)]="display" width="1024">
+  <iframe id="receiver" #receiver [src]="pmUrl" height="200px" width="100%">
+    <p>Your browser does not support iframes.</p>
+  </iframe>
+</p-dialog>

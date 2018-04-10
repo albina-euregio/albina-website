@@ -10,7 +10,8 @@ import { MapService } from "../providers/map-service/map.service";
 import { RegionsService } from "../providers/regions-service/regions.service";
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
-import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
+import {ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
+import {DialogModule} from 'primeng/components/dialog/dialog';
 import { Observable } from 'rxjs/Observable';
 import * as Enums from '../enums/enums';
 import { UUID } from 'angular2-uuid';
@@ -27,7 +28,12 @@ import { geoPath } from "d3-geo";
 import { Tabs } from './tabs.component';
 import { Tab } from './tab.component';
 
-declare var L:any;
+//For iframe 
+import { Renderer2 } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Subscription } from 'rxjs/Rx';
+
+declare var L: any;
 
 @Component({
   templateUrl: 'create-bulletin.component.html'
@@ -47,6 +53,8 @@ export class CreateBulletinComponent {
   public activeBulletin: BulletinModel;
   public bulletinsList: BulletinModel[];
 
+  public  activeAvActivityHighlightsTextcat: string;
+
   public activeAvActivityHighlightsDe: string;
   public activeAvActivityCommentDe: string;
   public activeAvActivityHighlightsIt: string;
@@ -61,15 +69,34 @@ export class CreateBulletinComponent {
   public activeSnowpackStructureHighlightsEn: string;
   public activeSnowpackStructureCommentEn: string;
 
+
+  
+
   //private preventClick: boolean;
   //private timer;
-
+/*
   @ViewChild('avActivityHighlightsTextcat') avActivityHighlightsTextcat;
+*/
   @ViewChild('avActivityCommentTextcat') avActivityCommentTextcat;
 
   @ViewChild('snowpackStructureCommentTextcat') snowpackStructureCommentTextcat;
 
   @ViewChild('tendencyCommentTextcat') tendencyCommentTextcat;
+
+  public pmUrl: SafeUrl;
+  @ViewChild('receiver') receiver: ElementRef;
+  stopListening: Function;
+  display: boolean = false;
+
+  showDialog() {
+      this.display = true;
+  }
+
+  hideDialog() {
+      this.display = false;
+  }
+//tra le proprietà del componente 
+eventSubscriber: Subscription;
 
   constructor(
     private translate: TranslateService,
@@ -84,10 +111,13 @@ export class CreateBulletinComponent {
     private regionsService: RegionsService,
     private confirmationService: ConfirmationService,
     private ngZone: NgZone,
-    private applicationRef: ApplicationRef)
-  {
+    private applicationRef: ApplicationRef,
+    private sanitizer: DomSanitizer,
+    private renderer: Renderer2
+  ) {
     this.loading = true;
     this.showAfternoonMap = false;
+    this.stopListening = renderer.listen('window', 'message', this.getText.bind(this));
     //this.preventClick = false;
     //this.timer = 0;
   }
@@ -111,12 +141,23 @@ export class CreateBulletinComponent {
     this.activeSnowpackStructureCommentEn = undefined;
     this.editRegions = false;
     this.showAfternoonMap = false;
+
+    this.activeAvActivityHighlightsTextcat = undefined;
   }
 
   ngOnInit() {
+    //for reload iframe on change language
+    this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
+      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/child_pm.html?l=" + this.settingsService.getLangString())
+    );
+
     if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
 
       this.reset();
+      //setting pm language for iframe
+      
+
+      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/child_pm.html?l=" + this.settingsService.getLangString());
 
       // copy bulletins from other date
       if (this.bulletinsService.getCopyDate()) {
@@ -162,7 +203,7 @@ export class CreateBulletinComponent {
           }
         );
 
-      // load current bulletins (do not copy them, also if it is an update)
+        // load current bulletins (do not copy them, also if it is an update)
       } else {
         this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
           data => {
@@ -217,7 +258,7 @@ export class CreateBulletinComponent {
         );
       }
     } else
-      this.goBack();     
+      this.goBack();
   }
 
   ngAfterViewInit() {
@@ -231,19 +272,19 @@ export class CreateBulletinComponent {
       this.mapService.afternoonMap.remove();
 
     let map = L.map("map", {
-        zoomControl: false,
-        doubleClickZoom: false,
-        scrollWheelZoom: false,
-        touchZoom: true,
-        center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
-        zoom: 8,
-        minZoom: 8,
-        maxZoom: 10,
-        maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
-        layers: [this.mapService.baseMaps.AlbinaBaseMap, this.mapService.overlayMaps.aggregatedRegions, this.mapService.overlayMaps.regions]
+      zoomControl: false,
+      doubleClickZoom: false,
+      scrollWheelZoom: false,
+      touchZoom: true,
+      center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
+      zoom: 8,
+      minZoom: 8,
+      maxZoom: 10,
+      maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
+      layers: [this.mapService.baseMaps.AlbinaBaseMap, this.mapService.overlayMaps.aggregatedRegions, this.mapService.overlayMaps.regions]
     });
 
-    map.on('click', (e)=>{this.onMapClick(e)});
+    map.on('click', (e) => { this.onMapClick(e) });
     //map.on('dblclick', (e)=>{this.onMapDoubleClick(e)});
 
     L.control.zoom({ position: "topleft" }).addTo(map);
@@ -252,22 +293,22 @@ export class CreateBulletinComponent {
 
     if (this.showAfternoonMap) {
       L.Control.AM = L.Control.extend({
-          onAdd: function(map) {
-              var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-              container.style.backgroundColor = 'white';
-              container.style.width = '52px';
-              container.style.height = '35px';
-              container.innerHTML = '<p style="font-size: 1.75em; color: #989898; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)"><b>AM</b></p>';
-              return container;
-          },
+        onAdd: function (map) {
+          var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+          container.style.backgroundColor = 'white';
+          container.style.width = '52px';
+          container.style.height = '35px';
+          container.innerHTML = '<p style="font-size: 1.75em; color: #989898; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)"><b>AM</b></p>';
+          return container;
+        },
 
-          onRemove: function(map) {
-              // Nothing to do here
-          }
+        onRemove: function (map) {
+          // Nothing to do here
+        }
       });
 
-      L.control.am = function(opts) {
-          return new L.Control.AM(opts);
+      L.control.am = function (opts) {
+        return new L.Control.AM(opts);
       }
 
       L.control.am({ position: 'topright' }).addTo(map);
@@ -276,16 +317,16 @@ export class CreateBulletinComponent {
     this.mapService.map = map;
 
     let afternoonMap = L.map("afternoonMap", {
-        zoomControl: false,
-        doubleClickZoom: false,
-        scrollWheelZoom: false,
-        touchZoom: true,
-        center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
-        zoom: 8,
-        minZoom: 8,
-        maxZoom: 10,
-        maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
-        layers: [this.mapService.afternoonBaseMaps.AlbinaBaseMap, this.mapService.afternoonOverlayMaps.aggregatedRegions, this.mapService.afternoonOverlayMaps.regions]
+      zoomControl: false,
+      doubleClickZoom: false,
+      scrollWheelZoom: false,
+      touchZoom: true,
+      center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
+      zoom: 8,
+      minZoom: 8,
+      maxZoom: 10,
+      maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
+      layers: [this.mapService.afternoonBaseMaps.AlbinaBaseMap, this.mapService.afternoonOverlayMaps.aggregatedRegions, this.mapService.afternoonOverlayMaps.regions]
     });
 
     //L.control.zoom({ position: "topleft" }).addTo(afternoonMap);
@@ -293,27 +334,27 @@ export class CreateBulletinComponent {
     //L.control.scale().addTo(afternoonMap);
 
     L.Control.PM = L.Control.extend({
-        onAdd: function(map) {
-            var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
-            container.style.backgroundColor = 'white';
-            container.style.width = '52px';
-            container.style.height = '35px';
-            container.innerHTML = '<p style="font-size: 1.75em; color: #989898; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)"><b>PM</b></p>';
-            return container;
-        },
+      onAdd: function (map) {
+        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+        container.style.backgroundColor = 'white';
+        container.style.width = '52px';
+        container.style.height = '35px';
+        container.innerHTML = '<p style="font-size: 1.75em; color: #989898; position: absolute; top: 50%; left: 50%; margin-right: -50%; transform: translate(-50%, -50%)"><b>PM</b></p>';
+        return container;
+      },
 
-        onRemove: function(map) {
-            // Nothing to do here
-        }
+      onRemove: function (map) {
+        // Nothing to do here
+      }
     });
 
-    L.control.pm = function(opts) {
-        return new L.Control.PM(opts);
+    L.control.pm = function (opts) {
+      return new L.Control.PM(opts);
     }
 
     L.control.pm({ position: 'topright' }).addTo(afternoonMap);
 
-    afternoonMap.on('click', (e)=>{this.onMapClick(e)});
+    afternoonMap.on('click', (e) => { this.onMapClick(e) });
     //afternoonMap.on('dblclick', (e)=>{this.onMapDoubleClick(e)});
 
     this.mapService.afternoonMap = afternoonMap;
@@ -335,31 +376,31 @@ export class CreateBulletinComponent {
     }
   }
 
-/*
-  private onMapClick(e) {
-    var parent = this;
-    this.timer = setTimeout(function () {
-      if (!parent.preventClick) {
-        if (!parent.editRegions) {
-          let test = parent.mapService.getClickedRegion();
-          for (let bulletin of parent.bulletinsList) {
-            if (bulletin.getSavedRegions().indexOf(test) > -1)
-              if (parent.activeBulletin == bulletin)
-                parent.deselectBulletin();
-              else
-                parent.selectBulletin(bulletin);
+  /*
+    private onMapClick(e) {
+      var parent = this;
+      this.timer = setTimeout(function () {
+        if (!parent.preventClick) {
+          if (!parent.editRegions) {
+            let test = parent.mapService.getClickedRegion();
+            for (let bulletin of parent.bulletinsList) {
+              if (bulletin.getSavedRegions().indexOf(test) > -1)
+                if (parent.activeBulletin == bulletin)
+                  parent.deselectBulletin();
+                else
+                  parent.selectBulletin(bulletin);
+            }
           }
         }
-      }
-      parent.preventClick = false;
-    }, 150);
-  }
-
-  private onMapDoubleClick(e) {
-    clearTimeout(this.timer);
-    this.preventClick = true;
-  }
-*/
+        parent.preventClick = false;
+      }, 150);
+    }
+  
+    private onMapDoubleClick(e) {
+      clearTimeout(this.timer);
+      this.preventClick = true;
+    }
+  */
 
   private addThumbnailMap(id) {
     // Load map data
@@ -369,34 +410,34 @@ export class CreateBulletinComponent {
     var height = 40;
 
     var projection = d3.geoMercator().scale(1200).translate([-215, 1110]);
-    
+
     if (!d3.select("#" + id).empty()) {
       d3.select("#" + id).select("svg").remove();
       var svg = d3.select("#" + id).append("svg")
-          .attr("width", width)
-          .attr("height", height);
+        .attr("width", width)
+        .attr("height", height);
 
-      var path : any = d3.geoPath()
-          .projection(projection);
+      var path: any = d3.geoPath()
+        .projection(projection);
 
       var g = svg.append("g");
-      
+
       var mapLayer = g.append('g')
         .classed('map-layer', true);
 
       // Draw each province as a path
       mapLayer.selectAll('path')
-          .data(features)
+        .data(features)
         .enter().append('path')
-          .attr('d', path)
-          .attr('vector-effect', 'non-scaling-stroke');
+        .attr('d', path)
+        .attr('vector-effect', 'non-scaling-stroke');
     }
   }
 
   setTendency(event, tendency) {
     event.stopPropagation();
     this.activeBulletin.tendency = tendency;
-  } 
+  }
 
   onShowAfternoonMapChange(checked) {
     this.showAfternoonMap = checked;
@@ -445,11 +486,12 @@ export class CreateBulletinComponent {
   }
 
   ngOnDestroy() {
+    this.eventSubscriber.unsubscribe();
     if (this.bulletinsService.getActiveDate() && this.bulletinsService.getIsEditable())
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
 
     this.mapService.resetAll();
-    
+
     this.bulletinsService.setActiveDate(undefined);
     this.bulletinsService.setIsEditable(false);
     this.bulletinsService.setIsSmallChange(false);
@@ -461,7 +503,7 @@ export class CreateBulletinComponent {
 
   updateElevation() {
     if (this.activeBulletin) {
-      this.activeBulletin.elevation = Math.round(this.activeBulletin.elevation/100)*100;
+      this.activeBulletin.elevation = Math.round(this.activeBulletin.elevation / 100) * 100;
       if (this.activeBulletin.elevation > 9000)
         this.activeBulletin.elevation = 9000;
       else if (this.activeBulletin.elevation < 0)
@@ -476,10 +518,10 @@ export class CreateBulletinComponent {
       message: this.translateService.instant("bulletins.create.loadDialog.message"),
       accept: () => {
         this.loading = true;
-        
+
         let date = new Date();
         date.setHours(0, 0, 0, 0);
-        var dateOffset = (24*60*60*1000) * 1;
+        var dateOffset = (24 * 60 * 60 * 1000) * 1;
         date.setTime(this.bulletinsService.getActiveDate().getTime() - dateOffset);
 
         let regions = new Array<String>();
@@ -531,7 +573,7 @@ export class CreateBulletinComponent {
 
       bulletin.setCreator(this.authenticationService.getUsername());
       bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
-      
+
       // reset regions
       let saved = new Array<String>();
       for (let region of bulletin.getSavedRegions())
@@ -662,6 +704,11 @@ export class CreateBulletinComponent {
       this.deselectBulletin();
 
       this.activeBulletin = bulletin;
+      
+      //fake txtcat
+      if (this.activeBulletin.getAvActivityHighlightsTextcatIn(Enums.LanguageCode.de))
+        this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcatIn(Enums.LanguageCode.de);
+
       this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
       this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
       this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
@@ -674,7 +721,6 @@ export class CreateBulletinComponent {
       this.activeSnowpackStructureCommentIt = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
       this.activeSnowpackStructureHighlightsEn = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.en);
       this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
-
       this.mapService.selectAggregatedRegion(this.activeBulletin);
     }
   }
@@ -686,9 +732,11 @@ export class CreateBulletinComponent {
         this.setTexts();
 
         // TODO this can be done nicer 
-        if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat.textcat && this.avActivityHighlightsTextcat.textcat.nativeElement && this.avActivityHighlightsTextcat.textcat.nativeElement.value)
-          this.activeBulletin.setAvActivityHighlightsTextcat(this.avActivityHighlightsTextcat.textcat.nativeElement.value);
-        if (this.avActivityCommentTextcat && this.avActivityCommentTextcat.textcat && this.avActivityCommentTextcat.textcat.nativeElement && this.avActivityCommentTextcat.textcat.nativeElement.value)
+        //if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat.textcat && this.avActivityHighlightsTextcat.textcat.nativeElement && this.avActivityHighlightsTextcat.textcat.nativeElement.value)
+        //  this.activeBulletin.setAvActivityHighlightsTextcat(this.avActivityHighlightsTextcat.textcat.nativeElement.value);
+               
+        
+          if (this.avActivityCommentTextcat && this.avActivityCommentTextcat.textcat && this.avActivityCommentTextcat.textcat.nativeElement && this.avActivityCommentTextcat.textcat.nativeElement.value)
           this.activeBulletin.setAvActivityCommentTextcat(this.avActivityCommentTextcat.textcat.nativeElement.value);
 
         if (this.snowpackStructureCommentTextcat && this.snowpackStructureCommentTextcat.textcat && this.snowpackStructureCommentTextcat.textcat.nativeElement && this.snowpackStructureCommentTextcat.textcat.nativeElement.value)
@@ -790,7 +838,7 @@ export class CreateBulletinComponent {
     }
   }
 
-  private checkElevation() : boolean {
+  private checkElevation(): boolean {
     if (this.activeBulletin && this.activeBulletin.hasElevationDependency && !this.activeBulletin.treeline && (this.activeBulletin.elevation == undefined || this.activeBulletin.elevation <= 0)) {
       this.confirmationService.confirm({
         key: "noElevationDialog",
@@ -806,6 +854,10 @@ export class CreateBulletinComponent {
 
   private setTexts() {
     if (this.activeBulletin) {
+
+      if (this.activeAvActivityHighlightsTextcat != undefined && this.activeAvActivityHighlightsTextcat != "")
+        this.activeBulletin.setAvActivityHighlightsTextcatIn(this.activeAvActivityHighlightsTextcat, Enums.LanguageCode.it);
+
       if (this.activeAvActivityHighlightsDe != undefined && this.activeAvActivityHighlightsDe != "")
         this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
       if (this.activeAvActivityCommentDe != undefined && this.activeAvActivityCommentDe != "")
@@ -818,7 +870,6 @@ export class CreateBulletinComponent {
         this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
       if (this.activeAvActivityCommentEn != undefined && this.activeAvActivityCommentEn != "")
         this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEn, Enums.LanguageCode.en);
-
       if (this.activeSnowpackStructureHighlightsDe != undefined && this.activeSnowpackStructureHighlightsDe != "")
         this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
       if (this.activeSnowpackStructureCommentDe != undefined && this.activeSnowpackStructureCommentDe != "")
@@ -854,7 +905,7 @@ export class CreateBulletinComponent {
     var index = this.bulletinsList.indexOf(bulletin);
     if (index > -1)
       this.bulletinsList.splice(index, 1);
-    
+
     this.mapService.resetAggregatedRegions();
     this.updateMap();
     this.deselectBulletin();
@@ -978,7 +1029,7 @@ export class CreateBulletinComponent {
     this.mapService.selectAggregatedRegion(this.activeBulletin);
   }
 
-  hasSuggestions(bulletin: BulletinModel) : boolean {
+  hasSuggestions(bulletin: BulletinModel): boolean {
     for (let region of bulletin.getSuggestedRegions()) {
       if (region.startsWith(this.authenticationService.getUserRegion()))
         return true;
@@ -986,9 +1037,9 @@ export class CreateBulletinComponent {
     return false;
   }
 
-  isCreator(bulletin: BulletinModel) : boolean {
+  isCreator(bulletin: BulletinModel): boolean {
     if (bulletin.getCreatorRegion() != undefined && bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
-        return true;
+      return true;
     return false;
   }
 
@@ -1012,7 +1063,7 @@ export class CreateBulletinComponent {
 
       let validFrom = new Date(this.bulletinsService.getActiveDate());
       let validUntil = new Date(this.bulletinsService.getActiveDate());
-      validUntil.setTime(validUntil.getTime() + (24*60*60*1000));
+      validUntil.setTime(validUntil.getTime() + (24 * 60 * 60 * 1000));
 
       for (let bulletin of this.bulletinsList) {
         bulletin.setValidFrom(validFrom);
@@ -1022,41 +1073,41 @@ export class CreateBulletinComponent {
       if (this.bulletinsList.length > 0) {
         if (this.bulletinsService.getIsSmallChange()) {
           this.bulletinsService.changeBulletins(this.bulletinsList, this.bulletinsService.getActiveDate()).subscribe(
-              data => {
-                this.loading = false;
-                this.goBack();
-                console.log("Bulletins changed on server.");
-              },
-              error => {
-                this.loading = false;
-                console.error("Bulletins could not be changed on server!");
-                this.confirmationService.confirm({
-                  key: "changeErrorDialog",
-                  header: this.translateService.instant("bulletins.create.changeErrorDialog.header"),
-                  message: this.translateService.instant("bulletins.create.changeErrorDialog.message"),
-                  accept: () => {
-                  }
-                });
-              }
+            data => {
+              this.loading = false;
+              this.goBack();
+              console.log("Bulletins changed on server.");
+            },
+            error => {
+              this.loading = false;
+              console.error("Bulletins could not be changed on server!");
+              this.confirmationService.confirm({
+                key: "changeErrorDialog",
+                header: this.translateService.instant("bulletins.create.changeErrorDialog.header"),
+                message: this.translateService.instant("bulletins.create.changeErrorDialog.message"),
+                accept: () => {
+                }
+              });
+            }
           );
         } else {
           this.bulletinsService.saveBulletins(this.bulletinsList, this.bulletinsService.getActiveDate()).subscribe(
-              data => {
-                this.loading = false;
-                this.goBack();
-                console.log("Bulletins saved on server.");
-              },
-              error => {
-                this.loading = false;
-                console.error("Bulletins could not be saved on server!");
-                this.confirmationService.confirm({
-                  key: "saveErrorDialog",
-                  header: this.translateService.instant("bulletins.create.saveErrorDialog.header"),
-                  message: this.translateService.instant("bulletins.create.saveErrorDialog.message"),
-                  accept: () => {
-                  }
-                });
-              }
+            data => {
+              this.loading = false;
+              this.goBack();
+              console.log("Bulletins saved on server.");
+            },
+            error => {
+              this.loading = false;
+              console.error("Bulletins could not be saved on server!");
+              this.confirmationService.confirm({
+                key: "saveErrorDialog",
+                header: this.translateService.instant("bulletins.create.saveErrorDialog.header"),
+                message: this.translateService.instant("bulletins.create.saveErrorDialog.message"),
+                accept: () => {
+                }
+              });
+            }
           );
         }
       } else {
@@ -1084,9 +1135,54 @@ export class CreateBulletinComponent {
   }
 
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) { 
+  handleKeyboardEvent(event: KeyboardEvent) {
     if (event.keyCode == 27 && this.editRegions) {
       this.discardBulletin(event);
     }
   }
+
+  openTextcat($event, field,l) {
+
+    if (this.activeAvActivityHighlightsTextcat != "undefined") {
+      //this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/child_pm.html?l=" + this.translateService.currentLang);
+      
+      let receiver = this.receiver.nativeElement.contentWindow;
+      $event.preventDefault()
+      //make Json to send to pm
+      let inputDef = {
+        textField: field,
+        textDef: $event.path["0"].value,
+        srcLang: Enums.LanguageCode[l],
+        currentLang: this.translateService.currentLang
+      };
+
+      let pmData = JSON.stringify(inputDef);
+      receiver.postMessage(pmData, '*');
+      //window.addEventListener('message', this.getText);
+      this.showDialog();
+      /*
+      this.confirmationService.confirm({
+        key: "textCatDialog",
+        message: this.translateService.instant("bulletins.create.textCatDialog.header"),
+        accept: () => {
+          // this.goBack();
+        },
+      });
+      */
+    }
+  }
+
+
+  getText(e) {
+    e.preventDefault();
+    if (e.data.type != "webpackInvalid" && e.data.type != "webpackOk" ) {
+      let pmData = JSON.parse(e.data);
+      //change model as you need
+      this.activeAvActivityHighlightsIt = pmData.textIt;
+      this.activeAvActivityHighlightsDe = pmData.textDe;
+      this.activeAvActivityHighlightsTextcat = pmData.textDef;
+      this.hideDialog();
+    }
+  };
+
 }
