@@ -21,7 +21,7 @@ export class CopComponent {
 
   ngOnChanges() {
     this.loadAPI = new Promise((resolve) => {
-        this.loadScript();
+       // this.loadScript();
         resolve(true);
     });
   }

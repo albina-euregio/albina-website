@@ -16,7 +16,7 @@ import { Tab } from './tab.component';
 // Bulletins Routing
 import { BulletinsRoutingModule } from './bulletins-routing.module';
 import { TranslateModule } from 'ng2-translate';
-import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
+import { DialogModule, ConfirmDialogModule, SharedModule } from 'primeng/primeng';
 
 // Pipes
 import { PipeModule }    from '../pipes/pipes.module';
@@ -28,6 +28,7 @@ import { PipeModule }    from '../pipes/pipes.module';
     FormsModule,
     CommonModule,
     TranslateModule,
+    DialogModule,
     ConfirmDialogModule,
     SharedModule,
     PipeModule.forRoot()
