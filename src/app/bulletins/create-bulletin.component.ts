@@ -706,7 +706,7 @@ eventSubscriber: Subscription;
       this.activeBulletin = bulletin;
       
       //fake txtcat
-      if (this.activeBulletin.getAvActivityHighlightsTextcatIn(Enums.LanguageCode.de))
+      if (this.activeBulletin.getAvActivityHighlightsTextcat())
         this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcatIn(Enums.LanguageCode.de);
 
       this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
