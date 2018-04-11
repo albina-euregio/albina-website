@@ -12,6 +12,7 @@ export class AvalancheSituationComponent {
 
   @Input() avalancheSituationModel: AvalancheSituationModel;
   @Input() disabled: boolean;
+  @Input() label: string;
 
   showAspects: boolean;
   avalancheSituationEnum = Enums.AvalancheSituation;
