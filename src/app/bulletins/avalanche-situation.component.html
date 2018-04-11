@@ -1,21 +1,21 @@
 <div>
   <div *ngIf="!disabled">
-    <img *ngIf="isAvalancheSituation('new_snow')" src="./assets/img/New_snow_c.svg" width="60">
+    <img *ngIf="isAvalancheSituation('new_snow')" src="./assets/img/New_snow_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.new_snow)" width="60">
     <img *ngIf="!isAvalancheSituation('new_snow')" src="./assets/img/New_snow_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.new_snow)" width="60" style="opacity: 0.3">
 
-    <img *ngIf="isAvalancheSituation('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" width="60">
+    <img *ngIf="isAvalancheSituation('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.wind_drifted_snow)" width="60">
     <img *ngIf="!isAvalancheSituation('wind_drifted_snow')" src="./assets/img/Drifting_snow_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.wind_drifted_snow)" width="60" style="opacity: 0.3">
 
-    <img *ngIf="isAvalancheSituation('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_c.svg" width="60">
+    <img *ngIf="isAvalancheSituation('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.weak_persistent_layer)" width="60">
     <img *ngIf="!isAvalancheSituation('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.weak_persistent_layer)" width="60" style="opacity: 0.3">
 
-    <img *ngIf="isAvalancheSituation('wet_snow')" src="./assets/img/Wet_snow_c.svg" width="60">
+    <img *ngIf="isAvalancheSituation('wet_snow')" src="./assets/img/Wet_snow_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.wet_snow)" width="60">
     <img *ngIf="!isAvalancheSituation('wet_snow')" src="./assets/img/Wet_snow_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.wet_snow)" width="60" style="opacity: 0.3">
 
-    <img *ngIf="isAvalancheSituation('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" width="60">
+    <img *ngIf="isAvalancheSituation('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.gliding_snow)" width="60">
     <img *ngIf="!isAvalancheSituation('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.gliding_snow)" width="60" style="opacity: 0.3">
 
-    <img *ngIf="isAvalancheSituation('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" width="60">
+    <img *ngIf="isAvalancheSituation('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.favourable_situation)" width="60">
     <img *ngIf="!isAvalancheSituation('favourable_situation')" src="./assets/img/Favourable_situation_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.favourable_situation)" width="60" style="opacity: 0.3">
   </div>
   <div *ngIf="disabled">
@@ -38,7 +38,7 @@
     <img *ngIf="!isAvalancheSituation('favourable_situation')" src="./assets/img/Favourable_situation_bw.svg" width="60" style="opacity: 0.3">
   </div>
 
-  <div>
+  <div *ngIf="showAspects">
     <aspects [avalancheSituation]="avalancheSituationModel" [disabled]="disabled"></aspects>
   </div>
 </div>

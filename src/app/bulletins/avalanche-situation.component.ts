@@ -13,12 +13,20 @@ export class AvalancheSituationComponent {
   @Input() avalancheSituationModel: AvalancheSituationModel;
   @Input() disabled: boolean;
 
+  showAspects: boolean;
   avalancheSituationEnum = Enums.AvalancheSituation;
 
   constructor(
     private translate: TranslateService,
     public settingsService: SettingsService)
   {
+  }
+
+  ngAfterContentInit() {
+    if (this.avalancheSituationModel.getAvalancheSituation() != undefined && !this.isAvalancheSituation("favourable_situation"))
+      this.showAspects = true;
+    else
+      this.showAspects = false;
   }
 
   isAvalancheSituation(situation) {
@@ -28,6 +36,17 @@ export class AvalancheSituationComponent {
   }
 
   selectAvalancheSituation(situation) {
-    this.avalancheSituationModel.setAvalancheSituation(Enums.AvalancheSituation[situation]);
+    if (this.isAvalancheSituation(Enums.AvalancheSituation[situation])) {
+      this.avalancheSituationModel.setAvalancheSituation(undefined);
+      this.avalancheSituationModel.setAspects(new Array<Enums.Aspect>());
+      this.showAspects = false;
+    } else {
+      this.avalancheSituationModel.setAvalancheSituation(Enums.AvalancheSituation[situation]);
+      if (this.isAvalancheSituation("favourable_situation")) {
+        this.avalancheSituationModel.setAspects(new Array<Enums.Aspect>());
+        this.showAspects = false;
+      } else
+        this.showAspects = true;
+    }
   }
 }
