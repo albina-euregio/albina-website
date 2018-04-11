@@ -161,7 +161,8 @@
 			"label" : {
 				"avActivityHighlights" : "Schlagzeile Gefahrensituation",
 				"avActivityComment" : "Beurteilung der Lawinengefahr",
-				"avalancheProblem" : "Lawinenproblem",
+				"avalancheSituation1" : "Lawinenproblem 1",
+				"avalancheSituation2" : "Lawinenproblem 2",
 				"dangerRating" : "Gefahrenstufe",
 				"aspects" : "Exposition",
 				"elevation" : "Höhenabhängigkeit",

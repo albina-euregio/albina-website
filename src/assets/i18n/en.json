@@ -161,7 +161,8 @@
 			"label" : {
 				"avActivityHighlights" : "Headline avalanche situation",
 				"avActivityComment" : "Description of avalanche danger",
-				"avalancheProblem" : "Avalanche Problem",
+				"avalancheSituation1" : "Avalanche Situation 1",
+				"avalancheSituation2" : "Avalanche Situation 2",
 				"dangerRating" : "Danger Rating",
 				"aspects" : "Aspects",
 				"elevation" : "Elevation",

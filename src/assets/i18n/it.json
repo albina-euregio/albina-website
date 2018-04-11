@@ -161,7 +161,8 @@
 			"label" : {
 				"avActivityHighlights" : "Titolo situazione pericolo valanghe",
 				"avActivityComment" : "Testo di discrezione pericolo valanghe",
-				"avalancheProblem" : "Problemi tipici valanghivi",
+				"avalancheSituation1" : "TODO",
+				"avalancheSituation2" : "TODO",
 				"dangerRating" : "Grado del pericolo valanghe",
 				"aspects" : "Versanti",
 				"elevation" : "Altezza",
