@@ -628,7 +628,8 @@ export class CreateBulletinComponent {
     let bulletin = new BulletinModel();
     bulletin.setCreator(this.authenticationService.getUsername());
     bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
-    bulletin.setSavedRegions(this.constantsService.regions.get(this.authenticationService.getUserRegion()));
+    let regions = Object.assign([], this.constantsService.regions.get(this.authenticationService.getUserRegion()));
+    bulletin.setSavedRegions(regions);
 
     this.addBulletin(bulletin);
   }
