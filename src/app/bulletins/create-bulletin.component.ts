@@ -1142,7 +1142,7 @@ export class CreateBulletinComponent {
   }
 
   openTextcat($event, field, l) {
-
+ 
     if (this.activeAvActivityHighlightsTextcat != "undefined") {
       //this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/child_pm.html?l=" + this.translateService.currentLang);
  

@@ -303,12 +303,6 @@ export class BulletinModel {
 		}
 	}
 
-/*
-	getAvActivityHighlightsTextcatInString(language: string): string {
-		return this.getAvActivityHighlightsTextcatIn(Enums.LanguageCode[language]);
-	}
-*/
-
 	setAvActivityHighlightsTextcat(avActivityHighlightsTextcat: TextModel[]) {
 		this.avActivityHighlightsTextcat = avActivityHighlightsTextcat;
 	}
