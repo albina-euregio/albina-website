@@ -865,7 +865,7 @@ export class CreateBulletinComponent {
   saveBulletin(event, bulletin) {
     event.stopPropagation();
 
-    // save selected regions to active bulletin input
+    // save selected regions to active bulletin
     let regions = this.mapService.getSelectedRegions();
 
     let oldRegionsHit = false;
@@ -884,7 +884,7 @@ export class CreateBulletinComponent {
       }
     }
 
-    if (newRegionsHit || oldRegionsHit) {
+    if (newRegionsHit) {
       this.editRegions = false;
 
       // delete old saved regions in own area
@@ -984,6 +984,9 @@ export class CreateBulletinComponent {
   discardBulletin(event, bulletin?: BulletinModel) {
     event.stopPropagation();
     this.editRegions = false;
+
+    if (bulletin != undefined && bulletin.getSavedRegions().length == 0)
+      this.delBulletin(bulletin);
 
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletin);
