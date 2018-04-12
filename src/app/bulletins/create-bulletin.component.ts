@@ -363,7 +363,7 @@ export class CreateBulletinComponent {
 
   private addThumbnailMap(id) {
     // Load map data
-    var features = this.regionsService.getRegionsTrentino().features;
+    var features = this.regionsService.getRegionsEuregio().features;
 
     var width = 40;
     var height = 40;
