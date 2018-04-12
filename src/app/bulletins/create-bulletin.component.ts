@@ -638,44 +638,48 @@ export class CreateBulletinComponent {
     // TODO unlock bulletin (Tirol, Südtirol or Trentino) via socketIO
     // TODO lock bulletin (Tirol, Südtirol or Trentino) via socketIO
 
-    let bulletin: BulletinModel;
+    if (this.checkElevation()) {
+      let bulletin: BulletinModel;
 
-    if (copy && this.activeBulletin) {
-      bulletin = new BulletinModel(this.activeBulletin);
-      bulletin.setSavedRegions(new Array<String>());
-      bulletin.setPublishedRegions(new Array<String>());
-      bulletin.setSuggestedRegions(new Array<String>());
-    } else
-      bulletin = new BulletinModel();
+      if (copy && this.activeBulletin) {
+        bulletin = new BulletinModel(this.activeBulletin);
+        bulletin.setSavedRegions(new Array<String>());
+        bulletin.setPublishedRegions(new Array<String>());
+        bulletin.setSuggestedRegions(new Array<String>());
+      } else
+        bulletin = new BulletinModel();
 
-    bulletin.setCreator(this.authenticationService.getUsername());
-    bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
+      bulletin.setCreator(this.authenticationService.getUsername());
+      bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
 
-    this.addBulletin(bulletin);
-    this.selectBulletin(bulletin);
-    this.mapService.selectAggregatedRegion(bulletin);
-    this.editBulletinRegions(bulletin);
+      this.addBulletin(bulletin);
+      this.selectBulletin(bulletin);
+      this.mapService.selectAggregatedRegion(bulletin);
+      this.editBulletinRegions(bulletin);
+    }
   }
 
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
-      this.deselectBulletin();
+      if (this.checkElevation()) {
+        this.deselectBulletin();
 
-      this.activeBulletin = bulletin;
-      this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
-      this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
-      this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
-      this.activeAvActivityCommentIt = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it);
-      this.activeAvActivityHighlightsEn = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.en);
-      this.activeAvActivityCommentEn = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en);
-      this.activeSnowpackStructureHighlightsDe = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.de);
-      this.activeSnowpackStructureCommentDe = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
-      this.activeSnowpackStructureHighlightsIt = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.it);
-      this.activeSnowpackStructureCommentIt = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
-      this.activeSnowpackStructureHighlightsEn = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.en);
-      this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
+        this.activeBulletin = bulletin;
+        this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
+        this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
+        this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
+        this.activeAvActivityCommentIt = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it);
+        this.activeAvActivityHighlightsEn = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.en);
+        this.activeAvActivityCommentEn = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en);
+        this.activeSnowpackStructureHighlightsDe = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.de);
+        this.activeSnowpackStructureCommentDe = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
+        this.activeSnowpackStructureHighlightsIt = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.it);
+        this.activeSnowpackStructureCommentIt = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
+        this.activeSnowpackStructureHighlightsEn = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.en);
+        this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
 
-      this.mapService.selectAggregatedRegion(this.activeBulletin);
+        this.mapService.selectAggregatedRegion(this.activeBulletin);
+      }
     }
   }
 
