@@ -228,7 +228,7 @@
           <div *ngIf="activeBulletin">
             <accordion>
               <!-- Danger rating -->
-              <accordion-group heading='{{ "bulletins.create.title.dangerRating" | translate }}' style="margin-bottom: 0">
+              <accordion-group heading='{{ "bulletins.create.title.dangerRating" | translate }}'>
                 <bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
               </accordion-group>
               <!-- Avalanche situation -->
