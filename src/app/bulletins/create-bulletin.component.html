@@ -3,9 +3,13 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
+
+        <!-- Header -->
         <div class="card-header">
-<!--          <strong>{{ "bulletins.create.title.map" | translate }}</strong> -->
           <strong>{{ bulletinsService.getActiveDate() | localizedDate:'fullDate' }}</strong>
+          <div class="float-right">
+            <button *ngIf="!bulletinsService.getIsUpdate()" [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-primary px-3" (click)="loadBulletinsFromYesterday()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.loadBulletin' | translate }}"><i class="fa fa-copy"></i></button>
+          </div>
 <!--
           <label class="switch switch-text switch-pill switch-primary switch-sm float-right">
             <input [disabled]="editRegions || loading" [(ngModel)]="showAfternoonMap" (change)="onShowAfternoonMapChange($event.currentTarget.checked)" type="checkbox" class="switch-input">
@@ -14,6 +18,8 @@
           </label>
 -->
         </div>
+
+        <!-- Content -->
         <div class="card-block" style="padding: 0px">
           <div class="form-group row" style="margin-right: 0px; margin-left: 0px;">
             <div class="col-md-12" style="height: 400px; border-bottom: 1px solid; border-color: #cfd8dc;" id="map">
@@ -219,193 +225,144 @@
               </table>
             </div>
           </div>
+          <div *ngIf="activeBulletin">
+            <accordion>
+              <!-- Danger rating -->
+              <accordion-group heading='{{ "bulletins.create.title.dangerRating" | translate }}' style="margin-bottom: 0">
+                <bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
+              </accordion-group>
+              <!-- Avalanche situation -->
+              <accordion-group heading='{{ "bulletins.create.title.avalancheSituation" | translate }}'>
+                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+                  <div class="form-group row">
+                    <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
+                      <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="disabled" [label]="'avalancheSituation1'"></avalanche-situation>
+                      <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="disabled" [label]="'avalancheSituation2'"></avalanche-situation>
+                    </div>
+                    <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
+                      <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+                      <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="disabled" [label]="'avalancheSituation1'"></avalanche-situation>
+                      <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="disabled" [label]="'avalancheSituation2'"></avalanche-situation>
+                    </div>
+                    <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
+                      <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+                      <avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation1" [disabled]="disabled" [label]="'avalancheSituation1'"></avalanche-situation>
+                      <avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation2" [disabled]="disabled" [label]="'avalancheSituation2'"></avalanche-situation>
+                    </div>
+                  </div>
+                </form>
+              </accordion-group>
+              <!-- Danger description -->
+              <accordion-group heading='{{ "bulletins.create.title.dangerDescription" | translate }}'>
+                <div class="form-group row">
+                  <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
+                  <div class="col-md-12">
+                    <!-- TODO disable cop if editRegions -->
+                    <cop #avActivityHighlightsTextcat [text]="activeBulletin.avActivityHighlightsTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
+                  <div class="col-md-12">
+                    <!-- TODO disable cop if editRegions -->
+                    <cop #avActivityCommentTextcat [text]="activeBulletin.avActivityCommentTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
+                  </div>
+                </div>
+              </accordion-group>
+              <!-- Snowpack structure -->
+              <accordion-group heading='{{ "bulletins.create.title.snowpackStructure" | translate }}'>
+                <div class="form-group row">
+                  <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.dangerPatterns" | translate }}</strong></label>
+                  <div class="col-md-12">
+                    <select [(ngModel)]="activeBulletin.dangerPattern1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                        <option selected></option>
+                        <option value="dp1">{{ "dangerPattern.dp1" | translate }}</option>
+                        <option value="dp2">{{ "dangerPattern.dp2" | translate }}</option>
+                        <option value="dp3">{{ "dangerPattern.dp3" | translate }}</option>
+                        <option value="dp4">{{ "dangerPattern.dp4" | translate }}</option>
+                        <option value="dp5">{{ "dangerPattern.dp5" | translate }}</option>
+                        <option value="dp6">{{ "dangerPattern.dp6" | translate }}</option>
+                        <option value="dp7">{{ "dangerPattern.dp7" | translate }}</option>
+                        <option value="dp8">{{ "dangerPattern.dp8" | translate }}</option>
+                        <option value="dp9">{{ "dangerPattern.dp9" | translate }}</option>
+                        <option value="dp10">{{ "dangerPattern.dp10" | translate }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <select [(ngModel)]="activeBulletin.dangerPattern2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" class="custom-select mb-2 mr-sm-2 mb-sm-0">
+                        <option selected></option>
+                        <option value="dp1">{{ "dangerPattern.dp1" | translate }}</option>
+                        <option value="dp2">{{ "dangerPattern.dp2" | translate }}</option>
+                        <option value="dp3">{{ "dangerPattern.dp3" | translate }}</option>
+                        <option value="dp4">{{ "dangerPattern.dp4" | translate }}</option>
+                        <option value="dp5">{{ "dangerPattern.dp5" | translate }}</option>
+                        <option value="dp6">{{ "dangerPattern.dp6" | translate }}</option>
+                        <option value="dp7">{{ "dangerPattern.dp7" | translate }}</option>
+                        <option value="dp8">{{ "dangerPattern.dp8" | translate }}</option>
+                        <option value="dp9">{{ "dangerPattern.dp9" | translate }}</option>
+                        <option value="dp10">{{ "dangerPattern.dp10" | translate }}</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
+                  <div class="col-md-12">
+                    <!-- TODO disable cop if editRegions -->
+                    <cop #snowpackStructureCommentTextcat [text]="activeBulletin.snowpackStructureCommentTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
+                  </div>
+                </div>
+              </accordion-group>
+              <!-- Tendency -->
+              <accordion-group heading='{{ "bulletins.create.title.tendency" | translate }}'>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <table>
+                      <tbody>
+                        <tr style="height: 60px">
+                          <td *ngIf="activeBulletin.tendency == 'decreasing'">
+                            <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendency($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.decreasing' | translate }}"><i class="fa fa-arrow-down"></i>{{ "tendency.decreasing" | translate }}</button>
+                          </td>
+                          <td *ngIf="activeBulletin.tendency != 'decreasing'">
+                            <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendency($event, 'decreasing')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.decreasing' | translate }}"><i class="fa fa-arrow-down"></i>{{ "tendency.decreasing" | translate }}</button>
+                          </td>
+                          <td *ngIf="activeBulletin.tendency == 'steady'">
+                            <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendency($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.steady' | translate }}"><i class="fa fa-arrow-right"></i>{{ "tendency.steady" | translate }}</button>
+                          </td>
+                          <td *ngIf="activeBulletin.tendency != 'steady'">
+                            <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendency($event, 'steady')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.steady' | translate }}"><i class="fa fa-arrow-right"></i>{{ "tendency.steady" | translate }}</button>
+                          </td>
+                          <td *ngIf="activeBulletin.tendency == 'increasing'">
+                            <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendency($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.increasing' | translate }}"><i class="fa fa-arrow-up"></i>{{ "tendency.increasing" | translate }}</button>
+                          </td>
+                          <td *ngIf="activeBulletin.tendency != 'increasing'">
+                            <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendency($event, 'increasing')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.increasing' | translate }}"><i class="fa fa-arrow-up"></i>{{ "tendency.increasing" | translate }}</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <!-- TODO disable cop if editRegions -->
+                    <cop #tendencyCommentTextcat [text]="activeBulletin.tendencyCommentTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
+                  </div>
+                </div>
+              </accordion-group>
+            </accordion>
+          </div>
         </div>
+
+        <!-- Footer -->
         <div *ngIf="bulletinsService.getIsEditable()" class="card-footer">
           <button *ngIf="!loading" [disabled]="editRegions" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.saveBulletin' | translate }}"><i class="fa fa-check"></i>{{ "bulletins.create.save" | translate }}</button>
           <button *ngIf="loading" disabled class="btn btn-sm btn-primary px-3"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
           <button [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-danger px-3" (click)="discard()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.discardBulletin' | translate }}"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
-          <button *ngIf="!bulletinsService.getIsUpdate()" [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-primary px-3" style="float: right" (click)="loadBulletinsFromYesterday()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.loadBulletin' | translate }}"><i class="fa fa-copy"></i></button>
         </div>
         <div *ngIf="!bulletinsService.getIsEditable()" class="card-footer">
           <button type="reset" class="btn btn-sm btn-primary px-3" (click)="goBack()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Danger rating -->
-  <div *ngIf="activeBulletin" class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <strong>{{ "bulletins.create.title.dangerRating" | translate }}</strong>
-        </div>
-        <bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
-      </div>
-    </div>
-  </div>
-
-  <!-- Avalanche situation -->
-  <div *ngIf="activeBulletin" class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <strong>{{ "bulletins.create.title.avalancheSituation" | translate }}</strong>
-        </div>
-        <div class="card-block">
-          <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-            <div class="form-group row">
-              <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
-                <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="disabled" [label]="'avalancheSituation1'"></avalanche-situation>
-                <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="disabled" [label]="'avalancheSituation2'"></avalanche-situation>
-              </div>
-              <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
-                <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
-                <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="disabled" [label]="'avalancheSituation1'"></avalanche-situation>
-                <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="disabled" [label]="'avalancheSituation2'"></avalanche-situation>
-              </div>
-              <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
-                <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
-                <avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation1" [disabled]="disabled" [label]="'avalancheSituation1'"></avalanche-situation>
-                <avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation2" [disabled]="disabled" [label]="'avalancheSituation2'"></avalanche-situation>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Danger description -->
-  <div *ngIf="activeBulletin" class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <strong>{{ "bulletins.create.title.dangerDescription" | translate }}</strong>
-        </div>
-        <div class="card-block">
-          <div class="form-group row">
-            <div class="col-md-12">
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
-                <div class="col-md-12">
-                  <!-- TODO disable cop if editRegions -->
-                  <cop #avActivityHighlightsTextcat [text]="activeBulletin.avActivityHighlightsTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
-                <div class="col-md-12">
-                  <!-- TODO disable cop if editRegions -->
-                  <cop #avActivityCommentTextcat [text]="activeBulletin.avActivityCommentTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="activeBulletin" class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <strong>{{ "bulletins.create.title.snowpackStructure" | translate }}</strong>
-        </div>
-        <div class="card-block">
-          <div class="form-group row">
-            <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.dangerPatterns" | translate }}</strong></label>
-            <div class="col-md-12">
-              <select [(ngModel)]="activeBulletin.dangerPattern1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                  <option selected></option>
-                  <option value="dp1">{{ "dangerPattern.dp1" | translate }}</option>
-                  <option value="dp2">{{ "dangerPattern.dp2" | translate }}</option>
-                  <option value="dp3">{{ "dangerPattern.dp3" | translate }}</option>
-                  <option value="dp4">{{ "dangerPattern.dp4" | translate }}</option>
-                  <option value="dp5">{{ "dangerPattern.dp5" | translate }}</option>
-                  <option value="dp6">{{ "dangerPattern.dp6" | translate }}</option>
-                  <option value="dp7">{{ "dangerPattern.dp7" | translate }}</option>
-                  <option value="dp8">{{ "dangerPattern.dp8" | translate }}</option>
-                  <option value="dp9">{{ "dangerPattern.dp9" | translate }}</option>
-                  <option value="dp10">{{ "dangerPattern.dp10" | translate }}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-md-12">
-              <select [(ngModel)]="activeBulletin.dangerPattern2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" class="custom-select mb-2 mr-sm-2 mb-sm-0">
-                  <option selected></option>
-                  <option value="dp1">{{ "dangerPattern.dp1" | translate }}</option>
-                  <option value="dp2">{{ "dangerPattern.dp2" | translate }}</option>
-                  <option value="dp3">{{ "dangerPattern.dp3" | translate }}</option>
-                  <option value="dp4">{{ "dangerPattern.dp4" | translate }}</option>
-                  <option value="dp5">{{ "dangerPattern.dp5" | translate }}</option>
-                  <option value="dp6">{{ "dangerPattern.dp6" | translate }}</option>
-                  <option value="dp7">{{ "dangerPattern.dp7" | translate }}</option>
-                  <option value="dp8">{{ "dangerPattern.dp8" | translate }}</option>
-                  <option value="dp9">{{ "dangerPattern.dp9" | translate }}</option>
-                  <option value="dp10">{{ "dangerPattern.dp10" | translate }}</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-md-12">
-              <div class="form-group row">
-                <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
-                <div class="col-md-12">
-                  <!-- TODO disable cop if editRegions -->
-                  <cop #snowpackStructureCommentTextcat [text]="activeBulletin.snowpackStructureCommentTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="activeBulletin" class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <strong>{{ "bulletins.create.title.tendency" | translate }}</strong>
-        </div>
-        <div class="card-block">
-          <div class="form-group row">
-            <div class="col-md-12">
-              <table>
-                <tbody>
-                  <tr style="height: 60px">
-                    <td *ngIf="activeBulletin.tendency == 'decreasing'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendency($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.decreasing' | translate }}"><i class="fa fa-arrow-down"></i>{{ "tendency.decreasing" | translate }}</button>
-                    </td>
-                    <td *ngIf="activeBulletin.tendency != 'decreasing'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendency($event, 'decreasing')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.decreasing' | translate }}"><i class="fa fa-arrow-down"></i>{{ "tendency.decreasing" | translate }}</button>
-                    </td>
-                    <td *ngIf="activeBulletin.tendency == 'steady'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendency($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.steady' | translate }}"><i class="fa fa-arrow-right"></i>{{ "tendency.steady" | translate }}</button>
-                    </td>
-                    <td *ngIf="activeBulletin.tendency != 'steady'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendency($event, 'steady')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.steady' | translate }}"><i class="fa fa-arrow-right"></i>{{ "tendency.steady" | translate }}</button>
-                    </td>
-                    <td *ngIf="activeBulletin.tendency == 'increasing'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-primary" (click)="setTendency($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.increasing' | translate }}"><i class="fa fa-arrow-up"></i>{{ "tendency.increasing" | translate }}</button>
-                    </td>
-                    <td *ngIf="activeBulletin.tendency != 'increasing'">
-                      <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-secondary" (click)="setTendency($event, 'increasing')" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.tendency.increasing' | translate }}"><i class="fa fa-arrow-up"></i>{{ "tendency.increasing" | translate }}</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-md-12">
-              <!-- TODO disable cop if editRegions -->
-              <cop #tendencyCommentTextcat [text]="activeBulletin.tendencyCommentTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
-            </div>
-          </div>
         </div>
       </div>
     </div>

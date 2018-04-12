@@ -23,6 +23,8 @@ import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
 // Pipes
 import { PipeModule }    from '../pipes/pipes.module';
 
+import { AccordionModule } from 'ngx-bootstrap';
+
 
 @NgModule({
   imports: [
@@ -32,7 +34,8 @@ import { PipeModule }    from '../pipes/pipes.module';
     TranslateModule,
     ConfirmDialogModule,
     SharedModule,
-    PipeModule.forRoot()
+    PipeModule.forRoot(),
+    AccordionModule.forRoot()
   ],
   declarations: [
     BulletinsComponent,
