@@ -704,7 +704,6 @@ export class CreateBulletinComponent {
       this.deselectBulletin();
       this.activeBulletin = bulletin;
 
-
       //txtcat
       // if (this.activeBulletin.getAvActivityHighlightsTextcatIn(Enums.LanguageCode.de))
       this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcatIn(Enums.LanguageCode.de,this.translateService.currentLang);
