@@ -278,9 +278,6 @@ export class BulletinModel {
 		this.tendencyCommentTextcat = tendencyCommentTextcat;
 	}
 
-
-
-
 	getAvActivityHighlightsTextcat(): TextModel[] {
 		return this.avActivityHighlightsTextcat;
 	}

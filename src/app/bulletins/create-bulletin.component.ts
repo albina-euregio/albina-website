@@ -699,6 +699,7 @@ export class CreateBulletinComponent {
     this.editBulletinRegions(bulletin);
   }
 
+  
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
       this.deselectBulletin();
