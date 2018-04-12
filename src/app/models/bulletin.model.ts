@@ -285,16 +285,29 @@ export class BulletinModel {
 		return this.avActivityHighlightsTextcat;
 	}
 
-	getAvActivityHighlightsTextcatIn(language: Enums.LanguageCode): string {
-		for (var i = this.avActivityHighlightsTextcat.length - 1; i >= 0; i--) {
-			if (this.avActivityHighlightsTextcat[i].getLanguageCode() == language)
-				return this.avActivityHighlightsTextcat[i].getText();
+	getAvActivityHighlightsTextcatIn(language: Enums.LanguageCode, srcLang: string): string {
+		if (this.avActivityHighlightsTextcat) {
+			for (var i = this.avActivityHighlightsTextcat.length - 1; i >= 0; i--) {
+				if (this.avActivityHighlightsTextcat[i].getLanguageCode() == language)
+					return this.avActivityHighlightsTextcat[i].getText();
+			}
+		}
+		else
+		{
+			let model = new TextModel();
+			model.setLanguageCode(Enums.LanguageCode[srcLang]);
+			model.setText("");
+			let avActivityHighlightsTextcat = new Array<TextModel>();
+			avActivityHighlightsTextcat.push(model);
+			this.setAvActivityHighlightsTextcat(avActivityHighlightsTextcat);
 		}
 	}
 
+/*
 	getAvActivityHighlightsTextcatInString(language: string): string {
 		return this.getAvActivityHighlightsTextcatIn(Enums.LanguageCode[language]);
 	}
+*/
 
 	setAvActivityHighlightsTextcat(avActivityHighlightsTextcat: TextModel[]) {
 		this.avActivityHighlightsTextcat = avActivityHighlightsTextcat;

@@ -456,17 +456,8 @@
   </p-footer>
 </p-confirmDialog>
 
-<!-- <p-confirmDialog icon="fa fa-question-circle" width="1024" #textCatDialog key="textCatDialog">
-  <p-footer>
-    <iframe id="receiver" #receiver [src]="pmUrl" height="200px" width="100%">
-			<p>Your browser does not support iframes.</p>
-    </iframe>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.textCatDialog.accept" | translate }}' (click)="textCatDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog> 
--->
-<p-dialog header="Catalogo delle frasi" [(visible)]="display" width="1024">
-  <iframe id="receiver" #receiver [src]="pmUrl" height="200px" width="100%">
+<p-dialog header="Catalogo delle frasi" [(visible)]="display"  width="1024" height="auto">
+  <iframe id="receiver" #receiver [src]="pmUrl" width="100%" height="99%">
     <p>Your browser does not support iframes.</p>
   </iframe>
 </p-dialog>

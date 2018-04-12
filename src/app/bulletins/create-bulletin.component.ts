@@ -10,8 +10,8 @@ import { MapService } from "../providers/map-service/map.service";
 import { RegionsService } from "../providers/regions-service/regions.service";
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
-import {ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
-import {DialogModule} from 'primeng/components/dialog/dialog';
+import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
+import { DialogModule } from 'primeng/components/dialog/dialog';
 import { Observable } from 'rxjs/Observable';
 import * as Enums from '../enums/enums';
 import { UUID } from 'angular2-uuid';
@@ -53,7 +53,7 @@ export class CreateBulletinComponent {
   public activeBulletin: BulletinModel;
   public bulletinsList: BulletinModel[];
 
-  public  activeAvActivityHighlightsTextcat: string;
+  public activeAvActivityHighlightsTextcat: string;
 
   public activeAvActivityHighlightsDe: string;
   public activeAvActivityCommentDe: string;
@@ -70,13 +70,13 @@ export class CreateBulletinComponent {
   public activeSnowpackStructureCommentEn: string;
 
 
-  
+
 
   //private preventClick: boolean;
   //private timer;
-/*
-  @ViewChild('avActivityHighlightsTextcat') avActivityHighlightsTextcat;
-*/
+  /*
+    @ViewChild('avActivityHighlightsTextcat') avActivityHighlightsTextcat;
+  */
   @ViewChild('avActivityCommentTextcat') avActivityCommentTextcat;
 
   @ViewChild('snowpackStructureCommentTextcat') snowpackStructureCommentTextcat;
@@ -89,14 +89,14 @@ export class CreateBulletinComponent {
   display: boolean = false;
 
   showDialog() {
-      this.display = true;
+    this.display = true;
   }
 
   hideDialog() {
-      this.display = false;
+    this.display = false;
   }
-//tra le proprietà del componente 
-eventSubscriber: Subscription;
+  //tra le proprietà del componente 
+  eventSubscriber: Subscription;
 
   constructor(
     private translate: TranslateService,
@@ -155,7 +155,7 @@ eventSubscriber: Subscription;
 
       this.reset();
       //setting pm language for iframe
-      
+
 
       this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/child_pm.html?l=" + this.settingsService.getLangString());
 
@@ -702,12 +702,12 @@ eventSubscriber: Subscription;
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
       this.deselectBulletin();
-
       this.activeBulletin = bulletin;
-      
-      //fake txtcat
-      if (this.activeBulletin.getAvActivityHighlightsTextcatIn(Enums.LanguageCode.de))
-        this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcatIn(Enums.LanguageCode.de);
+
+
+      //txtcat
+      // if (this.activeBulletin.getAvActivityHighlightsTextcatIn(Enums.LanguageCode.de))
+      this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcatIn(Enums.LanguageCode.de,this.translateService.currentLang);
 
       this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
       this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
@@ -734,9 +734,9 @@ eventSubscriber: Subscription;
         // TODO this can be done nicer 
         //if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat.textcat && this.avActivityHighlightsTextcat.textcat.nativeElement && this.avActivityHighlightsTextcat.textcat.nativeElement.value)
         //  this.activeBulletin.setAvActivityHighlightsTextcat(this.avActivityHighlightsTextcat.textcat.nativeElement.value);
-               
-        
-          if (this.avActivityCommentTextcat && this.avActivityCommentTextcat.textcat && this.avActivityCommentTextcat.textcat.nativeElement && this.avActivityCommentTextcat.textcat.nativeElement.value)
+
+
+        if (this.avActivityCommentTextcat && this.avActivityCommentTextcat.textcat && this.avActivityCommentTextcat.textcat.nativeElement && this.avActivityCommentTextcat.textcat.nativeElement.value)
           this.activeBulletin.setAvActivityCommentTextcat(this.avActivityCommentTextcat.textcat.nativeElement.value);
 
         if (this.snowpackStructureCommentTextcat && this.snowpackStructureCommentTextcat.textcat && this.snowpackStructureCommentTextcat.textcat.nativeElement && this.snowpackStructureCommentTextcat.textcat.nativeElement.value)
@@ -1141,11 +1141,11 @@ eventSubscriber: Subscription;
     }
   }
 
-  openTextcat($event, field,l) {
+  openTextcat($event, field, l) {
 
     if (this.activeAvActivityHighlightsTextcat != "undefined") {
       //this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/child_pm.html?l=" + this.translateService.currentLang);
-      
+
       let receiver = this.receiver.nativeElement.contentWindow;
       $event.preventDefault()
       //make Json to send to pm
@@ -1175,7 +1175,7 @@ eventSubscriber: Subscription;
 
   getText(e) {
     e.preventDefault();
-    if (e.data.type != "webpackInvalid" && e.data.type != "webpackOk" ) {
+    if (e.data.type != "webpackInvalid" && e.data.type != "webpackOk") {
       let pmData = JSON.parse(e.data);
       //change model as you need
       this.activeAvActivityHighlightsIt = pmData.textIt;
