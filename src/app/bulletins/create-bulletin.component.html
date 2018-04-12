@@ -228,11 +228,19 @@
           <div *ngIf="activeBulletin">
             <accordion>
               <!-- Danger rating -->
-              <accordion-group heading='{{ "bulletins.create.title.dangerRating" | translate }}'>
+              <accordion-group heading=''>
+                <div accordion-heading class="clearfix">
+                  <i class="fa fa-angle-down"></i>
+                  <strong>{{ "bulletins.create.title.dangerRating" | translate }}</strong>
+                </div>
                 <bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
               </accordion-group>
               <!-- Avalanche situation -->
-              <accordion-group heading='{{ "bulletins.create.title.avalancheSituation" | translate }}'>
+              <accordion-group>
+                <div accordion-heading class="clearfix">
+                  <i class="fa fa-angle-down"></i>
+                  <strong>{{ "bulletins.create.title.avalancheSituation" | translate }}</strong>
+                </div>
                 <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                   <div class="form-group row">
                     <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
@@ -253,7 +261,11 @@
                 </form>
               </accordion-group>
               <!-- Danger description -->
-              <accordion-group heading='{{ "bulletins.create.title.dangerDescription" | translate }}'>
+              <accordion-group>
+                <div accordion-heading class="clearfix">
+                  <i class="fa fa-angle-down"></i>
+                  <strong>{{ "bulletins.create.title.dangerDescription" | translate }}</strong>
+                </div>
                 <div class="form-group row">
                   <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
                   <div class="col-md-12">
@@ -270,7 +282,11 @@
                 </div>
               </accordion-group>
               <!-- Snowpack structure -->
-              <accordion-group heading='{{ "bulletins.create.title.snowpackStructure" | translate }}'>
+              <accordion-group>
+                <div accordion-heading class="clearfix">
+                  <i class="fa fa-angle-down"></i>
+                  <strong>{{ "bulletins.create.title.snowpackStructure" | translate }}</strong>
+                </div>
                 <div class="form-group row">
                   <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.dangerPatterns" | translate }}</strong></label>
                   <div class="col-md-12">
@@ -315,7 +331,11 @@
                 </div>
               </accordion-group>
               <!-- Tendency -->
-              <accordion-group heading='{{ "bulletins.create.title.tendency" | translate }}'>
+              <accordion-group>
+                <div accordion-heading class="clearfix">
+                  <i class="fa fa-angle-down"></i>
+                  <strong>{{ "bulletins.create.title.tendency" | translate }}</strong>
+                </div>
                 <div class="form-group row">
                   <div class="col-md-12">
                     <table>
