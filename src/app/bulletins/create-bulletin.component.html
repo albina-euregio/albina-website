@@ -7,7 +7,7 @@
         <!-- Header -->
         <div class="card-header">
           <strong>{{ bulletinsService.getActiveDate() | localizedDate:'fullDate' }}</strong>
-          <div class="float-right">
+          <div *ngIf="bulletinsService.getIsEditable()" class="float-right">
             <button *ngIf="!bulletinsService.getIsUpdate()" [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-primary px-3" (click)="loadBulletinsFromYesterday()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.loadBulletin' | translate }}"><i class="fa fa-copy"></i></button>
           </div>
 <!--
