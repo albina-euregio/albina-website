@@ -1,16 +1,40 @@
 export class AuthorModel {
-	public name: String;
-	public email: String;
-	public phone: String;
-	public organization: String;
-	public role: String;
+	public accessToken: string;
+	public refreshToken: string;
+	public name: string;
+	public email: string;
+	public phone: string;
+	public organization: string;
+	public role: string;
+	public image: string;
+	public region: string;
 
 	constructor() {
+		this.accessToken = undefined;
+		this.refreshToken = undefined;
 		this.name = undefined;
 		this.email = undefined;
 		this.phone = undefined;
 		this.organization = undefined;
 		this.role = undefined;
+		this.image = undefined;
+		this.region = undefined;
+	}
+
+	getAccessToken() {
+		return this.accessToken;
+	}
+
+	setAccessToken(accessToken) {
+		this.accessToken = accessToken;
+	}
+
+	getRefreshToken() {
+		return this.refreshToken;
+	}
+
+	setRefreshToken(refreshToken) {
+		this.refreshToken = refreshToken;
 	}
 
 	getName() {
@@ -53,6 +77,22 @@ export class AuthorModel {
 		this.role = role; 
 	}
 
+	getImage() {
+		return this.image;
+	}
+
+	setImage(image) {
+		this.image = image;
+	}
+
+	getRegion() {
+		return this.region;
+	}
+
+	setRegion(region) {
+		this.region = region;
+	}
+
 	toJson() {
 		var json = Object();
 
@@ -66,6 +106,8 @@ export class AuthorModel {
 			json['organization'] = this.organization;
 		if (this.role && this.role != undefined && this.role != "")
 			json['role'] = this.role;
+		if (this.region && this.region != undefined && this.region != "")
+			json['region'] = this.region;
 
 		return json;
 	}
@@ -78,6 +120,8 @@ export class AuthorModel {
 		author.setPhone(json.phone);
 		author.setOrganization(json.organization);
 		author.setRole(json.role);
+		author.setImage(json.image);
+		author.setRegion(json.region);
 
 		return author;
 	}

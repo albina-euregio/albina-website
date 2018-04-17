@@ -1,12 +1,13 @@
 import { BulletinDaytimeDescriptionModel } from "./bulletin-daytime-description.model";
 import { TextModel } from './text.model';
+import { AuthorModel } from './author.model';
 import * as Enums from '../enums/enums';
 
 export class BulletinModel {
 	public id: string;
 
-	public creator: string;
-	public creatorRegion: string;
+	public author: AuthorModel;
+	public additionalAuthors: String[];
 
 	public publicationDate: Date;
 
@@ -46,10 +47,10 @@ export class BulletinModel {
 	public dangerPattern2: Enums.DangerPattern;
 
 	constructor(bulletin?: BulletinModel) {
-		this.creator = undefined;
-		this.creatorRegion = undefined;
+		this.author = undefined;
 		this.publicationDate = undefined;
 		if (bulletin) {
+			this.additionalAuthors = bulletin.additionalAuthors;
 			this.validFrom = bulletin.validFrom;
 			this.validUntil = bulletin.validUntil;
 			this.suggestedRegions = bulletin.suggestedRegions;
@@ -75,6 +76,7 @@ export class BulletinModel {
 			this.hasDaytimeDependency = bulletin.hasDaytimeDependency;
 			this.hasElevationDependency = bulletin.hasElevationDependency;
 		} else {
+			this.additionalAuthors = new Array<String>();
 			this.validFrom = undefined;
 			this.validUntil = undefined;
 			this.suggestedRegions = new Array<String>();
@@ -112,20 +114,25 @@ export class BulletinModel {
 		this.id = id;
 	}
 
-	getCreator() : string {
-		return this.creator;
+	getAuthor() : AuthorModel {
+		return this.author;
 	}
 
-	setCreator(creator: string) {
-		this.creator = creator;
+	setAuthor(author: AuthorModel) {
+		this.author = author;
 	}
 
-	getCreatorRegion() : string {
-		return this.creatorRegion;
+	getAdditionalAuthors() : String[] {
+		return this.additionalAuthors;
 	}
 
-	setCreatorRegion(creatorRegion: string) {
-		this.creatorRegion = creatorRegion;
+	setAdditionalAuthors(additionalAuthors: String[]) {
+		this.additionalAuthors = additionalAuthors;
+	}
+
+	addAdditionalAuthor(author: string) {
+		if (this.additionalAuthors.indexOf(author) < 0)
+			this.additionalAuthors.push(author);
 	}
 
 	getPublicationDate() {
@@ -470,10 +477,16 @@ export class BulletinModel {
 
 		if (this.id && this.id != undefined)
 			json['id'] = this.id;
-		if (this.creator && this.creator != undefined)
-			json['creator'] = this.creator;
-		if (this.creatorRegion && this.creatorRegion != undefined)
-			json['creatorRegion'] = this.creatorRegion;
+		if (this.author && this.author != undefined)
+			json['author'] = this.author.toJson();
+		if (this.additionalAuthors && this.additionalAuthors.length > 0) {
+			let additionalAuthors = [];
+			for (let i = 0; i <= this.additionalAuthors.length - 1; i++) {
+				additionalAuthors.push(this.additionalAuthors[i]);
+			}
+			json['additionalAuthors'] = additionalAuthors;
+		}
+
 		
 		if (this.publicationDate && this.publicationDate != undefined)
 			json['publicationDate'] = this.getISOStringWithTimezoneOffsetUrlEncoded(this.publicationDate);
@@ -598,8 +611,13 @@ export class BulletinModel {
 		let bulletin = new BulletinModel();
 
 		bulletin.setId(json.id);
-		bulletin.setCreator(json.creator);
-		bulletin.setCreatorRegion(json.creatorRegion);
+		bulletin.setAuthor(AuthorModel.createFromJson(json.author));
+		let jsonAdditionalAuthors = json.additionalAuthors;
+		let additionalAuthors = new Array<String>();
+		for (let i in jsonAdditionalAuthors) {
+			additionalAuthors.push(jsonAdditionalAuthors[i]);
+		}
+		bulletin.setAdditionalAuthors(additionalAuthors);
 
 		if (json.publicationDate)
 			bulletin.setPublicationDate(new Date(json.publicationDate));

@@ -431,7 +431,7 @@ export class CreateBulletinComponent {
   getOwnBulletins() {
     let result = new Array<BulletinModel>();
     for (let bulletin of this.bulletinsList)
-      if (bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+      if (bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
         result.push(bulletin);
     return result;
   }
@@ -439,7 +439,7 @@ export class CreateBulletinComponent {
   getForeignBulletins() {
     let result = new Array<BulletinModel>();
     for (let bulletin of this.bulletinsList)
-      if (!bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+      if (!bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
         result.push(bulletin);
     return result;
   }
@@ -492,7 +492,7 @@ export class CreateBulletinComponent {
             let entries = new Array<BulletinModel>();
 
             for (let bulletin of this.bulletinsList) {
-              if (bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+              if (bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
                 entries.push(bulletin);
             }
             for (let entry of entries)
@@ -529,8 +529,7 @@ export class CreateBulletinComponent {
 
       let bulletin = new BulletinModel(originalBulletin);
 
-      bulletin.setCreator(this.authenticationService.getUsername());
-      bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
+      bulletin.setAuthor(this.authenticationService.getAuthor());
       
       // reset regions
       let saved = new Array<String>();
@@ -565,7 +564,7 @@ export class CreateBulletinComponent {
     for (let jsonBulletin of response) {
       let bulletin = BulletinModel.createFromJson(jsonBulletin);
 
-      if (!bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+      if (!bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
         this.addBulletin(bulletin);
     }
 
@@ -610,6 +609,8 @@ export class CreateBulletinComponent {
         suggested.push(region);
     bulletin.setSuggestedRegions(suggested);
 
+    bulletin.addAdditionalAuthor(this.authenticationService.getAuthor().getName());
+
     this.updateAggregatedRegions();
   }
 
@@ -626,8 +627,7 @@ export class CreateBulletinComponent {
 
   private createInitialAggregatedRegion() {
     let bulletin = new BulletinModel();
-    bulletin.setCreator(this.authenticationService.getUsername());
-    bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
+    bulletin.setAuthor(this.authenticationService.getAuthor());
     let regions = Object.assign([], this.constantsService.regions.get(this.authenticationService.getUserRegion()));
     bulletin.setSavedRegions(regions);
 
@@ -650,8 +650,7 @@ export class CreateBulletinComponent {
       } else
         bulletin = new BulletinModel();
 
-      bulletin.setCreator(this.authenticationService.getUsername());
-      bulletin.setCreatorRegion(this.authenticationService.getUserRegion());
+      bulletin.setAuthor(this.authenticationService.getAuthor());
 
       this.addBulletin(bulletin);
       this.selectBulletin(bulletin);
@@ -976,7 +975,7 @@ export class CreateBulletinComponent {
   }
 
   isCreator(bulletin: BulletinModel) : boolean {
-    if (bulletin.getCreatorRegion() != undefined && bulletin.getCreatorRegion().startsWith(this.authenticationService.getUserRegion()))
+    if (bulletin.getAuthor().getRegion() != undefined && bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
         return true;
     return false;
   }

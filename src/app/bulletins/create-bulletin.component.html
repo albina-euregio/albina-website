@@ -50,10 +50,13 @@
                             <td>
                               <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
                             </td>
-                            <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
+                            <td>{{ "region." + bulletin.getAuthor().getRegion() | translate }}</td>
                             <td>
                               <div>
-                                <small class="text-muted">{{ bulletin.getCreator() }}</small>
+                                <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
+                              </div>
+                              <div *ngFor="let additionalAuthor of bulletin.getAdditionalAuthors()">
+                                <small class="text-muted">{{ additionalAuthor }}</small>
                               </div>
                             </td>
                             <td *ngIf="bulletinsService.getIsEditable() && hasSuggestions(bulletin) && !editRegions">
@@ -116,10 +119,10 @@
                       <td>
                         <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
                       </td>
-                      <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
+                      <td>{{ "region." + bulletin.getAuthor().getRegion() | translate }}</td>
                       <td>
                         <div>
-                          <small class="text-muted">{{ bulletin.getCreator() }}</small>
+                          <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
                         </div>
                       </td>
                       <td *ngIf="hasSuggestions(bulletin)"><i class="fa fa-lightbulb-o"></i></td>
@@ -142,10 +145,13 @@
                             <td>
                               <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
                             </td>
-                            <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
+                            <td>{{ "region." + bulletin.getAuthor().getRegion() | translate }}</td>
                             <td>
                               <div>
-                                <small class="text-muted">{{ bulletin.getCreator() }}</small>
+                                <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
+                              </div>
+                              <div *ngFor="let additionalAuthor of bulletin.getAdditionalAuthors()">
+                                <small class="text-muted">{{ additionalAuthor }}</small>
                               </div>
                             </td>
 
@@ -211,10 +217,10 @@
                       <td>
                         <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
                       </td>
-                      <td>{{ "region." + bulletin.getCreatorRegion() | translate }}</td>
+                      <td>{{ "region." + bulletin.getAuthor().getRegion() | translate }}</td>
                       <td>
                         <div>
-                          <small class="text-muted">{{ bulletin.getCreator() }}</small>
+                          <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
                         </div>
                       </td>
                       <td *ngIf="hasSuggestions(bulletin)"><i class="fa fa-lightbulb-o"></i></td>
