@@ -69,9 +69,6 @@ export class CreateBulletinComponent {
   public activeSnowpackStructureHighlightsEn: string;
   public activeSnowpackStructureCommentEn: string;
 
-
-
-
   //private preventClick: boolean;
   //private timer;
   /*
@@ -148,16 +145,15 @@ export class CreateBulletinComponent {
   ngOnInit() {
     //for reload iframe on change language
     this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
-      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/child_pm.html?l=" + this.settingsService.getLangString())
+      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/c_pm.html?l=" + this.settingsService.getLangString())
     );
 
     if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
 
       this.reset();
+
       //setting pm language for iframe
-
-
-      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/child_pm.html?l=" + this.settingsService.getLangString());
+      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/c_pm.html?l=" + this.settingsService.getLangString());
 
       // copy bulletins from other date
       if (this.bulletinsService.getCopyDate()) {
@@ -1144,8 +1140,6 @@ export class CreateBulletinComponent {
   openTextcat($event, field, l) {
  
     if (this.activeAvActivityHighlightsTextcat != "undefined") {
-      //this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/child_pm.html?l=" + this.translateService.currentLang);
- 
       let receiver = this.receiver.nativeElement.contentWindow;
       $event.preventDefault()
       //make Json to send to pm
@@ -1158,17 +1152,8 @@ export class CreateBulletinComponent {
 
       let pmData = JSON.stringify(inputDef);
       receiver.postMessage(pmData, '*');
-      //window.addEventListener('message', this.getText);
       this.showDialog();
-      /*
-      this.confirmationService.confirm({
-        key: "textCatDialog",
-        message: this.translateService.instant("bulletins.create.textCatDialog.header"),
-        accept: () => {
-          // this.goBack();
-        },
-      });
-      */
+
     }
   }
 
