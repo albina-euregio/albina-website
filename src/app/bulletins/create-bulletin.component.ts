@@ -1157,7 +1157,6 @@ export class CreateBulletinComponent {
     }
   }
 
-
   getText(e) {
     e.preventDefault();
     if (e.data.type != "webpackInvalid" && e.data.type != "webpackOk") {
