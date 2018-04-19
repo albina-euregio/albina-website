@@ -278,13 +278,12 @@
             <div class="col-md-12">
               <div class="form-group row">
                 <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
-                <!--<div class="col-md-12"  >-->
-                   <input type="text" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsTextcat" (click)="openTextcat($event,'activeAvActivityHighlights',this.activeBulletin.avActivityHighlightsTextcat['0'].languageCode)"><br>
-                 <!-- TODO disable cop if editRegions 
-                  <cop #avActivityHighlightsTextcat [text]="activeBulletin.avActivityHighlightsTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
-                </div>-->
-                <input type="text" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsIt">
-                <input type="text" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsDe">
+                <div class="col-md-12" >
+                  <input type="text" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsTextcat" (click)="openTextcat($event,'activeAvActivityHighlights',this.activeBulletin.avActivityHighlightsTextcat['0'].languageCode)"><br>
+                 <!-- TODO disable cop if editRegions  -->
+                  <input type="hidden" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsIt">
+                  <input type="hidden" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsDe">
+                </div>
               </div>
               <div class="form-group row">
                 <label class="col-md-12 form-control-label" for="textarea-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
