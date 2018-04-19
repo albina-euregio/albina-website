@@ -20,7 +20,7 @@ export default class StaticPage extends React.Component {
   }
 
   _fetchData(props) {
-    const path = props.route.path.split('/');
+    const path = props.location.pathname.split('/');
     const site = (path.length > 0) ? path[path.length - 1] : '';
     const lang = 'de'; // TODO: fix hardcoded lang
 

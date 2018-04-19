@@ -36,8 +36,15 @@ module.exports = {
     ]
   },
   resolve: {
-    extenstions: ['', '.jsx', '.js'],
-    moduleDirectories: ['node_modules']
+    extensions: ['.jsx', '.js', '.json'],
+    modules: ['node_modules']
   },
-  plugins: []
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.NODE_CONFIG_DIR': './config'
+    })
+  ],
+  node: {
+    fs: "empty"
+  }
 };

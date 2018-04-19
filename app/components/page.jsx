@@ -24,7 +24,7 @@ export default class Page extends React.Component {
       this.props.location.pathname === '' ||
       this.props.location.pathname === '/'
     ) {
-      this.props.history.push('news');
+      this.props.history.push('bulletin');
     }
   }
 

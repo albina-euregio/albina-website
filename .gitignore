@@ -49,3 +49,7 @@ lib
 
 # Editor
 .idea
+
+# Eclipse
+.project
+.settings

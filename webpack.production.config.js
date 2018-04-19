@@ -11,7 +11,7 @@ module.exports = {
   ],
   output: {
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
+    publicPath: '/projects/albina-web/',
     filename: './bundle.js'
   },
   module: {
@@ -21,7 +21,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
   plugins: [
     new webpack.optimize.DedupePlugin(),

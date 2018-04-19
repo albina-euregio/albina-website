@@ -32,9 +32,7 @@ export default class Info extends React.Component {
     const blog = blogs[0];
     const url = 'https://www.googleapis.com/blogger/v3/blogs/' + blog.params.id + '/posts?key=' + config.get('apiKeys.google');
 
-    Base.doRequest(
-      //'https://www.googleapis.com/blogger/v3/blogs/4975737854227957835/posts?key=AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo',
-      url,
+    Base.doRequest(url).then(
       response => {
         const responseParsed = JSON.parse(response);
         this.setState({

@@ -1,11 +1,14 @@
 import React from 'react';
-import { BrowserHistory } from 'react-router';
+//import { BrowserHistory } from 'react-router';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
 
-import News from './../views/news.jsx';
+import Bulletin from './../views/bulletin.jsx';
+import Blog from './../views/blog.jsx';
 import Weather from './../views/weather.jsx';
+import Education from './../views/education.jsx';
 import Info from './../views/info.jsx';
+import StaticPage from './../views/staticPage.jsx';
 import PageHeadingWrapper from './pageheading/wrapper.jsx';
 import PageFooterWrapper from './pagefooter/wrapper.jsx';
 import Page from './page.jsx';
@@ -28,14 +31,14 @@ export default class App extends React.Component {
         path: '/',
         component: Page,
         indexRoute: {
-          component: News
+          component: Bulletin
         },
         routes: [
           {
-            path: '/news',
-            component: News,
+            path: '/bulletin',
+            component: Bulletin,
             indexRoute: {
-              component: News
+              component: Bulletin
             }
           },
           {
@@ -46,14 +49,35 @@ export default class App extends React.Component {
             }
           },
           {
+            path: '/education',
+            component: Education,
+            indexRoute: {
+              component: Education
+            }
+          },
+          {
             path: '/info',
-            component: Info,
+            component: StaticPage,
             childRoutes: [
               {
-                path: '/info/:aboutSection',
-                component: Info
+                path: '/info/:site',
+                component: StaticPage
               }
             ]
+          },
+          {
+            path: '/blog',
+            component: Blog,
+            indexRoute: {
+              component: Blog
+            }
+          },
+          {
+            path: '/:name',
+            component: StaticPage,
+            indexRoute: {
+              component: StaticPage
+            }
           }
         ]
       }
@@ -61,6 +85,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    return <BrowserRouter>{renderRoutes(this.routes())}</BrowserRouter>;
+    return <BrowserRouter basename={config.get('projectRoot')}>{renderRoutes(this.routes())}</BrowserRouter>;
   }
 }

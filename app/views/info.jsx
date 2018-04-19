@@ -10,7 +10,7 @@ export default class Info extends React.Component {
     return [
       { url: 'about', label: 'about us' },
       { url: 'contact', label: 'contact us' },
-      { url: 'come', label: 'come and say hi' }
+      { url: 'imprint', label: 'imprint' }
     ];
   }
 
