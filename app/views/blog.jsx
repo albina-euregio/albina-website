@@ -44,7 +44,7 @@ export default class Info extends React.Component {
 
   render() {
     return (
-      <div>
+      <section>
         <div className="content-wrapper">
           <h1 className="title">Blog</h1>
           <div className="content">
@@ -68,7 +68,7 @@ export default class Info extends React.Component {
             })}
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 }

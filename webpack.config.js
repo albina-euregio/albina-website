@@ -32,6 +32,20 @@ module.exports = {
         include: path.resolve(__dirname, 'app'),
         exclude: /node_modules/,
         loader: 'babel-loader'
+      },
+      {
+    	test: /\.(ttf|eot|woff|woff2)$/,
+    	loader: 'file-loader',
+    	options: {
+    	  name: "fonts/[name].[ext]",
+    	}
+      },
+      {
+      	test: /\.(png|jpeg|jpg|gif|svg)$/,
+    	loader: 'file-loader',
+    	options: {
+    	  name: "images/[name].[ext]",
+    	}    	 
       }
     ]
   },

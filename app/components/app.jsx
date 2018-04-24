@@ -13,7 +13,7 @@ import PageHeadingWrapper from './pageheading/wrapper.jsx';
 import PageFooterWrapper from './pagefooter/wrapper.jsx';
 import Page from './page.jsx';
 
-require('../css/bulma.css');
+require('../css/style.css');
 require('../css/app.css');
 
 export default class App extends React.Component {

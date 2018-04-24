@@ -1,10 +1,7 @@
 import React from 'react';
-import PageHeadingWrapper from './pageheading/wrapper.jsx';
-import PageFooterWrapper from './pagefooter/wrapper.jsx';
+import PageHeader from './organisms/page-header.jsx';
+import PageFooter from './organisms/page-footer.jsx';
 import { renderRoutes } from 'react-router-config';
-
-require('../css/bulma.css');
-require('../css/app.css');
 
 export default class Page extends React.Component {
   constructor(props) {
@@ -30,10 +27,12 @@ export default class Page extends React.Component {
 
   render() {
     return (
-      <div>
-        <PageHeadingWrapper />
-        <div className="container">{renderRoutes(this.props.route.routes)}</div>
-        <PageFooterWrapper />
+      <div id="page-all" className="page-all">
+        <PageHeader />
+        <main id="page-main" className="page-main">
+          <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
+        </main>
+        <PageFooter />
       </div>
     );
   }
