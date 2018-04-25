@@ -128,6 +128,119 @@ export class BulletinsComponent {
     return false;
   }
 
+  showCreateButton(date) {
+    if ((!this.isPast(date)) && 
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.missing
+        ) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
+  showCopyButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        this.bulletinsService.getUserRegionStatus(date) && 
+        this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.missing && 
+        !this.copying && 
+        !this.loadingTrentino && 
+        !this.loadingSouthTyrol && 
+        !this.loadingTyrol)
+      return true;
+    else
+      return false;
+  }
+
+  showPasteButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.published && 
+        this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.republished && 
+        this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.submitted && 
+        this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.resubmitted && 
+        this.copying && 
+        this.bulletinsService.getCopyDate() != date && 
+        !this.isPast(date) && 
+        !this.isToday(date))
+      return true;
+    else
+      return false;
+  }
+
+  showSubmitButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.draft || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.updated
+        ) && 
+        !this.copying && 
+        (!this.publishing || this.publishing.getTime() != date.getTime()))
+      return true;
+    else
+      return false;
+  }
+
+  showPublishButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        this.isToday(date) && 
+        (this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.resubmitted) && 
+        !this.copying && 
+        (!this.publishing || this.publishing.getTime() != date.getTime()))
+      return true;
+    else
+      return false;
+  }
+
+  showSpinningIconButton(date) {
+    if (!this.copying && 
+        this.publishing && 
+        this.publishing.getTime() == date.getTime())
+      return true;
+    else
+      return false;
+  }
+
+  showCaamlButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published ||  
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished
+        ) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
+  showEditButton(date) {
+    if ((!this.isPast(date)) && 
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.submitted || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.resubmitted
+        ) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
+  showUpdateButton(date) {
+    if ((!this.isPast(date)) && 
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished
+        ) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
   isOwnRegion(region) {
     return this.authenticationService.getUserRegion().startsWith(region);
   }

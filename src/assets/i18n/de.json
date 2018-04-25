@@ -125,7 +125,8 @@
 			"paste" : "Lawinenprognose einfügen",
 			"update" : "Update zur Lawinenprognose erstellen",
 			"caaml" : "CAAML anzeigen",
-			"edit" : "Lawinenprognose editieren (keine erneute Veröffentlichung)"
+			"edit" : "Lawinenprognose editieren (keine erneute Veröffentlichung)",
+			"create" : "Lawinenprognose erstellen"
 		},
 		"create" : {
 			"tooltip" : {

@@ -125,7 +125,8 @@
 			"paste" : "Paste bulletin",
 			"update" : "Create update of bulletin",
 			"caaml" : "Show CAAML",
-			"edit" : "Edit bulletin (will not be published again)"
+			"edit" : "Edit bulletin (will not be published again)",
+			"create" : "Create bulletin"
 		},
 		"create" : {
 			"tooltip" : {

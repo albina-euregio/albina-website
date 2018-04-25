@@ -125,7 +125,8 @@
 			"paste" : "Incollare bollettino valanghe",
 			"update" : "Update bollettino valanghe",
 			"caaml" : "Mostrare CAAML",
-			"edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)"
+			"edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)",
+			"create" : "TODO"
 		},
 		"create" : {
 			"tooltip" : {
