@@ -119,7 +119,7 @@
 	"bulletins" : {
 		"title" : "Bulletins",
 		"tooltip" : {
-			"publish" : "Publish bulletin",
+			"publish" : "Publish updated bulletin immediately",
 			"submit" : "Submit bulletin",
 			"copy" : "Copy bulletin",
 			"paste" : "Paste bulletin",

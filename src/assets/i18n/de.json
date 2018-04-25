@@ -119,13 +119,13 @@
 	"bulletins" : {
 		"title" : "Lawinenlageberichte",
 		"tooltip" : {
-			"publish" : "Lawinenlagebericht publizieren",
-			"submit" : "Lawinenlagebericht absenden",
-			"copy" : "Lawinenlagebericht kopieren",
-			"paste" : "Lawinenlagebericht einfügen",
-			"update" : "Update zum Lawinenlagebericht erstellen",
+			"publish" : "Update zur Lawinenprognose sofort publizieren",
+			"submit" : "Lawinenprognose absenden",
+			"copy" : "Lawinenprognose kopieren",
+			"paste" : "Lawinenprognose einfügen",
+			"update" : "Update zur Lawinenprognose erstellen",
 			"caaml" : "CAAML anzeigen",
-			"edit" : "Lawinenlagebericht editieren (keine erneute Veröffentlichung)"
+			"edit" : "Lawinenprognose editieren (keine erneute Veröffentlichung)"
 		},
 		"create" : {
 			"tooltip" : {

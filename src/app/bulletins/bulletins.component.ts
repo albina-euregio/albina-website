@@ -109,13 +109,23 @@ export class BulletinsComponent {
     this.copying = false;
   }
 
-  isPast(date) {
+  isPast(date: Date) {
     let today = new Date();
-    today.setHours(0, 0, 0, 0);
-    if (today > date)
+    today.setHours(0,0,0,0);
+    if (today.getTime() > date.getTime())
       return true;
-    else
-      return false;
+    return false;
+  }
+
+  isToday(date: Date) {
+    if (date != undefined) {
+      let today = new Date();
+      today.setHours(0, 0, 0, 0);
+
+      if (today.getTime() == date.getTime())
+        return true;
+    }
+    return false;
   }
 
   isOwnRegion(region) {
@@ -130,8 +140,8 @@ export class BulletinsComponent {
         this.bulletinsService.setIsUpdate(false);
 
       this.bulletinsService.setActiveDate(date);
-
-      if ((this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion())) {
+debugger
+      if (!this.isEditable(date)) {
         this.bulletinsService.setIsEditable(false);
         this.router.navigate(['/bulletins/new']);
       } else {
@@ -143,6 +153,13 @@ export class BulletinsComponent {
         }
       }
     }
+  }
+
+  isEditable(date) {
+    if ((this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion()) || this.isPast(date))
+      return false;
+    else
+      return true;
   }
 
   showCaaml(event, date: Date) {

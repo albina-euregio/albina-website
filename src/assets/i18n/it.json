@@ -119,7 +119,7 @@
 	"bulletins" : {
 		"title" : "Bollettini",
 		"tooltip" : {
-			"publish" : "Pubblicare bollettino valanghe",
+			"publish" : "Pubblicare bollettino valanghe TODO",
 			"submit" : "Inviare bollettino valanghe",
 			"copy" : "Copiare bollettino valanghe",
 			"paste" : "Incollare bollettino valanghe",
