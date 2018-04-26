@@ -253,7 +253,7 @@ export class BulletinsComponent {
         this.bulletinsService.setIsUpdate(false);
 
       this.bulletinsService.setActiveDate(date);
-debugger
+
       if (!this.isEditable(date)) {
         this.bulletinsService.setIsEditable(false);
         this.router.navigate(['/bulletins/new']);
