@@ -4,6 +4,7 @@ import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
+import { SocketService } from '../providers/socket-service/socket.service';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
@@ -33,7 +34,8 @@ export class BulletinsComponent {
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService,
     private router: Router,
-    private confirmationService: ConfirmationService)
+    private confirmationService: ConfirmationService,
+    private socketService: SocketService)
   {
     this.dates = new Array<Date>();
     this.loadingTrentino = false;
@@ -41,6 +43,18 @@ export class BulletinsComponent {
     this.loadingTyrol = false;
     this.copying = false;
     this.publishing = undefined;
+
+    this.socketService.getSocket().on('bulletinUpdate', function(data) {
+      console.log("SocketIO bulletin update event recieved: " + data);
+      let json = JSON.parse(data)
+      let region = json.region;
+      if (region === this.constantsService.codeTyrol)
+          this.bulletinsService.statusMapTyrol.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
+      else if (region === this.constantsService.codeSouthTyrol)
+          this.bulletinsService.statusMapSouthTyrol.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
+      else if (region === this.constantsService.codeTrentino)
+          this.bulletinsService.statusMapTrentino.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
+    }.bind(this));
   }
 
   ngOnInit() {
