@@ -183,7 +183,8 @@
 				"forenoonBelow" : "Dettagli - mattina, al disotto",
 				"afternoonBelow" : "Dettagli - pomeriggio, al disotto",
 				"snowpackStructure" : "Struttura manto nevoso",
-				"tendency" : "TODO"
+				"tendency" : "TODO",
+				"pmdialog" : "Catalogo delle frasi"
 			},
 			"discardDialog" : {
 				"header" : "Scarta modifiche",

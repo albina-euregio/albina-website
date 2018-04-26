@@ -183,7 +183,8 @@
 				"forenoonBelow" : "Details - Vormittag, unten",
 				"afternoonBelow" : "Details - Nachmittag, unten",
 				"snowpackStructure" : "Schneedeckenaufbau",
-				"tendency" : "Tendenz"
+				"tendency" : "Tendenz",
+				"pmdialog" : "textCat"
 			},
 			"discardDialog" : {
 				"header" : "Änderungen verwerfen",

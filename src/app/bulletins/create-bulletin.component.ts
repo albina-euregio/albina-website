@@ -1152,6 +1152,7 @@ export class CreateBulletinComponent {
 
       let pmData = JSON.stringify(inputDef);
       receiver.postMessage(pmData, '*');
+     
       this.showDialog();
 
     }
