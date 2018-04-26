@@ -111,10 +111,15 @@ export class BulletinsComponent {
 
   isPast(date: Date) {
     let today = new Date();
+    let hours = today.getHours();
     today.setHours(0,0,0,0);
-    if (today.getTime() > date.getTime())
-      return true;
-    return false;
+
+    if (hours >= 17)
+      today.setDate(today.getDate() + 1);
+
+    if (today.getTime() < date.getTime())
+      return false;
+    return true;
   }
 
   isToday(date: Date) {
@@ -278,7 +283,10 @@ export class BulletinsComponent {
   }
 
   isEditable(date) {
-    if ((this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion()) || this.isPast(date))
+    if (
+        (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || 
+        this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion()) || 
+        this.isPast(date))
       return false;
     else
       return true;
