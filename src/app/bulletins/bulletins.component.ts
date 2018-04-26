@@ -268,6 +268,15 @@ debugger
     }
   }
 
+  showBulletin(date: Date) {
+    if (!this.copying) {
+      this.bulletinsService.setIsUpdate(false);
+      this.bulletinsService.setActiveDate(date);
+      this.bulletinsService.setIsEditable(false);
+      this.router.navigate(['/bulletins/new']);
+    }
+  }
+
   isEditable(date) {
     if ((this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion()) || this.isPast(date))
       return false;

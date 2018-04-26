@@ -194,7 +194,7 @@ export class CreateBulletinComponent {
               }
             }
 
-            if (this.getOwnBulletins().length == 0)
+            if (this.getOwnBulletins().length == 0 && this.bulletinsService.getIsEditable())
               this.createInitialAggregatedRegion();
 
             this.updateMap();
