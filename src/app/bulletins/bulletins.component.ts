@@ -128,12 +128,9 @@ export class BulletinsComponent {
     let hours = today.getHours();
     today.setHours(0,0,0,0);
 
-    if (hours >= 17)
-      today.setDate(today.getDate() + 1);
-
-    if (today.getTime() < date.getTime())
-      return false;
-    return true;
+    if (today.getTime() > date.getTime())
+      return true;
+    return false;
   }
 
   isToday(date: Date) {
@@ -233,13 +230,11 @@ export class BulletinsComponent {
   }
 
   showEditButton(date) {
-    if ((!this.isPast(date)) && 
+    if ((!this.isPast(date) ) && 
         (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         (
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
-          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished || 
-          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.submitted || 
-          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.resubmitted
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished
         ) && 
         !this.copying)
       return true;
