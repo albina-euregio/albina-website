@@ -294,6 +294,7 @@ export class BulletinsComponent {
   isEditable(date) {
     if (
         (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || 
+        (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.republished && !this.bulletinsService.getIsUpdate()) || 
         this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion()) || 
         this.isPast(date))
       return false;
