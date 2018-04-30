@@ -12,6 +12,7 @@ import { AvalancheSituationComponent } from './avalanche-situation.component';
 import { CopComponent } from './cop.component';
 import { MatrixComponent } from './matrix.component';
 import { CaamlComponent } from './caaml.component';
+import { JsonComponent } from './json.component';
 import { Tabs } from './tabs.component';
 import { Tab } from './tab.component';
 
@@ -48,6 +49,7 @@ import { AccordionModule } from 'ngx-bootstrap';
     CopComponent,
     MatrixComponent,
     CaamlComponent,
+    JsonComponent,
     Tabs,
     Tab
   ]

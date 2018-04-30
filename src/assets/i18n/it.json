@@ -125,6 +125,7 @@
 			"paste" : "Incollare bollettino valanghe",
 			"update" : "Update bollettino valanghe",
 			"caaml" : "Mostrare CAAML",
+			"json" : "Mostrare JSON",
 			"edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)",
 			"create" : "TODO"
 		},
@@ -307,6 +308,19 @@
 			},
 			"noCaamlDialog" : {
 				"header" : "CAAML",
+				"message" : "Mancha il bolletino valanghe pubblicato!",
+				"accept" : "Ok"
+			}
+		},
+		"json" : {
+			"title" : "JSON",
+			"jsonNotLoadedDialog" : {
+				"header" : "JSON",
+				"message" : "Errore caricando JSON!",
+				"accept" : "Ok"
+			},
+			"noJsonDialog" : {
+				"header" : "JSON",
 				"message" : "Mancha il bolletino valanghe pubblicato!",
 				"accept" : "Ok"
 			}

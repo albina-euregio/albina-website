@@ -125,6 +125,7 @@
 			"paste" : "Paste bulletin",
 			"update" : "Create update of bulletin",
 			"caaml" : "Show CAAML",
+			"json" : "Show JSON",
 			"edit" : "Edit bulletin (will not be published again)",
 			"create" : "Create bulletin"
 		},
@@ -307,6 +308,19 @@
 			},
 			"noCaamlDialog" : {
 				"header" : "CAAML",
+				"message" : "No published bulletin available!",
+				"accept" : "Ok"
+			}
+		},
+		"json" : {
+			"title" : "JSON",
+			"jsonNotLoadedDialog" : {
+				"header" : "JSON",
+				"message" : "JSON could not be loaded!",
+				"accept" : "Ok"
+			},
+			"noJsonDialog" : {
+				"header" : "JSON",
 				"message" : "No published bulletin available!",
 				"accept" : "Ok"
 			}

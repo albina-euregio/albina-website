@@ -1,0 +1,36 @@
+<div class="animated fadeIn">
+  <!--/.row-->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>{{ "bulletins.json.title" | translate }} - {{ bulletinsService.getActiveDate() | localizedDate }}</strong>
+        </div>
+
+        <div class="card-block">
+          <div class="col-md-12">
+            <textarea *ngIf="!loading" id="textarea-input" name="textarea-input" rows="40" class="form-control" disabled [(ngModel)]="bulletins" style="font:courier;font-size:11px;white-space:pre-wrap"></textarea>
+            <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="reset" class="btn btn-sm btn-primary" (click)="goBack()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+  </div>
+  <!--/.row-->
+</div>
+
+<p-confirmDialog icon="fa fa-question-circle" width="425" #jsonNotLoadedDialog key="jsonNotLoadedDialog">
+  <p-footer>
+    <button type="button" pButton icon="fa-check" label='{{ "bulletins.json.jsonNotLoadedDialog.accept" | translate }}' (click)="jsonNotLoadedDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>
+
+<p-confirmDialog icon="fa fa-question-circle" width="425" #noJsonDialog key="noJsonDialog">
+  <p-footer>
+    <button type="button" pButton icon="fa-check" label='{{ "bulletins.json.noJsonDialog.accept" | translate }}' (click)="noJsonDialog.accept()"></button>
+  </p-footer>
+</p-confirmDialog>

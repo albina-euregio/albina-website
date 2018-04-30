@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BulletinsComponent } from './bulletins.component';
 import { CreateBulletinComponent } from './create-bulletin.component';
 import { CaamlComponent } from './caaml.component';
+import { JsonComponent } from './json.component';
 
 import { AuthGuard } from '../guards/auth.guard';
 
@@ -30,6 +31,14 @@ const routes: Routes = [
     canActivate: [AuthGuard], 
     data: {
       title: 'CAAML'
+    }
+  },
+  {
+    path: 'json',
+    component: JsonComponent,
+    canActivate: [AuthGuard], 
+    data: {
+      title: 'JSON'
     }
   }
 ];

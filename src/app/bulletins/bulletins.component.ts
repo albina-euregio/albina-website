@@ -225,6 +225,14 @@ export class BulletinsComponent {
       return false;
   }
 
+  showJsonButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
   showEditButton(date) {
     if ((!this.isPast(date) ) && 
         (!this.publishing || this.publishing.getTime() != date.getTime()) && 
@@ -302,6 +310,12 @@ export class BulletinsComponent {
     event.stopPropagation();
     this.bulletinsService.setActiveDate(date);
     this.router.navigate(['/bulletins/caaml']);
+  }
+
+  showJson(event, date: Date) {
+    event.stopPropagation();
+    this.bulletinsService.setActiveDate(date);
+    this.router.navigate(['/bulletins/json']);
   }
 
   copy(event, date: Date) {

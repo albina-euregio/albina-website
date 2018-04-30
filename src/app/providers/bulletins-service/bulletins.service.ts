@@ -225,7 +225,7 @@ export class BulletinsService {
   }
 
   loadBulletins(date: Date, regions?: String[]) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    let url = this.constantsService.getServerUrl() + 'bulletins/edit?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     if (regions) {
       for (let region of regions)
         url += "&regions=" + region;
@@ -240,13 +240,24 @@ export class BulletinsService {
     return this.http.get(url, options);
   }
 
-  // TODO load CAAML just for own region?
   loadCaamlBulletins(date: Date) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + '&lang=' + this.settingsService.getLangString();
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/xml',
       'Accept': 'application/xml',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+ 
+    return this.http.get(url, options);
+  }
+
+  loadJsonBulletins(date: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
  
