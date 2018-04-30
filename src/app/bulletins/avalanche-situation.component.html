@@ -1,5 +1,4 @@
 <div>
-
   <div class="form-group row">
     <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label." + label | translate }}</strong></label>
   </div>
@@ -45,8 +44,30 @@
     </div>
   </div>
   <div class="form-group row">
-    <div *ngIf="showAspects" class="col-md-4">
+    <div *ngIf="showAspects" class="col-md-12">
       <aspects [avalancheSituation]="avalancheSituationModel" [disabled]="disabled"></aspects>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div *ngIf="showAspects" class="col-md-12">
+      <table>
+        <tbody>
+          <tr style="height: 60px">
+            <td style="padding-right: 10px; vertical-align: baseline">{{ "bulletins.create.label.elevationHigh" | translate }}</td>
+            <td class="input-prepend input-group">
+              <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="14" type="number" name="elevation-input" [disabled]="disabled" [(ngModel)]="avalancheSituationModel.elevationHigh" (change)="updateElevationHigh(this.id)">
+              <span class="input-group-addon">m</span>
+            </td>
+          </tr>
+          <tr style="height: 60px">
+            <td style="padding-right: 10px; vertical-align: baseline">{{ "bulletins.create.label.elevationLow" | translate }}</td>
+            <td class="input-prepend input-group">
+              <input step="100" min="0" max="9000" id="appendedPrependedInput" class="form-control" size="14" type="number" name="elevation-input" [disabled]="disabled" [(ngModel)]="avalancheSituationModel.elevationLow" (change)="updateElevationLow(this.id)">
+              <span class="input-group-addon">m</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

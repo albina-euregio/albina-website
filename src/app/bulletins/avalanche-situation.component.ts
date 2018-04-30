@@ -50,4 +50,24 @@ export class AvalancheSituationComponent {
         this.showAspects = true;
     }
   }
+
+  updateElevationHigh() {
+    if (this.avalancheSituationModel) {
+      this.avalancheSituationModel.elevationHigh = Math.round(this.avalancheSituationModel.elevationHigh/100)*100;
+      if (this.avalancheSituationModel.elevationHigh > 9000)
+        this.avalancheSituationModel.elevationHigh = 9000;
+      else if (this.avalancheSituationModel.elevationHigh < 0)
+        this.avalancheSituationModel.elevationHigh = 0;
+    }
+  }
+
+  updateElevationLow() {
+    if (this.avalancheSituationModel) {
+      this.avalancheSituationModel.elevationLow = Math.round(this.avalancheSituationModel.elevationLow/100)*100;
+      if (this.avalancheSituationModel.elevationLow > 9000)
+        this.avalancheSituationModel.elevationLow = 9000;
+      else if (this.avalancheSituationModel.elevationLow < 0)
+        this.avalancheSituationModel.elevationLow = 0;
+    }
+  }
 }

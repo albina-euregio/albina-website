@@ -171,7 +171,9 @@
 				"daytime" : "Tageszeitliche Abhängigkeit",
 				"snowpackStructureHighlights" : "Schlagzeile Schneedeckenaufbau",
 				"snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus",
-				"dangerPatterns" : "Gefahrenmuster"
+				"dangerPatterns" : "Gefahrenmuster",
+				"elevationHigh" : "Obere Höhengrenze:",
+				"elevationLow" : "Untere Höhengrenze:"
 			},
 			"title" : {
 				"map" : "Karte",

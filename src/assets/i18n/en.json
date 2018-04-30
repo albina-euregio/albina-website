@@ -171,7 +171,9 @@
 				"daytime" : "Daytime",
 				"snowpackStructureHighlights" : "Headline snowpack structure",
 				"snowpackStructureComment" : "Description of snowpack structure",
-				"dangerPatterns" : "Danger patterns"
+				"dangerPatterns" : "Danger patterns",
+				"elevationHigh" : "Upper elevation:",
+				"elevationLow" : "Lower elevation:"
 			},
 			"title" : {
 				"map" : "Map",

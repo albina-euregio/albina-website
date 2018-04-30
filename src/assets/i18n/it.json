@@ -171,7 +171,9 @@
 				"daytime" : "Mattina/pomeriggio",
 				"snowpackStructureHighlights" : "Titolo struttura manto nevoso",
 				"snowpackStructureComment" : "Descrizione struttura manto nevoso",
-				"dangerPatterns" : "TODO"
+				"dangerPatterns" : "TODO",
+				"elevationHigh" : "TODO:",
+				"elevationLow" : "TODO:"
 			},
 			"title" : {
 				"map" : "Mappa",

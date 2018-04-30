@@ -5,6 +5,8 @@ import { MatrixInformationModel } from './matrix-information.model';
 export class AvalancheSituationModel {
 	public avalancheSituation: Enums.AvalancheSituation;
 	public aspects: Enums.Aspect[];
+	public elevationHigh: number;
+	public elevationLow: number;
 
 	constructor(avalancheSituation?: AvalancheSituationModel) {
 		this.aspects = new Array<Enums.Aspect>();
@@ -15,6 +17,8 @@ export class AvalancheSituationModel {
 			this.avalancheSituation = avalancheSituation.getAvalancheSituation();
 			for (let aspect of avalancheSituation.aspects)
 				this.addAspect(aspect);
+			this.elevationHigh = avalancheSituation.getElevationHigh();
+			this.elevationLow = avalancheSituation.getElevationLow();
 		}
 	}
 
@@ -52,6 +56,22 @@ export class AvalancheSituationModel {
 			return false;
 	}
 
+	getElevationHigh() {
+		return this.elevationHigh;
+	}
+
+	setElevationHigh(elevationHigh: number) {
+		this.elevationHigh = elevationHigh;
+	}
+
+	getElevationLow() {
+		return this.elevationLow;
+	}
+
+	setElevationLow(elevationLow: number) {
+		this.elevationLow = elevationLow;
+	}
+
 	toJson() {
 		var json = Object();
 
@@ -64,6 +84,10 @@ export class AvalancheSituationModel {
 			}
 			json['aspects'] = aspects;
 		}
+		if (this.elevationHigh && this.elevationHigh != undefined)
+			json['elevationHigh'] = this.elevationHigh;
+		if (this.elevationLow && this.elevationLow != undefined)
+			json['elevationLow'] = this.elevationLow;
 
 		return json;
 	}
@@ -78,6 +102,8 @@ export class AvalancheSituationModel {
 			aspects.push(jsonAspects[i]);
 		}
 		avalancheSituation.setAspects(aspects);
+		avalancheSituation.elevationHigh = json.elevationHigh;
+		avalancheSituation.elevationLow = json.elevationLow;
 
 		return avalancheSituation;
 	}
