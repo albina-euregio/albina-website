@@ -56,6 +56,8 @@
                 <td style="width: 170px">
                   <!-- create -->
                   <!-- <button *ngIf="showCreateButton(date)" type="button" class="btn btn-primary btn-sm float-right" (click)="editBulletin(date, false)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.create' | translate }}"><i class="fa fa-plus"></i></button> -->
+                  <!-- caaml -->
+                  <button *ngIf="showCaamlButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="showCaaml($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.caaml' | translate }}"><i class="fa fa-file-text"></i></button>
                   <!-- copy -->
                   <button *ngIf="showCopyButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="copy($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
                   <!-- paste -->
@@ -66,8 +68,6 @@
                   <button *ngIf="showPublishButton(date)" type="button" class="btn btn-danger btn-sm float-right" (click)="publish($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.publish' | translate }}"><i class="fa fa-send"></i></button>
                   <!-- spinning icon -->
                   <button *ngIf="showSpinningIconButton(date)" type="button" class="btn btn-primary btn-sm float-right"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
-                  <!-- caaml -->
-                  <button *ngIf="showCaamlButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="showCaaml($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.caaml' | translate }}"><i class="fa fa-file-text"></i></button>
                   <!-- edit -->
                   <button *ngIf="showEditButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="edit($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.edit' | translate }}"><i class="fa fa-pencil"></i></button>
                   <!-- update -->

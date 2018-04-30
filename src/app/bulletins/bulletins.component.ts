@@ -219,10 +219,6 @@ export class BulletinsComponent {
 
   showCaamlButton(date) {
     if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
-        (
-          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published ||  
-          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished
-        ) && 
         !this.copying)
       return true;
     else
