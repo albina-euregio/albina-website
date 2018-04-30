@@ -537,10 +537,10 @@ export class BulletinModel {
 			json['hasElevationDependency'] = false;
 
 		if (this.forenoon && this.forenoon != undefined)
-			json['forenoon'] = this.forenoon.toJson();
+			json['forenoon'] = this.forenoon.toJson(this.hasElevationDependency);
 
 		if (this.hasDaytimeDependency && this.afternoon && this.afternoon != undefined)
-			json['afternoon'] = this.afternoon.toJson();
+			json['afternoon'] = this.afternoon.toJson(this.hasElevationDependency);
 
 		if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat != undefined)
 			json['avActivityHighlightsTextcat'] = this.avActivityHighlightsTextcat;

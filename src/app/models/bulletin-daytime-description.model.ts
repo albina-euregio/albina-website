@@ -81,16 +81,16 @@ export class BulletinDaytimeDescriptionModel {
 		this.avalancheSituation2 = avalancheSituation;
 	}
 
-	toJson() {
+	toJson(hasElevationDependency: boolean) {
 		var json = Object();
 
 		if (this.dangerRatingAbove && this.dangerRatingAbove != undefined)
 			json['dangerRatingAbove'] = this.dangerRatingAbove.getValue();
 		if (this.matrixInformationAbove && this.matrixInformationAbove != undefined)
 			json['matrixInformationAbove'] = this.matrixInformationAbove.toJson();
-		if (this.dangerRatingBelow && this.dangerRatingBelow != undefined)
+		if (hasElevationDependency && this.dangerRatingBelow && this.dangerRatingBelow != undefined)
 			json['dangerRatingBelow'] = this.dangerRatingBelow.getValue();
-		if (this.matrixInformationBelow && this.matrixInformationBelow != undefined)
+		if (hasElevationDependency && this.matrixInformationBelow && this.matrixInformationBelow != undefined)
 			json['matrixInformationBelow'] = this.matrixInformationBelow.toJson();
 
 		if (this.avalancheSituation1 && this.avalancheSituation1 != undefined)
