@@ -234,7 +234,7 @@
           <div *ngIf="activeBulletin">
             <accordion>
               <!-- Danger rating -->
-              <accordion-group>
+              <accordion-group [isOpen]="isAccordionDangerRatingOpen" (isOpenChange)="accordionChanged($event, 'dangerRating')">
                 <div accordion-heading class="clearfix">
                   <i class="fa fa-angle-down"></i>
                   <strong>{{ "bulletins.create.title.dangerRating" | translate }}</strong>
@@ -242,7 +242,7 @@
                 <bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
               </accordion-group>
               <!-- Avalanche situation -->
-              <accordion-group>
+              <accordion-group [isOpen]="isAccordionAvalancheSituationOpen">
                 <div accordion-heading class="clearfix">
                   <i class="fa fa-angle-down"></i>
                   <strong>{{ "bulletins.create.title.avalancheSituation" | translate }}</strong>
@@ -267,7 +267,7 @@
                 </form>
               </accordion-group>
               <!-- Danger description -->
-              <accordion-group>
+              <accordion-group [isOpen]="isAccordionDangerDescriptionOpen" (isOpenChange)="accordionChanged($event, 'dangerDescription')">
                 <div accordion-heading class="clearfix">
                   <i class="fa fa-angle-down"></i>
                   <strong>{{ "bulletins.create.title.dangerDescription" | translate }}</strong>
@@ -288,7 +288,7 @@
                 </div>
               </accordion-group>
               <!-- Snowpack structure -->
-              <accordion-group>
+              <accordion-group [isOpen]="isAccordionSnowpackStructureOpen" (isOpenChange)="accordionChanged($event, 'snowpackStructure')">
                 <div accordion-heading class="clearfix">
                   <i class="fa fa-angle-down"></i>
                   <strong>{{ "bulletins.create.title.snowpackStructure" | translate }}</strong>
@@ -337,7 +337,7 @@
                 </div>
               </accordion-group>
               <!-- Tendency -->
-              <accordion-group>
+              <accordion-group [isOpen]="isAccordionTendencyOpen" (isOpenChange)="accordionChanged($event, 'tendency')">
                 <div accordion-heading class="clearfix">
                   <i class="fa fa-angle-down"></i>
                   <strong>{{ "bulletins.create.title.tendency" | translate }}</strong>

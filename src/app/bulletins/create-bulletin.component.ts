@@ -61,6 +61,12 @@ export class CreateBulletinComponent {
   public activeSnowpackStructureHighlightsEn: string;
   public activeSnowpackStructureCommentEn: string;
 
+  public isAccordionDangerRatingOpen: boolean;
+  public isAccordionAvalancheSituationOpen: boolean;
+  public isAccordionDangerDescriptionOpen: boolean;
+  public isAccordionSnowpackStructureOpen: boolean;
+  public isAccordionTendencyOpen: boolean;
+
   //private preventClick: boolean;
   //private timer;
 
@@ -111,6 +117,12 @@ export class CreateBulletinComponent {
     this.activeSnowpackStructureCommentEn = undefined;
     this.editRegions = false;
     this.showAfternoonMap = false;
+
+    this.isAccordionDangerRatingOpen = false;
+    this.isAccordionAvalancheSituationOpen = false;
+    this.isAccordionDangerDescriptionOpen = false;
+    this.isAccordionSnowpackStructureOpen = false;
+    this.isAccordionTendencyOpen = false;
   }
 
   ngOnInit() {
@@ -222,6 +234,29 @@ export class CreateBulletinComponent {
 
   ngAfterViewInit() {
     this.initMaps();
+  }
+
+  accordionChanged(event: boolean, groupName: string) {
+    debugger
+    switch (groupName) {
+      case "dangerRating":
+        this.isAccordionDangerRatingOpen = event;
+        break;
+      case "avalancheSituation":
+        this.isAccordionAvalancheSituationOpen = event;
+        break;
+      case "dangerDescription":
+        this.isAccordionDangerDescriptionOpen = event;
+        break;
+      case "snowpackStructure":
+        this.isAccordionSnowpackStructureOpen = event;
+        break;
+      case "tendency":
+        this.isAccordionTendencyOpen = event;
+        break;
+      default:
+        break;
+    }
   }
 
   private initMaps() {
