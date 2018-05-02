@@ -237,7 +237,6 @@ export class CreateBulletinComponent {
   }
 
   accordionChanged(event: boolean, groupName: string) {
-    debugger
     switch (groupName) {
       case "dangerRating":
         this.isAccordionDangerRatingOpen = event;
