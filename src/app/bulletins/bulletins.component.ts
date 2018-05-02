@@ -136,10 +136,15 @@ export class BulletinsComponent {
   isToday(date: Date) {
     if (date != undefined) {
       let today = new Date();
+      let hours = today.getHours();
       today.setHours(0, 0, 0, 0);
-
       if (today.getTime() == date.getTime())
         return true;
+      if (hours >= 17) {
+        today.setDate(today.getDate() + 1);
+        if (today.getTime() == date.getTime())
+          return true;
+      }
     }
     return false;
   }
@@ -185,7 +190,8 @@ export class BulletinsComponent {
   }
 
   showSubmitButton(date) {
-    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+    if (/*!this.isPast(date) && */
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         (
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.draft || 
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.updated
@@ -199,8 +205,11 @@ export class BulletinsComponent {
 
   showPublishButton(date) {
     if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
-        this.isToday(date) && 
-        (this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.resubmitted) && 
+        (this.isToday(date) || this.isPast(date)) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.resubmitted ||
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.submitted
+        ) &&
         !this.copying && 
         (!this.publishing || this.publishing.getTime() != date.getTime()))
       return true;
@@ -234,7 +243,7 @@ export class BulletinsComponent {
   }
 
   showEditButton(date) {
-    if ((!this.isPast(date) ) && 
+    if (/*(!this.isPast(date) ) && */
         (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         (
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
@@ -247,11 +256,13 @@ export class BulletinsComponent {
   }
 
   showUpdateButton(date) {
-    if ((!this.isPast(date)) && 
+    if (/*(!this.isPast(date)) &&*/
+        (this.isToday(date) || this.isPast(date)) && 
         (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         (
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
-          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished ||
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.missing
         ) && 
         !this.copying)
       return true;
