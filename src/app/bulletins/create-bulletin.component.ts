@@ -1022,7 +1022,9 @@ export class CreateBulletinComponent {
       this.delBulletin(bulletin);
 
     this.mapService.discardAggregatedRegion();
-    this.mapService.selectAggregatedRegion(this.activeBulletin);
+
+    if (this.activeBulletin && this.activeBulletin != undefined)
+      this.mapService.selectAggregatedRegion(this.activeBulletin);
 
     // TODO unlock whole day in TN
   }
