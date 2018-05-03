@@ -5,7 +5,7 @@ export class AuthorModel {
 	public email: string;
 	public phone: string;
 	public organization: string;
-	public role: string;
+	public roles: String[];
 	public image: string;
 	public region: string;
 
@@ -16,7 +16,7 @@ export class AuthorModel {
 		this.email = undefined;
 		this.phone = undefined;
 		this.organization = undefined;
-		this.role = undefined;
+		this.roles = undefined;
 		this.image = undefined;
 		this.region = undefined;
 	}
@@ -69,12 +69,19 @@ export class AuthorModel {
 		this.organization = organization;
 	}
 
-	getRole() {
-		return this.role;
+	getRoles() {
+		return this.roles;
 	}
 
-	setRole(role) {
-		this.role = role; 
+	setRoles(roles: String[]) {
+		this.roles = roles; 
+	}
+
+	hasRole(role: String) {
+		if (this.roles.indexOf(role) > -1)
+			return true;
+		else
+			return false;
 	}
 
 	getImage() {
@@ -104,8 +111,13 @@ export class AuthorModel {
 			json['phone'] = this.phone;
 		if (this.organization && this.organization != undefined && this.organization != "")
 			json['organization'] = this.organization;
-		if (this.role && this.role != undefined && this.role != "")
-			json['role'] = this.role;
+		if (this.roles && this.roles.length > 0) {
+			let roles = [];
+			for (let i = 0; i <= this.roles.length - 1; i++) {
+				roles.push(this.roles[i]);
+			}
+			json['roles'] = roles;
+		}
 		if (this.region && this.region != undefined && this.region != "")
 			json['region'] = this.region;
 
@@ -119,7 +131,12 @@ export class AuthorModel {
 		author.setEmail(json.email);
 		author.setPhone(json.phone);
 		author.setOrganization(json.organization);
-		author.setRole(json.role);
+		let jsonRoles = json.roles;
+		let roles = new Array<String>();
+		for (let i in jsonRoles) {
+			roles.push(jsonRoles[i]);
+		}
+		author.setRoles(roles);
 		author.setImage(json.image);
 		author.setRegion(json.region);
 

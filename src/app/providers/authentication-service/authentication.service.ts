@@ -91,6 +91,14 @@ export class AuthenticationService {
     return this.constantsService.getLng(this.getUserRegion());
   }
 
+  public isCurrentUserInRole(role) {
+    if (this.currentAuthor && this.currentAuthor.getRoles() && this.currentAuthor.getRoles() != undefined) {
+      if (this.currentAuthor.getRoles().indexOf(role) > -1)
+        return true;
+    }
+    return false;
+  }
+
   public login(username: string, password: string): Observable<boolean> {
     let url = this.constantsService.getServerUrl() + 'authentication';
     console.log(url);
@@ -111,12 +119,9 @@ export class AuthenticationService {
         let accessToken = response.json() && response.json().access_token;
         if (accessToken) {
           this.currentAuthor = AuthorModel.createFromJson(response.json());
-          this.currentAuthor.name = response.json().name;
           this.currentAuthor.accessToken = response.json().access_token;
           this.currentAuthor.refreshToken = response.json().refresh_token;
-          this.currentAuthor.image = response.json().image;
-          this.currentAuthor.region = response.json().region;
-          localStorage.setItem('currentAuthor', JSON.stringify({ username: response.json().username, accessToken: response.json().access_token, refreshToken: response.json().refresh_token, image: response.json().image, region: response.json().region }));
+          localStorage.setItem('currentAuthor', JSON.stringify({ username: response.json().username, accessToken: response.json().access_token, refreshToken: response.json().refresh_token, image: response.json().image, region: response.json().region, roles: response.json().roles }));
           localStorage.setItem('accessToken', response.json().access_token);
           return true;
         } else {

@@ -14,6 +14,9 @@
     <li *ngIf="settingsService.getShowObservations()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/observations']">{{ "sidebar.observations" | translate }}</a>
     </li>
+    <li *ngIf="authenticationService.isCurrentUserInRole('ADMIN')" class="nav-item px-1">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin']">{{ "sidebar.admin" | translate }}</a>
+    </li>
   </ul>
 
   <ul class="nav navbar-nav ml-auto">
