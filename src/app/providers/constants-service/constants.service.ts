@@ -4,12 +4,16 @@ import { Injectable } from '@angular/core';
 export class ConstantsService {
 
   // Localhost
-  public serverUrl: string = 'http://localhost:8080/albina/api/';
-  public socketIOUrl: string = 'http://localhost:9092';
+  //public serverUrl: string = 'http://localhost:8080/albina/api/';
+  //public socketIOUrl: string = 'http://localhost:9092';
 
   // Development server
   //public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
   //public socketIOUrl: string = 'http://212.47.231.185:9092';
+
+  // CentOS
+  public serverUrl: string = 'http://163.172.132.87:8080/albina/api/';
+  public socketIOUrl: string = 'http://163.172.132.87:9092';
 
   // CLESIUS
   //public serverUrl: string = 'http://192.168.30.189:8080/albina/api/';

@@ -757,11 +757,11 @@ var PM = function() {
 */
 
 
-	var contextPath = 'http://212.47.231.185:8080/albina-admin-gui-dev/assets/';
-	var sentenceURL = "http://212.47.231.185:8080/albina-admin-gui-dev/assets/json/V1/sentence.json";
-	var optionURL = "http://212.47.231.185:8080/albina-admin-gui-dev/assets/json/V1/option.json";
-	var phraseURL = "http://212.47.231.185:8080/albina-admin-gui-dev/assets/json/V1/phrase.json";
-	var indexURL = "http://212.47.231.185:8080/albina-admin-gui-dev/assets/json/V1/index.json";
+	var contextPath = 'http://163.172.132.87:8080/login/assets/';
+	var sentenceURL = "http://163.172.132.87:8080/login/assets/json/V1/sentence.json";
+	var optionURL = "http://163.172.132.87:8080/login/assets/json/V1/option.json";
+	var phraseURL = "http://163.172.132.87:8080/login/assets/json/V1/phrase.json";
+	var indexURL = "http://163.172.132.87:8080/login/assets/json/V1/index.json";
 
 
 	var saveJokerURL = getEnvValue(window.saveJokerURL, contextPath+"textcat");
