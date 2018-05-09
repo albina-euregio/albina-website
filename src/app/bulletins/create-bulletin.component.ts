@@ -187,18 +187,20 @@ export class CreateBulletinComponent {
               if ((bulletin.getPublishedRegions() && bulletin.getPublishedRegions().length > 0) || (bulletin.getSavedRegions() && bulletin.getSavedRegions().length > 0)) {
 
                 // move published regions to saved regions
-                if (this.bulletinsService.getIsUpdate()) {
+                if (this.bulletinsService.getIsUpdate() || this.bulletinsService.getIsSmallChange()) {
                   let saved = new Array<String>();
+                  let published = new Array<String>();
                   for (let region of bulletin.getSavedRegions())
-                    if (region.startsWith(this.authenticationService.getUserRegion()))
-                      saved.push(region);
+                    saved.push(region);
                   for (let region of bulletin.getPublishedRegions())
                     if (region.startsWith(this.authenticationService.getUserRegion()))
                       saved.push(region);
+                    else
+                      published.push(region);
 
                   if (saved.length > 0) {
                     bulletin.setSavedRegions(saved);
-                    bulletin.setPublishedRegions(new Array<String>());
+                    bulletin.setPublishedRegions(published);
                   }
                 }
 
@@ -206,7 +208,7 @@ export class CreateBulletinComponent {
               }
             }
 
-            if (this.getOwnBulletins().length == 0 && this.bulletinsService.getIsEditable())
+            if (this.getOwnBulletins().length == 0 && this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && !this.bulletinsService.getIsSmallChange())
               this.createInitialAggregatedRegion();
 
             this.updateMap();
@@ -900,6 +902,8 @@ export class CreateBulletinComponent {
 
     // save selected regions to active bulletin
     let regions = this.mapService.getSelectedRegions();
+
+    // TODO exclude already published regions from another provinz from "regions"
 
     let oldRegionsHit = false;
     for (let region of this.activeBulletin.getSavedRegions()) {
