@@ -283,7 +283,7 @@ export class BulletinsComponent {
 
       this.bulletinsService.setActiveDate(date);
 
-      if (!this.isEditable(date)) {
+      if (!this.isEditable(date) && !isUpdate) {
         this.bulletinsService.setIsEditable(false);
         this.router.navigate(['/bulletins/new']);
       } else {
@@ -311,7 +311,8 @@ export class BulletinsComponent {
         (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || 
         (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.republished && !this.bulletinsService.getIsUpdate()) || 
         this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion()) || 
-        this.isPast(date))
+        this.isPast(date) ||
+        this.isToday(date))
       return false;
     else
       return true;
