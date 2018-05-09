@@ -1,0 +1,8 @@
+<form class="{{ formClass }}">
+	{{> atoms-legend(legendText: "Inline form") }}
+	<ul class="list-inline">
+		<li>{{> atoms-input(inputPlaceholder: "User") }}</li>
+		<li>{{> atoms-input(inputType: "password", inputPlaceholder: "Password", inputText: "Password") }}</li>
+		<li>{{> atoms-submit(buttonText: "Submit", buttonClass: "tiny pure-button") }}</li>
+	</ul>
+</form>

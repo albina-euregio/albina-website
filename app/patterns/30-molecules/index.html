@@ -1,0 +1,1255 @@
+<!doctype html>
+<html class="" lang="en">
+
+
+<!--
+
+ _____ _____ _____ _____ _____ _____ _____ _____ _____ _____ _____ 
+|_   _| __  |  _  |   | |   __|  _  |     | __  |_   _|   __| __  |
+  | | |    -|     | | | |__   |   __|  |  |    -| | | |   __|    -|
+  |_| |__|__|__|__|_|___|_____|__|  |_____|__|__| |_| |_____|__|__|             
+
+  TRANSPORTER – Creating Your Web
+  www.transporter.at
+
+-->
+
+
+<head>
+	<meta charset="utf-8" />
+	<title>Albina</title>
+	
+	<!-- !display -->
+	<meta http-equiv="X-UA-Compatible"	content="IE=edge,chrome=1" /><!-- invalid -->
+	<meta name="viewport"				content="width=device-width, initial-scale=1.0, maximum-scale=3.0" />
+	<!-- <meta http-equiv="expires"			content="86400" /> -->
+	
+	<!-- !seo -->
+	<meta name="page-topic" 			content="Avalanche Bulletin" /><!-- invalid -->
+	<meta name="page-type"				content="Avalanche Bulletin" /><!-- invalid -->
+	<meta name="description" 			content="The current avalanche situation report for Tyrol, South Tyrol and Trentino, danger patterns and important links" />
+	<meta name="keywords" 				content="avalanche warning service bulletin tyrol south tyrol trentino alto adige" />
+	<meta name="audience"				content="ski hikers" /><!-- invalid -->
+	<meta name="author" 				content="Albina – Avalanche Warning Service" />
+	<meta name="publisher" 				content="Albina – Avalanche Warning Service" /><!-- invalid -->
+	<meta name="copyright" 				content="Albina – Avalanche Warning Service" /><!-- invalid -->
+	
+	<!-- !location -->
+	<meta name="city" 					content="Innsbruck" /><!-- invalid -->
+	<meta name="country" 				content="Austria" /><!-- invalid -->
+	<meta name="state" 					content="Tyrol" /><!-- invalid -->
+	<meta name="zipcode" 				content="6020" /><!-- invalid -->
+	<meta name="geo.position" 			content="47.2642740;11.3961660" />
+	<meta name="geo.placename" 			content="Innsbruck" />
+	<meta name="geo.region" 			content="AT-Tirol" />
+	<meta name="icbm" 					content="47.2642740,11.3961660" />
+	
+	<!-- !facebook open graph -->
+	<meta property="og:type"			content="article" />
+	<meta property="og:url"				content="URL of this object" />
+	<meta property="og:site_name"		content="Name of site hosting article" />
+	<meta property="og:image"			content="URL to an image" />
+	<meta property="og:title"			content="Name of article" />
+	<meta property="og:description"		content="Description of object" />
+	<meta property="article:author"		content="URL to Author object" />
+	<meta property="article:section"	content="Section of article" />
+	<meta property="article:tag"		content="Keyword" />
+	
+	<!-- !twitter cards -->
+	<meta name="twitter:card"			content="summary" /><!-- invalid -->
+	<meta name="twitter:url"			content="URL of this content" /><!-- invalid -->
+	<meta name="twitter:title"			content="Name of article" /><!-- invalid -->
+	<meta name="twitter:description"	content="Description of content" /><!-- invalid -->
+	<meta name="twitter:image"			content="URL to an image" /><!-- invalid -->
+	
+	<meta name="twitter:site"			content="@username" /><!-- invalid -->
+	<meta name="twitter:site:id"		content="Twitter ID" /><!-- invalid -->
+	<meta name="twitter:creator"		content="@username" /><!-- invalid -->
+	<meta name="twitter:creator:id"		content="Twitter ID" /><!-- invalid -->
+	
+	<!-- !font und !css -->
+	<style>
+		@keyframes fadeMeIn {
+			0% { transform: translate(-50%, -55%); opacity: 0; }
+			100% { transform: translate(-50%, -55%); opacity: 0.25; }
+		}
+		.page-loading-screen {
+			position: fixed;  left: 50vw; top: 50vh; height: 20vh;  width: 20vw; transform: translate(-50%, -55%);  z-index: 9999; background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="79" height="55"><defs><path id="a" d="M35.82 4.3l28.4 28.4c9.58 8 18.03-10.09 5.3-12.23-.18-.03-.34-.25-.06-.46 5.57-4.53-1.24-11.35-5.78-5.85-.14.17-.33.06-.33-.16.05-3.69-6-3.75-5.85.03.01.21-.21.31-.38.21L37.9 2.16a1.68 1.68 0 0 0-2.08.24 1.34 1.34 0 0 0 0 1.9z"/></defs><g fill="none" fill-rule="evenodd"><path fill="#19ABFF" d="M33.93 1.5l41.65 34.1-17.99 17.98a2.68 2.68 0 0 1-3.78 0L38.66 38.43a2.68 2.68 0 0 0-3.79 0L19.73 53.58a2.68 2.68 0 0 1-3.79 0L.8 38.43a2.68 2.68 0 0 1 0-3.79L33.93 1.5z"/><g transform="translate(0 1)"><use fill="#FFF" xlink:href="#a"/><path stroke="#19ABFF" stroke-width="2.68" d="M56.48 12.25a4.1 4.1 0 0 1 3.91-2.38c1.6.01 3.03.76 3.76 2.03 2.38-1.69 5.23-1.47 7.16.48 1.96 1.96 2.14 4.85.36 7.25 5.15 1.76 6.91 6.63 4.79 11.31-2.36 5.2-8.08 6.98-13.1 2.79l-.1-.08-28.4-28.41a2.68 2.68 0 0 1 0-3.8c1-.99 2.56-1.16 3.75-.41l17.87 11.22z"/></g><path stroke="#19ABFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.34" d="M66.88 24.06a2.96 2.96 0 0 1-.99 5.6"/></g></svg>') no-repeat 50% 50%; background-size: contain; animation: fadeMeIn 0.5s ease-in-out 1 forwards;
+		}
+	</style>
+	<link rel="stylesheet" href="../../css/style.css?1524759711797" media="all" />
+	
+	<!-- !javascript -->
+	
+	<!-- !favicons -->
+	<link rel="apple-touch-icon" type="image/png" href="../../images/fav/en/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="../../images/fav/en/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="../../images/fav/en/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../images/fav/en/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="../../images/fav/en/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../images/fav/en/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="../../images/fav/en/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="../../images/fav/en/apple-touch-icon-152x152.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../images/fav/en/apple-touch-icon-180x180.png" />
+	<link rel="apple-touch-icon-precomposed" type="image/png" sizes="72x72" href="../../images/fav/en/apple-touch-icon-72x72.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
+	
+	
+	<!-- Begin Pattern Lab (Required for Pattern Lab to run properly) -->
+    <!-- never cache patterns -->
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+
+<link rel="stylesheet" href="../../styleguide/css/styleguide.min.css?1524759711797" media="all">
+<link rel="stylesheet" href="../../styleguide/css/prism-typeahead.min.css?1524759711797" media="all" />
+
+    <!-- End Pattern Lab -->
+    
+
+</head>
+
+
+<body class="patternlab s-debug domain-en language-en">
+
+
+
+	<!-- View All Patterns in a Pattern Sub-Type -->
+<div class="sg-main" role="main">
+  
+  <!-- Patterns -->
+  <div id="sg-patterns">
+<div id="viewall-molecules-filter" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/30-molecules-filter&#x2F;index.html" class="patternLink" data-patternpartial="viewall-molecules-filter">filter</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="molecules-filter" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-filter-filter&#x2F;30-molecules-filter-filter.rendered.html" class="patternLink" data-patternpartial="molecules-filter" title="Link to Pattern">
+          Filter
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-filter" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-filter" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-filter">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline filter">
+	<li><a href="#" class="label">Filter 1</a></li>
+	<li><a href="#" class="label">Filter 2</a></li>
+	<li><a href="#" class="label js-active">Filter 3</a></li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-filter" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":true,"patternLineagesR":[{"lineagePattern":"organisms-controlbar","lineagePath":"../../patterns/40-organisms-controlbars-controlbar/40-organisms-controlbars-controlbar.rendered.html","lineageState":"inprogress"}],"lineageR":[{"lineagePattern":"organisms-controlbar","lineagePath":"../../patterns/40-organisms-controlbars-controlbar/40-organisms-controlbars-controlbar.rendered.html","lineageState":"inprogress"}],"patternLineageEExists":true,"patternDesc":"<p>Filters are made of an ul.list-inline.filter and list items containing an a.label.</p>\n<p>The active filter gets class .js-active.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"filter"},"patternExtension":"mustache","patternName":"Filter","patternPartial":"molecules-filter","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-molecules-form" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/30-molecules-form&#x2F;index.html" class="patternLink" data-patternpartial="viewall-molecules-form">form</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="molecules-search" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-form-search&#x2F;30-molecules-form-search.rendered.html" class="patternLink" data-patternpartial="molecules-search" title="Link to Pattern">
+          Search
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-search" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-search" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-search">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="pure-form pure-form-search">
+	<input type="text" id="input" class="" placeholder="Placeholder" /><button href="#" title="The Button" class="pure-button pure-button-icon icon-search"><span>&nbsp;</span></button>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-search" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-icon-button","lineagePath":"../../patterns/20-atoms-buttons-icon-button/20-atoms-buttons-icon-button.rendered.html"}],"lineage":[{"lineagePattern":"atoms-icon-button","lineagePath":"../../patterns/20-atoms-buttons-icon-button/20-atoms-buttons-icon-button.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>form.pure-form.pure-form-search wrapping an &lt;input&gt; containing an Icon Button with span.icon-search</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"form"},"patternExtension":"mustache","patternName":"Search","patternPartial":"molecules-search","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-molecules-global" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/30-molecules-global&#x2F;index.html" class="patternLink" data-patternpartial="viewall-molecules-global">global</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="molecules-page-footer-navigation" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-global-page-footer-navigation&#x2F;30-molecules-global-page-footer-navigation.rendered.html" class="patternLink" data-patternpartial="molecules-page-footer-navigation" title="Link to Pattern">
+          Page Footer Navigation
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-page-footer-navigation" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-page-footer-navigation" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-page-footer-navigation">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline footer-navigation footer-navigation-more">
+	
+	<li><a href="#" class="" title="">Archive</a></li>
+	<li><a href="#" class="" title="">API</a></li>
+	<li><a href="#" class="" title="">About</a></li>
+	<li><a href="#" class="" title="">Contact</a></li>
+	<li><a href="#" class="" title="">Imprint</a></li>
+
+</ul>
+
+<ul class="list-plain footer-navigation footer-navigation-main">
+	
+	<li><a href="#" class=" " title="">Avalanche Bulletin <small>Home</small></a></li>
+	<li><a href="#" class=" has-sub" title="">Snow &amp; Weather</a></li>
+	<li><a href="#" class=" has-sub" title="">Education &amp; Prevention</a></li>
+	<li><a href="#" class="" title="">Blog</a></li>
+	<li><a href="#" class=" has-sub" title="">More</a></li>
+
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-page-footer-navigation" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":true,"patternLineagesR":[{"lineagePattern":"organisms-page-footer","lineagePath":"../../patterns/40-organisms-global-page-footer/40-organisms-global-page-footer.rendered.html"}],"lineageR":[{"lineagePattern":"organisms-page-footer","lineagePath":"../../patterns/40-organisms-global-page-footer/40-organisms-global-page-footer.rendered.html"}],"patternLineageEExists":true,"patternDesc":"<p>The .list-inline.footer-navigation.footer-navigation-<strong>more</strong> automatically contains all sub items of the 'More' menu. The .list-inline.footer-navigation.footer-navigation-<strong>main</strong> automatically contains all main menu items.</p>\n<p>Active items get a.active.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"global"},"patternExtension":"mustache","patternName":"Page Footer Navigation","patternPartial":"molecules-page-footer-navigation","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-page-header-language" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-global-page-header-language&#x2F;30-molecules-global-page-header-language.rendered.html" class="patternLink" data-patternpartial="molecules-page-header-language" title="Link to Pattern">
+          Page Header Language
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-page-header-language" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-page-header-language" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-page-header-language">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline language-trigger">
+	<li><a href="" class="language-trigger-de tooltip" title="Deutsche Version">DE</a></li>
+	<li><a href="" class="language-trigger-it tooltip" title="Versione Italiana">IT</a></li>
+	<li><a href="" class="language-trigger-en tooltip" title="English Version">EN</a></li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-page-header-language" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":true,"patternLineagesR":[{"lineagePattern":"organisms-page-header","lineagePath":"../../patterns/40-organisms-global-page-header/40-organisms-global-page-header.rendered.html"}],"lineageR":[{"lineagePattern":"organisms-page-header","lineagePath":"../../patterns/40-organisms-global-page-header/40-organisms-global-page-header.rendered.html"}],"patternLineageEExists":true,"patternDesc":"<p>The proper <strong>.language-trigger</strong> gets picked depending on body.language-de, body.language-it or body.language-en. Exactly one of those three classes is essential to be added to &lt;body&gt;!</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"global"},"patternExtension":"mustache","patternName":"Page Header Language","patternPartial":"molecules-page-header-language","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-page-header-logo" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-global-page-header-logo&#x2F;30-molecules-global-page-header-logo.rendered.html" class="patternLink" data-patternpartial="molecules-page-header-logo" title="Link to Pattern">
+          Page Header Logo
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-page-header-logo" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-page-header-logo" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-page-header-logo">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="#" class="tooltip" title="Home">
+	<span class="mark mark-de"></span>
+	<span class="mark mark-it"></span>
+	<span class="mark mark-en"></span>
+	
+	<span class="url url-de"></span>
+	<span class="url url-it"></span>
+	<span class="url url-en"></span>
+</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-page-header-logo" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":true,"patternLineagesR":[{"lineagePattern":"organisms-page-header","lineagePath":"../../patterns/40-organisms-global-page-header/40-organisms-global-page-header.rendered.html"}],"lineageR":[{"lineagePattern":"organisms-page-header","lineagePath":"../../patterns/40-organisms-global-page-header/40-organisms-global-page-header.rendered.html"}],"patternLineageEExists":true,"patternDesc":"<p>Logo mark and logo URL get picked depending on body.domain-de, body.domain-it or body.domain-en. Exactly one of those three classes is essential to be added to &lt;body&gt;!</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"global"},"patternExtension":"mustache","patternName":"Page Header Logo","patternPartial":"molecules-page-header-logo","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-page-header-navigation" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-global-page-header-navigation&#x2F;30-molecules-global-page-header-navigation.rendered.html" class="patternLink" data-patternpartial="molecules-page-header-navigation" title="Link to Pattern">
+          Page Header Navigation
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-page-header-navigation" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-page-header-navigation" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-page-header-navigation">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-plain navigation">
+	
+	<li><a href="#" class=" " title="">Avalanche Bulletin <small>Home</small></a></li>
+	<li>
+		<a href="#" class=" has-sub" title="">Snow &amp; Weather</a>
+		<ul class="list-plain subnavigation">
+			<li><a href="#" class="" title="">Aktuelle Karten</a></li>
+			<li><a href="#" class="" title="">Stationsmesswerte</a></li>
+			<li><a href="#" class="" title="">Progonosekarten</a></li>
+			<li><a href="#" class="" title="">Wetterstationen</a></li>
+			<li><a href="#" class="" title="">Schneeprofile</a></li>
+			<li><a href="#" class="" title="">Unfälle</a></li>
+			<li><a href="#" class="" title="">Webcams</a></li>
+		</ul>
+	</li>
+	<li>
+		<a href="#" class=" has-sub" title="">Education &amp; Prevention</a>
+		<ul class="list-plain subnavigation">
+			<li><a href="#" class="" title="">Gefahrenskala</a></li>
+			<li><a href="#" class="" title="">Matrix</a></li>
+			<li><a href="#" class="" title="">Lawinenprobleme</a></li>
+			<li><a href="#" class="" title="">Gefahrenmuster</a></li>
+			<li><a href="#" class="" title="">Lawinengrößen</a></li>
+			<li><a href="#" class="" title="">Geländeneigungen</a></li>
+			<li><a href="#" class="" title="">Glossar</a></li>
+			<li><a href="#" class="" title="">Icons</a></li>
+		</ul>
+	</li>
+	<li><a href="#" class="" title="">Blog</a></li>
+	<li>
+		<a href="#" class=" has-sub" title="">More</a>
+		<ul class="list-plain subnavigation">
+			<li><a href="#" class="" title="">Archive</a></li>
+			<li><a href="#" class="" title="">API</a></li>
+			<li><a href="#" class="" title="">About</a></li>
+			<li><a href="#" class="" title="">Contact</a></li>
+			<li><a href="#" class="" title="">Imprint</a></li>
+		</ul>
+	</li>
+
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-page-header-navigation" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":true,"patternLineagesR":[{"lineagePattern":"organisms-page-header","lineagePath":"../../patterns/40-organisms-global-page-header/40-organisms-global-page-header.rendered.html"}],"lineageR":[{"lineagePattern":"organisms-page-header","lineagePath":"../../patterns/40-organisms-global-page-header/40-organisms-global-page-header.rendered.html"}],"patternLineageEExists":true,"patternDesc":"<p>To be editable by users depending on page hierarchy, quite likely different structure per language editions.</p>\n<p>Active items get a.active.</p>\n<p>Sub navigation's parent has a.has-sub. Adding class a.has-sub.active here <strong>and</strong> body.has-sub activates the sub navigation.</p>\n<p>15 items in sub navigation max.!</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"global"},"patternExtension":"mustache","patternName":"Page Header Navigation","patternPartial":"molecules-page-header-navigation","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-molecules-images" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/30-molecules-images&#x2F;index.html" class="patternLink" data-patternpartial="viewall-molecules-images">images</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="molecules-img-figure-caption" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-images-img-figure-caption&#x2F;30-molecules-images-img-figure-caption.rendered.html" class="patternLink" data-patternpartial="molecules-img-figure-caption" title="Link to Pattern">
+          Img Figure Caption
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-img-figure-caption" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-img-figure-caption" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-img-figure-caption">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <figure class="caption">
+	<img src="http:&#x2F;&#x2F;placeimg.com&#x2F;800&#x2F;450&#x2F;nature" title="16x9 Image" alt="16x9 Image" class="" />
+	<figcaption><p>Bush tomato gumbo potato garbanzo ricebean burdock daikon coriander kale quandong. Bok choy celery leek <a href=''>avocado shallot</a> horseradish aubergine parsley. Bok choy bell pepper kale celery desert raisin kakadu plum bok choy bunya nuts.</p></figcaption>
+</figure>
+
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-img-figure-caption" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"}],"lineage":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>figure.caption wrapps &lt;img&gt; and &lt;figcaption&gt;. Hover triggers the figcaption overlay. The &lt;p&gt; is optional.</p>\n<p>Avoid text lengths overfloating the image's dimensions, especially on small devices!</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"images"},"patternExtension":"mustache","patternName":"Img Figure Caption","patternPartial":"molecules-img-figure-caption","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-img-p-caption" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-images-img-p-caption&#x2F;30-molecules-images-img-p-caption.rendered.html" class="patternLink" data-patternpartial="molecules-img-p-caption" title="Link to Pattern">
+          Img P Caption
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-img-p-caption" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-img-p-caption" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-img-p-caption">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <img src="http:&#x2F;&#x2F;placeimg.com&#x2F;800&#x2F;450&#x2F;nature" title="16x9 Image" alt="16x9 Image" class="" />
+<p class="caption">A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-img-p-caption" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"}],"lineage":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>&lt;img&gt; followed by p.caption.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"images"},"patternExtension":"mustache","patternName":"Img P Caption","patternPartial":"molecules-img-p-caption","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-thumbnail" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-images-thumbnail&#x2F;30-molecules-images-thumbnail.rendered.html" class="patternLink" data-patternpartial="molecules-thumbnail" title="Link to Pattern">
+          Thumbnail
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-thumbnail" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-thumbnail" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-thumbnail">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="http:&#x2F;&#x2F;placeimg.com&#x2F;800&#x2F;400&#x2F;nature" title="2x1 Image" class="img modal-gallery-trigger mfp-image" data-title="2x1 Image" data-tilt>
+	<img src="http:&#x2F;&#x2F;placeimg.com&#x2F;500&#x2F;500&#x2F;nature" title="Square" alt="Square" class="" />
+
+</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-thumbnail" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-square","lineagePath":"../../patterns/20-atoms-images-square/20-atoms-images-square.rendered.html"}],"lineage":[{"lineagePattern":"atoms-square","lineagePath":"../../patterns/20-atoms-images-square/20-atoms-images-square.rendered.html"}],"patternLineageRExists":true,"patternLineagesR":[{"lineagePattern":"organisms-thumbnails","lineagePath":"../../patterns/40-organisms-thumbnails-thumbnails/40-organisms-thumbnails-thumbnails.rendered.html"}],"lineageR":[{"lineagePattern":"organisms-thumbnails","lineagePath":"../../patterns/40-organisms-thumbnails-thumbnails/40-organisms-thumbnails-thumbnails.rendered.html"}],"patternLineageEExists":true,"patternDesc":"<p><strong>Important: All linked images need class .img to overwrite the text specific link styles!!!</strong></p>\n<p>Thumbnail images can get the attribute data-tilt for the 3D behaviour on hover. Plus, if part of a modal gallery, the classes .modal-gallery-trigger.mfp-image.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"images"},"patternExtension":"mustache","patternName":"Thumbnail","patternPartial":"molecules-thumbnail","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-molecules-linkboxes" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/30-molecules-linkboxes&#x2F;index.html" class="patternLink" data-patternpartial="viewall-molecules-linkboxes">linkboxes</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="molecules-linkbox" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-linkboxes-linkbox&#x2F;30-molecules-linkboxes-linkbox.rendered.html" class="patternLink" data-patternpartial="molecules-linkbox" title="Link to Pattern">
+          Linkbox
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-linkbox" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-linkbox" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-linkbox">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="http:&#x2F;&#x2F;www.transporter.at" title="The Link" class="linkbox">
+	<div class="content-text">
+		<p class="h1 subheader">Shizz fo shizzle.</p>
+		<p>We gonna chung gangsta get down get down fo shizzle turpizzle.</p>
+	</div>
+</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-linkbox" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"},{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"lineage":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"},{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>For the default Linkbox it's an a.linkbox. This contains a .content-text with p.h1.subheader and one more &lt;p&gt;.</p>\n<p>By default Linkboxes take the width of their parent while the height depends on its content.</p>\n<p>Consider helpful title texts!</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"linkboxes"},"patternExtension":"mustache","patternName":"Linkbox","patternPartial":"molecules-linkbox","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-linkbox-button" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-linkboxes-linkbox-button&#x2F;30-molecules-linkboxes-linkbox-button.rendered.html" class="patternLink" data-patternpartial="molecules-linkbox-button" title="Link to Pattern">
+          Linkbox Button
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-linkbox-button" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-linkbox-button" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-linkbox-button">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="http:&#x2F;&#x2F;www.transporter.at" title="The Link" class="linkbox">
+	<div class="content-text">
+		<p class="h1 subheader">Shizz fo shizzle.</p>
+		<p>We gonna chung gangsta get down get down fo shizzle turpizzle.</p>
+			<button href="#" title="The Button" class="pure-button">The Button</button>
+	</div>
+</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-linkbox-button" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"},{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"lineage":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"},{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Similar to Linkbox, but a &lt;button&gt; has been added to .content-text.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"linkboxes"},"patternExtension":"mustache","patternName":"Linkbox Button","patternPartial":"molecules-linkbox-button","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-linkbox-feature" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-linkboxes-linkbox-feature&#x2F;30-molecules-linkboxes-linkbox-feature.rendered.html" class="patternLink" data-patternpartial="molecules-linkbox-feature" title="Link to Pattern">
+          Linkbox Feature
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-linkbox-feature" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-linkbox-feature" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-linkbox-feature">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="http:&#x2F;&#x2F;www.transporter.at" title="The Link" class="linkbox linkbox-feature">
+	<div class="content-text">
+		<p class="h1 subheader">Shizz fo shizzle.</p>
+		<p>We gonna chung gangsta get down get down fo shizzle turpizzle.</p>
+	</div>
+</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-linkbox-feature" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-landscape-2x1","lineagePath":"../../patterns/20-atoms-images-landscape-2x1/20-atoms-images-landscape-2x1.rendered.html"},{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"lineage":[{"lineagePattern":"atoms-landscape-2x1","lineagePath":"../../patterns/20-atoms-images-landscape-2x1/20-atoms-images-landscape-2x1.rendered.html"},{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"patternLineageRExists":true,"patternLineagesR":[{"lineagePattern":"organisms-features-image","lineagePath":"../../patterns/40-organisms-features-features-image/40-organisms-features-features-image.rendered.html"},{"lineagePattern":"organisms-features","lineagePath":"../../patterns/40-organisms-features-features/40-organisms-features-features.rendered.html"}],"lineageR":[{"lineagePattern":"organisms-features-image","lineagePath":"../../patterns/40-organisms-features-features-image/40-organisms-features-features-image.rendered.html"},{"lineagePattern":"organisms-features","lineagePath":"../../patterns/40-organisms-features-features/40-organisms-features-features.rendered.html"}],"patternLineageEExists":true,"patternDesc":"<p>Similar to Linkbox, but with a.linkbox-feature, thus generating a Linkbox Feature that is twice as wide as it is high.</p>\n<p>Avoid text lengths overfloating the 2x1 dimensions, especially on small devices!</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"linkboxes"},"patternExtension":"mustache","patternName":"Linkbox Feature","patternPartial":"molecules-linkbox-feature","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-linkbox-feature-image" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-linkboxes-linkbox-feature-image&#x2F;30-molecules-linkboxes-linkbox-feature-image.rendered.html" class="patternLink" data-patternpartial="molecules-linkbox-feature-image" title="Link to Pattern">
+          Linkbox Feature Image
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-linkbox-feature-image" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-linkbox-feature-image" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-linkbox-feature-image">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="http:&#x2F;&#x2F;www.transporter.at" title="The Link" class="linkbox linkbox-feature">
+	<div class="content-image">
+		<img src="http:&#x2F;&#x2F;placeimg.com&#x2F;800&#x2F;400&#x2F;nature" title="2x1 Image" alt="2x1 Image" class="" />
+	</div>
+	<div class="content-text">
+		<p class="h1 subheader">Shizz fo shizzle.</p>
+		<p>We gonna chung gangsta get down get down fo shizzle turpizzle.</p>
+	</div>
+</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-linkbox-feature-image" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-landscape-2x1","lineagePath":"../../patterns/20-atoms-images-landscape-2x1/20-atoms-images-landscape-2x1.rendered.html"},{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"lineage":[{"lineagePattern":"atoms-landscape-2x1","lineagePath":"../../patterns/20-atoms-images-landscape-2x1/20-atoms-images-landscape-2x1.rendered.html"},{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Similar to Linkbox Feature, but .content-image has been added before .content-text.</p>\n<p>The images' proportions have to be 2x1, thus generating a squared Linkbox Feature.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"linkboxes"},"patternExtension":"mustache","patternName":"Linkbox Feature Image","patternPartial":"molecules-linkbox-feature-image","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-linkbox-image" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-linkboxes-linkbox-image&#x2F;30-molecules-linkboxes-linkbox-image.rendered.html" class="patternLink" data-patternpartial="molecules-linkbox-image" title="Link to Pattern">
+          Linkbox Image
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-linkbox-image" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-linkbox-image" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-linkbox-image">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="http:&#x2F;&#x2F;www.transporter.at" title="The Link" class="linkbox">
+	<div class="content-image">
+		<img src="http:&#x2F;&#x2F;placeimg.com&#x2F;800&#x2F;450&#x2F;nature" title="16x9 Image" alt="16x9 Image" class="" />
+	</div>
+	<div class="content-text">
+		<p class="h1 subheader">Shizz fo shizzle.</p>
+		<p>We gonna chung gangsta get down get down fo shizzle turpizzle.</p>
+	</div>
+</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-linkbox-image" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"},{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"lineage":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"},{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Similar to Linkbox, but .content-image has been added before .content-text. Theoretically all image heights are possible, stretching the Linkbox's height.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"linkboxes"},"patternExtension":"mustache","patternName":"Linkbox Image","patternPartial":"molecules-linkbox-image","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-molecules-lists" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/30-molecules-lists&#x2F;index.html" class="patternLink" data-patternpartial="viewall-molecules-lists">lists</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="molecules-buttongroup" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-lists-buttongroup&#x2F;30-molecules-lists-buttongroup.rendered.html" class="patternLink" data-patternpartial="molecules-buttongroup" title="Link to Pattern">
+          Buttongroup
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-buttongroup" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-buttongroup" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-buttongroup">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline ">
+	<li><a href="#" title="The Button" class="pure-button">The Button</a>
+</li><li><a href="#" title="The Button" class="pure-button">The Button</a>
+</li><li><a href="#" title="The Button" class="pure-button">The Button</a>
+</li><li><a href="#" title="The Button" class="pure-button">The Button</a>
+</li><li><a href="#" title="The Button" class="pure-button">The Button</a>
+</li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-buttongroup" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-a-button","lineagePath":"../../patterns/20-atoms-buttons-a-button/20-atoms-buttons-a-button.rendered.html"}],"lineage":[{"lineagePattern":"atoms-a-button","lineagePath":"../../patterns/20-atoms-buttons-a-button/20-atoms-buttons-a-button.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Similar to .list-inline, but with buttons in list items.</p>\n<p>Remember that buttons can take several styling classes.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"lists"},"patternExtension":"mustache","patternName":"Buttongroup","patternPartial":"molecules-buttongroup","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-buttongroup-secondary" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-lists-buttongroup-secondary&#x2F;30-molecules-lists-buttongroup-secondary.rendered.html" class="patternLink" data-patternpartial="molecules-buttongroup-secondary" title="Link to Pattern">
+          Buttongroup Secondary
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-buttongroup-secondary" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-buttongroup-secondary" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-buttongroup-secondary">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline ">
+	<li><a href="#" title="The Button" class="secondary pure-button">The Button</a>
+</li><li><a href="#" title="The Button" class="secondary pure-button">The Button</a>
+</li><li><a href="#" title="The Button" class="secondary pure-button">The Button</a>
+</li><li><a href="#" title="The Button" class="secondary pure-button">The Button</a>
+</li><li><a href="#" title="The Button" class="secondary pure-button">The Button</a>
+</li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-buttongroup-secondary" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-a-button-secondary","lineagePath":"../../patterns/20-atoms-buttons-a-button-secondary/20-atoms-buttons-a-button-secondary.rendered.html"}],"lineage":[{"lineagePattern":"atoms-a-button-secondary","lineagePath":"../../patterns/20-atoms-buttons-a-button-secondary/20-atoms-buttons-a-button-secondary.rendered.html"}],"patternLineageRExists":true,"patternLineagesR":[{"lineagePattern":"organisms-bulletin-additional","lineagePath":"../../patterns/40-organisms-bulletin-bulletin-additional/40-organisms-bulletin-bulletin-additional.rendered.html"},{"lineagePattern":"organisms-context","lineagePath":"../../patterns/40-organisms-context-context/40-organisms-context-context.rendered.html"},{"lineagePattern":"organisms-header","lineagePath":"../../patterns/40-organisms-header-header/40-organisms-header-header.rendered.html"}],"lineageR":[{"lineagePattern":"organisms-bulletin-additional","lineagePath":"../../patterns/40-organisms-bulletin-bulletin-additional/40-organisms-bulletin-bulletin-additional.rendered.html"},{"lineagePattern":"organisms-context","lineagePath":"../../patterns/40-organisms-context-context/40-organisms-context-context.rendered.html"},{"lineagePattern":"organisms-header","lineagePath":"../../patterns/40-organisms-header-header/40-organisms-header-header.rendered.html"}],"patternLineageEExists":true,"patternDesc":"<p>Similar to Buttongroup, but with secondary buttons.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"lists"},"patternExtension":"mustache","patternName":"Buttongroup Secondary","patternPartial":"molecules-buttongroup-secondary","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-inline" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-lists-inline&#x2F;30-molecules-lists-inline.rendered.html" class="patternLink" data-patternpartial="molecules-inline" title="Link to Pattern">
+          Inline
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-inline" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-inline" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-inline">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline ">
+	<li><a href="#" class="" title="">Sneiders</a></li><li><a href="#" class="" title="">Koolen</a></li><li><a href="#" class="" title="">Richard</a></li><li><a href="#" class="" title="">Keegan</a></li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-inline" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Just ul.inline-list</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"lists"},"patternExtension":"mustache","patternName":"Inline","patternPartial":"molecules-inline","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-labelgroup" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-lists-labelgroup&#x2F;30-molecules-lists-labelgroup.rendered.html" class="patternLink" data-patternpartial="molecules-labelgroup" title="Link to Pattern">
+          Labelgroup
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-labelgroup" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-labelgroup" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-labelgroup">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline list-labels ">
+	<li><span class="tiny heavy letterspace">Optional Headline</span></li>
+	<li><a href="#" title="" class="label">Label</a></li><li><a href="#" title="" class="label">Label</a></li><li><a href="#" title="" class="label">Label</a></li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-labelgroup" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Similar to .list-inline, but with labels in list items.</p>\n<p>Remember that labels can take several styling classes.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"lists"},"patternExtension":"mustache","patternName":"Labelgroup","patternPartial":"molecules-labelgroup","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-sidenav" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-lists-sidenav&#x2F;30-molecules-lists-sidenav.rendered.html" class="patternLink" data-patternpartial="molecules-sidenav" title="Link to Pattern">
+          Sidenav
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-sidenav" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-sidenav" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-sidenav">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-sidenav ">
+	<li><a href="" title="">Sneiders</a></li><li><a href="" title="">Koolen</a></li><li><a href="" title="">Richard</a></li><li><a href="" title="">Keegan</a></li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-sidenav" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Just ul.list-sidenav</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"lists"},"patternExtension":"mustache","patternName":"Sidenav","patternPartial":"molecules-sidenav","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-molecules-panels" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/30-molecules-panels&#x2F;index.html" class="patternLink" data-patternpartial="viewall-molecules-panels">panels</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="molecules-panel" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel&#x2F;30-molecules-panels-panel.rendered.html" class="patternLink" data-patternpartial="molecules-panel" title="Link to Pattern">
+          Panel
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="pure-button">The Button</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"lineage":[{"lineagePattern":"atoms-button","lineagePath":"../../patterns/20-atoms-buttons-button/20-atoms-buttons-button.rendered.html"}],"patternLineageRExists":true,"patternLineagesR":[{"lineagePattern":"molecules-panel-brand","lineagePath":"../../patterns/30-molecules-panels-panel-brand/30-molecules-panels-panel-brand.rendered.html"},{"lineagePattern":"molecules-panel-callout","lineagePath":"../../patterns/30-molecules-panels-panel-callout/30-molecules-panels-panel-callout.rendered.html"},{"lineagePattern":"molecules-panel-error","lineagePath":"../../patterns/30-molecules-panels-panel-error/30-molecules-panels-panel-error.rendered.html"},{"lineagePattern":"molecules-panel-field","lineagePath":"../../patterns/30-molecules-panels-panel-field/30-molecules-panels-panel-field.rendered.html"},{"lineagePattern":"molecules-panel-success","lineagePath":"../../patterns/30-molecules-panels-panel-success/30-molecules-panels-panel-success.rendered.html"},{"lineagePattern":"molecules-panel-warning-level-1","lineagePath":"../../patterns/30-molecules-panels-panel-warning-level-1/30-molecules-panels-panel-warning-level-1.rendered.html"},{"lineagePattern":"molecules-panel-warning-level-2","lineagePath":"../../patterns/30-molecules-panels-panel-warning-level-2/30-molecules-panels-panel-warning-level-2.rendered.html"},{"lineagePattern":"molecules-panel-warning-level-3","lineagePath":"../../patterns/30-molecules-panels-panel-warning-level-3/30-molecules-panels-panel-warning-level-3.rendered.html"},{"lineagePattern":"molecules-panel-warning-level-4","lineagePath":"../../patterns/30-molecules-panels-panel-warning-level-4/30-molecules-panels-panel-warning-level-4.rendered.html"},{"lineagePattern":"molecules-panel-warning-level-5","lineagePath":"../../patterns/30-molecules-panels-panel-warning-level-5/30-molecules-panels-panel-warning-level-5.rendered.html"},{"lineagePattern":"molecules-panel-warning","lineagePath":"../../patterns/30-molecules-panels-panel-warning/30-molecules-panels-panel-warning.rendered.html"}],"lineageR":[{"lineagePattern":"molecules-panel-brand","lineagePath":"../../patterns/30-molecules-panels-panel-brand/30-molecules-panels-panel-brand.rendered.html"},{"lineagePattern":"molecules-panel-callout","lineagePath":"../../patterns/30-molecules-panels-panel-callout/30-molecules-panels-panel-callout.rendered.html"},{"lineagePattern":"molecules-panel-error","lineagePath":"../../patterns/30-molecules-panels-panel-error/30-molecules-panels-panel-error.rendered.html"},{"lineagePattern":"molecules-panel-field","lineagePath":"../../patterns/30-molecules-panels-panel-field/30-molecules-panels-panel-field.rendered.html"},{"lineagePattern":"molecules-panel-success","lineagePath":"../../patterns/30-molecules-panels-panel-success/30-molecules-panels-panel-success.rendered.html"},{"lineagePattern":"molecules-panel-warning-level-1","lineagePath":"../../patterns/30-molecules-panels-panel-warning-level-1/30-molecules-panels-panel-warning-level-1.rendered.html"},{"lineagePattern":"molecules-panel-warning-level-2","lineagePath":"../../patterns/30-molecules-panels-panel-warning-level-2/30-molecules-panels-panel-warning-level-2.rendered.html"},{"lineagePattern":"molecules-panel-warning-level-3","lineagePath":"../../patterns/30-molecules-panels-panel-warning-level-3/30-molecules-panels-panel-warning-level-3.rendered.html"},{"lineagePattern":"molecules-panel-warning-level-4","lineagePath":"../../patterns/30-molecules-panels-panel-warning-level-4/30-molecules-panels-panel-warning-level-4.rendered.html"},{"lineagePattern":"molecules-panel-warning-level-5","lineagePath":"../../patterns/30-molecules-panels-panel-warning-level-5/30-molecules-panels-panel-warning-level-5.rendered.html"},{"lineagePattern":"molecules-panel-warning","lineagePath":"../../patterns/30-molecules-panels-panel-warning/30-molecules-panels-panel-warning.rendered.html"}],"patternLineageEExists":true,"patternDesc":"<p>The default panel has a white background with no border or shadow. It's just a div.panel. It can take any content.</p>\n<p>Classes can be added to the .panel container for special purposes:</p>\n<ul>\n<li>.callout for highlighting the panel with border and shadow</li>\n<li>.field for white background</li>\n</ul>\n<ul>\n<li>.brand for left bar/border in brand color</li>\n<li>.success for left bar/border in success color and colored headlines</li>\n<li>.error for left bar/border in error color and colored headlines</li>\n<li>.warning for left bar/border in warning color and colored headlines</li>\n</ul>\n<ul>\n<li>warning-level-1 for left bar/border in warning level 1 color</li>\n<li>warning-level-2 for left bar/border in warning level 2 color</li>\n<li>warning-level-3 for left bar/border in warning level 3 color</li>\n<li>warning-level-4 for left bar/border in warning level 4 color</li>\n<li>warning-level-5 for left bar/border in warning level 5 color</li>\n</ul>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel","patternPartial":"molecules-panel","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-brand" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-brand&#x2F;30-molecules-panels-panel-brand.rendered.html" class="patternLink" data-patternpartial="molecules-panel-brand" title="Link to Pattern">
+          Panel Brand
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-brand" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-brand" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-brand">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel brand">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="pure-button">Close</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-brand" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .brand for left bar/border in brand color.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Brand","patternPartial":"molecules-panel-brand","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-callout" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-callout&#x2F;30-molecules-panels-panel-callout.rendered.html" class="patternLink" data-patternpartial="molecules-panel-callout" title="Link to Pattern">
+          Panel Callout
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-callout" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-callout" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-callout">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel callout">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="pure-button">The Button</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-callout" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .callout for highlighting with border and shadow.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Callout","patternPartial":"molecules-panel-callout","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-error" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-error&#x2F;30-molecules-panels-panel-error.rendered.html" class="patternLink" data-patternpartial="molecules-panel-error" title="Link to Pattern">
+          Panel Error
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-error" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-error" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-error">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel error">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="error pure-button">Close</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-error" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .error for left bar/border in error color.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Error","patternPartial":"molecules-panel-error","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-field" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-field&#x2F;30-molecules-panels-panel-field.rendered.html" class="patternLink" data-patternpartial="molecules-panel-field" title="Link to Pattern">
+          Panel Field
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-field" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-field" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-field">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel field">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="pure-button">The Button</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-field" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .field for white background.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Field","patternPartial":"molecules-panel-field","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-success" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-success&#x2F;30-molecules-panels-panel-success.rendered.html" class="patternLink" data-patternpartial="molecules-panel-success" title="Link to Pattern">
+          Panel Success
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-success" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-success" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-success">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel success">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="success pure-button">Close</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-success" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .success for left bar/border in success color.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Success","patternPartial":"molecules-panel-success","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-warning" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-warning&#x2F;30-molecules-panels-panel-warning.rendered.html" class="patternLink" data-patternpartial="molecules-panel-warning" title="Link to Pattern">
+          Panel Warning
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-warning" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-warning" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-warning">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel warning">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="warning pure-button">Close</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-warning" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .warning for left bar/border in warning color.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Warning","patternPartial":"molecules-panel-warning","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-warning-level-1" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-warning-level-1&#x2F;30-molecules-panels-panel-warning-level-1.rendered.html" class="patternLink" data-patternpartial="molecules-panel-warning-level-1" title="Link to Pattern">
+          Panel Warning Level 1
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-warning-level-1" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-warning-level-1" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-warning-level-1">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel warning-level-1">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="pure-button">The Button</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-warning-level-1" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .warning-level-1 for left bar/border in warning level 1 color.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Warning Level 1","patternPartial":"molecules-panel-warning-level-1","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-warning-level-2" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-warning-level-2&#x2F;30-molecules-panels-panel-warning-level-2.rendered.html" class="patternLink" data-patternpartial="molecules-panel-warning-level-2" title="Link to Pattern">
+          Panel Warning Level 2
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-warning-level-2" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-warning-level-2" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-warning-level-2">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel warning-level-2">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="pure-button">The Button</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-warning-level-2" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .warning-level-2 for left bar/border in warning level 2 color.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Warning Level 2","patternPartial":"molecules-panel-warning-level-2","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-warning-level-3" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-warning-level-3&#x2F;30-molecules-panels-panel-warning-level-3.rendered.html" class="patternLink" data-patternpartial="molecules-panel-warning-level-3" title="Link to Pattern">
+          Panel Warning Level 3
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-warning-level-3" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-warning-level-3" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-warning-level-3">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel warning-level-3">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="pure-button">The Button</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-warning-level-3" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .warning-level-3 for left bar/border in warning level 3 color.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Warning Level 3","patternPartial":"molecules-panel-warning-level-3","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-warning-level-4" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-warning-level-4&#x2F;30-molecules-panels-panel-warning-level-4.rendered.html" class="patternLink" data-patternpartial="molecules-panel-warning-level-4" title="Link to Pattern">
+          Panel Warning Level 4
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-warning-level-4" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-warning-level-4" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-warning-level-4">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel warning-level-4">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="pure-button">The Button</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-warning-level-4" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .warning-level-4 for left bar/border in warning level 4 color.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Warning Level 4","patternPartial":"molecules-panel-warning-level-4","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-panel-warning-level-5" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-panels-panel-warning-level-5&#x2F;30-molecules-panels-panel-warning-level-5.rendered.html" class="patternLink" data-patternpartial="molecules-panel-warning-level-5" title="Link to Pattern">
+          Panel Warning Level 5
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-panel-warning-level-5" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-panel-warning-level-5" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-panel-warning-level-5">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="panel warning-level-5">
+	<h6>Shizz fo shizzle.</h6>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<p><button href="#" title="The Button" class="pure-button">The Button</button></p>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-panel-warning-level-5" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"lineage":[{"lineagePattern":"molecules-panel","lineagePath":"../../patterns/30-molecules-panels-panel/30-molecules-panels-panel.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Panel with added class .warning-level-5 for left bar/border in warning level 5 color.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"panels"},"patternExtension":"mustache","patternName":"Panel Warning Level 5","patternPartial":"molecules-panel-warning-level-5","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-molecules-sm" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/30-molecules-sm&#x2F;index.html" class="patternLink" data-patternpartial="viewall-molecules-sm">sm</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="molecules-sm-buttons" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-sm-sm-buttons&#x2F;30-molecules-sm-sm-buttons.rendered.html" class="patternLink" data-patternpartial="molecules-sm-buttons" title="Link to Pattern">
+          Sm Buttons
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-sm-buttons" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-sm-buttons" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-sm-buttons">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline sm-buttons">
+	<li><a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" class="sm-button icon-sm-facebook modal-trigger mfp-ajax tooltip" title=""><span>Facebook</span></a></li>
+	<li><a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" class="sm-button icon-sm-twitter modal-trigger mfp-ajax tooltip" title=""><span>Twitter</span></a></li>
+	<li><a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" class="sm-button icon-sm-instagram modal-trigger mfp-ajax tooltip" title=""><span>Instagram</span></a></li>
+	<li><a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" class="sm-button icon-sm-youtube modal-trigger mfp-ajax tooltip" title=""><span>YouTube</span></a></li>
+	<li><a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" class="sm-button icon-sm-whatsapp modal-trigger mfp-ajax tooltip" title=""><span>WhatsApp</span></a></li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-sm-buttons" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":true,"patternLineagesR":[{"lineagePattern":"organisms-page-footer","lineagePath":"../../patterns/40-organisms-global-page-footer/40-organisms-global-page-footer.rendered.html"},{"lineagePattern":"organisms-sm-share","lineagePath":"../../patterns/40-organisms-global-sm-share/40-organisms-global-sm-share.rendered.html"}],"lineageR":[{"lineagePattern":"organisms-page-footer","lineagePath":"../../patterns/40-organisms-global-page-footer/40-organisms-global-page-footer.rendered.html"},{"lineagePattern":"organisms-sm-share","lineagePath":"../../patterns/40-organisms-global-sm-share/40-organisms-global-sm-share.rendered.html"}],"patternLineageEExists":true,"patternDesc":"<p>Social Media Buttons need to be editable if social media networks need be added / removed. This is true for both share <strong>and</strong> follow functionality.</p>\n<p>Always opening a modal dialogue.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"sm"},"patternExtension":"mustache","patternName":"Sm Buttons","patternPartial":"molecules-sm-buttons","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-molecules-tables" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/30-molecules-tables&#x2F;index.html" class="patternLink" data-patternpartial="viewall-molecules-tables">tables</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="molecules-table" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-tables-table&#x2F;30-molecules-tables-table.rendered.html" class="patternLink" data-patternpartial="molecules-table" title="Link to Pattern">
+          Table
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-table" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-table" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-table">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="table-container">
+	<table class="pure-table pure-table-striped full-width">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Year</th>
+				<th>Month</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>9</td>
+				<td>Jacobus</td>
+				<td>Sneiders</td>
+				<td>2018</td>
+				<td>September</td>
+			</tr><tr>
+				<td>1</td>
+				<td>Junius</td>
+				<td>Koolen</td>
+				<td>2018</td>
+				<td>January</td>
+			</tr><tr>
+				<td>3</td>
+				<td>Teun</td>
+				<td>Richard</td>
+				<td>2018</td>
+				<td>March</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-table" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Responsive tables need to be wrapped in div.table-container to make horizontal scrolling possible if the table's content exceeds the container width. The &lt;table&gt; itself gets table.pure-table. Other classes might be added:</p>\n<ul>\n<li><strong>.pure-table-striped</strong> is used to draw different even and odd table rows</li>\n<li><strong>.full-width</strong> forces the table to at least take the width of the container</li>\n</ul>\n<p>For data intensive tables with many columns the class .pure-table-small is added for a smaller text size.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"tables"},"patternExtension":"mustache","patternName":"Table","patternPartial":"molecules-table","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="molecules-table-small" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-tables-table-small&#x2F;30-molecules-tables-table-small.rendered.html" class="patternLink" data-patternpartial="molecules-table-small" title="Link to Pattern">
+          Table Small
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-table-small" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-table-small" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-table-small">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="table-container">
+	<table class="pure-table pure-table-striped full-width pure-table-small">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Year</th>
+				<th>Month</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>9</td>
+				<td>Jacobus</td>
+				<td>Sneiders</td>
+				<td>2018</td>
+				<td>September</td>
+			</tr><tr>
+				<td>1</td>
+				<td>Junius</td>
+				<td>Koolen</td>
+				<td>2018</td>
+				<td>January</td>
+			</tr><tr>
+				<td>3</td>
+				<td>Teun</td>
+				<td>Richard</td>
+				<td>2018</td>
+				<td>March</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-table-small" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>For data intensive tables with many columns table.pure-table-small for a smaller text size.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"tables"},"patternExtension":"mustache","patternName":"Table Small","patternPartial":"molecules-table-small","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-molecules-text" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/30-molecules-text&#x2F;index.html" class="patternLink" data-patternpartial="viewall-molecules-text">text</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="molecules-blockquote" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/30-molecules-text-blockquote&#x2F;30-molecules-text-blockquote.rendered.html" class="patternLink" data-patternpartial="molecules-blockquote" title="Link to Pattern">
+          Blockquote
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="molecules-blockquote" title="View Pattern Info" id="sg-pattern-extra-toggle-molecules-blockquote" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-molecules-blockquote">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <blockquote>
+	<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+	<cite>Rainer Fabrizi</cite>
+</blockquote>
+  </div>
+  <script type="text/json" id="sg-pattern-data-molecules-blockquote" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Usable for text highlighting and of course for real quotes. In this case don't forget the &lt;cite&gt; tag.</p>\n","patternBreadcrumb":{"patternType":"molecules","patternSubtype":"text"},"patternExtension":"mustache","patternName":"Blockquote","patternPartial":"molecules-blockquote","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+  </div> <!--end #sg-patterns-->
+
+</div><!--end .sg-main-->
+
+
+
+
+
+<!--DO NOT REMOVE-->
+<script type="text/json" id="sg-pattern-data-footer" class="sg-pattern-data">
+  {"patternPartial":"viewall-molecules-all"}
+</script>
+
+<script>
+  /*!
+   * scriptLoader - v0.1
+   *
+   * Copyright (c) 2014 Dave Olsen, http://dmolsen.com
+   * Licensed under the MIT license
+   *
+   */
+  
+  var scriptLoader = {
+    
+    run: function(js,cb,target) {
+      var s  = document.getElementById(target+'-'+cb);
+      for (var i = 0; i < js.length; i++) {
+        var src = (typeof js[i] != 'string') ? js[i].src : js[i];
+        var c   = document.createElement('script');
+        c.src   = '../../'+src+'?'+cb;
+        if (typeof js[i] != 'string') {
+          if (js[i].dep !== undefined) {
+            c.onload = function(dep,cb,target) {
+              return function() {
+                scriptLoader.run(dep,cb,target);
+              }
+            }(js[i].dep,cb,target);
+          }
+        }
+        s.parentNode.insertBefore(c,s);
+      }
+    }
+    
+  }
+</script>
+
+<script id="pl-js-polyfill-insert-1524759711797">
+  (function() {
+    if (self != top) {
+      var cb = '1524759711797';
+      var js = [];
+      if (typeof document !== 'undefined' && !('classList' in document.documentElement)) {
+        js.push('styleguide/bower_components/classList.min.js');
+      }
+      scriptLoader.run(js,cb,'pl-js-polyfill-insert');
+    }
+  })();
+</script>
+
+<script id="pl-js-insert-1524759711797">
+  (function() {
+    if (self != top) {
+      var cb = '1524759711797';
+      var js = [ { 'src': 'styleguide/bower_components/jwerty.min.js', 'dep': [ 'styleguide/js/patternlab-pattern.min.js' ] } ];
+      scriptLoader.run(js,cb,'pl-js-insert');
+    }
+  })();
+</script>
+
+
+
+<!-- !javascript -->
+<script src="../../bower_components/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+
+<script src="../../bower_components/sweet-scroll-master_3.0.0/sweet-scroll.js"></script>
+<script src="../../bower_components/animejs_2.2.0/anime.min.js"></script>
+<script src="../../bower_components/magnific-popup_1.1.0/dist/jquery.magnific-popup.min.js"></script>
+<script src="../../bower_components/tippyjs_2.2.3/dist/tippy.all.min.js"></script>
+<script src="../../bower_components/jquery-selectric/public/jquery.selectric.min.js"></script>
+<script src="../../bower_components/tilt_1.1.19/dest/tilt.jquery.min.js"></script>
+<script src="../../bower_components/fluidvids_2.4.1/dist/fluidvids.min.js"></script>
+
+<script src="../../js/custom.js"></script>
+
+  
+</body>
+
+
+</html>
+
+
+<!-- Have a beautiful and save day! -->

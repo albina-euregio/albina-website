@@ -1,0 +1,14 @@
+<form class="{{ formClass }} pure-form-stacked">
+	{{> atoms-legend(legendText: "Stacked form") }}
+	<p>{{> atoms-label }}
+		{{> atoms-input(inputClass: "full-width") }}</p>
+	<p>{{> atoms-label }}
+		{{> atoms-input(inputClass: "full-width") }}</p>
+	<fieldset class="pure-group">
+		{{> atoms-label(labelText: "Group", labelTarget: "") }}
+		{{> atoms-input(inputPlaceholder: "User", inputClass: "full-width") }}
+		{{> atoms-input(inputType: "password", inputPlaceholder: "Password", inputClass: "full-width") }}
+		{{> atoms-input(inputType: "email", inputPlaceholder: "Email", inputClass: "full-width") }}
+	</fieldset>
+	{{> atoms-submit(buttonText: "Submit") }}
+</form>

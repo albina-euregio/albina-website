@@ -1,0 +1,1617 @@
+<!doctype html>
+<html class="" lang="en">
+
+
+<!--
+
+ _____ _____ _____ _____ _____ _____ _____ _____ _____ _____ _____ 
+|_   _| __  |  _  |   | |   __|  _  |     | __  |_   _|   __| __  |
+  | | |    -|     | | | |__   |   __|  |  |    -| | | |   __|    -|
+  |_| |__|__|__|__|_|___|_____|__|  |_____|__|__| |_| |_____|__|__|             
+
+  TRANSPORTER – Creating Your Web
+  www.transporter.at
+
+-->
+
+
+<head>
+	<meta charset="utf-8" />
+	<title>Albina</title>
+	
+	<!-- !display -->
+	<meta http-equiv="X-UA-Compatible"	content="IE=edge,chrome=1" /><!-- invalid -->
+	<meta name="viewport"				content="width=device-width, initial-scale=1.0, maximum-scale=3.0" />
+	<!-- <meta http-equiv="expires"			content="86400" /> -->
+	
+	<!-- !seo -->
+	<meta name="page-topic" 			content="Avalanche Bulletin" /><!-- invalid -->
+	<meta name="page-type"				content="Avalanche Bulletin" /><!-- invalid -->
+	<meta name="description" 			content="The current avalanche situation report for Tyrol, South Tyrol and Trentino, danger patterns and important links" />
+	<meta name="keywords" 				content="avalanche warning service bulletin tyrol south tyrol trentino alto adige" />
+	<meta name="audience"				content="ski hikers" /><!-- invalid -->
+	<meta name="author" 				content="Albina – Avalanche Warning Service" />
+	<meta name="publisher" 				content="Albina – Avalanche Warning Service" /><!-- invalid -->
+	<meta name="copyright" 				content="Albina – Avalanche Warning Service" /><!-- invalid -->
+	
+	<!-- !location -->
+	<meta name="city" 					content="Innsbruck" /><!-- invalid -->
+	<meta name="country" 				content="Austria" /><!-- invalid -->
+	<meta name="state" 					content="Tyrol" /><!-- invalid -->
+	<meta name="zipcode" 				content="6020" /><!-- invalid -->
+	<meta name="geo.position" 			content="47.2642740;11.3961660" />
+	<meta name="geo.placename" 			content="Innsbruck" />
+	<meta name="geo.region" 			content="AT-Tirol" />
+	<meta name="icbm" 					content="47.2642740,11.3961660" />
+	
+	<!-- !facebook open graph -->
+	<meta property="og:type"			content="article" />
+	<meta property="og:url"				content="URL of this object" />
+	<meta property="og:site_name"		content="Name of site hosting article" />
+	<meta property="og:image"			content="URL to an image" />
+	<meta property="og:title"			content="Name of article" />
+	<meta property="og:description"		content="Description of object" />
+	<meta property="article:author"		content="URL to Author object" />
+	<meta property="article:section"	content="Section of article" />
+	<meta property="article:tag"		content="Keyword" />
+	
+	<!-- !twitter cards -->
+	<meta name="twitter:card"			content="summary" /><!-- invalid -->
+	<meta name="twitter:url"			content="URL of this content" /><!-- invalid -->
+	<meta name="twitter:title"			content="Name of article" /><!-- invalid -->
+	<meta name="twitter:description"	content="Description of content" /><!-- invalid -->
+	<meta name="twitter:image"			content="URL to an image" /><!-- invalid -->
+	
+	<meta name="twitter:site"			content="@username" /><!-- invalid -->
+	<meta name="twitter:site:id"		content="Twitter ID" /><!-- invalid -->
+	<meta name="twitter:creator"		content="@username" /><!-- invalid -->
+	<meta name="twitter:creator:id"		content="Twitter ID" /><!-- invalid -->
+	
+	<!-- !font und !css -->
+	<style>
+		@keyframes fadeMeIn {
+			0% { transform: translate(-50%, -55%); opacity: 0; }
+			100% { transform: translate(-50%, -55%); opacity: 0.25; }
+		}
+		.page-loading-screen {
+			position: fixed;  left: 50vw; top: 50vh; height: 20vh;  width: 20vw; transform: translate(-50%, -55%);  z-index: 9999; background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="79" height="55"><defs><path id="a" d="M35.82 4.3l28.4 28.4c9.58 8 18.03-10.09 5.3-12.23-.18-.03-.34-.25-.06-.46 5.57-4.53-1.24-11.35-5.78-5.85-.14.17-.33.06-.33-.16.05-3.69-6-3.75-5.85.03.01.21-.21.31-.38.21L37.9 2.16a1.68 1.68 0 0 0-2.08.24 1.34 1.34 0 0 0 0 1.9z"/></defs><g fill="none" fill-rule="evenodd"><path fill="#19ABFF" d="M33.93 1.5l41.65 34.1-17.99 17.98a2.68 2.68 0 0 1-3.78 0L38.66 38.43a2.68 2.68 0 0 0-3.79 0L19.73 53.58a2.68 2.68 0 0 1-3.79 0L.8 38.43a2.68 2.68 0 0 1 0-3.79L33.93 1.5z"/><g transform="translate(0 1)"><use fill="#FFF" xlink:href="#a"/><path stroke="#19ABFF" stroke-width="2.68" d="M56.48 12.25a4.1 4.1 0 0 1 3.91-2.38c1.6.01 3.03.76 3.76 2.03 2.38-1.69 5.23-1.47 7.16.48 1.96 1.96 2.14 4.85.36 7.25 5.15 1.76 6.91 6.63 4.79 11.31-2.36 5.2-8.08 6.98-13.1 2.79l-.1-.08-28.4-28.41a2.68 2.68 0 0 1 0-3.8c1-.99 2.56-1.16 3.75-.41l17.87 11.22z"/></g><path stroke="#19ABFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.34" d="M66.88 24.06a2.96 2.96 0 0 1-.99 5.6"/></g></svg>') no-repeat 50% 50%; background-size: contain; animation: fadeMeIn 0.5s ease-in-out 1 forwards;
+		}
+	</style>
+	<link rel="stylesheet" href="../../css/style.css?1524759711797" media="all" />
+	
+	<!-- !javascript -->
+	
+	<!-- !favicons -->
+	<link rel="apple-touch-icon" type="image/png" href="../../images/fav/en/apple-touch-icon.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="57x57" href="../../images/fav/en/apple-touch-icon-57x57.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="72x72" href="../../images/fav/en/apple-touch-icon-72x72.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../../images/fav/en/apple-touch-icon-76x76.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="114x114" href="../../images/fav/en/apple-touch-icon-114x114.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../../images/fav/en/apple-touch-icon-120x120.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="144x144" href="../../images/fav/en/apple-touch-icon-144x144.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="152x152" href="../../images/fav/en/apple-touch-icon-152x152.png" />
+	<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../../images/fav/en/apple-touch-icon-180x180.png" />
+	<link rel="apple-touch-icon-precomposed" type="image/png" sizes="72x72" href="../../images/fav/en/apple-touch-icon-72x72.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico" />
+	
+	
+	<!-- Begin Pattern Lab (Required for Pattern Lab to run properly) -->
+    <!-- never cache patterns -->
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+
+<link rel="stylesheet" href="../../styleguide/css/styleguide.min.css?1524759711797" media="all">
+<link rel="stylesheet" href="../../styleguide/css/prism-typeahead.min.css?1524759711797" media="all" />
+
+    <!-- End Pattern Lab -->
+    
+
+</head>
+
+
+<body class="patternlab s-debug domain-en language-en">
+
+
+
+	<!-- View All Patterns in a Pattern Sub-Type -->
+<div class="sg-main" role="main">
+  
+  <!-- Patterns -->
+  <div id="sg-patterns">
+<div id="viewall-global-bgs" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-bgs&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-bgs">bgs</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-bgs" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-bgs-10-bgs&#x2F;10-global-bgs-10-bgs.rendered.html" class="patternLink" data-patternpartial="global-bgs" title="Link to Pattern">
+          Bgs
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-bgs" title="View Pattern Info" id="sg-pattern-extra-toggle-global-bgs" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-bgs">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="grid">
+	<div class="grid-item all-12 tiny-6 normal-3 bg-box">
+		<p>.bg-box <a href="">Link</a></p>
+	</div>
+	<div class="grid-item all-12 tiny-6 normal-3 bg-brand">
+		<p>.bg-brand <a href="">Link</a></p>
+	</div>
+	<div class="grid-item all-12 tiny-6 normal-3 bg-subtle">
+		<p>.bg-subtle  <a href="">Link</a></p>
+	</div>
+	
+	
+	<div class="grid-item all-12 tiny-6 normal-3 bg-gradient-snow">
+		<p>.bg-gradient-snow <a href="">Link</a></p>
+	</div>
+	<div class="grid-item all-12 tiny-6 normal-3 bg-gradient-brand">
+		<p>.bg-gradient-brand <a href="">Link</a></p>
+	</div>
+	
+	
+	<div class="grid-item all-12 tiny-6 normal-3 bg-warning-level-1">
+		<p>.bg-warning-level-1 <a href="">Link</a></p>
+	</div>
+	<div class="grid-item all-12 tiny-6 normal-3 bg-warning-level-2">
+		<p>.bg-warning-level-2 <a href="">Link</a></p>
+	</div>
+	<div class="grid-item all-12 tiny-6 normal-3 bg-warning-level-3">
+		<p>.bg-warning-level-3 <a href="">Link</a></p>
+	</div>
+	<div class="grid-item all-12 tiny-6 normal-3 bg-warning-level-4">
+		<p>.bg-warning-level-4 <a href="">Link</a></p>
+	</div>
+	<div class="grid-item all-12 tiny-6 normal-3 bg-warning-level-5">
+		<p>.bg-warning-level-5 <a href="">Link</a></p>
+	</div>
+	
+	<div class="grid-item all-12 tiny-6 normal-3 bg-colorbar">
+		<p>.bg-colorbar <a href="">Link</a></p>
+	</div>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-bgs" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Classes to be added to box containers, drawing background colors / patterns and partly changing (inverting) the color of text and links:</p>\n<h6>Basics</h6>\n<ul>\n<li>.bg-box (white)</li>\n<li>.bg-brand (Albina Blue)</li>\n<li>.bg-subtle (very very light grey)</li>\n</ul>\n<h6>Gradients</h6>\n<ul>\n<li>.bg-gradient-snow (from white on top to very very light grey on bottom)</li>\n<li>.bg-gradient-brand (from dark Albina Blue on top to Albina Blue on bottom)</li>\n</ul>\n<h6>Warning Levels</h6>\n<ul>\n<li>.bg-warning-level-1</li>\n<li>.bg-warning-level-2</li>\n<li>.bg-warning-level-3</li>\n<li>.bg-warning-level-4</li>\n<li>.bg-warning-level-5 (generating the checkered pattern)</li>\n</ul>\n<h6>Color Stripe</h6>\n<ul>\n<li>.bg-colorbar (for the website's top and bottom color stripes)</li>\n</ul>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"bgs"},"patternExtension":"mustache","patternName":"Bgs","patternPartial":"global-bgs","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-buttons-labels" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-buttons-labels&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-buttons-labels">buttons-labels</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-buttons" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-buttons-labels-buttons&#x2F;10-global-buttons-labels-buttons.rendered.html" class="patternLink" data-patternpartial="global-buttons" title="Link to Pattern">
+          Buttons
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-buttons" title="View Pattern Info" id="sg-pattern-extra-toggle-global-buttons" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-buttons">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="grid">
+	<div class="grid-item tiny-6 normal-3">
+		<h5>Sizes</h5>
+		<p><a href="#" title="The Button" class="small pure-button">Small</a></p>
+		<p><a href="#" title="The Button" class="normal pure-button">Normal</a></p>
+		<p><a href="#" title="The Button" class="large pure-button">Large</a></p>
+	</div>
+	<div class="grid-item tiny-6 normal-3">
+		<h5>Type</h5>
+		<p><a href="#" title="The Button" class="primary pure-button">Primary</a></p>
+		<p><a href="#" title="The Button" class="secondary pure-button">Secondary</a></p>
+		<p><a href="#" title="The Button" class="tertiary pure-button">Tertiary</a></p>
+		<p><a href="#" title="The Button" class="success pure-button">Success</a></p>
+		<p><a href="#" title="The Button" class="error pure-button">Error</a></p>
+		<p><a href="#" title="The Button" class="warning pure-button">Warning</a></p>
+		<p><a href="#" title="The Button" class="black pure-button">Black</a></p>
+	</div>
+	<div class="grid-item tiny-6 normal-3">
+		<h5>Styles</h5>
+		<p><a href="#" title="The Button" class="pure-button">Normal</a></p>
+		<p><a href="#" title="The Button" class="round pure-button">Round</a></p>
+		<p><a href="#" title="The Button" class="pure-button pure-button-disabled">Disabled</a></p>
+		<p><a href="#" title="The Button" class="expand pure-button">Expand</a></p>
+	</div>
+	<div class="grid-item tiny-6 normal-3">
+		<h5>Button und Form Submit</h5>
+		<p><button title="The Button" class="pure-button">Button</button></p>
+		<p><input type="submit" title="The Button" class="pure-button" value="Submit" /></p>
+	</div>
+</div>
+
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-buttons" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>All buttons get button.pure-button which draws a default style button. Further classes might be added:</p>\n<h6>Size</h6>\n<ul>\n<li>.small</li>\n<li>.normal (default)</li>\n<li>.large</li>\n</ul>\n<h6>Color</h6>\n<ul>\n<li>.primary (default)</li>\n<li>.secondary</li>\n<li>.tertiary</li>\n<li>.success</li>\n<li>.error</li>\n<li>.warning</li>\n<li>.black</li>\n</ul>\n<h6>Else</h6>\n<ul>\n<li>.round (not to be used in project)</li>\n<li>.disabled</li>\n<li>.expand (taking full width of container)</li>\n</ul>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"buttons-labels"},"patternExtension":"mustache","patternName":"Buttons","patternPartial":"global-buttons","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-labels" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-buttons-labels-labels&#x2F;10-global-buttons-labels-labels.rendered.html" class="patternLink" data-patternpartial="global-labels" title="Link to Pattern">
+          Labels
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-labels" title="View Pattern Info" id="sg-pattern-extra-toggle-global-labels" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-labels">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <p>
+	<span class="label">Label</span>
+	<span class="label primary">Primary</span>
+	<span class="label secondary">Secondary</span>
+	<span class="label tertiary">Tertiary</span>
+	<span class="label success">Success</span>
+	<span class="label error">Error</span>
+	<span class="label warning">Warning</span>
+	<span class="label badge">4</span>
+	<span class="label black">Black</span>
+	<span class="label white">White</span> I am running text.</p>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-labels" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>All labels get class .label. Further classes might be added:</p>\n<h6>Color</h6>\n<ul>\n<li>.primary</li>\n<li>.secondary</li>\n<li>.tertiary</li>\n<li>.success</li>\n<li>.error</li>\n<li>.warning</li>\n<li>.black</li>\n<li>.white</li>\n</ul>\n<h6>Else</h6>\n<ul>\n<li>.badge</li>\n</ul>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"buttons-labels"},"patternExtension":"mustache","patternName":"Labels","patternPartial":"global-labels","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-colors" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-colors&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-colors">colors</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-neutral-colors" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-colors-10-neutral-colors&#x2F;10-global-colors-10-neutral-colors.rendered.html" class="patternLink" data-patternpartial="global-neutral-colors" title="Link to Pattern">
+          Neutral Colors
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-neutral-colors" title="View Pattern Info" id="sg-pattern-extra-toggle-global-neutral-colors" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-neutral-colors">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="global-colors">
+	<li>
+		<span class="global-colors-swatch" style="background: #000;"></span>
+		<span>
+			$black <br />
+			#000
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #222;"></span>
+		<span>
+			$grey-very-dark <br />
+			#222
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #565F61;"></span>
+		<span>
+			$grey-dark <br />
+			#565F61
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #839194;"></span>
+		<span>
+			$grey <br />
+			#839194
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #B1C1C7;"></span>
+		<span>
+			$grey-light <br />
+			#B1C1C7
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #E6EEF2;"></span>
+		<span>
+			$grey-very-light <br />
+			#E6EEF2
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #F2F7FA;"></span>
+		<span>
+			$grey-very-very-light <br />
+			#F2F7FA
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FFF;"></span>
+		<span>
+			$white <br />
+			#FFF
+		</span>
+	</li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-neutral-colors" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The neutral color palette contains grayscale values that are used throughout the interface.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"colors"},"patternExtension":"mustache","patternName":"Neutral Colors","patternPartial":"global-neutral-colors","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-brand-colors" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-colors-20-brand-colors&#x2F;10-global-colors-20-brand-colors.rendered.html" class="patternLink" data-patternpartial="global-brand-colors" title="Link to Pattern">
+          Brand Colors
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-brand-colors" title="View Pattern Info" id="sg-pattern-extra-toggle-global-brand-colors" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-brand-colors">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="global-colors">
+	<li>
+		<span class="global-colors-swatch" style="background: #0F6799;"></span>
+		<span>
+			$brand-very-dark <br />
+			#0F6799
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #1489CC;"></span>
+		<span>
+			$brand-dark <br />
+			#1489CC
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #19ABFF;"></span>
+		<span>
+			$brand <br />
+			#19ABFF
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #66C7FF;"></span>
+		<span>
+			$brand-light <br />
+			#66C7FF
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #99DAFF;"></span>
+		<span>
+			$brand-very-light <br />
+			#99DAFF
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #839194;"></span>
+		<span>
+			$brand-2 <br />
+			#839194
+		</span>
+	</li>
+</ul>
+
+
+
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-brand-colors" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The brand color palette contains the brand colors and derifed hues, that are used throughout the interface.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"colors"},"patternExtension":"mustache","patternName":"Brand Colors","patternPartial":"global-brand-colors","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-warning" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-colors-30-warning&#x2F;10-global-colors-30-warning.rendered.html" class="patternLink" data-patternpartial="global-warning" title="Link to Pattern">
+          Warning
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-warning" title="View Pattern Info" id="sg-pattern-extra-toggle-global-warning" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-warning">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="global-colors">
+	<li>
+		<span class="global-colors-swatch" style="background: #CCFF66;"></span>
+		<span>
+			$warning-level-1-color <br />
+			#CCFF66
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FFFF00;"></span>
+		<span>
+			$warning-level-2-color <br />
+			#FFFF00
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FF9900;"></span>
+		<span>
+			$warning-level-3-color <br />
+			#FF9900
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FF0000;"></span>
+		<span>
+			$warning-level-4-color <br />
+			#FF0000
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FF0000 url(..&#x2F;..&#x2F;images&#x2F;pro&#x2F;bg_checkered.png) repeat 50% 50%;"></span>
+		<span>
+			$warning-level-5-color + bg_checkered <br />
+			#FF0000 url(..&#x2F;..&#x2F;images&#x2F;pro&#x2F;bg_checkered.png) repeat 50% 50%
+		</span>
+	</li>
+</ul>
+
+
+
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-warning" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The warning color palette contains the 5 warning level colors. Warning level 5 also gets the checkered pattern.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"colors"},"patternExtension":"mustache","patternName":"Warning","patternPartial":"global-warning","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-political-colors" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-colors-40-political-colors&#x2F;10-global-colors-40-political-colors.rendered.html" class="patternLink" data-patternpartial="global-political-colors" title="Link to Pattern">
+          Political Colors
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-political-colors" title="View Pattern Info" id="sg-pattern-extra-toggle-global-political-colors" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-political-colors">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="global-colors">
+	<li>
+		<span class="global-colors-swatch" style="background: #245297;"></span>
+		<span>
+			$eu-blue <br />
+			#245297
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FFE800;"></span>
+		<span>
+			$eu-yellow <br />
+			#FFE800
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #839194;"></span>
+		<span>
+			$tyrol-color <br />
+			#839194
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #DF2B2A;"></span>
+		<span>
+			$south-tyrol-color <br />
+			#DF2B2A
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #84344F;"></span>
+		<span>
+			$trentino-color <br />
+			#84344F
+		</span>
+	</li>
+</ul>
+
+
+
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-political-colors" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The political color palette contains the EU colors and the colors for Tyrol, South Tyrol and Trentino.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"colors"},"patternExtension":"mustache","patternName":"Political Colors","patternPartial":"global-political-colors","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-utility-colors" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-colors-50-utility-colors&#x2F;10-global-colors-50-utility-colors.rendered.html" class="patternLink" data-patternpartial="global-utility-colors" title="Link to Pattern">
+          Utility Colors
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-utility-colors" title="View Pattern Info" id="sg-pattern-extra-toggle-global-utility-colors" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-utility-colors">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="global-colors">
+	<li>
+		<span class="global-colors-swatch" style="background: #565F61;"></span>
+		<span>
+			$text-color <br />
+			#565F61
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #19ABFF;"></span>
+		<span>
+			$primary-color <br />
+			#19ABFF
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #839194;"></span>
+		<span>
+			$secondary-color <br />
+			#839194
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #68CC14;"></span>
+		<span>
+			$success-color <br />
+			#68CC14
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FF0000;"></span>
+		<span>
+			$error-color <br />
+			#FF0000
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FF0000;"></span>
+		<span>
+			$warning-color <br />
+			#FF0000
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FF9900;"></span>
+		<span>
+			$code-color <br />
+			#FF9900
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #68CC14;"></span>
+		<span>
+			$green <br />
+			#68CC14
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FFFF00;"></span>
+		<span>
+			$yellow <br />
+			#FFFF00
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FF9900;"></span>
+		<span>
+			$orange <br />
+			#FF9900
+		</span>
+	</li>
+	<li>
+		<span class="global-colors-swatch" style="background: #FF0000;"></span>
+		<span>
+			$red <br />
+			#FF0000
+		</span>
+	</li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-utility-colors" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The utility color palette assigns colors for main purposes like the main text color. It also defines colors that are used to convey meaning such as success, error, warning, and information to the user. These colors should be used for things like alert messages, form validation, tooltips, and other kinds of messaging.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"colors"},"patternExtension":"mustache","patternName":"Utility Colors","patternPartial":"global-utility-colors","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-forms" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-forms&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-forms">forms</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-form-aligned" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-forms-form-aligned&#x2F;10-global-forms-form-aligned.rendered.html" class="patternLink" data-patternpartial="global-form-aligned" title="Link to Pattern">
+          Form Aligned
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-form-aligned" title="View Pattern Info" id="sg-pattern-extra-toggle-global-form-aligned" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-form-aligned">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <form class="pure-form pure-form-aligned">
+	<legend>Aligned form</legend>
+	<div class="pure-control-group">
+		<label for="input">User</label>
+		<input type="text" id="input" class="" placeholder="User" />
+	</div>
+	<div class="pure-control-group">
+		<label for="input">Password</label>
+		<input type="password" id="input" class="" placeholder="Password" />
+	</div>
+	<div class="pure-control-group">
+		<label>Ausgefüllt?</label>
+		<button href="#" title="The Button" class="pure-button">Submit</button>
+
+	</div>
+</form>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-form-aligned" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-legend","lineagePath":"../../patterns/20-atoms-forms-legend/20-atoms-forms-legend.rendered.html"},{"lineagePattern":"atoms-label","lineagePath":"../../patterns/20-atoms-forms-label/20-atoms-forms-label.rendered.html"},{"lineagePattern":"atoms-input","lineagePath":"../../patterns/20-atoms-forms-input/20-atoms-forms-input.rendered.html"},{"lineagePattern":"atoms-submit","lineagePath":"../../patterns/20-atoms-forms-submit/20-atoms-forms-submit.rendered.html"}],"lineage":[{"lineagePattern":"atoms-legend","lineagePath":"../../patterns/20-atoms-forms-legend/20-atoms-forms-legend.rendered.html"},{"lineagePattern":"atoms-label","lineagePath":"../../patterns/20-atoms-forms-label/20-atoms-forms-label.rendered.html"},{"lineagePattern":"atoms-input","lineagePath":"../../patterns/20-atoms-forms-input/20-atoms-forms-input.rendered.html"},{"lineagePattern":"atoms-submit","lineagePath":"../../patterns/20-atoms-forms-submit/20-atoms-forms-submit.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>All forms need form.pure-form.</p>\n<p>Here the class .pure-form-aligned is added and name/value pairs (e.g. label and input) are contained within div.pure-control-group containers.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"forms"},"patternExtension":"mustache","patternName":"Form Aligned","patternPartial":"global-form-aligned","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-form-inline" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-forms-form-inline&#x2F;10-global-forms-form-inline.rendered.html" class="patternLink" data-patternpartial="global-form-inline" title="Link to Pattern">
+          Form Inline
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-form-inline" title="View Pattern Info" id="sg-pattern-extra-toggle-global-form-inline" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-form-inline">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <form class="pure-form">
+	<legend>Inline form</legend>
+	<ul class="list-inline">
+		<li><input type="text" id="input" class="" placeholder="User" /></li>
+		<li><input type="password" id="input" class="" placeholder="Password" /></li>
+		<li><button href="#" title="The Button" class="tiny pure-button">Submit</button>
+</li>
+	</ul>
+</form>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-form-inline" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-legend","lineagePath":"../../patterns/20-atoms-forms-legend/20-atoms-forms-legend.rendered.html"},{"lineagePattern":"atoms-input","lineagePath":"../../patterns/20-atoms-forms-input/20-atoms-forms-input.rendered.html"},{"lineagePattern":"atoms-submit","lineagePath":"../../patterns/20-atoms-forms-submit/20-atoms-forms-submit.rendered.html"}],"lineage":[{"lineagePattern":"atoms-legend","lineagePath":"../../patterns/20-atoms-forms-legend/20-atoms-forms-legend.rendered.html"},{"lineagePattern":"atoms-input","lineagePath":"../../patterns/20-atoms-forms-input/20-atoms-forms-input.rendered.html"},{"lineagePattern":"atoms-submit","lineagePath":"../../patterns/20-atoms-forms-submit/20-atoms-forms-submit.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>All forms need form.pure-form.</p>\n<p>Here an ul.list-inline layouts an inline form.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"forms"},"patternExtension":"mustache","patternName":"Form Inline","patternPartial":"global-form-inline","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-form-stacked" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-forms-form-stacked&#x2F;10-global-forms-form-stacked.rendered.html" class="patternLink" data-patternpartial="global-form-stacked" title="Link to Pattern">
+          Form Stacked
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-form-stacked" title="View Pattern Info" id="sg-pattern-extra-toggle-global-form-stacked" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-form-stacked">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <form class="pure-form pure-form-stacked">
+	<legend>Stacked form</legend>
+	<p><label for="input">Label</label>
+		<input type="text" id="input" class="full-width" placeholder="Placeholder" /></p>
+	<p><label for="input">Label</label>
+		<input type="text" id="input" class="full-width" placeholder="Placeholder" /></p>
+	<fieldset class="pure-group">
+		<label for="">Group</label>
+		<input type="text" id="input" class="full-width" placeholder="User" />
+		<input type="password" id="input" class="full-width" placeholder="Password" />
+		<input type="email" id="input" class="full-width" placeholder="Email" />
+	</fieldset>
+	<button href="#" title="The Button" class="pure-button">Submit</button>
+
+</form>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-form-stacked" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-legend","lineagePath":"../../patterns/20-atoms-forms-legend/20-atoms-forms-legend.rendered.html"},{"lineagePattern":"atoms-label","lineagePath":"../../patterns/20-atoms-forms-label/20-atoms-forms-label.rendered.html"},{"lineagePattern":"atoms-input","lineagePath":"../../patterns/20-atoms-forms-input/20-atoms-forms-input.rendered.html"},{"lineagePattern":"atoms-submit","lineagePath":"../../patterns/20-atoms-forms-submit/20-atoms-forms-submit.rendered.html"}],"lineage":[{"lineagePattern":"atoms-legend","lineagePath":"../../patterns/20-atoms-forms-legend/20-atoms-forms-legend.rendered.html"},{"lineagePattern":"atoms-label","lineagePath":"../../patterns/20-atoms-forms-label/20-atoms-forms-label.rendered.html"},{"lineagePattern":"atoms-input","lineagePath":"../../patterns/20-atoms-forms-input/20-atoms-forms-input.rendered.html"},{"lineagePattern":"atoms-submit","lineagePath":"../../patterns/20-atoms-forms-submit/20-atoms-forms-submit.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>All forms need form.pure-form.</p>\n<p>Here the class .pure-form-stacked is added. A fieldset.pure-group holds several input fields.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"forms"},"patternExtension":"mustache","patternName":"Form Stacked","patternPartial":"global-form-stacked","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-grids" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-grids&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-grids">grids</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-blockgrid" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-grids-blockgrid&#x2F;10-global-grids-blockgrid.rendered.html" class="patternLink" data-patternpartial="global-blockgrid" title="Link to Pattern">
+          Blockgrid
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-blockgrid" title="View Pattern Info" id="sg-pattern-extra-toggle-global-blockgrid" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-blockgrid">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="grid blockgrid">
+	<div class="grid-item">
+		<h6>All right. Well, take care of yourself, Han</h6>
+		<p>You don&#39;t believe in the Force, do you? The Force is strong with this one</p>
+	</div><div class="grid-item">
+		<h6>Lorizzle pimpin&#39; dolizzle sit amet I</h6>
+		<p>Rizzle adipiscing elizzle. Nullam sapien velizzle, shit volutpizzle, my</p>
+	</div><div class="grid-item">
+		<h6>Bacon ipsum dolor sit amet spare rib</h6>
+		<p>Tongue pancetta short ribs bacon. Kielbasa ball tip cow bresaola, capic</p>
+	</div><div class="grid-item">
+		<h6>Blog meme masthead DocumentCloud Fou</h6>
+		<p>Square tabloid Andy Carvin stupid commenters, Nick Denton mathewi semip</p>
+	</div><div class="grid-item">
+		<h6>Hong Kong Phooey, number one super g</h6>
+		<p>Hong Kong Phooey, quicker than the human eye. He&#39;s got style, a groovy</p>
+	</div><div class="grid-item">
+		<h6>Now that we know who you are, I know</h6>
+		<p>Who I am. I&#39;m not a mistake! It all makes sense! In a comic, you know</p>
+	</div><div class="grid-item">
+		<h6>The swallow may fly south with the sun</h6>
+		<p>On second thoughts, let&#39;s not go there. It is a silly place. You don&#39;t</p>
+	</div><div class="grid-item">
+		<h6>Carrot cake fruitcake dessert apple</h6>
+		<p>Pie powder lemon drops sesame snaps cake brownie. Biscuit ice cream gin</p>
+	</div><div class="grid-item">
+		<h6>Cauliflower cheese cream cheese baby</h6>
+		<p>Lancashire cheesy feet rubber cheese cheese and wine gouda the big chee</p>
+	</div><div class="grid-item">
+		<h6>Nesciunt sunt cillum keytar Pitchfork</h6>
+		<p>Tote bag mixtape PBR Helvetica scenester forage four loko. Irure Tonx</p>
+	</div><div class="grid-item">
+		<h6>Webtwo ipsum dolor sit amet, eskobo</h6>
+		<p>Chumby doostang bebo. Wakoopa oooj geni zoho loopt eskobo sifteo chart</p>
+	</div>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-blockgrid" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The Blockgrid is a variation of the Grid. A .grid.blockgrid contains several .grid-item s which are positioned in a predefined responsive grid.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"grids"},"patternExtension":"mustache","patternName":"Blockgrid","patternPartial":"global-blockgrid","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-grid" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-grids-grid&#x2F;10-global-grids-grid.rendered.html" class="patternLink" data-patternpartial="global-grid" title="Link to Pattern">
+          Grid
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-grid" title="View Pattern Info" id="sg-pattern-extra-toggle-global-grid" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-grid">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="grid">
+	<div class="grid-item">
+		<div class="callout panel">
+			<p>12</p>
+		</div>
+	</div>
+	<div class="grid-item small-1">
+		<div class="callout panel">
+			<p>1</p>
+		</div>
+	</div>
+	<div class="grid-item small-2">
+		<div class="callout panel">
+			<p>2</p>
+		</div>
+	</div>
+	<div class="grid-item small-3">
+		<div class="callout panel">
+			<p>3</p>
+		</div>
+	</div>
+	<div class="grid-item small-6">
+		<div class="callout panel">
+			<p>6</p>
+		</div>
+	</div>
+	<div class="grid-item small-3">
+		<div class="callout panel">
+			<p>3</p>
+		</div>
+	</div>
+	<div class="grid-item small-1 medium-6">
+		<div class="callout panel">
+			<p>1-6</p>
+		</div>
+	</div>
+	<div class="grid-item small-1 medium-3">
+		<div class="callout panel">
+			<p>1-3</p>
+		</div>
+	</div>
+	<div class="grid-item small-6">
+		<div class="">
+			<div class="grid">
+				<div class="grid-item normal-4">
+					<div class="callout panel">
+						<p>4</p>
+					</div>
+				</div>
+				<div class="grid-item normal-4">
+					<div class="callout panel">
+						<p>4</p>
+					</div>
+				</div>
+				<div class="grid-item normal-4">
+					<div class="callout panel">
+						<p>4</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="grid-item small-1 medium-6">
+		<div class="callout panel">
+			<p>1-6</p>
+		</div>
+	</div>
+</div>
+
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-grid" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The Grid is a predefined <strong>mobile first</strong> layout module. It's based on a 12 column grid. In it's most basic form a div.grid contains several .grid-item s. By default each grid-item spans all 12 columns. However by adding classes to grid-items complex layouts can be accomplished. Classes can/should be stacked e.g. div.grid-item.small-1.medium-6. This grid-item spans 12 columns on all screens, but only spans 1 column on small screens (40em and up), and then spanning 6 columns on medium screens (64em and up).</p>\n<ul>\n<li><strong>all:</strong> By adding a class .all-1, .all-2 ... up to .all-12 to a .grid-item, this item spans 1, 2 ... up to 12 of the available 12 columns <strong>on all screens.</strong> It can however be overwritten by the following classes.</li>\n<li><strong>tiny:</strong> Same as above but for <strong>screens 30em and up</strong> overwriting .all classes.</li>\n<li><strong>small:</strong> Same as above but for <strong>screens 40em and up.</strong></li>\n<li><strong>normal:</strong> Same as above but for <strong>screens 48em and up.</strong></li>\n<li><strong>medium:</strong> Same as above but for <strong>screens 64em and up.</strong></li>\n<li><strong>large:</strong> Same as above but for <strong>screens 80em and up.</strong></li>\n<li><strong>xlarge:</strong> Same as above but for <strong>screens 90em and up.</strong></li>\n<li><strong>xxlarge:</strong> Same as above but for <strong>screens 100em and up.</strong></li>\n<li><strong>xxxlarge:</strong> Same as above but for <strong>screens 120em and up.</strong></li>\n</ul>\n<p>A rudimentary fallback is implemented for non current browsers.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"grids"},"patternExtension":"mustache","patternName":"Grid","patternPartial":"global-grid","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-hr" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-hr&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-hr">hr</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-hr" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-hr-hr&#x2F;10-global-hr-hr.rendered.html" class="patternLink" data-patternpartial="global-hr" title="Link to Pattern">
+          Hr
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-hr" title="View Pattern Info" id="sg-pattern-extra-toggle-global-hr" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-hr">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <hr/>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-hr" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Default line.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"hr"},"patternExtension":"mustache","patternName":"Hr","patternPartial":"global-hr","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-hr-brand" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-hr-hr-brand&#x2F;10-global-hr-hr-brand.rendered.html" class="patternLink" data-patternpartial="global-hr-brand" title="Link to Pattern">
+          Hr Brand
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-hr-brand" title="View Pattern Info" id="sg-pattern-extra-toggle-global-hr-brand" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-hr-brand">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <hr class="brand" />
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-hr-brand" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Add class .brand can be added.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"hr"},"patternExtension":"mustache","patternName":"Hr Brand","patternPartial":"global-hr-brand","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-icons" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-icons&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-icons">icons</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-icons" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-icons-icons&#x2F;10-global-icons-icons.rendered.html" class="patternLink" data-patternpartial="global-icons" title="Link to Pattern">
+          Icons
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-icons" title="View Pattern Info" id="sg-pattern-extra-toggle-global-icons" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-icons">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline">
+	<li><span class="icon-sm-facebook" title="icon-sm-facebook"></span></li>
+	<li><span class="icon-sm-instagram" title="icon-sm-instagram"></span></li>
+	<li><span class="icon-sm-twitter" title="icon-sm-twitter"></span></li>
+	<li><span class="icon-sm-whatsapp" title="icon-sm-whatsapp"></span></li>
+	<li><span class="icon-sm-youtube" title="icon-sm-youtube"></span></li>
+
+	<li><span class="icon-arrow-left" title="icon-arrow-left"></span></li>
+	<li><span class="icon-arrow-right" title="icon-arrow-right"></span></li>
+	<li><span class="icon-arrow-up" title="icon-arrow-up"></span></li>
+	<li><span class="icon-arrow-down" title="icon-arrow-down"></span></li>
+	<li><span class="icon-arrow-increase" title="icon-arrow-increase"></span></li>
+	<li><span class="icon-arrow-decrease" title="icon-arrow-decrease"></span></li>
+
+	<li><span class="icon-hamburger" title="icon-hamburger"></span></li>
+	<li><span class="icon-close" title="icon-close"></span></li>
+	<li><span class="icon-down-open-big" title="icon-down-open-big"></span></li>
+	<li><span class="icon-up-open-big" title="icon-up-open-big"></span></li>
+	<li><span class="icon-search-big" title="icon-search-big"></span></li>
+	<li><span class="icon-minus-big" title="icon-minus-big"></span></li>
+	<li><span class="icon-plus-big" title="icon-plus-big"></span></li>
+
+	<li><span class="icon-down-open" title="icon-down-open"></span></li>
+	<li><span class="icon-up-open" title="icon-up-open"></span></li>
+	<li><span class="icon-info" title="icon-info"></span></li>
+	<li><span class="icon-attention" title="icon-attention"></span></li>
+	<li><span class="icon-search" title="icon-search"></span></li>
+	<li><span class="icon-external" title="icon-external"></span></li>
+	<li><span class="icon-download" title="icon-download"></span></li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-icons" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Custom icons bundled with <a href=\"http://www.fontello.com\">www.fontello.com</a>.</p>\n<p>Icons are inserted as :before pseudo classes using the generated fontello-webfont. Depending on the icon used, the font size is switched automagically (e.g. .icon-sm-facebook gets font-size: 42px;).</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"icons"},"patternExtension":"mustache","patternName":"Icons","patternPartial":"global-icons","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-links" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-links&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-links">links</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-text" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-links-10-text&#x2F;10-global-links-10-text.rendered.html" class="patternLink" data-patternpartial="global-text" title="Link to Pattern">
+          Text
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-text" title="View Pattern Info" id="sg-pattern-extra-toggle-global-text" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-text">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <p>A <a href="#" title="" class="">normal link</a>, a <a href="#" title="" class="textlink">text link</a>, an <a href="http:&#x2F;&#x2F;www.transporter.at" title="" class="">external link</a>, a <a href="#" title="" class="translink">Transporter Link</a>.</p>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-text" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Adding class a.textlink draws branded background, external links are highlighted with an icon.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"links"},"patternExtension":"mustache","patternName":"Text","patternPartial":"global-text","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-image" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-links-20-image&#x2F;10-global-links-20-image.rendered.html" class="patternLink" data-patternpartial="global-image" title="Link to Pattern">
+          Image
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-image" title="View Pattern Info" id="sg-pattern-extra-toggle-global-image" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-image">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="http:&#x2F;&#x2F;placeimg.com&#x2F;800&#x2F;400&#x2F;nature" title="2x1 Image" class="img modal-gallery-trigger mfp-image">
+	<img src="http:&#x2F;&#x2F;placeimg.com&#x2F;500&#x2F;500&#x2F;nature" title="Square" alt="Square" class="" />
+
+</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-image" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-square","lineagePath":"../../patterns/20-atoms-images-square/20-atoms-images-square.rendered.html"}],"lineage":[{"lineagePattern":"atoms-square","lineagePath":"../../patterns/20-atoms-images-square/20-atoms-images-square.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>Linked images need the class a.img for consistent styling.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"links"},"patternExtension":"mustache","patternName":"Image","patternPartial":"global-image","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-lists" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-lists&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-lists">lists</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-lists" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-lists-lists&#x2F;10-global-lists-lists.rendered.html" class="patternLink" data-patternpartial="global-lists" title="Link to Pattern">
+          Lists
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-lists" title="View Pattern Info" id="sg-pattern-extra-toggle-global-lists" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-lists">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="grid">
+	<div class="grid-item small-6 normal-3">
+		<h6>ul</h6>
+		<ul class="disc">
+			<li>All right. Well, take care of yourself, Han</li><li>Lorizzle pimpin&#39; dolizzle sit amet I</li><li>Bacon ipsum dolor sit amet spare rib</li>
+		</ul>
+	</div>
+	<div class="grid-item small-6 normal-3">
+		<h6>ul.list-plain</h6>
+		<ul class="list-plain">
+			<li>All right. Well, take care of yourself, Han</li><li>Lorizzle pimpin&#39; dolizzle sit amet I</li><li>Bacon ipsum dolor sit amet spare rib</li>
+		</ul>
+	</div>
+	<div class="grid-item small-6 normal-3">
+		<h6>ul.circle</h6>
+		<ul class="circle">
+			<li>All right. Well, take care of yourself, Han</li><li>Lorizzle pimpin&#39; dolizzle sit amet I</li><li>Bacon ipsum dolor sit amet spare rib</li>
+		</ul>
+	</div>
+	<div class="grid-item small-6 normal-3">
+		<h6>ul.square</h6>
+		<ul class="square">
+			<li>All right. Well, take care of yourself, Han</li><li>Lorizzle pimpin&#39; dolizzle sit amet I</li><li>Bacon ipsum dolor sit amet spare rib</li>
+		</ul>
+	</div>
+	<div class="grid-item small-6 normal-3">
+		<h6>ol</h6>
+		<ol class="">
+			<li>All right. Well, take care of yourself, Han</li><li>Lorizzle pimpin&#39; dolizzle sit amet I</li><li>Bacon ipsum dolor sit amet spare rib</li>
+		</ol>
+	</div>
+	<div class="grid-item small-6 normal-3">
+		<h6>ol.list-plain</h6>
+		<ol class="list-plain">
+			<li>All right. Well, take care of yourself, Han</li><li>Lorizzle pimpin&#39; dolizzle sit amet I</li><li>Bacon ipsum dolor sit amet spare rib</li>
+		</ol>
+	</div>
+	<div class="grid-item small-6 normal-3">
+		<h6>ul.list-inline</h6>
+		<ul class="list-inline">
+			<li>Jacobus</li><li>Junius</li><li>Teun</li><li>Frans</li><li>Fergus</li>
+		</ul>
+	</div>
+	<div class="grid-item small-6 normal-3">
+		<h6>ul.list-sidenav</h6>
+		<ul class="list-sidenav">
+			<li><a href="" title="">Sneiders</a></li><li><a href="" title="">Koolen</a></li><li><a href="" title="">Richard</a></li><li><a href="" title="">Keegan</a></li>
+		</ul>
+	</div>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-lists" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Classes can be added to &lt;ul&gt; and &lt;ol&gt; list containers for special purposes:</p>\n<ul>\n<li><strong>list-plain</strong> removes the bullet points et al</li>\n<li><strong>list-circle</strong> draws circles instead of full bullets</li>\n<li><strong>list-square</strong> draws squares instead of full bullets</li>\n</ul>\n<ul>\n<li><strong>list-inline</strong> generates an inline list with inline-block child items</li>\n<li><strong>list-sidenav</strong> generates an small side navigation</li>\n</ul>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"lists"},"patternExtension":"mustache","patternName":"Lists","patternPartial":"global-lists","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-modals" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-modals&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-modals">modals</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-modal-ajax" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-modals-modal-ajax&#x2F;10-global-modals-modal-ajax.rendered.html" class="patternLink" data-patternpartial="global-modal-ajax" title="Link to Pattern">
+          Modal Ajax
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-modal-ajax" title="View Pattern Info" id="sg-pattern-extra-toggle-global-modal-ajax" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-modal-ajax">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" title="AJAX" class="modal-trigger mfp-ajax pure-button">AJAX</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-modal-ajax" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The trigger for a Modal gets the class .modal-trigger. For an AJAX Modal the class .mfp-ajax has to be added. The URL to be loaded is the trigger's href-parameter.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"modals"},"patternExtension":"mustache","patternName":"Modal Ajax","patternPartial":"global-modal-ajax","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-modal-ajax-content" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-modals-modal-ajax-content&#x2F;10-global-modals-modal-ajax-content.rendered.html" class="patternLink" data-patternpartial="global-modal-ajax-content" title="Link to Pattern">
+          Modal Ajax Content
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-modal-ajax-content" title="View Pattern Info" id="sg-pattern-extra-toggle-global-modal-ajax-content" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-modal-ajax-content">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="modal-container">
+	<p>Hi guys, I am AJAX content!</p>
+</div>
+	
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-modal-ajax-content" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"","patternBreadcrumb":{"patternType":"global","patternSubtype":"modals"},"patternExtension":"mustache","patternName":"Modal Ajax Content","patternPartial":"global-modal-ajax-content","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-modal-gallery" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-modals-modal-gallery&#x2F;10-global-modals-modal-gallery.rendered.html" class="patternLink" data-patternpartial="global-modal-gallery" title="Link to Pattern">
+          Modal Gallery
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-modal-gallery" title="View Pattern Info" id="sg-pattern-extra-toggle-global-modal-gallery" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-modal-gallery">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline modal-gallery">
+	<li><a href="../../images/dev/screenshot.png" title="Spinach tigernut. Corn cucumber grape black-eyed pea asparagus spinach avocado dulse bunya nuts epazote celery desert raisin celtuce burdock plantain yarrow napa cabbage. Plantain okra seakale endive <a href='#'>tigernut pea sprouts asparagus</a> corn chard peanut beet greens groundnut radicchio carrot coriander gumbo gram celtuce. Jícama nori bamboo shoot collard greens okra radicchio tomato." class="modal-gallery-trigger mfp-image pure-button">Image 1</a></li>
+	<li><a href="../../images/dev/screenshot2.png" title="A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke." class="modal-gallery-trigger mfp-image pure-button">Image 2</a></li>
+	<li><a href="http://www.transporter.at" title="iFrame" class="modal-gallery-trigger mfp-iframe pure-button">iFrame (Basic)</a></li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-modal-gallery" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>A Modal Gallery is made of a container with the class .modal-gallery. It contains triggers with the class .modal-gallery-trigger. Additional classes can be added for special modal content, like .mfp-image or .mfp-iframe.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"modals"},"patternExtension":"mustache","patternName":"Modal Gallery","patternPartial":"global-modal-gallery","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-modal-iframe" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-modals-modal-iframe&#x2F;10-global-modals-modal-iframe.rendered.html" class="patternLink" data-patternpartial="global-modal-iframe" title="Link to Pattern">
+          Modal Iframe
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-modal-iframe" title="View Pattern Info" id="sg-pattern-extra-toggle-global-modal-iframe" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-modal-iframe">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="http://www.transporter.at" title="iFrame" class="modal-trigger mfp-iframe pure-button">iFrame (Basic)</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-modal-iframe" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The trigger for a Modal gets the class .modal-trigger. For an iFrame Modal the class .mfp-iframe has to be added. The URL to be loaded is the trigger's href-parameter.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"modals"},"patternExtension":"mustache","patternName":"Modal Iframe","patternPartial":"global-modal-iframe","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-modal-image" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-modals-modal-image&#x2F;10-global-modals-modal-image.rendered.html" class="patternLink" data-patternpartial="global-modal-image" title="Link to Pattern">
+          Modal Image
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-modal-image" title="View Pattern Info" id="sg-pattern-extra-toggle-global-modal-image" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-modal-image">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="../../images/dev/screenshot.png" title="Spinach tigernut. Corn cucumber grape black-eyed pea asparagus spinach avocado dulse bunya nuts epazote celery desert raisin celtuce burdock plantain yarrow napa cabbage. Plantain okra seakale endive <a href='#'>tigernut pea sprouts asparagus</a> corn chard peanut beet greens groundnut radicchio carrot coriander gumbo gram celtuce. Jícama nori bamboo shoot collard greens okra radicchio tomato." data-title="Some Title" class="modal-trigger mfp-image pure-button">Image</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-modal-image" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The trigger for a Modal gets the class .modal-trigger. For an Image Modal the class .mfp-image has to be added. The image's URL is the trigger's href-parameter.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"modals"},"patternExtension":"mustache","patternName":"Modal Image","patternPartial":"global-modal-image","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-modal-inline" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-modals-modal-inline&#x2F;10-global-modals-modal-inline.rendered.html" class="patternLink" data-patternpartial="global-modal-inline" title="Link to Pattern">
+          Modal Inline
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-modal-inline" title="View Pattern Info" id="sg-pattern-extra-toggle-global-modal-inline" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-modal-inline">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="#inline-popup" title="Inline" class="modal-trigger mfp-inline pure-button">Inline</a>
+
+
+<div id="inline-popup" class="modal-container mfp-hide">
+	
+	<div class="grid">
+		<div class="grid-item all-12">
+			<h3>Inline Modal</h3>
+		</div>
+		<div class="grid-item small-6">
+			<form class="pure-form">
+				<input type="text" placeholder="Focus" class="modal-focus" />
+			</form>
+			<p>Spinach tigernut. Corn cucumber grape black-eyed pea asparagus spinach avocado dulse bunya nuts epazote celery desert raisin celtuce burdock plantain yarrow napa cabbage. Plantain okra seakale endive <a href='#'>tigernut pea sprouts asparagus</a> corn chard peanut beet greens groundnut radicchio carrot coriander gumbo gram celtuce. Jícama nori bamboo shoot collard greens okra radicchio tomato.</p>
+		</div>
+		<div class="grid-item small-6">
+			<img src="http:&#x2F;&#x2F;placeimg.com&#x2F;800&#x2F;450&#x2F;nature" title="16x9 Image" alt="16x9 Image" class="" />
+		</div>
+	</div>
+	
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-modal-inline" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":true,"patternLineages":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"}],"lineage":[{"lineagePattern":"atoms-landscape-16x9","lineagePath":"../../patterns/20-atoms-images-landscape-16x9/20-atoms-images-landscape-16x9.rendered.html"}],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":true,"patternDesc":"<p>The trigger for a Modal gets the class .modal-trigger. For an Inline Modal the class .mfp-inline has to be added.</p>\n<p>The Inline Modal's content is placed inside a container with the classes .modal-container.mfp-hide. This containers unique id is the trigger's href-parameter.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"modals"},"patternExtension":"mustache","patternName":"Modal Inline","patternPartial":"global-modal-inline","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-modal-inline-alert" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-modals-modal-inline-alert&#x2F;10-global-modals-modal-inline-alert.rendered.html" class="patternLink" data-patternpartial="global-modal-inline-alert" title="Link to Pattern">
+          Modal Inline Alert
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-modal-inline-alert" title="View Pattern Info" id="sg-pattern-extra-toggle-global-modal-inline-alert" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-modal-inline-alert">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="#inline-popup-alert-error" title="Inline" class="modal-trigger mfp-inline pure-button">Inline Error</a>
+
+<div id="inline-popup-alert-error" class="modal-container mfp-hide error panel">
+	<div class="grid">
+		<div class="grid-item all-12">
+			<h3>Inline Modal Error</h3>
+		</div>
+		<div class="grid-item small-6">
+			<p>Evil error!!!!!!</p>
+		</div>
+	</div>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-modal-inline-alert" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>This is similar to the Inline Modal. The classes .error.panel have been added to the content container.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"modals"},"patternExtension":"mustache","patternName":"Modal Inline Alert","patternPartial":"global-modal-inline-alert","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-modal-video" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-modals-modal-video&#x2F;10-global-modals-modal-video.rendered.html" class="patternLink" data-patternpartial="global-modal-video" title="Link to Pattern">
+          Modal Video
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-modal-video" title="View Pattern Info" id="sg-pattern-extra-toggle-global-modal-video" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-modal-video">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <a href="http://www.youtube.com?v=PIyEsLcr-Ms" title="iFrame YouTube" class="modal-trigger mfp-iframe pure-button">iFrame YouTube</a>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-modal-video" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>This is similar to the iFrame Modal. The video's URL is the trigger's href-parameter.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"modals"},"patternExtension":"mustache","patternName":"Modal Video","patternPartial":"global-modal-video","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-text" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-text&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-text">text</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-fonts" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-text-10-fonts&#x2F;10-global-text-10-fonts.rendered.html" class="patternLink" data-patternpartial="global-fonts" title="Link to Pattern">
+          Fonts
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-fonts" title="View Pattern Info" id="sg-pattern-extra-toggle-global-fonts" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-fonts">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-plain">
+	<li>
+		<p><span class="label secondary">Light</span>
+		<span class="light">-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";</span></p>
+	</li>
+	<li>
+		<p><span class="label secondary">Normal</span>
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";</span></p>
+	</li>
+	<li>
+		<p><span class="label secondary">Bold</span>
+		<span class="bold">-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";</span></p>
+	</li>
+	<li>
+		<p><span class="label secondary">Heavy</span>
+		<span class="heavy">-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";</span></p>
+	</li>
+	<li>
+		<p><span class="label secondary">Headline</span>
+		<span class="headline">-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";</span></p>
+	</li>
+	<li>
+		<p><span class="label secondary">Italic</span>
+		<span class="italic">-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";</span></p>
+	</li>
+	<li>
+		<p><span class="label secondary">Monospace</span>
+		<span class="monospace">"SF Mono", "Monaco", "Inconsolata", "Fira Mono", "Droid Sans Mono", "Source Code Pro", monospace;</span></p>
+	</li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-fonts" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>The website uses the fonts of the user's OS. Therefore no fonts have to be loaded with the website (besides the Fontello icons webfont). For newer OS versions the utilised font stack might have to be updated.</p>\n<p>The font weight and/or style can be controlled by adding classes: .light, .normal, .bold, .heavy, .headline, .italic, .monospace</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"text"},"patternExtension":"mustache","patternName":"Fonts","patternPartial":"global-fonts","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-headlines" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-text-20-headlines&#x2F;10-global-text-20-headlines.rendered.html" class="patternLink" data-patternpartial="global-headlines" title="Link to Pattern">
+          Headlines
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-headlines" title="View Pattern Info" id="sg-pattern-extra-toggle-global-headlines" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-headlines">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="grid">
+	<div class="grid-item normal-6">
+		<h1>Headline <a href="" title="" class="textlink">h1</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h1>
+		<h2>Headline <a href="" title="" class="textlink">h2</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h2>
+		<h3>Headline <a href="" title="" class="textlink">h3</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h3>
+		<h4>Headline <a href="" title="" class="textlink">h4</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h4>
+		<h5>Headline <a href="" title="" class="textlink">h5</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h5>
+		<h6>Headline <a href="" title="" class="textlink">h6</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h6>
+	</div>
+	<div class="grid-item normal-6">
+		<h1 class="subheader">Subheader <a href="" title="" class="textlink">h1</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h1>
+		<h2 class="subheader">Subheader <a href="" title="" class="textlink">h2</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h2>
+		<h3 class="subheader">Subheader <a href="" title="" class="textlink">h3</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h3>
+		<h4 class="subheader">Subheader <a href="" title="" class="textlink">h4</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h4>
+		<h5 class="subheader">Subheader <a href="" title="" class="textlink">h5</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h5>
+		<h6 class="subheader">Subheader <a href="" title="" class="textlink">h6</a> Beats all <a href=''>shizzle</a>. Sad Teletubbies. <small>Small</small></h6>
+	</div>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-headlines" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Headlines &lt;h1&gt; and &lt;h2&gt; are the same size, as are &lt;h3&gt; and &lt;h4&gt;, as are &lt;h5&gt; and &lt;h6&gt;. These pairs only differ in color.</p>\n<p>Adding class .subheader modifies the font-weight from heavy to normal.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"text"},"patternExtension":"mustache","patternName":"Headlines","patternPartial":"global-headlines","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="global-paragraph-formatierung" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-text-30-paragraph-formatierung&#x2F;10-global-text-30-paragraph-formatierung.rendered.html" class="patternLink" data-patternpartial="global-paragraph-formatierung" title="Link to Pattern">
+          Paragraph Formatierung
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-paragraph-formatierung" title="View Pattern Info" id="sg-pattern-extra-toggle-global-paragraph-formatierung" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-paragraph-formatierung">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <div class="grid">
+	<div class="grid-item normal-6">
+		<p>Spinach tigernut. Corn cucumber grape black-eyed pea asparagus spinach avocado dulse bunya nuts epazote celery desert raisin celtuce burdock plantain yarrow napa cabbage. Plantain okra seakale endive <a href='#'>tigernut pea sprouts asparagus</a> corn chard peanut beet greens groundnut radicchio carrot coriander gumbo gram celtuce. Jícama nori bamboo shoot collard greens okra radicchio tomato.</p>
+		<p>A fava bean collard greens endive tomatillo lotus root okra winter <a href=''>purslane</a> zucchini parsley spinach artichoke.</p>
+		<p>
+		<q>I am a quote.</q><br />
+		<cite>I am the source</cite></p>
+		<p><pre>I am preformatted text
+@ A B C D E F G H I J K L M N O</pre></p>
+		</p>
+	</div>
+	<div class="grid-item normal-6">
+		<p><span class="light">I am light text.</span><br />
+		I am normal text.<br />
+		<span class="normal">So am I.</span><br />
+		<strong>I am strong text.</strong><br />
+		<b>I am bold text.</b><br />
+		<span class="heavy">I am heavy text.</span><br />
+		<span class="headline">I am headline text.</span><br />
+		<em>I am emphasized text.</em><br />
+		<i>I am italics text.</i><br />
+		<u>I am underlined text.</u><br />
+		<s>I am crossed out text.</s><br />
+		<span class="monospace">I am monospace text.</span><br />
+		<span class="letterspace">I am letterspace text.</span><br />
+		<span class="tiny">I am tiny text.</span><br />
+		<small>I am small text.</small><br />
+		<span class="large">I am large text.</span><br />
+		<span class="xlarge">I am xlarge text.</span><br />
+		I am <sup>superscripted</sup> and <sub>subscripted</sub> text<br />
+		I am an <abbr title="Abbreviation" class="tooltip">abbr</abbr>.<br />
+		<del>I am deleted text.</del><br />
+		<kbd>I am inputted text.</kbd><br />
+		<ins>I am inserted text.</ins><br />
+		<mark>I am marked text.</mark><br />
+		<code>I am code.</code><br />
+		<samp>I am a sample.</samp><br />
+		<dfn>I am a definition.</dfn><br />
+		<var>I am a variable.</var></p>
+	</div>
+</div>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-paragraph-formatierung" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<h6>Special text related tags</h6>\n<ul>\n<li>&lt;q&gt; for a quote with</li>\n<li>&lt;cite&gt; for the source</li>\n<li>&lt;pre&gt; for preformatted monospaced text</li>\n</ul>\n<h6>Text can be altered/highlighted by adding classes or using text related tags</h6>\n<ul>\n<li>.light, .duenn for light font-weight</li>\n<li>.normal for normal font-weight</li>\n<li>&lt;b&gt;, &lt;strong&gt;, .bold, .fett for bold font-weight</li>\n<li>.heavy for heavy font-weight</li>\n<li>&lt;i&gt;, &lt;em&gt;, .italic for italics</li>\n<li>&lt;u&gt; for underlined text</li>\n<li>&lt;s&gt; for crossed out text</li>\n</ul>\n<ul>\n<li>.tiny for tiny text</li>\n<li>&lt;small&gt;, .small, .klein for small text</li>\n<li>&lt;sub&gt;, &lt;sup&gt; for superscripted and subscripted text</li>\n</ul>\n<ul>\n<li>&lt;abbr&gt; for abbreviations</li>\n<li>&lt;del&gt; for deleted text</li>\n<li>&lt;kbd&gt; for inputted text</li>\n<li>&lt;ins&gt; for inserted text</li>\n<li>&lt;mark&gt; for marked / highlighted text</li>\n<li>&lt;code&gt; for code</li>\n<li>&lt;samp&gt; for a sample</li>\n<li>&lt;dfn&gt; for a definition</li>\n<li>&lt;var&gt; for a variable</li>\n</ul>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"text"},"patternExtension":"mustache","patternName":"Paragraph Formatierung","patternPartial":"global-paragraph-formatierung","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+<div id="viewall-global-tooltips" class="sg-pattern-category">
+  <h2 class="sg-pattern-category-title"><a href="../../patterns/10-global-tooltips&#x2F;index.html" class="patternLink" data-patternpartial="viewall-global-tooltips">tooltips</a></h2>
+
+  <div class="sg-pattern-category-body">
+    
+  </div><!--end sg-pattern-category-body-->
+  
+</div><!--end sg-pattern-category-->
+<div id="global-tooltip" class="sg-pattern">
+  <div class="sg-pattern-head">
+    <h3 class="sg-pattern-title">
+      <a href="../../patterns/10-global-tooltips-tooltip&#x2F;10-global-tooltips-tooltip.rendered.html" class="patternLink" data-patternpartial="global-tooltip" title="Link to Pattern">
+          Tooltip
+      </a>
+    </h3>
+    <div class="sg-pattern-breadcrumb"></div>
+    <a href="#" data-patternpartial="global-tooltip" title="View Pattern Info" id="sg-pattern-extra-toggle-global-tooltip" class="sg-pattern-extra-toggle"><span>&#9660;</span></a>
+  </div>
+  <div class="sg-pattern-extra" id="sg-pattern-extra-global-tooltip">
+    
+  </div>
+  <div class="sg-pattern-example">
+    <ul class="list-inline ">
+	<li><button title="I am a Tooltip" class="pure-button tooltip">Tooltip</button></li>
+	<li><button title="<h3>I am the Headline</h3><p>... of a HTML-Tooltip</p>" class="pure-button tooltip html">HTML-Tooltip</button></li>
+</ul>
+  </div>
+  <script type="text/json" id="sg-pattern-data-global-tooltip" class="sg-pattern-data">
+    {"cssEnabled":false,"patternLineageExists":false,"patternLineages":[],"lineage":[],"patternLineageRExists":false,"patternLineagesR":[],"lineageR":[],"patternLineageEExists":false,"patternDesc":"<p>Tooltips get class .tooltip on the trigger. The tooltip's content is the trigger's title-parameter.</p>\n<p>By adding class .html to the trigger, you get an HTML tooltip. The trigger's title contains the tooltip's HTML.</p>\n","patternBreadcrumb":{"patternType":"global","patternSubtype":"tooltips"},"patternExtension":"mustache","patternName":"Tooltip","patternPartial":"global-tooltip","patternState":"","patternEngineName":"mustache","extraOutput":{}}
+  </script>
+</div><!--end .sg-pattern-->
+  </div> <!--end #sg-patterns-->
+
+</div><!--end .sg-main-->
+
+
+
+
+
+<!--DO NOT REMOVE-->
+<script type="text/json" id="sg-pattern-data-footer" class="sg-pattern-data">
+  {"patternPartial":"viewall-global-all"}
+</script>
+
+<script>
+  /*!
+   * scriptLoader - v0.1
+   *
+   * Copyright (c) 2014 Dave Olsen, http://dmolsen.com
+   * Licensed under the MIT license
+   *
+   */
+  
+  var scriptLoader = {
+    
+    run: function(js,cb,target) {
+      var s  = document.getElementById(target+'-'+cb);
+      for (var i = 0; i < js.length; i++) {
+        var src = (typeof js[i] != 'string') ? js[i].src : js[i];
+        var c   = document.createElement('script');
+        c.src   = '../../'+src+'?'+cb;
+        if (typeof js[i] != 'string') {
+          if (js[i].dep !== undefined) {
+            c.onload = function(dep,cb,target) {
+              return function() {
+                scriptLoader.run(dep,cb,target);
+              }
+            }(js[i].dep,cb,target);
+          }
+        }
+        s.parentNode.insertBefore(c,s);
+      }
+    }
+    
+  }
+</script>
+
+<script id="pl-js-polyfill-insert-1524759711797">
+  (function() {
+    if (self != top) {
+      var cb = '1524759711797';
+      var js = [];
+      if (typeof document !== 'undefined' && !('classList' in document.documentElement)) {
+        js.push('styleguide/bower_components/classList.min.js');
+      }
+      scriptLoader.run(js,cb,'pl-js-polyfill-insert');
+    }
+  })();
+</script>
+
+<script id="pl-js-insert-1524759711797">
+  (function() {
+    if (self != top) {
+      var cb = '1524759711797';
+      var js = [ { 'src': 'styleguide/bower_components/jwerty.min.js', 'dep': [ 'styleguide/js/patternlab-pattern.min.js' ] } ];
+      scriptLoader.run(js,cb,'pl-js-insert');
+    }
+  })();
+</script>
+
+
+
+<!-- !javascript -->
+<script src="../../bower_components/jquery-3.3.1/jquery-3.3.1.min.js"></script>
+
+<script src="../../bower_components/sweet-scroll-master_3.0.0/sweet-scroll.js"></script>
+<script src="../../bower_components/animejs_2.2.0/anime.min.js"></script>
+<script src="../../bower_components/magnific-popup_1.1.0/dist/jquery.magnific-popup.min.js"></script>
+<script src="../../bower_components/tippyjs_2.2.3/dist/tippy.all.min.js"></script>
+<script src="../../bower_components/jquery-selectric/public/jquery.selectric.min.js"></script>
+<script src="../../bower_components/tilt_1.1.19/dest/tilt.jquery.min.js"></script>
+<script src="../../bower_components/fluidvids_2.4.1/dist/fluidvids.min.js"></script>
+
+<script src="../../js/custom.js"></script>
+
+  
+</body>
+
+
+</html>
+
+
+<!-- Have a beautiful and save day! -->

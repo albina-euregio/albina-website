@@ -1,0 +1,39 @@
+<div id="page-footer" class="page-footer">
+	
+	<section class="section section-padding page-footer-navigation">
+		
+		<div class="grid">
+			
+			<div class="grid-item normal-6">
+				{{> molecules-page-footer-navigation }}
+			</div>
+			
+			<div class="grid-item normal-6">
+				<p class="page-footer-subscribe">
+					{{> atoms-a-button(buttonUrl: "../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html", buttonText: "Subscribe ", buttonTitle: "Subscribe to Daily Bulletin, Social Media, Newsletter, Apps", buttonClass: "modal-trigger mfp-ajax pure-button tooltip") }}
+
+				</p>
+				<p class="page-footer-text">{{{ excerpt.medium }}}</p>
+				<p class="page-footer-interreg">
+					<a href="#" class="logo-interreg tooltip" title="Interreg"><span>Interreg</span></a>
+				</p>
+			</div>
+			
+			<div class="grid-item all-12">
+				<p class="page-footer-top">
+					<a href="#page-main" class="icon-arrow-up tooltip" title="Top" data-scroll><span>Top</span></a>
+				</p>
+			</div>
+			
+		</div>
+		
+	</section>
+	
+	<section class="section section-padding sm-share-follow">
+		
+		<p><strong>Follow us</strong> on Social Media</p>
+		{{> molecules-sm-buttons(smTitle: "Follow") }}
+		
+	</section>
+	
+</div>

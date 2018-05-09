@@ -1,0 +1,51 @@
+<section id="section-bulletin-map" class="section section-bulletin section-bulletin-map">
+	<div class="bulletin-map-container">
+		
+		
+		
+		<iframe src="https://www.google.com/maps/d/embed?mid=1gRXrDv0Lp_-FbfUG7FJZ3_cRDSd8moFL" class="bulletin-map bulletin-map-google"></iframe>
+		
+		
+		
+		<div class="bulletin-map-search">
+			<div class="pure-form pure-form-search">
+				<input type="text" id="input" class="tooltip" placeholder="Search" title="Type in a region" />{{> atoms-icon-button(iconClass: "icon-search" }}
+			</div>	
+		</div>
+		
+		
+		
+		<div class="bulletin-map-zoom">
+			<ul class="list-plain">
+				<li class="bulletin-map-zoom-plus">
+					<button href="#" class="pure-button pure-button-icon icon-plus-big tooltip" title="Zoom in"><span>&nbsp;</span></button>
+				</li>
+				<li class="bulletin-map-zoom-minus">
+					<button href="#" class="pure-button pure-button-icon icon-minus-big tooltip" title="Zoom out"><span>&nbsp;</span></button>
+				</li>
+			</ul>
+		</div>
+		
+		
+		
+		<div class="bulletin-map-details js-active top-right">
+			<ul class="list-plain">
+				<li class="bulletin-report-picto tooltip" title="Above 1800m: Warning Level 3<br/>Below 1800m: Warning Level 2">
+					<img src="../../images/pro/warning-pictos/levels_2_3.png" alt="Warning Levels 2 and 3" />
+					<span>1800m</span>
+				</li>
+				<li class="bulletin-report-picto tooltip" title="Drifting Snow">
+					<img src="../../images/pro/avalanche-situations/drifting_snow.png" alt="Drifting Snow" />
+				</li>
+				<li class="bulletin-report-picto tooltip" title="Old Snow">
+					<img src="../../images/pro/avalanche-situations/old_snow.png" alt="DrifOldting Snow" />
+				</li>
+			</ul>
+			<a href="#section-bulletin-report" class="pure-button tooltip" title="See full bulletin report" data-scroll><span>Click for</span> Details<span class="icon-arrow-down"></span></a>
+			
+		</div>
+		
+		
+		
+	</div>	
+</section>
