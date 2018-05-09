@@ -48,9 +48,9 @@ export default class PageHeader extends React.Component {
               <ul className="list-plain subnavigation">
                 <li><a href="#" className title>Archive</a></li>
                 <li><a href="#" className title>API</a></li>
-                <li><a href="#" className title>About</a></li>
-                <li><a href="#" className title>Contact</a></li>
-                <li><a href="#" className title>Imprint</a></li>
+                <li><a href="./about" className title>About</a></li>
+                <li><a href="./contact" className title>Contact</a></li>
+                <li><a href="./imprint" className title>Imprint</a></li>
               </ul>
             </li>
           </ul>

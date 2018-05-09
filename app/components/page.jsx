@@ -1,4 +1,6 @@
 import React from 'react';
+import PageLoadingScreen from './organisms/page-loading-screen.jsx';
+import Jumpnav from './organisms/jumpnav.jsx';
 import PageHeader from './organisms/page-header.jsx';
 import PageFooter from './organisms/page-footer.jsx';
 import { renderRoutes } from 'react-router-config';
@@ -27,13 +29,15 @@ export default class Page extends React.Component {
 
   render() {
     return (
-      /* <PageLoadingScreen /> */
-      /* <Jumpnav /> */
-      <div id="page-all" className="page-all">
-        <PageHeader />
-        <main id="page-main" className="page-main">
-          <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
-        </main>
+      <div>
+        <PageLoadingScreen />
+        <Jumpnav />
+        <div id="page-all" className="page-all">
+          <PageHeader />
+          <main id="page-main" className="page-main">
+            <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
+          </main>
+        </div>
         <PageFooter />
       </div>
     );
