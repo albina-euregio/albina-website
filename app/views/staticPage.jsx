@@ -2,6 +2,11 @@ import React from 'react';
 import { Parser } from 'html-to-react';
 import Base from './../base';
 
+/*
+ * Compontent to be used for pages with content delivered by CMS API.
+ *
+ * FIXME: add language support.
+ */
 export default class StaticPage extends React.Component {
   constructor(props) {
     super(props);

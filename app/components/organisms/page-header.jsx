@@ -1,7 +1,7 @@
 import React from 'react';
 
-var PageHeader = React.createClass({
-  render: function() {
+export default class PageHeader extends React.Component {
+  render() {
     return (
         <div id="page-header" className="page-header" data-scroll-header>
         <div className="page-header-logo">
@@ -71,6 +71,4 @@ var PageHeader = React.createClass({
       </div>
     );
   }
-});
-
-export default PageHeader;
+}

@@ -7,13 +7,10 @@ import Bulletin from './../views/bulletin.jsx';
 import Blog from './../views/blog.jsx';
 import Weather from './../views/weather.jsx';
 import Education from './../views/education.jsx';
-import Info from './../views/info.jsx';
 import StaticPage from './../views/staticPage.jsx';
-import PageHeadingWrapper from './pageheading/wrapper.jsx';
-import PageFooterWrapper from './pagefooter/wrapper.jsx';
 import Page from './page.jsx';
 
-//require('../css/style.css');
+// FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require('../css/app.css');
 
 export default class App extends React.Component {

@@ -1,7 +1,7 @@
 import React from 'react';
 
-var PageFooter = React.createClass({
-  render: function() {
+export default class PageFooter extends React.Component {
+  render() {
     return (
        <div id="page-footer" className="page-footer">
         <section className="section section-padding page-footer-navigation">
@@ -51,6 +51,4 @@ var PageFooter = React.createClass({
       </div>
     );
   }
-});
-
-export default PageFooter;
+}
