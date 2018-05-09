@@ -27,6 +27,8 @@ export default class Page extends React.Component {
 
   render() {
     return (
+      /* <PageLoadingScreen /> */
+      /* <Jumpnav /> */
       <div id="page-all" className="page-all">
         <PageHeader />
         <main id="page-main" className="page-main">

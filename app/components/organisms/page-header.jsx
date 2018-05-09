@@ -3,10 +3,9 @@ import React from 'react';
 var PageHeader = React.createClass({
   render: function() {
     return (
-
-      <div id="page-header" className="page-header" data-scroll-header>
+        <div id="page-header" className="page-header" data-scroll-header>
         <div className="page-header-logo">
-          <a href="#" className title="Home">
+          <a href="#" className="tooltip" title="Home">
             <span className="mark mark-de" />
             <span className="mark mark-it" />
             <span className="mark mark-en" />
@@ -17,9 +16,9 @@ var PageHeader = React.createClass({
         </div>
         <div className="page-header-navigation">
           <ul className="list-plain navigation">
-            <li><a href="bulletin" className=" " title>Avalanche Bulletin <small>Home</small></a></li>
+            <li><a href="./bulletin" className=" " title>Avalanche Bulletin <small>Home</small></a></li>
             <li>
-              <a href="weather" className=" has-sub" title>Snow &amp; Weather</a>
+              <a href="./weather" className=" has-sub" title>Snow &amp; Weather</a>
               <ul className="list-plain subnavigation">
                 <li><a href="#" className title>Aktuelle Karten</a></li>
                 <li><a href="#" className title>Stationsmesswerte</a></li>
@@ -31,7 +30,7 @@ var PageHeader = React.createClass({
               </ul>
             </li>
             <li>
-              <a href="education" className=" has-sub" title>Education &amp; Prevention</a>
+              <a href="./education" className=" has-sub" title>Education &amp; Prevention</a>
               <ul className="list-plain subnavigation">
                 <li><a href="#" className title>Gefahrenskala</a></li>
                 <li><a href="#" className title>Matrix</a></li>
@@ -43,31 +42,31 @@ var PageHeader = React.createClass({
                 <li><a href="#" className title>Icons</a></li>
               </ul>
             </li>
-            <li><a href="blog" className title>Blog</a></li>
+            <li><a href="./blog" className title>Blog</a></li>
             <li>
               <a href="#" className=" has-sub" title>More</a>
               <ul className="list-plain subnavigation">
                 <li><a href="#" className title>Archive</a></li>
                 <li><a href="#" className title>API</a></li>
-                <li><a href="about" className title>About</a></li>
-                <li><a href="contact" className title>Contact</a></li>
-                <li><a href="imprint" className title>Imprint</a></li>
+                <li><a href="#" className title>About</a></li>
+                <li><a href="#" className title>Contact</a></li>
+                <li><a href="#" className title>Imprint</a></li>
               </ul>
             </li>
           </ul>
         </div>
         <div className="page-header-language">
           <ul className="list-inline language-trigger">
-            <li><a href className="language-trigger-de" title="Deutsche Version">DE</a></li>
-            <li><a href className="language-trigger-it" title="Versione Italiana">IT</a></li>
-            <li><a href className="language-trigger-en active" title="English Version">EN</a></li>
+            <li><a href className="language-trigger-de tooltip" title="Deutsche Version">DE</a></li>
+            <li><a href className="language-trigger-it tooltip" title="Versione Italiana">IT</a></li>
+            <li><a href className="language-trigger-en tooltip" title="English Version">EN</a></li>
           </ul>
         </div>
         <div className="page-header-hamburger">
-          <button href title="Navigation" className="pure-button pure-button-icon navigation-trigger"><span className="icon-hamburger"><span className="icon-close" />&nbsp;</span></button>
+          <button href title="Navigation" className="pure-button pure-button-icon navigation-trigger tooltip"><span className="icon-hamburger"><span className="icon-close" />&nbsp;</span></button>
         </div>
         <div className="page-header-interreg">
-          <a href="#" className="logo-interreg" title="Interreg"><span>Interreg</span></a>
+          <a href="#" className="logo-interreg tooltip" title="Interreg"><span>Interreg</span></a>
         </div>
       </div>
     );

@@ -17,7 +17,21 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader' },
-      { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' }
+      { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' },
+      {
+    	test: /\.(ttf|eot|woff|woff2)$/,
+      	loader: 'file-loader',
+      	options: {
+      	  name: "fonts/[name].[ext]",
+      	}
+      },
+      {
+        test: /\.(png|jpeg|jpg|gif|svg)$/,
+      	loader: 'file-loader',
+      	options: {
+      	  name: "images/[name].[ext]",
+      	}    	 
+      }
     ]
   },
   resolve: {
@@ -37,7 +51,14 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: './app/index.html', to: 'index.html' },
-      { from: './app/main.css', to: 'main.css' }
+      { from: './app/main.css', to: 'main.css' },
+      { from: './app/config.json', to: 'config.json' },
+      { from: './app/css/style.css', to: 'css/style.css' },
+      { from: './app/fonts', to: 'fonts' },
+      { from: './app/images', to: 'images' },
+      { from: './app/js', to: 'js' },
+      { from: './app/bower_components', to: 'bower_components' },
+      { from: './app/patterns', to: 'patterns'}
     ])
   ]
 };
