@@ -270,6 +270,8 @@
 				"duplicateRegion" : "Regionen mehrfach beurteilt",
 				"missingAvActivityHighlights" : "Schlagzeile Gefahrensituation fehlt",
 				"missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
+				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
+				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
 				"pendingSuggestions" : "Unbeantwortete Vorschläge",
 				"accept" : "Ja",
 				"reject" : "Nein"
@@ -285,8 +287,10 @@
 				"missingDangerRating" : "Gefahrenstufe nicht definiert",
 				"missingRegion" : "Regionen nicht beurteilt",
 				"duplicateRegion" : "Regionen mehrfach beurteilt",
-				"missingAvActivityHighlights" : "Schlagzeile Gefahrensituation fehlt",
+				"missingAvActivityHighlights" : "Schlagzeile der Lawinengefahr fehlt",
 				"missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
+				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
+				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
 				"pendingSuggestions" : "Unbeantwortete Vorschläge",
 				"accept" : "Ja",
 				"reject" : "Nein"

@@ -270,6 +270,8 @@
 				"duplicateRegion" : "Micro-aree valutate più volte",
 				"missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
 				"missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
+				"missingSnowpackStructureHighlights" : "TODO",
+				"missingSnowpackStructureComment" : "TODO",
 				"pendingSuggestions" : "Proposta non confermata",
 				"accept" : "Sí",
 				"reject" : "No"
@@ -287,6 +289,8 @@
 				"duplicateRegion" : "Micro-aree valutate più volte",
 				"missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
 				"missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
+				"missingSnowpackStructureHighlights" : "TODO",
+				"missingSnowpackStructureComment" : "TODO",
 				"pendingSuggestions" : "Proposta non confermata",
 				"accept" : "Sí",
 				"reject" : "No"

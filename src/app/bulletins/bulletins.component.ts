@@ -390,6 +390,10 @@ export class BulletinsComponent {
             message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingAvActivityHighlights") + '<br>';
           if (entry == 'missingAvActivityComment')
             message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingAvActivityComment") + '<br>';
+          if (entry == 'missingSnowpackStructureHighlights')
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingSnowpackStructureHighlights") + '<br>';
+          if (entry == 'missingSnowpackStructureComment')
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingSnowpackStructureComment") + '<br>';
           if (entry == 'pendingSuggestions')
             message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.pendingSuggestions");
         }
@@ -461,6 +465,10 @@ export class BulletinsComponent {
             message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityHighlights") + '<br>';
           if (entry == 'missingAvActivityComment')
             message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityComment") + '<br>';
+          if (entry == 'missingSnowpackStructureHighlights')
+            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingSnowpackStructureHighlights") + '<br>';
+          if (entry == 'missingSnowpackStructureComment')
+            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingSnowpackStructureComment") + '<br>';
           if (entry == 'pendingSuggestions')
             message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.pendingSuggestions");
         }

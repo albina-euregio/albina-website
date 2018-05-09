@@ -270,6 +270,8 @@
 				"duplicateRegion" : "Regions rated multiple times",
 				"missingAvActivityHighlights" : "Headline avalanche situation missing",
 				"missingAvActivityComment" : "Description of avalanche danger missing",
+				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
+				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
 				"pendingSuggestions" : "Pending suggestions",
 				"accept" : "Yes",
 				"reject" : "No"
@@ -287,6 +289,8 @@
 				"duplicateRegion" : "Regions rated multiple times",
 				"missingAvActivityHighlights" : "Headline avalanche situation missing",
 				"missingAvActivityComment" : "Description of avalanche danger missing",
+				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
+				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
 				"pendingSuggestions" : "Pending suggestions",
 				"accept" : "Yes",
 				"reject" : "No"
