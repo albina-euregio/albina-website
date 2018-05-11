@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 //import { BrowserHistory } from 'react-router';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
@@ -13,7 +14,7 @@ import Page from './page.jsx';
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require('../css/app.css');
 
-export default class App extends React.Component {
+class App extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -82,6 +83,12 @@ export default class App extends React.Component {
   }
 
   render() {
-    return <BrowserRouter basename={config.get('projectRoot')}>{renderRoutes(this.routes())}</BrowserRouter>;
+    return (
+      <BrowserRouter basename={config.get('projectRoot')}>
+        {renderRoutes(this.routes())}
+      </BrowserRouter>
+    );
   }
 }
+
+export default observer(App);
