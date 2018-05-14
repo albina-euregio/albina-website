@@ -9,7 +9,7 @@ export default class BulletinMap extends React.Component {
     return (
       <section id="section-bulletin-map" className="section section-bulletin section-bulletin-map">
         <div className="bulletin-map-container">
-          <iframe src="https://www.google.com/maps/d/embed?mid=1gRXrDv0Lp_-FbfUG7FJZ3_cRDSd8moFL" className="bulletin-map bulletin-map-google" />
+          <div className="bulletin-map bulletin-map-leaflet" />
           <div className="bulletin-map-search">
             <div className="pure-form pure-form-search">
               <input type="text" id="input" className="tooltip" placeholder="Search" title="Type in a region" /><button href="#" title="The Button" className="pure-button pure-button-icon icon-search"><span>&nbsp;</span></button>
