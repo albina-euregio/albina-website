@@ -1,0 +1,11 @@
+<div class="grid-container">
+  <div class="grid-item" [style.background-color]="getForenoonColorAbove()"></div>
+  <div *ngIf="bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorAbove()"></div>
+  <div *ngIf="!bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorAbove()"></div>
+  <div *ngIf="bulletin.hasElevationDependency" class="grid-item" [style.background-color]="getForenoonColorBelow()"></div>
+  <div *ngIf="!bulletin.hasElevationDependency" class="grid-item" [style.background-color]="getForenoonColorAbove()"></div>
+  <div *ngIf="bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorBelow()"></div>
+  <div *ngIf="bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorBelow()"></div>
+  <div *ngIf="!bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getAfternoonColorAbove()"></div>
+  <div *ngIf="!bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="grid-item" [style.background-color]="getForenoonColorBelow()"></div>
+</div>

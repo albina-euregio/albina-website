@@ -14,6 +14,7 @@
 		"bulletins" : "Lawinenlageberichte",
 		"news" : "News",
 		"observations" : "Rückmeldungen",
+		"admin" : "Admin",
 		"catalogueOfPhrases" : "Satzkatalog"
 	},
 	"menu" : {
@@ -119,13 +120,15 @@
 	"bulletins" : {
 		"title" : "Lawinenlageberichte",
 		"tooltip" : {
-			"publish" : "Lawinenlagebericht publizieren",
-			"submit" : "Lawinenlagebericht absenden",
-			"copy" : "Lawinenlagebericht kopieren",
-			"paste" : "Lawinenlagebericht einfügen",
-			"update" : "Update zum Lawinenlagebericht erstellen",
+			"publish" : "Update zur Lawinenprognose sofort publizieren",
+			"submit" : "Lawinenprognose absenden",
+			"copy" : "Lawinenprognose kopieren",
+			"paste" : "Lawinenprognose einfügen",
+			"update" : "Update zur Lawinenprognose erstellen",
 			"caaml" : "CAAML anzeigen",
-			"edit" : "Lawinenlagebericht editieren (keine erneute Veröffentlichung)"
+			"json" : "JSON anzeigen",
+			"edit" : "Lawinenprognose editieren (keine erneute Veröffentlichung)",
+			"create" : "Lawinenprognose erstellen"
 		},
 		"create" : {
 			"tooltip" : {
@@ -161,27 +164,32 @@
 			"label" : {
 				"avActivityHighlights" : "Schlagzeile Gefahrensituation",
 				"avActivityComment" : "Beurteilung der Lawinengefahr",
-				"avalancheProblem" : "Lawinenproblem",
+				"avalancheSituation1" : "Lawinenproblem 1",
+				"avalancheSituation2" : "Lawinenproblem 2",
 				"dangerRating" : "Gefahrenstufe",
 				"aspects" : "Exposition",
 				"elevation" : "Höhenabhängigkeit",
 				"daytime" : "Tageszeitliche Abhängigkeit",
 				"snowpackStructureHighlights" : "Schlagzeile Schneedeckenaufbau",
 				"snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus",
-				"dangerPatterns" : "Gefahrenmuster"
+				"dangerPatterns" : "Gefahrenmuster",
+				"elevationHigh" : "Obere Höhengrenze:",
+				"elevationLow" : "Untere Höhengrenze:"
 			},
 			"title" : {
 				"map" : "Karte",
-				"general" : "Gefahrenbeurteilung",
+				"dangerRating" : "Gefahrenstufe",
+				"avalancheSituation" : "Lawinenprobleme",
+				"dangerDescription" : "Gefahrenbeurteilung",
 				"detail" : "Details",
-				"above" : "Details - oben",
-				"below" : "Details - unten",
-				"forenoon" : "Details - Vormittag",
-				"afternoon" : "Details - Nachmittag",
-				"forenoonAbove" : "Details - Vormittag, oben",
-				"afternoonAbove" : "Details - Nachmittag, oben",
-				"forenoonBelow" : "Details - Vormittag, unten",
-				"afternoonBelow" : "Details - Nachmittag, unten",
+				"above" : "Oben",
+				"below" : "Unten",
+				"forenoon" : "Vormittag",
+				"afternoon" : "Nachmittag",
+				"forenoonAbove" : "Vormittag, oben",
+				"afternoonAbove" : "Nachmittag, oben",
+				"forenoonBelow" : "Vormittag, unten",
+				"afternoonBelow" : "Nachmittag, unten",
 				"snowpackStructure" : "Schneedeckenaufbau",
 				"tendency" : "Tendenz",
 				"pmdialog" : "textCat"
@@ -263,6 +271,8 @@
 				"duplicateRegion" : "Regionen mehrfach beurteilt",
 				"missingAvActivityHighlights" : "Schlagzeile Gefahrensituation fehlt",
 				"missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
+				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
+				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
 				"pendingSuggestions" : "Unbeantwortete Vorschläge",
 				"accept" : "Ja",
 				"reject" : "Nein"
@@ -278,8 +288,10 @@
 				"missingDangerRating" : "Gefahrenstufe nicht definiert",
 				"missingRegion" : "Regionen nicht beurteilt",
 				"duplicateRegion" : "Regionen mehrfach beurteilt",
-				"missingAvActivityHighlights" : "Schlagzeile Gefahrensituation fehlt",
+				"missingAvActivityHighlights" : "Schlagzeile der Lawinengefahr fehlt",
 				"missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
+				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
+				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
 				"pendingSuggestions" : "Unbeantwortete Vorschläge",
 				"accept" : "Ja",
 				"reject" : "Nein"
@@ -304,6 +316,19 @@
 			},
 			"noCaamlDialog" : {
 				"header" : "CAAML",
+				"message" : "Kein publizierter Lagebericht vorhanden!",
+				"accept" : "Ok"
+			}
+		},
+		"json" : {
+			"title" : "JSON",
+			"jsonNotLoadedDialog" : {
+				"header" : "JSON",
+				"message" : "JSON konnte nicht geladen werden!",
+				"accept" : "Ok"
+			},
+			"noJsonDialog" : {
+				"header" : "JSON",
 				"message" : "Kein publizierter Lagebericht vorhanden!",
 				"accept" : "Ok"
 			}

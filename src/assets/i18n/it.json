@@ -14,6 +14,7 @@
 		"bulletins" : "Bollettino",
 		"news" : "News",
 		"observations" : "TODO",
+		"admin" : "Admin",
 		"catalogueOfPhrases" : "TODO"
 	},
 	"menu" : {
@@ -119,13 +120,15 @@
 	"bulletins" : {
 		"title" : "Bollettini",
 		"tooltip" : {
-			"publish" : "Pubblicare bollettino valanghe",
+			"publish" : "Pubblicare bollettino valanghe TODO",
 			"submit" : "Inviare bollettino valanghe",
 			"copy" : "Copiare bollettino valanghe",
 			"paste" : "Incollare bollettino valanghe",
 			"update" : "Update bollettino valanghe",
 			"caaml" : "Mostrare CAAML",
-			"edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)"
+			"json" : "Mostrare JSON",
+			"edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)",
+			"create" : "TODO"
 		},
 		"create" : {
 			"tooltip" : {
@@ -161,27 +164,32 @@
 			"label" : {
 				"avActivityHighlights" : "Titolo situazione pericolo valanghe",
 				"avActivityComment" : "Testo di discrezione pericolo valanghe",
-				"avalancheProblem" : "Problemi tipici valanghivi",
+				"avalancheSituation1" : "TODO",
+				"avalancheSituation2" : "TODO",
 				"dangerRating" : "Grado del pericolo valanghe",
 				"aspects" : "Versanti",
 				"elevation" : "Altezza",
 				"daytime" : "Mattina/pomeriggio",
 				"snowpackStructureHighlights" : "Titolo struttura manto nevoso",
 				"snowpackStructureComment" : "Descrizione struttura manto nevoso",
-				"dangerPatterns" : "TODO"
+				"dangerPatterns" : "TODO",
+				"elevationHigh" : "TODO:",
+				"elevationLow" : "TODO:"
 			},
 			"title" : {
 				"map" : "Mappa",
-				"general" : "TODO",
+				"dangerRating" : "TODO",
+				"avalancheSituation" : "TODO",
+				"dangerDescription" : "TODO",
 				"detail" : "Dettagli",
-				"above" : "Dettagli - al disopra",
-				"below" : "Dettagli - al disotto",
-				"forenoon" : "Dettagli - mattina",
-				"afternoon" : "Dettagli - pomeriggio",
-				"forenoonAbove" : "Dettagli - mattina, al disopra",
-				"afternoonAbove" : "Dettagli - pomeriggio, al disopra",
-				"forenoonBelow" : "Dettagli - mattina, al disotto",
-				"afternoonBelow" : "Dettagli - pomeriggio, al disotto",
+				"above" : "Al disopra",
+				"below" : "Al disotto",
+				"forenoon" : "Mattina",
+				"afternoon" : "Pomeriggio",
+				"forenoonAbove" : "Mattina, al disopra",
+				"afternoonAbove" : "Pomeriggio, al disopra",
+				"forenoonBelow" : "Mattina, al disotto",
+				"afternoonBelow" : "Pomeriggio, al disotto",
 				"snowpackStructure" : "Struttura manto nevoso",
 				"tendency" : "TODO",
 				"pmdialog" : "Catalogo delle frasi"
@@ -263,6 +271,8 @@
 				"duplicateRegion" : "Micro-aree valutate più volte",
 				"missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
 				"missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
+				"missingSnowpackStructureHighlights" : "TODO",
+				"missingSnowpackStructureComment" : "TODO",
 				"pendingSuggestions" : "Proposta non confermata",
 				"accept" : "Sí",
 				"reject" : "No"
@@ -280,6 +290,8 @@
 				"duplicateRegion" : "Micro-aree valutate più volte",
 				"missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
 				"missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
+				"missingSnowpackStructureHighlights" : "TODO",
+				"missingSnowpackStructureComment" : "TODO",
 				"pendingSuggestions" : "Proposta non confermata",
 				"accept" : "Sí",
 				"reject" : "No"
@@ -304,6 +316,19 @@
 			},
 			"noCaamlDialog" : {
 				"header" : "CAAML",
+				"message" : "Mancha il bolletino valanghe pubblicato!",
+				"accept" : "Ok"
+			}
+		},
+		"json" : {
+			"title" : "JSON",
+			"jsonNotLoadedDialog" : {
+				"header" : "JSON",
+				"message" : "Errore caricando JSON!",
+				"accept" : "Ok"
+			},
+			"noJsonDialog" : {
+				"header" : "JSON",
 				"message" : "Mancha il bolletino valanghe pubblicato!",
 				"accept" : "Ok"
 			}

@@ -3,12 +3,12 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { ConstantsService } from '../constants-service/constants.service';
 import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
-import { UserModel } from '../../models/user.model';
+import { AuthorModel } from '../../models/author.model';
 
 @Injectable()
 export class AuthenticationService {
 
-  public currentUser: UserModel;
+  public currentAuthor: AuthorModel;
   public jwtHelper: JwtHelper;
 
   constructor(
@@ -16,65 +16,69 @@ export class AuthenticationService {
     public constantsService: ConstantsService,
     private sanitizer: Sanitizer)
   {
-    //this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    localStorage.removeItem('currentUser');
+    //this.currentAuthor = JSON.parse(localStorage.getItem('currentAuthor'));
+    localStorage.removeItem('currentAuthor');
     localStorage.removeItem('accessToken');
-    this.currentUser = null;
+    this.currentAuthor = null;
     this.jwtHelper = new JwtHelper();
   }
 
   isUserLoggedIn() : boolean {
-    if (this.currentUser && this.currentUser.accessToken)
-      return !this.jwtHelper.isTokenExpired(this.currentUser.accessToken);
+    if (this.currentAuthor && this.currentAuthor.accessToken)
+      return !this.jwtHelper.isTokenExpired(this.currentAuthor.accessToken);
     else
       return false;
   }
 
   public logout() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentAuthor');
     localStorage.removeItem('accessToken');
-    console.log("[" + this.currentUser.username + "] Logged out!");
-    this.currentUser = null;
+    console.log("[" + this.currentAuthor.name + "] Logged out!");
+    this.currentAuthor = null;
+  }
+
+  public getAuthor() {
+    return this.currentAuthor;
   }
 
   public getUsername() : string {
-    if (this.currentUser)
-      return this.currentUser.username;
+    if (this.currentAuthor)
+      return this.currentAuthor.name;
     else
       null;
   }
 
   public getAccessToken() {
-    if (this.currentUser)
-      return this.currentUser.accessToken;
+    if (this.currentAuthor)
+      return this.currentAuthor.accessToken;
     else
       null;
   }
 
   public getRefreshToken() {
-    if (this.currentUser)
-      return this.currentUser.refreshToken;
+    if (this.currentAuthor)
+      return this.currentAuthor.refreshToken;
     else
       null;
   }
 
   public getUserImage() {
-    if (this.currentUser)
-      return this.currentUser.image;
+    if (this.currentAuthor)
+      return this.currentAuthor.image;
     else
       null;
   }
 
   public getUserRegion() {
-    if (this.currentUser)
-      return this.currentUser.region;
+    if (this.currentAuthor)
+      return this.currentAuthor.region;
     else
       null;
   }
 
   public getUserImageSanitized() {
-    if (this.currentUser && this.currentUser.image)
-      return this.sanitizer.sanitize(SecurityContext.URL, 'data:image/jpg;base64,' + this.currentUser.image);
+    if (this.currentAuthor && this.currentAuthor.image)
+      return this.sanitizer.sanitize(SecurityContext.URL, 'data:image/jpg;base64,' + this.currentAuthor.image);
     else
       null;
   }
@@ -85,6 +89,14 @@ export class AuthenticationService {
 
   public getUserLng() {
     return this.constantsService.getLng(this.getUserRegion());
+  }
+
+  public isCurrentUserInRole(role) {
+    if (this.currentAuthor && this.currentAuthor.getRoles() && this.currentAuthor.getRoles() != undefined) {
+      if (this.currentAuthor.getRoles().indexOf(role) > -1)
+        return true;
+    }
+    return false;
   }
 
   public login(username: string, password: string): Observable<boolean> {
@@ -106,13 +118,10 @@ export class AuthenticationService {
       .map((response: Response) => {
         let accessToken = response.json() && response.json().access_token;
         if (accessToken) {
-          this.currentUser = new UserModel();
-          this.currentUser.username = response.json().username;
-          this.currentUser.accessToken = response.json().access_token;
-          this.currentUser.refreshToken = response.json().refresh_token;
-          this.currentUser.image = response.json().image;
-          this.currentUser.region = response.json().region;
-          localStorage.setItem('currentUser', JSON.stringify({ username: response.json().username, accessToken: response.json().access_token, refreshToken: response.json().refresh_token, image: response.json().image, region: response.json().region }));
+          this.currentAuthor = AuthorModel.createFromJson(response.json());
+          this.currentAuthor.accessToken = response.json().access_token;
+          this.currentAuthor.refreshToken = response.json().refresh_token;
+          localStorage.setItem('currentAuthor', JSON.stringify({ username: response.json().username, accessToken: response.json().access_token, refreshToken: response.json().refresh_token, image: response.json().image, region: response.json().region, roles: response.json().roles }));
           localStorage.setItem('accessToken', response.json().access_token);
           return true;
         } else {

@@ -32,6 +32,12 @@ export const routes: Routes = [
     loadChildren: './observations/observations.module#ObservationsModule'
   },
   {
+    path: 'admin',
+    component: FullLayoutComponent,
+    canActivate: [AuthGuard], 
+    loadChildren: './admin/admin.module#AdminModule'
+  },
+  {
     path: 'pages',
     component: SimpleLayoutComponent,
     data: {

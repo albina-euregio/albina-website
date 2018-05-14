@@ -1,6 +1,6 @@
 import { Component, Input, ViewChild, ElementRef, SimpleChange } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
-import { BulletinElevationDescriptionModel } from '../models/bulletin-elevation-description.model';
+import { AvalancheSituationModel } from '../models/avalanche-situation.model';
 import * as Enums from '../enums/enums';
 
 @Component({
@@ -9,7 +9,7 @@ import * as Enums from '../enums/enums';
 })
 export class AspectsComponent {
 
-	@Input() object;
+	@Input() avalancheSituation: AvalancheSituationModel;
   @Input() disabled: boolean;
 
   @ViewChild('N') aspectN: ElementRef;
@@ -58,7 +58,7 @@ export class AspectsComponent {
   }
 
   private initAspects() {
-    for (let a of this.object.aspects) {
+    for (let a of this.avalancheSituation.getAspects()) {
       switch (+Enums.Aspect[a]) {
         case Enums.Aspect.N:
           this.aspectN.nativeElement.style.fill = "#000000";
@@ -101,17 +101,17 @@ export class AspectsComponent {
 
   selectAspect(aspect) {
     if (!this.disabled) {
-      if (this.object.aspects.length == 1) {
-        let a : any = Enums.Aspect[this.object.aspects[0]];
+      if (this.avalancheSituation.getAspects().length == 1) {
+        let a : any = Enums.Aspect[this.avalancheSituation.getAspects()[0]];
         if (a == aspect) {
-          this.object.setAspects(new Array<Enums.Aspect>());
+          this.avalancheSituation.setAspects(new Array<Enums.Aspect>());
           this.resetAspects();
         } else {
           let end = (aspect + 1) % 9;
           if (end == 0)
             end = 1;
           do {
-            this.object.addAspect(Enums.Aspect[a]);
+            this.avalancheSituation.addAspect(Enums.Aspect[a]);
             switch (+a) {
               case Enums.Aspect.N:
                 this.aspectN.nativeElement.style.fill = "#000000";
@@ -155,7 +155,7 @@ export class AspectsComponent {
           } while (a != end)
         }
       } else {
-        this.object.setAspects(new Array<Enums.Aspect>());
+        this.avalancheSituation.setAspects(new Array<Enums.Aspect>());
         this.aspectN.nativeElement.style.fill = "#FFFFFF";
         this.aspectN.nativeElement.focus();
         this.aspectNE.nativeElement.style.fill = "#FFFFFF";
@@ -173,7 +173,7 @@ export class AspectsComponent {
         this.aspectNW.nativeElement.style.fill = "#FFFFFF";
         this.aspectNW.nativeElement.focus();
 
-        this.object.addAspect(Enums.Aspect[aspect]);
+        this.avalancheSituation.addAspect(Enums.Aspect[aspect]);
         switch (+aspect) {
           case Enums.Aspect.N:
             this.aspectN.nativeElement.style.fill = "#000000";

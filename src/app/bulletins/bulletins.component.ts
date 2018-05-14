@@ -4,6 +4,7 @@ import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
+import { SocketService } from '../providers/socket-service/socket.service';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
@@ -33,7 +34,8 @@ export class BulletinsComponent {
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService,
     private router: Router,
-    private confirmationService: ConfirmationService)
+    private confirmationService: ConfirmationService,
+    private socketService: SocketService)
   {
     this.dates = new Array<Date>();
     this.loadingTrentino = false;
@@ -41,6 +43,18 @@ export class BulletinsComponent {
     this.loadingTyrol = false;
     this.copying = false;
     this.publishing = undefined;
+
+    this.socketService.getSocket().on('bulletinUpdate', function(data) {
+      console.log("SocketIO bulletin update event recieved: " + data);
+      let json = JSON.parse(data)
+      let region = json.region;
+      if (region === this.constantsService.codeTyrol)
+          this.bulletinsService.statusMapTyrol.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
+      else if (region === this.constantsService.codeSouthTyrol)
+          this.bulletinsService.statusMapSouthTyrol.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
+      else if (region === this.constantsService.codeTrentino)
+          this.bulletinsService.statusMapTrentino.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
+    }.bind(this));
   }
 
   ngOnInit() {
@@ -109,10 +123,148 @@ export class BulletinsComponent {
     this.copying = false;
   }
 
-  isPast(date) {
+  isPast(date: Date) {
     let today = new Date();
-    today.setHours(0, 0, 0, 0);
-    if (today > date)
+    let hours = today.getHours();
+    today.setHours(0,0,0,0);
+
+    if (today.getTime() > date.getTime())
+      return true;
+    return false;
+  }
+
+  isToday(date: Date) {
+    if (date != undefined) {
+      let today = new Date();
+      let hours = today.getHours();
+      today.setHours(0, 0, 0, 0);
+      if (today.getTime() == date.getTime())
+        return true;
+      if (hours >= 17) {
+        today.setDate(today.getDate() + 1);
+        if (today.getTime() == date.getTime())
+          return true;
+      }
+    }
+    return false;
+  }
+
+  showCreateButton(date) {
+    if ((!this.isPast(date)) && 
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.missing
+        ) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
+  showCopyButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        this.bulletinsService.getUserRegionStatus(date) && 
+        this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.missing && 
+        !this.copying && 
+        !this.loadingTrentino && 
+        !this.loadingSouthTyrol && 
+        !this.loadingTyrol)
+      return true;
+    else
+      return false;
+  }
+
+  showPasteButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.published && 
+        this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.republished && 
+        this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.submitted && 
+        this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.resubmitted && 
+        this.copying && 
+        this.bulletinsService.getCopyDate() != date && 
+        !this.isPast(date) && 
+        !this.isToday(date))
+      return true;
+    else
+      return false;
+  }
+
+  showSubmitButton(date) {
+    if (/*!this.isPast(date) && */
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.draft || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.updated
+        ) && 
+        !this.copying && 
+        (!this.publishing || this.publishing.getTime() != date.getTime()))
+      return true;
+    else
+      return false;
+  }
+
+  showPublishButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (this.isToday(date) || this.isPast(date)) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.resubmitted ||
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.submitted
+        ) &&
+        !this.copying && 
+        (!this.publishing || this.publishing.getTime() != date.getTime()))
+      return true;
+    else
+      return false;
+  }
+
+  showSpinningIconButton(date) {
+    if (!this.copying && 
+        this.publishing && 
+        this.publishing.getTime() == date.getTime())
+      return true;
+    else
+      return false;
+  }
+
+  showCaamlButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
+  showJsonButton(date) {
+    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
+  showEditButton(date) {
+    if (/*(!this.isPast(date) ) && */
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished
+        ) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
+  showUpdateButton(date) {
+    if (/*(!this.isPast(date)) &&*/
+        (this.isToday(date) || this.isPast(date)) && 
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished ||
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.missing
+        ) && 
+        !this.copying)
       return true;
     else
       return false;
@@ -131,7 +283,7 @@ export class BulletinsComponent {
 
       this.bulletinsService.setActiveDate(date);
 
-      if ((this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion())) {
+      if (!this.isEditable(date) && !isUpdate) {
         this.bulletinsService.setIsEditable(false);
         this.router.navigate(['/bulletins/new']);
       } else {
@@ -145,10 +297,37 @@ export class BulletinsComponent {
     }
   }
 
+  showBulletin(date: Date) {
+    if (!this.copying) {
+      this.bulletinsService.setIsUpdate(false);
+      this.bulletinsService.setActiveDate(date);
+      this.bulletinsService.setIsEditable(false);
+      this.router.navigate(['/bulletins/new']);
+    }
+  }
+
+  isEditable(date) {
+    if (
+        (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || 
+        (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.republished && !this.bulletinsService.getIsUpdate()) || 
+        this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion()) || 
+        this.isPast(date) ||
+        this.isToday(date))
+      return false;
+    else
+      return true;
+  }
+
   showCaaml(event, date: Date) {
     event.stopPropagation();
     this.bulletinsService.setActiveDate(date);
     this.router.navigate(['/bulletins/caaml']);
+  }
+
+  showJson(event, date: Date) {
+    event.stopPropagation();
+    this.bulletinsService.setActiveDate(date);
+    this.router.navigate(['/bulletins/json']);
   }
 
   copy(event, date: Date) {
@@ -211,6 +390,10 @@ export class BulletinsComponent {
             message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingAvActivityHighlights") + '<br>';
           if (entry == 'missingAvActivityComment')
             message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingAvActivityComment") + '<br>';
+          if (entry == 'missingSnowpackStructureHighlights')
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingSnowpackStructureHighlights") + '<br>';
+          if (entry == 'missingSnowpackStructureComment')
+            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingSnowpackStructureComment") + '<br>';
           if (entry == 'pendingSuggestions')
             message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.pendingSuggestions");
         }
@@ -282,6 +465,10 @@ export class BulletinsComponent {
             message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityHighlights") + '<br>';
           if (entry == 'missingAvActivityComment')
             message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityComment") + '<br>';
+          if (entry == 'missingSnowpackStructureHighlights')
+            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingSnowpackStructureHighlights") + '<br>';
+          if (entry == 'missingSnowpackStructureComment')
+            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingSnowpackStructureComment") + '<br>';
           if (entry == 'pendingSuggestions')
             message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.pendingSuggestions");
         }

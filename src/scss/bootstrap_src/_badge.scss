@@ -75,3 +75,7 @@ a.badge {
 .badge-danger {
   @include badge-variant($badge-danger-bg);
 }
+
+.badge-done {
+  @include badge-variant($badge-done-bg);
+}

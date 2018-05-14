@@ -989,24 +989,24 @@ export class SurfaceSnowWetnessUtil {
 	}
 }
 
-export enum AvalancheProblem {
+export enum AvalancheSituation {
 	new_snow, wind_drifted_snow, weak_persistent_layer, wet_snow, gliding_snow, favourable_situation
 }
 export class AvalancheProblemUtil {
-	public static getString(problem: AvalancheProblem) {
-		switch (problem) {
-			case AvalancheProblem.new_snow:
-				return "avalancheProblem.new_snow";
-			case AvalancheProblem.wind_drifted_snow:
-				return "avalancheProblem.wind_drifted_snow";
-			case AvalancheProblem.weak_persistent_layer:
-				return "avalancheProblem.weak_persistent_layer";
-			case AvalancheProblem.wet_snow:
-				return "avalancheProblem.wet_snow";
-			case AvalancheProblem.gliding_snow:
-				return "avalancheProblem.gliding_snow";
-			case AvalancheProblem.favourable_situation:
-				return "avalancheProblem.favourable_situation";
+	public static getString(situation: AvalancheSituation) {
+		switch (situation) {
+			case AvalancheSituation.new_snow:
+				return "avalancheSituation.new_snow";
+			case AvalancheSituation.wind_drifted_snow:
+				return "avalancheSituation.wind_drifted_snow";
+			case AvalancheSituation.weak_persistent_layer:
+				return "avalancheSituation.weak_persistent_layer";
+			case AvalancheSituation.wet_snow:
+				return "avalancheSituation.wet_snow";
+			case AvalancheSituation.gliding_snow:
+				return "avalancheSituation.gliding_snow";
+			case AvalancheSituation.favourable_situation:
+				return "avalancheSituation.favourable_situation";
 
 			default:
 				return "undefined";
@@ -1102,20 +1102,20 @@ export class HazardSiteDistributionUtil {
 	}
 }
 
-export enum SpontaneousAvalancheReleaseProbability {
+export enum NaturalAvalancheReleaseProbability {
 	one, two, three, four
 }
-export class SpontaneousAvalancheReleaseProbabilityUtil {
-	public static getString(spontaneousAvalancheReleaseProbability: SpontaneousAvalancheReleaseProbability) {
-		switch (spontaneousAvalancheReleaseProbability) {
-			case SpontaneousAvalancheReleaseProbability.one:
-				return "spontaneousAvalancheReleaseProbability.one";
-			case SpontaneousAvalancheReleaseProbability.two:
-				return "spontaneousAvalancheReleaseProbability.two";
-			case SpontaneousAvalancheReleaseProbability.three:
-				return "spontaneousAvalancheReleaseProbability.three";
-			case SpontaneousAvalancheReleaseProbability.four:
-				return "spontaneousAvalancheReleaseProbability.four";
+export class NaturalAvalancheReleaseProbabilityUtil {
+	public static getString(naturalAvalancheReleaseProbability: NaturalAvalancheReleaseProbability) {
+		switch (naturalAvalancheReleaseProbability) {
+			case NaturalAvalancheReleaseProbability.one:
+				return "naturalAvalancheReleaseProbability.one";
+			case NaturalAvalancheReleaseProbability.two:
+				return "naturalAvalancheReleaseProbability.two";
+			case NaturalAvalancheReleaseProbability.three:
+				return "naturalAvalancheReleaseProbability.three";
+			case NaturalAvalancheReleaseProbability.four:
+				return "naturalAvalancheReleaseProbability.four";
 			
 			default:
 				return "undefined";
@@ -1123,20 +1123,20 @@ export class SpontaneousAvalancheReleaseProbabilityUtil {
 	}
 }
 
-export enum AvalancheReleaseProbability {
+export enum ArtificialAvalancheReleaseProbability {
 	one, two, three, four
 }
-export class AvalancheReleaseProbabilityUtil {
-	public static getString(avalancheReleaseProbability: AvalancheReleaseProbability) {
-		switch (avalancheReleaseProbability) {
-			case AvalancheReleaseProbability.one:
-				return "avalancheReleaseProbability.one";
-			case AvalancheReleaseProbability.two:
-				return "avalancheReleaseProbability.two";
-			case AvalancheReleaseProbability.three:
-				return "avalancheReleaseProbability.three";
-			case AvalancheReleaseProbability.four:
-				return "avalancheReleaseProbability.four";
+export class ArtificialAvalancheReleaseProbabilityUtil {
+	public static getString(artificialAvalancheReleaseProbability: ArtificialAvalancheReleaseProbability) {
+		switch (artificialAvalancheReleaseProbability) {
+			case ArtificialAvalancheReleaseProbability.one:
+				return "artificialAvalancheReleaseProbability.one";
+			case ArtificialAvalancheReleaseProbability.two:
+				return "artificialAvalancheReleaseProbability.two";
+			case ArtificialAvalancheReleaseProbability.three:
+				return "artificialAvalancheReleaseProbability.three";
+			case ArtificialAvalancheReleaseProbability.four:
+				return "artificialAvalancheReleaseProbability.four";
 			
 			default:
 				return "undefined";

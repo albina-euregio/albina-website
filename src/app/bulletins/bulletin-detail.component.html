@@ -1,91 +1,101 @@
-<div class="card">
-  <div class="card-header">
-    <strong>{{ title | translate }}</strong>
-  </div>
-  <div class="card-block">
-    <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-      <div class="form-group row">
-        <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.dangerRating" | translate }}</strong></label>
-        <div *ngIf="settingsService.getUseMatrix()" class="col-md-12">
-          <matrix [bulletinElevationDescription]="bulletinElevationDescription" [disabled]="disabled"></matrix>
-        </div>
-        <div *ngIf="!settingsService.getUseMatrix() && !disabled" class="col-md-12">
-          <img *ngIf="isDangerRating('no_rating')" src="./assets/img/no_rating_c.svg" width="80">
-          <img *ngIf="!isDangerRating('no_rating')" src="./assets/img/no_rating_bw.svg" (click)="selectDangerRating(dangerRating.no_rating)" width="80" style="opacity: 0.3">
-          <img *ngIf="isDangerRating('low')" src="./assets/img/danger_rating_low_c.svg" width="80">
-          <img *ngIf="!isDangerRating('low')" src="./assets/img/danger_rating_low_bw.svg" (click)="selectDangerRating(dangerRating.low)" width="80" style="opacity: 0.3">
-          <img *ngIf="isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_c.svg" width="80">
-          <img *ngIf="!isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_bw.svg" (click)="selectDangerRating(dangerRating.moderate)" width="80" style="opacity: 0.3">
-          <img *ngIf="isDangerRating('considerable')" src="./assets/img/danger_rating_considerable_c.svg" width="80">
-          <img *ngIf="!isDangerRating('considerable')" src="./assets/img/danger_rating_considerable_bw.svg" (click)="selectDangerRating(dangerRating.considerable)" width="80" style="opacity: 0.3">
-          <img *ngIf="isDangerRating('high')" src="./assets/img/danger_rating_high_c.svg" width="80">
-          <img *ngIf="!isDangerRating('high')" src="./assets/img/danger_rating_high_bw.svg" (click)="selectDangerRating(dangerRating.high)" width="80" style="opacity: 0.3">
-          <img *ngIf="isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_c.svg" width="80">
-          <img *ngIf="!isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_bw.svg" (click)="selectDangerRating(dangerRating.very_high)" width="80" style="opacity: 0.3">
-        </div>
-        <div *ngIf="!settingsService.getUseMatrix() && disabled" class="col-md-12">
-          <img *ngIf="isDangerRating('no_rating')" src="./assets/img/no_rating_c.svg" width="80">
-          <img *ngIf="!isDangerRating('no_rating')" src="./assets/img/no_rating_bw.svg" width="80" style="opacity: 0.3">
-          <img *ngIf="isDangerRating('low')" src="./assets/img/danger_rating_low_c.svg" width="80">
-          <img *ngIf="!isDangerRating('low')" src="./assets/img/danger_rating_low_bw.svg" width="80" style="opacity: 0.3">
-          <img *ngIf="isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_c.svg" width="80">
-          <img *ngIf="!isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_bw.svg" width="80" style="opacity: 0.3">
-          <img *ngIf="isDangerRating('considerable')" src="./assets/img/danger_rating_considerable_c.svg" width="80">
-          <img *ngIf="!isDangerRating('considerable')" src="./assets/img/danger_rating_considerable_bw.svg" width="80" style="opacity: 0.3">
-          <img *ngIf="isDangerRating('high')" src="./assets/img/danger_rating_high_c.svg" width="80">
-          <img *ngIf="!isDangerRating('high')" src="./assets/img/danger_rating_high_bw.svg" width="80" style="opacity: 0.3">
-          <img *ngIf="isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_c.svg" width="80">
-          <img *ngIf="!isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_bw.svg" width="80" style="opacity: 0.3">
-        </div>
-      </div>
-      <div class="form-group row">
-        <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.avalancheProblem" | translate }}</strong></label>
-        <div *ngIf="!disabled" class="col-md-12">
-          <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('new_snow')" src="./assets/img/New_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.new_snow)" width="60" style="opacity: 0.3">
+<div class="card-body">
+  <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
+    <div class="form-group row">
 
-          <img *ngIf="isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.wind_drifted_snow)" width="60" style="opacity: 0.3">
+      <!-- Use matrix -->
 
-          <img *ngIf="isAvalancheProblem('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.weak_persistent_layer)" width="60" style="opacity: 0.3">
-
-          <img *ngIf="isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.wet_snow)" width="60" style="opacity: 0.3">
-
-          <img *ngIf="isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.gliding_snow)" width="60" style="opacity: 0.3">
-
-          <img *ngIf="isAvalancheProblem('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('favourable_situation')" src="./assets/img/Favourable_situation_bw.svg" (click)="selectAvalancheProblem(avalancheProblem.favourable_situation)" width="60" style="opacity: 0.3">
-        </div>
-        <div *ngIf="disabled" class="col-md-12">
-          <img *ngIf="isAvalancheProblem('new_snow')" src="./assets/img/New_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('new_snow')" src="./assets/img/New_snow_bw.svg" width="60" style="opacity: 0.3">
-
-          <img *ngIf="isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('wind_drifted_snow')" src="./assets/img/Drifting_snow_bw.svg" width="60" style="opacity: 0.3">
-
-          <img *ngIf="isAvalancheProblem('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_bw.svg" width="60" style="opacity: 0.3">
-
-          <img *ngIf="isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('wet_snow')" src="./assets/img/Wet_snow_bw.svg" width="60" style="opacity: 0.3">
-
-          <img *ngIf="isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" width="60" style="opacity: 0.3">
-
-          <img *ngIf="isAvalancheProblem('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" width="60">
-          <img *ngIf="!isAvalancheProblem('favourable_situation')" src="./assets/img/Favourable_situation_bw.svg" width="60" style="opacity: 0.3">
-        </div>
+      <div *ngIf="settingsService.getUseMatrix() && !bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="col-md-12">
+        <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></matrix>
       </div>
 
-      <div class="form-group row">
-        <label class="col-md-12 form-control-label"><strong>{{ "bulletins.create.label.aspects" | translate }}</strong></label>
-        <div class="col-md-12">
-          <aspects [object]="bulletinElevationDescription" [disabled]="disabled"></aspects>
-        </div>
+      <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="col-md-12">
+        <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.above" | translate }}</strong></label>
+        <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></matrix>
       </div>
-    </form>
-  </div>
+
+      <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="col-md-12">
+        <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.below" | translate }}</strong></label>
+        <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="true" [disabled]="disabled"></matrix>
+      </div>
+
+      <div *ngIf="settingsService.getUseMatrix() && !bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+        <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></matrix>
+      </div>
+
+      <div *ngIf="settingsService.getUseMatrix() && !bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+        <matrix [bulletinDaytimeDescription]="bulletin.afternoon" [below]="false" [disabled]="disabled"></matrix>
+      </div>
+
+      <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonAbove" | translate }}</strong></label>
+        <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></matrix>
+      </div>
+
+      <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonAbove" | translate }}</strong></label>
+        <matrix [bulletinDaytimeDescription]="bulletin.afternoon" [below]="false" [disabled]="disabled"></matrix>
+      </div>
+
+      <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonBelow" | translate }}</strong></label>
+        <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="true" [disabled]="disabled"></matrix>
+      </div>
+
+      <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonBelow" | translate }}</strong></label>
+        <matrix [bulletinDaytimeDescription]="bulletin.afternoon" [below]="true" [disabled]="disabled"></matrix>
+      </div>
+
+
+      <!-- Use icons -->
+
+      <div *ngIf="!settingsService.getUseMatrix() && !bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="col-md-12">
+        <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></danger-rating>
+      </div>
+
+      <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="col-md-12">
+        <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.above" | translate }}</strong></label>
+        <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></danger-rating>
+      </div>
+
+      <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="col-md-12">
+        <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.below" | translate }}</strong></label>
+        <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="true" [disabled]="disabled"></danger-rating>
+      </div>
+
+      <div *ngIf="!settingsService.getUseMatrix() && !bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+        <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></danger-rating>
+      </div>
+
+      <div *ngIf="!settingsService.getUseMatrix() && !bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+        <danger-rating [bulletinDaytimeDescription]="bulletin.afternoon" [below]="false" [disabled]="disabled"></danger-rating>
+      </div>
+
+      <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonAbove" | translate }}</strong></label>
+        <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></danger-rating>
+      </div>
+
+      <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonAbove" | translate }}</strong></label>
+        <danger-rating [bulletinDaytimeDescription]="bulletin.afternoon" [below]="false" [disabled]="disabled"></danger-rating>
+      </div>
+
+      <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonBelow" | translate }}</strong></label>
+        <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="true" [disabled]="disabled"></danger-rating>
+      </div>
+
+      <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
+        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonBelow" | translate }}</strong></label>
+        <danger-rating [bulletinDaytimeDescription]="bulletin.afternoon" [below]="true" [disabled]="disabled"></danger-rating>
+      </div>
+
+    </div>
+
+  </form>
 </div>

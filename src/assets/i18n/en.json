@@ -14,6 +14,7 @@
 		"bulletins" : "Bulletins",
 		"news" : "News",
 		"observations" : "Observations",
+		"admin" : "Admin",
 		"catalogueOfPhrases" : "Catalogue of Phrases"
 	},
 	"menu" : {
@@ -119,13 +120,15 @@
 	"bulletins" : {
 		"title" : "Bulletins",
 		"tooltip" : {
-			"publish" : "Publish bulletin",
+			"publish" : "Publish updated bulletin immediately",
 			"submit" : "Submit bulletin",
 			"copy" : "Copy bulletin",
 			"paste" : "Paste bulletin",
 			"update" : "Create update of bulletin",
 			"caaml" : "Show CAAML",
-			"edit" : "Edit bulletin (will not be published again)"
+			"json" : "Show JSON",
+			"edit" : "Edit bulletin (will not be published again)",
+			"create" : "Create bulletin"
 		},
 		"create" : {
 			"tooltip" : {
@@ -161,27 +164,32 @@
 			"label" : {
 				"avActivityHighlights" : "Headline avalanche situation",
 				"avActivityComment" : "Description of avalanche danger",
-				"avalancheProblem" : "Avalanche Problem",
+				"avalancheSituation1" : "Avalanche Situation 1",
+				"avalancheSituation2" : "Avalanche Situation 2",
 				"dangerRating" : "Danger Rating",
 				"aspects" : "Aspects",
 				"elevation" : "Elevation",
 				"daytime" : "Daytime",
 				"snowpackStructureHighlights" : "Headline snowpack structure",
 				"snowpackStructureComment" : "Description of snowpack structure",
-				"dangerPatterns" : "Danger patterns"
+				"dangerPatterns" : "Danger patterns",
+				"elevationHigh" : "Upper elevation:",
+				"elevationLow" : "Lower elevation:"
 			},
 			"title" : {
 				"map" : "Map",
-				"general" : "Description of avalanche danger",
+				"dangerRating" : "Danger rating",
+				"avalancheSituation" : "Avalanche situations",
+				"dangerDescription" : "Description of avalanche danger",
 				"detail" : "Details",
-				"above" : "Details - above",
-				"below" : "Details - below",
-				"forenoon" : "Details - forenoon",
-				"afternoon" : "Details - afternoon",
-				"forenoonAbove" : "Details - forenoon, above",
-				"afternoonAbove" : "Details - afternoon, above",
-				"forenoonBelow" : "Details - forenoon, below",
-				"afternoonBelow" : "Details - afternoon, below",
+				"above" : "Above",
+				"below" : "Below",
+				"forenoon" : "Forenoon",
+				"afternoon" : "Afternoon",
+				"forenoonAbove" : "Forenoon, above",
+				"afternoonAbove" : "Afternoon, above",
+				"forenoonBelow" : "Forenoon, below",
+				"afternoonBelow" : "Aafternoon, below",
 				"snowpackStructure" : "Snowpack structure",
 				"tendency" : "Tendency"
 			},
@@ -262,6 +270,8 @@
 				"duplicateRegion" : "Regions rated multiple times",
 				"missingAvActivityHighlights" : "Headline avalanche situation missing",
 				"missingAvActivityComment" : "Description of avalanche danger missing",
+				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
+				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
 				"pendingSuggestions" : "Pending suggestions",
 				"accept" : "Yes",
 				"reject" : "No"
@@ -279,6 +289,8 @@
 				"duplicateRegion" : "Regions rated multiple times",
 				"missingAvActivityHighlights" : "Headline avalanche situation missing",
 				"missingAvActivityComment" : "Description of avalanche danger missing",
+				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
+				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
 				"pendingSuggestions" : "Pending suggestions",
 				"accept" : "Yes",
 				"reject" : "No"
@@ -303,6 +315,19 @@
 			},
 			"noCaamlDialog" : {
 				"header" : "CAAML",
+				"message" : "No published bulletin available!",
+				"accept" : "Ok"
+			}
+		},
+		"json" : {
+			"title" : "JSON",
+			"jsonNotLoadedDialog" : {
+				"header" : "JSON",
+				"message" : "JSON could not be loaded!",
+				"accept" : "Ok"
+			},
+			"noJsonDialog" : {
+				"header" : "JSON",
 				"message" : "No published bulletin available!",
 				"accept" : "Ok"
 			}
