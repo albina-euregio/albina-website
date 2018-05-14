@@ -275,8 +275,8 @@
                 <div class="form-group row">
                   <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
                   <!--<div class="col-md-12"  >-->
-                     <input type="text" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsTextcat" (click)="openTextcat($event,'activeAvActivityHighlights',this.activeBulletin.avActivityHighlightsTextcat['0'].languageCode)"><br>
-                   <!-- TODO disable cop if editRegions 
+                  <input type="text" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsTextcat" (click)="openTextcat($event,'activeAvActivityHighlights',this.settingsService.getLangString())"><br>
+                   <!-- TODO disable cop if editRegions
                     <cop #avActivityHighlightsTextcat [text]="activeBulletin.avActivityHighlightsTextcat" [disabled]="!bulletinsService.getIsEditable() || !isCreator(activeBulletin)"></cop>
                   </div>-->
                   <input type="text" id="text-input" name="text-input" class="form-control" [(ngModel)]="activeAvActivityHighlightsIt">
@@ -448,7 +448,7 @@
     <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.noElevationDialog.accept" | translate }}' (click)="noElevationDialog.accept()"></button>
   </p-footer>
 </p-confirmDialog>
- 
+
 <p-dialog styleClass="pmdialog" header='{{ "bulletins.create.title.pmdialog" | translate }}' [(visible)]="display"  [responsive]="true" modal="modal"  [contentStyle]="{'height':'80%'}">
   <iframe id="receiver" #receiver [src]="pmUrl" width="100%" height="95%">
     <p>Your browser does not support iframes.</p>
