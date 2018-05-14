@@ -1,6 +1,7 @@
 import React from 'react';
+import {observer} from 'mobx-react';
 
-export default class BulletinMap extends React.Component {
+@observer class BulletinMap extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -45,3 +46,5 @@ export default class BulletinMap extends React.Component {
     );
   }
 }
+
+export default BulletinMap;
