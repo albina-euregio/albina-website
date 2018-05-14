@@ -15,7 +15,7 @@
   ],
   "apis": {
   	"content": "//localhost/projects/albina-cms/web/",
-  	"bulletin": "http://212.47.231.185:8080/swagger/",
+  	"bulletin": "http://212.47.231.185:8080/albina/api/bulletins",
   	"blogger": "https://www.googleapis.com/blogger/v3/blogs/"
   },
   "apiKeys": {

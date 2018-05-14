@@ -37,8 +37,8 @@ export default class Page extends React.Component {
           <main id="page-main" className="page-main">
             <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
           </main>
+          <PageFooter />
         </div>
-        <PageFooter />
       </div>
     );
   }
