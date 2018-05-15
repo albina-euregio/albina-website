@@ -12,6 +12,12 @@ class BulletinMap extends React.Component {
     bulletinStore.setMapViewport(mapState);
   }
 
+  styleOverMap() {
+    return {
+      zIndex: 1000
+    };
+  }
+
   render() {
     //const bulletin = bulletinStore.get(this.props.date, this.props.ampm);
 
@@ -24,7 +30,7 @@ class BulletinMap extends React.Component {
           <LeafletMap
             mapViewportChanged={this.handleMapViewportChanged.bind(this)}
           />
-          <div className="bulletin-map-search">
+          <div style={this.styleOverMap()} className="bulletin-map-search">
             <div className="pure-form pure-form-search">
               <input
                 type="text"
@@ -42,7 +48,7 @@ class BulletinMap extends React.Component {
               </button>
             </div>
           </div>
-          <div className="bulletin-map-zoom">
+          <div style={this.styleOverMap()} className="bulletin-map-zoom">
             <ul className="list-plain">
               <li className="bulletin-map-zoom-plus">
                 <button
@@ -64,7 +70,10 @@ class BulletinMap extends React.Component {
               </li>
             </ul>
           </div>
-          <div className="bulletin-map-details js-active top-right">
+          <div
+            style={this.styleOverMap()}
+            className="bulletin-map-details js-active top-right"
+          >
             <ul className="list-plain">
               <li
                 className="bulletin-report-picto tooltip"

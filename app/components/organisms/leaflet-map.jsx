@@ -22,7 +22,8 @@ class BulletinMap extends React.Component {
   mapStyle() {
     return {
       width: '100%',
-      height: '100%'
+      height: '100%',
+      zIndex: 1
     };
   }
 
