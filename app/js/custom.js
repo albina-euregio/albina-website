@@ -23,27 +23,27 @@ $(function() {
     );
 
     //DOM objects global init
-    page_window = $(window);
-    page_html_body = $('html, body');
-    page_html = $('html');
-    page_body = $('body');
+    var page_window = $(window);
+    var page_html_body = $('html, body');
+    var page_html = $('html');
+    var page_body = $('body');
 
-    page_loading_screen = $('.page-loading-screen');
-    page_all = $('.page-all');
-    page_header = $('.page-header');
-    page_header_logo = $('.page-header-logo');
-    page_main = $('.page-main');
-    page_main_star = $('.page-main > *');
-    page_footer = $('.page-footer');
+    var page_loading_screen = $('.page-loading-screen');
+    var page_all = $('.page-all');
+    var page_header = $('.page-header');
+    var page_header_logo = $('.page-header-logo');
+    var page_main = $('.page-main');
+    var page_main_star = $('.page-main > *');
+    var page_footer = $('.page-footer');
 
-    navigation_trigger = $('.navigation-trigger');
-    navigation = $('.navigation');
-    navigation_li = $('.navigation li');
+    var navigation_trigger = $('.navigation-trigger');
+    var navigation = $('.navigation');
+    var navigation_li = $('.navigation li');
 
-    modal_trigger = $('.modal-trigger');
+    var modal_trigger = $('.modal-trigger');
 
     //global variables
-    scroll_duration = 1000;
+    var scroll_duration = 1000;
 
     //init functions
     scroll_init();

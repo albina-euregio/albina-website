@@ -14,6 +14,7 @@ require('./bower_components/tippyjs_2.2.3/dist/tippy.all.min.js');
 require('./bower_components/jquery-selectric/public/jquery.selectric.min.js');
 require('./bower_components/tilt_1.1.19/dest/tilt.jquery.min.js');
 require('./bower_components/fluidvids_2.4.1/dist/fluidvids.min.js');
+require('./bower_components/sweet-scroll-master_3.0.0/sweet-scroll.min.js');
 require('./js/custom.js');
 
 // TODO: check content API for maintenance mode
