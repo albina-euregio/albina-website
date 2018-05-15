@@ -9,6 +9,9 @@ module.exports = {
   entry: {
     app: './app/main.jsx'
   },
+  devServer: {
+    historyApiFallback: true
+  },
   module: {
     rules: [
       {
