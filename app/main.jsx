@@ -9,12 +9,14 @@ import ConfigStore from './configStore.js';
 
 window['appStore'] = new AppStore();
 
-// request config.json before starting the app (do not cache config!)
-Base.doRequest('config.json?t=' + Date.now()).then(configData => {
-  window['config'] = new ConfigStore(JSON.parse(configData));
+// clean cache
+window.caches.delete('./config.json');
 
-  ReactDOM.render(
-    <App />,
-    document.body.appendChild(document.createElement('div'))
-  );
-});
+// request config.json before starting the app (do not cache config!)
+const configData = require('./config.json'); // ?t=' + Date.now()
+window['config'] = new ConfigStore(configData);
+
+ReactDOM.render(
+  <App />,
+  document.body.appendChild(document.createElement('div'))
+);
