@@ -7,7 +7,7 @@ import {observer} from 'mobx-react';
   }
 
   render() {
-    const bulletin = bulletinStore.get(this.props.date, this.props.ampm);
+    const bulletin = bulletinStore.getActive();
 
     return (
       <section id="section-bulletin-map" className="section section-bulletin section-bulletin-map">
