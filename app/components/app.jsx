@@ -15,6 +15,8 @@ import Page from './page.jsx';
 require('../css/style.css');
 require('./../../node_modules/leaflet/dist/leaflet.css');
 
+//require('./js/custom.js');
+
 class App extends React.Component {
   constructor(props) {
     super(props);

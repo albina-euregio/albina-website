@@ -6,8 +6,9 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx']
   },
+  context: __dirname + '/app',
   entry: {
-    app: './app/main.jsx'
+    app: './main.jsx'
   },
   devServer: {
     historyApiFallback: true
@@ -59,14 +60,17 @@ module.exports = {
   },
   plugins: [
     new HtmlWebPackPlugin({
-      template: './app/index.html',
+      template: './index.html',
       filename: './index.html',
-      favicon: './app/images/fav/en/favicon.ico'
+      favicon: './images/fav/en/favicon.ico'
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',
       chunkFilename: '[id].css'
     }),
-    new CopyWebpackPlugin([{ from: './app/data', to: 'data' }], {})
+    new CopyWebpackPlugin(
+      [{ from: './data', to: 'data' }, { from: './images', to: 'images' }],
+      {}
+    )
   ]
 };

@@ -49,7 +49,9 @@
     "webpack-cli": "^2.1.3",
     "webpack-dev-server": "^3.1.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jquery": "^3.3.1"
+  },
   "keywords": [],
   "author": "",
   "license": "",

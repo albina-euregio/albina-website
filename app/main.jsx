@@ -5,6 +5,17 @@ import Base from './base.js';
 import AppStore from './appStore.js';
 import ConfigStore from './configStore.js';
 
+/* bower components */
+window['jQuery'] = window['$'] = require('jquery');
+require('./bower_components/sweet-scroll-master_3.0.0/sweet-scroll.js');
+require('./bower_components/animejs_2.2.0/anime.min.js');
+require('./bower_components/magnific-popup_1.1.0/dist/jquery.magnific-popup.min.js');
+require('./bower_components/tippyjs_2.2.3/dist/tippy.all.min.js');
+require('./bower_components/jquery-selectric/public/jquery.selectric.min.js');
+require('./bower_components/tilt_1.1.19/dest/tilt.jquery.min.js');
+require('./bower_components/fluidvids_2.4.1/dist/fluidvids.min.js');
+require('./js/custom.js');
+
 // TODO: check content API for maintenance mode
 
 window['appStore'] = new AppStore();
