@@ -23,27 +23,28 @@ $(function() {
     );
 
     //DOM objects global init
-    var page_window = $(window);
-    var page_html_body = $('html, body');
-    var page_html = $('html');
-    var page_body = $('body');
+    window['page_window'] = $(window);
+    window['page_html_body'] = $('html, body');
+    window['page_html'] = $('html');
+    window['page_body'] = $('body');
 
-    var page_loading_screen = $('.page-loading-screen');
-    var page_all = $('.page-all');
-    var page_header = $('.page-header');
-    var page_header_logo = $('.page-header-logo');
-    var page_main = $('.page-main');
-    var page_main_star = $('.page-main > *');
-    var page_footer = $('.page-footer');
+    window['page_loading_screen'] = $('.page-loading-screen');
+    window['page_all'] = $('.page-all');
+    window['page_header'] = $('.page-header');
+    window['page_header_logo'] = $('.page-header-logo');
+    window['page_main'] = $('.page-main');
+    window['page_main_star'] = $('.page-main > *');
+    window['page_footer'] = $('.page-footer');
 
-    var navigation_trigger = $('.navigation-trigger');
-    var navigation = $('.navigation');
-    var navigation_li = $('.navigation li');
+    window['navigation_trigger'] = $('.navigation-trigger');
+    window['navigation'] = $('.navigation');
+    window['navigation_li'] = $('.navigation li');
+    window['modal_type'] = false;
 
-    var modal_trigger = $('.modal-trigger');
+    window['modal_trigger'] = $('.modal-trigger');
 
     //global variables
-    var scroll_duration = 1000;
+    window['scroll_duration'] = 1000;
 
     //init functions
     scroll_init();
@@ -359,8 +360,8 @@ function modal_open(modal) {
     modal_type = 'inline';
   }
 
-  modal_url = modal.attr('href');
-  modal_title = modal.attr('title');
+  window['modal_url'] = modal.attr('href');
+  window['modal_title'] = modal.attr('title');
 
   modal.magnificPopup({
     type: modal_type,
