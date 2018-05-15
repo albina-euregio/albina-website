@@ -27,7 +27,7 @@ require('./js/custom.js');
 window['appStore'] = new AppStore();
 
 // clean cache
-window.caches.delete('./config.json');
+Base.cleanCache('./config.json');
 
 // request config.json before starting the app (do not cache config!)
 const configData = require('./config.json'); // ?t=' + Date.now()
