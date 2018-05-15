@@ -5,9 +5,9 @@
   "main": "app/main.jsx",
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server --devtool eval --progress --hot --content-base app",
-    "deploy": "NODE_ENV=production webpack --config webpack.production.config.js",
-    "deploy-windows": "SET NODE_ENV=production & webpack --config webpack.production.config.js"
+    "start": "webpack-dev-server --mode development --open",
+    "deploy": "npm run clean-dist && webpack --mode production",
+    "clean-dist": "rm -f -r -d dist"
   },
   "dependencies": {
     "babel-core": "^6.26.3",
