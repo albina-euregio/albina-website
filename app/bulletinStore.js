@@ -12,6 +12,7 @@ export default class BulletinStore {
   bulletins = {};
 
   constructor() {
+    this.setAmPm(config.get('defaults.ampm'));
   }
 
   /**
@@ -103,4 +104,11 @@ export default class BulletinStore {
     }
     return [];
   }
+
+  // findByProblem(problem, date = this.active.date, ampm = this.active.ampm, region = this.active.region) {
+  //   const bulletins = this.get(date, ampm, region);
+  //   if(this.bulletins.length > 0) {
+  //     return bulletins.
+  //   }
+  // }
 }
