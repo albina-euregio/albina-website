@@ -29,17 +29,19 @@ export default class Bulletin extends React.Component {
 
   _fetchData(props) {
     const date = '2018-05-02'; // TODO: should be current date
-    this.store.load(date);
+    this.store.load(date).then(() => {
+      this.setState({date: date});
+    });
   }
 
   render() {
     return (
       <div>
-        <BulletinHeader date={this.store.date} />
-        <BulletinMap date={this.store.date} />
+        <BulletinHeader date={this.store.date} ampm={this.store.ampm} />
+        <BulletinMap date={this.store.date} ampm={this.store.ampm} />
         <BulletinLegend />
         <BulletinButtonbar />
-        <BulletinReport date={this.store.date} />
+        <BulletinReport date={this.store.date} ampm={this.store.ampm} />
         <BulletinAdditional />
         <SmShare />
         <Context />

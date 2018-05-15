@@ -1,17 +1,20 @@
 import React from 'react';
+import {observer} from 'mobx-react';
 
-export default class BulletinHeader extends React.Component {
+@observer class BulletinHeader extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    const bulletin = bulletinStore.get(this.props.date, this.props.ampm);
+
     return (
       <section id="section-bulletin-header" className="section-padding section-header section-bulletin-header 0bulletin-archive bulletin-updated">
         <header className="section-centered">
           <p className="marginal bulletin-datetime-publishing">Published 08.12.2017, 05:20 PM</p>
           <h2 className="subheader">Avalanche Bulletin</h2>
-          <h1 className="bulletin-datetime-validity">Saturday 09.12.2017 <span title="PM is currently selected" className="bulletin-ampm tooltip">PM</span> <span className="bulletin-ampm"><a href="#" title="Switch to AM" className="textlink tooltip">AM</a></span></h1>
+          <h1 className="bulletin-datetime-validity">Saturday {this.props.date} <span title="PM is currently selected" className="bulletin-ampm tooltip">PM</span> <span className="bulletin-ampm"><a href="#" title="Switch to AM" className="textlink tooltip">AM</a></span></h1>
           <ul className="list-inline bulletin-flipper">
             <li className="bulletin-flipper-back"><a href="#" title="Back" className="tooltip"><span className="icon-arrow-left" />08.12.2017</a></li>
             <li className="bulletin-flipper-latest"><a href="#" title="Go to current Bulletin" className="tooltip">Latest</a></li>
@@ -23,3 +26,5 @@ export default class BulletinHeader extends React.Component {
     );
   }
 }
+
+export default BulletinHeader;

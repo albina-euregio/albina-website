@@ -4,6 +4,7 @@ import Base from './base.js';
 export default class BulletinStore {
   // TODO: add language support
   @observable date = '';
+  @observable ampm = 'am';
   @observable isLoading = true;
   bulletins = {};
 
@@ -19,7 +20,7 @@ export default class BulletinStore {
     } else {
       this.isLoading = true;
 
-      Base.doRequest(url).then(
+      return Base.doRequest(url).then(
         response => {
           const responseParsed = JSON.parse(response);
           this.bulletins[date] = responseParsed;
@@ -30,7 +31,7 @@ export default class BulletinStore {
     }
   }
 
-  get(date) {
+  get(date, ampm) {
     if(this.bulletins[date]) {
       return this.bulletins[date];
     }
