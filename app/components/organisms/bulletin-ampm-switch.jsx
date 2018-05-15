@@ -1,5 +1,4 @@
 import React from 'react';
-import {computed} from 'mobx';
 import {observer} from 'mobx-react';
 
 @observer class BulletinAmPmSwitch extends React.Component {
