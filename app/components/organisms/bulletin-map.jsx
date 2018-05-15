@@ -12,6 +12,10 @@ class BulletinMap extends React.Component {
     bulletinStore.setMapViewport(mapState);
   }
 
+  handleZoom(zoomIn = true) {
+    zoomIn ? bulletinStore.zoomIn() : bulletinStore.zoomOut();
+  }
+
   styleOverMap() {
     return {
       zIndex: 1000
@@ -52,6 +56,7 @@ class BulletinMap extends React.Component {
             <ul className="list-plain">
               <li className="bulletin-map-zoom-plus">
                 <button
+                  onClick={this.handleZoom.bind(this)}
                   href="#"
                   className="pure-button pure-button-icon icon-plus-big tooltip"
                   title="Zoom in"
@@ -61,6 +66,7 @@ class BulletinMap extends React.Component {
               </li>
               <li className="bulletin-map-zoom-minus">
                 <button
+                  onClick={this.handleZoom.bind(this, false)}
                   href="#"
                   className="pure-button pure-button-icon icon-minus-big tooltip"
                   title="Zoom out"

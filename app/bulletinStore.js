@@ -58,6 +58,15 @@ export default class BulletinStore {
   }
 
   @action
+  zoomIn() {
+    this.mapZoom.set(this.mapZoom + 1);
+  }
+  @action
+  zoomOut() {
+    this.mapZoom.set(this.mapZoom - 1);
+  }
+
+  @action
   setAmPm(ampm) {
     switch (ampm) {
       case 'am':
