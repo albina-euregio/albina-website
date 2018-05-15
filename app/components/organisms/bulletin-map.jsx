@@ -8,14 +8,12 @@ class BulletinMap extends React.Component {
     super(props);
   }
 
-  handleMapViewportChanged(map) {
-    console.log(map);
+  handleMapViewportChanged(mapState) {
+    bulletinStore.setMapViewport(mapState);
   }
 
   render() {
     //const bulletin = bulletinStore.get(this.props.date, this.props.ampm);
-
-    console.log('map');
 
     return (
       <section
@@ -23,7 +21,9 @@ class BulletinMap extends React.Component {
         className="section section-bulletin section-bulletin-map"
       >
         <div className="bulletin-map-container">
-          <LeafletMap mapViewportChanged={this.handleMapViewportChanged} />
+          <LeafletMap
+            mapViewportChanged={this.handleMapViewportChanged.bind(this)}
+          />
           <div className="bulletin-map-search">
             <div className="pure-form pure-form-search">
               <input

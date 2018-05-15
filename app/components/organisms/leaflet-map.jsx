@@ -20,7 +20,10 @@ class BulletinMap extends React.Component {
   }
 
   mapStyle() {
-    return {};
+    return {
+      width: '100%',
+      height: '100%'
+    };
   }
 
   componentDidMount() {
@@ -30,13 +33,14 @@ class BulletinMap extends React.Component {
   render() {
     return (
       <Map
-        onViewportChanged={this.props.mapViewportChanged(this.map)}
+        onViewportChanged={this.props.mapViewportChanged.bind(this.map)}
         useFlyTo={true}
         ref="map"
         style={this.mapStyle()}
         attributionControl={false}
         zoomControl={false}
-        bounds={[[0, 0], [20, 20]]}
+        zoom={bulletinStore.getMapZoom}
+        center={bulletinStore.getMapCenter}
       >
         <LayerGroup>
           <TileLayer
