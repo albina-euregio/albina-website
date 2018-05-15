@@ -16,6 +16,11 @@ class BulletinMap extends React.Component {
     zoomIn ? bulletinStore.zoomIn() : bulletinStore.zoomOut();
   }
 
+  handleMapScrollZoom() {
+    console.log('scroll');
+    return true;
+  }
+
   styleOverMap() {
     return {
       zIndex: 1000
@@ -32,6 +37,7 @@ class BulletinMap extends React.Component {
       >
         <div className="bulletin-map-container">
           <LeafletMap
+            mapScrollZoom={this.handleMapScrollZoom.bind(this)}
             mapViewportChanged={this.handleMapViewportChanged.bind(this)}
           />
           <div style={this.styleOverMap()} className="bulletin-map-search">

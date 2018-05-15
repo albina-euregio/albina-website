@@ -26,6 +26,8 @@ require('./js/custom.js');
 // TODO: check content API for maintenance mode
 
 window['appStore'] = new AppStore();
+window.onkeydown = e => appStore.SetKeyDown(e.keyCode);
+window.onkeyup = () => appStore.SetKeyDown(false);
 
 // clean cache
 Base.cleanCache('./config.json');

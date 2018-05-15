@@ -6,10 +6,12 @@ import React from 'react';
 
 class AppStore extends React.Component {
   @observable language = 'de';
+  @observable keyDown;
 
   constructor() {
     super();
     this.language = observable.box('de');
+    this.keyDown = observable.box(false);
   }
 
   @computed
@@ -22,9 +24,19 @@ class AppStore extends React.Component {
     return translations[this.language];
   }
 
+  @computed
+  get getKeyDown() {
+    return toJS(this.keyDown);
+  }
+
   @action
   setLanguage(newLanguage) {
     this.language.set(newLanguage);
+  }
+
+  @action
+  SetKeyDown(key) {
+    this.keyDown.set(key);
   }
 }
 
