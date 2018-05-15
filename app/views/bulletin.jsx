@@ -14,7 +14,7 @@ export default class Bulletin extends React.Component {
   constructor(props) {
     super(props);
     this.store = new BulletinStore();
-    if(typeof(window.bulletinStore) === 'undefined') {
+    if (typeof window.bulletinStore === 'undefined') {
       window.bulletinStore = this.store;
     }
   }
@@ -30,7 +30,7 @@ export default class Bulletin extends React.Component {
   _fetchData(props) {
     const date = '2018-05-02'; // TODO: should be current date
     this.store.load(date).then(() => {
-      this.setState({date: date});
+      this.setState({ date: date });
     });
   }
 
@@ -38,10 +38,18 @@ export default class Bulletin extends React.Component {
     return (
       <div>
         <BulletinHeader date={this.store.date} ampm={this.store.ampm} />
-        <BulletinMap date={this.store.date} ampm={this.store.ampm} region={this.store.region} />
+        <BulletinMap
+          date={this.store.date}
+          ampm={this.store.ampm}
+          region={this.store.region}
+        />
         <BulletinLegend />
         <BulletinButtonbar />
-        <BulletinReport date={this.store.date} ampm={this.store.ampm} region={this.store.region} />
+        <BulletinReport
+          date={this.store.date}
+          ampm={this.store.ampm}
+          region={this.store.region}
+        />
         <BulletinAdditional />
         <SmShare />
         <Context />

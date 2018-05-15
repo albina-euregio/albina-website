@@ -7,7 +7,7 @@ class PageHeader extends React.Component {
   }
 
   hangleChangeLanguage(newLanguage) {
-    window['store'].setLanguage(newLanguage);
+    window['appStore'].setLanguage(newLanguage);
   }
 
   render() {
@@ -28,7 +28,7 @@ class PageHeader extends React.Component {
             <li>
               <a href="./bulletin" className=" " title>
                 Avalanche Bulletin{' '}
-                <small>{this.props.store.homeTranslation}</small>
+                <small>{window['appStore'].homeTranslation}</small>
               </a>
             </li>
             <li>

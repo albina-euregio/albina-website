@@ -34,18 +34,18 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-    	test: /\.(ttf|eot|woff|woff2)$/,
-    	loader: 'file-loader',
-    	options: {
-    	  name: "fonts/[name].[ext]",
-    	}
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[ext]'
+        }
       },
       {
-      	test: /\.(png|jpeg|jpg|gif|svg)$/,
-    	loader: 'file-loader',
-    	options: {
-    	  name: "images/[name].[ext]",
-    	}    	 
+        test: /\.(png|jpeg|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'images/[name].[ext]'
+        }
       }
     ]
   },
@@ -59,6 +59,6 @@ module.exports = {
     })
   ],
   node: {
-    fs: "empty"
+    fs: 'empty'
   }
 };

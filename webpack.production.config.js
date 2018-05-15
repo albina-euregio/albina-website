@@ -6,9 +6,7 @@ const uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
   devtool: 'cheap-source-map',
-  entry: [
-    path.resolve(__dirname, 'app/main.jsx')
-  ],
+  entry: [path.resolve(__dirname, 'app/main.jsx')],
   output: {
     path: path.resolve(__dirname, 'build'),
     publicPath: '/projects/albina-web/',
@@ -16,21 +14,30 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.css$/, include: path.resolve(__dirname, 'app'), loader: 'style-loader!css-loader' },
-      { test: /\.js[x]?$/, include: path.resolve(__dirname, 'app'), exclude: /node_modules/, loader: 'babel-loader' },
       {
-    	test: /\.(ttf|eot|woff|woff2)$/,
-      	loader: 'file-loader',
-      	options: {
-      	  name: "fonts/[name].[ext]",
-      	}
+        test: /\.css$/,
+        include: path.resolve(__dirname, 'app'),
+        loader: 'style-loader!css-loader'
+      },
+      {
+        test: /\.js[x]?$/,
+        include: path.resolve(__dirname, 'app'),
+        exclude: /node_modules/,
+        loader: 'babel-loader'
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[ext]'
+        }
       },
       {
         test: /\.(png|jpeg|jpg|gif|svg)$/,
-      	loader: 'file-loader',
-      	options: {
-      	  name: "images/[name].[ext]",
-      	}    	 
+        loader: 'file-loader',
+        options: {
+          name: 'images/[name].[ext]'
+        }
       }
     ]
   },
@@ -58,7 +65,7 @@ module.exports = {
       { from: './app/images', to: 'images' },
       { from: './app/js', to: 'js' },
       { from: './app/bower_components', to: 'bower_components' },
-      { from: './app/patterns', to: 'patterns'}
+      { from: './app/patterns', to: 'patterns' }
     ])
   ]
 };

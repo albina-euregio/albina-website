@@ -13,6 +13,7 @@ import Page from './page.jsx';
 
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require('../css/app.css');
+//require('./../../node_modules/leaflet/dist/leaflet.css');
 
 class App extends React.Component {
   constructor(props) {
