@@ -31,9 +31,7 @@ export default class Bulletin extends React.Component {
 
   _fetchData(props) {
     const date = '2018-05-02'; // TODO: should be current date
-    return this.store.load(date)/*.then(() => {
-      this.setState({date: date});
-    })*/;
+    return this.store.load(date);
   }
 
   @computed get activeBulletin() {
