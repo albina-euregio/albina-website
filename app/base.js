@@ -5,7 +5,11 @@ var Base = {
       let xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-          resolve(xhr.responseText);
+          if(xhr.status == 200) {
+            resolve(xhr.responseText);
+          } else {
+            reject(xhr.statusText);
+          }
         }
       };
       // TODO: fix accept header

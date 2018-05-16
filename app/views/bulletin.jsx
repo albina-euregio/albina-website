@@ -9,6 +9,7 @@ import BulletinReport from '../components/organisms/bulletin-report.jsx';
 import BulletinAdditional from '../components/organisms/bulletin-additional.jsx';
 import SmShare from '../components/organisms/sm-share.jsx';
 import Context from '../components/organisms/context.jsx';
+import {computed} from 'mobx';
 
 export default class Bulletin extends React.Component {
   constructor(props) {
@@ -20,36 +21,31 @@ export default class Bulletin extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this._fetchData(nextProps);
+    return this._fetchData(nextProps);
   }
 
   componentDidMount() {
-    this._fetchData(this.props);
+    return this._fetchData(this.props);
   }
 
   _fetchData(props) {
     const date = '2018-05-02'; // TODO: should be current date
-    this.store.load(date).then(() => {
-      this.setState({ date: date });
-    });
+    return this.store.load(date);
+  }
+
+  @computed get activeBulletin() {
+    return this.store.active;
   }
 
   render() {
     return (
       <div>
-        <BulletinHeader date={this.store.date} ampm={this.store.ampm} />
-        <BulletinMap
-          date={this.store.date}
-          ampm={this.store.ampm}
-          region={this.store.region}
-        />
+        <span>{this.date}</span>
+        <BulletinHeader bulletin={this.activeBulletin} />
+        <BulletinMap bulletin={this.activeBulletin} />
         <BulletinLegend />
         <BulletinButtonbar />
-        <BulletinReport
-          date={this.store.date}
-          ampm={this.store.ampm}
-          region={this.store.region}
-        />
+        <BulletinReport bulletin={this.activeBulletin} />
         <BulletinAdditional />
         <SmShare />
         <Context />

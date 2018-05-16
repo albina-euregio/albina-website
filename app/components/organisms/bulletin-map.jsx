@@ -13,9 +13,7 @@ class BulletinMap extends React.Component {
   }
 
   render() {
-    //const bulletin = bulletinStore.get(this.props.date, this.props.ampm);
-
-    console.log('map');
+    const bulletin = bulletinStore.getActive();
 
     return (
       <section

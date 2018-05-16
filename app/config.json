@@ -20,5 +20,8 @@
   },
   "apiKeys": {
     "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo"
+  },
+  "defaults": {
+    "ampm": "am"
   }
 }
