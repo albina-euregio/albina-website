@@ -20,7 +20,6 @@ function parseDate(dateString) {
 
 
 function _parseDatetime(dateTimeString) {
-  console.log('TEST4: ' + dateTimeString);
   return Date.parse(dateTimeString);
 }
 
@@ -68,7 +67,14 @@ function dateToDateTimeString(date) {
 }
 
 function dateToISODateString(date) {
-  return date.toISOString().substr(0, 10);
+  let pad = function(d) {
+    if(d < 10) {
+      return '0' + d;
+    }
+    return d;
+  }
+
+  return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
 }
 
 function _formatDate(date, options = {}) {

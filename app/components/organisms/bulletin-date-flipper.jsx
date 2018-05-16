@@ -32,7 +32,9 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
   }
 
   dateBack = () => {
+    console.log('TEST1: ' + bulletinStore.active.date);
     const d = getPredDate(parseDate(bulletinStore.active.date));
+    console.log('TEST2: ' + d);
     if(d) {
       bulletinStore.load(dateToISODateString(d));
     }

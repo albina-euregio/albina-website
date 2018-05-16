@@ -22,7 +22,6 @@ export default class BulletinStore {
    *   if it need to be fetched.
    */
   load(date, activate = true) {
-    console.log('LOAD: ' + date);
     const url = config.get('apis.bulletin') + '?date=' + encodeURIComponent(date + 'T00:00:00+02:00');
     if(this.bulletins[date]) {
       if(activate) {
