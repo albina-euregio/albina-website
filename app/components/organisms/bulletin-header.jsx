@@ -34,8 +34,7 @@ import {parseDate, dateToLongDateString} from '../../util/date.js';
   }
 
   render() {
-    const bulletin = bulletinStore.getActive();
-    const bulletinDate = (bulletin && bulletin.length > 0) ? dateToLongDateString(this.date) : '';
+    const bulletinDate = dateToLongDateString(this.date);
 
     return (
       <section id="section-bulletin-header" className={`section-padding section-header section-bulletin-header 0bulletin-archive bulletin-updated${this.statusClass}`}>

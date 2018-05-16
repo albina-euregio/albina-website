@@ -1,0 +1,12 @@
+.section-bulletin-header.no-data h1,
+.section-bulletin-header.loading h1 {
+  color: #aaa;
+}
+.section-bulletin-header.no-data .bulletin-ampm a,
+.section-bulletin-header.loading .bulletin-ampm a {
+  background-color: #aaa;
+}
+.section-bulletin-header.loading {
+  opacity: 0.5 !important;
+  cursor: wait;
+}

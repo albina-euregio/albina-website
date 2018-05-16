@@ -31,6 +31,7 @@ export default class BulletinStore {
         }
       } else {
         if(activate) {
+          this.active.date = date;
           this.active.status = 'pending';
         }
 
