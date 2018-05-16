@@ -1,4 +1,4 @@
-import {observable} from 'mobx';
+import {observable, action} from 'mobx';
 import Base from './base.js';
 
 export default class BulletinStore {
@@ -22,6 +22,7 @@ export default class BulletinStore {
    *   if it need to be fetched.
    */
   load(date, activate = true) {
+    console.log('LOAD: ' + date);
     const url = config.get('apis.bulletin') + '?date=' + encodeURIComponent(date + 'T00:00:00+02:00');
     if(this.bulletins[date]) {
       if(activate) {
@@ -38,6 +39,13 @@ export default class BulletinStore {
             this.setDate(date);
           }
           this.isLoading = false;
+        },
+        error => {
+          console.error('Cannot load bulletin for date ' + date + ': ' + error);
+          if(activate) {
+            this.setDate(date);
+          }
+          this.isLoading = false;
         }
       );
     }
@@ -47,6 +55,7 @@ export default class BulletinStore {
   /**
    * Set the current date in YYYY-MM-DD format.
    */
+  @action.bound
   setDate(date) {
     this.active.date = date;
   }
@@ -56,6 +65,7 @@ export default class BulletinStore {
    * Set the current active 'am'/'pm' state.
    * @param ampm A string 'am' or 'pm'.
    */
+  @action.bound
   setAmPm(ampm) {
     switch(ampm) {
       case 'am':
@@ -73,6 +83,7 @@ export default class BulletinStore {
    * Set the current active region to a given value.
    * @param region A valid region identifier or 'all'.
    */
+  @action.bound
   setRegion(region) {
     this.active.region = region;
   }
