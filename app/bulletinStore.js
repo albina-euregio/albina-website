@@ -4,11 +4,11 @@ import Base from './base.js';
 export default class BulletinStore {
   // TODO: add language support
   active = observable({
+    status: '',
     date: '',
     ampm: '',
     region: 'all'
   });
-  @observable isLoading = false;
   bulletins = {};
 
   constructor() {
@@ -21,32 +21,35 @@ export default class BulletinStore {
    * @return Void, if the bulletin has already been fetched or a promise object,
    *   if it need to be fetched.
    */
+  @action
   load(date, activate = true) {
-    const url = config.get('apis.bulletin') + '?date=' + encodeURIComponent(date + 'T00:00:00+02:00');
-    if(this.bulletins[date]) {
-      if(activate) {
-        this.setDate(date);
-      }
-    } else {
-      this.isLoading = true;
-
-      return Base.doRequest(url).then(
-        response => {
-          const responseParsed = JSON.parse(response);
-          this.bulletins[date] = responseParsed;
-          if(activate) {
-            this.setDate(date);
-          }
-          this.isLoading = false;
-        },
-        error => {
-          console.error('Cannot load bulletin for date ' + date + ': ' + error);
-          if(activate) {
-            this.setDate(date);
-          }
-          this.isLoading = false;
+    if(date) {
+      const url = config.get('apis.bulletin') + '?date=' + encodeURIComponent(date + 'T00:00:00+02:00');
+      if(this.bulletins[date]) {
+        if(activate) {
+          this.setDate(date);
         }
-      );
+      } else {
+        if(activate) {
+          this.active.status = 'pending';
+        }
+
+        return Base.doRequest(url).then(
+          response => {
+            const responseParsed = JSON.parse(response);
+            this.bulletins[date] = responseParsed;
+            if(activate) {
+              this.setDate(date);
+            }
+          },
+          error => {
+            console.error('Cannot load bulletin for date ' + date + ': ' + error);
+            if(activate) {
+              this.setDate(date);
+            }
+          }
+        );
+      }
     }
   }
 
@@ -56,6 +59,10 @@ export default class BulletinStore {
    */
   @action.bound
   setDate(date) {
+    this.active.status = (this.bulletins[date]) ? (
+      (this.bulletins[date].length > 0) ? 'ok' : 'empty'
+    ) : 'n/a';
+
     this.active.date = date;
   }
 

@@ -1,6 +1,7 @@
 function parseDate(dateString) {
   const dateMatch = dateString.match(/^(\d{4}-\d{2}-\d{2})([T ].*)?$/);
   if(dateMatch) {
+    console.assert((typeof(dateMatch[1]) == 'string'), dateMatch);
     const dateString = dateMatch[1];
     if(typeof(dateMatch[2]) == 'undefined') {
       // no time supplied
