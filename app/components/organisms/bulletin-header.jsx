@@ -15,12 +15,30 @@ import {parseDate, dateToLongDateString} from '../../util/date.js';
     return parseDate(this.props.bulletin.date);
   }
 
+  @computed get statusClass() {
+    let cl = '';
+    switch(this.props.bulletin.status) {
+      case 'pending':
+        cl = 'loading';
+        break;
+      case 'n/a':
+        cl = 'not-available';
+        break;
+      case 'empty':
+        cl = 'no-data';
+        break;
+      default:
+        break;
+    }
+    return cl ? ' ' + cl : '';
+  }
+
   render() {
     const bulletin = bulletinStore.getActive();
     const bulletinDate = (bulletin && bulletin.length > 0) ? dateToLongDateString(this.date) : '';
 
     return (
-      <section id="section-bulletin-header" className="section-padding section-header section-bulletin-header 0bulletin-archive bulletin-updated">
+      <section id="section-bulletin-header" className={`section-padding section-header section-bulletin-header 0bulletin-archive bulletin-updated${this.statusClass}`}>
         <header className="section-centered">
           <BulletinStatusLine bulletin={this.props.bulletin} />
           <h2 className="subheader">Avalanche Bulletin</h2>
