@@ -12,12 +12,12 @@ import {parseDate, dateToLongDateString} from '../../util/date.js';
   }
 
   @computed get date() {
-    return parseDate(this.props.bulletin.date);
+    return dateToLongDateString(parseDate(this.props.settings.date));
   }
 
   @computed get statusClass() {
     let cl = '';
-    switch(this.props.bulletin.status) {
+    switch(this.props.settings.status) {
       case 'pending':
         cl = 'loading';
         break;
@@ -30,19 +30,18 @@ import {parseDate, dateToLongDateString} from '../../util/date.js';
       default:
         break;
     }
+
     return cl ? ' ' + cl : '';
   }
 
   render() {
-    const bulletinDate = dateToLongDateString(this.date);
-
     return (
       <section id="section-bulletin-header" className={`section-padding section-header section-bulletin-header 0bulletin-archive bulletin-updated${this.statusClass}`}>
         <header className="section-centered">
-          <BulletinStatusLine bulletin={this.props.bulletin} />
+          <BulletinStatusLine store={this.props.store} settings={this.props.settings} />
           <h2 className="subheader">Avalanche Bulletin</h2>
-          <h1 className="bulletin-datetime-validity">{bulletinDate} <BulletinAmPmSwitch bulletin={this.props.bulletin} /></h1>
-          <BulletinDateFlipper bulletin={this.props.bulletin} />
+          <h1 className="bulletin-datetime-validity">{this.date} <BulletinAmPmSwitch store={this.props.store} settings={this.props.settings} /></h1>
+          <BulletinDateFlipper store={this.props.store} settings={this.props.settings} />
         </header>
       </section>
     );

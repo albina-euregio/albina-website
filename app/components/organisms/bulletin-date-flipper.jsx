@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {computed} from 'mobx';
+import {action, computed} from 'mobx';
 import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateString} from '../../util/date.js';
 
 @observer class BulletinDateFlipper extends React.Component {
@@ -9,7 +9,7 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
   }
 
   @computed get date() {
-    return parseDate(this.props.bulletin.date);
+    return parseDate(this.props.settings.date);
   }
 
   @computed get nextDate() {
@@ -32,17 +32,21 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
   }
 
   dateBack = () => {
-    const d = getPredDate(parseDate(bulletinStore.active.date));
+    const d = getPredDate(parseDate(bulletinStore.settings.date));
     if(d) {
       bulletinStore.load(dateToISODateString(d));
     }
   }
 
   dateForward = () => {
-    const d = getSuccDate(parseDate(bulletinStore.active.date));
+    const d = getSuccDate(parseDate(bulletinStore.settings.date));
     if(d) {
       bulletinStore.load(dateToISODateString(d));
     }
+  }
+
+  goToLatest = () => {
+    bulletinStore.load(dateToISODateString(new Date()));
   }
 
   render() {
@@ -52,7 +56,7 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
     return (
       <ul className="list-inline bulletin-flipper">
         <li className="bulletin-flipper-back"><a href="#" title="Back" className="tooltip" onClick={this.dateBack}><span className="icon-arrow-left" />{prevDate}</a></li>
-        <li className="bulletin-flipper-latest"><a href="#" title="Go to current Bulletin" className="tooltip">Latest</a></li>
+        <li className="bulletin-flipper-latest"><a href="#" title="Go to current Bulletin" className="tooltip" onClick={this.goToLatest}>Latest</a></li>
         <li className="bulletin-flipper-forward"><a href="#" title="Forward" className="tooltip" onClick={this.dateForward}>{nextDate} <span className="icon-arrow-right" /></a></li>
         <li className="bulletin-flipper-archive"><a href="#" title="Recent Bulletins" className="tooltip">Archive <span className="icon-arrow-right" /></a></li>
       </ul>

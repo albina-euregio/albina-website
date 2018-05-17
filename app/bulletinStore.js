@@ -1,18 +1,65 @@
 import {observable, action} from 'mobx';
 import Base from './base.js';
 
-export default class BulletinStore {
+class BulletinData {
+  date;
+  status;
+  dataRaw;
+
+  constructor(date) {
+    this.date = date;
+    this.status = 'pending';
+    this.dataRaw = null;
+  }
+
+  get regions() {
+    if(this.status != 'ok') {
+      return [];
+    }
+
+    return []; // TODO implement
+  }
+
+  get problems() {
+    if(this.status != 'ok') {
+      return [];
+    }
+
+    return []; // TODO implement
+  }
+
+  get publicationDate() {
+    if(this.status == 'ok' && this.dataRaw.length > 0) {
+      return this.dataRaw[0].publicationDate;
+    }
+
+    return null;
+  }
+
+  setData(data) {
+    this.dataRaw = data;
+    this.status = (typeof data === 'object') ? (
+      (data.length > 0) ? 'ok' : 'empty'
+    ) : 'n/a';
+  }
+
+  toString() {
+    return JSON.stringify(this.dataRaw);
+  }
+}
+
+class BulletinStore {
   // TODO: add language support
-  active = observable({
-    status: '',
-    date: '',
-    ampm: '',
-    region: 'all'
+  settings = observable({
+     status: '',
+     date: '',
+     ampm: '',
+     filters: {}
   });
   bulletins = {};
 
   constructor() {
-    this.setAmPm(config.get('defaults.ampm'));
+    this.ampm = config.get('defaults.ampm');
   }
 
   /**
@@ -27,44 +74,40 @@ export default class BulletinStore {
       const url = config.get('apis.bulletin') + '?date=' + encodeURIComponent(date + 'T00:00:00+02:00');
       if(this.bulletins[date]) {
         if(activate) {
-          this.setDate(date);
+          this.activate(date);
         }
       } else {
+        // create empty bulletin entry
+        this.bulletins[date] = new BulletinData(date);
+
         if(activate) {
-          this.active.date = date;
-          this.active.status = 'pending';
+          this.activate(date)
         }
 
         return Base.doRequest(url).then(
           response => {
-            const responseParsed = JSON.parse(response);
-            this.bulletins[date] = responseParsed;
-            if(activate) {
-              this.setDate(date);
-            }
+            this.bulletins[date].setData(JSON.parse(response));
           },
           error => {
             console.error('Cannot load bulletin for date ' + date + ': ' + error);
-            if(activate) {
-              this.setDate(date);
-            }
+            this.bulletins[date].setData(null);
           }
-        );
+        ).then(() => {
+          if(activate && (this.settings.date == date)) {
+            // reactivate to notify status change
+            this.activate(date);
+          }
+        });
       }
     }
   }
 
-
-  /**
-   * Set the current date in YYYY-MM-DD format.
-   */
-  @action.bound
-  setDate(date) {
-    this.active.status = (this.bulletins[date]) ? (
-      (this.bulletins[date].length > 0) ? 'ok' : 'empty'
-    ) : 'n/a';
-
-    this.active.date = date;
+  @action
+  activate(date) {
+    if(this.bulletins[date]) {
+      this.settings.date = date;
+      this.settings.status = this.bulletins[date].status;
+    }
   }
 
 
@@ -72,12 +115,12 @@ export default class BulletinStore {
    * Set the current active 'am'/'pm' state.
    * @param ampm A string 'am' or 'pm'.
    */
-  @action.bound
+  @action
   setAmPm(ampm) {
     switch(ampm) {
       case 'am':
       case 'pm':
-        this.active.ampm = ampm;
+        this.settings.ampm = ampm;
         break;
 
       default:
@@ -90,9 +133,9 @@ export default class BulletinStore {
    * Set the current active region to a given value.
    * @param region A valid region identifier or 'all'.
    */
-  @action.bound
+  @action
   setRegion(region) {
-    this.active.region = region;
+    this.settings.region = region;
   }
 
 
@@ -101,32 +144,10 @@ export default class BulletinStore {
    * @return A list of bulletins that match the selection of
    *   this.date, this.ampm and this.region
    */
-  getActive() {
-    return this.get(this.active.date, this.active.ampm, this.active.region);
+  get active() {
+    return this.bulletins[this.settings.date];
   }
 
-
-  /**
-   * Get a specific bulletin for a given date an region.
-   * @param date A date in the format YYYY-MM-DD.
-   * @param ampm A string 'am' or 'pm'.
-   * @param region A valid region idetifier or 'all'.
-   * @return A list of bulletins that match the given parameters.
-   */
-  get(date, ampm, region = 'all') {
-    if(this.bulletins[date]) {
-      const bulletins = this.bulletins[date];
-      return (region == 'all') ? bulletins : bulletins.filter((bulletin) => {
-        return bulletin.regions.includes(region);
-      });
-    }
-    return [];
-  }
-
-  // findByProblem(problem, date = this.active.date, ampm = this.active.ampm, region = this.active.region) {
-  //   const bulletins = this.get(date, ampm, region);
-  //   if(this.bulletins.length > 0) {
-  //     return bulletins.
-  //   }
-  // }
 }
+
+export {BulletinStore, BulletinData};

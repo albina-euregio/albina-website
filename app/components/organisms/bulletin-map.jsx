@@ -12,9 +12,11 @@ class BulletinMap extends React.Component {
     console.log(map);
   }
 
-  render() {
-    const bulletin = bulletinStore.getActive();
+  get bulletin() {
+    return this.props.store.active;
+  }
 
+  render() {
     return (
       <section
         id="section-bulletin-map"

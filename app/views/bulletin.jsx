@@ -1,6 +1,6 @@
 import React from 'react';
 import Base from './../base';
-import BulletinStore from '../bulletinStore.js';
+import {BulletinData, BulletinStore} from '../bulletinStore.js';
 import BulletinHeader from '../components/organisms/bulletin-header.jsx';
 import BulletinMap from '../components/organisms/bulletin-map.jsx';
 import BulletinLegend from '../components/organisms/bulletin-legend.jsx';
@@ -29,23 +29,19 @@ export default class Bulletin extends React.Component {
   }
 
   _fetchData(props) {
-    const date = '2018-05-02'; // TODO: should be current date
-    return this.store.load(date);
-  }
-
-  @computed get activeBulletin() {
-    return this.store.active;
+    const startDate = '2018-05-02'; // TODO: should be current date
+    return this.store.load(startDate);
   }
 
   render() {
     return (
       <div>
         <span>{this.date}</span>
-        <BulletinHeader bulletin={this.activeBulletin} />
-        <BulletinMap bulletin={this.activeBulletin} />
+        <BulletinHeader store={this.store} settings={this.store.settings} />
+        <BulletinMap store={this.store} settings={this.store.settings} />
         <BulletinLegend />
         <BulletinButtonbar />
-        <BulletinReport bulletin={this.activeBulletin} />
+        <BulletinReport store={this.store} settings={this.store.settings} />
         <BulletinAdditional />
         <SmShare />
         <Context />
