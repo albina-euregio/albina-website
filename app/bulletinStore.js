@@ -1,4 +1,3 @@
-import { observable, action } from 'mobx';
 import Base from './base.js';
 import { observable, action, computed, toJS } from 'mobx';
 
@@ -53,15 +52,16 @@ class BulletinStore {
   @observable mapCenter = [15, 50];
   @observable mapZoom = 12;
   @observable bulletins = {};
+  settings = {};
 
   constructor() {
-    settings = observable({
+    this.settings = observable({
       status: '',
       date: '',
       ampm: '',
       filters: {}
     });
-    bulletins = {};
+    this.bulletins = {};
     this.ampm = config.get('defaults.ampm');
     this.mapCenter = observable.box([47, 12]);
     this.mapZoom = observable.box(9);
@@ -136,6 +136,9 @@ class BulletinStore {
     this.mapZoom.set(mapState.zoom);
   }
 
+  /**
+   * Increase or decrease the zoom value of the bulletin map.
+   */
   @action
   zoomIn() {
     this.mapZoom.set(this.mapZoom + 1);
@@ -176,6 +179,9 @@ class BulletinStore {
     return this.bulletins[this.settings.date];
   }
 
+  /**
+   * Returns leaflet encoded value for map center
+   */
   @computed
   get getMapCenter() {
     return toJS(this.mapCenter);
