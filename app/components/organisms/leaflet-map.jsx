@@ -1,5 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import 'leaflet';
+import 'leaflet-sleep';
 import {
   Map,
   TileLayer,
@@ -32,11 +34,31 @@ class BulletinMap extends React.Component {
   }
 
   render() {
+    // leaflet-sleep props
+    const sleepProps = {
+      // false if you want an unruly map
+      sleep: true,
+      // time(ms) until map sleeps on mouseout
+      sleepTime: 750,
+      // time(ms) until map wakes on mouseover
+      wakeTime: 750,
+      // should the user receive wake instructions?
+      sleepNote: true,
+      // should hovering wake the map? (non-touch devices only)
+      hoverToWake: true,
+      // a message to inform users about waking the map
+      wakeMessage: 'Click or Hover to Wake up the map',
+      // a constructor for a control button
+      sleepButton: L.Control.sleepMapControl,
+      // opacity for the sleeping map
+      sleepOpacity: 0.7
+    };
     return (
       <Map
         onViewportChanged={this.props.mapViewportChanged.bind(this.map)}
         useFlyTo={true}
         ref="map"
+        {...sleepProps}
         style={this.mapStyle()}
         attributionControl={false}
         zoomControl={false}
