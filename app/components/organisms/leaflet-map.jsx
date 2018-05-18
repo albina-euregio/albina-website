@@ -62,7 +62,6 @@ class BulletinMap extends React.Component {
         style={this.mapStyle()}
         attributionControl={false}
         zoomControl={false}
-        scrollWheelZoom={appStore.getKeyDown === 18}
         zoom={bulletinStore.getMapZoom}
         center={bulletinStore.getMapCenter}
       >
