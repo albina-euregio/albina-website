@@ -8,8 +8,23 @@ class BulletinMap extends React.Component {
     super(props);
   }
 
-  handleMapViewportChanged(map) {
-    console.log(map);
+  handleMapViewportChanged(mapState) {
+    bulletinStore.setMapViewport(mapState);
+  }
+
+  handleZoom(zoomIn = true) {
+    zoomIn ? bulletinStore.zoomIn() : bulletinStore.zoomOut();
+  }
+
+  handleMapScrollZoom() {
+    console.log('scroll');
+    return true;
+  }
+
+  styleOverMap() {
+    return {
+      zIndex: 1000
+    };
   }
 
   get bulletin() {
@@ -23,8 +38,11 @@ class BulletinMap extends React.Component {
         className="section section-bulletin section-bulletin-map"
       >
         <div className="bulletin-map-container">
-          <LeafletMap mapViewportChanged={this.handleMapViewportChanged} />
-          <div className="bulletin-map-search">
+          <LeafletMap
+            mapScrollZoom={this.handleMapScrollZoom.bind(this)}
+            mapViewportChanged={this.handleMapViewportChanged.bind(this)}
+          />
+          <div style={this.styleOverMap()} className="bulletin-map-search">
             <div className="pure-form pure-form-search">
               <input
                 type="text"
@@ -42,10 +60,11 @@ class BulletinMap extends React.Component {
               </button>
             </div>
           </div>
-          <div className="bulletin-map-zoom">
+          <div style={this.styleOverMap()} className="bulletin-map-zoom">
             <ul className="list-plain">
               <li className="bulletin-map-zoom-plus">
                 <button
+                  onClick={this.handleZoom.bind(this)}
                   href="#"
                   className="pure-button pure-button-icon icon-plus-big tooltip"
                   title="Zoom in"
@@ -55,6 +74,7 @@ class BulletinMap extends React.Component {
               </li>
               <li className="bulletin-map-zoom-minus">
                 <button
+                  onClick={this.handleZoom.bind(this, false)}
                   href="#"
                   className="pure-button pure-button-icon icon-minus-big tooltip"
                   title="Zoom out"
@@ -64,7 +84,10 @@ class BulletinMap extends React.Component {
               </li>
             </ul>
           </div>
-          <div className="bulletin-map-details js-active top-right">
+          <div
+            style={this.styleOverMap()}
+            className="bulletin-map-details js-active top-right"
+          >
             <ul className="list-plain">
               <li
                 className="bulletin-report-picto tooltip"
