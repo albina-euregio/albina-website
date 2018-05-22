@@ -20,16 +20,38 @@ class BulletinData {
     return []; // TODO implement
   }
 
-  get problems() {
+  getProblems(ampm = 'any') {
     if (this.status != 'ok') {
       return [];
     }
 
-    return []; // TODO implement
+    // get a flattened list of all problems
+    let ps = this.dataRaw.map((b) => {
+      let l = new Set();
+      let f = (el) => {
+        if(el) {
+          if(typeof el.avalancheSituation1 !== 'undefined') {
+            l.add(el.avalancheSituation1);
+          }
+          if(typeof el.avalancheSituation2 !== 'undefined') {
+            l.add(el.avalancheSituation2);
+          }
+        }
+      };
+
+      if(ampm == 'am' || ampm == 'any') { f(b.forenoon); }
+      if(ampm == 'pm' || ampm == 'any') { f(b.afternoon); }
+
+      return [...l];
+    }).reduce((a,b) => a.concat(b), []);
+
+    // remove duplicates
+    return [...(new Set(ps))];
   }
 
   get publicationDate() {
     if (this.status == 'ok' && this.dataRaw.length > 0) {
+      // TODO: should be maximum of all publication dates
       return this.dataRaw[0].publicationDate;
     }
 
@@ -59,7 +81,9 @@ class BulletinStore {
       status: '',
       date: '',
       ampm: '',
-      filters: {}
+      filters: {
+        problems: []
+      }
     });
     this.bulletins = {};
     this.ampm = config.get('defaults.ampm');
@@ -122,14 +146,6 @@ class BulletinStore {
     }
   }
 
-  /**
-   * Set the current active 'am'/'pm' state.
-   * @param ampm A string 'am' or 'pm'.
-   */
-  setDate(date) {
-    this.date = date;
-  }
-
   @action
   setMapViewport(mapState) {
     this.mapCenter.set(mapState.center);
@@ -162,12 +178,15 @@ class BulletinStore {
   }
 
   /**
-   * Set the current active region to a given value.
-   * @param region A valid region identifier or 'all'.
+   * Set the current active filter to a given value.
+   * @param obj A key-value pair.
    */
   @action
-  setRegion(region) {
-    this.settings.region = region;
+  setFilter(key, value) {
+    if(typeof this.settings.filters[key] !== 'undefined') {
+      let v = value.isArray() ? value : [value];
+      this.settings.filters[key] == v;
+    }
   }
 
   /**
@@ -175,8 +194,10 @@ class BulletinStore {
    * @return A list of bulletins that match the selection of
    *   this.date, this.ampm and this.region
    */
+  @computed
   get active() {
-    return this.bulletins[this.settings.date];
+    let list = this.bulletins[this.settings.date];
+
   }
 
   /**
@@ -190,14 +211,6 @@ class BulletinStore {
   @computed
   get getMapZoom() {
     return toJS(this.mapZoom);
-  }
-
-  get(date, ampm, region = 'all') {
-    if (this.bulletins[date]) {
-      // TODO: filter by region
-      return this.bulletins[date];
-    }
-    return {};
   }
 }
 
