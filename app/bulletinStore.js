@@ -122,7 +122,7 @@ class BulletinStore {
               this.bulletins[date].setData(JSON.parse(response));
             },
             error => {
-              console.error(
+              console.log(
                 'Cannot load bulletin for date ' + date + ': ' + error
               );
               this.bulletins[date].setData(null);
@@ -196,8 +196,7 @@ class BulletinStore {
    */
   @computed
   get active() {
-    let list = this.bulletins[this.settings.date];
-
+    return this.bulletins[this.settings.date];
   }
 
   /**
