@@ -20,38 +20,16 @@ class BulletinData {
     return []; // TODO implement
   }
 
-  getProblems(ampm = 'any') {
+  get problems() {
     if (this.status != 'ok') {
       return [];
     }
 
-    // get a flattened list of all problems
-    let ps = this.dataRaw.map((b) => {
-      let l = new Set();
-      let f = (el) => {
-        if(el) {
-          if(typeof el.avalancheSituation1 !== 'undefined') {
-            l.add(el.avalancheSituation1);
-          }
-          if(typeof el.avalancheSituation2 !== 'undefined') {
-            l.add(el.avalancheSituation2);
-          }
-        }
-      };
-
-      if(ampm == 'am' || ampm == 'any') { f(b.forenoon); }
-      if(ampm == 'pm' || ampm == 'any') { f(b.afternoon); }
-
-      return [...l];
-    }).reduce((a,b) => a.concat(b), []);
-
-    // remove duplicates
-    return [...(new Set(ps))];
+    return []; // TODO implement
   }
 
   get publicationDate() {
     if (this.status == 'ok' && this.dataRaw.length > 0) {
-      // TODO: should be maximum of all publication dates
       return this.dataRaw[0].publicationDate;
     }
 
@@ -81,9 +59,7 @@ class BulletinStore {
       status: '',
       date: '',
       ampm: '',
-      filters: {
-        problems: []
-      }
+      excludedProblems: []
     });
     this.bulletins = {};
     this.ampm = config.get('defaults.ampm');
@@ -122,7 +98,7 @@ class BulletinStore {
               this.bulletins[date].setData(JSON.parse(response));
             },
             error => {
-              console.log(
+              console.error(
                 'Cannot load bulletin for date ' + date + ': ' + error
               );
               this.bulletins[date].setData(null);
@@ -144,6 +120,14 @@ class BulletinStore {
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
     }
+  }
+
+  /**
+   * Set the current active 'am'/'pm' state.
+   * @param ampm A string 'am' or 'pm'.
+   */
+  setDate(date) {
+    this.date = date;
   }
 
   @action
@@ -177,15 +161,18 @@ class BulletinStore {
     }
   }
 
-  /**
-   * Set the current active filter to a given value.
-   * @param obj A key-value pair.
-   */
   @action
-  setFilter(key, value) {
-    if(typeof this.settings.filters[key] !== 'undefined') {
-      let v = value.isArray() ? value : [value];
-      this.settings.filters[key] == v;
+  excludeProblem(problemId) {
+    if(this.settings.excludedProblems.indexOf(problemId) < 0) {
+      this.settings.excludedProblems.push(problemId);
+    }
+  }
+
+  @action
+  includeProblem(problemId) {
+    const i = this.settings.excludedProblems.indexOf(problemId);
+    if(i >= 0) {
+      ths.settings.excludedProblems.splice(i, 1);
     }
   }
 
@@ -210,6 +197,14 @@ class BulletinStore {
   @computed
   get getMapZoom() {
     return toJS(this.mapZoom);
+  }
+
+  get(date, ampm, region = 'all') {
+    if (this.bulletins[date]) {
+      // TODO: filter by region
+      return this.bulletins[date];
+    }
+    return {};
   }
 }
 
