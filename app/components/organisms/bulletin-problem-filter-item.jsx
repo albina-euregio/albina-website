@@ -15,6 +15,21 @@ class BulletinProblemFilterItem extends React.Component {
       "wet_snow": {en: "Wet Snow"},
       "gliding_snow": {en: "Gliding Snow"}
     }
+    this.state = {
+      active: this.props.active,
+      id: this.props.problemId
+    }
+  }
+
+  toggle(event) {
+    event.preventDefault();
+
+    if(this.state.active) {
+      bulletinStore.excludeProblem(this.state.id);
+    } else {
+      bulletinStore.includeProblem(this.state.id);
+    }
+    this.state.active = !this.state.active;
   }
 
   render() {
@@ -24,7 +39,7 @@ class BulletinProblemFilterItem extends React.Component {
 
     return (
       <li>
-        <a href="#" title={title} className={classes}>
+        <a href="#" title={title} className={classes} onClick={(e) => this.toggle(e)} >
           <ProblemIcon problem={this.props.problemId} active={true} alt={problemText} />
           <ProblemIcon problem={this.props.problemId} active={false} alt={problemText} />
         </a>

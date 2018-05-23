@@ -21,9 +21,13 @@ class BulletinProblemFilter extends React.Component {
     ];
   }
 
+  isComponentActive(problemId) {
+    return this.props.settings.excludedProblems.indexOf(problemId) < 0;
+  }
+
   render() {
     const listItems = this.problems.map((pId) =>
-      <BulletinProblemFilterItem key={pId} problemId={pId} active={true} />
+      <BulletinProblemFilterItem key={pId} problemId={pId} active={this.isComponentActive(pId)} />
     );
 
     return (
