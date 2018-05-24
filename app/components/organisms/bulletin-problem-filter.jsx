@@ -5,29 +5,17 @@ import BulletinProblemFilterItem from './bulletin-problem-filter-item.jsx';
 
 @observer
 class BulletinProblemFilter extends React.Component {
-  problems;
-
   constructor(props) {
     super(props);
-
-    // FIXME: should be imported by config.ini or CMS
-    this.problems = [
-      "new_snow",
-      "wind_drifted_snow",
-      "old_snow",
-      "wet_snow",
-      "gliding_snow"/* ,
-      "favourable_situation" */
-    ];
   }
 
   isComponentActive(problemId) {
-    return this.props.settings.excludedProblems.indexOf(problemId) < 0;
+    return this.props.problems[problemId] && this.props.problems[problemId].active;
   }
 
   render() {
-    const listItems = this.problems.map((pId) =>
-      <BulletinProblemFilterItem key={pId} problemId={pId} active={this.isComponentActive(pId)} />
+    const listItems = Object.entries(this.props.problems).map((e) =>
+      <BulletinProblemFilterItem key={e[0]} problemId={e[0]} active={this.isComponentActive(e[0])} />
     );
 
     return (

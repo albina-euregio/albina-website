@@ -53,15 +53,24 @@ class BulletinStore {
   @observable mapZoom = 12;
   @observable bulletins = {};
   settings = {};
+  problems = {};
 
   constructor() {
     this.settings = observable({
       status: '',
       date: '',
-      ampm: '',
-      excludedProblems: []
+      ampm: ''
     });
     this.bulletins = {};
+
+    this.problems = observable({
+      "new_snow": {active: true},
+      "wind_drifted_snow": {active: true},
+      "old_snow": {active: true},
+      "wet_snow": {active: true},
+      "gliding_snow": {active: true}
+    });
+
     this.ampm = config.get('defaults.ampm');
     this.mapCenter = observable.box([47, 12]);
     this.mapZoom = observable.box(9);
@@ -163,21 +172,16 @@ class BulletinStore {
 
   @action
   excludeProblem(problemId) {
-    if(this.settings.excludedProblems.indexOf(problemId) < 0) {
-      this.settings.excludedProblems.push(problemId);
+    if(typeof this.problems[problemId] !== 'undefined') {
+      this.problems[problemId].active = false;
     }
-    console.log('TEST: ' + JSON.stringify(this.settings.excludedProblems));
   }
 
   @action
   includeProblem(problemId) {
-    console.log('TEST1: ' + JSON.stringify(this.settings.excludedProblems));
-    const i = this.settings.excludedProblems.indexOf(problemId);
-    if(i >= 0) {
-      console.log('TEST2 ' + i);
-      this.settings.excludedProblems.splice(i, 1);
+    if(typeof this.problems[problemId] !== 'undefined') {
+      this.problems[problemId].active = true;
     }
-    console.log('TEST3: ' + JSON.stringify(this.settings.excludedProblems));
   }
 
   /**

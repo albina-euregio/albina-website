@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import LeafletMap from './leaflet-map';
+import ProblemIcon from './problem-icon.jsx';
 
 @observer
 class BulletinMap extends React.Component {
@@ -103,16 +104,10 @@ class BulletinMap extends React.Component {
                 className="bulletin-report-picto tooltip"
                 title="Drifting Snow"
               >
-                <img
-                  src="../../images/pro/avalanche-situations/drifting_snow.png"
-                  alt="Drifting Snow"
-                />
+                <ProblemIcon problem={"wind_drifted_snow"} active={true} />
               </li>
               <li className="bulletin-report-picto tooltip" title="Old Snow">
-                <img
-                  src="../../images/pro/avalanche-situations/old_snow.png"
-                  alt="DrifOldting Snow"
-                />
+                <ProblemIcon problem={"old_snow"} active={true} />
               </li>
             </ul>
             <a

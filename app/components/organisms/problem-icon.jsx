@@ -12,11 +12,11 @@ export default class ProblemIcon extends React.Component {
 
     // FIXME: should be imported by config.ini or CMS
     this.problems = {
-      "new_snow": {color: "new_snow.png", grey: "new_snow_grey.png"},
-      "wind_drifted_snow": {color: "drifting_snow.png", grey: "drifting_snow_grey.png"},
-      "old_snow": {color: "old_snow.png", grey: "old_snow_grey.png"},
-      "wet_snow": {color: "wet_snow.png", grey: "wet_snow_grey.png"},
-      "gliding_snow": {color: "gliding_snow", grey: "gliding_snow_grey.png"}
+      "new_snow": {color: "New_snow.png", grey: "new_snow_grey.png"},
+      "wind_drifted_snow": {color: "Drifting_Snow.png", grey: "drifting_snow_grey.png"},
+      "old_snow": {color: "Old_Snow.png", grey: "old_snow_grey.png"},
+      "wet_snow": {color: "Wet_Snow.png", grey: "wet_snow_grey.png"},
+      "gliding_snow": {color: "gliding_snow.png", grey: "gliding_snow_grey.png"}
     };
   }
 

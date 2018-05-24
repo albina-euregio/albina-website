@@ -1,4 +1,5 @@
 import React from 'react';
+import ProblemIcon from './problem-icon.jsx';
 
 export default class BulletinReport extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ export default class BulletinReport extends React.Component {
                 </div>
                 <div className="bulletin-report-picto">
                   <a href="#" className="img tooltip" title="Drifting Snow. Click to learn more">
-                    <img src="../../images/pro/avalanche-situations/drifting_snow.png" alt="Drifting Snow" />
+                    <ProblemIcon problem={"wind_drifted_snow"} active={true} />
                   </a>
                 </div>
                 <div className="bulletin-report-picto bulletin-report-expositions expo_n expo_w expo_nw tooltip" title="Exposition">
@@ -59,7 +60,7 @@ export default class BulletinReport extends React.Component {
                 </div>
                 <div className="bulletin-report-picto">
                   <a href="#" className="img tooltip" title="Old Snow. Click to learn more">
-                    <img src="../../images/pro/avalanche-situations/old_snow.png" alt="Old Snow" />
+                    <ProblemIcon problem={"old_snow"} active={true} />
                   </a>
                 </div>
                 <div className="bulletin-report-picto bulletin-report-expositions expo_e expo_se expo_s expo_sw tooltip" title="Exposition">
