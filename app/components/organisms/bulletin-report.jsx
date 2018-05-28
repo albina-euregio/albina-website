@@ -1,5 +1,5 @@
 import React from 'react';
-import ProblemIcon from '../icons/problem-icon.jsx';
+import ProblemIconLink from '../icons/problem-icon-link.jsx';
 import WarnLevelIcon from '../icons/warn-level-icon.jsx';
 import ElevationIcon from '../icons/elevation-icon.jsx';
 import ExpositionIcon from '../icons/exposition-icon.jsx';
@@ -34,20 +34,12 @@ export default class BulletinReport extends React.Component {
                   <TendencyIcon tendency="increase" />
                 </div>
               </li><li>
-                <div className="bulletin-report-picto">
-                  <a href="#" className="img tooltip" title="Drifting Snow. Click to learn more">
-                    <ProblemIcon problem={"wind_drifted_snow"} active={true} />
-                  </a>
-                </div>
+                <ProblemIconLink problem={"wind_drifted_snow"} />
                 <ExpositionIcon expositions={['n', 'nw', 'w']} />
                 <ElevationIcon elevation={2200} where="above" />
               </li>
               <li>
-                <div className="bulletin-report-picto">
-                  <a href="#" className="img tooltip" title="Old Snow. Click to learn more">
-                    <ProblemIcon problem={"old_snow"} active={true} />
-                  </a>
-                </div>
+                <ProblemIconLink problem={"old_snow"} />
                 <ExpositionIcon expositions={['e', 'se', 's', 'sw']} />
                 <ElevationIcon elevation={1900} where="below" />
               </li>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import LeafletMap from './leaflet-map';
-import ProblemIcon from '../icons/problem-icon.jsx';
+import ProblemIconLink from '../icons/problem-icon-link.jsx';
 import WarnLevelIcon from '../icons/warn-level-icon.jsx';
 
 @observer
@@ -94,14 +94,11 @@ class BulletinMap extends React.Component {
               <li>
                 <WarnLevelIcon below={2} above={3} elevation={1800} treeline={false} />
               </li>
-              <li
-                className="bulletin-report-picto tooltip"
-                title="Drifting Snow"
-              >
-                <ProblemIcon problem={"wind_drifted_snow"} active={true} />
+              <li>
+                <ProblemIconLink problem={"wind_drifted_snow"} />
               </li>
-              <li className="bulletin-report-picto tooltip" title="Old Snow">
-                <ProblemIcon problem={"old_snow"} active={true} />
+              <li>
+                <ProblemIconLink problem={"old_snow"} />
               </li>
             </ul>
             <a
