@@ -8,26 +8,19 @@ import {observer} from 'mobx-react';
   }
 
   render() {
+    const title = "Switch to " + ((this.props.ampm == 'am') ? 'PM' : 'AM');
     return (
-      (this.props.ampm == 'am') ? (
-        <span>
-          <span className="bulletin-ampm"><a
-            href="#"
-            title="Switch to PM"
-            className="textlink tooltip"
-            onClick={(e) => this.props.store.setAmPm('pm')}>PM</a></span>
-          <span title="AM is currently selected" className="bulletin-ampm tooltip">AM</span>
-        </span>
-      ) : (
-        <span>
-          <span title="PM is currently selected" className="bulletin-ampm tooltip">PM</span>
-          <span className="bulletin-ampm"><a
-            href="#"
-            title="Switch to AM"
-            className="textlink tooltip"
-            onClick={(e) => this.props.store.setAmPm('am')}>AM</a></span>
-        </span>
-      )
+      <span className="bulletin-ampm-switch tooltip" title={title}>
+        <div className="switch-text">
+          <label htmlFor="switch">
+            <input id="switch" type="checkbox"></input>
+            <div className="slider">
+              <span>AM</span>
+              <span>PM</span>
+            </div>
+          </label>
+        </div>
+      </span>
     );
   }
 }

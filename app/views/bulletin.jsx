@@ -20,10 +20,6 @@ export default class Bulletin extends React.Component {
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   return this._fetchData(nextProps);
-  // }
-
   componentDidMount() {
     return this._fetchData(this.props);
   }

@@ -39,9 +39,9 @@ import {parseDate, dateToLongDateString} from '../../util/date.js';
       <section id="section-bulletin-header" className={`section-padding section-header section-bulletin-header 0bulletin-archive bulletin-updated${this.statusClass}`}>
         <header className="section-centered">
           <BulletinStatusLine store={this.props.store} status={this.props.store.settings.status} />
-          <h2 className="subheader">Avalanche Bulletin</h2>
+          <h2 className="subheader">Avalanche Forecast</h2>
           <h1 className="bulletin-datetime-validity">{this.date} <BulletinAmPmSwitch store={this.props.store} ampm={this.props.store.settings.ampm} /></h1>
-          <BulletinDateFlipper date={this.props.store.settings.date} />
+          <BulletinDateFlipper store={this.props.store} date={this.props.store.settings.date} />
         </header>
       </section>
     );

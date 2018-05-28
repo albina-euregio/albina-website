@@ -31,9 +31,10 @@ export default class BulletinReport extends React.Component {
                   <span>1800m</span>
                 </div>
                 <div className="bulletin-report-tendency tooltip" title="Expectation for the following day">
-                  <TendencyIcon tendency="increase" />
                   <span><strong className="heavy">Tendency: Much Worse</strong><br />
-                    on Sunday 10.12.2017 PM</span>
+                    on Sunday 10.12.2017 PM
+                  </span>
+                  <TendencyIcon tendency="increase" />
                 </div>
               </li><li>
                 <div className="bulletin-report-picto problem-above tooltip" title="Avalanche problem occurring above 2200m">
