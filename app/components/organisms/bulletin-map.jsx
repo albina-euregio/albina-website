@@ -91,12 +91,8 @@ class BulletinMap extends React.Component {
             className="bulletin-map-details js-active top-right"
           >
             <ul className="list-plain">
-              <li
-                className="bulletin-report-picto tooltip"
-                title="Above 1800m: Warning Level 3<br/>Below 1800m: Warning Level 2"
-              >
+              <li>
                 <WarnLevelIcon below={2} above={3} elevation={1800} treeline={false} />
-                <span>1800m</span>
               </li>
               <li
                 className="bulletin-report-picto tooltip"

@@ -11,13 +11,21 @@ export default class WarnLevelIcon extends React.Component {
   }
 
   render() {
+    const elevText = this.props.elevation ? (this.props.elevation + 'm') : (
+      (this.props.treeline) ? (<span class="treeline"></span>) : ''
+    );
     const img = this.imgRoot + 'levels_' + this.props.below + '_' + this.props.above + '.png';
-    const alt = "Warning " + (
+    const title = "Warning " + (
       (this.props.below == this.props.above) ? ('level ' + this.props.below) : ('levels ' + this.props.below + ' and ' + this.props.above)
     );
 
     return (
-      <img src={img} alt={alt} />
+      <div className="bulletin-report-picto tooltip" title={title}>
+        <img src={img} alt={title} />{
+          (this.props.above != this.props.below) &&
+            <span>{elevText}</span>
+        }
+      </div>
     );
   }
 }

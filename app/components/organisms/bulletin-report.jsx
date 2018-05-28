@@ -26,10 +26,7 @@ export default class BulletinReport extends React.Component {
             </div>
             <ul className="list-plain list-bulletin-report-pictos">
               <li>
-                <div className="bulletin-report-picto tooltip" title="Above 1800m: Warning Level 3<br/>Below 1800m: Warning Level 2">
-                  <WarnLevelIcon below={2} above={3} elevation={1800} treeline={false} />
-                  <span>1800m</span>
-                </div>
+                <WarnLevelIcon below={2} above={3} elevation={1800} treeline={false} />
                 <div className="bulletin-report-tendency tooltip" title="Expectation for the following day">
                   <span><strong className="heavy">Tendency: Much Worse</strong><br />
                     on Sunday 10.12.2017 PM
