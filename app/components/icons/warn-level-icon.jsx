@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class ProblemIcon extends React.Component {
+export default class WarnLevelIcon extends React.Component {
   imgRoot;
 
   constructor(props) {

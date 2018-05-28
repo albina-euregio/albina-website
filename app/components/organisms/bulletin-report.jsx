@@ -1,6 +1,7 @@
 import React from 'react';
 import ProblemIcon from '../icons/problem-icon.jsx';
 import WarnLevelIcon from '../icons/warn-level-icon.jsx';
+import ElevationIcon from '../icons/elevation-icon.jsx';
 
 export default class BulletinReport extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ export default class BulletinReport extends React.Component {
                 </div>
               </li><li>
                 <div className="bulletin-report-picto problem-above tooltip" title="Avalanche problem occurring above 2200m">
-                  <img src="../../images/pro/warning-pictos/levels_above.png" alt="Avalanche problem above" />
+                  <ElevationIcon elevation="above" />
                   <span>2200m</span>
                 </div>
                 <div className="bulletin-report-picto">
@@ -56,7 +57,7 @@ export default class BulletinReport extends React.Component {
               </li>
               <li>
                 <div className="bulletin-report-picto problem-below tooltip" title="Avalanche problem occurring below 1900m">
-                  <img src="../../images/pro/warning-pictos/levels_below.png" alt="Avalanche problem below" />
+                  <ElevationIcon elevation="below" />
                   <span>1900m</span>
                 </div>
                 <div className="bulletin-report-picto">
