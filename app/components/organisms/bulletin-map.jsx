@@ -1,7 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import LeafletMap from './leaflet-map';
-import ProblemIcon from './problem-icon.jsx';
+import ProblemIcon from '../icons/problem-icon.jsx';
+import WarnLevelIcon from '../icons/warn-level-icon.jsx';
 
 @observer
 class BulletinMap extends React.Component {
@@ -94,10 +95,7 @@ class BulletinMap extends React.Component {
                 className="bulletin-report-picto tooltip"
                 title="Above 1800m: Warning Level 3<br/>Below 1800m: Warning Level 2"
               >
-                <img
-                  src="../../images/pro/warning-pictos/levels_2_3.png"
-                  alt="Warning Levels 2 and 3"
-                />
+                <WarnLevelIcon below={2} above={3} elevation={1800} treeline={false} />
                 <span>1800m</span>
               </li>
               <li

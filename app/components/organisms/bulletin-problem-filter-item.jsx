@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import ProblemIcon from './problem-icon.jsx';
+import ProblemIcon from '../icons/problem-icon.jsx';
 
 @observer
 class BulletinProblemFilterItem extends React.Component {

@@ -1,5 +1,6 @@
 import React from 'react';
-import ProblemIcon from './problem-icon.jsx';
+import ProblemIcon from '../icons/problem-icon.jsx';
+import WarnLevelIcon from '../icons/warn-level-icon.jsx';
 
 export default class BulletinReport extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ export default class BulletinReport extends React.Component {
             <ul className="list-plain list-bulletin-report-pictos">
               <li>
                 <div className="bulletin-report-picto tooltip" title="Above 1800m: Warning Level 3<br/>Below 1800m: Warning Level 2">
-                  <img src="../../images/pro/warning-pictos/levels_2_3.png" alt="Warning Levels 2 and 3" />
+                  <WarnLevelIcon below={2} above={3} elevation={1800} treeline={false} />
                   <span>1800m</span>
                 </div>
                 <div className="bulletin-report-tendency tooltip" title="Expectation for the following day">
