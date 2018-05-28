@@ -37,28 +37,22 @@ export default class BulletinReport extends React.Component {
                   <TendencyIcon tendency="increase" />
                 </div>
               </li><li>
-                <div className="bulletin-report-picto problem-above tooltip" title="Avalanche problem occurring above 2200m">
-                  <ElevationIcon elevation="above" />
-                  <span>2200m</span>
-                </div>
                 <div className="bulletin-report-picto">
                   <a href="#" className="img tooltip" title="Drifting Snow. Click to learn more">
                     <ProblemIcon problem={"wind_drifted_snow"} active={true} />
                   </a>
                 </div>
                 <ExpositionIcon expositions={['n', 'nw', 'w']} />
+                <ElevationIcon elevation={2200} where="above" />
               </li>
               <li>
-                <div className="bulletin-report-picto problem-below tooltip" title="Avalanche problem occurring below 1900m">
-                  <ElevationIcon elevation="below" />
-                  <span>1900m</span>
-                </div>
                 <div className="bulletin-report-picto">
                   <a href="#" className="img tooltip" title="Old Snow. Click to learn more">
                     <ProblemIcon problem={"old_snow"} active={true} />
                   </a>
                 </div>
                 <ExpositionIcon expositions={['e', 'se', 's', 'sw']} />
+                <ElevationIcon elevation={1900} where="below" />
               </li>
             </ul>
           </div>
