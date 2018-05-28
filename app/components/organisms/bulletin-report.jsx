@@ -2,6 +2,7 @@ import React from 'react';
 import ProblemIcon from '../icons/problem-icon.jsx';
 import WarnLevelIcon from '../icons/warn-level-icon.jsx';
 import ElevationIcon from '../icons/elevation-icon.jsx';
+import ExpositionIcon from '../icons/exposition-icon.jsx';
 
 export default class BulletinReport extends React.Component {
   constructor(props) {
@@ -43,17 +44,7 @@ export default class BulletinReport extends React.Component {
                     <ProblemIcon problem={"wind_drifted_snow"} active={true} />
                   </a>
                 </div>
-                <div className="bulletin-report-picto bulletin-report-expositions expo_n expo_w expo_nw tooltip" title="Exposition">
-                  <img src="../../images/pro/expositions/exposition_bg.png" alt="Exposition" className="bulletin-report-exposition-rose" />
-                  <img src="../../images/pro/expositions/exposition_n.png" alt="North" className="expo_n" />
-                  <img src="../../images/pro/expositions/exposition_ne.png" alt="North East" className="expo_ne" />
-                  <img src="../../images/pro/expositions/exposition_e.png" alt="East" className="expo_e" />
-                  <img src="../../images/pro/expositions/exposition_se.png" alt="South East" className="expo_se" />
-                  <img src="../../images/pro/expositions/exposition_s.png" alt="South" className="expo_s" />
-                  <img src="../../images/pro/expositions/exposition_sw.png" alt="South West" className="expo_sw" />
-                  <img src="../../images/pro/expositions/exposition_w.png" alt="West" className="expo_w" />
-                  <img src="../../images/pro/expositions/exposition_nw.png" alt="North West" className="expo_nw" />
-                </div>
+                <ExpositionIcon expositions={['n', 'nw', 'w']} />
               </li>
               <li>
                 <div className="bulletin-report-picto problem-below tooltip" title="Avalanche problem occurring below 1900m">
@@ -65,17 +56,7 @@ export default class BulletinReport extends React.Component {
                     <ProblemIcon problem={"old_snow"} active={true} />
                   </a>
                 </div>
-                <div className="bulletin-report-picto bulletin-report-expositions expo_e expo_se expo_s expo_sw tooltip" title="Exposition">
-                  <img src="../../images/pro/expositions/exposition_bg.png" alt="Exposition" className="bulletin-report-exposition-rose" />
-                  <img src="../../images/pro/expositions/exposition_n.png" alt="North" className="expo_n" />
-                  <img src="../../images/pro/expositions/exposition_ne.png" alt="North East" className="expo_ne" />
-                  <img src="../../images/pro/expositions/exposition_e.png" alt="East" className="expo_e" />
-                  <img src="../../images/pro/expositions/exposition_se.png" alt="South East" className="expo_se" />
-                  <img src="../../images/pro/expositions/exposition_s.png" alt="South" className="expo_s" />
-                  <img src="../../images/pro/expositions/exposition_sw.png" alt="South West" className="expo_sw" />
-                  <img src="../../images/pro/expositions/exposition_w.png" alt="West" className="expo_w" />
-                  <img src="../../images/pro/expositions/exposition_nw.png" alt="North West" className="expo_nw" />
-                </div>
+                <ExpositionIcon expositions={['e', 'se', 's', 'sw']} />
               </li>
             </ul>
           </div>
