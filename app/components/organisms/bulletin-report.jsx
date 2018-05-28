@@ -20,7 +20,7 @@ export default class BulletinReport extends React.Component {
           </header>
           <div className="bulletin-report-pictobar">
             <div className="bulletin-report-region">
-              <a href="#page-main" className="img icon-arrow-up tooltip" title="This Bulletin is valid for the selected region.<br/>Click to return to Map" data-scroll>
+              <a href="#page-main" className="img icon-arrow-up tooltip" title="This Bulletin is valid for the selected region.<br/>Click to return to Map">
                 <img src="../../images/dev/bulletin-report-region.png" alt="Selected region" />
               </a>
             </div>

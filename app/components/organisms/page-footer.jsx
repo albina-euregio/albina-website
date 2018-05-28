@@ -34,7 +34,7 @@ export default class PageFooter extends React.Component {
             </div>
             <div className="grid-item all-12">
               <p className="page-footer-top">
-                <a href="#page-main" className="icon-arrow-up tooltip" title="Top" data-scroll><span>Top</span></a>
+                <a href="#page-main" className="icon-arrow-up tooltip" title="Top"><span>Top</span></a>
               </p>
             </div>
           </div>

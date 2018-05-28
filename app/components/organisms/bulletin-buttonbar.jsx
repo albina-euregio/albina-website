@@ -11,7 +11,7 @@ export default class BulletinButtonbar extends React.Component {
         <div className="section-centered">
           <div className="grid linkbar">
             <div className="normal-4 grid-item">
-              <a href="#page-main" title="Top" className="icon-link icon-arrow-up" data-scroll>Back to Map</a>
+              <a href="#page-main" title="Top" className="icon-link icon-arrow-up">Back to Map</a>
             </div>
             <div className="normal-8 grid-item">
               <ul className="list-inline bulletin-buttonbar">

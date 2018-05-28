@@ -105,7 +105,6 @@ class BulletinMap extends React.Component {
               href="#section-bulletin-report"
               className="pure-button tooltip"
               title="See full bulletin report"
-              data-scroll
             >
               <span>Click for</span> Details<span className="icon-arrow-down" />
             </a>
