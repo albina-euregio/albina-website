@@ -59,7 +59,7 @@ class BulletinStore {
     this.settings = observable({
       status: '',
       date: '',
-      ampm: ''
+      ampm: config.get('defaults.ampm')
     });
     this.bulletins = {};
 
@@ -71,7 +71,6 @@ class BulletinStore {
       "gliding_snow": {active: true}
     });
 
-    this.ampm = config.get('defaults.ampm');
     this.mapCenter = observable.box([47, 12]);
     this.mapZoom = observable.box(9);
   }

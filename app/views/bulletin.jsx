@@ -38,10 +38,10 @@ export default class Bulletin extends React.Component {
       <div>
         <span>{this.date}</span>
         <BulletinHeader store={this.store} />
-        <BulletinMap store={this.store} settings={this.store.settings} />
-        <BulletinLegend store={this.store} problems={this.store.problems} />
+        <BulletinMap store={this.store} />
+        <BulletinLegend problems={this.store.problems} />
         <BulletinButtonbar />
-        <BulletinReport store={this.store} settings={this.store.settings} />
+        <BulletinReport store={this.store} />
         <BulletinAdditional />
         <SmShare />
         <Context />

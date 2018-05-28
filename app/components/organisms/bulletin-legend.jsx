@@ -12,7 +12,7 @@ export default class BulletinLegend extends React.Component {
         <div className="section-centered">
           <div className="grid">
             <div className="normal-6 grid-item">
-              <BulletinProblemFilter store={this.props.store} problems={this.props.problems} />
+              <BulletinProblemFilter problems={this.props.problems} />
             </div>
             <div className="normal-6 grid-item">
               <p><strong>Legend</strong> <a href="#" className="tooltip" title="Learn more"><strong>Warning Levels</strong></a></p>
