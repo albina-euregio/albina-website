@@ -3,6 +3,7 @@ import React from 'react';
 export default class ElevationIcon extends React.Component {
   imgRoot;
   icons;
+  alts;
 
   constructor(props) {
     super(props);

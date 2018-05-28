@@ -3,6 +3,7 @@ import ProblemIcon from '../icons/problem-icon.jsx';
 import WarnLevelIcon from '../icons/warn-level-icon.jsx';
 import ElevationIcon from '../icons/elevation-icon.jsx';
 import ExpositionIcon from '../icons/exposition-icon.jsx';
+import TendencyIcon from '../icons/tendency-icon.jsx';
 
 export default class BulletinReport extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class BulletinReport extends React.Component {
                   <span>1800m</span>
                 </div>
                 <div className="bulletin-report-tendency tooltip" title="Expectation for the following day">
-                  <span className="icon-arrow-increase" />
+                  <TendencyIcon tendency="increase" />
                   <span><strong className="heavy">Tendency: Much Worse</strong><br />
                     on Sunday 10.12.2017 PM</span>
                 </div>
