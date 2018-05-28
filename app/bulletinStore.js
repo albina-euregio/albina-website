@@ -79,6 +79,7 @@ class BulletinStore {
   /**
    * Load a bulletin from the API and activate it, if desired.
    * @param date The date in YYYY-MM-DD format.
+   * @param activate A flag to indicate, if the bulletin should be activated.
    * @return Void, if the bulletin has already been fetched or a promise object,
    *   if it need to be fetched.
    */
@@ -123,6 +124,10 @@ class BulletinStore {
     }
   }
 
+  /**
+   * Activate bulletins for a given date.
+   * @param date The date in yyyy-mm-dd format.
+   */
   @action
   activate(date) {
     if (this.bulletins[date]) {
@@ -131,14 +136,7 @@ class BulletinStore {
     }
   }
 
-  /**
-   * Set the current active 'am'/'pm' state.
-   * @param ampm A string 'am' or 'pm'.
-   */
-  setDate(date) {
-    this.date = date;
-  }
-
+  // TODO move to map store
   @action
   setMapViewport(mapState) {
     this.mapCenter.set(mapState.center);
@@ -147,6 +145,7 @@ class BulletinStore {
 
   /**
    * Increase or decrease the zoom value of the bulletin map.
+   * TODO: move to map store
    */
   @action
   zoomIn() {
@@ -157,6 +156,11 @@ class BulletinStore {
     this.mapZoom.set(this.mapZoom - 1);
   }
 
+
+  /**
+   * Set the current active 'am'/'pm' state.
+   * @param ampm A string 'am' or 'pm'.
+   */
   @action
   setAmPm(ampm) {
     switch (ampm) {
@@ -184,6 +188,7 @@ class BulletinStore {
     }
   }
 
+
   /**
    * Get the bulletins that match the current selection.
    * @return A list of bulletins that match the selection of
@@ -194,6 +199,7 @@ class BulletinStore {
     return this.bulletins[this.settings.date];
   }
 
+
   /**
    * Returns leaflet encoded value for map center
    */
@@ -201,6 +207,7 @@ class BulletinStore {
   get getMapCenter() {
     return toJS(this.mapCenter);
   }
+
 
   @computed
   get getMapZoom() {

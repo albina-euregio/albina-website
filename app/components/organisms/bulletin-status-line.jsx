@@ -9,11 +9,11 @@ import {dateToDateTimeString, parseDate} from '../../util/date.js';
   }
 
   @computed get statusText() {
-    if(!this.props.store.active || this.props.settings.status == 'pending') {
+    if(!this.props.store.active || this.props.status == 'pending') {
       return 'Loading\u2026';
     }
 
-    if(this.props.settings.status != 'ok') {
+    if(this.props.status != 'ok') {
       return 'No Bulletin';
     }
 
