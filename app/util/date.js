@@ -81,7 +81,7 @@ function dateToISODateString(date) {
 function _formatDate(date, options = {}) {
   if(date) {
     // TODO: replace with current language
-    return Intl.DateTimeFormat('de', options).format(date);
+    return Intl.DateTimeFormat(window.appStore.language, options).format(date);
   }
   return '';
 }
