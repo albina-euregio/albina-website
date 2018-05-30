@@ -7,9 +7,9 @@ class PageHeader extends React.Component {
     super(props);
   }
 
-  hangleChangeLanguage(newLanguage) {
+  handleChangeLanguage = (newLanguage)  => {
     window['appStore'].language = newLanguage;
-  }
+  };
 
   render() {
     return (
@@ -162,26 +162,29 @@ class PageHeader extends React.Component {
         </div>
         <div className="page-header-language">
           <ul className="list-inline language-trigger">
-            <li onClick={this.hangleChangeLanguage.bind(this, 'de')}>
+            <li>
               <a
                 className="language-trigger-de tooltip"
                 title="Deutsche Version"
+                onClick={(e) => this.handleChangeLanguage('de')}
               >
                 DE
               </a>
             </li>
-            <li onClick={this.hangleChangeLanguage.bind(this, 'it')}>
+            <li>
               <a
                 className="language-trigger-it tooltip"
                 title="Versione Italiana"
+                onClick={(e) => this.handleChangeLanguage('it')}
               >
                 IT
               </a>
             </li>
-            <li onClick={this.hangleChangeLanguage.bind(this, 'en')}>
+            <li>
               <a
                 className="language-trigger-en tooltip"
                 title="English Version"
+                onClick={(e) => this.handleChangeLanguage('en') }
               >
                 EN
               </a>

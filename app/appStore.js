@@ -14,20 +14,22 @@ class AppStore extends React.Component {
     const defaultLanguage = 'de'; // TODO: get from Browser config/config.ini
     const translations = {
       "en": {
-        "home": "home"
+        "home": "home",
+        "bulletin:header:forecast": "Avalanche Forecast"
       },
       "de": {
-        "home": "Zuhause"
+        "home": "Zuhause",
+        "bulletin:header:forecast": "Lawinenprognose"
       },
       "it": {
-        "home": "casa"
+        "home": "casa",
+        "bulletin:header:forecast": "Avalanche Forecast"
       }
     };
     this.locale = new LocaleStore(defaultLanguage, translations);
   }
 
   set language(newLanguage) {
-    //this.language.set(newLanguage);
     this.locale.value = newLanguage;
   }
 
