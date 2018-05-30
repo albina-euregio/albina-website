@@ -4,6 +4,11 @@ import App from './components/app.jsx';
 import Base from './base.js';
 import AppStore from './appStore.js';
 import ConfigStore from './configStore.js';
+import {addLocaleData} from 'react-intl';
+import en from 'react-intl/locale-data/en';
+import de from 'react-intl/locale-data/de';
+import it from 'react-intl/locale-data/it';
+addLocaleData([...en, ...de, ...it]);
 
 /* bower components */
 window['jQuery'] = window['$'] = require('jquery');

@@ -1,5 +1,6 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import { injectIntl, FormattedMessage} from "react-intl";
 
 class PageHeader extends React.Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class PageHeader extends React.Component {
   }
 
   hangleChangeLanguage(newLanguage) {
-    window['appStore'].setLanguage(newLanguage);
+    window['appStore'].language = newLanguage;
   }
 
   render() {
@@ -28,7 +29,7 @@ class PageHeader extends React.Component {
             <li>
               <a href="./bulletin" className=" " title>
                 Avalanche Bulletin{' '}
-                <small>{window['appStore'].homeTranslation}</small>
+                <small><FormattedMessage id="home" /></small>
               </a>
             </li>
             <li>
@@ -208,4 +209,4 @@ class PageHeader extends React.Component {
   }
 }
 
-export default observer(PageHeader);
+export default inject("locale")(injectIntl(observer(PageHeader)));

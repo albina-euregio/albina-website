@@ -7,6 +7,8 @@ export default class ProblemIconLink extends React.Component {
   constructor(props) {
     super(props);
     // TODO unify with components/organsims/bulletin-problem-filter-item.jsx
+
+    // query data from http://localhost/projects/albina-cms/web/api/taxonomy_term/avalanche_problems?fields[taxonomy_term--avalanche_problems]=name,descriptor
     this.problemTexts = {
       "new_snow": {en: "New Snow"},
       "wind_drifted_snow": {en: "Drifting Snow"},

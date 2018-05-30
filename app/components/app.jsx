@@ -1,5 +1,7 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { Provider, observer } from 'mobx-react';
+import { MobxIntlProvider } from "mobx-react-intl";
+
 //import { BrowserHistory } from 'react-router';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import { matchRoutes, renderRoutes } from 'react-router-config';
@@ -86,10 +88,15 @@ class App extends React.Component {
   }
 
   render() {
+    const store=window['appStore'];
     return (
-      <BrowserRouter basename={config.get('projectRoot')}>
-        {renderRoutes(this.routes())}
-      </BrowserRouter>
+      <Provider {...store}>
+        <MobxIntlProvider>
+          <BrowserRouter basename={config.get('projectRoot')}>
+            {renderRoutes(this.routes())}
+          </BrowserRouter>
+        </MobxIntlProvider>
+      </Provider>
     );
   }
 }
