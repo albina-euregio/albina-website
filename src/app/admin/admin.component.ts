@@ -9,7 +9,7 @@ import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/
 declare var L: any;
 
 @Component({
-  templateUrl: 'ADMIN.component.html'
+  templateUrl: 'admin.component.html'
 })
 export class AdminComponent {
 
