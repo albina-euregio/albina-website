@@ -3,7 +3,7 @@
 
 import { observable, action, computed, toJS } from 'mobx';
 import React from 'react';
-import { LocaleStore } from "mobx-react-intl";
+import { LocaleStore } from './util/mobx-react-intl.es5.js';
 import translations from './data/translations.json';
 
 class AppStore extends React.Component {
