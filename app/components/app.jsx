@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider, observer } from 'mobx-react';
-import { MobxIntlProvider } from "mobx-react-intl";
+import { MobxIntlProvider } from '../util/mobx-react-intl.es5.js';
 
 //import { BrowserHistory } from 'react-router';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
