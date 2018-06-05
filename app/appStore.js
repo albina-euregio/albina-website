@@ -4,6 +4,7 @@
 import { observable, action, computed, toJS } from 'mobx';
 import React from 'react';
 import { LocaleStore } from "mobx-react-intl";
+import translations from './data/translations.json';
 
 class AppStore extends React.Component {
   @observable keyDown;
@@ -12,20 +13,6 @@ class AppStore extends React.Component {
   constructor() {
     super();
     const defaultLanguage = 'de'; // TODO: get from Browser config/config.ini
-    const translations = {
-      "en": {
-        "home": "home",
-        "bulletin:header:forecast": "Avalanche Forecast"
-      },
-      "de": {
-        "home": "Zuhause",
-        "bulletin:header:forecast": "Lawinenprognose"
-      },
-      "it": {
-        "home": "casa",
-        "bulletin:header:forecast": "Avalanche Forecast"
-      }
-    };
     this.locale = new LocaleStore(defaultLanguage, translations);
   }
 
