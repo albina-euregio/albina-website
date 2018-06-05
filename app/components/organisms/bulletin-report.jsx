@@ -1,4 +1,9 @@
 import React from 'react';
+import ProblemIconLink from '../icons/problem-icon-link.jsx';
+import WarnLevelIcon from '../icons/warn-level-icon.jsx';
+import ElevationIcon from '../icons/elevation-icon.jsx';
+import ExpositionIcon from '../icons/exposition-icon.jsx';
+import TendencyIcon from '../icons/tendency-icon.jsx';
 
 export default class BulletinReport extends React.Component {
   constructor(props) {
@@ -15,64 +20,28 @@ export default class BulletinReport extends React.Component {
           </header>
           <div className="bulletin-report-pictobar">
             <div className="bulletin-report-region">
-              <a href="#page-main" className="img icon-arrow-up tooltip" title="This Bulletin is valid for the selected region.<br/>Click to return to Map" data-scroll>
+              <a href="#page-main" className="img icon-arrow-up tooltip" title="This Bulletin is valid for the selected region.<br/>Click to return to Map">
                 <img src="../../images/dev/bulletin-report-region.png" alt="Selected region" />
               </a>
             </div>
             <ul className="list-plain list-bulletin-report-pictos">
               <li>
-                <div className="bulletin-report-picto tooltip" title="Above 1800m: Warning Level 3<br/>Below 1800m: Warning Level 2">
-                  <img src="../../images/pro/warning-pictos/levels_2_3.png" alt="Warning Levels 2 and 3" />
-                  <span>1800m</span>
-                </div>
+                <WarnLevelIcon below={2} above={3} elevation={1800} treeline={false} />
                 <div className="bulletin-report-tendency tooltip" title="Expectation for the following day">
-                  <span className="icon-arrow-increase" />
                   <span><strong className="heavy">Tendency: Much Worse</strong><br />
-                    on Sunday 10.12.2017 PM</span>
+                    on Sunday 10.12.2017 PM
+                  </span>
+                  <TendencyIcon tendency="increase" />
                 </div>
               </li><li>
-                <div className="bulletin-report-picto problem-above tooltip" title="Avalanche problem occurring above 2200m">
-                  <img src="../../images/pro/warning-pictos/levels_above.png" alt="Avalanche problem above" />
-                  <span>2200m</span>
-                </div>
-                <div className="bulletin-report-picto">
-                  <a href="#" className="img tooltip" title="Drifting Snow. Click to learn more">
-                    <img src="../../images/pro/avalanche-situations/drifting_snow.png" alt="Drifting Snow" />
-                  </a>
-                </div>
-                <div className="bulletin-report-picto bulletin-report-expositions expo_n expo_w expo_nw tooltip" title="Exposition">
-                  <img src="../../images/pro/expositions/exposition_bg.png" alt="Exposition" className="bulletin-report-exposition-rose" />
-                  <img src="../../images/pro/expositions/exposition_n.png" alt="North" className="expo_n" />
-                  <img src="../../images/pro/expositions/exposition_ne.png" alt="North East" className="expo_ne" />
-                  <img src="../../images/pro/expositions/exposition_e.png" alt="East" className="expo_e" />
-                  <img src="../../images/pro/expositions/exposition_se.png" alt="South East" className="expo_se" />
-                  <img src="../../images/pro/expositions/exposition_s.png" alt="South" className="expo_s" />
-                  <img src="../../images/pro/expositions/exposition_sw.png" alt="South West" className="expo_sw" />
-                  <img src="../../images/pro/expositions/exposition_w.png" alt="West" className="expo_w" />
-                  <img src="../../images/pro/expositions/exposition_nw.png" alt="North West" className="expo_nw" />
-                </div>
+                <ProblemIconLink problem={"wind_drifted_snow"} />
+                <ExpositionIcon expositions={['n', 'nw', 'w']} />
+                <ElevationIcon elevation={2200} where="above" />
               </li>
               <li>
-                <div className="bulletin-report-picto problem-below tooltip" title="Avalanche problem occurring below 1900m">
-                  <img src="../../images/pro/warning-pictos/levels_below.png" alt="Avalanche problem below" />
-                  <span>1900m</span>
-                </div>
-                <div className="bulletin-report-picto">
-                  <a href="#" className="img tooltip" title="Old Snow. Click to learn more">
-                    <img src="../../images/pro/avalanche-situations/old_snow.png" alt="Old Snow" />
-                  </a>
-                </div>
-                <div className="bulletin-report-picto bulletin-report-expositions expo_e expo_se expo_s expo_sw tooltip" title="Exposition">
-                  <img src="../../images/pro/expositions/exposition_bg.png" alt="Exposition" className="bulletin-report-exposition-rose" />
-                  <img src="../../images/pro/expositions/exposition_n.png" alt="North" className="expo_n" />
-                  <img src="../../images/pro/expositions/exposition_ne.png" alt="North East" className="expo_ne" />
-                  <img src="../../images/pro/expositions/exposition_e.png" alt="East" className="expo_e" />
-                  <img src="../../images/pro/expositions/exposition_se.png" alt="South East" className="expo_se" />
-                  <img src="../../images/pro/expositions/exposition_s.png" alt="South" className="expo_s" />
-                  <img src="../../images/pro/expositions/exposition_sw.png" alt="South West" className="expo_sw" />
-                  <img src="../../images/pro/expositions/exposition_w.png" alt="West" className="expo_w" />
-                  <img src="../../images/pro/expositions/exposition_nw.png" alt="North West" className="expo_nw" />
-                </div>
+                <ProblemIconLink problem={"old_snow"} />
+                <ExpositionIcon expositions={['e', 'se', 's', 'sw']} />
+                <ElevationIcon elevation={1900} where="below" />
               </li>
             </ul>
           </div>

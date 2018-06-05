@@ -1,6 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import LeafletMap from './leaflet-map';
+import ProblemIconLink from '../icons/problem-icon-link.jsx';
+import WarnLevelIcon from '../icons/warn-level-icon.jsx';
 
 @observer
 class BulletinMap extends React.Component {
@@ -89,37 +91,20 @@ class BulletinMap extends React.Component {
             className="bulletin-map-details js-active top-right"
           >
             <ul className="list-plain">
-              <li
-                className="bulletin-report-picto tooltip"
-                title="Above 1800m: Warning Level 3<br/>Below 1800m: Warning Level 2"
-              >
-                <img
-                  src="../../images/pro/warning-pictos/levels_2_3.png"
-                  alt="Warning Levels 2 and 3"
-                />
-                <span>1800m</span>
+              <li>
+                <WarnLevelIcon below={2} above={3} elevation={1800} treeline={false} />
               </li>
-              <li
-                className="bulletin-report-picto tooltip"
-                title="Drifting Snow"
-              >
-                <img
-                  src="../../images/pro/avalanche-situations/drifting_snow.png"
-                  alt="Drifting Snow"
-                />
+              <li>
+                <ProblemIconLink problem={"wind_drifted_snow"} />
               </li>
-              <li className="bulletin-report-picto tooltip" title="Old Snow">
-                <img
-                  src="../../images/pro/avalanche-situations/old_snow.png"
-                  alt="DrifOldting Snow"
-                />
+              <li>
+                <ProblemIconLink problem={"old_snow"} />
               </li>
             </ul>
             <a
               href="#section-bulletin-report"
               className="pure-button tooltip"
               title="See full bulletin report"
-              data-scroll
             >
               <span>Click for</span> Details<span className="icon-arrow-down" />
             </a>

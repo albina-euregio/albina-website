@@ -7,25 +7,20 @@ import {observer} from 'mobx-react';
     super(props);
   }
 
-  @action setAm() {
-    if(bulletinStore.settings.ampm != 'am') {
-      bulletinStore.setAmPm('am');
-    }
-  }
-
-  @action setPm() {
-    if(bulletinStore.settings.ampm != 'pm') {
-      bulletinStore.setAmPm('pm');
-    }
-  }
-
   render() {
+    const title = "Switch to " + ((this.props.ampm == 'am') ? 'PM' : 'AM');
     return (
-      (this.props.settings.ampm == 'am') ? (
-        <span><span className="bulletin-ampm"><a href="#" title="Switch to PM" className="textlink tooltip" onClick={this.setPm}>PM</a></span> <span title="AM is currently selected" className="bulletin-ampm tooltip">AM</span></span>
-      ) : (
-        <span><span title="PM is currently selected" className="bulletin-ampm tooltip">PM</span> <span className="bulletin-ampm"><a href="#" title="Switch to AM" className="textlink tooltip" onClick={this.setAm}>AM</a></span></span>
-      )
+      <span className="bulletin-ampm-switch tooltip" title={title}>
+        <div className="switch-text">
+          <label htmlFor="switch">
+            <input id="switch" type="checkbox"></input>
+            <div className="slider">
+              <span>AM</span>
+              <span>PM</span>
+            </div>
+          </label>
+        </div>
+      </span>
     );
   }
 }

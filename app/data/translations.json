@@ -1,0 +1,14 @@
+{
+  "en": {
+    "home": "home",
+    "bulletin:header:forecast": "Avalanche Forecast"
+  },
+  "de": {
+    "home": "Zuhause",
+    "bulletin:header:forecast": "Lawinenprognose"
+  },
+  "it": {
+    "home": "casa",
+    "bulletin:header:forecast": "Avalanche Forecast"
+  }
+}

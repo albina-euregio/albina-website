@@ -53,16 +53,24 @@ class BulletinStore {
   @observable mapZoom = 12;
   @observable bulletins = {};
   settings = {};
+  problems = {};
 
   constructor() {
     this.settings = observable({
       status: '',
       date: '',
-      ampm: '',
-      excludedProblems: []
+      ampm: config.get('defaults.ampm')
     });
     this.bulletins = {};
-    this.ampm = config.get('defaults.ampm');
+
+    this.problems = observable({
+      new_snow: { active: true },
+      wind_drifted_snow: { active: true },
+      old_snow: { active: true },
+      wet_snow: { active: true },
+      gliding_snow: { active: true }
+    });
+
     this.mapCenter = observable.box([47, 12]);
     this.mapZoom = observable.box(9);
   }
@@ -70,6 +78,7 @@ class BulletinStore {
   /**
    * Load a bulletin from the API and activate it, if desired.
    * @param date The date in YYYY-MM-DD format.
+   * @param activate A flag to indicate, if the bulletin should be activated.
    * @return Void, if the bulletin has already been fetched or a promise object,
    *   if it need to be fetched.
    */
@@ -114,6 +123,10 @@ class BulletinStore {
     }
   }
 
+  /**
+   * Activate bulletins for a given date.
+   * @param date The date in yyyy-mm-dd format.
+   */
   @action
   activate(date) {
     if (this.bulletins[date]) {
@@ -122,14 +135,7 @@ class BulletinStore {
     }
   }
 
-  /**
-   * Set the current active 'am'/'pm' state.
-   * @param ampm A string 'am' or 'pm'.
-   */
-  setDate(date) {
-    this.date = date;
-  }
-
+  // TODO move to map store
   @action
   setMapViewport(mapState) {
     this.mapCenter.set(mapState.center);
@@ -138,6 +144,7 @@ class BulletinStore {
 
   /**
    * Increase or decrease the zoom value of the bulletin map.
+   * TODO: move to map store
    */
   @action
   zoomIn() {
@@ -148,6 +155,10 @@ class BulletinStore {
     this.mapZoom.set(this.mapZoom - 1);
   }
 
+  /**
+   * Set the current active 'am'/'pm' state.
+   * @param ampm A string 'am' or 'pm'.
+   */
   @action
   setAmPm(ampm) {
     switch (ampm) {
@@ -163,21 +174,16 @@ class BulletinStore {
 
   @action
   excludeProblem(problemId) {
-    if (this.settings.excludedProblems.indexOf(problemId) < 0) {
-      this.settings.excludedProblems.push(problemId);
+    if (typeof this.problems[problemId] !== 'undefined') {
+      this.problems[problemId].active = false;
     }
-    console.log('TEST: ' + JSON.stringify(this.settings.excludedProblems));
   }
 
   @action
   includeProblem(problemId) {
-    console.log('TEST1: ' + JSON.stringify(this.settings.excludedProblems));
-    const i = this.settings.excludedProblems.indexOf(problemId);
-    if (i >= 0) {
-      console.log('TEST2 ' + i);
-      this.settings.excludedProblems.splice(i, 1);
+    if (typeof this.problems[problemId] !== 'undefined') {
+      this.problems[problemId].active = true;
     }
-    console.log('TEST3: ' + JSON.stringify(this.settings.excludedProblems));
   }
 
   /**

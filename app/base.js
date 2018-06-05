@@ -1,5 +1,5 @@
 var Base = {
-  doRequest(url) {
+  doRequest(url, type='json') {
     return new Promise(function(resolve, reject) {
       console.log('request: ' + url);
       let xhr = new XMLHttpRequest();
@@ -12,9 +12,17 @@ var Base = {
           }
         }
       };
-      // TODO: fix accept header
-      //xhr.setRequestHeader('Accept', 'application/json,application/vnd.application+json,application/vnd.api+json');
       xhr.open('GET', url, true);
+      
+      // set content type
+      switch(type) {
+      case 'json':
+        xhr.setRequestHeader('Accept', 'application/json,application/vnd.application+json,application/vnd.api+json');
+        break;
+
+      default:
+        break;
+      }
       xhr.send(null);
     });
   },

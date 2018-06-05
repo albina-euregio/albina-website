@@ -3,29 +3,25 @@
 
 import { observable, action, computed, toJS } from 'mobx';
 import React from 'react';
+import { LocaleStore } from './util/mobx-react-intl.es5.js';
+import translations from './data/translations.json';
 
 class AppStore extends React.Component {
-  @observable language = 'de';
   @observable keyDown;
+  @observable locale;
 
   constructor() {
     super();
-    this.language = observable.box('de');
+    const defaultLanguage = 'de'; // TODO: get from Browser config/config.ini
+    this.locale = new LocaleStore(defaultLanguage, translations);
   }
 
-  @computed
-  get homeTranslation() {
-    const translations = {
-      en: 'home',
-      it: 'casa',
-      de: 'Zuhause'
-    };
-    return translations[this.language];
+  set language(newLanguage) {
+    this.locale.value = newLanguage;
   }
 
-  @action
-  setLanguage(newLanguage) {
-    this.language.set(newLanguage);
+  get language() {
+    return this.locale.value;
   }
 }
 

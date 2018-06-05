@@ -9,7 +9,7 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
   }
 
   @computed get date() {
-    return parseDate(this.props.settings.date);
+    return parseDate(this.props.date);
   }
 
   @computed get nextDate() {
@@ -55,10 +55,28 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
 
     return (
       <ul className="list-inline bulletin-flipper">
-        <li className="bulletin-flipper-back"><a href="#" title="Back" className="tooltip" onClick={this.dateBack}><span className="icon-arrow-left" />{prevDate}</a></li>
-        <li className="bulletin-flipper-latest"><a href="#" title="Go to current Bulletin" className="tooltip" onClick={this.goToLatest}>Latest</a></li>
-        <li className="bulletin-flipper-forward"><a href="#" title="Forward" className="tooltip" onClick={this.dateForward}>{nextDate} <span className="icon-arrow-right" /></a></li>
-        <li className="bulletin-flipper-archive"><a href="#" title="Recent Bulletins" className="tooltip">Archive <span className="icon-arrow-right" /></a></li>
+        <li className="bulletin-flipper-back">
+          <a href="#" title="Back" className="tooltip"
+            onClick={this.dateBack}>
+            <span className="icon-arrow-left" />{prevDate}
+          </a>
+        </li>
+        <li className="bulletin-flipper-latest">
+          <a href="#" title="Go to current Bulletin" className="tooltip"
+            onClick={this.goToLatest}>Latest
+          </a>
+        </li>
+        <li className="bulletin-flipper-forward">
+          <a href="#" title="Forward" className="tooltip"
+            onClick={this.dateForward}>{nextDate}
+            <span className="icon-arrow-right" />
+          </a>
+        </li>
+        <li className="bulletin-flipper-archive">
+          <a href="#" title="Recent Bulletins" className="tooltip">Archive
+            <span className="icon-arrow-right" />
+          </a>
+        </li>
       </ul>
     );
   }

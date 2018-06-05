@@ -20,10 +20,6 @@ export default class Bulletin extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    return this._fetchData(nextProps);
-  }
-
   componentDidMount() {
     return this._fetchData(this.props);
   }
@@ -37,11 +33,11 @@ export default class Bulletin extends React.Component {
     return (
       <div>
         <span>{this.date}</span>
-        <BulletinHeader store={this.store} settings={this.store.settings} />
-        <BulletinMap store={this.store} settings={this.store.settings} />
-        <BulletinLegend store={this.store} settings={this.store.settings} />
+        <BulletinHeader store={this.store} />
+        <BulletinMap store={this.store} />
+        <BulletinLegend problems={this.store.problems} />
         <BulletinButtonbar />
-        <BulletinReport store={this.store} settings={this.store.settings} />
+        <BulletinReport store={this.store} />
         <BulletinAdditional />
         <SmShare />
         <Context />
