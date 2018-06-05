@@ -163,7 +163,7 @@ class BulletinStore {
 
   @action
   excludeProblem(problemId) {
-    if(this.settings.excludedProblems.indexOf(problemId) < 0) {
+    if (this.settings.excludedProblems.indexOf(problemId) < 0) {
       this.settings.excludedProblems.push(problemId);
     }
     console.log('TEST: ' + JSON.stringify(this.settings.excludedProblems));
@@ -173,7 +173,7 @@ class BulletinStore {
   includeProblem(problemId) {
     console.log('TEST1: ' + JSON.stringify(this.settings.excludedProblems));
     const i = this.settings.excludedProblems.indexOf(problemId);
-    if(i >= 0) {
+    if (i >= 0) {
       console.log('TEST2 ' + i);
       this.settings.excludedProblems.splice(i, 1);
     }
