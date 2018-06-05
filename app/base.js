@@ -13,8 +13,8 @@ var Base = {
         }
       };
       // TODO: fix accept header
-      //xhr.setRequestHeader('Accept', 'application/json,application/vnd.application+json,application/vnd.api+json');
       xhr.open('GET', url, true);
+      xhr.setRequestHeader('Accept', 'application/json,application/vnd.application+json,application/vnd.api+json');
       xhr.send(null);
     });
   },
