@@ -4,6 +4,7 @@ import WarnLevelIcon from '../icons/warn-level-icon.jsx';
 import ElevationIcon from '../icons/elevation-icon.jsx';
 import ExpositionIcon from '../icons/exposition-icon.jsx';
 import TendencyIcon from '../icons/tendency-icon.jsx';
+import BulletinAWMapStatic from './bulletin-awmap-static.jsx';
 
 export default class BulletinReport extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ export default class BulletinReport extends React.Component {
           <div className="bulletin-report-pictobar">
             <div className="bulletin-report-region">
               <a href="#page-main" className="img icon-arrow-up tooltip" title="This Bulletin is valid for the selected region.<br/>Click to return to Map">
-                <img src="../../images/dev/bulletin-report-region.png" alt="Selected region" />
+                <BulletinAWMapStatic date={this.props.store.settings.date} region={this.props.store.settings.region} />
               </a>
             </div>
             <ul className="list-plain list-bulletin-report-pictos">
