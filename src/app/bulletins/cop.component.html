@@ -1,6 +1,6 @@
 <div style="margin-bottom: 10px;" class="col-md-12">
   <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label." + name | translate }}</strong></label>
-  <button style="margin-left: 5px;" [disabled]="disabled" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, field, this.settingsService.getLangString())"><i class="fa fa-pencil"></i></button>
+  <button style="margin-left: 5px;" [disabled]="disabled" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, field, this.settingsService.getLangString(), this.activeTextcat)"><i class="fa fa-pencil"></i></button>
 </div>
 
 <div class="col-md-12">

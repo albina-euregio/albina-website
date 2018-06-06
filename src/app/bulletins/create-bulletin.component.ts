@@ -415,7 +415,7 @@ export class CreateBulletinComponent {
         parent.preventClick = false;
       }, 150);
     }
-  
+
     private onMapDoubleClick(e) {
       clearTimeout(this.timer);
       this.preventClick = true;
@@ -590,7 +590,7 @@ export class CreateBulletinComponent {
       let bulletin = new BulletinModel(originalBulletin);
 
       bulletin.setAuthor(this.authenticationService.getAuthor());
-      
+
       // reset regions
       let saved = new Array<String>();
       for (let region of bulletin.getSavedRegions())
@@ -719,7 +719,7 @@ export class CreateBulletinComponent {
     }
   }
 
-  
+
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
       if (this.checkElevation()) {

@@ -115,25 +115,26 @@ export class CopComponent {
       this.showTranslations = true;
   }
 
-  openTextcat($event, field, l) {
-    // TODO Why "undefined"?
-    if (this.activeTextcat != "undefined") {
-      debugger
-      let receiver = this.receiver.nativeElement.contentWindow;
-      $event.preventDefault()
-      //make Json to send to pm
-      let inputDef = {
-        textField: field,
-        textDef: $event.path["0"].value,
-        srcLang: Enums.LanguageCode[l],
-        currentLang: this.translateService.currentLang
-      };
 
-      let pmData = JSON.stringify(inputDef);
-      receiver.postMessage(pmData, '*');
-     
-      this.showDialog();
-    }
+  openTextcat($event, field, l, textDef) {
+    let receiver = this.receiver.nativeElement.contentWindow;
+    $event.preventDefault()
+
+    if (!textDef)
+      textDef="";
+
+    //make Json to send to pm
+    let inputDef = {
+      textField: field,
+      textDef: textDef,
+      srcLang: Enums.LanguageCode[l],
+      currentLang: this.translateService.currentLang
+    };
+
+    let pmData = JSON.stringify(inputDef);
+    receiver.postMessage(pmData, '*');
+
+    this.showDialog();
   }
 
   getText(e) {
