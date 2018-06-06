@@ -174,7 +174,8 @@
 				"snowpackStructureComment" : "Description of snowpack structure",
 				"dangerPatterns" : "Danger patterns",
 				"elevationHigh" : "Upper elevation:",
-				"elevationLow" : "Lower elevation:"
+				"elevationLow" : "Lower elevation:",
+				"tendencyComment" : "Description of tendency"
 			},
 			"title" : {
 				"map" : "Map",
@@ -191,7 +192,10 @@
 				"forenoonBelow" : "Forenoon, below",
 				"afternoonBelow" : "Aafternoon, below",
 				"snowpackStructure" : "Snowpack structure",
-				"tendency" : "Tendency"
+				"tendency" : "Tendency",
+				"pmdialog" : "Catalog of phrases",
+				"showTranslations" : " Show translations",
+				"hideTranslations" : " Hide translations"
 			},
 			"discardDialog" : {
 				"header" : "Discard changes",

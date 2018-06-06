@@ -174,7 +174,8 @@
 				"snowpackStructureComment" : "Descrizione struttura manto nevoso",
 				"dangerPatterns" : "TODO",
 				"elevationHigh" : "TODO:",
-				"elevationLow" : "TODO:"
+				"elevationLow" : "TODO:",
+				"tendencyComment" : "TODO"
 			},
 			"title" : {
 				"map" : "Mappa",
@@ -192,7 +193,9 @@
 				"afternoonBelow" : "Pomeriggio, al disotto",
 				"snowpackStructure" : "Struttura manto nevoso",
 				"tendency" : "TODO",
-				"pmdialog" : "Catalogo delle frasi"
+				"pmdialog" : "Catalogo delle frasi",
+				"showTranslations" : " TODO",
+				"hideTranslations" : " TODO"
 			},
 			"discardDialog" : {
 				"header" : "Scarta modifiche",

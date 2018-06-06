@@ -27,18 +27,16 @@ export class BulletinModel {
 	public forenoon: BulletinDaytimeDescriptionModel;
 	public afternoon: BulletinDaytimeDescriptionModel;
 
+	public avActivityHighlightsTextcat: string;
 	public avActivityCommentTextcat: string;
 	public snowpackStructureHighlightsTextcat: string;
 	public snowpackStructureCommentTextcat: string;
 	public tendencyCommentTextcat: string;
 
-	public avActivityHighlightsTextcat: TextModel[];
 	public avActivityHighlights: TextModel[];
 	public avActivityComment: TextModel[];
-
 	public snowpackStructureHighlights: TextModel[];
 	public snowpackStructureComment: TextModel[];
-
 	public tendencyComment: TextModel[];
 
 	public tendency: Enums.Tendency;
@@ -263,43 +261,12 @@ export class BulletinModel {
 		this.tendencyCommentTextcat = tendencyCommentTextcat;
 	}
 
-	getAvActivityHighlightsTextcat(): TextModel[] {
+	getAvActivityHighlightsTextcat(): string {
 		return this.avActivityHighlightsTextcat;
 	}
 
-	getAvActivityHighlightsTextcatIn(language: Enums.LanguageCode, srcLang: string): string {
-		if (this.avActivityHighlightsTextcat) {
-			for (var i = this.avActivityHighlightsTextcat.length - 1; i >= 0; i--) {
-				if (this.avActivityHighlightsTextcat[i].getLanguageCode() == language)
-					return this.avActivityHighlightsTextcat[i].getText();
-			}
-		}
-		else
-		{
-			let model = new TextModel();
-			model.setLanguageCode(Enums.LanguageCode[srcLang]);
-			model.setText("");
-			let avActivityHighlightsTextcat = new Array<TextModel>();
-			avActivityHighlightsTextcat.push(model);
-			this.setAvActivityHighlightsTextcat(avActivityHighlightsTextcat);
-		}
-	}
-
-	setAvActivityHighlightsTextcat(avActivityHighlightsTextcat: TextModel[]) {
+	setAvActivityHighlightsTextcat(avActivityHighlightsTextcat: string) {
 		this.avActivityHighlightsTextcat = avActivityHighlightsTextcat;
-	}
-
-	setAvActivityHighlightsTextcatIn(text: string, language: Enums.LanguageCode) {
-		for (var i = this.avActivityHighlightsTextcat.length - 1; i >= 0; i--) {
-			if (this.avActivityHighlightsTextcat[i].getLanguageCode() == language) {
-				this.avActivityHighlightsTextcat[i].setText(text);
-				return;
-			}
-		}
-		let model = new TextModel();
-		model.setLanguageCode(language);
-		model.setText(text);
-		this.avActivityHighlightsTextcat.push(model);
 	}
 
 	getAvActivityHighlights(): TextModel[] {
@@ -697,14 +664,8 @@ export class BulletinModel {
 		if (json.tendencyCommentTextcat)
 			bulletin.setTendencyCommentTextcat(json.tendencyCommentTextcat);
 
-		let jsonAvActivityHighlightsTextcat = json.avActivityHighlightsTextcat;
-		let avActivityHighlightsTextcat = new Array<TextModel>();
-		for (let i in jsonAvActivityHighlightsTextcat) {
-			avActivityHighlightsTextcat.push(TextModel.createFromJson(jsonAvActivityHighlightsTextcat[i]));
-		}
-		bulletin.setAvActivityHighlightsTextcat(avActivityHighlightsTextcat);
-
-
+		if (json.avActivityHighlightsTextcat)
+			bulletin.setAvActivityHighlightsTextcat(json.avActivityHighlightsTextcat);
 		let jsonAvActivityHighlights = json.avActivityHighlights;
 		let avActivityHighlights = new Array<TextModel>();
 		for (let i in jsonAvActivityHighlights) {
@@ -712,6 +673,8 @@ export class BulletinModel {
 		}
 		bulletin.setAvActivityHighlights(avActivityHighlights);
 
+		if (json.avActivityCommentTextcat)
+			bulletin.setAvActivityCommentTextcat(json.avActivityCommentTextcat);
 		let jsonAvActivityComment = json.avActivityComment;
 		let avActivityComment = new Array<TextModel>();
 		for (let i in jsonAvActivityComment) {
@@ -719,6 +682,8 @@ export class BulletinModel {
 		}
 		bulletin.setAvActivityComment(avActivityComment);
 
+		if (json.snowpackStructureHighlightsTextcat)
+			bulletin.setSnowpackStructureHighlightsTextcat(json.snowpackStructureHighlightsTextcat);
 		let jsonSnowpackStructureHighlight = json.snowpackStructureHighlights;
 		let snowpackStructureHighlights = new Array<TextModel>();
 		for (let i in jsonSnowpackStructureHighlight) {
@@ -726,6 +691,8 @@ export class BulletinModel {
 		}
 		bulletin.setSnowpackStructureHighlight(snowpackStructureHighlights);
 
+		if (json.snowpackStructureCommentTextcat)
+			bulletin.setSnowpackStructureCommentTextcat(json.snowpackStructureCommentTextcat);
 		let jsonSnowpackStructureComment = json.snowpackStructureComment;
 		let snowpackStructureComment = new Array<TextModel>();
 		for (let i in jsonSnowpackStructureComment) {
@@ -733,6 +700,8 @@ export class BulletinModel {
 		}
 		bulletin.setSnowpackStructureComment(snowpackStructureComment);
 
+		if (json.tendencyComment)
+			bulletin.setTendencyComment(json.tendencyComment);
 		let jsonTendencyComment = json.tendencyComment;
 		let tendencyComment = new Array<TextModel>();
 		for (let i in jsonTendencyComment) {

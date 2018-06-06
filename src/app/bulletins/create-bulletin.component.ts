@@ -54,20 +54,34 @@ export class CreateBulletinComponent {
   public bulletinsList: BulletinModel[];
 
   public activeAvActivityHighlightsTextcat: string;
-
   public activeAvActivityHighlightsDe: string;
-  public activeAvActivityCommentDe: string;
   public activeAvActivityHighlightsIt: string;
-  public activeAvActivityCommentIt: string;
   public activeAvActivityHighlightsEn: string;
-  public activeAvActivityCommentEn: string;
+  public activeAvActivityHighlightsFr: string;
 
+  public activeAvActivityCommentTextcat: string;
+  public activeAvActivityCommentDe: string;
+  public activeAvActivityCommentIt: string;
+  public activeAvActivityCommentEn: string;
+  public activeAvActivityCommentFr: string;
+
+  public activeSnowpackStructureHighlightsTextcat: string;
   public activeSnowpackStructureHighlightsDe: string;
-  public activeSnowpackStructureCommentDe: string;
   public activeSnowpackStructureHighlightsIt: string;
-  public activeSnowpackStructureCommentIt: string;
   public activeSnowpackStructureHighlightsEn: string;
+  public activeSnowpackStructureHighlightsFr: string;
+
+  public activeSnowpackStructureCommentTextcat: string;
+  public activeSnowpackStructureCommentDe: string;
+  public activeSnowpackStructureCommentIt: string;
   public activeSnowpackStructureCommentEn: string;
+  public activeSnowpackStructureCommentFr: string;
+
+  public activeTendencyCommentTextcat: string;
+  public activeTendencyCommentDe: string;
+  public activeTendencyCommentIt: string;
+  public activeTendencyCommentEn: string;
+  public activeTendencyCommentFr: string;
 
   public isAccordionDangerRatingOpen: boolean;
   public isAccordionAvalancheSituationOpen: boolean;
@@ -75,16 +89,13 @@ export class CreateBulletinComponent {
   public isAccordionSnowpackStructureOpen: boolean;
   public isAccordionTendencyOpen: boolean;
 
+  public showTranslationsAvActivityHighlights: boolean;
+  public showTranslationsAvActivityComment: boolean;
+  public showTranslationsSnowpackStructureComment: boolean;
+  public showTranslationsTendencyComment: boolean;
+
   //private preventClick: boolean;
   //private timer;
-  /*
-    @ViewChild('avActivityHighlightsTextcat') avActivityHighlightsTextcat;
-  */
-  @ViewChild('avActivityCommentTextcat') avActivityCommentTextcat;
-
-  @ViewChild('snowpackStructureCommentTextcat') snowpackStructureCommentTextcat;
-
-  @ViewChild('tendencyCommentTextcat') tendencyCommentTextcat;
 
   public pmUrl: SafeUrl;
   @ViewChild('receiver') receiver: ElementRef;
@@ -130,28 +141,49 @@ export class CreateBulletinComponent {
     this.activeBulletin = undefined;
     this.bulletinsList = new Array<BulletinModel>();
 
+    this.activeAvActivityHighlightsTextcat = undefined;
     this.activeAvActivityHighlightsDe = undefined;
-    this.activeAvActivityCommentDe = undefined;
     this.activeAvActivityHighlightsIt = undefined;
-    this.activeAvActivityCommentIt = undefined;
     this.activeAvActivityHighlightsEn = undefined;
+    this.activeAvActivityHighlightsFr = undefined;
+
+    this.activeAvActivityCommentTextcat = undefined;
+    this.activeAvActivityCommentDe = undefined;
+    this.activeAvActivityCommentIt = undefined;
     this.activeAvActivityCommentEn = undefined;
+    this.activeAvActivityCommentFr = undefined;
+
+    this.activeSnowpackStructureHighlightsTextcat = undefined;
     this.activeSnowpackStructureHighlightsDe = undefined;
-    this.activeSnowpackStructureCommentDe = undefined;
     this.activeSnowpackStructureHighlightsIt = undefined;
-    this.activeSnowpackStructureCommentIt = undefined;
     this.activeSnowpackStructureHighlightsEn = undefined;
+    this.activeSnowpackStructureHighlightsFr = undefined;
+
+    this.activeSnowpackStructureCommentTextcat = undefined;
+    this.activeSnowpackStructureCommentDe = undefined;
+    this.activeSnowpackStructureCommentIt = undefined;
     this.activeSnowpackStructureCommentEn = undefined;
+    this.activeSnowpackStructureCommentFr = undefined;
+
+    this.activeTendencyCommentTextcat = undefined;
+    this.activeTendencyCommentDe = undefined;
+    this.activeTendencyCommentIt = undefined;
+    this.activeTendencyCommentEn = undefined;
+    this.activeTendencyCommentFr = undefined;
+
     this.editRegions = false;
     this.showAfternoonMap = false;
-
-    this.activeAvActivityHighlightsTextcat = undefined;
 
     this.isAccordionDangerRatingOpen = false;
     this.isAccordionAvalancheSituationOpen = false;
     this.isAccordionDangerDescriptionOpen = false;
     this.isAccordionSnowpackStructureOpen = false;
     this.isAccordionTendencyOpen = false;
+
+    this.showTranslationsAvActivityHighlights = false;
+    this.showTranslationsAvActivityComment = false;
+    this.showTranslationsSnowpackStructureComment = false;
+    this.showTranslationsTendencyComment = false;
   }
 
   ngOnInit() {
@@ -273,6 +305,37 @@ export class CreateBulletinComponent {
 
   ngAfterViewInit() {
     this.initMaps();
+  }
+
+  setShowTranslations(name: string) {
+    switch (name) {
+      case "avActivityHighlights":
+        if (this.showTranslationsAvActivityHighlights)
+          this.showTranslationsAvActivityHighlights = false;
+        else
+          this.showTranslationsAvActivityHighlights = true;
+        break;
+      case "avActivityComment":
+        if (this.showTranslationsAvActivityComment)
+          this.showTranslationsAvActivityComment = false;
+        else
+          this.showTranslationsAvActivityComment = true;
+        break;
+      case "snowpackStructureComment":
+        if (this.showTranslationsSnowpackStructureComment)
+          this.showTranslationsSnowpackStructureComment = false;
+        else
+          this.showTranslationsSnowpackStructureComment = true;
+        break;
+      case "tendencyComment":
+        if (this.showTranslationsTendencyComment)
+          this.showTranslationsTendencyComment = false;
+        else
+          this.showTranslationsTendencyComment = true;
+        break;
+      default:
+        break;
+    }
   }
 
   accordionChanged(event: boolean, groupName: string) {
@@ -764,19 +827,17 @@ export class CreateBulletinComponent {
 
         this.setTexts();
 
-        // TODO this can be done nicer 
-        //if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat.textcat && this.avActivityHighlightsTextcat.textcat.nativeElement && this.avActivityHighlightsTextcat.textcat.nativeElement.value)
-        //  this.activeBulletin.setAvActivityHighlightsTextcat(this.avActivityHighlightsTextcat.textcat.nativeElement.value);
+        if (this.activeAvActivityHighlightsTextcat)
+          this.activeBulletin.setAvActivityHighlightsTextcat(this.activeAvActivityHighlightsTextcat);
 
+        if (this.activeAvActivityCommentTextcat)
+          this.activeBulletin.setAvActivityCommentTextcat(this.activeAvActivityCommentTextcat);
 
-        if (this.avActivityCommentTextcat && this.avActivityCommentTextcat.textcat && this.avActivityCommentTextcat.textcat.nativeElement && this.avActivityCommentTextcat.textcat.nativeElement.value)
-          this.activeBulletin.setAvActivityCommentTextcat(this.avActivityCommentTextcat.textcat.nativeElement.value);
+        if (this.activeSnowpackStructureCommentTextcat)
+          this.activeBulletin.setSnowpackStructureCommentTextcat(this.activeSnowpackStructureCommentTextcat);
 
-        if (this.snowpackStructureCommentTextcat && this.snowpackStructureCommentTextcat.textcat && this.snowpackStructureCommentTextcat.textcat.nativeElement && this.snowpackStructureCommentTextcat.textcat.nativeElement.value)
-          this.activeBulletin.setSnowpackStructureCommentTextcat(this.snowpackStructureCommentTextcat.textcat.nativeElement.value);
-
-        if (this.tendencyCommentTextcat && this.tendencyCommentTextcat.textcat && this.tendencyCommentTextcat.textcat.nativeElement && this.tendencyCommentTextcat.textcat.nativeElement.value)
-          this.activeBulletin.setTendencyCommentTextcat(this.tendencyCommentTextcat.textcat.nativeElement.value);
+        if (this.activeTendencyCommentTextcat)
+          this.activeBulletin.setTendencyCommentTextcat(this.activeTendencyCommentTextcat);
 
         this.mapService.deselectAggregatedRegion();
         this.activeBulletin = undefined;
@@ -871,34 +932,60 @@ export class CreateBulletinComponent {
 
   private setTexts() {
     if (this.activeBulletin) {
-
       if (this.activeAvActivityHighlightsTextcat != undefined && this.activeAvActivityHighlightsTextcat != "")
-        this.activeBulletin.setAvActivityHighlightsTextcatIn(this.activeAvActivityHighlightsTextcat, Enums.LanguageCode.it);
-
+        this.activeBulletin.setAvActivityHighlightsTextcat(this.activeAvActivityHighlightsTextcat);
       if (this.activeAvActivityHighlightsDe != undefined && this.activeAvActivityHighlightsDe != "")
         this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
-      if (this.activeAvActivityCommentDe != undefined && this.activeAvActivityCommentDe != "")
-        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
       if (this.activeAvActivityHighlightsIt != undefined && this.activeAvActivityHighlightsIt != "")
         this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
-      if (this.activeAvActivityCommentIt != undefined && this.activeAvActivityCommentIt != "")
-        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentIt, Enums.LanguageCode.it);
       if (this.activeAvActivityHighlightsEn != undefined && this.activeAvActivityHighlightsEn != "")
         this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
+      if (this.activeAvActivityHighlightsFr != undefined && this.activeAvActivityHighlightsFr != "")
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsFr, Enums.LanguageCode.fr);
+
+      if (this.activeAvActivityCommentTextcat != undefined && this.activeAvActivityCommentTextcat != "")
+        this.activeBulletin.setAvActivityCommentTextcat(this.activeAvActivityCommentTextcat);
+      if (this.activeAvActivityCommentDe != undefined && this.activeAvActivityCommentDe != "")
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
+      if (this.activeAvActivityCommentIt != undefined && this.activeAvActivityCommentIt != "")
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentIt, Enums.LanguageCode.it);
       if (this.activeAvActivityCommentEn != undefined && this.activeAvActivityCommentEn != "")
         this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEn, Enums.LanguageCode.en);
+      if (this.activeAvActivityCommentFr != undefined && this.activeAvActivityCommentFr != "")
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentFr, Enums.LanguageCode.fr);
+
+      if (this.activeSnowpackStructureHighlightsTextcat != undefined && this.activeSnowpackStructureHighlightsTextcat != "")
+        this.activeBulletin.setSnowpackStructureHighlightsTextcat(this.activeSnowpackStructureHighlightsTextcat);
       if (this.activeSnowpackStructureHighlightsDe != undefined && this.activeSnowpackStructureHighlightsDe != "")
         this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
-      if (this.activeSnowpackStructureCommentDe != undefined && this.activeSnowpackStructureCommentDe != "")
-        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
       if (this.activeSnowpackStructureHighlightsIt != undefined && this.activeSnowpackStructureHighlightsIt != "")
         this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsIt, Enums.LanguageCode.it);
-      if (this.activeSnowpackStructureCommentIt != undefined && this.activeSnowpackStructureCommentIt != "")
-        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt, Enums.LanguageCode.it);
       if (this.activeSnowpackStructureHighlightsEn != undefined && this.activeSnowpackStructureHighlightsEn != "")
         this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEn, Enums.LanguageCode.en);
+      if (this.activeSnowpackStructureHighlightsFr != undefined && this.activeSnowpackStructureHighlightsFr != "")
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsFr, Enums.LanguageCode.fr);
+
+      if (this.activeSnowpackStructureCommentTextcat != undefined && this.activeSnowpackStructureCommentTextcat != "")
+        this.activeBulletin.setSnowpackStructureCommentTextcat(this.activeSnowpackStructureCommentTextcat);
+      if (this.activeSnowpackStructureCommentDe != undefined && this.activeSnowpackStructureCommentDe != "")
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
+      if (this.activeSnowpackStructureCommentIt != undefined && this.activeSnowpackStructureCommentIt != "")
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt, Enums.LanguageCode.it);
       if (this.activeSnowpackStructureCommentEn != undefined && this.activeSnowpackStructureCommentEn != "")
         this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEn, Enums.LanguageCode.en);
+      if (this.activeSnowpackStructureCommentFr != undefined && this.activeSnowpackStructureCommentFr != "")
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentFr, Enums.LanguageCode.fr);
+
+      if (this.activeTendencyCommentTextcat != undefined && this.activeTendencyCommentTextcat != "")
+        this.activeBulletin.setTendencyCommentTextcat(this.activeTendencyCommentTextcat);
+      if (this.activeTendencyCommentDe != undefined && this.activeTendencyCommentDe != "")
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentDe, Enums.LanguageCode.de);
+      if (this.activeTendencyCommentIt != undefined && this.activeTendencyCommentIt != "")
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentIt, Enums.LanguageCode.it);
+      if (this.activeTendencyCommentEn != undefined && this.activeTendencyCommentEn != "")
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentEn, Enums.LanguageCode.en);
+      if (this.activeTendencyCommentFr != undefined && this.activeTendencyCommentFr != "")
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentFr, Enums.LanguageCode.fr);
     }
   }
 
