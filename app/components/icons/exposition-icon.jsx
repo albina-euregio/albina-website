@@ -8,7 +8,7 @@ export default class ExpositionIcon extends React.Component {
     super(props);
 
     // FIXME: should go to config.ini
-    this.imgRoot = '../../images/pro/expositions/';
+    this.imgRoot = window['config'].get('projectRoot') + 'images/pro/expositions/';
     this.alts = {
       'n': 'North',
       'ne': 'North East',

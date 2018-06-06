@@ -8,7 +8,7 @@ export default class ProblemIcon extends React.Component {
     super(props);
 
     // FIXME: should go to config.ini
-    this.imgRoot = '../../images/pro/avalanche-situations/';
+    this.imgRoot = window['config'].get('projectRoot') + 'images/pro/avalanche-situations/';
 
     // FIXME: should be imported by config.ini or CMS
     this.problems = {

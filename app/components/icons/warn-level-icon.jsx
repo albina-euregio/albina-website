@@ -8,7 +8,7 @@ export default class WarnLevelIcon extends React.Component {
 
     // http://localhost/projects/albina-cms/web/de/api/taxonomy_term/warning_levels?sort=level&fields[taxonomy_term--warning_levels]=name,level
     // FIXME: should go to config.ini
-    this.imgRoot = '../../images/pro/warning-pictos/';
+    this.imgRoot = window['config'].get('projectRoot') + 'images/pro/warning-pictos/';
   }
 
   render() {

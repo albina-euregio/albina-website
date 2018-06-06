@@ -9,7 +9,7 @@ export default class ElevationIcon extends React.Component {
     super(props);
 
     // FIXME: should go to config.ini
-    this.imgRoot = '../../images/pro/warning-pictos/';
+    this.imgRoot = window['config'].get('projectRoot') + 'images/pro/warning-pictos/';
     this.icons = {
       "above": "levels_above.png",
       "below": "levels_below.png",
