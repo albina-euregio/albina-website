@@ -328,8 +328,10 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group row" style="width: 100%">
-                  <cop [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [bulletin]="activeBulletin" [name]="'snowpackStructureComment'" [field]="'activeSnowpackStructureComment'"></cop>
+                <div class="form-group row">
+                  <div style="width: 100%">
+                    <cop [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [bulletin]="activeBulletin" [name]="'snowpackStructureComment'" [field]="'activeSnowpackStructureComment'"></cop>
+                  </div>
                 </div>
               </accordion-group>
               <!-- Tendency -->
@@ -367,8 +369,10 @@
                     </table>
                   </div>
                 </div>
-                <div class="form-group row" style="width: 100%">
-                  <cop [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [bulletin]="activeBulletin" [name]="'tendencyComment'" [field]="'activeTendencyComment'"></cop>
+                <div class="form-group row">
+                  <div style="width: 100%">
+                    <cop [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [bulletin]="activeBulletin" [name]="'tendencyComment'" [field]="'activeTendencyComment'"></cop>
+                  </div>
                 </div>
               </accordion-group>
             </accordion>
