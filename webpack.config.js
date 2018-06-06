@@ -69,7 +69,11 @@ module.exports = {
       chunkFilename: '[id].css'
     }),
     new CopyWebpackPlugin(
-      [{ from: './data', to: 'data' }, { from: './images', to: 'images' }],
+      [
+        { from: './data', to: 'data' },
+        { from: './images', to: 'images' },
+        { from: './config.json', to: 'config.json' }
+      ],
       {}
     )
   ]
