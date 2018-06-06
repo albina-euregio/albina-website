@@ -1,6 +1,43 @@
-<div id="frame" class="frame">
-  <div>
-    <input *ngIf="!disabled" class="textcat" id="textcat" #textcat [(ngModel)]="text">
-    <input *ngIf="disabled" class="textcatRO" id="textcat" #textcat [(ngModel)]="text">
+<div style="margin-bottom: 10px;" class="col-md-12">
+  <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label." + name | translate }}</strong></label>
+  <button style="margin-left: 5px;" [disabled]="disabled" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, field, this.settingsService.getLangString())"><i class="fa fa-pencil"></i></button>
+</div>
+
+<div class="col-md-12">
+  <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTextDe"></textarea>
+  <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTextIt"></textarea>
+
+  <label *ngIf="showTranslations" (click)="setShowTranslations()"><i class="fa fa-angle-up"></i>{{ "bulletins.create.title.hideTranslations" | translate }}</label>
+  <label *ngIf="!showTranslations" (click)="setShowTranslations()"><i class="fa fa-angle-down"></i>{{ "bulletins.create.title.showTranslations" | translate }}</label>
+
+  <div *ngIf="showTranslations" class="form-group row">
+    <div class="col-md-4">
+      <div class="form-group row">
+        <div class="col-md-12">
+          <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTextIt"></textarea>
+          <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTextDe"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group row">
+        <div class="col-md-12">
+          <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTextEn"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group row">
+        <div class="col-md-12">
+          <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTextFr"></textarea>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+<p-dialog styleClass="pmdialog" header='{{ "bulletins.create.title.pmdialog" | translate }}' [(visible)]="display" [responsive]="true" modal="modal" [contentStyle]="{'height':'80%'}">
+  <iframe id="receiver" #receiver [src]="pmUrl" width="100%" height="95%">
+    <p>Your browser does not support iframes.</p>
+  </iframe>
+</p-dialog>
