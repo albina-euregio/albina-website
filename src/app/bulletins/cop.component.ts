@@ -22,6 +22,8 @@ export class CopComponent {
   @Input() field: string;
   @Input() disabled: boolean;
 
+  @ViewChild('receiver') receiver: ElementRef;
+
   public showTranslations: boolean;
   public activeTextcat: string;
   public activeTextDe: string;
@@ -29,20 +31,20 @@ export class CopComponent {
   public activeTextEn: string;
   public activeTextFr: string;
   
+  public pmUrl: SafeUrl;
+  public stopListening: Function;
+  public display: boolean = false;
+  public eventSubscriber: Subscription;
+
   constructor(
     private translateService: TranslateService,
     private settingsService: SettingsService,
     private sanitizer: DomSanitizer,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private el: ElementRef
   ) {
     this.stopListening = renderer.listen('window', 'message', this.getText.bind(this));
   }
-
-  public pmUrl: SafeUrl;
-  @ViewChild('receiver') receiver: ElementRef;
-  stopListening: Function;
-  display: boolean = false;
-  eventSubscriber: Subscription;
 
   ngAfterViewInit() {
     this.init();
@@ -147,7 +149,7 @@ export class CopComponent {
       this.activeTextIt = pmData.textIt;
       this.activeTextEn = pmData.textEn;
       this.activeTextFr = pmData.textFr;
-      
+      debugger
       switch (this.name) {
         case "avActivityHighlights":
           this.bulletin.setAvActivityHighlightsTextcat(pmData.textDef);
