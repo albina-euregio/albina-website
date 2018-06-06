@@ -1278,6 +1278,9 @@ export class CreateBulletinComponent {
     if (e.data.type != "webpackInvalid" && e.data.type != "webpackOk") {
       let pmData = JSON.parse(e.data);
       //change model as you need
+
+      // Field to update pmData.textField
+
       this.activeAvActivityHighlightsIt = pmData.textIt;
       this.activeAvActivityHighlightsDe = pmData.textDe;
       this.activeAvActivityHighlightsEn = pmData.textEn;
