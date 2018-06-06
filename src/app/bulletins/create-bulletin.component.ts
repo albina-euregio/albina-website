@@ -28,7 +28,7 @@ import { geoPath } from "d3-geo";
 import { Tabs } from './tabs.component';
 import { Tab } from './tab.component';
 
-//For iframe 
+//For iframe
 import { Renderer2 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Rx';
@@ -109,7 +109,7 @@ export class CreateBulletinComponent {
   hideDialog() {
     this.display = false;
   }
-  //tra le proprietà del componente 
+  //tra le proprietà del componente
   eventSubscriber: Subscription;
 
   constructor(
@@ -189,7 +189,7 @@ export class CreateBulletinComponent {
   ngOnInit() {
     //for reload iframe on change language
     this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
-      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/c_pm.html?l=" + this.settingsService.getLangString())
+      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it:8080/textcat/c_pm.html?l=" + this.settingsService.getLangString())
     );
 
     if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
@@ -197,7 +197,7 @@ export class CreateBulletinComponent {
       this.reset();
 
       //setting pm language for iframe
-      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/c_pm.html?l=" + this.settingsService.getLangString());
+      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it:8080/textcat/c_pm.html?l=" + this.settingsService.getLangString());
 
       // copy bulletins from other date
       if (this.bulletinsService.getCopyDate()) {
@@ -490,7 +490,7 @@ export class CreateBulletinComponent {
         parent.preventClick = false;
       }, 150);
     }
-  
+
     private onMapDoubleClick(e) {
       clearTimeout(this.timer);
       this.preventClick = true;
@@ -667,7 +667,7 @@ export class CreateBulletinComponent {
       let bulletin = new BulletinModel(originalBulletin);
 
       bulletin.setAuthor(this.authenticationService.getAuthor());
-      
+
       // reset regions
       let saved = new Array<String>();
       for (let region of bulletin.getSavedRegions())
@@ -796,7 +796,7 @@ export class CreateBulletinComponent {
     }
   }
 
-  
+
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
       if (this.checkElevation()) {
@@ -1252,25 +1252,24 @@ export class CreateBulletinComponent {
     }
   }
 
-  openTextcat($event, field, l) {
- 
-    if (this.activeAvActivityHighlightsTextcat != "undefined") {
+  openTextcat($event, field, l,textDef) {
       let receiver = this.receiver.nativeElement.contentWindow;
       $event.preventDefault()
+      if (!textDef)
+        textDef="";
       //make Json to send to pm
       let inputDef = {
         textField: field,
-        textDef: $event.path["0"].value,
+        textDef: textDef,
         srcLang: Enums.LanguageCode[l],
         currentLang: this.translateService.currentLang
       };
 
       let pmData = JSON.stringify(inputDef);
       receiver.postMessage(pmData, '*');
-     
+
       this.showDialog();
 
-    }
   }
 
 
@@ -1281,6 +1280,8 @@ export class CreateBulletinComponent {
       //change model as you need
       this.activeAvActivityHighlightsIt = pmData.textIt;
       this.activeAvActivityHighlightsDe = pmData.textDe;
+      this.activeAvActivityHighlightsEn = pmData.textEn;
+      this.activeAvActivityHighlightsFr = pmData.textFr;
       this.activeAvActivityHighlightsTextcat = pmData.textDef;
       this.hideDialog();
     }
