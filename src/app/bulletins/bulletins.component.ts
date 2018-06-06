@@ -62,9 +62,13 @@ export class BulletinsComponent {
     this.loadingSouthTyrol = true;
     this.loadingTyrol = true;
 
-    let observableBatchTrentino = [];
-    let observableBatchSouthTyrol = [];
-    let observableBatchTyrol = [];
+    let startDate = new Date();
+    startDate.setDate(startDate.getDate() - 7);
+    startDate.setHours(0, 0, 0, 0);
+
+    let endDate = new Date();
+    endDate.setDate(endDate.getDate() + 3);
+    endDate.setHours(0, 0, 0, 0);
 
     for (let i = 0; i <= 10; i++) {
       let date = new Date();
@@ -73,16 +77,11 @@ export class BulletinsComponent {
       this.dates.push(date);
     }
 
-    for (let date of this.dates) {
-      observableBatchTrentino.push(this.bulletinsService.getStatus(this.constantsService.codeTrentino, date));
-      observableBatchSouthTyrol.push(this.bulletinsService.getStatus(this.constantsService.codeSouthTyrol, date));
-      observableBatchTyrol.push(this.bulletinsService.getStatus(this.constantsService.codeTyrol, date));
-    }
-
-    Observable.forkJoin(observableBatchTrentino).subscribe(
+    this.bulletinsService.getStatus(this.constantsService.codeTrentino, startDate, endDate).subscribe(
       data => {
-        for (var i = this.dates.length - 1; i >= 0; i--)
-          this.bulletinsService.statusMapTrentino.set(this.dates[i].getTime(), Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
+        let json = data.json();
+        for (var i = json.length - 1; i >= 0; i--) 
+          this.bulletinsService.statusMapTrentino.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
         this.loadingTrentino = false;
       },
       error => {
@@ -91,10 +90,11 @@ export class BulletinsComponent {
       }
     );
 
-    Observable.forkJoin(observableBatchSouthTyrol).subscribe(
+    this.bulletinsService.getStatus(this.constantsService.codeSouthTyrol, startDate, endDate).subscribe(
       data => {
-        for (var i = this.dates.length - 1; i >= 0; i--)
-          this.bulletinsService.statusMapSouthTyrol.set(this.dates[i].getTime(), Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
+        let json = data.json();
+        for (var i = json.length - 1; i >= 0; i--)
+          this.bulletinsService.statusMapSouthTyrol.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
         this.loadingSouthTyrol = false;
       },
       error => {
@@ -103,10 +103,11 @@ export class BulletinsComponent {
       }
     );
 
-    Observable.forkJoin(observableBatchTyrol).subscribe(
+    this.bulletinsService.getStatus(this.constantsService.codeTyrol, startDate, endDate).subscribe(
       data => {
-        for (var i = this.dates.length - 1; i >= 0; i--)
-          this.bulletinsService.statusMapTyrol.set(this.dates[i].getTime(), Enums.BulletinStatus[<string>(<Response>data[i]).json()['status']]);
+        let json = data.json();
+        for (var i = json.length - 1; i >= 0; i--)
+          this.bulletinsService.statusMapTyrol.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
         this.loadingTyrol = false;
       },
       error => {
