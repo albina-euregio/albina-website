@@ -1,7 +1,7 @@
 import Base from './base.js';
 import { observable, action, computed, toJS } from 'mobx';
 
-class BulletinData {
+class BulletinCollection {
   date;
   status;
   dataRaw;
@@ -96,7 +96,7 @@ class BulletinStore {
         }
       } else {
         // create empty bulletin entry
-        this.bulletins[date] = new BulletinData(date);
+        this.bulletins[date] = new BulletinCollection(date);
 
         if (activate) {
           this.activate(date);
@@ -193,7 +193,7 @@ class BulletinStore {
    *   this.date and this.ampm
    */
   @computed
-  get activeBulletins() {
+  get activeBulletinCollection() {
     return this.bulletins[this.settings.date];
   }
 
@@ -203,11 +203,12 @@ class BulletinStore {
    *   this.date, this.ampm and this.region
    */
   @computed
-  get activeRegionBulletin() {
+  get activeBulletin() {
     const region = this.settings.region;
+    const collection = this.activeBulletinCollection;
 
-    if(this.bulletins[this.settings.date]) {
-      return this.bulletins[this.settings.date].find((el) => {
+    if(collection) {
+      return collection.find((el) => {
         return el.id == region;
       });
     }
@@ -228,4 +229,4 @@ class BulletinStore {
   }
 }
 
-export { BulletinStore, BulletinData };
+export { BulletinStore, BulletinCollection };

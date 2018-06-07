@@ -9,7 +9,9 @@ import {dateToDateTimeString, parseDate} from '../../util/date.js';
   }
 
   @computed get statusText() {
-    if(!this.props.store.active || this.props.status == 'pending') {
+    const collection = this.props.store.activeBulletinCollection;
+
+    if(!collection || this.props.status == 'pending') {
       return 'Loading\u2026';
     }
 
@@ -17,7 +19,7 @@ import {dateToDateTimeString, parseDate} from '../../util/date.js';
       return 'No Bulletin';
     }
 
-    const publicationDate = dateToDateTimeString(parseDate(this.props.store.active.publicationDate));
+    const publicationDate = dateToDateTimeString(parseDate(collection.publicationDate));
     return 'Published ' + publicationDate;
   }
 
