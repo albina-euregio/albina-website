@@ -30,10 +30,10 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
       + (this.props.store.settings.ampm == 'am' ? 'AM' : 'PM');
 
     const warnlevels = {
-      'above': this.warnlevelNumbers[bulletin.forenoon.dangerRatingAbove],
-      'below': this.warnlevelNumbers[bulletin.forenoon.dangerRatingBelow]
+      'above': bulletin.forenoon.dangerRatingAbove ? this.warnlevelNumbers[bulletin.forenoon.dangerRatingAbove] : 0,
+      'below': bulletin.forenoon.dangerRatingBelow ? this.warnlevelNumbers[bulletin.forenoon.dangerRatingBelow] : 0
     };
-    const warnlevel = Math.max(Object.values(warnlevels));
+    const warnlevel = Math.max(...Object.values(warnlevels));
     const elevation = (bulletin.hasElevationDependency && !bulletin.treeline) ? bulletin.elevation : null;
     const treeline = bulletin.hasElevationDependency && bulletin.treeline;
 
