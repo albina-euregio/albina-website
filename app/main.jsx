@@ -36,7 +36,7 @@ window['appStore'] = new AppStore();
 Base.cleanCache('./config.json');
 
 // request config.json before starting the app (do not cache config!)
-const configData = Base.doRequest('./config.json').then((configData) => {
+Base.doRequest('./config.json').then((configData) => {
   window['config'] = new ConfigStore(JSON.parse(configData));
   ReactDOM.render(
     <App />,

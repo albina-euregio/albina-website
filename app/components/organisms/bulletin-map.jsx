@@ -11,11 +11,11 @@ class BulletinMap extends React.Component {
   }
 
   handleMapViewportChanged(mapState) {
-    bulletinStore.setMapViewport(mapState);
+    window['bulletinStore'].setMapViewport(mapState);
   }
 
   handleZoom(zoomIn = true) {
-    zoomIn ? bulletinStore.zoomIn() : bulletinStore.zoomOut();
+    zoomIn ? window['bulletinStore'].zoomIn() : window['bulletinStore'].zoomOut();
   }
 
   handleMapScrollZoom() {
@@ -95,10 +95,10 @@ class BulletinMap extends React.Component {
                 <WarnLevelIcon below={2} above={3} elevation={1800} treeline={false} />
               </li>
               <li>
-                <ProblemIconLink problem={"wind_drifted_snow"} />
+                <ProblemIconLink problem={'wind_drifted_snow'} />
               </li>
               <li>
-                <ProblemIconLink problem={"old_snow"} />
+                <ProblemIconLink problem={'old_snow'} />
               </li>
             </ul>
             <a

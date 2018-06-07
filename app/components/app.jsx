@@ -3,8 +3,8 @@ import { Provider, observer } from 'mobx-react';
 import { MobxIntlProvider } from '../util/mobx-react-intl.es5.js';
 
 //import { BrowserHistory } from 'react-router';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
-import { matchRoutes, renderRoutes } from 'react-router-config';
+import { BrowserRouter } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 
 import Bulletin from './../views/bulletin.jsx';
 import Blog from './../views/blog.jsx';

@@ -16,7 +16,7 @@ export default class WarnLevelIcon extends React.Component {
       (this.props.treeline) ? (<span class="treeline"></span>) : ''
     );
     const img = this.imgRoot + 'levels_' + this.props.below + '_' + this.props.above + '.png';
-    const title = "Warning " + (
+    const title = 'Warning ' + (
       (this.props.below == this.props.above) ? ('level ' + this.props.below) : ('levels ' + this.props.below + ' and ' + this.props.above)
     );
 

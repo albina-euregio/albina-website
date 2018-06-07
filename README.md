@@ -12,8 +12,11 @@ After running the deploy target, copy the contents of your dist directory to
 a location on your webserver. If the location is not the webserver's root,
 please adjust the `projectRoot` value in config.json.
 
-You will need to setup an URL rewrite module. For apache you can use this
-settings (either in a site configuration or a .htaccess file)
+You will need to setup an URL rewrite module. For Apache you have to enable it
+```
+# a2enmod rewrite
+```
+you can then use this settings (either in a site configuration or a .htaccess file)
 ```
 RewriteEngine On
 RewriteBase /YOUR_PATH/

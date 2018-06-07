@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
-import { injectIntl, FormattedMessage} from "react-intl";
+import { injectIntl, FormattedMessage} from 'react-intl';
 
 class PageHeader extends React.Component {
   constructor(props) {
@@ -166,7 +166,7 @@ class PageHeader extends React.Component {
               <a
                 className="language-trigger-de tooltip"
                 title="Deutsche Version"
-                onClick={(e) => this.handleChangeLanguage('de')}
+                onClick={() => this.handleChangeLanguage('de')}
               >
                 DE
               </a>
@@ -175,7 +175,7 @@ class PageHeader extends React.Component {
               <a
                 className="language-trigger-it tooltip"
                 title="Versione Italiana"
-                onClick={(e) => this.handleChangeLanguage('it')}
+                onClick={() => this.handleChangeLanguage('it')}
               >
                 IT
               </a>
@@ -184,7 +184,7 @@ class PageHeader extends React.Component {
               <a
                 className="language-trigger-en tooltip"
                 title="English Version"
-                onClick={(e) => this.handleChangeLanguage('en') }
+                onClick={() => this.handleChangeLanguage('en') }
               >
                 EN
               </a>
@@ -212,4 +212,4 @@ class PageHeader extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(PageHeader)));
+export default inject('locale')(injectIntl(observer(PageHeader)));

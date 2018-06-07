@@ -162,13 +162,13 @@ class BulletinStore {
   @action
   setAmPm(ampm) {
     switch (ampm) {
-      case 'am':
-      case 'pm':
-        this.settings.ampm = ampm;
-        break;
+    case 'am':
+    case 'pm':
+      this.settings.ampm = ampm;
+      break;
 
-      default:
-        break;
+    default:
+      break;
     }
   }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {computed} from 'mobx';
 import {inject, observer} from 'mobx-react';
-import {injectIntl, FormattedMessage} from "react-intl";
+import {injectIntl, FormattedMessage} from 'react-intl';
 
 import BulletinAmPmSwitch from './bulletin-ampm-switch.jsx';
 import BulletinDateFlipper from './bulletin-date-flipper.jsx';
@@ -20,17 +20,17 @@ import {parseDate, dateToLongDateString} from '../../util/date.js';
   @computed get statusClass() {
     let cl = '';
     switch(this.props.store.settings.status) {
-      case 'pending':
-        cl = 'loading';
-        break;
-      case 'n/a':
-        cl = 'not-available';
-        break;
-      case 'empty':
-        cl = 'no-data';
-        break;
-      default:
-        break;
+    case 'pending':
+      cl = 'loading';
+      break;
+    case 'n/a':
+      cl = 'not-available';
+      break;
+    case 'empty':
+      cl = 'no-data';
+      break;
+    default:
+      break;
     }
 
     return cl ? ' ' + cl : '';
@@ -49,4 +49,4 @@ import {parseDate, dateToLongDateString} from '../../util/date.js';
     );
   }
 }
-export default inject("locale")(injectIntl(BulletinHeader));
+export default inject('locale')(injectIntl(BulletinHeader));

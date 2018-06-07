@@ -35,12 +35,12 @@ export default class BulletinReport extends React.Component {
                   <TendencyIcon tendency="increase" />
                 </div>
               </li><li>
-                <ProblemIconLink problem={"wind_drifted_snow"} />
+                <ProblemIconLink problem={'wind_drifted_snow'} />
                 <ExpositionIcon expositions={['n', 'nw', 'w']} />
                 <ElevationIcon elevation={2200} where="above" />
               </li>
               <li>
-                <ProblemIconLink problem={"old_snow"} />
+                <ProblemIconLink problem={'old_snow'} />
                 <ExpositionIcon expositions={['e', 'se', 's', 'sw']} />
                 <ElevationIcon elevation={1900} where="below" />
               </li>

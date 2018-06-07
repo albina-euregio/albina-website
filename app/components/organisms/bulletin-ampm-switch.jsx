@@ -1,5 +1,4 @@
 import React from 'react';
-import {action} from 'mobx';
 import {observer} from 'mobx-react';
 
 @observer class BulletinAmPmSwitch extends React.Component {
@@ -8,7 +7,7 @@ import {observer} from 'mobx-react';
   }
 
   render() {
-    const title = "Switch to " + ((this.props.ampm == 'am') ? 'PM' : 'AM');
+    const title = 'Switch to ' + ((this.props.ampm == 'am') ? 'PM' : 'AM');
     return (
       <span className="bulletin-ampm-switch tooltip" title={title}>
         <div className="switch-text">

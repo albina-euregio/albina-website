@@ -1,5 +1,4 @@
 import React from 'react';
-import {action} from 'mobx';
 import {observer} from 'mobx-react';
 
 @observer class BulletinAWMapStatic extends React.Component {

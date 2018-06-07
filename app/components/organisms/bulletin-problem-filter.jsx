@@ -1,5 +1,4 @@
 import React from 'react';
-import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import BulletinProblemFilterItem from './bulletin-problem-filter-item.jsx';
 

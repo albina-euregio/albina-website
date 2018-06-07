@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {action, computed} from 'mobx';
+import {computed} from 'mobx';
 import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateString} from '../../util/date.js';
 
 @observer class BulletinDateFlipper extends React.Component {
@@ -32,21 +32,21 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
   }
 
   dateBack = () => {
-    const d = getPredDate(parseDate(bulletinStore.settings.date));
+    const d = getPredDate(parseDate(window['bulletinStore'].settings.date));
     if(d) {
-      bulletinStore.load(dateToISODateString(d));
+      window['bulletinStore'].load(dateToISODateString(d));
     }
   }
 
   dateForward = () => {
-    const d = getSuccDate(parseDate(bulletinStore.settings.date));
+    const d = getSuccDate(parseDate(window['bulletinStore'].settings.date));
     if(d) {
-      bulletinStore.load(dateToISODateString(d));
+      window['bulletinStore'].load(dateToISODateString(d));
     }
   }
 
   goToLatest = () => {
-    bulletinStore.load(dateToISODateString(new Date()));
+    window['bulletinStore'].load(dateToISODateString(new Date()));
   }
 
   render() {

@@ -10,11 +10,11 @@ export default class ProblemIconLink extends React.Component {
 
     // query data from http://localhost/projects/albina-cms/web/api/taxonomy_term/avalanche_problems?fields[taxonomy_term--avalanche_problems]=name,descriptor
     this.problemTexts = {
-      "new_snow": {en: "New Snow"},
-      "wind_drifted_snow": {en: "Drifting Snow"},
-      "old_snow": {en: "Old Snow"},
-      "wet_snow": {en: "Wet Snow"},
-      "gliding_snow": {en: "Gliding Snow"}
+      'new_snow': {en: 'New Snow'},
+      'wind_drifted_snow': {en: 'Drifting Snow'},
+      'old_snow': {en: 'Old Snow'},
+      'wet_snow': {en: 'Wet Snow'},
+      'gliding_snow': {en: 'Gliding Snow'}
     }
   }
 
@@ -29,4 +29,4 @@ export default class ProblemIconLink extends React.Component {
       </div>
     );
   }
-};
+}

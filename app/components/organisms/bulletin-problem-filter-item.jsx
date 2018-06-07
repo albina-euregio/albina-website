@@ -9,11 +9,11 @@ class BulletinProblemFilterItem extends React.Component {
   constructor(props) {
     super(props);
     this.problemTexts = {
-      "new_snow": {en: "New Snow"},
-      "wind_drifted_snow": {en: "Drifting Snow"},
-      "old_snow": {en: "Old Snow"},
-      "wet_snow": {en: "Wet Snow"},
-      "gliding_snow": {en: "Gliding Snow"}
+      'new_snow': {en: 'New Snow'},
+      'wind_drifted_snow': {en: 'Drifting Snow'},
+      'old_snow': {en: 'Old Snow'},
+      'wet_snow': {en: 'Wet Snow'},
+      'gliding_snow': {en: 'Gliding Snow'}
     }
     this.state = {
       active: this.props.active,
@@ -25,9 +25,9 @@ class BulletinProblemFilterItem extends React.Component {
     event.preventDefault();
 
     if(this.state.active) {
-      bulletinStore.excludeProblem(this.state.id);
+      window['bulletinStore'].excludeProblem(this.state.id);
     } else {
-      bulletinStore.includeProblem(this.state.id);
+      window['bulletinStore'].includeProblem(this.state.id);
     }
     this.state.active = !this.state.active;
   }

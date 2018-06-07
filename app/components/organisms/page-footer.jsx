@@ -4,7 +4,7 @@ import SmShare from './sm-share.jsx';
 export default class PageFooter extends React.Component {
   render() {
     return (
-       <div id="page-footer" className="page-footer">
+      <div id="page-footer" className="page-footer">
         <section className="section section-padding page-footer-navigation">
           <div className="grid">
             <div className="grid-item normal-6">
