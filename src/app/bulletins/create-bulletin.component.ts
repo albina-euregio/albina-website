@@ -1277,15 +1277,13 @@ export class CreateBulletinComponent {
     e.preventDefault();
     if (e.data.type != "webpackInvalid" && e.data.type != "webpackOk") {
       let pmData = JSON.parse(e.data);
-      //change model as you need
 
-      // Field to update pmData.textField
+      this[pmData.textField + 'Textcat'] = pmData.textDef;
+      this[pmData.textField+'It'] = pmData.textIt;
+      this[pmData.textField+'De'] = pmData.textDe;
+      this[pmData.textField+'En'] = pmData.textEn;
+      this[pmData.textField+'Fr'] = pmData.textFr;
 
-      this.activeAvActivityHighlightsIt = pmData.textIt;
-      this.activeAvActivityHighlightsDe = pmData.textDe;
-      this.activeAvActivityHighlightsEn = pmData.textEn;
-      this.activeAvActivityHighlightsFr = pmData.textFr;
-      this.activeAvActivityHighlightsTextcat = pmData.textDef;
       this.hideDialog();
     }
   };
