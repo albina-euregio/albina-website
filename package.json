@@ -53,6 +53,7 @@
     "webpack-dev-server": "^3.1.4"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.3",
     "jquery": "^3.3.1"
   },
   "keywords": [],
