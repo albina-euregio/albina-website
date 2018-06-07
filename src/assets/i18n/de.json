@@ -333,6 +333,9 @@
 			}
 		}
 	},
+	"admin" : {
+		"title" : "Einstellungen"
+	},
 
 	"dangerRating" : {
 		"noRating" : "keine Beurteilung",

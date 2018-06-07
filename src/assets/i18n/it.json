@@ -333,6 +333,9 @@
 			}
 		}
 	},
+	"admin" : {
+		"title" : "TODO"
+	},
 
 	"dangerRating" : {
 		"noRating" : "senza valutazione",
