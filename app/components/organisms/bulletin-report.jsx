@@ -21,13 +21,17 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
   }
 
   render() {
-    const bulletin = this.props.bulletin;
+    const bulletin = this.props.store.activeBulletin;
+    if(!bulletin) {
+      return (<div></div>);
+    }
+
     const date = dateToLongDateString(parseDate(this.props.store.settings.date)) + ' '
-      + (this.prop.store.settings.ampm == 'am' ? 'AM' : 'PM');
+      + (this.props.store.settings.ampm == 'am' ? 'AM' : 'PM');
 
     const warnlevels = {
-      'above': this.warnlevelNumbers(bulletin.forenoon.dangerRatingAbove),
-      'below': this.warnlevelNumbers(bulletin.forenoon.dangerRatingBelow)
+      'above': this.warnlevelNumbers[bulletin.forenoon.dangerRatingAbove],
+      'below': this.warnlevelNumbers[bulletin.forenoon.dangerRatingBelow]
     };
     const warnlevel = Math.max(Object.values(warnlevels));
     const elevation = (bulletin.hasElevationDependency && !bulletin.treeline) ? bulletin.elevation : null;
@@ -39,10 +43,10 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
     const classes = 'panel field callout warning-level-' + warnlevel;
 
     const problems = [];
-    if(bulletin.forenoon.avalancheSituation1) {
+    if(bulletin.forenoon.avalancheSituation1 && bulletin.forenoon.avalancheSituation1.avalancheSituation) {
       problems.push(bulletin.forenoon.avalancheSituation1);
     }
-    if(bulletin.forenoon.avalancheSituation2) {
+    if(bulletin.forenoon.avalancheSituation2 && bulletin.forenoon.avalancheSituation2.avalancheSituation) {
       problems.push(bulletin.forenoon.avalancheSituation2);
     }
 
@@ -70,7 +74,7 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
                     <TendencyIcon tendency={bulletin.tendency} />
                   </div>
                 </li>{
-                  problems.map((p) => <li><BulletinProblemItem problem={p} /></li>)
+                  problems.map((p, index) => <li key={index}><BulletinProblemItem problem={p} /></li>)
                 }
               </ul>
             </div>

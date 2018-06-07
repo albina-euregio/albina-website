@@ -22,7 +22,7 @@ export default class Bulletin extends React.Component {
   }
 
   _fetchData(props) {
-    const startDate = '2018-05-02'; // TODO: should be current date
+    const startDate = '2018-06-01'; // TODO: should be current date
     return this.store.load(startDate);
   }
 
@@ -34,10 +34,7 @@ export default class Bulletin extends React.Component {
         <BulletinMap store={this.store} />
         <BulletinLegend problems={this.store.problems} />
         <BulletinButtonbar />
-        {
-          this.store.activeRegionBulletin &&
-            <BulletinReport store={this.store} bulletin={this.store.activeBulletin} />
-        }
+        <BulletinReport store={this.store} />
         <SmShare />
         <Context />
       </div>

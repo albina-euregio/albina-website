@@ -19,7 +19,7 @@ export default class ProblemIconLink extends React.Component {
   }
 
   render() {
-    const title = this.problemTexts[this.props.problem].en;
+    const title = this.problemTexts[this.props.problem] ? this.problemTexts[this.props.problem].en : this.props.problem;
 
     return(
       <div className="bulletin-report-picto avalanche-situation">

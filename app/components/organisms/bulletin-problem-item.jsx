@@ -1,8 +1,12 @@
 import React from 'react';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
+import ProblemIconLink from '../icons/problem-icon-link.jsx';
+import ExpositionIcon from '../icons/exposition-icon.jsx';
+import ElevationIcon from '../icons/elevation-icon.jsx';
 
-@observer class BulletinProblemItem extends React.Component {
+@observer
+export default class BulletinProblemItem extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -37,7 +41,6 @@ import { observer } from 'mobx-react';
       break;
     }
 
-
     return (
       <div>
         <ProblemIconLink problem={this.props.problem.avalancheSituation} />
@@ -48,4 +51,4 @@ import { observer } from 'mobx-react';
   }
 }
 
-export default BulletinProblemItem;
+//export default BulletinProblemItem;

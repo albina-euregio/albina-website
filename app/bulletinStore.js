@@ -42,6 +42,14 @@ class BulletinCollection {
     return null;
   }
 
+  get length() {
+    return this.dataRaw ? this.dataRaw.length : 0;
+  }
+
+  getData() {
+    return this.dataRaw;
+  }
+
   setData(data) {
     this.dataRaw = data;
     this.status =
@@ -137,8 +145,15 @@ class BulletinStore {
   @action
   activate(date) {
     if (this.bulletins[date]) {
+      this.settings.region = '';
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
+
+      if(this.bulletins[date].length == 1) {
+        let b = this.bulletins[date].getData();
+        console.log('TEST: ' + JSON.stringify(b));
+        this.setRegion(b[0].id);
+      }
     }
   }
 
@@ -180,6 +195,11 @@ class BulletinStore {
   }
 
   @action
+  setRegion(id) {
+    this.settings.region = id;
+  }
+
+  @action
   excludeProblem(problemId) {
     if (typeof this.problems[problemId] !== 'undefined') {
       this.problems[problemId].active = false;
@@ -213,8 +233,8 @@ class BulletinStore {
     const region = this.settings.region;
     const collection = this.activeBulletinCollection;
 
-    if(collection) {
-      return collection.find((el) => {
+    if(collection && collection.length > 0) {
+      return collection.getData().find((el) => {
         return el.id == region;
       });
     }

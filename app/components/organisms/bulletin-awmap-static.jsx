@@ -8,8 +8,9 @@ import {observer} from 'mobx-react';
 
   render() {
     const path = window['config'].get('projectRoot') + 'images/dev/bulletin-report-region.png';
+    const text = 'Selected region + ' + this.props.region;
     return (
-      <img src={path} alt="Selected region" />
+      <img src={path} alt={text} />
     );
   }
 }
