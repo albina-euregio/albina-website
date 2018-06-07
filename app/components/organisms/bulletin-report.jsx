@@ -37,7 +37,7 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
     const elevation = (bulletin.hasElevationDependency && !bulletin.treeline) ? bulletin.elevation : null;
     const treeline = bulletin.hasElevationDependency && bulletin.treeline;
 
-    const tendencyText = bulletin.tendencyCommentTextcat;
+    const tendencyText = bulletin.tendency ? bulletin.tendencyCommentTextcat : 'unknown';
     const tendencyDate = dateToLongDateString(getSuccDate(parseDate(this.props.store.settings.date)));
 
     const classes = 'panel field callout warning-level-' + warnlevel;
@@ -68,10 +68,13 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
                 <li>
                   <WarnLevelIcon below={warnlevels.below} above={warnlevels.above} elevation={elevation} treeline={treeline} />
                   <div className="bulletin-report-tendency tooltip" title="Expectation for the following day">
-                    <span><strong className="heavy">{tendencyText}</strong><br />
-                      on {tendencyDate}
+                    <span><strong className="heavy">Tendency: {tendencyText}</strong><br />
+                        on {tendencyDate}
                     </span>
-                    <TendencyIcon tendency={bulletin.tendency} />
+                    {
+                      bulletin.tendency &&
+                      <TendencyIcon tendency={bulletin.tendency} />
+                    }
                   </div>
                 </li>{
                   problems.map((p, index) => <li key={index}><BulletinProblemItem problem={p} /></li>)
