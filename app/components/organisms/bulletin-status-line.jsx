@@ -1,7 +1,7 @@
 import React from 'react';
 import {observer} from 'mobx-react';
 import {computed} from 'mobx';
-import {dateToDateTimeString, parseDate} from '../../util/date.js';
+import {dateToDateTimeString} from '../../util/date.js';
 
 @observer class BulletinStatusLine extends React.Component {
   constructor(props) {
@@ -19,8 +19,7 @@ import {dateToDateTimeString, parseDate} from '../../util/date.js';
       return 'No Bulletin';
     }
 
-    const publicationDate = dateToDateTimeString(parseDate(collection.publicationDate));
-    return 'Published ' + publicationDate;
+    return 'Published ' + dateToDateTimeString(collection.publicationDate);
   }
 
   render() {

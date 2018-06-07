@@ -1,5 +1,6 @@
 import Base from './base.js';
 import { observable, action, computed, toJS } from 'mobx';
+import { parseDate } from './util/date.js';
 
 class BulletinCollection {
   date;
@@ -29,8 +30,13 @@ class BulletinCollection {
   }
 
   get publicationDate() {
+    // return maximum of all publicationDates
     if (this.status == 'ok' && this.dataRaw.length > 0) {
-      return this.dataRaw[0].publicationDate;
+      return this.dataRaw.map((b) => {
+        return parseDate(b.publicationDate);
+      }).reduce((acc, d) => {
+        return (d > acc) ? d : acc;
+      }, new Date(0));
     }
 
     return null;
@@ -65,11 +71,11 @@ class BulletinStore {
     this.bulletins = {};
 
     this.problems = observable({
-      new_snow: { active: true },
-      wind_drifted_snow: { active: true },
-      old_snow: { active: true },
-      wet_snow: { active: true },
-      gliding_snow: { active: true }
+      'new_snow': { active: true },
+      'wind_drifted_snow': { active: true },
+      'old_snow': { active: true },
+      'wet_snow': { active: true },
+      'gliding_snow': { active: true }
     });
 
     this.mapCenter = observable.box([47, 12]);
@@ -125,7 +131,7 @@ class BulletinStore {
   }
 
   /**
-   * Activate bulletins for a given date.
+   * Activate bulletin collection for a given date.
    * @param date The date in yyyy-mm-dd format.
    */
   @action

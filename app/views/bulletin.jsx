@@ -5,7 +5,6 @@ import BulletinMap from '../components/organisms/bulletin-map.jsx';
 import BulletinLegend from '../components/organisms/bulletin-legend.jsx';
 import BulletinButtonbar from '../components/organisms/bulletin-buttonbar.jsx';
 import BulletinReport from '../components/organisms/bulletin-report.jsx';
-import BulletinAdditional from '../components/organisms/bulletin-additional.jsx';
 import SmShare from '../components/organisms/sm-share.jsx';
 import Context from '../components/organisms/context.jsx';
 
@@ -37,9 +36,8 @@ export default class Bulletin extends React.Component {
         <BulletinButtonbar />
         {
           this.store.activeRegionBulletin &&
-            <BulletinReport store={this.store} bulletin={this.store.activeRegionBulletin} />
+            <BulletinReport store={this.store} bulletin={this.store.activeBulletin} />
         }
-        <BulletinAdditional />
         <SmShare />
         <Context />
       </div>
