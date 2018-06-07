@@ -11,6 +11,7 @@ import { RegionsService } from "../providers/regions-service/regions.service";
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
+import { DialogModule } from 'primeng/components/dialog/dialog';
 import { Observable } from 'rxjs/Observable';
 import * as Enums from '../enums/enums';
 import { UUID } from 'angular2-uuid';
@@ -26,6 +27,11 @@ import { geoPath } from "d3-geo";
 
 import { Tabs } from './tabs.component';
 import { Tab } from './tab.component';
+
+//For iframe
+import { Renderer2 } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Subscription } from 'rxjs/Rx';
 
 declare var L: any;
 
@@ -83,6 +89,26 @@ export class CreateBulletinComponent {
   public isAccordionSnowpackStructureOpen: boolean;
   public isAccordionTendencyOpen: boolean;
 
+  public showTranslationsAvActivityHighlights: boolean;
+  public showTranslationsAvActivityComment: boolean;
+  public showTranslationsSnowpackStructureComment: boolean;
+  public showTranslationsTendencyComment: boolean;
+
+   public pmUrl: SafeUrl;
+    @ViewChild('receiver') receiver: ElementRef;
+    stopListening: Function;
+    display: boolean = false;
+
+    showDialog() {
+      this.display = true;
+    }
+
+    hideDialog() {
+      this.display = false;
+    }
+    //tra le proprietà del componente
+    eventSubscriber: Subscription;
+
   constructor(
     private translate: TranslateService,
     private route: ActivatedRoute,
@@ -96,10 +122,13 @@ export class CreateBulletinComponent {
     private regionsService: RegionsService,
     private confirmationService: ConfirmationService,
     private ngZone: NgZone,
-    private applicationRef: ApplicationRef
+    private applicationRef: ApplicationRef,
+    private sanitizer: DomSanitizer,
+    private renderer: Renderer2
   ) {
     this.loading = true;
     this.showAfternoonMap = false;
+    this.stopListening = renderer.listen('window', 'message', this.getText.bind(this));
     //this.preventClick = false;
     //this.timer = 0;
   }
@@ -147,12 +176,27 @@ export class CreateBulletinComponent {
     this.isAccordionDangerDescriptionOpen = false;
     this.isAccordionSnowpackStructureOpen = false;
     this.isAccordionTendencyOpen = false;
+
+        this.showTranslationsAvActivityHighlights = false;
+        this.showTranslationsAvActivityComment = false;
+        this.showTranslationsSnowpackStructureComment = false;
+        this.showTranslationsTendencyComment = false
   }
 
   ngOnInit() {
+
+    //for reload iframe on change language
+      this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
+        item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/c_pm.html?l=" + this.settingsService.getLangString())
+      );
+
     if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
 
       this.reset();
+
+//setting pm language for iframe
+      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/c_pm.html?l=" + this.settingsService.getLangString());
+
 
       // copy bulletins from other date
       if (this.bulletinsService.getCopyDate()) {
@@ -261,6 +305,38 @@ export class CreateBulletinComponent {
   ngAfterViewInit() {
     this.initMaps();
   }
+
+setShowTranslations(name: string) {
+    switch (name) {
+      case "avActivityHighlights":
+        if (this.showTranslationsAvActivityHighlights)
+          this.showTranslationsAvActivityHighlights = false;
+        else
+          this.showTranslationsAvActivityHighlights = true;
+        break;
+      case "avActivityComment":
+        if (this.showTranslationsAvActivityComment)
+          this.showTranslationsAvActivityComment = false;
+        else
+          this.showTranslationsAvActivityComment = true;
+        break;
+      case "snowpackStructureComment":
+        if (this.showTranslationsSnowpackStructureComment)
+          this.showTranslationsSnowpackStructureComment = false;
+        else
+          this.showTranslationsSnowpackStructureComment = true;
+        break;
+      case "tendencyComment":
+        if (this.showTranslationsTendencyComment)
+          this.showTranslationsTendencyComment = false;
+        else
+          this.showTranslationsTendencyComment = true;
+        break;
+      default:
+        break;
+    }
+  }
+
 
   accordionChanged(event: boolean, groupName: string) {
     switch (groupName) {
@@ -460,6 +536,7 @@ export class CreateBulletinComponent {
 
   onShowAfternoonMapChange(checked) {
     this.showAfternoonMap = checked;
+   this.setTexts();
 
     let bulletin = this.activeBulletin;
 
@@ -504,6 +581,7 @@ export class CreateBulletinComponent {
   }
 
   ngOnDestroy() {
+    this.eventSubscriber.unsubscribe();
     if (this.bulletinsService.getActiveDate() && this.bulletinsService.getIsEditable())
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
 
@@ -720,10 +798,24 @@ export class CreateBulletinComponent {
 
 
   selectBulletin(bulletin: BulletinModel) {
-    if (!this.editRegions) {
-      if (this.checkElevation()) {
-        this.deselectBulletin();
-        this.activeBulletin = bulletin;
+   if (!this.editRegions) {
+         if (this.checkElevation()) {
+           this.deselectBulletin();
+
+           this.activeBulletin = bulletin;
+           this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
+           this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
+           this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
+           this.activeAvActivityCommentIt = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it);
+           this.activeAvActivityHighlightsEn = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.en);
+           this.activeAvActivityCommentEn = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en);
+           this.activeSnowpackStructureHighlightsDe = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.de);
+           this.activeSnowpackStructureCommentDe = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
+           this.activeSnowpackStructureHighlightsIt = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.it);
+           this.activeSnowpackStructureCommentIt = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
+           this.activeSnowpackStructureHighlightsEn = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.en);
+           this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
+
         this.mapService.selectAggregatedRegion(this.activeBulletin);
       }
     }
@@ -731,9 +823,25 @@ export class CreateBulletinComponent {
 
   deselectBulletin() {
     if (this.checkElevation()) {
-      if (!this.editRegions) {
-        this.mapService.deselectAggregatedRegion();
-        this.activeBulletin = undefined;
+        if (!this.editRegions) {
+
+    this.setTexts();
+
+          if (this.activeAvActivityHighlightsTextcat)
+            this.activeBulletin.setAvActivityHighlightsTextcat(this.activeAvActivityHighlightsTextcat);
+
+          if (this.activeAvActivityCommentTextcat)
+            this.activeBulletin.setAvActivityCommentTextcat(this.activeAvActivityCommentTextcat);
+
+          if (this.activeSnowpackStructureCommentTextcat)
+            this.activeBulletin.setSnowpackStructureCommentTextcat(this.activeSnowpackStructureCommentTextcat);
+
+          if (this.activeTendencyCommentTextcat)
+            this.activeBulletin.setTendencyCommentTextcat(this.activeTendencyCommentTextcat);
+
+          this.mapService.deselectAggregatedRegion();
+          this.activeBulletin = undefined;
+
         this.applicationRef.tick();
       }
     }
@@ -820,6 +928,65 @@ export class CreateBulletinComponent {
       });
     } else
       return true;
+  }
+
+private setTexts() {
+    if (this.activeBulletin) {
+      if (this.activeAvActivityHighlightsTextcat != undefined && this.activeAvActivityHighlightsTextcat != "")
+        this.activeBulletin.setAvActivityHighlightsTextcat(this.activeAvActivityHighlightsTextcat);
+      if (this.activeAvActivityHighlightsDe != undefined && this.activeAvActivityHighlightsDe != "")
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
+      if (this.activeAvActivityHighlightsIt != undefined && this.activeAvActivityHighlightsIt != "")
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
+      if (this.activeAvActivityHighlightsEn != undefined && this.activeAvActivityHighlightsEn != "")
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
+      if (this.activeAvActivityHighlightsFr != undefined && this.activeAvActivityHighlightsFr != "")
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsFr, Enums.LanguageCode.fr);
+
+      if (this.activeAvActivityCommentTextcat != undefined && this.activeAvActivityCommentTextcat != "")
+        this.activeBulletin.setAvActivityCommentTextcat(this.activeAvActivityCommentTextcat);
+      if (this.activeAvActivityCommentDe != undefined && this.activeAvActivityCommentDe != "")
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
+      if (this.activeAvActivityCommentIt != undefined && this.activeAvActivityCommentIt != "")
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentIt, Enums.LanguageCode.it);
+      if (this.activeAvActivityCommentEn != undefined && this.activeAvActivityCommentEn != "")
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEn, Enums.LanguageCode.en);
+      if (this.activeAvActivityCommentFr != undefined && this.activeAvActivityCommentFr != "")
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentFr, Enums.LanguageCode.fr);
+
+      if (this.activeSnowpackStructureHighlightsTextcat != undefined && this.activeSnowpackStructureHighlightsTextcat != "")
+        this.activeBulletin.setSnowpackStructureHighlightsTextcat(this.activeSnowpackStructureHighlightsTextcat);
+      if (this.activeSnowpackStructureHighlightsDe != undefined && this.activeSnowpackStructureHighlightsDe != "")
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
+      if (this.activeSnowpackStructureHighlightsIt != undefined && this.activeSnowpackStructureHighlightsIt != "")
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsIt, Enums.LanguageCode.it);
+      if (this.activeSnowpackStructureHighlightsEn != undefined && this.activeSnowpackStructureHighlightsEn != "")
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEn, Enums.LanguageCode.en);
+      if (this.activeSnowpackStructureHighlightsFr != undefined && this.activeSnowpackStructureHighlightsFr != "")
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsFr, Enums.LanguageCode.fr);
+
+      if (this.activeSnowpackStructureCommentTextcat != undefined && this.activeSnowpackStructureCommentTextcat != "")
+        this.activeBulletin.setSnowpackStructureCommentTextcat(this.activeSnowpackStructureCommentTextcat);
+      if (this.activeSnowpackStructureCommentDe != undefined && this.activeSnowpackStructureCommentDe != "")
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
+      if (this.activeSnowpackStructureCommentIt != undefined && this.activeSnowpackStructureCommentIt != "")
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt, Enums.LanguageCode.it);
+      if (this.activeSnowpackStructureCommentEn != undefined && this.activeSnowpackStructureCommentEn != "")
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEn, Enums.LanguageCode.en);
+      if (this.activeSnowpackStructureCommentFr != undefined && this.activeSnowpackStructureCommentFr != "")
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentFr, Enums.LanguageCode.fr);
+
+      if (this.activeTendencyCommentTextcat != undefined && this.activeTendencyCommentTextcat != "")
+        this.activeBulletin.setTendencyCommentTextcat(this.activeTendencyCommentTextcat);
+      if (this.activeTendencyCommentDe != undefined && this.activeTendencyCommentDe != "")
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentDe, Enums.LanguageCode.de);
+      if (this.activeTendencyCommentIt != undefined && this.activeTendencyCommentIt != "")
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentIt, Enums.LanguageCode.it);
+      if (this.activeTendencyCommentEn != undefined && this.activeTendencyCommentEn != "")
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentEn, Enums.LanguageCode.en);
+      if (this.activeTendencyCommentFr != undefined && this.activeTendencyCommentFr != "")
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentFr, Enums.LanguageCode.fr);
+    }
   }
 
   deleteBulletin(event, bulletin: BulletinModel) {
@@ -1001,6 +1168,8 @@ export class CreateBulletinComponent {
     if (this.checkElevation()) {
       this.loading = true;
 
+    this.setTexts();
+
       this.deselectBulletin();
 
       let validFrom = new Date(this.bulletinsService.getActiveDate());
@@ -1082,4 +1251,42 @@ export class CreateBulletinComponent {
       this.discardBulletin(event);
     }
   }
+
+  openTextcat($event, field, l,textDef) {
+      let receiver = this.receiver.nativeElement.contentWindow;
+      $event.preventDefault()
+      if (!textDef)
+        textDef="";
+      //make Json to send to pm
+      let inputDef = {
+        textField: field,
+        textDef: textDef,
+        srcLang: Enums.LanguageCode[l],
+        currentLang: this.translateService.currentLang
+      };
+
+      let pmData = JSON.stringify(inputDef);
+      receiver.postMessage(pmData, '*');
+
+      this.showDialog();
+
+  }
+
+
+  getText(e) {
+    e.preventDefault();
+    if (e.data.type != "webpackInvalid" && e.data.type != "webpackOk") {
+      let pmData = JSON.parse(e.data);
+
+      this[pmData.textField + 'Textcat'] = pmData.textDef;
+      this[pmData.textField+'It'] = pmData.textIt;
+      this[pmData.textField+'De'] = pmData.textDe;
+      this[pmData.textField+'En'] = pmData.textEn;
+      this[pmData.textField+'Fr'] = pmData.textFr;
+
+      this.hideDialog();
+    }
+  };
+
+
 }

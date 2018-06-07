@@ -9,7 +9,7 @@ import { AspectsComponent } from './aspects.component';
 import { DangerRatingComponent } from './danger-rating.component';
 import { DangerRatingIconComponent } from './danger-rating-icon.component';
 import { AvalancheSituationComponent } from './avalanche-situation.component';
-import { CopComponent } from './cop.component';
+//import { CopComponent } from './cop.component';
 import { MatrixComponent } from './matrix.component';
 import { CaamlComponent } from './caaml.component';
 import { JsonComponent } from './json.component';
@@ -47,7 +47,7 @@ import { AccordionModule } from 'ngx-bootstrap';
     DangerRatingComponent,
     DangerRatingIconComponent,
     AvalancheSituationComponent,
-    CopComponent,
+  //  CopComponent,
     MatrixComponent,
     CaamlComponent,
     JsonComponent,
