@@ -28,25 +28,25 @@ export default class BulletinProblemItem extends React.Component {
     const elevation = [];
     switch(this.where) {
     case 'below':
-      elevation.push(this.props.elevationHigh);
+      elevation.push(this.props.problem.elevationHigh);
       break;
 
     case 'above':
-      elevation.push(this.props.elevationLow);
+      elevation.push(this.props.problem.elevationLow);
       break;
 
     case 'middle':
-      elevation.push(this.props.elevationHigh);
-      elevation.push(this.props.elevationLow);
+      elevation.push(this.props.problem.elevationHigh);
+      elevation.push(this.props.problem.elevationLow);
       break;
     }
 
     return (
-      <div>
+      <li>
         <ProblemIconLink problem={this.props.problem.avalancheSituation} />
         <ExpositionIcon expositions={this.props.problem.aspects} />
         <ElevationIcon elevation={elevation} where={this.where} />
-      </div>
+      </li>
     );
   }
 }

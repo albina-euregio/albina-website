@@ -77,7 +77,7 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
                     }
                   </div>
                 </li>{
-                  problems.map((p, index) => <li key={index}><BulletinProblemItem problem={p} /></li>)
+                  problems.map((p, index) => <BulletinProblemItem key={index} problem={p} />)
                 }
               </ul>
             </div>

@@ -150,8 +150,8 @@ class BulletinStore {
       this.settings.status = this.bulletins[date].status;
 
       if(this.bulletins[date].length == 1) {
+        // TODO: filter by problem!!!
         let b = this.bulletins[date].getData();
-        console.log('TEST: ' + JSON.stringify(b));
         this.setRegion(b[0].id);
       }
     }

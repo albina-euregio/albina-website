@@ -24,7 +24,7 @@ export default class ExpositionIcon extends React.Component {
   render() {
     const classes = ['bulletin-report-picto', 'bulletin-report-expositions', 'tooltip'].concat(
       this.props.expositions.map((e) =>
-        'expo_' + e
+        'expo_' + e.toLowerCase()
       )
     );
     const backgroundEntries = Object.entries(this.alts).map((e) =>

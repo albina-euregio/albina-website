@@ -22,9 +22,9 @@ export default class ProblemIcon extends React.Component {
 
   render() {
     if(!this.problems[this.props.problem]) {
-      return (<div></div>);
+      return (<span>undefined</span>);
     }
-    
+
     const variant = this.props.active ? 'color' : 'grey';
     const path = this.imgRoot + this.problems[this.props.problem][variant];
 
