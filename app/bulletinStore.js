@@ -59,6 +59,7 @@ class BulletinStore {
     this.settings = observable({
       status: '',
       date: '',
+      region: '',
       ampm: config.get('defaults.ampm')
     });
     this.bulletins = {};
@@ -189,11 +190,28 @@ class BulletinStore {
   /**
    * Get the bulletins that match the current selection.
    * @return A list of bulletins that match the selection of
+   *   this.date and this.ampm
+   */
+  @computed
+  get activeBulletins() {
+    return this.bulletins[this.settings.date];
+  }
+
+  /**
+   * Get the bulletin that is relevant for the currently set region.
+   * @return A bulletin object that matches the selection of
    *   this.date, this.ampm and this.region
    */
   @computed
-  get active() {
-    return this.bulletins[this.settings.date];
+  get activeRegionBulletin() {
+    const region = this.settings.region;
+
+    if(this.bulletins[this.settings.date]) {
+      return this.bulletins[this.settings.date].find((el) => {
+        return el.id == region;
+      });
+    }
+    return null;
   }
 
   /**
@@ -207,14 +225,6 @@ class BulletinStore {
   @computed
   get getMapZoom() {
     return toJS(this.mapZoom);
-  }
-
-  get(date, ampm, region = 'all') {
-    if (this.bulletins[date]) {
-      // TODO: filter by region
-      return this.bulletins[date];
-    }
-    return {};
   }
 }
 

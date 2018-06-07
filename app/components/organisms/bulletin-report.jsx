@@ -1,23 +1,57 @@
 import React from 'react';
-import ProblemIconLink from '../icons/problem-icon-link.jsx';
+import { observer } from 'mobx-react';
 import WarnLevelIcon from '../icons/warn-level-icon.jsx';
-import ElevationIcon from '../icons/elevation-icon.jsx';
-import ExpositionIcon from '../icons/exposition-icon.jsx';
 import TendencyIcon from '../icons/tendency-icon.jsx';
+import BulletinProblemItem from './bulletin-problem-item.jsx';
 import BulletinAWMapStatic from './bulletin-awmap-static.jsx';
+import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
 
-export default class BulletinReport extends React.Component {
+@observer class BulletinReport extends React.Component {
+  warnlevelNumbers;
+
   constructor(props) {
     super(props);
+    this.warnlevelNumbers = {
+      'low': 1,
+      'moderate': 2,
+      'considerable': 3,
+      'high': 4,
+      'very high': 5
+    };
   }
 
   render() {
+    const bulletin = this.props.bulletin;
+    const date = dateToLongDateString(parseDate(this.props.store.settings.date)) + ' '
+      + (this.prop.store.settings.ampm == 'am' ? 'AM' : 'PM');
+
+    const warnlevels = {
+      'above': this.warnlevelNumbers(bulletin.forenoon.dangerRatingAbove),
+      'below': this.warnlevelNumbers(bulletin.forenoon.dangerRatingBelow)
+    };
+    const warnlevel = Math.max(Object.values(warnlevels));
+    const elevation = (bulletin.hasElevationDependency && !bulletin.treeline) ? bulletin.elevation : null;
+    const treeline = bulletin.hasElevationDependency && bulletin.treeline;
+
+    const tendencyText = bulletin.tendencyCommentTextcat;
+    const tendencyDate = dateToLongDateString(getSuccDate(parseDate(this.props.store.settings.date)));
+
+    const classes = 'panel field callout warning-level-' + warnlevel;
+
+    const problems = [];
+    if(bulletin.forenoon.avalancheSituation1) {
+      problems.push(bulletin.forenoon.avalancheSituation1);
+    }
+    if(bulletin.forenoon.avalancheSituation2) {
+      problems.push(bulletin.forenoon.avalancheSituation2);
+    }
+
     return (
       <section id="section-bulletin-report" className="section-centered section-bulletin section-bulletin-report">
-        <div className="panel field callout warning-level-3">
+        <div className={classes}>
           <header className="bulletin-report-header">
-            <p>Warning Level for <strong>Saturday 09.12.2017 PM</strong></p>
-            <h1><span>Erheblich, Stufe 3</span></h1>
+            <p>Warning Level for <strong>{date}</strong></p>
+            <h1><span>Erheblich, Stufe {warnlevel}</span></h1>
           </header>
           <div className="bulletin-report-pictobar">
             <div className="bulletin-report-region">
@@ -27,23 +61,16 @@ export default class BulletinReport extends React.Component {
             </div>
             <ul className="list-plain list-bulletin-report-pictos">
               <li>
-                <WarnLevelIcon below={2} above={3} elevation={1800} treeline={false} />
+                <WarnLevelIcon below={warnlevels.below} above={warnlevels.above} elevation={elevation} treeline={treeline} />
                 <div className="bulletin-report-tendency tooltip" title="Expectation for the following day">
-                  <span><strong className="heavy">Tendency: Much Worse</strong><br />
-                    on Sunday 10.12.2017 PM
+                  <span><strong className="heavy">{tendencyText}</strong><br />
+                    on {tendencyDate}
                   </span>
-                  <TendencyIcon tendency="increase" />
+                  <TendencyIcon tendency={bulletin.tendency} />
                 </div>
-              </li><li>
-                <ProblemIconLink problem={'wind_drifted_snow'} />
-                <ExpositionIcon expositions={['n', 'nw', 'w']} />
-                <ElevationIcon elevation={2200} where="above" />
-              </li>
-              <li>
-                <ProblemIconLink problem={'old_snow'} />
-                <ExpositionIcon expositions={['e', 'se', 's', 'sw']} />
-                <ElevationIcon elevation={1900} where="below" />
-              </li>
+              </li>{
+                problems.map((p) => <li><BulletinProblemItem problem={p} /></li>)
+              }
             </ul>
           </div>
           <h2 className="subheader">Oberhalb der Waldgrenze weiterhin verbreitet erhebliche Lawinengefahr</h2>
@@ -53,3 +80,5 @@ export default class BulletinReport extends React.Component {
     );
   }
 }
+
+export default BulletinReport;

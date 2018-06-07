@@ -35,7 +35,10 @@ export default class Bulletin extends React.Component {
         <BulletinMap store={this.store} />
         <BulletinLegend problems={this.store.problems} />
         <BulletinButtonbar />
-        <BulletinReport store={this.store} />
+        {
+          this.store.activeRegionBulletin &&
+            <BulletinReport store={this.store} bulletin={this.store.activeRegionBulletin} />
+        }
         <BulletinAdditional />
         <SmShare />
         <Context />

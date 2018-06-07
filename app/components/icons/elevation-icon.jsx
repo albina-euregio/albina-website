@@ -31,7 +31,7 @@ export default class ElevationIcon extends React.Component {
       'tooltip',
       ('problem-' + this.props.where)
     ];
-    const elevText = this.props.elevation ? (this.props.elevation + 'm') : '';
+    const elevText = this.props.elevation ? (this.props.elevation[0] + 'm') : '';
 
     const src = this.imgRoot + this.icons[this.props.where];
     const title = this.texts[this.props.where] + elevText;
