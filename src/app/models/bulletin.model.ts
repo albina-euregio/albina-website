@@ -35,10 +35,8 @@ export class BulletinModel {
 
 	public avActivityHighlights: TextModel[];
 	public avActivityComment: TextModel[];
-
 	public snowpackStructureHighlights: TextModel[];
 	public snowpackStructureComment: TextModel[];
-
 	public tendencyComment: TextModel[];
 
 	public tendency: Enums.Tendency;
@@ -87,7 +85,7 @@ export class BulletinModel {
 			this.avActivityHighlightsTextcat = undefined;
 			this.avActivityCommentTextcat = undefined;
 			this.snowpackStructureHighlightsTextcat = undefined;
-			this.getSnowpackStructureCommentTextcat = undefined;
+			this.snowpackStructureCommentTextcat = undefined;
 			this.tendencyCommentTextcat = undefined;
 			this.snowpackStructureHighlights = undefined;
 			this.snowpackStructureComment = undefined;
@@ -106,7 +104,7 @@ export class BulletinModel {
 		}
 	}
 
-	getId() : string {
+	getId(): string {
 		return this.id;
 	}
 
@@ -143,7 +141,7 @@ export class BulletinModel {
 		this.publicationDate = publicationDate;
 	}
 
-	getValidFrom() : Date {
+	getValidFrom(): Date {
 		return this.validFrom
 	}
 
@@ -151,7 +149,7 @@ export class BulletinModel {
 		this.validFrom = validFrom;
 	}
 
-	getValidUntil() : Date {
+	getValidUntil(): Date {
 		return this.validUntil;
 	}
 
@@ -159,7 +157,7 @@ export class BulletinModel {
 		this.validUntil = validUntil;
 	}
 
-	getSuggestedRegions() : String[] {
+	getSuggestedRegions(): String[] {
 		return this.suggestedRegions;
 	}
 
@@ -167,7 +165,7 @@ export class BulletinModel {
 		this.suggestedRegions = suggestedRegions;
 	}
 
-	getSavedRegions() : String[] {
+	getSavedRegions(): String[] {
 		return this.savedRegions;
 	}
 
@@ -175,7 +173,7 @@ export class BulletinModel {
 		this.savedRegions = savedRegions;
 	}
 
-	getPublishedRegions() : String[] {
+	getPublishedRegions(): String[] {
 		return this.publishedRegions;
 	}
 
@@ -183,7 +181,7 @@ export class BulletinModel {
 		this.publishedRegions = publishedRegions;
 	}
 
-	getElevation() : number {
+	getElevation(): number {
 		return this.elevation
 	}
 
@@ -191,7 +189,7 @@ export class BulletinModel {
 		this.elevation = elevation;
 	}
 
-	getTreeline() : boolean {
+	getTreeline(): boolean {
 		return this.treeline
 	}
 
@@ -231,15 +229,7 @@ export class BulletinModel {
 		this.afternoon = afternoon;
 	}
 
-	getAvActivityHighlightsTextcat() : string {
-		return this.avActivityHighlightsTextcat;
-	}
-
-	setAvActivityHighlightsTextcat(avActivityHighlightsTextcat: string) {
-		this.avActivityHighlightsTextcat = avActivityHighlightsTextcat;
-	}
-
-	getAvActivityCommentTextcat() : string {
+	getAvActivityCommentTextcat(): string {
 		return this.avActivityCommentTextcat;
 	}
 
@@ -247,7 +237,7 @@ export class BulletinModel {
 		this.avActivityCommentTextcat = avActivityCommentTextcat;
 	}
 
-	getSnowpackStructureHighlightsTextcat() : string {
+	getSnowpackStructureHighlightsTextcat(): string {
 		return this.snowpackStructureHighlightsTextcat;
 	}
 
@@ -255,7 +245,7 @@ export class BulletinModel {
 		this.snowpackStructureHighlightsTextcat = snowpackStructureHighlightsTextcat;
 	}
 
-	getSnowpackStructureCommentTextcat() : string {
+	getSnowpackStructureCommentTextcat(): string {
 		return this.snowpackStructureCommentTextcat;
 	}
 
@@ -263,7 +253,7 @@ export class BulletinModel {
 		this.snowpackStructureCommentTextcat = snowpackStructureCommentTextcat;
 	}
 
-	getTendencyCommentTextcat() : string {
+	getTendencyCommentTextcat(): string {
 		return this.tendencyCommentTextcat;
 	}
 
@@ -271,18 +261,26 @@ export class BulletinModel {
 		this.tendencyCommentTextcat = tendencyCommentTextcat;
 	}
 
-	getAvActivityHighlights() : TextModel[] {
+	getAvActivityHighlightsTextcat(): string {
+		return this.avActivityHighlightsTextcat;
+	}
+
+	setAvActivityHighlightsTextcat(avActivityHighlightsTextcat: string) {
+		this.avActivityHighlightsTextcat = avActivityHighlightsTextcat;
+	}
+
+	getAvActivityHighlights(): TextModel[] {
 		return this.avActivityHighlights;
 	}
 
-	getAvActivityHighlightsIn(language: Enums.LanguageCode) : string {
+	getAvActivityHighlightsIn(language: Enums.LanguageCode): string {
 		for (var i = this.avActivityHighlights.length - 1; i >= 0; i--) {
 			if (this.avActivityHighlights[i].getLanguageCode() == language)
 				return this.avActivityHighlights[i].getText();
 		}
 	}
 
-	getAvActivityHighlightsInString(language: string) : string {
+	getAvActivityHighlightsInString(language: string): string {
 		return this.getAvActivityHighlightsIn(Enums.LanguageCode[language]);
 	}
 
@@ -303,11 +301,11 @@ export class BulletinModel {
 		this.avActivityHighlights.push(model);
 	}
 
-	getAvActivityComment() : TextModel[] {
+	getAvActivityComment(): TextModel[] {
 		return this.avActivityComment;
 	}
 
-	getAvActivityCommentIn(language: Enums.LanguageCode) : string {
+	getAvActivityCommentIn(language: Enums.LanguageCode): string {
 		for (var i = this.avActivityComment.length - 1; i >= 0; i--) {
 			if (this.avActivityComment[i].getLanguageCode() == language)
 				return this.avActivityComment[i].getText();
@@ -355,14 +353,14 @@ export class BulletinModel {
 		this.dangerPattern2 = dangerPattern;
 	}
 
-	getSnowpackStructureHighlightIn(language: Enums.LanguageCode) : string {
+	getSnowpackStructureHighlightIn(language: Enums.LanguageCode): string {
 		for (var i = this.snowpackStructureHighlights.length - 1; i >= 0; i--) {
 			if (this.snowpackStructureHighlights[i].getLanguageCode() == language)
 				return this.snowpackStructureHighlights[i].getText();
 		}
 	}
 
-	getSnowpackStructureHighlightInString(language: string) : string {
+	getSnowpackStructureHighlightInString(language: string): string {
 		return this.getSnowpackStructureHighlightIn(Enums.LanguageCode[language]);
 	}
 
@@ -383,11 +381,11 @@ export class BulletinModel {
 		this.snowpackStructureHighlights.push(model);
 	}
 
-	getSnowpackStructureComment() : TextModel[] {
+	getSnowpackStructureComment(): TextModel[] {
 		return this.snowpackStructureComment;
 	}
 
-	getSnowpackStructureCommentIn(language: Enums.LanguageCode) : string {
+	getSnowpackStructureCommentIn(language: Enums.LanguageCode): string {
 		for (var i = this.snowpackStructureComment.length - 1; i >= 0; i--) {
 			if (this.snowpackStructureComment[i].getLanguageCode() == language)
 				return this.snowpackStructureComment[i].getText();
@@ -411,11 +409,11 @@ export class BulletinModel {
 		this.snowpackStructureComment.push(model);
 	}
 
-	getTendencyComment() : TextModel[] {
+	getTendencyComment(): TextModel[] {
 		return this.tendencyComment;
 	}
 
-	getTendencyCommentIn(language: Enums.LanguageCode) : string {
+	getTendencyCommentIn(language: Enums.LanguageCode): string {
 		for (var i = this.tendencyComment.length - 1; i >= 0; i--) {
 			if (this.tendencyComment[i].getLanguageCode() == language)
 				return this.tendencyComment[i].getText();
@@ -451,14 +449,14 @@ export class BulletinModel {
 			return this.forenoon.dangerRatingAbove.getValue();
 	}
 
-	getForenoonDangerRatingBelow() : Enums.DangerRating {
+	getForenoonDangerRatingBelow(): Enums.DangerRating {
 		if (this.hasElevationDependency)
 			return this.forenoon.dangerRatingBelow.getValue();
 		else
 			return this.getForenoonDangerRatingAbove();
 	}
 
-	getAfternoonDangerRatingBelow() : Enums.DangerRating {
+	getAfternoonDangerRatingBelow(): Enums.DangerRating {
 		if (this.hasDaytimeDependency) {
 			if (this.hasElevationDependency) {
 				let test : any = this.afternoon.dangerRatingBelow.getValue();
@@ -486,7 +484,6 @@ export class BulletinModel {
 			}
 			json['additionalAuthors'] = additionalAuthors;
 		}
-
 		
 		if (this.publicationDate && this.publicationDate != undefined)
 			json['publicationDate'] = this.getISOStringWithTimezoneOffsetUrlEncoded(this.publicationDate);
@@ -658,15 +655,6 @@ export class BulletinModel {
 
 		if (json.avActivityHighlightsTextcat)
 			bulletin.setAvActivityHighlightsTextcat(json.avActivityHighlightsTextcat);
-		if (json.avActivityCommentTextcat)
-			bulletin.setAvActivityCommentTextcat(json.avActivityCommentTextcat);
-		if (json.snowpackStructureHighlightsTextcat)
-			bulletin.setSnowpackStructureHighlightsTextcat(json.snowpackStructureHighlightsTextcat);
-		if (json.snowpackStructureCommentTextcat)
-			bulletin.setSnowpackStructureCommentTextcat(json.snowpackStructureCommentTextcat);
-		if (json.tendencyCommentTextcat)
-			bulletin.setTendencyCommentTextcat(json.tendencyCommentTextcat);
-
 		let jsonAvActivityHighlights = json.avActivityHighlights;
 		let avActivityHighlights = new Array<TextModel>();
 		for (let i in jsonAvActivityHighlights) {
@@ -674,6 +662,8 @@ export class BulletinModel {
 		}
 		bulletin.setAvActivityHighlights(avActivityHighlights);
 
+		if (json.avActivityCommentTextcat)
+			bulletin.setAvActivityCommentTextcat(json.avActivityCommentTextcat);
 		let jsonAvActivityComment = json.avActivityComment;
 		let avActivityComment = new Array<TextModel>();
 		for (let i in jsonAvActivityComment) {
@@ -681,6 +671,8 @@ export class BulletinModel {
 		}
 		bulletin.setAvActivityComment(avActivityComment);
 
+		if (json.snowpackStructureHighlightsTextcat)
+			bulletin.setSnowpackStructureHighlightsTextcat(json.snowpackStructureHighlightsTextcat);
 		let jsonSnowpackStructureHighlight = json.snowpackStructureHighlights;
 		let snowpackStructureHighlights = new Array<TextModel>();
 		for (let i in jsonSnowpackStructureHighlight) {
@@ -688,6 +680,8 @@ export class BulletinModel {
 		}
 		bulletin.setSnowpackStructureHighlight(snowpackStructureHighlights);
 
+		if (json.snowpackStructureCommentTextcat)
+			bulletin.setSnowpackStructureCommentTextcat(json.snowpackStructureCommentTextcat);
 		let jsonSnowpackStructureComment = json.snowpackStructureComment;
 		let snowpackStructureComment = new Array<TextModel>();
 		for (let i in jsonSnowpackStructureComment) {
@@ -695,6 +689,8 @@ export class BulletinModel {
 		}
 		bulletin.setSnowpackStructureComment(snowpackStructureComment);
 
+		if (json.tendencyCommentTextcat)
+			bulletin.setTendencyCommentTextcat(json.tendencyCommentTextcat);
 		let jsonTendencyComment = json.tendencyComment;
 		let tendencyComment = new Array<TextModel>();
 		for (let i in jsonTendencyComment) {
@@ -712,12 +708,12 @@ export class BulletinModel {
 
 		return bulletin;
 	}
-	
+
 	private getISOStringWithTimezoneOffsetUrlEncoded(date: Date) {
 		let offset = -date.getTimezoneOffset();
 		let dif = offset >= 0 ? '+' : '-';
 
-		return date.getFullYear() + 
+		return date.getFullYear() +
 			'-' + this.extend(date.getMonth() + 1) +
 			'-' + this.extend(date.getDate()) +
 			'T' + this.extend(date.getHours()) +

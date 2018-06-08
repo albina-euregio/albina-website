@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 export class ConstantsService {
 
   // Localhost
-  //public serverUrl: string = 'http://localhost:8080/albina/api/';
-  //public socketIOUrl: string = 'http://localhost:9092';
+  public serverUrl: string = 'http://localhost:8080/albina/api/';
+  public socketIOUrl: string = 'http://localhost:9092';
 
   // Development server
-  public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
-  public socketIOUrl: string = 'http://212.47.231.185:9092';
+  //public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
+  //public socketIOUrl: string = 'http://212.47.231.185:9092';
 
   // CentOS
   //public serverUrl: string = 'http://163.172.132.87:8080/albina/api/';
@@ -18,6 +18,8 @@ export class ConstantsService {
   // CLESIUS
   //public serverUrl: string = 'http://192.168.30.189:8080/albina/api/';
   //public socketIOUrl: string = 'http://192.168.30.189:9092';
+
+  public textcatUrl: string = 'http://albina.clesius.it/textcat/c_pm.html';
 
   public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';
   public natlefsServerUrl: string = 'https://natlefs.snowobserver.com/snowobserver/api/';

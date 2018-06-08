@@ -9,7 +9,7 @@ import { AspectsComponent } from './aspects.component';
 import { DangerRatingComponent } from './danger-rating.component';
 import { DangerRatingIconComponent } from './danger-rating-icon.component';
 import { AvalancheSituationComponent } from './avalanche-situation.component';
-import { CopComponent } from './cop.component';
+//import { CopComponent } from './cop.component';
 import { MatrixComponent } from './matrix.component';
 import { CaamlComponent } from './caaml.component';
 import { JsonComponent } from './json.component';
@@ -19,7 +19,7 @@ import { Tab } from './tab.component';
 // Bulletins Routing
 import { BulletinsRoutingModule } from './bulletins-routing.module';
 import { TranslateModule } from 'ng2-translate';
-import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
+import { DialogModule, ConfirmDialogModule, SharedModule } from 'primeng/primeng';
 
 // Pipes
 import { PipeModule }    from '../pipes/pipes.module';
@@ -33,6 +33,7 @@ import { AccordionModule } from 'ngx-bootstrap';
     FormsModule,
     CommonModule,
     TranslateModule,
+    DialogModule,
     ConfirmDialogModule,
     SharedModule,
     PipeModule.forRoot(),
@@ -46,7 +47,7 @@ import { AccordionModule } from 'ngx-bootstrap';
     DangerRatingComponent,
     DangerRatingIconComponent,
     AvalancheSituationComponent,
-    CopComponent,
+  //  CopComponent,
     MatrixComponent,
     CaamlComponent,
     JsonComponent,

@@ -174,7 +174,8 @@
 				"snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus",
 				"dangerPatterns" : "Gefahrenmuster",
 				"elevationHigh" : "Obere Höhengrenze:",
-				"elevationLow" : "Untere Höhengrenze:"
+				"elevationLow" : "Untere Höhengrenze:",
+				"tendencyComment" : "Beschreibung der Tendenz"
 			},
 			"title" : {
 				"map" : "Karte",
@@ -191,7 +192,10 @@
 				"forenoonBelow" : "Vormittag, unten",
 				"afternoonBelow" : "Nachmittag, unten",
 				"snowpackStructure" : "Schneedeckenaufbau",
-				"tendency" : "Tendenz"
+				"tendency" : "Tendenz",
+				"pmdialog" : "Satzkatalog",
+				"showTranslations" : " Übersetzungen anzeigen",
+				"hideTranslations" : " Übersetzungen verbergen"
 			},
 			"discardDialog" : {
 				"header" : "Änderungen verwerfen",

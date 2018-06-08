@@ -24,13 +24,6 @@
         "assets/css/MarkerCluster.css",
         "assets/css/MarkerCluster.Default.css"
       ],
-      "scripts": [
-        "assets/javascript/jquery-1.11.1.js", 
-        "assets/javascript/phrasemaker.js", 
-        "assets/javascript/util.js", 
-        "assets/javascript/jquery.tmpl.min.js", 
-        "assets/javascript/jquery-ui.min.js"
-      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

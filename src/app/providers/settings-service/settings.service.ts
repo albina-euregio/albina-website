@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
 import * as Enums from '../../enums/enums';
+import { EventEmitter } from '@angular/core';
+
 
 @Injectable()
 export class SettingsService {
@@ -9,7 +11,8 @@ export class SettingsService {
   public lang: Enums.LanguageCode;
   public useMatrix: boolean;
   public showObservations: boolean;
-
+  eventEmitter: EventEmitter<string> = new EventEmitter();
+  
   constructor(
     public translate: TranslateService)
   {
@@ -25,6 +28,9 @@ export class SettingsService {
 
     this.useMatrix = true;
     this.showObservations = false;
+    //tra le proprietà del service 
+
+
   }
 
   getLang() : Enums.LanguageCode {
@@ -36,8 +42,20 @@ export class SettingsService {
       let language = /(de|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : 'de';
       this.translateService.use(language);
       this.lang = Enums.LanguageCode[language];
+
+      //to reload iframe
+      this.emitChangeEvent(this.lang);
     }
   }
+
+
+  emitChangeEvent(number) {
+    this.eventEmitter.emit(number);
+  }
+  getChangeEmitter() {
+    return this.eventEmitter;
+  }
+
 
   getLangString() : string {
     return Enums.LanguageCode[this.lang];
@@ -46,6 +64,7 @@ export class SettingsService {
   setLangString(lang: string) {
     let language = Enums.LanguageCode[lang];
     this.setLang(language);
+    
   }
 
   getUseMatrix() : boolean {
