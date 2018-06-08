@@ -306,7 +306,7 @@ export class CreateBulletinComponent {
     this.initMaps();
   }
 
-setShowTranslations(name: string) {
+  setShowTranslations(name: string) {
     switch (name) {
       case "avActivityHighlights":
         if (this.showTranslationsAvActivityHighlights)
@@ -582,6 +582,7 @@ setShowTranslations(name: string) {
 
   ngOnDestroy() {
     this.eventSubscriber.unsubscribe();
+
     if (this.bulletinsService.getActiveDate() && this.bulletinsService.getIsEditable())
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
 
@@ -803,6 +804,7 @@ setShowTranslations(name: string) {
            this.deselectBulletin();
 
            this.activeBulletin = bulletin;
+
            this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcat();
            this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
            this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
@@ -1185,7 +1187,7 @@ private setTexts() {
     if (this.checkElevation()) {
       this.loading = true;
 
-    this.setTexts();
+      this.setTexts();
 
       this.deselectBulletin();
 
@@ -1269,24 +1271,23 @@ private setTexts() {
     }
   }
 
-  openTextcat($event, field, l,textDef) {
-      let receiver = this.receiver.nativeElement.contentWindow;
-      $event.preventDefault()
-      if (!textDef)
-        textDef="";
-      //make Json to send to pm
-      let inputDef = {
-        textField: field,
-        textDef: textDef,
-        srcLang: Enums.LanguageCode[l],
-        currentLang: this.translateService.currentLang
-      };
+  openTextcat($event, field, l, textDef) {
+    let receiver = this.receiver.nativeElement.contentWindow;
+    $event.preventDefault()
+    if (!textDef)
+      textDef="";
+    //make Json to send to pm
+    let inputDef = {
+      textField: field,
+      textDef: textDef,
+      srcLang: Enums.LanguageCode[l],
+      currentLang: this.translateService.currentLang
+    };
 
-      let pmData = JSON.stringify(inputDef);
-      receiver.postMessage(pmData, '*');
+    let pmData = JSON.stringify(inputDef);
+    receiver.postMessage(pmData, '*');
 
-      this.showDialog();
-
+    this.showDialog();
   }
 
 
@@ -1301,6 +1302,7 @@ private setTexts() {
       this[pmData.textField+'En'] = pmData.textEn;
       this[pmData.textField+'Fr'] = pmData.textFr;
 
+      this.setTexts();
       this.hideDialog();
     }
   };
