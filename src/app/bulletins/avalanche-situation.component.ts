@@ -70,4 +70,20 @@ export class AvalancheSituationComponent {
         this.avalancheSituationModel.elevationLow = 0;
     }
   }
+
+  treelineHighClicked(event) {
+    event.stopPropagation();
+    if (this.avalancheSituationModel.treelineHigh)
+      this.avalancheSituationModel.treelineHigh = false;
+    else
+      this.avalancheSituationModel.treelineHigh = true;
+  }
+
+  treelineLowClicked(event) {
+    event.stopPropagation();
+    if (this.avalancheSituationModel.treelineLow)
+      this.avalancheSituationModel.treelineLow = false;
+    else
+      this.avalancheSituationModel.treelineLow = true;
+  }
 }

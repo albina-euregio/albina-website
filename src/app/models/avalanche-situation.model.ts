@@ -6,19 +6,25 @@ export class AvalancheSituationModel {
 	public avalancheSituation: Enums.AvalancheSituation;
 	public aspects: Enums.Aspect[];
 	public elevationHigh: number;
+	public treelineHigh: boolean;
 	public elevationLow: number;
+	public treelineLow: boolean;
 
 	constructor(avalancheSituation?: AvalancheSituationModel) {
 		this.aspects = new Array<Enums.Aspect>();
 
-		if (!avalancheSituation)
+		if (!avalancheSituation) {
 			this.avalancheSituation = undefined;
-		else {
+			this.treelineHigh = false;
+			this.treelineLow = false;
+		} else {
 			this.avalancheSituation = avalancheSituation.getAvalancheSituation();
 			for (let aspect of avalancheSituation.aspects)
 				this.addAspect(aspect);
 			this.elevationHigh = avalancheSituation.getElevationHigh();
+			this.treelineHigh = avalancheSituation.getTreelineHigh();
 			this.elevationLow = avalancheSituation.getElevationLow();
+			this.treelineLow = avalancheSituation.getTreelineLow();
 		}
 	}
 
@@ -64,12 +70,28 @@ export class AvalancheSituationModel {
 		this.elevationHigh = elevationHigh;
 	}
 
+	getTreelineHigh() {
+		return this.treelineHigh;
+	}
+
+	setTreelineHigh(treeline: boolean) {
+		this.treelineHigh = treeline;
+	}
+
 	getElevationLow() {
 		return this.elevationLow;
 	}
 
 	setElevationLow(elevationLow: number) {
 		this.elevationLow = elevationLow;
+	}
+
+	getTreelineLow() {
+		return this.treelineLow;
+	}
+
+	setTreelineLow(treeline: boolean) {
+		this.treelineLow = treeline;
 	}
 
 	toJson() {
@@ -84,10 +106,18 @@ export class AvalancheSituationModel {
 			}
 			json['aspects'] = aspects;
 		}
-		if (this.elevationHigh && this.elevationHigh != undefined)
-			json['elevationHigh'] = this.elevationHigh;
-		if (this.elevationLow && this.elevationLow != undefined)
-			json['elevationLow'] = this.elevationLow;
+		if (this.treelineHigh)
+			json['treelineHigh'] = this.treelineHigh;
+		else {
+			if (this.elevationHigh && this.elevationHigh != undefined)
+				json['elevationHigh'] = this.elevationHigh;
+		}
+		if (this.treelineLow)
+			json["treelineLow"] = this.treelineLow;
+		else {
+			if (this.elevationLow && this.elevationLow != undefined)
+				json['elevationLow'] = this.elevationLow;
+		}
 
 		return json;
 	}
@@ -103,7 +133,9 @@ export class AvalancheSituationModel {
 		}
 		avalancheSituation.setAspects(aspects);
 		avalancheSituation.elevationHigh = json.elevationHigh;
+		avalancheSituation.treelineHigh = json.treelineHigh;
 		avalancheSituation.elevationLow = json.elevationLow;
+		avalancheSituation.treelineLow = json.treelineLow;
 
 		return avalancheSituation;
 	}
