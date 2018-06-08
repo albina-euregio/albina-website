@@ -177,25 +177,25 @@ export class CreateBulletinComponent {
     this.isAccordionSnowpackStructureOpen = false;
     this.isAccordionTendencyOpen = false;
 
-        this.showTranslationsAvActivityHighlights = false;
-        this.showTranslationsAvActivityComment = false;
-        this.showTranslationsSnowpackStructureComment = false;
-        this.showTranslationsTendencyComment = false
+    this.showTranslationsAvActivityHighlights = false;
+    this.showTranslationsAvActivityComment = false;
+    this.showTranslationsSnowpackStructureComment = false;
+    this.showTranslationsTendencyComment = false
   }
 
   ngOnInit() {
 
     //for reload iframe on change language
-      this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
-        item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/c_pm.html?l=" + this.settingsService.getLangString())
-      );
+    this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
+      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.constantsService.textcatUrl + "?l=" + this.settingsService.getLangString())
+    );
 
     if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
 
       this.reset();
 
-//setting pm language for iframe
-      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl("http://albina.clesius.it/textcat/c_pm.html?l=" + this.settingsService.getLangString());
+      //setting pm language for iframe
+      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.constantsService.textcatUrl + "?l=" + this.settingsService.getLangString());
 
 
       // copy bulletins from other date
@@ -803,20 +803,37 @@ setShowTranslations(name: string) {
            this.deselectBulletin();
 
            this.activeBulletin = bulletin;
+           this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcat();
            this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
-           this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
            this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
-           this.activeAvActivityCommentIt = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it);
            this.activeAvActivityHighlightsEn = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.en);
-           this.activeAvActivityCommentEn = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en);
-           this.activeSnowpackStructureHighlightsDe = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.de);
-           this.activeSnowpackStructureCommentDe = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
-           this.activeSnowpackStructureHighlightsIt = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.it);
-           this.activeSnowpackStructureCommentIt = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
-           this.activeSnowpackStructureHighlightsEn = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.en);
-           this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
+           this.activeAvActivityHighlightsFr = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.fr);
 
-        this.mapService.selectAggregatedRegion(this.activeBulletin);
+           this.activeAvActivityCommentTextcat = this.activeBulletin.getAvActivityCommentTextcat();
+           this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
+           this.activeAvActivityCommentIt = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it);
+           this.activeAvActivityCommentEn = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en);
+           this.activeAvActivityCommentFr = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.fr);
+
+           this.activeSnowpackStructureHighlightsTextcat = this.activeBulletin.getSnowpackStructureHighlightsTextcat();
+           this.activeSnowpackStructureHighlightsDe = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.de);
+           this.activeSnowpackStructureHighlightsIt = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.it);
+           this.activeSnowpackStructureHighlightsEn = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.en);
+           this.activeSnowpackStructureHighlightsFr = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.fr);
+
+           this.activeSnowpackStructureCommentTextcat = this.activeBulletin.getSnowpackStructureCommentTextcat();
+           this.activeSnowpackStructureCommentDe = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
+           this.activeSnowpackStructureCommentIt = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
+           this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
+           this.activeSnowpackStructureCommentFr = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.fr);
+
+           this.activeTendencyCommentTextcat = this.activeBulletin.getTendencyCommentTextcat();
+           this.activeTendencyCommentDe = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.de);
+           this.activeTendencyCommentIt = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.it);
+           this.activeTendencyCommentEn = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.en);
+           this.activeTendencyCommentFr = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.fr);
+
+          this.mapService.selectAggregatedRegion(this.activeBulletin);
       }
     }
   }
@@ -825,7 +842,7 @@ setShowTranslations(name: string) {
     if (this.checkElevation()) {
         if (!this.editRegions) {
 
-    this.setTexts();
+          this.setTexts();
 
           if (this.activeAvActivityHighlightsTextcat)
             this.activeBulletin.setAvActivityHighlightsTextcat(this.activeAvActivityHighlightsTextcat);

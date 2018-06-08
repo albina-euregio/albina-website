@@ -278,7 +278,7 @@
                 <div class="form-group row">
                   <div style="margin-bottom: 10px;" class="col-md-12">
                     <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
-                      <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeAvActivityHighlights', this.settingsService.getLangString(),this.activeAvActivityHighlightsTextcat)"><i class="fa fa-pencil"></i></button>
+                      <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeAvActivityHighlights', this.settingsService.getLangString(), this.activeAvActivityHighlightsTextcat)"><i class="fa fa-pencil"></i></button>
                   </div>
 
                   <div class="col-md-12">
@@ -317,7 +317,7 @@
                 <div class="form-group row">
                   <div style="margin-bottom: 10px;" class="col-md-12">
                     <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
-                    <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeAvActivityComment', this.settingsService.getLangString(),activeAvActivityCommentTextcat)"><i class="fa fa-pencil"></i></button>
+                    <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeAvActivityComment', this.settingsService.getLangString(), activeAvActivityCommentTextcat)"><i class="fa fa-pencil"></i></button>
                   </div>
 
                   <div class="col-md-12">
@@ -397,8 +397,42 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <div style="width: 100%">
-                    <!--<cop [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [bulletin]="activeBulletin" [name]="'snowpackStructureComment'" [field]="'activeSnowpackStructureComment'"></cop>-->
+                  <div style="margin-bottom: 10px;" class="col-md-12">
+                    <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
+                      <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeSnowpackStructureComment', this.settingsService.getLangString(), this.activeSnowpackStructureCommentTextcat)"><i class="fa fa-pencil"></i></button>
+                  </div>
+
+                  <div class="col-md-12">
+                    <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentDe"></textarea>
+                    <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentIt"></textarea>
+
+                    <label *ngIf="showTranslationsSnowpackStructureComment" (click)="setShowTranslations('snowpackStructureComment')"><i class="fa fa-angle-up"></i>{{ "bulletins.create.title.hideTranslations" | translate }}</label>
+                    <label *ngIf="!showTranslationsSnowpackStructureComment" (click)="setShowTranslations('snowpackStructureComment')"><i class="fa fa-angle-down"></i>{{ "bulletins.create.title.showTranslations" | translate }}</label>
+
+                    <div *ngIf="showTranslationsSnowpackStructureComment" class="form-group row">
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentIt"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentDe"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentEn"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentFr"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </accordion-group>
@@ -438,8 +472,42 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <div style="width: 100%">
-                    <!--<cop [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [bulletin]="activeBulletin" [name]="'tendencyComment'" [field]="'activeTendencyComment'"></cop>-->
+                  <div style="margin-bottom: 10px;" class="col-md-12">
+                    <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.tendencyComment" | translate }}</strong></label>
+                      <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeTendencyComment', this.settingsService.getLangString(), this.activeTendencyCommentTextcat)"><i class="fa fa-pencil"></i></button>
+                  </div>
+
+                  <div class="col-md-12">
+                    <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentDe"></textarea>
+                    <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentIt"></textarea>
+
+                    <label *ngIf="showTranslationsTendencyComment" (click)="setShowTranslations('tendencyComment')"><i class="fa fa-angle-up"></i>{{ "bulletins.create.title.hideTranslations" | translate }}</label>
+                    <label *ngIf="!showTranslationsTendencyComment" (click)="setShowTranslations('tendencyComment')"><i class="fa fa-angle-down"></i>{{ "bulletins.create.title.showTranslations" | translate }}</label>
+
+                    <div *ngIf="showTranslationsTendencyComment" class="form-group row">
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentIt"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentDe"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentEn"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentFr"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </accordion-group>

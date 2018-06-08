@@ -19,6 +19,8 @@ export class ConstantsService {
   //public serverUrl: string = 'http://192.168.30.189:8080/albina/api/';
   //public socketIOUrl: string = 'http://192.168.30.189:9092';
 
+  public textcatUrl: string = 'http://albina.clesius.it/textcat/c_pm.html';
+
   public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';
   public natlefsServerUrl: string = 'https://natlefs.snowobserver.com/snowobserver/api/';
   public natlefsUsername: string = 'norbert.lanzanasto@tirol.gv.at';

@@ -85,7 +85,7 @@ export class BulletinModel {
 			this.avActivityHighlightsTextcat = undefined;
 			this.avActivityCommentTextcat = undefined;
 			this.snowpackStructureHighlightsTextcat = undefined;
-			this.getSnowpackStructureCommentTextcat = undefined;
+			this.snowpackStructureCommentTextcat = undefined;
 			this.tendencyCommentTextcat = undefined;
 			this.snowpackStructureHighlights = undefined;
 			this.snowpackStructureComment = undefined;
@@ -653,17 +653,6 @@ export class BulletinModel {
 		if (json.afternoon)
 			bulletin.setAfternoon(BulletinDaytimeDescriptionModel.createFromJson(json.afternoon));
 
-		//if (json.avActivityHighlightsTextcat)
-		//	bulletin.setAvActivityHighlightsTextcat(json.avActivityHighlightsTextcat);
-		if (json.avActivityCommentTextcat)
-			bulletin.setAvActivityCommentTextcat(json.avActivityCommentTextcat);
-		if (json.snowpackStructureHighlightsTextcat)
-			bulletin.setSnowpackStructureHighlightsTextcat(json.snowpackStructureHighlightsTextcat);
-		if (json.snowpackStructureCommentTextcat)
-			bulletin.setSnowpackStructureCommentTextcat(json.snowpackStructureCommentTextcat);
-		if (json.tendencyCommentTextcat)
-			bulletin.setTendencyCommentTextcat(json.tendencyCommentTextcat);
-
 		if (json.avActivityHighlightsTextcat)
 			bulletin.setAvActivityHighlightsTextcat(json.avActivityHighlightsTextcat);
 		let jsonAvActivityHighlights = json.avActivityHighlights;
@@ -700,8 +689,8 @@ export class BulletinModel {
 		}
 		bulletin.setSnowpackStructureComment(snowpackStructureComment);
 
-		if (json.tendencyComment)
-			bulletin.setTendencyComment(json.tendencyComment);
+		if (json.tendencyCommentTextcat)
+			bulletin.setTendencyCommentTextcat(json.tendencyCommentTextcat);
 		let jsonTendencyComment = json.tendencyComment;
 		let tendencyComment = new Array<TextModel>();
 		for (let i in jsonTendencyComment) {
