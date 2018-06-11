@@ -13,7 +13,7 @@ export default class WarnLevelIcon extends React.Component {
 
   render() {
     const elevText = this.props.elevation ? (this.props.elevation + 'm') : (
-      (this.props.treeline) ? (<span class="treeline"></span>) : ''
+      (this.props.treeline) ? (<span className="treeline">Waldgrenze</span>) : ''
     );
     const img = this.imgRoot + 'levels_' + this.props.below + '_' + this.props.above + '.png';
     const title = 'Warning ' + (

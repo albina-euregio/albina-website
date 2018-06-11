@@ -34,7 +34,7 @@ export default class ElevationIcon extends React.Component {
     const elevText = this.props.elevation ? (this.props.elevation[0] + 'm') : '';
 
     const src = this.imgRoot + this.icons[this.props.where];
-    const title = this.texts[this.props.where] + elevText;
+    const title = this.texts[this.props.where] + ' ' + elevText;
 
     return (
       <div className={classes.join(' ')} title={title}>

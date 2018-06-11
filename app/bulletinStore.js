@@ -42,6 +42,15 @@ class BulletinCollection {
     return null;
   }
 
+  get hasDaytimeDependency() {
+    if (this.status == 'ok' && this.dataRaw.length > 0) {
+      return this.dataRaw.reduce((acc, b) => {
+        return acc || b.hasDaytimeDependency;
+      }, false);
+    }
+    return false;
+  }
+
   get length() {
     return this.dataRaw ? this.dataRaw.length : 0;
   }

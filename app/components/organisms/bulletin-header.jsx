@@ -42,7 +42,7 @@ import {parseDate, dateToLongDateString} from '../../util/date.js';
         <header className="section-centered">
           <BulletinStatusLine store={this.props.store} status={this.props.store.settings.status} />
           <h2 className="subheader"><FormattedMessage id="bulletin:header:forecast" /></h2>
-          <h1 className="bulletin-datetime-validity">{this.date} <BulletinAmPmSwitch store={this.props.store} ampm={this.props.store.settings.ampm} /></h1>
+          <h1 className="bulletin-datetime-validity">{this.date} <BulletinAmPmSwitch store={this.props.store} /></h1>
           <BulletinDateFlipper store={this.props.store} date={this.props.store.settings.date} />
         </header>
       </section>
