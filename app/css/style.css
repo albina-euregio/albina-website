@@ -2810,6 +2810,10 @@ form {
   border-radius: 0;
 }
 
+.pure-form-search {
+  display: inline-block;
+}
+
 .pure-form-search input {
   width: 5em;
 }
@@ -5261,13 +5265,15 @@ $logo-interreg-width: 364px;
   display: flex;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
-  margin: 1.25rem 1.25rem 0.625rem 1.25rem;
+  margin: 1.25rem;
 }
 
 .bulletin-map-details ul li {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
   margin-right: 0.625rem;
 }
 
@@ -5465,6 +5471,10 @@ $logo-interreg-width: 364px;
   display: block;
   text-align: center;
   letter-spacing: 0.05em;
+}
+
+.section-bulletin-legend .list-legend li strong {
+  display: block;
 }
 
 .bulletin-report-pictobar {
@@ -5903,6 +5913,7 @@ $logo-interreg-width: 364px;
 }
 
 .controlbar .list-controlbar > li {
+  position: relative;
   vertical-align: top;
 }
 
