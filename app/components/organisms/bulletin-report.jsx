@@ -55,8 +55,11 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
       return (<div></div>);
     }
 
-    const date = dateToLongDateString(parseDate(this.props.store.settings.date)) + ' '
-      + (this.props.store.settings.ampm == 'am' ? 'AM' : 'PM');
+    const ampm = (bulletin.hasDaytimeDependency
+      ? ((this.props.store.settings.ampm == 'am') ? 'AM' : 'PM')
+      : '');
+    const date = dateToLongDateString(parseDate(this.props.store.settings.date))
+      + (ampm ? (' ' + ampm) : '');
 
     const warnlevels = {
       'above': bulletin.forenoon.dangerRatingAbove ? this.warnlevelNumbers[bulletin.forenoon.dangerRatingAbove] : 0,
@@ -72,7 +75,7 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
 
     const snowpackStructureText = bulletin.snowpackStructureCommentTextcat ?
       bulletin.snowpackStructureCommentTextcat : '';
-      
+
     const classes = 'panel field callout warning-level-' + warnlevel;
 
     return (
