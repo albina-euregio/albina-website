@@ -17,12 +17,11 @@ import {dateToDateTimeString} from '../../util/date.js';
 
     if(this.props.status == 'ok') {
       const date = dateToDateTimeString(collection.publicationDate);
-      if(collection.statusMessage == 'published') {
-        return 'Published ' + date;
-      }
+
       if(collection.statusMessage == 'republished') {
         return 'Updated ' + date;
       }
+      return 'Published ' + date;
     }
 
     return 'No Bulletin';
