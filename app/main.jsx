@@ -5,6 +5,7 @@ import Base from './base.js';
 import AppStore from './appStore.js';
 import ConfigStore from './configStore.js';
 import {addLocaleData} from 'react-intl';
+import {reaction} from 'mobx';
 import en from 'react-intl/locale-data/en';
 import de from 'react-intl/locale-data/de';
 import it from 'react-intl/locale-data/it';
@@ -28,7 +29,6 @@ window[
 require('./js/custom.js');
 
 // TODO: check content API for maintenance mode
-
 window['appStore'] = new AppStore();
 
 // clean cache
@@ -37,6 +37,27 @@ Base.cleanCache('./config.json');
 // request config.json before starting the app (do not cache config!)
 Base.doRequest('./config.json').then((configData) => {
   window['config'] = new ConfigStore(JSON.parse(configData));
+  const initialLang = window['appStore'].locale.value;
+
+  const languageDependentClassesHandler = reaction(
+    () => window['appStore'].locale.value,
+    (newLang) => {
+      const cl = document.body.className;
+      const d = cl.match(/domain-([a-z]{2})/);
+      const oldLang = (d && d.length == 2) ? d[1] : '';
+
+      if(oldLang) {
+        document.body.className = cl
+          .replace('domain-' + oldLang, 'domain-' + newLang)
+          .replace('language-' + oldLang, 'language-' + newLang);
+      }
+    }
+  );
+  document.body.className +=
+    (document.body.className ? ' ' : '')
+    + 'domain-' + initialLang
+    + ' language-' + initialLang;
+
   ReactDOM.render(
     <App />,
     document.body.appendChild(document.createElement('div'))
