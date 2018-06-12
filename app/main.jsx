@@ -42,15 +42,9 @@ Base.doRequest('./config.json').then((configData) => {
   const languageDependentClassesHandler = reaction(
     () => window['appStore'].locale.value,
     (newLang) => {
-      const cl = document.body.className;
-      const d = cl.match(/domain-([a-z]{2})/);
-      const oldLang = (d && d.length == 2) ? d[1] : '';
-
-      if(oldLang) {
-        document.body.className = cl
-          .replace('domain-' + oldLang, 'domain-' + newLang)
-          .replace('language-' + oldLang, 'language-' + newLang);
-      }
+      document.body.className = document.body.className
+        .replace(/domain-[a-z]{2}/, 'domain-' + newLang)
+        .replace(/language-[a-z]{2}/, 'language-' + newLang);
     }
   );
   document.body.className +=
