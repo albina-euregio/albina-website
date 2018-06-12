@@ -98,7 +98,7 @@ class BulletinMap extends React.Component {
                 <ProblemIconLink problem={'wind_drifted_snow'} />
               </li>
               <li>
-                <ProblemIconLink problem={'old_snow'} />
+                <ProblemIconLink problem={'weak_persistent_layer'} />
               </li>
             </ul>
             <a
