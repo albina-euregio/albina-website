@@ -12,7 +12,7 @@ export default class ProblemIconLink extends React.Component {
     this.problemTexts = {
       'new_snow': {en: 'New Snow'},
       'wind_drifted_snow': {en: 'Drifting Snow'},
-      'old_snow': {en: 'Old Snow'},
+      'weak_persistent_layer': {en: 'Weak Persistent Layer'},
       'wet_snow': {en: 'Wet Snow'},
       'gliding_snow': {en: 'Gliding Snow'}
     }

@@ -90,7 +90,7 @@ class BulletinStore {
     this.problems = observable({
       'new_snow': { active: true },
       'wind_drifted_snow': { active: true },
-      'old_snow': { active: true },
+      'weak_persistent_layer': { active: true },
       'wet_snow': { active: true },
       'gliding_snow': { active: true }
     });

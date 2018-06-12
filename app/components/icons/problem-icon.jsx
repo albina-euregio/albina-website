@@ -14,7 +14,7 @@ export default class ProblemIcon extends React.Component {
     this.problems = {
       'new_snow': {color: 'New_snow.png', grey: 'new_snow_grey.png'},
       'wind_drifted_snow': {color: 'Drifting_Snow.png', grey: 'drifting_snow_grey.png'},
-      'old_snow': {color: 'Old_Snow.png', grey: 'old_snow_grey.png'},
+      'weak_persistent_layer': {color: 'Old_Snow.png', grey: 'old_snow_grey.png'},
       'wet_snow': {color: 'Wet_Snow.png', grey: 'wet_snow_grey.png'},
       'gliding_snow': {color: 'gliding_snow.png', grey: 'gliding_snow_grey.png'},
     };
