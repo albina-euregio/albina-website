@@ -15,11 +15,17 @@ import {dateToDateTimeString} from '../../util/date.js';
       return 'Loading\u2026';
     }
 
-    if(this.props.status != 'ok') {
-      return 'No Bulletin';
+    if(this.props.status == 'ok') {
+      const date = dateToDateTimeString(collection.publicationDate);
+      if(collection.statusMessage == 'published') {
+        return 'Published ' + date;
+      }
+      if(collection.statusMessage == 'republished') {
+        return 'Updated ' + date;
+      }
     }
 
-    return 'Published ' + dateToDateTimeString(collection.publicationDate);
+    return 'No Bulletin';
   }
 
   render() {

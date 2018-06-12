@@ -5,11 +5,13 @@ import { parseDate } from './util/date.js';
 class BulletinCollection {
   date;
   status;
+  statusMessage;
   dataRaw;
 
   constructor(date) {
     this.date = date;
     this.status = 'pending';
+    this.statusMessage = '';
     this.dataRaw = null;
   }
 
@@ -65,6 +67,12 @@ class BulletinCollection {
       typeof data === 'object' ? (data.length > 0 ? 'ok' : 'empty') : 'n/a';
   }
 
+  setStatusData(data) {
+    this.statusMessage =
+      (typeof data === 'object' && data.length == 1 && data[0].status)
+        ? data[0].status : '';
+  }
+
   toString() {
     return JSON.stringify(this.dataRaw);
   }
@@ -109,10 +117,15 @@ class BulletinStore {
   @action
   load(date, activate = true) {
     if (date) {
-      const url =
+      const dateParam = encodeURIComponent(date + 'T00:00:00+02:00');
+      const urlBulletin = config.get('apis.bulletin') + '?date=' + dateParam;
+      const urlStatus =
         config.get('apis.bulletin') +
-        '?date=' +
-        encodeURIComponent(date + 'T00:00:00+02:00');
+        '/status?startDate=' + dateParam +
+        '&endDate=' + dateParam +
+        '&region=IT-32-BZ';
+      //const urlGeoJSON = config.get('apis.geo') + '/awmaps/' + date + '/regions.geojson';
+
       if (this.bulletins[date]) {
         if (activate) {
           this.activate(date);
@@ -125,8 +138,9 @@ class BulletinStore {
           this.activate(date);
         }
 
-        return Base.doRequest(url)
-          .then(
+        return Promise.all([
+          Base.doRequest(urlBulletin).then(
+            // query bulletin data
             response => {
               this.bulletins[date].setData(JSON.parse(response));
             },
@@ -136,13 +150,25 @@ class BulletinStore {
               );
               this.bulletins[date].setData(null);
             }
-          )
-          .then(() => {
-            if (activate && this.settings.date == date) {
-              // reactivate to notify status change
-              this.activate(date);
+          ),
+          Base.doRequest(urlStatus).then(
+            // query status data
+            response => {
+              this.bulletins[date].setStatusData(JSON.parse(response));
+            },
+            error => {
+              console.error(
+                'Cannot load bulletin status for date ' + date + ': ' + error
+              );
+              this.bulletins[date].setStatusData(null);
             }
-          });
+          )
+        ]).then(() => {
+          if (activate && this.settings.date == date) {
+            // reactivate to notify status change
+            this.activate(date);
+          }
+        });
       }
     }
   }
