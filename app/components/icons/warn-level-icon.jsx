@@ -1,6 +1,8 @@
 import React from 'react';
+import {inject} from 'mobx-react';
+import {injectIntl, FormattedMessage} from 'react-intl';
 
-export default class WarnLevelIcon extends React.Component {
+class WarnLevelIcon extends React.Component {
   imgRoot;
 
   constructor(props) {
@@ -13,7 +15,9 @@ export default class WarnLevelIcon extends React.Component {
 
   render() {
     const elevText = this.props.elevation ? (this.props.elevation + 'm') : (
-      (this.props.treeline) ? (<span className="treeline">Waldgrenze</span>) : ''
+      (this.props.treeline)
+        ? (<span className="treeline"><FormattedMessage id="treeline" /></span>)
+        : ''
     );
     const below = (this.props.elevation || this.props.treeline) ? this.props.below : this.props.above;
 
@@ -32,3 +36,4 @@ export default class WarnLevelIcon extends React.Component {
     );
   }
 }
+export default inject('locale')(injectIntl(WarnLevelIcon));

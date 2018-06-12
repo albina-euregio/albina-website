@@ -1,14 +1,17 @@
 {
   "en": {
     "home": "home",
+    "treeline": "Tree line",
     "bulletin:header:forecast": "Avalanche Forecast"
   },
   "de": {
     "home": "Zuhause",
+    "treeline": "Waldgrenze",
     "bulletin:header:forecast": "Lawinenprognose"
   },
   "it": {
     "home": "casa",
+    "treeline": "Limite del bosco",
     "bulletin:header:forecast": "Avalanche Forecast"
   }
 }
