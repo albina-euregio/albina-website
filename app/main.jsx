@@ -14,7 +14,6 @@ addLocaleData([...en, ...de, ...it]);
 window['jQuery'] = window['$'] = require('jquery');
 require('./bower_components/jquery-selectric/public/jquery.selectric.min.js');
 require('./bower_components/tilt_1.1.19/dest/tilt.jquery.min.js');
-require('./bower_components/animejs_2.2.0/anime.min.js');
 require('./bower_components/magnific-popup_1.1.0/dist/jquery.magnific-popup.min.js');
 window[
   'SweetScroll'

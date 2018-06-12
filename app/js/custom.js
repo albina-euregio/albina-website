@@ -2,7 +2,7 @@
 	Creating Your Web
 	www.transporter.at
 */
-
+import anime from 'animejs';
 
 
 /* !dom loaded?
@@ -25,29 +25,29 @@ $(function () {
 
 
 		//DOM objects global init
-		page_window = $(window);
-		page_html_body = $("html, body");
-		page_html = $("html");
-		page_body = $("body");
+		window['page_window'] = $(window);
+		window['page_html_body'] = $("html, body");
+		window['page_html'] = $("html");
+		window['page_body'] = $("body");
 
-		page_loading_screen = $(".page-loading-screen");
-		page_all = $(".page-all");
-		page_header = $(".page-header");
-		page_header_logo = $(".page-header-logo");
-		page_main = $(".page-main");
-		page_main_star = $(".page-main > *");
-		page_footer = $(".page-footer");
+		window['page_loading_screen'] = $(".page-loading-screen");
+		window['page_all'] = $(".page-all");
+		window['page_header'] = $(".page-header");
+		window['page_header_logo'] = $(".page-header-logo");
+		window['page_main'] = $(".page-main");
+		window['page_main_star'] = $(".page-main > *");
+		window['page_footer'] = $(".page-footer");
 
 
-		navigation_trigger = $(".navigation-trigger");
-		navigation = $(".navigation");
-		navigation_li = $(".navigation li");
+		window['navigation_trigger'] = $(".navigation-trigger");
+		window['navigation'] = $(".navigation");
+		window['navigation_li'] = $(".navigation li");
 
-		modal_trigger = $(".modal-trigger");
-		accordion = $(".accordion");
+		window['modal_trigger'] = $(".modal-trigger");
+		window['accordion'] = $(".accordion");
 
 		//global variables
-		scroll_duration = 1000;
+		window['scroll_duration'] = 1000;
 
 		//init functions
 		detect_browser();
@@ -103,11 +103,11 @@ function scroll_position() {
 }
 
 function detect_browser() {
-	is_chrome = navigator.userAgent.indexOf('Chrome') > -1;
-	is_explorer = navigator.userAgent.indexOf('MSIE') > -1;
-	is_firefox = navigator.userAgent.indexOf('Firefox') > -1;
-	is_safari = navigator.userAgent.indexOf("Safari") > -1;
-	is_opera = navigator.userAgent.toLowerCase().indexOf("op") > -1;
+	window['is_chrome'] = navigator.userAgent.indexOf('Chrome') > -1;
+	window['is_explorer'] = navigator.userAgent.indexOf('MSIE') > -1;
+	window['is_firefox'] = navigator.userAgent.indexOf('Firefox') > -1;
+	window['is_safari'] = navigator.userAgent.indexOf("Safari") > -1;
+	window['is_opera'] = navigator.userAgent.toLowerCase().indexOf("op") > -1;
 	if ((is_chrome)&&(is_safari)) { is_safari = false; }
 	if ((is_chrome)&&(is_opera)) { is_chrome = false; }
 }
@@ -200,7 +200,7 @@ const easeInOutBounce = (x, t, b, c, d) => (
 */
 
 function scroll_init() {
-	sweetScroll = new SweetScroll({
+	window['sweetScroll'] = new SweetScroll({
 		trigger: "[data-scroll]",			// Selector for trigger (must be a valid css selector)
 		header: "",//"[data-scroll-header]",		// Selector or Element for fixed header (Selector of must be a valid css selector)
 		duration: scroll_duration,			// Specifies animation duration in integer
@@ -383,17 +383,17 @@ function modal_init() {
 function modal_open(modal) {
 
 	if (modal.hasClass("mfp-iframe")) {
-		modal_type = "iframe";
+		window['modal_type'] = "iframe";
 	} else if (modal.hasClass("mfp-image")) {
-		modal_type = "image";
+		window['modal_type'] = "image";
 	} else if (modal.hasClass("mfp-ajax")) {
-		modal_type = "ajax";
+		window['modal_type'] = "ajax";
 	} else {
-		modal_type = "inline";
+		window['modal_type'] = "inline";
 	}
 
-	modal_url = modal.attr("href");
-	modal_title = modal.attr("title");
+	window['modal_url'] = modal.attr("href");
+	window['modal_title'] = modal.attr("title");
 
 	modal.magnificPopup({
 
@@ -615,7 +615,7 @@ function accordion_init () {
 function tilt_init() {
 	if (!is_safari) {
 		//delete my_tilts;
-		my_tilts = $("[data-tilty]");
+		window['my_tilts'] = $("[data-tilty]");
 		if (my_tilts.length) {
 			my_tilts.tilt({
 				speed: scroll_duration / 2,
