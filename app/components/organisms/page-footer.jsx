@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { inject } from 'mobx-react';
+import { injectIntl, FormattedMessage} from 'react-intl';
 import SmShare from './sm-share.jsx';
 
-export default class PageFooter extends React.Component {
+class PageFooter extends React.Component {
   render() {
     return (
       <div id="page-footer" className="page-footer">
@@ -17,7 +19,7 @@ export default class PageFooter extends React.Component {
                 <li><Link to="/imprint">Imprint</Link></li>
               </ul>
               <ul className="list-plain footer-navigation footer-navigation-main">
-                <li><Link to="/bulletin">Avalanche Bulletin <small>Home</small></Link></li>
+                <li><Link to="/bulletin">Avalanche Bulletin <small><FormattedMessage id="home" /></small></Link></li>
                 <li><Link to="/weather">Snow &amp; Weather</Link></li>
                 <li><Link to="/education">Education &amp; Prevention</Link></li>
                 <li><Link to="/blog">Blog</Link></li>
@@ -45,3 +47,4 @@ export default class PageFooter extends React.Component {
     );
   }
 }
+export default inject('locale')(injectIntl(PageFooter));
