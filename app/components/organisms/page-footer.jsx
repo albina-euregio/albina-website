@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SmShare from './sm-share.jsx';
 
 export default class PageFooter extends React.Component {
@@ -11,15 +12,15 @@ export default class PageFooter extends React.Component {
               <ul className="list-inline footer-navigation footer-navigation-more">
                 <li><a href="#" className title>Archive</a></li>
                 <li><a href="#" className title>API</a></li>
-                <li><a href="./about" className title>About</a></li>
-                <li><a href="./contact" className title>Contact</a></li>
-                <li><a href="./imprint" className title>Imprint</a></li>
+                <li><Link to="/about">About</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
+                <li><Link to="/imprint">Imprint</Link></li>
               </ul>
               <ul className="list-plain footer-navigation footer-navigation-main">
-                <li><a href="./bulletin" className=" " title>Avalanche Bulletin <small>Home</small></a></li>
-                <li><a href="./weather" className=" has-sub" title>Snow &amp; Weather</a></li>
-                <li><a href="./education" className=" has-sub" title>Education &amp; Prevention</a></li>
-                <li><a href="./blog" className title>Blog</a></li>
+                <li><Link to="/bulletin">Avalanche Bulletin <small>Home</small></Link></li>
+                <li><Link to="/weather">Snow &amp; Weather</Link></li>
+                <li><Link to="/education">Education &amp; Prevention</Link></li>
+                <li><Link to="/blog">Blog</Link></li>
                 <li><a href="#" className=" has-sub" title>More</a></li>
               </ul>
             </div>

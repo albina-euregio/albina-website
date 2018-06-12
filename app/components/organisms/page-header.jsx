@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { injectIntl, FormattedMessage} from 'react-intl';
 
@@ -7,7 +8,7 @@ class PageHeader extends React.Component {
     super(props);
   }
 
-  handleChangeLanguage = (newLanguage)  => {
+  handleChangeLanguage = (newLanguage) => {
     window['appStore'].language = newLanguage;
   };
 
@@ -27,15 +28,15 @@ class PageHeader extends React.Component {
         <div className="page-header-navigation">
           <ul className="list-plain navigation">
             <li>
-              <a href="./bulletin" className=" " title>
+              <Link to="/bulletin">
                 Avalanche Bulletin{' '}
                 <small><FormattedMessage id="home" /></small>
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="./weather" className=" has-sub" title>
+              <Link to="/weather">
                 Snow &amp; Weather
-              </a>
+              </Link>
               <ul className="list-plain subnavigation">
                 <li>
                   <a href="#" className title>
@@ -75,9 +76,9 @@ class PageHeader extends React.Component {
               </ul>
             </li>
             <li>
-              <a href="./education" className=" has-sub" title>
+              <Link to="/education">
                 Education &amp; Prevention
-              </a>
+              </Link>
               <ul className="list-plain subnavigation">
                 <li>
                   <a href="#" className title>
@@ -122,9 +123,9 @@ class PageHeader extends React.Component {
               </ul>
             </li>
             <li>
-              <a href="./blog" className title>
+              <Link to="/blog">
                 Blog
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" className=" has-sub" title>
@@ -142,19 +143,19 @@ class PageHeader extends React.Component {
                   </a>
                 </li>
                 <li>
-                  <a href="./about" className title>
+                  <Link to="/about">
                     About
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="./contact" className title>
+                  <Link to="/contact">
                     Contact
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="./imprint" className title>
+                  <Link to="/imprint">
                     Imprint
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>
