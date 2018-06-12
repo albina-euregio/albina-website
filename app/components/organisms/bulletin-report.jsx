@@ -23,10 +23,19 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
   }
 
   @computed
+  get daytimeBulletin() {
+    const bulletin = this.props.store.activeBulletin;
+    const daytime =
+      (bulletin.hasDaytimeDependency && this.props.store.settings.ampm == 'pm')
+        ? 'afternoon'
+        : 'forenoon';
+    return bulletin[daytime];
+  }
+
+  @computed
   get problems() {
     const problems = [];
-    const daytime = (this.props.store.settings.ampm == 'pm') ? 'afternoon' : 'forenoon';
-    const bulletin = this.props.store.activeBulletin[daytime];
+    const bulletin = this.daytimeBulletin;
     if(bulletin.avalancheSituation1 && bulletin.avalancheSituation1.avalancheSituation) {
       problems.push(bulletin.avalancheSituation1);
     }
@@ -55,6 +64,8 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
       return (<div></div>);
     }
 
+    const bulletinDaytime = this.daytimeBulletin;
+      
     const ampm = (bulletin.hasDaytimeDependency
       ? ((this.props.store.settings.ampm == 'am') ? 'AM' : 'PM')
       : '');
@@ -62,8 +73,8 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
       + (ampm ? (' ' + ampm) : '');
 
     const warnlevels = {
-      'above': bulletin.forenoon.dangerRatingAbove ? this.warnlevelNumbers[bulletin.forenoon.dangerRatingAbove] : 0,
-      'below': bulletin.forenoon.dangerRatingBelow ? this.warnlevelNumbers[bulletin.forenoon.dangerRatingBelow] : 0
+      'above': bulletinDaytime.dangerRatingAbove ? this.warnlevelNumbers[bulletinDaytime.dangerRatingAbove] : 0,
+      'below': bulletinDaytime.dangerRatingBelow ? this.warnlevelNumbers[bulletinDaytime.dangerRatingBelow] : 0
     };
     const warnlevel = Math.max(...Object.values(warnlevels));
     const elevation = (bulletin.hasElevationDependency && !bulletin.treeline) ? bulletin.elevation : null;
