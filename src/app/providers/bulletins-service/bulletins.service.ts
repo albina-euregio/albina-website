@@ -58,7 +58,7 @@ export class BulletinsService {
       this.removeLockedRegion(message.region, date);
   
       let observableBatch = [];
-
+/*
       observableBatch.push(this.getStatus(this.constantsService.codeTyrol, date));
       observableBatch.push(this.getStatus(this.constantsService.codeSouthTyrol, date));
       observableBatch.push(this.getStatus(this.constantsService.codeTrentino, date));
@@ -73,6 +73,7 @@ export class BulletinsService {
           console.error("Status could not be loaded!");
         }
       );
+*/
     }.bind(this));
 
 /*
