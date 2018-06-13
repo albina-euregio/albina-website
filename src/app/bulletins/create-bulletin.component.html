@@ -243,14 +243,14 @@
                 <bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
               </accordion-group>
               <!-- Avalanche situation -->
-              <accordion-group [isOpen]="isAccordionAvalancheSituationOpen" (isOpenChange)="accordionChanged($event, 'avalancheSituation')">
+              <accordion-group [isOpen]="isAccordionAvalancheSituationOpen" (isOpenChange)="accordionChanged($event, 'avalancheSituation')" style="padding-bottom: 0">
                 <div accordion-heading class="clearfix">
                   <i *ngIf="!isAccordionAvalancheSituationOpen" class="fa fa-angle-down"></i>
                   <i *ngIf="isAccordionAvalancheSituationOpen" class="fa fa-angle-up"></i>
                   <strong>{{ "bulletins.create.title.avalancheSituation" | translate }}</strong>
                 </div>
                 <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                  <div class="form-group row">
+                  <div class="form-group row" style="margin-bottom: 0">
                     <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
                       <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="disabled" [label]="'avalancheSituation1'"></avalanche-situation>
                       <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="disabled" [label]="'avalancheSituation2'"></avalanche-situation>
@@ -314,7 +314,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" style="margin-bottom: 0">
                   <div style="margin-bottom: 10px;" class="col-md-12">
                     <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
                     <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeAvActivityComment', this.settingsService.getLangString(), activeAvActivityCommentTextcat)"><i class="fa fa-pencil"></i></button>
@@ -396,7 +396,7 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" style="margin-bottom: 0">
                   <div style="margin-bottom: 10px;" class="col-md-12">
                     <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
                       <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeSnowpackStructureComment', this.settingsService.getLangString(), this.activeSnowpackStructureCommentTextcat)"><i class="fa fa-pencil"></i></button>
@@ -471,7 +471,7 @@
                     </table>
                   </div>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row" style="margin-bottom: 0">
                   <div style="margin-bottom: 10px;" class="col-md-12">
                     <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.tendencyComment" | translate }}</strong></label>
                       <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeTendencyComment', this.settingsService.getLangString(), this.activeTendencyCommentTextcat)"><i class="fa fa-pencil"></i></button>
