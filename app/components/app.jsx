@@ -38,49 +38,24 @@ class App extends React.Component {
         },
         routes: [
           {
-            path: '/bulletin',
+            path: '/bulletin/:date?',
             component: Bulletin,
-            indexRoute: {
-              component: Bulletin
-            }
           },
           {
             path: '/weather',
             component: Weather,
-            indexRoute: {
-              component: Weather
-            }
           },
           {
             path: '/education',
             component: Education,
-            indexRoute: {
-              component: Education
-            }
-          },
-          {
-            path: '/info',
-            component: StaticPage,
-            childRoutes: [
-              {
-                path: '/info/:site',
-                component: StaticPage
-              }
-            ]
           },
           {
             path: '/blog',
             component: Blog,
-            indexRoute: {
-              component: Blog
-            }
           },
           {
             path: '/:name',
             component: StaticPage,
-            indexRoute: {
-              component: StaticPage
-            }
           }
         ]
       }

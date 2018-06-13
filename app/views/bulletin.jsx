@@ -7,22 +7,32 @@ import BulletinButtonbar from '../components/organisms/bulletin-buttonbar.jsx';
 import BulletinReport from '../components/organisms/bulletin-report.jsx';
 import SmShare from '../components/organisms/sm-share.jsx';
 import Context from '../components/organisms/context.jsx';
+import { withRouter } from 'react-router-dom';
+import { reaction } from 'mobx';
 
-export default class Bulletin extends React.Component {
+class Bulletin extends React.Component {
   constructor(props) {
     super(props);
-    this.store = new BulletinStore();
     if (typeof window.bulletinStore === 'undefined') {
-      window.bulletinStore = this.store;
+      window.bulletinStore = new BulletinStore();
     }
+    this.store = window.bulletinStore;
   }
 
   componentDidMount() {
+    // automatically update url
+    const urlHandler = reaction(
+      () => this.store.settings.date,
+      (date) => {
+        this.props.history.push('/bulletin/' + date);
+      }
+    );
+
     return this._fetchData(this.props);
   }
 
   _fetchData(props) {
-    const startDate = '2018-06-07'; // TODO: should be current date
+    const startDate = (this.store.settings.date) ? this.store.settings.date : '2018-06-07'; // TODO: should be current date
     return this.store.load(startDate);
   }
 
@@ -41,3 +51,4 @@ export default class Bulletin extends React.Component {
     );
   }
 }
+export default withRouter(Bulletin);
