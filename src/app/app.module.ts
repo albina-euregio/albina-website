@@ -39,7 +39,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { HttpModule, Http } from '@angular/http';
 
-import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, ModalModule } from 'ngx-bootstrap';
 
 
 export function createTranslateLoader(http: Http) {
@@ -57,6 +57,7 @@ export function createTranslateLoader(http: Http) {
     HttpModule,
     BrowserAnimationsModule,
     PipeModule.forRoot(),
+    ModalModule.forRoot(),
     TranslateModule.forRoot({ 
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
