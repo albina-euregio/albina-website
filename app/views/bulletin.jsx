@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import { reaction } from 'mobx';
 import {BulletinStore} from '../bulletinStore.js';
 import BulletinHeader from '../components/organisms/bulletin-header.jsx';
 import BulletinMap from '../components/organisms/bulletin-map.jsx';
@@ -7,8 +9,7 @@ import BulletinButtonbar from '../components/organisms/bulletin-buttonbar.jsx';
 import BulletinReport from '../components/organisms/bulletin-report.jsx';
 import SmShare from '../components/organisms/sm-share.jsx';
 import Context from '../components/organisms/context.jsx';
-import { withRouter } from 'react-router-dom';
-import { reaction } from 'mobx';
+import { parseDate } from '../util/date.js';
 
 class Bulletin extends React.Component {
   constructor(props) {
@@ -32,7 +33,11 @@ class Bulletin extends React.Component {
   }
 
   _fetchData(props) {
-    const startDate = (this.store.settings.date) ? this.store.settings.date : '2018-06-07'; // TODO: should be current date
+    const startDate = (props.match.params.date && parseDate(props.match.params.date))
+      ? props.match.params.date : (
+        this.store.settings.date ? this.store.settings.date : '2018-06-07' // TODO: should be current date
+      );
+    //console.log('StartDate: ' + startDate + ' Param: ' + props.match.params.date);
     return this.store.load(startDate);
   }
 
