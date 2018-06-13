@@ -1,4 +1,4 @@
-import { Component, Input, HostListener, ViewChild, ElementRef, NgZone, ApplicationRef } from '@angular/core';
+import { Component, Input, HostListener, ViewChild, ElementRef, NgZone, ApplicationRef, TemplateRef } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinDaytimeDescriptionModel } from '../models/bulletin-daytime-description.model';
@@ -18,6 +18,8 @@ import { UUID } from 'angular2-uuid';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
 import { BehaviorSubject } from 'rxjs/Rx';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 import "leaflet";
 import "leaflet.sync";
@@ -94,20 +96,50 @@ export class CreateBulletinComponent {
   public showTranslationsSnowpackStructureComment: boolean;
   public showTranslationsTendencyComment: boolean;
 
-   public pmUrl: SafeUrl;
-    @ViewChild('receiver') receiver: ElementRef;
-    stopListening: Function;
-    display: boolean = false;
+  public loadingErrorModalRef: BsModalRef;
+  @ViewChild('loadingErrorTemplate') loadingErrorTemplate: TemplateRef<any>;
 
-    showDialog() {
-      this.display = true;
-    }
+  public loadModalRef: BsModalRef;
+  @ViewChild('loadTemplate') loadTemplate: TemplateRef<any>;
 
-    hideDialog() {
-      this.display = false;
-    }
-    //tra le proprietà del componente
-    eventSubscriber: Subscription;
+  public deleteAggregatedRegionModalRef: BsModalRef;
+  @ViewChild('deleteAggregatedRegionTemplate') deleteAggregatedRegionTemplate: TemplateRef<any>;
+
+  public noRegionModalRef: BsModalRef;
+  @ViewChild('noRegionTemplate') noRegionTemplate: TemplateRef<any>;
+
+  public discardModalRef: BsModalRef;
+  @ViewChild('discardTemplate') discardTemplate: TemplateRef<any>;
+
+  public saveErrorModalRef: BsModalRef;
+  @ViewChild('saveErrorTemplate') saveErrorTemplate: TemplateRef<any>;
+
+  public changeErrorModalRef: BsModalRef;
+  @ViewChild('changeErrorTemplate') changeErrorTemplate: TemplateRef<any>;
+
+  public noElevationModalRef: BsModalRef;
+  @ViewChild('noElevationTemplate') noElevationTemplate: TemplateRef<any>;
+
+  public config = {
+    keyboard: true,
+    class: 'modal-sm'
+  };
+
+  public pmUrl: SafeUrl;
+
+  @ViewChild('receiver') receiver: ElementRef;
+  stopListening: Function;
+  display: boolean = false;
+
+  showDialog() {
+    this.display = true;
+  }
+
+  hideDialog() {
+    this.display = false;
+  }
+  //tra le proprietà del componente
+  eventSubscriber: Subscription;
 
   constructor(
     private translate: TranslateService,
@@ -124,7 +156,8 @@ export class CreateBulletinComponent {
     private ngZone: NgZone,
     private applicationRef: ApplicationRef,
     private sanitizer: DomSanitizer,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private modalService: BsModalService
   ) {
     this.loading = true;
     this.showAfternoonMap = false;
@@ -216,29 +249,14 @@ export class CreateBulletinComponent {
               error => {
                 console.error("Foreign bulletins could not be loaded!");
                 this.loading = false;
-                this.confirmationService.confirm({
-                  key: "loadingErrorDialog",
-                  header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
-                  message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
-                  accept: () => {
-                    this.goBack();
-                  }
-                });
+                this.openLoadingErrorModal(this.loadingErrorTemplate);
               }
             );
           },
           error => {
             console.error("Own bulletins could not be loaded!");
             this.loading = false;
-            this.confirmationService.confirm({
-              key: "loadingErrorDialog",
-              header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
-              message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
-              accept: () => {
-                this.loading = false;
-                this.goBack();
-              }
-            });
+            this.openLoadingErrorModal(this.loadingErrorTemplate);
           }
         );
 
@@ -286,15 +304,8 @@ export class CreateBulletinComponent {
           },
           error => {
             console.error("Bulletins could not be loaded!");
-            this.confirmationService.confirm({
-              key: "loadingErrorDialog",
-              header: this.translateService.instant("bulletins.create.loadingErrorDialog.header"),
-              message: this.translateService.instant("bulletins.create.loadingErrorDialog.message"),
-              accept: () => {
-                this.loading = false;
-                this.goBack();
-              }
-            });
+            this.loading = false;
+            this.openLoadingErrorModal(this.loadingErrorTemplate);
           }
         );
       }
@@ -608,51 +619,7 @@ export class CreateBulletinComponent {
   }
 
   loadBulletinsFromYesterday() {
-    this.confirmationService.confirm({
-      key: "loadDialog",
-      header: this.translateService.instant("bulletins.create.loadDialog.header"),
-      message: this.translateService.instant("bulletins.create.loadDialog.message"),
-      accept: () => {
-        this.loading = true;
-
-        let date = new Date();
-        date.setHours(0, 0, 0, 0);
-        var dateOffset = (24 * 60 * 60 * 1000) * 1;
-        date.setTime(this.bulletinsService.getActiveDate().getTime() - dateOffset);
-
-        let regions = new Array<String>();
-        regions.push(this.authenticationService.getUserRegion());
-
-        this.bulletinsService.loadBulletins(date, regions).subscribe(
-          data => {
-
-            // TODO delete own regions
-            let entries = new Array<BulletinModel>();
-
-            for (let bulletin of this.bulletinsList) {
-              if (bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
-                entries.push(bulletin);
-            }
-            for (let entry of entries)
-              this.delBulletin(entry);
-
-            this.copyBulletins(data.json());
-            this.loading = false;
-          },
-          error => {
-            this.confirmationService.confirm({
-              key: "loadingBulletinsErrorDialog",
-              header: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.header"),
-              message: this.translateService.instant("bulletins.create.loadingBulletinsErrorDialog.message"),
-              accept: () => {
-                this.loading = false;
-                this.goBack();
-              }
-            });
-          }
-        );
-      }
-    });
+    this.openLoadModal(this.loadTemplate);
   }
 
   // create a copy of every bulletin (with new id)
@@ -936,16 +903,9 @@ export class CreateBulletinComponent {
   }
 
   private checkElevation(): boolean {
-    if (this.activeBulletin && this.activeBulletin.hasElevationDependency && !this.activeBulletin.treeline && (this.activeBulletin.elevation == undefined || this.activeBulletin.elevation <= 0)) {
-      this.confirmationService.confirm({
-        key: "noElevationDialog",
-        header: this.translateService.instant("bulletins.create.noElevationDialog.header"),
-        message: this.translateService.instant("bulletins.create.noElevationDialog.message"),
-        accept: () => {
-          return false;
-        }
-      });
-    } else
+    if (this.activeBulletin && this.activeBulletin.hasElevationDependency && !this.activeBulletin.treeline && (this.activeBulletin.elevation == undefined || this.activeBulletin.elevation <= 0))
+      this.openNoElevationModal(this.noElevationTemplate);
+    else
       return true;
   }
 
@@ -1010,18 +970,7 @@ private setTexts() {
 
   deleteBulletin(event, bulletin: BulletinModel) {
     event.stopPropagation();
-
-    this.confirmationService.confirm({
-      key: "deleteAggregatedRegionDialog",
-      header: this.translateService.instant("bulletins.create.deleteAggregatedRegionDialog.header"),
-      message: this.translateService.instant("bulletins.create.deleteAggregatedRegionDialog.message"),
-      accept: () => {
-        this.delBulletin(bulletin);
-
-        // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
-
-      }
-    });
+    this.openDeleteAggregatedRegionModal(this.deleteAggregatedRegionTemplate);
   }
 
   private delBulletin(bulletin: BulletinModel) {
@@ -1108,15 +1057,8 @@ private setTexts() {
 
       // TODO unlock whole day in TN
 
-    } else {
-      this.confirmationService.confirm({
-        key: "noRegionDialog",
-        header: this.translateService.instant("bulletins.create.noRegionDialog.header"),
-        message: this.translateService.instant("bulletins.create.noRegionDialog.message"),
-        accept: () => {
-        }
-      });
-    }
+    } else
+      this.openNoRegionModal(this.noRegionTemplate);
   }
 
   private updateAggregatedRegions() {
@@ -1211,13 +1153,7 @@ private setTexts() {
             error => {
               this.loading = false;
               console.error("Bulletins could not be changed on server!");
-              this.confirmationService.confirm({
-                key: "changeErrorDialog",
-                header: this.translateService.instant("bulletins.create.changeErrorDialog.header"),
-                message: this.translateService.instant("bulletins.create.changeErrorDialog.message"),
-                accept: () => {
-                }
-              });
+              this.openChangeErrorModal(this.changeErrorTemplate);
             }
           );
         } else {
@@ -1230,13 +1166,7 @@ private setTexts() {
             error => {
               this.loading = false;
               console.error("Bulletins could not be saved on server!");
-              this.confirmationService.confirm({
-                key: "saveErrorDialog",
-                header: this.translateService.instant("bulletins.create.saveErrorDialog.header"),
-                message: this.translateService.instant("bulletins.create.saveErrorDialog.message"),
-                accept: () => {
-                }
-              });
+              this.openSaveErrorModal(this.saveErrorTemplate);
             }
           );
         }
@@ -1246,18 +1176,6 @@ private setTexts() {
         console.log("No bulletins saved on server.");
       }
     }
-  }
-
-  discard() {
-    this.confirmationService.confirm({
-      key: "discardDialog",
-      header: this.translateService.instant("bulletins.create.discardDialog.header"),
-      message: this.translateService.instant("bulletins.create.discardDialog.message"),
-      accept: () => {
-        console.log("Bulletin: changes discarded.");
-        this.goBack();
-      }
-    });
   }
 
   goBack() {
@@ -1307,5 +1225,117 @@ private setTexts() {
     }
   };
 
+  openLoadingErrorModal(template: TemplateRef<any>) {
+    this.loadingErrorModalRef = this.modalService.show(template, this.config);
+  }
 
+  loadingErrorModalConfirm(): void {
+    this.loadingErrorModalRef.hide();
+    this.goBack();
+  }
+ 
+  openLoadModal(template: TemplateRef<any>) {
+    this.loadModalRef = this.modalService.show(template, this.config);
+  }
+
+  loadModalConfirm(): void {
+    this.loadModalRef.hide();
+    this.loading = true;
+
+    let date = new Date();
+    date.setHours(0, 0, 0, 0);
+    var dateOffset = (24 * 60 * 60 * 1000) * 1;
+    date.setTime(this.bulletinsService.getActiveDate().getTime() - dateOffset);
+
+    let regions = new Array<String>();
+    regions.push(this.authenticationService.getUserRegion());
+
+    this.bulletinsService.loadBulletins(date, regions).subscribe(
+      data => {
+
+        // TODO delete own regions
+        let entries = new Array<BulletinModel>();
+
+        for (let bulletin of this.bulletinsList) {
+          if (bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
+            entries.push(bulletin);
+        }
+        for (let entry of entries)
+          this.delBulletin(entry);
+
+        this.copyBulletins(data.json());
+        this.loading = false;
+      },
+      error => {
+        this.loading = false;
+        this.openLoadingErrorModal(this.loadingErrorTemplate);
+      }
+    );
+  }
+ 
+  loadModalDecline(): void {
+    this.loadModalRef.hide();
+  }
+
+  openDeleteAggregatedRegionModal(template: TemplateRef<any>) {
+    this.deleteAggregatedRegionModalRef = this.modalService.show(template, this.config);
+  }
+
+  deleteAggregatedRegionModalConfirm(): void {
+    this.deleteAggregatedRegionModalRef.hide();
+    this.delBulletin(this.activeBulletin);
+
+    // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
+
+  }
+ 
+  deleteAggregatedRegionModalDecline(): void {
+    this.deleteAggregatedRegionModalRef.hide();
+  }
+
+  openNoRegionModal(template: TemplateRef<any>) {
+    this.noRegionModalRef = this.modalService.show(template, this.config);
+  }
+
+  noRegionModalConfirm(): void {
+    this.noRegionModalRef.hide();
+  }
+ 
+  openDiscardModal(template: TemplateRef<any>) {
+    this.discardModalRef = this.modalService.show(template, this.config);
+  }
+
+  discardModalConfirm(): void {
+    this.discardModalRef.hide();
+    this.goBack();
+  }
+ 
+  discardModalDecline(): void {
+    this.discardModalRef.hide();
+  }
+
+  openSaveErrorModal(template: TemplateRef<any>) {
+    this.saveErrorModalRef = this.modalService.show(template, this.config);
+  }
+
+  saveErrorModalConfirm(): void {
+    this.saveErrorModalRef.hide();
+    this.goBack();
+  }
+
+  openChangeErrorModal(template: TemplateRef<any>) {
+    this.changeErrorModalRef = this.modalService.show(template, this.config);
+  }
+
+  changeErrorModalConfirm(): void {
+    this.changeErrorModalRef.hide();
+  }
+
+  openNoElevationModal(template: TemplateRef<any>) {
+    this.noElevationModalRef = this.modalService.show(template, this.config);
+  }
+
+  noElevationModalConfirm(): void {
+    this.noElevationModalRef.hide();
+  }
 }

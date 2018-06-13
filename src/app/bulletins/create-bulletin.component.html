@@ -519,7 +519,7 @@
         <div *ngIf="bulletinsService.getIsEditable()" class="card-footer">
           <button *ngIf="!loading" [disabled]="editRegions" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.saveBulletin' | translate }}"><i class="fa fa-check"></i>{{ "bulletins.create.save" | translate }}</button>
           <button *ngIf="loading" disabled class="btn btn-sm btn-primary px-3"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
-          <button [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-danger px-3" (click)="discard()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.discardBulletin' | translate }}"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
+          <button [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-danger px-3" (click)="openDiscardModal(discardTemplate)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.discardBulletin' | translate }}"><i class="fa fa-close"></i>{{ "bulletins.create.discard" | translate }}</button>
         </div>
         <div *ngIf="!bulletinsService.getIsEditable()" class="card-footer">
           <button type="reset" class="btn btn-sm btn-primary px-3" (click)="goBack()"><i class="fa fa-arrow-left"></i>{{ "bulletins.create.back" | translate }}</button>
@@ -529,56 +529,64 @@
   </div>
 </div>
 
-<p-confirmDialog icon="fa fa-exclamation" width="425" #loadingErrorDialog key="loadingErrorDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.loadingErrorDialog.accept" | translate }}' (click)="loadingErrorDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #loadingErrorTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.loadingErrorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadingErrorModalConfirm()">{{ "bulletins.create.loadingErrorDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog icon="fa fa-question" width="425" #loadDialog key="loadDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.loadDialog.reject" | translate }}' (click)="loadDialog.reject()"></button>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.loadDialog.accept" | translate }}' (click)="loadDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #loadTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.loadDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadModalConfirm()">{{ "bulletins.create.loadDialog.accept" | translate }}</button>
+    <button type="button" class="btn btn-default" (click)="loadModalDecline()">{{ "bulletins.create.loadDialog.reject" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog icon="fa fa-question" width="425" #deleteAggregatedRegionDialog key="deleteAggregatedRegionDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.deleteAggregatedRegionDialog.reject" | translate }}' (click)="deleteAggregatedRegionDialog.reject()"></button>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.deleteAggregatedRegionDialog.accept" | translate }}' (click)="deleteAggregatedRegionDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #deleteAggregatedRegionTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.deleteAggregatedRegionDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="deleteAggregatedRegionModalConfirm()">{{ "bulletins.create.deleteAggregatedRegionDialog.accept" | translate }}</button>
+    <button type="button" class="btn btn-default" (click)="deleteAggregatedRegionModalDecline()">{{ "bulletins.create.deleteAggregatedRegionDialog.reject" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog icon="fa fa-exclamation" width="425" #noRegionDialog key="noRegionDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.noRegionDialog.accept" | translate }}' (click)="noRegionDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #noRegionTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.noRegionDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="noRegionModalConfirm()">{{ "bulletins.create.noRegionDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog icon="fa fa-question" width="425" #discardDialog key="discardDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-close" label='{{ "bulletins.create.discardDialog.reject" | translate }}' (click)="discardDialog.reject()"></button>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.discardDialog.accept" | translate }}' (click)="discardDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #discardTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.discardDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="discardModalConfirm()">{{ "bulletins.create.discardDialog.accept" | translate }}</button>
+    <button type="button" class="btn btn-default" (click)="discardModalDecline()">{{ "bulletins.create.discardDialog.reject" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog icon="fa fa-exclamation" width="425" #saveErrorDialog key="saveErrorDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.saveErrorDialog.accept" | translate }}' (click)="saveErrorDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #saveErrorTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.saveErrorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="saveErrorModalConfirm()">{{ "bulletins.create.saveErrorDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog icon="fa fa-exclamation" width="425" #changeErrorDialog key="changeErrorDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.changeErrorDialog.accept" | translate }}' (click)="changeErrorDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #changeErrorTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.changeErrorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="changeErrorModalConfirm()">{{ "bulletins.create.changeErrorDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog icon="fa fa-exclamation" width="425" #noElevationDialog key="noElevationDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.create.noElevationDialog.accept" | translate }}' (click)="noElevationDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #noElevationTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.noElevationDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="noElevationModalConfirm()">{{ "bulletins.create.noElevationDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
 
 
 <p-dialog styleClass="pmdialog" header='{{ "bulletins.create.title.pmdialog" | translate }}' [(visible)]="display"  [responsive]="true" modal="modal"  [contentStyle]="{'height':'80%'}">
