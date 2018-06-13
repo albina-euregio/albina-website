@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import {observer} from 'mobx-react';
 import {computed} from 'mobx';
 import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateString} from '../../util/date.js';
@@ -31,46 +32,32 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
     return undefined;
   }
 
-  dateBack = () => {
-    const d = getPredDate(parseDate(window['bulletinStore'].settings.date));
-    if(d) {
-      window['bulletinStore'].load(dateToISODateString(d));
-    }
-  }
-
-  dateForward = () => {
-    const d = getSuccDate(parseDate(window['bulletinStore'].settings.date));
-    if(d) {
-      window['bulletinStore'].load(dateToISODateString(d));
-    }
-  }
-
-  goToLatest = () => {
-    window['bulletinStore'].load(dateToISODateString(new Date()));
-  }
-
   render() {
+    const prevLink = dateToISODateString(this.prevDate);
+    const nextLink = dateToISODateString(this.nextDate);
+    const latestLink = dateToISODateString(new Date());
+
     const prevDate = this.prevDate ? dateToDateString(this.prevDate) : '';
     const nextDate = this.nextDate ? dateToDateString(this.nextDate) : '';
 
     return (
       <ul className="list-inline bulletin-flipper">
         <li className="bulletin-flipper-back">
-          <a href="#" title="Back" className="tooltip"
-            onClick={this.dateBack}>
-            <span className="icon-arrow-left" />{prevDate}
-          </a>
+          <Link to={prevLink} title="Back">
+            <span className="icon-arrow-left" />
+            {prevDate}
+          </Link>
         </li>
         <li className="bulletin-flipper-latest">
-          <a href="#" title="Go to current Bulletin" className="tooltip"
-            onClick={this.goToLatest}>Latest
-          </a>
+          <Link to={latestLink} title="Go to current Bulletin">
+            Latest
+          </Link>
         </li>
         <li className="bulletin-flipper-forward">
-          <a href="#" title="Forward" className="tooltip"
-            onClick={this.dateForward}>{nextDate}
+          <Link to={nextLink} title="Forward">
+            {nextDate}
             <span className="icon-arrow-right" />
-          </a>
+          </Link>
         </li>
         <li className="bulletin-flipper-archive">
           <a href="#" title="Recent Bulletins" className="tooltip">Archive

@@ -75,7 +75,10 @@ function dateToISODateString(date) {
     return d;
   }
 
-  return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
+  if(date) {
+    return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());
+  }
+  return '';
 }
 
 function _formatDate(date, options = {}) {

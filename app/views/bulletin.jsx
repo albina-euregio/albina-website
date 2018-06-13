@@ -22,14 +22,24 @@ class Bulletin extends React.Component {
 
   componentDidMount() {
     // automatically update url
-    const urlHandler = reaction(
-      () => this.store.settings.date,
-      (date) => {
-        this.props.history.push('/bulletin/' + date);
-      }
-    );
+    // const urlHandler = reaction(
+    //   () => this.store.settings.date,
+    //   (date) => {
+    //     if(date && date != )
+    //     this.props.history.push('/bulletin/' + date);
+    //   }
+    // );
 
     return this._fetchData(this.props);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      const newDate = this.props.match.params.date;
+      if(newDate && newDate != this.store.settings.date) {
+        this._fetchData(this.props);
+      }
+    }
   }
 
   _fetchData(props) {
@@ -37,14 +47,17 @@ class Bulletin extends React.Component {
       ? props.match.params.date : (
         this.store.settings.date ? this.store.settings.date : '2018-06-07' // TODO: should be current date
       );
-    //console.log('StartDate: ' + startDate + ' Param: ' + props.match.params.date);
+
+    if(startDate != this.props.match.params.date) {
+      // update URL if necessary
+      props.history.push('/bulletin/' + startDate);
+    }
     return this.store.load(startDate);
   }
 
   render() {
     return (
       <div>
-        <span>{this.date}</span>
         <BulletinHeader store={this.store} />
         <BulletinMap store={this.store} />
         <BulletinLegend problems={this.store.problems} />
