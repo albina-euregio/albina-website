@@ -27,7 +27,7 @@ app-root {
   display: flex;
   flex-grow:1;
   flex-direction: row;
-  overflow-x: hidden;
+  overflow-x: scroll;
 
   .main {
     flex: 1;
