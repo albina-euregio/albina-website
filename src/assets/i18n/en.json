@@ -12,7 +12,6 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bulletins",
-		"news" : "News",
 		"observations" : "Observations",
 		"admin" : "Admin",
 		"catalogueOfPhrases" : "Catalogue of Phrases"
@@ -33,89 +32,6 @@
 		"german" : "German",
 		"english" : "English",
 		"italian" : "Italian"
-	},
-	"news" : {
-		"create" : {
-			"button" : "Create",
-			"formTitle" : "Create News",
-			"title" : "Title",
-			"it" : {
-				"title" : "Title (Italien)",
-				"content" : "Text (Italien)"
-			},
-			"de" : {
-				"title" : "Title (German)",
-				"content" : "Text (German)"
-			},
-			"en" : {
-				"title" : "Title (English)",
-				"content" : "Text (English)"
-			},
-			"image" : "Image",
-			"save" : "Save",
-			"discard" : "Discard",
-			"back" : "Back",
-			"discardDialog" : {
-				"header" : "Discard changes?",
-				"message" : "Do you want to discard the changes?",
-				"accept" : "Yes",
-				"reject" : "No"
-			},
-			"saveErrorDialog" : {
-				"header" : "Error saving news",
-				"message" : "There was an error saving the news!",
-				"accept" : "Ok"
-			},
-			"updateErrorDialog" : {
-				"header" : "Error updating news",
-				"message" : "There was an error updating the news!",
-				"accept" : "Ok"
-			}
-		},
-		"deleteNewsDialog" : {
-			"header" : "Delete news",
-			"message" : "Do you want to delete the news?",
-			"accept" : "Yes",
-			"reject" : "No"
-		},
-		"publishNewsDialog" : {
-			"header" : "Publish news",
-			"message" : "Do you want to publish the news?",
-			"accept" : "Yes",
-			"reject" : "No"
-		},
-		"publishNewsErrorDialog" : {
-			"header" : "Error publishing news",
-			"message" : "There was an error publishing the news!",
-			"accept" : "Ok"
-		},
-		"publishNewsErrorDialog" : {
-			"header" : "Error deleting news",
-			"message" : "There was an error deleting the news!",
-			"accept" : "Ok"
-		},
-		"loadingNewsErrorDialog" : {
-			"header" : "Error loading news",
-			"message" : "There was an error loading the news!",
-			"accept" : "Ok"
-		},
-		"title" : "News",
-		"table" : {
-			"date" : "Date",
-			"title" : "Title",
-			"edit" : "Edit",
-			"show" : "Show",
-			"status" : {
-				"title" : "Status",
-				"published" : "published",
-				"draft" : "draft"
-			},
-			"action" : "Actions",
-			"button" : {
-				"publish" : "publish",
-				"delete" : "delete"
-			}
-		}		
 	},
 	"bulletins" : {
 		"title" : "Bulletins",

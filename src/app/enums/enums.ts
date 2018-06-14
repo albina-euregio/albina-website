@@ -15,10 +15,6 @@ export enum BulletinStatus {
 	missing, draft, submitted, published, updated, resubmitted, republished
 }
 
-export enum NewsStatus {
-	draft, published
-}
-
 export enum RegionStatus {
 	suggested, saved, published
 }

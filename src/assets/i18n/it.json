@@ -12,7 +12,6 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bollettino",
-		"news" : "News",
 		"observations" : "TODO",
 		"admin" : "Admin",
 		"catalogueOfPhrases" : "TODO"
@@ -33,89 +32,6 @@
 		"german" : "Tedesco",
 		"english" : "Inglese",
 		"italian" : "Italiano"
-	},
-	"news" : {
-		"create" : {
-			"button" : "Crea",
-			"formTitle" : "Crea News",
-			"title" : "Titolo",
-			"it" : {
-				"title" : "Titolo (Italiano)",
-				"content" : "Testo (Italiano)"
-			},
-			"de" : {
-				"title" : "Titolo (Tedesco)",
-				"content" : "Testo (Tedesco)"
-			},
-			"en" : {
-				"title" : "Titolo (Inglese)",
-				"content" : "Testo (Inglese)"
-			},
-			"image" : "Imagine",
-			"save" : "Salve",
-			"discard" : "Scarta",
-			"back" : "Indietro",
-			"discardDialog" : {
-				"header" : "Scarta modifica",
-				"message" : "Vuoi scartare le modifiche?",
-				"accept" : "Sí",
-				"reject" : "No"
-			},
-			"saveErrorDialog" : {
-				"header" : "Errore durante salvare",
-				"message" : "Errore salvando news!",
-				"accept" : "Ok"
-			},
-			"updateErrorDialog" : {
-				"header" : "Errore durante update",
-				"message" : "Errore salvando il update dei news!",
-				"accept" : "Ok"
-			}
-		},
-		"deleteNewsDialog" : {
-			"header" : "Scartare news",
-			"message" : "Vuoi scartare i news?",
-			"accept" : "Sí",
-			"reject" : "No"
-		},
-		"publishNewsDialog" : {
-			"header" : "Publicare news",
-			"message" : "Vuoi publicare i news?",
-			"accept" : "Sí",
-			"reject" : "No"
-		},
-		"publishNewsErrorDialog" : {
-			"header" : "Errore durante la pubblicazione",
-			"message" : "Errore durante la pubblicazione dei news!",
-			"accept" : "Ok"
-		},
-		"deleteNewsErrorDialog" : {
-			"header" : "Errore durante il cancellare",
-			"message" : "Errore cancellando i news!",
-			"accept" : "Ok"
-		},
-		"loadingNewsErrorDialog" : {
-			"header" : "Errore durante il caricare",
-			"message" : "Errore caricando i news!",
-			"accept" : "Ok"
-		},
-		"title" : "News",
-		"table" : {
-			"date" : "Data",
-			"title" : "Titolo",
-			"edit" : "Modifica",
-			"show" : "Mostra",
-			"status" : {
-				"title" : "Stato",
-				"published" : "pubblicato",
-				"draft" : "abbozzo"
-			},
-			"action" : "Azzioni",
-			"button" : {
-				"publish" : "publicare",
-				"delete" : "cancellare"
-			}
-		}		
 	},
 	"bulletins" : {
 		"title" : "Bollettini",

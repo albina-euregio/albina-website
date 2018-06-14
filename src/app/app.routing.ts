@@ -20,12 +20,6 @@ export const routes: Routes = [
     loadChildren: './bulletins/bulletins.module#BulletinsModule'
   },
   {
-    path: 'news',
-    component: FullLayoutComponent,
-    canActivate: [AuthGuard], 
-    loadChildren: './news/news.module#NewsModule'
-  },
-  {
     path: 'observations',
     component: FullLayoutComponent,
     canActivate: [AuthGuard], 

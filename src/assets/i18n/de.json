@@ -12,7 +12,6 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Lawinenlageberichte",
-		"news" : "News",
 		"observations" : "Rückmeldungen",
 		"admin" : "Admin",
 		"catalogueOfPhrases" : "Satzkatalog"
@@ -33,89 +32,6 @@
 		"german" : "Deutsch",
 		"english" : "Englisch",
 		"italian" : "Italienisch"
-	},
-	"news" : {
-		"create" : {
-			"button" : "Neu",
-			"formTitle" : "Neue Nachricht",
-			"title" : "Titel",
-			"it" : {
-				"title" : "Titel (Italienisch)",
-				"content" : "Text (Italienisch)"
-			},
-			"de" : {
-				"title" : "Titel (Deutsch)",
-				"content" : "Text (Deutsch)"
-			},
-			"en" : {
-				"title" : "Titel (Englisch)",
-				"content" : "Text (Englisch)"
-			},
-			"image" : "Bild",
-			"save" : "Speichern",
-			"discard" : "Verwerfen",
-			"back" : "Zurück",
-			"discardDialog" : {
-				"header" : "Änderungen verwerfen?",
-				"message" : "Willst du die Änderungen verwerfen?",
-				"accept" : "Ja",
-				"reject" : "Nein"
-			},
-			"saveErrorDialog" : {
-				"header" : "Fehler beim Speichern",
-				"message" : "Beim Speichern der News ist ein Fehler aufgetreten!",
-				"accept" : "Ok"
-			},
-			"updateErrorDialog" : {
-				"header" : "Fehler beim Updaten",
-				"message" : "Beim Updaten der News ist ein Fehler aufgetreten!",
-				"accept" : "Ok"
-			}
-		},
-		"deleteNewsDialog" : {
-			"header" : "News löschen",
-			"message" : "Willst du die News löschen?",
-			"accept" : "Ja",
-			"reject" : "Nein"
-		},
-		"publishNewsDialog" : {
-			"header" : "News publizieren",
-			"message" : "Willst du die News publizieren?",
-			"accept" : "Ja",
-			"reject" : "Nein"
-		},
-		"publishNewsErrorDialog" : {
-			"header" : "Fehler beim Publizieren",
-			"message" : "Beim Publizieren der News ist ein Fehler aufgetreten!",
-			"accept" : "Ok"
-		},
-		"deleteNewsErrorDialog" : {
-			"header" : "Fehler beim Löschen",
-			"message" : "Beim Löschen der News ist ein Fehler aufgetreten!",
-			"accept" : "Ok"
-		},
-		"loadingNewsErrorDialog" : {
-			"header" : "Fehler beim Laden",
-			"message" : "Beim Laden der News ist ein Fehler aufgetreten!",
-			"accept" : "Ok"
-		},
-		"title" : "Nachrichten",
-		"table" : {
-			"date" : "Datum",
-			"title" : "Titel",
-			"edit" : "Bearbeiten",
-			"show" : "Anzeigen",
-			"status" : {
-				"title" : "Status",
-				"published" : "publiziert",
-				"draft" : "Entwurf"
-			},
-			"action" : "Aktionen",
-			"button" : {
-				"publish" : "publizieren",
-				"delete" : "löschen"
-			}
-		}		
 	},
 	"bulletins" : {
 		"title" : "Lawinenlageberichte",
