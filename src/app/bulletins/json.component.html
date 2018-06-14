@@ -23,14 +23,16 @@
   <!--/.row-->
 </div>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #jsonNotLoadedDialog key="jsonNotLoadedDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.json.jsonNotLoadedDialog.accept" | translate }}' (click)="jsonNotLoadedDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #jsonNotLoadedTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.json.jsonNotLoadedDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="jsonNotLoadedModalConfirm()">{{ "bulletins.json.jsonNotLoadedDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #noJsonDialog key="noJsonDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.json.noJsonDialog.accept" | translate }}' (click)="noJsonDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #noJsonTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.json.noJsonDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="noJsonModalConfirm()">{{ "bulletins.json.noJsonDialog.accept" | translate }}</button>
+  </div>
+</ng-template>

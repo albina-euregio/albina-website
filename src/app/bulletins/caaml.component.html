@@ -23,14 +23,16 @@
   <!--/.row-->
 </div>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #caamlNotLoadedDialog key="caamlNotLoadedDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.caaml.caamlNotLoadedDialog.accept" | translate }}' (click)="caamlNotLoadedDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #caamlNotLoadedTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.caaml.caamlNotLoadedDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="caamlNotLoadedModalConfirm()">{{ "bulletins.caaml.caamlNotLoadedDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog icon="fa fa-question-circle" width="425" #noCaamlDialog key="noCaamlDialog">
-  <p-footer>
-    <button type="button" pButton icon="fa-check" label='{{ "bulletins.caaml.noCaamlDialog.accept" | translate }}' (click)="noCaamlDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #noCaamlTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.caaml.noCaamlDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="noCaamlModalConfirm()">{{ "bulletins.caaml.noCaamlDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
