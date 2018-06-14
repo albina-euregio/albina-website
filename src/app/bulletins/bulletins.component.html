@@ -86,35 +86,23 @@
   <!--/.row-->
 </div>
 
-<p-confirmDialog width="425" key="publishBulletinsDialog" #publishBulletinsDialog>
-  <p-footer>
-    <button type="button" pButton label='{{ "bulletins.table.publishBulletinsDialog.reject" | translate }}' (click)="publishBulletinsDialog.reject()"></button>
-    <button type="button" pButton label='{{ "bulletins.table.publishBulletinsDialog.accept" | translate }}' (click)="publishBulletinsDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #publishBulletinsErrorTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.table.publishBulletinsErrorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="publishBulletinsErrorModalConfirm()">{{ "bulletins.table.publishBulletinsErrorDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog width="425" key="publishBulletinsErrorDialog" #publishBulletinsErrorDialog>
-  <p-footer>
-    <button type="button" pButton label='{{ "bulletins.table.publishBulletinsErrorDialog.accept" | translate }}' (click)="publishBulletinsErrorDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #submitBulletinsErrorTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.table.submitBulletinsErrorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="submitBulletinsErrorModalConfirm()">{{ "bulletins.table.submitBulletinsErrorDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
 
-<p-confirmDialog width="425" key="submitBulletinsDialog" #submitBulletinsDialog>
-  <p-footer>
-    <button type="button" pButton label='{{ "bulletins.table.submitBulletinsDialog.reject" | translate }}' (click)="submitBulletinsDialog.reject()"></button>
-    <button type="button" pButton label='{{ "bulletins.table.submitBulletinsDialog.accept" | translate }}' (click)="submitBulletinsDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
-
-<p-confirmDialog width="425" key="submitBulletinsErrorDialog" #submitBulletinsErrorDialog>
-  <p-footer>
-    <button type="button" pButton label='{{ "bulletins.table.submitBulletinsErrorDialog.accept" | translate }}' (click)="submitBulletinsErrorDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
-
-<p-confirmDialog width="425" key="checkBulletinsErrorDialog" #checkBulletinsErrorDialog>
-  <p-footer>
-    <button type="button" pButton label='{{ "bulletins.table.checkBulletinsErrorDialog.reject" | translate }}' (click)="checkBulletinsErrorDialog.reject()"></button>
-    <button type="button" pButton label='{{ "bulletins.table.checkBulletinsErrorDialog.accept" | translate }}' (click)="checkBulletinsErrorDialog.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #checkBulletinsErrorTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.table.checkBulletinsErrorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="checkBulletinsErrorModalConfirm()">{{ "bulletins.table.checkBulletinsErrorDialog.accept" | translate }}</button>
+  </div>
+</ng-template>

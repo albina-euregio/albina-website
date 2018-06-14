@@ -41,6 +41,8 @@ import { HttpModule, Http } from '@angular/http';
 
 import { BsDropdownModule, TabsModule, ModalModule } from 'ngx-bootstrap';
 
+import { ModalSubmitComponent } from './bulletins/modal-submit.component';
+import { ModalPublishComponent } from './bulletins/modal-publish.component';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -71,7 +73,9 @@ export function createTranslateLoader(http: Http) {
     BreadcrumbsComponent,
     NAV_DROPDOWN_DIRECTIVES,
     SIDEBAR_TOGGLE_DIRECTIVES,
-    AsideToggleDirective
+    AsideToggleDirective,
+    ModalSubmitComponent,
+    ModalPublishComponent
   ],
   providers: [
     {
@@ -95,6 +99,10 @@ export function createTranslateLoader(http: Http) {
   bootstrap: [ AppComponent ],
   exports: [
     TranslateModule
+  ],
+  entryComponents: [
+    ModalSubmitComponent,
+    ModalPublishComponent
   ]
 })
 export class AppModule { }

@@ -198,7 +198,6 @@
 				"hideTranslations" : " Übersetzungen verbergen"
 			},
 			"discardDialog" : {
-				"header" : "Änderungen verwerfen",
 				"message" : "Willst du die Änderungen verwerfen?",
 				"accept" : "Ja",
 				"reject" : "Nein"

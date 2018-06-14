@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild, TemplateRef } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
@@ -10,6 +10,10 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 import 'rxjs/add/observable/forkJoin';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { ModalSubmitComponent } from './modal-submit.component';
+import { ModalPublishComponent } from './modal-publish.component';
 
 @Component({
   templateUrl: 'bulletins.component.html'
@@ -26,6 +30,26 @@ export class BulletinsComponent {
   public publishing: Date;
   public copying: boolean;
 
+  public publishBulletinsModalRef: BsModalRef;
+  @ViewChild('publishBulletinsTemplate') publishBulletinsTemplate: TemplateRef<any>;
+
+  public publishBulletinsErrorModalRef: BsModalRef;
+  @ViewChild('publishBulletinsErrorTemplate') publishBulletinsErrorTemplate: TemplateRef<any>;
+
+  public submitBulletinsModalRef: BsModalRef;
+  @ViewChild('submitBulletinsTemplate') submitBulletinsTemplate: TemplateRef<any>;
+
+  public submitBulletinsErrorModalRef: BsModalRef;
+  @ViewChild('submitBulletinsErrorTemplate') submitBulletinsErrorTemplate: TemplateRef<any>;
+
+  public checkBulletinsErrorModalRef: BsModalRef;
+  @ViewChild('checkBulletinsErrorTemplate') checkBulletinsErrorTemplate: TemplateRef<any>;
+
+  public config = {
+    keyboard: true,
+    class: 'modal-sm'
+  };
+
   constructor(
     private translate: TranslateService,
     private bulletinsService: BulletinsService,
@@ -35,7 +59,8 @@ export class BulletinsComponent {
     private constantsService: ConstantsService,
     private router: Router,
     private confirmationService: ConfirmationService,
-    private socketService: SocketService)
+    private socketService: SocketService,
+    private modalService: BsModalService)
   {
     this.dates = new Array<Date>();
     this.loadingTrentino = false;
@@ -378,69 +403,32 @@ export class BulletinsComponent {
       data => {
         let result = data.json();
 
-        let message = this.translateService.instant("bulletins.table.publishBulletinsDialog.message") + '<br><br>';
+        let message = "<b>" + this.translateService.instant("bulletins.table.publishBulletinsDialog.message") + '</b><br><br>';
 
         for (let entry of result) {
           if (entry == 'missingDangerRating')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingDangerRating") + '<br>';
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.missingDangerRating") + '<br>';
           if (entry == 'missingRegion')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingRegion") + '<br>';
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.missingRegion") + '<br>';
           if (entry == 'duplicateRegion')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.duplicateRegion") + '<br>';
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.duplicateRegion") + '<br>';
           if (entry == 'missingAvActivityHighlights')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingAvActivityHighlights") + '<br>';
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.missingAvActivityHighlights") + '<br>';
           if (entry == 'missingAvActivityComment')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingAvActivityComment") + '<br>';
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.missingAvActivityComment") + '<br>';
           if (entry == 'missingSnowpackStructureHighlights')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingSnowpackStructureHighlights") + '<br>';
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.missingSnowpackStructureHighlights") + '<br>';
           if (entry == 'missingSnowpackStructureComment')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.missingSnowpackStructureComment") + '<br>';
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.missingSnowpackStructureComment") + '<br>';
           if (entry == 'pendingSuggestions')
-            message += '- ' + this.translateService.instant("bulletins.table.publishBulletinsDialog.pendingSuggestions");
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.pendingSuggestions");
         }
 
-        this.confirmationService.confirm({
-          key: "publishBulletinsDialog",
-          header: this.translateService.instant("bulletins.table.publishBulletinsDialog.header"),
-          message: message,
-          accept: () => {
-            this.bulletinsService.publishBulletins(date, this.authenticationService.getUserRegion()).subscribe(
-              data => {
-                console.log("Bulletins published.");
-                if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.resubmitted)
-                  this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.republished);
-                else if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.submitted)
-                  this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.published);
-                this.publishing = undefined;
-              },
-              error => {
-                console.error("Bulletins could not be published!");
-                this.confirmationService.confirm({
-                  key: "publishBulletinsErrorDialog",
-                  header: this.translate.instant("bulletins.table.publishBulletinsErrorDialog.header"),
-                  message: this.translate.instant("bulletins.table.publishBulletinsErrorDialog.message"),
-                  accept: () => {
-                    this.publishing = undefined;
-                  }
-                });
-              }
-            );
-          },
-          reject: () => {
-            this.publishing = undefined;
-          }
-        });
+        this.openPublishBulletinsModal(this.publishBulletinsTemplate, message, date);
       },
       error => {
         console.error("Bulletins could not be checked!");
-        this.confirmationService.confirm({
-          key: "checkBulletinsErrorDialog",
-          header: this.translate.instant("bulletins.table.checkBulletinsErrorDialog.header"),
-          message: this.translate.instant("bulletins.table.checkBulletinsErrorDialog.message"),
-          accept: () => {
-            this.publishing = undefined;
-          }
-        });
+        this.openCheckBulletinsErrorModal(this.checkBulletinsErrorTemplate);
       }
     );
   }
@@ -453,69 +441,32 @@ export class BulletinsComponent {
       data => {
         let result = data.json();
 
-        let message = this.translateService.instant("bulletins.table.submitBulletinsDialog.message") + '<br><br>';
+        let message = "<b>" + this.translateService.instant("bulletins.table.submitBulletinsDialog.message") + '</b><br><br>';
 
         for (let entry of result) {
           if (entry == 'missingDangerRating')
-            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingDangerRating") + '<br>';
+            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.missingDangerRating") + '<br>';
           if (entry == 'missingRegion')
-            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingRegion") + '<br>';
+            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.missingRegion") + '<br>';
           if (entry == 'duplicateRegion')
-            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.duplicateRegion") + '<br>';
+            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.duplicateRegion") + '<br>';
           if (entry == 'missingAvActivityHighlights')
-            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityHighlights") + '<br>';
+            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityHighlights") + '<br>';
           if (entry == 'missingAvActivityComment')
-            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityComment") + '<br>';
+            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityComment") + '<br>';
           if (entry == 'missingSnowpackStructureHighlights')
-            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingSnowpackStructureHighlights") + '<br>';
+            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.missingSnowpackStructureHighlights") + '<br>';
           if (entry == 'missingSnowpackStructureComment')
-            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.missingSnowpackStructureComment") + '<br>';
+            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.missingSnowpackStructureComment") + '<br>';
           if (entry == 'pendingSuggestions')
-            message += '- ' + this.translateService.instant("bulletins.table.submitBulletinsDialog.pendingSuggestions");
+            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.pendingSuggestions");
         }
 
-        this.confirmationService.confirm({
-          key: "submitBulletinsDialog",
-          header: this.translateService.instant("bulletins.table.submitBulletinsDialog.header"),
-          message: message,
-          accept: () => {
-            this.bulletinsService.submitBulletins(date, this.authenticationService.getUserRegion()).subscribe(
-              data => {
-                console.log("Bulletins submitted.");
-                if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.updated)
-                  this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.resubmitted);
-                else if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.draft)
-                  this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.submitted);
-                this.publishing = undefined;
-              },
-              error => {
-                console.error("Bulletins could not be submitted!");
-                this.confirmationService.confirm({
-                  key: "submitBulletinsErrorDialog",
-                  header: this.translate.instant("bulletins.table.submitBulletinsErrorDialog.header"),
-                  message: this.translate.instant("bulletins.table.submitBulletinsErrorDialog.message"),
-                  accept: () => {
-                    this.publishing = undefined;
-                  }
-                });
-              }
-            );
-          },
-          reject: () => {
-            this.publishing = undefined;
-          }
-        });
+        this.openSubmitBulletinsModal(this.submitBulletinsTemplate, message, date);
       },
       error => {
         console.error("Bulletins could not be checked!");
-        this.confirmationService.confirm({
-          key: "checkBulletinsErrorDialog",
-          header: this.translate.instant("bulletins.table.checkBulletinsErrorDialog.header"),
-          message: this.translate.instant("bulletins.table.checkBulletinsErrorDialog.message"),
-          accept: () => {
-            this.publishing = undefined;
-          }
-        });
+        this.openCheckBulletinsErrorModal(this.checkBulletinsErrorTemplate);
       }
     );
   }
@@ -526,5 +477,104 @@ export class BulletinsComponent {
       this.copying = false;
       this.bulletinsService.setCopyDate(undefined);
     }
+  }
+
+  openPublishBulletinsModal(template: TemplateRef<any>, message: string, date: Date) {
+    const initialState = {
+      text: message,
+      date: date,
+      component: this
+    };
+    this.publishBulletinsModalRef = this.modalService.show(ModalPublishComponent, {initialState});
+    
+    this.modalService.onHide.subscribe((reason: string) => {
+      this.publishing = undefined;
+    })
+  }
+
+  publishBulletinsModalConfirm(date: Date): void {
+    this.publishBulletinsModalRef.hide();
+    this.bulletinsService.publishBulletins(date, this.authenticationService.getUserRegion()).subscribe(
+      data => {
+        console.log("Bulletins published.");
+        if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.resubmitted)
+          this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.republished);
+        else if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.submitted)
+          this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.published);
+        this.publishing = undefined;
+      },
+      error => {
+        console.error("Bulletins could not be published!");
+        this.openPublishBulletinsErrorModal(this.publishBulletinsErrorTemplate);
+      }
+    );
+  }
+ 
+  publishBulletinsModalDecline(): void {
+    this.publishBulletinsModalRef.hide();
+    this.publishing = undefined;
+  }
+
+  openPublishBulletinsErrorModal(template: TemplateRef<any>) {
+    this.publishBulletinsErrorModalRef = this.modalService.show(template, this.config);
+  }
+
+  publishBulletinsErrorModalConfirm(): void {
+    this.publishBulletinsErrorModalRef.hide();
+    this.publishing = undefined;
+  }
+ 
+  openSubmitBulletinsModal(template: TemplateRef<any>, message: string, date: Date) {
+    const initialState = {
+      text: message,
+      date: date,
+      component: this
+    };
+    this.submitBulletinsModalRef = this.modalService.show(ModalSubmitComponent, {initialState});
+
+    this.modalService.onHide.subscribe((reason: string) => {
+      this.publishing = undefined;
+    })
+  }
+
+  submitBulletinsModalConfirm(date: Date): void {
+    this.submitBulletinsModalRef.hide();
+    this.bulletinsService.submitBulletins(date, this.authenticationService.getUserRegion()).subscribe(
+      data => {
+        console.log("Bulletins submitted.");
+        if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.updated)
+          this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.resubmitted);
+        else if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.draft)
+          this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.submitted);
+        this.publishing = undefined;
+      },
+      error => {
+        console.error("Bulletins could not be submitted!");
+        this.openSubmitBulletinsErrorModal(this.submitBulletinsErrorTemplate);
+      }
+    );
+  }
+ 
+  submitBulletinsModalDecline(): void {
+    this.submitBulletinsModalRef.hide();
+    this.publishing = undefined;
+  }
+
+  openSubmitBulletinsErrorModal(template: TemplateRef<any>) {
+    this.submitBulletinsErrorModalRef = this.modalService.show(template, this.config);
+  }
+
+  submitBulletinsErrorModalConfirm(): void {
+    this.submitBulletinsErrorModalRef.hide();
+    this.publishing = undefined;
+  }
+
+  openCheckBulletinsErrorModal(template: TemplateRef<any>) {
+    this.checkBulletinsErrorModalRef = this.modalService.show(template, this.config);
+  }
+
+  checkBulletinsErrorModalConfirm(): void {
+    this.checkBulletinsErrorModalRef.hide();
+    this.publishing = undefined;
   }
 }
