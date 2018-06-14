@@ -46,17 +46,17 @@ class BulletinCollection {
     return null;
   }
 
-  get hasDaytimeDependency() {
+  get length() {
+    return this.dataRaw ? this.dataRaw.length : 0;
+  }
+
+  hasDaytimeDependency() {
     if (this.status == 'ok' && this.dataRaw.length > 0) {
       return this.dataRaw.reduce((acc, b) => {
         return acc || b.hasDaytimeDependency;
       }, false);
     }
     return false;
-  }
-
-  get length() {
-    return this.dataRaw ? this.dataRaw.length : 0;
   }
 
   getData() {
@@ -155,7 +155,7 @@ class BulletinStore {
           }
         }).then(() => {
           if (this.bulletins[date].status == 'ok') {
-            if (this.bulletins[date].hasDaytimeDependency) {
+            if (this.bulletins[date].hasDaytimeDependency()) {
               return Promise.all([this._loadGeoData(date, 'am'), this._loadGeoData(date, 'pm')]);
             }
             // else

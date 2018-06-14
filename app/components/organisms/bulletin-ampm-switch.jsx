@@ -17,7 +17,7 @@ import {observer} from 'mobx-react';
   render() {
     const title = 'Switch to ' + ((this.props.store.settings.ampm == 'am') ? 'PM' : 'AM');
     const enabled = (this.props.store.settings.status == 'ok') ?
-      this.props.store.activeBulletinCollection.hasDaytimeDependency: false;
+      this.props.store.activeBulletinCollection.hasDaytimeDependency(): false;
 
     return (enabled &&
       <span className="bulletin-ampm-switch tooltip" title={title}>

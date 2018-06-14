@@ -65,8 +65,8 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
     }
 
     const bulletinDaytime = this.daytimeBulletin;
-      
-    const ampm = (bulletin.hasDaytimeDependency
+
+    const ampm = (bulletin.hasDaytimeDependency()
       ? ((this.props.store.settings.ampm == 'am') ? 'AM' : 'PM')
       : '');
     const date = dateToLongDateString(parseDate(this.props.store.settings.date))
