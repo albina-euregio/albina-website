@@ -197,6 +197,9 @@
 				"showTranslations" : " Show translations",
 				"hideTranslations" : " Hide translations"
 			},
+			"pmDialog" : {
+				"noIFrameSupport" : "Your browser does not support IFrames!"
+			},
 			"discardDialog" : {
 				"header" : "Discard changes",
 				"message" : "Do you want to discard the changes?",

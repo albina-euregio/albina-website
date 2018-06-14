@@ -197,6 +197,9 @@
 				"showTranslations" : " Übersetzungen anzeigen",
 				"hideTranslations" : " Übersetzungen verbergen"
 			},
+			"pmDialog" : {
+				"noIFrameSupport" : "Dein Browser unterstützt keine IFrames!"
+			},
 			"discardDialog" : {
 				"message" : "Willst du die Änderungen verwerfen?",
 				"accept" : "Ja",

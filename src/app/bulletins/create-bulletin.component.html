@@ -603,6 +603,6 @@
 
 <p-dialog styleClass="pmdialog" header='{{ "bulletins.create.title.pmdialog" | translate }}' [(visible)]="display"  [responsive]="true" modal="modal"  [contentStyle]="{'height':'80%'}">
   <iframe id="receiver" #receiver [src]="pmUrl" width="100%" height="95%">
-    <p>Your browser does not support iframes.</p>
+    <p>{{ "bulletins.create.pmDialog.noIFrameSupport" | translate }</p>
   </iframe>
 </p-dialog>

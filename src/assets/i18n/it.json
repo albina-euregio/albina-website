@@ -197,6 +197,9 @@
 				"showTranslations" : " TODO",
 				"hideTranslations" : " TODO"
 			},
+			"pmDialog" : {
+				"noIFrameSupport" : "TODO"
+			},
 			"discardDialog" : {
 				"header" : "Scarta modifiche",
 				"message" : "Vuoi scartare le modifiche?",
