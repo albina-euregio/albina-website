@@ -213,7 +213,7 @@
                       </table>
                     </tr>
 
-                    <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
+                    <tr *ngIf="!hasSuggestions(bulletin) && (!activeBulletin || bulletin != activeBulletin)" (click)="selectBulletin(bulletin)" style="height: 52px">
                       <td>
                         <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
                       </td>
@@ -223,7 +223,19 @@
                           <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
                         </div>
                       </td>
-                      <td *ngIf="hasSuggestions(bulletin)"><i class="fa fa-lightbulb-o"></i></td>
+                    </tr>
+
+                    <tr *ngIf="hasSuggestions && (!activeBulletin || bulletin != activeBulletin)" (click)="selectBulletin(bulletin)" class="table-warning" style="height: 52px">
+                      <td>
+                        <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
+                      </td>
+                      <td>{{ "region." + bulletin.getAuthor().getRegion() | translate }}</td>
+                      <td>
+                        <div>
+                          <small class="text-muted-2">{{ bulletin.getAuthor().getName() }}</small>
+                        </div>
+                      </td>
+                      <td><i class="fa fa-lightbulb-o"></i></td>
                     </tr>
 
                   </div>
