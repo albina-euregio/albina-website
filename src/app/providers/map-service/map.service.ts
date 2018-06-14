@@ -67,7 +67,7 @@ export class MapService {
         this.overlayMaps = {
             // overlay to show regions
             regions : L.geoJSON(this.regionsService.getRegionsEuregio(), {
-                onEachFeature : this.onEachAggregatedRegionsFeature
+                onEachFeature : this.onEachAggregatedRegionsFeatureAM
             }),
 
             // overlay to show selected regions
@@ -85,7 +85,7 @@ export class MapService {
         this.afternoonOverlayMaps = {
             // overlay to show regions
             regions : L.geoJSON(this.regionsService.getRegionsEuregio(), {
-                onEachFeature : this.onEachAggregatedRegionsFeature
+                onEachFeature : this.onEachAggregatedRegionsFeaturePM
             }),
 
             // overlay to show selected regions
@@ -469,15 +469,17 @@ export class MapService {
                 }
             },
             mouseover: function(e) {
+                e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name_de + "<br>" + e.target.feature.properties.name_it;
                 var layer = e.target;
                 layer.setStyle({
-                    weight: 2
+                    weight: 3
                 });
                 if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
                     layer.bringToFront();
                 }
             },
             mouseout: function(e) {
+                e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = " ";
                 var layer = e.target;
                 layer.setStyle({
                     weight: 1
@@ -489,12 +491,13 @@ export class MapService {
         });
     }
 
-    private onEachAggregatedRegionsFeature(feature, layer) {
+    private onEachAggregatedRegionsFeatureAM(feature, layer) {
         layer.on({
             click: function(e) {
                 feature.properties.selected = true;
             },
             mouseover: function(e) {
+                e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name_de + "<br>" + e.target.feature.properties.name_it;
                 var layer = e.target;
                 layer.setStyle({
                     weight: 3
@@ -504,6 +507,7 @@ export class MapService {
                 }
             },
             mouseout: function(e) {
+                e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = " ";
                 var layer = e.target;
                 layer.setStyle({
                     weight: 1
@@ -511,6 +515,14 @@ export class MapService {
                 if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
                     layer.bringToFront();
                 }
+            }
+       });
+    }
+
+    private onEachAggregatedRegionsFeaturePM(feature, layer) {
+        layer.on({
+            click: function(e) {
+                feature.properties.selected = true;
             }
        });
     }

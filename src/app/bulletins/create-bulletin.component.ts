@@ -417,8 +417,21 @@ export class CreateBulletinComponent {
         return new L.Control.AM(opts);
       }
 
-      L.control.am({ position: 'topright' }).addTo(map);
+      L.control.am({ position: 'bottomleft' }).addTo(map);
     }
+
+    var info = L.control();
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+    // method that we will use to update the control based on feature properties passed
+    info.update = function (props) {
+        this._div.innerHTML = (props ?
+            '<b>' + props.name_de + '</b>' : ' ');
+    };
+    info.addTo(map);
 
     this.mapService.map = map;
 
@@ -458,7 +471,7 @@ export class CreateBulletinComponent {
       return new L.Control.PM(opts);
     }
 
-    L.control.pm({ position: 'topright' }).addTo(afternoonMap);
+    L.control.pm({ position: 'bottomleft' }).addTo(afternoonMap);
 
     afternoonMap.on('click', (e) => { this.onMapClick(e) });
     //afternoonMap.on('dblclick', (e)=>{this.onMapDoubleClick(e)});
