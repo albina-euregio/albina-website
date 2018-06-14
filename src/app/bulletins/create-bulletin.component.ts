@@ -699,6 +699,11 @@ export class CreateBulletinComponent {
 
   private addBulletin(bulletin: BulletinModel) {
     this.bulletinsList.push(bulletin);
+    this.bulletinsList.sort((a, b) : number => {
+      if (a.getAuthor().getRegion() < b.getAuthor().getRegion()) return 1;
+      if (a.getAuthor().getRegion() > b.getAuthor().getRegion()) return -1;
+      return 0;
+    });
 
     if (bulletin.hasDaytimeDependency && this.showAfternoonMap == false) {
       this.showAfternoonMap = true;
