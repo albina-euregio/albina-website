@@ -7,12 +7,14 @@ class BulletinCollection {
   status;
   statusMessage;
   dataRaw;
+  geodata;
 
   constructor(date) {
     this.date = date;
     this.status = 'pending';
     this.statusMessage = '';
     this.dataRaw = null;
+    this.geodata = null;
   }
 
   get regions() {
@@ -68,9 +70,22 @@ class BulletinCollection {
   }
 
   setStatusData(data) {
-    this.statusMessage =
-      (typeof data === 'object' && data.length == 1 && data[0].status)
-        ? data[0].status : '';
+    if(typeof data === 'object' && data.length == 1 && data[0].status) {
+      const st = data[0].status;
+      if(st != 'published' && st != 'republished') {
+        this.status = 'empty';
+      }
+      this.statusMessage = st;
+    } else{
+      this.status = 'n/a';
+      this.statusMessage = '';
+    }
+  }
+
+  setGeoData(data) {
+    if(typeof data === 'object') {
+      this.geodata = data;
+    }
   }
 
   toString() {
@@ -108,7 +123,7 @@ class BulletinStore {
   }
 
   /**
-   * Load a bulletin from the API and activate it, if desired.
+   * Load a bulletin from the APIs and activate it, if desired.
    * @param date The date in YYYY-MM-DD format.
    * @param activate A flag to indicate, if the bulletin should be activated.
    * @return Void, if the bulletin has already been fetched or a promise object,
@@ -117,15 +132,6 @@ class BulletinStore {
   @action
   load(date, activate = true) {
     if (date) {
-      const dateParam = encodeURIComponent(date + 'T00:00:00+02:00');
-      const urlBulletin = config.get('apis.bulletin') + '?date=' + dateParam;
-      const urlStatus =
-        config.get('apis.bulletin') +
-        '/status?startDate=' + dateParam +
-        '&endDate=' + dateParam +
-        '&region=IT-32-BZ';
-      //const urlGeoJSON = config.get('apis.geo') + '/awmaps/' + date + '/regions.geojson';
-
       if (this.bulletins[date]) {
         if (activate) {
           this.activate(date);
@@ -138,32 +144,24 @@ class BulletinStore {
           this.activate(date);
         }
 
-        return Promise.all([
-          Base.doRequest(urlBulletin).then(
-            // query bulletin data
-            response => {
-              this.bulletins[date].setData(JSON.parse(response));
-            },
-            error => {
-              console.error(
-                'Cannot load bulletin for date ' + date + ': ' + error
-              );
-              this.bulletins[date].setData(null);
+        /*
+         * First load status data. If status is 'published' or 'republished',
+         * continue loading bulletin data and then load GeoJSON(s) in parallel.
+         */
+        return this._loadBulletinStatus(date).then(() => {
+          if (this.bulletins[date].status == 'pending') {
+            // bulletin status still pending -> need to load data
+            return this._loadBulletinData(date);
+          }
+        }).then(() => {
+          if (this.bulletins[date].status == 'ok') {
+            if (this.bulletins[date].hasDaytimeDependency) {
+              return Promise.all([this._loadGeoData(date, 'am'), this._loadGeoData(date, 'pm')]);
             }
-          ),
-          Base.doRequest(urlStatus).then(
-            // query status data
-            response => {
-              this.bulletins[date].setStatusData(JSON.parse(response));
-            },
-            error => {
-              console.error(
-                'Cannot load bulletin status for date ' + date + ': ' + error
-              );
-              this.bulletins[date].setStatusData(null);
-            }
-          )
-        ]).then(() => {
+            // else
+            return this._loadGeoData(date, 'fd');
+          }
+        }).then(() => {
           if (activate && this.settings.date == date) {
             // reactivate to notify status change
             this.activate(date);
@@ -287,6 +285,62 @@ class BulletinStore {
   @computed
   get getMapZoom() {
     return toJS(this.mapZoom);
+  }
+
+  _loadBulletinData(date) {
+    const dateParam = encodeURIComponent(date + 'T00:00:00+02:00');
+    const urlBulletin = config.get('apis.bulletin') + '?date=' + dateParam;
+
+    return Base.doRequest(urlBulletin).then(
+      // query bulletin data
+      response => {
+        this.bulletins[date].setData(JSON.parse(response));
+      },
+      error => {
+        console.error(
+          'Cannot load bulletin for date ' + date + ': ' + error
+        );
+        this.bulletins[date].setData(null);
+      }
+    );
+  }
+
+  _loadBulletinStatus(date) {
+    const dateParam = encodeURIComponent(date + 'T00:00:00+02:00');
+    const urlStatus =
+      config.get('apis.bulletin') +
+      '/status?startDate=' + dateParam +
+      '&endDate=' + dateParam +
+      '&region=IT-32-BZ';
+
+    return Base.doRequest(urlStatus).then(
+      // query status data
+      response => {
+        this.bulletins[date].setStatusData(JSON.parse(response));
+      },
+      error => {
+        console.error(
+          'Cannot load bulletin status for date ' + date + ': ' + error
+        );
+        this.bulletins[date].setStatusData(null);
+      }
+    );
+  }
+
+  _loadGeoData(date, daytime) {
+    const urlGeoJSON = config.get('apis.geo') + date + '/' + daytime + '_regions.json';
+    return Base.doRequest(urlGeoJSON).then(
+      // query vector data
+      response => {
+        this.bulletins[date].setGeoData(JSON.parse(response));
+      },
+      error => {
+        console.error(
+          'Cannot load geo data for date ' + date + ': ' + error
+        );
+        this.bulletins[date].setGeoData(null);
+      }
+    );
   }
 }
 
