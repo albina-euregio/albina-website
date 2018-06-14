@@ -256,7 +256,7 @@ class BulletinStore {
    * @return A list of bulletins that match the selection of
    *   this.date and this.ampm
    */
-  @computed
+  //@computed
   get activeBulletinCollection() {
     if (this.settings.status == 'ok') {
       return this.bulletins[this.settings.date];
@@ -269,21 +269,25 @@ class BulletinStore {
    * @return A bulletin object that matches the selection of
    *   this.date, this.ampm and this.region
    */
-  @computed
+  //@computed
   get activeBulletin() {
-    const region = this.settings.region;
+    return this.getBulletinForRegion(this.settings.region);
+  }
+
+  //@computed
+  getBulletinForRegion(regionId) {
     const collection = this.activeBulletinCollection;
 
     if(collection && collection.length > 0) {
       return collection.getData().find((el) => {
-        return el.id == region;
+        return el.id == regionId;
       });
     }
 
     return null;
   }
 
-  @computed
+  //@computed
   get activeVectorLayer() {
     const collection = this.activeBulletinCollection;
     if(collection && collection.length > 0) {
