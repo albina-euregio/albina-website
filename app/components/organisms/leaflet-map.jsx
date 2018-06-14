@@ -15,7 +15,7 @@ import {
 } from 'react-leaflet';
 
 @observer
-class BulletinMap extends React.Component {
+class LeafletMap extends React.Component {
   constructor(props) {
     super(props);
     this.map = false;
@@ -73,11 +73,16 @@ class BulletinMap extends React.Component {
             tms={true}
             attribution="&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>, Tiles courtesy of <a href='http://hot.openstreetmap.org/' target='_blank'>Humanitarian OpenStreetMap Team</a>"
             OpenStreetMap
-          />
+          />{
+            this.props.vectorLayer &&
+              <GeoJSON
+                key={this.props.store.settings.date + this.props.store.settings.ampm}
+                data={this.props.vectorLayer} />
+          }
         </LayerGroup>
       </Map>
     );
   }
 }
 
-export default BulletinMap;
+export default LeafletMap;

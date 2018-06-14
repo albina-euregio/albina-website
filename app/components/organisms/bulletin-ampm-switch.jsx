@@ -16,7 +16,7 @@ import {observer} from 'mobx-react';
 
   render() {
     const title = 'Switch to ' + ((this.props.store.settings.ampm == 'am') ? 'PM' : 'AM');
-    const enabled = (this.props.store.settings.status == 'ok') ?
+    const enabled = (this.props.store.activeBulletinCollection) ?
       this.props.store.activeBulletinCollection.hasDaytimeDependency(): false;
 
     return (enabled &&

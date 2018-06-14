@@ -14,7 +14,7 @@ class BulletinCollection {
     this.status = 'pending';
     this.statusMessage = '';
     this.dataRaw = null;
-    this.geodata = null;
+    this.geodata = {};
   }
 
   get regions() {
@@ -63,6 +63,10 @@ class BulletinCollection {
     return this.dataRaw;
   }
 
+  getGeoData(daytime) {
+    return this.hasDaytimeDependency() ? this.geodata[daytime] : this.geodata['fd'];
+  }
+
   setData(data) {
     this.dataRaw = data;
     this.status =
@@ -82,9 +86,10 @@ class BulletinCollection {
     }
   }
 
-  setGeoData(data) {
+  setGeoData(data, daytime=null) {
     if(typeof data === 'object') {
-      this.geodata = data;
+      const d = daytime ? daytime : 'fd';
+      this.geodata[d] = data;
     }
   }
 
@@ -159,7 +164,7 @@ class BulletinStore {
               return Promise.all([this._loadGeoData(date, 'am'), this._loadGeoData(date, 'pm')]);
             }
             // else
-            return this._loadGeoData(date, 'fd');
+            return this._loadGeoData(date);
           }
         }).then(() => {
           if (activate && this.settings.date == date) {
@@ -253,7 +258,10 @@ class BulletinStore {
    */
   @computed
   get activeBulletinCollection() {
-    return this.bulletins[this.settings.date];
+    if (this.settings.status == 'ok') {
+      return this.bulletins[this.settings.date];
+    }
+    return null;
   }
 
   /**
@@ -271,6 +279,17 @@ class BulletinStore {
         return el.id == region;
       });
     }
+
+    return null;
+  }
+
+  @computed
+  get activeVectorLayer() {
+    const collection = this.activeBulletinCollection;
+    if(collection && collection.length > 0) {
+      return collection.getGeoData(this.settings.ampm);
+    }
+
     return null;
   }
 
@@ -289,9 +308,9 @@ class BulletinStore {
 
   _loadBulletinData(date) {
     const dateParam = encodeURIComponent(date + 'T00:00:00+02:00');
-    const urlBulletin = config.get('apis.bulletin') + '?date=' + dateParam;
+    const url = config.get('apis.bulletin') + '?date=' + dateParam;
 
-    return Base.doRequest(urlBulletin).then(
+    return Base.doRequest(url).then(
       // query bulletin data
       response => {
         this.bulletins[date].setData(JSON.parse(response));
@@ -307,13 +326,13 @@ class BulletinStore {
 
   _loadBulletinStatus(date) {
     const dateParam = encodeURIComponent(date + 'T00:00:00+02:00');
-    const urlStatus =
+    const url =
       config.get('apis.bulletin') +
       '/status?startDate=' + dateParam +
       '&endDate=' + dateParam +
       '&region=IT-32-BZ';
 
-    return Base.doRequest(urlStatus).then(
+    return Base.doRequest(url).then(
       // query status data
       response => {
         this.bulletins[date].setStatusData(JSON.parse(response));
@@ -327,18 +346,20 @@ class BulletinStore {
     );
   }
 
-  _loadGeoData(date, daytime) {
-    const urlGeoJSON = config.get('apis.geo') + date + '/' + daytime + '_regions.json';
-    return Base.doRequest(urlGeoJSON).then(
+  _loadGeoData(date, daytime = null) {
+    // API uses daytimes 'am', 'pm' and 'fd' ('full day')
+    const d = daytime ? daytime : 'fd';
+    const url = config.get('apis.geo') + date + '/' + d + '_regions.json';
+    return Base.doRequest(url).then(
       // query vector data
       response => {
-        this.bulletins[date].setGeoData(JSON.parse(response));
+        this.bulletins[date].setGeoData(JSON.parse(response), daytime);
       },
       error => {
         console.error(
           'Cannot load geo data for date ' + date + ': ' + error
         );
-        this.bulletins[date].setGeoData(null);
+        this.bulletins[date].setGeoData(null, daytime);
       }
     );
   }

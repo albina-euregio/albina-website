@@ -30,7 +30,7 @@ class BulletinMap extends React.Component {
   }
 
   get bulletin() {
-    return this.props.store.active;
+    return this.props.store.activeBulletin;
   }
 
   render() {
@@ -43,6 +43,8 @@ class BulletinMap extends React.Component {
           <LeafletMap
             mapScrollZoom={this.handleMapScrollZoom.bind(this)}
             mapViewportChanged={this.handleMapViewportChanged.bind(this)}
+            vectorLayer={this.props.store.activeVectorLayer}
+            store={this.props.store}
           />
           <div style={this.styleOverMap()} className="bulletin-map-search">
             <div className="pure-form pure-form-search">

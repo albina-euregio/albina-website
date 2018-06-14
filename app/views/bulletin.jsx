@@ -21,15 +21,6 @@ class Bulletin extends React.Component {
   }
 
   componentDidMount() {
-    // automatically update url
-    // const urlHandler = reaction(
-    //   () => this.store.settings.date,
-    //   (date) => {
-    //     if(date && date != )
-    //     this.props.history.push('/bulletin/' + date);
-    //   }
-    // );
-
     return this._fetchData(this.props);
   }
 
