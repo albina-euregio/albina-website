@@ -101,14 +101,6 @@ export class MapService {
         }
     }
 
-    private onEachAggregatedRegionsFeature(feature, layer) {
-        layer.on({
-            click: function(e) {
-                feature.properties.selected = true;
-            }
-        });
-    }
-
     getClickedRegion() : String {
         for (let entry of this.overlayMaps.regions.getLayers())
             if (entry.feature.properties.selected) {
@@ -475,8 +467,52 @@ export class MapService {
                     // TODO use constantsService
                     layer.setStyle({fillColor: '#3852A4', fillOpacity: 0.5});
                 }
+            },
+            mouseover: function(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 2
+                });
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
+            },
+            mouseout: function(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 1
+                });
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
             }
         });
+    }
+
+    private onEachAggregatedRegionsFeature(feature, layer) {
+        layer.on({
+            click: function(e) {
+                feature.properties.selected = true;
+            },
+            mouseover: function(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 3
+                });
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
+            },
+            mouseout: function(e) {
+                var layer = e.target;
+                layer.setStyle({
+                    weight: 1
+                });
+                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                    layer.bringToFront();
+                }
+            }
+       });
     }
 
     private getBaseStyle(feature?) {
