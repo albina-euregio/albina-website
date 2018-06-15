@@ -12,11 +12,11 @@ declare var L: any;
 })
 export class SettingsComponent {
 
-  private changePasswordLoading: boolean;
+  public changePasswordLoading: boolean;
 
-  private oldPassword: string;
-  private newPassword1: string;
-  private newPassword2: string;
+  public oldPassword: string;
+  public newPassword1: string;
+  public newPassword2: string;
 
   public alerts: any[] = [];
 
