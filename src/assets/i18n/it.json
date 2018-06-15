@@ -12,9 +12,9 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bollettino",
-		"observations" : "TODO",
+		"observations" : "Osservazzioni",
 		"admin" : "Admin",
-		"catalogueOfPhrases" : "TODO"
+		"catalogueOfPhrases" : "Catalogo delle frasi"
 	},
 	"menu" : {
 		"logout" : "Logout",
@@ -44,7 +44,7 @@
 			"caaml" : "Mostrare CAAML",
 			"json" : "Mostrare JSON",
 			"edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)",
-			"create" : "TODO"
+			"create" : "Creare bollettino valanghe"
 		},
 		"create" : {
 			"tooltip" : {
@@ -58,13 +58,13 @@
 				"saveBulletin" : "Salva bollettino valanghe",
 				"discardBulletin" : "Scarta modifiche del bollettino valanghe",
 				"loadBulletin" : "Copia da giorno precedente",
-				"elevationDependency" : "TODO",
-				"daytimeDependency" : "TODO",
+				"elevationDependency" : "Dipendenzza d'altitudine",
+				"daytimeDependency" : "Dipendenzza diurna",
 				"treeline" : "Linea del bosco",
 				"tendency" : {
-					"decreasing" : "TODO",
-					"steady" : "TODO",
-					"increasing" : "TODO"
+					"decreasing" : "Pericolo valanghe in diminuazione",
+					"steady" : "Pericolo valanghe invariato",
+					"increasing" : "Pericolo valanghe in aumento"
 				}
 			},
 			"button" : "Creato",
@@ -80,24 +80,24 @@
 			"label" : {
 				"avActivityHighlights" : "Titolo situazione pericolo valanghe",
 				"avActivityComment" : "Testo di discrezione pericolo valanghe",
-				"avalancheSituation1" : "TODO",
-				"avalancheSituation2" : "TODO",
+				"avalancheSituation1" : "Problema tipicho valanghivo 1",
+				"avalancheSituation2" : "Problema tipicho valanghivo 2",
 				"dangerRating" : "Grado del pericolo valanghe",
 				"aspects" : "Versanti",
 				"elevation" : "Altezza",
 				"daytime" : "Mattina/pomeriggio",
 				"snowpackStructureHighlights" : "Titolo struttura manto nevoso",
 				"snowpackStructureComment" : "Descrizione struttura manto nevoso",
-				"dangerPatterns" : "TODO",
-				"elevationHigh" : "TODO:",
-				"elevationLow" : "TODO:",
-				"tendencyComment" : "TODO"
+				"dangerPatterns" : "Situazioni tipo",
+				"elevationHigh" : "Limite superiore della quota:",
+				"elevationLow" : "Limite inferiore della quota:",
+				"tendencyComment" : "Tendenza"
 			},
 			"title" : {
 				"map" : "Mappa",
-				"dangerRating" : "TODO",
-				"avalancheSituation" : "TODO",
-				"dangerDescription" : "TODO",
+				"dangerRating" : "Grado pericolo valanghe",
+				"avalancheSituation" : "Problema tipicho valanghivo",
+				"dangerDescription" : "Discrezione pericolo",
 				"detail" : "Dettagli",
 				"above" : "Al disopra",
 				"below" : "Al disotto",
@@ -108,13 +108,13 @@
 				"forenoonBelow" : "Mattina, al disotto",
 				"afternoonBelow" : "Pomeriggio, al disotto",
 				"snowpackStructure" : "Struttura manto nevoso",
-				"tendency" : "TODO",
+				"tendency" : "Tendenza",
 				"pmdialog" : "Catalogo delle frasi",
-				"showTranslations" : " TODO",
-				"hideTranslations" : " TODO"
+				"showTranslations" : " Mostra traduzione",
+				"hideTranslations" : " Nascondi traduzione"
 			},
 			"pmDialog" : {
-				"noIFrameSupport" : "TODO"
+				"noIFrameSupport" : "Il tuo browser non supporta IFrames!"
 			},
 			"discardDialog" : {
 				"header" : "Scarta modifiche",
@@ -155,8 +155,8 @@
 				"accept" : "Ok"
 			},
 			"noElevationDialog" : {
-				"header" : "TODO",
-				"message" : "TODO",
+				"header" : "Quota non determinata",
+				"message" : "Determina una quota per questa zona!",
 				"accept" : "Ok"
 			}
 		},
@@ -191,10 +191,10 @@
 				"missingDangerRating" : "Grado di pericolo non definato",
 				"missingRegion" : "Micro-aree non valutate",
 				"duplicateRegion" : "Micro-aree valutate più volte",
-				"missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
-				"missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
-				"missingSnowpackStructureHighlights" : "TODO",
-				"missingSnowpackStructureComment" : "TODO",
+				"missingAvActivityHighlights" : "Mancha il titolo situazione di pericolo",
+				"missingAvActivityComment" : "Mancha la valutazione pericolo valanghe",
+				"missingSnowpackStructureHighlights" : "Manche il titolo della discrezione manto nevoso",
+				"missingSnowpackStructureComment" : "Manche la discrezione del manto nevoso",
 				"pendingSuggestions" : "Proposta non confermata",
 				"accept" : "Sí",
 				"reject" : "No"
@@ -212,8 +212,8 @@
 				"duplicateRegion" : "Micro-aree valutate più volte",
 				"missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
 				"missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
-				"missingSnowpackStructureHighlights" : "TODO",
-				"missingSnowpackStructureComment" : "TODO",
+				"missingSnowpackStructureHighlights" : "Manche il titolo della discrezione manto nevoso",
+				"missingSnowpackStructureComment" : "Manche la discrezione del manto nevoso",
 				"pendingSuggestions" : "Proposta non confermata",
 				"accept" : "Sí",
 				"reject" : "No"
@@ -257,24 +257,24 @@
 		}
 	},
 	"admin" : {
-		"title" : "TODO"
+		"title" : "Impostazioni ADMIN"
 	},
 	"settings" : {
-		"title" : "TODO",
+		"title" : "Impostazioni",
 		"changePassword" : {
-			"title" : "TODO",
-			"oldPassword" : "TODO",
-			"newPassword1" : "TODO",
-			"newPassword2" : "TODO",
-			"oldPasswordHint" : "TODO",
-			"newPasswordHint1" : "TODO",
-			"newPasswordHint2" : "TODO",
-			"submit" : "TODO",
-			"passwordChanged" : "TODO",
-			"passwordChangeError" : "TODO",
-			"passwordIncorrect" : "TODO",
-			"passwordsNotMatching" : "TODO",
-			"passwordEmpty" : "TODO"
+			"title" : "Cambiare password",
+			"oldPassword" : "Password attuale",
+			"newPassword1" : "Password nuovo",
+			"newPassword2" : "Password nuvo",
+			"oldPasswordHint" : "Inserire password attuale",
+			"newPasswordHint1" : "Inserire password nuovo",
+			"newPasswordHint2" : "Replica password nuovo",
+			"submit" : "Cambia password",
+			"passwordChanged" : "Password modificata con sucesso",
+			"passwordChangeError" : "Password non modificabile",
+			"passwordIncorrect" : "Password non è correta",
+			"passwordsNotMatching" : "Le password non corrispondono",
+			"passwordEmpty" : "Mancha la password"
 		}
 	},
 
@@ -294,16 +294,16 @@
 		"glidingSnow" : "Valanghe di slittamento"
 	},
 	"dangerPattern" : {
-		"dp1" : "TODO",
-		"dp2" : "TODO",
-		"dp3" : "TODO",
-		"dp4" : "TODO",
-		"dp5" : "TODO",
-		"dp6" : "TODO",
-		"dp7" : "TODO",
-		"dp8" : "TODO",
-		"dp9" : "TODO",
-		"dp10" : "TODO"
+		"dp1" : "la seconda nevicata",
+		"dp2" : "valanga per scivolamento di neve",
+		"dp3" : "pioggia",
+		"dp4" : "freddo su caldo / caldo su freddo",
+		"dp5" : "neve dopo un lungo periodo di freddo",
+		"dp6" : "neve fresca fredda a debole coesione e vento",
+		"dp7" : "zone con poca neve durante inverni ricchi di neve",
+		"dp8" : "brina di superficie sepolta",
+		"dp9" : "neve pallottolare coperta da neve fresca",
+		"dp10" : "situazione primaverile"
 	},
 	"aspect" : {
 		"N" : "N",
@@ -321,8 +321,8 @@
 		"IT-32-TN" : "Trentino"
 	},
 	"tendency" : {
-		"decreasing" : " TODO",
-		"steady" : " TODO",
-		"increasing" : " TODO"
+		"decreasing" : " Pericolo valanghe in diminuazione",
+		"steady" : " Pericolo valanghe invariato",
+		"increasing" : " Pericolo valanghe in aumento"
 	}
 }
