@@ -63,7 +63,7 @@
 				"treeline" : "Linea del bosco",
 				"tendency" : {
 					"decreasing" : "Pericolo valanghe in diminuazione",
-					"steady" : "Pericolo valanghe invariato",
+					"steady" : "Pericolo valanghe stabile",
 					"increasing" : "Pericolo valanghe in aumento"
 				}
 			},
@@ -322,7 +322,7 @@
 	},
 	"tendency" : {
 		"decreasing" : " Pericolo valanghe in diminuazione",
-		"steady" : " Pericolo valanghe invariato",
+		"steady" : " Pericolo valanghe stabile",
 		"increasing" : " Pericolo valanghe in aumento"
 	}
 }
