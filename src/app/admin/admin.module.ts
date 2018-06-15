@@ -4,10 +4,8 @@ import { CommonModule } from '@angular/common';
 
 import { AdminComponent } from './admin.component';
 
-// Bulletins Routing
 import { AdminRoutingModule } from './admin-routing.module';
 import { TranslateModule } from 'ng2-translate';
-import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
 
 // Pipes
 import { PipeModule } from '../pipes/pipes.module';
@@ -19,8 +17,6 @@ import { PipeModule } from '../pipes/pipes.module';
     FormsModule,
     CommonModule,
     TranslateModule,
-    ConfirmDialogModule,
-    SharedModule,
     PipeModule.forRoot()
   ],
   declarations: [
