@@ -38,7 +38,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { HttpModule, Http } from '@angular/http';
 
-import { BsDropdownModule, TabsModule, ModalModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, ModalModule, AlertModule } from 'ngx-bootstrap';
 
 import { ModalSubmitComponent } from './bulletins/modal-submit.component';
 import { ModalPublishComponent } from './bulletins/modal-publish.component';
@@ -53,6 +53,7 @@ export function createTranslateLoader(http: Http) {
     AppRoutingModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+    AlertModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     HttpModule,

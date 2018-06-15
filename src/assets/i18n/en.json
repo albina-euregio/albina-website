@@ -257,7 +257,33 @@
 		}
 	},
 	"admin" : {
-		"title" : "Settings"
+		"title" : "ADMIN Settings"
+	},
+	"settings" : {
+		"title" : "Settings",
+		"changePassword" : {
+			"title" : "Change password",
+			"oldPassword" : "Current password",
+			"newPassword1" : "New password",
+			"newPassword2" : "New Password",
+			"oldPasswordHint" : "Please enter your current password",
+			"newPasswordHint1" : "Please enter a new password",
+			"newPasswordHint2" : "Please enter the new password again",
+			"submit" : "Change password",
+			"passwordChanged" : "Password successfully changed",
+			"passwordsNotMatchDialog" : {
+				"message" : "New passwords do not match",
+				"accept" : "Ok"
+			},
+			"passwordIncorrectDialog" : {
+				"message" : "Password incorrect",
+				"accept" : "Ok"
+			},
+			"passwordChangeErrorDialog" : {
+				"message" : "Password could not be changed",
+				"accept" : "Ok"
+			}
+		}
 	},
 
 	"dangerRating" : {

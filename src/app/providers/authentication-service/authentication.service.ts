@@ -129,4 +129,43 @@ export class AuthenticationService {
         }
       });
   }
+
+  public checkPassword(password: string) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'authentication/check';
+    let authHeader = 'Bearer ' + this.getAccessToken();
+
+    var json = Object();
+    if (password && password != undefined)
+      json['password'] = password;
+
+    let body = JSON.stringify(json);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(url, body, options);
+  }
+
+  public changePassword(oldPassword: string, newPassword: string) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'authentication/change';
+    let authHeader = 'Bearer ' + this.getAccessToken();
+
+    var json = Object();
+    if (oldPassword && oldPassword != undefined)
+      json['oldPassword'] = oldPassword;
+    if (newPassword && newPassword != undefined)
+      json['newPassword'] = newPassword;
+
+    let body = JSON.stringify(json);
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(url, body, options);
+  }
+
 }

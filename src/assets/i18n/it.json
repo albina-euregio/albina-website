@@ -259,6 +259,32 @@
 	"admin" : {
 		"title" : "TODO"
 	},
+	"settings" : {
+		"title" : "TODO",
+		"changePassword" : {
+			"title" : "TODO",
+			"oldPassword" : "TODO",
+			"newPassword1" : "TODO",
+			"newPassword2" : "TODO",
+			"oldPasswordHint" : "TODO",
+			"newPasswordHint1" : "TODO",
+			"newPasswordHint2" : "TODO",
+			"submit" : "TODO",
+			"passwordChanged" : "TODO",
+			"passwordsNotMatchDialog" : {
+				"message" : "TODO",
+				"accept" : "Ok"
+			},
+			"passwordIncorrectDialog" : {
+				"message" : "TODO",
+				"accept" : "Ok"
+			},
+			"passwordChangeErrorDialog" : {
+				"message" : "TODO",
+				"accept" : "Ok"
+			}
+		}
+	},
 
 	"dangerRating" : {
 		"noRating" : "senza valutazione",

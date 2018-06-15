@@ -37,6 +37,9 @@
         <a class="dropdown-item" (click)='settingsService.setLangString("de")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.de" | translate }}<i *ngIf="settingsService.getLangString()=='de'" class="fa fa-check float-right"></i></a>
 
         <div class="dropdown-header text-center"><strong>{{ "menu.settings" | translate }}</strong></div>
+        
+        <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/settings']"><i class="fa fa-gear"></i> {{ "menu.settings" | translate }}</a>
+
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-sign-out"></i> {{ "menu.logout" | translate }}</a>
       </div>
     </li>
