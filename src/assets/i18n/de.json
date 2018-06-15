@@ -272,7 +272,8 @@
 			"passwordChanged" : "Passwort erfolgreich geändert",
 			"passwordChangeError" : "Passwort konnte nicht geändert werden",
 			"passwordIncorrect" : "Passwort ist nicht korrekt",
-			"passwordsNotMatching" : "Passwörter stimmern nicht überein"
+			"passwordsNotMatching" : "Passwörter stimmern nicht überein",
+			"passwordEmpty" : "Passwort fehlt"
 		}
 	},
 

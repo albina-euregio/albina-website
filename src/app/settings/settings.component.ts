@@ -35,7 +35,15 @@ export class SettingsComponent {
 
   changePassword() {
     this.changePasswordLoading = true;
-    if (this.newPassword1 == this.newPassword2) {
+    if (this.oldPassword == undefined || this.oldPassword == "") {
+      console.warn("Password empty");
+      this.changePasswordLoading = false;
+      this.alerts.push({
+        type: 'danger',
+        msg: this.translateService.instant("settings.changePassword.passwordEmpty"),
+        timeout: 5000
+      });
+    } else if (this.newPassword1 == this.newPassword2) {
       this.authenticationService.checkPassword(this.oldPassword).subscribe(
         data => {
           this.authenticationService.changePassword(this.oldPassword, this.newPassword1).subscribe(

@@ -271,18 +271,10 @@
 			"newPasswordHint2" : "TODO",
 			"submit" : "TODO",
 			"passwordChanged" : "TODO",
-			"passwordsNotMatchDialog" : {
-				"message" : "TODO",
-				"accept" : "Ok"
-			},
-			"passwordIncorrectDialog" : {
-				"message" : "TODO",
-				"accept" : "Ok"
-			},
-			"passwordChangeErrorDialog" : {
-				"message" : "TODO",
-				"accept" : "Ok"
-			}
+			"passwordChangeError" : "TODO",
+			"passwordIncorrect" : "TODO",
+			"passwordsNotMatching" : "TODO",
+			"passwordEmpty" : "TODO"
 		}
 	},
 

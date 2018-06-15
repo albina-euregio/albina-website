@@ -271,18 +271,10 @@
 			"newPasswordHint2" : "Please enter the new password again",
 			"submit" : "Change password",
 			"passwordChanged" : "Password successfully changed",
-			"passwordsNotMatchDialog" : {
-				"message" : "New passwords do not match",
-				"accept" : "Ok"
-			},
-			"passwordIncorrectDialog" : {
-				"message" : "Password incorrect",
-				"accept" : "Ok"
-			},
-			"passwordChangeErrorDialog" : {
-				"message" : "Password could not be changed",
-				"accept" : "Ok"
-			}
+			"passwordChangeError" : "Password could not be changed",
+			"passwordIncorrect" : "Password incorrect",
+			"passwordsNotMatching" : "Passwords are not matching",
+			"passwordEmpty" : "Password missing"
 		}
 	},
 
