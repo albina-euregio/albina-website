@@ -25,7 +25,6 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
   @computed
   get daytimeBulletin() {
     const bulletin = this.props.store.activeBulletin;
-    console.log(bulletin);
     const daytime =
       (bulletin.hasDaytimeDependency && this.props.store.settings.ampm == 'pm')
         ? 'afternoon'
@@ -101,7 +100,7 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
             <div className="bulletin-report-pictobar">
               <div className="bulletin-report-region">
                 <a href="#page-main" className="img icon-arrow-up tooltip" title="This Bulletin is valid for the selected region.<br/>Click to return to Map">
-                  <BulletinAWMapStatic date={this.props.store.settings.date} region={this.props.store.settings.region} />
+                  <BulletinAWMapStatic store={this.props.store} bulletin={bulletin} />
                 </a>
               </div>
               <ul className="list-plain list-bulletin-report-pictos">

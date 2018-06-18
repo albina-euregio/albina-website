@@ -132,7 +132,7 @@ class BulletinMap extends React.Component {
               className="bulletin-map-details js-active top-right"
             >
               <BulletinMapDetails bulletin={highlightedBulletin} />
-              { this.props.store.settings.region &&
+              { (this.props.store.settings.region == this.state.highlightedRegion) &&
                 <a
                   href="#section-bulletin-report"
                   className="pure-button tooltip"

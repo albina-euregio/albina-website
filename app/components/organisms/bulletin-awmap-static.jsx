@@ -7,10 +7,16 @@ import {observer} from 'mobx-react';
   }
 
   render() {
-    const path = window['config'].get('projectRoot') + 'images/dev/bulletin-report-region.png';
-    const text = 'Selected region + ' + this.props.region;
+    const url = window['config'].get('apis.geo')
+      + this.props.store.settings.date + '/'
+      + this.props.store.settings.region
+      //+ (this.props.bulletin.hasDaytimeDependency ? ('_' + this.props.store.settings.ampm.toUpperCase()) : '')
+      + ((this.props.bulletin.hasDaytimeDependency && this.props.store.settings.ampm == 'pm') ? '_PM' : '')
+      + '.jpg';
+
+    const text = 'Selected region ' + this.props.store.settings.region;
     return (
-      <img src={path} alt={text} />
+      <img src={url} alt={text} />
     );
   }
 }
