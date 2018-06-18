@@ -63,8 +63,8 @@ class BulletinCollection {
     return this.dataRaw;
   }
 
-  getGeoData(daytime) {
-    return this.hasDaytimeDependency() ? this.geodata[daytime] : this.geodata['fd'];
+  getGeoData() {
+    return this.geodata;
   }
 
   setData(data) {
@@ -86,10 +86,9 @@ class BulletinCollection {
     }
   }
 
-  setGeoData(data, daytime=null) {
+  setGeoData(data) {
     if(typeof data === 'object') {
-      const d = daytime ? daytime : 'fd';
-      this.geodata[d] = data;
+      this.geodata = data;
     }
   }
 
@@ -161,7 +160,7 @@ class BulletinStore {
         }).then(() => {
           if (this.bulletins[date].status == 'ok') {
             if (this.bulletins[date].hasDaytimeDependency()) {
-              return Promise.all([this._loadGeoData(date, 'am'), this._loadGeoData(date, 'pm')]);
+              return this._loadGeoData(date, 'am');
             }
             // else
             return this._loadGeoData(date);
@@ -256,7 +255,6 @@ class BulletinStore {
    * @return A list of bulletins that match the selection of
    *   this.date and this.ampm
    */
-  //@computed
   get activeBulletinCollection() {
     if (this.settings.status == 'ok') {
       return this.bulletins[this.settings.date];
@@ -269,12 +267,10 @@ class BulletinStore {
    * @return A bulletin object that matches the selection of
    *   this.date, this.ampm and this.region
    */
-  //@computed
   get activeBulletin() {
     return this.getBulletinForRegion(this.settings.region);
   }
 
-  //@computed
   getBulletinForRegion(regionId) {
     const collection = this.activeBulletinCollection;
 
@@ -287,11 +283,11 @@ class BulletinStore {
     return null;
   }
 
-  //@computed
   get activeVectorLayer() {
     const collection = this.activeBulletinCollection;
     if(collection && collection.length > 0) {
-      return collection.getGeoData(this.settings.ampm);
+      const data = collection.getGeoData();
+      return data;
     }
 
     return null;
