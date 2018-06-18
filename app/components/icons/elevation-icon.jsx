@@ -19,7 +19,7 @@ export default class ElevationIcon extends React.Component {
 
   get elevationText() {
     if(this.props.where == 'middle') {
-      return this.props.elevation.join('-') + 'm';
+      return this.props.elevation.sort().join('-') + 'm';
     }
     if(this.props.where == 'all') {
       return 'any altitude';

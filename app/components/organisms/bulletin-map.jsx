@@ -65,6 +65,7 @@ class BulletinMap extends React.Component {
       const id = e.layer.feature.properties.bid;
       console.log('Select region ' + id);
       window['bulletinStore'].setRegion(id);
+      this.handleHighlightFeature(e); // also do highlighting
     }
   }
 
