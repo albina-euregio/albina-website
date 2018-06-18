@@ -42,10 +42,7 @@ class BulletinMap extends React.Component {
 
   get highlightedBulletin() {
     if(this.state && this.state.highlightedRegion) {
-      const b = this.props.store.getBulletinForRegion(this.state.highlightedRegion);
-      const daytime = (b.hasDaytimeDependency && this.props.store.settings.ampm == 'pm') ?
-        'afternoon' : 'forenoon';
-      return b[daytime];
+      return this.props.store.getBulletinForRegion(this.state.highlightedRegion);
     }
     return null;
   }
@@ -70,7 +67,6 @@ class BulletinMap extends React.Component {
   }
 
   render() {
-    const highlightedBulletin = this.highlightedBulletin
     return (
       <section
         id="section-bulletin-map"
@@ -127,12 +123,14 @@ class BulletinMap extends React.Component {
               </li>
             </ul>
           </div>
-          { highlightedBulletin &&
+          { this.highlightedBulletin &&
             <div
               style={this.styleOverMap()}
               className="bulletin-map-details js-active top-right"
             >
-              <BulletinMapDetails bulletin={highlightedBulletin} />
+              <BulletinMapDetails
+                store={this.props.store}
+                bulletin={this.highlightedBulletin} />
               { (this.props.store.settings.region == this.state.highlightedRegion) &&
                 <a
                   href="#section-bulletin-report"
