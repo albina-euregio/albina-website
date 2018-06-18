@@ -225,7 +225,7 @@
                       </td>
                     </tr>
 
-                    <tr *ngIf="hasSuggestions && (!activeBulletin || bulletin != activeBulletin)" (click)="selectBulletin(bulletin)" class="table-warning" style="height: 52px">
+                    <tr *ngIf="hasSuggestions(bulletin) && (!activeBulletin || bulletin != activeBulletin)" (click)="selectBulletin(bulletin)" class="table-warning" style="height: 52px">
                       <td>
                         <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
                       </td>
