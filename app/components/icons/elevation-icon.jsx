@@ -3,7 +3,6 @@ import React from 'react';
 export default class ElevationIcon extends React.Component {
   imgRoot;
   icons;
-  texts;
 
   constructor(props) {
     super(props);
@@ -16,12 +15,28 @@ export default class ElevationIcon extends React.Component {
       'all': 'levels_all.png',
       'middle': 'levels_middle.png'
     }
-    this.texts = {
-      'above': 'Avalanche problem occurring above',
-      'below': 'Avalanche problem occurring below',
-      'all': 'Avalanche problem occurring',
-      'middle': 'Avalanche problem occurring at'
+  }
+
+  get elevationText() {
+    if(this.props.where == 'middle') {
+      return this.props.elevation.join('-') + 'm';
     }
+    if(this.props.where == 'all') {
+      return 'any altitude';
+    }
+    return
+  }
+
+  get altText() {
+    let txt = '';
+    if(this.props.where == 'above') {
+      txt = 'Avalanche problem occuring above';
+    } else if(this.props.where == 'below') {
+      txt = 'Avalanche problem occuring below';
+    } else {
+      txt = 'Avalanche problem occurring at';
+    }
+    return txt + ' ' + this.elevationText;
   }
 
   render() {
@@ -31,20 +46,14 @@ export default class ElevationIcon extends React.Component {
       'tooltip',
       ('problem-' + this.props.where)
     ];
-    const elevText = this.props.elevation
-      ? ((
-        (this.props.where == 'middle')
-          ? this.props.elevation.sort().join('-') : this.props.elevation[0]) + 'm'
-      ) : '';
-
     const src = this.imgRoot + this.icons[this.props.where];
-    const title = this.texts[this.props.where] + ' ' + elevText;
+    const title = this.altText;
 
     return (
       <div className={classes.join(' ')} title={title}>
         <img src={src} alt={title} />{
           (this.props.where != 'all') &&
-              <span>{elevText}<i className="icon"></i></span>
+              <span>{this.elevationText}<i className="icon"></i></span>
         }
       </div>
     );
