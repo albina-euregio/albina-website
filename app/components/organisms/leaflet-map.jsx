@@ -78,7 +78,9 @@ class LeafletMap extends React.Component {
               <GeoJSON
                 key={this.props.store.settings.date + this.props.store.settings.ampm}
                 data={this.props.vectorLayer}
-                onClick={(e) => { this.props.handleHighlightRegion(e) }} />
+                onClick={(e) => { this.props.handleSelectFeature(e) }}
+                onMouseOver={(e) => { this.props.handleHighlightFeature(e) }}
+                onMouseOut={this.props.handleHighlightFeature(null)} />
           }
         </LayerGroup>
       </Map>

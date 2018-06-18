@@ -8,6 +8,11 @@ class BulletinMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      /*
+       * Highlighted state is used only for mouseover effects. If regions are
+       * clicked (i.e. selected), the region settings in bulletinStore will
+       * be set instead.
+       */
       highlightedRegion: null
     }
   }
@@ -51,7 +56,15 @@ class BulletinMap extends React.Component {
       console.log('Highlight region ' + id);
       this.setState({highlightedRegion: id});
     } else if(this.state.highlightedRegion) {
-      this.setState({highlightedRegion: null});
+      //this.setState({highlightedRegion: null});
+    }
+  }
+
+  handleSelectFeature = (e) => {
+    if(e) {
+      const id = e.layer.feature.properties.bid;
+      console.log('Select region ' + id);
+      window['bulletinStore'].setRegion(id);
     }
   }
 
@@ -68,7 +81,8 @@ class BulletinMap extends React.Component {
             mapViewportChanged={this.handleMapViewportChanged.bind(this)}
             vectorLayer={this.props.store.activeVectorLayer}
             store={this.props.store}
-            handleHighlightRegion={this.handleHighlightFeature}
+            handleHighlightFeature={this.handleHighlightFeature}
+            handleSelectFeature={this.handleSelectFeature}
           />
           <div style={this.styleOverMap()} className="bulletin-map-search">
             <div className="pure-form pure-form-search">
@@ -113,9 +127,21 @@ class BulletinMap extends React.Component {
             </ul>
           </div>
           { highlightedBulletin &&
-            <BulletinMapDetails
-              bulletin={highlightedBulletin}
-              style={this.styleOverMap()} />
+            <div
+              style={this.styleOverMap()}
+              className="bulletin-map-details js-active top-right"
+            >
+              <BulletinMapDetails bulletin={highlightedBulletin} />
+              { this.props.store.settings.region &&
+                <a
+                  href="#section-bulletin-report"
+                  className="pure-button tooltip"
+                  title="See full bulletin report"
+                >
+                  <span>Click for</span> Details<span className="icon-arrow-down" />
+                </a>
+              }
+            </div>
           }
         </div>
       </section>

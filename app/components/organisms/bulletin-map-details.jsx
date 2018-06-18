@@ -26,29 +26,17 @@ export default class BulletinMapDetails extends React.Component {
     const treeline = b.hasElevationDependency && b.treeline;
 
     return (
-      <div
-        style={this.props.style}
-        className="bulletin-map-details js-active top-right"
-      >
-        <ul className="list-plain">
-          <li>
-            <WarnLevelIcon below={warnlevels.below} above={warnlevels.above} elevation={elevation} treeline={treeline} />
-          </li>
-          <li>
-            <ProblemIconLink problem={'wind_drifted_snow'} />
-          </li>
-          <li>
-            <ProblemIconLink problem={'weak_persistent_layer'} />
-          </li>
-        </ul>
-        <a
-          href="#section-bulletin-report"
-          className="pure-button tooltip"
-          title="See full bulletin report"
-        >
-          <span>Click for</span> Details<span className="icon-arrow-down" />
-        </a>
-      </div>
+      <ul className="list-plain">
+        <li>
+          <WarnLevelIcon below={warnlevels.below} above={warnlevels.above} elevation={elevation} treeline={treeline} />
+        </li>
+        <li>
+          <ProblemIconLink problem={'wind_drifted_snow'} />
+        </li>
+        <li>
+          <ProblemIconLink problem={'weak_persistent_layer'} />
+        </li>
+      </ul>
     )
   }
 }
