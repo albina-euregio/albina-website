@@ -11,7 +11,7 @@ import {dateToDateTimeString} from '../../util/date.js';
   @computed get statusText() {
     const collection = this.props.store.activeBulletinCollection;
 
-    if(!collection || this.props.status == 'pending') {
+    if(this.props.status == 'pending') {
       return 'Loading\u2026';
     }
 
