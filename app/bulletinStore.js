@@ -160,6 +160,8 @@ class BulletinStore {
         }).then(() => {
           if (this.bulletins[date].status == 'ok') {
             if (this.bulletins[date].hasDaytimeDependency()) {
+              // only request 'am' geojson - 'pm' has same geometries, only
+              // different properties which are irrelevant here
               return this._loadGeoData(date, 'am');
             }
             // else
@@ -283,10 +285,40 @@ class BulletinStore {
     return null;
   }
 
+  getProblemsForRegion(regionId) {
+    const problems = [];
+    const b = this.getBulletinForRegion(regionId);
+    const daytime = (b.hasDaytimeDependency && this.settings.ampm == 'pm') ? 'afternoon' : 'forenoon';
+    const daytimeBulletin = b[daytime];
+
+    if(daytimeBulletin && daytimeBulletin.avalancheSituation1) {
+      problems.push(daytimeBulletin.avalancheSituation1.avalancheSituation);
+    }
+    if(daytimeBulletin && daytimeBulletin.avalancheSituation2) {
+      problems.push(daytimeBulletin.avalancheSituation2.avalancheSituation);
+    }
+    return problems;
+  }
+
+  @computed
   get activeVectorLayer() {
     const collection = this.activeBulletinCollection;
+
     if(collection && collection.length > 0) {
-      const data = collection.getGeoData();
+      // clone original geojson
+      const data = Object.assign({}, collection.getGeoData());
+
+      // filter features to exclude regions with disabled problems
+      const features = data.features;
+      const f = features.filter((f) => {
+        const problems = this.getProblemsForRegion(f.properties.bid);
+        const active = (problems.length == 0)
+          || problems.some((p) => this.problems[p].active);
+        return active;
+      });
+
+      data.features = f; // replace with filtered data;
+
       return data;
     }
 
