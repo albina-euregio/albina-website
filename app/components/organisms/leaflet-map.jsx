@@ -10,9 +10,9 @@ import {
   Tooltip,
   Marker,
   LayerGroup,
-  GeoJSON,
   Pane
 } from 'react-leaflet';
+import BulletinVectorLayer from './bulletin-vector-layer';
 
 @observer
 class LeafletMap extends React.Component {
@@ -73,16 +73,15 @@ class LeafletMap extends React.Component {
             tms={true}
             attribution="&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>, Tiles courtesy of <a href='http://hot.openstreetmap.org/' target='_blank'>Humanitarian OpenStreetMap Team</a>"
             OpenStreetMap
-          />{
-            this.props.vectorLayer &&
-              <GeoJSON
-                key={this.props.store.settings.date + this.props.store.settings.ampm}
-                data={this.props.vectorLayer}
-                onClick={(e) => { this.props.handleSelectFeature(e) }}
-                onMouseOver={(e) => { this.props.handleHighlightFeature(e) }}
-                onMouseOut={this.props.handleHighlightFeature(null)} />
-          }
-        </LayerGroup>
+          />
+        </LayerGroup>{
+          this.props.vectorLayer &&
+            <BulletinVectorLayer
+              date={this.props.date}
+              data={this.props.vectorLayer}
+              handleHighlightFeature={this.props.handleHighlightFeature}
+              handleSelectFeature={this.props.handleSelectFeature} />
+        }
       </Map>
     );
   }

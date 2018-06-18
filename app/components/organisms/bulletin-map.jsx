@@ -53,7 +53,10 @@ class BulletinMap extends React.Component {
       console.log('Highlight region ' + id);
       this.setState({highlightedRegion: id});
     } else if(this.state.highlightedRegion) {
-      //this.setState({highlightedRegion: null});
+      console.log('Dehighlight region ' + this.state.highlightedRegion);
+      this.setState((prevState, props) => ({
+        highlightedRegion: (props.store.settings.region ? props.store.settings.region : '')
+      }));
     }
   }
 
@@ -77,7 +80,7 @@ class BulletinMap extends React.Component {
             mapScrollZoom={this.handleMapScrollZoom.bind(this)}
             mapViewportChanged={this.handleMapViewportChanged.bind(this)}
             vectorLayer={this.props.store.activeVectorLayer}
-            store={this.props.store}
+            date={this.props.store.settings.date}
             handleHighlightFeature={this.handleHighlightFeature}
             handleSelectFeature={this.handleSelectFeature}
           />
