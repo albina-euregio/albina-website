@@ -77,10 +77,9 @@ class BulletinMap extends React.Component {
       >
         <div className="bulletin-map-container">
           <LeafletMap
+            vectorLayer={this.props.store.activeVectorLayer}
             mapScrollZoom={this.handleMapScrollZoom.bind(this)}
             mapViewportChanged={this.handleMapViewportChanged.bind(this)}
-            vectorLayer={this.props.store.activeVectorLayer}
-            date={this.props.store.settings.date}
             handleHighlightFeature={this.handleHighlightFeature}
             handleSelectFeature={this.handleSelectFeature}
           />

@@ -310,18 +310,17 @@ class BulletinStore {
 
       // filter features to exclude regions with disabled problems
       const features = data.features;
-      const f = features.filter((f) => {
+      const newFeatures = features.filter((f) => {
         const problems = this.getProblemsForRegion(f.properties.bid);
         const active = (problems.length == 0)
           || problems.some((p) => this.problems[p].active);
         return active;
       });
 
-      data.features = f; // replace with filtered data;
+      data.features = newFeatures; // replace with filtered data;
 
       return data;
     }
-
     return null;
   }
 

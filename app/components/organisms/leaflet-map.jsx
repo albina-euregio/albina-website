@@ -77,7 +77,6 @@ class LeafletMap extends React.Component {
         </LayerGroup>{
           this.props.vectorLayer &&
             <BulletinVectorLayer
-              date={this.props.date}
               data={this.props.vectorLayer}
               handleHighlightFeature={this.props.handleHighlightFeature}
               handleSelectFeature={this.props.handleSelectFeature} />
