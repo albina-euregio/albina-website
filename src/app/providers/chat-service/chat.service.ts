@@ -39,7 +39,6 @@ export class ChatService {
     }.bind(this));
 
     this.socketService.getSocket().on('login', function(data) {
-      debugger
       let json = JSON.parse(data)
       console.log("SocketIO login event recieved: " + json.name);
       if (json.name != this.authenticationService.getUsername()) {
@@ -53,7 +52,6 @@ export class ChatService {
     }.bind(this));
 
     this.socketService.getSocket().on('logout', function(data) {
-      debugger
       let json = JSON.parse(data)
       console.log("SocketIO logout event recieved: " + json.name);
       if (json.name != this.authenticationService.getUsername()) {
