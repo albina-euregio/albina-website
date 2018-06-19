@@ -1,0 +1,5 @@
+iframe#meteoMap {
+  width: 100%;
+  height: calc(100vH - 215px);
+  border: none;
+}

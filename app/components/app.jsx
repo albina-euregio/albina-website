@@ -15,6 +15,7 @@ import Page from './page.jsx';
 
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require('../css/style.css');
+require('../css/app.css'); // CSS overrides
 require('./../../node_modules/leaflet/dist/leaflet.css');
 
 //require('./js/custom.js');
