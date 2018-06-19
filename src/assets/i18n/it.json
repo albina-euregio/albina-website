@@ -26,7 +26,8 @@
 	},
 	"chat" : {
 		"placeholder" : "Scrivi ...",
-		"send" : "Inviare"
+		"send" : "Inviare",
+		"activeUsers" : "Che è online?"
 	},
 	"languages" : {
 		"german" : "Tedesco",

@@ -4,6 +4,7 @@ import { AuthenticationService } from '../providers/authentication-service/authe
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { ChatService } from '../providers/chat-service/chat.service';
+import { SocketService } from '../providers/socket-service/socket.service';
 import { ChatMessageModel } from '../models/chat-message.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
@@ -25,6 +26,7 @@ export class FullLayoutComponent implements OnInit {
     public bulletinsService: BulletinsService,
     public chatService: ChatService,
     public settingsService: SettingsService,
+    public socketService: SocketService,
     public router: Router)
   {
     this.message = "";
@@ -53,6 +55,7 @@ export class FullLayoutComponent implements OnInit {
     if (this.bulletinsService.getActiveDate())
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
     this.authenticationService.logout();
+    this.socketService.logout();
   }
 
   ngOnInit(): void {}

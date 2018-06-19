@@ -10,6 +10,7 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class ChatService {
 
+  public activeUsers: String[];
   public chatMessages: ChatMessageModel[];
   public newMessageCount: number;
 
@@ -20,6 +21,7 @@ export class ChatService {
     public socketService: SocketService)
   {
     this.chatMessages = new Array<ChatMessageModel>();
+    this.activeUsers = new Array<String>();
     this.newMessageCount = 0;
 
     this.socketService.getSocket().on('chatEvent', function(data) {
@@ -33,6 +35,25 @@ export class ChatService {
       });
       if (message.getUsername() != this.authenticationService.getUsername())
         this.newMessageCount++;
+    }.bind(this));
+
+    this.socketService.getSocket().on('login', function(data) {
+      console.log("SocketIO login event recieved: " + data);
+      if (data != this.authenticationService.getUsername()) {
+        this.activeUsers.push(data);
+        this.activeUsers.sort((a, b) : number => {
+          if (a < b) return 1;
+          if (a > b) return -1;
+          return 0;
+        });
+      }
+    }.bind(this));
+
+    this.socketService.getSocket().on('logout', function(data) {
+      console.log("SocketIO logout event recieved: " + data);
+      var index = this.activeUsers.indexOf(data);
+      if (index > -1)
+        this.activeUsers.splice(index, 1);
     }.bind(this));
 
     this.getMessages().subscribe(
@@ -51,6 +72,24 @@ export class ChatService {
         console.error("Chat messages could not be loaded!");
       }
     );
+
+    this.getActiveUsers().subscribe(
+      data => {
+        let response = data.json();
+        for (let user of response) {
+          if (user != this.authenticationService.getUsername())
+            this.activeUsers.push(user);
+        }
+        this.activeUsers.sort((a, b) : number => {
+            if (a < b) return 1;
+            if (a > b) return -1;
+            return 0;
+        });
+      },
+      error => {
+        console.error("Active users could not be loaded!");
+      }
+    );
   }
 
   getMessages() : Observable<Response> {
@@ -64,6 +103,21 @@ export class ChatService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(url, options);
+  }
+
+  getActiveUsers() : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'chat/users';
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(url, options);
+  }
+
+  getNumberOfActiveUsers() {
+    return this.activeUsers.length;
   }
 
   sendMessage(text: string) {
