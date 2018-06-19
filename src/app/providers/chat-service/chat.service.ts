@@ -5,12 +5,13 @@ import { AuthenticationService } from '../authentication-service/authentication.
 import { ConstantsService } from '../constants-service/constants.service';
 import { SocketService } from '../socket-service/socket.service';
 import { ChatMessageModel } from '../../models/chat-message.model';
+import { AuthorModel } from '../../models/author.model';
 import * as io from 'socket.io-client';
 
 @Injectable()
 export class ChatService {
 
-  public activeUsers: String[];
+  public activeUsers: AuthorModel[];
   public chatMessages: ChatMessageModel[];
   public newMessageCount: number;
 
@@ -21,7 +22,7 @@ export class ChatService {
     public socketService: SocketService)
   {
     this.chatMessages = new Array<ChatMessageModel>();
-    this.activeUsers = new Array<String>();
+    this.activeUsers = new Array<AuthorModel>();
     this.newMessageCount = 0;
 
     this.socketService.getSocket().on('chatEvent', function(data) {
@@ -38,22 +39,28 @@ export class ChatService {
     }.bind(this));
 
     this.socketService.getSocket().on('login', function(data) {
-      console.log("SocketIO login event recieved: " + data);
-      if (data != this.authenticationService.getUsername()) {
-        this.activeUsers.push(data);
+      debugger
+      let json = JSON.parse(data)
+      console.log("SocketIO login event recieved: " + json.name);
+      if (json.name != this.authenticationService.getUsername()) {
+        this.activeUsers.push(AuthorModel.createFromJson(json));
         this.activeUsers.sort((a, b) : number => {
-          if (a < b) return 1;
-          if (a > b) return -1;
+          if (a.name < b.name) return 1;
+          if (a.name > b.name) return -1;
           return 0;
         });
       }
     }.bind(this));
 
     this.socketService.getSocket().on('logout', function(data) {
-      console.log("SocketIO logout event recieved: " + data);
-      var index = this.activeUsers.indexOf(data);
-      if (index > -1)
-        this.activeUsers.splice(index, 1);
+      debugger
+      let json = JSON.parse(data)
+      console.log("SocketIO logout event recieved: " + json.name);
+      if (json.name != this.authenticationService.getUsername()) {
+        var index = this.activeUsers.indexOf(AuthorModel.createFromJson(json));
+        if (index > -1)
+          this.activeUsers.splice(index, 1);
+      }
     }.bind(this));
 
     this.getMessages().subscribe(
@@ -77,12 +84,12 @@ export class ChatService {
       data => {
         let response = data.json();
         for (let user of response) {
-          if (user != this.authenticationService.getUsername())
-            this.activeUsers.push(user);
+          if (user.name != this.authenticationService.getUsername())
+            this.activeUsers.push(AuthorModel.createFromJson(user));
         }
         this.activeUsers.sort((a, b) : number => {
-            if (a < b) return 1;
-            if (a > b) return -1;
+            if (a.name < b.name) return 1;
+            if (a.name > b.name) return -1;
             return 0;
         });
       },
@@ -114,6 +121,27 @@ export class ChatService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
     return this.http.get(url, options);
+  }
+
+  getNumberOfActiveUsersForRegion(region?: string) {
+    if (region) {
+      let count = 0;
+      for (var i = this.activeUsers.length - 1; i >= 0; i--) {
+        if (this.activeUsers[i].getRegion().startsWith(region))
+          count = count + 1;
+      }
+      return count;
+    } else
+      return this.activeUsers.length;
+  }
+
+  getActiveUsersForRegion(region?: string) {
+    let users = new Array<string>();
+    for (var i = this.activeUsers.length - 1; i >= 0; i--) {
+      if ((region && this.activeUsers[i].getRegion().startsWith(region)) || !region)
+        users.push(this.activeUsers[i].getName());
+    }
+    return users;
   }
 
   sendMessage(text: string) {

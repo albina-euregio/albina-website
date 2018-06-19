@@ -48,6 +48,13 @@ export class AuthenticationService {
       null;
   }
 
+  public getEmail() : string {
+    if (this.currentAuthor)
+      return this.currentAuthor.email;
+    else
+      null;
+  }
+
   public getAccessToken() {
     if (this.currentAuthor)
       return this.currentAuthor.accessToken;

@@ -84,12 +84,22 @@
 
   <!-- Sidebar right -->
   <aside class="aside-menu" style="overflow: auto">
-    <div class="p-1">
+    <div *ngIf="chatService.getNumberOfActiveUsersForRegion() > 0" class="p-1">
       <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
-      <div *ngFor="let user of chatService.activeUsers" class="message">
+      <div *ngFor="let user of chatService.getActiveUsersForRegion()" class="message">
         <div>
           <div>
             <small>{{ user }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="chatService.getNumberOfActiveUsersForRegion() == 0" class="p-1">
+      <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
+      <div class="message">
+        <div>
+          <div>
+            <small>-</small>
           </div>
         </div>
       </div>

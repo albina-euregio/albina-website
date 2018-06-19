@@ -19,7 +19,7 @@ export class SocketService {
   }
 
   login() {
-  	let query = 'username=' + this.authenticationService.getUsername();
+  	let query = 'username=' + this.authenticationService.getEmail();
     this.socket = io(this.constantsService.socketIOUrl, {query: query});
   }
 
