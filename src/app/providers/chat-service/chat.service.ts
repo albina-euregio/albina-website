@@ -116,10 +116,6 @@ export class ChatService {
     return this.http.get(url, options);
   }
 
-  getNumberOfActiveUsers() {
-    return this.activeUsers.length;
-  }
-
   sendMessage(text: string) {
     let message = new ChatMessageModel();
     message.setUsername(this.authenticationService.getUsername());
