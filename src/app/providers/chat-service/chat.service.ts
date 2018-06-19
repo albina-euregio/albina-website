@@ -42,12 +42,22 @@ export class ChatService {
       let json = JSON.parse(data)
       console.log("SocketIO login event recieved: " + json.name);
       if (json.name != this.authenticationService.getUsername()) {
-        this.activeUsers.push(AuthorModel.createFromJson(json));
-        this.activeUsers.sort((a, b) : number => {
-          if (a.name < b.name) return 1;
-          if (a.name > b.name) return -1;
-          return 0;
-        });
+        let user = AuthorModel.createFromJson(json);
+        let found = false;
+        for (var i = this.activeUsers.length - 1; i >= 0; i--) {
+          if (this.activeUsers[i].getEmail() === json.email) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          this.activeUsers.push(user);
+          this.activeUsers.sort((a, b) : number => {
+            if (a.name < b.name) return 1;
+            if (a.name > b.name) return -1;
+            return 0;
+          });
+        }
       }
     }.bind(this));
 
@@ -55,7 +65,14 @@ export class ChatService {
       let json = JSON.parse(data)
       console.log("SocketIO logout event recieved: " + json.name);
       if (json.name != this.authenticationService.getUsername()) {
-        var index = this.activeUsers.indexOf(AuthorModel.createFromJson(json));
+        let user = AuthorModel.createFromJson(json);
+        let index = -1;
+        for (var i = this.activeUsers.length - 1; i >= 0; i--) {
+          if (this.activeUsers[i].getEmail() === json.email) {
+            index = i;
+            break;
+          }
+        }
         if (index > -1)
           this.activeUsers.splice(index, 1);
       }
