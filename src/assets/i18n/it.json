@@ -27,7 +27,11 @@
 	"chat" : {
 		"placeholder" : "Scrivi ...",
 		"send" : "Inviare",
-		"activeUsers" : "Che è online?"
+		"activeUsers" : "Che è online?",
+		"all" : "Tutti ",
+		"AT-07" : "Tirolo ",
+		"IT-32-BZ" : "Alto Adige ",
+		"IT-32-TN" : "Trentino "
 	},
 	"languages" : {
 		"german" : "Tedesco",

@@ -106,6 +106,46 @@ export class AuthenticationService {
     return false;
   }
 
+  public getChatId(region: string) {
+    switch (region) {
+      case this.constantsService.codeTyrol:
+        switch (this.getUserRegion()) {
+          case this.constantsService.codeTyrol:
+            return 0;
+          case this.constantsService.codeSouthTyrol:
+            return 1;
+          case this.constantsService.codeTrentino:
+            return 2
+          default:
+            return 0;
+        }
+      case this.constantsService.codeSouthTyrol:
+        switch (this.getUserRegion()) {
+          case this.constantsService.codeTyrol:
+            return 1
+          case this.constantsService.codeSouthTyrol:
+            return 0;
+          case this.constantsService.codeTrentino:
+            return 3;
+          default:
+            return 0;
+        }
+      case this.constantsService.codeTrentino:
+        switch (this.getUserRegion()) {
+          case this.constantsService.codeTyrol:
+            return 2;
+          case this.constantsService.codeSouthTyrol:
+            return 3;
+          case this.constantsService.codeTrentino:
+            return 0;
+          default:
+            return 0;
+        }
+      default:
+        return 0;
+    }
+  }
+
   public login(username: string, password: string): Observable<boolean> {
     let url = this.constantsService.getServerUrl() + 'authentication';
     console.log(url);

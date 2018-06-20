@@ -4,11 +4,13 @@ export class ChatMessageModel {
 	public username: string;
 	public time: Date;
 	public text: string;
+	public chatId: number;
 
 	constructor() {
 		this.username = undefined;
 		this.time = undefined
 		this.text = undefined;
+		this.chatId = undefined;
 	}
 
 	getTime() : Date{
@@ -35,6 +37,14 @@ export class ChatMessageModel {
 		this.text = text;
 	}
 
+	getChatId() : number {
+		return this.chatId;
+	}
+
+	setChatId(chatId) {
+		this.chatId = chatId;
+	}
+
 	toJson() {
 		var json = Object();
 
@@ -44,6 +54,8 @@ export class ChatMessageModel {
 			json['time'] = this.getISOStringWithTimezoneOffset(this.time);
 		if (this.text && this.text != undefined && this.text != "")
 			json['text'] = this.text;
+		if (this.chatId > -1)
+			json['chatId'] = this.chatId;
 
 		return json;
 	}
@@ -54,6 +66,7 @@ export class ChatMessageModel {
 		chatMessage.setUsername(json.username);
 		chatMessage.setTime(new Date(json.time));
 		chatMessage.setText(json.text);
+		chatMessage.setChatId(json.chatId);
 
 		return chatMessage;
 	}

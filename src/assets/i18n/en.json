@@ -27,7 +27,11 @@
 	"chat" : {
 		"placeholder" : "Write here ...",
 		"send" : "Send",
-		"activeUsers" : "Who is online?"
+		"activeUsers" : "Who is online?",
+		"all" : "All ",
+		"AT-07" : "Tirol ",
+		"IT-32-BZ" : "South Tyrol ",
+		"IT-32-TN" : "Trentino "
 	},
 	"languages" : {
 		"german" : "German",

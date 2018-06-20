@@ -4,6 +4,7 @@ import { AuthenticationService } from '../providers/authentication-service/authe
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { ChatService } from '../providers/chat-service/chat.service';
+import { ConstantsService } from '../providers/constants-service/constants.service';
 import { SocketService } from '../providers/socket-service/socket.service';
 import { ChatMessageModel } from '../models/chat-message.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -27,18 +28,17 @@ export class FullLayoutComponent implements OnInit {
     public chatService: ChatService,
     public settingsService: SettingsService,
     public socketService: SocketService,
+    public constantsService: ConstantsService,
     public router: Router)
   {
     this.message = "";
   }
 
-  public showBadge(): boolean {
-    return this.chatService.getNewMessageCount() > 0 && !this.status.isopen;
+  public showBadge(region?: string): boolean {
+    return this.chatService.getNewMessageCount(region) > 0 && !this.status.isopen;
   }
 
   public toggled(open: boolean): void {
-    if (open)
-      this.chatService.resetNewMessageCount();
   }
 
   public toggleDropdown($event: MouseEvent): void {
@@ -47,8 +47,8 @@ export class FullLayoutComponent implements OnInit {
     this.status.isopen = !this.status.isopen;
   }
 
-  public focusChat($event) {
-    this.chatService.resetNewMessageCount();
+  public focusChat($event, region?: string) {
+    this.chatService.resetNewMessageCount(region);
   }
 
   public logout() {
@@ -60,10 +60,10 @@ export class FullLayoutComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  sendChatMessage() {
-    this.chatService.resetNewMessageCount();
+  sendChatMessage(region?: string) {
+    this.chatService.resetNewMessageCount(region);
     if (this.message && this.message != undefined && this.message != "")
-      this.chatService.sendMessage(this.message);
+      this.chatService.sendMessage(this.message, region);
     this.message = "";
   }
 }
