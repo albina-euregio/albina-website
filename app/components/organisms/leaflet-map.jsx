@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import 'leaflet';
+import L from 'leaflet';
 import 'leaflet-sleep';
 import {
   Map,
@@ -33,6 +33,10 @@ class LeafletMap extends React.Component {
   componentDidMount() {
     this.map = this.refs.map.leafletElement;
     this.map.fitBounds(config.get('map.euregioBounds'));
+    this.map.on('click', (e) => {
+      L.DomEvent.stopPropagation(e);
+      this.props.handleSelectFeature(null);
+    });
   }
 
   get tileLayers() {
@@ -86,6 +90,7 @@ class LeafletMap extends React.Component {
         ref="map"
         {...sleepProps}
         {...mapProps}
+        dragging={!L.Browser.mobile}
         style={this.mapStyle()}
         attributionControl={true}
         zoomControl={false}

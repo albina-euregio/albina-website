@@ -47,9 +47,8 @@ class BulletinMap extends React.Component {
     return null;
   }
 
-  handleHighlightFeature = (e) => {
-    if(e) {
-      const id = e.layer.feature.properties.bid;
+  handleHighlightFeature = (id) => {
+    if(id) {
       console.log('Highlight region ' + id);
       this.setState({highlightedRegion: id});
     } else if(this.state.highlightedRegion) {
@@ -60,12 +59,15 @@ class BulletinMap extends React.Component {
     }
   }
 
-  handleSelectFeature = (e) => {
-    if(e) {
-      const id = e.layer.feature.properties.bid;
+  handleSelectFeature = (id) => {
+    if(id) {
       console.log('Select region ' + id);
       window['bulletinStore'].setRegion(id);
-      this.handleHighlightFeature(e); // also do highlighting
+      this.handleHighlightFeature(id); // also do highlighting
+    } else if(window['bulletinStore'].settings.region) {
+      console.log('Deselect ' + window['bulletinStore'].settings.region);
+      window['bulletinStore'].setRegion('');
+      this.handleHighlightFeature(null);
     }
   }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { matchPath } from 'react-router';
 import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { injectIntl, FormattedMessage} from 'react-intl';
@@ -11,6 +12,20 @@ class PageHeader extends React.Component {
   handleChangeLanguage = (newLanguage) => {
     window['appStore'].language = newLanguage;
   };
+
+  _linkStyle(path) {
+    let active = false;
+    const router = this.context;
+
+    if(path && router) {
+      active = (matchPath(window.location.pathname, path) != null);
+    }
+    return (active) ? 'active' : '';
+  }
+
+  renderLink(path, text) {
+    return <Link to={path} className={this._linkStyle(path)}>{text}</Link>
+  }
 
   render() {
     return (
@@ -28,15 +43,10 @@ class PageHeader extends React.Component {
         <div className="page-header-navigation">
           <ul className="list-plain navigation">
             <li>
-              <Link to="/bulletin">
-                Avalanche Bulletin{' '}
-                <small><FormattedMessage id="home" /></small>
-              </Link>
+              {this.renderLink('/bulletin', <span>Avalanche Bulletin <small><FormattedMessage id="home" /></small></span>)}
             </li>
             <li>
-              <Link to="/weather">
-                Snow &amp; Weather
-              </Link>
+              {this.renderLink('/weather', 'Snow & Weather')}
               <ul className="list-plain subnavigation">
                 <li>
                   <a href="#" className title>
@@ -76,9 +86,7 @@ class PageHeader extends React.Component {
               </ul>
             </li>
             <li>
-              <Link to="/education">
-                Education &amp; Prevention
-              </Link>
+              { this.renderLink('/education', 'Education & Prevention')}
               <ul className="list-plain subnavigation">
                 <li>
                   <a href="#" className title>
@@ -123,9 +131,7 @@ class PageHeader extends React.Component {
               </ul>
             </li>
             <li>
-              <Link to="/blog">
-                Blog
-              </Link>
+              { this.renderLink('/blog', 'Blog')}
             </li>
             <li>
               <a href="#" className=" has-sub" title>
