@@ -22,9 +22,7 @@ export default class BulletinVectorLayer extends React.Component {
         ref="feature"
         key={this.uniqueKey}
         data={this.props.data}
-        onClick={(e) => { this.props.handleSelectFeature(e) }}
-        onMouseOver={(e) => { this.props.handleHighlightFeature(e) }}
-        onMouseOut={() => {this.props.handleHighlightFeature(null)}}  />
+        onClick={(e) => { this.props.handleSelectFeature(e) }} />
     );
   }
 }
