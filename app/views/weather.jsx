@@ -14,6 +14,7 @@ export default class Weather extends React.Component {
   }
 
   render() {
+    const url = config.get('links.meteoViewer');
     return (
       <div>
         <section className="section-padding section-header">
@@ -21,7 +22,7 @@ export default class Weather extends React.Component {
             <h1>Snow &amp; Weather</h1>
           </header>
         </section>
-        <iframe id="meteoMap" src="//data1.geo.univie.ac.at/sandbox/map_viewer/framemap.html">
+        <iframe id="meteoMap" src={url}>
           <p>Your browser does not support iframes.</p>
         </iframe>
       </div>

@@ -10,6 +10,7 @@ import {
   Tooltip,
   Marker,
   LayerGroup,
+  LayersControl,
   Pane
 } from 'react-leaflet';
 import BulletinVectorLayer from './bulletin-vector-layer';
@@ -31,6 +32,28 @@ class LeafletMap extends React.Component {
 
   componentDidMount() {
     this.map = this.refs.map.leafletElement;
+    this.map.fitBounds(config.get('map.euregioBounds'));
+  }
+
+  get tileLayers() {
+    const tileLayerConfig = config.get('map.tileLayers');
+    let tileLayers = '';
+    if(tileLayerConfig.length == 1) {
+      // only a single raster layer -> no layer control
+      tileLayers = <TileLayer {...tileLayerConfig[0]} />;
+    } else if(tileLayerConfig.length > 1) {
+      // add a layer switch zoomControl
+      tileLayers = <LayersControl>{
+        tileLayerConfig.map((layerProps, i) =>
+          <LayersControl.BaseLayer
+            name={layerProps.id}
+            key={layerProps.id}
+            checked={i == 0}>
+            <TileLayer key={layerProps.id} {...layerProps} />
+          </LayersControl.BaseLayer>)
+      }</LayersControl>;
+    }
+    return tileLayers;
   }
 
   render() {
@@ -53,28 +76,24 @@ class LeafletMap extends React.Component {
       // opacity for the sleeping map
       sleepOpacity: 0.7
     };
+
+    const mapProps = config.get('map.initOptions');
+
     return (
       <Map
         onViewportChanged={this.props.mapViewportChanged.bind(this.map)}
         useFlyTo={true}
         ref="map"
         {...sleepProps}
+        {...mapProps}
         style={this.mapStyle()}
-        attributionControl={false}
+        attributionControl={true}
         zoomControl={false}
         zoom={bulletinStore.getMapZoom}
         center={bulletinStore.getMapCenter}
       >
-        <LayerGroup>
-          <TileLayer
-            url="https://lawis.at/wms/LAWIS/LAWIS-TMS_bw/{z}/{x}/{y}.png"
-            maxZoom={10}
-            detectRetina={false}
-            tms={true}
-            attribution="&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>, Tiles courtesy of <a href='http://hot.openstreetmap.org/' target='_blank'>Humanitarian OpenStreetMap Team</a>"
-            OpenStreetMap
-          />
-        </LayerGroup>{
+        { this.tileLayers }
+        {
           this.props.vectorLayer &&
             <BulletinVectorLayer
               data={this.props.vectorLayer}
