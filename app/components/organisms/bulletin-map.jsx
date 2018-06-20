@@ -75,7 +75,7 @@ class BulletinMap extends React.Component {
         id="section-bulletin-map"
         className="section section-bulletin section-bulletin-map"
       >
-        <div className="bulletin-map-container">
+        <div className="bulletin-map-container section-centered">
           <LeafletMap
             vectorLayer={this.props.store.activeVectorLayer}
             mapScrollZoom={this.handleMapScrollZoom.bind(this)}

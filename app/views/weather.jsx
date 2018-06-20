@@ -22,9 +22,11 @@ export default class Weather extends React.Component {
             <h1>Snow &amp; Weather</h1>
           </header>
         </section>
-        <iframe id="meteoMap" src={url}>
-          <p>Your browser does not support iframes.</p>
-        </iframe>
+        <section className="section-centered">
+          <iframe id="meteoMap" src={url}>
+            <p>Your browser does not support iframes.</p>
+          </iframe>
+        </section>
       </div>
     );
   }
