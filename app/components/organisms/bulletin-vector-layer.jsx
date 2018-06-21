@@ -1,7 +1,7 @@
-import React from 'react';
-import L from 'leaflet';
-import { observer } from 'mobx-react';
-import { GeoJSON } from 'react-leaflet';
+import React from "react";
+import L from "leaflet";
+import { observer } from "mobx-react";
+import { GeoJSON } from "react-leaflet";
 
 @observer
 export default class BulletinVectorLayer extends React.Component {
@@ -11,8 +11,8 @@ export default class BulletinVectorLayer extends React.Component {
     // Set click event hander on leaflet feature instead of using the
     // react-leaflet component in the render method below. Otherwise, stopping
     // event propagation will not work :/
-    this.layer.eachLayer((l) => {
-      l.on('click', (e) => {
+    this.layer.eachLayer(l => {
+      l.on("click", e => {
         // stop event propagation to prevent the map from getting a click event
         // this would otherwise trigger an immediate deselection of the feature
         L.DomEvent.stopPropagation(e);
@@ -37,11 +37,9 @@ export default class BulletinVectorLayer extends React.Component {
   }
 
   render() {
+    console.log(this.props.data);
     return (
-      <GeoJSON
-        ref="feature"
-        key={this.uniqueKey}
-        data={this.props.data} />
+      <GeoJSON ref="feature" key={this.uniqueKey} data={this.props.data} />
     );
   }
 }
