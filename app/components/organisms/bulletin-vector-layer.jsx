@@ -1,10 +1,11 @@
 import React from "react";
 import L from "leaflet";
 import { observer } from "mobx-react";
-import { GeoJSON } from "react-leaflet";
+import { GeoJSON, Pane, Polygon } from "react-leaflet";
 
 @observer
 export default class BulletinVectorLayer extends React.Component {
+  /*
   componentDidMount(props) {
     this.layer = this.refs.feature.leafletElement;
 
@@ -19,6 +20,11 @@ export default class BulletinVectorLayer extends React.Component {
         this.props.handleSelectFeature(l.feature.properties.bid);
       });
     });
+  }
+*/
+
+  shouldComponentUpdate() {
+    return true;
   }
 
   get uniqueKey() {
@@ -37,9 +43,16 @@ export default class BulletinVectorLayer extends React.Component {
   }
 
   render() {
-    console.log(this.props.data);
+    console.log("vector renders");
     return (
-      <GeoJSON ref="feature" key={this.uniqueKey} data={this.props.data} />
+      <Pane key={this.uniqueKey}>
+        {this.props.regions.map((vector, vi) => {
+          console.log(vector.properties.state);
+          return (
+            <Polygon key={vi} positions={vector.geometry.coordinates[0]} />
+          );
+        })}
+      </Pane>
     );
   }
 }

@@ -10,6 +10,8 @@
     "clean-dist": "rm -f -r -d dist"
   },
   "dependencies": {
+    "@turf/flip": "^5.1.5",
+    "@turf/turf": "^5.1.6",
     "animejs": "^2.2.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",

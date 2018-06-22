@@ -85,6 +85,9 @@ class LeafletMap extends React.Component {
   render() {
     const mapProps = config.get("map.initOptions");
 
+    console.log("leaflet map renders");
+    console.log(this.props.vectorRegions);
+    console.log("leaflet map renders");
     return (
       <Map
         onViewportChanged={this.props.mapViewportChanged.bind(this.map)}
@@ -100,7 +103,7 @@ class LeafletMap extends React.Component {
         center={bulletinStore.getMapCenter}
       >
         {this.tileLayers}
-        {this.props.vectorLayer && (
+        {this.props.vectorRegions && (
           <BulletinVectorLayer
             store={bulletinStore}
             regions={this.props.vectorRegions}

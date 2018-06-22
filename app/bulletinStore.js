@@ -2,6 +2,8 @@ import Base from "./base.js";
 import { observable, action, computed, toJS } from "mobx";
 import { parseDate } from "./util/date.js";
 
+import flip from "@turf/flip";
+
 class BulletinCollection {
   date;
   status;
@@ -333,6 +335,7 @@ class BulletinStore {
     return null;
   }
 
+  // assign states to regions
   @computed
   get vectorRegions() {
     const collection = this.activeBulletinCollection;
@@ -363,6 +366,7 @@ class BulletinStore {
           state = "hidden";
         }
 
+        f = flip(f);
         f.properties.state = state;
         return f;
       });
