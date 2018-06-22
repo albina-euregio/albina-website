@@ -47,9 +47,19 @@ export default class BulletinVectorLayer extends React.Component {
     return (
       <Pane key={this.uniqueKey}>
         {this.props.regions.map((vector, vi) => {
-          console.log(vector.properties.state);
+          const state = vector.properties.state;
+          const style = Object.assign(
+            {},
+            config.get("map.regionStyling.all"),
+            config.get("map.regionStyling." + state)
+          );
+          console.log(style);
           return (
-            <Polygon key={vi} positions={vector.geometry.coordinates[0]} />
+            <Polygon
+              key={vi}
+              positions={vector.geometry.coordinates[0]}
+              {...style}
+            />
           );
         })}
       </Pane>

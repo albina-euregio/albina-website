@@ -1,32 +1,31 @@
 {
   "projectRoot": "/",
   "blogs": [
-  	{
-  	  "lang": "de",
-  	  "name": "lawinenwarndienst.blogspot.co.at",
-  	  "apiType": "blogger",
-  	  "tags": [
-  	    "Tirol"
-  	  ],
-  	  "params": {
-  	    "id": "7062477220886068374"
+    {
+      "lang": "de",
+      "name": "lawinenwarndienst.blogspot.co.at",
+      "apiType": "blogger",
+      "tags": ["Tirol"],
+      "params": {
+        "id": "7062477220886068374"
       }
     }
   ],
   "apis": {
-  	"content": "https://data1.geo.univie.ac.at/projects/albina-cms/web/",
-  	"bulletin": "http://212.47.231.185:8080/albina/api/bulletins",
+    "content": "https://data1.geo.univie.ac.at/projects/albina-cms/web/",
+    "bulletin": "http://212.47.231.185:8080/albina/api/bulletins",
     "geo": "https://data1.geo.univie.ac.at/exchange/albina2/awm/",
-  	"blogger": "https://www.googleapis.com/blogger/v3/blogs/"
+    "blogger": "https://www.googleapis.com/blogger/v3/blogs/"
   },
   "apiKeys": {
     "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo"
   },
   "links": {
-    "meteoViewer": "https://data1.geo.univie.ac.at/sandbox/map_viewer/framemap.html"
+    "meteoViewer":
+      "https://data1.geo.univie.ac.at/sandbox/map_viewer/framemap.html"
   },
   "map": {
-    "euregioBounds": [[45.5,10.1],[47.7,13]],
+    "euregioBounds": [[45.5, 10.1], [47.7, 13]],
     "initOptions": {
       "maxZoom": 10,
       "minZoom": 6
@@ -38,9 +37,28 @@
         "maxZoom": 10,
         "detectRetina": false,
         "tms": true,
-        "attribution": "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>, Tiles courtesy of <a href='http://hot.openstreetmap.org/' target='_blank'>Humanitarian OpenStreetMap Team</a>"
+        "attribution":
+          "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>, Tiles courtesy of <a href='http://hot.openstreetmap.org/' target='_blank'>Humanitarian OpenStreetMap Team</a>"
       }
-    ]
+    ],
+    "regionStyling": {
+      "all": {
+        "fillOpacity": 0.7,
+        "fillColor": "blue"
+      },
+      "default": {
+        "fillColor": "yellow"
+      },
+      "dimmed": {
+        "fillColor": "orange"
+      },
+      "selected": {
+        "fillColor": "red"
+      },
+      "hidden": {
+        "fillColor": "white"
+      }
+    }
   },
   "defaults": {
     "ampm": "am"
