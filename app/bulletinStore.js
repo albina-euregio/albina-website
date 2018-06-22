@@ -310,7 +310,7 @@ class BulletinStore {
     return problems;
   }
 
-  // deprecated
+  // deprecated to vectorRegions
   @computed
   get activeVectorLayer() {
     const collection = this.activeBulletinCollection;

@@ -6,6 +6,7 @@ import { GeoJSON, Pane, Polygon } from "react-leaflet";
 @observer
 export default class BulletinVectorLayer extends React.Component {
   /*
+  old solution
   componentDidMount(props) {
     this.layer = this.refs.feature.leafletElement;
 
@@ -21,7 +22,15 @@ export default class BulletinVectorLayer extends React.Component {
       });
     });
   }
-*/
+  */
+
+  handleClickRegion(bid, state, e) {
+    L.DomEvent.stopPropagation(e);
+    if (state !== "hidden") {
+      console.log("selecting region", bid);
+      this.props.handleSelectFeature(bid);
+    }
+  }
 
   shouldComponentUpdate() {
     return true;
@@ -53,10 +62,14 @@ export default class BulletinVectorLayer extends React.Component {
             config.get("map.regionStyling.all"),
             config.get("map.regionStyling." + state)
           );
-          console.log(style);
           return (
             <Polygon
               key={vi}
+              onClick={this.handleClickRegion.bind(
+                this,
+                vector.properties.bid,
+                state
+              )}
               positions={vector.geometry.coordinates[0]}
               {...style}
             />

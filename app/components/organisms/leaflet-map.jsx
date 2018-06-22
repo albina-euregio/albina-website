@@ -84,10 +84,6 @@ class LeafletMap extends React.Component {
 
   render() {
     const mapProps = config.get("map.initOptions");
-
-    console.log("leaflet map renders");
-    console.log(this.props.vectorRegions);
-    console.log("leaflet map renders");
     return (
       <Map
         onViewportChanged={this.props.mapViewportChanged.bind(this.map)}
