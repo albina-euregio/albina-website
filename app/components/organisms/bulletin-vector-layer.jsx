@@ -50,9 +50,9 @@ export default class BulletinVectorLayer extends React.Component {
       return acc * 2 + (bulletinStore.problems[p].active ? 1 : 0);
     }, 0);
 
-    return bulletinStore.settings.date
-      + bulletinStore.settings.region
-      + problemHash;
+    return (
+      bulletinStore.settings.date + bulletinStore.settings.region + problemHash
+    );
   }
 
   render() {
@@ -61,6 +61,8 @@ export default class BulletinVectorLayer extends React.Component {
       <Pane key={this.uniqueKey}>
         {this.props.regions.map((vector, vi) => {
           const state = vector.properties.state;
+
+          // setting the style for each region
           const style = Object.assign(
             {},
             config.get("map.regionStyling.all"),
