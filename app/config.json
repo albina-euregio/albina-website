@@ -52,7 +52,7 @@
         "weight": 2
       },
       "default": {
-        "fill": "none"
+        "fillOpacity": 0
       },
       "dimmed": {
         "fillColor": "white",
@@ -60,7 +60,7 @@
       },
       "selected": {
         "weight": 4,
-        "fill": "none"
+        "fillColor": "none"
       },
       "hidden": {
         "opacity": 0.2,
