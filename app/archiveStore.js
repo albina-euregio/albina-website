@@ -10,8 +10,31 @@ export default class ArchiveStore {
   }
 
   load(startDate, endDate = '') {
-    // TODO: check if already loaded
-    return this._loadBulletinStatus(startDate, endDate)
+    let d1 = parseDate(startDate);
+    // check if start date has already been loaded
+    let isLoaded = Boolean(this.archive[dateToISODateString(d1)]);
+
+    if(!isLoaded) {
+      return this._loadBulletinStatus(startDate, endDate);
+    }
+
+    if(endDate) {
+      // check if whole period is loaded
+      let d2 = parseDate(endDate);
+      if(d1 < d2) {
+        do {
+          d1 = getSuccDate(d1);
+          isLoaded = isLoaded && Boolean(this.archive[dateToISODateString(d1)]);
+        } while(isLoaded && d1 < d2);
+      }
+
+      if(!isLoaded) {
+        return this._loadBulletinStatus(dateToISODateString(d1), endDate);
+      }
+    }
+
+    // already loaded
+    return Promise.resolve();
   }
 
   getStatus(date) {

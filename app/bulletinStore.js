@@ -14,14 +14,14 @@ class BulletinCollection {
 
   constructor(date) {
     this.date = date;
-    this.status = "pending";
-    this.statusMessage = "";
+    this.status = 'pending';
+    this.statusMessage = '';
     this.dataRaw = null;
     this.geodata = {};
   }
 
   get regions() {
-    if (this.status != "ok") {
+    if (this.status != 'ok') {
       return [];
     }
 
@@ -29,7 +29,7 @@ class BulletinCollection {
   }
 
   get problems() {
-    if (this.status != "ok") {
+    if (this.status != 'ok') {
       return [];
     }
 
@@ -38,7 +38,7 @@ class BulletinCollection {
 
   get publicationDate() {
     // return maximum of all publicationDates
-    if (this.status == "ok" && this.dataRaw.length > 0) {
+    if (this.status == 'ok' && this.dataRaw.length > 0) {
       return this.dataRaw
         .map(b => {
           return parseDate(b.publicationDate);
@@ -56,7 +56,7 @@ class BulletinCollection {
   }
 
   hasDaytimeDependency() {
-    if (this.status == "ok" && this.dataRaw.length > 0) {
+    if (this.status == 'ok' && this.dataRaw.length > 0) {
       return this.dataRaw.reduce((acc, b) => {
         return acc || b.hasDaytimeDependency;
       }, false);
@@ -75,20 +75,11 @@ class BulletinCollection {
   setData(data) {
     this.dataRaw = data;
     this.status =
-      typeof data === "object" ? (data.length > 0 ? "ok" : "empty") : "n/a";
+      typeof data === 'object' ? (data.length > 0 ? 'ok' : 'empty') : 'n/a';
   }
 
-  setStatusData(data) {
-    if (typeof data === "object" && data.length == 1 && data[0].status) {
-      const st = data[0].status;
-      if (st != "published" && st != "republished") {
-        this.status = "empty";
-      }
-      this.statusMessage = st;
-    } else {
-      this.status = "n/a";
-      this.statusMessage = "";
-    }
+  cancelLoad() {
+    this.status = 'empty';
   }
 
   setGeoData(data) {
@@ -105,7 +96,7 @@ class BulletinCollection {
 class BulletinStore {
   // TODO: add language support
   @observable mapCenter = [15, 50];
-  @observable mapZoom = 12;
+  @observable mapZoom = 'object'
   @observable bulletins = {};
   settings = {};
   problems = {};
@@ -117,10 +108,10 @@ class BulletinStore {
     this.archiveStore = window['archiveStore'];
 
     this.settings = observable({
-      status: "",
-      date: "",
-      region: "",
-      ampm: config.get("defaults.ampm")
+      status: '',
+      date: '',
+      region: '',
+      ampm: config.get('defaults.ampm')
     });
     this.bulletins = {};
 
@@ -159,33 +150,40 @@ class BulletinStore {
         }
 
         /*
-         * First load status data. If status is 'published' or 'republished',
-         * continue loading bulletin data and then load GeoJSON(s) in parallel.
+         * First check status data (via achiveStore). If status is 'ok'
+         * (i.e. 'published' or 'republished'),
+         * continue loading bulletin data and then load GeoJSON.
+         *
+         * NOTE: It would (in principle) be possible to load GeoJSON and
+         * bulletin data in parallel (using Promise.all). However GeoJSON
+         * filename conventions use 'fd_...' for non-time-dependent bulletins.
+         * Therefore, we have to check daytime dependency before being able to
+         * determine the correct url.
          */
-        return this._loadBulletinStatus(date)
-          .then(() => {
-            if (this.bulletins[date].status == "pending") {
-              // bulletin status still pending -> need to load data
-              return this._loadBulletinData(date);
+        return this.archiveStore.load(date).then(() => {
+          const status = this.archiveStore.getStatus(date);
+          if(status == 'ok') {
+            return this._loadBulletinData(date);
+          } else {
+            this.bulletins[date].cancelLoad();
+          }
+        }).then(() => {
+          if (this.bulletins[date].status == 'ok') {
+            // bulletin data has been loaded, continue with GeoJSON
+            if (this.bulletins[date].hasDaytimeDependency()) {
+              // only request 'am' geojson - 'pm' has same geometries, only
+              // different properties which are irrelevant here
+              return this._loadGeoData(date, 'am');
             }
-          })
-          .then(() => {
-            if (this.bulletins[date].status == "ok") {
-              if (this.bulletins[date].hasDaytimeDependency()) {
-                // only request 'am' geojson - 'pm' has same geometries, only
-                // different properties which are irrelevant here
-                return this._loadGeoData(date, "am");
-              }
-              // else
-              return this._loadGeoData(date);
-            }
-          })
-          .then(() => {
-            if (activate && this.settings.date == date) {
-              // reactivate to notify status change
-              this.activate(date);
-            }
-          });
+            // else (this will load the 'fd' geojson)
+            return this._loadGeoData(date);
+          }
+        }).then(() => {
+          if (activate && this.settings.date == date) {
+            // reactivate to notify status change
+            this.activate(date);
+          }
+        });
       }
     }
   }
@@ -197,7 +195,7 @@ class BulletinStore {
   @action
   activate(date) {
     if (this.bulletins[date]) {
-      this.settings.region = "";
+      this.settings.region = '';
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
 
@@ -236,13 +234,13 @@ class BulletinStore {
   @action
   setAmPm(ampm) {
     switch (ampm) {
-      case "am":
-      case "pm":
-        this.settings.ampm = ampm;
-        break;
+    case 'am':
+    case 'pm':
+      this.settings.ampm = ampm;
+      break;
 
-      default:
-        break;
+    default:
+      break;
     }
   }
 
@@ -253,14 +251,14 @@ class BulletinStore {
 
   @action
   excludeProblem(problemId) {
-    if (typeof this.problems[problemId] !== "undefined") {
+    if (typeof this.problems[problemId] !== 'undefined') {
       this.problems[problemId].active = false;
     }
   }
 
   @action
   includeProblem(problemId) {
-    if (typeof this.problems[problemId] !== "undefined") {
+    if (typeof this.problems[problemId] !== 'undefined') {
       this.problems[problemId].active = true;
     }
   }
@@ -271,7 +269,7 @@ class BulletinStore {
    *   this.date and this.ampm
    */
   get activeBulletinCollection() {
-    if (this.settings.status == "ok") {
+    if (this.settings.status == 'ok') {
       return this.bulletins[this.settings.date];
     }
     return null;
@@ -302,9 +300,9 @@ class BulletinStore {
     const problems = [];
     const b = this.getBulletinForRegion(regionId);
     const daytime =
-      b.hasDaytimeDependency && this.settings.ampm == "pm"
-        ? "afternoon"
-        : "forenoon";
+      b.hasDaytimeDependency && this.settings.ampm == 'pm'
+        ? 'afternoon'
+        : 'forenoon';
     const daytimeBulletin = b[daytime];
 
     if (daytimeBulletin && daytimeBulletin.avalancheSituation1) {
@@ -314,31 +312,6 @@ class BulletinStore {
       problems.push(daytimeBulletin.avalancheSituation2.avalancheSituation);
     }
     return problems;
-  }
-
-  // deprecated to vectorRegions
-  @computed
-  get activeVectorLayer() {
-    const collection = this.activeBulletinCollection;
-
-    if (collection && collection.length > 0) {
-      // clone original geojson
-      const data = Object.assign({}, collection.getGeoData());
-
-      // filter features to exclude regions with disabled problems
-      const features = data.features;
-      const newFeatures = features.filter(f => {
-        const problems = this.getProblemsForRegion(f.properties.bid);
-        const active =
-          problems.length == 0 || problems.some(p => this.problems[p].active);
-        return active;
-      });
-
-      data.features = newFeatures; // replace with filtered data;
-
-      return data;
-    }
-    return null;
   }
 
   // assign states to regions
@@ -351,7 +324,7 @@ class BulletinStore {
       const clonedGeojson = Object.assign({}, collection.getGeoData());
 
       const regions = clonedGeojson.features.map(f => {
-        let state = "default";
+        let state = 'default';
         const bid = f.properties.bid;
 
         const problems = this.getProblemsForRegion(bid);
@@ -361,15 +334,15 @@ class BulletinStore {
         ) {
           if (this.settings.region) {
             if (this.settings.region === bid) {
-              state = "selected";
+              state = 'selected';
             } else {
-              state = "dimmed";
+              state = 'dimmed';
             }
           } else {
-            state = "default";
+            state = 'default';
           }
         } else {
-          state = "hidden";
+          state = 'hidden';
         }
 
         f = flip(f);
@@ -377,7 +350,7 @@ class BulletinStore {
         return f;
       });
 
-      const states = ["selected", "dimmed", "default", "hidden"];
+      const states = ['selected', 'dimmed', 'default', 'hidden'];
       regions.sort((r1, r2) => {
         return states.indexOf(r1.properties.state) <
           states.indexOf(r2.properties.state)
@@ -405,8 +378,8 @@ class BulletinStore {
   }
 
   _loadBulletinData(date) {
-    const dateParam = encodeURIComponent(date + "T00:00:00+02:00");
-    const url = config.get("apis.bulletin") + "?date=" + dateParam;
+    const dateParam = encodeURIComponent(date + 'T00:00:00+02:00');
+    const url = config.get('apis.bulletin') + '?date=' + dateParam;
 
     return Base.doRequest(url).then(
       // query bulletin data
@@ -414,47 +387,23 @@ class BulletinStore {
         this.bulletins[date].setData(JSON.parse(response));
       },
       error => {
-        console.error("Cannot load bulletin for date " + date + ": " + error);
+        console.error('Cannot load bulletin for date ' + date + ': ' + error);
         this.bulletins[date].setData(null);
-      }
-    );
-  }
-
-  _loadBulletinStatus(date) {
-    const dateParam = encodeURIComponent(date + "T00:00:00+02:00");
-    const url =
-      config.get("apis.bulletin") +
-      "/status?startDate=" +
-      dateParam +
-      "&endDate=" +
-      dateParam +
-      "&region=IT-32-BZ";
-
-    return Base.doRequest(url).then(
-      // query status data
-      response => {
-        this.bulletins[date].setStatusData(JSON.parse(response));
-      },
-      error => {
-        console.error(
-          "Cannot load bulletin status for date " + date + ": " + error
-        );
-        this.bulletins[date].setStatusData(null);
       }
     );
   }
 
   _loadGeoData(date, daytime = null) {
     // API uses daytimes 'am', 'pm' and 'fd' ('full day')
-    const d = daytime ? daytime : "fd";
-    const url = config.get("apis.geo") + date + "/" + d + "_regions.json";
+    const d = daytime ? daytime : 'fd';
+    const url = config.get('apis.geo') + date + '/' + d + '_regions.json';
     return Base.doRequest(url).then(
       // query vector data
       response => {
         this.bulletins[date].setGeoData(JSON.parse(response), daytime);
       },
       error => {
-        console.error("Cannot load geo data for date " + date + ": " + error);
+        console.error('Cannot load geo data for date ' + date + ': ' + error);
         this.bulletins[date].setGeoData(null, daytime);
       }
     );
