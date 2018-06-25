@@ -50,7 +50,9 @@ export default class BulletinVectorLayer extends React.Component {
       return acc * 2 + (bulletinStore.problems[p].active ? 1 : 0);
     }, 0);
 
-    return bulletinStore.settings.date + + bulletinStore.settings.region + problemHash;
+    return bulletinStore.settings.date
+      + bulletinStore.settings.region
+      + problemHash;
   }
 
   render() {
