@@ -12,7 +12,7 @@ class PageFooter extends React.Component {
           <div className="grid">
             <div className="grid-item normal-6">
               <ul className="list-inline footer-navigation footer-navigation-more">
-                <li><a href="#" className title>Archive</a></li>
+                <li><Link to="/archive">Archive</Link></li>
                 <li><a href="#" className title>API</a></li>
                 <li><Link to="/about">About</Link></li>
                 <li><Link to="/contact">Contact</Link></li>

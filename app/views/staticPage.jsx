@@ -15,7 +15,7 @@ export default class StaticPage extends React.Component {
       content: ''
     }
   }
-  
+
   componentWillReceiveProps(nextProps) {
     this._fetchData(nextProps);
   }
@@ -27,9 +27,9 @@ export default class StaticPage extends React.Component {
   _fetchData(props) {
     const path = props.location.pathname.split('/');
     const site = (path.length > 0) ? path[path.length - 1] : '';
-    const lang = 'de'; // TODO: fix hardcoded lang
+    const lang = window['store'].language; // TODO: fix hardcoded lang
 
-    // TODO: use subqueries to eleiminate the need of an additional API roundtrip: https://www.drupal.org/project/subrequests    
+    // TODO: use subqueries to eleiminate the need of an additional API roundtrip: https://www.drupal.org/project/subrequests
     if(site) {
       Base.doRequest(config.get('apis.content') + 'router/translate-path?_format=json&path=/' + site).then(response => {
         // query id by url-alias
@@ -50,15 +50,15 @@ export default class StaticPage extends React.Component {
       });
     }
   }
-  
+
   render() {
     return (
       <div>
         <div className="content-wrapper">
           <h1 className="title">{this.state.title}</h1>
           <div className="content">
-            { 
-              (new Parser()).parse(this.state.content) 
+            {
+              (new Parser()).parse(this.state.content)
             }
           </div>
         </div>

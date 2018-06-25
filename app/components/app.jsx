@@ -10,6 +10,7 @@ import Bulletin from './../views/bulletin.jsx';
 import Blog from './../views/blog.jsx';
 import Weather from './../views/weather.jsx';
 import Education from './../views/education.jsx';
+import Archive from './../views/archive.jsx';
 import StaticPage from './../views/staticPage.jsx';
 import Page from './page.jsx';
 
@@ -53,6 +54,10 @@ class App extends React.Component {
           {
             path: '/blog',
             component: Blog,
+          },
+          {
+            path: '/archive',
+            component: Archive,
           },
           {
             path: '/:name',

@@ -62,9 +62,9 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
           </li>
         }
         <li className="bulletin-flipper-archive">
-          <a href="#" title="Recent Bulletins" className="tooltip">Archive
+          <Link to="/archive" title="Recent Bulletins">
             <span className="icon-arrow-right" />
-          </a>
+          </Link>
         </li>
       </ul>
     );

@@ -1,6 +1,7 @@
-import Base from "./base.js";
-import { observable, action, computed, toJS } from "mobx";
-import { parseDate } from "./util/date.js";
+import Base from './base.js';
+import ArchiveStore from './archiveStore.js';
+import { observable, action, computed, toJS } from 'mobx';
+import { parseDate } from './util/date.js';
 
 import flip from "@turf/flip";
 
@@ -110,6 +111,11 @@ class BulletinStore {
   problems = {};
 
   constructor() {
+    if(!window['archiveStore']) {
+      window['archiveStore'] = new ArchiveStore();
+    }
+    this.archiveStore = window['archiveStore'];
+
     this.settings = observable({
       status: "",
       date: "",

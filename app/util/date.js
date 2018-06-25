@@ -21,7 +21,7 @@ function parseDate(dateString) {
 
 
 function _parseDatetime(dateTimeString) {
-  return Date.parse(dateTimeString);
+  return new Date(Date.parse(dateTimeString));
 }
 
 

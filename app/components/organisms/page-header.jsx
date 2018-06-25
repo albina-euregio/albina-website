@@ -139,9 +139,9 @@ class PageHeader extends React.Component {
               </a>
               <ul className="list-plain subnavigation">
                 <li>
-                  <a href="#" className title>
+                  <Link to="/archive">
                     Archive
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a href="#" className title>
