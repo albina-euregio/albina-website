@@ -344,7 +344,7 @@ class BulletinStore {
       // clone original geojson
       const clonedGeojson = Object.assign({}, collection.getGeoData());
 
-      return clonedGeojson.features.map(f => {
+      const regions = clonedGeojson.features.map(f => {
         let state = "default";
         const bid = f.properties.bid;
 
@@ -370,6 +370,16 @@ class BulletinStore {
         f.properties.state = state;
         return f;
       });
+
+      const states = ["selected", "dimmed", "default", "hidden"];
+      regions.sort((r1, r2) => {
+        return states.indexOf(r1.properties.state) <
+          states.indexOf(r2.properties.state)
+          ? 1
+          : -1;
+      });
+      console.log(regions);
+      return regions;
     } else {
       return [];
     }
