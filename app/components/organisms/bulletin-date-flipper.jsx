@@ -53,12 +53,14 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
             Latest
           </Link>
         </li>
-        <li className="bulletin-flipper-forward">
-          <Link to={nextLink} title="Forward">
-            {nextDate}
-            <span className="icon-arrow-right" />
-          </Link>
-        </li>
+        {nextLink &&
+          <li className="bulletin-flipper-forward">
+            <Link to={nextLink} title="Forward">
+              {nextDate}
+              <span className="icon-arrow-right" />
+            </Link>
+          </li>
+        }
         <li className="bulletin-flipper-archive">
           <a href="#" title="Recent Bulletins" className="tooltip">Archive
             <span className="icon-arrow-right" />
