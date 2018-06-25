@@ -38,8 +38,9 @@ export default class BulletinVectorLayer extends React.Component {
 
   get uniqueKey() {
     // A unique key is needed for <GeoJSON> component to indicate the need
-    // for rerendering. We use the date and a hash of the settings of
-    // avalancheproblems. The hash is a binary string where '1' or '0' indicate
+    // for rerendering. We use the selected date and region as well as a hash
+    // of the settings of avalancheproblems.
+    // The hash is a binary string where '1' or '0' indicate
     // the current activity setting of a problem. The positions within the
     // binary string are determined by the (lexicographical) order of the
     // problem ids (since neither Object.values nor for .. in loops are
@@ -48,7 +49,8 @@ export default class BulletinVectorLayer extends React.Component {
     const problemHash = problemKeys.reduce((acc, p) => {
       return acc * 2 + (bulletinStore.problems[p].active ? 1 : 0);
     }, 0);
-    return bulletinStore.settings.date + problemHash;
+
+    return bulletinStore.settings.date + + bulletinStore.settings.region + problemHash;
   }
 
   render() {

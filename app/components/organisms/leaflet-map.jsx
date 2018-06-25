@@ -6,6 +6,7 @@ import {
   Map,
   TileLayer,
   WMSTileLayer,
+  ImageOverlay,
   CircleMarker,
   Tooltip,
   Marker,
@@ -82,6 +83,21 @@ class LeafletMap extends React.Component {
     return tileLayers;
   }
 
+  get mapOverlays() {
+    const b = bulletinStore.activeBulletinCollection;
+    if(b) {
+      const daytime = b.hasDaytimeDependency() ?
+        bulletinStore.settings.ampm : 'am';
+
+      const url = config.get("apis.geo") + bulletinStore.settings.date + "/" + daytime + "_overlay.png";
+      const bounds = config.get("map.overlay.bounds");
+      const opacity = config.get("map.overlay.opacity");
+
+      return <ImageOverlay url={url} bounds={bounds} opacity={opacity} />;
+    }
+    return null;
+  }
+
   render() {
     const mapProps = config.get("map.initOptions");
     return (
@@ -99,6 +115,7 @@ class LeafletMap extends React.Component {
         center={bulletinStore.getMapCenter}
       >
         {this.tileLayers}
+        {this.mapOverlays}
         {this.props.vectorRegions && (
           <BulletinVectorLayer
             store={bulletinStore}

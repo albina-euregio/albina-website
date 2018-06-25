@@ -26,6 +26,10 @@
   },
   "map": {
     "euregioBounds": [[45.5, 10.1], [47.7, 13]],
+    "overlay": {
+      "bounds": [[45.60608, 9.9174], [47.83039, 13.15173]],
+      "opacity": 0.8
+    },
     "initOptions": {
       "maxZoom": 10,
       "minZoom": 6
@@ -43,20 +47,25 @@
     ],
     "regionStyling": {
       "all": {
-        "fillOpacity": 0.7,
-        "fillColor": "blue"
+        "color": "black",
+        "opacity": 0.9,
+        "weight": 2
       },
       "default": {
-        "fillColor": "yellow"
+        "fill": "none"
       },
       "dimmed": {
-        "fillColor": "orange"
+        "fillColor": "white",
+        "fillOpacity": 0.5
       },
       "selected": {
-        "fillColor": "red"
+        "weight": 4,
+        "fill": "none"
       },
       "hidden": {
-        "fillColor": "white"
+        "opacity": 0.2,
+        "fillColor": "white",
+        "fillOpacity": 0.9
       }
     }
   },
