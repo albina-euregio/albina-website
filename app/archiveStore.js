@@ -38,7 +38,11 @@ export default class ArchiveStore {
   }
 
   getStatus(date) {
-    return this.archive[date] ? this.archive[date] : '';
+    return this.archive[date] ? this.archive[date].status : '';
+  }
+
+  getStatusMessage(date) {
+    return this.archive[date] ? this.archive[date].message : '';
   }
 
   _loadBulletinStatus(startDate, endDate = '', region = 'IT-32-BZ') {
@@ -66,7 +70,10 @@ export default class ArchiveStore {
               const status =
                 (v.status == 'published' || v.status == 'republished')
                   ? 'ok' : 'n/a';
-              this.archive[dateToISODateString(d2)] = status;
+              this.archive[dateToISODateString(d2)] = {
+                status: status,
+                message: v.status
+              };
             } else {
               console.log('Cannot parse bulletin status for date: ' + d);
             }

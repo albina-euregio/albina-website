@@ -56,7 +56,7 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
         {nextLink &&
           <li className="bulletin-flipper-forward">
             <Link to={nextLink} title="Forward">
-              {nextDate}
+              {nextDate + ' '}
               <span className="icon-arrow-right" />
             </Link>
           </li>

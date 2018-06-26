@@ -18,7 +18,12 @@ import {dateToDateTimeString} from '../../util/date.js';
     if(this.props.status == 'ok') {
       const date = dateToDateTimeString(collection.publicationDate);
 
-      if(collection.statusMessage == 'republished') {
+      // There must be a status entry for each downloaded bulletin. Query its
+      // original status message.
+      const message =
+        window['archiveStore'].getStatusMessage(this.props.store.settings.date);
+
+      if(message == 'republished') {
         return 'Updated ' + date;
       }
       return 'Published ' + date;
