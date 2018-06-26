@@ -4,6 +4,7 @@ import SmShare from '../components/organisms/sm-share.jsx';
 import { parseDate, getSuccDate } from '../util/date.js';
 import ArchiveStore from '../archiveStore.js';
 import ArchiveItem from '../components/organisms/archive-item.jsx';
+import PageHeadline from '../components/organisms/page-headline.jsx';
 
 export default class Archive extends React.Component {
   constructor(props) {
@@ -57,13 +58,7 @@ export default class Archive extends React.Component {
   render() {
     return (
       <div>
-        <section className="section-padding section-header">
-          <header className="section-centered">
-            <p className="marginal">Some short text, only optionally, this is max. length</p>
-            <h2 className="subheader">More</h2>
-            <h1>Archive</h1>
-          </header>
-        </section>
+        <PageHeadline title="Archive" subtitle="More" marginal="Some short text, only optionally, this is max. length" />
         <section id className="section controlbar">
           <div className="section-centered">
             <p className="info"><strong>Filter</strong> Archive</p>

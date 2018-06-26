@@ -1,4 +1,5 @@
 import React from 'react';
+import PageHeadline from '../components/organisms/page-headline.jsx';
 
 export default class Weather extends React.Component {
   constructor(props) {
@@ -17,11 +18,7 @@ export default class Weather extends React.Component {
     const url = config.get('links.meteoViewer');
     return (
       <div>
-        <section className="section-padding section-header">
-          <header className="section-centered">
-            <h1>Snow &amp; Weather</h1>
-          </header>
-        </section>
+        <PageHeadline title="Snow &amp; Weather" />
         <section className="section-centered">
           <iframe id="meteoMap" src={url}>
             <p>Your browser does not support iframes.</p>

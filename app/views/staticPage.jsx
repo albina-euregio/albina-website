@@ -1,11 +1,10 @@
 import React from 'react';
 import { Parser } from 'html-to-react';
 import Base from './../base';
+import PageHeadline from '../components/organisms/page-headline.jsx';
 
 /*
  * Compontent to be used for pages with content delivered by CMS API.
- *
- * FIXME: add language support.
  */
 export default class StaticPage extends React.Component {
   constructor(props) {
@@ -54,11 +53,7 @@ export default class StaticPage extends React.Component {
   render() {
     return (
       <div>
-        <section className="section-padding section-header">
-          <header className="section-centered">
-            <h1>{this.state.title}</h1>
-          </header>
-        </section>
+        <PageHeadline title={this.state.title} />
         <section className="section-centered">
           {
             (new Parser()).parse(this.state.content)
