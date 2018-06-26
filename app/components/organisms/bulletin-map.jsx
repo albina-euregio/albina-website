@@ -1,7 +1,7 @@
-import React from "react";
-import { observer } from "mobx-react";
-import LeafletMap from "./leaflet-map";
-import BulletinMapDetails from "./bulletin-map-details";
+import React from 'react';
+import { observer } from 'mobx-react';
+import LeafletMap from './leaflet-map';
+import BulletinMapDetails from './bulletin-map-details';
 
 @observer
 class BulletinMap extends React.Component {
@@ -13,22 +13,22 @@ class BulletinMap extends React.Component {
        * clicked (i.e. selected), the region settings in bulletinStore will
        * be set instead.
        */
-      highlightedRegion: null
+      highlightedRegion: null,
     };
   }
 
   handleMapViewportChanged(mapState) {
-    window["bulletinStore"].setMapViewport(mapState);
+    window['bulletinStore'].setMapViewport(mapState);
   }
 
   handleZoom(zoomIn = true) {
     zoomIn
-      ? window["bulletinStore"].zoomIn()
-      : window["bulletinStore"].zoomOut();
+      ? window['bulletinStore'].zoomIn()
+      : window['bulletinStore'].zoomOut();
   }
 
   handleMapScrollZoom() {
-    console.log("scroll");
+    console.log('scroll');
     return true;
   }
 
@@ -38,49 +38,49 @@ class BulletinMap extends React.Component {
     };
   }
 
-  get bulletin() {
-    return this.props.store.activeBulletin;
-  }
-
   get highlightedBulletin() {
-    if (this.state && this.state.highlightedRegion) {
-      return this.props.store.getBulletinForRegion(
-        this.state.highlightedRegion
-      );
-    }
-    return null;
+    return this.props.store.activeBulletin;
+
+    // NOTE: code below is usefull for mouseover effects
+    //
+    // if (this.state && this.state.highlightedRegion) {
+    //   return this.props.store.getBulletinForRegion(
+    //     this.state.highlightedRegion
+    //   );
+    // }
+    // return null;
   }
 
   handleHighlightFeature = id => {
     if (id) {
-      console.log("Highlight region " + id);
+      console.log('Highlight region ' + id);
       this.setState({ highlightedRegion: id });
     } else if (this.state.highlightedRegion) {
-      console.log("Dehighlight region " + this.state.highlightedRegion);
+      console.log('Dehighlight region ' + this.state.highlightedRegion);
       this.setState((prevState, props) => ({
         highlightedRegion: props.store.settings.region
           ? props.store.settings.region
-          : ""
+          : ''
       }));
     }
   };
 
   handleSelectFeature = id => {
     if (id) {
-      console.log("Select region " + id);
-      window["bulletinStore"].setRegion(id);
+      console.log('Select region ' + id);
+      window['bulletinStore'].setRegion(id);
       this.handleHighlightFeature(id); // also do highlighting
-    } else if (window["bulletinStore"].settings.region) {
-      console.log("Deselect " + window["bulletinStore"].settings.region);
-      window["bulletinStore"].setRegion("");
+    } else if (window['bulletinStore'].settings.region) {
+      console.log('Deselect ' + window['bulletinStore'].settings.region);
+      window['bulletinStore'].setRegion('');
       this.handleHighlightFeature(null);
     }
   };
 
   render() {
-    console.log("**************");
+    console.log('**************');
     console.log(this.props.store.vectorRegions);
-    console.log("**************");
+    console.log('**************');
     return (
       <section
         id="section-bulletin-map"
