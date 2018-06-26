@@ -1,5 +1,5 @@
 import React from 'react';
-import { matchPath } from 'react-router';
+import { matchPath, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import { injectIntl, FormattedMessage} from 'react-intl';
@@ -225,4 +225,4 @@ class PageHeader extends React.Component {
   }
 }
 
-export default inject('locale')(injectIntl(observer(PageHeader)));
+export default inject('locale')(injectIntl(withRouter(observer(PageHeader))));
