@@ -13,18 +13,24 @@ class PageHeader extends React.Component {
     window['appStore'].language = newLanguage;
   };
 
-  _linkStyle(path) {
-    let active = false;
+  _linkStyle(path, hasChildren) {
     const router = this.context;
+    const classes = [];
 
     if(path && router) {
-      active = (matchPath(window.location.pathname, path) != null);
+      if(matchPath(window.location.pathname, path) != null) {
+        classes.push('active');
+      }
     }
-    return (active) ? 'active' : '';
+    if(hasChildren) {
+      classes.push('has-sub');
+    }
+
+    return classes.join(' ');
   }
 
-  renderLink(path, text) {
-    return <Link to={path} className={this._linkStyle(path)}>{text}</Link>
+  renderLink(path, text, hasChildren = false) {
+    return <Link to={path} className={this._linkStyle(path, hasChildren)}>{text}</Link>
   }
 
   render() {
@@ -46,7 +52,7 @@ class PageHeader extends React.Component {
               {this.renderLink('/bulletin', <span>Avalanche Bulletin <small><FormattedMessage id="home" /></small></span>)}
             </li>
             <li>
-              {this.renderLink('/weather', 'Snow & Weather')}
+              {this.renderLink('/weather', 'Snow & Weather', true)}
               <ul className="list-plain subnavigation">
                 <li>
                   <a href="#" className title>
@@ -86,7 +92,7 @@ class PageHeader extends React.Component {
               </ul>
             </li>
             <li>
-              { this.renderLink('/education', 'Education & Prevention')}
+              { this.renderLink('/education', 'Education & Prevention', true)}
               <ul className="list-plain subnavigation">
                 <li>
                   <a href="#" className title>
