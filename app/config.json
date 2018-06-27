@@ -54,7 +54,8 @@
         "weight": 2
       },
       "default": {
-        "fillOpacity": 0
+        "fillOpacity": 0.2,
+        "fillColor": "white"
       },
       "dimmed": {
         "fillColor": "white",
@@ -65,9 +66,9 @@
         "fillColor": "none"
       },
       "highlighted": {
-        "weight": 6,
+        "weight": 3,
         "fillColor": "white",
-        "fillOpacity": 0.1
+        "fillOpacity": 0.01
       }
     }
   },

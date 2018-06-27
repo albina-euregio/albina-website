@@ -316,19 +316,20 @@ class BulletinStore {
 
 
   getRegionState(regionId) {
+    if(this.settings.region && this.settings.region === regionId) {
+      return 'selected';
+    }
+    if(this.settings.region) {
+      // some other region is selected
+      return 'dimmed';
+    }
+
     const problems = this.getProblemsForRegion(regionId);
     const isHighlighted = problems.some((p) => this.problems[p].highlighted);
 
     if(isHighlighted) {
       return 'highlighted';
     }
-    if(this.settings.region) {
-      if(this.settings.region === regionId) {
-        return 'selected';
-      }
-      return 'dimmed';
-    }
-
     return 'default';
   }
 
@@ -349,7 +350,7 @@ class BulletinStore {
         return f;
       });
 
-      const states = ['highlighted', 'selected', 'dimmed', 'default'];
+      const states = ['selected', 'highlighted', 'dimmed', 'default'];
       regions.sort((r1, r2) => {
         return states.indexOf(r1.properties.state) <
           states.indexOf(r2.properties.state)
