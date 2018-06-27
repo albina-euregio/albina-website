@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --mode development --open",
-    "deploy": "npm run clean-dist && webpack --mode production",
+    "deploy": "npm run clean-dist && webpack --mode production --output-public-path=/projects/albina-web/",
     "clean-dist": "rm -f -r -d dist"
   },
   "dependencies": {
