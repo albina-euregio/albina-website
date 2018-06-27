@@ -63,9 +63,11 @@ export default class ArchiveStore {
         const values = JSON.parse(response);
         if(typeof values == 'object') {
           for(let v of values) {
-            const d = parseDate(v.date);
+            // only use date part (without time) and add 1 day to get the
+            // correct day - otherwise it might depend on the browser and
+            // OS settings how ISO dates are converted to local time
+            const d = parseDate(v.date.substr(0,10));
             if(d) {
-              // bulletin is published at 22:00 for the day after
               const d2 = getSuccDate(d);
               const status =
                 (v.status == 'published' || v.status == 'republished')

@@ -1,7 +1,7 @@
 import React from 'react';
 import ProvinceFilter from '../components/filters/province-filter.jsx';
 import SmShare from '../components/organisms/sm-share.jsx';
-import { parseDate, getSuccDate } from '../util/date.js';
+import { parseDate, getSuccDate, dateToISODateString } from '../util/date.js';
 import ArchiveStore from '../archiveStore.js';
 import ArchiveItem from '../components/organisms/archive-item.jsx';
 import PageHeadline from '../components/organisms/page-headline.jsx';
@@ -31,26 +31,27 @@ export default class Archive extends React.Component {
     });
   }
 
-  get regions() {
-    // TODO: filtering
-    return ['tyrol', 'southtyrol', 'trentino'];
-  }
-
   get dates() {
     if(!this.state.loading) {
       // TODO: take filter values from store
       const startDate = parseDate('2018-06-07');
       const endDate = parseDate('2018-06-09');
 
-      var d = startDate;
-      const dates = [d];
+      const test = (date) => {
+        // TODO: check for filter
+        return this.store.getStatus(dateToISODateString(date)) == 'ok';
+      };
 
+      var d = startDate;
+      const dates = [startDate];
       while(d < endDate) {
         d = getSuccDate(d);
         dates.push(d);
       }
 
-      return dates;
+      const activeDates = dates.filter((d) => test(d));
+
+      return activeDates;
     }
     return [];
   }
@@ -74,16 +75,13 @@ export default class Archive extends React.Component {
                 <thead>
                   <tr>
                     <th>Date / Time</th>
-                    <th>Province</th>
                     <th>Download Bulletin</th>
                     <th>Map</th>
                   </tr>
                 </thead>
                 <tbody>
                   {this.dates.map((d) =>
-                    this.regions.map((r) =>
-                      <ArchiveItem date={d} region={r} />
-                    )
+                    <ArchiveItem key={d.getTime()} date={d} />
                   )}
                 </tbody>
               </table>
