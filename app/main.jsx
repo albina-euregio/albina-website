@@ -32,10 +32,10 @@ require('./js/custom.js');
 window['appStore'] = new AppStore();
 
 // clean cache
-Base.cleanCache('./config.json');
+Base.cleanCache('/config.json');
 
 // request config.json before starting the app (do not cache config!)
-Base.doRequest('./config.json').then((configData) => {
+Base.doRequest('/config.json').then((configData) => {
   window['config'] = new ConfigStore(JSON.parse(configData));
   const initialLang = window['appStore'].locale.value;
 
