@@ -1,10 +1,13 @@
 import React from 'react';
-import ProvinceFilter from '../components/filters/province-filter.jsx';
 import SmShare from '../components/organisms/sm-share.jsx';
 import { parseDate, getSuccDate, dateToISODateString } from '../util/date.js';
 import ArchiveStore from '../archiveStore.js';
 import ArchiveItem from '../components/organisms/archive-item.jsx';
 import PageHeadline from '../components/organisms/page-headline.jsx';
+import FilterBar from '../components/organisms/filter-bar.jsx';
+import LanguageFilter from '../components/filters/language-filter.jsx';
+import YearFilter from '../components/filters/year-filter.jsx';
+import MonthFilter from '../components/filters/month-filter.jsx';
 
 export default class Archive extends React.Component {
   constructor(props) {
@@ -57,17 +60,16 @@ export default class Archive extends React.Component {
   }
 
   render() {
+    const filters = {
+      'year': <YearFilter />,
+      'month': <MonthFilter />,
+      'language': <LanguageFilter />
+    };
+
     return (
       <div>
         <PageHeadline title="Archive" subtitle="More" marginal="Some short text, only optionally, this is max. length" />
-        <section id className="section controlbar">
-          <div className="section-centered">
-            <p className="info"><strong>Filter</strong> Archive</p>
-            <ul className="list-inline list-controlbar">
-              <li><ProvinceFilter /></li>
-            </ul>
-          </div>
-        </section>
+        <FilterBar filters={filters} />
         <section className="section-padding-height">
           <section className="section-centered">
             <div className="table-container">

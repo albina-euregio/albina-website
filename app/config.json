@@ -71,6 +71,9 @@
       }
     }
   },
+  "archive": {
+    "minYear": 2017
+  },
   "defaults": {
     "ampm": "am"
   }
