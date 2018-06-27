@@ -110,10 +110,7 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
                     <span><strong className="heavy">Tendency: {tendencyTitle}</strong><br />
                         on {tendencyDate}
                     </span>
-                    {
-                      bulletin.tendency &&
-                      <TendencyIcon tendency={bulletin.tendency} />
-                    }
+                    <TendencyIcon tendency={bulletin.tendency} />
                   </div>
                 </li>{
                   this.problems.map((p, index) => <BulletinProblemItem key={index} problem={p} />)
