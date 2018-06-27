@@ -2,6 +2,11 @@ import React from 'react';
 import Base from './../base';
 import PageHeadline from '../components/organisms/page-headline.jsx';
 import { parseDate, dateToDateTimeString } from '../util/date.js';
+import FilterBar from '../components/organisms/filter-bar.jsx';
+import ProvinceFilter from '../components/filters/province-filter.jsx';
+import LanguageFilter from '../components/filters/language-filter.jsx';
+import YearFilter from '../components/filters/year-filter.jsx';
+import MonthFilter from '../components/filters/month-filter.jsx';
 
 export default class Info extends React.Component {
   constructor(props) {
@@ -52,9 +57,17 @@ export default class Info extends React.Component {
   }
 
   render() {
+    const filters = {
+      'province': <ProvinceFilter />,
+      'year': <YearFilter />,
+      'month': <MonthFilter />,
+      'language': <LanguageFilter />
+    };
+
     return (
       <div>
         <PageHeadline title="Blog posts" subtitle="Blog" marginal="" />
+        <FilterBar filters={filters} />
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
             {this.state.posts.map((item, i) => {
