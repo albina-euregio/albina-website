@@ -64,10 +64,10 @@
         "weight": 4,
         "fillColor": "none"
       },
-      "hidden": {
-        "opacity": 0.2,
+      "highlighted": {
+        "weight": 6,
         "fillColor": "white",
-        "fillOpacity": 0.9
+        "fillOpacity": 0.1
       }
     }
   },

@@ -9,7 +9,7 @@ class BulletinProblemFilter extends React.Component {
   }
 
   isComponentActive(problemId) {
-    return this.props.problems[problemId] && this.props.problems[problemId].active;
+    return this.props.problems[problemId] && this.props.problems[problemId].highlighted;
   }
 
   render() {
@@ -19,7 +19,7 @@ class BulletinProblemFilter extends React.Component {
 
     return (
       <div>
-        <p><strong>Hide regions</strong> with special <a href="#" className="tooltip" title="Learn more"><strong>Avalanche Situation</strong></a></p>
+        <p><strong>Highlight regions</strong> with special <a href="#" className="tooltip" title="Learn more"><strong>Avalanche Situation</strong></a></p>
         <ul className="list-inline list-avalanche-problems-filter">
           {listItems}
         </ul>

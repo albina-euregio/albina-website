@@ -25,16 +25,16 @@ class BulletinProblemFilterItem extends React.Component {
     event.preventDefault();
 
     if(this.state.active) {
-      window['bulletinStore'].excludeProblem(this.state.id);
+      window['bulletinStore'].dimProblem(this.state.id);
     } else {
-      window['bulletinStore'].includeProblem(this.state.id);
+      window['bulletinStore'].highlightProblem(this.state.id);
     }
     this.state.active = !this.state.active;
   }
 
   render() {
     const problemText = this.problemTexts[this.props.problemId].en;
-    const title = (this.props.active ? 'Hide' : 'Show') + ' regions with ' + problemText;
+    const title = (this.props.active ? 'Dim' : 'Highlight') + ' regions with ' + problemText;
     const classes = 'img tooltip' + (this.props.active ? '' : ' js-deactivated');
 
     return (

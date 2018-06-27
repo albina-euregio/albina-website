@@ -116,11 +116,11 @@ class BulletinStore {
     this.bulletins = {};
 
     this.problems = observable({
-      new_snow: { active: true },
-      wind_drifted_snow: { active: true },
-      weak_persistent_layer: { active: true },
-      wet_snow: { active: true },
-      gliding_snow: { active: true }
+      new_snow: { highlighted: false },
+      wind_drifted_snow: { highlighted: false },
+      weak_persistent_layer: { highlighted: false },
+      wet_snow: { highlighted: false },
+      gliding_snow: { highlighted: false }
     });
 
     this.mapCenter = observable.box([47, 12]);
@@ -250,16 +250,16 @@ class BulletinStore {
   }
 
   @action
-  excludeProblem(problemId) {
+  dimProblem(problemId) {
     if (typeof this.problems[problemId] !== 'undefined') {
-      this.problems[problemId].active = false;
+      this.problems[problemId].highlighted = false;
     }
   }
 
   @action
-  includeProblem(problemId) {
+  highlightProblem(problemId) {
     if (typeof this.problems[problemId] !== 'undefined') {
-      this.problems[problemId].active = true;
+      this.problems[problemId].highlighted = true;
     }
   }
 
@@ -314,6 +314,24 @@ class BulletinStore {
     return problems;
   }
 
+
+  getRegionState(regionId) {
+    const problems = this.getProblemsForRegion(regionId);
+    const isHighlighted = problems.some((p) => this.problems[p].highlighted);
+
+    if(isHighlighted) {
+      return 'highlighted';
+    }
+    if(this.settings.region) {
+      if(this.settings.region === regionId) {
+        return 'selected';
+      }
+      return 'dimmed';
+    }
+
+    return 'default';
+  }
+
   // assign states to regions
   @computed
   get vectorRegions() {
@@ -324,33 +342,14 @@ class BulletinStore {
       const clonedGeojson = Object.assign({}, collection.getGeoData());
 
       const regions = clonedGeojson.features.map(f => {
-        let state = 'default';
-        const bid = f.properties.bid;
-
-        const problems = this.getProblemsForRegion(bid);
-        if (
-          problems.length === 0 ||
-          problems.some(p => this.problems[p].active)
-        ) {
-          if (this.settings.region) {
-            if (this.settings.region === bid) {
-              state = 'selected';
-            } else {
-              state = 'dimmed';
-            }
-          } else {
-            state = 'default';
-          }
-        } else {
-          state = 'hidden';
-        }
+        const state = this.getRegionState(f.properties.bid);
 
         f = flip(f);
         f.properties.state = state;
         return f;
       });
 
-      const states = ['selected', 'dimmed', 'default', 'hidden'];
+      const states = ['highlighted', 'selected', 'dimmed', 'default'];
       regions.sort((r1, r2) => {
         return states.indexOf(r1.properties.state) <
           states.indexOf(r2.properties.state)
