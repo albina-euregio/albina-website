@@ -18,7 +18,9 @@ class PageHeader extends React.Component {
     const classes = [];
 
     if(path && router) {
-      if(matchPath(window.location.pathname, path) != null) {
+      const pathname =
+        window.location.pathname.substr(config.get('projectRoot').length - 1);
+      if(matchPath(pathname, path) != null) {
         classes.push('active');
       }
     }
