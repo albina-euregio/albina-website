@@ -7,6 +7,7 @@ export default class Education extends React.Component {
   }
 
   render() {
+    // TODO fetch list from router or CMS menu
     const listItems = [
       {'title': 'Danger Scale', 'url': '/education/danger-scale', 'text': 'Some short text, only optionally, this is max. length'},
       {'title': 'Matrix', 'url': '/education/matrix', 'text': 'Some short text, only optionally, this is max. length'},
