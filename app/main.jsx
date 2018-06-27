@@ -32,11 +32,24 @@ require('./js/custom.js');
 window['appStore'] = new AppStore();
 
 // clean cache
-Base.cleanCache('/config.json');
+const getBasePath = () => {
+  const bodyScriptTags = document.body.getElementsByTagName('script');
+  if(bodyScriptTags.length > 0) {
+    const bundleLocation = (bodyScriptTags[0]).getAttribute('src');
+    return bundleLocation.substring(0, bundleLocation.lastIndexOf('/') + 1);
+  }
+  return '/'; // fallback
+};
+const basePath = getBasePath();
+const configUrl = basePath + 'config.json';
+Base.cleanCache(configUrl);
 
 // request config.json before starting the app (do not cache config!)
-Base.doRequest('/config.json').then((configData) => {
-  window['config'] = new ConfigStore(JSON.parse(configData));
+Base.doRequest(configUrl).then((configData) => {
+  var configParsed = JSON.parse(configData);
+  configParsed['projectRoot'] = basePath;
+
+  window['config'] = new ConfigStore(configParsed);
   const initialLang = window['appStore'].locale.value;
 
   const languageDependentClassesHandler = reaction(
