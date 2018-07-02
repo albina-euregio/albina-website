@@ -67,7 +67,7 @@ export default class Info extends React.Component {
     return (
       <div>
         <PageHeadline title="Blog posts" subtitle="Blog" marginal="" />
-        <FilterBar filters={filters} />
+        <FilterBar filters={filters} search={true}/>
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
             {this.state.posts.map((item, i) => {
