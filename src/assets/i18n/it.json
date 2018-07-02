@@ -296,7 +296,8 @@
 		"windDriftedSnow" : "Neve ventata",
 		"oldSnow" : "Strati deboli persistenti",
 		"wetSnow" : "Neve bagnata",
-		"glidingSnow" : "Valanghe di slittamento"
+		"glidingSnow" : "Valanghe di slittamento",
+		"favourable_situation" : "Günstige Situation"
 	},
 	"dangerPattern" : {
 		"dp1" : "la seconda nevicata",
