@@ -6671,6 +6671,16 @@ $logo-interreg-width: 364px;
   overflow: hidden;
 }
 
+.page-header:before {
+  position: absolute;
+  left: -99999px;
+  top: -99999px;
+  content: "";
+  background: transparent url("../images/pro/logos/logo_en_print.png") no-repeat 0 0;
+  background-size: 1px 1px;
+  opacity: 0;
+}
+
 .page-header a:link, .page-header a:visited {
   color: #565F61;
 }
@@ -8303,24 +8313,273 @@ button.mfp-arrow.mfp-arrow-right:hover {
     -webkit-transition: none !important;
     transition: none !important;
   }
-  pre, blockquote {
+  @page {
+    size: portrait;
+    margin: 1cm 2cm;
+  }
+  audio, object, embed, video,
+  .jumpnav,
+  .bulletin-flipper,
+  .bulletin-map-search,
+  .bulletin-map-zoom,
+  .bulletin-map-details,
+  .flipper-controls,
+  .section-linkbar,
+  .section.controlbar,
+  .controlbar.section-centered,
+  .controlbar.section-padding,
+  .controlbar.section-padding-width,
+  .controlbar.section-padding-height,
+  .sm-share-follow,
+  .fitvids,
+  #page-footer,
+  .tippy-popper {
+    display: none;
+  }
+  pre, blockquote, img,
+  h1, h2, h3, h4, h5, h6,
+  p,
+  .section-header,
+  .bulletin-map-container,
+  .section-bulletin-legend,
+  .section-bulletin-report h2,
+  .section-bulletin-report p,
+  .bulletin-report-header,
+  .bulletin-report-region,
+  .list-bulletin-report-pictos,
+  .section-bulletin-additional h2,
+  .section-bulletin-additional p,
+  .section-bulletin-additional ul,
+  .section-context .list-inline,
+  .linkbox-blog-feature,
+  .feature-item,
+  .content-image,
+  .content-text,
+  .content-additional,
+  .thumbnail-item {
     page-break-inside: avoid;
   }
-  audio, object, embed, video {
-    display: none;
+  h1, h2, h3, h4, h5, h6 {
+    -webkit-column-break-after: avoid;
+            break-after: avoid-page;
+    page-break-after: avoid;
+    -webkit-print-color-adjust: exact;
+  }
+  a {
+    -webkit-print-color-adjust: exact;
   }
   @-moz-document url-prefix() {
     [class^="icon-"]:before, [class*=" icon-"]:before {
       display: none;
     }
   }
-  body:after {
+  .page-all {
+    position: relative;
+    display: block;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    min-height: inherit;
+    min-width: inherit;
+    max-height: none;
+    max-width: none;
+    height: auto;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    float: none;
+    -webkit-box-flex: 0;
+        -ms-flex: none;
+            flex: none;
+    overflow: auto;
+    background: #FFF;
+  }
+  .page-all:before {
+    position: relative;
+    display: block;
+    background-size: 100% 0.25cm;
+    -webkit-print-color-adjust: exact;
+  }
+  #page-header {
+    position: relative;
+    display: block;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    min-height: inherit;
+    min-width: inherit;
+    max-height: none;
+    max-width: none;
+    height: auto;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    float: none;
+    -webkit-box-flex: 0;
+        -ms-flex: none;
+            flex: none;
+    overflow: auto;
+    background: #FFF;
+    min-height: 3cm;
+    background: #FFF url("../images/pro/logos/logo_en_print.png") no-repeat 0 calc((3cm - 1.968cm) / 2);
+    background-size: 3.312cm 1.968cm;
+    -webkit-print-color-adjust: exact;
+  }
+  #page-header > div {
+    display: none;
+  }
+  #page-main {
+    position: relative;
+    display: block;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    min-height: inherit;
+    min-width: inherit;
+    max-height: none;
+    max-width: none;
+    height: auto;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    float: none;
+    -webkit-box-flex: 0;
+        -ms-flex: none;
+            flex: none;
+    overflow: auto;
+    background: #FFF;
+  }
+  #page-main:after {
     display: block;
     margin-top: 1.5em;
     padding: 0.5em 0;
-    color: #27A8E3;
-    border-top: 1px solid #27A8E3;
-    content: "Web by Transporter, www.transporter.at";
+    font-size: 0.9rem;
+    color: #839194;
+    content: "To print the current Avalanche Report, click 'PDF' below the map. (c) www.transporter.at";
+    border-top: 1px solid #99DAFF;
+    -webkit-print-color-adjust: exact;
+  }
+  .bulletin-map-container {
+    -webkit-print-color-adjust: exact;
+    max-height: 10cm;
+  }
+  .section-bulletin-legend {
+    margin-bottom: 1.875rem;
+  }
+  .section-bulletin-legend .grid .normal-6.grid-item:first-child {
+    display: none;
+  }
+  .section-bulletin-legend .grid .normal-6.grid-item:last-child {
+    -webkit-print-color-adjust: exact;
+  }
+  .section-bulletin-report .bulletin-report-region img {
+    max-width: 5cm;
+  }
+  .section-bulletin-report .panel.field.callout {
+    border: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .section-bulletin-report .panel.field.callout:before {
+    -webkit-print-color-adjust: exact;
+  }
+  .section-bulletin-additional .panel.brand:before {
+    -webkit-print-color-adjust: exact;
+  }
+  .thumbnails .thumbnail-item {
+    width: 25%;
+  }
+  .features {
+    overflow: auto;
+  }
+  .features .feature-item {
+    float: left;
+    width: 33%;
+  }
+  .features a.linkbox-feature {
+    border: none !important;
+  }
+  .features a.linkbox-feature .content-text {
+    position: relative;
+    background-color: #FFF;
+    -webkit-print-color-adjust: exact;
+  }
+  .features a.linkbox-feature .content-text .content-additional {
+    display: block;
+    background-color: #FFF;
+    -webkit-print-color-adjust: exact;
+  }
+  .features a.linkbox-feature:after {
+    display: none !important;
+    content: none !important;
+  }
+  .section-blog-posts a {
+    overflow: auto;
+  }
+  .section-blog-posts a .content-image {
+    width: 25% !important;
+    float: left;
+  }
+  .section-blog-posts a .content-image img {
+    width: 100%;
+    border: none;
+  }
+  .section-blog-posts a .content-text {
+    width: 75% !important;
+    float: right;
+  }
+  .table-container {
+    border: none;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+  }
+  .table-container table {
+    table-layout: fixed;
+    width: 100%;
+  }
+  .table-container table th, .table-container table td {
+    font-size: 0.5em !important;
+  }
+  .table-container .pure-table td:first-child, .table-container .pure-table th:first-child {
+    padding-left: 0;
+  }
+  .table-container .pure-table td:last-child, .table-container .pure-table th:last-child {
+    padding-right: 0;
+  }
+  .table-container .sort-buttons {
+    display: none;
+  }
+  .section-dangerscale > div:before {
+    -webkit-print-color-adjust: exact;
+  }
+  .section-dangerscale .grid {
+    display: block;
+    overflow: auto;
+  }
+  .section-dangerscale .grid .grid-item.small-3 {
+    width: 25% !important;
+    float: left;
+  }
+  .section-dangerscale .grid .grid-item.small-9 {
+    width: 75% !important;
+    float: right;
+  }
+  .accordion .accordion-trigger span:before {
+    display: none;
+  }
+  .accordion .accordion-content {
+    display: block;
+  }
+  .google-map {
+    -webkit-print-color-adjust: exact;
+    max-height: 10cm;
+  }
+  .google-map iframe {
+    -webkit-print-color-adjust: exact;
+    max-height: 10cm;
   }
 }
 
