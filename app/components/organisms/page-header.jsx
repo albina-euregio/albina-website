@@ -36,16 +36,18 @@ class PageHeader extends React.Component {
   }
 
   render() {
+    const langs = window['appStore'].languages;
+
     return (
       <div id="page-header" className="page-header" data-scroll-header>
         <div className="page-header-logo">
           <a href="#" className="tooltip" title="Home">
-            <span className="mark mark-de" />
-            <span className="mark mark-it" />
-            <span className="mark mark-en" />
-            <span className="url url-de" />
-            <span className="url url-it" />
-            <span className="url url-en" />
+            {
+              langs.map((l) => <span key={l} className={'mark mark-' + l} />)
+            }
+            {
+              langs.map((l) => <span key={l} className={'url url-' + l} />)
+            }
           </a>
         </div>
         <div className="page-header-navigation">

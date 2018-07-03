@@ -28,10 +28,17 @@ window[
 
 require('./js/custom.js');
 
-// TODO: check content API for maintenance mode
+// TODO: check content API for maintenance mode before starting the app
 window['appStore'] = new AppStore();
 
-// clean cache
+/*
+ * Set project root directory. The project root is determined by the location
+ * of the bundled javascript (the first script tag within body). It can be
+ * set by output.publicPath setting in webpack config when deploying the app.
+ *
+ * The project root directory is used by the app to determine all relative
+ * paths: config, images, jsons, ...
+ */
 const getBasePath = () => {
   const bodyScriptTags = document.body.getElementsByTagName('script');
   if(bodyScriptTags.length > 0) {
@@ -41,17 +48,21 @@ const getBasePath = () => {
   return '/'; // fallback
 };
 const basePath = getBasePath();
+
+/*
+ * Request config.json before starting the app (do not cache config!).
+ * config.json is not bundled with the app to allow config editing without
+ * redeploying the whole app.
+ */
 const configUrl = basePath + 'config.json';
 Base.cleanCache(configUrl);
-
-// request config.json before starting the app (do not cache config!)
 Base.doRequest(configUrl).then((configData) => {
   var configParsed = JSON.parse(configData);
   configParsed['projectRoot'] = basePath;
 
   window['config'] = new ConfigStore(configParsed);
-  const initialLang = window['appStore'].locale.value;
 
+  // replace language-dependent body classes on language change.
   const languageDependentClassesHandler = reaction(
     () => window['appStore'].locale.value,
     (newLang) => {
@@ -60,6 +71,9 @@ Base.doRequest(configUrl).then((configData) => {
         .replace(/language-[a-z]{2}/, 'language-' + newLang);
     }
   );
+
+  // initially set language-dependent body classes
+  const initialLang = window['appStore'].locale.value;
   document.body.className +=
     (document.body.className ? ' ' : '')
     + 'domain-' + initialLang

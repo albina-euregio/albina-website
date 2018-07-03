@@ -4,7 +4,7 @@
       "lang": "de",
       "name": "lawinenwarndienst.blogspot.co.at",
       "apiType": "blogger",
-      "tags": ["Tirol"],
+      "regions": ["tirol"],
       "params": {
         "id": "7062477220886068374"
       }

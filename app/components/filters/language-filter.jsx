@@ -11,9 +11,11 @@ export default class LanguageFilter extends React.Component {
         <p className="info">Language</p>
         <select className="dropdown">
           <option value="">All</option>
-          <option value="de">DE</option>
-          <option value="it">IT</option>
-          <option value="en">EN</option>
+          {
+            window.appStore.languages.map((l) =>
+              <option key={l} value={l}>{l.toUpperCase()}</option>
+            )
+          }
         </select>
       </div>
     );

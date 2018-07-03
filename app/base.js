@@ -1,4 +1,10 @@
 var Base = {
+  makeUrl(baseUrl, params = {}) {
+    return baseUrl + ((Object.keys(params).length > 0)
+      ? ('?' + Object.keys(params).map((k) => { return k + '=' + encodeURIComponent(params[k]); }).join('&'))
+      : '');
+  },
+
   doRequest(url, type='json') {
     return new Promise(function(resolve, reject) {
       console.log('request: ' + url);
@@ -13,7 +19,7 @@ var Base = {
         }
       };
       xhr.open('GET', url, true);
-      
+
       // set content type
       switch(type) {
       case 'json':
