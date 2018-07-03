@@ -11,7 +11,10 @@ export default class ProvinceFilter extends React.Component {
     return (
       <div>
         <p className="info">Province</p>
-        <select className="dropdown">
+        <select className="dropdown" onChange={(e) => {
+          const target = e.target;
+          this.props.handleChange(target.options[target.selectedIndex].value);
+        }} value={this.props.value}>
           <option value="">All</option>
           {
             Object.keys(regions).map((r) =>

@@ -4,8 +4,8 @@ import Base from './base';
 export default class BlogStore {
   regions;
   languages;
-  @observable searchText = '';
-  loading;
+  _searchText;
+  _loading;
   _posts;
 
   constructor() {
@@ -22,14 +22,22 @@ export default class BlogStore {
       'en': {active: true}
     });
 
+    // Do not make posts observable, otherwise posts list will be
+    // unnecessaryliy rerendered during the filling of this array.
+    // Views should only observe the value of the "loading" flag instead.
     this._posts = [];
 
+    // For Mobx > v4 we have to use an obserable box instead of
+    // @observable loading = ...;
     this._loading = observable.box(false);
+    this._searchText = observable.box('');
   }
 
   @action
   load() {
     this.loading = true;
+    this._posts.splice(0, this._posts.length);
+
     const blogsConfig = window['config'].get('blogs');
     const loads = [];
 
@@ -79,11 +87,20 @@ export default class BlogStore {
     this._loading.set(val);
   }
 
+  get searchText() {
+    return this._searchText.get();
+  }
+
+  set searchText(val) {
+    this._searchText.set(val);
+  }
+
   @action
   setRegionFilter(region) {
     for(let r in this.regions) {
       this.regions[r].active = !region || (r === region);
     }
+    this.load();
   }
 
   @action
@@ -91,6 +108,7 @@ export default class BlogStore {
     for(let l in this.languages) {
       this.languages[l].active = !lang || (l === lang);
     }
+    this.load();
   }
 
   getPosts(start = 0, limit = 10) {
