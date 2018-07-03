@@ -39,6 +39,14 @@ import MonthFilter from '../components/filters/month-filter.jsx';
     this.store.setLanguageFilter(val);
   };
 
+  handleChangeYear = (val) => {
+    this.store.year = val;
+  };
+
+  handleChangeMonth = (val) => {
+    this.store.month = val;
+  };
+
   @computed
   get activeRegion() {
     const rs = Object.keys(this.store.regions);
@@ -66,8 +74,8 @@ import MonthFilter from '../components/filters/month-filter.jsx';
   render() {
     const filters = {
       'province': <ProvinceFilter handleChange={this.handleChangeRegion} value={this.activeRegion} />,
-      'year': <YearFilter />,
-      'month': <MonthFilter />,
+      'year': <YearFilter handleChange={this.handleChangeYear} value={this.store.year} />,
+      'month': <MonthFilter handleChange={this.handleChangeMonth} value={this.store.month} />,
       'language': <LanguageFilter handleChange={this.handleChangeLanguage} value={this.activeLanguage} />
     };
 

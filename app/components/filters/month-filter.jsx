@@ -1,4 +1,5 @@
 import React from 'react';
+import Selectric from '../selectric';
 
 export default class MonthFilter extends React.Component {
   constructor(props) {
@@ -23,12 +24,12 @@ export default class MonthFilter extends React.Component {
     return (
       <div>
         <p className="info">Month</p>
-        <select className="dropdown">
+        <Selectric onChange={this.props.handleChange} value={this.props.value}>
           <option value="">All</option>
           {
             this.months.map((m) => <option key={m.index} value={m.index}>{m.name}</option>)
           }
-        </select>
+        </Selectric>
       </div>
     );
   }

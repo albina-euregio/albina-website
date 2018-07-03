@@ -1,4 +1,5 @@
 import React from 'react';
+import Selectric from '../selectric';
 
 export default class LanguageFilter extends React.Component {
   constructor(props) {
@@ -9,17 +10,14 @@ export default class LanguageFilter extends React.Component {
     return (
       <div>
         <p className="info">Language</p>
-        <select className="dropdown" onChange={(e) => {
-          const target = e.target;
-          this.props.handleChange(target.options[target.selectedIndex].value);
-        }}>
+        <Selectric onChange={this.props.handleChange} value={this.props.value}>
           <option value="">All</option>
           {
             window.appStore.languages.map((l) =>
               <option key={l} value={l}>{l.toUpperCase()}</option>
             )
           }
-        </select>
+        </Selectric>
       </div>
     );
   }

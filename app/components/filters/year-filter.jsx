@@ -1,4 +1,5 @@
 import React from 'react';
+import Selectric from '../selectric';
 
 export default class YearFilter extends React.Component {
   constructor(props) {
@@ -20,12 +21,12 @@ export default class YearFilter extends React.Component {
     return (
       <div>
         <p className="info">Year</p>
-        <select className="dropdown">
+        <Selectric onChange={this.props.handleChange} value={this.props.value}>
           <option value="">All</option>
           {
             this.years.map((y) => <option key={y} value={y}>{y}</option>)
           }
-        </select>
+        </Selectric>
       </div>
     );
   }

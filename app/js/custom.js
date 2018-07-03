@@ -58,7 +58,6 @@ $(function () {
 		//modal_translate();
 		modal_init();
 		tooltip_init();
-		dropdown_init();
 		flipper_init();
 		accordion_init();
 		tilt_init();
@@ -439,7 +438,6 @@ function modal_open(modal) {
 			},
 			ajaxContentAdded: function(mfpResponse) {
 				tooltip_init();
-				dropdown_init();
 			},
 			afterClose: function() {}
 		}
@@ -634,19 +632,6 @@ function tilt_init() {
 			})
 		}
 	}
-}
-
-
-
-/* !dropdown
-****************************************************/
-
-function dropdown_init() {
-	$(".dropdown").selectric({
-		onChange: function() {
-			$(this).closest(".selectric-wrapper").addClass("selectric-changed");
-		},
-	});
 }
 
 

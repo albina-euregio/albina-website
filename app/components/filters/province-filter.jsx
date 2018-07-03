@@ -1,4 +1,5 @@
 import React from 'react';
+import Selectric from '../selectric';
 
 export default class ProvinceFilter extends React.Component {
   constructor(props) {
@@ -11,17 +12,14 @@ export default class ProvinceFilter extends React.Component {
     return (
       <div>
         <p className="info">Province</p>
-        <select className="dropdown" onChange={(e) => {
-          const target = e.target;
-          this.props.handleChange(target.options[target.selectedIndex].value);
-        }} value={this.props.value}>
+        <Selectric onChange={this.props.handleChange} value={this.props.value}>
           <option value="">All</option>
           {
             Object.keys(regions).map((r) =>
               <option key={r} value={r}>{regions[r]}</option>
             )
           }
-        </select>
+        </Selectric>
       </div>
     );
   }

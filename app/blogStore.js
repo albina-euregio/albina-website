@@ -4,6 +4,8 @@ import Base from './base';
 export default class BlogStore {
   regions;
   languages;
+  _year;
+  _month;
   _searchText;
   _loading;
   _posts;
@@ -27,6 +29,9 @@ export default class BlogStore {
     // Views should only observe the value of the "loading" flag instead.
     this._posts = [];
 
+    this._year = observable.box('');
+    this._month = observable.box('');
+
     // For Mobx > v4 we have to use an obserable box instead of
     // @observable loading = ...;
     this._loading = observable.box(false);
@@ -34,7 +39,12 @@ export default class BlogStore {
   }
 
   @action
-  load() {
+  load(forceReload = false) {
+    if(!forceReload && this._posts.length > 0) {
+      // don't do a reload if already loaded unless reload is forced
+      return;
+    }
+
     this.loading = true;
     this._posts.splice(0, this._posts.length);
 
@@ -95,12 +105,28 @@ export default class BlogStore {
     this._searchText.set(val);
   }
 
+  get year() {
+    this._year.get();
+  }
+
+  set year(y) {
+    this._year.set(y);
+  }
+
+  get month() {
+    this._month.get();
+  }
+
+  set month(m) {
+    this._month.set(m);
+  }
+
   @action
   setRegionFilter(region) {
     for(let r in this.regions) {
       this.regions[r].active = !region || (r === region);
     }
-    this.load();
+    this.load(true);
   }
 
   @action
@@ -108,7 +134,7 @@ export default class BlogStore {
     for(let l in this.languages) {
       this.languages[l].active = !lang || (l === lang);
     }
-    this.load();
+    this.load(true);
   }
 
   getPosts(start = 0, limit = 10) {
