@@ -58,13 +58,20 @@ export default class BlogStore {
           // create by type
           switch(b.apiType) {
           case 'blogger': {
+            const params = {
+              'key': window['config'].get('apiKeys.google')
+            };
+            if(this.year) {
+              params['startDate'] = this._startDate.toISOString();
+              params['endDate'] = this._endDate.toISOString();
+            }
+            // TODO search
+
             const url = Base.makeUrl(
               window['config'].get('apis.blogger')
                 + b.params.id
                 + '/posts'
-              , {
-                'key': window['config'].get('apiKeys.google')
-              }
+              , params
             );
 
             loads.push(Base.doRequest(url).then((response) => {
@@ -106,19 +113,41 @@ export default class BlogStore {
   }
 
   get year() {
-    this._year.get();
+    return this._year.get();
   }
 
   set year(y) {
     this._year.set(y);
+    this.load(true);
   }
 
   get month() {
-    this._month.get();
+    return this._month.get();
   }
 
   set month(m) {
     this._month.set(m);
+    this.load(true);
+  }
+
+  get _startDate() {
+    if(this.year) {
+      if(this.month) {
+        return new Date(this.year, this.month - 1, 1);
+      }
+      return new Date(this.year, 0, 1);
+    }
+    return null;
+  }
+
+  get _endDate() {
+    if(this.year) {
+      if(this.month) {
+        return new Date(this.year, this.month, 0, 23, 59); // 0 means last of month
+      }
+      return new Date(this.year, 11, 31, 23, 59);
+    }
+    return null;
   }
 
   @action
