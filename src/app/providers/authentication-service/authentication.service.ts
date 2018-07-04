@@ -80,7 +80,7 @@ export class AuthenticationService {
     if (this.currentAuthor)
       return this.currentAuthor.region;
     else
-      null;
+      return "";
   }
 
   public getUserImageSanitized() {

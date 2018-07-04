@@ -83,34 +83,36 @@ export class ChatService {
       }
     }.bind(this));
 
-    this.getMessages().subscribe(
-      data => {
-        let response = data.json();
-        for (let jsonChatMessage of response)
-          this.addChatMessage(ChatMessageModel.createFromJson(jsonChatMessage), false);
-      },
-      error => {
-        console.error("Chat messages could not be loaded!");
-      }
-    );
-
-    this.getActiveUsers().subscribe(
-      data => {
-        let response = data.json();
-        for (let user of response) {
-          if (user.name != this.authenticationService.getUsername())
-            this.activeUsers.push(AuthorModel.createFromJson(user));
+    if (this.authenticationService.getUserRegion() && this.authenticationService.getUserRegion() != undefined) {
+      this.getMessages().subscribe(
+        data => {
+          let response = data.json();
+          for (let jsonChatMessage of response)
+            this.addChatMessage(ChatMessageModel.createFromJson(jsonChatMessage), false);
+        },
+        error => {
+          console.error("Chat messages could not be loaded!");
         }
-        this.activeUsers.sort((a, b) : number => {
-            if (a.name < b.name) return 1;
-            if (a.name > b.name) return -1;
-            return 0;
-        });
-      },
-      error => {
-        console.error("Active users could not be loaded!");
-      }
-    );
+      );
+
+      this.getActiveUsers().subscribe(
+        data => {
+          let response = data.json();
+          for (let user of response) {
+            if (user.name != this.authenticationService.getUsername())
+              this.activeUsers.push(AuthorModel.createFromJson(user));
+          }
+          this.activeUsers.sort((a, b) : number => {
+              if (a.name < b.name) return 1;
+              if (a.name > b.name) return -1;
+              return 0;
+          });
+        },
+        error => {
+          console.error("Active users could not be loaded!");
+        }
+      );
+    }
   }
 
   private addChatMessage(message, update) {

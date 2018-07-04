@@ -297,29 +297,40 @@ export class BulletinsComponent {
   }
 
   isOwnRegion(region) {
-    return this.authenticationService.getUserRegion().startsWith(region);
+    let userRegion = this.authenticationService.getUserRegion();
+    if (userRegion && userRegion != undefined)
+      return this.authenticationService.getUserRegion().startsWith(region);
+    else
+      return false;
   }
 
   editBulletin(date: Date, isUpdate: boolean) {
-    if (!this.copying) {
-      if (isUpdate)
-        this.bulletinsService.setIsUpdate(true);
-      else
-        this.bulletinsService.setIsUpdate(false);
+    if (this.authenticationService.getUserRegion() && this.authenticationService.getUserRegion() != undefined) {
+      if (!this.copying) {
+        if (isUpdate)
+          this.bulletinsService.setIsUpdate(true);
+        else
+          this.bulletinsService.setIsUpdate(false);
 
-      this.bulletinsService.setActiveDate(date);
+        this.bulletinsService.setActiveDate(date);
 
-      if (!this.isEditable(date) && !isUpdate) {
-        this.bulletinsService.setIsEditable(false);
-        this.router.navigate(['/bulletins/new']);
-      } else {
-        if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
-          let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
-  
-          this.bulletinsService.setIsEditable(true);
+        if (!this.isEditable(date) && !isUpdate) {
+          this.bulletinsService.setIsEditable(false);
           this.router.navigate(['/bulletins/new']);
+        } else {
+          if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
+            let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+    
+            this.bulletinsService.setIsEditable(true);
+            this.router.navigate(['/bulletins/new']);
+          }
         }
       }
+    } else {
+      this.bulletinsService.setActiveDate(date);
+      this.bulletinsService.setIsUpdate(false);
+      this.bulletinsService.setIsEditable(false);
+      this.router.navigate(['/bulletins/new']);
     }
   }
 

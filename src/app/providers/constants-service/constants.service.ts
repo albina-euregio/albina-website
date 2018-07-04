@@ -30,8 +30,8 @@ export class ConstantsService {
   public codeSouthTyrol: string = 'IT-32-BZ';
   public codeTrentino: string = 'IT-32-TN';
 
-  public lat: Map<string, number> = new Map([[this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05]])
-  public lng: Map<string, number> = new Map([[this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07]])
+  public lat: Map<string, number> = new Map([["", 47.10], [this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05]])
+  public lng: Map<string, number> = new Map([["", 11.44], [this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07]])
 
   public mapBoundaryN: number = 48.0;
   public mapBoundaryE: number = 13.5;
@@ -143,10 +143,16 @@ export class ConstantsService {
   }
 
   getLat(region: string) {
-    return this.lat.get(region);
+    if (region && region != undefined)
+      return this.lat.get(region);
+    else
+      return this.lat.get("");
   }
 
   getLng(region: string) {
-    return this.lng.get(region);
+    if (region && region != undefined)
+      return this.lng.get(region);
+    else
+      return this.lng.get("");
   }
 }
