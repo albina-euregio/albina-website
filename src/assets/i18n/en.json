@@ -323,7 +323,8 @@
 	"region" : {
 		"AT-07" : "Tyrol",
 		"IT-32-BZ" : "South Tyrol",
-		"IT-32-TN" : "Trentino"
+		"IT-32-TN" : "Trentino",
+		"AT-06" : "Styria"
 	},
 	"tendency" : {
 		"decreasing" : " Avalanche danger decreases",
