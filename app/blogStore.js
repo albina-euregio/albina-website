@@ -79,6 +79,7 @@ export default class BlogStore {
               (Array.isArray(item.images) && item.images.length > 0)
                 ? item.images[0].url
                 : null;
+            const tags = Array.isArray(item.labels) ? item.labels : [];
 
             return new BlogPostPreviewItem(
               item.url,
@@ -88,7 +89,7 @@ export default class BlogStore {
               config.lang,
               config.regions,
               previewImage,
-              []
+              tags
             );
           });
         }
