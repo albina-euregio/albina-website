@@ -1,5 +1,19 @@
 import { observable, action } from 'mobx';
 import Base from './base';
+import { parseDate } from './util/date';
+
+class BlogPostPreviewItem {
+  constructor(url, author, date, title, lang, regions = [], image = null, tags = []) {
+    this.url = url;
+    this.author = author;
+    this.date = date;
+    this.title = title;
+    this.lang = lang;
+    this.regions = regions;
+    this.image = image;
+    this.tags = tags;
+  }
+}
 
 export default class BlogStore {
   regions;
@@ -36,6 +50,50 @@ export default class BlogStore {
     // @observable loading = ...;
     this._loading = observable.box(false);
     this._searchText = observable.box('');
+
+    this.blogProcessor = {
+      blogger: {
+        createUrl: (config) => {
+          const params = {
+            'key': window['config'].get('apiKeys.google'),
+            'fetchBodies': false,
+            'fetchImages': true,
+            'status': 'live'
+          };
+          if(this.year) {
+            params['startDate'] = this._startDate.toISOString();
+            params['endDate'] = this._endDate.toISOString();
+          }
+          // TODO search
+
+          return Base.makeUrl(
+            window['config'].get('apis.blogger')
+              + config.params.id
+              + '/posts'
+            , params
+          );
+        },
+        process: (response, config) => {
+          return response.items.map((item) => {
+            const previewImage =
+              (Array.isArray(item.images) && item.images.length > 0)
+                ? item.images[0].url
+                : null;
+
+            return new BlogPostPreviewItem(
+              item.url,
+              item.author.displayName,
+              parseDate(item.published),
+              item.title,
+              config.lang,
+              config.regions,
+              previewImage,
+              []
+            );
+          });
+        }
+      }
+    }
   }
 
   @action
@@ -55,40 +113,15 @@ export default class BlogStore {
     for(let cfg of blogsConfig) {
       if(this.languages[cfg.lang] && this.languages[cfg.lang].active) {
         if(cfg.regions.some((r) => (this.regions[r] && this.regions[r].active))) {
-          // create by type
-          switch(cfg.apiType) {
-          case 'blogger': {
-            const params = {
-              'key': window['config'].get('apiKeys.google'),
-              'fetchBodies': false,
-              'fetchImages': true,
-              'status': 'live'
-            };
-            if(this.year) {
-              params['startDate'] = this._startDate.toISOString();
-              params['endDate'] = this._endDate.toISOString();
-            }
-            // TODO search
-
-            const url = Base.makeUrl(
-              window['config'].get('apis.blogger')
-                + cfg.params.id
-                + '/posts'
-              , params
-            );
-
-            loads.push(Base.doRequest(url).then((response) => {
-              // create Blogger object
-              const responseParsed = JSON.parse(response);
-              responseParsed.items.forEach((b) => {
-                this._posts.push(Object.assign(b, {lang: cfg.lang, regions: cfg.regions}));
+          if(this.blogProcessor[cfg.apiType]) {
+            const p = this.blogProcessor[cfg.apiType];
+            loads.push(
+              Base.doRequest(p.createUrl(cfg)).then((response) => {
+                p.process(JSON.parse(response), cfg).forEach((i) => {
+                  this._addPost(i);
+                });
               })
-            }));
-            break;
-          }
-
-          default:
-            break;
+            );
           }
         }
       }
@@ -151,6 +184,11 @@ export default class BlogStore {
       return new Date(this.year, 11, 31, 23, 59);
     }
     return null;
+  }
+
+  _addPost(item) {
+    // TODO: sort by date
+    this._posts.push(item);
   }
 
   @action
