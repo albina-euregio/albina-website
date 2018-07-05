@@ -10,7 +10,7 @@ import LanguageFilter from '../components/filters/language-filter.jsx';
 import YearFilter from '../components/filters/year-filter.jsx';
 import MonthFilter from '../components/filters/month-filter.jsx';
 
-@observer class Blog extends React.Component {
+@observer class BlogOverview extends React.Component {
   constructor(props) {
     super(props);
     if(!window['blogStore']) {
@@ -95,4 +95,4 @@ import MonthFilter from '../components/filters/month-filter.jsx';
     );
   }
 }
-export default Blog;
+export default BlogOverview;

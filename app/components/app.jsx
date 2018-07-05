@@ -6,13 +6,13 @@ import { MobxIntlProvider } from '../util/mobx-react-intl.es5.js';
 import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 
-import Bulletin from './../views/bulletin.jsx';
-import Blog from './../views/blog.jsx';
-import Weather from './../views/weather.jsx';
-import Education from './../views/education.jsx';
-import Archive from './../views/archive.jsx';
-import StaticPage from './../views/staticPage.jsx';
-import Page from './page.jsx';
+import Bulletin from './../views/bulletin';
+import BlogOverview from './../views/blogOverview';
+import Weather from './../views/weather';
+import Education from './../views/education';
+import Archive from './../views/archive';
+import StaticPage from './../views/staticPage';
+import Page from './page';
 
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require('../css/style.css');
@@ -53,7 +53,7 @@ class App extends React.Component {
           },
           {
             path: '/blog',
-            component: Blog,
+            component: BlogOverview,
           },
           {
             path: '/archive',
