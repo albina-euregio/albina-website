@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { dateToDateTimeString } from '../../util/date.js';
 
@@ -12,7 +13,7 @@ import { dateToDateTimeString } from '../../util/date.js';
       <div>
         {!this.props.loading && this.props.posts.map((item, i) => {
           return (
-            <a key={i} className="linkbox linkbox-blog-feature" href={item.url} >
+            <Link key={i} to={'/blog/' + item.blogName + '/' + item.postId} className="linkbox linkbox-blog-feature">
               <div className="content-image">
                 {
                   item.image && <img src={item.image} />
@@ -39,7 +40,7 @@ import { dateToDateTimeString } from '../../util/date.js';
                   }</ul>
                 }
               </div>
-            </a>
+            </Link>
           );
         })}
       </div>

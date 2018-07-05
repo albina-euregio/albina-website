@@ -3,7 +3,9 @@ import Base from './base';
 import { parseDate } from './util/date';
 
 class BlogPostPreviewItem {
-  constructor(url, author, date, title, lang, regions = [], image = null, tags = []) {
+  constructor(blogName, postId, url, author, date, title, lang, regions = [], image = null, tags = []) {
+    this.blogName = blogName;
+    this.postId = postId;
     this.url = url;
     this.author = author;
     this.date = date;
@@ -82,6 +84,8 @@ export default class BlogStore {
             const tags = Array.isArray(item.labels) ? item.labels : [];
 
             return new BlogPostPreviewItem(
+              config.name,
+              item.id,
               item.url,
               item.author.displayName,
               parseDate(item.published),

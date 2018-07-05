@@ -17,6 +17,7 @@ export default class PageHeadline extends React.Component {
             this.props.title &&
               <h1>{this.props.title}</h1>
           }
+          {this.props.children}
         </header>
       </section>
     );

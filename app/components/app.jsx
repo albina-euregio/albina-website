@@ -8,6 +8,7 @@ import { renderRoutes } from 'react-router-config';
 
 import Bulletin from './../views/bulletin';
 import BlogOverview from './../views/blogOverview';
+import BlogPost from './../views/blogPost';
 import Weather from './../views/weather';
 import Education from './../views/education';
 import Archive from './../views/archive';
@@ -50,6 +51,10 @@ class App extends React.Component {
           {
             path: '/education',
             component: Education,
+          },
+          {
+            path: '/blog/:blogName/:postId',
+            component: BlogPost
           },
           {
             path: '/blog',
