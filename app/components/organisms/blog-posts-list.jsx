@@ -30,8 +30,12 @@ import { parseDate, dateToDateTimeString } from '../../util/date.js';
                 <ul className="list-inline blog-feature-meta">
                   <li className="blog-author">{item.author.displayName}</li>
                   <li className="blog-date">{dateToDateTimeString(parseDate(item.published))}</li>
-                  <li className="blog-province">Tirol</li>
-                  <li className="blog-language">DE</li>
+                  <li className="blog-province">{
+                    item.regions
+                      .map((r) => window['appStore'].getRegionName(r))
+                      .join(', ')
+                  }</li>
+                  <li className="blog-language">{item.lang.toUpperCase()}</li>
                 </ul>
                 <h1 className="subheader blog-feature-title">{item.title}</h1>
               </div>

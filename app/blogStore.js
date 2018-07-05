@@ -52,11 +52,11 @@ export default class BlogStore {
     const loads = [];
 
     // filter config for lang and region
-    for(let b of blogsConfig) {
-      if(this.languages[b.lang] && this.languages[b.lang].active) {
-        if(b.regions.some((r) => (this.regions[r] && this.regions[r].active))) {
+    for(let cfg of blogsConfig) {
+      if(this.languages[cfg.lang] && this.languages[cfg.lang].active) {
+        if(cfg.regions.some((r) => (this.regions[r] && this.regions[r].active))) {
           // create by type
-          switch(b.apiType) {
+          switch(cfg.apiType) {
           case 'blogger': {
             const params = {
               'key': window['config'].get('apiKeys.google')
@@ -69,7 +69,7 @@ export default class BlogStore {
 
             const url = Base.makeUrl(
               window['config'].get('apis.blogger')
-                + b.params.id
+                + cfg.params.id
                 + '/posts'
               , params
             );
@@ -78,7 +78,7 @@ export default class BlogStore {
               // create Blogger object
               const responseParsed = JSON.parse(response);
               responseParsed.items.forEach((b) => {
-                this._posts.push(b);
+                this._posts.push(Object.assign(b, {lang: cfg.lang, regions: cfg.regions}));
               })
             }));
             break;

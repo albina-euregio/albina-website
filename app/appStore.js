@@ -39,12 +39,18 @@ class AppStore extends React.Component {
    * Get regions for current language.
    */
   getRegions() {
-    const lang = this.language;
-
     return Object.keys(this.regions).reduce((acc, r) => {
-      acc[r] = this.regions[r][lang];
+      acc[r] = this.getRegionName(r);
       return acc;
     }, {});
+  }
+
+  getRegionName(code) {
+    if(this.regions[code]) {
+      const lang = this.language;
+      return this.regions[code][lang];
+    }
+    return '';
   }
 }
 
