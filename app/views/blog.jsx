@@ -77,6 +77,7 @@ import MonthFilter from '../components/filters/month-filter.jsx';
       'year': <YearFilter handleChange={this.handleChangeYear} value={this.store.year} />
     };
     if(this.store.year) {
+      // hide month filter, if no year is set
       filters['month'] = <MonthFilter handleChange={this.handleChangeMonth} value={this.store.month} />;
     }
     filters['language'] = <LanguageFilter handleChange={this.handleChangeLanguage} value={this.activeLanguage} />;

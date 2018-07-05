@@ -19,9 +19,9 @@ class AppStore extends React.Component {
 
     // TODO: maybe fetch from CMS API
     this.regions = {
-      'tirol': {en: 'Tyrol', de: 'Tirol', it: 'Tirolo'},
-      'southtirol': {en: 'South Tyrol', de: 'Südtirol', it: 'Alto Adige'},
-      'trentino': {en: 'Trentino', de: 'Trentino', it: 'Trentino'}
+      'AT-07': {en: 'Tyrol', de: 'Tirol', it: 'Tirolo'},
+      'IT-32-BZ': {en: 'South Tyrol', de: 'Südtirol', it: 'Alto Adige'},
+      'IT-32-TN': {en: 'Trentino', de: 'Trentino', it: 'Trentino'}
     };
 
     this.languages = ['de', 'it', 'en'];
