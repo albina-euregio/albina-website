@@ -59,7 +59,10 @@ export default class BlogStore {
           switch(cfg.apiType) {
           case 'blogger': {
             const params = {
-              'key': window['config'].get('apiKeys.google')
+              'key': window['config'].get('apiKeys.google'),
+              'fetchBodies': false,
+              'fetchImages': true,
+              'status': 'live'
             };
             if(this.year) {
               params['startDate'] = this._startDate.toISOString();

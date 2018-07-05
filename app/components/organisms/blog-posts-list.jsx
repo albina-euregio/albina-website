@@ -7,18 +7,19 @@ import { parseDate, dateToDateTimeString } from '../../util/date.js';
     super(props);
   }
 
-  getImageFromContent(html) {
-    const parser = new DOMParser();
-    const parsedHtml = parser.parseFromString(html, 'text/html');
-    const img = parsedHtml.querySelector('img');
-    return img ? img.src : '';
+  getPreviewImage(images) {
+    // return the first image 
+    if(Array.isArray(images) && images.length > 0) {
+      return images[0].url;
+    }
+    return '';
   }
 
   render() {
     return (
       <div>
         {!this.props.loading && this.props.posts.map((item, i) => {
-          const img = this.getImageFromContent(item.content);
+          const img = this.getPreviewImage(item.images);
           return (
             <a key={i} className="linkbox linkbox-blog-feature" href={item.url} >
               <div className="content-image">
