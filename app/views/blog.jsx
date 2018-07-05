@@ -74,10 +74,12 @@ import MonthFilter from '../components/filters/month-filter.jsx';
   render() {
     const filters = {
       'province': <ProvinceFilter handleChange={this.handleChangeRegion} value={this.activeRegion} />,
-      'year': <YearFilter handleChange={this.handleChangeYear} value={this.store.year} />,
-      'month': <MonthFilter handleChange={this.handleChangeMonth} value={this.store.month} />,
-      'language': <LanguageFilter handleChange={this.handleChangeLanguage} value={this.activeLanguage} />
+      'year': <YearFilter handleChange={this.handleChangeYear} value={this.store.year} />
     };
+    if(this.store.year) {
+      filters['month'] = <MonthFilter handleChange={this.handleChangeMonth} value={this.store.month} />;
+    }
+    filters['language'] = <LanguageFilter handleChange={this.handleChangeLanguage} value={this.activeLanguage} />;
 
     return (
       <div>

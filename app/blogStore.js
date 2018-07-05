@@ -1,4 +1,4 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action } from 'mobx';
 import Base from './base';
 
 export default class BlogStore {
