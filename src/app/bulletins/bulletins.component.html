@@ -35,10 +35,10 @@
                   <i *ngIf="loadingSouthTyrol" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
+                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.published" class="badge badge-done">{{ "bulletins.table.status.published" | translate }}</span>
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.updated" class="badge badge-warning">{{ "bulletins.table.status.updated" | translate }}</span>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.resubmitted" class="badge badge-success">{{ "bulletins.table.status.resubmitted" | translate }}</span>
+                  <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.resubmitted" class="badge badge-success">{{ "bulletins.table.status.resubmitted" | translate }}</span>
                   <span *ngIf="!loadingSouthTyrol && bulletinsService.statusMapSouthTyrol.get(date.getTime()) == bulletinStatus.republished" class="badge badge-done">{{ "bulletins.table.status.republished" | translate }}</span>
                   <i *ngIf="bulletinsService.isLocked(date, 'IT-32-BZ')" class="fa fa-lock float-right"></i>
                 </td>
@@ -46,10 +46,10 @@
                   <i *ngIf="loadingTyrol" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                   <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
+                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
                   <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.published" class="badge badge-done">{{ "bulletins.table.status.published" | translate }}</span>
                   <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.updated" class="badge badge-warning">{{ "bulletins.table.status.updated" | translate }}</span>
-                  <span *ngIf="!loadingTrentino && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.resubmitted" class="badge badge-success">{{ "bulletins.table.status.resubmitted" | translate }}</span>
+                  <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.resubmitted" class="badge badge-success">{{ "bulletins.table.status.resubmitted" | translate }}</span>
                   <span *ngIf="!loadingTyrol && bulletinsService.statusMapTyrol.get(date.getTime()) == bulletinStatus.republished" class="badge badge-done">{{ "bulletins.table.status.republished" | translate }}</span>
                   <i *ngIf="bulletinsService.isLocked(date, 'AT-07')" class="fa fa-lock float-right"></i>
                 </td>
