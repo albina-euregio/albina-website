@@ -72,7 +72,7 @@
     }
   },
   "archive": {
-    "minYear": 2017
+    "minYear": 2016
   },
   "defaults": {
     "ampm": "am"

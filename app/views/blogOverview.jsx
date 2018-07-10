@@ -74,7 +74,11 @@ import MonthFilter from '../components/filters/month-filter.jsx';
   render() {
     const filters = {
       'province': <ProvinceFilter handleChange={this.handleChangeRegion} value={this.activeRegion} />,
-      'year': <YearFilter handleChange={this.handleChangeYear} value={this.store.year} />
+      'year':
+        <YearFilter
+          minYear={window['config'].get('archive.minYear')}
+          handleChange={this.handleChangeYear}
+          value={this.store.year} />
     };
     if(this.store.year) {
       // hide month filter, if no year is set

@@ -75,7 +75,11 @@ import DayFilter from '../components/filters/day-filter.jsx';
 
   render() {
     const filters = {
-      'year': <YearFilter handleChange={this.handleChangeYear} value={this.store.year} />
+      'year':
+        <YearFilter
+          minYear={window['config'].get('archive.minYear')}
+          handleChange={this.handleChangeYear}
+          value={this.store.year} />
     };
 
     if(this.store.year) {
