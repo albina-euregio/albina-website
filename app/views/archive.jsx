@@ -42,11 +42,10 @@ import DayFilter from '../components/filters/day-filter.jsx';
   get dates() {
     if(!this.store.loading) {
       // TODO: take filter values from store
-      const startDate = parseDate(this.state.startDate);
-      const endDate = parseDate(this.state.endDate);
+      const startDate = this.store.startDate ? this.store.startDate : parseDate(this.state.startDate);
+      const endDate = this.store.endDate ? this.store.endDate : parseDate(this.state.endDate);
 
       const test = (date) => {
-        // TODO: check for filter
         return this.store.getStatus(dateToISODateString(date)) == 'ok';
       };
 
@@ -57,7 +56,9 @@ import DayFilter from '../components/filters/day-filter.jsx';
         dates.push(d);
       }
 
-      return dates.filter((d) => test(d)).slice(0, window['config'].get('archive.maxResults'));
+      return dates
+        .filter((d) => test(d))
+        .slice(0, window['config'].get('archive.maxResults'));
     }
     return [];
   }

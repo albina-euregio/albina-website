@@ -1,6 +1,6 @@
 import Base from './base.js';
-import { observable } from 'mobx';
-import { parseDate, getSuccDate, dateToISODateString } from './util/date.js';
+import { observable, computed } from 'mobx';
+import { parseDate, getSuccDate, dateToISODateString, getDaysOfMonth } from './util/date.js';
 
 export default class ArchiveStore {
   archive;
@@ -11,9 +11,13 @@ export default class ArchiveStore {
 
   constructor() {
     this.archive = {};
+
+    // filter values
     this._year = observable.box('');
     this._month = observable.box('');
     this._day = observable.box('');
+
+    // loading flag
     this._loading = observable.box(false);
   }
 
@@ -31,6 +35,7 @@ export default class ArchiveStore {
 
   set year(y) {
     this._year.set(y);
+    this._load();
   }
 
   get month() {
@@ -39,6 +44,7 @@ export default class ArchiveStore {
 
   set month(m) {
     this._month.set(m);
+    this._load();
   }
 
   get day() {
@@ -47,6 +53,13 @@ export default class ArchiveStore {
 
   set day(val) {
     this._day.set(val);
+    this._load();
+  }
+
+  _load() {
+    if(this.startDate && this.endDate) {
+      this.load(dateToISODateString(this.startDate), dateToISODateString(this.endDate));
+    }
   }
 
   load(startDate, endDate = '') {
@@ -75,6 +88,54 @@ export default class ArchiveStore {
 
     // already loaded
     return Promise.resolve();
+  }
+
+  @computed
+  get startDate() {
+    if(this.year) {
+      const y = this.year;
+      var m = '';
+      var d = '';
+      if(this.month) {
+        m = this.month;
+        if(this.day) {
+          d = this.day;
+        } else {
+          d = 1;
+        }
+      } else {
+        m = 1;
+        d = 1;
+      }
+
+      return new Date(y,m-1,d);
+    }
+
+    return null;
+  }
+
+  @computed
+  get endDate() {
+    if(this.year) {
+      const y = this.year;
+      var m = '';
+      var d = '';
+      if(this.month) {
+        m = this.month;
+        if(this.day) {
+          d = this.day;
+        } else {
+          d = getDaysOfMonth(y, m);
+        }
+      } else {
+        m = 1;
+        d = getDaysOfMonth(y, m);
+      }
+
+      return new Date(y,m-1,d);
+    }
+
+    return null;
   }
 
   getStatus(date) {
