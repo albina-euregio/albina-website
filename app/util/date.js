@@ -81,12 +81,34 @@ function dateToISODateString(date) {
   return '';
 }
 
+function getDaysOfMonth(year, month) {
+  // according to ECMA Standard, day is relative to the first of the month:
+  // that means 0 is the last day of the previous month - see:
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/setDate
+  //
+  // therefore we set y and m to the successor month, to get the number of
+  // days (the last day in month) for the desired month
+  const y = (month == 12) ? (parseInt(year) + 1) : year;
+  const m = (month == 12) ? 0 : month;
+  const d = new Date(y, m, 0);
+
+  return d.getDate();
+}
+
 function _formatDate(date, options = {}) {
   if(date) {
-    // TODO: replace with current language
     return Intl.DateTimeFormat(window.appStore.language, options).format(date);
   }
   return '';
 }
 
-export {parseDate, getPredDate, getSuccDate, dateToDateString, dateToDateTimeString, dateToLongDateString, dateToISODateString};
+export {
+  parseDate,
+  getPredDate,
+  getSuccDate,
+  dateToDateString,
+  dateToDateTimeString,
+  dateToLongDateString,
+  dateToISODateString,
+  getDaysOfMonth
+};

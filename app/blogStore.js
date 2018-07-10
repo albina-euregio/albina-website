@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 import Base from './base';
-import { parseDate } from './util/date';
+import { parseDate, getDaysOfMonth } from './util/date';
 
 class BlogPostPreviewItem {
   constructor(blogName, postId, url, author, date, title, lang, regions = [], image = null, tags = []) {
@@ -184,7 +184,7 @@ export default class BlogStore {
   get _endDate() {
     if(this.year) {
       if(this.month) {
-        return new Date(this.year, this.month, 0, 23, 59); // 0 means last of month
+        return new Date(this.year, this.month - 1, getDaysOfMonth(this.year, this.month), 23, 59);
       }
       return new Date(this.year, 11, 31, 23, 59);
     }

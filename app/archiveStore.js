@@ -1,12 +1,52 @@
 import Base from './base.js';
-import { observable, action, computed } from 'mobx';
+import { observable } from 'mobx';
 import { parseDate, getSuccDate, dateToISODateString } from './util/date.js';
 
 export default class ArchiveStore {
   archive;
+  _year;
+  _month;
+  _day;
+  _loading;
 
   constructor() {
     this.archive = {};
+    this._year = observable.box('');
+    this._month = observable.box('');
+    this._day = observable.box('');
+    this._loading = observable.box(false);
+  }
+
+  get loading() {
+    return this._loading.get();
+  }
+
+  set loading(flag) {
+    this._loading.set(flag);
+  }
+
+  get year() {
+    return this._year.get();
+  }
+
+  set year(y) {
+    this._year.set(y);
+  }
+
+  get month() {
+    return this._month.get();
+  }
+
+  set month(m) {
+    this._month.set(m);
+  }
+
+  get day() {
+    return this._day.get();
+  }
+
+  set day(val) {
+    this._day.set(val);
   }
 
   load(startDate, endDate = '') {
@@ -46,6 +86,8 @@ export default class ArchiveStore {
   }
 
   _loadBulletinStatus(startDate, endDate = '', region = 'IT-32-BZ') {
+    this.loading = true;
+
     const startDateParam = encodeURIComponent(startDate + 'T00:00:00+02:00');
     const endDateParam = endDate ? encodeURIComponent(endDate + 'T00:00:00+02:00') : startDateParam;
 
@@ -91,7 +133,9 @@ export default class ArchiveStore {
             + ': ' + error
         );
       }
-    );
+    ).then(() => {
+      this.loading = false;
+    });
   }
 
 }

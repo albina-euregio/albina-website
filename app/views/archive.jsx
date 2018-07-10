@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import SmShare from '../components/organisms/sm-share.jsx';
 import { parseDate, getSuccDate, dateToISODateString } from '../util/date.js';
 import ArchiveStore from '../archiveStore.js';
@@ -8,8 +9,9 @@ import FilterBar from '../components/organisms/filter-bar.jsx';
 import LanguageFilter from '../components/filters/language-filter.jsx';
 import YearFilter from '../components/filters/year-filter.jsx';
 import MonthFilter from '../components/filters/month-filter.jsx';
+import DayFilter from '../components/filters/day-filter.jsx';
 
-export default class Archive extends React.Component {
+@observer class Archive extends React.Component {
   constructor(props) {
     super(props);
     if(!window['archiveStore']) {
@@ -59,12 +61,36 @@ export default class Archive extends React.Component {
     return [];
   }
 
+  handleChangeYear = (val) => {
+    this.store.year = val;
+  };
+
+  handleChangeMonth = (val) => {
+    this.store.month = val;
+  };
+
+  handleChangeDay = (val) => {
+    this.store.day = val;
+  };
+
   render() {
     const filters = {
-      'year': <YearFilter />,
-      'month': <MonthFilter />,
-      'language': <LanguageFilter />
+      'year': <YearFilter handleChange={this.handleChangeYear} value={this.store.year} />
     };
+
+    if(this.store.year) {
+      filters['month'] = <MonthFilter handleChange={this.handleChangeMonth} value={this.store.month} />
+      if(this.store.month) {
+        filters['day'] =
+          <DayFilter
+            handleChange={this.handleChangeDay}
+            year={this.store.year}
+            month={this.store.month}
+            value={this.store.day} />
+      }
+    }
+
+    filters['language'] = <LanguageFilter />
 
     return (
       <div>
@@ -121,3 +147,5 @@ export default class Archive extends React.Component {
     );
   }
 }
+
+export default Archive;
