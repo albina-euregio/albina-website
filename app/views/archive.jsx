@@ -18,29 +18,32 @@ import DayFilter from '../components/filters/day-filter.jsx';
       window['archiveStore'] = new ArchiveStore();
     }
     this.store = window['archiveStore'];
+
+    // TODO: set more sensible inital values: e.g. last week
     this.state = {
-      loading: true
+      startDate: '2018-06-07',
+      endDate: '2018-06-09'
     }
   }
+
+  componentWillReceiveProps(nextProps) {
+    this._fetchData(nextProps);
+  }
+
 
   componentDidMount() {
     return this._fetchData();
   }
 
   _fetchData() {
-    const startDate = '2018-06-07';
-    const endDate = '2018-06-10';
-    //this.setState({loading: true});
-    return this.store.load(startDate, endDate).then(() => {
-      this.setState({loading: false});
-    });
+    return this.store.load(this.state.startDate, this.state.endDate);
   }
 
   get dates() {
-    if(!this.state.loading) {
+    if(!this.store.loading) {
       // TODO: take filter values from store
-      const startDate = parseDate('2018-06-07');
-      const endDate = parseDate('2018-06-09');
+      const startDate = parseDate(this.state.startDate);
+      const endDate = parseDate(this.state.endDate);
 
       const test = (date) => {
         // TODO: check for filter
@@ -54,9 +57,7 @@ import DayFilter from '../components/filters/day-filter.jsx';
         dates.push(d);
       }
 
-      const activeDates = dates.filter((d) => test(d));
-
-      return activeDates;
+      return dates.filter((d) => test(d)).slice(0, window['config'].get('archive.maxResults'));
     }
     return [];
   }
@@ -83,7 +84,11 @@ import DayFilter from '../components/filters/day-filter.jsx';
     };
 
     if(this.store.year) {
-      filters['month'] = <MonthFilter handleChange={this.handleChangeMonth} value={this.store.month} />
+      filters['month'] =
+        <MonthFilter
+          handleChange={this.handleChangeMonth}
+          value={this.store.month} />
+
       if(this.store.month) {
         filters['day'] =
           <DayFilter

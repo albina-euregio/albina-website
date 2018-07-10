@@ -72,7 +72,8 @@
     }
   },
   "archive": {
-    "minYear": 2016
+    "minYear": 2016,
+    "maxResults": 10
   },
   "defaults": {
     "ampm": "am"
