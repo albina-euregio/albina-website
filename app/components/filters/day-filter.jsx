@@ -9,8 +9,8 @@ export default class DayFilter extends React.Component {
 
   get days() {
     const days = [];
-
-    for(let i = 1; i <= getDaysOfMonth(this.props.year, this.props.month); i++) {
+    const maxDay = getDaysOfMonth(this.props.year, this.props.month);
+    for(let i = 1; i <= maxDay; i++) {
       days.push(i);
     }
 
@@ -21,7 +21,7 @@ export default class DayFilter extends React.Component {
     return (
       <div>
         <p className="info">Day</p>
-        <Selectric onChange={this.props.handleChange} value={this.props.value}>
+        <Selectric onChange={this.props.handleChange} value={this.props.value} days={this.days.length}>
           <option value="">All</option>
           {
             this.days.map((d) => <option key={d} value={d}>{d}</option>)

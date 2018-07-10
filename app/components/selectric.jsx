@@ -13,6 +13,12 @@ export default class Selectric extends React.Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.children !== this.props.children) {
+      this.$el.selectric('refresh');
+    }
+  }
+
   handleChange = (e) => {
     // imported code from custom.js
     this.$el.closest(".selectric-wrapper").addClass("selectric-changed");
