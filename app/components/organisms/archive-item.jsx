@@ -6,7 +6,7 @@ export default class ArchiveItem extends React.Component {
     // TODO: fix daytime
     return window['config'].get('apis.geo')
       + dateToISODateString(this.props.date)
-      + '/am_overlay.png';
+      + '/am_albina_map.jpg';
   }
 
   render() {
@@ -22,7 +22,7 @@ export default class ArchiveItem extends React.Component {
           </ul>
         </td>
         <td>
-          <a href="#" className="map-preview img tooltip" title="Map Preview">
+          <a href="#" className="map-preview img tooltip" title="Show full archived forecast">
             <img src={this.previewMap} alt="Region" />
           </a>
         </td>
