@@ -35,6 +35,9 @@ export default class ArchiveStore {
 
   set year(y) {
     this._year.set(y);
+    if(!this._month.get()) {
+      this._month.set(1);
+    }
     this._load();
   }
 
