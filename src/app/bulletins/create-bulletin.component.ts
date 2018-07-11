@@ -827,7 +827,7 @@ export class CreateBulletinComponent {
 
   deselectBulletin() {
     if (this.checkElevation()) {
-        if (!this.editRegions) {
+        if (!this.editRegions && this.activeBulletin != null && this.activeBulletin != undefined) {
 
           this.setTexts();
 
