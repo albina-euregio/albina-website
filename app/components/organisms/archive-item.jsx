@@ -6,7 +6,7 @@ export default class ArchiveItem extends React.Component {
     // TODO: fix daytime
     return window['config'].get('apis.geo')
       + dateToISODateString(this.props.date)
-      + '/am_albina_map.jpg';
+      + '/am_albina_thumbnail.jpg';
   }
 
   render() {
