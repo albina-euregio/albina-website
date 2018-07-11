@@ -36,7 +36,7 @@
     "tileLayers": [
       {
         "id": "Lawis BW",
-        "url": "https://lawis.at/wms/LAWIS/LAWIS-TMS_bw/{z}/{x}/{y}.png",
+        "url": "http://data1.geo.univie.ac.at/TMS/ALBINA/EUREGIO-TMS/{z}/{x}/{y}.png",
         "maxZoom": 10,
         "minZoom": 8,
         "detectRetina": false,
