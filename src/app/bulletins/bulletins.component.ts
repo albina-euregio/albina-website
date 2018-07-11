@@ -222,8 +222,7 @@ export class BulletinsComponent {
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.draft || 
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.updated
         ) && 
-        !this.copying && 
-        (!this.publishing || this.publishing.getTime() != date.getTime()))
+        !this.copying)
       return true;
     else
       return false;
@@ -236,8 +235,7 @@ export class BulletinsComponent {
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.resubmitted ||
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.submitted
         ) &&
-        !this.copying && 
-        (!this.publishing || this.publishing.getTime() != date.getTime()))
+        !this.copying)
       return true;
     else
       return false;
