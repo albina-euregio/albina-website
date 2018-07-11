@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { dateToISODateString, dateToDateString } from '../../util/date.js';
 
 export default class ArchiveItem extends React.Component {
@@ -22,9 +23,9 @@ export default class ArchiveItem extends React.Component {
           </ul>
         </td>
         <td>
-          <a href="#" className="map-preview img tooltip" title="Show full archived forecast">
+          <Link to={'/bulletin/' + dateToISODateString(this.props.date)} className="map-preview img tooltip" title="Show full archived forecast">
             <img src={this.previewMap} alt="Region" />
-          </a>
+          </Link>
         </td>
       </tr>
     );
