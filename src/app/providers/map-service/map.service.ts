@@ -559,7 +559,7 @@ export class MapService {
 
     private getUserDependendRegionStyle(region) {
         let opacity = this.constantsService.lineOpacityForeignRegion;
-        if (region.startsWith(this.authenticationService.getUserRegion()))
+        if (region.startsWith(this.authenticationService.getActiveRegion()))
             opacity = this.constantsService.lineOpacityOwnRegion;
 
         return {
@@ -612,7 +612,7 @@ export class MapService {
         let opacity = 0.0;
 
         // own area
-        if (region.startsWith(this.authenticationService.getUserRegion())) {
+        if (region.startsWith(this.authenticationService.getActiveRegion())) {
             if (status == Enums.RegionStatus.published) {
                 fillOpacity = this.constantsService.fillOpacityOwnSelected;
             } else if (status == Enums.RegionStatus.suggested) {
@@ -647,7 +647,7 @@ export class MapService {
         let opacity = 0.0;
 
         // own area
-        if (region.startsWith(this.authenticationService.getUserRegion())) {
+        if (region.startsWith(this.authenticationService.getActiveRegion())) {
             if (status == Enums.RegionStatus.published) {
                 fillOpacity = this.constantsService.fillOpacityOwnDeselected;
             } else if (status == Enums.RegionStatus.suggested) {

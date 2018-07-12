@@ -10,6 +10,7 @@ export class AuthenticationService {
 
   public currentAuthor: AuthorModel;
   public jwtHelper: JwtHelper;
+  public activeRegion: string;
 
   constructor(
     public http: Http,
@@ -20,6 +21,7 @@ export class AuthenticationService {
     localStorage.removeItem('currentAuthor');
     localStorage.removeItem('accessToken');
     this.currentAuthor = null;
+    this.activeRegion = undefined;
     this.jwtHelper = new JwtHelper();
   }
 
@@ -76,13 +78,6 @@ export class AuthenticationService {
       null;
   }
 
-  public getUserRegion() {
-    if (this.currentAuthor)
-      return this.currentAuthor.region;
-    else
-      return "";
-  }
-
   public getUserImageSanitized() {
     if (this.currentAuthor && this.currentAuthor.image)
       return this.sanitizer.sanitize(SecurityContext.URL, 'data:image/jpg;base64,' + this.currentAuthor.image);
@@ -90,12 +85,21 @@ export class AuthenticationService {
       null;
   }
 
+  public getActiveRegion() : string {
+    return this.activeRegion;
+  }
+
+  public setActiveRegion(region: string) {
+    if (this.currentAuthor.getRegions().includes(region))
+      this.activeRegion = region;
+  }
+
   public getUserLat() {
-    return this.constantsService.getLat(this.getUserRegion());
+    return this.constantsService.getLat(this.getActiveRegion());
   }
 
   public getUserLng() {
-    return this.constantsService.getLng(this.getUserRegion());
+    return this.constantsService.getLng(this.getActiveRegion());
   }
 
   public isCurrentUserInRole(role) {
@@ -109,7 +113,7 @@ export class AuthenticationService {
   public getChatId(region: string) {
     switch (region) {
       case this.constantsService.codeTyrol:
-        switch (this.getUserRegion()) {
+        switch (this.getActiveRegion()) {
           case this.constantsService.codeTyrol:
             return 0;
           case this.constantsService.codeSouthTyrol:
@@ -120,7 +124,7 @@ export class AuthenticationService {
             return 0;
         }
       case this.constantsService.codeSouthTyrol:
-        switch (this.getUserRegion()) {
+        switch (this.getActiveRegion()) {
           case this.constantsService.codeTyrol:
             return 1
           case this.constantsService.codeSouthTyrol:
@@ -131,7 +135,7 @@ export class AuthenticationService {
             return 0;
         }
       case this.constantsService.codeTrentino:
-        switch (this.getUserRegion()) {
+        switch (this.getActiveRegion()) {
           case this.constantsService.codeTyrol:
             return 2;
           case this.constantsService.codeSouthTyrol:
@@ -166,6 +170,7 @@ export class AuthenticationService {
         let accessToken = response.json() && response.json().access_token;
         if (accessToken) {
           this.currentAuthor = AuthorModel.createFromJson(response.json());
+          this.activeRegion = this.currentAuthor.getRegions()[0];
           this.currentAuthor.accessToken = response.json().access_token;
           this.currentAuthor.refreshToken = response.json().refresh_token;
           localStorage.setItem('currentAuthor', JSON.stringify({ username: response.json().username, accessToken: response.json().access_token, refreshToken: response.json().refresh_token, image: response.json().image, region: response.json().region, roles: response.json().roles }));
@@ -213,6 +218,10 @@ export class AuthenticationService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.put(url, body, options);
+  }
+
+  public getCurrentAuthorRegions() {
+    return this.currentAuthor.getRegions();
   }
 
 }

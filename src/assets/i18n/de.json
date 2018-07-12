@@ -22,7 +22,8 @@
 		"en" : " Englisch",
 		"de" : " Deutsch",
 		"it" : " Italienisch",
-		"settings" : "Einstellungen"
+		"settings" : "Einstellungen",
+		"region" : "Region"
 	},
 	"chat" : {
 		"placeholder" : "Schreib hier ...",
@@ -330,6 +331,11 @@
 		"decreasing" : " Lawinengefahr sinkt",
 		"steady" : " Lawinengefahr bleibt gleich",
 		"increasing" : " Lawinengefahr steigt"
+	},
+	"changeRegionDialog" : {
+		"message" : "Möchtest du die Änderungen verwerfen und die Region wechseln?",
+		"accept" : "Ja",
+		"reject" : "Nein"
 	},
 
 	"quickReport" : {

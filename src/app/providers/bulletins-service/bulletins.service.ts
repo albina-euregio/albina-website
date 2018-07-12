@@ -24,6 +24,8 @@ export class BulletinsService {
 
   public statusMap: Map<number, Enums.BulletinStatus>;
 
+  public dates: Date[];
+
   constructor(
     public http: Http,
     private constantsService: ConstantsService,
@@ -31,6 +33,11 @@ export class BulletinsService {
     private settingsService: SettingsService,
     private socketService: SocketService)
   {
+    this.init();
+  }
+
+  init() {
+    this.dates = new Array<Date>();
     this.activeDate = undefined;
     this.copyDate = undefined;
     this.isEditable = false;
@@ -68,12 +75,12 @@ export class BulletinsService {
     }.bind(this));
 */
 
-    this.getLockedRegions(this.authenticationService.getUserRegion()).subscribe(
+    this.getLockedRegions(this.authenticationService.getActiveRegion()).subscribe(
       data => {
         let response = data.json();
         for (let lockedDate of response) {
           let date = new Date(lockedDate);
-          this.addLockedRegion(this.authenticationService.getUserRegion(), date);
+          this.addLockedRegion(this.authenticationService.getActiveRegion(), date);
         }
       },
       error => {
@@ -90,6 +97,32 @@ export class BulletinsService {
       }
     );
 */
+
+    let startDate = new Date();
+    startDate.setDate(startDate.getDate() - 7);
+    startDate.setHours(0, 0, 0, 0);
+
+    let endDate = new Date();
+    endDate.setDate(endDate.getDate() + 3);
+    endDate.setHours(0, 0, 0, 0);
+
+    for (let i = 0; i <= 10; i++) {
+      let date = new Date();
+      date.setDate(date.getDate() + 3 - i);
+      date.setHours(0, 0, 0, 0);
+      this.dates.push(date);
+    }
+
+    this.getStatus(this.authenticationService.getActiveRegion(), startDate, endDate).subscribe(
+      data => {
+        let json = data.json();
+        for (var i = json.length - 1; i >= 0; i--) 
+          this.statusMap.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
+      },
+      error => {
+        console.error("Status could not be loaded!");
+      }
+    );
   }
 
   getActiveDate() : Date {
@@ -193,7 +226,7 @@ export class BulletinsService {
   }
 
   saveBulletins(bulletins, date) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getUserRegion();
+    let url = this.constantsService.getServerUrl() + 'bulletins?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion();
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
@@ -211,7 +244,7 @@ export class BulletinsService {
   }
 
   changeBulletins(bulletins, date) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins/change?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getUserRegion();
+    let url = this.constantsService.getServerUrl() + 'bulletins/change?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion();
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',

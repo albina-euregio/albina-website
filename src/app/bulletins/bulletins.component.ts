@@ -22,8 +22,6 @@ export class BulletinsComponent {
 
   public bulletinStatus = Enums.BulletinStatus;
 
-  public dates: Date[];
-
   public loading: boolean;
   public publishing: Date;
   public copying: boolean;
@@ -60,7 +58,6 @@ export class BulletinsComponent {
     private socketService: SocketService,
     private modalService: BsModalService)
   {
-    this.dates = new Array<Date>();
     this.loading = false;
     this.copying = false;
     this.publishing = undefined;
@@ -69,41 +66,12 @@ export class BulletinsComponent {
       console.log("SocketIO bulletin update event recieved: " + data);
       let json = JSON.parse(data)
       let region = json.region;
-      if (region === this.authenticationService.getUserRegion())
+      if (region === this.authenticationService.getActiveRegion())
         this.bulletinsService.statusMap.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
     }.bind(this));
   }
 
   ngOnInit() {
-    this.loading = true;
-
-    let startDate = new Date();
-    startDate.setDate(startDate.getDate() - 7);
-    startDate.setHours(0, 0, 0, 0);
-
-    let endDate = new Date();
-    endDate.setDate(endDate.getDate() + 3);
-    endDate.setHours(0, 0, 0, 0);
-
-    for (let i = 0; i <= 10; i++) {
-      let date = new Date();
-      date.setDate(date.getDate() + 3 - i);
-      date.setHours(0, 0, 0, 0);
-      this.dates.push(date);
-    }
-
-    this.bulletinsService.getStatus(this.authenticationService.getUserRegion(), startDate, endDate).subscribe(
-      data => {
-        let json = data.json();
-        for (var i = json.length - 1; i >= 0; i--) 
-          this.bulletinsService.statusMap.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
-        this.loading = false;
-      },
-      error => {
-        console.error("Status could not be loaded!");
-        this.loading = false;
-      }
-    );
   }
 
   ngOnDestroy() {
@@ -255,15 +223,15 @@ export class BulletinsComponent {
   }
 
   isOwnRegion(region) {
-    let userRegion = this.authenticationService.getUserRegion();
+    let userRegion = this.authenticationService.getActiveRegion();
     if (userRegion && userRegion != undefined)
-      return this.authenticationService.getUserRegion().startsWith(region);
+      return this.authenticationService.getActiveRegion().startsWith(region);
     else
       return false;
   }
 
   editBulletin(date: Date, isUpdate: boolean) {
-    if (this.authenticationService.getUserRegion() && this.authenticationService.getUserRegion() != undefined) {
+    if (this.authenticationService.getActiveRegion() && this.authenticationService.getActiveRegion() != undefined) {
       if (!this.copying) {
         if (isUpdate)
           this.bulletinsService.setIsUpdate(true);
@@ -277,7 +245,7 @@ export class BulletinsComponent {
           this.router.navigate(['/bulletins/new']);
         } else {
           if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
-            let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+            let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
     
             this.bulletinsService.setIsEditable(true);
             this.router.navigate(['/bulletins/new']);
@@ -305,7 +273,7 @@ export class BulletinsComponent {
     if (
         (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || 
         (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.republished && !this.bulletinsService.getIsUpdate()) || 
-        this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion()) || 
+        this.bulletinsService.isLocked(date, this.authenticationService.getActiveRegion()) || 
         this.isPast(date) ||
         this.isToday(date))
       return false;
@@ -350,12 +318,12 @@ export class BulletinsComponent {
 
     this.bulletinsService.setActiveDate(date);
 
-    if (this.bulletinsService.isLocked(date, this.authenticationService.getUserRegion())) {
+    if (this.bulletinsService.isLocked(date, this.authenticationService.getActiveRegion())) {
       this.bulletinsService.setIsEditable(false);
       this.router.navigate(['/bulletins/new']);
     } else {
       if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
-        let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+        let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
 
         this.bulletinsService.setIsEditable(true);
         this.bulletinsService.setIsSmallChange(true);
@@ -368,7 +336,7 @@ export class BulletinsComponent {
     event.stopPropagation();
     this.publishing = date;
 
-    this.bulletinsService.checkBulletins(date, this.authenticationService.getUserRegion()).subscribe(
+    this.bulletinsService.checkBulletins(date, this.authenticationService.getActiveRegion()).subscribe(
       data => {
         let result = data.json();
 
@@ -406,7 +374,7 @@ export class BulletinsComponent {
     event.stopPropagation();
     this.publishing = date;
 
-    this.bulletinsService.checkBulletins(date, this.authenticationService.getUserRegion()).subscribe(
+    this.bulletinsService.checkBulletins(date, this.authenticationService.getActiveRegion()).subscribe(
       data => {
         let result = data.json();
 
@@ -463,7 +431,7 @@ export class BulletinsComponent {
 
   publishBulletinsModalConfirm(date: Date): void {
     this.publishBulletinsModalRef.hide();
-    this.bulletinsService.publishBulletins(date, this.authenticationService.getUserRegion()).subscribe(
+    this.bulletinsService.publishBulletins(date, this.authenticationService.getActiveRegion()).subscribe(
       data => {
         console.log("Bulletins published.");
         if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.resubmitted)
@@ -508,7 +476,7 @@ export class BulletinsComponent {
 
   submitBulletinsModalConfirm(date: Date): void {
     this.submitBulletinsModalRef.hide();
-    this.bulletinsService.submitBulletins(date, this.authenticationService.getUserRegion()).subscribe(
+    this.bulletinsService.submitBulletins(date, this.authenticationService.getActiveRegion()).subscribe(
       data => {
         console.log("Bulletins submitted.");
         if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.updated)

@@ -234,7 +234,7 @@ export class CreateBulletinComponent {
       // copy bulletins from other date
       if (this.bulletinsService.getCopyDate()) {
         let regions = new Array<String>();
-        regions.push(this.authenticationService.getUserRegion());
+        regions.push(this.authenticationService.getActiveRegion());
 
         // load own bulletins from the date they are copied from
         this.bulletinsService.loadBulletins(this.bulletinsService.getCopyDate(), regions).subscribe(
@@ -279,7 +279,7 @@ export class CreateBulletinComponent {
                   for (let region of bulletin.getSavedRegions())
                     saved.push(region);
                   for (let region of bulletin.getPublishedRegions())
-                    if (region.startsWith(this.authenticationService.getUserRegion()))
+                    if (region.startsWith(this.authenticationService.getActiveRegion()))
                       saved.push(region);
                     else
                       published.push(region);
@@ -591,7 +591,7 @@ export class CreateBulletinComponent {
   getOwnBulletins() {
     let result = new Array<BulletinModel>();
     for (let bulletin of this.bulletinsList)
-      if (bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
+      if (bulletin.getOwnerRegion().startsWith(this.authenticationService.getActiveRegion()))
         result.push(bulletin);
     return result;
   }
@@ -599,7 +599,7 @@ export class CreateBulletinComponent {
   getForeignBulletins() {
     let result = new Array<BulletinModel>();
     for (let bulletin of this.bulletinsList)
-      if (!bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
+      if (!bulletin.getOwnerRegion().startsWith(this.authenticationService.getActiveRegion()))
         result.push(bulletin);
     return result;
   }
@@ -608,7 +608,7 @@ export class CreateBulletinComponent {
     this.eventSubscriber.unsubscribe();
 
     if (this.bulletinsService.getActiveDate() && this.bulletinsService.getIsEditable())
-      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
 
     this.mapService.resetAll();
 
@@ -652,10 +652,10 @@ export class CreateBulletinComponent {
       // reset regions
       let saved = new Array<String>();
       for (let region of bulletin.getSavedRegions())
-        if (region.startsWith(this.authenticationService.getUserRegion()))
+        if (region.startsWith(this.authenticationService.getActiveRegion()))
           saved.push(region);
       for (let region of bulletin.getPublishedRegions())
-        if (region.startsWith(this.authenticationService.getUserRegion()))
+        if (region.startsWith(this.authenticationService.getActiveRegion()))
           saved.push(region);
 
       if (saved.length > 0) {
@@ -682,7 +682,7 @@ export class CreateBulletinComponent {
     for (let jsonBulletin of response) {
       let bulletin = BulletinModel.createFromJson(jsonBulletin);
 
-      if (!bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
+      if (!bulletin.getOwnerRegion().startsWith(this.authenticationService.getActiveRegion()))
         this.addBulletin(bulletin);
     }
 
@@ -700,8 +700,8 @@ export class CreateBulletinComponent {
   private addBulletin(bulletin: BulletinModel) {
     this.bulletinsList.push(bulletin);
     this.bulletinsList.sort((a, b) : number => {
-      if (a.getAuthor().getRegion() < b.getAuthor().getRegion()) return 1;
-      if (a.getAuthor().getRegion() > b.getAuthor().getRegion()) return -1;
+      if (a.getOwnerRegion() < b.getOwnerRegion()) return 1;
+      if (a.getOwnerRegion() > b.getOwnerRegion()) return -1;
       return 0;
     });
 
@@ -715,7 +715,7 @@ export class CreateBulletinComponent {
     event.stopPropagation();
     let suggested = new Array<String>();
     for (let region of bulletin.getSuggestedRegions())
-      if (region.startsWith(this.authenticationService.getUserRegion())) {
+      if (region.startsWith(this.authenticationService.getActiveRegion())) {
 
         // delete region from other bulletinInputModels
         for (let b of this.bulletinsList) {
@@ -741,7 +741,7 @@ export class CreateBulletinComponent {
     event.stopPropagation();
     let suggested = new Array<String>();
     for (let region of bulletin.getSuggestedRegions())
-      if (!region.startsWith(this.authenticationService.getUserRegion()))
+      if (!region.startsWith(this.authenticationService.getActiveRegion()))
         suggested.push(region);
     bulletin.setSuggestedRegions(suggested);
 
@@ -751,7 +751,8 @@ export class CreateBulletinComponent {
   private createInitialAggregatedRegion() {
     let bulletin = new BulletinModel();
     bulletin.setAuthor(this.authenticationService.getAuthor());
-    let regions = Object.assign([], this.constantsService.regions.get(this.authenticationService.getUserRegion()));
+    bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
+    let regions = Object.assign([], this.constantsService.regions.get(this.authenticationService.getActiveRegion()));
     bulletin.setSavedRegions(regions);
 
     this.addBulletin(bulletin);
@@ -774,6 +775,7 @@ export class CreateBulletinComponent {
         bulletin = new BulletinModel();
 
       bulletin.setAuthor(this.authenticationService.getAuthor());
+      bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
 
       this.addBulletin(bulletin);
       this.selectBulletin(bulletin);
@@ -1024,7 +1026,7 @@ private setTexts() {
 
     let oldRegionsHit = false;
     for (let region of this.activeBulletin.getSavedRegions()) {
-      if (region.startsWith(this.authenticationService.getUserRegion())) {
+      if (region.startsWith(this.authenticationService.getActiveRegion())) {
         oldRegionsHit = true;
         break
       }
@@ -1032,7 +1034,7 @@ private setTexts() {
 
     let newRegionsHit = false;
     for (let region of regions) {
-      if (region.startsWith(this.authenticationService.getUserRegion())) {
+      if (region.startsWith(this.authenticationService.getActiveRegion())) {
         newRegionsHit = true;
         break
       }
@@ -1044,7 +1046,7 @@ private setTexts() {
       // delete old saved regions in own area
       let oldSavedRegions = new Array<String>();
       for (let region of this.activeBulletin.getSavedRegions())
-        if (region.startsWith(this.authenticationService.getUserRegion()))
+        if (region.startsWith(this.authenticationService.getActiveRegion()))
           oldSavedRegions.push(region);
       for (let region of oldSavedRegions) {
         let index = this.activeBulletin.getSavedRegions().indexOf(region);
@@ -1054,7 +1056,7 @@ private setTexts() {
       // delete old suggested regions outside own area
       let oldSuggestedRegions = new Array<String>();
       for (let region of this.activeBulletin.getSuggestedRegions())
-        if (!region.startsWith(this.authenticationService.getUserRegion()))
+        if (!region.startsWith(this.authenticationService.getActiveRegion()))
           oldSuggestedRegions.push(region);
       for (let region of oldSuggestedRegions) {
         let index = this.activeBulletin.getSuggestedRegions().indexOf(region);
@@ -1062,7 +1064,7 @@ private setTexts() {
       }
 
       for (let region of regions) {
-        if (region.startsWith(this.authenticationService.getUserRegion())) {
+        if (region.startsWith(this.authenticationService.getActiveRegion())) {
           if (this.activeBulletin.getSavedRegions().indexOf(region) == -1)
             this.activeBulletin.getSavedRegions().push(region);
         } else {
@@ -1116,14 +1118,14 @@ private setTexts() {
 
   hasSuggestions(bulletin: BulletinModel): boolean {
     for (let region of bulletin.getSuggestedRegions()) {
-      if (region.startsWith(this.authenticationService.getUserRegion()))
+      if (region.startsWith(this.authenticationService.getActiveRegion()))
         return true;
     }
     return false;
   }
 
   isCreator(bulletin: BulletinModel) : boolean {
-    if (bulletin.getAuthor().getRegion() != undefined && bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
+    if (bulletin.getOwnerRegion() != undefined && bulletin.getOwnerRegion().startsWith(this.authenticationService.getActiveRegion()))
         return true;
     return false;
   }
@@ -1266,7 +1268,7 @@ private setTexts() {
     date.setTime(this.bulletinsService.getActiveDate().getTime() - dateOffset);
 
     let regions = new Array<String>();
-    regions.push(this.authenticationService.getUserRegion());
+    regions.push(this.authenticationService.getActiveRegion());
 
     this.bulletinsService.loadBulletins(date, regions).subscribe(
       data => {
@@ -1275,7 +1277,7 @@ private setTexts() {
         let entries = new Array<BulletinModel>();
 
         for (let bulletin of this.bulletinsList) {
-          if (bulletin.getAuthor().getRegion().startsWith(this.authenticationService.getUserRegion()))
+          if (bulletin.getOwnerRegion().startsWith(this.authenticationService.getActiveRegion()))
             entries.push(bulletin);
         }
         for (let entry of entries)

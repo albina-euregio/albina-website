@@ -22,7 +22,8 @@
 		"en" : " English",
 		"de" : " German",
 		"it" : " Italian",
-		"settings" : "Settings"
+		"settings" : "Settings",
+		"region" : "Region"
 	},
 	"chat" : {
 		"placeholder" : "Write here ...",
@@ -331,5 +332,10 @@
 		"decreasing" : " Avalanche danger decreases",
 		"steady" : " Avalanche danger stays the same",
 		"increasing" : " Avalanche danger increases"
+	},
+	"changeRegionDialog" : {
+		"message" : "Do you want to discard the changes and change the region?",
+		"accept" : "Yes",
+		"reject" : "No"
 	}
 }

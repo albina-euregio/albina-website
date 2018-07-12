@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
@@ -8,6 +8,8 @@ import { ConstantsService } from '../providers/constants-service/constants.servi
 import { SocketService } from '../providers/socket-service/socket.service';
 import { ChatMessageModel } from '../models/chat-message.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import * as Enums from '../enums/enums';
 
 @Component({
@@ -21,6 +23,16 @@ export class FullLayoutComponent implements OnInit {
 
   public message: string;
 
+  public tmpRegion: string;
+
+  public changeRegionModalRef: BsModalRef;
+  @ViewChild('changeRegionTemplate') changeRegionTemplate: TemplateRef<any>;
+
+  public config = {
+    keyboard: true,
+    class: 'modal-sm'
+  };
+
   constructor(
     public translateService: TranslateService,
     public authenticationService: AuthenticationService,
@@ -29,9 +41,11 @@ export class FullLayoutComponent implements OnInit {
     public settingsService: SettingsService,
     public socketService: SocketService,
     public constantsService: ConstantsService,
-    public router: Router)
+    public router: Router,
+    private modalService: BsModalService)
   {
     this.message = "";
+    this.tmpRegion = undefined;
   }
 
   public showBadge(region?: string): boolean {
@@ -53,7 +67,7 @@ export class FullLayoutComponent implements OnInit {
 
   public logout() {
     if (this.bulletinsService.getActiveDate())
-      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
     this.authenticationService.logout();
     this.socketService.logout();
   }
@@ -65,5 +79,38 @@ export class FullLayoutComponent implements OnInit {
     if (this.message && this.message != undefined && this.message != "")
       this.chatService.sendMessage(this.message, region);
     this.message = "";
+  }
+
+  changeRegion(region) {
+    if (!this.authenticationService.getActiveRegion().startsWith(region)) {
+      if (this.router.url === "/bulletins/new" && this.bulletinsService.getIsEditable()) {
+        this.tmpRegion = region;
+        this.openChangeRegionModal(this.changeRegionTemplate, region);
+      } else {
+        if (this.bulletinsService.getActiveDate())
+          this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+        this.authenticationService.setActiveRegion(region);
+        this.bulletinsService.init();
+        this.router.navigate(["/bulletins"]);
+      }
+    }
+  }
+
+  openChangeRegionModal(template: TemplateRef<any>, region: string) {
+    this.changeRegionModalRef = this.modalService.show(template, this.config);
+  }
+
+  changeRegionModalConfirm(): void {
+    this.changeRegionModalRef.hide();
+    if (this.bulletinsService.getActiveDate())
+      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+    this.authenticationService.setActiveRegion(this.tmpRegion);
+    this.tmpRegion = undefined;
+    this.bulletinsService.init();
+    this.router.navigate(["/bulletins"]);
+  }
+ 
+  changeRegionModalDecline(): void {
+    this.changeRegionModalRef.hide();
   }
 }

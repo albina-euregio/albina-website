@@ -12,13 +12,13 @@
             <thead>
               <tr>
                 <th>{{ "bulletins.table.title.date" | translate }}</th>
-                <th>{{ "bulletins.table.title.status." + authenticationService.getUserRegion() | translate }}</th>
+                <th>{{ "bulletins.table.title.status." + authenticationService.getActiveRegion() | translate }}</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let date of dates" style="height: 52px" (click)="editBulletin(date, false)" [style.color]="isPast(date) && !isToday(date) ? 'rgba(0,0,0,0.5)' : ''">
+              <tr *ngFor="let date of bulletinsService.dates" style="height: 52px" (click)="editBulletin(date, false)" [style.color]="isPast(date) && !isToday(date) ? 'rgba(0,0,0,0.5)' : ''">
                 <td>{{ date | localizedDate:'fullDate' }}</td>
-                <td [style.background-color]="bulletinsService.isLocked(date, authenticationService.getUserRegion()) ? 'rgba(255,0,0,0.2)' : ''" [style.background-color]="isOwnRegion('IT-32-TN') ? 'rgba(0,0,0,0.05)' : ''">
+                <td [style.background-color]="bulletinsService.isLocked(date, authenticationService.getActiveRegion()) ? 'rgba(255,0,0,0.2)' : ''">
                   <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
                   <span *ngIf="!loading && bulletinsService.statusMap.get(date.getTime()) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loading && bulletinsService.statusMap.get(date.getTime()) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>

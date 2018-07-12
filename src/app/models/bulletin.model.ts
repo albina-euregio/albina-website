@@ -8,6 +8,7 @@ export class BulletinModel {
 
 	public author: AuthorModel;
 	public additionalAuthors: String[];
+	public ownerRegion: String;
 
 	public publicationDate: Date;
 
@@ -49,6 +50,7 @@ export class BulletinModel {
 		this.publicationDate = undefined;
 		if (bulletin) {
 			this.additionalAuthors = bulletin.additionalAuthors;
+			this.ownerRegion = bulletin.ownerRegion;
 			this.validFrom = bulletin.validFrom;
 			this.validUntil = bulletin.validUntil;
 			this.suggestedRegions = bulletin.suggestedRegions;
@@ -75,6 +77,7 @@ export class BulletinModel {
 			this.hasElevationDependency = bulletin.hasElevationDependency;
 		} else {
 			this.additionalAuthors = new Array<String>();
+			this.ownerRegion = undefined;
 			this.validFrom = undefined;
 			this.validUntil = undefined;
 			this.suggestedRegions = new Array<String>();
@@ -131,6 +134,14 @@ export class BulletinModel {
 	addAdditionalAuthor(author: string) {
 		if (this.additionalAuthors.indexOf(author) < 0)
 			this.additionalAuthors.push(author);
+	}
+
+	getOwnerRegion() {
+		return this.ownerRegion;
+	}
+
+	setOwnerRegion(ownerRegion: String) {
+		this.ownerRegion = ownerRegion;
 	}
 
 	getPublicationDate() {
@@ -484,6 +495,9 @@ export class BulletinModel {
 			}
 			json['additionalAuthors'] = additionalAuthors;
 		}
+
+		if (this.ownerRegion && this.ownerRegion != undefined)
+			json['ownerRegion'] = this.ownerRegion;
 		
 		if (this.publicationDate && this.publicationDate != undefined)
 			json['publicationDate'] = this.getISOStringWithTimezoneOffsetUrlEncoded(this.publicationDate);
@@ -615,6 +629,9 @@ export class BulletinModel {
 			additionalAuthors.push(jsonAdditionalAuthors[i]);
 		}
 		bulletin.setAdditionalAuthors(additionalAuthors);
+
+		if (json.ownerRegion)
+			bulletin.setOwnerRegion(json.ownerRegion);
 
 		if (json.publicationDate)
 			bulletin.setPublicationDate(new Date(json.publicationDate));

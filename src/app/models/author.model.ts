@@ -5,9 +5,9 @@ export class AuthorModel {
 	public email: string;
 	public phone: string;
 	public organization: string;
-	public roles: String[];
+	public roles: string[];
 	public image: string;
-	public region: string;
+	public regions: string[];
 
 	constructor() {
 		this.accessToken = undefined;
@@ -18,7 +18,7 @@ export class AuthorModel {
 		this.organization = undefined;
 		this.roles = undefined;
 		this.image = undefined;
-		this.region = undefined;
+		this.regions = undefined;
 	}
 
 	getAccessToken() {
@@ -69,15 +69,15 @@ export class AuthorModel {
 		this.organization = organization;
 	}
 
-	getRoles() {
+	getRoles() : string[] {
 		return this.roles;
 	}
 
-	setRoles(roles: String[]) {
+	setRoles(roles: string[]) {
 		this.roles = roles; 
 	}
 
-	hasRole(role: String) {
+	hasRole(role: string) {
 		if (this.roles.indexOf(role) > -1)
 			return true;
 		else
@@ -92,12 +92,12 @@ export class AuthorModel {
 		this.image = image;
 	}
 
-	getRegion() {
-		return this.region;
+	getRegions() : string[] {
+		return this.regions;
 	}
 
-	setRegion(region) {
-		this.region = region;
+	setRegions(regions: string[]) {
+		this.regions = regions;
 	}
 
 	toJson() {
@@ -118,8 +118,13 @@ export class AuthorModel {
 			}
 			json['roles'] = roles;
 		}
-		if (this.region && this.region != undefined && this.region != "")
-			json['region'] = this.region;
+		if (this.regions && this.regions.length > 0) {
+			let regions = [];
+			for (let i = 0; i <= this.regions.length - 1; i++) {
+				regions.push(this.regions[i]);
+			}
+			json['regions'] = regions;
+		}
 
 		return json;
 	}
@@ -132,13 +137,18 @@ export class AuthorModel {
 		author.setPhone(json.phone);
 		author.setOrganization(json.organization);
 		let jsonRoles = json.roles;
-		let roles = new Array<String>();
+		let roles = new Array<string>();
 		for (let i in jsonRoles) {
 			roles.push(jsonRoles[i]);
 		}
 		author.setRoles(roles);
 		author.setImage(json.image);
-		author.setRegion(json.region);
+		let jsonRegions = json.regions;
+		let regions = new Array<string>();
+		for (let i in jsonRegions) {
+			regions.push(jsonRegions[i]);
+		}
+		author.setRegions(regions);
 
 		return author;
 	}

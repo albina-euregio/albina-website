@@ -22,7 +22,8 @@
 		"en" : " Inglese",
 		"de" : " Tedesco",
 		"it" : " Italiano",
-		"settings" : "Impostazioni"
+		"settings" : "Impostazioni",
+		"region" : "Regione"
 	},
 	"chat" : {
 		"placeholder" : "Scrivi ...",
@@ -332,5 +333,10 @@
 		"decreasing" : " Pericolo valanghe in diminuazione",
 		"steady" : " Pericolo valanghe stabile",
 		"increasing" : " Pericolo valanghe in aumento"
+	},
+	"changeRegionDialog" : {
+		"message" : "Vuoi scartare i cambiamenti e cambiare la regione?",
+		"accept" : "Sì",
+		"reject" : "No"
 	}
 }

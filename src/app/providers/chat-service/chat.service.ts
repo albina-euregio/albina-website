@@ -83,7 +83,7 @@ export class ChatService {
       }
     }.bind(this));
 
-    if (this.authenticationService.getUserRegion() && this.authenticationService.getUserRegion() != undefined) {
+    if (this.authenticationService.getActiveRegion() && this.authenticationService.getActiveRegion() != undefined) {
       this.getMessages().subscribe(
         data => {
           let response = data.json();
@@ -190,7 +190,7 @@ export class ChatService {
     if (region) {
       let count = 0;
       for (var i = this.activeUsers.length - 1; i >= 0; i--) {
-        if (this.activeUsers[i].getRegion().startsWith(region) || this.activeUsers[i].getRegion().startsWith(this.authenticationService.getUserRegion()))
+        if (this.activeUsers[i].getRegions().includes(region) || this.activeUsers[i].getRegions().includes(this.authenticationService.getActiveRegion()))
           count = count + 1;
       }
       return count;
@@ -201,7 +201,7 @@ export class ChatService {
   getActiveUsersForRegion(region?: string) {
     let users = new Array<string>();
     for (var i = this.activeUsers.length - 1; i >= 0; i--) {
-      if ((region && (this.activeUsers[i].getRegion().startsWith(region) || this.activeUsers[i].getRegion().startsWith(this.authenticationService.getUserRegion()))) || !region)
+      if ((region && (this.activeUsers[i].getRegions().includes(region) || this.activeUsers[i].getRegions().includes(this.authenticationService.getActiveRegion()))) || !region)
         users.push(this.activeUsers[i].getName());
     }
     return users;
