@@ -24,12 +24,13 @@
       "https://data1.geo.univie.ac.at/sandbox/map_viewer/framemap.html"
   },
   "map": {
-    "euregioBounds": [[45.5, 10.1], [47.7, 13]],
+    "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],
     "overlay": {
       "bounds": [[45.60608, 9.9174], [47.83039, 13.15173]],
       "opacity": 0.8
     },
     "initOptions": {
+      "maxBounds": [[44.5, 7.5], [49, 15.5]],
       "maxZoom": 10,
       "minZoom": 8
     },
