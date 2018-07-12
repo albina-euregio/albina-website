@@ -759,8 +759,8 @@ export class CreateBulletinComponent {
 
   createBulletin(copy) {
 
-    // TODO unlock bulletin (Tirol, Südtirol or Trentino) via socketIO
-    // TODO lock bulletin (Tirol, Südtirol or Trentino) via socketIO
+    // TODO unlock bulletin via socketIO
+    // TODO lock bulletin via socketIO
 
     if (this.checkElevation()) {
       let bulletin: BulletinModel;
@@ -1303,7 +1303,7 @@ private setTexts() {
     this.deleteAggregatedRegionModalRef.hide();
     this.delBulletin(this.activeBulletin);
 
-    // TODO unlock region (Tirol, Südtirol or Trentino) via socketIO
+    // TODO unlock region via socketIO
 
   }
  

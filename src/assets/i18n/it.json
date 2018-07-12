@@ -169,9 +169,10 @@
 			"title" : {
 				"date" : "Data",
 				"status" : {
-					"trentino" : "Trentino",
-					"southTyrol" : "Alto adige",
-					"tyrol" : "Tirolo"
+					"IT-32-TN" : "Trentino",
+					"IT-32-BZ" : "Alto adige",
+					"AT-07" : "Tirolo",
+					"AT-06" : "Stiria"
 				},
 				"action" : "Azzioni",
 				"caaml" : "CAAML"

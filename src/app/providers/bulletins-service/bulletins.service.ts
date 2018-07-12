@@ -22,9 +22,7 @@ export class BulletinsService {
   public lockedRegions: Map<string, Date[]>;
   // public lockedBulletins: Map<string, String[]>;
 
-  public statusMapTrentino: Map<number, Enums.BulletinStatus>;
-  public statusMapSouthTyrol: Map<number, Enums.BulletinStatus>;
-  public statusMapTyrol: Map<number, Enums.BulletinStatus>;
+  public statusMap: Map<number, Enums.BulletinStatus>;
 
   constructor(
     public http: Http,
@@ -38,9 +36,7 @@ export class BulletinsService {
     this.isEditable = false;
     this.isUpdate = false;
     this.isSmallChange = false;
-    this.statusMapTrentino = new Map<number, Enums.BulletinStatus>();
-    this.statusMapSouthTyrol = new Map<number, Enums.BulletinStatus>();
-    this.statusMapTyrol = new Map<number, Enums.BulletinStatus>();
+    this.statusMap = new Map<number, Enums.BulletinStatus>();
     this.lockedRegions = new Map<string, Date[]>();
     // this.lockedBulletins = new Map<string, String[]>();
 
@@ -56,24 +52,6 @@ export class BulletinsService {
       let message = JSON.parse(data);
       let date = new Date(message.date);
       this.removeLockedRegion(message.region, date);
-  
-      let observableBatch = [];
-/*
-      observableBatch.push(this.getStatus(this.constantsService.codeTyrol, date));
-      observableBatch.push(this.getStatus(this.constantsService.codeSouthTyrol, date));
-      observableBatch.push(this.getStatus(this.constantsService.codeTrentino, date));
-
-      Observable.forkJoin(observableBatch).subscribe(
-        data => {
-          this.statusMapTyrol.set(date.getTime(), Enums.BulletinStatus[<string>(<Response>data[0]).json()['status']]);
-          this.statusMapSouthTyrol.set(date.getTime(), Enums.BulletinStatus[<string>(<Response>data[1]).json()['status']]);
-          this.statusMapTrentino.set(date.getTime(), Enums.BulletinStatus[<string>(<Response>data[2]).json()['status']]);
-        },
-        error => {
-          console.error("Status could not be loaded!");
-        }
-      );
-*/
     }.bind(this));
 
 /*
@@ -90,42 +68,16 @@ export class BulletinsService {
     }.bind(this));
 */
 
-    this.getLockedRegions(this.constantsService.codeTrentino).subscribe(
+    this.getLockedRegions(this.authenticationService.getUserRegion()).subscribe(
       data => {
         let response = data.json();
         for (let lockedDate of response) {
           let date = new Date(lockedDate);
-          this.addLockedRegion(this.constantsService.codeTrentino, date);
+          this.addLockedRegion(this.authenticationService.getUserRegion(), date);
         }
       },
       error => {
-        console.warn("Locked regions for Trentino could not be loaded!");
-      }
-    );
-
-    this.getLockedRegions(this.constantsService.codeSouthTyrol).subscribe(
-      data => {
-        let response = data.json();
-        for (let lockedDate of response) {
-          let date = new Date(lockedDate);
-          this.addLockedRegion(this.constantsService.codeSouthTyrol, date);
-        }
-      },
-      error => {
-        console.warn("Locked regions for South Tyrol could not be loaded!");
-      }
-    );
-
-    this.getLockedRegions(this.constantsService.codeTyrol).subscribe(
-      data => {
-        let response = data.json();
-        for (let lockedDate of response) {
-          let date = new Date(lockedDate);
-          this.addLockedRegion(this.constantsService.codeTyrol, date);
-        }
-      },
-      error => {
-        console.warn("Locked regions for Tyrol could not be loaded!");
+        console.warn("Locked regions could not be loaded!");
       }
     );
 
@@ -181,36 +133,11 @@ export class BulletinsService {
   }
 
   getUserRegionStatus(date: Date) : Enums.BulletinStatus {
-    let region = this.authenticationService.getUserRegion();
-    switch (region) {
-      case "IT-32-TN":
-        return this.statusMapTrentino.get(date.getTime());
-      case "IT-32-BZ":
-        return this.statusMapSouthTyrol.get(date.getTime());
-      case "AT-07":
-        return this.statusMapTyrol.get(date.getTime());
-      
-      default:
-        return undefined;
-    }
+    return this.statusMap.get(date.getTime());
   }
   
   setUserRegionStatus(date: Date, status: Enums.BulletinStatus) {
-    let region = this.authenticationService.getUserRegion();
-    switch (region) {
-      case "IT-32-TN":
-        this.statusMapTrentino.set(date.getTime(), status);
-        break;
-      case "IT-32-BZ":
-        this.statusMapSouthTyrol.set(date.getTime(), status);
-        break;
-      case "AT-07":
-        this.statusMapTyrol.set(date.getTime(), status);
-        break;
-      
-      default:
-        return undefined;
-    }
+      this.statusMap.set(date.getTime(), status);
   }
   
   getStatus(region: string, startDate: Date, endDate: Date) : Observable<Response> {

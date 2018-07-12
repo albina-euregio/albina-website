@@ -24,9 +24,7 @@ export class BulletinsComponent {
 
   public dates: Date[];
 
-  public loadingTrentino: boolean;
-  public loadingSouthTyrol: boolean;
-  public loadingTyrol: boolean;
+  public loading: boolean;
   public publishing: Date;
   public copying: boolean;
 
@@ -63,9 +61,7 @@ export class BulletinsComponent {
     private modalService: BsModalService)
   {
     this.dates = new Array<Date>();
-    this.loadingTrentino = false;
-    this.loadingSouthTyrol = false;
-    this.loadingTyrol = false;
+    this.loading = false;
     this.copying = false;
     this.publishing = undefined;
 
@@ -73,19 +69,13 @@ export class BulletinsComponent {
       console.log("SocketIO bulletin update event recieved: " + data);
       let json = JSON.parse(data)
       let region = json.region;
-      if (region === this.constantsService.codeTyrol)
-          this.bulletinsService.statusMapTyrol.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
-      else if (region === this.constantsService.codeSouthTyrol)
-          this.bulletinsService.statusMapSouthTyrol.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
-      else if (region === this.constantsService.codeTrentino)
-          this.bulletinsService.statusMapTrentino.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
+      if (region === this.authenticationService.getUserRegion())
+        this.bulletinsService.statusMap.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
     }.bind(this));
   }
 
   ngOnInit() {
-    this.loadingTrentino = true;
-    this.loadingSouthTyrol = true;
-    this.loadingTyrol = true;
+    this.loading = true;
 
     let startDate = new Date();
     startDate.setDate(startDate.getDate() - 7);
@@ -102,50 +92,22 @@ export class BulletinsComponent {
       this.dates.push(date);
     }
 
-    this.bulletinsService.getStatus(this.constantsService.codeTrentino, startDate, endDate).subscribe(
+    this.bulletinsService.getStatus(this.authenticationService.getUserRegion(), startDate, endDate).subscribe(
       data => {
         let json = data.json();
         for (var i = json.length - 1; i >= 0; i--) 
-          this.bulletinsService.statusMapTrentino.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
-        this.loadingTrentino = false;
+          this.bulletinsService.statusMap.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
+        this.loading = false;
       },
       error => {
-        console.error("Status Trentino could not be loaded!");
-        this.loadingTrentino = false;
-      }
-    );
-
-    this.bulletinsService.getStatus(this.constantsService.codeSouthTyrol, startDate, endDate).subscribe(
-      data => {
-        let json = data.json();
-        for (var i = json.length - 1; i >= 0; i--)
-          this.bulletinsService.statusMapSouthTyrol.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
-        this.loadingSouthTyrol = false;
-      },
-      error => {
-        console.error("Status South Tyrol could not be loaded!");
-        this.loadingSouthTyrol = false;
-      }
-    );
-
-    this.bulletinsService.getStatus(this.constantsService.codeTyrol, startDate, endDate).subscribe(
-      data => {
-        let json = data.json();
-        for (var i = json.length - 1; i >= 0; i--)
-          this.bulletinsService.statusMapTyrol.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
-        this.loadingTyrol = false;
-      },
-      error => {
-        console.error("Status Tyrol could not be loaded!");
-        this.loadingTyrol = false;
+        console.error("Status could not be loaded!");
+        this.loading = false;
       }
     );
   }
 
   ngOnDestroy() {
-    this.loadingTrentino = false;
-    this.loadingSouthTyrol = false;
-    this.loadingTyrol = false;
+    this.loading = false;
     this.copying = false;
   }
 
@@ -192,9 +154,7 @@ export class BulletinsComponent {
         this.bulletinsService.getUserRegionStatus(date) && 
         this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.missing && 
         !this.copying && 
-        !this.loadingTrentino && 
-        !this.loadingSouthTyrol && 
-        !this.loadingTyrol)
+        !this.loading)
       return true;
     else
       return false;

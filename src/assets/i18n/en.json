@@ -169,9 +169,10 @@
 			"title" : {
 				"date" : "Date",
 				"status" : {
-					"trentino" : "Trentino",
-					"southTyrol" : "South Tyrol",
-					"tyrol" : "Tyrol"
+					"IT-32-TN" : "Trentino",
+					"IT-32-BZ" : "South Tyrol",
+					"AT-07" : "Tyrol",
+					"AT-06" : "Styria"
 				},
 				"action" : "Action",
 				"caaml" : "CAAML"
