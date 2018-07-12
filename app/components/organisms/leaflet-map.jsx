@@ -51,10 +51,16 @@ class LeafletMap extends React.Component {
 
   componentDidMount() {
     this.map = this.refs.map.leafletElement;
-    this.map.fitBounds(config.get("map.euregioBounds"));
-    this.map.on("click", e => {
+    this.map.fitBounds(config.get('map.euregioBounds'));
+    this.map.on('click', e => {
       L.DomEvent.stopPropagation(e);
       this.props.handleSelectFeature(null);
+    });
+    window.addEventListener('resize', () => {
+      window.setTimeout(this.map.invalidateSize, 1000);
+    });
+    window.addEventListener('orientationchange', () => {
+      window.setTimeout(this.map.invalidateSize, 1000);
     });
   }
 
