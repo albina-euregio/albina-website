@@ -8,3 +8,8 @@ iframe#meteoMap {
 .leaflet-pane.leaflet-overlay-pane {
   mix-blend-mode: multiply;
 }
+
+.page-footer-dev-version {
+  color: red;
+  font-weight: bold;
+}

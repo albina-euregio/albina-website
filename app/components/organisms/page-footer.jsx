@@ -39,6 +39,11 @@ class PageFooter extends React.Component {
               <p className="page-footer-top">
                 <a href="#page-main" className="icon-arrow-up tooltip" title="Top"><span>Top</span></a>
               </p>
+              { config.get('developmentMode') &&
+                <p className="page-footer-dev-version">
+                  <span>Draft version - for internal use: v{config.get('version')}</span>
+                </p>
+              }
             </div>
           </div>
         </section>

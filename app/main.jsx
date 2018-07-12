@@ -59,6 +59,11 @@ Base.cleanCache(configUrl);
 Base.doRequest(configUrl).then((configData) => {
   var configParsed = JSON.parse(configData);
   configParsed['projectRoot'] = basePath;
+  configParsed['version'] = VERSION; // included via webpack.DefinePlugin
+
+  // TODO: exchange this config with the commented line below when going live!!!
+  configParsed['developmentMode'] = true;
+  //configParsed['developmentMode'] = DEV; // included via webpack.DefinePlugin
 
   window['config'] = new ConfigStore(configParsed);
 
