@@ -47,16 +47,16 @@ export class BulletinsComponent {
   };
 
   constructor(
-    private translate: TranslateService,
-    private bulletinsService: BulletinsService,
-    private route: ActivatedRoute,
-    private translateService: TranslateService,
-    private authenticationService: AuthenticationService,
-    private constantsService: ConstantsService,
-    private router: Router,
-    private confirmationService: ConfirmationService,
-    private socketService: SocketService,
-    private modalService: BsModalService)
+    public translate: TranslateService,
+    public bulletinsService: BulletinsService,
+    public route: ActivatedRoute,
+    public translateService: TranslateService,
+    public authenticationService: AuthenticationService,
+    public constantsService: ConstantsService,
+    public router: Router,
+    public confirmationService: ConfirmationService,
+    public socketService: SocketService,
+    public modalService: BsModalService)
   {
     this.loading = false;
     this.copying = false;
