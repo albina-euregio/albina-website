@@ -2,14 +2,14 @@ import React from 'react';
 import { Provider, observer } from 'mobx-react';
 import { MobxIntlProvider } from '../util/mobx-react-intl.es5.js';
 
-//import { BrowserHistory } from 'react-router';
+import { Redirect } from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 
 import Bulletin from './../views/bulletin';
 import BlogOverview from './../views/blogOverview';
 import BlogPost from './../views/blogPost';
-import Weather from './../views/weather';
+import WeatherMap from './../views/weatherMap';
 import StationMeasurements from './../views/stationMeasurements';
 import Education from './../views/education';
 import Archive from './../views/archive';
@@ -46,12 +46,17 @@ class App extends React.Component {
             component: Bulletin
           },
           {
+            path: '/weather/map',
+            component: WeatherMap
+          },
+          {
             path: '/weather/measurements',
             component: StationMeasurements
           },
           {
             path: '/weather',
-            component: Weather
+            exact: true,
+            component: () => <Redirect to={'/weather/map'} />
           },
           {
             path: '/education',

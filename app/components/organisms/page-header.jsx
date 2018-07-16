@@ -59,12 +59,10 @@ class PageHeader extends React.Component {
               {this.renderLink('/weather', 'Snow & Weather', true)}
               <ul className="list-plain subnavigation">
                 <li>
-                  <Link to="/weather">Karten</Link>
+                  {this.renderLink('/weather/map', 'Karten')}
                 </li>
                 <li>
-                  <Link to="/weather/measurements">
-                    Stationsmesswerte
-                  </Link>
+                  {this.renderLink('/weather/measurements', 'Stationsmesswerte')}
                 </li>
                 <li>
                   <a href="#" className title>

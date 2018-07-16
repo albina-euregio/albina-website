@@ -6,7 +6,6 @@ export default class LabelListFilter extends React.Component {
   }
 
   render() {
-    console.log('TEST: ' + JSON.stringify(this.props.labels));
     return (
       <div>
         <span className="info">{this.props.title}</span>
