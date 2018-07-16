@@ -19,7 +19,7 @@ export default class Weather extends React.Component {
     return (
       <div>
         <PageHeadline title="Snow &amp; Weather" />
-        <section className="section-centered">
+        <section className="section-map section-centered">
           <iframe id="meteoMap" src={url}>
             <p>Your browser does not support iframes.</p>
           </iframe>
