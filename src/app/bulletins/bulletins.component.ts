@@ -270,6 +270,17 @@ export class BulletinsComponent {
   }
 
   isEditable(date) {
+    if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.updated)
+      return true;
+    if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.draft)
+      return true;
+    if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.submitted)
+      return true;
+    if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.resubmitted)
+      return true;
+    if (this.bulletinsService.getIsUpdate())
+      return true;
+
     if (
         (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.published && !this.bulletinsService.getIsUpdate()) || 
         (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.republished && !this.bulletinsService.getIsUpdate()) || 
