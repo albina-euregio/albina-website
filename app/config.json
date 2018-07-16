@@ -30,7 +30,8 @@
       "opacity": 0.8
     },
     "initOptions": {
-      "maxBounds": [[44.5, 7.5], [49, 15.5]],
+      "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]],
+      "maxBoundsViscosity": 0.7,
       "maxZoom": 10,
       "minZoom": 8
     },
