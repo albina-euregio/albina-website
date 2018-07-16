@@ -108,7 +108,8 @@ export class BulletinsComponent {
   }
 
   showCreateButton(date) {
-    if ((!this.isPast(date)) && 
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        (!this.isPast(date)) && 
         (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         (
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.missing
@@ -120,7 +121,8 @@ export class BulletinsComponent {
   }
 
   showCopyButton(date) {
-    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         this.bulletinsService.getUserRegionStatus(date) && 
         this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.missing && 
         !this.copying && 
@@ -131,7 +133,8 @@ export class BulletinsComponent {
   }
 
   showPasteButton(date) {
-    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.published && 
         this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.republished && 
         this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.submitted && 
@@ -146,7 +149,8 @@ export class BulletinsComponent {
   }
 
   showSubmitButton(date) {
-    if (/*!this.isPast(date) && */
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        /*!this.isPast(date) && */
         (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         (
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.draft || 
@@ -159,7 +163,8 @@ export class BulletinsComponent {
   }
 
   showPublishButton(date) {
-    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         (this.isToday(date) || this.isPast(date)) && 
         (
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.resubmitted ||
@@ -172,7 +177,8 @@ export class BulletinsComponent {
   }
 
   showSpinningIconButton(date) {
-    if (!this.copying && 
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        !this.copying && 
         this.publishing && 
         this.publishing.getTime() == date.getTime())
       return true;
@@ -197,7 +203,8 @@ export class BulletinsComponent {
   }
 
   showEditButton(date) {
-    if (/*(!this.isPast(date) ) && */
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        /*(!this.isPast(date) ) && */
         (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         (
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
@@ -210,7 +217,8 @@ export class BulletinsComponent {
   }
 
   showUpdateButton(date) {
-    if (/*(!this.isPast(date)) &&*/
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        /*(!this.isPast(date)) &&*/
         (this.isToday(date) || this.isPast(date)) && 
         (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         (
