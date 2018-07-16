@@ -59,7 +59,8 @@ export class AspectsComponent {
 
   private initAspects() {
     for (let a of this.avalancheSituation.getAspects()) {
-      switch (+Enums.Aspect[a]) {
+      let aspect = "" + a;
+      switch (+Enums.Aspect[aspect.toUpperCase()]) {
         case Enums.Aspect.N:
           this.aspectN.nativeElement.style.fill = "#000000";
           this.aspectN.nativeElement.focus();
