@@ -94,6 +94,22 @@ export class AuthenticationService {
       this.activeRegion = region;
   }
 
+  public getActiveRegionCode() : number {
+    switch (this.activeRegion) {
+      case "AT-07":
+        return 2;
+      case "IT-32-BZ":
+        return 3;
+      case "IT-32-TN":
+        return 3;
+      case "AT-06":
+        return 4;
+      
+      default:
+        return 1;
+    }
+  }
+
   public getUserLat() {
     return this.constantsService.getLat(this.getActiveRegion());
   }

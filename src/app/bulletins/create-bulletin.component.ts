@@ -220,7 +220,7 @@ export class CreateBulletinComponent {
 
     //for reload iframe on change language
     this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
-      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.constantsService.textcatUrl + "?l=" + this.settingsService.getLangString())
+      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.constantsService.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode())
     );
 
     if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
@@ -228,7 +228,7 @@ export class CreateBulletinComponent {
       this.reset();
 
       //setting pm language for iframe
-      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.constantsService.textcatUrl + "?l=" + this.settingsService.getLangString());
+      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.constantsService.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode());
 
 
       // copy bulletins from other date
