@@ -10,19 +10,17 @@ export default class StationMeasurements extends React.Component {
   }
 
   render() {
-    const filters = {
-      'province': <ProvinceFilter />,
-      'hide': <LabelListFilter title="Hide" labels={{
-        'snow_height': 'Schneehöhe',
-        'temperature': 'Temperatur',
-        'wind': 'Wind'
-      }} />
-    };
-
     return (
       <div>
         <PageHeadline title="Station Measurements" subtitle="Snow &amp; Weather" />
-        <FilterBar filters={filters} search={true} searchTitle="Search for station" />
+        <FilterBar search={true} searchTitle="Search for station">
+          <ProvinceFilter />
+          <LabelListFilter title="Hide" labels={{
+            'snow_height': 'Schneehöhe',
+            'temperature': 'Temperatur',
+            'wind': 'Wind'
+          }} />
+        </FilterBar>
         <section className="section">
           <div className="table-container">
 

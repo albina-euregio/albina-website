@@ -6,15 +6,15 @@ export default class FilterBar extends React.Component {
     const filterList = (
       <ul className="list-inline list-controlbar">
         {
-          Object.keys(this.props.filters).map((f) => (
-            <li key={f}>
-              {this.props.filters[f]}
-            </li>
+          this.props.children.map((f, i) => (
+            <li key={i}>{f}</li>
           ))
         }
       </ul>
     );
 
+    // if the filter bar contains a search field, we use a 9-3 grid,
+    // otherwise no grid is used
     let grid;
     if(this.props.search) {
       grid = <div className="grid">

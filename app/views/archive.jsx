@@ -76,36 +76,28 @@ import DayFilter from '../components/filters/day-filter.jsx';
   };
 
   render() {
-    const filters = {
-      'year':
-        <YearFilter
-          minYear={window['config'].get('archive.minYear')}
-          handleChange={this.handleChangeYear}
-          value={this.store.year} />
-    };
-
-    if(this.store.year) {
-      filters['month'] =
-        <MonthFilter
-          handleChange={this.handleChangeMonth}
-          value={this.store.month} />
-
-      if(this.store.month) {
-        filters['day'] =
-          <DayFilter
-            handleChange={this.handleChangeDay}
-            year={this.store.year}
-            month={this.store.month}
-            value={this.store.day} />
-      }
-    }
-
-    filters['language'] = <LanguageFilter />
-
     return (
       <div>
         <PageHeadline title="Archive" subtitle="More" marginal="Some short text, only optionally, this is max. length" />
-        <FilterBar filters={filters} search={false} />
+        <FilterBar search={false}>
+          <YearFilter
+            minYear={window['config'].get('archive.minYear')}
+            handleChange={this.handleChangeYear}
+            value={this.store.year} />
+          { this.store.year &&
+            <MonthFilter
+              handleChange={this.handleChangeMonth}
+              value={this.store.month} />
+          }
+          { this.store.month &&
+            <DayFilter
+              handleChange={this.handleChangeDay}
+              year={this.store.year}
+              month={this.store.month}
+              value={this.store.day} />
+          }
+          <LanguageFilter />
+        </FilterBar>
         <section className="section-padding-height">
           <section className="section-centered">
             <div className="table-container">

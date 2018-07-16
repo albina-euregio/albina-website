@@ -72,24 +72,20 @@ import MonthFilter from '../components/filters/month-filter.jsx';
   }
 
   render() {
-    const filters = {
-      'province': <ProvinceFilter handleChange={this.handleChangeRegion} value={this.activeRegion} />,
-      'year':
-        <YearFilter
-          minYear={window['config'].get('archive.minYear')}
-          handleChange={this.handleChangeYear}
-          value={this.store.year} />
-    };
-    if(this.store.year) {
-      // hide month filter, if no year is set
-      filters['month'] = <MonthFilter handleChange={this.handleChangeMonth} value={this.store.month} />;
-    }
-    filters['language'] = <LanguageFilter handleChange={this.handleChangeLanguage} value={this.activeLanguage} />;
-
     return (
       <div>
         <PageHeadline title="Blog posts" subtitle="Blog" marginal="" />
-        <FilterBar filters={filters} search={true} searchTitle="Search posts" />
+        <FilterBar search={true} searchTitle="Search posts">
+          <ProvinceFilter handleChange={this.handleChangeRegion} value={this.activeRegion} />
+          <YearFilter
+            minYear={window['config'].get('archive.minYear')}
+            handleChange={this.handleChangeYear}
+            value={this.store.year} />
+          { this.store.year &&
+            <MonthFilter handleChange={this.handleChangeMonth} value={this.store.month} />
+          }
+          <LanguageFilter handleChange={this.handleChangeLanguage} value={this.activeLanguage} />
+        </FilterBar>
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
             <BlogPostsList posts={this.store.getPosts()} loading={this.store.loading} />
