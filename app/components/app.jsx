@@ -10,6 +10,7 @@ import Bulletin from './../views/bulletin';
 import BlogOverview from './../views/blogOverview';
 import BlogPost from './../views/blogPost';
 import Weather from './../views/weather';
+import StationMeasurements from './../views/stationMeasurements';
 import Education from './../views/education';
 import Archive from './../views/archive';
 import StaticPage from './../views/staticPage';
@@ -42,15 +43,19 @@ class App extends React.Component {
         routes: [
           {
             path: '/bulletin/:date?',
-            component: Bulletin,
+            component: Bulletin
+          },
+          {
+            path: '/weather/measurements',
+            component: StationMeasurements
           },
           {
             path: '/weather',
-            component: Weather,
+            component: Weather
           },
           {
             path: '/education',
-            component: Education,
+            component: Education
           },
           {
             path: '/blog/:blogName/:postId',
