@@ -22,7 +22,7 @@ export default class StationMeasurements extends React.Component {
     return (
       <div>
         <PageHeadline title="Station Measurements" subtitle="Snow &amp; Weather" />
-        <FilterBar filters={filters} search={true} />
+        <FilterBar filters={filters} search={true} searchTitle="Search for station" />
         <section className="section">
           <div className="table-container">
 

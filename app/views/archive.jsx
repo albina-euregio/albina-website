@@ -105,7 +105,7 @@ import DayFilter from '../components/filters/day-filter.jsx';
     return (
       <div>
         <PageHeadline title="Archive" subtitle="More" marginal="Some short text, only optionally, this is max. length" />
-        <FilterBar filters={filters} />
+        <FilterBar filters={filters} search={false} />
         <section className="section-padding-height">
           <section className="section-centered">
             <div className="table-container">

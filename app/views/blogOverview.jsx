@@ -89,7 +89,7 @@ import MonthFilter from '../components/filters/month-filter.jsx';
     return (
       <div>
         <PageHeadline title="Blog posts" subtitle="Blog" marginal="" />
-        <FilterBar filters={filters} search={true}/>
+        <FilterBar filters={filters} search={true} searchTitle="Search posts" />
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
             <BlogPostsList posts={this.store.getPosts()} loading={this.store.loading} />

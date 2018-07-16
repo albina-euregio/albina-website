@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchField from '../search-field';
 
 export default class FilterBar extends React.Component {
   render() {
@@ -14,21 +15,11 @@ export default class FilterBar extends React.Component {
       </ul>
     );
 
-    const searchField = (this.props.search &&
-      <div>
-        <p className="info">Search Posts</p>
-        <div className="pure-form pure-form-search">
-          <input id="input" placeholder="Search" type="text" />
-          <button href="#" title="Search" className="pure-button pure-button-icon icon-search"><span>&nbsp;</span></button>
-        </div>
-      </div>
-    );
-
     let grid;
-    if(searchField) {
+    if(this.props.search) {
       grid = <div className="grid">
         <div className="normal-9 grid-item">{filterList}</div>
-        <div className="normal-3 grid-item">{searchField}</div>
+        <div className="normal-3 grid-item"><SearchField title={this.props.searchTitle} /></div>
       </div>;
     } else {
       grid = filterList;
