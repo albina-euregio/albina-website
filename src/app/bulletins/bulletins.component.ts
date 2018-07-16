@@ -62,6 +62,8 @@ export class BulletinsComponent {
     this.copying = false;
     this.publishing = undefined;
 
+    this.bulletinsService.init();
+
     this.socketService.getSocket().on('bulletinUpdate', function(data) {
       console.log("SocketIO bulletin update event recieved: " + data);
       let json = JSON.parse(data)

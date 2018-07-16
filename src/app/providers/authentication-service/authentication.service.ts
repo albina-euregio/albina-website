@@ -37,6 +37,7 @@ export class AuthenticationService {
     localStorage.removeItem('accessToken');
     console.log("[" + this.currentAuthor.name + "] Logged out!");
     this.currentAuthor = null;
+    this.activeRegion = undefined;
   }
 
   public getAuthor() {
