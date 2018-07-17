@@ -75,6 +75,8 @@ class App extends React.Component {
             component: Archive,
           },
           {
+            // NOTE: 404 error will be handled by StaticPage, since we do not
+            // know which pages reside on the CMS in this router config
             path: '/:name',
             component: StaticPage,
           }

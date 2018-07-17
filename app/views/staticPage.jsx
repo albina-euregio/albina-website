@@ -27,14 +27,18 @@ export default class StaticPage extends React.Component {
     const path = props.location.pathname.split('/');
     const site = (path.length > 0) ? path[path.length - 1] : '';
     const lang = window['appStore'].language;
+    const translatePath = (url) => Base.doRequest(config.get('apis.content') + 'router/translate-path?_format=json&path=/' + url);
+    const getPageId = (response) => (JSON.parse(response)).entity.uuid;
 
     // TODO: use subqueries to eleiminate the need of an additional API roundtrip: https://www.drupal.org/project/subrequests
     if(site) {
-      Base.doRequest(config.get('apis.content') + 'router/translate-path?_format=json&path=/' + site).then(response => {
-        // query id by url-alias
-        const responseParsed = JSON.parse(response);
-        return responseParsed.entity.uuid;
-      }).then(id => {
+      translatePath(site).then(
+        getPageId,
+        () => {
+          // if not found, fall back to 404 page
+          return translatePath('404').then(getPageId)
+        }
+      ).then(id => {
         // query page content by id
         const langParam = (!lang || (lang == 'en')) ? '' : (lang + '/');
         const url = config.get('apis.content') + langParam + 'api/pages/' + id;
