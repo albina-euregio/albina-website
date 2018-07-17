@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import SmShare from '../components/organisms/sm-share.jsx';
 import { parseDate, getSuccDate, dateToISODateString } from '../util/date.js';
 import ArchiveStore from '../archiveStore.js';
-import ArchiveItem from '../components/organisms/archive-item.jsx';
+import ArchiveItem from '../components/archive/archive-item.jsx';
 import PageHeadline from '../components/organisms/page-headline.jsx';
 import FilterBar from '../components/organisms/filter-bar.jsx';
 import LanguageFilter from '../components/filters/language-filter.jsx';

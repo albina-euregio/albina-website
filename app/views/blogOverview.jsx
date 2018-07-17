@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import BlogStore from '../blogStore';
 import PageHeadline from '../components/organisms/page-headline.jsx';
 import FilterBar from '../components/organisms/filter-bar.jsx';
-import BlogPostsList from '../components/organisms/blog-posts-list.jsx';
+import BlogPostsList from '../components/blog/blog-posts-list.jsx';
 import ProvinceFilter from '../components/filters/province-filter.jsx';
 import LanguageFilter from '../components/filters/language-filter.jsx';
 import YearFilter from '../components/filters/year-filter.jsx';
