@@ -21,7 +21,8 @@ function parseDate(dateString) {
 
 
 function _parseDatetime(dateTimeString) {
-  return new Date(Date.parse(dateTimeString));
+  const timestamp = Date.parse(dateTimeString);
+  return timestamp ? (new Date(timestamp)) : null;
 }
 
 

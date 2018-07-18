@@ -42,15 +42,18 @@ class App extends React.Component {
         },
         routes: [
           {
-            path: '/bulletin/:date?',
+            path: '/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})?',
+            exact: true,
             component: Bulletin
           },
           {
             path: '/weather/map',
+            exact: true,
             component: WeatherMap
           },
           {
             path: '/weather/measurements',
+            exact: true,
             component: StationMeasurements
           },
           {
@@ -60,6 +63,7 @@ class App extends React.Component {
           },
           {
             path: '/education',
+            exact: true,
             component: Education
           },
           {
@@ -68,10 +72,12 @@ class App extends React.Component {
           },
           {
             path: '/blog',
+            exact: true,
             component: BlogOverview,
           },
           {
             path: '/archive',
+            exact: true,
             component: Archive,
           },
           {
