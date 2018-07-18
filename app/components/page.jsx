@@ -3,11 +3,13 @@ import PageLoadingScreen from './organisms/page-loading-screen.jsx';
 import Jumpnav from './organisms/jumpnav.jsx';
 import PageHeader from './organisms/page-header.jsx';
 import PageFooter from './organisms/page-footer.jsx';
+import MenuStore from '../stores/menuStore';
 import { renderRoutes } from 'react-router-config';
 
 export default class Page extends React.Component {
   constructor(props) {
     super(props);
+    this.menuStore = new MenuStore();
   }
 
   componentDidUpdate() {
@@ -37,7 +39,7 @@ export default class Page extends React.Component {
           <main id="page-main" className="page-main">
             <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
           </main>
-          <PageFooter />
+          <PageFooter menuStore={this.menuStore} />
         </div>
       </div>
     );
