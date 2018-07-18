@@ -40,27 +40,38 @@ export default class MenuStore {
     };
     const langParam = (!lang || (lang == 'en')) ? '' : (lang + '/');
     const url = Base.makeUrl(config.get('apis.content') + langParam  + 'api/menuLinks', params);
+    const processEntry = (entry) => {
+      const ats = entry.attributes;
+      const parentId = ats.parentIs ? ats.parentIs.substr(18) : null;
+
+      this._addMenuEntry(ats.menuInternalId, {
+        id: entry.id,
+        title: ats.title,
+        url: (ats.isExternal) ? ats.link : ats.link.substr(9), // strip "internal:" prefix
+        isExternal: ats.isExternal
+      }, parentId);
+    };
 
     Base.doRequest(url).then(
       (response) => {
         const responseParsed = JSON.parse(response);
-        if(responseParsed && responseParsed.data && Array.isArray(responseParsed.data)){
+        if(responseParsed && responseParsed.data && Array.isArray(responseParsed.data)) {
+          const rootEntries = [];
+          const subEntries = [];
           responseParsed.data.forEach((entry) => {
             if(entry && typeof(entry.attributes) === 'object') {
-              const ats = entry.attributes;
-
-              this._addMenuEntry(ats.menuInternalId, {
-                id: ats.internalId,
-                title: ats.title,
-                url: (ats.isExternal) ? ats.link : ats.link.substr(9), // strip "internal:" prefix
-                isExternal: ats.isExternal
-              }, ats.parentIs);
+              if(entry.attributes.parentIs) {
+                subEntries.push(entry);
+              } else {
+                rootEntries.push(entry);
+              }
             }
           });
+          rootEntries.forEach(processEntry);
+          subEntries.forEach(processEntry);
         }
       }
     ).then(() => {
-      console.log('TEST: ' + JSON.stringify(this.menus));
       this.loading = false;
     });
   }
@@ -71,10 +82,14 @@ export default class MenuStore {
     }
     if(parentId) {
       const p = this.menus[menuId].find((e) => { return e.id == parentId; });
-      if(!p.childen) {
-        p.children = [];
+      if(p) {
+        if(!p.children) {
+          p.children = [];
+        }
+        p.children.push(entry);
+      } else {
+        console.log('cannot find parent ' + parentId + ' for ' + entry.url);
       }
-      p.children.push(entry);
     } else {
       this.menus[menuId].push(entry);
     }

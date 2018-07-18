@@ -2,7 +2,8 @@ import React from 'react';
 import { matchPath, withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
-import { injectIntl, FormattedMessage} from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import Menu from '../menu';
 
 class PageHeader extends React.Component {
   constructor(props) {
@@ -13,30 +14,9 @@ class PageHeader extends React.Component {
     window['appStore'].language = newLanguage;
   };
 
-  _linkStyle(path, hasChildren) {
-    const router = this.context;
-    const classes = [];
-
-    if(path && router) {
-      const pathname =
-        window.location.pathname.substr(config.get('projectRoot').length - 1);
-      if(matchPath(pathname, path) != null) {
-        classes.push('active');
-      }
-    }
-    if(hasChildren) {
-      classes.push('has-sub');
-    }
-
-    return classes.join(' ');
-  }
-
-  renderLink(path, text, hasChildren = false) {
-    return <Link to={path} className={this._linkStyle(path, hasChildren)}>{text}</Link>
-  }
-
   render() {
     const langs = window['appStore'].languages;
+    const menuItems = this.props.menuStore.getMenu('main');
 
     return (
       <div id="page-header" className="page-header" data-scroll-header>
@@ -51,122 +31,9 @@ class PageHeader extends React.Component {
           </a>
         </div>
         <div className="page-header-navigation">
-          <ul className="list-plain navigation">
-            <li>
-              {this.renderLink('/bulletin', <span>Avalanche Bulletin <small><FormattedMessage id="home" /></small></span>)}
-            </li>
-            <li>
-              {this.renderLink('/weather', 'Snow & Weather', true)}
-              <ul className="list-plain subnavigation">
-                <li>
-                  {this.renderLink('/weather/map', 'Karten')}
-                </li>
-                <li>
-                  {this.renderLink('/weather/measurements', 'Stationsmesswerte')}
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Wetterstationen
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Schneeprofile
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Unfälle
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Webcams
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              { this.renderLink('/education', 'Education & Prevention', true)}
-              <ul className="list-plain subnavigation">
-                <li>
-                  <a href="#" className title>
-                    Gefahrenskala
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Matrix
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Lawinenprobleme
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Gefahrenmuster
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Lawinengrößen
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Geländeneigungen
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Glossar
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    Icons
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              { this.renderLink('/blog', 'Blog')}
-            </li>
-            <li>
-              <a href="#" className=" has-sub" title>
-                More
-              </a>
-              <ul className="list-plain subnavigation">
-                <li>
-                  <Link to="/archive">
-                    Archive
-                  </Link>
-                </li>
-                <li>
-                  <a href="#" className title>
-                    API
-                  </a>
-                </li>
-                <li>
-                  <Link to="/about">
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contact">
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/imprint">
-                    Imprint
-                  </Link>
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <Menu className="list-plain navigation"
+            entries={menuItems}
+            childClassName="list-plain subnavigation" />
         </div>
         <div className="page-header-language">
           <ul className="list-inline language-trigger">

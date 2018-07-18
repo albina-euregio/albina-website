@@ -35,7 +35,7 @@ export default class Page extends React.Component {
         <PageLoadingScreen />
         <Jumpnav />
         <div id="page-all" className="page-all">
-          <PageHeader />
+          <PageHeader menuStore={this.menuStore} />
           <main id="page-main" className="page-main">
             <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
           </main>

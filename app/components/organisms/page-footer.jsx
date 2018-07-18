@@ -1,8 +1,8 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { Link } from 'react-router-dom';
 import { inject } from 'mobx-react';
-import { injectIntl, FormattedMessage} from 'react-intl';
+import { injectIntl } from 'react-intl';
+import Menu from '../menu';
 import SmShare from './sm-share.jsx';
 
 @observer
@@ -12,32 +12,20 @@ class PageFooter extends React.Component {
   }
 
   render() {
-    const footerMenu = this.props.menuStore.getMenu('footer');
+    const footerMenuMore = this.props.menuStore.getMenu('footer');
+    const footerMenuMain = this.props.menuStore.getMenu('footer-main');
 
     return (
       <div id="page-footer" className="page-footer">
         <section className="section section-padding page-footer-navigation">
           <div className="grid">
             <div className="grid-item normal-6">
-              { Array.isArray(footerMenu) &&
-                <ul className="list-inline footer-navigation footer-navigation-more">
-                  {
-                    footerMenu.map((e) =>
-                      <li key={e.id}>{e.isExternal
-                        ? <a href={e.url} target="_blank">{e.title}</a>
-                        : <Link to={e.url}>{e.title}</Link>
-                      }</li>
-                    )
-                  }
-                </ul>
-              }
-              <ul className="list-plain footer-navigation footer-navigation-main">
-                <li><Link to="/bulletin">Avalanche Bulletin <small><FormattedMessage id="home" /></small></Link></li>
-                <li><Link to="/weather">Snow &amp; Weather</Link></li>
-                <li><Link to="/education">Education &amp; Prevention</Link></li>
-                <li><Link to="/blog">Blog</Link></li>
-                <li><a href="#" className=" has-sub" title>More</a></li>
-              </ul>
+              <Menu
+                className="list-inline footer-navigation footer-navigation-more"
+                entries={footerMenuMore} />
+              <Menu
+                className="list-plain footer-navigation footer-navigation-main"
+                entries={footerMenuMain} />
             </div>
             <div className="grid-item normal-6">
               <p className="page-footer-subscribe">
