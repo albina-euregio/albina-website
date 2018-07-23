@@ -94,6 +94,7 @@ class BulletinMap extends React.Component {
             handleHighlightFeature={this.handleHighlightFeature}
             handleSelectFeature={this.handleSelectFeature}
           />
+          { false && /* hide map search */
           <div style={this.styleOverMap()} className="bulletin-map-search">
             <div className="pure-form pure-form-search">
               <input
@@ -112,6 +113,7 @@ class BulletinMap extends React.Component {
               </button>
             </div>
           </div>
+          }
           <div style={this.styleOverMap()} className="bulletin-map-zoom">
             <ul className="list-plain">
               <li className="bulletin-map-zoom-plus">
