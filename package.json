@@ -1,6 +1,6 @@
 {
   "name": "albina-project",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Albina project webpage",
   "main": "app/main.jsx",
   "scripts": {

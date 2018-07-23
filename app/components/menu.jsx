@@ -2,20 +2,27 @@ import React from 'react';
 import { withRouter, matchPath } from 'react-router';
 import { Link } from 'react-router-dom';
 
-class Menu extends React.Component {
+@withRouter class Menu extends React.Component {
   constructor(props) {
     super(props);
+
   }
 
   testActive(e, recursive = true) {
-    // TODO: use this.props.location.pathname instead of calculating the pathname
-    const pathname =
-      window.location.pathname.substr(config.get('projectRoot').length - 1);
-    return (matchPath(pathname, e.url) != null)
-      || ( recursive
-        && e.children
-        && e.children.some((el) => this.testActive(el))
-      );
+    // Test if element (or any of its child elements, if "recursive" is set)
+    // is active.
+    const doTest = (loc, element) => {
+      return (matchPath(loc, element.url) != null)
+        || ( recursive
+          && element.children
+          && element.children.some((el) => doTest(loc, el))
+        );
+    };
+
+    if(this.props.location && this.props.location.pathname) {
+      return doTest(this.props.location.pathname, e);
+    }
+    return false;
   }
 
   renderMenuItem(e) {
@@ -36,7 +43,7 @@ class Menu extends React.Component {
         }
         {
           (isActive && e.children && e.children.length > 0) &&
-          <Menu className={this.props.childClassName} entries={e.children} />
+          <Menu className={this.props.childClassName} entries={e.children} location={this.props.location} />
         }
       </li>
     );
@@ -54,4 +61,4 @@ class Menu extends React.Component {
   }
 }
 
-export default withRouter(Menu);
+export default Menu;
