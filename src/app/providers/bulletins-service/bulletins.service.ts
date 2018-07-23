@@ -123,6 +123,17 @@ export class BulletinsService {
         console.error("Status could not be loaded!");
       }
     );
+
+    // TODO use the information about the publciation process somewhere (maybe just as ADMIN?)
+    this.getPublicationStatus(this.authenticationService.getActiveRegion(), startDate, endDate).subscribe(
+      data => {
+        let json = data.json();
+        debugger
+      },
+      error => {
+        console.error("Publication status could not be loaded!");
+      }
+    );
   }
 
   getActiveDate() : Date {
@@ -175,6 +186,18 @@ export class BulletinsService {
   
   getStatus(region: string, startDate: Date, endDate: Date) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/status?startDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + '&endDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + '&region=' + region;
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(url, options);
+  }
+
+  getPublicationStatus(region: string, startDate: Date, endDate: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/status/publication?startDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + '&endDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + '&region=' + region;
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
