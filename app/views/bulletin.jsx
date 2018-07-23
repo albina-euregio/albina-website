@@ -36,7 +36,7 @@ class Bulletin extends React.Component {
   _fetchData(props) {
     const startDate = (props.match.params.date && parseDate(props.match.params.date))
       ? props.match.params.date : (
-        this.store.settings.date ? this.store.settings.date : '2018-06-09' // TODO: should be current date
+        this.store.settings.date ? this.store.settings.date : '2018-07-17' // TODO: should be current date
       );
 
     if(startDate != this.props.match.params.date) {
