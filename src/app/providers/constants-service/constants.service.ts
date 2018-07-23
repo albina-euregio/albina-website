@@ -55,6 +55,8 @@ export class ConstantsService {
   // not standardized
   public colorDangerRatingVeryHigh = '#800000';
   public colorDangerRatingMissing = '#969696';
+  // TODO use correct color
+  public colorDangerRatingNoSnow = "#A0522D";
   public colorActiveSelection = '#3852A4';
 
   public lineColor = '#000000';
@@ -91,6 +93,8 @@ export class ConstantsService {
         return this.colorDangerRatingModerate;
       case "low":
         return this.colorDangerRatingLow;
+      case "no_snow":
+        return this.colorDangerRatingNoSnow;
       
       default:
         return this.colorDangerRatingMissing;

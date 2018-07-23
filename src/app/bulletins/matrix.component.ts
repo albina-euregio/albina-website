@@ -2,6 +2,7 @@ import { Component, Input, ViewChild, ElementRef, SimpleChange } from '@angular/
 import { BulletinDaytimeDescriptionModel } from '../models/bulletin-daytime-description.model';
 import { MatrixInformationModel } from '../models/matrix-information.model';
 import { SettingsService } from '../providers/settings-service/settings.service';
+import { ConstantsService } from '../providers/constants-service/constants.service';
 import * as Enums from '../enums/enums';
 
 @Component({
@@ -14,6 +15,7 @@ export class MatrixComponent {
   @Input() below: boolean;
   @Input() disabled: boolean;
 
+  @ViewChild('0') cell0: ElementRef;
   @ViewChild('1') cell1: ElementRef;
   @ViewChild('2') cell2: ElementRef;
   @ViewChild('3') cell3: ElementRef;
@@ -90,7 +92,8 @@ export class MatrixComponent {
   languageCode = Enums.LanguageCode;
 
   constructor(
-    public settingsService: SettingsService)
+    public settingsService: SettingsService,
+    public constantsService: ConstantsService)
   {
   }
 
@@ -105,22 +108,15 @@ export class MatrixComponent {
   }
 
   resetMatrix() {
-    for (var i = 1; i <= 72; i++) {
+    for (var i = 0; i <= 72; i++) {
       this.deselectCell("" + i);
     }
   }
 
   initMatrix() {
-    let cell = this.getArtificialCell(this.getDaytimeMatrixInformation());
-    this.selectArtificialCell(cell);
+    this.selectArtificialCell(this.getArtificialCell(this.getDaytimeMatrixInformation()));
     this.selectNaturalCell(this.getNaturalCell(this.getDaytimeMatrixInformation()));
-  }
-
-  private getDaytimeMatrixInformation() : MatrixInformationModel {
-    if (this.below)
-      return this.bulletinDaytimeDescription.getMatrixInformationBelow();
-    else
-      return this.bulletinDaytimeDescription.getMatrixInformationAbove();
+    this.selectNoSnowCell();
   }
 
   private selectArtificialCell(cell) {
@@ -169,6 +165,7 @@ export class MatrixComponent {
       }
 
       this.setDangerRating();
+      this.selectNoSnowCell();
     }
   }
 
@@ -191,11 +188,94 @@ export class MatrixComponent {
       }
 
       this.setDangerRating();
+      this.selectNoSnowCell();
     }
+  }
+
+  public selectNoSnow() {
+    if (!this.disabled) {
+      let oldCell = this.getArtificialCell(this.getDaytimeMatrixInformation());
+      this.deselectCell(oldCell);
+      this.getDaytimeMatrixInformation().setArtificialDangerRating(Enums.DangerRating.missing);
+      this.getDaytimeMatrixInformation().setArtificialAvalancheReleaseProbability(undefined);
+      this.getDaytimeMatrixInformation().setArtificialHazardSiteDistribution(undefined);
+      this.getDaytimeMatrixInformation().setArtificialAvalancheSize(undefined);
+
+      oldCell = this.getNaturalCell(this.getDaytimeMatrixInformation());
+      this.deselectCell(oldCell);
+      this.getDaytimeMatrixInformation().setNaturalDangerRating(Enums.DangerRating.missing);
+      this.getDaytimeMatrixInformation().setNaturalAvalancheReleaseProbability(undefined);
+      this.getDaytimeMatrixInformation().setNaturalHazardSiteDistribution(undefined);
+
+      let dangerRating = +Enums.DangerRating[this.getDaytimeDangerRating()];
+      if (dangerRating == -1)
+        this.setDaytimeDangerRating("missing");
+      else
+        this.setDaytimeDangerRating("no_snow");
+
+      this.selectNoSnowCell();
+    }
+  }
+
+  private selectNoSnowCell() {
+      let dangerRating = +Enums.DangerRating[this.getDaytimeDangerRating()];
+
+      let color;
+      if (dangerRating == -1)
+        color = this.getColor("0");
+      else
+        color = this.getGrayscaleColor("0");
+
+      let element = this.getElement("0");
+      if (element && element != undefined)
+        element.nativeElement.style.fill = color;
+  }
+
+  private setDangerRating() {
+    let artificialDangerRating = Enums.DangerRating[this.getDaytimeMatrixInformation().getArtificialDangerRating()];
+    let naturalDangerRating = Enums.DangerRating[this.getDaytimeMatrixInformation().getNaturalDangerRating()];
+    
+    if (artificialDangerRating != undefined) {
+      if (naturalDangerRating != undefined) {
+        if (Enums.DangerRating[this.getDaytimeMatrixInformation().getArtificialDangerRating()] < Enums.DangerRating[this.getDaytimeMatrixInformation().getNaturalDangerRating()])
+          this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getNaturalDangerRating());
+        else
+          this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getArtificialDangerRating());
+      } else
+        this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getArtificialDangerRating());
+    } else {
+      if (naturalDangerRating != undefined)
+        this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getNaturalDangerRating());
+      else
+        this.setDaytimeDangerRating("missing");
+    }
+  }
+
+  private getDaytimeDangerRating() {
+    if (this.below)
+      return this.bulletinDaytimeDescription.getDangerRatingBelow();
+    else
+      return this.bulletinDaytimeDescription.getDangerRatingAbove();
+  }
+
+  private setDaytimeDangerRating(dangerRating) {
+    if (this.below)
+      this.bulletinDaytimeDescription.setDangerRatingBelow(dangerRating);
+    else
+      this.bulletinDaytimeDescription.setDangerRatingAbove(dangerRating);
+  }
+
+  private getDaytimeMatrixInformation() : MatrixInformationModel {
+    if (this.below)
+      return this.bulletinDaytimeDescription.getMatrixInformationBelow();
+    else
+      return this.bulletinDaytimeDescription.getMatrixInformationAbove();
   }
 
   private getElement(id) {
     switch (id) {
+      case "0":
+        return this.cell0;
       case "1":
         return this.cell1;
       case "2":
@@ -344,33 +424,6 @@ export class MatrixComponent {
       default:
         return undefined;
     }
-  }
-
-  private setDangerRating() {
-    let artificialDangerRating = Enums.DangerRating[this.getDaytimeMatrixInformation().getArtificialDangerRating()];
-    let naturalDangerRating = Enums.DangerRating[this.getDaytimeMatrixInformation().getNaturalDangerRating()];
-    
-    if (artificialDangerRating != undefined) {
-      if (naturalDangerRating != undefined) {
-        if (Enums.DangerRating[this.getDaytimeMatrixInformation().getArtificialDangerRating()] < Enums.DangerRating[this.getDaytimeMatrixInformation().getNaturalDangerRating()])
-          this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getNaturalDangerRating());
-        else
-          this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getArtificialDangerRating());
-      } else
-        this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getArtificialDangerRating());
-    } else {
-      if (naturalDangerRating != undefined)
-        this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getNaturalDangerRating());
-      else
-        this.setDaytimeDangerRating("missing");
-    }
-  }
-
-  private setDaytimeDangerRating(dangerRating) {
-    if (this.below)
-      this.bulletinDaytimeDescription.setDangerRatingBelow(dangerRating);
-    else
-      this.bulletinDaytimeDescription.setDangerRatingAbove(dangerRating);
   }
 
   private getDangerRating(id) {
@@ -590,6 +643,10 @@ export class MatrixComponent {
 
   private getColor(id) {
     switch (id) {
+      // no snow
+      case "0":
+        return this.constantsService.colorDangerRatingNoSnow;
+
       // low
       case "1":
       case "2":
@@ -604,7 +661,7 @@ export class MatrixComponent {
       case "21":
       case "29":
       case "57":
-        return "#CCFF66"
+        return this.constantsService.colorDangerRatingLow;
       
       // moderate
       case "7":
@@ -623,7 +680,7 @@ export class MatrixComponent {
       case "58":
       case "59":
       case "62":
-        return "#FFFF00";
+        return this.constantsService.colorDangerRatingModerate;
 
       // considerable
       case "8":
@@ -644,7 +701,7 @@ export class MatrixComponent {
       case "61":
       case "63":
       case "66":
-        return "#FF9900";
+        return this.constantsService.colorDangerRatingConsiderable;
 
       // high
       case "24":
@@ -667,7 +724,7 @@ export class MatrixComponent {
       case "67":
       case "68":
       case "70":
-        return "#FF0000";
+        return this.constantsService.colorDangerRatingHigh;
 
       // very_high
       case "55":
@@ -675,15 +732,19 @@ export class MatrixComponent {
       case "69":
       case "71":
       case "72":
-        return "#800000";
+        return this.constantsService.colorDangerRatingVeryHigh;
 
     default:
-        return "#FF0000";
+        return "#000000";
     }     
   }
 
   private getGrayscaleColor(id) {
     switch (id) {
+      // no snow
+      case "0":
+        return "#FFFFFF";
+
       // low
       case "1":
       case "2":
@@ -694,7 +755,7 @@ export class MatrixComponent {
       case "17":
       case "21":
       case "57":
-        return "#EFEFEF"
+        return "#EFEFEF";
       
       // moderate
       case "7":

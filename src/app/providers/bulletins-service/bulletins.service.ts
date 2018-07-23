@@ -128,7 +128,6 @@ export class BulletinsService {
     this.getPublicationStatus(this.authenticationService.getActiveRegion(), startDate, endDate).subscribe(
       data => {
         let json = data.json();
-        debugger
       },
       error => {
         console.error("Publication status could not be loaded!");

@@ -3,7 +3,7 @@ export enum LanguageCode {
 }
 
 export enum DangerRating {
-	missing = -1, no_rating = 0, low = 1, moderate = 2, considerable = 3, high = 4, very_high = 5
+	missing = -2, no_snow = -1, no_rating = 0, low = 1, moderate = 2, considerable = 3, high = 4, very_high = 5
 }
 export class DangerRatingUtil {
 	public static getSize() {
