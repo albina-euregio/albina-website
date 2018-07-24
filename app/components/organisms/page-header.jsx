@@ -21,14 +21,14 @@ class PageHeader extends React.Component {
     return (
       <div id="page-header" className="page-header" data-scroll-header>
         <div className="page-header-logo">
-          <a href="#" className="tooltip" title="Home">
+          <Link to="/" className="tooltip" title="Home">
             {
               langs.map((l) => <span key={l} className={'mark mark-' + l} />)
             }
             {
               langs.map((l) => <span key={l} className={'url url-' + l} />)
             }
-          </a>
+          </Link>
         </div>
         <div className="page-header-navigation">
           <Menu className="list-plain navigation"
