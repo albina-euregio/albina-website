@@ -68,17 +68,20 @@ export default class BulletinVectorLayer extends React.Component {
             config.get("map.regionStyling.all"),
             config.get("map.regionStyling." + state)
           );
-          return (
+
+          // vector.geometry.coordinates might be a MultiPolygon
+          // therefore we map over it an create a Polygon component for each 
+          // individual polygon
+          return vector.geometry.coordinates.map((g, gi) =>
             <Polygon
-              key={vi}
+              key={vi + '' + gi}
               onClick={this.handleClickRegion.bind(
                 this,
                 vector.properties.bid,
                 state
               )}
-              positions={vector.geometry.coordinates[0]}
-              {...style}
-            />
+              positions={g}
+              {...style} />
           );
         })}
       </Pane>
