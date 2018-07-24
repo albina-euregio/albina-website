@@ -6,7 +6,7 @@ export default class FilterBar extends React.Component {
     const filterList = (
       <ul className="list-inline list-controlbar">
         {
-          this.props.children.map((f, i) => (
+          this.props.children.map((f, i) => f && (
             <li key={i}>{f}</li>
           ))
         }
