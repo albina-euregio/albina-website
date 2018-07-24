@@ -35,6 +35,9 @@
       "maxZoom": 10,
       "minZoom": 8
     },
+    "vectorOptions": {
+      "smoothFactor": 0.8
+    },
     "tileLayers": [
       {
         "id": "Lawis BW",

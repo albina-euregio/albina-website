@@ -56,7 +56,7 @@ export default class BulletinVectorLayer extends React.Component {
   }
 
   render() {
-    console.log("vector renders");
+    const vectorOptions = config.get('map.vectorOptions');
     return (
       <Pane key={this.uniqueKey}>
         {this.props.regions.map((vector, vi) => {
@@ -70,7 +70,7 @@ export default class BulletinVectorLayer extends React.Component {
           );
 
           // vector.geometry.coordinates might be a MultiPolygon
-          // therefore we map over it an create a Polygon component for each 
+          // therefore we map over it an create a Polygon component for each
           // individual polygon
           return vector.geometry.coordinates.map((g, gi) =>
             <Polygon
@@ -81,7 +81,8 @@ export default class BulletinVectorLayer extends React.Component {
                 state
               )}
               positions={g}
-              {...style} />
+              {...style}
+              {...vectorOptions} />
           );
         })}
       </Pane>
