@@ -23,7 +23,7 @@ class LeafletMap extends React.Component {
     this.map = false;
     this.sleepProps = {
       // false if you want an unruly map
-      sleep: true,
+      sleep: false,
       // time(ms) until map sleeps on mouseout
       sleepTime: 750,
       // time(ms) until map wakes on mouseover
