@@ -123,16 +123,6 @@ export class BulletinsService {
         console.error("Status could not be loaded!");
       }
     );
-
-    // TODO use the information about the publciation process somewhere (maybe just as ADMIN?)
-    this.getPublicationStatus(this.authenticationService.getActiveRegion(), startDate, endDate).subscribe(
-      data => {
-        let json = data.json();
-      },
-      error => {
-        console.error("Publication status could not be loaded!");
-      }
-    );
   }
 
   getActiveDate() : Date {

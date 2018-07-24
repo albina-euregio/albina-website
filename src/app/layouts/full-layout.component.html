@@ -14,7 +14,7 @@
     <li *ngIf="settingsService.getShowObservations()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/observations']">{{ "sidebar.observations" | translate }}</a>
     </li>
-    <li *ngIf="authenticationService.isCurrentUserInRole('ADMIN')" class="nav-item px-1">
+    <li *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin']">{{ "sidebar.admin" | translate }}</a>
     </li>
   </ul>
@@ -74,7 +74,7 @@
         <li *ngIf="settingsService.getShowObservations()" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/observations']"><i class="fa fa-eye"></i> {{ "sidebar.observations" | translate }}</a>
         </li>
-        <li *ngIf="authenticationService.isCurrentUserInRole('ADMIN')" class="nav-item nav-dropdown" routerLinkActive="open">
+        <li *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin']"><i class="fa fa-user-secret"></i> {{ "sidebar.admin" | translate }}</a>
         </li>
       </ul>

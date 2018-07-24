@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 export class ConstantsService {
 
   // Localhost
-  public serverUrl: string = 'http://localhost:8080/albina/api/';
-  public socketIOUrl: string = 'http://localhost:9092';
+  //public serverUrl: string = 'http://localhost:8080/albina/api/';
+  //public socketIOUrl: string = 'http://localhost:9092';
 
   // Development server
-  //public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
-  //public socketIOUrl: string = 'http://212.47.231.185:9092';
+  public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
+  public socketIOUrl: string = 'http://212.47.231.185:9092';
 
   // CentOS
   //public serverUrl: string = 'http://163.172.132.87:8080/albina/api/';
@@ -30,7 +30,11 @@ export class ConstantsService {
   public codeSouthTyrol: string = 'IT-32-BZ';
   public codeTrentino: string = 'IT-32-TN';
   public codeStyria: string = 'AT-06';
-  
+
+  public roleAdmin: string = 'ADMIN';
+  public roleForecaster: string = 'FORECASTER';
+  public roleObserver: string = 'OBSERVER';
+    
   public lat: Map<String, number> = new Map([["", 47.10], [this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05], [this.codeStyria, 47.26]])
   public lng: Map<String, number> = new Map([["", 11.44], [this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07], [this.codeStyria, 14.94]])
 
