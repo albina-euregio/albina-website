@@ -19,31 +19,19 @@ import DayFilter from '../components/filters/day-filter.jsx';
     }
     this.store = window['archiveStore'];
 
-    // TODO: set more sensible inital values: e.g. last week
-    this.state = {
-      startDate: '2018-06-07',
-      endDate: '2018-06-09'
+    if(!this.store.year) {
+      const d = new Date();
+
+      this.store.month = d.getMonth() + 1;
+      this.store.year = d.getFullYear();
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this._fetchData(nextProps);
-  }
-
-
-  componentDidMount() {
-    return this._fetchData();
-  }
-
-  _fetchData() {
-    return this.store.load(this.state.startDate, this.state.endDate);
   }
 
   get dates() {
     if(!this.store.loading) {
       // TODO: take filter values from store
-      const startDate = this.store.startDate ? this.store.startDate : parseDate(this.state.startDate);
-      const endDate = this.store.endDate ? this.store.endDate : parseDate(this.state.endDate);
+      const startDate = this.store.startDate ? this.store.startDate : '';
+      const endDate = this.store.endDate ? this.store.endDate : '';
 
       const test = (date) => {
         return this.store.getStatus(dateToISODateString(date)) == 'ok';

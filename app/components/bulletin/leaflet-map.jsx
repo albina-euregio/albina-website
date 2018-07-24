@@ -61,7 +61,7 @@ class LeafletMap extends React.Component {
       window.setTimeout(() => { m.invalidateSize(); }, 2000);
     });
     window.addEventListener('orientationchange', () => {
-      window.setTimeout(() => { m.invalidateSize() }, 2000);
+      window.setTimeout(() => { m.invalidateSize(); }, 2000);
     });
   }
 
