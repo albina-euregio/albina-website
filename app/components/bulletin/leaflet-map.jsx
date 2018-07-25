@@ -1,22 +1,17 @@
 import React from "react";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import L from "leaflet";
 import "leaflet-sleep";
 import {
   Map,
   TileLayer,
-  WMSTileLayer,
   ImageOverlay,
-  CircleMarker,
-  Tooltip,
-  Marker,
-  LayerGroup,
   LayersControl,
-  Pane
+  ZoomControl
 } from "react-leaflet";
+import { injectIntl } from 'react-intl';
 import BulletinVectorLayer from "./bulletin-vector-layer";
 
-@observer
 class LeafletMap extends React.Component {
   constructor(props) {
     super(props);
@@ -56,6 +51,7 @@ class LeafletMap extends React.Component {
       L.DomEvent.stopPropagation(e);
       this.props.handleSelectFeature(null);
     });
+
     const m = this.map;
     window.addEventListener('resize', () => {
       window.setTimeout(() => { m.invalidateSize(); }, 2000);
@@ -97,10 +93,9 @@ class LeafletMap extends React.Component {
         bulletinStore.settings.ampm : 'am';
 
       const url = config.get("apis.geo") + bulletinStore.settings.date + "/" + daytime + "_overlay.png";
-      const bounds = config.get("map.overlay.bounds");
-      const opacity = config.get("map.overlay.opacity");
+      const params = config.get("map.overlay");
 
-      return <ImageOverlay url={url} bounds={bounds} opacity={opacity} />;
+      return <ImageOverlay url={url} {...params} />;
     }
     return null;
   }
@@ -116,11 +111,14 @@ class LeafletMap extends React.Component {
         {...mapProps}
         dragging={!L.Browser.mobile}
         style={this.mapStyle()}
-        attributionControl={true}
         zoomControl={false}
         zoom={bulletinStore.getMapZoom}
         center={bulletinStore.getMapCenter}
       >
+        <ZoomControl
+          position="topleft"
+          zoomInTitle={this.props.intl.formatMessage({id: 'map:zoomIn'})}
+          zoomOutTitle={this.props.intl.formatMessage({id: 'map:zoomOut'})} />
         {this.tileLayers}
         {this.mapOverlays}
         {this.props.vectorRegions && (
@@ -135,5 +133,4 @@ class LeafletMap extends React.Component {
     );
   }
 }
-
-export default LeafletMap;
+export default inject('locale')(injectIntl(observer(LeafletMap)));

@@ -2,16 +2,22 @@
   "en": {
     "home": "home",
     "treeline": "Tree line",
-    "bulletin:header:forecast": "Avalanche Forecast"
+    "bulletin:header:forecast": "Avalanche Forecast",
+    "map:zoomIn": "Zoom in",
+    "map:zoomOut": "Zoom out"
   },
   "de": {
     "home": "Zuhause",
     "treeline": "Waldgrenze",
-    "bulletin:header:forecast": "Lawinenprognose"
+    "bulletin:header:forecast": "Lawinenprognose",
+    "map:zoomIn": "Vergrößern",
+    "map:zoomOut": "Verkleinern"
   },
   "it": {
     "home": "casa",
     "treeline": "Limite del bosco",
-    "bulletin:header:forecast": "Avalanche Forecast"
+    "bulletin:header:forecast": "Avalanche Forecast",
+    "map:zoomIn": "Zoom in",
+    "map:zoomOut": "Zoom out"
   }
 }
