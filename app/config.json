@@ -27,13 +27,13 @@
     "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],
     "overlay": {
       "bounds": [[45.60608, 9.9174], [47.83039, 13.15173]],
-      "opacity": 0.8
+      "opacity": 1.0
     },
     "initOptions": {
-      "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]],
+      "maxBounds": [[45.150876, 9.932124], [48.240084, 17.118646]],
       "maxBoundsViscosity": 1,
       "maxZoom": 10,
-      "minZoom": 8
+      "minZoom": 7
     },
     "vectorOptions": {
       "smoothFactor": 0.8
@@ -41,9 +41,10 @@
     "tileLayers": [
       {
         "id": "Lawis BW",
-        "url": "http://data1.geo.univie.ac.at/TMS/ALBINA/EUREGIO-TMS/{z}/{x}/{y}.png",
+        "url":
+          "http://data1.geo.univie.ac.at/TMS/ALBINA/EUREGIO-TMS/{z}/{x}/{y}.png",
         "maxZoom": 10,
-        "minZoom": 8,
+        "minZoom": 7,
         "detectRetina": false,
         "tms": true,
         "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]],
@@ -53,12 +54,16 @@
     ],
     "regionStyling": {
       "all": {
-        "color": "black",
-        "opacity": 0.9,
-        "weight": 2
+        "color": "#aaaaaa",
+        "opacity": 1.0,
+        "weight": 1
+      },
+      "hidden": {
+        "fillColor": "red",
+        "fillOpacity": 1
       },
       "default": {
-        "fillOpacity": 0.2,
+        "fillOpacity": 0.0,
         "fillColor": "white"
       },
       "dimmed": {
@@ -66,13 +71,15 @@
         "fillOpacity": 0.5
       },
       "selected": {
-        "weight": 4,
+        "weight": 2.0,
+        "color": "#555555",
         "fillColor": "none"
       },
       "highlighted": {
-        "weight": 3,
+        "weight": 4.0,
+        "color": "#ffffff",
         "fillColor": "white",
-        "fillOpacity": 0.01
+        "fillOpacity": 0.61
       }
     }
   },
