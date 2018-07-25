@@ -114,6 +114,7 @@ class BulletinMap extends React.Component {
             </div>
           </div>
           }
+          { false &&
           <div style={this.styleOverMap()} className="bulletin-map-zoom">
             <ul className="list-plain">
               <li className="bulletin-map-zoom-plus">
@@ -138,6 +139,7 @@ class BulletinMap extends React.Component {
               </li>
             </ul>
           </div>
+          }
           {this.highlightedBulletin && (
             <div
               style={this.styleOverMap()}

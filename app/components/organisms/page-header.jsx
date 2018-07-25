@@ -35,6 +35,7 @@ class PageHeader extends React.Component {
             entries={menuItems}
             childClassName="list-plain subnavigation"
             onSelect={() => {
+              // close mobile menu on selection
               if($('body').hasClass('navigation-open')) {
                 $('.navigation-trigger').trigger('click');
               }
