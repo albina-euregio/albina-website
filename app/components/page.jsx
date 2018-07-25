@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import PageLoadingScreen from './organisms/page-loading-screen.jsx';
 import Jumpnav from './organisms/jumpnav.jsx';
 import PageHeader from './organisms/page-header.jsx';
@@ -6,7 +7,7 @@ import PageFooter from './organisms/page-footer.jsx';
 import MenuStore from '../stores/menuStore';
 import { renderRoutes } from 'react-router-config';
 
-export default class Page extends React.Component {
+class Page extends React.Component {
   constructor(props) {
     super(props);
     this.menuStore = new MenuStore();
@@ -18,6 +19,17 @@ export default class Page extends React.Component {
 
   componentDidMount() {
     this._didUpdate();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.location !== this.props.location
+      && nextProps.history.action === 'PUSH'
+      && !nextProps.location.hash) {
+        
+      // scroll to top on forward page change (if no hash is set)
+      // see https://github.com/ReactTraining/react-router/issues/2019
+      window.scrollTo(0, 0);
+    }
   }
 
   _didUpdate() {
@@ -45,3 +57,5 @@ export default class Page extends React.Component {
     );
   }
 }
+
+export default withRouter(Page);
