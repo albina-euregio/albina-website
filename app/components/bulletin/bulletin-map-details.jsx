@@ -1,7 +1,9 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import ProblemIconLink from '../icons/problem-icon-link.jsx';
 import WarnLevelIcon from '../icons/warn-level-icon.jsx';
 
+@observer
 export default class BulletinMapDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -10,8 +12,15 @@ export default class BulletinMapDetails extends React.Component {
       'moderate': 2,
       'considerable': 3,
       'high': 4,
-      'very high': 5
+      'very_high': 5
     };
+  }
+
+  getWarnLevelNumber(id) {
+    if(id && this.warnlevelNumbers[id]) {
+      return this.warnlevelNumbers[id];
+    }
+    return 0;
   }
 
   render() {
@@ -21,8 +30,8 @@ export default class BulletinMapDetails extends React.Component {
     const b = this.props.bulletin[daytime];
 
     const warnlevels = {
-      'above': b.dangerRatingAbove ? this.warnlevelNumbers[b.dangerRatingAbove] : 0,
-      'below': b.dangerRatingBelow ? this.warnlevelNumbers[b.dangerRatingBelow] : 0
+      'above': this.getWarnLevelNumber(b.dangerRatingAbove),
+      'below': this.getWarnLevelNumber(b.dangerRatingBelow)
     };
 
     const elevation = (this.props.bulletin.hasElevationDependency && !this.props.bulletin.treeline) ? this.props.bulletin.elevation : null;
@@ -34,7 +43,7 @@ export default class BulletinMapDetails extends React.Component {
     }
     if(b.avalancheSituation2) {
       if(problems.length > 0 && b.avalancheSituation2.avalancheSituation != problems[0]) {
-        problems.push(b.avalancheSituation2.avalancheSituation);        
+        problems.push(b.avalancheSituation2.avalancheSituation);
       }
     }
 
