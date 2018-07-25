@@ -33,7 +33,12 @@ class PageHeader extends React.Component {
         <div className="page-header-navigation">
           <Menu className="list-plain navigation"
             entries={menuItems}
-            childClassName="list-plain subnavigation" />
+            childClassName="list-plain subnavigation"
+            onSelect={() => {
+              if($('body').hasClass('navigation-open')) {
+                $('.navigation-trigger').trigger('click');
+              }
+            }} />
         </div>
         <div className="page-header-language">
           <ul className="list-inline language-trigger">

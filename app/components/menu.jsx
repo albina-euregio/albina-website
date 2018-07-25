@@ -36,14 +36,14 @@ import { Link } from 'react-router-dom';
       classes.push('has-sub');
     }
     return (
-      <li key={e.id}>
+      <li key={e.id} onClick={(event) => { event.stopPropagation(); if(typeof(this.props.onSelect) === 'function') { this.props.onSelect(e) } }}>
         { e.isExternal
           ? <a href={e.url} target="_blank">{e.title}</a>
           : <Link to={e.url} className={classes.join(' ')}>{e.title}</Link>
         }
         {
           (isActive && e.children && e.children.length > 0) &&
-          <Menu className={this.props.childClassName} entries={e.children} location={this.props.location} />
+          <Menu className={this.props.childClassName} entries={e.children} location={this.props.location} onSelect={this.props.onSelect} />
         }
       </li>
     );
