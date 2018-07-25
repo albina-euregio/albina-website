@@ -10,11 +10,9 @@ export default class TendencyIcon extends React.Component {
 
     switch(this.props.tendency) {
     case 'increasing':
-      cl = 'increase';
-      break;
-
+    case 'steady':
     case 'decreasing':
-      cl = 'decrease';
+      cl = this.props.tendency;
       break;
 
     default:
