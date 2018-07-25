@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ProblemIcon from './problem-icon.jsx';
 
 export default class ProblemIconLink extends React.Component {
@@ -23,9 +24,9 @@ export default class ProblemIconLink extends React.Component {
 
     return(
       <div className="bulletin-report-picto avalanche-situation">
-        <a className="img tooltip" href="#" title={title}>
+        <Link to={'/education/avalanche-problems#' + this.props.problem } className="img tooltip" href="#" title={title}>
           <ProblemIcon problem={this.props.problem} alt={title} active={true} />
-        </a>
+        </Link>
       </div>
     );
   }

@@ -18,12 +18,9 @@ class BulletinProblemFilter extends React.Component {
     );
 
     return (
-      <div>
-        <p><strong>Highlight regions</strong> with special <a href="#" className="tooltip" title="Learn more"><strong>Avalanche Situation</strong></a></p>
-        <ul className="list-inline list-avalanche-problems-filter">
-          {listItems}
-        </ul>
-      </div>
+      <ul className="list-inline list-avalanche-problems-filter">
+        {listItems}
+      </ul>
     );
   }
 }

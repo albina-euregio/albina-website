@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class DangerPatternItem extends React.Component {
   patternTexts;
@@ -22,7 +23,7 @@ export default class DangerPatternItem extends React.Component {
   render() {
     const text = this.patternTexts[this.props.dangerPattern] ? this.patternTexts[this.props.dangerPattern].en : 'n/a';
     return (
-      <a href="#" className="label">{text}</a>
+      <Link to={'/education/danger-patterns#' + this.props.dangerPattern } className="label">{text}</Link>
     )
   }
 }
