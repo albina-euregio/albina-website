@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { reaction } from 'mobx';
-import {BulletinStore} from '../bulletinStore.js';
+import { BulletinStore } from '../stores/bulletinStore.js';
 import BulletinHeader from '../components/bulletin/bulletin-header.jsx';
 import BulletinMap from '../components/bulletin/bulletin-map.jsx';
 import BulletinLegend from '../components/bulletin/bulletin-legend.jsx';

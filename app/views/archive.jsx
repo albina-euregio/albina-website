@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import SmShare from '../components/organisms/sm-share.jsx';
 import { parseDate, getSuccDate, dateToISODateString } from '../util/date.js';
-import ArchiveStore from '../archiveStore.js';
+import ArchiveStore from '../stores/archiveStore.js';
 import ArchiveItem from '../components/archive/archive-item.jsx';
 import PageHeadline from '../components/organisms/page-headline.jsx';
 import FilterBar from '../components/organisms/filter-bar.jsx';

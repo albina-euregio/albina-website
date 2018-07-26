@@ -1,6 +1,6 @@
-import Base from './base.js';
+import Base from '../base.js';
 import { observable, computed } from 'mobx';
-import { parseDate, getSuccDate, dateToISODateString, getDaysOfMonth } from './util/date.js';
+import { parseDate, getSuccDate, dateToISODateString, getDaysOfMonth } from '../util/date.js';
 
 export default class ArchiveStore {
   archive;

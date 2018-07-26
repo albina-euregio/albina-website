@@ -60,13 +60,13 @@
         "opacity": 1.0,
         "weight": 1
       },
-      "hidden": {
-        "fillColor": "red",
-        "fillOpacity": 1
-      },
       "default": {
         "fillOpacity": 0.0,
         "fillColor": "white"
+      },
+      "dehighlighted": {
+        "fillColor": "white",
+        "fillOpacity": 0.5
       },
       "dimmed": {
         "fillColor": "white",
@@ -78,10 +78,8 @@
         "fillColor": "none"
       },
       "highlighted": {
-        "weight": 4.0,
-        "color": "#ffffff",
-        "fillColor": "white",
-        "fillOpacity": 0.61
+        "fillOpacity": 0.0,
+        "fillColor": "white"
       }
     }
   },

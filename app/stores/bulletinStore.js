@@ -1,7 +1,7 @@
-import Base from './base.js';
+import Base from '../base.js';
 import ArchiveStore from './archiveStore.js';
 import { observable, action, computed, toJS } from 'mobx';
-import { parseDate } from './util/date.js';
+import { parseDate } from '../util/date.js';
 
 import flip from "@turf/flip";
 
@@ -324,11 +324,22 @@ class BulletinStore {
       return 'dimmed';
     }
 
-    const problems = this.getProblemsForRegion(regionId);
-    const isHighlighted = problems.some((p) => (this.problems[p] && this.problems[p].highlighted));
+    const checkHighlight = (rId) => {
+      const problems = this.getProblemsForRegion(rId);
+      return problems.some((p) => (this.problems[p] && this.problems[p].highlighted));
+    }
 
-    if(isHighlighted) {
+    if(checkHighlight(regionId)) {
       return 'highlighted';
+    }
+    // check if some other region has highlighting
+    const allGeoData = this.activeBulletinCollection.getGeoData();
+    const isAnyRegionHighlighted = allGeoData.features.some((f) => {
+      const id = f.properties.bid;
+      return (id != regionId) && (checkHighlight(id));
+    });
+    if(isAnyRegionHighlighted) {
+      return 'dehighlighted';
     }
     return 'default';
   }
@@ -350,7 +361,7 @@ class BulletinStore {
         return f;
       });
 
-      const states = ['selected', 'highlighted', 'dimmed', 'default'];
+      const states = ['selected', 'highlighted', 'dehighlighted', 'dimmed', 'default'];
       regions.sort((r1, r2) => {
         return states.indexOf(r1.properties.state) <
           states.indexOf(r2.properties.state)
