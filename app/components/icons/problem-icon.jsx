@@ -17,6 +17,7 @@ export default class ProblemIcon extends React.Component {
       'weak_persistent_layer': {color: 'Old_Snow.png', grey: 'old_snow_grey.png'},
       'wet_snow': {color: 'Wet_Snow.png', grey: 'wet_snow_grey.png'},
       'gliding_snow': {color: 'gliding_snow.png', grey: 'gliding_snow_grey.png'},
+      'favourable_situation': {color: 'favourable_situation.png', grey: 'favourable_situation_grey.png'}
     };
   }
 

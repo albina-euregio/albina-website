@@ -38,10 +38,10 @@ export default class BulletinMapDetails extends React.Component {
     const treeline = this.props.bulletin.hasElevationDependency && this.props.bulletin.treeline;
 
     const problems = [];
-    if(b.avalancheSituation1) {
+    if(b.avalancheSituation1 && b.avalancheSituation1.avalancheSituation) {
       problems.push(b.avalancheSituation1.avalancheSituation);
     }
-    if(b.avalancheSituation2) {
+    if(b.avalancheSituation2 && b.avalancheSituation2.avalancheSituation) {
       if(problems.length > 0 && b.avalancheSituation2.avalancheSituation != problems[0]) {
         problems.push(b.avalancheSituation2.avalancheSituation);
       }
@@ -51,7 +51,7 @@ export default class BulletinMapDetails extends React.Component {
       <ul className="list-plain">
         <li>
           <WarnLevelIcon below={warnlevels.below} above={warnlevels.above} elevation={elevation} treeline={treeline} />
-        </li> {
+        </li> { (problems.length > 0) &&
           problems.map(id => <li key={id}><ProblemIconLink problem={id} /></li>)
         }
       </ul>

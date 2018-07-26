@@ -15,7 +15,8 @@ export default class ProblemIconLink extends React.Component {
       'wind_drifted_snow': {en: 'Drifting Snow'},
       'weak_persistent_layer': {en: 'Weak Persistent Layer'},
       'wet_snow': {en: 'Wet Snow'},
-      'gliding_snow': {en: 'Gliding Snow'}
+      'gliding_snow': {en: 'Gliding Snow'},
+      'favourable_situation': {en: 'Favourable Situation'}
     }
   }
 
