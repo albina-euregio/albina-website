@@ -43,19 +43,19 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
     return (
       <ul className="list-inline bulletin-flipper">
         <li className="bulletin-flipper-back">
-          <Link to={prevLink} title="Back">
+          <Link to={'/bulletin/' + prevLink} title="Back">
             <span className="icon-arrow-left" />
             {prevDate}
           </Link>
         </li>
         <li className="bulletin-flipper-latest">
-          <Link to={latestLink} title="Go to current Bulletin">
+          <Link to={'/bulletin/' + latestLink} title="Go to current Bulletin">
             Latest
           </Link>
         </li>
         {nextLink &&
           <li className="bulletin-flipper-forward">
-            <Link to={nextLink} title="Forward">
+            <Link to={'/bulletin/' + nextLink} title="Forward">
               {nextDate + ' '}
               <span className="icon-arrow-right" />
             </Link>
