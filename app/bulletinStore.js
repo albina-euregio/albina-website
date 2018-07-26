@@ -325,7 +325,7 @@ class BulletinStore {
     }
 
     const problems = this.getProblemsForRegion(regionId);
-    const isHighlighted = problems.some((p) => this.problems[p].highlighted);
+    const isHighlighted = problems.some((p) => (this.problems[p] && this.problems[p].highlighted));
 
     if(isHighlighted) {
       return 'highlighted';

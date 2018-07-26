@@ -43,9 +43,15 @@ export default class BulletinProblemItem extends React.Component {
 
     return (
       <li>
-        <ProblemIconLink problem={this.props.problem.avalancheSituation} />
-        <ExpositionIcon expositions={this.props.problem.aspects} />
-        <ElevationIcon elevation={elevation} where={this.where} />
+        { (this.props.problem && this.props.problem.avalancheSituation) &&
+          <ProblemIconLink problem={this.props.problem.avalancheSituation} />
+        }
+        { (this.props.problem && this.props.problem.aspects) &&
+          <ExpositionIcon expositions={this.props.problem.aspects} />
+        }
+        { (this.props.problem && this.where) &&
+          <ElevationIcon elevation={elevation} where={this.where} />
+        }
       </li>
     );
   }

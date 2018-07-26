@@ -20,13 +20,15 @@ export default class ProblemIconLink extends React.Component {
   }
 
   render() {
-    const title = this.problemTexts[this.props.problem] ? this.problemTexts[this.props.problem].en : this.props.problem;
+    const title = this.problemTexts[this.props.problem] ? this.problemTexts[this.props.problem].en : '';
 
     return(
       <div className="bulletin-report-picto avalanche-situation">
+        { title &&
         <Link to={'/education/avalanche-problems#' + this.props.problem } className="img tooltip" href="#" title={title}>
           <ProblemIcon problem={this.props.problem} alt={title} active={true} />
         </Link>
+        }
       </div>
     );
   }
