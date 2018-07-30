@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { inject } from 'mobx-react';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import ProblemIcon from './problem-icon.jsx';
 
-export default class ProblemIconLink extends React.Component {
+class ProblemIconLink extends React.Component {
   BulletinProblemFilterItemexts;
 
   constructor(props) {
@@ -11,17 +13,17 @@ export default class ProblemIconLink extends React.Component {
 
     // query data from http://localhost/projects/albina-cms/web/api/taxonomy_term/avalanche_problems?fields[taxonomy_term--avalanche_problems]=name,descriptor
     this.problemTexts = {
-      'new_snow': {en: 'New Snow'},
-      'wind_drifted_snow': {en: 'Drifting Snow'},
-      'weak_persistent_layer': {en: 'Weak Persistent Layer'},
-      'wet_snow': {en: 'Wet Snow'},
-      'gliding_snow': {en: 'Gliding Snow'},
-      'favourable_situation': {en: 'Favourable Situation'}
+      'new_snow': this.props.intl.formatMessage({id: 'problem:new-snow'}),
+      'wind_drifted_snow': this.props.intl.formatMessage({id: 'problem:wind-drifted-snow'}),
+      'weak_persistent_layer': this.props.intl.formatMessage({id: 'problem:weak-persistent-layer'}),
+      'wet_snow': this.props.intl.formatMessage({id: 'problem:wet-snow'}),
+      'gliding_snow': this.props.intl.formatMessage({id: 'problem:gliding-snow'}),
+      'favourable_situation': this.props.intl.formatMessage({id: 'problem:favourable-situation'})
     }
   }
 
   render() {
-    const title = this.problemTexts[this.props.problem] ? this.problemTexts[this.props.problem].en : '';
+    const title = this.problemTexts[this.props.problem] ? this.problemTexts[this.props.problem] : '';
 
     return(
       <div className="bulletin-report-picto avalanche-situation">
@@ -34,3 +36,5 @@ export default class ProblemIconLink extends React.Component {
     );
   }
 }
+
+export default inject('locale')(injectIntl(ProblemIconLink));

@@ -21,7 +21,7 @@ class PageHeader extends React.Component {
     return (
       <div id="page-header" className="page-header" data-scroll-header>
         <div className="page-header-logo">
-          <Link to="/" className="tooltip" title="Home">
+          <Link to="/" className="tooltip" title={this.props.intl.formatMessage({id: 'header:logo:hover'})}>
             {
               langs.map((l) => <span key={l} className={'mark mark-' + l} />)
             }
@@ -75,7 +75,7 @@ class PageHeader extends React.Component {
         <div className="page-header-hamburger">
           <button
             href
-            title="Navigation"
+            title={this.props.intl.formatMessage({id: 'header:hamburger:hover'})}
             className="pure-button pure-button-icon navigation-trigger tooltip"
           >
             <span className="icon-hamburger">
@@ -84,7 +84,7 @@ class PageHeader extends React.Component {
           </button>
         </div>
         <div className="page-header-interreg">
-          <a href="#" className="logo-interreg tooltip" title="Interreg">
+          <a href="#" className="logo-interreg tooltip" title={this.props.intl.formatMessage({id: 'header:interreg:hover'})}>
             <span>Interreg</span>
           </a>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { computed } from 'mobx';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 import WarnLevelIcon from '../icons/warn-level-icon.jsx';
 import TendencyIcon from '../icons/tendency-icon.jsx';
 import BulletinProblemItem from './bulletin-problem-item.jsx';
@@ -8,7 +9,7 @@ import DangerPatternItem from './danger-pattern-item.jsx';
 import BulletinAWMapStatic from './bulletin-awmap-static.jsx';
 import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
 
-@observer class BulletinReport extends React.Component {
+class BulletinReport extends React.Component {
   warnlevelNumbers;
 
   constructor(props) {
@@ -66,11 +67,11 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
 
     const bulletinDaytime = this.daytimeBulletin;
 
-    const ampm = (bulletin.hasDaytimeDependency
-      ? ((this.props.store.settings.ampm == 'am') ? 'AM' : 'PM')
-      : '');
+    const ampmId = bulletin.hasDaytimeDependency ? this.props.store.settings.ampm : '';
+    const ampmTitle = ampmId ? this.props.intl.formatMessage({id: 'bulletin:header:' + ampmId}) : '';
+
     const date = dateToLongDateString(parseDate(this.props.store.settings.date))
-      + (ampm ? (' ' + ampm) : '');
+      + (ampmTitle ? (' ' + ampmTitle) : '');
 
     const warnlevels = {
       'above': bulletinDaytime.dangerRatingAbove ? this.warnlevelNumbers[bulletinDaytime.dangerRatingAbove] : 0,
@@ -80,7 +81,7 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
     const elevation = (bulletin.hasElevationDependency && !bulletin.treeline) ? bulletin.elevation : null;
     const treeline = bulletin.hasElevationDependency && bulletin.treeline;
 
-    const tendencyTitle = bulletin.tendency ? bulletin.tendency : 'n/a';
+    const tendencyTitle = bulletin.tendency ? this.props.intl.formatMessage({id: "bulletin:report:tendency:" + bulletin.tendency}) : 'n/a';
     const tendencyText = bulletin.tendency ? bulletin.tendencyCommentTextcat : 'n/a';
     const tendencyDate = dateToLongDateString(getSuccDate(parseDate(this.props.store.settings.date)));
 
@@ -106,10 +107,12 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
               <ul className="list-plain list-bulletin-report-pictos">
                 <li>
                   <WarnLevelIcon below={warnlevels.below} above={warnlevels.above} elevation={elevation} treeline={treeline} />
-                  <div className="bulletin-report-tendency tooltip" title="Expectation for the following day">
-                    <span><strong className="heavy">Tendency: {tendencyTitle}</strong><br />
-                        on {tendencyDate}
-                    </span>
+                  <div className="bulletin-report-tendency tooltip" title={this.props.intl.formatMessage({id: 'bulletin:report:tendency:hover'})}>
+                    <FormattedHTMLMessage id="bulletin:report:tendency" values={{
+                      tendency: tendencyTitle,
+                      daytime: ampmId ? this.props.intl.formatMessage({id: 'bulletin:report:tendency:daytime:' + ampmId}) : '',
+                      date: tendencyDate
+                    }} />
                     <TendencyIcon tendency={bulletin.tendency} />
                   </div>
                 </li>{
@@ -157,4 +160,4 @@ import {dateToLongDateString,parseDate,getSuccDate} from '../../util/date.js';
   }
 }
 
-export default BulletinReport;
+export default inject('locale')(injectIntl(observer(BulletinReport)));

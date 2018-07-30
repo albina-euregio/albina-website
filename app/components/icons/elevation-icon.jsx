@@ -21,22 +21,10 @@ export default class ElevationIcon extends React.Component {
     if(this.props.where == 'middle') {
       return this.props.elevation.sort().join('-') + 'm';
     }
-    if(this.props.where == 'all') {
-      return 'any altitude';
+    if(this.props.where != 'all') {
+      return this.props.elevation[0] + 'm';
     }
-    return
-  }
-
-  get altText() {
-    let txt = '';
-    if(this.props.where == 'above') {
-      txt = 'Avalanche problem occuring above';
-    } else if(this.props.where == 'below') {
-      txt = 'Avalanche problem occuring below';
-    } else {
-      txt = 'Avalanche problem occurring at';
-    }
-    return txt + ' ' + this.elevationText;
+    return '';
   }
 
   render() {
@@ -47,11 +35,10 @@ export default class ElevationIcon extends React.Component {
       ('problem-' + this.props.where)
     ];
     const src = this.imgRoot + this.icons[this.props.where];
-    const title = this.altText;
 
     return (
-      <div className={classes.join(' ')} title={title}>
-        <img src={src} alt={title} />{
+      <div className={classes.join(' ')} title={this.props.title}>
+        <img src={src} alt={this.props.title} />{
           (this.props.where != 'all') &&
               <span>{this.elevationText}<i className="icon"></i></span>
         }

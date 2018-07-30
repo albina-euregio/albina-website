@@ -1,19 +1,19 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import { injectIntl } from 'react-intl';
 import ProblemIcon from '../icons/problem-icon.jsx';
 
-@observer
 class BulletinProblemFilterItem extends React.Component {
   problemTexts;
 
   constructor(props) {
     super(props);
     this.problemTexts = {
-      'new_snow': {en: 'New Snow'},
-      'wind_drifted_snow': {en: 'Drifting Snow'},
-      'weak_persistent_layer': {en: 'Weak Persistent Layer'},
-      'wet_snow': {en: 'Wet Snow'},
-      'gliding_snow': {en: 'Gliding Snow'}
+      'new_snow': this.props.intl.formatMessage({id: 'problem:new-snow'}),
+      'wind_drifted_snow': this.props.intl.formatMessage({id: 'problem:wind-drifted-snow'}),
+      'weak_persistent_layer': this.props.intl.formatMessage({id: 'problem:weak-persistent-layer'}),
+      'wet_snow': this.props.intl.formatMessage({id: 'problem:wet-snow'}),
+      'gliding_snow': this.props.intl.formatMessage({id: 'problem:gliding-snow'})
     }
     this.state = {
       active: this.props.active,
@@ -33,8 +33,11 @@ class BulletinProblemFilterItem extends React.Component {
   }
 
   render() {
-    const problemText = this.problemTexts[this.props.problemId].en;
-    const title = (this.props.active ? 'Dim' : 'Highlight') + ' regions with ' + problemText;
+    const problemText = this.problemTexts[this.props.problemId];
+
+    const title = this.props.intl.formatMessage(
+      {id: (this.props.active ? 'bulletin:legend:dehighlight:hover' : 'bulletin:legend:highlight:hover')},
+      {problem: problemText});
     const classes = 'img tooltip' + (this.props.active ? '' : ' js-deactivated');
 
     return (
@@ -48,4 +51,4 @@ class BulletinProblemFilterItem extends React.Component {
   }
 }
 
-export default BulletinProblemFilterItem;
+export default inject('locale')(injectIntl(observer(BulletinProblemFilterItem)));

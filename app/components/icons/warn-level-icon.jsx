@@ -14,21 +14,42 @@ class WarnLevelIcon extends React.Component {
   }
 
   render() {
+    const getWarnlevelText = (warnLevelNumber) => {
+      return this.props.intl.formatMessage({id: 'danger-level:' + warnLevelNumber});
+    };
+
     const elevText = this.props.elevation ? (this.props.elevation + 'm') : (
       (this.props.treeline)
-        ? (<span className="treeline"><FormattedMessage id="treeline" /></span>)
+        ? this.props.intl.formatMessage({id: 'bulletin:treeline'})
         : ''
     );
     const below = (this.props.elevation || this.props.treeline) ? this.props.below : this.props.above;
 
     const img = this.imgRoot + 'levels_' + below + '_' + this.props.above + '.png';
-    const title = 'Warning ' + (
-      (below == this.props.above) ? ('level ' + this.props.above) : ('levels ' + this.props.below + ' and ' + this.props.above)
-    );
+
+    var title, alt;
+    if(below == this.props.above) {
+      const params = {
+        number: this.props.above,
+        text: getWarnlevelText(this.props.above)
+      };
+      title = this.props.intl.formatMessage({id: 'bulletin:map:info:danger-picto:hover'}, params);
+      alt = this.props.intl.formatMessage({id: 'bulletin:map:info:danger-picto:alt'}, params);
+    } else {
+      const params = {
+        'elev': elevText,
+        'number-below': below,
+        'number-above': this.props.above,
+        'text-below': getWarnlevelText(below),
+        'text-above': getWarnlevelText(this.props.above)
+      };
+      title = this.props.intl.formatMessage({id: 'bulletin:map:info:danger-picto2:hover'}, params);
+      alt = this.props.intl.formatMessage({id: 'bulletin:map:info:danger-picto2:alt'}, params);
+    }
 
     return (
       <div className="bulletin-report-picto tooltip" title={title}>
-        <img src={img} alt={title} />{
+        <img src={img} alt={alt} />{
           (this.props.above != this.props.below) &&
             <span>{elevText}</span>
         }
