@@ -1,9 +1,10 @@
 import React from 'react';
-import {observer} from 'mobx-react';
-import {computed} from 'mobx';
-import {dateToDateTimeString} from '../../util/date.js';
+import { observer, inject } from 'mobx-react';
+import { computed } from 'mobx';
+import { injectIntl } from 'react-intl';
+import { dateToDateString, dateToTimeString } from '../../util/date.js';
 
-@observer class BulletinStatusLine extends React.Component {
+class BulletinStatusLine extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,17 +17,21 @@ import {dateToDateTimeString} from '../../util/date.js';
     }
 
     if(this.props.status == 'ok') {
-      const date = dateToDateTimeString(collection.publicationDate);
+      const pubDate = collection.publicationDate;
 
       // There must be a status entry for each downloaded bulletin. Query its
       // original status message.
       const message =
         window['archiveStore'].getStatusMessage(this.props.store.settings.date);
 
+      const params = {
+        date: dateToDateString(pubDate),
+        time: dateToTimeString(pubDate)
+      };
       if(message == 'republished') {
-        return 'Updated ' + date;
+        return this.props.intl.formatMessage({id: 'bulletin:header:updated-at'}, params);
       }
-      return 'Published ' + date;
+      return this.props.intl.formatMessage({id: 'bulletin:header:published-at'}, params);
     }
 
     return 'No Bulletin';
@@ -39,4 +44,4 @@ import {dateToDateTimeString} from '../../util/date.js';
   }
 }
 
-export default BulletinStatusLine;
+export default inject('locale')(injectIntl(observer(BulletinStatusLine)));

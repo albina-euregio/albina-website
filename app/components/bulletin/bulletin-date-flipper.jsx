@@ -1,8 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {observer} from 'mobx-react';
-import {computed} from 'mobx';
-import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateString} from '../../util/date.js';
+import { Link } from 'react-router-dom';
+import { observer, inject } from 'mobx-react';
+import { computed } from 'mobx';
+import { injectIntl } from 'react-intl';
+import { parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateString } from '../../util/date.js';
 
 @observer class BulletinDateFlipper extends React.Component {
   constructor(props) {
@@ -43,27 +44,27 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
     return (
       <ul className="list-inline bulletin-flipper">
         <li className="bulletin-flipper-back">
-          <Link to={'/bulletin/' + prevLink} title="Back">
+          <Link to={'/bulletin/' + prevLink} title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:back'})}>
             <span className="icon-arrow-left" />
             {prevDate}
           </Link>
         </li>
         <li className="bulletin-flipper-latest">
-          <Link to={'/bulletin/' + latestLink} title="Go to current Bulletin">
-            Latest
+          <Link to={'/bulletin/' + latestLink} title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest:hover'})} >
+            {this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest'})}
           </Link>
         </li>
         {nextLink &&
           <li className="bulletin-flipper-forward">
-            <Link to={'/bulletin/' + nextLink} title="Forward">
+            <Link to={'/bulletin/' + nextLink} title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:forward'})}>
               {nextDate + ' '}
               <span className="icon-arrow-right" />
             </Link>
           </li>
         }
         <li className="bulletin-flipper-archive">
-          <Link to="/archive" title="Recent Bulletins">
-            Archive
+          <Link to="/archive" title={this.props.intl.formatMessage({id: 'bulletin:header:archive:hover'})}>
+            {this.props.intl.formatMessage({id: 'bulletin:header:archive'})}
           </Link>
         </li>
       </ul>
@@ -71,4 +72,4 @@ import {parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStri
   }
 }
 
-export default BulletinDateFlipper;
+export default inject('locale')(injectIntl(observer(BulletinDateFlipper)));

@@ -48,6 +48,14 @@ function dateToDateString(date) {
   });
 }
 
+function dateToTimeString(date) {
+  return _formatDate(date, {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: false
+  });
+}
+
 function dateToLongDateString(date) {
   return _formatDate(date, {
     weekday: 'long',
@@ -108,6 +116,7 @@ export {
   getPredDate,
   getSuccDate,
   dateToDateString,
+  dateToTimeString,
   dateToDateTimeString,
   dateToLongDateString,
   dateToISODateString,

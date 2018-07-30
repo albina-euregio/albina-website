@@ -1,7 +1,8 @@
 import React from 'react';
-import {observer} from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import { injectIntl, FormattedMessage } from 'react-intl';
 
-@observer class BulletinAmPmSwitch extends React.Component {
+class BulletinAmPmSwitch extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -15,7 +16,9 @@ import {observer} from 'mobx-react';
   }
 
   render() {
-    const title = 'Switch to ' + ((this.props.store.settings.ampm == 'am') ? 'PM' : 'AM');
+    const title = this.props.intl.formatMessage({
+      id: 'bulletin:header:switch-to-' + ((this.props.store.settings.ampm == 'am') ? 'pm' : 'am')
+    });
     const enabled = (this.props.store.activeBulletinCollection) ?
       this.props.store.activeBulletinCollection.hasDaytimeDependency(): false;
 
@@ -27,8 +30,8 @@ import {observer} from 'mobx-react';
               onChange={e => this.toggle(e)}
               checked={this.props.store.settings.ampm == 'pm'}></input>
             <div className="slider">
-              <span>AM</span>
-              <span>PM</span>
+              <FormattedMessage id={"bulletin:header:am"} />
+              <FormattedMessage id={"bulletin:header:pm"} />
             </div>
           </label>
         </div>
@@ -37,4 +40,4 @@ import {observer} from 'mobx-react';
   }
 }
 
-export default BulletinAmPmSwitch;
+export default inject('locale')(injectIntl(observer(BulletinAmPmSwitch)));
