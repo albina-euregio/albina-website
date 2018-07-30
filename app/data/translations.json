@@ -67,7 +67,7 @@
   "bulletin:map:info:no-report:hover": {"en": "At the moment there is no danger rating available", "de": "Derzeit keine Gefahreneinschätzung vorhanden", "it": "Al momento nessuna valutazione del pericolo"},
   "bulletin:map:info:no-snow": {"en": "No snow", "de": "Kein Schnee", "it": "Senza neve"},
   "bulletin:map:info:no-snow:hover": {"en": "At the moment there is no danger rating available", "de": "Derzeit keine Gefahreneinschätzung vorhanden", "it": "Al moment nessuna valutazione del pericolo"},
-  "bulletin:legend:highlight-regions": {"en": "Highlight regions with particular Avalanche Problem", "de": "Regionen mit bestimmten Lawinenproblemen hervorheben", "it": "Evidenzia regioni con uno specifico problema valanghivo"},
+  "bulletin:legend:highlight-regions": {"en": "<strong>Highlight regions</strong> with particular <a>Avalanche Problem</a>", "de": "Regionen mit bestimmten <a>Lawinenproblemen</a> hervorheben", "it": "<strong>Evidenzia regioni</strong> con uno specifico <a>problema valanghivo</a>"},
   "bulletin:legend:highlight-regions:hover": {"en": "Learn more", "de": "Mehr erfahren", "it": "Scopri di più"},
   "bulletin:legend:highlight:hover": {"en": "Highlight regions with {problem}", "de": "Regionen mit {problem} hervorheben", "it": "Evidenzia regioni con {problem}"},
   "bulletin:legend:dehighlight:hover": {"en": "Dim regions with {problem}", "de": "Regionen mit {problem} dimmen", "it": "Termina evidenziazione delle regioni con {problem}"},

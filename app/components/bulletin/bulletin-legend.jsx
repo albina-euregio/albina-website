@@ -1,39 +1,51 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { inject } from 'mobx-react';
+import { injectIntl } from 'react-intl';
+import { Parser } from 'html-to-react';
 import BulletinProblemFilter from './bulletin-problem-filter.jsx';
 
-export default class BulletinLegend extends React.Component {
+class BulletinLegend extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    // replace the <a> element in bulletin:legend:highlight-regions with a
+    // Link component
+    const msg = this.props.intl.formatHTMLMessage({id: 'bulletin:legend:highlight-regions'});
+
+    // split the string at <a> and </a>
+    const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/);
+
     return (
       <section id="section-bulletin-legend" className="section-padding section-bulletin-legend">
         <div className="section-centered">
           <div className="grid">
             <div className="normal-6 grid-item">
               <p>
-                <strong>Highlight regions</strong> with special&nbsp;
-                <Link to="/education/avalanche-problems" className="tooltip" title="Learn more">
-                  <strong>Avalanche Situation</strong>
-                </Link>
+                { (parts.length > 1) && (new Parser).parse(parts[1])}
+                { (parts.length > 2) &&
+                  <Link to="/education/avalanche-problems" className="tooltip" title={this.props.intl.formatMessage({id: 'bulletin:legend:highlight-regions:hover'})}>
+                    <strong>{parts[2]}</strong>
+                  </Link>
+                }
+                {(parts.length > 3) && (new Parser).parse(parts[3])}
               </p>
               <BulletinProblemFilter problems={this.props.problems} />
             </div>
             <div className="normal-6 grid-item">
               <p>
-                <strong>Legend</strong>&nbsp;
-                <Link to="/education/dangerscale" className="tooltip" title="Learn more">
-                  <strong>Warning Levels</strong>
+                <Link to="/education/dangerscale" className="tooltip" title={this.props.intl.formatMessage({id: 'bulletin:legend:danger-levels:hover'})}>
+                  <strong>{this.props.intl.formatMessage({id: 'bulletin:legend:danger-levels'})}</strong>
                 </Link>
               </p>
               <ul className="list-inline list-legend">
-                <li className="warning-level-1"><span><strong>1</strong> gering</span></li>
-                <li className="warning-level-2"><span><strong>2</strong> mäßig</span></li>
-                <li className="warning-level-3"><span><strong>3</strong> erheblich</span></li>
-                <li className="warning-level-4"><span><strong>4</strong> groß</span></li>
-                <li className="warning-level-5"><span><strong>5</strong> sehr groß</span></li>
+                {[1,2,3,4,5].map((l) =>
+                  <li key={l} className={'warning-level-' + l}>
+                    <span><strong>{l}</strong> {this.props.intl.formatMessage({id: 'danger-level:' + l})}</span>
+                  </li>
+                )}
               </ul>
             </div>
           </div>
@@ -42,3 +54,4 @@ export default class BulletinLegend extends React.Component {
     );
   }
 }
+export default inject('locale')(injectIntl(BulletinLegend));
