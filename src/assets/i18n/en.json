@@ -145,6 +145,11 @@
 				"accept" : "Yes",
 				"reject" : "No"
 			},
+			"loadAutoSaveDialog" : {
+				"message" : "Do you want to load the automatically saved bulletins?",
+				"accept" : "Yes",
+				"reject" : "No"
+			},
 			"saveErrorDialog" : {
 				"header" : "Error saving bulletins",
 				"message" : "There was an error saving the bulletins!",

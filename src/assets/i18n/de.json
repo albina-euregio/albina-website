@@ -144,6 +144,11 @@
 				"accept" : "Ja",
 				"reject" : "Nein"
 			},
+			"loadAutoSaveDialog" : {
+				"message" : "Willst du den automatisch gespeicherten Lagebericht laden?",
+				"accept" : "Ja",
+				"reject" : "Nein"
+			},
 			"saveErrorDialog" : {
 				"header" : "Fehler beim Speichern",
 				"message" : "Beim Speichern der Lawinenlageberichte ist ein Fehler aufgetreten!",

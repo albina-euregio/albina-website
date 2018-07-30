@@ -579,6 +579,14 @@
   </div>
 </ng-template>
 
+<ng-template #loadAutoSaveTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.loadAutoSaveDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadAutoSaveModalConfirm()">{{ "bulletins.create.loadAutoSaveDialog.accept" | translate }}</button>
+    <button type="button" class="btn btn-default" (click)="loadAutoSaveModalDecline()">{{ "bulletins.create.loadAutoSaveDialog.reject" | translate }}</button>
+  </div>
+</ng-template>
+
 <ng-template #saveErrorTemplate>
   <div class="modal-body text-center">
     <p>{{ "bulletins.create.saveErrorDialog.message" | translate }}</p>

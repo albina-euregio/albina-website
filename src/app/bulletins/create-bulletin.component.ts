@@ -8,6 +8,7 @@ import { BulletinsService } from '../providers/bulletins-service/bulletins.servi
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { MapService } from "../providers/map-service/map.service";
 import { RegionsService } from "../providers/regions-service/regions.service";
+import { LocalStorageService } from "../providers/local-storage-service/local-storage.service";
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
@@ -45,6 +46,7 @@ export class CreateBulletinComponent {
   public bulletinStatus = Enums.BulletinStatus;
   public dangerPattern = Enums.DangerPattern;
   public tendency = Enums.Tendency;
+  public autoSave;
 
   public originalBulletins: Map<string, BulletinModel>;
 
@@ -120,6 +122,9 @@ export class CreateBulletinComponent {
   public noElevationModalRef: BsModalRef;
   @ViewChild('noElevationTemplate') noElevationTemplate: TemplateRef<any>;
 
+  public loadAutoSaveModalRef: BsModalRef;
+  @ViewChild('loadAutoSaveTemplate') loadAutoSaveTemplate: TemplateRef<any>;
+
   public config = {
     keyboard: true,
     class: 'modal-sm'
@@ -146,6 +151,7 @@ export class CreateBulletinComponent {
     private route: ActivatedRoute,
     private router: Router,
     public bulletinsService: BulletinsService,
+    private localStorageService: LocalStorageService,
     private authenticationService: AuthenticationService,
     private translateService: TranslateService,
     private settingsService: SettingsService,
@@ -217,7 +223,6 @@ export class CreateBulletinComponent {
   }
 
   ngOnInit() {
-
     //for reload iframe on change language
     this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
       item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.constantsService.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode())
@@ -262,52 +267,10 @@ export class CreateBulletinComponent {
 
         // load current bulletins (do not copy them, also if it is an update)
       } else {
-        this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
-          data => {
-            let response = data.json();
-
-            for (let jsonBulletin of response) {
-              let bulletin = BulletinModel.createFromJson(jsonBulletin);
-
-              // only add bulletins with published or saved regions
-              if ((bulletin.getPublishedRegions() && bulletin.getPublishedRegions().length > 0) || (bulletin.getSavedRegions() && bulletin.getSavedRegions().length > 0)) {
-
-                // move published regions to saved regions
-                if (this.bulletinsService.getIsUpdate() || this.bulletinsService.getIsSmallChange()) {
-                  let saved = new Array<String>();
-                  let published = new Array<String>();
-                  for (let region of bulletin.getSavedRegions())
-                    saved.push(region);
-                  for (let region of bulletin.getPublishedRegions())
-                    if (region.startsWith(this.authenticationService.getActiveRegion()))
-                      saved.push(region);
-                    else
-                      published.push(region);
-
-                  if (saved.length > 0) {
-                    bulletin.setSavedRegions(saved);
-                    bulletin.setPublishedRegions(published);
-                  }
-                }
-
-                this.addBulletin(bulletin);
-              }
-            }
-
-            if (this.getOwnBulletins().length == 0 && this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && !this.bulletinsService.getIsSmallChange())
-              this.createInitialAggregatedRegion();
-
-            this.updateMap();
-
-            this.mapService.deselectAggregatedRegion();
-            this.loading = false;
-          },
-          error => {
-            console.error("Bulletins could not be loaded!");
-            this.loading = false;
-            this.openLoadingErrorModal(this.loadingErrorTemplate);
-          }
-        );
+        if (!this.bulletinsService.getIsUpdate() && this.bulletinsService.getActiveDate().getTime() == this.localStorageService.getDate().getTime() && this.authenticationService.getActiveRegion() == this.localStorageService.getRegion() && this.authenticationService.currentAuthor.getEmail() == this.localStorageService.getAuthor())
+          this.openLoadAutoSaveModal(this.loadAutoSaveTemplate);
+        else
+          this.loadBulletinsFromServer();
       }
     } else
       this.goBack();
@@ -315,6 +278,27 @@ export class CreateBulletinComponent {
 
   ngAfterViewInit() {
     this.initMaps();
+  }
+
+  ngOnDestroy() {
+    if (this.bulletinsService.getIsEditable())
+      this.eventSubscriber.unsubscribe();
+
+    if (this.bulletinsService.getActiveDate() && this.bulletinsService.getIsEditable())
+      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+
+    this.mapService.resetAll();
+
+    this.bulletinsService.setActiveDate(undefined);
+    this.bulletinsService.setIsEditable(false);
+    this.bulletinsService.setIsSmallChange(false);
+    this.bulletinsService.setIsUpdate(false);
+
+    this.loading = false;
+    this.editRegions = false;
+
+    if (this.autoSave && this.autoSave != undefined)
+      this.autoSave.unsubscribe();
   }
 
   setShowTranslations(name: string) {
@@ -602,23 +586,6 @@ export class CreateBulletinComponent {
       if (!bulletin.getOwnerRegion().startsWith(this.authenticationService.getActiveRegion()))
         result.push(bulletin);
     return result;
-  }
-
-  ngOnDestroy() {
-    this.eventSubscriber.unsubscribe();
-
-    if (this.bulletinsService.getActiveDate() && this.bulletinsService.getIsEditable())
-      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
-
-    this.mapService.resetAll();
-
-    this.bulletinsService.setActiveDate(undefined);
-    this.bulletinsService.setIsEditable(false);
-    this.bulletinsService.setIsSmallChange(false);
-    this.bulletinsService.setIsUpdate(false);
-
-    this.loading = false;
-    this.editRegions = false;
   }
 
   updateElevation() {
@@ -1166,6 +1133,7 @@ private setTexts() {
         if (this.bulletinsService.getIsSmallChange()) {
           this.bulletinsService.changeBulletins(this.bulletinsList, this.bulletinsService.getActiveDate()).subscribe(
             data => {
+              this.localStorageService.clear();
               this.loading = false;
               this.goBack();
               console.log("Bulletins changed on server.");
@@ -1179,6 +1147,7 @@ private setTexts() {
         } else {
           this.bulletinsService.saveBulletins(this.bulletinsList, this.bulletinsService.getActiveDate()).subscribe(
             data => {
+              this.localStorageService.clear();
               this.loading = false;
               this.goBack();
               console.log("Bulletins saved on server.");
@@ -1191,6 +1160,7 @@ private setTexts() {
           );
         }
       } else {
+        this.localStorageService.clear();
         this.loading = false;
         this.goBack();
         console.log("No bulletins saved on server.");
@@ -1297,6 +1267,84 @@ private setTexts() {
     this.loadModalRef.hide();
   }
 
+  openLoadAutoSaveModal(template: TemplateRef<any>) {
+    this.loadAutoSaveModalRef = this.modalService.show(template, this.config);
+  }
+
+  loadAutoSaveModalConfirm(): void {
+    this.loadAutoSaveModalRef.hide();
+    this.loadBulletinsFromLocalStorage();
+  }
+ 
+  loadAutoSaveModalDecline(): void {
+    this.loadAutoSaveModalRef.hide();
+    this.loadBulletinsFromServer();
+  }
+
+  private startAutoSave() {
+    this.autoSave = Observable.interval(this.constantsService.autoSaveIntervall).takeWhile(() => true).subscribe(() => this.localStorageService.save(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion(), this.authenticationService.currentAuthor.getEmail(), this.bulletinsList));
+  }
+
+  private loadBulletinsFromLocalStorage() {
+    for (let bulletin of this.localStorageService.getBulletins()) {
+      this.addBulletin(bulletin);
+    }
+    this.updateMap();
+    this.mapService.deselectAggregatedRegion();
+    this.loading = false;
+    this.startAutoSave();
+  }
+
+  private loadBulletinsFromServer() {
+    this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
+      data => {
+        let response = data.json();
+
+        for (let jsonBulletin of response) {
+          let bulletin = BulletinModel.createFromJson(jsonBulletin);
+
+          // only add bulletins with published or saved regions
+          if ((bulletin.getPublishedRegions() && bulletin.getPublishedRegions().length > 0) || (bulletin.getSavedRegions() && bulletin.getSavedRegions().length > 0)) {
+
+            // move published regions to saved regions
+            if (this.bulletinsService.getIsUpdate() || this.bulletinsService.getIsSmallChange()) {
+              let saved = new Array<String>();
+              let published = new Array<String>();
+              for (let region of bulletin.getSavedRegions())
+                saved.push(region);
+              for (let region of bulletin.getPublishedRegions())
+                if (region.startsWith(this.authenticationService.getActiveRegion()))
+                  saved.push(region);
+                else
+                  published.push(region);
+
+              if (saved.length > 0) {
+                bulletin.setSavedRegions(saved);
+                bulletin.setPublishedRegions(published);
+              }
+            }
+
+            this.addBulletin(bulletin);
+          }
+        }
+
+        if (this.getOwnBulletins().length == 0 && this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && !this.bulletinsService.getIsSmallChange())
+          this.createInitialAggregatedRegion();
+
+        this.updateMap();
+
+        this.mapService.deselectAggregatedRegion();
+        this.loading = false;
+        this.startAutoSave();
+      },
+      error => {
+        console.error("Bulletins could not be loaded!");
+        this.loading = false;
+        this.openLoadingErrorModal(this.loadingErrorTemplate);
+      }
+    );
+  }
+
   openDeleteAggregatedRegionModal(template: TemplateRef<any>) {
     this.deleteAggregatedRegionModalRef = this.modalService.show(template, this.config);
   }
@@ -1327,6 +1375,7 @@ private setTexts() {
 
   discardModalConfirm(): void {
     this.discardModalRef.hide();
+    this.localStorageService.clear();
     this.goBack();
   }
  
