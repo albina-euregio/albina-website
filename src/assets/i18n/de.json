@@ -11,7 +11,7 @@
 		}
 	},
 	"sidebar" : {
-		"bulletins" : "Lawinenlageberichte",
+		"bulletins" : "Lawinenvorhersagen",
 		"observations" : "Rückmeldungen",
 		"admin" : "Admin",
 		"catalogueOfPhrases" : "Satzkatalog"
@@ -40,17 +40,17 @@
 		"italian" : "Italienisch"
 	},
 	"bulletins" : {
-		"title" : "Lawinenlageberichte",
+		"title" : "Lawinenvorhersagen",
 		"tooltip" : {
-			"publish" : "Update zur Lawinenprognose sofort publizieren",
-			"submit" : "Lawinenprognose absenden",
-			"copy" : "Lawinenprognose kopieren",
-			"paste" : "Lawinenprognose einfügen",
-			"update" : "Update zur Lawinenprognose erstellen",
+			"publish" : "Update zur Lawinenvorhersage sofort publizieren",
+			"submit" : "Lawinenvorhersage absenden",
+			"copy" : "Lawinenvorhersage kopieren",
+			"paste" : "Lawinenvorhersage einfügen",
+			"update" : "Update zur Lawinenvorhersage erstellen",
 			"caaml" : "CAAML anzeigen",
 			"json" : "JSON anzeigen",
-			"edit" : "Lawinenprognose editieren (keine erneute Veröffentlichung)",
-			"create" : "Lawinenprognose erstellen"
+			"edit" : "Lawinenvorhersage editieren (keine erneute Veröffentlichung)",
+			"create" : "Lawinenvorhersage erstellen"
 		},
 		"create" : {
 			"tooltip" : {
@@ -61,9 +61,9 @@
 				"rejectSuggestion" : "Vorgeschlagene Regionen ablehnen",
 				"saveChanges" : "Änderungen speichern",
 				"discardChanges" : "Änderungen verwerfen",
-				"saveBulletin" : "Lagebericht speichern",
-				"discardBulletin" : "Änderungen am Lagebericht verwerfen",
-				"loadBulletin" : "Lagebericht vom Vortag laden",
+				"saveBulletin" : "Lawinenvorhersage speichern",
+				"discardBulletin" : "Änderungen an der Lawinenvorhersage verwerfen",
+				"loadBulletin" : "Lawinenvorhersage vom Vortag laden",
 				"elevationDependency" : "Höhenabhängigkeit",
 				"daytimeDependency" : "Tageszeitliche Abhängigkeit",
 				"treeline" : "Waldgrenze",
@@ -139,29 +139,29 @@
 				"accept" : "Ok"
 			},
 			"loadDialog" : {
-				"header" : "Lagebericht vom Vortag laden",
-				"message" : "Willst du den Lagebericht vom Vortag laden?",
+				"header" : "Lawinenvorhersage vom Vortag laden",
+				"message" : "Willst du die Lawinenvorhersage vom Vortag laden?",
 				"accept" : "Ja",
 				"reject" : "Nein"
 			},
 			"loadAutoSaveDialog" : {
-				"message" : "Willst du den automatisch gespeicherten Lagebericht laden?",
+				"message" : "Willst du die automatisch gespeicherte Lawinenvorhersage laden?",
 				"accept" : "Ja",
 				"reject" : "Nein"
 			},
 			"saveErrorDialog" : {
 				"header" : "Fehler beim Speichern",
-				"message" : "Beim Speichern der Lawinenlageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Speichern der Lawinenvorhersage ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
 			"changeErrorDialog" : {
 				"header" : "Fehler beim Ändern",
-				"message" : "Beim Ändern der Lawinenlageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Ändern der Lawinenvorhersage ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
 			"loadingErrorDialog" : {
 				"header" : "Fehler beim Laden",
-				"message" : "Beim Laden der Lawinenlageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Laden der Lawinenvorhersage ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
 			"noElevationDialog" : {
@@ -197,8 +197,8 @@
 				"publish" : "Publizieren"
 			},
 			"publishBulletinsDialog" : {
-				"header" : "Lagebericht publizieren",
-				"message" : "Willst du den Lagebericht publizieren?",
+				"header" : "Lawinenvorhersage publizieren",
+				"message" : "Willst du die Lawinenvorhersage publizieren?",
 				"missingDangerRating" : "Gefahrenstufe nicht definiert",
 				"missingRegion" : "Regionen nicht beurteilt",
 				"duplicateRegion" : "Regionen mehrfach beurteilt",
@@ -212,12 +212,12 @@
 			},
 			"publishBulletinsErrorDialog" : {
 				"header" : "Fehler beim Publizieren",
-				"message" : "Beim Publizieren der Lawinenlageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Publizieren der Lawinenvorhersage ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
 			"submitBulletinsDialog" : {
-				"header" : "Lagebericht absenden",
-				"message" : "Willst du den Lagebericht absenden?",
+				"header" : "Lawinenvorhersage absenden",
+				"message" : "Willst du die Lawinenvorhersage absenden?",
 				"missingDangerRating" : "Gefahrenstufe nicht definiert",
 				"missingRegion" : "Regionen nicht beurteilt",
 				"duplicateRegion" : "Regionen mehrfach beurteilt",
@@ -231,12 +231,12 @@
 			},
 			"submitBulletinsErrorDialog" : {
 				"header" : "Fehler beim Absenden",
-				"message" : "Beim Absenden der Lawinenlageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Absenden der Lawinenvorhersage ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
 			"checkBulletinsErrorDialog" : {
 				"header" : "Fehler beim Überprüfen",
-				"message" : "Beim Überprüfen der Lawinenlageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Überprüfen der Lawinenvorhersage ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			}
 		},
@@ -249,7 +249,7 @@
 			},
 			"noCaamlDialog" : {
 				"header" : "CAAML",
-				"message" : "Kein publizierter Lagebericht vorhanden!",
+				"message" : "Keine publizierte Lawinenvorhersage vorhanden!",
 				"accept" : "Ok"
 			}
 		},
@@ -262,7 +262,7 @@
 			},
 			"noJsonDialog" : {
 				"header" : "JSON",
-				"message" : "Kein publizierter Lagebericht vorhanden!",
+				"message" : "Keine publizierte Lawinenvorhersage vorhanden!",
 				"accept" : "Ok"
 			}
 		}
