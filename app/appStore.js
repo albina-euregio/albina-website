@@ -14,17 +14,28 @@ class AppStore extends React.Component {
 
   constructor() {
     super();
-    const defaultLanguage = 'de'; // TODO: get from Browser config/config.ini
-    this.locale = new LocaleStore(defaultLanguage, translations);
-
-    // TODO: maybe fetch from CMS API
-    this.regions = {
-      'AT-07': {en: 'Tyrol', de: 'Tirol', it: 'Tirolo'},
-      'IT-32-BZ': {en: 'South Tyrol', de: 'Südtirol', it: 'Alto Adige'},
-      'IT-32-TN': {en: 'Trentino', de: 'Trentino', it: 'Trentino'}
-    };
-
     this.languages = ['de', 'it', 'en'];
+    const defaultLanguage = 'de'; // TODO: get from Browser config/config.ini
+    const translationFallbackLanguage = 'en';
+
+    const translationLookup = {};
+    this.languages.forEach((lang) => { translationLookup[lang] = {}; });
+
+    Object.keys(translations).forEach((key) =>
+      this.languages.forEach((lang) => {
+        // take language key, or english, if translation is missing
+        translationLookup[lang][key] =
+          (translations[key][lang]) ? translations[key][lang] : translations[key][translationFallbackLanguage];
+      })
+    );
+
+    this.locale = new LocaleStore(defaultLanguage, translationLookup);
+
+    this.regions = {
+      'AT-07': translations['region:AT-07'],
+      'IT-32-BZ': translations['region:IT-32-BZ'],
+      'IT-32-TN': translations['region:IT-32-TN']
+    };
   }
 
   set language(newLanguage) {

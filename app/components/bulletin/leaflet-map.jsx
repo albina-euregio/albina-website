@@ -117,8 +117,8 @@ class LeafletMap extends React.Component {
       >
         <ZoomControl
           position="topleft"
-          zoomInTitle={this.props.intl.formatMessage({id: 'map:zoomIn'})}
-          zoomOutTitle={this.props.intl.formatMessage({id: 'map:zoomOut'})} />
+          zoomInTitle={this.props.intl.formatMessage({id: 'bulletin:map:zoom-in'})}
+          zoomOutTitle={this.props.intl.formatMessage({id: 'bulletin:map:zoom-out'})} />
         {this.tileLayers}
         {this.mapOverlays}
         {this.props.vectorRegions && (
