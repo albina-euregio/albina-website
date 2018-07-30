@@ -57,7 +57,7 @@
   "bulletin:map:search:hover": {"en": "Type in a location", "de": "In Karte suchen", "it": "Cerca località"},
   "bulletin:map:zoom-in": {"en": "Zoom in", "de": "Vergrößern", "it": "Zoom +"},
   "bulletin:map:zoom-out": {"en": "Zoom out", "de": "Verkleinern", "it": "Zoom -"},
-  "bulletin:map:info:details": {"en": "Click for details", "de": "Details", "it": "clicca per maggiori dettagli"},
+  "bulletin:map:info:details": {"en": "<span>Click for</span> details", "de": "Details", "it": "<span>clicca per</span> maggiori dettagli"},
   "bulletin:map:info:details:hover": {"en": "See full Avalanche Forecast", "de": "Vollständige Lawinenvorhersage anzeigen", "it": " Leggi tutto il bollettino valanghe"},
   "bulletin:map:info:danger-picto:alt": {"en": "Danger level {number}–{text}", "de": "Gefahrenstufe {number}–{text}", "it": "Grado di pericolo {number}–{text}"},
   "bulletin:map:info:danger-picto2:alt": {"en": "Danger level {number-above}–{text-above} and {number-below}–{text-below}", "de": "Gefahrenstufe {number-above}–{text-above} und {number-below}–{text-below}", "it": "Grado di pericolo {number-above}–{text-above} e {number-below}–{text-below}"},

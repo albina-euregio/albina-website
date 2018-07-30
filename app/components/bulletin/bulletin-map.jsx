@@ -1,9 +1,10 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import { injectIntl } from 'react-intl';
+import { Parser } from 'html-to-react';
 import LeafletMap from './leaflet-map';
 import BulletinMapDetails from './bulletin-map-details';
 
-@observer
 class BulletinMap extends React.Component {
   constructor(props) {
     super(props);
@@ -101,8 +102,8 @@ class BulletinMap extends React.Component {
                 type="text"
                 id="input"
                 className="tooltip"
-                placeholder="Search"
-                title="Type in a region"
+                placeholder={this.props.intl.formatMessage({id: 'bulletin:map:search'})}
+                title={this.props.intl.formatMessage({id: 'bulletin:map:search:hover'})}
               />
               <button
                 href="#"
@@ -112,32 +113,6 @@ class BulletinMap extends React.Component {
                 <span>&nbsp;</span>
               </button>
             </div>
-          </div>
-          }
-          { false &&
-          <div style={this.styleOverMap()} className="bulletin-map-zoom">
-            <ul className="list-plain">
-              <li className="bulletin-map-zoom-plus">
-                <button
-                  onClick={this.handleZoom.bind(this)}
-                  href="#"
-                  className="pure-button pure-button-icon icon-plus-big tooltip"
-                  title="Zoom in"
-                >
-                  <span>&nbsp;</span>
-                </button>
-              </li>
-              <li className="bulletin-map-zoom-minus">
-                <button
-                  onClick={this.handleZoom.bind(this, false)}
-                  href="#"
-                  className="pure-button pure-button-icon icon-minus-big tooltip"
-                  title="Zoom out"
-                >
-                  <span>&nbsp;</span>
-                </button>
-              </li>
-            </ul>
           </div>
           }
           {this.highlightedBulletin && (
@@ -154,9 +129,9 @@ class BulletinMap extends React.Component {
                 <a
                   href="#section-bulletin-report"
                   className="pure-button tooltip"
-                  title="See full bulletin report"
+                  title={this.props.intl.formatMessage({id: 'bulletin:map:info:details:hover'})}
                 >
-                  <span>Click for</span> Details<span className="icon-arrow-down" />
+                  {(new Parser()).parse(this.props.intl.formatHTMLMessage({id: 'bulletin:map:info:details'}))}<span className="icon-arrow-down" />
                 </a>
               )}
             </div>
@@ -167,4 +142,4 @@ class BulletinMap extends React.Component {
   }
 }
 
-export default BulletinMap;
+export default inject('locale')(injectIntl(observer(BulletinMap)));
