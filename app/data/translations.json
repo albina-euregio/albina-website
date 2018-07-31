@@ -9,6 +9,17 @@
   "danger-level:4": {"en": "high", "de": "groß", "it": "forte"},
   "danger-level:5": {"en": "very high", "de": "sehr groß", "it": "molto forte"},
 
+  "danger-patterns:dp1": {"en": "Bodennahe Schwachschicht vom Frühwinter", "de": "Bodennahe Schwachschicht vom Frühwinter", "it": "Bodennahe Schwachschicht vom Frühwinter"},
+  "danger-patterns:dp2": {"en": "Gleitschnee", "de": "Gleitschnee", "it": "Gleitschnee"},
+  "danger-patterns:dp3": {"en": "Regen", "de": "Regen", "it": "Regen"},
+  "danger-patterns:dp4": {"en": "Kalt auf warm / warm auf kalt", "de": "Kalt auf warm / warm auf kalt", "it": "Kalt auf warm / warm auf kalt"},
+  "danger-patterns:dp5": {"en": "Schnee nach langer Kälteperiode", "de": "Schnee nach langer Kälteperiode", "it": "Schnee nach langer Kälteperiode"},
+  "danger-patterns:dp6": {"en": "Lockerer Schnee und Wind", "de": "Lockerer Schnee und Wind", "it": "Lockerer Schnee und Wind"},
+  "danger-patterns:dp7": {"en": "Schneearm neben schneereich", "de": "Schneearm neben schneereich", "it": "Schneearm neben schneereich"},
+  "danger-patterns:dp8": {"en": "Eingeschneiter Oberflächenreif", "de": "Eingeschneiter Oberflächenreif", "it": "Eingeschneiter Oberflächenreif"},
+  "danger-patterns:dp9": {"en": "Eingeschneiter Graupel", "de": "Eingeschneiter Graupel", "it": "Eingeschneiter Graupel"},
+  "danger-patterns:dp10": {"en": "Frühjahrssituation", "de": "Frühjahrssituation", "it": "Frühjahrssituation"},
+
   "problem:new-snow": {"en": "New snow problem", "de": "Neuschneeproblem", "it": "Problema di neve fresca"},
   "problem:wind-drifted-snow": {"en": "Wind-drifted snow problem", "de": "Triebschneeproblem", "it": "Problema di neve ventata"},
   "problem:weak-persistent-layer": {"en": "Persistent weak layer problem", "de": "Altschneeproblem", "it": "Problema con strati deboli persistenti"},
