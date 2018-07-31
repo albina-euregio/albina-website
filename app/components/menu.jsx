@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
     // Test if element (or any of its child elements, if "recursive" is set)
     // is active.
     const doTest = (loc, element) => {
-      return (matchPath(loc, element.url) != null)
+      return (matchPath(loc, element.url.split('?')[0]) != null)
         || ( recursive
           && element.children
           && element.children.some((el) => doTest(loc, el))
