@@ -7,6 +7,21 @@ class WeatherMap extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    window.addEventListener('message', (e) => {
+      if(e.data) {
+        try {
+          const data = JSON.parse(e.data);
+          if(data.changes && data.changes.domain) {
+            this.props.history.replace('/weather/map/' + data.changes.domain);
+          }
+        } catch(e) {
+          console.log('JSON parse error: ' + e.data);
+        }
+      }
+    });
+  }
+
   render() {
     // use the last path parameter as "domain" and add optional parameters
     const url = config.get('links.meteoViewer')
