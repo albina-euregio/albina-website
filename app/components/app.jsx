@@ -47,7 +47,7 @@ class App extends React.Component {
             component: Bulletin
           },
           {
-            path: '/weather/map',
+            path: '/weather/map/:datum?',
             exact: true,
             component: WeatherMap
           },
@@ -59,7 +59,7 @@ class App extends React.Component {
           {
             path: '/weather',
             exact: true,
-            component: () => <Redirect to={'/weather/map'} />
+            component: () => <Redirect to={'/weather/map/snow'} />
           },
           {
             path: '/education',

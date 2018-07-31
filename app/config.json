@@ -21,7 +21,7 @@
   },
   "links": {
     "meteoViewer":
-      "https://data1.geo.univie.ac.at/sandbox/map_viewer/framemap.html",
+      "https://data1.geo.univie.ac.at/sandbox/meteo_viewer/",
     "stationTable":
       "http://data1.geo.univie.ac.at/sandbox/meteo_ogd_table/stations_table.php"
   },

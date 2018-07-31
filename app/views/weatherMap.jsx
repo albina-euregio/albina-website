@@ -1,21 +1,17 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import PageHeadline from '../components/organisms/page-headline.jsx';
 
-export default class Weather extends React.Component {
+class WeatherMap extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  _sublinks() {
-    return [
-      { url: 'precipitation', label: 'precipitation' },
-      { url: 'temperature', label: 'temperature' },
-      { url: 'snowfall', label: 'snowfall' }
-    ];
-  }
-
   render() {
-    const url = config.get('links.meteoViewer');
+    // use the last path parameter as "domain" and add optional parameters
+    const url = config.get('links.meteoViewer')
+    + '?domain=' + this.props.match.params.datum
+    + (this.props.location.search ? ('&' + this.props.location.search.substr(1)) : '');
     return (
       <div>
         <PageHeadline title="Snow &amp; Weather" />
@@ -28,3 +24,4 @@ export default class Weather extends React.Component {
     );
   }
 }
+export default withRouter(WeatherMap);
