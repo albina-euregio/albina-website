@@ -16,7 +16,7 @@ class AppStore extends React.Component {
     super();
     this.languages = ['de', 'it', 'en'];
     const defaultLanguage = 'de'; // TODO: get from Browser config/config.ini
-    const translationFallbackLanguage = 'en';
+    const translationFallbackLanguage = 'all';
 
     const translationLookup = {};
     this.languages.forEach((lang) => { translationLookup[lang] = {}; });

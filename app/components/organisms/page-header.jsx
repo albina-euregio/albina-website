@@ -46,7 +46,7 @@ class PageHeader extends React.Component {
             <li>
               <a
                 className="language-trigger-de tooltip"
-                title="Deutsche Version"
+                title={this.props.intl.formatMessage({id: 'header:language-switch:de:hover'})}
                 onClick={() => this.handleChangeLanguage('de')}
               >
                 DE
@@ -55,7 +55,7 @@ class PageHeader extends React.Component {
             <li>
               <a
                 className="language-trigger-it tooltip"
-                title="Versione Italiana"
+                title={this.props.intl.formatMessage({id: 'header:language-switch:it:hover'})}
                 onClick={() => this.handleChangeLanguage('it')}
               >
                 IT
@@ -64,7 +64,7 @@ class PageHeader extends React.Component {
             <li>
               <a
                 className="language-trigger-en tooltip"
-                title="English Version"
+                title={this.props.intl.formatMessage({id: 'header:language-switch:en:hover'})}
                 onClick={() => this.handleChangeLanguage('en') }
               >
                 EN
