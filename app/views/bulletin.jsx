@@ -25,6 +25,14 @@ class Bulletin extends React.Component {
   }
 
   componentDidMount() {
+    window['staticPageStore'].loadPage('/bulletin').then((response) => {
+      // parse content
+      const responseParsed = JSON.parse(response);
+      this.setState({
+        title: responseParsed.data.attributes.title,
+        content: responseParsed.data.attributes.body
+      });
+    });
     return this._fetchData(this.props);
   }
 
@@ -38,11 +46,6 @@ class Bulletin extends React.Component {
   }
 
   _fetchData(props) {
-    // TODO: use common staticPageStore
-    const translatePath = (url) => Base.doRequest(config.get('apis.content') + 'router/translate-path?_format=json&path=/' + url);
-    const getPageId = (response) => (JSON.parse(response)).entity.uuid;
-    const lang = window['appStore'].language;
-
     const startDate = (props.match.params.date && parseDate(props.match.params.date))
       ? props.match.params.date : (
         this.store.settings.date ? this.store.settings.date : '2018-07-17' // TODO: should be current date
@@ -53,28 +56,7 @@ class Bulletin extends React.Component {
       props.history.push('/bulletin/' + startDate);
     }
 
-    return Promise.all([
-      this.store.load(startDate),
-      translatePath('/bulletin').then(
-        getPageId,
-        () => {
-          // if not found, fall back to 404 page
-          return translatePath('404').then(getPageId)
-        }
-      ).then(id => {
-        // query page content by id
-        const langParam = (!lang || (lang == 'en')) ? '' : (lang + '/');
-        const url = config.get('apis.content') + langParam + 'api/pages/' + id;
-        return Base.doRequest(url);
-      }).then(response => {
-        // parse content
-        const responseParsed = JSON.parse(response);
-        this.setState({
-          title: responseParsed.data.attributes.title,
-          content: responseParsed.data.attributes.body
-        });
-      })
-    ]);
+    return this.store.load(startDate);
   }
 
   render() {
@@ -87,9 +69,7 @@ class Bulletin extends React.Component {
         <BulletinReport store={this.store} />
         <SmShare />
         <div>
-        {
-            (new Parser()).parse(this.state.content)
-        }
+          { (new Parser()).parse(this.state.content) }
         </div>
       </div>
     );

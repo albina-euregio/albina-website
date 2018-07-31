@@ -4,6 +4,7 @@ import App from './components/app.jsx';
 import Base from './base.js';
 import AppStore from './appStore.js';
 import ConfigStore from './configStore.js';
+import StaticPageStore from './stores/staticPageStore';
 import {addLocaleData} from 'react-intl';
 import {reaction} from 'mobx';
 import en from 'react-intl/locale-data/en';
@@ -30,6 +31,7 @@ require('./js/custom.js');
 
 // TODO: check content API for maintenance mode before starting the app
 window['appStore'] = new AppStore();
+window['staticPageStore'] = new StaticPageStore();
 
 /*
  * Set project root directory. The project root is determined by the location
