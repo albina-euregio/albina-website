@@ -18,6 +18,11 @@ class BulletinLegend extends React.Component {
     // split the string at <a> and </a>
     const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/);
 
+    const warnlevelKeys = ['low', 'moderate', 'considerable', 'high', 'very_high'];
+    const warnlevels = warnlevelKeys.map((k) => {
+      return {id: k, num: window['appStore'].getWarnlevelNumber(k)};
+    });
+
     return (
       <section id="section-bulletin-legend" className="section-padding section-bulletin-legend">
         <div className="section-centered">
@@ -41,9 +46,9 @@ class BulletinLegend extends React.Component {
                 </Link>
               </p>
               <ul className="list-inline list-legend">
-                {[1,2,3,4,5].map((l) =>
-                  <li key={l} className={'warning-level-' + l}>
-                    <span><strong>{l}</strong> {this.props.intl.formatMessage({id: 'danger-level:' + l})}</span>
+                {warnlevels.map((l) =>
+                  <li key={l.id} className={'warning-level-' + l.num}>
+                    <span><strong>{l.num}</strong> {this.props.intl.formatMessage({id: 'danger-level:' + l.id})}</span>
                   </li>
                 )}
               </ul>

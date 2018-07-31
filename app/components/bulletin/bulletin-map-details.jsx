@@ -50,7 +50,7 @@ export default class BulletinMapDetails extends React.Component {
     return (
       <ul className="list-plain">
         <li>
-          <WarnLevelIcon below={warnlevels.below} above={warnlevels.above} elevation={elevation} treeline={treeline} />
+          <WarnLevelIcon below={b.dangerRatingBelow} above={b.dangerRatingAbove} elevation={elevation} treeline={treeline} />
         </li> { (problems.length > 0) &&
           problems.map(id => <li key={id}><ProblemIconLink problem={id} /></li>)
         }

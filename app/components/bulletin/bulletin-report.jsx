@@ -14,13 +14,6 @@ class BulletinReport extends React.Component {
 
   constructor(props) {
     super(props);
-    this.warnlevelNumbers = {
-      'low': 1,
-      'moderate': 2,
-      'considerable': 3,
-      'high': 4,
-      'very_high': 5
-    };
   }
 
   @computed
@@ -81,8 +74,8 @@ class BulletinReport extends React.Component {
     const date = dateToLongDateString(parseDate(this.props.store.settings.date));
 
     const warnlevels = {
-      'above': bulletinDaytime.dangerRatingAbove ? this.warnlevelNumbers[bulletinDaytime.dangerRatingAbove] : 0,
-      'below': bulletinDaytime.dangerRatingBelow ? this.warnlevelNumbers[bulletinDaytime.dangerRatingBelow] : 0
+      'above': bulletinDaytime.dangerRatingAbove ? window['appStore'].getWarnlevelNumber(bulletinDaytime.dangerRatingAbove) : 0,
+      'below': bulletinDaytime.dangerRatingBelow ? window['appStore'].getWarnlevelNumber(bulletinDaytime.dangerRatingBelow) : 0
     };
     const warnlevel = Math.max(...Object.values(warnlevels));
     const elevation = (bulletin.hasElevationDependency && !bulletin.treeline) ? bulletin.elevation : null;
@@ -107,7 +100,7 @@ class BulletinReport extends React.Component {
               <h1>
                 <FormattedHTMLMessage id="bulletin:report:headline2" values={{
                   number: warnlevel,
-                  text: this.props.intl.formatMessage({id: 'danger-level:' + warnlevel})
+                  text: this.props.intl.formatMessage({id: 'danger-level:' + window.appStore.getWarnLevelId(warnlevel)})
                 }} />
               </h1>
             </header>
@@ -119,7 +112,8 @@ class BulletinReport extends React.Component {
               </div>
               <ul className="list-plain list-bulletin-report-pictos">
                 <li>
-                  <WarnLevelIcon below={warnlevels.below} above={warnlevels.above} elevation={elevation} treeline={treeline} />
+                  <WarnLevelIcon
+                    below={bulletinDaytime.dangerRatingBelow} above={bulletinDaytime.dangerRatingAbove} elevation={elevation} treeline={treeline} />
                   <div className="bulletin-report-tendency tooltip" title={this.props.intl.formatMessage({id: 'bulletin:report:tendency:hover'})}>
                     <FormattedHTMLMessage id="bulletin:report:tendency" values={{
                       tendency: tendencyTitle,

@@ -11,6 +11,7 @@ class AppStore extends React.Component {
   @observable locale;
   regions;
   languages;
+  warnlevelNumbers;
 
   constructor() {
     super();
@@ -36,6 +37,16 @@ class AppStore extends React.Component {
       'IT-32-BZ': translations['region:IT-32-BZ'],
       'IT-32-TN': translations['region:IT-32-TN']
     };
+
+    this.warnlevelNumbers = {
+      'low': 1,
+      'moderate': 2,
+      'considerable': 3,
+      'high': 4,
+      'very_high': 5,
+      'no_snow': 0,
+      'no_rating': 0
+    };
   }
 
   set language(newLanguage) {
@@ -60,6 +71,20 @@ class AppStore extends React.Component {
     if(this.regions[code]) {
       const lang = this.language;
       return this.regions[code][lang];
+    }
+    return '';
+  }
+
+  getWarnlevelNumber(id) {
+    if(this.warnlevelNumbers[id]) {
+      return this.warnlevelNumbers[id];
+    }
+    return 0;
+  }
+
+  getWarnLevelId(num) {
+    if(num > 0) {
+      return Object.keys(this.warnlevelNumbers).find((k) => {return this.warnlevelNumbers[k] == num; });
     }
     return '';
   }

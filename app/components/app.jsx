@@ -59,7 +59,7 @@ class App extends React.Component {
           {
             path: '/weather',
             exact: true,
-            component: () => <Redirect to={'/weather/map/snow'} />
+            component: () => <Redirect to={'/weather/map/temp'} />
           },
           {
             path: '/education',

@@ -14,8 +14,11 @@ class WarnLevelIcon extends React.Component {
   }
 
   render() {
-    const getWarnlevelText = (warnLevelNumber) => {
-      return this.props.intl.formatMessage({id: 'danger-level:' + warnLevelNumber});
+    const getWarnlevelText = (warnLevel) => {
+      if(warnLevel) {
+        return this.props.intl.formatMessage({id: 'danger-level:' + warnLevel});
+      }
+      return '';
     };
 
     const elevText = this.props.elevation ? (this.props.elevation + 'm') : (
@@ -24,13 +27,15 @@ class WarnLevelIcon extends React.Component {
         : ''
     );
     const below = (this.props.elevation || this.props.treeline) ? this.props.below : this.props.above;
+    const b = window['appStore'].getWarnlevelNumber(below);
+    const a = window['appStore'].getWarnlevelNumber(this.props.above);
 
-    const img = this.imgRoot + 'levels_' + below + '_' + this.props.above + '.png';
+    const img = this.imgRoot + 'levels_' + b + '_' + a + '.png';
 
     var title, alt;
     if(below == this.props.above) {
       const params = {
-        number: this.props.above,
+        number: (a == 0) ? '' : a,
         text: getWarnlevelText(this.props.above)
       };
       title = this.props.intl.formatMessage({id: 'bulletin:map:info:danger-picto:hover'}, params);
@@ -38,8 +43,8 @@ class WarnLevelIcon extends React.Component {
     } else {
       const params = {
         'elev': elevText,
-        'number-below': below,
-        'number-above': this.props.above,
+        'number-below': (b == 0) ? '' : b,
+        'number-above': (a == 0) ? '' : a,
         'text-below': getWarnlevelText(below),
         'text-above': getWarnlevelText(this.props.above)
       };

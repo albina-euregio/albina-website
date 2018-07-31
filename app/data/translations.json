@@ -3,11 +3,13 @@
   "region:IT-32-BZ": {"en": "South Tyrol", "de": "Südtirol", "it": "Alto Adige"},
   "region:IT-32-TN": {"en": "Trentino", "de": "Trentino", "it": "Trentino"},
 
-  "danger-level:1": {"en": "low", "de": "gering", "it": "debole"},
-  "danger-level:2": {"en": "moderate", "de": "mäßig", "it": "moderato"},
-  "danger-level:3": {"en": "considerable", "de": "erheblich", "it": "marcato"},
-  "danger-level:4": {"en": "high", "de": "groß", "it": "forte"},
-  "danger-level:5": {"en": "very high", "de": "sehr groß", "it": "molto forte"},
+  "danger-level:low": {"en": "low", "de": "gering", "it": "debole"},
+  "danger-level:moderate": {"en": "moderate", "de": "mäßig", "it": "moderato"},
+  "danger-level:considerable": {"en": "considerable", "de": "erheblich", "it": "marcato"},
+  "danger-level:high": {"en": "high", "de": "groß", "it": "forte"},
+  "danger-level:very_high": {"en": "very high", "de": "sehr groß", "it": "molto forte"},
+  "danger-level:no_snow": {"en": "No snow", "de": "Kein Schnee", "it": "No Snow"},
+  "danger-level:no_rating": {"en": "No rating", "de": "Keine Prognose", "it": "No Rating"},
 
   "danger-patterns:dp1": {"en": "Bodennahe Schwachschicht vom Frühwinter", "de": "Bodennahe Schwachschicht vom Frühwinter", "it": "Bodennahe Schwachschicht vom Frühwinter"},
   "danger-patterns:dp2": {"en": "Gleitschnee", "de": "Gleitschnee", "it": "Gleitschnee"},
