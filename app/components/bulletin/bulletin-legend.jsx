@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { inject } from 'mobx-react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 import { Parser } from 'html-to-react';
 import BulletinProblemFilter from './bulletin-problem-filter.jsx';
 
@@ -37,7 +37,7 @@ class BulletinLegend extends React.Component {
             <div className="normal-6 grid-item">
               <p>
                 <Link to="/education/dangerscale" className="tooltip" title={this.props.intl.formatMessage({id: 'bulletin:legend:danger-levels:hover'})}>
-                  <strong>{this.props.intl.formatMessage({id: 'bulletin:legend:danger-levels'})}</strong>
+                  <FormattedHTMLMessage id="bulletin:legend:danger-levels" />
                 </Link>
               </p>
               <ul className="list-inline list-legend">
