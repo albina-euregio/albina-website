@@ -31,13 +31,10 @@
   "main:share-this:hover": {"en": "Share on {on}", "de": "Auf {on} teilen", "it": "Condividi su {on}"},
 
   "footer:subscribe": {"en": "Subscribe", "de": "Abonnieren", "it": "Iscriviti"},
-  "footer:subscribe:bulletin": {"en": "Subscribe to Avalanche Forecast", "de": "Lawinenvorhersage abonnieren", "it": "Iscriviti al bollettino valanghe"},
-  "footer:subscribe:social-media": {"en": "Subscribe to Social Media", "de": "Soziale Medien abonnieren", "it": "Iscriviti ai social media"},
-  "footer:subscribe:blog": {"en": "Subscribe to Blog", "de": "Blog abonnieren", "it": "Iscriviti il blog"},
-  "footer:subscribe:app": {"en": "Subscribe to App", "de": "App abonnieren", "it": "Iscriviti i apps"},
+  "footer:subscribe:hover": {"en": "Subscribe to Avalanche Forecast, Social Media, Blog, Apps", "de": "Lawinenvorhersage, Soziale Medien, Blog, Apps abonnieren", "it": "Iscriviti al bollettino valanghe, ai social media, il blog, i apps"},
   "footer:interreg:hover": {"en": "Interreg", "de": "Interreg", "it": "Interreg"},
   "footer:top:hover": {"en": "Top", "de": "Nach oben", "it": "Inizio"},
-  "footer:follow-us": {"en": "Follow us on Social Media", "de": "Folge uns in den Sozialen Medien", "it": "Seguici sui Social Media"},
+  "footer:follow-us": {"en": "<strong>Follow us</strong> on Social Media", "de": "<strong>Folge uns</strong> in den Sozialen Medien", "it": "<strong>Seguici</strong> sui Social Media"},
   "footer:follow-us:hover": {"en": "Follow us on {on}", "de": "Auf {on} folgen", "it": "Seguici su {on}"},
 
   "bulletin:header:forecast": {"en": "Avalanche Forecast", "de": "Lawinenvorhersage", "it": "Bollettini valanghe"},

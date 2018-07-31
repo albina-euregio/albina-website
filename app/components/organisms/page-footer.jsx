@@ -1,11 +1,9 @@
 import React from 'react';
-import { observer } from 'mobx-react';
-import { inject } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { injectIntl } from 'react-intl';
 import Menu from '../menu';
 import SmShare from './sm-share.jsx';
 
-@observer
 class PageFooter extends React.Component {
   constructor(props) {
     super(props);
@@ -29,16 +27,25 @@ class PageFooter extends React.Component {
             </div>
             <div className="grid-item normal-6">
               <p className="page-footer-subscribe">
-                <a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" title="Subscribe to Daily Bulletin, Social Media, Newsletter, Apps" className="modal-trigger mfp-ajax pure-button tooltip">Subscribe </a>
+                <a
+                  href="#"
+                  title={this.props.intl.formatMessage({id: 'footer:subscribe:hover'})}
+                  className="modal-trigger mfp-ajax pure-button tooltip">
+                  {this.props.intl.formatMessage({id: 'footer:subscribe'})}
+                </a>
               </p>
               <p className="page-footer-text">Bush tomato gumbo potato garbanzo ricebean burdock daikon coriander kale quandong. Bok choy celery leek <a href>avocado shallot</a> horseradish aubergine parsley. Bok choy bell pepper kale celery desert raisin kakadu plum bok choy bunya nuts.</p>
               <p className="page-footer-interreg">
-                <a href="#" className="logo-interreg tooltip" title="Interreg"><span>Interreg</span></a>
+                <a href="#" className="logo-interreg tooltip" title={this.props.intl.formatMessage({id: 'footer:interreg:hover'})}><span>Interreg</span></a>
               </p>
             </div>
             <div className="grid-item all-12">
               <p className="page-footer-top">
-                <a href="#page-main" className="icon-arrow-up tooltip" title="Top"><span>Top</span></a>
+                <a href="#page-main"
+                  className="icon-arrow-up tooltip"
+                  title={this.props.intl.formatMessage({id: 'footer:top:hover'})}>
+                  <span>Top</span>
+                </a>
               </p>
               { config.get('developmentMode') &&
                 <p className="page-footer-dev-version">
@@ -53,4 +60,4 @@ class PageFooter extends React.Component {
     );
   }
 }
-export default inject('locale')(injectIntl(PageFooter));
+export default inject('locale')(injectIntl(observer(PageFooter)));

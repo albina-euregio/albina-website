@@ -1,18 +1,26 @@
 import React from 'react';
+import { inject } from 'mobx-react';
+import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 
-export default class SmShare extends React.Component {
+class SmShare extends React.Component {
   render() {
+    const accounts = config.get('socialMedia');
     return (
       <section className="section section-padding sm-share-follow">
-        <p><strong>Follow us</strong> on Social Media</p>
+        <p><FormattedHTMLMessage id="footer:follow-us" /></p>
         <ul className="list-inline sm-buttons">
-          <li><a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" className="sm-button icon-sm-facebook modal-trigger mfp-ajax tooltip" title="Follow"><span>Facebook</span></a></li>
-          <li><a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" className="sm-button icon-sm-twitter modal-trigger mfp-ajax tooltip" title="Follow"><span>Twitter</span></a></li>
-          <li><a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" className="sm-button icon-sm-instagram modal-trigger mfp-ajax tooltip" title="Follow"><span>Instagram</span></a></li>
-          <li><a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" className="sm-button icon-sm-youtube modal-trigger mfp-ajax tooltip" title="Follow"><span>YouTube</span></a></li>
-          <li><a href="../../patterns/10-global-modals-modal-ajax-content/10-global-modals-modal-ajax-content.markup-only.html" className="sm-button icon-sm-whatsapp modal-trigger mfp-ajax tooltip" title="Follow"><span>WhatsApp</span></a></li>
+          { accounts.map((a, i) =>
+            <li key={a.id + i}>
+              <a href={a.url}
+                className={'sm-button icon-sm-' + a.id + ' modal-trigger mfp-ajax tooltip'}
+                title={this.props.intl.formatMessage({id: 'footer:follow-us:hover'}, {on: a.name})}>
+                <span>{a.name}</span>
+              </a>
+            </li>
+          )}
         </ul>
       </section>
     );
   }
 }
+export default inject('locale')(injectIntl(SmShare));

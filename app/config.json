@@ -25,6 +25,13 @@
     "stationTable":
       "http://data1.geo.univie.ac.at/sandbox/meteo_ogd_table/stations_table.php"
   },
+  "socialMedia": [
+    {"id": "facebook", "name": "Facebook", "url": "#"},
+    {"id": "twitter", "name": "Twitter", "url": "#"},
+    {"id": "instagram", "name": "Instagram", "url": "#"},
+    {"id": "youtube", "name": "YouTube", "url": "#"},
+    {"id": "whatsapp", "name": "WhatsApp", "url": "#"}
+  ],
   "map": {
     "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],
     "overlay": {
