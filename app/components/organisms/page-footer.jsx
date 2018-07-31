@@ -2,7 +2,7 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { injectIntl } from 'react-intl';
 import Menu from '../menu';
-import SmShare from './sm-share.jsx';
+import SmFollow from './sm-follow.jsx';
 
 class PageFooter extends React.Component {
   constructor(props) {
@@ -55,7 +55,7 @@ class PageFooter extends React.Component {
             </div>
           </div>
         </section>
-        <SmShare />
+        <SmFollow />
       </div>
     );
   }

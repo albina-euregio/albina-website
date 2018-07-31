@@ -1,7 +1,8 @@
 import React from 'react';
-import {observer} from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import { injectIntl } from 'react-intl';
 
-@observer class BulletinAWMapStatic extends React.Component {
+class BulletinAWMapStatic extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -14,11 +15,12 @@ import {observer} from 'mobx-react';
       + ((this.props.bulletin.hasDaytimeDependency && this.props.store.settings.ampm == 'pm') ? '_PM' : '')
       + '.jpg';
 
-    const text = 'Selected region ' + this.props.store.settings.region;
     return (
-      <img src={url} alt={text} />
+      <img src={url}
+        alt={this.props.intl.formatMessage({id: 'bulletin:report:selected-region:alt'})}
+        title={this.props.intl.formatMessage({id: 'bulletin:report:selected-region:hover'})} />
     );
   }
 }
 
-export default BulletinAWMapStatic;
+export default inject('locale')(injectIntl(observer(BulletinAWMapStatic)));

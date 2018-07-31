@@ -59,6 +59,16 @@ class BulletinReport extends React.Component {
     return dangerPatterns;
   }
 
+  getLocalizedText(elem) {
+    if(Array.isArray(elem)) {
+      const l = elem.find((e) => (e.languageCode === window['appStore'].language));
+      if(l) {
+        return l.text;
+      }
+    }
+    return '';
+  }
+
   render() {
     const bulletin = this.props.store.activeBulletin;
     if(!bulletin) {
@@ -68,10 +78,7 @@ class BulletinReport extends React.Component {
     const bulletinDaytime = this.daytimeBulletin;
 
     const ampmId = bulletin.hasDaytimeDependency ? this.props.store.settings.ampm : '';
-    const ampmTitle = ampmId ? this.props.intl.formatMessage({id: 'bulletin:header:' + ampmId}) : '';
-
-    const date = dateToLongDateString(parseDate(this.props.store.settings.date))
-      + (ampmTitle ? (' ' + ampmTitle) : '');
+    const date = dateToLongDateString(parseDate(this.props.store.settings.date));
 
     const warnlevels = {
       'above': bulletinDaytime.dangerRatingAbove ? this.warnlevelNumbers[bulletinDaytime.dangerRatingAbove] : 0,
@@ -81,12 +88,8 @@ class BulletinReport extends React.Component {
     const elevation = (bulletin.hasElevationDependency && !bulletin.treeline) ? bulletin.elevation : null;
     const treeline = bulletin.hasElevationDependency && bulletin.treeline;
 
-    const tendencyTitle = bulletin.tendency ? this.props.intl.formatMessage({id: "bulletin:report:tendency:" + bulletin.tendency}) : 'n/a';
-    const tendencyText = bulletin.tendency ? bulletin.tendencyCommentTextcat : 'n/a';
+    const tendencyTitle = bulletin.tendency ? this.props.intl.formatMessage({id: 'bulletin:report:tendency:' + bulletin.tendency}) : 'n/a';
     const tendencyDate = dateToLongDateString(getSuccDate(parseDate(this.props.store.settings.date)));
-
-    const snowpackStructureText = bulletin.snowpackStructureCommentTextcat ?
-      bulletin.snowpackStructureCommentTextcat : '';
 
     const classes = 'panel field callout warning-level-' + warnlevel;
 
@@ -95,8 +98,18 @@ class BulletinReport extends React.Component {
         <section id="section-bulletin-report" className="section-centered section-bulletin section-bulletin-report">
           <div className={classes}>
             <header className="bulletin-report-header">
-              <p>Warning Level for <strong>{date}</strong></p>
-              <h1><span>Erheblich, Stufe {warnlevel}</span></h1>
+              <p>
+                <FormattedHTMLMessage id="bulletin:report:headline" values={{
+                  date: date,
+                  daytime: (ampmId ? this.props.intl.formatMessage({id: 'bulletin:report:daytime:' + ampmId}) : '')
+                }} />
+              </p>
+              <h1>
+                <FormattedHTMLMessage id="bulletin:report:headline2" values={{
+                  number: warnlevel,
+                  text: this.props.intl.formatMessage({id: 'danger-level:' + warnlevel})
+                }} />
+              </h1>
             </header>
             <div className="bulletin-report-pictobar">
               <div className="bulletin-report-region">
@@ -110,7 +123,7 @@ class BulletinReport extends React.Component {
                   <div className="bulletin-report-tendency tooltip" title={this.props.intl.formatMessage({id: 'bulletin:report:tendency:hover'})}>
                     <FormattedHTMLMessage id="bulletin:report:tendency" values={{
                       tendency: tendencyTitle,
-                      daytime: ampmId ? this.props.intl.formatMessage({id: 'bulletin:report:tendency:daytime:' + ampmId}) : '',
+                      daytime:  '', // ampmId ? this.props.intl.formatMessage({id: 'bulletin:report:tendency:daytime:' + ampmId}) : '',
                       date: tendencyDate
                     }} />
                     <TendencyIcon tendency={bulletin.tendency} />
@@ -120,37 +133,48 @@ class BulletinReport extends React.Component {
                 }
               </ul>
             </div>
-            <h2 className="subheader">Oberhalb der Waldgrenze weiterhin verbreitet erhebliche Lawinengefahr</h2>
-            <p>A fava bean collard greens endive tomatillo lotus root okra winter <a href>purslane</a> zucchini parsley spinach artichoke. Tattooed Williamsburg. Jean shorts proident kogi laboris. Non tote bag pariatur <a href>elit slow-carb</a>, Vice irure eu Echo Park ea aliqua chillwave. Cornhole Etsy quinoa Pinterest cardigan. Excepteur quis forage, Blue Bottle keffiyeh velit hoodie direct trade typewriter Etsy. Fingerstache squid non, sriracha drinking vinegar Shoreditch pork belly. Paleo sartorial mollit 3 wolf moon chambray whatever, sed tote bag small batch freegan. Master cleanse. Wes Anderson typewriter VHS jean shorts yr.</p>
+            <h2 className="subheader">{this.getLocalizedText(bulletin.avActivityHighlights)}</h2>
+            <p>{this.getLocalizedText(bulletin.avActivityComment)}</p>
           </div>
         </section>
         <section id="section-bulletin-additional" className="section-centered section-bulletin section-bulletin-additional">
           <div className="panel brand">
-            <h2 className="subheader">Snowpack Structure</h2>
+            <h2 className="subheader"><FormattedHTMLMessage id="bulletin:report:snowpack-structure:headline" /></h2>
             {
               (this.dangerPatterns.length > 0) &&
                 <ul className="list-inline list-labels">
-                  <li><span className="tiny heavy letterspace">Gefahrenmuster</span></li>
+                  <li><span className="tiny heavy letterspace"><FormattedHTMLMessage id="bulletin:report:danger-patterns" /></span></li>
                   {
                     this.dangerPatterns.map((dp, index) => <li key={index}><DangerPatternItem dangerPattern={dp} /></li>)
                   }
                 </ul>
             }
-            <p>{snowpackStructureText}</p>
-            <h2 className="subheader">Weather</h2>
-            <ul className="list-inline ">
-              <li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-              </li>
-            </ul> {
-              bulletin.tendency &&
+            <p>{this.getLocalizedText(bulletin.snowpackStructureComment)}</p>
+            { false &&
+              <h2 className="subheader">Weather</h2>
+            } { false &&
+              <ul className="list-inline ">
+                <li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
+                </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
+                </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
+                </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
+                </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
+                </li>
+              </ul>
+            }
+            { bulletin.tendency &&
               <div>
-                <h2 className="subheader">Tendency</h2>
-                <p>{tendencyText}</p>
-                <p className="bulletin-author">Author: <a href="#" title className>{bulletin.author.name}</a></p>
+                <h2 className="subheader"><FormattedHTMLMessage id="bulletin:report:tendency:headline" /></h2>
+                <p>{this.getLocalizedText(bulletin.tendencyComment)}</p>
+                <p className="bulletin-author"><FormattedHTMLMessage id="bulletin:report:author" />:
+                  { (bulletin.author && bulletin.author.name) &&
+                    <a href={'mailto:' + bulletin.author.email}>{bulletin.author.name}</a>
+                  }{ Array.isArray(bulletin.additionalAuthors) &&
+                    bulletin.additionalAuthors.map((a, i) =>
+                      <span key={i}>, {a}</span>
+                    )
+                  }
+                </p>
               </div>
             }
           </div>

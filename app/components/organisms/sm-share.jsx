@@ -4,20 +4,44 @@ import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 
 class SmShare extends React.Component {
   render() {
-    const accounts = config.get('socialMedia');
     return (
       <section className="section section-padding sm-share-follow">
-        <p><FormattedHTMLMessage id="footer:follow-us" /></p>
+        <p><FormattedHTMLMessage id="main:share-this" /></p>
         <ul className="list-inline sm-buttons">
-          { accounts.map((a, i) =>
-            <li key={a.id + i}>
-              <a href={a.url}
-                className={'sm-button icon-sm-' + a.id + ' modal-trigger mfp-ajax tooltip'}
-                title={this.props.intl.formatMessage({id: 'footer:follow-us:hover'}, {on: a.name})}>
-                <span>{a.name}</span>
-              </a>
-            </li>
-          )}
+          <li>
+            <a
+              className="sm-button icon-sm-facebook modal-trigger mfp-ajax tooltip"
+              title={this.props.intl.formatMessage({id: 'main:share-this:hover'}, {on: 'Facebook'})} >
+              <span>Facebook</span>
+            </a>
+          </li>
+          <li>
+            <a
+              className="sm-button icon-sm-twitter modal-trigger mfp-ajax tooltip"
+              title={this.props.intl.formatMessage({id: 'main:share-this:hover'}, {on: 'Twitter'})} >
+              <span>Twitter</span>
+            </a>
+          </li>
+          <li>
+            <a
+              className="sm-button icon-sm-instagram modal-trigger mfp-ajax tooltip"
+              title={this.props.intl.formatMessage({id: 'main:share-this:hover'}, {on: 'Instagram'})} >
+              <span>Instagram</span>
+            </a>
+          </li>
+          <li>
+            <a
+              className="sm-button icon-sm-youtube modal-trigger mfp-ajax tooltip"
+              title={this.props.intl.formatMessage({id: 'main:share-this:hover'}, {on: 'YouTube'})} >
+              <span>YouTube</span>
+            </a>
+          </li>
+          <li>
+            <a className="sm-button icon-sm-whatsapp modal-trigger mfp-ajax tooltip"
+              title={this.props.intl.formatMessage({id: 'main:share-this:hover'}, {on: 'WhatsApp'})} >
+              <span>WhatsApp</span>
+            </a>
+          </li>
         </ul>
       </section>
     );
