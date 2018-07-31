@@ -145,6 +145,11 @@
 				"accept" : "Sí",
 				"reject" : "No"
 			},
+			"loadAutoSaveDialog" : {
+				"message" : "Si desidera caricare il report di stato salvato automaticamente?",
+				"accept" : "Sí",
+				"reject" : "No"
+			},
 			"saveErrorDialog" : {
 				"header" : "Errore durante salvare",
 				"message" : "Errore salvando il bollettino valanghe!",
