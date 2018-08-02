@@ -8,12 +8,10 @@ export default class ModalStateStore {
   }
 
   @action open() {
-    console.log('OPEN DIALOG');
     this._isOpen.set(true);
   }
 
   @action close() {
-    console.log('CLOSE DIALOG');
     this._isOpen.set(false);
   }
 
