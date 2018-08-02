@@ -18,13 +18,13 @@
   },
   "apiKeys": {
     "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo",
-    "gaTrackingId": ""
+    "gaTrackingId": "UA-69879901-5"
   },
   "links": {
     "meteoViewer":
       "https://data1.geo.univie.ac.at/sandbox/meteo_viewer/",
     "stationTable":
-      "http://data1.geo.univie.ac.at/sandbox/meteo_ogd_table/stations_table.php"
+      "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php"
   },
   "socialMedia": [
     {"id": "facebook", "name": "Facebook", "url": "#"},
@@ -40,7 +40,7 @@
       "opacity": 1.0
     },
     "initOptions": {
-      "maxBounds": [[45.150876, 9.932124], [48.240084, 17.118646]],
+      "maxBounds": [[45.0, 9.2], [49.5, 18.0]],
       "maxBoundsViscosity": 1,
       "maxZoom": 10,
       "minZoom": 7
@@ -52,14 +52,14 @@
       {
         "id": "Lawis BW",
         "url":
-          "http://data1.geo.univie.ac.at/TMS/ALBINA/EUREGIO-TMS/{z}/{x}/{y}.png",
+          "https://data1.geo.univie.ac.at/TMS/LAWIS/LAWIS_BW_2018-TMS/{z}/{x}/{y}.png",
         "maxZoom": 10,
         "minZoom": 7,
         "detectRetina": false,
         "tms": true,
         "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]],
         "attribution":
-          "&copy; <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>, Tiles courtesy of <a href='http://hot.openstreetmap.org/' target='_blank'>Humanitarian OpenStreetMap Team</a>"
+         "&copy; Universität Wien"
       }
     ],
     "regionStyling": {
@@ -74,7 +74,7 @@
       },
       "dehighlighted": {
         "fillColor": "white",
-        "fillOpacity": 0.5
+        "fillOpacity": 0.75
       },
       "dimmed": {
         "fillColor": "white",
