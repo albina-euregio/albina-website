@@ -7,6 +7,7 @@ import PageFooter from './organisms/page-footer.jsx';
 import MenuStore from '../stores/menuStore';
 import ModalDialog from './modal-dialog';
 import SubscribeDialog from './dialogs/subscribe-dialog';
+import CookieConsent from './dialogs/cookie-consent';
 import { renderRoutes } from 'react-router-config';
 import { modal_init } from '../js/modal';
 
@@ -60,6 +61,9 @@ class Page extends React.Component {
         <ModalDialog id="subscribeDialog">
           <SubscribeDialog />
         </ModalDialog>
+        { (typeof(window['cookieConsentStore']) !== 'undefined') &&
+          <CookieConsent />
+        }
       </div>
     );
   }
