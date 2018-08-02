@@ -5,6 +5,7 @@ import Base from './base.js';
 import AppStore from './appStore.js';
 import ConfigStore from './configStore.js';
 import StaticPageStore from './stores/staticPageStore';
+import ReactGA from 'react-ga';
 import {addLocaleData} from 'react-intl';
 import {reaction} from 'mobx';
 import en from 'react-intl/locale-data/en';
@@ -68,6 +69,15 @@ Base.doRequest(configUrl).then((configData) => {
   //configParsed['developmentMode'] = DEV; // included via webpack.DefinePlugin
 
   window['config'] = new ConfigStore(configParsed);
+
+  // init Analytics software - only on production builds
+  if(!DEV) {
+    const trackingKey = window['config'].get('apiKeys.gaTrackingId');
+    if(trackingKey) {
+      ReactGA.initialize(trackingKey);
+      ReactGA.pageview(window.location.hostname + window.location.pathname + window.location.search);
+    }
+  }
 
   // replace language-dependent body classes on language change.
   const languageDependentClassesHandler = reaction(

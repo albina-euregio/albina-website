@@ -17,7 +17,8 @@
     "blogger": "https://www.googleapis.com/blogger/v3/blogs/"
   },
   "apiKeys": {
-    "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo"
+    "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo",
+    "gaTrackingId": ""
   },
   "links": {
     "meteoViewer":
