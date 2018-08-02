@@ -122,6 +122,13 @@
   "bulletin:report:tendency:headline": {"en": "Tendency", "de": "Tendenz", "it": "Tendenza"},
   "bulletin:report:danger-patterns": {"en": "Danger Patterns", "de": "Gefahrenmuster", "it": "Danger Patterns"},
   "bulletin:report:author": {"en": "Author", "de": "Author", "it": "Author"},
-  "bulletin:treeline": {"en": "Tree line", "de": "Waldgrenze", "it": "Limite del bosco"}
+  "bulletin:treeline": {"en": "Tree line", "de": "Waldgrenze", "it": "Limite del bosco"},
 
+  "dialog:subscribe:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},
+  "dialog:subscribe:subheader": {"en": "Stay up to date", "de": "Bleib auf dem Laufenden", "it": "Rimani aggiornato"},
+  "dialog:subscribe:select-subscrption": {"en": "Select <span class=\"normal\">what you want to subscribe for</span>", "de": "Wähle <span class=\"normal\">dein Abonnement</span>", "it": "Seleziona <span class=\"normal\">il tuo abbonamento</span>"},
+  "dialog:subscribe:bulletin": {"en": "Avalanche Forecast", "de": "Lawinenvorhersage", "it": "Bollettino valanghe"},
+  "dialog:subscribe:blog": {"all": "Blog"},
+  "dialog:subscribe:social-media": {"en": "Social Media", "de": "Soziale Medien", "it": "Social Media"},
+  "dialog:subscribe:app": {"en": "Apps", "de": "Apps", "it": "App"}
 }

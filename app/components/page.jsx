@@ -6,6 +6,7 @@ import PageHeader from './organisms/page-header.jsx';
 import PageFooter from './organisms/page-footer.jsx';
 import MenuStore from '../stores/menuStore';
 import { renderRoutes } from 'react-router-config';
+import { modal_init } from '../js/modal';
 
 class Page extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class Page extends React.Component {
     if(nextProps.location !== this.props.location
       && nextProps.history.action === 'PUSH'
       && !nextProps.location.hash) {
-        
+
       // scroll to top on forward page change (if no hash is set)
       // see https://github.com/ReactTraining/react-router/issues/2019
       window.scrollTo(0, 0);
@@ -39,6 +40,7 @@ class Page extends React.Component {
     ) {
       this.props.history.push('bulletin');
     }
+    modal_init();
   }
 
   render() {

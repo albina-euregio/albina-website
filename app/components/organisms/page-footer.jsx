@@ -3,6 +3,8 @@ import { observer, inject } from 'mobx-react';
 import { injectIntl } from 'react-intl';
 import Menu from '../menu';
 import SmFollow from './sm-follow.jsx';
+import Dialog from '../dialog';
+import SubscribeDialog from '../dialogs/subscribe-dialog';
 
 class PageFooter extends React.Component {
   constructor(props) {
@@ -28,9 +30,9 @@ class PageFooter extends React.Component {
             <div className="grid-item normal-6">
               <p className="page-footer-subscribe">
                 <a
-                  href="#"
+                  href="#subscribeDialog"
                   title={this.props.intl.formatMessage({id: 'footer:subscribe:hover'})}
-                  className="modal-trigger mfp-ajax pure-button tooltip">
+                  className="modal-trigger popup-modal pure-button tooltip">
                   {this.props.intl.formatMessage({id: 'footer:subscribe'})}
                 </a>
               </p>
@@ -56,6 +58,9 @@ class PageFooter extends React.Component {
           </div>
         </section>
         <SmFollow />
+        <Dialog id="subscribeDialog">
+          <SubscribeDialog />
+        </Dialog>
       </div>
     );
   }

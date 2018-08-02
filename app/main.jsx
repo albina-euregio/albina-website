@@ -4,6 +4,7 @@ import App from './components/app.jsx';
 import Base from './base.js';
 import AppStore from './appStore.js';
 import ConfigStore from './configStore.js';
+import ModalStateStore from './stores/modalStateStore';
 import StaticPageStore from './stores/staticPageStore';
 import ReactGA from 'react-ga';
 import {addLocaleData} from 'react-intl';
@@ -28,11 +29,13 @@ window[
   'fluidvids'
 ] = require('./bower_components/fluidvids_2.4.1/dist/fluidvids.min.js');
 
-require('./js/custom.js');
 
 // TODO: check content API for maintenance mode before starting the app
 window['appStore'] = new AppStore();
 window['staticPageStore'] = new StaticPageStore();
+window['modalStateStore'] = new ModalStateStore();
+
+require('./js/custom.js');
 
 /*
  * Set project root directory. The project root is determined by the location
