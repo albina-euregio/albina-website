@@ -3,8 +3,6 @@ import { observer, inject } from 'mobx-react';
 import { injectIntl } from 'react-intl';
 import Menu from '../menu';
 import SmFollow from './sm-follow.jsx';
-import Dialog from '../dialog';
-import SubscribeDialog from '../dialogs/subscribe-dialog';
 
 class PageFooter extends React.Component {
   constructor(props) {
@@ -58,9 +56,6 @@ class PageFooter extends React.Component {
           </div>
         </section>
         <SmFollow />
-        <Dialog id="subscribeDialog">
-          <SubscribeDialog />
-        </Dialog>
       </div>
     );
   }

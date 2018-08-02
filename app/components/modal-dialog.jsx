@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 
 @observer
-export default class Dialog extends React.Component {
+export default class ModalDialog extends React.Component {
   constructor(props) {
     super(props);
   }

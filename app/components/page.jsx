@@ -5,6 +5,8 @@ import Jumpnav from './organisms/jumpnav.jsx';
 import PageHeader from './organisms/page-header.jsx';
 import PageFooter from './organisms/page-footer.jsx';
 import MenuStore from '../stores/menuStore';
+import ModalDialog from './modal-dialog';
+import SubscribeDialog from './dialogs/subscribe-dialog';
 import { renderRoutes } from 'react-router-config';
 import { modal_init } from '../js/modal';
 
@@ -55,6 +57,9 @@ class Page extends React.Component {
           </main>
           <PageFooter menuStore={this.menuStore} />
         </div>
+        <ModalDialog id="subscribeDialog">
+          <SubscribeDialog />
+        </ModalDialog>
       </div>
     );
   }
