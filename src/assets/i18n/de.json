@@ -123,6 +123,7 @@
 				"noIFrameSupport" : "Dein Browser unterstützt keine IFrames!"
 			},
 			"discardDialog" : {
+				"header" : "Änderungen verwerfen",
 				"message" : "Willst du die Änderungen verwerfen?",
 				"accept" : "Ja",
 				"reject" : "Nein"
@@ -234,6 +235,11 @@
 				"message" : "Beim Absenden der Lawinenvorhersage ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
+			"submitBulletinsDuplicateRegionDialog" : {
+				"header" : "Fehler beim Absenden",
+				"message" : "Regionen sind mehrfach beurteilt! Lawinenvorhersage kann nicht abgesendet werden.",
+				"accept" : "Ok"
+			},
 			"checkBulletinsErrorDialog" : {
 				"header" : "Fehler beim Überprüfen",
 				"message" : "Beim Überprüfen der Lawinenvorhersage ist ein Fehler aufgetreten!",
@@ -268,7 +274,36 @@
 		}
 	},
 	"admin" : {
-		"title" : "ADMIN Einstellungen"
+		"config" : {
+			"title" : "Server Konfiguration",
+			"table" : {
+				"title" : {
+					"key" : "Parameter",
+					"value" : "Wert"
+				},
+				"createMaps" : "Karten erzeugen",
+				"createPdf" : "PDF erzeugen",
+				"sendEmails" : "Emails versenden",
+				"publishToSocialMedia" : "Publizieren auf sozialen Netzwerken",
+				"publishAt5PM" : "Publizieren um 17:00 Uhr",
+				"publishAt8AM" : "Publizieren um 08:00 Uhr",
+				"localImagesPath" : "Pfad zu lokalen Bildern",
+				"localFontsPath" : "Pfad zu Schriften",
+				"publishBulletinsTyrol" : "Lawinenvorhersage für Tirol publizieren",
+				"publishBulletinsSouthTyrol" : "Lawinenvorhersage für Südtirol publizieren",
+				"publishBulletinsTrentino" : "Lawinenvorhersage für das Trentino publizieren",
+				"publishBulletinsStyria" : "Lawinenvorhersage für die Steiermark publizieren",
+				"pdfDirectory" : "Ordner für PDF",
+				"serverImagesUrl" : "Pfad zu Bildern am Server",
+				"mapsPath" : "Pfad zu Karten",
+				"emailUsername" : "Benutzername für Email",
+				"emailPassword" : "Passwort für Email"
+			},
+			"button" : {
+				"save" : "Speichern",
+				"discard" : "Verwerfen"
+			}
+		}
 	},
 	"settings" : {
 		"title" : "Einstellungen",

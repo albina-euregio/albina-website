@@ -235,6 +235,11 @@
 				"message" : "Errore durante l'invio del bollettino valanghe!",
 				"accept" : "Ok"
 			},
+			"submitBulletinsDuplicateRegionDialog" : {
+				"header" : "Errore durante l'invio",
+				"message" : "Micro-aree valutate più volte! Non è possibile inviare previsioni sulle valanghe.",
+				"accept" : "Ok"
+			},
 			"checkBulletinsErrorDialog" : {
 				"header" : "Errore durante verifica",
 				"message" : "Errore verficando il bollettino valanghe!",
@@ -269,7 +274,36 @@
 		}
 	},
 	"admin" : {
-		"title" : "Impostazioni ADMIN"
+		"config" : {
+			"title" : "Configurazione Server",
+			"table" : {
+				"title" : {
+					"key" : "Parametro",
+					"value" : "Valore"
+				},
+				"createMaps" : "Creare mappe",
+				"createPdf" : "Creare pdf",
+				"sendEmails" : "Inviare e-mail",
+				"publishToSocialMedia" : "Pubblicazione sui social network",
+				"publishAt5PM" : "Publicare alle 17:00",
+				"publishAt8AM" : "Publicare alle 08:00",
+				"localImagesPath" : "Percoros alle immagini locali",
+				"localFontsPath" : "Percorso dei font",
+				"publishBulletinsTyrol" : "Pubblicare bollettino valanghe per il Tirolo",
+				"publishBulletinsSouthTyrol" : "Pubblicare bollettino valanghe per l'Alto Adige",
+				"publishBulletinsTrentino" : "Pubblicare bollettino valanghe per il Trentino",
+				"publishBulletinsStyria" : "Pubblicare bollettino valanghe per la Stiria",
+				"pdfDirectory" : "Cartella per pdf",
+				"serverImagesUrl" : "Percorso alle immagini sul server",
+				"mapsPath" : "Percorso verso le mappe",
+				"emailUsername" : "Nome utente per e-mail",
+				"emailPassword" : "Password per e-mail"
+			},
+			"button" : {
+				"save" : "Salva",
+				"discard" : "Scarta"
+			}
+		}
 	},
 	"settings" : {
 		"title" : "Impostazioni",

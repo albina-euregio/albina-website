@@ -235,6 +235,11 @@
 				"message" : "There was an error submitting the bulletins!",
 				"accept" : "Ok"
 			},
+			"submitBulletinsDuplicateRegionDialog" : {
+				"header" : "Error submitting bulletins",
+				"message" : "Regions rated multiple times! Bulletin can not be submitted.",
+				"accept" : "Ok"
+			},
 			"checkBulletinsErrorDialog" : {
 				"header" : "Error checking bulletins",
 				"message" : "There was an error checking the bulletins!",
@@ -269,7 +274,36 @@
 		}
 	},
 	"admin" : {
-		"title" : "ADMIN Settings"
+		"config" : {
+			"title" : "Server Configuration",
+			"table" : {
+				"title" : {
+					"key" : "Parameter",
+					"value" : "Value"
+				},
+				"createMaps" : "Create maps",
+				"createPdf" : "Create PDF",
+				"sendEmails" : "Send emails",
+				"publishToSocialMedia" : "Publish on social media",
+				"publishAt5PM" : "Publish at 5PM",
+				"publishAt8AM" : "Publish at 8AM",
+				"localImagesPath" : "Path to local images",
+				"localFontsPath" : "Path to fonts",
+				"publishBulletinsTyrol" : "Publish avalanche forecast for Tirol",
+				"publishBulletinsSouthTyrol" : "Publish avalanche forecast for South Tyrol",
+				"publishBulletinsTrentino" : "Publish avalanche forecast for Trentino",
+				"publishBulletinsStyria" : "Publish avalanche forecast for Styria",
+				"pdfDirectory" : "Directory for PDF",
+				"serverImagesUrl" : "Path to server images",
+				"mapsPath" : "Path to maps",
+				"emailUsername" : "Username for email",
+				"emailPassword" : "Password for email"
+			},
+			"button" : {
+				"save" : "Save",
+				"discard" : "Discard"
+			}
+		}
 	},
 	"settings" : {
 		"title" : "Settings",
