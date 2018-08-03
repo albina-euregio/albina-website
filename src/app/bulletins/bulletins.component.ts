@@ -38,6 +38,9 @@ export class BulletinsComponent {
   public submitBulletinsErrorModalRef: BsModalRef;
   @ViewChild('submitBulletinsErrorTemplate') submitBulletinsErrorTemplate: TemplateRef<any>;
 
+  public submitBulletinsDuplicateRegionModalRef: BsModalRef;
+  @ViewChild('submitBulletinsDuplicateRegionTemplate') submitBulletinsDuplicateRegionTemplate: TemplateRef<any>;
+
   public checkBulletinsErrorModalRef: BsModalRef;
   @ViewChild('checkBulletinsErrorTemplate') checkBulletinsErrorTemplate: TemplateRef<any>;
 
@@ -398,16 +401,17 @@ export class BulletinsComponent {
     this.bulletinsService.checkBulletins(date, this.authenticationService.getActiveRegion()).subscribe(
       data => {
         let result = data.json();
+        let duplicateRegion = false;
 
         let message = "<b>" + this.translateService.instant("bulletins.table.submitBulletinsDialog.message") + '</b><br><br>';
 
         for (let entry of result) {
+          if (entry == 'duplicateRegion')
+            duplicateRegion = true;
           if (entry == 'missingDangerRating')
             message += this.translateService.instant("bulletins.table.submitBulletinsDialog.missingDangerRating") + '<br>';
           if (entry == 'missingRegion')
             message += this.translateService.instant("bulletins.table.submitBulletinsDialog.missingRegion") + '<br>';
-          if (entry == 'duplicateRegion')
-            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.duplicateRegion") + '<br>';
           if (entry == 'missingAvActivityHighlights')
             message += this.translateService.instant("bulletins.table.submitBulletinsDialog.missingAvActivityHighlights") + '<br>';
           if (entry == 'missingAvActivityComment')
@@ -420,7 +424,10 @@ export class BulletinsComponent {
             message += this.translateService.instant("bulletins.table.submitBulletinsDialog.pendingSuggestions");
         }
 
-        this.openSubmitBulletinsModal(this.submitBulletinsTemplate, message, date);
+        if (duplicateRegion)
+          this.openSubmitBulletinsDuplicateRegionModal(this.submitBulletinsDuplicateRegionTemplate);
+        else
+          this.openSubmitBulletinsModal(this.submitBulletinsTemplate, message, date);
       },
       error => {
         console.error("Bulletins could not be checked!");
@@ -515,6 +522,15 @@ export class BulletinsComponent {
  
   submitBulletinsModalDecline(): void {
     this.submitBulletinsModalRef.hide();
+    this.publishing = undefined;
+  }
+
+  openSubmitBulletinsDuplicateRegionModal(template: TemplateRef<any>) {
+    this.submitBulletinsDuplicateRegionModalRef = this.modalService.show(template, this.config);
+  }
+
+  submitBulletinsDuplicateRegionModalConfirm(): void {
+    this.submitBulletinsDuplicateRegionModalRef.hide();
     this.publishing = undefined;
   }
 

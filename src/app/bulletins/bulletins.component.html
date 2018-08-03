@@ -76,6 +76,13 @@
   </div>
 </ng-template>
 
+<ng-template #submitBulletinsDuplicateRegionTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.table.submitBulletinsDuplicateRegionDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="submitBulletinsDuplicateRegionModalConfirm()">{{ "bulletins.table.submitBulletinsDuplicateRegionDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
+
 <ng-template #checkBulletinsErrorTemplate>
   <div class="modal-body text-center">
     <p>{{ "bulletins.table.checkBulletinsErrorDialog.message" | translate }}</p>
