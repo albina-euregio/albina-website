@@ -84,7 +84,10 @@ class PageHeader extends React.Component {
           </button>
         </div>
         <div className="page-header-interreg">
-          <a href="#" className="logo-interreg tooltip" title={this.props.intl.formatMessage({id: 'header:interreg:hover'})}>
+          <a href={config.get('links.interreg')}
+            className="logo-interreg tooltip"
+            title={this.props.intl.formatMessage({id: 'header:interreg:hover'})}
+            target="_blank" >
             <span>Interreg</span>
           </a>
         </div>
