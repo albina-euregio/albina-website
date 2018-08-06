@@ -31,7 +31,6 @@ export class AdminComponent {
   public publishBulletinsTrentino: boolean;
   public publishBulletinsStyria: boolean;
   public pdfDirectory: string;
-  public serverImagesUrl: string;
   public mapsPath: string;
   public emailUsername: string;
   public emailPassword: string;
@@ -67,7 +66,6 @@ export class AdminComponent {
           this.publishBulletinsTrentino = response.publishBulletinsTrentino;
           this.publishBulletinsStyria = response.publishBulletinsStyria;
           this.pdfDirectory = response.pdfDirectory;
-          this.serverImagesUrl = response.serverImagesUrl;
           this.mapsPath = response.mapsPath;
           this.emailUsername = response.emailUsername;
           this.emailPassword = response.emailPassword;
@@ -113,7 +111,6 @@ export class AdminComponent {
     json['publishBulletinsTrentino'] = this.publishBulletinsTrentino;
     json['publishBulletinsStyria'] = this.publishBulletinsStyria;
     json['pdfDirectory'] = this.pdfDirectory;
-    json['serverImagesUrl'] = this.serverImagesUrl;
     json['mapsPath'] = this.mapsPath;
     json['emailUsername'] = this.emailUsername;
     json['emailPassword'] = this.emailPassword;
@@ -121,10 +118,10 @@ export class AdminComponent {
 
     this.configurationService.saveConfigurationProperties(json).subscribe(
       data => {
-        debugger
+        console.log("Server configuration saved!");
       },
       error => {
-        debugger
+        console.error("Server configuration could not be saved!");
       }
     );
   }
