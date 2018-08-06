@@ -49,6 +49,8 @@ export default class StaticPage extends React.Component {
             (new Parser()).parse(this.state.content)
           }
         </section>
+        <section className="section-padding">
+        </section>
       </div>
     );
   }

@@ -21,6 +21,7 @@
     "gaTrackingId": "UA-69879901-5"
   },
   "links": {
+    "interreg": "http://www.europaregion.info/",
     "meteoViewer":
       "https://data1.geo.univie.ac.at/sandbox/meteo_viewer/",
     "stationTable":
