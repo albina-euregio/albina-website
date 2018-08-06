@@ -130,6 +130,7 @@ class BulletinMap extends React.Component {
                   href="#section-bulletin-report"
                   className="pure-button tooltip"
                   title={this.props.intl.formatMessage({id: 'bulletin:map:info:details:hover'})}
+                  data-scroll=""
                 >
                   {(new Parser()).parse(this.props.intl.formatHTMLMessage({id: 'bulletin:map:info:details'}))}<span className="icon-arrow-down" />
                 </a>

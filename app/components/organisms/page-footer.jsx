@@ -36,14 +36,18 @@ class PageFooter extends React.Component {
               </p>
               <p className="page-footer-text">Bush tomato gumbo potato garbanzo ricebean burdock daikon coriander kale quandong. Bok choy celery leek <a href>avocado shallot</a> horseradish aubergine parsley. Bok choy bell pepper kale celery desert raisin kakadu plum bok choy bunya nuts.</p>
               <p className="page-footer-interreg">
-                <a href="#" className="logo-interreg tooltip" title={this.props.intl.formatMessage({id: 'footer:interreg:hover'})}><span>Interreg</span></a>
+                <a href="#"
+                  className="logo-interreg tooltip"
+                  title={this.props.intl.formatMessage({id: 'footer:interreg:hover'})}><span>Interreg</span>
+                </a>
               </p>
             </div>
             <div className="grid-item all-12">
               <p className="page-footer-top">
                 <a href="#page-main"
                   className="icon-arrow-up tooltip"
-                  title={this.props.intl.formatMessage({id: 'footer:top:hover'})}>
+                  title={this.props.intl.formatMessage({id: 'footer:top:hover'})}
+                  data-scroll="">
                   <span>Top</span>
                 </a>
               </p>

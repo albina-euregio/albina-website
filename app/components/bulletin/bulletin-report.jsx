@@ -106,7 +106,10 @@ class BulletinReport extends React.Component {
             </header>
             <div className="bulletin-report-pictobar">
               <div className="bulletin-report-region">
-                <a href="#page-main" className="img icon-arrow-up tooltip" title="This Bulletin is valid for the selected region.<br/>Click to return to Map">
+                <a href="#page-main"
+                  className="img icon-arrow-up tooltip"
+                  title={this.props.intl.formatMessage({id: 'bulletin:report:selected-region:hover'})}
+                  data-scroll="" >
                   <BulletinAWMapStatic store={this.props.store} bulletin={bulletin} />
                 </a>
               </div>

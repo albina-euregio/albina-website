@@ -17,8 +17,7 @@ class BulletinAWMapStatic extends React.Component {
 
     return (
       <img src={url}
-        alt={this.props.intl.formatMessage({id: 'bulletin:report:selected-region:alt'})}
-        title={this.props.intl.formatMessage({id: 'bulletin:report:selected-region:hover'})} />
+        alt={this.props.intl.formatMessage({id: 'bulletin:report:selected-region:alt'})} />
     );
   }
 }
