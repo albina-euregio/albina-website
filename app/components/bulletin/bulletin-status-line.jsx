@@ -13,7 +13,7 @@ class BulletinStatusLine extends React.Component {
     const collection = this.props.store.activeBulletinCollection;
 
     if(this.props.status == 'pending') {
-      return 'Loading\u2026';
+      return this.props.intl.formatMessage({id: 'bulletin:header:loading'}) + '\u2026';
     }
 
     if(this.props.status == 'ok') {
@@ -34,7 +34,7 @@ class BulletinStatusLine extends React.Component {
       return this.props.intl.formatMessage({id: 'bulletin:header:published-at'}, params);
     }
 
-    return 'No Bulletin';
+    return this.props.intl.formatMessage({id: 'bulletin:header:no-bulletin'});
   }
 
   render() {
