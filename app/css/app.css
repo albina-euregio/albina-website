@@ -24,6 +24,11 @@ iframe#stationTable {
   pointer-events: none;
 }
 
+/* Tendency steady icon */
+.icon-arrow-steady::before {
+  content: '\E817';
+}
+
 /* Map */
 .section-map {
   border: 1px solid #E6EEF2;
