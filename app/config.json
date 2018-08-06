@@ -27,11 +27,31 @@
       "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php"
   },
   "socialMedia": [
-    {"id": "facebook", "name": "Facebook", "url": "#"},
-    {"id": "twitter", "name": "Twitter", "url": "#"},
-    {"id": "instagram", "name": "Instagram", "url": "#"},
-    {"id": "youtube", "name": "YouTube", "url": "#"},
-    {"id": "whatsapp", "name": "WhatsApp", "url": "#"}
+    {"id": "facebook", "name": "Facebook", "url": {
+      "AT-07": "#",
+      "IT-32-BZ": "#",
+      "IT-32-TN": "#"
+      }},
+    {"id": "twitter", "name": "Twitter", "url": {
+      "AT-07": "#",
+      "IT-32-BZ": "#",
+      "IT-32-TN": "#"
+      }},
+    {"id": "instagram", "name": "Instagram", "url": {
+      "AT-07": "#",
+      "IT-32-BZ": "#",
+      "IT-32-TN": "#"
+      }},
+    {"id": "youtube", "name": "YouTube", "url": {
+      "AT-07": "#",
+      "IT-32-BZ": "#",
+      "IT-32-TN": "#"
+      }},
+    {"id": "whatsapp", "name": "WhatsApp", "url": {
+      "AT-07": "#",
+      "IT-32-BZ": "#",
+      "IT-32-TN": "#"
+      }}
   ],
   "map": {
     "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],

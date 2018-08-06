@@ -20,7 +20,11 @@ class SubscribeDialog extends React.Component {
           <ul className="list-inline list-buttongroup">
             <li><button href="" title="" className="modal-trigger mfp-ajax inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:bulletin'})}</button></li>
             <li><button href="" title="" className="modal-trigger mfp-ajax pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:blog'})}</button></li>
-            <li><button href="" title="" className="inverse pure-button modal-trigger mfp-ajax inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:social-media'})}</button></li>
+            <li>
+              <a href="#subscribeSociaMediaDialog">
+                <button title="" className="inverse pure-button modal-trigger mfp-ajax inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:social-media'})}</button>
+              </a>
+            </li>
             <li><button href="" title="" className="inverse pure-button modal-trigger mfp-ajax inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:app'})}</button></li>
           </ul>
         </form>

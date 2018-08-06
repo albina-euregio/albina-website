@@ -11,10 +11,9 @@ class SmFollow extends React.Component {
         <ul className="list-inline sm-buttons">
           { accounts.map((a, i) =>
             <li key={a.id + i}>
-              <a href={a.url}
-                className={'sm-button icon-sm-' + a.id + ' tooltip'}
-                title={this.props.intl.formatMessage({id: 'footer:follow-us:hover'}, {on: a.name})}
-                target="_blank">
+              <a href="#subscribeSocialMediaDialog"
+                className={'sm-button icon-sm-' + a.id + ' tooltip modal-trigger'}
+                title={this.props.intl.formatMessage({id: 'footer:follow-us:hover'}, {on: a.name})} >
                 <span>{a.name}</span>
               </a>
             </li>
