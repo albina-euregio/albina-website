@@ -1,5 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
+import Base from '../base';
 import PageHeadline from '../components/organisms/page-headline.jsx';
 
 class WeatherMap extends React.Component {
@@ -23,10 +25,15 @@ class WeatherMap extends React.Component {
   }
 
   render() {
-    // use the last path parameter as "domain" and add optional parameters
-    const url = config.get('links.meteoViewer')
-    + '?domain=' + this.props.match.params.datum
-    + (this.props.location.search ? ('&' + this.props.location.search.substr(1)) : '');
+    // use the last path parameter as "domain" and add optional parameters from
+    // query string
+    const params = {
+      domain: this.props.match.params.datum,
+      lang: window['appStore'].language
+    };
+    const url = Base.makeUrl(config.get('links.meteoViewer'),
+      Object.assign(params, queryString.parse(this.props.location.search)));
+
     return (
       <div>
         <PageHeadline title="Snow &amp; Weather" />
