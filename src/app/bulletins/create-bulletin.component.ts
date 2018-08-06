@@ -267,7 +267,7 @@ export class CreateBulletinComponent {
 
         // load current bulletins (do not copy them, also if it is an update)
       } else {
-        if (!this.bulletinsService.getIsUpdate() && this.bulletinsService.getActiveDate().getTime() == this.localStorageService.getDate().getTime() && this.authenticationService.getActiveRegion() == this.localStorageService.getRegion() && this.authenticationService.currentAuthor.getEmail() == this.localStorageService.getAuthor())
+        if (this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && this.bulletinsService.getActiveDate().getTime() == this.localStorageService.getDate().getTime() && this.authenticationService.getActiveRegion() == this.localStorageService.getRegion() && this.authenticationService.currentAuthor.getEmail() == this.localStorageService.getAuthor())
           this.openLoadAutoSaveModal(this.loadAutoSaveTemplate);
         else
           this.loadBulletinsFromServer();
