@@ -11,6 +11,7 @@ import {
 } from "react-leaflet";
 import { injectIntl } from 'react-intl';
 import BulletinVectorLayer from "./bulletin-vector-layer";
+import { tooltip_init } from '../../js/tooltip';
 
 class LeafletMap extends React.Component {
   constructor(props) {
@@ -51,6 +52,11 @@ class LeafletMap extends React.Component {
       L.DomEvent.stopPropagation(e);
       this.props.handleSelectFeature(null);
     });
+
+    window.setTimeout(() => {
+      $('.leaflet-control-zoom a').addClass('tooltip');
+      tooltip_init();      
+    }, 100);
 
     const m = this.map;
     window.addEventListener('resize', () => {

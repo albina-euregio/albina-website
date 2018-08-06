@@ -12,6 +12,7 @@ import SubscribeAppDialog from './dialogs/subscribe-app-dialog';
 import CookieConsent from './dialogs/cookie-consent';
 import { renderRoutes } from 'react-router-config';
 import { modal_init } from '../js/modal';
+import { tooltip_init } from '../js/tooltip';
 
 class Page extends React.Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class Page extends React.Component {
       this.props.history.push('bulletin');
     }
     modal_init();
+    tooltip_init();
   }
 
   render() {

@@ -44,26 +44,36 @@ import { parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStr
     return (
       <ul className="list-inline bulletin-flipper">
         <li className="bulletin-flipper-back">
-          <Link to={'/bulletin/' + prevLink} title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:back'})}>
+          <Link
+            to={'/bulletin/' + prevLink}
+            title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:back'})}
+            className="tooltip">
             <span className="icon-arrow-left" />
             {prevDate}
           </Link>
         </li>
         <li className="bulletin-flipper-latest">
-          <Link to={'/bulletin/' + latestLink} title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest:hover'})} >
+          <Link to={'/bulletin/' + latestLink}
+            title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest:hover'})}
+            className="tooltip">
             {this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest'})}
           </Link>
         </li>
         {nextLink &&
           <li className="bulletin-flipper-forward">
-            <Link to={'/bulletin/' + nextLink} title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:forward'})}>
+            <Link to={'/bulletin/' + nextLink}
+              title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:forward'})}
+              className="tooltip">
               {nextDate + ' '}
               <span className="icon-arrow-right" />
             </Link>
           </li>
         }
         <li className="bulletin-flipper-archive">
-          <Link to="/archive" title={this.props.intl.formatMessage({id: 'bulletin:header:archive:hover'})}>
+          <Link
+            to="/archive"
+            title={this.props.intl.formatMessage({id: 'bulletin:header:archive:hover'})}
+            className="tooltip">
             {this.props.intl.formatMessage({id: 'bulletin:header:archive'})}
           </Link>
         </li>

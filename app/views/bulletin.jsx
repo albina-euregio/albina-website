@@ -10,6 +10,7 @@ import BulletinReport from '../components/bulletin/bulletin-report';
 import SmShare from '../components/organisms/sm-share';
 import { parseDate } from '../util/date.js';
 import Base from './../base';
+import { tooltip_init } from '../js/tooltip';
 
 class Bulletin extends React.Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class Bulletin extends React.Component {
       props.history.push('/bulletin/' + startDate);
     }
 
-    return this.store.load(startDate);
+    return this.store.load(startDate).then(window.setTimeout(tooltip_init, 1000));
   }
 
   render() {

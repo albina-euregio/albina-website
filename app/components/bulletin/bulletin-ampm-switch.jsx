@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { injectIntl, FormattedMessage } from 'react-intl';
+import { tooltip_init } from '../../js/tooltip';
 
 class BulletinAmPmSwitch extends React.Component {
   constructor(props) {
@@ -21,6 +22,8 @@ class BulletinAmPmSwitch extends React.Component {
     });
     const enabled = (this.props.store.activeBulletinCollection) ?
       this.props.store.activeBulletinCollection.hasDaytimeDependency(): false;
+
+    window.setTimeout(tooltip_init, 100);
 
     return (enabled &&
       <span className="bulletin-ampm-switch tooltip" title={title}>

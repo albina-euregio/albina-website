@@ -54,7 +54,6 @@ $(function () {
 		scroll_init();
 
 		navigation_init();
-		tooltip_init();
 		flipper_init();
 		accordion_init();
 		tilt_init();
@@ -332,48 +331,6 @@ function navigation_init() {
 		}
 	}
 }
-
-
-/* !tooltips
-****************************************************/
-
-function tooltip_init() {
-	//delete tooltips;
-	var tooltips = $(".tooltip").not('[data-tippy]');
-	var tooltip_delay, tooltip_theme;
-	if (tooltips.length) {
-		tooltips.each(function(index){
-			if ($(this).hasClass("html")) {
-				tooltip_delay = 0;
-				tooltip_theme = "custom-html";
-			} else {
-				tooltip_delay = scroll_duration / 4;
-				tooltip_theme = "custom";
-			}
-			tippy($(this).get(0), {
-				duration: [scroll_duration / 2, scroll_duration / 4]
-				,delay: [tooltip_delay, tooltip_delay / 2]
-				//,arrow: true
-				,maxWidth: "30em"
-				,updateDuration: scroll_duration / 4
-				,theme: tooltip_theme
-				,animation: 'shift-away'
-				,animateFill: false
-				,inertia: true
-				,placement: "bottom"
-				,flipBehavior: "flip"
-				//,trigger: "click"
-				//,interactive: true
-				,dynamicTitle: true
-				//,followCursor: true
-				,touchHold: true
-				,hideOnClick: true
-			});
-		});
-	}
-}
-
-
 
 /* !flipper
 ****************************************************/
