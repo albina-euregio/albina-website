@@ -17,6 +17,13 @@ iframe#stationTable {
   font-weight: bold;
 }
 
+/* Disable pointer-events on page-loading screen when page is loaded,
+   or otherwise elements that happen to be placed beneath it cannot receive
+   these events */
+.page-loaded .page-loading-screen {
+  pointer-events: none;
+}
+
 /* Map */
 .section-map {
   border: 1px solid #E6EEF2;
