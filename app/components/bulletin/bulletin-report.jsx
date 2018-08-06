@@ -154,7 +154,7 @@ class BulletinReport extends React.Component {
                 <p>{this.getLocalizedText(bulletin.tendencyComment)}</p>
               </div>
             }
-            <p className="bulletin-author"><FormattedHTMLMessage id="bulletin:report:author" />:
+            <p className="bulletin-author"><FormattedHTMLMessage id="bulletin:report:author" />:&nbsp;
               { (bulletin.author && bulletin.author.name) &&
                   <a href={'mailto:' + bulletin.author.email}>{bulletin.author.name}</a>
               }{ Array.isArray(bulletin.additionalAuthors) &&
