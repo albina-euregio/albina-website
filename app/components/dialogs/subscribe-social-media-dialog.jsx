@@ -9,14 +9,15 @@ class SubscribeSocialMediaDialog extends React.Component {
   }
 
   render() {
+    const socialMedia = config.get('subscribe.socialMedia');
     const socialMediaNames = {};
-    config.get('socialMedia').forEach((s) => {
+    socialMedia.forEach((s) => {
       socialMediaNames[s.id] = s.name;
     });
 
     const subscriptions = {};
     Object.keys(window['appStore'].regions).forEach((r) => {
-      subscriptions[r] = config.get('socialMedia').map((s) => {
+      subscriptions[r] = socialMedia.map((s) => {
         return {id: s.id, url: (s.url[r] ? s.url[r] : null)};
       }).filter((e) => e.url);
     });

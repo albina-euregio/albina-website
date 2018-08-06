@@ -4,7 +4,7 @@ import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 
 class SmFollow extends React.Component {
   render() {
-    const accounts = config.get('socialMedia');
+    const accounts = config.get('subscribe.socialMedia');
     return (
       <section className="section section-padding sm-share-follow">
         <p><FormattedHTMLMessage id="footer:follow-us" /></p>

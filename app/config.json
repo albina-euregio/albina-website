@@ -26,33 +26,68 @@
     "stationTable":
       "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php"
   },
-  "socialMedia": [
-    {"id": "facebook", "name": "Facebook", "url": {
-      "AT-07": "#",
-      "IT-32-BZ": "#",
-      "IT-32-TN": "#"
-      }},
-    {"id": "twitter", "name": "Twitter", "url": {
-      "AT-07": "#",
-      "IT-32-BZ": "#",
-      "IT-32-TN": "#"
-      }},
-    {"id": "instagram", "name": "Instagram", "url": {
-      "AT-07": "#",
-      "IT-32-BZ": "#",
-      "IT-32-TN": "#"
-      }},
-    {"id": "youtube", "name": "YouTube", "url": {
-      "AT-07": "#",
-      "IT-32-BZ": "#",
-      "IT-32-TN": "#"
-      }},
-    {"id": "whatsapp", "name": "WhatsApp", "url": {
-      "AT-07": "#",
-      "IT-32-BZ": "#",
-      "IT-32-TN": "#"
-      }}
-  ],
+  "subscribe": {
+    "socialMedia": [
+      {
+        "id": "facebook", "name": "Facebook", "url": {
+          "AT-07": "#",
+          "IT-32-BZ": "#",
+          "IT-32-TN": "#"
+        }
+      },
+      {
+        "id": "twitter", "name": "Twitter", "url": {
+          "AT-07": "#",
+          "IT-32-BZ": "#",
+          "IT-32-TN": "#"
+        }
+      },
+      {
+        "id": "instagram", "name": "Instagram", "url": {
+          "AT-07": "#",
+          "IT-32-BZ": "#",
+          "IT-32-TN": "#"
+        }
+      },
+      {
+        "id": "youtube", "name": "YouTube", "url": {
+          "AT-07": "#",
+          "IT-32-BZ": "#",
+          "IT-32-TN": "#"
+        }
+      },
+      {
+        "id": "whatsapp", "name": "WhatsApp", "url": {
+          "AT-07": "#",
+          "IT-32-BZ": "#",
+          "IT-32-TN": "#"
+        }
+      }
+    ],
+    "apps": [
+      {
+        "id": "lawine-tirol",
+        "url": {
+          "android": "https://play.google.com/store/apps/details?id=com.m_pulso.android.lawine",
+          "ios": "https://itunes.apple.com/at/app/lawine-tirol/id776081927"
+        }
+      },
+      {
+        "id": "snowsafe",
+        "url": {
+          "android": "http://play.google.com/store/apps/details?id=com.roomfour0four.android.avalanche",
+          "ios": "https://itunes.apple.com/us/app/snowsafe/id585169516"
+        }
+      },
+      {
+        "id": "snowhow",
+        "url": {
+          "android": "https://play.google.com/store/apps/details?id=info.snowhow",
+          "ios": "https://itunes.apple.com/us/app/snowhow-freeride/id594335976"
+        }
+      }
+    ]
+  },
   "map": {
     "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],
     "overlay": {
