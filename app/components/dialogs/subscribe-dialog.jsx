@@ -22,10 +22,14 @@ class SubscribeDialog extends React.Component {
             <li><button href="" title="" className="modal-trigger pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:blog'})}</button></li>
             <li>
               <a href="#subscribeSocialMediaDialog" className="modal-trigger">
-                <button title="" className="inverse pure-button inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:social-media'})}</button>
+                <button title="" className="inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:social-media'})}</button>
               </a>
             </li>
-            <li><button href="" title="" className="inverse pure-button modal-trigger inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:app'})}</button></li>
+            <li>
+              <a href="#subscribeAppDialog" title="" className="modal-trigger">
+                <button title="" className="inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:app'})}</button>
+              </a>
+            </li>
           </ul>
         </form>
       </div>

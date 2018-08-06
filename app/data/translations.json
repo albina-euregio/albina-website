@@ -137,6 +137,21 @@
   "dialog:subscribe-social-media:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
   "dialog:subscribe-social-media:contact-button": {"en": "Contact", "de": "Kontakt", "it": "Contatto"},
 
+  "dialog:subscribe-app:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},
+  "dialog:subscribe-app:subheader": {"en": "Apps", "de": "Apps", "it": "App"},
+  "dialog:subscribe-app:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
+  "dialog:subscribe-app:or": {"en": "or", "de": "oder", "it": "o"},
+  "dialog:subscribe-app:android:hover": {"all": "Google Play"},
+  "dialog:subscribe-app:android:button": {"all": "Google Play"},
+  "dialog:subscribe-app:ios:hover": {"all": "App Store"},
+  "dialog:subscribe-app:ios:button": {"all": "App Store"},
+  "dialog:subscribe-app:lawine-tirol:title": {"all": "Lawine Tirol App"},
+  "dialog:subscribe-app:lawine-tirol:text": {"en": "The Lawine Tirol App ...", "de": "Die Lawine Tirol App ...", "it": "L'App Lawine Tirol"},
+  "dialog:subscribe-app:snowsafe:title": {"all": "Snow Safe App"},
+  "dialog:subscribe-app:snowsafe:text": {"en": "The Snow Safe App ...", "de": "Die Snow Safe App ...", "it": "L'App Snow Safe"},
+  "dialog:subscribe-app:snowhow:title": {"all": "snowhow App"},
+  "dialog:subscribe-app:snowhow:text": {"en": "The snowhow App", "de": "Die snowhow App", "it": "L'App snowhow"},
+
   "dialog:cookie-consent:header": {"en": "This website uses Cookies", "de": "Diese Webseite verwendet Cookies", "it": "Questo sito web utilizza i cookie"},
   "dialog:cookie-consent:text": {
     "en": "We use cookies to personalize content and ads, integrate social media and analyze website access. We also share information about your website usage - anonymously - with our partners who may merge it with other information you may have collected in connection with your use of their services. This enables communication and advertising adapted to your personal interests. We would also like to draw your attention to our data protection information for registered online users and our cookie policy.",
