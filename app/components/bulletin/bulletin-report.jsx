@@ -159,7 +159,7 @@ class BulletinReport extends React.Component {
             }
             <p className="bulletin-author"><FormattedHTMLMessage id="bulletin:report:author" />:&nbsp;
               { (bulletin.author && bulletin.author.name) &&
-                  <a href={'mailto:' + bulletin.author.email}>{bulletin.author.name}</a>
+                  <span>{bulletin.author.name}</span>
               }{ Array.isArray(bulletin.additionalAuthors) &&
                   bulletin.additionalAuthors.map((a, i) =>
                     <span key={i}>, {a}</span>
