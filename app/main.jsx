@@ -6,7 +6,6 @@ import AppStore from './appStore.js';
 import ConfigStore from './configStore.js';
 import ModalStateStore from './stores/modalStateStore';
 import StaticPageStore from './stores/staticPageStore';
-import CookieConsentStore from './stores/cookieConsentStore';
 import ReactGA from 'react-ga';
 import {addLocaleData} from 'react-intl';
 import {reaction} from 'mobx';
@@ -35,9 +34,6 @@ window[
 window['appStore'] = new AppStore();
 window['staticPageStore'] = new StaticPageStore();
 window['modalStateStore'] = new ModalStateStore();
-if(!DEV) {
-  window['cookieConsentStore'] = new CookieConsentStore();
-}
 
 require('./js/custom.js');
 

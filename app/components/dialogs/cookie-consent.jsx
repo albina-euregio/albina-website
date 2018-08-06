@@ -8,11 +8,11 @@ class CookieConsent extends React.Component {
   }
 
   accept = () => {
-    window['cookieConsentStore'].active = false;
+    window['appStore'].cookieConsent.active = false;
   }
 
   render() {
-    return ( window['cookieConsentStore'].active &&
+    return ( window['appStore'].cookieConsent.active &&
       <div className="candybar">
         <h3><FormattedHTMLMessage id="dialog:cookie-consent:header" /></h3>
         <p><FormattedHTMLMessage id="dialog:cookie-consent:text" /></p>

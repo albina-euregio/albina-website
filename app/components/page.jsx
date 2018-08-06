@@ -61,9 +61,7 @@ class Page extends React.Component {
         <ModalDialog id="subscribeDialog">
           <SubscribeDialog />
         </ModalDialog>
-        { (typeof(window['cookieConsentStore']) !== 'undefined') &&
-          <CookieConsent />
-        }
+        <CookieConsent />
       </div>
     );
   }

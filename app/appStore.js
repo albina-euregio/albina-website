@@ -4,11 +4,13 @@
 import { observable, action, computed, toJS } from 'mobx';
 import React from 'react';
 import { LocaleStore } from './util/mobx-react-intl.es5.js';
+import CookieConsentStore from './stores/cookieConsentStore';
 import translations from './data/translations.json';
 
 class AppStore extends React.Component {
   @observable keyDown;
   @observable locale;
+  cookieConsent;
   regions;
   languages;
   warnlevelNumbers;
@@ -31,6 +33,7 @@ class AppStore extends React.Component {
     );
 
     this.locale = new LocaleStore(defaultLanguage, translationLookup);
+    this.cookieConsent = new CookieConsentStore();
 
     this.regions = {
       'AT-07': translations['region:AT-07'],
