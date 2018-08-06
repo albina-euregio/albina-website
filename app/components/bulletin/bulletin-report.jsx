@@ -133,44 +133,36 @@ class BulletinReport extends React.Component {
         </section>
         <section id="section-bulletin-additional" className="section-centered section-bulletin section-bulletin-additional">
           <div className="panel brand">
-            <h2 className="subheader"><FormattedHTMLMessage id="bulletin:report:snowpack-structure:headline" /></h2>
-            {
-              (this.dangerPatterns.length > 0) &&
-                <ul className="list-inline list-labels">
-                  <li><span className="tiny heavy letterspace"><FormattedHTMLMessage id="bulletin:report:danger-patterns" /></span></li>
-                  {
-                    this.dangerPatterns.map((dp, index) => <li key={index}><DangerPatternItem dangerPattern={dp} /></li>)
-                  }
-                </ul>
+            { ((this.dangerPatterns.length > 0) || bulletin.snowpackStructureComment) &&
+              <div>
+                <h2 className="subheader"><FormattedHTMLMessage id="bulletin:report:snowpack-structure:headline" /></h2>
+                {
+                  (this.dangerPatterns.length > 0) &&
+                  <ul className="list-inline list-labels">
+                    <li><span className="tiny heavy letterspace"><FormattedHTMLMessage id="bulletin:report:danger-patterns" /></span></li>
+                    {
+                      this.dangerPatterns.map((dp, index) => <li key={index}><DangerPatternItem dangerPattern={dp} /></li>)
+                    }
+                  </ul>
+                }
+                <p>{this.getLocalizedText(bulletin.snowpackStructureComment)}</p>
+              </div>
             }
-            <p>{this.getLocalizedText(bulletin.snowpackStructureComment)}</p>
-            { false &&
-              <h2 className="subheader">Weather</h2>
-            } { false &&
-              <ul className="list-inline ">
-                <li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-                </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-                </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-                </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-                </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-                </li>
-              </ul>
-            }
-            { bulletin.tendency &&
+            { bulletin.tendencyComment &&
               <div>
                 <h2 className="subheader"><FormattedHTMLMessage id="bulletin:report:tendency:headline" /></h2>
                 <p>{this.getLocalizedText(bulletin.tendencyComment)}</p>
-                <p className="bulletin-author"><FormattedHTMLMessage id="bulletin:report:author" />:
-                  { (bulletin.author && bulletin.author.name) &&
-                    <a href={'mailto:' + bulletin.author.email}>{bulletin.author.name}</a>
-                  }{ Array.isArray(bulletin.additionalAuthors) &&
-                    bulletin.additionalAuthors.map((a, i) =>
-                      <span key={i}>, {a}</span>
-                    )
-                  }
-                </p>
               </div>
             }
+            <p className="bulletin-author"><FormattedHTMLMessage id="bulletin:report:author" />:
+              { (bulletin.author && bulletin.author.name) &&
+                  <a href={'mailto:' + bulletin.author.email}>{bulletin.author.name}</a>
+              }{ Array.isArray(bulletin.additionalAuthors) &&
+                  bulletin.additionalAuthors.map((a, i) =>
+                    <span key={i}>, {a}</span>
+                  )
+              }
+            </p>
           </div>
         </section>
       </div>
