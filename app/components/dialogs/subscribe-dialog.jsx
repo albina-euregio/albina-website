@@ -18,14 +18,14 @@ class SubscribeDialog extends React.Component {
         <form className="pure-form pure-form-stacked">
           <label htmlFor="input"><FormattedHTMLMessage id="dialog:subscribe:select-subscrption" /></label>
           <ul className="list-inline list-buttongroup">
-            <li><button href="" title="" className="modal-trigger mfp-ajax inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:bulletin'})}</button></li>
-            <li><button href="" title="" className="modal-trigger mfp-ajax pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:blog'})}</button></li>
+            <li><button href="" title="" className="modal-trigger inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:bulletin'})}</button></li>
+            <li><button href="" title="" className="modal-trigger pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:blog'})}</button></li>
             <li>
-              <a href="#subscribeSociaMediaDialog">
-                <button title="" className="inverse pure-button modal-trigger mfp-ajax inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:social-media'})}</button>
+              <a href="#subscribeSocialMediaDialog" className="modal-trigger">
+                <button title="" className="inverse pure-button inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:social-media'})}</button>
               </a>
             </li>
-            <li><button href="" title="" className="inverse pure-button modal-trigger mfp-ajax inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:app'})}</button></li>
+            <li><button href="" title="" className="inverse pure-button modal-trigger inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:app'})}</button></li>
           </ul>
         </form>
       </div>

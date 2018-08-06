@@ -27,7 +27,7 @@ class BulletinButtonbar extends React.Component {
                 <li>
                   <a href="#subscribeDialog"
                     title={this.props.intl.formatMessage({id: 'bulletin:linkbar:subscribe:hover'})}
-                    className="modal-trigger pure-button tooltip">
+                    className="modal-trigger popup-modal pure-button tooltip">
                     { this.props.intl.formatMessage({id: 'bulletin:linkbar:subscribe'}) }
                   </a>
                 </li>

@@ -70,6 +70,9 @@ function modal_open(modal) {
 		autoFocusLast: false,
 
 		callbacks: {
+			disableOn: function() {
+				return window['modalStateStore'].isOpen;
+			},
 			beforeOpen: function() {
         window['modalStateStore'].open();
       },
@@ -87,6 +90,10 @@ function modal_open(modal) {
 }
 
 function modal_gallery_open(modal) {
+	if(window['modalStateStore'].isOpen) {
+		return;
+	}
+
 	modal.magnificPopup({
 
 		delegate: "a",
@@ -114,6 +121,9 @@ function modal_gallery_open(modal) {
 		removalDelay: 250,//mit close animation abzustimmen
 
 		callbacks: {
+			disableOn: function() {
+				return window['modalStateStore'].isOpen;
+			},
       beforeOpen: function() {
         window['modalStateStore'].open();
       },

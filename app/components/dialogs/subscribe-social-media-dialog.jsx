@@ -27,9 +27,9 @@ class SubscribeSocialMediaDialog extends React.Component {
           <h2 className="subheader"><FormattedHTMLMessage id="dialog:subscribe-social-media:header" /></h2>
           <h2><FormattedHTMLMessage id="dialog:subscribe-social-media:subheader" /></h2>
           <p className="tiny">
-            <Link to="#subscribeDialog" className="icon-link icon-arrow-left tooltip" title="Overview">
+            <a href="#subscribeDialog" className="icon-link icon-arrow-left modal-trigger tooltip" title="Overview">
               <FormattedHTMLMessage id="dialog:subscribe-social-media:back-button" />
-            </Link>
+            </a>
           </p>
         </div>
 
