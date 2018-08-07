@@ -42,7 +42,7 @@ import { Link } from 'react-router-dom';
           : <Link to={e.url} className={classes.join(' ')}>{e.title}</Link>
         }
         {
-          (isActive && e.children && e.children.length > 0) &&
+          (e.children && e.children.length > 0) &&
           <Menu className={this.props.childClassName} entries={e.children} location={this.props.location} onSelect={this.props.onSelect} />
         }
       </li>
