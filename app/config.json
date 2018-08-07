@@ -25,7 +25,11 @@
     "meteoViewer":
       "https://data1.geo.univie.ac.at/sandbox/meteo_viewer/",
     "stationTable":
-      "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php"
+      "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
+    "downloads": {
+      "pdf": "https://example.com/{date}.pdf",
+      "xml": "https://example.com/{date}.xml"
+    }
   },
   "subscribe": {
     "socialMedia": [

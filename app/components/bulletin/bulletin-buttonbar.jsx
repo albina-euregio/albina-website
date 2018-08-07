@@ -1,6 +1,7 @@
 import React from 'react';
 import { inject } from 'mobx-react';
 import { injectIntl, FormattedHTMLMessage } from 'react-intl';
+import stringInject from 'stringinject';
 
 class BulletinButtonbar extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class BulletinButtonbar extends React.Component {
             <div className="normal-8 grid-item">
               <ul className="list-inline bulletin-buttonbar">
                 <li>
-                  <a href="xy.pdf"
+                  <a href={stringInject(config.get('links.downloads.pdf'), {date: this.props.store.settings.date})}
                     title={this.props.intl.formatMessage({id: 'bulletin:linkbar:pdf:hover'})}
                     className="pure-button tooltip">
                     { this.props.intl.formatMessage({id: 'bulletin:linkbar:pdf'}) }

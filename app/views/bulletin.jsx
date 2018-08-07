@@ -82,7 +82,7 @@ class Bulletin extends React.Component {
         <BulletinHeader store={this.store} title={this.state.title} />
         <BulletinMap store={this.store} />
         <BulletinLegend problems={this.store.problems} />
-        <BulletinButtonbar />
+        <BulletinButtonbar store={this.store} />
         <BulletinReport store={this.store} />
         <SmShare />
         <div>
