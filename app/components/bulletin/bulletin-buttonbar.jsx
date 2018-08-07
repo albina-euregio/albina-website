@@ -14,7 +14,7 @@ class BulletinButtonbar extends React.Component {
         <div className="section-centered">
           <div className="grid linkbar">
             <div className="normal-4 grid-item">
-              <a href="#page-main" title="Top" className="icon-link icon-arrow-up tooltip" data-scroll="">
+              <a href="#page-main" title={this.props.intl.formatMessage({id: 'bulletin:linkbar:back-to-map:hover'})} className="icon-link icon-arrow-up tooltip" data-scroll="">
                 <FormattedHTMLMessage id="bulletin:linkbar:back-to-map" />
               </a>
             </div>

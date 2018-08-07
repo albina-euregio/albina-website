@@ -31,7 +31,8 @@ class SubscribeAppDialog extends React.Component {
           <h2 className="subheader"><FormattedHTMLMessage id="dialog:subscribe-app:header" /></h2>
           <h2><FormattedHTMLMessage id="dialog:subscribe-app:subheader" /></h2>
           <p className="tiny">
-            <a href="#subscribeDialog" className="icon-link icon-arrow-left modal-trigger tooltip" title="Overview">
+            <a href="#subscribeDialog" className="icon-link icon-arrow-left modal-trigger tooltip"
+              title={this.props.intl.formatMessage({id: 'dialog:subscribe-app:back-button:hover'})}>
               <FormattedHTMLMessage id="dialog:subscribe-app:back-button" />
             </a>
           </p>

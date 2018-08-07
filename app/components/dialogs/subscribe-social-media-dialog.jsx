@@ -28,7 +28,8 @@ class SubscribeSocialMediaDialog extends React.Component {
           <h2 className="subheader"><FormattedHTMLMessage id="dialog:subscribe-social-media:header" /></h2>
           <h2><FormattedHTMLMessage id="dialog:subscribe-social-media:subheader" /></h2>
           <p className="tiny">
-            <a href="#subscribeDialog" className="icon-link icon-arrow-left modal-trigger tooltip" title="Overview">
+            <a href="#subscribeDialog" className="icon-link icon-arrow-left modal-trigger tooltip"
+              title={this.props.intl.formatMessage({id: 'dialog:subscribe-social-media:back-button:hover'})}>
               <FormattedHTMLMessage id="dialog:subscribe-social-media:back-button" />
             </a>
           </p>
@@ -57,7 +58,9 @@ class SubscribeSocialMediaDialog extends React.Component {
         }
 
         <p>
-          <Link to="/contact" title={this.props.intl.formatMessage({id: 'dialog:subscribe-social-media:contact-button'})} className="secondary pure-button">
+          <Link to="/contact"
+            title={this.props.intl.formatMessage({id: 'dialog:subscribe-social-media:contact-button:hover'})}
+            className="secondary pure-button">
             {this.props.intl.formatMessage({id: 'dialog:subscribe-social-media:contact-button'})}
           </Link>
         </p>
