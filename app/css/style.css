@@ -1904,12 +1904,12 @@ body:before {
 }
 
 /* '' */
-.icon-arrow-decrease:before {
+.icon-arrow-decreasing:before {
   content: '\e821';
 }
 
 /* '' */
-.icon-arrow-increase:before {
+.icon-arrow-increasing:before {
   content: '\e822';
 }
 
