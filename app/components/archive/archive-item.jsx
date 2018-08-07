@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { inject } from 'mobx-react';
+import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 import stringInject from 'stringinject';
 import { dateToISODateString, dateToDateString } from '../../util/date.js';
 
-export default class ArchiveItem extends React.Component {
+class ArchiveItem extends React.Component {
   get previewMap() {
     // TODO: fix daytime
     return window['config'].get('apis.geo')
@@ -20,18 +22,23 @@ export default class ArchiveItem extends React.Component {
           <ul className="list-inline list-download">
             <li>
               <a href={stringInject(config.get('links.downloads.pdf'), {date: dateString})}
-                title="Download"
-                className="small secondary pure-button tooltip">PDF</a>
+                title={this.props.intl.formatMessage({id: 'archive:download-pdf:hover'})}
+                className="small secondary pure-button tooltip">
+                <FormattedHTMLMessage id="archive:download-pdf" />
+              </a>
             </li>
             <li>
               <a href={stringInject(config.get('links.downloads.pdf'), {date: dateString})}
-                title="Download"
-                className="small secondary pure-button tooltip">XML</a>
+                title={this.props.intl.formatMessage({id: 'archive:download-xml:hover'})}
+                className="small secondary pure-button tooltip">
+                <FormattedHTMLMessage id="archive:download-xml" />
+              </a>
             </li>
           </ul>
         </td>
         <td>
-          <Link to={'/bulletin/' + dateString} className="map-preview img tooltip" title="Show full archived forecast">
+          <Link to={'/bulletin/' + dateString} className="map-preview img tooltip"
+            title={this.props.intl.formatMessage({id: 'archive:show-forecast:hover'})}>
             <img src={this.previewMap} alt="Region" />
           </Link>
         </td>
@@ -39,3 +46,5 @@ export default class ArchiveItem extends React.Component {
     );
   }
 }
+
+export default inject('locale')(injectIntl(ArchiveItem));

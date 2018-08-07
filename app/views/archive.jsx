@@ -1,5 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { reaction } from 'mobx';
 import SmShare from '../components/organisms/sm-share.jsx';
 import { parseDate, getSuccDate, dateToISODateString } from '../util/date.js';
 import ArchiveStore from '../stores/archiveStore.js';
@@ -10,6 +11,7 @@ import LanguageFilter from '../components/filters/language-filter.jsx';
 import YearFilter from '../components/filters/year-filter.jsx';
 import MonthFilter from '../components/filters/month-filter.jsx';
 import DayFilter from '../components/filters/day-filter.jsx';
+import { tooltip_init } from '../js/tooltip';
 
 @observer class Archive extends React.Component {
   constructor(props) {
@@ -25,6 +27,28 @@ import DayFilter from '../components/filters/day-filter.jsx';
       this.store.month = d.getMonth() + 1;
       this.store.year = d.getFullYear();
     }
+  }
+
+  componentDidMount() {
+    const up = () => { window.setTimeout(tooltip_init, 1000) }
+
+    const onUpdateStatus = reaction(
+      () => this.store.loading,
+      up
+    );
+    const onUpdateMonth = reaction(
+      () => this.store.month,
+      up
+    );
+    const onUpdateYear = reaction(
+      () => this.store.year,
+      up
+    );
+    const onUpdateDay = reaction(
+      () => this.store.day,
+      up
+    );
+    up();
   }
 
   get dates() {

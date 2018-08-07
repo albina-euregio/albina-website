@@ -124,6 +124,12 @@
   "bulletin:report:author": {"en": "Author", "de": "Autor", "it": "Autore"},
   "bulletin:treeline": {"en": "Tree line", "de": "Waldgrenze", "it": "Limite del bosco"},
 
+  "archive:download-pdf": {"all": "PDF"},
+  "archive:download-xml": {"all": "XML"},
+  "archive:download-pdf:hover": {"en": "Download", "de": "Herunterladen", "it": "Scarica"},
+  "archive:download-xml:hover": {"en": "Download", "de": "Herunterladen", "it": "Scarica"},
+  "archive:show-forecast:hover": {"en": "Show full archived Avalanche Forecast", "de": "Zeige alle Lawinenvorhersagen aus dem Archiv", "it": "Mostra tutti i bollettini valanghe archiviati"},
+
   "dialog:subscribe:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},
   "dialog:subscribe:subheader": {"en": "Stay up to date", "de": "Bleib auf dem Laufenden", "it": "Rimani aggiornato"},
   "dialog:subscribe:select-subscrption": {"en": "Select <span class=\"normal\">what you want to subscribe for</span>", "de": "Wähle <span class=\"normal\">dein Abonnement</span>", "it": "Seleziona <span class=\"normal\">il tuo abbonamento</span>"},
