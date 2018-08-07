@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Parser } from 'html-to-react';
+import { reaction } from 'mobx';
 import { BulletinStore } from '../stores/bulletinStore';
 import BulletinHeader from '../components/bulletin/bulletin-header';
 import BulletinMap from '../components/bulletin/bulletin-map';
@@ -34,6 +35,21 @@ class Bulletin extends React.Component {
         content: responseParsed.data.attributes.body
       });
     });
+
+    const onUpdateStatus = reaction(
+      () => this.store.settings.status,
+      (status) => {
+        window.setTimeout(tooltip_init, 100);
+      }
+    );
+    const onUpdateRegion = reaction(
+      () => this.store.settings.region,
+      (region) => {
+        if(region) {
+          window.setTimeout(tooltip_init, 100);
+        }
+      }
+    );
     return this._fetchData(this.props);
   }
 
@@ -57,7 +73,7 @@ class Bulletin extends React.Component {
       props.history.push('/bulletin/' + startDate);
     }
 
-    return this.store.load(startDate).then(window.setTimeout(tooltip_init, 1000));
+    return this.store.load(startDate);
   }
 
   render() {

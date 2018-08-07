@@ -8,17 +8,12 @@ import BulletinProblemItem from './bulletin-problem-item.jsx';
 import DangerPatternItem from './danger-pattern-item.jsx';
 import BulletinAWMapStatic from './bulletin-awmap-static.jsx';
 import { dateToLongDateString, parseDate, getSuccDate } from '../../util/date.js';
-import { tooltip_init } from '../../js/tooltip';
 
 class BulletinReport extends React.Component {
   warnlevelNumbers;
 
   constructor(props) {
     super(props);
-  }
-
-  componentDidUpdate() {
-    window.setTimeout(tooltip_init, 100);
   }
 
   @computed
