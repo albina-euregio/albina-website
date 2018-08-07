@@ -28,7 +28,7 @@ class ArchiveItem extends React.Component {
               </a>
             </li>
             <li>
-              <a href={stringInject(config.get('links.downloads.pdf'), {date: dateString})}
+              <a href={stringInject(config.get('links.downloads.xml'), {date: dateString})}
                 title={this.props.intl.formatMessage({id: 'archive:download-xml:hover'})}
                 className="small secondary pure-button tooltip">
                 <FormattedHTMLMessage id="archive:download-xml" />
