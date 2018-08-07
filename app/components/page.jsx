@@ -9,6 +9,7 @@ import ModalDialog from './modal-dialog';
 import SubscribeDialog from './dialogs/subscribe-dialog';
 import SubscribeSocialMediaDialog from './dialogs/subscribe-social-media-dialog';
 import SubscribeAppDialog from './dialogs/subscribe-app-dialog';
+import SubscribeBulletinDialog from './dialogs/subscribe-bulletin-dialog';
 import CookieConsent from './dialogs/cookie-consent';
 import { renderRoutes } from 'react-router-config';
 import { modal_init } from '../js/modal';
@@ -64,6 +65,9 @@ class Page extends React.Component {
         </div>
         <ModalDialog id="subscribeDialog">
           <SubscribeDialog />
+        </ModalDialog>
+        <ModalDialog id="subscribeBulletinDialog">
+          <SubscribeBulletinDialog />
         </ModalDialog>
         <ModalDialog id="subscribeSocialMediaDialog">
           <SubscribeSocialMediaDialog />

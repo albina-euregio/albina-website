@@ -175,6 +175,18 @@
   "dialog:subscribe-app:snowhow:title": {"all": "snowhow App"},
   "dialog:subscribe-app:snowhow:text": {"en": "The snowhow App", "de": "Die snowhow App", "it": "L'App snowhow"},
 
+  "dialog:subscribe-bulletin:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},
+  "dialog:subscribe-bulletin:subheader": {"en": "Avalanche Forcast", "de": "Lawinenvorhersage", "it": "Bollettino valanghe"},
+  "dialog:subscribe-bulletin:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
+  "dialog:subscribe-bulletin:back-button:hover": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
+  "dialog:subscribe-bulletin:email": {"en": "Email address", "de": "E-mail Adresse", "it": "Indirizzo email"},
+  "dialog:subscribe-bulletin:language": {"en": "Preferred language", "de": "Bevorzugte Sprache", "it": "Lingua preferita"},
+  "dialog:subscribe-bulletin:subscribe:button": {"en": "Subscribe", "de": "Abonnieren", "it": "Iscriviti"},
+  "dialog:subscribe-bulletin:status:loading": {"en": "<strong>Please stand by:</strong> Subscription in progress \\u2026", "de": "<strong>Bitte warten:</strong> Anmeldung in Arbeit \\u2026", "it": "<strong>Si prega di attendere:</strong> Iscrizione in corso \\u2026"},
+  "dialog:subscribe-bulletin:status:subscribed": {"en": "<strong>Oh:</strong> You are already subscribed with this email adress", "de": "<strong>Oh:</strong> Sie haben diese E-mail Adresse für die Anmeldung schon verwendet", "it": "<strong>Oh:</strong> Sei già iscritto con questo indirizzo e-mail"},
+  "dialog:subscribe-bulletin:status:submitted": {"en": "<strong>Please check your email inbox</strong> to confirm your subscription", "de": "<strong>Bitte überprüfen Sie ihren Posteingang</strong> und bestätigen die Anmeldung zum Abonnement", "it": "<strong>Controlla la tua casella di posta elettronica</strong> per confermare l'iscrizione"},
+  "dialog:subscribe-bulletin:error": {"en": "Error", "de": "Fehler", "it": "Errore"},
+
   "dialog:cookie-consent:header": {"en": "This website uses Cookies", "de": "Diese Webseite verwendet Cookies", "it": "Questo sito web utilizza i cookie"},
   "dialog:cookie-consent:text": {
     "en": "We use cookies to personalize content and ads, integrate social media and analyze website access. We also share information about your website usage - anonymously - with our partners who may merge it with other information you may have collected in connection with your use of their services. This enables communication and advertising adapted to your personal interests. We would also like to draw your attention to our data protection information for registered online users and our cookie policy.",

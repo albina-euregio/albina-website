@@ -18,7 +18,11 @@ class SubscribeDialog extends React.Component {
         <form className="pure-form pure-form-stacked">
           <label htmlFor="input"><FormattedHTMLMessage id="dialog:subscribe:select-subscrption" /></label>
           <ul className="list-inline list-buttongroup">
-            <li><button href="" title="" className="modal-trigger inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:bulletin'})}</button></li>
+            <li>
+              <a href="#subscribeBulletinDialog" className="modal-trigger">
+                <button className="inverse pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:bulletin'})}</button>
+              </a>
+            </li>
             <li><button href="" title="" className="modal-trigger pure-button">{this.props.intl.formatMessage({id: 'dialog:subscribe:blog'})}</button></li>
             <li>
               <a href="#subscribeSocialMediaDialog" className="modal-trigger">
