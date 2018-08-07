@@ -36,10 +36,11 @@ iframe#stationTable {
 
 @media only screen and (max-width: 58em) {
   .section-map {
-    margin-left: 2.5em;
-    width: calc(100% - 5em);
+    margin: 0 1.25rem;
+    width: calc(100% - 2.5rem);
   }
 }
+
 
 .leaflet-pane.leaflet-overlay-pane {
   mix-blend-mode: multiply;
