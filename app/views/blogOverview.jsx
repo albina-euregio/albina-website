@@ -1,6 +1,7 @@
 import React from 'react';
 import { computed } from 'mobx';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
+import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 import BlogStore from '../blogStore';
 import PageHeadline from '../components/organisms/page-headline.jsx';
 import FilterBar from '../components/organisms/filter-bar.jsx';
@@ -10,7 +11,7 @@ import LanguageFilter from '../components/filters/language-filter.jsx';
 import YearFilter from '../components/filters/year-filter.jsx';
 import MonthFilter from '../components/filters/month-filter.jsx';
 
-@observer class BlogOverview extends React.Component {
+class BlogOverview extends React.Component {
   constructor(props) {
     super(props);
     if(!window['blogStore']) {
@@ -75,16 +76,30 @@ import MonthFilter from '../components/filters/month-filter.jsx';
     return (
       <div>
         <PageHeadline title="Blog posts" subtitle="Blog" marginal="" />
-        <FilterBar search={true} searchTitle="Search posts">
-          <ProvinceFilter handleChange={this.handleChangeRegion} value={this.activeRegion} />
+        <FilterBar search={true} searchTitle={this.props.intl.formatMessage({id: 'blog:search'})}>
+          <ProvinceFilter
+            title={this.props.intl.formatMessage({id: 'blog:filter:province'})}
+            all={this.props.intl.formatMessage({id: 'filter:all'})}
+            handleChange={this.handleChangeRegion}
+            value={this.activeRegion} />
           <YearFilter
+            title={this.props.intl.formatMessage({id: 'blog:filter:year'})}
+            all={this.props.intl.formatMessage({id: 'filter:all'})}
             minYear={window['config'].get('archive.minYear')}
             handleChange={this.handleChangeYear}
             value={this.store.year} />
           { this.store.year &&
-            <MonthFilter handleChange={this.handleChangeMonth} value={this.store.month} />
+            <MonthFilter
+              title={this.props.intl.formatMessage({id: 'blog:filter:month'})}
+              all={this.props.intl.formatMessage({id: 'filter:all'})}
+              handleChange={this.handleChangeMonth}
+              value={this.store.month} />
           }
-          <LanguageFilter handleChange={this.handleChangeLanguage} value={this.activeLanguage} />
+          <LanguageFilter
+            title={this.props.intl.formatMessage({id: 'blog:filter:language'})}
+            all={this.props.intl.formatMessage({id: 'filter:all'})}
+            handleChange={this.handleChangeLanguage}
+            value={this.activeLanguage} />
         </FilterBar>
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
@@ -95,4 +110,5 @@ import MonthFilter from '../components/filters/month-filter.jsx';
     );
   }
 }
-export default BlogOverview;
+
+export default inject('locale')(injectIntl(observer(BlogOverview)));

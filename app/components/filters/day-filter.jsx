@@ -20,9 +20,13 @@ export default class DayFilter extends React.Component {
   render() {
     return (
       <div>
-        <p className="info">Day</p>
+        { this.props.title &&
+          <p className="info">{this.props.title}</p>
+        }
         <Selectric onChange={this.props.handleChange} value={this.props.value} days={this.days.length}>
-          <option value="">All</option>
+          { this.props.all &&
+            <option value="">{this.props.all}</option>
+          }
           {
             this.days.map((d) => <option key={d} value={d}>{d}</option>)
           }

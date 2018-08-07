@@ -29,6 +29,9 @@
   "problem:gliding-snow": {"en": "Gliding snow problem", "de": "Gleitschneeproblem", "it": "Problema con valanghe di slittamento"},
   "problem:favourable-situation": {"en": "Favourable situation", "de": "Günstige Situation", "it": "Situazione favorebole"},
 
+  "filter:all": {"en": "All", "de": "Alle", "it": "Tutti"},
+  "filter:search": {"en": "Search", "de": "Suchen", "it": "Cerca"},
+
   "jumpnav:content": {"en": "Go to Content", "de": "Zum Inhalt", "it": "vai al contenuto"},
   "jumpnav:navigation": {"en": "Go to Navigation", "de": "Zur Navigation", "it": "vai alla navigazione"},
   "jumpnav:footer": {"en": "Go to Footer", "de": "Zum Footer", "it": "vai al footer"},
@@ -124,11 +127,21 @@
   "bulletin:report:author": {"en": "Author", "de": "Autor", "it": "Autore"},
   "bulletin:treeline": {"en": "Tree line", "de": "Waldgrenze", "it": "Limite del bosco"},
 
+  "archive:filter:year": {"en": "Year", "de": "Jahr", "it": "Anno"},
+  "archive:filter:month": {"en": "Month", "de": "Monat", "it": "Mese"},
+  "archive:filter:day": {"en": "Day", "de": "Tag", "it": "Giorno"},
+  "archive:filter:language": {"en": "Language", "de": "Sprache", "it": "Lingua"},
   "archive:download-pdf": {"all": "PDF"},
   "archive:download-xml": {"all": "XML"},
   "archive:download-pdf:hover": {"en": "Download", "de": "Herunterladen", "it": "Scarica"},
   "archive:download-xml:hover": {"en": "Download", "de": "Herunterladen", "it": "Scarica"},
   "archive:show-forecast:hover": {"en": "Show full archived Avalanche Forecast", "de": "Zeige alle Lawinenvorhersagen aus dem Archiv", "it": "Mostra tutti i bollettini valanghe archiviati"},
+
+  "blog:filter:year": {"en": "Year", "de": "Jahr", "it": "Anno"},
+  "blog:filter:month": {"en": "Month", "de": "Monat", "it": "Mese"},
+  "blog:filter:province": {"en": "Province", "de": "Region", "it": "Province"},
+  "blog:filter:language": {"en": "Language", "de": "Sprache", "it": "Lingua"},
+  "blog:search": {"en": "Search posts", "de": "Suchen", "it": "Cerca"},
 
   "dialog:subscribe:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},
   "dialog:subscribe:subheader": {"en": "Stay up to date", "de": "Bleib auf dem Laufenden", "it": "Rimani aggiornato"},

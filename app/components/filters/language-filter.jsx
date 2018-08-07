@@ -9,9 +9,13 @@ export default class LanguageFilter extends React.Component {
   render() {
     return (
       <div>
-        <p className="info">Language</p>
+        { this.props.title &&
+          <p className="info">{this.props.title}</p>
+        }
         <Selectric onChange={this.props.handleChange} value={this.props.value}>
-          <option value="">All</option>
+          { this.props.all &&
+            <option value="">{this.props.all}</option>
+          }
           {
             window.appStore.languages.map((l) =>
               <option key={l} value={l}>{l.toUpperCase()}</option>

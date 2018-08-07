@@ -1,17 +1,20 @@
 import React from 'react';
+import { inject } from 'mobx-react';
+import { injectIntl } from 'react-intl';
 
-export default class SearchField extends React.Component {
+class SearchField extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    const placeholder = this.props.intl.formatMessage({id: 'filter:search'});
     return (
       <div>
         <p className="info">{this.props.title}</p>
         <div className="pure-form pure-form-search">
-          <input type="text" id="input" placeholder="Search" />
-          <button href="#" title="Search" className="pure-button pure-button-icon icon-search">
+          <input type="text" id="input" placeholder={placeholder} />
+          <button href="#" title={placeholder} className="pure-button pure-button-icon icon-search tooltip">
             <span>&nbsp;</span>
           </button>
         </div>
@@ -19,3 +22,4 @@ export default class SearchField extends React.Component {
     );
   }
 }
+export default inject('locale')(injectIntl(SearchField));

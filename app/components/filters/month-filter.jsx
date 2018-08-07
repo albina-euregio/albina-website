@@ -23,9 +23,14 @@ export default class MonthFilter extends React.Component {
   render() {
     return (
       <div>
-        <p className="info">Month</p>
+        {
+          this.props.title &&
+          <p className="info">{this.props.title}</p>
+        }
         <Selectric onChange={this.props.handleChange} value={this.props.value}>
-          <option value="">All</option>
+          { this.props.all &&
+            <option value="">{this.props.all}</option>
+          }
           {
             this.months.map((m) => <option key={m.index} value={m.index}>{m.name}</option>)
           }

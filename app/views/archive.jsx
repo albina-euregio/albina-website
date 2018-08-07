@@ -1,6 +1,7 @@
 import React from 'react';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { reaction } from 'mobx';
+import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 import SmShare from '../components/organisms/sm-share.jsx';
 import { parseDate, getSuccDate, dateToISODateString } from '../util/date.js';
 import ArchiveStore from '../stores/archiveStore.js';
@@ -13,7 +14,7 @@ import MonthFilter from '../components/filters/month-filter.jsx';
 import DayFilter from '../components/filters/day-filter.jsx';
 import { tooltip_init } from '../js/tooltip';
 
-@observer class Archive extends React.Component {
+class Archive extends React.Component {
   constructor(props) {
     super(props);
     if(!window['archiveStore']) {
@@ -93,22 +94,28 @@ import { tooltip_init } from '../js/tooltip';
         <PageHeadline title="Archive" subtitle="More" marginal="Some short text, only optionally, this is max. length" />
         <FilterBar search={false}>
           <YearFilter
+            title={this.props.intl.formatMessage({id: 'archive:filter:year'})}
             minYear={window['config'].get('archive.minYear')}
             handleChange={this.handleChangeYear}
             value={this.store.year} />
           { this.store.year &&
             <MonthFilter
+              title={this.props.intl.formatMessage({id: 'archive:filter:month'})}
               handleChange={this.handleChangeMonth}
               value={this.store.month} />
           }
           { this.store.month &&
             <DayFilter
+              title={this.props.intl.formatMessage({id: 'archive:filter:day'})}
+              all={this.props.intl.formatMessage({id: 'filter:all'})}
               handleChange={this.handleChangeDay}
               year={this.store.year}
               month={this.store.month}
               value={this.store.day} />
           }
-          <LanguageFilter />
+          <LanguageFilter
+            title={this.props.intl.formatMessage({id: 'archive:filter:language'})}
+            all={this.props.intl.formatMessage({id: 'filter:all'})} />
         </FilterBar>
         <section className="section-padding-height">
           <section className="section-centered">
@@ -162,4 +169,4 @@ import { tooltip_init } from '../js/tooltip';
   }
 }
 
-export default Archive;
+export default inject('locale')(injectIntl(observer(Archive)));
