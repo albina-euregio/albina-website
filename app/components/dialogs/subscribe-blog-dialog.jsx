@@ -8,9 +8,17 @@ class SubscribeBlogDialog extends React.Component {
   }
 
   render() {
-    const blogs = config.get('blogs');
+    const blogs = {};
 
-    // TODO: maybe group by region
+    config.get('blogs').forEach((b) => {
+      b.regions.forEach((r) => {
+        if(typeof(blogs[r]) === 'undefined') {
+          blogs[r] = [];
+        }
+        blogs[r].push(b);
+      })
+    });
+
     return (
       <div className="modal-subscribe">
         <div className="modal-header">
@@ -25,35 +33,37 @@ class SubscribeBlogDialog extends React.Component {
         </div>
 
         {
-          blogs.map((b) =>
-            <div key={b.name} className="follow-region">
+          Object.keys(blogs).map((r) =>
+            <div key={r} className="follow-region">
               <h2 className="subheader">
-                {
-                  b.regions.map((r) =>
-                    this.props.intl.formatMessage({id: 'region:' + r})
-                  ).reduce((prev, curr) => [prev, ',', curr])
-                }
+                {this.props.intl.formatMessage({id: 'region:' + r})}
               </h2>
-              <div className="blog-details">
-                {b.name} - <span className="blog-language">{b.lang.toUpperCase()}</span>
-                <ul className="list-inline list-buttongroup">
-                  <li>
-                    <a href={'http://' + b.name  + '/feeds/posts/default'} className="share-atom">Atom</a>
-                  </li>
-                  <li>
-                    <span className="buttongroup-boolean">
-                      {this.props.intl.formatMessage({id: 'dialog:subscribe-app:or' })}
-                    </span>
-                  </li>
-                  <li>
-                    <a href={'http://' + b.name  + '/feeds/posts/default?alt=rss'} className="share-atom">RSS</a>
-                  </li>
-                </ul>
-              </div>
+              <ul className="blog-list">
+                {
+                  blogs[r].map(
+                    (b) =>
+                      <div key={b.name} className="blog-details">
+                        {b.name} - <span className="blog-language">{b.lang.toUpperCase()}</span>
+                        <ul className="list-inline list-buttongroup">
+                          <li>
+                            <a href={'http://' + b.name  + '/feeds/posts/default'} className="share-atom">Atom</a>
+                          </li>
+                          <li>
+                            <span className="buttongroup-boolean">
+                              {this.props.intl.formatMessage({id: 'dialog:subscribe-blog:or' })}
+                            </span>
+                          </li>
+                          <li>
+                            <a href={'http://' + b.name  + '/feeds/posts/default?alt=rss'} className="share-atom">RSS</a>
+                          </li>
+                        </ul>
+                      </div>
+                  )
+                }
+              </ul>
             </div>
           )
         }
-
       </div>
     );
   }

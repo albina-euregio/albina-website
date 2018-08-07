@@ -191,7 +191,8 @@
   "dialog:subscribe-blog:subheader": {"all": "Blog"},
   "dialog:subscribe-blog:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
   "dialog:subscribe-blog:back-button:hover": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
-
+  "dialog:subscribe-blog:or": {"en": "or", "de": "oder", "it": "o"},
+  
   "dialog:cookie-consent:header": {"en": "This website uses Cookies", "de": "Diese Webseite verwendet Cookies", "it": "Questo sito web utilizza i cookie"},
   "dialog:cookie-consent:text": {
     "en": "We use cookies to personalize content and ads, integrate social media and analyze website access. We also share information about your website usage - anonymously - with our partners who may merge it with other information you may have collected in connection with your use of their services. This enables communication and advertising adapted to your personal interests. We would also like to draw your attention to our data protection information for registered online users and our cookie policy.",
