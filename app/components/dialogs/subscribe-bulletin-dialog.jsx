@@ -72,7 +72,7 @@ class SubscribeBulletinDialog extends React.Component {
                       type="radio"
                       checked={(this.state.language == l) ? 'checked' : ''} />
                     &nbsp;
-                    <span className="normal">{l}</span>
+                    <span className="normal">{l.toUpperCase()}</span>
                   </label>
                 </li>
               )}
