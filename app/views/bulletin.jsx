@@ -9,7 +9,7 @@ import BulletinLegend from '../components/bulletin/bulletin-legend';
 import BulletinButtonbar from '../components/bulletin/bulletin-buttonbar';
 import BulletinReport from '../components/bulletin/bulletin-report';
 import SmShare from '../components/organisms/sm-share';
-import { parseDate } from '../util/date.js';
+import { parseDate, dateToISODateString } from '../util/date.js';
 import Base from './../base';
 import { tooltip_init } from '../js/tooltip';
 
@@ -64,9 +64,7 @@ class Bulletin extends React.Component {
 
   _fetchData(props) {
     const startDate = (props.match.params.date && parseDate(props.match.params.date))
-      ? props.match.params.date : (
-        this.store.settings.date ? this.store.settings.date : '2018-07-17' // TODO: should be current date
-      );
+      ? props.match.params.date : dateToISODateString(new Date());
 
     if(startDate != this.props.match.params.date) {
       // update URL if necessary
