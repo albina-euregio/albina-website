@@ -123,9 +123,9 @@ class Archive extends React.Component {
               <table className="pure-table pure-table-striped pure-table-small table-archive">
                 <thead>
                   <tr>
-                    <th>Date / Time</th>
-                    <th>Download Bulletin</th>
-                    <th>Map</th>
+                    <th>{this.props.intl.formatMessage({id: 'archive:table-header:date'})}</th>
+                    <th>{this.props.intl.formatMessage({id: 'archive:table-header:download'})}</th>
+                    <th>{this.props.intl.formatMessage({id: 'archive:table-header:map'})}</th>
                   </tr>
                 </thead>
                 <tbody>

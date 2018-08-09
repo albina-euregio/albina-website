@@ -122,7 +122,7 @@
   "bulletin:report:problem-below:hover": {"en": "Avalanche problem below {elev}m", "de": "Lawinenproblem unterhalb von {elev}m", "it": "Problema tipico valanghivo al di sotto di {elev}m"},
   "bulletin:report:problem-at:hover": {"en": "Avalanche problem from {elev-low}m-{elev-high}m", "de": "Lawinenproblem von {elev-low}m-{elev-high}m", "it": "Problema tipico valanghivo da {elev-low}m-{elev-high}m"},
   "bulletin:report:problem-all-elevations:hover": {"en": "Avalanche problem in all elevations", "de": "Lawinenproblem in allen Höhenlagen", "it": "Problema tipico valangivo in tutte le quote"},
-  "bulletin:report:snowpack-structure:headline": {"en": "Snowpack Structure", "de": "Snowpack Structure", "it": "Snowpack Structure"},
+  "bulletin:report:snowpack-structure:headline": {"en": "Snowpack", "de": "Schneedecke", "it": "Manto nevoso"},
   "bulletin:report:tendency:headline": {"en": "Tendency", "de": "Tendenz", "it": "Tendenza"},
   "bulletin:report:danger-patterns": {"en": "Danger Patterns", "de": "Gefahrenmuster", "it": "Situazione tipo"},
   "bulletin:report:author": {"en": "Author", "de": "Autor", "it": "Autore"},
@@ -132,6 +132,9 @@
   "archive:filter:month": {"en": "Month", "de": "Monat", "it": "Mese"},
   "archive:filter:day": {"en": "Day", "de": "Tag", "it": "Giorno"},
   "archive:filter:language": {"en": "Language", "de": "Sprache", "it": "Lingua"},
+  "archive:table-header:date": {"en": "Date", "de": "Datum", "it": "Data"},
+  "archive:table-header:download": {"en": "Download avalanche forecast", "de": "Lawinenvorhersage herunterladen", "it": "Scarica bollettino valanghe"},
+  "archive:table-header:map": {"en": "Map", "de": "Karte", "it": "Mappa"},
   "archive:download-pdf": {"all": "PDF"},
   "archive:download-xml": {"all": "XML"},
   "archive:download-pdf:hover": {"en": "Download", "de": "Herunterladen", "it": "Scarica"},
@@ -192,7 +195,7 @@
   "dialog:subscribe-blog:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
   "dialog:subscribe-blog:back-button:hover": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
   "dialog:subscribe-blog:or": {"en": "or", "de": "oder", "it": "o"},
-  
+
   "dialog:cookie-consent:header": {"en": "This website uses Cookies", "de": "Diese Webseite verwendet Cookies", "it": "Questo sito web utilizza i cookie"},
   "dialog:cookie-consent:text": {
     "en": "We use cookies to personalize content and ads, integrate social media and analyze website access. We also share information about your website usage - anonymously - with our partners who may merge it with other information you may have collected in connection with your use of their services. This enables communication and advertising adapted to your personal interests. We would also like to draw your attention to our data protection information for registered online users and our cookie policy.",
