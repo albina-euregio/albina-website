@@ -4,6 +4,7 @@ import { Parser } from 'html-to-react';
 import queryString from 'query-string';
 import Base from '../base';
 import PageHeadline from '../components/organisms/page-headline.jsx';
+import Menu from '../components/menu';
 
 class WeatherMap extends React.Component {
   constructor(props) {
@@ -39,6 +40,8 @@ class WeatherMap extends React.Component {
   }
 
   render() {
+    const menuItems = window['menuStore'].getMenu('weather-map');
+
     // use the last path parameter as "domain" and add optional parameters from
     // query string
     const params = {
@@ -51,6 +54,20 @@ class WeatherMap extends React.Component {
     return (
       <div>
         <PageHeadline title={this.state.title} />
+        <section className="section-flipper">
+          <div id="flipper">
+            <div className="section-padding-width flipper-controls">
+              <div className="section-centered">
+                <Menu className="list-inline flipper-buttongroup"
+                  entries={menuItems}
+                  childClassName="list-plain subnavigation"
+                  onSelect={(e) => {
+                    console.log('SELECT: ' + JSON.stringify(e));
+                  }} />
+              </div>
+            </div>
+          </div>
+        </section>
         <section className={'section-map' + (config.get('map.useWindowWidth') ? '' : ' section-centered')}>
           <iframe id="meteoMap" src={url}>
             <p>Your browser does not support iframes.</p>

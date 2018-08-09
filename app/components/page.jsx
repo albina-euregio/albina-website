@@ -19,7 +19,10 @@ import { tooltip_init } from '../js/tooltip';
 class Page extends React.Component {
   constructor(props) {
     super(props);
-    this.menuStore = new MenuStore();
+    if(!window['menuStore']) {
+      window['menuStore'] = new MenuStore();
+    }
+    this.menuStore = window['menuStore'];
   }
 
   componentDidUpdate() {
