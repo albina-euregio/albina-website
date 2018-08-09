@@ -1,5 +1,7 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
+import { inject } from 'mobx-react';
+import { injectIntl } from 'react-intl';
 import { Parser } from 'html-to-react';
 import queryString from 'query-string';
 import Base from '../base';
@@ -51,6 +53,9 @@ class WeatherMap extends React.Component {
     const url = Base.makeUrl(config.get('links.meteoViewer'),
       Object.assign(params, queryString.parse(this.props.location.search)));
 
+    const forwardLink = {param: '2018-08-10 12:00', text: "+12h"};
+    const backwardLink = {param: '2018-08-09 12:00', text: "-12h"};
+
     return (
       <div>
         <PageHeadline title={this.state.title} />
@@ -61,11 +66,52 @@ class WeatherMap extends React.Component {
                 <Menu className="list-inline flipper-buttongroup"
                   entries={menuItems}
                   childClassName="list-plain subnavigation"
-                  onSelect={(e) => {
-                    console.log('SELECT: ' + JSON.stringify(e));
-                  }} />
+                  menuItemClassName="secondary pure-button"
+                  activeClassName="js-active" />
+
+                <div className="grid flipper-left-right">
+                  <div className="all-6 grid-item">
+                    { backwardLink &&
+                      <Link
+                        to={
+                          '/weather/map/'
+                          + this.props.match.params.datum
+                          + '/' + encodeURIComponent(backwardLink.param)
+                        }
+                        className="icon-link tooltip flipper-left"
+                        title={this.props.intl.formatMessage({id: 'weathermap:header:dateflipper:back'})} >
+                        <span className="icon-arrow-left"></span>
+                        &nbsp;{backwardLink.text}
+                      </Link>
+                    }
+                  </div>
+                  <div className="all-6 grid-item">
+                    { forwardLink &&
+                      <Link
+                        to={
+                          '/weather/map/'
+                          + this.props.match.params.datum
+                          + '/' + encodeURIComponent(forwardLink.param)
+                        }
+                        className="icon-link tooltip flipper-left"
+                        title={this.props.intl.formatMessage({id: 'weathermap:header:dateflipper:forward'})} >
+                        {forwardLink.text}&nbsp;
+                        <span className="icon-arrow-right"></span>
+                      </Link>
+                    }
+                  </div>
+
+                </div>
               </div>
             </div>
+
+            <div className="section-centered">
+              <div className="section-padding-width flipper-header">
+                <h2 className="subheader">Test1</h2>
+                <h2>Test2</h2>
+              </div>
+            </div>
+
           </div>
         </section>
         <section className={'section-map' + (config.get('map.useWindowWidth') ? '' : ' section-centered')}>
@@ -80,4 +126,4 @@ class WeatherMap extends React.Component {
     );
   }
 }
-export default withRouter(WeatherMap);
+export default inject('locale')(injectIntl(withRouter(WeatherMap)));

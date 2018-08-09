@@ -26,14 +26,15 @@ import { Link } from 'react-router-dom';
   }
 
   renderMenuItem(e) {
-    const classes = [];
+    const classes = this.props.menuItemClassName ? this.props.menuItemClassName.split(' ') : [];
     const isActive = this.testActive(e);
 
     if(isActive) {
       if (this.props.onActiveMenuItem) {
         this.props.onActiveMenuItem(e);
       }
-      classes.push('active');
+
+      classes.push(this.props.activeClassName ? this.props.activeClassName : 'active');
     }
     if(e.children && e.children.length > 0) {
       classes.push('has-sub');
