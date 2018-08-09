@@ -81,7 +81,9 @@ class BulletinReport extends React.Component {
     const elevation = (bulletin.hasElevationDependency && !bulletin.treeline) ? bulletin.elevation : null;
     const treeline = bulletin.hasElevationDependency && bulletin.treeline;
 
-    const tendencyTitle = bulletin.tendency ? this.props.intl.formatMessage({id: 'bulletin:report:tendency:' + bulletin.tendency}) : 'n/a';
+    const tendencyTitle = bulletin.tendency
+      ? this.props.intl.formatMessage({id: 'bulletin:report:tendency:' + bulletin.tendency})
+      : this.props.intl.formatMessage({id: 'bulletin:report:tendency:none'});
     const tendencyDate = dateToLongDateString(getSuccDate(parseDate(this.props.store.settings.date)));
 
     const classes = 'panel field callout warning-level-' + warnlevel;

@@ -109,6 +109,7 @@
   "bulletin:report:tendency:hover": {"en": "Expected trend for the following day", "de": "Voraussichtliche Entwicklung für den nächsten Tag", "it": "Tendenza prevista per il giorno successivo"},
   "bulletin:report:tendency:daytime:am": {"en": "AM", "de": "vormittags", "it": "mattina"},
   "bulletin:report:tendency:daytime:pm": {"en": "PM", "de": "nachmittags", "it": "pomeriggio"},
+  "bulletin:report:tendency:none": {"en": "n/a", "de": "n/a", "it": "n/a"},
   "bulletin:report:tendency:increasing": {"en": "Increasing avalanche danger", "de": "Lawinengefahr steigt", "it": "Pericolo valanghe in aumento"},
   "bulletin:report:tendency:steady": {"en": "Constant avalanche danger", "de": "Lawinengefahr bleibt gleich", "it": "Pericolo valanghe stabile"},
   "bulletin:report:tendency:decreasing": {"en": "Decreasing avalanche danger", "de": "Lawinengefahr nimmt ab", "it": "Pericolo valanghe in diminuzione"},

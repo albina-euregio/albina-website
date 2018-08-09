@@ -55,7 +55,7 @@ class LeafletMap extends React.Component {
 
     window.setTimeout(() => {
       $('.leaflet-control-zoom a').addClass('tooltip');
-      tooltip_init();      
+      tooltip_init();
     }, 100);
 
     const m = this.map;
@@ -96,7 +96,7 @@ class LeafletMap extends React.Component {
     const b = bulletinStore.activeBulletinCollection;
     if(b) {
       const daytime = b.hasDaytimeDependency() ?
-        bulletinStore.settings.ampm : 'am';
+        bulletinStore.settings.ampm : 'fd';
 
       const url = config.get("apis.geo") + bulletinStore.settings.date + "/" + daytime + "_overlay.png";
       const params = config.get("map.overlay");
