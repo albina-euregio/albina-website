@@ -37,7 +37,7 @@ class WeatherMap extends React.Component {
     return (
       <div>
         <PageHeadline title="Snow &amp; Weather" />
-        <section className="section-map section-centered">
+        <section className={'section-map' + (config.get('map.useWindowWidth') ? '' : ' section-centered')}>
           <iframe id="meteoMap" src={url}>
             <p>Your browser does not support iframes.</p>
           </iframe>

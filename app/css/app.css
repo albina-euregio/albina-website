@@ -30,12 +30,12 @@ iframe#stationTable {
 }
 
 /* Map */
-.section-map {
+.section-map.section-centered {
   border: 1px solid #E6EEF2;
 }
 
 @media only screen and (max-width: 58em) {
-  .section-map {
+  .section-map.section-centered {
     margin: 0 1.25rem;
     width: calc(100% - 2.5rem);
   }

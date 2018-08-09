@@ -97,6 +97,7 @@
     ]
   },
   "map": {
+    "useWindowWidth": true,
     "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],
     "overlay": {
       "bounds": [[45.60608, 9.9174], [47.83039, 13.15173]],
