@@ -7,17 +7,22 @@ import queryString from 'query-string';
 import Base from '../base';
 import PageHeadline from '../components/organisms/page-headline.jsx';
 import Menu from '../components/menu';
+import { dateToLongDateString, dateToTimeString } from '../util/date';
 
 class WeatherMap extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
-      content: ''
+      content: '',
+      mapParams: {},
+      mapTitle: ''
     };
   }
 
   componentDidMount() {
+    this.setState({mapParams: queryString.parse(this.props.location.search)});
+
     window['staticPageStore'].loadPage('weather/map').then((response) => {
       // parse content
       const responseParsed = JSON.parse(response);
@@ -33,6 +38,8 @@ class WeatherMap extends React.Component {
           const data = JSON.parse(e.data);
           if(data.changes && data.changes.domain) {
             this.props.history.replace('/weather/map/' + data.changes.domain);
+          } else {
+            this.setState({mapParam: data.newState});
           }
         } catch(e) {
           console.log('JSON parse error: ' + e.data);
@@ -47,14 +54,26 @@ class WeatherMap extends React.Component {
     // use the last path parameter as "domain" and add optional parameters from
     // query string
     const params = {
-      domain: this.props.match.params.datum,
+      domain: this.props.match.params.domain,
       lang: window['appStore'].language
     };
     const url = Base.makeUrl(config.get('links.meteoViewer'),
-      Object.assign(params, queryString.parse(this.props.location.search)));
+      Object.assign(params, this.state.mapParams));
 
-    const forwardLink = {param: '2018-08-10 12:00', text: "+12h"};
-    const backwardLink = {param: '2018-08-09 12:00', text: "-12h"};
+    const forwardLink = {
+      text: '+12h',
+      url: Base.makeUrl(
+        '/weather/map/' + this.props.match.params.domain,
+        Object.assign({}, this.state.mapParams, {time: '+12'}))
+    };
+    const backwardLink = {
+      text: '-12h',
+      url: Base.makeUrl(
+        '/weather/map/' + this.props.match.params.domain,
+        Object.assign({}, this.state.mapParams, {time: '-12'}))
+    };
+
+    const mapDate = new Date();
 
     return (
       <div>
@@ -67,17 +86,18 @@ class WeatherMap extends React.Component {
                   entries={menuItems}
                   childClassName="list-plain subnavigation"
                   menuItemClassName="secondary pure-button"
-                  activeClassName="js-active" />
+                  activeClassName="js-active"
+                  onActiveMenuItem={(e) => {
+                    if(e.title != this.state.mapTitle) {
+                      window.setTimeout(() => this.setState({mapTitle: e.title}), 0)
+                    }
+                  }} />
 
                 <div className="grid flipper-left-right">
                   <div className="all-6 grid-item">
                     { backwardLink &&
                       <Link
-                        to={
-                          '/weather/map/'
-                          + this.props.match.params.datum
-                          + '/' + encodeURIComponent(backwardLink.param)
-                        }
+                        to={backwardLink.url}
                         className="icon-link tooltip flipper-left"
                         title={this.props.intl.formatMessage({id: 'weathermap:header:dateflipper:back'})} >
                         <span className="icon-arrow-left"></span>
@@ -88,13 +108,9 @@ class WeatherMap extends React.Component {
                   <div className="all-6 grid-item">
                     { forwardLink &&
                       <Link
-                        to={
-                          '/weather/map/'
-                          + this.props.match.params.datum
-                          + '/' + encodeURIComponent(forwardLink.param)
-                        }
+                        to={forwardLink.url}
                         className="icon-link tooltip flipper-left"
-                        title={this.props.intl.formatMessage({id: 'weathermap:header:dateflipper:forward'})} >
+                        title={this.props.intl.formatMessage({id: 'weathermap:header:dateflipper:forward'})}>
                         {forwardLink.text}&nbsp;
                         <span className="icon-arrow-right"></span>
                       </Link>
@@ -107,8 +123,8 @@ class WeatherMap extends React.Component {
 
             <div className="section-centered">
               <div className="section-padding-width flipper-header">
-                <h2 className="subheader">Test1</h2>
-                <h2>Test2</h2>
+                <h2 className="subheader">{dateToLongDateString(mapDate)} {dateToTimeString(mapDate)}</h2>
+                <h2>{this.state.mapTitle}</h2>
               </div>
             </div>
 

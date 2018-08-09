@@ -47,7 +47,7 @@ class App extends React.Component {
             component: Bulletin
           },
           {
-            path: '/weather/map/:datum?',
+            path: '/weather/map/:domain?',
             exact: true,
             component: WeatherMap
           },
