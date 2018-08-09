@@ -1,7 +1,7 @@
 {
   "name": "albina-project",
   "description": "Albina project webpage",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "main": "app/main.jsx",
   "scripts": {
     "build": "webpack",
