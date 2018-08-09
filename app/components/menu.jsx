@@ -41,7 +41,7 @@ import { Link } from 'react-router-dom';
     }
     return (
       <li key={e.id} onClick={(event) => { event.stopPropagation(); if(typeof(this.props.onSelect) === 'function') { this.props.onSelect(e) } }}>
-        { e.isExternal
+        { e.url.match('^http(s)?://')
           ? <a href={e.url} target="_blank">{e.title}</a>
           : <Link to={e.url} className={classes.join(' ')}>{e.title}</Link>
         }

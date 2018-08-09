@@ -12,7 +12,7 @@ class AppStore extends React.Component {
   @observable keyDown;
   @observable locale;
   cookieConsent;
-  @observable navigation;
+  navigation;
   regions;
   languages;
   warnlevelNumbers;

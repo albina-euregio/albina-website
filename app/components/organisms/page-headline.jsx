@@ -1,7 +1,5 @@
 import React from 'react';
-import { observer } from 'mobx-react';
 
-@observer
 export default class PageHeadline extends React.Component {
   render() {
     // if no subtitle is given, take the active first-level header menu entry

@@ -47,7 +47,7 @@ export default class MenuStore {
       this._addMenuEntry(ats.menuInternalId, {
         id: entry.id,
         title: ats.title,
-        url: (ats.isExternal) ? ats.link : ats.link.substr(9), // strip "internal:" prefix
+        url: ats.link.replace(/^internal:/, ''), // strip "internal:" prefix
         isExternal: ats.isExternal
       }, parentId);
     };

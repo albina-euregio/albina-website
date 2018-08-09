@@ -89,7 +89,7 @@ class WeatherMap extends React.Component {
                   activeClassName="js-active"
                   onActiveMenuItem={(e) => {
                     if(e.title != this.state.mapTitle) {
-                      window.setTimeout(() => this.setState({mapTitle: e.title}), 0)
+                      window.setTimeout(() => this.setState({mapTitle: e.title}), 100)
                     }
                   }} />
 
