@@ -24,6 +24,11 @@ iframe#stationTable {
   pointer-events: none;
 }
 
+.bulletin-flipper-separator {
+  color: #19ABFF;
+  padding: 0 0.4rem 0 0.04rem;
+}
+
 /* Bulletin Filter bar */
 .section-bulletin-legend .list-avalanche-problems-filter a:not(.js-deactivated):hover img:first-child {
   opacity: 1;

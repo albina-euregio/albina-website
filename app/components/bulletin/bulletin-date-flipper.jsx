@@ -52,13 +52,7 @@ import { parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStr
             {prevDate}
           </Link>
         </li>
-        <li className="bulletin-flipper-latest">
-          <Link to={'/bulletin/' + latestLink}
-            title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest:hover'})}
-            className="tooltip">
-            {this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest'})}
-          </Link>
-        </li>
+        <li className="bulletin-flipper-separator">&mdash;</li>
         {nextLink &&
           <li className="bulletin-flipper-forward">
             <Link to={'/bulletin/' + nextLink}
@@ -69,6 +63,13 @@ import { parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStr
             </Link>
           </li>
         }
+        <li className="bulletin-flipper-latest">
+          <Link to={'/bulletin/' + latestLink}
+            title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest:hover'})}
+            className="tooltip">
+            {this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest'})}
+          </Link>
+        </li>
         <li className="bulletin-flipper-archive">
           <Link
             to="/archive"
