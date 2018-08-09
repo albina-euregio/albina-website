@@ -21,14 +21,15 @@ class WarnLevelIcon extends React.Component {
       return '';
     };
 
-    const elevText = this.props.elevation ? (this.props.elevation + 'm') : (
-      (this.props.treeline)
-        ? this.props.intl.formatMessage({id: 'bulletin:treeline'})
-        : ''
-    );
     const below = (this.props.elevation || this.props.treeline) ? this.props.below : this.props.above;
     const b = window['appStore'].getWarnlevelNumber(below);
     const a = window['appStore'].getWarnlevelNumber(this.props.above);
+
+    const elevText = this.props.elevation ? (this.props.elevation + 'm') : (
+      (this.props.treeline)
+        ? this.props.intl.formatMessage({id: 'bulletin:treeline'})
+        : ((a == 0) ? this.props.intl.formatMessage({id: 'danger-level:' + this.props.above}): '')
+    );
 
     const img = this.imgRoot + 'levels_' + b + '_' + a + '.png';
 

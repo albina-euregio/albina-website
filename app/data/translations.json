@@ -96,6 +96,7 @@
   "bulletin:linkbar:subscribe:hover": {"en": "Subscribe to Avalanche Forecast, Social Media, Blog, Apps", "de": "Lawinenvorhersage, Soziale Medien, Blog, Apps abonnieren", "it": "Iscriviti al bollettino valanghe, ai social media, il blog, i apps"},
   "bulletin:report:headline": {"en": "Danger level for <strong>{date} {daytime}</strong>", "de": "Gefahrenstufe für <strong>{date} {daytime}</strong>", "it": "Grado di pericolo per <strong>{date} {daytime}</strong>"},
   "bulletin:report:headline2": {"en": "Danger Level {number} – {text}", "de": "Gefahrenstufe {number} – {text}", "it": "Grado di pericolo {number} – {text}"},
+  "bulletin:report:headline2:level0": {"en": "{text}", "de": "{text}", "it": "{text}"},
   "bulletin:report:daytime:am": {"en": "AM", "de": "vormittags", "it": "mattina"},
   "bulletin:report:daytime:pm": {"en": "PM", "de": "nachmittags", "it": "pomeriggio"},
   "bulletin:report:dangerlevel": {"en": "Danger Level", "de": "Gefahrenstufe", "it": "Grado di pericolo"},

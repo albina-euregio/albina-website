@@ -100,10 +100,17 @@ class BulletinReport extends React.Component {
                 }} />
               </p>
               <h1>
-                <FormattedHTMLMessage id="bulletin:report:headline2" values={{
-                  number: warnlevel,
-                  text: this.props.intl.formatMessage({id: 'danger-level:' + window.appStore.getWarnLevelId(warnlevel)})
-                }} />
+                { (warnlevel != 0) &&
+                  <FormattedHTMLMessage id="bulletin:report:headline2" values={{
+                    number: warnlevel,
+                    text: this.props.intl.formatMessage({id: 'danger-level:' + window.appStore.getWarnLevelId(warnlevel)})
+                  }} />
+                }
+                { (warnlevel == 0) &&
+                  <FormattedHTMLMessage id="bulletin:report:headline2:level0" values={{
+                    text: this.props.intl.formatMessage({id: 'danger-level:' + bulletinDaytime.dangerRatingAbove})
+                  }} />
+                }
               </h1>
             </header>
             <div className="bulletin-report-pictobar">
