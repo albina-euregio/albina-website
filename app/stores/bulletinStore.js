@@ -332,13 +332,9 @@ class BulletinStore {
     if(checkHighlight(regionId)) {
       return 'highlighted';
     }
-    // check if some other region has highlighting
-    const allGeoData = this.activeBulletinCollection.getGeoData();
-    const isAnyRegionHighlighted = allGeoData.features.some((f) => {
-      const id = f.properties.bid;
-      return (id != regionId) && (checkHighlight(id));
-    });
-    if(isAnyRegionHighlighted) {
+
+    // dehighligt if any filter is activated
+    if(Object.keys(this.problems).some((p) => this.problems[p].highlighted)) {
       return 'dehighlighted';
     }
     return 'default';

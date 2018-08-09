@@ -6,6 +6,8 @@ function navigation_init() {
   var navigation_trigger = $(".navigation-trigger");
   var navigation = $(".navigation");
   var navigation_li = $(".navigation li");
+  var page_window = $(window);
+  var page_body = $("body");
 
   navigation_trigger.off('click');
 
@@ -14,7 +16,7 @@ function navigation_init() {
 		navigation_open_close();
 	});
 
-	window['page_window'].keyup(function(event) {
+	page_window.keyup(function(event) {
 		if (nav_open == 1 && event.keyCode == 27) {
 			navigation_open_close();
 		}
@@ -43,7 +45,7 @@ function navigation_init() {
 
 			nav_open = 1;
 		} else {
-			window['page_body'].removeClass("navigation-open");
+			page_body.removeClass("navigation-open");
 			nav_open = 0;
 		}
 	}

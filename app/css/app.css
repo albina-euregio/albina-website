@@ -24,6 +24,11 @@ iframe#stationTable {
   pointer-events: none;
 }
 
+/* Bulletin Filter bar */
+.section-bulletin-legend .list-avalanche-problems-filter a:not(.js-deactivated):hover img:first-child {
+  opacity: 1;
+}
+
 /* Tendency steady icon */
 .icon-arrow-steady::before {
   content: '\E817';
