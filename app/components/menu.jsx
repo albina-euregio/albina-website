@@ -30,6 +30,9 @@ import { Link } from 'react-router-dom';
     const isActive = this.testActive(e);
 
     if(isActive) {
+      if (this.props.onActiveMenuItem) {
+        this.props.onActiveMenuItem(e);
+      }
       classes.push('active');
     }
     if(e.children && e.children.length > 0) {
@@ -43,7 +46,12 @@ import { Link } from 'react-router-dom';
         }
         {
           (e.children && e.children.length > 0) &&
-          <Menu className={this.props.childClassName} entries={e.children} location={this.props.location} onSelect={this.props.onSelect} />
+          <Menu
+            className={this.props.childClassName}
+            entries={e.children}
+            location={this.props.location}
+            onSelect={this.props.onSelect}
+            onActiveMenuItem={this.props.onActiveChildMenuItem} />
         }
       </li>
     );

@@ -21,7 +21,6 @@ export default class Education extends React.Component {
       <div>
         <PageHeadline
           title="In this section"
-          subtitle="Education &amp; Prevention"
           marginal="Some short text, only optionally, this is max. length" />
         <section className="section section-features">
           <ul className="list-plain features">

@@ -2,6 +2,7 @@ import React from 'react';
 import { computed } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import { injectIntl, FormattedHTMLMessage } from 'react-intl';
+import { Parser } from 'html-to-react';
 import BlogStore from '../blogStore';
 import PageHeadline from '../components/organisms/page-headline.jsx';
 import FilterBar from '../components/organisms/filter-bar.jsx';
@@ -18,6 +19,10 @@ class BlogOverview extends React.Component {
       window['blogStore'] = new BlogStore();
     }
     this.store = window['blogStore'];
+    this.state = {
+      title: '',
+      content: ''
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -25,6 +30,15 @@ class BlogOverview extends React.Component {
   }
 
   componentDidMount() {
+    window['staticPageStore'].loadPage('/blog').then((response) => {
+      // parse content
+      const responseParsed = JSON.parse(response);
+      this.setState({
+        title: responseParsed.data.attributes.title,
+        content: responseParsed.data.attributes.body
+      });
+    });
+
     return this._fetchData();
   }
 
@@ -75,7 +89,7 @@ class BlogOverview extends React.Component {
   render() {
     return (
       <div>
-        <PageHeadline title="Blog posts" subtitle="Blog" marginal="" />
+        <PageHeadline title={this.state.title} marginal="" />
         <FilterBar search={true} searchTitle={this.props.intl.formatMessage({id: 'blog:search'})}>
           <ProvinceFilter
             title={this.props.intl.formatMessage({id: 'blog:filter:province'})}
@@ -106,6 +120,9 @@ class BlogOverview extends React.Component {
             <BlogPostsList posts={this.store.getPosts()} loading={this.store.loading} />
           </div>
         </section>
+        <div>
+          { (new Parser()).parse(this.state.content) }
+        </div>
       </div>
     );
   }

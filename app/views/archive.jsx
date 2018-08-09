@@ -2,6 +2,7 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import { reaction } from 'mobx';
 import { injectIntl, FormattedHTMLMessage } from 'react-intl';
+import { Parser } from 'html-to-react';
 import SmShare from '../components/organisms/sm-share.jsx';
 import { parseDate, getSuccDate, dateToISODateString } from '../util/date.js';
 import ArchiveStore from '../stores/archiveStore.js';
@@ -28,9 +29,23 @@ class Archive extends React.Component {
       this.store.month = d.getMonth() + 1;
       this.store.year = d.getFullYear();
     }
+
+    this.state = {
+      title: '',
+      content: ''
+    }
   }
 
   componentDidMount() {
+    window['staticPageStore'].loadPage('archive').then((response) => {
+      // parse content
+      const responseParsed = JSON.parse(response);
+      this.setState({
+        title: responseParsed.data.attributes.title,
+        content: responseParsed.data.attributes.body
+      });
+    });
+
     const up = () => { window.setTimeout(tooltip_init, 1000) }
 
     const onUpdateStatus = reaction(
@@ -91,7 +106,7 @@ class Archive extends React.Component {
   render() {
     return (
       <div>
-        <PageHeadline title="Archive" subtitle="More" marginal="Some short text, only optionally, this is max. length" />
+        <PageHeadline title={this.state.title} marginal="Some short text, only optionally, this is max. length" />
         <FilterBar search={false}>
           <YearFilter
             title={this.props.intl.formatMessage({id: 'archive:filter:year'})}
@@ -137,32 +152,11 @@ class Archive extends React.Component {
             </div>
           </section>
         </section>
-        <section className="section-centered">
-          <div className="panel brand">
-            <p>A fava bean collard greens endive tomatillo lotus root okra winter <a href>purslane</a> zucchini parsley spinach artichoke.</p>
-            <ul className="list-inline ">
-              <li><a href="#" title="The Button" className="pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="pure-button">The Button</a>
-              </li>
-            </ul>
-          </div>
-        </section>
-        <section id className="section-centered section-context">
-          <div className="panel">
-            <h2 className="subheader">More</h2>
-            <ul className="list-inline ">
-              <li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-              </li><li><a href="#" title="The Button" className="secondary pure-button">The Button</a>
-              </li>
-            </ul>
-          </div>
-        </section>
+        <div>
+          {
+            (new Parser()).parse(this.state.content)
+          }
+        </div>
         <SmShare />
       </div>
     );

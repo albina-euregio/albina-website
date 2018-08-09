@@ -1,7 +1,13 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 
+@observer
 export default class PageHeadline extends React.Component {
   render() {
+    // if no subtitle is given, take the active first-level header menu entry
+    const subtitle = this.props.subtitle ? this.props.subtitle :
+      (window['appStore'].navigation.activeTopLevelElement ? window['appStore'].navigation.activeTopLevelElement.title : '');
+
     return (
       <section className="section-padding section-header">
         <header className="section-centered">
@@ -10,8 +16,8 @@ export default class PageHeadline extends React.Component {
               <p className="marginal">{this.props.marginal}</p>
           }
           {
-            this.props.subtitle &&
-              <h2 className="subheader">{this.props.subtitle}</h2>
+            subtitle &&
+              <h2 className="subheader">{subtitle}</h2>
           }
           {
             this.props.title &&

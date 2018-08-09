@@ -14,6 +14,22 @@ class PageHeader extends React.Component {
     window['appStore'].language = newLanguage;
   };
 
+  setActiveMenuItem = (e) => {
+    if(typeof(e) == 'object') {
+      Object.keys(e).forEach((k) => {
+        window['appStore'].navigation.activeElement[k] = e[k];
+      });
+    }
+  };
+
+  setActiveTopLevelMenuItem = (e) => {
+    if(typeof(e) == 'object') {
+      Object.keys(e).forEach((k) => {
+        window['appStore'].navigation.activeTopLevelElement[k] = e[k];
+      });
+    }
+  };
+
   render() {
     const langs = window['appStore'].languages;
     const menuItems = this.props.menuStore.getMenu('main');
@@ -39,7 +55,9 @@ class PageHeader extends React.Component {
               if($('body').hasClass('navigation-open')) {
                 $('.navigation-trigger').trigger('click');
               }
-            }} />
+            }}
+            onActiveMenuItem={this.setActiveTopLevelMenuItem}
+            onActiveChildMenuItem={this.setActiveMenuItem} />
         </div>
         <div className="page-header-language">
           <ul className="list-inline language-trigger">
