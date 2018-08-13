@@ -2,6 +2,7 @@ import React from 'react';
 import { inject } from 'mobx-react';
 import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 import ProvinceFilter from '../filters/province-filter';
+import Base from '../../base';
 
 class SubscribeBulletinDialog extends React.Component {
   constructor(props) {
@@ -59,11 +60,16 @@ class SubscribeBulletinDialog extends React.Component {
       regions: this.state.regions,
       email: this.state.email
     };
-    console.log('TEST: ' + JSON.stringify(data));
+
     this.setState({status: 'loading'});
-    window.setTimeout(() => {
-      this.setState({status: 'submitted'});
-    }, 4000);
+    Base.doPost(config.get('apis.subscribe') + '/subscribe', data).then(
+      () => {
+        this.setState({status: 'submitted'});
+      },
+      (errorText, statusCode) => {
+        this.setState({errorMessage: errorText});
+      }
+    );
   }
 
   validate() {
