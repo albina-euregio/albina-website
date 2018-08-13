@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
-import Base from './base';
-import { parseDate, getDaysOfMonth } from './util/date';
+import Base from '../base';
+import { parseDate, getDaysOfMonth } from '../util/date';
 
 class BlogPostPreviewItem {
   constructor(blogName, postId, url, author, date, title, lang, regions = [], image = null, tags = []) {

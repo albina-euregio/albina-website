@@ -3,7 +3,7 @@ import { computed } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 import { Parser } from 'html-to-react';
-import BlogStore from '../blogStore';
+import BlogStore from '../stores/blogStore';
 import PageHeadline from '../components/organisms/page-headline.jsx';
 import FilterBar from '../components/organisms/filter-bar.jsx';
 import BlogPostsList from '../components/blog/blog-posts-list.jsx';

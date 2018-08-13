@@ -8,6 +8,15 @@
       "params": {
         "id": "7062477220886068374"
       }
+    },
+    {
+      "lang": "en",
+      "name": "albina-test.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["IT-32-BZ"],
+      "params": {
+        "id": "1218892426168768626"
+      }
     }
   ],
   "apis": {
