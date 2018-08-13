@@ -30,9 +30,13 @@ iframe#stationTable {
 }
 
 /* Bulletin header */
-.section-bulletin-header.loading *:not(.bulletin-daytime-publishing) {
-  opacity: 0.6;
+.bulletin-datetime-validity {
+  transition: all 0.4s ease-in-out;
 }
+.section-bulletin-header.loading .bulletin-datetime-validity {
+  opacity: 0.5;
+}
+
 
 /* Bulletin Filter bar */
 .section-bulletin-legend .list-avalanche-problems-filter a:not(.js-deactivated):hover img:first-child {
