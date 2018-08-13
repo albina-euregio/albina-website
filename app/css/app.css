@@ -96,3 +96,9 @@ iframe#stationTable {
   color: #ccc;
   background: rgba(245, 245, 245, 0.95);
 }
+
+/* Modal dialogs */
+button.mfp-close,
+button.mfp-close:before {
+  cursor: pointer;
+}

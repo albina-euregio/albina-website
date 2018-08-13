@@ -1,6 +1,7 @@
 import React from 'react';
 import { inject } from 'mobx-react';
 import { injectIntl, FormattedHTMLMessage } from 'react-intl';
+import ProvinceFilter from '../filters/province-filter';
 
 class SubscribeBulletinDialog extends React.Component {
   constructor(props) {
@@ -8,25 +9,64 @@ class SubscribeBulletinDialog extends React.Component {
     this.state = {
       email: '',
       language: window['appStore'].language,
+      regions: Object.keys(window['appStore'].regions).sort(),
       status: '',
       errorMessage: '',
     }
   }
 
   handleChangeEmail = (e) => {
-    this.setState({email: e.target.value});
-  }
+    const target = e.target;
+    if(!target.matches(':invalid')) {
+      this.setState({email: target.value});
+    } else if(this.state.email) {
+      this.setState({email: ''});
+    }
+  };
 
   handleChangeLanguage = (e) => {
     this.setState({language: e.target.value});
-  }
+  };
+
+  handleChangeRegion = (newRegions) => {
+    if(!newRegions) {
+      newRegions = Object.keys(window['appStore'].regions);
+    }
+    if(Array.isArray(newRegions)) {
+      newRegions.sort();
+    } else {
+      newRegions = [newRegions];
+    }
+
+    const equal = (newRegions.length == this.state.regions.length) &&
+      newRegions.every((v,i) => (v === this.state.regions[i]));
+
+    if(!equal) {
+      window.setTimeout(() => {
+        this.setState(
+          {regions: newRegions}
+        );
+      }, 0);
+    }
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
     e.stopPropagation();
 
-    console.log('TEST: ' + JSON.stringify(this.state));
+    const data = {
+      language: this.state.language,
+      regions: this.state.regions,
+      email: this.state.email
+    };
+    console.log('TEST: ' + JSON.stringify(data));
     this.setState({status: 'loading'});
+  }
+
+  validate() {
+    return (this.state.email != '')
+      && (this.state.language != '')
+      && (Array.isArray(this.state.regions));
   }
 
   render() {
@@ -46,12 +86,42 @@ class SubscribeBulletinDialog extends React.Component {
         { !this.state.status &&
           <form className="pure-form pure-form-stacked"
             onSubmit={this.handleSubmit}>
+            <label htmlFor="province">
+              <FormattedHTMLMessage id="dialog:subscribe-bulletin:region" />
+            </label>
+            <ul className="list-inline list-buttongroup">
+              <li>
+                <button
+                  type="button"
+                  className={'pure-button' + ((this.state.regions.length == 1) ? ' inverse' : '')}
+                  onClick={() => {
+                    this.handleChangeRegion(Object.keys(window['appStore'].regions))
+                  }} >
+                  {this.props.intl.formatMessage({id: 'dialog:subscribe-bulletin:region-all:button'})}
+                </button>
+              </li>
+              <li>
+                <span className="buttongroup-boolean">{this.props.intl.formatMessage({id: 'dialog:subscribe-bulletin:region:or'})}</span>
+              </li>
+              <li>
+                <ProvinceFilter
+                  className={(this.state.regions.length == 1) ? 'selectric-changed' : ''}
+                  all={this.props.intl.formatMessage({id: 'dialog:subscribe-bulletin:region-select:button'})}
+                  handleChange={(r) => this.handleChangeRegion(r)}
+                  value={(this.state.regions.length == 1) ? this.state.regions[0] : ''} />
+              </li>
+            </ul>
+
+            <hr />
+
             <p>
               <label htmlFor="email">
                 <FormattedHTMLMessage id="dialog:subscribe-bulletin:email" />
                 <span className="normal"></span>
               </label>
-              <input id="email" name="email"
+              <input id="email"
+                name="email"
+                type="email"
                 className="full-width"
                 onChange={this.handleChangeEmail}
                 placeholder={this.props.intl.formatMessage({id: 'dialog:subscribe-bulletin:email'})} />
@@ -80,7 +150,9 @@ class SubscribeBulletinDialog extends React.Component {
 
             <hr />
 
-            <button type="submit" className="pure-button">
+            <button type="submit"
+              className="pure-button"
+              disabled={this.validate() ? '' : 'disabled'}>
               {this.props.intl.formatMessage({id: 'dialog:subscribe-bulletin:subscribe:button'})}
             </button>
           </form>

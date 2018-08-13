@@ -8,8 +8,16 @@ import React from 'react';
 export default class Selectric extends React.Component {
   componentDidMount() {
     this.$el = $(this.el);
+    const update = () => {
+      if(this.props.className) {
+        this.$el.closest('.selectric-wrapper').addClass(this.props.className);        
+      }
+    };
+
     this.$el.selectric({
-      onChange: this.handleChange
+      onChange: this.handleChange,
+      onInit: () => { update(); },
+      onRefresh: () => { update(); }
     });
   }
 
@@ -27,7 +35,10 @@ export default class Selectric extends React.Component {
 
   render() {
     return (
-      <select className="dropdown" ref={(el) => { this.el = el; }} value={this.props.value}>
+      <select
+        className="dropdown"
+        ref={(el) => { this.el = el; }}
+        value={this.props.value} >
         {this.props.children}
       </select>
     );
