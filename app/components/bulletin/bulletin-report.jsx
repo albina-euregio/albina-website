@@ -2,12 +2,9 @@ import React from 'react';
 import { computed } from 'mobx';
 import { observer, inject } from 'mobx-react';
 import { injectIntl, FormattedHTMLMessage } from 'react-intl';
-import WarnLevelIcon from '../icons/warn-level-icon.jsx';
-import TendencyIcon from '../icons/tendency-icon.jsx';
-import BulletinProblemItem from './bulletin-problem-item.jsx';
-import DangerPatternItem from './danger-pattern-item.jsx';
-import BulletinAWMapStatic from './bulletin-awmap-static.jsx';
-import { dateToLongDateString, parseDate, getSuccDate } from '../../util/date.js';
+import DangerPatternItem from './danger-pattern-item';
+import BulletinDaytimeReport from './bulletin-daytime-report';
+import { dateToLongDateString, parseDate } from '../../util/date';
 
 class BulletinReport extends React.Component {
   warnlevelNumbers;
@@ -17,26 +14,16 @@ class BulletinReport extends React.Component {
   }
 
   @computed
-  get daytimeBulletin() {
+  get daytimeBulletins() {
     const bulletin = this.props.store.activeBulletin;
-    const daytime =
-      (bulletin.hasDaytimeDependency && this.props.store.settings.ampm == 'pm')
-        ? 'afternoon'
-        : 'forenoon';
-    return bulletin[daytime];
-  }
-
-  @computed
-  get problems() {
-    const problems = [];
-    const bulletin = this.daytimeBulletin;
-    if(bulletin.avalancheSituation1 && bulletin.avalancheSituation1.avalancheSituation) {
-      problems.push(bulletin.avalancheSituation1);
+    const bs = {};
+    if(bulletin.hasDaytimeDependency) {
+      bs['am'] = bulletin['forenoon'];
+      bs['pm'] = bulletin['afternoon'];
+    } else {
+      bs['fd'] = bulletin['forenoon'];
     }
-    if(bulletin.avalancheSituation2 && bulletin.avalancheSituation2.avalancheSituation) {
-      problems.push(bulletin.avalancheSituation2);
-    }
-    return problems;
+    return bs;
   }
 
   @computed
@@ -68,83 +55,28 @@ class BulletinReport extends React.Component {
       return (<div></div>);
     }
 
-    const bulletinDaytime = this.daytimeBulletin;
-
-    const ampmId = bulletin.hasDaytimeDependency ? this.props.store.settings.ampm : '';
-    const date = dateToLongDateString(parseDate(this.props.store.settings.date));
-
-    const warnlevels = {
-      'above': bulletinDaytime.dangerRatingAbove ? window['appStore'].getWarnlevelNumber(bulletinDaytime.dangerRatingAbove) : 0,
-      'below': bulletinDaytime.dangerRatingBelow ? window['appStore'].getWarnlevelNumber(bulletinDaytime.dangerRatingBelow) : 0
-    };
-    const warnlevel = Math.max(...Object.values(warnlevels));
-    const elevation = (bulletin.hasElevationDependency && !bulletin.treeline) ? bulletin.elevation : null;
-    const treeline = bulletin.hasElevationDependency && bulletin.treeline;
-
-    const tendencyTitle = bulletin.tendency
-      ? this.props.intl.formatMessage({id: 'bulletin:report:tendency:' + bulletin.tendency})
-      : this.props.intl.formatMessage({id: 'bulletin:report:tendency:none'});
-    const tendencyDate = dateToLongDateString(getSuccDate(parseDate(this.props.store.settings.date)));
-
-    const classes = 'panel field callout warning-level-' + warnlevel;
+    const daytimeBulletins = this.daytimeBulletins;
+    console.log('TEST: ' + JSON.stringify(daytimeBulletins));
 
     return (
       <div>
         <section id="section-bulletin-report" className="section-centered section-bulletin section-bulletin-report">
-          <div className={classes}>
-            <header className="bulletin-report-header">
-              <p>
-                <FormattedHTMLMessage id="bulletin:report:headline" values={{
-                  date: date,
-                  daytime: (ampmId ? this.props.intl.formatMessage({id: 'bulletin:report:daytime:' + ampmId}) : '')
-                }} />
-              </p>
-              <h1>
-                { (warnlevel != 0) &&
-                  <FormattedHTMLMessage id="bulletin:report:headline2" values={{
-                    number: warnlevel,
-                    text: this.props.intl.formatMessage({id: 'danger-level:' + window.appStore.getWarnLevelId(warnlevel)})
-                  }} />
-                }
-                { (warnlevel == 0) &&
-                  <FormattedHTMLMessage id="bulletin:report:headline2:level0" values={{
-                    text: this.props.intl.formatMessage({id: 'danger-level:' + bulletinDaytime.dangerRatingAbove})
-                  }} />
-                }
-              </h1>
-            </header>
-            <div className="bulletin-report-pictobar">
-              <div className="bulletin-report-region">
-                <a href="#page-main"
-                  className="img icon-arrow-up tooltip"
-                  title={this.props.intl.formatMessage({id: 'bulletin:report:selected-region:hover'})}
-                  data-scroll="" >
-                  <BulletinAWMapStatic store={this.props.store} bulletin={bulletin} />
-                </a>
-              </div>
-              <ul className="list-plain list-bulletin-report-pictos">
-                <li>
-                  <WarnLevelIcon
-                    below={bulletinDaytime.dangerRatingBelow} above={bulletinDaytime.dangerRatingAbove} elevation={elevation} treeline={treeline} />
-                  <div className="bulletin-report-tendency tooltip" title={this.props.intl.formatMessage({id: 'bulletin:report:tendency:hover'})}>
-                    <FormattedHTMLMessage id="bulletin:report:tendency" values={{
-                      tendency: tendencyTitle,
-                      daytime:  '', // ampmId ? this.props.intl.formatMessage({id: 'bulletin:report:tendency:daytime:' + ampmId}) : '',
-                      date: tendencyDate
-                    }} />
-                    <TendencyIcon tendency={bulletin.tendency} />
-                  </div>
-                </li>{
-                  this.problems.map((p, index) => <BulletinProblemItem key={index} problem={p} />)
-                }
-              </ul>
-            </div>
-            <h2 className="subheader">{this.getLocalizedText(bulletin.avActivityHighlights)}</h2>
-            <p>{this.getLocalizedText(bulletin.avActivityComment)}</p>
-          </div>
+          {
+            Object.keys(daytimeBulletins).map((ampm) =>
+              <BulletinDaytimeReport
+                key={ampm}
+                bulletin={daytimeBulletins[ampm]}
+                fullBulletin={bulletin}
+                date={dateToLongDateString(parseDate(this.props.store.settings.date))}
+                ampm={(ampm == 'fd') ? '' : ampm}
+                store={this.props.store} />
+            )
+          }
         </section>
         <section id="section-bulletin-additional" className="section-centered section-bulletin section-bulletin-additional">
           <div className="panel brand">
+            <h2 className="subheader">{this.getLocalizedText(bulletin.avActivityHighlights)}</h2>
+            <p>{this.getLocalizedText(bulletin.avActivityComment)}</p>
             { ((this.dangerPatterns.length > 0) || bulletin.snowpackStructureComment) &&
               <div>
                 <h2 className="subheader"><FormattedHTMLMessage id="bulletin:report:snowpack-structure:headline" /></h2>

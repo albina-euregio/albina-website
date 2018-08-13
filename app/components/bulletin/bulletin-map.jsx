@@ -127,7 +127,7 @@ class BulletinMap extends React.Component {
               {this.props.store.settings.region ==
                 this.state.highlightedRegion && (
                 <a
-                  href="#section-bulletin-report"
+                  href="#section-bulletin-buttonbar"
                   className="pure-button tooltip"
                   title={this.props.intl.formatMessage({id: 'bulletin:map:info:details:hover'})}
                   data-scroll=""
