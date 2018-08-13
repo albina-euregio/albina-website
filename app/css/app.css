@@ -106,3 +106,15 @@ button.mfp-close:before {
 .status-message .error {
   color: #ff0000;
 }
+
+a.share-feed {
+  line-height: 2em;
+  background-image: url('../images/pro/feed-icon-28x28.png');
+  background-repeat: no-repeat;
+  background-size: 1.3em 1.3em;
+  padding-left: 1.5em;
+}
+
+.modal-subscribe .blog-language {
+  font-weight: bold;
+}

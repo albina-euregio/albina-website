@@ -205,6 +205,8 @@
   "dialog:subscribe-blog:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
   "dialog:subscribe-blog:back-button:hover": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
   "dialog:subscribe-blog:or": {"en": "or", "de": "oder", "it": "o"},
+  "dialog:subscribe-blog:atom": {"all": "Atom 1.0"},
+  "dialog:subscribe-blog:rss": {"all": "RSS 2.0"},
 
   "dialog:cookie-consent:header": {"en": "This website uses Cookies", "de": "Diese Webseite verwendet Cookies", "it": "Questo sito web utilizza i cookie"},
   "dialog:cookie-consent:text": {

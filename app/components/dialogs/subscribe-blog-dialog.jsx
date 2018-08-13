@@ -46,7 +46,9 @@ class SubscribeBlogDialog extends React.Component {
                         {b.name} - <span className="blog-language">{b.lang.toUpperCase()}</span>
                         <ul className="list-inline list-buttongroup">
                           <li>
-                            <a href={'http://' + b.name  + '/feeds/posts/default'} className="share-atom">Atom</a>
+                            <a href={'http://' + b.name  + '/feeds/posts/default'} className="share-atom share-feed">
+                              {this.props.intl.formatMessage({id: 'dialog:subscribe-blog:atom'})}
+                            </a>
                           </li>
                           <li>
                             <span className="buttongroup-boolean">
@@ -54,7 +56,9 @@ class SubscribeBlogDialog extends React.Component {
                             </span>
                           </li>
                           <li>
-                            <a href={'http://' + b.name  + '/feeds/posts/default?alt=rss'} className="share-atom">RSS</a>
+                            <a href={'http://' + b.name  + '/feeds/posts/default?alt=rss'} className="share-rss share-feed">
+                              {this.props.intl.formatMessage({id: 'dialog:subscribe-blog:rss'})}
+                            </a>
                           </li>
                         </ul>
                       </div>
