@@ -43,7 +43,7 @@ export default class BlogStore {
     // Do not make posts observable, otherwise posts list will be
     // unnecessaryliy rerendered during the filling of this array.
     // Views should only observe the value of the "loading" flag instead.
-    this._posts = [];
+    this._posts = {};
 
     this._year = observable.box('');
     this._month = observable.box('');
@@ -109,23 +109,33 @@ export default class BlogStore {
     }
 
     this.loading = true;
-    this._posts.splice(0, this._posts.length);
 
     const blogsConfig = window['config'].get('blogs');
     const loads = [];
 
+    const newPosts = {};
+
     // filter config for lang and region
     for(let cfg of blogsConfig) {
+      newPosts[cfg.name] = [];
+
       if(this.languages[cfg.lang] && this.languages[cfg.lang].active) {
         if(cfg.regions.some((r) => (this.regions[r] && this.regions[r].active))) {
           if(this.blogProcessor[cfg.apiType]) {
             const p = this.blogProcessor[cfg.apiType];
             loads.push(
-              Base.doRequest(p.createUrl(cfg)).then((response) => {
-                p.process(JSON.parse(response), cfg).forEach((i) => {
-                  this._addPost(i);
-                });
-              })
+              Base.doRequest(p.createUrl(cfg)).then(
+                (response) => {
+                  p.process(JSON.parse(response), cfg).forEach((i) => {
+                    newPosts[cfg.name].push(i);
+                  });
+                },
+                (errorText, statusCode) => {
+                  if(parseInt(statusCode) == 304 && Array.isArray(this._posts[cfg.name])) {
+                    newPosts[cfg.name] = this._posts[cfg.name];
+                  }
+                }
+              )
             );
           }
         }
@@ -133,6 +143,9 @@ export default class BlogStore {
     }
 
     return Promise.all(loads).then(() => {
+      Object.keys(newPosts).forEach((queue) => {
+        this._posts[queue] = newPosts[queue];
+      });
       this.loading = false;
     });
   }
@@ -191,11 +204,6 @@ export default class BlogStore {
     return null;
   }
 
-  _addPost(item) {
-    // TODO: sort by date
-    this._posts.push(item);
-  }
-
   @action
   setRegionFilter(region) {
     for(let r in this.regions) {
@@ -213,11 +221,59 @@ export default class BlogStore {
   }
 
   getPosts(start = 0, limit = 10) {
-    const startIndex = Math.min(start, this._posts.length - 1);
-    const end = Math.min(limit, this._posts.length);
+    console.log('TEST: ' + JSON.stringify(this._posts));
+    const totalLength = Object.values(this._posts)
+      .map((l) => l.length)
+      .reduce((acc, v) => acc + v, 0);
 
+    const queues = Object.keys(this._posts);
+
+    const startIndex = Math.min(start, totalLength - 1);
+    const end = Math.min(start + limit, totalLength);
+    const postPointer = {};
+    queues.forEach((queue) => {
+      postPointer[queue] = 0;
+    });
+
+    const getNext = () => {
+      // get the next items of all queues
+      const candidates = {};
+      queues.forEach((queue) => {
+        if(this._posts[queue].length > postPointer[queue]) {
+          candidates[queue] = this._posts[queue][postPointer[queue]];
+        }
+      });
+
+      // find the maximum
+      const queueMax = Object.keys(candidates).reduce((acc, queue) => {
+        if(!acc || (candidates[queue].date > candidates[acc].date)) {
+          return queue;
+        }
+        return acc;
+      }, '');
+
+      if(queueMax) {
+        const next = this._posts[queueMax][postPointer[queueMax]];
+        postPointer[queueMax]++;
+        return next;
+      }
+      return null;
+    }
+
+    const list = [];
     if(startIndex >= 0) {
-      return this._posts.slice(startIndex, end);
+      for(let i = 0; i < startIndex; i++) {
+        getNext();
+      }
+
+      for(let j = startIndex; j < end; j++) {
+        const n = getNext();
+        if(n) {
+          list.push(n);
+        }
+      }
+
+      return list;
     }
     return [];
   }

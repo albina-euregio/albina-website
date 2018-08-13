@@ -56,7 +56,6 @@ class BulletinReport extends React.Component {
     }
 
     const daytimeBulletins = this.daytimeBulletins;
-    console.log('TEST: ' + JSON.stringify(daytimeBulletins));
 
     return (
       <div>
