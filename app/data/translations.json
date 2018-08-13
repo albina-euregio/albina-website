@@ -196,7 +196,7 @@
   "dialog:subscribe-bulletin:subscribe:button": {"en": "Subscribe", "de": "Abonnieren", "it": "Iscriviti"},
   "dialog:subscribe-bulletin:status:loading": {"en": "<strong>Please stand by:</strong> Subscription in progress \\u2026", "de": "<strong>Bitte warten:</strong> Anmeldung in Arbeit \\u2026", "it": "<strong>Si prega di attendere:</strong> Iscrizione in corso \\u2026"},
   "dialog:subscribe-bulletin:status:subscribed": {"en": "<strong>Oh:</strong> You are already subscribed with this email adress", "de": "<strong>Oh:</strong> Sie haben diese E-mail Adresse für die Anmeldung schon verwendet", "it": "<strong>Oh:</strong> Sei già iscritto con questo indirizzo e-mail"},
-  "dialog:subscribe-bulletin:status:submitted": {"en": "<strong>Please check your email inbox</strong> to confirm your subscription", "de": "<strong>Bitte überprüfen Sie ihren Posteingang</strong> und bestätigen die Anmeldung zum Abonnement", "it": "<strong>Controlla la tua casella di posta elettronica</strong> per confermare l'iscrizione"},
+  "dialog:subscribe-bulletin:status:submitted": {"en": "<strong>Please check your email inbox</strong> to confirm your subscription", "de": "<strong>Bitte überprüfen Sie Ihren Posteingang</strong> und bestätigen die Anmeldung zum Abonnement", "it": "<strong>Controlla la tua casella di posta elettronica</strong> per confermare l'iscrizione"},
   "dialog:subscribe-bulletin:error": {"en": "Error", "de": "Fehler", "it": "Errore"},
 
   "dialog:subscribe-blog:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},

@@ -61,6 +61,9 @@ class SubscribeBulletinDialog extends React.Component {
     };
     console.log('TEST: ' + JSON.stringify(data));
     this.setState({status: 'loading'});
+    window.setTimeout(() => {
+      this.setState({status: 'submitted'});
+    }, 4000);
   }
 
   validate() {
