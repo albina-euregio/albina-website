@@ -102,3 +102,7 @@ button.mfp-close,
 button.mfp-close:before {
   cursor: pointer;
 }
+
+.status-message .error {
+  color: #ff0000;
+}

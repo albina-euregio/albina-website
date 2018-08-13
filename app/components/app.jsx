@@ -14,6 +14,7 @@ import StationMeasurements from './../views/stationMeasurements';
 import Education from './../views/education';
 import Archive from './../views/archive';
 import StaticPage from './../views/staticPage';
+import SubscribeConfirmation from './../views/subscribeConfirmation';
 import Page from './page';
 
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
@@ -79,6 +80,10 @@ class App extends React.Component {
             path: '/archive',
             exact: true,
             component: Archive,
+          },
+          {
+            path: '/subscribe/:hash',
+            component: SubscribeConfirmation,
           },
           {
             // NOTE: 404 error will be handled by StaticPage, since we do not

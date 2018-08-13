@@ -13,6 +13,7 @@
   "apis": {
     "content": "https://data1.geo.univie.ac.at/projects/albina-cms/web/",
     "bulletin": "http://212.47.231.185:8080/albina/api/bulletins",
+    "subscribe": "http://212.47.231.185:8080/albina/api/email",
     "geo": "https://data1.geo.univie.ac.at/exchange/albina2/awm/",
     "blogger": "https://www.googleapis.com/blogger/v3/blogs/"
   },

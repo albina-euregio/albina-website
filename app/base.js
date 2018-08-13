@@ -14,7 +14,7 @@ var Base = {
           if(xhr.status == 200) {
             resolve(xhr.responseText);
           } else {
-            reject(xhr.statusText);
+            reject(xhr.statusText, xhr.status);
           }
         }
       };
@@ -30,6 +30,35 @@ var Base = {
         break;
       }
       xhr.send(null);
+    });
+  },
+
+  doPost(url, payload, type='json') {
+    return new Promise(function(resolve, reject) {
+      console.log('post: ' + url + ' ' + JSON.stringify(payload));
+      let xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          if(xhr.status == 200) {
+            resolve(xhr.responseText);
+          } else {
+            reject(xhr.statusText, xhr.status);
+          }
+        }
+      };
+      xhr.open('POST', url, true);
+
+      // set content type
+      switch(type) {
+      case 'json':
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.setRequestHeader('Accept', 'application/json,application/vnd.application+json,application/vnd.api+json');
+        break;
+
+      default:
+        break;
+      }
+      xhr.send(JSON.stringify(payload));
     });
   },
 
