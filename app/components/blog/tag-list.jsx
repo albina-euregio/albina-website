@@ -13,7 +13,7 @@ class TagList extends React.Component {
         <ul className="list-inline blog-list-labels">
           {
             this.props.tags.map((t, i) =>
-              <li key={i}><span className="label">{this.props.intl.formatMessage({id: 'danger-patterns:' + t})}</span></li>
+              <li key={i}><span className="label">{this.props.intl.formatMessage({id: 'problem:' + t})}</span></li>
             )
           }
         </ul>

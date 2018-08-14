@@ -4,17 +4,9 @@ import { injectIntl } from 'react-intl';
 import ProblemIcon from '../icons/problem-icon.jsx';
 
 class BulletinProblemFilterItem extends React.Component {
-  problemTexts;
 
   constructor(props) {
     super(props);
-    this.problemTexts = {
-      'new_snow': this.props.intl.formatMessage({id: 'problem:new-snow'}),
-      'wind_drifted_snow': this.props.intl.formatMessage({id: 'problem:wind-drifted-snow'}),
-      'weak_persistent_layer': this.props.intl.formatMessage({id: 'problem:weak-persistent-layer'}),
-      'wet_snow': this.props.intl.formatMessage({id: 'problem:wet-snow'}),
-      'gliding_snow': this.props.intl.formatMessage({id: 'problem:gliding-snow'})
-    }
     this.state = {
       active: this.props.active,
       id: this.props.problemId
@@ -33,7 +25,7 @@ class BulletinProblemFilterItem extends React.Component {
   }
 
   render() {
-    const problemText = this.problemTexts[this.props.problemId];
+    const problemText = this.props.intl.formatMessage({id: 'problem:' + this.props.problemId});
 
     const title = this.props.intl.formatMessage(
       {id: (this.props.active ? 'bulletin:legend:dehighlight:hover' : 'bulletin:legend:highlight:hover')},

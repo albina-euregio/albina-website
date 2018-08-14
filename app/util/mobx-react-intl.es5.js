@@ -1,5 +1,6 @@
 // IMPORTED FROM - mobx-react-intl
-// make mobx4-compatible version
+// There is an issue with mobx4 - see this issue: https://github.com/Sqooba/mobx-react-intl/issues/19
+// use the version here until that issue is fixed.
 import { observable } from 'mobx';
 import { createElement } from 'react';
 import { inject, observer } from 'mobx-react';

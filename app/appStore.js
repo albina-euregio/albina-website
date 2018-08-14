@@ -28,7 +28,7 @@ class AppStore extends React.Component {
 
     Object.keys(translations).forEach((key) =>
       this.languages.forEach((lang) => {
-        // take language key, or english, if translation is missing
+        // take language key, or "all", if translation is missing
         translationLookup[lang][key] =
           (translations[key][lang]) ? translations[key][lang] : translations[key][translationFallbackLanguage];
       })
@@ -53,6 +53,10 @@ class AppStore extends React.Component {
       'no_snow': 0,
       'no_rating': 0
     };
+
+    this.avalancheProblems = Object.keys(translations)
+      .filter((k) => k.match(/^problem:/))
+      .map((k) => k.substr(8));
   }
 
   set language(newLanguage) {

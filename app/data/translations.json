@@ -22,12 +22,12 @@
   "danger-patterns:dp9": {"en": "dp 9: graupel blanketed with snow", "de": "gm 9: eingeschneiter Graupel", "it": "st 9: neve pallottolare coperta da neve fresca"},
   "danger-patterns:dp10": {"en": "dp 10: springtime scenario", "de": "gm 10: Frühjahrssituation", "it": "st 10: situazione primaverile"},
 
-  "problem:new-snow": {"en": "New snow problem", "de": "Neuschneeproblem", "it": "Problema di neve fresca"},
-  "problem:wind-drifted-snow": {"en": "Wind-drifted snow problem", "de": "Triebschneeproblem", "it": "Problema di neve ventata"},
-  "problem:weak-persistent-layer": {"en": "Persistent weak layer problem", "de": "Altschneeproblem", "it": "Problema con strati deboli persistenti"},
-  "problem:wet-snow": {"en": "Wet snow problem", "de": "Nassschneeproblem", "it": "Problema di neve bagnata"},
-  "problem:gliding-snow": {"en": "Gliding snow problem", "de": "Gleitschneeproblem", "it": "Problema con valanghe di slittamento"},
-  "problem:favourable-situation": {"en": "Favourable situation", "de": "Günstige Situation", "it": "Situazione favorebole"},
+  "problem:new_snow": {"en": "New snow problem", "de": "Neuschneeproblem", "it": "Problema di neve fresca"},
+  "problem:wind_drifted_snow": {"en": "Wind-drifted snow problem", "de": "Triebschneeproblem", "it": "Problema di neve ventata"},
+  "problem:weak_persistent_layer": {"en": "Persistent weak layer problem", "de": "Altschneeproblem", "it": "Problema con strati deboli persistenti"},
+  "problem:wet_snow": {"en": "Wet snow problem", "de": "Nassschneeproblem", "it": "Problema di neve bagnata"},
+  "problem:gliding_snow": {"en": "Gliding snow problem", "de": "Gleitschneeproblem", "it": "Problema con valanghe di slittamento"},
+  "problem:favourable_situation": {"en": "Favourable situation", "de": "Günstige Situation", "it": "Situazione favorebole"},
 
   "filter:all": {"en": "All", "de": "Alle", "it": "Tutti"},
   "filter:search": {"en": "Search", "de": "Suchen", "it": "Cerca"},
@@ -146,6 +146,7 @@
   "weathermap:header:dateflipper:back": {"en": "Back", "de": "Zurück", "it": "Indietro"},
   "weathermap:header:dateflipper:forward": {"en": "Forward", "de": "Vor", "it": "Avanti"},
 
+  "blog:filter:avalanche-problem": {"en": "Avalanche Problem", "de": "Lawinenproblem", "it": "Problema tipico valanghivo"},
   "blog:filter:year": {"en": "Year", "de": "Jahr", "it": "Anno"},
   "blog:filter:month": {"en": "Month", "de": "Monat", "it": "Mese"},
   "blog:filter:province": {"en": "Province", "de": "Region", "it": "Province"},

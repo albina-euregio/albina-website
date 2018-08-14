@@ -12,6 +12,7 @@ import ProvinceFilter from '../components/filters/province-filter';
 import LanguageFilter from '../components/filters/language-filter';
 import YearFilter from '../components/filters/year-filter';
 import MonthFilter from '../components/filters/month-filter';
+import TagFilter from '../components/filters/tag-filter';
 
 class BlogOverview extends React.Component {
   constructor(props) {
@@ -67,6 +68,10 @@ class BlogOverview extends React.Component {
     this.store.month = val;
   };
 
+  handleChangeAvalancheProblem = (val) => {
+    this.store.avalancheProblem = val;
+  };
+
   @computed
   get activeRegion() {
     const rs = Object.keys(this.store.regions);
@@ -101,6 +106,11 @@ class BlogOverview extends React.Component {
             all={this.props.intl.formatMessage({id: 'filter:all'})}
             handleChange={this.handleChangeRegion}
             value={this.activeRegion} />
+          <TagFilter
+            title={this.props.intl.formatMessage({id: 'blog:filter:avalanche-problem'})}
+            all={this.props.intl.formatMessage({id: 'filter:all'})}
+            handleChange={this.handleChangeAvalancheProblem}
+            value={this.store.avalancheProblem} />
           <YearFilter
             title={this.props.intl.formatMessage({id: 'blog:filter:year'})}
             all={this.props.intl.formatMessage({id: 'filter:all'})}

@@ -23,6 +23,7 @@ export default class BlogStore {
   languages;
   _year;
   _month;
+  _avalancheProblem;
   _searchText;
   _loading;
   _posts;
@@ -48,13 +49,12 @@ export default class BlogStore {
 
     this._year = observable.box('');
     this._month = observable.box('');
+    this._avalancheProblem = observable.box('');
 
     // For Mobx > v4 we have to use an obserable box instead of
     // @observable loading = ...;
     this._loading = observable.box(false);
     this._searchText = observable.box('');
-
-    const labelRegex = /^(dp|DP|gm|GM|st|ST)\s*(\d+)/;
 
     this.blogProcessor = {
       blogger: {
@@ -169,6 +169,14 @@ export default class BlogStore {
 
   set searchText(val) {
     this._searchText.set(val);
+  }
+
+  get avalancheProblem() {
+    return this._avalancheProblem.get();
+  }
+
+  set avalancheProblem(val) {
+    this._avalancheProblem.set(val);
   }
 
   get year() {
