@@ -65,6 +65,9 @@ export default class BlogStore {
             'fetchImages': true,
             'status': 'live'
           };
+          if(this.avalancheProblem) {
+            params['labels'] = this.avalancheProblem;
+          }
           if(this.year) {
             params['startDate'] = this._startDate.toISOString();
             params['endDate'] = this._endDate.toISOString();
@@ -177,6 +180,7 @@ export default class BlogStore {
 
   set avalancheProblem(val) {
     this._avalancheProblem.set(val);
+    this.load(true);
   }
 
   get year() {
