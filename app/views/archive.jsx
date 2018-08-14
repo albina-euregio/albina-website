@@ -32,7 +32,9 @@ class Archive extends React.Component {
 
     this.state = {
       title: '',
-      content: ''
+      headerText: '',
+      content: '',
+      sharable: false
     }
   }
 
@@ -42,7 +44,9 @@ class Archive extends React.Component {
       const responseParsed = JSON.parse(response);
       this.setState({
         title: responseParsed.data.attributes.title,
-        content: responseParsed.data.attributes.body
+        headerText: responseParsed.data.attributes.header_text,
+        content: responseParsed.data.attributes.body,
+        sharable: responseParsed.data.attributes.sharable
       });
     });
 
@@ -106,7 +110,7 @@ class Archive extends React.Component {
   render() {
     return (
       <div>
-        <PageHeadline title={this.state.title} marginal="Some short text, only optionally, this is max. length" />
+        <PageHeadline title={this.state.title} marginal={this.state.headerText} />
         <FilterBar search={false}>
           <YearFilter
             title={this.props.intl.formatMessage({id: 'archive:filter:year'})}
@@ -157,7 +161,9 @@ class Archive extends React.Component {
             (new Parser()).parse(this.state.content)
           }
         </div>
-        <SmShare />
+        { this.state.sharable ?
+          <SmShare /> : <div className="section-padding"></div>
+        }
       </div>
     );
   }

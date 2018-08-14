@@ -5,8 +5,9 @@ import { injectIntl } from 'react-intl';
 import { Parser } from 'html-to-react';
 import queryString from 'query-string';
 import Base from '../base';
-import PageHeadline from '../components/organisms/page-headline.jsx';
+import PageHeadline from '../components/organisms/page-headline';
 import Menu from '../components/menu';
+import SmShare from '../components/organisms/sm-share';
 import { dateToLongDateString, dateToTimeString } from '../util/date';
 
 class WeatherMap extends React.Component {
@@ -14,9 +15,11 @@ class WeatherMap extends React.Component {
     super(props);
     this.state = {
       title: '',
+      headerText: '',
       content: '',
       mapParams: {},
-      mapTitle: ''
+      mapTitle: '',
+      sharable: false
     };
   }
 
@@ -28,7 +31,9 @@ class WeatherMap extends React.Component {
       const responseParsed = JSON.parse(response);
       this.setState({
         title: responseParsed.data.attributes.title,
-        content: responseParsed.data.attributes.body
+        headerText: responseParsed.data.attributes.header_text,
+        content: responseParsed.data.attributes.body,
+        sharable: responseParsed.data.attributes.sharable
       });
     });
 
@@ -77,7 +82,7 @@ class WeatherMap extends React.Component {
 
     return (
       <div>
-        <PageHeadline title={this.state.title} />
+        <PageHeadline title={this.state.title} marginal={this.state.headerText} />
         <section className="section-flipper">
           <div id="flipper">
             <div className="section-padding-width flipper-controls">
@@ -138,6 +143,9 @@ class WeatherMap extends React.Component {
         <div>
           { (new Parser()).parse(this.state.content) }
         </div>
+        { this.state.sharable ?
+          <SmShare /> : <div className="section-padding"></div>
+        }
       </div>
     );
   }

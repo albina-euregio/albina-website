@@ -13,6 +13,10 @@ class SmShare extends React.Component {
       return 'https://www.twitter.com/share?url='
         + encodeURIComponent(currentUrl);
     }
+    if(type == 'whatsapp') {
+      // see https://faq.whatsapp.com/en/general/26000030
+      return 'https://wa.me/?text=' + encodeURIComponent(currentUrl);
+    }
     return '#';
   }
 
@@ -39,24 +43,30 @@ class SmShare extends React.Component {
               <span>Twitter</span>
             </a>
           </li>
+          { false &&
+            <li>
+              <a
+                className="sm-button icon-sm-instagram tooltip"
+                title={this.props.intl.formatMessage({id: 'main:share-this:hover'}, {on: 'Instagram'})}
+                target="_blank" >
+                <span>Instagram</span>
+              </a>
+            </li>
+          }
+          { false &&
+            <li>
+              <a
+                className="sm-button icon-sm-youtube tooltip"
+                title={this.props.intl.formatMessage({id: 'main:share-this:hover'}, {on: 'YouTube'})}
+                target="_blank" >
+                <span>YouTube</span>
+              </a>
+            </li>
+          }
           <li>
             <a
-              className="sm-button icon-sm-instagram tooltip"
-              title={this.props.intl.formatMessage({id: 'main:share-this:hover'}, {on: 'Instagram'})}
-              target="_blank" >
-              <span>Instagram</span>
-            </a>
-          </li>
-          <li>
-            <a
-              className="sm-button icon-sm-youtube tooltip"
-              title={this.props.intl.formatMessage({id: 'main:share-this:hover'}, {on: 'YouTube'})}
-              target="_blank" >
-              <span>YouTube</span>
-            </a>
-          </li>
-          <li>
-            <a className="sm-button icon-sm-whatsapp tooltip"
+              href={this.getShareUrl('whatsapp')}
+              className="sm-button icon-sm-whatsapp tooltip"
               title={this.props.intl.formatMessage({id: 'main:share-this:hover'}, {on: 'WhatsApp'})}
               target="_blank" >
               <span>WhatsApp</span>

@@ -22,7 +22,8 @@ class Bulletin extends React.Component {
     this.store = window.bulletinStore;
     this.state = {
       title: '',
-      content: ''
+      content: '',
+      sharable: false
     }
   }
 
@@ -32,7 +33,8 @@ class Bulletin extends React.Component {
       const responseParsed = JSON.parse(response);
       this.setState({
         title: responseParsed.data.attributes.title,
-        content: responseParsed.data.attributes.body
+        content: responseParsed.data.attributes.body,
+        sharable: responseParsed.data.attributes.sharable
       });
     });
 
@@ -82,8 +84,10 @@ class Bulletin extends React.Component {
         <BulletinLegend problems={this.store.problems} />
         <BulletinButtonbar store={this.store} />
         <BulletinReport store={this.store} />
-        <SmShare />
-        <div>
+        { this.state.sharable &&
+          <SmShare />
+        }
+        <div className="section-padding">
           { (new Parser()).parse(this.state.content) }
         </div>
       </div>

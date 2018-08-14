@@ -92,7 +92,7 @@
         "id": "snowsafe",
         "logo": "App_SnowSafe_Logo.png",
         "url": {
-          "android": "http://play.google.com/store/apps/details?id=com.roomfour0four.android.avalanche",
+          "android": "https://play.google.com/store/apps/details?id=com.roomfour0four.android.avalanche",
           "ios": "https://itunes.apple.com/us/app/snowsafe/id585169516"
         }
       },

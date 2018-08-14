@@ -4,13 +4,14 @@ import { observer, inject } from 'mobx-react';
 import { injectIntl, FormattedHTMLMessage } from 'react-intl';
 import { Parser } from 'html-to-react';
 import BlogStore from '../stores/blogStore';
-import PageHeadline from '../components/organisms/page-headline.jsx';
-import FilterBar from '../components/organisms/filter-bar.jsx';
-import BlogPostsList from '../components/blog/blog-posts-list.jsx';
-import ProvinceFilter from '../components/filters/province-filter.jsx';
-import LanguageFilter from '../components/filters/language-filter.jsx';
-import YearFilter from '../components/filters/year-filter.jsx';
-import MonthFilter from '../components/filters/month-filter.jsx';
+import PageHeadline from '../components/organisms/page-headline';
+import SmShare from '../components/organisms/sm-share';
+import FilterBar from '../components/organisms/filter-bar';
+import BlogPostsList from '../components/blog/blog-posts-list';
+import ProvinceFilter from '../components/filters/province-filter';
+import LanguageFilter from '../components/filters/language-filter';
+import YearFilter from '../components/filters/year-filter';
+import MonthFilter from '../components/filters/month-filter';
 
 class BlogOverview extends React.Component {
   constructor(props) {
@@ -21,7 +22,9 @@ class BlogOverview extends React.Component {
     this.store = window['blogStore'];
     this.state = {
       title: '',
-      content: ''
+      headerText: '',
+      content: '',
+      sharable: false
     }
   }
 
@@ -35,7 +38,9 @@ class BlogOverview extends React.Component {
       const responseParsed = JSON.parse(response);
       this.setState({
         title: responseParsed.data.attributes.title,
-        content: responseParsed.data.attributes.body
+        headerText: responseParsed.data.attributes.header_text,
+        content: responseParsed.data.attributes.body,
+        sharable: responseParsed.data.attributes.sharable
       });
     });
 
@@ -89,7 +94,7 @@ class BlogOverview extends React.Component {
   render() {
     return (
       <div>
-        <PageHeadline title={this.state.title} marginal="" />
+        <PageHeadline title={this.state.title} marginal={this.state.headerText} />
         <FilterBar search={true} searchTitle={this.props.intl.formatMessage({id: 'blog:search'})}>
           <ProvinceFilter
             title={this.props.intl.formatMessage({id: 'blog:filter:province'})}
@@ -123,6 +128,9 @@ class BlogOverview extends React.Component {
         <div>
           { (new Parser()).parse(this.state.content) }
         </div>
+        { this.state.sharable ?
+          <SmShare /> : <div className="section-padding"></div>
+        }
       </div>
     );
   }
