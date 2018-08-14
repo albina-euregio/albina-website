@@ -6,6 +6,7 @@ import TagList from '../components/blog/tag-list';
 import { parseDate, dateToDateString } from '../util/date';
 import { parseTags } from '../util/tagging';
 import { modal_init } from '../js/modal';
+import { video_init } from '../js/video';
 
 export default class BlogPost extends React.Component {
   constructor(props) {
@@ -49,6 +50,21 @@ export default class BlogPost extends React.Component {
           node.attribs.class = (node.attribs.class ? (node.attribs.class + ' ') : '')
             + 'mfp-image modal-trigger img';
           return defaults.processDefaultNode(node, ...args);
+        }
+      },
+      {
+        // Use Fitvids for youtube iframes
+        shouldProcessNode: (node) => {
+          return (node.name == 'iframe')
+            && (node.attribs.class)
+            && (node.attribs.class.indexOf('YOUTUBE-iframe-video') >= 0);
+        },
+        processNode: (node, ...args) => {
+          return React.createElement(
+            'div',
+            {className: 'fitvids', key: node.attribs.src},
+            defaults.processDefaultNode(node, ...args)
+          );
         }
       },
       {
@@ -99,6 +115,7 @@ export default class BlogPost extends React.Component {
       }).then(() => {
         window.setTimeout(() => {
           modal_init();
+          video_init();
         }, 1000);
       });
     }

@@ -16,6 +16,7 @@ import { renderRoutes } from 'react-router-config';
 import { modal_init } from '../js/modal';
 import { tooltip_init } from '../js/tooltip';
 import { navigation_init } from '../js/navigation';
+import { video_init } from '../js/video';
 
 class Page extends React.Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class Page extends React.Component {
     modal_init();
     tooltip_init();
     navigation_init();
+    video_init();
   }
 
   render() {

@@ -53,8 +53,6 @@ $(function () {
 		accordion_init();
 		tilt_init();
 
-		video_init();
-
 		page_loaded();
 
 		//preload_files();
@@ -395,14 +393,6 @@ function tilt_init() {
 
 /* !video
 ****************************************************/
-
-function video_init() {
-	fluidvids.init({
-		selector: [".fitvids iframe"], // runs querySelectorAll()
-		players: ["www.youtube.com", "player.vimeo.com"] // players to support
-	});
-}
-
 
 
 /* !loaded and loading
