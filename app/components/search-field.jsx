@@ -5,6 +5,9 @@ import { injectIntl } from 'react-intl';
 class SearchField extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      text: ''
+    };
   }
 
   render() {
@@ -13,8 +16,27 @@ class SearchField extends React.Component {
       <div>
         <p className="info">{this.props.title}</p>
         <div className="pure-form pure-form-search">
-          <input type="text" id="input" placeholder={placeholder} />
-          <button href="#" title={placeholder} className="pure-button pure-button-icon icon-search tooltip">
+          <input
+            type="text"
+            id="input"
+            placeholder={placeholder}
+            onChange={(e) => {
+              const newVal = e.target.value;
+              if(newVal != this.state.text) {
+                window.setTimeout(() => {
+                  this.setState({text: newVal});
+                }, 0);
+              }
+            }}
+            onKeyPress={(e) => {
+              if(e.key == 'Enter') {
+                this.props.handleSearch(this.state.text);
+              }
+            }} />
+          <button href="#"
+            title={placeholder}
+            className="pure-button pure-button-icon icon-search tooltip"
+            onClick={() => { this.props.handleSearch(this.state.text); }}>
             <span>&nbsp;</span>
           </button>
         </div>

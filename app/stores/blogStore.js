@@ -59,6 +59,24 @@ export default class BlogStore {
     this.blogProcessor = {
       blogger: {
         createUrl: (config) => {
+          const baseUrl = window['config'].get('apis.blogger')
+            + config.params.id
+            + '/posts';
+
+          if(this.searchText) {
+            // create search URL
+            const params = {
+              key: window['config'].get('apiKeys.google'),
+              q: this.searchText
+            };
+
+            return Base.makeUrl(
+              baseUrl + '/search',
+              params
+            );
+          }
+
+          // else
           const params = {
             'key': window['config'].get('apiKeys.google'),
             'fetchBodies': false,
@@ -171,7 +189,10 @@ export default class BlogStore {
   }
 
   set searchText(val) {
-    this._searchText.set(val);
+    if(val != this._searchText.get()) {
+      this._searchText.set(val);
+      this.load(true);
+    }
   }
 
   get avalancheProblem() {

@@ -72,6 +72,10 @@ class BlogOverview extends React.Component {
     this.store.avalancheProblem = val;
   };
 
+  handleChangeSearch = (val) => {
+    this.store.searchText = val;
+  };
+
   @computed
   get activeRegion() {
     const rs = Object.keys(this.store.regions);
@@ -100,7 +104,8 @@ class BlogOverview extends React.Component {
     return (
       <div>
         <PageHeadline title={this.state.title} marginal={this.state.headerText} />
-        <FilterBar search={true} searchTitle={this.props.intl.formatMessage({id: 'blog:search'})}>
+        <FilterBar search={true} searchTitle={this.props.intl.formatMessage({id: 'blog:search'})}
+          searchOnChange={this.handleChangeSearch} >
           <ProvinceFilter
             title={this.props.intl.formatMessage({id: 'blog:filter:province'})}
             all={this.props.intl.formatMessage({id: 'filter:all'})}

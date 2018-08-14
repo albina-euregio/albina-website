@@ -19,7 +19,11 @@ export default class FilterBar extends React.Component {
     if(this.props.search) {
       grid = <div className="grid">
         <div className="normal-9 grid-item">{filterList}</div>
-        <div className="normal-3 grid-item"><SearchField title={this.props.searchTitle} /></div>
+        <div className="normal-3 grid-item">
+          <SearchField
+            title={this.props.searchTitle}
+            handleSearch={this.props.searchOnChange} />
+        </div>
       </div>;
     } else {
       grid = filterList;
