@@ -1,6 +1,7 @@
 import { observable, action } from 'mobx';
 import Base from '../base';
 import { parseDate, getDaysOfMonth } from '../util/date';
+import { parseTags } from '../util/tagging';
 
 class BlogPostPreviewItem {
   constructor(blogName, postId, url, author, date, title, lang, regions = [], image = null, tags = []) {
@@ -53,6 +54,8 @@ export default class BlogStore {
     this._loading = observable.box(false);
     this._searchText = observable.box('');
 
+    const labelRegex = /^(dp|DP|gm|GM|st|ST)\s*(\d+)/;
+
     this.blogProcessor = {
       blogger: {
         createUrl: (config) => {
@@ -76,26 +79,28 @@ export default class BlogStore {
           );
         },
         process: (response, config) => {
-          return response.items.map((item) => {
-            const previewImage =
-              (Array.isArray(item.images) && item.images.length > 0)
-                ? item.images[0].url
-                : null;
-            const tags = Array.isArray(item.labels) ? item.labels : [];
+          if(Array.isArray(response.items)) {
+            return response.items.map((item) => {
+              const previewImage =
+                (Array.isArray(item.images) && item.images.length > 0)
+                  ? item.images[0].url
+                  : null;
 
-            return new BlogPostPreviewItem(
-              config.name,
-              item.id,
-              item.url,
-              item.author.displayName,
-              parseDate(item.published),
-              item.title,
-              config.lang,
-              config.regions,
-              previewImage,
-              tags
-            );
-          });
+              return new BlogPostPreviewItem(
+                config.name,
+                item.id,
+                item.url,
+                item.author.displayName,
+                parseDate(item.published),
+                item.title,
+                config.lang,
+                config.regions,
+                previewImage,
+                parseTags(item.labels)
+              );
+            });
+          }
+          return [];
         }
       }
     }

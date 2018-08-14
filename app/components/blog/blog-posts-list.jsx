@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import TagList from './tag-list';
 import { dateToDateTimeString } from '../../util/date.js';
 
-@observer class BlogPostsList extends React.Component {
+@observer
+class BlogPostsList extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -31,14 +33,7 @@ import { dateToDateTimeString } from '../../util/date.js';
                   <li className="blog-language">{item.lang.toUpperCase()}</li>
                 </ul>
                 <h1 className="subheader blog-feature-title">{item.title}</h1>
-                {
-                  (Array.isArray(item.tags) && item.tags.length > 0) &&
-                  <ul className="list-inline blog-list-labels">{
-                    item.tags.map((t, i) => {
-                      <li key={i}><span className="label">{t}</span></li>
-                    })
-                  }</ul>
-                }
+                <TagList tags={item.tags} />
               </div>
             </Link>
           );
