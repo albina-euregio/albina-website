@@ -1,8 +1,9 @@
 import React from 'react';
-import { Parser } from 'html-to-react';
+import { Parser, ProcessNodeDefinitions } from 'html-to-react';
 import Base from './../base';
 import PageHeadline from '../components/organisms/page-headline';
 import { parseDate, dateToDateString } from '../util/date';
+import { modal_init } from '../js/modal';
 
 export default class BlogPost extends React.Component {
   constructor(props) {
@@ -28,6 +29,48 @@ export default class BlogPost extends React.Component {
     }
   }
 
+  _preprocessContent(content) {
+    const defaults = new ProcessNodeDefinitions(React);
+    const htmlParser = new Parser();
+    const isValidNode = () => true;
+    const deprecatedAttrs = ['align', 'border'];
+
+    const instructions = [
+      {
+        // Remove deprecated html attributes
+        shouldProcessNode: (node) => {
+          return node.attribs && deprecatedAttrs.reduce((acc, prop) => acc || node.attribs[prop], false);
+        },
+        processNode: (node, ...args) => {
+          deprecatedAttrs.forEach((prop) => {
+            if(node.attribs[prop]) {
+              delete node.attribs[prop];
+            }
+          });
+          return defaults.processDefaultNode(node, ...args);
+        }
+      },
+      {
+        // Turn images into
+        shouldProcessNode: (node) => {
+          return (node.name == 'a')
+            && node.children
+            && node.children.reduce((acc, c) => acc || (c.name == 'img'), false);
+        },
+        processNode: (node, ...args) => {
+          node.attribs.class = (node.attribs.class ? (node.attribs.class + ' ') : '')
+            + 'mfp-image modal-trigger img';
+          return defaults.processDefaultNode(node, ...args);
+        }
+      },
+      {
+        shouldProcessNode: () => true,
+        processNode: defaults.processDefaultNode
+      }
+    ];
+
+    return htmlParser.parseWithInstructions(content, isValidNode, instructions);
+  }
 
   _fetchData(props) {
     const blogName = props.match.params.blogName;
@@ -49,8 +92,12 @@ export default class BlogPost extends React.Component {
           tags: Array.isArray(b.labels) ? b.labels : [],
           regions: blogConfig.regions.map((r) => window['appStore'].getRegionName(r)),
           language: blogConfig.lang,
-          content: b.content
+          content: this._preprocessContent(b.content)
         })
+      }).then(() => {
+        window.setTimeout(() => {
+          modal_init();
+        }, 1000);
       });
     }
   }
@@ -74,9 +121,7 @@ export default class BlogPost extends React.Component {
           }
         </PageHeadline>
         <section className="section-centered">
-          {
-            (new Parser()).parse(this.state.content)
-          }
+          {this.state.content}
         </section>
       </div>
     );

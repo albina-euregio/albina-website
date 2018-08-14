@@ -108,6 +108,7 @@ iframe#stationTable {
 
 /* Modal dialogs */
 button.mfp-close,
+button.mfp-close:hover,
 button.mfp-close:before {
   cursor: pointer;
 }

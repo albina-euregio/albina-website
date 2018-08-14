@@ -221,7 +221,6 @@ export default class BlogStore {
   }
 
   getPosts(start = 0, limit = 10) {
-    console.log('TEST: ' + JSON.stringify(this._posts));
     const totalLength = Object.values(this._posts)
       .map((l) => l.length)
       .reduce((acc, v) => acc + v, 0);

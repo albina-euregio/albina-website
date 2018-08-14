@@ -17,6 +17,15 @@
       "params": {
         "id": "1218892426168768626"
       }
+    },
+    {
+      "lang": "de",
+      "name": "albina-de.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["AT-07", "IT-32-BZ"],
+      "params": {
+        "id": "4975737854227957835"
+      }
     }
   ],
   "apis": {
