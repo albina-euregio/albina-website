@@ -17,6 +17,18 @@ iframe#stationTable {
   font-weight: bold;
 }
 
+/* Fix select dropdowns overlapping footer */
+.page-main {
+  position: relative;
+  z-index: 50;
+  overflow: visible;
+}
+
+.page-footer {
+  position: relative;
+  z-index: 0;
+}
+
 /* Disable pointer-events on page-loading screen when page is loaded,
    or otherwise elements that happen to be placed beneath it cannot receive
    these events */
