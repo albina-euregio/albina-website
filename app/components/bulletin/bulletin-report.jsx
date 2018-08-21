@@ -6,9 +6,11 @@ import DangerPatternItem from './danger-pattern-item';
 import BulletinDaytimeReport from './bulletin-daytime-report';
 import { dateToLongDateString, parseDate } from '../../util/date';
 
+/*
+ * This component shows the detailed bulletin report including all icons and
+ * texts.
+ */
 class BulletinReport extends React.Component {
-  warnlevelNumbers;
-
   constructor(props) {
     super(props);
   }
@@ -39,6 +41,11 @@ class BulletinReport extends React.Component {
     return dangerPatterns;
   }
 
+
+  /*
+   * Get Bulletin comment text in the language version the user is using.
+   * E.g. load bulletin.avActivityHighlights.de when showing the german version.
+   */
   getLocalizedText(elem) {
     if(Array.isArray(elem)) {
       const l = elem.find((e) => (e.languageCode === window['appStore'].language));
@@ -49,6 +56,42 @@ class BulletinReport extends React.Component {
     return '';
   }
 
+  getMaxWarnlevel(daytimeBulletins) {
+    const defaultLevel = {
+      number: 0,
+      id: 'no_rating'
+    };
+
+    const comparator = (acc, w) => {
+      if(acc.number < w.number) {
+        return w;
+      }
+      // else prefer no_snow over no_rating
+      if(acc.number == 0 && acc.id == 'no_rating' && w.id == 'no_snow') {
+        return w;
+      }
+      return acc;
+    };
+
+    return Object.values(daytimeBulletins).map((b) => {
+      const warnlevels = [];
+      if(b.dangerRatingAbove) {
+        warnlevels.push({
+          number: window['appStore'].getWarnlevelNumber(b.dangerRatingAbove),
+          id: b.dangerRatingAbove
+        });
+      }
+      if(b.dangerRatingBelow) {
+        warnlevels.push({
+          number: window['appStore'].getWarnlevelNumber(b.dangerRatingBelow),
+          id: b.dangerRatingBelow
+        });
+      }
+      // get the maximum for each daytime
+      return warnlevels.reduce(comparator, defaultLevel);
+    }).reduce(comparator, defaultLevel); // return the total maximum
+  }
+
   render() {
     const bulletin = this.props.store.activeBulletin;
     if(!bulletin) {
@@ -56,26 +99,46 @@ class BulletinReport extends React.Component {
     }
 
     const daytimeBulletins = this.daytimeBulletins;
+    const maxWarnlevel = this.getMaxWarnlevel(daytimeBulletins);
+    const classes = 'panel field callout warning-level-' + maxWarnlevel.number;
 
     return (
       <div>
         <section id="section-bulletin-report" className="section-centered section-bulletin section-bulletin-report">
-          {
-            Object.keys(daytimeBulletins).map((ampm) =>
-              <BulletinDaytimeReport
-                key={ampm}
-                bulletin={daytimeBulletins[ampm]}
-                fullBulletin={bulletin}
-                date={dateToLongDateString(parseDate(this.props.store.settings.date))}
-                ampm={(ampm == 'fd') ? '' : ampm}
-                store={this.props.store} />
-            )
-          }
+          <div className={classes}>
+            <header className="bulletin-report-header">
+              <p>
+                <FormattedHTMLMessage id="bulletin:report:headline" values={{
+                  date: dateToLongDateString(parseDate(this.props.store.settings.date)),
+                  daytime: ''
+                }} />
+              </p>
+              <h1>
+                <FormattedHTMLMessage
+                  id={(maxWarnlevel.number == 0) ? 'bulletin:report:headline2:level0' : 'bulletin:report:headline2'}
+                  values={{
+                    number: maxWarnlevel.number,
+                    text: this.props.intl.formatMessage({id: 'danger-level:' + maxWarnlevel.id})
+                  }}
+                />
+              </h1>
+            </header>
+            {
+              Object.keys(daytimeBulletins).map((ampm) =>
+                <BulletinDaytimeReport
+                  key={ampm}
+                  bulletin={daytimeBulletins[ampm]}
+                  fullBulletin={bulletin}
+                  ampm={(ampm == 'fd') ? '' : ampm}
+                  store={this.props.store} />
+              )
+            }
+            <h2 className="subheader">{this.getLocalizedText(bulletin.avActivityHighlights)}</h2>
+            <p>{this.getLocalizedText(bulletin.avActivityComment)}</p>
+          </div>
         </section>
         <section id="section-bulletin-additional" className="section-centered section-bulletin section-bulletin-additional">
           <div className="panel brand">
-            <h2 className="subheader">{this.getLocalizedText(bulletin.avActivityHighlights)}</h2>
-            <p>{this.getLocalizedText(bulletin.avActivityComment)}</p>
             { ((this.dangerPatterns.length > 0) || bulletin.snowpackStructureComment) &&
               <div>
                 <h2 className="subheader"><FormattedHTMLMessage id="bulletin:report:snowpack-structure:headline" /></h2>

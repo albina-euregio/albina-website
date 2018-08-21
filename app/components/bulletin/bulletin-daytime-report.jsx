@@ -28,12 +28,6 @@ class BulletinDaytimeReport extends React.Component {
   }
 
   render() {
-    const warnlevels = {
-      'above': this.props.bulletin.dangerRatingAbove ? window['appStore'].getWarnlevelNumber(this.props.bulletin.dangerRatingAbove) : 0,
-      'below': this.props.bulletin.dangerRatingBelow ? window['appStore'].getWarnlevelNumber(this.props.bulletin.dangerRatingBelow) : 0
-    };
-    const warnlevel = Math.max(...Object.values(warnlevels));
-
     const elevation =
       (this.props.fullBulletin.hasElevationDependency && !this.props.fullBulletin.treeline)
         ? this.props.fullBulletin.elevation
@@ -46,31 +40,12 @@ class BulletinDaytimeReport extends React.Component {
       : this.props.intl.formatMessage({id: 'bulletin:report:tendency:none'});
     const tendencyDate = dateToLongDateString(getSuccDate(parseDate(this.props.store.settings.date)));
 
-    const classes = 'panel field callout warning-level-' + warnlevel;
 
     return (
-      <div className={classes}>
-        <header className="bulletin-report-header">
-          <p>
-            <FormattedHTMLMessage id="bulletin:report:headline" values={{
-              date: this.props.date,
-              daytime: (this.props.ampm ? this.props.intl.formatMessage({id: 'bulletin:report:daytime:' + this.props.ampm}) : '')
-            }} />
-          </p>
-          <h1>
-            { (warnlevel != 0) &&
-              <FormattedHTMLMessage id="bulletin:report:headline2" values={{
-                number: warnlevel,
-                text: this.props.intl.formatMessage({id: 'danger-level:' + window.appStore.getWarnLevelId(warnlevel)})
-              }} />
-            }
-            { (warnlevel == 0) &&
-              <FormattedHTMLMessage id="bulletin:report:headline2:level0" values={{
-                text: this.props.intl.formatMessage({id: 'danger-level:' + this.props.bulletin.dangerRatingAbove})
-              }} />
-            }
-          </h1>
-        </header>
+      <div>
+        { this.props.ampm &&
+          <h2 className="subheader"><FormattedHTMLMessage id={'bulletin:report:daytime:' + this.props.ampm} /></h2>
+        }
         <div className="bulletin-report-pictobar">
           <div className="bulletin-report-region">
             <a href="#page-main"
@@ -101,7 +76,7 @@ class BulletinDaytimeReport extends React.Component {
           </ul>
         </div>
       </div>
-    )
+    );
   }
 }
 export default inject('locale')(injectIntl(BulletinDaytimeReport));
