@@ -185,7 +185,7 @@
   "dialog:subscribe-app:snowhow:text": {"en": "The snowhow App", "de": "Die snowhow App", "it": "L'App snowhow"},
 
   "dialog:subscribe-bulletin:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},
-  "dialog:subscribe-bulletin:subheader": {"en": "Avalanche Forcast", "de": "Lawinenvorhersage", "it": "Bollettino valanghe"},
+  "dialog:subscribe-bulletin:subheader": {"en": "Avalanche Forecast", "de": "Lawinenvorhersage", "it": "Bollettino valanghe"},
   "dialog:subscribe-bulletin:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
   "dialog:subscribe-bulletin:back-button:hover": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
   "dialog:subscribe-bulletin:region": {"en": "<strong>Select</strong> State / Province of interest", "de": "Land / Provinz auswählen", "it": "<strong>Scegli</strong> Land / Provincia"},
