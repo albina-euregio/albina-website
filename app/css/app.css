@@ -61,6 +61,13 @@ iframe#stationTable {
 }
 
 /* Map */
+.bulletin-map-details.top-right {
+  top: 20px;
+  left: calc(100% - 1.25rem);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
 .section-map.section-centered {
   border: 1px solid #E6EEF2;
 }
