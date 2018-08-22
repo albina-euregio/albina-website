@@ -1,0 +1,1135 @@
+{
+  "snow": {
+    "description": {
+      "en": "Snow en",
+      "de": "Schnee de",
+      "it": "Nieva it"
+    },
+    "domainIdStart": "snow",
+    "items": [
+      {
+        "domain": "snow",
+        "id": "snow72",
+        "timeSpan": "-72",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-09 20:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1800_UTC_-72_sd4.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1800_UTC_-72_sd4_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "72h historical difference of total snow depth",
+          "de": "72h historical difference of total snow depth",
+          "it": "xxx"
+        },
+        "units": "cm",
+        "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+        "colors": {
+          "1": [255, 255, 255],
+          "2": [255, 255, 179],
+          "3": [176, 255, 188],
+          "4": [140, 255, 255],
+          "5": [3, 205, 255],
+          "6": [4, 129, 255],
+          "7": [3, 91, 190],
+          "8": [120, 75, 255],
+          "9": [204, 12, 232]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["snow72"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "snow",
+        "id": "snow48",
+        "timeSpan": "-48",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-09 20:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1800_UTC_-48_sd3.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1800_UTC_-48_sd3_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "sd3 en",
+          "de": "sd3 de",
+          "it": "sd3 it"
+        },
+        "units": "cm",
+        "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+        "colors": {
+          "1": [255, 255, 255],
+          "2": [255, 255, 179],
+          "3": [176, 255, 188],
+          "4": [140, 255, 255],
+          "5": [3, 205, 255],
+          "6": [4, 129, 255],
+          "7": [3, 91, 190],
+          "8": [120, 75, 255],
+          "9": [204, 12, 232]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["snow48"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "snow",
+        "id": "snow24",
+        "timeSpan": "-24",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-09 20:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1800_UTC_-24_sd2.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1800_UTC_-24_sd2_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "sd2 en",
+          "de": "sd2 de",
+          "it": "sd2 it"
+        },
+        "units": "cm",
+        "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+        "colors": {
+          "1": [255, 255, 255],
+          "2": [255, 255, 179],
+          "3": [176, 255, 188],
+          "4": [140, 255, 255],
+          "5": [3, 205, 255],
+          "6": [4, 129, 255],
+          "7": [3, 91, 190],
+          "8": [120, 75, 255],
+          "9": [204, 12, 232]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["snow24"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "snow",
+        "id": "snow12",
+        "timeSpan": "-12",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-09 20:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1800_UTC_-12_sd1.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1800_UTC_-12_sd1_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "sd1 en",
+          "de": "sd1 de",
+          "it": "sd1 it"
+        },
+        "units": "cm",
+        "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+        "colors": {
+          "1": [255, 255, 255],
+          "2": [255, 255, 179],
+          "3": [176, 255, 188],
+          "4": [140, 255, 255],
+          "5": [3, 205, 255],
+          "6": [4, 129, 255],
+          "7": [3, 91, 190],
+          "8": [120, 75, 255],
+          "9": [204, 12, 232]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["snow12"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "snow",
+        "id": "snow",
+        "timeSpan": "0",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-09 20:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1800_UTC_00_sd0.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1800_UTC_00_sd0_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "sd0 en",
+          "de": "sd0 de",
+          "it": "sd0 it"
+        },
+        "units": "cm",
+        "thresholds": [1, 10, 25, 50, 100, 200, 300, 400],
+        "colors": {
+          "1": [255, 255, 255],
+          "2": [255, 255, 179],
+          "3": [176, 255, 188],
+          "4": [140, 255, 255],
+          "5": [3, 205, 255],
+          "6": [4, 129, 255],
+          "7": [3, 91, 190],
+          "8": [120, 75, 255],
+          "9": [204, 12, 232]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": true,
+          "grid": false
+        },
+        "displayedItems": ["snow"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "snow",
+        "id": "snow12f",
+        "timeSpan": "+12",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1223_UTC",
+        "dateValid": "2018-07-09 14:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_0000_UTC_12_ns1.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_0000_UTC_12_ns1_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "12h forecast of the cumulative fresh snow amount (including settling,excluding melt)",
+          "de": "12h forecast of the cumulative fresh snow amount (including settling,excluding melt)",
+          "it": "12h forecast of the cumulative fresh snow amount (including settling,excluding melt)"
+        },
+        "units": "cm",
+        "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+        "colors": {
+          "1": [255, 255, 255],
+          "2": [255, 255, 179],
+          "3": [176, 255, 188],
+          "4": [140, 255, 255],
+          "5": [3, 205, 255],
+          "6": [4, 129, 255],
+          "7": [3, 91, 190],
+          "8": [120, 75, 255],
+          "9": [204, 12, 232]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["snow12f"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "snow",
+        "id": "snow24f",
+        "timeSpan": "+24",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1223_UTC",
+        "dateValid": "2018-07-10 02:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_0000_UTC_24_ns2.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_0000_UTC_24_ns2_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "24h forecast of the cumulative fresh snow amount (including settling,excluding melt)",
+          "de": "24h forecast of the cumulative fresh snow amount (including settling,excluding melt)",
+          "it": "24h forecast of the cumulative fresh snow amount (including settling,excluding melt)"
+        },
+        "units": "cm",
+        "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+        "colors": {
+          "1": [255, 255, 255],
+          "2": [255, 255, 179],
+          "3": [176, 255, 188],
+          "4": [140, 255, 255],
+          "5": [3, 205, 255],
+          "6": [4, 129, 255],
+          "7": [3, 91, 190],
+          "8": [120, 75, 255],
+          "9": [204, 12, 232]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["snow24f"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "snow",
+        "id": "snow48f",
+        "timeSpan": "+48",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1223_UTC",
+        "dateValid": "2018-07-11 02:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_0000_UTC_48_ns3.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_0000_UTC_48_ns3_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "48h forecast of the cumulative fresh snow amount (including settling,excluding melt)",
+          "de": "48h forecast of the cumulative fresh snow amount (including settling,excluding melt)",
+          "it": "48h forecast of the cumulative fresh snow amount (including settling,excluding melt)"
+        },
+        "units": "cm",
+        "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+        "colors": {
+          "1": [255, 255, 255],
+          "2": [255, 255, 179],
+          "3": [176, 255, 188],
+          "4": [140, 255, 255],
+          "5": [3, 205, 255],
+          "6": [4, 129, 255],
+          "7": [3, 91, 190],
+          "8": [120, 75, 255],
+          "9": [204, 12, 232]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["snow48f"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "snow",
+        "id": "snow72f",
+        "timeSpan": "+72",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1223_UTC",
+        "dateValid": "2018-07-12 02:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_0000_UTC_72_ns4.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_0000_UTC_72_ns4_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "72h forecast of the cumulative fresh snow amount (including settling,excluding melt)",
+          "de": "72h forecast of the cumulative fresh snow amount (including settling,excluding melt)",
+          "it": "72h forecast of the cumulative fresh snow amount (including settling,excluding melt)"
+        },
+        "units": "cm",
+        "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+        "colors": {
+          "1": [255, 255, 255],
+          "2": [255, 255, 179],
+          "3": [176, 255, 188],
+          "4": [140, 255, 255],
+          "5": [3, 205, 255],
+          "6": [4, 129, 255],
+          "7": [3, 91, 190],
+          "8": [120, 75, 255],
+          "9": [204, 12, 232]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["snow72f"],
+        "direction": false,
+        "clusterOperation": "max"
+      }
+    ]
+  },
+  "temp": {
+    "description": {
+      "en": "Temperature en",
+      "de": "Temperatur de",
+      "it": "Temperatura it"
+    },
+    "domainIdStart": "temp",
+    "items": [
+      {
+        "domain": "temp",
+        "id": "temp",
+        "timeSpan": "0",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-09 20:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1800_UTC_00_t2m0.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1800_UTC_00_t2m0_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "t2m0 en",
+          "de": "t2m0 de",
+          "it": "t2m0 it"
+        },
+        "units": "°C",
+        "thresholds": [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
+        "colors": {
+          "1": [159, 128, 255],
+          "2": [120, 75, 255],
+          "3": [3, 91, 190],
+          "4": [4, 129, 255],
+          "5": [3, 205, 255],
+          "6": [140, 255, 255],
+          "7": [176, 255, 188],
+          "8": [255, 255, 103],
+          "9": [255, 190, 130],
+          "10": [255, 154, 53],
+          "11": [255, 85, 54],
+          "12": [255, 5, 5],
+          "13": [250, 55, 150]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": true,
+          "grid": false
+        },
+        "displayedItems": ["temp"],
+        "direction": false,
+        "clusterOperation": "min"
+      },
+      {
+        "domain": "temp",
+        "id": "temp12f",
+        "timeSpan": "+12",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-10 02:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_12_t2m1.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_12_t2m1_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "t2m1 en",
+          "de": "t2m1 de",
+          "it": "t2m1 it"
+        },
+        "units": "°C",
+        "thresholds": [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
+        "colors": {
+          "1": [159, 128, 255],
+          "2": [120, 75, 255],
+          "3": [3, 91, 190],
+          "4": [4, 129, 255],
+          "5": [3, 205, 255],
+          "6": [140, 255, 255],
+          "7": [176, 255, 188],
+          "8": [255, 255, 103],
+          "9": [255, 190, 130],
+          "10": [255, 154, 53],
+          "11": [255, 85, 54],
+          "12": [255, 5, 5],
+          "13": [250, 55, 150]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["temp12f"],
+        "direction": false,
+        "clusterOperation": "min"
+      },
+      {
+        "domain": "temp",
+        "id": "temp24f",
+        "timeSpan": "+24",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-10 14:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_24_t2m2.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_24_t2m2_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "t2m2 en",
+          "de": "t2m2 de",
+          "it": "t2m2 it"
+        },
+        "units": "°C",
+        "thresholds": [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
+        "colors": {
+          "1": [159, 128, 255],
+          "2": [120, 75, 255],
+          "3": [3, 91, 190],
+          "4": [4, 129, 255],
+          "5": [3, 205, 255],
+          "6": [140, 255, 255],
+          "7": [176, 255, 188],
+          "8": [255, 255, 103],
+          "9": [255, 190, 130],
+          "10": [255, 154, 53],
+          "11": [255, 85, 54],
+          "12": [255, 5, 5],
+          "13": [250, 55, 150]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["temp24f"],
+        "direction": false,
+        "clusterOperation": "min"
+      },
+      {
+        "domain": "temp",
+        "id": "temp48f",
+        "timeSpan": "+48",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-11 14:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_48_t2m3.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_48_t2m3_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "t2m3 en",
+          "de": "t2m3 de",
+          "it": "t2m3 it"
+        },
+        "units": "°C",
+        "thresholds": [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
+        "colors": {
+          "1": [159, 128, 255],
+          "2": [120, 75, 255],
+          "3": [3, 91, 190],
+          "4": [4, 129, 255],
+          "5": [3, 205, 255],
+          "6": [140, 255, 255],
+          "7": [176, 255, 188],
+          "8": [255, 255, 103],
+          "9": [255, 190, 130],
+          "10": [255, 154, 53],
+          "11": [255, 85, 54],
+          "12": [255, 5, 5],
+          "13": [250, 55, 150]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["temp48f"],
+        "direction": false,
+        "clusterOperation": "min"
+      }
+    ]
+  },
+  "rhum": {
+    "description": {
+      "en": "Relative Humidity en",
+      "de": "Relative Luftfeutigkeit de",
+      "it": "Ariosità Relativa it"
+    },
+    "domainIdStart": "rhum",
+    "items": [
+      {
+        "domain": "rhum",
+        "id": "rhum",
+        "timeSpan": "0",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-09 20:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1800_UTC_00_rh2m0.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1800_UTC_00_rh2m0_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "rh2m0 en",
+          "de": "rh2m0 de",
+          "it": "rh2m0 it"
+        },
+        "units": "%",
+        "thresholds": [40, 60, 80],
+        "colors": {
+          "1": [255, 255, 195],
+          "2": [140, 255, 255],
+          "3": [0, 205, 255],
+          "4": [0, 165, 255],
+          "5": [239, 243, 255],
+          "6": [198, 219, 239],
+          "7": [158, 202, 225],
+          "8": [107, 174, 214],
+          "9": [66, 146, 198],
+          "10": [33, 113, 181],
+          "11": [8, 69, 148]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": true,
+          "grid": false
+        },
+        "displayedItems": ["rhum"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "rhum",
+        "id": "rhum12f",
+        "timeSpan": "+12",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-10 02:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_12_rh2m1.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_12_rh2m1_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "rh2m1 en",
+          "de": "rh2m1 de",
+          "it": "rh2m1 it"
+        },
+        "units": "%",
+        "thresholds": [40, 60, 80],
+        "colors": {
+          "1": [255, 255, 195],
+          "2": [140, 255, 255],
+          "3": [0, 205, 255],
+          "4": [0, 165, 255],
+          "5": [239, 243, 255],
+          "6": [198, 219, 239],
+          "7": [158, 202, 225],
+          "8": [107, 174, 214],
+          "9": [66, 146, 198],
+          "10": [33, 113, 181],
+          "11": [8, 69, 148]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["rhum12f"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "rhum",
+        "id": "rhum24f",
+        "timeSpan": "+24",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-10 14:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_24_rh2m2.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_24_rh2m2_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "rh2m2 en",
+          "de": "rh2m2 de",
+          "it": "rh2m2 it"
+        },
+        "units": "%",
+        "thresholds": [40, 60, 80],
+        "colors": {
+          "1": [255, 255, 195],
+          "2": [140, 255, 255],
+          "3": [0, 205, 255],
+          "4": [0, 165, 255],
+          "5": [239, 243, 255],
+          "6": [198, 219, 239],
+          "7": [158, 202, 225],
+          "8": [107, 174, 214],
+          "9": [66, 146, 198],
+          "10": [33, 113, 181],
+          "11": [8, 69, 148]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["rhum24f"],
+        "direction": false,
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "rhum",
+        "id": "rhum48f",
+        "timeSpan": "+48",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-11 14:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_48_rh2m3.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_48_rh2m3_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "rh2m3 en",
+          "de": "rh2m3 de",
+          "it": "rh2m3 it"
+        },
+        "units": "%",
+        "thresholds": [40, 60, 80],
+        "colors": {
+          "1": [255, 255, 195],
+          "2": [140, 255, 255],
+          "3": [0, 205, 255],
+          "4": [0, 165, 255],
+          "5": [239, 243, 255],
+          "6": [198, 219, 239],
+          "7": [158, 202, 225],
+          "8": [107, 174, 214],
+          "9": [66, 146, 198],
+          "10": [33, 113, 181],
+          "11": [8, 69, 148]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["rhum48f"],
+        "direction": false,
+        "clusterOperation": "max"
+      }
+    ]
+  },
+  "wspd": {
+    "description": {
+      "en": "Wind Speed en",
+      "de": "Windgeschwindigkeit de",
+      "it": "Velocità del Vento it"
+    },
+    "domainIdStart": "wspd",
+    "items": [
+      {
+        "domain": "wspd",
+        "id": "wspd",
+        "timeSpan": "0",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-09 20:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1800_UTC_00_ws0.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1800_UTC_00_ws0_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "ws0 en",
+          "de": "ws0 de",
+          "it": "ws0 it"
+        },
+        "units": "km/h",
+        "thresholds": [5, 10, 20, 40, 60, 80],
+        "colors": {
+          "1": [255, 255, 100],
+          "2": [200, 255, 100],
+          "3": [150, 255, 150],
+          "4": [50, 200, 255],
+          "5": [100, 150, 255],
+          "6": [150, 100, 255],
+          "7": [255, 50, 50]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": true,
+          "grid": false
+        },
+        "displayedItems": ["wspd", "wdir"],
+        "direction": "wdir",
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "wspd",
+        "id": "wspd12f",
+        "timeSpan": "+12",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-10 02:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_12_ws1.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_12_ws1_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "ws1 en",
+          "de": "ws1 de",
+          "it": "ws1 it"
+        },
+        "units": "km/h",
+        "thresholds": [5, 10, 20, 40, 60, 80],
+        "colors": {
+          "1": [255, 255, 100],
+          "2": [200, 255, 100],
+          "3": [150, 255, 150],
+          "4": [50, 200, 255],
+          "5": [100, 150, 255],
+          "6": [150, 100, 255],
+          "7": [255, 50, 50]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["wspd12f", "wdir12f"],
+        "direction": "wdir12f",
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "wspd",
+        "id": "wspd24f",
+        "timeSpan": "+24",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-10 14:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_24_ws2.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_24_ws2_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "ws2 en",
+          "de": "ws2 de",
+          "it": "ws2 it"
+        },
+        "units": "km/h",
+        "thresholds": [5, 10, 20, 40, 60, 80],
+        "colors": {
+          "1": [255, 255, 100],
+          "2": [200, 255, 100],
+          "3": [150, 255, 150],
+          "4": [50, 200, 255],
+          "5": [100, 150, 255],
+          "6": [150, 100, 255],
+          "7": [255, 50, 50]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["wspd24f", "wdir24f"],
+        "direction": "wdir24f",
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "wspd",
+        "id": "wspd48f",
+        "timeSpan": "+48",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-11 14:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_48_ws3.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_48_ws3_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "ws3 en",
+          "de": "ws3 de",
+          "it": "ws3 it"
+        },
+        "units": "km/h",
+        "thresholds": [5, 10, 20, 40, 60, 80],
+        "colors": {
+          "1": [255, 255, 100],
+          "2": [200, 255, 100],
+          "3": [150, 255, 150],
+          "4": [50, 200, 255],
+          "5": [100, 150, 255],
+          "6": [150, 100, 255],
+          "7": [255, 50, 50]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["wspd48f", "wdir48f"],
+        "direction": "wdir48f",
+        "clusterOperation": "max"
+      }
+    ]
+  },
+  "wgus": {
+    "description": {
+      "en": "Wind Gusts en",
+      "de": "Wind Böen de",
+      "it": "Raffiche di vento it"
+    },
+    "domainIdStart": "wgus",
+    "items": [
+      {
+        "domain": "wgus",
+        "id": "wgus",
+        "timeSpan": "0",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-09 20:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1800_UTC_00_wx0.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1800_UTC_00_wx0_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "wx0 en",
+          "de": "wx0 de",
+          "it": "wx0 it"
+        },
+        "units": "km/h",
+        "thresholds": [5, 10, 20, 40, 60, 80],
+        "colors": {
+          "1": [255, 255, 100],
+          "2": [200, 255, 100],
+          "3": [150, 255, 150],
+          "4": [50, 200, 255],
+          "5": [100, 150, 255],
+          "6": [150, 100, 255],
+          "7": [255, 50, 50]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": true,
+          "grid": false
+        },
+        "displayedItems": ["wgus", "wdir"],
+        "direction": "wdir",
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "wgus",
+        "id": "wgus12f",
+        "timeSpan": "+12",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-10 02:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_12_wx1.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_12_wx1_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "wx1 en",
+          "de": "wx1 de",
+          "it": "wx1 it"
+        },
+        "units": "km/h",
+        "thresholds": [5, 10, 20, 40, 60, 80],
+        "colors": {
+          "1": [255, 255, 100],
+          "2": [200, 255, 100],
+          "3": [150, 255, 150],
+          "4": [50, 200, 255],
+          "5": [100, 150, 255],
+          "6": [150, 100, 255],
+          "7": [255, 50, 50]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["wgus12f", "wdir12f"],
+        "direction": "wdir12f",
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "wgus",
+        "id": "wgus24f",
+        "timeSpan": "+24",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-10 14:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_24_wx2.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_24_wx2_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "wx2 en",
+          "de": "wx2 de",
+          "it": "wx2 it"
+        },
+        "units": "km/h",
+        "thresholds": [5, 10, 20, 40, 60, 80],
+        "colors": {
+          "1": [255, 255, 100],
+          "2": [200, 255, 100],
+          "3": [150, 255, 150],
+          "4": [50, 200, 255],
+          "5": [100, 150, 255],
+          "6": [150, 100, 255],
+          "7": [255, 50, 50]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["wgus24f", "wdir24f"],
+        "direction": "wdir24f",
+        "clusterOperation": "max"
+      },
+      {
+        "domain": "wgus",
+        "id": "wgus48f",
+        "timeSpan": "+48",
+        "copyright": "© ZAMG UNI-Vienna 2018",
+        "dateCreation": "20180709_1823_UTC",
+        "dateValid": "2018-07-11 14:00",
+        "overlay": {
+          "image": "epsg3785_ALBINA_20180709_1200_UTC_48_wx3.png",
+          "width": 1500,
+          "height": 1500
+        },
+        "legend": {
+          "image": "epsg31287_ALBINA_20180709_1200_UTC_48_wx3_legend.png"
+        },
+        "bbox": [[45.554669, 9.771791], [47.881138, 13.165929]],
+        "description": {
+          "en": "wx3 en",
+          "de": "wx3 de",
+          "it": "wx3 it"
+        },
+        "units": "km/h",
+        "thresholds": [5, 10, 20, 40, 60, 80],
+        "colors": {
+          "1": [255, 255, 100],
+          "2": [200, 255, 100],
+          "3": [150, 255, 150],
+          "4": [50, 200, 255],
+          "5": [100, 150, 255],
+          "6": [150, 100, 255],
+          "7": [255, 50, 50]
+        },
+        "layer": {
+          "overlay": true,
+          "stations": false,
+          "grid": true
+        },
+        "displayedItems": ["wgus48f", "wdir48f"],
+        "direction": "wdir48f",
+        "clusterOperation": "max"
+      }
+    ]
+  }
+}
