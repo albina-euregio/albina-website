@@ -41,10 +41,8 @@
   },
   "links": {
     "interreg": "http://www.europaregion.info/",
-    "meteoViewer":
-      "https://data1.geo.univie.ac.at/sandbox/meteo_viewer/",
-    "stationTable":
-      "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
+    "meteoViewer": "http://data1.geo.univie.ac.at/sandbox/meteo_viewer2_test/",
+    "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
     "downloads": {
       "pdf": "https://example.com/{date}.pdf",
       "xml": "https://example.com/{date}.xml"
@@ -53,35 +51,45 @@
   "subscribe": {
     "socialMedia": [
       {
-        "id": "facebook", "name": "Facebook", "url": {
+        "id": "facebook",
+        "name": "Facebook",
+        "url": {
           "AT-07": "http://www.facebook.com/lawinenwarndienst",
           "IT-32-BZ": "#",
           "IT-32-TN": "#"
         }
       },
       {
-        "id": "twitter", "name": "Twitter", "url": {
+        "id": "twitter",
+        "name": "Twitter",
+        "url": {
           "AT-07": "#",
           "IT-32-BZ": "#",
           "IT-32-TN": "#"
         }
       },
       {
-        "id": "instagram", "name": "Instagram", "url": {
+        "id": "instagram",
+        "name": "Instagram",
+        "url": {
           "AT-07": "#",
           "IT-32-BZ": "#",
           "IT-32-TN": "#"
         }
       },
       {
-        "id": "youtube", "name": "YouTube", "url": {
+        "id": "youtube",
+        "name": "YouTube",
+        "url": {
           "AT-07": "#",
           "IT-32-BZ": "#",
           "IT-32-TN": "#"
         }
       },
       {
-        "id": "whatsapp", "name": "WhatsApp", "url": {
+        "id": "whatsapp",
+        "name": "WhatsApp",
+        "url": {
           "AT-07": "#",
           "IT-32-BZ": "#",
           "IT-32-TN": "#"
@@ -134,15 +142,13 @@
     "tileLayers": [
       {
         "id": "ALBINA",
-        "url":
-          "https://data1.geo.univie.ac.at/TMS/ALBINA/EUREGIO-TMS/{z}/{x}/{y}.png",
+        "url": "https://data1.geo.univie.ac.at/TMS/ALBINA/EUREGIO-TMS/{z}/{x}/{y}.png",
         "maxZoom": 10,
         "minZoom": 7,
         "detectRetina": false,
         "tms": true,
         "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]],
-        "attribution":
-         "&copy; Universität Wien"
+        "attribution": "&copy; Universität Wien"
       }
     ],
     "regionStyling": {

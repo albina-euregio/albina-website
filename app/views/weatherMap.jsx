@@ -62,9 +62,12 @@ class WeatherMap extends React.Component {
       domain: this.props.match.params.domain,
       lang: window['appStore'].language
     };
-    const url = Base.makeUrl(config.get('links.meteoViewer'),
-      Object.assign(params, this.state.mapParams));
+    
+    const url = config.get('links.meteoViewer') + '?config=albina'
 
+    /*const url = Base.makeUrl(config.get('links.meteoViewer'),
+      Object.assign(params, this.state.mapParams));
+*/
     const forwardLink = {
       text: '+12h',
       url: Base.makeUrl(
@@ -79,6 +82,8 @@ class WeatherMap extends React.Component {
     };
 
     const mapDate = new Date();
+
+
 
     return (
       <div>
