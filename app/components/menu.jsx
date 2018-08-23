@@ -25,9 +25,9 @@ import { Link } from 'react-router-dom';
     return false;
   }
 
-  renderMenuItem(e) {
+  renderMenuItem(e, activeItem) {
     const classes = this.props.menuItemClassName ? this.props.menuItemClassName.split(' ') : [];
-    const isActive = this.testActive(e);
+    const isActive = activeItem && e.id == activeItem.id;
 
     if(isActive) {
       if (this.props.onActiveMenuItem) {
@@ -60,9 +60,14 @@ import { Link } from 'react-router-dom';
 
   render() {
     if(this.props.entries && this.props.entries.length > 0) {
+      const activeMenuItems = this.props.entries.filter((e) => this.testActive(e));
+      const activeItem = (activeMenuItems.length > 0)
+        ? activeMenuItems[0] // in case someone messed up the menu
+        : null;
+
       return (
         <ul className={this.props.className}>
-          { this.props.entries.map((e) => this.renderMenuItem(e)) }
+          { this.props.entries.map((e) => this.renderMenuItem(e, activeItem)) }
         </ul>
       )
     }
