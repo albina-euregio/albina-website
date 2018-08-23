@@ -11,10 +11,54 @@ import StaticPageStore from './stores/staticPageStore';
 import ReactGA from 'react-ga';
 import {addLocaleData} from 'react-intl';
 import {reaction} from 'mobx';
+import {storageAvailable} from './util/storage';
 import en from 'react-intl/locale-data/en';
 import de from 'react-intl/locale-data/de';
 import it from 'react-intl/locale-data/it';
 addLocaleData([...en, ...de, ...it]);
+
+/* available languages and initial language */
+const availableLanguages = ['en', 'de', 'it'];
+
+// used by mobx-react-intl - query before appStore constructor call
+const userPreferenceLanguage = storageAvailable() ? window.localStorage.getItem('locale') : '';
+
+const _getDefaultLanguage = () => {
+  // 1 highest priority: URL lang param
+  const urlLang = window.location.search
+    ? window.location.search.substr(1).split('&').reduce((acc, e) => {
+      if(!acc) {
+        let matches = e.match(/^lang=(.*)/);
+        if(matches && matches.length > 1 && availableLanguages.indexOf(matches[1]) >= 0) {
+          return matches[1];
+        }
+      }
+      return acc;
+    }, '')
+    : '';
+
+  // 2 high priority: last language setting
+  const userLang = urlLang ? urlLang : userPreferenceLanguage;
+
+  // 3 medium priority: config param (set to "auto" to omit this step)
+  const configLang = userLang ? userLang : (
+    (availableLanguages.indexOf(config.get('defaults.language')) >= 0)
+      ? config.get('defaults.language')
+      : ''
+  );
+
+  // 4 lowest priority: browser accept-language settings
+  const browserLangSettings =
+    (window.navigator.language || window.navigation.browserLanguage || '')
+      .substr(0, 2)
+      .toLowerCase();
+  const browserLang = configLang ? configLang : (
+    (availableLanguages.indexOf(browserLangSettings) >= 0) ? browserLangSettings : ''
+  );
+
+  return browserLang || 'en'; // if everything els fails
+};
+
 
 /* bower components */
 window['jQuery'] = window['$'] = require('jquery');
@@ -33,7 +77,7 @@ window[
 
 
 // TODO: check content API for maintenance mode before starting the app
-window['appStore'] = new AppStore();
+window['appStore'] = new AppStore(availableLanguages);
 window['staticPageStore'] = new StaticPageStore();
 window['modalStateStore'] = new ModalStateStore();
 
@@ -74,6 +118,9 @@ Base.doRequest(configUrl).then((configData) => {
   //configParsed['developmentMode'] = DEV; // included via webpack.DefinePlugin
 
   window['config'] = new ConfigStore(configParsed);
+
+  // set initial language
+  window['appStore'].language = _getDefaultLanguage();
 
   // init Analytics software - only on production builds
   if(!DEV) {

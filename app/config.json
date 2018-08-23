@@ -185,6 +185,7 @@
     "maxResults": 10
   },
   "defaults": {
+    "language": "auto",
     "ampm": "am"
   }
 }

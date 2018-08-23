@@ -17,10 +17,9 @@ class AppStore extends React.Component {
   languages;
   warnlevelNumbers;
 
-  constructor() {
+  constructor(languages) {
     super();
-    this.languages = ['de', 'it', 'en'];
-    const defaultLanguage = 'de'; // TODO: get from Browser config/config.ini
+    this.languages = languages;
     const translationFallbackLanguage = 'all';
 
     const translationLookup = {};
@@ -34,7 +33,8 @@ class AppStore extends React.Component {
       })
     );
 
-    this.locale = new LocaleStore(defaultLanguage, translationLookup);
+    // initial language is changed after config has arrived!!!
+    this.locale = new LocaleStore('en', translationLookup);
     this.cookieConsent = new CookieConsentStore();
     this.navigation = new NavigationStore();
 
