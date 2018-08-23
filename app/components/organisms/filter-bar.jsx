@@ -22,7 +22,8 @@ export default class FilterBar extends React.Component {
         <div className="normal-3 grid-item">
           <SearchField
             title={this.props.searchTitle}
-            handleSearch={this.props.searchOnChange} />
+            handleSearch={this.props.searchOnChange}
+            value={this.props.searchValue} />
         </div>
       </div>;
     } else {

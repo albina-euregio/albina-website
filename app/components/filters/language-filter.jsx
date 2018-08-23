@@ -12,7 +12,7 @@ export default class LanguageFilter extends React.Component {
         { this.props.title &&
           <p className="info">{this.props.title}</p>
         }
-        <Selectric onChange={this.props.handleChange} value={this.props.value}>
+        <Selectric onChange={this.props.handleChange}  {...this.props}>
           { this.props.all &&
             <option value="">{this.props.all}</option>
           }

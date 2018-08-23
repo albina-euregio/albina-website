@@ -61,18 +61,23 @@ class BlogOverview extends React.Component {
   };
 
   handleChangeYear = (val) => {
+    this.store.searchText = '';
     this.store.year = val;
   };
 
   handleChangeMonth = (val) => {
+    this.store.searchText = '';
     this.store.month = val;
   };
 
   handleChangeAvalancheProblem = (val) => {
+    this.store.searchText = '';
     this.store.avalancheProblem = val;
   };
 
   handleChangeSearch = (val) => {
+    this.store.avalancheProblem = '';
+    this.store.year = '';
     this.store.searchText = val;
   };
 
@@ -104,8 +109,11 @@ class BlogOverview extends React.Component {
     return (
       <div>
         <PageHeadline title={this.state.title} marginal={this.state.headerText} />
-        <FilterBar search={true} searchTitle={this.props.intl.formatMessage({id: 'blog:search'})}
-          searchOnChange={this.handleChangeSearch} >
+        <FilterBar
+          search={true}
+          searchTitle={this.props.intl.formatMessage({id: 'blog:search'})}
+          searchOnChange={this.handleChangeSearch}
+          searchValue={this.store.searchText} >
           <ProvinceFilter
             title={this.props.intl.formatMessage({id: 'blog:filter:province'})}
             all={this.props.intl.formatMessage({id: 'filter:all'})}
@@ -115,19 +123,22 @@ class BlogOverview extends React.Component {
             title={this.props.intl.formatMessage({id: 'blog:filter:avalanche-problem'})}
             all={this.props.intl.formatMessage({id: 'filter:all'})}
             handleChange={this.handleChangeAvalancheProblem}
-            value={this.store.avalancheProblem} />
+            value={this.store.avalancheProblem}
+            className={this.store.searchText ? 'disabled' : ''} />
           <YearFilter
             title={this.props.intl.formatMessage({id: 'blog:filter:year'})}
             all={this.props.intl.formatMessage({id: 'filter:all'})}
             minYear={window['config'].get('archive.minYear')}
             handleChange={this.handleChangeYear}
-            value={this.store.year} />
+            value={this.store.year}
+            className={this.store.searchText ? 'disabled' : ''} />
           { this.store.year &&
             <MonthFilter
               title={this.props.intl.formatMessage({id: 'blog:filter:month'})}
               all={this.props.intl.formatMessage({id: 'filter:all'})}
               handleChange={this.handleChangeMonth}
-              value={this.store.month} />
+              value={this.store.month}
+              className={this.store.searchText ? 'disabled' : ''} />
           }
           <LanguageFilter
             title={this.props.intl.formatMessage({id: 'blog:filter:language'})}

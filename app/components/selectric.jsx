@@ -10,7 +10,7 @@ export default class Selectric extends React.Component {
     this.$el = $(this.el);
     const update = () => {
       if(this.props.className) {
-        this.$el.closest('.selectric-wrapper').addClass(this.props.className);        
+        this.$el.closest('.selectric-wrapper').addClass(this.props.className);
       }
     };
 
@@ -38,7 +38,8 @@ export default class Selectric extends React.Component {
       <select
         className="dropdown"
         ref={(el) => { this.el = el; }}
-        value={this.props.value} >
+        value={this.props.value}
+        disabled={this.props.disabled} >
         {this.props.children}
       </select>
     );

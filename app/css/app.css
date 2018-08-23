@@ -17,6 +17,10 @@ iframe#stationTable {
   font-weight: bold;
 }
 
+.selectric-wrapper.disabled .selectric {
+  opacity: 0.5;
+}
+
 /* Fix select dropdowns overlapping footer */
 .page-main {
   position: relative;

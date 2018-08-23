@@ -10,6 +10,21 @@ class SearchField extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if(this.props.value) {
+      this.setState({text: this.props.value});
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if(typeof(this.props.value) !== 'undefined'
+      && this.props.value != prevProps.value
+      && this.props.value != this.state.text) {
+
+      this.setState({text: this.props.value});
+    }
+  }
+
   render() {
     const placeholder = this.props.intl.formatMessage({id: 'filter:search'});
     return (
@@ -32,7 +47,8 @@ class SearchField extends React.Component {
               if(e.key == 'Enter') {
                 this.props.handleSearch(this.state.text);
               }
-            }} />
+            }}
+            value={this.state.text} />
           <button href="#"
             title={placeholder}
             className="pure-button pure-button-icon icon-search tooltip"
