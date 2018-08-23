@@ -1,72 +1,86 @@
 var Base = {
-  makeUrl(baseUrl, params = {}) {
-    return baseUrl + ((Object.keys(params).length > 0)
-      ? ('?' + Object.keys(params).map((k) => { return k + '=' + encodeURIComponent(params[k]); }).join('&'))
-      : '');
+  makeUrl (baseUrl, params = {}) {
+    return (
+      baseUrl +
+      (Object.keys(params).length > 0
+        ? '?' +
+            Object.keys(params)
+              .map(k => {
+                return k + '=' + encodeURIComponent(params[k])
+              })
+              .join('&')
+        : '')
+    )
   },
 
-  doRequest(url, type='json') {
-    return new Promise(function(resolve, reject) {
-      console.log('request: ' + url);
-      let xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
+  doRequest (url, type = 'json') {
+    return new Promise(function (resolve, reject) {
+      console.log('request: ' + url)
+      let xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-          if(xhr.status == 200) {
-            resolve(xhr.responseText);
+          if (xhr.status == 200) {
+            resolve(xhr.responseText)
           } else {
-            reject(xhr.statusText, xhr.status);
+            reject(xhr.statusText, xhr.status)
           }
         }
-      };
-      xhr.open('GET', url, true);
+      }
+      xhr.open('GET', url, true)
 
       // set content type
-      switch(type) {
-      case 'json':
-        xhr.setRequestHeader('Accept', 'application/json,application/vnd.application+json,application/vnd.api+json');
-        break;
+      switch (type) {
+        case 'json':
+          xhr.setRequestHeader(
+            'Accept',
+            'application/json,application/vnd.application+json,application/vnd.api+json'
+          )
+          break
 
-      default:
-        break;
+        default:
+          break
       }
-      xhr.send(null);
-    });
+      xhr.send(null)
+    })
   },
 
-  doPost(url, payload, type='json') {
-    return new Promise(function(resolve, reject) {
-      console.log('post: ' + url + ' ' + JSON.stringify(payload));
-      let xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
+  doPost (url, payload, type = 'json') {
+    return new Promise(function (resolve, reject) {
+      console.log('post: ' + url + ' ' + JSON.stringify(payload))
+      let xhr = new XMLHttpRequest()
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
-          if(xhr.status == 200) {
-            resolve(xhr.responseText);
+          if (xhr.status == 200) {
+            resolve(xhr.responseText)
           } else {
-            reject(xhr.statusText, xhr.status);
+            reject(xhr.statusText, xhr.status)
           }
         }
-      };
-      xhr.open('POST', url, true);
+      }
+      xhr.open('POST', url, true)
 
       // set content type
-      switch(type) {
-      case 'json':
-        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-        xhr.setRequestHeader('Accept', 'application/json,application/vnd.application+json,application/vnd.api+json');
-        break;
+      switch (type) {
+        case 'json':
+          xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+          xhr.setRequestHeader(
+            'Accept',
+            'application/json,application/vnd.application+json,application/vnd.api+json'
+          )
+          break
 
-      default:
-        break;
+        default:
+          break
       }
-      xhr.send(JSON.stringify(payload));
-    });
+      xhr.send(JSON.stringify(payload))
+    })
   },
 
-  cleanCache(fileName) {
+  cleanCache (fileName) {
     if (window.caches) {
-      window.caches.delete(fileName);
+      window.caches.delete(fileName)
     }
   }
-};
+}
 
-module.exports = Base;
+module.exports = Base

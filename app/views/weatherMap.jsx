@@ -9,6 +9,7 @@ import PageHeadline from '../components/organisms/page-headline'
 import Menu from '../components/menu'
 import SmShare from '../components/organisms/sm-share'
 import { dateToLongDateString, dateToTimeString } from '../util/date'
+import domains from '../data/domains.json'
 
 class WeatherMap extends React.Component {
   constructor (props) {
@@ -53,38 +54,74 @@ class WeatherMap extends React.Component {
     })
   }
 
+  // TODO: method that sets the url and finds a default item to use
+  handleChangeDomain (newDomain) {
+    // change url
+    // find default item
+  }
+
+  // TODO: method that sets new item
+  handleChangeItem (newItemId) {
+    // change search param
+  }
+
   render () {
+    // TODO: menu items should render with "handleChangeDomain"
     const menuItems = window['menuStore'].getMenu('weather-map')
 
     // use the last path parameter as "domain" and add optional parameters from
     // query string
     const params = {
+      item: this.state.mapParams.item,
       domain: this.props.match.params.domain,
       lang: window['appStore'].language
     }
 
-    const url =
+    // building url
+    let url =
       config.get('links.meteoViewer') +
       '?config=albina' +
       '&language=' +
-      window['appStore'].language +
-      '&domain=' +
-      params.domain
+      window['appStore'].language
+
+    if (params.domain) {
+      url += '&domain=' + params.domain
+    }
+    if (params.item) {
+      url += '&item=' + params.item
+    }
+
+    // TODO: selected domain and possible items
+    console.log(this.state.mapParams)
+    const domain = domains[params.domain]
+    if (domain) {
+      const domainItems = domain.items
+
+      const items = domainItems.map(item => {
+        return {
+          id: item.id,
+          time: item.timeSpan,
+          text: item.description[params.lang]
+        }
+      })
+    }
 
     /* const url = Base.makeUrl(config.get('links.meteoViewer'),
       Object.assign(params, this.state.mapParams));
-*/
+    */
+
+    // TODO: list of item links with the item id and onChange prop "handleChangeItem"
     const forwardLink = {
       text: '+12h',
       url: Base.makeUrl(
-        '/weather/map/' + this.props.match.params.domain,
+        '/weather/map/' + params.domain,
         Object.assign({}, this.state.mapParams, { time: '+12' })
       )
     }
     const backwardLink = {
       text: '-12h',
       url: Base.makeUrl(
-        '/weather/map/' + this.props.match.params.domain,
+        '/weather/map/' + params.domain,
         Object.assign({}, this.state.mapParams, { time: '-12' })
       )
     }
