@@ -8,7 +8,9 @@ export default class WeatherMapIframe extends React.Component {
 
   render() {
     const url = Base.makeUrl(config.get('links.meteoViewer'), {
-      domain: this.props.domain
+      domain: this.props.domain,
+      lang: window['appStore'].language,
+      config: 'albina'
     });
 
     return (

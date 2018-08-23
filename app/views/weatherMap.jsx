@@ -10,7 +10,6 @@ import Menu from '../components/menu'
 import SmShare from '../components/organisms/sm-share'
 import { dateToLongDateString, dateToTimeString } from '../util/date'
 import WeatherMapIframe from '../components/weather/weather-map-iframe';
-import domains from '../data/domains.json'
 
 class WeatherMap extends React.Component {
   constructor (props) {
@@ -30,7 +29,7 @@ class WeatherMap extends React.Component {
     Base.doRequest(config.get('links.meteoViewerConfig')).then((response) => {
       this.setState({domains: JSON.parse(response)});
     });
-    
+
     this.setState({ mapParams: queryString.parse(this.props.location.search) })
 
     window['staticPageStore'].loadPage('weather/map').then(response => {
@@ -99,7 +98,7 @@ class WeatherMap extends React.Component {
 
     // TODO: selected domain and possible items
     console.log(this.state.mapParams)
-    const domain = domains[params.domain]
+    const domain = this.state.domains[params.domain];
     if (domain) {
       const domainItems = domain.items
 
