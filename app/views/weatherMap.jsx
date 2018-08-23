@@ -1,24 +1,25 @@
 import React from 'react'
-import { withRouter, Link } from 'react-router-dom'
-import { inject } from 'mobx-react'
-import { injectIntl } from 'react-intl'
+import { withRouter } from 'react-router-dom'
+import { observer } from 'mobx-react'
 import { Parser } from 'html-to-react'
 import queryString from 'query-string'
-import Base from '../base'
 import PageHeadline from '../components/organisms/page-headline'
 import Menu from '../components/menu'
 import SmShare from '../components/organisms/sm-share'
 import { dateToLongDateString, dateToTimeString } from '../util/date'
+import WeatherMapStore from '../stores/weatherMapStore';
+import ItemFlipper from '../components/weather/item-flipper';
+import WeatherMapTitle from '../components/weather/weather-map-title';
 import WeatherMapIframe from '../components/weather/weather-map-iframe';
 
 class WeatherMap extends React.Component {
   constructor (props) {
     super(props)
+    this.store = new WeatherMapStore(this.props.match.params.domain);
     this.state = {
       title: '',
       headerText: '',
       content: '',
-      domains: {},
       mapParams: {},
       mapTitle: '',
       sharable: false
@@ -26,10 +27,6 @@ class WeatherMap extends React.Component {
   }
 
   componentDidMount () {
-    Base.doRequest(config.get('links.meteoViewerConfig')).then((response) => {
-      this.setState({domains: JSON.parse(response)});
-    });
-
     this.setState({ mapParams: queryString.parse(this.props.location.search) })
 
     window['staticPageStore'].loadPage('weather/map').then(response => {
@@ -61,12 +58,19 @@ class WeatherMap extends React.Component {
 
   // TODO: method that sets the url and finds a default item to use
   handleChangeDomain (newDomain) {
+    console.log('CHANGE DOMAIN: ' + newDomain);
+    if(newDomain != this.props.store.domain) {
+      this.store.changeDomain(newDomain);
+      this.props.history.replace('/weather/map/' + newDomain);
+    }
     // change url
     // find default item
   }
 
   // TODO: method that sets new item
   handleChangeItem (newItemId) {
+    console.log('CHANGE ITEM: ' + newItemId);
+    this.store.changeItem(newItemId);
     // change search param
   }
 
@@ -74,62 +78,24 @@ class WeatherMap extends React.Component {
     // TODO: menu items should render with "handleChangeDomain"
     const menuItems = window['menuStore'].getMenu('weather-map')
 
-    // use the last path parameter as "domain" and add optional parameters from
-    // query string
-    const params = {
-      item: this.state.mapParams.item,
-      domain: this.props.match.params.domain,
-      lang: window['appStore'].language
-    }
-
-    // building url
-    let url =
-      config.get('links.meteoViewer') +
-      '?config=albina' +
-      '&language=' +
-      window['appStore'].language
-
-    if (params.domain) {
-      url += '&domain=' + params.domain
-    }
-    if (params.item) {
-      url += '&item=' + params.item
-    }
-
-    // TODO: selected domain and possible items
-    console.log(this.state.mapParams)
-    const domain = this.state.domains[params.domain];
-    if (domain) {
-      const domainItems = domain.items
-
-      const items = domainItems.map(item => {
-        return {
-          id: item.id,
-          time: item.timeSpan,
-          text: item.description[params.lang]
-        }
-      })
-    }
+    // // TODO: selected domain and possible items
+    // console.log(this.state.mapParams)
+    // if (this.store.activeConfig) {
+    //   const domainItems = this.store.activeConfig.items;
+    //
+    //   const items = domainItems.map(item => {
+    //     return {
+    //       id: item.id,
+    //       time: item.timeSpan,
+    //       text: item.description[params.lang]
+    //     }
+    //   })
+    // }
 
     /* const url = Base.makeUrl(config.get('links.meteoViewer'),
       Object.assign(params, this.state.mapParams));
     */
 
-    // TODO: list of item links with the item id and onChange prop "handleChangeItem"
-    const forwardLink = {
-      text: '+12h',
-      url: Base.makeUrl(
-        '/weather/map/' + params.domain,
-        Object.assign({}, this.state.mapParams, { time: '+12' })
-      )
-    }
-    const backwardLink = {
-      text: '-12h',
-      url: Base.makeUrl(
-        '/weather/map/' + params.domain,
-        Object.assign({}, this.state.mapParams, { time: '-12' })
-      )
-    }
 
     const mapDate = new Date()
 
@@ -152,45 +118,15 @@ class WeatherMap extends React.Component {
                     }
                   }}
                 />
-
-                <div className='grid flipper-left-right'>
-                  <div className='all-6 grid-item'>
-                    {backwardLink &&
-                      <Link
-                        to={backwardLink.url}
-                        className='icon-link tooltip flipper-left'
-                        title={this.props.intl.formatMessage({
-                          id: 'weathermap:header:dateflipper:back'
-                        })}
-                      >
-                        <span className='icon-arrow-left' />
-                        &nbsp;{backwardLink.text}
-                      </Link>}
-                  </div>
-                  <div className='all-6 grid-item'>
-                    {forwardLink &&
-                      <Link
-                        to={forwardLink.url}
-                        className='icon-link tooltip flipper-left'
-                        title={this.props.intl.formatMessage({
-                          id: 'weathermap:header:dateflipper:forward'
-                        })}
-                      >
-                        {forwardLink.text}&nbsp;
-                        <span className='icon-arrow-right' />
-                      </Link>}
-                  </div>
-
-                </div>
+                <ItemFlipper store={this.store} handleChange={this.handleChangeItem}/>
               </div>
             </div>
 
             <div className='section-centered'>
               <div className='section-padding-width flipper-header'>
-                <h2 className='subheader'>
-                  {dateToLongDateString(mapDate)} {dateToTimeString(mapDate)}
-                </h2>
-                <h2>{this.state.mapTitle}</h2>
+                { this.store.activeItem &&
+                  <WeatherMapTitle store={this.store} />
+                }
               </div>
             </div>
 
@@ -201,10 +137,9 @@ class WeatherMap extends React.Component {
             'section-map' + (config.get('map.useWindowWidth') ? '' : ' section-centered')
           }
         >
-          { this.state.domains && this.state.domains[this.props.match.params.domain] &&
+          { this.store.domain &&
             <WeatherMapIframe
-              config={this.state.domains[this.props.match.params.domain]}
-              domain={this.props.match.params.domain} />
+              store={this.store} />
           }
         </section>
         <div>
@@ -215,4 +150,4 @@ class WeatherMap extends React.Component {
     )
   }
 }
-export default inject('locale')(injectIntl(withRouter(WeatherMap)))
+export default withRouter(observer(WeatherMap));
