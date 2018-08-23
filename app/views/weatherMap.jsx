@@ -9,6 +9,7 @@ import PageHeadline from '../components/organisms/page-headline'
 import Menu from '../components/menu'
 import SmShare from '../components/organisms/sm-share'
 import { dateToLongDateString, dateToTimeString } from '../util/date'
+import WeatherMapIframe from '../components/weather/weather-map-iframe';
 import domains from '../data/domains.json'
 
 class WeatherMap extends React.Component {
@@ -18,6 +19,7 @@ class WeatherMap extends React.Component {
       title: '',
       headerText: '',
       content: '',
+      domains: {},
       mapParams: {},
       mapTitle: '',
       sharable: false
@@ -25,6 +27,10 @@ class WeatherMap extends React.Component {
   }
 
   componentDidMount () {
+    Base.doRequest(config.get('links.meteoViewerConfig')).then((response) => {
+      this.setState({domains: JSON.parse(response)});
+    });
+    
     this.setState({ mapParams: queryString.parse(this.props.location.search) })
 
     window['staticPageStore'].loadPage('weather/map').then(response => {
@@ -196,9 +202,11 @@ class WeatherMap extends React.Component {
             'section-map' + (config.get('map.useWindowWidth') ? '' : ' section-centered')
           }
         >
-          <iframe id='meteoMap' src={url}>
-            <p>Your browser does not support iframes.</p>
-          </iframe>
+          { this.state.domains && this.state.domains[this.props.match.params.domain] &&
+            <WeatherMapIframe
+              config={this.state.domains[this.props.match.params.domain]}
+              domain={this.props.match.params.domain} />
+          }
         </section>
         <div>
           {new Parser().parse(this.state.content)}

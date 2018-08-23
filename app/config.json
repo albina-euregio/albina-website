@@ -41,7 +41,8 @@
   },
   "links": {
     "interreg": "http://www.europaregion.info/",
-    "meteoViewer": "http://data1.geo.univie.ac.at/sandbox/meteo_viewer/",
+    "meteoViewer": "https://data1.geo.univie.ac.at/sandbox/meteo_viewer/",
+    "meteoViewerConfig": "https://data1.geo.univie.ac.at/sandbox/meteo_viewer/data/domains.json",
     "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
     "downloads": {
       "pdf": "https://example.com/{date}.pdf",
