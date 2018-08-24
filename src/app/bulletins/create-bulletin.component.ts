@@ -615,6 +615,8 @@ export class CreateBulletinComponent {
       let bulletin = new BulletinModel(originalBulletin);
 
       bulletin.setAuthor(this.authenticationService.getAuthor());
+      bulletin.setAdditionalAuthors(new Array<String>());
+      bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
 
       // reset regions
       let saved = new Array<String>();
