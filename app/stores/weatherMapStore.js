@@ -49,6 +49,65 @@ export default class WeatherMapStore {
   }
 
   /*
+    returns all items for the active domain in a form of array
+  */
+  get items () {
+    return this.domainId ? this.domain.items : false
+  }
+
+  /*
+    index of active item in the list of items for the active domain
+  */
+  get itemIndex () {
+    return this.itemId && this.domainId
+      ? this.items.map(i => i.id).indexOf(this.itemId)
+      : false
+  }
+
+  /*
+   returns index of active item decremented by 1
+  */
+  get previousIndex () {
+    return this.itemIndex !== false ? parseInt(this.itemIndex, 10) - 1 : false
+  }
+  /*
+    returns index of active item incremented by 1
+  */
+  get nextIndex () {
+    return this.itemIndex !== false ? parseInt(this.itemIndex, 10) + 1 : false
+  }
+
+  /*
+    returns item that is before the active item in a list of domain items
+  */
+  get previousItem () {
+    const iIndex = this.itemIndex
+    const previousIndex = this.previousIndex
+
+    if (iIndex !== false && previousIndex !== false && this.items[previousIndex]) {
+      return this.items[previousIndex]
+    } else {
+      return false
+    }
+  }
+
+  /*
+    returns item that is next to the active item in a list of domain items
+  */
+  get nextItem () {
+    const iIndex = this.itemIndex
+    const nextIndex = this.nextIndex
+
+    console.log('next indices', iIndex, nextIndex)
+
+    if (iIndex !== false && nextIndex !== false && this.items[nextIndex]) {
+      return this.items[nextIndex]
+    } else {
+      return false
+    }
+  }
+
+  /*
     setting a new active domain
   */
   @action changeDomain (domainId) {

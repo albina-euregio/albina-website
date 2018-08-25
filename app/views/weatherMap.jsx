@@ -18,7 +18,9 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
 @observer class WeatherMap extends React.Component {
   constructor (props) {
     super(props)
-    this.store = new WeatherMapStore(this.props.match.params.domain)
+
+    // this.store = new WeatherMapStore(this.props.match.params.domain)
+    this.store = new WeatherMapStore(queryString.parse(this.props.location.hash).domain)
 
     this.state = {
       title: '',
@@ -31,8 +33,7 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
   }
 
   componentDidMount () {
-    console.log('mounting weather map')
-    this.setState({ mapParams: queryString.parse(this.props.location.search) })
+    // this.setState({ mapParams: queryString.parse(this.props.location.search) })
 
     window['staticPageStore'].loadPage('weather/map').then(response => {
       // parse content
@@ -45,8 +46,8 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
       })
     })
 
+    /*
     window.addEventListener('message', e => {
-      /*
       if (e.data) {
         console.log('*** getting message ', e.data)
         try {
@@ -60,23 +61,18 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
           console.log('JSON parse error: ' + e.data)
         }
       }
-      */
     })
+     */
   }
 
-  // TODO: method that sets the url and finds a default item to use
   handleChangeDomain (menuItem) {
     const newDomainId = menuItem.domainId
-
-    console.log('CHANGING DOMAIN: ', newDomainId)
     if (newDomainId !== this.store.domainId) {
       this.store.changeDomain(newDomainId)
     }
   }
 
-  // TODO: method that sets new item
   handleChangeItem (newItemId) {
-    console.log('CHANGING ITEM: ', newItemId)
     this.store.changeItem(newItemId)
   }
 
@@ -90,30 +86,15 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
     const menuItems = window['menuStore'].getMenu('weather-map')
       ? window['menuStore'].getMenu('weather-map').map(domainM => {
           // getting the id of the menu and resetting the url - TODO: put the id in the CMS, this is a retarded solution
-        console.log(domainM)
         if (!domainM.processedUrl) {
           domainM.domainId = domainM.url.split('/')[3].split('?')[0]
           domainM.processedUrl = true
         }
 
-        domainM.url = '#' + domainM.domainId
+        domainM.url = '#domain=' + domainM.domainId
         return domainM
       })
       : []
-
-    // // TODO: selected domain and possible items
-    // console.log(this.state.mapParams)
-    // if (this.store.activeConfig) {
-    //   const domainItems = this.store.activeConfig.items;
-    //
-    //   const items = domainItems.map(item => {
-    //     return {
-    //       id: item.id,
-    //       time: item.timeSpan,
-    //       text: item.description[params.lang]
-    //     }
-    //   })
-    // }
 
     return (
       <div>
@@ -129,13 +110,18 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
                   menuItemClassName='secondary pure-button'
                   activeClassName='js-active'
                   onSelect={this.handleChangeDomain.bind(this)}
+                  /*
                   onActiveMenuItem={e => {
                     if (e.title != this.state.mapTitle) {
                       window.setTimeout(() => this.setState({ mapTitle: e.title }), 100)
                     }
                   }}
+                  */
                 />
-                <ItemFlipper store={this.store} handleChange={this.handleChangeItem} />
+                <ItemFlipper
+                  store={this.store}
+                  handleChange={this.handleChangeItem.bind(this)}
+                />
               </div>
             </div>
 
