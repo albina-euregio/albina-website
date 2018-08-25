@@ -7,7 +7,6 @@ export default class WeatherMapStore {
   config
 
   constructor (initialDomainId) {
-    console.log(initialDomainId)
     this.config = false
     this._domainId = observable.box(false)
     this._itemId = observable.box(false)
@@ -98,8 +97,6 @@ export default class WeatherMapStore {
     const iIndex = this.itemIndex
     const nextIndex = this.nextIndex
 
-    console.log('next indices', iIndex, nextIndex)
-
     if (iIndex !== false && nextIndex !== false && this.items[nextIndex]) {
       return this.items[nextIndex]
     } else {
@@ -111,7 +108,7 @@ export default class WeatherMapStore {
     setting a new active domain
   */
   @action changeDomain (domainId) {
-    console.log('changing domain', domainId)
+    // console.log('changing domain', domainId)
     if (this.checkDomainId(domainId)) {
       this._domainId.set(domainId)
       this.changeItem(this.domain.domainIdStart)
@@ -122,7 +119,7 @@ export default class WeatherMapStore {
     setting a new active item
   */
   @action changeItem (itemId) {
-    console.log('changing item', itemId)
+    // console.log('changing item', itemId)
     if (this.checkItemId(this.domainId, itemId)) {
       this._itemId.set(itemId)
     }
