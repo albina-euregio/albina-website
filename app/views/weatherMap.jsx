@@ -19,8 +19,7 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
   constructor (props) {
     super(props)
 
-    // this.store = new WeatherMapStore(this.props.match.params.domain)
-    this.store = new WeatherMapStore(queryString.parse(this.props.location.hash).domain)
+    this.store = new WeatherMapStore(this.props.match.params.domain)
 
     this.state = {
       title: '',
@@ -86,12 +85,13 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
     const menuItems = window['menuStore'].getMenu('weather-map')
       ? window['menuStore'].getMenu('weather-map').map(domainM => {
           // getting the id of the menu and resetting the url - TODO: put the id in the CMS, this is a retarded solution
+        console.log(domainM.url)
         if (!domainM.processedUrl) {
           domainM.domainId = domainM.url.split('/')[3].split('?')[0]
           domainM.processedUrl = true
         }
 
-        domainM.url = '#domain=' + domainM.domainId
+        domainM.url = '/weather/map/' + domainM.domainId
         return domainM
       })
       : []
