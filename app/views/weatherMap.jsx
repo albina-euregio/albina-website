@@ -4,18 +4,22 @@ import { observer } from 'mobx-react'
 import { Parser } from 'html-to-react'
 import queryString from 'query-string'
 import PageHeadline from '../components/organisms/page-headline'
-import Menu from '../components/menu'
 import SmShare from '../components/organisms/sm-share'
-import { dateToLongDateString, dateToTimeString } from '../util/date'
-import WeatherMapStore from '../stores/weatherMapStore';
-import ItemFlipper from '../components/weather/item-flipper';
-import WeatherMapTitle from '../components/weather/weather-map-title';
-import WeatherMapIframe from '../components/weather/weather-map-iframe';
 
-class WeatherMap extends React.Component {
+import Base from '../base'
+import { dateToLongDateString, dateToTimeString } from '../util/date'
+import Menu from '../components/menu'
+import WeatherMapStore from '../stores/weatherMapStore'
+
+import ItemFlipper from '../components/weather/item-flipper'
+import WeatherMapTitle from '../components/weather/weather-map-title'
+import WeatherMapIframe from '../components/weather/weather-map-iframe'
+
+@observer class WeatherMap extends React.Component {
   constructor (props) {
     super(props)
-    this.store = new WeatherMapStore(this.props.match.params.domain);
+    this.store = new WeatherMapStore(this.props.match.params.domain)
+
     this.state = {
       title: '',
       headerText: '',
@@ -27,6 +31,7 @@ class WeatherMap extends React.Component {
   }
 
   componentDidMount () {
+    console.log('mounting weather map')
     this.setState({ mapParams: queryString.parse(this.props.location.search) })
 
     window['staticPageStore'].loadPage('weather/map').then(response => {
@@ -41,42 +46,60 @@ class WeatherMap extends React.Component {
     })
 
     window.addEventListener('message', e => {
+      /*
       if (e.data) {
+        console.log('*** getting message ', e.data)
         try {
           const data = JSON.parse(e.data)
-          if (data.changes && data.changes.domain) {
-            this.props.history.replace('/weather/map/' + data.changes.domain)
-          } else {
+          if (data.changes) {
+            const url = Base.makeUrl('', data.newState)
+            this.props.history.replace('/weather/map/' + url)
             this.setState({ mapParam: data.newState })
           }
         } catch (e) {
           console.log('JSON parse error: ' + e.data)
         }
       }
+      */
     })
   }
 
   // TODO: method that sets the url and finds a default item to use
-  handleChangeDomain (newDomain) {
-    console.log('CHANGE DOMAIN: ' + newDomain);
-    if(newDomain != this.props.store.domain) {
-      this.store.changeDomain(newDomain);
-      this.props.history.replace('/weather/map/' + newDomain);
+  handleChangeDomain (menuItem) {
+    const newDomainId = menuItem.domainId
+
+    console.log('CHANGING DOMAIN: ', newDomainId)
+    if (newDomainId !== this.store.domainId) {
+      this.store.changeDomain(newDomainId)
     }
-    // change url
-    // find default item
   }
 
   // TODO: method that sets new item
   handleChangeItem (newItemId) {
-    console.log('CHANGE ITEM: ' + newItemId);
-    this.store.changeItem(newItemId);
-    // change search param
+    console.log('CHANGING ITEM: ', newItemId)
+    this.store.changeItem(newItemId)
   }
 
   render () {
-    // TODO: menu items should render with "handleChangeDomain"
+    console.log(' *** weather map is rendering')
+    console.log('domain', this.store.domain)
+    console.log('item', this.store.item)
+    console.log(' *** ')
+    // this.props.history.replace('/weather/map/' + this.store.domainId)
+
     const menuItems = window['menuStore'].getMenu('weather-map')
+      ? window['menuStore'].getMenu('weather-map').map(domainM => {
+          // getting the id of the menu and resetting the url - TODO: put the id in the CMS, this is a retarded solution
+        console.log(domainM)
+        if (!domainM.processedUrl) {
+          domainM.domainId = domainM.url.split('/')[3].split('?')[0]
+          domainM.processedUrl = true
+        }
+
+        domainM.url = '#' + domainM.domainId
+        return domainM
+      })
+      : []
 
     // // TODO: selected domain and possible items
     // console.log(this.state.mapParams)
@@ -92,13 +115,6 @@ class WeatherMap extends React.Component {
     //   })
     // }
 
-    /* const url = Base.makeUrl(config.get('links.meteoViewer'),
-      Object.assign(params, this.state.mapParams));
-    */
-
-
-    const mapDate = new Date()
-
     return (
       <div>
         <PageHeadline title={this.state.title} marginal={this.state.headerText} />
@@ -112,21 +128,20 @@ class WeatherMap extends React.Component {
                   childClassName='list-plain subnavigation'
                   menuItemClassName='secondary pure-button'
                   activeClassName='js-active'
+                  onSelect={this.handleChangeDomain.bind(this)}
                   onActiveMenuItem={e => {
                     if (e.title != this.state.mapTitle) {
                       window.setTimeout(() => this.setState({ mapTitle: e.title }), 100)
                     }
                   }}
                 />
-                <ItemFlipper store={this.store} handleChange={this.handleChangeItem}/>
+                <ItemFlipper store={this.store} handleChange={this.handleChangeItem} />
               </div>
             </div>
 
             <div className='section-centered'>
               <div className='section-padding-width flipper-header'>
-                { this.store.activeItem &&
-                  <WeatherMapTitle store={this.store} />
-                }
+                {this.store.item && <WeatherMapTitle store={this.store} />}
               </div>
             </div>
 
@@ -137,10 +152,7 @@ class WeatherMap extends React.Component {
             'section-map' + (config.get('map.useWindowWidth') ? '' : ' section-centered')
           }
         >
-          { this.store.domain &&
-            <WeatherMapIframe
-              store={this.store} />
-          }
+          {this.store.domain && <WeatherMapIframe store={this.store} />}
         </section>
         <div>
           {new Parser().parse(this.state.content)}
@@ -150,4 +162,4 @@ class WeatherMap extends React.Component {
     )
   }
 }
-export default withRouter(observer(WeatherMap));
+export default withRouter(observer(WeatherMap))

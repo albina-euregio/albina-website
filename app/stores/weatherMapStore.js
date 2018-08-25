@@ -6,14 +6,15 @@ export default class WeatherMapStore {
   @observable _domainId
   config
 
-  constructor (initialDomain) {
+  constructor (initialDomainId) {
+    console.log(initialDomainId)
     this.config = false
-    this._domainId = false
-    this._itemId = false
+    this._domainId = observable.box(false)
+    this._itemId = observable.box(false)
 
     Base.doRequest(config.get('links.meteoViewerConfig')).then(response => {
       this.config = JSON.parse(response)
-      this.changeDomain(initialDomain)
+      this.changeDomain(initialDomainId)
     })
   }
 
@@ -43,7 +44,7 @@ export default class WeatherMapStore {
   */
   get item () {
     return this.config && this.domainId && this.itemId && this.domain
-      ? this.domain.items.find(i => i.id === itemId)
+      ? this.domain.items.find(i => i.id === this.itemId)
       : false
   }
 
@@ -53,7 +54,7 @@ export default class WeatherMapStore {
   @action changeDomain (domainId) {
     console.log('changing domain', domainId)
     if (this.checkDomainId(domainId)) {
-      this._domain.set(domainId)
+      this._domainId.set(domainId)
       this.changeItem(this.domain.domainIdStart)
     }
   }
@@ -63,7 +64,7 @@ export default class WeatherMapStore {
   */
   @action changeItem (itemId) {
     console.log('changing item', itemId)
-    if (this.checkItemId(thsi.domainId, itemId)) {
+    if (this.checkItemId(this.domainId, itemId)) {
       this._itemId.set(itemId)
     }
   }
@@ -73,6 +74,7 @@ export default class WeatherMapStore {
   */
   checkDomainId (domainId) {
     return (
+      domainId &&
       this.config &&
       this.config[domainId] &&
       this.config[domainId].items &&
