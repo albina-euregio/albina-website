@@ -14,6 +14,7 @@ import WeatherMapStore from '../stores/weatherMapStore'
 import ItemFlipper from '../components/weather/item-flipper'
 import WeatherMapTitle from '../components/weather/weather-map-title'
 import WeatherMapIframe from '../components/weather/weather-map-iframe'
+import AppStore from '../appStore'
 
 @observer class WeatherMap extends React.Component {
   constructor (props) {
@@ -64,8 +65,8 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
      */
   }
 
-  handleChangeDomain (menuItem) {
-    const newDomainId = menuItem.domainId
+  handleClickDomainButton (menuItem) {
+    const newDomainId = menuItem.id
     if (newDomainId !== this.store.domainId) {
       this.store.changeDomain(newDomainId)
     }
@@ -76,23 +77,17 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
   }
 
   render () {
-    console.log(' *** weather map is rendering')
-    console.log('domain', this.store.domain)
-    console.log('item', this.store.item)
-    console.log(' *** ')
     // this.props.history.replace('/weather/map/' + this.store.domainId)
 
-    const menuItems = window['menuStore'].getMenu('weather-map')
-      ? window['menuStore'].getMenu('weather-map').map(domainM => {
-          // getting the id of the menu and resetting the url - TODO: put the id in the CMS, this is a retarded solution
-        console.log(domainM.url)
-        if (!domainM.processedUrl) {
-          domainM.domainId = domainM.url.split('/')[3].split('?')[0]
-          domainM.processedUrl = true
+    const domainButtons = this.store.config
+      ? Object.keys(this.store.config).map(domainId => {
+        const domain = this.store.config[domainId]
+        return {
+          id: domainId,
+          title: domain.description[appStore.language],
+          url: '/weather/map/' + domainId,
+          isExternal: false
         }
-
-        domainM.url = '/weather/map/' + domainM.domainId
-        return domainM
       })
       : []
 
@@ -105,11 +100,11 @@ import WeatherMapIframe from '../components/weather/weather-map-iframe'
               <div className='section-centered'>
                 <Menu
                   className='list-inline flipper-buttongroup'
-                  entries={menuItems}
+                  entries={domainButtons}
                   childClassName='list-plain subnavigation'
                   menuItemClassName='secondary pure-button'
                   activeClassName='js-active'
-                  onSelect={this.handleChangeDomain.bind(this)}
+                  onSelect={this.handleClickDomainButton.bind(this)}
                   /*
                   onActiveMenuItem={e => {
                     if (e.title != this.state.mapTitle) {
