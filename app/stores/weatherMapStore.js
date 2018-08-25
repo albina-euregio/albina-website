@@ -1,42 +1,92 @@
-import { observable, action } from 'mobx';
-import Base from '../base';
+import { observable, action } from 'mobx'
+import Base from '../base'
 
 export default class WeatherMapStore {
-  _domain;
-  @observable activeItem;
-  config;
+  @observable _itemId
+  @observable _domainId
+  config
 
-  constructor(initialDomain) {
-    this._domain = observable.box('');
-    this.config = {};
-    this.activeItem = {};
+  constructor (initialDomain) {
+    this.config = false
+    this._domainId = false
+    this._itemId = false
 
-    Base.doRequest(config.get('links.meteoViewerConfig')).then((response) => {
-      this.config = JSON.parse(response);
-      this.changeDomain(initialDomain);
-    });
+    Base.doRequest(config.get('links.meteoViewerConfig')).then(response => {
+      this.config = JSON.parse(response)
+      this.changeDomain(initialDomain)
+    })
   }
 
-  get domain() {
-    return this._domain.get();
+  /*
+    returns the active domain id
+  */
+  get domainId () {
+    return this._domainId.get()
   }
 
-  get activeConfig() {
-    return this.config[this.domain];
+  /*
+    returns the active item id
+  */
+  get itemId () {
+    return this._itemId.get()
   }
 
-  @action
-  changeDomain(d) {
-    if(d != this._domain.get()) {
-      this._domain.set(d);
-      this.changeItem();
+  /*
+    returns domain data based on the active domain id
+  */
+  get domain () {
+    return this.config && this.domainId ? this.config[this.domainId] : false
+  }
+
+  /*
+    returns item data based on the active item id
+  */
+  get item () {
+    return this.config && this.domainId && this.itemId && this.domain
+      ? this.domain.items.find(i => i.id === itemId)
+      : false
+  }
+
+  /*
+    setting a new active domain
+  */
+  @action changeDomain (domainId) {
+    console.log('changing domain', domainId)
+    if (this.checkDomainId(domainId)) {
+      this._domain.set(domainId)
+      this.changeItem(this.domain.domainIdStart)
     }
   }
 
-  @action
-  changeItem(itemId = this.domain) {
-    if(this.config[this.domain] && this.config[this.domain].items.length > 0) {
-      this.activeItem = this.config[this.domain].items.find((i) => (i.id == itemId));
+  /*
+    setting a new active item
+  */
+  @action changeItem (itemId) {
+    console.log('changing item', itemId)
+    if (this.checkItemId(thsi.domainId, itemId)) {
+      this._itemId.set(itemId)
     }
+  }
+
+  /*
+    control method to check if the domain does exist in the config
+  */
+  checkDomainId (domainId) {
+    return (
+      this.config &&
+      this.config[domainId] &&
+      this.config[domainId].items &&
+      this.config[domainId].items.length &&
+      this.config[domainId].domainIdStart
+    )
+  }
+  /*
+  control method to check if the item does exist in the config
+*/
+  checkItemId (domainId, itemId) {
+    return (
+      this.checkDomainId(domainId) &&
+      this.config[domainId].items.some(i => i.id === itemId)
+    )
   }
 }
