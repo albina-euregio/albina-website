@@ -1,7 +1,7 @@
-const webpack = require('webpack');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = (env, argv) => {
   return {
@@ -73,7 +73,7 @@ module.exports = (env, argv) => {
         hash: true
       }),
       new webpack.DefinePlugin({
-        DEV: (argv.mode !== 'production'),
+        DEV: argv.mode !== 'production',
         VERSION: JSON.stringify(require('./package.json').version)
       }),
       new MiniCssExtractPlugin({
@@ -89,5 +89,5 @@ module.exports = (env, argv) => {
         {}
       )
     ]
-  };
+  }
 }

@@ -55,3 +55,6 @@ lib
 # Eclipse
 .project
 .settings
+
+# Code
+settings.json
