@@ -58,12 +58,6 @@ export default class StaticPage extends React.Component {
       cmsHost = proto + '//' + host;
     }
 
-    // remove last slash from projectRoot
-    const projectRoot = config.get('projectRoot');
-    const projectPrefix = (projectRoot.substr(-1) == '/')
-      ? projectRoot.substr(0, projectRoot.length -1)
-      : projectRoot;
-
     const instructions = [
       {
         // Replace internal links by Link
