@@ -34,6 +34,9 @@ import AppStore from '../appStore'
 
   componentDidMount () {
     window['staticPageStore'].loadPage('weather/map').then(response => {
+      if (this.store.domainId !== this.props.match.params.domain) {
+        this.props.history.replace('/weather/map/' + this.store.domainId)
+      }
       // parse content
       const responseParsed = JSON.parse(response)
       this.setState({
