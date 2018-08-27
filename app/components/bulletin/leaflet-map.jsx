@@ -6,7 +6,7 @@ import { Map, TileLayer, ImageOverlay, LayersControl, ZoomControl } from 'react-
 import { injectIntl } from 'react-intl'
 import BulletinVectorLayer from './bulletin-vector-layer'
 import { tooltip_init } from '../../js/tooltip'
-import './../../base'
+import Base from './../../base'
 
 class LeafletMap extends React.Component {
   constructor (props) {
