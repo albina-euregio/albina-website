@@ -2,7 +2,6 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import { Parser } from 'html-to-react'
-import queryString from 'query-string'
 import PageHeadline from '../components/organisms/page-headline'
 import SmShare from '../components/organisms/sm-share'
 
