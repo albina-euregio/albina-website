@@ -531,9 +531,9 @@
     "it": "IT Your browser is old"
   },
   "dialog:unsupportedBrowser:message": {
-    "en": "EN This application can damage your computer and your family.",
-    "de": "DE This application can damage your computer and your family.",
-    "it": "IT This application can damage your computer and your family."
+    "en": "EN unsupported browser text",
+    "de": "DE unsupported browser text",
+    "it": "IT unsupported browser text"
   },
   "dialog:unsupportedBrowser:accept": {
     "en": "EN I do not care",
