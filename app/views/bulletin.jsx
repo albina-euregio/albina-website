@@ -87,7 +87,7 @@ class Bulletin extends React.Component {
         { this.state.sharable &&
           <SmShare />
         }
-        <div className="section-padding">
+        <div className="section-padding section-centered">
           { (new Parser()).parse(this.state.content) }
         </div>
       </div>

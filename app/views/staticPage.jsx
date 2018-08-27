@@ -1,5 +1,6 @@
 import React from 'react';
-import { Parser } from 'html-to-react';
+import { Link } from 'react-router-dom';
+import { Parser, ProcessNodeDefinitions } from 'html-to-react';
 import PageHeadline from '../components/organisms/page-headline';
 import SmShare from '../components/organisms/sm-share';
 
@@ -37,11 +38,62 @@ export default class StaticPage extends React.Component {
         this.setState({
           title: responseParsed.data.attributes.title,
           headerText: responseParsed.data.attributes.header_text,
-          content: responseParsed.data.attributes.body,
+          content: this._preprocessContent(responseParsed.data.attributes.body),
           sharable: responseParsed.data.attributes.sharable
         });
       });
     }
+  }
+
+  _preprocessContent(content) {
+    const defaults = new ProcessNodeDefinitions(React);
+    const htmlParser = new Parser();
+    const isValidNode = () => true;
+
+    const matches = config.get('apis.content').match(/^(https?:)?\/\/([^/]+)/);
+    let cmsHost = '';
+    if(matches && matches.length == 3) {
+      const proto = matches[1] ? matches[1] : window.location.protocol;
+      const host = matches[2];
+      cmsHost = proto + '//' + host;
+    }
+
+    // remove last slash from projectRoot
+    const projectRoot = config.get('projectRoot');
+    const projectPrefix = (projectRoot.substr(-1) == '/')
+      ? projectRoot.substr(0, projectRoot.length -1)
+      : projectRoot;
+
+    const instructions = [
+      {
+        // Replace internal links by Link
+        shouldProcessNode: (node) => {
+          return (node.name == 'a' && node.attribs.href.match(/^\/[^/]+/));
+        },
+        processNode: (node, ...args) => {
+          return React.createElement(
+            Link,
+            {to: node.attribs.href},
+            ...args[0]
+          );
+        }
+      },
+      {
+        // Fix image paths for CMS-relative URLs
+        shouldProcessNode: (node) => {
+          return (node.name == 'img' && node.attribs.src.match(/^\//));
+        },
+        processNode: (node, ...args) => {
+          node.attribs.src = cmsHost + node.attribs.src;
+          return defaults.processDefaultNode(node, ...args);
+        }
+      },
+      {
+        shouldProcessNode: () => true,
+        processNode: defaults.processDefaultNode
+      }
+    ];
+    return htmlParser.parseWithInstructions(content, isValidNode, instructions);
   }
 
   render() {
@@ -50,7 +102,7 @@ export default class StaticPage extends React.Component {
         <PageHeadline title={this.state.title} marginal={this.state.headerText} />
         <section className="section-centered">
           {
-            (new Parser()).parse(this.state.content)
+            this.state.content
           }
         </section>
         { this.state.sharable ?
