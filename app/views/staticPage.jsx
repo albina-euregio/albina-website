@@ -1,9 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Parser, ProcessNodeDefinitions } from 'html-to-react';
+import { ProcessNodeDefinitions } from 'html-to-react';
 import PageHeadline from '../components/organisms/page-headline';
 import SmShare from '../components/organisms/sm-share';
-
+import { parseRawHtml, defaultProcessor, replaceInternalLinksProcessor } from '../util/htmlParser';
 /*
  * Compontent to be used for pages with content delivered by CMS API.
  */
@@ -47,8 +46,6 @@ export default class StaticPage extends React.Component {
 
   _preprocessContent(content) {
     const defaults = new ProcessNodeDefinitions(React);
-    const htmlParser = new Parser();
-    const isValidNode = () => true;
 
     const matches = config.get('apis.content').match(/^(https?:)?\/\/([^/]+)/);
     let cmsHost = '';
@@ -60,19 +57,6 @@ export default class StaticPage extends React.Component {
 
     const instructions = [
       {
-        // Replace internal links by Link
-        shouldProcessNode: (node) => {
-          return (node.name == 'a' && node.attribs.href.match(/^\/[^/]+/));
-        },
-        processNode: (node, ...args) => {
-          return React.createElement(
-            Link,
-            {to: node.attribs.href},
-            ...args[0]
-          );
-        }
-      },
-      {
         // Fix image paths for CMS-relative URLs
         shouldProcessNode: (node) => {
           return (node.name == 'img' && node.attribs.src.match(/^\//));
@@ -82,12 +66,10 @@ export default class StaticPage extends React.Component {
           return defaults.processDefaultNode(node, ...args);
         }
       },
-      {
-        shouldProcessNode: () => true,
-        processNode: defaults.processDefaultNode
-      }
+      replaceInternalLinksProcessor(),
+      defaultProcessor()
     ];
-    return htmlParser.parseWithInstructions(content, isValidNode, instructions);
+    return parseRawHtml(content, instructions);
   }
 
   render() {

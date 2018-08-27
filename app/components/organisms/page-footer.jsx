@@ -3,10 +3,32 @@ import { observer, inject } from 'mobx-react';
 import { injectIntl } from 'react-intl';
 import Menu from '../menu';
 import SmFollow from './sm-follow.jsx';
+import { parseRawHtml, defaultProcessor, replaceInternalLinksProcessor } from '../../util/htmlParser';
 
 class PageFooter extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {content: ''};
+  }
+
+  componentDidMount() {
+    window['staticPageStore'].loadBlock('footer_text').then((content) => {
+      const parsed = JSON.parse(content);
+      if(parsed.data && parsed.data.length > 0) {
+        const el = parsed.data[0];
+        if(el && el.attributes && el.attributes.body && el.attributes.body.processed) {
+          this.setState({content: this._preprocessContent(el.attributes.body.processed)});
+        }
+      }
+    });
+  }
+
+  _preprocessContent(content) {
+    const instructions = [
+      replaceInternalLinksProcessor(),
+      defaultProcessor(),
+    ];
+    return parseRawHtml(content, instructions);
   }
 
   render() {
@@ -34,7 +56,7 @@ class PageFooter extends React.Component {
                   {this.props.intl.formatMessage({id: 'footer:subscribe'})}
                 </a>
               </p>
-              <p className="page-footer-text">Bush tomato gumbo potato garbanzo ricebean burdock daikon coriander kale quandong. Bok choy celery leek <a href>avocado shallot</a> horseradish aubergine parsley. Bok choy bell pepper kale celery desert raisin kakadu plum bok choy bunya nuts.</p>
+              <p className="page-footer-text">{this.state.content}</p>
               <p className="page-footer-interreg">
                 <a href={config.get('links.interreg')}
                   className="logo-interreg tooltip"

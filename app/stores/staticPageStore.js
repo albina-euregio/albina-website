@@ -48,4 +48,11 @@ export default class StaticPageStore {
     const url = config.get('apis.content') + langParam + 'api/pages/' + id;
     return Base.doRequest(url);
   }
+
+  loadBlock(name) {
+    const lang = window['appStore'].language;
+    const langParam = (!lang || (lang == 'en')) ? '' : (lang + '/');
+    const url = config.get('apis.content') + langParam + 'api/block_content/' + name;
+    return Base.doRequest(url);
+  }
 }
