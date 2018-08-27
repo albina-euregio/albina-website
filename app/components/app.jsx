@@ -17,6 +17,9 @@ import StaticPage from './../views/staticPage'
 import SubscribeConfirmation from './../views/subscribeConfirmation'
 import Page from './page'
 
+const { detect } = require('detect-browser')
+const browser = detect()
+
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require('../css/style.css')
 require('../css/app.css') // CSS overrides
@@ -27,6 +30,17 @@ require('./../../node_modules/leaflet/dist/leaflet.css')
 class App extends React.Component {
   constructor (props) {
     super(props)
+
+    /* checking if the browser is supported */
+
+    if (browser && browser.version.includes('.')) {
+      const browserVersion = browser.name + browser.version.split('.')[0]
+      console.log(browserVersion)
+      if (config.get('unsupportedBrowsers').includes(browserVersion)) {
+        console.log('browser not supported')
+        appStore.unsupportedBrowserModalOn()
+      }
+    }
   }
 
   shouldComponentUpdate (nextProps, nextState) {
