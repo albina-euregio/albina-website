@@ -151,3 +151,10 @@ a.share-feed {
 .modal-subscribe .blog-language {
   font-weight: bold;
 }
+
+/* Misc */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}

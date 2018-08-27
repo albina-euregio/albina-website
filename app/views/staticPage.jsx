@@ -81,6 +81,7 @@ export default class StaticPage extends React.Component {
             this.state.content
           }
         </section>
+        <div className="clearfix"></div>
         { this.state.sharable ?
           <SmShare /> : <div className="section-padding"></div>
         }
