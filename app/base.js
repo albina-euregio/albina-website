@@ -86,9 +86,7 @@ var Base = {
     const bodyEl = document.getElementsByTagName('body')[0]
     const bodyElStyle = window.getComputedStyle(bodyEl)
     const blendMode = bodyElStyle.getPropertyValue('mix-blend-mode')
-    console.log(bodyElStyle)
-    console.log(blendMode)
-    return blendMode !== undefined
+    return !!blendMode
   }
 }
 

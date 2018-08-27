@@ -75,9 +75,6 @@ class BulletinMap extends React.Component {
   }
 
   render () {
-    console.log('**************')
-    console.log(this.props.store.vectorRegions)
-    console.log('**************')
     return (
       <section
         id='section-bulletin-map'
