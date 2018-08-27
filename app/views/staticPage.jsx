@@ -26,8 +26,8 @@ export default class StaticPage extends React.Component {
   }
 
   _fetchData(props) {
-    const path = props.location.pathname.split('/');
-    const site = (path.length > 0) ? path[path.length - 1] : '';
+    // remove projectRoot from the URL
+    const site = props.location.pathname.substr(config.get('projectRoot')).replace(/^\//, '');
 
     // TODO: use subqueries to eleiminate the need of an additional API roundtrip: https://www.drupal.org/project/subrequests
     if(site) {

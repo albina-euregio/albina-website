@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Parser } from 'html-to-react';
-import queryString from 'query-string';
 import Base from '../base';
 import PageHeadline from '../components/organisms/page-headline';
 import SmShare from '../components/organisms/sm-share';
@@ -34,8 +33,7 @@ class StationMeasurements extends React.Component {
     const params = {
       lang: window['appStore'].language
     };
-    const url = Base.makeUrl(config.get('links.stationTable'),
-      Object.assign(params, queryString.parse(this.props.location.params)));
+    const url = Base.makeUrl(config.get('links.stationTable'), params);
     return (
       <div>
         <PageHeadline title={this.state.title} marginal={this.state.headerText} />
