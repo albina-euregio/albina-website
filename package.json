@@ -1,14 +1,13 @@
 {
   "name": "albina-project",
   "description": "Albina project webpage",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "main": "app/main.jsx",
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server --mode development --open",
     "deploy": "npm run clean-dist && webpack --mode production --output-public-path=/projects/albina-web/",
-    "clean-dist": "rm -f -r -d dist",
-    "rsync": "rsync -avz --exclude=config.json dist/ karto@data1.geo.univie.ac.at:/daten1/projects/albina-web/"
+    "clean-dist": "rm -f -r -d dist"
   },
   "dependencies": {
     "@turf/flip": "^5.1.5",
@@ -43,6 +42,7 @@
     "mobx-react": "^5.1.2",
     "mobx-react-devtools": "^5.0.1",
     "mobx-react-intl": "^1.4.0",
+    "query-string": "^6.1.0",
     "react": "15.x",
     "react-dom": "^15.6.2",
     "react-ga": "^2.5.3",
