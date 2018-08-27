@@ -11,7 +11,7 @@ import BlogOverview from './../views/blogOverview'
 import BlogPost from './../views/blogPost'
 import WeatherMap from './../views/weatherMap'
 import StationMeasurements from './../views/stationMeasurements'
-import Education from './../views/education'
+import OverviewPage from './../views/overviewPage'
 import Archive from './../views/archive'
 import StaticPage from './../views/staticPage'
 import SubscribeConfirmation from './../views/subscribeConfirmation'
@@ -79,7 +79,7 @@ class App extends React.Component {
           {
             path: '/education',
             exact: true,
-            component: Education
+            component: OverviewPage
           },
           {
             path: '/blog/:blogName/:postId',
@@ -89,6 +89,11 @@ class App extends React.Component {
             path: '/blog',
             exact: true,
             component: BlogOverview
+          },
+          {
+            path: '/more',
+            exact: true,
+            component: OverviewPage
           },
           {
             path: '/archive',
