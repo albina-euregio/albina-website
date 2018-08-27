@@ -525,6 +525,22 @@
   "blog:filter:language": { "en": "Language", "de": "Sprache", "it": "Lingua" },
   "blog:search": { "en": "Search posts", "de": "Suchen", "it": "Cerca" },
 
+  "dialog:unsupportedBrowser:heading": {
+    "en": "EN Your browser is old",
+    "de": "DE Your browser is old",
+    "it": "IT Your browser is old"
+  },
+  "dialog:unsupportedBrowser:message": {
+    "en": "EN This application can damage your computer and your family.",
+    "de": "DE This application can damage your computer and your family.",
+    "it": "IT This application can damage your computer and your family."
+  },
+  "dialog:unsupportedBrowser:accept": {
+    "en": "EN I do not care",
+    "de": "DE I do not care",
+    "it": "IT I do not care"
+  },
+
   "dialog:subscribe:header": {
     "en": "Subscriptions",
     "de": "Abonnieren",
