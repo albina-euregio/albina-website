@@ -29,7 +29,7 @@ class ItemFlipper extends React.Component {
               }}
             >
               <span className='icon-arrow-left' />
-              &nbsp;{/* previousItem.descriptionDate[lang] */}
+              &nbsp;{previousItem.descriptionTimeSpan[lang]}
             </a>}
         </div>
         <div className='all-6 grid-item'>
@@ -46,7 +46,7 @@ class ItemFlipper extends React.Component {
                 this.props.handleChange(nextItem.id)
               }}
             >
-              {/* nextItem.descriptionDate[lang] */}&nbsp;
+              {nextItem.descriptionTimeSpan[lang]}&nbsp;
               <span className='icon-arrow-right' />
             </a>}
         </div>

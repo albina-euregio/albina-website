@@ -11,8 +11,18 @@ export default class WeatherMapStore {
     this._domainId = observable.box(false)
     this._itemId = observable.box(false)
 
+    console.log('initialDomainId', initialDomainId)
+
     Base.doRequest(config.get('links.meteoViewerConfig')).then(response => {
       this.config = JSON.parse(response)
+
+      const configDefaultDomainId = Object.keys(this.config).find(
+        domainKey => this.config[domainKey].domainDefault
+      )
+
+      if (!initialDomainId) {
+        initialDomainId = configDefaultDomainId
+      }
       this.changeDomain(initialDomainId)
     })
   }

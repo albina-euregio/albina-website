@@ -26,12 +26,17 @@ import AppStore from '../appStore'
       headerText: '',
       content: '',
       mapTitle: '',
-      sharable: false
+      sharable: false,
+      mapZoom: false,
+      mapCenter: false
     }
   }
 
   componentDidMount () {
     window['staticPageStore'].loadPage('weather/map').then(response => {
+      if (this.store.domainId !== this.props.match.params.domain) {
+        this.props.history.replace('/weather/map/' + this.store.domainId)
+      }
       // parse content
       const responseParsed = JSON.parse(response)
       this.setState({
@@ -42,23 +47,29 @@ import AppStore from '../appStore'
       })
     })
 
-    /*
     window.addEventListener('message', e => {
       if (e.data) {
-        console.log('*** getting message ', e.data)
+        // console.log('*** getting message ', e.data)
         try {
           const data = JSON.parse(e.data)
           if (data.changes) {
+            /*
             const url = Base.makeUrl('', data.newState)
             this.props.history.replace('/weather/map/' + url)
             this.setState({ mapParam: data.newState })
+            */
+            if (Object.keys(data.changes).find(key => ['zoom', 'center'].includes(key))) {
+              this.setState({
+                mapZoom: data.changes.zoom || data.newState.zoom,
+                mapCenter: data.changes.center || data.newState.center
+              })
+            }
           }
         } catch (e) {
           console.log('JSON parse error: ' + e.data)
         }
       }
     })
-     */
   }
 
   handleClickDomainButton (menuItem) {
@@ -127,7 +138,12 @@ import AppStore from '../appStore'
             'section-map' + (config.get('map.useWindowWidth') ? '' : ' section-centered')
           }
         >
-          {this.store.domain && <WeatherMapIframe store={this.store} />}
+          {this.store.domain &&
+            <WeatherMapIframe
+              store={this.store}
+              zoom={this.state.mapZoom}
+              center={this.state.mapCenter}
+            />}
         </section>
         <div>
           {new Parser().parse(this.state.content)}

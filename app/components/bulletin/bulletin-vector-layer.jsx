@@ -1,7 +1,8 @@
-import React from "react";
-import L from "leaflet";
-import { observer } from "mobx-react";
-import { GeoJSON, Pane, Polygon } from "react-leaflet";
+import React from 'react'
+import L from 'leaflet'
+import { observer } from 'mobx-react'
+import { GeoJSON, Pane, Polygon } from 'react-leaflet'
+import Base from './../../base'
 
 @observer
 export default class BulletinVectorLayer extends React.Component {
@@ -24,19 +25,19 @@ export default class BulletinVectorLayer extends React.Component {
   }
   */
 
-  handleClickRegion(bid, state, e) {
-    L.DomEvent.stopPropagation(e);
-    if (state !== "hidden") {
-      console.log("selecting region", bid);
-      this.props.handleSelectFeature(bid);
+  handleClickRegion (bid, state, e) {
+    L.DomEvent.stopPropagation(e)
+    if (state !== 'hidden') {
+      console.log('selecting region', bid)
+      this.props.handleSelectFeature(bid)
     }
   }
 
-  shouldComponentUpdate() {
-    return true;
+  shouldComponentUpdate () {
+    return true
   }
 
-  get uniqueKey() {
+  get uniqueKey () {
     // A unique key is needed for <GeoJSON> component to indicate the need
     // for rerendering. We use the selected date and region as well as a hash
     // of the settings of avalancheproblems.
@@ -45,47 +46,43 @@ export default class BulletinVectorLayer extends React.Component {
     // binary string are determined by the (lexicographical) order of the
     // problem ids (since neither Object.values nor for .. in loops are
     // guaranteed to preserve order).
-    const problemKeys = Object.keys(bulletinStore.problems).sort();
+    const problemKeys = Object.keys(bulletinStore.problems).sort()
     const problemHash = problemKeys.reduce((acc, p) => {
-      return acc * 2 + (bulletinStore.problems[p].active ? 1 : 0);
-    }, 0);
+      return acc * 2 + (bulletinStore.problems[p].active ? 1 : 0)
+    }, 0)
 
-    return (
-      bulletinStore.settings.date + bulletinStore.settings.region + problemHash
-    );
+    return bulletinStore.settings.date + bulletinStore.settings.region + problemHash
   }
 
-  render() {
-    const vectorOptions = config.get('map.vectorOptions');
+  render () {
+    const vectorOptions = config.get('map.vectorOptions')
+
     return (
       <Pane key={this.uniqueKey}>
         {this.props.regions.map((vector, vi) => {
-          const state = vector.properties.state;
+          const state = vector.properties.state
 
           // setting the style for each region
           const style = Object.assign(
             {},
-            config.get("map.regionStyling.all"),
-            config.get("map.regionStyling." + state)
-          );
+            config.get('map.regionStyling.all'),
+            config.get('map.regionStyling.' + state)
+          )
 
           // vector.geometry.coordinates might be a MultiPolygon
           // therefore we map over it an create a Polygon component for each
           // individual polygon
-          return vector.geometry.coordinates.map((g, gi) =>
+          return vector.geometry.coordinates.map((g, gi) => (
             <Polygon
               key={vi + '' + gi}
-              onClick={this.handleClickRegion.bind(
-                this,
-                vector.properties.bid,
-                state
-              )}
+              onClick={this.handleClickRegion.bind(this, vector.properties.bid, state)}
               positions={g}
               {...style}
-              {...vectorOptions} />
-          );
+              {...vectorOptions}
+            />
+          ))
         })}
       </Pane>
-    );
+    )
   }
 }
