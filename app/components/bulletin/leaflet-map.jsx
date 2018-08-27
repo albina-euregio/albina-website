@@ -1,22 +1,17 @@
-import React from "react";
-import { observer, inject } from "mobx-react";
-import L from "leaflet";
-import "leaflet-sleep";
-import {
-  Map,
-  TileLayer,
-  ImageOverlay,
-  LayersControl,
-  ZoomControl
-} from "react-leaflet";
-import { injectIntl } from 'react-intl';
-import BulletinVectorLayer from "./bulletin-vector-layer";
-import { tooltip_init } from '../../js/tooltip';
+import React from 'react'
+import { observer, inject } from 'mobx-react'
+import L from 'leaflet'
+import 'leaflet-sleep'
+import { Map, TileLayer, ImageOverlay, LayersControl, ZoomControl } from 'react-leaflet'
+import { injectIntl } from 'react-intl'
+import BulletinVectorLayer from './bulletin-vector-layer'
+import { tooltip_init } from '../../js/tooltip'
+import './../../base'
 
 class LeafletMap extends React.Component {
-  constructor(props) {
-    super(props);
-    this.map = false;
+  constructor (props) {
+    super(props)
+    this.map = false
     this.sleepProps = {
       // false if you want an unruly map
       sleep: false,
@@ -29,50 +24,54 @@ class LeafletMap extends React.Component {
       // should hovering wake the map? (non-touch devices only)
       hoverToWake: true,
       // a message to inform users about waking the map
-      wakeMessage: "Click or Hover to Wake up the map",
+      wakeMessage: 'Click or Hover to Wake up the map',
       // a constructor for a control button
       sleepButton: L.Control.sleepMapControl,
       // opacity for the sleeping map
       sleepOpacity: 0.7
-    };
+    }
   }
 
-  mapStyle() {
+  mapStyle () {
     return {
-      width: "100%",
-      height: "100%",
+      width: '100%',
+      height: '100%',
       zIndex: 1
-    };
+    }
   }
 
-  componentDidMount() {
-    this.map = this.refs.map.leafletElement;
-    this.map.fitBounds(config.get('map.euregioBounds'));
+  componentDidMount () {
+    this.map = this.refs.map.leafletElement
+    this.map.fitBounds(config.get('map.euregioBounds'))
     this.map.on('click', e => {
-      L.DomEvent.stopPropagation(e);
-      this.props.handleSelectFeature(null);
-    });
+      L.DomEvent.stopPropagation(e)
+      this.props.handleSelectFeature(null)
+    })
 
     window.setTimeout(() => {
-      $('.leaflet-control-zoom a').addClass('tooltip');
-      tooltip_init();
-    }, 100);
+      $('.leaflet-control-zoom a').addClass('tooltip')
+      tooltip_init()
+    }, 100)
 
-    const m = this.map;
+    const m = this.map
     window.addEventListener('resize', () => {
-      window.setTimeout(() => { m.invalidateSize(); }, 2000);
-    });
+      window.setTimeout(() => {
+        m.invalidateSize()
+      }, 2000)
+    })
     window.addEventListener('orientationchange', () => {
-      window.setTimeout(() => { m.invalidateSize(); }, 2000);
-    });
+      window.setTimeout(() => {
+        m.invalidateSize()
+      }, 2000)
+    })
   }
 
-  get tileLayers() {
-    const tileLayerConfig = config.get("map.tileLayers");
-    let tileLayers = "";
+  get tileLayers () {
+    const tileLayerConfig = config.get('map.tileLayers')
+    let tileLayers = ''
     if (tileLayerConfig.length == 1) {
       // only a single raster layer -> no layer control
-      tileLayers = <TileLayer {...tileLayerConfig[0]} />;
+      tileLayers = <TileLayer {...tileLayerConfig[0]} />
     } else if (tileLayerConfig.length > 1) {
       // add a layer switch zoomControl
       tileLayers = (
@@ -87,32 +86,42 @@ class LeafletMap extends React.Component {
             </LayersControl.BaseLayer>
           ))}
         </LayersControl>
-      );
+      )
     }
-    return tileLayers;
+    return tileLayers
   }
 
-  get mapOverlays() {
-    const b = bulletinStore.activeBulletinCollection;
-    if(b) {
-      const daytime = b.hasDaytimeDependency() ?
-        bulletinStore.settings.ampm : 'fd';
+  get mapOverlays () {
+    const b = bulletinStore.activeBulletinCollection
+    if (b) {
+      const daytime = b.hasDaytimeDependency() ? bulletinStore.settings.ampm : 'fd'
 
-      const url = config.get("apis.geo") + bulletinStore.settings.date + "/" + daytime + "_overlay.png";
-      const params = config.get("map.overlay");
+      const url =
+        config.get('apis.geo') +
+        bulletinStore.settings.date +
+        '/' +
+        daytime +
+        '_overlay.png'
+      const params = config.get('map.overlay')
 
-      return <ImageOverlay url={url} {...params} />;
+      return (
+        <ImageOverlay
+          url={url}
+          opacity={Base.checkBlendingSupport ? 1 : 0.5}
+          {...params}
+        />
+      )
     }
-    return null;
+    return null
   }
 
-  render() {
-    const mapProps = config.get("map.initOptions");
+  render () {
+    const mapProps = config.get('map.initOptions')
     return (
       <Map
         onViewportChanged={this.props.mapViewportChanged.bind(this.map)}
-        useFlyTo={true}
-        ref="map"
+        useFlyTo
+        ref='map'
         {...this.sleepProps}
         {...mapProps}
         dragging={!L.Browser.mobile}
@@ -122,21 +131,25 @@ class LeafletMap extends React.Component {
         center={bulletinStore.getMapCenter}
       >
         <ZoomControl
-          position="topleft"
-          zoomInTitle={this.props.intl.formatMessage({id: 'bulletin:map:zoom-in:hover'})}
-          zoomOutTitle={this.props.intl.formatMessage({id: 'bulletin:map:zoom-out:hover'})} />
+          position='topleft'
+          zoomInTitle={this.props.intl.formatMessage({
+            id: 'bulletin:map:zoom-in:hover'
+          })}
+          zoomOutTitle={this.props.intl.formatMessage({
+            id: 'bulletin:map:zoom-out:hover'
+          })}
+        />
         {this.tileLayers}
         {this.mapOverlays}
-        {this.props.vectorRegions && (
+        {this.props.vectorRegions &&
           <BulletinVectorLayer
             store={bulletinStore}
             regions={this.props.vectorRegions}
             handleHighlightFeature={this.props.handleHighlightFeature}
             handleSelectFeature={this.props.handleSelectFeature}
-          />
-        )}
+          />}
       </Map>
-    );
+    )
   }
 }
-export default inject('locale')(injectIntl(observer(LeafletMap)));
+export default inject('locale')(injectIntl(observer(LeafletMap)))
