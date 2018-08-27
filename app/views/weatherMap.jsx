@@ -26,15 +26,12 @@ import AppStore from '../appStore'
       title: '',
       headerText: '',
       content: '',
-      mapParams: {},
       mapTitle: '',
       sharable: false
     }
   }
 
   componentDidMount () {
-    // this.setState({ mapParams: queryString.parse(this.props.location.search) })
-
     window['staticPageStore'].loadPage('weather/map').then(response => {
       // parse content
       const responseParsed = JSON.parse(response)
@@ -77,8 +74,6 @@ import AppStore from '../appStore'
   }
 
   render () {
-    // this.props.history.replace('/weather/map/' + this.store.domainId)
-
     const domainButtons = this.store.config
       ? Object.keys(this.store.config).map(domainId => {
         const domain = this.store.config[domainId]

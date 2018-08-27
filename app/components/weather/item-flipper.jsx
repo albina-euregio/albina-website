@@ -8,21 +8,6 @@ class ItemFlipper extends React.Component {
   }
 
   render () {
-    /*
-    const currentId = this.props.store.activeItem ? this.props.store.activeItem.id : ''
-    const ids = this.props.store.activeConfig && this.props.store.activeConfig.items
-      ? this.props.store.activeConfig.items.map(i => i.id)
-      : []
-
-    const currentIdIndex = ids.indexOf(currentId)
-
-    const prevId = currentIdIndex > 0 ? ids[currentIdIndex - 1] : ''
-    const nextId = currentIdIndex > -1 && currentIdIndex < ids.length - 1
-      ? ids[currentIdIndex + 1]
-      : ''
-
-      */
-
     const lang = appStore.language
     const previousItem = this.props.store.previousItem
     const nextItem = this.props.store.nextItem

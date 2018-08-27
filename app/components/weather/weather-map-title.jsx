@@ -12,7 +12,7 @@ export default class WeatherMapTitle extends React.Component {
         </h2>
         <h2>
           {this.props.store.domainId
-            ? this.props.store.domain.description[window['appStore'].language]
+            ? this.props.store.item.description[window['appStore'].language]
             : ''}
         </h2>
       </div>
