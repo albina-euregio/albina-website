@@ -12,9 +12,17 @@ function replaceInternalLinksProcessor() {
       return (node.name == 'a' && node.attribs.href.match(/^\/[^/]+/));
     },
     processNode: (node, ...args) => {
+      const attrs = {to: node.attribs.href};
+      Object.keys(node.attribs).forEach((k) => {
+        if(k == 'class') {
+          attrs['className'] = node.attribs.class;
+        } else if(k != 'href') {
+          attrs[k] = node.attribs[k];
+        }
+      });
       return React.createElement(
         Link,
-        {to: node.attribs.href},
+        attrs,
         ...args[0]
       );
     }
