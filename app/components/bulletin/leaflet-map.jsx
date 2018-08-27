@@ -107,7 +107,7 @@ class LeafletMap extends React.Component {
       return (
         <ImageOverlay
           url={url}
-          opacity={Base.checkBlendingSupport ? 1 : 0.5}
+          opacity={Base.checkBlendingSupport() ? 1 : 0.5}
           {...params}
         />
       )

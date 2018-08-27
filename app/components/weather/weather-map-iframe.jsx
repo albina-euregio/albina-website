@@ -8,11 +8,31 @@ export default class WeatherMapIframe extends React.Component {
     super(props)
   }
 
+  shouldComponentUpdate (nextProps, nextState) {
+    return (
+      this.props.store.domainId !== this.domainId ||
+      this.props.store.itemId !== this.itemId
+    )
+  }
+
   render () {
+    this.domainId = this.props.store.domainId
+    this.itemId = this.props.store.itemId
+
     const params = {
-      domain: this.props.store.domainId,
+      domain: this.domainId,
       lang: window['appStore'].language,
       config: 'albina'
+    }
+
+    if (this.props.zoom) {
+      params.zoom = this.props.zoom
+    }
+
+    if (this.props.center['lat']) {
+      const ll = this.props.center['lat'] + ',' + this.props.center['lng']
+
+      params.center = ll
     }
 
     if (this.props.store.itemId) {
@@ -20,10 +40,9 @@ export default class WeatherMapIframe extends React.Component {
     }
 
     const url = Base.makeUrl(config.get('links.meteoViewer'), params)
-    console.log('weather iframe', url)
 
     return (
-      <iframe id='meteoMap' src={url}>
+      <iframe id='meteoMap' src={decodeURIComponent(url)}>
         <p>Your browser does not support iframes.</p>
       </iframe>
     )
