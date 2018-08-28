@@ -1,220 +1,748 @@
 {
-  "region:AT-07": {"en": "Tyrol", "de": "Tirol", "it": "Tirolo"},
-  "region:IT-32-BZ": {"en": "South Tyrol", "de": "Südtirol", "it": "Alto Adige"},
-  "region:IT-32-TN": {"en": "Trentino", "de": "Trentino", "it": "Trentino"},
+  "region:AT-07": { "en": "Tyrol", "de": "Tirol", "it": "Tirolo" },
+  "region:IT-32-BZ": { "en": "South Tyrol", "de": "Südtirol", "it": "Alto Adige" },
+  "region:IT-32-TN": { "en": "Trentino", "de": "Trentino", "it": "Trentino" },
 
-  "danger-level:low": {"en": "low", "de": "gering", "it": "debole"},
-  "danger-level:moderate": {"en": "moderate", "de": "mäßig", "it": "moderato"},
-  "danger-level:considerable": {"en": "considerable", "de": "erheblich", "it": "marcato"},
-  "danger-level:high": {"en": "high", "de": "groß", "it": "forte"},
-  "danger-level:very_high": {"en": "very high", "de": "sehr groß", "it": "molto forte"},
-  "danger-level:no_snow": {"en": "No snow", "de": "Kein Schnee", "it": "No Snow"},
-  "danger-level:no_rating": {"en": "No rating", "de": "Keine Prognose", "it": "No Rating"},
+  "danger-level:low": { "en": "low", "de": "gering", "it": "debole" },
+  "danger-level:moderate": { "en": "moderate", "de": "mäßig", "it": "moderato" },
+  "danger-level:considerable": {
+    "en": "considerable",
+    "de": "erheblich",
+    "it": "marcato"
+  },
+  "danger-level:high": { "en": "high", "de": "groß", "it": "forte" },
+  "danger-level:very_high": { "en": "very high", "de": "sehr groß", "it": "molto forte" },
+  "danger-level:no_snow": { "en": "No snow", "de": "Kein Schnee", "it": "No Snow" },
+  "danger-level:no_rating": {
+    "en": "No rating",
+    "de": "Keine Prognose",
+    "it": "No Rating"
+  },
 
-  "danger-patterns:dp1": {"en": "dp 1: deep persistent weak layer", "de": "gm 1: bodennahe Schwachschicht vom Frühwinter", "it": "st 1: la seconda nevicata"},
-  "danger-patterns:dp2": {"en": "dp 2: gliding snow", "de": "gm 2: Gleitschnee", "it": "st 2: valanga per scivolamento di neve"},
-  "danger-patterns:dp3": {"en": "dp 3: rain", "de": "gm 3: Regen", "it": "st 3: pioggia"},
-  "danger-patterns:dp4": {"en": "dp 4: cold following warm / warm following cold", "de": "gm 4: kalt auf warm / warm auf kalt", "it": "st 4: freddo su caldo / caldo su freddo"},
-  "danger-patterns:dp5": {"en": "dp 5: snowfall after a long period of cold", "de": "gm 5: Schnee nach langer Kälteperiode", "it": "st 5: neve dopo un lungo periodo di freddo"},
-  "danger-patterns:dp6": {"en": "dp 6: cold, loose snow and wind", "de": "gm 6: lockerer Schnee und Wind", "it": "st 6: neve fresca fredda a debole coesione e vento"},
-  "danger-patterns:dp7": {"en": "dp 7: snow-poor zones in snow-rich surrounding", "de": "gm 7: schneearm neben schneereich", "it": "st 7: zone con poca neve durante inverni ricchi di neve"},
-  "danger-patterns:dp8": {"en": "dp 8: surface hoar blanketed with snow", "de": "gm 8: eingeschneiter Oberflächenreif", "it": "st 8: brina di superficie sepolta"},
-  "danger-patterns:dp9": {"en": "dp 9: graupel blanketed with snow", "de": "gm 9: eingeschneiter Graupel", "it": "st 9: neve pallottolare coperta da neve fresca"},
-  "danger-patterns:dp10": {"en": "dp 10: springtime scenario", "de": "gm 10: Frühjahrssituation", "it": "st 10: situazione primaverile"},
+  "danger-patterns:dp1": {
+    "en": "dp 1: deep persistent weak layer",
+    "de": "gm 1: bodennahe Schwachschicht vom Frühwinter",
+    "it": "st 1: la seconda nevicata"
+  },
+  "danger-patterns:dp2": {
+    "en": "dp 2: gliding snow",
+    "de": "gm 2: Gleitschnee",
+    "it": "st 2: valanga per scivolamento di neve"
+  },
+  "danger-patterns:dp3": {
+    "en": "dp 3: rain",
+    "de": "gm 3: Regen",
+    "it": "st 3: pioggia"
+  },
+  "danger-patterns:dp4": {
+    "en": "dp 4: cold following warm / warm following cold",
+    "de": "gm 4: kalt auf warm / warm auf kalt",
+    "it": "st 4: freddo su caldo / caldo su freddo"
+  },
+  "danger-patterns:dp5": {
+    "en": "dp 5: snowfall after a long period of cold",
+    "de": "gm 5: Schnee nach langer Kälteperiode",
+    "it": "st 5: neve dopo un lungo periodo di freddo"
+  },
+  "danger-patterns:dp6": {
+    "en": "dp 6: cold, loose snow and wind",
+    "de": "gm 6: lockerer Schnee und Wind",
+    "it": "st 6: neve fresca fredda a debole coesione e vento"
+  },
+  "danger-patterns:dp7": {
+    "en": "dp 7: snow-poor zones in snow-rich surrounding",
+    "de": "gm 7: schneearm neben schneereich",
+    "it": "st 7: zone con poca neve durante inverni ricchi di neve"
+  },
+  "danger-patterns:dp8": {
+    "en": "dp 8: surface hoar blanketed with snow",
+    "de": "gm 8: eingeschneiter Oberflächenreif",
+    "it": "st 8: brina di superficie sepolta"
+  },
+  "danger-patterns:dp9": {
+    "en": "dp 9: graupel blanketed with snow",
+    "de": "gm 9: eingeschneiter Graupel",
+    "it": "st 9: neve pallottolare coperta da neve fresca"
+  },
+  "danger-patterns:dp10": {
+    "en": "dp 10: springtime scenario",
+    "de": "gm 10: Frühjahrssituation",
+    "it": "st 10: situazione primaverile"
+  },
 
-  "problem:new_snow": {"en": "New snow problem", "de": "Neuschneeproblem", "it": "Problema di neve fresca"},
-  "problem:wind_drifted_snow": {"en": "Wind-drifted snow problem", "de": "Triebschneeproblem", "it": "Problema di neve ventata"},
-  "problem:weak_persistent_layer": {"en": "Persistent weak layer problem", "de": "Altschneeproblem", "it": "Problema con strati deboli persistenti"},
-  "problem:wet_snow": {"en": "Wet snow problem", "de": "Nassschneeproblem", "it": "Problema di neve bagnata"},
-  "problem:gliding_snow": {"en": "Gliding snow problem", "de": "Gleitschneeproblem", "it": "Problema con valanghe di slittamento"},
-  "problem:favourable_situation": {"en": "Favourable situation", "de": "Günstige Situation", "it": "Situazione favorebole"},
+  "problem:new_snow": {
+    "en": "New snow problem",
+    "de": "Neuschneeproblem",
+    "it": "Problema di neve fresca"
+  },
+  "problem:wind_drifted_snow": {
+    "en": "Wind-drifted snow problem",
+    "de": "Triebschneeproblem",
+    "it": "Problema di neve ventata"
+  },
+  "problem:weak_persistent_layer": {
+    "en": "Persistent weak layer problem",
+    "de": "Altschneeproblem",
+    "it": "Problema con strati deboli persistenti"
+  },
+  "problem:wet_snow": {
+    "en": "Wet snow problem",
+    "de": "Nassschneeproblem",
+    "it": "Problema di neve bagnata"
+  },
+  "problem:gliding_snow": {
+    "en": "Gliding snow problem",
+    "de": "Gleitschneeproblem",
+    "it": "Problema con valanghe di slittamento"
+  },
+  "problem:favourable_situation": {
+    "en": "Favourable situation",
+    "de": "Günstige Situation",
+    "it": "Situazione favorebole"
+  },
 
-  "filter:all": {"en": "All", "de": "Alle", "it": "Tutti"},
-  "filter:search": {"en": "Search", "de": "Suchen", "it": "Cerca"},
+  "filter:all": { "en": "All", "de": "Alle", "it": "Tutti" },
+  "filter:search": { "en": "Search", "de": "Suchen", "it": "Cerca" },
 
-  "jumpnav:content": {"en": "Go to Content", "de": "Zum Inhalt", "it": "vai al contenuto"},
-  "jumpnav:navigation": {"en": "Go to Navigation", "de": "Zur Navigation", "it": "vai alla navigazione"},
-  "jumpnav:footer": {"en": "Go to Footer", "de": "Zum Footer", "it": "vai al footer"},
+  "jumpnav:content": {
+    "en": "Go to Content",
+    "de": "Zum Inhalt",
+    "it": "vai al contenuto"
+  },
+  "jumpnav:navigation": {
+    "en": "Go to Navigation",
+    "de": "Zur Navigation",
+    "it": "vai alla navigazione"
+  },
+  "jumpnav:footer": { "en": "Go to Footer", "de": "Zum Footer", "it": "vai al footer" },
 
-  "header:logo:hover": {"all": "Home"},
-  "header:language-switch:en:hover": {"all": "English"},
-  "header:language-switch:de:hover": {"all": "Deutsch"},
-  "header:language-switch:it:hover": {"all": "Italiano"},
-  "header:interreg:hover": {"all": "Interreg"},
-  "header:hamburger:hover": {"en": "Menu", "de": "Menü", "it": "Menu"},
+  "header:logo:hover": { "all": "Home" },
+  "header:language-switch:en:hover": { "all": "English" },
+  "header:language-switch:de:hover": { "all": "Deutsch" },
+  "header:language-switch:it:hover": { "all": "Italiano" },
+  "header:interreg:hover": { "all": "Interreg" },
+  "header:hamburger:hover": { "en": "Menu", "de": "Menü", "it": "Menu" },
 
-  "main:share-this": {"en": "<strong>Share this</strong> on Social Media", "de": "<strong>Teilen</strong> in Sozialen Medien", "it": "<strong>Condividi</strong> sui social media"},
-  "main:share-this:hover": {"en": "Share on {on}", "de": "Auf {on} teilen", "it": "Condividi su {on}"},
+  "main:share-this": {
+    "en": "<strong>Share this</strong> on Social Media",
+    "de": "<strong>Teilen</strong> in Sozialen Medien",
+    "it": "<strong>Condividi</strong> sui social media"
+  },
+  "main:share-this:hover": {
+    "en": "Share on {on}",
+    "de": "Auf {on} teilen",
+    "it": "Condividi su {on}"
+  },
 
-  "footer:subscribe": {"en": "Subscribe", "de": "Abonnieren", "it": "Iscriviti"},
-  "footer:subscribe:hover": {"en": "Subscribe to Avalanche Forecast, Social Media, Blog, Apps", "de": "Lawinenvorhersage, Soziale Medien, Blog, Apps abonnieren", "it": "Iscriviti al bollettino valanghe, ai social media, il blog, i apps"},
-  "footer:interreg:hover": {"en": "Interreg", "de": "Interreg", "it": "Interreg"},
-  "footer:top:hover": {"en": "Top", "de": "Nach oben", "it": "Inizio"},
-  "footer:follow-us": {"en": "<strong>Follow us</strong> on Social Media", "de": "<strong>Folge uns</strong> in den Sozialen Medien", "it": "<strong>Seguici</strong> sui Social Media"},
-  "footer:follow-us:hover": {"en": "Follow us on {on}", "de": "Auf {on} folgen", "it": "Seguici su {on}"},
+  "footer:subscribe": { "en": "Subscribe", "de": "Abonnieren", "it": "Iscriviti" },
+  "footer:subscribe:hover": {
+    "en": "Subscribe to Avalanche Forecast, Social Media, Blog, Apps",
+    "de": "Lawinenvorhersage, Soziale Medien, Blog, Apps abonnieren",
+    "it": "Iscriviti al bollettino valanghe, ai social media, il blog, i apps"
+  },
+  "footer:interreg:hover": { "en": "Interreg", "de": "Interreg", "it": "Interreg" },
+  "footer:top:hover": { "en": "Top", "de": "Nach oben", "it": "Inizio" },
+  "footer:follow-us": {
+    "en": "<strong>Follow us</strong> on Social Media",
+    "de": "<strong>Folge uns</strong> in den Sozialen Medien",
+    "it": "<strong>Seguici</strong> sui Social Media"
+  },
+  "footer:follow-us:hover": {
+    "en": "Follow us on {on}",
+    "de": "Auf {on} folgen",
+    "it": "Seguici su {on}"
+  },
 
-  "bulletin:header:forecast": {"en": "Avalanche Forecast", "de": "Lawinenvorhersage", "it": "Bollettini valanghe"},
-  "bulletin:header:published-at": {"en": "Published {date}, {time}", "de": "Veröffentlicht am {date} um {time}", "it": "Publiccato il {date} alle ore {time}"},
-  "bulletin:header:updated-at": {"en": "Updated {date}, {time}", "de": "Aktualisiert am {date} um {time}", "it": "Aggiornato il {date} alle ore {time}"},
-  "bulletin:header:loading": {"en": "Loading", "de": "Lädt", "it": "Carica"},
-  "bulletin:header:no-bulletin": {"en": "Missing", "de": "Fehlt", "it": "Manca"},
-  "bulletin:header:am": {"en": "AM", "de": "Vormittags", "it": "Mattina"},
-  "bulletin:header:pm": {"en": "PM", "de": "Nachmittags", "it": "Pomeriggio"},
-  "bulletin:header:switch-to-am": {"en": "switch to AM", "de": "Vormittag auswählen", "it": "scegli mattina"},
-  "bulletin:header:switch-to-pm": {"en": "switch to PM", "de": "Nachmittag auswählen", "it": "scegli pomeriggio"},
-  "bulletin:header:dateflipper:back": {"en": "Back", "de": "Zurück", "it": "Indietro"},
-  "bulletin:header:dateflipper:latest": {"en": "Latest", "de": "Aktuellste", "it": "Ultimo"},
-  "bulletin:header:dateflipper:latest:hover": {"en": "Go to current Avalanche Forecast", "de": "Zur aktuellen Lawinenvorhersage", "it": "Vai all'attuale bolletino valanghe"},
-  "bulletin:header:dateflipper:forward": {"en": "Forward", "de": "Vor", "it": "Avanti"},
-  "bulletin:header:archive": {"en": "Archive", "de": "Archiv", "it": "Archivio"},
-  "bulletin:header:archive:hover": {"en": "Past Avalanche Forecasts", "de": "Ältere Lawinenvorhersagen", "it": "Bollettini valanghe precedenti"},
-  "bulletin:map:search": {"en": "Search", "de": "Suchen", "it": "Cerca"},
-  "bulletin:map:search:hover": {"en": "Type in a location", "de": "In Karte suchen", "it": "Cerca località"},
-  "bulletin:map:zoom-in:hover": {"en": "Zoom in", "de": "Vergrößern", "it": "Zoom +"},
-  "bulletin:map:zoom-out:hover": {"en": "Zoom out", "de": "Verkleinern", "it": "Zoom -"},
-  "bulletin:map:info:details": {"en": "<span>Click for</span> details", "de": "Details", "it": "<span>clicca per</span> maggiori dettagli"},
-  "bulletin:map:info:details:hover": {"en": "See full Avalanche Forecast", "de": "Vollständige Lawinenvorhersage anzeigen", "it": " Leggi tutto il bollettino valanghe"},
-  "bulletin:map:info:danger-picto:alt": {"en": "Danger level {number} – {text}", "de": "Gefahrenstufe {number} – {text}", "it": "Grado di pericolo {number} – {text}"},
-  "bulletin:map:info:danger-picto2:alt": {"en": "Danger level {number-above} – {text-above} and {number-below} – {text-below}", "de": "Gefahrenstufe {number-above} – {text-above} und {number-below} – {text-below}", "it": "Grado di pericolo {number-above} – {text-above} e {number-below} – {text-below}"},
-  "bulletin:map:info:danger-picto:hover": {"en": "Danger level {number} – {text}", "de": "Gefahrenstufe {number} – {text}", "it": "Grado di pericolo {number} – {text}"},
-  "bulletin:map:info:danger-picto2:hover": {"en": "Above {elev}: Danger level {number-above} – {text-above}<br />Below {elev}: Danger level {number-below} – {text-below}", "de": "Oberhalb {elev}: Gefahrenstufe {number-above} – {text-above}<br />Unterhalb {elev}: Gefahrenstufe {number-below} – {text-below}", "it": "Al di sopra dei {elev}: Grado di pericolo {number-above} – {text-above}<br />Al di sotto dei {elev}: Grado di pericolo {number-below} – {text-below}"},
-  "bulletin:map:info:no-report": {"en": "No rating", "de": "Keine Gefahreneinschätzung", "it": "Senza valutazione"},
-  "bulletin:map:info:no-report:hover": {"en": "At the moment there is no danger rating available", "de": "Derzeit keine Gefahreneinschätzung vorhanden", "it": "Al momento nessuna valutazione del pericolo"},
-  "bulletin:map:info:no-snow": {"en": "No snow", "de": "Kein Schnee", "it": "Senza neve"},
-  "bulletin:map:info:no-snow:hover": {"en": "At the moment there is no danger rating available", "de": "Derzeit keine Gefahreneinschätzung vorhanden", "it": "Al moment nessuna valutazione del pericolo"},
-  "bulletin:legend:highlight-regions": {"en": "<strong>Highlight regions</strong> with particular <a>Avalanche Problem</a>", "de": "Regionen mit bestimmten <a>Lawinenproblemen</a> hervorheben", "it": "<strong>Evidenzia regioni</strong> con uno specifico <a>problema valanghivo</a>"},
-  "bulletin:legend:highlight-regions:hover": {"en": "Learn more", "de": "Mehr erfahren", "it": "Scopri di più"},
-  "bulletin:legend:highlight:hover": {"en": "Highlight regions with {problem}", "de": "Regionen mit {problem} hervorheben", "it": "Evidenzia regioni con {problem}"},
-  "bulletin:legend:dehighlight:hover": {"en": "Dim regions with {problem}", "de": "Regionen mit {problem} dimmen", "it": "Termina evidenziazione delle regioni con {problem}"},
-  "bulletin:legend:danger-levels": {"en": "<strong>Danger Levels</strong>", "de": "<strong>Gefahrenstufen</strong>", "it": "<strong>Gradi di pericolo</strong>"},
-  "bulletin:legend:danger-levels:hover": {"en": "Learn more", "de": "Mehr erfahren", "it": "Scopri di più"},
-  "bulletin:linkbar:back-to-map": {"en": "Back to map", "de": "Zurück zur Karte", "it": "Torna alla mappa"},
-  "bulletin:linkbar:back-to-map:hover": {"en": "Back to map", "de": "Zurück zur Karte", "it": "Torna alla mappa"},
-  "bulletin:linkbar:pdf": {"all": "PDF"},
-  "bulletin:linkbar:pdf:hover": {"en": "Download Avalanche Forecast as PDF", "de": "Die Lawinenvorhersage als PDF herunterladen", "it": "Scarica PDF del bollettino valanghe"},
-  "bulletin:linkbar:subscribe": {"en": "Subscribe", "de": "Abonnieren", "it": "Iscriviti"},
-  "bulletin:linkbar:subscribe:hover": {"en": "Subscribe to Avalanche Forecast, Social Media, Blog, Apps", "de": "Lawinenvorhersage, Soziale Medien, Blog, Apps abonnieren", "it": "Iscriviti al bollettino valanghe, ai social media, il blog, i apps"},
-  "bulletin:report:headline": {"en": "Danger level for <strong>{date} {daytime}</strong>", "de": "Gefahrenstufe für <strong>{date} {daytime}</strong>", "it": "Grado di pericolo per <strong>{date} {daytime}</strong>"},
-  "bulletin:report:headline2": {"en": "Danger Level {number} – {text}", "de": "Gefahrenstufe {number} – {text}", "it": "Grado di pericolo {number} – {text}"},
-  "bulletin:report:headline2:level0": {"en": "{text}", "de": "{text}", "it": "{text}"},
-  "bulletin:report:daytime:am": {"en": "AM", "de": "Vormittag", "it": "Mattina"},
-  "bulletin:report:daytime:pm": {"en": "PM", "de": "Nachmittag", "it": "Pomeriggio"},
-  "bulletin:report:dangerlevel": {"en": "Danger Level", "de": "Gefahrenstufe", "it": "Grado di pericolo"},
-  "bulletin:report:selected-region:alt": {"en": "Selected region", "de": "Ausgewählte Region", "it": "regione selezionata"},
-  "bulletin:report:selected-region:hover": {"en": "You see the forecast for the selected region.<br />Click to return to map", "de": "Du siehst die Gefahreneinschätzung für die ausgewählte Region.<br />Klicke, um zur Karte zurückzukehren", "it": "Vedi la valutazione del pericolo per la regione selezionata.<br />Clicca, per tornare alla mappa"},
-  "bulletin:report:danger-picto:alt": {"en": "Danger level {number}–{text}", "de": "Gefahrenstufe {number}–{text}", "it": "Grado di pericolo {number}–{text}"},
-  "bulletin:report:danger-picto2:alt": {"en": "Danger level {number-above}–{text-above} and {number-below}–{text-below}", "de": "Gefahrenstufe {number-above}–{text-above} und {number-below}–{text-below}", "it": "Grado di pericolo {number-above}–{text-above} e {number-below}–{text-below}"},
-  "bulletin:report:danger-picto:hover": {"en": "Danger level {number}–{text}", "de": "Gefahrenstufe {number}–{text}", "it": "Grado di pericolo {number}–{text}"},
-  "bulletin:report:danger-picto2:hover": {"en": "Above {elev}: Danger level {number-above}–{text-above}<br />Below {elev}: Danger level {number-below}–{text-below}", "de": "Oberhalb {elev}: Gefahrenstufe {number-above}–{text-above}<br />Unterhalb {elev}: Gefahrenstufe {number-below}–{text-below}", "it": "Al di sopra dei {elev}: Grado di pericolo {number-above}–{text-above}<br />Al di sotto dei {elev}: Grado di pericolo {number-below}–{text-below}"},
-  "bulletin:report:tendency": {"en": "<strong className=\"heavy\">Tendency: {tendency}</strong><br />on {date} {daytime}", "de": "<strong className=\"heavy\">Tendenz: {tendency}</strong><br />am {date} {daytime}", "it": "<strong className=\"heavy\">Tendenza: {tendency}</strong><br />per {date} {daytime}"},
-  "bulletin:report:tendency:hover": {"en": "Expected trend for the following day", "de": "Voraussichtliche Entwicklung für den nächsten Tag", "it": "Tendenza prevista per il giorno successivo"},
-  "bulletin:report:tendency:daytime:am": {"en": "AM", "de": "vormittags", "it": "mattina"},
-  "bulletin:report:tendency:daytime:pm": {"en": "PM", "de": "nachmittags", "it": "pomeriggio"},
-  "bulletin:report:tendency:none": {"en": "n/a", "de": "n/a", "it": "n/a"},
-  "bulletin:report:tendency:increasing": {"en": "Increasing avalanche danger", "de": "Lawinengefahr steigt", "it": "Pericolo valanghe in aumento"},
-  "bulletin:report:tendency:steady": {"en": "Constant avalanche danger", "de": "Lawinengefahr bleibt gleich", "it": "Pericolo valanghe stabile"},
-  "bulletin:report:tendency:decreasing": {"en": "Decreasing avalanche danger", "de": "Lawinengefahr nimmt ab", "it": "Pericolo valanghe in diminuzione"},
-  "bulletin:report:tendency:hover": {"en": "Expected trend for the following day", "de": "Voraussichtliche Entwicklung für den nächsten Tag", "it": "Tendenza prevista per il giorno successivo"},
-  "bulletin:report:exposition": {"en": "Aspect where avalanche problem prevails", "de": "Exposition in der das Lawinenproblem vorherrscht", "it": "Esposizione con problema tipico valanghivo prevalente"},
-  "bulletin:report:problem-above": {"en": "Avalanche problem above {elev}m", "de": "Lawinenproblem oberhalb von {elev}m", "it": "Problema tipico valanghivo al di sopra di {elev}m"},
-  "bulletin:report:problem-below": {"en": "Avalanche problem below {elev}m", "de": "Lawinenproblem unterhalb von {elev}m", "it": "Problema tipico valanghivo al di sotto di {elev}m"},
-  "bulletin:report:problem-at": {"en": "Avalanche problem from {elev-low}m-{elev-high}m", "de": "Lawinenproblem von {elev-low}m-{elev-high}m", "it": "Problema tipico valanghivo da {elev-low}m-{elev-high}m"},
-  "bulletin:report:problem-all-elevations": {"en": "Avalanche problem in all elevations", "de": "Lawinenproblem in allen Höhenlagen", "it": "Problema tipico valangivo in tutte le quote"},
-  "bulletin:report:problem-above:hover": {"en": "Avalanche problem above {elev}m", "de": "Lawinenproblem oberhalb von {elev}m", "it": "Problema tipico valanghivo al di sopra di {elev}m"},
-  "bulletin:report:problem-below:hover": {"en": "Avalanche problem below {elev}m", "de": "Lawinenproblem unterhalb von {elev}m", "it": "Problema tipico valanghivo al di sotto di {elev}m"},
-  "bulletin:report:problem-at:hover": {"en": "Avalanche problem from {elev-low}m-{elev-high}m", "de": "Lawinenproblem von {elev-low}m-{elev-high}m", "it": "Problema tipico valanghivo da {elev-low}m-{elev-high}m"},
-  "bulletin:report:problem-all-elevations:hover": {"en": "Avalanche problem in all elevations", "de": "Lawinenproblem in allen Höhenlagen", "it": "Problema tipico valangivo in tutte le quote"},
-  "bulletin:report:snowpack-structure:headline": {"en": "Snowpack", "de": "Schneedecke", "it": "Manto nevoso"},
-  "bulletin:report:tendency:headline": {"en": "Tendency", "de": "Tendenz", "it": "Tendenza"},
-  "bulletin:report:danger-patterns": {"en": "Danger Patterns", "de": "Gefahrenmuster", "it": "Situazione tipo"},
-  "bulletin:report:author": {"en": "Author", "de": "Autor", "it": "Autore"},
-  "bulletin:treeline": {"en": "Tree line", "de": "Waldgrenze", "it": "Limite del bosco"},
+  "bulletin:header:forecast": {
+    "en": "Avalanche Forecast",
+    "de": "Lawinenvorhersage",
+    "it": "Bollettini valanghe"
+  },
+  "bulletin:header:published-at": {
+    "en": "Published {date}, {time}",
+    "de": "Veröffentlicht am {date} um {time}",
+    "it": "Publiccato il {date} alle ore {time}"
+  },
+  "bulletin:header:updated-at": {
+    "en": "Updated {date}, {time}",
+    "de": "Aktualisiert am {date} um {time}",
+    "it": "Aggiornato il {date} alle ore {time}"
+  },
+  "bulletin:header:loading": { "en": "Loading", "de": "Lädt", "it": "Carica" },
+  "bulletin:header:no-bulletin": { "en": "Missing", "de": "Fehlt", "it": "Manca" },
+  "bulletin:header:am": { "en": "AM", "de": "Vormittags", "it": "Mattina" },
+  "bulletin:header:pm": { "en": "PM", "de": "Nachmittags", "it": "Pomeriggio" },
+  "bulletin:header:switch-to-am": {
+    "en": "switch to AM",
+    "de": "Vormittag auswählen",
+    "it": "scegli mattina"
+  },
+  "bulletin:header:switch-to-pm": {
+    "en": "switch to PM",
+    "de": "Nachmittag auswählen",
+    "it": "scegli pomeriggio"
+  },
+  "bulletin:header:dateflipper:back": { "en": "Back", "de": "Zurück", "it": "Indietro" },
+  "bulletin:header:dateflipper:latest": {
+    "en": "Latest",
+    "de": "Aktuellste",
+    "it": "Ultimo"
+  },
+  "bulletin:header:dateflipper:latest:hover": {
+    "en": "Go to current Avalanche Forecast",
+    "de": "Zur aktuellen Lawinenvorhersage",
+    "it": "Vai all'attuale bolletino valanghe"
+  },
+  "bulletin:header:dateflipper:forward": { "en": "Forward", "de": "Vor", "it": "Avanti" },
+  "bulletin:header:archive": { "en": "Archive", "de": "Archiv", "it": "Archivio" },
+  "bulletin:header:archive:hover": {
+    "en": "Past Avalanche Forecasts",
+    "de": "Ältere Lawinenvorhersagen",
+    "it": "Bollettini valanghe precedenti"
+  },
+  "bulletin:map:search": { "en": "Search", "de": "Suchen", "it": "Cerca" },
+  "bulletin:map:search:hover": {
+    "en": "Type in a location",
+    "de": "In Karte suchen",
+    "it": "Cerca località"
+  },
+  "bulletin:map:zoom-in:hover": { "en": "Zoom in", "de": "Vergrößern", "it": "Zoom +" },
+  "bulletin:map:zoom-out:hover": {
+    "en": "Zoom out",
+    "de": "Verkleinern",
+    "it": "Zoom -"
+  },
+  "bulletin:map:info:details": {
+    "en": "<span>Click for</span> details",
+    "de": "Details",
+    "it": "<span>clicca per</span> maggiori dettagli"
+  },
+  "bulletin:map:info:details:hover": {
+    "en": "See full Avalanche Forecast",
+    "de": "Vollständige Lawinenvorhersage anzeigen",
+    "it": " Leggi tutto il bollettino valanghe"
+  },
+  "bulletin:map:info:danger-picto:alt": {
+    "en": "Danger level {number} – {text}",
+    "de": "Gefahrenstufe {number} – {text}",
+    "it": "Grado di pericolo {number} – {text}"
+  },
+  "bulletin:map:info:danger-picto2:alt": {
+    "en": "Danger level {number-above} – {text-above} and {number-below} – {text-below}",
+    "de": "Gefahrenstufe {number-above} – {text-above} und {number-below} – {text-below}",
+    "it": "Grado di pericolo {number-above} – {text-above} e {number-below} – {text-below}"
+  },
+  "bulletin:map:info:danger-picto:hover": {
+    "en": "Danger level {number} – {text}",
+    "de": "Gefahrenstufe {number} – {text}",
+    "it": "Grado di pericolo {number} – {text}"
+  },
+  "bulletin:map:info:danger-picto2:hover": {
+    "en": "Above {elev}: Danger level {number-above} – {text-above}<br />Below {elev}: Danger level {number-below} – {text-below}",
+    "de": "Oberhalb {elev}: Gefahrenstufe {number-above} – {text-above}<br />Unterhalb {elev}: Gefahrenstufe {number-below} – {text-below}",
+    "it": "Al di sopra dei {elev}: Grado di pericolo {number-above} – {text-above}<br />Al di sotto dei {elev}: Grado di pericolo {number-below} – {text-below}"
+  },
+  "bulletin:map:info:no-report": {
+    "en": "No rating",
+    "de": "Keine Gefahreneinschätzung",
+    "it": "Senza valutazione"
+  },
+  "bulletin:map:info:no-report:hover": {
+    "en": "At the moment there is no danger rating available",
+    "de": "Derzeit keine Gefahreneinschätzung vorhanden",
+    "it": "Al momento nessuna valutazione del pericolo"
+  },
+  "bulletin:map:info:no-snow": {
+    "en": "No snow",
+    "de": "Kein Schnee",
+    "it": "Senza neve"
+  },
+  "bulletin:map:info:no-snow:hover": {
+    "en": "At the moment there is no danger rating available",
+    "de": "Derzeit keine Gefahreneinschätzung vorhanden",
+    "it": "Al moment nessuna valutazione del pericolo"
+  },
+  "bulletin:legend:highlight-regions": {
+    "en": "<strong>Highlight regions</strong> with particular <a>Avalanche Problem</a>",
+    "de": "Regionen mit bestimmten <a>Lawinenproblemen</a> hervorheben",
+    "it": "<strong>Evidenzia regioni</strong> con uno specifico <a>problema valanghivo</a>"
+  },
+  "bulletin:legend:highlight-regions:hover": {
+    "en": "Learn more",
+    "de": "Mehr erfahren",
+    "it": "Scopri di più"
+  },
+  "bulletin:legend:highlight:hover": {
+    "en": "Highlight regions with {problem}",
+    "de": "Regionen mit {problem} hervorheben",
+    "it": "Evidenzia regioni con {problem}"
+  },
+  "bulletin:legend:dehighlight:hover": {
+    "en": "Dim regions with {problem}",
+    "de": "Regionen mit {problem} dimmen",
+    "it": "Termina evidenziazione delle regioni con {problem}"
+  },
+  "bulletin:legend:danger-levels": {
+    "en": "<strong>Danger Levels</strong>",
+    "de": "<strong>Gefahrenstufen</strong>",
+    "it": "<strong>Gradi di pericolo</strong>"
+  },
+  "bulletin:legend:danger-levels:hover": {
+    "en": "Learn more",
+    "de": "Mehr erfahren",
+    "it": "Scopri di più"
+  },
+  "bulletin:linkbar:back-to-map": {
+    "en": "Back to map",
+    "de": "Zurück zur Karte",
+    "it": "Torna alla mappa"
+  },
+  "bulletin:linkbar:back-to-map:hover": {
+    "en": "Back to map",
+    "de": "Zurück zur Karte",
+    "it": "Torna alla mappa"
+  },
+  "bulletin:linkbar:pdf": { "all": "PDF" },
+  "bulletin:linkbar:pdf:hover": {
+    "en": "Download Avalanche Forecast as PDF",
+    "de": "Die Lawinenvorhersage als PDF herunterladen",
+    "it": "Scarica PDF del bollettino valanghe"
+  },
+  "bulletin:linkbar:subscribe": {
+    "en": "Subscribe",
+    "de": "Abonnieren",
+    "it": "Iscriviti"
+  },
+  "bulletin:linkbar:subscribe:hover": {
+    "en": "Subscribe to Avalanche Forecast, Social Media, Blog, Apps",
+    "de": "Lawinenvorhersage, Soziale Medien, Blog, Apps abonnieren",
+    "it": "Iscriviti al bollettino valanghe, ai social media, il blog, i apps"
+  },
+  "bulletin:report:headline": {
+    "en": "Danger level for <strong>{date} {daytime}</strong>",
+    "de": "Gefahrenstufe für <strong>{date} {daytime}</strong>",
+    "it": "Grado di pericolo per <strong>{date} {daytime}</strong>"
+  },
+  "bulletin:report:headline2": {
+    "en": "Danger Level {number} – {text}",
+    "de": "Gefahrenstufe {number} – {text}",
+    "it": "Grado di pericolo {number} – {text}"
+  },
+  "bulletin:report:headline2:level0": { "en": "{text}", "de": "{text}", "it": "{text}" },
+  "bulletin:report:daytime:am": { "en": "AM", "de": "Vormittag", "it": "Mattina" },
+  "bulletin:report:daytime:pm": { "en": "PM", "de": "Nachmittag", "it": "Pomeriggio" },
+  "bulletin:report:dangerlevel": {
+    "en": "Danger Level",
+    "de": "Gefahrenstufe",
+    "it": "Grado di pericolo"
+  },
+  "bulletin:report:selected-region:alt": {
+    "en": "Selected region",
+    "de": "Ausgewählte Region",
+    "it": "regione selezionata"
+  },
+  "bulletin:report:selected-region:hover": {
+    "en": "You see the forecast for the selected region.<br />Click to return to map",
+    "de": "Du siehst die Gefahreneinschätzung für die ausgewählte Region.<br />Klicke, um zur Karte zurückzukehren",
+    "it": "Vedi la valutazione del pericolo per la regione selezionata.<br />Clicca, per tornare alla mappa"
+  },
+  "bulletin:report:danger-picto:alt": {
+    "en": "Danger level {number}–{text}",
+    "de": "Gefahrenstufe {number}–{text}",
+    "it": "Grado di pericolo {number}–{text}"
+  },
+  "bulletin:report:danger-picto2:alt": {
+    "en": "Danger level {number-above}–{text-above} and {number-below}–{text-below}",
+    "de": "Gefahrenstufe {number-above}–{text-above} und {number-below}–{text-below}",
+    "it": "Grado di pericolo {number-above}–{text-above} e {number-below}–{text-below}"
+  },
+  "bulletin:report:danger-picto:hover": {
+    "en": "Danger level {number}–{text}",
+    "de": "Gefahrenstufe {number}–{text}",
+    "it": "Grado di pericolo {number}–{text}"
+  },
+  "bulletin:report:danger-picto2:hover": {
+    "en": "Above {elev}: Danger level {number-above}–{text-above}<br />Below {elev}: Danger level {number-below}–{text-below}",
+    "de": "Oberhalb {elev}: Gefahrenstufe {number-above}–{text-above}<br />Unterhalb {elev}: Gefahrenstufe {number-below}–{text-below}",
+    "it": "Al di sopra dei {elev}: Grado di pericolo {number-above}–{text-above}<br />Al di sotto dei {elev}: Grado di pericolo {number-below}–{text-below}"
+  },
+  "bulletin:report:tendency": {
+    "en": "<strong className=\"heavy\">Tendency: {tendency}</strong><br />on {date} {daytime}",
+    "de": "<strong className=\"heavy\">Tendenz: {tendency}</strong><br />am {date} {daytime}",
+    "it": "<strong className=\"heavy\">Tendenza: {tendency}</strong><br />per {date} {daytime}"
+  },
+  "bulletin:report:tendency:hover": {
+    "en": "Expected trend for the following day",
+    "de": "Voraussichtliche Entwicklung für den nächsten Tag",
+    "it": "Tendenza prevista per il giorno successivo"
+  },
+  "bulletin:report:tendency:daytime:am": {
+    "en": "AM",
+    "de": "vormittags",
+    "it": "mattina"
+  },
+  "bulletin:report:tendency:daytime:pm": {
+    "en": "PM",
+    "de": "nachmittags",
+    "it": "pomeriggio"
+  },
+  "bulletin:report:tendency:none": { "en": "n/a", "de": "n/a", "it": "n/a" },
+  "bulletin:report:tendency:increasing": {
+    "en": "Increasing avalanche danger",
+    "de": "Lawinengefahr steigt",
+    "it": "Pericolo valanghe in aumento"
+  },
+  "bulletin:report:tendency:steady": {
+    "en": "Constant avalanche danger",
+    "de": "Lawinengefahr bleibt gleich",
+    "it": "Pericolo valanghe stabile"
+  },
+  "bulletin:report:tendency:decreasing": {
+    "en": "Decreasing avalanche danger",
+    "de": "Lawinengefahr nimmt ab",
+    "it": "Pericolo valanghe in diminuzione"
+  },
+  "bulletin:report:tendency:hover": {
+    "en": "Expected trend for the following day",
+    "de": "Voraussichtliche Entwicklung für den nächsten Tag",
+    "it": "Tendenza prevista per il giorno successivo"
+  },
+  "bulletin:report:exposition": {
+    "en": "Aspect where avalanche problem prevails",
+    "de": "Exposition in der das Lawinenproblem vorherrscht",
+    "it": "Esposizione con problema tipico valanghivo prevalente"
+  },
+  "bulletin:report:problem-above": {
+    "en": "Avalanche problem above {elev}m",
+    "de": "Lawinenproblem oberhalb von {elev}m",
+    "it": "Problema tipico valanghivo al di sopra di {elev}m"
+  },
+  "bulletin:report:problem-below": {
+    "en": "Avalanche problem below {elev}m",
+    "de": "Lawinenproblem unterhalb von {elev}m",
+    "it": "Problema tipico valanghivo al di sotto di {elev}m"
+  },
+  "bulletin:report:problem-at": {
+    "en": "Avalanche problem from {elev-low}m-{elev-high}m",
+    "de": "Lawinenproblem von {elev-low}m-{elev-high}m",
+    "it": "Problema tipico valanghivo da {elev-low}m-{elev-high}m"
+  },
+  "bulletin:report:problem-all-elevations": {
+    "en": "Avalanche problem in all elevations",
+    "de": "Lawinenproblem in allen Höhenlagen",
+    "it": "Problema tipico valangivo in tutte le quote"
+  },
+  "bulletin:report:problem-above:hover": {
+    "en": "Avalanche problem above {elev}m",
+    "de": "Lawinenproblem oberhalb von {elev}m",
+    "it": "Problema tipico valanghivo al di sopra di {elev}m"
+  },
+  "bulletin:report:problem-below:hover": {
+    "en": "Avalanche problem below {elev}m",
+    "de": "Lawinenproblem unterhalb von {elev}m",
+    "it": "Problema tipico valanghivo al di sotto di {elev}m"
+  },
+  "bulletin:report:problem-at:hover": {
+    "en": "Avalanche problem from {elev-low}m-{elev-high}m",
+    "de": "Lawinenproblem von {elev-low}m-{elev-high}m",
+    "it": "Problema tipico valanghivo da {elev-low}m-{elev-high}m"
+  },
+  "bulletin:report:problem-all-elevations:hover": {
+    "en": "Avalanche problem in all elevations",
+    "de": "Lawinenproblem in allen Höhenlagen",
+    "it": "Problema tipico valangivo in tutte le quote"
+  },
+  "bulletin:report:snowpack-structure:headline": {
+    "en": "Snowpack",
+    "de": "Schneedecke",
+    "it": "Manto nevoso"
+  },
+  "bulletin:report:tendency:headline": {
+    "en": "Tendency",
+    "de": "Tendenz",
+    "it": "Tendenza"
+  },
+  "bulletin:report:danger-patterns": {
+    "en": "Danger Patterns",
+    "de": "Gefahrenmuster",
+    "it": "Situazione tipo"
+  },
+  "bulletin:report:author": { "en": "Author", "de": "Autor", "it": "Autore" },
+  "bulletin:treeline": {
+    "en": "Tree line",
+    "de": "Waldgrenze",
+    "it": "Limite del bosco"
+  },
 
-  "archive:filter:year": {"en": "Year", "de": "Jahr", "it": "Anno"},
-  "archive:filter:month": {"en": "Month", "de": "Monat", "it": "Mese"},
-  "archive:filter:day": {"en": "Day", "de": "Tag", "it": "Giorno"},
-  "archive:filter:language": {"en": "Language", "de": "Sprache", "it": "Lingua"},
-  "archive:table-header:date": {"en": "Date", "de": "Datum", "it": "Data"},
-  "archive:table-header:download": {"en": "Download avalanche forecast", "de": "Lawinenvorhersage herunterladen", "it": "Scarica bollettino valanghe"},
-  "archive:table-header:map": {"en": "Map", "de": "Karte", "it": "Mappa"},
-  "archive:download-pdf": {"all": "PDF"},
-  "archive:download-xml": {"all": "XML"},
-  "archive:download-pdf:hover": {"en": "Download", "de": "Herunterladen", "it": "Scarica"},
-  "archive:download-xml:hover": {"en": "Download", "de": "Herunterladen", "it": "Scarica"},
-  "archive:show-forecast:hover": {"en": "Show full archived Avalanche Forecast", "de": "Zeige alle Lawinenvorhersagen aus dem Archiv", "it": "Mostra tutti i bollettini valanghe archiviati"},
+  "archive:filter:year": { "en": "Year", "de": "Jahr", "it": "Anno" },
+  "archive:filter:month": { "en": "Month", "de": "Monat", "it": "Mese" },
+  "archive:filter:day": { "en": "Day", "de": "Tag", "it": "Giorno" },
+  "archive:filter:language": { "en": "Language", "de": "Sprache", "it": "Lingua" },
+  "archive:table-header:date": { "en": "Date", "de": "Datum", "it": "Data" },
+  "archive:table-header:download": {
+    "en": "Download avalanche forecast",
+    "de": "Lawinenvorhersage herunterladen",
+    "it": "Scarica bollettino valanghe"
+  },
+  "archive:table-header:map": { "en": "Map", "de": "Karte", "it": "Mappa" },
+  "archive:download-pdf": { "all": "PDF" },
+  "archive:download-xml": { "all": "XML" },
+  "archive:download-pdf:hover": {
+    "en": "Download",
+    "de": "Herunterladen",
+    "it": "Scarica"
+  },
+  "archive:download-xml:hover": {
+    "en": "Download",
+    "de": "Herunterladen",
+    "it": "Scarica"
+  },
+  "archive:show-forecast:hover": {
+    "en": "Show full archived Avalanche Forecast",
+    "de": "Zeige alle Lawinenvorhersagen aus dem Archiv",
+    "it": "Mostra tutti i bollettini valanghe archiviati"
+  },
 
-  "weathermap:header:dateflipper:back": {"en": "Back", "de": "Zurück", "it": "Indietro"},
-  "weathermap:header:dateflipper:forward": {"en": "Forward", "de": "Vor", "it": "Avanti"},
+  "weathermap:header:dateflipper:back": {
+    "en": "Back",
+    "de": "Zurück",
+    "it": "Indietro"
+  },
+  "weathermap:header:dateflipper:forward": {
+    "en": "Forward",
+    "de": "Vor",
+    "it": "Avanti"
+  },
 
-  "blog:filter:avalanche-problem": {"en": "Avalanche Problem", "de": "Lawinenproblem", "it": "Problema tipico valanghivo"},
-  "blog:filter:year": {"en": "Year", "de": "Jahr", "it": "Anno"},
-  "blog:filter:month": {"en": "Month", "de": "Monat", "it": "Mese"},
-  "blog:filter:province": {"en": "Province", "de": "Region", "it": "Province"},
-  "blog:filter:language": {"en": "Language", "de": "Sprache", "it": "Lingua"},
-  "blog:search": {"en": "Search posts", "de": "Suchen", "it": "Cerca"},
+  "blog:filter:avalanche-problem": {
+    "en": "Avalanche Problem",
+    "de": "Lawinenproblem",
+    "it": "Problema tipico valanghivo"
+  },
+  "blog:filter:year": { "en": "Year", "de": "Jahr", "it": "Anno" },
+  "blog:filter:month": { "en": "Month", "de": "Monat", "it": "Mese" },
+  "blog:filter:province": { "en": "Province", "de": "Region", "it": "Province" },
+  "blog:filter:language": { "en": "Language", "de": "Sprache", "it": "Lingua" },
+  "blog:search": { "en": "Search posts", "de": "Suchen", "it": "Cerca" },
 
-  "dialog:subscribe:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},
-  "dialog:subscribe:subheader": {"en": "Stay up to date", "de": "Bleib auf dem Laufenden", "it": "Rimani aggiornato"},
-  "dialog:subscribe:select-subscrption": {"en": "Select <span class=\"normal\">what you want to subscribe for</span>", "de": "Wähle <span class=\"normal\">dein Abonnement</span>", "it": "Seleziona <span class=\"normal\">il tuo abbonamento</span>"},
-  "dialog:subscribe:bulletin": {"en": "Avalanche Forecast", "de": "Lawinenvorhersage", "it": "Bollettino valanghe"},
-  "dialog:subscribe:blog": {"all": "Blog"},
-  "dialog:subscribe:social-media": {"en": "Social Media", "de": "Soziale Medien", "it": "Social Media"},
-  "dialog:subscribe:app": {"en": "Apps", "de": "Apps", "it": "App"},
+  "dialog:unsupportedBrowser:heading": {
+    "en": "EN Your browser is old",
+    "de": "DE Your browser is old",
+    "it": "IT Your browser is old"
+  },
+  "dialog:unsupportedBrowser:message": {
+    "en": "EN unsupported browser text",
+    "de": "DE unsupported browser text",
+    "it": "IT unsupported browser text"
+  },
+  "dialog:unsupportedBrowser:accept": {
+    "en": "EN I do not care",
+    "de": "DE I do not care",
+    "it": "IT I do not care"
+  },
 
-  "dialog:subscribe-social-media:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Iscriviti"},
-  "dialog:subscribe-social-media:subheader": {"en": "Social Media", "de": "Soziale Medien", "it": "Social Media"},
-  "dialog:subscribe-social-media:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
-  "dialog:subscribe-social-media:back-button:hover": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
-  "dialog:subscribe-social-media:contact-button": {"en": "Contact", "de": "Kontakt", "it": "Contatto"},
-  "dialog:subscribe-social-media:contact-button:hover": {"en": "Contact", "de": "Kontakt", "it": "Contatto"},
+  "dialog:subscribe:header": {
+    "en": "Subscriptions",
+    "de": "Abonnieren",
+    "it": "Abbonamenti"
+  },
+  "dialog:subscribe:subheader": {
+    "en": "Stay up to date",
+    "de": "Bleib auf dem Laufenden",
+    "it": "Rimani aggiornato"
+  },
+  "dialog:subscribe:select-subscrption": {
+    "en": "Select <span class=\"normal\">what you want to subscribe for</span>",
+    "de": "Wähle <span class=\"normal\">dein Abonnement</span>",
+    "it": "Seleziona <span class=\"normal\">il tuo abbonamento</span>"
+  },
+  "dialog:subscribe:bulletin": {
+    "en": "Avalanche Forecast",
+    "de": "Lawinenvorhersage",
+    "it": "Bollettino valanghe"
+  },
+  "dialog:subscribe:blog": { "all": "Blog" },
+  "dialog:subscribe:social-media": {
+    "en": "Social Media",
+    "de": "Soziale Medien",
+    "it": "Social Media"
+  },
+  "dialog:subscribe:app": { "en": "Apps", "de": "Apps", "it": "App" },
 
-  "dialog:subscribe-app:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},
-  "dialog:subscribe-app:subheader": {"en": "Apps", "de": "Apps", "it": "App"},
-  "dialog:subscribe-app:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
-  "dialog:subscribe-app:back-button:hover": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
-  "dialog:subscribe-app:or": {"en": "or", "de": "oder", "it": "o"},
-  "dialog:subscribe-app:android:hover": {"all": "Google Play"},
-  "dialog:subscribe-app:android:button": {"all": "Google Play"},
-  "dialog:subscribe-app:ios:hover": {"all": "App Store"},
-  "dialog:subscribe-app:ios:button": {"all": "App Store"},
-  "dialog:subscribe-app:lawine-tirol:title": {"all": "Lawine Tirol App"},
-  "dialog:subscribe-app:lawine-tirol:text": {"en": "The Lawine Tirol App ...", "de": "Die Lawine Tirol App ...", "it": "L'App Lawine Tirol"},
-  "dialog:subscribe-app:snowsafe:title": {"all": "Snow Safe App"},
-  "dialog:subscribe-app:snowsafe:text": {"en": "The Snow Safe App ...", "de": "Die Snow Safe App ...", "it": "L'App Snow Safe"},
-  "dialog:subscribe-app:snowhow:title": {"all": "snowhow App"},
-  "dialog:subscribe-app:snowhow:text": {"en": "The snowhow App", "de": "Die snowhow App", "it": "L'App snowhow"},
+  "dialog:subscribe-social-media:header": {
+    "en": "Subscriptions",
+    "de": "Abonnieren",
+    "it": "Iscriviti"
+  },
+  "dialog:subscribe-social-media:subheader": {
+    "en": "Social Media",
+    "de": "Soziale Medien",
+    "it": "Social Media"
+  },
+  "dialog:subscribe-social-media:back-button": {
+    "en": "All subscriptions",
+    "de": "Alle Abonnements",
+    "it": "Tutti gli abbonamenti"
+  },
+  "dialog:subscribe-social-media:back-button:hover": {
+    "en": "All subscriptions",
+    "de": "Alle Abonnements",
+    "it": "Tutti gli abbonamenti"
+  },
+  "dialog:subscribe-social-media:contact-button": {
+    "en": "Contact",
+    "de": "Kontakt",
+    "it": "Contatto"
+  },
+  "dialog:subscribe-social-media:contact-button:hover": {
+    "en": "Contact",
+    "de": "Kontakt",
+    "it": "Contatto"
+  },
 
-  "dialog:subscribe-bulletin:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},
-  "dialog:subscribe-bulletin:subheader": {"en": "Avalanche Forecast", "de": "Lawinenvorhersage", "it": "Bollettino valanghe"},
-  "dialog:subscribe-bulletin:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
-  "dialog:subscribe-bulletin:back-button:hover": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
-  "dialog:subscribe-bulletin:region": {"en": "<strong>Select</strong> State / Province of interest", "de": "Land / Provinz auswählen", "it": "<strong>Scegli</strong> Land / Provincia"},
-  "dialog:subscribe-bulletin:region-all:button": {"en": "Entire Euregio", "de": "Gesamte Europaregion", "it": "Tutta l'Euregio"},
-  "dialog:subscribe-bulletin:region:or": {"en": "or", "de": "oder", "it": "o"},
-  "dialog:subscribe-bulletin:region-select:button": {"en": "State / Province", "de": "Land / Provinz", "it": "Land / Provincia"},
-  "dialog:subscribe-bulletin:email": {"en": "Email address", "de": "E-mail Adresse", "it": "Indirizzo email"},
-  "dialog:subscribe-bulletin:language": {"en": "Preferred language", "de": "Bevorzugte Sprache", "it": "Lingua preferita"},
-  "dialog:subscribe-bulletin:subscribe:button": {"en": "Subscribe", "de": "Abonnieren", "it": "Iscriviti"},
-  "dialog:subscribe-bulletin:status:loading": {"en": "<strong>Please stand by:</strong> Subscription in progress \\u2026", "de": "<strong>Bitte warten:</strong> Anmeldung in Arbeit \\u2026", "it": "<strong>Si prega di attendere:</strong> Iscrizione in corso \\u2026"},
-  "dialog:subscribe-bulletin:status:subscribed": {"en": "<strong>Oh:</strong> You are already subscribed with this email adress", "de": "<strong>Oh:</strong> Sie haben diese E-mail Adresse für die Anmeldung schon verwendet", "it": "<strong>Oh:</strong> Sei già iscritto con questo indirizzo e-mail"},
-  "dialog:subscribe-bulletin:status:submitted": {"en": "<strong>Please check your email inbox</strong> to confirm your subscription", "de": "<strong>Bitte überprüfen Sie Ihren Posteingang</strong> und bestätigen die Anmeldung zum Abonnement", "it": "<strong>Controlla la tua casella di posta elettronica</strong> per confermare l'iscrizione"},
-  "dialog:subscribe-bulletin:status:ok": {"en": "<strong>Subscription confirmed:</strong> You are now subscribed", "de": "<strong>Anmeldung bestätigt:</strong> Sie sind nun auf dem Verteiler", "it": "<strong>Sottoscrizione confermata:</strong> Ora sei iscritto"},
-  "dialog:subscribe-bulletin:error": {"en": "Error", "de": "Fehler", "it": "Errore"},
+  "dialog:subscribe-app:header": {
+    "en": "Subscriptions",
+    "de": "Abonnieren",
+    "it": "Abbonamenti"
+  },
+  "dialog:subscribe-app:subheader": { "en": "Apps", "de": "Apps", "it": "App" },
+  "dialog:subscribe-app:back-button": {
+    "en": "All subscriptions",
+    "de": "Alle Abonnements",
+    "it": "Tutti gli abbonamenti"
+  },
+  "dialog:subscribe-app:back-button:hover": {
+    "en": "All subscriptions",
+    "de": "Alle Abonnements",
+    "it": "Tutti gli abbonamenti"
+  },
+  "dialog:subscribe-app:or": { "en": "or", "de": "oder", "it": "o" },
+  "dialog:subscribe-app:android:hover": { "all": "Google Play" },
+  "dialog:subscribe-app:android:button": { "all": "Google Play" },
+  "dialog:subscribe-app:ios:hover": { "all": "App Store" },
+  "dialog:subscribe-app:ios:button": { "all": "App Store" },
+  "dialog:subscribe-app:lawine-tirol:title": { "all": "Lawine Tirol App" },
+  "dialog:subscribe-app:lawine-tirol:text": {
+    "en": "The Lawine Tirol App ...",
+    "de": "Die Lawine Tirol App ...",
+    "it": "L'App Lawine Tirol"
+  },
+  "dialog:subscribe-app:snowsafe:title": { "all": "Snow Safe App" },
+  "dialog:subscribe-app:snowsafe:text": {
+    "en": "The Snow Safe App ...",
+    "de": "Die Snow Safe App ...",
+    "it": "L'App Snow Safe"
+  },
+  "dialog:subscribe-app:snowhow:title": { "all": "snowhow App" },
+  "dialog:subscribe-app:snowhow:text": {
+    "en": "The snowhow App",
+    "de": "Die snowhow App",
+    "it": "L'App snowhow"
+  },
 
-  "dialog:subscribe-blog:header": {"en": "Subscriptions", "de": "Abonnieren", "it": "Abbonamenti"},
-  "dialog:subscribe-blog:subheader": {"all": "Blog"},
-  "dialog:subscribe-blog:back-button": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
-  "dialog:subscribe-blog:back-button:hover": {"en": "All subscriptions", "de": "Alle Abonnements", "it": "Tutti gli abbonamenti"},
-  "dialog:subscribe-blog:or": {"en": "or", "de": "oder", "it": "o"},
-  "dialog:subscribe-blog:atom": {"all": "Atom 1.0"},
-  "dialog:subscribe-blog:rss": {"all": "RSS 2.0"},
+  "dialog:subscribe-bulletin:header": {
+    "en": "Subscriptions",
+    "de": "Abonnieren",
+    "it": "Abbonamenti"
+  },
+  "dialog:subscribe-bulletin:subheader": {
+    "en": "Avalanche Forecast",
+    "de": "Lawinenvorhersage",
+    "it": "Bollettino valanghe"
+  },
+  "dialog:subscribe-bulletin:back-button": {
+    "en": "All subscriptions",
+    "de": "Alle Abonnements",
+    "it": "Tutti gli abbonamenti"
+  },
+  "dialog:subscribe-bulletin:back-button:hover": {
+    "en": "All subscriptions",
+    "de": "Alle Abonnements",
+    "it": "Tutti gli abbonamenti"
+  },
+  "dialog:subscribe-bulletin:region": {
+    "en": "<strong>Select</strong> State / Province of interest",
+    "de": "Land / Provinz auswählen",
+    "it": "<strong>Scegli</strong> Land / Provincia"
+  },
+  "dialog:subscribe-bulletin:region-all:button": {
+    "en": "Entire Euregio",
+    "de": "Gesamte Europaregion",
+    "it": "Tutta l'Euregio"
+  },
+  "dialog:subscribe-bulletin:region:or": { "en": "or", "de": "oder", "it": "o" },
+  "dialog:subscribe-bulletin:region-select:button": {
+    "en": "State / Province",
+    "de": "Land / Provinz",
+    "it": "Land / Provincia"
+  },
+  "dialog:subscribe-bulletin:email": {
+    "en": "Email address",
+    "de": "E-mail Adresse",
+    "it": "Indirizzo email"
+  },
+  "dialog:subscribe-bulletin:language": {
+    "en": "Preferred language",
+    "de": "Bevorzugte Sprache",
+    "it": "Lingua preferita"
+  },
+  "dialog:subscribe-bulletin:subscribe:button": {
+    "en": "Subscribe",
+    "de": "Abonnieren",
+    "it": "Iscriviti"
+  },
+  "dialog:subscribe-bulletin:status:loading": {
+    "en": "<strong>Please stand by:</strong> Subscription in progress \\u2026",
+    "de": "<strong>Bitte warten:</strong> Anmeldung in Arbeit \\u2026",
+    "it": "<strong>Si prega di attendere:</strong> Iscrizione in corso \\u2026"
+  },
+  "dialog:subscribe-bulletin:status:subscribed": {
+    "en": "<strong>Oh:</strong> You are already subscribed with this email adress",
+    "de": "<strong>Oh:</strong> Sie haben diese E-mail Adresse für die Anmeldung schon verwendet",
+    "it": "<strong>Oh:</strong> Sei già iscritto con questo indirizzo e-mail"
+  },
+  "dialog:subscribe-bulletin:status:submitted": {
+    "en": "<strong>Please check your email inbox</strong> to confirm your subscription",
+    "de": "<strong>Bitte überprüfen Sie Ihren Posteingang</strong> und bestätigen die Anmeldung zum Abonnement",
+    "it": "<strong>Controlla la tua casella di posta elettronica</strong> per confermare l'iscrizione"
+  },
+  "dialog:subscribe-bulletin:status:ok": {
+    "en": "<strong>Subscription confirmed:</strong> You are now subscribed",
+    "de": "<strong>Anmeldung bestätigt:</strong> Sie sind nun auf dem Verteiler",
+    "it": "<strong>Sottoscrizione confermata:</strong> Ora sei iscritto"
+  },
+  "dialog:subscribe-bulletin:error": { "en": "Error", "de": "Fehler", "it": "Errore" },
 
-  "dialog:cookie-consent:header": {"en": "This website uses Cookies", "de": "Diese Webseite verwendet Cookies", "it": "Questo sito web utilizza i cookie"},
+  "dialog:subscribe-blog:header": {
+    "en": "Subscriptions",
+    "de": "Abonnieren",
+    "it": "Abbonamenti"
+  },
+  "dialog:subscribe-blog:subheader": { "all": "Blog" },
+  "dialog:subscribe-blog:back-button": {
+    "en": "All subscriptions",
+    "de": "Alle Abonnements",
+    "it": "Tutti gli abbonamenti"
+  },
+  "dialog:subscribe-blog:back-button:hover": {
+    "en": "All subscriptions",
+    "de": "Alle Abonnements",
+    "it": "Tutti gli abbonamenti"
+  },
+  "dialog:subscribe-blog:or": { "en": "or", "de": "oder", "it": "o" },
+  "dialog:subscribe-blog:atom": { "all": "Atom 1.0" },
+  "dialog:subscribe-blog:rss": { "all": "RSS 2.0" },
+
+  "dialog:cookie-consent:header": {
+    "en": "This website uses Cookies",
+    "de": "Diese Webseite verwendet Cookies",
+    "it": "Questo sito web utilizza i cookie"
+  },
   "dialog:cookie-consent:text": {
     "en": "We use cookies to personalize content and ads, integrate social media and analyze website access. We also share information about your website usage - anonymously - with our partners who may merge it with other information you may have collected in connection with your use of their services. This enables communication and advertising adapted to your personal interests. We would also like to draw your attention to our data protection information for registered online users and our cookie policy.",
     "de": "Mit Cookies personalisieren wir Inhalte sowie Anzeigen, binden Soziale Medien ein und analysieren Website-Zugriffe. Informationen über Ihre Website-Nutzung gebern wir außerdem - anonymisiert - an unsere Partner weiter, die diese möglicherweise mit weiteren Daten zusammenführen, die Sie im Rahmen Ihrer Nutzung derer Dienste gesammelt haben. Dies ermöglicht eine an Ihre persönlichen Interessen angepasste Kommunikation und Werbung. Weiter möchten wir Sie auf unsere Datenschutzinformation für regstrierte Online-User und unsere Cookie-Policy aufmerksam machen.",
     "it": "Utilizziamo i cookie per personalizzare contenuti e annunci, integrare i social media e analizzare gli accessi al sito web. Condividiamo anche le informazioni relative al tuo utilizzo del sito web - in forma anonima - con i nostri partner, che potrebbero unirle con altre informazioni raccolte dall'utente in relazione all'utilizzo dei loro servizi. In questo modo è possibile adattare la comunicazione e la pubblicità ai propri interessi personali. Desideriamo inoltre richiamare tua attenzione sulle nostre informazioni relative alla protezione dei dati degli utenti registrati online e sulla nostra politica in materia di cookie."
   },
   "dialog:cookie-consent:button": { "all": "Ok" },
-  "dialog:cookie-consent:button:hover": {"all": "Ok"}
+  "dialog:cookie-consent:button:hover": { "all": "Ok" }
 }

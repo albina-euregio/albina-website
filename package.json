@@ -60,6 +60,8 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
+    "detect-browser": "^3.0.0",
+    "is-es5-supported": "^1.0.0",
     "jquery": "^3.3.1"
   },
   "keywords": [],
