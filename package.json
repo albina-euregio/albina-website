@@ -7,7 +7,8 @@
     "build": "webpack",
     "start": "webpack-dev-server --mode development --open",
     "deploy": "npm run clean-dist && webpack --mode production --output-public-path=/projects/albina-web/",
-    "clean-dist": "rm -f -r -d dist"
+    "clean-dist": "rm -f -r -d dist",
+    "rsync": "rsync -avz --exclude=config.json dist/ karto@data1.geo.univie.ac.at:/daten1/projects/albina-web/"
   },
   "dependencies": {
     "@turf/flip": "^5.1.5",
