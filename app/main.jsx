@@ -1,4 +1,12 @@
+/* IE polyfills */
 import 'babel-polyfill'
+if (!window.Intl) {
+  window['Intl'] = require('intl')
+}
+console.log('Ints after polyfill', Intl)
+console.log('Ints after polyfill', Intl)
+
+require('window.requestanimationframe')
 
 import React from 'react'
 import ReactDOM from 'react-dom'
@@ -64,6 +72,8 @@ const _getDefaultLanguage = () => {
   const browserLang = configLang || availableLanguages.indexOf(browserLangSettings) >= 0
     ? browserLangSettings
     : ''
+
+  console.log('browserLang', browserLang)
 
   return browserLang || 'en' // if everything els fails
 }

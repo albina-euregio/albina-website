@@ -17,12 +17,6 @@ import StaticPage from './../views/staticPage'
 import SubscribeConfirmation from './../views/subscribeConfirmation'
 import Page from './page'
 
-/* IE polyfills */
-if (!window.Intl) {
-  window['Intl'] = require('intl')
-}
-require('window.requestanimationframe')
-
 const { detect } = require('detect-browser')
 const browser = detect()
 import isES5Supported from 'is-es5-supported'
