@@ -26,6 +26,8 @@ class UnsupportedBrowserDialog extends React.Component {
             <div className='modal-header'>
               <h2 className='subheader'>
                 <FormattedHTMLMessage id='dialog:unsupportedBrowser:heading' />
+                {' - '}
+                {browserVersion}
               </h2>
               <h2><FormattedHTMLMessage id='dialog:unsupportedBrowser:message' /></h2>
             </div>

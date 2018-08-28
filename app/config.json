@@ -35,7 +35,6 @@
     "geo": "https://data1.geo.univie.ac.at/exchange/albina2/awm/",
     "blogger": "https://www.googleapis.com/blogger/v3/blogs/"
   },
-  "unsupportedBrowsers": [],
   "apiKeys": {
     "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo",
     "gaTrackingId": "UA-69879901-5"
