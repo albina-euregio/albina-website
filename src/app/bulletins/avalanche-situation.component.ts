@@ -16,6 +16,8 @@ export class AvalancheSituationComponent {
 
   showAspects: boolean;
   avalancheSituationEnum = Enums.AvalancheSituation;
+  useElevationHigh = false;
+  useElevationLow = false;
 
   constructor(
     private translate: TranslateService,
@@ -28,6 +30,11 @@ export class AvalancheSituationComponent {
       this.showAspects = true;
     else
       this.showAspects = false;
+
+    if (this.avalancheSituationModel.getTreelineHigh() || this.avalancheSituationModel.getElevationHigh() != undefined)
+      this.useElevationHigh = true;
+    if (this.avalancheSituationModel.getTreelineLow() || this.avalancheSituationModel.getElevationLow() != undefined)
+      this.useElevationLow = true;
   }
 
   isAvalancheSituation(situation) {
@@ -85,5 +92,19 @@ export class AvalancheSituationComponent {
       this.avalancheSituationModel.treelineLow = false;
     else
       this.avalancheSituationModel.treelineLow = true;
+  }
+
+  setUseElevationHigh(event) {
+    if (!event.currentTarget.checked) {
+      this.avalancheSituationModel.treelineHigh = false;
+      this.avalancheSituationModel.elevationHigh = undefined;
+    }
+  }
+
+  setUseElevationLow(event) {
+    if (!event.currentTarget.checked) {
+      this.avalancheSituationModel.treelineLow = false;
+      this.avalancheSituationModel.elevationLow = undefined;
+    }
   }
 }
