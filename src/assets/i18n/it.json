@@ -95,8 +95,8 @@
 				"snowpackStructureHighlights" : "Titolo struttura manto nevoso",
 				"snowpackStructureComment" : "Descrizione struttura manto nevoso",
 				"dangerPatterns" : "Situazioni tipo",
-				"elevationHigh" : "Limite superiore della quota:",
-				"elevationLow" : "Limite inferiore della quota:",
+				"elevationHigh" : "Sotto",
+				"elevationLow" : "Sopra",
 				"tendencyComment" : "Tendenza"
 			},
 			"title" : {

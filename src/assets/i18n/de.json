@@ -95,8 +95,8 @@
 				"snowpackStructureHighlights" : "Schlagzeile Schneedeckenaufbau",
 				"snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus",
 				"dangerPatterns" : "Gefahrenmuster",
-				"elevationHigh" : "Obere Höhengrenze:",
-				"elevationLow" : "Untere Höhengrenze:",
+				"elevationHigh" : "Unter",
+				"elevationLow" : "Über",
 				"tendencyComment" : "Beschreibung der Tendenz"
 			},
 			"title" : {
