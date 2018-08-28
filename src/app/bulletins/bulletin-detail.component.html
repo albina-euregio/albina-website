@@ -9,42 +9,58 @@
       </div>
 
       <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="col-md-12">
-        <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.above" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.above" | translate }}</strong></label>
+        </div>
         <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></matrix>
       </div>
 
       <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="col-md-12">
-        <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.below" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.below" | translate }}</strong></label>
+        </div>
         <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="true" [disabled]="disabled"></matrix>
       </div>
 
       <div *ngIf="settingsService.getUseMatrix() && !bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+        </div>
         <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></matrix>
       </div>
 
       <div *ngIf="settingsService.getUseMatrix() && !bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+        </div>
         <matrix [bulletinDaytimeDescription]="bulletin.afternoon" [below]="false" [disabled]="disabled"></matrix>
       </div>
 
       <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonAbove" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonAbove" | translate }}</strong></label>
+        </div>
         <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></matrix>
       </div>
 
       <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonAbove" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonAbove" | translate }}</strong></label>
+        </div>
         <matrix [bulletinDaytimeDescription]="bulletin.afternoon" [below]="false" [disabled]="disabled"></matrix>
       </div>
 
       <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonBelow" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonBelow" | translate }}</strong></label>
+        </div>
         <matrix [bulletinDaytimeDescription]="bulletin.forenoon" [below]="true" [disabled]="disabled"></matrix>
       </div>
 
       <div *ngIf="settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonBelow" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonBelow" | translate }}</strong></label>
+        </div>
         <matrix [bulletinDaytimeDescription]="bulletin.afternoon" [below]="true" [disabled]="disabled"></matrix>
       </div>
 
@@ -56,42 +72,58 @@
       </div>
 
       <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="col-md-12">
-        <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.above" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.above" | translate }}</strong></label>
+        </div>
         <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></danger-rating>
       </div>
 
       <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && !bulletin.hasDaytimeDependency" class="col-md-12">
-        <label class="col-md-12 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.below" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.below" | translate }}</strong></label>
+        </div>
         <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="true" [disabled]="disabled"></danger-rating>
       </div>
 
       <div *ngIf="!settingsService.getUseMatrix() && !bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+        </div>
         <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></danger-rating>
       </div>
 
       <div *ngIf="!settingsService.getUseMatrix() && !bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+        </div>
         <danger-rating [bulletinDaytimeDescription]="bulletin.afternoon" [below]="false" [disabled]="disabled"></danger-rating>
       </div>
 
       <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonAbove" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonAbove" | translate }}</strong></label>
+        </div>
         <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="false" [disabled]="disabled"></danger-rating>
       </div>
 
       <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonAbove" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonAbove" | translate }}</strong></label>
+        </div>
         <danger-rating [bulletinDaytimeDescription]="bulletin.afternoon" [below]="false" [disabled]="disabled"></danger-rating>
       </div>
 
       <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonBelow" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoonBelow" | translate }}</strong></label>
+        </div>
         <danger-rating [bulletinDaytimeDescription]="bulletin.forenoon" [below]="true" [disabled]="disabled"></danger-rating>
       </div>
 
       <div *ngIf="!settingsService.getUseMatrix() && bulletin.hasElevationDependency && bulletin.hasDaytimeDependency" class="col-md-6">
-        <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonBelow" | translate }}</strong></label>
+        <div style="font-size: 16px;">
+          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoonBelow" | translate }}</strong></label>
+        </div>
         <danger-rating [bulletinDaytimeDescription]="bulletin.afternoon" [below]="true" [disabled]="disabled"></danger-rating>
       </div>
 

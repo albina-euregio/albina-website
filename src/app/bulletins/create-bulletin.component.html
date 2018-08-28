@@ -268,12 +268,16 @@
                       <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="disabled" [label]="'avalancheSituation2'"></avalanche-situation>
                     </div>
                     <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
-                      <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+                      <div style="margin-bottom: 10px; font-size: 16px;">
+                        <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+                      </div>
                       <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="disabled" [label]="'avalancheSituation1'"></avalanche-situation>
                       <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="disabled" [label]="'avalancheSituation2'"></avalanche-situation>
                     </div>
                     <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
-                      <label class="col-md-6 form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+                      <div style="margin-bottom: 10px; font-size: 16px;">
+                        <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+                      </div>
                       <avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation1" [disabled]="disabled" [label]="'avalancheSituation1'"></avalanche-situation>
                       <avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation2" [disabled]="disabled" [label]="'avalancheSituation2'"></avalanche-situation>
                     </div>
