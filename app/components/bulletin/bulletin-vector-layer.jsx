@@ -24,12 +24,28 @@ export default class BulletinVectorLayer extends React.Component {
     });
   }
   */
+  constructor (props) {
+    super(props)
+    this.state = {
+      over: false
+    }
+  }
 
   handleClickRegion (bid, state, e) {
     L.DomEvent.stopPropagation(e)
     if (state !== 'hidden') {
-      console.log('selecting region', bid)
       this.props.handleSelectFeature(bid)
+    }
+  }
+
+  handleMouseOut (bid) {
+    if (bid === this.state.over) {
+      this.setState({ over: false })
+    }
+  }
+  handleMouseMove (bid) {
+    if (bid !== this.state.over) {
+      this.setState({ over: bid })
     }
   }
 
@@ -57,31 +73,57 @@ export default class BulletinVectorLayer extends React.Component {
   render () {
     const vectorOptions = config.get('map.vectorOptions')
 
+    // this has to be refactored
     return (
       <Pane key={this.uniqueKey}>
-        {this.props.regions.map((vector, vi) => {
-          const state = vector.properties.state
+        {this.props.regions
+          .filter(vector => this.state.over !== vector.properties.bid)
+          .map((vector, vi) => {
+            const state = vector.properties.state
 
-          // setting the style for each region
-          const style = Object.assign(
-            {},
-            config.get('map.regionStyling.all'),
-            config.get('map.regionStyling.' + state)
-          )
+            // setting the style for each region
+            const style = Object.assign(
+              {},
+              config.get('map.regionStyling.all'),
+              config.get('map.regionStyling.' + state)
+            )
 
-          // vector.geometry.coordinates might be a MultiPolygon
-          // therefore we map over it an create a Polygon component for each
-          // individual polygon
-          return vector.geometry.coordinates.map((g, gi) => (
-            <Polygon
-              key={vi + '' + gi}
-              onClick={this.handleClickRegion.bind(this, vector.properties.bid, state)}
-              positions={g}
-              {...style}
-              {...vectorOptions}
-            />
-          ))
-        })}
+            return vector.geometry.coordinates.map((g, gi) => (
+              <Polygon
+                key={vi + '' + gi}
+                onClick={this.handleClickRegion.bind(this, vector.properties.bid, state)}
+                onMouseMove={this.handleMouseMove.bind(this, vector.properties.bid)}
+                onMouseOut={this.handleMouseOut.bind(this, vector.properties.bid)}
+                positions={g}
+                {...style}
+                {...vectorOptions}
+              />
+            ))
+          })}
+        {this.props.regions
+          .filter(vector => this.state.over === vector.properties.bid)
+          .map((vector, vi) => {
+            const state = vector.properties.state
+            // setting the style for each region
+            const style = Object.assign(
+              {},
+              config.get('map.regionStyling.all'),
+              config.get('map.regionStyling.' + state),
+              config.get('map.regionStyling.mouseOver')
+            )
+
+            return vector.geometry.coordinates.map((g, gi) => (
+              <Polygon
+                key={vi + '' + gi}
+                onClick={this.handleClickRegion.bind(this, vector.properties.bid, state)}
+                onMouseMove={this.handleMouseMove.bind(this, vector.properties.bid)}
+                onMouseOut={this.handleMouseOut.bind(this, vector.properties.bid)}
+                positions={g}
+                {...style}
+                {...vectorOptions}
+              />
+            ))
+          })}
       </Pane>
     )
   }
