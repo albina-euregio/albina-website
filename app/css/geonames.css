@@ -1,0 +1,135 @@
+/* Leaflet geonames */
+
+.leaflet-top.leaflet-center {
+  left: 10px;
+  right: 10px;
+}
+
+.leaflet-geonames-search {
+  width: 34px;
+  max-width: 300px;
+  box-sizing: border-box;
+  border: 0px !important;
+}
+
+.leaflet-geonames-search.active {
+  width: 100%;
+}
+
+.section-map .leaflet-control-container .leaflet-geonames-search a:hover {
+  background-color: #19abff;
+}
+
+.section-map .leaflet-control-container .leaflet-geonames-search a {
+  background-color: rgba(255, 255, 255, 0.95);
+  font-size: 1.8em;
+  width: 1.8em;
+  height: 1.8em;
+  line-height: 1.8em;
+  border: none !important;
+}
+
+.leaflet-geonames-search form {
+  background: rgba(255, 255, 255, 0.95);
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.leaflet-geonames-search ul.hasResults,
+.leaflet-geonames-search ul.noResults {
+  margin-top: -5px;
+  background: white;
+}
+.leaflet-geonames-search ul.hasResults li,
+.leaflet-geonames-search ul.noResults li {
+  cursor: pointer;
+}
+.leaflet-geonames-search ul.hasResults li:hover {
+  background: #f2f2f2;
+}
+
+.leaflet-geonames-search input {
+  padding: 6px 6px 2px 30px;
+  margin: 0;
+  border: none;
+  display: none;
+  width: 100%;
+  font-size: 12pt;
+  box-sizing: border-box;
+  -ms-box-sizing: border-box;
+}
+
+.leaflet-geonames-search ul {
+  display: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  clear: both;
+  border: none;
+}
+
+.leaflet-geonames-search ul li {
+  padding: 4px 8px;
+  border-top: 1px solid #ddd;
+  font-size: 1.1em;
+  border: none;
+}
+
+.leaflet-geonames-search ul li em {
+  color: #999;
+}
+
+.leaflet-geonames-search.active input,
+.leaflet-geonames-search.active label {
+  display: inline-block;
+}
+
+.leaflet-geonames-search ul.hasResults,
+.leaflet-geonames-search ul.noResults {
+  display: block;
+}
+
+.leaflet-geonames-search ul.noResults {
+  color: #999;
+  font-style: italic;
+}
+
+.leaflet-geonames-icon {
+  background-size: cover !important;
+  background: transparent no-repeat center center;
+  /*src: https://material.io/icons/#ic_search*/
+  background-image: url(./../images/pro/geonames/search.png);
+}
+
+.leaflet-geonames-icon:hover {
+  /*src: https://material.io/icons/#ic_search*/
+  background-image: url(./../images/pro/geonames/search-hover.png);
+}
+
+.leaflet-geonames-icon-working {
+  /*src: https://design.google.com/icons/#ic_autorenew*/
+  background-image: url(./../images/pro/geonames/waiting.png);
+  animation: spin 2s infinite linear;
+}
+
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}

@@ -1,12 +1,16 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import L from 'leaflet'
+require('leaflet-geonames')
 import 'leaflet-sleep'
 import { Map, TileLayer, ImageOverlay, LayersControl, ZoomControl } from 'react-leaflet'
 import { injectIntl } from 'react-intl'
 import BulletinVectorLayer from './bulletin-vector-layer'
 import { tooltip_init } from '../../js/tooltip'
 import Base from './../../base'
+import AppStore from '../../appStore'
+
+require('./../../css/geonames.css')
 
 class LeafletMap extends React.Component {
   constructor (props) {
@@ -47,6 +51,28 @@ class LeafletMap extends React.Component {
       L.DomEvent.stopPropagation(e)
       this.props.handleSelectFeature(null)
     })
+
+    window.setTimeout(() => {
+      L.control
+        .geonames({
+          geonamesURL: '//api.geonames.org/searchJSON', // override this if using a proxy to get connection to geonames
+          username: 'adammertel', // Geonames account username.  Must be provided
+          zoomLevel: null, // Max zoom level to zoom to for location.  If null, will use the map's max zoom level.
+          maxresults: 5, // Maximum number of results to display per search
+          className: 'tooltip leaflet-geonames-icon', // class for icon
+          workingClass: 'leaflet-geonames-icon-working', // class for search underway
+          featureClasses: ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'], // feature classes to search against.  See: http://www.geonames.org/export/codes.html
+          baseQuery: 'isNameRequired=true', // The core query sent to GeoNames, later combined with other parameters above
+          position: 'topleft',
+          showMarker: true, // Show a marker at the location the selected location
+          showPopup: true, // Show a tooltip at the selected location
+          lang: AppStore.language, // language for results
+          bbox: { east: 17, west: 5, north: 50, south: 44 }, // bounding box filter for results (e.g., map extent).  Values can be an object with east, west, north, south, or a function that returns that object.
+          alwaysOpen: false, // if true, search field is always visible
+          enablePostalCodes: false // if true, use postalCodesRegex to test user provided string for a postal code.  If matches, then search against postal codes API instead.
+        })
+        .addTo(this.map)
+    }, 0)
 
     window.setTimeout(() => {
       $('.leaflet-control-zoom a').addClass('tooltip')
