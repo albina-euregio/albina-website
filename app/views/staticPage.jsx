@@ -76,11 +76,13 @@ export default class StaticPage extends React.Component {
     return (
       <div>
         <PageHeadline title={this.state.title} marginal={this.state.headerText} />
-        <section className="section-centered">
-          {
-            this.state.content
-          }
-        </section>
+        <div className="section-padding">
+          <section className="section-centered">
+            {
+              this.state.content
+            }
+          </section>
+        </div>
         <div className="clearfix"></div>
         { this.state.sharable ?
           <SmShare /> : <div className="section-padding"></div>
