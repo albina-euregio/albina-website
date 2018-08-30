@@ -159,3 +159,8 @@ a.share-feed {
   clear: both;
   display: table;
 }
+
+/* the overflowing right yellow border */
+.panel.warning-level-2 .bulletin-report-header h1 {
+  margin-left: -2.5%;
+}
