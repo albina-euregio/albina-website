@@ -1,7 +1,7 @@
 {
   "name": "albina-project",
   "description": "Albina project webpage",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "main": "app/main.jsx",
   "scripts": {
     "build": "webpack",
@@ -44,7 +44,6 @@
     "mobx-react": "^5.1.2",
     "mobx-react-devtools": "^5.0.1",
     "mobx-react-intl": "^1.4.0",
-    "query-string": "^6.1.0",
     "react": "15.x",
     "react-dom": "^15.6.2",
     "react-ga": "^2.5.3",

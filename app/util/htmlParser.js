@@ -4,7 +4,7 @@ import { Parser, ProcessNodeDefinitions } from 'html-to-react';
 
 const defaults = new ProcessNodeDefinitions(React);
 const htmlParser = new Parser();
-const isValidNode = () => true;
+const isValidNode = (node) => node.name != 'style' && node.name != 'script';
 
 function replaceInternalLinksProcessor() {
   return {
