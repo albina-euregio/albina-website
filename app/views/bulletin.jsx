@@ -28,7 +28,7 @@ class Bulletin extends React.Component {
   }
 
   componentDidMount() {
-    window['staticPageStore'].loadPage('/bulletin').then((response) => {
+    window['staticPageStore'].loadPage('bulletin').then((response) => {
       // parse content
       const responseParsed = JSON.parse(response);
       this.setState({

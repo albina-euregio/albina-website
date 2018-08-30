@@ -15,7 +15,7 @@ export default class StaticPageStore {
   _translatePath(url) {
     const createLookupUrl = (u) => {
       return config.get('apis.content')
-        + 'router/translate-path?_format=json&path=/' + u;
+        + 'router/translate-path?_format=json&path=//' + u;
     };
     const getPageId = (response) => {
       return (JSON.parse(response)).entity.uuid;
