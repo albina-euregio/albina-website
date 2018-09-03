@@ -73,7 +73,9 @@
 					"increasing" : "Pericolo valanghe in aumento"
 				},
 				"textcat" : {
-					"edit" : "Modifica"
+					"edit" : "Modifica",
+					"copy" : "Copiare",
+					"paste" : "Incollare"
 				}
 			},
 			"button" : "Creato",

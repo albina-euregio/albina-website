@@ -73,7 +73,9 @@
 					"increasing" : "Avalanche danger increases"
 				},
 				"textcat" : {
-					"edit" : "Edit"
+					"edit" : "Edit",
+					"copy" : "Copy",
+					"paste" : "Paste"
 				}
 			},
 			"button" : "Create",

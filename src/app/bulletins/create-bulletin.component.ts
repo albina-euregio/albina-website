@@ -98,6 +98,11 @@ export class CreateBulletinComponent {
   public showTranslationsSnowpackStructureComment: boolean;
   public showTranslationsTendencyComment: boolean;
 
+  public copyAvActivityHighlights: boolean;
+  public copyAvActivityComment: boolean;
+  public copySnowpackStructureComment: boolean;
+  public copyTendencyComment: boolean;
+
   public loadingErrorModalRef: BsModalRef;
   @ViewChild('loadingErrorTemplate') loadingErrorTemplate: TemplateRef<any>;
 
@@ -219,7 +224,9 @@ export class CreateBulletinComponent {
     this.showTranslationsAvActivityHighlights = false;
     this.showTranslationsAvActivityComment = false;
     this.showTranslationsSnowpackStructureComment = false;
-    this.showTranslationsTendencyComment = false
+    this.showTranslationsTendencyComment = false;
+
+    this.resetCopying();
   }
 
   ngOnInit() {
@@ -1178,10 +1185,13 @@ private setTexts() {
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.keyCode == 27 && this.editRegions) {
       this.discardBulletin(event);
+    } else if (event.keyCode == 27 && (this.copyAvActivityHighlights || this.copyAvActivityComment || this.copySnowpackStructureComment || this.copyTendencyComment)) {
+      this.resetCopying();
     }
   }
 
   openTextcat($event, field, l, textDef) {
+    this.resetCopying();
     let receiver = this.receiver.nativeElement.contentWindow;
     $event.preventDefault()
     if (!textDef)
@@ -1200,6 +1210,127 @@ private setTexts() {
     this.showDialog();
   }
 
+  resetCopying() {
+    this.copyAvActivityHighlights = false;
+    this.copyAvActivityComment = false;
+    this.copySnowpackStructureComment = false;
+    this.copyTendencyComment = false;
+  }
+
+  copyTextcat($event, field) {
+    switch (field) {
+      case "avActivityHighlights":
+        this.copyAvActivityHighlights = true;
+        break;
+      case "avActivityComment":
+        this.copyAvActivityComment = true;
+        break;
+      case "snowpackStructureComment":
+        this.copySnowpackStructureComment = true;
+        break;
+      case "tendencyComment":
+        this.copyTendencyComment = true;
+        break;
+      default:
+        break;
+    }
+  }
+
+  pasteTextcat($event, field) {
+    switch (field) {
+      case "avActivityHighlights":
+        if (this.copyAvActivityHighlights) {
+        } else if (this.copyAvActivityComment) {
+          this.activeAvActivityHighlightsTextcat = this.activeAvActivityCommentTextcat;
+          this.activeAvActivityHighlightsDe = this.activeAvActivityCommentDe;
+          this.activeAvActivityHighlightsIt = this.activeAvActivityCommentIt;
+          this.activeAvActivityHighlightsEn = this.activeAvActivityCommentEn;
+          this.activeAvActivityHighlightsFr = this.activeAvActivityCommentFr;
+        } else if (this.copySnowpackStructureComment) {
+          this.activeAvActivityHighlightsTextcat = this.activeSnowpackStructureCommentTextcat;
+          this.activeAvActivityHighlightsDe = this.activeSnowpackStructureCommentDe;
+          this.activeAvActivityHighlightsIt = this.activeSnowpackStructureCommentIt;
+          this.activeAvActivityHighlightsEn = this.activeSnowpackStructureCommentEn;
+          this.activeAvActivityHighlightsFr = this.activeSnowpackStructureCommentFr;
+        } else if (this.copyTendencyComment) {
+          this.activeAvActivityHighlightsTextcat = this.activeTendencyCommentTextcat;
+          this.activeAvActivityHighlightsDe = this.activeTendencyCommentDe;
+          this.activeAvActivityHighlightsIt = this.activeTendencyCommentIt;
+          this.activeAvActivityHighlightsEn = this.activeTendencyCommentEn;
+          this.activeAvActivityHighlightsFr = this.activeTendencyCommentFr;
+        }
+        break;
+      case "avActivityComment":
+        if (this.copyAvActivityHighlights) {
+          this.activeAvActivityCommentTextcat = this.activeAvActivityHighlightsTextcat;
+          this.activeAvActivityCommentDe = this.activeAvActivityHighlightsDe;
+          this.activeAvActivityCommentIt = this.activeAvActivityHighlightsIt;
+          this.activeAvActivityCommentEn = this.activeAvActivityHighlightsEn;
+          this.activeAvActivityCommentFr = this.activeAvActivityHighlightsFr;
+        } else if (this.copyAvActivityComment) {
+        } else if (this.copySnowpackStructureComment) {
+          this.activeAvActivityCommentTextcat = this.activeSnowpackStructureCommentTextcat;
+          this.activeAvActivityCommentDe = this.activeSnowpackStructureCommentDe;
+          this.activeAvActivityCommentIt = this.activeSnowpackStructureCommentIt;
+          this.activeAvActivityCommentEn = this.activeSnowpackStructureCommentEn;
+          this.activeAvActivityCommentFr = this.activeSnowpackStructureCommentFr;
+        } else if (this.copyTendencyComment) {
+          this.activeAvActivityCommentTextcat = this.activeTendencyCommentTextcat;
+          this.activeAvActivityCommentDe = this.activeTendencyCommentDe;
+          this.activeAvActivityCommentIt = this.activeTendencyCommentIt;
+          this.activeAvActivityCommentEn = this.activeTendencyCommentEn;
+          this.activeAvActivityCommentFr = this.activeTendencyCommentFr;
+        }
+        break;
+      case "snowpackStructureComment":
+        if (this.copyAvActivityHighlights) {
+          this.activeSnowpackStructureCommentTextcat = this.activeAvActivityHighlightsTextcat;
+          this.activeSnowpackStructureCommentDe = this.activeAvActivityHighlightsDe;
+          this.activeSnowpackStructureCommentIt = this.activeAvActivityHighlightsIt;
+          this.activeSnowpackStructureCommentEn = this.activeAvActivityHighlightsEn;
+          this.activeSnowpackStructureCommentFr = this.activeAvActivityHighlightsFr;
+        } else if (this.copyAvActivityComment) {
+          this.activeSnowpackStructureCommentTextcat = this.activeAvActivityCommentTextcat;
+          this.activeSnowpackStructureCommentDe = this.activeAvActivityCommentDe;
+          this.activeSnowpackStructureCommentIt = this.activeAvActivityCommentIt;
+          this.activeSnowpackStructureCommentEn = this.activeAvActivityCommentEn;
+          this.activeSnowpackStructureCommentFr = this.activeAvActivityCommentFr;
+        } else if (this.copySnowpackStructureComment) {
+        } else if (this.copyTendencyComment) {
+          this.activeSnowpackStructureCommentTextcat = this.activeTendencyCommentTextcat;
+          this.activeSnowpackStructureCommentDe = this.activeTendencyCommentDe;
+          this.activeSnowpackStructureCommentIt = this.activeTendencyCommentIt;
+          this.activeSnowpackStructureCommentEn = this.activeTendencyCommentEn;
+          this.activeSnowpackStructureCommentFr = this.activeTendencyCommentFr;
+        }
+        break;
+      case "tendencyComment":
+        if (this.copyAvActivityHighlights) {
+          this.activeTendencyCommentTextcat = this.activeAvActivityHighlightsTextcat;
+          this.activeTendencyCommentDe = this.activeAvActivityHighlightsDe;
+          this.activeTendencyCommentIt = this.activeAvActivityHighlightsIt;
+          this.activeTendencyCommentEn = this.activeAvActivityHighlightsEn;
+          this.activeTendencyCommentFr = this.activeAvActivityHighlightsFr;
+        } else if (this.copyAvActivityComment) {
+          this.activeTendencyCommentTextcat = this.activeAvActivityCommentTextcat;
+          this.activeTendencyCommentDe = this.activeAvActivityCommentDe;
+          this.activeTendencyCommentIt = this.activeAvActivityCommentIt;
+          this.activeTendencyCommentEn = this.activeAvActivityCommentEn;
+          this.activeTendencyCommentFr = this.activeAvActivityCommentFr;
+        } else if (this.copySnowpackStructureComment) {
+          this.activeTendencyCommentTextcat = this.activeSnowpackStructureCommentTextcat;
+          this.activeTendencyCommentDe = this.activeSnowpackStructureCommentDe;
+          this.activeTendencyCommentIt = this.activeSnowpackStructureCommentIt;
+          this.activeTendencyCommentEn = this.activeSnowpackStructureCommentEn;
+          this.activeTendencyCommentFr = this.activeSnowpackStructureCommentFr;
+        } else if (this.copyTendencyComment) {
+        }
+        break;
+      default:
+        break;
+    }
+    this.resetCopying();
+  }
 
   getText(e) {
     e.preventDefault();

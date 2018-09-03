@@ -73,7 +73,9 @@
 					"increasing" : "Lawinengefahr steigt"
 				},
 				"textcat" : {
-					"edit" : "Bearbeiten"
+					"edit" : "Bearbeiten",
+					"copy" : "Kopieren",
+					"paste" : "Einfügen"
 				}
 			},
 			"button" : "Neu",
