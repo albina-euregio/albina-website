@@ -42,7 +42,7 @@
 	"bulletins" : {
 		"title" : "Bollettini",
 		"tooltip" : {
-			"publish" : "Pubblicare bollettino valanghe TODO",
+			"publish" : "Pubblicare bollettino valanghe",
 			"submit" : "Inviare bollettino valanghe",
 			"copy" : "Copiare bollettino valanghe",
 			"paste" : "Incollare bollettino valanghe",
@@ -75,7 +75,8 @@
 				"textcat" : {
 					"edit" : "Modifica",
 					"copy" : "Copiare",
-					"paste" : "Incollare"
+					"paste" : "Incollare",
+					"example" : "Carica esempio testo"
 				}
 			},
 			"button" : "Creato",
@@ -174,6 +175,16 @@
 				"header" : "Quota non determinata",
 				"message" : "Determina una quota per questa zona!",
 				"accept" : "Ok"
+			},
+			"loadAvActivityCommentExampleTextDialog" : {
+				"header" : "Carica testo di esempio",
+				"message" : "Per quale situazione si desidera caricare il testo",
+				"newSnow" : "Neve fresca",
+				"windDriftedSnow" : "Neve ventata",
+				"oldSnow" : "Strati deboli persistenti",
+				"wetSnow" : "Neve bagnata",
+				"glidingSnow" : "Valanghe di slittamento",
+				"cancel" : "Stornare"
 			}
 		},
 		"table" : {

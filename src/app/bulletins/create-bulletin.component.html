@@ -336,6 +336,7 @@
                   <div style="margin-bottom: 10px;" class="col-md-12">
                     <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
                     <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeAvActivityComment', this.settingsService.getLangString(), activeAvActivityCommentTextcat)"><i class="fa fa-pencil"></i></button>
+                    <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary float-right" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.example" | translate }}' (click)="openLoadAvActivityCommentExampleTextModal(loadAvActivityCommentExampleTextTemplate)"><i class="fa fa-file-text"></i></button>
                     <button *ngIf="!copyAvActivityHighlights && !copyAvActivityComment && !copySnowpackStructureComment && !copyTendencyComment" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.copy" | translate }}' (click)="copyTextcat($event, 'avActivityComment')"><i class="fa fa-copy"></i></button>
                     <button *ngIf="copyAvActivityHighlights || copySnowpackStructureComment || copyTendencyComment" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.paste" | translate }}' (click)="pasteTextcat($event, 'avActivityComment')"><i class="fa fa-paste"></i></button>
                   </div>
@@ -617,6 +618,18 @@
   <div class="modal-body text-center">
     <p>{{ "bulletins.create.noElevationDialog.message" | translate }}</p>
     <button type="button" class="btn btn-primary" (click)="noElevationModalConfirm()">{{ "bulletins.create.noElevationDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
+
+<ng-template #loadAvActivityCommentExampleTextTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.message" | translate }}</p>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadAvActivityCommentExampleText('newSnow')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.newSnow" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadAvActivityCommentExampleText('windDriftedSnow')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.windDriftedSnow" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadAvActivityCommentExampleText('oldSnow')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.oldSnow" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadAvActivityCommentExampleText('wetSnow')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.wetSnow" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadAvActivityCommentExampleText('glidingSnow')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.glidingSnow" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-default" (click)="loadAvActivityCommentExampleTextCancel()">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.cancel" | translate }}</button>
   </div>
 </ng-template>
 

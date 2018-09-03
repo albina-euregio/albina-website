@@ -75,7 +75,8 @@
 				"textcat" : {
 					"edit" : "Bearbeiten",
 					"copy" : "Kopieren",
-					"paste" : "Einfügen"
+					"paste" : "Einfügen",
+					"example" : "Beispieltext laden"
 				}
 			},
 			"button" : "Neu",
@@ -174,6 +175,16 @@
 				"header" : "Keine Höhe definiert",
 				"message" : "Bitte definiere eine Höhe für diese Region!",
 				"accept" : "Ok"
+			},
+			"loadAvActivityCommentExampleTextDialog" : {
+				"header" : "Beispieltext laden",
+				"message" : "Für welche Situation möchtest du einen Beispieltext laden?",
+				"newSnow" : "Neuschnee",
+				"windDriftedSnow" : "Triebschnee",
+				"oldSnow" : "Altschnee",
+				"wetSnow" : "Nassschnee",
+				"glidingSnow" : "Gleitschnee",
+				"cancel" : "Abbrechen"
 			}
 		},
 		"table" : {

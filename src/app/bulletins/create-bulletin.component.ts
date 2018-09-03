@@ -130,6 +130,9 @@ export class CreateBulletinComponent {
   public loadAutoSaveModalRef: BsModalRef;
   @ViewChild('loadAutoSaveTemplate') loadAutoSaveTemplate: TemplateRef<any>;
 
+  public loadAvActivityCommentExampleTextModalRef: BsModalRef;
+  @ViewChild('loadAvActivityCommentExampleTextTemplate') loadAvActivityCommentExampleTextTemplate: TemplateRef<any>;
+
   public config = {
     keyboard: true,
     class: 'modal-sm'
@@ -1539,5 +1542,56 @@ private setTexts() {
 
   noElevationModalConfirm(): void {
     this.noElevationModalRef.hide();
+  }
+
+  openLoadAvActivityCommentExampleTextModal(template: TemplateRef<any>) {
+    this.loadAvActivityCommentExampleTextModalRef = this.modalService.show(template, this.config);
+  }
+
+  loadAvActivityCommentExampleText(avalancheProblem) {
+    switch (avalancheProblem) {
+      case "newSnow":
+        this.activeAvActivityCommentTextcat = this.constantsService.newSnowTextcat;
+        this.activeAvActivityCommentDe = this.constantsService.newSnowDe;
+        this.activeAvActivityCommentIt = this.constantsService.newSnowIt;
+        this.activeAvActivityCommentEn = this.constantsService.newSnowEn;
+        this.activeAvActivityCommentFr = this.constantsService.newSnowFr;
+        break;
+      case "windDriftedSnow":
+        this.activeAvActivityCommentTextcat = this.constantsService.windDriftedSnowTextcat;
+        this.activeAvActivityCommentDe = this.constantsService.windDriftedSnowDe;
+        this.activeAvActivityCommentIt = this.constantsService.windDriftedSnowIt;
+        this.activeAvActivityCommentEn = this.constantsService.windDriftedSnowEn;
+        this.activeAvActivityCommentFr = this.constantsService.windDriftedSnowFr;
+        break;
+      case "oldSnow":
+        this.activeAvActivityCommentTextcat = this.constantsService.oldSnowTextcat;
+        this.activeAvActivityCommentDe = this.constantsService.oldSnowDe;
+        this.activeAvActivityCommentIt = this.constantsService.oldSnowIt;
+        this.activeAvActivityCommentEn = this.constantsService.oldSnowEn;
+        this.activeAvActivityCommentFr = this.constantsService.oldSnowFr;
+        break;
+      case "wetSnow":
+        this.activeAvActivityCommentTextcat = this.constantsService.wetSnowTextcat;
+        this.activeAvActivityCommentDe = this.constantsService.wetSnowDe;
+        this.activeAvActivityCommentIt = this.constantsService.wetSnowIt;
+        this.activeAvActivityCommentEn = this.constantsService.wetSnowEn;
+        this.activeAvActivityCommentFr = this.constantsService.wetSnowFr;
+        break;
+      case "glidingSnow":
+        this.activeAvActivityCommentTextcat = this.constantsService.glidingSnowTextcat;
+        this.activeAvActivityCommentDe = this.constantsService.glidingSnowDe;
+        this.activeAvActivityCommentIt = this.constantsService.glidingSnowIt;
+        this.activeAvActivityCommentEn = this.constantsService.glidingSnowEn;
+        this.activeAvActivityCommentFr = this.constantsService.glidingSnowFr;
+        break;
+      default:
+        break;
+    }
+    this.loadAvActivityCommentExampleTextModalRef.hide();
+  }
+
+  loadAvActivityCommentExampleTextCancel() {
+    this.loadAvActivityCommentExampleTextModalRef.hide();
   }
 }

@@ -82,6 +82,32 @@ export class ConstantsService {
   public fillOpacityEditSelected = 0.5;
   public fillOpacityEditSuggested = 0.3;
 
+  public newSnowTextcat = "";
+  public newSnowDe = "";
+  public newSnowIt = "";
+  public newSnowEn = "";
+  public newSnowFr = "";
+  public windDriftedSnowTextcat = "";
+  public windDriftedSnowDe = "";
+  public windDriftedSnowIt = "";
+  public windDriftedSnowEn = "";
+  public windDriftedSnowFr = "";
+  public oldSnowTextcat = "";
+  public oldSnowDe = "";
+  public oldSnowIt = "";
+  public oldSnowEn = "";
+  public oldSnowFr = "";
+  public wetSnowTextcat = "";
+  public wetSnowDe = "";
+  public wetSnowIt = "";
+  public wetSnowEn = "";
+  public wetSnowFr = "";
+  public glidingSnowTextcat = "";
+  public glidingSnowDe = "";
+  public glidingSnowIt = "";
+  public glidingSnowEn = "";
+  public glidingSnowFr = "";
+
 
   constructor() {
   }

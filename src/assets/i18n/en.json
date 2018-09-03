@@ -75,7 +75,8 @@
 				"textcat" : {
 					"edit" : "Edit",
 					"copy" : "Copy",
-					"paste" : "Paste"
+					"paste" : "Paste",
+					"example" : "Load example text"
 				}
 			},
 			"button" : "Create",
@@ -174,6 +175,16 @@
 				"header" : "No elevation defined",
 				"message" : "Please specify an elevation for this region!",
 				"accept" : "Ok"
+			},
+			"loadAvActivityCommentExampleTextDialog" : {
+				"header" : "Load example text",
+				"message" : "For which situation do you want to load an example text?",
+				"newSnow" : "New snow",
+				"windDriftedSnow" : "Wind-drifted snow",
+				"oldSnow" : "Weak persistent layer",
+				"wetSnow" : "Wet snow",
+				"glidingSnow" : "Gliding snow",
+				"cancel" : "Cancel"
 			}
 		},
 		"table" : {
