@@ -234,7 +234,8 @@ export class BulletinsComponent {
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished
         ) && 
-        !this.copying)
+        !this.copying &&
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster))
       return true;
     else
       return false;
