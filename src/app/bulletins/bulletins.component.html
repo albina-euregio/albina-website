@@ -50,6 +50,8 @@
                   <button *ngIf="showEditButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="edit($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.edit' | translate }}"><i class="fa fa-pencil"></i></button>
                   <!-- update -->
                   <button *ngIf="showUpdateButton(date)" type="button" class="btn btn-danger btn-sm float-right" (click)="createUpdate($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.update' | translate }}"><i class="fa fa-plus"></i></button>
+                  <!-- check -->
+                  <button *ngIf="showCheckButton(date)" type="button" class="btn btn-primary btn-sm float-right" (click)="check($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.check' | translate }}"><i class="fa fa-check"></i></button>
                 </td>
               </tr>
             </tbody>

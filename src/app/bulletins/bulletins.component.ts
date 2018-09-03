@@ -14,6 +14,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ModalSubmitComponent } from './modal-submit.component';
 import { ModalPublishComponent } from './modal-publish.component';
+import { ModalCheckComponent } from './modal-check.component';
 
 @Component({
   templateUrl: 'bulletins.component.html'
@@ -40,6 +41,9 @@ export class BulletinsComponent {
 
   public submitBulletinsDuplicateRegionModalRef: BsModalRef;
   @ViewChild('submitBulletinsDuplicateRegionTemplate') submitBulletinsDuplicateRegionTemplate: TemplateRef<any>;
+
+  public checkBulletinsModalRef: BsModalRef;
+  @ViewChild('checkBulletinsTemplate') checkBulletinsTemplate: TemplateRef<any>;
 
   public checkBulletinsErrorModalRef: BsModalRef;
   @ViewChild('checkBulletinsErrorTemplate') checkBulletinsErrorTemplate: TemplateRef<any>;
@@ -159,7 +163,8 @@ export class BulletinsComponent {
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.draft || 
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.updated
         ) && 
-        !this.copying)
+        !this.copying &&
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster))
       return true;
     else
       return false;
@@ -173,7 +178,23 @@ export class BulletinsComponent {
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.resubmitted ||
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.submitted
         ) &&
-        !this.copying)
+        !this.copying &&
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster))
+      return true;
+    else
+      return false;
+  }
+
+  showCheckButton(date) {
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        /*!this.isPast(date) && */
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.draft || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.updated
+        ) && 
+        !this.copying &&
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForeman))
       return true;
     else
       return false;
@@ -436,6 +457,48 @@ export class BulletinsComponent {
     );
   }
 
+  check(event, date: Date) {
+    event.stopPropagation();
+
+    this.bulletinsService.checkBulletins(date, this.authenticationService.getActiveRegion()).subscribe(
+      data => {
+        let result = data.json();
+        let duplicateRegion = false;
+
+        let message = "<b>" + this.translateService.instant("bulletins.table.checkBulletinsDialog.message") + '</b><br><br>';
+
+        if (result.length == 0)
+          message += this.translateService.instant("bulletins.table.checkBulletinsDialog.ok");
+        else {
+          for (let entry of result) {
+            if (entry == 'duplicateRegion')
+              duplicateRegion = true;
+            if (entry == 'missingDangerRating')
+              message += this.translateService.instant("bulletins.table.checkBulletinsDialog.missingDangerRating") + '<br>';
+            if (entry == 'missingRegion')
+              message += this.translateService.instant("bulletins.table.checkBulletinsDialog.missingRegion") + '<br>';
+            if (entry == 'missingAvActivityHighlights')
+              message += this.translateService.instant("bulletins.table.checkBulletinsDialog.missingAvActivityHighlights") + '<br>';
+            if (entry == 'missingAvActivityComment')
+              message += this.translateService.instant("bulletins.table.checkBulletinsDialog.missingAvActivityComment") + '<br>';
+            if (entry == 'missingSnowpackStructureHighlights')
+              message += this.translateService.instant("bulletins.table.checkBulletinsDialog.missingSnowpackStructureHighlights") + '<br>';
+            if (entry == 'missingSnowpackStructureComment')
+              message += this.translateService.instant("bulletins.table.checkBulletinsDialog.missingSnowpackStructureComment") + '<br>';
+            if (entry == 'pendingSuggestions')
+              message += this.translateService.instant("bulletins.table.checkBulletinsDialog.pendingSuggestions");
+          }
+        }
+
+        this.openCheckBulletinsModal(this.checkBulletinsTemplate, message, date);
+      },
+      error => {
+        console.error("Bulletins could not be checked!");
+        this.openCheckBulletinsErrorModal(this.checkBulletinsErrorTemplate);
+      }
+    );
+  }
+
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) { 
     if (event.keyCode == 27 && this.copying) {
@@ -523,6 +586,23 @@ export class BulletinsComponent {
   submitBulletinsModalDecline(): void {
     this.submitBulletinsModalRef.hide();
     this.publishing = undefined;
+  }
+
+  openCheckBulletinsModal(template: TemplateRef<any>, message: string, date: Date) {
+    const initialState = {
+      text: message,
+      date: date,
+      component: this
+    };
+    this.checkBulletinsModalRef = this.modalService.show(ModalCheckComponent, {initialState});
+
+    this.modalService.onHide.subscribe((reason: string) => {
+      this.publishing = undefined;
+    })
+  }
+
+  checkBulletinsModalConfirm(): void {
+    this.checkBulletinsModalRef.hide();
   }
 
   openSubmitBulletinsDuplicateRegionModal(template: TemplateRef<any>) {

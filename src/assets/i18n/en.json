@@ -50,7 +50,8 @@
 			"caaml" : "Show CAAML",
 			"json" : "Show JSON",
 			"edit" : "Edit bulletin (will not be published again)",
-			"create" : "Create bulletin"
+			"create" : "Create bulletin",
+			"check" : "Check bulletin"
 		},
 		"create" : {
 			"tooltip" : {
@@ -259,6 +260,20 @@
 			"checkBulletinsErrorDialog" : {
 				"header" : "Error checking bulletins",
 				"message" : "There was an error checking the bulletins!",
+				"accept" : "Ok"
+			},
+			"checkBulletinsDialog" : {
+				"header" : "Check bulletin",
+				"message" : "Check bulletin",
+				"missingDangerRating" : "Danger rating not set",
+				"missingRegion" : "Regions not rated",
+				"duplicateRegion" : "Regions rated multiple times",
+				"missingAvActivityHighlights" : "Headline avalanche situation missing",
+				"missingAvActivityComment" : "Description of avalanche danger missing",
+				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
+				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
+				"pendingSuggestions" : "Pending suggestions",
+				"ok" : "(everything alright)",
 				"accept" : "Ok"
 			}
 		},

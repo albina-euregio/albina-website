@@ -50,7 +50,8 @@
 			"caaml" : "CAAML anzeigen",
 			"json" : "JSON anzeigen",
 			"edit" : "Lawinenvorhersage editieren (keine erneute Veröffentlichung)",
-			"create" : "Lawinenvorhersage erstellen"
+			"create" : "Lawinenvorhersage erstellen",
+			"check" : "Lawinenvorhersage prüfen"
 		},
 		"create" : {
 			"tooltip" : {
@@ -259,6 +260,20 @@
 			"checkBulletinsErrorDialog" : {
 				"header" : "Fehler beim Überprüfen",
 				"message" : "Beim Überprüfen der Lawinenvorhersage ist ein Fehler aufgetreten!",
+				"accept" : "Ok"
+			},
+			"checkBulletinsDialog" : {
+				"header" : "Lawinenvorhersage prüfen",
+				"message" : "Lawinenvorhersage prüfen",
+				"missingDangerRating" : "Gefahrenstufe nicht definiert",
+				"missingRegion" : "Regionen nicht beurteilt",
+				"duplicateRegion" : "Regionen mehrfach beurteilt",
+				"missingAvActivityHighlights" : "Schlagzeile der Lawinengefahr fehlt",
+				"missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
+				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
+				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
+				"pendingSuggestions" : "Unbeantwortete Vorschläge",
+				"ok" : "(alles ok)",
 				"accept" : "Ok"
 			}
 		},

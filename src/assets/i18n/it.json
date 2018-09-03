@@ -50,7 +50,8 @@
 			"caaml" : "Mostrare CAAML",
 			"json" : "Mostrare JSON",
 			"edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)",
-			"create" : "Creare bollettino valanghe"
+			"create" : "Creare bollettino valanghe",
+			"check" : "Controllare bollettino valanghe"
 		},
 		"create" : {
 			"tooltip" : {
@@ -233,7 +234,7 @@
 				"accept" : "Ok"
 			},
 			"submitBulletinsDialog" : {
-				"header" : "inviare bollettino valanghe",
+				"header" : "Inviare bollettino valanghe",
 				"message" : "Vuoi inviare il bollettino valanghe?",
 				"missingDangerRating" : "Grado di pericolo non definato",
 				"missingRegion" : "Micro-aree non valutate",
@@ -259,6 +260,20 @@
 			"checkBulletinsErrorDialog" : {
 				"header" : "Errore durante verifica",
 				"message" : "Errore verficando il bollettino valanghe!",
+				"accept" : "Ok"
+			},
+			"checkBulletinsDialog" : {
+				"header" : "Controllare bollettino valanghe",
+				"message" : "Controllare bollettino valanghe",
+				"missingDangerRating" : "Grado di pericolo non definato",
+				"missingRegion" : "Micro-aree non valutate",
+				"duplicateRegion" : "Micro-aree valutate più volte",
+				"missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
+				"missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
+				"missingSnowpackStructureHighlights" : "Manche il titolo della descrizione manto nevoso",
+				"missingSnowpackStructureComment" : "Manche la descrizione del manto nevoso",
+				"pendingSuggestions" : "Proposta non confermata",
+				"ok" : "(tutto va bene)",
 				"accept" : "Ok"
 			}
 		},
