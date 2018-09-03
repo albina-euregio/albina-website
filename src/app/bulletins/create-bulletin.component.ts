@@ -626,6 +626,7 @@ export class CreateBulletinComponent {
 
       bulletin.setAuthor(this.authenticationService.getAuthor());
       bulletin.setAdditionalAuthors(new Array<String>());
+      bulletin.addAdditionalAuthor(this.authenticationService.getAuthor().getName());
       bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
 
       // reset regions
@@ -730,6 +731,7 @@ export class CreateBulletinComponent {
   private createInitialAggregatedRegion() {
     let bulletin = new BulletinModel();
     bulletin.setAuthor(this.authenticationService.getAuthor());
+    bulletin.addAdditionalAuthor(this.authenticationService.getAuthor().getName());
     bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
     let regions = Object.assign([], this.constantsService.regions.get(this.authenticationService.getActiveRegion()));
     bulletin.setSavedRegions(regions);
@@ -754,6 +756,7 @@ export class CreateBulletinComponent {
         bulletin = new BulletinModel();
 
       bulletin.setAuthor(this.authenticationService.getAuthor());
+      bulletin.addAdditionalAuthor(this.authenticationService.getAuthor().getName());
       bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
 
       this.addBulletin(bulletin);
