@@ -71,6 +71,9 @@
 					"decreasing" : "Avalanche danger decreases",
 					"steady" : "Avalanche danger stays the same",
 					"increasing" : "Avalanche danger increases"
+				},
+				"textcat" : {
+					"edit" : "Edit"
 				}
 			},
 			"button" : "Create",

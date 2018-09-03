@@ -71,6 +71,9 @@
 					"decreasing" : "Pericolo valanghe in diminuazione",
 					"steady" : "Pericolo valanghe stabile",
 					"increasing" : "Pericolo valanghe in aumento"
+				},
+				"textcat" : {
+					"edit" : "Modifica"
 				}
 			},
 			"button" : "Creato",

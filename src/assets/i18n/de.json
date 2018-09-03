@@ -71,6 +71,9 @@
 					"decreasing" : "Lawinengefahr nimmt ab",
 					"steady" : "Lawinengefahr bleibt unverändert",
 					"increasing" : "Lawinengefahr steigt"
+				},
+				"textcat" : {
+					"edit" : "Bearbeiten"
 				}
 			},
 			"button" : "Neu",

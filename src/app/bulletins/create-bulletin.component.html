@@ -294,7 +294,7 @@
                 <div class="form-group row">
                   <div style="margin-bottom: 10px;" class="col-md-12">
                     <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
-                      <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeAvActivityHighlights', this.settingsService.getLangString(), this.activeAvActivityHighlightsTextcat)"><i class="fa fa-pencil"></i></button>
+                      <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeAvActivityHighlights', this.settingsService.getLangString(), this.activeAvActivityHighlightsTextcat)"><i class="fa fa-pencil"></i></button>
                   </div>
 
                   <div class="col-md-12">
@@ -333,7 +333,7 @@
                 <div class="form-group row" style="margin-bottom: 0">
                   <div style="margin-bottom: 10px;" class="col-md-12">
                     <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
-                    <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeAvActivityComment', this.settingsService.getLangString(), activeAvActivityCommentTextcat)"><i class="fa fa-pencil"></i></button>
+                    <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeAvActivityComment', this.settingsService.getLangString(), activeAvActivityCommentTextcat)"><i class="fa fa-pencil"></i></button>
                   </div>
 
                   <div class="col-md-12">
@@ -415,7 +415,7 @@
                 <div class="form-group row" style="margin-bottom: 0">
                   <div style="margin-bottom: 10px;" class="col-md-12">
                     <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
-                      <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeSnowpackStructureComment', this.settingsService.getLangString(), this.activeSnowpackStructureCommentTextcat)"><i class="fa fa-pencil"></i></button>
+                      <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeSnowpackStructureComment', this.settingsService.getLangString(), this.activeSnowpackStructureCommentTextcat)"><i class="fa fa-pencil"></i></button>
                   </div>
 
                   <div class="col-md-12">
@@ -490,7 +490,7 @@
                 <div class="form-group row" style="margin-bottom: 0">
                   <div style="margin-bottom: 10px;" class="col-md-12">
                     <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.tendencyComment" | translate }}</strong></label>
-                      <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title="Edit" (click)="openTextcat($event, 'activeTendencyComment', this.settingsService.getLangString(), this.activeTendencyCommentTextcat)"><i class="fa fa-pencil"></i></button>
+                      <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeTendencyComment', this.settingsService.getLangString(), this.activeTendencyCommentTextcat)"><i class="fa fa-pencil"></i></button>
                   </div>
 
                   <div class="col-md-12">
