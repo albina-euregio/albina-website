@@ -4,12 +4,12 @@ import { Injectable } from '@angular/core';
 export class ConstantsService {
 
   // Localhost
-  public serverUrl: string = 'http://localhost:8080/albina/api/';
-  public socketIOUrl: string = 'http://localhost:9092';
+  //public serverUrl: string = 'http://localhost:8080/albina/api/';
+  //public socketIOUrl: string = 'http://localhost:9092';
 
   // Development server
-  //public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
-  //public socketIOUrl: string = 'http://212.47.231.185:9092';
+  public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
+  public socketIOUrl: string = 'http://212.47.231.185:9092';
 
   // CentOS
   //public serverUrl: string = 'http://163.172.132.87:8080/albina/api/';
@@ -83,11 +83,11 @@ export class ConstantsService {
   public fillOpacityEditSelected = 0.5;
   public fillOpacityEditSuggested = 0.3;
 
-  public newSnowTextcat = "";
-  public newSnowDe = "";
-  public newSnowIt = "";
-  public newSnowEn = "";
-  public newSnowFr = "";
+  public newSnowTextcat = "13[9378[5862],11641,9413].13[9382[3741],11645[10214,5932[4170,3773]],9413].13[9367,11650[10215[9257,7593,825,12250],5932[4170,3773]],9413].92[2977[6242],3761,10399[3790],2798[7468,9568],12126[9570]].61[9516[12004],7703,9808,6621,11633,14841,7358,3736,9413].110[6144[10033,12054,10192],14928,8413[6754],7522,4185,5890,9413].8[796,7855,14189,477,9413].72[3674,4259]";
+  public newSnowDe = "Der Neuschnee der letzten zwei Tage bildet die Hauptgefahr. Er kann an allen Expositionen oberhalb der Waldgrenze leicht ausgelöst werden oder spontan abgleiten. Der Neuschnee kann besonders an den Expositionen West über Nord bis Süd oberhalb der Waldgrenze von einzelnen Wintersportlern ausgelöst werden. Bis am Morgen fallen verbreitet oberhalb von rund 1800 m 50 cm Schnee, lokal bis zu 70 cm. Vor allem in den Hauptniederschlagsgebieten sind mit der Intensivierung der Schneefälle zahlreiche mittlere und vereinzelt grosse Schneebrettlawinen zu erwarten. Mit Neuschnee und teils stürmischem Wind entstehen im Tagesverlauf an allen Expositionen teils grosse Triebschneeansammlungen. Die Verhältnisse abseits der Pisten sind gefährlich. Temporäre Sicherheitsmassnahmen können nötig werden.";
+  public newSnowIt = "La neve fresca degli ultimi due giorni rappresenta la principale fonte di pericolo. Essa può facilmente subire un distacco provocato o spontaneo a tutte le esposizioni al di sopra del limite del bosco. La neve fresca può subire un distacco in seguito al passaggio di un singolo appassionato di sport invernali soprattutto sui pendii esposti da ovest a nord sino a sud al di sopra del limite del bosco. In molte regioni sino al mattino cadranno 50 cm di neve al di sopra dei 1800 m circa, localmente sino a 70 cm. Con l'intensificarsi delle nevicate, soprattutto nelle regioni più colpite dalle precipitazioni sono previste numerose valanghe di neve a lastroni di medie e, a livello isolato, di grandi dimensioni. Con neve fresca e vento in parte tempestoso nel corso della giornata a tutte le esposizioni si formeranno accumuli di neve ventata in parte di grandi dimensioni. Le condizioni al di fuori delle piste sono pericolose. Misure temporanee di sicurezza potrebbero rendersi necessarie.";
+  public newSnowEn = "The fresh snow of the last two days represents the main danger. It can be released easily or naturally in all aspects above the tree line. The fresh snow can be released by a single winter sport participant especially on west to north to south facing aspects above the tree line. Over a wide area 50 cm of snow, and up to 70 cm in some localities, will fall until the early morning above approximately 1800 m. In particular in the regions exposed to heavier precipitation numerous medium-sized and, in isolated cases, large slab avalanches are to be expected as the snowfall becomes more intense. As a consequence of fresh snow and a sometimes storm force wind, sometimes large wind slabs will form as the day progresses in all aspects. The off-piste conditions are dangerous. Temporary safety measures may be necessary.";
+  public newSnowFr = "La neige fraîche des deux derniers jours constitue le danger principal. Elle peut facilement être déclenchée, ou glisser spontanément à toutes les expositions au-dessus de la limite de la forêt. La neige fraîche peut être déclenchée par un seul amateur de sports d'hiver particulièrement sur les pentes exposées à l'ouest à sud en passant par le nord au-dessus de la limite de la forêt. Jusqu'au matin il tombera en général au-dessus d'environ 1800 m 50 cm de neige, localement jusqu'à 70 cm. Avec l'intensification des chutes de neige de très nombreuses avalanches de plaque de neige de moyenne et rarement grande taille sont à attendre surtout dans les régions concernées par les précipitations principales. Des accumulations de neige soufflée en partie grandes se forment avec la neige fraîche et le vent partiellement tempétueux en cours de journée à toutes les expositions. Les conditions en dehors des pistes sont dangereuses. Des mesures de sécurité temporaires peuvent devenir nécessaires.";
   public windDriftedSnowTextcat = "";
   public windDriftedSnowDe = "";
   public windDriftedSnowIt = "";
