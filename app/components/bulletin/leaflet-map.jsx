@@ -2,6 +2,7 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import L from 'leaflet'
 require('leaflet-geonames')
+require('leaflet-gesture-handling')
 import 'leaflet-sleep'
 import { Map, TileLayer, ImageOverlay, LayersControl, ZoomControl } from 'react-leaflet'
 import { injectIntl } from 'react-intl'
@@ -10,6 +11,7 @@ import { tooltip_init } from '../../js/tooltip'
 import Base from './../../base'
 import AppStore from '../../appStore'
 
+require('leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css')
 require('./../../css/geonames.css')
 
 class LeafletMap extends React.Component {
@@ -46,6 +48,9 @@ class LeafletMap extends React.Component {
 
   componentDidMount () {
     this.map = this.refs.map.leafletElement
+
+    L.Util.setOptions(this.map, { gestureHandling: true })
+
     this.map.fitBounds(config.get('map.euregioBounds'))
     this.map.on('click', e => {
       L.DomEvent.stopPropagation(e)
@@ -154,6 +159,7 @@ class LeafletMap extends React.Component {
         style={this.mapStyle()}
         zoomControl={false}
         zoom={bulletinStore.getMapZoom}
+        gestureHandling
         center={bulletinStore.getMapCenter}
       >
         <ZoomControl
