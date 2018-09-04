@@ -11,14 +11,6 @@ export class ConstantsService {
   public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
   public socketIOUrl: string = 'http://212.47.231.185:9092';
 
-  // CentOS
-  //public serverUrl: string = 'http://163.172.132.87:8080/albina/api/';
-  //public socketIOUrl: string = 'http://163.172.132.87:9092';
-
-  // CLESIUS
-  //public serverUrl: string = 'http://192.168.30.189:8080/albina/api/';
-  //public socketIOUrl: string = 'http://192.168.30.189:9092';
-
   public textcatUrl: string = 'http://albina.clesius.it/textcat/c_pm.html';
 
   public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';
