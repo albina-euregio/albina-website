@@ -554,7 +554,7 @@ export class CreateBulletinComponent {
 
   onShowAfternoonMapChange(checked) {
     this.showAfternoonMap = checked;
-   this.setTexts();
+    this.setTexts();
 
     let bulletin = this.activeBulletin;
 
@@ -1438,7 +1438,6 @@ private setTexts() {
     this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
         let response = data.json();
-
         for (let jsonBulletin of response) {
           let bulletin = BulletinModel.createFromJson(jsonBulletin);
 
@@ -1591,6 +1590,7 @@ private setTexts() {
       default:
         break;
     }
+    this.setTexts();
     this.loadAvActivityCommentExampleTextModalRef.hide();
   }
 
