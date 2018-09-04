@@ -556,7 +556,7 @@ export class BulletinModel {
 		if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat != undefined)
 			json['avActivityHighlightsTextcat'] = this.avActivityHighlightsTextcat;
 
-		if (this.avActivityCommentTextcat && this.avActivityHighlightsTextcat != undefined)
+		if (this.avActivityCommentTextcat && this.avActivityCommentTextcat != undefined)
 			json['avActivityCommentTextcat'] = this.avActivityCommentTextcat;
 
 		if (this.snowpackStructureHighlightsTextcat && this.snowpackStructureHighlightsTextcat != undefined)
