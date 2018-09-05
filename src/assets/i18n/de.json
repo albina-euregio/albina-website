@@ -185,6 +185,7 @@
 				"oldSnow" : "Altschnee",
 				"wetSnow" : "Nassschnee",
 				"glidingSnow" : "Gleitschnee",
+				"favourableSituation" : "Günstige Situation",
 				"cancel" : "Abbrechen"
 			}
 		},

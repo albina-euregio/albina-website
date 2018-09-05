@@ -185,6 +185,7 @@
 				"oldSnow" : "Strati deboli persistenti",
 				"wetSnow" : "Neve bagnata",
 				"glidingSnow" : "Valanghe di slittamento",
+				"favourableSituation" : "Situazione favorevole",
 				"cancel" : "Stornare"
 			}
 		},
@@ -369,7 +370,7 @@
 		"oldSnow" : "Strati deboli persistenti",
 		"wetSnow" : "Neve bagnata",
 		"glidingSnow" : "Valanghe di slittamento",
-		"favourable_situation" : "Günstige Situation"
+		"favourable_situation" : "Situazione favorevole"
 	},
 	"dangerPattern" : {
 		"dp1" : "st1: la seconda nevicata",

@@ -1587,6 +1587,13 @@ private setTexts() {
         this.activeAvActivityCommentEn = this.constantsService.glidingSnowEn;
         this.activeAvActivityCommentFr = this.constantsService.glidingSnowFr;
         break;
+      case "favourableSituation":
+        this.activeAvActivityCommentTextcat = this.constantsService.favourableSituationTextcat;
+        this.activeAvActivityCommentDe = this.constantsService.favourableSituationDe;
+        this.activeAvActivityCommentIt = this.constantsService.favourableSituationIt;
+        this.activeAvActivityCommentEn = this.constantsService.favourableSituationEn;
+        this.activeAvActivityCommentFr = this.constantsService.favourableSituationFr;
+        break;
       default:
         break;
     }

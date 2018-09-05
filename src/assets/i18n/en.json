@@ -185,6 +185,7 @@
 				"oldSnow" : "Weak persistent layer",
 				"wetSnow" : "Wet snow",
 				"glidingSnow" : "Gliding snow",
+				"favourableSituation" : "Favourable situation",
 				"cancel" : "Cancel"
 			}
 		},
