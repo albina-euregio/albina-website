@@ -164,3 +164,8 @@ a.share-feed {
 .panel.warning-level-2 .bulletin-report-header h1 {
   margin-left: -2.5%;
 }
+
+/* Animation bei den Lawinenproblemen lässt kleinen blauen Strich an der Oberkannte der Logos erkennen */
+.section-bulletin-legend .list-avalanche-problems-filter img {
+  background: none !important;
+}
