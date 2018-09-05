@@ -42,7 +42,7 @@
   "links": {
     "interreg": "http://www.europaregion.info/",
     "meteoViewer": "https://data1.geo.univie.ac.at/sandbox/meteo_viewer?config=albina",
-    "meteoViewerConfig": "https://data1.geo.univie.ac.at/sandbox/meteo_viewer/data/domains.json",
+    "meteoViewerConfig": "https://data1.geo.univie.ac.at/sandbox/meteo_viewer/data/albina_domains.json",
     "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
     "downloads": {
       "pdf": "https://example.com/{date}.pdf",
