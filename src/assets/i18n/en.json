@@ -182,7 +182,7 @@
 				"message" : "For which situation do you want to load an example text?",
 				"newSnow" : "New snow",
 				"windDriftedSnow" : "Wind-drifted snow",
-				"oldSnow" : "Weak persistent layer",
+				"oldSnow" : "Persistent weak layers",
 				"wetSnow" : "Wet snow",
 				"glidingSnow" : "Gliding snow",
 				"favourableSituation" : "Favourable situation",
@@ -367,7 +367,7 @@
 	"avalancheProblem" : {
 		"newSnow" : "New snow",
 		"windDriftedSnow" : "Wind-drifted snow",
-		"oldSnow" : "Old snow",
+		"oldSnow" : "Persistent weak layers",
 		"wetSnow" : "Wet snow",
 		"glidingSnow" : "Gliding snow"
 	},
