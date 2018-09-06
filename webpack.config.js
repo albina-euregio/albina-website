@@ -39,16 +39,16 @@ module.exports = (env, argv) => {
           ]
         },
         {
-          test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader']
-        },
-        {
           test: /\.scss$/,
           loaders: [
             'style-loader',
             { loader: 'css-loader', options: { importLoaders: 1 } },
             'sass-loader'
           ]
+        },
+        {
+          test: /\.css$/,
+          use: [MiniCssExtractPlugin.loader, 'css-loader']
         },
         {
           test: /\.(jpe?g|png|gif|svg|eot|ttf|svg|woff|woff2|ico)$/i,
