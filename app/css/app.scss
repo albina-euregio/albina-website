@@ -26,6 +26,12 @@ iframe#stationTable {
   position: relative;
   z-index: 50;
   overflow: visible;
+
+  @media only screen and (max-width: 57.5em) {
+    section.section-centered {
+      padding-left: 1.25rem;
+    }
+  }
 }
 
 .page-footer {
@@ -117,15 +123,27 @@ iframe#stationTable {
   display: block;
   text-indent: 0;
 }
-.section-map .leaflet-control-container .leaflet-control-zoom a:hover {
+.section-map
+  .leaflet-control-container
+  .leaflet-control-zoom
+  a:hover {
   background: #19abff;
   color: #fff;
 }
-.section-map .leaflet-control-container .leaflet-control-zoom a:not(first-child) {
+.section-map
+  .leaflet-control-container
+  .leaflet-control-zoom
+  a:not(first-child) {
   margin-top: 0.625rem;
 }
-.section-map .leaflet-control-container .leaflet-control-zoom a.leaflet-disabled,
-.section-map .leaflet-control-container .leaflet-control-zoom a.leaflet-disabled:hover {
+.section-map
+  .leaflet-control-container
+  .leaflet-control-zoom
+  a.leaflet-disabled,
+.section-map
+  .leaflet-control-container
+  .leaflet-control-zoom
+  a.leaflet-disabled:hover {
   color: #ccc;
   background: rgba(245, 245, 245, 0.95);
 }
