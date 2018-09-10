@@ -1,44 +1,32 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 import L from 'leaflet'
-require('leaflet-geonames')
-require('leaflet-gesture-handling')
-import 'leaflet-sleep'
-import { Map, TileLayer, ImageOverlay, LayersControl, ZoomControl } from 'react-leaflet'
+import {
+  Map,
+  TileLayer,
+  ImageOverlay,
+  LayersControl,
+  ZoomControl
+} from 'react-leaflet'
 import { injectIntl } from 'react-intl'
 import BulletinVectorLayer from './bulletin-vector-layer'
 import { tooltip_init } from '../../js/tooltip'
 import Base from './../../base'
 import AppStore from '../../appStore'
 
+import 'leaflet-sleep'
+require('leaflet-geonames')
+require('leaflet-gesture-handling')
 require('leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css')
 require('./../../css/geonames.css')
 
 class LeafletMap extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.map = false
-    this.sleepProps = {
-      // false if you want an unruly map
-      sleep: false,
-      // time(ms) until map sleeps on mouseout
-      sleepTime: 750,
-      // time(ms) until map wakes on mouseover
-      wakeTime: 750,
-      // should the user receive wake instructions?
-      sleepNote: true,
-      // should hovering wake the map? (non-touch devices only)
-      hoverToWake: true,
-      // a message to inform users about waking the map
-      wakeMessage: 'Click or Hover to Wake up the map',
-      // a constructor for a control button
-      sleepButton: L.Control.sleepMapControl,
-      // opacity for the sleeping map
-      sleepOpacity: 0.7
-    }
   }
 
-  mapStyle () {
+  mapStyle() {
     return {
       width: '100%',
       height: '100%',
@@ -46,7 +34,7 @@ class LeafletMap extends React.Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.map = this.refs.map.leafletElement
 
     L.Util.setOptions(this.map, { gestureHandling: true })
@@ -97,7 +85,7 @@ class LeafletMap extends React.Component {
     })
   }
 
-  get tileLayers () {
+  get tileLayers() {
     const tileLayerConfig = config.get('map.tileLayers')
     let tileLayers = ''
     if (tileLayerConfig.length == 1) {
@@ -122,10 +110,12 @@ class LeafletMap extends React.Component {
     return tileLayers
   }
 
-  get mapOverlays () {
+  get mapOverlays() {
     const b = bulletinStore.activeBulletinCollection
     if (b) {
-      const daytime = b.hasDaytimeDependency() ? bulletinStore.settings.ampm : 'fd'
+      const daytime = b.hasDaytimeDependency()
+        ? bulletinStore.settings.ampm
+        : 'fd'
 
       const url =
         config.get('apis.geo') +
@@ -146,14 +136,15 @@ class LeafletMap extends React.Component {
     return null
   }
 
-  render () {
+  render() {
     const mapProps = config.get('map.initOptions')
     return (
       <Map
-        onViewportChanged={this.props.mapViewportChanged.bind(this.map)}
+        onViewportChanged={this.props.mapViewportChanged.bind(
+          this.map
+        )}
         useFlyTo
-        ref='map'
-        {...this.sleepProps}
+        ref="map"
         {...mapProps}
         dragging={!L.Browser.mobile}
         style={this.mapStyle()}
@@ -163,7 +154,7 @@ class LeafletMap extends React.Component {
         center={bulletinStore.getMapCenter}
       >
         <ZoomControl
-          position='topleft'
+          position="topleft"
           zoomInTitle={this.props.intl.formatMessage({
             id: 'bulletin:map:zoom-in:hover'
           })}
@@ -173,13 +164,14 @@ class LeafletMap extends React.Component {
         />
         {this.tileLayers}
         {this.mapOverlays}
-        {this.props.vectorRegions &&
+        {this.props.vectorRegions && (
           <BulletinVectorLayer
             store={bulletinStore}
             regions={this.props.vectorRegions}
             handleHighlightFeature={this.props.handleHighlightFeature}
             handleSelectFeature={this.props.handleSelectFeature}
-          />}
+          />
+        )}
       </Map>
     )
   }
