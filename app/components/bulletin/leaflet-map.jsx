@@ -14,7 +14,6 @@ import { tooltip_init } from '../../js/tooltip'
 import Base from './../../base'
 import AppStore from '../../appStore'
 
-import 'leaflet-sleep'
 require('leaflet-geonames')
 require('leaflet-gesture-handling')
 require('leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css')
@@ -46,26 +45,24 @@ class LeafletMap extends React.Component {
     })
 
     window.setTimeout(() => {
-      L.control
-        .geonames({
-          geonamesURL: '//api.geonames.org/searchJSON', // override this if using a proxy to get connection to geonames
-          username: 'adammertel', // Geonames account username.  Must be provided
-          zoomLevel: null, // Max zoom level to zoom to for location.  If null, will use the map's max zoom level.
-          maxresults: 5, // Maximum number of results to display per search
-          className: 'tooltip leaflet-geonames-icon', // class for icon
-          workingClass: 'leaflet-geonames-icon-working', // class for search underway
-          featureClasses: ['A', 'H', 'L', 'P', 'R', 'T', 'U', 'V'], // feature classes to search against.  See: http://www.geonames.org/export/codes.html
-          baseQuery: 'isNameRequired=true', // The core query sent to GeoNames, later combined with other parameters above
-          position: 'topleft',
-          showMarker: true, // Show a marker at the location the selected location
-          showPopup: true, // Show a tooltip at the selected location
-          lang: AppStore.language, // language for results
-          bbox: { east: 17, west: 5, north: 50, south: 44 }, // bounding box filter for results (e.g., map extent).  Values can be an object with east, west, north, south, or a function that returns that object.
-          alwaysOpen: false, // if true, search field is always visible
-          enablePostalCodes: false // if true, use postalCodesRegex to test user provided string for a postal code.  If matches, then search against postal codes API instead.
-        })
-        .addTo(this.map)
-    }, 0)
+      const geonamesOptions = Object.assign(
+        {},
+        {
+          lang: appStore.language,
+          bbox: { east: 17, west: 5, north: 50, south: 44 },
+          title: this.props.intl.formatMessage({
+            id: 'bulletin:map:search'
+          }),
+          placeholder: this.props.intl.formatMessage({
+            id: 'bulletin:map:search:hover'
+          })
+        },
+        config.get('map.geonames')
+      )
+      L.control.geonames(geonamesOptions).addTo(this.map)
+    }, 50)
+
+    console.log(appStore.language)
 
     window.setTimeout(() => {
       $('.leaflet-control-zoom a').addClass('tooltip')

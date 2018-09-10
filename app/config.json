@@ -152,6 +152,21 @@
         "attribution": "&copy; Universität Wien"
       }
     ],
+    "geonames": {
+      "geonamesURL": "//api.geonames.org/searchJSON",
+      "username": "adammertel",
+      "zoomLevel": null,
+      "maxresults": 5,
+      "className": "tooltip leaflet-geonames-icon",
+      "workingClass": "leaflet-geonames-icon-working",
+      "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
+      "baseQuery": "isNameRequired=true",
+      "position": "topleft",
+      "showMarker": true,
+      "showPopup": true,
+      "alwaysOpen": false,
+      "enablePostalCodes": false
+    },
     "regionStyling": {
       "all": {
         "color": "#aaaaaa",
