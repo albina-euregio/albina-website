@@ -20,6 +20,7 @@ export class AdminComponent {
 
   public createMaps: boolean;
   public createPdf: boolean;
+  public createStaticWidget: boolean;
   public sendEmails: boolean;
   public publishToSocialMedia: boolean;
   public publishAt5PM: boolean;
@@ -56,6 +57,7 @@ export class AdminComponent {
           let response = data.json();
           this.createMaps = response.createMaps;
           this.createPdf = response.createPdf;
+          this.createStaticWidget = response.createStaticWidget;
           this.sendEmails = response.sendEmails;
           this.publishToSocialMedia = response.publishToSocialMedia;
           this.publishAt5PM = response.publishAt5PM;
@@ -102,6 +104,7 @@ export class AdminComponent {
     var json = Object();
     json['createMaps'] = this.createMaps;
     json['createPdf'] = this.createPdf;
+    json['createStaticWidget'] = this.createStaticWidget;
     json['sendEmails'] = this.sendEmails;
     json['publishToSocialMedia'] = this.publishToSocialMedia;
     json['publishAt5PM'] = this.publishAt5PM;

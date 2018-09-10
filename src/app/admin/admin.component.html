@@ -40,6 +40,17 @@
               </tr>
               <tr>
                 <td>
+                  <label class="col-form-label">{{ "admin.config.table.createStaticWidget" | translate }}</label>
+                </td>
+                <td>
+                  <label class="switch switch-primary">
+                    <input type="checkbox" class="switch-input" [(ngModel)]="createStaticWidget">
+                    <span class="switch-slider"></span>
+                  </label>
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <label class="col-form-label">{{ "admin.config.table.sendEmails" | translate }}</label>
                 </td>
                 <td>

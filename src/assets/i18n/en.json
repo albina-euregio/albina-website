@@ -315,6 +315,7 @@
 				},
 				"createMaps" : "Create maps",
 				"createPdf" : "Create PDF",
+				"createStaticWidget" : "Create static widgets",
 				"sendEmails" : "Send emails",
 				"publishToSocialMedia" : "Publish on social media",
 				"publishAt5PM" : "Publish at 5PM",

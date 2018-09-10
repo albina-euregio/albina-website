@@ -315,6 +315,7 @@
 				},
 				"createMaps" : "Karten erzeugen",
 				"createPdf" : "PDF erzeugen",
+				"createStaticWidget" : "Statische Widgets erzeugen",
 				"sendEmails" : "Emails versenden",
 				"publishToSocialMedia" : "Publizieren auf sozialen Netzwerken",
 				"publishAt5PM" : "Publizieren um 17:00 Uhr",
