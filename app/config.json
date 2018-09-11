@@ -41,8 +41,8 @@
   },
   "links": {
     "interreg": "http://www.europaregion.info/",
-    "meteoViewer": "https://data1.geo.univie.ac.at/daten1/projects/meteoviewer?config=albina",
-    "meteoViewerConfig": "https://data1.geo.univie.ac.at/daten1/projects/meteoviewer/data/albina_domains.json",
+    "meteoViewer": "https://data1.geo.univie.ac.at/projects/meteoviewer?config=albina",
+    "meteoViewerConfig": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
     "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
     "downloads": {
       "pdf": "https://example.com/{date}.pdf",
