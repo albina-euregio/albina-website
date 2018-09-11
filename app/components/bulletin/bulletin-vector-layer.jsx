@@ -34,6 +34,7 @@ export default class BulletinVectorLayer extends React.Component {
   handleClickRegion (bid, state, e) {
     L.DomEvent.stopPropagation(e)
     if (state !== 'hidden') {
+      bulletinStore.
       this.props.handleSelectFeature(bid)
     }
   }
