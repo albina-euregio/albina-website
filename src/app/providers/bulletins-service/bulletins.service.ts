@@ -182,7 +182,7 @@ export class BulletinsService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 
   getPublicationStatus(region: string, startDate: Date, endDate: Date) : Observable<Response> {
@@ -194,7 +194,7 @@ export class BulletinsService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 
   loadBulletins(date: Date, regions?: String[]) : Observable<Response> {
@@ -210,7 +210,7 @@ export class BulletinsService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 
   loadCaamlBulletins(date: Date) : Observable<Response> {
@@ -222,7 +222,7 @@ export class BulletinsService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
  
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 
   loadJsonBulletins(date: Date) : Observable<Response> {
@@ -234,7 +234,7 @@ export class BulletinsService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
  
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 
   saveBulletins(bulletins, date) : Observable<Response> {
@@ -252,7 +252,7 @@ export class BulletinsService {
     console.log(body);
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(url, body, options);
+    return this.http.post(encodeURI(url), body, options);
   }
 
   changeBulletins(bulletins, date) : Observable<Response> {
@@ -270,7 +270,7 @@ export class BulletinsService {
     console.log(body);
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(url, body, options);
+    return this.http.post(encodeURI(url), body, options);
   }
 
   submitBulletins(date: Date, region: string) : Observable<Response> {
@@ -283,7 +283,7 @@ export class BulletinsService {
     let body = JSON.stringify("");
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(url, body, options);
+    return this.http.post(encodeURI(url), body, options);
   }
 
   publishBulletins(date: Date, region: string) : Observable<Response> {
@@ -296,7 +296,7 @@ export class BulletinsService {
     let body = JSON.stringify("");
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(url, body, options);
+    return this.http.post(encodeURI(url), body, options);
   }
 
   checkBulletins(date: Date, region: string) : Observable<Response> {
@@ -308,7 +308,7 @@ export class BulletinsService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 
   getLockedRegions(region: string) : Observable<Response> {
@@ -320,7 +320,7 @@ export class BulletinsService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 
 /*
@@ -333,7 +333,7 @@ export class BulletinsService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 */
 

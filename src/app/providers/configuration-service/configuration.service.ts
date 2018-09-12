@@ -23,7 +23,7 @@ export class ConfigurationService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 
   public saveConfigurationProperties(json) {
@@ -36,6 +36,6 @@ export class ConfigurationService {
     let body = JSON.stringify(json);
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post(url, body, options);
+    return this.http.post(encodeURI(url), body, options);
   }
 }

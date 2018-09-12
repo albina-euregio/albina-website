@@ -172,7 +172,7 @@ export class ChatService {
       'Accept': 'application/json',
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 
   getActiveUsers() : Observable<Response> {
@@ -183,7 +183,7 @@ export class ChatService {
       'Accept': 'application/json',
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
-    return this.http.get(url, options);
+    return this.http.get(encodeURI(url), options);
   }
 
   getNumberOfActiveUsersForRegion(region?: string) {
