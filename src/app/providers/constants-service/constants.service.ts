@@ -5,17 +5,19 @@ export class ConstantsService {
 
   // Localhost
   //public serverUrl: string = 'http://localhost:8080/albina/api/';
-  //public socketIOUrl: string = 'http://localhost:9092';
+  //public socketIOUrl: string = 'localhost:9092';
+  //public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
 
   // Development server
   //public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
   //public socketIOUrl: string = 'http://212.47.231.185:9092';
-
+  //public textcatUrl: string = 'http://albina.clesius.it/textcat/c_pm.html';
+  
+  // TODO change for production
   // Production server
-  public serverUrl: string = 'https://admin.avalanche.report/albina/api/';
-  public socketIOUrl: string = 'https://admin.avalanche.report:9092';
-
-  public textcatUrl: string = 'http://albina.clesius.it/textcat/c_pm.html';
+  public serverUrl: string = 'https://api.avalanche.report/albina/api/';
+  public socketIOUrl: string = 'localhost:9092';
+  public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
 
   public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';
   public natlefsServerUrl: string = 'https://natlefs.snowobserver.com/snowobserver/api/';
@@ -31,7 +33,7 @@ export class ConstantsService {
   public roleForecaster: string = 'FORECASTER';
   public roleForeman: string = 'FOREMAN';
   public roleObserver: string = 'OBSERVER';
-    
+
   public lat: Map<String, number> = new Map([["", 47.10], [this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05], [this.codeStyria, 47.26]])
   public lng: Map<String, number> = new Map([["", 11.44], [this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07], [this.codeStyria, 14.94]])
 
