@@ -328,9 +328,14 @@
 				"publishBulletinsStyria" : "Lawinenvorhersage für die Steiermark publizieren",
 				"pdfDirectory" : "Ordner für PDF",
 				"serverImagesUrl" : "Pfad zu Bildern am Server",
+				"serverImagesUrlLocalhost" : "Pfad zu Bildern am Server (localhost)",
 				"mapsPath" : "Pfad zu Karten",
 				"emailUsername" : "Benutzername für Email",
-				"emailPassword" : "Passwort für Email"
+				"emailPassword" : "Passwort für Email",
+				"smtpAuth" : "SMTP Auth",
+				"smtpTls" : "SMTP TLS",
+				"smtpHost" : "SMTP Host",
+				"smtpPort" : "SMTP Port"
 			},
 			"button" : {
 				"save" : "Speichern",

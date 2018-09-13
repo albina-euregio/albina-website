@@ -33,7 +33,12 @@ export class AdminComponent {
   public publishBulletinsStyria: boolean;
   public pdfDirectory: string;
   public serverImagesUrl: string;
+  public serverImagesUrlLocalhost: string;
   public mapsPath: string;
+  public smtpAuth: boolean;
+  public smtpTls: boolean;
+  public smtpHost: string;
+  public smtpPort: string;
   public emailUsername: string;
   public emailPassword: string;
 
@@ -70,7 +75,12 @@ export class AdminComponent {
           this.publishBulletinsStyria = response.publishBulletinsStyria;
           this.pdfDirectory = response.pdfDirectory;
           this.serverImagesUrl = response.serverImagesUrl;
+          this.serverImagesUrlLocalhost = response.serverImagesUrlLocalhost;
           this.mapsPath = response.mapsPath;
+          this.smtpAuth = response.smtpAuth;
+          this.smtpTls = response.smtpTls;
+          this.smtpHost = response.smtpHost;
+          this.smtpPort = response.smtpPort;
           this.emailUsername = response.emailUsername;
           this.emailPassword = response.emailPassword;
           this.configurationPropertiesLoaded = true;
@@ -117,7 +127,12 @@ export class AdminComponent {
     json['publishBulletinsStyria'] = this.publishBulletinsStyria;
     json['pdfDirectory'] = this.pdfDirectory;
     json['serverImagesUrl'] = this.serverImagesUrl;
+    json['serverImagesUrlLocalhost'] = this.serverImagesUrlLocalhost;
     json['mapsPath'] = this.mapsPath;
+    json['smtpAuth'] = this.smtpAuth;
+    json['smtpTls'] = this.smtpTls;
+    json['smtpHost'] = this.smtpHost;
+    json['smtpPort'] = this.smtpPort;
     json['emailUsername'] = this.emailUsername;
     json['emailPassword'] = this.emailPassword;
     json['configurationPropertiesLoaded'] = this.configurationPropertiesLoaded;

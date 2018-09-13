@@ -328,9 +328,14 @@
 				"publishBulletinsStyria" : "Pubblicare bollettino valanghe per la Stiria",
 				"pdfDirectory" : "Cartella per pdf",
 				"serverImagesUrl" : "Percorso alle immagini sul server",
+				"serverImagesUrlLocalhost" : "Percorso alle immagini sul server (localhost)",
 				"mapsPath" : "Percorso verso le mappe",
 				"emailUsername" : "Nome utente per e-mail",
-				"emailPassword" : "Password per e-mail"
+				"emailPassword" : "Password per e-mail",
+				"smtpAuth" : "SMTP Auth",
+				"smtpTls" : "SMTP TLS",
+				"smtpHost" : "SMTP Host",
+				"smtpPort" : "SMTP Port"
 			},
 			"button" : {
 				"save" : "Salva",
