@@ -41,6 +41,8 @@ export class AdminComponent {
   public smtpPort: string;
   public emailUsername: string;
   public emailPassword: string;
+  public socketIoOrigin: string;
+  public socketIoPort: number;
 
   constructor(
     private translate: TranslateService,
@@ -83,6 +85,8 @@ export class AdminComponent {
           this.smtpPort = response.smtpPort;
           this.emailUsername = response.emailUsername;
           this.emailPassword = response.emailPassword;
+          this.socketIoOrigin = response.socketIoOrigin;
+          this.socketIoPort = response.socketIoPort;
           this.configurationPropertiesLoaded = true;
         },
         error => {
@@ -135,6 +139,8 @@ export class AdminComponent {
     json['smtpPort'] = this.smtpPort;
     json['emailUsername'] = this.emailUsername;
     json['emailPassword'] = this.emailPassword;
+    json['socketIoOrigin'] = this.socketIoOrigin;
+    json['socketIoPort'] = this.socketIoPort;
     json['configurationPropertiesLoaded'] = this.configurationPropertiesLoaded;
 
     this.configurationService.saveConfigurationProperties(json).subscribe(

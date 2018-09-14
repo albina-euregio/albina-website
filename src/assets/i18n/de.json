@@ -335,7 +335,9 @@
 				"smtpAuth" : "SMTP Auth",
 				"smtpTls" : "SMTP TLS",
 				"smtpHost" : "SMTP Host",
-				"smtpPort" : "SMTP Port"
+				"smtpPort" : "SMTP Port",
+				"socketIoOrigin" : "SocketIO origin",
+				"socketIoPort" : "SocketIo port"
 			},
 			"button" : {
 				"save" : "Speichern",
