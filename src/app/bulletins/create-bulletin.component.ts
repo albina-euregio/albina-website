@@ -1367,7 +1367,8 @@ private setTexts() {
     this.loadModalRef = this.modalService.show(template, this.config);
   }
 
-  loadModalConfirm(): void {
+  loadModalConfirm(event): void {
+    event.currentTarget.setAttribute('disabled', true);
     this.loadModalRef.hide();
     this.loading = true;
 
@@ -1402,7 +1403,8 @@ private setTexts() {
     );
   }
  
-  loadModalDecline(): void {
+  loadModalDecline(event): void {
+    event.currentTarget.setAttribute('disabled', true);
     this.loadModalRef.hide();
   }
 
@@ -1410,12 +1412,14 @@ private setTexts() {
     this.loadAutoSaveModalRef = this.modalService.show(template, this.config);
   }
 
-  loadAutoSaveModalConfirm(): void {
+  loadAutoSaveModalConfirm(event): void {
+    event.currentTarget.setAttribute('disabled', true);
     this.loadAutoSaveModalRef.hide();
     this.loadBulletinsFromLocalStorage();
   }
  
-  loadAutoSaveModalDecline(): void {
+  loadAutoSaveModalDecline(event): void {
+    event.currentTarget.setAttribute('disabled', true);
     this.loadAutoSaveModalRef.hide();
     this.loadBulletinsFromServer();
   }

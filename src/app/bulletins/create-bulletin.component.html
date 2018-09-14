@@ -564,8 +564,8 @@
 <ng-template #loadTemplate>
   <div class="modal-body text-center">
     <p>{{ "bulletins.create.loadDialog.message" | translate }}</p>
-    <button type="button" class="btn btn-primary" (click)="loadModalConfirm()">{{ "bulletins.create.loadDialog.accept" | translate }}</button>
-    <button type="button" class="btn btn-default" (click)="loadModalDecline()">{{ "bulletins.create.loadDialog.reject" | translate }}</button>
+    <button type="button" class="btn btn-primary" (click)="loadModalConfirm($event)">{{ "bulletins.create.loadDialog.accept" | translate }}</button>
+    <button type="button" class="btn btn-default" (click)="loadModalDecline($event)">{{ "bulletins.create.loadDialog.reject" | translate }}</button>
   </div>
 </ng-template>
 
@@ -595,8 +595,8 @@
 <ng-template #loadAutoSaveTemplate>
   <div class="modal-body text-center">
     <p>{{ "bulletins.create.loadAutoSaveDialog.message" | translate }}</p>
-    <button type="button" class="btn btn-primary" (click)="loadAutoSaveModalConfirm()">{{ "bulletins.create.loadAutoSaveDialog.accept" | translate }}</button>
-    <button type="button" class="btn btn-default" (click)="loadAutoSaveModalDecline()">{{ "bulletins.create.loadAutoSaveDialog.reject" | translate }}</button>
+    <button [disabled]="loadingModal" type="button" class="btn btn-primary" (click)="loadAutoSaveModalConfirm($event)">{{ "bulletins.create.loadAutoSaveDialog.accept" | translate }}</button>
+    <button [disabled]="loadingModal" type="button" class="btn btn-default" (click)="loadAutoSaveModalDecline($event)">{{ "bulletins.create.loadAutoSaveDialog.reject" | translate }}</button>
   </div>
 </ng-template>
 
