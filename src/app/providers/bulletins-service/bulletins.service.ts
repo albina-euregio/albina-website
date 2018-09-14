@@ -248,8 +248,6 @@ export class BulletinsService {
     for (var i = bulletins.length - 1; i >= 0; i--)
       jsonBulletins.push(bulletins[i].toJson());
     let body = JSON.stringify(jsonBulletins);
-    console.log("SAVE bulletins:");
-    console.log(body);
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(encodeURI(url), body, options);
@@ -266,8 +264,6 @@ export class BulletinsService {
     for (var i = bulletins.length - 1; i >= 0; i--)
       jsonBulletins.push(bulletins[i].toJson());
     let body = JSON.stringify(jsonBulletins);
-    console.log("SAVE bulletins:");
-    console.log(body);
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(encodeURI(url), body, options);
