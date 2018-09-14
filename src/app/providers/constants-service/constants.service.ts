@@ -13,10 +13,9 @@ export class ConstantsService {
   //public socketIOUrl: string = 'http://212.47.231.185:9092';
   //public textcatUrl: string = 'http://albina.clesius.it/textcat/c_pm.html';
   
-  // TODO change for production
   // Production server
-  public serverUrl: string = 'https://api.avalanche.report/albina/api/';
-  public socketIOUrl: string = 'localhost:9092';
+  public serverUrl: string = 'https://admin.avalanche.report/albina/api/';
+  public socketIOUrl: string = 'https://socket.avalanche.report';
   public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
 
   public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';
