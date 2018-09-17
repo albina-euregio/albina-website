@@ -375,7 +375,10 @@ class BulletinStore {
   }
 
   _loadBulletinData (date) {
-    const dateParam = encodeURIComponent(date + 'T00:00:00+02:00')
+    
+    // zulu time
+    const dateParam = encodeURIComponent(date + 'T00:00:00Z')
+    //const dateParam = encodeURIComponent(date + 'T00:00:00+02:00')
     const url = config.get('apis.bulletin') + '?date=' + dateParam
 
     return Base.doRequest(url).then(

@@ -152,16 +152,19 @@ export default class ArchiveStore {
   _loadBulletinStatus(startDate, endDate = '', region = 'IT-32-BZ') {
     this.loading = true;
 
-    const startDateParam = encodeURIComponent(startDate + 'T00:00:00+02:00');
-    const endDateParam = endDate ? encodeURIComponent(endDate + 'T00:00:00+02:00') : startDateParam;
+    // zulu time
+    const timeFormatStart = 'T00:00:00Z' //'T00:00:00+02:00'
+    const timeFormatEnd = 'T23:59:00Z' //'T00:00:00+02:00'
+
+    const startDateParam = encodeURIComponent(startDate + timeFormatStart);
+    const endDateParam = endDate ? encodeURIComponent(endDate + timeFormatEnd) : startDateParam;
 
     const url =
       config.get('apis.bulletin') +
       '/status?startDate=' +
       startDateParam +
       '&endDate=' +
-      endDateParam +
-      (region ? ('&region=' + region) : '');
+      endDateParam
 
     return Base.doRequest(url).then(
       // query status data
