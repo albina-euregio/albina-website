@@ -41,7 +41,7 @@ class LeafletMap extends React.Component {
     this.map.fitBounds(config.get('map.euregioBounds'))
     this.map.on('click', e => {
       L.DomEvent.stopPropagation(e)
-      this.props.handleSelectFeature(null)
+      this.props.handleSelectRegion(null)
     })
 
     window.setTimeout(() => {
@@ -165,8 +165,8 @@ class LeafletMap extends React.Component {
           <BulletinVectorLayer
             store={bulletinStore}
             regions={this.props.vectorRegions}
-            handleHighlightFeature={this.props.handleHighlightFeature}
-            handleSelectFeature={this.props.handleSelectFeature}
+            handleHighlightRegion={this.props.handleHighlightRegion}
+            handleSelectRegion={this.props.handleSelectRegion}
           />
         )}
       </Map>

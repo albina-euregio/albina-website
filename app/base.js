@@ -1,23 +1,23 @@
 var Base = {
-  makeUrl (baseUrl, params = {}) {
+  makeUrl(baseUrl, params = {}) {
     return (
       baseUrl +
       (Object.keys(params).length > 0
         ? '?' +
-            Object.keys(params)
-              .map(k => {
-                return k + '=' + encodeURIComponent(params[k])
-              })
-              .join('&')
+          Object.keys(params)
+            .map(k => {
+              return k + '=' + encodeURIComponent(params[k])
+            })
+            .join('&')
         : '')
     )
   },
 
-  doRequest (url, type = 'json') {
-    return new Promise(function (resolve, reject) {
+  doRequest(url, type = 'json') {
+    return new Promise(function(resolve, reject) {
       console.log('request: ' + url)
       let xhr = new XMLHttpRequest()
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
           if (xhr.status == 200) {
             resolve(xhr.responseText)
@@ -44,11 +44,11 @@ var Base = {
     })
   },
 
-  doPost (url, payload, type = 'json') {
-    return new Promise(function (resolve, reject) {
+  doPost(url, payload, type = 'json') {
+    return new Promise(function(resolve, reject) {
       console.log('post: ' + url + ' ' + JSON.stringify(payload))
       let xhr = new XMLHttpRequest()
-      xhr.onreadystatechange = function () {
+      xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
           if (xhr.status == 200) {
             resolve(xhr.responseText)
@@ -62,7 +62,10 @@ var Base = {
       // set content type
       switch (type) {
         case 'json':
-          xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+          xhr.setRequestHeader(
+            'Content-Type',
+            'application/json;charset=UTF-8'
+          )
           xhr.setRequestHeader(
             'Accept',
             'application/json,application/vnd.application+json,application/vnd.api+json'
@@ -76,17 +79,30 @@ var Base = {
     })
   },
 
-  cleanCache (fileName) {
+  cleanCache(fileName) {
     if (window.caches) {
       window.caches.delete(fileName)
     }
   },
 
-  checkBlendingSupport () {
+  checkBlendingSupport() {
     const bodyEl = document.getElementsByTagName('body')[0]
     const bodyElStyle = window.getComputedStyle(bodyEl)
     const blendMode = bodyElStyle.getPropertyValue('mix-blend-mode')
     return !!blendMode
+  },
+
+  getQueryVariable(variable) {
+    var query = window.location.search.substring(1)
+    var vars = query.split('&')
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split('=')
+      if (decodeURIComponent(pair[0]) == variable) {
+        return decodeURIComponent(pair[1])
+      }
+    }
+    console.log('Query variable %s not found', variable)
+    return false
   }
 }
 

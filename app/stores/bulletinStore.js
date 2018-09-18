@@ -162,7 +162,6 @@ class BulletinStore {
           .load(date)
           .then(() => {
             const status = this.archiveStore.getStatus(date)
-            console.log(date, status)
 
             if (status == 'ok') {
               return this._loadBulletinData(date)

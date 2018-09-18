@@ -23,8 +23,13 @@ class Bulletin extends React.Component {
     this.state = {
       title: '',
       content: '',
-      sharable: false
+      sharable: false,
+      highlightedRegion: null
     }
+  }
+
+  get highlightedBulletin() {
+    return this.store.activeBulletin
   }
 
   componentDidMount() {
@@ -34,7 +39,8 @@ class Bulletin extends React.Component {
       this.setState({
         title: responseParsed.data.attributes.title,
         content: responseParsed.data.attributes.body,
-        sharable: responseParsed.data.attributes.sharable
+        sharable: responseParsed.data.attributes.sharable,
+        highlightedRegion: null
       })
     })
 
@@ -53,6 +59,7 @@ class Bulletin extends React.Component {
       }
     )
     return this._fetchData(this.props)
+    this.checkRegion()
   }
 
   componentDidUpdate(prevProps) {
@@ -62,6 +69,7 @@ class Bulletin extends React.Component {
         this._fetchData(this.props)
       }
     }
+    this.checkRegion()
   }
 
   _fetchData(props) {
@@ -75,19 +83,71 @@ class Bulletin extends React.Component {
       props.history.push('/bulletin/' + startDate)
     }
 
-    /*
-    const startDateDay = parseInt(startDate.split('-')[2], 10) - 1
-    startDate =
-      startDate.substr(0, startDate.length - 2) + startDateDay
-    */
     return this.store.load(startDate)
   }
 
+  checkRegion() {
+    const urlRegion = Base.getQueryVariable('region')
+    const storeRegion = this.store.settings.region
+
+    if (urlRegion !== storeRegion) {
+      this.store.setRegion(urlRegion)
+    }
+  }
+
+  handleHighlightRegion = id => {
+    if (id) {
+      this.setState({ highlightedRegion: id })
+    } else if (this.state.highlightedRegion) {
+      console.log(
+        'Dehighlight region ' + this.state.highlightedRegion
+      )
+      this.setState({
+        highlightedRegion: ''
+      })
+    }
+  }
+
+  handleSelectRegion = id => {
+    if (id) {
+      const oldRegion = Base.getQueryVariable('region')
+
+      if (oldRegion !== id) {
+        this.props.history.push({ search: '?region=' + id })
+        this.store.setRegion(id)
+        this.handleHighlightRegion(id) // also do highlighting
+      }
+    } else if (this.store.settings.region) {
+      if (Base.getQueryVariable('region')) {
+        this.props.history.push({ search: '' })
+      }
+
+      this.store.setRegion('')
+      this.handleHighlightRegion(null)
+    }
+  }
+
+  handleMapViewportChanged(mapState) {
+    this.store.setMapViewport(mapState)
+  }
+
   render() {
+    console.log('rendering bulletin view')
     return (
       <div>
         <BulletinHeader store={this.store} title={this.state.title} />
-        <BulletinMap store={this.store} />
+        <BulletinMap
+          handleMapViewportChanged={this.handleMapViewportChanged.bind(
+            this
+          )}
+          handleHighlightRegion={this.handleHighlightRegion.bind(
+            this
+          )}
+          handleSelectRegion={this.handleSelectRegion.bind(this)}
+          date={this.props.match.params.date}
+          history={this.props.history}
+          store={this.store}
+        />
         <BulletinLegend problems={this.store.problems} />
         <BulletinButtonbar store={this.store} />
         <BulletinReport store={this.store} />

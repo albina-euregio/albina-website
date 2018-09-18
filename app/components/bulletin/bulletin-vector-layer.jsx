@@ -6,24 +6,7 @@ import Base from './../../base'
 
 @observer
 export default class BulletinVectorLayer extends React.Component {
-  /*
-  old solution
-  componentDidMount(props) {
-    this.layer = this.refs.feature.leafletElement;
 
-    // Set click event hander on leaflet feature instead of using the
-    // react-leaflet component in the render method below. Otherwise, stopping
-    // event propagation will not work :/
-    this.layer.eachLayer(l => {
-      l.on("click", e => {
-        // stop event propagation to prevent the map from getting a click event
-        // this would otherwise trigger an immediate deselection of the feature
-        L.DomEvent.stopPropagation(e);
-        this.props.handleSelectFeature(l.feature.properties.bid);
-      });
-    });
-  }
-  */
   constructor (props) {
     super(props)
     this.state = {
@@ -34,8 +17,7 @@ export default class BulletinVectorLayer extends React.Component {
   handleClickRegion (bid, state, e) {
     L.DomEvent.stopPropagation(e)
     if (state !== 'hidden') {
-      bulletinStore.
-      this.props.handleSelectFeature(bid)
+      this.props.handleSelectRegion(bid)
     }
   }
 

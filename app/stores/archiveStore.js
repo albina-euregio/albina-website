@@ -145,7 +145,6 @@ export default class ArchiveStore {
   }
 
   getStatus(date) {
-    console.log(this.archive)
     return this.archive[date] ? this.archive[date].status : '';
   }
 
