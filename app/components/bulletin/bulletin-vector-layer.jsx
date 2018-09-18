@@ -63,7 +63,6 @@ export default class BulletinVectorLayer extends React.Component {
           .filter(vector => this.state.over !== vector.properties.bid)
           .map((vector, vi) => {
             const state = vector.properties.state
-
             // setting the style for each region
             const style = Object.assign(
               {},

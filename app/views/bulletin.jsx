@@ -2,6 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Parser } from 'html-to-react'
 import { reaction } from 'mobx'
+import { observer } from 'mobx-react'
 import { BulletinStore } from '../stores/bulletinStore'
 import BulletinHeader from '../components/bulletin/bulletin-header'
 import BulletinMap from '../components/bulletin/bulletin-map'
@@ -13,6 +14,7 @@ import { parseDate, dateToISODateString } from '../util/date.js'
 import Base from './../base'
 import { tooltip_init } from '../js/tooltip'
 
+@observer
 class Bulletin extends React.Component {
   constructor(props) {
     super(props)
@@ -59,7 +61,7 @@ class Bulletin extends React.Component {
       }
     )
     return this._fetchData(this.props)
-    this.checkRegion()
+    //this.checkRegion()
   }
 
   componentDidUpdate(prevProps) {
@@ -91,6 +93,7 @@ class Bulletin extends React.Component {
     const storeRegion = this.store.settings.region
 
     if (urlRegion !== storeRegion) {
+      console.log('region checked', urlRegion)
       this.store.setRegion(urlRegion)
     }
   }
@@ -111,7 +114,6 @@ class Bulletin extends React.Component {
   handleSelectRegion = id => {
     if (id) {
       const oldRegion = Base.getQueryVariable('region')
-
       if (oldRegion !== id) {
         this.props.history.push({ hash: '#region=' + id })
         this.store.setRegion(id)
@@ -132,7 +134,7 @@ class Bulletin extends React.Component {
   }
 
   render() {
-    console.log('rendering bulletin view')
+    //console.log('rendering bulletin view(0)', this.store.vectorRegions)
     return (
       <div>
         <BulletinHeader store={this.store} title={this.state.title} />
@@ -147,6 +149,7 @@ class Bulletin extends React.Component {
           date={this.props.match.params.date}
           history={this.props.history}
           store={this.store}
+          regions={this.store.vectorRegions}
         />
         <BulletinLegend problems={this.store.problems} />
         <BulletinButtonbar store={this.store} />

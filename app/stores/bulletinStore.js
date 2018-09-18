@@ -243,6 +243,7 @@ class BulletinStore {
   }
 
   @action setRegion (id) {
+    console.log('new region', id)
     this.settings.region = id
   }
 

@@ -32,10 +32,11 @@ class BulletinMap extends React.Component {
           }
         >
           <LeafletMap
-            vectorRegions={this.props.store.vectorRegions}
+            regions={this.props.regions}
             mapViewportChanged={this.props.handleMapViewportChanged}
             handleHighlightRegion={this.props.handleHighlightRegion}
             handleSelectRegion={this.props.handleSelectRegion}
+            store={this.props.store}
           />
           {false /* hide map search */ && (
             <div
