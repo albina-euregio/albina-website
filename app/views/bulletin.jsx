@@ -30,10 +30,6 @@ class Bulletin extends React.Component {
     }
   }
 
-  get highlightedBulletin() {
-    return this.store.activeBulletin
-  }
-
   componentDidMount() {
     window['staticPageStore'].loadPage('bulletin').then(response => {
       // parse content
@@ -149,6 +145,7 @@ class Bulletin extends React.Component {
           date={this.props.match.params.date}
           history={this.props.history}
           store={this.store}
+          highlightedRegion={this.state.highlightedRegion}
           regions={this.store.vectorRegions}
         />
         <BulletinLegend problems={this.store.problems} />

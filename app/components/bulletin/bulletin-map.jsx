@@ -18,6 +18,7 @@ class BulletinMap extends React.Component {
   }
 
   render() {
+    const hlBulletin = this.props.store.activeBulletin
     return (
       <section
         id="section-bulletin-map"
@@ -65,17 +66,17 @@ class BulletinMap extends React.Component {
               </div>
             </div>
           )}
-          {this.props.highlightedBulletin && (
+          {hlBulletin && (
             <div
               style={this.styleOverMap()}
               className="bulletin-map-details js-active top-right"
             >
               <BulletinMapDetails
                 store={this.props.store}
-                bulletin={this.props.highlightedBulletin}
+                bulletin={hlBulletin}
               />
-              {this.props.store.settings.region ==
-                this.state.highlightedRegion && (
+              {this.props.store.settings.region ===
+                this.props.highlightedRegion && (
                 <a
                   href="#section-bulletin-buttonbar"
                   className="pure-button tooltip"
