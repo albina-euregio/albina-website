@@ -1,6 +1,6 @@
 import Base from '../base.js';
 import { observable, computed } from 'mobx';
-import { parseDate, getSuccDate, dateToISODateString, getDaysOfMonth } from '../util/date.js';
+import { parseDate, getPredDate, getSuccDate, dateToISODateString, getDaysOfMonth } from '../util/date.js';
 
 export default class ArchiveStore {
   archive;
@@ -67,6 +67,7 @@ export default class ArchiveStore {
 
   load(startDate, endDate = '') {
     let d1 = parseDate(startDate);
+
     // check if start date has already been loaded
     let isLoaded = Boolean(this.archive[dateToISODateString(d1)]);
 
@@ -111,7 +112,9 @@ export default class ArchiveStore {
         d = 1;
       }
 
-      return new Date(y,m-1,d);
+      const date = new Date(y, m-1, d);
+      //const previousDate = date.setDate(date.getDate()-1);
+      return date;
     }
 
     return null;
@@ -142,6 +145,7 @@ export default class ArchiveStore {
   }
 
   getStatus(date) {
+    console.log(this.archive)
     return this.archive[date] ? this.archive[date].status : '';
   }
 
@@ -150,21 +154,29 @@ export default class ArchiveStore {
   }
 
   _loadBulletinStatus(startDate, endDate = '', region = 'IT-32-BZ') {
+
+    // const startDateDay = parseInt(startDate.split('-')[2], 10) - 1
+    //startDate = startDate.substr(0, startDate.length-2) + startDateDay
+    
     this.loading = true;
 
     // zulu time
-    const timeFormatStart = 'T00:00:00Z' //'T00:00:00+02:00'
-    const timeFormatEnd = 'T23:59:00Z' //'T00:00:00+02:00'
+    const timeFormatStart = 'T22:00:00Z' //'T00:00:00+02:00'
+    const timeFormatEnd = 'T22:00:00Z' //'T00:00:00+02:00'
 
-    const startDateParam = encodeURIComponent(startDate + timeFormatStart);
-    const endDateParam = endDate ? encodeURIComponent(endDate + timeFormatEnd) : startDateParam;
+    const prevDay = (date) => dateToISODateString(getPredDate(parseDate(date)))
+
+    const startDateParam = encodeURIComponent(prevDay(startDate) + timeFormatStart);
+    const endDateParam = endDate ? encodeURIComponent(prevDay(endDate) + timeFormatEnd) : startDateParam;
 
     const url =
       config.get('apis.bulletin') +
       '/status?startDate=' +
       startDateParam +
       '&endDate=' +
-      endDateParam
+      endDateParam +
+      (region ? ('&region=' + region) : '');
+
 
     return Base.doRequest(url).then(
       // query status data
@@ -177,11 +189,13 @@ export default class ArchiveStore {
             // OS settings how ISO dates are converted to local time
             const d = parseDate(v.date.substr(0,10));
             if(d) {
-              const d2 = getSuccDate(d);
+              // const d2 = getSuccDate(d);
               const status =
                 (v.status == 'published' || v.status == 'republished')
                   ? 'ok' : 'n/a';
-              this.archive[dateToISODateString(d2)] = {
+
+              const nextDay = dateToISODateString(getSuccDate(d))
+              this.archive[nextDay] = {
                 status: status,
                 message: v.status
               };

@@ -1,7 +1,7 @@
 import Base from '../base.js'
 import ArchiveStore from './archiveStore.js'
 import { observable, action, computed, toJS } from 'mobx'
-import { parseDate } from '../util/date.js'
+import { parseDate, getPredDate,dateToISODateString } from '../util/date.js'
 
 import flip from '@turf/flip'
 
@@ -162,6 +162,8 @@ class BulletinStore {
           .load(date)
           .then(() => {
             const status = this.archiveStore.getStatus(date)
+            console.log(date, status)
+
             if (status == 'ok') {
               return this._loadBulletinData(date)
             } else {
@@ -375,9 +377,11 @@ class BulletinStore {
   }
 
   _loadBulletinData (date) {
-    
+    console.log('loading bulletin', date)
+    const prevDay = (date) => dateToISODateString(getPredDate(parseDate(date)))
+
     // zulu time
-    const dateParam = encodeURIComponent(date + 'T00:00:00Z')
+    const dateParam = encodeURIComponent(prevDay(date) + 'T22:00:00Z')
     //const dateParam = encodeURIComponent(date + 'T00:00:00+02:00')
     const url = config.get('apis.bulletin') + '?date=' + dateParam
 
