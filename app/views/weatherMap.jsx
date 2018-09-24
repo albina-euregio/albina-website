@@ -4,6 +4,7 @@ import { observer } from 'mobx-react'
 import { Parser } from 'html-to-react'
 import PageHeadline from '../components/organisms/page-headline'
 import SmShare from '../components/organisms/sm-share'
+import { preprocessContent } from '../util/htmlParser'
 
 import Base from '../base'
 import { dateToLongDateString, dateToTimeString } from '../util/date'
@@ -146,7 +147,7 @@ import AppStore from '../appStore'
             />}
         </section>
         <div>
-          {new Parser().parse(this.state.content)}
+          {preprocessContent(this.state.content)}
         </div>
         {this.state.sharable ? <SmShare /> : <div className='section-padding' />}
       </div>

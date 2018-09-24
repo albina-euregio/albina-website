@@ -1,6 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { Parser } from 'html-to-react'
+import { preprocessContent } from '../util/htmlParser'
 import { reaction } from 'mobx'
 import { observer } from 'mobx-react'
 import { BulletinStore } from '../stores/bulletinStore'
@@ -131,6 +132,7 @@ class Bulletin extends React.Component {
 
   render() {
     //console.log('rendering bulletin view(0)', this.store.vectorRegions)
+
     return (
       <div>
         <BulletinHeader store={this.store} title={this.state.title} />
@@ -153,7 +155,9 @@ class Bulletin extends React.Component {
         <BulletinReport store={this.store} />
         {this.state.sharable && <SmShare />}
         <div className="section-padding section-centered">
-          {new Parser().parse(this.state.content)}
+          {
+            preprocessContent(this.state.content)
+          }
         </div>
       </div>
     )
