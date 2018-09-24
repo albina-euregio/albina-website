@@ -10,7 +10,7 @@ const isValidNode = node =>
 function replaceInternalLinksProcessor() {
   return {
     shouldProcessNode: node => {
-      return node.name == 'a' && node.attribs.href.match(/^\/[^/]+/)
+      return node.name == 'a' // && node.attribs.href.match(/^\/[^/]+/)
     },
     processNode: (node, ...args) => {
       const attrs = { to: node.attribs.href }
