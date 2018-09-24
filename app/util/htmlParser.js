@@ -16,9 +16,9 @@ function replaceInternalLinksProcessor() {
       const attrs = { to: node.attribs.href }
 
       Object.keys(node.attribs).forEach(k => {
-        if (k == 'class' || k == 'classname') {
-          attrs['className'] = node.attribs.class
-        } else if (k != 'href') {
+        if (k === 'class' || k === 'classname') {
+          attrs['className'] = node.attribs[k]
+        } else if (k !== 'href') {
           attrs[k] = node.attribs[k]
         }
       })
