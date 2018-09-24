@@ -51,6 +51,15 @@ iframe#stationTable {
   padding: 0 0.4rem 0 0.04rem;
 }
 
+.flipper-controls {
+  .icon-arrow {
+    vertical-align: sub;
+    ::before {
+      line-height: 100%;
+    }
+  }
+}
+
 /* Bulletin header */
 .bulletin-datetime-validity {
   transition: all 0.4s ease-in-out;
