@@ -1,18 +1,38 @@
 {
   "region:AT-07": { "en": "Tyrol", "de": "Tirol", "it": "Tirolo" },
-  "region:IT-32-BZ": { "en": "South Tyrol", "de": "Südtirol", "it": "Alto Adige" },
-  "region:IT-32-TN": { "en": "Trentino", "de": "Trentino", "it": "Trentino" },
+  "region:IT-32-BZ": {
+    "en": "South Tyrol",
+    "de": "Südtirol",
+    "it": "Alto Adige"
+  },
+  "region:IT-32-TN": {
+    "en": "Trentino",
+    "de": "Trentino",
+    "it": "Trentino"
+  },
 
   "danger-level:low": { "en": "low", "de": "gering", "it": "debole" },
-  "danger-level:moderate": { "en": "moderate", "de": "mäßig", "it": "moderato" },
+  "danger-level:moderate": {
+    "en": "moderate",
+    "de": "mäßig",
+    "it": "moderato"
+  },
   "danger-level:considerable": {
     "en": "considerable",
     "de": "erheblich",
     "it": "marcato"
   },
   "danger-level:high": { "en": "high", "de": "groß", "it": "forte" },
-  "danger-level:very_high": { "en": "very high", "de": "sehr groß", "it": "molto forte" },
-  "danger-level:no_snow": { "en": "No snow", "de": "Kein Schnee", "it": "No Snow" },
+  "danger-level:very_high": {
+    "en": "very high",
+    "de": "sehr groß",
+    "it": "molto forte"
+  },
+  "danger-level:no_snow": {
+    "en": "No snow",
+    "de": "Kein Schnee",
+    "it": "No Snow"
+  },
   "danger-level:no_rating": {
     "en": "No rating",
     "de": "Keine Prognose",
@@ -114,14 +134,22 @@
     "de": "Zur Navigation",
     "it": "vai alla navigazione"
   },
-  "jumpnav:footer": { "en": "Go to Footer", "de": "Zum Footer", "it": "vai al footer" },
+  "jumpnav:footer": {
+    "en": "Go to Footer",
+    "de": "Zum Footer",
+    "it": "vai al footer"
+  },
 
   "header:logo:hover": { "all": "Home" },
   "header:language-switch:en:hover": { "all": "English" },
   "header:language-switch:de:hover": { "all": "Deutsch" },
   "header:language-switch:it:hover": { "all": "Italiano" },
   "header:interreg:hover": { "all": "Interreg" },
-  "header:hamburger:hover": { "en": "Menu", "de": "Menü", "it": "Menu" },
+  "header:hamburger:hover": {
+    "en": "Menu",
+    "de": "Menü",
+    "it": "Menu"
+  },
 
   "main:share-this": {
     "en": "<strong>Share this</strong> on Social Media",
@@ -134,14 +162,26 @@
     "it": "Condividi su {on}"
   },
 
-  "footer:subscribe": { "en": "Subscribe", "de": "Abonnieren", "it": "Iscriviti" },
+  "footer:subscribe": {
+    "en": "Subscribe",
+    "de": "Abonnieren",
+    "it": "Iscriviti"
+  },
   "footer:subscribe:hover": {
     "en": "Subscribe to Avalanche Forecast, Social Media, Blog, Apps",
     "de": "Lawinenvorhersage, Soziale Medien, Blog, Apps abonnieren",
-    "it": "Iscriviti al bollettino valanghe, ai social media, il blog, i apps"
+    "it": "Iscriviti al bollettino valanghe, ai social media, il blog, le apps"
   },
-  "footer:interreg:hover": { "en": "Interreg", "de": "Interreg", "it": "Interreg" },
-  "footer:top:hover": { "en": "Top", "de": "Nach oben", "it": "Inizio" },
+  "footer:interreg:hover": {
+    "en": "Interreg",
+    "de": "Interreg",
+    "it": "Interreg"
+  },
+  "footer:top:hover": {
+    "en": "Top",
+    "de": "Nach oben",
+    "it": "Inizio"
+  },
   "footer:follow-us": {
     "en": "<strong>Follow us</strong> on Social Media",
     "de": "<strong>Folge uns</strong> in den Sozialen Medien",
@@ -168,10 +208,26 @@
     "de": "Aktualisiert am {date} um {time}",
     "it": "Aggiornato il {date} alle ore {time}"
   },
-  "bulletin:header:loading": { "en": "Loading", "de": "Lädt", "it": "Carica" },
-  "bulletin:header:no-bulletin": { "en": "Missing", "de": "Fehlt", "it": "Manca" },
-  "bulletin:header:am": { "en": "AM", "de": "Vormittags", "it": "Mattina" },
-  "bulletin:header:pm": { "en": "PM", "de": "Nachmittags", "it": "Pomeriggio" },
+  "bulletin:header:loading": {
+    "en": "Loading",
+    "de": "Lädt",
+    "it": "Carica"
+  },
+  "bulletin:header:no-bulletin": {
+    "en": "Missing",
+    "de": "Fehlt",
+    "it": "Manca"
+  },
+  "bulletin:header:am": {
+    "en": "AM",
+    "de": "Vormittags",
+    "it": "Mattina"
+  },
+  "bulletin:header:pm": {
+    "en": "PM",
+    "de": "Nachmittags",
+    "it": "Pomeriggio"
+  },
   "bulletin:header:switch-to-am": {
     "en": "switch to AM",
     "de": "Vormittag auswählen",
@@ -182,7 +238,11 @@
     "de": "Nachmittag auswählen",
     "it": "scegli pomeriggio"
   },
-  "bulletin:header:dateflipper:back": { "en": "Back", "de": "Zurück", "it": "Indietro" },
+  "bulletin:header:dateflipper:back": {
+    "en": "Back",
+    "de": "Zurück",
+    "it": "Indietro"
+  },
   "bulletin:header:dateflipper:latest": {
     "en": "Latest",
     "de": "Aktuellste",
@@ -193,20 +253,36 @@
     "de": "Zur aktuellen Lawinenvorhersage",
     "it": "Vai all'attuale bolletino valanghe"
   },
-  "bulletin:header:dateflipper:forward": { "en": "Forward", "de": "Vor", "it": "Avanti" },
-  "bulletin:header:archive": { "en": "Archive", "de": "Archiv", "it": "Archivio" },
+  "bulletin:header:dateflipper:forward": {
+    "en": "Forward",
+    "de": "Vor",
+    "it": "Avanti"
+  },
+  "bulletin:header:archive": {
+    "en": "Archive",
+    "de": "Archiv",
+    "it": "Archivio"
+  },
   "bulletin:header:archive:hover": {
     "en": "Past Avalanche Forecasts",
     "de": "Ältere Lawinenvorhersagen",
     "it": "Bollettini valanghe precedenti"
   },
-  "bulletin:map:search": { "en": "Search", "de": "Suchen", "it": "Cerca" },
+  "bulletin:map:search": {
+    "en": "Search",
+    "de": "Suchen",
+    "it": "Cerca"
+  },
   "bulletin:map:search:hover": {
     "en": "Type in a location",
     "de": "In Karte suchen",
     "it": "Cerca località"
   },
-  "bulletin:map:zoom-in:hover": { "en": "Zoom in", "de": "Vergrößern", "it": "Zoom +" },
+  "bulletin:map:zoom-in:hover": {
+    "en": "Zoom in",
+    "de": "Vergrößern",
+    "it": "Zoom +"
+  },
   "bulletin:map:zoom-out:hover": {
     "en": "Zoom out",
     "de": "Verkleinern",
@@ -328,9 +404,21 @@
     "de": "Gefahrenstufe {number} – {text}",
     "it": "Grado di pericolo {number} – {text}"
   },
-  "bulletin:report:headline2:level0": { "en": "{text}", "de": "{text}", "it": "{text}" },
-  "bulletin:report:daytime:am": { "en": "AM", "de": "Vormittag", "it": "Mattina" },
-  "bulletin:report:daytime:pm": { "en": "PM", "de": "Nachmittag", "it": "Pomeriggio" },
+  "bulletin:report:headline2:level0": {
+    "en": "{text}",
+    "de": "{text}",
+    "it": "{text}"
+  },
+  "bulletin:report:daytime:am": {
+    "en": "AM",
+    "de": "Vormittag",
+    "it": "Mattina"
+  },
+  "bulletin:report:daytime:pm": {
+    "en": "PM",
+    "de": "Nachmittag",
+    "it": "Pomeriggio"
+  },
   "bulletin:report:dangerlevel": {
     "en": "Danger Level",
     "de": "Gefahrenstufe",
@@ -386,7 +474,11 @@
     "de": "nachmittags",
     "it": "pomeriggio"
   },
-  "bulletin:report:tendency:none": { "en": "n/a", "de": "n/a", "it": "n/a" },
+  "bulletin:report:tendency:none": {
+    "en": "n/a",
+    "de": "n/a",
+    "it": "n/a"
+  },
   "bulletin:report:tendency:increasing": {
     "en": "Increasing avalanche danger",
     "de": "Lawinengefahr steigt",
@@ -467,7 +559,11 @@
     "de": "Gefahrenmuster",
     "it": "Situazione tipo"
   },
-  "bulletin:report:author": { "en": "Author", "de": "Autor", "it": "Autore" },
+  "bulletin:report:author": {
+    "en": "Author",
+    "de": "Autor",
+    "it": "Autore"
+  },
   "bulletin:treeline": {
     "en": "Tree line",
     "de": "Waldgrenze",
@@ -475,16 +571,32 @@
   },
 
   "archive:filter:year": { "en": "Year", "de": "Jahr", "it": "Anno" },
-  "archive:filter:month": { "en": "Month", "de": "Monat", "it": "Mese" },
+  "archive:filter:month": {
+    "en": "Month",
+    "de": "Monat",
+    "it": "Mese"
+  },
   "archive:filter:day": { "en": "Day", "de": "Tag", "it": "Giorno" },
-  "archive:filter:language": { "en": "Language", "de": "Sprache", "it": "Lingua" },
-  "archive:table-header:date": { "en": "Date", "de": "Datum", "it": "Data" },
+  "archive:filter:language": {
+    "en": "Language",
+    "de": "Sprache",
+    "it": "Lingua"
+  },
+  "archive:table-header:date": {
+    "en": "Date",
+    "de": "Datum",
+    "it": "Data"
+  },
   "archive:table-header:download": {
     "en": "Download avalanche forecast",
     "de": "Lawinenvorhersage herunterladen",
     "it": "Scarica bollettino valanghe"
   },
-  "archive:table-header:map": { "en": "Map", "de": "Karte", "it": "Mappa" },
+  "archive:table-header:map": {
+    "en": "Map",
+    "de": "Karte",
+    "it": "Mappa"
+  },
   "archive:download-pdf": { "all": "PDF" },
   "archive:download-xml": { "all": "XML" },
   "archive:download-pdf:hover": {
@@ -521,9 +633,21 @@
   },
   "blog:filter:year": { "en": "Year", "de": "Jahr", "it": "Anno" },
   "blog:filter:month": { "en": "Month", "de": "Monat", "it": "Mese" },
-  "blog:filter:province": { "en": "Province", "de": "Region", "it": "Province" },
-  "blog:filter:language": { "en": "Language", "de": "Sprache", "it": "Lingua" },
-  "blog:search": { "en": "Search posts", "de": "Suchen", "it": "Cerca" },
+  "blog:filter:province": {
+    "en": "Province",
+    "de": "Region",
+    "it": "Province"
+  },
+  "blog:filter:language": {
+    "en": "Language",
+    "de": "Sprache",
+    "it": "Lingua"
+  },
+  "blog:search": {
+    "en": "Search posts",
+    "de": "Suchen",
+    "it": "Cerca"
+  },
 
   "dialog:unsupportedBrowser:heading": {
     "en": "EN Your browser is old",
@@ -605,7 +729,11 @@
     "de": "Abonnieren",
     "it": "Abbonamenti"
   },
-  "dialog:subscribe-app:subheader": { "en": "Apps", "de": "Apps", "it": "App" },
+  "dialog:subscribe-app:subheader": {
+    "en": "Apps",
+    "de": "Apps",
+    "it": "App"
+  },
   "dialog:subscribe-app:back-button": {
     "en": "All subscriptions",
     "de": "Alle Abonnements",
@@ -621,7 +749,9 @@
   "dialog:subscribe-app:android:button": { "all": "Google Play" },
   "dialog:subscribe-app:ios:hover": { "all": "App Store" },
   "dialog:subscribe-app:ios:button": { "all": "App Store" },
-  "dialog:subscribe-app:lawine-tirol:title": { "all": "Lawine Tirol App" },
+  "dialog:subscribe-app:lawine-tirol:title": {
+    "all": "Lawine Tirol App"
+  },
   "dialog:subscribe-app:lawine-tirol:text": {
     "en": "The Lawine Tirol App ...",
     "de": "Die Lawine Tirol App ...",
@@ -670,7 +800,11 @@
     "de": "Gesamte Europaregion",
     "it": "Tutta l'Euregio"
   },
-  "dialog:subscribe-bulletin:region:or": { "en": "or", "de": "oder", "it": "o" },
+  "dialog:subscribe-bulletin:region:or": {
+    "en": "or",
+    "de": "oder",
+    "it": "o"
+  },
   "dialog:subscribe-bulletin:region-select:button": {
     "en": "State / Province",
     "de": "Land / Provinz",
@@ -711,7 +845,11 @@
     "de": "<strong>Anmeldung bestätigt:</strong> Sie sind nun auf dem Verteiler",
     "it": "<strong>Sottoscrizione confermata:</strong> Ora sei iscritto"
   },
-  "dialog:subscribe-bulletin:error": { "en": "Error", "de": "Fehler", "it": "Errore" },
+  "dialog:subscribe-bulletin:error": {
+    "en": "Error",
+    "de": "Fehler",
+    "it": "Errore"
+  },
 
   "dialog:subscribe-blog:header": {
     "en": "Subscriptions",
