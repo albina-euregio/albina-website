@@ -48,6 +48,7 @@ class LeafletMap extends React.Component {
       const geonamesOptions = Object.assign(
         {},
         {
+          clearOnPopupClose: true,
           lang: appStore.language,
           bbox: { east: 17, west: 5, north: 50, south: 44 },
           title: this.props.intl.formatMessage({
