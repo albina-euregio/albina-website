@@ -392,7 +392,7 @@
   "bulletin:linkbar:subscribe:hover": {
     "en": "Subscribe to Avalanche Forecast, Social Media, Blog, Apps",
     "de": "Lawinenvorhersage, Soziale Medien, Blog, Apps abonnieren",
-    "it": "Iscriviti al bollettino valanghe, ai social media, il blog, i apps"
+    "it": "Iscriviti al bollettino valanghe, ai social media, il blog, le apps"
   },
   "bulletin:report:headline": {
     "en": "Danger level for <strong>{date} {daytime}</strong>",
