@@ -40,6 +40,7 @@ export default class MenuStore {
     };
     const langParam = (!lang || (lang == 'en')) ? '' : (lang + '/');
     const url = Base.makeUrl(config.get('apis.content') + langParam  + 'api/menuLinks', params);
+    
     const processEntry = (entry) => {
       const ats = entry.attributes;
       const parentId = ats.parentIs ? ats.parentIs.substr(18) : null;
@@ -58,6 +59,7 @@ export default class MenuStore {
         if(responseParsed && responseParsed.data && Array.isArray(responseParsed.data)) {
           const rootEntries = [];
           const subEntries = [];
+          
           responseParsed.data.forEach((entry) => {
             if(entry && typeof(entry.attributes) === 'object') {
               if(entry.attributes.parentIs) {
@@ -67,6 +69,7 @@ export default class MenuStore {
               }
             }
           });
+
           rootEntries.forEach(processEntry);
           subEntries.forEach(processEntry);
         }

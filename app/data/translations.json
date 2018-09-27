@@ -296,7 +296,7 @@
   "bulletin:map:info:details:hover": {
     "en": "See full Avalanche Forecast",
     "de": "Vollständige Lawinenvorhersage anzeigen",
-    "it": " Leggi tutto il bollettino valanghe"
+    "it": "Leggi tutto il bollettino valanghe"
   },
   "bulletin:map:info:danger-picto:alt": {
     "en": "Danger level {number} – {text}",

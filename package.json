@@ -1,7 +1,7 @@
 {
   "name": "albina-project",
   "description": "Albina project webpage",
-  "version": "0.0.26",
+  "version": "0.1.0",
   "main": "app/main.jsx",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
