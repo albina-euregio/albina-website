@@ -10,7 +10,13 @@ const isValidNode = node =>
 function replaceInternalLinksProcessor() {
   return {
     shouldProcessNode: node => {
-      return node.name == 'a' // && node.attribs.href.match(/^\/[^/]+/)
+      return (
+        (node.name === 'a' || node.name === 'button') &&
+        !node.attribs.href.includes('http://') &&
+        !node.attribs.href.includes('https://') &&
+        !node.attribs.href.includes('mailto') &&
+        !node.attribs.href.includes('#')
+      )
     },
     processNode: (node, ...args) => {
       const attrs = { to: node.attribs.href }
@@ -69,6 +75,7 @@ function preprocessContent(content) {
     replaceInternalLinksProcessor(),
     defaultProcessor()
   ]
+
   return parseRawHtml(content, instructions)
 }
 
