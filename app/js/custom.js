@@ -47,7 +47,7 @@ $(function() {
     detect_browser()
     setTimeout(() => {
       scroll_init()
-    }, 500)
+    }, 0)
 
     flipper_init()
     accordion_init()

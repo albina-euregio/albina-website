@@ -112,7 +112,7 @@ class Bulletin extends React.Component {
     if (id) {
       const oldRegion = Base.getQueryVariable('region')
       if (oldRegion !== id) {
-        this.props.history.push({ hash: '#region=' + id })
+        this.props.history.push({ search: '?region=' + id })
         this.store.setRegion(id)
         this.handleHighlightRegion(id) // also do highlighting
       }
