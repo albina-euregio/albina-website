@@ -20,7 +20,7 @@ export class SocketService {
 
   login() {
   	let query = 'username=' + this.authenticationService.getEmail();
-    this.socket = io(this.constantsService.socketIOUrl, {query: query});
+    this.socket = io(this.constantsService.socketIOUrl, {secure: true, query: query});
   }
 
   logout() {
