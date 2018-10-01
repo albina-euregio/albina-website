@@ -749,6 +749,7 @@ export class CreateBulletinComponent {
 
       if (copy && this.activeBulletin) {
         bulletin = new BulletinModel(this.activeBulletin);
+        bulletin.setAdditionalAuthors(new Array<String>());
         bulletin.setSavedRegions(new Array<String>());
         bulletin.setPublishedRegions(new Array<String>());
         bulletin.setSuggestedRegions(new Array<String>());
