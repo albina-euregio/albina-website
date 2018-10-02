@@ -15,7 +15,6 @@ var Base = {
 
   doRequest(url, type = 'json') {
     return new Promise(function(resolve, reject) {
-      console.log('request: ' + url)
       let xhr = new XMLHttpRequest()
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -93,9 +92,7 @@ var Base = {
   },
 
   getQueryVariable(variable) {
-    console.log('search', location.search)
     var query = window.location.search.substring(1)
-    console.log('query', query)
     var vars = query.split('&')
     for (var i = 0; i < vars.length; i++) {
       var pair = vars[i].split('=')
