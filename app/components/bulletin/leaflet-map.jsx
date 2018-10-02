@@ -6,6 +6,7 @@ import {
   TileLayer,
   ImageOverlay,
   LayersControl,
+  AttributionControl,
   ZoomControl
 } from 'react-leaflet'
 import { injectIntl } from 'react-intl'
@@ -137,6 +138,8 @@ class LeafletMap extends React.Component {
   render() {
     const mapProps = config.get('map.initOptions')
     const bulletinStore = this.props.store
+
+    console.log(config.get('map.attribution'))
     return (
       <Map
         onViewportChanged={this.props.mapViewportChanged.bind(
@@ -151,7 +154,16 @@ class LeafletMap extends React.Component {
         zoom={bulletinStore.getMapZoom}
         gestureHandling
         center={bulletinStore.getMapCenter}
+        attributionControl={false}
       >
+        <AttributionControl
+          prefix={
+            '<a target="_blank" href="https://leafletjs.com/">Leaflet</a> | ' +
+            config.get('map.attribution') +
+            ' | v.' +
+            config.get('version')
+          }
+        />
         <ZoomControl
           position="topleft"
           zoomInTitle={this.props.intl.formatMessage({

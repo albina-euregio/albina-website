@@ -36,32 +36,38 @@ const userPreferenceLanguage = storageAvailable()
 const _getDefaultLanguage = () => {
   // 1 highest priority: URL lang param
   const urlLang = window.location.search
-    ? window.location.search.substr(1).split('&').reduce((acc, e) => {
-      if (!acc) {
-        let matches = e.match(/^lang=(.*)/)
-        if (
-            matches &&
-            matches.length > 1 &&
-            availableLanguages.indexOf(matches[1]) >= 0
-          ) {
-          return matches[1]
-        }
-      }
-      return acc
-    }, '')
+    ? window.location.search
+        .substr(1)
+        .split('&')
+        .reduce((acc, e) => {
+          if (!acc) {
+            let matches = e.match(/^lang=(.*)/)
+            if (
+              matches &&
+              matches.length > 1 &&
+              availableLanguages.indexOf(matches[1]) >= 0
+            ) {
+              return matches[1]
+            }
+          }
+          return acc
+        }, '')
     : ''
 
   // 2 high priority: last language setting
   const userLang = urlLang || userPreferenceLanguage
 
   // 3 medium priority: config param (set to "auto" to omit this step)
-  const configLang = userLang ||
+  const configLang =
+    userLang ||
     availableLanguages.indexOf(config.get('defaults.language')) >= 0
-    ? config.get('defaults.language')
-    : ''
+      ? config.get('defaults.language')
+      : ''
 
   // 4 lowest priority: browser accept-language settings
-  let browserLangSettings = window.navigator.language ? window.navigator.language : ''
+  let browserLangSettings = window.navigator.language
+    ? window.navigator.language
+    : ''
   browserLangSettings = window.navigator.browserLanguage
     ? window.navigator.browserLanguage
     : ''
@@ -69,9 +75,10 @@ const _getDefaultLanguage = () => {
   browserLangSettings = browserLangSettings.substr(0, 2).toLowerCase()
   console.log(browserLangSettings)
 
-  const browserLang = configLang || availableLanguages.indexOf(browserLangSettings) >= 0
-    ? browserLangSettings
-    : ''
+  const browserLang =
+    configLang || availableLanguages.indexOf(browserLangSettings) >= 0
+      ? browserLangSettings
+      : ''
 
   console.log('browserLang', browserLang)
 
@@ -86,8 +93,12 @@ require('./bower_components/magnific-popup_1.1.0/dist/jquery.magnific-popup.min.
 window[
   'SweetScroll'
 ] = require('./bower_components/sweet-scroll-master_3.0.0/sweet-scroll.min.js')
-window['tippy'] = require('./bower_components/tippyjs_2.2.3/dist/tippy.all.min.js')
-window['fluidvids'] = require('./bower_components/fluidvids_2.4.1/dist/fluidvids.min.js')
+window[
+  'tippy'
+] = require('./bower_components/tippyjs_2.2.3/dist/tippy.all.min.js')
+window[
+  'fluidvids'
+] = require('./bower_components/fluidvids_2.4.1/dist/fluidvids.min.js')
 
 // TODO: check content API for maintenance mode before starting the app
 window['appStore'] = new AppStore(availableLanguages)
@@ -108,7 +119,10 @@ const getBasePath = () => {
   const bodyScriptTags = document.body.getElementsByTagName('script')
   if (bodyScriptTags.length > 0) {
     const bundleLocation = bodyScriptTags[0].getAttribute('src')
-    return bundleLocation.substring(0, bundleLocation.lastIndexOf('/') + 1)
+    return bundleLocation.substring(
+      0,
+      bundleLocation.lastIndexOf('/') + 1
+    )
   }
   return '/' // fallback
 }
@@ -132,6 +146,7 @@ Base.doRequest(configUrl).then(configData => {
 
   window['config'] = new ConfigStore(configParsed)
 
+  console.log(config)
   // set initial language
   window['appStore'].language = _getDefaultLanguage()
 
@@ -141,7 +156,9 @@ Base.doRequest(configUrl).then(configData => {
     if (trackingKey) {
       ReactGA.initialize(trackingKey)
       ReactGA.pageview(
-        window.location.hostname + window.location.pathname + window.location.search
+        window.location.hostname +
+          window.location.pathname +
+          window.location.search
       )
     }
   }
@@ -165,5 +182,8 @@ Base.doRequest(configUrl).then(configData => {
     ' language-' +
     initialLang
 
-  ReactDOM.render(<App />, document.body.appendChild(document.createElement('div')))
+  ReactDOM.render(
+    <App />,
+    document.body.appendChild(document.createElement('div'))
+  )
 })

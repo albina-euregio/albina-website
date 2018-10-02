@@ -126,6 +126,7 @@
     ]
   },
   "map": {
+    "attribution": "<a href='https://carto.univie.ac.at/' target='_blank'>(c) UniWien</a> , <a href='https://zamg.ac.at/' target='_blank'> ZAMG </a>",
     "useWindowWidth": true,
     "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],
     "overlay": {
@@ -149,8 +150,7 @@
         "minZoom": 7,
         "detectRetina": false,
         "tms": true,
-        "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]],
-        "attribution": "<a href='https://carto.univie.ac.at/' target='_blank'>(c) UniWien</a> | <a href='https://zamg.ac.at/' target='_blank'> ZAMG </a>"
+        "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]]
       }
     ],
     "geonames": {
