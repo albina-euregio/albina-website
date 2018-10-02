@@ -14,7 +14,7 @@ import { tooltip_init } from '../../js/tooltip'
 import Base from './../../base'
 import AppStore from '../../appStore'
 
-require('leaflet-geonames')
+require('./../../util/l.geonames')
 require('leaflet-gesture-handling')
 require('leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css')
 require('./../../css/geonames.css')
