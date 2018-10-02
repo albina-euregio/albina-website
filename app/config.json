@@ -150,7 +150,7 @@
         "detectRetina": false,
         "tms": true,
         "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]],
-        "attribution": "&copy; Universität Wien"
+        "attribution": "<a href='https://carto.univie.ac.at/' target='_blank'>(c) UniWien</a> | <a href='https://zamg.ac.at/' target='_blank'> ZAMG </a>"
       }
     ],
     "geonames": {
