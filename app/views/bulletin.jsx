@@ -86,7 +86,7 @@ class Bulletin extends React.Component {
   }
 
   checkRegion() {
-    const urlRegion = Base.getQueryVariable('region')
+    const urlRegion = Base.searchGet('region')
     const storeRegion = this.store.settings.region
 
     if (urlRegion !== storeRegion) {
@@ -106,14 +106,14 @@ class Bulletin extends React.Component {
 
   handleSelectRegion = id => {
     if (id) {
-      const oldRegion = Base.getQueryVariable('region')
+      const oldRegion = Base.searchGet('region')
       if (oldRegion !== id) {
         this.props.history.push({ search: '?region=' + id })
         this.store.setRegion(id)
         this.handleHighlightRegion(id) // also do highlighting
       }
     } else if (this.store.settings.region) {
-      if (Base.getQueryVariable('region')) {
+      if (Base.searchGet('region')) {
         this.props.history.push({ search: '' })
       }
 

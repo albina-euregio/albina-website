@@ -3,7 +3,8 @@ import { matchPath, withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
 import { injectIntl, FormattedMessage } from 'react-intl'
-import Menu from '../menu'
+import Menu from './../menu'
+import Base from './../../base'
 
 class PageHeader extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class PageHeader extends React.Component {
 
   handleChangeLanguage = newLanguage => {
     window['appStore'].setLanguage(newLanguage)
+    Base.searchChange(this.props.history, 'lang', newLanguage)
   }
 
   setActiveMenuItem = e => {

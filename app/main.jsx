@@ -23,37 +23,6 @@ import de from 'react-intl/locale-data/de'
 import it from 'react-intl/locale-data/it'
 addLocaleData([...en, ...de, ...it])
 
-const _setDefaultLanguage = () => {
-  // url lang param
-  if (!appStore.setLanguage(Base.getQueryVariable('lang'))) {
-    // browser setting
-
-    if (
-      !appStore.setLanguage(window.localStorage.getItem('locale'))
-    ) {
-      // config language
-      if (!appStore.setLanguage(config.get('defaults.language'))) {
-        // browser setting
-        let browserLangSettings = window.navigator.language
-          ? window.navigator.language
-          : ''
-        browserLangSettings = window.navigator.browserLanguage
-          ? window.navigator.browserLanguage
-          : ''
-
-        browserLangSettings = browserLangSettings
-          .substr(0, 2)
-          .toLowerCase()
-
-        if (!appStore.setLanguage(browserLangSettings)) {
-          // fallback to en
-          appStore.setLanguage('en')
-        }
-      }
-    }
-  }
-}
-
 /* bower components */
 window['jQuery'] = window['$'] = require('jquery')
 require('./bower_components/jquery-selectric/public/jquery.selectric.min.js')
@@ -117,7 +86,6 @@ Base.doRequest(configUrl).then(configData => {
 
   console.log(config)
   // set initial language
-  _setDefaultLanguage()
 
   // init Analytics software - only on production builds
   if (!DEV) {

@@ -1,3 +1,5 @@
+require('url-search-params-polyfill')
+
 var Base = {
   makeUrl(baseUrl, params = {}) {
     return (
@@ -91,17 +93,32 @@ var Base = {
     return !!blendMode
   },
 
-  getQueryVariable(variable) {
-    var query = window.location.search.substring(1)
-    var vars = query.split('&')
-    for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split('=')
-      if (decodeURIComponent(pair[0]) == variable) {
-        return decodeURIComponent(pair[1])
+  searchGet(variable) {
+    const search = new URLSearchParams(
+      document.location.search.substring(1)
+    )
+    return search.get(variable)
+  },
+
+  searchChange(history, variable, value) {
+    let search = new URLSearchParams(
+      document.location.search.substring(1)
+    )
+    const actualValue = this.searchGet(variable)
+
+    if (actualValue !== false) {
+      if (actualValue !== value) {
+        search.set(variable, value)
+      } else {
+        search = false
       }
+    } else {
+      search.append(variable, value)
     }
-    // console.log('Query variable %s not found', variable)
-    return false
+    if (search && history) {
+      console.log('changing history', search.toString())
+      history.push({ search: search.toString() })
+    }
   }
 }
 
