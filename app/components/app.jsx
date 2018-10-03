@@ -29,27 +29,27 @@ require('./../../node_modules/leaflet/dist/leaflet.css')
 // require('./js/custom.js');
 
 class App extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     /* checking if the browser is supported */
-    console.log(isES5Supported)
+    //console.log(isES5Supported)
     if (browser) {
       window['browserVersion'] = browser.name + browser.version
-      console.log(browserVersion)
+      //console.log(browserVersion)
 
       if (!isES5Supported) {
-        console.log('browser not supported')
+        //console.log('browser not supported')
         appStore.unsupportedBrowserModalOn()
       }
     }
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return true
   }
 
-  routes () {
+  routes() {
     return [
       {
         path: '/',
@@ -117,7 +117,7 @@ class App extends React.Component {
     ]
   }
 
-  render () {
+  render() {
     const store = window['appStore']
     return (
       <Provider {...store}>

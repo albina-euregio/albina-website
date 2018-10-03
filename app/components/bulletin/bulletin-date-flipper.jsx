@@ -56,8 +56,6 @@ class BulletinDateFlipper extends React.Component {
       ? dateToDateString(this.nextDate)
       : ''
 
-    console.log('nextLink', nextLink)
-
     return (
       <ul className="list-inline bulletin-flipper">
         <li className="bulletin-flipper-back">

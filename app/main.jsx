@@ -3,8 +3,6 @@ import 'babel-polyfill'
 if (!window.Intl) {
   window['Intl'] = require('intl')
 }
-console.log('Ints after polyfill', Intl)
-console.log('Ints after polyfill', Intl)
 
 require('window.requestanimationframe')
 
@@ -25,64 +23,35 @@ import de from 'react-intl/locale-data/de'
 import it from 'react-intl/locale-data/it'
 addLocaleData([...en, ...de, ...it])
 
-/* available languages and initial language */
-const availableLanguages = ['en', 'de', 'it']
+const _setDefaultLanguage = () => {
+  // url lang param
+  if (!appStore.setLanguage(Base.getQueryVariable('lang'))) {
+    // browser setting
 
-// used by mobx-react-intl - query before appStore constructor call
-const userPreferenceLanguage = storageAvailable()
-  ? window.localStorage.getItem('locale')
-  : ''
+    if (
+      !appStore.setLanguage(window.localStorage.getItem('locale'))
+    ) {
+      // config language
+      if (!appStore.setLanguage(config.get('defaults.language'))) {
+        // browser setting
+        let browserLangSettings = window.navigator.language
+          ? window.navigator.language
+          : ''
+        browserLangSettings = window.navigator.browserLanguage
+          ? window.navigator.browserLanguage
+          : ''
 
-const _getDefaultLanguage = () => {
-  // 1 highest priority: URL lang param
-  const urlLang = window.location.search
-    ? window.location.search
-        .substr(1)
-        .split('&')
-        .reduce((acc, e) => {
-          if (!acc) {
-            let matches = e.match(/^lang=(.*)/)
-            if (
-              matches &&
-              matches.length > 1 &&
-              availableLanguages.indexOf(matches[1]) >= 0
-            ) {
-              return matches[1]
-            }
-          }
-          return acc
-        }, '')
-    : ''
+        browserLangSettings = browserLangSettings
+          .substr(0, 2)
+          .toLowerCase()
 
-  // 2 high priority: last language setting
-  const userLang = urlLang || userPreferenceLanguage
-
-  // 3 medium priority: config param (set to "auto" to omit this step)
-  const configLang =
-    userLang ||
-    availableLanguages.indexOf(config.get('defaults.language')) >= 0
-      ? config.get('defaults.language')
-      : ''
-
-  // 4 lowest priority: browser accept-language settings
-  let browserLangSettings = window.navigator.language
-    ? window.navigator.language
-    : ''
-  browserLangSettings = window.navigator.browserLanguage
-    ? window.navigator.browserLanguage
-    : ''
-
-  browserLangSettings = browserLangSettings.substr(0, 2).toLowerCase()
-  console.log(browserLangSettings)
-
-  const browserLang =
-    configLang || availableLanguages.indexOf(browserLangSettings) >= 0
-      ? browserLangSettings
-      : ''
-
-  console.log('browserLang', browserLang)
-
-  return browserLang || 'en' // if everything els fails
+        if (!appStore.setLanguage(browserLangSettings)) {
+          // fallback to en
+          appStore.setLanguage('en')
+        }
+      }
+    }
+  }
 }
 
 /* bower components */
@@ -101,7 +70,7 @@ window[
 ] = require('./bower_components/fluidvids_2.4.1/dist/fluidvids.min.js')
 
 // TODO: check content API for maintenance mode before starting the app
-window['appStore'] = new AppStore(availableLanguages)
+window['appStore'] = new AppStore()
 window['staticPageStore'] = new StaticPageStore()
 window['modalStateStore'] = new ModalStateStore()
 
@@ -148,7 +117,7 @@ Base.doRequest(configUrl).then(configData => {
 
   console.log(config)
   // set initial language
-  window['appStore'].language = _getDefaultLanguage()
+  _setDefaultLanguage()
 
   // init Analytics software - only on production builds
   if (!DEV) {

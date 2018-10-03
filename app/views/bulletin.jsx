@@ -90,7 +90,6 @@ class Bulletin extends React.Component {
     const storeRegion = this.store.settings.region
 
     if (urlRegion !== storeRegion) {
-      console.log('region checked', urlRegion)
       this.store.setRegion(urlRegion)
     }
   }
@@ -99,9 +98,6 @@ class Bulletin extends React.Component {
     if (id) {
       this.setState({ highlightedRegion: id })
     } else if (this.state.highlightedRegion) {
-      console.log(
-        'Dehighlight region ' + this.state.highlightedRegion
-      )
       this.setState({
         highlightedRegion: ''
       })
@@ -155,9 +151,7 @@ class Bulletin extends React.Component {
         <BulletinReport store={this.store} />
         {this.state.sharable && <SmShare />}
         <div className="section-padding section-centered">
-          {
-            preprocessContent(this.state.content)
-          }
+          {preprocessContent(this.state.content)}
         </div>
       </div>
     )

@@ -9,18 +9,21 @@ import NavigationStore from './stores/navigationStore'
 import translations from './data/translations.json'
 
 class AppStore extends React.Component {
-  @observable keyDown
-  @observable locale
-  @observable _unsupportedBrowserModal
+  @observable
+  keyDown
+  @observable
+  locale
+  @observable
+  _unsupportedBrowserModal
   cookieConsent
   navigation
   regions
   languages
   warnlevelNumbers
 
-  constructor (languages) {
+  constructor(languages) {
     super()
-    this.languages = languages
+    this.languages = ['en', 'de', 'it']
     const translationFallbackLanguage = 'all'
 
     this._unsupportedBrowserModal = observable.box(false)
@@ -65,37 +68,46 @@ class AppStore extends React.Component {
       .map(k => k.substr(8))
   }
 
-  set language (newLanguage) {
-    this.locale.value = newLanguage
-  }
-
-  get language () {
+  get language() {
     return this.locale.value
   }
 
-  get unsupportedBrowserModal () {
+  get unsupportedBrowserModal() {
     return toJS(this._unsupportedBrowserModal)
   }
 
-  @action unsupportedBrowserModalOn () {
+  @action
+  unsupportedBrowserModalOn() {
     this._unsupportedBrowserModal.set(true)
   }
 
-  @action unsupportedBrowserModalOff () {
+  @action
+  unsupportedBrowserModalOff() {
     this._unsupportedBrowserModal.set(false)
+  }
+
+  @action
+  setLanguage(newLanguage) {
+    if (this.languages.includes(newLanguage)) {
+      console.log('setting new language', newLanguage)
+      this.locale.value = newLanguage
+      return true
+    } else {
+      return false
+    }
   }
 
   /**
    * Get regions for current language.
    */
-  getRegions () {
+  getRegions() {
     return Object.keys(this.regions).reduce((acc, r) => {
       acc[r] = this.getRegionName(r)
       return acc
     }, {})
   }
 
-  getRegionName (code) {
+  getRegionName(code) {
     if (this.regions[code]) {
       const lang = this.language
       return this.regions[code][lang]
@@ -103,14 +115,14 @@ class AppStore extends React.Component {
     return ''
   }
 
-  getWarnlevelNumber (id) {
+  getWarnlevelNumber(id) {
     if (this.warnlevelNumbers[id]) {
       return this.warnlevelNumbers[id]
     }
     return 0
   }
 
-  getWarnLevelId (num) {
+  getWarnLevelId(num) {
     if (num > 0) {
       return Object.keys(this.warnlevelNumbers).find(k => {
         return this.warnlevelNumbers[k] == num

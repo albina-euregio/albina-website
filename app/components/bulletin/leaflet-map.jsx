@@ -64,8 +64,6 @@ class LeafletMap extends React.Component {
       L.control.geonames(geonamesOptions).addTo(this.map)
     }, 50)
 
-    console.log(appStore.language)
-
     window.setTimeout(() => {
       $('.leaflet-control-zoom a').addClass('tooltip')
       tooltip_init()
@@ -139,7 +137,6 @@ class LeafletMap extends React.Component {
     const mapProps = config.get('map.initOptions')
     const bulletinStore = this.props.store
 
-    console.log(config.get('map.attribution'))
     return (
       <Map
         onViewportChanged={this.props.mapViewportChanged.bind(
