@@ -76,7 +76,7 @@ class Bulletin extends React.Component {
     let startDate =
       props.match.params.date && parseDate(props.match.params.date)
         ? props.match.params.date
-        : dateToISODateString(new Date(2030, 1, 15))
+        : dateToISODateString(new Date(2030, 1, 16))
     //: dateToISODateString(new Date())
 
     if (startDate != this.props.match.params.date) {
