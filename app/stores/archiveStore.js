@@ -231,7 +231,7 @@ export default class ArchiveStore {
             'Cannot load bulletin status for date ' +
               startDate +
               (endDate ? ' - ' + endDate : '') +
-              +(region ? ' Region ' + region : '') +
+              (region ? ' Region ' + region : '') +
               ': ' +
               error
           )

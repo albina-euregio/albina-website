@@ -115,7 +115,11 @@ iframe#stationTable {
   font-size: 1.8em;
 }
 
-.section-map .leaflet-control-container .leaflet-control a {
+.section-map
+  .leaflet-control-container
+  .leaflet-top
+  .leaflet-control
+  a {
   margin-top: 0 !important;
   width: 39px !important;
   height: 39px !important;
