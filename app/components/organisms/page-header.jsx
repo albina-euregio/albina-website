@@ -5,6 +5,7 @@ import { observer, inject } from 'mobx-react'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import Menu from './../menu'
 import Base from './../../base'
+import stringInject from 'stringinject'
 
 class PageHeader extends React.Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class PageHeader extends React.Component {
 
   render() {
     const langs = window['appStore'].languages
+    const lang = window['appStore'].language
     const menuItems = this.props.menuStore.getMenu('main')
 
     return (
@@ -126,7 +128,9 @@ class PageHeader extends React.Component {
         </div>
         <div className="page-header-interreg">
           <a
-            href={config.get('links.interreg')}
+            href={stringInject(config.get('links.interreg'), {
+              lang: lang
+            })}
             className="logo-interreg tooltip"
             title={this.props.intl.formatMessage({
               id: 'header:interreg:hover'

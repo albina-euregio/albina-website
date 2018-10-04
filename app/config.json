@@ -41,7 +41,7 @@
     "gaTrackingId": "UA-69879901-5"
   },
   "links": {
-    "interreg": "http://www.europaregion.info/",
+    "interreg": "http://www.europaregion.info/{lang}/default.asp",
     "meteoViewer": "https://data1.geo.univie.ac.at/projects/meteoviewer?config=albina",
     "meteoViewerConfig": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
     "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
