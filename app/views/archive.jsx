@@ -177,7 +177,11 @@ class Archive extends React.Component {
                 </thead>
                 <tbody>
                   {this.dates.map(d => (
-                    <ArchiveItem key={d.getTime()} date={d} />
+                    <ArchiveItem
+                      key={d.getTime()}
+                      date={d}
+                      lang={window['appStore'].language}
+                    />
                   ))}
                 </tbody>
               </table>

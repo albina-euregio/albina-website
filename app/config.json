@@ -46,7 +46,7 @@
     "meteoViewerConfig": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
     "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
     "downloads": {
-      "pdf": "https://example.com/{date}.pdf",
+      "pdf": "https://example.com/{date}_{lang}.pdf",
       "xml": "https://example.com/{date}.xml"
     }
   },
