@@ -31,7 +31,7 @@
 }
 
 .leaflet-geonames-search form {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 1);
   width: 100%;
   margin-bottom: 5px;
 }
