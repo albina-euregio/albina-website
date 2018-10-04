@@ -174,8 +174,8 @@ export default class ArchiveStore {
     this.loading = true
 
     // zulu time
-    const timeFormatStart = 'T22:00:00Z' //'T00:00:00+02:00'
-    const timeFormatEnd = 'T22:00:00Z' //'T00:00:00+02:00'
+    const timeFormatStart = 'T23:00:00Z' //'T00:00:00+02:00'
+    const timeFormatEnd = 'T23:00:00Z' //'T00:00:00+02:00'
 
     const prevDay = date =>
       dateToISODateString(getPredDate(parseDate(date)))
