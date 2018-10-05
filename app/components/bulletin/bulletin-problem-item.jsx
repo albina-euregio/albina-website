@@ -13,7 +13,6 @@ class BulletinProblemItem extends React.Component {
 
   @computed
   get where() {
-    console.log('problem', this.props.problem)
     if (
       this.props.problem.elevationLow &&
       this.props.problem.elevationHigh
@@ -112,7 +111,6 @@ class BulletinProblemItem extends React.Component {
   }
 
   render() {
-    console.log('elevation text', this.elevationText)
     const expositionText = this.props.intl.formatMessage({
       id: 'bulletin:report:exposition'
     })

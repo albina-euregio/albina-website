@@ -33,6 +33,7 @@ class ArchiveItem extends React.Component {
                   config.get('links.downloads.pdf'),
                   { date: dateString, lang: this.props.lang }
                 )}
+                target="_blank"
                 title={this.props.intl.formatMessage({
                   id: 'archive:download-pdf:hover'
                 })}
@@ -50,6 +51,7 @@ class ArchiveItem extends React.Component {
                 title={this.props.intl.formatMessage({
                   id: 'archive:download-xml:hover'
                 })}
+                target="_blank"
                 className="small secondary pure-button tooltip"
               >
                 <FormattedHTMLMessage id="archive:download-xml" />
