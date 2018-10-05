@@ -546,8 +546,8 @@
   },
   "bulletin:report:problem-treeline:hover": {
     "en": "Avalanche problem above treeline",
-    "de": "Lawinenproblem von Waldgrenze",
-    "it": "Problema tipico limite del bosco"
+    "de": "Lawinenproblem oberhalb der Waldgrenze",
+    "it": "Problema valanghe sopra il limite del bosco"
   },
   "bulletin:report:snowpack-structure:headline": {
     "en": "Snowpack",
