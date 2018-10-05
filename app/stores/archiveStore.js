@@ -75,6 +75,7 @@ export default class ArchiveStore {
   }
 
   load(startDate, endDate = '') {
+    console.log('loading archives', startDate, endDate)
     let d1 = parseDate(startDate)
 
     // check if start date has already been loaded
@@ -127,7 +128,7 @@ export default class ArchiveStore {
 
       // 2030
       //const date = new Date(y, m-1, d);
-      const date = new Date(2030, 1, 16)
+      const date = new Date(2030, 1, 13)
       //const previousDate = date.setDate(date.getDate()-1);
       return date
     }
@@ -153,7 +154,9 @@ export default class ArchiveStore {
         d = getDaysOfMonth(y, m)
       }
 
-      return new Date(y, m - 1, d)
+      // 2030
+      return new Date('Feb 16 2030 00:00:00 GMT+0100')
+      //return new Date(y, m - 1, d)
     }
 
     return null

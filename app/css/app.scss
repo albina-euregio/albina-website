@@ -213,3 +213,14 @@ a.share-feed {
     padding: 0px !important;
   }
 }
+
+@media only screen and (min-width: 48em) {
+  .panel.warning-level-1 .bulletin-report-header h1 {
+    margin-left: -1.3rem;
+  }
+}
+@media only screen and (min-width: 64em) {
+  .page-headline header {
+    padding: 0 25px;
+  }
+}
