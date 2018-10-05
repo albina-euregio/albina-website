@@ -207,3 +207,13 @@ a.share-feed {
 .section-bulletin-legend .list-avalanche-problems-filter img {
   background: none !important;
 }
+
+@media only screen and (max-width: 57.5em) {
+  .page-main section.section-centered {
+    padding: 0px !important;
+  }
+}
+
+section.section-centered h2 {
+  padding: 1.875rem 1.25rem;
+}
