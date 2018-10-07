@@ -8,24 +8,6 @@
       "params": {
         "id": "7062477220886068374"
       }
-    },
-    {
-      "lang": "en",
-      "name": "albina-test.blogspot.com",
-      "apiType": "blogger",
-      "regions": ["IT-32-BZ"],
-      "params": {
-        "id": "1218892426168768626"
-      }
-    },
-    {
-      "lang": "de",
-      "name": "albina-de.blogspot.com",
-      "apiType": "blogger",
-      "regions": ["AT-07", "IT-32-BZ"],
-      "params": {
-        "id": "4975737854227957835"
-      }
     }
   ],
   "apis": {
@@ -41,13 +23,13 @@
     "gaTrackingId": "UA-69879901-5"
   },
   "links": {
-    "interreg": "http://www.europaregion.info/{lang}/default.asp",
+    "interreg": "http://www.interreg.net/{lang}/default.asp",
     "meteoViewer": "https://data1.geo.univie.ac.at/projects/meteoviewer?config=albina",
     "meteoViewerConfig": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
     "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
     "downloads": {
-      "pdf": "https://example.com/{date}_{lang}.pdf",
-      "xml": "https://example.com/{date}.xml"
+      "pdf": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}.pdf",
+      "xml": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}.xml"
     }
   },
   "subscribe": {

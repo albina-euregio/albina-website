@@ -46,7 +46,7 @@ class ArchiveItem extends React.Component {
               <a
                 href={stringInject(
                   config.get('links.downloads.xml'),
-                  { date: dateString }
+                  { date: dateString, lang: this.props.lang }
                 )}
                 title={this.props.intl.formatMessage({
                   id: 'archive:download-xml:hover'
