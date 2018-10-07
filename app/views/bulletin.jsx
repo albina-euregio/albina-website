@@ -112,13 +112,13 @@ class Bulletin extends React.Component {
       if (oldRegion !== id) {
         this.store.setRegion(id)
         this.handleHighlightRegion(id) // also do highlighting
-        Base.searchChange(this.props.history, 'region', id)
+        Base.searchChange(this.props.history, 'region', id, false)
       }
     } else if (this.store.settings.region) {
       this.store.setRegion('')
       this.handleHighlightRegion(null)
 
-      Base.searchChange(this.props.history, 'region', '')
+      Base.searchChange(this.props.history, 'region', '', false)
     }
   }
 

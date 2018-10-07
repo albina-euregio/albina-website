@@ -100,7 +100,7 @@ var Base = {
     return search.get(variable)
   },
 
-  searchChange(history, variable, value) {
+  searchChange(history, variable, value, replace = false) {
     let search = new URLSearchParams(
       document.location.search.substring(1)
     )
@@ -116,8 +116,12 @@ var Base = {
       search.append(variable, value)
     }
     if (search && history) {
+      if (replace) {
+        history.replace({ search: search.toString() })
+      } else {
+        history.push({ search: search.toString() })
+      }
       console.log('changing history', search.toString())
-      history.push({ search: search.toString() })
     }
   }
 }

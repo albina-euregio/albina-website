@@ -65,7 +65,12 @@ class Page extends React.Component {
     }
 
     // set the url if needed
-    Base.searchChange(this.props.history, 'lang', appStore.language)
+    Base.searchChange(
+      this.props.history,
+      'lang',
+      appStore.language,
+      true
+    )
   }
 
   componentDidUpdate() {
