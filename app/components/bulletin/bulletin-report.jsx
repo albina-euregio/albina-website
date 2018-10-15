@@ -206,6 +206,7 @@ class BulletinReport extends React.Component {
                 </p>
               </div>
             )}
+            {/*
             <p className="bulletin-author">
               <FormattedHTMLMessage id="bulletin:report:author" />
               :&nbsp;
@@ -214,6 +215,7 @@ class BulletinReport extends React.Component {
                   <span>{bulletin.author.name}</span>
                 )}
             </p>
+              */}
           </div>
         </section>
       </div>
