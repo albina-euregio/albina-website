@@ -16,6 +16,8 @@ import Base from './../../base'
 import AppStore from '../../appStore'
 
 require('./../../util/l.geonames')
+require('./../../util/l.geonames')
+require('leaflet.locatecontrol')
 require('leaflet-gesture-handling')
 require('leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css')
 require('./../../css/geonames.css')
@@ -62,6 +64,26 @@ class LeafletMap extends React.Component {
         config.get('map.geonames')
       )
       L.control.geonames(geonamesOptions).addTo(this.map)
+      L.control
+        .locate(
+          Object.assign({}, config.get('map.locateOptions'), {
+            strings: {
+              title: this.props.intl.formatMessage({
+                id: 'bulletin:map:locate:title'
+              }),
+              metersUnit: this.props.intl.formatMessage({
+                id: 'bulletin:map:locate:metersUnit'
+              }),
+              popup: this.props.intl.formatMessage({
+                id: 'bulletin:map:locate:popup'
+              }),
+              outsideMapBoundsMsg: this.props.intl.formatMessage({
+                id: 'bulletin:map:locate:outsideMapBoundsMsg'
+              })
+            }
+          })
+        )
+        .addTo(this.map)
     }, 50)
 
     window.setTimeout(() => {

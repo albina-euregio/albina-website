@@ -122,21 +122,23 @@ iframe#stationTable {
 .section-map
   .leaflet-control-container
   .leaflet-top
-  .leaflet-control
+  .leaflet-control {
+  border: 0px !important;
   a {
-  margin-top: 0 !important;
-  width: 39px !important;
-  height: 39px !important;
-  line-height: 1.8em;
-  font-weight: lighter;
-  font-family: 'Fontello';
-  color: #19abff;
-  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
-  margin: 0;
-  padding: 0;
-  position: relative;
-  display: block;
-  text-indent: 0;
+    margin-top: 0 !important;
+    width: 39px !important;
+    height: 39px !important;
+    line-height: 1.8em;
+    font-weight: lighter;
+    font-family: 'Fontello';
+    color: #19abff;
+    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+    margin: 0;
+    padding: 0;
+    position: relative;
+    display: block;
+    text-indent: 0;
+  }
 }
 
 .section-map .leaflet-control-container .leaflet-control-zoom a {
