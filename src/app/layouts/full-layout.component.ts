@@ -3,9 +3,9 @@ import { TranslateService } from 'ng2-translate/src/translate.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
-import { ChatService } from '../providers/chat-service/chat.service';
+import { WsChatService } from '../providers/ws-chat-service/ws-chat.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
-import { SocketService } from '../providers/socket-service/socket.service';
+import { WebsocketService } from '../providers/websocket-service/websocket.service';
 import { ChatMessageModel } from '../models/chat-message.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -37,9 +37,8 @@ export class FullLayoutComponent implements OnInit {
     public translateService: TranslateService,
     public authenticationService: AuthenticationService,
     public bulletinsService: BulletinsService,
-    public chatService: ChatService,
+    public wsChatService: WsChatService,
     public settingsService: SettingsService,
-    public socketService: SocketService,
     public constantsService: ConstantsService,
     public router: Router,
     private modalService: BsModalService)
@@ -49,7 +48,7 @@ export class FullLayoutComponent implements OnInit {
   }
 
   public showBadge(region?: string): boolean {
-    return this.chatService.getNewMessageCount(region) > 0 && !this.status.isopen;
+    return this.wsChatService.getNewMessageCount(region) > 0 && !this.status.isopen;
   }
 
   public toggled(open: boolean): void {
@@ -62,22 +61,22 @@ export class FullLayoutComponent implements OnInit {
   }
 
   public focusChat($event, region?: string) {
-    this.chatService.resetNewMessageCount(region);
+    this.wsChatService.resetNewMessageCount(region);
   }
 
   public logout() {
     if (this.bulletinsService.getActiveDate())
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
     this.authenticationService.logout();
-    this.socketService.logout();
+    this.wsChatService.disconnect();
   }
 
   ngOnInit(): void {}
 
   sendChatMessage(region?: string) {
-    this.chatService.resetNewMessageCount(region);
+    this.wsChatService.resetNewMessageCount(region);
     if (this.message && this.message != undefined && this.message != "")
-      this.chatService.sendMessage(this.message, region);
+      this.wsChatService.sendMessage(this.message, region);
     this.message = "";
   }
 

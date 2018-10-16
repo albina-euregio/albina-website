@@ -4,7 +4,7 @@ import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
-import { SocketService } from '../providers/socket-service/socket.service';
+import { WebsocketService } from '../providers/websocket-service/websocket.service';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
@@ -62,7 +62,7 @@ export class BulletinsComponent {
     public constantsService: ConstantsService,
     public router: Router,
     public confirmationService: ConfirmationService,
-    public socketService: SocketService,
+    public websocketService: WebsocketService,
     public modalService: BsModalService)
   {
     this.loading = false;
@@ -71,13 +71,14 @@ export class BulletinsComponent {
 
     this.bulletinsService.init();
 
-    this.socketService.getSocket().on('bulletinUpdate', function(data) {
-      console.log("SocketIO bulletin update event recieved: " + data);
-      let json = JSON.parse(data)
-      let region = json.region;
-      if (region === this.authenticationService.getActiveRegion())
-        this.bulletinsService.statusMap.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
-    }.bind(this));
+      // TODO implement via websockets
+//    this.socketService.getSocket().on('bulletinUpdate', function(data) {
+//      console.log("SocketIO bulletin update event recieved: " + data);
+//      let json = JSON.parse(data)
+//      let region = json.region;
+//      if (region === this.authenticationService.getActiveRegion())
+//        this.bulletinsService.statusMap.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
+//    }.bind(this));
   }
 
   ngOnInit() {

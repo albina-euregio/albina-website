@@ -21,13 +21,13 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 // Services
 import { AuthenticationService } from './providers/authentication-service/authentication.service';
 import { BulletinsService } from './providers/bulletins-service/bulletins.service';
-import { ChatService } from './providers/chat-service/chat.service';
 import { RegionsService } from './providers/regions-service/regions.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { SettingsService } from './providers/settings-service/settings.service';
 import { MapService } from './providers/map-service/map.service';
 import { ObservationsService } from './providers/observations-service/observations.service';
-import { SocketService } from './providers/socket-service/socket.service';
+import { WebsocketService } from './providers/websocket-service/websocket.service';
+import { WsChatService } from './providers/ws-chat-service/ws-chat.service';
 import { LocalStorageService } from './providers/local-storage-service/local-storage.service';
 import { ConfigurationService } from './providers/configuration-service/configuration.service';
 import { ConfirmationService } from 'primeng/primeng';
@@ -92,10 +92,11 @@ export function createTranslateLoader(http: Http) {
     SettingsService,
     BulletinsService,
     RegionsService,
-    ChatService,
+    WsChatService,
     MapService,
     ObservationsService,
-    SocketService,
+    WebsocketService,
+    WsChatService,
     LocalStorageService,
     ConfigurationService,
     ConfirmationService

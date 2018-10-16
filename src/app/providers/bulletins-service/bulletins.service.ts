@@ -4,7 +4,7 @@ import { ConstantsService } from '../constants-service/constants.service';
 import { RegionsService } from '../regions-service/regions.service';
 import { SettingsService } from '../settings-service/settings.service';
 import { AuthenticationService } from '../authentication-service/authentication.service';
-import { SocketService } from '../socket-service/socket.service';
+import { WebsocketService } from '../websocket-service/websocket.service';
 import { Observable } from 'rxjs/Observable';
 import { BulletinModel } from '../../models/bulletin.model';
 import * as Enums from '../../enums/enums';
@@ -31,7 +31,7 @@ export class BulletinsService {
     private constantsService: ConstantsService,
     private authenticationService: AuthenticationService,
     private settingsService: SettingsService,
-    private socketService: SocketService)
+    private websocketService: WebsocketService)
   {
     this.init();
   }
@@ -47,6 +47,8 @@ export class BulletinsService {
     this.lockedRegions = new Map<string, Date[]>();
     // this.lockedBulletins = new Map<string, String[]>();
 
+      // TODO implement via websockets
+/*
     this.socketService.getSocket().on('lockRegion', function(data) {
       console.log("[SocketIO] Message received: lockRegion - " + data);
       let message = JSON.parse(data);
@@ -61,7 +63,6 @@ export class BulletinsService {
       this.removeLockedRegion(message.region, date);
     }.bind(this));
 
-/*
     this.socketService.getSocket().on('lockBulletin', function(data) {
       console.log("[SocketIO] Message received: lockBulletin - " + data);
       let message = JSON.parse(data);
@@ -353,7 +354,8 @@ export class BulletinsService {
     json['date'] = this.constantsService.getISOStringWithTimezoneOffset(date);
     json['region'] = region;
 
-    this.sendMessage('lockRegion', json);
+    // TODO implement via websockets
+    //this.sendMessage('lockRegion', json);
   }
 
   unlockRegion(date: Date, region: string) {
@@ -362,7 +364,8 @@ export class BulletinsService {
     json['date'] = this.constantsService.getISOStringWithTimezoneOffset(date);
     json['region'] = region;
 
-    this.sendMessage('unlockRegion', json);
+    // TODO implement via websockets
+    //this.sendMessage('unlockRegion', json);
   }
 
   lockBulletin(date: Date, bulletinId: string) {
@@ -374,7 +377,7 @@ export class BulletinsService {
     json['date'] = this.constantsService.getISOStringWithTimezoneOffset(date);
     json['bulletinId'] = bulletinId;
 
-    this.sendMessage('lockBulletin', json);
+    //this.sendMessage('lockBulletin', json);
   }
 
   unlockBulletin(date: Date, bulletinId: string) {
@@ -383,9 +386,11 @@ export class BulletinsService {
     json['date'] = this.constantsService.getISOStringWithTimezoneOffset(date);
     json['bulletinId'] = bulletinId;
 
-    this.sendMessage('unlockBulletin', json);
+    //this.sendMessage('unlockBulletin', json);
   }
 
+    // TODO implement via websockets
+/*
   sendMessage(type: string, message: Object) {
     this.socketService.getSocket().emit(type, JSON.stringify(message), function(data) {
       console.log("[SocketIO] Message sent: " + type + " - " + JSON.stringify(message));
@@ -396,6 +401,7 @@ export class BulletinsService {
         console.log("[SocketIO] Failure!");
     });
   }
+*/
 
   addLockedRegion(region: string, date: Date) {
     if (this.lockedRegions.has(region)) {

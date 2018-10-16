@@ -50,7 +50,7 @@
       </div>
     </li>
     <li *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined" class="nav-item">
-      <a class="nav-link icon-speech aside-menu-toggler" href="#"><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegion()) }}</span></a>
+      <a class="nav-link icon-speech aside-menu-toggler" href="#"><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ wsChatService.getNewMessageCountSum(authenticationService.getActiveRegion()) }}</span></a>
     </li>
   </ul>
   
@@ -93,10 +93,10 @@
     <tabset>
       <!-- ALL -->
       <tab *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined">
-        <ng-template tabHeading>{{ "chat.all" | translate }}<span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount() }}</span></ng-template>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion() > 0" class="p-1">
+        <ng-template tabHeading>{{ "chat.all" | translate }}<span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ wsChatService.getNewMessageCount() }}</span></ng-template>
+<!--        <div *ngIf="wsChatService.getNumberOfActiveUsersForRegion() > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
-          <div *ngFor="let user of chatService.getActiveUsersForRegion()" class="message">
+          <div *ngFor="let user of wsChatService.getActiveUsersForRegion()" class="message">
             <div>
               <div>
                 <small>{{ user }}</small>
@@ -104,7 +104,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion() == 0" class="p-1">
+        <div *ngIf="wsChatService.getNumberOfActiveUsersForRegion() == 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
           <div class="message">
             <div>
@@ -114,14 +114,14 @@
             </div>
           </div>
         </div>
-        <hr style="margin: 0px">
+        <hr style="margin: 0px"> -->
         <div class="p-1">
           <div class="message">
             <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event)"></textarea>
             <button type="button" class="btn btn-primary btn-sm btn-block" (click)="sendChatMessage()">{{ "chat.send" | translate }}</button>
             <hr>
           </div>
-          <div *ngFor="let chatMessage of chatService.getChatMessages()">
+          <div *ngFor="let chatMessage of wsChatService.getChatMessages()">
             <div class="message">
               <div>
                 <small class="text-muted">{{ chatMessage.getUsername() }}</small>
@@ -135,10 +135,10 @@
       </tab>
       <!-- TIROL -->
       <tab *ngIf="authenticationService.getActiveRegion() == constantsService.codeSouthTyrol || authenticationService.getActiveRegion() == constantsService.codeTrentino">
-        <ng-template tabHeading>{{ "chat.AT-07" | translate }}<span *ngIf="showBadge(constantsService.codeTyrol)" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount(constantsService.codeTyrol) }}</span></ng-template>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeTyrol) > 0" class="p-1">
+        <ng-template tabHeading>{{ "chat.AT-07" | translate }}<span *ngIf="showBadge(constantsService.codeTyrol)" class="badge badge-pill badge-danger">{{ wsChatService.getNewMessageCount(constantsService.codeTyrol) }}</span></ng-template>
+<!--        <div *ngIf="wsChatService.getNumberOfActiveUsersForRegion(constantsService.codeTyrol) > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
-          <div *ngFor="let user of chatService.getActiveUsersForRegion(constantsService.codeTyrol)" class="message">
+          <div *ngFor="let user of wsChatService.getActiveUsersForRegion(constantsService.codeTyrol)" class="message">
             <div>
               <div>
                 <small>{{ user }}</small>
@@ -146,7 +146,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeTyrol) == 0" class="p-1">
+        <div *ngIf="wsChatService.getNumberOfActiveUsersForRegion(constantsService.codeTyrol) == 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
           <div class="message">
             <div>
@@ -156,14 +156,14 @@
             </div>
           </div>
         </div>
-        <hr style="margin: 0px">
+        <hr style="margin: 0px"> -->
         <div class="p-1">
           <div class="message">
             <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event, constantsService.codeTyrol)"></textarea>
             <button type="button" class="btn btn-primary btn-sm btn-block" (click)="sendChatMessage(constantsService.codeTyrol)">{{ "chat.send" | translate }}</button>
             <hr>
           </div>
-          <div *ngFor="let chatMessage of chatService.getChatMessages(constantsService.codeTyrol)">
+          <div *ngFor="let chatMessage of wsChatService.getChatMessages(constantsService.codeTyrol)">
             <div class="message">
               <div>
                 <small class="text-muted">{{ chatMessage.getUsername() }}</small>
@@ -177,10 +177,10 @@
       </tab>
       <!-- SOUTH TYROL -->
       <tab *ngIf="authenticationService.getActiveRegion() == constantsService.codeTyrol || authenticationService.getActiveRegion() == constantsService.codeTrentino">
-        <ng-template tabHeading>{{ "chat.IT-32-BZ" | translate }}<span *ngIf="showBadge(constantsService.codeSouthTyrol)" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount(constantsService.codeSouthTyrol) }}</span></ng-template>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeSouthTyrol) > 0" class="p-1">
+        <ng-template tabHeading>{{ "chat.IT-32-BZ" | translate }}<span *ngIf="showBadge(constantsService.codeSouthTyrol)" class="badge badge-pill badge-danger">{{ wsChatService.getNewMessageCount(constantsService.codeSouthTyrol) }}</span></ng-template>
+<!--        <div *ngIf="wsChatService.getNumberOfActiveUsersForRegion(constantsService.codeSouthTyrol) > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
-          <div *ngFor="let user of chatService.getActiveUsersForRegion(constantsService.codeSouthTyrol)" class="message">
+          <div *ngFor="let user of wsChatService.getActiveUsersForRegion(constantsService.codeSouthTyrol)" class="message">
             <div>
               <div>
                 <small>{{ user }}</small>
@@ -188,7 +188,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeSouthTyrol) == 0" class="p-1">
+        <div *ngIf="wsChatService.getNumberOfActiveUsersForRegion(constantsService.codeSouthTyrol) == 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
           <div class="message">
             <div>
@@ -198,14 +198,14 @@
             </div>
           </div>
         </div>
-        <hr style="margin: 0px">
+        <hr style="margin: 0px"> -->
         <div class="p-1">
           <div class="message">
             <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event, constantsService.codeSouthTyrol)"></textarea>
             <button type="button" class="btn btn-primary btn-sm btn-block" (click)="sendChatMessage(constantsService.codeSouthTyrol)">{{ "chat.send" | translate }}</button>
             <hr>
           </div>
-          <div *ngFor="let chatMessage of chatService.getChatMessages(constantsService.codeSouthTyrol)">
+          <div *ngFor="let chatMessage of wsChatService.getChatMessages(constantsService.codeSouthTyrol)">
             <div class="message">
               <div>
                 <small class="text-muted">{{ chatMessage.getUsername() }}</small>
@@ -219,10 +219,10 @@
       </tab>
       <!-- TRENTINO -->
       <tab *ngIf="authenticationService.getActiveRegion() == constantsService.codeTyrol || authenticationService.getActiveRegion() == constantsService.codeSouthTyrol">
-        <ng-template tabHeading>{{ "chat.IT-32-TN" | translate }}<span *ngIf="showBadge(constantsService.codeTrentino)" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount(constantsService.codeTrentino) }}</span></ng-template>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeTrentino) > 0" class="p-1">
+        <ng-template tabHeading>{{ "chat.IT-32-TN" | translate }}<span *ngIf="showBadge(constantsService.codeTrentino)" class="badge badge-pill badge-danger">{{ wsChatService.getNewMessageCount(constantsService.codeTrentino) }}</span></ng-template>
+<!--        <div *ngIf="wsChatService.getNumberOfActiveUsersForRegion(constantsService.codeTrentino) > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
-          <div *ngFor="let user of chatService.getActiveUsersForRegion(constantsService.codeTrentino)" class="message">
+          <div *ngFor="let user of wsChatService.getActiveUsersForRegion(constantsService.codeTrentino)" class="message">
             <div>
               <div>
                 <small>{{ user }}</small>
@@ -230,7 +230,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeTrentino) == 0" class="p-1">
+        <div *ngIf="wsChatService.getNumberOfActiveUsersForRegion(constantsService.codeTrentino) == 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
           <div class="message">
             <div>
@@ -240,14 +240,14 @@
             </div>
           </div>
         </div>
-        <hr style="margin: 0px">
+        <hr style="margin: 0px"> -->
         <div class="p-1">
           <div class="message">
             <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event, constantsService.codeTrentino)"></textarea>
             <button type="button" class="btn btn-primary btn-sm btn-block" (click)="sendChatMessage(constantsService.codeTrentino)">{{ "chat.send" | translate }}</button>
             <hr>
           </div>
-          <div *ngFor="let chatMessage of chatService.getChatMessages(constantsService.codeTrentino)">
+          <div *ngFor="let chatMessage of wsChatService.getChatMessages(constantsService.codeTrentino)">
             <div class="message">
               <div>
                 <small class="text-muted">{{ chatMessage.getUsername() }}</small>
