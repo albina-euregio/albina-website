@@ -9,9 +9,7 @@ export default class YearFilter extends React.Component {
   get years() {
     const minYear = this.props.minYear
     const years = []
-    // 2030
-    //const maxYear = (new Date()).getFullYear();
-    const maxYear = 2031
+    const maxYear = new Date().getFullYear()
 
     for (var d = minYear; d <= maxYear; d++) {
       years.push(d)

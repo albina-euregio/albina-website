@@ -126,9 +126,7 @@ export default class ArchiveStore {
         d = 1
       }
 
-      // 2030
-      //const date = new Date(y, m-1, d);
-      const date = new Date(2030, 1, 13)
+      const date = new Date(y, m - 1, d)
       //const previousDate = date.setDate(date.getDate()-1);
       return date
     }
@@ -154,9 +152,7 @@ export default class ArchiveStore {
         d = getDaysOfMonth(y, m)
       }
 
-      // 2030
-      return new Date('Feb 16 2030 00:00:00 GMT+0100')
-      //return new Date(y, m - 1, d)
+      return new Date(y, m - 1, d)
     }
 
     return null

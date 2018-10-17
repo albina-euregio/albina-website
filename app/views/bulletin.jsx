@@ -72,12 +72,10 @@ class Bulletin extends React.Component {
   }
 
   _fetchData(props) {
-    // 2030
     let startDate =
       props.match.params.date && parseDate(props.match.params.date)
         ? props.match.params.date
-        : dateToISODateString(new Date(2030, 1, 16))
-    //: dateToISODateString(new Date())
+        : dateToISODateString(new Date())
 
     if (startDate != this.props.match.params.date) {
       // update URL if necessary

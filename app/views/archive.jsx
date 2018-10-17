@@ -68,15 +68,12 @@ class Archive extends React.Component {
   get dates() {
     if (!this.store.loading) {
       // TODO: take filter values from store
-      /*
-      2030
+
       const startDate = this.store.startDate
         ? this.store.startDate
         : ''
-        */
 
-      const startDate = new Date('Feb 14 2030 00:00:00 GMT+0100')
-      const endDate = new Date('Feb 16 2030 00:00:00 GMT+0100') // 2030 this.store.endDate ? this.store.endDate : ''
+      const endDate = this.store.endDate ? this.store.endDate : ''
 
       const test = date => {
         return this.store.getStatus(dateToISODateString(date)) == 'ok'
@@ -120,10 +117,7 @@ class Archive extends React.Component {
             title={this.props.intl.formatMessage({
               id: 'archive:filter:year'
             })}
-            minYear={
-              //window['config'].get('archive.minYear')
-              '2030'
-            }
+            minYear={window['config'].get('archive.minYear')}
             handleChange={this.handleChangeYear}
             value={this.store.year}
           />
@@ -133,7 +127,7 @@ class Archive extends React.Component {
                 id: 'archive:filter:month'
               })}
               handleChange={this.handleChangeMonth}
-              value={2} // 2030 this.store.month}
+              value={this.store.month}
             />
           )}
           {this.store.month && (

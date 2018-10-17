@@ -268,6 +268,26 @@
     "de": "Ältere Lawinenvorhersagen",
     "it": "Bollettini valanghe precedenti"
   },
+  "bulletin:map:locate:title": {
+    "en": "Show me where I am",
+    "de": "Show me where I am",
+    "it": "Show me where I am"
+  },
+  "bulletin:map:locate:metersUnit": {
+    "en": "meters",
+    "de": "meters",
+    "it": "meters"
+  },
+  "bulletin:map:locate:popup": {
+    "en": "located",
+    "de": "located",
+    "it": "located"
+  },
+  "bulletin:map:locate:outsideMapBoundsMsg": {
+    "en": "You seem located outside the boundaries of the map",
+    "de": "You seem located outside the boundaries of the map",
+    "it": "You seem located outside the boundaries of the map"
+  },
   "bulletin:map:search": {
     "en": "Search",
     "de": "Suchen",
