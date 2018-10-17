@@ -126,6 +126,7 @@ class Bulletin extends React.Component {
 
   render() {
     //console.log('rendering bulletin view(0)', this.store.vectorRegions)
+    // console.log('rendering bulletin ', this.store.bulletins)
 
     return (
       <div>

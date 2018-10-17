@@ -6,37 +6,36 @@ import Base from './../../base'
 
 @observer
 export default class BulletinVectorLayer extends React.Component {
-
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       over: false
     }
   }
 
-  handleClickRegion (bid, state, e) {
+  handleClickRegion(bid, state, e) {
     L.DomEvent.stopPropagation(e)
     if (state !== 'hidden') {
       this.props.handleSelectRegion(bid)
     }
   }
 
-  handleMouseOut (bid) {
+  handleMouseOut(bid) {
     if (bid === this.state.over) {
       this.setState({ over: false })
     }
   }
-  handleMouseMove (bid) {
+  handleMouseMove(bid) {
     if (bid !== this.state.over) {
       this.setState({ over: bid })
     }
   }
 
-  shouldComponentUpdate () {
+  shouldComponentUpdate() {
     return true
   }
 
-  get uniqueKey () {
+  get uniqueKey() {
     // A unique key is needed for <GeoJSON> component to indicate the need
     // for rerendering. We use the selected date and region as well as a hash
     // of the settings of avalancheproblems.
@@ -50,10 +49,14 @@ export default class BulletinVectorLayer extends React.Component {
       return acc * 2 + (bulletinStore.problems[p].active ? 1 : 0)
     }, 0)
 
-    return bulletinStore.settings.date + bulletinStore.settings.region + problemHash
+    return (
+      bulletinStore.settings.date +
+      bulletinStore.settings.region +
+      problemHash
+    )
   }
 
-  render () {
+  render() {
     const vectorOptions = config.get('map.vectorOptions')
 
     // this has to be refactored
@@ -73,9 +76,19 @@ export default class BulletinVectorLayer extends React.Component {
             return vector.geometry.coordinates.map((g, gi) => (
               <Polygon
                 key={vi + '' + gi}
-                onClick={this.handleClickRegion.bind(this, vector.properties.bid, state)}
-                onMouseMove={this.handleMouseMove.bind(this, vector.properties.bid)}
-                onMouseOut={this.handleMouseOut.bind(this, vector.properties.bid)}
+                onClick={this.handleClickRegion.bind(
+                  this,
+                  vector.properties.bid,
+                  state
+                )}
+                onMouseMove={this.handleMouseMove.bind(
+                  this,
+                  vector.properties.bid
+                )}
+                onMouseOut={this.handleMouseOut.bind(
+                  this,
+                  vector.properties.bid
+                )}
                 positions={g}
                 {...style}
                 {...vectorOptions}
@@ -97,9 +110,19 @@ export default class BulletinVectorLayer extends React.Component {
             return vector.geometry.coordinates.map((g, gi) => (
               <Polygon
                 key={vi + '' + gi}
-                onClick={this.handleClickRegion.bind(this, vector.properties.bid, state)}
-                onMouseMove={this.handleMouseMove.bind(this, vector.properties.bid)}
-                onMouseOut={this.handleMouseOut.bind(this, vector.properties.bid)}
+                onClick={this.handleClickRegion.bind(
+                  this,
+                  vector.properties.bid,
+                  state
+                )}
+                onMouseMove={this.handleMouseMove.bind(
+                  this,
+                  vector.properties.bid
+                )}
+                onMouseOut={this.handleMouseOut.bind(
+                  this,
+                  vector.properties.bid
+                )}
                 positions={g}
                 {...style}
                 {...vectorOptions}

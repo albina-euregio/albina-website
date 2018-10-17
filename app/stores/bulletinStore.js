@@ -315,23 +315,27 @@ class BulletinStore {
   getProblemsForRegion(regionId) {
     const problems = []
     const b = this.getBulletinForRegion(regionId)
-    const daytime =
-      b.hasDaytimeDependency && this.settings.ampm == 'pm'
-        ? 'afternoon'
-        : 'forenoon'
-    const daytimeBulletin = b[daytime]
+    if (b) {
+      const daytime =
+        b.hasDaytimeDependency && this.settings.ampm == 'pm'
+          ? 'afternoon'
+          : 'forenoon'
+      const daytimeBulletin = b[daytime]
 
-    if (daytimeBulletin && daytimeBulletin.avalancheSituation1) {
-      problems.push(
-        daytimeBulletin.avalancheSituation1.avalancheSituation
-      )
+      if (daytimeBulletin && daytimeBulletin.avalancheSituation1) {
+        problems.push(
+          daytimeBulletin.avalancheSituation1.avalancheSituation
+        )
+      }
+      if (daytimeBulletin && daytimeBulletin.avalancheSituation2) {
+        problems.push(
+          daytimeBulletin.avalancheSituation2.avalancheSituation
+        )
+      }
+      return problems
+    } else {
+      return []
     }
-    if (daytimeBulletin && daytimeBulletin.avalancheSituation2) {
-      problems.push(
-        daytimeBulletin.avalancheSituation2.avalancheSituation
-      )
-    }
-    return problems
   }
 
   getRegionState(regionId) {
@@ -423,7 +427,8 @@ class BulletinStore {
       dateToISODateString(getPredDate(parseDate(date)))
 
     // zulu time
-    const dateParam = encodeURIComponent(prevDay(date) + 'T23:00:00Z')
+    const dateParam = encodeURIComponent(prevDay(date) + 'T22:00:00Z')
+    //const dateParam = encodeURIComponent(date + 'T22:00:00Z')
     //const dateParam = encodeURIComponent(date + 'T00:00:00+02:00')
     const url = config.get('apis.bulletin') + '?date=' + dateParam
 
@@ -446,6 +451,7 @@ class BulletinStore {
     const d = daytime || 'fd'
     const url =
       config.get('apis.geo') + date + '/' + d + '_regions.json'
+
     return Base.doRequest(url).then(
       // query vector data
       response => {
