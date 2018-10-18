@@ -53,10 +53,10 @@ export class LoginComponent {
     this.authenticationService.login(this.username, this.password).subscribe(
       data => {
         if (data === true) {
-          console.log("[" + this.username + "] Logged in!");
+          console.debug("[" + this.username + "] Logged in!");
           this.chatService.connect();
           this.mapService.resetAll();
-          console.log("Navigate to " + this.returnUrl);
+          console.debug("Navigate to " + this.returnUrl);
           this.router.navigate([this.returnUrl]);
           this.loading = false;
         } else {

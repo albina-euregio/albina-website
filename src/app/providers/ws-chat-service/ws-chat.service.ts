@@ -10,7 +10,7 @@ export class WsChatService {
   public connect(url): Rx.Subject<MessageEvent> {
     if (!this.subject) {
       this.subject = this.create(url);
-      console.log("Successfully connected: " + url);
+      console.debug("Successfully connected: " + url);
     } 
     return this.subject;
   }
@@ -34,8 +34,6 @@ export class WsChatService {
 	}
 	return Rx.Subject.create(observer, observable);
   }
-
-  // TODO destroy
 
   public disconnect() {
   	this.subject.unsubscribe();

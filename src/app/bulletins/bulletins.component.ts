@@ -1,10 +1,13 @@
 import { Component, HostListener, ViewChild, TemplateRef } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinModel } from '../models/bulletin.model';
+import { BulletinUpdateModel } from '../models/bulletin-update.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
+import { WsUpdateService } from '../providers/ws-update-service/ws-update.service';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Rx';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
@@ -21,6 +24,8 @@ import { ModalCheckComponent } from './modal-check.component';
 export class BulletinsComponent {
 
   public bulletinStatus = Enums.BulletinStatus;
+
+  public updates: Subject<BulletinUpdateModel>;
 
   public loading: boolean;
   public publishing: Date;
@@ -61,30 +66,44 @@ export class BulletinsComponent {
     public constantsService: ConstantsService,
     public router: Router,
     public confirmationService: ConfirmationService,
-    public modalService: BsModalService)
+    public modalService: BsModalService,
+    public wsUpdateService: WsUpdateService)
   {
     this.loading = false;
     this.copying = false;
     this.publishing = undefined;
 
     this.bulletinsService.init();
-
-      // TODO websocket: implement bulletin update
-//    this.socketService.getSocket().on('bulletinUpdate', function(data) {
-//      console.log("SocketIO bulletin update event recieved: " + data);
-//      let json = JSON.parse(data)
-//      let region = json.region;
-//      if (region === this.authenticationService.getActiveRegion())
-//        this.bulletinsService.statusMap.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
-//    }.bind(this));
   }
 
   ngOnInit() {
+    this.wsUpdateConnect();
   }
 
   ngOnDestroy() {
     this.loading = false;
     this.copying = false;
+    this.wsUpdateDisconnect();
+  }
+
+  private wsUpdateConnect() {
+    this.updates = <Subject<BulletinUpdateModel>>this.wsUpdateService
+      .connect(this.constantsService.updateUrl + this.authenticationService.getUsername())
+      .map((response: any): BulletinUpdateModel => {
+        let data = JSON.parse(response.data);
+        let bulletinUpdate = BulletinUpdateModel.createFromJson(data);
+        console.debug("Bulletin update received: " + bulletinUpdate.getDate().toLocaleDateString() + " - " + bulletinUpdate.getRegion() + " [" + bulletinUpdate.getStatus() + "]");
+        if (bulletinUpdate.region === this.authenticationService.getActiveRegion())
+          this.bulletinsService.statusMap.set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
+        return bulletinUpdate;
+      });
+
+    this.updates.subscribe(msg => {
+    });
+  }
+
+  private wsUpdateDisconnect() {
+    this.wsUpdateService.disconnect();
   }
 
   isPast(date: Date) {

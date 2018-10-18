@@ -139,7 +139,7 @@ export class AdminComponent {
 
     this.configurationService.saveConfigurationProperties(json).subscribe(
       data => {
-        console.log("Server configuration saved!");
+        console.debug("Server configuration saved!");
       },
       error => {
         console.error("Server configuration could not be saved!");

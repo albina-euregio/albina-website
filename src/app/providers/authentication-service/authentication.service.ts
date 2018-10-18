@@ -35,7 +35,7 @@ export class AuthenticationService {
   public logout() {
     localStorage.removeItem('currentAuthor');
     localStorage.removeItem('accessToken');
-    console.log("[" + this.currentAuthor.name + "] Logged out!");
+    console.debug("[" + this.currentAuthor.name + "] Logged out!");
     this.currentAuthor = null;
     this.activeRegion = undefined;
   }
@@ -169,7 +169,7 @@ export class AuthenticationService {
 
   public login(username: string, password: string): Observable<boolean> {
     let url = this.constantsService.getServerUrl() + 'authentication';
-    console.log(url);
+    console.debug(url);
 
     var json = Object();
     if (username && username != undefined)

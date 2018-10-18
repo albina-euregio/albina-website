@@ -113,10 +113,10 @@ export class BulletinsService {
         let data = JSON.parse(response.data);
         let regionLock = RegionLockModel.createFromJson(data);
         if (regionLock.getLock()) {
-          console.log("Region lock received: " + regionLock.getDate().toLocaleDateString() + " - " + regionLock.getRegion() + " [" + regionLock.getUsername() + "]");
+          console.debug("Region lock received: " + regionLock.getDate().toLocaleDateString() + " - " + regionLock.getRegion() + " [" + regionLock.getUsername() + "]");
           this.addLockedRegion(regionLock.getRegion(), regionLock.getDate());
         } else {
-          console.log("Region unlock received: " + regionLock.getDate().toLocaleDateString() + " - " + regionLock.getRegion() + " [" + regionLock.getUsername() + "]");
+          console.debug("Region unlock received: " + regionLock.getDate().toLocaleDateString() + " - " + regionLock.getRegion() + " [" + regionLock.getUsername() + "]");
           this.removeLockedRegion(regionLock.getRegion(), regionLock.getDate());
         }
         return regionLock;
@@ -127,7 +127,7 @@ export class BulletinsService {
   }
 
   public wsRegionDisconnect() {
-    // TODO implement
+    this.wsRegionService.disconnect();
   }
 
   public wsBulletinConnect() {
@@ -137,10 +137,10 @@ export class BulletinsService {
         let data = JSON.parse(response.data);
         let bulletinLock = BulletinLockModel.createFromJson(data);
         if (bulletinLock.getLock()) {
-          console.log("Bulletin lock received: " + bulletinLock.getBulletin());
+          console.debug("Bulletin lock received: " + bulletinLock.getBulletin());
           this.addLockedBulletin(bulletinLock.getBulletin(), bulletinLock.getUsername());
         } else {
-          console.log("Bulletin unlock received: " + bulletinLock.getBulletin());
+          console.debug("Bulletin unlock received: " + bulletinLock.getBulletin());
           this.removeLockedBulletin(bulletinLock.getBulletin());
         }
         return bulletinLock;
@@ -151,7 +151,7 @@ export class BulletinsService {
   }
 
   public wsBulletinDisconnect() {
-    // TODO implement
+    this.wsBulletinService.disconnect();
   }
 
   getActiveDate() : Date {
@@ -382,7 +382,7 @@ export class BulletinsService {
 
       this.regionLocks.next(regionLock);
 
-      console.log("Region lock sent: " + regionLock.getDate().toLocaleDateString() + " - " + regionLock.getRegion());
+      console.debug("Region lock sent: " + regionLock.getDate().toLocaleDateString() + " - " + regionLock.getRegion());
   }
 
   unlockRegion(date: Date, region: string) {
@@ -394,7 +394,7 @@ export class BulletinsService {
 
       this.regionLocks.next(regionLock);
 
-      console.log("Region unlock sent: " + regionLock.getDate().toLocaleDateString() + " - " + regionLock.getRegion());
+      console.debug("Region unlock sent: " + regionLock.getDate().toLocaleDateString() + " - " + regionLock.getRegion());
   }
 
   lockBulletin(date: Date, bulletinId: string) {
@@ -406,7 +406,7 @@ export class BulletinsService {
 
       this.bulletinLocks.next(bulletinLock);
 
-      console.log("Bulletin lock sent: " + bulletinLock.getDate() + " - " + bulletinLock.getBulletin());
+      console.debug("Bulletin lock sent: " + bulletinLock.getDate() + " - " + bulletinLock.getBulletin());
   }
 
   unlockBulletin(date: Date, bulletinId: string) {
@@ -418,7 +418,7 @@ export class BulletinsService {
 
       this.bulletinLocks.next(bulletinLock);
 
-      console.log("Bulletin unlock sent: " + bulletinLock.getDate() + " - " + bulletinLock.getBulletin());
+      console.debug("Bulletin unlock sent: " + bulletinLock.getDate() + " - " + bulletinLock.getBulletin());
   }
 
   addLockedRegion(region: string, date: Date) {

@@ -8,6 +8,7 @@ export class ConstantsService {
   //public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
   //public chatUrl: string = 'ws://localhost:8080/albina/chat/';
   //public bulletinUrl: string = 'ws://localhost:8080/albina/bulletin/';
+  //public updateUrl: string = 'ws://localhost:8080/albina/update/';
   //public regionUrl: string = 'ws://localhost:8080/albina/region/';
 
   // Development server
@@ -15,6 +16,7 @@ export class ConstantsService {
   //public textcatUrl: string = 'http://albina.clesius.it/textcat/c_pm.html';
   //public chatUrl: string = 'ws://212.47.231.185:8080/albina/chat/';
   //public bulletinUrl: string = 'ws://212.47.231.185:8080/albina/bulletin/';
+  //public updateUrl: string = 'ws://212.47.231.185:8080/albina/update/';
   //public regionUrl: string = 'ws://212.47.231.185:8080/albina/region/';
   
   // Production server
@@ -22,6 +24,7 @@ export class ConstantsService {
   public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
   public chatUrl: string = 'wss://admin.avalanche.report/albina/chat/';
   public bulletinUrl: string = 'wss://admin.avalanche.report/albina/bulletin/';
+  public updateUrl: string = 'wss://admin.avalanche.report/albina/update/';
   public regionUrl: string = 'wss://admin.avalanche.report/albina/region/';
 
   public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';

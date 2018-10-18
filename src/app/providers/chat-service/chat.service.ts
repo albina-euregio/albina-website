@@ -47,7 +47,7 @@ export class ChatService {
         let data = JSON.parse(response.data);
         let message = ChatMessageModel.createFromJson(data);
         this.addChatMessage(message, true);
-        console.log("Chat message received: " + message.getText());
+        console.debug("Chat message received: " + message.getText());
         return message;
       });
 
@@ -102,7 +102,7 @@ export class ChatService {
 
       this.messages.next(message);
 
-      console.log("Chat message sent: " + message.getText());
+      console.debug("Chat message sent: " + message.getText());
   }
 
   private addChatMessage(message, update) {
