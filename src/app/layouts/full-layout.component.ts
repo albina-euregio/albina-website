@@ -5,7 +5,7 @@ import { BulletinsService } from '../providers/bulletins-service/bulletins.servi
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { WsChatService } from '../providers/ws-chat-service/ws-chat.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
-import { WebsocketService } from '../providers/websocket-service/websocket.service';
+import { ChatService } from '../providers/chat-service/chat.service';
 import { ChatMessageModel } from '../models/chat-message.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -38,6 +38,7 @@ export class FullLayoutComponent implements OnInit {
     public authenticationService: AuthenticationService,
     public bulletinsService: BulletinsService,
     public wsChatService: WsChatService,
+    public chatService: ChatService,
     public settingsService: SettingsService,
     public constantsService: ConstantsService,
     public router: Router,
@@ -48,7 +49,7 @@ export class FullLayoutComponent implements OnInit {
   }
 
   public showBadge(region?: string): boolean {
-    return this.wsChatService.getNewMessageCount(region) > 0 && !this.status.isopen;
+    return this.chatService.getNewMessageCount(region) > 0 && !this.status.isopen;
   }
 
   public toggled(open: boolean): void {
@@ -61,22 +62,22 @@ export class FullLayoutComponent implements OnInit {
   }
 
   public focusChat($event, region?: string) {
-    this.wsChatService.resetNewMessageCount(region);
+    this.chatService.resetNewMessageCount(region);
   }
 
   public logout() {
     if (this.bulletinsService.getActiveDate())
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
     this.authenticationService.logout();
-    this.wsChatService.disconnect();
+    this.chatService.disconnect();
   }
 
   ngOnInit(): void {}
 
   sendChatMessage(region?: string) {
-    this.wsChatService.resetNewMessageCount(region);
+    this.chatService.resetNewMessageCount(region);
     if (this.message && this.message != undefined && this.message != "")
-      this.wsChatService.sendMessage(this.message, region);
+      this.chatService.sendMessage(this.message, region);
     this.message = "";
   }
 

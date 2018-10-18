@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as Rx from 'rxjs/Rx';
 
 @Injectable()
-export class WsChatService {
+export class WsBulletinService {
   constructor() { }
 
   private subject: Rx.Subject<MessageEvent>;

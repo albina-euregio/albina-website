@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, TemplateRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { MapService } from '../providers/map-service/map.service';
-import { WsChatService } from '../providers/ws-chat-service/ws-chat.service';
+import { ChatService } from '../providers/chat-service/chat.service';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -32,7 +32,7 @@ export class LoginComponent {
     private mapService: MapService,
     private translateService: TranslateService,
     private modalService: BsModalService,
-    private wsChatService: WsChatService)
+    private chatService: ChatService)
   {
     this.loading = false;
   }
@@ -54,7 +54,7 @@ export class LoginComponent {
       data => {
         if (data === true) {
           console.log("[" + this.username + "] Logged in!");
-          this.wsChatService.connect();
+          this.chatService.connect();
           this.mapService.resetAll();
           console.log("Navigate to " + this.returnUrl);
           this.router.navigate([this.returnUrl]);

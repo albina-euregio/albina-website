@@ -4,7 +4,6 @@ import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
-import { WebsocketService } from '../providers/websocket-service/websocket.service';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
@@ -62,7 +61,6 @@ export class BulletinsComponent {
     public constantsService: ConstantsService,
     public router: Router,
     public confirmationService: ConfirmationService,
-    public websocketService: WebsocketService,
     public modalService: BsModalService)
   {
     this.loading = false;
@@ -281,7 +279,7 @@ export class BulletinsComponent {
           this.router.navigate(['/bulletins/new']);
         } else {
           if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
-            let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+            let result = this.bulletinsService.lockRegion(this.authenticationService.getActiveRegion(), this.bulletinsService.getActiveDate());
     
             this.bulletinsService.setIsEditable(true);
             this.router.navigate(['/bulletins/new']);
@@ -370,7 +368,7 @@ export class BulletinsComponent {
       this.router.navigate(['/bulletins/new']);
     } else {
       if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
-        let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+        let result = this.bulletinsService.lockRegion(this.authenticationService.getActiveRegion(), this.bulletinsService.getActiveDate());
 
         this.bulletinsService.setIsEditable(true);
         this.bulletinsService.setIsSmallChange(true);

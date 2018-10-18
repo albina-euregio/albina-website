@@ -7,6 +7,8 @@ export class ConstantsService {
   public serverUrl: string = 'http://localhost:8080/albina/api/';
   public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
   public chatUrl: string = 'ws://localhost:8080/albina/chat/';
+  public bulletinUrl: string = 'ws://localhost:8080/albina/bulletin/';
+  public regionUrl: string = 'ws://localhost:8080/albina/region/';
 
   // Development server
   //public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
