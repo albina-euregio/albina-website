@@ -214,8 +214,20 @@ export class BulletinsService {
     return this.http.get(encodeURI(url), options);
   }
 
-  getPublicationStatus(region: string, startDate: Date, endDate: Date) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins/status/publication?startDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + '&endDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + '&region=' + region;
+  getPublicationsStatus(region: string, startDate: Date, endDate: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/status/publications?startDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + '&endDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + '&region=' + region;
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(encodeURI(url), options);
+  }
+
+  getPublicationStatus(region: string, date: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/status/publication?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + '&region=' + region;
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',

@@ -6,6 +6,7 @@ import { BulletinsService } from '../providers/bulletins-service/bulletins.servi
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
 import { WsUpdateService } from '../providers/ws-update-service/ws-update.service';
+import { SettingsService } from '../providers/settings-service/settings.service';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Rx';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -17,6 +18,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ModalSubmitComponent } from './modal-submit.component';
 import { ModalPublishComponent } from './modal-publish.component';
 import { ModalCheckComponent } from './modal-check.component';
+import { ModalPublicationStatusComponent } from './modal-publication-status.component';
 
 @Component({
   templateUrl: 'bulletins.component.html'
@@ -33,6 +35,9 @@ export class BulletinsComponent {
 
   public publishBulletinsModalRef: BsModalRef;
   @ViewChild('publishBulletinsTemplate') publishBulletinsTemplate: TemplateRef<any>;
+
+  public publicationStatusModalRef: BsModalRef;
+  @ViewChild('publicationStatusTemplate') publicationStatusTemplate: TemplateRef<any>;
 
   public publishBulletinsErrorModalRef: BsModalRef;
   @ViewChild('publishBulletinsErrorTemplate') publishBulletinsErrorTemplate: TemplateRef<any>;
@@ -64,6 +69,7 @@ export class BulletinsComponent {
     public translateService: TranslateService,
     public authenticationService: AuthenticationService,
     public constantsService: ConstantsService,
+    public settingsService: SettingsService,
     public router: Router,
     public confirmationService: ConfirmationService,
     public modalService: BsModalService,
@@ -228,8 +234,23 @@ export class BulletinsComponent {
       return false;
   }
 
+  showInfoButton(date) {
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        /*(!this.isPast(date) ) && */
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished
+        ) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
   showCaamlButton(date) {
-    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+    if (this.settingsService.showCaaml &&
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         !this.copying)
       return true;
     else
@@ -237,7 +258,8 @@ export class BulletinsComponent {
   }
 
   showJsonButton(date) {
-    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+    if (this.settingsService.showJson &&
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         !this.copying)
       return true;
     else
@@ -355,6 +377,19 @@ export class BulletinsComponent {
     event.stopPropagation();
     this.bulletinsService.setActiveDate(date);
     this.router.navigate(['/bulletins/json']);
+  }
+
+  showPublicationInfo(event, date: Date) {
+    event.stopPropagation();
+    this.bulletinsService.getPublicationStatus(this.authenticationService.activeRegion, date).subscribe(
+        data => {
+          let response = data.json();
+          this.openPublicationStatusModal(this.publicationStatusTemplate, response, date);
+        },
+        error => {
+          console.error("Publication status could not be loaded!");
+        }
+      );
   }
 
   copy(event, date: Date) {
@@ -560,6 +595,19 @@ export class BulletinsComponent {
   publishBulletinsModalDecline(): void {
     this.publishBulletinsModalRef.hide();
     this.publishing = undefined;
+  }
+
+  openPublicationStatusModal(template: TemplateRef<any>, json, date: Date) {
+    const initialState = {
+      json: json,
+      date: date,
+      component: this
+    };
+    this.publicationStatusModalRef = this.modalService.show(ModalPublicationStatusComponent, {initialState});
+  }
+
+  publicationStatusModalConfirm(date: Date): void {
+    this.publicationStatusModalRef.hide();
   }
 
   openPublishBulletinsErrorModal(template: TemplateRef<any>) {

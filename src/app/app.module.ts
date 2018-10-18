@@ -48,6 +48,7 @@ import { BsDropdownModule, TabsModule, ModalModule, AlertModule } from 'ngx-boot
 import { ModalSubmitComponent } from './bulletins/modal-submit.component';
 import { ModalPublishComponent } from './bulletins/modal-publish.component';
 import { ModalCheckComponent } from './bulletins/modal-check.component';
+import { ModalPublicationStatusComponent } from './bulletins/modal-publication-status.component';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -82,7 +83,8 @@ export function createTranslateLoader(http: Http) {
     AsideToggleDirective,
     ModalSubmitComponent,
     ModalPublishComponent,
-    ModalCheckComponent
+    ModalCheckComponent,
+    ModalPublicationStatusComponent
   ],
   providers: [
     {
@@ -113,7 +115,8 @@ export function createTranslateLoader(http: Http) {
   entryComponents: [
     ModalSubmitComponent,
     ModalPublishComponent,
-    ModalCheckComponent
+    ModalCheckComponent,
+    ModalPublicationStatusComponent
   ]
 })
 export class AppModule { }
