@@ -69,7 +69,7 @@ export class BulletinsComponent {
 
     this.bulletinsService.init();
 
-      // TODO implement via websockets
+      // TODO websocket: implement bulletin update
 //    this.socketService.getSocket().on('bulletinUpdate', function(data) {
 //      console.log("SocketIO bulletin update event recieved: " + data);
 //      let json = JSON.parse(data)

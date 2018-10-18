@@ -741,8 +741,8 @@ export class CreateBulletinComponent {
 
   createBulletin(copy) {
 
-    // TODO unlock bulletin via socketIO
-    // TODO lock bulletin via socketIO
+    // TODO websocket: unlock bulletin
+    // TODO websocket: lock bulletin
 
     if (this.checkElevation()) {
       let bulletin: BulletinModel;
@@ -993,7 +993,7 @@ private setTexts() {
 
   private editBulletinRegions(bulletin: BulletinModel) {
 
-    // TODO lock whole day in TN, check if any aggregated region is locked
+    // TODO websocket: lock whole day in region, check if any aggregated region is locked
 
     this.editRegions = true;
     this.mapService.editAggregatedRegion(this.activeBulletin);
@@ -1058,7 +1058,7 @@ private setTexts() {
 
       this.updateAggregatedRegions();
 
-      // TODO unlock whole day in TN
+      // TODO websocket: unlock whole day
 
     } else
       this.openNoRegionModal(this.noRegionTemplate);
@@ -1125,7 +1125,7 @@ private setTexts() {
     if (this.activeBulletin && this.activeBulletin != undefined)
       this.mapService.selectAggregatedRegion(this.activeBulletin);
 
-    // TODO unlock whole day in TN
+    // TODO websocket: unlock whole day
   }
 
   save() {
@@ -1384,7 +1384,7 @@ private setTexts() {
     this.bulletinsService.loadBulletins(date, regions).subscribe(
       data => {
 
-        // TODO delete own regions
+        // delete own regions
         let entries = new Array<BulletinModel>();
 
         for (let bulletin of this.bulletinsList) {
@@ -1496,7 +1496,7 @@ private setTexts() {
     this.deleteAggregatedRegionModalRef.hide();
     this.delBulletin(this.activeBulletin);
 
-    // TODO unlock region via socketIO
+    // TODO websocket: unlock region
 
   }
  
