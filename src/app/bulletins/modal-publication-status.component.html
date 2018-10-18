@@ -1,0 +1,29 @@
+<div class="modal-body text-center">
+	<div style="margin-top: 20px; margin-bottom: 20px;">
+	  <i *ngIf="json.report.caamlCreated" class="fa fa-file-text" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.caaml.success' | translate }}"></i>
+	  <i *ngIf="!json.report.caamlCreated" class="fa fa-file-text" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.caaml.failed' | translate }}"></i>
+
+	  <i *ngIf="json.report.mapCreated" class="fa fa-map" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.map.success' | translate }}"></i>
+	  <i *ngIf="!json.report.mapCreated" class="fa fa-map" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.map.failed' | translate }}"></i>
+
+	  <i *ngIf="json.report.pdfCreated" class="fa fa-file-pdf-o" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.pdf.success' | translate }}"></i>
+	  <i *ngIf="!json.report.pdfCreated" class="fa fa-file-pdf-o" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.pdf.failed' | translate }}"></i>
+
+	  <i *ngIf="json.report.emailCreated" class="fa fa-envelope" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.email.success' | translate }}"></i>
+	  <i *ngIf="!json.report.emailCreated" class="fa fa-envelope" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.email.failed' | translate }}"></i>
+
+	  <i *ngIf="json.report.whatsappSent" class="fa fa-whatsapp" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.whatsapp.success' | translate }}"></i>
+	  <i *ngIf="!json.report.whatsappSent" class="fa fa-whatsapp" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.whatsapp.failed' | translate }}"></i>
+
+	  <i *ngIf="json.report.twitterSent" class="fa fa-twitter" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.twitter.success' | translate }}"></i>
+	  <i *ngIf="!json.report.twitterSent" class="fa fa-twitter" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.twitter.failed' | translate }}"></i>
+	</div>
+  <div>
+  	<p>
+	  	<b>{{ "bulletins.table.publicationStatusDialog.validFor" | translate }}</b>{{ json.report.date | localizedDate:'fullDate'}}<br>
+	  	<b>{{ "bulletins.table.publicationStatusDialog.publishedBy" | translate }}</b>{{ json.report.user }}<br>
+	  	<b>{{ "bulletins.table.publicationStatusDialog.publishedAt" | translate }}</b>{{ json.report.timestamp | localizedDate:'medium'}}
+	  </p>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="publicationStatusModalConfirm()">{{ "bulletins.table.publicationStatusDialog.accept" | translate }}</button>
+</div>
