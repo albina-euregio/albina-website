@@ -4,6 +4,7 @@ import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
+import { SettingsService } from '../providers/settings-service/settings.service';
 import { SocketService } from '../providers/socket-service/socket.service';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -60,6 +61,7 @@ export class BulletinsComponent {
     public translateService: TranslateService,
     public authenticationService: AuthenticationService,
     public constantsService: ConstantsService,
+    public settingsService: SettingsService,
     public router: Router,
     public confirmationService: ConfirmationService,
     public socketService: SocketService,
@@ -211,7 +213,8 @@ export class BulletinsComponent {
   }
 
   showCaamlButton(date) {
-    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+    if (this.settingsService.showCaaml &&
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         !this.copying)
       return true;
     else
@@ -219,7 +222,8 @@ export class BulletinsComponent {
   }
 
   showJsonButton(date) {
-    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+    if (this.settingsService.showJson &&
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         !this.copying)
       return true;
     else

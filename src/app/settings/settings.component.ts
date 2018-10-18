@@ -1,6 +1,8 @@
 import { Component, HostListener, ViewChild, TemplateRef } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
+import { ConstantsService } from '../providers/constants-service/constants.service';
+import { SettingsService } from '../providers/settings-service/settings.service';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AlertComponent } from 'ngx-bootstrap';
@@ -25,6 +27,8 @@ export class SettingsComponent {
     private route: ActivatedRoute,
     private translateService: TranslateService,
     private authenticationService: AuthenticationService,
+    private constantsService: ConstantsService,
+    private settingsService: SettingsService,
     private router: Router)
   {
     this.changePasswordLoading = false;
@@ -92,5 +96,12 @@ export class SettingsComponent {
 
   onClosed(dismissedAlert: AlertComponent): void {
     this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
+  }
+
+  isAdmin() {
+    if (this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin))
+      return true;
+    else
+      return false;
   }
 }

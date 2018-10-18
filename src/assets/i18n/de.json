@@ -361,6 +361,14 @@
 			"passwordIncorrect" : "Passwort ist nicht korrekt",
 			"passwordsNotMatching" : "Passwörter stimmen nicht überein",
 			"passwordEmpty" : "Passwort fehlt"
+		},
+		"display" : {
+			"title" : "Anzeige",
+			"table" : {
+				"showCaaml" : "CAAML anzeigen",
+				"showJson" : "JSON anzeigen",
+				"useMatrix" : "Matrix verwenden"
+			}
 		}
 	},
 
