@@ -47,7 +47,7 @@ $(function() {
     detect_browser()
     setTimeout(() => {
       scroll_init()
-    }, 0)
+    }, 2000)
 
     flipper_init()
     accordion_init()
@@ -191,34 +191,25 @@ const easeInOutBounce = (x, t, b, c, d) => (
 */
 
 function scroll_init() {
-  window['sweetScroll'] = new SweetScroll(
-    {
-      trigger: '[data-scroll]', // Selector for trigger (must be a valid css selector)
-      header: '', //"[data-scroll-header]",		// Selector or Element for fixed header (Selector of must be a valid css selector)
-      duration: scroll_duration, // Specifies animation duration in integer
-      easing: 'easeOutQuint', // Specifies the pattern of easing
-      offset: -5, // Specifies the value to offset the scroll position in pixels
-      vertical: true, // Enable the vertical scroll
-      horizontal: false, // Enable the horizontal scroll
-      cancellable: true, // When fired wheel or touchstart events to stop scrolling
-      updateURL: true, // Update the URL hash on after scroll (true | false | 'push' | 'replace')
-      preventDefault: true, // Cancels the container element click event
-      stopPropagation: true, // Prevents further propagation of the container element click event in the bubbling phase
-      quickMode: false, // Instantly scroll to the destination! (It's recommended to use it with `easeOutExpo`)
+  var $root = $('html, body')
 
-      // Callbacks
-      before: function() {
-        console.log('scroll before')
-      },
-      after: function() {
-        console.log('scroll after')
-      },
-      cancel: null,
-      complete: null,
-      step: null
-    },
-    '#page-main'
-  )
+  $('a[href^="#"]').click(function() {
+    var href = $.attr(this, 'href')
+
+    if ($(href)) {
+      $root.animate(
+        {
+          scrollTop: $(href).offset().top
+        },
+        500,
+        function() {
+          window.location.hash = href
+        }
+      )
+    }
+
+    return false
+  })
 
   scroll_direction()
 }
