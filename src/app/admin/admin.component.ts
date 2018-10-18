@@ -103,7 +103,7 @@ export class AdminComponent {
       endDate.setHours(0, 0, 0, 0);
 
       // TODO use the information about the publciation process somewhere (maybe just as ADMIN?)
-      this.bulletinsService.getPublicationStatus(this.authenticationService.getActiveRegion(), startDate, endDate).subscribe(
+      this.bulletinsService.getPublicationsStatus(this.authenticationService.getActiveRegion(), startDate, endDate).subscribe(
         data => {
           let json = data.json();
         },

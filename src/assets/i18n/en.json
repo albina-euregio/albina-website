@@ -51,7 +51,8 @@
 			"json" : "Show JSON",
 			"edit" : "Edit bulletin (will not be published again)",
 			"create" : "Create bulletin",
-			"check" : "Check bulletin"
+			"check" : "Check bulletin",
+			"info" : "Show publication status"
 		},
 		"create" : {
 			"tooltip" : {
@@ -228,6 +229,39 @@
 				"pendingSuggestions" : "Pending suggestions",
 				"accept" : "Yes",
 				"reject" : "No"
+			},
+			"publicationStatusDialog" : {
+				"header" : "Status of publication",
+				"publishedBy" : "Published by: ",
+				"publishedAt" : "Published at: ",
+				"validFor" : "Valid for: ",
+				"tooltip" : {
+					"caaml" : {
+						"success" : "CAAML file created",
+						"failed" : "CAAML file could not be created"
+					},
+					"map" : {
+						"success" : "Maps created",
+						"failed" : "Maps could not be created"
+					},
+					"pdf" : {
+						"success" : "PDF created",
+						"failed" : "PDF could not be created"
+					},
+					"email" : {
+						"success" : "Emails sent",
+						"failed" : "Emails could not be sent"
+					},
+					"whatsapp" : {
+						"success" : "Avalanche forecast sent to WhatsApp and Telegram",
+						"failed" : "Avalanche forecast could not be sent to WhatsApp and Telegram"
+					},
+					"twitter" : {
+						"success" : "Avalanche forecast sent to Twitter",
+						"failed" : "Avalanche forecast could not be sent to Twitter"
+					}
+				},
+				"accept" : "Ok"
 			},
 			"publishBulletinsErrorDialog" : {
 				"header" : "Error publishing bulletins",
