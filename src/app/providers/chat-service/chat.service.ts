@@ -47,12 +47,19 @@ export class ChatService {
         let data = JSON.parse(response.data);
         let message = ChatMessageModel.createFromJson(data);
         this.addChatMessage(message, true);
-        console.debug("Chat message received: " + message.getText());
+        console.log("Chat message received: " + message.getText());
         return message;
       });
 
-    this.messages.subscribe(msg => {
-    });
+    this.messages.subscribe(
+      msg => {
+        console.log("Message sent!");
+      },
+      error => {
+        console.error("Message could not be sent!");
+        console.error(error);
+      }
+    );
 
     if (this.authenticationService.getActiveRegion() && this.authenticationService.getActiveRegion() != undefined) {
       this.getMessages().subscribe(
@@ -102,7 +109,7 @@ export class ChatService {
 
       this.messages.next(message);
 
-      console.debug("Chat message sent: " + message.getText());
+      console.log("Chat message sent: " + message.getText());
   }
 
   private addChatMessage(message, update) {
