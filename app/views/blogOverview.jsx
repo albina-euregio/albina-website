@@ -120,6 +120,17 @@ class BlogOverview extends React.Component {
           searchOnChange={this.handleChangeSearch}
           searchValue={this.store.searchText}
         >
+          <LanguageFilter
+            title={this.props.intl.formatMessage({
+              id: 'blog:filter:language'
+            })}
+            all={this.props.intl.formatMessage({
+              id: 'filter:all'
+            })}
+            handleChange={this.handleChangeLanguage}
+            value={this.store.languageFilter}
+            className={this.store.searchText ? 'disabled' : ''}
+          />
           <ProvinceFilter
             title={this.props.intl.formatMessage({
               id: 'blog:filter:province'
@@ -147,6 +158,7 @@ class BlogOverview extends React.Component {
             value={this.store.year}
             className={this.store.searchText ? 'disabled' : ''}
           />
+
           {this.store.year && (
             <MonthFilter
               title={this.props.intl.formatMessage({

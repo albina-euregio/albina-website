@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx'
+import { observable, action, computed, toJS } from 'mobx'
 import Base from '../base'
 import { parseDate, getDaysOfMonth } from '../util/date'
 import { parseTags } from '../util/tagging'
@@ -224,6 +224,16 @@ export default class BlogStore {
   set avalancheProblem(val) {
     this._avalancheProblem.set(val)
     this.load(true)
+  }
+
+  @computed
+  get languageFilter() {
+    const languages = toJS(this.languages)
+    const activeLanguages = Object.keys(languages).filter(
+      lang => languages[lang].active
+    )
+
+    return activeLanguages.length > 1 ? 'all' : activeLanguages[0]
   }
 
   get year() {
