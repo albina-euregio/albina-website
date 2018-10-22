@@ -59,17 +59,6 @@ class BulletinDaytimeReport extends React.Component {
       getSuccDate(parseDate(this.props.store.settings.date))
     )
 
-    console.log('bulletin', this.props.fullBulletin)
-    console.log('treeline', treeline)
-    console.log('elevation', elevation)
-    console.log(
-      'dangerRatingBelow',
-      this.props.bulletin.dangerRatingBelow
-    )
-    console.log(
-      'dangerRatingAbove',
-      this.props.bulletin.dangerRatingAbove
-    )
     return (
       <div>
         {this.props.ampm && (

@@ -38,6 +38,11 @@
     "de": "Keine Prognose",
     "it": "No Rating"
   },
+  "danger-level:missing": {
+    "en": "No rating",
+    "de": "Keine Prognose",
+    "it": "No Rating"
+  },
 
   "danger-patterns:dp1": {
     "en": "dp 1: deep persistent weak layer",

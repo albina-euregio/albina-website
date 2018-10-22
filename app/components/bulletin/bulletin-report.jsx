@@ -164,49 +164,53 @@ class BulletinReport extends React.Component {
             <p>{this.getLocalizedText(bulletin.avActivityComment)}</p>
           </div>
         </section>
-        <section
-          id="section-bulletin-additional"
-          className="section-centered section-bulletin section-bulletin-additional"
-        >
-          <div className="panel brand">
-            {(this.dangerPatterns.length > 0 ||
-              bulletin.snowpackStructureComment) && (
-              <div>
-                <h2 className="subheader">
-                  <FormattedHTMLMessage id="bulletin:report:snowpack-structure:headline" />
-                </h2>
-                {this.dangerPatterns.length > 0 && (
-                  <ul className="list-inline list-labels">
-                    <li>
-                      <span className="tiny heavy letterspace">
-                        <FormattedHTMLMessage id="bulletin:report:danger-patterns" />
-                      </span>
-                    </li>
-                    {this.dangerPatterns.map((dp, index) => (
-                      <li key={index}>
-                        <DangerPatternItem dangerPattern={dp} />
-                      </li>
-                    ))}
-                  </ul>
+        {bulletin.dangerPattern1 &&
+          bulletin.tendency && (
+            <section
+              id="section-bulletin-additional"
+              className="section-centered section-bulletin section-bulletin-additional"
+            >
+              <div className="panel brand">
+                {(this.dangerPatterns.length > 0 ||
+                  bulletin.snowpackStructureComment) && (
+                  <div>
+                    <h2 className="subheader">
+                      <FormattedHTMLMessage id="bulletin:report:snowpack-structure:headline" />
+                    </h2>
+                    {this.dangerPatterns.length > 0 && (
+                      <ul className="list-inline list-labels">
+                        <li>
+                          <span className="tiny heavy letterspace">
+                            <FormattedHTMLMessage id="bulletin:report:danger-patterns" />
+                          </span>
+                        </li>
+                        {this.dangerPatterns.map((dp, index) => (
+                          <li key={index}>
+                            <DangerPatternItem dangerPattern={dp} />
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <p>
+                      {this.getLocalizedText(
+                        bulletin.snowpackStructureComment
+                      )}
+                    </p>
+                  </div>
                 )}
-                <p>
-                  {this.getLocalizedText(
-                    bulletin.snowpackStructureComment
-                  )}
-                </p>
-              </div>
-            )}
-            {bulletin.tendencyComment && (
-              <div>
-                <h2 className="subheader">
-                  <FormattedHTMLMessage id="bulletin:report:tendency:headline" />
-                </h2>
-                <p>
-                  {this.getLocalizedText(bulletin.tendencyComment)}
-                </p>
-              </div>
-            )}
-            {/*
+                {bulletin.tendencyComment && (
+                  <div>
+                    <h2 className="subheader">
+                      <FormattedHTMLMessage id="bulletin:report:tendency:headline" />
+                    </h2>
+                    <p>
+                      {this.getLocalizedText(
+                        bulletin.tendencyComment
+                      )}
+                    </p>
+                  </div>
+                )}
+                {/*
             <p className="bulletin-author">
               <FormattedHTMLMessage id="bulletin:report:author" />
               :&nbsp;
@@ -216,8 +220,9 @@ class BulletinReport extends React.Component {
                 )}
             </p>
               */}
-          </div>
-        </section>
+              </div>
+            </section>
+          )}
       </div>
     )
   }

@@ -18,6 +18,7 @@ class WarnLevelIcon extends React.Component {
   render() {
     const getWarnlevelText = warnLevel => {
       if (warnLevel) {
+        console.log(warnLevel)
         return this.props.intl.formatMessage({
           id: 'danger-level:' + warnLevel
         })

@@ -86,9 +86,11 @@ class Archive extends React.Component {
         dates.push(d)
       }
 
+      console.log(dates)
       return dates
         .filter(d => test(d))
         .slice(0, window['config'].get('archive.maxResults'))
+      console.log(dates)
     }
     return []
   }
