@@ -49,8 +49,10 @@
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-sign-out"></i> {{ "menu.logout" | translate }}</a>
       </div>
     </li>
-    <li *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined" class="nav-item">
-      <a class="nav-link icon-speech aside-menu-toggler" href="#"><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegion()) }}</span></a>
+    <li class="nav-item">
+<!--
+      <a *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined" class="nav-link icon-speech aside-menu-toggler" href="#"><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegion()) }}</span></a>
+-->
     </li>
   </ul>
   
