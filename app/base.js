@@ -1,24 +1,24 @@
 require('url-search-params-polyfill')
 
 var Base = {
-  makeUrl(baseUrl, params = {}) {
+  makeUrl (baseUrl, params = {}) {
     return (
       baseUrl +
       (Object.keys(params).length > 0
         ? '?' +
-          Object.keys(params)
-            .map(k => {
-              return k + '=' + encodeURIComponent(params[k])
-            })
-            .join('&')
+            Object.keys(params)
+              .map(k => {
+                return k + '=' + encodeURIComponent(params[k])
+              })
+              .join('&')
         : '')
     )
   },
 
-  doRequest(url, type = 'json') {
-    return new Promise(function(resolve, reject) {
+  doRequest (url, type = 'json') {
+    return new Promise(function (resolve, reject) {
       let xhr = new XMLHttpRequest()
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
           if (xhr.status == 200) {
             resolve(xhr.responseText)
@@ -30,26 +30,21 @@ var Base = {
       xhr.open('GET', url, true)
 
       // set content type
-      switch (type) {
-        case 'json':
-          xhr.setRequestHeader(
-            'Accept',
-            'application/json,application/vnd.application+json,application/vnd.api+json'
-          )
-          break
-
-        default:
-          break
+      if (type === 'json') {
+        xhr.setRequestHeader(
+          'Accept',
+          'application/json,application/vnd.application+json,application/vnd.api+json'
+        )
       }
       xhr.send(null)
     })
   },
 
-  doPost(url, payload, type = 'json') {
-    return new Promise(function(resolve, reject) {
+  doPost (url, payload, type = 'json') {
+    return new Promise(function (resolve, reject) {
       console.log('post: ' + url + ' ' + JSON.stringify(payload))
       let xhr = new XMLHttpRequest()
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
           if (xhr.status == 200) {
             resolve(xhr.responseText)
@@ -61,49 +56,37 @@ var Base = {
       xhr.open('POST', url, true)
 
       // set content type
-      switch (type) {
-        case 'json':
-          xhr.setRequestHeader(
-            'Content-Type',
-            'application/json;charset=UTF-8'
-          )
-          xhr.setRequestHeader(
-            'Accept',
-            'application/json,application/vnd.application+json,application/vnd.api+json'
-          )
-          break
-
-        default:
-          break
+      if (type === 'json') {
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+        xhr.setRequestHeader(
+          'Accept',
+          'application/json,application/vnd.application+json,application/vnd.api+json'
+        )
       }
       xhr.send(JSON.stringify(payload))
     })
   },
 
-  cleanCache(fileName) {
+  cleanCache (fileName) {
     if (window.caches) {
       window.caches.delete(fileName)
     }
   },
 
-  checkBlendingSupport() {
+  checkBlendingSupport () {
     const bodyEl = document.getElementsByTagName('body')[0]
     const bodyElStyle = window.getComputedStyle(bodyEl)
     const blendMode = bodyElStyle.getPropertyValue('mix-blend-mode')
     return !!blendMode
   },
 
-  searchGet(variable) {
-    const search = new URLSearchParams(
-      document.location.search.substring(1)
-    )
+  searchGet (variable) {
+    const search = new URLSearchParams(document.location.search.substring(1))
     return search.get(variable)
   },
 
-  searchChange(history, variable, value, replace = false) {
-    let search = new URLSearchParams(
-      document.location.search.substring(1)
-    )
+  searchChange (history, variable, value, replace = false) {
+    let search = new URLSearchParams(document.location.search.substring(1))
     const actualValue = this.searchGet(variable)
 
     if (actualValue !== false) {

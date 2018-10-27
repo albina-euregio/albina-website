@@ -15,9 +15,8 @@ import { parseDate, dateToISODateString } from '../util/date.js'
 import Base from './../base'
 import { tooltip_init } from '../js/tooltip'
 
-@observer
-class Bulletin extends React.Component {
-  constructor(props) {
+@observer class Bulletin extends React.Component {
+  constructor (props) {
     super(props)
     if (typeof window.bulletinStore === 'undefined') {
       window.bulletinStore = new BulletinStore()
@@ -31,7 +30,7 @@ class Bulletin extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     window['staticPageStore'].loadPage('bulletin').then(response => {
       // parse content
       const responseParsed = JSON.parse(response)
@@ -39,7 +38,7 @@ class Bulletin extends React.Component {
         title: responseParsed.data.attributes.title,
         content: responseParsed.data.attributes.body,
         sharable: responseParsed.data.attributes.sharable,
-        highlightedRegion: null
+        highlightedRegion: Base.searchGet('region')
       })
     })
 
@@ -58,10 +57,10 @@ class Bulletin extends React.Component {
       }
     )
     return this._fetchData(this.props)
-    //this.checkRegion()
+    // this.checkRegion()
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate (prevProps) {
     if (this.props.location !== prevProps.location) {
       const newDate = this.props.match.params.date
       if (newDate && newDate != this.store.settings.date) {
@@ -71,11 +70,11 @@ class Bulletin extends React.Component {
     this.checkRegion()
   }
 
-  _fetchData(props) {
-    let startDate =
-      props.match.params.date && parseDate(props.match.params.date)
-        ? props.match.params.date
-        : dateToISODateString(new Date())
+  _fetchData (props) {
+    let startDate = props.match.params.date &&
+      parseDate(props.match.params.date)
+      ? props.match.params.date
+      : dateToISODateString(new Date())
 
     if (startDate != this.props.match.params.date) {
       // update URL if necessary
@@ -85,7 +84,7 @@ class Bulletin extends React.Component {
     return this.store.load(startDate)
   }
 
-  checkRegion() {
+  checkRegion () {
     const urlRegion = Base.searchGet('region')
     const storeRegion = this.store.settings.region
 
@@ -120,24 +119,20 @@ class Bulletin extends React.Component {
     }
   }
 
-  handleMapViewportChanged(mapState) {
+  handleMapViewportChanged (mapState) {
     this.store.setMapViewport(mapState)
   }
 
-  render() {
-    //console.log('rendering bulletin view(0)', this.store.vectorRegions)
+  render () {
+    // console.log('rendering bulletin view(0)', this.store.vectorRegions)
     // console.log('rendering bulletin ', this.store.bulletins)
 
     return (
       <div>
         <BulletinHeader store={this.store} title={this.state.title} />
         <BulletinMap
-          handleMapViewportChanged={this.handleMapViewportChanged.bind(
-            this
-          )}
-          handleHighlightRegion={this.handleHighlightRegion.bind(
-            this
-          )}
+          handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+          handleHighlightRegion={this.handleHighlightRegion.bind(this)}
           handleSelectRegion={this.handleSelectRegion.bind(this)}
           date={this.props.match.params.date}
           history={this.props.history}
@@ -149,7 +144,7 @@ class Bulletin extends React.Component {
         <BulletinButtonbar store={this.store} />
         <BulletinReport store={this.store} />
         {this.state.sharable && <SmShare />}
-        <div className="section-padding section-centered">
+        <div className='section-padding section-centered'>
           {preprocessContent(this.state.content)}
         </div>
       </div>
