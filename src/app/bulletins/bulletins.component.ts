@@ -138,6 +138,10 @@ export class BulletinsComponent {
     return false;
   }
 
+  isMissing(date) {
+    return (this.bulletinsService.statusMap.get(date.getTime()) == Enums.BulletinStatus.missing || this.bulletinsService.statusMap.get(date.getTime()) == undefined);
+  }
+
   showCreateButton(date) {
     if (this.authenticationService.getActiveRegion() != undefined &&
         (!this.isPast(date)) && 
