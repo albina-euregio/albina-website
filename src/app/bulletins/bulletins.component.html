@@ -20,7 +20,7 @@
                 <td>{{ date | localizedDate:'fullDate' }}</td>
                 <td *ngIf="authenticationService.getActiveRegion() != undefined" [style.background-color]="bulletinsService.isLocked(date, authenticationService.getActiveRegion()) ? 'rgba(255,0,0,0.2)' : ''">
                   <i *ngIf="loading" class="fa fa-circle-o-notch fa-spin fa-fw"></i>
-                  <span *ngIf="!loading && bulletinsService.statusMap.get(date.getTime()) == bulletinStatus.missing" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
+                  <span *ngIf="!loading && isMissing(date)" class="badge badge-danger">{{ "bulletins.table.status.missing" | translate }}</span>
                   <span *ngIf="!loading && bulletinsService.statusMap.get(date.getTime()) == bulletinStatus.draft" class="badge badge-warning">{{ "bulletins.table.status.draft" | translate }}</span>
                   <span *ngIf="!loading && bulletinsService.statusMap.get(date.getTime()) == bulletinStatus.submitted" class="badge badge-success">{{ "bulletins.table.status.submitted" | translate }}</span>
                   <span *ngIf="!loading && bulletinsService.statusMap.get(date.getTime()) == bulletinStatus.published" class="badge badge-done">{{ "bulletins.table.status.published" | translate }}</span>
