@@ -28,9 +28,12 @@ iframe#stationTable {
   overflow: visible;
 
   @media only screen and (max-width: 57.5em) {
-    section.section-centered {
+    section-centered {
       padding-left: 1.25rem;
     }
+  }
+  .section-padding {
+    padding: 0.875rem 1.25rem;
   }
 }
 
@@ -119,10 +122,7 @@ iframe#stationTable {
   top: -1px;
 }
 
-.section-map
-  .leaflet-control-container
-  .leaflet-top
-  .leaflet-control {
+.section-map .leaflet-control-container .leaflet-top .leaflet-control {
   border: 0px !important;
   a {
     margin-top: 0 !important;
@@ -145,10 +145,7 @@ iframe#stationTable {
   background: rgba(255, 255, 255, 1);
 }
 
-.section-map
-  .leaflet-control-container
-  .leaflet-control-zoom
-  a:hover {
+.section-map .leaflet-control-container .leaflet-control-zoom a:hover {
   background: #19abff;
   color: #fff;
 }
@@ -210,9 +207,11 @@ a.share-feed {
   background: none !important;
 }
 
-@media only screen and (max-width: 57.5em) {
-  .page-main section.section-centered {
-    padding: 0px !important;
+#section-bulletin-report {
+  @media only screen and (max-width: 57.5em) {
+    .page-main section.section-centered {
+      padding: 0px !important;
+    }
   }
 }
 

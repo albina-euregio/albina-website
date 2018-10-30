@@ -15,7 +15,7 @@ export default class ArchiveStore {
   _day
   _loading
 
-  constructor() {
+  constructor () {
     this.archive = {}
 
     // filter values
@@ -27,19 +27,19 @@ export default class ArchiveStore {
     this._loading = observable.box(false)
   }
 
-  get loading() {
+  get loading () {
     return this._loading.get()
   }
 
-  set loading(flag) {
+  set loading (flag) {
     this._loading.set(flag)
   }
 
-  get year() {
+  get year () {
     return this._year.get()
   }
 
-  set year(y) {
+  set year (y) {
     this._year.set(y)
     if (!this._month.get()) {
       this._month.set(1)
@@ -47,25 +47,25 @@ export default class ArchiveStore {
     this._load()
   }
 
-  get month() {
+  get month () {
     return this._month.get()
   }
 
-  set month(m) {
+  set month (m) {
     this._month.set(m)
     this._load()
   }
 
-  get day() {
+  get day () {
     return this._day.get()
   }
 
-  set day(val) {
+  set day (val) {
     this._day.set(val)
     this._load()
   }
 
-  _load() {
+  _load () {
     if (this.startDate && this.endDate) {
       this.load(
         dateToISODateString(this.startDate),
@@ -74,13 +74,12 @@ export default class ArchiveStore {
     }
   }
 
-  load(startDate, endDate = '') {
+  load (startDate, endDate = '') {
     console.log('loading archives', startDate, endDate)
     let d1 = parseDate(startDate)
 
     // check if start date has already been loaded
     let isLoaded = Boolean(this.archive[dateToISODateString(d1)])
-
     if (!isLoaded) {
       return this._loadBulletinStatus(startDate, endDate)
     }
@@ -91,16 +90,12 @@ export default class ArchiveStore {
       if (d1 < d2) {
         do {
           d1 = getSuccDate(d1)
-          isLoaded =
-            isLoaded && Boolean(this.archive[dateToISODateString(d1)])
+          isLoaded = isLoaded && Boolean(this.archive[dateToISODateString(d1)])
         } while (isLoaded && d1 < d2)
       }
 
       if (!isLoaded) {
-        return this._loadBulletinStatus(
-          dateToISODateString(d1),
-          endDate
-        )
+        return this._loadBulletinStatus(dateToISODateString(d1), endDate)
       }
     }
 
@@ -108,8 +103,7 @@ export default class ArchiveStore {
     return Promise.resolve()
   }
 
-  @computed
-  get startDate() {
+  @computed get startDate () {
     if (this.year) {
       const y = this.year
       var m = ''
@@ -127,15 +121,14 @@ export default class ArchiveStore {
       }
 
       const date = new Date(y, m - 1, d)
-      //const previousDate = date.setDate(date.getDate()-1);
+      // const previousDate = date.setDate(date.getDate()-1);
       return date
     }
 
     return null
   }
 
-  @computed
-  get endDate() {
+  @computed get endDate () {
     if (this.year) {
       const y = this.year
       var m = ''
@@ -158,26 +151,31 @@ export default class ArchiveStore {
     return null
   }
 
-  getStatus(date) {
+  getStatus (date) {
+    console.log('getting status', date, this.archive)
     return this.archive[date] ? this.archive[date].status : ''
   }
 
-  getStatusMessage(date) {
+  getStatusMessage (date) {
     return this.archive[date] ? this.archive[date].message : ''
   }
 
-  _loadBulletinStatus(startDate, endDate = '', region = 'IT-32-BZ') {
+  _loadBulletinStatus (startDate, endDate = '', region = 'IT-32-BZ') {
     // const startDateDay = parseInt(startDate.split('-')[2], 10) - 1
-    //startDate = startDate.substr(0, startDate.length-2) + startDateDay
+    // startDate = startDate.substr(0, startDate.length-2) + startDateDay
 
     this.loading = true
 
-    // zulu time
-    const timeFormatStart = 'T22:00:00Z' //'T00:00:00+02:00'
-    const timeFormatEnd = 'T22:00:00Z' //'T00:00:00+02:00'
+    // summer time switcher
+    const localTime = new Date(startDate).valueOf() >= 1540677500000
+      ? 'T23:00:00Z'
+      : 'T22:00:00Z'
 
-    const prevDay = date =>
-      dateToISODateString(getPredDate(parseDate(date)))
+    // zulu time
+    const timeFormatStart = localTime // 'T00:00:00+02:00'
+    const timeFormatEnd = localTime // 'T00:00:00+02:00'
+
+    const prevDay = date => dateToISODateString(getPredDate(parseDate(date)))
 
     const startDateParam = encodeURIComponent(
       prevDay(startDate) + timeFormatStart
@@ -199,28 +197,31 @@ export default class ArchiveStore {
         // query status data
         response => {
           const values = JSON.parse(response)
-          if (typeof values == 'object') {
+          if (typeof values === 'object') {
             for (let v of values) {
               // only use date part (without time) and add 1 day to get the
               // correct day - otherwise it might depend on the browser and
               // OS settings how ISO dates are converted to local time
               const d = parseDate(v.date.substr(0, 10))
+              console.log('d', d)
               if (d) {
                 // const d2 = getSuccDate(d);
-                const status =
-                  v.status == 'published' || v.status == 'republished'
-                    ? 'ok'
-                    : 'n/a'
+                const status = v.status == 'published' ||
+                  v.status == 'republished'
+                  ? 'ok'
+                  : 'n/a'
+                console.log(status)
 
-                const nextDay = dateToISODateString(getSuccDate(d))
+                // summertime change
+                // const nextDay = dateToISODateString(getSuccDate(d))
+                const nextDay = dateToISODateString(d)
+                console.log('nextDay', nextDay)
                 this.archive[nextDay] = {
                   status: status,
                   message: v.status
                 }
               } else {
-                console.log(
-                  'Cannot parse bulletin status for date: ' + d
-                )
+                console.log('Cannot parse bulletin status for date: ' + d)
               }
             }
           }

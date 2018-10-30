@@ -133,7 +133,7 @@ export default class BlogPost extends React.Component {
           </ul>
           <TagList tags={this.state.tags} />
         </PageHeadline>
-        <section className="section-centered">
+        <section className="section-centered section-padding">
           {this.state.content}
         </section>
       </div>

@@ -11,20 +11,17 @@ import {
   dateToDateString
 } from '../../util/date.js'
 
-@observer
-class BulletinDateFlipper extends React.Component {
-  constructor(props) {
+@observer class BulletinDateFlipper extends React.Component {
+  constructor (props) {
     super(props)
     this.DEV_MODE = true
   }
 
-  @computed
-  get date() {
+  @computed get date () {
     return parseDate(this.props.date)
   }
 
-  @computed
-  get nextDate() {
+  @computed get nextDate () {
     const d = this.date
     if (d) {
       const next = getSuccDate(d)
@@ -35,8 +32,7 @@ class BulletinDateFlipper extends React.Component {
     return undefined
   }
 
-  @computed
-  get prevDate() {
+  @computed get prevDate () {
     const d = this.date
     if (d) {
       return getPredDate(d)
@@ -44,69 +40,63 @@ class BulletinDateFlipper extends React.Component {
     return undefined
   }
 
-  render() {
+  render () {
     const prevLink = dateToISODateString(this.prevDate)
     const nextLink = dateToISODateString(this.nextDate)
     const latestLink = dateToISODateString(new Date())
 
-    const prevDate = this.prevDate
-      ? dateToDateString(this.prevDate)
-      : ''
-    const nextDate = this.nextDate
-      ? dateToDateString(this.nextDate)
-      : ''
+    const prevDate = this.prevDate ? dateToDateString(this.prevDate) : ''
+    const nextDate = this.nextDate ? dateToDateString(this.nextDate) : ''
 
     return (
-      <ul className="list-inline bulletin-flipper">
-        <li className="bulletin-flipper-back">
+      <ul className='list-inline bulletin-flipper'>
+        <li className='bulletin-flipper-back'>
           <Link
             to={'/bulletin/' + prevLink}
             title={this.props.intl.formatMessage({
               id: 'bulletin:header:dateflipper:back'
             })}
-            className="tooltip"
+            className='tooltip'
           >
-            <span className="icon-arrow-left" />
+            <span className='icon-arrow-left' />
             {prevDate}
           </Link>
         </li>
-        <li className="bulletin-flipper-separator">&mdash;</li>
-        {nextLink && (
-          <li className="bulletin-flipper-forward">
+        <li className='bulletin-flipper-separator'>—</li>
+        {nextLink &&
+          <li className='bulletin-flipper-forward'>
             <Link
               to={'/bulletin/' + nextLink}
               title={this.props.intl.formatMessage({
                 id: 'bulletin:header:dateflipper:forward'
               })}
-              className="tooltip"
+              className='tooltip'
             >
               {nextDate + ' '}
-              <span className="icon-arrow-right" />
+              <span className='icon-arrow-right' />
             </Link>
-          </li>
-        )}
-        {!this.DEV_MODE && (
-          <li className="bulletin-flipper-latest">
+          </li>}
+        {!this.DEV_MODE &&
+          <li className='bulletin-flipper-latest'>
             <Link
               to={'/bulletin/' + latestLink}
               title={this.props.intl.formatMessage({
                 id: 'bulletin:header:dateflipper:latest:hover'
               })}
-              className="tooltip"
+              className='tooltip'
             >
               {this.props.intl.formatMessage({
                 id: 'bulletin:header:dateflipper:latest'
               })}
             </Link>
-          </li>
-        )}
-        <li className="bulletin-flipper-archive">
+          </li>}
+        <li className='bulletin-flipper-archive'>
           <Link
-            to="/archive"
+            to='/archive'
             title={this.props.intl.formatMessage({
               id: 'bulletin:header:archive:hover'
             })}
-            className="tooltip"
+            className='tooltip'
           >
             {this.props.intl.formatMessage({
               id: 'bulletin:header:archive'
@@ -118,6 +108,4 @@ class BulletinDateFlipper extends React.Component {
   }
 }
 
-export default inject('locale')(
-  injectIntl(observer(BulletinDateFlipper))
-)
+export default inject('locale')(injectIntl(observer(BulletinDateFlipper)))

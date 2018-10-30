@@ -189,7 +189,7 @@
   },
   "archive": {
     "minYear": 2016,
-    "maxResults": 10
+    "maxResults": 30
   },
   "defaults": {
     "language": "auto",
