@@ -63,11 +63,37 @@ export class BulletinModel {
 			this.snowpackStructureHighlightsTextcat = bulletin.snowpackStructureHighlightsTextcat;
 			this.snowpackStructureCommentTextcat = bulletin.snowpackStructureCommentTextcat;
 			this.tendencyCommentTextcat = bulletin.tendencyCommentTextcat;
-			this.avActivityHighlights = bulletin.avActivityHighlights;
-			this.avActivityComment = bulletin.avActivityComment;
-			this.snowpackStructureHighlights = bulletin.snowpackStructureHighlights;
-			this.snowpackStructureComment = bulletin.snowpackStructureComment;
-			this.tendencyComment = bulletin.tendencyComment;
+
+			let array = new Array<TextModel>();
+			for (let entry of bulletin.avActivityHighlights) {
+				array.push(TextModel.createFromJson(entry.toJson()));
+			}
+			this.avActivityHighlights = array;
+
+			array = new Array<TextModel>();
+			for (let entry of bulletin.avActivityComment) {
+				array.push(TextModel.createFromJson(entry.toJson()));
+			}
+			this.avActivityComment = array;
+
+			array = new Array<TextModel>();
+			for (let entry of bulletin.snowpackStructureHighlights) {
+				array.push(TextModel.createFromJson(entry.toJson()));
+			}
+			this.snowpackStructureHighlights = array;
+
+			array = new Array<TextModel>();
+			for (let entry of bulletin.snowpackStructureComment) {
+				array.push(TextModel.createFromJson(entry.toJson()));
+			}
+			this.snowpackStructureComment = array;
+
+			array = new Array<TextModel>();
+			for (let entry of bulletin.tendencyComment) {
+				array.push(TextModel.createFromJson(entry.toJson()));
+			}
+			this.tendencyComment = array;
+
 			this.tendency = bulletin.tendency;
 			this.dangerPattern1 = bulletin.dangerPattern1;
 			this.dangerPattern2 = bulletin.dangerPattern2;

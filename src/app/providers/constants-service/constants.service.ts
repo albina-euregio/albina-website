@@ -12,12 +12,12 @@ export class ConstantsService {
   //public regionUrl: string = 'ws://localhost:8080/albina/region/';
 
   // Development server
-  //public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
-  //public textcatUrl: string = 'http://albina.clesius.it/textcat/c_pm.html';
-  //public chatUrl: string = 'ws://212.47.231.185:8080/albina/chat/';
-  //public bulletinUrl: string = 'ws://212.47.231.185:8080/albina/bulletin/';
-  //public updateUrl: string = 'ws://212.47.231.185:8080/albina/update/';
-  //public regionUrl: string = 'ws://212.47.231.185:8080/albina/region/';
+  //public serverUrl: string = 'https://admin.avalanche.report/albina_dev/api/';
+  //public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
+  //public chatUrl: string = 'wss://socket.avalanche.report/albina_dev/chat/';
+  //public bulletinUrl: string = 'wss://socket.avalanche.report/albina_dev/bulletin/';
+  //public updateUrl: string = 'wss://socket.avalanche.report/albina_dev/update/';
+  //public regionUrl: string = 'wss://socket.avalanche.report/albina_dev/region/';
   
   // Production server
   public serverUrl: string = 'https://admin.avalanche.report/albina/api/';
