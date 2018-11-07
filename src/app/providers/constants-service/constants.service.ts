@@ -9,9 +9,9 @@ export class ConstantsService {
   //public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
 
   // Development server
-  //public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
-  //public socketIOUrl: string = 'http://212.47.231.185:9092';
-  //public textcatUrl: string = 'http://albina.clesius.it/textcat/c_pm.html';
+  //public serverUrl: string = 'https://admin.avalanche.report/albina_dev/api/';
+  //public socketIOUrl: string = 'https://socket.avalanche.report';
+  //public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
   
   // Production server
   public serverUrl: string = 'https://admin.avalanche.report/albina/api/';
