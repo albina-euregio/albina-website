@@ -7,6 +7,8 @@ import { ConfigurationService } from '../providers/configuration-service/configu
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
+import { SelectItem } from 'primeng/primeng';
+
 
 declare var L: any;
 
@@ -43,6 +45,9 @@ export class AdminComponent {
   public emailPassword: string;
   public socketIoOrigin: string;
   public socketIoPort: number;
+
+  public regions: SelectItem[];
+  public regionConfiguration={};
 
   constructor(
     private translate: TranslateService,
@@ -88,6 +93,7 @@ export class AdminComponent {
           this.socketIoOrigin = response.socketIoOrigin;
           this.socketIoPort = response.socketIoPort;
           this.configurationPropertiesLoaded = true;
+
         },
         error => {
           console.error("Configuration properties could not be loaded!");
@@ -111,7 +117,11 @@ export class AdminComponent {
           console.error("Publication status could not be loaded!");
         }
       );
+
+      // Force select of first combo
+      this.regionChanged('IT-32-BZ');
     }
+    this.regions=this.authenticationService.getCurrentAuthorRegions().map(x=>({label:x, value:x}));
   }
 
   public save() {
@@ -152,4 +162,27 @@ export class AdminComponent {
       }
     );
   }
+  
+  public regionChanged (regionId:String){
+    this.configurationService.loadSocialMediaConfiguration(regionId).subscribe(
+      data => {
+        this.regionConfiguration=data.json();
+      },
+      error => {
+        console.error("Social Media configuration could not be loaded!");
+      }
+    );
+  }
+
+  public saveRegion (){
+    this.configurationService.saveSocialMediaConfiguration(this.regionConfiguration).subscribe(
+      data => {
+        console.log("Social Media configuration saved!");
+      },
+      error => {
+        console.error("Social Media configuration could not be saved!");
+      }
+    );;
+  }
+
 }

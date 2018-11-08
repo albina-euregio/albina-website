@@ -3,259 +3,324 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card">
-        <div class="card-header">
-          <i class="fa fa-user-secret"></i>{{ "admin.config.title" | translate }}
-        </div>
+          <p-tabView>
+              <p-tabPanel header="{{'admin.config.title' | translate}}">
+                  <div class="card">
+                      <!-- <div class="card-header">
+                        <i class="fa fa-user-secret"></i>{{ "admin.config.title" | translate }}
+                      </div> -->
+              
+                      <div *ngIf="configurationPropertiesLoaded" class="card-block">
+                        <table class="table table-bordered table-striped table-condensed" style="margin-bottom: 0">
+                          <thead>
+                            <tr>
+                              <th>{{ "admin.config.table.title.key" | translate }}</th>
+                              <th>{{ "admin.config.table.title.value" | translate }}</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.createMaps" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="createMaps">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.createPdf" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="createPdf">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.createStaticWidget" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="createStaticWidget">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.sendEmails" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="sendEmails">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.publishToSocialMedia" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="publishToSocialMedia">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.publishAt5PM" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="publishAt5PM">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.publishAt8AM" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="publishAt8AM">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.publishBulletinsTyrol" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsTyrol">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.publishBulletinsSouthTyrol" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsSouthTyrol">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.publishBulletinsTrentino" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsTrentino">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.publishBulletinsStyria" | translate }}</label>
+                              </td>
+                              <td>
+                                <label class="switch switch-primary">
+                                  <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsStyria">
+                                  <span class="switch-slider"></span>
+                                </label>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.localImagesPath" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="localImagesPath">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.localFontsPath" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="localFontsPath">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.pdfDirectory" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="pdfDirectory">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.serverImagesUrl" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="serverImagesUrl">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.serverImagesUrlLocalhost" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="serverImagesUrlLocalhost">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.mapsPath" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="mapsPath">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.smtpAuth" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpAuth">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.smtpTls" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpTls">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.smtpHost" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpHost">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.smtpPort" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpPort">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.emailUsername" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="emailUsername">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.emailPassword" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="emailPassword">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.socketIoOrigin" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="socketIoOrigin">
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <label class="col-form-label">{{ "admin.config.table.socketIoPort" | translate }}</label>
+                              </td>
+                              <td>
+                                <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="socketIoPort">
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- Footer -->
+                      <div class="card-footer">
+                        <button type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i>{{ "admin.config.button.save" | translate }}</button>
+                      </div>
+                  </div>
+              </p-tabPanel>
+              <p-tabPanel header="Region Configuration">
+                  <div class="card">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <p-dropdown  [options]="regions" [style]="{'width':'300px'}" (onChange)="regionChanged($event.value)"></p-dropdown>
+                      </div>
+                      <div class="col-md-9">
+                        <p-dataTable [value]="regionConfiguration?.channels">
+                            <p-column field="id" header="Id"></p-column>
+                            <p-column field="name" header="Name"></p-column>
+                            <p-column field="provider.name" header="Provider"></p-column>
+                            <p-column field="enabled" header="Configured"></p-column>
+                        </p-dataTable>      
+                      </div>
+                      <!-- <div class="col-md-5">
 
-        <div *ngIf="configurationPropertiesLoaded" class="card-block">
-          <table class="table table-bordered table-striped table-condensed" style="margin-bottom: 0">
-            <thead>
-              <tr>
-                <th>{{ "admin.config.table.title.key" | translate }}</th>
-                <th>{{ "admin.config.table.title.value" | translate }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.createMaps" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="createMaps">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.createPdf" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="createPdf">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.createStaticWidget" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="createStaticWidget">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.sendEmails" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="sendEmails">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.publishToSocialMedia" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="publishToSocialMedia">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.publishAt5PM" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="publishAt5PM">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.publishAt8AM" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="publishAt8AM">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.publishBulletinsTyrol" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsTyrol">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.publishBulletinsSouthTyrol" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsSouthTyrol">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.publishBulletinsTrentino" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsTrentino">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.publishBulletinsStyria" | translate }}</label>
-                </td>
-                <td>
-                  <label class="switch switch-primary">
-                    <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsStyria">
-                    <span class="switch-slider"></span>
-                  </label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.localImagesPath" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="localImagesPath">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.localFontsPath" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="localFontsPath">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.pdfDirectory" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="pdfDirectory">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.serverImagesUrl" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="serverImagesUrl">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.serverImagesUrlLocalhost" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="serverImagesUrlLocalhost">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.mapsPath" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="mapsPath">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.smtpAuth" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpAuth">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.smtpTls" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpTls">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.smtpHost" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpHost">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.smtpPort" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpPort">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.emailUsername" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="emailUsername">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.emailPassword" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="emailPassword">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.socketIoOrigin" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="socketIoOrigin">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label class="col-form-label">{{ "admin.config.table.socketIoPort" | translate }}</label>
-                </td>
-                <td>
-                  <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="socketIoPort">
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- Footer -->
-        <div class="card-footer">
-          <button type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i>{{ "admin.config.button.save" | translate }}</button>
-        </div>
+                      </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                          <!-- <label>{{regionConfiguration.messengerPeopleConfig | json}}</label> -->
+                          <!-- <label>{{regionConfiguration.twitterConfig | json}}</label> -->
+                          <!-- <label>{{regionConfiguration.rapidMailConfig | json}}</label> -->
+                            <p-tabView>
+                                <p-tabPanel header="Email" style="widht:400px"  *ngIf="regionConfiguration.rapidMailConfig">
+                                    <label class="col-form-label">Id</label>
+                                    <input class="switch-input" [(ngModel)]="regionConfiguration.rapidMailConfig.id">
+                                    <label class="col-form-label">Username</label>
+                                    <input class="switch-input" [(ngModel)]="regionConfiguration.rapidMailConfig.username">
+                                    <label class="col-form-label">Password</label>
+                                    <input class="switch-input" [(ngModel)]="regionConfiguration.rapidMailConfig.password">
+                                </p-tabPanel>
+                                <p-tabPanel header="Messenger People" style="widht:400px" *ngIf="regionConfiguration.messengerPeopleConfig">
+                                      <label class="col-form-label">Id</label>
+                                      <input class="switch-input" [(ngModel)]="regionConfiguration.messengerPeopleConfig.id">
+                                      <label class="col-form-label">Api Key</label>
+                                      <input class="switch-input" [(ngModel)]="regionConfiguration.messengerPeopleConfig.apiKey">
+                                </p-tabPanel>
+                                <p-tabPanel header="Twitter" style="widht:400px" *ngIf="regionConfiguration.twitterConfig">
+                                    <label class="col-form-label">Id</label>
+                                    <input class="switch-input" [(ngModel)]="regionConfiguration.twitterConfig.id">
+                                    <label class="col-form-label">Access Secret</label>
+                                    <input class="switch-input" [(ngModel)]="regionConfiguration.twitterConfig.accessSecret">
+                                    <label class="col-form-label">Access Key</label>
+                                    <input class="switch-input" [(ngModel)]="regionConfiguration.twitterConfig.accessKey">
+                                    <label class="col-form-label">Consumer Secret</label>
+                                    <input class="switch-input" [(ngModel)]="regionConfiguration.twitterConfig.consumerSecret">
+                                    <label class="col-form-label">Consumer Key</label>
+                                    <input class="switch-input" [(ngModel)]="regionConfiguration.twitterConfig.consumerKey">
+                                  </p-tabPanel>
+                            </p-tabView>                          
+                        </div>
+                    </div>                      
+                    <!-- <label>{{regionConfiguration | json}}</label>     -->
+                    <div class="card-footer">
+                      <button type="submit" class="btn btn-sm btn-primary px-3" (click)="saveRegion()"><i class="fa fa-check"></i>{{ "admin.config.button.save" | translate }}</button>
+                    </div>
+                  </div>
+              </p-tabPanel>
+          </p-tabView>
       </div>
     </div>
   </div>

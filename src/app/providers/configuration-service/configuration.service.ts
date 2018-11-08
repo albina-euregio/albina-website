@@ -38,4 +38,29 @@ export class ConfigurationService {
 
     return this.http.post(encodeURI(url), body, options);
   }
+
+
+  public loadSocialMediaConfiguration(regionId:String) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'configuration/region?regionId='+regionId;
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(encodeURI(url), options);
+  }
+
+  public saveSocialMediaConfiguration(regionConfiguration) {
+    let url = this.constantsService.getServerUrl() + 'configuration/region';
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify(regionConfiguration);
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(encodeURI(url), body, options);
+  }
 }

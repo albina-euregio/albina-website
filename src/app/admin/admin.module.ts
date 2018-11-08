@@ -9,7 +9,7 @@ import { TranslateModule } from 'ng2-translate';
 
 // Pipes
 import { PipeModule } from '../pipes/pipes.module';
-
+import {TabViewModule, DropdownModule, DataTableModule} from 'primeng/primeng';
 
 @NgModule({
   imports: [
@@ -17,7 +17,11 @@ import { PipeModule } from '../pipes/pipes.module';
     FormsModule,
     CommonModule,
     TranslateModule,
-    PipeModule.forRoot()
+    PipeModule.forRoot(),
+    TabViewModule,
+    DropdownModule,
+    DataTableModule,
+    
   ],
   declarations: [
     AdminComponent
