@@ -56,7 +56,7 @@
         "id": "instagram",
         "name": "Instagram",
         "url": {
-          "AT-07": "#",
+          "AT-07": "#https://www.instagram.com/lawinenwarndienst_tirol",
           "IT-32-BZ": "#",
           "IT-32-TN": "#"
         }
@@ -65,7 +65,7 @@
         "id": "youtube",
         "name": "YouTube",
         "url": {
-          "AT-07": "#",
+          "AT-07": "https://www.youtube.com/channel/UC3H4Xqv_wfHajvogV3ooYdQ",
           "IT-32-BZ": "#",
           "IT-32-TN": "#"
         }

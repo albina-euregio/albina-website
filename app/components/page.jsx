@@ -9,12 +9,14 @@ import { observer } from 'mobx-react'
 
 import Base from './../base'
 import ModalDialog from './modal-dialog'
+import FollowDialog from './dialogs/follow-dialog'
 import SubscribeDialog from './dialogs/subscribe-dialog'
 import SubscribeSocialMediaDialog from './dialogs/subscribe-social-media-dialog'
 import SubscribeAppDialog from './dialogs/subscribe-app-dialog'
 import SubscribeBulletinDialog from './dialogs/subscribe-bulletin-dialog'
 import SubscribeBlogDialog from './dialogs/subscribe-blog-dialog'
-import UnsupportedBrowserDialog from './../components/dialogs/unsupported-browser-dialog'
+import UnsupportedBrowserDialog
+  from './../components/dialogs/unsupported-browser-dialog'
 import CookieConsent from './dialogs/cookie-consent'
 
 import { renderRoutes } from 'react-router-config'
@@ -23,15 +25,14 @@ import { tooltip_init } from '../js/tooltip'
 import { navigation_init } from '../js/navigation'
 import { video_init } from '../js/video'
 
-@observer
-class Page extends React.Component {
-  constructor(props) {
+@observer class Page extends React.Component {
+  constructor (props) {
     super(props)
     this.menuStore = new MenuStore()
     window['menuStore'] = this.menuStore
   }
 
-  _setLanguage() {
+  _setLanguage () {
     // url lang param
 
     console.log('setting language')
@@ -39,9 +40,7 @@ class Page extends React.Component {
       // browser setting
 
       console.log(window.localStorage.getItem('locale'))
-      if (
-        !appStore.setLanguage(window.localStorage.getItem('locale'))
-      ) {
+      if (!appStore.setLanguage(window.localStorage.getItem('locale'))) {
         // config language
         if (!appStore.setLanguage(config.get('defaults.language'))) {
           // browser setting
@@ -52,9 +51,7 @@ class Page extends React.Component {
             ? window.navigator.browserLanguage
             : ''
 
-          browserLangSettings = browserLangSettings
-            .substr(0, 2)
-            .toLowerCase()
+          browserLangSettings = browserLangSettings.substr(0, 2).toLowerCase()
 
           if (!appStore.setLanguage(browserLangSettings)) {
             // fallback to en
@@ -65,23 +62,18 @@ class Page extends React.Component {
     }
 
     // set the url if needed
-    Base.searchChange(
-      this.props.history,
-      'lang',
-      appStore.language,
-      true
-    )
+    Base.searchChange(this.props.history, 'lang', appStore.language, true)
   }
 
-  componentDidUpdate() {
+  componentDidUpdate () {
     this._didUpdate()
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this._didUpdate()
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     if (
       nextProps.location !== this.props.location &&
       nextProps.history.action === 'PUSH' &&
@@ -93,7 +85,7 @@ class Page extends React.Component {
     }
   }
 
-  _didUpdate() {
+  _didUpdate () {
     if (
       this.props.location.pathname === '' ||
       this.props.location.pathname === '/'
@@ -107,36 +99,37 @@ class Page extends React.Component {
     video_init()
   }
 
-  render() {
+  render () {
     return (
       <div>
         <PageLoadingScreen />
         <Jumpnav />
-        <div id="page-all" className="page-all">
+        <div id='page-all' className='page-all'>
           <PageHeader menuStore={this.menuStore} />
-          <main id="page-main" className="page-main">
-            <div id="global-grid">
+          <main id='page-main' className='page-main'>
+            <div id='global-grid'>
               {renderRoutes(this.props.route.routes)}
             </div>
           </main>
           <PageFooter menuStore={this.menuStore} />
         </div>
-        {appStore.unsupportedBrowserModal && (
-          <UnsupportedBrowserDialog />
-        )}
-        <ModalDialog id="subscribeDialog">
+        {appStore.unsupportedBrowserModal && <UnsupportedBrowserDialog />}
+        <ModalDialog id='subscribeDialog'>
           <SubscribeDialog />
         </ModalDialog>
-        <ModalDialog id="subscribeBulletinDialog">
+        <ModalDialog id='followDialog'>
+          <FollowDialog />
+        </ModalDialog>
+        <ModalDialog id='subscribeBulletinDialog'>
           <SubscribeBulletinDialog />
         </ModalDialog>
-        <ModalDialog id="subscribeBlogDialog">
+        <ModalDialog id='subscribeBlogDialog'>
           <SubscribeBlogDialog />
         </ModalDialog>
-        <ModalDialog id="subscribeSocialMediaDialog">
+        <ModalDialog id='subscribeSocialMediaDialog'>
           <SubscribeSocialMediaDialog />
         </ModalDialog>
-        <ModalDialog id="subscribeAppDialog">
+        <ModalDialog id='subscribeAppDialog'>
           <SubscribeAppDialog />
         </ModalDialog>
         <CookieConsent />
