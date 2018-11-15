@@ -715,7 +715,6 @@
     "de": "Lawinenvorhersage",
     "it": "Bollettino valanghe"
   },
-  "dialog:subscribe:blog": { "all": "Blog" },
   "dialog:subscribe:social-media": {
     "en": "Social Media",
     "de": "Soziale Medien",
