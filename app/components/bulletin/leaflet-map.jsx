@@ -187,8 +187,7 @@ class LeafletMap extends React.Component {
     const mapOptions = Object.assign(
       {},
       this.loaded ? this._enabledMapProps() : this._disabledMapProps(),
-      mapProps,
-      this.loaded ? { gestureHandling: true } : {}
+      mapProps
     )
 
     return (
@@ -196,6 +195,7 @@ class LeafletMap extends React.Component {
         onViewportChanged={this.props.mapViewportChanged.bind(this.map)}
         useFlyTo
         ref='map'
+        gestureHandling
         dragging={L.Browser.mobile}
         style={this.mapStyle()}
         zoomControl={false}
