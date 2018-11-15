@@ -92,9 +92,9 @@
         "id": "twitter",
         "name": "Twitter",
         "url": {
-          "AT-07": "#",
-          "IT-32-BZ": "#",
-          "IT-32-TN": "#"
+          "AT-07": false,
+          "IT-32-BZ": false,
+          "IT-32-TN": false
         }
       },
       {
@@ -102,8 +102,8 @@
         "name": "Instagram",
         "url": {
           "AT-07": "https://www.instagram.com/lawinenwarndienst_tirol",
-          "IT-32-BZ": "#",
-          "IT-32-TN": "#"
+          "IT-32-BZ": false,
+          "IT-32-TN": false
         }
       },
       {
@@ -111,17 +111,17 @@
         "name": "YouTube",
         "url": {
           "AT-07": "https://www.youtube.com/channel/UC3H4Xqv_wfHajvogV3ooYdQ",
-          "IT-32-BZ": "#",
-          "IT-32-TN": "#"
+          "IT-32-BZ": false,
+          "IT-32-TN": false
         }
       },
       {
         "id": "whatsapp",
         "name": "WhatsApp",
         "url": {
-          "AT-07": "#",
-          "IT-32-BZ": "#",
-          "IT-32-TN": "#"
+          "AT-07": false,
+          "IT-32-BZ": false,
+          "IT-32-TN": false
         }
       }
     ],
