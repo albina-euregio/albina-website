@@ -23,12 +23,12 @@ require('leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css')
 require('./../../css/geonames.css')
 
 class LeafletMap extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.map = false
   }
 
-  mapStyle() {
+  mapStyle () {
     return {
       width: '100%',
       height: '100%',
@@ -36,7 +36,7 @@ class LeafletMap extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.map = this.refs.map.leafletElement
 
     L.Util.setOptions(this.map, { gestureHandling: true })
@@ -104,7 +104,7 @@ class LeafletMap extends React.Component {
     })
   }
 
-  get tileLayers() {
+  get tileLayers () {
     const tileLayerConfig = config.get('map.tileLayers')
     let tileLayers = ''
     if (tileLayerConfig.length == 1) {
@@ -118,8 +118,7 @@ class LeafletMap extends React.Component {
             <LayersControl.BaseLayer
               name={layerProps.id}
               key={layerProps.id}
-              checked={i == 0}
-            >
+              checked={i == 0}>
               <TileLayer key={layerProps.id} {...layerProps} />
             </LayersControl.BaseLayer>
           ))}
@@ -129,7 +128,7 @@ class LeafletMap extends React.Component {
     return tileLayers
   }
 
-  get mapOverlays() {
+  get mapOverlays () {
     const b = bulletinStore.activeBulletinCollection
     if (b) {
       const daytime = b.hasDaytimeDependency()
@@ -155,36 +154,69 @@ class LeafletMap extends React.Component {
     return null
   }
 
-  render() {
+  _disabledMapProps () {
+    return {
+      dragging: false,
+      touchZoom: false,
+      doubleClickZoom: false,
+      scrollWheelZoom: false,
+      boxZoom: false,
+      keyboard: false
+    }
+  }
+  _enabledMapProps () {
+    return {
+      dragging: true,
+      touchZoom: true,
+      doubleClickZoom: true,
+      scrollWheelZoom: true,
+      boxZoom: true,
+      keyboard: true
+    }
+  }
+
+  get loaded () {
+    return !['', 'pending'].includes(this.props.store.settings.status)
+  }
+
+  render () {
     const mapProps = config.get('map.initOptions')
     const bulletinStore = this.props.store
 
+    console.log('map status', this.props.store.settings.status)
+    console.log('map is loaded', this.loaded)
+    console.log('map is draggable', this.loaded && !L.Browser.mobile)
+
+    const mapOptions = Object.assign(
+      {},
+      this.loaded ? this._enabledMapProps() : this._disabledMapProps(),
+      mapProps,
+      this.loaded ? { gestureHandling: true } : {}
+    )
+    console.log(mapOptions)
+
     return (
       <Map
-        onViewportChanged={this.props.mapViewportChanged.bind(
-          this.map
-        )}
+        onViewportChanged={this.props.mapViewportChanged.bind(this.map)}
         useFlyTo
-        ref="map"
-        {...mapProps}
-        dragging={!L.Browser.mobile}
+        ref='map'
+        dragging={L.Browser.mobile}
         style={this.mapStyle()}
         zoomControl={false}
         zoom={bulletinStore.getMapZoom}
-        gestureHandling
         center={bulletinStore.getMapCenter}
-        attributionControl={false}
-      >
+        {...mapOptions}
+        attributionControl={false}>
         <AttributionControl
           prefix={
             '<a target="_blank" href="https://leafletjs.com/">Leaflet</a> | ' +
-            config.get('map.attribution') +
-            ' | v.' +
-            config.get('version')
+              config.get('map.attribution') +
+              ' | v.' +
+              config.get('version')
           }
         />
         <ZoomControl
-          position="topleft"
+          position='topleft'
           zoomInTitle={this.props.intl.formatMessage({
             id: 'bulletin:map:zoom-in:hover'
           })}
@@ -194,14 +226,13 @@ class LeafletMap extends React.Component {
         />
         {this.tileLayers}
         {this.mapOverlays}
-        {this.props.regions && (
+        {this.props.regions &&
           <BulletinVectorLayer
             store={bulletinStore}
             regions={this.props.regions}
             handleHighlightRegion={this.props.handleHighlightRegion}
             handleSelectRegion={this.props.handleSelectRegion}
-          />
-        )}
+          />}
       </Map>
     )
   }
