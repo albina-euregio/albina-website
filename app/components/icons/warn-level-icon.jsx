@@ -5,20 +5,18 @@ import { injectIntl, FormattedMessage } from 'react-intl'
 class WarnLevelIcon extends React.Component {
   imgRoot
 
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     // http://localhost/projects/albina-cms/web/de/api/taxonomy_term/warning_levels?sort=level&fields[taxonomy_term--warning_levels]=name,level
     // FIXME: should go to config.ini
     this.imgRoot =
-      window['config'].get('projectRoot') +
-      'images/pro/warning-pictos/'
+      window['config'].get('projectRoot') + 'images/pro/warning-pictos/'
   }
 
-  render() {
+  render () {
     const getWarnlevelText = warnLevel => {
       if (warnLevel) {
-        console.log(warnLevel)
         return this.props.intl.formatMessage({
           id: 'danger-level:' + warnLevel
         })
@@ -26,10 +24,9 @@ class WarnLevelIcon extends React.Component {
       return ''
     }
 
-    const below =
-      this.props.elevation || this.props.treeline
-        ? this.props.below
-        : this.props.above
+    const below = this.props.elevation || this.props.treeline
+      ? this.props.below
+      : this.props.above
 
     const b = window['appStore'].getWarnlevelNumber(below)
     const a = window['appStore'].getWarnlevelNumber(this.props.above)
@@ -37,12 +34,12 @@ class WarnLevelIcon extends React.Component {
     const elevText = this.props.elevation
       ? this.props.elevation + 'm'
       : this.props.treeline
-        ? this.props.intl.formatMessage({ id: 'bulletin:treeline' })
-        : a == 0
-          ? this.props.intl.formatMessage({
-              id: 'danger-level:' + this.props.above
-            })
-          : ''
+          ? this.props.intl.formatMessage({ id: 'bulletin:treeline' })
+          : a == 0
+              ? this.props.intl.formatMessage({
+                id: 'danger-level:' + this.props.above
+              })
+              : ''
 
     const img = this.imgRoot + 'levels_' + b + '_' + a + '.png'
 
@@ -79,11 +76,9 @@ class WarnLevelIcon extends React.Component {
     }
 
     return (
-      <div className="bulletin-report-picto tooltip" title={title}>
+      <div className='bulletin-report-picto tooltip' title={title}>
         <img src={img} alt={alt} />
-        {this.props.above != this.props.below && (
-          <span>{elevText}</span>
-        )}
+        {this.props.above != this.props.below && <span>{elevText}</span>}
       </div>
     )
   }

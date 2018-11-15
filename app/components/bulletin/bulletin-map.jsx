@@ -3,7 +3,6 @@ import { observer, inject } from 'mobx-react'
 import { injectIntl } from 'react-intl'
 import { Parser } from 'html-to-react'
 import LeafletMap from './leaflet-map'
-import Base from './../../base'
 import BulletinMapDetails from './bulletin-map-details'
 
 class BulletinMap extends React.Component {
@@ -23,14 +22,12 @@ class BulletinMap extends React.Component {
     return (
       <section
         id='section-bulletin-map'
-        className='section section-bulletin section-bulletin-map'
-      >
+        className='section section-bulletin section-bulletin-map'>
         <div
           className={
             'bulletin-map-container section-map' +
               (config.get('map.useWindowWidth') ? '' : ' section-centered')
-          }
-        >
+          }>
           <LeafletMap
             regions={this.props.regions}
             mapViewportChanged={this.props.handleMapViewportChanged}
@@ -55,8 +52,7 @@ class BulletinMap extends React.Component {
                 <button
                   href='#'
                   title='The Button'
-                  className='pure-button pure-button-icon icon-search'
-                >
+                  className='pure-button pure-button-icon icon-search'>
                   <span>&nbsp;</span>
                 </button>
               </div>
@@ -64,8 +60,7 @@ class BulletinMap extends React.Component {
           {hlBulletin &&
             <div
               style={this.styleOverMap()}
-              className='bulletin-map-details js-active top-right'
-            >
+              className='bulletin-map-details js-active top-right'>
               <BulletinMapDetails
                 store={this.props.store}
                 bulletin={hlBulletin}
@@ -78,8 +73,7 @@ class BulletinMap extends React.Component {
                   title={this.props.intl.formatMessage({
                     id: 'bulletin:map:info:details:hover'
                   })}
-                  data-scroll=''
-                >
+                  data-scroll=''>
                   {new Parser().parse(
                     this.props.intl.formatHTMLMessage({
                       id: 'bulletin:map:info:details'

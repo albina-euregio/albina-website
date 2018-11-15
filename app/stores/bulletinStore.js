@@ -168,6 +168,7 @@ class BulletinStore {
           .then(() => {
             const status = this.archiveStore.getStatus(date)
 
+            console.log('status', status)
             if (status == 'ok') {
               return this._loadBulletinData(date)
             } else {
@@ -397,16 +398,18 @@ class BulletinStore {
     const prevDay = date => dateToISODateString(parseDate(date))
 
     // zulu time
-    const localTime = new Date(prevDay).valueOf() > 1540677600000
+    /* const localTime = new Date(prevDay).valueOf() > 1540677600000
       ? 'T23:00:00Z'
       : 'T22:00:00Z'
-    const dateParam = encodeURIComponent(prevDay(date))
+    */
+    const dateParam = encodeURIComponent(date)
+    // const dateParam = encodeURIComponent(prevDay(date))
     // const dateParam = encodeURIComponent(prevDay(date) + localTime)
     // const dateParam = encodeURIComponent(date + 'T22:00:00Z')
     // const dateParam = encodeURIComponent(date + 'T00:00:00+02:00')
     const url = config.get('apis.bulletin') + '?date=' + dateParam
 
-    console.log(url)
+    console.log('bulletin url', url)
 
     return Base.doRequest(url).then(
       // query bulletin data

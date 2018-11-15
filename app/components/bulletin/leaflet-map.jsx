@@ -32,7 +32,8 @@ class LeafletMap extends React.Component {
     return {
       width: '100%',
       height: '100%',
-      zIndex: 1
+      zIndex: 1,
+      opacity: this.loaded ? 1 : 0.2
     }
   }
 
@@ -183,17 +184,12 @@ class LeafletMap extends React.Component {
     const mapProps = config.get('map.initOptions')
     const bulletinStore = this.props.store
 
-    console.log('map status', this.props.store.settings.status)
-    console.log('map is loaded', this.loaded)
-    console.log('map is draggable', this.loaded && !L.Browser.mobile)
-
     const mapOptions = Object.assign(
       {},
       this.loaded ? this._enabledMapProps() : this._disabledMapProps(),
       mapProps,
       this.loaded ? { gestureHandling: true } : {}
     )
-    console.log(mapOptions)
 
     return (
       <Map
