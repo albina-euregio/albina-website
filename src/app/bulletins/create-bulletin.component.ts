@@ -1036,6 +1036,16 @@ private setTexts() {
         this.activeBulletin.getSavedRegions().splice(index, 1);
       }
 
+      // delete old published regions in own area
+      let oldPublishedRegions = new Array<String>();
+      for (let region of this.activeBulletin.getPublishedRegions())
+        if (region.startsWith(this.authenticationService.getActiveRegion()))
+          oldPublishedRegions.push(region);
+      for (let region of oldPublishedRegions) {
+        let index = this.activeBulletin.getPublishedRegions().indexOf(region);
+        this.activeBulletin.getPublishedRegions().splice(index, 1);
+      }
+
       // delete old suggested regions outside own area
       let oldSuggestedRegions = new Array<String>();
       for (let region of this.activeBulletin.getSuggestedRegions())
@@ -1076,6 +1086,11 @@ private setTexts() {
           if (index != -1)
             bulletin.getSavedRegions().splice(index, 1);
 
+          // region was published in other aggregated region => delete
+          index = bulletin.getPublishedRegions().indexOf(region);
+          if (region.startsWith(this.authenticationService.getActiveRegion()) && index != -1)
+            bulletin.getPublishedRegions().splice(index, 1);
+
           // region was suggested by other user (multiple suggestions possible for same region) => delete all)
           index = bulletin.getSuggestedRegions().indexOf(region);
           if (index != -1)
@@ -1094,7 +1109,6 @@ private setTexts() {
       this.mapService.addAggregatedRegion(bulletin);
 
     }
-
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletin);
   }
@@ -1471,7 +1485,23 @@ private setTexts() {
           }
         }
 
-        if (this.getOwnBulletins().length == 0 && this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && !this.bulletinsService.getIsSmallChange())
+        let hit = false;
+        for (let bulletin of this.bulletinsList) {
+          for (let region of bulletin.getSavedRegions())
+            if (region.startsWith(this.authenticationService.getActiveRegion())) {
+              hit = true;
+              break;
+            }
+          for (let region of bulletin.getPublishedRegions())
+            if (region.startsWith(this.authenticationService.getActiveRegion())) {
+              hit = true;
+              break;
+            }
+          if (hit)
+            break;
+        }
+
+        if (!hit && this.getOwnBulletins().length == 0 && this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && !this.bulletinsService.getIsSmallChange())
           this.createInitialAggregatedRegion();
 
         this.updateMap();
