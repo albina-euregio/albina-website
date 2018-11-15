@@ -26,7 +26,7 @@
     "interreg": "http://www.interreg.net/{lang}/default.asp",
     "meteoViewer": "https://data1.geo.univie.ac.at/projects/meteoviewer?config=albina",
     "meteoViewerConfig": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
-    "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table2/ogd_table.php",
+    "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
     "downloads": {
       "pdf": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}.pdf",
       "xml": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}.xml"
