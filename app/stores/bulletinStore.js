@@ -74,7 +74,7 @@ class BulletinCollection {
 
   setData (data) {
     this.dataRaw = data
-    this.status = (typeof data === 'object' && data)
+    this.status = typeof data === 'object' && data
       ? data.length > 0 ? 'ok' : 'empty'
       : 'n/a'
   }
