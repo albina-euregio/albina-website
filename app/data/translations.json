@@ -808,82 +808,82 @@
     "it": "L'App snowhow"
   },
 
-  "dialog:subscribe-bulletin:header": {
+  "dialog:subscribe-email:header": {
     "en": "Subscriptions",
     "de": "Abonnieren",
     "it": "Abbonamenti"
   },
-  "dialog:subscribe-bulletin:subheader": {
+  "dialog:subscribe-email:subheader": {
     "en": "Avalanche Forecast",
     "de": "Lawinenvorhersage",
     "it": "Bollettino valanghe"
   },
-  "dialog:subscribe-bulletin:back-button": {
+  "dialog:subscribe-email:back-button": {
     "en": "All subscriptions",
     "de": "Alle Abonnements",
     "it": "Tutti gli abbonamenti"
   },
-  "dialog:subscribe-bulletin:back-button:hover": {
+  "dialog:subscribe-email:back-button:hover": {
     "en": "All subscriptions",
     "de": "Alle Abonnements",
     "it": "Tutti gli abbonamenti"
   },
-  "dialog:subscribe-bulletin:region": {
+  "dialog:subscribe-email:region": {
     "en": "<strong>Select</strong> State / Province of interest",
     "de": "Land / Provinz auswählen",
     "it": "<strong>Scegli</strong> Land / Provincia"
   },
-  "dialog:subscribe-bulletin:region-all:button": {
+  "dialog:subscribe-email:region-all:button": {
     "en": "Entire Euregio",
     "de": "Gesamte Europaregion",
     "it": "Tutta l'Euregio"
   },
-  "dialog:subscribe-bulletin:region:or": {
+  "dialog:subscribe-email:region:or": {
     "en": "or",
     "de": "oder",
     "it": "o"
   },
-  "dialog:subscribe-bulletin:region-select:button": {
+  "dialog:subscribe-email:region-select:button": {
     "en": "State / Province",
     "de": "Land / Provinz",
     "it": "Land / Provincia"
   },
-  "dialog:subscribe-bulletin:email": {
+  "dialog:subscribe-email:email": {
     "en": "Email address",
     "de": "E-mail Adresse",
     "it": "Indirizzo email"
   },
-  "dialog:subscribe-bulletin:language": {
+  "dialog:subscribe-email:language": {
     "en": "Preferred language",
     "de": "Bevorzugte Sprache",
     "it": "Lingua preferita"
   },
-  "dialog:subscribe-bulletin:subscribe:button": {
+  "dialog:subscribe-email:subscribe:button": {
     "en": "Subscribe",
     "de": "Abonnieren",
     "it": "Iscriviti"
   },
-  "dialog:subscribe-bulletin:status:loading": {
+  "dialog:subscribe-email:status:loading": {
     "en": "<strong>Please stand by:</strong> Subscription in progress \\u2026",
     "de": "<strong>Bitte warten:</strong> Anmeldung in Arbeit \\u2026",
     "it": "<strong>Si prega di attendere:</strong> Iscrizione in corso \\u2026"
   },
-  "dialog:subscribe-bulletin:status:subscribed": {
+  "dialog:subscribe-email:status:subscribed": {
     "en": "<strong>Oh:</strong> You are already subscribed with this email adress",
     "de": "<strong>Oh:</strong> Sie haben diese E-mail Adresse für die Anmeldung schon verwendet",
     "it": "<strong>Oh:</strong> Sei già iscritto con questo indirizzo e-mail"
   },
-  "dialog:subscribe-bulletin:status:submitted": {
+  "dialog:subscribe-email:status:submitted": {
     "en": "<strong>Please check your email inbox</strong> to confirm your subscription",
     "de": "<strong>Bitte überprüfen Sie Ihren Posteingang</strong> und bestätigen die Anmeldung zum Abonnement",
     "it": "<strong>Controlla la tua casella di posta elettronica</strong> per confermare l'iscrizione"
   },
-  "dialog:subscribe-bulletin:status:ok": {
+  "dialog:subscribe-email:status:ok": {
     "en": "<strong>Subscription confirmed:</strong> You are now subscribed",
     "de": "<strong>Anmeldung bestätigt:</strong> Sie sind nun auf dem Verteiler",
     "it": "<strong>Sottoscrizione confermata:</strong> Ora sei iscritto"
   },
-  "dialog:subscribe-bulletin:error": {
+  "dialog:subscribe-email:error": {
     "en": "Error",
     "de": "Fehler",
     "it": "Errore"

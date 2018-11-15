@@ -13,7 +13,7 @@ import FollowDialog from './dialogs/follow-dialog'
 import SubscribeDialog from './dialogs/subscribe-dialog'
 import SubscribeSocialMediaDialog from './dialogs/subscribe-social-media-dialog'
 import SubscribeAppDialog from './dialogs/subscribe-app-dialog'
-import SubscribeBulletinDialog from './dialogs/subscribe-bulletin-dialog'
+import SubscribeEmailDialog from './dialogs/subscribe-email-dialog'
 import SubscribeBlogDialog from './dialogs/subscribe-blog-dialog'
 import UnsupportedBrowserDialog
   from './../components/dialogs/unsupported-browser-dialog'
@@ -120,8 +120,8 @@ import { video_init } from '../js/video'
         <ModalDialog id='followDialog'>
           <FollowDialog />
         </ModalDialog>
-        <ModalDialog id='subscribeBulletinDialog'>
-          <SubscribeBulletinDialog />
+        <ModalDialog id='subscribeEmailDialog'>
+          <SubscribeEmailDialog />
         </ModalDialog>
         <ModalDialog id='subscribeBlogDialog'>
           <SubscribeBlogDialog />
