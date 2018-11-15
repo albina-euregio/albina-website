@@ -293,7 +293,8 @@ export class BulletinsComponent {
         (
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished ||
-          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.missing
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.missing ||
+          this.bulletinsService.getUserRegionStatus(date) == undefined
         ) && 
         !this.copying)
       return true;
