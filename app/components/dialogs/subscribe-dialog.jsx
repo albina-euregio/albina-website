@@ -23,10 +23,10 @@ class SubscribeDialog extends React.Component {
           </label>
           <ul className='list-inline list-buttongroup'>
             <li>
-              <a href='#subscribeBulletinDialog' className='modal-trigger'>
+              <a href='#subscribeEmailDialog' className='modal-trigger'>
                 <button className='inverse pure-button'>
                   {this.props.intl.formatMessage({
-                    id: 'dialog:subscribe:bulletin'
+                    id: 'dialog:subscribe:email'
                   })}
                 </button>
               </a>

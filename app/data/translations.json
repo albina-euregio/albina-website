@@ -710,10 +710,8 @@
     "de": "Wähle <span class=\"normal\">dein Abonnement</span>",
     "it": "Seleziona <span class=\"normal\">il tuo abbonamento</span>"
   },
-  "dialog:subscribe:bulletin": {
-    "en": "Avalanche Forecast",
-    "de": "Lawinenvorhersage",
-    "it": "Bollettino valanghe"
+  "dialog:subscribe:email": {
+    "all": "Email"
   },
   "dialog:subscribe:social-media": {
     "en": "Social Media",
