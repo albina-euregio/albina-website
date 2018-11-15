@@ -38,7 +38,7 @@ class FollowDialog extends React.Component {
               {this.props.intl.formatMessage({ id: 'region:' + r })}
             </h2>
             <ul className='list-inline sm-buttons'>
-              {subscriptions[r].map(e => (
+              {subscriptions[r].filter(e => e.url && e.url !== '#').map(e => (
                 <li key={e.id}>
                   <a
                     className={'sm-button icon-sm-' + e.id + ' tooltip'}
