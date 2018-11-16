@@ -6,11 +6,11 @@ import { Parser } from 'html-to-react'
 import BulletinProblemFilter from './bulletin-problem-filter.jsx'
 
 class BulletinLegend extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
   }
 
-  render() {
+  render () {
     // replace the <a> element in bulletin:legend:highlight-regions with a
     // Link component
     const msg = this.props.intl.formatHTMLMessage({
@@ -33,42 +33,41 @@ class BulletinLegend extends React.Component {
 
     return (
       <section
-        id="section-bulletin-legend"
-        className="section-padding section-bulletin-legend"
-      >
-        <div className="section-centered">
-          <div className="grid">
-            <div className="normal-6 grid-item">
+        id='section-bulletin-legend'
+        className='section-padding section-bulletin-legend'>
+        <div className='section-centered'>
+          <div className='grid'>
+            <div className='normal-6 grid-item'>
               <p>
                 {parts.length > 1 && new Parser().parse(parts[1])}
-                {parts.length > 2 && (
+                {parts.length > 2 &&
                   <Link
-                    to="/education/avp"
-                    className="tooltip"
+                    to='/education/avp'
+                    className='tooltip'
                     title={this.props.intl.formatMessage({
                       id: 'bulletin:legend:highlight-regions:hover'
-                    })}
-                  >
+                    })}>
                     <strong>{parts[2]}</strong>
-                  </Link>
-                )}
+                  </Link>}
                 {parts.length > 3 && new Parser().parse(parts[3])}
               </p>
-              <BulletinProblemFilter problems={this.props.problems} />
+              <BulletinProblemFilter
+                handleSelectRegion={this.props.handleSelectRegion}
+                problems={this.props.problems}
+              />
             </div>
-            <div className="normal-6 grid-item">
+            <div className='normal-6 grid-item'>
               <p>
                 <Link
-                  to="/education/dangerscale"
-                  className="tooltip"
+                  to='/education/dangerscale'
+                  className='tooltip'
                   title={this.props.intl.formatMessage({
                     id: 'bulletin:legend:danger-levels:hover'
-                  })}
-                >
-                  <FormattedHTMLMessage id="bulletin:legend:danger-levels" />
+                  })}>
+                  <FormattedHTMLMessage id='bulletin:legend:danger-levels' />
                 </Link>
               </p>
-              <ul className="list-inline list-legend">
+              <ul className='list-inline list-legend'>
                 {warnlevels.map(l => (
                   <li key={l.id} className={'warning-level-' + l.num}>
                     <span>

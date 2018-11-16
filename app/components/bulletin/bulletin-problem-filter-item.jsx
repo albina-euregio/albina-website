@@ -3,6 +3,8 @@ import { observer, inject } from 'mobx-react'
 import { injectIntl } from 'react-intl'
 import ProblemIcon from '../icons/problem-icon.jsx'
 
+import Base from '../../base'
+
 class BulletinProblemFilterItem extends React.Component {
   constructor (props) {
     super(props)
@@ -15,8 +17,8 @@ class BulletinProblemFilterItem extends React.Component {
   toggle (e) {
     e.preventDefault()
 
-    window['bulletinStore'].setRegion('')
-    Base.searchChange(this.props.history, 'region', '', false)
+    console.log('toggling filter')
+    this.props.handleSelectRegion()
 
     if (this.state.active) {
       window['bulletinStore'].dimProblem(this.state.id)

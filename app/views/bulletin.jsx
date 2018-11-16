@@ -140,7 +140,10 @@ import { tooltip_init } from '../js/tooltip'
           highlightedRegion={this.state.highlightedRegion}
           regions={this.store.vectorRegions}
         />
-        <BulletinLegend problems={this.store.problems} />
+        <BulletinLegend
+          handleSelectRegion={this.handleSelectRegion.bind(this)}
+          problems={this.store.problems}
+        />
         <BulletinButtonbar store={this.store} />
         <BulletinReport store={this.store} />
         {this.state.sharable && <SmShare />}
