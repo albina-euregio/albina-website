@@ -49,6 +49,7 @@ export class AdminComponent {
   public channels: SelectItem[];
   public regionConfiguration = {};
   public currentChannel: any;
+  public shipments: [{}];
 
   constructor(
     private translate: TranslateService,
@@ -118,11 +119,14 @@ export class AdminComponent {
         }
       );
 
-      // Force select of first combo
+      // Force select of first combo with current region
       this.regionChanged('IT-32-BZ');
+        // Load channels
+        this.loadChannels();
+        // Load shipments
+        this.loadShipments();
     }
     this.regions = this.authenticationService.getCurrentAuthorRegions().map(x => ({ label: x, value: x }));
-    this.loadChannels();
   }
 
   public save() {
@@ -222,8 +226,6 @@ export class AdminComponent {
       return true;
   }
 
-
-
   public deleteChannel(row: any) {
     console.log(row);
     if (this.currentChannel) {
@@ -231,8 +233,18 @@ export class AdminComponent {
       
       (<any>this.regionConfiguration).channels = (<any>this.regionConfiguration).channels;
     }
-
   }
 
+
+  loadShipments(){
+    this.configurationService.loadShipments().subscribe(
+      data => {
+        this.shipments=data.json();
+      },
+      error => {
+        console.error("Social Media shipments could not be loaded!");
+      }
+    );
+  }
 
 }

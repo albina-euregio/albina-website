@@ -75,5 +75,17 @@ export class ConfigurationService {
    
     return this.http.get(encodeURI(url), options);
     }
+
+    
+  public loadShipments() {
+    let url = this.constantsService.getServerUrl() + 'social-media/shipments';
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.get(encodeURI(url), options);
+  }
    
 }

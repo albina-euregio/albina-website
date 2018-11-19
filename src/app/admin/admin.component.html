@@ -409,6 +409,26 @@
               </div>
             </div>
           </p-tabPanel>
+          <p-tabPanel  header="Shipments">
+              <div class="card">
+                <div class="row">
+                  <div class="col-md-9">
+                    <p-dataTable [value]="shipments">
+                        <p-column field="id" header="Id"></p-column>
+                        <p-column field="date" header="Date"></p-column>
+                        <p-column field="name" header="Name"></p-column>
+                        <p-column field="language" header="Language"></p-column>
+                        <p-column field="idMp" header="Mp"></p-column>
+                        <p-column field="idRm" header="Rm"></p-column>
+                        <p-column field="idTw" header="Tw"></p-column>
+                        <!-- <p-column field="request" header=""></p-column> -->
+                        <!-- <p-column field="response" header=""></p-column> -->
+                        <p-column field="provider.name" header="Provider"></p-column>
+                    </p-dataTable>      
+                  </div>                       
+                </div>                      
+              </div>
+            </p-tabPanel>
         </p-tabView>
       </div>
     </div>
