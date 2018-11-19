@@ -307,6 +307,8 @@
 	},
 	"admin" : {
 		"config" : {
+			"tabsocial" : "Configurazione Email & Social",
+			"addChannel" : "Aggiungi canale",
 			"title" : "Configurazione Server",
 			"table" : {
 				"title" : {

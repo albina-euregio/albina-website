@@ -63,4 +63,17 @@ export class ConfigurationService {
     let options = new RequestOptions({ headers: headers });
     return this.http.post(encodeURI(url), body, options);
   }
+
+  public loadSocialMediaChannels() {
+    let url = this.constantsService.getServerUrl() + 'configuration/channels';
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Authorization': authHeader });
+    let options = new RequestOptions({ headers: headers });
+   
+    return this.http.get(encodeURI(url), options);
+    }
+   
 }

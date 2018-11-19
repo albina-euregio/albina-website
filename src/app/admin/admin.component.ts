@@ -9,7 +9,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
 import { SelectItem } from 'primeng/primeng';
 
-
 declare var L: any;
 
 @Component({
@@ -18,7 +17,7 @@ declare var L: any;
 export class AdminComponent {
 
   public statusMap: Map<number, Enums.BulletinStatus>;
-  public configurationPropertiesLoaded : boolean = false;
+  public configurationPropertiesLoaded: boolean = false;
 
   public createMaps: boolean;
   public createPdf: boolean;
@@ -47,7 +46,9 @@ export class AdminComponent {
   public socketIoPort: number;
 
   public regions: SelectItem[];
-  public regionConfiguration={};
+  public channels: SelectItem[];
+  public regionConfiguration = {};
+  public currentChannel: any;
 
   constructor(
     private translate: TranslateService,
@@ -57,8 +58,7 @@ export class AdminComponent {
     private constantsService: ConstantsService,
     private bulletinsService: BulletinsService,
     public configurationService: ConfigurationService,
-    private router: Router)
-  {
+    private router: Router) {
     this.statusMap = new Map<number, Enums.BulletinStatus>();
   }
 
@@ -121,7 +121,8 @@ export class AdminComponent {
       // Force select of first combo
       this.regionChanged('IT-32-BZ');
     }
-    this.regions=this.authenticationService.getCurrentAuthorRegions().map(x=>({label:x, value:x}));
+    this.regions = this.authenticationService.getCurrentAuthorRegions().map(x => ({ label: x, value: x }));
+    this.loadChannels();
   }
 
   public save() {
@@ -162,11 +163,11 @@ export class AdminComponent {
       }
     );
   }
-  
-  public regionChanged (regionId:String){
+
+  public regionChanged(regionId: String) {
     this.configurationService.loadSocialMediaConfiguration(regionId).subscribe(
       data => {
-        this.regionConfiguration=data.json();
+        this.regionConfiguration = data.json();
       },
       error => {
         console.error("Social Media configuration could not be loaded!");
@@ -174,7 +175,7 @@ export class AdminComponent {
     );
   }
 
-  public saveRegion (){
+  public saveRegion() {
     this.configurationService.saveSocialMediaConfiguration(this.regionConfiguration).subscribe(
       data => {
         console.log("Social Media configuration saved!");
@@ -184,5 +185,54 @@ export class AdminComponent {
       }
     );;
   }
+
+  public loadChannels() {
+    this.configurationService.loadSocialMediaChannels().subscribe(
+      data => {
+        this.channels = data.json();
+        this.currentChannel = this.channels[0];
+      },
+      error => {
+        console.error("Social Media configuration could not be loaded!");
+      }
+    );
+  }
+
+  public addChannel(event) {
+    if (this.currentChannel) {
+      let exists = (<any>this.regionConfiguration).channels.find(obj => obj.id == this.currentChannel.id);
+      if (!exists) {
+        (<any>this.regionConfiguration).channels.push(this.currentChannel);
+        //hack to refresh 
+        (<any>this.regionConfiguration).channels = (<any>this.regionConfiguration).channels.filter(x => x.id > 0 );
+      }
+    }
+  }
+
+  public removeChannel(event) {
+    if (this.currentChannel) {
+      (<any>this.regionConfiguration).channels = (<any>this.regionConfiguration).channels.filter(x => x.id !== this.currentChannel.id);
+    }
+  }
+
+  public checkTab(idprovider) {
+    if( (<any>this.regionConfiguration).channels.find(obj => obj.provider.id == idprovider))
+      return false;
+    else 
+      return true;
+  }
+
+
+
+  public deleteChannel(row: any) {
+    console.log(row);
+    if (this.currentChannel) {
+      (<any>this.regionConfiguration).channels = (<any>this.regionConfiguration).channels.filter(x => x.id !== row.id);
+      
+      (<any>this.regionConfiguration).channels = (<any>this.regionConfiguration).channels;
+    }
+
+  }
+
 
 }
