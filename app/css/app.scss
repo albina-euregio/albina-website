@@ -42,6 +42,9 @@ iframe#stationTable {
   z-index: 0;
 }
 
+.subnavigation {
+  left: calc(100% + 2em) !important;
+}
 /* Disable pointer-events on page-loading screen when page is loaded,
    or otherwise elements that happen to be placed beneath it cannot receive
    these events */
