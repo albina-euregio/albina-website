@@ -1,6 +1,6 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
-import { injectIntl } from 'react-intl'
+import { injectIntl, FormattedHTMLMessage } from 'react-intl'
 import { Parser } from 'html-to-react'
 import LeafletMap from './leaflet-map'
 import BulletinMapDetails from './bulletin-map-details'
@@ -32,9 +32,7 @@ class BulletinMap extends React.Component {
             <section className='bulletinbar section controlbar'>
               <div className='bar section-centered'>
                 <p>
-                  {this.props.intl.formatMessage({
-                    id: 'bulletin:header:no-bulletin-info'
-                  })}
+                  <FormattedHTMLMessage id='bulletin:header:no-bulletin-info' />
                 </p>
               </div>
             </section>}

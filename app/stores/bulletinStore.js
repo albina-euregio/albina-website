@@ -281,7 +281,7 @@ class BulletinStore {
    */
   get activeBulletinValid () {
     return (
-      !!this.activeBulletin &&
+      !!this.activeBulletinCollection &&
       this.vectorRegions.length &&
       this.vectorRegions.length > 0
     )

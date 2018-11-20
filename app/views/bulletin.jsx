@@ -132,17 +132,7 @@ import { tooltip_init } from '../js/tooltip'
     return (
       <div>
         <BulletinHeader store={this.store} title={this.state.title} />
-        {//! this.store.activeBulletinValid &&
-        true &&
-          <section className='bulletinbar section controlbar'>
-            <div className='section-centered'>
-              <p>
-                {this.props.intl.formatMessage({
-                  id: 'bulletin:header:no-bulletin-info'
-                })}
-              </p>
-            </div>
-          </section>}
+
         <BulletinMap
           handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
           handleHighlightRegion={this.handleHighlightRegion.bind(this)}
