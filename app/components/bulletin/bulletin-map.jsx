@@ -28,7 +28,7 @@ class BulletinMap extends React.Component {
             'bulletin-map-container section-map' +
               (config.get('map.useWindowWidth') ? '' : ' section-centered')
           }>
-          {!this.props.store.activeBulletinValid &&
+          {['', 'empty'].includes(this.props.store.settings.status) &&
             <section className='bulletinbar section controlbar'>
               <div className='bar section-centered'>
                 <p>

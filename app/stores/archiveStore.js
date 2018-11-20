@@ -75,7 +75,6 @@ export default class ArchiveStore {
   }
 
   load (startDate, endDate = '') {
-    console.log('loading archives', startDate, endDate)
     let d1 = parseDate(startDate)
 
     // check if start date has already been loaded
