@@ -1,7 +1,7 @@
 {
-  "region:AT-07": { "en": "Tyrol", "de": "Tirol", "it": "Tirolo" },
+  "region:AT-07": { "en": "Tirol", "de": "Tirol", "it": "Tirolo" },
   "region:IT-32-BZ": {
-    "en": "South Tyrol",
+    "en": "South Tirol",
     "de": "Südtirol",
     "it": "Alto Adige"
   },
