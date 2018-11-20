@@ -4,7 +4,7 @@ import { parseDate, getDaysOfMonth } from '../util/date'
 import { parseTags } from '../util/tagging'
 
 class BlogPostPreviewItem {
-  constructor(
+  constructor (
     blogName,
     postId,
     url,
@@ -39,15 +39,12 @@ export default class BlogStore {
   _loading
   _posts
 
-  constructor() {
+  constructor () {
     // get all regions from appStore and activate them
-    const rs = Object.keys(window['appStore'].regions).reduce(
-      (acc, r) => {
-        acc[r] = { active: true }
-        return acc
-      },
-      {}
-    )
+    const rs = Object.keys(window['appStore'].regions).reduce((acc, r) => {
+      acc[r] = { active: true }
+      return acc
+    }, {})
     this.regions = observable(rs)
 
     this.languages = observable({
@@ -74,9 +71,7 @@ export default class BlogStore {
       blogger: {
         createUrl: config => {
           const baseUrl =
-            window['config'].get('apis.blogger') +
-            config.params.id +
-            '/posts'
+            window['config'].get('apis.blogger') + config.params.id + '/posts'
 
           if (this.searchText) {
             // create search URL
@@ -105,19 +100,17 @@ export default class BlogStore {
           // TODO search
 
           return Base.makeUrl(
-            window['config'].get('apis.blogger') +
-              config.params.id +
-              '/posts',
+            window['config'].get('apis.blogger') + config.params.id + '/posts',
             params
           )
         },
         process: (response, config) => {
           if (Array.isArray(response.items)) {
             return response.items.map(item => {
-              const previewImage =
-                Array.isArray(item.images) && item.images.length > 0
-                  ? item.images[0].url
-                  : null
+              const previewImage = Array.isArray(item.images) &&
+                item.images.length > 0
+                ? item.images[0].url
+                : null
 
               return new BlogPostPreviewItem(
                 config.name,
@@ -139,8 +132,7 @@ export default class BlogStore {
     }
   }
 
-  @action
-  load(forceReload = false) {
+  @action load (forceReload = false) {
     if (!forceReload && this._posts.length > 0) {
       // don't do a reload if already loaded unless reload is forced
       return
@@ -157,17 +149,11 @@ export default class BlogStore {
     for (let cfg of blogsConfig) {
       newPosts[cfg.name] = []
 
-      if (
-        this.languages[cfg.lang] &&
-        this.languages[cfg.lang].active
-      ) {
-        if (
-          cfg.regions.some(
-            r => this.regions[r] && this.regions[r].active
-          )
-        ) {
+      if (this.languages[cfg.lang] && this.languages[cfg.lang].active) {
+        if (cfg.regions.some(r => this.regions[r] && this.regions[r].active)) {
           if (this.blogProcessor[cfg.apiType]) {
             const p = this.blogProcessor[cfg.apiType]
+            console.log('!!!going to load blog')
             loads.push(
               Base.doRequest(p.createUrl(cfg)).then(
                 response => {
@@ -198,36 +184,35 @@ export default class BlogStore {
     })
   }
 
-  get loading() {
+  get loading () {
     return this._loading.get()
   }
 
-  set loading(val) {
+  set loading (val) {
     this._loading.set(val)
   }
 
-  get searchText() {
+  get searchText () {
     return this._searchText.get()
   }
 
-  set searchText(val) {
+  set searchText (val) {
     if (val != this._searchText.get()) {
       this._searchText.set(val)
       this.load(true)
     }
   }
 
-  get avalancheProblem() {
+  get avalancheProblem () {
     return this._avalancheProblem.get()
   }
 
-  set avalancheProblem(val) {
+  set avalancheProblem (val) {
     this._avalancheProblem.set(val)
     this.load(true)
   }
 
-  @computed
-  get languageFilter() {
+  @computed get languageFilter () {
     const languages = toJS(this.languages)
     const activeLanguages = Object.keys(languages).filter(
       lang => languages[lang].active
@@ -236,25 +221,25 @@ export default class BlogStore {
     return activeLanguages.length > 1 ? 'all' : activeLanguages[0]
   }
 
-  get year() {
+  get year () {
     return this._year.get()
   }
 
-  set year(y) {
+  set year (y) {
     this._year.set(y)
     this.load(true)
   }
 
-  get month() {
+  get month () {
     return this._month.get()
   }
 
-  set month(m) {
+  set month (m) {
     this._month.set(m)
     this.load(true)
   }
 
-  get _startDate() {
+  get _startDate () {
     if (this.year) {
       if (this.month) {
         return new Date(this.year, this.month - 1, 1)
@@ -264,7 +249,7 @@ export default class BlogStore {
     return null
   }
 
-  get _endDate() {
+  get _endDate () {
     if (this.year) {
       if (this.month) {
         return new Date(
@@ -280,23 +265,21 @@ export default class BlogStore {
     return null
   }
 
-  @action
-  setRegionFilter(region) {
+  @action setRegionFilter (region) {
     for (let r in this.regions) {
       this.regions[r].active = !region || r === region
     }
     this.load(true)
   }
 
-  @action
-  setLanguageFilter(lang) {
+  @action setLanguageFilter (lang) {
     for (let l in this.languages) {
       this.languages[l].active = !lang || l === lang
     }
     this.load(true)
   }
 
-  getPosts(start = 0, limit = 10) {
+  getPosts (start = 0, limit = 10) {
     const totalLength = Object.values(this._posts)
       .map(l => l.length)
       .reduce((acc, v) => acc + v, 0)
@@ -320,15 +303,12 @@ export default class BlogStore {
       })
 
       // find the maximum
-      const queueMax = Object.keys(candidates).reduce(
-        (acc, queue) => {
-          if (!acc || candidates[queue].date > candidates[acc].date) {
-            return queue
-          }
-          return acc
-        },
-        ''
-      )
+      const queueMax = Object.keys(candidates).reduce((acc, queue) => {
+        if (!acc || candidates[queue].date > candidates[acc].date) {
+          return queue
+        }
+        return acc
+      }, '')
 
       if (queueMax) {
         const next = this._posts[queueMax][postPointer[queueMax]]

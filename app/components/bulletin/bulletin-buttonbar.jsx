@@ -28,22 +28,23 @@ class BulletinButtonbar extends React.Component {
             </div>
             <div className='normal-8 grid-item'>
               <ul className='list-inline bulletin-buttonbar'>
-                <li>
-                  <a
-                    href={stringInject(config.get('links.downloads.pdf'), {
-                      date: this.props.store.settings.date,
-                      lang: window['appStore'].language
-                    })}
-                    target='_blank'
-                    title={this.props.intl.formatMessage({
-                      id: 'bulletin:linkbar:pdf:hover'
-                    })}
-                    className='pure-button tooltip'>
-                    {this.props.intl.formatMessage({
-                      id: 'bulletin:linkbar:pdf'
-                    })}
-                  </a>
-                </li>
+                {this.props.store.activeBulletinCollection &&
+                  <li>
+                    <a
+                      href={stringInject(config.get('links.downloads.pdf'), {
+                        date: this.props.store.settings.date,
+                        lang: window['appStore'].language
+                      })}
+                      target='_blank'
+                      title={this.props.intl.formatMessage({
+                        id: 'bulletin:linkbar:pdf:hover'
+                      })}
+                      className='pure-button tooltip'>
+                      {this.props.intl.formatMessage({
+                        id: 'bulletin:linkbar:pdf'
+                      })}
+                    </a>
+                  </li>}
                 {/* hiding subscribe */}
                 <li style={{ display: 'none' }}>
                   <a
