@@ -30,6 +30,7 @@ import { ObservationsService } from './providers/observations-service/observatio
 import { SocketService } from './providers/socket-service/socket.service';
 import { LocalStorageService } from './providers/local-storage-service/local-storage.service';
 import { ConfigurationService } from './providers/configuration-service/configuration.service';
+import { SocialmediaService } from './providers/socialmedia-service/socialmedia.service';
 import { ConfirmationService } from 'primeng/primeng';
 
 // Pipes
@@ -98,7 +99,8 @@ export function createTranslateLoader(http: Http) {
     SocketService,
     LocalStorageService,
     ConfigurationService,
-    ConfirmationService
+    ConfirmationService,
+    SocialmediaService
   ],
   bootstrap: [ AppComponent ],
   exports: [

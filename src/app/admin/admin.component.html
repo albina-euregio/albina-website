@@ -271,7 +271,8 @@
                 <div class="col-md-6">
                   <p-dropdown [options]="channels" [style]="{'width':'300px'}" [(ngModel)]="currentChannel" optionId="id"
                     optionLabel="name"></p-dropdown>
-                  <button pButton type="button" label="Add"  class="btn btn-sm btn-primary px-3" (click)="addChannel($event)">{{ "admin.config.addChannel" | translate }}</button>
+                  <button pButton type="button" label="Add" class="btn btn-sm btn-primary px-3" (click)="addChannel($event)">{{
+                    "admin.config.addChannel" | translate }}</button>
                 </div>
               </div>
               <div class="row">
@@ -282,10 +283,10 @@
                     <p-column field="provider.name" header="Provider"></p-column>
                     <!--<p-column field="enabled" header="Configured"></p-column>-->
                     <p-column [style]="{'width':'30px'}">
-                    <ng-template pTemplate type="body" let-col let-chn="rowData" let-ri="rowIndex">
-                              <i class="fa fa-times-circle-o fa-lg" aria-hidden="true" (click)="deleteChannel(chn)"></i>
-                    </ng-template>
-                  </p-column>
+                      <ng-template pTemplate type="body" let-col let-chn="rowData" let-ri="rowIndex">
+                        <i class="fa fa-times-circle-o fa-lg" aria-hidden="true" (click)="deleteChannel(chn)"></i>
+                      </ng-template>
+                    </p-column>
                   </p-dataTable>
                 </div>
               </div>
@@ -299,7 +300,7 @@
                     <p-tabPanel header="Rapidmail" [disabled]="checkTab(1)" headerStyleClass="tabProvider" *ngIf="regionConfiguration.rapidMailConfig ">
                       <div class="row">
                         <div class="col-md-2">
-                          <label class="col-form-label">Id  </label>
+                          <label class="col-form-label">Id </label>
                         </div>
                         <div class="col-md-10">
                           <input class="switch-input" style="width:20px" disabled="true" [(ngModel)]="regionConfiguration.rapidMailConfig.id">
@@ -322,17 +323,22 @@
                         </div>
                       </div>
                       <div class="row">
-                          <div class="col-md-2">
-                            <label class="col-form-label">Recipient List</label>
-                          </div>
-                          <div class="col-md-10">
-                            <table>
-                              <tr *ngFor="let x of recipientList;let i = index;">
-                                  <td>{{x.reference}}</td>
-                                </tr>
-                              </table>  
-                          </div>
+                        <div class="col-md-2">
+                          <label class="col-form-label">Recipient List</label>
                         </div>
+                        <div class="col-md-10">
+                          <table>
+                            <tr>
+                              <td>id</td>
+                              <td>name</td>
+                            </tr>
+                            <tr *ngFor="let x of recipientList;let i = index;">
+                              <td>{{x.value}}</td>
+                              <td>{{x.label}}</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
                     </p-tabPanel>
                     <p-tabPanel header="Messenger People" [disabled]="checkTab(2)" *ngIf="regionConfiguration.messengerPeopleConfig">
                       <div class="row">
@@ -340,7 +346,7 @@
                           <label class="col-form-label">Id</label>
                         </div>
                         <div class="col-md-10">
-                          <input class="switch-input" disabled="true" [(ngModel)]="regionConfiguration.messengerPeopleConfig.id">
+                          <input class="switch-input" style="width:20px" disabled="true" [(ngModel)]="regionConfiguration.messengerPeopleConfig.id">
                         </div>
                       </div>
                       <div class="row">
@@ -363,22 +369,13 @@
                       </div>
 
                       <div class="row">
-                        <div class="col-md-2">
-                          <label class="col-form-label">Access Secret</label>
+                          <div class="col-md-2">
+                            <label class="col-form-label">Consumer Key</label>
+                          </div>
+                          <div class="col-md-10">
+                            <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.twitterConfig.consumerKey">
+                          </div>
                         </div>
-                        <div class="col-md-10">
-                          <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.twitterConfig.accessSecret">
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-2">
-                          <label class="col-form-label">Access Key</label>
-                        </div>
-                        <div class="col-md-10">
-                          <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.twitterConfig.accessKey">
-                        </div>
-                      </div>
 
                       <div class="row">
                         <div class="col-md-2">
@@ -390,13 +387,23 @@
                       </div>
 
                       <div class="row">
-                        <div class="col-md-2">
-                          <label class="col-form-label">Consumer Key</label>
+                          <div class="col-md-2">
+                            <label class="col-form-label">Access Token</label>
+                          </div>
+                          <div class="col-md-10">
+                            <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.twitterConfig.accessKey">
+                          </div>
                         </div>
-                        <div class="col-md-10">
-                          <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.twitterConfig.consumerKey">
+  
+                        <div class="row">
+                            <div class="col-md-2">
+                              <label class="col-form-label">Access Token Secret</label>
+                            </div>
+                            <div class="col-md-10">
+                              <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.twitterConfig.accessSecret">
+                            </div>
                         </div>
-                      </div> 
+                     
                     </p-tabPanel>
                   </p-tabView>
                   <br><br>
@@ -409,26 +416,90 @@
               </div>
             </div>
           </p-tabPanel>
-            <p-tabPanel  header="{{ 'admin.config.titleShipment' | translate }}">
-              <div class="card">
-                <div class="row">
-                  <div class="col-md-9">
-                    <p-dataTable [value]="shipments">
-                        <p-column field="id" header="Id"></p-column>
-                        <p-column field="date" header="Date"></p-column>
-                        <p-column field="name" header="Name"></p-column>
-                        <p-column field="language" header="Language"></p-column>
-                        <p-column field="idMp" header="Mp"></p-column>
-                        <p-column field="idRm" header="Rm"></p-column>
-                        <p-column field="idTw" header="Tw"></p-column>
-                        <!-- <p-column field="request" header=""></p-column> -->
-                        <!-- <p-column field="response" header=""></p-column> -->
-                        <p-column field="provider.name" header="Provider"></p-column>
-                    </p-dataTable>      
-                  </div>                       
-                </div>                      
+          <p-tabPanel header="{{ 'admin.config.titleShipment' | translate }}">
+            <div class="card">
+              <div class="row">
+                <div class="col-md-9">
+                  <p-dataTable [value]="shipments">
+                    <p-column field="id" header="Id"></p-column>
+                    <p-column field="date" header="Date"></p-column>
+                    <p-column field="name" header="Name"></p-column>
+                    <p-column field="language" header="Language"></p-column>
+                    <p-column field="idMp" header="Mp"></p-column>
+                    <p-column field="idRm" header="Rm"></p-column>
+                    <p-column field="idTw" header="Tw"></p-column>
+                    <!-- <p-column field="request" header=""></p-column> -->
+                    <!-- <p-column field="response" header=""></p-column> -->
+                    <p-column field="provider.name" header="Provider"></p-column>
+                  </p-dataTable>
+                </div>
               </div>
-            </p-tabPanel>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="test API">
+            <div class="card">
+              <h3>RapidMail</h3>
+              <div class="row">
+                <div class="col-md-12">
+                  Region: <p-dropdown [options]="regions" [style]="{'width':'300px'}" [(ngModel)]="currentRegion"
+                    (onChange)="regionChanged($event.value)"></p-dropdown>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-4">
+                  recipientlist : <p-dropdown [options]="recipientList" [style]="{'width':'300px'}" [(ngModel)]="a"></p-dropdown>
+                </div>
+                <div class="col-md-4">
+                  from_name: <input class="switch-input" [(ngModel)]="b">
+                </div>
+                <div class="col-md-4">
+                  from_email: <input class="switch-input" [(ngModel)]="c">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-4">
+                  subject: <input class="switch-input" [(ngModel)]="d">
+                </div>
+                <div class="col-md-4">
+
+                  file: <input class="switch-input" [(ngModel)]="e">
+                </div>
+                <div class="col-md-4">
+                  <button pButton type="button" label="Send" class="btn btn-sm btn-primary px-3" (click)="sendRapidmail()">Send</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>messengerPeople</h3>
+              <div class="row">
+                <div class="col-md-4">
+                  message: <input class="switch-input" [(ngModel)]="f">
+                </div>
+                <div class="col-md-4">
+                  attachmentUrl: <input class="switch-input" [(ngModel)]="g">
+                </div>
+                <div class="col-md-4">
+                  <button pButton type="button" label="Send" class="btn btn-sm btn-primary px-3" (click)="sendMP()">Send</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+                <h3>Twitter</h3>
+                <div class="row">
+                  <div class="col-md-4">
+                      status (html): <input class="switch-input" [(ngModel)]="h">
+                  </div>
+                  <div class="col-md-4">
+                    <button pButton type="button" label="Send" class="btn btn-sm btn-primary px-3" (click)="sendTW()">Send</button>
+                  </div>
+                </div>
+              </div>
+
+          </p-tabPanel>
         </p-tabView>
       </div>
     </div>

@@ -81,7 +81,7 @@ export class ConfigurationService {
       let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
       let headers = new Headers({
         'Content-Type': 'application/json',
-        'Accept': 'application/json',
+        'Accept': 'application/hal+json',
         'Authorization': authHeader });
       let options = new RequestOptions({ headers: headers });
       return this.http.get(encodeURI(url), options);

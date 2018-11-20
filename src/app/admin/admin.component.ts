@@ -4,6 +4,7 @@ import { AuthenticationService } from '../providers/authentication-service/authe
 import { ConstantsService } from '../providers/constants-service/constants.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { ConfigurationService } from '../providers/configuration-service/configuration.service';
+import { SocialmediaService } from '../providers/socialmedia-service/socialmedia.service';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
@@ -51,7 +52,8 @@ export class AdminComponent {
   public currentChannel: any;
   public shipments: [{}];
   public currentRegion: string;
-  public recipientList: SelectItem[];
+  public recipientList;
+  public sendresult;
 
   constructor(
     private translate: TranslateService,
@@ -61,6 +63,7 @@ export class AdminComponent {
     private constantsService: ConstantsService,
     private bulletinsService: BulletinsService,
     public configurationService: ConfigurationService,
+    public socialmediaService: SocialmediaService,
     private router: Router) {
     this.statusMap = new Map<number, Enums.BulletinStatus>();
   }
@@ -122,13 +125,13 @@ export class AdminComponent {
       );
 
       // Force select of first combo with current region
-      this.currentRegion=this.authenticationService.activeRegion;
+      this.currentRegion = this.authenticationService.activeRegion;
       this.regionChanged(this.currentRegion);
-        // Load channels
-        this.loadChannels();
-        // Load shipments
-        this.loadShipments();
-        this.loadRecipientList(this.currentRegion);
+      // Load channels
+      this.loadChannels();
+      // Load shipments
+      this.loadShipments();
+      this.loadRecipientList(this.currentRegion);
     }
     this.regions = this.authenticationService.getCurrentAuthorRegions().map(x => ({ label: x, value: x }));
   }
@@ -173,7 +176,7 @@ export class AdminComponent {
   }
 
   public regionChanged(regionId: String) {
-    this.currentRegion=regionId.toString();
+    this.currentRegion = regionId.toString();
     this.configurationService.loadSocialMediaConfiguration(regionId).subscribe(
       data => {
         this.regionConfiguration = data.json();
@@ -213,7 +216,7 @@ export class AdminComponent {
       if (!exists) {
         (<any>this.regionConfiguration).channels.push(this.currentChannel);
         //hack to refresh 
-        (<any>this.regionConfiguration).channels = (<any>this.regionConfiguration).channels.filter(x => x.id > 0 );
+        (<any>this.regionConfiguration).channels = (<any>this.regionConfiguration).channels.filter(x => x.id > 0);
       }
     }
   }
@@ -225,9 +228,9 @@ export class AdminComponent {
   }
 
   public checkTab(idprovider) {
-    if( (<any>this.regionConfiguration).channels.find(obj => obj.provider.id == idprovider))
+    if ((<any>this.regionConfiguration).channels.find(obj => obj.provider.id == idprovider))
       return false;
-    else 
+    else
       return true;
   }
 
@@ -235,17 +238,22 @@ export class AdminComponent {
     console.log(row);
     if (this.currentChannel) {
       (<any>this.regionConfiguration).channels = (<any>this.regionConfiguration).channels.filter(x => x.id !== row.id);
-      
+
       (<any>this.regionConfiguration).channels = (<any>this.regionConfiguration).channels;
     }
   }
 
 
   public loadRecipientList(regionId: String) {
+    this.recipientList = [];
     this.configurationService.loadRecipientList(regionId).subscribe(
       data => {
-         let aa = data.json();
-         this.recipientList=aa;
+        data.json()._embedded.recipientlists.forEach(element => {
+          this.recipientList.push({
+            label: element.name,
+            value: element.id
+          });
+        });
       },
       error => {
         console.error("Recipient List configuration could not be loaded!");
@@ -253,13 +261,66 @@ export class AdminComponent {
     );
   }
 
-  public loadShipments(){
+  public loadShipments() {
     this.configurationService.loadShipments().subscribe(
       data => {
-        this.shipments=data.json();
+        this.shipments = data.json();
       },
       error => {
         console.error("Social Media shipments could not be loaded!");
+      }
+    );
+  }
+
+
+  // TEST API
+  public sendRapidmail() {
+    let regionId = 'IT-32-TN';
+    let language = 'DE';
+    let mailingsPost = '{"destinations": [ { "type": "recipientlist", "id": "2199", "action": "include" } ], "from_name": "Denis Miorandi", "from_email": "norbert.lanzanasto@tirol.gv.at", "subject": "Clesius TEST 2", "file": { "description":"mail-content.zip", "content": "UEsDBAoAAAAAAMl4cE2yoGG2IwAAACMAAAAJAAAAdGVzdC5odG1sPGI+IHRoaXMgaXMgYSB0ZXN0IGZyb20gQ2xlc2l1czwvYj5QSwECPwAKAAAAAADJeHBNsqBhtiMAAAAjAAAACQAkAAAAAAAAACAAAAAAAAAAdGVzdC5odG1sCgAgAAAAAAABABgAx9qLirV91AEJorp6tX3UAQmiunq1fdQBUEsFBgAAAAABAAEAWwAAAEoAAAAAAA==", "type": "application/zip" } } ';
+    this.socialmediaService.sendRapidMail(regionId, language, mailingsPost).subscribe(
+      data => {
+        this.sendresult = data.json();
+        // refresh Shipments 
+        this.loadShipments();
+      },
+      error => {
+        console.error("Rapidmail send could not be made!");
+      }
+    );
+  }
+
+  public sendMP() {
+    let regionId = 'IT-32-TN';
+    let language = 'IT';
+    let  message = 'test%20da%20esempio';
+    let  attachment =''; // 'https://avalanche.report/albina_files/2018-11-20/2018-11-20_en.pdf'
+    this.socialmediaService.sendMP(regionId, language, message, attachment).subscribe(
+      data => {
+        this.sendresult = data.json();
+        // refresh Shipments 
+        this.loadShipments();
+      },
+      error => {
+        console.error("MP  send could not be made!");
+      }
+    );
+  }
+
+
+  public sendTW() {
+    let regionId = 'IT-32-BZ';
+    let language = 'DE';
+    let  message = 'test for tw https://avalanche.report/albina_files/2018-11-20/2018-11-20_en.pdf';
+    let previous_id=1064896795929653248;
+    this.socialmediaService.sendTW(regionId, language, message, previous_id).subscribe(
+      data => {
+        this.sendresult = data.json();
+        // refresh Shipments 
+        this.loadShipments();
+      },
+      error => {
+        console.error("Twitter send could not be made!");
       }
     );
   }
