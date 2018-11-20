@@ -33,76 +33,93 @@ class LeafletMap extends React.Component {
       width: '100%',
       height: '100%',
       zIndex: 1,
-      opacity: this.loaded ? 1 : 0.2
+      opacity: 1
     }
   }
 
   componentDidMount () {
-    this.map = this.refs.map.leafletElement
+    this.updateMaps()
+  }
 
-    L.Util.setOptions(this.map, { gestureHandling: true })
+  componentDidUpdate () {
+    this.updateMaps()
+  }
 
-    this.map.fitBounds(config.get('map.euregioBounds'))
-    this.map.on('click', e => {
-      L.DomEvent.stopPropagation(e)
-      this.props.handleSelectRegion(null)
-    })
+  updateMaps () {
+    console.log('did mount')
 
-    window.setTimeout(() => {
-      const geonamesOptions = Object.assign(
-        {},
-        {
-          clearOnPopupClose: true,
-          lang: appStore.language,
-          bbox: { east: 17, west: 5, north: 50, south: 44 },
-          title: this.props.intl.formatMessage({
-            id: 'bulletin:map:search'
-          }),
-          placeholder: this.props.intl.formatMessage({
-            id: 'bulletin:map:search:hover'
-          })
-        },
-        config.get('map.geonames')
-      )
-      L.control.geonames(geonamesOptions).addTo(this.map)
-      L.control
-        .locate(
-          Object.assign({}, config.get('map.locateOptions'), {
-            strings: {
-              title: this.props.intl.formatMessage({
-                id: 'bulletin:map:locate:title'
-              }),
-              metersUnit: this.props.intl.formatMessage({
-                id: 'bulletin:map:locate:metersUnit'
-              }),
-              popup: this.props.intl.formatMessage({
-                id: 'bulletin:map:locate:popup'
-              }),
-              outsideMapBoundsMsg: this.props.intl.formatMessage({
-                id: 'bulletin:map:locate:outsideMapBoundsMsg'
-              })
-            }
-          })
+    if (this.refs.mapDisabled && !this.mapDisabled) {
+      this.mapDisabled = this.refs.mapDisabled.leafletElement
+      L.Util.setOptions(this.mapDisabled, { gestureHandling: false })
+    }
+    if (this.refs.map && !this.map) {
+      console.log('updating map')
+      this.map = this.refs.map.leafletElement
+
+      L.Util.setOptions(this.map, { gestureHandling: true })
+
+      this.map.fitBounds(config.get('map.euregioBounds'))
+      this.map.on('click', e => {
+        L.DomEvent.stopPropagation(e)
+        this.props.handleSelectRegion(null)
+      })
+
+      window.setTimeout(() => {
+        const geonamesOptions = Object.assign(
+          {},
+          {
+            clearOnPopupClose: true,
+            lang: appStore.language,
+            bbox: { east: 17, west: 5, north: 50, south: 44 },
+            title: this.props.intl.formatMessage({
+              id: 'bulletin:map:search'
+            }),
+            placeholder: this.props.intl.formatMessage({
+              id: 'bulletin:map:search:hover'
+            })
+          },
+          config.get('map.geonames')
         )
-        .addTo(this.map)
-    }, 50)
+        L.control.geonames(geonamesOptions).addTo(this.map)
+        L.control
+          .locate(
+            Object.assign({}, config.get('map.locateOptions'), {
+              strings: {
+                title: this.props.intl.formatMessage({
+                  id: 'bulletin:map:locate:title'
+                }),
+                metersUnit: this.props.intl.formatMessage({
+                  id: 'bulletin:map:locate:metersUnit'
+                }),
+                popup: this.props.intl.formatMessage({
+                  id: 'bulletin:map:locate:popup'
+                }),
+                outsideMapBoundsMsg: this.props.intl.formatMessage({
+                  id: 'bulletin:map:locate:outsideMapBoundsMsg'
+                })
+              }
+            })
+          )
+          .addTo(this.map)
+      }, 50)
 
-    window.setTimeout(() => {
-      $('.leaflet-control-zoom a').addClass('tooltip')
-      tooltip_init()
-    }, 100)
+      window.setTimeout(() => {
+        $('.leaflet-control-zoom a').addClass('tooltip')
+        tooltip_init()
+      }, 100)
 
-    const m = this.map
-    window.addEventListener('resize', () => {
-      window.setTimeout(() => {
-        m.invalidateSize()
-      }, 2000)
-    })
-    window.addEventListener('orientationchange', () => {
-      window.setTimeout(() => {
-        m.invalidateSize()
-      }, 2000)
-    })
+      const m = this.map
+      window.addEventListener('resize', () => {
+        window.setTimeout(() => {
+          m.invalidateSize()
+        }, 2000)
+      })
+      window.addEventListener('orientationchange', () => {
+        window.setTimeout(() => {
+          m.invalidateSize()
+        }, 2000)
+      })
+    }
   }
 
   get tileLayers () {
@@ -177,7 +194,7 @@ class LeafletMap extends React.Component {
   }
 
   get loaded () {
-    return !['', 'pending'].includes(this.props.store.settings.status)
+    return !['', 'pending', 'empty'].includes(this.props.store.settings.status)
   }
 
   render () {
@@ -190,6 +207,38 @@ class LeafletMap extends React.Component {
       mapProps
     )
 
+    return this.loaded
+      ? this.renderLoadedMap(bulletinStore, mapOptions)
+      : this.renderDisabledMap(bulletinStore, mapOptions)
+  }
+
+  renderDisabledMap (bulletinStore, mapOptions) {
+    return (
+      <Map
+        className='map-disabled'
+        ref='mapDisabled'
+        gestureHandling
+        style={this.mapStyle()}
+        zoomControl={false}
+        zoom={bulletinStore.getMapZoom}
+        center={bulletinStore.getMapCenter}
+        {...mapOptions}
+        attributionControl={false}>
+        <AttributionControl
+          prefix={
+            '<a target="_blank" href="https://leafletjs.com/">Leaflet</a> | ' +
+              config.get('map.attribution') +
+              ' | v.' +
+              config.get('version')
+          }
+        />
+        {this.tileLayers}
+        {this.mapOverlays}
+      </Map>
+    )
+  }
+
+  renderLoadedMap (bulletinStore, mapOptions) {
     return (
       <Map
         onViewportChanged={this.props.mapViewportChanged.bind(this.map)}

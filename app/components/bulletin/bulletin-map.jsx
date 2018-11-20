@@ -28,6 +28,16 @@ class BulletinMap extends React.Component {
             'bulletin-map-container section-map' +
               (config.get('map.useWindowWidth') ? '' : ' section-centered')
           }>
+          {!this.props.store.activeBulletinValid &&
+            <section className='bulletinbar section controlbar'>
+              <div className='bar section-centered'>
+                <p>
+                  {this.props.intl.formatMessage({
+                    id: 'bulletin:header:no-bulletin-info'
+                  })}
+                </p>
+              </div>
+            </section>}
           <LeafletMap
             regions={this.props.regions}
             mapViewportChanged={this.props.handleMapViewportChanged}

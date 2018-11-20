@@ -21,8 +21,36 @@ iframe#stationTable {
   opacity: 0.5;
 }
 
-.controlbar.bulletinbar {
-  margin-bottom: 0.5rem !important;
+.bulletinbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 461;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0;
+  width: 100%;
+  .bar {
+    max-width: 100%;
+    position: absolute;
+    padding: 15px;
+    left: 0;
+    right: 0;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    top: calc(50% - 20px);
+    background-color: rgba(25, 171, 255, 0.95);
+
+    p {
+      text-align: center;
+      align-items: center;
+      left: 0;
+      right: 0;
+    }
+  }
 }
 
 /* Fix select dropdowns overlapping footer */
@@ -108,6 +136,10 @@ iframe#stationTable {
     margin: 0 1.25rem;
     width: calc(100% - 2.5rem);
   }
+}
+
+.map-disabled .leaflet-control-container {
+  display: none;
 }
 
 .leaflet-pane.leaflet-overlay-pane {
