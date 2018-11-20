@@ -276,6 +276,18 @@ class BulletinStore {
   }
 
   /**
+   *
+   *
+   */
+  get activeBulletinValid () {
+    return (
+      !!this.activeBulletin &&
+      this.vectorRegions.length &&
+      this.vectorRegions.length > 0
+    )
+  }
+
+  /**
    * Get the bulletin that is relevant for the currently set region.
    * @return A bulletin object that matches the selection of
    *   this.date, this.ampm and this.region

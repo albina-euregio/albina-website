@@ -21,6 +21,10 @@ iframe#stationTable {
   opacity: 0.5;
 }
 
+.controlbar.bulletinbar {
+  margin-bottom: 0.5rem !important;
+}
+
 /* Fix select dropdowns overlapping footer */
 .page-main {
   position: relative;

@@ -15,7 +15,7 @@ import MonthFilter from '../components/filters/month-filter'
 import TagFilter from '../components/filters/tag-filter'
 
 class BlogOverview extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     if (!window['blogStore']) {
       window['blogStore'] = new BlogStore()
@@ -29,11 +29,11 @@ class BlogOverview extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     return this._fetchData()
   }
 
-  componentDidMount() {
+  componentDidMount () {
     window['staticPageStore'].loadPage('/blog').then(response => {
       // parse content
       const responseParsed = JSON.parse(response)
@@ -48,7 +48,7 @@ class BlogOverview extends React.Component {
     return this._fetchData()
   }
 
-  _fetchData() {
+  _fetchData () {
     return this.store.load()
   }
 
@@ -81,8 +81,7 @@ class BlogOverview extends React.Component {
     this.store.searchText = val
   }
 
-  @computed
-  get activeRegion() {
+  @computed get activeRegion () {
     const rs = Object.keys(this.store.regions)
     if (rs.every(r => this.store.regions[r].active)) {
       // if all are active, return '' (i.e. value for "All")
@@ -93,8 +92,7 @@ class BlogOverview extends React.Component {
     return rs.find(r => this.store.regions[r].active)
   }
 
-  @computed
-  get activeLanugage() {
+  @computed get activeLanugage () {
     const ls = Object.keys(this.store.languages)
     if (ls.every(l => this.store.languages[l].active)) {
       // if all are active, return '' (i.e. value for "All")
@@ -105,7 +103,7 @@ class BlogOverview extends React.Component {
     return ls.find(l => this.store.languages[l].active)
   }
 
-  render() {
+  render () {
     return (
       <div>
         <PageHeadline
@@ -113,13 +111,12 @@ class BlogOverview extends React.Component {
           marginal={this.state.headerText}
         />
         <FilterBar
-          search={true}
+          search
           searchTitle={this.props.intl.formatMessage({
             id: 'blog:search'
           })}
           searchOnChange={this.handleChangeSearch}
-          searchValue={this.store.searchText}
-        >
+          searchValue={this.store.searchText}>
           <LanguageFilter
             title={this.props.intl.formatMessage({
               id: 'blog:filter:language'
@@ -159,7 +156,7 @@ class BlogOverview extends React.Component {
             className={this.store.searchText ? 'disabled' : ''}
           />
 
-          {this.store.year && (
+          {this.store.year &&
             <MonthFilter
               title={this.props.intl.formatMessage({
                 id: 'blog:filter:month'
@@ -170,8 +167,7 @@ class BlogOverview extends React.Component {
               handleChange={this.handleChangeMonth}
               value={this.store.month}
               className={this.store.searchText ? 'disabled' : ''}
-            />
-          )}
+            />}
           {/*
             <LanguageFilter
               title={this.props.intl.formatMessage({id: 'blog:filter:language'})}
@@ -180,8 +176,8 @@ class BlogOverview extends React.Component {
               value={this.activeLanguage} />
 */}
         </FilterBar>
-        <section className="section-padding-height section-blog-posts">
-          <div className="section-centered">
+        <section className='section-padding-height section-blog-posts'>
+          <div className='section-centered'>
             <BlogPostsList
               posts={this.store.getPosts()}
               loading={this.store.loading}
@@ -189,11 +185,9 @@ class BlogOverview extends React.Component {
           </div>
         </section>
         <div>{new Parser().parse(this.state.content)}</div>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding" />
-        )}
+        {this.state.sharable
+          ? <SmShare />
+          : <div className='section-padding' />}
       </div>
     )
   }

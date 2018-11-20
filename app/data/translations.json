@@ -208,10 +208,15 @@
     "de": "Lawinenvorhersage",
     "it": "Bollettini valanghe"
   },
+  "bulletin:header:no-bulletin-info": {
+    "en": "Currently no daily avalanche forecast available. Current information and announcements are posted on our blog.",
+    "de": "Derzeit keine tägliche Lawinenvorhersage. Aktuelle Informationen und Mitteilungen werden in unserem Blog veröffentlicht.",
+    "it": "Attualmente nessun bollettino valanghe giornaliero. Informazioni e comunicati attuali vengono pubblicati sul nostro blog.    "
+  },
   "bulletin:header:published-at": {
     "en": "Published {date}, {time}",
     "de": "Veröffentlicht am {date} um {time}",
-    "it": "Publiccato il {date} alle ore {time}"
+    "it": "Pubblicato il {date} alle ore {time}"
   },
   "bulletin:header:updated-at": {
     "en": "Updated {date}, {time}",

@@ -3,8 +3,10 @@ import { withRouter } from 'react-router-dom'
 import { Parser } from 'html-to-react'
 import { preprocessContent } from '../util/htmlParser'
 import { reaction } from 'mobx'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import { BulletinStore } from '../stores/bulletinStore'
+
+import { injectIntl } from 'react-intl'
 import BulletinHeader from '../components/bulletin/bulletin-header'
 import BulletinMap from '../components/bulletin/bulletin-map'
 import BulletinLegend from '../components/bulletin/bulletin-legend'
@@ -130,6 +132,17 @@ import { tooltip_init } from '../js/tooltip'
     return (
       <div>
         <BulletinHeader store={this.store} title={this.state.title} />
+        {//! this.store.activeBulletinValid &&
+        true &&
+          <section className='bulletinbar section controlbar'>
+            <div className='section-centered'>
+              <p>
+                {this.props.intl.formatMessage({
+                  id: 'bulletin:header:no-bulletin-info'
+                })}
+              </p>
+            </div>
+          </section>}
         <BulletinMap
           handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
           handleHighlightRegion={this.handleHighlightRegion.bind(this)}
@@ -154,4 +167,4 @@ import { tooltip_init } from '../js/tooltip'
     )
   }
 }
-export default withRouter(Bulletin)
+export default inject('locale')(injectIntl(withRouter(Bulletin)))
