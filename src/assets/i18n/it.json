@@ -110,7 +110,7 @@
 			"title" : {
 				"map" : "Mappa",
 				"dangerRating" : "Grado pericolo valanghe",
-				"avalancheSituation" : "Problema tipicho valanghivo",
+				"avalancheSituation" : "Problema tipico valanghivo",
 				"dangerDescription" : "Descrizione pericolo",
 				"detail" : "Dettagli",
 				"above" : "Al disopra",
