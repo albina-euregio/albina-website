@@ -78,6 +78,8 @@ import { tooltip_init } from '../js/tooltip'
       ? props.match.params.date
       : dateToISODateString(new Date())
 
+    console.log('fetch data', startDate)
+    console.log(this.props.match.params.date)
     if (startDate != this.props.match.params.date) {
       // update URL if necessary
       props.history.push('/bulletin/' + startDate)

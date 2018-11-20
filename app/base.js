@@ -99,10 +99,12 @@ var Base = {
       search.append(variable, value)
     }
     if (search && history) {
-      if (replace) {
-        history.replace({ search: search.toString() })
-      } else {
-        history.push({ search: search.toString() })
+      if (actualValue !== value) {
+        if (replace) {
+          history.replace({ search: search.toString() })
+        } else {
+          history.push({ search: search.toString() })
+        }
       }
       console.log('changing history', search.toString())
     }

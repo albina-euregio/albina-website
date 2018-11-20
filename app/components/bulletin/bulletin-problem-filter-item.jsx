@@ -3,8 +3,6 @@ import { observer, inject } from 'mobx-react'
 import { injectIntl } from 'react-intl'
 import ProblemIcon from '../icons/problem-icon.jsx'
 
-import Base from '../../base'
-
 class BulletinProblemFilterItem extends React.Component {
   constructor (props) {
     super(props)

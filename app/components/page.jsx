@@ -29,6 +29,7 @@ import { video_init } from '../js/video'
   constructor (props) {
     super(props)
     this.menuStore = new MenuStore()
+    this.hash = false
     window['menuStore'] = this.menuStore
   }
 
@@ -36,6 +37,7 @@ import { video_init } from '../js/video'
     // url lang param
 
     console.log('setting language')
+
     if (!appStore.setLanguage(Base.searchGet('lang'))) {
       // browser setting
 
@@ -74,6 +76,14 @@ import { video_init } from '../js/video'
   }
 
   componentWillReceiveProps (nextProps) {
+    if (nextProps && nextProps.location && nextProps.location.hash) {
+      if (this.hash !== nextProps.location.hash) {
+        this.hash = nextProps.location.hash
+      }
+    } else {
+      this.hash = false
+    }
+
     if (
       nextProps.location !== this.props.location &&
       nextProps.history.action === 'PUSH' &&
@@ -81,11 +91,13 @@ import { video_init } from '../js/video'
     ) {
       // scroll to top on forward page change (if no hash is set)
       // see https://github.com/ReactTraining/react-router/issues/2019
-      window.scrollTo(0, 0)
+      // window.scrollTo(0, 0)
     }
   }
 
   _didUpdate () {
+    console.log('url changing', this.hash, this.props.location)
+
     if (
       this.props.location.pathname === '' ||
       this.props.location.pathname === '/'
@@ -93,6 +105,11 @@ import { video_init } from '../js/video'
       this.props.history.push('bulletin')
     }
     this._setLanguage()
+    /*
+      if (this.hash && this.hash !== this.props.location.hash) {
+        this.props.history.push({ hash: this.hash })
+      }
+   */
     modal_init()
     tooltip_init()
     navigation_init()
