@@ -203,19 +203,16 @@ export default class ArchiveStore {
               // correct day - otherwise it might depend on the browser and
               // OS settings how ISO dates are converted to local time
               const d = parseDate(v.date.substr(0, 10))
-              console.log('d', d)
               if (d) {
                 // const d2 = getSuccDate(d);
                 const status = v.status == 'published' ||
                   v.status == 'republished'
                   ? 'ok'
                   : 'n/a'
-                console.log(status)
 
                 // summertime change
                 // const nextDay = dateToISODateString(getSuccDate(d))
                 const nextDay = dateToISODateString(d)
-                console.log('nextDay', nextDay)
                 this.archive[nextDay] = {
                   status: status,
                   message: v.status

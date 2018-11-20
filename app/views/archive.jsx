@@ -4,11 +4,7 @@ import { reaction } from 'mobx'
 import { injectIntl, FormattedHTMLMessage } from 'react-intl'
 import { Parser } from 'html-to-react'
 import SmShare from '../components/organisms/sm-share.jsx'
-import {
-  parseDate,
-  getSuccDate,
-  dateToISODateString
-} from '../util/date.js'
+import { parseDate, getSuccDate, dateToISODateString } from '../util/date.js'
 import ArchiveStore from '../stores/archiveStore.js'
 import ArchiveItem from '../components/archive/archive-item.jsx'
 import PageHeadline from '../components/organisms/page-headline.jsx'
@@ -20,7 +16,7 @@ import DayFilter from '../components/filters/day-filter.jsx'
 import { tooltip_init } from '../js/tooltip'
 
 class Archive extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     if (!window['archiveStore']) {
       window['archiveStore'] = new ArchiveStore()
@@ -42,7 +38,7 @@ class Archive extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     window['staticPageStore'].loadPage('archive').then(response => {
       // parse content
       const responseParsed = JSON.parse(response)
@@ -65,13 +61,11 @@ class Archive extends React.Component {
     up()
   }
 
-  get dates() {
+  get dates () {
     if (!this.store.loading) {
       // TODO: take filter values from store
 
-      const startDate = this.store.startDate
-        ? this.store.startDate
-        : ''
+      const startDate = this.store.startDate ? this.store.startDate : ''
 
       const endDate = this.store.endDate ? this.store.endDate : ''
 
@@ -86,11 +80,9 @@ class Archive extends React.Component {
         dates.push(d)
       }
 
-      console.log(dates)
       return dates
         .filter(d => test(d))
         .slice(0, window['config'].get('archive.maxResults'))
-      console.log(dates)
     }
     return []
   }
@@ -107,7 +99,7 @@ class Archive extends React.Component {
     this.store.day = val
   }
 
-  render() {
+  render () {
     return (
       <div>
         <PageHeadline
@@ -123,16 +115,15 @@ class Archive extends React.Component {
             handleChange={this.handleChangeYear}
             value={this.store.year}
           />
-          {this.store.year && (
+          {this.store.year &&
             <MonthFilter
               title={this.props.intl.formatMessage({
                 id: 'archive:filter:month'
               })}
               handleChange={this.handleChangeMonth}
               value={this.store.month}
-            />
-          )}
-          {this.store.month && (
+            />}
+          {this.store.month &&
             <DayFilter
               title={this.props.intl.formatMessage({
                 id: 'archive:filter:day'
@@ -144,8 +135,7 @@ class Archive extends React.Component {
               year={this.store.year}
               month={this.store.month}
               value={this.store.day}
-            />
-          )}
+            />}
           <LanguageFilter
             title={this.props.intl.formatMessage({
               id: 'archive:filter:language'
@@ -153,10 +143,10 @@ class Archive extends React.Component {
             all={this.props.intl.formatMessage({ id: 'filter:all' })}
           />
         </FilterBar>
-        <section className="section-padding-height">
-          <section className="section-centered">
-            <div className="table-container">
-              <table className="pure-table pure-table-striped pure-table-small table-archive">
+        <section className='section-padding-height'>
+          <section className='section-centered'>
+            <div className='table-container'>
+              <table className='pure-table pure-table-striped pure-table-small table-archive'>
                 <thead>
                   <tr>
                     <th>
@@ -190,11 +180,9 @@ class Archive extends React.Component {
           </section>
         </section>
         <div>{new Parser().parse(this.state.content)}</div>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding" />
-        )}
+        {this.state.sharable
+          ? <SmShare />
+          : <div className='section-padding' />}
       </div>
     )
   }

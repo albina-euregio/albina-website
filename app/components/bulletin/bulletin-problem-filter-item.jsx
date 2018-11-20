@@ -17,7 +17,6 @@ class BulletinProblemFilterItem extends React.Component {
   toggle (e) {
     e.preventDefault()
 
-    console.log('toggling filter')
     this.props.handleSelectRegion()
 
     if (this.state.active) {

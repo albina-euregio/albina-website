@@ -43,8 +43,6 @@ window['modalStateStore'] = new ModalStateStore()
 
 require('./js/custom.js')
 
-console.log(window['SweetScroll'])
-
 /*
  * Set project root directory. The project root is determined by the location
  * of the bundled javascript (the first script tag within body). It can be
@@ -57,10 +55,7 @@ const getBasePath = () => {
   const bodyScriptTags = document.body.getElementsByTagName('script')
   if (bodyScriptTags.length > 0) {
     const bundleLocation = bodyScriptTags[0].getAttribute('src')
-    return bundleLocation.substring(
-      0,
-      bundleLocation.lastIndexOf('/') + 1
-    )
+    return bundleLocation.substring(0, bundleLocation.lastIndexOf('/') + 1)
   }
   return '/' // fallback
 }

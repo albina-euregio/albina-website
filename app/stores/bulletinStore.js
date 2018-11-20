@@ -136,10 +136,7 @@ class BulletinStore {
    *   if it need to be fetched.
    */
   @action load (date, activate = true) {
-    console.log('loading bulletin for date', date)
-    console.log('this.bulletins', this.bulletins)
     if (date) {
-      console.log('bulletin', this.bulletins[date])
       if (this.bulletins[date]) {
         if (activate) {
           this.activate(date)
@@ -419,8 +416,6 @@ class BulletinStore {
     // const dateParam = encodeURIComponent(date + 'T22:00:00Z')
     // const dateParam = encodeURIComponent(date + 'T00:00:00+02:00')
     const url = config.get('apis.bulletin') + '?date=' + dateParam
-
-    console.log('bulletin url', url)
 
     return Base.doRequest(url).then(
       // query bulletin data
