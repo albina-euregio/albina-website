@@ -310,6 +310,7 @@
 			"tabsocial" : "Configurazione Email & Social",
 			"addChannel" : "Aggiungi canale",
 			"title" : "Configurazione Server",
+			"titleShipment": "Spedizioni",
 			"table" : {
 				"title" : {
 					"key" : "Parametro",

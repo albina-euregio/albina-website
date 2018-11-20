@@ -50,6 +50,8 @@ export class AdminComponent {
   public regionConfiguration = {};
   public currentChannel: any;
   public shipments: [{}];
+  public currentRegion: string;
+  public recipientList: SelectItem[];
 
   constructor(
     private translate: TranslateService,
@@ -120,11 +122,13 @@ export class AdminComponent {
       );
 
       // Force select of first combo with current region
-      this.regionChanged('IT-32-BZ');
+      this.currentRegion=this.authenticationService.activeRegion;
+      this.regionChanged(this.currentRegion);
         // Load channels
         this.loadChannels();
         // Load shipments
         this.loadShipments();
+        this.loadRecipientList(this.currentRegion);
     }
     this.regions = this.authenticationService.getCurrentAuthorRegions().map(x => ({ label: x, value: x }));
   }
@@ -169,6 +173,7 @@ export class AdminComponent {
   }
 
   public regionChanged(regionId: String) {
+    this.currentRegion=regionId.toString();
     this.configurationService.loadSocialMediaConfiguration(regionId).subscribe(
       data => {
         this.regionConfiguration = data.json();
@@ -236,7 +241,19 @@ export class AdminComponent {
   }
 
 
-  loadShipments(){
+  public loadRecipientList(regionId: String) {
+    this.configurationService.loadRecipientList(regionId).subscribe(
+      data => {
+         let aa = data.json();
+         this.recipientList=aa;
+      },
+      error => {
+        console.error("Recipient List configuration could not be loaded!");
+      }
+    );
+  }
+
+  public loadShipments(){
     this.configurationService.loadShipments().subscribe(
       data => {
         this.shipments=data.json();

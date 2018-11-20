@@ -309,6 +309,7 @@
 		"config" : {
 			"tabsocial" : "Email & Social Konfiguration",
 			"addChannel" : "Kanal hinzufügen",
+			"titleShipment": "Versand",
 			"title" : "Server Konfiguration",
 			"table" : {
 				"title" : {

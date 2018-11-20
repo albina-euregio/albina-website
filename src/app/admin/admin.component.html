@@ -266,7 +266,7 @@
             <div class="card">
               <div class="row" style="padding: 10px">
                 <div class="col-md-6">
-                  <p-dropdown [options]="regions" [style]="{'width':'300px'}" (onChange)="regionChanged($event.value)"></p-dropdown>
+                  <p-dropdown [options]="regions" [style]="{'width':'300px'}" [(ngModel)]="currentRegion" (onChange)="regionChanged($event.value)"></p-dropdown>
                 </div>
                 <div class="col-md-6">
                   <p-dropdown [options]="channels" [style]="{'width':'300px'}" [(ngModel)]="currentChannel" optionId="id"
@@ -280,7 +280,7 @@
                     <p-column field="id" header="Id"></p-column>
                     <p-column field="name" header="Name"></p-column>
                     <p-column field="provider.name" header="Provider"></p-column>
-                    <p-column field="enabled" header="Configured"></p-column>
+                    <!--<p-column field="enabled" header="Configured"></p-column>-->
                     <p-column [style]="{'width':'30px'}">
                     <ng-template pTemplate type="body" let-col let-chn="rowData" let-ri="rowIndex">
                               <i class="fa fa-times-circle-o fa-lg" aria-hidden="true" (click)="deleteChannel(chn)"></i>
@@ -327,7 +327,7 @@
                           </div>
                           <div class="col-md-10">
                             <table>
-                              <tr *ngFor="let x of regionConfiguration.rapidMailConfig.rapidMailRecipients;let i = index;">
+                              <tr *ngFor="let x of recipientList;let i = index;">
                                   <td>{{x.reference}}</td>
                                 </tr>
                               </table>  
@@ -358,7 +358,7 @@
                           <label class="col-form-label">Id</label>
                         </div>
                         <div class="col-md-10">
-                          <input class="switch-input" disabled="true" [(ngModel)]="regionConfiguration.twitterConfig.id">
+                          <input class="switch-input" style="width:20px" disabled="true" [(ngModel)]="regionConfiguration.twitterConfig.id">
                         </div>
                       </div>
 
@@ -409,7 +409,7 @@
               </div>
             </div>
           </p-tabPanel>
-          <p-tabPanel  header="Shipments">
+            <p-tabPanel  header="{{ 'admin.config.titleShipment' | translate }}">
               <div class="card">
                 <div class="row">
                   <div class="col-md-9">
