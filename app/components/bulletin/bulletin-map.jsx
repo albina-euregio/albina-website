@@ -4,6 +4,7 @@ import { injectIntl, FormattedHTMLMessage } from 'react-intl'
 import { Parser } from 'html-to-react'
 import LeafletMap from './leaflet-map'
 import BulletinMapDetails from './bulletin-map-details'
+import { Link } from 'react-router-dom'
 
 class BulletinMap extends React.Component {
   constructor (props) {
@@ -32,7 +33,17 @@ class BulletinMap extends React.Component {
             <section className='bulletinbar section controlbar'>
               <div className='bar section-centered'>
                 <p>
-                  <FormattedHTMLMessage id='bulletin:header:no-bulletin-info' />
+                  {this.props.intl.formatMessage({
+                    id: 'bulletin:header:no-bulletin-info'
+                  })}
+                  <strong>
+                    <Link title='blog' to='/blog/'>
+                      {this.props.intl.formatMessage({
+                        id: 'bulletin:header:blog'
+                      })}
+
+                    </Link>
+                  </strong>.
                 </p>
               </div>
             </section>}

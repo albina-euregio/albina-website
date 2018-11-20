@@ -209,9 +209,14 @@
     "it": "Bollettini valanghe"
   },
   "bulletin:header:no-bulletin-info": {
-    "en": "Currently no daily avalanche forecast available. Current information and announcements are posted on our <strong><a href='/blog'>blog</a></strong>.",
-    "de": "Derzeit keine tägliche Lawinenvorhersage. Aktuelle Informationen und Mitteilungen werden in unserem <strong><a href='/blog'>Blog</a></strong> veröffentlicht.",
-    "it": "Attualmente nessun bollettino valanghe giornaliero. Informazioni e comunicati attuali vengono pubblicati sul nostro <strong><a href='/blog'>blog</a></strong>.    "
+    "en": "Currently no daily avalanche forecast available. Current information and announcements are posted on our ",
+    "de": "Derzeit keine tägliche Lawinenvorhersage. Aktuelle Informationen und Mitteilungen werden in unserem ",
+    "it": "Attualmente nessun bollettino valanghe giornaliero. Informazioni e comunicati attuali vengono pubblicati sul nostro "
+  },
+  "bulletin:header:blog": {
+    "en": "blog",
+    "de": "Blog",
+    "it": "blog"
   },
   "bulletin:header:published-at": {
     "en": "Published {date}, {time}",
