@@ -9,7 +9,8 @@
     "deploy": "rsync -avz --exclude=config.json dist/ karto@data1.geo.univie.ac.at:/daten1/projects/albina-web/",
     "deploy-config": "rsync -avz dist/config.json karto@data1.geo.univie.ac.at:/daten1/projects/albina-web/",
     "build-deploy": "npm run build && npm run deploy",
-    "clean-dist": "rm -f -r -d dist"
+    "clean-dist": "rm -f -r -d dist",
+    "start-server-blog": "nodemon server/blog.js"
   },
   "dependencies": {
     "@turf/flip": "^5.1.5",
@@ -63,11 +64,14 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
+    "cors": "^2.8.5",
     "detect-browser": "^3.0.0",
+    "express": "^4.16.4",
     "intl": "^1.2.5",
     "is-es5-supported": "^1.0.0",
     "jquery": "^3.3.1",
     "node-sass": "^4.9.4",
+    "nodemon": "^1.18.6",
     "sass-loader": "^7.1.0",
     "window.requestanimationframe": "^1.0.1"
   },
