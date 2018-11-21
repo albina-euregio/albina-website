@@ -15,6 +15,7 @@ var stats = {
 app.use(cors())
 
 app.get('/stats', (req, res) => {
+  console.log('serving stats')
   res.send(
     '<!doctype html><body>' +
       '<dl>' +
@@ -24,7 +25,7 @@ app.get('/stats', (req, res) => {
       '<div><span>proccessed: </span><strong>' +
       stats.proccessed +
       '</strong></div>' +
-      '<div><span>saved requests: </span><strong>' +
+      '<div><span>saved requests[%]: </span><strong>' +
       (stats.requested ? 100 - stats.proccessed / stats.requested * 100 : '-') +
       '</strong></div>' +
       '</dl>' +
@@ -41,7 +42,7 @@ app.get('/stats', (req, res) => {
 app.get('/:id/*', (req, res) => {
   stats.requested += 1
   const url = req.url
-  console.log('!!getting a request', bloggerApiPath + url)
+  console.log('!!getting a request', url)
 
   const now = new Date()
 
@@ -90,6 +91,9 @@ setInterval(() => {
   console.log('stored items after: ', storedBlogs.length)
 }, cleaningInterval)
 
-app.listen(port, () =>
-  console.log(`blog middleware server is running on port ${port}!`)
-)
+var server = app.listen(port, () => {
+  var host = server.address().address
+  console.log(server.address())
+  var port = server.address().port
+  console.log('running at http://' + host + ':' + port)
+})

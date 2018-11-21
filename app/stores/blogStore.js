@@ -153,9 +153,11 @@ export default class BlogStore {
         if (cfg.regions.some(r => this.regions[r] && this.regions[r].active)) {
           if (this.blogProcessor[cfg.apiType]) {
             const p = this.blogProcessor[cfg.apiType]
-            console.log('!!!going to load blog')
+
+            const url = p.createUrl(cfg)
+            console.log(url)
             loads.push(
-              Base.doRequest(p.createUrl(cfg)).then(
+              Base.doRequest(url).then(
                 response => {
                   p.process(JSON.parse(response), cfg).forEach(i => {
                     newPosts[cfg.name].push(i)

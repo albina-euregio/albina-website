@@ -38,8 +38,8 @@ import { video_init } from '../js/video'
 
     console.log('setting language')
 
+    // url parameter
     if (!appStore.setLanguage(Base.searchGet('lang'))) {
-      // browser setting
 
       console.log(window.localStorage.getItem('locale'))
       if (!appStore.setLanguage(window.localStorage.getItem('locale'))) {
