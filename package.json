@@ -10,7 +10,8 @@
     "deploy-config": "rsync -avz dist/config.json karto@data1.geo.univie.ac.at:/daten1/projects/albina-web/",
     "build-deploy": "npm run build && npm run deploy",
     "clean-dist": "rm -f -r -d dist",
-    "start-server-blog": "nodemon server/blog.js"
+    "start-server-blog": "nodemon server/blog.js",
+    "deploy-server-blog": "rsync -avz -e 'ssh -p 2201' --progress ./server karto@80.120.70.88:/var/www/html/beta"
   },
   "dependencies": {
     "@turf/flip": "^5.1.5",
