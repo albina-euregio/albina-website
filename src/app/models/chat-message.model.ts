@@ -13,7 +13,7 @@ export class ChatMessageModel {
 		this.chatId = undefined;
 	}
 
-	getTime() : Date{
+	getTime() : Date {
 		return this.time
 	}
 

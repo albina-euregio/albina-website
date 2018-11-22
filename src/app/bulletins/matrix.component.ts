@@ -481,6 +481,7 @@ export class MatrixComponent {
       case "66":
         return Enums.DangerRating.considerable;
 
+      case "24":
       case "28":
       case "36":
       case "40":

@@ -1,11 +1,14 @@
 import { Component, HostListener, ViewChild, TemplateRef } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinModel } from '../models/bulletin.model';
+import { BulletinUpdateModel } from '../models/bulletin-update.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
-import { SocketService } from '../providers/socket-service/socket.service';
+import { WsUpdateService } from '../providers/ws-update-service/ws-update.service';
+import { SettingsService } from '../providers/settings-service/settings.service';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Rx';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
@@ -15,6 +18,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ModalSubmitComponent } from './modal-submit.component';
 import { ModalPublishComponent } from './modal-publish.component';
 import { ModalCheckComponent } from './modal-check.component';
+import { ModalPublicationStatusComponent } from './modal-publication-status.component';
 
 @Component({
   templateUrl: 'bulletins.component.html'
@@ -23,12 +27,17 @@ export class BulletinsComponent {
 
   public bulletinStatus = Enums.BulletinStatus;
 
+  public updates: Subject<BulletinUpdateModel>;
+
   public loading: boolean;
   public publishing: Date;
   public copying: boolean;
 
   public publishBulletinsModalRef: BsModalRef;
   @ViewChild('publishBulletinsTemplate') publishBulletinsTemplate: TemplateRef<any>;
+
+  public publicationStatusModalRef: BsModalRef;
+  @ViewChild('publicationStatusTemplate') publicationStatusTemplate: TemplateRef<any>;
 
   public publishBulletinsErrorModalRef: BsModalRef;
   @ViewChild('publishBulletinsErrorTemplate') publishBulletinsErrorTemplate: TemplateRef<any>;
@@ -60,32 +69,47 @@ export class BulletinsComponent {
     public translateService: TranslateService,
     public authenticationService: AuthenticationService,
     public constantsService: ConstantsService,
+    public settingsService: SettingsService,
     public router: Router,
     public confirmationService: ConfirmationService,
-    public socketService: SocketService,
-    public modalService: BsModalService)
+    public modalService: BsModalService,
+    public wsUpdateService: WsUpdateService)
   {
     this.loading = false;
     this.copying = false;
     this.publishing = undefined;
 
     this.bulletinsService.init();
-
-    this.socketService.getSocket().on('bulletinUpdate', function(data) {
-      console.log("SocketIO bulletin update event recieved: " + data);
-      let json = JSON.parse(data)
-      let region = json.region;
-      if (region === this.authenticationService.getActiveRegion())
-        this.bulletinsService.statusMap.set(new Date(json.date).getTime(), Enums.BulletinStatus[json.status]);
-    }.bind(this));
   }
 
   ngOnInit() {
+    this.wsUpdateConnect();
   }
 
   ngOnDestroy() {
     this.loading = false;
     this.copying = false;
+    this.wsUpdateDisconnect();
+  }
+
+  private wsUpdateConnect() {
+    this.updates = <Subject<BulletinUpdateModel>>this.wsUpdateService
+      .connect(this.constantsService.updateUrl + this.authenticationService.getUsername())
+      .map((response: any): BulletinUpdateModel => {
+        let data = JSON.parse(response.data);
+        let bulletinUpdate = BulletinUpdateModel.createFromJson(data);
+        console.debug("Bulletin update received: " + bulletinUpdate.getDate().toLocaleDateString() + " - " + bulletinUpdate.getRegion() + " [" + bulletinUpdate.getStatus() + "]");
+        if (bulletinUpdate.region === this.authenticationService.getActiveRegion())
+          this.bulletinsService.statusMap.set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
+        return bulletinUpdate;
+      });
+
+    this.updates.subscribe(msg => {
+    });
+  }
+
+  private wsUpdateDisconnect() {
+    this.wsUpdateService.disconnect();
   }
 
   isPast(date: Date) {
@@ -112,6 +136,10 @@ export class BulletinsComponent {
       }
     }
     return false;
+  }
+
+  isMissing(date) {
+    return (this.bulletinsService.statusMap.get(date.getTime()) == Enums.BulletinStatus.missing || this.bulletinsService.statusMap.get(date.getTime()) == undefined);
   }
 
   showCreateButton(date) {
@@ -210,8 +238,23 @@ export class BulletinsComponent {
       return false;
   }
 
+  showInfoButton(date) {
+    if (this.authenticationService.getActiveRegion() != undefined &&
+        /*(!this.isPast(date) ) && */
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
+        (
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished
+        ) && 
+        !this.copying)
+      return true;
+    else
+      return false;
+  }
+
   showCaamlButton(date) {
-    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+    if (this.settingsService.showCaaml &&
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         !this.copying)
       return true;
     else
@@ -219,7 +262,8 @@ export class BulletinsComponent {
   }
 
   showJsonButton(date) {
-    if ((!this.publishing || this.publishing.getTime() != date.getTime()) && 
+    if (this.settingsService.showJson &&
+        (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         !this.copying)
       return true;
     else
@@ -249,7 +293,8 @@ export class BulletinsComponent {
         (
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.published || 
           this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.republished ||
-          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.missing
+          this.bulletinsService.getUserRegionStatus(date) == this.bulletinStatus.missing ||
+          this.bulletinsService.getUserRegionStatus(date) == undefined
         ) && 
         !this.copying)
       return true;
@@ -280,7 +325,7 @@ export class BulletinsComponent {
           this.router.navigate(['/bulletins/new']);
         } else {
           if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
-            let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+            let result = this.bulletinsService.lockRegion(this.authenticationService.getActiveRegion(), this.bulletinsService.getActiveDate());
     
             this.bulletinsService.setIsEditable(true);
             this.router.navigate(['/bulletins/new']);
@@ -339,6 +384,19 @@ export class BulletinsComponent {
     this.router.navigate(['/bulletins/json']);
   }
 
+  showPublicationInfo(event, date: Date) {
+    event.stopPropagation();
+    this.bulletinsService.getPublicationStatus(this.authenticationService.activeRegion, date).subscribe(
+        data => {
+          let response = data.json();
+          this.openPublicationStatusModal(this.publicationStatusTemplate, response, date);
+        },
+        error => {
+          console.error("Publication status could not be loaded!");
+        }
+      );
+  }
+
   copy(event, date: Date) {
     event.stopPropagation();
     this.copying = true;
@@ -369,7 +427,7 @@ export class BulletinsComponent {
       this.router.navigate(['/bulletins/new']);
     } else {
       if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
-        let result = this.bulletinsService.lockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+        let result = this.bulletinsService.lockRegion(this.authenticationService.getActiveRegion(), this.bulletinsService.getActiveDate());
 
         this.bulletinsService.setIsEditable(true);
         this.bulletinsService.setIsSmallChange(true);
@@ -542,6 +600,19 @@ export class BulletinsComponent {
   publishBulletinsModalDecline(): void {
     this.publishBulletinsModalRef.hide();
     this.publishing = undefined;
+  }
+
+  openPublicationStatusModal(template: TemplateRef<any>, json, date: Date) {
+    const initialState = {
+      json: json,
+      date: date,
+      component: this
+    };
+    this.publicationStatusModalRef = this.modalService.show(ModalPublicationStatusComponent, {initialState});
+  }
+
+  publicationStatusModalConfirm(date: Date): void {
+    this.publicationStatusModalRef.hide();
   }
 
   openPublishBulletinsErrorModal(template: TemplateRef<any>) {

@@ -741,8 +741,8 @@ export class CreateBulletinComponent {
 
   createBulletin(copy) {
 
-    // TODO unlock bulletin via socketIO
-    // TODO lock bulletin via socketIO
+    // TODO websocket: unlock bulletin
+    // TODO websocket: lock bulletin
 
     if (this.checkElevation()) {
       let bulletin: BulletinModel;
@@ -993,7 +993,7 @@ private setTexts() {
 
   private editBulletinRegions(bulletin: BulletinModel) {
 
-    // TODO lock whole day in TN, check if any aggregated region is locked
+    // TODO websocket: lock whole day in region, check if any aggregated region is locked
 
     this.editRegions = true;
     this.mapService.editAggregatedRegion(this.activeBulletin);
@@ -1036,6 +1036,16 @@ private setTexts() {
         this.activeBulletin.getSavedRegions().splice(index, 1);
       }
 
+      // delete old published regions in own area
+      let oldPublishedRegions = new Array<String>();
+      for (let region of this.activeBulletin.getPublishedRegions())
+        if (region.startsWith(this.authenticationService.getActiveRegion()))
+          oldPublishedRegions.push(region);
+      for (let region of oldPublishedRegions) {
+        let index = this.activeBulletin.getPublishedRegions().indexOf(region);
+        this.activeBulletin.getPublishedRegions().splice(index, 1);
+      }
+
       // delete old suggested regions outside own area
       let oldSuggestedRegions = new Array<String>();
       for (let region of this.activeBulletin.getSuggestedRegions())
@@ -1058,7 +1068,7 @@ private setTexts() {
 
       this.updateAggregatedRegions();
 
-      // TODO unlock whole day in TN
+      // TODO websocket: unlock whole day
 
     } else
       this.openNoRegionModal(this.noRegionTemplate);
@@ -1075,6 +1085,11 @@ private setTexts() {
           let index = bulletin.getSavedRegions().indexOf(region);
           if (index != -1)
             bulletin.getSavedRegions().splice(index, 1);
+
+          // region was published in other aggregated region => delete
+          index = bulletin.getPublishedRegions().indexOf(region);
+          if (region.startsWith(this.authenticationService.getActiveRegion()) && index != -1)
+            bulletin.getPublishedRegions().splice(index, 1);
 
           // region was suggested by other user (multiple suggestions possible for same region) => delete all)
           index = bulletin.getSuggestedRegions().indexOf(region);
@@ -1094,7 +1109,6 @@ private setTexts() {
       this.mapService.addAggregatedRegion(bulletin);
 
     }
-
     this.mapService.discardAggregatedRegion();
     this.mapService.selectAggregatedRegion(this.activeBulletin);
   }
@@ -1125,7 +1139,7 @@ private setTexts() {
     if (this.activeBulletin && this.activeBulletin != undefined)
       this.mapService.selectAggregatedRegion(this.activeBulletin);
 
-    // TODO unlock whole day in TN
+    // TODO websocket: unlock whole day
   }
 
   save() {
@@ -1384,7 +1398,7 @@ private setTexts() {
     this.bulletinsService.loadBulletins(date, regions).subscribe(
       data => {
 
-        // TODO delete own regions
+        // delete own regions
         let entries = new Array<BulletinModel>();
 
         for (let bulletin of this.bulletinsList) {
@@ -1471,7 +1485,23 @@ private setTexts() {
           }
         }
 
-        if (this.getOwnBulletins().length == 0 && this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && !this.bulletinsService.getIsSmallChange())
+        let hit = false;
+        for (let bulletin of this.bulletinsList) {
+          for (let region of bulletin.getSavedRegions())
+            if (region.startsWith(this.authenticationService.getActiveRegion())) {
+              hit = true;
+              break;
+            }
+          for (let region of bulletin.getPublishedRegions())
+            if (region.startsWith(this.authenticationService.getActiveRegion())) {
+              hit = true;
+              break;
+            }
+          if (hit)
+            break;
+        }
+
+        if (!hit && this.getOwnBulletins().length == 0 && this.bulletinsService.getIsEditable() && !this.bulletinsService.getIsUpdate() && !this.bulletinsService.getIsSmallChange())
           this.createInitialAggregatedRegion();
 
         this.updateMap();
@@ -1496,7 +1526,7 @@ private setTexts() {
     this.deleteAggregatedRegionModalRef.hide();
     this.delBulletin(this.activeBulletin);
 
-    // TODO unlock region via socketIO
+    // TODO websocket: unlock region
 
   }
  

@@ -10,6 +10,8 @@ import * as Enums from '../enums/enums';
 })
 export class DangerRatingComponent {
 
+  dangerRating = Enums.DangerRating;
+
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
   @Input() below: boolean;
   @Input() disabled: boolean;

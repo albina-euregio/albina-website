@@ -11,6 +11,9 @@ export class SettingsService {
   public lang: Enums.LanguageCode;
   public useMatrix: boolean;
   public showObservations: boolean;
+  public showCaaml: boolean;
+  public showJson: boolean;
+
   eventEmitter: EventEmitter<string> = new EventEmitter();
   
   constructor(
@@ -28,9 +31,8 @@ export class SettingsService {
 
     this.useMatrix = true;
     this.showObservations = false;
-    //tra le proprietà del service 
-
-
+    this.showCaaml = false;
+    this.showJson = false;
   }
 
   getLang() : Enums.LanguageCode {
@@ -81,5 +83,21 @@ export class SettingsService {
 
   setShowObservations(showObservations: boolean) {
     this.showObservations = showObservations;
+  }
+
+  getShowCaaml() : boolean {
+    return this.showCaaml;
+  }
+
+  setShowCaaml(showCaaml: boolean) {
+    this.showCaaml = showCaaml;
+  }
+
+  getShowJson() : boolean {
+    return this.showJson;
+  }
+
+  setShowJson(showJson: boolean) {
+    this.showJson = showJson;
   }
 }

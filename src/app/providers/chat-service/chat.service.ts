@@ -1,87 +1,65 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs/Rx';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { AuthenticationService } from '../authentication-service/authentication.service';
-import { ConstantsService } from '../constants-service/constants.service';
-import { SocketService } from '../socket-service/socket.service';
+import { WsChatService } from '../ws-chat-service/ws-chat.service';
 import { ChatMessageModel } from '../../models/chat-message.model';
 import { AuthorModel } from '../../models/author.model';
-import * as io from 'socket.io-client';
+import { AuthenticationService } from '../authentication-service/authentication.service';
+import { ConstantsService } from '../constants-service/constants.service';
+import { WebSocketSubject } from 'rxjs/observable/dom/WebSocketSubject';
 
 @Injectable()
 export class ChatService {
+	public messages: Subject<ChatMessageModel>;
 
-  public activeUsers: AuthorModel[];
-  public chatMessages0: ChatMessageModel[];
-  public chatMessages1: ChatMessageModel[];
-  public chatMessages2: ChatMessageModel[];
-  public chatMessages3: ChatMessageModel[];
-  public newMessageCount0: number;
-  public newMessageCount1: number;
-  public newMessageCount2: number;
-  public newMessageCount3: number;
+	public activeUsers: string[];
+	public chatMessages0: ChatMessageModel[];
+	public chatMessages1: ChatMessageModel[];
+	public chatMessages2: ChatMessageModel[];
+	public chatMessages3: ChatMessageModel[];
+	public newMessageCount0: number;
+	public newMessageCount1: number;
+	public newMessageCount2: number;
+	public newMessageCount3: number;
 
-  constructor(
-    public http: Http,
-    public constantsService: ConstantsService,
-    public authenticationService: AuthenticationService,
-    public socketService: SocketService)
-  {
-    this.chatMessages0 = new Array<ChatMessageModel>();
-    this.chatMessages1 = new Array<ChatMessageModel>();
-    this.chatMessages2 = new Array<ChatMessageModel>();
-    this.chatMessages3 = new Array<ChatMessageModel>();
-    this.activeUsers = new Array<AuthorModel>();
-    this.newMessageCount0 = 0;
-    this.newMessageCount1 = 0;
-    this.newMessageCount2 = 0;
-    this.newMessageCount3 = 0;
+	constructor(
+	    public http: Http,
+	    public constantsService: ConstantsService,
+	    public authenticationService: AuthenticationService,
+	    public wsChatService: WsChatService)
+	{
+	  this.chatMessages0 = new Array<ChatMessageModel>();
+	  this.chatMessages1 = new Array<ChatMessageModel>();
+	  this.chatMessages2 = new Array<ChatMessageModel>();
+	  this.chatMessages3 = new Array<ChatMessageModel>();
+	  this.activeUsers = new Array<string>();
+	  this.newMessageCount0 = 0;
+	  this.newMessageCount1 = 0;
+	  this.newMessageCount2 = 0;
+	  this.newMessageCount3 = 0;
+	}
 
-    this.socketService.getSocket().on('chatEvent', function(data) {
-      console.log("SocketIO chat event recieved: " + data);
-      let message = ChatMessageModel.createFromJson(JSON.parse(data));
-      this.addChatMessage(message, true)
-    }.bind(this));
 
-    this.socketService.getSocket().on('login', function(data) {
-      let json = JSON.parse(data)
-      console.log("SocketIO login event recieved: " + json.name);
-      if (json.name != this.authenticationService.getUsername()) {
-        let user = AuthorModel.createFromJson(json);
-        let found = false;
-        for (var i = this.activeUsers.length - 1; i >= 0; i--) {
-          if (this.activeUsers[i].getEmail() === json.email) {
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          this.activeUsers.push(user);
-          this.activeUsers.sort((a, b) : number => {
-            if (a.name < b.name) return 1;
-            if (a.name > b.name) return -1;
-            return 0;
-          });
-        }
+  public connect() {
+    this.messages = <Subject<ChatMessageModel>>this.wsChatService
+      .connect(this.constantsService.chatUrl + this.authenticationService.getUsername())
+      .map((response: any): ChatMessageModel => {
+        let data = JSON.parse(response.data);
+        let message = ChatMessageModel.createFromJson(data);
+        this.addChatMessage(message, true);
+        console.log("Chat message received: " + message.getText());
+        return message;
+      });
+
+    this.messages.subscribe(
+      msg => {
+        console.log("Message sent!");
+      },
+      error => {
+        console.error("Message could not be sent!");
+        console.error(error);
       }
-    }.bind(this));
-
-    this.socketService.getSocket().on('logout', function(data) {
-      let json = JSON.parse(data)
-      console.log("SocketIO logout event recieved: " + json.name);
-      if (json.name != this.authenticationService.getUsername()) {
-        let user = AuthorModel.createFromJson(json);
-        let index = -1;
-        for (var i = this.activeUsers.length - 1; i >= 0; i--) {
-          if (this.activeUsers[i].getEmail() === json.email) {
-            index = i;
-            break;
-          }
-        }
-        if (index > -1)
-          this.activeUsers.splice(index, 1);
-      }
-    }.bind(this));
+    );
 
     if (this.authenticationService.getActiveRegion() && this.authenticationService.getActiveRegion() != undefined) {
       this.getMessages().subscribe(
@@ -95,16 +73,18 @@ export class ChatService {
         }
       );
 
+/*
       this.getActiveUsers().subscribe(
         data => {
+          debugger
           let response = data.json();
           for (let user of response) {
-            if (user.name != this.authenticationService.getUsername())
-              this.activeUsers.push(AuthorModel.createFromJson(user));
+            if (user != this.authenticationService.getUsername())
+              this.activeUsers.push(user);
           }
           this.activeUsers.sort((a, b) : number => {
-              if (a.name < b.name) return 1;
-              if (a.name > b.name) return -1;
+              if (a < b) return 1;
+              if (a > b) return -1;
               return 0;
           });
         },
@@ -112,7 +92,24 @@ export class ChatService {
           console.error("Active users could not be loaded!");
         }
       );
+*/
     }
+  }
+
+  public disconnect() {
+    // TODO implement
+  }
+
+  sendMessage(text: string, region?: string) {
+      let message = new ChatMessageModel();
+      message.setUsername(this.authenticationService.getUsername());
+      message.setTime(new Date());
+      message.setText(text);
+      message.setChatId(this.authenticationService.getChatId(region));
+
+      this.messages.next(message);
+
+      console.log("Chat message sent: " + message.getText());
   }
 
   private addChatMessage(message, update) {
@@ -186,6 +183,7 @@ export class ChatService {
     return this.http.get(encodeURI(url), options);
   }
 
+/*
   getNumberOfActiveUsersForRegion(region?: string) {
     if (region) {
       let count = 0;
@@ -206,16 +204,7 @@ export class ChatService {
     }
     return users;
   }
-
-  sendMessage(text: string, region?: string) {
-    let message = new ChatMessageModel();
-    message.setUsername(this.authenticationService.getUsername());
-    message.setTime(new Date());
-    message.setText(text);
-    message.setChatId(this.authenticationService.getChatId(region));
-    this.socketService.getSocket().emit('chatEvent', JSON.stringify(message.toJson()));
-    console.log("SocketIO chat event sent: " + message);
-  }
+*/
 
   getNewMessageCountSum(region: string) {
     switch (region) {

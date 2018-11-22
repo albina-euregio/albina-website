@@ -49,8 +49,10 @@
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-sign-out"></i> {{ "menu.logout" | translate }}</a>
       </div>
     </li>
-    <li *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined" class="nav-item">
-      <a class="nav-link icon-speech aside-menu-toggler" href="#"><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegion()) }}</span></a>
+    <li class="nav-item">
+<!--
+      <a *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined" class="nav-link icon-speech aside-menu-toggler" href="#"><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegion()) }}</span></a>
+-->
     </li>
   </ul>
   
@@ -94,7 +96,7 @@
       <!-- ALL -->
       <tab *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined">
         <ng-template tabHeading>{{ "chat.all" | translate }}<span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount() }}</span></ng-template>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion() > 0" class="p-1">
+<!--        <div *ngIf="chatService.getNumberOfActiveUsersForRegion() > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
           <div *ngFor="let user of chatService.getActiveUsersForRegion()" class="message">
             <div>
@@ -114,7 +116,7 @@
             </div>
           </div>
         </div>
-        <hr style="margin: 0px">
+        <hr style="margin: 0px"> -->
         <div class="p-1">
           <div class="message">
             <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event)"></textarea>
@@ -136,7 +138,7 @@
       <!-- TIROL -->
       <tab *ngIf="authenticationService.getActiveRegion() == constantsService.codeSouthTyrol || authenticationService.getActiveRegion() == constantsService.codeTrentino">
         <ng-template tabHeading>{{ "chat.AT-07" | translate }}<span *ngIf="showBadge(constantsService.codeTyrol)" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount(constantsService.codeTyrol) }}</span></ng-template>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeTyrol) > 0" class="p-1">
+<!--        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeTyrol) > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
           <div *ngFor="let user of chatService.getActiveUsersForRegion(constantsService.codeTyrol)" class="message">
             <div>
@@ -156,7 +158,7 @@
             </div>
           </div>
         </div>
-        <hr style="margin: 0px">
+        <hr style="margin: 0px"> -->
         <div class="p-1">
           <div class="message">
             <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event, constantsService.codeTyrol)"></textarea>
@@ -178,7 +180,7 @@
       <!-- SOUTH TYROL -->
       <tab *ngIf="authenticationService.getActiveRegion() == constantsService.codeTyrol || authenticationService.getActiveRegion() == constantsService.codeTrentino">
         <ng-template tabHeading>{{ "chat.IT-32-BZ" | translate }}<span *ngIf="showBadge(constantsService.codeSouthTyrol)" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount(constantsService.codeSouthTyrol) }}</span></ng-template>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeSouthTyrol) > 0" class="p-1">
+<!--        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeSouthTyrol) > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
           <div *ngFor="let user of chatService.getActiveUsersForRegion(constantsService.codeSouthTyrol)" class="message">
             <div>
@@ -198,7 +200,7 @@
             </div>
           </div>
         </div>
-        <hr style="margin: 0px">
+        <hr style="margin: 0px"> -->
         <div class="p-1">
           <div class="message">
             <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event, constantsService.codeSouthTyrol)"></textarea>
@@ -220,7 +222,7 @@
       <!-- TRENTINO -->
       <tab *ngIf="authenticationService.getActiveRegion() == constantsService.codeTyrol || authenticationService.getActiveRegion() == constantsService.codeSouthTyrol">
         <ng-template tabHeading>{{ "chat.IT-32-TN" | translate }}<span *ngIf="showBadge(constantsService.codeTrentino)" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount(constantsService.codeTrentino) }}</span></ng-template>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeTrentino) > 0" class="p-1">
+<!--        <div *ngIf="chatService.getNumberOfActiveUsersForRegion(constantsService.codeTrentino) > 0" class="p-1">
           <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
           <div *ngFor="let user of chatService.getActiveUsersForRegion(constantsService.codeTrentino)" class="message">
             <div>
@@ -240,7 +242,7 @@
             </div>
           </div>
         </div>
-        <hr style="margin: 0px">
+        <hr style="margin: 0px"> -->
         <div class="p-1">
           <div class="message">
             <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event, constantsService.codeTrentino)"></textarea>

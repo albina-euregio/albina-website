@@ -84,7 +84,6 @@ export class ObservationsComponent {
       },
       error => {
         console.error("Snow profiles could not be loaded from server: " + JSON.stringify(error._body));
-        // TODO
       }
     );
   }
@@ -104,7 +103,6 @@ export class ObservationsComponent {
           },
           error => {
             console.error("Hasty pits could not be loaded from server: " + JSON.stringify(error._body));
-            // TODO
           }
         );
     }
