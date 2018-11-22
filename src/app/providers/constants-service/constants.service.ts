@@ -4,19 +4,28 @@ import { Injectable } from '@angular/core';
 export class ConstantsService {
 
   // Localhost
-  public serverUrl: string = 'http://localhost:8080/albina/api/';
-  public socketIOUrl: string = 'localhost:8080';
-  public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
+  //public serverUrl: string = 'http://localhost:8080/albina/api/';
+  //public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
+  //public chatUrl: string = 'ws://localhost:8080/albina/chat/';
+  //public bulletinUrl: string = 'ws://localhost:8080/albina/bulletin/';
+  //public updateUrl: string = 'ws://localhost:8080/albina/update/';
+  //public regionUrl: string = 'ws://localhost:8080/albina/region/';
 
   // Development server
-  //public serverUrl: string = 'http://212.47.231.185:8080/albina/api/';
-  //public socketIOUrl: string = 'http://212.47.231.185:9092';
-  //public textcatUrl: string = 'http://albina.clesius.it/textcat/c_pm.html';
+  public serverUrl: string = 'https://admin.avalanche.report/albina_dev/api/';
+  public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
+  public chatUrl: string = 'wss://socket.avalanche.report/albina_dev/chat/';
+  public bulletinUrl: string = 'wss://socket.avalanche.report/albina_dev/bulletin/';
+  public updateUrl: string = 'wss://socket.avalanche.report/albina_dev/update/';
+  public regionUrl: string = 'wss://socket.avalanche.report/albina_dev/region/';
   
   // Production server
-  // public serverUrl: string = 'https://admin.avalanche.report/albina/api/';
-  // public socketIOUrl: string = 'https://socket.avalanche.report';
-  // public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
+  //public serverUrl: string = 'https://admin.avalanche.report/albina/api/';
+  //public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
+  //public chatUrl: string = 'wss://socket.avalanche.report/albina/chat/';
+  //public bulletinUrl: string = 'wss://socket.avalanche.report/albina/bulletin/';
+  //public updateUrl: string = 'wss://socket.avalanche.report/albina/update/';
+  //public regionUrl: string = 'wss://socket.avalanche.report/albina/region/';
 
   public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';
   public natlefsServerUrl: string = 'https://natlefs.snowobserver.com/snowobserver/api/';
