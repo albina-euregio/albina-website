@@ -46,12 +46,22 @@ export class AdminComponent {
 
   public regions: SelectItem[];
   public channels: SelectItem[];
-  public regionConfiguration = {};
+  public regionConfiguration = <any>{};
   public currentChannel: any;
   public shipments: [{}];
   public currentRegion: string;
   public recipientList;
   public sendresult;
+
+  public a;
+  public b;
+  public c;
+  public d;
+  public e;
+  public f;
+  public g;
+  public h;
+  
 
   constructor(
     private translate: TranslateService,
