@@ -269,3 +269,8 @@ a.share-feed {
     padding: 0 25px;
   }
 }
+
+// external links
+a[href*="//"]:not([href*="avalanche"]):not([class*="sm-button"])::after {
+  content: '↗';
+}
