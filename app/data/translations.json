@@ -214,9 +214,9 @@
     "it": "Attualmente nessun bollettino valanghe giornaliero. Informazioni e comunicati attuali vengono pubblicati sul nostro "
   },
   "bulletin:header:no-bulletin-info-post": {
-    "en": "",
-    "de": " veröffentlicht",
-    "it": ""
+    "en": ".",
+    "de": " veröffentlicht.",
+    "it": "."
   },
   "bulletin:header:blog": {
     "en": "blog",
@@ -931,7 +931,7 @@
   },
   "dialog:cookie-consent:text": {
     "en": "We use cookies to personalize content and ads, integrate social media and analyze website access. We also share information about your website usage - anonymously - with our partners who may merge it with other information you may have collected in connection with your use of their services. This enables communication and advertising adapted to your personal interests. We would also like to draw your attention to our data protection information for registered online users and our cookie policy.",
-    "de": "Mit Cookies personalisieren wir Inhalte sowie Anzeigen, binden Soziale Medien ein und analysieren Website-Zugriffe. Informationen über Ihre Website-Nutzung gebern wir außerdem - anonymisiert - an unsere Partner weiter, die diese möglicherweise mit weiteren Daten zusammenführen, die Sie im Rahmen Ihrer Nutzung derer Dienste gesammelt haben. Dies ermöglicht eine an Ihre persönlichen Interessen angepasste Kommunikation und Werbung. Weiter möchten wir Sie auf unsere Datenschutzinformation für regstrierte Online-User und unsere Cookie-Policy aufmerksam machen.",
+    "de": "Mit Cookies personalisieren wir Inhalte sowie Anzeigen, binden Soziale Medien ein und analysieren Website-Zugriffe. Informationen über Ihre Website-Nutzung geben wir außerdem - anonymisiert - an unsere Partner weiter, die diese möglicherweise mit weiteren Daten zusammenführen, die Sie im Rahmen Ihrer Nutzung derer Dienste gesammelt haben. Dies ermöglicht eine an Ihre persönlichen Interessen angepasste Kommunikation und Werbung. Weiter möchten wir Sie auf unsere Datenschutzinformation für regstrierte Online-User und unsere Cookie-Policy aufmerksam machen.",
     "it": "Utilizziamo i cookie per personalizzare contenuti e annunci, integrare i social media e analizzare gli accessi al sito web. Condividiamo anche le informazioni relative al tuo utilizzo del sito web - in forma anonima - con i nostri partner, che potrebbero unirle con altre informazioni raccolte dall'utente in relazione all'utilizzo dei loro servizi. In questo modo è possibile adattare la comunicazione e la pubblicità ai propri interessi personali. Desideriamo inoltre richiamare tua attenzione sulle nostre informazioni relative alla protezione dei dati degli utenti registrati online e sulla nostra politica in materia di cookie."
   },
   "dialog:cookie-consent:button": { "all": "Ok" },
