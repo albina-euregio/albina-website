@@ -45,8 +45,7 @@ class BulletinButtonbar extends React.Component {
                       })}
                     </a>
                   </li>}
-                {/* hiding subscribe */}
-                <li style={{ display: 'none' }}>
+                <li>
                   <a
                     href='#subscribeDialog'
                     title={this.props.intl.formatMessage({

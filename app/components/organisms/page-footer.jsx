@@ -59,8 +59,7 @@ class PageFooter extends React.Component {
               />
             </div>
             <div className='grid-item normal-6'>
-              {/* hiding subscribe */}
-              <p style={{ display: 'none' }} className='page-footer-subscribe'>
+              <p className='page-footer-subscribe'>
                 <a
                   href='#subscribeDialog'
                   title={this.props.intl.formatMessage({
