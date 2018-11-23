@@ -61,7 +61,7 @@
     "bulletin_old": "http://212.47.231.185:8080/albina/api/bulletins",
     "subscribe": "http://212.47.231.185:8080/albina/api/email",
     "geo": "https://data1.geo.univie.ac.at/exchange/albina2/awm/",
-    "blogger": "http://localhost:3000/",
+    "blogger": "//80.120.70.88:3000/",
     "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/"
   },
   "apiKeys": {
@@ -78,7 +78,25 @@
       "xml": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}.xml"
     }
   },
+
   "subscribe": {
+    "messengerpeople": {
+      "AT-07": {
+        "en": "https://wb.messengerpeople.com/?widget_hash=0d42e9dc5ad8f583a43d16620b7ed56f&lang=de&wn=2",
+        "de": "https://wb.messengerpeople.com/?widget_hash=0d42e9dc5ad8f583a43d16620b7ed56f&lang=de&wn=0",
+        "it": "https://wb.messengerpeople.com/?widget_hash=0d42e9dc5ad8f583a43d16620b7ed56f&lang=de&wn=1"
+      },
+      "IT-32-BZ": {
+        "en": "https://wb.messengerpeople.com/?widget_hash=28b607db06003630165cdc2f949e8891&lang=de&wn=2",
+        "de": "https://wb.messengerpeople.com/?widget_hash=28b607db06003630165cdc2f949e8891&lang=de&wn=0",
+        "it": "https://wb.messengerpeople.com/?widget_hash=28b607db06003630165cdc2f949e8891&lang=de&wn=1"
+      },
+      "IT-32-TN": {
+        "en": "https://wb.messengerpeople.com/?widget_hash=5f8821745634d04c06dbe2602cf1462e&lang=de&wn=2",
+        "de": "https://wb.messengerpeople.com/?widget_hash=5f8821745634d04c06dbe2602cf1462e&lang=de&wn=0",
+        "it": "https://wb.messengerpeople.com/?widget_hash=5f8821745634d04c06dbe2602cf1462e&lang=de&wn=1"
+      }
+    },
     "socialMedia": [
       {
         "id": "facebook",
