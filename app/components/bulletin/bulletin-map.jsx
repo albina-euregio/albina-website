@@ -47,7 +47,6 @@ class BulletinMap extends React.Component {
                   {this.props.intl.formatMessage({
                     id: 'bulletin:header:no-bulletin-info-post'
                   })}
-                  .
                 </p>
               </div>
             </section>}

@@ -159,11 +159,13 @@ export default class BlogStore {
             loads.push(
               Base.doRequest(url).then(
                 response => {
+                  console.log(response)
                   p.process(JSON.parse(response), cfg).forEach(i => {
                     newPosts[cfg.name].push(i)
                   })
                 },
                 (errorText, statusCode) => {
+                  console.log(errorText)
                   if (
                     parseInt(statusCode) == 304 &&
                     Array.isArray(this._posts[cfg.name])
@@ -281,7 +283,7 @@ export default class BlogStore {
     this.load(true)
   }
 
-  getPosts (start = 0, limit = 10) {
+  getPosts (start = 0, limit = 50) {
     const totalLength = Object.values(this._posts)
       .map(l => l.length)
       .reduce((acc, v) => acc + v, 0)

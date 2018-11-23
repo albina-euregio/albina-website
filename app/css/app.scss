@@ -21,6 +21,27 @@ iframe#stationTable {
   opacity: 0.5;
 }
 
+/* messengerpeople */
+.messengerpeople {
+  position: initial !important;
+  .frame {
+    border: none;
+    height: 100%;
+    width: 100%;
+  }
+  .link {
+    margin-top: -10px;
+    padding-top: 6px\9;
+    text-decoration: none;
+    text-align: right;
+    display: block;
+    font-size: 11px;
+    padding-right: 8px;
+    color: rgba(8, 0, 0, 0.54);
+    font-family: 'Roboto', sans-serif;
+  }
+}
+
 .bulletinbar {
   position: absolute;
   top: 0;
@@ -271,6 +292,6 @@ a.share-feed {
 }
 
 // external links
-a[href*="//"]:not([href*="avalanche"]):not([class*="sm-button"])::after {
+a[target*='_blank']:not([class*='sm-button'])::after {
   content: '↗';
 }

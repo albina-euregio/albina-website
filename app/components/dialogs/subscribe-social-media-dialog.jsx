@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Iframe from 'react-iframe'
 import { inject } from 'mobx-react'
 import { injectIntl, FormattedHTMLMessage } from 'react-intl'
 
@@ -11,6 +12,13 @@ class SubscribeSocialMediaDialog extends React.Component {
     this.state = {
       region: window['appStore'].getRegions()[0]
     }
+  }
+
+  componentDidMount () {
+    console.log(Object.keys(window.appStore.regions)[0])
+    const defaultRegion = Object.keys(window.appStore.regions)[0]
+    console.log('defaultregion', defaultRegion)
+    this.setState({ region: defaultRegion })
   }
 
   handleChangeRegion (region) {
@@ -32,6 +40,11 @@ class SubscribeSocialMediaDialog extends React.Component {
         })
         .filter(e => e.url)
     })
+
+    const iframeUrls = config.get('subscribe.messengerpeople')
+    const iframeUrl = this.state.region
+      ? iframeUrls[this.state.region][window['appStore'].language]
+      : ''
 
     return (
       <div className='modal-follow'>
@@ -65,6 +78,13 @@ class SubscribeSocialMediaDialog extends React.Component {
             </li>
           </ul>
         </div>
+
+        <Iframe
+          width='390px'
+          height='370px'
+          className='messengerpeople'
+          url={iframeUrl}
+        />
 
         <p>
           <Link
