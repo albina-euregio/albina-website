@@ -1,8 +1,11 @@
 const request = require('request')
 const express = require('express')
+const fs = require('fs')
 const app = express()
 const port = 3000
 const cors = require('cors')
+
+var https = require('https')
 
 var bloggerApiPath = 'https://www.googleapis.com/blogger/v3/blogs'
 var storedBlogs = []
@@ -48,36 +51,36 @@ app.get('/:id/*', (req, res) => {
 
   const stored = storedBlogs.find(b => b.url === url)
 
+  const requestUrl = bloggerApiPath + url + '&maxResults=100'
+
   if (stored) {
     console.log('stored before')
     res.send(stored.response)
   } else {
+    console.log('requesting: ', requestUrl)
     stats.proccessed += 1
     console.log('not stored before, have to be loaded')
-    request(
-      { url: bloggerApiPath + url + '&maxResults=100' },
-      (err, response, body) => {
-        // console.log('response', response)
-        console.log('loaded, sending back')
-        if (!err) {
-          const blog = {
-            url: url,
-            response: JSON.parse(body),
-            time: now.valueOf()
-          }
-          storedBlogs.push(blog)
-
-          res.send(JSON.parse(body))
-        } else {
-          console.log('error while loading', err)
-          res.send(false)
+    request({ url: requestUrl }, (err, response, body) => {
+      // console.log('response', response)
+      console.log('loaded, sending back')
+      if (!err) {
+        const blog = {
+          url: url,
+          response: JSON.parse(body),
+          time: now.valueOf()
         }
+        storedBlogs.push(blog)
+
+        res.send(JSON.parse(body))
+      } else {
+        console.log('error while loading', err)
+        res.send(false)
       }
-    )
+    })
   }
 })
 
-const cleaningInterval = 50000
+const cleaningInterval = 1000 * 60 * 5
 
 // clean the old requests
 setInterval(() => {
@@ -93,7 +96,6 @@ setInterval(() => {
 
 var server = app.listen(port, () => {
   var host = server.address().address
-  console.log(server.address())
   var port = server.address().port
   console.log('running at http://' + host + ':' + port)
 })
