@@ -21,13 +21,16 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 // Services
 import { AuthenticationService } from './providers/authentication-service/authentication.service';
 import { BulletinsService } from './providers/bulletins-service/bulletins.service';
-import { ChatService } from './providers/chat-service/chat.service';
 import { RegionsService } from './providers/regions-service/regions.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { SettingsService } from './providers/settings-service/settings.service';
 import { MapService } from './providers/map-service/map.service';
 import { ObservationsService } from './providers/observations-service/observations.service';
-import { SocketService } from './providers/socket-service/socket.service';
+import { WsBulletinService } from './providers/ws-bulletin-service/ws-bulletin.service';
+import { WsUpdateService } from './providers/ws-update-service/ws-update.service';
+import { WsRegionService } from './providers/ws-region-service/ws-region.service';
+import { WsChatService } from './providers/ws-chat-service/ws-chat.service';
+import { ChatService } from './providers/chat-service/chat.service';
 import { LocalStorageService } from './providers/local-storage-service/local-storage.service';
 import { ConfigurationService } from './providers/configuration-service/configuration.service';
 import { SocialmediaService } from './providers/socialmedia-service/socialmedia.service';
@@ -46,6 +49,7 @@ import { BsDropdownModule, TabsModule, ModalModule, AlertModule } from 'ngx-boot
 import { ModalSubmitComponent } from './bulletins/modal-submit.component';
 import { ModalPublishComponent } from './bulletins/modal-publish.component';
 import { ModalCheckComponent } from './bulletins/modal-check.component';
+import { ModalPublicationStatusComponent } from './bulletins/modal-publication-status.component';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -80,7 +84,8 @@ export function createTranslateLoader(http: Http) {
     AsideToggleDirective,
     ModalSubmitComponent,
     ModalPublishComponent,
-    ModalCheckComponent
+    ModalCheckComponent,
+    ModalPublicationStatusComponent
   ],
   providers: [
     {
@@ -93,10 +98,13 @@ export function createTranslateLoader(http: Http) {
     SettingsService,
     BulletinsService,
     RegionsService,
-    ChatService,
     MapService,
     ObservationsService,
-    SocketService,
+    WsChatService,
+    WsRegionService,
+    WsUpdateService,
+    WsBulletinService,
+    ChatService,
     LocalStorageService,
     ConfigurationService,
     ConfirmationService,
@@ -109,7 +117,8 @@ export function createTranslateLoader(http: Http) {
   entryComponents: [
     ModalSubmitComponent,
     ModalPublishComponent,
-    ModalCheckComponent
+    ModalCheckComponent,
+    ModalPublicationStatusComponent
   ]
 })
 export class AppModule { }

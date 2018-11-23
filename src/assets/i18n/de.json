@@ -51,7 +51,8 @@
 			"json" : "JSON anzeigen",
 			"edit" : "Lawinenvorhersage editieren (keine erneute Veröffentlichung)",
 			"create" : "Lawinenvorhersage erstellen",
-			"check" : "Lawinenvorhersage prüfen"
+			"check" : "Lawinenvorhersage prüfen",
+			"info" : "Publikationsstatus anzeigen"
 		},
 		"create" : {
 			"tooltip" : {
@@ -229,6 +230,39 @@
 				"accept" : "Ja",
 				"reject" : "Nein"
 			},
+			"publicationStatusDialog" : {
+				"header" : "Publikationsstatus",
+				"publishedBy" : "Publiziert von: ",
+				"publishedAt" : "Publiziert um: ",
+				"validFor" : "Gültig für: ",
+				"tooltip" : {
+					"caaml" : {
+						"success" : "CAAML Datei wurde erstellt",
+						"failed" : "CAAML Datei konnte nicht erstellt werden"
+					},
+					"map" : {
+						"success" : "Karten wurden erstellt",
+						"failed" : "Karten konnten nicht erstellt werden"
+					},
+					"pdf" : {
+						"success" : "PDF wurde erstellt",
+						"failed" : "PDF konnte nicht erstellt werden"
+					},
+					"email" : {
+						"success" : "Emails wurden versandt",
+						"failed" : "Emails konnten nicht versandt werden"
+					},
+					"whatsapp" : {
+						"success" : "Lawinenvorhersage wurde auf WhatsApp und Telegram versandt",
+						"failed" : "Lawinenvorhersage konnte nicht auf WhatsApp und Telegram versandt werden"
+					},
+					"twitter" : {
+						"success" : "Lawinenvorhersagen wurde auf Twitter versandt",
+						"failed" : "Lawinenvorhersage konnte auf Twitter nicht versandt werden"
+					}
+				},
+				"accept" : "Ok"
+			},
 			"publishBulletinsErrorDialog" : {
 				"header" : "Fehler beim Publizieren",
 				"message" : "Beim Publizieren der Lawinenvorhersage ist ein Fehler aufgetreten!",
@@ -364,6 +398,14 @@
 			"passwordIncorrect" : "Passwort ist nicht korrekt",
 			"passwordsNotMatching" : "Passwörter stimmen nicht überein",
 			"passwordEmpty" : "Passwort fehlt"
+		},
+		"display" : {
+			"title" : "Anzeige",
+			"table" : {
+				"showCaaml" : "CAAML anzeigen",
+				"showJson" : "JSON anzeigen",
+				"useMatrix" : "Matrix verwenden"
+			}
 		}
 	},
 

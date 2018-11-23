@@ -51,7 +51,8 @@
 			"json" : "Mostrare JSON",
 			"edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)",
 			"create" : "Creare bollettino valanghe",
-			"check" : "Controllare bollettino valanghe"
+			"check" : "Controllare bollettino valanghe",
+			"info" : "Mostra lo stato della pubblicazione"
 		},
 		"create" : {
 			"tooltip" : {
@@ -109,7 +110,7 @@
 			"title" : {
 				"map" : "Mappa",
 				"dangerRating" : "Grado pericolo valanghe",
-				"avalancheSituation" : "Problema tipicho valanghivo",
+				"avalancheSituation" : "Problema tipico valanghivo",
 				"dangerDescription" : "Descrizione pericolo",
 				"detail" : "Dettagli",
 				"above" : "Al disopra",
@@ -228,6 +229,39 @@
 				"pendingSuggestions" : "Proposta non confermata",
 				"accept" : "Sí",
 				"reject" : "No"
+			},
+			"publicationStatusDialog" : {
+				"header" : "Stato della pubblicazione",
+				"publishedBy" : "Pubblicato da: ",
+				"publishedAt" : "Pubblicato su: ",
+				"validFor" : "Valido per: ",
+				"tooltip" : {
+					"caaml" : {
+						"success" : "È stato creato il file CAAML",
+						"failed" : "Non è stato possibile creare il file CAAML"
+					},
+					"map" : {
+						"success" : "Mappa è stata creata",
+						"failed" : "Non è stato possible creare la mappa"
+					},
+					"pdf" : {
+						"success" : "È stato creato il file PDF",
+						"failed" : "Non è stato possibile creare il file CAAML"
+					},
+					"email" : {
+						"success" : "Emails inviate",
+						"failed" : "Non è stato possibile inviare e-mail"
+					},
+					"whatsapp" : {
+						"success" : "Previsione valanghe inviata a WhatsApp e Telegram",
+						"failed" : "Non è stato possibile inviare la previsione delle valanghe a WhatsApp e Telegram"
+					},
+					"twitter" : {
+						"success" : "Previsioni valanghe inviate a Twitter",
+						"failed" : "Non è stato possibile inviare la previsione delle valanghe a Twitter"
+					}
+				},
+				"accept" : "Ok"
 			},
 			"publishBulletinsErrorDialog" : {
 				"header" : "Errore durante pubblicare",
@@ -364,6 +398,14 @@
 			"passwordIncorrect" : "Password non è correta",
 			"passwordsNotMatching" : "Le password non corrispondono",
 			"passwordEmpty" : "Mancha la password"
+		},
+		"display" : {
+			"title" : "Display",
+			"table" : {
+				"showCaaml" : "Indicare CAAML",
+				"showJson" : "Indicare JSON",
+				"useMatrix" : "Adoperare matrice"
+			}
 		}
 	},
 

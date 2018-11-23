@@ -9,7 +9,6 @@
               <!-- <div class="card-header">
                         <i class="fa fa-user-secret"></i>{{ "admin.config.title" | translate }}
                       </div> -->
-
               <div *ngIf="configurationPropertiesLoaded" class="card-block">
                 <table class="table table-bordered table-striped table-condensed" style="margin-bottom: 0">
                   <thead>
@@ -234,22 +233,6 @@
                       </td>
                       <td>
                         <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="emailPassword">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label class="col-form-label">{{ "admin.config.table.socketIoOrigin" | translate }}</label>
-                      </td>
-                      <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="socketIoOrigin">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label class="col-form-label">{{ "admin.config.table.socketIoPort" | translate }}</label>
-                      </td>
-                      <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="socketIoPort">
                       </td>
                     </tr>
                   </tbody>

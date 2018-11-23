@@ -43,8 +43,6 @@ export class AdminComponent {
   public smtpPort: string;
   public emailUsername: string;
   public emailPassword: string;
-  public socketIoOrigin: string;
-  public socketIoPort: number;
 
   public regions: SelectItem[];
   public channels: SelectItem[];
@@ -96,8 +94,6 @@ export class AdminComponent {
           this.smtpPort = response.smtpPort;
           this.emailUsername = response.emailUsername;
           this.emailPassword = response.emailPassword;
-          this.socketIoOrigin = response.socketIoOrigin;
-          this.socketIoPort = response.socketIoPort;
           this.configurationPropertiesLoaded = true;
 
         },
@@ -115,7 +111,7 @@ export class AdminComponent {
       endDate.setHours(0, 0, 0, 0);
 
       // TODO use the information about the publciation process somewhere (maybe just as ADMIN?)
-      this.bulletinsService.getPublicationStatus(this.authenticationService.getActiveRegion(), startDate, endDate).subscribe(
+      this.bulletinsService.getPublicationsStatus(this.authenticationService.getActiveRegion(), startDate, endDate).subscribe(
         data => {
           let json = data.json();
         },
@@ -161,13 +157,11 @@ export class AdminComponent {
     json['smtpPort'] = this.smtpPort;
     json['emailUsername'] = this.emailUsername;
     json['emailPassword'] = this.emailPassword;
-    json['socketIoOrigin'] = this.socketIoOrigin;
-    json['socketIoPort'] = this.socketIoPort;
     json['configurationPropertiesLoaded'] = this.configurationPropertiesLoaded;
 
     this.configurationService.saveConfigurationProperties(json).subscribe(
       data => {
-        console.log("Server configuration saved!");
+        console.debug("Server configuration saved!");
       },
       error => {
         console.error("Server configuration could not be saved!");
