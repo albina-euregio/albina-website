@@ -38,7 +38,7 @@ iframe#stationTable {
     font-size: 11px;
     padding-right: 8px;
     color: rgba(8, 0, 0, 0.54);
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
   }
 }
 
@@ -142,7 +142,7 @@ iframe#stationTable {
 
 /* Tendency steady icon */
 .icon-arrow-steady::before {
-  content: '\E817';
+  content: "\E817";
 }
 
 /* Map */
@@ -195,7 +195,7 @@ iframe#stationTable {
     height: 39px !important;
     line-height: 1.8em;
     font-weight: lighter;
-    font-family: 'Fontello';
+    font-family: "Fontello";
     color: #19abff;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
     margin: 0;
@@ -245,7 +245,7 @@ button.mfp-close:before {
 
 a.share-feed {
   line-height: 2em;
-  background-image: url('../images/pro/feed-icon-28x28.png');
+  background-image: url("../images/pro/feed-icon-28x28.png");
   background-repeat: no-repeat;
   background-size: 1.3em 1.3em;
   padding-left: 1.5em;
@@ -257,7 +257,7 @@ a.share-feed {
 
 /* Misc */
 .clearfix::after {
-  content: '';
+  content: "";
   clear: both;
   display: table;
 }
@@ -292,6 +292,9 @@ a.share-feed {
 }
 
 // external links
-a[target*='_blank']:not([class*='sm-button'])::after {
-  content: '↗';
+a[target*="_blank"]:not([class*="sm-button"])::after {
+  content: "\1F87D";
+  font-family: monospace;
+  font-size: 15px;
+  margin-left: 5px;
 }
