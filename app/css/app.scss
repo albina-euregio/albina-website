@@ -1,3 +1,6 @@
+$primary: #19abff;
+$text: #565f61;
+
 iframe#meteoMap {
   width: 100%;
   height: calc(100vh - 215px);
@@ -111,7 +114,7 @@ iframe#stationTable {
 }
 
 .bulletin-flipper-separator {
-  color: #19abff;
+  color: $primary;
   padding: 0 0.4rem 0 0.04rem;
 }
 
@@ -178,7 +181,7 @@ iframe#stationTable {
 }
 
 .leaflet-bar.leaflet-control a {
-  border: 0.5px solid #19abff !important;
+  border: 0.5px solid $primary !important;
   border-radius: 0 !important;
   font-size: 1.8em;
 }
@@ -196,7 +199,7 @@ iframe#stationTable {
     line-height: 1.8em;
     font-weight: lighter;
     font-family: "Fontello";
-    color: #19abff;
+    color: $primary;
     box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
     margin: 0;
     padding: 0;
@@ -211,7 +214,7 @@ iframe#stationTable {
 }
 
 .section-map .leaflet-control-container .leaflet-control-zoom a:hover {
-  background: #19abff;
+  background: $primary;
   color: #fff;
 }
 .section-map
@@ -297,4 +300,20 @@ a[target*="_blank"]:not([class*="sm-button"])::after {
   font-family: monospace;
   font-size: 15px;
   margin-left: 5px;
+}
+
+.section.blog-page-flipper {
+  text-align: center;
+  color: $primary;
+
+  .blog-page-flipper {
+    .page-flipper-separator {
+      color: $text;
+      margin: 0 2rem;
+    }
+    a span:before {
+      top: 0.175em;
+      line-height: 0;
+    }
+  }
 }

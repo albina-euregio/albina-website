@@ -6,6 +6,7 @@ import { Parser } from "html-to-react";
 import BlogStore from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
+import PageFlipper from "../components/blog/page-flipper";
 import FilterBar from "../components/organisms/filter-bar";
 import BlogPostsList from "../components/blog/blog-posts-list";
 import ProvinceFilter from "../components/filters/province-filter";
@@ -178,6 +179,11 @@ class BlogOverview extends React.Component {
               value={this.activeLanguage} />
 */}
         </FilterBar>
+        <section className="section section-padding-height section blog-page-flipper">
+          <div className="section-centered">
+            <PageFlipper store={this.store} />
+          </div>
+        </section>
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
             <BlogPostsList
@@ -186,7 +192,13 @@ class BlogOverview extends React.Component {
             />
           </div>
         </section>
+        <section className="section section-padding-height section blog-page-flipper">
+          <div className="section-centered">
+            <PageFlipper store={this.store} />
+          </div>
+        </section>
         <div>{new Parser().parse(this.state.content)}</div>
+
         {this.state.sharable ? (
           <SmShare />
         ) : (

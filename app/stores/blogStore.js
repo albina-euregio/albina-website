@@ -39,7 +39,7 @@ export default class BlogStore {
   _loading;
   _posts;
   _page;
-  perPage = 5;
+  perPage = 10;
 
   constructor() {
     // get all regions from appStore and activate them
@@ -101,6 +101,7 @@ export default class BlogStore {
 
           return Base.makeUrl(baseUrl + (params["q"] ? "/search" : ""), params);
         },
+
         process: (response, config) => {
           if (Array.isArray(response.items)) {
             return response.items.map(item => {
@@ -193,6 +194,22 @@ export default class BlogStore {
   /* actual page in the pagination through blog posts */
   get page() {
     return this._page.get();
+  }
+
+  @action nextPage() {
+    const thisPage = this.page;
+    const maxPages = this.maxPages;
+    const nextPageNo = thisPage < maxPages ? thisPage + 1 : thisPage;
+    this._page.set(nextPageNo);
+  }
+  @action previousPage() {
+    const thisPage = this.page;
+    const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
+    this._page.set(previousPageNo);
+  }
+
+  @computed get maxPages() {
+    return Math.ceil(this.numberOfPosts / this.perPage);
   }
 
   set page(val) {
@@ -295,7 +312,6 @@ export default class BlogStore {
   }
 
   @computed get numberOfPosts() {
-    console.log("||||||||", this.posts);
     return Object.values(this.posts)
       .map(l => l.length)
       .reduce((acc, v) => acc + v, 0);
@@ -305,7 +321,6 @@ export default class BlogStore {
     const start = (this.page - 1) * this.perPage;
     const limit = this.perPage;
     const totalLength = this.numberOfPosts;
-    console.log("totalLength", totalLength);
 
     const posts = this.posts;
     const queues = Object.keys(posts);
