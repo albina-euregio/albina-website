@@ -181,7 +181,7 @@ class BlogOverview extends React.Component {
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
             <BlogPostsList
-              posts={this.store.getPosts()}
+              posts={this.store.postsList}
               loading={this.store.loading}
             />
           </div>

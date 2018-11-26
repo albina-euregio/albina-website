@@ -38,6 +38,8 @@ export default class BlogStore {
   _searchText;
   _loading;
   _posts;
+  _page;
+  perPage = 5;
 
   constructor() {
     // get all regions from appStore and activate them
@@ -56,7 +58,8 @@ export default class BlogStore {
     // Do not make posts observable, otherwise posts list will be
     // unnecessaryliy rerendered during the filling of this array.
     // Views should only observe the value of the "loading" flag instead.
-    this._posts = {};
+    this._posts = observable.box({});
+    this._page = observable.box(1);
 
     this._year = observable.box("");
     this._month = observable.box("");
@@ -78,36 +81,25 @@ export default class BlogStore {
           const baseUrl =
             window["config"].get("apis.blogger") + config.params.id + "/posts";
 
-          if (this.searchText) {
-            // create search URL
-            const params = {
-              key: window["config"].get("apiKeys.google"),
-              q: this.searchText
-            };
-
-            return Base.makeUrl(baseUrl + "/search", params);
-          }
-
-          // else
           const params = {
             key: window["config"].get("apiKeys.google"),
             fetchBodies: false,
             fetchImages: true,
             status: "live"
           };
-          if (this.avalancheProblem) {
-            params["labels"] = this.avalancheProblem;
+          if (this.searchText) {
+            params["q"] = this.searchText;
+          } else {
+            if (this.avalancheProblem) {
+              params["labels"] = this.avalancheProblem;
+            }
+            if (this.year) {
+              params["startDate"] = this._startDate.toISOString();
+              params["endDate"] = this._endDate.toISOString();
+            }
           }
-          if (this.year) {
-            params["startDate"] = this._startDate.toISOString();
-            params["endDate"] = this._endDate.toISOString();
-          }
-          // TODO search
 
-          return Base.makeUrl(
-            window["config"].get("apis.blogger") + config.params.id + "/posts",
-            params
-          );
+          return Base.makeUrl(baseUrl + (params["q"] ? "/search" : ""), params);
         },
         process: (response, config) => {
           if (Array.isArray(response.items)) {
@@ -164,7 +156,6 @@ export default class BlogStore {
             loads.push(
               Base.doRequest(url).then(
                 response => {
-                  console.log(response);
                   p.process(JSON.parse(response), cfg).forEach(i => {
                     newPosts[cfg.name].push(i);
                   });
@@ -186,11 +177,26 @@ export default class BlogStore {
     }
 
     return Promise.all(loads).then(() => {
-      Object.keys(newPosts).forEach(queue => {
-        this._posts[queue] = newPosts[queue];
-      });
+      this.posts = newPosts;
       this.loading = false;
     });
+  }
+
+  get posts() {
+    return this._posts.get();
+  }
+
+  set posts(val) {
+    this._posts.set(val);
+  }
+
+  /* actual page in the pagination through blog posts */
+  get page() {
+    return this._page.get();
+  }
+
+  set page(val) {
+    this._page.set(val);
   }
 
   get loading() {
@@ -288,12 +294,21 @@ export default class BlogStore {
     this.load(true);
   }
 
-  getPosts(start = 0, limit = 10) {
-    const totalLength = Object.values(this._posts)
+  @computed get numberOfPosts() {
+    console.log("||||||||", this.posts);
+    return Object.values(this.posts)
       .map(l => l.length)
       .reduce((acc, v) => acc + v, 0);
+  }
 
-    const queues = Object.keys(this._posts);
+  @computed get postsList() {
+    const start = (this.page - 1) * this.perPage;
+    const limit = this.perPage;
+    const totalLength = this.numberOfPosts;
+    console.log("totalLength", totalLength);
+
+    const posts = this.posts;
+    const queues = Object.keys(posts);
 
     const startIndex = Math.min(start, totalLength - 1);
     const end = Math.min(start + limit, totalLength);
@@ -306,8 +321,8 @@ export default class BlogStore {
       // get the next items of all queues
       const candidates = {};
       queues.forEach(queue => {
-        if (this._posts[queue].length > postPointer[queue]) {
-          candidates[queue] = this._posts[queue][postPointer[queue]];
+        if (posts[queue].length > postPointer[queue]) {
+          candidates[queue] = posts[queue][postPointer[queue]];
         }
       });
 
@@ -320,7 +335,7 @@ export default class BlogStore {
       }, "");
 
       if (queueMax) {
-        const next = this._posts[queueMax][postPointer[queueMax]];
+        const next = posts[queueMax][postPointer[queueMax]];
         postPointer[queueMax]++;
         return next;
       }
