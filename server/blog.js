@@ -120,7 +120,8 @@ app.get("/:id/*", (req, res) => {
   }
 });
 
-const cleaningInterval = 1000 * 60 * 5;
+const cleaningInterval = 1000 * 60 * 1;
+const maxStoredInterval = 1000 * 60 * 5;
 
 // clean the old requests
 setInterval(() => {
@@ -129,7 +130,7 @@ setInterval(() => {
   console.log("cleaning");
   console.log("stored items before: ", storedBlogs.length);
   storedBlogs = storedBlogs.filter(blog => {
-    return blog.time + cleaningInterval > nowMs;
+    return blog.time + maxStoredInterval > nowMs;
   });
   console.log("stored items after: ", storedBlogs.length);
 }, cleaningInterval);
