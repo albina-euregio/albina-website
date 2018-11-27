@@ -15,18 +15,30 @@ var stats = {
   proccessed: 0
 };
 
+var startingTime = new Date().valueOf();
+
 app.use(cors());
 
-var parseTime = ms => {
-  const now = new Date();
-  const sDiff = (now.valueOf() - ms) / 1000;
-  return Math.ceil(sDiff / 60) + "m " + Math.ceil(sDiff % 60) + "s";
+var parseTime = (now, ms) => {
+  const sDiff = (now - ms) / 1000;
+  return Math.floor(sDiff / 60) + "m " + Math.floor(sDiff % 60) + "s";
 };
 
 app.get("/stats", (req, res) => {
   console.log("serving stats");
+  const now = new Date().valueOf();
+  const runningTimeM = (now - startingTime) / 60000;
+  const runningText =
+    "<strong>" +
+    Math.floor(runningTimeM / 60) +
+    " hours </strong> and <strong>" +
+    Math.floor(runningTimeM % 60) +
+    " minutes</strong>.";
   res.send(
     "<!doctype html><body>" +
+      "<p>server running for " +
+      runningText +
+      "</p>" +
       "<table><tbody>" +
       "<tr><td>total requests received: </td><td><strong>" +
       stats.requested +
@@ -46,7 +58,7 @@ app.get("/stats", (req, res) => {
           return (
             "<li>" +
             "<b>" +
-            parseTime(blog.time) +
+            parseTime(now, blog.time) +
             "</b> - " +
             "<i>" +
             blog.url +
