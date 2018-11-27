@@ -55,31 +55,37 @@ class BlogOverview extends React.Component {
 
   handleChangeRegion = val => {
     this.store.setRegionFilter(val);
+    this.store.load(true);
   };
 
   handleChangeLanguage = val => {
     this.store.setLanguageFilter(val);
+    this.store.load(true);
   };
 
   handleChangeYear = val => {
     this.store.searchText = "";
     this.store.year = val;
+    this.store.load(true);
   };
 
   handleChangeMonth = val => {
     this.store.searchText = "";
     this.store.month = val;
+    this.store.load(true);
   };
 
   handleChangeAvalancheProblem = val => {
     this.store.searchText = "";
     this.store.avalancheProblem = val;
+    this.store.load(true);
   };
 
   handleChangeSearch = val => {
+    this.store.searchText = val;
     this.store.avalancheProblem = "";
     this.store.year = "";
-    this.store.searchText = val;
+    this.store.load(true);
   };
 
   @computed get activeRegion() {

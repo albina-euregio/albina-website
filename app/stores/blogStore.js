@@ -82,10 +82,7 @@ export default class BlogStore {
             window["config"].get("apis.blogger") + config.params.id + "/posts";
 
           const params = {
-            key: window["config"].get("apiKeys.google"),
-            fetchBodies: false,
-            fetchImages: true,
-            status: "live"
+            key: window["config"].get("apiKeys.google")
           };
           if (this.searchText) {
             params["q"] = this.searchText;
@@ -99,7 +96,7 @@ export default class BlogStore {
             }
           }
 
-          return Base.makeUrl(baseUrl + (params["q"] ? "/search" : ""), params);
+          return Base.makeUrl(baseUrl, params);
         },
 
         process: (response, config) => {
@@ -153,10 +150,11 @@ export default class BlogStore {
             const p = this.blogProcessor[cfg.apiType];
 
             const url = p.createUrl(cfg);
-            console.log(url);
+            console.log("processing", this.searchText, url);
             loads.push(
               Base.doRequest(url).then(
                 response => {
+                  console.log(response);
                   p.process(JSON.parse(response), cfg).forEach(i => {
                     newPosts[cfg.name].push(i);
                   });
@@ -183,8 +181,8 @@ export default class BlogStore {
     });
   }
 
-  get posts() {
-    return this._posts.get();
+  @computed get posts() {
+    return toJS(this._posts);
   }
 
   set posts(val) {
@@ -216,7 +214,7 @@ export default class BlogStore {
     this._page.set(val);
   }
 
-  get loading() {
+  @computed get loading() {
     return this._loading.get();
   }
 
@@ -231,7 +229,6 @@ export default class BlogStore {
   set searchText(val) {
     if (val != this._searchText.get()) {
       this._searchText.set(val);
-      this.load(true);
     }
   }
 
@@ -241,7 +238,6 @@ export default class BlogStore {
 
   set avalancheProblem(val) {
     this._avalancheProblem.set(val);
-    this.load(true);
   }
 
   @computed get languageFilter() {
@@ -259,7 +255,6 @@ export default class BlogStore {
 
   set year(y) {
     this._year.set(y);
-    this.load(true);
   }
 
   get month() {
@@ -268,7 +263,6 @@ export default class BlogStore {
 
   set month(m) {
     this._month.set(m);
-    this.load(true);
   }
 
   get _startDate() {
@@ -301,14 +295,12 @@ export default class BlogStore {
     for (let r in this.regions) {
       this.regions[r].active = !region || r === region;
     }
-    this.load(true);
   }
 
   @action setLanguageFilter(lang) {
     for (let l in this.languages) {
       this.languages[l].active = !lang || l === lang;
     }
-    this.load(true);
   }
 
   @computed get numberOfPosts() {
@@ -323,6 +315,7 @@ export default class BlogStore {
     const totalLength = this.numberOfPosts;
 
     const posts = this.posts;
+    console.log(posts);
     const queues = Object.keys(posts);
 
     const startIndex = Math.min(start, totalLength - 1);

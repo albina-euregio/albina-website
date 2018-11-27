@@ -53,7 +53,7 @@ class BlogPageFlipper extends React.Component {
           </li>
         )}
         <li className="page-flipper-separator">
-          page {this.store.page} / {this.store.maxPages}
+          {this.store.page} / {this.store.maxPages}
         </li>
         {this.isNextPage() && (
           <li className="bulletin-flipper-forward">
