@@ -317,3 +317,20 @@ a[target*="_blank"]:not([class*="sm-button"])::after {
     }
   }
 }
+
+/* blogposts styling */
+@media only screen and (min-width: 48em) and (max-width: 64em) {
+  a.linkbox-blog-feature {
+    max-height: 110px;
+  }
+}
+@media only screen and (min-width: 64em) and (max-width: 200em) {
+  a.linkbox-blog-feature {
+    max-height: 125px;
+  }
+}
+@media only screen and (min-width: 635px) and (max-width: 48em) {
+  a.linkbox-blog-feature {
+    max-height: 100px;
+  }
+}
