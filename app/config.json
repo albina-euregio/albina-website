@@ -62,6 +62,7 @@
     "subscribe": "http://212.47.231.185:8080/albina/api/email",
     "geo": "https://data1.geo.univie.ac.at/exchange/albina2/awm/",
     "blogger": "https://blogcache.avalanche.report/",
+    "blogger_": "//localhost:3000/",
     "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/"
   },
   "apiKeys": {

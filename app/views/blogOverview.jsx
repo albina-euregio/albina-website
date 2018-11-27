@@ -18,9 +18,12 @@ import TagFilter from "../components/filters/tag-filter";
 class BlogOverview extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props.history);
+    const getHistory = () => this.props.history;
     if (!window["blogStore"]) {
-      window["blogStore"] = new BlogStore();
+      window["blogStore"] = new BlogStore(getHistory);
     }
+
     this.store = window["blogStore"];
     this.state = {
       title: "",
@@ -30,11 +33,17 @@ class BlogOverview extends React.Component {
     };
   }
 
+  componentDidUpdate() {
+    console.log("!!!! did update");
+    this.store.checkUrl();
+  }
+
   componentWillReceiveProps(nextProps) {
     return this._fetchData();
   }
 
   componentDidMount() {
+    console.log("didMount");
     window["staticPageStore"].loadPage("/blog").then(response => {
       // parse content
       const responseParsed = JSON.parse(response);
@@ -50,65 +59,43 @@ class BlogOverview extends React.Component {
   }
 
   _fetchData() {
-    return this.store.load();
+    //return this.store.load();
   }
 
   handleChangeRegion = val => {
-    this.store.setRegionFilter(val);
-    this.store.load(true);
+    this.store.setRegions(val);
+    this.store.update();
   };
 
   handleChangeLanguage = val => {
-    this.store.setLanguageFilter(val);
-    this.store.load(true);
+    this.store.setLanguages(val);
+    this.store.update();
   };
 
   handleChangeYear = val => {
     this.store.searchText = "";
     this.store.year = val;
-    this.store.load(true);
+    this.store.update();
   };
 
   handleChangeMonth = val => {
     this.store.searchText = "";
     this.store.month = val;
-    this.store.load(true);
+    this.store.update();
   };
 
   handleChangeAvalancheProblem = val => {
     this.store.searchText = "";
     this.store.avalancheProblem = val;
-    this.store.load(true);
+    this.store.update();
   };
 
   handleChangeSearch = val => {
     this.store.searchText = val;
     this.store.avalancheProblem = "";
     this.store.year = "";
-    this.store.load(true);
+    this.store.update();
   };
-
-  @computed get activeRegion() {
-    const rs = Object.keys(this.store.regions);
-    if (rs.every(r => this.store.regions[r].active)) {
-      // if all are active, return '' (i.e. value for "All")
-      return "";
-    }
-
-    // otherwise return the first active index
-    return rs.find(r => this.store.regions[r].active);
-  }
-
-  @computed get activeLanugage() {
-    const ls = Object.keys(this.store.languages);
-    if (ls.every(l => this.store.languages[l].active)) {
-      // if all are active, return '' (i.e. value for "All")
-      return "";
-    }
-
-    // otherwise return the first active index
-    return ls.find(l => this.store.languages[l].active);
-  }
 
   render() {
     return (
@@ -133,7 +120,7 @@ class BlogOverview extends React.Component {
               id: "filter:all"
             })}
             handleChange={this.handleChangeLanguage}
-            value={this.store.languageFilter}
+            value={this.store.languageActive}
             className={this.store.searchText ? "disabled" : ""}
           />
           <ProvinceFilter
@@ -142,7 +129,7 @@ class BlogOverview extends React.Component {
             })}
             all={this.props.intl.formatMessage({ id: "filter:all" })}
             handleChange={this.handleChangeRegion}
-            value={this.activeRegion}
+            value={this.regionActive}
           />
           <TagFilter
             title={this.props.intl.formatMessage({

@@ -1,62 +1,58 @@
-import React from 'react'
-import { matchPath, withRouter } from 'react-router'
-import { Link } from 'react-router-dom'
-import { observer, inject } from 'mobx-react'
-import { injectIntl, FormattedMessage } from 'react-intl'
-import Menu from './../menu'
-import Base from './../../base'
-import stringInject from 'stringinject'
+import React from "react";
+import { matchPath, withRouter } from "react-router";
+import { Link } from "react-router-dom";
+import { observer, inject } from "mobx-react";
+import { injectIntl, FormattedMessage } from "react-intl";
+import Menu from "./../menu";
+import Base from "./../../base";
+import stringInject from "stringinject";
 
 class PageHeader extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   handleChangeLanguage = newLanguage => {
-    window['appStore'].setLanguage(newLanguage)
-    Base.searchChange(this.props.history, 'lang', newLanguage, true)
-  }
+    window["appStore"].setLanguage(newLanguage);
+    Base.searchChange(this.props.history, { lang: newLanguage }, true);
+  };
 
   setActiveMenuItem = e => {
-    if (typeof e == 'object') {
+    if (typeof e == "object") {
       Object.keys(e).forEach(k => {
-        window['appStore'].navigation.activeElement[k] = e[k]
-      })
+        window["appStore"].navigation.activeElement[k] = e[k];
+      });
     }
-  }
+  };
 
   setActiveTopLevelMenuItem = e => {
-    if (typeof e == 'object') {
+    if (typeof e == "object") {
       Object.keys(e).forEach(k => {
-        window['appStore'].navigation.activeTopLevelElement[k] = e[k]
-      })
+        window["appStore"].navigation.activeTopLevelElement[k] = e[k];
+      });
     }
-  }
+  };
 
   render() {
-    const langs = window['appStore'].languages
-    const lang = window['appStore'].language
-    const menuItems = this.props.menuStore.getMenu('main')
+    const langs = window["appStore"].languages;
+    const lang = window["appStore"].language;
+    const menuItems = this.props.menuStore.getMenu("main");
 
     return (
-      <div
-        id="page-header"
-        className="page-header"
-        data-scroll-header
-      >
+      <div id="page-header" className="page-header" data-scroll-header>
         <div className="page-header-logo">
           <Link
             to="/"
             className="tooltip"
             title={this.props.intl.formatMessage({
-              id: 'header:logo:hover'
+              id: "header:logo:hover"
             })}
           >
             {langs.map(l => (
-              <span key={l} className={'mark mark-' + l} />
+              <span key={l} className={"mark mark-" + l} />
             ))}
             {langs.map(l => (
-              <span key={l} className={'url url-' + l} />
+              <span key={l} className={"url url-" + l} />
             ))}
           </Link>
         </div>
@@ -67,8 +63,8 @@ class PageHeader extends React.Component {
             childClassName="list-plain subnavigation"
             onSelect={() => {
               // close mobile menu on selection
-              if ($('body').hasClass('navigation-open')) {
-                $('.navigation-trigger').trigger('click')
+              if ($("body").hasClass("navigation-open")) {
+                $(".navigation-trigger").trigger("click");
               }
             }}
             onActiveMenuItem={this.setActiveTopLevelMenuItem}
@@ -81,9 +77,9 @@ class PageHeader extends React.Component {
               <a
                 className="language-trigger-de tooltip"
                 title={this.props.intl.formatMessage({
-                  id: 'header:language-switch:de:hover'
+                  id: "header:language-switch:de:hover"
                 })}
-                onClick={() => this.handleChangeLanguage('de')}
+                onClick={() => this.handleChangeLanguage("de")}
               >
                 DE
               </a>
@@ -92,9 +88,9 @@ class PageHeader extends React.Component {
               <a
                 className="language-trigger-it tooltip"
                 title={this.props.intl.formatMessage({
-                  id: 'header:language-switch:it:hover'
+                  id: "header:language-switch:it:hover"
                 })}
-                onClick={() => this.handleChangeLanguage('it')}
+                onClick={() => this.handleChangeLanguage("it")}
               >
                 IT
               </a>
@@ -103,9 +99,9 @@ class PageHeader extends React.Component {
               <a
                 className="language-trigger-en tooltip"
                 title={this.props.intl.formatMessage({
-                  id: 'header:language-switch:en:hover'
+                  id: "header:language-switch:en:hover"
                 })}
-                onClick={() => this.handleChangeLanguage('en')}
+                onClick={() => this.handleChangeLanguage("en")}
               >
                 EN
               </a>
@@ -116,7 +112,7 @@ class PageHeader extends React.Component {
           <button
             href
             title={this.props.intl.formatMessage({
-              id: 'header:hamburger:hover'
+              id: "header:hamburger:hover"
             })}
             className="pure-button pure-button-icon navigation-trigger tooltip"
           >
@@ -128,12 +124,12 @@ class PageHeader extends React.Component {
         </div>
         <div className="page-header-interreg">
           <a
-            href={stringInject(config.get('links.interreg'), {
+            href={stringInject(config.get("links.interreg"), {
               lang: lang
             })}
             className="logo-interreg tooltip"
             title={this.props.intl.formatMessage({
-              id: 'header:interreg:hover'
+              id: "header:interreg:hover"
             })}
             target="_blank"
           >
@@ -141,10 +137,8 @@ class PageHeader extends React.Component {
           </a>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default inject('locale')(
-  injectIntl(withRouter(observer(PageHeader)))
-)
+export default inject("locale")(injectIntl(withRouter(observer(PageHeader))));

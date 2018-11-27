@@ -97,7 +97,7 @@ var Base = {
     Object.keys(params).forEach(paramKey => {
       const newValue = params[paramKey] ? params[paramKey].toString() : "";
       const oldValue = search.get(paramKey);
-      if (oldValue !== newValue) {
+      if (oldValue != newValue) {
         changes[paramKey] = newValue;
       }
     });
@@ -108,7 +108,7 @@ var Base = {
       // setting new search object
       Object.keys(changes).forEach(changeKey => {
         const changeValue = changes[changeKey];
-        if (search.get(changeKey)) {
+        if (search.has(changeKey)) {
           search.set(changeKey, changeValue);
         } else {
           search.append(changeKey, changeValue);

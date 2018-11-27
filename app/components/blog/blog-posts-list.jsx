@@ -15,7 +15,6 @@ class BlogPostsList extends React.Component {
       <div>
         {!this.props.loading &&
           this.props.posts.map((item, i) => {
-            console.log(item);
             return (
               <Link
                 key={i}

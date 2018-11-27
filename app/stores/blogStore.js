@@ -30,45 +30,105 @@ class BlogPostPreviewItem {
 }
 
 export default class BlogStore {
-  regions;
-  languages;
+  _regions;
+  _languages;
   _year;
   _month;
-  _avalancheProblem;
+  _problem;
   _searchText;
+
+  _page;
+
   _loading;
   _posts;
-  _page;
+
   perPage = 10;
+  getHistory;
 
-  constructor() {
+  update() {
+    console.log("update", this.languageActive);
+    Base.searchChange(
+      this.getHistory(),
+      {
+        year: this.year,
+        month: this.month,
+        searchLang: this.languageActive,
+        region: this.regionActive,
+        problem: this.problem,
+        page: this.page,
+        search: this.searchText
+      },
+      false,
+      true
+    );
+
+    this.load(true);
+  }
+
+  checkUrl() {
+    console.log("checkUrl", this.languageActive);
+    let needLoad = false;
+    if (Base.searchGet("searchLang") != this.languageActive) {
+      this.setLanguages(Base.searchGet("searchLang"));
+      needLoad = true;
+    }
+
+    if (needLoad) {
+      console.log("reloading");
+      this.load(true);
+    }
+  }
+
+  initialParams() {
+    const date = new Date();
+    const searchLang = Base.searchGet("searchLang");
+
+    console.log("searchLang", searchLang);
+
+    const initialParameters = {
+      year: Base.searchGet("year") || date.getFullYear(),
+      month: Base.searchGet("month") || parseInt(date.getMonth()) + 1,
+      problem: Base.searchGet("problem") || "",
+      page: Base.searchGet("page") || 1,
+      search: Base.searchGet("search") || "",
+      languages: {
+        de: ["de", "all"].includes(searchLang) || !searchLang,
+        it: ["it", "all"].includes(searchLang) || !searchLang,
+        en: ["en", "all"].includes(searchLang) || !searchLang
+      }
+    };
+
     // get all regions from appStore and activate them
-    const rs = Object.keys(window["appStore"].regions).reduce((acc, r) => {
-      acc[r] = { active: true };
-      return acc;
-    }, {});
-    this.regions = observable(rs);
-
-    this.languages = observable({
-      de: { active: true },
-      it: { active: true },
-      en: { active: true }
+    const searchRegion = Base.searchGet("region");
+    const initialRegions = {};
+    Object.keys(window["appStore"].regions).forEach(regionName => {
+      initialRegions[regionName] =
+        ["", "all", regionName].includes(searchRegion) || !searchRegion;
     });
+    initialParameters.regions = initialRegions;
+
+    return initialParameters;
+  }
+
+  constructor(getHistory) {
+    this.getHistory = getHistory;
+
+    console.log("CONSTRUCTOR");
+
+    const initialParameters = this.initialParams();
+    console.log(JSON.stringify(initialParameters));
 
     // Do not make posts observable, otherwise posts list will be
     // unnecessaryliy rerendered during the filling of this array.
     // Views should only observe the value of the "loading" flag instead.
     this._posts = observable.box({});
-    this._page = observable.box(1);
+    this._page = observable.box(initialParameters.page);
 
-    this._year = observable.box("");
-    this._month = observable.box("");
-    this._avalancheProblem = observable.box("");
-
-    // setting the actual date
-    const date = new Date();
-    this._year.set(date.getFullYear());
-    this._month.set(date.getMonth() + 1);
+    this._regions = observable.box(initialParameters.regions);
+    this._languages = observable.box(initialParameters.languages);
+    this._year = observable.box(initialParameters.year);
+    this._month = observable.box(initialParameters.month);
+    this._problem = observable.box(initialParameters.problem);
 
     // For Mobx > v4 we have to use an obserable box instead of
     // @observable loading = ...;
@@ -87,12 +147,12 @@ export default class BlogStore {
           if (this.searchText) {
             params["q"] = this.searchText;
           } else {
-            if (this.avalancheProblem) {
-              params["labels"] = this.avalancheProblem;
+            if (this.problem) {
+              params["labels"] = this.problem;
             }
             if (this.year) {
-              params["startDate"] = this._startDate.toISOString();
-              params["endDate"] = this._endDate.toISOString();
+              params["startDate"] = this.startDate.toISOString();
+              params["endDate"] = this.endDate.toISOString();
             }
           }
 
@@ -125,6 +185,7 @@ export default class BlogStore {
         }
       }
     };
+    this.update();
   }
 
   @action load(forceReload = false) {
@@ -144,17 +205,17 @@ export default class BlogStore {
     for (let cfg of blogsConfig) {
       newPosts[cfg.name] = [];
 
-      if (this.languages[cfg.lang] && this.languages[cfg.lang].active) {
-        if (cfg.regions.some(r => this.regions[r] && this.regions[r].active)) {
+      if (this.languages[cfg.lang] && this.languages[cfg.lang]) {
+        if (cfg.regions.some(r => this.regions[r] && this.regions[r])) {
           if (this.blogProcessor[cfg.apiType]) {
             const p = this.blogProcessor[cfg.apiType];
 
             const url = p.createUrl(cfg);
-            console.log("processing", this.searchText, url);
+            // console.log("processing", this.searchText, url);
             loads.push(
               Base.doRequest(url).then(
                 response => {
-                  console.log(response);
+                  //console.log(response);
                   p.process(JSON.parse(response), cfg).forEach(i => {
                     newPosts[cfg.name].push(i);
                   });
@@ -190,8 +251,11 @@ export default class BlogStore {
   }
 
   /* actual page in the pagination through blog posts */
-  get page() {
+  @computed get page() {
     return this._page.get();
+  }
+  set page(val) {
+    this._page.set(val);
   }
 
   @action nextPage() {
@@ -205,67 +269,49 @@ export default class BlogStore {
     const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
     this._page.set(previousPageNo);
   }
-
   @computed get maxPages() {
     return Math.ceil(this.numberOfPosts / this.perPage);
-  }
-
-  set page(val) {
-    this._page.set(val);
   }
 
   @computed get loading() {
     return this._loading.get();
   }
-
   set loading(val) {
     this._loading.set(val);
   }
 
-  get searchText() {
+  @computed get searchText() {
     return this._searchText.get();
   }
-
   set searchText(val) {
     if (val != this._searchText.get()) {
       this._searchText.set(val);
     }
   }
 
-  get avalancheProblem() {
-    return this._avalancheProblem.get();
+  @computed get problem() {
+    return this._problem.get();
   }
 
-  set avalancheProblem(val) {
-    this._avalancheProblem.set(val);
+  set problem(val) {
+    this._problem.set(val);
   }
 
-  @computed get languageFilter() {
-    const languages = toJS(this.languages);
-    const activeLanguages = Object.keys(languages).filter(
-      lang => languages[lang].active
-    );
-
-    return activeLanguages.length > 1 ? "all" : activeLanguages[0];
-  }
-
-  get year() {
+  @computed get year() {
     return this._year.get();
   }
-
   set year(y) {
     this._year.set(y);
   }
 
-  get month() {
+  @computed get month() {
     return this._month.get();
   }
-
   set month(m) {
     this._month.set(m);
   }
 
-  get _startDate() {
+  @computed get startDate() {
     if (this.year) {
       if (this.month) {
         return new Date(this.year, this.month - 1, 1);
@@ -275,7 +321,7 @@ export default class BlogStore {
     return null;
   }
 
-  get _endDate() {
+  @computed get endDate() {
     if (this.year) {
       if (this.month) {
         return new Date(
@@ -291,16 +337,42 @@ export default class BlogStore {
     return null;
   }
 
-  @action setRegionFilter(region) {
-    for (let r in this.regions) {
-      this.regions[r].active = !region || r === region;
-    }
+  @computed get languages() {
+    return toJS(this._languages);
+  }
+  @computed get regions() {
+    return toJS(this._regions);
   }
 
-  @action setLanguageFilter(lang) {
-    for (let l in this.languages) {
-      this.languages[l].active = !lang || l === lang;
+  @action setRegions(region) {
+    const newRegions = this.regions;
+    for (let r in setRegions) {
+      setRegions[r] = [r, "all"].includes(region) || !region;
     }
+    this._regions.set(newRegions);
+  }
+
+  @action setLanguages(lang) {
+    const newLanguages = this.languages;
+    for (let l in newLanguages) {
+      newLanguages[l] = [l, "all"].includes(lang) || !lang;
+    }
+    console.log("languages set", lang, this.languages);
+    this._languages.set(newLanguages);
+  }
+
+  @computed get languageActive() {
+    const active = Object.keys(this.languages).filter(
+      lang => this.languages[lang]
+    );
+    return active.length > 1 ? "all" : active[0];
+  }
+
+  @computed get regionActive() {
+    const active = Object.keys(this.regions).filter(
+      region => this.regions[region]
+    );
+    return active.length > 1 ? "all" : active[0];
   }
 
   @computed get numberOfPosts() {
@@ -315,7 +387,7 @@ export default class BlogStore {
     const totalLength = this.numberOfPosts;
 
     const posts = this.posts;
-    console.log(posts);
+    //console.log(posts);
     const queues = Object.keys(posts);
 
     const startIndex = Math.min(start, totalLength - 1);
