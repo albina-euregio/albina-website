@@ -2,6 +2,7 @@ import { observable, action, computed, toJS } from "mobx";
 import Base from "../base";
 import { parseDate, getDaysOfMonth } from "../util/date";
 import { parseTags } from "../util/tagging";
+import L from "leaflet";
 
 class BlogPostPreviewItem {
   constructor(
@@ -42,7 +43,8 @@ export default class BlogStore {
   loading;
   _posts;
 
-  perPage = 10;
+  // show only 5 blog posts when the mobile phone is detected
+  perPage = L.Browser.mobile ? 5 : 10;
   getHistory;
 
   update() {
