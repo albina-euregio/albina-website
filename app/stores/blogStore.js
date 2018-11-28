@@ -77,7 +77,7 @@ export default class BlogStore {
       searchLang: Base.searchGet("searchLang", search),
       region: Base.searchGet("region", search),
       problem: Base.searchGet("problem", search),
-      page: Base.searchGet("page", search),
+      page: this.validatePage(Base.searchGet("page", search)),
       searchText: Base.searchGet("searchText", search)
     };
 
@@ -114,7 +114,7 @@ export default class BlogStore {
 
     // page
     if (urlValues.page != this.page) {
-      this.page = urlValues.page;
+      this.setPage(urlValues.page);
       needLoad = true;
     }
 
@@ -309,17 +309,27 @@ export default class BlogStore {
     this._page.set(parseInt(val));
   }
 
+  validatePage(pageToValidate) {
+    const maxPages = this.maxPages;
+    return Base.clamp(pageToValidate, 0, maxPages);
+  }
+
+  @action setPage(newPage) {
+    console.log("setting page");
+    this.page = this.validatePage(newPage);
+  }
+
   @action nextPage() {
     const thisPage = this.page;
     const maxPages = this.maxPages;
     const nextPageNo = thisPage < maxPages ? thisPage + 1 : thisPage;
     console.log("setting page", nextPageNo);
-    this.page = nextPageNo;
+    this.setPage(nextPageNo);
   }
   @action previousPage() {
     const thisPage = this.page;
     const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
-    this.page = previousPageNo;
+    this.setPage(previousPageNo);
   }
   @computed get maxPages() {
     return Math.ceil(this.numberOfPosts / this.perPage);
