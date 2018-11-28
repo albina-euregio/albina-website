@@ -189,7 +189,7 @@ export default class BlogStore {
     this.blogProcessor = {
       blogger: {
         createUrl: config => {
-          const baseUrl =
+          let baseUrl =
             window["config"].get("apis.blogger") + config.params.id + "/posts";
 
           const params = {
@@ -197,6 +197,7 @@ export default class BlogStore {
           };
           if (this.searchText) {
             params["q"] = this.searchText;
+            baseUrl += "/search";
           } else {
             if (this.problem) {
               params["labels"] = this.problem;
@@ -262,12 +263,13 @@ export default class BlogStore {
             const p = this.blogProcessor[cfg.apiType];
 
             const url = p.createUrl(cfg);
-            // console.log("processing", this.searchText, url);
+            //console.log("processing", this.searchText, url);
+
             loads.push(
               Base.doRequest(url).then(
                 response => {
-                  //console.log(response);
                   p.process(JSON.parse(response), cfg).forEach(i => {
+                    //console.log("new item", i);
                     newPosts[cfg.name].push(i);
                   });
                 },
