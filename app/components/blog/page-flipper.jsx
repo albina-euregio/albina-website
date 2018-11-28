@@ -22,7 +22,7 @@ class BlogPageFlipper extends React.Component {
   }
 
   isNextPage() {
-    return this.store.page != this.store.maxPages;
+    return this.store.page < this.store.maxPages;
   }
 
   isPreviousPage() {
@@ -52,6 +52,7 @@ class BlogPageFlipper extends React.Component {
             </a>
           </li>
         )}
+
         <li className="page-flipper-separator">
           {this.store.page} / {this.store.maxPages}
         </li>

@@ -708,6 +708,11 @@
     "de": "Seite",
     "it": "pagina"
   },
+  "blog:page-flipper:no-posts": {
+    "en": "No content found, please choose different filters.",
+    "de": "Kein Inhalt gefunden, bitte andere Filter wählen.",
+    "it": "Nessun contenuto trovato, si prega di scegliere diversi filtri."
+  },
 
   "dialog:unsupportedBrowser:heading": {
     "en": "EN Your browser is old",

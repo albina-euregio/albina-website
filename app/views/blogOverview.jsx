@@ -16,6 +16,7 @@ import MonthFilter from "../components/filters/month-filter";
 import TagFilter from "../components/filters/tag-filter";
 
 class BlogOverview extends React.Component {
+  _settingFilters;
   constructor(props) {
     super(props);
     console.log(this.props.history);
@@ -23,6 +24,7 @@ class BlogOverview extends React.Component {
     if (!window["blogStore"]) {
       window["blogStore"] = new BlogStore(getHistory);
     }
+    this.settingFilters = false;
 
     this.store = window["blogStore"];
     this.state = {
@@ -34,8 +36,10 @@ class BlogOverview extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("!!!! did update");
-    this.store.checkUrl();
+    //console.log("!!!! did update");
+    if (!this.settingFilters) {
+      this.store.checkUrl();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -62,39 +66,54 @@ class BlogOverview extends React.Component {
     //return this.store.load();
   }
 
-  handleChangeRegion = val => {
-    this.store.setRegions(val);
+  doStoreUpdate() {
     this.store.update();
+    this.settingFilters = false;
+  }
+
+  handleChangeRegion = val => {
+    this.settingFilters = true;
+    this.store.setRegions(val);
+    this.doStoreUpdate();
   };
 
   handleChangeLanguage = val => {
+    this.settingFilters = true;
     this.store.setLanguages(val);
-    this.store.update();
+    this.doStoreUpdate();
   };
 
   handleChangeYear = val => {
+    this.settingFilters = true;
     this.store.searchText = "";
     this.store.year = val;
-    this.store.update();
+
+    this.doStoreUpdate();
   };
 
   handleChangeMonth = val => {
+    this.settingFilters = true;
     this.store.searchText = "";
     this.store.month = val;
-    this.store.update();
+
+    this.doStoreUpdate();
   };
 
   handleChangeAvalancheProblem = val => {
+    this.settingFilters = true;
     this.store.searchText = "";
-    this.store.avalancheProblem = val;
-    this.store.update();
+    this.store.problem = val;
+
+    this.doStoreUpdate();
   };
 
   handleChangeSearch = val => {
+    this.settingFilters = true;
     this.store.searchText = val;
-    this.store.avalancheProblem = "";
+    this.store.problem = "";
     this.store.year = "";
-    this.store.update();
+
+    this.doStoreUpdate();
   };
 
   render() {
@@ -129,7 +148,7 @@ class BlogOverview extends React.Component {
             })}
             all={this.props.intl.formatMessage({ id: "filter:all" })}
             handleChange={this.handleChangeRegion}
-            value={this.regionActive}
+            value={this.store.regionActive}
           />
           <TagFilter
             title={this.props.intl.formatMessage({
@@ -137,7 +156,7 @@ class BlogOverview extends React.Component {
             })}
             all={this.props.intl.formatMessage({ id: "filter:all" })}
             handleChange={this.handleChangeAvalancheProblem}
-            value={this.store.avalancheProblem}
+            value={this.store.problem}
             className={this.store.searchText ? "disabled" : ""}
           />
           <YearFilter
@@ -173,9 +192,18 @@ class BlogOverview extends React.Component {
 */}
         </FilterBar>
         <section className="section section-padding-height section blog-page-flipper">
-          <div className="section-centered">
-            <PageFlipper store={this.store} />
-          </div>
+          {this.store.maxPages === 0 && (
+            <div className="section-centered">
+              {this.props.intl.formatMessage({
+                id: "blog:page-flipper:no-posts"
+              })}
+            </div>
+          )}
+          {this.store.maxPages > 0 && (
+            <div className="section-centered">
+              <PageFlipper store={this.store} />
+            </div>
+          )}
         </section>
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
@@ -186,9 +214,11 @@ class BlogOverview extends React.Component {
           </div>
         </section>
         <section className="section section-padding-height section blog-page-flipper">
-          <div className="section-centered">
-            <PageFlipper store={this.store} />
-          </div>
+          {this.store.maxPages > 0 && (
+            <div className="section-centered">
+              <PageFlipper store={this.store} />
+            </div>
+          )}
         </section>
         <div>{new Parser().parse(this.state.content)}</div>
 
