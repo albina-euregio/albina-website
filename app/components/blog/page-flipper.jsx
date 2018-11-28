@@ -10,17 +10,6 @@ class BlogPageFlipper extends React.Component {
     super(props);
   }
 
-  handlePreviousPage() {
-    this.store.previousPage();
-  }
-
-  handlePreviousPage() {
-    this.store.previousPage();
-  }
-  handleNextPage() {
-    this.store.nextPage();
-  }
-
   isNextPage() {
     return this.store.page < this.store.maxPages;
   }
@@ -39,7 +28,7 @@ class BlogPageFlipper extends React.Component {
         {this.isPreviousPage() && (
           <li className="page-flipper-back">
             <a
-              onClick={this.handlePreviousPage.bind(this)}
+              onClick={() => this.props.handlePreviousPage()}
               title={this.props.intl.formatMessage({
                 id: "bulletin:header:dateflipper:back"
               })}
@@ -59,7 +48,7 @@ class BlogPageFlipper extends React.Component {
         {this.isNextPage() && (
           <li className="bulletin-flipper-forward">
             <a
-              onClick={this.handleNextPage.bind(this)}
+              onClick={() => this.props.handleNextPage()}
               title={this.props.intl.formatMessage({
                 id: "bulletin:header:dateflipper:forward"
               })}

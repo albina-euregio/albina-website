@@ -116,6 +116,18 @@ class BlogOverview extends React.Component {
     this.doStoreUpdate();
   };
 
+  handlePreviousPage() {
+    this.settingFilters = true;
+    this.store.previousPage();
+    this.doStoreUpdate();
+  }
+
+  handleNextPage() {
+    this.settingFilters = true;
+    this.store.nextPage();
+    this.doStoreUpdate();
+  }
+
   render() {
     return (
       <div>
@@ -201,7 +213,11 @@ class BlogOverview extends React.Component {
           )}
           {this.store.maxPages > 0 && (
             <div className="section-centered">
-              <PageFlipper store={this.store} />
+              <PageFlipper
+                handlePreviousPage={this.handlePreviousPage.bind(this)}
+                handleNextPage={this.handleNextPage.bind(this)}
+                store={this.store}
+              />
             </div>
           )}
         </section>
@@ -216,7 +232,11 @@ class BlogOverview extends React.Component {
         <section className="section section-padding-height section blog-page-flipper">
           {this.store.maxPages > 0 && (
             <div className="section-centered">
-              <PageFlipper store={this.store} />
+              <PageFlipper
+                handlePreviousPage={this.handlePreviousPage.bind(this)}
+                handleNextPage={this.handleNextPage.bind(this)}
+                store={this.store}
+              />
             </div>
           )}
         </section>

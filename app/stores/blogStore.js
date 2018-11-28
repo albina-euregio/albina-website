@@ -39,14 +39,14 @@ export default class BlogStore {
 
   _page;
 
-  _loading;
+  loading;
   _posts;
 
   perPage = 10;
   getHistory;
 
   update() {
-    console.log("update", this.languageActive);
+    console.log("update", this.page);
     Base.searchChange(
       this.getHistory(),
       {
@@ -56,7 +56,7 @@ export default class BlogStore {
         region: this.regionActive,
         problem: this.problem,
         page: this.page,
-        search: this.searchText
+        searchText: this.searchText
       },
       false,
       true
@@ -65,16 +65,67 @@ export default class BlogStore {
     this.load(true);
   }
 
+  // checking if the url has been changed and applying new values
   checkUrl() {
     console.log("checkUrl", this.languageActive);
     let needLoad = false;
-    if (Base.searchGet("searchLang") != this.languageActive) {
-      this.setLanguages(Base.searchGet("searchLang"));
+
+    const search = Base.makeSearch();
+    const urlValues = {
+      year: Base.searchGet("year", search),
+      month: Base.searchGet("month", search),
+      searchLang: Base.searchGet("searchLang", search),
+      region: Base.searchGet("region", search),
+      problem: Base.searchGet("problem", search),
+      page: Base.searchGet("page", search),
+      searchText: Base.searchGet("searchText", search)
+    };
+
+    // year
+    if (urlValues.year != this.year) {
+      this.year = urlValues.year;
+      needLoad = true;
+    }
+
+    // month
+    if (urlValues.month != this.month) {
+      this.month = urlValues.month;
+      needLoad = true;
+    }
+
+    // language
+    if (urlValues.searchLang != this.languageActive) {
+      this.setLanguages(urlValues.searchLang);
+      needLoad = true;
+    }
+
+    // region
+    if (urlValues.region != this.regionActive) {
+      console.log("!!region needs to be updated to", urlValues.region);
+      this.setRegions(urlValues.region);
+      needLoad = true;
+    }
+
+    // problem
+    if (urlValues.problem != this.problem) {
+      this.problem = urlValues.problem;
+      needLoad = true;
+    }
+
+    // page
+    if (urlValues.page != this.page) {
+      this.page = urlValues.page;
+      needLoad = true;
+    }
+
+    // searchText
+    if (urlValues.searchText != this.searchText) {
+      this.searchText = urlValues.searchText;
       needLoad = true;
     }
 
     if (needLoad) {
-      console.log("reloading");
+      console.log("reload needed");
       this.load(true);
     }
   }
@@ -90,7 +141,7 @@ export default class BlogStore {
       month: Base.searchGet("month") || parseInt(date.getMonth()) + 1,
       problem: Base.searchGet("problem") || "",
       page: Base.searchGet("page") || 1,
-      search: Base.searchGet("search") || "",
+      searchText: Base.searchGet("searchText") || "",
       languages: {
         de: ["de", "all"].includes(searchLang) || !searchLang,
         it: ["it", "all"].includes(searchLang) || !searchLang,
@@ -132,7 +183,7 @@ export default class BlogStore {
 
     // For Mobx > v4 we have to use an obserable box instead of
     // @observable loading = ...;
-    this._loading = observable.box(false);
+    this.loading = false;
     this._searchText = observable.box("");
 
     this.blogProcessor = {
@@ -252,32 +303,26 @@ export default class BlogStore {
 
   /* actual page in the pagination through blog posts */
   @computed get page() {
-    return this._page.get();
+    return parseInt(toJS(this._page));
   }
   set page(val) {
-    this._page.set(val);
+    this._page.set(parseInt(val));
   }
 
   @action nextPage() {
     const thisPage = this.page;
     const maxPages = this.maxPages;
     const nextPageNo = thisPage < maxPages ? thisPage + 1 : thisPage;
-    this._page.set(nextPageNo);
+    console.log("setting page", nextPageNo);
+    this.page = nextPageNo;
   }
   @action previousPage() {
     const thisPage = this.page;
     const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
-    this._page.set(previousPageNo);
+    this.page = previousPageNo;
   }
   @computed get maxPages() {
     return Math.ceil(this.numberOfPosts / this.perPage);
-  }
-
-  @computed get loading() {
-    return this._loading.get();
-  }
-  set loading(val) {
-    this._loading.set(val);
   }
 
   @computed get searchText() {
@@ -292,7 +337,6 @@ export default class BlogStore {
   @computed get problem() {
     return this._problem.get();
   }
-
   set problem(val) {
     this._problem.set(val);
   }
@@ -346,8 +390,8 @@ export default class BlogStore {
 
   @action setRegions(region) {
     const newRegions = this.regions;
-    for (let r in setRegions) {
-      setRegions[r] = [r, "all"].includes(region) || !region;
+    for (let r in newRegions) {
+      newRegions[r] = [r, "all"].includes(region) || !region;
     }
     this._regions.set(newRegions);
   }
@@ -357,7 +401,7 @@ export default class BlogStore {
     for (let l in newLanguages) {
       newLanguages[l] = [l, "all"].includes(lang) || !lang;
     }
-    console.log("languages set", lang, this.languages);
+    console.log("setLanguages", lang, this.languages);
     this._languages.set(newLanguages);
   }
 

@@ -13,36 +13,36 @@ class BlogPostsList extends React.Component {
   render() {
     return (
       <div>
-        {!this.props.loading &&
-          this.props.posts.map((item, i) => {
-            return (
-              <Link
-                key={i}
-                to={"/blog/" + item.blogName + "/" + item.postId}
-                className="linkbox linkbox-blog-feature"
-              >
-                <div className="content-image">
-                  {item.image && <img src={item.image} />}
-                </div>
-                <div className="content-text">
-                  <ul className="list-inline blog-feature-meta">
-                    <li className="blog-author">{item.author}</li>
-                    <li className="blog-date">
-                      {dateToDateTimeString(item.date)}
-                    </li>
-                    <li className="blog-province">
-                      {item.regions
-                        .map(r => window["appStore"].getRegionName(r))
-                        .join(", ")}
-                    </li>
-                    <li className="blog-language">{item.lang.toUpperCase()}</li>
-                  </ul>
-                  <h1 className="subheader blog-feature-title">{item.title}</h1>
-                  <TagList tags={item.tags} />
-                </div>
-              </Link>
-            );
-          })}
+        {//!this.props.loading &&
+        this.props.posts.map((item, i) => {
+          return (
+            <Link
+              key={i}
+              to={"/blog/" + item.blogName + "/" + item.postId}
+              className="linkbox linkbox-blog-feature"
+            >
+              <div className="content-image">
+                {item.image && <img src={item.image} />}
+              </div>
+              <div className="content-text">
+                <ul className="list-inline blog-feature-meta">
+                  <li className="blog-author">{item.author}</li>
+                  <li className="blog-date">
+                    {dateToDateTimeString(item.date)}
+                  </li>
+                  <li className="blog-province">
+                    {item.regions
+                      .map(r => window["appStore"].getRegionName(r))
+                      .join(", ")}
+                  </li>
+                  <li className="blog-language">{item.lang.toUpperCase()}</li>
+                </ul>
+                <h1 className="subheader blog-feature-title">{item.title}</h1>
+                <TagList tags={item.tags} />
+              </div>
+            </Link>
+          );
+        })}
       </div>
     );
   }
