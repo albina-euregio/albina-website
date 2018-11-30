@@ -1,9 +1,11 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, TemplateRef, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { MapService } from '../providers/map-service/map.service';
+import { ChatService } from '../providers/chat-service/chat.service';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   templateUrl: 'login.component.html'
@@ -15,13 +17,22 @@ export class LoginComponent {
   public returnUrl: String;
   public loading: boolean;
 
+  public errorModalRef: BsModalRef;
+  @ViewChild('errorTemplate') errorTemplate: TemplateRef<any>;
+
+  public config = {
+    keyboard: true,
+    class: 'modal-sm'
+  };
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
     private mapService: MapService,
     private translateService: TranslateService,
-    private confirmationService: ConfirmationService)
+    private modalService: BsModalService,
+    private chatService: ChatService)
   {
     this.loading = false;
   }
@@ -42,33 +53,34 @@ export class LoginComponent {
     this.authenticationService.login(this.username, this.password).subscribe(
       data => {
         if (data === true) {
-          console.log("[" + this.username + "] Logged in!");
+          console.debug("[" + this.username + "] Logged in!");
+          this.chatService.connect();
           this.mapService.resetAll();
-          console.log("Navigate to " + this.returnUrl);
+          console.debug("Navigate to " + this.returnUrl);
           this.router.navigate([this.returnUrl]);
           this.loading = false;
         } else {
           console.error("[" + this.username + "] Login failed!");
-          this.confirmationService.confirm({
-            header: this.translateService.instant("login.errorDialog.header"),
-            message: this.translateService.instant("login.errorDialog.message"),
-            accept: () => {
-              this.loading = false;
-            }
-          });
+          this.openErrorModal(this.errorTemplate);
         }
       },
       error => {
         console.error("[" + this.username + "] Login failed: " + JSON.stringify(error._body));
-        this.confirmationService.confirm({
-          header: this.translateService.instant("login.errorDialog.header"),
-          message: this.translateService.instant("login.errorDialog.message"),
-          accept: () => {
-            this.loading = false;
-          }
-        });
+        this.openErrorModal(this.errorTemplate);
       }
     );
+  }
+
+  openErrorModal(template: TemplateRef<any>) {
+    this.errorModalRef = this.modalService.show(template, this.config);
+    this.modalService.onHide.subscribe((reason: string) => {
+      this.loading = false;
+    })
+  }
+
+  errorModalConfirm(): void {
+    this.errorModalRef.hide();
+    this.loading = false;
   }
 
   @HostListener('document:keydown', ['$event'])

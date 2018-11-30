@@ -31,8 +31,9 @@
   </div>
 </div>
 
-<p-confirmDialog width="425" #cd>
-  <p-footer>
-    <button type="button" pButton label='{{ "login.errorDialog.accept" | translate }}' (click)="cd.accept()"></button>
-  </p-footer>
-</p-confirmDialog>
+<ng-template #errorTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "login.errorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="errorModalConfirm()">{{ "login.errorDialog.accept" | translate }}</button>
+  </div>
+</ng-template>

@@ -1,1 +1,42 @@
 // Here you can add other styles
+
+.observations-map {
+	height: 800px;
+	width: 100%;
+}
+
+.grid-container {
+	display: inline-grid;
+	grid-template-columns: 10px 10px;
+	grid-template-rows: 10px 10px;
+	vertical-align: top;
+}
+
+.pmdialog {
+	width: 90% !important;
+	height: 80% !important;
+}
+
+@include media-breakpoint-down(md) {
+	.pmdialog {
+		width: 100% !important;
+		height: 100% !important;
+	}
+}
+
+.panel {
+	border: none;
+	margin-bottom: 0;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+
+

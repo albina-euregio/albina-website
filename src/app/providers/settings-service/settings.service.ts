@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
 import * as Enums from '../../enums/enums';
+import { EventEmitter } from '@angular/core';
+
 
 @Injectable()
 export class SettingsService {
 
   public translateService;
   public lang: Enums.LanguageCode;
+  public useMatrix: boolean;
+  public showObservations: boolean;
+  public showCaaml: boolean;
+  public showJson: boolean;
 
+  eventEmitter: EventEmitter<string> = new EventEmitter();
+  
   constructor(
     public translate: TranslateService)
   {
@@ -17,9 +25,14 @@ export class SettingsService {
     translate.setDefaultLang('en');
     // the lang to use, if the lang isn't available, it will use the current loader to get them
     let lang = navigator.language.split('-')[0];
-    lang = /(en|de|it)/gi.test(lang) ? lang : 'en';
+    lang = /(de|it)/gi.test(lang) ? lang : 'de';
     translate.use(lang);
     this.lang = Enums.LanguageCode[lang];
+
+    this.useMatrix = true;
+    this.showObservations = false;
+    this.showCaaml = false;
+    this.showJson = false;
   }
 
   getLang() : Enums.LanguageCode {
@@ -28,11 +41,23 @@ export class SettingsService {
 
   setLang(lang: Enums.LanguageCode) {
     if (lang) {
-      let language = /(en|de|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : 'en';
+      let language = /(de|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : 'de';
       this.translateService.use(language);
       this.lang = Enums.LanguageCode[language];
+
+      //to reload iframe
+      this.emitChangeEvent(this.lang);
     }
   }
+
+
+  emitChangeEvent(number) {
+    this.eventEmitter.emit(number);
+  }
+  getChangeEmitter() {
+    return this.eventEmitter;
+  }
+
 
   getLangString() : string {
     return Enums.LanguageCode[this.lang];
@@ -41,5 +66,38 @@ export class SettingsService {
   setLangString(lang: string) {
     let language = Enums.LanguageCode[lang];
     this.setLang(language);
+    
+  }
+
+  getUseMatrix() : boolean {
+    return this.useMatrix;
+  }
+
+  setUseMatrix(useMatrix: boolean) {
+    this.useMatrix = useMatrix;
+  }
+
+  getShowObservations() : boolean {
+    return this.showObservations;
+  }
+
+  setShowObservations(showObservations: boolean) {
+    this.showObservations = showObservations;
+  }
+
+  getShowCaaml() : boolean {
+    return this.showCaaml;
+  }
+
+  setShowCaaml(showCaaml: boolean) {
+    this.showCaaml = showCaaml;
+  }
+
+  getShowJson() : boolean {
+    return this.showJson;
+  }
+
+  setShowJson(showJson: boolean) {
+    this.showJson = showJson;
   }
 }

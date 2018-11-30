@@ -12,111 +12,80 @@
 	},
 	"sidebar" : {
 		"bulletins" : "Bulletins",
-		"news" : "News"
+		"observations" : "Observations",
+		"admin" : "Admin",
+		"catalogueOfPhrases" : "Catalogue of Phrases"
 	},
 	"menu" : {
 		"logout" : "Logout",
 		"language" : "Language",
 		"en" : " English",
 		"de" : " German",
-		"it" : " Italien",
-		"settings" : "Settings"
+		"it" : " Italian",
+		"settings" : "Settings",
+		"region" : "Region"
 	},
 	"chat" : {
 		"placeholder" : "Write here ...",
-		"send" : "Send"
+		"send" : "Send",
+		"activeUsers" : "Who is online?",
+		"all" : "All ",
+		"AT-07" : "Tirol ",
+		"IT-32-BZ" : "South Tyrol ",
+		"IT-32-TN" : "Trentino "
 	},
-	"news" : {
-		"create" : {
-			"button" : "Create",
-			"formTitle" : "Create News",
-			"title" : "Title",
-			"it" : {
-				"title" : "Title (Italien)",
-				"content" : "Text (Italien)"
-			},
-			"de" : {
-				"title" : "Title (German)",
-				"content" : "Text (German)"
-			},
-			"en" : {
-				"title" : "Title (English)",
-				"content" : "Text (English)"
-			},
-			"image" : "Image",
-			"save" : "Save",
-			"discard" : "Discard",
-			"back" : "Back",
-			"discardDialog" : {
-				"header" : "Discard changes?",
-				"message" : "Do you want to discard the changes?",
-				"accept" : "Yes",
-				"reject" : "No"
-			},
-			"saveErrorDialog" : {
-				"header" : "Error saving news",
-				"message" : "There was an error saving the news!",
-				"accept" : "Ok"
-			},
-			"updateErrorDialog" : {
-				"header" : "Error updating news",
-				"message" : "There was an error updating the news!",
-				"accept" : "Ok"
-			}
-		},
-		"deleteNewsDialog" : {
-			"header" : "Delete news",
-			"message" : "Do you want to delete the news?",
-			"accept" : "Yes",
-			"reject" : "No"
-		},
-		"publishNewsDialog" : {
-			"header" : "Publish news",
-			"message" : "Do you want to publish the news?",
-			"accept" : "Yes",
-			"reject" : "No"
-		},
-		"publishNewsErrorDialog" : {
-			"header" : "Error publishing news",
-			"message" : "There was an error publishing the news!",
-			"accept" : "Ok"
-		},
-		"publishNewsErrorDialog" : {
-			"header" : "Error deleting news",
-			"message" : "There was an error deleting the news!",
-			"accept" : "Ok"
-		},
-		"loadingNewsErrorDialog" : {
-			"header" : "Error loading news",
-			"message" : "There was an error loading the news!",
-			"accept" : "Ok"
-		},
-		"title" : "News",
-		"table" : {
-			"date" : "Date",
-			"title" : "Title",
-			"edit" : "Edit",
-			"show" : "Show",
-			"status" : {
-				"title" : "Status",
-				"published" : "published",
-				"draft" : "draft"
-			},
-			"action" : "Actions",
-			"button" : {
-				"publish" : "publish",
-				"delete" : "delete"
-			}
-		}		
+	"languages" : {
+		"german" : "German",
+		"english" : "English",
+		"italian" : "Italian"
 	},
 	"bulletins" : {
 		"title" : "Bulletins",
+		"tooltip" : {
+			"publish" : "Publish updated bulletin immediately",
+			"submit" : "Submit bulletin",
+			"copy" : "Copy bulletin",
+			"paste" : "Paste bulletin",
+			"update" : "Create update of bulletin",
+			"caaml" : "Show CAAML",
+			"json" : "Show JSON",
+			"edit" : "Edit bulletin (will not be published again)",
+			"create" : "Create bulletin",
+			"check" : "Check bulletin",
+			"info" : "Show publication status"
+		},
 		"create" : {
+			"tooltip" : {
+				"edit" : "Edit region",
+				"copy" : "Copy region",
+				"delete" : "Delete region",
+				"acceptSuggestion" : "Accept suggested regions",
+				"rejectSuggestion" : "Decline suggested regions",
+				"saveChanges" : "Save changes",
+				"discardChanges" : "Discard changes",
+				"saveBulletin" : "Save bulletin",
+				"discardBulletin" : "Discard bulletin changes",
+				"loadBulletin" : "Load bulletin from the day before",
+				"elevationDependency" : "Elevation dependency",
+				"daytimeDependency" : "Daytime dependency",
+				"treeline" : "Treeline",
+				"tendency" : {
+					"decreasing" : "Avalanche danger decreases",
+					"steady" : "Avalanche danger stays the same",
+					"increasing" : "Avalanche danger increases"
+				},
+				"textcat" : {
+					"edit" : "Edit",
+					"copy" : "Copy",
+					"paste" : "Paste",
+					"example" : "Load example text"
+				}
+			},
 			"button" : "Create",
-			"save" : "Save",
-			"discard" : "Discard",
-			"back" : "Back",
-			"createAggregatedRegion" : "New region",
+			"save" : " Save",
+			"discard" : " Discard",
+			"back" : " Back",
+			"createAggregatedRegion" : " New region",
 			"saveAggregatedRegion" : "Save",
 			"discardAggregatedRegion" : "Discard",
 			"deleteAggregatedRegion" : "Delete",
@@ -125,27 +94,41 @@
 			"label" : {
 				"avActivityHighlights" : "Headline avalanche situation",
 				"avActivityComment" : "Description of avalanche danger",
-				"avalancheProblem" : "Avalanche Problem",
+				"avalancheSituation1" : "Avalanche Situation 1",
+				"avalancheSituation2" : "Avalanche Situation 2",
 				"dangerRating" : "Danger Rating",
 				"aspects" : "Aspects",
 				"elevation" : "Elevation",
 				"daytime" : "Daytime",
 				"snowpackStructureHighlights" : "Headline snowpack structure",
-				"snowpackStructureComment" : "Description of snowpack structure"
+				"snowpackStructureComment" : "Description of snowpack structure",
+				"dangerPatterns" : "Danger patterns",
+				"elevationHigh" : "Below",
+				"elevationLow" : "Above",
+				"tendencyComment" : "Description of tendency"
 			},
 			"title" : {
 				"map" : "Map",
-				"general" : "General",
+				"dangerRating" : "Danger rating",
+				"avalancheSituation" : "Avalanche situations",
+				"dangerDescription" : "Description of avalanche danger",
 				"detail" : "Details",
-				"above" : "Details - above",
-				"below" : "Details - below",
-				"forenoon" : "Details - forenoon",
-				"afternoon" : "Details - afternoon",
-				"forenoonAbove" : "Details - forenoon, above",
-				"afternoonAbove" : "Details - afternoon, above",
-				"forenoonBelow" : "Details - forenoon, below",
-				"afternoonBelow" : "Details - afternoon, below",
-				"snowpackStructure" : "Snowpack structure"
+				"above" : "Above",
+				"below" : "Below",
+				"forenoon" : "Forenoon",
+				"afternoon" : "Afternoon",
+				"forenoonAbove" : "Forenoon, above",
+				"afternoonAbove" : "Afternoon, above",
+				"forenoonBelow" : "Forenoon, below",
+				"afternoonBelow" : "Aafternoon, below",
+				"snowpackStructure" : "Snowpack structure",
+				"tendency" : "Tendency",
+				"pmdialog" : "Catalog of phrases",
+				"showTranslations" : " Show translations",
+				"hideTranslations" : " Hide translations"
+			},
+			"pmDialog" : {
+				"noIFrameSupport" : "Your browser does not support IFrames!"
 			},
 			"discardDialog" : {
 				"header" : "Discard changes",
@@ -170,34 +153,63 @@
 				"accept" : "Yes",
 				"reject" : "No"
 			},
+			"loadAutoSaveDialog" : {
+				"message" : "Do you want to load the automatically saved bulletins?",
+				"accept" : "Yes",
+				"reject" : "No"
+			},
 			"saveErrorDialog" : {
 				"header" : "Error saving bulletins",
 				"message" : "There was an error saving the bulletins!",
+				"accept" : "Ok"
+			},
+			"changeErrorDialog" : {
+				"header" : "Error changing bulletins",
+				"message" : "There was an error changing the bulletins!",
 				"accept" : "Ok"
 			},
 			"loadingErrorDialog" : {
 				"header" : "Error loading bulletins",
 				"message" : "There was an error loading the bulletins!",
 				"accept" : "Ok"
+			},
+			"noElevationDialog" : {
+				"header" : "No elevation defined",
+				"message" : "Please specify an elevation for this region!",
+				"accept" : "Ok"
+			},
+			"loadAvActivityCommentExampleTextDialog" : {
+				"header" : "Load example text",
+				"message" : "For which situation do you want to load an example text?",
+				"newSnow" : "New snow",
+				"windDriftedSnow" : "Wind-drifted snow",
+				"oldSnow" : "Persistent weak layers",
+				"wetSnow" : "Wet snow",
+				"glidingSnow" : "Gliding snow",
+				"favourableSituation" : "Favourable situation",
+				"cancel" : "Cancel"
 			}
 		},
 		"table" : {
 			"title" : {
 				"date" : "Date",
 				"status" : {
-					"trentino" : "Trentino",
-					"southTyrol" : "South Tyrol",
-					"tyrol" : "Tyrol"
+					"IT-32-TN" : "Trentino",
+					"IT-32-BZ" : "South Tyrol",
+					"AT-07" : "Tyrol",
+					"AT-06" : "Styria"
 				},
 				"action" : "Action",
 				"caaml" : "CAAML"
 			},
 			"status" : {
-				"draft" : "draft",
-				"obsolete" : "obsolete",
 				"missing" : "missing",
-				"pending" : "pending",
-				"published" : "published"
+				"draft" : "draft",
+				"submitted" : "submitted",
+				"published" : "published",
+				"updated" : "updated",
+				"resubmitted" : "resubmitted",
+				"republished" : "republished"
 			},
 			"edit" : "Edit",
 			"show" : "Show",
@@ -207,23 +219,96 @@
 			"publishBulletinsDialog" : {
 				"header" : "Publish bulletin",
 				"message" : "Do you want to publish the bulletin?",
-				"missingDangerRating" : "Damger rating not set",
+				"missingDangerRating" : "Danger rating not set",
 				"missingRegion" : "Regions not rated",
 				"duplicateRegion" : "Regions rated multiple times",
 				"missingAvActivityHighlights" : "Headline avalanche situation missing",
 				"missingAvActivityComment" : "Description of avalanche danger missing",
+				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
+				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
 				"pendingSuggestions" : "Pending suggestions",
 				"accept" : "Yes",
 				"reject" : "No"
 			},
+			"publicationStatusDialog" : {
+				"header" : "Status of publication",
+				"publishedBy" : "Published by: ",
+				"publishedAt" : "Published at: ",
+				"validFor" : "Valid for: ",
+				"tooltip" : {
+					"caaml" : {
+						"success" : "CAAML file created",
+						"failed" : "CAAML file could not be created"
+					},
+					"map" : {
+						"success" : "Maps created",
+						"failed" : "Maps could not be created"
+					},
+					"pdf" : {
+						"success" : "PDF created",
+						"failed" : "PDF could not be created"
+					},
+					"email" : {
+						"success" : "Emails sent",
+						"failed" : "Emails could not be sent"
+					},
+					"whatsapp" : {
+						"success" : "Avalanche forecast sent to WhatsApp and Telegram",
+						"failed" : "Avalanche forecast could not be sent to WhatsApp and Telegram"
+					},
+					"twitter" : {
+						"success" : "Avalanche forecast sent to Twitter",
+						"failed" : "Avalanche forecast could not be sent to Twitter"
+					}
+				},
+				"accept" : "Ok"
+			},
 			"publishBulletinsErrorDialog" : {
-				"header" : "Error deleting bulletins",
-				"message" : "There was an error deleting the bulletins!",
+				"header" : "Error publishing bulletins",
+				"message" : "There was an error publishing the bulletins!",
+				"accept" : "Ok"
+			},
+			"submitBulletinsDialog" : {
+				"header" : "Submit bulletin",
+				"message" : "Do you want to submit the bulletin?",
+				"missingDangerRating" : "Danger rating not set",
+				"missingRegion" : "Regions not rated",
+				"duplicateRegion" : "Regions rated multiple times",
+				"missingAvActivityHighlights" : "Headline avalanche situation missing",
+				"missingAvActivityComment" : "Description of avalanche danger missing",
+				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
+				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
+				"pendingSuggestions" : "Pending suggestions",
+				"accept" : "Yes",
+				"reject" : "No"
+			},
+			"submitBulletinsErrorDialog" : {
+				"header" : "Error submitting bulletins",
+				"message" : "There was an error submitting the bulletins!",
+				"accept" : "Ok"
+			},
+			"submitBulletinsDuplicateRegionDialog" : {
+				"header" : "Error submitting bulletins",
+				"message" : "Regions rated multiple times! Bulletin can not be submitted.",
 				"accept" : "Ok"
 			},
 			"checkBulletinsErrorDialog" : {
 				"header" : "Error checking bulletins",
 				"message" : "There was an error checking the bulletins!",
+				"accept" : "Ok"
+			},
+			"checkBulletinsDialog" : {
+				"header" : "Check bulletin",
+				"message" : "Check bulletin",
+				"missingDangerRating" : "Danger rating not set",
+				"missingRegion" : "Regions not rated",
+				"duplicateRegion" : "Regions rated multiple times",
+				"missingAvActivityHighlights" : "Headline avalanche situation missing",
+				"missingAvActivityComment" : "Description of avalanche danger missing",
+				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
+				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
+				"pendingSuggestions" : "Pending suggestions",
+				"ok" : "(everything alright)",
 				"accept" : "Ok"
 			}
 		},
@@ -233,6 +318,93 @@
 				"header" : "CAAML",
 				"message" : "CAAML could not be loaded!",
 				"accept" : "Ok"
+			},
+			"noCaamlDialog" : {
+				"header" : "CAAML",
+				"message" : "No published bulletin available!",
+				"accept" : "Ok"
+			}
+		},
+		"json" : {
+			"title" : "JSON",
+			"jsonNotLoadedDialog" : {
+				"header" : "JSON",
+				"message" : "JSON could not be loaded!",
+				"accept" : "Ok"
+			},
+			"noJsonDialog" : {
+				"header" : "JSON",
+				"message" : "No published bulletin available!",
+				"accept" : "Ok"
+			}
+		}
+	},
+	"admin" : {
+		"config" : {
+			"tabsocial" : "Configuration Email & Social",
+			"addChannel" : "Add channel",
+			"titleShipment": "Shipments",
+			"title" : "Server Configuration",
+			"table" : {
+				"title" : {
+					"key" : "Parameter",
+					"value" : "Value"
+				},
+				"createMaps" : "Create maps",
+				"createPdf" : "Create PDF",
+				"createStaticWidget" : "Create static widgets",
+				"sendEmails" : "Send emails",
+				"publishToSocialMedia" : "Publish on social media",
+				"publishAt5PM" : "Publish at 5PM",
+				"publishAt8AM" : "Publish at 8AM",
+				"localImagesPath" : "Path to local images",
+				"localFontsPath" : "Path to fonts",
+				"publishBulletinsTyrol" : "Publish avalanche forecast for Tirol",
+				"publishBulletinsSouthTyrol" : "Publish avalanche forecast for South Tyrol",
+				"publishBulletinsTrentino" : "Publish avalanche forecast for Trentino",
+				"publishBulletinsStyria" : "Publish avalanche forecast for Styria",
+				"pdfDirectory" : "Directory for PDF",
+				"serverImagesUrl" : "Path to server images",
+				"serverImagesUrlLocalhost" : "Path to server images (localhost)",
+				"mapsPath" : "Path to maps",
+				"emailUsername" : "Username for email",
+				"emailPassword" : "Password for email",
+				"smtpAuth" : "SMTP Auth",
+				"smtpTls" : "SMTP TLS",
+				"smtpHost" : "SMTP Host",
+				"smtpPort" : "SMTP Port",
+				"socketIoOrigin" : "SocketIO origin",
+				"socketIoPort" : "SocketIo port"
+			},
+			"button" : {
+				"save" : "Save",
+				"discard" : "Discard"
+			}
+		}
+	},
+	"settings" : {
+		"title" : "Settings",
+		"changePassword" : {
+			"title" : "Change password",
+			"oldPassword" : "Current password",
+			"newPassword1" : "New password",
+			"newPassword2" : "New Password",
+			"oldPasswordHint" : "Please enter your current password",
+			"newPasswordHint1" : "Please enter a new password",
+			"newPasswordHint2" : "Please enter the new password again",
+			"submit" : "Change password",
+			"passwordChanged" : "Password successfully changed",
+			"passwordChangeError" : "Password could not be changed",
+			"passwordIncorrect" : "Password incorrect",
+			"passwordsNotMatching" : "Passwords are not matching",
+			"passwordEmpty" : "Password missing"
+		},
+		"display" : {
+			"title" : "Display",
+			"table" : {
+				"showCaaml" : "Show CAAML",
+				"showJson" : "Show JSON",
+				"useMatrix" : "Use matrix"
 			}
 		}
 	},
@@ -248,9 +420,21 @@
 	"avalancheProblem" : {
 		"newSnow" : "New snow",
 		"windDriftedSnow" : "Wind-drifted snow",
-		"oldSnow" : "Old snow",
+		"oldSnow" : "Persistent weak layers",
 		"wetSnow" : "Wet snow",
 		"glidingSnow" : "Gliding snow"
+	},
+	"dangerPattern" : {
+		"dp1" : "dp1: deep persistent weak layer",
+		"dp2" : "dp2: gliding avalanches",
+		"dp3" : "dp3: rain",
+		"dp4" : "dp4: cold following warm / warm following cold",
+		"dp5" : "dp5: snowfall after a long period of cold",
+		"dp6" : "dp6: cold, loose snow and wind",
+		"dp7" : "dp7: snow-poor zones in snow-rich surrounding",
+		"dp8" : "dp8: surface hoar blanketed with snow",
+		"dp9" : "dp9: graupel blanketed with snow",
+		"dp10" : "dp10: springtime scenario"
 	},
 	"aspect" : {
 		"N" : "N",
@@ -261,6 +445,21 @@
 		"SW" : "SW",
 		"W" : "W",
 		"NW" : "NW"
+	},
+	"region" : {
+		"AT-07" : "Tyrol",
+		"IT-32-BZ" : "South Tyrol",
+		"IT-32-TN" : "Trentino",
+		"AT-06" : "Styria"
+	},
+	"tendency" : {
+		"decreasing" : " Avalanche danger decreases",
+		"steady" : " Avalanche danger stays the same",
+		"increasing" : " Avalanche danger increases"
+	},
+	"changeRegionDialog" : {
+		"message" : "Do you want to discard the changes and change the region?",
+		"accept" : "Yes",
+		"reject" : "No"
 	}
-
 }

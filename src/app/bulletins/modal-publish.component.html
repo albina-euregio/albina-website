@@ -1,0 +1,5 @@
+<div class="modal-body text-center">
+  <p [innerHTML]="text"></p>
+  <button type="button" class="btn btn-primary" (click)="publishBulletinsModalConfirm()">{{ "bulletins.table.publishBulletinsDialog.accept" | translate }}</button>
+  <button type="button" class="btn btn-default" (click)="publishBulletinsModalDecline()">{{ "bulletins.table.publishBulletinsDialog.reject" | translate }}</button>
+</div>

@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
-import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
 @Component({
   templateUrl: 'caaml.component.html'
@@ -14,13 +15,24 @@ export class CaamlComponent {
   public bulletins: string;
   public loading: boolean;
 
+  public noCaamlModalRef: BsModalRef;
+  @ViewChild('noCaamlTemplate') noCaamlTemplate: TemplateRef<any>;
+
+  public caamlNotLoadedModalRef: BsModalRef;
+  @ViewChild('caamlNotLoadedTemplate') caamlNotLoadedTemplate: TemplateRef<any>;
+
+  public config = {
+    keyboard: true,
+    class: 'modal-sm'
+  };
+
   constructor(
     private translate: TranslateService,
     public bulletinsService: BulletinsService,
     private translateService: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
-    private confirmationService: ConfirmationService)
+    private modalService: BsModalService)
   {
     this.bulletins = undefined;
     this.loading = false;
@@ -30,20 +42,17 @@ export class CaamlComponent {
     this.loading = true;
     this.bulletinsService.loadCaamlBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
-        let text = data.text();
-        this.bulletins = text;
         this.loading = false;
+        if (data.status == 204)
+          this.openNoCaamlModal(this.noCaamlTemplate);
+        else {
+          let text = data.text();
+          this.bulletins = text;
+        }
       },
       error => {
         this.loading = false;
-        this.confirmationService.confirm({
-          key: "caamlNotLoadedDialog",
-          header: this.translateService.instant("bulletins.caaml.caamlNotLoadedDialog.header"),
-          message: this.translateService.instant("bulletins.caaml.caamlNotLoadedDialog.message"),
-          accept: () => {
-            this.goBack();
-          }
-        });
+        this.openCaamlNotLoadedModal(this.caamlNotLoadedTemplate);
       }
     );
   }
@@ -51,4 +60,28 @@ export class CaamlComponent {
   goBack() {
     this.router.navigate(['/bulletins']);
   }    
+
+  openNoCaamlModal(template: TemplateRef<any>) {
+    this.noCaamlModalRef = this.modalService.show(template, this.config);
+    this.modalService.onHide.subscribe((reason: string) => {
+      this.goBack();
+    })
+  }
+
+  noCaamlModalConfirm(): void {
+    this.noCaamlModalRef.hide();
+    this.goBack();
+  }
+
+  openCaamlNotLoadedModal(template: TemplateRef<any>) {
+    this.caamlNotLoadedModalRef = this.modalService.show(template, this.config);
+    this.modalService.onHide.subscribe((reason: string) => {
+      this.goBack();
+    })
+  }
+
+  caamlNotLoadedModalConfirm(): void {
+    this.caamlNotLoadedModalRef.hide();
+    this.goBack();
+  }
 }

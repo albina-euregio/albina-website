@@ -16,11 +16,13 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
-        "scss/style.scss"
-      ],
-      "scripts": [
-        "../node_modules/chart.js/dist/Chart.bundle.min.js",
-        "../node_modules/chart.js/dist/Chart.min.js"
+        "../node_modules/primeng/resources/primeng.min.css",
+        "../node_modules/primeng/resources/themes/bootstrap/theme.css",
+        "scss/style.scss",
+        "assets/css/font-awesome.min.css",
+        "assets/css/simple-line-icons.css",
+        "assets/css/MarkerCluster.css",
+        "assets/css/MarkerCluster.Default.css"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {

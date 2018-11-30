@@ -1,0 +1,490 @@
+<div class="animated fadeIn">
+  <!--/.row-->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <p-tabView>
+          <p-tabPanel header="{{'admin.config.title' | translate}}">
+            <div class="card">
+              <!-- <div class="card-header">
+                        <i class="fa fa-user-secret"></i>{{ "admin.config.title" | translate }}
+                      </div> -->
+              <div *ngIf="configurationPropertiesLoaded" class="card-block">
+                <table class="table table-bordered table-striped table-condensed" style="margin-bottom: 0">
+                  <thead>
+                    <tr>
+                      <th>{{ "admin.config.table.title.key" | translate }}</th>
+                      <th>{{ "admin.config.table.title.value" | translate }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.createMaps" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="createMaps">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.createPdf" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="createPdf">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.createStaticWidget" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="createStaticWidget">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.sendEmails" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="sendEmails">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.publishToSocialMedia" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="publishToSocialMedia">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.publishAt5PM" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="publishAt5PM">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.publishAt8AM" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="publishAt8AM">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.publishBulletinsTyrol" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsTyrol">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.publishBulletinsSouthTyrol" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsSouthTyrol">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.publishBulletinsTrentino" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsTrentino">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.publishBulletinsStyria" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsStyria">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.localImagesPath" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="localImagesPath">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.localFontsPath" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="localFontsPath">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.pdfDirectory" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="pdfDirectory">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.serverImagesUrl" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="serverImagesUrl">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.serverImagesUrlLocalhost" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="serverImagesUrlLocalhost">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.mapsPath" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="mapsPath">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.smtpAuth" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpAuth">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.smtpTls" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpTls">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.smtpHost" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpHost">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.smtpPort" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="smtpPort">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.emailUsername" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="emailUsername">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.emailPassword" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="emailPassword">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Footer -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i>{{
+                  "admin.config.button.save" | translate }}</button>
+              </div>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="{{'admin.config.tabsocial' | translate }}">
+            <div class="card">
+              <div class="row" style="padding: 10px">
+                <div class="col-md-6">
+                  <p-dropdown [options]="regions" [style]="{'width':'300px'}" [(ngModel)]="currentRegion" (onChange)="regionChanged($event.value)"></p-dropdown>
+                </div>
+                <div class="col-md-6">
+                  <p-dropdown [options]="channels" [style]="{'width':'300px'}" [(ngModel)]="currentChannel" optionId="id"
+                    optionLabel="name"></p-dropdown>
+                  <button pButton type="button" label="Add" class="btn btn-sm btn-primary px-3" (click)="addChannel($event)">{{
+                    "admin.config.addChannel" | translate }}</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p-dataTable [style]="{'width':'50%'}" [value]="regionConfiguration?.channels">
+                    <p-column field="id" header="Id"></p-column>
+                    <p-column field="name" header="Name"></p-column>
+                    <p-column field="provider.name" header="Provider"></p-column>
+                    <!--<p-column field="enabled" header="Configured"></p-column>-->
+                    <p-column [style]="{'width':'30px'}">
+                      <ng-template pTemplate type="body" let-col let-chn="rowData" let-ri="rowIndex">
+                        <i class="fa fa-times-circle-o fa-lg" aria-hidden="true" (click)="deleteChannel(chn)"></i>
+                      </ng-template>
+                    </p-column>
+                  </p-dataTable>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <!-- <label>{{regionConfiguration.messengerPeopleConfig | json}}</label> -->
+                  <!-- <label>{{regionConfiguration.twitterConfig | json}}</label> -->
+                  <!-- <label>{{regionConfiguration.rapidMailConfig | json}}</label> -->
+                  <br><br>
+                  <p-tabView>
+                    <p-tabPanel header="Rapidmail" [disabled]="checkTab(1)" headerStyleClass="tabProvider" *ngIf="regionConfiguration.rapidMailConfig ">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <label class="col-form-label">Id </label>
+                        </div>
+                        <div class="col-md-10">
+                          <input class="switch-input" style="width:20px" disabled="true" [(ngModel)]="regionConfiguration.rapidMailConfig.id">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2">
+                          <label class="col-form-label">ApiKey</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.rapidMailConfig.username">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2">
+                          <label class="col-form-label">Password</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.rapidMailConfig.password">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2">
+                          <label class="col-form-label">Recipient List</label>
+                        </div>
+                        <div class="col-md-10">
+                          <table>
+                            <tr>
+                              <td>id</td>
+                              <td>name</td>
+                            </tr>
+                            <tr *ngFor="let x of recipientList;let i = index;">
+                              <td>{{x.value}}</td>
+                              <td>{{x.label}}</td>
+                            </tr>
+                          </table>
+                        </div>
+                      </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Messenger People" [disabled]="checkTab(2)" *ngIf="regionConfiguration.messengerPeopleConfig">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <label class="col-form-label">Id</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input class="switch-input" style="width:20px" disabled="true" [(ngModel)]="regionConfiguration.messengerPeopleConfig.id">
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-2">
+                          <label class="col-form-label">Api Key</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input class="switch-input" style="width:500px" [(ngModel)]="regionConfiguration.messengerPeopleConfig.apiKey">
+                        </div>
+                      </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Twitter" [disabled]="checkTab(3)" *ngIf="regionConfiguration.twitterConfig">
+                      <div class="row">
+                        <div class="col-md-2">
+                          <label class="col-form-label">Id</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input class="switch-input" style="width:20px" disabled="true" [(ngModel)]="regionConfiguration.twitterConfig.id">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-2">
+                            <label class="col-form-label">Consumer Key</label>
+                          </div>
+                          <div class="col-md-10">
+                            <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.twitterConfig.consumerKey">
+                          </div>
+                        </div>
+
+                      <div class="row">
+                        <div class="col-md-2">
+                          <label class="col-form-label">Consumer Secret</label>
+                        </div>
+                        <div class="col-md-10">
+                          <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.twitterConfig.consumerSecret">
+                        </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-2">
+                            <label class="col-form-label">Access Token</label>
+                          </div>
+                          <div class="col-md-10">
+                            <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.twitterConfig.accessKey">
+                          </div>
+                        </div>
+  
+                        <div class="row">
+                            <div class="col-md-2">
+                              <label class="col-form-label">Access Token Secret</label>
+                            </div>
+                            <div class="col-md-10">
+                              <input class="switch-input" style="width:400px" [(ngModel)]="regionConfiguration.twitterConfig.accessSecret">
+                            </div>
+                        </div>
+                     
+                    </p-tabPanel>
+                  </p-tabView>
+                  <br><br>
+                </div>
+              </div>
+              <!-- <label>{{regionConfiguration | json}}</label>     -->
+              <div class="card-footer">
+                <button type="submit" class="btn btn-sm btn-primary px-3" (click)="saveRegion()"><i class="fa fa-check"></i>{{
+                  "admin.config.button.save" | translate }}</button>
+              </div>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="{{ 'admin.config.titleShipment' | translate }}">
+            <div class="card">
+              <div class="row">
+                <div class="col-md-9">
+                  <p-dataTable [value]="shipments">
+                    <p-column field="id" header="Id"></p-column>
+                    <p-column field="date" header="Date"></p-column>
+                    <p-column field="name" header="Name"></p-column>
+                    <p-column field="language" header="Language"></p-column>
+                    <p-column field="idMp" header="Mp"></p-column>
+                    <p-column field="idRm" header="Rm"></p-column>
+                    <p-column field="idTw" header="Tw"></p-column>
+                    <!-- <p-column field="request" header=""></p-column> -->
+                    <!-- <p-column field="response" header=""></p-column> -->
+                    <p-column field="provider.name" header="Provider"></p-column>
+                  </p-dataTable>
+                </div>
+              </div>
+            </div>
+          </p-tabPanel>
+          <p-tabPanel header="test API">
+            <div class="card">
+              <h3>RapidMail</h3>
+              <div class="row">
+                <div class="col-md-12">
+                  Region: <p-dropdown [options]="regions" [style]="{'width':'300px'}" [(ngModel)]="currentRegion"
+                    (onChange)="regionChanged($event.value)"></p-dropdown>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-4">
+                  recipientlist : <p-dropdown [options]="recipientList" [style]="{'width':'300px'}" [(ngModel)]="a"></p-dropdown>
+                </div>
+                <div class="col-md-4">
+                  from_name: <input class="switch-input" [(ngModel)]="b">
+                </div>
+                <div class="col-md-4">
+                  from_email: <input class="switch-input" [(ngModel)]="c">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-4">
+                  subject: <input class="switch-input" [(ngModel)]="d">
+                </div>
+                <div class="col-md-4">
+
+                  file: <input class="switch-input" [(ngModel)]="e">
+                </div>
+                <div class="col-md-4">
+                  <button pButton type="button" label="Send" class="btn btn-sm btn-primary px-3" (click)="sendRapidmail()">Send</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>messengerPeople</h3>
+              <div class="row">
+                <div class="col-md-4">
+                  message: <input class="switch-input" [(ngModel)]="f">
+                </div>
+                <div class="col-md-4">
+                  attachmentUrl: <input class="switch-input" [(ngModel)]="g">
+                </div>
+                <div class="col-md-4">
+                  <button pButton type="button" label="Send" class="btn btn-sm btn-primary px-3" (click)="sendMP()">Send</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+                <h3>Twitter</h3>
+                <div class="row">
+                  <div class="col-md-4">
+                      status (html): <input class="switch-input" [(ngModel)]="h">
+                  </div>
+                  <div class="col-md-4">
+                    <button pButton type="button" label="Send" class="btn btn-sm btn-primary px-3" (click)="sendTW()">Send</button>
+                  </div>
+                </div>
+              </div>
+
+          </p-tabPanel>
+        </p-tabView>
+      </div>
+    </div>
+  </div>
+</div>

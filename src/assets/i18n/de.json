@@ -11,8 +11,10 @@
 		}
 	},
 	"sidebar" : {
-		"bulletins" : "Lageberichte",
-		"news" : "News"
+		"bulletins" : "Lawinenvorhersagen",
+		"observations" : "Rückmeldungen",
+		"admin" : "Admin",
+		"catalogueOfPhrases" : "Satzkatalog"
 	},
 	"menu" : {
 		"logout" : "Logout",
@@ -20,103 +22,70 @@
 		"en" : " Englisch",
 		"de" : " Deutsch",
 		"it" : " Italienisch",
-		"settings" : "Einstellungen"
+		"settings" : "Einstellungen",
+		"region" : "Region"
 	},
 	"chat" : {
 		"placeholder" : "Schreib hier ...",
-		"send" : "Senden"
+		"send" : "Senden",
+		"activeUsers" : "Wer ist online?",
+		"all" : "Alle ",
+		"AT-07" : "Tirol ",
+		"IT-32-BZ" : "Südtirol ",
+		"IT-32-TN" : "Trentino "
 	},
-	"news" : {
-		"create" : {
-			"button" : "Neu",
-			"formTitle" : "Neue Nachricht",
-			"title" : "Titel",
-			"it" : {
-				"title" : "Titel (Italienisch)",
-				"content" : "Text (Italienisch)"
-			},
-			"de" : {
-				"title" : "Titel (Deutsch)",
-				"content" : "Text (Deutsch)"
-			},
-			"en" : {
-				"title" : "Titel (Englisch)",
-				"content" : "Text (Englisch)"
-			},
-			"image" : "Bild",
-			"save" : "Speichern",
-			"discard" : "Verwerfen",
-			"back" : "Zurück",
-			"discardDialog" : {
-				"header" : "Änderungen verwerfen?",
-				"message" : "Willst du die Änderungen verwerfen?",
-				"accept" : "Ja",
-				"reject" : "Nein"
-			},
-			"saveErrorDialog" : {
-				"header" : "Fehler beim Speichern",
-				"message" : "Beim Speichern der News ist ein Fehler aufgetreten!",
-				"accept" : "Ok"
-			},
-			"updateErrorDialog" : {
-				"header" : "Fehler beim Updaten",
-				"message" : "Beim Updaten der News ist ein Fehler aufgetreten!",
-				"accept" : "Ok"
-			}
-		},
-		"deleteNewsDialog" : {
-			"header" : "News löschen",
-			"message" : "Willst du die News löschen?",
-			"accept" : "Ja",
-			"reject" : "Nein"
-		},
-		"publishNewsDialog" : {
-			"header" : "News publizieren",
-			"message" : "Willst du die News publizieren?",
-			"accept" : "Ja",
-			"reject" : "Nein"
-		},
-		"publishNewsErrorDialog" : {
-			"header" : "Fehler beim Publizieren",
-			"message" : "Beim Publizieren der News ist ein Fehler aufgetreten!",
-			"accept" : "Ok"
-		},
-		"deleteNewsErrorDialog" : {
-			"header" : "Fehler beim Löschen",
-			"message" : "Beim Löschen der News ist ein Fehler aufgetreten!",
-			"accept" : "Ok"
-		},
-		"loadingNewsErrorDialog" : {
-			"header" : "Fehler beim Laden",
-			"message" : "Beim Laden der News ist ein Fehler aufgetreten!",
-			"accept" : "Ok"
-		},
-		"title" : "Nachrichten",
-		"table" : {
-			"date" : "Datum",
-			"title" : "Titel",
-			"edit" : "Bearbeiten",
-			"show" : "Anzeigen",
-			"status" : {
-				"title" : "Status",
-				"published" : "publiziert",
-				"draft" : "Entwurf"
-			},
-			"action" : "Aktionen",
-			"button" : {
-				"publish" : "publizieren",
-				"delete" : "löschen"
-			}
-		}		
+	"languages" : {
+		"german" : "Deutsch",
+		"english" : "Englisch",
+		"italian" : "Italienisch"
 	},
 	"bulletins" : {
-		"title" : "Lageberichte",
+		"title" : "Lawinenvorhersagen",
+		"tooltip" : {
+			"publish" : "Update zur Lawinenvorhersage sofort publizieren",
+			"submit" : "Lawinenvorhersage absenden",
+			"copy" : "Lawinenvorhersage kopieren",
+			"paste" : "Lawinenvorhersage einfügen",
+			"update" : "Update zur Lawinenvorhersage erstellen",
+			"caaml" : "CAAML anzeigen",
+			"json" : "JSON anzeigen",
+			"edit" : "Lawinenvorhersage editieren (keine erneute Veröffentlichung)",
+			"create" : "Lawinenvorhersage erstellen",
+			"check" : "Lawinenvorhersage prüfen",
+			"info" : "Publikationsstatus anzeigen"
+		},
 		"create" : {
+			"tooltip" : {
+				"edit" : "Region editieren",
+				"copy" : "Region kopieren",
+				"delete" : "Region löschen",
+				"acceptSuggestion" : "Vorgeschlagene Regionen annehmen",
+				"rejectSuggestion" : "Vorgeschlagene Regionen ablehnen",
+				"saveChanges" : "Änderungen speichern",
+				"discardChanges" : "Änderungen verwerfen",
+				"saveBulletin" : "Lawinenvorhersage speichern",
+				"discardBulletin" : "Änderungen an der Lawinenvorhersage verwerfen",
+				"loadBulletin" : "Lawinenvorhersage vom Vortag laden",
+				"elevationDependency" : "Höhenabhängigkeit",
+				"daytimeDependency" : "Tageszeitliche Abhängigkeit",
+				"treeline" : "Waldgrenze",
+				"tendency" : {
+					"decreasing" : "Lawinengefahr nimmt ab",
+					"steady" : "Lawinengefahr bleibt unverändert",
+					"increasing" : "Lawinengefahr steigt"
+				},
+				"textcat" : {
+					"edit" : "Bearbeiten",
+					"copy" : "Kopieren",
+					"paste" : "Einfügen",
+					"example" : "Beispieltext laden"
+				}
+			},
 			"button" : "Neu",
-			"save" : "Speichern",
-			"discard" : "Verwerfen",
-			"back" : "Zurück",
-			"createAggregatedRegion" : "Neue Region",
+			"save" : " Speichern",
+			"discard" : " Verwerfen",
+			"back" : " Zurück",
+			"createAggregatedRegion" : " Neue Region",
 			"saveAggregatedRegion" : "Speichern",
 			"discardAggregatedRegion" : "Verwerfen",
 			"deleteAggregatedRegion" : "Löschen",
@@ -125,30 +94,44 @@
 			"label" : {
 				"avActivityHighlights" : "Schlagzeile Gefahrensituation",
 				"avActivityComment" : "Beurteilung der Lawinengefahr",
-				"avalancheProblem" : "Lawinenproblem",
+				"avalancheSituation1" : "Lawinenproblem 1",
+				"avalancheSituation2" : "Lawinenproblem 2",
 				"dangerRating" : "Gefahrenstufe",
 				"aspects" : "Exposition",
 				"elevation" : "Höhenabhängigkeit",
 				"daytime" : "Tageszeitliche Abhängigkeit",
 				"snowpackStructureHighlights" : "Schlagzeile Schneedeckenaufbau",
-				"snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus"
+				"snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus",
+				"dangerPatterns" : "Gefahrenmuster",
+				"elevationHigh" : "Unter",
+				"elevationLow" : "Über",
+				"tendencyComment" : "Beschreibung der Tendenz"
 			},
 			"title" : {
 				"map" : "Karte",
-				"general" : "Allgemein",
+				"dangerRating" : "Gefahrenstufe",
+				"avalancheSituation" : "Lawinenprobleme",
+				"dangerDescription" : "Gefahrenbeurteilung",
 				"detail" : "Details",
-				"above" : "Details - oben",
-				"below" : "Details - unten",
-				"forenoon" : "Details - Vormittag",
-				"afternoon" : "Details - Nachmittag",
-				"forenoonAbove" : "Details - Vormittag, oben",
-				"afternoonAbove" : "Details - Nachmittag, oben",
-				"forenoonBelow" : "Details - Vormittag, unten",
-				"afternoonBelow" : "Details - Nachmittag, unten",
-				"snowpackStructure" : "Schneedeckenaufbau"
+				"above" : "Oben",
+				"below" : "Unten",
+				"forenoon" : "Vormittag",
+				"afternoon" : "Nachmittag",
+				"forenoonAbove" : "Vormittag, oben",
+				"afternoonAbove" : "Nachmittag, oben",
+				"forenoonBelow" : "Vormittag, unten",
+				"afternoonBelow" : "Nachmittag, unten",
+				"snowpackStructure" : "Schneedeckenaufbau",
+				"tendency" : "Tendenz",
+				"pmdialog" : "Satzkatalog",
+				"showTranslations" : " Übersetzungen anzeigen",
+				"hideTranslations" : " Übersetzungen verbergen"
+			},
+			"pmDialog" : {
+				"noIFrameSupport" : "Dein Browser unterstützt keine IFrames!"
 			},
 			"discardDialog" : {
-				"header" : "Änderungen verwerfen?",
+				"header" : "Änderungen verwerfen",
 				"message" : "Willst du die Änderungen verwerfen?",
 				"accept" : "Ja",
 				"reject" : "Nein"
@@ -165,39 +148,68 @@
 				"accept" : "Ok"
 			},
 			"loadDialog" : {
-				"header" : "Lagebericht vom Vortag laden",
-				"message" : "Willst du den Lagebericht vom Vortag laden?",
+				"header" : "Lawinenvorhersage vom Vortag laden",
+				"message" : "Willst du die Lawinenvorhersage vom Vortag laden?",
+				"accept" : "Ja",
+				"reject" : "Nein"
+			},
+			"loadAutoSaveDialog" : {
+				"message" : "Willst du die automatisch gespeicherte Lawinenvorhersage laden?",
 				"accept" : "Ja",
 				"reject" : "Nein"
 			},
 			"saveErrorDialog" : {
 				"header" : "Fehler beim Speichern",
-				"message" : "Beim Speichern der Lageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Speichern der Lawinenvorhersage ist ein Fehler aufgetreten!",
+				"accept" : "Ok"
+			},
+			"changeErrorDialog" : {
+				"header" : "Fehler beim Ändern",
+				"message" : "Beim Ändern der Lawinenvorhersage ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
 			},
 			"loadingErrorDialog" : {
 				"header" : "Fehler beim Laden",
-				"message" : "Beim Laden der Lageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Laden der Lawinenvorhersage ist ein Fehler aufgetreten!",
 				"accept" : "Ok"
+			},
+			"noElevationDialog" : {
+				"header" : "Keine Höhe definiert",
+				"message" : "Bitte definiere eine Höhe für diese Region!",
+				"accept" : "Ok"
+			},
+			"loadAvActivityCommentExampleTextDialog" : {
+				"header" : "Beispieltext laden",
+				"message" : "Für welche Situation möchtest du einen Beispieltext laden?",
+				"newSnow" : "Neuschnee",
+				"windDriftedSnow" : "Triebschnee",
+				"oldSnow" : "Altschnee",
+				"wetSnow" : "Nassschnee",
+				"glidingSnow" : "Gleitschnee",
+				"favourableSituation" : "Günstige Situation",
+				"cancel" : "Abbrechen"
 			}
 		},
 		"table" : {
 			"title" : {
 				"date" : "Datum",
 				"status" : {
-					"trentino" : "Trentino",
-					"southTyrol" : "Südtirol",
-					"tyrol" : "Tirol"
+					"IT-32-TN" : "Trentino",
+					"IT-32-BZ" : "Südtirol",
+					"AT-07" : "Tirol",
+					"AT-06" : "Steiermark"
 				},
 				"action" : "Aktion",
 				"caaml" : "CAAML"
 			},
 			"status" : {
-				"draft" : "Entwurf",
-				"obsolete" : "veraltet",
 				"missing" : "fehlt",
-				"pending" : "in Verarbeitung",
-				"published" : "publiziert"
+				"draft" : "Entwurf",
+				"submitted" : "gesendet",
+				"published" : "publiziert",
+				"updated" : "verändert",
+				"resubmitted" : "Update gesendet",
+				"republished" : "Update publiziert"
 			},
 			"edit" : "Bearbeiten",
 			"show" : "Anzeigen",
@@ -205,25 +217,98 @@
 				"publish" : "Publizieren"
 			},
 			"publishBulletinsDialog" : {
-				"header" : "Lagebericht publizieren",
-				"message" : "Willst du den Lagebericht publizieren?",
+				"header" : "Lawinenvorhersage publizieren",
+				"message" : "Willst du die Lawinenvorhersage publizieren?",
 				"missingDangerRating" : "Gefahrenstufe nicht definiert",
 				"missingRegion" : "Regionen nicht beurteilt",
 				"duplicateRegion" : "Regionen mehrfach beurteilt",
 				"missingAvActivityHighlights" : "Schlagzeile Gefahrensituation fehlt",
 				"missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
+				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
+				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
 				"pendingSuggestions" : "Unbeantwortete Vorschläge",
 				"accept" : "Ja",
 				"reject" : "Nein"
 			},
+			"publicationStatusDialog" : {
+				"header" : "Publikationsstatus",
+				"publishedBy" : "Publiziert von: ",
+				"publishedAt" : "Publiziert um: ",
+				"validFor" : "Gültig für: ",
+				"tooltip" : {
+					"caaml" : {
+						"success" : "CAAML Datei wurde erstellt",
+						"failed" : "CAAML Datei konnte nicht erstellt werden"
+					},
+					"map" : {
+						"success" : "Karten wurden erstellt",
+						"failed" : "Karten konnten nicht erstellt werden"
+					},
+					"pdf" : {
+						"success" : "PDF wurde erstellt",
+						"failed" : "PDF konnte nicht erstellt werden"
+					},
+					"email" : {
+						"success" : "Emails wurden versandt",
+						"failed" : "Emails konnten nicht versandt werden"
+					},
+					"whatsapp" : {
+						"success" : "Lawinenvorhersage wurde auf WhatsApp und Telegram versandt",
+						"failed" : "Lawinenvorhersage konnte nicht auf WhatsApp und Telegram versandt werden"
+					},
+					"twitter" : {
+						"success" : "Lawinenvorhersagen wurde auf Twitter versandt",
+						"failed" : "Lawinenvorhersage konnte auf Twitter nicht versandt werden"
+					}
+				},
+				"accept" : "Ok"
+			},
 			"publishBulletinsErrorDialog" : {
 				"header" : "Fehler beim Publizieren",
-				"message" : "Beim Publizieren der Lageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Publizieren der Lawinenvorhersage ist ein Fehler aufgetreten!",
+				"accept" : "Ok"
+			},
+			"submitBulletinsDialog" : {
+				"header" : "Lawinenvorhersage absenden",
+				"message" : "Willst du die Lawinenvorhersage absenden?",
+				"missingDangerRating" : "Gefahrenstufe nicht definiert",
+				"missingRegion" : "Regionen nicht beurteilt",
+				"duplicateRegion" : "Regionen mehrfach beurteilt",
+				"missingAvActivityHighlights" : "Schlagzeile der Lawinengefahr fehlt",
+				"missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
+				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
+				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
+				"pendingSuggestions" : "Unbeantwortete Vorschläge",
+				"accept" : "Ja",
+				"reject" : "Nein"
+			},
+			"submitBulletinsErrorDialog" : {
+				"header" : "Fehler beim Absenden",
+				"message" : "Beim Absenden der Lawinenvorhersage ist ein Fehler aufgetreten!",
+				"accept" : "Ok"
+			},
+			"submitBulletinsDuplicateRegionDialog" : {
+				"header" : "Fehler beim Absenden",
+				"message" : "Regionen sind mehrfach beurteilt! Lawinenvorhersage kann nicht abgesendet werden.",
 				"accept" : "Ok"
 			},
 			"checkBulletinsErrorDialog" : {
 				"header" : "Fehler beim Überprüfen",
-				"message" : "Beim Überprüfen der Lageberichte ist ein Fehler aufgetreten!",
+				"message" : "Beim Überprüfen der Lawinenvorhersage ist ein Fehler aufgetreten!",
+				"accept" : "Ok"
+			},
+			"checkBulletinsDialog" : {
+				"header" : "Lawinenvorhersage prüfen",
+				"message" : "Lawinenvorhersage prüfen",
+				"missingDangerRating" : "Gefahrenstufe nicht definiert",
+				"missingRegion" : "Regionen nicht beurteilt",
+				"duplicateRegion" : "Regionen mehrfach beurteilt",
+				"missingAvActivityHighlights" : "Schlagzeile der Lawinengefahr fehlt",
+				"missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
+				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
+				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
+				"pendingSuggestions" : "Unbeantwortete Vorschläge",
+				"ok" : "(alles ok)",
 				"accept" : "Ok"
 			}
 		},
@@ -233,6 +318,93 @@
 				"header" : "CAAML",
 				"message" : "CAAML konnte nicht geladen werden!",
 				"accept" : "Ok"
+			},
+			"noCaamlDialog" : {
+				"header" : "CAAML",
+				"message" : "Keine publizierte Lawinenvorhersage vorhanden!",
+				"accept" : "Ok"
+			}
+		},
+		"json" : {
+			"title" : "JSON",
+			"jsonNotLoadedDialog" : {
+				"header" : "JSON",
+				"message" : "JSON konnte nicht geladen werden!",
+				"accept" : "Ok"
+			},
+			"noJsonDialog" : {
+				"header" : "JSON",
+				"message" : "Keine publizierte Lawinenvorhersage vorhanden!",
+				"accept" : "Ok"
+			}
+		}
+	},
+	"admin" : {
+		"config" : {
+			"tabsocial" : "Email & Social Konfiguration",
+			"addChannel" : "Kanal hinzufügen",
+			"titleShipment": "Versand",
+			"title" : "Server Konfiguration",
+			"table" : {
+				"title" : {
+					"key" : "Parameter",
+					"value" : "Wert"
+				},
+				"createMaps" : "Karten erzeugen",
+				"createPdf" : "PDF erzeugen",
+				"createStaticWidget" : "Statische Widgets erzeugen",
+				"sendEmails" : "Emails versenden",
+				"publishToSocialMedia" : "Publizieren auf sozialen Netzwerken",
+				"publishAt5PM" : "Publizieren um 17:00 Uhr",
+				"publishAt8AM" : "Publizieren um 08:00 Uhr",
+				"localImagesPath" : "Pfad zu lokalen Bildern",
+				"localFontsPath" : "Pfad zu Schriften",
+				"publishBulletinsTyrol" : "Lawinenvorhersage für Tirol publizieren",
+				"publishBulletinsSouthTyrol" : "Lawinenvorhersage für Südtirol publizieren",
+				"publishBulletinsTrentino" : "Lawinenvorhersage für das Trentino publizieren",
+				"publishBulletinsStyria" : "Lawinenvorhersage für die Steiermark publizieren",
+				"pdfDirectory" : "Ordner für PDF",
+				"serverImagesUrl" : "Pfad zu Bildern am Server",
+				"serverImagesUrlLocalhost" : "Pfad zu Bildern am Server (localhost)",
+				"mapsPath" : "Pfad zu Karten",
+				"emailUsername" : "Benutzername für Email",
+				"emailPassword" : "Passwort für Email",
+				"smtpAuth" : "SMTP Auth",
+				"smtpTls" : "SMTP TLS",
+				"smtpHost" : "SMTP Host",
+				"smtpPort" : "SMTP Port",
+				"socketIoOrigin" : "SocketIO origin",
+				"socketIoPort" : "SocketIo port"
+			},
+			"button" : {
+				"save" : "Speichern",
+				"discard" : "Verwerfen"
+			}
+		}
+	},
+	"settings" : {
+		"title" : "Einstellungen",
+		"changePassword" : {
+			"title" : "Passwort ändern",
+			"oldPassword" : "Derzeitiges Passwort",
+			"newPassword1" : "Neues Passwort",
+			"newPassword2" : "Neues Passwort",
+			"oldPasswordHint" : "Bitte gib dein derzeitiges Passwort ein",
+			"newPasswordHint1" : "Bitte gib ein neues Passwort ein",
+			"newPasswordHint2" : "Bitte wiederhole das neue Passwort",
+			"submit" : "Passwort ändern",
+			"passwordChanged" : "Passwort erfolgreich geändert",
+			"passwordChangeError" : "Passwort konnte nicht geändert werden",
+			"passwordIncorrect" : "Passwort ist nicht korrekt",
+			"passwordsNotMatching" : "Passwörter stimmen nicht überein",
+			"passwordEmpty" : "Passwort fehlt"
+		},
+		"display" : {
+			"title" : "Anzeige",
+			"table" : {
+				"showCaaml" : "CAAML anzeigen",
+				"showJson" : "JSON anzeigen",
+				"useMatrix" : "Matrix verwenden"
 			}
 		}
 	},
@@ -252,6 +424,18 @@
 		"wetSnow" : "Nassschnee",
 		"glidingSnow" : "Gleitschnee"
 	},
+	"dangerPattern" : {
+		"dp1" : "gm1: bodennahe schachschicht vom frühwinter",
+		"dp2" : "gm2: gleitschnee",
+		"dp3" : "gm3: regen",
+		"dp4" : "gm4: kalt auf warm / warm auf kalt",
+		"dp5" : "gm5: schnee nach langer kälteperiode",
+		"dp6" : "gm6: lockerer schnee und wind",
+		"dp7" : "gm7: schneearm neben schneereich",
+		"dp8" : "gm8: eingeschneiter oberflächenreif",
+		"dp9" : "gm9: eingeschneiter graupel",
+		"dp10" : "gm10: frühjahrssituation"
+	},
 	"aspect" : {
 		"N" : "N",
 		"NE" : "NO",
@@ -261,6 +445,173 @@
 		"SW" : "SW",
 		"W" : "W",
 		"NW" : "NW"
-	}
+	},
+	"region" : {
+		"AT-07" : "Tirol",
+		"IT-32-BZ" : "Südtirol",
+		"IT-32-TN" : "Trentino",
+		"AT-06" : "Steiermark"
+	},
+	"tendency" : {
+		"decreasing" : " Lawinengefahr sinkt",
+		"steady" : " Lawinengefahr bleibt gleich",
+		"increasing" : " Lawinengefahr steigt"
+	},
+	"changeRegionDialog" : {
+		"message" : "Möchtest du die Änderungen verwerfen und die Region wechseln?",
+		"accept" : "Ja",
+		"reject" : "Nein"
+	},
 
+	"quickReport" : {
+		"title" : "Rückmeldungen",
+		"detailsTitle" : "Rückmeldung",
+		"noData" : "---",
+		"anonymous" : "<anonym>",
+		"new" : {
+			"title" : "Neue Rückmeldung",
+			"newTest" : "Neu",
+			"saveQuickReport" : "Speichern",
+			"discardQuickReport" : "Verwerfen",
+			"save" : "Speichern",
+			"discard" : "Verwerfen",
+			"next" : "Weiter",
+			"discardAlert" : {
+				"title" : "Rückmeldung verwerfen?",
+				"text" : "Möchtest du wirklich diese Rückmeldung verwerfen?",
+				"discard" : "Verwerfen",
+				"cancel" : "Abbrechen"
+			},
+			"discardChangesAlert" : {
+				"title" : "Änderungen verwerfen?",
+				"text" : "Möchtest du wirklich die Änderungen an dieser Rückmeldung verwerfen?",
+				"discard" : "Verwerfen",
+				"cancel" : "Abbrechen"
+			},
+			"info" : {
+				"pageTitle" : "Info",
+				"tabTitle" : "Info",
+				"missing" : "fehlt"
+			},
+			"locationName" : "Name der Örtlichkeit",
+			"info" : "Info",
+			"ridingQuality" : "Fahrspaß",
+			"snowConditions" : "Schneeverhältnisse",
+			"rode" : "Wir fuhren",
+			"avoided" : "Wir hielten uns fern von",
+			"alarmSignsFrequency" : "Alarmzeichen",
+			"newSnow" : "Neuschnee",
+			"driftingSnow" : "Frischer Triebschnee",
+			"avalanches" : "Frische Lawinen",
+			"penetrationDepth" : "Einsinktiefe ohne Ski",
+			"surfaceSnowWetness" : "Feuchtigkeit der Schneeoberfläche",
+			"avalancheProblems" : "Lawinenprobleme",
+			"tracks" : "Spuren",
+			"comment" : "Kommentar"
+		}
+	},
+
+	"ridingQuality" : {
+		"amazing" : "Sehr gut",
+		"good" : "Gut",
+		"ok" : "Befriedigend",
+		"indifferent" : "Genügend",
+		"terrible" : "Ungenügend"
+	},
+
+	"snowConditions" : {
+		"crusty" : "Harsch",
+		"heavy" : "Schwer",
+		"hard" : "Hart",
+		"wet" : "Nass",
+		"powder" : "Pulver",
+		"firn" : "Firn",
+		"windAffected" : "Wind beeinflusst"
+	},
+
+	"terrainFeature" : {
+		"moderatelySteepSlopes" : "Mäßig steile Hänge (< 30°)",
+		"steepSlopes" : "Steile Hänge (30° - 40°)",
+		"verySteepSlopes" : "Extrem steile Hänge (> 40°)",
+		"convexSlopes" : "Konvexe Hänge",
+		"denseTrees" : "Dichter Wald",
+		"openTrees" : "Lichter Wald",
+		"sunnySlopes" : "Sonnige Hänge",
+		"shadySlopes" : "Schattige Hänge"
+	},
+
+	"alarmSignsFrequency" : {
+		"none" : "Keine",
+		"occasional" : "Vereinzelt",
+		"frequent" : "Häufig"
+	},
+
+	"newSnow" : {
+		"none" : "Keiner",
+		"low" : "< 10 cm",
+		"medium" : "10 - 30 cm",
+		"high" : "> 30 cm"
+	},
+
+	"driftingSnow" : {
+		"none" : "Keiner",
+		"occasional" : "Vereinzelt",
+		"widespread" : "Verbreitet"
+	},
+
+	"avalanches" : {
+		"none" : "Keine",
+		"some" : "Wenige (1 - 3)",
+		"many" : "Viele (> 3)"
+	},
+
+	"penetrationDepth" : {
+		"little" : "< 5 cm",
+		"medium" : "5 - 30 cm",
+		"much" : "> 30 cm",
+		"spotty" : "unregelmäßig"
+	},
+
+	"surfaceSnowWetness" : {
+		"dry" : "Trocken",
+		"sticky" : "Feucht",
+		"wet" : "Nass"
+	},
+
+	"avalancheProblem" : {
+		"new_snow" : "Neuschnee",
+		"wind_drifted_snow" : "Triebschnee",
+		"weak_persistent_layer" : "Altschnee",
+		"wet_snow" : "Nassschnee",
+		"gliding_snow" : "Gleitschnee",
+		"favourable_situation" : "Günstige Situation"
+	},
+
+	"tracks" : {
+		"none" : "Keine",
+		"some" : "Wenig",
+		"many" : "Viele"
+	},
+
+	"location" : {
+		"title" : "Örtlichkeit",
+		"country" : "Land",
+		"region" : "Region",
+		"subregion" : "Subregion",
+		"name" : "Name",
+		"latitude" : "Latitude",
+		"longitude" : "Longitude",
+		"accuracy" : "Genauigkeit: ",
+		"unknownAccuracy" : "(Genauigkeit unbekannt)",
+		"elevation" : "Höhe",
+		"angle" : "Hangneigung",
+		"aspect" : "Himmelsrichtung",
+		"quality" : "Qualität"
+	},
+
+	"units" : {
+		"cm" : "cm",
+		"mm" : "mm",
+		"m" : "m"
+	}
 }

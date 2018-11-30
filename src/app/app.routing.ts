@@ -20,10 +20,22 @@ export const routes: Routes = [
     loadChildren: './bulletins/bulletins.module#BulletinsModule'
   },
   {
-    path: 'news',
+    path: 'observations',
     component: FullLayoutComponent,
     canActivate: [AuthGuard], 
-    loadChildren: './news/news.module#NewsModule'
+    loadChildren: './observations/observations.module#ObservationsModule'
+  },
+  {
+    path: 'admin',
+    component: FullLayoutComponent,
+    canActivate: [AuthGuard], 
+    loadChildren: './admin/admin.module#AdminModule'
+  },
+  {
+    path: 'settings',
+    component: FullLayoutComponent,
+    canActivate: [AuthGuard], 
+    loadChildren: './settings/settings.module#SettingsModule'
   },
   {
     path: 'pages',

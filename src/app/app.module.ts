@@ -4,12 +4,9 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { DropdownModule } from 'ng2-bootstrap/dropdown';
-import { TabsModule } from 'ng2-bootstrap/tabs';
 import { NAV_DROPDOWN_DIRECTIVES } from './shared/nav-dropdown.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { SIDEBAR_TOGGLE_DIRECTIVES } from './shared/sidebar.directive';
 import { AsideToggleDirective } from './shared/aside.directive';
 import { BreadcrumbsComponent } from './shared/breadcrumb.component';
@@ -24,19 +21,35 @@ import { SimpleLayoutComponent } from './layouts/simple-layout.component';
 // Services
 import { AuthenticationService } from './providers/authentication-service/authentication.service';
 import { BulletinsService } from './providers/bulletins-service/bulletins.service';
-import { ChatService } from './providers/chat-service/chat.service';
-import { NewsService } from './providers/news-service/news.service';
 import { RegionsService } from './providers/regions-service/regions.service';
 import { ConstantsService } from './providers/constants-service/constants.service';
 import { SettingsService } from './providers/settings-service/settings.service';
 import { MapService } from './providers/map-service/map.service';
-import { SocketService } from './providers/socket-service/socket.service';
+import { ObservationsService } from './providers/observations-service/observations.service';
+import { WsBulletinService } from './providers/ws-bulletin-service/ws-bulletin.service';
+import { WsUpdateService } from './providers/ws-update-service/ws-update.service';
+import { WsRegionService } from './providers/ws-region-service/ws-region.service';
+import { WsChatService } from './providers/ws-chat-service/ws-chat.service';
+import { ChatService } from './providers/chat-service/chat.service';
+import { LocalStorageService } from './providers/local-storage-service/local-storage.service';
+import { ConfigurationService } from './providers/configuration-service/configuration.service';
+import { SocialmediaService } from './providers/socialmedia-service/socialmedia.service';
 import { ConfirmationService } from 'primeng/primeng';
+
+// Pipes
+import { PipeModule }    from './pipes/pipes.module';
 
 import { AuthGuard } from './guards/auth.guard';
 
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { HttpModule, Http } from '@angular/http';
+
+import { BsDropdownModule, TabsModule, ModalModule, AlertModule } from 'ngx-bootstrap';
+
+import { ModalSubmitComponent } from './bulletins/modal-submit.component';
+import { ModalPublishComponent } from './bulletins/modal-publish.component';
+import { ModalCheckComponent } from './bulletins/modal-check.component';
+import { ModalPublicationStatusComponent } from './bulletins/modal-publication-status.component';
 
 export function createTranslateLoader(http: Http) {
     return new TranslateStaticLoader(http, './assets/i18n', '.json');
@@ -46,13 +59,15 @@ export function createTranslateLoader(http: Http) {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    DropdownModule.forRoot(),
+    BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule,
+    AlertModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
     BrowserAnimationsModule,
+    PipeModule.forRoot(),
+    ModalModule.forRoot(),
     TranslateModule.forRoot({ 
       provide: TranslateLoader,
       useFactory: (createTranslateLoader),
@@ -67,6 +82,10 @@ export function createTranslateLoader(http: Http) {
     NAV_DROPDOWN_DIRECTIVES,
     SIDEBAR_TOGGLE_DIRECTIVES,
     AsideToggleDirective,
+    ModalSubmitComponent,
+    ModalPublishComponent,
+    ModalCheckComponent,
+    ModalPublicationStatusComponent
   ],
   providers: [
     {
@@ -76,19 +95,30 @@ export function createTranslateLoader(http: Http) {
     AuthenticationService,
     AuthGuard,
     ConstantsService,
-    NewsService,
     SettingsService,
     BulletinsService,
     RegionsService,
-    ChatService,
-    NewsService,
     MapService,
-    SocketService,
-    ConfirmationService
+    ObservationsService,
+    WsChatService,
+    WsRegionService,
+    WsUpdateService,
+    WsBulletinService,
+    ChatService,
+    LocalStorageService,
+    ConfigurationService,
+    ConfirmationService,
+    SocialmediaService
   ],
   bootstrap: [ AppComponent ],
   exports: [
     TranslateModule
+  ],
+  entryComponents: [
+    ModalSubmitComponent,
+    ModalPublishComponent,
+    ModalCheckComponent,
+    ModalPublicationStatusComponent
   ]
 })
 export class AppModule { }

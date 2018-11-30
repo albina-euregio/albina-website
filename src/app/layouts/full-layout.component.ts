@@ -1,11 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { TranslateService } from 'ng2-translate/src/translate.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { SettingsService } from '../providers/settings-service/settings.service';
+import { WsChatService } from '../providers/ws-chat-service/ws-chat.service';
+import { ConstantsService } from '../providers/constants-service/constants.service';
 import { ChatService } from '../providers/chat-service/chat.service';
 import { ChatMessageModel } from '../models/chat-message.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import * as Enums from '../enums/enums';
 
 @Component({
@@ -19,24 +23,36 @@ export class FullLayoutComponent implements OnInit {
 
   public message: string;
 
+  public tmpRegion: string;
+
+  public changeRegionModalRef: BsModalRef;
+  @ViewChild('changeRegionTemplate') changeRegionTemplate: TemplateRef<any>;
+
+  public config = {
+    keyboard: true,
+    class: 'modal-sm'
+  };
+
   constructor(
     public translateService: TranslateService,
     public authenticationService: AuthenticationService,
     public bulletinsService: BulletinsService,
+    public wsChatService: WsChatService,
     public chatService: ChatService,
     public settingsService: SettingsService,
-    public router: Router)
+    public constantsService: ConstantsService,
+    public router: Router,
+    private modalService: BsModalService)
   {
     this.message = "";
+    this.tmpRegion = undefined;
   }
 
-  public showBadge(): boolean {
-    return this.chatService.getNewMessageCount() > 0 && !this.status.isopen;
+  public showBadge(region?: string): boolean {
+    return this.chatService.getNewMessageCount(region) > 0 && !this.status.isopen;
   }
 
   public toggled(open: boolean): void {
-    if (open)
-      this.chatService.resetNewMessageCount();
   }
 
   public toggleDropdown($event: MouseEvent): void {
@@ -45,22 +61,56 @@ export class FullLayoutComponent implements OnInit {
     this.status.isopen = !this.status.isopen;
   }
 
-  public focusChat($event) {
-    this.chatService.resetNewMessageCount();
+  public focusChat($event, region?: string) {
+    this.chatService.resetNewMessageCount(region);
   }
 
   public logout() {
     if (this.bulletinsService.getActiveDate())
-      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getUserRegion());
+      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
     this.authenticationService.logout();
+    this.chatService.disconnect();
   }
 
   ngOnInit(): void {}
 
-  sendChatMessage() {
-    this.chatService.resetNewMessageCount();
+  sendChatMessage(region?: string) {
+    this.chatService.resetNewMessageCount(region);
     if (this.message && this.message != undefined && this.message != "")
-      this.chatService.sendMessage(this.message);
+      this.chatService.sendMessage(this.message, region);
     this.message = "";
+  }
+
+  changeRegion(region) {
+    if (!this.authenticationService.getActiveRegion().startsWith(region)) {
+      if (this.router.url === "/bulletins/new" && this.bulletinsService.getIsEditable()) {
+        this.tmpRegion = region;
+        this.openChangeRegionModal(this.changeRegionTemplate, region);
+      } else {
+        if (this.bulletinsService.getActiveDate())
+          this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+        this.authenticationService.setActiveRegion(region);
+        this.bulletinsService.init();
+        this.router.navigate(["/bulletins"]);
+      }
+    }
+  }
+
+  openChangeRegionModal(template: TemplateRef<any>, region: string) {
+    this.changeRegionModalRef = this.modalService.show(template, this.config);
+  }
+
+  changeRegionModalConfirm(): void {
+    this.changeRegionModalRef.hide();
+    if (this.bulletinsService.getActiveDate())
+      this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+    this.authenticationService.setActiveRegion(this.tmpRegion);
+    this.tmpRegion = undefined;
+    this.bulletinsService.init();
+    this.router.navigate(["/bulletins"]);
+  }
+ 
+  changeRegionModalDecline(): void {
+    this.changeRegionModalRef.hide();
   }
 }
