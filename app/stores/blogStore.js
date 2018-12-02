@@ -67,6 +67,20 @@ export default class BlogStore {
     this.load(true);
   }
 
+  validatePage(valueToValidate) {
+    const maxPages = this.maxPages;
+    return Base.clamp(valueToValidate, 1, maxPages);
+  }
+
+  validateMonth(valueToValidate) {
+    const parsed = !isNaN && parseInt(valueToValidate);
+    if (parsed) {
+      return Base.clamp(parsed, 1, 12);
+    } else {
+      return "";
+    }
+  }
+
   // checking if the url has been changed and applying new values
   checkUrl() {
     console.log("checkUrl", this.languageActive);
@@ -75,7 +89,7 @@ export default class BlogStore {
     const search = Base.makeSearch();
     const urlValues = {
       year: Base.searchGet("year", search),
-      month: Base.searchGet("month", search),
+      month: this.validateMonth(Base.searchGet("month", search)),
       searchLang: Base.searchGet("searchLang", search),
       region: Base.searchGet("region", search),
       problem: Base.searchGet("problem", search),
@@ -140,14 +154,16 @@ export default class BlogStore {
 
     const initialParameters = {
       year: Base.searchGet("year") || date.getFullYear(),
-      month: Base.searchGet("month") || parseInt(date.getMonth()) + 1,
+      month:
+        this.validateMonth(Base.searchGet("month")) ||
+        parseInt(date.getMonth()) + 1,
       problem: Base.searchGet("problem") || "",
       page: Base.searchGet("page") || 1,
       searchText: Base.searchGet("searchText") || "",
       languages: {
-        de: ["de", "all"].includes(searchLang) || !searchLang,
-        it: ["it", "all"].includes(searchLang) || !searchLang,
-        en: ["en", "all"].includes(searchLang) || !searchLang
+        de: ["", "de", "all"].includes(searchLang) || !searchLang,
+        it: ["", "it", "all"].includes(searchLang) || !searchLang,
+        en: ["", "en", "all"].includes(searchLang) || !searchLang
       }
     };
 
@@ -312,11 +328,6 @@ export default class BlogStore {
   }
   set page(val) {
     this._page.set(parseInt(val));
-  }
-
-  validatePage(pageToValidate) {
-    const maxPages = this.maxPages;
-    return Base.clamp(pageToValidate, 1, maxPages);
   }
 
   @action setPage(newPage) {

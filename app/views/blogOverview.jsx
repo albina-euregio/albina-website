@@ -182,7 +182,8 @@ class BlogOverview extends React.Component {
             className={this.store.searchText ? "disabled" : ""}
           />
 
-          {this.store.year && (
+          {
+            //this.store.year && (
             <MonthFilter
               title={this.props.intl.formatMessage({
                 id: "blog:filter:month"
@@ -194,7 +195,8 @@ class BlogOverview extends React.Component {
               value={this.store.month}
               className={this.store.searchText ? "disabled" : ""}
             />
-          )}
+            //)
+          }
           {/*
             <LanguageFilter
               title={this.props.intl.formatMessage({id: 'blog:filter:language'})}
