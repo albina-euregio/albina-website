@@ -48,7 +48,6 @@ export default class BlogStore {
   getHistory;
 
   update() {
-    console.log("update", this.page);
     Base.searchChange(
       this.getHistory(),
       {
@@ -110,7 +109,6 @@ export default class BlogStore {
 
   // checking if the url has been changed and applying new values
   checkUrl() {
-    console.log("checkUrl", this.languageActive);
     let needLoad = false;
 
     const search = Base.makeSearch();
@@ -144,7 +142,6 @@ export default class BlogStore {
 
     // region
     if (urlValues.region != this.regionActive) {
-      console.log("!!region needs to be updated to", urlValues.region);
       this.setRegions(urlValues.region);
       needLoad = true;
     }
@@ -177,8 +174,6 @@ export default class BlogStore {
     const date = new Date();
     const searchLang = this.validateLanguage(Base.searchGet("searchLang"));
 
-    console.log("searchLang", searchLang);
-
     const initialParameters = {
       year: this.validateYear(Base.searchGet("year")) || date.getFullYear(),
       month:
@@ -186,7 +181,7 @@ export default class BlogStore {
         parseInt(date.getMonth()) + 1,
       problem: this.validateProblem(Base.searchGet("problem")),
       page: this.validatePage(Base.searchGet("page")) || 1,
-      searchText: Base.searchGet("searchText") || "",
+      searchText: Base.searchGet("searchText"),
       languages: {
         de: ["", "de", "all"].includes(searchLang) || !searchLang,
         it: ["", "it", "all"].includes(searchLang) || !searchLang,
@@ -229,7 +224,7 @@ export default class BlogStore {
     // For Mobx > v4 we have to use an obserable box instead of
     // @observable loading = ...;
     this.loading = false;
-    this._searchText = observable.box("");
+    this._searchText = observable.box(initialParameters.searchText);
 
     this.blogProcessor = {
       blogger: {
@@ -308,7 +303,7 @@ export default class BlogStore {
             const p = this.blogProcessor[cfg.apiType];
 
             const url = p.createUrl(cfg);
-            //console.log("processing", this.searchText, url);
+            console.log("processing", this.searchText, url);
 
             loads.push(
               Base.doRequest(url).then(
@@ -380,7 +375,7 @@ export default class BlogStore {
     return this._searchText.get();
   }
   set searchText(val) {
-    if (val != this._searchText.get()) {
+    if (val != this.searchText) {
       this._searchText.set(val);
     }
   }

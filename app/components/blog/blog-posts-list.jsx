@@ -11,7 +11,7 @@ class BlogPostsList extends React.Component {
   }
 
   render() {
-    console.log("rendering posts", this.props.posts);
+    console.log("rendering posts", this.props.posts.map(i => i.image));
     return (
       <div>
         {this.props.posts.map((item, i) => {
