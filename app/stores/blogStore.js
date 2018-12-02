@@ -73,9 +73,18 @@ export default class BlogStore {
   }
 
   validateMonth(valueToValidate) {
-    const parsed = !isNaN && parseInt(valueToValidate);
+    const parsed = parseInt(valueToValidate);
     if (parsed) {
       return Base.clamp(parsed, 1, 12);
+    } else {
+      return "";
+    }
+  }
+
+  validateYear(valueToValidate) {
+    const parsed = parseInt(valueToValidate);
+    if (parsed) {
+      return Base.clamp(parsed, config.get("archive.minYear"), 2018);
     } else {
       return "";
     }
@@ -88,7 +97,7 @@ export default class BlogStore {
 
     const search = Base.makeSearch();
     const urlValues = {
-      year: Base.searchGet("year", search),
+      year: this.validateYear(Base.searchGet("year", search)),
       month: this.validateMonth(Base.searchGet("month", search)),
       searchLang: Base.searchGet("searchLang", search),
       region: Base.searchGet("region", search),
@@ -153,7 +162,7 @@ export default class BlogStore {
     console.log("searchLang", searchLang);
 
     const initialParameters = {
-      year: Base.searchGet("year") || date.getFullYear(),
+      year: this.validateYear(Base.searchGet("year")) || date.getFullYear(),
       month:
         this.validateMonth(Base.searchGet("month")) ||
         parseInt(date.getMonth()) + 1,
