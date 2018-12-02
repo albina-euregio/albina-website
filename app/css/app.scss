@@ -334,3 +334,38 @@ a[target*="_blank"]:not([class*="sm-button"])::after {
     max-height: 100px;
   }
 }
+
+@media only screen and (max-width: 48em) {
+  .footer-images li {
+    width: 100%;
+    text-align: -webkit-center;
+  }
+}
+@media only screen and (min-width: 48em) {
+  .footer-images ul {
+    width: 100%;
+    text-align: center;
+  }
+}
+.footer-images {
+  ul {
+    display: inline-table;
+    li {
+      height: 8em;
+      padding: 0 !important;
+      margin: 1em !important;
+      img {
+        max-width: 100%;
+
+        /* IE7-8 need help adjusting responsive images */
+        width: auto;
+
+        /* Part 2: Scale the height according to the width, otherwise you get stretching */
+        height: 100%;
+
+        display: block;
+        border: 0;
+      }
+    }
+  }
+}

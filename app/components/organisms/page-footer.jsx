@@ -3,6 +3,7 @@ import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import Menu from "../menu";
 import SmFollow from "./sm-follow.jsx";
+import FooterLogos from "./footer-logos.jsx";
 import {
   parseRawHtml,
   defaultProcessor,
@@ -116,6 +117,8 @@ class PageFooter extends React.Component {
             </div>
           </div>
         </section>
+        <FooterLogos />
+
         <SmFollow />
       </div>
     );
