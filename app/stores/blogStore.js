@@ -244,7 +244,7 @@ export default class BlogStore {
             params["q"] = this.searchText;
             baseUrl += "/search";
           } else {
-            if (this.problem) {
+            if (this.problem && this.problem !== "all") {
               params["labels"] = this.problem;
             }
             if (this.year) {
@@ -302,8 +302,6 @@ export default class BlogStore {
     for (let cfg of blogsConfig) {
       newPosts[cfg.name] = [];
 
-      console.log(cfg);
-
       if (this.languages[cfg.lang] && this.languages[cfg.lang]) {
         if (cfg.regions.some(r => this.regions[r] && this.regions[r])) {
           if (this.blogProcessor[cfg.apiType]) {
@@ -315,7 +313,6 @@ export default class BlogStore {
             loads.push(
               Base.doRequest(url).then(
                 response => {
-                  console.log("request", url);
                   p.process(JSON.parse(response), cfg).forEach(i => {
                     //console.log("new item", i);
                     newPosts[cfg.name].push(i);
