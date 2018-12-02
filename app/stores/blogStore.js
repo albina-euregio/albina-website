@@ -90,6 +90,21 @@ export default class BlogStore {
     }
   }
 
+  validateRegion(valueToValidate) {
+    const allowedRegions = Object.keys(window["appStore"].regions);
+    if (allowedRegions.includes(valueToValidate)) {
+      return valueToValidate;
+    } else {
+      return "all";
+    }
+  }
+
+  validateLanguage(valueToValidate) {
+    return window["appStore"].languages.includes(valueToValidate)
+      ? valueToValidate
+      : "all";
+  }
+
   // checking if the url has been changed and applying new values
   checkUrl() {
     console.log("checkUrl", this.languageActive);
@@ -99,8 +114,8 @@ export default class BlogStore {
     const urlValues = {
       year: this.validateYear(Base.searchGet("year", search)),
       month: this.validateMonth(Base.searchGet("month", search)),
-      searchLang: Base.searchGet("searchLang", search),
-      region: Base.searchGet("region", search),
+      searchLang: this.validateLanguage(Base.searchGet("searchLang", search)),
+      region: this.validateRegion(Base.searchGet("region", search)),
       problem: Base.searchGet("problem", search),
       page: this.validatePage(Base.searchGet("page", search)),
       searchText: Base.searchGet("searchText", search)
@@ -157,7 +172,7 @@ export default class BlogStore {
 
   initialParams() {
     const date = new Date();
-    const searchLang = Base.searchGet("searchLang");
+    const searchLang = this.validateLanguage(Base.searchGet("searchLang"));
 
     console.log("searchLang", searchLang);
 
@@ -170,14 +185,14 @@ export default class BlogStore {
       page: Base.searchGet("page") || 1,
       searchText: Base.searchGet("searchText") || "",
       languages: {
-        de: ["", "de", "all"].includes(searchLang) || !searchLang,
-        it: ["", "it", "all"].includes(searchLang) || !searchLang,
+        de: ["", "de"].includes(searchLang) || !searchLang,
+        it: ["", "it"].includes(searchLang) || !searchLang,
         en: ["", "en", "all"].includes(searchLang) || !searchLang
       }
     };
 
     // get all regions from appStore and activate them
-    const searchRegion = Base.searchGet("region");
+    const searchRegion = this.validateRegion(Base.searchGet("region"));
     const initialRegions = {};
     Object.keys(window["appStore"].regions).forEach(regionName => {
       initialRegions[regionName] =
