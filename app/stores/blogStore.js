@@ -91,16 +91,19 @@ export default class BlogStore {
   }
 
   validateRegion(valueToValidate) {
-    const allowedRegions = Object.keys(window["appStore"].regions);
-    if (allowedRegions.includes(valueToValidate)) {
-      return valueToValidate;
-    } else {
-      return "all";
-    }
+    return Object.keys(window["appStore"].regions).includes(valueToValidate)
+      ? valueToValidate
+      : "all";
   }
 
   validateLanguage(valueToValidate) {
     return window["appStore"].languages.includes(valueToValidate)
+      ? valueToValidate
+      : "all";
+  }
+
+  validateProblem(valueToValidate) {
+    return window["appStore"].avalancheProblems.includes(valueToValidate)
       ? valueToValidate
       : "all";
   }
@@ -116,7 +119,7 @@ export default class BlogStore {
       month: this.validateMonth(Base.searchGet("month", search)),
       searchLang: this.validateLanguage(Base.searchGet("searchLang", search)),
       region: this.validateRegion(Base.searchGet("region", search)),
-      problem: Base.searchGet("problem", search),
+      problem: this.validateProblem(Base.searchGet("problem", search)),
       page: this.validatePage(Base.searchGet("page", search)),
       searchText: Base.searchGet("searchText", search)
     };
@@ -181,12 +184,12 @@ export default class BlogStore {
       month:
         this.validateMonth(Base.searchGet("month")) ||
         parseInt(date.getMonth()) + 1,
-      problem: Base.searchGet("problem") || "",
-      page: Base.searchGet("page") || 1,
+      problem: this.validateProblem(Base.searchGet("problem")),
+      page: this.validatePage(Base.searchGet("page")) || 1,
       searchText: Base.searchGet("searchText") || "",
       languages: {
-        de: ["", "de"].includes(searchLang) || !searchLang,
-        it: ["", "it"].includes(searchLang) || !searchLang,
+        de: ["", "de", "all"].includes(searchLang) || !searchLang,
+        it: ["", "it", "all"].includes(searchLang) || !searchLang,
         en: ["", "en", "all"].includes(searchLang) || !searchLang
       }
     };
@@ -299,6 +302,8 @@ export default class BlogStore {
     for (let cfg of blogsConfig) {
       newPosts[cfg.name] = [];
 
+      console.log(cfg);
+
       if (this.languages[cfg.lang] && this.languages[cfg.lang]) {
         if (cfg.regions.some(r => this.regions[r] && this.regions[r])) {
           if (this.blogProcessor[cfg.apiType]) {
@@ -310,6 +315,7 @@ export default class BlogStore {
             loads.push(
               Base.doRequest(url).then(
                 response => {
+                  console.log("request", url);
                   p.process(JSON.parse(response), cfg).forEach(i => {
                     //console.log("new item", i);
                     newPosts[cfg.name].push(i);
@@ -467,9 +473,11 @@ export default class BlogStore {
   }
 
   @computed get numberOfPosts() {
-    return Object.values(this.posts)
-      .map(l => l.length)
-      .reduce((acc, v) => acc + v, 0);
+    return this.posts
+      ? Object.values(this.posts)
+          .map(l => l.length)
+          .reduce((acc, v) => acc + v, 0)
+      : 0;
   }
 
   @computed get postsList() {
