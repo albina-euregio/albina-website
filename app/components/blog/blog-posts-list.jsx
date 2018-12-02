@@ -11,10 +11,10 @@ class BlogPostsList extends React.Component {
   }
 
   render() {
+    console.log("rendering posts", this.props.posts);
     return (
       <div>
-        {//!this.props.loading &&
-        this.props.posts.map((item, i) => {
+        {this.props.posts.map((item, i) => {
           return (
             <Link
               key={i}

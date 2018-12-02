@@ -276,7 +276,7 @@ export default class BlogStore {
                   });
                 },
                 (errorText, statusCode) => {
-                  console.log(errorText);
+                  console.log("err", errorText);
                   if (
                     parseInt(statusCode) == 304 &&
                     Array.isArray(this._posts[cfg.name])
@@ -292,6 +292,7 @@ export default class BlogStore {
     }
 
     return Promise.all(loads).then(() => {
+      console.log("posts loaded", newPosts);
       this.posts = newPosts;
       this.loading = false;
     });
@@ -315,11 +316,10 @@ export default class BlogStore {
 
   validatePage(pageToValidate) {
     const maxPages = this.maxPages;
-    return Base.clamp(pageToValidate, 0, maxPages);
+    return Base.clamp(pageToValidate, 1, maxPages);
   }
 
   @action setPage(newPage) {
-    console.log("setting page");
     this.page = this.validatePage(newPage);
   }
 
@@ -327,7 +327,6 @@ export default class BlogStore {
     const thisPage = this.page;
     const maxPages = this.maxPages;
     const nextPageNo = thisPage < maxPages ? thisPage + 1 : thisPage;
-    console.log("setting page", nextPageNo);
     this.setPage(nextPageNo);
   }
   @action previousPage() {
@@ -415,7 +414,6 @@ export default class BlogStore {
     for (let l in newLanguages) {
       newLanguages[l] = [l, "all"].includes(lang) || !lang;
     }
-    console.log("setLanguages", lang, this.languages);
     this._languages.set(newLanguages);
   }
 
@@ -450,6 +448,7 @@ export default class BlogStore {
 
     const startIndex = Math.min(start, totalLength - 1);
     const end = Math.min(start + limit, totalLength);
+
     const postPointer = {};
     queues.forEach(queue => {
       postPointer[queue] = 0;

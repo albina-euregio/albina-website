@@ -297,7 +297,7 @@ a.share-feed {
 // external links
 a[target*="_blank"]:not([class*="sm-button"])::after {
   content: "\1F87D";
-  font-family: monospace;
+  font-family: auto;
   font-size: 15px;
   margin-left: 5px;
 }

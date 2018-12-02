@@ -1,4 +1,9 @@
 {
+  "app:title": {
+    "de": "Lawinen.report - Lawinenwarndienste Tirol - Südtirol - Trentino",
+    "it": "Valanghe.report - Servizi Previsione Valanghe Tirolo - Alto Adige - Trentino",
+    "en": "Avalanche. report - Avalanche Warning Services Tirol - South Tyrol - Trentino"
+  },
   "region:AT-07": { "en": "Tirol", "de": "Tirol", "it": "Tirolo" },
   "region:IT-32-BZ": {
     "en": "South Tirol",

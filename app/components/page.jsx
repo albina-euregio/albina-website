@@ -5,7 +5,8 @@ import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
 import MenuStore from "../stores/menuStore";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
+import { injectIntl } from "react-intl";
 
 import Base from "./../base";
 import ModalDialog from "./modal-dialog";
@@ -64,6 +65,16 @@ class Page extends React.Component {
 
     // set the url if needed
     Base.searchChange(this.props.history, { lang: appStore.language }, true);
+
+    console.log(
+      "_____setting title",
+      (document.title = this.props.intl.formatMessage({
+        id: "app:title"
+      }))
+    );
+    document.title = this.props.intl.formatMessage({
+      id: "app:title"
+    });
   }
 
   componentDidUpdate() {
@@ -152,4 +163,4 @@ class Page extends React.Component {
   }
 }
 
-export default withRouter(Page);
+export default inject("locale")(injectIntl(withRouter(Page)));
