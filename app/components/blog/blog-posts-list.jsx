@@ -11,7 +11,7 @@ class BlogPostsList extends React.Component {
   }
 
   render() {
-    console.log("rendering posts", this.props.posts.map(i => i.image));
+    const havePictures = this.props.posts.some(i => i.image);
     return (
       <div>
         {this.props.posts.map((item, i) => {
@@ -21,9 +21,11 @@ class BlogPostsList extends React.Component {
               to={"/blog/" + item.blogName + "/" + item.postId}
               className="linkbox linkbox-blog-feature"
             >
-              <div className="content-image">
-                {item.image && <img src={item.image} />}
-              </div>
+              {havePictures && (
+                <div className="content-image">
+                  {item.image && <img src={item.image} />}
+                </div>
+              )}
               <div className="content-text">
                 <ul className="list-inline blog-feature-meta">
                   <li className="blog-author">{item.author}</li>
