@@ -898,10 +898,20 @@
     "de": "Abonnieren",
     "it": "Iscriviti"
   },
-  "dialog:subscribe-email:subscribe:agree": {
-    "en": "I have read the <a class='internal' href='/declaration' target='_blank'>declaration of consent</a> completely and have been informed about the legal consequences.",
-    "de": "Ich habe die <a class='internal' href='/declaration' target='_blank'>Einwilligungserklärung</a> vollständig gelesen und bin über die Rechtsfolgen informiert.",
-    "it": "Ho letto completamente la <a class='internal' href='/declaration' target='_blank'>dichiarazione di consenso</a> e sono stato informato delle conseguenze giuridiche.​"
+  "dialog:subscribe-email:subscribe:agree-before-link": {
+    "en": "I have read the ",
+    "de": "Ich habe die",
+    "it": "Ho letto completamente la "
+  },
+  "dialog:subscribe-email:subscribe:agree-after-link": {
+    "en": " completely and have been informed about the legal consequences.",
+    "de": " vollständig gelesen und bin über die Rechtsfolgen informiert.",
+    "it": " e sono stato informato delle conseguenze giuridiche.​"
+  },
+  "dialog:subscribe-email:subscribe:agree-link": {
+    "en": "declaration of consent",
+    "de": "Einwilligungserklärung",
+    "it": "dichiarazione di consenso​"
   },
   "dialog:subscribe-email:status:loading": {
     "en": "<strong>Please stand by:</strong> Subscription in progress \\u2026",

@@ -1,6 +1,7 @@
 import React from "react";
 import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { Link } from "react-router-dom";
 
 import ProvinceFilter from "../filters/province-filter";
 import Base from "../../base";
@@ -164,7 +165,18 @@ class SubscribeEmailDialog extends React.Component {
                   onChange={e => this.handleChangeAgree(e)}
                   checked={this.state.agree}
                 />
-                <FormattedHTMLMessage id="dialog:subscribe-email:subscribe:agree" />
+                {this.props.intl.formatMessage({
+                  id: "dialog:subscribe-email:subscribe:agree-before-link"
+                })}
+                <Link title="blog" to="/declaration/">
+                  {this.props.intl.formatMessage({
+                    id: "dialog:subscribe-email:subscribe:agree-link"
+                  })}
+                </Link>
+                {this.props.intl.formatMessage({
+                  id: "dialog:subscribe-email:subscribe:agree-after-link"
+                })}
+                }
               </label>
             </div>
 
