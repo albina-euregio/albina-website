@@ -900,7 +900,7 @@
   },
   "dialog:subscribe-email:subscribe:agree-before-link": {
     "en": "I have read the ",
-    "de": "Ich habe die",
+    "de": "Ich habe die ",
     "it": "Ho letto completamente la "
   },
   "dialog:subscribe-email:subscribe:agree-after-link": {

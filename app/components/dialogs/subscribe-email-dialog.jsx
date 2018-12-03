@@ -168,7 +168,12 @@ class SubscribeEmailDialog extends React.Component {
                 {this.props.intl.formatMessage({
                   id: "dialog:subscribe-email:subscribe:agree-before-link"
                 })}
-                <Link title="blog" to="/declaration/">
+                <Link
+                  title={this.props.intl.formatMessage({
+                    id: "dialog:subscribe-email:subscribe:agree-link"
+                  })}
+                  to="/declaration/"
+                >
                   {this.props.intl.formatMessage({
                     id: "dialog:subscribe-email:subscribe:agree-link"
                   })}
@@ -176,7 +181,6 @@ class SubscribeEmailDialog extends React.Component {
                 {this.props.intl.formatMessage({
                   id: "dialog:subscribe-email:subscribe:agree-after-link"
                 })}
-                }
               </label>
             </div>
 

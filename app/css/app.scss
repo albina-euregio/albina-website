@@ -296,7 +296,7 @@ a.share-feed {
 
 // external links
 a[target*="_blank"]:not([class*="sm-button"]):not([class*="logo"]):not([class*="internal"])::after {
-  content: "\1F87D";
+  //content: "\1F87D";
   font-family: "Times New Roman", Times, serif;
   font-size: 15px;
   margin-left: 5px;
