@@ -11,7 +11,7 @@ class FooterLogos extends React.Component {
         <ul className="list-inline">
           {icons.map((icon, i) => (
             <li key={i}>
-              <a href={icon.url} target="_blank">
+              <a href={icon.url} target="_blank" className="logo">
                 <img
                   title={icon.title}
                   src={"../../images/pro/footer/" + icon.img + ".png"}
