@@ -16,6 +16,7 @@ import SmShare from "../components/organisms/sm-share";
 import { parseDate, dateToISODateString } from "../util/date.js";
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
+import { configure } from "../../node_modules/mobx/lib/mobx";
 
 @observer
 class Bulletin extends React.Component {
@@ -74,13 +75,19 @@ class Bulletin extends React.Component {
   }
 
   _fetchData(props) {
+    console.log("props.match.params.date", props.match.params.date);
+
+    /* if it is later than 5pm, add one day */
+    const now = new Date();
+    if (now.getHours() >= config.get("bulletin.isTomorrow")) {
+      now.setDate(now.getDate() + 1);
+    }
+
     let startDate =
       props.match.params.date && parseDate(props.match.params.date)
         ? props.match.params.date
-        : dateToISODateString(new Date());
+        : dateToISODateString(now);
 
-    console.log("fetch data", startDate);
-    console.log(this.props.match.params.date);
     if (startDate != this.props.match.params.date) {
       // update URL if necessary
       props.history.push("/bulletin/" + startDate);
