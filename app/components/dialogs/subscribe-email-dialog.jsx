@@ -104,6 +104,7 @@ class SubscribeEmailDialog extends React.Component {
             <ul className="list-inline list-buttongroup">
               <li>
                 <ProvinceFilter
+                  name="province"
                   className={this.state.region && "selectric-changed"}
                   handleChange={r => this.handleChangeRegion(r)}
                   value={this.state.region}
@@ -176,6 +177,7 @@ class SubscribeEmailDialog extends React.Component {
                     id: "dialog:subscribe-email:subscribe:agree-link"
                   })}
                   to="/declaration/"
+                  target="_blank"
                 >
                   {this.props.intl.formatMessage({
                     id: "dialog:subscribe-email:subscribe:agree-link"

@@ -65,7 +65,8 @@ class SubscribeSocialMediaDialog extends React.Component {
           style={{
             textAlign: "center",
             width: "fit-content",
-            margin: "0 auto"
+            margin: "0 auto",
+            paddingBottom: "2em"
           }}
         >
           <label htmlFor="province">
