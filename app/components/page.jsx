@@ -75,6 +75,7 @@ class Page extends React.Component {
     document.title = this.props.intl.formatMessage({
       id: "app:title"
     });
+    document.documentElement.lang = appStore.language;
   }
 
   componentDidUpdate() {
