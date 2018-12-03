@@ -13,7 +13,8 @@ class SubscribeEmailDialog extends React.Component {
       language: window["appStore"].language,
       regions: Object.keys(window["appStore"].regions)[0],
       status: "",
-      errorMessage: ""
+      errorMessage: "",
+      agree: false
     };
   }
 
@@ -24,6 +25,10 @@ class SubscribeEmailDialog extends React.Component {
     } else if (this.state.email) {
       this.setState({ email: "" });
     }
+  };
+
+  handleChangeAgree = e => {
+    this.setState({ agree: !this.state.agree });
   };
 
   handleChangeLanguage = e => {
@@ -148,6 +153,20 @@ class SubscribeEmailDialog extends React.Component {
 
             <hr />
 
+            <div className="">
+              <label htmlFor="agree">
+                <input
+                  id="agree"
+                  type="checkbox"
+                  onChange={e => this.handleChangeAgree(e)}
+                  checked={this.state.agree}
+                />
+                {this.props.intl.formatMessage({
+                  id: "dialog:subscribe-email:subscribe:agree"
+                })}
+              </label>
+            </div>
+
             <button
               type="submit"
               className="pure-button"
@@ -160,7 +179,7 @@ class SubscribeEmailDialog extends React.Component {
           </form>
         )}
 
-        {(this.state.status || this.state.errorMessage) && (
+        {(this.state.status || this.state.errorMessage) && this.state.agree && (
           <div className="field-2 panel">
             {this.state.status && (
               <p className="status-message">

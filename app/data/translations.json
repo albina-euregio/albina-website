@@ -898,6 +898,11 @@
     "de": "Abonnieren",
     "it": "Iscriviti"
   },
+  "dialog:subscribe-email:subscribe:agree": {
+    "en": "Yes, I agree to receive emails and donate my kidney.",
+    "de": "Agree",
+    "it": "Agree"
+  },
   "dialog:subscribe-email:status:loading": {
     "en": "<strong>Please stand by:</strong> Subscription in progress \\u2026",
     "de": "<strong>Bitte warten:</strong> Anmeldung in Arbeit \\u2026",

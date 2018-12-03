@@ -254,6 +254,32 @@
     }
   },
 
+  "footer": {
+    "icons": [
+      {
+        "img": "ORIZZONTALE",
+        "title": "EVTZ",
+        "url": "http://www.europaregion.info/"
+      },
+      {
+        "img": "Landeslogo_Regular_4c",
+        "title": "Tirol",
+        "url": "https://www.tirol.gv.at/"
+      },
+      {
+        "img": "LW-4Z-3sprachig",
+        "title": "Südtirol",
+        "url": "http://wetter.provinz.bz.it/"
+      },
+      {
+        "img": "Stemma_PAT_colore",
+        "title": "Trentino",
+        "url": "https://www.meteotrentino.it/"
+      }
+    ],
+    "showIcons": true
+  },
+
   "archive": {
     "minYear": 2016,
     "maxResults": 30
