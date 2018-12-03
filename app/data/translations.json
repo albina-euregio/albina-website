@@ -698,6 +698,11 @@
     "de": "Region",
     "it": "Province"
   },
+  "blog:filter:province:nothing-selected": {
+    "en": "Select",
+    "de": "Wähle",
+    "it": "Seleziona"
+  },
   "blog:filter:language": {
     "en": "Language",
     "de": "Sprache",

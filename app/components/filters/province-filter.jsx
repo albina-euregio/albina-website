@@ -15,6 +15,7 @@ export default class ProvinceFilter extends React.Component {
         {this.props.title && <p className="info">{this.props.title}</p>}
         <Selectric onChange={this.props.handleChange} {...this.props}>
           {this.props.all && <option value="">{this.props.all}</option>}
+          {this.props.none && <option value="none">{this.props.none}</option>}
           {Object.keys(regions).map(r => (
             <option key={r} value={r}>
               {regions[r]}

@@ -12,7 +12,7 @@ class SubscribeEmailDialog extends React.Component {
     this.state = {
       email: "",
       language: window["appStore"].language,
-      region: Object.keys(window["appStore"].regions)[0],
+      region: false,
       status: "",
       errorMessage: "",
       agree: false
@@ -37,7 +37,7 @@ class SubscribeEmailDialog extends React.Component {
   };
 
   handleChangeRegion = newRegion => {
-    this.setState({ region: newRegion });
+    this.setState({ region: newRegion !== "none" ? newRegion : false });
   };
 
   handleSubmit = e => {
@@ -63,9 +63,9 @@ class SubscribeEmailDialog extends React.Component {
 
   validate() {
     return (
-      this.state.email != "" &&
-      this.state.language != "" &&
-      this.state.region &&
+      this.state.email !== "" &&
+      this.state.language !== "" &&
+      this.state.region !== false &&
       this.state.agree
     );
   }
@@ -104,9 +104,12 @@ class SubscribeEmailDialog extends React.Component {
             <ul className="list-inline list-buttongroup">
               <li>
                 <ProvinceFilter
-                  className="selectric-changed"
+                  className={this.state.region && "selectric-changed"}
                   handleChange={r => this.handleChangeRegion(r)}
                   value={this.state.region}
+                  none={this.props.intl.formatMessage({
+                    id: "blog:filter:province:nothing-selected"
+                  })}
                 />
               </li>
             </ul>
