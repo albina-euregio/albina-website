@@ -175,10 +175,8 @@ export default class BlogStore {
     const searchLang = this.validateLanguage(Base.searchGet("searchLang"));
 
     const initialParameters = {
-      year: this.validateYear(Base.searchGet("year")) || date.getFullYear(),
-      month:
-        this.validateMonth(Base.searchGet("month")) ||
-        parseInt(date.getMonth()) + 1,
+      year: this.validateYear(Base.searchGet("year")),
+      month: this.validateMonth(Base.searchGet("month")),
       problem: this.validateProblem(Base.searchGet("problem")),
       page: this.validatePage(Base.searchGet("page")) || 1,
       searchText: Base.searchGet("searchText"),
