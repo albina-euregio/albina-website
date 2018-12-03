@@ -1,10 +1,10 @@
-import React from 'react'
-import { computed } from 'mobx'
-import { observer, inject } from 'mobx-react'
-import { injectIntl, FormattedHTMLMessage } from 'react-intl'
-import DangerPatternItem from './danger-pattern-item'
-import BulletinDaytimeReport from './bulletin-daytime-report'
-import { dateToLongDateString, parseDate } from '../../util/date'
+import React from "react";
+import { computed } from "mobx";
+import { observer, inject } from "mobx-react";
+import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import DangerPatternItem from "./danger-pattern-item";
+import BulletinDaytimeReport from "./bulletin-daytime-report";
+import { dateToLongDateString, parseDate } from "../../util/date";
 
 /*
  * This component shows the detailed bulletin report including all icons and
@@ -12,33 +12,33 @@ import { dateToLongDateString, parseDate } from '../../util/date'
  */
 class BulletinReport extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   @computed
   get daytimeBulletins() {
-    const bulletin = this.props.store.activeBulletin
-    const bs = {}
+    const bulletin = this.props.store.activeBulletin;
+    const bs = {};
     if (bulletin.hasDaytimeDependency) {
-      bs['am'] = bulletin['forenoon']
-      bs['pm'] = bulletin['afternoon']
+      bs["am"] = bulletin["forenoon"];
+      bs["pm"] = bulletin["afternoon"];
     } else {
-      bs['fd'] = bulletin['forenoon']
+      bs["fd"] = bulletin["forenoon"];
     }
-    return bs
+    return bs;
   }
 
   @computed
   get dangerPatterns() {
-    const bulletin = this.props.store.activeBulletin
-    const dangerPatterns = []
+    const bulletin = this.props.store.activeBulletin;
+    const dangerPatterns = [];
     if (bulletin.dangerPattern1) {
-      dangerPatterns.push(bulletin.dangerPattern1)
+      dangerPatterns.push(bulletin.dangerPattern1);
     }
     if (bulletin.dangerPattern2) {
-      dangerPatterns.push(bulletin.dangerPattern2)
+      dangerPatterns.push(bulletin.dangerPattern2);
     }
-    return dangerPatterns
+    return dangerPatterns;
   }
 
   /*
@@ -47,73 +47,64 @@ class BulletinReport extends React.Component {
    */
   getLocalizedText(elem) {
     if (Array.isArray(elem)) {
-      const l = elem.find(
-        e => e.languageCode === window['appStore'].language
-      )
+      const l = elem.find(e => e.languageCode === window["appStore"].language);
       if (l) {
-        return l.text
+        return l.text;
       }
     }
-    return ''
+    return "";
   }
 
   getMaxWarnlevel(daytimeBulletins) {
     const defaultLevel = {
       number: 0,
-      id: 'no_rating'
-    }
+      id: "no_rating"
+    };
 
     const comparator = (acc, w) => {
       if (acc.number < w.number) {
-        return w
+        return w;
       }
       // else prefer no_snow over no_rating
-      if (
-        acc.number == 0 &&
-        acc.id == 'no_rating' &&
-        w.id == 'no_snow'
-      ) {
-        return w
+      if (acc.number == 0 && acc.id == "no_rating" && w.id == "no_snow") {
+        return w;
       }
-      return acc
-    }
+      return acc;
+    };
 
     return Object.values(daytimeBulletins)
       .map(b => {
-        const warnlevels = []
+        const warnlevels = [];
         if (b.dangerRatingAbove) {
           warnlevels.push({
-            number: window['appStore'].getWarnlevelNumber(
-              b.dangerRatingAbove
-            ),
+            number: window["appStore"].getWarnlevelNumber(b.dangerRatingAbove),
             id: b.dangerRatingAbove
-          })
+          });
         }
         if (b.dangerRatingBelow) {
           warnlevels.push({
-            number: window['appStore'].getWarnlevelNumber(
-              b.dangerRatingBelow
-            ),
+            number: window["appStore"].getWarnlevelNumber(b.dangerRatingBelow),
             id: b.dangerRatingBelow
-          })
+          });
         }
         // get the maximum for each daytime
-        return warnlevels.reduce(comparator, defaultLevel)
+        return warnlevels.reduce(comparator, defaultLevel);
       })
-      .reduce(comparator, defaultLevel) // return the total maximum
+      .reduce(comparator, defaultLevel); // return the total maximum
   }
 
   render() {
-    const bulletin = this.props.store.activeBulletin
+    const bulletin = this.props.store.activeBulletin;
     if (!bulletin) {
-      return <div />
+      return <div />;
     }
 
-    const daytimeBulletins = this.daytimeBulletins
-    const maxWarnlevel = this.getMaxWarnlevel(daytimeBulletins)
-    const classes =
-      'panel field callout warning-level-' + maxWarnlevel.number
+    const daytimeBulletins = this.daytimeBulletins;
+    const maxWarnlevel = this.getMaxWarnlevel(daytimeBulletins);
+    const classes = "panel field callout warning-level-" + maxWarnlevel.number;
 
+    console.log("snowpackStructureComment", bulletin.snowpackStructureComment);
+    console.log("this.dangerPatterns", this.dangerPatterns);
     return (
       <div>
         <section
@@ -129,7 +120,7 @@ class BulletinReport extends React.Component {
                     date: dateToLongDateString(
                       parseDate(this.props.store.settings.date)
                     ),
-                    daytime: ''
+                    daytime: ""
                   }}
                 />
               </p>
@@ -137,13 +128,13 @@ class BulletinReport extends React.Component {
                 <FormattedHTMLMessage
                   id={
                     maxWarnlevel.number == 0
-                      ? 'bulletin:report:headline2:level0'
-                      : 'bulletin:report:headline2'
+                      ? "bulletin:report:headline2:level0"
+                      : "bulletin:report:headline2"
                   }
                   values={{
                     number: maxWarnlevel.number,
                     text: this.props.intl.formatMessage({
-                      id: 'danger-level:' + maxWarnlevel.id
+                      id: "danger-level:" + maxWarnlevel.id
                     })
                   }}
                 />
@@ -154,7 +145,7 @@ class BulletinReport extends React.Component {
                 key={ampm}
                 bulletin={daytimeBulletins[ampm]}
                 fullBulletin={bulletin}
-                ampm={ampm == 'fd' ? '' : ampm}
+                ampm={ampm == "fd" ? "" : ampm}
                 store={this.props.store}
               />
             ))}
@@ -164,53 +155,46 @@ class BulletinReport extends React.Component {
             <p>{this.getLocalizedText(bulletin.avActivityComment)}</p>
           </div>
         </section>
-        {bulletin.dangerPattern1 &&
-          bulletin.tendency && (
-            <section
-              id="section-bulletin-additional"
-              className="section-centered section-bulletin section-bulletin-additional"
-            >
-              <div className="panel brand">
-                {(this.dangerPatterns.length > 0 ||
-                  bulletin.snowpackStructureComment) && (
-                  <div>
-                    <h2 className="subheader">
-                      <FormattedHTMLMessage id="bulletin:report:snowpack-structure:headline" />
-                    </h2>
-                    {this.dangerPatterns.length > 0 && (
-                      <ul className="list-inline list-labels">
-                        <li>
-                          <span className="tiny heavy letterspace">
-                            <FormattedHTMLMessage id="bulletin:report:danger-patterns" />
-                          </span>
+        {
+          <section
+            id="section-bulletin-additional"
+            className="section-centered section-bulletin section-bulletin-additional"
+          >
+            <div className="panel brand">
+              {(this.dangerPatterns.length > 0 ||
+                bulletin.snowpackStructureComment) && (
+                <div>
+                  <h2 className="subheader">
+                    <FormattedHTMLMessage id="bulletin:report:snowpack-structure:headline" />
+                  </h2>
+                  {this.dangerPatterns.length > 0 && (
+                    <ul className="list-inline list-labels">
+                      <li>
+                        <span className="tiny heavy letterspace">
+                          <FormattedHTMLMessage id="bulletin:report:danger-patterns" />
+                        </span>
+                      </li>
+                      {this.dangerPatterns.map((dp, index) => (
+                        <li key={index}>
+                          <DangerPatternItem dangerPattern={dp} />
                         </li>
-                        {this.dangerPatterns.map((dp, index) => (
-                          <li key={index}>
-                            <DangerPatternItem dangerPattern={dp} />
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    <p>
-                      {this.getLocalizedText(
-                        bulletin.snowpackStructureComment
-                      )}
-                    </p>
-                  </div>
-                )}
-                {bulletin.tendencyComment && (
-                  <div>
-                    <h2 className="subheader">
-                      <FormattedHTMLMessage id="bulletin:report:tendency:headline" />
-                    </h2>
-                    <p>
-                      {this.getLocalizedText(
-                        bulletin.tendencyComment
-                      )}
-                    </p>
-                  </div>
-                )}
-                {/*
+                      ))}
+                    </ul>
+                  )}
+                  <p>
+                    {this.getLocalizedText(bulletin.snowpackStructureComment)}
+                  </p>
+                </div>
+              )}
+              {bulletin.tendencyComment && (
+                <div>
+                  <h2 className="subheader">
+                    <FormattedHTMLMessage id="bulletin:report:tendency:headline" />
+                  </h2>
+                  <p>{this.getLocalizedText(bulletin.tendencyComment)}</p>
+                </div>
+              )}
+              {/*
             <p className="bulletin-author">
               <FormattedHTMLMessage id="bulletin:report:author" />
               :&nbsp;
@@ -220,12 +204,12 @@ class BulletinReport extends React.Component {
                 )}
             </p>
               */}
-              </div>
-            </section>
-          )}
+            </div>
+          </section>
+        }
       </div>
-    )
+    );
   }
 }
 
-export default inject('locale')(injectIntl(observer(BulletinReport)))
+export default inject("locale")(injectIntl(observer(BulletinReport)));
