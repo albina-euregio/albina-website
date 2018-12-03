@@ -899,9 +899,9 @@
     "it": "Iscriviti"
   },
   "dialog:subscribe-email:subscribe:agree": {
-    "en": "Yes, I agree to receive emails and donate my kidney.",
-    "de": "Agree",
-    "it": "Agree"
+    "en": "I have read the <a>declaration of consent</a> completely and have been informed about the legal consequences.",
+    "de": "Ich habe die <a>Einwilligungserklärung</a> vollständig gelesen und bin über die Rechtsfolgen informiert.",
+    "it": "Ho letto completamente la <a>dichiarazione di consenso</a> e sono stato informato delle conseguenze giuridiche.​"
   },
   "dialog:subscribe-email:status:loading": {
     "en": "<strong>Please stand by:</strong> Subscription in progress \\u2026",
