@@ -158,7 +158,10 @@ class Page extends React.Component {
         <ModalDialog id="subscribeAppDialog">
           <SubscribeAppDialog />
         </ModalDialog>
+        {/*
+          we do not need cookie anymore
         <CookieConsent />
+        */}
       </div>
     );
   }

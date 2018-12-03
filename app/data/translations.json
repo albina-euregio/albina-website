@@ -899,9 +899,9 @@
     "it": "Iscriviti"
   },
   "dialog:subscribe-email:subscribe:agree": {
-    "en": "I have read the <a>declaration of consent</a> completely and have been informed about the legal consequences.",
-    "de": "Ich habe die <a>Einwilligungserklärung</a> vollständig gelesen und bin über die Rechtsfolgen informiert.",
-    "it": "Ho letto completamente la <a>dichiarazione di consenso</a> e sono stato informato delle conseguenze giuridiche.​"
+    "en": "I have read the <a class='internal' href='/declaration' target='_blank'>declaration of consent</a> completely and have been informed about the legal consequences.",
+    "de": "Ich habe die <a class='internal' href='/declaration' target='_blank'>Einwilligungserklärung</a> vollständig gelesen und bin über die Rechtsfolgen informiert.",
+    "it": "Ho letto completamente la <a class='internal' href='/declaration' target='_blank'>dichiarazione di consenso</a> e sono stato informato delle conseguenze giuridiche.​"
   },
   "dialog:subscribe-email:status:loading": {
     "en": "<strong>Please stand by:</strong> Subscription in progress \\u2026",

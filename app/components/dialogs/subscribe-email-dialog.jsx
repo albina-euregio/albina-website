@@ -11,7 +11,7 @@ class SubscribeEmailDialog extends React.Component {
     this.state = {
       email: "",
       language: window["appStore"].language,
-      regions: Object.keys(window["appStore"].regions)[0],
+      region: Object.keys(window["appStore"].regions)[0],
       status: "",
       errorMessage: "",
       agree: false
@@ -62,7 +62,10 @@ class SubscribeEmailDialog extends React.Component {
 
   validate() {
     return (
-      this.state.email != "" && this.state.language != "" && this.state.region
+      this.state.email != "" &&
+      this.state.language != "" &&
+      this.state.region &&
+      this.state.agree
     );
   }
 
@@ -161,9 +164,7 @@ class SubscribeEmailDialog extends React.Component {
                   onChange={e => this.handleChangeAgree(e)}
                   checked={this.state.agree}
                 />
-                {this.props.intl.formatMessage({
-                  id: "dialog:subscribe-email:subscribe:agree"
-                })}
+                <FormattedHTMLMessage id="dialog:subscribe-email:subscribe:agree" />
               </label>
             </div>
 

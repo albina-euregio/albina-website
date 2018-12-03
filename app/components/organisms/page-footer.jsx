@@ -117,7 +117,7 @@ class PageFooter extends React.Component {
             </div>
           </div>
         </section>
-        {config.get("footer.showIcons") && <FooterLogos />}
+        {!config.get("footer.iconsHidden") && <FooterLogos />}
 
         <SmFollow />
       </div>
