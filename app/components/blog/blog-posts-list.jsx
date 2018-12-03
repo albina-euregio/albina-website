@@ -28,7 +28,8 @@ class BlogPostsList extends React.Component {
               )}
               <div className="content-text">
                 <ul className="list-inline blog-feature-meta">
-                  <li className="blog-author">{item.author}</li>
+                  {/*<li className="blog-author">{item.author}</li>
+                   */}
                   <li className="blog-date">
                     {dateToDateTimeString(item.date)}
                   </li>
