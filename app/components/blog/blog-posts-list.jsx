@@ -40,7 +40,9 @@ class BlogPostsList extends React.Component {
                   </li>
                   <li className="blog-language">{item.lang.toUpperCase()}</li>
                 </ul>
-                <h1 className="subheader blog-feature-title">{item.title}</h1>
+                <h1 title={item.title} className="subheader blog-feature-title">
+                  {item.title}
+                </h1>
                 <TagList tags={item.tags} />
               </div>
             </Link>
