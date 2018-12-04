@@ -20,9 +20,11 @@ class SubscribeEmailDialog extends React.Component {
   }
 
   handleChangeEmail = e => {
-    const target = e.target;
-    if (!target.matches(":invalid")) {
-      this.setState({ email: target.value });
+    const value = e.target.value;
+    console.log(value);
+
+    if (this.validateEmail(value)) {
+      this.setState({ email: value });
     } else if (this.state.email) {
       this.setState({ email: "" });
     }
@@ -68,6 +70,11 @@ class SubscribeEmailDialog extends React.Component {
       this.state.region !== false &&
       this.state.agree
     );
+  }
+
+  validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
   }
 
   render() {
