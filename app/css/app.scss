@@ -470,3 +470,7 @@ $blogpost-fontsize-xl: 1.6em;
     }
   }
 }
+
+img {
+  -ms-interpolation-mode: bicubic;
+}
