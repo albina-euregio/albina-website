@@ -31,27 +31,31 @@ class BulletinMap extends React.Component {
             (config.get("map.useWindowWidth") ? "" : " section-centered")
           }
         >
-          {["", "empty"].includes(this.props.store.settings.status) && (
-            <section className="bulletinbar section controlbar">
-              <div className="bar section-centered">
-                <p>
-                  {this.props.intl.formatMessage({
-                    id: "bulletin:header:no-bulletin-info"
-                  })}
-                  <strong>
-                    <Link title="blog" to="/blog/">
-                      {this.props.intl.formatMessage({
-                        id: "bulletin:header:blog"
-                      })}
-                    </Link>
-                  </strong>
-                  {this.props.intl.formatMessage({
-                    id: "bulletin:header:no-bulletin-info-post"
-                  })}
-                </p>
-              </div>
-            </section>
-          )}
+          {/*
+              no-bulletin banner
+            */
+          ["", "empty"].includes(this.props.store.settings.status) &&
+            config.get("bulletin.noBulletinBanner") && (
+              <section className="bulletinbar section controlbar">
+                <div className="bar section-centered">
+                  <p>
+                    {this.props.intl.formatMessage({
+                      id: "bulletin:header:no-bulletin-info"
+                    })}
+                    <strong>
+                      <Link title="blog" to="/blog/">
+                        {this.props.intl.formatMessage({
+                          id: "bulletin:header:blog"
+                        })}
+                      </Link>
+                    </strong>
+                    {this.props.intl.formatMessage({
+                      id: "bulletin:header:no-bulletin-info-post"
+                    })}
+                  </p>
+                </div>
+              </section>
+            )}
           <LeafletMap
             regions={this.props.regions}
             mapViewportChanged={this.props.handleMapViewportChanged}

@@ -174,7 +174,8 @@
     ]
   },
   "bulletin": {
-    "isTomorrow": 16
+    "isTomorrow": 16,
+    "noBulletinBanner": false
   },
   "map": {
     "attribution": "<a href='https://carto.univie.ac.at/' target='_blank'>(c) UniWien</a>",
