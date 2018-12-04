@@ -14,7 +14,6 @@ import AppStore from "./appStore.js";
 import ConfigStore from "./configStore.js";
 import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
-import ReactGA from "react-ga";
 import { addLocaleData } from "react-intl";
 import { reaction } from "mobx";
 import { storageAvailable } from "./util/storage";
@@ -83,6 +82,7 @@ Base.doRequest(configUrl).then(configData => {
   // set initial language
 
   // init Analytics software - only on production builds
+  /*
   if (!DEV) {
     const trackingKey = window["config"].get("apiKeys.gaTrackingId");
     if (trackingKey) {
@@ -94,6 +94,7 @@ Base.doRequest(configUrl).then(configData => {
       );
     }
   }
+  */
 
   // replace language-dependent body classes on language change.
   const languageDependentClassesHandler = reaction(
