@@ -332,8 +332,7 @@ $blogpost-image-w-xl: 10rem;
 $blogpost-fontsize-xl: 1.6em;
 
 .section-blog-posts {
-  padding-top: 0rem;
-  padding-bottom: 0rem;
+  padding: 0 1.25rem;
   a.linkbox-blog-feature:link {
     div {
       &.content-image {
@@ -414,7 +413,6 @@ $blogpost-fontsize-xl: 1.6em;
     padding-bottom: 1rem;
   }
   .section-blog-posts {
-    padding: 0.9375rem 1.25rem;
     a.linkbox-blog-feature:link {
       height: $blogpost-image-h-sm;
       div {
