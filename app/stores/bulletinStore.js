@@ -431,6 +431,7 @@ class BulletinStore {
       // query bulletin data
       response => {
         console.log("this is where the collection is filled from", url);
+        console.log("and this is the response", JSON.parse(response));
         this.bulletins[date].setData(JSON.parse(response));
       },
       error => {
