@@ -334,6 +334,46 @@ a[target*="_blank"]:not([class*="sm-button"]):not([class*="logo"]):not([class*="
     max-height: 100px;
   }
 }
+@media only screen and (max-width: 48em) {
+  .blog-page-flipper {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .section-blog-posts {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+    a.linkbox-blog-feature:link {
+      margin-bottom: 1rem;
+      height: 6.5rem;
+      width: 100%;
+      div {
+        &.content-image {
+          margin: 0.5rem;
+          padding: 0;
+          img {
+            width: 7em;
+          }
+        }
+        &.content-text {
+          padding: 1rem;
+          position: absolute;
+          width: calc(100% - 7em);
+          max-height: 100%;
+          overflow: hidden;
+          left: 7em;
+          bottom: 0.5rem;
+          top: 0.5rem;
+          .blog-feature-title {
+            font-size: 1.2em;
+          }
+          .blog-feature-meta li {
+            padding: 0 1rem 0.2rem 0rem;
+          }
+        }
+      }
+    }
+  }
+}
 
 @media only screen and (max-width: 48em) {
   .footer-images li {
