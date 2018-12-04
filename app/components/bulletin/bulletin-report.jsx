@@ -103,8 +103,6 @@ class BulletinReport extends React.Component {
     const maxWarnlevel = this.getMaxWarnlevel(daytimeBulletins);
     const classes = "panel field callout warning-level-" + maxWarnlevel.number;
 
-    console.log("snowpackStructureComment", bulletin.snowpackStructureComment);
-    console.log("this.dangerPatterns", this.dangerPatterns);
     return (
       <div>
         <section
@@ -155,7 +153,7 @@ class BulletinReport extends React.Component {
             <p>{this.getLocalizedText(bulletin.avActivityComment)}</p>
           </div>
         </section>
-        {
+        {(bulletin.tendencyComment || bulletin.snowpackStructureComment) && (
           <section
             id="section-bulletin-additional"
             className="section-centered section-bulletin section-bulletin-additional"
@@ -206,7 +204,7 @@ class BulletinReport extends React.Component {
               */}
             </div>
           </section>
-        }
+        )}
       </div>
     );
   }
