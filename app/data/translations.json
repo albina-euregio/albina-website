@@ -373,6 +373,11 @@
     "de": "Oberhalb {elev}: Gefahrenstufe {number-above} – {text-above}<br />Unterhalb {elev}: Gefahrenstufe {number-below} – {text-below}",
     "it": "Al di sopra dei {elev}: Grado di pericolo {number-above} – {text-above}<br />Al di sotto dei {elev}: Grado di pericolo {number-below} – {text-below}"
   },
+  "bulletin:map:info:danger-picto2-no-value-below:hover": {
+    "en": "Above {elev}: Danger level {number-above} – {text-above}<br />Below {elev}: {text-below}",
+    "de": "Oberhalb {elev}: Gefahrenstufe {number-above} – {text-above}<br />Unterhalb {elev}: {text-below}",
+    "it": "Al di sopra dei {elev}: Grado di pericolo {number-above} – {text-above}<br />Al di sotto dei {elev}: {text-below}"
+  },
   "bulletin:map:info:no-report": {
     "en": "No rating",
     "de": "Keine Gefahreneinschätzung",
