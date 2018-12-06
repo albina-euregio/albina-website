@@ -35,7 +35,7 @@ class BulletinHeader extends React.Component {
     return (
       <section
         id="section-bulletin-header"
-        className={`section-padding section-header section-bulletin-header 0bulletin-archive bulletin-updated${
+        className={`section-padding section-header section-bulletin-header bulletin-updated ${
           this.statusClass
         }`}
       >

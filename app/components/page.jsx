@@ -102,7 +102,7 @@ class Page extends React.Component {
     ) {
       // scroll to top on forward page change (if no hash is set)
       // see https://github.com/ReactTraining/react-router/issues/2019
-      // window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     }
   }
 

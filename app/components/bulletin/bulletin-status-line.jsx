@@ -9,6 +9,12 @@ class BulletinStatusLine extends React.Component {
     super(props);
   }
 
+  @computed get message() {
+    return window["archiveStore"].getStatusMessage(
+      this.props.store.settings.date
+    );
+  }
+
   @computed get statusText() {
     const collection = this.props.store.activeBulletinCollection;
 
@@ -27,9 +33,6 @@ class BulletinStatusLine extends React.Component {
 
       // There must be a status entry for each downloaded bulletin. Query its
       // original status message.
-      const message = window["archiveStore"].getStatusMessage(
-        this.props.store.settings.date
-      );
 
       const params = {
         date: dateToDateString(pubDate),
@@ -37,16 +40,17 @@ class BulletinStatusLine extends React.Component {
       };
 
       console.log("date", pubDate);
-      if (message == "republished") {
+      if (this.message === "republished") {
         return this.props.intl.formatMessage(
           { id: "bulletin:header:updated-at" },
           params
         );
+      } else {
+        return this.props.intl.formatMessage(
+          { id: "bulletin:header:published-at" },
+          params
+        );
       }
-      return this.props.intl.formatMessage(
-        { id: "bulletin:header:published-at" },
-        params
-      );
     }
 
     return this.props.intl.formatMessage({ id: "bulletin:header:no-bulletin" });
@@ -54,7 +58,16 @@ class BulletinStatusLine extends React.Component {
 
   render() {
     return (
-      <p className="marginal bulletin-datetime-publishing">{this.statusText}</p>
+      <p
+        className={
+          "marginal " +
+          (this.message === "republished"
+            ? "bulletin-datetime-publishing"
+            : "bulletin-datetime-validity")
+        }
+      >
+        {this.statusText}
+      </p>
     );
   }
 }
