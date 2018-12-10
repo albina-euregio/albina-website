@@ -1,22 +1,22 @@
-const webpack = require('webpack')
-const HtmlWebPackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const webpack = require("webpack");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => {
   return {
     resolve: {
-      extensions: ['.js', '.jsx']
+      extensions: [".js", ".jsx"]
     },
-    context: __dirname + '/app',
+    context: __dirname + "/app",
     entry: {
-      app: './main.jsx'
+      app: "./main.jsx"
     },
     devServer: {
       historyApiFallback: true
     },
     output: {
-      publicPath: '/'
+      publicPath: "/"
     },
     module: {
       rules: [
@@ -25,7 +25,7 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
           use: [
             {
-              loader: 'babel-loader'
+              loader: "babel-loader"
             }
           ]
         },
@@ -33,7 +33,7 @@ module.exports = (env, argv) => {
           test: /\.html$/,
           use: [
             {
-              loader: 'html-loader',
+              loader: "html-loader",
               options: { minimize: true }
             }
           ]
@@ -41,24 +41,24 @@ module.exports = (env, argv) => {
         {
           test: /\.scss$/,
           loaders: [
-            'style-loader',
-            { loader: 'css-loader', options: { importLoaders: 1 } },
-            'sass-loader'
+            "style-loader",
+            { loader: "css-loader", options: { importLoaders: 1 } },
+            "sass-loader"
           ]
         },
         {
           test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader']
+          use: [MiniCssExtractPlugin.loader, "css-loader"]
         },
         {
           test: /\.(jpe?g|png|gif|svg|eot|ttf|svg|woff|woff2|ico)$/i,
           use: [
             {
-              loader: 'file-loader',
+              loader: "file-loader",
               options: {
-                name: '[name].[ext]',
-                outputPath: './assets/',
-                publicPath: './assets/'
+                name: "[name].[ext]",
+                outputPath: "./assets/",
+                publicPath: "./assets/"
               }
             }
           ]
@@ -67,27 +67,27 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new HtmlWebPackPlugin({
-        template: './index.html',
-        filename: './index.html',
-        favicon: './images/fav/en/favicon.ico',
+        template: "./index.html",
+        filename: "./index.html",
+        favicon: "./images/fav/en/favicon.ico",
         hash: true
       }),
       new webpack.DefinePlugin({
-        DEV: argv.mode !== 'production',
-        VERSION: JSON.stringify(require('./package.json').version)
+        DEV: argv.mode !== "production",
+        VERSION: JSON.stringify(require("./package.json").version)
       }),
       new MiniCssExtractPlugin({
-        filename: '[name].css',
-        chunkFilename: '[id].css'
+        filename: "[name].css",
+        chunkFilename: "[id].css"
       }),
       new CopyWebpackPlugin(
         [
-          { from: './data', to: 'data' },
-          { from: './images', to: 'images' },
-          { from: './config.json', to: 'config.json' }
+          { from: "./data", to: "data" },
+          { from: "./images", to: "images" },
+          { from: "./config.json", to: "config.json" }
         ],
         {}
       )
     ]
-  }
-}
+  };
+};

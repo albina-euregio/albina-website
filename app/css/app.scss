@@ -259,7 +259,7 @@ button.mfp-close:before {
 
 a.share-feed {
   line-height: 2em;
-  background-image: url("../images/pro/feed-icon-28x28.png");
+  background: url("../images/pro/feed-icon-28x28.png");
   background-repeat: no-repeat;
   background-size: 1.3em 1.3em;
   padding-left: 1.5em;
@@ -306,11 +306,21 @@ a.share-feed {
 }
 
 // external links
-a[target*="_blank"]:not([class*="sm-button"]):not([class*="logo"]):not([class*="internal"])::after {
-  //content: "\1F87D";
-  font-family: "Times New Roman", Times, serif;
-  font-size: 15px;
-  margin-left: 5px;
+a[target*="_blank"]:not([class*="sm-button"]):not([class*="logo"]):not([class*="internal"]) {
+  &::after {
+    content: " ";
+    line-height: 1em;
+    width: 1em;
+    height: 1em;
+    background-image: url(http://localhost:8080/images/pro/icon-arrow-increase_grey.png);
+    background-repeat: no-repeat;
+    background-size: 1em 1em;
+    margin-left: 0.5rem;
+    padding: 0 0.5rem;
+  }
+  &:hover::after {
+    background-image: url(http://localhost:8080/images/pro/icon-arrow-increase_blue.png);
+  }
 }
 
 .section.blog-page-flipper {
