@@ -15,7 +15,7 @@ import {
 class BulletinDateFlipper extends React.Component {
   constructor(props) {
     super(props);
-    this.DEV_MODE = true;
+    this.DEV_MODE = false;
   }
 
   @computed get date() {
@@ -78,7 +78,7 @@ class BulletinDateFlipper extends React.Component {
             </Link>
           </li>
         )}
-        {!this.DEV_MODE && (
+        {!this.DEV_MODE && this.nextDate && (
           <li className="bulletin-flipper-latest">
             <Link
               to={"/bulletin/" + latestLink}
