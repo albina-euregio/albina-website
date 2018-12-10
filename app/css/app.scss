@@ -312,14 +312,14 @@ a[target*="_blank"]:not([class*="sm-button"]):not([class*="logo"]):not([class*="
     line-height: 1em;
     width: 1em;
     height: 1em;
-    background-image: url(http://localhost:8080/images/pro/icon-arrow-increase_grey.png);
+    background-image: url(http://data1.geo.univie.ac.at/projects/albina-web/images/pro/icon-arrow-increase_grey.png);
     background-repeat: no-repeat;
     background-size: 1em 1em;
     margin-left: 0.5rem;
     padding: 0 0.5rem;
   }
   &:hover::after {
-    background-image: url(http://localhost:8080/images/pro/icon-arrow-increase_blue.png);
+    background-image: url(http://data1.geo.univie.ac.at/projects/albina-web/images/pro/icon-arrow-increase_blue.png);
   }
 }
 
