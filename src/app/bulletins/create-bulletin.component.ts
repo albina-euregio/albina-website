@@ -1358,12 +1358,19 @@ private setTexts() {
     if (e.data.type != "webpackInvalid" && e.data.type != "webpackOk") {
       let pmData = JSON.parse(e.data);
 
-      this[pmData.textField + 'Textcat'] = pmData.textDef;
-      this[pmData.textField+'It'] = pmData.textIt;
-      this[pmData.textField+'De'] = pmData.textDe;
-      this[pmData.textField+'En'] = pmData.textEn;
-      this[pmData.textField+'Fr'] = pmData.textFr;
-
+      if (pmData.textDef == undefined || pmData.textDef == "") {
+        this[pmData.textField + 'Textcat'] = "";
+        this[pmData.textField+'It'] = undefined;
+        this[pmData.textField+'De'] = undefined;
+        this[pmData.textField+'En'] = undefined;
+        this[pmData.textField+'Fr'] = undefined;
+      } else {
+        this[pmData.textField + 'Textcat'] = pmData.textDef;
+        this[pmData.textField+'It'] = pmData.textIt;
+        this[pmData.textField+'De'] = pmData.textDe;
+        this[pmData.textField+'En'] = pmData.textEn;
+        this[pmData.textField+'Fr'] = pmData.textFr;
+      }
       this.setTexts();
       this.hideDialog();
     }
