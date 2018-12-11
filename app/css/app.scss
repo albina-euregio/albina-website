@@ -500,6 +500,14 @@ img {
 }
 
 /* blog styling */
-tr td.tr-caption {
-  font-size: 80% !important;
+.blog-post tr td.tr-caption,
+.blog-post tr td.tr-caption * {
+  font-size: 0.8rem !important;
+}
+
+.blog-post * {
+  font-size: 1rem !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
