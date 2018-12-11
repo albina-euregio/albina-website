@@ -498,3 +498,8 @@ $blogpost-fontsize-xl: 1.6em;
 img {
   -ms-interpolation-mode: bicubic;
 }
+
+/* blog styling */
+tr td.tr-caption {
+  font-size: 80% !important;
+}
