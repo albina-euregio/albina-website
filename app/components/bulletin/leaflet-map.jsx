@@ -27,7 +27,6 @@ class LeafletMap extends React.Component {
   constructor(props) {
     super(props);
     this.map = false;
-    this.mapLoaded = false;
   }
 
   mapStyle() {
@@ -52,7 +51,7 @@ class LeafletMap extends React.Component {
       this.mapDisabled = this.refs.mapDisabled.leafletElement;
       L.Util.setOptions(this.mapDisabled, { gestureHandling: false });
     }
-    if (this.refs.map && !this.map && !this.mapLoaded) {
+    if (this.refs.map && !this.map) {
       this.map = this.refs.map.leafletElement;
 
       L.Util.setOptions(this.map, { gestureHandling: true });
@@ -118,7 +117,6 @@ class LeafletMap extends React.Component {
       window.setTimeout(() => {
         $(".leaflet-control-zoom a").addClass("tooltip");
         tooltip_init();
-        this.mapLoaded = true;
       }, 100);
 
       const m = this.map;
