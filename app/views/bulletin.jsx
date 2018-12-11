@@ -5,6 +5,7 @@ import { preprocessContent } from "../util/htmlParser";
 import { reaction } from "mobx";
 import { observer, inject } from "mobx-react";
 import { BulletinStore } from "../stores/bulletinStore";
+import DocumentMeta from "react-document-meta";
 
 import { injectIntl } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
@@ -17,12 +18,14 @@ import { parseDate, dateToISODateString } from "../util/date.js";
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
 import { configure } from "../../node_modules/mobx/lib/mobx";
+import { dateToDateString, dateToTimeString } from "../util/date.js";
 
 @observer
 class Bulletin extends React.Component {
   constructor(props) {
     super(props);
     if (typeof window.bulletinStore === "undefined") {
+      console.log("BULLETIN");
       window.bulletinStore = new BulletinStore();
     }
     this.store = window.bulletinStore;
@@ -136,33 +139,51 @@ class Bulletin extends React.Component {
   }
 
   render() {
+    const collection = this.store.activeBulletinCollection;
+    const meta = {
+      description:
+        "avalanche forecast for " +
+        (collection && collection.publicationDate
+          ? dateToDateString(collection.publicationDate)
+          : ""),
+      meta: {
+        property: {
+          //'og:image': imageUri,
+
+          "twitter:card": "summary_large_image"
+          //'twitter:image': imageUri
+        }
+      }
+    };
     // console.log('rendering bulletin view(0)', this.store.vectorRegions)
     // console.log('rendering bulletin ', this.store.bulletins)
 
     return (
       <div>
-        <BulletinHeader store={this.store} title={this.state.title} />
+        <DocumentMeta {...meta} extend>
+          <BulletinHeader store={this.store} title={this.state.title} />
 
-        <BulletinMap
-          handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
-          handleHighlightRegion={this.handleHighlightRegion.bind(this)}
-          handleSelectRegion={this.handleSelectRegion.bind(this)}
-          date={this.props.match.params.date}
-          history={this.props.history}
-          store={this.store}
-          highlightedRegion={this.state.highlightedRegion}
-          regions={this.store.vectorRegions}
-        />
-        <BulletinLegend
-          handleSelectRegion={this.handleSelectRegion.bind(this)}
-          problems={this.store.problems}
-        />
-        <BulletinButtonbar store={this.store} />
-        <BulletinReport store={this.store} />
-        {this.state.sharable && <SmShare />}
-        <div className="section-padding section-centered">
-          {preprocessContent(this.state.content)}
-        </div>
+          <BulletinMap
+            handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+            handleHighlightRegion={this.handleHighlightRegion.bind(this)}
+            handleSelectRegion={this.handleSelectRegion.bind(this)}
+            date={this.props.match.params.date}
+            history={this.props.history}
+            store={this.store}
+            highlightedRegion={this.state.highlightedRegion}
+            regions={this.store.vectorRegions}
+          />
+          <BulletinLegend
+            handleSelectRegion={this.handleSelectRegion.bind(this)}
+            problems={this.store.problems}
+          />
+          <BulletinButtonbar store={this.store} />
+          <BulletinReport store={this.store} />
+          {this.state.sharable && <SmShare />}
+          <div className="section-padding section-centered">
+            {preprocessContent(this.state.content)}
+          </div>
+        </DocumentMeta>
       </div>
     );
   }

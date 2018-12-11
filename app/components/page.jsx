@@ -7,6 +7,7 @@ import PageFooter from "./organisms/page-footer.jsx";
 import MenuStore from "../stores/menuStore";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
+import DocumentMeta from "react-document-meta";
 
 import Base from "./../base";
 import ModalDialog from "./modal-dialog";
@@ -122,40 +123,56 @@ class Page extends React.Component {
   }
 
   render() {
+    const meta = {
+      title: this.props.intl.formatMessage({
+        id: "app:title"
+      }),
+      description: "avalanche forecast",
+      canonical: "avalanche.report",
+      meta: {
+        property: {
+          "twitter:card": "avalanche.report"
+        }
+      }
+    };
     return (
       <div>
-        <PageLoadingScreen />
-        <Jumpnav />
-        <div id="page-all" className="page-all">
-          <PageHeader menuStore={this.menuStore} />
-          <main id="page-main" className="page-main">
-            <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
-          </main>
-          <PageFooter menuStore={this.menuStore} />
-        </div>
-        {appStore.unsupportedBrowserModal && <UnsupportedBrowserDialog />}
-        <ModalDialog id="subscribeDialog">
-          <SubscribeDialog />
-        </ModalDialog>
-        <ModalDialog id="followDialog">
-          <FollowDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeEmailDialog">
-          <SubscribeEmailDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeBlogDialog">
-          <SubscribeBlogDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeSocialMediaDialog">
-          <SubscribeSocialMediaDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeAppDialog">
-          <SubscribeAppDialog />
-        </ModalDialog>
-        {/*
+        <DocumentMeta {...meta}>
+          <PageLoadingScreen />
+          <Jumpnav />
+          <div id="page-all" className="page-all">
+            <PageHeader menuStore={this.menuStore} />
+            <main id="page-main" className="page-main">
+              <div id="global-grid">
+                {renderRoutes(this.props.route.routes)}
+              </div>
+            </main>
+            <PageFooter menuStore={this.menuStore} />
+          </div>
+          {appStore.unsupportedBrowserModal && <UnsupportedBrowserDialog />}
+          <ModalDialog id="subscribeDialog">
+            <SubscribeDialog />
+          </ModalDialog>
+          <ModalDialog id="followDialog">
+            <FollowDialog />
+          </ModalDialog>
+          <ModalDialog id="subscribeEmailDialog">
+            <SubscribeEmailDialog />
+          </ModalDialog>
+          <ModalDialog id="subscribeBlogDialog">
+            <SubscribeBlogDialog />
+          </ModalDialog>
+          <ModalDialog id="subscribeSocialMediaDialog">
+            <SubscribeSocialMediaDialog />
+          </ModalDialog>
+          <ModalDialog id="subscribeAppDialog">
+            <SubscribeAppDialog />
+          </ModalDialog>
+          {/*
           we do not need cookie anymore
         <CookieConsent />
         */}
+        </DocumentMeta>
       </div>
     );
   }
