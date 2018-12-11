@@ -66,12 +66,6 @@ class Page extends React.Component {
     // set the url if needed
     Base.searchChange(this.props.history, { lang: appStore.language }, true);
 
-    console.log(
-      "_____setting title",
-      (document.title = this.props.intl.formatMessage({
-        id: "app:title"
-      }))
-    );
     document.title = this.props.intl.formatMessage({
       id: "app:title"
     });

@@ -23,7 +23,7 @@ function _parseDatetime(dateTimeString) {
   var a = dateTimeString.split(/[^0-9]/);
   //for (i=0;i<a.length;i++) { alert(a[i]); }
   var parsedDate = new Date(a[0], a[1] - 1, a[2], a[3], a[4]);
-  console.log(parsedDate);
+
   return parsedDate ? parsedDate : null;
 }
 

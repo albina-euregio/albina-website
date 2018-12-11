@@ -27,6 +27,7 @@ class LeafletMap extends React.Component {
   constructor(props) {
     super(props);
     this.map = false;
+    this.mapLoaded = false;
   }
 
   mapStyle() {
@@ -51,7 +52,7 @@ class LeafletMap extends React.Component {
       this.mapDisabled = this.refs.mapDisabled.leafletElement;
       L.Util.setOptions(this.mapDisabled, { gestureHandling: false });
     }
-    if (this.refs.map && !this.map) {
+    if (this.refs.map && !this.map && !this.mapLoaded) {
       this.map = this.refs.map.leafletElement;
 
       L.Util.setOptions(this.map, { gestureHandling: true });
@@ -63,6 +64,18 @@ class LeafletMap extends React.Component {
       });
 
       window.setTimeout(() => {
+        const zoomControl = L.control
+          .zoom({
+            position: "topleft",
+            zoomInTitle: this.props.intl.formatMessage({
+              id: "bulletin:map:zoom-in:hover"
+            }),
+            zoomOutTitle: this.props.intl.formatMessage({
+              id: "bulletin:map:zoom-out:hover"
+            })
+          })
+          .addTo(this.map);
+
         const geonamesOptions = Object.assign(
           {},
           {
@@ -78,6 +91,7 @@ class LeafletMap extends React.Component {
           },
           config.get("map.geonames")
         );
+
         L.control.geonames(geonamesOptions).addTo(this.map);
         L.control
           .locate(
@@ -104,6 +118,7 @@ class LeafletMap extends React.Component {
       window.setTimeout(() => {
         $(".leaflet-control-zoom a").addClass("tooltip");
         tooltip_init();
+        this.mapLoaded = true;
       }, 100);
 
       const m = this.map;
@@ -260,15 +275,6 @@ class LeafletMap extends React.Component {
             " | v." +
             config.get("version")
           }
-        />
-        <ZoomControl
-          position="topleft"
-          zoomInTitle={this.props.intl.formatMessage({
-            id: "bulletin:map:zoom-in:hover"
-          })}
-          zoomOutTitle={this.props.intl.formatMessage({
-            id: "bulletin:map:zoom-out:hover"
-          })}
         />
         <ScaleControl imperial={false} position="bottomleft" />
         {this.tileLayers}

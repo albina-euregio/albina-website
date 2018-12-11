@@ -75,7 +75,7 @@ class Bulletin extends React.Component {
   }
 
   _fetchData(props) {
-    console.log("props.match.params.date", props.match.params.date);
+    // console.log("props.match.params.date", props.match.params.date);
 
     /* if it is later than 5pm, add one day */
     const now = new Date();
