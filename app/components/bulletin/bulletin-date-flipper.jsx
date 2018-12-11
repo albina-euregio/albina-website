@@ -8,7 +8,9 @@ import {
   getPredDate,
   getSuccDate,
   dateToISODateString,
-  dateToDateString
+  dateToDateString,
+  isAfter,
+  isSameDay
 } from "../../util/date.js";
 
 @observer
@@ -26,7 +28,15 @@ class BulletinDateFlipper extends React.Component {
     const d = this.date;
     if (d) {
       const next = getSuccDate(d);
-      if (this.DEV_MODE || next.valueOf() < Date.now()) {
+      /* show next day only it is not the future or if this day is after bulletin.isTomorrow value */
+
+      const now = new Date();
+      if (
+        this.DEV_MODE ||
+        (isSameDay(now, this.date) &&
+          now.getHours() >= config.get("bulletin.isTomorrow")) ||
+        isAfter(now, next)
+      ) {
         return next;
       }
     }
