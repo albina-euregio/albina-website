@@ -13,9 +13,9 @@ export class ConstantsService {
 
   // Development server
   //public serverUrl: string = 'https://admin.avalanche.report/albina_dev/api/';
-  //public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
+  //public textcatUrl: string = 'https://admin.avalanche.report/textcat_dev/c_pm.html';
   //public chatUrl: string = 'wss://socket.avalanche.report/albina_dev/chat/';
-  //ublic bulletinUrl: string = 'wss://socket.avalanche.report/albina_dev/bulletin/';
+  //public bulletinUrl: string = 'wss://socket.avalanche.report/albina_dev/bulletin/';
   //public updateUrl: string = 'wss://socket.avalanche.report/albina_dev/update/';
   //public regionUrl: string = 'wss://socket.avalanche.report/albina_dev/region/';
   
