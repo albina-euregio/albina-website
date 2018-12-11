@@ -104,6 +104,17 @@ function dateToISODateString(date) {
   return "";
 }
 
+function isSameDay(d1, d2) {
+  return (
+    d1.getDate() == d2.getDate() &&
+    d1.getMonth() == d2.getMonth() &&
+    d1.getFullYear() == d2.getFullYear()
+  );
+}
+function isAfter(d1, d2) {
+  return d1.valueOf() > d2.valueOf();
+}
+
 function getDaysOfMonth(year, month) {
   // according to ECMA Standard, day is relative to the first of the month:
   // that means 0 is the last day of the previous month - see:
@@ -129,6 +140,8 @@ export {
   parseDate,
   getPredDate,
   getSuccDate,
+  isSameDay,
+  isAfter,
   dateToDateString,
   dateToTimeString,
   dateToDateTimeString,
