@@ -101,7 +101,6 @@ class WeatherMap extends React.Component {
           };
         })
       : [];
-
     return (
       <div>
         <PageHeadline
