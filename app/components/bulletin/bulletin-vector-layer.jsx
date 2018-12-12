@@ -1,38 +1,38 @@
-import React from 'react'
-import L from 'leaflet'
-import { observer } from 'mobx-react'
-import { GeoJSON, Pane, Polygon } from 'react-leaflet'
-import Base from './../../base'
+import React from "react";
+import L from "leaflet";
+import { observer } from "mobx-react";
+import { GeoJSON, Pane, Polygon } from "react-leaflet";
+import Base from "./../../base";
 
 @observer
 export default class BulletinVectorLayer extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       over: false
-    }
+    };
   }
 
   handleClickRegion(bid, state, e) {
-    L.DomEvent.stopPropagation(e)
-    if (state !== 'hidden') {
-      this.props.handleSelectRegion(bid)
+    L.DomEvent.stopPropagation(e);
+    if (state !== "hidden") {
+      this.props.handleSelectRegion(bid);
     }
   }
 
   handleMouseOut(bid) {
     if (bid === this.state.over) {
-      this.setState({ over: false })
+      this.setState({ over: false });
     }
   }
   handleMouseMove(bid) {
-    if (bid !== this.state.over) {
-      this.setState({ over: bid })
+    if (!L.Browser.mobile && bid !== this.state.over) {
+      this.setState({ over: bid });
     }
   }
 
   shouldComponentUpdate() {
-    return true
+    return true;
   }
 
   get uniqueKey() {
@@ -44,20 +44,18 @@ export default class BulletinVectorLayer extends React.Component {
     // binary string are determined by the (lexicographical) order of the
     // problem ids (since neither Object.values nor for .. in loops are
     // guaranteed to preserve order).
-    const problemKeys = Object.keys(bulletinStore.problems).sort()
+    const problemKeys = Object.keys(bulletinStore.problems).sort();
     const problemHash = problemKeys.reduce((acc, p) => {
-      return acc * 2 + (bulletinStore.problems[p].active ? 1 : 0)
-    }, 0)
+      return acc * 2 + (bulletinStore.problems[p].active ? 1 : 0);
+    }, 0);
 
     return (
-      bulletinStore.settings.date +
-      bulletinStore.settings.region +
-      problemHash
-    )
+      bulletinStore.settings.date + bulletinStore.settings.region + problemHash
+    );
   }
 
   render() {
-    const vectorOptions = config.get('map.vectorOptions')
+    const vectorOptions = config.get("map.vectorOptions");
 
     // this has to be refactored
     return (
@@ -65,17 +63,17 @@ export default class BulletinVectorLayer extends React.Component {
         {this.props.regions
           .filter(vector => this.state.over !== vector.properties.bid)
           .map((vector, vi) => {
-            const state = vector.properties.state
+            const state = vector.properties.state;
             // setting the style for each region
             const style = Object.assign(
               {},
-              config.get('map.regionStyling.all'),
-              config.get('map.regionStyling.' + state)
-            )
+              config.get("map.regionStyling.all"),
+              config.get("map.regionStyling." + state)
+            );
 
             return vector.geometry.coordinates.map((g, gi) => (
               <Polygon
-                key={vi + '' + gi}
+                key={vi + "" + gi}
                 onClick={this.handleClickRegion.bind(
                   this,
                   vector.properties.bid,
@@ -93,23 +91,23 @@ export default class BulletinVectorLayer extends React.Component {
                 {...style}
                 {...vectorOptions}
               />
-            ))
+            ));
           })}
         {this.props.regions
           .filter(vector => this.state.over === vector.properties.bid)
           .map((vector, vi) => {
-            const state = vector.properties.state
+            const state = vector.properties.state;
             // setting the style for each region
             const style = Object.assign(
               {},
-              config.get('map.regionStyling.all'),
-              config.get('map.regionStyling.' + state),
-              config.get('map.regionStyling.mouseOver')
-            )
+              config.get("map.regionStyling.all"),
+              config.get("map.regionStyling." + state),
+              config.get("map.regionStyling.mouseOver")
+            );
 
             return vector.geometry.coordinates.map((g, gi) => (
               <Polygon
-                key={vi + '' + gi}
+                key={vi + "" + gi}
                 onClick={this.handleClickRegion.bind(
                   this,
                   vector.properties.bid,
@@ -127,9 +125,9 @@ export default class BulletinVectorLayer extends React.Component {
                 {...style}
                 {...vectorOptions}
               />
-            ))
+            ));
           })}
       </Pane>
-    )
+    );
   }
 }
