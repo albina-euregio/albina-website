@@ -54,10 +54,25 @@ export default class BulletinVectorLayer extends React.Component {
     );
   }
 
-  render() {
-    console.log("mobile", L.Browser.mobile);
-    const vectorOptions = config.get("map.vectorOptions");
+  renderRegion(vector, state, geometry, style, key) {
+    return (
+      <Polygon
+        key={key}
+        onClick={this.handleClickRegion.bind(
+          this,
+          vector.properties.bid,
+          state
+        )}
+        onMouseMove={this.handleMouseMove.bind(this, vector.properties.bid)}
+        onMouseOut={this.handleMouseOut.bind(this, vector.properties.bid)}
+        positions={geometry}
+        {...style}
+        {...config.get("map.vectorOptions")}
+      />
+    );
+  }
 
+  render() {
     // this has to be refactored
     return (
       <Pane key={this.uniqueKey}>
@@ -72,32 +87,13 @@ export default class BulletinVectorLayer extends React.Component {
               config.get("map.regionStyling." + state)
             );
 
-            return vector.geometry.coordinates.map((g, gi) => (
-              <Polygon
-                key={vi + "" + gi}
-                onClick={this.handleClickRegion.bind(
-                  this,
-                  vector.properties.bid,
-                  state
-                )}
-                onMouseMove={this.handleMouseMove.bind(
-                  this,
-                  vector.properties.bid
-                )}
-                onMouseOut={this.handleMouseOut.bind(
-                  this,
-                  vector.properties.bid
-                )}
-                positions={g}
-                {...style}
-                {...vectorOptions}
-              />
-            ));
+            return vector.geometry.coordinates.map((g, gi) =>
+              this.renderRegion(vector, state, g, style, vi + "" + gi)
+            );
           })}
         {this.props.regions
           .filter(vector => this.state.over === vector.properties.bid)
           .map((vector, vi) => {
-            console.log("over region", vector);
             const state = vector.properties.state;
             // setting the style for each region
             const style = Object.assign(
@@ -107,27 +103,9 @@ export default class BulletinVectorLayer extends React.Component {
               config.get("map.regionStyling.mouseOver")
             );
 
-            return vector.geometry.coordinates.map((g, gi) => (
-              <Polygon
-                key={vi + "" + gi}
-                onClick={this.handleClickRegion.bind(
-                  this,
-                  vector.properties.bid,
-                  state
-                )}
-                onMouseMove={this.handleMouseMove.bind(
-                  this,
-                  vector.properties.bid
-                )}
-                onMouseOut={this.handleMouseOut.bind(
-                  this,
-                  vector.properties.bid
-                )}
-                positions={g}
-                {...style}
-                {...vectorOptions}
-              />
-            ));
+            return vector.geometry.coordinates.map((g, gi) =>
+              this.renderRegion(vector, state, g, style, vi + "" + gi)
+            );
           })}
       </Pane>
     );
