@@ -106,7 +106,7 @@ var Base = {
       }
     });
 
-    console.log("search changes", JSON.stringify(changes));
+    // console.log("search changes", JSON.stringify(changes));
 
     if (history && search && Object.keys(changes).length > 0) {
       // setting new search object

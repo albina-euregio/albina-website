@@ -21,7 +21,7 @@ export default class BulletinVectorLayer extends React.Component {
   }
 
   handleMouseOut(bid) {
-    if (bid === this.state.over) {
+    if (!L.Browser.mobile && bid === this.state.over) {
       this.setState({ over: false });
     }
   }
@@ -55,6 +55,7 @@ export default class BulletinVectorLayer extends React.Component {
   }
 
   render() {
+    console.log("mobile", L.Browser.mobile);
     const vectorOptions = config.get("map.vectorOptions");
 
     // this has to be refactored
@@ -96,6 +97,7 @@ export default class BulletinVectorLayer extends React.Component {
         {this.props.regions
           .filter(vector => this.state.over === vector.properties.bid)
           .map((vector, vi) => {
+            console.log("over region", vector);
             const state = vector.properties.state;
             // setting the style for each region
             const style = Object.assign(

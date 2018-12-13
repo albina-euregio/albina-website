@@ -77,15 +77,18 @@ class Bulletin extends React.Component {
     this.checkRegion();
   }
 
+  validateDate(date) {
+    if (date.getHours() >= config.get("bulletin.isTomorrow")) {
+      date.setDate(date.getDate() + 1);
+    }
+    return date;
+  }
+
   _fetchData(props) {
     // console.log("props.match.params.date", props.match.params.date);
 
     /* if it is later than 5pm, add one day */
-    const now = new Date();
-    if (now.getHours() >= config.get("bulletin.isTomorrow")) {
-      now.setDate(now.getDate() + 1);
-    }
-
+    const now = this.validateDate(new Date());
     let startDate =
       props.match.params.date && parseDate(props.match.params.date)
         ? props.match.params.date
@@ -140,12 +143,8 @@ class Bulletin extends React.Component {
 
   render() {
     const collection = this.store.activeBulletinCollection;
-    const meta = {
-      description:
-        "avalanche forecast for " +
-        (collection && collection.publicationDate
-          ? dateToDateString(collection.publicationDate)
-          : ""),
+    let meta = {
+      description: "",
       meta: {
         property: {
           //'og:image': imageUri,
@@ -155,6 +154,28 @@ class Bulletin extends React.Component {
         }
       }
     };
+    if (collection && collection.publicationDate) {
+      console.log(
+        "collection date",
+        collection.publicationDate,
+        dateToDateString(this.validateDate(collection.publicationDate))
+      );
+      meta = {
+        description:
+          "avalanche forecast for " +
+          (collection && collection.publicationDate
+            ? dateToDateString(this.validateDate(collection.publicationDate))
+            : ""),
+        meta: {
+          property: {
+            //'og:image': imageUri,
+
+            "twitter:card": "summary_large_image"
+            //'twitter:image': imageUri
+          }
+        }
+      };
+    }
     // console.log('rendering bulletin view(0)', this.store.vectorRegions)
     // console.log('rendering bulletin ', this.store.bulletins)
 
