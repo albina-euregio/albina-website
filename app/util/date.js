@@ -115,6 +115,15 @@ function isAfter(d1, d2) {
   return d1.valueOf() > d2.valueOf();
 }
 
+/* strange function needed to know if the bulletin for the next day should be displayed */
+function todayIsTomorrow(todayDate, tomorrowHours, tomorrowMinutes) {
+  return (
+    (todayDate.getHours() == tomorrowHours &&
+      todayDate.getMinutes() > tomorrowMinutes) ||
+    todayDate.getHours() > tomorrowHours
+  );
+}
+
 function getDaysOfMonth(year, month) {
   // according to ECMA Standard, day is relative to the first of the month:
   // that means 0 is the last day of the previous month - see:
@@ -147,5 +156,6 @@ export {
   dateToDateTimeString,
   dateToLongDateString,
   dateToISODateString,
-  getDaysOfMonth
+  getDaysOfMonth,
+  todayIsTomorrow
 };

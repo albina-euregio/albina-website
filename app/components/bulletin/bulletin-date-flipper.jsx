@@ -10,7 +10,8 @@ import {
   dateToISODateString,
   dateToDateString,
   isAfter,
-  isSameDay
+  isSameDay,
+  todayIsTomorrow
 } from "../../util/date.js";
 
 @observer
@@ -34,7 +35,11 @@ class BulletinDateFlipper extends React.Component {
       if (
         this.DEV_MODE ||
         (isSameDay(now, this.date) &&
-          now.getHours() >= config.get("bulletin.isTomorrow")) ||
+          todayIsTomorrow(
+            now,
+            config.get("bulletin.isTomorrow.hours"),
+            config.get("bulletin.isTomorrow.minutes")
+          )) ||
         isAfter(now, next)
       ) {
         return next;
@@ -56,7 +61,13 @@ class BulletinDateFlipper extends React.Component {
     const nextLink = dateToISODateString(this.nextDate);
 
     const now = new Date();
-    if (now.getHours() >= config.get("bulletin.isTomorrow")) {
+    if (
+      todayIsTomorrow(
+        now,
+        config.get("bulletin.isTomorrow.hours"),
+        config.get("bulletin.isTomorrow.minutes")
+      )
+    ) {
       now.setDate(now.getDate() + 1);
     }
     const latestLink = dateToISODateString(now);

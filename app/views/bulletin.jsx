@@ -18,7 +18,11 @@ import { parseDate, dateToISODateString } from "../util/date.js";
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
 import { configure } from "../../node_modules/mobx/lib/mobx";
-import { dateToDateString, dateToTimeString } from "../util/date.js";
+import {
+  dateToDateString,
+  dateToTimeString,
+  todayIsTomorrow
+} from "../util/date.js";
 
 @observer
 class Bulletin extends React.Component {
@@ -78,7 +82,13 @@ class Bulletin extends React.Component {
   }
 
   validateDate(date) {
-    if (date.getHours() >= config.get("bulletin.isTomorrow")) {
+    if (
+      todayIsTomorrow(
+        date,
+        config.get("bulletin.isTomorrow.hours"),
+        config.get("bulletin.isTomorrow.minutes")
+      )
+    ) {
       date.setDate(date.getDate() + 1);
     }
     return date;

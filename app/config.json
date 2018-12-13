@@ -174,7 +174,10 @@
     ]
   },
   "bulletin": {
-    "isTomorrow": 17,
+    "isTomorrow": {
+      "hours": 17,
+      "minutes": 10
+    },
     "noBulletinBanner": false
   },
   "map": {
