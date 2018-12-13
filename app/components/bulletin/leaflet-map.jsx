@@ -46,6 +46,24 @@ class LeafletMap extends React.Component {
     this.updateMaps();
   }
 
+  componentWillUnmount() {
+    console.log("unmounting map");
+    if (this.map) {
+      window.removeEventListener("resize", this.invalidateMap);
+      window.removeEventListener("orientationchange", this.invalidateMap);
+    }
+  }
+
+  invalidateMap() {
+    console.log("!!!invalidating map");
+    const map = this.map;
+    if (map) {
+      window.setTimeout(() => {
+        m.invalidateSize();
+      }, 2000);
+    }
+  }
+
   updateMaps() {
     if (this.refs.mapDisabled && !this.mapDisabled) {
       this.mapDisabled = this.refs.mapDisabled.leafletElement;
@@ -121,16 +139,8 @@ class LeafletMap extends React.Component {
       }, 100);
 
       const m = this.map;
-      window.addEventListener("resize", () => {
-        window.setTimeout(() => {
-          m.invalidateSize();
-        }, 2000);
-      });
-      window.addEventListener("orientationchange", () => {
-        window.setTimeout(() => {
-          m.invalidateSize();
-        }, 2000);
-      });
+      window.addEventListener("resize", this.invalidateMap);
+      window.addEventListener("orientationchange", this.invalidateMap);
     }
   }
 

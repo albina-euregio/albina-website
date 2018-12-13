@@ -153,6 +153,7 @@ class WeatherMap extends React.Component {
                 zoom={this.state.mapZoom}
                 center={this.state.mapCenter}
               />
+              {/* zamg logo hidden
               <div className="weather-map-icon">
                 <img
                   src={
@@ -161,6 +162,7 @@ class WeatherMap extends React.Component {
                   }
                 />
               </div>
+              */}
             </div>
           )}
         </section>
