@@ -16,6 +16,8 @@ import { tooltip_init } from "../../js/tooltip";
 import Base from "./../../base";
 import AppStore from "../../appStore";
 
+import { centroid, polygon } from "@turf/turf";
+
 require("./../../util/l.geonames");
 require("./../../util/l.geonames");
 require("leaflet.locatecontrol");
@@ -262,6 +264,22 @@ class LeafletMap extends React.Component {
     );
   }
 
+  centerToRegion(bid) {
+    if (bid && this.props.regions && this.props.regions.length > 0) {
+      const region = this.props.regions.find(r => r.properties.bid === bid);
+      if (region) {
+        const regionCentroid = centroid(region);
+        if (
+          this.map &&
+          regionCentroid.geometry &&
+          regionCentroid.geometry.coordinates
+        ) {
+          this.map.panTo(regionCentroid.geometry.coordinates);
+        }
+      }
+    }
+  }
+
   renderLoadedMap(bulletinStore, mapOptions) {
     return (
       <Map
@@ -294,6 +312,7 @@ class LeafletMap extends React.Component {
             regions={this.props.regions}
             handleHighlightRegion={this.props.handleHighlightRegion}
             handleSelectRegion={this.props.handleSelectRegion}
+            handleCenterToRegion={this.centerToRegion.bind(this)}
           />
         )}
       </Map>

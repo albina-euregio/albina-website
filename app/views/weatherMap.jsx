@@ -51,7 +51,7 @@ class WeatherMap extends React.Component {
 
     window.addEventListener("message", e => {
       if (e.data) {
-        // console.log('*** getting message ', e.data)
+        //console.log("*** getting message ", e.data);
         try {
           const data = JSON.parse(e.data);
           if (data.changes) {

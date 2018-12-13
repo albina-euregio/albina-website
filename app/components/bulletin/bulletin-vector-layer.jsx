@@ -16,6 +16,9 @@ export default class BulletinVectorLayer extends React.Component {
   handleClickRegion(bid, state, e) {
     L.DomEvent.stopPropagation(e);
     if (state !== "hidden") {
+      if (L.Browser.mobile) {
+        this.props.handleCenterToRegion(bid);
+      }
       this.props.handleSelectRegion(bid);
     }
   }
