@@ -192,11 +192,13 @@ export default class ArchiveStore {
       endDateParam +
       (region ? "&region=" + region : "");
 
+    console.log("asking for bulletin ", url);
     return Base.doRequest(url)
       .then(
         // query status data
         response => {
           const values = JSON.parse(response);
+          console.log(values);
           if (typeof values === "object") {
             for (let v of values) {
               // only use date part (without time) and add 1 day to get the
@@ -206,7 +208,9 @@ export default class ArchiveStore {
               if (d) {
                 // const d2 = getSuccDate(d);
                 const status =
-                  v.status == "published" || v.status == "republished"
+                  v.status == "published" ||
+                  v.status == "republished" ||
+                  v.status == "resubmitted"
                     ? "ok"
                     : "n/a";
 

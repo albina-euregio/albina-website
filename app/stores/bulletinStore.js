@@ -167,7 +167,7 @@ class BulletinStore {
           .load(date)
           .then(() => {
             const status = this.archiveStore.getStatus(date);
-
+            console.log("status", status);
             if (status == "ok") {
               return this._loadBulletinData(date);
             } else {
@@ -432,8 +432,8 @@ class BulletinStore {
     return Base.doRequest(url).then(
       // query bulletin data
       response => {
-        //console.log("this is where the collection is filled from", url);
-        //console.log("and this is the response", JSON.parse(response));
+        console.log("this is where the collection is filled from", url);
+        console.log("and this is the response", JSON.parse(response));
         this.bulletins[date].setData(JSON.parse(response));
       },
       error => {
