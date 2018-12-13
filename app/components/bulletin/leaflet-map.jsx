@@ -75,12 +75,13 @@ class LeafletMap extends React.Component {
           })
           .addTo(this.map);
 
+        console.log(config.get("map.geonamesSearch.extent"));
         const geonamesOptions = Object.assign(
           {},
           {
             clearOnPopupClose: true,
             lang: appStore.language,
-            bbox: { east: 17, west: 5, north: 50, south: 44 },
+            bbox: config.get("map.geonamesSearch.extent"),
             title: this.props.intl.formatMessage({
               id: "bulletin:map:search"
             }),

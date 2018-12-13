@@ -185,8 +185,12 @@
       "bounds": [[45.60608, 9.9174], [47.83039, 13.15173]],
       "opacity": 1.0
     },
+    "geonamesSearch": {
+      "extent": { "east": 17, "west": 5, "north": 50, "south": 44 }
+    },
     "initOptions": {
-      "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]],
+      "maxBounds_original": [[45.150876, 7.932124], [48.240084, 15.118646]],
+      "maxBounds": [[44, 5], [49, 18]],
       "maxBoundsViscosity": 1,
       "maxZoom": 10,
       "minZoom": 7
