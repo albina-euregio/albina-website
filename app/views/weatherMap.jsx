@@ -118,13 +118,14 @@ class WeatherMap extends React.Component {
                   menuItemClassName="secondary pure-button"
                   activeClassName="js-active"
                   onSelect={this.handleClickDomainButton.bind(this)}
-                  /*
                   onActiveMenuItem={e => {
                     if (e.title != this.state.mapTitle) {
-                      window.setTimeout(() => this.setState({ mapTitle: e.title }), 100)
+                      window.setTimeout(
+                        () => this.setState({ mapTitle: e.title }),
+                        100
+                      );
                     }
                   }}
-                  */
                 />
                 <ItemFlipper
                   store={this.store}

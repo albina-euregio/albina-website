@@ -47,7 +47,7 @@ export default class WeatherMapStore {
   /*
     returns item data based on the active item id
   */
-  @computed get item() {
+  get item() {
     return this.config && this.domainId && this.itemId && this.domain
       ? this.domain.items.find(i => i.id === this.itemId)
       : false;
