@@ -203,7 +203,7 @@ export class BulletinsService {
   }
   
   getStatus(region: string, startDate: Date, endDate: Date) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'bulletins/status?startDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + '&endDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + '&region=' + region;
+    let url = this.constantsService.getServerUrl() + 'bulletins/status/internal?startDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + '&endDate=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + '&region=' + region;
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
     let headers = new Headers({
       'Content-Type': 'application/json',
