@@ -1129,14 +1129,19 @@ private setTexts() {
       let validUntil = new Date(this.bulletinsService.getActiveDate());
       validUntil.setTime(validUntil.getTime() + (24 * 60 * 60 * 1000));
 
+      let result = new Array<BulletinModel>();
+
       for (let bulletin of this.bulletinsList) {
         bulletin.setValidFrom(validFrom);
         bulletin.setValidUntil(validUntil);
+
+        if (bulletin.getSavedRegions().length > 0 || bulletin.getPublishedRegions().length > 0 || bulletin.getSuggestedRegions().length > 0)
+          result.push(bulletin);
       }
 
-      if (this.bulletinsList.length > 0) {
+      if (result.length > 0) {
         if (this.bulletinsService.getIsSmallChange()) {
-          this.bulletinsService.changeBulletins(this.bulletinsList, this.bulletinsService.getActiveDate()).subscribe(
+          this.bulletinsService.changeBulletins(result, this.bulletinsService.getActiveDate()).subscribe(
             data => {
               this.localStorageService.clear();
               this.loading = false;
@@ -1150,7 +1155,7 @@ private setTexts() {
             }
           );
         } else {
-          this.bulletinsService.saveBulletins(this.bulletinsList, this.bulletinsService.getActiveDate()).subscribe(
+          this.bulletinsService.saveBulletins(result, this.bulletinsService.getActiveDate()).subscribe(
             data => {
               this.localStorageService.clear();
               this.loading = false;
