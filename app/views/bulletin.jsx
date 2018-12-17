@@ -165,11 +165,12 @@ class Bulletin extends React.Component {
       }
     };
     if (collection && collection.publicationDate) {
-      console.log(
+      /*console.log(
         "collection date",
         collection.publicationDate,
         dateToDateString(this.validateDate(collection.publicationDate))
       );
+      */
       meta = {
         description:
           "avalanche forecast for " +

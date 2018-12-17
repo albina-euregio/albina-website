@@ -265,6 +265,7 @@ class LeafletMap extends React.Component {
   }
 
   centerToRegion(bid) {
+    console.log("centering to region");
     if (bid && this.props.regions && this.props.regions.length > 0) {
       const region = this.props.regions.find(r => r.properties.bid === bid);
       if (region) {

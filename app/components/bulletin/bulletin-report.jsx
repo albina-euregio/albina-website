@@ -184,14 +184,15 @@ class BulletinReport extends React.Component {
                   </p>
                 </div>
               )}
-              {bulletin.tendencyComment && (
-                <div>
-                  <h2 className="subheader">
-                    <FormattedHTMLMessage id="bulletin:report:tendency:headline" />
-                  </h2>
-                  <p>{this.getLocalizedText(bulletin.tendencyComment)}</p>
-                </div>
-              )}
+              {bulletin.tendencyComment &&
+                this.getLocalizedText(bulletin.tendencyComment) && (
+                  <div>
+                    <h2 className="subheader">
+                      <FormattedHTMLMessage id="bulletin:report:tendency:headline" />
+                    </h2>
+                    <p>{this.getLocalizedText(bulletin.tendencyComment)}</p>
+                  </div>
+                )}
               {/*
             <p className="bulletin-author">
               <FormattedHTMLMessage id="bulletin:report:author" />
