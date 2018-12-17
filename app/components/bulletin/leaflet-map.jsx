@@ -49,7 +49,6 @@ class LeafletMap extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log("unmounting map");
     if (this.map) {
       window.removeEventListener("resize", this.invalidateMap);
       window.removeEventListener("orientationchange", this.invalidateMap);

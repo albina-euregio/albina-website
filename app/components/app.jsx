@@ -60,7 +60,10 @@ class App extends React.Component {
         routes: [
           {
             path: "/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})?",
-            exact: true,
+            component: Bulletin
+          },
+          {
+            path: "/bulletin/latest?",
             component: Bulletin
           },
           {

@@ -103,9 +103,9 @@ class Bulletin extends React.Component {
         ? props.match.params.date
         : dateToISODateString(now);
 
-    if (startDate != this.props.match.params.date) {
+    if (!this.props.match.params.date) {
       // update URL if necessary
-      props.history.push("/bulletin/" + startDate);
+      props.history.push("/bulletin/latest");
     }
 
     return this.store.load(startDate);

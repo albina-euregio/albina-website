@@ -107,9 +107,10 @@ class Page extends React.Component {
 
     if (
       this.props.location.pathname === "" ||
-      this.props.location.pathname === "/"
+      this.props.location.pathname === "/" ||
+      this.props.location.pathname === "/bulletin"
     ) {
-      this.props.history.push("bulletin");
+      this.props.history.push("bulletin/latest");
     }
     this._setLanguage();
     /*
