@@ -311,7 +311,6 @@ class LeafletMap extends React.Component {
           <BulletinVectorLayer
             store={bulletinStore}
             regions={this.props.regions}
-            handleHighlightRegion={this.props.handleHighlightRegion}
             handleSelectRegion={this.props.handleSelectRegion}
             handleCenterToRegion={this.centerToRegion.bind(this)}
           />

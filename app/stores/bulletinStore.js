@@ -206,11 +206,13 @@ class BulletinStore {
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
 
+      /*
       if (this.bulletins[date].length === 1) {
         // TODO: filter by problem!!!
         let b = this.bulletins[date].getData();
         this.setRegion(b[0].id);
       }
+      */
     }
   }
 

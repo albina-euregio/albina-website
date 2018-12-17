@@ -59,7 +59,6 @@ class BulletinMap extends React.Component {
           <LeafletMap
             regions={this.props.regions}
             mapViewportChanged={this.props.handleMapViewportChanged}
-            handleHighlightRegion={this.props.handleHighlightRegion}
             handleSelectRegion={this.props.handleSelectRegion}
             store={this.props.store}
           />
@@ -96,8 +95,7 @@ class BulletinMap extends React.Component {
                 store={this.props.store}
                 bulletin={hlBulletin}
               />
-              {this.props.store.settings.region ===
-                this.props.highlightedRegion && (
+              {this.props.store.settings.region && (
                 <a
                   href="#section-bulletin-buttonbar"
                   className="pure-button tooltip"

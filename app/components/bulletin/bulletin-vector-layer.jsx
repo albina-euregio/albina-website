@@ -4,7 +4,6 @@ import { observer } from "mobx-react";
 import { GeoJSON, Pane, Polygon } from "react-leaflet";
 import Base from "./../../base";
 
-@observer
 export default class BulletinVectorLayer extends React.Component {
   constructor(props) {
     super(props);
@@ -34,8 +33,49 @@ export default class BulletinVectorLayer extends React.Component {
     }
   }
 
-  shouldComponentUpdate() {
-    return true;
+  /*
+  componentDidUpdate() {
+    console.log("vector layer rendered in", Base.now() - this.t1);
+  }
+  */
+
+  // checking if at least one region changed the status
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.over !== this.state.over) {
+      return true;
+    } else {
+      const changesInRegions = this.props.regions.some(region => {
+        const region2 = nextProps.regions.find(
+          r => r.properties.bid === region.properties.bid
+        );
+        return region2
+          ? region2.properties.state !== region.properties.state
+          : true;
+      });
+      /*
+      const changes = this.props.regions
+        .filter(region => {
+          const region2 = nextProps.regions.find(
+            r => r.properties.bid === region.properties.bid
+          );
+          return region2
+            ? region2.properties.state !== region.properties.state
+            : true;
+        })
+        .map(region => {
+          const region2 = nextProps.regions.find(
+            r => r.properties.bid === region.properties.bid
+          );
+          return {
+            id: region.properties.bid,
+            oldState: region.properties.state,
+            newState: region2.properties.state
+          };
+        });
+      console.log("should", changes);
+      */
+      return changesInRegions;
+    }
   }
 
   get uniqueKey() {
@@ -76,6 +116,8 @@ export default class BulletinVectorLayer extends React.Component {
   }
 
   render() {
+    //this.t1 = Base.now();
+    //console.log("rendering map");
     // this has to be refactored
     return (
       <Pane key={this.uniqueKey}>

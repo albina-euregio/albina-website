@@ -48,8 +48,7 @@ class Bulletin extends React.Component {
       this.setState({
         title: responseParsed.data.attributes.title,
         content: responseParsed.data.attributes.body,
-        sharable: responseParsed.data.attributes.sharable,
-        highlightedRegion: Base.searchGet("region")
+        sharable: responseParsed.data.attributes.sharable
       });
     });
 
@@ -121,27 +120,17 @@ class Bulletin extends React.Component {
     }
   }
 
-  handleHighlightRegion = id => {
-    if (id) {
-      this.setState({ highlightedRegion: id });
-    } else if (this.state.highlightedRegion) {
-      this.setState({
-        highlightedRegion: ""
-      });
-    }
-  };
-
   handleSelectRegion = id => {
     if (id) {
       const oldRegion = Base.searchGet("region");
       if (oldRegion !== id) {
-        this.store.setRegion(id);
-        this.handleHighlightRegion(id); // also do highlighting
+        //this.store.setRegion(id);
+        //this.handleHighlightRegion(id); // also do highlighting
         Base.searchChange(this.props.history, { region: id }, false);
       }
     } else if (this.store.settings.region) {
-      this.store.setRegion("");
-      this.handleHighlightRegion(null);
+      //this.store.setRegion("");
+      //this.handleHighlightRegion(null);
 
       Base.searchChange(this.props.history, { region: "" }, false);
     }
@@ -197,7 +186,6 @@ class Bulletin extends React.Component {
 
           <BulletinMap
             handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
-            handleHighlightRegion={this.handleHighlightRegion.bind(this)}
             handleSelectRegion={this.handleSelectRegion.bind(this)}
             date={this.props.match.params.date}
             history={this.props.history}

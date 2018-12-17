@@ -38,8 +38,6 @@ class Page extends React.Component {
   _setLanguage() {
     // url lang param
 
-    console.log("setting language");
-
     // url parameter
     if (!appStore.setLanguage(Base.searchGet("lang"))) {
       console.log(window.localStorage.getItem("locale"));
