@@ -95,9 +95,12 @@ class Page extends React.Component {
       nextProps.history.action === "PUSH" &&
       !nextProps.location.hash
     ) {
+      // do not scroll if bulletin region was clicked
+      if (!nextProps.location.pathname.split("/").includes("bulletin")) {
+        window.scrollTo(0, 0);
+      }
       // scroll to top on forward page change (if no hash is set)
       // see https://github.com/ReactTraining/react-router/issues/2019
-      window.scrollTo(0, 0);
     }
   }
 
