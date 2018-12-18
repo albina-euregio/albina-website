@@ -198,6 +198,11 @@ export class BulletinsComponent {
       return false;
   }
 
+  showPublishAllButton(date) {
+    if (this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin))
+      return true;
+  }
+
   showPublishButton(date) {
     if (this.authenticationService.getActiveRegion() != undefined &&
         (!this.publishing || this.publishing.getTime() != date.getTime()) && 
@@ -470,6 +475,22 @@ export class BulletinsComponent {
       error => {
         console.error("Bulletins could not be checked!");
         this.openCheckBulletinsErrorModal(this.checkBulletinsErrorTemplate);
+      }
+    );
+  }
+
+  publishAll(event, date: Date) {
+    event.stopPropagation();
+    this.publishing = date;
+
+    this.bulletinsService.publishAllBulletins(date).subscribe(
+      data => {
+        console.log("All bulletins published.");
+        this.publishing = undefined;
+      },
+      error => {
+        console.error("All bulletins could not be published!");
+        this.openPublishBulletinsErrorModal(this.publishBulletinsErrorTemplate);
       }
     );
   }

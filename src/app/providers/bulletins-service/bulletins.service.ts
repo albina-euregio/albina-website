@@ -336,6 +336,19 @@ export class BulletinsService {
     return this.http.post(encodeURI(url), body, options);
   }
 
+  publishAllBulletins(date: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/publish/all?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify("");
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(encodeURI(url), body, options);
+  }
+
   checkBulletins(date: Date, region: string) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/check?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + '&region=' + region;
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
