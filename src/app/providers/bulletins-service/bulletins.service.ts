@@ -349,6 +349,84 @@ export class BulletinsService {
     return this.http.post(encodeURI(url), body, options);
   }
 
+  createCaaml(date: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/publish/caaml?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify("");
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(encodeURI(url), body, options);
+  }
+
+  createPdf(date: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/publish/pdf?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify("");
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(encodeURI(url), body, options);
+  }
+
+  createMap(date: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/publish/map?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify("");
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(encodeURI(url), body, options);
+  }
+
+  createStaticWidget(date: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/publish/staticwidget?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify("");
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(encodeURI(url), body, options);
+  }
+
+  sendEmail(date: Date, region: string) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/publish/email?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify("");
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(encodeURI(url), body, options);
+  }
+
+  triggerMessengerpeople(date: Date, region: string) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/publish/messengerpeople?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify("");
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(encodeURI(url), body, options);
+  }
+
   checkBulletins(date: Date, region: string) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/check?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + '&region=' + region;
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();

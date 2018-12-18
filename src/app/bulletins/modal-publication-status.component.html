@@ -1,5 +1,5 @@
 <div class="modal-body text-center">
-	<div style="margin-top: 20px; margin-bottom: 20px;">
+	<div *ngIf="!authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" style="margin-top: 20px; margin-bottom: 20px;">
 	  <i *ngIf="json.report.caamlCreated" class="fa fa-file-text" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.caaml.success' | translate }}"></i>
 	  <i *ngIf="!json.report.caamlCreated" class="fa fa-file-text" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.caaml.failed' | translate }}"></i>
 
@@ -14,9 +14,22 @@
 
 	  <i *ngIf="json.report.whatsappSent" class="fa fa-whatsapp" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.whatsapp.success' | translate }}"></i>
 	  <i *ngIf="!json.report.whatsappSent" class="fa fa-whatsapp" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.whatsapp.failed' | translate }}"></i>
+	</div>
+	<div *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" style="margin-top: 20px; margin-bottom: 20px;">
+	  <i *ngIf="json.report.caamlCreated" class="fa fa-file-text" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.caaml.success' | translate }}" (click)="createCaaml($event)"></i>
+	  <i *ngIf="!json.report.caamlCreated" class="fa fa-file-text" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.caaml.failed' | translate }}" (click)="createCaaml($event)"></i>
 
-	  <i *ngIf="json.report.twitterSent" class="fa fa-twitter" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.twitter.success' | translate }}"></i>
-	  <i *ngIf="!json.report.twitterSent" class="fa fa-twitter" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.twitter.failed' | translate }}"></i>
+	  <i *ngIf="json.report.mapCreated" class="fa fa-map" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.map.success' | translate }}" (click)="createMap($event)"></i>
+	  <i *ngIf="!json.report.mapCreated" class="fa fa-map" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.map.failed' | translate }}" (click)="createMap($event)"></i>
+
+	  <i *ngIf="json.report.pdfCreated" class="fa fa-file-pdf-o" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.pdf.success' | translate }}" (click)="createPdf($event)"></i>
+	  <i *ngIf="!json.report.pdfCreated" class="fa fa-file-pdf-o" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.pdf.failed' | translate }}" (click)="createPdf($event)"></i>
+
+	  <i *ngIf="json.report.emailCreated" class="fa fa-envelope" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.email.success' | translate }}" (click)="sendEmail($event)"></i>
+	  <i *ngIf="!json.report.emailCreated" class="fa fa-envelope" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.email.failed' | translate }}" (click)="sendEmail($event)"></i>
+
+	  <i *ngIf="json.report.whatsappSent" class="fa fa-whatsapp" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.whatsapp.success' | translate }}" (click)="triggerMessengerpeople($event)"></i>
+	  <i *ngIf="!json.report.whatsappSent" class="fa fa-whatsapp" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.whatsapp.failed' | translate }}" (click)="triggerMessengerpeople($event)"></i>
 	</div>
   <div>
   	<p>
