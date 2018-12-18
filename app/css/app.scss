@@ -273,11 +273,6 @@ a.share-feed {
   display: table;
 }
 
-/* the overflowing right yellow border */
-.panel.warning-level-2 .bulletin-report-header h1 {
-  margin-left: -2.5%;
-}
-
 /* Animation bei den Lawinenproblemen lässt kleinen blauen Strich an der Oberkannte der Logos erkennen */
 .section-bulletin-legend .list-avalanche-problems-filter img {
   background: none !important;
@@ -385,6 +380,29 @@ $blogpost-fontsize-xl: 1.6em;
     }
   }
 }
+
+.section-bulletin-report .panel .bulletin-report-header h1 span {
+  white-space: nowrap;
+}
+
+/* the overflowing right yellow border */
+@media only screen and (min-width: 80em) {
+  .section-bulletin-report .panel .bulletin-report-header h1 {
+    margin-left: -1.5rem !important;
+    span {
+      padding-left: 1.5rem !important;
+    }
+  }
+}
+@media only screen and (min-width: 48em) {
+  .section-bulletin-report .panel .bulletin-report-header h1 {
+    margin-left: -1.3rem !important;
+    span {
+      padding-left: 1.3rem !important;
+    }
+  }
+}
+
 @media only screen and (min-width: 64em) and (max-width: 2000em) {
   .section-blog-posts {
     a.linkbox-blog-feature:link {
