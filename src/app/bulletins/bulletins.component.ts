@@ -19,6 +19,7 @@ import { ModalSubmitComponent } from './modal-submit.component';
 import { ModalPublishComponent } from './modal-publish.component';
 import { ModalCheckComponent } from './modal-check.component';
 import { ModalPublicationStatusComponent } from './modal-publication-status.component';
+import { ModalPublishAllComponent } from './modal-publish-all.component';
 
 @Component({
   templateUrl: 'bulletins.component.html'
@@ -56,6 +57,9 @@ export class BulletinsComponent {
 
   public checkBulletinsErrorModalRef: BsModalRef;
   @ViewChild('checkBulletinsErrorTemplate') checkBulletinsErrorTemplate: TemplateRef<any>;
+
+  public publishAllModalRef: BsModalRef;
+  @ViewChild('publishAllTemplate') publishAllTemplate: TemplateRef<any>;
 
   public config = {
     keyboard: true,
@@ -482,17 +486,7 @@ export class BulletinsComponent {
   publishAll(event, date: Date) {
     event.stopPropagation();
     this.publishing = date;
-
-    this.bulletinsService.publishAllBulletins(date).subscribe(
-      data => {
-        console.log("All bulletins published.");
-        this.publishing = undefined;
-      },
-      error => {
-        console.error("All bulletins could not be published!");
-        this.openPublishBulletinsErrorModal(this.publishBulletinsErrorTemplate);
-      }
-    );
+    this.openPublishAllModal(this.publishAllTemplate, date);
   }
 
   submit(event, date: Date) {
@@ -722,6 +716,41 @@ export class BulletinsComponent {
 
   checkBulletinsErrorModalConfirm(): void {
     this.checkBulletinsErrorModalRef.hide();
+    this.publishing = undefined;
+  }
+
+  openPublishAllModal(template: TemplateRef<any>, date: Date) {
+    const initialState = {
+      date: date,
+      component: this
+    };
+    this.publishAllModalRef = this.modalService.show(ModalPublishAllComponent, {initialState});
+    
+    this.modalService.onHide.subscribe((reason: string) => {
+      this.publishing = undefined;
+    })
+  }
+
+  publishAllModalConfirm(date: Date): void {
+    this.publishAllModalRef.hide();
+    this.bulletinsService.publishAllBulletins(date).subscribe(
+      data => {
+        console.log("All bulletins published.");
+        if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.resubmitted)
+          this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.republished);
+        else if (this.bulletinsService.getUserRegionStatus(date) === Enums.BulletinStatus.submitted)
+          this.bulletinsService.setUserRegionStatus(date, Enums.BulletinStatus.published);
+        this.publishing = undefined;
+      },
+      error => {
+        console.error("All bulletins could not be published!");
+        this.openPublishBulletinsErrorModal(this.publishBulletinsErrorTemplate);
+      }
+    );
+  }
+
+  publishAllModalDecline(): void {
+    this.publishAllModalRef.hide();
     this.publishing = undefined;
   }
 }

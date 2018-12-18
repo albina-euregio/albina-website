@@ -33,7 +33,7 @@
                   <!-- create -->
                   <!-- <button *ngIf="showCreateButton(date)" type="button" class="btn btn-primary btn-sm float-right" (click)="editBulletin(date, false)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.create' | translate }}"><i class="fa fa-plus"></i></button> -->
                   <!-- publish all -->
-                  <button *ngIf="showPublishAllButton(date)" type="button" class="btn btn-danger btn-sm" (click)="publishAll($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.publish' | translate }}"><i class="fa fa-times"></i></button>
+                  <button *ngIf="showPublishAllButton(date)" type="button" class="btn btn-danger btn-sm" (click)="publishAll($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.publishAll' | translate }}"><i class="fa fa-warning"></i></button>
                   <!-- caaml -->
                   <button *ngIf="showCaamlButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="showCaaml($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.caaml' | translate }}"><i class="fa fa-file-text"></i></button>
                   <!-- json -->
@@ -92,6 +92,13 @@
 <ng-template #checkBulletinsErrorTemplate>
   <div class="modal-body text-center">
     <p>{{ "bulletins.table.checkBulletinsErrorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="checkBulletinsErrorModalConfirm()">{{ "bulletins.table.checkBulletinsErrorDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
+
+<ng-template #publishAllTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.table.publishAllDialog.message" | translate }}</p>
     <button type="button" class="btn btn-primary" (click)="checkBulletinsErrorModalConfirm()">{{ "bulletins.table.checkBulletinsErrorDialog.accept" | translate }}</button>
   </div>
 </ng-template>

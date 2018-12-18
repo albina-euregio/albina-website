@@ -52,7 +52,8 @@
 			"edit" : "Edit bulletin (will not be published again)",
 			"create" : "Create bulletin",
 			"check" : "Check bulletin",
-			"info" : "Show publication status"
+			"info" : "Show publication status",
+			"publishAll" : "Publish all regions"
 		},
 		"create" : {
 			"tooltip" : {
@@ -310,6 +311,11 @@
 				"pendingSuggestions" : "Pending suggestions",
 				"ok" : "(everything alright)",
 				"accept" : "Ok"
+			},
+			"publishAllDialog" : {
+				"message" : "Do you want to publish all regions?",
+				"accept" : "Yes",
+				"reject" : "No"
 			}
 		},
 		"caaml" : {

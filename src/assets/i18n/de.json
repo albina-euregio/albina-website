@@ -52,7 +52,8 @@
 			"edit" : "Lawinenvorhersage editieren (keine erneute Veröffentlichung)",
 			"create" : "Lawinenvorhersage erstellen",
 			"check" : "Lawinenvorhersage prüfen",
-			"info" : "Publikationsstatus anzeigen"
+			"info" : "Publikationsstatus anzeigen",
+			"publishAll" : "Alle Regionen publizieren"
 		},
 		"create" : {
 			"tooltip" : {
@@ -310,6 +311,11 @@
 				"pendingSuggestions" : "Unbeantwortete Vorschläge",
 				"ok" : "(alles ok)",
 				"accept" : "Ok"
+			},
+			"publishAllDialog" : {
+				"message" : "Willst du alle Regionen publizieren?",
+				"accept" : "Ja",
+				"reject" : "Nein"
 			}
 		},
 		"caaml" : {
