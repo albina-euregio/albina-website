@@ -189,7 +189,7 @@
       "opacity": 1.0
     },
     "geonamesSearch": {
-      "extent": { "east": 17, "west": 5, "north": 50, "south": 44 }
+      "bbox": { "east": 13.2, "west": 9.5, "north": 48, "south": 45 }
     },
     "initOptions": {
       "maxBounds_original": [[45.150876, 7.932124], [48.240084, 15.118646]],

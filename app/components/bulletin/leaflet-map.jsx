@@ -94,13 +94,13 @@ class LeafletMap extends React.Component {
           })
           .addTo(this.map);
 
-        console.log(config.get("map.geonamesSearch.extent"));
+        console.log(config.get("map.geonamesSearch.bbox"));
         const geonamesOptions = Object.assign(
           {},
           {
             clearOnPopupClose: true,
             lang: appStore.language,
-            bbox: config.get("map.geonamesSearch.extent"),
+            bbox: config.get("map.geonamesSearch.bbox"),
             title: this.props.intl.formatMessage({
               id: "bulletin:map:search"
             }),
