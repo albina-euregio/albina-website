@@ -998,7 +998,7 @@ private setTexts() {
       }
     }
 
-    if (newRegionsHit) {
+    if (newRegionsHit || !this.activeBulletin.getOwnerRegion().startsWith(this.authenticationService.getActiveRegion())) {
       this.editRegions = false;
 
       // delete old saved regions in own area
