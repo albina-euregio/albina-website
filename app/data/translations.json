@@ -308,6 +308,11 @@
     "de": "Show me where I am",
     "it": "Show me where I am"
   },
+  "bulletin:map:locate:outside": {
+    "en": "Your location is outside of the bounds.",
+    "de": "Ihr Standort liegt außerhalb der Grenzen.",
+    "it": "La tua posizione è fuori dai limiti."
+  },
   "bulletin:map:locate:metersUnit": {
     "en": "meters",
     "de": "meters",

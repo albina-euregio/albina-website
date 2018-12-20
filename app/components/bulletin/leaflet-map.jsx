@@ -112,9 +112,16 @@ class LeafletMap extends React.Component {
         );
 
         L.control.geonames(geonamesOptions).addTo(this.map);
+        const outsideMessage = this.props.intl.formatMessage({
+          id: "bulletin:map:locate:outside"
+        });
         L.control
           .locate(
             Object.assign({}, config.get("map.locateOptions"), {
+              onLocationOutsideMapBounds: function(control) {
+                control.stop();
+                alert(outsideMessage);
+              },
               strings: {
                 title: this.props.intl.formatMessage({
                   id: "bulletin:map:locate:title"
@@ -125,6 +132,7 @@ class LeafletMap extends React.Component {
                 popup: this.props.intl.formatMessage({
                   id: "bulletin:map:locate:popup"
                 }),
+
                 outsideMapBoundsMsg: this.props.intl.formatMessage({
                   id: "bulletin:map:locate:outsideMapBoundsMsg"
                 })
