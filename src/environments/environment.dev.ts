@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8080/albina/api/',
-  wsBaseUrl: 'ws://localhost:8080/albina/',
+  apiBaseUrl: 'https://admin.avalanche.report/albina_dev/api/',
+  wsBaseUrl: 'wss://socket.avalanche.report/albina_dev/',
   textcatUrl: 'https://admin.avalanche.report/textcat_dev/c_pm.html',
-  headerBgColor: '#000000'
+  headerBgColor: '#ff1adc'
 };
