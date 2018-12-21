@@ -22,13 +22,19 @@ export default class BulletinVectorLayer extends React.Component {
     }
   }
 
-  handleMouseOut(bid) {
+  handleMouseOut(e) {
+    const bid = e.target.options.bid;
     if (!L.Browser.mobile && bid === this.state.over) {
       this.setState({ over: false });
     }
   }
-  handleMouseMove(bid) {
-    if (!L.Browser.mobile && bid !== this.state.over) {
+  handleMouseMove(e) {
+    const bid = e.target.options.bid;
+    if (
+      e.target._containsPoint(e.containerPoint) &&
+      !L.Browser.mobile &&
+      bid !== this.state.over
+    ) {
       this.setState({ over: bid });
     }
   }
@@ -98,16 +104,14 @@ export default class BulletinVectorLayer extends React.Component {
   }
 
   renderRegion(vector, state, geometry, style, key) {
+    const bid = vector.properties.bid;
     return (
       <Polygon
-        key={key}
-        onClick={this.handleClickRegion.bind(
-          this,
-          vector.properties.bid,
-          state
-        )}
-        onMouseMove={this.handleMouseMove.bind(this, vector.properties.bid)}
-        onMouseOut={this.handleMouseOut.bind(this, vector.properties.bid)}
+        key={key + bid}
+        onClick={this.handleClickRegion.bind(this, bid, state)}
+        bid={bid}
+        onMouseMove={this.handleMouseMove.bind(this)}
+        onMouseOut={this.handleMouseOut.bind(this)}
         positions={geometry}
         {...style}
         {...config.get("map.vectorOptions")}
