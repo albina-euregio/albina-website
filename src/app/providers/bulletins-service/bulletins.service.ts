@@ -108,7 +108,7 @@ export class BulletinsService {
 
   public wsRegionConnect() {
     this.regionLocks = <Subject<RegionLockModel>>this.wsRegionService
-      .connect(this.constantsService.regionUrl + this.authenticationService.getUsername())
+      .connect(this.constantsService.getWsRegionUrl() + this.authenticationService.getUsername())
       .map((response: any): RegionLockModel => {
         let data = JSON.parse(response.data);
         let regionLock = RegionLockModel.createFromJson(data);
@@ -132,7 +132,7 @@ export class BulletinsService {
 
   public wsBulletinConnect() {
     this.bulletinLocks = <Subject<BulletinLockModel>>this.wsBulletinService
-      .connect(this.constantsService.bulletinUrl + this.authenticationService.getUsername())
+      .connect(this.constantsService.getWsBulletinUrl() + this.authenticationService.getUsername())
       .map((response: any): BulletinLockModel => {
         let data = JSON.parse(response.data);
         let bulletinLock = BulletinLockModel.createFromJson(data);

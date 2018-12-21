@@ -1,31 +1,8 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ConstantsService {
-
-  // Localhost
-  //public serverUrl: string = 'http://localhost:8080/albina/api/';
-  //public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
-  //public chatUrl: string = 'ws://localhost:8080/albina/chat/';
-  //public bulletinUrl: string = 'ws://localhost:8080/albina/bulletin/';
-  //public updateUrl: string = 'ws://localhost:8080/albina/update/';
-  //public regionUrl: string = 'ws://localhost:8080/albina/region/';
-
-  // Development server
-  //public serverUrl: string = 'https://admin.avalanche.report/albina_dev/api/';
-  //public textcatUrl: string = 'https://admin.avalanche.report/textcat_dev/c_pm.html';
-  //public chatUrl: string = 'wss://socket.avalanche.report/albina_dev/chat/';
-  //public bulletinUrl: string = 'wss://socket.avalanche.report/albina_dev/bulletin/';
-  //public updateUrl: string = 'wss://socket.avalanche.report/albina_dev/update/';
-  //public regionUrl: string = 'wss://socket.avalanche.report/albina_dev/region/';
-  
-  // Production server
-  public serverUrl: string = 'https://admin.avalanche.report/albina/api/';
-  public textcatUrl: string = 'https://admin.avalanche.report/textcat/c_pm.html';
-  public chatUrl: string = 'wss://socket.avalanche.report/albina/chat/';
-  public bulletinUrl: string = 'wss://socket.avalanche.report/albina/bulletin/';
-  public updateUrl: string = 'wss://socket.avalanche.report/albina/update/';
-  public regionUrl: string = 'wss://socket.avalanche.report/albina/region/';
 
   public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';
   public natlefsServerUrl: string = 'https://natlefs.snowobserver.com/snowobserver/api/';
@@ -145,7 +122,23 @@ export class ConstantsService {
   }
 
   getServerUrl() {
-    return this.serverUrl;
+    return environment.apiBaseUrl;
+  }
+
+  getWsRegionUrl() {
+    return environment.wsBaseUrl + 'region/';
+  }
+
+  getWsChatUrl() {
+    return environment.wsBaseUrl + 'chat/';
+  }
+
+  getWsBulletinUrl() {
+    return environment.wsBaseUrl + 'bulletin/';
+  }
+
+  getWsUpdateUrl() {
+    return environment.wsBaseUrl + 'update/';
   }
 
   getSnowObserverServerUrl() {

@@ -42,7 +42,7 @@ export class ChatService {
 
   public connect() {
     this.messages = <Subject<ChatMessageModel>>this.wsChatService
-      .connect(this.constantsService.chatUrl + this.authenticationService.getUsername())
+      .connect(this.constantsService.getWsChatUrl() + this.authenticationService.getUsername())
       .map((response: any): ChatMessageModel => {
         let data = JSON.parse(response.data);
         let message = ChatMessageModel.createFromJson(data);

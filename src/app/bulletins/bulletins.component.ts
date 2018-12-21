@@ -98,7 +98,7 @@ export class BulletinsComponent {
 
   private wsUpdateConnect() {
     this.updates = <Subject<BulletinUpdateModel>>this.wsUpdateService
-      .connect(this.constantsService.updateUrl + this.authenticationService.getUsername())
+      .connect(this.constantsService.getWsUpdateUrl() + this.authenticationService.getUsername())
       .map((response: any): BulletinUpdateModel => {
         let data = JSON.parse(response.data);
         let bulletinUpdate = BulletinUpdateModel.createFromJson(data);

@@ -10,6 +10,8 @@ import { ChatMessageModel } from '../models/chat-message.model';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { environment } from '../../environments/environment';
+import { DomSanitizer  } from '@angular/platform-browser';
 import * as Enums from '../enums/enums';
 
 @Component({
@@ -42,10 +44,16 @@ export class FullLayoutComponent implements OnInit {
     public settingsService: SettingsService,
     public constantsService: ConstantsService,
     public router: Router,
-    private modalService: BsModalService)
+    private modalService: BsModalService,
+    private sanitizer: DomSanitizer)
   {
     this.message = "";
     this.tmpRegion = undefined;
+  }
+
+  getStyle() {
+    const style = `background-color: ${environment.headerBgColor}`;
+    return this.sanitizer.bypassSecurityTrustStyle(style);
   }
 
   public showBadge(region?: string): boolean {

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, TemplateRef, ViewChild} from '@angular/core';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { MapService } from '../providers/map-service/map.service';
 import { ChatService } from '../providers/chat-service/chat.service';
@@ -6,6 +6,8 @@ import { TranslateService } from 'ng2-translate/src/translate.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { environment } from '../../environments/environment';
+import { DomSanitizer  } from '@angular/platform-browser';
 
 @Component({
   templateUrl: 'login.component.html'
@@ -32,7 +34,8 @@ export class LoginComponent {
     private mapService: MapService,
     private translateService: TranslateService,
     private modalService: BsModalService,
-    private chatService: ChatService)
+    private chatService: ChatService,
+    private sanitizer: DomSanitizer)
   {
     this.loading = false;
   }
@@ -45,6 +48,11 @@ export class LoginComponent {
     // console.log("Return URL: " + this.route.snapshot.queryParams['returnUrl']);
     // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     this.returnUrl = '/bulletins';
+  }
+
+  getStyle() {
+    const style = `background-color: ${environment.headerBgColor}`;
+    return this.sanitizer.bypassSecurityTrustStyle(style);
   }
 
   login() {

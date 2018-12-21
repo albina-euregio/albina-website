@@ -21,6 +21,7 @@ import 'rxjs/add/observable/forkJoin';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { environment } from '../../environments/environment';
 
 import "leaflet";
 import "leaflet.sync";
@@ -235,7 +236,7 @@ export class CreateBulletinComponent {
   ngOnInit() {
     //for reload iframe on change language
     this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
-      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.constantsService.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode())
+      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode())
     );
 
     if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
@@ -243,7 +244,7 @@ export class CreateBulletinComponent {
       this.reset();
 
       //setting pm language for iframe
-      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.constantsService.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode());
+      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode());
 
 
       // copy bulletins from other date
