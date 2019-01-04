@@ -150,6 +150,11 @@ class LeafletMap extends React.Component {
       const m = this.map;
       window.addEventListener("resize", this.invalidateMap);
       window.addEventListener("orientationchange", this.invalidateMap);
+
+      this.map.on("zoomend", () => {
+        const newZoom = this.map.getZoom();
+        this.map.setMaxBounds(config.get("map.maxBounds")[newZoom]);
+      });
     }
   }
 
@@ -272,7 +277,6 @@ class LeafletMap extends React.Component {
   }
 
   centerToRegion(bid) {
-    console.log("centering to region");
     if (bid && this.props.regions && this.props.regions.length > 0) {
       const region = this.props.regions.find(r => r.properties.bid === bid);
       if (region) {
