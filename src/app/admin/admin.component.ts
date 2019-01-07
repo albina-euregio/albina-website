@@ -20,6 +20,7 @@ export class AdminComponent {
   public statusMap: Map<number, Enums.BulletinStatus>;
   public configurationPropertiesLoaded: boolean = false;
 
+  public createCaaml: boolean;
   public createMaps: boolean;
   public createPdf: boolean;
   public createStaticWidget: boolean;
@@ -37,6 +38,8 @@ export class AdminComponent {
   public serverImagesUrl: string;
   public serverImagesUrlLocalhost: string;
   public mapsPath: string;
+  public univieMapProductionUrl: string;
+  public scriptsPath: string;
 
   public regions: SelectItem[];
   public channels: SelectItem[];
@@ -75,6 +78,7 @@ export class AdminComponent {
       this.configurationService.loadConfigurationProperties().subscribe(
         data => {
           let response = data.json();
+          this.createCaaml = response.createCaaml;
           this.createMaps = response.createMaps;
           this.createPdf = response.createPdf;
           this.createStaticWidget = response.createStaticWidget;
@@ -92,6 +96,8 @@ export class AdminComponent {
           this.serverImagesUrl = response.serverImagesUrl;
           this.serverImagesUrlLocalhost = response.serverImagesUrlLocalhost;
           this.mapsPath = response.mapsPath;
+          this.univieMapProductionUrl = response.univieMapProductionUrl;
+          this.scriptsPath = response.scriptsPath;
           this.configurationPropertiesLoaded = true;
 
         },
@@ -132,6 +138,7 @@ export class AdminComponent {
 
   public save() {
     var json = Object();
+    json['createCaaml'] = this.createCaaml;
     json['createMaps'] = this.createMaps;
     json['createPdf'] = this.createPdf;
     json['createStaticWidget'] = this.createStaticWidget;
@@ -149,6 +156,8 @@ export class AdminComponent {
     json['serverImagesUrl'] = this.serverImagesUrl;
     json['serverImagesUrlLocalhost'] = this.serverImagesUrlLocalhost;
     json['mapsPath'] = this.mapsPath;
+    json['univieMapProductionUrl'] = this.univieMapProductionUrl;
+    json['scriptsPath'] = this.scriptsPath;
     json['configurationPropertiesLoaded'] = this.configurationPropertiesLoaded;
 
     this.configurationService.saveConfigurationProperties(json).subscribe(

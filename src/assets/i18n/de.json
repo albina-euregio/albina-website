@@ -356,6 +356,7 @@
 					"key" : "Parameter",
 					"value" : "Wert"
 				},
+				"createCaaml" : "CAAML erzeugen",
 				"createMaps" : "Karten erzeugen",
 				"createPdf" : "PDF erzeugen",
 				"createStaticWidget" : "Statische Widgets erzeugen",
@@ -373,14 +374,8 @@
 				"serverImagesUrl" : "Pfad zu Bildern am Server",
 				"serverImagesUrlLocalhost" : "Pfad zu Bildern am Server (localhost)",
 				"mapsPath" : "Pfad zu Karten",
-				"emailUsername" : "Benutzername für Email",
-				"emailPassword" : "Passwort für Email",
-				"smtpAuth" : "SMTP Auth",
-				"smtpTls" : "SMTP TLS",
-				"smtpHost" : "SMTP Host",
-				"smtpPort" : "SMTP Port",
-				"socketIoOrigin" : "SocketIO origin",
-				"socketIoPort" : "SocketIo port"
+				"univieMapProductionUrl" : "URL zur Kartenproduktion",
+				"scriptsPath" : "Pfad zu den Skripten"
 			},
 			"button" : {
 				"save" : "Speichern",

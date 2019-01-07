@@ -20,6 +20,17 @@
                   <tbody>
                     <tr>
                       <td>
+                        <label class="col-form-label">{{ "admin.config.table.createCaaml" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="createCaaml">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
                         <label class="col-form-label">{{ "admin.config.table.createMaps" | translate }}</label>
                       </td>
                       <td>
@@ -185,6 +196,22 @@
                       </td>
                       <td>
                         <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="mapsPath">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.univieMapProductionUrl" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="univieMapProductionUrl">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.scriptsPath" | translate }}</label>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="scriptsPath">
                       </td>
                     </tr>
                   </tbody>
