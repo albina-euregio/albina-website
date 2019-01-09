@@ -734,6 +734,43 @@
     "it": "Nessun contenuto trovato, si prega di scegliere diversi filtri."
   },
 
+  "dialog:download-pdf:heading": {
+    "en": "download PDF",
+    "de": "download PDF",
+    "it": "download PDF"
+  },
+  "dialog:download-pdf:text": {
+    "en": "select pdf to download",
+    "de": "select pdf to download",
+    "it": "select pdf to download"
+  },
+  "dialog:download-pdf:mode": {
+    "en": "select color",
+    "de": "select color",
+    "it": "select color"
+  },
+  "dialog:download-pdf:region": {
+    "en": "select region",
+    "de": "select region",
+    "it": "select region"
+  },
+  "dialog:download-pdf:mode:bw": {
+    "en": "black and white",
+    "de": "black and white",
+    "it": "black and white"
+  },
+  "dialog:download-pdf:mode:color": {
+    "en": "colored",
+    "de": "colored",
+    "it": "colored"
+  },
+
+  "dialog:download-pdf:region-all": {
+    "en": "entire EUROREGIO",
+    "de": "entire EUROREGIO",
+    "it": "entire EUROREGIO"
+  },
+
   "dialog:unsupportedBrowser:heading": {
     "en": "EN Your browser is old",
     "de": "DE Your browser is old",

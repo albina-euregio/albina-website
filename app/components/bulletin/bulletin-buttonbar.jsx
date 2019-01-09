@@ -33,20 +33,31 @@ class BulletinButtonbar extends React.Component {
                 {this.props.store.activeBulletinCollection && (
                   <li>
                     <a
-                      href={stringInject(config.get("links.downloads.pdf"), {
-                        date: this.props.store.settings.date,
-                        lang: window["appStore"].language
-                      })}
-                      target="_blank"
+                      href="#downloadPdfDialog"
+                      className="modal-trigger popup-modal pure-button tooltip"
                       title={this.props.intl.formatMessage({
                         id: "bulletin:linkbar:pdf:hover"
                       })}
-                      className="pure-button tooltip"
                     >
-                      {this.props.intl.formatMessage({
-                        id: "bulletin:linkbar:pdf"
-                      })}
+                      <FormattedHTMLMessage id="bulletin:linkbar:pdf" />
                     </a>
+                    {false && (
+                      <a
+                        href={stringInject(config.get("links.downloads.pdf"), {
+                          date: this.props.store.settings.date,
+                          lang: window["appStore"].language
+                        })}
+                        target="_blank"
+                        title={this.props.intl.formatMessage({
+                          id: "bulletin:linkbar:pdf:hover"
+                        })}
+                        className="pure-button tooltip"
+                      >
+                        {this.props.intl.formatMessage({
+                          id: "bulletin:linkbar:pdf"
+                        })}
+                      </a>
+                    )}
                   </li>
                 )}
                 {!config.get("subscribe.buttonHidden") && (

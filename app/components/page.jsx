@@ -13,6 +13,7 @@ import Base from "./../base";
 import ModalDialog from "./modal-dialog";
 import FollowDialog from "./dialogs/follow-dialog";
 import SubscribeDialog from "./dialogs/subscribe-dialog";
+import DonwloadPdfDialog from "./dialogs/dowload-pdf";
 import SubscribeSocialMediaDialog from "./dialogs/subscribe-social-media-dialog";
 import SubscribeAppDialog from "./dialogs/subscribe-app-dialog";
 import SubscribeEmailDialog from "./dialogs/subscribe-email-dialog";
@@ -141,7 +142,7 @@ class Page extends React.Component {
       <div>
         <DocumentMeta {...meta}>
           <PageLoadingScreen />
-          <Jumpnav />
+          {false && <Jumpnav />}
           <div id="page-all" className="page-all">
             <PageHeader menuStore={this.menuStore} />
             <main id="page-main" className="page-main">
@@ -154,6 +155,9 @@ class Page extends React.Component {
           {appStore.unsupportedBrowserModal && <UnsupportedBrowserDialog />}
           <ModalDialog id="subscribeDialog">
             <SubscribeDialog />
+          </ModalDialog>
+          <ModalDialog id="downloadPdfDialog">
+            <DonwloadPdfDialog />
           </ModalDialog>
           <ModalDialog id="followDialog">
             <FollowDialog />
