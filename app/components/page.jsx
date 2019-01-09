@@ -114,11 +114,13 @@ class Page extends React.Component {
       this.props.history.push("bulletin/latest");
     }
     this._setLanguage();
+
     /*
-      if (this.hash && this.hash !== this.props.location.hash) {
-        this.props.history.push({ hash: this.hash })
-      }
-   */
+    if (this.hash && this.hash !== this.props.location.hash) {
+      this.props.history.push({ hash: this.hash });
+    }
+    */
+
     modal_init();
     tooltip_init();
     navigation_init();

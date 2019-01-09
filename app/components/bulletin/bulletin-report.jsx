@@ -1,5 +1,6 @@
 import React from "react";
 import { computed } from "mobx";
+import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
@@ -102,6 +103,7 @@ class BulletinReport extends React.Component {
     const daytimeBulletins = this.daytimeBulletins;
     const maxWarnlevel = this.getMaxWarnlevel(daytimeBulletins);
     const classes = "panel field callout warning-level-" + maxWarnlevel.number;
+    const link = "/education/dangerscale?lang=en#anchor-" + maxWarnlevel.number;
 
     return (
       <div>
@@ -122,21 +124,23 @@ class BulletinReport extends React.Component {
                   }}
                 />
               </p>
-              <h1>
-                <FormattedHTMLMessage
-                  id={
-                    maxWarnlevel.number == 0
-                      ? "bulletin:report:headline2:level0"
-                      : "bulletin:report:headline2"
-                  }
-                  values={{
-                    number: maxWarnlevel.number,
-                    text: this.props.intl.formatMessage({
-                      id: "danger-level:" + maxWarnlevel.id
-                    })
-                  }}
-                />
-              </h1>
+              <Link to={link}>
+                <h1>
+                  <FormattedHTMLMessage
+                    id={
+                      maxWarnlevel.number == 0
+                        ? "bulletin:report:headline2:level0"
+                        : "bulletin:report:headline2"
+                    }
+                    values={{
+                      number: maxWarnlevel.number,
+                      text: this.props.intl.formatMessage({
+                        id: "danger-level:" + maxWarnlevel.id
+                      })
+                    }}
+                  />
+                </h1>
+              </Link>
             </header>
             {Object.keys(daytimeBulletins).map(ampm => (
               <BulletinDaytimeReport
