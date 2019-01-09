@@ -1,50 +1,58 @@
-import React from 'react'
-import { ProcessNodeDefinitions } from 'html-to-react'
-import PageHeadline from '../components/organisms/page-headline'
-import SmShare from '../components/organisms/sm-share'
-import { preprocessContent } from '../util/htmlParser'
+import React from "react";
+import { ProcessNodeDefinitions } from "html-to-react";
+import PageHeadline from "../components/organisms/page-headline";
+import SmShare from "../components/organisms/sm-share";
+import { preprocessContent } from "../util/htmlParser";
 /*
  * Compontent to be used for pages with content delivered by CMS API.
  */
 export default class StaticPage extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      title: '',
-      headerText: '',
-      content: '',
+      title: "",
+      headerText: "",
+      content: "",
       sharable: false
-    }
+    };
   }
 
   componentWillReceiveProps(nextProps) {
-    this._fetchData(nextProps)
+    this._fetchData(nextProps);
   }
 
   componentDidMount() {
-    this._fetchData(this.props)
+    this._fetchData(this.props);
+  }
+
+  // scroll after the content is loaded
+  componentDidUpdate() {
+    const hashEl = document.getElementById(
+      this.props.location.hash.replace("#", "")
+    );
+    if (hashEl) {
+      hashEl.scrollIntoView();
+    }
   }
 
   _fetchData(props) {
     // remove projectRoot from the URL
     const site = props.location.pathname
-      .substr(config.get('projectRoot'))
-      .replace(/^\//, '')
+      .substr(config.get("projectRoot"))
+      .replace(/^\//, "");
 
     // TODO: use subqueries to eleiminate the need of an additional API roundtrip: https://www.drupal.org/project/subrequests
     if (site) {
-      window['staticPageStore'].loadPage(site).then(response => {
+      window["staticPageStore"].loadPage(site).then(response => {
         // parse content
-        const responseParsed = JSON.parse(response)
+        const responseParsed = JSON.parse(response);
         this.setState({
           title: responseParsed.data.attributes.title,
           headerText: responseParsed.data.attributes.header_text,
-          content: preprocessContent(
-            responseParsed.data.attributes.body
-          ),
+          content: preprocessContent(responseParsed.data.attributes.body),
           sharable: responseParsed.data.attributes.sharable
-        })
-      })
+        });
+      });
     }
   }
 
@@ -55,9 +63,7 @@ export default class StaticPage extends React.Component {
           title={this.state.title}
           marginal={this.state.headerText}
         />
-        <section className="section-centered">
-          {this.state.content}
-        </section>
+        <section className="section-centered">{this.state.content}</section>
         <div className="clearfix" />
         {this.state.sharable ? (
           <SmShare />
@@ -65,6 +71,6 @@ export default class StaticPage extends React.Component {
           <div className="section-padding" />
         )}
       </div>
-    )
+    );
   }
 }
