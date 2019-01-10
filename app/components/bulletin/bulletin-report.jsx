@@ -103,7 +103,11 @@ class BulletinReport extends React.Component {
     const daytimeBulletins = this.daytimeBulletins;
     const maxWarnlevel = this.getMaxWarnlevel(daytimeBulletins);
     const classes = "panel field callout warning-level-" + maxWarnlevel.number;
-    const link = "/education/dangerscale?lang=en#anchor-" + maxWarnlevel.number;
+    const link =
+      "/education/dangerscale?lang=" +
+      window["appStore"].language +
+      "#anchor-" +
+      maxWarnlevel.number;
 
     return (
       <div>

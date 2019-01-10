@@ -13,6 +13,7 @@ import BulletinMap from "../components/bulletin/bulletin-map";
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import BulletinReport from "../components/bulletin/bulletin-report";
+import BulletinHowTo from "../components/bulletin/bulletin-howto";
 import SmShare from "../components/organisms/sm-share";
 import { parseDate, dateToISODateString } from "../util/date.js";
 import Base from "./../base";
@@ -199,6 +200,7 @@ class Bulletin extends React.Component {
           />
           <BulletinButtonbar store={this.store} />
           <BulletinReport store={this.store} />
+          <BulletinHowTo store={this.store} />
           {this.state.sharable && <SmShare />}
           <div className="section-padding section-centered">
             {preprocessContent(this.state.content)}

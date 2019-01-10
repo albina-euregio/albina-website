@@ -524,11 +524,6 @@
     "de": "<strong className=\"heavy\">Tendenz: {tendency}</strong><br />am {date} {daytime}",
     "it": "<strong className=\"heavy\">Tendenza: {tendency}</strong><br />per {date} {daytime}"
   },
-  "bulletin:report:tendency:hover": {
-    "en": "Expected trend for the following day",
-    "de": "Voraussichtliche Entwicklung für den nächsten Tag",
-    "it": "Tendenza prevista per il giorno successivo"
-  },
   "bulletin:report:tendency:daytime:am": {
     "en": "AM",
     "de": "vormittags",
@@ -638,6 +633,12 @@
     "en": "Tree line",
     "de": "Waldgrenze",
     "it": "Limite del bosco"
+  },
+
+  "bulletin:howto": {
+    "de": "<strong>Klick auf die Karte</strong> für detaillierte Informationen zur Lawinengefahr in den verschiedenen Warnregionen.",
+    "en": "<strong>Click on the map</strong> for detailed information on the avalanche danger in the various warning regions.",
+    "it": "<strong>Cliccate sulla carta</strong> per ottenere informazioni dettagliati sul pericolo di valanghe nelle diverse zone di avviso."
   },
 
   "archive:filter:year": { "en": "Year", "de": "Jahr", "it": "Anno" },
