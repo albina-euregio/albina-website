@@ -34,6 +34,7 @@ import { ChatService } from './providers/chat-service/chat.service';
 import { LocalStorageService } from './providers/local-storage-service/local-storage.service';
 import { ConfigurationService } from './providers/configuration-service/configuration.service';
 import { SocialmediaService } from './providers/socialmedia-service/socialmedia.service';
+import { CopyService } from './providers/copy-service/copy.service';
 import { ConfirmationService } from 'primeng/primeng';
 
 // Pipes
@@ -110,7 +111,8 @@ export function createTranslateLoader(http: Http) {
     LocalStorageService,
     ConfigurationService,
     ConfirmationService,
-    SocialmediaService
+    SocialmediaService,
+    CopyService
   ],
   bootstrap: [ AppComponent ],
   exports: [

@@ -11,6 +11,7 @@ import { RegionsService } from "../providers/regions-service/regions.service";
 import { LocalStorageService } from "../providers/local-storage-service/local-storage.service";
 import { SettingsService } from '../providers/settings-service/settings.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
+import { CopyService } from '../providers/copy-service/copy.service';
 import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/primeng';
 import { DialogModule } from 'primeng/components/dialog/dialog';
 import { Observable } from 'rxjs/Observable';
@@ -99,11 +100,6 @@ export class CreateBulletinComponent {
   public showTranslationsSnowpackStructureComment: boolean;
   public showTranslationsTendencyComment: boolean;
 
-  public copyAvActivityHighlights: boolean;
-  public copyAvActivityComment: boolean;
-  public copySnowpackStructureComment: boolean;
-  public copyTendencyComment: boolean;
-
   public loadingErrorModalRef: BsModalRef;
   @ViewChild('loadingErrorTemplate') loadingErrorTemplate: TemplateRef<any>;
 
@@ -165,6 +161,7 @@ export class CreateBulletinComponent {
     private translateService: TranslateService,
     private settingsService: SettingsService,
     private constantsService: ConstantsService,
+    private copyService: CopyService,
     private mapService: MapService,
     private regionsService: RegionsService,
     private confirmationService: ConfirmationService,
@@ -230,7 +227,7 @@ export class CreateBulletinComponent {
     this.showTranslationsSnowpackStructureComment = false;
     this.showTranslationsTendencyComment = false;
 
-    this.resetCopying();
+    this.copyService.resetCopying();
   }
 
   ngOnInit() {
@@ -1187,13 +1184,13 @@ private setTexts() {
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.keyCode == 27 && this.editRegions) {
       this.discardBulletin(event);
-    } else if (event.keyCode == 27 && (this.copyAvActivityHighlights || this.copyAvActivityComment || this.copySnowpackStructureComment || this.copyTendencyComment)) {
-      this.resetCopying();
+    } else if (event.keyCode == 27 && this.copyService.isCopying()) {
+      this.copyService.resetCopying();
     }
   }
 
   openTextcat($event, field, l, textDef) {
-    this.resetCopying();
+    this.copyService.resetCopying();
     let receiver = this.receiver.nativeElement.contentWindow;
     $event.preventDefault()
     if (!textDef)
@@ -1212,26 +1209,40 @@ private setTexts() {
     this.showDialog();
   }
 
-  resetCopying() {
-    this.copyAvActivityHighlights = false;
-    this.copyAvActivityComment = false;
-    this.copySnowpackStructureComment = false;
-    this.copyTendencyComment = false;
-  }
-
   copyTextcat($event, field) {
+    this.setTexts();
     switch (field) {
       case "avActivityHighlights":
-        this.copyAvActivityHighlights = true;
+        this.copyService.setCopying(true);
+        this.copyService.setTextTextcat(this.activeBulletin.getAvActivityHighlightsTextcat());
+        this.copyService.setTextDe(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de));
+        this.copyService.setTextIt(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it));
+        this.copyService.setTextEn(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.en));
+        this.copyService.setTextFr(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.fr));
         break;
       case "avActivityComment":
-        this.copyAvActivityComment = true;
+        this.copyService.setCopying(true);
+        this.copyService.setTextTextcat(this.activeBulletin.getAvActivityCommentTextcat());
+        this.copyService.setTextDe(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de));
+        this.copyService.setTextIt(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it));
+        this.copyService.setTextEn(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en));
+        this.copyService.setTextFr(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.fr));
         break;
       case "snowpackStructureComment":
-        this.copySnowpackStructureComment = true;
+        this.copyService.setCopying(true);
+        this.copyService.setTextTextcat(this.activeBulletin.getSnowpackStructureCommentTextcat());
+        this.copyService.setTextDe(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de));
+        this.copyService.setTextIt(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it));
+        this.copyService.setTextEn(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en));
+        this.copyService.setTextFr(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.fr));
         break;
       case "tendencyComment":
-        this.copyTendencyComment = true;
+        this.copyService.setCopying(true);
+        this.copyService.setTextTextcat(this.activeBulletin.getTendencyCommentTextcat());
+        this.copyService.setTextDe(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.de));
+        this.copyService.setTextIt(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.it));
+        this.copyService.setTextEn(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.en));
+        this.copyService.setTextFr(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.fr));
         break;
       default:
         break;
@@ -1241,97 +1252,37 @@ private setTexts() {
   pasteTextcat($event, field) {
     switch (field) {
       case "avActivityHighlights":
-        if (this.copyAvActivityHighlights) {
-        } else if (this.copyAvActivityComment) {
-          this.activeAvActivityHighlightsTextcat = this.activeAvActivityCommentTextcat;
-          this.activeAvActivityHighlightsDe = this.activeAvActivityCommentDe;
-          this.activeAvActivityHighlightsIt = this.activeAvActivityCommentIt;
-          this.activeAvActivityHighlightsEn = this.activeAvActivityCommentEn;
-          this.activeAvActivityHighlightsFr = this.activeAvActivityCommentFr;
-        } else if (this.copySnowpackStructureComment) {
-          this.activeAvActivityHighlightsTextcat = this.activeSnowpackStructureCommentTextcat;
-          this.activeAvActivityHighlightsDe = this.activeSnowpackStructureCommentDe;
-          this.activeAvActivityHighlightsIt = this.activeSnowpackStructureCommentIt;
-          this.activeAvActivityHighlightsEn = this.activeSnowpackStructureCommentEn;
-          this.activeAvActivityHighlightsFr = this.activeSnowpackStructureCommentFr;
-        } else if (this.copyTendencyComment) {
-          this.activeAvActivityHighlightsTextcat = this.activeTendencyCommentTextcat;
-          this.activeAvActivityHighlightsDe = this.activeTendencyCommentDe;
-          this.activeAvActivityHighlightsIt = this.activeTendencyCommentIt;
-          this.activeAvActivityHighlightsEn = this.activeTendencyCommentEn;
-          this.activeAvActivityHighlightsFr = this.activeTendencyCommentFr;
-        }
+        this.activeAvActivityHighlightsTextcat = this.copyService.getTextTextcat();
+        this.activeAvActivityHighlightsDe = this.copyService.getTextDe();
+        this.activeAvActivityHighlightsIt = this.copyService.getTextIt();
+        this.activeAvActivityHighlightsEn = this.copyService.getTextEn();
+        this.activeAvActivityHighlightsFr = this.copyService.getTextFr();
         break;
       case "avActivityComment":
-        if (this.copyAvActivityHighlights) {
-          this.activeAvActivityCommentTextcat = this.activeAvActivityHighlightsTextcat;
-          this.activeAvActivityCommentDe = this.activeAvActivityHighlightsDe;
-          this.activeAvActivityCommentIt = this.activeAvActivityHighlightsIt;
-          this.activeAvActivityCommentEn = this.activeAvActivityHighlightsEn;
-          this.activeAvActivityCommentFr = this.activeAvActivityHighlightsFr;
-        } else if (this.copyAvActivityComment) {
-        } else if (this.copySnowpackStructureComment) {
-          this.activeAvActivityCommentTextcat = this.activeSnowpackStructureCommentTextcat;
-          this.activeAvActivityCommentDe = this.activeSnowpackStructureCommentDe;
-          this.activeAvActivityCommentIt = this.activeSnowpackStructureCommentIt;
-          this.activeAvActivityCommentEn = this.activeSnowpackStructureCommentEn;
-          this.activeAvActivityCommentFr = this.activeSnowpackStructureCommentFr;
-        } else if (this.copyTendencyComment) {
-          this.activeAvActivityCommentTextcat = this.activeTendencyCommentTextcat;
-          this.activeAvActivityCommentDe = this.activeTendencyCommentDe;
-          this.activeAvActivityCommentIt = this.activeTendencyCommentIt;
-          this.activeAvActivityCommentEn = this.activeTendencyCommentEn;
-          this.activeAvActivityCommentFr = this.activeTendencyCommentFr;
-        }
+        this.activeAvActivityCommentTextcat = this.copyService.getTextTextcat();
+        this.activeAvActivityCommentDe = this.copyService.getTextDe();
+        this.activeAvActivityCommentIt = this.copyService.getTextIt();
+        this.activeAvActivityCommentEn = this.copyService.getTextEn();
+        this.activeAvActivityCommentFr = this.copyService.getTextFr();
         break;
       case "snowpackStructureComment":
-        if (this.copyAvActivityHighlights) {
-          this.activeSnowpackStructureCommentTextcat = this.activeAvActivityHighlightsTextcat;
-          this.activeSnowpackStructureCommentDe = this.activeAvActivityHighlightsDe;
-          this.activeSnowpackStructureCommentIt = this.activeAvActivityHighlightsIt;
-          this.activeSnowpackStructureCommentEn = this.activeAvActivityHighlightsEn;
-          this.activeSnowpackStructureCommentFr = this.activeAvActivityHighlightsFr;
-        } else if (this.copyAvActivityComment) {
-          this.activeSnowpackStructureCommentTextcat = this.activeAvActivityCommentTextcat;
-          this.activeSnowpackStructureCommentDe = this.activeAvActivityCommentDe;
-          this.activeSnowpackStructureCommentIt = this.activeAvActivityCommentIt;
-          this.activeSnowpackStructureCommentEn = this.activeAvActivityCommentEn;
-          this.activeSnowpackStructureCommentFr = this.activeAvActivityCommentFr;
-        } else if (this.copySnowpackStructureComment) {
-        } else if (this.copyTendencyComment) {
-          this.activeSnowpackStructureCommentTextcat = this.activeTendencyCommentTextcat;
-          this.activeSnowpackStructureCommentDe = this.activeTendencyCommentDe;
-          this.activeSnowpackStructureCommentIt = this.activeTendencyCommentIt;
-          this.activeSnowpackStructureCommentEn = this.activeTendencyCommentEn;
-          this.activeSnowpackStructureCommentFr = this.activeTendencyCommentFr;
-        }
+        this.activeSnowpackStructureCommentTextcat = this.copyService.getTextTextcat();
+        this.activeSnowpackStructureCommentDe = this.copyService.getTextDe();
+        this.activeSnowpackStructureCommentIt = this.copyService.getTextIt();
+        this.activeSnowpackStructureCommentEn = this.copyService.getTextEn();
+        this.activeSnowpackStructureCommentFr = this.copyService.getTextFr();
         break;
       case "tendencyComment":
-        if (this.copyAvActivityHighlights) {
-          this.activeTendencyCommentTextcat = this.activeAvActivityHighlightsTextcat;
-          this.activeTendencyCommentDe = this.activeAvActivityHighlightsDe;
-          this.activeTendencyCommentIt = this.activeAvActivityHighlightsIt;
-          this.activeTendencyCommentEn = this.activeAvActivityHighlightsEn;
-          this.activeTendencyCommentFr = this.activeAvActivityHighlightsFr;
-        } else if (this.copyAvActivityComment) {
-          this.activeTendencyCommentTextcat = this.activeAvActivityCommentTextcat;
-          this.activeTendencyCommentDe = this.activeAvActivityCommentDe;
-          this.activeTendencyCommentIt = this.activeAvActivityCommentIt;
-          this.activeTendencyCommentEn = this.activeAvActivityCommentEn;
-          this.activeTendencyCommentFr = this.activeAvActivityCommentFr;
-        } else if (this.copySnowpackStructureComment) {
-          this.activeTendencyCommentTextcat = this.activeSnowpackStructureCommentTextcat;
-          this.activeTendencyCommentDe = this.activeSnowpackStructureCommentDe;
-          this.activeTendencyCommentIt = this.activeSnowpackStructureCommentIt;
-          this.activeTendencyCommentEn = this.activeSnowpackStructureCommentEn;
-          this.activeTendencyCommentFr = this.activeSnowpackStructureCommentFr;
-        } else if (this.copyTendencyComment) {
-        }
+        this.activeTendencyCommentTextcat = this.copyService.getTextTextcat();
+        this.activeTendencyCommentDe = this.copyService.getTextDe();
+        this.activeTendencyCommentIt = this.copyService.getTextIt();
+        this.activeTendencyCommentEn = this.copyService.getTextEn();
+        this.activeTendencyCommentFr = this.copyService.getTextFr();
         break;
       default:
         break;
     }
-    this.resetCopying();
+    this.copyService.resetCopying();
   }
 
   getText(e) {
