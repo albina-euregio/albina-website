@@ -3,6 +3,8 @@ import { ProcessNodeDefinitions } from "html-to-react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import { preprocessContent } from "../util/htmlParser";
+
+import { scroll_init, scroll } from "../js/scroll";
 /*
  * Compontent to be used for pages with content delivered by CMS API.
  */
@@ -25,13 +27,9 @@ export default class StaticPage extends React.Component {
     this._fetchData(this.props);
   }
 
-  // scroll after the content is loaded
   componentDidUpdate() {
-    const hashEl = document.getElementById(
-      this.props.location.hash.replace("#", "")
-    );
-    if (hashEl) {
-      hashEl.scrollIntoView();
+    if (this.props.location.hash) {
+      scroll(this.props.location.hash, 2000);
     }
   }
 

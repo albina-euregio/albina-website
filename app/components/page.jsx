@@ -27,6 +27,8 @@ import { tooltip_init } from "../js/tooltip";
 import { navigation_init } from "../js/navigation";
 import { video_init } from "../js/video";
 
+import { scroll_init, scroll } from "../js/scroll";
+
 @observer
 class Page extends React.Component {
   constructor(props) {
@@ -111,6 +113,7 @@ class Page extends React.Component {
       this.props.location.pathname === "/" ||
       this.props.location.pathname === "/bulletin"
     ) {
+      console.log("applying latest");
       this.props.history.push("bulletin/latest");
     }
     this._setLanguage();
@@ -125,6 +128,7 @@ class Page extends React.Component {
     tooltip_init();
     navigation_init();
     video_init();
+    scroll_init();
   }
 
   render() {

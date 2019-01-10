@@ -80,7 +80,7 @@ class DonwloadPdfDialog extends React.Component {
                     <ProvinceFilter
                       name="province"
                       all={this.props.intl.formatMessage({
-                        id: "dialog:download-pdf:region-all"
+                        id: "dialog:subscribe-email:region-all:button"
                       })}
                       handleChange={r => this.handleChangeRegion(r)}
                       value={this.state.region}
