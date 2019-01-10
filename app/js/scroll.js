@@ -11,19 +11,21 @@ const easeInOutBounce = (x, t, b, c, d) => (
 
 var scroll_init = () => {
   setTimeout(() => {
-    $('a[href^="#"]').each((li, link) => {
-      const href = $.attr(link, "href");
-      if (href !== "#") {
-        $(link).click(function(e) {
-          e.preventDefault();
-          e.stopPropagation();
+    $('a[href^="#"]')
+      .not(".modal-trigger")
+      .each((li, link) => {
+        const href = $.attr(link, "href");
+        if (href !== "#") {
+          $(link).click(function(e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-          var elId = $.attr(this, "href");
-          scroll(elId);
-          return false;
-        });
-      }
-    });
+            var elId = $.attr(this, "href");
+            scroll(elId);
+            return false;
+          });
+        }
+      });
 
     scroll_direction();
   }, 500);

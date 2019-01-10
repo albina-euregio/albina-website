@@ -2,10 +2,17 @@ import React from "react";
 import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import stringInject from "stringinject";
+import { modal_init } from "../../js/modal";
 
 class BulletinButtonbar extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidUpdate() {
+    console.log("buttonbar updated");
+
+    modal_init();
   }
 
   render() {
@@ -34,12 +41,14 @@ class BulletinButtonbar extends React.Component {
                   <li>
                     <a
                       href="#downloadPdfDialog"
-                      className="modal-trigger popup-modal pure-button tooltip"
                       title={this.props.intl.formatMessage({
                         id: "bulletin:linkbar:pdf:hover"
                       })}
+                      className="modal-trigger popup-modal pure-button tooltip"
                     >
-                      <FormattedHTMLMessage id="bulletin:linkbar:pdf" />
+                      {this.props.intl.formatMessage({
+                        id: "bulletin:linkbar:pdf"
+                      })}
                     </a>
                     {false && (
                       <a

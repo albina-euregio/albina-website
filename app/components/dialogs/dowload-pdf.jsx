@@ -2,7 +2,6 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import stringInject from "stringinject";
-import Selectric from "../selectric";
 
 import ProvinceFilter from "../filters/province-filter";
 import PdfModeFilter from "../filters/pdfmode-filter";
@@ -47,8 +46,19 @@ class DonwloadPdfDialog extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="mfp-bg mfp-slide-animation mfp-ready" />
+      <div className="modal-subscribe">
+        <div
+          className="modal-header"
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center"
+          }}
+        >
+          <h2 className="subheader">
+            <FormattedHTMLMessage id="dialog:download-pdf:heading" />
+          </h2>
+        </div>
         <div
           className="modal mfp-content"
           style={{
@@ -59,11 +69,6 @@ class DonwloadPdfDialog extends React.Component {
           }}
         >
           <div className="modal-container">
-            <div className="modal-header">
-              <h2 className="subheader">
-                <FormattedHTMLMessage id="dialog:download-pdf:heading" />
-              </h2>
-            </div>
             <div style={{}}>
               <div>
                 <label htmlFor="province">
