@@ -200,7 +200,7 @@ class Bulletin extends React.Component {
           />
           <BulletinButtonbar store={this.store} />
           <BulletinReport store={this.store} />
-          <BulletinHowTo store={this.store} />
+          {!this.store.activeBulletin && <BulletinHowTo store={this.store} />}
           {this.state.sharable && <SmShare />}
           <div className="section-padding section-centered">
             {preprocessContent(this.state.content)}
