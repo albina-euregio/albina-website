@@ -159,7 +159,7 @@ export default class ArchiveStore {
     return this.archive[date] ? this.archive[date].message : "";
   }
 
-  _loadBulletinStatus(startDate, endDate = "", region = "IT-32-BZ") {
+  _loadBulletinStatus(startDate, endDate = "") {
     // const startDateDay = parseInt(startDate.split('-')[2], 10) - 1
     // startDate = startDate.substr(0, startDate.length-2) + startDateDay
 
@@ -189,8 +189,10 @@ export default class ArchiveStore {
       "/status?startDate=" +
       startDateParam +
       "&endDate=" +
-      endDateParam +
-      (region ? "&region=" + region : "");
+      endDateParam;
+
+    // we do not need region anymore
+    //(region ? "&region=" + region : "");
 
     console.log("asking for bulletin ", url);
     return Base.doRequest(url)
