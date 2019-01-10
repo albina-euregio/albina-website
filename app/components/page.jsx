@@ -65,7 +65,16 @@ class Page extends React.Component {
       }
     }
 
-    // set the url if needed
+    // change searchLang parameter we are in blog subpage
+    if (this.props.location.pathname.includes("blog")) {
+      Base.searchChange(
+        this.props.history,
+        { searchLang: appStore.language },
+        true
+      );
+    }
+
+    // change url if needed
     Base.searchChange(this.props.history, { lang: appStore.language }, true);
 
     document.title = this.props.intl.formatMessage({

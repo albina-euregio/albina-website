@@ -98,7 +98,7 @@ export default class BlogStore {
   validateLanguage(valueToValidate) {
     return window["appStore"].languages.includes(valueToValidate)
       ? valueToValidate
-      : "all";
+      : window["appStore"].language;
   }
 
   validateProblem(valueToValidate) {
