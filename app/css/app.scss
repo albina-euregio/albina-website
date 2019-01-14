@@ -531,3 +531,28 @@ img {
     Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
 }
+
+/* blog styling from Bernhard */
+
+.blog-post,
+.blog-post a,
+.blog-post span {
+  font-family: "arial", "sans-serif" !important;
+  //font-size: 16px;
+  font-size: 1rem;
+  line-height: 1.4;
+  word-wrap: break-word;
+  text-align: justify;
+  color: #333333 !important;
+}
+
+.blog-post {
+  .Apple-style-span {
+    color: #ff0000 !important;
+  }
+
+  p {
+    margin-top: 0em;
+    margin-bottom: 0em;
+  }
+}

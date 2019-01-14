@@ -47,7 +47,6 @@ class BlogOverview extends React.Component {
   }
 
   componentDidMount() {
-    console.log("didMount");
     window["staticPageStore"].loadPage("/blog").then(response => {
       // parse content
       const responseParsed = JSON.parse(response);
