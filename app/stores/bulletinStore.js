@@ -1,7 +1,13 @@
 import Base from "../base.js";
 import ArchiveStore from "./archiveStore.js";
 import { observable, action, computed, toJS } from "mobx";
-import { parseDate, getPredDate, dateToISODateString } from "../util/date.js";
+import {
+  parseDate,
+  getPredDate,
+  dateToISODateString,
+  dateToLongDateString,
+  now
+} from "../util/date.js";
 
 import flip from "@turf/flip";
 
@@ -429,13 +435,14 @@ class BulletinStore {
     // const dateParam = encodeURIComponent(prevDay(date) + localTime)
     // const dateParam = encodeURIComponent(date + 'T22:00:00Z')
     // const dateParam = encodeURIComponent(date + 'T00:00:00+02:00')
-    const url = config.get("apis.bulletin") + "?date=" + dateParam;
+    const url =
+      config.get("apis.bulletin") + "?date=" + dateParam + "&hash=" + now();
 
     return Base.doRequest(url).then(
       // query bulletin data
       response => {
-        console.log("this is where the collection is filled from", url);
-        console.log("and this is the response", JSON.parse(response));
+        //console.log("this is where the collection is filled from", url);
+        //console.log("and this is the response", JSON.parse(response));
         this.bulletins[date].setData(JSON.parse(response));
       },
       error => {
