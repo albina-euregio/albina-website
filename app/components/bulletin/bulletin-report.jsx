@@ -106,7 +106,7 @@ class BulletinReport extends React.Component {
     const link =
       "/education/dangerscale?lang=" +
       window["appStore"].language +
-      "#level_" +
+      "#level" +
       maxWarnlevel.number;
 
     return (
