@@ -10,7 +10,7 @@ class BulletinHowTo extends React.Component {
   }
   render() {
     return (
-      <section className="section-padding">
+      <section className="section-centered">
         <div className="panel field">
           <FormattedHTMLMessage id="bulletin:howto" />
         </div>
