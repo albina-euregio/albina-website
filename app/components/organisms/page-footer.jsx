@@ -106,14 +106,17 @@ class PageFooter extends React.Component {
               </p>
               {/*
                 config.get('developmentMode') && (
-                <p className="page-footer-dev-version">
+                  <p className="page-footer-dev-version">
                   <span>
-                    Draft version - for internal use: v
-                    {config.get('version')}
+                  Draft version - for internal use: v
+                  {config.get('version')}
                   </span>
-                </p>
-              )
+                  </p>
+                  )
                 */}
+            </div>
+            <div className="grid-item all-12">
+              <div className="version">version {config.get("version")}</div>
             </div>
           </div>
         </section>
