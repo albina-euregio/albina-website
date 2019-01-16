@@ -249,6 +249,10 @@
 						"success" : "PDF created",
 						"failed" : "PDF could not be created"
 					},
+					"html" : {
+						"success" : "HTML created",
+						"failed" : "HTML could not be created"
+					},
 					"email" : {
 						"success" : "Emails sent",
 						"failed" : "Emails could not be sent"
@@ -360,6 +364,7 @@
 				"createMaps" : "Create maps",
 				"createPdf" : "Create PDF",
 				"createStaticWidget" : "Create static widgets",
+				"createSimpleHtml" : "Create simple HTML",
 				"sendEmails" : "Send emails",
 				"publishToSocialMedia" : "Publish on social media",
 				"publishAt5PM" : "Publish at 5PM",

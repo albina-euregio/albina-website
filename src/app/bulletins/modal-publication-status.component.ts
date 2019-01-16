@@ -51,6 +51,19 @@ export class ModalPublicationStatusComponent {
     );
   }
 
+  createHtml(event) {
+    event.stopPropagation();
+    this.bulletinsService.createHtml(this.date).subscribe(
+      data => {
+        let response = data.json();
+        console.info("HTML created");
+      },
+      error => {
+        console.error("HTML could not be created!");
+      }
+    );
+  }
+
   createMap(event) {
     event.stopPropagation();
     this.bulletinsService.createMap(this.date).subscribe(

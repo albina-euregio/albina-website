@@ -249,6 +249,10 @@
 						"success" : "PDF wurde erstellt",
 						"failed" : "PDF konnte nicht erstellt werden"
 					},
+					"html" : {
+						"success" : "HTML wurde erstellt",
+						"failed" : "HTML konnte nicht erstellt werden"
+					},
 					"email" : {
 						"success" : "Emails wurden versandt",
 						"failed" : "Emails konnten nicht versandt werden"
@@ -360,6 +364,7 @@
 				"createMaps" : "Karten erzeugen",
 				"createPdf" : "PDF erzeugen",
 				"createStaticWidget" : "Statische Widgets erzeugen",
+				"createSimpleHtml" : "Einfaches HTML erzeugen",
 				"sendEmails" : "Emails versenden",
 				"publishToSocialMedia" : "Publizieren auf sozialen Netzwerken",
 				"publishAt5PM" : "Publizieren um 17:00 Uhr",

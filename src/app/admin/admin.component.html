@@ -64,6 +64,17 @@
                     </tr>
                     <tr>
                       <td>
+                        <label class="col-form-label">{{ "admin.config.table.createSimpleHtml" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="createSimpleHtml">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
                         <label class="col-form-label">{{ "admin.config.table.sendEmails" | translate }}</label>
                       </td>
                       <td>

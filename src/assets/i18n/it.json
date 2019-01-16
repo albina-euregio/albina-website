@@ -247,7 +247,11 @@
 					},
 					"pdf" : {
 						"success" : "È stato creato il file PDF",
-						"failed" : "Non è stato possibile creare il file CAAML"
+						"failed" : "Non è stato possibile creare il file PDF"
+					},
+					"html" : {
+						"success" : "È stato creato il file HTML",
+						"failed" : "Non è stato possibile creare il file HTML"
 					},
 					"email" : {
 						"success" : "Emails inviate",
@@ -360,6 +364,7 @@
 				"createMaps" : "Creare mappe",
 				"createPdf" : "Creare pdf",
 				"createStaticWidget" : "Creare widget statici",
+				"createSimpleHtml" : "Creare simplice HTML",
 				"sendEmails" : "Inviare e-mail",
 				"publishToSocialMedia" : "Pubblicazione sui social network",
 				"publishAt5PM" : "Publicare alle 17:00",

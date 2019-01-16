@@ -375,6 +375,19 @@ export class BulletinsService {
     return this.http.post(encodeURI(url), body, options);
   }
 
+  createHtml(date: Date) : Observable<Response> {
+    let url = this.constantsService.getServerUrl() + 'bulletins/publish/html?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
+    let headers = new Headers({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': authHeader });
+    let body = JSON.stringify("");
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.post(encodeURI(url), body, options);
+  }
+
   createMap(date: Date) : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/publish/map?date=' + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
