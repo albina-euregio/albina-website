@@ -376,6 +376,7 @@
 				"publishBulletinsTrentino" : "Publish avalanche forecast for Trentino",
 				"publishBulletinsStyria" : "Publish avalanche forecast for Styria",
 				"pdfDirectory" : "Directory for PDF",
+				"htmlDirectory" : "Directory for HTML",
 				"serverImagesUrl" : "Path to server images",
 				"serverImagesUrlLocalhost" : "Path to server images (localhost)",
 				"mapsPath" : "Path to maps",

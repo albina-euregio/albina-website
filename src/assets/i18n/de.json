@@ -376,6 +376,7 @@
 				"publishBulletinsTrentino" : "Lawinenvorhersage für das Trentino publizieren",
 				"publishBulletinsStyria" : "Lawinenvorhersage für die Steiermark publizieren",
 				"pdfDirectory" : "Ordner für PDF",
+				"htmlDirectory" : "Ordner für HTML",
 				"serverImagesUrl" : "Pfad zu Bildern am Server",
 				"serverImagesUrlLocalhost" : "Pfad zu Bildern am Server (localhost)",
 				"mapsPath" : "Pfad zu Karten",

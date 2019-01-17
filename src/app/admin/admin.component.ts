@@ -36,6 +36,7 @@ export class AdminComponent {
   public publishBulletinsTrentino: boolean;
   public publishBulletinsStyria: boolean;
   public pdfDirectory: string;
+  public htmlDirectory: string;
   public serverImagesUrl: string;
   public serverImagesUrlLocalhost: string;
   public mapsPath: string;
@@ -95,6 +96,7 @@ export class AdminComponent {
           this.publishBulletinsTrentino = response.publishBulletinsTrentino;
           this.publishBulletinsStyria = response.publishBulletinsStyria;
           this.pdfDirectory = response.pdfDirectory;
+          this.htmlDirectory = response.htmlDirectory;
           this.serverImagesUrl = response.serverImagesUrl;
           this.serverImagesUrlLocalhost = response.serverImagesUrlLocalhost;
           this.mapsPath = response.mapsPath;
@@ -156,6 +158,7 @@ export class AdminComponent {
     json['publishBulletinsTrentino'] = this.publishBulletinsTrentino;
     json['publishBulletinsStyria'] = this.publishBulletinsStyria;
     json['pdfDirectory'] = this.pdfDirectory;
+    json['htmlDirectory'] = this.htmlDirectory;
     json['serverImagesUrl'] = this.serverImagesUrl;
     json['serverImagesUrlLocalhost'] = this.serverImagesUrlLocalhost;
     json['mapsPath'] = this.mapsPath;
