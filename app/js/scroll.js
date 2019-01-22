@@ -28,7 +28,7 @@ var scroll_init = () => {
       });
 
     scroll_direction();
-  }, 500);
+  }, 100);
 };
 
 var scroll = (elId, time = 500) => {
