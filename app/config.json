@@ -2,7 +2,7 @@
   "blogs": [
     {
       "lang": "de",
-      "name": "lawinenwarndienst.blogspot.co.at",
+      "name": "lawinenwarndienst.blogspot.com",
       "apiType": "blogger",
       "regions": ["AT-07"],
       "params": {
@@ -11,89 +11,141 @@
     },
     {
       "lang": "en",
-      "name": "albina-test.blogspot.com",
+      "name": "avalanche-warning-service-tirol.blogspot.com",
       "apiType": "blogger",
-      "regions": ["IT-32-BZ"],
+      "regions": ["AT-07"],
       "params": {
-        "id": "1218892426168768626"
+        "id": "2617650030094227041"
+      }
+    },
+    {
+      "lang": "it",
+      "name": "servizio-valanghe-tirolo.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["AT-07"],
+      "params": {
+        "id": "6964779683196470218"
       }
     },
     {
       "lang": "de",
-      "name": "albina-de.blogspot.com",
+      "name": "lawinensuedtirol.blogspot.com",
       "apiType": "blogger",
-      "regions": ["AT-07", "IT-32-BZ"],
+      "regions": ["IT-32-BZ"],
       "params": {
-        "id": "4975737854227957835"
+        "id": "1263754381945501754"
+      }
+    },
+    {
+      "lang": "it",
+      "name": "valanghealtoadige.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["IT-32-BZ"],
+      "params": {
+        "id": "8922564068473612459"
+      }
+    },
+    {
+      "lang": "it",
+      "name": "trentinovalanghe.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["IT-32-TN"],
+      "params": {
+        "id": "232334535081247038"
       }
     }
   ],
   "apis": {
     "content": "https://data1.geo.univie.ac.at/projects/albina-cms/web/",
-    "bulletin": "http://212.47.231.185:8080/albina/api/bulletins",
+    "bulletin": "https://api.avalanche.report/albina/api/bulletins",
+    "bulletin_old": "http://212.47.231.185:8080/albina/api/bulletins",
     "subscribe": "http://212.47.231.185:8080/albina/api/email",
     "geo": "https://data1.geo.univie.ac.at/exchange/albina2/awm/",
-    "blogger": "https://www.googleapis.com/blogger/v3/blogs/"
+    "blogger": "https://blogcache.avalanche.report/",
+    "blogger_": "//localhost:3000/",
+    "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/"
   },
   "apiKeys": {
     "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo",
     "gaTrackingId": "UA-69879901-5"
   },
   "links": {
-    "interreg": "http://www.europaregion.info/",
-    "meteoViewer": "https://data1.geo.univie.ac.at/sandbox/meteo_viewer?config=albina",
-    "meteoViewerConfig": "https://data1.geo.univie.ac.at/sandbox/meteo_viewer/data/domains.json",
+    "interreg": "http://www.interreg.net/{lang}/default.asp",
+    "meteoViewer": "https://data1.geo.univie.ac.at/projects/meteoviewer?config=albina",
+    "meteoViewerConfig": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
     "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
     "downloads": {
-      "pdf": "https://example.com/{date}.pdf",
-      "xml": "https://example.com/{date}.xml"
+      "pdf": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}.pdf",
+      "pdf-bw": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}_bw.pdf",
+      "pdf-region": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{region}_{lang}.pdf",
+      "pdf-region-bw": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{region}_{lang}_bw.pdf",
+      "xml": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}.xml"
     }
   },
+
   "subscribe": {
+    "buttonHidden": false,
+    "messengerpeople": {
+      "AT-07": {
+        "en": "https://wb.messengerpeople.com/?widget_hash=0d42e9dc5ad8f583a43d16620b7ed56f&lang=de&wn=2",
+        "de": "https://wb.messengerpeople.com/?widget_hash=0d42e9dc5ad8f583a43d16620b7ed56f&lang=de&wn=0",
+        "it": "https://wb.messengerpeople.com/?widget_hash=0d42e9dc5ad8f583a43d16620b7ed56f&lang=de&wn=1"
+      },
+      "IT-32-BZ": {
+        "en": "https://wb.messengerpeople.com/?widget_hash=28b607db06003630165cdc2f949e8891&lang=de&wn=2",
+        "de": "https://wb.messengerpeople.com/?widget_hash=28b607db06003630165cdc2f949e8891&lang=de&wn=0",
+        "it": "https://wb.messengerpeople.com/?widget_hash=28b607db06003630165cdc2f949e8891&lang=de&wn=1"
+      },
+      "IT-32-TN": {
+        "en": "https://wb.messengerpeople.com/?widget_hash=5f8821745634d04c06dbe2602cf1462e&lang=de&wn=1",
+        "de": "https://wb.messengerpeople.com/?widget_hash=5f8821745634d04c06dbe2602cf1462e&lang=de&wn=0",
+        "it": "https://wb.messengerpeople.com/?widget_hash=5f8821745634d04c06dbe2602cf1462e&lang=de&wn=2"
+      }
+    },
     "socialMedia": [
       {
         "id": "facebook",
         "name": "Facebook",
         "url": {
           "AT-07": "http://www.facebook.com/lawinenwarndienst",
-          "IT-32-BZ": "#",
-          "IT-32-TN": "#"
+          "IT-32-BZ": "https://www.facebook.com/Lawinenwarndienst-S%C3%BCdtirol-Servizio-Prevenzione-Valanghe-Alto-Adige-577952379288951/​",
+          "IT-32-TN": "https://www.facebook.com/Servizio-Prevenzione-Valanghe-Trentino-353994245173831/"
         }
       },
       {
         "id": "twitter",
         "name": "Twitter",
         "url": {
-          "AT-07": "#",
-          "IT-32-BZ": "#",
-          "IT-32-TN": "#"
+          "AT-07": false,
+          "IT-32-BZ": false,
+          "IT-32-TN": false
         }
       },
       {
         "id": "instagram",
         "name": "Instagram",
         "url": {
-          "AT-07": "#",
-          "IT-32-BZ": "#",
-          "IT-32-TN": "#"
+          "AT-07": "https://www.instagram.com/lawinenwarndienst_tirol",
+          "IT-32-BZ": false,
+          "IT-32-TN": false
         }
       },
       {
         "id": "youtube",
         "name": "YouTube",
         "url": {
-          "AT-07": "#",
-          "IT-32-BZ": "#",
-          "IT-32-TN": "#"
+          "AT-07": "https://www.youtube.com/channel/UC3H4Xqv_wfHajvogV3ooYdQ",
+          "IT-32-BZ": false,
+          "IT-32-TN": false
         }
       },
       {
         "id": "whatsapp",
         "name": "WhatsApp",
         "url": {
-          "AT-07": "#",
-          "IT-32-BZ": "#",
-          "IT-32-TN": "#"
+          "AT-07": false,
+          "IT-32-BZ": false,
+          "IT-32-TN": false
         }
       }
     ],
@@ -124,18 +176,41 @@
       }
     ]
   },
+  "bulletin": {
+    "isTomorrow": {
+      "hours": 17,
+      "minutes": 10
+    },
+    "noBulletinBanner": false
+  },
   "map": {
-    "useWindowWidth": false,
+    "attribution": "<a href='https://carto.univie.ac.at/' target='_blank'>(c) UniWien</a>",
+    "useWindowWidth": true,
     "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],
     "overlay": {
       "bounds": [[45.60608, 9.9174], [47.83039, 13.15173]],
       "opacity": 1.0
     },
+    "geonamesSearch": {
+      "bbox": { "east": 13.2, "west": 9.5, "north": 48, "south": 45 }
+    },
     "initOptions": {
-      "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]],
+      "maxBounds_original": [[45.150876, 7.932124], [48.240084, 15.118646]],
+      "maxBounds": [[44, 5], [49, 18]],
       "maxBoundsViscosity": 1,
       "maxZoom": 10,
       "minZoom": 7
+    },
+
+    "maxBounds": {
+      "7": [[44.4, 6.732], [48.99, 16.318]],
+      "8": [[44.65, 7.132], [48.74, 15.918]],
+      "9": [[44.9, 7.532], [48.49, 15.518]],
+      "10": [[45.150876, 7.932124], [48.240084, 15.118646]]
+    },
+    "locateOptions": {
+      "position": "topleft",
+      "flyTo": true
     },
     "vectorOptions": {
       "smoothFactor": 0.8
@@ -148,10 +223,24 @@
         "minZoom": 7,
         "detectRetina": false,
         "tms": true,
-        "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]],
-        "attribution": "&copy; Universität Wien"
+        "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]]
       }
     ],
+    "geonames": {
+      "geonamesURL": "//api.geonames.org/searchJSON",
+      "username": "adammertel",
+      "zoomLevel": null,
+      "maxresults": 5,
+      "className": "tooltip leaflet-geonames-icon",
+      "workingClass": "leaflet-geonames-icon-working",
+      "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
+      "baseQuery": "isNameRequired=true",
+      "position": "topleft",
+      "showMarker": true,
+      "showPopup": true,
+      "alwaysOpen": false,
+      "enablePostalCodes": false
+    },
     "regionStyling": {
       "all": {
         "color": "#aaaaaa",
@@ -165,6 +254,10 @@
       "dehighlighted": {
         "fillColor": "white",
         "fillOpacity": 0.75
+      },
+      "mouseOver": {
+        "weight": 2.0,
+        "color": "#555555"
       },
       "dimmed": {
         "fillColor": "white",
@@ -181,12 +274,40 @@
       }
     }
   },
+
+  "footer": {
+    "icons": [
+      {
+        "img": "ORIZZONTALE",
+        "title": "EVTZ",
+        "url": "http://www.europaregion.info/"
+      },
+      {
+        "img": "Landeslogo_Regular_4c",
+        "title": "Tirol",
+        "url": "https://www.tirol.gv.at/"
+      },
+      {
+        "img": "LW-4Z-3sprachig",
+        "title": "Südtirol",
+        "url": "http://wetter.provinz.bz.it/"
+      },
+      {
+        "img": "Stemma_PAT_colore",
+        "title": "Trentino",
+        "url": "https://www.meteotrentino.it/"
+      }
+    ],
+    "iconsHidden": false
+  },
+
   "archive": {
     "minYear": 2016,
-    "maxResults": 10
+    "maxResults": 30
   },
   "defaults": {
     "language": "auto",
     "ampm": "am"
-  }
+  },
+  "version": "1.0.25, 10.01.2019 8:16"
 }

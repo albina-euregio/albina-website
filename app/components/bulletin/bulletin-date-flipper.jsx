@@ -1,13 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { observer, inject } from 'mobx-react';
-import { computed } from 'mobx';
-import { injectIntl } from 'react-intl';
-import { parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateString } from '../../util/date.js';
+import React from "react";
+import { Link } from "react-router-dom";
+import { observer, inject } from "mobx-react";
+import { computed } from "mobx";
+import { injectIntl } from "react-intl";
+import {
+  parseDate,
+  getPredDate,
+  getSuccDate,
+  dateToISODateString,
+  dateToDateString,
+  isAfter,
+  isSameDay,
+  todayIsTomorrow
+} from "../../util/date.js";
 
-@observer class BulletinDateFlipper extends React.Component {
+@observer
+class BulletinDateFlipper extends React.Component {
   constructor(props) {
     super(props);
+    this.DEV_MODE = false;
   }
 
   @computed get date() {
@@ -16,9 +27,21 @@ import { parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStr
 
   @computed get nextDate() {
     const d = this.date;
-    if(d) {
+    if (d) {
       const next = getSuccDate(d);
-      if(next.valueOf() < Date.now()) {
+      /* show next day only it is not the future or if this day is after bulletin.isTomorrow value */
+
+      const now = new Date();
+      if (
+        this.DEV_MODE ||
+        (isSameDay(now, this.date) &&
+          todayIsTomorrow(
+            now,
+            config.get("bulletin.isTomorrow.hours"),
+            config.get("bulletin.isTomorrow.minutes")
+          )) ||
+        isAfter(now, next)
+      ) {
         return next;
       }
     }
@@ -27,7 +50,7 @@ import { parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStr
 
   @computed get prevDate() {
     const d = this.date;
-    if(d) {
+    if (d) {
       return getPredDate(d);
     }
     return undefined;
@@ -36,46 +59,77 @@ import { parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStr
   render() {
     const prevLink = dateToISODateString(this.prevDate);
     const nextLink = dateToISODateString(this.nextDate);
-    const latestLink = dateToISODateString(new Date());
 
-    const prevDate = this.prevDate ? dateToDateString(this.prevDate) : '';
-    const nextDate = this.nextDate ? dateToDateString(this.nextDate) : '';
+    const now = new Date();
+    if (
+      todayIsTomorrow(
+        now,
+        config.get("bulletin.isTomorrow.hours"),
+        config.get("bulletin.isTomorrow.minutes")
+      )
+    ) {
+      now.setDate(now.getDate() + 1);
+    }
+    const latestLink = dateToISODateString(now);
+
+    const prevDate = this.prevDate ? dateToDateString(this.prevDate) : "";
+    const nextDate = this.nextDate ? dateToDateString(this.nextDate) : "";
 
     return (
       <ul className="list-inline bulletin-flipper">
         <li className="bulletin-flipper-back">
           <Link
-            to={'/bulletin/' + prevLink}
-            title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:back'})}
-            className="tooltip">
+            to={"/bulletin/" + prevLink}
+            title={this.props.intl.formatMessage({
+              id: "bulletin:header:dateflipper:back"
+            })}
+            className="tooltip"
+          >
             <span className="icon-arrow-left" />
             {prevDate}
           </Link>
         </li>
-        <li className="bulletin-flipper-separator">&mdash;</li>
-        {nextLink &&
+        {nextLink && <li className="bulletin-flipper-separator">—</li>}
+        {nextLink && (
           <li className="bulletin-flipper-forward">
-            <Link to={'/bulletin/' + nextLink}
-              title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:forward'})}
-              className="tooltip">
-              {nextDate + ' '}
+            <Link
+              to={"/bulletin/" + nextLink}
+              title={this.props.intl.formatMessage({
+                id: "bulletin:header:dateflipper:forward"
+              })}
+              className="tooltip"
+            >
+              {nextDate + " "}
               <span className="icon-arrow-right" />
             </Link>
           </li>
-        }
-        <li className="bulletin-flipper-latest">
-          <Link to={'/bulletin/' + latestLink}
-            title={this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest:hover'})}
-            className="tooltip">
-            {this.props.intl.formatMessage({id: 'bulletin:header:dateflipper:latest'})}
-          </Link>
-        </li>
+        )}
+        {this.nextDate && (
+          <li className="bulletin-flipper-latest">
+            <Link
+              to={"/bulletin/" + latestLink}
+              title={this.props.intl.formatMessage({
+                id: "bulletin:header:dateflipper:latest:hover"
+              })}
+              className="tooltip"
+            >
+              {this.props.intl.formatMessage({
+                id: "bulletin:header:dateflipper:latest"
+              })}
+            </Link>
+          </li>
+        )}
         <li className="bulletin-flipper-archive">
           <Link
             to="/archive"
-            title={this.props.intl.formatMessage({id: 'bulletin:header:archive:hover'})}
-            className="tooltip">
-            {this.props.intl.formatMessage({id: 'bulletin:header:archive'})}
+            title={this.props.intl.formatMessage({
+              id: "bulletin:header:archive:hover"
+            })}
+            className="tooltip"
+          >
+            {this.props.intl.formatMessage({
+              id: "bulletin:header:archive"
+            })}
           </Link>
         </li>
       </ul>
@@ -83,4 +137,4 @@ import { parseDate, getPredDate, getSuccDate, dateToISODateString, dateToDateStr
   }
 }
 
-export default inject('locale')(injectIntl(observer(BulletinDateFlipper)));
+export default inject("locale")(injectIntl(observer(BulletinDateFlipper)));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 /**
  * Component to be used for selectric select boxes.
@@ -9,25 +9,31 @@ export default class Selectric extends React.Component {
   componentDidMount() {
     this.$el = $(this.el);
     const update = () => {
-      if(this.props.className) {
-        this.$el.closest('.selectric-wrapper').addClass(this.props.className);
+      if (this.props.className) {
+        this.$el.closest(".selectric-wrapper").addClass(this.props.className);
       }
     };
 
     this.$el.selectric({
       onChange: this.handleChange,
-      onInit: () => { update(); },
-      onRefresh: () => { update(); }
+      onInit: () => {
+        update();
+      },
+      onRefresh: () => {
+        update();
+      },
+      disableOnMobile: false,
+      nativeOnMobile: false
     });
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.children !== this.props.children) {
-      this.$el.selectric('refresh');
+      this.$el.selectric("refresh");
     }
   }
 
-  handleChange = (e) => {
+  handleChange = e => {
     // imported code from custom.js
     this.$el.closest(".selectric-wrapper").addClass("selectric-changed");
     this.props.onChange(this.$el.val());
@@ -37,9 +43,12 @@ export default class Selectric extends React.Component {
     return (
       <select
         className="dropdown"
-        ref={(el) => { this.el = el; }}
+        ref={el => {
+          this.el = el;
+        }}
         value={this.props.value}
-        disabled={this.props.disabled} >
+        disabled={this.props.disabled}
+      >
         {this.props.children}
       </select>
     );

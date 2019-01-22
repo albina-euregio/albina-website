@@ -4,18 +4,18 @@ import { observer } from 'mobx-react'
 
 @observer
 export default class WeatherMapIframe extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return (
       this.props.store.domainId !== this.domainId ||
       this.props.store.itemId !== this.itemId
     )
   }
 
-  render () {
+  render() {
     this.domainId = this.props.store.domainId
     this.itemId = this.props.store.itemId
 
@@ -30,7 +30,8 @@ export default class WeatherMapIframe extends React.Component {
     }
 
     if (this.props.center['lat']) {
-      const ll = this.props.center['lat'] + ',' + this.props.center['lng']
+      const ll =
+        this.props.center['lat'] + ',' + this.props.center['lng']
 
       params.center = ll
     }
@@ -42,7 +43,7 @@ export default class WeatherMapIframe extends React.Component {
     const url = Base.makeUrl(config.get('links.meteoViewer'), params)
 
     return (
-      <iframe id='meteoMap' src={decodeURIComponent(url)}>
+      <iframe id="meteoMap" src={decodeURIComponent(url)}>
         <p>Your browser does not support iframes.</p>
       </iframe>
     )

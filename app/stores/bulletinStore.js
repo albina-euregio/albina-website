@@ -1,7 +1,13 @@
-import Base from '../base.js';
-import ArchiveStore from './archiveStore.js';
-import { observable, action, computed, toJS } from 'mobx';
-import { parseDate } from '../util/date.js';
+import Base from "../base.js";
+import ArchiveStore from "./archiveStore.js";
+import { observable, action, computed, toJS } from "mobx";
+import {
+  parseDate,
+  getPredDate,
+  dateToISODateString,
+  dateToLongDateString,
+  now
+} from "../util/date.js";
 
 import flip from "@turf/flip";
 
@@ -14,14 +20,14 @@ class BulletinCollection {
 
   constructor(date) {
     this.date = date;
-    this.status = 'pending';
-    this.statusMessage = '';
+    this.status = "pending";
+    this.statusMessage = "";
     this.dataRaw = null;
     this.geodata = {};
   }
 
   get regions() {
-    if (this.status != 'ok') {
+    if (this.status != "ok") {
       return [];
     }
 
@@ -29,7 +35,7 @@ class BulletinCollection {
   }
 
   get problems() {
-    if (this.status != 'ok') {
+    if (this.status != "ok") {
       return [];
     }
 
@@ -38,7 +44,7 @@ class BulletinCollection {
 
   get publicationDate() {
     // return maximum of all publicationDates
-    if (this.status == 'ok' && this.dataRaw.length > 0) {
+    if (this.status == "ok" && this.dataRaw.length > 0) {
       return this.dataRaw
         .map(b => {
           return parseDate(b.publicationDate);
@@ -56,7 +62,7 @@ class BulletinCollection {
   }
 
   hasDaytimeDependency() {
-    if (this.status == 'ok' && this.dataRaw.length > 0) {
+    if (this.status == "ok" && this.dataRaw.length > 0) {
       return this.dataRaw.reduce((acc, b) => {
         return acc || b.hasDaytimeDependency;
       }, false);
@@ -75,11 +81,15 @@ class BulletinCollection {
   setData(data) {
     this.dataRaw = data;
     this.status =
-      typeof data === 'object' ? (data.length > 0 ? 'ok' : 'empty') : 'n/a';
+      typeof data === "object" && data
+        ? data.length > 0
+          ? "ok"
+          : "empty"
+        : "n/a";
   }
 
   cancelLoad() {
-    this.status = 'empty';
+    this.status = "empty";
   }
 
   setGeoData(data) {
@@ -96,22 +106,22 @@ class BulletinCollection {
 class BulletinStore {
   // TODO: add language support
   @observable mapCenter = [15, 50];
-  @observable mapZoom = 'object'
+  @observable mapZoom = "object";
   @observable bulletins = {};
   settings = {};
   problems = {};
 
   constructor() {
-    if(!window['archiveStore']) {
-      window['archiveStore'] = new ArchiveStore();
+    if (!window["archiveStore"]) {
+      window["archiveStore"] = new ArchiveStore();
     }
-    this.archiveStore = window['archiveStore'];
+    this.archiveStore = window["archiveStore"];
 
     this.settings = observable({
-      status: '',
-      date: '',
-      region: '',
-      ampm: config.get('defaults.ampm')
+      status: "",
+      date: "",
+      region: "",
+      ampm: config.get("defaults.ampm")
     });
     this.bulletins = {};
 
@@ -134,8 +144,7 @@ class BulletinStore {
    * @return Void, if the bulletin has already been fetched or a promise object,
    *   if it need to be fetched.
    */
-  @action
-  load(date, activate = true) {
+  @action load(date, activate = true) {
     if (date) {
       if (this.bulletins[date]) {
         if (activate) {
@@ -160,30 +169,35 @@ class BulletinStore {
          * Therefore, we have to check daytime dependency before being able to
          * determine the correct url.
          */
-        return this.archiveStore.load(date).then(() => {
-          const status = this.archiveStore.getStatus(date);
-          if(status == 'ok') {
-            return this._loadBulletinData(date);
-          } else {
-            this.bulletins[date].cancelLoad();
-          }
-        }).then(() => {
-          if (this.bulletins[date].status == 'ok') {
-            // bulletin data has been loaded, continue with GeoJSON
-            if (this.bulletins[date].hasDaytimeDependency()) {
-              // only request 'am' geojson - 'pm' has same geometries, only
-              // different properties which are irrelevant here
-              return this._loadGeoData(date, 'am');
+        return this.archiveStore
+          .load(date)
+          .then(() => {
+            const status = this.archiveStore.getStatus(date);
+            console.log("status", status);
+            if (status == "ok") {
+              return this._loadBulletinData(date);
+            } else {
+              this.bulletins[date].cancelLoad();
             }
-            // else (this will load the 'fd' geojson)
-            return this._loadGeoData(date);
-          }
-        }).then(() => {
-          if (activate && this.settings.date == date) {
-            // reactivate to notify status change
-            this.activate(date);
-          }
-        });
+          })
+          .then(() => {
+            if (this.bulletins[date].status == "ok") {
+              // bulletin data has been loaded, continue with GeoJSON
+              if (this.bulletins[date].hasDaytimeDependency()) {
+                // only request 'am' geojson - 'pm' has same geometries, only
+                // different properties which are irrelevant here
+                return this._loadGeoData(date, "am");
+              }
+              // else (this will load the 'fd' geojson)
+              return this._loadGeoData(date);
+            }
+          })
+          .then(() => {
+            if (activate && this.settings.date == date) {
+              // reactivate to notify status change
+              this.activate(date);
+            }
+          });
       }
     }
   }
@@ -192,24 +206,24 @@ class BulletinStore {
    * Activate bulletin collection for a given date.
    * @param date The date in yyyy-mm-dd format.
    */
-  @action
-  activate(date) {
+  @action activate(date) {
     if (this.bulletins[date]) {
-      this.settings.region = '';
+      this.settings.region = "";
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
 
-      if (this.bulletins[date].length == 1) {
+      /*
+      if (this.bulletins[date].length === 1) {
         // TODO: filter by problem!!!
         let b = this.bulletins[date].getData();
         this.setRegion(b[0].id);
       }
+      */
     }
   }
 
   // TODO move to map store
-  @action
-  setMapViewport(mapState) {
+  @action setMapViewport(mapState) {
     this.mapCenter.set(mapState.center);
     this.mapZoom.set(mapState.zoom);
   }
@@ -218,12 +232,10 @@ class BulletinStore {
    * Increase or decrease the zoom value of the bulletin map.
    * TODO: move to map store
    */
-  @action
-  zoomIn() {
+  @action zoomIn() {
     this.mapZoom.set(this.mapZoom + 1);
   }
-  @action
-  zoomOut() {
+  @action zoomOut() {
     this.mapZoom.set(this.mapZoom - 1);
   }
 
@@ -231,34 +243,30 @@ class BulletinStore {
    * Set the current active 'am'/'pm' state.
    * @param ampm A string 'am' or 'pm'.
    */
-  @action
-  setAmPm(ampm) {
+  @action setAmPm(ampm) {
     switch (ampm) {
-    case 'am':
-    case 'pm':
-      this.settings.ampm = ampm;
-      break;
+      case "am":
+      case "pm":
+        this.settings.ampm = ampm;
+        break;
 
-    default:
-      break;
+      default:
+        break;
     }
   }
 
-  @action
-  setRegion(id) {
+  @action setRegion(id) {
     this.settings.region = id;
   }
 
-  @action
-  dimProblem(problemId) {
-    if (typeof this.problems[problemId] !== 'undefined') {
+  @action dimProblem(problemId) {
+    if (typeof this.problems[problemId] !== "undefined") {
       this.problems[problemId].highlighted = false;
     }
   }
 
-  @action
-  highlightProblem(problemId) {
-    if (typeof this.problems[problemId] !== 'undefined') {
+  @action highlightProblem(problemId) {
+    if (typeof this.problems[problemId] !== "undefined") {
       this.problems[problemId].highlighted = true;
     }
   }
@@ -269,10 +277,22 @@ class BulletinStore {
    *   this.date and this.ampm
    */
   get activeBulletinCollection() {
-    if (this.settings.status == 'ok') {
+    if (this.settings.status == "ok") {
       return this.bulletins[this.settings.date];
     }
     return null;
+  }
+
+  /**
+   *
+   *
+   */
+  get activeBulletinValid() {
+    return (
+      !!this.activeBulletinCollection &&
+      this.vectorRegions.length &&
+      this.vectorRegions.length > 0
+    );
   }
 
   /**
@@ -285,7 +305,14 @@ class BulletinStore {
   }
 
   getBulletinForRegion(regionId) {
+    //console.log("getting bulletin", regionId);
     const collection = this.activeBulletinCollection;
+
+    /*
+    if (collection && collection.length > 0) {
+      console.log("collection", collection.getData().map(el => el.id));
+    }
+    */
 
     if (collection && collection.length > 0) {
       return collection.getData().find(el => {
@@ -299,72 +326,84 @@ class BulletinStore {
   getProblemsForRegion(regionId) {
     const problems = [];
     const b = this.getBulletinForRegion(regionId);
-    const daytime =
-      b.hasDaytimeDependency && this.settings.ampm == 'pm'
-        ? 'afternoon'
-        : 'forenoon';
-    const daytimeBulletin = b[daytime];
+    if (b) {
+      const daytime =
+        b.hasDaytimeDependency && this.settings.ampm == "pm"
+          ? "afternoon"
+          : "forenoon";
+      const daytimeBulletin = b[daytime];
 
-    if (daytimeBulletin && daytimeBulletin.avalancheSituation1) {
-      problems.push(daytimeBulletin.avalancheSituation1.avalancheSituation);
+      if (daytimeBulletin && daytimeBulletin.avalancheSituation1) {
+        problems.push(daytimeBulletin.avalancheSituation1.avalancheSituation);
+      }
+      if (daytimeBulletin && daytimeBulletin.avalancheSituation2) {
+        problems.push(daytimeBulletin.avalancheSituation2.avalancheSituation);
+      }
+      return problems;
+    } else {
+      return [];
     }
-    if (daytimeBulletin && daytimeBulletin.avalancheSituation2) {
-      problems.push(daytimeBulletin.avalancheSituation2.avalancheSituation);
-    }
-    return problems;
   }
 
-
   getRegionState(regionId) {
-    if(this.settings.region && this.settings.region === regionId) {
-      return 'selected';
+    if (this.settings.region && this.settings.region === regionId) {
+      return "selected";
     }
-    if(this.settings.region) {
+    if (this.settings.region) {
       // some other region is selected
-      return 'dimmed';
+      return "dimmed";
     }
 
-    const checkHighlight = (rId) => {
+    const checkHighlight = rId => {
       const problems = this.getProblemsForRegion(rId);
-      return problems.some((p) => (this.problems[p] && this.problems[p].highlighted));
-    }
+      return problems.some(
+        p => this.problems[p] && this.problems[p].highlighted
+      );
+    };
 
-    if(checkHighlight(regionId)) {
-      return 'highlighted';
+    if (checkHighlight(regionId)) {
+      return "highlighted";
     }
 
     // dehighligt if any filter is activated
-    if(Object.keys(this.problems).some((p) => this.problems[p].highlighted)) {
-      return 'dehighlighted';
+    if (Object.keys(this.problems).some(p => this.problems[p].highlighted)) {
+      return "dehighlighted";
     }
-    return 'default';
+    return "default";
   }
 
   // assign states to regions
-  @computed
-  get vectorRegions() {
+  @computed get vectorRegions() {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
       // clone original geojson
       const clonedGeojson = Object.assign({}, collection.getGeoData());
 
-      const regions = clonedGeojson.features.map(f => {
-        const state = this.getRegionState(f.properties.bid);
+      const regions =
+        clonedGeojson.features && clonedGeojson.features.length
+          ? clonedGeojson.features.map(f => {
+              const state = this.getRegionState(f.properties.bid);
 
-        f = flip(f);
-        f.properties.state = state;
-        return f;
-      });
+              f = flip(f);
+              f.properties.state = state;
+              return f;
+            })
+          : [];
 
-      const states = ['selected', 'highlighted', 'dehighlighted', 'dimmed', 'default'];
+      const states = [
+        "selected",
+        "highlighted",
+        "dehighlighted",
+        "dimmed",
+        "default"
+      ];
       regions.sort((r1, r2) => {
         return states.indexOf(r1.properties.state) <
           states.indexOf(r2.properties.state)
           ? 1
           : -1;
       });
-      console.log(regions);
       return regions;
     } else {
       return [];
@@ -374,27 +413,40 @@ class BulletinStore {
   /**
    * Returns leaflet encoded value for map center
    */
-  @computed
-  get getMapCenter() {
+  @computed get getMapCenter() {
     return toJS(this.mapCenter);
   }
 
-  @computed
-  get getMapZoom() {
+  @computed get getMapZoom() {
     return toJS(this.mapZoom);
   }
 
   _loadBulletinData(date) {
-    const dateParam = encodeURIComponent(date + 'T00:00:00+02:00');
-    const url = config.get('apis.bulletin') + '?date=' + dateParam;
+    // const prevDay = date => dateToISODateString(getPredDate(parseDate(date)))
+    const prevDay = date => dateToISODateString(parseDate(date));
+
+    // zulu time
+    /* const localTime = new Date(prevDay).valueOf() > 1540677600000
+      ? 'T23:00:00Z'
+      : 'T22:00:00Z'
+    */
+    const dateParam = encodeURIComponent(date);
+    // const dateParam = encodeURIComponent(prevDay(date))
+    // const dateParam = encodeURIComponent(prevDay(date) + localTime)
+    // const dateParam = encodeURIComponent(date + 'T22:00:00Z')
+    // const dateParam = encodeURIComponent(date + 'T00:00:00+02:00')
+    const url =
+      config.get("apis.bulletin") + "?date=" + dateParam + "&hash=" + now();
 
     return Base.doRequest(url).then(
       // query bulletin data
       response => {
+        //console.log("this is where the collection is filled from", url);
+        //console.log("and this is the response", JSON.parse(response));
         this.bulletins[date].setData(JSON.parse(response));
       },
       error => {
-        console.error('Cannot load bulletin for date ' + date + ': ' + error);
+        console.error("Cannot load bulletin for date " + date + ": " + error);
         this.bulletins[date].setData(null);
       }
     );
@@ -402,15 +454,16 @@ class BulletinStore {
 
   _loadGeoData(date, daytime = null) {
     // API uses daytimes 'am', 'pm' and 'fd' ('full day')
-    const d = daytime ? daytime : 'fd';
-    const url = config.get('apis.geo') + date + '/' + d + '_regions.json';
+    const d = daytime || "fd";
+    const url = config.get("apis.geo") + date + "/" + d + "_regions.json";
+
     return Base.doRequest(url).then(
       // query vector data
       response => {
         this.bulletins[date].setGeoData(JSON.parse(response), daytime);
       },
       error => {
-        console.error('Cannot load geo data for date ' + date + ': ' + error);
+        console.error("Cannot load geo data for date " + date + ": " + error);
         this.bulletins[date].setGeoData(null, daytime);
       }
     );

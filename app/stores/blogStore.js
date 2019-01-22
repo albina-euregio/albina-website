@@ -1,10 +1,22 @@
-import { observable, action } from 'mobx';
-import Base from '../base';
-import { parseDate, getDaysOfMonth } from '../util/date';
-import { parseTags } from '../util/tagging';
+import { observable, action, computed, toJS } from "mobx";
+import Base from "../base";
+import { parseDate, getDaysOfMonth } from "../util/date";
+import { parseTags } from "../util/tagging";
+import L from "leaflet";
 
 class BlogPostPreviewItem {
-  constructor(blogName, postId, url, author, date, title, lang, regions = [], image = null, tags = []) {
+  constructor(
+    blogName,
+    postId,
+    url,
+    author,
+    date,
+    title,
+    lang,
+    regions = [],
+    image = null,
+    tags = []
+  ) {
     this.blogName = blogName;
     this.postId = postId;
     this.url = url;
@@ -19,91 +31,229 @@ class BlogPostPreviewItem {
 }
 
 export default class BlogStore {
-  regions;
-  languages;
+  _regions;
+  _languages;
   _year;
   _month;
-  _avalancheProblem;
+  _problem;
   _searchText;
-  _loading;
+
+  _page;
+
+  loading;
   _posts;
 
-  constructor() {
-    // get all regions from appStore and activate them
-    const rs = Object.keys(window['appStore'].regions).reduce((acc, r) => {
-      acc[r] = {active: true};
-      return acc;
-    }, {});
-    this.regions = observable(rs);
+  // show only 5 blog posts when the mobile phone is detected
+  perPage = L.Browser.mobile ? 5 : 10;
+  getHistory;
 
-    this.languages = observable({
-      'de': {active: true},
-      'it': {active: true},
-      'en': {active: true}
+  update() {
+    Base.searchChange(
+      this.getHistory(),
+      {
+        year: this.year,
+        month: this.month,
+        searchLang: this.languageActive,
+        region: this.regionActive,
+        problem: this.problem,
+        page: this.page,
+        searchText: this.searchText
+      },
+      false,
+      true
+    );
+
+    this.load(true);
+  }
+
+  validatePage(valueToValidate) {
+    const maxPages = this.maxPages;
+    return Base.clamp(valueToValidate, 1, maxPages);
+  }
+
+  validateMonth(valueToValidate) {
+    const parsed = parseInt(valueToValidate);
+    if (parsed) {
+      return Base.clamp(parsed, 1, 12);
+    } else {
+      return "";
+    }
+  }
+
+  validateYear(valueToValidate) {
+    const parsed = parseInt(valueToValidate);
+    if (parsed) {
+      return Base.clamp(parsed, config.get("archive.minYear"), 2018);
+    } else {
+      return "";
+    }
+  }
+
+  validateRegion(valueToValidate) {
+    return Object.keys(window["appStore"].regions).includes(valueToValidate)
+      ? valueToValidate
+      : "all";
+  }
+
+  validateLanguage(valueToValidate) {
+    return window["appStore"].languages.includes(valueToValidate)
+      ? valueToValidate
+      : window["appStore"].language;
+  }
+
+  validateProblem(valueToValidate) {
+    return window["appStore"].avalancheProblems.includes(valueToValidate)
+      ? valueToValidate
+      : "all";
+  }
+
+  // checking if the url has been changed and applying new values
+  checkUrl() {
+    let needLoad = false;
+
+    const search = Base.makeSearch();
+    const urlValues = {
+      year: this.validateYear(Base.searchGet("year", search)),
+      month: this.validateMonth(Base.searchGet("month", search)),
+      searchLang: this.validateLanguage(Base.searchGet("searchLang", search)),
+      region: this.validateRegion(Base.searchGet("region", search)),
+      problem: this.validateProblem(Base.searchGet("problem", search)),
+      page: this.validatePage(Base.searchGet("page", search)),
+      searchText: Base.searchGet("searchText", search)
+    };
+
+    // year
+    if (urlValues.year != this.year) {
+      this.year = urlValues.year;
+      needLoad = true;
+    }
+
+    // month
+    if (urlValues.month != this.month) {
+      this.month = urlValues.month;
+      needLoad = true;
+    }
+
+    // language
+    if (urlValues.searchLang != this.languageActive) {
+      this.setLanguages(urlValues.searchLang);
+      needLoad = true;
+    }
+
+    // region
+    if (urlValues.region != this.regionActive) {
+      this.setRegions(urlValues.region);
+      needLoad = true;
+    }
+
+    // problem
+    if (urlValues.problem != this.problem) {
+      this.problem = urlValues.problem;
+      needLoad = true;
+    }
+
+    // page
+    if (urlValues.page != this.page) {
+      this.setPage(urlValues.page);
+      needLoad = true;
+    }
+
+    // searchText
+    if (urlValues.searchText != this.searchText) {
+      this.searchText = urlValues.searchText;
+      needLoad = true;
+    }
+
+    if (needLoad) {
+      console.log("reload needed");
+      this.load(true);
+    }
+  }
+
+  initialParams() {
+    const date = new Date();
+    const searchLang = this.validateLanguage(Base.searchGet("searchLang"));
+
+    const initialParameters = {
+      year: this.validateYear(Base.searchGet("year")),
+      month: this.validateMonth(Base.searchGet("month")),
+      problem: this.validateProblem(Base.searchGet("problem")),
+      page: this.validatePage(Base.searchGet("page")) || 1,
+      searchText: Base.searchGet("searchText"),
+      languages: {
+        de: ["", "de", "all"].includes(searchLang) || !searchLang,
+        it: ["", "it", "all"].includes(searchLang) || !searchLang,
+        en: ["", "en", "all"].includes(searchLang) || !searchLang
+      }
+    };
+
+    // get all regions from appStore and activate them
+    const searchRegion = this.validateRegion(Base.searchGet("region"));
+    const initialRegions = {};
+    Object.keys(window["appStore"].regions).forEach(regionName => {
+      initialRegions[regionName] =
+        ["", "all", regionName].includes(searchRegion) || !searchRegion;
     });
+    initialParameters.regions = initialRegions;
+
+    return initialParameters;
+  }
+
+  constructor(getHistory) {
+    this.getHistory = getHistory;
+
+    console.log("CONSTRUCTOR");
+
+    const initialParameters = this.initialParams();
+    console.log(JSON.stringify(initialParameters));
 
     // Do not make posts observable, otherwise posts list will be
     // unnecessaryliy rerendered during the filling of this array.
     // Views should only observe the value of the "loading" flag instead.
-    this._posts = {};
+    this._posts = observable.box({});
+    this._page = observable.box(initialParameters.page);
 
-    this._year = observable.box('');
-    this._month = observable.box('');
-    this._avalancheProblem = observable.box('');
+    this._regions = observable.box(initialParameters.regions);
+    this._languages = observable.box(initialParameters.languages);
+    this._year = observable.box(initialParameters.year);
+    this._month = observable.box(initialParameters.month);
+    this._problem = observable.box(initialParameters.problem);
 
     // For Mobx > v4 we have to use an obserable box instead of
     // @observable loading = ...;
-    this._loading = observable.box(false);
-    this._searchText = observable.box('');
+    this.loading = false;
+    this._searchText = observable.box(initialParameters.searchText);
 
     this.blogProcessor = {
       blogger: {
-        createUrl: (config) => {
-          const baseUrl = window['config'].get('apis.blogger')
-            + config.params.id
-            + '/posts';
+        createUrl: config => {
+          let baseUrl =
+            window["config"].get("apis.blogger") + config.params.id + "/posts";
 
-          if(this.searchText) {
-            // create search URL
-            const params = {
-              key: window['config'].get('apiKeys.google'),
-              q: this.searchText
-            };
-
-            return Base.makeUrl(
-              baseUrl + '/search',
-              params
-            );
-          }
-
-          // else
           const params = {
-            'key': window['config'].get('apiKeys.google'),
-            'fetchBodies': false,
-            'fetchImages': true,
-            'status': 'live'
+            key: window["config"].get("apiKeys.google")
           };
-          if(this.avalancheProblem) {
-            params['labels'] = this.avalancheProblem;
+          if (this.searchText) {
+            params["q"] = this.searchText;
+            baseUrl += "/search";
+          } else {
+            if (this.problem && this.problem !== "all") {
+              params["labels"] = this.problem;
+            }
+            if (this.year) {
+              params["startDate"] = this.startDate.toISOString();
+              params["endDate"] = this.endDate.toISOString();
+            }
           }
-          if(this.year) {
-            params['startDate'] = this._startDate.toISOString();
-            params['endDate'] = this._endDate.toISOString();
-          }
-          // TODO search
 
-          return Base.makeUrl(
-            window['config'].get('apis.blogger')
-              + config.params.id
-              + '/posts'
-            , params
-          );
+          return Base.makeUrl(baseUrl, params);
         },
+
         process: (response, config) => {
-          if(Array.isArray(response.items)) {
-            return response.items.map((item) => {
+          if (Array.isArray(response.items)) {
+            return response.items.map(item => {
               const previewImage =
-                (Array.isArray(item.images) && item.images.length > 0)
+                Array.isArray(item.images) && item.images.length > 0
                   ? item.images[0].url
                   : null;
 
@@ -124,40 +274,49 @@ export default class BlogStore {
           return [];
         }
       }
-    }
+    };
+    this.update();
   }
 
-  @action
-  load(forceReload = false) {
-    if(!forceReload && this._posts.length > 0) {
+  @action load(forceReload = false) {
+    if (!forceReload && this._posts.length > 0) {
       // don't do a reload if already loaded unless reload is forced
       return;
     }
 
     this.loading = true;
 
-    const blogsConfig = window['config'].get('blogs');
+    const blogsConfig = window["config"].get("blogs");
     const loads = [];
 
     const newPosts = {};
 
     // filter config for lang and region
-    for(let cfg of blogsConfig) {
+    for (let cfg of blogsConfig) {
       newPosts[cfg.name] = [];
 
-      if(this.languages[cfg.lang] && this.languages[cfg.lang].active) {
-        if(cfg.regions.some((r) => (this.regions[r] && this.regions[r].active))) {
-          if(this.blogProcessor[cfg.apiType]) {
+      if (this.languages[cfg.lang] && this.languages[cfg.lang]) {
+        if (cfg.regions.some(r => this.regions[r] && this.regions[r])) {
+          if (this.blogProcessor[cfg.apiType]) {
             const p = this.blogProcessor[cfg.apiType];
+
+            const url = p.createUrl(cfg);
+            console.log("processing", this.searchText, url);
+
             loads.push(
-              Base.doRequest(p.createUrl(cfg)).then(
-                (response) => {
-                  p.process(JSON.parse(response), cfg).forEach((i) => {
+              Base.doRequest(url).then(
+                response => {
+                  p.process(JSON.parse(response), cfg).forEach(i => {
+                    //console.log("new item", i);
                     newPosts[cfg.name].push(i);
                   });
                 },
                 (errorText, statusCode) => {
-                  if(parseInt(statusCode) == 304 && Array.isArray(this._posts[cfg.name])) {
+                  console.log("err", errorText);
+                  if (
+                    parseInt(statusCode) == 304 &&
+                    Array.isArray(this._posts[cfg.name])
+                  ) {
                     newPosts[cfg.name] = this._posts[cfg.name];
                   }
                 }
@@ -169,62 +328,80 @@ export default class BlogStore {
     }
 
     return Promise.all(loads).then(() => {
-      Object.keys(newPosts).forEach((queue) => {
-        this._posts[queue] = newPosts[queue];
-      });
+      console.log("posts loaded", newPosts);
+      this.posts = newPosts;
       this.loading = false;
     });
   }
 
-  get loading() {
-    return this._loading.get();
+  @computed get posts() {
+    return toJS(this._posts);
   }
 
-  set loading(val) {
-    this._loading.set(val);
+  set posts(val) {
+    this._posts.set(val);
   }
 
-  get searchText() {
+  /* actual page in the pagination through blog posts */
+  @computed get page() {
+    return parseInt(toJS(this._page));
+  }
+  set page(val) {
+    this._page.set(parseInt(val));
+  }
+
+  @action setPage(newPage) {
+    this.page = this.validatePage(newPage);
+  }
+
+  @action nextPage() {
+    const thisPage = this.page;
+    const maxPages = this.maxPages;
+    const nextPageNo = thisPage < maxPages ? thisPage + 1 : thisPage;
+    this.setPage(nextPageNo);
+  }
+  @action previousPage() {
+    const thisPage = this.page;
+    const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
+    this.setPage(previousPageNo);
+  }
+  @computed get maxPages() {
+    return Math.ceil(this.numberOfPosts / this.perPage);
+  }
+
+  @computed get searchText() {
     return this._searchText.get();
   }
-
   set searchText(val) {
-    if(val != this._searchText.get()) {
+    if (val != this.searchText) {
       this._searchText.set(val);
-      this.load(true);
     }
   }
 
-  get avalancheProblem() {
-    return this._avalancheProblem.get();
+  @computed get problem() {
+    return this._problem.get();
+  }
+  set problem(val) {
+    this._problem.set(val);
   }
 
-  set avalancheProblem(val) {
-    this._avalancheProblem.set(val);
-    this.load(true);
-  }
-
-  get year() {
+  @computed get year() {
     return this._year.get();
   }
-
   set year(y) {
     this._year.set(y);
-    this.load(true);
   }
 
-  get month() {
+  @computed get month() {
     return this._month.get();
   }
-
   set month(m) {
     this._month.set(m);
-    this.load(true);
   }
 
-  get _startDate() {
-    if(this.year) {
-      if(this.month) {
+  @computed get startDate() {
+    if (this.year) {
+      if (this.month) {
         return new Date(this.year, this.month - 1, 1);
       }
       return new Date(this.year, 0, 1);
@@ -232,80 +409,118 @@ export default class BlogStore {
     return null;
   }
 
-  get _endDate() {
-    if(this.year) {
-      if(this.month) {
-        return new Date(this.year, this.month - 1, getDaysOfMonth(this.year, this.month), 23, 59);
+  @computed get endDate() {
+    if (this.year) {
+      if (this.month) {
+        return new Date(
+          this.year,
+          this.month - 1,
+          getDaysOfMonth(this.year, this.month),
+          23,
+          59
+        );
       }
       return new Date(this.year, 11, 31, 23, 59);
     }
     return null;
   }
 
-  @action
-  setRegionFilter(region) {
-    for(let r in this.regions) {
-      this.regions[r].active = !region || (r === region);
-    }
-    this.load(true);
+  @computed get languages() {
+    return toJS(this._languages);
+  }
+  @computed get regions() {
+    return toJS(this._regions);
   }
 
-  @action
-  setLanguageFilter(lang) {
-    for(let l in this.languages) {
-      this.languages[l].active = !lang || (l === lang);
+  @action setRegions(region) {
+    const newRegions = this.regions;
+    for (let r in newRegions) {
+      newRegions[r] = [r, "all"].includes(region) || !region;
     }
-    this.load(true);
+    this._regions.set(newRegions);
   }
 
-  getPosts(start = 0, limit = 10) {
-    const totalLength = Object.values(this._posts)
-      .map((l) => l.length)
-      .reduce((acc, v) => acc + v, 0);
+  @action setLanguages(lang) {
+    const newLanguages = this.languages;
+    for (let l in newLanguages) {
+      newLanguages[l] = [l, "all"].includes(lang) || !lang;
+    }
+    this._languages.set(newLanguages);
+  }
 
-    const queues = Object.keys(this._posts);
+  @computed get languageActive() {
+    const active = Object.keys(this.languages).filter(
+      lang => this.languages[lang]
+    );
+    return active.length > 1 ? "all" : active[0];
+  }
+
+  @computed get regionActive() {
+    const active = Object.keys(this.regions).filter(
+      region => this.regions[region]
+    );
+    return active.length > 1 ? "all" : active[0];
+  }
+
+  @computed get numberOfPosts() {
+    return this.posts
+      ? Object.values(this.posts)
+          .map(l => l.length)
+          .reduce((acc, v) => acc + v, 0)
+      : 0;
+  }
+
+  @computed get postsList() {
+    const start = (this.page - 1) * this.perPage;
+    const limit = this.perPage;
+    const totalLength = this.numberOfPosts;
+
+    const posts = this.posts;
+    //console.log(posts);
+    const queues = Object.keys(posts);
 
     const startIndex = Math.min(start, totalLength - 1);
     const end = Math.min(start + limit, totalLength);
+
     const postPointer = {};
-    queues.forEach((queue) => {
+    queues.forEach(queue => {
       postPointer[queue] = 0;
     });
 
     const getNext = () => {
       // get the next items of all queues
       const candidates = {};
-      queues.forEach((queue) => {
-        if(this._posts[queue].length > postPointer[queue]) {
-          candidates[queue] = this._posts[queue][postPointer[queue]];
+      queues.forEach(queue => {
+        if (posts[queue].length > postPointer[queue]) {
+          candidates[queue] = posts[queue][postPointer[queue]];
         }
       });
 
       // find the maximum
       const queueMax = Object.keys(candidates).reduce((acc, queue) => {
-        if(!acc || (candidates[queue].date > candidates[acc].date)) {
+        if (!acc || candidates[queue].date > candidates[acc].date) {
           return queue;
         }
         return acc;
-      }, '');
+      }, "");
 
-      if(queueMax) {
-        const next = this._posts[queueMax][postPointer[queueMax]];
+      if (queueMax) {
+        const next = posts[queueMax][postPointer[queueMax]];
         postPointer[queueMax]++;
         return next;
       }
       return null;
-    }
+    };
 
     const list = [];
-    if(startIndex >= 0) {
-      for(let i = 0; i < startIndex; i++) {
+    if (startIndex >= 0) {
+      for (let i = 0; i < startIndex; i++) {
         getNext();
       }
 
-      for(let j = startIndex; j < end; j++) {
+      for (let j = startIndex; j < end; j++) {
         const n = getNext();
-        if(n) {
+        if (n) {
           list.push(n);
         }
       }

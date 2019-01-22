@@ -6,7 +6,6 @@
 }
 
 .leaflet-geonames-search {
-  width: 34px;
   max-width: 300px;
   box-sizing: border-box;
   border: 0px !important;
@@ -16,21 +15,23 @@
   width: 100%;
 }
 
-.section-map .leaflet-control-container .leaflet-geonames-search a:hover {
+.section-map
+  .leaflet-control-container
+  .leaflet-geonames-search
+  a:hover {
   background-color: #19abff;
 }
 
 .section-map .leaflet-control-container .leaflet-geonames-search a {
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 1);
   font-size: 1.8em;
   width: 1.8em;
   height: 1.8em;
   line-height: 1.8em;
-  border: none !important;
 }
 
 .leaflet-geonames-search form {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 1);
   width: 100%;
   margin-bottom: 5px;
 }
@@ -48,31 +49,45 @@
   background: #f2f2f2;
 }
 
-.leaflet-geonames-search input {
-  padding: 6px 6px 2px 30px;
+.leaflet-geonames-search input,
+.leaflet-geonames-search input:focus {
+  display: inline;
+  border: 0.5px solid #19abff;
+  position: absolute;
+  left: 45px;
+  padding: 6px;
   margin: 0;
-  border: none;
   display: none;
-  width: 100%;
-  font-size: 12pt;
+  width: 200px;
+  height: 40px;
+  top: 0px;
   box-sizing: border-box;
   -ms-box-sizing: border-box;
+  outline-style: none;
 }
 
 .leaflet-geonames-search ul {
+  background-color: white;
+  position: absolute;
+  top: 45px;
+  left: 45px;
+  width: 200px;
   display: none;
   list-style: none;
+  margin-left: 40px;
   padding: 0;
   margin: 0;
   clear: both;
-  border: none;
 }
 
 .leaflet-geonames-search ul li {
   padding: 4px 8px;
-  border-top: 1px solid #ddd;
-  font-size: 1.1em;
-  border: none;
+  border-left: 0.5px solid #19abff;
+  border-right: 0.5px solid #19abff;
+  border-bottom: 0.5px solid #19abff;
+  border-top: 0.5px solid #999 !important;
+  font-family: 'Arial' !important;
+  font-size: 14px !important;
 }
 
 .leaflet-geonames-search ul li em {

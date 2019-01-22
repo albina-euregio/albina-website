@@ -1,134 +1,137 @@
-import React from 'react'
-import { Provider, observer } from 'mobx-react'
-import { MobxIntlProvider } from '../util/mobx-react-intl.es5.js'
+import React from "react";
+import { Provider, observer } from "mobx-react";
+import { MobxIntlProvider } from "../util/mobx-react-intl.es5.js";
 
-import { Redirect } from 'react-router'
-import { BrowserRouter } from 'react-router-dom'
-import { renderRoutes } from 'react-router-config'
+import { Redirect } from "react-router";
+import { BrowserRouter } from "react-router-dom";
+import { renderRoutes } from "react-router-config";
 
-import Bulletin from './../views/bulletin'
-import BlogOverview from './../views/blogOverview'
-import BlogPost from './../views/blogPost'
-import WeatherMap from './../views/weatherMap'
-import StationMeasurements from './../views/stationMeasurements'
-import OverviewPage from './../views/overviewPage'
-import Archive from './../views/archive'
-import StaticPage from './../views/staticPage'
-import SubscribeConfirmation from './../views/subscribeConfirmation'
-import Page from './page'
+import Bulletin from "./../views/bulletin";
+import BlogOverview from "./../views/blogOverview";
+import BlogPost from "./../views/blogPost";
+import WeatherMap from "./../views/weatherMap";
+import StationMeasurements from "./../views/stationMeasurements";
+import OverviewPage from "./../views/overviewPage";
+import Archive from "./../views/archive";
+import StaticPage from "./../views/staticPage";
+import SubscribeConfirmation from "./../views/subscribeConfirmation";
+import Page from "./page";
 
-const { detect } = require('detect-browser')
-const browser = detect()
-import isES5Supported from 'is-es5-supported'
+const { detect } = require("detect-browser");
+const browser = detect();
+import isES5Supported from "is-es5-supported";
 
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
-require('../css/style.css')
-require('../css/app.css') // CSS overrides
-require('./../../node_modules/leaflet/dist/leaflet.css')
+require("../css/style.css");
+require("../css/app.scss"); // CSS overrides
+require("./../../node_modules/leaflet/dist/leaflet.css");
 
 // require('./js/custom.js');
 
 class App extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
 
     /* checking if the browser is supported */
-    console.log(isES5Supported)
+    //console.log(isES5Supported)
     if (browser) {
-      window['browserVersion'] = browser.name + browser.version
-      console.log(browserVersion)
+      window["browserVersion"] = browser.name + browser.version;
+      //console.log(browserVersion)
 
       if (!isES5Supported) {
-        console.log('browser not supported')
-        appStore.unsupportedBrowserModalOn()
+        //console.log('browser not supported')
+        appStore.unsupportedBrowserModalOn();
       }
     }
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    return true
+  shouldComponentUpdate(nextProps, nextState) {
+    return true;
   }
 
-  routes () {
+  routes() {
     return [
       {
-        path: '/',
+        path: "/",
         component: Page,
         indexRoute: {
           component: Bulletin
         },
         routes: [
           {
-            path: '/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})?',
-            exact: true,
+            path: "/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})?",
             component: Bulletin
           },
           {
-            path: '/weather/map/:domain?',
+            path: "/bulletin/latest?",
+            component: Bulletin
+          },
+          {
+            path: "/weather/map/:domain?",
             exact: true,
             component: WeatherMap
           },
           {
-            path: '/weather/measurements',
+            path: "/weather/measurements",
             exact: true,
             component: StationMeasurements
           },
           {
-            path: '/weather',
+            path: "/weather",
             exact: true,
-            component: () => <Redirect to={'/weather/map'} />
+            component: () => <Redirect to={"/weather/map"} />
           },
           {
-            path: '/education',
+            path: "/education",
             exact: true,
             component: OverviewPage
           },
           {
-            path: '/blog/:blogName/:postId',
+            path: "/blog/:blogName/:postId",
             component: BlogPost
           },
           {
-            path: '/blog',
+            path: "/blog",
             exact: true,
             component: BlogOverview
           },
           {
-            path: '/more',
+            path: "/more",
             exact: true,
             component: OverviewPage
           },
           {
-            path: '/archive',
+            path: "/archive",
             exact: true,
             component: Archive
           },
           {
-            path: '/subscribe/:hash',
+            path: "/subscribe/:hash",
             component: SubscribeConfirmation
           },
           {
             // NOTE: 404 error will be handled by StaticPage, since we do not
             // know which pages reside on the CMS in this router config
-            path: '/:name',
+            path: "/:name",
             component: StaticPage
           }
         ]
       }
-    ]
+    ];
   }
 
-  render () {
-    const store = window['appStore']
+  render() {
+    const store = window["appStore"];
     return (
       <Provider {...store}>
         <MobxIntlProvider>
-          <BrowserRouter basename={config.get('projectRoot')}>
+          <BrowserRouter basename={config.get("projectRoot")}>
             {renderRoutes(this.routes())}
           </BrowserRouter>
         </MobxIntlProvider>
       </Provider>
-    )
+    );
   }
 }
 
-export default observer(App)
+export default observer(App);
