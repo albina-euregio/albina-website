@@ -86,16 +86,12 @@ app.get("/:id/*", (req, res) => {
     "&maxResults=500&fetchBodies=false&fetchImages=true&status=live";
 
   if (stored) {
-    console.log("stored before");
     res.send(stored.response);
   } else {
-    console.log("requesting: ", requestUrl);
     stats.proccessed += 1;
 
-    console.log("not stored before, have to be loaded");
     request({ url: requestUrl }, (err, response, body) => {
       // console.log('response', response)
-      console.log("loaded, sending back");
 
       if (!err) {
         try {
@@ -128,11 +124,9 @@ setInterval(() => {
   const now = new Date();
   const nowMs = now.valueOf();
   console.log("cleaning");
-  console.log("stored items before: ", storedBlogs.length);
   storedBlogs = storedBlogs.filter(blog => {
     return blog.time + maxStoredInterval > nowMs;
   });
-  console.log("stored items after: ", storedBlogs.length);
 }, cleaningInterval);
 
 var server = app.listen(port, () => {

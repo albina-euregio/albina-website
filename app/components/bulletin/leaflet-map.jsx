@@ -58,10 +58,10 @@ class LeafletMap extends React.Component {
   invalidateMap() {
     console.log("!!!invalidating map");
     const map = this.map;
-    if (map) {
+    if (map && map.invalidateSize) {
       window.setTimeout(() => {
-        m.invalidateSize();
-      }, 2000);
+        map.invalidateSize();
+      }, 1000);
     }
   }
 
