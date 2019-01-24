@@ -117,6 +117,7 @@ export default class BlogPost extends React.Component {
         blogConfig.params.id +
         "/posts/" +
         postId;
+
       Base.doRequest(Base.makeUrl(url, params))
         .then(response => {
           const b = JSON.parse(response);
