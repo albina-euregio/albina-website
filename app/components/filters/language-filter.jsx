@@ -1,5 +1,5 @@
-import React from 'react';
-import Selectric from '../selectric';
+import React from "react";
+import Selectric from "../selectric";
 
 export default class LanguageFilter extends React.Component {
   constructor(props) {
@@ -9,18 +9,14 @@ export default class LanguageFilter extends React.Component {
   render() {
     return (
       <div>
-        { this.props.title &&
-          <p className="info">{this.props.title}</p>
-        }
-        <Selectric onChange={this.props.handleChange}  {...this.props}>
-          { this.props.all &&
-            <option value="">{this.props.all}</option>
-          }
-          {
-            window.appStore.languages.map((l) =>
-              <option key={l} value={l}>{l.toUpperCase()}</option>
-            )
-          }
+        {this.props.title && <p className="info">{this.props.title}</p>}
+        <Selectric onChange={this.props.handleChange} {...this.props}>
+          {this.props.all && <option value="all">{this.props.all}</option>}
+          {window.appStore.languages.map(l => (
+            <option key={l} value={l}>
+              {l.toUpperCase()}
+            </option>
+          ))}
         </Selectric>
       </div>
     );
