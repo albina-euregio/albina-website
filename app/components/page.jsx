@@ -65,8 +65,6 @@ class Page extends React.Component {
       }
     }
 
-    // change searchLang parameter we are in blog subpage
-
     // change url if needed
     Base.searchChange(this.props.history, { lang: appStore.language }, true);
 

@@ -19,7 +19,6 @@ class BlogOverview extends React.Component {
   _settingFilters;
   constructor(props) {
     super(props);
-    console.log(this.props.history);
     const getHistory = () => this.props.history;
     if (!window["blogStore"]) {
       window["blogStore"] = new BlogStore(getHistory);
