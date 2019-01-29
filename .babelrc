@@ -1,15 +1,23 @@
 {
-  "plugins": ["transform-class-properties", "transform-decorators-legacy"],
+  "plugins": [
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }]
+  ],
   "presets": [
     [
-      "env",
+      "@babel/env",
       {
         "targets": {
           "browsers": ["last 3 versions", "ie >= 9"]
         },
-        "useBuiltIns": true
+        "useBuiltIns": "entry"
       }
     ],
-    "react"
+    "@babel/react"
   ]
 }

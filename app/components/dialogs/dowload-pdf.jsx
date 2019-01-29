@@ -45,6 +45,7 @@ class DonwloadPdfDialog extends React.Component {
   }
 
   render() {
+    console.log("pdf link", this.pdfLink());
     return (
       <div className="modal-subscribe">
         <div

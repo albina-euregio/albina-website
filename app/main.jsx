@@ -1,5 +1,5 @@
 /* IE polyfills */
-import "babel-polyfill";
+import "@babel/polyfill";
 if (!window.Intl) {
   window["Intl"] = require("intl");
 }
