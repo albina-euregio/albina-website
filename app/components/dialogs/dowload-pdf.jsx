@@ -23,6 +23,10 @@ class DonwloadPdfDialog extends React.Component {
     this.setState({ mode: newMode });
   };
 
+  shouldComponentUpdate() {
+    return true;
+  }
+
   pdfLink() {
     if (window["bulletinStore"] && window["appStore"]) {
       const isRegion = !!this.state.region;
