@@ -1,6 +1,3 @@
-/* eslint no-undef: 0 */
-/* eslint no-unused-vars: 0 */
-
 import { observable, action, computed, toJS } from "mobx";
 import React from "react";
 import { LocaleStore } from "./util/mobx-react-intl.es5.js";

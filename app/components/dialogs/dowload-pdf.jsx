@@ -32,7 +32,6 @@ class DonwloadPdfDialog extends React.Component {
       const link =
         links["base"] +
         links["pdf" + (isRegion ? "-region" : "") + (isBw ? "-bw" : "")];
-      console.log(link);
 
       return stringInject(link, {
         date: window["bulletinStore"].settings.date,

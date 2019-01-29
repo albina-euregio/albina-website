@@ -5,8 +5,6 @@ const app = express();
 const port = 3000;
 const cors = require("cors");
 
-var https = require("https");
-
 var bloggerApiPath = "https://www.googleapis.com/blogger/v3/blogs";
 var storedBlogs = [];
 
