@@ -30,6 +30,7 @@ class DonwloadPdfDialog extends React.Component {
 
       const links = config.get("links.downloads");
       const link =
+        links["base"] +
         links["pdf" + (isRegion ? "-region" : "") + (isBw ? "-bw" : "")];
       console.log(link);
 

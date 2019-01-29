@@ -75,11 +75,12 @@
     "meteoViewerConfig": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
     "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
     "downloads": {
-      "pdf": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}.pdf",
-      "pdf-bw": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}_bw.pdf",
-      "pdf-region": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{region}_{lang}.pdf",
-      "pdf-region-bw": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{region}_{lang}_bw.pdf",
-      "xml": "https://data1.geo.univie.ac.at/exchange/albina2/awm/{date}/{date}_{lang}.xml"
+      "base": "https://avalanche.report/albina_files/",
+      "pdf": "{date}/{date}_{lang}.pdf",
+      "pdf-bw": "{date}/{date}_{lang}_bw.pdf",
+      "pdf-region": "{date}/{date}_{region}_{lang}.pdf",
+      "pdf-region-bw": "{date}/{date}_{region}_{lang}_bw.pdf",
+      "xml": "{date}/{date}_{lang}.xml"
     }
   },
 
@@ -309,5 +310,5 @@
     "language": "auto",
     "ampm": "am"
   },
-  "version": "1.0.25, 10.01.2019 8:16"
+  "version": "1.0.26, 22.01.2019 10:28"
 }

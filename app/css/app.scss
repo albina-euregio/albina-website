@@ -12,9 +12,13 @@ iframe#meteoMap {
 iframe#stationTable {
   width: 100%;
   height: auto;
-  min-height: 400px;
+  min-height: 800px;
   border: none;
   margin: 0;
+
+  .dataTables_scrollBody {
+    min-height: 600px !important;
+  }
 }
 
 .weather-map-icon {
@@ -537,16 +541,19 @@ img {
 .blog-post,
 .blog-post a,
 .blog-post span {
+  /*
   font-family: "arial", "sans-serif" !important;
   //font-size: 16px;
   font-size: 1rem;
   line-height: 1.4;
+  */
   word-wrap: break-word;
   text-align: justify;
   color: #333333 !important;
 }
 
 .blog-post {
+  padding-top: 0;
   .Apple-style-span {
     color: #ff0000 !important;
   }

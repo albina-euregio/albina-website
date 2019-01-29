@@ -96,7 +96,8 @@ export default class BlogStore {
   }
 
   validateLanguage(valueToValidate) {
-    return window["appStore"].languages.includes(valueToValidate)
+    return window["appStore"].languages.includes(valueToValidate) ||
+      valueToValidate === "all"
       ? valueToValidate
       : window["appStore"].language;
   }
@@ -202,10 +203,7 @@ export default class BlogStore {
   constructor(getHistory) {
     this.getHistory = getHistory;
 
-    console.log("CONSTRUCTOR");
-
     const initialParameters = this.initialParams();
-    console.log(JSON.stringify(initialParameters));
 
     // Do not make posts observable, otherwise posts list will be
     // unnecessaryliy rerendered during the filling of this array.
@@ -301,7 +299,6 @@ export default class BlogStore {
             const p = this.blogProcessor[cfg.apiType];
 
             const url = p.createUrl(cfg);
-            console.log("processing", this.searchText, url);
 
             loads.push(
               Base.doRequest(url).then(

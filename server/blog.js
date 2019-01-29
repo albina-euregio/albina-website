@@ -36,7 +36,7 @@ app.get("/stats", (req, res) => {
     " minutes</strong>.";
   res.send(
     "<!doctype html><body>" +
-      "<p>server running for " +
+      "<p>server (v 23.01.) running for " +
       runningText +
       "</p>" +
       "<table><tbody>" +
@@ -86,37 +86,41 @@ app.get("/:id/*", (req, res) => {
     "&maxResults=500&fetchBodies=false&fetchImages=true&status=live";
 
   if (stored) {
-    console.log("stored before");
     res.send(stored.response);
   } else {
-    console.log("requesting: ", requestUrl);
     stats.proccessed += 1;
 
-    console.log("not stored before, have to be loaded");
-    request({ url: requestUrl }, (err, response, body) => {
-      // console.log('response', response)
-      console.log("loaded, sending back");
+    request(
+      {
+        url: requestUrl,
+        headers: {
+          referer: "https://blogcache.avalanche.report/"
+        }
+      },
+      (err, response, body) => {
+        // console.log('response', response)
 
-      if (!err) {
-        try {
-          const jsonResponse = JSON.parse(body);
-          const blog = {
-            url: url,
-            response: jsonResponse,
-            time: now.valueOf()
-          };
-          storedBlogs.push(blog);
+        if (!err) {
+          try {
+            const jsonResponse = JSON.parse(body);
+            const blog = {
+              url: url,
+              response: jsonResponse,
+              time: now.valueOf()
+            };
+            storedBlogs.push(blog);
 
-          res.send(jsonResponse);
-        } catch (error) {
-          console.log("!!!   problem parsing");
+            res.send(jsonResponse);
+          } catch (error) {
+            console.log("!!!   problem parsing");
+            res.send(false);
+          }
+        } else {
+          console.log("!!!   error while loading", err);
           res.send(false);
         }
-      } else {
-        console.log("!!!   error while loading", err);
-        res.send(false);
       }
-    });
+    );
   }
 });
 
@@ -128,11 +132,9 @@ setInterval(() => {
   const now = new Date();
   const nowMs = now.valueOf();
   console.log("cleaning");
-  console.log("stored items before: ", storedBlogs.length);
   storedBlogs = storedBlogs.filter(blog => {
     return blog.time + maxStoredInterval > nowMs;
   });
-  console.log("stored items after: ", storedBlogs.length);
 }, cleaningInterval);
 
 var server = app.listen(port, () => {

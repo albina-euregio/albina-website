@@ -16,6 +16,7 @@ var scroll_init = () => {
       .each((li, link) => {
         const href = $.attr(link, "href");
         if (href !== "#") {
+          $(link).off("click");
           $(link).click(function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -28,7 +29,7 @@ var scroll_init = () => {
       });
 
     scroll_direction();
-  }, 500);
+  }, 0);
 };
 
 var scroll = (elId, time = 500) => {

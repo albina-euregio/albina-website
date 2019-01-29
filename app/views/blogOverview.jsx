@@ -19,7 +19,6 @@ class BlogOverview extends React.Component {
   _settingFilters;
   constructor(props) {
     super(props);
-    console.log(this.props.history);
     const getHistory = () => this.props.history;
     if (!window["blogStore"]) {
       window["blogStore"] = new BlogStore(getHistory);
@@ -77,6 +76,7 @@ class BlogOverview extends React.Component {
   };
 
   handleChangeLanguage = val => {
+    console.log("new lang", val);
     this.settingFilters = true;
     this.store.setLanguages(val);
     this.doStoreUpdate();
@@ -128,6 +128,8 @@ class BlogOverview extends React.Component {
   }
 
   render() {
+    const classChanged = "selectric-changed";
+    const classDisabled = "disabled";
     return (
       <div>
         <PageHeadline
@@ -151,7 +153,7 @@ class BlogOverview extends React.Component {
             })}
             handleChange={this.handleChangeLanguage}
             value={this.store.languageActive}
-            className={this.store.searchText ? "disabled" : ""}
+            className={this.store.languageActive !== "all" ? classChanged : ""}
           />
           <ProvinceFilter
             title={this.props.intl.formatMessage({
@@ -160,6 +162,7 @@ class BlogOverview extends React.Component {
             all={this.props.intl.formatMessage({ id: "filter:all" })}
             handleChange={this.handleChangeRegion}
             value={this.store.regionActive}
+            className={this.store.regionActive !== "all" ? classChanged : ""}
           />
           <TagFilter
             title={this.props.intl.formatMessage({
@@ -168,7 +171,13 @@ class BlogOverview extends React.Component {
             all={this.props.intl.formatMessage({ id: "filter:all" })}
             handleChange={this.handleChangeAvalancheProblem}
             value={this.store.problem}
-            className={this.store.searchText ? "disabled" : ""}
+            className={
+              this.store.problem !== "all"
+                ? classChanged
+                : "" + this.store.searchText
+                ? "disabled"
+                : ""
+            }
           />
           <YearFilter
             title={this.props.intl.formatMessage({
@@ -178,7 +187,13 @@ class BlogOverview extends React.Component {
             minYear={window["config"].get("archive.minYear")}
             handleChange={this.handleChangeYear}
             value={this.store.year}
-            className={this.store.searchText ? "disabled" : ""}
+            className={
+              this.store.year !== ""
+                ? classChanged
+                : "" + this.store.searchText
+                ? "disabled"
+                : ""
+            }
           />
 
           {
@@ -192,7 +207,13 @@ class BlogOverview extends React.Component {
               })}
               handleChange={this.handleChangeMonth}
               value={this.store.month}
-              className={this.store.searchText ? "disabled" : ""}
+              className={
+                this.store.month !== ""
+                  ? classChanged
+                  : "" + this.store.searchText
+                  ? "disabled"
+                  : ""
+              }
             />
             //)
           }
