@@ -31,7 +31,7 @@ export default class BulletinVectorLayer extends React.Component {
   handleMouseMove(e) {
     const bid = e.target.options.bid;
     if (
-      e.target._containsPoint(e.containerPoint) &&
+      //e.target._containsPoint(e.containerPoint) &&
       !L.Browser.mobile &&
       bid !== this.state.over
     ) {

@@ -56,12 +56,11 @@ class LeafletMap extends React.Component {
   }
 
   invalidateMap() {
-    console.log("!!!invalidating map");
     const map = this.map;
     if (map && map.invalidateSize) {
       window.setTimeout(() => {
         map.invalidateSize();
-      }, 1000);
+      }, 200);
     }
   }
 
@@ -154,6 +153,7 @@ class LeafletMap extends React.Component {
       this.map.on("zoomend", () => {
         const newZoom = this.map.getZoom();
         this.map.setMaxBounds(config.get("map.maxBounds")[newZoom]);
+        this.invalidateMap();
       });
     }
   }
