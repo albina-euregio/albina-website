@@ -8,6 +8,7 @@ import MenuStore from "../stores/menuStore";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import DocumentMeta from "react-document-meta";
+import { dateToISODateString, latest } from "../util/date.js";
 
 import Base from "./../base";
 import ModalDialog from "./modal-dialog";
@@ -108,14 +109,17 @@ class Page extends React.Component {
   _didUpdate() {
     console.log("url changing", this.hash, this.props.location);
 
+    // if the actual bulletin is active, change path to /latest
     if (
       this.props.location.pathname === "" ||
       this.props.location.pathname === "/" ||
-      this.props.location.pathname === "/bulletin"
+      this.props.location.pathname === "/bulletin" ||
+      this.props.location.pathname ===
+        "/bulletin/" + dateToISODateString(latest())
     ) {
-      console.log("applying latest");
       this.props.history.push("bulletin/latest");
     }
+
     this._setLanguage();
 
     /*
