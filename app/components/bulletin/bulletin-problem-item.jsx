@@ -73,10 +73,12 @@ class BulletinProblemItem extends React.Component {
   }
 
   get elevationTitle() {
-    if (
-      this.props.problem.treelineHigh ||
-      this.props.problem.treelineLow
-    ) {
+    if (this.props.problem.treelineHigh) {
+      return this.props.intl.formatMessage({
+        id: 'bulletin:report:problem-treeline-below:hover'
+      })
+    }
+    if(this.props.problem.treelineLow) {
       return this.props.intl.formatMessage({
         id: 'bulletin:report:problem-treeline:hover'
       })
