@@ -742,6 +742,8 @@ export class CreateBulletinComponent {
     // TODO websocket: unlock bulletin
     // TODO websocket: lock bulletin
 
+    this.setTexts();
+
     if (this.checkElevation()) {
       let bulletin: BulletinModel;
 
