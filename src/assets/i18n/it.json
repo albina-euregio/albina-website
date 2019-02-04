@@ -406,6 +406,10 @@
 			"passwordsNotMatching" : "Le password non corrispondono",
 			"passwordEmpty" : "Mancha la password"
 		},
+		"saveConfiguration" : {
+			"success" : "Configurazione salvata",
+			"error" : "Configurazione non salvata"
+		},
 		"display" : {
 			"title" : "Display",
 			"table" : {

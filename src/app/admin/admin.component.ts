@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import * as Enums from '../enums/enums';
 import { SelectItem } from 'primeng/primeng';
+import { AlertComponent } from 'ngx-bootstrap';
 
 declare var L: any;
 
@@ -19,6 +20,9 @@ export class AdminComponent {
 
   public statusMap: Map<number, Enums.BulletinStatus>;
   public configurationPropertiesLoaded: boolean = false;
+  public saveConfigurationLoading: boolean;
+
+  public alerts: any[] = [];
 
   public createCaaml: boolean;
   public createMaps: boolean;
@@ -61,7 +65,6 @@ export class AdminComponent {
   public g;
   public h;
   
-
   constructor(
     private translate: TranslateService,
     private route: ActivatedRoute,
@@ -73,6 +76,7 @@ export class AdminComponent {
     public socialmediaService: SocialmediaService,
     private router: Router) {
     this.statusMap = new Map<number, Enums.BulletinStatus>();
+    this.saveConfigurationLoading = false;
   }
 
   ngAfterContentInit() {
@@ -141,6 +145,7 @@ export class AdminComponent {
   }
 
   public save() {
+    this.saveConfigurationLoading = true;
     var json = Object();
     json['createCaaml'] = this.createCaaml;
     json['createMaps'] = this.createMaps;
@@ -164,14 +169,27 @@ export class AdminComponent {
     json['mapsPath'] = this.mapsPath;
     json['univieMapProductionUrl'] = this.univieMapProductionUrl;
     json['scriptsPath'] = this.scriptsPath;
-    json['configurationPropertiesLoaded'] = this.configurationPropertiesLoaded;
 
     this.configurationService.saveConfigurationProperties(json).subscribe(
       data => {
+        this.saveConfigurationLoading = false;
         console.debug("Server configuration saved!");
+        window.scrollTo(0, 0);
+        this.alerts.push({
+          type: 'success',
+          msg: this.translateService.instant("settings.saveConfiguration.success"),
+          timeout: 5000
+        });
       },
       error => {
+        this.saveConfigurationLoading = false;
         console.error("Server configuration could not be saved!");
+        window.scrollTo(0, 0);
+        this.alerts.push({
+          type: 'danger',
+          msg: this.translateService.instant("settings.saveConfiguration.error"),
+          timeout: 5000
+        });
       }
     );
   }
@@ -326,4 +344,7 @@ export class AdminComponent {
     );
   }
 
+  onClosed(dismissedAlert: AlertComponent): void {
+    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
+  }
 }

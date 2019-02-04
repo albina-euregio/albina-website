@@ -406,6 +406,10 @@
 			"passwordsNotMatching" : "Passwörter stimmen nicht überein",
 			"passwordEmpty" : "Passwort fehlt"
 		},
+		"saveConfiguration" : {
+			"success" : "Konfiguration erfolgreich gespeichert",
+			"error" : "Konfiguration konnte nicht gespeichert werden"
+		},
 		"display" : {
 			"title" : "Anzeige",
 			"table" : {

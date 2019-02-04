@@ -11,6 +11,8 @@ import { TranslateModule } from 'ng2-translate';
 import { PipeModule } from '../pipes/pipes.module';
 import {TabViewModule, DropdownModule, DataTableModule} from 'primeng/primeng';
 
+import { AlertModule } from 'ngx-bootstrap';
+
 @NgModule({
   imports: [
     AdminRoutingModule,
@@ -21,7 +23,7 @@ import {TabViewModule, DropdownModule, DataTableModule} from 'primeng/primeng';
     TabViewModule,
     DropdownModule,
     DataTableModule,
-    
+    AlertModule.forRoot()
   ],
   declarations: [
     AdminComponent

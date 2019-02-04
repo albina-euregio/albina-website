@@ -406,6 +406,10 @@
 			"passwordsNotMatching" : "Passwords are not matching",
 			"passwordEmpty" : "Password missing"
 		},
+		"saveConfiguration" : {
+			"success" : "Configuration successfully saved",
+			"error" : "Configuration could not be saved"
+		},
 		"display" : {
 			"title" : "Display",
 			"table" : {

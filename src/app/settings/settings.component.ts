@@ -56,6 +56,7 @@ export class SettingsComponent {
               this.newPassword1 = "";
               this.newPassword2 = "";
               this.changePasswordLoading = false;
+              window.scrollTo(0, 0);
               this.alerts.push({
                 type: 'success',
                 msg: this.translateService.instant("settings.changePassword.passwordChanged"),
@@ -65,6 +66,7 @@ export class SettingsComponent {
             error => {
               console.error("Password could not be changed: " + JSON.stringify(error._body));
               this.changePasswordLoading = false;
+              window.scrollTo(0, 0);
               this.alerts.push({
                 type: 'danger',
                 msg: this.translateService.instant("settings.changePassword.passwordChangeError"),
@@ -76,6 +78,7 @@ export class SettingsComponent {
         error => {
           console.warn("Password incorrect: " + JSON.stringify(error._body));
           this.changePasswordLoading = false;
+          window.scrollTo(0, 0);
           this.alerts.push({
             type: 'danger',
             msg: this.translateService.instant("settings.changePassword.passwordIncorrect"),
@@ -86,6 +89,7 @@ export class SettingsComponent {
     } else {
       console.warn("Passwords not matching");
       this.changePasswordLoading = false;
+      window.scrollTo(0, 0);
       this.alerts.push({
         type: 'danger',
         msg: this.translateService.instant("settings.changePassword.passwordsNotMatching"),
