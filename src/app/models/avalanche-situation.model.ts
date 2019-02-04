@@ -128,9 +128,8 @@ export class AvalancheSituationModel {
 		avalancheSituation.avalancheSituation = json.avalancheSituation;
 		let jsonAspects = json.aspects;
 		let aspects = new Array<Enums.Aspect>();
-		for (let i in jsonAspects) {
-			aspects.push(jsonAspects[i]);
-		}
+		for (let i in jsonAspects)
+			aspects.push(jsonAspects[i].toUpperCase());
 		avalancheSituation.setAspects(aspects);
 		avalancheSituation.elevationHigh = json.elevationHigh;
 		avalancheSituation.treelineHigh = json.treelineHigh;
