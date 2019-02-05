@@ -12,15 +12,16 @@ class PageHeader extends React.Component {
     super(props);
   }
 
+  // changing language on header language button click
   handleChangeLanguage = newLanguage => {
     console.log("setting language header");
     window["appStore"].setLanguage(newLanguage);
-    Base.searchChange(this.props.history, { lang: newLanguage }, true);
+    Base.searchChange(this.props.history, { lang: newLanguage }, false);
     if (this.props.location.pathname.includes("blog")) {
       Base.searchChange(
         this.props.history,
         { searchLang: appStore.language },
-        true
+        false
       );
     }
   };

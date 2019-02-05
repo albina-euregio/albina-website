@@ -59,8 +59,7 @@ export default class BlogStore {
         page: this.page,
         searchText: this.searchText
       },
-      false,
-      true
+      false
     );
 
     this.load(true);

@@ -123,6 +123,7 @@ var Base = {
           search.append(changeKey, changeValue);
         }
       });
+      // console.log("search, replace: ", replace, ". params", search.toString());
 
       // pushing to history
       if (search && history) {

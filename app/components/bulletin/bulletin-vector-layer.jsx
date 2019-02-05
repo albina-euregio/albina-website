@@ -125,7 +125,8 @@ export default class BulletinVectorLayer extends React.Component {
     // this has to be refactored
     return (
       <Pane key={this.uniqueKey}>
-        {this.props.regions
+        {// not over state regions
+        this.props.regions
           .filter(vector => this.state.over !== vector.properties.bid)
           .map((vector, vi) => {
             const state = vector.properties.state;
@@ -136,11 +137,12 @@ export default class BulletinVectorLayer extends React.Component {
               config.get("map.regionStyling." + state)
             );
 
-            return vector.geometry.coordinates.map((g, gi) =>
-              this.renderRegion(vector, state, g, style, vi + "" + gi)
-            );
+            return vector.geometry.coordinates.map((g, gi) => {
+              return this.renderRegion(vector, state, g, style, vi + "" + gi);
+            });
           })}
-        {this.props.regions
+        {// over state region
+        this.props.regions
           .filter(vector => this.state.over === vector.properties.bid)
           .map((vector, vi) => {
             const state = vector.properties.state;
@@ -160,3 +162,7 @@ export default class BulletinVectorLayer extends React.Component {
     );
   }
 }
+
+// 03a170db-4017-46e3-ae82-dd85d2066820
+// 03a170db-4017-46e3-ae82-dd85d2066820
+// 03a170db-4017-46e3-ae82-dd85d2066820

@@ -44,7 +44,6 @@ class Page extends React.Component {
 
     // url parameter
     if (!appStore.setLanguage(Base.searchGet("lang"))) {
-      console.log(window.localStorage.getItem("locale"));
       if (!appStore.setLanguage(window.localStorage.getItem("locale"))) {
         // config language
         if (!appStore.setLanguage(config.get("defaults.language"))) {
@@ -67,12 +66,15 @@ class Page extends React.Component {
     }
 
     // change url if needed
-    Base.searchChange(this.props.history, { lang: appStore.language }, true);
 
-    document.title = this.props.intl.formatMessage({
-      id: "app:title"
-    });
-    document.documentElement.lang = appStore.language;
+    if (Base.searchGet("lang") !== appStore.language) {
+      Base.searchChange(this.props.history, { lang: appStore.language }, false);
+
+      document.title = this.props.intl.formatMessage({
+        id: "app:title"
+      });
+      document.documentElement.lang = appStore.language;
+    }
   }
 
   componentDidUpdate() {
@@ -107,8 +109,6 @@ class Page extends React.Component {
   }
 
   _didUpdate() {
-    console.log("url changing", this.hash, this.props.location);
-
     // if the actual bulletin is active, change path to /latest
     if (
       this.props.location.pathname === "" ||
@@ -117,7 +117,10 @@ class Page extends React.Component {
       this.props.location.pathname ===
         "/bulletin/" + dateToISODateString(latest())
     ) {
-      this.props.history.push("bulletin/latest");
+      this.props.history.push({
+        pathname: "bulletin/latest",
+        search: document.location.search.substring(1)
+      });
     }
 
     this._setLanguage();

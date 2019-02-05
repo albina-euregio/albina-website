@@ -106,7 +106,10 @@ class Bulletin extends React.Component {
 
     if (!this.props.match.params.date) {
       // update URL if necessary
-      props.history.push("/bulletin/latest");
+      this.props.history.push({
+        pathname: "bulletin/latest",
+        search: document.location.search.substring(1)
+      });
     }
 
     return this.store.load(startDate);
