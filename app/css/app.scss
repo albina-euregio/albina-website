@@ -539,7 +539,6 @@ img {
 /* blog styling from Bernhard */
 
 .blog-post,
-.blog-post a,
 .blog-post span {
   /*
   font-family: "arial", "sans-serif" !important;
@@ -547,9 +546,13 @@ img {
   font-size: 1rem;
   line-height: 1.4;
   */
+  color: #333333 !important;
   word-wrap: break-word;
   text-align: justify;
-  color: #333333 !important;
+}
+.blog-post a {
+  word-wrap: break-word;
+  text-align: justify;
 }
 
 .blog-post {
