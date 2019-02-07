@@ -241,9 +241,9 @@
               </div>
               <!-- Footer -->
               <div class="card-footer">
-                <button *ngIf="!changePasswordLoading" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i>{{
+                <button *ngIf="!saveConfigurationLoading" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i>{{
                   "admin.config.button.save" | translate }}</button>
-                <button *ngIf="changePasswordLoading" type="submit" [disabled]="true" class="btn btn-sm btn-primary px-3" ><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
+                <button *ngIf="saveConfigurationLoading" type="submit" [disabled]="true" class="btn btn-sm btn-primary px-3" ><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
               </div>
             </div>
           </p-tabPanel>
