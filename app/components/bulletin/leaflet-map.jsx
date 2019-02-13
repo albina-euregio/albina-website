@@ -11,11 +11,11 @@ import {
   ScaleControl
 } from "react-leaflet";
 import { injectIntl } from "react-intl";
+import stringInject from "stringinject";
 import BulletinVectorLayer from "./bulletin-vector-layer";
 import { tooltip_init } from "../../js/tooltip";
 import Base from "./../../base";
 import AppStore from "../../appStore";
-
 import { centroid, polygon } from "@turf/turf";
 
 require("./../../util/l.geonames");
@@ -159,7 +159,14 @@ class LeafletMap extends React.Component {
   }
 
   get tileLayers() {
-    const tileLayerConfig = config.get("map.tileLayers");
+    const tileLayerConfig = config.get("map.tileLayers").map((l) => {
+      // handle optional url arguments (all parameters ecxcept x, y and z)
+      l.url = stringInject(l.url, {
+        // append version number to url
+        v: encodeURIComponent(config.get("version"))
+      });
+      return l;
+    });
     let tileLayers = "";
     if (tileLayerConfig.length == 1) {
       // only a single raster layer -> no layer control
