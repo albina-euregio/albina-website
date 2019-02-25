@@ -6,6 +6,11 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
 import { dateToLongDateString, parseDate } from "../../util/date";
+import {
+  replaceInternalLinksProcessor,
+  defaultProcessor,
+  parseRawHtml
+} from "../../util/htmlParser";
 
 /*
  * This component shows the detailed bulletin report including all icons and
@@ -14,6 +19,10 @@ import { dateToLongDateString, parseDate } from "../../util/date";
 class BulletinReport extends React.Component {
   constructor(props) {
     super(props);
+    this.textProcessorInstructions = [
+      replaceInternalLinksProcessor(),
+      defaultProcessor()
+    ];
   }
 
   @computed
@@ -50,7 +59,7 @@ class BulletinReport extends React.Component {
     if (Array.isArray(elem)) {
       const l = elem.find(e => e.languageCode === window["appStore"].language);
       if (l) {
-        return l.text;
+        return parseRawHtml(l.text, this.textProcessorInstructions);
       }
     }
     return "";
