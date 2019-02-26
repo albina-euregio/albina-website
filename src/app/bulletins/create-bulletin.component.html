@@ -300,8 +300,8 @@
                   </div>
 
                   <div class="col-md-12">
-                    <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityHighlightsDe"></textarea>
-                    <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityHighlightsIt"></textarea>
+                    <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsDe | html"></textarea>
+                    <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsIt | html"></textarea>
 
                     <label *ngIf="showTranslationsAvActivityHighlights" (click)="setShowTranslations('avActivityHighlights')"><i class="fa fa-angle-up"></i>{{ "bulletins.create.title.hideTranslations" | translate }}</label>
                     <label *ngIf="!showTranslationsAvActivityHighlights" (click)="setShowTranslations('avActivityHighlights')"><i class="fa fa-angle-down"></i>{{ "bulletins.create.title.showTranslations" | translate }}</label>
@@ -310,22 +310,22 @@
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityHighlightsIt"></textarea>
-                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityHighlightsDe"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsIt | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsDe | html"></textarea>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityHighlightsEn"></textarea>
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsEn | html"></textarea>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityHighlightsFr"></textarea>
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsFr | html"></textarea>
                           </div>
                         </div>
                       </div>
@@ -342,8 +342,8 @@
                   </div>
 
                   <div class="col-md-12">
-                    <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityCommentDe"></textarea>
-                    <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityCommentIt"></textarea>
+                    <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentDe | html"></textarea>
+                    <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentIt | html"></textarea>
 
                     <label *ngIf="showTranslationsAvActivityComment" (click)="setShowTranslations('avActivityComment')"><i class="fa fa-angle-up"></i>{{ "bulletins.create.title.hideTranslations" | translate }}</label>
                     <label *ngIf="!showTranslationsAvActivityComment" (click)="setShowTranslations('avActivityComment')"><i class="fa fa-angle-down"></i>{{ "bulletins.create.title.showTranslations" | translate }}</label>
@@ -352,22 +352,22 @@
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityCommentIt"></textarea>
-                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityCommentDe"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentDe | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentIt | html"></textarea>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityCommentEn"></textarea>
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentEn | html"></textarea>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeAvActivityCommentFr"></textarea>
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentFr | html"></textarea>
                           </div>
                         </div>
                       </div>
@@ -426,8 +426,8 @@
                   </div>
 
                   <div class="col-md-12">
-                    <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentDe"></textarea>
-                    <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentIt"></textarea>
+                    <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentDe | html"></textarea>
+                    <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentIt | html"></textarea>
 
                     <label *ngIf="showTranslationsSnowpackStructureComment" (click)="setShowTranslations('snowpackStructureComment')"><i class="fa fa-angle-up"></i>{{ "bulletins.create.title.hideTranslations" | translate }}</label>
                     <label *ngIf="!showTranslationsSnowpackStructureComment" (click)="setShowTranslations('snowpackStructureComment')"><i class="fa fa-angle-down"></i>{{ "bulletins.create.title.showTranslations" | translate }}</label>
@@ -436,22 +436,22 @@
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentIt"></textarea>
-                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentDe"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentIt | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentDe | html"></textarea>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentEn"></textarea>
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentEn | html"></textarea>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeSnowpackStructureCommentFr"></textarea>
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentFr | html"></textarea>
                           </div>
                         </div>
                       </div>
@@ -503,8 +503,8 @@
                   </div>
 
                   <div class="col-md-12">
-                    <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentDe"></textarea>
-                    <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentIt"></textarea>
+                    <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentDe | html"></textarea>
+                    <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentIt | html"></textarea>
 
                     <label *ngIf="showTranslationsTendencyComment" (click)="setShowTranslations('tendencyComment')"><i class="fa fa-angle-up"></i>{{ "bulletins.create.title.hideTranslations" | translate }}</label>
                     <label *ngIf="!showTranslationsTendencyComment" (click)="setShowTranslations('tendencyComment')"><i class="fa fa-angle-down"></i>{{ "bulletins.create.title.showTranslations" | translate }}</label>
@@ -513,22 +513,22 @@
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentIt"></textarea>
-                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentDe"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentIt | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentDe | html"></textarea>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentEn"></textarea>
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentEn | html"></textarea>
                           </div>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
                           <div class="col-md-12">
-                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [(ngModel)]="activeTendencyCommentFr"></textarea>
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentFr | html"></textarea>
                           </div>
                         </div>
                       </div>
