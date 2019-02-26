@@ -97,6 +97,10 @@ export class ConstantsService {
   public favourableSituationEn = "Currently there are quite favourable conditions generally. Avalanches can still in isolated cases be released by large loads, but they will be small in most cases. This applies especially in extremely steep terrain at transitions from a shallow to a deep snowpack, when entering gullies and bowls for example. Elsewhere, avalanches can scarcely be released.";
   public favourableSituationFr = "Il règne généralement des conditions assez favorables. Des avalanches peuvent encore de manière isolée être déclenchées avec une surcharge importante, mais sont en général plutôt petites. Ceci particulièrement en terrain raide extrême aux transitions entre les endroits peu enneigés et les endroits très enneigés, notamment à l'entrée des combes et des couloirs. Sinon, des avalanches peuvent à peine être déclenchées.";
 
+  public regexLinebreak = "<br\/>";
+  public regexNewline = "\\n";
+  public stringLinebreak = "<br/>";
+  public stringNewline = "\n";
 
   constructor() {
   }

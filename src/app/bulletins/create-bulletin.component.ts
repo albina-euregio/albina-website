@@ -777,33 +777,73 @@ export class CreateBulletinComponent {
 
            this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcat();
            this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
+           if (this.activeAvActivityHighlightsDe)
+             this.activeAvActivityHighlightsDe = this.activeAvActivityHighlightsDe.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
+           if (this.activeAvActivityHighlightsIt)
+             this.activeAvActivityHighlightsIt = this.activeAvActivityHighlightsIt.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeAvActivityHighlightsEn = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.en);
+           if (this.activeAvActivityHighlightsEn)
+             this.activeAvActivityHighlightsEn = this.activeAvActivityHighlightsEn.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeAvActivityHighlightsFr = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.fr);
+           if (this.activeAvActivityHighlightsFr)
+             this.activeAvActivityHighlightsFr = this.activeAvActivityHighlightsFr.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
 
            this.activeAvActivityCommentTextcat = this.activeBulletin.getAvActivityCommentTextcat();
            this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
+           if (this.activeAvActivityCommentDe)
+             this.activeAvActivityCommentDe = this.activeAvActivityCommentDe.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeAvActivityCommentIt = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it);
+           if (this.activeAvActivityCommentIt)
+             this.activeAvActivityCommentIt = this.activeAvActivityCommentIt.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeAvActivityCommentEn = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en);
+           if (this.activeAvActivityCommentEn)
+             this.activeAvActivityCommentEn = this.activeAvActivityCommentEn.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeAvActivityCommentFr = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.fr);
+           if (this.activeAvActivityCommentFr)
+             this.activeAvActivityCommentFr = this.activeAvActivityCommentFr.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
 
            this.activeSnowpackStructureHighlightsTextcat = this.activeBulletin.getSnowpackStructureHighlightsTextcat();
            this.activeSnowpackStructureHighlightsDe = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.de);
+           if (this.activeSnowpackStructureHighlightsDe)
+             this.activeSnowpackStructureHighlightsDe = this.activeSnowpackStructureHighlightsDe.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeSnowpackStructureHighlightsIt = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.it);
+           if (this.activeSnowpackStructureHighlightsIt)
+             this.activeSnowpackStructureHighlightsIt = this.activeSnowpackStructureHighlightsIt.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeSnowpackStructureHighlightsEn = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.en);
+           if (this.activeSnowpackStructureHighlightsEn)
+             this.activeSnowpackStructureHighlightsEn = this.activeSnowpackStructureHighlightsEn.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeSnowpackStructureHighlightsFr = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.fr);
+           if (this.activeSnowpackStructureHighlightsFr)
+             this.activeSnowpackStructureHighlightsFr = this.activeSnowpackStructureHighlightsFr.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
 
            this.activeSnowpackStructureCommentTextcat = this.activeBulletin.getSnowpackStructureCommentTextcat();
            this.activeSnowpackStructureCommentDe = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
+           if (this.activeSnowpackStructureCommentDe)
+             this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeSnowpackStructureCommentIt = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
+           if (this.activeSnowpackStructureCommentIt)
+             this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
+           if (this.activeSnowpackStructureCommentEn)
+             this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeSnowpackStructureCommentFr = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.fr);
+           if (this.activeSnowpackStructureCommentFr)
+             this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
 
            this.activeTendencyCommentTextcat = this.activeBulletin.getTendencyCommentTextcat();
            this.activeTendencyCommentDe = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.de);
+           if (this.activeTendencyCommentDe)
+             this.activeTendencyCommentDe = this.activeTendencyCommentDe.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeTendencyCommentIt = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.it);
+           if (this.activeTendencyCommentIt)
+             this.activeTendencyCommentIt = this.activeTendencyCommentIt.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeTendencyCommentEn = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.en);
+           if (this.activeTendencyCommentEn)
+             this.activeTendencyCommentEn = this.activeTendencyCommentEn.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
            this.activeTendencyCommentFr = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.fr);
+           if (this.activeTendencyCommentFr)
+             this.activeTendencyCommentFr = this.activeTendencyCommentFr.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
 
           this.mapService.selectAggregatedRegion(this.activeBulletin);
       }
@@ -915,34 +955,98 @@ export class CreateBulletinComponent {
 private setTexts() {
     if (this.activeBulletin) {
       this.activeBulletin.setAvActivityHighlightsTextcat(this.activeAvActivityHighlightsTextcat);
-      this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
-      this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
-      this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
-      this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsFr, Enums.LanguageCode.fr);
+      if (this.activeAvActivityHighlightsDe)
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.de);
+      else
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
+      if (this.activeAvActivityHighlightsIt)
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.it);
+      else
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
+      if (this.activeAvActivityHighlightsEn)
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.en);
+      else
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
+      if (this.activeAvActivityHighlightsFr)
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsFr.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.fr);
+      else
+        this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsFr, Enums.LanguageCode.fr);
+
 
       this.activeBulletin.setAvActivityCommentTextcat(this.activeAvActivityCommentTextcat);
-      this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
-      this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentIt, Enums.LanguageCode.it);
-      this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEn, Enums.LanguageCode.en);
-      this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentFr, Enums.LanguageCode.fr);
+      if (this.activeAvActivityCommentDe)
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.de);
+      else
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
+      if (this.activeAvActivityCommentIt)
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentIt.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.it);
+      else
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentIt, Enums.LanguageCode.it);
+      if (this.activeAvActivityCommentEn)
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEn.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.en);
+      else
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEn, Enums.LanguageCode.en);
+      if (this.activeAvActivityCommentFr)
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentFr.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.fr);
+      else
+        this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentFr, Enums.LanguageCode.fr);
 
       this.activeBulletin.setSnowpackStructureHighlightsTextcat(this.activeSnowpackStructureHighlightsTextcat);
-      this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
-      this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsIt, Enums.LanguageCode.it);
-      this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEn, Enums.LanguageCode.en);
-      this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsFr, Enums.LanguageCode.fr);
+      if (this.activeSnowpackStructureHighlightsDe)
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.de);
+      else
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
+      if (this.activeSnowpackStructureHighlightsIt)
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsIt.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.it);
+      else
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsIt, Enums.LanguageCode.it);
+      if (this.activeSnowpackStructureHighlightsEn)
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEn.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.en);
+      else
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEn, Enums.LanguageCode.en);
+      if (this.activeSnowpackStructureHighlightsFr)
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsFr.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.fr);
+      else
+        this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsFr, Enums.LanguageCode.fr);
+
 
       this.activeBulletin.setSnowpackStructureCommentTextcat(this.activeSnowpackStructureCommentTextcat);
-      this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
-      this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt, Enums.LanguageCode.it);
-      this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEn, Enums.LanguageCode.en);
-      this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentFr, Enums.LanguageCode.fr);
+      if (this.activeSnowpackStructureCommentDe)
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.de);
+      else
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
+      if (this.activeSnowpackStructureCommentIt)
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.it);
+      else
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt, Enums.LanguageCode.it);
+      if (this.activeSnowpackStructureCommentEn)
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEn.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.en);
+      else
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEn, Enums.LanguageCode.en);
+      if (this.activeSnowpackStructureCommentFr)
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentFr.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.fr);
+      else
+        this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentFr, Enums.LanguageCode.fr);
+
 
       this.activeBulletin.setTendencyCommentTextcat(this.activeTendencyCommentTextcat);
-      this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentDe, Enums.LanguageCode.de);
-      this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentIt, Enums.LanguageCode.it);
-      this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentEn, Enums.LanguageCode.en);
-      this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentFr, Enums.LanguageCode.fr);
+      if (this.activeTendencyCommentDe)
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentDe.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.de);
+      else
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentDe, Enums.LanguageCode.de);
+      if (this.activeTendencyCommentIt)
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentIt.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.it);
+      else
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentIt, Enums.LanguageCode.it);
+      if (this.activeTendencyCommentEn)
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentEn.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.en);
+      else
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentEn, Enums.LanguageCode.en);
+      if (this.activeTendencyCommentFr)
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentFr.replace(this.constantsService.regexNewline, this.constantsService.stringLinebreak), Enums.LanguageCode.fr);
+      else
+        this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentFr, Enums.LanguageCode.fr);
+
     }
   }
 
@@ -1255,31 +1359,31 @@ private setTexts() {
     switch (field) {
       case "avActivityHighlights":
         this.activeAvActivityHighlightsTextcat = this.copyService.getTextTextcat();
-        this.activeAvActivityHighlightsDe = this.copyService.getTextDe();
-        this.activeAvActivityHighlightsIt = this.copyService.getTextIt();
-        this.activeAvActivityHighlightsEn = this.copyService.getTextEn();
-        this.activeAvActivityHighlightsFr = this.copyService.getTextFr();
+        this.activeAvActivityHighlightsDe = this.copyService.getTextDe().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeAvActivityHighlightsIt = this.copyService.getTextIt().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeAvActivityHighlightsEn = this.copyService.getTextEn().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeAvActivityHighlightsFr = this.copyService.getTextFr().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
         break;
       case "avActivityComment":
         this.activeAvActivityCommentTextcat = this.copyService.getTextTextcat();
-        this.activeAvActivityCommentDe = this.copyService.getTextDe();
-        this.activeAvActivityCommentIt = this.copyService.getTextIt();
-        this.activeAvActivityCommentEn = this.copyService.getTextEn();
-        this.activeAvActivityCommentFr = this.copyService.getTextFr();
+        this.activeAvActivityCommentDe = this.copyService.getTextDe().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeAvActivityCommentIt = this.copyService.getTextIt().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeAvActivityCommentEn = this.copyService.getTextEn().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeAvActivityCommentFr = this.copyService.getTextFr().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
         break;
       case "snowpackStructureComment":
         this.activeSnowpackStructureCommentTextcat = this.copyService.getTextTextcat();
-        this.activeSnowpackStructureCommentDe = this.copyService.getTextDe();
-        this.activeSnowpackStructureCommentIt = this.copyService.getTextIt();
-        this.activeSnowpackStructureCommentEn = this.copyService.getTextEn();
-        this.activeSnowpackStructureCommentFr = this.copyService.getTextFr();
+        this.activeSnowpackStructureCommentDe = this.copyService.getTextDe().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeSnowpackStructureCommentIt = this.copyService.getTextIt().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeSnowpackStructureCommentEn = this.copyService.getTextEn().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeSnowpackStructureCommentFr = this.copyService.getTextFr().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
         break;
       case "tendencyComment":
         this.activeTendencyCommentTextcat = this.copyService.getTextTextcat();
-        this.activeTendencyCommentDe = this.copyService.getTextDe();
-        this.activeTendencyCommentIt = this.copyService.getTextIt();
-        this.activeTendencyCommentEn = this.copyService.getTextEn();
-        this.activeTendencyCommentFr = this.copyService.getTextFr();
+        this.activeTendencyCommentDe = this.copyService.getTextDe().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeTendencyCommentIt = this.copyService.getTextIt().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeTendencyCommentEn = this.copyService.getTextEn().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this.activeTendencyCommentFr = this.copyService.getTextFr().replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
         break;
       default:
         break;
@@ -1300,10 +1404,10 @@ private setTexts() {
         this[pmData.textField+'Fr'] = undefined;
       } else {
         this[pmData.textField + 'Textcat'] = pmData.textDef;
-        this[pmData.textField+'It'] = pmData.textIt;
-        this[pmData.textField+'De'] = pmData.textDe;
-        this[pmData.textField+'En'] = pmData.textEn;
-        this[pmData.textField+'Fr'] = pmData.textFr;
+        this[pmData.textField+'It'] = pmData.textIt.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this[pmData.textField+'De'] = pmData.textDe.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this[pmData.textField+'En'] = pmData.textEn.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
+        this[pmData.textField+'Fr'] = pmData.textFr.replace(this.constantsService.regexLinebreak, this.constantsService.stringNewline);
       }
       this.setTexts();
       this.hideDialog();
