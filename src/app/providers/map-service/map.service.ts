@@ -31,7 +31,7 @@ export class MapService {
         private constantsService: ConstantsService)
     {
         this.baseMaps = {
-            AlbinaBaseMap: L.tileLayer('https://data1.geo.univie.ac.at/TMS/ALBINA/EUREGIO-TMS/{z}/{x}/{y}.png', {
+            AlbinaBaseMap: L.tileLayer('https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png', {
                 tms: true,
                 reuseTiles: true, 
                 unloadInvisibleTiles: true,
@@ -42,7 +42,7 @@ export class MapService {
         };
 
         this.afternoonBaseMaps = {
-            AlbinaBaseMap: L.tileLayer('https://data1.geo.univie.ac.at/TMS/ALBINA/EUREGIO-TMS/{z}/{x}/{y}.png', {
+            AlbinaBaseMap: L.tileLayer('https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png', {
                 tms: true,
                 reuseTiles: true, 
                 unloadInvisibleTiles: true,
