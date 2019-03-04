@@ -39,7 +39,6 @@ class BulletinStatusLine extends React.Component {
         time: dateToTimeString(pubDate)
       };
 
-      console.log("date", pubDate);
       if (this.message === "republished") {
         return this.props.intl.formatMessage(
           { id: "bulletin:header:updated-at" },

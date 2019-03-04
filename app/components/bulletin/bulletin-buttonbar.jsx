@@ -10,8 +10,6 @@ class BulletinButtonbar extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log("buttonbar updated");
-
     modal_init();
   }
 
