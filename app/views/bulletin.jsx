@@ -30,7 +30,6 @@ class Bulletin extends React.Component {
   constructor(props) {
     super(props);
     if (typeof window.bulletinStore === "undefined") {
-      console.log("BULLETIN");
       window.bulletinStore = new BulletinStore();
     }
     this.store = window.bulletinStore;
@@ -107,7 +106,7 @@ class Bulletin extends React.Component {
     if (!this.props.match.params.date) {
       // update URL if necessary
       this.props.history.push({
-        pathname: "bulletin/latest",
+        pathname: "/bulletin/latest",
         search: document.location.search.substring(1)
       });
     }

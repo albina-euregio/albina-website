@@ -118,7 +118,7 @@ class Page extends React.Component {
         "/bulletin/" + dateToISODateString(latest())
     ) {
       this.props.history.push({
-        pathname: "bulletin/latest",
+        pathname: "/bulletin/latest",
         search: document.location.search.substring(1)
       });
     }

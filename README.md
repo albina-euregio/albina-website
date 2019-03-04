@@ -5,10 +5,10 @@ Use `npm install` to download necessary packages.
 
 Use `npm start` and browse to http://localhost:8080/ to use webpack's dev server.
 
-Use `npm run deploy` to create a (minified) production build.
+Use `npm run build` to create a (minified) production build.
 
 ## Deployment
-After running the `deploy` target, copy the contents of your dist directory to
+After running the `build` target, copy the contents of your dist directory to
 a location on your webserver. If the location is not the webserver's root,
 please adjust the `--output-public-path` option in the `scripts.deploy` settings
 of `package.json` before running the deploy target.
