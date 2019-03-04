@@ -22,7 +22,8 @@ import { configure } from "../../node_modules/mobx/lib/mobx";
 import {
   dateToDateString,
   dateToTimeString,
-  todayIsTomorrow
+  todayIsTomorrow,
+  latest
 } from "../util/date.js";
 
 @observer
@@ -75,6 +76,11 @@ class Bulletin extends React.Component {
       const newDate = this.props.match.params.date;
       if (newDate && newDate != this.store.settings.date) {
         this._fetchData(this.props);
+      } else {
+        const l = dateToISODateString(latest());
+        if(l != this.store.settings.date) {
+          this._fetchData(this.props);          
+        }
       }
     }
     this.checkRegion();
