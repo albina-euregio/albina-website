@@ -68,7 +68,7 @@ class Page extends React.Component {
     // change url if needed
 
     if (Base.searchGet("lang") !== appStore.language) {
-      Base.searchChange(this.props.history, { lang: appStore.language }, false);
+      Base.searchChange(this.props.history, { lang: appStore.language }, true);
 
       document.title = this.props.intl.formatMessage({
         id: "app:title"
