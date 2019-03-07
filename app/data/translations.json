@@ -966,9 +966,9 @@
     "it": "dichiarazione di consenso​"
   },
   "dialog:subscribe-email:status:loading": {
-    "en": "<strong>Please stand by:</strong> Subscription in progress \\u2026",
-    "de": "<strong>Bitte warten:</strong> Anmeldung in Arbeit \\u2026",
-    "it": "<strong>Si prega di attendere:</strong> Iscrizione in corso \\u2026"
+    "en": "<strong>Please stand by:</strong> Subscription in progress \u2026",
+    "de": "<strong>Bitte warten:</strong> Anmeldung in Arbeit \u2026",
+    "it": "<strong>Si prega di attendere:</strong> Iscrizione in corso \u2026"
   },
   "dialog:subscribe-email:status:subscribed": {
     "en": "<strong>Oh:</strong> You are already subscribed with this email adress",
