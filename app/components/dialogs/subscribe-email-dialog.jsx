@@ -1,5 +1,5 @@
 import React from "react";
-import { inject } from "mobx-react";
+import { inject, observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Link } from "react-router-dom";
 
@@ -9,14 +9,29 @@ import Base from "../../base";
 class SubscribeEmailDialog extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      email: "",
+    this.state = {};
+  }
+
+  resetState() {
+    this.setState({
+      email: '',
       language: window["appStore"].language,
       region: false,
-      status: "",
-      errorMessage: "",
+      status: '',
+      errorMessage: '',
       agree: false
-    };
+    });
+  }
+
+  componentDidMount() {
+    this.resetState();
+  }
+
+  componentDidUpdate(prevProps) {
+    // reset on dialog close after form has been submitted
+    if(this.state.status !== '' && !window['modalStateStore'].isOpen) {
+      this.resetState();
+    }
   }
 
   handleChangeEmail = e => {
@@ -31,7 +46,7 @@ class SubscribeEmailDialog extends React.Component {
   };
 
   handleChangeAgree = e => {
-    this.setState({ agree: !this.state.agree });
+    this.setState({agree: e.target.checked});
   };
 
   handleChangeLanguage = e => {
@@ -78,8 +93,10 @@ class SubscribeEmailDialog extends React.Component {
   }
 
   render() {
+    // add a dummy class to react to close events
+    const isOpen = window['modalStateStore'].isOpen ? '' : ' closed';
     return (
-      <div className="modal-subscribe">
+      <div className={"modal-subscribe " + isOpen}>
         <div className="modal-header">
           <h2 className="subheader">
             <FormattedHTMLMessage id="dialog:subscribe-email:header" />
@@ -100,7 +117,7 @@ class SubscribeEmailDialog extends React.Component {
           </p>
         </div>
 
-        {!this.state.status && (
+        {!(this.state.status) && (
           <form
             className="pure-form pure-form-stacked"
             onSubmit={this.handleSubmit}
@@ -174,7 +191,7 @@ class SubscribeEmailDialog extends React.Component {
                   id="agree"
                   type="checkbox"
                   onChange={e => this.handleChangeAgree(e)}
-                  checked={this.state.agree}
+                  checked={!!this.state.agree}
                 />
                 {this.props.intl.formatMessage({
                   id: "dialog:subscribe-email:subscribe:agree-before-link"
@@ -234,4 +251,4 @@ class SubscribeEmailDialog extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(SubscribeEmailDialog));
+export default inject("locale")(injectIntl(observer(SubscribeEmailDialog)));
