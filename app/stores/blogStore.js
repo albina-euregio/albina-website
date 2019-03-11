@@ -82,7 +82,7 @@ export default class BlogStore {
   validateYear(valueToValidate) {
     const parsed = parseInt(valueToValidate);
     if (parsed) {
-      return Base.clamp(parsed, config.get("archive.minYear"), 2018);
+      return Base.clamp(parsed, config.get("archive.minYear"), (new Date()).getFullYear());
     } else {
       return "";
     }
