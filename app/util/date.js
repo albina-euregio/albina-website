@@ -37,15 +37,26 @@ function getPredDate(date) {
 function getSuccDate(date) {
   let timeValue = date.valueOf();
 
-  // summer time switch
-  if (timeValue > 1540677000000) {
-    timeValue += 1000 * 60 * 60;
-  }
-
   if (date) {
     return new Date(timeValue + 1000 * 60 * 60 * 24);
   }
   return null;
+}
+
+function isSummerTime(date) {
+  // NOTE: getTimezoneOffset gives negative values for timezones east of GMT!
+  const summerTimeOffset = () => {
+    const jan = new Date(date.getFullYear(), 0, 1);
+    const jul = new Date(date.getFullYear(), 6, 1);
+    return Math.max(-jan.getTimezoneOffset(), -jul.getTimezoneOffset());
+  };
+
+  return (- date.getTimezoneOffset()) >= summerTimeOffset();
+}
+
+function getLocalDate(date) {
+  let offsetH = isSummerTime(date) ? 2 : 1;
+  return new Date(date.valueOf() + (offsetH * 60 * 60 * 1000));
 }
 
 function dateToDateString(date) {
@@ -167,6 +178,8 @@ export {
   getSuccDate,
   isSameDay,
   isAfter,
+  isSummerTime,
+  getLocalDate,
   dateToDateString,
   dateToTimeString,
   dateToDateTimeString,

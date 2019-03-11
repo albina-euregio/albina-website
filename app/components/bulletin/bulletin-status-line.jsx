@@ -2,7 +2,7 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { computed } from "mobx";
 import { injectIntl } from "react-intl";
-import { dateToDateString, dateToTimeString } from "../../util/date.js";
+import { dateToDateString, dateToTimeString, getLocalDate } from "../../util/date.js";
 
 class BulletinStatusLine extends React.Component {
   constructor(props) {
@@ -26,14 +26,10 @@ class BulletinStatusLine extends React.Component {
     }
 
     if (this.props.status == "ok") {
-      const pubDate = collection.publicationDate;
-
-      /* adding one hour to be in central European time */
-      pubDate.setHours(pubDate.getHours() + 1);
+      const pubDate = getLocalDate(collection.publicationDate);
 
       // There must be a status entry for each downloaded bulletin. Query its
       // original status message.
-
       const params = {
         date: dateToDateString(pubDate),
         time: dateToTimeString(pubDate)

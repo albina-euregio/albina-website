@@ -5,7 +5,8 @@ import {
   getPredDate,
   getSuccDate,
   dateToISODateString,
-  getDaysOfMonth
+  getDaysOfMonth,
+  isSummerTime
 } from "../util/date.js";
 
 export default class ArchiveStore {
@@ -165,15 +166,8 @@ export default class ArchiveStore {
 
     this.loading = true;
 
-    // summer time switcher
-    const localTime =
-      new Date(startDate).valueOf() >= 1540677500000
-        ? "T23:00:00Z"
-        : "T22:00:00Z";
-
-    // zulu time
-    const timeFormatStart = localTime; // 'T00:00:00+02:00'
-    const timeFormatEnd = localTime; // 'T00:00:00+02:00'
+    const timeFormatStart = isSummerTime(new Date(startDate)) ? "T22:00:00Z" : "T23:00:00Z";
+    const timeFormatEnd = isSummerTime(new Date(endDate)) ? "T22:00:00Z" : "T23:00:00Z";
 
     const prevDay = date => dateToISODateString(getPredDate(parseDate(date)));
 
