@@ -1,9 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Parser } from 'html-to-react';
+import { observer } from 'mobx-react';
+import StationDataStore from '../stores/stationDataStore';
 import Base from '../base';
 import PageHeadline from '../components/organisms/page-headline';
 import SmShare from '../components/organisms/sm-share';
+import StationTable from '../components/stationTable/stationTable';
 
 class StationMeasurements extends React.Component {
   constructor(props) {
@@ -14,9 +17,14 @@ class StationMeasurements extends React.Component {
       content: '',
       sharable: false
     }
+
+    if(!window['stationDataStore']) {
+      window['stationDataStore'] = new StationDataStore();
+    }
   }
 
   componentDidMount() {
+    window['stationDataStore'].load();
     window['staticPageStore'].loadPage('weather/measurements').then((response) => {
       // parse content
       const responseParsed = JSON.parse(response);
@@ -39,9 +47,7 @@ class StationMeasurements extends React.Component {
         <PageHeadline title={this.state.title} marginal={this.state.headerText} />
         <section className="section">
           <div className="table-container">
-            <iframe id="stationTable" src={url}>
-              <p>Your browser does not support iframes.</p>
-            </iframe>
+            <StationTable data={window['stationDataStore'].data} />
           </div>
         </section>
         <div>
@@ -54,4 +60,4 @@ class StationMeasurements extends React.Component {
     );
   }
 }
-export default withRouter(StationMeasurements);
+export default withRouter(observer(StationMeasurements));
