@@ -750,6 +750,66 @@
     "de": "Bundesland / Provinz",
     "it": "Stato / Provincia"
   },
+  "measurements:table:header:name": {
+    "en": "Station",
+    "de": "Station",
+    "it": "Stazioni"
+  },
+  "measurements:table:header:elev": {
+    "en": "Elevation",
+    "de": "Seehöhe",
+    "it": "Elevazione"
+  },
+  "measurements:table:header:snow": {
+    "en": "Snowheight",
+    "de": "Schneehöhe",
+    "it": "Altezza Neve"
+  },
+  "measurements:table:header:snow24": {
+    "en": "24h Snowheight Difference",
+    "de": "24h Differenz Schneehöhe",
+    "it": "24h Altezza Neve Differenza"
+  },
+  "measurements:table:header:snow48": {
+    "en": "48h Snowheight Difference",
+    "de": "48h Differenz Schneehöhe",
+    "it": "48h Altezza Neve Differenza"
+  },
+  "measurements:table:header:snow72": {
+    "en": "72h Snowheight Difference",
+    "de": "72h Differenz Schneehöhe",
+    "it": "72h Altezza Neve Differenza"
+  },
+  "measurements:table:header:temp": {
+    "en": "Temperature now",
+    "de": "Temperatur now",
+    "it": "Temperatura now"
+  },
+  "measurements:table:header:temp_max": {
+    "en": "Temperature max",
+    "de": "Temperatur max",
+    "it": "Temperatura max"
+  },
+  "measurements:table:header:temp_min": {
+    "en": "Temperature min",
+    "de": "Temperatur min",
+    "it": "Temperatura min"
+  },
+  "measurements:table:header:wdir": {
+    "en": "Wind Direction",
+    "de": "Wind Richtung",
+    "it": "Vento Direzione"
+  },
+  "measurements:table:header:wspd": {
+    "en": "Wind Speed",
+    "de": "Wind Geschw.",
+    "it": "Vento"
+  },
+  "measurements:table:header:wgus": {
+    "en": "Wind Gust",
+    "de": "Wind Böe",
+    "it": "Ventata"
+  },
 
   "dialog:download-pdf:heading": {
     "en": "download PDF",
