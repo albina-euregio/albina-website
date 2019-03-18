@@ -45,13 +45,13 @@ function getSuccDate(date) {
 
 function isSummerTime(date) {
   // NOTE: getTimezoneOffset gives negative values for timezones east of GMT!
-  const summerTimeOffset = () => {
+  const summerTimeOffset = (() => {
     const jan = new Date(date.getFullYear(), 0, 1);
     const jul = new Date(date.getFullYear(), 6, 1);
-    return Math.max(-jan.getTimezoneOffset(), -jul.getTimezoneOffset());
-  };
+    return -Math.min(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+  })();
 
-  return (- date.getTimezoneOffset()) >= summerTimeOffset();
+  return (-date.getTimezoneOffset()) >= summerTimeOffset;
 }
 
 function getLocalDate(date) {

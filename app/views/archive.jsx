@@ -66,23 +66,24 @@ class Archive extends React.Component {
       // TODO: take filter values from store
 
       const startDate = this.store.startDate ? this.store.startDate : "";
-
       const endDate = this.store.endDate ? this.store.endDate : "";
 
       const test = date => {
         return this.store.getStatus(dateToISODateString(date)) == "ok";
       };
 
-      var d = startDate;
-      const dates = [startDate];
-      while (d < endDate) {
-        d = getSuccDate(d);
-        dates.push(d);
-      }
+      if(startDate && endDate) {
+        var d = startDate;
+        const dates = [startDate];
+        while (d < endDate) {
+          d = getSuccDate(d);
+          dates.push(d);
+        }
 
-      return dates
-        .filter(d => test(d))
-        .slice(0, window["config"].get("archive.maxResults"));
+        return dates
+          .filter(d => test(d))
+          .slice(0, window["config"].get("archive.maxResults"));
+      }
     }
     return [];
   }
@@ -126,7 +127,7 @@ class Archive extends React.Component {
           )}
 
           {/*
-              #742 Hide filter parameters in archive  
+              #742 Hide filter parameters in archive
             */
           false && (
             <DayFilter

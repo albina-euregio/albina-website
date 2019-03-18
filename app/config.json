@@ -304,7 +304,7 @@
 
   "archive": {
     "minYear": 2016,
-    "maxResults": 30
+    "maxResults": 31
   },
   "defaults": {
     "language": "auto",
