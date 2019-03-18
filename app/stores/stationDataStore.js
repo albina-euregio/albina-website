@@ -3,9 +3,13 @@ import Base from '../base';
 
 export default class StationDataStore {
   @observable data;
+  @observable regionActive;
+  @observable searchText;
 
   constructor() {
     this.data = [];
+    this.regionActive = "all";
+    this.searchText = "";
   }
 
   @action

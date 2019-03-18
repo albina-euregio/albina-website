@@ -24,7 +24,13 @@ export default class StationTable extends React.Component {
           data:	"name",
 					width: "150px",
 					render:	(data, type, full, meta) =>
-						"<div class='meta'><strong>"+full.name+"</strong>" + " " +  "<span class='region'>"+appStore.getRegionName(full.region)+"</span>" + " " + "<span class='date'>"+full.date+"</span></div>",
+						"<div class='meta'><strong>"
+             + full.name
+             + "</strong> <span class='region'>"
+             + appStore.getRegionName(full.region)
+             + "</span> <span class='date'>"
+             + full.date
+             + "</span></div>",
 					orderable: false,
 					bSortable: false,
 					className: "meta"

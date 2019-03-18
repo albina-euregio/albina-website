@@ -740,6 +740,17 @@
     "it": "Nessun contenuto trovato, si prega di scegliere diversi filtri."
   },
 
+  "measurements:search": {
+    "en": "Search for station",
+    "de": "Station Suchen",
+    "it": "Cercare Stazioni"
+  },
+  "measurements:filter:province": {
+    "en": "State / Province",
+    "de": "Bundesland / Provinz",
+    "it": "Stato / Provincia"
+  },
+
   "dialog:download-pdf:heading": {
     "en": "download PDF",
     "de": "PDF herunterladen",

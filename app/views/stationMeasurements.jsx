@@ -1,10 +1,13 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Parser } from 'html-to-react';
-import { observer } from 'mobx-react';
-import StationDataStore from '../stores/stationDataStore';
+import { observer, inject } from 'mobx-react';
+import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import Base from '../base';
+import StationDataStore from '../stores/stationDataStore';
 import PageHeadline from '../components/organisms/page-headline';
+import FilterBar from "../components/organisms/filter-bar";
+import ProvinceFilter from "../components/filters/province-filter";
 import SmShare from '../components/organisms/sm-share';
 import StationTable from '../components/stationTable/stationTable';
 
@@ -21,10 +24,11 @@ class StationMeasurements extends React.Component {
     if(!window['stationDataStore']) {
       window['stationDataStore'] = new StationDataStore();
     }
+    this.store = window['stationDataStore'];
   }
 
   componentDidMount() {
-    window['stationDataStore'].load();
+    this.store.load();
     window['staticPageStore'].loadPage('weather/measurements').then((response) => {
       // parse content
       const responseParsed = JSON.parse(response);
@@ -37,17 +41,40 @@ class StationMeasurements extends React.Component {
     });
   }
 
+  handleChangeSearch() {
+
+  }
+
+  handleChangeRegion() {
+
+  }
+
   render() {
-    const params = {
-      lang: window['appStore'].language
-    };
-    const url = Base.makeUrl(config.get('links.stationTable'), params);
+    const classChanged = "selectric-changed";
     return (
       <div>
         <PageHeadline title={this.state.title} marginal={this.state.headerText} />
+        <FilterBar
+          search={true}
+          searchTitle={this.props.intl.formatMessage({
+            id: "measurements:search"
+          })}
+          searchOnChange={this.handleChangeSearch}
+          searchValue={this.store.searchText} >
+
+          <ProvinceFilter
+            title={this.props.intl.formatMessage({
+              id: "measurements:filter:province"
+            })}
+            all={this.props.intl.formatMessage({ id: "filter:all" })}
+            handleChange={this.handleChangeRegion}
+            value={this.store.regionActive}
+            className={this.store.regionActive !== "all" ? classChanged : ""}
+          />
+        </FilterBar>
         <section className="section">
           <div className="table-container">
-            <StationTable data={window['stationDataStore'].data} />
+            <StationTable data={this.store.data} />
           </div>
         </section>
         <div>
@@ -60,4 +87,4 @@ class StationMeasurements extends React.Component {
     );
   }
 }
-export default withRouter(observer(StationMeasurements));
+export default inject("locale")(injectIntl(withRouter(observer(StationMeasurements))));
