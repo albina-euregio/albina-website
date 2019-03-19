@@ -30,7 +30,7 @@ export default class StationDataStore {
       'trentino': 'IT-32-TN'
     };
     return Base.doRequest(config.get('apis.stations')).then((rawData) => {
-      const data = JSON.parse(rawData).features;
+      const data = JSON.parse(rawData).features.filter((el) => el.properties.date);
 
       // default ordering
       data.sort((a, b) => {
