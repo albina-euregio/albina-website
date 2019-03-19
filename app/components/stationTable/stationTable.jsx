@@ -13,14 +13,6 @@ export default class StationTable extends React.Component {
 
     this.columns = [
 				{
-          data: "region",
-					visible: false
-        },
-				{
-          data: "name",
-					visible: false
-        },
-				{
           data:	"name",
 					width: "150px",
 					render:	(data, type, full, meta) =>
@@ -105,7 +97,6 @@ export default class StationTable extends React.Component {
 			fixedColumns: {
 				heightMatch:'none'
 			},
-      order: [[ 0, 'asc' ],[1,'asc']],
       data: this.props.data,
       columns: this.columns,
       ordering: false
