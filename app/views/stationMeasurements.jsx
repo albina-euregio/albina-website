@@ -115,7 +115,7 @@ class StationMeasurements extends React.Component {
             <StationTable
               data={this.store.data}
               activeData={this.store.activeData}
-              activeRegion={this.store.activeRegion}
+              activeRegions={this.store.activeRegion}
               sortValue={this.store.sortVale}
               sortDir={this.store.sortDir}
               header=

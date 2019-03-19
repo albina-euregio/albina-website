@@ -1,9 +1,9 @@
-import { observable, action } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import Base from '../base';
 
 export default class StationDataStore {
   @observable data;
-  @observable activeRegion;
+  @observable _activeRegions;
   @observable searchText;
   @observable activeData;
   @observable sortValue;
@@ -11,7 +11,15 @@ export default class StationDataStore {
 
   constructor() {
     this.data = [];
-    this.activeRegion = "all";
+
+    this._activeRegions = (() => {
+      let regions = {};
+      Object.keys(window.appStore.regions).forEach((r) => {
+        regions[r] = true;
+      });
+      return regions;
+    })();
+
     this.searchText = "";
     this.activeData = {
       "snow": true,
@@ -20,6 +28,23 @@ export default class StationDataStore {
     }
     this.sortValue = null;
     this.sortDir = null
+  }
+
+  @computed get activeRegion() {
+    const actives = Object.keys(this._activeRegions)
+      .filter((e) => this._activeRegions[e]);
+
+    const a = (actives.length > 0 && actives.length < Object.keys(this._activeRegions).length) ? actives[0] : 'all';
+    return a;
+  }
+
+  set activeRegion(el) {
+    // activate all if undefined or null is given
+    const newActive = el ? [el] : Object.keys(this._activeRegions);
+
+    Object.keys(this._activeRegions).forEach(e => {
+      this._activeRegions[e] = (newActive.indexOf(e) >= 0);
+    });
   }
 
   @action
