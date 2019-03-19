@@ -775,6 +775,16 @@
     "de": "Wind",
     "it": "Vento"
   },
+  "measurements:filter:hide:active:hover": {
+    "en": "Hide",
+    "de": "Ausblenden",
+    "it": "Hide"
+  },
+  "measurements:filter:hide:inactive:hover": {
+    "en": "Show",
+    "de": "Einblenden",
+    "it": "Show"
+  },
   "measurements:table:sort-asc": {
     "en": "Sort ascending",
     "de": "Aufsteigend sortieren",

@@ -15,7 +15,11 @@ export default class HideFilter extends React.Component {
     }
 
     return (
-      <a className={classes.join(' ')} href="#">{this.props.title}</a>
+      <a className={classes.join(' ')}
+        href="#"
+        title={this.props.tooltip}
+        onClick={this.props.onToggle(this.props.id)}
+        >{this.props.title}</a>
     )
   }
 }

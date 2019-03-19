@@ -44,16 +44,29 @@ class StationMeasurements extends React.Component {
     });
   }
 
-  handleChangeSearch() {
+  handleChangeSearch = (val) => {
 
-  }
+  };
 
-  handleChangeRegion() {
+  handleToggleHide = (val) => {
 
-  }
+  };
+
+  handleChangeRegion = (val) => {
+
+  };
+
+  handleSort = (id, dir) => {
+
+  };
 
   render() {
     const classChanged = "selectric-changed";
+    const hideFilters = [
+      "snow",
+      "temp",
+      "wind"
+    ];
     return (
       <div>
         <PageHeadline title={this.state.title} marginal={this.state.headerText} />
@@ -78,21 +91,22 @@ class StationMeasurements extends React.Component {
             title={this.props.intl.formatMessage({
               id: "measurements:filter:hide"
             })} >
-            <HideFilter
-              title={this.props.intl.formatMessage({
-                id: "measurements:filter:hide:snow"
-              })}
-              active={true} />
-            <HideFilter
-              title={this.props.intl.formatMessage({
-                id: "measurements:filter:hide:temp"
-              })}
-              active={true} />
-            <HideFilter
-              title={this.props.intl.formatMessage({
-                id: "measurements:filter:hide:wind"
-              })}
-              active={true} />
+            {
+              hideFilters.map((e) => (
+                <HideFilter
+                  key={e}
+                  id={e}
+                  title={this.props.intl.formatMessage({
+                    id: "measurements:filter:hide:" + e
+                  })}
+                  tooltip={this.props.intl.formatMessage({
+                    // TODO: show inactive tooltip when item is deselected
+                    id: "measurements:filter:hide:active:hover"
+                  })}
+                  active={true}
+                  onToggle={this.handleToggleHide} />
+              ))
+            }
           </HideGroupFilter>
         </FilterBar>
         <section className="section">

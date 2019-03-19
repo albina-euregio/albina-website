@@ -22,21 +22,23 @@ class StationTableHeader extends React.Component {
       {id: 'wspd', cl: 'mb-wind m-windspeed', unit: true, sort: true},
       {id: 'wgus', cl: 'mb-wind m-windmax', unit: true, sort: true}
     ];
+
     headerConfig.forEach((el) => {
+      // add titles
       el.title=this.props.intl.formatMessage({
         id: 'measurements:table:header:' + el.id
       })
     });
+
     return headerConfig;
   }
 
   render() {
-    const headers = this.headers;
     return (
       <thead>
         <tr>
           {
-            headers.map((el, i) => {(
+            this.headers.map((el, i) => {(
               <th key={i}>
                 {el.title}
                 {el.unit && <span className="measure"></span>}
@@ -46,12 +48,16 @@ class StationTableHeader extends React.Component {
                       className="sort-ascending icon-up-open tooltip"
                       title={this.props.intl.formatMessage({
                         id: "measurements:table:sort-asc"
-                      })} />
+                      })}
+                      onClick={this.props.handleSort(el.id, 'asc')}
+                      />
                     <a href="#"
                       className="sort-descending icon-down-open tooltip"
                       title={this.props.intl.formatMessage({
                         id: "measurements:table:sort-desc"
-                      })} />
+                      })}
+                      onClick={this.props.handleSort(el.id, 'desc')}
+                      />
                   </span>
                 }
               </th>
