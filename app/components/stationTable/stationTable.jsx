@@ -99,6 +99,8 @@ export default class StationTable extends React.Component {
           columnNumbers: [9,10,11]
         }
       };
+
+      this.regionFilter = null;
   }
 
   componentDidMount() {
@@ -144,18 +146,18 @@ export default class StationTable extends React.Component {
   shouldComponentUpdate(nextProps) {
     return this.props.data.length != nextProps.data.length
       || this._shoudColumnGroupsUpdate()
-  //    (this.props.data.length != nextProps.data.length)
-  //     // || Object.keys(this.props.activeData)
-  //     //   .map((id) => this.props.activeData[id] != nextProps.activeData[id])
-  //     //   .reduce((acc, el) => acc || el, false)
-  //     || (this.props.sortValue != nextProps.sortValue)
-  //     || (this.props.sortDir != nextProps.sortDir);
+      || this._shouldRegionFilterUpdate()
   }
 
   _shoudColumnGroupsUpdate() {
     return Object.keys(this.props.activeData)
         .map(id => this.props.activeData[id] != this.columnGroups[id].active)
         .reduce((acc, el) => acc || el, false);
+  }
+
+  _shouldRegionFilterUpdate() {
+    return ((this.props.activeRegion == 'all') && (this.regionFilter != null))
+      || (this.props.activeRegion != this.regionFilter);
   }
 
   _applyFilters(table) {
@@ -177,6 +179,9 @@ export default class StationTable extends React.Component {
     }
 
     // region filter
+    if(this._shouldRegionFilterUpdate()) {
+      filterChanges = true;
+    }
 
     if(filterChanges) {
       table.draw();
