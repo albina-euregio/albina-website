@@ -12,6 +12,7 @@ import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
 import SmShare from '../components/organisms/sm-share';
 import StationTable from '../components/stationTable/stationTable';
+import StationTableHeader from '../components/stationTable/stationTableHeader';
 
 class StationMeasurements extends React.Component {
   constructor(props) {
@@ -96,7 +97,14 @@ class StationMeasurements extends React.Component {
         </FilterBar>
         <section className="section">
           <div className="table-container">
-            <StationTable data={this.store.data} />
+            <StationTable
+              data={this.store.data}
+              header=
+                <StationTableHeader
+                  handleSort={this.handleSort}
+                  sortValue={null}
+                  sortDir={null} />
+              />
           </div>
         </section>
         <div>

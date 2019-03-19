@@ -132,7 +132,9 @@ export default class StationTable extends React.Component {
 
   render() {
     return (
-      <table ref="main" />
+      <table ref="main">
+        {this.props.header}
+      </table>
     );
   }
 }

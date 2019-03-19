@@ -775,6 +775,16 @@
     "de": "Wind",
     "it": "Vento"
   },
+  "measurements:table:sort-asc": {
+    "en": "Sort ascending",
+    "de": "Aufsteigend sortieren",
+    "it": "Sort ascending"
+  },
+  "measurements:table:sort-desc": {
+    "en": "Sort descending",
+    "de": "Absteigend sortieren",
+    "it": "Sort descending"
+  },
   "measurements:table:header:name": {
     "en": "Station",
     "de": "Station",
