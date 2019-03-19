@@ -8,6 +8,8 @@ import StationDataStore from '../stores/stationDataStore';
 import PageHeadline from '../components/organisms/page-headline';
 import FilterBar from "../components/organisms/filter-bar";
 import ProvinceFilter from "../components/filters/province-filter";
+import HideGroupFilter from "../components/filters/hide-group-filter";
+import HideFilter from "../components/filters/hide-filter";
 import SmShare from '../components/organisms/sm-share';
 import StationTable from '../components/stationTable/stationTable';
 
@@ -69,8 +71,28 @@ class StationMeasurements extends React.Component {
             all={this.props.intl.formatMessage({ id: "filter:all" })}
             handleChange={this.handleChangeRegion}
             value={this.store.regionActive}
-            className={this.store.regionActive !== "all" ? classChanged : ""}
-          />
+            className={(this.store.regionActive !== "all") ? classChanged : ""} />
+
+          <HideGroupFilter
+            title={this.props.intl.formatMessage({
+              id: "measurements:filter:hide"
+            })} >
+            <HideFilter
+              title={this.props.intl.formatMessage({
+                id: "measurements:filter:hide:snow"
+              })}
+              active={true} />
+            <HideFilter
+              title={this.props.intl.formatMessage({
+                id: "measurements:filter:hide:temp"
+              })}
+              active={true} />
+            <HideFilter
+              title={this.props.intl.formatMessage({
+                id: "measurements:filter:hide:wind"
+              })}
+              active={true} />
+          </HideGroupFilter>
         </FilterBar>
         <section className="section">
           <div className="table-container">

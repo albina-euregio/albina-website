@@ -750,6 +750,31 @@
     "de": "Bundesland / Provinz",
     "it": "Stato / Provincia"
   },
+  "measurements:filter:hide": {
+    "en": "Hide",
+    "de": "Ausblenden",
+    "it": "Hide"
+  },
+  "measurements:filter:hide:reset": {
+    "en": "Reset Filters",
+    "de": "Filter Zurücksetzen",
+    "it": "Reset Filters"
+  },
+  "measurements:filter:hide:snow": {
+    "en": "Snowheight",
+    "de": "Schneehöhe",
+    "it": "Altezza Neve"
+  },
+  "measurements:filter:hide:temp": {
+    "en": "Temperature",
+    "de": "Temperatur",
+    "it": "Temperatura"
+  },
+  "measurements:filter:hide:wind": {
+    "en": "Wind",
+    "de": "Wind",
+    "it": "Vento"
+  },
   "measurements:table:header:name": {
     "en": "Station",
     "de": "Station",

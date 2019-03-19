@@ -1,0 +1,21 @@
+import React from 'react';
+
+export default class HideFilter extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const classes = [
+      "label",
+      "tooltip"
+    ];
+    if(this.props.active) {
+      classes.push('js-active');
+    }
+
+    return (
+      <a className={classes.join(' ')} href="#">{this.props.title}</a>
+    )
+  }
+}

@@ -113,7 +113,6 @@ export default class StationTable extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log('TEST3: ' + JSON.stringify(this.props.data));
     const table =
       $('.data-table-wrapper')
         .find('table')
