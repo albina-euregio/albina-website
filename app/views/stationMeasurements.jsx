@@ -48,8 +48,8 @@ class StationMeasurements extends React.Component {
 
   };
 
-  handleToggleHide = (val) => {
-
+  handleToggleActive = (val) => {
+    this.store.activeData[val] = !this.store.activeData[val];
   };
 
   handleChangeRegion = (val) => {
@@ -100,11 +100,12 @@ class StationMeasurements extends React.Component {
                     id: "measurements:filter:hide:" + e
                   })}
                   tooltip={this.props.intl.formatMessage({
-                    // TODO: show inactive tooltip when item is deselected
-                    id: "measurements:filter:hide:active:hover"
+                    id: "measurements:filter:hide:"
+                      + (this.store.activeData[e] ? "active" : "inactive")
+                      + ":hover"
                   })}
-                  active={true}
-                  onToggle={this.handleToggleHide} />
+                  active={this.store.activeData[e]}
+                  onToggle={this.handleToggleActive} />
               ))
             }
           </HideGroupFilter>
@@ -113,6 +114,9 @@ class StationMeasurements extends React.Component {
           <div className="table-container">
             <StationTable
               data={this.store.data}
+              activeData={this.store.activeData}
+              sortValue={this.store.sortVale}
+              sortDir={this.store.sortDir}
               header=
                 <StationTableHeader
                   handleSort={this.handleSort}
