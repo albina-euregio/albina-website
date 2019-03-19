@@ -38,7 +38,7 @@ class StationTableHeader extends React.Component {
       <thead>
         <tr>
           {
-            this.headers.map((el, i) => {(
+            this.headers.map((el, i) => (
               <th key={i}>
                 {el.title}
                 {el.unit && <span className="measure"></span>}
@@ -61,7 +61,7 @@ class StationTableHeader extends React.Component {
                   </span>
                 }
               </th>
-            )})
+            ))
           }
         </tr>
       </thead>

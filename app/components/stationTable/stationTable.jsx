@@ -126,11 +126,9 @@ export default class StationTable extends React.Component {
 
   render() {
     return (
-      <div className="table-container">
-        <table ref="main" className="pure-table pure-table-striped pure-table-small table-measurements">
-          {this.props.header}
-        </table>
-      </div>
+      <table ref="main" className="pure-table pure-table-striped pure-table-small table-measurements">
+        {this.props.header}
+      </table>
     );
   }
 }
