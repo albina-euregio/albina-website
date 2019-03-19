@@ -159,6 +159,9 @@ export default class StationTable extends React.Component {
   }
 
   _applyFilters(table) {
+    let filterChanges = false;
+
+    // hide filters
     if(this._shoudColumnGroupsUpdate()) {
       Object.keys(this.columnGroups).forEach((e) => {
         if(this.props.activeData[e] != this.columnGroups[e].active) {
@@ -170,7 +173,12 @@ export default class StationTable extends React.Component {
           this.columnGroups[e].active = this.props.activeData[e];
         }
       });
+      filterChanges = true;
+    }
 
+    // region filter
+
+    if(filterChanges) {
       table.draw();
     }
   }

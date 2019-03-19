@@ -53,7 +53,7 @@ class StationMeasurements extends React.Component {
   };
 
   handleChangeRegion = (val) => {
-
+    this.store.activeRegion = val;
   };
 
   handleSort = (id, dir) => {
@@ -84,8 +84,8 @@ class StationMeasurements extends React.Component {
             })}
             all={this.props.intl.formatMessage({ id: "filter:all" })}
             handleChange={this.handleChangeRegion}
-            value={this.store.regionActive}
-            className={(this.store.regionActive !== "all") ? classChanged : ""} />
+            value={this.store.activeRegion}
+            className={(this.store.activeRegion !== "all") ? classChanged : ""} />
 
           <HideGroupFilter
             title={this.props.intl.formatMessage({
@@ -115,6 +115,7 @@ class StationMeasurements extends React.Component {
             <StationTable
               data={this.store.data}
               activeData={this.store.activeData}
+              activeRegion={this.store.activeRegion}
               sortValue={this.store.sortVale}
               sortDir={this.store.sortDir}
               header=
