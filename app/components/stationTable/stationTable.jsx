@@ -84,6 +84,21 @@ export default class StationTable extends React.Component {
           className: "mb-wind m-windmax"
         }
 			];
+
+      this.columnGroups = {
+        snow: {
+          active: true,
+          columnNumbers: [2,3,4,5]
+        },
+        temp: {
+          active: true,
+          columnNumbers: [6,7,8]
+        },
+        wind: {
+          active: true,
+          columnNumbers: [9,10,11]
+        }
+      };
   }
 
   componentDidMount() {
@@ -112,6 +127,8 @@ export default class StationTable extends React.Component {
         .find('table')
         .DataTable();
 
+    this._applyFilters(table);
+
     table.clear();
     table.rows.add(this.props.data);
     table.draw();
@@ -122,6 +139,40 @@ export default class StationTable extends React.Component {
       .find('table')
       .DataTable()
       .destroy(true);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.data.length != nextProps.data.length
+      || this._shoudColumnGroupsUpdate()
+  //    (this.props.data.length != nextProps.data.length)
+  //     // || Object.keys(this.props.activeData)
+  //     //   .map((id) => this.props.activeData[id] != nextProps.activeData[id])
+  //     //   .reduce((acc, el) => acc || el, false)
+  //     || (this.props.sortValue != nextProps.sortValue)
+  //     || (this.props.sortDir != nextProps.sortDir);
+  }
+
+  _shoudColumnGroupsUpdate() {
+    return Object.keys(this.props.activeData)
+        .map(id => this.props.activeData[id] != this.columnGroups[id].active)
+        .reduce((acc, el) => acc || el, false);
+  }
+
+  _applyFilters(table) {
+    if(this._shoudColumnGroupsUpdate()) {
+      Object.keys(this.columnGroups).forEach((e) => {
+        if(this.props.activeData[e] != this.columnGroups[e].active) {
+          if(this.props.activeData[e]) {
+            table.columns(this.columnGroups[e].columnNumbers).visible(true);
+          } else {
+            table.columns(this.columnGroups[e].columnNumbers).visible(false);
+          }
+          this.columnGroups[e].active = this.props.activeData[e];
+        }
+      });
+
+      table.draw();
+    }
   }
 
   render() {
