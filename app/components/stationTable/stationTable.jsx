@@ -101,6 +101,7 @@ export default class StationTable extends React.Component {
       };
 
       this.regionFilter = null;
+      this.searchText = '';
   }
 
   componentDidMount() {
@@ -144,20 +145,23 @@ export default class StationTable extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
+    const shouldRegionFilterUpdate =
+      ((nextProps.activeRegion == 'all') && (this.regionFilter != null))
+        || (nextProps.activeRegion != this.regionFilter);
+
+    const shouldSearchFilterUpdate =
+      (this.props.searchText != this.searchText);
+
     return this.props.data.length != nextProps.data.length
       || this._shoudColumnGroupsUpdate()
-      || this._shouldRegionFilterUpdate()
+      || shouldRegionFilterUpdate
+      || shouldSearchFilterUpdate;
   }
 
   _shoudColumnGroupsUpdate() {
     return Object.keys(this.props.activeData)
         .map(id => this.props.activeData[id] != this.columnGroups[id].active)
         .reduce((acc, el) => acc || el, false);
-  }
-
-  _shouldRegionFilterUpdate() {
-    return ((this.props.activeRegion == 'all') && (this.regionFilter != null))
-      || (this.props.activeRegion != this.regionFilter);
   }
 
   _applyFilters(table, originalData) {
@@ -178,17 +182,19 @@ export default class StationTable extends React.Component {
     const filters = [];
 
     // region filter
-    if(this._shouldRegionFilterUpdate()) {
-      if(Object.keys(window.appStore.regions).indexOf(this.props.activeRegion) >= 0) {
-        filters.push((row) => (row.region == this.props.activeRegion));
-        this.regionFilter = this.props.activeRegion;
-      } else {
-        this.regionFilter = null;
-      }
+    if(Object.keys(window.appStore.regions).indexOf(this.props.activeRegion) >= 0) {
+      filters.push((row) => (row.region == this.props.activeRegion));
+      this.regionFilter = this.props.activeRegion;
+    } else {
+      this.regionFilter = null;
     }
 
     // searchText
-
+    if(this.props.searchText) {
+      // do not use filtering but datatables' search function - search filter
+      // depends on the rendered content
+      table.search(this.props.searchText);
+    }
 
     if(filters.length > 0) {
       const compose = (f, g) => (...args) => f(g(...args));
