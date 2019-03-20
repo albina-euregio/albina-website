@@ -118,7 +118,7 @@ export default class StationTable extends React.Component {
 			fixedColumns: {
 				heightMatch:'none'
 			},
-      data: this._applyFilters(this.props.data),
+      data: this.props.data,
       columns: this.columns,
       ordering: true
     });
@@ -130,11 +130,11 @@ export default class StationTable extends React.Component {
         .find('table')
         .DataTable();
 
-    const newData = this._applyFilters(table, this.props.data);
-
-    table.clear();
-    table.rows.add(newData);
-    table.draw();
+    if(table) {
+      table.clear();
+      table.rows.add(this._applyFilters(table, this.props.data));
+      table.draw();
+    }
   }
 
   componentWillUnmount() {
@@ -150,7 +150,7 @@ export default class StationTable extends React.Component {
         || (nextProps.activeRegion != this.regionFilter);
 
     const shouldSearchFilterUpdate =
-      (this.props.searchText != this.searchText);
+      (nextProps.searchText != this.searchText);
 
     return this.props.data.length != nextProps.data.length
       || this._shoudColumnGroupsUpdate()
@@ -190,14 +190,15 @@ export default class StationTable extends React.Component {
     }
 
     // searchText
-    if(this.props.searchText) {
+    if(this.props.searchText != this.searchText) {
       // do not use filtering but datatables' search function - search filter
       // depends on the rendered content
       table.search(this.props.searchText);
+      this.searchText = this.props.searchText;
     }
 
+
     if(filters.length > 0) {
-      const compose = (f, g) => (...args) => f(g(...args));
       // compose filters into a single function [f(x), g(x)] => f(g(x))
       const composedFilter = filters.reduce((f,g) => (row => f(g(row))));
       return originalData.filter(composedFilter);

@@ -20,7 +20,7 @@ export default class StationDataStore {
       return regions;
     })();
 
-    this.searchText = "";
+    this._searchText = observable.box("");
     this.activeData = {
       "snow": true,
       "temp": true,
@@ -45,6 +45,14 @@ export default class StationDataStore {
     Object.keys(this._activeRegions).forEach(e => {
       this._activeRegions[e] = (newActive.indexOf(e) >= 0);
     });
+  }
+
+  get searchText() {
+    return this._searchText.get();
+  }
+
+  set searchText(value) {
+    this._searchText.set(value);
   }
 
   @action

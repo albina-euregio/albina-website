@@ -45,7 +45,7 @@ class StationMeasurements extends React.Component {
   }
 
   handleChangeSearch = (val) => {
-
+    this.store.searchText = val;
   };
 
   handleToggleActive = (val) => {
@@ -118,6 +118,7 @@ class StationMeasurements extends React.Component {
               activeRegion={this.store.activeRegion}
               sortValue={this.store.sortVale}
               sortDir={this.store.sortDir}
+              searchText={this.store.searchText}
               header=
                 <StationTableHeader
                   handleSort={this.handleSort}
