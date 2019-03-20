@@ -796,9 +796,9 @@
     "it": "Sort descending"
   },
   "measurements:table:sort-toggle": {
-    "en": "Toggle sort",
+    "en": "Invert sort",
     "de": "Sortierung ändern",
-    "it": "Toggle sort"
+    "it": "Invert sort"
   },
   "measurements:table:header:name": {
     "en": "Station",
