@@ -111,6 +111,7 @@ export default class StationTable extends React.Component {
     $(this.refs.main).DataTable({
       dom: '<"data-table-wrapper"t>',
       scrollY: "25em",
+      scrollCollapse: true,
       deferRender: true,
 			lengthChange: false,
 			paging: false,
@@ -122,7 +123,11 @@ export default class StationTable extends React.Component {
 			},
       data: this.props.data,
       columns: this.columns,
-      ordering: false
+      ordering: false,
+      language: {
+        emptyTable: '',
+        zeroRecords: ''
+      }
     });
   }
 
