@@ -49,6 +49,13 @@ class StationTableHeader extends React.Component {
       return cls.join(' ');
     };
 
+    const toggleSortDir = (dir) => (dir == 'asc') ? 'desc' : 'asc';
+
+    const sortTitle = (id, dir) => this.props.intl.formatMessage({
+      id: "measurements:table:"
+        + ((this.props.sortValue == id) ? 'sort-toggle' : ('sort-' + dir))
+    });
+
     return (
       <thead>
         <tr>
@@ -64,18 +71,14 @@ class StationTableHeader extends React.Component {
                         key={dir}
                         href="#"
                         className={sortClasses(el.id, dir)}
-                        title={this.props.intl.formatMessage({
-                          id: "measurements:table:sort-" + dir
-                        })}
+                        title={sortTitle(el.id, dir)}
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
                           this.props.handleSort(
                             el.id,
                             (this.props.sortValue == el.id)
-                              ? (
-                                (this.props.sortDir == 'asc') ? 'desc' : 'asc'
-                              )
+                              ? toggleSortDir(dir)
                               : dir
                           );
                         }}

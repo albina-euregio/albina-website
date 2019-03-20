@@ -795,6 +795,11 @@
     "de": "Absteigend sortieren",
     "it": "Sort descending"
   },
+  "measurements:table:sort-toggle": {
+    "en": "Toggle sort",
+    "de": "Sortierung ändern",
+    "it": "Toggle sort"
+  },
   "measurements:table:header:name": {
     "en": "Station",
     "de": "Station",
