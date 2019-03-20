@@ -1,4 +1,5 @@
 import React from 'react';
+import StationTableHeader from './stationTableHeader';
 
 export default class StationTable extends React.Component {
   constructor(props) {
@@ -102,6 +103,8 @@ export default class StationTable extends React.Component {
 
       this.regionFilter = null;
       this.searchText = '';
+      this.sortValue = '';
+      this.sortDir = '';
   }
 
   componentDidMount() {
@@ -120,7 +123,7 @@ export default class StationTable extends React.Component {
 			},
       data: this.props.data,
       columns: this.columns,
-      ordering: true
+      ordering: false
     });
   }
 
@@ -132,7 +135,7 @@ export default class StationTable extends React.Component {
 
     if(table) {
       table.clear();
-      table.rows.add(this._applyFilters(table, this.props.data));
+      table.rows.add(this._applyFiltersAndSorting(table, this.props.data));
       table.draw();
     }
   }
@@ -152,10 +155,15 @@ export default class StationTable extends React.Component {
     const shouldSearchFilterUpdate =
       (nextProps.searchText != this.searchText);
 
+    const shouldSortingUpdate =
+      (nextProps.sortDir != this.sortDir)
+      || (nextProps.sortValue != this.sortValue);
+
     return this.props.data.length != nextProps.data.length
       || this._shoudColumnGroupsUpdate()
       || shouldRegionFilterUpdate
-      || shouldSearchFilterUpdate;
+      || shouldSearchFilterUpdate
+      || shouldSortingUpdate;
   }
 
   _shoudColumnGroupsUpdate() {
@@ -164,7 +172,32 @@ export default class StationTable extends React.Component {
         .reduce((acc, el) => acc || el, false);
   }
 
-  _applyFilters(table, originalData) {
+  _applyFiltersAndSorting(table, originalData) {
+    const filters = [];
+
+    // sorting
+    if(this.props.sortValue) {
+      filters.push((data) => data.sort((val1,val2) => {
+        const order = (this.props.sortDir == 'asc') ? [-1, 1] : [1, -1];
+        const a = val1[this.props.sortValue];
+        const b = val2[this.props.sortValue];
+
+        if(a == b) {
+          return 0;
+        }
+        if(typeof(b) === 'undefined' || b === false || b === null) {
+          return order[1];
+        }
+        if(typeof(a) === 'undefined' || a === false || a === null) {
+          return order[0];
+        }
+        return (a < b) ? order[0] : order[1];
+      }));
+
+      this.sortDir = this.props.sortDir;
+      this.sortValue = this.props.sortValue;
+    }
+
     // hide filters
     if(this._shoudColumnGroupsUpdate()) {
       Object.keys(this.columnGroups).forEach((e) => {
@@ -179,11 +212,9 @@ export default class StationTable extends React.Component {
       });
     }
 
-    const filters = [];
-
     // region filter
     if(Object.keys(window.appStore.regions).indexOf(this.props.activeRegion) >= 0) {
-      filters.push((row) => (row.region == this.props.activeRegion));
+      filters.push((data) => data.filter(row => (row.region == this.props.activeRegion)));
       this.regionFilter = this.props.activeRegion;
     } else {
       this.regionFilter = null;
@@ -200,8 +231,8 @@ export default class StationTable extends React.Component {
 
     if(filters.length > 0) {
       // compose filters into a single function [f(x), g(x)] => f(g(x))
-      const composedFilter = filters.reduce((f,g) => (row => f(g(row))));
-      return originalData.filter(composedFilter);
+      const composedFilter = filters.reduce((f,g) => (data => f(g(data))));
+      return composedFilter(originalData);
     }
     return originalData;
   }
@@ -209,7 +240,10 @@ export default class StationTable extends React.Component {
   render() {
     return (
       <table ref="main" className="pure-table pure-table-striped pure-table-small table-measurements">
-        {this.props.header}
+        <StationTableHeader
+          handleSort={this.props.handleSort}
+          sortValue={this.props.sortValue}
+          sortDir={this.props.sortDir} />
       </table>
     );
   }

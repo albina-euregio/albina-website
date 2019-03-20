@@ -567,6 +567,15 @@ img {
   }
 }
 
+// station measurements
+.table-measurements {
+  .sort-buttons {
+    .sort-disabled {
+      visibility: hidden;
+    }
+  }
+}
+
 // version number in footer
 .version {
   color: #839194;

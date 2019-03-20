@@ -26,8 +26,8 @@ export default class StationDataStore {
       "temp": true,
       "wind": true
     }
-    this.sortValue = null;
-    this.sortDir = null
+    this._sortValue = observable.box('');
+    this._sortDir = observable.box('asc');
   }
 
   @computed get activeRegion() {
@@ -53,6 +53,22 @@ export default class StationDataStore {
 
   set searchText(value) {
     this._searchText.set(value);
+  }
+
+  get sortValue() {
+    return this._sortValue.get();
+  }
+
+  get sortDir() {
+    return this._sortDir.get();
+  }
+
+  set sortValue(val) {
+    this._sortValue.set(val);
+  }
+
+  set sortDir(dir) {
+    this._sortDir.set(dir);
   }
 
   @action

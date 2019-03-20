@@ -12,7 +12,6 @@ import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
 import SmShare from '../components/organisms/sm-share';
 import StationTable from '../components/stationTable/stationTable';
-import StationTableHeader from '../components/stationTable/stationTableHeader';
 
 class StationMeasurements extends React.Component {
   constructor(props) {
@@ -57,7 +56,8 @@ class StationMeasurements extends React.Component {
   };
 
   handleSort = (id, dir) => {
-
+    this.store.sortValue = id;
+    this.store.sortDir = dir;
   };
 
   render() {
@@ -116,14 +116,10 @@ class StationMeasurements extends React.Component {
               data={this.store.data}
               activeData={this.store.activeData}
               activeRegion={this.store.activeRegion}
-              sortValue={this.store.sortVale}
+              sortValue={this.store.sortValue}
               sortDir={this.store.sortDir}
               searchText={this.store.searchText}
-              header=
-                <StationTableHeader
-                  handleSort={this.handleSort}
-                  sortValue={null}
-                  sortDir={null} />
+              handleSort={this.handleSort}
               />
           </div>
         </section>
