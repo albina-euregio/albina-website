@@ -117,7 +117,7 @@ export default class StationTable extends React.Component {
 			fixedColumns: {
 				heightMatch:'none'
 			},
-      data: this.props.data,
+      data: this._applyFilters(this.props.data),
       columns: this.columns,
       ordering: true
     });
@@ -129,10 +129,10 @@ export default class StationTable extends React.Component {
         .find('table')
         .DataTable();
 
-    this._applyFilters(table);
+    const newData = this._applyFilters(table, this.props.data);
 
     table.clear();
-    table.rows.add(this.props.data);
+    table.rows.add(newData);
     table.draw();
   }
 
@@ -160,9 +160,7 @@ export default class StationTable extends React.Component {
       || (this.props.activeRegion != this.regionFilter);
   }
 
-  _applyFilters(table) {
-    let filterChanges = false;
-
+  _applyFilters(table, originalData) {
     // hide filters
     if(this._shoudColumnGroupsUpdate()) {
       Object.keys(this.columnGroups).forEach((e) => {
@@ -175,17 +173,30 @@ export default class StationTable extends React.Component {
           this.columnGroups[e].active = this.props.activeData[e];
         }
       });
-      filterChanges = true;
     }
+
+    const filters = [];
 
     // region filter
     if(this._shouldRegionFilterUpdate()) {
-      filterChanges = true;
+      if(Object.keys(window.appStore.regions).indexOf(this.props.activeRegion) >= 0) {
+        filters.push((row) => (row.region == this.props.activeRegion));
+        this.regionFilter = this.props.activeRegion;
+      } else {
+        this.regionFilter = null;
+      }
     }
 
-    if(filterChanges) {
-      table.draw();
+    // searchText
+
+
+    if(filters.length > 0) {
+      const compose = (f, g) => (...args) => f(g(...args));
+      // compose filters into a single function [f(x), g(x)] => f(g(x))
+      const composedFilter = filters.reduce((f,g) => (row => f(g(row))));
+      return originalData.filter(composedFilter);
     }
+    return originalData;
   }
 
   render() {
