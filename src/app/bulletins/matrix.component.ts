@@ -158,7 +158,7 @@ export class MatrixComponent {
       if (oldCell != id)
         this.selectArtificialCell(id);
       else {
-        this.getDaytimeMatrixInformation().setArtificialDangerRating(Enums.DangerRating.missing);
+        this.getDaytimeMatrixInformation().setArtificialDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
         this.getDaytimeMatrixInformation().setArtificialAvalancheReleaseProbability(undefined);
         this.getDaytimeMatrixInformation().setArtificialHazardSiteDistribution(undefined);
         this.getDaytimeMatrixInformation().setArtificialAvalancheSize(undefined);
@@ -182,7 +182,7 @@ export class MatrixComponent {
       if (oldCell != id)
         this.selectNaturalCell(id);
       else {
-        this.getDaytimeMatrixInformation().setNaturalDangerRating(Enums.DangerRating.missing);
+        this.getDaytimeMatrixInformation().setNaturalDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
         this.getDaytimeMatrixInformation().setNaturalAvalancheReleaseProbability(undefined);
         this.getDaytimeMatrixInformation().setNaturalHazardSiteDistribution(undefined);
       }
@@ -196,14 +196,14 @@ export class MatrixComponent {
     if (!this.disabled) {
       let oldCell = this.getArtificialCell(this.getDaytimeMatrixInformation());
       this.deselectCell(oldCell);
-      this.getDaytimeMatrixInformation().setArtificialDangerRating(Enums.DangerRating.missing);
+      this.getDaytimeMatrixInformation().setArtificialDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
       this.getDaytimeMatrixInformation().setArtificialAvalancheReleaseProbability(undefined);
       this.getDaytimeMatrixInformation().setArtificialHazardSiteDistribution(undefined);
       this.getDaytimeMatrixInformation().setArtificialAvalancheSize(undefined);
 
       oldCell = this.getNaturalCell(this.getDaytimeMatrixInformation());
       this.deselectCell(oldCell);
-      this.getDaytimeMatrixInformation().setNaturalDangerRating(Enums.DangerRating.missing);
+      this.getDaytimeMatrixInformation().setNaturalDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
       this.getDaytimeMatrixInformation().setNaturalAvalancheReleaseProbability(undefined);
       this.getDaytimeMatrixInformation().setNaturalHazardSiteDistribution(undefined);
 
