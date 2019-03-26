@@ -575,6 +575,10 @@ img {
     }
   }
 }
+@media (hover: none) {
+  // disable hover styles on touch devices
+  .controlbar .filter a.label:not(.js-active):hover { color: #fff; background: transparent; }
+}
 
 // version number in footer
 .version {
