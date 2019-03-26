@@ -228,6 +228,7 @@
 				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
 				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
 				"pendingSuggestions" : "Unbeantwortete Vorschläge",
+				"incompleteTranslation" : "Unvollständige Übersetzung",
 				"accept" : "Ja",
 				"reject" : "Nein"
 			},
@@ -284,6 +285,7 @@
 				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
 				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
 				"pendingSuggestions" : "Unbeantwortete Vorschläge",
+				"incompleteTranslation" : "Unvollständige Übersetzung",
 				"accept" : "Ja",
 				"reject" : "Nein"
 			},
@@ -313,6 +315,7 @@
 				"missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
 				"missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
 				"pendingSuggestions" : "Unbeantwortete Vorschläge",
+				"incompleteTranslation" : "Unvollständige Übersetzung",
 				"ok" : "(alles ok)",
 				"accept" : "Ok"
 			},

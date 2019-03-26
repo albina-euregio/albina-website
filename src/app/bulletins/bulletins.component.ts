@@ -471,7 +471,9 @@ export class BulletinsComponent {
           if (entry == 'missingSnowpackStructureComment')
             message += this.translateService.instant("bulletins.table.publishBulletinsDialog.missingSnowpackStructureComment") + '<br>';
           if (entry == 'pendingSuggestions')
-            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.pendingSuggestions");
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.pendingSuggestions") + '<br>';
+          if (entry == 'incompleteTranslation')
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.incompleteTranslation");
         }
 
         this.openPublishBulletinsModal(this.publishBulletinsTemplate, message, date);
@@ -516,7 +518,9 @@ export class BulletinsComponent {
           if (entry == 'missingSnowpackStructureComment')
             message += this.translateService.instant("bulletins.table.submitBulletinsDialog.missingSnowpackStructureComment") + '<br>';
           if (entry == 'pendingSuggestions')
-            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.pendingSuggestions");
+            message += this.translateService.instant("bulletins.table.submitBulletinsDialog.pendingSuggestions") + '<br>';
+          if (entry == 'incompleteTranslation')
+            message += this.translateService.instant("bulletins.table.publishBulletinsDialog.incompleteTranslation");
         }
 
         if (duplicateRegion)
@@ -560,7 +564,9 @@ export class BulletinsComponent {
             if (entry == 'missingSnowpackStructureComment')
               message += this.translateService.instant("bulletins.table.checkBulletinsDialog.missingSnowpackStructureComment") + '<br>';
             if (entry == 'pendingSuggestions')
-              message += this.translateService.instant("bulletins.table.checkBulletinsDialog.pendingSuggestions");
+              message += this.translateService.instant("bulletins.table.checkBulletinsDialog.pendingSuggestions") + '<br>';
+            if (entry == 'incompleteTranslation')
+              message += this.translateService.instant("bulletins.table.checkBulletinsDialog.incompleteTranslation");
           }
         }
 

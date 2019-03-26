@@ -228,6 +228,7 @@
 				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
 				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
 				"pendingSuggestions" : "Pending suggestions",
+				"incompleteTranslation" : "Incomplete translation",
 				"accept" : "Yes",
 				"reject" : "No"
 			},
@@ -284,6 +285,7 @@
 				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
 				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
 				"pendingSuggestions" : "Pending suggestions",
+				"incompleteTranslation" : "Incomplete translation",
 				"accept" : "Yes",
 				"reject" : "No"
 			},
@@ -313,6 +315,7 @@
 				"missingSnowpackStructureHighlights" : "Headline snowpack structure missing",
 				"missingSnowpackStructureComment" : "Description of snowpack structure missing",
 				"pendingSuggestions" : "Pending suggestions",
+				"incompleteTranslation" : "Incomplete translation",
 				"ok" : "(everything alright)",
 				"accept" : "Ok"
 			},

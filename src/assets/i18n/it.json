@@ -228,6 +228,7 @@
 				"missingSnowpackStructureHighlights" : "Manche il titolo della descrizione manto nevoso",
 				"missingSnowpackStructureComment" : "Manche la descrizione del manto nevoso",
 				"pendingSuggestions" : "Proposta non confermata",
+				"incompleteTranslation" : "Traduzione incompleta",
 				"accept" : "Sí",
 				"reject" : "No"
 			},
@@ -284,6 +285,7 @@
 				"missingSnowpackStructureHighlights" : "Manche il titolo della descrizione manto nevoso",
 				"missingSnowpackStructureComment" : "Manche la descrizione del manto nevoso",
 				"pendingSuggestions" : "Proposta non confermata",
+				"incompleteTranslation" : "Traduzione incompleta",
 				"accept" : "Sí",
 				"reject" : "No"
 			},
@@ -313,6 +315,7 @@
 				"missingSnowpackStructureHighlights" : "Manche il titolo della descrizione manto nevoso",
 				"missingSnowpackStructureComment" : "Manche la descrizione del manto nevoso",
 				"pendingSuggestions" : "Proposta non confermata",
+				"incompleteTranslation" : "Traduzione incompleta",
 				"ok" : "(tutto va bene)",
 				"accept" : "Ok"
 			},
