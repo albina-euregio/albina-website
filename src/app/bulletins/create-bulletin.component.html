@@ -621,6 +621,13 @@
   </div>
 </ng-template>
 
+<ng-template #incompleteTranslationTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.incompleteTranslationDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="incompleteTranslationModalConfirm()">{{ "bulletins.create.incompleteTranslationDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
+
 <ng-template #loadAvActivityCommentExampleTextTemplate>
   <div class="modal-body text-center">
     <p>{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.message" | translate }}</p>

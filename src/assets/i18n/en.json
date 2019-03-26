@@ -179,6 +179,11 @@
 				"message" : "Please specify an elevation for this region!",
 				"accept" : "Ok"
 			},
+			"incompleteTranslationDialog" : {
+				"header" : "Incomplete translation",
+				"message" : "The translation is incomplete!",
+				"accept" : "Ok"
+			},
 			"loadAvActivityCommentExampleTextDialog" : {
 				"header" : "Load example text",
 				"message" : "For which situation do you want to load an example text?",

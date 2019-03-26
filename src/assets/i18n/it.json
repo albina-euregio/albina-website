@@ -179,6 +179,11 @@
 				"message" : "Determina una quota per questa zona!",
 				"accept" : "Ok"
 			},
+			"incompleteTranslationDialog" : {
+				"header" : "Traduzione incompleta",
+				"message" : "La traduzione è incompleta!",
+				"accept" : "Ok"
+			},
 			"loadAvActivityCommentExampleTextDialog" : {
 				"header" : "Carica testo di esempio",
 				"message" : "Per quale situazione si desidera caricare il testo",

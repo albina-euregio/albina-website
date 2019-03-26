@@ -179,6 +179,11 @@
 				"message" : "Bitte definiere eine Höhe für diese Region!",
 				"accept" : "Ok"
 			},
+			"incompleteTranslationDialog" : {
+				"header" : "Unvollständige Übersetzung",
+				"message" : "Die Übersetzung ist unvollständig!",
+				"accept" : "Ok"
+			},
 			"loadAvActivityCommentExampleTextDialog" : {
 				"header" : "Beispieltext laden",
 				"message" : "Für welche Situation möchtest du einen Beispieltext laden?",

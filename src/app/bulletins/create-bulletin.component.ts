@@ -124,6 +124,9 @@ export class CreateBulletinComponent {
   public noElevationModalRef: BsModalRef;
   @ViewChild('noElevationTemplate') noElevationTemplate: TemplateRef<any>;
 
+  public incompleteTranslationModalRef: BsModalRef;
+  @ViewChild('incompleteTranslationTemplate') incompleteTranslationTemplate: TemplateRef<any>;
+
   public loadAutoSaveModalRef: BsModalRef;
   @ViewChild('loadAutoSaveTemplate') loadAutoSaveTemplate: TemplateRef<any>;
 
@@ -1302,15 +1305,19 @@ private setTexts() {
         this[pmData.textField+'De'] = undefined;
         this[pmData.textField+'En'] = undefined;
         this[pmData.textField+'Fr'] = undefined;
+        this.setTexts();
+        this.hideDialog();
       } else {
         this[pmData.textField + 'Textcat'] = pmData.textDef;
         this[pmData.textField+'It'] = pmData.textIt;
         this[pmData.textField+'De'] = pmData.textDe;
         this[pmData.textField+'En'] = pmData.textEn;
         this[pmData.textField+'Fr'] = pmData.textFr;
+        this.setTexts();
+        this.hideDialog();
+        if (pmData.textDe === this.constantsService.incompleteTranslationTextDe || pmData.textIt === this.constantsService.incompleteTranslationTextIt || pmData.textEn === this.constantsService.incompleteTranslationTextEn)
+          this.openIncompleteTranslationModal(this.incompleteTranslationTemplate);
       }
-      this.setTexts();
-      this.hideDialog();
     }
   };
 
@@ -1524,6 +1531,14 @@ private setTexts() {
 
   noElevationModalConfirm(): void {
     this.noElevationModalRef.hide();
+  }
+
+  openIncompleteTranslationModal(template: TemplateRef<any>) {
+    this.incompleteTranslationModalRef = this.modalService.show(template, this.config);
+  }
+
+  incompleteTranslationModalConfirm(): void {
+    this.incompleteTranslationModalRef.hide();
   }
 
   openLoadAvActivityCommentExampleTextModal(template: TemplateRef<any>) {
