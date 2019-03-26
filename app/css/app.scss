@@ -574,6 +574,11 @@ img {
       visibility: hidden;
     }
   }
+  tbody {
+    td.mb-wind {
+      white-space: nowrap;
+    }
+  }
 }
 @media (hover: none) {
   // disable hover styles on touch devices
