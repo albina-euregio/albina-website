@@ -9,11 +9,12 @@ import { preprocessContent } from "../util/htmlParser";
 import Base from "../base";
 import { dateToLongDateString, dateToTimeString } from "../util/date";
 import Menu from "../components/menu";
+import LeafletMap2 from "../components/leaflet-map2";
 import WeatherMapStore from "../stores/weatherMapStore";
 
 import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
-import WeatherMapIframe from "../components/weather/weather-map-iframe";
+import MapStore from "../stores/mapStore";
 import AppStore from "../appStore";
 
 @observer
@@ -32,6 +33,10 @@ class WeatherMap extends React.Component {
       mapZoom: false,
       mapCenter: false
     };
+
+    if(!window.mapStore) {
+      window.mapStore = new MapStore();
+    }
   }
 
   componentDidMount() {
@@ -48,34 +53,6 @@ class WeatherMap extends React.Component {
         sharable: responseParsed.data.attributes.sharable
       });
     });
-
-    window.addEventListener("message", e => {
-      if (e.data) {
-        //console.log("*** getting message ", e.data);
-        try {
-          const data = JSON.parse(e.data);
-          if (data.changes) {
-            /*
-            const url = Base.makeUrl('', data.newState)
-            this.props.history.replace('/weather/map/' + url)
-            this.setState({ mapParam: data.newState })
-            */
-            if (
-              Object.keys(data.changes).find(key =>
-                ["zoom", "center"].includes(key)
-              )
-            ) {
-              this.setState({
-                mapZoom: data.changes.zoom || data.newState.zoom,
-                mapCenter: data.changes.center || data.newState.center
-              });
-            }
-          }
-        } catch (e) {
-          console.log("JSON parse error: " + e.data);
-        }
-      }
-    });
   }
 
   handleClickDomainButton(menuItem) {
@@ -87,6 +64,10 @@ class WeatherMap extends React.Component {
 
   handleChangeItem(newItemId) {
     this.store.changeItem(newItemId);
+  }
+
+  handleMapViewportChanged() {
+
   }
 
   render() {
@@ -148,12 +129,14 @@ class WeatherMap extends React.Component {
           }
         >
           {this.store.domain && (
-            <div className="weather-map-iframe-wrapper">
-              <WeatherMapIframe
-                store={this.store}
-                zoom={this.state.mapZoom}
-                center={this.state.mapCenter}
-              />
+            <div className="bulletin-map-container section-map">
+              <LeafletMap2
+                loaded={this.store.domainId !== false}
+                mapViewportChanged={this.handleMapViewportChanged.bind(this)}
+                overlays={[
+
+                ]}
+                />
               {/* zamg logo hidden
               <div className="weather-map-icon">
                 <img
