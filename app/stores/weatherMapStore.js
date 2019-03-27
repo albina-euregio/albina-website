@@ -8,11 +8,24 @@ export default class WeatherMapStore {
 
   constructor(initialDomainId) {
     this.config = false;
+    this.staions = null;
+    this.grid = null;
     this._domainId = observable.box(false);
     this._itemId = observable.box(false);
 
-    Base.doRequest(config.get("links.meteoViewerConfig")).then(response => {
-      this.config = JSON.parse(response);
+    const loads = [
+      Base.doRequest(config.get("links.meteoViewer.domains")).then(response => {
+        this.config = JSON.parse(response);
+      }),
+      Base.doRequest(config.get("links.meteoViewer.stations")).then(response => {
+        this.stations = JSON.parse(response);
+      }),
+      Base.doRequest(config.get("links.meteoViewer.grid")).then(response => {
+        this.grid = JSON.parse(response);
+      })
+    ];
+
+    Promise.all(loads).then(
       const configDefaultDomainId = Object.keys(this.config).find(
         domainKey => this.config[domainKey].domainDefault
       );
@@ -20,7 +33,7 @@ export default class WeatherMapStore {
         initialDomainId = configDefaultDomainId;
       }
       this.changeDomain(initialDomainId);
-    });
+    );
   }
 
   /*

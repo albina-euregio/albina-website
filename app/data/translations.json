@@ -701,6 +701,11 @@
     "de": "Vor",
     "it": "Avanti"
   },
+  "weathermap:map:legend": {
+    "en": "legend",
+    "de": "Legende",
+    "it": "leggenda"
+  },
 
   "blog:filter:avalanche-problem": {
     "en": "Avalanche Problem",
