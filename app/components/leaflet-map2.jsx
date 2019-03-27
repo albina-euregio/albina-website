@@ -9,6 +9,7 @@ import {
   ZoomControl,
   ScaleControl
 } from "react-leaflet";
+import Control from "react-leaflet-control";
 import { injectIntl } from "react-intl";
 import stringInject from "stringinject";
 import { tooltip_init } from "../js/tooltip";
@@ -269,6 +270,11 @@ class LeafletMap extends React.Component {
         <ScaleControl imperial={false} position="bottomleft" />
         {this.tileLayers}
         {this.props.overlays}
+        {this.props.zamgLogo &&
+          <Control position="bottomright">
+            <a href="https://www.zamg.ac.at" target="_blank"><div id="zamg-logo"></div></a>
+          </Control>
+        }
       </Map>
     );
   }

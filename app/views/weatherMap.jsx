@@ -135,6 +135,7 @@ class WeatherMap extends React.Component {
               <LeafletMap2
                 loaded={this.store.domain !== false}
                 mapViewportChanged={this.handleMapViewportChanged.bind(this)}
+                zamgLogo={true}
                 overlays={[
                   <TileLayer key="background-map"
                     className="leaflet-image-layer"
@@ -147,16 +148,6 @@ class WeatherMap extends React.Component {
                     tms={true} />
                 ]}
                 />
-              {/* zamg logo hidden
-              <div className="weather-map-icon">
-                <img
-                  src={
-                    window["config"].get("projectRoot") +
-                    "images/pro/logos/zamg_rgb_WBM_normal_kurz.png"
-                  }
-                />
-              </div>
-              */}
             </div>
           )}
         </section>

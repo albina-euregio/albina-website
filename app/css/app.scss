@@ -260,6 +260,15 @@ a.pure-button.emphasized:hover {
   background: rgba(245, 245, 245, 0.95);
 }
 
+.leaflet-control #zamg-logo {
+  width: 40px;
+  height: 40px;
+  border: none !important;
+  background: url('../images/pro/logos/zamg-logo.jpg');
+  background-repeat: no-repeat;
+  background-size: 36px 36px;
+}
+
 /* Modal dialogs */
 button.mfp-close,
 button.mfp-close:hover,
