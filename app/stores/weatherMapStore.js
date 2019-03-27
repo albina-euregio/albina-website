@@ -25,7 +25,7 @@ export default class WeatherMapStore {
       })
     ];
 
-    Promise.all(loads).then(
+    Promise.all(loads).then(() => {
       const configDefaultDomainId = Object.keys(this.config).find(
         domainKey => this.config[domainKey].domainDefault
       );
@@ -33,7 +33,7 @@ export default class WeatherMapStore {
         initialDomainId = configDefaultDomainId;
       }
       this.changeDomain(initialDomainId);
-    );
+    });
   }
 
   /*
