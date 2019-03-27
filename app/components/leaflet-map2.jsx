@@ -72,10 +72,6 @@ class LeafletMap extends React.Component {
       L.Util.setOptions(this.map, { gestureHandling: true });
 
       this.map.fitBounds(config.get("map.euregioBounds"));
-      this.map.on("click", e => {
-        L.DomEvent.stopPropagation(e);
-        this.props.handleSelectRegion(null);
-      });
 
       window.setTimeout(() => {
         const zoomControl = L.control
@@ -242,7 +238,7 @@ class LeafletMap extends React.Component {
           }
         />
         {this.tileLayers}
-        {this.mapOverlays}
+        {this.props.overlays}
       </Map>
     );
   }
@@ -272,7 +268,7 @@ class LeafletMap extends React.Component {
         />
         <ScaleControl imperial={false} position="bottomleft" />
         {this.tileLayers}
-        {this.props.mapOverlays}
+        {this.props.overlays}
       </Map>
     );
   }

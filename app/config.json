@@ -72,10 +72,10 @@
   "links": {
     "interreg": "http://www.interreg.net/{lang}/default.asp",
     "meteoViewer": {
-      "domains": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
-      "stations": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_stations.json",
-      "grid": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_grid.json",
-      "overlays": "https://data1.geo.univie.ac.at/projects/albina2/data/zamg/tempdir/output/"
+      "domains": "https://avalanche.report/transfer/data/albina_domains.json",
+      "stations": "https://avalanche.report/transfer/data/albina_stations.json",
+      "grid": "https://avalanche.report/transfer/data/albina_grid.json",
+      "overlays": "https://avalanche.report/transfer/data/"
     },
     "downloads": {
       "base": "https://avalanche.report/albina_files/",
