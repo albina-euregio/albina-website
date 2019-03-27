@@ -83,7 +83,10 @@
       "xml": "{date}/{date}_{lang}.xml"
     }
   },
-
+  "dialogs": {
+    "cookieConsent": false,
+    "feedback": true
+  },
   "subscribe": {
     "buttonHidden": false,
     "messengerpeople": {

@@ -21,6 +21,7 @@ import SubscribeEmailDialog from "./dialogs/subscribe-email-dialog";
 import SubscribeBlogDialog from "./dialogs/subscribe-blog-dialog";
 import UnsupportedBrowserDialog from "./../components/dialogs/unsupported-browser-dialog";
 import CookieConsent from "./dialogs/cookie-consent";
+import FeedbackDialog from "./dialogs/feedback-dialog";
 
 import { renderRoutes } from "react-router-config";
 import { modal_init } from "../js/modal";
@@ -187,10 +188,8 @@ class Page extends React.Component {
           <ModalDialog id="subscribeAppDialog">
             <SubscribeAppDialog />
           </ModalDialog>
-          {/*
-          we do not need cookie anymore
-        <CookieConsent />
-        */}
+          {config.get("dialogs.cookieConsent") && <CookieConsent />}
+          {config.get("dialogs.feedback") && <FeedbackDialog />}
         </DocumentMeta>
       </div>
     );
