@@ -81,7 +81,8 @@
       "pdf-region": "{date}/{date}_{region}_{lang}.pdf",
       "pdf-region-bw": "{date}/{date}_{region}_{lang}_bw.pdf",
       "xml": "{date}/{date}_{lang}.xml"
-    }
+    },
+    "feedback": "https://www.univie.ac.at/"
   },
   "dialogs": {
     "cookieConsent": false,

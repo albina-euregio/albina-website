@@ -7,7 +7,10 @@ class FeedbackDialog extends React.Component {
     super(props);
   }
 
-  accept = () => {
+  accept = (flag) => {
+    if(flag) {
+      window.open(config.get('links.feedback'), '_blank');
+    }
     window['appStore'].cookieFeedback.active = false;
   }
 
@@ -17,10 +20,17 @@ class FeedbackDialog extends React.Component {
         <h3><FormattedHTMLMessage id="dialog:feedback:header" /></h3>
         <p><FormattedHTMLMessage id="dialog:feedback:text" /></p>
         <p>
-          <button href="#" onClick={() => this.accept()}
-            title={this.props.intl.formatMessage({id: 'dialog:feedback:button'})}
+          <button href="#" onClick={() => this.accept(true)}
+            title={this.props.intl.formatMessage({id: 'dialog:feedback:button:yes'})}
             className="pure-button" >{
-              this.props.intl.formatMessage({id: 'dialog:feedback:button'})
+              this.props.intl.formatMessage({id: 'dialog:feedback:button:yes'})
+            }
+          </button>
+          <span className="separator">&nbsp;</span>
+          <button href="#" onClick={() => this.accept(false)}
+            title={this.props.intl.formatMessage({id: 'dialog:feedback:button:no'})}
+            className="pure-button" >{
+              this.props.intl.formatMessage({id: 'dialog:feedback:button:no'})
             }
           </button>
         </p>

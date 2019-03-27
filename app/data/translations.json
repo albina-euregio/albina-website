@@ -1034,12 +1034,22 @@
     "de": "Mit Cookies personalisieren wir Inhalte sowie Anzeigen, binden Soziale Medien ein und analysieren Website-Zugriffe. Informationen über Ihre Website-Nutzung geben wir außerdem - anonymisiert - an unsere Partner weiter, die diese möglicherweise mit weiteren Daten zusammenführen, die Sie im Rahmen Ihrer Nutzung derer Dienste gesammelt haben. Dies ermöglicht eine an Ihre persönlichen Interessen angepasste Kommunikation und Werbung. Weiter möchten wir Sie auf unsere Datenschutzinformation für regstrierte Online-User und unsere Cookie-Policy aufmerksam machen.",
     "it": "Utilizziamo i cookie per personalizzare contenuti e annunci, integrare i social media e analizzare gli accessi al sito web. Condividiamo anche le informazioni relative al tuo utilizzo del sito web - in forma anonima - con i nostri partner, che potrebbero unirle con altre informazioni raccolte dall'utente in relazione all'utilizzo dei loro servizi. In questo modo è possibile adattare la comunicazione e la pubblicità ai propri interessi personali. Desideriamo inoltre richiamare tua attenzione sulle nostre informazioni relative alla protezione dei dati degli utenti registrati online e sulla nostra politica in materia di cookie."
   },
-  "dialog:feedback:button": {
+  "dialog:feedback:button:yes": {
+    "en": "Yes",
+    "de": "Zum Fragebogen",
+    "it": "si"
+   },
+  "dialog:feedback:button:yes:hover": {
+    "en": "Yes",
+    "de": "Zum Fragebogen",
+    "it": "si"
+  },
+  "dialog:feedback:button:no": {
     "en": "No, thanks!",
     "de": "Nein, danke!",
     "it": "No"
    },
-  "dialog:feedback:button:hover": {
+  "dialog:feedback:button:no:hover": {
     "en": "No, thanks!",
     "de": "Nein, danke!",
     "it": "No"
