@@ -58,8 +58,7 @@
   "apis": {
     "content": "https://data1.geo.univie.ac.at/projects/albina-cms/web/",
     "bulletin": "https://api.avalanche.report/albina/api/bulletins",
-    "bulletin_old": "http://212.47.231.185:8080/albina/api/bulletins",
-    "subscribe": "http://212.47.231.185:8080/albina/api/email",
+    "subscribe": "https://api.avalanche.report/albina/api/email",
     "geo": "https://data1.geo.univie.ac.at/exchange/albina2/awm/",
     "blogger": "https://blogcache.avalanche.report/",
     "blogger_": "//localhost:3000/",
@@ -72,8 +71,12 @@
   },
   "links": {
     "interreg": "http://www.interreg.net/{lang}/default.asp",
-    "meteoViewer": "https://data1.geo.univie.ac.at/projects/meteoviewer?config=albina",
-    "meteoViewerConfig": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
+    "meteoViewer": {
+      "domains": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
+      "stations": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_stations.json",
+      "grid": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_grid.json",
+      "overlays": "https://data1.geo.univie.ac.at/projects/albina2/data/zamg/tempdir/output/"
+    },
     "downloads": {
       "base": "https://avalanche.report/albina_files/",
       "pdf": "{date}/{date}_{lang}.pdf",
