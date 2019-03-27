@@ -11,6 +11,7 @@ import { dateToLongDateString, dateToTimeString } from "../util/date";
 import Menu from "../components/menu";
 import LeafletMap2 from "../components/leaflet-map2";
 import WeatherMapStore from "../stores/weatherMapStore";
+import { TileLayer } from "react-leaflet";
 
 import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
@@ -101,8 +102,9 @@ class WeatherMap extends React.Component {
                   onSelect={this.handleClickDomainButton.bind(this)}
                   onActiveMenuItem={e => {
                     if (e.title != this.state.mapTitle) {
+                      const that = this;
                       window.setTimeout(
-                        () => this.setState({ mapTitle: e.title }),
+                        () => that.setState({ mapTitle: e.title }),
                         100
                       );
                     }
@@ -131,10 +133,18 @@ class WeatherMap extends React.Component {
           {this.store.domain && (
             <div className="bulletin-map-container section-map">
               <LeafletMap2
-                loaded={this.store.domainId !== false}
+                loaded={this.store.domain !== false}
                 mapViewportChanged={this.handleMapViewportChanged.bind(this)}
                 overlays={[
-
+                  <TileLayer key="background-map"
+                    className="leaflet-image-layer"
+                    url={
+                      config.get("links.meteoViewer.overlays")
+                      + this.store.item.overlay.tms
+                      + "/{z}/{x}/{y}.png"
+                    }
+                    opacity={Base.checkBlendingSupport() ? 1 : 0.5}
+                    tms={true} />
                 ]}
                 />
               {/* zamg logo hidden

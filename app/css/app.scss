@@ -183,7 +183,8 @@ iframe#stationTable {
   display: none;
 }
 
-.leaflet-pane.leaflet-overlay-pane {
+.leaflet-pane.leaflet-overlay-pane,
+.leaflet-pane .leaflet-image-layer {
   mix-blend-mode: multiply;
 }
 

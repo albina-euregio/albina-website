@@ -131,6 +131,7 @@ export default class WeatherMapStore {
     setting a new active domain
   */
   @action changeDomain(domainId) {
+    console.log('CHANGE DOMAIN: ' + domainId);
     if (this.checkDomainId(domainId)) {
       this._domainId.set(domainId);
       this.changeItem(this.domain.domainIdStart);
