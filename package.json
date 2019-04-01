@@ -5,10 +5,10 @@
   "main": "app/main.jsx",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "npm run clean-dist && webpack --mode production --output-public-path=/projects/albina-web/",
-    "deploy": "rsync -avz --exclude=config.json dist/ karto@data1.geo.univie.ac.at:/daten1/projects/albina-web/",
-    "deploy-config": "rsync -avz dist/config.json karto@data1.geo.univie.ac.at:/daten1/projects/albina-web/",
-    "build-deploy": "npm run build && npm run deploy",
+    "build": "npm run clean-dist && webpack --mode production --output-public-path=/albina-web/",
+    "build-beta": "npm run clean-dist && webpack --mode production --output-public-path=/beta/",
+    "deploy": "rsync -avz -e 'ssh -p 2201' --progress --exclude=config.json dist/ karto@80.120.70.88:/var/www/html/albina-web/",
+    "deploy-beta": "rsync -avz -e 'ssh -p 2201' --progress --exclude=config.json dist/ karto@80.120.70.88:/var/www/html/beta/",
     "clean-dist": "rm -f -r -d dist",
     "start-server-blog": "nodemon server/blog.js",
     "deploy-server-blog": "rsync -avz -e 'ssh -p 2201' --progress ./server karto@80.120.70.88:/var/www/html/"
