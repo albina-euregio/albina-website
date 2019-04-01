@@ -15,6 +15,8 @@ import { TileLayer } from "react-leaflet";
 
 import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
+import ZamgLogo from "../components/weather/zamg-logo";
+import OverlayLegend from "../components/weather/overlay-legend";
 import MapStore from "../stores/mapStore";
 import AppStore from "../appStore";
 
@@ -146,6 +148,10 @@ class WeatherMap extends React.Component {
                     }
                     opacity={Base.checkBlendingSupport() ? 1 : 0.5}
                     tms={true} />
+                ]}
+                controls={[
+                  <ZamgLogo key="zamg" />,
+                  <OverlayLegend key="legend" item={this.store.item} />
                 ]}
                 />
             </div>
