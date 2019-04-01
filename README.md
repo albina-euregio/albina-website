@@ -17,7 +17,7 @@ of `package.json` before running the deploy target.
 NOTE: `package.json` contains deploy scripts for the live and beta version of the
 project. Both scripts make use of the `rsync` command https://rsync.samba.org/
 that is available for Linux, Windows and MacOS. If you do not want to use rsync
-you can copy over the contents of the `build` directory to the server.
+you can copy over the contents of the `dist` directory to the server.
 
 Use `npm run deploy` or `npm run deploy-beta` to copy the built files over to
 the live or test version, respectively.
