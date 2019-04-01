@@ -9,9 +9,13 @@ class FeedbackDialog extends React.Component {
 
   accept = (flag) => {
     if(flag) {
-      window.open(config.get('links.feedback'), '_blank');
+      window.open(this.url, '_blank');
     }
     window['appStore'].cookieFeedback.active = false;
+  }
+
+  get url() {
+    return config.get('links.feedback.' + window['appStore'].language);
   }
 
   render() {
@@ -20,17 +24,17 @@ class FeedbackDialog extends React.Component {
         <h3><FormattedHTMLMessage id="dialog:feedback:header" /></h3>
         <p><FormattedHTMLMessage id="dialog:feedback:text" /></p>
         <p>
-          <button href="#" onClick={() => this.accept(true)}
-            title={this.props.intl.formatMessage({id: 'dialog:feedback:button:yes'})}
-            className="pure-button" >{
-              this.props.intl.formatMessage({id: 'dialog:feedback:button:yes'})
-            }
-          </button>
-          <span className="separator">&nbsp;</span>
+          <a href={this.url} target="_blank" onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              this.accept(true)
+          }}>{this.url}</a>
+        </p>
+        <p>
           <button href="#" onClick={() => this.accept(false)}
-            title={this.props.intl.formatMessage({id: 'dialog:feedback:button:no'})}
+            title={this.props.intl.formatMessage({id: 'dialog:feedback:button'})}
             className="pure-button" >{
-              this.props.intl.formatMessage({id: 'dialog:feedback:button:no'})
+              this.props.intl.formatMessage({id: 'dialog:feedback:button'})
             }
           </button>
         </p>
