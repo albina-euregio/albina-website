@@ -5,7 +5,7 @@ export default class FilterBar extends React.Component {
   render() {
     const filterList = (
       <ul className="list-inline list-controlbar">
-        {
+        { Array.isArray(this.props.children) &&
           this.props.children.map((f, i) => f && (
             <li key={i}>{f}</li>
           ))

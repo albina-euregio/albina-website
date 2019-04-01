@@ -567,6 +567,24 @@ img {
   }
 }
 
+// station measurements
+.table-measurements {
+  .sort-buttons {
+    .sort-disabled {
+      visibility: hidden;
+    }
+  }
+  tbody {
+    td.mb-wind {
+      white-space: nowrap;
+    }
+  }
+}
+@media (hover: none) {
+  // disable hover styles on touch devices
+  .controlbar .filter a.label:not(.js-active):hover { color: #fff; background: transparent; }
+}
+
 // version number in footer
 .version {
   color: #839194;
