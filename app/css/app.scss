@@ -36,6 +36,18 @@ iframe#stationTable {
   opacity: 0.5;
 }
 
+.pure-button.emphasized,
+a.pure-button.emphasized {
+  background-color: #ff5555;
+}
+.pure-button.emphasized:hover,
+a.pure-button.emphasized:hover {
+  color: #ff5555;
+  background-color: white;
+  border-color: #ff5555;
+}
+
+
 /* messengerpeople */
 .messengerpeople {
   position: initial !important;
