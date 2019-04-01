@@ -29,7 +29,13 @@ function _parseDatetime(dateTimeString) {
 
 function getPredDate(date) {
   if (date) {
-    return new Date(date.valueOf() - 1000 * 60 * 60 * 24);
+    const candidate = new Date(date.valueOf() - 1000 * 60 * 60 * 24);
+    if(isSummerTime(date) && !isSummerTime(candidate)) {
+      // there is one day when switching from winter to summer time that has
+      // only 23h !!
+      return new Date(date.valueOf() - 1000 * 60 * 60 * 23);
+    }
+    return candidate;
   }
   return null;
 }
