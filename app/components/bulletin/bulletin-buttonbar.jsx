@@ -82,6 +82,22 @@ class BulletinButtonbar extends React.Component {
                     </a>
                   </li>
                 )}
+                {config.get("dialogs.feedback") && (
+                  <li>
+                    <a
+                      href={config.get("links.feedback." + appStore.language)}
+                      title={this.props.intl.formatMessage({
+                        id: "bulletin:feedback:hover"
+                      })}
+                      target="_blank"
+                      className="pure-button tooltip"
+                      >
+                      {this.props.intl.formatMessage({
+                        id: "bulletin:feedback"
+                      })}
+                    </a>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

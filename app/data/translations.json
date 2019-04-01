@@ -639,11 +639,20 @@
     "de": "Waldgrenze",
     "it": "Limite del bosco"
   },
-
   "bulletin:howto": {
     "de": "<strong>Klick auf die Karte</strong> für detaillierte Informationen zur Lawinengefahr in den verschiedenen Warnregionen.",
     "en": "<strong>Click on the map</strong> for detailed information on the avalanche danger in the various warning regions.",
     "it": "<strong>Cliccate sulla carta</strong> per ottenere informazioni dettagliati sul pericolo di valanghe nelle diverse zone di avviso."
+  },
+  "bulletin:feedback": {
+    "en": "Survey",
+    "de": "Umfrage",
+    "it": "Indagine"
+  },
+  "bulletin:feedback:hover": {
+    "en": "ONLINE SURVEY on the new Euregio Avalanche.report",
+    "de": "ONLINE UMFRAGE zum neuen Euregio Lawinen.report",
+    "it": "INDAGINE ONLINE sul nuovo Euregio Valanghe.report"
   },
 
   "archive:filter:year": { "en": "Year", "de": "Jahr", "it": "Anno" },
