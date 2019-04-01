@@ -1,7 +1,7 @@
 import { observable, action, computed, toJS } from "mobx";
 import React from "react";
 import { LocaleStore } from "./util/mobx-react-intl.es5.js";
-import CookieConsentStore from "./stores/cookieConsentStore";
+import CookieStore from "./stores/cookieStore";
 import NavigationStore from "./stores/navigationStore";
 import translations from "./data/translations.json";
 
@@ -41,7 +41,8 @@ class AppStore extends React.Component {
 
     // initial language is changed after config has arrived!!!
     this.locale = new LocaleStore("en", translationLookup);
-    this.cookieConsent = new CookieConsentStore();
+    this.cookieConsent = new CookieStore('cookieConsentAccepted');
+    this.cookieFeedback = new CookieStore('feedbackAccepted');
     this.navigation = new NavigationStore();
 
     this.regions = {
