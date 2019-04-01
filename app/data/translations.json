@@ -1037,11 +1037,11 @@
   "dialog:feedback:button": {
     "en": "No, thanks!",
     "de": "Nein, danke!",
-    "it": "No"
+    "it": "No, grazie!"
    },
   "dialog:feedback:button:hover": {
     "en": "No, thanks!",
     "de": "Nein, danke!",
-    "it": "No"
+    "it": "No, granzie!"
   }
 }
