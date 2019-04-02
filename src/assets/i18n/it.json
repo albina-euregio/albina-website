@@ -259,6 +259,10 @@
 						"success" : "È stato creato il file HTML",
 						"failed" : "Non è stato possibile creare il file HTML"
 					},
+					"staticWidget" : {
+						"success" : "È stato creato il widget statico",
+						"failed" : "Non è stato possibile creare il widget statico"
+					},
 					"email" : {
 						"success" : "Emails inviate",
 						"failed" : "Non è stato possibile inviare e-mail"

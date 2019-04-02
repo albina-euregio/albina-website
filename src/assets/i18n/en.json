@@ -255,6 +255,10 @@
 						"success" : "PDF created",
 						"failed" : "PDF could not be created"
 					},
+					"staticWidget" : {
+						"success" : "Static widget created",
+						"failed" : "Static widget could not be created"
+					},
 					"html" : {
 						"success" : "HTML created",
 						"failed" : "HTML could not be created"
