@@ -12,7 +12,7 @@
 	  <i *ngIf="json.report.htmlCreated" class="fa fa-html5" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.html.success' | translate }}" (click)="createHtml($event)"></i>
 	  <i *ngIf="!json.report.htmlCreated" class="fa fa-html5" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.html.failed' | translate }}" (click)="createHtml($event)"></i>
 
-	  <i *ngIf="json.report.staticWidgetCreated" class="fa fa-tools" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.staticWidget.success' | translate }}></i>
+	  <i *ngIf="json.report.staticWidgetCreated" class="fa fa-tools" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.staticWidget.success' | translate }}"></i>
 	  <i *ngIf="!json.report.staticWidgetCreated" class="fa fa-tools" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.staticWidget.failed' | translate }}"></i>
 
 	  <i *ngIf="json.report.emailCreated" class="fa fa-envelope" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.email.success' | translate }}"></i>
