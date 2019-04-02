@@ -1341,8 +1341,7 @@ private setTexts() {
 
     let date = new Date();
     date.setHours(0, 0, 0, 0);
-    var dateOffset = (24 * 60 * 60 * 1000) * 1;
-    date.setTime(this.bulletinsService.getActiveDate().getTime() - dateOffset);
+    date.setDate(this.bulletinsService.getActiveDate().getDate() - 1);
 
     let regions = new Array<String>();
     regions.push(this.authenticationService.getActiveRegion());
