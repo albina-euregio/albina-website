@@ -22,6 +22,7 @@ export class FullLayoutComponent implements OnInit {
 
   public disabled: boolean = false;
   public status: {isopen: boolean} = {isopen: false};
+  public showChat: boolean;
 
   public message: string;
 
@@ -49,6 +50,7 @@ export class FullLayoutComponent implements OnInit {
   {
     this.message = "";
     this.tmpRegion = undefined;
+    this.showChat = environment.showChat;
   }
 
   getStyle() {

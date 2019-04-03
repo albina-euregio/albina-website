@@ -8,5 +8,6 @@ export const environment = {
   apiBaseUrl: 'https://admin.avalanche.report/albina_dev/api/',
   wsBaseUrl: 'wss://socket.avalanche.report/albina_dev/',
   textcatUrl: 'https://admin.avalanche.report/textcat_dev/c_pm.html',
-  headerBgColor: '#f95bdc'
+  headerBgColor: '#f95bdc',
+  showChat: true
 };

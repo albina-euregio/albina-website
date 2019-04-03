@@ -3,5 +3,6 @@ export const environment = {
   apiBaseUrl: 'https://admin.avalanche.report/albina/api/',
   wsBaseUrl: 'wss://socket.avalanche.report/albina/',
   textcatUrl: 'https://admin.avalanche.report/textcat/c_pm.html',
-  headerBgColor: '#ffffff'
+  headerBgColor: '#ffffff',
+  showChat: false
 };
