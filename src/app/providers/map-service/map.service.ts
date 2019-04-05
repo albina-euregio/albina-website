@@ -371,6 +371,12 @@ export class MapService {
                     entry.setStyle(this.getEditSelectionStyle(Enums.RegionStatus.saved));
                 }
             }
+            for (let region of bulletin.publishedRegions) {
+                if (entry.feature.properties.id == region) {
+                    entry.feature.properties.selected = true;
+                    entry.setStyle(this.getEditSelectionStyle(Enums.RegionStatus.saved));
+                }
+            }
             for (let region of bulletin.suggestedRegions) {
                 if (entry.feature.properties.id == region) {
                     entry.feature.properties.selected = true;
