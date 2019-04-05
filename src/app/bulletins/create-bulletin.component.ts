@@ -1043,7 +1043,7 @@ private setTexts() {
           if (this.activeBulletin.getSavedRegions().indexOf(region) == -1)
             this.activeBulletin.getSavedRegions().push(region);
         } else {
-          if ((this.activeBulletin.getSavedRegions().indexOf(region) == -1) && (this.activeBulletin.getSuggestedRegions().indexOf(region) == -1))
+          if ((this.activeBulletin.getSavedRegions().indexOf(region) == -1) && (this.activeBulletin.getSuggestedRegions().indexOf(region) == -1) && (this.activeBulletin.getPublishedRegions().indexOf(region) == -1))
             this.activeBulletin.getSuggestedRegions().push(region);
         }
       }
