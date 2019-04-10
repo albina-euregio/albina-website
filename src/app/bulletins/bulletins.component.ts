@@ -30,7 +30,9 @@ export class BulletinsComponent {
 
   public updates: Subject<BulletinUpdateModel>;
 
-  public loading: boolean;
+  public loadingTrentino: boolean;
+  public loadingSouthTyrol: boolean;
+  public loadingTyrol: boolean;
   public publishing: Date;
   public copying: boolean;
 
@@ -79,7 +81,9 @@ export class BulletinsComponent {
     public modalService: BsModalService,
     public wsUpdateService: WsUpdateService)
   {
-    this.loading = false;
+    this.loadingTrentino = false;
+    this.loadingSouthTyrol = false;
+    this.loadingTyrol = false;
     this.copying = false;
     this.publishing = undefined;
 
@@ -87,11 +91,17 @@ export class BulletinsComponent {
   }
 
   ngOnInit() {
+    this.loadingTrentino = false;
+    this.loadingSouthTyrol = false;
+    this.loadingTyrol = false;
+
     this.wsUpdateConnect();
   }
 
   ngOnDestroy() {
-    this.loading = false;
+    this.loadingTrentino = false;
+    this.loadingSouthTyrol = false;
+    this.loadingTyrol = false;
     this.copying = false;
     this.wsUpdateDisconnect();
   }
@@ -103,8 +113,12 @@ export class BulletinsComponent {
         let data = JSON.parse(response.data);
         let bulletinUpdate = BulletinUpdateModel.createFromJson(data);
         console.debug("Bulletin update received: " + bulletinUpdate.getDate().toLocaleDateString() + " - " + bulletinUpdate.getRegion() + " [" + bulletinUpdate.getStatus() + "]");
-        if (bulletinUpdate.region === this.authenticationService.getActiveRegion())
-          this.bulletinsService.statusMap.set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
+        if (bulletinUpdate.region === this.constantsService.codeTyrol)
+          this.bulletinsService.statusMapTyrol.set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
+        if (bulletinUpdate.region === this.constantsService.codeSouthTyrol)
+          this.bulletinsService.statusMapSouthTyrol.set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
+        if (bulletinUpdate.region === this.constantsService.codeTrentino)
+          this.bulletinsService.statusMapTrentino.set(new Date(bulletinUpdate.getDate()).getTime(), bulletinUpdate.getStatus());
         return bulletinUpdate;
       });
 
@@ -142,10 +156,6 @@ export class BulletinsComponent {
     return false;
   }
 
-  isMissing(date) {
-    return (this.bulletinsService.statusMap.get(date.getTime()) == Enums.BulletinStatus.missing || this.bulletinsService.statusMap.get(date.getTime()) == undefined);
-  }
-
   showCreateButton(date) {
     if (this.authenticationService.getActiveRegion() != undefined &&
         (!this.isPast(date)) && 
@@ -164,8 +174,7 @@ export class BulletinsComponent {
         (!this.publishing || this.publishing.getTime() != date.getTime()) && 
         this.bulletinsService.getUserRegionStatus(date) && 
         this.bulletinsService.getUserRegionStatus(date) != this.bulletinStatus.missing && 
-        !this.copying && 
-        !this.loading)
+        !this.copying)
       return true;
     else
       return false;
