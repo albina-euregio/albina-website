@@ -9,9 +9,7 @@
     "build-beta": "npm run clean-dist && webpack --mode production --output-public-path=/beta/",
     "deploy": "rsync -avz -e 'ssh -p 2201' --progress --exclude=config.json dist/ karto@80.120.70.88:/var/www/html/albina-web/",
     "deploy-beta": "rsync -avz -e 'ssh -p 2201' --progress --exclude=config.json dist/ karto@80.120.70.88:/var/www/html/beta/",
-    "clean-dist": "rm -f -r -d dist",
-    "start-server-blog": "nodemon server/blog.js",
-    "deploy-server-blog": "rsync -avz -e 'ssh -p 2201' --progress ./server karto@80.120.70.88:/var/www/html/"
+    "clean-dist": "rm -f -r -d dist"
   },
   "dependencies": {
     "@turf/flip": "^5.1.5",
