@@ -74,7 +74,6 @@
     "interreg": "http://www.interreg.net/{lang}/default.asp",
     "meteoViewer": "https://data1.geo.univie.ac.at/projects/meteoviewer?config=albina",
     "meteoViewerConfig": "https://data1.geo.univie.ac.at/projects/meteoviewer/data/albina_domains.json",
-    "stationTable": "https://data1.geo.univie.ac.at/sandbox/ogd_table/ogd_table.php",
     "downloads": {
       "base": "https://avalanche.report/albina_files/",
       "pdf": "{date}/{date}_{lang}.pdf",

@@ -5,7 +5,7 @@
   "main": "app/main.jsx",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
-    "build": "npm run clean-dist && webpack --mode production --output-public-path=/albina-web/",
+    "build": "npm run clean-dist && webpack --mode production --output-public-path=/",
     "build-beta": "npm run clean-dist && webpack --mode production --output-public-path=/beta/",
     "deploy": "rsync -avz -e 'ssh -p 2201' --progress --exclude=config.json dist/ karto@80.120.70.88:/var/www/html/albina-web/",
     "deploy-beta": "rsync -avz -e 'ssh -p 2201' --progress --exclude=config.json dist/ karto@80.120.70.88:/var/www/html/beta/",
@@ -67,7 +67,7 @@
     "express": "^4.16.4",
     "intl": "^1.2.5",
     "is-es5-supported": "^1.0.0",
-    "jquery": "^3.3.1",
+    "jquery": "^3.4.1",
     "node-sass": "^4.11.0",
     "node-ssh": "^5.1.2",
     "resolve-url-loader": "^3.0.0",
