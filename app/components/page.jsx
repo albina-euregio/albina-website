@@ -41,27 +41,37 @@ class Page extends React.Component {
   }
 
   _setLanguage() {
-    // url lang param
-
     // url parameter
     if (!appStore.setLanguage(Base.searchGet("lang"))) {
-      if (!appStore.setLanguage(window.localStorage.getItem("locale"))) {
-        // config language
-        if (!appStore.setLanguage(config.get("defaults.language"))) {
-          // browser setting
-          let browserLangSettings = window.navigator.language
-            ? window.navigator.language
-            : "";
-          browserLangSettings = window.navigator.browserLanguage
-            ? window.navigator.browserLanguage
-            : "";
-
-          browserLangSettings = browserLangSettings.substr(0, 2).toLowerCase();
-
-          if (!appStore.setLanguage(browserLangSettings)) {
-            // fallback to en
+      // config language
+      if (!appStore.setLanguage(config.get("defaults.language"))) {
+        // language setting based on hostname
+        let hostLangSetting =
+          (location.hostname == 'lawinen.report')
+            ? 'de'
+            : ((location.hostname == 'valanghe.report')
+              ? 'it'
+              : 'en'
+              );
+        if(!appStore.setLanguage(hostLangSetting)) {
+          if (!appStore.setLanguage(window.localStorage.getItem("locale"))) {
             appStore.setLanguage("en");
           }
+
+          // // browser setting
+          // let browserLangSettings = window.navigator.language
+          //   ? window.navigator.language
+          //   : "";
+          // browserLangSettings = window.navigator.browserLanguage
+          //   ? window.navigator.browserLanguage
+          //   : "";
+          //
+          // browserLangSettings = browserLangSettings.substr(0, 2).toLowerCase();
+          //
+          // if (!appStore.setLanguage(browserLangSettings)) {
+          //   // fallback to en
+          //   appStore.setLanguage("en");
+          // }
         }
       }
     }
