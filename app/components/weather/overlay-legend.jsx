@@ -85,9 +85,8 @@ export default class OverlayLegend extends React.Component {
 
     return (
       <Control position="bottomright">
-        <div className="legend">
+        <div className="legend pure-button secondary">
           { this.state.hidden &&
-            <div className="legend-toggle">
               <a className="leaflet-control-button tooltip"
                 href="#"
                 title="Legende"
@@ -97,9 +96,8 @@ export default class OverlayLegend extends React.Component {
                   this.show();
                 }}
                 >
-                Legende
+                <span className="legend-toggle">Legende</span>
               </a>
-            </div>
           }
           { !this.state.hidden &&
             <svg width={w} height={svgSize}>
@@ -120,11 +118,12 @@ export default class OverlayLegend extends React.Component {
                 <rect className="legend-close-button" x="0"
                   y={(svgSize - textSize)}
                   width={w}
-                  height={textSize} />
+                  height={textSize * 1.5}
+                   />
                 <text className="legend-close-button-text"
                   x={w / 2} y={svgSize}
                   fontSize={textSize}
-                  textAnchor="middle" >
+                  textAnchor="middle" >{"\u25BF"}
                 </text>
               </g>
             </svg>
