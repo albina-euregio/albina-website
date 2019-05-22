@@ -76,9 +76,14 @@ Base.doRequest(configUrl).then(configData => {
   configParsed["developmentMode"] = true;
   // configParsed['developmentMode'] = DEV; // included via webpack.DefinePlugin
 
+  const languageHostConfig = configParsed["languageHostSettings"];
+  const hostLang = Object.keys(languageHostConfig).filter((lang) =>
+    (languageHostConfig[lang] == location.hostname)
+  );
+  if(hostLang.length > 0) {
+    window["appStore"].setLanguage(hostLang[0]);
+  }
   window["config"] = new ConfigStore(configParsed);
-
-  console.log(config);
   // set initial language
 
   // init Analytics software - only on production builds

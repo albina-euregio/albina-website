@@ -15,15 +15,18 @@ class PageHeader extends React.Component {
   // changing language on header language button click
   handleChangeLanguage = newLanguage => {
     console.log("setting language header");
-    window["appStore"].setLanguage(newLanguage);
-    Base.searchChange(this.props.history, { lang: newLanguage }, false);
-    if (this.props.location.pathname.includes("blog")) {
-      Base.searchChange(
-        this.props.history,
-        { searchLang: appStore.language },
-        false
-      );
-    }
+
+    // window["appStore"].setLanguage(newLanguage);
+    // Base.searchChange(this.props.history, { lang: newLanguage }, false);
+    document.location.hostname = (config.get('languageHostSettings'))[newLanguage];
+
+    // if (this.props.location.pathname.includes("blog")) {
+    //   Base.searchChange(
+    //     this.props.history,
+    //     { searchLang: appStore.language },
+    //     false
+    //   );
+    // }
   };
 
   setActiveMenuItem = e => {

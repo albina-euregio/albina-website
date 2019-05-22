@@ -48,12 +48,19 @@ export default class BlogStore {
   getHistory;
 
   update() {
+    const languageHostConfig = config.get('languageHostSettings');
+    const l = this.languageActive;
+    const searchLang =
+      (languageHostConfig[l] && languageHostConfig[l] == document.location.hostname)
+      ? ''
+      : this.languageActive;
+
     Base.searchChange(
       this.getHistory(),
       {
         year: this.year,
         month: this.month,
-        searchLang: this.languageActive,
+        searchLang: searchLang,
         region: this.regionActive,
         problem: this.problem,
         page: this.page,

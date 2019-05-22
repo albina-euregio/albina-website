@@ -40,53 +40,51 @@ class Page extends React.Component {
     window["menuStore"] = this.menuStore;
   }
 
-  _setLanguage() {
+  // _setLanguage() {
     // url parameter
-    if (!appStore.setLanguage(Base.searchGet("lang"))) {
-      // config language
-      if (!appStore.setLanguage(config.get("defaults.language"))) {
-        // language setting based on hostname
-        let hostLangSetting =
-          (location.hostname == 'lawinen.report')
-            ? 'de'
-            : ((location.hostname == 'valanghe.report')
-              ? 'it'
-              : 'en'
-              );
-        if(!appStore.setLanguage(hostLangSetting)) {
-          if (!appStore.setLanguage(window.localStorage.getItem("locale"))) {
-            appStore.setLanguage("en");
-          }
-
-          // // browser setting
-          // let browserLangSettings = window.navigator.language
-          //   ? window.navigator.language
-          //   : "";
-          // browserLangSettings = window.navigator.browserLanguage
-          //   ? window.navigator.browserLanguage
-          //   : "";
-          //
-          // browserLangSettings = browserLangSettings.substr(0, 2).toLowerCase();
-          //
-          // if (!appStore.setLanguage(browserLangSettings)) {
-          //   // fallback to en
-          //   appStore.setLanguage("en");
-          // }
-        }
-      }
-    }
+    // if (!appStore.setLanguage(Base.searchGet("lang"))) {
+    //   // config language
+    //   if (!appStore.setLanguage(config.get("defaults.language"))) {
+    //     // language setting based on hostname
+    //     const languageHostConfig = config.get("languageHostSettings");
+    //     const hostLang = Object.keys(languageHostConfig).filter((lang) =>
+    //       (languageHostConfig[lang] == location.hostname)
+    //     );
+    //
+    //     if(hostLang.length < 1 || !appStore.setLanguage(hostLang[0])) {
+    //       if (!appStore.setLanguage(window.localStorage.getItem("locale"))) {
+    //         appStore.setLanguage("en");
+    //       }
+    //
+    //       // // browser setting
+    //       // let browserLangSettings = window.navigator.language
+    //       //   ? window.navigator.language
+    //       //   : "";
+    //       // browserLangSettings = window.navigator.browserLanguage
+    //       //   ? window.navigator.browserLanguage
+    //       //   : "";
+    //       //
+    //       // browserLangSettings = browserLangSettings.substr(0, 2).toLowerCase();
+    //       //
+    //       // if (!appStore.setLanguage(browserLangSettings)) {
+    //       //   // fallback to en
+    //       //   appStore.setLanguage("en");
+    //       // }
+    //     }
+    //   }
+    // }
 
     // change url if needed
 
-    if (Base.searchGet("lang") !== appStore.language) {
-      Base.searchChange(this.props.history, { lang: appStore.language }, true);
-
-      document.title = this.props.intl.formatMessage({
-        id: "app:title"
-      });
-      document.documentElement.lang = appStore.language;
-    }
-  }
+    // if (Base.searchGet("lang") !== appStore.language) {
+    //   Base.searchChange(this.props.history, { lang: appStore.language }, true);
+    //
+    //   document.title = this.props.intl.formatMessage({
+    //     id: "app:title"
+    //   });
+    //   document.documentElement.lang = appStore.language;
+    // }
+  // }
 
   componentDidUpdate() {
     this._didUpdate();
@@ -134,7 +132,7 @@ class Page extends React.Component {
       });
     }
 
-    this._setLanguage();
+    //this._setLanguage();
 
     /*
     if (this.hash && this.hash !== this.props.location.hash) {

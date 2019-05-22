@@ -309,10 +309,14 @@
     ],
     "iconsHidden": false
   },
-
   "archive": {
     "minYear": 2016,
     "maxResults": 31
+  },
+  "languageHostSettings": {
+    "en": "avalanche.report",
+    "de": "lawinen.report",
+    "it": "valanghe.report"
   },
   "defaults": {
     "language": "auto",
