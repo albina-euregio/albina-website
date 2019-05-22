@@ -63,7 +63,7 @@
     "blogger": "https://blogcache.avalanche.report/",
     "blogger_": "//localhost:3000/",
     "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/",
-    "stations": "https://data1.geo.univie.ac.at/projects/albina2/data/meteo/json/stations.json"
+    "stations": "https://data1.geo.univie.ac.at/exchange/albina2/meteo/stations.json"
   },
   "apiKeys": {
     "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo",
