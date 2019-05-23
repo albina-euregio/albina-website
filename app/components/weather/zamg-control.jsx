@@ -1,7 +1,7 @@
 import React from "react";
 import Control from "react-leaflet-control";
 
-export default class ZamgLogo extends React.Component {
+export default class ZamgControl extends React.Component {
   render() {
     return (
       <Control position="bottomright" className="pad-right">

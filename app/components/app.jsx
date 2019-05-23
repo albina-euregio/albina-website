@@ -9,7 +9,7 @@ import { renderRoutes } from "react-router-config";
 import Bulletin from "./../views/bulletin";
 import BlogOverview from "./../views/blogOverview";
 import BlogPost from "./../views/blogPost";
-import WeatherMap from "./../views/weatherMap";
+import Weather from "./../views/weather";
 import StationMeasurements from "./../views/stationMeasurements";
 import OverviewPage from "./../views/overviewPage";
 import Archive from "./../views/archive";
@@ -69,7 +69,7 @@ class App extends React.Component {
           {
             path: "/weather/map/:domain?",
             exact: true,
-            component: WeatherMap
+            component: Weather
           },
           {
             path: "/weather/measurements",

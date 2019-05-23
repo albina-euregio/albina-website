@@ -246,7 +246,7 @@ class LeafletMap extends React.Component {
   renderLoadedMap(mapOptions) {
     return (
       <Map
-        onViewportChanged={this.props.mapViewportChanged.bind(this.map)}
+        onViewportChanged={this.props.onViewportChanged.bind(this.map)}
         useFlyTo
         ref="map"
         gestureHandling

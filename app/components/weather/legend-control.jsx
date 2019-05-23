@@ -1,7 +1,7 @@
 import React from "react";
 import Control from "react-leaflet-control";
 
-export default class OverlayLegend extends React.Component {
+export default class LegendControl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

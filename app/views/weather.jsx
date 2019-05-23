@@ -9,19 +9,16 @@ import { preprocessContent } from "../util/htmlParser";
 import Base from "../base";
 import { dateToLongDateString, dateToTimeString } from "../util/date";
 import Menu from "../components/menu";
-import LeafletMap2 from "../components/leaflet-map2";
+import WeatherMap from "../components/weather/weather-map";
 import WeatherMapStore from "../stores/weatherMapStore";
-import { TileLayer } from "react-leaflet";
 
 import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
-import ZamgLogo from "../components/weather/zamg-logo";
-import OverlayLegend from "../components/weather/overlay-legend";
 import MapStore from "../stores/mapStore";
 import AppStore from "../appStore";
 
 @observer
-class WeatherMap extends React.Component {
+class Weather extends React.Component {
   constructor(props) {
     super(props);
 
@@ -69,9 +66,9 @@ class WeatherMap extends React.Component {
     this.store.changeItem(newItemId);
   }
 
-  handleMapViewportChanged() {
+  handleMapViewportChanged = () => {
 
-  }
+  };
 
   render() {
     const domainButtons = this.store.config
@@ -134,25 +131,10 @@ class WeatherMap extends React.Component {
         >
           {this.store.domain && (
             <div className="bulletin-map-container section-map">
-              <LeafletMap2
-                loaded={this.store.domain !== false}
-                mapViewportChanged={this.handleMapViewportChanged.bind(this)}
-                zamgLogo={true}
-                overlays={[
-                  <TileLayer key="background-map"
-                    className="leaflet-image-layer"
-                    url={
-                      config.get("links.meteoViewer.overlays")
-                      + this.store.item.overlay.tms
-                      + "/{z}/{x}/{y}.png"
-                    }
-                    opacity={Base.checkBlendingSupport() ? 1 : 0.5}
-                    tms={true} />
-                ]}
-                controls={[
-                  <ZamgLogo key="zamg" />,
-                  <OverlayLegend key="legend" item={this.store.item} />
-                ]}
+              <WeatherMap
+                domain={this.store.domain}
+                item={this.store.item}
+                onViewportChanged={this.handleMapViewportChanged}
                 />
             </div>
           )}
@@ -167,4 +149,4 @@ class WeatherMap extends React.Component {
     );
   }
 }
-export default withRouter(observer(WeatherMap));
+export default withRouter(observer(Weather));
