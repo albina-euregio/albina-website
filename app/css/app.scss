@@ -260,6 +260,14 @@ a.pure-button.emphasized:hover {
   background: rgba(245, 245, 245, 0.95);
 }
 
+.leaflet-control.pad-right {
+  position: absolute;
+  float: none;
+  left: calc(100% - 110px);
+  bottom: 1em;
+  display: inline-block;
+}
+
 .leaflet-control .pure-button {
   padding: 0;
   margin: 0;
