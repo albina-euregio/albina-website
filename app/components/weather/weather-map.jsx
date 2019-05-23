@@ -1,12 +1,14 @@
 import React from "react";
+import { observer } from "mobx-react";
 
 import Base from "../../base";
 import LeafletMap2 from "../leaflet-map2";
 import ZamgControl from "./zamg-control";
 import LegendControl from "./legend-control";
+import GridOverlay from "./grid-overlay";
 import { TileLayer } from "react-leaflet";
 
-export default class WeatherMap extends React.Component {
+class WeatherMap extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -14,22 +16,45 @@ export default class WeatherMap extends React.Component {
   render() {
     const overlays = [];
     if(this.props.item) {
-      overlays.push(
-        <TileLayer key="background-map"
-          className="leaflet-image-layer"
-          url={
-            config.get("links.meteoViewer.overlays")
-            + this.props.item.overlay.tms
-            + "/{z}/{x}/{y}.png"
-          }
-          minNativeZoom={8}
-          minZoom={config.get('map.initOptions.minZoom')}
-          maxNativeZoom={9}
-          maxZoom={config.get('map.initOptions.maxZoom')}
-          opacity={Base.checkBlendingSupport() ? 1 : 0.5}
-          tms={true} />
-      );
+      if(this.props.item.layer.overlay) {
+        const mapMinZoom = config.get('map.initOptions.minZoom');
+        const mapMaxZoom = config.get('map.initOptions.maxZoom');
+
+        const zoomBounds = this.props.item.overlay.tmsZoomLevel.split('-');
+        const minZoom = (Array.isArray(zoomBounds) && zoomBounds.length == 2) ? zoomBounds[0] : mapMinZoom;
+        const maxZoom = (Array.isArray(zoomBounds) && zoomBounds.length == 2) ? zoomBounds[1] : mapMaxZoom;
+
+        overlays.push(
+          <TileLayer key="background-map"
+            className="leaflet-image-layer"
+            url={
+              config.get("links.meteoViewer.overlays")
+              + this.props.item.overlay.tms
+              + "/{z}/{x}/{y}.png"
+            }
+            minNativeZoom={Math.max(minZoom, mapMinZoom)}
+            minZoom={mapMinZoom}
+            maxNativeZoom={Math.min(maxZoom, mapMaxZoom)}
+            maxZoom={mapMaxZoom}
+            opacity={Base.checkBlendingSupport() ? 1 : 0.5}
+            tms={true} />
+        );
+      }
+
+      if(this.props.item.layer.grid && this.props.grid) {
+        overlays.push(
+          <GridOverlay key={"grid"}
+            zoom={mapStore.getMapZoom}
+            item={this.props.item}
+            grid={this.props.grid} />
+        );
+      }
+
+      if(this.props.item.layer.stations) {
+
+      }
     }
+
     return (
       <LeafletMap2
         loaded={this.props.domain !== false}
@@ -43,3 +68,5 @@ export default class WeatherMap extends React.Component {
     );
   }
 }
+
+export default observer(WeatherMap);

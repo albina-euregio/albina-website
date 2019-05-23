@@ -22,7 +22,7 @@ require("leaflet-gesture-handling");
 require("leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css");
 require("./../css/geonames.css");
 
-class LeafletMap extends React.Component {
+class LeafletMap2 extends React.Component {
   constructor(props) {
     super(props);
     this.map = false;
@@ -274,4 +274,4 @@ class LeafletMap extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(observer(LeafletMap)));
+export default inject("locale")(injectIntl(observer(LeafletMap2)));

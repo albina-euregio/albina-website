@@ -66,8 +66,10 @@ class Weather extends React.Component {
     this.store.changeItem(newItemId);
   }
 
-  handleMapViewportChanged = () => {
-
+  handleMapViewportChanged = (data) => {
+    console.log('VIEWPORT: ' + JSON.stringify(data));
+    mapStore.mapZoom.set(data.zoom);
+    mapStore.mapCenter.set(data.center);
   };
 
   render() {
@@ -130,10 +132,12 @@ class Weather extends React.Component {
           }
         >
           {this.store.domain && (
-            <div className="bulletin-map-container section-map">
+            <div className="bulletin-map-container weather-map-container section-map">
               <WeatherMap
                 domain={this.store.domain}
                 item={this.store.item}
+                grid={this.store.grid}
+                stations={this.store.stations}
                 onViewportChanged={this.handleMapViewportChanged}
                 />
             </div>

@@ -649,3 +649,101 @@ img {
   float: right;
   margin: -1em 0;
 }
+
+.weather-map-container {
+  $color-almost-black: darkgrey;
+  $color-white: white;
+  $color-symbol: black;
+  $border_radius_def: 0px;
+  $border_def: 0.5px solid black;
+  $border_light: 0.5px solid #999;
+  $font_default: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  $font_size_default: 14px;
+
+  /* station styling */
+
+  /* all stations */
+  .station text {
+    font-family: $font_default; //'Open Sans', sans-serif;
+    font-size: 10px;
+  }
+
+  .station circle.inner {
+    stroke: black;
+    stroke-width: 1.25;
+  }
+
+  /* stations clusters */
+  .station-cluster circle.inner {
+  }
+
+  .station-cluster text {
+    font-weight: 700;
+  }
+
+  /* single stations */
+  .station-single circle.inner {
+    stroke-opacity: 0.8;
+    fill-opacity: 1;
+  }
+
+  .station-single text {
+    font-weight: 700;
+  }
+
+  /* outer circle - only selected stations */
+  .station-single circle.outer,
+  .gridpoint circle.outer {
+    stroke: black;
+    fill: none;
+    fill-opacity: 0;
+    stroke-width: 3;
+  }
+  .blending-not-supported .station-single circle.outer,
+  .blending-not-supported .gridpoint circle.outer {
+    stroke-width: 4;
+    stroke: grey;
+  }
+
+  /* selected circle in clusters*/
+  .station-selected-clustered circle.inner {
+    stroke: black;
+    stroke-width: 2;
+    fill: $color-white;
+  }
+
+  /* grid point*/
+  .gridpoint circle.inner {
+    stroke-width: 2.2;
+    stroke-dasharray: 0 4;
+    stroke-linecap: round;
+    stroke: black;
+    stroke-opacity: 0.8;
+  }
+
+  .leaflet-marker-icon {
+    background: none;
+    border: none;
+  }
+
+  .leaflet-marker-pane {
+    z-index: 700;
+  }
+
+  .station,
+  .gridpoint {
+    .direction {
+      path {
+        stroke: $color-symbol;
+        fill: $color-symbol;
+        stroke-width: 0.75;
+      }
+    }
+  }
+
+  .gridpoint text {
+    font-family: $font_default; //'Open Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+  }
+}
