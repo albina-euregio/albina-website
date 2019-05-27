@@ -103,8 +103,6 @@ export class AuthenticationService {
         return 3;
       case "IT-32-TN":
         return 3;
-      case "AT-06":
-        return 4;
       
       default:
         return 1;

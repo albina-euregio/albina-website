@@ -202,8 +202,7 @@
 				"status" : {
 					"IT-32-TN" : "Trentino",
 					"IT-32-BZ" : "Alto adige",
-					"AT-07" : "Tirolo",
-					"AT-06" : "Stiria"
+					"AT-07" : "Tirolo"
 				},
 				"action" : "Azzioni",
 				"caaml" : "CAAML"
@@ -386,7 +385,6 @@
 				"publishBulletinsTyrol" : "Pubblicare bollettino valanghe per il Tirolo",
 				"publishBulletinsSouthTyrol" : "Pubblicare bollettino valanghe per l'Alto Adige",
 				"publishBulletinsTrentino" : "Pubblicare bollettino valanghe per il Trentino",
-				"publishBulletinsStyria" : "Pubblicare bollettino valanghe per la Stiria",
 				"pdfDirectory" : "Cartella per PDF",
 				"htmlDirectory" : "Cartella per HTML",
 				"serverImagesUrl" : "Percorso alle immagini sul server",
@@ -473,8 +471,7 @@
 	"region" : {
 		"AT-07" : "Tirolo",
 		"IT-32-BZ" : "Alto Adige",
-		"IT-32-TN" : "Trentino",
-		"AT-06" : "Stiria"
+		"IT-32-TN" : "Trentino"
 	},
 	"tendency" : {
 		"decreasing" : " Pericolo valanghe in diminuazione",

@@ -202,8 +202,7 @@
 				"status" : {
 					"IT-32-TN" : "Trentino",
 					"IT-32-BZ" : "Südtirol",
-					"AT-07" : "Tirol",
-					"AT-06" : "Steiermark"
+					"AT-07" : "Tirol"
 				},
 				"action" : "Aktion",
 				"caaml" : "CAAML"
@@ -386,7 +385,6 @@
 				"publishBulletinsTyrol" : "Lawinenvorhersage für Tirol publizieren",
 				"publishBulletinsSouthTyrol" : "Lawinenvorhersage für Südtirol publizieren",
 				"publishBulletinsTrentino" : "Lawinenvorhersage für das Trentino publizieren",
-				"publishBulletinsStyria" : "Lawinenvorhersage für die Steiermark publizieren",
 				"pdfDirectory" : "Ordner für PDF",
 				"htmlDirectory" : "Ordner für HTML",
 				"serverImagesUrl" : "Pfad zu Bildern am Server",
@@ -472,8 +470,7 @@
 	"region" : {
 		"AT-07" : "Tirol",
 		"IT-32-BZ" : "Südtirol",
-		"IT-32-TN" : "Trentino",
-		"AT-06" : "Steiermark"
+		"IT-32-TN" : "Trentino"
 	},
 	"tendency" : {
 		"decreasing" : " Lawinengefahr sinkt",

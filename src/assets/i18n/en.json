@@ -202,8 +202,7 @@
 				"status" : {
 					"IT-32-TN" : "Trentino",
 					"IT-32-BZ" : "South Tyrol",
-					"AT-07" : "Tyrol",
-					"AT-06" : "Styria"
+					"AT-07" : "Tyrol"
 				},
 				"action" : "Action",
 				"caaml" : "CAAML"
@@ -386,7 +385,6 @@
 				"publishBulletinsTyrol" : "Publish avalanche forecast for Tirol",
 				"publishBulletinsSouthTyrol" : "Publish avalanche forecast for South Tyrol",
 				"publishBulletinsTrentino" : "Publish avalanche forecast for Trentino",
-				"publishBulletinsStyria" : "Publish avalanche forecast for Styria",
 				"pdfDirectory" : "Directory for PDF",
 				"htmlDirectory" : "Directory for HTML",
 				"serverImagesUrl" : "Path to server images",
@@ -472,8 +470,7 @@
 	"region" : {
 		"AT-07" : "Tyrol",
 		"IT-32-BZ" : "South Tyrol",
-		"IT-32-TN" : "Trentino",
-		"AT-06" : "Styria"
+		"IT-32-TN" : "Trentino"
 	},
 	"tendency" : {
 		"decreasing" : " Avalanche danger decreases",

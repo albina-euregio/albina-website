@@ -38,7 +38,6 @@ export class AdminComponent {
   public publishBulletinsTyrol: boolean;
   public publishBulletinsSouthTyrol: boolean;
   public publishBulletinsTrentino: boolean;
-  public publishBulletinsStyria: boolean;
   public pdfDirectory: string;
   public htmlDirectory: string;
   public serverImagesUrl: string;
@@ -98,7 +97,6 @@ export class AdminComponent {
           this.publishBulletinsTyrol = response.publishBulletinsTyrol;
           this.publishBulletinsSouthTyrol = response.publishBulletinsSouthTyrol;
           this.publishBulletinsTrentino = response.publishBulletinsTrentino;
-          this.publishBulletinsStyria = response.publishBulletinsStyria;
           this.pdfDirectory = response.pdfDirectory;
           this.htmlDirectory = response.htmlDirectory;
           this.serverImagesUrl = response.serverImagesUrl;
@@ -161,7 +159,6 @@ export class AdminComponent {
     json['publishBulletinsTyrol'] = this.publishBulletinsTyrol;
     json['publishBulletinsSouthTyrol'] = this.publishBulletinsSouthTyrol;
     json['publishBulletinsTrentino'] = this.publishBulletinsTrentino;
-    json['publishBulletinsStyria'] = this.publishBulletinsStyria;
     json['pdfDirectory'] = this.pdfDirectory;
     json['htmlDirectory'] = this.htmlDirectory;
     json['serverImagesUrl'] = this.serverImagesUrl;
