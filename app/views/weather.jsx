@@ -136,7 +136,9 @@ class Weather extends React.Component {
           }
         >
           {this.store.domain && (
-            <div className="bulletin-map-container weather-map-container section-map">
+            <div className="bulletin-map-container weather-map-container section-map"
+              onClick={(e) => { this.handleMarkerSelected(null); }}
+              >
               <WeatherMap
                 domain={this.store.domain}
                 item={this.store.item}
