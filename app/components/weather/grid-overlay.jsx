@@ -8,12 +8,18 @@ export default class GridOverlay extends React.Component {
   }
 
   getColor(value) {
-    const colors = this.props.item.colors;
+    const v = parseFloat(value);
+    const colors = Object.values(this.props.item.colors);
 
     let color = colors[0];
     this.props.item.thresholds.forEach((tr, i) => {
-      value > tr && (color = colors[i + 1]);
-    })
+      if(v > tr) {
+        console.log('TR: ' + JSON.stringify(tr));
+        color = colors[i + 1];
+      }
+    });
+
+    console.log('COLOR: ' + color);
     return color;
   }
 
@@ -56,7 +62,7 @@ export default class GridOverlay extends React.Component {
           <g transform="translate(25,25)">
             <circle className="inner"
               r={10}
-              fill={color}>
+              fill={"rgb(" + color + ")"}>
             </circle>
             { selected &&
               <circle className="outer" r={10}>
