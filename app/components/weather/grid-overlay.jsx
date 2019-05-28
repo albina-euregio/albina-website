@@ -84,21 +84,8 @@ class GridOverlay extends React.Component {
     const mapBounds = this.props.mapBounds;
     const zoom = this.props.zoom;
     const gridPoints = this.props.grid.features
-      .filter(point => point.properties.zoom <= zoom)
-      // .filter(point => {
-      //   const c = point.geometry.coordinates;
-      //   return mapBounds.contains([c[1], c[0]]);
-      // });
+      .filter(point => point.properties.zoom <= zoom);
 
-    console.log('TEST: ' + this.props.zoom + ' ' + gridPoints.length);
-      // .forEach(point => {
-      //   //console.log(mapBounds.contains(point.coordinates))
-      //   map.gridLayer.addLayer(
-      //     state.values.gridPoint === point.data.id
-      //       ? point.markerSelected
-      //       : point.marker
-      //   );
-      // });
     return (
       <FeatureGroup>
         { gridPoints.map((point, i) =>

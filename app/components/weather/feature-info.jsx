@@ -13,6 +13,9 @@ export default class FeatureInfo extends React.Component {
           {this.props.feature.detail &&
             <div className="feature-details"><span>{this.props.feature.detail}</span></div>
           }
+          {this.props.feature.date &&
+            <div className="feature-date"><span>{this.props.feature.date}</span></div>
+          }
         </div>
       </div>
     )
