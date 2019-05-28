@@ -10,12 +10,14 @@ export default class FeatureInfo extends React.Component {
       <div className="feature-info">
         <div className="box-content">
           <div className="feature-name"><span>{this.props.feature.name}</span></div>
-          {this.props.feature.detail &&
-            <div className="feature-details"><span>{this.props.feature.detail}</span></div>
-          }
-          {this.props.feature.date &&
-            <div className="feature-date"><span>{this.props.feature.date}</span></div>
-          }
+          <div>
+            {this.props.feature.detail &&
+              <span className="feature-details">{this.props.feature.detail}</span>
+            }
+            {this.props.feature.date &&
+              <span className="feature-date">{this.props.feature.date}</span>
+            }
+          </div>
         </div>
       </div>
     )
