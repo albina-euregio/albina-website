@@ -12,6 +12,7 @@ import Menu from "../components/menu";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
+import { TileLayer } from "react-leaflet";
 
 import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
