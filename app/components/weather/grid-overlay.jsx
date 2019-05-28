@@ -1,6 +1,6 @@
 import React from "react";
 import { FeatureGroup } from "react-leaflet";
-import DivIcon from 'react-leaflet-div-icon';
+import StationMarker from "./station-marker";
 
 class GridOverlay extends React.Component {
   constructor(props) {
@@ -23,60 +23,25 @@ class GridOverlay extends React.Component {
 
   renderMarker(data, key) {
     const value = data.properties[this.props.item.id];
-    const color = this.getColor(value);
     const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
-    const selected = this.props.selectedFeature && (data.properties.id == this.props.selectedFeature.id);
-    const d = {
-      id: data.properties.id,
-      name: data.properties.name,
-      detail: value + " " + this.props.item.units
-    }
+
     return (
-      <DivIcon
+      <StationMarker
+        type="gridpoint"
         key={data.properties.id}
-        position={coordinates}
+        coordinates={coordinates}
+        value={value}
+        selected={
+          this.props.selectedFeature && (data.properties.id == this.props.selectedFeature.id)
+        }
+        color={this.getColor(value)}
         onClick={(e) => {
-          this.props.onMarkerSelected(d);
-        }}>
-        <svg
-          className={'gridpoint ' +
-            (selected ? 'gridpoint-selected' : 'gridpoint-default')}
-          width={50}
-          height={50}
-          >
-          <g transform="translate(25,25)">
-            <circle className="inner"
-              r={10}
-              fill={"rgb(" + color + ")"}>
-            </circle>
-            { selected &&
-              <circle className="outer" r={10}>
-                <animate
-                  attributeType="xml"
-                  attributeName="r"
-                  from={10}
-                  to={25}
-                  dur="1.5s"
-                  begin="0s"
-                  repeatCount="indefinite">
-                </animate>
-                <animate
-                  attributeType="xml"
-                  attributeName="opacity"
-                  from="0.8"
-                  to="0"
-                  dur="1.5s"
-                  begin="0s"
-                  repeatCount="indefinite">
-                </animate>
-              </circle>
-            }
-            <text y="3.5" textAnchor="middle">
-              {value}
-            </text>
-          </g>
-        </svg>
-      </DivIcon>
+          this.props.onMarkerSelected({
+            id: data.properties.id,
+            name: data.properties.name,
+            detail: value + " " + this.props.item.units
+          });
+        }} />
     );
   }
 
