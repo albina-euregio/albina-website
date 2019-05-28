@@ -2,7 +2,7 @@ import React from "react";
 import { FeatureGroup } from "react-leaflet";
 import StationMarker from "./station-marker";
 
-class GridOverlay extends React.Component {
+export default class StationOverlay extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -21,13 +21,13 @@ class GridOverlay extends React.Component {
     return color;
   }
 
-  renderMarker(data, key) {
+  renderMarker(data) {
     const value = data.properties[this.props.item.id];
     const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
 
     return (
       <StationMarker
-        type="gridpoint"
+        type="station"
         key={data.properties.id}
         coordinates={coordinates}
         value={value}
@@ -46,18 +46,15 @@ class GridOverlay extends React.Component {
   }
 
   render() {
-    const zoom = this.props.zoom;
-    const gridPoints = this.props.grid.features
-      .filter(point => point.properties.zoom <= zoom);
+    const points = this.props.features
+      .filter(point => point.properties[this.props.item.id] !== false);
 
     return (
       <FeatureGroup>
-        { gridPoints.map((point, i) =>
-          this.renderMarker(point, i)
+        { points.map((point) =>
+          this.renderMarker(point)
         )}>
       </FeatureGroup>
     );
   }
 }
-
-export default GridOverlay;

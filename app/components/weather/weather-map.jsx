@@ -6,6 +6,7 @@ import LeafletMap2 from "../leaflet-map2";
 import ZamgControl from "./zamg-control";
 import LegendControl from "./legend-control";
 import GridOverlay from "./grid-overlay";
+import StationOverlay from "./station-overlay";
 import { TileLayer } from "react-leaflet";
 
 class WeatherMap extends React.Component {
@@ -52,8 +53,15 @@ class WeatherMap extends React.Component {
         );
       }
 
-      if(this.props.item.layer.stations) {
-
+      if(this.props.item.layer.stations && this.props.stations) {
+        overlays.push(
+          <StationOverlay key={"stations"}
+            zoom={mapStore.getMapZoom}
+            onMarkerSelected={this.props.onMarkerSelected}
+            selectedFeature={this.props.selectedFeature}
+            item={this.props.item}
+            features={this.props.stations.features} />
+        )
       }
     }
 

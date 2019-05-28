@@ -137,6 +137,7 @@ export default class WeatherMapStore {
     if (this.checkDomainId(domainId)) {
       this._domainId.set(domainId);
       this.changeItem(this.domain.domainIdStart);
+      this.selectedFeature = null;
     }
   }
 
@@ -147,6 +148,7 @@ export default class WeatherMapStore {
     // console.log('changing item', itemId)
     if (this.checkItemId(this.domainId, itemId)) {
       this._itemId.set(itemId);
+      this.selectedFeature = null;
     }
   }
 
