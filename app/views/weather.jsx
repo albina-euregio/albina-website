@@ -10,6 +10,7 @@ import Base from "../base";
 import { dateToLongDateString, dateToTimeString } from "../util/date";
 import Menu from "../components/menu";
 import WeatherMap from "../components/weather/weather-map";
+import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
 
 import ItemFlipper from "../components/weather/item-flipper";
@@ -148,6 +149,9 @@ class Weather extends React.Component {
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}
                 />
+              {this.store.selectedFeature && (
+                <FeatureInfo feature={this.store.selectedFeature} />
+              )}
             </div>
           )}
         </section>

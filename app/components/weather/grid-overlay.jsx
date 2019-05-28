@@ -21,32 +21,22 @@ class GridOverlay extends React.Component {
     return color;
   }
 
-  renderMarkerTooltip(point) {
-    return (
-      <tbody>
-        {
-          this.props.item.displayedItems.map((dItemId) => {
-            const unit = this.props.grid.definitions.units[dItemId] || "";
-            const value = point.properties[dItemId] || "";
-            return (<tr key={dItemId}><td><b>{value + "" + unit}</b></td></tr>);
-          })
-        }
-      </tbody>
-    );
-  }
-
   renderMarker(data, key) {
     const value = data.properties[this.props.item.id];
     const color = this.getColor(value);
     const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
     const selected = this.props.selectedFeature && (data.properties.id == this.props.selectedFeature.id);
-
+    const d = {
+      id: data.properties.id,
+      name: data.properties.name,
+      detail: value + " " + this.props.item.units
+    }
     return (
       <DivIcon
         key={data.properties.id}
         position={coordinates}
         onClick={(e) => {
-          this.props.onMarkerSelected(data.properties);
+          this.props.onMarkerSelected(d);
         }}>
         <svg
           className={'gridpoint ' +
