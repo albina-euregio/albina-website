@@ -4,6 +4,7 @@ import Base from "../base";
 export default class WeatherMapStore {
   @observable _itemId;
   @observable _domainId;
+  @observable selectedFeature;
   config;
 
   constructor(initialDomainId) {
@@ -12,6 +13,7 @@ export default class WeatherMapStore {
     this.grid = null;
     this._domainId = observable.box(false);
     this._itemId = observable.box(false);
+    this.selectedFeature = null;
 
     const loads = [
       Base.doRequest(config.get("links.meteoViewer.domains")).then(response => {

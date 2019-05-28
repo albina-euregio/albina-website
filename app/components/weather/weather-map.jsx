@@ -45,6 +45,8 @@ class WeatherMap extends React.Component {
         overlays.push(
           <GridOverlay key={"grid"}
             zoom={mapStore.getMapZoom}
+            onMarkerSelected={this.props.onMarkerSelected}
+            selectedFeature={this.props.selectedFeature}
             item={this.props.item}
             grid={this.props.grid} />
         );

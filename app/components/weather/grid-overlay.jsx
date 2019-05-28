@@ -2,7 +2,7 @@ import React from "react";
 import { FeatureGroup } from "react-leaflet";
 import DivIcon from 'react-leaflet-div-icon';
 
-export default class GridOverlay extends React.Component {
+class GridOverlay extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -14,12 +14,10 @@ export default class GridOverlay extends React.Component {
     let color = colors[0];
     this.props.item.thresholds.forEach((tr, i) => {
       if(v > tr) {
-        console.log('TR: ' + JSON.stringify(tr));
         color = colors[i + 1];
       }
     });
 
-    console.log('COLOR: ' + color);
     return color;
   }
 
@@ -38,21 +36,18 @@ export default class GridOverlay extends React.Component {
   }
 
   renderMarker(data, key) {
-    const coords = data.geometry.coordinates;
     const value = data.properties[this.props.item.id];
     const color = this.getColor(value);
-    const feature = {
-      el: coords[2],
-      //info: grid._tooltip(gridPoint),
-      coordinates: [coords[1], coords[0]],
-      data: data.properties
-    };
-    const selected = false; // TODO
+    const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
+    const selected = this.props.selectedFeature && (data.properties.id == this.props.selectedFeature.id);
 
     return (
       <DivIcon
         key={data.properties.id}
-        position={feature.coordinates}>
+        position={coordinates}
+        onClick={(e) => {
+          this.props.onMarkerSelected(data.properties);
+        }}>
         <svg
           className={'gridpoint ' +
             (selected ? 'gridpoint-selected' : 'gridpoint-default')}
@@ -123,3 +118,5 @@ export default class GridOverlay extends React.Component {
     );
   }
 }
+
+export default GridOverlay;

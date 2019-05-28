@@ -72,6 +72,10 @@ class Weather extends React.Component {
     mapStore.mapCenter.set(data.center);
   };
 
+  handleMarkerSelected = (feature) => {
+    this.store.selectedFeature = feature;
+  }
+
   render() {
     const domainButtons = this.store.config
       ? Object.keys(this.store.config).map(domainId => {
@@ -138,6 +142,8 @@ class Weather extends React.Component {
                 item={this.store.item}
                 grid={this.store.grid}
                 stations={this.store.stations}
+                selectedFeature={this.store.selectedFeature}
+                onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}
                 />
             </div>
