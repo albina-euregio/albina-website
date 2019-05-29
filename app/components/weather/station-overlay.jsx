@@ -51,7 +51,9 @@ export default class StationOverlay extends React.Component {
       .filter(point => point.properties[this.props.item.id] !== false);
 
     return (
-      <Cluster>
+      <Cluster
+        item={this.props.item}
+        >
         { points.map((point) =>
           this.renderMarker(point)
         )}>

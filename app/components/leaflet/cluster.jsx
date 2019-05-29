@@ -1,12 +1,62 @@
+import React from "react";
+import ReactDOMServer from "react-dom/server";
 import PropTypes from 'prop-types';
 import { MapLayer, withLeaflet } from "react-leaflet";
+import DivIcon from "react-leaflet-div-icon";
 import L from "leaflet";
+import StationIcon from "./station-icon";
 
 require("leaflet.markercluster");
 require("leaflet.markercluster.placementstrategies");
 require("leaflet.markercluster/dist/MarkerCluster.css");
 
 class Cluster extends MapLayer {
+  constructor(props) {
+    super(props);
+  }
+
+  getColor(value) {
+    const v = parseFloat(value);
+    const colors = Object.values(this.props.item.colors);
+
+    let color = colors[0];
+    this.props.item.thresholds.forEach((tr, i) => {
+      if(v > tr) {
+        color = colors[i + 1];
+      }
+    });
+
+    return color;
+  }
+
+  createClusterIcon(cluster) {
+    const markers = cluster.getAllChildMarkers();
+    const values = markers.filter((marker) =>
+      (typeof marker.options.icon.options.children === 'object')
+    ).map((marker) =>
+      marker.options.icon.options.children.props.value
+    ).filter((v) =>
+      (typeof v === 'number' && isFinite(v))
+    );
+
+    const derivedValue =
+      (this.props.item.clusterOperation == 'max')
+      ? Math.max(...values)
+      : Math.min(...values);
+
+    return L.divIcon({
+      html:
+        ReactDOMServer.renderToStaticMarkup(
+          <StationIcon
+            type="station"
+            value={derivedValue}
+            color={this.getColor(derivedValue)}
+            selected={false}
+            />
+         )
+    });
+  }
+
   createLeafletElement() {
     const markerclusters = new L.markerClusterGroup({
           maxClusterRadius: 40,
@@ -27,7 +77,8 @@ class Cluster extends MapLayer {
             color: "rgb(50, 50, 50)",
             fill: "black",
             dashArray: "5 5"
-          }
+          },
+          iconCreateFunction: this.createClusterIcon.bind(this)
     });
 
     this.leafletElement = markerclusters;

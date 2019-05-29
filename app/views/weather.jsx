@@ -69,7 +69,6 @@ class Weather extends React.Component {
   }
 
   handleMapViewportChanged = (data) => {
-    console.log('VIEWPORT: ' + JSON.stringify(data));
     mapStore.mapZoom.set(data.zoom);
     mapStore.mapCenter.set(data.center);
   };
