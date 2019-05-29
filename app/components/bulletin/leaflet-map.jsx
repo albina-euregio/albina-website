@@ -190,31 +190,6 @@ class LeafletMap extends React.Component {
     return tileLayers;
   }
 
-  get mapOverlays() {
-    const b = bulletinStore.activeBulletinCollection;
-    if (b) {
-      const daytime = b.hasDaytimeDependency()
-        ? bulletinStore.settings.ampm
-        : "fd";
-
-      const url =
-        config.get("apis.geo") +
-        bulletinStore.settings.date +
-        "/" +
-        daytime +
-        "_overlay.png";
-      const params = config.get("map.overlay");
-
-      return (
-        <ImageOverlay
-          url={url}
-          {...params}
-          opacity={Base.checkBlendingSupport() ? 1 : 0.5}
-        />
-      );
-    }
-    return null;
-  }
 
   _disabledMapProps() {
     return {

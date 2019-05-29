@@ -2,19 +2,88 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Parser } from "html-to-react";
-import LeafletMap from "./leaflet-map";
-import BulletinMapDetails from "./bulletin-map-details";
+import { ImageOverlay } from "react-leaflet";
+import { centroid, polygon } from "@turf/turf";
 import { Link } from "react-router-dom";
+
+import LeafletMap2 from "../leaflet-map2";
+import BulletinMapDetails from "./bulletin-map-details";
+import BulletinVectorLayer from "./bulletin-vector-layer";
+import MapStore from "../../stores/mapStore";
+import Base from "../../base";
 
 class BulletinMap extends React.Component {
   constructor(props) {
     super(props);
+    this.map = false;
+
+    if(!window.mapStore) {
+      window.mapStore = new MapStore();
+    }
   }
 
   styleOverMap() {
     return {
       zIndex: 1000
     };
+  }
+
+  getMapOverlays() {
+    const overlays = [];
+
+    const b = this.props.store.activeBulletinCollection;
+    if (b) {
+      const daytime = b.hasDaytimeDependency()
+        ? this.props.store.settings.ampm
+        : "fd";
+
+      const url =
+        config.get("apis.geo") +
+        this.props.store.settings.date +
+        "/" +
+        daytime +
+        "_overlay.png";
+      const params = config.get("map.overlay");
+
+      overlays.push(
+        <ImageOverlay
+          key="bulletin-overlay"
+          url={url}
+          {...params}
+          opacity={Base.checkBlendingSupport() ? 1 : 0.5}
+        />
+      );
+    }
+
+    if(this.props.regions) {
+      overlays.push(
+        <BulletinVectorLayer
+          key="bulletin-regions"
+          store={bulletinStore}
+          regions={this.props.regions}
+          handleSelectRegion={this.props.handleSelectRegion}
+          handleCenterToRegion={this.centerToRegion.bind(this)}
+        />
+      );
+    }
+
+    return overlays;
+  }
+
+  centerToRegion(bid) {
+    if (bid && this.props.regions && this.props.regions.length > 0) {
+      const region = this.props.regions.find(r => r.properties.bid === bid);
+      if (region) {
+        const regionCentroid = centroid(region);
+        if (
+          this.map &&
+          regionCentroid.geometry &&
+          regionCentroid.geometry.coordinates
+        ) {
+          this.map.panTo(regionCentroid.geometry.coordinates);
+        }
+      }
+    }
   }
 
   render() {
@@ -56,11 +125,10 @@ class BulletinMap extends React.Component {
                 </div>
               </section>
             )}
-          <LeafletMap
-            regions={this.props.regions}
-            mapViewportChanged={this.props.handleMapViewportChanged}
-            handleSelectRegion={this.props.handleSelectRegion}
-            store={this.props.store}
+          <LeafletMap2
+            loaded={this.props.regions && this.props.regions.length > 0}
+            onViewportChanged={this.props.handleMapViewportChanged}
+            overlays={this.getMapOverlays()}
           />
           {false /* hide map search */ && (
             <div style={this.styleOverMap()} className="bulletin-map-search">
