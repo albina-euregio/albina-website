@@ -25,6 +25,7 @@ export default class StationMarker extends React.Component {
     return (
       <DivIcon
         position={this.props.coordinates}
+        iconAnchor={[25,25]}
         html={ReactDOMServer.renderToStaticMarkup(icon)}
         onClick={this.props.onClick}>
         { icon }

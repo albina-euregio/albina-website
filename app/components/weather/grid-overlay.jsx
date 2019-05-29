@@ -46,9 +46,8 @@ class GridOverlay extends React.Component {
   }
 
   render() {
-    const zoom = this.props.zoom;
     const gridPoints = this.props.grid.features
-      .filter(point => point.properties.zoom <= zoom);
+      .filter(point => point.properties.zoom <= this.props.zoom);
 
     return (
       <FeatureGroup>

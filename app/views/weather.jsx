@@ -68,9 +68,9 @@ class Weather extends React.Component {
     this.store.changeItem(newItemId);
   }
 
-  handleMapViewportChanged = (data) => {
-    mapStore.mapZoom.set(data.zoom);
-    mapStore.mapCenter.set(data.center);
+  handleMapViewportChanged = (map) => {
+    mapStore.mapZoom.set(map.zoom);
+    mapStore.mapCenter.set(map.center);
   };
 
   handleMarkerSelected = (feature) => {

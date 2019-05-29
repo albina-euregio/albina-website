@@ -45,6 +45,7 @@ class Cluster extends MapLayer {
       : Math.min(...values);
 
     return L.divIcon({
+      iconAnchor: [25,25],
       html:
         ReactDOMServer.renderToStaticMarkup(
           <StationIcon
