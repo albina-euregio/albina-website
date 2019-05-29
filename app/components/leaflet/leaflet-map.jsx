@@ -67,6 +67,9 @@ class LeafletMap extends React.Component {
     }
     if (this.refs.map && !this.map) {
       this.map = this.refs.map.leafletElement;
+      if(this.props.onInit) {
+        this.props.onInit(this.map);
+      }
 
       L.Util.setOptions(this.map, { gestureHandling: true });
 

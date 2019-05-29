@@ -22,6 +22,10 @@ class BulletinMap extends React.Component {
     }
   }
 
+  handleMapInit = (map) => {
+    this.map = map;
+  }
+
   styleOverMap() {
     return {
       zIndex: 1000
@@ -129,6 +133,7 @@ class BulletinMap extends React.Component {
             loaded={this.props.regions && this.props.regions.length > 0}
             onViewportChanged={this.props.handleMapViewportChanged}
             overlays={this.getMapOverlays()}
+            onInit={this.handleMapInit}
           />
           {false /* hide map search */ && (
             <div style={this.styleOverMap()} className="bulletin-map-search">
