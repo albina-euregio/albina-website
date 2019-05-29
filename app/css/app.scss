@@ -662,46 +662,30 @@ img {
   $font_default: "Helvetica Neue", Arial, Helvetica, sans-serif;
   $font_size_default: 14px;
 
-  /* station styling */
 
-  /* all stations */
-  .station text {
-    font-family: $font_default; //'Open Sans', sans-serif;
-    font-size: 10px;
-  }
-
+  /* single stations */
   .station circle.inner {
     stroke: black;
     stroke-width: 1.25;
-  }
-
-  /* stations clusters */
-  .station-cluster circle.inner {
-  }
-
-  .station-cluster text {
-    font-weight: 700;
-  }
-
-  /* single stations */
-  .station-single circle.inner {
     stroke-opacity: 0.8;
     fill-opacity: 1;
   }
 
-  .station-single text {
+  .station text {
+    font-family: $font_default; //'Open Sans', sans-serif;
+    font-size: 10px;
     font-weight: 700;
   }
 
   /* outer circle - only selected stations */
-  .station-single circle.outer,
+  .station circle.outer,
   .gridpoint circle.outer {
     stroke: black;
     fill: none;
     fill-opacity: 0;
     stroke-width: 3;
   }
-  .blending-not-supported .station-single circle.outer,
+  .blending-not-supported .station circle.outer,
   .blending-not-supported .gridpoint circle.outer {
     stroke-width: 4;
     stroke: grey;
