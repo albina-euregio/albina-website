@@ -2,7 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import Base from "../../base";
-import LeafletMap2 from "../leaflet-map2";
+import LeafletMap from "../leaflet/leaflet-map";
 import ZamgControl from "./zamg-control";
 import LegendControl from "./legend-control";
 import GridOverlay from "./grid-overlay";
@@ -66,7 +66,7 @@ class WeatherMap extends React.Component {
     }
 
     return (
-      <LeafletMap2
+      <LeafletMap
         loaded={this.props.domain !== false}
         onViewportChanged={this.props.onViewportChanged}
         overlays={overlays}

@@ -6,7 +6,7 @@ import { ImageOverlay } from "react-leaflet";
 import { centroid, polygon } from "@turf/turf";
 import { Link } from "react-router-dom";
 
-import LeafletMap2 from "../leaflet-map2";
+import LeafletMap from "../leaflet/leaflet-map";
 import BulletinMapDetails from "./bulletin-map-details";
 import BulletinVectorLayer from "./bulletin-vector-layer";
 import MapStore from "../../stores/mapStore";
@@ -125,7 +125,7 @@ class BulletinMap extends React.Component {
                 </div>
               </section>
             )}
-          <LeafletMap2
+          <LeafletMap
             loaded={this.props.regions && this.props.regions.length > 0}
             onViewportChanged={this.props.handleMapViewportChanged}
             overlays={this.getMapOverlays()}

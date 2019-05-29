@@ -11,17 +11,17 @@ import {
 } from "react-leaflet";
 import { injectIntl } from "react-intl";
 import stringInject from "stringinject";
-import { tooltip_init } from "../js/tooltip";
-import Base from "./../base";
-import AppStore from "../appStore";
+import { tooltip_init } from "../../js/tooltip";
+import Base from "../../base";
+import AppStore from "../../appStore";
 
-require("./../util/l.geonames");
+require("../../util/l.geonames");
 require("leaflet.locatecontrol");
 require("leaflet-gesture-handling");
 require("leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css");
-require("./../css/geonames.css");
+require("../../css/geonames.css");
 
-class LeafletMap2 extends React.Component {
+class LeafletMap extends React.Component {
   constructor(props) {
     super(props);
     this.map = false;
@@ -273,4 +273,4 @@ class LeafletMap2 extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(observer(LeafletMap2)));
+export default inject("locale")(injectIntl(observer(LeafletMap)));
