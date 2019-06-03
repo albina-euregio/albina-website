@@ -38,7 +38,13 @@ class WeatherMap extends React.Component {
             maxNativeZoom={Math.min(maxZoom, mapMaxZoom)}
             maxZoom={mapMaxZoom}
             opacity={Base.checkBlendingSupport() ? 1 : 0.5}
-            tms={true} />
+            bounds={this.props.item.bbox}
+            tms={true}
+            detectRetina={false}
+            updateWhenZooming={false}
+            updateWhenIdle={true}
+            updateInterval={1000}
+            keepBuffer={4} />
         );
       }
 
