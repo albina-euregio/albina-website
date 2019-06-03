@@ -22,7 +22,7 @@ export default class StationOverlay extends React.Component {
   }
 
   renderMarker(data) {
-    const value = data.properties[this.props.item.id];
+    const value = Math.round(data.properties[this.props.item.id]);
     const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
 
     return (

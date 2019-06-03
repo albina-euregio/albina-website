@@ -8643,3 +8643,11 @@ button.mfp-arrow.mfp-arrow-right:hover {
   border-top: 1px dashed #FAC !important;
 }
 /*# sourceMappingURL=style.css.map */
+
+#zamg-logo {
+  background-image: url("../images/pro/logos/zamg-logo.jpg");
+}
+
+.leaflet-control .legend .legend-toggle {
+  background-image: url("../images/pro/meteoviewer/legend.png");
+}
