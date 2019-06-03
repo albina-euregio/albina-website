@@ -11,6 +11,7 @@ export default class StationMarker extends React.Component {
   render() {
     const icon = (
       <StationIcon
+        itemId={this.props.itemId}
         type={this.props.type}
         color={this.props.color}
         selected={this.props.selected}

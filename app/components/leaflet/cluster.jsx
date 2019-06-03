@@ -71,6 +71,19 @@ class Cluster extends MapLayer {
     return markerclusters;
   }
 
+  updateLeafletElement(prevProps, props) {
+    if(prevProps && prevProps.item.id != props.item.id) {
+
+      // unfortunately, sometimes old markers are kept when changing items
+      // -> we clear them manually
+      this.leafletElement.getLayers().forEach((marker) => {
+        if(marker.options.children.props.itemId != props.item.id) {
+          this.leafletElement.removeLayer(marker);
+        }
+      });
+    }
+  }
+
   getLeafletElement() {
     return this.leafletElement;
   }
