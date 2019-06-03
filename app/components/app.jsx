@@ -5,6 +5,7 @@ import { MobxIntlProvider } from "../util/mobx-react-intl.es5.js";
 import { Redirect } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
+import { ScrollContext } from 'react-router-scroll-4';
 
 import Bulletin from "./../views/bulletin";
 import BlogOverview from "./../views/blogOverview";
@@ -47,6 +48,18 @@ class App extends React.Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return true;
+  }
+
+  shouldUpdateScroll = (prevRouterProps, { location, history }) => {
+    if(!prevRouterProps) {
+      return true;
+    }
+
+    if(location.pathname.match(/weather\/map/) && prevRouterProps.location.pathname.match(/weather\/map/)) {
+      return false;
+    }
+
+    return location.pathname !== prevRouterProps.location.pathname;
   }
 
   routes() {
@@ -126,7 +139,9 @@ class App extends React.Component {
       <Provider {...store}>
         <MobxIntlProvider>
           <BrowserRouter basename={config.get("projectRoot")}>
-            {renderRoutes(this.routes())}
+            <ScrollContext shouldUpdateScroll={this.shouldUpdateScroll}>
+              {renderRoutes(this.routes())}
+            </ScrollContext>
           </BrowserRouter>
         </MobxIntlProvider>
       </Provider>

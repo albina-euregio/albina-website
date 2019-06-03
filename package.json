@@ -48,6 +48,7 @@
     "react-router": "^4.2.0",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
+    "react-router-scroll-4": "^1.0.0-beta.2",
     "save": "^2.3.3",
     "sockjs-client": "^1.1.5",
     "stringinject": "^2.0.2",
