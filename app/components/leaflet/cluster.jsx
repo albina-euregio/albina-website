@@ -38,7 +38,7 @@ class Cluster extends MapLayer {
             {...activeMarker.options.icon.options.children.props}
             selected={false}
             />
-         )
+        )
     });
   }
 
@@ -69,6 +69,10 @@ class Cluster extends MapLayer {
     });
 
     this.leafletElement = markerclusters;
+
+    markerclusters.on('clusterclick', (e) => {
+      console.log('CLUSTERCLICK');
+    });
 
     // markerclusters.on('click', (e) => {
     //   console.log('CLUSTER');

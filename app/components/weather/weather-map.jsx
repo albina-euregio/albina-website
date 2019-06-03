@@ -81,6 +81,11 @@ class WeatherMap extends React.Component {
         onViewportChanged={this.props.onViewportChanged}
         overlays={overlays}
         controls={controls}
+        onInit={(map) => {
+          map.on('click', (e) => {
+            this.props.onMarkerSelected(null);
+          })
+        }}
         />
     );
   }

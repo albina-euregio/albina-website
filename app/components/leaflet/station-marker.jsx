@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import DivIcon from 'react-leaflet-div-icon';
 import StationIcon from "./station-icon";
+import L from "leaflet";
 
 export default class StationMarker extends React.Component {
   constructor(props) {
@@ -29,7 +30,11 @@ export default class StationMarker extends React.Component {
         position={this.props.coordinates}
         iconAnchor={[25,25]}
         html={ReactDOMServer.renderToStaticMarkup(icon)}
-        onClick={this.props.onClick}>
+        onClick={(e) => {
+          L.DomEvent.stopPropagation(e);
+          e.originalEvent.stopPropagation();
+          this.props.onClick();
+        }}>
         { icon }
       </DivIcon>
 
