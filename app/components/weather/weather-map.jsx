@@ -1,5 +1,4 @@
 import React from "react";
-import { observer } from "mobx-react";
 
 import Base from "../../base";
 import LeafletMap from "../leaflet/leaflet-map";
