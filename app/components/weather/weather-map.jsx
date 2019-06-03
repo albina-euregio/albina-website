@@ -16,7 +16,7 @@ class WeatherMap extends React.Component {
 
   render() {
     const overlays = [];
-    if(this.props.item) {
+    if(this.props.itemId && this.props.item) {
       if(this.props.item.layer.overlay) {
         const mapMinZoom = config.get('map.initOptions.minZoom');
         const mapMaxZoom = config.get('map.initOptions.maxZoom');
@@ -71,18 +71,20 @@ class WeatherMap extends React.Component {
       }
     }
 
+    const controls = [<ZamgControl key="zamg" />];
+    if(this.props.itemId && this.props.item) {
+      controls.push(<LegendControl key="legend" item={this.props.item} />);
+    }
+
     return (
       <LeafletMap
-        loaded={this.props.domain !== false}
+        loaded={this.props.domainId !== false}
         onViewportChanged={this.props.onViewportChanged}
         overlays={overlays}
-        controls={[
-          <ZamgControl key="zamg" />,
-          <LegendControl key="legend" item={this.props.item} />
-        ]}
+        controls={controls}
         />
     );
   }
 }
 
-export default observer(WeatherMap);
+export default WeatherMap;

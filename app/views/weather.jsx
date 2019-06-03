@@ -19,7 +19,6 @@ import WeatherMapTitle from "../components/weather/weather-map-title";
 import MapStore from "../stores/mapStore";
 import AppStore from "../appStore";
 
-@observer
 class Weather extends React.Component {
   constructor(props) {
     super(props);
@@ -136,12 +135,14 @@ class Weather extends React.Component {
             (config.get("map.useWindowWidth") ? "" : " section-centered")
           }
         >
-          {this.store.domain && (
+          {/*this.store.domainId*/ true && (
             <div className="bulletin-map-container weather-map-container section-map"
               onClick={(e) => { this.handleMarkerSelected(null); }}
               >
               <WeatherMap
+                domainId={this.store.domainId}
                 domain={this.store.domain}
+                itemId={this.store.itemId}
                 item={this.store.item}
                 grid={this.store.grid}
                 stations={this.store.stations}

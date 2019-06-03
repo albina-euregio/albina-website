@@ -56,14 +56,14 @@ export default class WeatherMapStore {
     returns domain data based on the active domain id
   */
   get domain() {
-    return this.config && this.domainId ? this.config[this.domainId] : false;
+    return (this.config && this.domainId) ? this.config[this.domainId] : false;
   }
 
   /*
     returns item data based on the active item id
   */
   get item() {
-    return this.config && this.domainId && this.itemId && this.domain
+    return (this.config && this.domainId && this.itemId && this.domain)
       ? this.domain.items.find(i => i.id === this.itemId)
       : false;
   }
@@ -79,7 +79,7 @@ export default class WeatherMapStore {
     index of active item in the list of items for the active domain
   */
   @computed get itemIndex() {
-    return this.itemId && this.domainId
+    return (this.itemId && this.domainId)
       ? this.items.map(i => i.id).indexOf(this.itemId)
       : false;
   }
@@ -88,13 +88,13 @@ export default class WeatherMapStore {
    returns index of active item decremented by 1
   */
   @computed get previousIndex() {
-    return this.itemIndex !== false ? parseInt(this.itemIndex, 10) - 1 : false;
+    return (this.itemIndex !== false) ? parseInt(this.itemIndex, 10) - 1 : false;
   }
   /*
     returns index of active item incremented by 1
   */
   @computed get nextIndex() {
-    return this.itemIndex !== false ? parseInt(this.itemIndex, 10) + 1 : false;
+    return (this.itemIndex !== false) ? parseInt(this.itemIndex, 10) + 1 : false;
   }
 
   /*
