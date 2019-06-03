@@ -14,7 +14,8 @@ export default class StationMarker extends React.Component {
         type={this.props.type}
         color={this.props.color}
         selected={this.props.selected}
-        value={this.props.value} />
+        value={this.props.value}
+        direction={this.props.direction} />
     );
 
     // Render SVG-icon as child component an as static html string.

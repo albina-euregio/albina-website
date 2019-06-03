@@ -1,26 +1,83 @@
 import React from "react";
 
 export default class StationIcon extends React.Component {
+  renderDirection(s) {
+    const cMargin = 2;
+    const frontH = 11;
+    const frontW = 11;
+    const backH = 4;
+    const backW = 4;
+
+    const frontArc1 = frontW / 2;
+    const frontArc2 = (
+      (Math.sqrt(
+        Math.pow(s + cMargin, 2) + Math.pow(frontW / 2, 2),
+        2
+      ) -
+        cMargin -
+        s) *
+      2
+    ).toPrecision(2);
+
+    const backArc1 = backW / 2;
+    const backArc2 = (
+      (Math.sqrt(
+        Math.pow(s + cMargin, 2) + Math.pow(backW / 2, 2),
+        2
+      ) -
+        cMargin -
+        s) *
+      2
+    ).toPrecision(2);
+
+    const rotation = parseInt(this.props.direction, 10) + 180;
+
+    return (
+      <g className="direction" transform={"rotate(" + rotation + ")"}>
+        <path className="front" d={
+            "M 0 -" + (s + frontH)
+            + " l " + (frontW / 2)
+            + " " + (frontH - cMargin)
+            + " q -" + frontArc1
+            + ", -" + frontArc2
+            + " " + (-frontW)
+            + " 0 Z"} />
+        <path className="back" d={
+            "M -" + (backW / 2)
+            + " " + (backH + s + cMargin)
+            + " h " + backW
+            + " v -" + backH
+            + " q -" + backArc1
+            + " " + backArc2
+            + ", -" + backW
+            + " 0Z"} />
+      </g>
+    );
+  }
+
   render() {
+    const s = 10;
+    const svgS = 50;
     return (
       <svg
         className={
           this.props.type +
             (this.props.selected ? (' ' + this.props.type + '-selected') : '')}
-        width={50}
-        height={50}>
-        <g transform="translate(25,25)">
+        width={svgS}
+        height={svgS}>
+        <g transform={"translate(" + (svgS / 2) + "," + (svgS / 2) + ")"}>
+          {this.props.direction && this.renderDirection(s)}
           <circle className="inner"
-            r={10}
+            r={s}
             fill={"rgb(" + this.props.color + ")"}>
           </circle>
           { this.props.selected &&
-            <circle className="outer" r={10}>
+            <circle className="outer" r={s}>
               <animate
                 attributeType="xml"
                 attributeName="r"
-                from={10}
-                to={25}
+                from={s}
+                to={svgS / 2}
                 dur="1.5s"
                 begin="0s"
                 repeatCount="indefinite">
@@ -36,7 +93,7 @@ export default class StationIcon extends React.Component {
               </animate>
             </circle>
           }
-          <text y="3.5" textAnchor="middle">
+          <text y={s * 0.25 + 1} textAnchor="middle">
             {this.props.value}
           </text>
         </g>

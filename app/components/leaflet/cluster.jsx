@@ -15,28 +15,12 @@ class Cluster extends MapLayer {
     super(props);
   }
 
-  getColor(value) {
-    const v = parseFloat(value);
-    const colors = Object.values(this.props.item.colors);
-
-    let color = colors[0];
-    this.props.item.thresholds.forEach((tr, i) => {
-      if(v > tr) {
-        color = colors[i + 1];
-      }
-    });
-
-    return color;
-  }
-
   createClusterIcon(cluster) {
-    const markers = cluster.getAllChildMarkers();
-    const values = markers.filter((marker) =>
+    const markers = cluster.getAllChildMarkers().filter((marker) =>
       (typeof marker.options.icon.options.children === 'object')
-    ).map((marker) =>
+    );
+    const values = markers.map((marker) =>
       marker.options.icon.options.children.props.value
-    ).filter((v) =>
-      (typeof v === 'number' && isFinite(v))
     );
 
     const derivedValue =
@@ -44,14 +28,14 @@ class Cluster extends MapLayer {
       ? Math.max(...values)
       : Math.min(...values);
 
+    const activeMarker = markers[values.indexOf(derivedValue)];
+
     return L.divIcon({
       iconAnchor: [25,25],
       html:
         ReactDOMServer.renderToStaticMarkup(
           <StationIcon
-            type="station"
-            value={derivedValue}
-            color={this.getColor(derivedValue)}
+            {...activeMarker.options.icon.options.children.props}
             selected={false}
             />
          )
