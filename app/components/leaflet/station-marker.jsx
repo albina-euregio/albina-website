@@ -29,16 +29,13 @@ class StationMarker extends MapLayer {
 
   createLeafletElement() {
     const marker = L.marker(this.props.coordinates, {
-      data: {
-        id: this.props.stationId,
-        value: this.props.value
-      },
+      data: this.props.data,
       icon: this.createStationIcon()
     });
 
     marker.on('click', (e) => {
       L.DomEvent.stopPropagation(e);
-      this.props.onClick()
+      this.props.onClick(e.target.options.data);
     });
 
     this.leafletElement = marker;

@@ -13,7 +13,7 @@ class Cluster extends MapLayer {
     this.activeCluster = null;
   }
 
-  createClusterIcon(cluster) {
+  getActiveMarker = (cluster) => {
     const markers = cluster.getAllChildMarkers();
     const values = markers.map((marker) =>
       marker.options.data.value
@@ -24,8 +24,11 @@ class Cluster extends MapLayer {
       ? Math.max(...values)
       : Math.min(...values);
 
-    const activeMarker = markers[values.indexOf(derivedValue)];
+    return markers[values.indexOf(derivedValue)];
+  }
 
+  createClusterIcon = (cluster) => {
+    const activeMarker = this.getActiveMarker(cluster);
     // reuse the marker's icon
     return activeMarker.options.icon;
   }
@@ -65,11 +68,11 @@ class Cluster extends MapLayer {
       }
     });
 
-    markerclusters.on('clusterclick', (e) => {
-      this.props.resetSelection();
-    });
-
     markerclusters.on('spiderfied', (a) => {
+      const activeMarker = this.getActiveMarker(a.cluster);
+      if(activeMarker) {
+        this.props.onMarkerSelected(activeMarker.options.data);
+      }
       this.activeCluster = a.cluster;
     });
 

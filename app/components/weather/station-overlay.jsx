@@ -24,12 +24,22 @@ export default class StationOverlay extends React.Component {
   renderMarker(data) {
     const value = Math.round(data.properties[this.props.item.id]);
     const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
+    const markerData = {
+      id: data.properties.id,
+      name: data.properties.name
+        + " (" + data.properties.country + ") "
+        + data.geometry.coordinates[2] + 'm',
+      detail: value + " " + this.props.item.units,
+      date: data.properties.date,
+      value: value
+    };
 
     return (
       <StationMarker
         type="station"
         key={this.props.item.id + "-" + data.properties.id}
         itemId={this.props.item.id}
+        data={markerData}
         stationId={data.properties.id}
         coordinates={coordinates}
         value={value}
@@ -38,16 +48,7 @@ export default class StationOverlay extends React.Component {
         }
         color={this.getColor(value)}
         direction={(this.props.item.direction && value >= 3.5) ? data.properties[this.props.item.direction] : false}
-        onClick={() => {
-          this.props.onMarkerSelected({
-            id: data.properties.id,
-            name: data.properties.name
-              + " (" + data.properties.country + ") "
-              + data.geometry.coordinates[2] + 'm',
-            detail: value + " " + this.props.item.units,
-            date: data.properties.date
-          });
-        }} />
+        onClick={(data) => this.props.onMarkerSelected(data)} />
     );
   }
 
@@ -55,19 +56,22 @@ export default class StationOverlay extends React.Component {
     const points = this.props.features
       .filter(point => point.properties[this.props.item.id] !== false);
 
+    const selectedFeature = this.props.selectedFeature
+      ? points.find((point) => point.properties.id == this.props.selectedFeature.id)
+      : null;
+
     return (
       <div>
         <Cluster
           item={this.props.item}
-          selectedFeature={this.props.selectedFeature}
-          resetSelection={() => this.props.onMarkerSelected(null)}
+          onMarkerSelected={this.props.onMarkerSelected}
           >
           { points.map((point) =>
             this.renderMarker(point)
           )}>
         </Cluster>
-        {this.props.selectedFeature &&
-          this.renderMarker(points.find((point) => point.properties.id == this.props.selectedFeature.id))
+        { selectedFeature &&
+          this.renderMarker(selectedFeature)
         }
       </div>
     );
