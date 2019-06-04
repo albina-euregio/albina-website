@@ -13,11 +13,9 @@ class Cluster extends MapLayer {
   }
 
   createClusterIcon(cluster) {
-    const markers = cluster.getAllChildMarkers().filter((marker) =>
-      (typeof marker.options.icon.options.children === 'object')
-    );
+    const markers = cluster.getAllChildMarkers();
     const values = markers.map((marker) =>
-      marker.options.icon.options.children.props.value
+      marker.options.data.value
     );
 
     const derivedValue =
@@ -58,14 +56,6 @@ class Cluster extends MapLayer {
     });
 
     this.leafletElement = markerclusters;
-
-    markerclusters.on('clusterclick', (e) => {
-      console.log('CLUSTERCLICK');
-    });
-
-    // markerclusters.on('click', (e) => {
-    //   console.log('CLUSTER');
-    // });
 
     return markerclusters;
   }

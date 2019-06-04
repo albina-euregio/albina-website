@@ -1,6 +1,6 @@
 import React from "react";
 import Cluster from "../leaflet/cluster";
-import StationMarker from "../leaflet/station-marker";
+import StationMarker2 from "../leaflet/station-marker2";
 
 export default class StationOverlay extends React.Component {
   constructor(props) {
@@ -26,7 +26,7 @@ export default class StationOverlay extends React.Component {
     const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
 
     return (
-      <StationMarker
+      <StationMarker2
         type="station"
         key={this.props.item.id + "-" + data.properties.id}
         itemId={this.props.item.id}
