@@ -10,7 +10,6 @@ require("leaflet.markercluster/dist/MarkerCluster.css");
 class Cluster extends MapLayer {
   constructor(props) {
     super(props);
-    this.activeMarkers = [];
     this.activeCluster = null;
   }
 
@@ -58,7 +57,10 @@ class Cluster extends MapLayer {
     });
 
     markerclusters.on('click', (e) => {
-      if(this.activeCluster && this.activeMarkers.indexOf(e.layer.options.data.id) < 0) {
+      const markerId = e.layer.options.data.id;
+      if(this.activeCluster
+        && !this.activeCluster.getAllChildMarkers().find(
+          (m) => m.options.data.id == markerId)) {
         this.activeCluster.unspiderfy();
       }
     });
@@ -69,12 +71,10 @@ class Cluster extends MapLayer {
 
     markerclusters.on('spiderfied', (a) => {
       this.activeCluster = a.cluster;
-      this.activeMarkers = a.markers.map((m) => m.options.data.id);
     });
 
     markerclusters.on('unspiderfied', () => {
       this.activeCluster = null;
-      this.activeMarkers = [];
     });
 
     this.leafletElement = markerclusters;
