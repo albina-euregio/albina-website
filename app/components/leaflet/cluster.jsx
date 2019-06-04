@@ -78,18 +78,7 @@ Cluster.childContextTypes = {
 };
 
 Cluster.propTypes = {
-  // List of react-leaflet markers
   children: PropTypes.node,
-  // // All available options for Leaflet.markercluster
-  // options: PropTypes.object,
-  // // All available options for Leaflet.Marker
-  // markerOptions: PropTypes.object,
-  // // Options that are supporting by react-leaflet-markercluster wrapper
-  // wrapperOptions: PropTypes.object,
-  // // Events
-  // onMarkerClick: PropTypes.func,
-  // onClusterClick: PropTypes.func,
-  // onPopupClose: PropTypes.func,
 };
 
 

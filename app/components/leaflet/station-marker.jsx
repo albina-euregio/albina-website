@@ -5,7 +5,7 @@ import StationIcon from "./station-icon";
 import { MapLayer } from "react-leaflet";
 import L from "leaflet";
 
-class StationMarker2 extends MapLayer {
+class StationMarker extends MapLayer {
   constructor(props) {
     super(props);
   }
@@ -55,8 +55,8 @@ class StationMarker2 extends MapLayer {
   }
 }
 
-StationMarker2.childContextTypes = {
+StationMarker.childContextTypes = {
   layerContainer: PropTypes.object
 };
 
-export default StationMarker2;
+export default StationMarker;
