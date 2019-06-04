@@ -22,7 +22,7 @@ class GridOverlay extends React.Component {
   }
 
   renderMarker(data, key) {
-    const value = data.properties[this.props.item.id];
+    const value = Math.round(data.properties[this.props.item.id]);
     const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
 
     return (
@@ -35,6 +35,7 @@ class GridOverlay extends React.Component {
           this.props.selectedFeature && (data.properties.id == this.props.selectedFeature.id)
         }
         color={this.getColor(value)}
+        direction={(this.props.item.direction && value >= 3.5) ? data.properties[this.props.item.direction] : false}
         onClick={(e) => {
           this.props.onMarkerSelected({
             id: data.properties.id,
