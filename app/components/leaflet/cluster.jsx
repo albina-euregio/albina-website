@@ -1,10 +1,7 @@
 import React from "react";
-import ReactDOMServer from "react-dom/server";
 import PropTypes from 'prop-types';
-import { MapLayer, withLeaflet } from "react-leaflet";
-import DivIcon from "react-leaflet-div-icon";
+import { MapLayer } from "react-leaflet";
 import L from "leaflet";
-import StationIcon from "./station-icon";
 
 require("leaflet.markercluster");
 require("leaflet.markercluster.placementstrategies");
@@ -30,16 +27,8 @@ class Cluster extends MapLayer {
 
     const activeMarker = markers[values.indexOf(derivedValue)];
 
-    return L.divIcon({
-      iconAnchor: [25,25],
-      html:
-        ReactDOMServer.renderToStaticMarkup(
-          <StationIcon
-            {...activeMarker.options.icon.options.children.props}
-            selected={false}
-            />
-        )
-    });
+    // reuse the marker's icon
+    return activeMarker.options.icon;
   }
 
   createLeafletElement(props) {
