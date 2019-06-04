@@ -30,7 +30,6 @@
     "leaflet-gesture-handling": "^1.1.7",
     "leaflet.locatecontrol": "^0.63.0",
     "leaflet.markercluster": "^1.4.1",
-    "leaflet.markercluster.placementstrategies": "git://github.com/adammertel/Leaflet.MarkerCluster.PlacementStrategies.git",
     "mini-css-extract-plugin": "^0.4.0",
     "mobx": "^4.2.1",
     "mobx-react": "^5.1.2",

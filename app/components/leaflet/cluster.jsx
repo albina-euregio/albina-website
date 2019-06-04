@@ -4,8 +4,8 @@ import { MapLayer } from "react-leaflet";
 import L from "leaflet";
 
 require("leaflet.markercluster");
-require("leaflet.markercluster.placementstrategies");
 require("leaflet.markercluster/dist/MarkerCluster.css");
+require("../../util/placementstrategies");
 
 class Cluster extends MapLayer {
   constructor(props) {
