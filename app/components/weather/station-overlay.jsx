@@ -40,7 +40,9 @@ export default class StationOverlay extends React.Component {
         onClick={() => {
           this.props.onMarkerSelected({
             id: data.properties.id,
-            name: data.properties.name,
+            name: data.properties.name
+              + " (" + data.properties.country + ") "
+              + data.geometry.coordinates[2] + 'm',
             detail: value + " " + this.props.item.units,
             date: data.properties.date
           });
