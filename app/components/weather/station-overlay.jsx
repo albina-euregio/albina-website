@@ -30,6 +30,7 @@ export default class StationOverlay extends React.Component {
         type="station"
         key={this.props.item.id + "-" + data.properties.id}
         itemId={this.props.item.id}
+        stationId={data.properties.id}
         coordinates={coordinates}
         value={value}
         selected={
@@ -58,6 +59,8 @@ export default class StationOverlay extends React.Component {
       <div>
         <Cluster
           item={this.props.item}
+          selectedFeature={this.props.selectedFeature}
+          resetSelection={() => this.props.onMarkerSelected(null)}
           >
           { points.map((point) =>
             this.renderMarker(point)
