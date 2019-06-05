@@ -35,6 +35,9 @@ export default class WeatherMapStore {
         initialDomainId = configDefaultDomainId;
       }
       this.changeDomain(initialDomainId);
+    }).catch(() => {
+      // TODO fail with error dialog
+      console.error('Weather data API is not available');
     });
   }
 
