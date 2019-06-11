@@ -50,6 +50,7 @@ class GridOverlay extends React.Component {
 
   render() {
     const gridPoints = this.props.grid.features
+      .filter(point => point.properties[this.props.item.id] !== false)
       .filter(point => point.properties.zoom <= this.props.zoom);
 
     const selectedFeature = this.props.selectedFeature
@@ -58,7 +59,7 @@ class GridOverlay extends React.Component {
 
     return (
       <div>
-        <FeatureGroup>
+        <FeatureGroup key={this.props.item.id + '-' + this.props.zoom}>
           { gridPoints.map((point) =>
             this.renderMarker(point)
           )}>
