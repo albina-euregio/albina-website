@@ -105,8 +105,6 @@ class BulletinCollection {
 
 class BulletinStore {
   // TODO: add language support
-  @observable mapCenter = [15, 50];
-  @observable mapZoom = "object";
   @observable bulletins = {};
   settings = {};
   problems = {};
@@ -132,9 +130,6 @@ class BulletinStore {
       wet_snow: { highlighted: false },
       gliding_snow: { highlighted: false }
     });
-
-    this.mapCenter = observable.box([47, 12]);
-    this.mapZoom = observable.box(9);
   }
 
   /**
@@ -220,23 +215,6 @@ class BulletinStore {
       }
       */
     }
-  }
-
-  // TODO move to map store
-  @action setMapViewport(mapState) {
-    this.mapCenter.set(mapState.center);
-    this.mapZoom.set(mapState.zoom);
-  }
-
-  /**
-   * Increase or decrease the zoom value of the bulletin map.
-   * TODO: move to map store
-   */
-  @action zoomIn() {
-    this.mapZoom.set(this.mapZoom + 1);
-  }
-  @action zoomOut() {
-    this.mapZoom.set(this.mapZoom - 1);
   }
 
   /**
@@ -408,17 +386,6 @@ class BulletinStore {
     } else {
       return [];
     }
-  }
-
-  /**
-   * Returns leaflet encoded value for map center
-   */
-  @computed get getMapCenter() {
-    return toJS(this.mapCenter);
-  }
-
-  @computed get getMapZoom() {
-    return toJS(this.mapZoom);
   }
 
   _loadBulletinData(date) {

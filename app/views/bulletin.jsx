@@ -5,6 +5,7 @@ import { preprocessContent } from "../util/htmlParser";
 import { reaction } from "mobx";
 import { observer, inject } from "mobx-react";
 import { BulletinStore } from "../stores/bulletinStore";
+import MapStore from "../stores/mapStore";
 import DocumentMeta from "react-document-meta";
 
 import { injectIntl } from "react-intl";
@@ -32,6 +33,9 @@ class Bulletin extends React.Component {
     super(props);
     if (typeof window.bulletinStore === "undefined") {
       window.bulletinStore = new BulletinStore();
+    }
+    if(typeof window.mapStore === "undefined") {
+      window.mapStore = new MapStore();
     }
     this.store = window.bulletinStore;
     this.state = {
@@ -79,7 +83,7 @@ class Bulletin extends React.Component {
       } else {
         const l = dateToISODateString(latest());
         if(l != this.store.settings.date) {
-          this._fetchData(this.props);          
+          this._fetchData(this.props);
         }
       }
     }
@@ -146,7 +150,7 @@ class Bulletin extends React.Component {
   };
 
   handleMapViewportChanged(mapState) {
-    this.store.setMapViewport(mapState);
+    window.mapStore.setMapViewport(mapState);
   }
 
   render() {
