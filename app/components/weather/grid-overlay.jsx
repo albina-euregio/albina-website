@@ -21,15 +21,21 @@ class GridOverlay extends React.Component {
     return color;
   }
 
-  renderMarker(data, key) {
+  renderMarker(data) {
     const value = Math.round(data.properties[this.props.item.id]);
     const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
+    const markerData = {
+      id: data.properties.id,
+      name: data.properties.name,
+      detail: value + " " + this.props.item.units
+    };
 
     return (
       <StationMarker
         type="gridpoint"
         key={data.properties.id}
         coordinates={coordinates}
+        data={markerData}
         value={value}
         selected={
           this.props.selectedFeature && (data.properties.id == this.props.selectedFeature.id)
@@ -37,11 +43,7 @@ class GridOverlay extends React.Component {
         color={this.getColor(value)}
         direction={(this.props.item.direction && value >= 3.5) ? data.properties[this.props.item.direction] : false}
         onClick={(e) => {
-          this.props.onMarkerSelected({
-            id: data.properties.id,
-            name: data.properties.name,
-            detail: value + " " + this.props.item.units
-          });
+          this.props.onMarkerSelected(markerData);
         }} />
     );
   }
@@ -50,12 +52,21 @@ class GridOverlay extends React.Component {
     const gridPoints = this.props.grid.features
       .filter(point => point.properties.zoom <= this.props.zoom);
 
+    const selectedFeature = this.props.selectedFeature
+      ? gridPoints.find((point) => point.properties.id == this.props.selectedFeature.id)
+      : null;
+
     return (
-      <FeatureGroup>
-        { gridPoints.map((point, i) =>
-          this.renderMarker(point, i)
-        )}>
-      </FeatureGroup>
+      <div>
+        <FeatureGroup>
+          { gridPoints.map((point) =>
+            this.renderMarker(point)
+          )}>
+        </FeatureGroup>
+        {selectedFeature &&
+          this.renderMarker(selectedFeature)
+        }
+      </div>
     );
   }
 }
