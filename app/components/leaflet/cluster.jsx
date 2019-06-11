@@ -61,28 +61,45 @@ class Cluster extends MapLayer {
 
     markerclusters.on('click', (e) => {
       const markerId = e.layer.options.data.id;
-      if(this.activeCluster
-        && !this.activeCluster.getAllChildMarkers().find(
-          (m) => m.options.data.id == markerId)) {
-        this.activeCluster.unspiderfy();
+      if(this.activeCluster) {
+        const activeClusterMarker = this.activeCluster.getAllChildMarkers().find(
+          (m) => m.options.data.id == markerId
+        );
+
+        if(activeClusterMarker) {
+          this.setPositionForActiveMarker(activeClusterMarker);
+          this.props.onMarkerSelected(activeClusterMarker.options.data);
+        } else {
+          this.activeCluster.unspiderfy();
+        }
       }
     });
 
     markerclusters.on('spiderfied', (a) => {
       const activeMarker = this.getActiveMarker(a.cluster);
       if(activeMarker) {
+        this.setPositionForActiveMarker(activeMarker);
         this.props.onMarkerSelected(activeMarker.options.data);
       }
       this.activeCluster = a.cluster;
+      this.props.spiderfiedMarkers(this.activeCluster.getAllChildMarkers().map((m) => m.options.data.id));
     });
 
     markerclusters.on('unspiderfied', () => {
       this.activeCluster = null;
+      this.props.spiderfiedMarkers(null);
     });
 
     this.leafletElement = markerclusters;
 
     return markerclusters;
+  }
+
+  setPositionForActiveMarker(marker) {
+    const activePos = this.leafletElement.getVisibleParent(marker);
+    if(activePos) {
+      this.props.onActiveMarkerPositionUpdate(activePos.getLatLng());
+    }
   }
 
   getLeafletElement() {

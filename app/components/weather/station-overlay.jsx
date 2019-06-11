@@ -5,6 +5,10 @@ import StationMarker from "../leaflet/station-marker";
 export default class StationOverlay extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      spiderfiedMarkers: null, // id's of spiderfied markers
+      activeMarkerPos: null // position of highlighted marker within a cluster
+    }
   }
 
   getColor(value) {
@@ -21,9 +25,24 @@ export default class StationOverlay extends React.Component {
     return color;
   }
 
-  renderMarker(data) {
+  handleActiveMarkerPositionUpdate = (pos) => {
+    this.setState({activeMarkerPos: pos});
+  }
+
+  handleSpiderfiedMarkers = (list) => {
+    if(Array.isArray(list) && list.length > 0) {
+      this.setState({spiderfiedMarkers: list});
+    } else {
+      this.setState({
+        spiderfiedMarkers: null,
+        activeMarkerPos: null
+      });
+    }
+  }
+
+  renderMarker(data, pos = null) {
     const value = Math.round(data.properties[this.props.item.id]);
-    const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
+    const coordinates = pos ? [pos.lat, pos.lng] : [data.geometry.coordinates[1], data.geometry.coordinates[0]];
     const markerData = {
       id: data.properties.id,
       name: data.properties.name
@@ -48,7 +67,19 @@ export default class StationOverlay extends React.Component {
         }
         color={this.getColor(value)}
         direction={(this.props.item.direction && value >= 3.5) ? data.properties[this.props.item.direction] : false}
-        onClick={(data) => this.props.onMarkerSelected(data)} />
+        onClick={(data) => {
+          if(data && data.id) {
+            if(!this.state.spiderfiedMarkers
+              || this.state.spiderfiedMarkers.indexOf(data.id) < 0) {
+              // only handle click events for markers outside of cluster -
+              // other markers will be handled by cluster's click-event-handler
+              this.handleSpiderfiedMarkers(null);
+              this.props.onMarkerSelected(data);
+            }
+          } else {
+            this.props.onMarkerSelected(null);
+          }
+        }} />
     );
   }
 
@@ -64,6 +95,8 @@ export default class StationOverlay extends React.Component {
       <div>
         <Cluster
           item={this.props.item}
+          spiderfiedMarkers={this.handleSpiderfiedMarkers}
+          onActiveMarkerPositionUpdate={this.handleActiveMarkerPositionUpdate}
           onMarkerSelected={this.props.onMarkerSelected}
           >
           { points.map((point) =>
@@ -71,7 +104,7 @@ export default class StationOverlay extends React.Component {
           )}>
         </Cluster>
         { selectedFeature &&
-          this.renderMarker(selectedFeature)
+          this.renderMarker(selectedFeature, this.state.activeMarkerPos)
         }
       </div>
     );
