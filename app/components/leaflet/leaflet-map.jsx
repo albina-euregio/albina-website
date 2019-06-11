@@ -226,8 +226,8 @@ class LeafletMap extends React.Component {
         gestureHandling
         style={this.mapStyle()}
         zoomControl={false}
-        zoom={window.mapStore.getMapZoom}
-        center={window.mapStore.getMapCenter}
+        zoom={window.mapStore.mapZoom}
+        center={window.mapStore.mapCenter}
         {...mapOptions}
         attributionControl={false}
       >
@@ -255,8 +255,8 @@ class LeafletMap extends React.Component {
         dragging={L.Browser.mobile}
         style={this.mapStyle()}
         zoomControl={false}
-        zoom={window.mapStore.getMapZoom}
-        center={window.mapStore.getMapCenter}
+        zoom={window.mapStore.mapZoom}
+        center={window.mapStore.mapCenter}
         {...mapOptions}
         attributionControl={false}
       >

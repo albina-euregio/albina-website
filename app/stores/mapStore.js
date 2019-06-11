@@ -2,36 +2,39 @@ import { observable, action, computed, toJS } from 'mobx';
 
 export default class MapStore {
   @observable mapCenter;
-  @observable mapZoom;
+  _mapZoom;
 
   constructor() {
-    this.mapCenter = observable.box([47, 12]);
-    this.mapZoom = observable.box(9);
+    this.mapCenter = {lat: 47, lon: 12};
+    this._mapZoom = observable.box(9);
   }
 
   @action setMapViewport(mapState) {
-    this.mapCenter.set(mapState.center);
-    this.mapZoom.set(mapState.zoom);
+    if(mapState.center.lat && mapState.center.lng) {
+      this.mapCenter.lat = mapState.center.lat;
+      this.mapCenter.lng = mapState.center.lng;
+    }
+    this._mapZoom.set(mapState.zoom);
   }
 
   /**
    * Increase or decrease the zoom value of the bulletin map.
    */
   @action zoomIn() {
-    this.mapZoom.set(this.mapZoom + 1);
+    this._mapZoom.set(this._mapZoom.get() + 1);
   }
   @action zoomOut() {
-    this.mapZoom.set(this.mapZoom - 1);
+    this._mapZoom.set(this._mapZoom.get() - 1);
   }
 
   /**
    * Returns leaflet encoded value for map center
    */
-  @computed get getMapCenter() {
-    return toJS(this.mapCenter);
-  }
+  // get mapCenter() {
+  //   return this._mapCenter.get();
+  // }
 
-  @computed get getMapZoom() {
-    return toJS(this.mapZoom);
+  get mapZoom() {
+    return this._mapZoom.get();
   }
 }

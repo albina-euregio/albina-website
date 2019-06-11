@@ -149,8 +149,11 @@ class Bulletin extends React.Component {
     }
   };
 
-  handleMapViewportChanged(mapState) {
-    window.mapStore.setMapViewport(mapState);
+  handleMapViewportChanged(map) {
+    window.mapStore.setMapViewport({
+      zoom: map.zoom,
+      center: map.center
+    });
   }
 
   render() {

@@ -50,7 +50,7 @@ class WeatherMap extends React.Component {
       if(this.props.item.layer.grid && this.props.grid) {
         overlays.push(
           <GridOverlay key={"grid"}
-            zoom={mapStore.getMapZoom}
+            zoom={mapStore.mapZoom}
             onMarkerSelected={this.props.onMarkerSelected}
             selectedFeature={this.props.selectedFeature}
             item={this.props.item}
@@ -61,7 +61,7 @@ class WeatherMap extends React.Component {
       if(this.props.item.layer.stations && this.props.stations) {
         overlays.push(
           <StationOverlay key={"stations"}
-            zoom={mapStore.getMapZoom}
+            zoom={mapStore.mapZoom}
             onMarkerSelected={this.props.onMarkerSelected}
             selectedFeature={this.props.selectedFeature}
             item={this.props.item}
