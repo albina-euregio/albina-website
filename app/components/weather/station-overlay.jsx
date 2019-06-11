@@ -1,6 +1,7 @@
 import React from "react";
 import Cluster from "../leaflet/cluster";
 import StationMarker from "../leaflet/station-marker";
+import ClusterSelectedMarker from "../leaflet/cluster-selected-marker";
 
 export default class StationOverlay extends React.Component {
   constructor(props) {
@@ -38,6 +39,13 @@ export default class StationOverlay extends React.Component {
         activeMarkerPos: null
       });
     }
+  }
+
+  renderPositionMarker(data) {
+    const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
+    return (
+      <ClusterSelectedMarker coordinates={coordinates} />
+    );
   }
 
   renderMarker(data, pos = null) {
@@ -105,6 +113,9 @@ export default class StationOverlay extends React.Component {
         </Cluster>
         { selectedFeature &&
           this.renderMarker(selectedFeature, this.state.activeMarkerPos)
+        }
+        { (selectedFeature && this.state.spiderfiedMarkers) &&
+          this.renderPositionMarker(selectedFeature)
         }
       </div>
     );
