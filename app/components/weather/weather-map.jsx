@@ -29,7 +29,7 @@ class WeatherMap extends React.Component {
           <TileLayer key="background-map"
             className="leaflet-image-layer"
             url={
-              config.get("links.meteoViewer.overlays")
+              config.get("apis.weather.overlays")
               + this.props.item.overlay.tms
               + "/{z}/{x}/{y}.png"
             }

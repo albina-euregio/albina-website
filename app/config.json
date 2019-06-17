@@ -63,6 +63,12 @@
     "blogger": "https://blogcache.avalanche.report/",
     "blogger_": "//localhost:3000/",
     "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/",
+    "weather": {
+      "domains": "https://avalanche.report/transfer/data/albina_domains.json",
+      "stations": "https://avalanche.report/transfer/data/albina_stations.json",
+      "grid": "https://avalanche.report/transfer/data/albina_grid.json",
+      "overlays": "https://avalanche.report/transfer/data/"
+    },
     "stations": "https://data1.geo.univie.ac.at/exchange/albina2/meteo/stations.json"
   },
   "apiKeys": {
@@ -71,12 +77,6 @@
   },
   "links": {
     "interreg": "http://www.interreg.net/{lang}/default.asp",
-    "meteoViewer": {
-      "domains": "https://avalanche.report/transfer/data/albina_domains.json",
-      "stations": "https://avalanche.report/transfer/data/albina_stations.json",
-      "grid": "https://avalanche.report/transfer/data/albina_grid.json",
-      "overlays": "https://avalanche.report/transfer/data/"
-    },
     "downloads": {
       "base": "https://avalanche.report/albina_files/",
       "pdf": "{date}/{date}_{lang}.pdf",

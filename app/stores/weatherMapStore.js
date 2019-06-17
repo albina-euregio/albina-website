@@ -16,13 +16,13 @@ export default class WeatherMapStore {
     this.selectedFeature = null;
 
     const loads = [
-      Base.doRequest(config.get("links.meteoViewer.domains")).then(response => {
+      Base.doRequest(config.get("apis.weather.domains")).then(response => {
         this.config = JSON.parse(response);
       }),
-      Base.doRequest(config.get("links.meteoViewer.stations")).then(response => {
+      Base.doRequest(config.get("apis.weather.stations")).then(response => {
         this.stations = JSON.parse(response);
       }),
-      Base.doRequest(config.get("links.meteoViewer.grid")).then(response => {
+      Base.doRequest(config.get("apis.weather.grid")).then(response => {
         this.grid = JSON.parse(response);
       })
     ];
