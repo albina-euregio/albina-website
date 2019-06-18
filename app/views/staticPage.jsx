@@ -2,6 +2,7 @@ import React from "react";
 import { ProcessNodeDefinitions } from "html-to-react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
+import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 
 import { scroll_init, scroll } from "../js/scroll";
@@ -57,6 +58,7 @@ export default class StaticPage extends React.Component {
   render() {
     return (
       <div>
+        <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.state.title}
           marginal={this.state.headerText}

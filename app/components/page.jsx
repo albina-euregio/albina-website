@@ -7,7 +7,6 @@ import PageFooter from "./organisms/page-footer.jsx";
 import MenuStore from "../stores/menuStore";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
-import DocumentMeta from "react-document-meta";
 import { dateToISODateString, latest } from "../util/date.js";
 
 import Base from "./../base";
@@ -39,52 +38,6 @@ class Page extends React.Component {
     this.hash = false;
     window["menuStore"] = this.menuStore;
   }
-
-  // _setLanguage() {
-    // url parameter
-    // if (!appStore.setLanguage(Base.searchGet("lang"))) {
-    //   // config language
-    //   if (!appStore.setLanguage(config.get("defaults.language"))) {
-    //     // language setting based on hostname
-    //     const languageHostConfig = config.get("languageHostSettings");
-    //     const hostLang = Object.keys(languageHostConfig).filter((lang) =>
-    //       (languageHostConfig[lang] == location.hostname)
-    //     );
-    //
-    //     if(hostLang.length < 1 || !appStore.setLanguage(hostLang[0])) {
-    //       if (!appStore.setLanguage(window.localStorage.getItem("locale"))) {
-    //         appStore.setLanguage("en");
-    //       }
-    //
-    //       // // browser setting
-    //       // let browserLangSettings = window.navigator.language
-    //       //   ? window.navigator.language
-    //       //   : "";
-    //       // browserLangSettings = window.navigator.browserLanguage
-    //       //   ? window.navigator.browserLanguage
-    //       //   : "";
-    //       //
-    //       // browserLangSettings = browserLangSettings.substr(0, 2).toLowerCase();
-    //       //
-    //       // if (!appStore.setLanguage(browserLangSettings)) {
-    //       //   // fallback to en
-    //       //   appStore.setLanguage("en");
-    //       // }
-    //     }
-    //   }
-    // }
-
-    // change url if needed
-
-    // if (Base.searchGet("lang") !== appStore.language) {
-    //   Base.searchChange(this.props.history, { lang: appStore.language }, true);
-    //
-    //   document.title = this.props.intl.formatMessage({
-    //     id: "app:title"
-    //   });
-    //   document.documentElement.lang = appStore.language;
-    // }
-  // }
 
   componentDidUpdate() {
     this._didUpdate();
@@ -148,57 +101,43 @@ class Page extends React.Component {
   }
 
   render() {
-    const meta = {
-      title: this.props.intl.formatMessage({
-        id: "app:title"
-      }),
-      description: "avalanche forecast",
-      canonical: "avalanche.report",
-      meta: {
-        property: {
-          "twitter:card": "avalanche.report"
-        }
-      }
-    };
     return (
       <div>
-        <DocumentMeta {...meta}>
-          <PageLoadingScreen />
-          {false && <Jumpnav />}
-          <div id="page-all" className="page-all">
-            <PageHeader menuStore={this.menuStore} />
-            <main id="page-main" className="page-main">
-              <div id="global-grid">
-                {renderRoutes(this.props.route.routes)}
-              </div>
-            </main>
-            <PageFooter menuStore={this.menuStore} />
-          </div>
-          {appStore.unsupportedBrowserModal && <UnsupportedBrowserDialog />}
-          <ModalDialog id="subscribeDialog">
-            <SubscribeDialog />
-          </ModalDialog>
-          <ModalDialog id="downloadPdfDialog">
-            <DonwloadPdfDialog />
-          </ModalDialog>
-          <ModalDialog id="followDialog">
-            <FollowDialog />
-          </ModalDialog>
-          <ModalDialog id="subscribeEmailDialog">
-            <SubscribeEmailDialog />
-          </ModalDialog>
-          <ModalDialog id="subscribeBlogDialog">
-            <SubscribeBlogDialog />
-          </ModalDialog>
-          <ModalDialog id="subscribeSocialMediaDialog">
-            <SubscribeSocialMediaDialog />
-          </ModalDialog>
-          <ModalDialog id="subscribeAppDialog">
-            <SubscribeAppDialog />
-          </ModalDialog>
-          {config.get("dialogs.cookieConsent") && <CookieConsent />}
-          {config.get("dialogs.feedback") && <FeedbackDialog />}
-        </DocumentMeta>
+        <PageLoadingScreen />
+        {false && <Jumpnav />}
+        <div id="page-all" className="page-all">
+          <PageHeader menuStore={this.menuStore} />
+          <main id="page-main" className="page-main">
+            <div id="global-grid">
+              {renderRoutes(this.props.route.routes)}
+            </div>
+          </main>
+          <PageFooter menuStore={this.menuStore} />
+        </div>
+        {appStore.unsupportedBrowserModal && <UnsupportedBrowserDialog />}
+        <ModalDialog id="subscribeDialog">
+          <SubscribeDialog />
+        </ModalDialog>
+        <ModalDialog id="downloadPdfDialog">
+          <DonwloadPdfDialog />
+        </ModalDialog>
+        <ModalDialog id="followDialog">
+          <FollowDialog />
+        </ModalDialog>
+        <ModalDialog id="subscribeEmailDialog">
+          <SubscribeEmailDialog />
+        </ModalDialog>
+        <ModalDialog id="subscribeBlogDialog">
+          <SubscribeBlogDialog />
+        </ModalDialog>
+        <ModalDialog id="subscribeSocialMediaDialog">
+          <SubscribeSocialMediaDialog />
+        </ModalDialog>
+        <ModalDialog id="subscribeAppDialog">
+          <SubscribeAppDialog />
+        </ModalDialog>
+        {config.get("dialogs.cookieConsent") && <CookieConsent />}
+        {config.get("dialogs.feedback") && <FeedbackDialog />}
       </div>
     );
   }

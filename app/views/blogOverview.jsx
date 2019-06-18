@@ -8,6 +8,7 @@ import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import PageFlipper from "../components/blog/page-flipper";
 import FilterBar from "../components/organisms/filter-bar";
+import HTMLHeader from "../components/organisms/html-header";
 import BlogPostsList from "../components/blog/blog-posts-list";
 import ProvinceFilter from "../components/filters/province-filter";
 import LanguageFilter from "../components/filters/language-filter";
@@ -132,6 +133,7 @@ class BlogOverview extends React.Component {
     const classDisabled = "disabled";
     return (
       <div>
+        <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.state.title}
           marginal={this.state.headerText}

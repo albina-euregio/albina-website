@@ -11,6 +11,7 @@ import ProvinceFilter from "../components/filters/province-filter";
 import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
 import SmShare from '../components/organisms/sm-share';
+import HTMLHeader from "../components/organisms/html-header";
 import StationTable from '../components/stationTable/stationTable';
 
 class StationMeasurements extends React.Component {
@@ -69,6 +70,7 @@ class StationMeasurements extends React.Component {
     ];
     return (
       <div>
+        <HTMLHeader title={this.state.title} />
         <PageHeadline title={this.state.title} marginal={this.state.headerText} />
         <FilterBar
           search={true}

@@ -6,7 +6,6 @@ import { reaction } from "mobx";
 import { observer, inject } from "mobx-react";
 import { BulletinStore } from "../stores/bulletinStore";
 import MapStore from "../stores/mapStore";
-import DocumentMeta from "react-document-meta";
 
 import { injectIntl } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
@@ -16,6 +15,7 @@ import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import BulletinReport from "../components/bulletin/bulletin-report";
 import BulletinHowTo from "../components/bulletin/bulletin-howto";
 import SmShare from "../components/organisms/sm-share";
+import HTMLHeader from "../components/organisms/html-header";
 import { parseDate, dateToISODateString } from "../util/date.js";
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
@@ -158,69 +158,34 @@ class Bulletin extends React.Component {
 
   render() {
     const collection = this.store.activeBulletinCollection;
-    let meta = {
-      description: "",
-      meta: {
-        property: {
-          //'og:image': imageUri,
-
-          "twitter:card": "summary_large_image"
-          //'twitter:image': imageUri
-        }
-      }
-    };
-    if (collection && collection.publicationDate) {
-      /*console.log(
-        "collection date",
-        collection.publicationDate,
-        dateToDateString(this.validateDate(collection.publicationDate))
-      );
-      */
-      meta = {
-        description:
-          "avalanche forecast for " +
-          (collection && collection.publicationDate
-            ? dateToDateString(this.validateDate(collection.publicationDate))
-            : ""),
-        meta: {
-          property: {
-            //'og:image': imageUri,
-
-            "twitter:card": "summary_large_image"
-            //'twitter:image': imageUri
-          }
-        }
-      };
-    }
     // console.log('rendering bulletin view(0)', this.store.vectorRegions)
     // console.log('rendering bulletin ', this.store.bulletins)
 
     return (
       <div>
-        <DocumentMeta {...meta} extend>
-          <BulletinHeader store={this.store} title={this.state.title} />
+        <HTMLHeader title={this.state.title} />
+        <BulletinHeader store={this.store} title={this.state.title} />
 
-          <BulletinMap
-            handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
-            handleSelectRegion={this.handleSelectRegion.bind(this)}
-            date={this.props.match.params.date}
-            history={this.props.history}
-            store={this.store}
-            highlightedRegion={this.state.highlightedRegion}
-            regions={this.store.vectorRegions}
-          />
-          <BulletinLegend
-            handleSelectRegion={this.handleSelectRegion.bind(this)}
-            problems={this.store.problems}
-          />
-          <BulletinButtonbar store={this.store} />
-          <BulletinReport store={this.store} />
-          {!this.store.activeBulletin && <BulletinHowTo store={this.store} />}
-          {this.state.sharable && <SmShare />}
-          <div className="section-padding section-centered">
-            {preprocessContent(this.state.content)}
-          </div>
-        </DocumentMeta>
+        <BulletinMap
+          handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+          handleSelectRegion={this.handleSelectRegion.bind(this)}
+          date={this.props.match.params.date}
+          history={this.props.history}
+          store={this.store}
+          highlightedRegion={this.state.highlightedRegion}
+          regions={this.store.vectorRegions}
+        />
+        <BulletinLegend
+          handleSelectRegion={this.handleSelectRegion.bind(this)}
+          problems={this.store.problems}
+        />
+        <BulletinButtonbar store={this.store} />
+        <BulletinReport store={this.store} />
+        {!this.store.activeBulletin && <BulletinHowTo store={this.store} />}
+        {this.state.sharable && <SmShare />}
+        <div className="section-padding section-centered">
+          {preprocessContent(this.state.content)}
+        </div>
       </div>
     );
   }

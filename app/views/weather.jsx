@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import { Parser } from "html-to-react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
+import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 
 import Base from "../base";
@@ -95,6 +96,7 @@ class Weather extends React.Component {
       : [];
     return (
       <div>
+        <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.state.title}
           marginal={this.state.headerText}

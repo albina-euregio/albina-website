@@ -8,6 +8,7 @@ import { parseDate, getSuccDate, dateToISODateString } from "../util/date.js";
 import ArchiveStore from "../stores/archiveStore.js";
 import ArchiveItem from "../components/archive/archive-item.jsx";
 import PageHeadline from "../components/organisms/page-headline.jsx";
+import HTMLHeader from "../components/organisms/html-header";
 import FilterBar from "../components/organisms/filter-bar.jsx";
 import LanguageFilter from "../components/filters/language-filter.jsx";
 import YearFilter from "../components/filters/year-filter.jsx";
@@ -103,6 +104,7 @@ class Archive extends React.Component {
   render() {
     return (
       <div>
+        <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.state.title}
           marginal={this.state.headerText}
