@@ -193,7 +193,7 @@
       "hours": 17,
       "minutes": 10
     },
-    "noBulletinBanner": false
+    "noBulletinBanner": true
   },
   "map": {
     "attribution": "<a href='https://carto.univie.ac.at/' target='_blank'>(c) UniWien</a>",

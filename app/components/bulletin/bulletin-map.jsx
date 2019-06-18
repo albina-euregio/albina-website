@@ -90,8 +90,32 @@ class BulletinMap extends React.Component {
     }
   }
 
+  renderNoBulletinMessage() {
+    const msg = this.props.intl.formatHTMLMessage({
+      id: 'bulletin:header:no-bulletin-info'
+    });
+
+    // split the string at <a> and </a>
+    const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/)
+
+    return (
+      <p>
+        {parts.length > 1 && new Parser().parse(parts[1])}
+        {parts.length > 2 &&
+        <Link
+          to='/blog'
+          className='tooltip'
+          title={parts[2]}>
+          <strong>{parts[2]}</strong>
+        </Link>}
+        {parts.length > 3 && new Parser().parse(parts[3])}
+      </p>
+    );
+  }
+
   render() {
     const hlBulletin = this.props.store.activeBulletin;
+
 
     return (
       <section
@@ -111,21 +135,7 @@ class BulletinMap extends React.Component {
             config.get("bulletin.noBulletinBanner") && (
               <section className="bulletinbar section controlbar">
                 <div className="bar section-centered">
-                  <p>
-                    {this.props.intl.formatMessage({
-                      id: "bulletin:header:no-bulletin-info"
-                    })}
-                    <strong>
-                      <Link title="blog" to="/blog/">
-                        {this.props.intl.formatMessage({
-                          id: "bulletin:header:blog"
-                        })}
-                      </Link>
-                    </strong>
-                    {this.props.intl.formatMessage({
-                      id: "bulletin:header:no-bulletin-info-post"
-                    })}
-                  </p>
+                  { this.renderNoBulletinMessage() }
                 </div>
               </section>
             )}
