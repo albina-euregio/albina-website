@@ -16,7 +16,7 @@ import BulletinReport from "../components/bulletin/bulletin-report";
 import BulletinHowTo from "../components/bulletin/bulletin-howto";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { parseDate, dateToISODateString } from "../util/date.js";
+import { parseDate, dateToISODateString, dateToLongDateString } from "../util/date.js";
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
 import { configure } from "../../node_modules/mobx/lib/mobx";
@@ -161,9 +161,26 @@ class Bulletin extends React.Component {
     // console.log('rendering bulletin view(0)', this.store.vectorRegions)
     // console.log('rendering bulletin ', this.store.bulletins)
 
+    const shareDescription = (this.state.title && this.store.settings.date) ? (
+      collection
+        ? (this.state.title + ' | ' + dateToLongDateString(parseDate(this.store.settings.date)))
+        : this.props.intl.formatMessage({id: "bulletin:header:no-bulletin-info"}).replace(/<\/?a>/g, '')
+    ) : "";
+
+    const shareImage = (collection && this.store.settings.date) ? (
+      config.get('apis.geo') + this.store.settings.date + "/"
+      + (collection.hasDaytimeDependency() ? this.store.settings.ampm : "fd")
+      + "_albina_map.jpg"
+    ) :
+    "";
+
     return (
       <div>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader title={this.state.title} description={shareDescription} meta={{
+            "og:image": shareImage,
+            "og:image:width": 1890,
+            "og:image:height": 1890
+          }} />
         <BulletinHeader store={this.store} title={this.state.title} />
 
         <BulletinMap
@@ -182,7 +199,7 @@ class Bulletin extends React.Component {
         <BulletinButtonbar store={this.store} />
         <BulletinReport store={this.store} />
         {!this.store.activeBulletin && <BulletinHowTo store={this.store} />}
-        {this.state.sharable && <SmShare />}
+        {this.state.sharable && <SmShare image={shareImage} title={this.state.title} description={shareDescription} />}
         <div className="section-padding section-centered">
           {preprocessContent(this.state.content)}
         </div>

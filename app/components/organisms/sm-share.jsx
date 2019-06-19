@@ -1,23 +1,37 @@
 import React from 'react';
 import { inject } from 'mobx-react';
 import { injectIntl, FormattedHTMLMessage } from 'react-intl';
+import Base from '../../base';
 
 class SmShare extends React.Component {
   getShareUrl(type) {
     const currentUrl = String(window.location);
+    let url = '';
+    const params = {};
+
     if(type == 'facebook') {
-      return 'https://www.facebook.com/sharer.php?u='
-        + encodeURIComponent(currentUrl);
+      url = 'https://www.facebook.com/sharer.php';
+      params.u = currentUrl;
+      if(this.props.image) {
+        params.picture = this.props.image;
+      }
+      if(this.props.title) {
+        params.title = this.props.title;
+      }
+      if(this.props.description) {
+        params.description = this.props.description;
+      }
     }
     if(type == 'twitter') {
-      return 'https://www.twitter.com/share?url='
-        + encodeURIComponent(currentUrl);
+      url = 'https://www.twitter.com/share';
+      params.url=currentUrl;
     }
     if(type == 'whatsapp') {
-      // see https://faq.whatsapp.com/en/general/26000030
-      return 'https://wa.me/?text=' + encodeURIComponent(currentUrl);
+      url = 'https://wa.me/';
+      params.text = currentUrl;
     }
-    return '#';
+
+    return url ? Base.makeUrl(url, params) : '#';
   }
 
   render() {

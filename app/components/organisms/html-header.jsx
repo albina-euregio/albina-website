@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactTitle } from "react-meta-tags";
+import MetaTags from "react-meta-tags";
 import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
@@ -14,9 +14,24 @@ class HTMLHeader extends React.Component {
       this.props.intl.formatMessage({id: 'app:title'})
     ];
 
+    const description = this.props.description ? this.props.description : this.props.title;
+    const title = breadcrumbs.join(" | ");
+
+    const defaultMeta = {
+      'og:description': description,
+      'og:title': title,
+    };
+    const meta = Object.assign({}, defaultMeta, this.props.meta);
+
     return (
       <div>
-        <ReactTitle title={breadcrumbs.join(" | ")} />
+        <MetaTags>
+          <title>{title}</title>
+          <meta name="description" content={description} />
+          {Object.keys(meta).map(key =>
+            <meta key={key} property={key} content={meta[key]} />
+          )}
+        </MetaTags>
       </div>
     )
   }
