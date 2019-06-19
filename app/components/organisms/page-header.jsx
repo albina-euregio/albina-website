@@ -122,7 +122,7 @@ class PageHeader extends React.Component {
         </div>
         <div className="page-header-hamburger">
           <button
-            href
+            href="#"
             title={this.props.intl.formatMessage({
               id: "header:hamburger:hover"
             })}
