@@ -1261,32 +1261,32 @@ private setTexts() {
   pasteTextcat($event, field) {
     switch (field) {
       case "avActivityHighlights":
-        this.activeAvActivityHighlightsTextcat = this.copyService.getTextTextcat();
-        this.activeAvActivityHighlightsDe = this.copyService.getTextDe();
-        this.activeAvActivityHighlightsIt = this.copyService.getTextIt();
-        this.activeAvActivityHighlightsEn = this.copyService.getTextEn();
-        this.activeAvActivityHighlightsFr = this.copyService.getTextFr();
+        this.activeAvActivityHighlightsTextcat = this.activeAvActivityHighlightsTextcat + "." + this.copyService.getTextTextcat();
+        this.activeAvActivityHighlightsDe = this.activeAvActivityHighlightsDe + " " + this.copyService.getTextDe();
+        this.activeAvActivityHighlightsIt = this.activeAvActivityHighlightsIt + " " + this.copyService.getTextIt();
+        this.activeAvActivityHighlightsEn = this.activeAvActivityHighlightsEn + " " + this.copyService.getTextEn();
+        this.activeAvActivityHighlightsFr = this.activeAvActivityHighlightsFr + " " + this.copyService.getTextFr();
         break;
       case "avActivityComment":
-        this.activeAvActivityCommentTextcat = this.copyService.getTextTextcat();
-        this.activeAvActivityCommentDe = this.copyService.getTextDe();
-        this.activeAvActivityCommentIt = this.copyService.getTextIt();
-        this.activeAvActivityCommentEn = this.copyService.getTextEn();
-        this.activeAvActivityCommentFr = this.copyService.getTextFr();
+        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.copyService.getTextTextcat();
+        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.copyService.getTextDe();
+        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.copyService.getTextIt();
+        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.copyService.getTextEn();
+        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.copyService.getTextFr();
         break;
       case "snowpackStructureComment":
-        this.activeSnowpackStructureCommentTextcat = this.copyService.getTextTextcat();
-        this.activeSnowpackStructureCommentDe = this.copyService.getTextDe();
-        this.activeSnowpackStructureCommentIt = this.copyService.getTextIt();
-        this.activeSnowpackStructureCommentEn = this.copyService.getTextEn();
-        this.activeSnowpackStructureCommentFr = this.copyService.getTextFr();
+        this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.copyService.getTextTextcat();
+        this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.copyService.getTextDe();
+        this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.copyService.getTextIt();
+        this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.copyService.getTextEn();
+        this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.copyService.getTextFr();
         break;
       case "tendencyComment":
-        this.activeTendencyCommentTextcat = this.copyService.getTextTextcat();
-        this.activeTendencyCommentDe = this.copyService.getTextDe();
-        this.activeTendencyCommentIt = this.copyService.getTextIt();
-        this.activeTendencyCommentEn = this.copyService.getTextEn();
-        this.activeTendencyCommentFr = this.copyService.getTextFr();
+        this.activeTendencyCommentTextcat = this.activeTendencyCommentTextcat + "." + this.copyService.getTextTextcat();
+        this.activeTendencyCommentDe = this.activeTendencyCommentDe + " " + this.copyService.getTextDe();
+        this.activeTendencyCommentIt = this.activeTendencyCommentIt + " " + this.copyService.getTextIt();
+        this.activeTendencyCommentEn = this.activeTendencyCommentEn + " " + this.copyService.getTextEn();
+        this.activeTendencyCommentFr = this.activeTendencyCommentFr + " " + this.copyService.getTextFr();
         break;
       default:
         break;
@@ -1547,46 +1547,46 @@ private setTexts() {
   loadAvActivityCommentExampleText(avalancheProblem) {
     switch (avalancheProblem) {
       case "newSnow":
-        this.activeAvActivityCommentTextcat = this.constantsService.newSnowTextcat;
-        this.activeAvActivityCommentDe = this.constantsService.newSnowDe;
-        this.activeAvActivityCommentIt = this.constantsService.newSnowIt;
-        this.activeAvActivityCommentEn = this.constantsService.newSnowEn;
-        this.activeAvActivityCommentFr = this.constantsService.newSnowFr;
+        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.newSnowTextcat;
+        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.newSnowDe;
+        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.newSnowIt;
+        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.newSnowEn;
+        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.newSnowFr;
         break;
       case "windDriftedSnow":
-        this.activeAvActivityCommentTextcat = this.constantsService.windDriftedSnowTextcat;
-        this.activeAvActivityCommentDe = this.constantsService.windDriftedSnowDe;
-        this.activeAvActivityCommentIt = this.constantsService.windDriftedSnowIt;
-        this.activeAvActivityCommentEn = this.constantsService.windDriftedSnowEn;
-        this.activeAvActivityCommentFr = this.constantsService.windDriftedSnowFr;
+        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.windDriftedSnowTextcat;
+        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.windDriftedSnowDe;
+        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.windDriftedSnowIt;
+        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.windDriftedSnowEn;
+        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.windDriftedSnowFr;
         break;
       case "oldSnow":
-        this.activeAvActivityCommentTextcat = this.constantsService.oldSnowTextcat;
-        this.activeAvActivityCommentDe = this.constantsService.oldSnowDe;
-        this.activeAvActivityCommentIt = this.constantsService.oldSnowIt;
-        this.activeAvActivityCommentEn = this.constantsService.oldSnowEn;
-        this.activeAvActivityCommentFr = this.constantsService.oldSnowFr;
+        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.oldSnowTextcat;
+        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.oldSnowDe;
+        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.oldSnowIt;
+        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.oldSnowEn;
+        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.oldSnowFr;
         break;
       case "wetSnow":
-        this.activeAvActivityCommentTextcat = this.constantsService.wetSnowTextcat;
-        this.activeAvActivityCommentDe = this.constantsService.wetSnowDe;
-        this.activeAvActivityCommentIt = this.constantsService.wetSnowIt;
-        this.activeAvActivityCommentEn = this.constantsService.wetSnowEn;
-        this.activeAvActivityCommentFr = this.constantsService.wetSnowFr;
+        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.wetSnowTextcat;
+        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.wetSnowDe;
+        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.wetSnowIt;
+        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.wetSnowEn;
+        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.wetSnowFr;
         break;
       case "glidingSnow":
-        this.activeAvActivityCommentTextcat = this.constantsService.glidingSnowTextcat;
-        this.activeAvActivityCommentDe = this.constantsService.glidingSnowDe;
-        this.activeAvActivityCommentIt = this.constantsService.glidingSnowIt;
-        this.activeAvActivityCommentEn = this.constantsService.glidingSnowEn;
-        this.activeAvActivityCommentFr = this.constantsService.glidingSnowFr;
+        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.glidingSnowTextcat;
+        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.glidingSnowDe;
+        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.glidingSnowIt;
+        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.glidingSnowEn;
+        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.glidingSnowFr;
         break;
       case "favourableSituation":
-        this.activeAvActivityCommentTextcat = this.constantsService.favourableSituationTextcat;
-        this.activeAvActivityCommentDe = this.constantsService.favourableSituationDe;
-        this.activeAvActivityCommentIt = this.constantsService.favourableSituationIt;
-        this.activeAvActivityCommentEn = this.constantsService.favourableSituationEn;
-        this.activeAvActivityCommentFr = this.constantsService.favourableSituationFr;
+        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.favourableSituationTextcat;
+        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.favourableSituationDe;
+        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.favourableSituationIt;
+        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.favourableSituationEn;
+        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.favourableSituationFr;
         break;
       default:
         break;
