@@ -1261,37 +1261,132 @@ private setTexts() {
   pasteTextcat($event, field) {
     switch (field) {
       case "avActivityHighlights":
-        this.activeAvActivityHighlightsTextcat = this.activeAvActivityHighlightsTextcat + "." + this.copyService.getTextTextcat();
-        this.activeAvActivityHighlightsDe = this.activeAvActivityHighlightsDe + " " + this.copyService.getTextDe();
-        this.activeAvActivityHighlightsIt = this.activeAvActivityHighlightsIt + " " + this.copyService.getTextIt();
-        this.activeAvActivityHighlightsEn = this.activeAvActivityHighlightsEn + " " + this.copyService.getTextEn();
-        this.activeAvActivityHighlightsFr = this.activeAvActivityHighlightsFr + " " + this.copyService.getTextFr();
+        if (this.activeAvActivityHighlightsTextcat != undefined)
+          this.activeAvActivityHighlightsTextcat = this.activeAvActivityHighlightsTextcat + "." + this.copyService.getTextTextcat();
+        else
+          this.activeAvActivityHighlightsTextcat = this.copyService.getTextTextcat();
+        if (this.activeAvActivityHighlightsDe != undefined)
+          this.activeAvActivityHighlightsDe = this.activeAvActivityHighlightsDe + " " + this.copyService.getTextDe();
+        else
+          this.activeAvActivityHighlightsDe = this.copyService.getTextDe();
+        if (this.activeAvActivityHighlightsIt != undefined)
+          this.activeAvActivityHighlightsIt = this.activeAvActivityHighlightsIt + " " + this.copyService.getTextIt();
+        else
+          this.activeAvActivityHighlightsIt = this.copyService.getTextIt();
+        if (this.activeAvActivityHighlightsEn != undefined)
+          this.activeAvActivityHighlightsEn = this.activeAvActivityHighlightsEn + " " + this.copyService.getTextEn();
+        else
+          this.activeAvActivityHighlightsEn = this.copyService.getTextEn();
+        if (this.activeAvActivityHighlightsFr != undefined)
+          this.activeAvActivityHighlightsFr = this.activeAvActivityHighlightsFr + " " + this.copyService.getTextFr();
+        else
+          this.activeAvActivityHighlightsFr = this.copyService.getTextFr();
         break;
       case "avActivityComment":
-        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.copyService.getTextTextcat();
-        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.copyService.getTextDe();
-        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.copyService.getTextIt();
-        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.copyService.getTextEn();
-        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.copyService.getTextFr();
+        if (this.activeAvActivityCommentTextcat != undefined)
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.copyService.getTextTextcat();
+        else
+          this.activeAvActivityCommentTextcat = this.copyService.getTextTextcat();
+        if (this.activeAvActivityCommentDe != undefined)
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.copyService.getTextDe();
+        else
+          this.activeAvActivityCommentDe = this.copyService.getTextDe();
+        if (this.activeAvActivityCommentIt != undefined)
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.copyService.getTextIt();
+        else
+          this.activeAvActivityCommentIt = this.copyService.getTextIt();
+        if (this.activeAvActivityCommentEn != undefined)
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.copyService.getTextEn();
+        else
+          this.activeAvActivityCommentEn = this.copyService.getTextEn();
+        if (this.activeAvActivityCommentFr != undefined)
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.copyService.getTextFr();
+        else
+          this.activeAvActivityCommentFr = this.copyService.getTextFr();
         break;
       case "snowpackStructureComment":
-        this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.copyService.getTextTextcat();
-        this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.copyService.getTextDe();
-        this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.copyService.getTextIt();
-        this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.copyService.getTextEn();
-        this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.copyService.getTextFr();
+        if (this.activeSnowpackStructureCommentTextcat != undefined)
+          this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.copyService.getTextTextcat();
+        else
+          this.activeSnowpackStructureCommentTextcat = this.copyService.getTextTextcat();
+        if (this.activeSnowpackStructureCommentDe != undefined)
+          this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.copyService.getTextDe();
+        else
+          this.activeSnowpackStructureCommentDe = this.copyService.getTextDe();
+        if (this.activeSnowpackStructureCommentIt != undefined)
+          this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.copyService.getTextIt();
+        else
+          this.activeSnowpackStructureCommentIt = this.copyService.getTextIt();
+        if (this.activeSnowpackStructureCommentEn != undefined)
+          this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.copyService.getTextEn();
+        else
+          this.activeSnowpackStructureCommentEn = this.copyService.getTextEn();
+        if (this.activeSnowpackStructureCommentFr != undefined)
+          this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.copyService.getTextFr();
+        else
+          this.activeSnowpackStructureCommentFr = this.copyService.getTextFr();
         break;
       case "tendencyComment":
-        this.activeTendencyCommentTextcat = this.activeTendencyCommentTextcat + "." + this.copyService.getTextTextcat();
-        this.activeTendencyCommentDe = this.activeTendencyCommentDe + " " + this.copyService.getTextDe();
-        this.activeTendencyCommentIt = this.activeTendencyCommentIt + " " + this.copyService.getTextIt();
-        this.activeTendencyCommentEn = this.activeTendencyCommentEn + " " + this.copyService.getTextEn();
-        this.activeTendencyCommentFr = this.activeTendencyCommentFr + " " + this.copyService.getTextFr();
+        if (this.activeTendencyCommentTextcat != undefined)
+          this.activeTendencyCommentTextcat = this.activeTendencyCommentTextcat + "." + this.copyService.getTextTextcat();
+        else
+          this.activeTendencyCommentTextcat = this.copyService.getTextTextcat();
+        if (this.activeTendencyCommentDe != undefined)
+          this.activeTendencyCommentDe = this.activeTendencyCommentDe + " " + this.copyService.getTextDe();
+        else
+          this.activeTendencyCommentDe = this.copyService.getTextDe();
+        if (this.activeTendencyCommentIt != undefined)
+          this.activeTendencyCommentIt = this.activeTendencyCommentIt + " " + this.copyService.getTextIt();
+        else
+          this.activeTendencyCommentIt = this.copyService.getTextIt();
+        if (this.activeTendencyCommentEn != undefined)
+          this.activeTendencyCommentEn = this.activeTendencyCommentEn + " " + this.copyService.getTextEn();
+        else
+          this.activeTendencyCommentEn = this.copyService.getTextEn();
+        if (this.activeTendencyCommentFr != undefined)
+          this.activeTendencyCommentFr = this.activeTendencyCommentFr + " " + this.copyService.getTextFr();
+        else
+          this.activeTendencyCommentFr = this.copyService.getTextFr();
         break;
       default:
         break;
     }
     this.copyService.resetCopying();
+  }
+
+  deleteTextcat($event, field) {
+    switch (field) {
+      case "avActivityHighlights":
+        this.activeAvActivityHighlightsTextcat = undefined;
+        this.activeAvActivityHighlightsDe = undefined;
+        this.activeAvActivityHighlightsIt = undefined;
+        this.activeAvActivityHighlightsEn = undefined;
+        this.activeAvActivityHighlightsFr = undefined;
+        break;
+      case "avActivityComment":
+        this.activeAvActivityCommentTextcat = undefined;
+        this.activeAvActivityCommentDe = undefined;
+        this.activeAvActivityCommentIt = undefined;
+        this.activeAvActivityCommentEn = undefined;
+        this.activeAvActivityCommentFr = undefined;
+        break;
+      case "snowpackStructureComment":
+        this.activeSnowpackStructureCommentTextcat = undefined;
+        this.activeSnowpackStructureCommentDe = undefined;
+        this.activeSnowpackStructureCommentIt = undefined;
+        this.activeSnowpackStructureCommentEn = undefined;
+        this.activeSnowpackStructureCommentFr = undefined;
+        break;
+      case "tendencyComment":
+        this.activeTendencyCommentTextcat = undefined;
+        this.activeTendencyCommentDe = undefined;
+        this.activeTendencyCommentIt = undefined;
+        this.activeTendencyCommentEn = undefined;
+        this.activeTendencyCommentFr = undefined;
+        break;
+      default:
+        break;
+    }
   }
 
   getText(e) {
@@ -1547,46 +1642,136 @@ private setTexts() {
   loadAvActivityCommentExampleText(avalancheProblem) {
     switch (avalancheProblem) {
       case "newSnow":
-        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.newSnowTextcat;
-        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.newSnowDe;
-        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.newSnowIt;
-        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.newSnowEn;
-        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.newSnowFr;
+        if (this.activeAvActivityCommentTextcat != undefined)
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.newSnowTextcat;
+        else
+          this.activeAvActivityCommentTextcat = this.constantsService.newSnowTextcat;
+        if (this.activeAvActivityCommentDe != undefined)
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.newSnowDe;
+        else
+          this.activeAvActivityCommentDe = this.constantsService.newSnowDe;
+        if (this.activeAvActivityCommentIt != undefined)
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.newSnowIt;
+        else
+          this.activeAvActivityCommentIt = this.constantsService.newSnowIt;
+        if (this.activeAvActivityCommentEn != undefined)
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.newSnowEn;
+        else
+          this.activeAvActivityCommentEn = this.constantsService.newSnowEn;
+        if (this.activeAvActivityCommentFr != undefined)
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.newSnowFr;
+        else
+          this.activeAvActivityCommentFr = this.constantsService.newSnowFr;
         break;
       case "windDriftedSnow":
-        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.windDriftedSnowTextcat;
-        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.windDriftedSnowDe;
-        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.windDriftedSnowIt;
-        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.windDriftedSnowEn;
-        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.windDriftedSnowFr;
+        if (this.activeAvActivityCommentTextcat != undefined)
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.windDriftedSnowTextcat;
+        else
+          this.activeAvActivityCommentTextcat = this.constantsService.windDriftedSnowTextcat;
+        if (this.activeAvActivityCommentDe != undefined)
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.windDriftedSnowDe;
+        else
+          this.activeAvActivityCommentDe = this.constantsService.windDriftedSnowDe;
+        if (this.activeAvActivityCommentIt != undefined)
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.windDriftedSnowIt;
+        else
+          this.activeAvActivityCommentIt = this.constantsService.windDriftedSnowIt;
+        if (this.activeAvActivityCommentEn != undefined)
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.windDriftedSnowEn;
+        else
+          this.activeAvActivityCommentEn = this.constantsService.windDriftedSnowEn;
+        if (this.activeAvActivityCommentFr != undefined)
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.windDriftedSnowFr;
+        else
+          this.activeAvActivityCommentFr = this.constantsService.windDriftedSnowFr;
         break;
       case "oldSnow":
-        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.oldSnowTextcat;
-        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.oldSnowDe;
-        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.oldSnowIt;
-        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.oldSnowEn;
-        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.oldSnowFr;
+        if (this.activeAvActivityCommentTextcat != undefined)
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.oldSnowTextcat;
+        else
+          this.activeAvActivityCommentTextcat = this.constantsService.oldSnowTextcat;
+        if (this.activeAvActivityCommentDe != undefined)
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.oldSnowDe;
+        else
+          this.activeAvActivityCommentDe = this.constantsService.oldSnowDe;
+        if (this.activeAvActivityCommentIt != undefined)
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.oldSnowIt;
+        else
+          this.activeAvActivityCommentIt = this.constantsService.oldSnowIt;
+        if (this.activeAvActivityCommentEn != undefined)
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.oldSnowEn;
+        else
+          this.activeAvActivityCommentEn = this.constantsService.oldSnowEn;
+        if (this.activeAvActivityCommentFr != undefined)
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.oldSnowFr;
+        else
+          this.activeAvActivityCommentFr = this.constantsService.oldSnowFr;
         break;
       case "wetSnow":
-        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.wetSnowTextcat;
-        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.wetSnowDe;
-        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.wetSnowIt;
-        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.wetSnowEn;
-        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.wetSnowFr;
+        if (this.activeAvActivityCommentTextcat != undefined)
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.wetSnowTextcat;
+        else
+          this.activeAvActivityCommentTextcat = this.constantsService.wetSnowTextcat;
+        if (this.activeAvActivityCommentDe != undefined)
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.wetSnowDe;
+        else
+          this.activeAvActivityCommentDe = this.constantsService.wetSnowDe;
+        if (this.activeAvActivityCommentIt != undefined)
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.wetSnowIt;
+        else
+          this.activeAvActivityCommentIt = this.constantsService.wetSnowIt;
+        if (this.activeAvActivityCommentEn != undefined)
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.wetSnowEn;
+        else
+          this.activeAvActivityCommentEn = this.constantsService.wetSnowEn;
+        if (this.activeAvActivityCommentFr != undefined)
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.wetSnowFr;
+        else
+          this.activeAvActivityCommentFr = this.constantsService.wetSnowFr;
         break;
       case "glidingSnow":
-        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.glidingSnowTextcat;
-        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.glidingSnowDe;
-        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.glidingSnowIt;
-        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.glidingSnowEn;
-        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.glidingSnowFr;
+        if (this.activeAvActivityCommentTextcat != undefined)
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.glidingSnowTextcat;
+        else
+          this.activeAvActivityCommentTextcat = this.constantsService.glidingSnowTextcat;
+        if (this.activeAvActivityCommentDe != undefined)
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.glidingSnowDe;
+        else
+          this.activeAvActivityCommentDe = this.constantsService.glidingSnowDe;
+        if (this.activeAvActivityCommentIt != undefined)
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.glidingSnowIt;
+        else
+          this.activeAvActivityCommentIt = this.constantsService.glidingSnowIt;
+        if (this.activeAvActivityCommentEn != undefined)
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.glidingSnowEn;
+        else
+          this.activeAvActivityCommentEn = this.constantsService.glidingSnowEn;
+        if (this.activeAvActivityCommentFr != undefined)
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.glidingSnowFr;
+        else
+          this.activeAvActivityCommentFr = this.constantsService.glidingSnowFr;
         break;
       case "favourableSituation":
-        this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.favourableSituationTextcat;
-        this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.favourableSituationDe;
-        this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.favourableSituationIt;
-        this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.favourableSituationEn;
-        this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.favourableSituationFr;
+        if (this.activeAvActivityCommentTextcat != undefined)
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.favourableSituationTextcat;
+        else
+          this.activeAvActivityCommentTextcat = this.constantsService.favourableSituationTextcat;
+        if (this.activeAvActivityCommentDe != undefined)
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.favourableSituationDe;
+        else
+          this.activeAvActivityCommentDe = this.constantsService.favourableSituationDe;
+        if (this.activeAvActivityCommentIt != undefined)
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.favourableSituationIt;
+        else
+          this.activeAvActivityCommentIt = this.constantsService.favourableSituationIt;
+        if (this.activeAvActivityCommentEn != undefined)
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.favourableSituationEn;
+        else
+          this.activeAvActivityCommentEn = this.constantsService.favourableSituationEn;
+        if (this.activeAvActivityCommentFr != undefined)
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.favourableSituationFr;
+        else
+          this.activeAvActivityCommentFr = this.constantsService.favourableSituationFr;
         break;
       default:
         break;

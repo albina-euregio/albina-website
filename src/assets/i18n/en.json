@@ -79,7 +79,8 @@
 					"edit" : "Edit",
 					"copy" : "Copy",
 					"paste" : "Paste",
-					"example" : "Load example text"
+					"example" : "Load example text",
+					"delete" : "Delete"
 				}
 			},
 			"button" : "Create",

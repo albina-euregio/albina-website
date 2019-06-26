@@ -79,7 +79,8 @@
 					"edit" : "Bearbeiten",
 					"copy" : "Kopieren",
 					"paste" : "Einfügen",
-					"example" : "Beispieltext laden"
+					"example" : "Beispieltext laden",
+					"delete" : "Löschen"
 				}
 			},
 			"button" : "Neu",

@@ -79,7 +79,8 @@
 					"edit" : "Modifica",
 					"copy" : "Copiare",
 					"paste" : "Incollare",
-					"example" : "Carica esempio testo"
+					"example" : "Carica esempio testo",
+					"delete" : "Elimina"
 				}
 			},
 			"button" : "Creato",
