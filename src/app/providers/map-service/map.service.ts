@@ -156,16 +156,16 @@ export class MapService {
 
     resetAggregatedRegions() {
         for (let entry of this.overlayMaps.aggregatedRegions.getLayers())
-            entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
+            entry.setStyle(this.getUserDependentBaseStyle(entry.feature.properties.id));
         for (let entry of this.afternoonOverlayMaps.aggregatedRegions.getLayers())
-            entry.setStyle(this.getUserDependendBaseStyle(entry.feature.properties.id));
+            entry.setStyle(this.getUserDependentBaseStyle(entry.feature.properties.id));
     }
 
     resetRegions() {
         for (let entry of this.overlayMaps.regions.getLayers())
-            entry.setStyle(this.getUserDependendRegionStyle(entry.feature.properties.id));
+            entry.setStyle(this.getUserDependentRegionStyle(entry.feature.properties.id));
         for (let entry of this.afternoonOverlayMaps.regions.getLayers())
-            entry.setStyle(this.getUserDependendRegionStyle(entry.feature.properties.id));
+            entry.setStyle(this.getUserDependentRegionStyle(entry.feature.properties.id));
     }
 
     resetActiveSelection() {
@@ -405,25 +405,25 @@ export class MapService {
         for (let entry of this.overlayMaps.aggregatedRegions.getLayers()) {
             for (let region of bulletin.savedRegions)
                 if (entry.feature.properties.id == region)
-                    entry.setStyle(this.getUserDependendBaseStyle(region));
+                    entry.setStyle(this.getUserDependentBaseStyle(region));
             for (let region of bulletin.suggestedRegions)
                 if (entry.feature.properties.id == region)
-                    entry.setStyle(this.getUserDependendBaseStyle(region));
+                    entry.setStyle(this.getUserDependentBaseStyle(region));
             for (let region of bulletin.publishedRegions)
                 if (entry.feature.properties.id == region)
-                    entry.setStyle(this.getUserDependendBaseStyle(region));
+                    entry.setStyle(this.getUserDependentBaseStyle(region));
         }
 
         for (let entry of this.afternoonOverlayMaps.aggregatedRegions.getLayers()) {
             for (let region of bulletin.savedRegions)
                 if (entry.feature.properties.id == region)
-                    entry.setStyle(this.getUserDependendBaseStyle(region));
+                    entry.setStyle(this.getUserDependentBaseStyle(region));
             for (let region of bulletin.suggestedRegions)
                 if (entry.feature.properties.id == region)
-                    entry.setStyle(this.getUserDependendBaseStyle(region));
+                    entry.setStyle(this.getUserDependentBaseStyle(region));
             for (let region of bulletin.publishedRegions)
                 if (entry.feature.properties.id == region)
-                    entry.setStyle(this.getUserDependendBaseStyle(region));
+                    entry.setStyle(this.getUserDependentBaseStyle(region));
         }
 
         for (let entry of this.overlayMaps.activeSelection.getLayers()) {
@@ -553,7 +553,7 @@ export class MapService {
         };
     }
 
-    private getUserDependendBaseStyle(region) {
+    private getUserDependentBaseStyle(region) {
         return {
             fillColor: this.constantsService.getDangerRatingColor("missing"),
             weight: this.constantsService.lineWeight,
@@ -563,7 +563,7 @@ export class MapService {
         };
     }
 
-    private getUserDependendRegionStyle(region) {
+    private getUserDependentRegionStyle(region) {
         let opacity = this.constantsService.lineOpacityForeignRegion;
         if (region.startsWith(this.authenticationService.getActiveRegion()))
             opacity = this.constantsService.lineOpacityOwnRegion;
