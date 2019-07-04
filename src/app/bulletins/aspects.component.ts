@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, SimpleChange } from '@angular/core';
-import { TranslateService } from 'ng2-translate/src/translate.service';
+import { TranslateService } from '@ngx-translate/core/src/translate.service';
 import { AvalancheSituationModel } from '../models/avalanche-situation.model';
 import * as Enums from '../enums/enums';
 

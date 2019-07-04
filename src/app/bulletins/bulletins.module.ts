@@ -17,7 +17,7 @@ import { Tab } from './tab.component';
 
 // Bulletins Routing
 import { BulletinsRoutingModule } from './bulletins-routing.module';
-import { TranslateModule } from 'ng2-translate';
+import { TranslateModule } from '@ngx-translate/core';
 import { DialogModule, ConfirmDialogModule, SharedModule } from 'primeng/primeng';
 
 // Pipes

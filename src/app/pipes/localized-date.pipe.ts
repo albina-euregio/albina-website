@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { TranslateService } from 'ng2-translate/src/translate.service';
+import { TranslateService } from '@ngx-translate/core/src/translate.service';
 
 @Pipe({
   name: 'localizedDate',

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { BulletinModel } from '../models/bulletin.model';
 import { BulletinDaytimeDescriptionModel } from '../models/bulletin-daytime-description.model';
 import { MatrixInformationModel } from '../models/matrix-information.model';
-import { TranslateService } from 'ng2-translate/src/translate.service';
+import { TranslateService } from '@ngx-translate/core/src/translate.service';
 import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { MapService } from "../providers/map-service/map.service";

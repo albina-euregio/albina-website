@@ -7,7 +7,7 @@ import { QuickReportComponent } from './quick-report.component';
 
 // Bulletins Routing
 import { ObservationsRoutingModule } from './observations-routing.module';
-import { TranslateModule } from 'ng2-translate';
+import { TranslateModule } from '@ngx-translate/core';
 import { ConfirmDialogModule, SharedModule } from 'primeng/primeng';
 
 // Pipes

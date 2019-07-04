@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import { TranslateService } from 'ng2-translate';
+import { TranslateService } from '@ngx-translate/core';
 import * as Enums from '../../enums/enums';
 import { EventEmitter } from '@angular/core';
+import * as de from '../../../assets/i18n/de.json';
+import * as en from '../../../assets/i18n/en.json';
+import * as it from '../../../assets/i18n/it.json';
 
 
 @Injectable()
@@ -20,6 +23,10 @@ export class SettingsService {
     public translate: TranslateService)
   {
     this.translateService = translate;
+
+    translate.setTranslation('de', de);
+    translate.setTranslation('en', en);
+    translate.setTranslation('it', it);
 
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang('en');
