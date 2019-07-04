@@ -1,0 +1,9 @@
+image: node:latest
+
+build:
+  script:
+    - yarn --no-progress
+    - yarn build
+  artifacts:
+    paths:
+      - dist/
