@@ -20,7 +20,6 @@
         "../node_modules/primeng/resources/themes/bootstrap/theme.css",
         "scss/style.scss",
         "assets/css/font-awesome.min.css",
-        "assets/css/simple-line-icons.css",
         "assets/css/MarkerCluster.css",
         "assets/css/MarkerCluster.Default.css"
       ],
