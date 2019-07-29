@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener, TemplateRef, ViewChild} from '@angular
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { MapService } from '../providers/map-service/map.service';
 import { ChatService } from '../providers/chat-service/chat.service';
-import { TranslateService } from 'ng2-translate/src/translate.service';
+import { TranslateService } from '@ngx-translate/core/src/translate.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';

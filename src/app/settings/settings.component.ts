@@ -1,5 +1,5 @@
 import { Component, HostListener, ViewChild, TemplateRef } from '@angular/core';
-import { TranslateService } from 'ng2-translate/src/translate.service';
+import { TranslateService } from '@ngx-translate/core/src/translate.service';
 import { AuthenticationService } from '../providers/authentication-service/authentication.service';
 import { ConstantsService } from '../providers/constants-service/constants.service';
 import { SettingsService } from '../providers/settings-service/settings.service';

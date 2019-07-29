@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TranslateService } from 'ng2-translate/src/translate.service';
+import { TranslateService } from '@ngx-translate/core/src/translate.service';
 import { SettingsService } from './providers/settings-service/settings.service';
 import { ObservationsService } from './providers/observations-service/observations.service';
 

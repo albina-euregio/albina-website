@@ -42,7 +42,7 @@ import { PipeModule }    from './pipes/pipes.module';
 
 import { AuthGuard } from './guards/auth.guard';
 
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+import { TranslateModule } from '@ngx-translate/core';
 import { HttpModule, Http } from '@angular/http';
 
 import { BsDropdownModule, TabsModule, ModalModule, AlertModule } from 'ngx-bootstrap';
@@ -52,10 +52,6 @@ import { ModalPublishComponent } from './bulletins/modal-publish.component';
 import { ModalCheckComponent } from './bulletins/modal-check.component';
 import { ModalPublicationStatusComponent } from './bulletins/modal-publication-status.component';
 import { ModalPublishAllComponent } from './bulletins/modal-publish-all.component';
-
-export function createTranslateLoader(http: Http) {
-    return new TranslateStaticLoader(http, './assets/i18n', '.json');
-}
 
 @NgModule({
   imports: [
@@ -70,11 +66,7 @@ export function createTranslateLoader(http: Http) {
     BrowserAnimationsModule,
     PipeModule.forRoot(),
     ModalModule.forRoot(),
-    TranslateModule.forRoot({ 
-      provide: TranslateLoader,
-      useFactory: (createTranslateLoader),
-      deps: [Http]
-    })
+    TranslateModule.forRoot()
   ],
   declarations: [
     AppComponent,

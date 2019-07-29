@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SettingsComponent } from './settings.component';
 
 import { SettingsRoutingModule } from './settings-routing.module';
-import { TranslateModule } from 'ng2-translate';
+import { TranslateModule } from '@ngx-translate/core';
 
 // Pipes
 import { PipeModule } from '../pipes/pipes.module';
