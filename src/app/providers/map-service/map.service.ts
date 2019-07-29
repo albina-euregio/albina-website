@@ -7,22 +7,32 @@ import { AuthenticationService } from '../authentication-service/authentication.
 import { ConstantsService } from '../constants-service/constants.service';
 import * as Enums from '../../enums/enums';
 
-import "leaflet";
+import * as L from "leaflet";
+import * as geojson from "geojson";
 import "leaflet.markercluster";
 
-declare var L: any;
+interface LayerDict<T extends L.Layer> {
+    [key: string]: T;
+}
+
+declare module "leaflet" {
+    interface GeoJSON<P=any> {
+        getLayers(): GeoJSON[];
+        feature?: geojson.Feature<geojson.MultiPoint, P>
+    }
+}
 
 @Injectable()
 export class MapService {
     public map: Map;
     public afternoonMap: Map;
     public observationsMap: Map;
-    public baseMaps: any;
-    public afternoonBaseMaps: any;
-    public observationsMaps: any;
-    public overlayMaps: any;
-    public afternoonOverlayMaps: any;
-    public layerGroups: any;
+    public baseMaps: LayerDict<L.TileLayer>;
+    public afternoonBaseMaps: LayerDict<L.TileLayer>;
+    public observationsMaps: LayerDict<L.TileLayer>;
+    public overlayMaps: LayerDict<L.GeoJSON>;
+    public afternoonOverlayMaps: LayerDict<L.GeoJSON>;
+    public layerGroups: LayerDict<L.GeoJSON>;
 
     constructor(
         private http: Http,
@@ -480,7 +490,7 @@ export class MapService {
                 layer.setStyle({
                     weight: 3
                 });
-                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
                     layer.bringToFront();
                 }
             },
@@ -490,7 +500,7 @@ export class MapService {
                 layer.setStyle({
                     weight: 1
                 });
-                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
                     layer.bringToFront();
                 }
             }
@@ -508,7 +518,7 @@ export class MapService {
                 layer.setStyle({
                     weight: 3
                 });
-                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
                     layer.bringToFront();
                 }
             },
@@ -518,7 +528,7 @@ export class MapService {
                 layer.setStyle({
                     weight: 1
                 });
-                if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+                if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
                     layer.bringToFront();
                 }
             }

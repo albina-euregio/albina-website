@@ -33,7 +33,7 @@
     "@angular/upgrade": "4.3.0",
     "@ngx-translate/core": "^7.2.2",
     "@types/d3": "^4.12.0",
-    "@types/leaflet": "^1.0.60",
+    "@types/leaflet": "^1.5.0",
     "@types/socket.io": "^1.4.29",
     "@types/socket.io-client": "1.4.32",
     "@types/leaflet.markercluster": "^1.0.1",
