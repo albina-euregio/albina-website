@@ -16,7 +16,6 @@ import { ConfirmDialogModule, ConfirmationService, SharedModule } from 'primeng/
 import { DialogModule } from 'primeng/components/dialog/dialog';
 import { Observable } from 'rxjs/Observable';
 import * as Enums from '../enums/enums';
-import { UUID } from 'angular2-uuid';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/forkJoin';
 import { BehaviorSubject } from 'rxjs/Rx';
@@ -644,9 +643,6 @@ export class CreateBulletinComponent {
 
         bulletin.setSuggestedRegions(new Array<String>());
         bulletin.setPublishedRegions(new Array<String>());
-
-        //let uuid = UUID.UUID();
-        //bulletin.setId(uuid);
 
         this.addBulletin(bulletin);
       }
