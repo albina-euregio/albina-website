@@ -8,8 +8,9 @@ export default class MonthFilter extends React.Component {
 
   get months() {
     const getMonthName = (idx) => {
-      var d = new Date();
-      d.setMonth(idx - 1);
+      const now = new Date();
+      const d = new Date(now.getFullYear(), idx - 1, 1); // get first of month,
+
       return Intl.DateTimeFormat(window.appStore.language, {month: 'long'}).format(d);
     };
 

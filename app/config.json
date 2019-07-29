@@ -56,12 +56,11 @@
     }
   ],
   "apis": {
-    "content": "https://data1.geo.univie.ac.at/projects/albina-cms/web/",
+    "content": "https://cms.avalanche.report/",
     "bulletin": "https://api.avalanche.report/albina/api/bulletins",
     "subscribe": "https://api.avalanche.report/albina/api/email",
-    "geo": "https://data1.geo.univie.ac.at/exchange/albina2/awm/",
+    "geo": "https://avalanche.report/albina_files/",
     "blogger": "https://blogcache.avalanche.report/",
-    "blogger_": "//localhost:3000/",
     "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/",
     "weather": {
       "domains": "https://avalanche.report/transfer/data/albina_domains.json",
