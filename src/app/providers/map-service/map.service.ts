@@ -32,7 +32,7 @@ export class MapService {
     public observationsMaps: LayerDict<L.TileLayer>;
     public overlayMaps: LayerDict<L.GeoJSON>;
     public afternoonOverlayMaps: LayerDict<L.GeoJSON>;
-    public layerGroups: LayerDict<L.GeoJSON>;
+    public layerGroups: LayerDict<L.MarkerClusterGroup>;
 
     constructor(
         private http: Http,
@@ -66,7 +66,7 @@ export class MapService {
         };
 
         this.layerGroups = {
-            observations : L.markerClusterGroup([])
+            observations : L.markerClusterGroup()
         };
 
 
