@@ -5,7 +5,7 @@
   "author": "Norbert Lanzanasto",
   "url": "http://albina.eu",
   "copyright": "Copyright 2017 Norbert Lanzanasto",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
     "url": "git@gitlab.com:n.lanzanasto/albina-euregio/albina-admin-gui.git"
