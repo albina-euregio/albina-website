@@ -7,7 +7,7 @@ cache:
 build:
   script:
     - npm install
-    - npm run build
+    - npm run build -- --prod --env=prod --stats-json
   artifacts:
     paths:
       - dist/
