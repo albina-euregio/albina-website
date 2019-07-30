@@ -43,8 +43,6 @@ export class MapService {
         this.baseMaps = {
             AlbinaBaseMap: L.tileLayer('https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png', {
                 tms: true,
-                reuseTiles: true, 
-                unloadInvisibleTiles: true,
                 attribution: 'Map data &copy <a href="http://carto.univie.ac.at/">UNI-Wien Karto</a>',
                 minZoom: 8,
                 maxZoom: 10
@@ -54,8 +52,6 @@ export class MapService {
         this.afternoonBaseMaps = {
             AlbinaBaseMap: L.tileLayer('https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png', {
                 tms: true,
-                reuseTiles: true, 
-                unloadInvisibleTiles: true,
                 attribution: 'Map data &copy <a href="http://carto.univie.ac.at/">UNI-Wien Karto</a>',
                 minZoom: 8,
                 maxZoom: 10
