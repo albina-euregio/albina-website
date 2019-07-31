@@ -1,0 +1,13 @@
+image: node:11
+
+cache:
+  paths:
+    - node_modules/
+
+build:
+  script:
+    - npm install
+    - npm run build -- --prod --env=prod --stats-json
+  artifacts:
+    paths:
+      - dist/
