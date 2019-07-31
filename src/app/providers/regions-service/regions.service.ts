@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { RegionsEuregio } from '../../regions/regions.euregio';
-import { RegionsEuregioElevation } from '../../regions/regions-elevation.euregio';
+import * as RegionsEuregio from '../../regions/regions.euregio.geojson.json';
+import * as RegionsEuregioElevation from '../../regions/regions-elevation.euregio.geojson.json';
+import { FeatureCollection } from 'geojson';
 
 @Injectable()
 export class RegionsService {
@@ -10,12 +11,12 @@ export class RegionsService {
   {
   }
 
-  getRegionsEuregio() {
-    return RegionsEuregio;
+  getRegionsEuregio(): FeatureCollection {
+    return RegionsEuregio as any;
   }
 
-  getRegionsEuregioWithElevation() {
-  	return RegionsEuregioElevation;
+  getRegionsEuregioWithElevation(): FeatureCollection {
+  	return RegionsEuregioElevation as any;
   }
 }
 
