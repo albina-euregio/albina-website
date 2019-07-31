@@ -80,7 +80,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "",
+  "license": "GPL-3.0-or-later",
   "config": {
     "validate-commit-msg": {
       "types": [
