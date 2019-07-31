@@ -1,9 +1,11 @@
 image: node:latest
 
+before_script:
+  - npm install
+
 build:
   script:
-    - yarn --no-progress
-    - yarn build
+    - npm run build
   artifacts:
     paths:
       - dist/
