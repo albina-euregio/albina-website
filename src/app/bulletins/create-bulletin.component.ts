@@ -100,41 +100,41 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public showTranslationsTendencyComment: boolean;
 
   public loadingErrorModalRef: BsModalRef;
-  @ViewChild("loadingErrorTemplate", { static: true }) loadingErrorTemplate: TemplateRef<any>;
+  @ViewChild("loadingErrorTemplate") loadingErrorTemplate: TemplateRef<any>;
 
   public loadModalRef: BsModalRef;
-  @ViewChild("loadTemplate", { static: true }) loadTemplate: TemplateRef<any>;
+  @ViewChild("loadTemplate") loadTemplate: TemplateRef<any>;
 
   public deleteAggregatedRegionModalRef: BsModalRef;
-  @ViewChild("deleteAggregatedRegionTemplate", { static: true }) deleteAggregatedRegionTemplate: TemplateRef<any>;
+  @ViewChild("deleteAggregatedRegionTemplate") deleteAggregatedRegionTemplate: TemplateRef<any>;
 
   public noRegionModalRef: BsModalRef;
-  @ViewChild("noRegionTemplate", { static: true }) noRegionTemplate: TemplateRef<any>;
+  @ViewChild("noRegionTemplate") noRegionTemplate: TemplateRef<any>;
 
   public discardModalRef: BsModalRef;
-  @ViewChild("discardTemplate", { static: true }) discardTemplate: TemplateRef<any>;
+  @ViewChild("discardTemplate") discardTemplate: TemplateRef<any>;
 
   public saveErrorModalRef: BsModalRef;
-  @ViewChild("saveErrorTemplate", { static: true }) saveErrorTemplate: TemplateRef<any>;
+  @ViewChild("saveErrorTemplate") saveErrorTemplate: TemplateRef<any>;
 
   public changeErrorModalRef: BsModalRef;
-  @ViewChild("changeErrorTemplate", { static: true }) changeErrorTemplate: TemplateRef<any>;
+  @ViewChild("changeErrorTemplate") changeErrorTemplate: TemplateRef<any>;
 
   public noElevationModalRef: BsModalRef;
-  @ViewChild("noElevationTemplate", { static: true }) noElevationTemplate: TemplateRef<any>;
+  @ViewChild("noElevationTemplate") noElevationTemplate: TemplateRef<any>;
 
   public incompleteTranslationModalRef: BsModalRef;
-  @ViewChild("incompleteTranslationTemplate", { static: true }) incompleteTranslationTemplate: TemplateRef<any>;
+  @ViewChild("incompleteTranslationTemplate") incompleteTranslationTemplate: TemplateRef<any>;
 
   public loadAutoSaveModalRef: BsModalRef;
-  @ViewChild("loadAutoSaveTemplate", { static: true }) loadAutoSaveTemplate: TemplateRef<any>;
+  @ViewChild("loadAutoSaveTemplate") loadAutoSaveTemplate: TemplateRef<any>;
 
   public loadAvActivityCommentExampleTextModalRef: BsModalRef;
-  @ViewChild("loadAvActivityCommentExampleTextTemplate", { static: true }) loadAvActivityCommentExampleTextTemplate: TemplateRef<any>;
+  @ViewChild("loadAvActivityCommentExampleTextTemplate") loadAvActivityCommentExampleTextTemplate: TemplateRef<any>;
 
   public pmUrl: SafeUrl;
 
-  @ViewChild("receiver", { static: true }) receiver: ElementRef;
+  @ViewChild("receiver") receiver: ElementRef;
   stopListening: Function;
   display: boolean = false;
 

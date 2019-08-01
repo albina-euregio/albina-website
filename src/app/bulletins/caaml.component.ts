@@ -16,10 +16,10 @@ export class CaamlComponent implements OnInit {
   public loading: boolean;
 
   public noCaamlModalRef: BsModalRef;
-  @ViewChild("noCaamlTemplate", { static: true }) noCaamlTemplate: TemplateRef<any>;
+  @ViewChild("noCaamlTemplate") noCaamlTemplate: TemplateRef<any>;
 
   public caamlNotLoadedModalRef: BsModalRef;
-  @ViewChild("caamlNotLoadedTemplate", { static: true }) caamlNotLoadedTemplate: TemplateRef<any>;
+  @ViewChild("caamlNotLoadedTemplate") caamlNotLoadedTemplate: TemplateRef<any>;
 
   public config = {
     keyboard: true,

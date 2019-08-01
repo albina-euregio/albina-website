@@ -16,10 +16,10 @@ export class JsonComponent implements OnInit {
   public loading: boolean;
 
   public noJsonModalRef: BsModalRef;
-  @ViewChild("noJsonTemplate", { static: true }) noJsonTemplate: TemplateRef<any>;
+  @ViewChild("noJsonTemplate") noJsonTemplate: TemplateRef<any>;
 
   public jsonNotLoadedModalRef: BsModalRef;
-  @ViewChild("jsonNotLoadedTemplate", { static: true }) jsonNotLoadedTemplate: TemplateRef<any>;
+  @ViewChild("jsonNotLoadedTemplate") jsonNotLoadedTemplate: TemplateRef<any>;
 
   public config = {
     keyboard: true,

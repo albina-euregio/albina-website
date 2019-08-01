@@ -12,14 +12,14 @@ export class AspectsComponent implements AfterViewInit, OnChanges {
   @Input() avalancheSituation: AvalancheSituationModel;
   @Input() disabled: boolean;
 
-  @ViewChild("N", { static: true }) aspectN: ElementRef;
-  @ViewChild("NE", { static: true }) aspectNE: ElementRef;
-  @ViewChild("E", { static: true }) aspectE: ElementRef;
-  @ViewChild("SE", { static: true }) aspectSE: ElementRef;
-  @ViewChild("S", { static: true }) aspectS: ElementRef;
-  @ViewChild("SW", { static: true }) aspectSW: ElementRef;
-  @ViewChild("W", { static: true }) aspectW: ElementRef;
-  @ViewChild("NW", { static: true }) aspectNW: ElementRef;
+  @ViewChild("N") aspectN: ElementRef;
+  @ViewChild("NE") aspectNE: ElementRef;
+  @ViewChild("E") aspectE: ElementRef;
+  @ViewChild("SE") aspectSE: ElementRef;
+  @ViewChild("S") aspectS: ElementRef;
+  @ViewChild("SW") aspectSW: ElementRef;
+  @ViewChild("W") aspectW: ElementRef;
+  @ViewChild("NW") aspectNW: ElementRef;
 
   aspect = Enums.Aspect;
 

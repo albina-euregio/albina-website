@@ -29,7 +29,7 @@ export class FullLayoutComponent implements OnInit {
   public tmpRegion: string;
 
   public changeRegionModalRef: BsModalRef;
-  @ViewChild("changeRegionTemplate", { static: true }) changeRegionTemplate: TemplateRef<any>;
+  @ViewChild("changeRegionTemplate") changeRegionTemplate: TemplateRef<any>;
 
   public config = {
     keyboard: true,

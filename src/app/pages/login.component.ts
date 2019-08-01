@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   public loading: boolean;
 
   public errorModalRef: BsModalRef;
-  @ViewChild("errorTemplate", { static: true }) errorTemplate: TemplateRef<any>;
+  @ViewChild("errorTemplate") errorTemplate: TemplateRef<any>;
 
   public config = {
     keyboard: true,

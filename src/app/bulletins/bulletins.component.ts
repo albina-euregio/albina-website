@@ -37,31 +37,31 @@ export class BulletinsComponent implements OnInit, OnDestroy {
   public copying: boolean;
 
   public publishBulletinsModalRef: BsModalRef;
-  @ViewChild("publishBulletinsTemplate", { static: false }) publishBulletinsTemplate: TemplateRef<any>;
+  @ViewChild("publishBulletinsTemplate") publishBulletinsTemplate: TemplateRef<any>;
 
   public publicationStatusModalRef: BsModalRef;
-  @ViewChild("publicationStatusTemplate", { static: false }) publicationStatusTemplate: TemplateRef<any>;
+  @ViewChild("publicationStatusTemplate") publicationStatusTemplate: TemplateRef<any>;
 
   public publishBulletinsErrorModalRef: BsModalRef;
-  @ViewChild("publishBulletinsErrorTemplate", { static: true }) publishBulletinsErrorTemplate: TemplateRef<any>;
+  @ViewChild("publishBulletinsErrorTemplate") publishBulletinsErrorTemplate: TemplateRef<any>;
 
   public submitBulletinsModalRef: BsModalRef;
-  @ViewChild("submitBulletinsTemplate", { static: false }) submitBulletinsTemplate: TemplateRef<any>;
+  @ViewChild("submitBulletinsTemplate") submitBulletinsTemplate: TemplateRef<any>;
 
   public submitBulletinsErrorModalRef: BsModalRef;
-  @ViewChild("submitBulletinsErrorTemplate", { static: true }) submitBulletinsErrorTemplate: TemplateRef<any>;
+  @ViewChild("submitBulletinsErrorTemplate") submitBulletinsErrorTemplate: TemplateRef<any>;
 
   public submitBulletinsDuplicateRegionModalRef: BsModalRef;
-  @ViewChild("submitBulletinsDuplicateRegionTemplate", { static: true }) submitBulletinsDuplicateRegionTemplate: TemplateRef<any>;
+  @ViewChild("submitBulletinsDuplicateRegionTemplate") submitBulletinsDuplicateRegionTemplate: TemplateRef<any>;
 
   public checkBulletinsModalRef: BsModalRef;
-  @ViewChild("checkBulletinsTemplate", { static: false }) checkBulletinsTemplate: TemplateRef<any>;
+  @ViewChild("checkBulletinsTemplate") checkBulletinsTemplate: TemplateRef<any>;
 
   public checkBulletinsErrorModalRef: BsModalRef;
-  @ViewChild("checkBulletinsErrorTemplate", { static: true }) checkBulletinsErrorTemplate: TemplateRef<any>;
+  @ViewChild("checkBulletinsErrorTemplate") checkBulletinsErrorTemplate: TemplateRef<any>;
 
   public publishAllModalRef: BsModalRef;
-  @ViewChild("publishAllTemplate", { static: true }) publishAllTemplate: TemplateRef<any>;
+  @ViewChild("publishAllTemplate") publishAllTemplate: TemplateRef<any>;
 
   public config = {
     keyboard: true,
