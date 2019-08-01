@@ -26,9 +26,6 @@ import { environment } from "../../environments/environment";
 import "leaflet";
 import "leaflet.sync";
 
-import * as d3 from "d3";
-import { geoPath } from "d3-geo";
-
 import { TabsComponent } from "./tabs.component";
 import { TabComponent } from "./tab.component";
 
@@ -528,38 +525,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.preventClick = true;
     }
   */
-
-  private addThumbnailMap(id) {
-    // Load map data
-    const features = this.regionsService.getRegionsEuregio().features;
-
-    const width = 40;
-    const height = 40;
-
-    const projection = d3.geoMercator().scale(1200).translate([-215, 1110]);
-
-    if (!d3.select("#" + id).empty()) {
-      d3.select("#" + id).select("svg").remove();
-      const svg = d3.select("#" + id).append("svg")
-        .attr("width", width)
-        .attr("height", height);
-
-      const path: any = d3.geoPath()
-        .projection(projection);
-
-      const g = svg.append("g");
-
-      const mapLayer = g.append("g")
-        .classed("map-layer", true);
-
-      // Draw each province as a path
-      mapLayer.selectAll("path")
-        .data(features)
-        .enter().append("path")
-        .attr("d", path)
-        .attr("vector-effect", "non-scaling-stroke");
-    }
-  }
 
   setTendency(event, tendency) {
     event.stopPropagation();
