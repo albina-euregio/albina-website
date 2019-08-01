@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import * as Enums from '../../enums/enums';
-import { EventEmitter } from '@angular/core';
-import * as de from '../../../assets/i18n/de.json';
-import * as en from '../../../assets/i18n/en.json';
-import * as it from '../../../assets/i18n/it.json';
+import { Injectable } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import * as Enums from "../../enums/enums";
+import { EventEmitter } from "@angular/core";
+import * as de from "../../../assets/i18n/de.json";
+import * as en from "../../../assets/i18n/en.json";
+import * as it from "../../../assets/i18n/it.json";
 
 
 @Injectable()
@@ -18,21 +18,20 @@ export class SettingsService {
   public showJson: boolean;
 
   eventEmitter: EventEmitter<string> = new EventEmitter();
-  
+
   constructor(
-    public translate: TranslateService)
-  {
+    public translate: TranslateService) {
     this.translateService = translate;
 
-    translate.setTranslation('de', de);
-    translate.setTranslation('en', en);
-    translate.setTranslation('it', it);
+    translate.setTranslation("de", de);
+    translate.setTranslation("en", en);
+    translate.setTranslation("it", it);
 
     // this language will be used as a fallback when a translation isn't found in the current language
-    translate.setDefaultLang('en');
+    translate.setDefaultLang("en");
     // the lang to use, if the lang isn't available, it will use the current loader to get them
-    let lang = navigator.language.split('-')[0];
-    lang = /(de|it)/gi.test(lang) ? lang : 'de';
+    let lang = navigator.language.split("-")[0];
+    lang = /(de|it)/gi.test(lang) ? lang : "de";
     translate.use(lang);
     this.lang = Enums.LanguageCode[lang];
 
@@ -42,17 +41,17 @@ export class SettingsService {
     this.showJson = false;
   }
 
-  getLang() : Enums.LanguageCode {
+  getLang(): Enums.LanguageCode {
     return this.lang;
   }
 
   setLang(lang: Enums.LanguageCode) {
     if (lang) {
-      let language = /(de|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : 'de';
+      const language = /(de|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : "de";
       this.translateService.use(language);
       this.lang = Enums.LanguageCode[language];
 
-      //to reload iframe
+      // to reload iframe
       this.emitChangeEvent(this.lang);
     }
   }
@@ -66,17 +65,17 @@ export class SettingsService {
   }
 
 
-  getLangString() : string {
+  getLangString(): string {
     return Enums.LanguageCode[this.lang];
   }
 
   setLangString(lang: string) {
-    let language = Enums.LanguageCode[lang];
+    const language = Enums.LanguageCode[lang];
     this.setLang(language);
-    
+
   }
 
-  getUseMatrix() : boolean {
+  getUseMatrix(): boolean {
     return this.useMatrix;
   }
 
@@ -84,7 +83,7 @@ export class SettingsService {
     this.useMatrix = useMatrix;
   }
 
-  getShowObservations() : boolean {
+  getShowObservations(): boolean {
     return this.showObservations;
   }
 
@@ -92,7 +91,7 @@ export class SettingsService {
     this.showObservations = showObservations;
   }
 
-  getShowCaaml() : boolean {
+  getShowCaaml(): boolean {
     return this.showCaaml;
   }
 
@@ -100,7 +99,7 @@ export class SettingsService {
     this.showCaaml = showCaaml;
   }
 
-  getShowJson() : boolean {
+  getShowJson(): boolean {
     return this.showJson;
   }
 

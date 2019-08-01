@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { ConstantsService } from '../constants-service/constants.service';
+import { Injectable } from "@angular/core";
+import { ConstantsService } from "../constants-service/constants.service";
 
 @Injectable()
 export class CopyService {
@@ -13,13 +13,12 @@ export class CopyService {
   private textFr: string;
 
   constructor(
-    public constantsService: ConstantsService)
-  {
+    public constantsService: ConstantsService) {
     this.copying = false;
   }
 
 
-  isCopying() : boolean {
+  isCopying(): boolean {
     return this.copying;
   }
 
@@ -27,7 +26,7 @@ export class CopyService {
     this.copying = copying;
   }
 
-  getTextTextcat() : string {
+  getTextTextcat(): string {
     return this.textTextcat;
   }
 
@@ -35,7 +34,7 @@ export class CopyService {
     this.textTextcat = textTextcat;
   }
 
-  getTextDe() : string {
+  getTextDe(): string {
     return this.textDe;
   }
 
@@ -43,7 +42,7 @@ export class CopyService {
     this.textDe = textDe;
   }
 
-  getTextIt() : string {
+  getTextIt(): string {
     return this.textIt;
   }
 
@@ -51,7 +50,7 @@ export class CopyService {
     this.textIt = textIt;
   }
 
-  getTextEn() : string {
+  getTextEn(): string {
     return this.textEn;
   }
 
@@ -59,7 +58,7 @@ export class CopyService {
     this.textEn = textEn;
   }
 
-  getTextFr() : string {
+  getTextFr(): string {
     return this.textFr;
   }
 

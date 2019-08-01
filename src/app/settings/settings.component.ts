@@ -1,18 +1,18 @@
-import { Component, HostListener, ViewChild, TemplateRef } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core/src/translate.service';
-import { AuthenticationService } from '../providers/authentication-service/authentication.service';
-import { ConstantsService } from '../providers/constants-service/constants.service';
-import { SettingsService } from '../providers/settings-service/settings.service';
-import { Observable } from 'rxjs/Observable';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { AlertComponent } from 'ngx-bootstrap';
+import { Component, HostListener, ViewChild, TemplateRef, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { AuthenticationService } from "../providers/authentication-service/authentication.service";
+import { ConstantsService } from "../providers/constants-service/constants.service";
+import { SettingsService } from "../providers/settings-service/settings.service";
+import { Observable } from "rxjs/Observable";
+import { Router, ActivatedRoute, Params } from "@angular/router";
+import { AlertComponent } from "ngx-bootstrap";
 
 declare var L: any;
 
 @Component({
-  templateUrl: 'settings.component.html'
+  templateUrl: "settings.component.html"
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
 
   public changePasswordLoading: boolean;
 
@@ -29,8 +29,7 @@ export class SettingsComponent {
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService,
     private settingsService: SettingsService,
-    private router: Router)
-  {
+    private router: Router) {
     this.changePasswordLoading = false;
   }
 
@@ -39,26 +38,26 @@ export class SettingsComponent {
 
   changePassword() {
     this.changePasswordLoading = true;
-    if (this.oldPassword == undefined || this.oldPassword == "") {
+    if (this.oldPassword === undefined || this.oldPassword === "") {
       console.warn("Password empty");
       this.changePasswordLoading = false;
       this.alerts.push({
-        type: 'danger',
+        type: "danger",
         msg: this.translateService.instant("settings.changePassword.passwordEmpty"),
         timeout: 5000
       });
-    } else if (this.newPassword1 == this.newPassword2) {
+    } else if (this.newPassword1 === this.newPassword2) {
       this.authenticationService.checkPassword(this.oldPassword).subscribe(
         data => {
           this.authenticationService.changePassword(this.oldPassword, this.newPassword1).subscribe(
-            data => {
+            data2 => {
               this.oldPassword = "";
               this.newPassword1 = "";
               this.newPassword2 = "";
               this.changePasswordLoading = false;
               window.scrollTo(0, 0);
               this.alerts.push({
-                type: 'success',
+                type: "success",
                 msg: this.translateService.instant("settings.changePassword.passwordChanged"),
                 timeout: 5000
               });
@@ -68,7 +67,7 @@ export class SettingsComponent {
               this.changePasswordLoading = false;
               window.scrollTo(0, 0);
               this.alerts.push({
-                type: 'danger',
+                type: "danger",
                 msg: this.translateService.instant("settings.changePassword.passwordChangeError"),
                 timeout: 5000
               });
@@ -80,7 +79,7 @@ export class SettingsComponent {
           this.changePasswordLoading = false;
           window.scrollTo(0, 0);
           this.alerts.push({
-            type: 'danger',
+            type: "danger",
             msg: this.translateService.instant("settings.changePassword.passwordIncorrect"),
             timeout: 5000
           });
@@ -91,7 +90,7 @@ export class SettingsComponent {
       this.changePasswordLoading = false;
       window.scrollTo(0, 0);
       this.alerts.push({
-        type: 'danger',
+        type: "danger",
         msg: this.translateService.instant("settings.changePassword.passwordsNotMatching"),
         timeout: 5000
       });
@@ -103,9 +102,10 @@ export class SettingsComponent {
   }
 
   isAdmin() {
-    if (this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin))
+    if (this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin)) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 }

@@ -1,46 +1,48 @@
-import * as Enums from '../enums/enums';
+import * as Enums from "../enums/enums";
 
 export class DatetimeModel {
-	public date: Date;
-	public quality: Enums.Quality;
+  public date: Date;
+  public quality: Enums.Quality;
 
-	constructor() {
-		this.date = undefined;
-		this.quality = undefined;
-	}
+  static createFromJson(json) {
+    const datetime = new DatetimeModel();
+    datetime.setDate(new Date(json.date));
+    datetime.setQuality(Enums.Quality[json.quality]);
 
-	getDate() {
-		return this.date;
-	}
+    return datetime;
+  }
 
-	setDate(date) {
-		this.date = date;
-	}
+  constructor() {
+    this.date = undefined;
+    this.quality = undefined;
+  }
 
-	getQuality() {
-		return this.quality;
-	}
+  getDate() {
+    return this.date;
+  }
 
-	setQuality(quality) {
-		this.quality = quality;
-	}
+  setDate(date) {
+    this.date = date;
+  }
 
-	toJson() {
-		var json = Object();
+  getQuality() {
+    return this.quality;
+  }
 
-		if (this.date && this.date != undefined)
-			json['date'] = this.date;
-		if (this.quality && this.quality != undefined)
-			json['quality'] = Enums.Quality[this.quality];
+  setQuality(quality) {
+    this.quality = quality;
+  }
 
-		return json;
-	}
+  toJson() {
+    const json = Object();
 
-	static createFromJson(json) {
-		let datetime = new DatetimeModel();
-		datetime.setDate(new Date(json.date));
-		datetime.setQuality(Enums.Quality[json.quality])
+    if (this.date && this.date !== undefined) {
+      json["date"] = this.date;
+    }
+    if (this.quality && this.quality !== undefined) {
+      json["quality"] = Enums.Quality[this.quality];
+    }
 
-		return datetime;
-	}
+    return json;
+  }
 }

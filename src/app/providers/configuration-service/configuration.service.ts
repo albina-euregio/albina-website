@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response, ResponseOptions } from '@angular/http';
-import { ConstantsService } from '../constants-service/constants.service';
-import { AuthenticationService } from '../authentication-service/authentication.service';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from "@angular/core";
+import { Http, Headers, RequestOptions, Response, ResponseOptions } from "@angular/http";
+import { ConstantsService } from "../constants-service/constants.service";
+import { AuthenticationService } from "../authentication-service/authentication.service";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class ConfigurationService {
@@ -10,90 +10,96 @@ export class ConfigurationService {
   constructor(
     public http: Http,
     private constantsService: ConstantsService,
-    private authenticationService: AuthenticationService)
-  {
+    private authenticationService: AuthenticationService) {
   }
 
-  public loadConfigurationProperties() : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'configuration';
-    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': authHeader });
-    let options = new RequestOptions({ headers: headers });
+  public loadConfigurationProperties(): Observable<Response> {
+    const url = this.constantsService.getServerUrl() + "configuration";
+    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": authHeader
+    });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.get(encodeURI(url), options);
   }
 
   public saveConfigurationProperties(json) {
-    let url = this.constantsService.getServerUrl() + 'configuration';
-    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': authHeader });
-    let body = JSON.stringify(json);
-    let options = new RequestOptions({ headers: headers });
+    const url = this.constantsService.getServerUrl() + "configuration";
+    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": authHeader
+    });
+    const body = JSON.stringify(json);
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.post(encodeURI(url), body, options);
   }
 
-  public loadSocialMediaConfiguration(regionId:String) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'configuration/region?regionId='+regionId;
-    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': authHeader });
-    let options = new RequestOptions({ headers: headers });
+  public loadSocialMediaConfiguration(regionId: String): Observable<Response> {
+    const url = this.constantsService.getServerUrl() + "configuration/region?regionId=" + regionId;
+    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": authHeader
+    });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.get(encodeURI(url), options);
   }
 
   public saveSocialMediaConfiguration(regionConfiguration) {
-    let url = this.constantsService.getServerUrl() + 'configuration/region';
-    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': authHeader });
-    let body = JSON.stringify(regionConfiguration);
-    let options = new RequestOptions({ headers: headers });
+    const url = this.constantsService.getServerUrl() + "configuration/region";
+    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": authHeader
+    });
+    const body = JSON.stringify(regionConfiguration);
+    const options = new RequestOptions({ headers: headers });
     return this.http.post(encodeURI(url), body, options);
   }
 
   public loadSocialMediaChannels() {
-    let url = this.constantsService.getServerUrl() + 'configuration/channels';
-    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
-    let headers = new Headers({
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': authHeader });
-    let options = new RequestOptions({ headers: headers });
-   
+    const url = this.constantsService.getServerUrl() + "configuration/channels";
+    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": authHeader
+    });
+    const options = new RequestOptions({ headers: headers });
+
     return this.http.get(encodeURI(url), options);
   }
 
-  public loadRecipientList(regionId:String) {
-    let url = this.constantsService.getServerUrl() + 'social-media/rapidmail/recipient-list/' + regionId;
-    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/hal+json',
-      'Authorization': authHeader });
-    let options = new RequestOptions({ headers: headers });
+  public loadRecipientList(regionId: String) {
+    const url = this.constantsService.getServerUrl() + "social-media/rapidmail/recipient-list/" + regionId;
+    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/hal+json",
+      "Authorization": authHeader
+    });
+    const options = new RequestOptions({ headers: headers });
     return this.http.get(encodeURI(url), options);
   }
 
   public loadShipments() {
-    let url = this.constantsService.getServerUrl() + 'social-media/shipments';
-    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': authHeader });
-    let options = new RequestOptions({ headers: headers });
+    const url = this.constantsService.getServerUrl() + "social-media/shipments";
+    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": authHeader
+    });
+    const options = new RequestOptions({ headers: headers });
     return this.http.get(encodeURI(url), options);
   }
 }

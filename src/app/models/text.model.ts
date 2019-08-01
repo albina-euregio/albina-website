@@ -1,47 +1,49 @@
-import * as Enums from '../enums/enums';
+import * as Enums from "../enums/enums";
 
 export class TextModel {
-	public languageCode: Enums.LanguageCode;
-	public text: string;
+  public languageCode: Enums.LanguageCode;
+  public text: string;
 
-	constructor() {
-		this.languageCode = undefined;
-		this.text = undefined;
-	}
+  static createFromJson(json) {
+    const text = new TextModel();
 
-	getLanguageCode() {
-		return this.languageCode;
-	}
+    text.setLanguageCode(Enums.LanguageCode[<string>json.languageCode]);
+    text.setText(json.text);
 
-	setLanguageCode(languageCode: Enums.LanguageCode) {
-		this.languageCode = languageCode;
-	}
+    return text;
+  }
 
-	getText() {
-		return this.text;
-	}
+  constructor() {
+    this.languageCode = undefined;
+    this.text = undefined;
+  }
 
-	setText(text: string) {
-		this.text = text;
-	}
+  getLanguageCode() {
+    return this.languageCode;
+  }
 
-	toJson() {
-		var json = Object();
+  setLanguageCode(languageCode: Enums.LanguageCode) {
+    this.languageCode = languageCode;
+  }
 
-		if (this.languageCode && this.languageCode != undefined)
-			json['languageCode'] = Enums.LanguageCode[this.languageCode];
-		if (this.text && this.text != undefined && this.text != "")
-			json['text'] = this.text;
+  getText() {
+    return this.text;
+  }
 
-		return json;
-	}
+  setText(text: string) {
+    this.text = text;
+  }
 
-	static createFromJson(json) {
-		let text = new TextModel();
+  toJson() {
+    const json = Object();
 
-		text.setLanguageCode(Enums.LanguageCode[<string> json.languageCode]);
-		text.setText(json.text);
+    if (this.languageCode && this.languageCode !== undefined) {
+      json["languageCode"] = Enums.LanguageCode[this.languageCode];
+    }
+    if (this.text && this.text !== undefined && this.text !== "") {
+      json["text"] = this.text;
+    }
 
-		return text;
-	}
+    return json;
+  }
 }

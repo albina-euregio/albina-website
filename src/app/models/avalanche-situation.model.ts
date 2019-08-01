@@ -1,141 +1,151 @@
-import * as Enums from '../enums/enums';
-import { BehaviorSubject } from 'rxjs/Rx';
-import { MatrixInformationModel } from './matrix-information.model';
+import * as Enums from "../enums/enums";
+import { BehaviorSubject } from "rxjs/Rx";
+import { MatrixInformationModel } from "./matrix-information.model";
 
 export class AvalancheSituationModel {
-	public avalancheSituation: Enums.AvalancheSituation;
-	public aspects: Enums.Aspect[];
-	public elevationHigh: number;
-	public treelineHigh: boolean;
-	public elevationLow: number;
-	public treelineLow: boolean;
+  public avalancheSituation: Enums.AvalancheSituation;
+  public aspects: Enums.Aspect[];
+  public elevationHigh: number;
+  public treelineHigh: boolean;
+  public elevationLow: number;
+  public treelineLow: boolean;
 
-	constructor(avalancheSituation?: AvalancheSituationModel) {
-		this.aspects = new Array<Enums.Aspect>();
+  static createFromJson(json) {
+    const avalancheSituation = new AvalancheSituationModel();
 
-		if (!avalancheSituation) {
-			this.avalancheSituation = undefined;
-			this.treelineHigh = false;
-			this.treelineLow = false;
-		} else {
-			this.avalancheSituation = avalancheSituation.getAvalancheSituation();
-			for (let aspect of avalancheSituation.aspects)
-				this.addAspect(aspect);
-			this.elevationHigh = avalancheSituation.getElevationHigh();
-			this.treelineHigh = avalancheSituation.getTreelineHigh();
-			this.elevationLow = avalancheSituation.getElevationLow();
-			this.treelineLow = avalancheSituation.getTreelineLow();
-		}
-	}
+    avalancheSituation.avalancheSituation = json.avalancheSituation;
+    const jsonAspects = json.aspects;
+    const aspects = new Array<Enums.Aspect>();
+    for (const i in jsonAspects) {
+      if (jsonAspects[i] !== null) {
+        aspects.push(jsonAspects[i].toUpperCase());
+      }
+    }
+    avalancheSituation.setAspects(aspects);
+    avalancheSituation.elevationHigh = json.elevationHigh;
+    avalancheSituation.treelineHigh = json.treelineHigh;
+    avalancheSituation.elevationLow = json.elevationLow;
+    avalancheSituation.treelineLow = json.treelineLow;
 
-	getAvalancheSituation() {
-		return this.avalancheSituation;
-	}
+    return avalancheSituation;
+  }
 
-	setAvalancheSituation(avalancheSituation) {
-		this.avalancheSituation = avalancheSituation;
-	}
+  constructor(avalancheSituation?: AvalancheSituationModel) {
+    this.aspects = new Array<Enums.Aspect>();
 
-	getAspects() {
-		return this.aspects;
-	}
+    if (!avalancheSituation) {
+      this.avalancheSituation = undefined;
+      this.treelineHigh = false;
+      this.treelineLow = false;
+    } else {
+      this.avalancheSituation = avalancheSituation.getAvalancheSituation();
+      for (const aspect of avalancheSituation.aspects) {
+        this.addAspect(aspect);
+      }
+      this.elevationHigh = avalancheSituation.getElevationHigh();
+      this.treelineHigh = avalancheSituation.getTreelineHigh();
+      this.elevationLow = avalancheSituation.getElevationLow();
+      this.treelineLow = avalancheSituation.getTreelineLow();
+    }
+  }
 
-	setAspects(aspects) {
-		this.aspects = aspects;
-	}
+  getAvalancheSituation() {
+    return this.avalancheSituation;
+  }
 
-	addAspect(aspect) {
-		if (this.aspects.indexOf(aspect) == -1)
-			this.aspects.push(aspect);
-	}
+  setAvalancheSituation(avalancheSituation) {
+    this.avalancheSituation = avalancheSituation;
+  }
 
-	removeAspect(aspect) {
-		let index = this.aspects.indexOf(aspect);
-		if (index > -1)
-			this.aspects.splice(index, 1);
-	}
+  getAspects() {
+    return this.aspects;
+  }
 
-	containsAspect(aspect) {
-		if (this.aspects.includes(aspect))
-			return true;
-		else
-			return false;
-	}
+  setAspects(aspects) {
+    this.aspects = aspects;
+  }
 
-	getElevationHigh() {
-		return this.elevationHigh;
-	}
+  addAspect(aspect) {
+    if (this.aspects.indexOf(aspect) === -1) {
+      this.aspects.push(aspect);
+    }
+  }
 
-	setElevationHigh(elevationHigh: number) {
-		this.elevationHigh = elevationHigh;
-	}
+  removeAspect(aspect) {
+    const index = this.aspects.indexOf(aspect);
+    if (index > -1) {
+      this.aspects.splice(index, 1);
+    }
+  }
 
-	getTreelineHigh() {
-		return this.treelineHigh;
-	}
+  containsAspect(aspect) {
+    if (this.aspects.includes(aspect)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-	setTreelineHigh(treeline: boolean) {
-		this.treelineHigh = treeline;
-	}
+  getElevationHigh() {
+    return this.elevationHigh;
+  }
 
-	getElevationLow() {
-		return this.elevationLow;
-	}
+  setElevationHigh(elevationHigh: number) {
+    this.elevationHigh = elevationHigh;
+  }
 
-	setElevationLow(elevationLow: number) {
-		this.elevationLow = elevationLow;
-	}
+  getTreelineHigh() {
+    return this.treelineHigh;
+  }
 
-	getTreelineLow() {
-		return this.treelineLow;
-	}
+  setTreelineHigh(treeline: boolean) {
+    this.treelineHigh = treeline;
+  }
 
-	setTreelineLow(treeline: boolean) {
-		this.treelineLow = treeline;
-	}
+  getElevationLow() {
+    return this.elevationLow;
+  }
 
-	toJson() {
-		var json = Object();
+  setElevationLow(elevationLow: number) {
+    this.elevationLow = elevationLow;
+  }
 
-		if (this.avalancheSituation && this.avalancheSituation != undefined)
-			json['avalancheSituation'] = this.avalancheSituation;
-		if (this.aspects && this.aspects.length > 0) {
-			let aspects = [];
-			for (let i = 0; i <= this.aspects.length - 1; i++) {
-				aspects.push(this.aspects[i]);
-			}
-			json['aspects'] = aspects;
-		}
-		if (this.treelineHigh)
-			json['treelineHigh'] = this.treelineHigh;
-		else {
-			if (this.elevationHigh && this.elevationHigh != undefined)
-				json['elevationHigh'] = this.elevationHigh;
-		}
-		if (this.treelineLow)
-			json["treelineLow"] = this.treelineLow;
-		else {
-			if (this.elevationLow && this.elevationLow != undefined)
-				json['elevationLow'] = this.elevationLow;
-		}
+  getTreelineLow() {
+    return this.treelineLow;
+  }
 
-		return json;
-	}
+  setTreelineLow(treeline: boolean) {
+    this.treelineLow = treeline;
+  }
 
-	static createFromJson(json) {
-		let avalancheSituation = new AvalancheSituationModel();
+  toJson() {
+    const json = Object();
 
-		avalancheSituation.avalancheSituation = json.avalancheSituation;
-		let jsonAspects = json.aspects;
-		let aspects = new Array<Enums.Aspect>();
-		for (let i in jsonAspects)
-			aspects.push(jsonAspects[i].toUpperCase());
-		avalancheSituation.setAspects(aspects);
-		avalancheSituation.elevationHigh = json.elevationHigh;
-		avalancheSituation.treelineHigh = json.treelineHigh;
-		avalancheSituation.elevationLow = json.elevationLow;
-		avalancheSituation.treelineLow = json.treelineLow;
+    if (this.avalancheSituation && this.avalancheSituation !== undefined) {
+      json["avalancheSituation"] = this.avalancheSituation;
+    }
+    if (this.aspects && this.aspects.length > 0) {
+      const aspects = [];
+      for (let i = 0; i <= this.aspects.length - 1; i++) {
+        aspects.push(this.aspects[i]);
+      }
+      json["aspects"] = aspects;
+    }
+    if (this.treelineHigh) {
+      json["treelineHigh"] = this.treelineHigh;
+    } else {
+      if (this.elevationHigh && this.elevationHigh !== undefined) {
+        json["elevationHigh"] = this.elevationHigh;
+      }
+    }
+    if (this.treelineLow) {
+      json["treelineLow"] = this.treelineLow;
+    } else {
+      if (this.elevationLow && this.elevationLow !== undefined) {
+        json["elevationLow"] = this.elevationLow;
+      }
+    }
 
-		return avalancheSituation;
-	}
+    return json;
+  }
 }

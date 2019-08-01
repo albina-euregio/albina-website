@@ -1,37 +1,36 @@
-import { Component, Input, ViewChild, ElementRef, SimpleChange } from '@angular/core';
-import { ConstantsService } from '../providers/constants-service/constants.service';
-import { BulletinModel } from '../models/bulletin.model';
+import { Component, Input, ViewChild, ElementRef, SimpleChange } from "@angular/core";
+import { ConstantsService } from "../providers/constants-service/constants.service";
+import { BulletinModel } from "../models/bulletin.model";
 
 @Component({
-	selector: 'danger-rating-icon',
-  templateUrl: 'danger-rating-icon.component.html'
+  selector: "app-danger-rating-icon",
+  templateUrl: "danger-rating-icon.component.html"
 })
 export class DangerRatingIconComponent {
 
-	@Input() bulletin: BulletinModel;
+  @Input() bulletin: BulletinModel;
 
   constructor(
-    private constantsService: ConstantsService)
-  {
+    private constantsService: ConstantsService) {
   }
 
   getForenoonColorAbove() {
-    let dangerRating = this.bulletin.getForenoonDangerRatingAbove().toString();
+    const dangerRating = this.bulletin.getForenoonDangerRatingAbove().toString();
     return this.getDangerRatingColor(dangerRating);
   }
 
   getForenoonColorBelow() {
-    let dangerRating = this.bulletin.getForenoonDangerRatingBelow().toString();
+    const dangerRating = this.bulletin.getForenoonDangerRatingBelow().toString();
     return this.getDangerRatingColor(dangerRating);
   }
 
   getAfternoonColorAbove() {
-    let dangerRating = this.bulletin.getAfternoonDangerRatingAbove().toString();
+    const dangerRating = this.bulletin.getAfternoonDangerRatingAbove().toString();
     return this.getDangerRatingColor(dangerRating);
   }
 
   getAfternoonColorBelow() {
-    let dangerRating = this.bulletin.getAfternoonDangerRatingBelow().toString();
+    const dangerRating = this.bulletin.getAfternoonDangerRatingBelow().toString();
     return this.getDangerRatingColor(dangerRating);
   }
 

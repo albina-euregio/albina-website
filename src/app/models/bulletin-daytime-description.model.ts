@@ -1,122 +1,132 @@
-import * as Enums from '../enums/enums';
-import { BehaviorSubject } from 'rxjs/Rx';
-import { MatrixInformationModel } from './matrix-information.model';
-import { AvalancheSituationModel } from './avalanche-situation.model';
+import * as Enums from "../enums/enums";
+import { BehaviorSubject } from "rxjs/Rx";
+import { MatrixInformationModel } from "./matrix-information.model";
+import { AvalancheSituationModel } from "./avalanche-situation.model";
 
 export class BulletinDaytimeDescriptionModel {
-	public dangerRatingAbove: BehaviorSubject<Enums.DangerRating>;
-	public matrixInformationAbove: MatrixInformationModel;
-	public dangerRatingBelow: BehaviorSubject<Enums.DangerRating>;
-	public matrixInformationBelow: MatrixInformationModel;
+  public dangerRatingAbove: BehaviorSubject<Enums.DangerRating>;
+  public matrixInformationAbove: MatrixInformationModel;
+  public dangerRatingBelow: BehaviorSubject<Enums.DangerRating>;
+  public matrixInformationBelow: MatrixInformationModel;
 
-	public avalancheSituation1: AvalancheSituationModel;
-	public avalancheSituation2: AvalancheSituationModel;
+  public avalancheSituation1: AvalancheSituationModel;
+  public avalancheSituation2: AvalancheSituationModel;
 
-	constructor(bulletinElevationDescription?: BulletinDaytimeDescriptionModel) {
-		this.dangerRatingAbove = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing);
-		this.dangerRatingBelow = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing);
+  static createFromJson(json) {
+    const bulletinDaytimeDescription = new BulletinDaytimeDescriptionModel();
 
-		if (!bulletinElevationDescription) {
-			this.setDangerRatingAbove("missing");
-			this.matrixInformationAbove = new MatrixInformationModel();
-			this.setDangerRatingBelow("missing");
-			this.matrixInformationBelow = new MatrixInformationModel();
-			this.avalancheSituation1 = new AvalancheSituationModel();
-			this.avalancheSituation2 = new AvalancheSituationModel();
-		} else {
-			this.setDangerRatingAbove(bulletinElevationDescription.getDangerRatingAbove());
-			this.matrixInformationAbove = new MatrixInformationModel(bulletinElevationDescription.getMatrixInformationAbove());
-			this.setDangerRatingBelow(bulletinElevationDescription.getDangerRatingBelow());
-			this.matrixInformationBelow = new MatrixInformationModel(bulletinElevationDescription.getMatrixInformationBelow());
-			this.avalancheSituation1 = new AvalancheSituationModel(bulletinElevationDescription.getAvalancheSituation1());
-			this.avalancheSituation2 = new AvalancheSituationModel(bulletinElevationDescription.getAvalancheSituation2());
-		}
-	}
+    bulletinDaytimeDescription.dangerRatingAbove.next(json.dangerRatingAbove);
+    if (json.matrixInformationAbove) {
+      bulletinDaytimeDescription.matrixInformationAbove = MatrixInformationModel.createFromJson(json.matrixInformationAbove);
+    }
 
-	getDangerRatingAbove() {
-		return this.dangerRatingAbove.getValue();
-	}
+    bulletinDaytimeDescription.dangerRatingBelow.next(json.dangerRatingBelow);
+    if (json.matrixInformationBelow) {
+      bulletinDaytimeDescription.matrixInformationBelow = MatrixInformationModel.createFromJson(json.matrixInformationBelow);
+    }
 
-	setDangerRatingAbove(dangerRatingAbove) {
-		this.dangerRatingAbove.next(dangerRatingAbove);
-	}
+    if (json.avalancheSituation1) {
+      bulletinDaytimeDescription.avalancheSituation1 = AvalancheSituationModel.createFromJson(json.avalancheSituation1);
+    }
+    if (json.avalancheSituation2) {
+      bulletinDaytimeDescription.avalancheSituation2 = AvalancheSituationModel.createFromJson(json.avalancheSituation2);
+    }
 
-	getMatrixInformationAbove() {
-		return this.matrixInformationAbove;
-	}
+    return bulletinDaytimeDescription;
+  }
 
-	setMatrixInformationAbove(matrixInformationAbove) {
-		this.matrixInformationAbove = matrixInformationAbove;
-	}
+  constructor(bulletinElevationDescription?: BulletinDaytimeDescriptionModel) {
+    this.dangerRatingAbove = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing);
+    this.dangerRatingBelow = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing);
 
-	getDangerRatingBelow() {
-		return this.dangerRatingBelow.getValue();
-	}
+    if (!bulletinElevationDescription) {
+      this.setDangerRatingAbove("missing");
+      this.matrixInformationAbove = new MatrixInformationModel();
+      this.setDangerRatingBelow("missing");
+      this.matrixInformationBelow = new MatrixInformationModel();
+      this.avalancheSituation1 = new AvalancheSituationModel();
+      this.avalancheSituation2 = new AvalancheSituationModel();
+    } else {
+      this.setDangerRatingAbove(bulletinElevationDescription.getDangerRatingAbove());
+      this.matrixInformationAbove = new MatrixInformationModel(bulletinElevationDescription.getMatrixInformationAbove());
+      this.setDangerRatingBelow(bulletinElevationDescription.getDangerRatingBelow());
+      this.matrixInformationBelow = new MatrixInformationModel(bulletinElevationDescription.getMatrixInformationBelow());
+      this.avalancheSituation1 = new AvalancheSituationModel(bulletinElevationDescription.getAvalancheSituation1());
+      this.avalancheSituation2 = new AvalancheSituationModel(bulletinElevationDescription.getAvalancheSituation2());
+    }
+  }
 
-	setDangerRatingBelow(dangerRatingBelow) {
-		this.dangerRatingBelow.next(dangerRatingBelow);
-	}
+  getDangerRatingAbove() {
+    return this.dangerRatingAbove.getValue();
+  }
 
-	getMatrixInformationBelow() {
-		return this.matrixInformationBelow;
-	}
+  setDangerRatingAbove(dangerRatingAbove) {
+    this.dangerRatingAbove.next(dangerRatingAbove);
+  }
 
-	setMatrixInformationBelow(matrixInformationBelow) {
-		this.matrixInformationBelow = matrixInformationBelow;
-	}
+  getMatrixInformationAbove() {
+    return this.matrixInformationAbove;
+  }
 
-	getAvalancheSituation1() {
-		return this.avalancheSituation1;
-	}
+  setMatrixInformationAbove(matrixInformationAbove) {
+    this.matrixInformationAbove = matrixInformationAbove;
+  }
 
-	setAvalancheSituation1(avalancheSituation) {
-		this.avalancheSituation1 = avalancheSituation;
-	}
+  getDangerRatingBelow() {
+    return this.dangerRatingBelow.getValue();
+  }
 
-	getAvalancheSituation2() {
-		return this.avalancheSituation2;
-	}
+  setDangerRatingBelow(dangerRatingBelow) {
+    this.dangerRatingBelow.next(dangerRatingBelow);
+  }
 
-	setAvalancheSituation2(avalancheSituation) {
-		this.avalancheSituation2 = avalancheSituation;
-	}
+  getMatrixInformationBelow() {
+    return this.matrixInformationBelow;
+  }
 
-	toJson(hasElevationDependency: boolean) {
-		var json = Object();
+  setMatrixInformationBelow(matrixInformationBelow) {
+    this.matrixInformationBelow = matrixInformationBelow;
+  }
 
-		if (this.dangerRatingAbove && this.dangerRatingAbove != undefined)
-			json['dangerRatingAbove'] = this.dangerRatingAbove.getValue();
-		if (this.matrixInformationAbove && this.matrixInformationAbove != undefined)
-			json['matrixInformationAbove'] = this.matrixInformationAbove.toJson();
-		if (hasElevationDependency && this.dangerRatingBelow && this.dangerRatingBelow != undefined)
-			json['dangerRatingBelow'] = this.dangerRatingBelow.getValue();
-		if (hasElevationDependency && this.matrixInformationBelow && this.matrixInformationBelow != undefined)
-			json['matrixInformationBelow'] = this.matrixInformationBelow.toJson();
+  getAvalancheSituation1() {
+    return this.avalancheSituation1;
+  }
 
-		if (this.avalancheSituation1 && this.avalancheSituation1 != undefined)
-			json['avalancheSituation1'] = this.avalancheSituation1.toJson();
-		if (this.avalancheSituation2 && this.avalancheSituation2 != undefined)
-			json['avalancheSituation2'] = this.avalancheSituation2.toJson();
+  setAvalancheSituation1(avalancheSituation) {
+    this.avalancheSituation1 = avalancheSituation;
+  }
 
-		return json;
-	}
+  getAvalancheSituation2() {
+    return this.avalancheSituation2;
+  }
 
-	static createFromJson(json) {
-		let bulletinDaytimeDescription = new BulletinDaytimeDescriptionModel();
+  setAvalancheSituation2(avalancheSituation) {
+    this.avalancheSituation2 = avalancheSituation;
+  }
 
-		bulletinDaytimeDescription.dangerRatingAbove.next(json.dangerRatingAbove);
-		if (json.matrixInformationAbove)
-			bulletinDaytimeDescription.matrixInformationAbove = MatrixInformationModel.createFromJson(json.matrixInformationAbove);
+  toJson(hasElevationDependency: boolean) {
+    const json = Object();
 
-		bulletinDaytimeDescription.dangerRatingBelow.next(json.dangerRatingBelow);
-		if (json.matrixInformationBelow)
-			bulletinDaytimeDescription.matrixInformationBelow = MatrixInformationModel.createFromJson(json.matrixInformationBelow);
+    if (this.dangerRatingAbove && this.dangerRatingAbove !== undefined) {
+      json["dangerRatingAbove"] = this.dangerRatingAbove.getValue();
+    }
+    if (this.matrixInformationAbove && this.matrixInformationAbove !== undefined) {
+      json["matrixInformationAbove"] = this.matrixInformationAbove.toJson();
+    }
+    if (hasElevationDependency && this.dangerRatingBelow && this.dangerRatingBelow !== undefined) {
+      json["dangerRatingBelow"] = this.dangerRatingBelow.getValue();
+    }
+    if (hasElevationDependency && this.matrixInformationBelow && this.matrixInformationBelow !== undefined) {
+      json["matrixInformationBelow"] = this.matrixInformationBelow.toJson();
+    }
 
-		if (json.avalancheSituation1)
-			bulletinDaytimeDescription.avalancheSituation1 = AvalancheSituationModel.createFromJson(json.avalancheSituation1);
-		if (json.avalancheSituation2)
-			bulletinDaytimeDescription.avalancheSituation2 = AvalancheSituationModel.createFromJson(json.avalancheSituation2);
+    if (this.avalancheSituation1 && this.avalancheSituation1 !== undefined) {
+      json["avalancheSituation1"] = this.avalancheSituation1.toJson();
+    }
+    if (this.avalancheSituation2 && this.avalancheSituation2 !== undefined) {
+      json["avalancheSituation2"] = this.avalancheSituation2.toJson();
+    }
 
-		return bulletinDaytimeDescription;
-	}
+    return json;
+  }
 }

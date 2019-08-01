@@ -1,91 +1,94 @@
-import * as Enums from '../enums/enums';
+import * as Enums from "../enums/enums";
 
 export class RegionLockModel {
-	public username:string;
-	public region: string;
-	public date: Date;
-	public lock: boolean;
+  public username: string;
+  public region: string;
+  public date: Date;
+  public lock: boolean;
 
-	constructor() {
-		this.username = undefined;
-		this.region = undefined
-		this.date = undefined;
-		this.lock = undefined;
-	}
+  static createFromJson(json) {
+    const regionLock = new RegionLockModel();
 
-	getUsername() {
-		return this.username;
-	}
+    regionLock.setUsername(json.username);
+    regionLock.setDate(new Date(json.date));
+    regionLock.setRegion(json.region);
+    regionLock.setLock(json.lock);
 
-	setUsername(username: string) {
-		this.username = username;
-	}
+    return regionLock;
+  }
 
-	getRegion() {
-		return this.region;
-	}
+  constructor() {
+    this.username = undefined;
+    this.region = undefined;
+    this.date = undefined;
+    this.lock = undefined;
+  }
 
-	setRegion(region: string) {
-		this.region = region;
-	}
+  getUsername() {
+    return this.username;
+  }
 
-	getDate() {
-		return this.date;
-	}
+  setUsername(username: string) {
+    this.username = username;
+  }
 
-	setDate(date: Date) {
-		this.date = date;
-	}
+  getRegion() {
+    return this.region;
+  }
 
-	getLock() {
-		return this.lock;
-	}
+  setRegion(region: string) {
+    this.region = region;
+  }
 
-	setLock(lock: boolean) {
-		this.lock = lock;
-	}
+  getDate() {
+    return this.date;
+  }
 
-	toJson() {
-		var json = Object();
+  setDate(date: Date) {
+    this.date = date;
+  }
 
-		if (this.username && this.username != undefined)
-			json['username'] = this.username;
-		if (this.region && this.region != undefined && this.region != "")
-			json['region'] = this.region;
-		if (this.date && this.date != undefined)
-			json['date'] = this.getISOStringWithTimezoneOffset(this.date);
-		json['lock'] = this.lock;
+  getLock() {
+    return this.lock;
+  }
 
-		return json;
-	}
+  setLock(lock: boolean) {
+    this.lock = lock;
+  }
 
-	static createFromJson(json) {
-		let regionLock = new RegionLockModel();
+  toJson() {
+    const json = Object();
 
-		regionLock.setUsername(json.username);
-		regionLock.setDate(new Date(json.date));
-		regionLock.setRegion(json.region);
-		regionLock.setLock(json.lock);
+    if (this.username && this.username !== undefined) {
+      json["username"] = this.username;
+    }
+    if (this.region && this.region !== undefined && this.region !== "") {
+      json["region"] = this.region;
+    }
+    if (this.date && this.date !== undefined) {
+      json["date"] = this.getISOStringWithTimezoneOffset(this.date);
+    }
+    json["lock"] = this.lock;
 
-		return regionLock;
-	}
+    return json;
+  }
 
-	private getISOStringWithTimezoneOffset(date: Date) {
-		let offset = -date.getTimezoneOffset();
-		let dif = offset >= 0 ? '+' : '-';
+  private getISOStringWithTimezoneOffset(date: Date) {
+    const offset = -date.getTimezoneOffset();
+    const dif = offset >= 0 ? "+" : "-";
 
-		return date.getFullYear() + 
-			'-' + this.extend(date.getMonth() + 1) +
-			'-' + this.extend(date.getDate()) +
-			'T' + this.extend(date.getHours()) +
-			':' + this.extend(date.getMinutes()) +
-			':' + this.extend(date.getSeconds()) +
-			dif + this.extend(offset / 60) +
-			':' + this.extend(offset % 60);
-	}
+    return date.getFullYear() +
+      "-" + this.extend(date.getMonth() + 1) +
+      "-" + this.extend(date.getDate()) +
+      "T" + this.extend(date.getHours()) +
+      ":" + this.extend(date.getMinutes()) +
+      ":" + this.extend(date.getSeconds()) +
+      dif + this.extend(offset / 60) +
+      ":" + this.extend(offset % 60);
+  }
 
-	private extend(num: number) {
-		let norm = Math.abs(Math.floor(num));
-		return (norm < 10 ? '0' : '') + norm;
-	}
+  private extend(num: number) {
+    const norm = Math.abs(Math.floor(num));
+    return (norm < 10 ? "0" : "") + norm;
+  }
 }

@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { ConstantsService } from '../constants-service/constants.service';
-import { Observable } from 'rxjs/Observable';
+import { Injectable } from "@angular/core";
+import { Http, Headers, RequestOptions, Response } from "@angular/http";
+import { ConstantsService } from "../constants-service/constants.service";
+import { Observable } from "rxjs/Observable";
 
 
 @Injectable()
@@ -11,28 +11,30 @@ export class ObservationsService {
 
   constructor(
     public http: Http,
-    public constantsService: ConstantsService)
-  {
+    public constantsService: ConstantsService) {
     this.authenticate(this.constantsService.getNatlefsUsername(), this.constantsService.getNatlefsPassword());
   }
 
   public authenticate(username, password) {
-    let url = this.constantsService.getNatlefsServerUrl() + 'authentication';
+    const url = this.constantsService.getNatlefsServerUrl() + "authentication";
 
-    var json = Object();
-    if (username && username != undefined)
-      json['username'] = username;
-    if (password && password != undefined)
-      json['password'] = password;
+    const json = Object();
+    if (username && username !== undefined) {
+      json["username"] = username;
+    }
+    if (password && password !== undefined) {
+      json["password"] = password;
+    }
 
-    let body = JSON.stringify(json);
-    let headers = new Headers({
-      'Content-Type': 'application/json'});
-    let options = new RequestOptions({ headers: headers });
+    const body = JSON.stringify(json);
+    const headers = new Headers({
+      "Content-Type": "application/json"
+    });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.post(encodeURI(url), body, options)
       .subscribe((response: Response) => {
-        let token = response.json() && response.json().token;
+        const token = response.json() && response.json().token;
         if (token) {
           this.natlefsToken = response.json().token;
           return true;
@@ -42,60 +44,64 @@ export class ObservationsService {
       });
   }
 
-  getNatlefs() : Observable<Response> {
-    let date = new Date();
+  getNatlefs(): Observable<Response> {
+    const date = new Date();
     date.setDate(date.getDate() - this.constantsService.getTimeframe());
-    let url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    let authHeader = 'Bearer ' + this.natlefsToken;
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': authHeader });
-    let options = new RequestOptions({ headers: headers });
+    const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    const authHeader = "Bearer " + this.natlefsToken;
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": authHeader
+    });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.get(encodeURI(url), options);
   }
 
-  getSnowProfile(profileId) : Observable<Response> {
-    let url = this.constantsService.getSnowObserverServerUrl() + 'profiles/' + profileId;
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+  getSnowProfile(profileId): Observable<Response> {
+    const url = this.constantsService.getSnowObserverServerUrl() + "profiles/" + profileId;
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.get(encodeURI(url), options);
   }
 
-  getSnowProfiles() : Observable<Response> {
+  getSnowProfiles(): Observable<Response> {
     return this.get("profiles");
   }
 
-  getHastyPit(profileId) : Observable<Response> {
-    let url = this.constantsService.getSnowObserverServerUrl() + 'hastyPits/' + profileId;
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+  getHastyPit(profileId): Observable<Response> {
+    const url = this.constantsService.getSnowObserverServerUrl() + "hastyPits/" + profileId;
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.get(encodeURI(url), options);
   }
 
-  getHastyPits() : Observable<Response> {
+  getHastyPits(): Observable<Response> {
     return this.get("hastyPits");
   }
 
-  getQuickReports() : Observable<Response> {
+  getQuickReports(): Observable<Response> {
     return this.get("quickReports");
   }
 
-  private get(type) : Observable<Response> {
-    let date = new Date();
+  private get(type): Observable<Response> {
+    const date = new Date();
     date.setDate(date.getDate() - this.constantsService.getTimeframe());
-    let url = this.constantsService.getSnowObserverServerUrl() + type + "?from=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
+    const url = this.constantsService.getSnowObserverServerUrl() + type + "?from=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.get(encodeURI(url), options);
   }

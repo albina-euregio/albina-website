@@ -1,92 +1,96 @@
-import * as Enums from '../enums/enums';
+import * as Enums from "../enums/enums";
 
 export class ChatMessageModel {
-	public username: string;
-	public time: Date;
-	public text: string;
-	public chatId: number;
+  public username: string;
+  public time: Date;
+  public text: string;
+  public chatId: number;
 
-	constructor() {
-		this.username = undefined;
-		this.time = undefined
-		this.text = undefined;
-		this.chatId = undefined;
-	}
+  static createFromJson(json) {
+    const chatMessage = new ChatMessageModel();
 
-	getTime() : Date {
-		return this.time
-	}
+    chatMessage.setUsername(json.username);
+    chatMessage.setTime(new Date(json.time));
+    chatMessage.setText(json.text);
+    chatMessage.setChatId(json.chatId);
 
-	setTime(time) {
-		this.time = time;
-	}
+    return chatMessage;
+  }
 
-	getUsername() : string {
-		return this.username;
-	}
+  constructor() {
+    this.username = undefined;
+    this.time = undefined;
+    this.text = undefined;
+    this.chatId = undefined;
+  }
 
-	setUsername(username) {
-		this.username = username;
-	}
+  getTime(): Date {
+    return this.time;
+  }
 
-	getText() : string {
-		return this.text;
-	}
+  setTime(time) {
+    this.time = time;
+  }
 
-	setText(text) {
-		this.text = text;
-	}
+  getUsername(): string {
+    return this.username;
+  }
 
-	getChatId() : number {
-		return this.chatId;
-	}
+  setUsername(username) {
+    this.username = username;
+  }
 
-	setChatId(chatId) {
-		this.chatId = chatId;
-	}
+  getText(): string {
+    return this.text;
+  }
 
-	toJson() {
-		var json = Object();
+  setText(text) {
+    this.text = text;
+  }
 
-		if (this.username && this.username != undefined)
-			json['username'] = this.username;
-		if (this.time && this.time != undefined)
-			json['time'] = this.getISOStringWithTimezoneOffset(this.time);
-		if (this.text && this.text != undefined && this.text != "")
-			json['text'] = this.text;
-		if (this.chatId > -1)
-			json['chatId'] = this.chatId;
+  getChatId(): number {
+    return this.chatId;
+  }
 
-		return json;
-	}
+  setChatId(chatId) {
+    this.chatId = chatId;
+  }
 
-	static createFromJson(json) {
-		let chatMessage = new ChatMessageModel();
+  toJson() {
+    const json = Object();
 
-		chatMessage.setUsername(json.username);
-		chatMessage.setTime(new Date(json.time));
-		chatMessage.setText(json.text);
-		chatMessage.setChatId(json.chatId);
+    if (this.username && this.username !== undefined) {
+      json["username"] = this.username;
+    }
+    if (this.time && this.time !== undefined) {
+      json["time"] = this.getISOStringWithTimezoneOffset(this.time);
+    }
+    if (this.text && this.text !== undefined && this.text !== "") {
+      json["text"] = this.text;
+    }
+    if (this.chatId > -1) {
+      json["chatId"] = this.chatId;
+    }
 
-		return chatMessage;
-	}
+    return json;
+  }
 
-	private getISOStringWithTimezoneOffset(date: Date) {
-		let offset = -date.getTimezoneOffset();
-		let dif = offset >= 0 ? '+' : '-';
+  private getISOStringWithTimezoneOffset(date: Date) {
+    const offset = -date.getTimezoneOffset();
+    const dif = offset >= 0 ? "+" : "-";
 
-		return date.getFullYear() + 
-			'-' + this.extend(date.getMonth() + 1) +
-			'-' + this.extend(date.getDate()) +
-			'T' + this.extend(date.getHours()) +
-			':' + this.extend(date.getMinutes()) +
-			':' + this.extend(date.getSeconds()) +
-			dif + this.extend(offset / 60) +
-			':' + this.extend(offset % 60);
-	}
+    return date.getFullYear() +
+      "-" + this.extend(date.getMonth() + 1) +
+      "-" + this.extend(date.getDate()) +
+      "T" + this.extend(date.getHours()) +
+      ":" + this.extend(date.getMinutes()) +
+      ":" + this.extend(date.getSeconds()) +
+      dif + this.extend(offset / 60) +
+      ":" + this.extend(offset % 60);
+  }
 
-	private extend(num: number) {
-		let norm = Math.abs(Math.floor(num));
-		return (norm < 10 ? '0' : '') + norm;
-	}
+  private extend(num: number) {
+    const norm = Math.abs(Math.floor(num));
+    return (norm < 10 ? "0" : "") + norm;
+  }
 }

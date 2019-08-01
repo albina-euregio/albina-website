@@ -1,18 +1,19 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-  name: 'html',
+  name: "html",
   pure: false  // required to update the value when currentLang is changed
 })
 export class HtmlPipe implements PipeTransform {
-  private value: string|null;
+  private value: string | null;
 
   constructor() { }
 
   transform(text: any): any {
-    if (text)
+    if (text) {
       return text.replace(/<br\/>/g, "\n");
-    else
+    } else {
       return text;
+    }
   }
 }

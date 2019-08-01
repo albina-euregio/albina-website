@@ -1,124 +1,131 @@
-import * as Enums from '../enums/enums';
+import * as Enums from "../enums/enums";
 
 export class MatrixInformationModel {
 
-	public artificialDangerRating: Enums.DangerRating;
-	public artificialAvalancheSize: Enums.AvalancheSize;
-	public artificialAvalancheReleaseProbability: Enums.ArtificialAvalancheReleaseProbability;
-	public artificialHazardSiteDistribution: Enums.HazardSiteDistribution;
+  public artificialDangerRating: Enums.DangerRating;
+  public artificialAvalancheSize: Enums.AvalancheSize;
+  public artificialAvalancheReleaseProbability: Enums.ArtificialAvalancheReleaseProbability;
+  public artificialHazardSiteDistribution: Enums.HazardSiteDistribution;
 
-	public naturalDangerRating: Enums.DangerRating;
-	public naturalAvalancheReleaseProbability: Enums.NaturalAvalancheReleaseProbability;
-	public naturalHazardSiteDistribution: Enums.HazardSiteDistribution;
+  public naturalDangerRating: Enums.DangerRating;
+  public naturalAvalancheReleaseProbability: Enums.NaturalAvalancheReleaseProbability;
+  public naturalHazardSiteDistribution: Enums.HazardSiteDistribution;
 
-	constructor(matrixInformation?: MatrixInformationModel) {
-		if (!matrixInformation) {
-			this.setArtificialDangerRating('missing');
-			this.artificialAvalancheSize = undefined;
-			this.artificialAvalancheReleaseProbability = undefined;
-			this.artificialHazardSiteDistribution = undefined;
-			this.setNaturalDangerRating('missing');
-			this.naturalAvalancheReleaseProbability = undefined;
-			this.naturalHazardSiteDistribution = undefined;
-		} else {
-			this.artificialDangerRating = matrixInformation.getArtificialDangerRating();
-			this.artificialAvalancheSize = matrixInformation.getArtificialAvalancheSize();
-			this.artificialAvalancheReleaseProbability = matrixInformation.getArtificialAvalancheReleaseProbability();
-			this.artificialHazardSiteDistribution = matrixInformation.getArtificialHazardSiteDistribution();
-			this.naturalDangerRating = matrixInformation.getNaturalDangerRating();
-			this.naturalAvalancheReleaseProbability = matrixInformation.getNaturalAvalancheReleaseProbability();
-			this.naturalHazardSiteDistribution = matrixInformation.getNaturalHazardSiteDistribution();
-		}
-	}
+  static createFromJson(json) {
+    const matrixInformation = new MatrixInformationModel();
 
-	getArtificialDangerRating() : Enums.DangerRating {
-		return this.artificialDangerRating;
-	}
+    matrixInformation.artificialDangerRating = json.artificialDangerRating;
+    matrixInformation.artificialAvalancheSize = json.artificialAvalancheSize;
+    matrixInformation.artificialAvalancheReleaseProbability = json.artificialAvalancheReleaseProbability;
+    matrixInformation.artificialHazardSiteDistribution = json.artificialHazardSiteDistribution;
+    matrixInformation.naturalDangerRating = json.naturalDangerRating;
+    matrixInformation.naturalAvalancheReleaseProbability = json.naturalAvalancheReleaseProbability;
+    matrixInformation.naturalHazardSiteDistribution = json.naturalHazardSiteDistribution;
 
-	setArtificialDangerRating(artificialDangerRating) {
-		this.artificialDangerRating = artificialDangerRating
-	}
+    return matrixInformation;
+  }
 
-	getArtificialAvalancheSize() : Enums.AvalancheSize {
-		return this.artificialAvalancheSize;
-	}
+  constructor(matrixInformation?: MatrixInformationModel) {
+    if (!matrixInformation) {
+      this.setArtificialDangerRating("missing");
+      this.artificialAvalancheSize = undefined;
+      this.artificialAvalancheReleaseProbability = undefined;
+      this.artificialHazardSiteDistribution = undefined;
+      this.setNaturalDangerRating("missing");
+      this.naturalAvalancheReleaseProbability = undefined;
+      this.naturalHazardSiteDistribution = undefined;
+    } else {
+      this.artificialDangerRating = matrixInformation.getArtificialDangerRating();
+      this.artificialAvalancheSize = matrixInformation.getArtificialAvalancheSize();
+      this.artificialAvalancheReleaseProbability = matrixInformation.getArtificialAvalancheReleaseProbability();
+      this.artificialHazardSiteDistribution = matrixInformation.getArtificialHazardSiteDistribution();
+      this.naturalDangerRating = matrixInformation.getNaturalDangerRating();
+      this.naturalAvalancheReleaseProbability = matrixInformation.getNaturalAvalancheReleaseProbability();
+      this.naturalHazardSiteDistribution = matrixInformation.getNaturalHazardSiteDistribution();
+    }
+  }
 
-	setArtificialAvalancheSize(artificialAvalancheSize) {
-		this.artificialAvalancheSize = artificialAvalancheSize;
-	}
+  getArtificialDangerRating(): Enums.DangerRating {
+    return this.artificialDangerRating;
+  }
 
-	getArtificialAvalancheReleaseProbability() : Enums.ArtificialAvalancheReleaseProbability {
-		return this.artificialAvalancheReleaseProbability;
-	}
+  setArtificialDangerRating(artificialDangerRating) {
+    this.artificialDangerRating = artificialDangerRating;
+  }
 
-	setArtificialAvalancheReleaseProbability(artificialAvalancheReleaseProbability) {
-		this.artificialAvalancheReleaseProbability = artificialAvalancheReleaseProbability;
-	}
+  getArtificialAvalancheSize(): Enums.AvalancheSize {
+    return this.artificialAvalancheSize;
+  }
 
-	getArtificialHazardSiteDistribution() : Enums.HazardSiteDistribution {
-		return this.artificialHazardSiteDistribution;
-	}
+  setArtificialAvalancheSize(artificialAvalancheSize) {
+    this.artificialAvalancheSize = artificialAvalancheSize;
+  }
 
-	setArtificialHazardSiteDistribution(artificialHazardSiteDistribution) {
-		this.artificialHazardSiteDistribution = artificialHazardSiteDistribution;
-	}
+  getArtificialAvalancheReleaseProbability(): Enums.ArtificialAvalancheReleaseProbability {
+    return this.artificialAvalancheReleaseProbability;
+  }
 
-	getNaturalDangerRating() : Enums.DangerRating {
-		return this.naturalDangerRating;
-	}
+  setArtificialAvalancheReleaseProbability(artificialAvalancheReleaseProbability) {
+    this.artificialAvalancheReleaseProbability = artificialAvalancheReleaseProbability;
+  }
 
-	setNaturalDangerRating(naturalDangerRating) {
-		this.naturalDangerRating = naturalDangerRating
-	}
+  getArtificialHazardSiteDistribution(): Enums.HazardSiteDistribution {
+    return this.artificialHazardSiteDistribution;
+  }
 
-	getNaturalAvalancheReleaseProbability() : Enums.NaturalAvalancheReleaseProbability {
-		return this.naturalAvalancheReleaseProbability;
-	}
+  setArtificialHazardSiteDistribution(artificialHazardSiteDistribution) {
+    this.artificialHazardSiteDistribution = artificialHazardSiteDistribution;
+  }
 
-	setNaturalAvalancheReleaseProbability(naturalAvalancheReleaseProbability) {
-		this.naturalAvalancheReleaseProbability = naturalAvalancheReleaseProbability;
-	}
+  getNaturalDangerRating(): Enums.DangerRating {
+    return this.naturalDangerRating;
+  }
 
-	getNaturalHazardSiteDistribution() : Enums.HazardSiteDistribution {
-		return this.naturalHazardSiteDistribution;
-	}
+  setNaturalDangerRating(naturalDangerRating) {
+    this.naturalDangerRating = naturalDangerRating;
+  }
 
-	setNaturalHazardSiteDistribution(naturalHazardSiteDistribution) {
-		this.naturalHazardSiteDistribution = naturalHazardSiteDistribution;
-	}
+  getNaturalAvalancheReleaseProbability(): Enums.NaturalAvalancheReleaseProbability {
+    return this.naturalAvalancheReleaseProbability;
+  }
 
-	toJson() {
-		var json = Object();
+  setNaturalAvalancheReleaseProbability(naturalAvalancheReleaseProbability) {
+    this.naturalAvalancheReleaseProbability = naturalAvalancheReleaseProbability;
+  }
 
-		if (this.artificialDangerRating && this.artificialDangerRating != undefined && this.artificialDangerRating != Enums.DangerRating.missing)
-			json['artificialDangerRating'] = this.artificialDangerRating;
-		if (this.artificialAvalancheSize && this.artificialAvalancheSize != undefined)
-			json['artificialAvalancheSize'] = this.artificialAvalancheSize;
-		if (this.artificialAvalancheReleaseProbability && this.artificialAvalancheReleaseProbability != undefined)
-			json['artificialAvalancheReleaseProbability'] = this.artificialAvalancheReleaseProbability;
-		if (this.artificialHazardSiteDistribution && this.artificialHazardSiteDistribution != undefined)
-			json['artificialHazardSiteDistribution'] = this.artificialHazardSiteDistribution;
-		if (this.naturalDangerRating && this.naturalDangerRating != undefined && this.naturalDangerRating != Enums.DangerRating.missing)
-			json['naturalDangerRating'] = this.naturalDangerRating;
-		if (this.naturalAvalancheReleaseProbability && this.naturalAvalancheReleaseProbability != undefined)
-			json['naturalAvalancheReleaseProbability'] = this.naturalAvalancheReleaseProbability;
-		if (this.naturalHazardSiteDistribution && this.naturalHazardSiteDistribution != undefined)
-			json['naturalHazardSiteDistribution'] = this.naturalHazardSiteDistribution;
+  getNaturalHazardSiteDistribution(): Enums.HazardSiteDistribution {
+    return this.naturalHazardSiteDistribution;
+  }
 
-		return json;
-	}
+  setNaturalHazardSiteDistribution(naturalHazardSiteDistribution) {
+    this.naturalHazardSiteDistribution = naturalHazardSiteDistribution;
+  }
 
-	static createFromJson(json) {
-		let matrixInformation = new MatrixInformationModel();
+  toJson() {
+    const json = Object();
 
-		matrixInformation.artificialDangerRating = json.artificialDangerRating;
-		matrixInformation.artificialAvalancheSize = json.artificialAvalancheSize;
-		matrixInformation.artificialAvalancheReleaseProbability = json.artificialAvalancheReleaseProbability;
-		matrixInformation.artificialHazardSiteDistribution = json.artificialHazardSiteDistribution;
-		matrixInformation.naturalDangerRating = json.naturalDangerRating;
-		matrixInformation.naturalAvalancheReleaseProbability = json.naturalAvalancheReleaseProbability;
-		matrixInformation.naturalHazardSiteDistribution = json.naturalHazardSiteDistribution;
+    if (this.artificialDangerRating && this.artificialDangerRating !== undefined && this.artificialDangerRating !== Enums.DangerRating.missing) {
+      json["artificialDangerRating"] = this.artificialDangerRating;
+    }
+    if (this.artificialAvalancheSize && this.artificialAvalancheSize !== undefined) {
+      json["artificialAvalancheSize"] = this.artificialAvalancheSize;
+    }
+    if (this.artificialAvalancheReleaseProbability && this.artificialAvalancheReleaseProbability !== undefined) {
+      json["artificialAvalancheReleaseProbability"] = this.artificialAvalancheReleaseProbability;
+    }
+    if (this.artificialHazardSiteDistribution && this.artificialHazardSiteDistribution !== undefined) {
+      json["artificialHazardSiteDistribution"] = this.artificialHazardSiteDistribution;
+    }
+    if (this.naturalDangerRating && this.naturalDangerRating !== undefined && this.naturalDangerRating !== Enums.DangerRating.missing) {
+      json["naturalDangerRating"] = this.naturalDangerRating;
+    }
+    if (this.naturalAvalancheReleaseProbability && this.naturalAvalancheReleaseProbability !== undefined) {
+      json["naturalAvalancheReleaseProbability"] = this.naturalAvalancheReleaseProbability;
+    }
+    if (this.naturalHazardSiteDistribution && this.naturalHazardSiteDistribution !== undefined) {
+      json["naturalHazardSiteDistribution"] = this.naturalHazardSiteDistribution;
+    }
 
-		return matrixInformation;
-	}
+    return json;
+  }
 }

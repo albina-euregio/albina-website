@@ -1,29 +1,29 @@
-import { Component, ViewChild, TemplateRef } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core/src/translate.service';
-import { BulletinModel } from '../models/bulletin.model';
-import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import * as Enums from '../enums/enums';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Component, ViewChild, TemplateRef, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { BulletinModel } from "../models/bulletin.model";
+import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
+import { Router, ActivatedRoute, Params } from "@angular/router";
+import * as Enums from "../enums/enums";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 
 @Component({
-  templateUrl: 'json.component.html'
+  templateUrl: "json.component.html"
 })
-export class JsonComponent {
+export class JsonComponent implements OnInit {
 
   public bulletins: string;
   public loading: boolean;
 
   public noJsonModalRef: BsModalRef;
-  @ViewChild('noJsonTemplate') noJsonTemplate: TemplateRef<any>;
+  @ViewChild("noJsonTemplate", { static: true }) noJsonTemplate: TemplateRef<any>;
 
   public jsonNotLoadedModalRef: BsModalRef;
-  @ViewChild('jsonNotLoadedTemplate') jsonNotLoadedTemplate: TemplateRef<any>;
+  @ViewChild("jsonNotLoadedTemplate", { static: true }) jsonNotLoadedTemplate: TemplateRef<any>;
 
   public config = {
     keyboard: true,
-    class: 'modal-sm'
+    class: "modal-sm"
   };
 
   constructor(
@@ -32,8 +32,7 @@ export class JsonComponent {
     private translateService: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: BsModalService)
-  {
+    private modalService: BsModalService) {
     this.bulletins = undefined;
     this.loading = false;
   }
@@ -43,10 +42,10 @@ export class JsonComponent {
     this.bulletinsService.loadJsonBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
         this.loading = false;
-        if (data.status == 204)
+        if (data.status === 204) {
           this.openNoJsonModal(this.noJsonTemplate);
-        else {
-          let text = data.text();
+        } else {
+          const text = data.text();
           this.bulletins = text;
         }
       },
@@ -58,14 +57,14 @@ export class JsonComponent {
   }
 
   goBack() {
-    this.router.navigate(['/bulletins']);
-  }    
+    this.router.navigate(["/bulletins"]);
+  }
 
   openNoJsonModal(template: TemplateRef<any>) {
     this.noJsonModalRef = this.modalService.show(template, this.config);
     this.modalService.onHide.subscribe((reason: string) => {
       this.goBack();
-    })
+    });
   }
 
   noJsonModalConfirm(): void {
@@ -77,7 +76,7 @@ export class JsonComponent {
     this.jsonNotLoadedModalRef = this.modalService.show(template, this.config);
     this.modalService.onHide.subscribe((reason: string) => {
       this.goBack();
-    })
+    });
   }
 
   jsonNotLoadedModalConfirm(): void {

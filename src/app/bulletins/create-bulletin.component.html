@@ -48,7 +48,7 @@
                         <tbody>
                           <tr>
                             <td>
-                              <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
+                              <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                             </td>
                             <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
                             <td>
@@ -117,7 +117,7 @@
 
                     <tr *ngIf="!activeBulletin || bulletin != activeBulletin" (click)="selectBulletin(bulletin)" style="height: 52px">
                       <td>
-                        <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
+                        <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                       </td>
                       <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
                       <td>
@@ -143,7 +143,7 @@
                         <tbody>
                           <tr>
                             <td>
-                              <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
+                              <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                             </td>
                             <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
                             <td>
@@ -215,7 +215,7 @@
 
                     <tr *ngIf="!hasSuggestions(bulletin) && (!activeBulletin || bulletin != activeBulletin)" (click)="selectBulletin(bulletin)" style="height: 52px">
                       <td>
-                        <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
+                        <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                       </td>
                       <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
                       <td>
@@ -227,7 +227,7 @@
 
                     <tr *ngIf="hasSuggestions(bulletin) && (!activeBulletin || bulletin != activeBulletin)" (click)="selectBulletin(bulletin)" class="table-warning" style="height: 52px">
                       <td>
-                        <danger-rating-icon [bulletin]="bulletin"></danger-rating-icon>
+                        <app-danger-rating-icon [bulletin]="bulletin"></app-danger-rating-icon>
                       </td>
                       <td>{{ "region." + bulletin.getOwnerRegion() | translate }}</td>
                       <td>
@@ -252,7 +252,7 @@
                   <i *ngIf="isAccordionDangerRatingOpen" class="fa fa-angle-up"></i>
                   <strong>{{ "bulletins.create.title.dangerRating" | translate }}</strong>
                 </div>
-                <bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></bulletin-detail>
+                <app-bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-bulletin-detail>
               </accordion-group>
               <!-- Avalanche situation -->
               <accordion-group [isOpen]="isAccordionAvalancheSituationOpen" (isOpenChange)="accordionChanged($event, 'avalancheSituation')" style="padding-bottom: 0">
@@ -264,22 +264,22 @@
                 <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
                   <div class="form-group row" style="margin-bottom: 0">
                     <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
-                      <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation1'"></avalanche-situation>
-                      <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation2'"></avalanche-situation>
+                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation1'"></app-avalanche-situation>
+                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation2'"></app-avalanche-situation>
                     </div>
                     <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
                       <div style="margin-bottom: 10px; font-size: 16px;">
                         <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
                       </div>
-                      <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation1'"></avalanche-situation>
-                      <avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation2'"></avalanche-situation>
+                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation1'"></app-avalanche-situation>
+                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation2'"></app-avalanche-situation>
                     </div>
                     <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
                       <div style="margin-bottom: 10px; font-size: 16px;">
                         <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
                       </div>
-                      <avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation1'"></avalanche-situation>
-                      <avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation2'"></avalanche-situation>
+                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation1'"></app-avalanche-situation>
+                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation2'"></app-avalanche-situation>
                     </div>
                   </div>
                 </form>

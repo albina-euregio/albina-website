@@ -1,9 +1,9 @@
-import { Injectable, Sanitizer, SecurityContext } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import { ConstantsService } from '../constants-service/constants.service';
-import { tokenNotExpired, JwtHelper } from 'angular2-jwt';
-import { AuthorModel } from '../../models/author.model';
+import { Injectable, Sanitizer, SecurityContext } from "@angular/core";
+import { Http, Headers, RequestOptions, Response } from "@angular/http";
+import { Observable } from "rxjs/Observable";
+import { ConstantsService } from "../constants-service/constants.service";
+import { tokenNotExpired, JwtHelper } from "angular2-jwt";
+import { AuthorModel } from "../../models/author.model";
 
 @Injectable()
 export class AuthenticationService {
@@ -15,26 +15,26 @@ export class AuthenticationService {
   constructor(
     public http: Http,
     public constantsService: ConstantsService,
-    private sanitizer: Sanitizer)
-  {
-    //this.currentAuthor = JSON.parse(localStorage.getItem('currentAuthor'));
-    localStorage.removeItem('currentAuthor');
-    localStorage.removeItem('accessToken');
+    private sanitizer: Sanitizer) {
+    // this.currentAuthor = JSON.parse(localStorage.getItem('currentAuthor'));
+    localStorage.removeItem("currentAuthor");
+    localStorage.removeItem("accessToken");
     this.currentAuthor = null;
     this.activeRegion = undefined;
     this.jwtHelper = new JwtHelper();
   }
 
-  isUserLoggedIn() : boolean {
-    if (this.currentAuthor && this.currentAuthor.accessToken)
+  isUserLoggedIn(): boolean {
+    if (this.currentAuthor && this.currentAuthor.accessToken) {
       return !this.jwtHelper.isTokenExpired(this.currentAuthor.accessToken);
-    else
+    } else {
       return false;
+    }
   }
 
   public logout() {
-    localStorage.removeItem('currentAuthor');
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem("currentAuthor");
+    localStorage.removeItem("accessToken");
     console.debug("[" + this.currentAuthor.name + "] Logged out!");
     this.currentAuthor = null;
     this.activeRegion = undefined;
@@ -44,58 +44,65 @@ export class AuthenticationService {
     return this.currentAuthor;
   }
 
-  public getUsername() : string {
-    if (this.currentAuthor)
+  public getUsername(): string {
+    if (this.currentAuthor) {
       return this.currentAuthor.name;
-    else
-      null;
+    } else {
+      return null;
+    }
   }
 
-  public getEmail() : string {
-    if (this.currentAuthor)
+  public getEmail(): string {
+    if (this.currentAuthor) {
       return this.currentAuthor.email;
-    else
-      null;
+    } else {
+      return null;
+    }
   }
 
   public getAccessToken() {
-    if (this.currentAuthor)
+    if (this.currentAuthor) {
       return this.currentAuthor.accessToken;
-    else
-      null;
+    } else {
+      return null;
+    }
   }
 
   public getRefreshToken() {
-    if (this.currentAuthor)
+    if (this.currentAuthor) {
       return this.currentAuthor.refreshToken;
-    else
-      null;
+    } else {
+      return null;
+    }
   }
 
   public getUserImage() {
-    if (this.currentAuthor)
+    if (this.currentAuthor) {
       return this.currentAuthor.image;
-    else
-      null;
+    } else {
+      return null;
+    }
   }
 
   public getUserImageSanitized() {
-    if (this.currentAuthor && this.currentAuthor.image)
-      return this.sanitizer.sanitize(SecurityContext.URL, 'data:image/jpg;base64,' + this.currentAuthor.image);
-    else
-      null;
+    if (this.currentAuthor && this.currentAuthor.image) {
+      return this.sanitizer.sanitize(SecurityContext.URL, "data:image/jpg;base64," + this.currentAuthor.image);
+    } else {
+      return null;
+    }
   }
 
-  public getActiveRegion() : string {
+  public getActiveRegion(): string {
     return this.activeRegion;
   }
 
   public setActiveRegion(region: string) {
-    if (this.currentAuthor.getRegions().includes(region))
+    if (this.currentAuthor.getRegions().includes(region)) {
       this.activeRegion = region;
+    }
   }
 
-  public getActiveRegionCode() : number {
+  public getActiveRegionCode(): number {
     switch (this.activeRegion) {
       case "AT-07":
         return 2;
@@ -103,7 +110,7 @@ export class AuthenticationService {
         return 3;
       case "IT-32-TN":
         return 3;
-      
+
       default:
         return 1;
     }
@@ -118,9 +125,10 @@ export class AuthenticationService {
   }
 
   public isCurrentUserInRole(role) {
-    if (this.currentAuthor && this.currentAuthor.getRoles() && this.currentAuthor.getRoles() != undefined) {
-      if (this.currentAuthor.getRoles().indexOf(role) > -1)
+    if (this.currentAuthor && this.currentAuthor.getRoles() && this.currentAuthor.getRoles() !== undefined) {
+      if (this.currentAuthor.getRoles().indexOf(role) > -1) {
         return true;
+      }
     }
     return false;
   }
@@ -134,14 +142,14 @@ export class AuthenticationService {
           case this.constantsService.codeSouthTyrol:
             return 1;
           case this.constantsService.codeTrentino:
-            return 2
+            return 2;
           default:
             return 0;
         }
       case this.constantsService.codeSouthTyrol:
         switch (this.getActiveRegion()) {
           case this.constantsService.codeTyrol:
-            return 1
+            return 1;
           case this.constantsService.codeSouthTyrol:
             return 0;
           case this.constantsService.codeTrentino:
@@ -166,30 +174,33 @@ export class AuthenticationService {
   }
 
   public login(username: string, password: string): Observable<boolean> {
-    let url = this.constantsService.getServerUrl() + 'authentication';
+    const url = this.constantsService.getServerUrl() + "authentication";
     console.debug(url);
 
-    var json = Object();
-    if (username && username != undefined)
-      json['username'] = username;
-    if (password && password != undefined)
-      json['password'] = password;
+    const json = Object();
+    if (username && username !== undefined) {
+      json["username"] = username;
+    }
+    if (password && password !== undefined) {
+      json["password"] = password;
+    }
 
-    let body = JSON.stringify(json);
-    let headers = new Headers({
-      'Content-Type': 'application/json'});
-    let options = new RequestOptions({ headers: headers });
+    const body = JSON.stringify(json);
+    const headers = new Headers({
+      "Content-Type": "application/json"
+    });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.post(encodeURI(url), body, options)
       .map((response: Response) => {
-        let accessToken = response.json() && response.json().access_token;
+        const accessToken = response.json() && response.json().access_token;
         if (accessToken) {
           this.currentAuthor = AuthorModel.createFromJson(response.json());
           this.activeRegion = this.currentAuthor.getRegions()[0];
           this.currentAuthor.accessToken = response.json().access_token;
           this.currentAuthor.refreshToken = response.json().refresh_token;
-          localStorage.setItem('currentAuthor', JSON.stringify({ username: response.json().username, accessToken: response.json().access_token, refreshToken: response.json().refresh_token, image: response.json().image, region: response.json().region, roles: response.json().roles }));
-          localStorage.setItem('accessToken', response.json().access_token);
+          localStorage.setItem("currentAuthor", JSON.stringify({ username: response.json().username, accessToken: response.json().access_token, refreshToken: response.json().refresh_token, image: response.json().image, region: response.json().region, roles: response.json().roles }));
+          localStorage.setItem("accessToken", response.json().access_token);
           return true;
         } else {
           return false;
@@ -197,40 +208,45 @@ export class AuthenticationService {
       });
   }
 
-  public checkPassword(password: string) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'authentication/check';
-    let authHeader = 'Bearer ' + this.getAccessToken();
+  public checkPassword(password: string): Observable<Response> {
+    const url = this.constantsService.getServerUrl() + "authentication/check";
+    const authHeader = "Bearer " + this.getAccessToken();
 
-    var json = Object();
-    if (password && password != undefined)
-      json['password'] = password;
+    const json = Object();
+    if (password && password !== undefined) {
+      json["password"] = password;
+    }
 
-    let body = JSON.stringify(json);
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': authHeader });
-    let options = new RequestOptions({ headers: headers });
+    const body = JSON.stringify(json);
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": authHeader
+    });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.put(encodeURI(url), body, options);
   }
 
-  public changePassword(oldPassword: string, newPassword: string) : Observable<Response> {
-    let url = this.constantsService.getServerUrl() + 'authentication/change';
-    let authHeader = 'Bearer ' + this.getAccessToken();
+  public changePassword(oldPassword: string, newPassword: string): Observable<Response> {
+    const url = this.constantsService.getServerUrl() + "authentication/change";
+    const authHeader = "Bearer " + this.getAccessToken();
 
-    var json = Object();
-    if (oldPassword && oldPassword != undefined)
-      json['oldPassword'] = oldPassword;
-    if (newPassword && newPassword != undefined)
-      json['newPassword'] = newPassword;
+    const json = Object();
+    if (oldPassword && oldPassword !== undefined) {
+      json["oldPassword"] = oldPassword;
+    }
+    if (newPassword && newPassword !== undefined) {
+      json["newPassword"] = newPassword;
+    }
 
-    let body = JSON.stringify(json);
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': authHeader });
-    let options = new RequestOptions({ headers: headers });
+    const body = JSON.stringify(json);
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": authHeader
+    });
+    const options = new RequestOptions({ headers: headers });
 
     return this.http.put(encodeURI(url), body, options);
   }
@@ -238,5 +254,4 @@ export class AuthenticationService {
   public getCurrentAuthorRegions() {
     return this.currentAuthor.getRegions();
   }
-
 }

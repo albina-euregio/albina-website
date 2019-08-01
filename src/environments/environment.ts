@@ -5,9 +5,9 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:8080/albina/api/',
-  wsBaseUrl: 'ws://localhost:8080/albina/',
-  textcatUrl: 'https://admin.avalanche.report/textcat_dev/c_pm.html',
-  headerBgColor: '#f4ea12',
+  apiBaseUrl: "http://localhost:8080/albina/api/",
+  wsBaseUrl: "ws://localhost:8080/albina/",
+  textcatUrl: "https://admin.avalanche.report/textcat_dev/c_pm.html",
+  headerBgColor: "#f4ea12",
   showChat: true
 };

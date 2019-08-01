@@ -1,43 +1,44 @@
-import { Component, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
-import { Tab } from './tab.component';
-import { SettingsService } from '../providers/settings-service/settings.service';
-import * as Enums from '../enums/enums';
+import { Component, ContentChildren, QueryList, AfterContentInit } from "@angular/core";
+import { TabComponent } from "./tab.component";
+import { SettingsService } from "../providers/settings-service/settings.service";
+import * as Enums from "../enums/enums";
 
 @Component({
-  selector: 'tabs',
-  templateUrl: 'tabs.component.html'
+  selector: "app-tabs",
+  templateUrl: "tabs.component.html"
 })
-export class Tabs implements AfterContentInit {
-  
-  @ContentChildren(Tab) tabs: QueryList<Tab>;
+export class TabsComponent implements AfterContentInit {
+
+  @ContentChildren(TabComponent) tabs: QueryList<TabComponent>;
 
   constructor(
-    private settingsService: SettingsService)
-  {
+    private settingsService: SettingsService) {
   }
-  
+
   // contentChildren are set
   ngAfterContentInit() {
     // get all active tabs
-    let activeTabs = this.tabs.filter((tab)=>tab.active);
+    const activeTabs = this.tabs.filter((tab) => tab.active);
 
     // if there is no active tab set, activate the first
-    if(activeTabs.length === 0) {
-      if (this.settingsService.getLang() == Enums.LanguageCode.de)
+    if (activeTabs.length === 0) {
+      if (this.settingsService.getLang() === Enums.LanguageCode.de) {
         this.selectTab(this.tabs.toArray()[0]);
-      if (this.settingsService.getLang() == Enums.LanguageCode.it)
+      }
+      if (this.settingsService.getLang() === Enums.LanguageCode.it) {
         this.selectTab(this.tabs.toArray()[1]);
-      if (this.settingsService.getLang() == Enums.LanguageCode.en)
+      }
+      if (this.settingsService.getLang() === Enums.LanguageCode.en) {
         this.selectTab(this.tabs.toArray()[2]);
+      }
     }
   }
-  
-  selectTab(tab: Tab){
+
+  selectTab(tab: TabComponent) {
     // deactivate all tabs
-    this.tabs.toArray().forEach(tab => tab.active = false);
-    
+    this.tabs.toArray().forEach(t => t.active = false);
+
     // activate the tab the user has clicked on.
     tab.active = true;
   }
-
 }

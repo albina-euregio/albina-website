@@ -1,27 +1,27 @@
-import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core/src/translate.service';
-import { AuthenticationService } from '../providers/authentication-service/authentication.service';
-import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
-import { SettingsService } from '../providers/settings-service/settings.service';
-import { WsChatService } from '../providers/ws-chat-service/ws-chat.service';
-import { ConstantsService } from '../providers/constants-service/constants.service';
-import { ChatService } from '../providers/chat-service/chat.service';
-import { ChatMessageModel } from '../models/chat-message.model';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { environment } from '../../environments/environment';
-import { DomSanitizer  } from '@angular/platform-browser';
-import * as Enums from '../enums/enums';
+import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { AuthenticationService } from "../providers/authentication-service/authentication.service";
+import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
+import { SettingsService } from "../providers/settings-service/settings.service";
+import { WsChatService } from "../providers/ws-chat-service/ws-chat.service";
+import { ConstantsService } from "../providers/constants-service/constants.service";
+import { ChatService } from "../providers/chat-service/chat.service";
+import { ChatMessageModel } from "../models/chat-message.model";
+import { Router, ActivatedRoute, Params } from "@angular/router";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { environment } from "../../environments/environment";
+import { DomSanitizer } from "@angular/platform-browser";
+import * as Enums from "../enums/enums";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './full-layout.component.html'
+  selector: "app-dashboard",
+  templateUrl: "./full-layout.component.html"
 })
 export class FullLayoutComponent implements OnInit {
 
   public disabled: boolean = false;
-  public status: {isopen: boolean} = {isopen: false};
+  public status: { isopen: boolean } = { isopen: false };
   public showChat: boolean;
 
   public message: string;
@@ -29,11 +29,11 @@ export class FullLayoutComponent implements OnInit {
   public tmpRegion: string;
 
   public changeRegionModalRef: BsModalRef;
-  @ViewChild('changeRegionTemplate') changeRegionTemplate: TemplateRef<any>;
+  @ViewChild("changeRegionTemplate", { static: true }) changeRegionTemplate: TemplateRef<any>;
 
   public config = {
     keyboard: true,
-    class: 'modal-sm'
+    class: "modal-sm"
   };
 
   constructor(
@@ -46,8 +46,7 @@ export class FullLayoutComponent implements OnInit {
     public constantsService: ConstantsService,
     public router: Router,
     private modalService: BsModalService,
-    private sanitizer: DomSanitizer)
-  {
+    private sanitizer: DomSanitizer) {
     this.message = "";
     this.tmpRegion = undefined;
     this.showChat = environment.showChat;
@@ -76,18 +75,20 @@ export class FullLayoutComponent implements OnInit {
   }
 
   public logout() {
-    if (this.bulletinsService.getActiveDate())
+    if (this.bulletinsService.getActiveDate()) {
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+    }
     this.authenticationService.logout();
     this.chatService.disconnect();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   sendChatMessage(region?: string) {
     this.chatService.resetNewMessageCount(region);
-    if (this.message && this.message != undefined && this.message != "")
+    if (this.message && this.message !== undefined && this.message !== "") {
       this.chatService.sendMessage(this.message, region);
+    }
     this.message = "";
   }
 
@@ -97,8 +98,9 @@ export class FullLayoutComponent implements OnInit {
         this.tmpRegion = region;
         this.openChangeRegionModal(this.changeRegionTemplate, region);
       } else {
-        if (this.bulletinsService.getActiveDate())
+        if (this.bulletinsService.getActiveDate()) {
           this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+        }
         this.authenticationService.setActiveRegion(region);
         this.bulletinsService.init();
         this.router.navigate(["/bulletins"]);
@@ -112,14 +114,15 @@ export class FullLayoutComponent implements OnInit {
 
   changeRegionModalConfirm(): void {
     this.changeRegionModalRef.hide();
-    if (this.bulletinsService.getActiveDate())
+    if (this.bulletinsService.getActiveDate()) {
       this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
+    }
     this.authenticationService.setActiveRegion(this.tmpRegion);
     this.tmpRegion = undefined;
     this.bulletinsService.init();
     this.router.navigate(["/bulletins"]);
   }
- 
+
   changeRegionModalDecline(): void {
     this.changeRegionModalRef.hide();
   }

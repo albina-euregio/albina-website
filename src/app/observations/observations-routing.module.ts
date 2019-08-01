@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { ObservationsComponent } from './observations.component';
+import { ObservationsComponent } from "./observations.component";
 
-import { AuthGuard } from '../guards/auth.guard';
+import { AuthGuard } from "../guards/auth.guard";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: ObservationsComponent,
-    canActivate: [AuthGuard], 
+    canActivate: [AuthGuard],
     data: {
-      title: 'Observations'
+      title: "Observations"
     }
   }
 ];
@@ -20,4 +20,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ObservationsRoutingModule {}
+export class ObservationsRoutingModule { }

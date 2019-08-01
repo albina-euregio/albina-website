@@ -1,16 +1,16 @@
-import { NgModule } from '@angular/core';
-import { LocalizedDatePipe } from './localized-date.pipe';
-import { HtmlPipe } from './html.pipe';
+import { NgModule } from "@angular/core";
+import { LocalizedDatePipe } from "./localized-date.pipe";
+import { HtmlPipe } from "./html.pipe";
 
 @NgModule({
   imports: [
   ],
   declarations: [
-  	LocalizedDatePipe,
+    LocalizedDatePipe,
     HtmlPipe
   ],
   exports: [
-  	LocalizedDatePipe,
+    LocalizedDatePipe,
     HtmlPipe
   ]
 })
@@ -19,8 +19,8 @@ export class PipeModule {
 
   static forRoot() {
     return {
-       ngModule: PipeModule,
-       providers: [],
+      ngModule: PipeModule,
+      providers: [],
     };
   }
 }

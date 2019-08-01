@@ -1,59 +1,59 @@
-import * as Enums from '../enums/enums';
+import * as Enums from "../enums/enums";
 
 export class RegionModel {
-	public id: string;
-	public name: string;
-	public parentRegion: string;
-	public aggregatedRegion: string;
+  public id: string;
+  public name: string;
+  public parentRegion: string;
+  public aggregatedRegion: string;
 
-	constructor() {
-		this.id = undefined;
-		this.name = undefined;
-		this.parentRegion = undefined;
-		this.aggregatedRegion = undefined;
-	}
+  static createFromJson(json) {
+    const region = new RegionModel();
 
-	getId() : string {
-		return this.id;
-	}
+    region.setId(json.properties.id);
+    region.setName(json.properties.name);
+    region.setParentRegion(json.properties.parentRegion);
 
-	setId(id: string) {
-		this.id = id;
-	}
+    region.setAggregatedRegion(json.properties.aggregatedRegion);
 
-	getName() : string {
-		return this.name;
-	}
+    return region;
+  }
 
-	setName(name: string) {
-		this.name = name;
-	}
+  constructor() {
+    this.id = undefined;
+    this.name = undefined;
+    this.parentRegion = undefined;
+    this.aggregatedRegion = undefined;
+  }
 
-	getParentRegion() : string {
-		return this.parentRegion;
-	}
+  getId(): string {
+    return this.id;
+  }
 
-	setParentRegion(parentRegion: string) {
-		this.parentRegion = parentRegion;
-	}
+  setId(id: string) {
+    this.id = id;
+  }
 
-	getAggregatedRegion() : string {
-		return this.aggregatedRegion;
-	}
+  getName(): string {
+    return this.name;
+  }
 
-	setAggregatedRegion(aggregatedRegion: string) {
-		this.aggregatedRegion = aggregatedRegion;
-	}
+  setName(name: string) {
+    this.name = name;
+  }
 
-	static createFromJson(json) {
-		let region = new RegionModel();
+  getParentRegion(): string {
+    return this.parentRegion;
+  }
 
-		region.setId(json.properties.id);
-		region.setName(json.properties.name);
-		region.setParentRegion(json.properties.parentRegion);
+  setParentRegion(parentRegion: string) {
+    this.parentRegion = parentRegion;
+  }
 
-		region.setAggregatedRegion(json.properties.aggregatedRegion);
+  getAggregatedRegion(): string {
+    return this.aggregatedRegion;
+  }
 
-		return region;
-	}
+  setAggregatedRegion(aggregatedRegion: string) {
+    this.aggregatedRegion = aggregatedRegion;
+  }
 }

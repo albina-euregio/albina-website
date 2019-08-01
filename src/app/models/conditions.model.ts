@@ -1,108 +1,114 @@
-import * as Enums from '../enums/enums';
+import * as Enums from "../enums/enums";
 
 export class ConditionsModel {
-	public airTemperature: number;
-	public cloudiness: Enums.SkyCondition;
-	public precipitationType: Enums.PrecipitationType;
-	public precipitationIntensity: Enums.PrecipitationIntensity;
-	public windSpeed: Enums.WindSpeed;
-	public windDirection: Enums.Aspect;
+  public airTemperature: number;
+  public cloudiness: Enums.SkyCondition;
+  public precipitationType: Enums.PrecipitationType;
+  public precipitationIntensity: Enums.PrecipitationIntensity;
+  public windSpeed: Enums.WindSpeed;
+  public windDirection: Enums.Aspect;
 
-	constructor(conditions?) {
-		if (conditions) {
-			this.airTemperature = conditions.airTemperature;
-			this.cloudiness = conditions.cloudiness;
-			this.precipitationType = conditions.precipitationType;
-			this.precipitationIntensity = conditions.precipitationIntensity;
-			this.windSpeed = conditions.windSpeed;
-			this.windDirection = conditions.windDirection;
-		} else {
-			this.airTemperature = undefined;
-			this.cloudiness = undefined;
-			this.precipitationType = undefined;
-			this.precipitationIntensity = undefined;
-			this.windSpeed = undefined;
-			this.windDirection = undefined;
-		}
-	}
+  static createFromJson(json) {
+    const conditions = new ConditionsModel();
 
-	getAirTemperature() {
-		return this.airTemperature;
-	}
+    conditions.setAirTemperature(json.airTemperature);
+    conditions.setCloudiness(json.cloudiness);
+    conditions.setPrecipitationType(Enums.PrecipitationType[json.precipitationType]);
+    conditions.setPrecipitationIntensity(Enums.PrecipitationIntensity[json.precipitationIntensity]);
+    conditions.setWindSpeed(Enums.WindSpeed[json.windSpeed]);
+    conditions.setWindDirection(Enums.Aspect[json.windDirection]);
 
-	setAirTemperature(airTemperature) {
-		this.airTemperature = airTemperature;
-	}
+    return conditions;
+  }
 
-	getCloudiness() {
-		return this.cloudiness;
-	}
+  constructor(conditions?) {
+    if (conditions) {
+      this.airTemperature = conditions.airTemperature;
+      this.cloudiness = conditions.cloudiness;
+      this.precipitationType = conditions.precipitationType;
+      this.precipitationIntensity = conditions.precipitationIntensity;
+      this.windSpeed = conditions.windSpeed;
+      this.windDirection = conditions.windDirection;
+    } else {
+      this.airTemperature = undefined;
+      this.cloudiness = undefined;
+      this.precipitationType = undefined;
+      this.precipitationIntensity = undefined;
+      this.windSpeed = undefined;
+      this.windDirection = undefined;
+    }
+  }
 
-	setCloudiness(cloudiness) {
-		this.cloudiness = cloudiness;
-	}
+  getAirTemperature() {
+    return this.airTemperature;
+  }
 
-	getPrecipitationType() {
-		return this.precipitationType;
-	}
+  setAirTemperature(airTemperature) {
+    this.airTemperature = airTemperature;
+  }
 
-	setPrecipitationType(precipitationType) {
-		this.precipitationType = precipitationType;
-	}
+  getCloudiness() {
+    return this.cloudiness;
+  }
 
-	getPrecipitationIntensity() {
-		return this.precipitationIntensity;
-	}
+  setCloudiness(cloudiness) {
+    this.cloudiness = cloudiness;
+  }
 
-	setPrecipitationIntensity(precipitationIntensity) {
-		this.precipitationIntensity = precipitationIntensity;
-	}
+  getPrecipitationType() {
+    return this.precipitationType;
+  }
 
-	getWindSpeed() {
-		return this.windSpeed;
-	}
+  setPrecipitationType(precipitationType) {
+    this.precipitationType = precipitationType;
+  }
 
-	setWindSpeed(windSpeed) {
-		this.windSpeed = windSpeed;
-	}
+  getPrecipitationIntensity() {
+    return this.precipitationIntensity;
+  }
 
-	getWindDirection() {
-		return this.windDirection;
-	}
+  setPrecipitationIntensity(precipitationIntensity) {
+    this.precipitationIntensity = precipitationIntensity;
+  }
 
-	setWindDirection(windDirection) {
-		this.windDirection = windDirection;
-	}
+  getWindSpeed() {
+    return this.windSpeed;
+  }
 
-	toJson() {
-		var json = Object();
+  setWindSpeed(windSpeed) {
+    this.windSpeed = windSpeed;
+  }
 
-		if (this.airTemperature && this.airTemperature != undefined)
-			json['airTemperature'] =+ this.airTemperature;
-		if (this.cloudiness != undefined && this.cloudiness >= 0 && this.cloudiness <= 6)
-			json['cloudiness'] =+ this.cloudiness;
-		if (this.precipitationType && this.precipitationType != undefined)
-			json['precipitationType'] = Enums.PrecipitationType[this.precipitationType];
-		if (this.precipitationIntensity && this.precipitationIntensity != undefined)
-			json['precipitationIntensity'] = Enums.PrecipitationIntensity[this.precipitationIntensity];
-		if (this.windSpeed && this.windSpeed != undefined)
-			json['windSpeed'] = Enums.WindSpeed[this.windSpeed];
-		if (this.windDirection && this.windDirection != undefined)
-			json['windDirection'] = Enums.Aspect[this.windDirection];
+  getWindDirection() {
+    return this.windDirection;
+  }
 
-		return json;
-	}
+  setWindDirection(windDirection) {
+    this.windDirection = windDirection;
+  }
 
-	static createFromJson(json) {
-		let conditions = new ConditionsModel();
+  toJson() {
+    const json = Object();
 
-		conditions.setAirTemperature(json.airTemperature);
-		conditions.setCloudiness(json.cloudiness);
-		conditions.setPrecipitationType(Enums.PrecipitationType[json.precipitationType]);
-		conditions.setPrecipitationIntensity(Enums.PrecipitationIntensity[json.precipitationIntensity]);
-		conditions.setWindSpeed(Enums.WindSpeed[json.windSpeed]);
-		conditions.setWindDirection(Enums.Aspect[json.windDirection]);
+    if (this.airTemperature && this.airTemperature !== undefined) {
+      json["airTemperature"] = + this.airTemperature;
+    }
+    if (this.cloudiness !== undefined && this.cloudiness >= 0 && this.cloudiness <= 6) {
+      json["cloudiness"] = + this.cloudiness;
+    }
+    if (this.precipitationType && this.precipitationType !== undefined) {
+      json["precipitationType"] = Enums.PrecipitationType[this.precipitationType];
+    }
+    if (this.precipitationIntensity && this.precipitationIntensity !== undefined) {
+      json["precipitationIntensity"] = Enums.PrecipitationIntensity[this.precipitationIntensity];
+    }
+    if (this.windSpeed && this.windSpeed !== undefined) {
+      json["windSpeed"] = Enums.WindSpeed[this.windSpeed];
+    }
+    if (this.windDirection && this.windDirection !== undefined) {
+      json["windDirection"] = Enums.Aspect[this.windDirection];
+    }
 
-		return conditions;
-	}
+    return json;
+  }
 }

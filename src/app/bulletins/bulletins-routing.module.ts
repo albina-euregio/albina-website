@@ -1,44 +1,44 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { Routes, RouterModule } from "@angular/router";
 
-import { BulletinsComponent } from './bulletins.component';
-import { CreateBulletinComponent } from './create-bulletin.component';
-import { CaamlComponent } from './caaml.component';
-import { JsonComponent } from './json.component';
+import { BulletinsComponent } from "./bulletins.component";
+import { CreateBulletinComponent } from "./create-bulletin.component";
+import { CaamlComponent } from "./caaml.component";
+import { JsonComponent } from "./json.component";
 
-import { AuthGuard } from '../guards/auth.guard';
+import { AuthGuard } from "../guards/auth.guard";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: BulletinsComponent,
-    canActivate: [AuthGuard], 
+    canActivate: [AuthGuard],
     data: {
-      title: 'Bulletins'
+      title: "Bulletins"
     }
   },
   {
-    path: 'new',
+    path: "new",
     component: CreateBulletinComponent,
-    canActivate: [AuthGuard], 
+    canActivate: [AuthGuard],
     data: {
-      title: 'New Bulletin'
+      title: "New Bulletin"
     }
   },
   {
-    path: 'caaml',
+    path: "caaml",
     component: CaamlComponent,
-    canActivate: [AuthGuard], 
+    canActivate: [AuthGuard],
     data: {
-      title: 'CAAML'
+      title: "CAAML"
     }
   },
   {
-    path: 'json',
+    path: "json",
     component: JsonComponent,
-    canActivate: [AuthGuard], 
+    canActivate: [AuthGuard],
     data: {
-      title: 'JSON'
+      title: "JSON"
     }
   }
 ];
@@ -47,4 +47,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BulletinsRoutingModule {}
+export class BulletinsRoutingModule { }

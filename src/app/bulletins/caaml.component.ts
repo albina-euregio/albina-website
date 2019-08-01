@@ -1,29 +1,29 @@
-import { Component, ViewChild, TemplateRef } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core/src/translate.service';
-import { BulletinModel } from '../models/bulletin.model';
-import { BulletinsService } from '../providers/bulletins-service/bulletins.service';
-import { Router, ActivatedRoute, Params } from '@angular/router';
-import * as Enums from '../enums/enums';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
+import { Component, ViewChild, TemplateRef, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { BulletinModel } from "../models/bulletin.model";
+import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
+import { Router, ActivatedRoute, Params } from "@angular/router";
+import * as Enums from "../enums/enums";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 
 @Component({
-  templateUrl: 'caaml.component.html'
+  templateUrl: "caaml.component.html"
 })
-export class CaamlComponent {
+export class CaamlComponent implements OnInit {
 
   public bulletins: string;
   public loading: boolean;
 
   public noCaamlModalRef: BsModalRef;
-  @ViewChild('noCaamlTemplate') noCaamlTemplate: TemplateRef<any>;
+  @ViewChild("noCaamlTemplate", { static: true }) noCaamlTemplate: TemplateRef<any>;
 
   public caamlNotLoadedModalRef: BsModalRef;
-  @ViewChild('caamlNotLoadedTemplate') caamlNotLoadedTemplate: TemplateRef<any>;
+  @ViewChild("caamlNotLoadedTemplate", { static: true }) caamlNotLoadedTemplate: TemplateRef<any>;
 
   public config = {
     keyboard: true,
-    class: 'modal-sm'
+    class: "modal-sm"
   };
 
   constructor(
@@ -32,8 +32,7 @@ export class CaamlComponent {
     private translateService: TranslateService,
     private route: ActivatedRoute,
     private router: Router,
-    private modalService: BsModalService)
-  {
+    private modalService: BsModalService) {
     this.bulletins = undefined;
     this.loading = false;
   }
@@ -43,10 +42,10 @@ export class CaamlComponent {
     this.bulletinsService.loadCaamlBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
         this.loading = false;
-        if (data.status == 204)
+        if (data.status === 204) {
           this.openNoCaamlModal(this.noCaamlTemplate);
-        else {
-          let text = data.text();
+        } else {
+          const text = data.text();
           this.bulletins = text;
         }
       },
@@ -58,14 +57,14 @@ export class CaamlComponent {
   }
 
   goBack() {
-    this.router.navigate(['/bulletins']);
-  }    
+    this.router.navigate(["/bulletins"]);
+  }
 
   openNoCaamlModal(template: TemplateRef<any>) {
     this.noCaamlModalRef = this.modalService.show(template, this.config);
     this.modalService.onHide.subscribe((reason: string) => {
       this.goBack();
-    })
+    });
   }
 
   noCaamlModalConfirm(): void {
@@ -77,7 +76,7 @@ export class CaamlComponent {
     this.caamlNotLoadedModalRef = this.modalService.show(template, this.config);
     this.modalService.onHide.subscribe((reason: string) => {
       this.goBack();
-    })
+    });
   }
 
   caamlNotLoadedModalConfirm(): void {

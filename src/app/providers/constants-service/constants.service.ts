@@ -1,25 +1,25 @@
-import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { Injectable } from "@angular/core";
+import { environment } from "../../../environments/environment";
 
 @Injectable()
 export class ConstantsService {
 
-  public snowObserverServerUrl: string = 'https://snowobserver.com/snowobserver/api/';
-  public natlefsServerUrl: string = 'https://natlefs.snowobserver.com/snowobserver/api/';
-  public natlefsUsername: string = 'norbert.lanzanasto@tirol.gv.at';
-  public natlefsPassword: string = 'FRYLjTQ2';
+  public snowObserverServerUrl: string = "https://snowobserver.com/snowobserver/api/";
+  public natlefsServerUrl: string = "https://natlefs.snowobserver.com/snowobserver/api/";
+  public natlefsUsername: string = "norbert.lanzanasto@tirol.gv.at";
+  public natlefsPassword: string = "FRYLjTQ2";
 
-  public codeTyrol: string = 'AT-07';
-  public codeSouthTyrol: string = 'IT-32-BZ';
-  public codeTrentino: string = 'IT-32-TN';
+  public codeTyrol: string = "AT-07";
+  public codeSouthTyrol: string = "IT-32-BZ";
+  public codeTrentino: string = "IT-32-TN";
 
-  public roleAdmin: string = 'ADMIN';
-  public roleForecaster: string = 'FORECASTER';
-  public roleForeman: string = 'FOREMAN';
-  public roleObserver: string = 'OBSERVER';
+  public roleAdmin: string = "ADMIN";
+  public roleForecaster: string = "FORECASTER";
+  public roleForeman: string = "FOREMAN";
+  public roleObserver: string = "OBSERVER";
 
-  public lat: Map<String, number> = new Map([["", 47.10], [this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05]])
-  public lng: Map<String, number> = new Map([["", 11.44], [this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07]])
+  public lat: Map<String, number> = new Map([["", 47.10], [this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05]]);
+  public lng: Map<String, number> = new Map([["", 11.44], [this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07]]);
 
   public mapBoundaryN: number = 48.0;
   public mapBoundaryE: number = 13.5;
@@ -30,23 +30,23 @@ export class ConstantsService {
   public autoSaveIntervall: number = 1000;
 
   public regions: Map<string, String[]> = new Map([
-    [this.codeTyrol, ['AT-07-01', 'AT-07-02', 'AT-07-03', 'AT-07-04', 'AT-07-05', 'AT-07-06', 'AT-07-07', 'AT-07-08', 'AT-07-09', 'AT-07-10', 'AT-07-11', 'AT-07-12', 'AT-07-13', 'AT-07-14', 'AT-07-15', 'AT-07-16', 'AT-07-17', 'AT-07-18', 'AT-07-19', 'AT-07-20', 'AT-07-21', 'AT-07-22', 'AT-07-23', 'AT-07-24', 'AT-07-25', 'AT-07-26', 'AT-07-27', 'AT-07-28', 'AT-07-29']],
-    [this.codeSouthTyrol, ['IT-32-BZ-01', 'IT-32-BZ-02', 'IT-32-BZ-03', 'IT-32-BZ-04', 'IT-32-BZ-05', 'IT-32-BZ-06', 'IT-32-BZ-07', 'IT-32-BZ-08', 'IT-32-BZ-09', 'IT-32-BZ-10', 'IT-32-BZ-11', 'IT-32-BZ-12', 'IT-32-BZ-13', 'IT-32-BZ-14', 'IT-32-BZ-15', 'IT-32-BZ-16', 'IT-32-BZ-17', 'IT-32-BZ-18', 'IT-32-BZ-19', 'IT-32-BZ-20']],
-    [this.codeTrentino, ['IT-32-TN-01', 'IT-32-TN-02', 'IT-32-TN-03', 'IT-32-TN-04', 'IT-32-TN-05', 'IT-32-TN-06', 'IT-32-TN-07', 'IT-32-TN-08', 'IT-32-TN-09', 'IT-32-TN-10', 'IT-32-TN-11', 'IT-32-TN-12', 'IT-32-TN-13', 'IT-32-TN-14', 'IT-32-TN-15', 'IT-32-TN-16', 'IT-32-TN-17', 'IT-32-TN-18', 'IT-32-TN-19', 'IT-32-TN-20', 'IT-32-TN-21']]
+    [this.codeTyrol, ["AT-07-01", "AT-07-02", "AT-07-03", "AT-07-04", "AT-07-05", "AT-07-06", "AT-07-07", "AT-07-08", "AT-07-09", "AT-07-10", "AT-07-11", "AT-07-12", "AT-07-13", "AT-07-14", "AT-07-15", "AT-07-16", "AT-07-17", "AT-07-18", "AT-07-19", "AT-07-20", "AT-07-21", "AT-07-22", "AT-07-23", "AT-07-24", "AT-07-25", "AT-07-26", "AT-07-27", "AT-07-28", "AT-07-29"]],
+    [this.codeSouthTyrol, ["IT-32-BZ-01", "IT-32-BZ-02", "IT-32-BZ-03", "IT-32-BZ-04", "IT-32-BZ-05", "IT-32-BZ-06", "IT-32-BZ-07", "IT-32-BZ-08", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-11", "IT-32-BZ-12", "IT-32-BZ-13", "IT-32-BZ-14", "IT-32-BZ-15", "IT-32-BZ-16", "IT-32-BZ-17", "IT-32-BZ-18", "IT-32-BZ-19", "IT-32-BZ-20"]],
+    [this.codeTrentino, ["IT-32-TN-01", "IT-32-TN-02", "IT-32-TN-03", "IT-32-TN-04", "IT-32-TN-05", "IT-32-TN-06", "IT-32-TN-07", "IT-32-TN-08", "IT-32-TN-09", "IT-32-TN-10", "IT-32-TN-11", "IT-32-TN-12", "IT-32-TN-13", "IT-32-TN-14", "IT-32-TN-15", "IT-32-TN-16", "IT-32-TN-17", "IT-32-TN-18", "IT-32-TN-19", "IT-32-TN-20", "IT-32-TN-21"]]
   ]);
 
-  public colorDangerRatingLow = '#CCFF66';
-  public colorDangerRatingModerate = '#FFFF00';
-  public colorDangerRatingConsiderable = '#FF9900';
-  public colorDangerRatingHigh = '#FF0000';
+  public colorDangerRatingLow = "#CCFF66";
+  public colorDangerRatingModerate = "#FFFF00";
+  public colorDangerRatingConsiderable = "#FF9900";
+  public colorDangerRatingHigh = "#FF0000";
   // not standardized
-  public colorDangerRatingVeryHigh = '#800000';
-  public colorDangerRatingMissing = '#969696';
+  public colorDangerRatingVeryHigh = "#800000";
+  public colorDangerRatingMissing = "#969696";
   // TODO use correct color
   public colorDangerRatingNoSnow = "#A0522D";
-  public colorActiveSelection = '#3852A4';
+  public colorActiveSelection = "#3852A4";
 
-  public lineColor = '#000000';
+  public lineColor = "#000000";
   public lineWeight = 0.5;
   public lineOpacityOwnRegion = 1.0;
   public lineOpacityForeignRegion = 0.3;
@@ -116,7 +116,7 @@ export class ConstantsService {
         return this.colorDangerRatingLow;
       case "no_snow":
         return this.colorDangerRatingNoSnow;
-      
+
       default:
         return this.colorDangerRatingMissing;
     }
@@ -127,19 +127,19 @@ export class ConstantsService {
   }
 
   getWsRegionUrl() {
-    return environment.wsBaseUrl + 'region/';
+    return environment.wsBaseUrl + "region/";
   }
 
   getWsChatUrl() {
-    return environment.wsBaseUrl + 'chat/';
+    return environment.wsBaseUrl + "chat/";
   }
 
   getWsBulletinUrl() {
-    return environment.wsBaseUrl + 'bulletin/';
+    return environment.wsBaseUrl + "bulletin/";
   }
 
   getWsUpdateUrl() {
-    return environment.wsBaseUrl + 'update/';
+    return environment.wsBaseUrl + "update/";
   }
 
   getSnowObserverServerUrl() {
@@ -167,35 +167,37 @@ export class ConstantsService {
   }
 
   getISOStringWithTimezoneOffset(date: Date) {
-    let offset = -date.getTimezoneOffset();
-    let dif = offset >= 0 ? '+' : '-';
+    const offset = -date.getTimezoneOffset();
+    const dif = offset >= 0 ? "+" : "-";
 
-    return date.getFullYear() + 
-      '-' + this.extend(date.getMonth() + 1) +
-      '-' + this.extend(date.getDate()) +
-      'T' + this.extend(date.getHours()) +
-      ':' + this.extend(date.getMinutes()) +
-      ':' + this.extend(date.getSeconds()) +
+    return date.getFullYear() +
+      "-" + this.extend(date.getMonth() + 1) +
+      "-" + this.extend(date.getDate()) +
+      "T" + this.extend(date.getHours()) +
+      ":" + this.extend(date.getMinutes()) +
+      ":" + this.extend(date.getSeconds()) +
       dif + this.extend(offset / 60) +
-      ':' + this.extend(offset % 60);
+      ":" + this.extend(offset % 60);
   }
 
   extend(num: number) {
-    let norm = Math.abs(Math.floor(num));
-    return (norm < 10 ? '0' : '') + norm;
+    const norm = Math.abs(Math.floor(num));
+    return (norm < 10 ? "0" : "") + norm;
   }
 
   getLat(region: String) {
-    if (region && region != undefined)
+    if (region && region !== undefined) {
       return this.lat.get(region);
-    else
+    } else {
       return this.lat.get("");
+    }
   }
 
   getLng(region: String) {
-    if (region && region != undefined)
+    if (region && region !== undefined) {
       return this.lng.get(region);
-    else
+    } else {
       return this.lng.get("");
+    }
   }
 }

@@ -1,19 +1,19 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core/src/translate.service';
+import { Pipe, PipeTransform } from "@angular/core";
+import { DatePipe } from "@angular/common";
+import { TranslateService } from "@ngx-translate/core/src/translate.service";
 
 @Pipe({
-  name: 'localizedDate',
+  name: "localizedDate",
   pure: false  // required to update the value when currentLang is changed
 })
 export class LocalizedDatePipe implements PipeTransform {
-  private value: string|null;
+  private value: string | null;
   private lastDate: any;
   private lastLang: string;
 
   constructor(private translate: TranslateService) { }
 
-  transform(date: any, pattern: string = 'mediumDate'): any {
+  transform(date: any, pattern: string = "mediumDate"): any {
     const currentLang = this.translate.currentLang;
 
     // if we ask another time for the same date & locale, return the last value

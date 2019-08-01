@@ -1,14 +1,14 @@
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core/src/translate.service';
-import { SettingsService } from '../providers/settings-service/settings.service';
-import { AvalancheSituationModel } from '../models/avalanche-situation.model';
-import * as Enums from '../enums/enums';
+import { Component, Input, ViewChild, ElementRef, AfterContentInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { SettingsService } from "../providers/settings-service/settings.service";
+import { AvalancheSituationModel } from "../models/avalanche-situation.model";
+import * as Enums from "../enums/enums";
 
 @Component({
-  selector: 'avalanche-situation',
-  templateUrl: 'avalanche-situation.component.html'
+  selector: "app-avalanche-situation",
+  templateUrl: "avalanche-situation.component.html"
 })
-export class AvalancheSituationComponent {
+export class AvalancheSituationComponent implements AfterContentInit {
 
   @Input() avalancheSituationModel: AvalancheSituationModel;
   @Input() disabled: boolean;
@@ -21,25 +21,28 @@ export class AvalancheSituationComponent {
 
   constructor(
     private translate: TranslateService,
-    public settingsService: SettingsService)
-  {
+    public settingsService: SettingsService) {
   }
 
   ngAfterContentInit() {
-    if (this.avalancheSituationModel.getAvalancheSituation() != undefined && !this.isAvalancheSituation("favourable_situation"))
+    if (this.avalancheSituationModel.getAvalancheSituation() !== undefined && !this.isAvalancheSituation("favourable_situation")) {
       this.showAspects = true;
-    else
+    } else {
       this.showAspects = false;
+    }
 
-    if (this.avalancheSituationModel.getTreelineHigh() || this.avalancheSituationModel.getElevationHigh() != undefined)
+    if (this.avalancheSituationModel.getTreelineHigh() || this.avalancheSituationModel.getElevationHigh() !== undefined) {
       this.useElevationHigh = true;
-    if (this.avalancheSituationModel.getTreelineLow() || this.avalancheSituationModel.getElevationLow() != undefined)
+    }
+    if (this.avalancheSituationModel.getTreelineLow() || this.avalancheSituationModel.getElevationLow() !== undefined) {
       this.useElevationLow = true;
+    }
   }
 
   isAvalancheSituation(situation) {
-    if (this.avalancheSituationModel && this.avalancheSituationModel.avalancheSituation == situation)
+    if (this.avalancheSituationModel && this.avalancheSituationModel.avalancheSituation === situation) {
       return true;
+    }
     return false;
   }
 
@@ -53,45 +56,50 @@ export class AvalancheSituationComponent {
       if (this.isAvalancheSituation("favourable_situation")) {
         this.avalancheSituationModel.setAspects(new Array<Enums.Aspect>());
         this.showAspects = false;
-      } else
+      } else {
         this.showAspects = true;
+      }
     }
   }
 
   updateElevationHigh() {
     if (this.avalancheSituationModel) {
-      this.avalancheSituationModel.elevationHigh = Math.round(this.avalancheSituationModel.elevationHigh/100)*100;
-      if (this.avalancheSituationModel.elevationHigh > 9000)
+      this.avalancheSituationModel.elevationHigh = Math.round(this.avalancheSituationModel.elevationHigh / 100) * 100;
+      if (this.avalancheSituationModel.elevationHigh > 9000) {
         this.avalancheSituationModel.elevationHigh = 9000;
-      else if (this.avalancheSituationModel.elevationHigh < 0)
+      } else if (this.avalancheSituationModel.elevationHigh < 0) {
         this.avalancheSituationModel.elevationHigh = 0;
+      }
     }
   }
 
   updateElevationLow() {
     if (this.avalancheSituationModel) {
-      this.avalancheSituationModel.elevationLow = Math.round(this.avalancheSituationModel.elevationLow/100)*100;
-      if (this.avalancheSituationModel.elevationLow > 9000)
+      this.avalancheSituationModel.elevationLow = Math.round(this.avalancheSituationModel.elevationLow / 100) * 100;
+      if (this.avalancheSituationModel.elevationLow > 9000) {
         this.avalancheSituationModel.elevationLow = 9000;
-      else if (this.avalancheSituationModel.elevationLow < 0)
+      } else if (this.avalancheSituationModel.elevationLow < 0) {
         this.avalancheSituationModel.elevationLow = 0;
+      }
     }
   }
 
   treelineHighClicked(event) {
     event.stopPropagation();
-    if (this.avalancheSituationModel.treelineHigh)
+    if (this.avalancheSituationModel.treelineHigh) {
       this.avalancheSituationModel.treelineHigh = false;
-    else
+    } else {
       this.avalancheSituationModel.treelineHigh = true;
+    }
   }
 
   treelineLowClicked(event) {
     event.stopPropagation();
-    if (this.avalancheSituationModel.treelineLow)
+    if (this.avalancheSituationModel.treelineLow) {
       this.avalancheSituationModel.treelineLow = false;
-    else
+    } else {
       this.avalancheSituationModel.treelineLow = true;
+    }
   }
 
   setUseElevationHigh(event) {

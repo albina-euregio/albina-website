@@ -1,100 +1,99 @@
-import { Component, Input, ViewChild, ElementRef, SimpleChange } from '@angular/core';
-import { BulletinDaytimeDescriptionModel } from '../models/bulletin-daytime-description.model';
-import { MatrixInformationModel } from '../models/matrix-information.model';
-import { SettingsService } from '../providers/settings-service/settings.service';
-import { ConstantsService } from '../providers/constants-service/constants.service';
-import * as Enums from '../enums/enums';
+import { Component, Input, ViewChild, ElementRef, SimpleChange, AfterViewInit, OnChanges } from "@angular/core";
+import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
+import { MatrixInformationModel } from "../models/matrix-information.model";
+import { SettingsService } from "../providers/settings-service/settings.service";
+import { ConstantsService } from "../providers/constants-service/constants.service";
+import * as Enums from "../enums/enums";
 
 @Component({
-	selector: 'matrix',
-  templateUrl: 'matrix.component.html'
+  selector: "app-matrix",
+  templateUrl: "matrix.component.html"
 })
-export class MatrixComponent {
+export class MatrixComponent implements AfterViewInit, OnChanges {
 
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
   @Input() below: boolean;
   @Input() disabled: boolean;
 
-  @ViewChild('0') cell0: ElementRef;
-  @ViewChild('1') cell1: ElementRef;
-  @ViewChild('2') cell2: ElementRef;
-  @ViewChild('3') cell3: ElementRef;
-  @ViewChild('4') cell4: ElementRef;
-  @ViewChild('5') cell5: ElementRef;
-  @ViewChild('6') cell6: ElementRef;
-  @ViewChild('7') cell7: ElementRef;
-  @ViewChild('8') cell8: ElementRef;
-  @ViewChild('9') cell9: ElementRef;
-  @ViewChild('10') cell10: ElementRef;
-  @ViewChild('11') cell11: ElementRef;
-  @ViewChild('12') cell12: ElementRef;
-  @ViewChild('13') cell13: ElementRef;
-  @ViewChild('14') cell14: ElementRef;
-  @ViewChild('15') cell15: ElementRef;
-  @ViewChild('16') cell16: ElementRef;
-  @ViewChild('17') cell17: ElementRef;
-  @ViewChild('18') cell18: ElementRef;
-  @ViewChild('19') cell19: ElementRef;
-  @ViewChild('20') cell20: ElementRef;
-  @ViewChild('21') cell21: ElementRef;
-  @ViewChild('22') cell22: ElementRef;
-  @ViewChild('23') cell23: ElementRef;
-  @ViewChild('24') cell24: ElementRef;
-  @ViewChild('25') cell25: ElementRef;
-  @ViewChild('26') cell26: ElementRef;
-  @ViewChild('27') cell27: ElementRef;
-  @ViewChild('28') cell28: ElementRef;
-  @ViewChild('29') cell29: ElementRef;
-  @ViewChild('30') cell30: ElementRef;
-  @ViewChild('31') cell31: ElementRef;
-  @ViewChild('32') cell32: ElementRef;
-  @ViewChild('33') cell33: ElementRef;
-  @ViewChild('34') cell34: ElementRef;
-  @ViewChild('35') cell35: ElementRef;
-  @ViewChild('36') cell36: ElementRef;
-  @ViewChild('37') cell37: ElementRef;
-  @ViewChild('38') cell38: ElementRef;
-  @ViewChild('39') cell39: ElementRef;
-  @ViewChild('40') cell40: ElementRef;
-  @ViewChild('41') cell41: ElementRef;
-  @ViewChild('42') cell42: ElementRef;
-  @ViewChild('43') cell43: ElementRef;
-  @ViewChild('44') cell44: ElementRef;
-  @ViewChild('45') cell45: ElementRef;
-  @ViewChild('46') cell46: ElementRef;
-  @ViewChild('47') cell47: ElementRef;
-  @ViewChild('48') cell48: ElementRef;
-  @ViewChild('49') cell49: ElementRef;
-  @ViewChild('50') cell50: ElementRef;
-  @ViewChild('51') cell51: ElementRef;
-  @ViewChild('52') cell52: ElementRef;
-  @ViewChild('53') cell53: ElementRef;
-  @ViewChild('54') cell54: ElementRef;
-  @ViewChild('55') cell55: ElementRef;
-  @ViewChild('56') cell56: ElementRef;
-  @ViewChild('57') cell57: ElementRef;
-  @ViewChild('58') cell58: ElementRef;
-  @ViewChild('59') cell59: ElementRef;
-  @ViewChild('60') cell60: ElementRef;
-  @ViewChild('61') cell61: ElementRef;
-  @ViewChild('62') cell62: ElementRef;
-  @ViewChild('63') cell63: ElementRef;
-  @ViewChild('64') cell64: ElementRef;
-  @ViewChild('65') cell65: ElementRef;
-  @ViewChild('66') cell66: ElementRef;
-  @ViewChild('67') cell67: ElementRef;
-  @ViewChild('68') cell68: ElementRef;
-  @ViewChild('69') cell69: ElementRef;
-  @ViewChild('70') cell70: ElementRef;
-  @ViewChild('71') cell71: ElementRef;
-  @ViewChild('72') cell72: ElementRef;
+  @ViewChild("0", { static: true }) cell0: ElementRef;
+  @ViewChild("1", { static: true }) cell1: ElementRef;
+  @ViewChild("2", { static: true }) cell2: ElementRef;
+  @ViewChild("3", { static: true }) cell3: ElementRef;
+  @ViewChild("4", { static: true }) cell4: ElementRef;
+  @ViewChild("5", { static: true }) cell5: ElementRef;
+  @ViewChild("6", { static: true }) cell6: ElementRef;
+  @ViewChild("7", { static: true }) cell7: ElementRef;
+  @ViewChild("8", { static: true }) cell8: ElementRef;
+  @ViewChild("9", { static: true }) cell9: ElementRef;
+  @ViewChild("10", { static: true }) cell10: ElementRef;
+  @ViewChild("11", { static: true }) cell11: ElementRef;
+  @ViewChild("12", { static: true }) cell12: ElementRef;
+  @ViewChild("13", { static: true }) cell13: ElementRef;
+  @ViewChild("14", { static: true }) cell14: ElementRef;
+  @ViewChild("15", { static: true }) cell15: ElementRef;
+  @ViewChild("16", { static: true }) cell16: ElementRef;
+  @ViewChild("17", { static: true }) cell17: ElementRef;
+  @ViewChild("18", { static: true }) cell18: ElementRef;
+  @ViewChild("19", { static: true }) cell19: ElementRef;
+  @ViewChild("20", { static: true }) cell20: ElementRef;
+  @ViewChild("21", { static: true }) cell21: ElementRef;
+  @ViewChild("22", { static: true }) cell22: ElementRef;
+  @ViewChild("23", { static: true }) cell23: ElementRef;
+  @ViewChild("24", { static: true }) cell24: ElementRef;
+  @ViewChild("25", { static: true }) cell25: ElementRef;
+  @ViewChild("26", { static: true }) cell26: ElementRef;
+  @ViewChild("27", { static: true }) cell27: ElementRef;
+  @ViewChild("28", { static: true }) cell28: ElementRef;
+  @ViewChild("29", { static: true }) cell29: ElementRef;
+  @ViewChild("30", { static: true }) cell30: ElementRef;
+  @ViewChild("31", { static: true }) cell31: ElementRef;
+  @ViewChild("32", { static: true }) cell32: ElementRef;
+  @ViewChild("33", { static: true }) cell33: ElementRef;
+  @ViewChild("34", { static: true }) cell34: ElementRef;
+  @ViewChild("35", { static: true }) cell35: ElementRef;
+  @ViewChild("36", { static: true }) cell36: ElementRef;
+  @ViewChild("37", { static: true }) cell37: ElementRef;
+  @ViewChild("38", { static: true }) cell38: ElementRef;
+  @ViewChild("39", { static: true }) cell39: ElementRef;
+  @ViewChild("40", { static: true }) cell40: ElementRef;
+  @ViewChild("41", { static: true }) cell41: ElementRef;
+  @ViewChild("42", { static: true }) cell42: ElementRef;
+  @ViewChild("43", { static: true }) cell43: ElementRef;
+  @ViewChild("44", { static: true }) cell44: ElementRef;
+  @ViewChild("45", { static: true }) cell45: ElementRef;
+  @ViewChild("46", { static: true }) cell46: ElementRef;
+  @ViewChild("47", { static: true }) cell47: ElementRef;
+  @ViewChild("48", { static: true }) cell48: ElementRef;
+  @ViewChild("49", { static: true }) cell49: ElementRef;
+  @ViewChild("50", { static: true }) cell50: ElementRef;
+  @ViewChild("51", { static: true }) cell51: ElementRef;
+  @ViewChild("52", { static: true }) cell52: ElementRef;
+  @ViewChild("53", { static: true }) cell53: ElementRef;
+  @ViewChild("54", { static: true }) cell54: ElementRef;
+  @ViewChild("55", { static: true }) cell55: ElementRef;
+  @ViewChild("56", { static: true }) cell56: ElementRef;
+  @ViewChild("57", { static: true }) cell57: ElementRef;
+  @ViewChild("58", { static: true }) cell58: ElementRef;
+  @ViewChild("59", { static: true }) cell59: ElementRef;
+  @ViewChild("60", { static: true }) cell60: ElementRef;
+  @ViewChild("61", { static: true }) cell61: ElementRef;
+  @ViewChild("62", { static: true }) cell62: ElementRef;
+  @ViewChild("63", { static: true }) cell63: ElementRef;
+  @ViewChild("64", { static: true }) cell64: ElementRef;
+  @ViewChild("65", { static: true }) cell65: ElementRef;
+  @ViewChild("66", { static: true }) cell66: ElementRef;
+  @ViewChild("67", { static: true }) cell67: ElementRef;
+  @ViewChild("68", { static: true }) cell68: ElementRef;
+  @ViewChild("69", { static: true }) cell69: ElementRef;
+  @ViewChild("70", { static: true }) cell70: ElementRef;
+  @ViewChild("71", { static: true }) cell71: ElementRef;
+  @ViewChild("72", { static: true }) cell72: ElementRef;
 
   languageCode = Enums.LanguageCode;
 
   constructor(
     public settingsService: SettingsService,
-    public constantsService: ConstantsService)
-  {
+    public constantsService: ConstantsService) {
   }
 
   ngAfterViewInit() {
@@ -102,13 +101,13 @@ export class MatrixComponent {
     this.initMatrix();
   }
 
-  ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+  ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     this.resetMatrix();
     this.initMatrix();
   }
 
   resetMatrix() {
-    for (var i = 0; i <= 72; i++) {
+    for (let i = 0; i <= 72; i++) {
       this.deselectCell("" + i);
     }
   }
@@ -124,23 +123,25 @@ export class MatrixComponent {
     this.getDaytimeMatrixInformation().setArtificialAvalancheReleaseProbability(Enums.ArtificialAvalancheReleaseProbability[this.getArtificialAvalancheReleaseProability(cell)]);
     this.getDaytimeMatrixInformation().setArtificialHazardSiteDistribution(Enums.HazardSiteDistribution[this.getArtificialHazardSiteDistribution(cell)]);
     this.getDaytimeMatrixInformation().setArtificialAvalancheSize(Enums.AvalancheSize[this.getAvalancheSize(cell)]);
-    let element = this.getElement(cell);
-    if (element && element != undefined)
+    const element = this.getElement(cell);
+    if (element && element !== undefined) {
       element.nativeElement.style.fill = this.getColor(cell);
+    }
   }
 
   private selectNaturalCell(cell) {
     this.getDaytimeMatrixInformation().setNaturalDangerRating(Enums.DangerRating[this.getDangerRating(cell)]);
     this.getDaytimeMatrixInformation().setNaturalAvalancheReleaseProbability(Enums.NaturalAvalancheReleaseProbability[this.getNaturalAvalancheReleaseProability(cell)]);
     this.getDaytimeMatrixInformation().setNaturalHazardSiteDistribution(Enums.HazardSiteDistribution[this.getNaturalHazardSiteDistribution(cell)]);
-    let element = this.getElement(cell);
-    if (element && element != undefined)
+    const element = this.getElement(cell);
+    if (element && element !== undefined) {
       element.nativeElement.style.fill = this.getColor(cell);
+    }
   }
 
   private deselectCell(cell) {
-    if (cell != undefined && cell != null) {
-      let element = this.getElement(cell);
+    if (cell !== undefined && cell !== null) {
+      const element = this.getElement(cell);
       element.nativeElement.style.fill = this.getGrayscaleColor(cell);
     }
   }
@@ -151,13 +152,13 @@ export class MatrixComponent {
 
   public selectArtificialDangerRatingById(id) {
     if (!this.disabled) {
-      let oldCell = this.getArtificialCell(this.getDaytimeMatrixInformation());
+      const oldCell = this.getArtificialCell(this.getDaytimeMatrixInformation());
 
       this.deselectCell(oldCell);
 
-      if (oldCell != id)
+      if (oldCell !== id) {
         this.selectArtificialCell(id);
-      else {
+      } else {
         this.getDaytimeMatrixInformation().setArtificialDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
         this.getDaytimeMatrixInformation().setArtificialAvalancheReleaseProbability(undefined);
         this.getDaytimeMatrixInformation().setArtificialHazardSiteDistribution(undefined);
@@ -175,13 +176,13 @@ export class MatrixComponent {
 
   public selectNaturalDangerRatingById(id) {
     if (!this.disabled) {
-      let oldCell = this.getNaturalCell(this.getDaytimeMatrixInformation());
+      const oldCell = this.getNaturalCell(this.getDaytimeMatrixInformation());
 
       this.deselectCell(oldCell);
 
-      if (oldCell != id)
+      if (oldCell !== id) {
         this.selectNaturalCell(id);
-      else {
+      } else {
         this.getDaytimeMatrixInformation().setNaturalDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
         this.getDaytimeMatrixInformation().setNaturalAvalancheReleaseProbability(undefined);
         this.getDaytimeMatrixInformation().setNaturalHazardSiteDistribution(undefined);
@@ -207,69 +208,78 @@ export class MatrixComponent {
       this.getDaytimeMatrixInformation().setNaturalAvalancheReleaseProbability(undefined);
       this.getDaytimeMatrixInformation().setNaturalHazardSiteDistribution(undefined);
 
-      let dangerRating = +Enums.DangerRating[this.getDaytimeDangerRating()];
-      if (dangerRating == -1)
+      const dangerRating = +Enums.DangerRating[this.getDaytimeDangerRating()];
+      if (dangerRating === -1) {
         this.setDaytimeDangerRating("missing");
-      else
+      } else {
         this.setDaytimeDangerRating("no_snow");
+      }
 
       this.selectNoSnowCell();
     }
   }
 
   private selectNoSnowCell() {
-      let dangerRating = +Enums.DangerRating[this.getDaytimeDangerRating()];
+    const dangerRating = +Enums.DangerRating[this.getDaytimeDangerRating()];
 
-      let color;
-      if (dangerRating == -1)
-        color = this.getColor("0");
-      else
-        color = this.getGrayscaleColor("0");
+    let color;
+    if (dangerRating === -1) {
+      color = this.getColor("0");
+    } else {
+      color = this.getGrayscaleColor("0");
+    }
 
-      let element = this.getElement("0");
-      if (element && element != undefined)
-        element.nativeElement.style.fill = color;
+    const element = this.getElement("0");
+    if (element && element !== undefined) {
+      element.nativeElement.style.fill = color;
+    }
   }
 
   private setDangerRating() {
-    let artificialDangerRating = Enums.DangerRating[this.getDaytimeMatrixInformation().getArtificialDangerRating()];
-    let naturalDangerRating = Enums.DangerRating[this.getDaytimeMatrixInformation().getNaturalDangerRating()];
-    
-    if (artificialDangerRating != undefined) {
-      if (naturalDangerRating != undefined) {
-        if (Enums.DangerRating[this.getDaytimeMatrixInformation().getArtificialDangerRating()] < Enums.DangerRating[this.getDaytimeMatrixInformation().getNaturalDangerRating()])
+    const artificialDangerRating = Enums.DangerRating[this.getDaytimeMatrixInformation().getArtificialDangerRating()];
+    const naturalDangerRating = Enums.DangerRating[this.getDaytimeMatrixInformation().getNaturalDangerRating()];
+
+    if (artificialDangerRating !== undefined) {
+      if (naturalDangerRating !== undefined) {
+        if (Enums.DangerRating[this.getDaytimeMatrixInformation().getArtificialDangerRating()] < Enums.DangerRating[this.getDaytimeMatrixInformation().getNaturalDangerRating()]) {
           this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getNaturalDangerRating());
-        else
+        } else {
           this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getArtificialDangerRating());
-      } else
+        }
+      } else {
         this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getArtificialDangerRating());
+      }
     } else {
-      if (naturalDangerRating != undefined)
+      if (naturalDangerRating !== undefined) {
         this.setDaytimeDangerRating(this.getDaytimeMatrixInformation().getNaturalDangerRating());
-      else
+      } else {
         this.setDaytimeDangerRating("missing");
+      }
     }
   }
 
   private getDaytimeDangerRating() {
-    if (this.below)
+    if (this.below) {
       return this.bulletinDaytimeDescription.getDangerRatingBelow();
-    else
+    } else {
       return this.bulletinDaytimeDescription.getDangerRatingAbove();
+    }
   }
 
   private setDaytimeDangerRating(dangerRating) {
-    if (this.below)
+    if (this.below) {
       this.bulletinDaytimeDescription.setDangerRatingBelow(dangerRating);
-    else
+    } else {
       this.bulletinDaytimeDescription.setDangerRatingAbove(dangerRating);
+    }
   }
 
-  private getDaytimeMatrixInformation() : MatrixInformationModel {
-    if (this.below)
+  private getDaytimeMatrixInformation(): MatrixInformationModel {
+    if (this.below) {
       return this.bulletinDaytimeDescription.getMatrixInformationBelow();
-    else
+    } else {
       return this.bulletinDaytimeDescription.getMatrixInformationAbove();
+    }
   }
 
   private getElement(id) {
@@ -420,7 +430,7 @@ export class MatrixComponent {
         return this.cell71;
       case "72":
         return this.cell72;
-      
+
       default:
         return undefined;
     }
@@ -442,7 +452,7 @@ export class MatrixComponent {
       case "29":
       case "57":
         return Enums.DangerRating.low;
-      
+
       case "7":
       case "11":
       case "14":
@@ -512,7 +522,7 @@ export class MatrixComponent {
 
       default:
         return "#FFFFFF";
-    }     
+    }
   }
 
   private getAvalancheSize(id) {
@@ -532,7 +542,7 @@ export class MatrixComponent {
       case "49":
       case "53":
         return Enums.AvalancheSize.small;
-      
+
       case "2":
       case "6":
       case "10":
@@ -587,59 +597,63 @@ export class MatrixComponent {
   }
 
   private getArtificialAvalancheReleaseProability(id) {
-    if ((id > 0 && id <= 4) || (id > 12 && id <= 16) || (id > 28 && id <= 32))
+    if ((id > 0 && id <= 4) || (id > 12 && id <= 16) || (id > 28 && id <= 32)) {
       return Enums.ArtificialAvalancheReleaseProbability.one;
-    else if ((id > 4 && id <= 8) || (id > 16 && id <= 20) || (id > 32 && id <= 36))
+    } else if ((id > 4 && id <= 8) || (id > 16 && id <= 20) || (id > 32 && id <= 36)) {
       return Enums.ArtificialAvalancheReleaseProbability.two;
-    else if ((id > 8 && id <= 12) || (id > 20 && id <= 24) || (id > 36 && id <= 40) || (id > 44 && id <= 48))
+    } else if ((id > 8 && id <= 12) || (id > 20 && id <= 24) || (id > 36 && id <= 40) || (id > 44 && id <= 48)) {
       return Enums.ArtificialAvalancheReleaseProbability.three;
-    else if ((id > 24 && id <= 28) || (id > 40 && id <= 44) || (id > 48 && id <= 56))
+    } else if ((id > 24 && id <= 28) || (id > 40 && id <= 44) || (id > 48 && id <= 56)) {
       return Enums.ArtificialAvalancheReleaseProbability.four;
-    else
+    } else {
       return undefined;
+    }
   }
 
   private getArtificialHazardSiteDistribution(id) {
-    if (id > 0 && id <= 12)
+    if (id > 0 && id <= 12) {
       return Enums.HazardSiteDistribution.single;
-    else if (id > 12 && id <= 28)
+    } else if (id > 12 && id <= 28) {
       return Enums.HazardSiteDistribution.some;
-    else if (id > 28 && id <= 44)
+    } else if (id > 28 && id <= 44) {
       return Enums.HazardSiteDistribution.many;
-    else if (id > 44 && id <= 52)
+    } else if (id > 44 && id <= 52) {
       return Enums.HazardSiteDistribution.many_most;
-    else if (id > 52 && id <= 56)
+    } else if (id > 52 && id <= 56) {
       return Enums.HazardSiteDistribution.moderately_steep;
-    else
+    } else {
       return undefined;
+    }
   }
 
   private getNaturalAvalancheReleaseProability(id) {
-    if (id == 57 || id == 59 || id == 62 || id == 66)
+    if (id === 57 || id === 59 || id === 62 || id === 66) {
       return Enums.NaturalAvalancheReleaseProbability.one;
-    else if (id == 58 || id == 60 || id == 63 || id == 67 || id == 70)
+    } else if (id === 58 || id === 60 || id === 63 || id === 67 || id === 70) {
       return Enums.NaturalAvalancheReleaseProbability.two;
-    else if (id == 61 || id == 64 || id == 68 || id == 71)
+    } else if (id === 61 || id === 64 || id === 68 || id === 71) {
       return Enums.NaturalAvalancheReleaseProbability.three;
-    else if (id == 65 || id == 69 || id == 72)
+    } else if (id === 65 || id === 69 || id === 72) {
       return Enums.NaturalAvalancheReleaseProbability.four;
-    else
+    } else {
       return undefined;
+    }
   }
 
   private getNaturalHazardSiteDistribution(id) {
-    if (id > 56 && id <= 58)
+    if (id > 56 && id <= 58) {
       return Enums.HazardSiteDistribution.single;
-    else if (id > 58 && id <= 61)
+    } else if (id > 58 && id <= 61) {
       return Enums.HazardSiteDistribution.some;
-    else if (id > 61 && id <= 65)
+    } else if (id > 61 && id <= 65) {
       return Enums.HazardSiteDistribution.many;
-    else if (id > 65 && id <= 69)
+    } else if (id > 65 && id <= 69) {
       return Enums.HazardSiteDistribution.many_most;
-    else if (id > 69 && id <= 72)
+    } else if (id > 69 && id <= 72) {
       return Enums.HazardSiteDistribution.moderately_steep;
-    else
+    } else {
       return undefined;
+    }
   }
 
   private getColor(id) {
@@ -663,7 +677,7 @@ export class MatrixComponent {
       case "29":
       case "57":
         return this.constantsService.colorDangerRatingLow;
-      
+
       // moderate
       case "7":
       case "11":
@@ -735,9 +749,9 @@ export class MatrixComponent {
       case "72":
         return this.constantsService.colorDangerRatingVeryHigh;
 
-    default:
+      default:
         return "#000000";
-    }     
+    }
   }
 
   private getGrayscaleColor(id) {
@@ -757,7 +771,7 @@ export class MatrixComponent {
       case "21":
       case "57":
         return "#EFEFEF";
-      
+
       // moderate
       case "7":
       case "14":
@@ -838,7 +852,7 @@ export class MatrixComponent {
 
       default:
         return "#FFFFFF";
-    }     
+    }
   }
 
   private getArtificialCell(matrixInformation: MatrixInformationModel) {
@@ -888,7 +902,7 @@ export class MatrixComponent {
           default:
             return undefined;
         }
-      
+
       case Enums.HazardSiteDistribution.some:
         switch (+Enums.ArtificialAvalancheReleaseProbability[matrixInformation.getArtificialAvalancheReleaseProbability()]) {
           case Enums.ArtificialAvalancheReleaseProbability.one:
@@ -1073,7 +1087,7 @@ export class MatrixComponent {
           default:
             return undefined;
         }
-      
+
       case Enums.HazardSiteDistribution.some:
         switch (+Enums.NaturalAvalancheReleaseProbability[matrixInformation.getNaturalAvalancheReleaseProbability()]) {
           case Enums.NaturalAvalancheReleaseProbability.one:

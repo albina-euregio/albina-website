@@ -1,18 +1,18 @@
-import { Component, OnInit, HostListener, TemplateRef, ViewChild} from '@angular/core';
-import { AuthenticationService } from '../providers/authentication-service/authentication.service';
-import { MapService } from '../providers/map-service/map.service';
-import { ChatService } from '../providers/chat-service/chat.service';
-import { TranslateService } from '@ngx-translate/core/src/translate.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
-import { environment } from '../../environments/environment';
-import { DomSanitizer  } from '@angular/platform-browser';
+import { Component, OnInit, HostListener, TemplateRef, ViewChild } from "@angular/core";
+import { AuthenticationService } from "../providers/authentication-service/authentication.service";
+import { MapService } from "../providers/map-service/map.service";
+import { ChatService } from "../providers/chat-service/chat.service";
+import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { Router, ActivatedRoute } from "@angular/router";
+import { BsModalService } from "ngx-bootstrap/modal";
+import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { environment } from "../../environments/environment";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
-  templateUrl: 'login.component.html'
+  templateUrl: "login.component.html"
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   public username: string;
   public password: string;
@@ -20,11 +20,11 @@ export class LoginComponent {
   public loading: boolean;
 
   public errorModalRef: BsModalRef;
-  @ViewChild('errorTemplate') errorTemplate: TemplateRef<any>;
+  @ViewChild("errorTemplate", { static: true }) errorTemplate: TemplateRef<any>;
 
   public config = {
     keyboard: true,
-    class: 'modal-sm'
+    class: "modal-sm"
   };
 
   constructor(
@@ -35,8 +35,7 @@ export class LoginComponent {
     private translateService: TranslateService,
     private modalService: BsModalService,
     private chatService: ChatService,
-    private sanitizer: DomSanitizer)
-  {
+    private sanitizer: DomSanitizer) {
     this.loading = false;
   }
 
@@ -47,7 +46,7 @@ export class LoginComponent {
     // get return url from route parameters or default to '/'
     // console.log("Return URL: " + this.route.snapshot.queryParams['returnUrl']);
     // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    this.returnUrl = '/bulletins';
+    this.returnUrl = "/bulletins";
   }
 
   getStyle() {
@@ -83,7 +82,7 @@ export class LoginComponent {
     this.errorModalRef = this.modalService.show(template, this.config);
     this.modalService.onHide.subscribe((reason: string) => {
       this.loading = false;
-    })
+    });
   }
 
   errorModalConfirm(): void {
@@ -91,9 +90,9 @@ export class LoginComponent {
     this.loading = false;
   }
 
-  @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) { 
-    if (event.keyCode == 13 && !this.loading) {
+  @HostListener("document:keydown", ["$event"])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.keyCode === 13 && !this.loading) {
       this.login();
     }
   }

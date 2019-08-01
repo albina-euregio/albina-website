@@ -1,190 +1,201 @@
-import * as Enums from '../enums/enums';
+import * as Enums from "../enums/enums";
 
 export class LocationModel {
-	public country: Enums.CountryAlpha2Code;
-	public region: String;
-	public subregion: String;
-	public name: String;
-	public latitude: number;
-	public longitude: number;
-	public accuracy: number;
-	public elevation: number;
-	public angle: number;
-	public aspect: Enums.Aspect;
-	public quality: Enums.Quality;
+  public country: Enums.CountryAlpha2Code;
+  public region: String;
+  public subregion: String;
+  public name: String;
+  public latitude: number;
+  public longitude: number;
+  public accuracy: number;
+  public elevation: number;
+  public angle: number;
+  public aspect: Enums.Aspect;
+  public quality: Enums.Quality;
 
-	constructor(location?) {
-		if (location) {
-			this.country = location.country;
-			this.region = location.region;
-			this.subregion = location.subregion;
-			this.name = location.name;
-			this.latitude = location.latitude;
-			this.longitude = location.longitude;
-			this.accuracy = location.accuracy;
-			this.elevation = location.elevation;
-			this.angle = location.angle;
-			this.aspect = location.aspect;
-			this.quality = location.quality;
-		} else {
-			this.country = undefined;
-			this.region = undefined;
-			this.subregion = undefined;
-			this.name = undefined;
-			this.latitude = undefined;
-			this.longitude = undefined;
-			this.accuracy = undefined;
-			this.elevation = undefined;
-			this.angle = undefined;
-			this.aspect = undefined;
-			this.quality = undefined;
-		}
-	}
+  static createFromJson(json) {
+    const location = new LocationModel();
 
-	getCountry() {
-		return this.country;
-	}
+    location.setCountry(Enums.CountryAlpha2Code[json.country]);
+    location.setRegion(json.region);
+    location.setSubregion(json.subregion);
+    location.setName(json.name);
+    if (json.geo) {
+      location.setLatitude(json.geo.latitude);
+      location.setLongitude(json.geo.longitude);
+    }
+    location.setAccuracy(json.accuracy);
+    location.setElevation(json.elevation);
+    location.setAngle(json.angle);
+    location.setAspect(Enums.Aspect[json.aspect]);
+    location.setQuality(Enums.Quality[json.quality]);
 
-	setCountry(country) {
-		this.country = country;
-	}
+    return location;
+  }
 
-	getCountryString() {
-		return Enums.CountryAlpha2Code[this.country];
-	}
+  constructor(location?) {
+    if (location) {
+      this.country = location.country;
+      this.region = location.region;
+      this.subregion = location.subregion;
+      this.name = location.name;
+      this.latitude = location.latitude;
+      this.longitude = location.longitude;
+      this.accuracy = location.accuracy;
+      this.elevation = location.elevation;
+      this.angle = location.angle;
+      this.aspect = location.aspect;
+      this.quality = location.quality;
+    } else {
+      this.country = undefined;
+      this.region = undefined;
+      this.subregion = undefined;
+      this.name = undefined;
+      this.latitude = undefined;
+      this.longitude = undefined;
+      this.accuracy = undefined;
+      this.elevation = undefined;
+      this.angle = undefined;
+      this.aspect = undefined;
+      this.quality = undefined;
+    }
+  }
 
-	getRegion() {
-		return this.region;
-	}
+  getCountry() {
+    return this.country;
+  }
 
-	setRegion(region) {
-		this.region = region;
-	}
+  setCountry(country) {
+    this.country = country;
+  }
 
-	getSubregion(){
-		return this.subregion;
-	}
+  getCountryString() {
+    return Enums.CountryAlpha2Code[this.country];
+  }
 
-	setSubregion(subregion) {
-		this.subregion = subregion;
-	}
+  getRegion() {
+    return this.region;
+  }
 
-	getName() {
-		return this.name;
-	}
+  setRegion(region) {
+    this.region = region;
+  }
 
-	setName(name) {
-		this.name = name;
-	}
+  getSubregion() {
+    return this.subregion;
+  }
 
-	getLatitude() {
-		return this.latitude;
-	}
+  setSubregion(subregion) {
+    this.subregion = subregion;
+  }
 
-	setLatitude(latitude) {
-		this.latitude = latitude;
-	}
+  getName() {
+    return this.name;
+  }
 
-	getLongitude() {
-		return this.longitude;
-	}
+  setName(name) {
+    this.name = name;
+  }
 
-	setLongitude(longitude) {
-		this.longitude = longitude;
-	}
+  getLatitude() {
+    return this.latitude;
+  }
 
-	getAccuracy() {
-		return this.accuracy;
-	}
+  setLatitude(latitude) {
+    this.latitude = latitude;
+  }
 
-	setAccuracy(accuracy) {
-		this.accuracy = accuracy;
-	}
+  getLongitude() {
+    return this.longitude;
+  }
 
-	getElevation() {
-		return this.elevation;
-	}
+  setLongitude(longitude) {
+    this.longitude = longitude;
+  }
 
-	setElevation(elevation) {
-		this.elevation = elevation;
-	}
+  getAccuracy() {
+    return this.accuracy;
+  }
 
-	getAngle() {
-		return this.angle;
-	}
+  setAccuracy(accuracy) {
+    this.accuracy = accuracy;
+  }
 
-	setAngle(angle) {
-		this.angle = angle;
-	}
+  getElevation() {
+    return this.elevation;
+  }
 
-	getAspect() {
-		return this.aspect;
-	}
+  setElevation(elevation) {
+    this.elevation = elevation;
+  }
 
-	setAspect(aspect) {
-		this.aspect = aspect;
-	}
+  getAngle() {
+    return this.angle;
+  }
 
-	getQuality() {
-		return this.quality;
-	}
+  setAngle(angle) {
+    this.angle = angle;
+  }
 
-	setQuality(quality) {
-		this.quality = quality;
-	}
+  getAspect() {
+    return this.aspect;
+  }
 
-	toJson() {
-		let json = Object();
+  setAspect(aspect) {
+    this.aspect = aspect;
+  }
 
-		if (this.country != undefined)
-			json['country'] = Enums.CountryAlpha2Code[this.country];
-		if (this.region && this.region != undefined && this.region != "")
-			json['region'] = this.region;
-		if (this.subregion && this.subregion != undefined && this.subregion != "")
-			json['subregion'] = this.subregion;
-		if (this.name && this.name != undefined && this.name != "")
-			json['name'] = this.name;
+  getQuality() {
+    return this.quality;
+  }
 
-		if (this.latitude && this.latitude != undefined && this.latitude != 0 && this.longitude && this.longitude != undefined && this.longitude != 0) {
-			let geo = Object();
-			if (this.latitude && this.latitude != 0)
-				geo['latitude'] =+ this.latitude;
-			if (this.longitude && this.longitude != 0)
-				geo['longitude'] =+ this.longitude;
-			json['geo'] = geo;
-		}
+  setQuality(quality) {
+    this.quality = quality;
+  }
 
-		if (this.accuracy && this.accuracy != undefined && this.accuracy != 0)
-			json['accuracy'] =+ this.accuracy;
-		if (this.elevation && this.elevation != undefined && this.elevation != 0)
-			json['elevation'] =+ this.elevation;
-		if (this.angle && this.angle != undefined && this.angle != 0)
-			json['angle'] =+ this.angle;
-		if (this.aspect && this.aspect != undefined)
-			json['aspect'] = Enums.Aspect[this.aspect];
-		if (this.quality && this.quality != undefined)
-			json['quality'] = Enums.Quality[this.quality];
+  toJson() {
+    const json = Object();
 
-		return json;
-	}
+    if (this.country !== undefined) {
+      json["country"] = Enums.CountryAlpha2Code[this.country];
+    }
+    if (this.region && this.region !== undefined && this.region !== "") {
+      json["region"] = this.region;
+    }
+    if (this.subregion && this.subregion !== undefined && this.subregion !== "") {
+      json["subregion"] = this.subregion;
+    }
+    if (this.name && this.name !== undefined && this.name !== "") {
+      json["name"] = this.name;
+    }
 
-	static createFromJson(json) {
-		let location = new LocationModel();
+    if (this.latitude && this.latitude !== undefined && this.latitude !== 0 && this.longitude && this.longitude !== undefined && this.longitude !== 0) {
+      const geo = Object();
+      if (this.latitude && this.latitude !== 0) {
+        geo["latitude"] = + this.latitude;
+      }
+      if (this.longitude && this.longitude !== 0) {
+        geo["longitude"] = + this.longitude;
+      }
+      json["geo"] = geo;
+    }
 
-		location.setCountry(Enums.CountryAlpha2Code[json.country]);
-		location.setRegion(json.region);
-		location.setSubregion(json.subregion);
-		location.setName(json.name);
-		if (json.geo) {
-			location.setLatitude(json.geo.latitude);
-			location.setLongitude(json.geo.longitude);
-		}
-		location.setAccuracy(json.accuracy);
-		location.setElevation(json.elevation);
-		location.setAngle(json.angle);
-		location.setAspect(Enums.Aspect[json.aspect]);
-		location.setQuality(Enums.Quality[json.quality]);
+    if (this.accuracy && this.accuracy !== undefined && this.accuracy !== 0) {
+      json["accuracy"] = + this.accuracy;
+    }
+    if (this.elevation && this.elevation !== undefined && this.elevation !== 0) {
+      json["elevation"] = + this.elevation;
+    }
+    if (this.angle && this.angle !== undefined && this.angle !== 0) {
+      json["angle"] = + this.angle;
+    }
+    if (this.aspect && this.aspect !== undefined) {
+      json["aspect"] = Enums.Aspect[this.aspect];
+    }
+    if (this.quality && this.quality !== undefined) {
+      json["quality"] = Enums.Quality[this.quality];
+    }
 
-		return location;
-	}
+    return json;
+  }
 }
