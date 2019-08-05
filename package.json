@@ -1,6 +1,7 @@
 {
-  "name": "albina-project",
-  "description": "Albina project webpage",
+  "name": "albina-website",
+  "description": "Avalanche. report - Avalanche Warning Services Tirol - South Tyrol - Trentino",
+  "homepage": "https://avalanche.report/",
   "version": "0.2.0",
   "main": "app/main.jsx",
   "scripts": {
@@ -79,7 +80,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "",
+  "license": "GPL-3.0-or-later",
   "config": {
     "validate-commit-msg": {
       "types": [

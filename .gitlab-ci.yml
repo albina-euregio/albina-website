@@ -1,0 +1,15 @@
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - npm install
+
+build:
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - dist/

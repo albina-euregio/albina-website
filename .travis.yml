@@ -4,4 +4,4 @@ node_js:
   - 7
   - 6
 
-cache: yarn
+cache: npm
