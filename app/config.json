@@ -75,7 +75,7 @@
     "gaTrackingId": "UA-69879901-5"
   },
   "links": {
-    "interreg": "http://www.interreg.net/{lang}/default.asp",
+    "interreg": "http://www.europaregion.info/splash.html",
     "downloads": {
       "base": "https://avalanche.report/albina_files/",
       "pdf": "{date}/{date}_{lang}.pdf",

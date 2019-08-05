@@ -134,18 +134,18 @@ class PageHeader extends React.Component {
             </span>
           </button>
         </div>
-        <div className="page-header-interreg">
+        <div className="page-header-euregio">
           <a
             href={stringInject(config.get("links.interreg"), {
               lang: lang
             })}
-            className="logo-interreg tooltip"
+            className="logo-euregio tooltip"
             title={this.props.intl.formatMessage({
-              id: "header:interreg:hover"
+              id: "header:euregio:hover"
             })}
             target="_blank"
           >
-            <span>Interreg</span>
+            <span>Euregio</span>
           </a>
         </div>
       </div>

@@ -6773,11 +6773,11 @@ $logo-interreg-width: 364px;
     padding-right: 0;
     opacity: 0;
   }
-  .page-header .page-header-interreg {
+  .page-header .page-header-euregio {
     margin-right: calc(-22.75em / 2 - 2em * 2 - 1px * 2);
     opacity: 0;
   }
-  body:not(.has-sub) .page-header .page-header-interreg {
+  body:not(.has-sub) .page-header .page-header-euregio {
     margin-right: 0;
     opacity: 1;
   }
@@ -6790,7 +6790,7 @@ $logo-interreg-width: 364px;
 }
 
 @media only screen and (min-width: 80em) {
-  .page-header .page-header-interreg {
+  .page-header .page-header-euregio {
     margin-right: 0;
     opacity: 1;
   }
@@ -7040,14 +7040,14 @@ $logo-interreg-width: 364px;
           box-shadow: none;
 }
 
-.page-header-interreg {
+.page-header-euregio {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   margin-right: calc(-22.75em / 2 - 1em * 2 - 1px * 2);
 }
 
-.logo-interreg {
+.logo-euregio {
   display: block;
   overflow: hidden;
   text-align: left;
@@ -7060,27 +7060,27 @@ $logo-interreg-width: 364px;
   display: block;
   height: 5.0625em;
   width: 11.375em;
-  background: transparent url("../images/pro/logos/logo_interreg_sw.png") no-repeat 0 0;
+  background: transparent url("../images/pro/logos/logo_euregio_sw.png") no-repeat 0 0;
   background-size: 11.375em 5.0625em;
 }
 
-.logo-interreg span {
+.logo-euregio span {
   display: block;
   height: 5.0625em;
   width: 11.375em;
-  background: transparent url("../images/pro/logos/logo_interreg.png") no-repeat 0 0;
+  background: transparent url("../images/pro/logos/logo_euregio.png") no-repeat 0 0;
   background-size: 11.375em 5.0625em;
   opacity: 0;
   -webkit-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
 }
 
-.logo-interreg:hover {
+.logo-euregio:hover {
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
 }
 
-.logo-interreg:hover span {
+.logo-euregio:hover span {
   opacity: 1;
 }
 
@@ -7136,12 +7136,12 @@ $logo-interreg-width: 364px;
 }
 
 @media only screen and (min-width: 80em) {
-  .page-footer-interreg {
+  .page-footer-euregio {
     display: none;
   }
 }
 
-.logo-interreg {
+.logo-euregio {
   display: inline-block;
 }
 

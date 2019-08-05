@@ -155,6 +155,7 @@
   "header:language-switch:de:hover": { "all": "Deutsch" },
   "header:language-switch:it:hover": { "all": "Italiano" },
   "header:interreg:hover": { "all": "Interreg" },
+  "header:euregio:hover": { "all": "Euregio" },
   "header:hamburger:hover": {
     "en": "Menu",
     "de": "Menü",
@@ -186,6 +187,9 @@
     "en": "Interreg",
     "de": "Interreg",
     "it": "Interreg"
+  },
+  "footer:euregio:hover": {
+    "all": "Euregio"
   },
   "footer:top:hover": {
     "en": "Top",

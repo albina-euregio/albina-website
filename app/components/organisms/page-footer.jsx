@@ -76,18 +76,18 @@ class PageFooter extends React.Component {
                 </p>
               )}
               <p className="page-footer-text">{this.state.content}</p>
-              <p className="page-footer-interreg">
+              <p className="page-footer-euregio">
                 <a
                   href={stringInject(config.get("links.interreg"), {
                     lang: window["appStore"].language
                   })}
-                  className="logo-interreg tooltip"
+                  className="logo-euregio tooltip"
                   title={this.props.intl.formatMessage({
-                    id: "footer:interreg:hover"
+                    id: "footer:euregio:hover"
                   })}
                   target="_blank"
                 >
-                  <span>Interreg</span>
+                  <span>Euregio</span>
                 </a>
               </p>
             </div>
