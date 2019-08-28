@@ -4,7 +4,8 @@ cache:
   paths:
     - node_modules/
 
-build:
+production build:
+  stage: build
   script:
     - npm install
     - npm run lint
@@ -12,3 +13,21 @@ build:
   artifacts:
     paths:
       - dist/
+
+deploy to development:
+  stage: deploy
+  script:
+    - npm install
+    - npm run build -- --prod --env=dev
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - ssh -o "$SSH_PROXY_COMMAND" "$SSH_SERVER" 'rm --recursive /opt/tomcat/webapps/dev/*'
+    - tar --create --verbose dist/ | ssh -o "$SSH_PROXY_COMMAND" "$SSH_SERVER" 'tar --directory=/opt/tomcat/webapps/dev --extract --strip-components=1'
+  environment:
+    name: development
+  only:
+    - development
+    - ci
