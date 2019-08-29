@@ -28,6 +28,7 @@
     "htmltojsx": "^0.3.0",
     "husky": "^0.14.3",
     "leaflet": "^1.5.1",
+    "leaflet-geonames": "^0.4.7",
     "leaflet-gesture-handling": "^1.1.8",
     "leaflet.locatecontrol": "^0.63.0",
     "leaflet.markercluster": "^1.4.1",
