@@ -1,6 +1,7 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
 import L from "leaflet";
+require("leaflet/dist/leaflet.css");
 import {
   Map,
   TileLayer,
@@ -15,7 +16,7 @@ import { tooltip_init } from "../../js/tooltip";
 import Base from "../../base";
 import AppStore from "../../appStore";
 
-require("../../util/l.geonames");
+require("leaflet-geonames");
 require("leaflet.locatecontrol");
 require("leaflet-gesture-handling");
 require("leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css");
