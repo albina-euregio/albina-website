@@ -323,6 +323,5 @@
   "defaults": {
     "language": "auto",
     "ampm": "am"
-  },
-  "version": "1.0.26, 22.01.2019 10:28"
+  }
 }

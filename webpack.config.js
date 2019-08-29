@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const {execSync} = require("child_process");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -73,8 +74,11 @@ module.exports = (env, argv) => {
         hash: true
       }),
       new webpack.DefinePlugin({
-        DEV: argv.mode !== "production",
-        VERSION: JSON.stringify(require("./package.json").version)
+        DEV: JSON.stringify(argv.mode !== "production"),
+        VERSION: JSON.stringify([
+          execSync('git describe --tags', {encoding: 'utf8'}).trim(),
+          execSync('git log -1 --format=%cd --date=short', {encoding: 'utf8'}).trim()
+        ].join(", "))
       }),
       new MiniCssExtractPlugin({
         filename: "[name].css",
