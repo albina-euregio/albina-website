@@ -66,6 +66,7 @@
     "babel-eslint": "^8.2.6",
     "babel-loader": "^8.0.6",
     "detect-browser": "^3.0.1",
+    "favicons-webpack-plugin": "^1.0.1",
     "intl": "^1.2.5",
     "is-es5-supported": "^1.0.0",
     "jquery": "^3.4.1",

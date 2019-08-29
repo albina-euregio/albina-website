@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const {execSync} = require("child_process");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
@@ -70,8 +71,12 @@ module.exports = (env, argv) => {
       new HtmlWebPackPlugin({
         template: "./index.html",
         filename: "./index.html",
-        favicon: "./images/fav/en/favicon.ico",
         hash: true
+      }),
+      new FaviconsWebpackPlugin({
+        logo: "./images/pro/logos/logo_mark_en.svg",
+        mode: "webapp",
+        devMode: "webapp",
       }),
       new webpack.DefinePlugin({
         DEV: JSON.stringify(argv.mode !== "production"),
