@@ -1,6 +1,7 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
 import L from "leaflet";
+require("leaflet/dist/leaflet.css");
 import {
   Map,
   TileLayer,

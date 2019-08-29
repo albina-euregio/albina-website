@@ -25,7 +25,6 @@ import isES5Supported from "is-es5-supported";
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require("../css/style.css");
 require("../css/app.scss"); // CSS overrides
-require("./../../node_modules/leaflet/dist/leaflet.css");
 
 // require('./js/custom.js');
 
