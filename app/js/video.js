@@ -1,3 +1,5 @@
+import fluidvids from "fluidvids.js";
+
 function video_init() {
 	fluidvids.init({
 		selector: [".fitvids iframe"], // runs querySelectorAll()

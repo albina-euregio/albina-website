@@ -31,9 +31,6 @@ require("./bower_components/magnific-popup_1.1.0/dist/jquery.magnific-popup.min.
 window[
   "tippy"
 ] = require("./bower_components/tippyjs_2.2.3/dist/tippy.all.min.js");
-window[
-  "fluidvids"
-] = require("./bower_components/fluidvids_2.4.1/dist/fluidvids.min.js");
 
 // TODO: check content API for maintenance mode before starting the app
 window["appStore"] = new AppStore();
