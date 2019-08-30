@@ -5,8 +5,7 @@ import {
   parseDate,
   getPredDate,
   dateToISODateString,
-  dateToLongDateString,
-  now
+  dateToLongDateString
 } from "../util/date.js";
 
 import flip from "@turf/flip";
@@ -403,7 +402,7 @@ class BulletinStore {
     // const dateParam = encodeURIComponent(date + 'T22:00:00Z')
     // const dateParam = encodeURIComponent(date + 'T00:00:00+02:00')
     const url =
-      config.get("apis.bulletin") + "?date=" + dateParam + "&hash=" + now();
+      config.get("apis.bulletin") + "?date=" + dateParam;
 
     return Base.doRequest(url).then(
       // query bulletin data
