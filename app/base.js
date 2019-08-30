@@ -89,11 +89,6 @@ var Base = {
     return searchParams.get(variable);
   },
 
-  now() {
-    const d = new Date();
-    return d.valueOf();
-  },
-
   makeSearch() {
     return new URLSearchParams(document.location.search.substring(1));
   },

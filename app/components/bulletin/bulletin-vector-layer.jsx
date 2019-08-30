@@ -2,7 +2,6 @@ import React from "react";
 import L from "leaflet";
 import { observer } from "mobx-react";
 import { GeoJSON, Pane, Polygon } from "react-leaflet";
-import Base from "./../../base";
 
 export default class BulletinVectorLayer extends React.Component {
   constructor(props) {
@@ -38,12 +37,6 @@ export default class BulletinVectorLayer extends React.Component {
       this.setState({ over: bid });
     }
   }
-
-  /*
-  componentDidUpdate() {
-    console.log("vector layer rendered in", Base.now() - this.t1);
-  }
-  */
 
   // checking if at least one region changed the status
   shouldComponentUpdate(nextProps, nextState) {
@@ -120,9 +113,6 @@ export default class BulletinVectorLayer extends React.Component {
   }
 
   render() {
-    //this.t1 = Base.now();
-    //console.log("rendering map");
-    // this has to be refactored
     return (
       <Pane key={this.uniqueKey}>
         {// not over state regions
