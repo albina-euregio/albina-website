@@ -143,11 +143,6 @@ function isAfter(d1, d2) {
   return d1.valueOf() > d2.valueOf();
 }
 
-function now() {
-  const date = new Date();
-  return date.valueOf();
-}
-
 /* strange function needed to know if the bulletin for the next day should be displayed */
 function todayIsTomorrow(todayDate, tomorrowHours, tomorrowMinutes) {
   return (
@@ -193,6 +188,5 @@ export {
   dateToISODateString,
   getDaysOfMonth,
   todayIsTomorrow,
-  now,
   latest
 };
