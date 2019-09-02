@@ -235,6 +235,10 @@ export default class BlogStore {
             window["config"].get("apis.blogger") + config.params.id + "/posts";
 
           const params = {
+            maxResults: 500,
+            fetchBodies: false,
+            fetchImages: true,
+            status: 'live',
             key: window["config"].get("apiKeys.google")
           };
           if (this.searchText) {
