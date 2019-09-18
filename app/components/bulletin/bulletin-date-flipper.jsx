@@ -9,16 +9,12 @@ import {
   getSuccDate,
   dateToISODateString,
   dateToDateString,
-  isAfter,
-  isSameDay,
-  todayIsTomorrow
+  isAfter
 } from "../../util/date.js";
 
-@observer
 class BulletinDateFlipper extends React.Component {
   constructor(props) {
     super(props);
-    this.DEV_MODE = false;
   }
 
   @computed get date() {
@@ -29,21 +25,10 @@ class BulletinDateFlipper extends React.Component {
     const d = this.date;
     if (d) {
       const next = getSuccDate(d);
+      const latest = parseDate(this.props.latest);
       /* show next day only it is not the future or if this day is after bulletin.isTomorrow value */
 
-      const now = new Date();
-      if (
-        this.DEV_MODE ||
-        (isSameDay(now, this.date) &&
-          todayIsTomorrow(
-            now,
-            config.get("bulletin.isTomorrow.hours"),
-            config.get("bulletin.isTomorrow.minutes")
-          )) ||
-        isAfter(now, next)
-      ) {
-        return next;
-      }
+      return isAfter(latest, next) ? next : undefined;
     }
     return undefined;
   }
@@ -60,17 +45,7 @@ class BulletinDateFlipper extends React.Component {
     const prevLink = dateToISODateString(this.prevDate);
     const nextLink = dateToISODateString(this.nextDate);
 
-    const now = new Date();
-    if (
-      todayIsTomorrow(
-        now,
-        config.get("bulletin.isTomorrow.hours"),
-        config.get("bulletin.isTomorrow.minutes")
-      )
-    ) {
-      now.setDate(now.getDate() + 1);
-    }
-    const latestLink = dateToISODateString(now);
+    const latestLink = this.props.latest ? this.props.latest : "";
 
     const prevDate = this.prevDate ? dateToDateString(this.prevDate) : "";
     const nextDate = this.nextDate ? dateToDateString(this.nextDate) : "";

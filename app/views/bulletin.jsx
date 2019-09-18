@@ -24,7 +24,6 @@ import {
   dateToDateString,
   dateToTimeString,
   todayIsTomorrow,
-  latest
 } from "../util/date.js";
 
 @observer
@@ -81,7 +80,7 @@ class Bulletin extends React.Component {
       if (newDate && newDate != this.store.settings.date) {
         this._fetchData(this.props);
       } else {
-        const l = dateToISODateString(latest());
+        const l = this.store.latest;
         if(l != this.store.settings.date) {
           this._fetchData(this.props);
         }
@@ -90,28 +89,14 @@ class Bulletin extends React.Component {
     this.checkRegion();
   }
 
-  validateDate(date) {
-    if (
-      todayIsTomorrow(
-        date,
-        config.get("bulletin.isTomorrow.hours"),
-        config.get("bulletin.isTomorrow.minutes")
-      )
-    ) {
-      date.setDate(date.getDate() + 1);
-    }
-    return date;
-  }
-
   _fetchData(props) {
     // console.log("props.match.params.date", props.match.params.date);
 
     /* if it is later than 5pm, add one day */
-    const now = this.validateDate(new Date());
     let startDate =
       props.match.params.date && parseDate(props.match.params.date)
         ? props.match.params.date
-        : dateToISODateString(now);
+        : this.store.latest;
 
     if (!this.props.match.params.date) {
       // update URL if necessary

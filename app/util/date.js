@@ -128,17 +128,7 @@ function isSameDay(d1, d2) {
     d1.getFullYear() == d2.getFullYear()
   );
 }
-function latest() {
-  const now = new Date();
-  const next = getSuccDate(now);
-  return todayIsTomorrow(
-    now,
-    config.get("bulletin.isTomorrow.hours"),
-    config.get("bulletin.isTomorrow.minutes")
-  )
-    ? next
-    : now;
-}
+
 function isAfter(d1, d2) {
   return d1.valueOf() > d2.valueOf();
 }
@@ -187,6 +177,5 @@ export {
   dateToLongDateString,
   dateToISODateString,
   getDaysOfMonth,
-  todayIsTomorrow,
-  latest
+  todayIsTomorrow
 };

@@ -57,7 +57,7 @@
   ],
   "apis": {
     "content": "https://api.avalanche.report/cms/",
-    "bulletin": "https://api.avalanche.report/albina/api/bulletins",
+    "bulletin": "https://api.avalanche.report/albina_dev/api/bulletins",
     "subscribe": "https://api.avalanche.report/albina/api/email",
     "geo": "https://avalanche.report/albina_files/",
     "blogger": "https://api.avalanche.report/blog/",
@@ -188,10 +188,9 @@
     ]
   },
   "bulletin": {
-    "isTomorrow": {
-      "hours": 17,
-      "minutes": 10
-    },
+    "latestBulletinSwitchTime_auto": "auto",
+    "latestBulletinSwitchTime": "17:05",
+    "checkForLatestInterval": 10,
     "noBulletinBanner": true
   },
   "map": {

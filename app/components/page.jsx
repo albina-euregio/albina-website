@@ -75,9 +75,9 @@ class Page extends React.Component {
     if (
       this.props.location.pathname === "" ||
       this.props.location.pathname === "/" ||
-      this.props.location.pathname === "/bulletin" ||
+      this.props.location.pathname === "/bulletin" /* FIXME: ||
       this.props.location.pathname ===
-        "/bulletin/" + dateToISODateString(latest())
+        "/bulletin/" + dateToISODateString(latest()) */
     ) {
       this.props.history.push({
         pathname: "/bulletin/latest",

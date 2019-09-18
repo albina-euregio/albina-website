@@ -3,12 +3,13 @@ import ArchiveStore from "./archiveStore.js";
 import { observable, action, computed, toJS } from "mobx";
 import {
   parseDate,
-  getPredDate,
-  dateToISODateString,
-  dateToLongDateString
+  getSuccDate,
+  todayIsTomorrow,
+  dateToISODateString
 } from "../util/date.js";
 
 import flip from "@turf/flip";
+import { autorun } from "../../node_modules/mobx/lib/mobx.js";
 
 class BulletinCollection {
   date;
@@ -105,6 +106,7 @@ class BulletinCollection {
 class BulletinStore {
   // TODO: add language support
   @observable bulletins = {};
+  @observable latest = null;
   settings = {};
   problems = {};
 
@@ -129,6 +131,50 @@ class BulletinStore {
       wet_snow: { highlighted: false },
       gliding_snow: { highlighted: false }
     });
+
+    console.log('TEST1');
+    if(config.get("bulletin.latestBulletinSwitchTime").match(/^\d{2}:\d{2}$/)) {
+      this.latest = dateToISODateString((() => {
+        const now = new Date();
+        const switchTime = config.get("bulletin.latestBulletinSwitchTime");
+        const matches = switchTime.match(/^(\d{2}):(\d{2})$/);
+      
+        if(matches && matches.length >= 3) {
+          const next = getSuccDate(now);
+          const hour = parseInt(matches[1]);
+          const minutes = parseInt(matches[2]);
+      
+          return todayIsTomorrow(now,hour,minutes)
+            ? next
+            : now;
+        }
+      
+        console.error("Misconfigured value for latestBulletinSwitchTime");
+        return now;
+      })());
+      console.log('LATEST: ' + this.latest);
+    } else {
+      this._latestBulletinChecker();
+    }
+  }
+
+  @action _latestBulletinChecker() {
+    console.log('TEST3');
+    Base.doRequest(config.get("apis.bulletin") + "/latest").then((response) => {
+      const parsedResponse = JSON.parse(response);
+      console.log('PARSED: ' + JSON.stringify(parsedResponse));
+      if(parsedResponse && parsedResponse.date) {
+        const now = new Date();
+        const today = parseDate(dateToISODateString(now));
+        const latest = Date.parse(parsedResponse.date);
+
+        this.latest = dateToISODateString((latest >= today) ? latest : today);
+        console.log('LATEST: ' + this.latest);
+      }
+    }).catch(() => {
+      console.error('Cannot get date of latest bulletin');
+    });
+    window.setTimeout(() => this._latestBulletinChecker(), config.get("bulletin.checkForLatestInterval") * 60000);
   }
 
   /**
@@ -388,27 +434,13 @@ class BulletinStore {
   }
 
   _loadBulletinData(date) {
-    // const prevDay = date => dateToISODateString(getPredDate(parseDate(date)))
-    const prevDay = date => dateToISODateString(parseDate(date));
-
-    // zulu time
-    /* const localTime = new Date(prevDay).valueOf() > 1540677600000
-      ? 'T23:00:00Z'
-      : 'T22:00:00Z'
-    */
     const dateParam = encodeURIComponent(date);
-    // const dateParam = encodeURIComponent(prevDay(date))
-    // const dateParam = encodeURIComponent(prevDay(date) + localTime)
-    // const dateParam = encodeURIComponent(date + 'T22:00:00Z')
-    // const dateParam = encodeURIComponent(date + 'T00:00:00+02:00')
     const url =
       config.get("apis.bulletin") + "?date=" + dateParam;
 
     return Base.doRequest(url).then(
       // query bulletin data
       response => {
-        //console.log("this is where the collection is filled from", url);
-        //console.log("and this is the response", JSON.parse(response));
         this.bulletins[date].setData(JSON.parse(response));
       },
       error => {
