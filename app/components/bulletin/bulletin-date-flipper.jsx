@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { observer, inject } from "mobx-react";
+import { inject } from "mobx-react";
 import { computed } from "mobx";
 import { injectIntl } from "react-intl";
 import {
@@ -9,6 +9,7 @@ import {
   getSuccDate,
   dateToISODateString,
   dateToDateString,
+  isSameDay,
   isAfter
 } from "../../util/date.js";
 
@@ -18,17 +19,17 @@ class BulletinDateFlipper extends React.Component {
   }
 
   @computed get date() {
-    return parseDate(this.props.date);
+    return this.props.date ? parseDate(this.props.date) : null;
   }
 
   @computed get nextDate() {
     const d = this.date;
-    if (d) {
+    if (d && this.props.latest) {
       const next = getSuccDate(d);
       const latest = parseDate(this.props.latest);
       /* show next day only it is not the future or if this day is after bulletin.isTomorrow value */
 
-      return isAfter(latest, next) ? next : undefined;
+      return (isSameDay(latest, next) || isAfter(latest, next)) ? next : undefined;
     }
     return undefined;
   }
@@ -112,4 +113,4 @@ class BulletinDateFlipper extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(BulletinDateFlipper)));
+export default inject("locale")(injectIntl(BulletinDateFlipper));

@@ -30,7 +30,6 @@ import { video_init } from "../js/video";
 
 import { scroll_init, scroll } from "../js/scroll";
 
-@observer
 class Page extends React.Component {
   constructor(props) {
     super(props);
@@ -75,9 +74,8 @@ class Page extends React.Component {
     if (
       this.props.location.pathname === "" ||
       this.props.location.pathname === "/" ||
-      this.props.location.pathname === "/bulletin" /* FIXME: ||
-      this.props.location.pathname ===
-        "/bulletin/" + dateToISODateString(latest()) */
+      this.props.location.pathname === "/bulletin" ||
+      (window.bulletinStore && window.bulletinStore.latest && this.props.location.pathname === "/bulletin/" + window.bulletinStore.latest)
     ) {
       this.props.history.push({
         pathname: "/bulletin/latest",

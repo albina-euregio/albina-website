@@ -48,7 +48,6 @@ class BulletinHeader extends React.Component {
             {this.date} <BulletinAmPmSwitch store={this.props.store} />
           </h1>
           <BulletinDateFlipper
-            store={this.props.store}
             date={this.props.store.settings.date}
             latest={this.props.store.latest}
           />

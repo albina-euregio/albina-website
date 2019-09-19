@@ -132,7 +132,6 @@ class BulletinStore {
       gliding_snow: { highlighted: false }
     });
 
-    console.log('TEST1');
     if(config.get("bulletin.latestBulletinSwitchTime").match(/^\d{2}:\d{2}$/)) {
       this.latest = dateToISODateString((() => {
         const now = new Date();
@@ -159,10 +158,8 @@ class BulletinStore {
   }
 
   @action _latestBulletinChecker() {
-    console.log('TEST3');
     Base.doRequest(config.get("apis.bulletin") + "/latest").then((response) => {
       const parsedResponse = JSON.parse(response);
-      console.log('PARSED: ' + JSON.stringify(parsedResponse));
       if(parsedResponse && parsedResponse.date) {
         const now = new Date();
         const today = parseDate(dateToISODateString(now));

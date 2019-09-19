@@ -188,8 +188,8 @@
     ]
   },
   "bulletin": {
-    "latestBulletinSwitchTime_auto": "auto",
-    "latestBulletinSwitchTime": "17:05",
+    "latestBulletinSwitchTime": "auto",
+    "latestBulletinSwitchTime_manual": "17:05",
     "checkForLatestInterval": 10,
     "noBulletinBanner": true
   },
