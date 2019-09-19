@@ -5,7 +5,7 @@ import { observer, inject } from "mobx-react";
 import { injectIntl, FormattedMessage } from "react-intl";
 import Menu from "./../menu";
 import Base from "./../../base";
-import stringInject from "stringinject";
+import { Util } from "leaflet";
 
 class PageHeader extends React.Component {
   constructor(props) {
@@ -136,7 +136,7 @@ class PageHeader extends React.Component {
         </div>
         <div className="page-header-euregio">
           <a
-            href={stringInject(config.get("links.interreg"), {
+            href={Util.template(config.get("links.interreg"), {
               lang: lang
             })}
             className="logo-euregio tooltip"

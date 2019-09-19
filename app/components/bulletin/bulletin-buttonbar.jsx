@@ -1,7 +1,7 @@
 import React from "react";
 import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
-import stringInject from "stringinject";
+import { Util } from "leaflet";
 import { modal_init } from "../../js/modal";
 
 class BulletinButtonbar extends React.Component {
@@ -50,7 +50,7 @@ class BulletinButtonbar extends React.Component {
                     </a>
                     {false && (
                       <a
-                        href={stringInject(config.get("links.downloads.pdf"), {
+                        href={Util.template(config.get("links.downloads.pdf"), {
                           date: this.props.store.settings.date,
                           lang: window["appStore"].language
                         })}

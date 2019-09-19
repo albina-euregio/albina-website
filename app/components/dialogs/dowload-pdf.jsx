@@ -1,7 +1,7 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
-import stringInject from "stringinject";
+import { Util } from "leaflet";
 
 import ProvinceFilter from "../filters/province-filter";
 import PdfModeFilter from "../filters/pdfmode-filter";
@@ -37,7 +37,7 @@ class DonwloadPdfDialog extends React.Component {
         links["base"] +
         links["pdf" + (isRegion ? "-region" : "") + (isBw ? "-bw" : "")];
 
-      return stringInject(link, {
+      return Util.template(link, {
         date: window["bulletinStore"].settings.date,
         lang: window["appStore"].language,
         region: this.state.region
