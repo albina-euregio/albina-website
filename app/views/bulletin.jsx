@@ -18,6 +18,7 @@ import HTMLHeader from "../components/organisms/html-header";
 import { parseDate, dateToISODateString, dateToLongDateString } from "../util/date.js";
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
+import { runInThisContext } from "vm";
 
 @observer
 class Bulletin extends React.Component {
@@ -68,23 +69,26 @@ class Bulletin extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      const newDate = this.props.match.params.date;
-      if (newDate && newDate != this.store.settings.date) {
-        this._fetchData(this.props);
-      } 
-    } else if((typeof(this.props.match.params.date) === 'undefined')
-      && this.store.latest
-      && this.store.latest != this.store.settings.date) {
-       this._fetchData(this.props);
+    const updateConditions = [
+      // update when date changes to YEAR-MONTH-DAY format
+      this.props.location !== prevProps.location 
+        && this.props.match.params.date
+        && this.props.match.params.date != this.store.settings.date,
+
+      // update when date changes to "latest"
+      typeof(this.props.match.params.date) === 'undefined'
+        && this.store.latest
+        && this.store.latest != this.store.settings.date
+    ];
+
+    if(updateConditions.reduce((acc, cond) => acc || cond, false)) {
+      // if any update condition holds
+      this._fetchData(this.props);
     }
     this.checkRegion();
   }
 
   _fetchData(props) {
-    // console.log("props.match.params.date", props.match.params.date);
-
-    /* if it is later than 5pm, add one day */
     let startDate =
       props.match.params.date && parseDate(props.match.params.date)
         ? props.match.params.date
