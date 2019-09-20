@@ -68,14 +68,14 @@ class Bulletin extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('TEST ' + JSON.stringify(this.props.match.params));
-
     if (this.props.location !== prevProps.location) {
       const newDate = this.props.match.params.date;
       if (newDate && newDate != this.store.settings.date) {
         this._fetchData(this.props);
       } 
-    } else if(!this.props.match.params.date && this.store.latest && this.store.latest != this.store.settings.date) {
+    } else if((typeof(this.props.match.params.date) === 'undefined')
+      && this.store.latest
+      && this.store.latest != this.store.settings.date) {
        this._fetchData(this.props);
     }
     this.checkRegion();
@@ -98,7 +98,6 @@ class Bulletin extends React.Component {
       });
     }
 
-    console.log('LOAD: ' + startDate);
     return this.store.load(startDate);
   }
 

@@ -151,7 +151,6 @@ class BulletinStore {
         console.error("Misconfigured value for latestBulletinSwitchTime");
         return now;
       })());
-      console.log('LATEST: ' + this.latest);
     } else {
       this._latestBulletinChecker();
     }
@@ -159,7 +158,6 @@ class BulletinStore {
 
   @action _latestBulletinChecker() {
     Base.doRequest(config.get("apis.bulletin") + "/latest").then((response) => {
-    //Base.doRequest("http://localhost/latest.json").then((response) => {
       const parsedResponse = JSON.parse(response);
       if(parsedResponse && parsedResponse.date) {
         const now = new Date();
@@ -167,7 +165,6 @@ class BulletinStore {
         const latest = new Date(parsedResponse.date);
 
         this.latest = dateToISODateString((latest >= today) ? latest : today);
-        console.log('LATEST: ' + this.latest);
       }
     }).catch(() => {
       console.error('Cannot get date of latest bulletin');
