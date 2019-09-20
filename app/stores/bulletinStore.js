@@ -159,11 +159,12 @@ class BulletinStore {
 
   @action _latestBulletinChecker() {
     Base.doRequest(config.get("apis.bulletin") + "/latest").then((response) => {
+    //Base.doRequest("http://localhost/latest.json").then((response) => {
       const parsedResponse = JSON.parse(response);
       if(parsedResponse && parsedResponse.date) {
         const now = new Date();
         const today = parseDate(dateToISODateString(now));
-        const latest = Date.parse(parsedResponse.date);
+        const latest = new Date(parsedResponse.date);
 
         this.latest = dateToISODateString((latest >= today) ? latest : today);
         console.log('LATEST: ' + this.latest);
