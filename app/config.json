@@ -57,7 +57,7 @@
   ],
   "apis": {
     "content": "https://api.avalanche.report/cms/",
-    "bulletin": "https://api.avalanche.report/albina_dev/api/bulletins",
+    "bulletin": "https://api.avalanche.report/albina/api/bulletins",
     "subscribe": "https://api.avalanche.report/albina/api/email",
     "geo": "https://avalanche.report/albina_files/",
     "blogger": "https://api.avalanche.report/blog/",
@@ -188,8 +188,8 @@
     ]
   },
   "bulletin": {
-    "latestBulletinSwitchTime": "auto",
-    "latestBulletinSwitchTime_manual": "17:05",
+    "latestBulletinSwitchTime_auto": "auto",
+    "latestBulletinSwitchTime": "17:10",
     "checkForLatestInterval": 10,
     "noBulletinBanner": true
   },
