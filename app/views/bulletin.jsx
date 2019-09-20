@@ -1,6 +1,5 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Parser } from "html-to-react";
 import { preprocessContent } from "../util/htmlParser";
 import { reaction } from "mobx";
 import { observer, inject } from "mobx-react";
@@ -19,12 +18,6 @@ import HTMLHeader from "../components/organisms/html-header";
 import { parseDate, dateToISODateString, dateToLongDateString } from "../util/date.js";
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
-import { configure } from "../../node_modules/mobx/lib/mobx";
-import {
-  dateToDateString,
-  dateToTimeString,
-  todayIsTomorrow,
-} from "../util/date.js";
 
 @observer
 class Bulletin extends React.Component {
@@ -75,16 +68,15 @@ class Bulletin extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log('TEST ' + JSON.stringify(this.props.match.params));
+
     if (this.props.location !== prevProps.location) {
       const newDate = this.props.match.params.date;
       if (newDate && newDate != this.store.settings.date) {
         this._fetchData(this.props);
-      } else {
-        const l = this.store.latest;
-        if(l != this.store.settings.date) {
-          this._fetchData(this.props);
-        }
-      }
+      } 
+    } else if(!this.props.match.params.date && this.store.latest && this.store.latest != this.store.settings.date) {
+       this._fetchData(this.props);
     }
     this.checkRegion();
   }
@@ -98,14 +90,15 @@ class Bulletin extends React.Component {
         ? props.match.params.date
         : this.store.latest;
 
-    if (!this.props.match.params.date) {
+    if (!props.match.params.date || props.match.params.date == this.store.latest) {
       // update URL if necessary
-      this.props.history.push({
+      this.props.history.replace({
         pathname: "/bulletin/latest",
         search: document.location.search.substring(1)
       });
     }
 
+    console.log('LOAD: ' + startDate);
     return this.store.load(startDate);
   }
 

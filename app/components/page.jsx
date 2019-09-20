@@ -5,11 +5,9 @@ import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
 import MenuStore from "../stores/menuStore";
-import { observer, inject } from "mobx-react";
+import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
-import { dateToISODateString, latest } from "../util/date.js";
 
-import Base from "./../base";
 import ModalDialog from "./modal-dialog";
 import FollowDialog from "./dialogs/follow-dialog";
 import SubscribeDialog from "./dialogs/subscribe-dialog";
@@ -74,8 +72,7 @@ class Page extends React.Component {
     if (
       this.props.location.pathname === "" ||
       this.props.location.pathname === "/" ||
-      this.props.location.pathname === "/bulletin" ||
-      (window.bulletinStore && window.bulletinStore.latest && this.props.location.pathname === "/bulletin/" + window.bulletinStore.latest)
+      this.props.location.pathname === "/bulletin"
     ) {
       this.props.history.push({
         pathname: "/bulletin/latest",

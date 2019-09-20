@@ -8,6 +8,7 @@ import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
 import BulletinStatusLine from "./bulletin-status-line.jsx";
 import { parseDate, dateToLongDateString } from "../../util/date.js";
 
+@observer
 class BulletinHeader extends React.Component {
   constructor(props) {
     super(props);
@@ -56,4 +57,4 @@ class BulletinHeader extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(observer(BulletinHeader)));
+export default inject("locale")(injectIntl(BulletinHeader));
