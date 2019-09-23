@@ -80,6 +80,8 @@ class BulletinDaytimeReport extends React.Component {
             >
               <BulletinAWMapStatic
                 store={this.props.store}
+                date={this.props.store.settings.date}
+                region={this.props.fullBulletin.id}
                 bulletin={this.props.fullBulletin}
                 ampm={this.props.ampm}
               />

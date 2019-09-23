@@ -1,5 +1,5 @@
 import React from 'react';
-import { observer, inject } from 'mobx-react';
+import { inject } from 'mobx-react';
 import { injectIntl } from 'react-intl';
 
 class BulletinAWMapStatic extends React.Component {
@@ -9,9 +9,8 @@ class BulletinAWMapStatic extends React.Component {
 
   render() {
     const url = window['config'].get('apis.geo')
-      + this.props.store.settings.date + '/'
-      + this.props.store.settings.region
-      //+ (this.props.bulletin.hasDaytimeDependency ? ('_' + this.props.store.settings.ampm.toUpperCase()) : '')
+      + this.props.date + '/'
+      + this.props.region
       + ((this.props.bulletin.hasDaytimeDependency && this.props.ampm == 'pm') ? '_PM' : '')
       + '.jpg';
 
@@ -22,4 +21,4 @@ class BulletinAWMapStatic extends React.Component {
   }
 }
 
-export default inject('locale')(injectIntl(observer(BulletinAWMapStatic)));
+export default inject('locale')(injectIntl(BulletinAWMapStatic));
