@@ -1,8 +1,6 @@
 import React from "react";
-import { observer } from "mobx-react";
 import BulletinReport from "./bulletin-report";
 
-@observer
 export default class BulletinList extends React.Component {
     constructor(props) {
         super(props);
