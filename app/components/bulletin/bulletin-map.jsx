@@ -184,7 +184,7 @@ class BulletinMap extends React.Component {
               />
               {this.props.store.settings.region && (
                 <a
-                  href="#section-bulletin-buttonbar"
+                  href={"#" + this.props.store.settings.region}
                   className="pure-button tooltip"
                   title={this.props.intl.formatMessage({
                     id: "bulletin:map:info:details:hover"
