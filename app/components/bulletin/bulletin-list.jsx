@@ -10,20 +10,17 @@ export default class BulletinList extends React.Component {
 
     get bulletins() {
         const collection = this.props.bulletinCollection;
-
         return collection.regions.map((rId) => collection.getBulletinForRegion(rId));
     }
 
     render() {
-        const activeRegion =this.props.store.activeBulletin ? this.props.store.activeBulletin.id : null;
         return (
             <ul className="bulletin-list">
                 {this.bulletins.map((bulletin) =>
-                    <li key={bulletin.id} className={(bulletin.id === activeRegion) ? "selected" : ""}>
-                        { (bulletin.id === activeRegion) 
-                            ? <BulletinReport bulletin={bulletin} date={this.props.store.settings.date} />
-                            : <BulletinReport bulletin={bulletin} date={this.props.store.settings.date} />
-                        }
+                    <li id={bulletin.id} 
+                        key={bulletin.id} 
+                        className={(bulletin.id === this.props.store.settings.region) ? "selected" : ""}>
+                        { <BulletinReport bulletin={bulletin} date={this.props.store.settings.date} /> }
                     </li>
                 )}
             </ul>
