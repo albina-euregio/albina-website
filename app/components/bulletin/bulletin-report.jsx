@@ -131,7 +131,7 @@ class BulletinReport extends React.Component {
                   id="bulletin:report:headline"
                   values={{
                     date: dateToLongDateString(
-                      parseDate(this.props.store.settings.date)
+                      parseDate(this.props.date)
                     ),
                     daytime: ""
                   }}
@@ -159,9 +159,9 @@ class BulletinReport extends React.Component {
               <BulletinDaytimeReport
                 key={ampm}
                 bulletin={daytimeBulletins[ampm]}
-                fullBulletin={this.props.bulletin}
+                date={this.props.date}
+                fullBulletin={bulletin}
                 ampm={ampm == "fd" ? "" : ampm}
-                store={this.props.store}
               />
             ))}
             <h2 className="subheader">
