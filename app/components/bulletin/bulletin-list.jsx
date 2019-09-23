@@ -19,7 +19,7 @@ export default class BulletinList extends React.Component {
                 {this.bulletins.map((bulletin) =>
                     <li id={bulletin.id} 
                         key={bulletin.id} 
-                        className={(bulletin.id === this.props.store.settings.region) ? "selected" : ""}>
+                        className={"bulletin-list-item" + ((bulletin.id === this.props.store.settings.region) ? " selected" : "")}>
                         { <BulletinReport bulletin={bulletin} date={this.props.store.settings.date} /> }
                     </li>
                 )}
