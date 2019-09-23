@@ -1,6 +1,8 @@
 import React from "react";
+import { observer } from "mobx-react";
 import BulletinReport from "./bulletin-report";
 
+@observer
 export default class BulletinList extends React.Component {
     constructor(props) {
         super(props);
@@ -14,6 +16,7 @@ export default class BulletinList extends React.Component {
     }
 
     render() {
+        const activeRegion =this.props.store.activeBulletin ? this.props.store.activeBulletin.id : null;
         return (
             <ul className="bulletin-list">
                 {this.bulletins.map((bulletin) =>
