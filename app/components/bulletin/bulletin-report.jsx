@@ -65,44 +65,6 @@ class BulletinReport extends React.Component {
     return "";
   }
 
-  getMaxWarnlevel(daytimeBulletins) {
-    const defaultLevel = {
-      number: 0,
-      id: "no_rating"
-    };
-
-    const comparator = (acc, w) => {
-      if (acc.number < w.number) {
-        return w;
-      }
-      // else prefer no_snow over no_rating
-      if (acc.number == 0 && acc.id == "no_rating" && w.id == "no_snow") {
-        return w;
-      }
-      return acc;
-    };
-
-    return Object.values(daytimeBulletins)
-      .map(b => {
-        const warnlevels = [];
-        if (b.dangerRatingAbove) {
-          warnlevels.push({
-            number: window["appStore"].getWarnlevelNumber(b.dangerRatingAbove),
-            id: b.dangerRatingAbove
-          });
-        }
-        if (b.dangerRatingBelow) {
-          warnlevels.push({
-            number: window["appStore"].getWarnlevelNumber(b.dangerRatingBelow),
-            id: b.dangerRatingBelow
-          });
-        }
-        // get the maximum for each daytime
-        return warnlevels.reduce(comparator, defaultLevel);
-      })
-      .reduce(comparator, defaultLevel); // return the total maximum
-  }
-
   render() {
     const bulletin = this.props.bulletin;
     if (!bulletin) {
@@ -110,7 +72,7 @@ class BulletinReport extends React.Component {
     }
 
     const daytimeBulletins = this.daytimeBulletins;
-    const maxWarnlevel = this.getMaxWarnlevel(daytimeBulletins);
+    const maxWarnlevel = bulletin.maxWarnlevel;
     const classes = "panel field callout warning-level-" + maxWarnlevel.number;
     const link =
       "/education/dangerscale?lang=" +

@@ -10,7 +10,9 @@ export default class BulletinList extends React.Component {
 
     get bulletins() {
         const collection = this.props.bulletinCollection;
-        return collection.regions.map((rId) => collection.getBulletinForRegion(rId));
+        const list = collection.regions.map((rId) => collection.getBulletinForRegion(rId));
+        list.sort((b1,b2) => b1.maxWarnlevel.number < b2.maxWarnlevel.number);
+        return list;
     }
 
     render() {
