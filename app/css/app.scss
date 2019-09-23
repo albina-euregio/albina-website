@@ -167,6 +167,15 @@ a.pure-button.emphasized:hover {
   opacity: 1;
 }
 
+.bulletin-list-item {
+  list-style-type: none;
+  padding-bottom: 5em;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
 /* Tendency steady icon */
 .icon-arrow-steady::before {
   content: "\E817";
