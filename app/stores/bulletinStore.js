@@ -27,11 +27,11 @@ class BulletinCollection {
   }
 
   get regions() {
-    if (this.status != "ok") {
-      return [];
+    if(this.length > 0) {
+      return this.getData().map(el => el.id);
     }
 
-    return []; // TODO implement
+    return [];
   }
 
   get problems() {
@@ -68,6 +68,13 @@ class BulletinCollection {
       }, false);
     }
     return false;
+  }
+
+  getBulletinForRegion(regionId) {
+    if(this.length > 0) {
+      return this.getData().find((el) => el.id == regionId);
+    }
+    return null;
   }
 
   getData() {
@@ -319,31 +326,15 @@ class BulletinStore {
    *   this.date, this.ampm and this.region
    */
   get activeBulletin() {
-    return this.getBulletinForRegion(this.settings.region);
-  }
-
-  getBulletinForRegion(regionId) {
-    //console.log("getting bulletin", regionId);
-    const collection = this.activeBulletinCollection;
-
-    /*
-    if (collection && collection.length > 0) {
-      console.log("collection", collection.getData().map(el => el.id));
+    if(this.activeBulletinCollection) {
+      return this.activeBulletinCollection.getBulletinForRegion(this.settings.region);
     }
-    */
-
-    if (collection && collection.length > 0) {
-      return collection.getData().find(el => {
-        return el.id == regionId;
-      });
-    }
-
     return null;
   }
 
   getProblemsForRegion(regionId) {
     const problems = [];
-    const b = this.getBulletinForRegion(regionId);
+    const b = this.activeBulletinCollection.getBulletinForRegion(regionId);
     if (b) {
       const daytime =
         b.hasDaytimeDependency && this.settings.ampm == "pm"

@@ -27,7 +27,7 @@ class BulletinReport extends React.Component {
 
   @computed
   get daytimeBulletins() {
-    const bulletin = this.props.store.activeBulletin;
+    const bulletin = this.props.bulletin;
     const bs = {};
     if (bulletin.hasDaytimeDependency) {
       bs["am"] = bulletin["forenoon"];
@@ -40,7 +40,7 @@ class BulletinReport extends React.Component {
 
   @computed
   get dangerPatterns() {
-    const bulletin = this.props.store.activeBulletin;
+    const bulletin = this.props.bulletin;
     const dangerPatterns = [];
     if (bulletin.dangerPattern1) {
       dangerPatterns.push(bulletin.dangerPattern1);
@@ -104,7 +104,7 @@ class BulletinReport extends React.Component {
   }
 
   render() {
-    const bulletin = this.props.store.activeBulletin;
+    const bulletin = this.props.bulletin;
     if (!bulletin) {
       return <div />;
     }
