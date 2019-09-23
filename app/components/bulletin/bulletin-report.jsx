@@ -159,7 +159,7 @@ class BulletinReport extends React.Component {
               <BulletinDaytimeReport
                 key={ampm}
                 bulletin={daytimeBulletins[ampm]}
-                fullBulletin={bulletin}
+                fullBulletin={this.props.bulletin}
                 ampm={ampm == "fd" ? "" : ampm}
                 store={this.props.store}
               />
