@@ -16,7 +16,6 @@ export default class BulletinList extends React.Component {
     }
 
     render() {
-        const activeRegion =this.props.store.activeBulletin ? this.props.store.activeBulletin.id : null;
         return (
             <ul className="bulletin-list">
                 {this.bulletins.map((bulletin) =>
