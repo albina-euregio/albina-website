@@ -8,15 +8,11 @@ class BulletinAWMapStatic extends React.Component {
   }
 
   render() {
-    const url =
-      window["config"].get("apis.geo") +
-      this.props.date +
-      "/" +
-      this.props.region +
-      ((this.props.bulletin.hasDaytimeDependency && this.props.ampm == "pm") 
-        ? "_PM"
-        : "") +
-      ".jpg";
+    const url = window['config'].get('apis.geo')
+      + this.props.store.settings.date + '/'
+      + this.props.store.settings.region
+      + ((this.props.bulletin.hasDaytimeDependency && this.props.ampm == 'pm') ? '_PM' : '')
+      + '.jpg';
 
     return (
       <img

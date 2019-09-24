@@ -150,27 +150,18 @@ class Bulletin extends React.Component {
     // console.log('rendering bulletin view(0)', this.store.vectorRegions)
     // console.log('rendering bulletin ', this.store.bulletins)
 
-    const shareDescription =
-      this.state.title && this.store.settings.date
-        ? collection
-          ? this.state.title +
-            " | " +
-            dateToLongDateString(parseDate(this.store.settings.date))
-          : this.props.intl
-              .formatMessage({ id: "bulletin:header:no-bulletin-info" })
-              .replace(/<\/?a>/g, "")
-        : "";
+    const shareDescription = (this.state.title && this.store.settings.date) ? (
+      collection
+        ? (this.state.title + ' | ' + dateToLongDateString(parseDate(this.store.settings.date)))
+        : this.props.intl.formatMessage({id: "bulletin:header:no-bulletin-info"}).replace(/<\/?a>/g, '')
+    ) : "";
 
-    const shareImage =
-      collection && this.store.settings.date
-        ? config.get("apis.geo") +
-          this.store.settings.date +
-          "/" +
-          (collection.hasDaytimeDependency()
-            ? this.store.settings.ampm
-            : "fd") +
-          "_albina_map.jpg"
-        : "";
+    const shareImage = (collection && this.store.settings.date) ? (
+      config.get('apis.geo') + this.store.settings.date + "/"
+      + (collection.hasDaytimeDependency() ? "am" : "fd") // FIXME: there should be a way to share "am" AND "pm" map
+      + "_albina_map.jpg"
+    ) :
+    "";
 
     return (
       <div>
@@ -196,7 +187,7 @@ class Bulletin extends React.Component {
                   history={this.props.history}
                   store={this.store}
                   highlightedRegion={this.state.highlightedRegion}
-                  regions={this.store.vectorRegions}
+                  regions={this.store.getVectorRegions(daytime)}
                   ampm={daytime}
                 />
               )}
@@ -208,7 +199,7 @@ class Bulletin extends React.Component {
               history={this.props.history}
               store={this.store}
               highlightedRegion={this.state.highlightedRegion}
-              regions={this.store.vectorRegions}
+              regions={this.store.getVectorRegions()}
             />
         }
         <BulletinLegend
