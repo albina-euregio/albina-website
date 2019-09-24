@@ -150,7 +150,7 @@ class Bulletin extends React.Component {
 
     const shareImage = (collection && this.store.settings.date) ? (
       config.get('apis.geo') + this.store.settings.date + "/"
-      + (collection.hasDaytimeDependency() ? this.store.settings.ampm : "fd")
+      + (collection.hasDaytimeDependency() ? "am" : "fd") // FIXME: there should be a way to share "am" AND "pm" map
       + "_albina_map.jpg"
     ) :
     "";
@@ -175,7 +175,7 @@ class Bulletin extends React.Component {
                   history={this.props.history}
                   store={this.store}
                   highlightedRegion={this.state.highlightedRegion}
-                  regions={this.store.vectorRegions}
+                  regions={this.store.getVectorRegions(daytime)}
                   ampm={daytime}
                 />
               )}
@@ -187,7 +187,7 @@ class Bulletin extends React.Component {
               history={this.props.history}
               store={this.store}
               highlightedRegion={this.state.highlightedRegion}
-              regions={this.store.vectorRegions}
+              regions={this.store.getVectorRegions()}
             />
         }
         <BulletinLegend
