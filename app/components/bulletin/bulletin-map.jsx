@@ -27,11 +27,11 @@ class BulletinMap extends React.Component {
     map.on("click", e => {
       this.props.handleSelectRegion(null);
     });
-  };
+
     if(typeof this.props.onMapInit === 'function') {
       this.props.onMapInit(map);
     }
-  }
+  };
 
   styleOverMap() {
     return {
