@@ -182,6 +182,9 @@ class BulletinMap extends React.Component {
               )}
             </div>
           )}
+          {this.props.ampm && 
+            <div className="bulletin-map-daytime">{this.props.ampm}</div>
+          }
         </div>
       </section>
     );
