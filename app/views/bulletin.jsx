@@ -164,15 +164,32 @@ class Bulletin extends React.Component {
           }} />
         <BulletinHeader store={this.store} title={this.state.title} />
 
-        <BulletinMap
-          handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
-          handleSelectRegion={this.handleSelectRegion.bind(this)}
-          date={this.props.match.params.date}
-          history={this.props.history}
-          store={this.store}
-          highlightedRegion={this.state.highlightedRegion}
-          regions={this.store.vectorRegions}
-        />
+        { (this.store.activeBulletinCollection && this.store.activeBulletinCollection.hasDaytimeDependency)
+          ? <div className="bulletin-parallel-view">{
+              ["am", "pm"].map((daytime) => 
+                <BulletinMap
+                  key={daytime}
+                  handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+                  handleSelectRegion={this.handleSelectRegion.bind(this)}
+                  date={this.props.match.params.date}
+                  history={this.props.history}
+                  store={this.store}
+                  highlightedRegion={this.state.highlightedRegion}
+                  regions={this.store.vectorRegions}
+                  ampm={daytime}
+                />
+              )}
+            </div>
+          : <BulletinMap
+              handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+              handleSelectRegion={this.handleSelectRegion.bind(this)}
+              date={this.props.match.params.date}
+              history={this.props.history}
+              store={this.store}
+              highlightedRegion={this.state.highlightedRegion}
+              regions={this.store.vectorRegions}
+            />
+        }
         <BulletinLegend
           handleSelectRegion={this.handleSelectRegion.bind(this)}
           problems={this.store.problems}
