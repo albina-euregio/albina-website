@@ -268,6 +268,11 @@ a.pure-button.emphasized:hover {
   background: rgba(245, 245, 245, 0.95);
 }
 
+.bulletin-parallel-view .section-bulletin-map {
+  width: 50%;
+  display: inline-block;
+}
+
 .leaflet-control.zamg-logo-container {
   position: absolute;
   float: none;
