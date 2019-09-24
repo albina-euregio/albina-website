@@ -38,7 +38,7 @@ class BulletinMap extends React.Component {
     const b = this.props.store.activeBulletinCollection;
     if (b) {
       const daytime = b.hasDaytimeDependency()
-        ? this.props.store.settings.ampm
+        ? this.props.ampm
         : "fd";
 
       const url =
@@ -177,6 +177,7 @@ class BulletinMap extends React.Component {
               <BulletinMapDetails
                 store={this.props.store}
                 bulletin={hlBulletin}
+                ampm={this.props.ampm}
               />
               {this.props.store.settings.region && (
                 <a
