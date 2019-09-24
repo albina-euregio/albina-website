@@ -176,7 +176,7 @@ class Bulletin extends React.Component {
         />
         <BulletinHeader store={this.store} title={this.state.title} />
 
-        { (this.store.activeBulletinCollection && this.store.activeBulletinCollection.hasDaytimeDependency)
+        { (this.store.activeBulletinCollection && this.store.activeBulletinCollection.hasDaytimeDependency())
           ? <div className="bulletin-parallel-view">{
               ["am", "pm"].map((daytime) => 
                 <BulletinMap
