@@ -269,8 +269,23 @@ a.pure-button.emphasized:hover {
 }
 
 .bulletin-parallel-view .section-bulletin-map {
-  width: 50%;
-  display: inline-block;
+  width: 100%;
+  display: block;
+
+  &:first-child {
+    border-bottom: 1px solid #ccc;
+    border-right: none;
+  }
+
+  @media only screen and (min-width: 64em) {
+    width: 50%;
+    display: inline-block;
+
+    &:first-child {
+      border-bottom: none;
+      border-right: 1px solid #ccc;
+    }
+  }
 }
 
 .leaflet-control.zamg-logo-container {
