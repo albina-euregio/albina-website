@@ -46,7 +46,7 @@ class BulletinHeader extends React.Component {
           />
           <h2 className="subheader">{this.props.title}</h2>
           <h1 className="bulletin-datetime-validity">
-            {this.date} <BulletinAmPmSwitch store={this.props.store} />
+            {this.date}
           </h1>
           <BulletinDateFlipper
             date={this.props.store.settings.date}

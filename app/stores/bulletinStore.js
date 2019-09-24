@@ -119,8 +119,7 @@ class BulletinStore {
     this.settings = observable({
       status: "",
       date: "",
-      region: "",
-      ampm: config.get("defaults.ampm")
+      region: ""
     });
     this.bulletins = {};
 
@@ -257,22 +256,6 @@ class BulletinStore {
     }
   }
 
-  /**
-   * Set the current active 'am'/'pm' state.
-   * @param ampm A string 'am' or 'pm'.
-   */
-  @action setAmPm(ampm) {
-    switch (ampm) {
-      case "am":
-      case "pm":
-        this.settings.ampm = ampm;
-        break;
-
-      default:
-        break;
-    }
-  }
-
   @action setRegion(id) {
     this.settings.region = id;
   }
@@ -341,12 +324,12 @@ class BulletinStore {
     return null;
   }
 
-  getProblemsForRegion(regionId) {
+  getProblemsForRegion(regionId, ampm = null) {
     const problems = [];
     const b = this.getBulletinForRegion(regionId);
     if (b) {
       const daytime =
-        b.hasDaytimeDependency && this.settings.ampm == "pm"
+        b.hasDaytimeDependency && ampm == "pm"
           ? "afternoon"
           : "forenoon";
       const daytimeBulletin = b[daytime];
@@ -363,7 +346,7 @@ class BulletinStore {
     }
   }
 
-  getRegionState(regionId) {
+  getRegionState(regionId, ampm = null) {
     if (this.settings.region && this.settings.region === regionId) {
       return "selected";
     }
@@ -373,7 +356,7 @@ class BulletinStore {
     }
 
     const checkHighlight = rId => {
-      const problems = this.getProblemsForRegion(rId);
+      const problems = this.getProblemsForRegion(rId, ampm);
       return problems.some(
         p => this.problems[p] && this.problems[p].highlighted
       );
@@ -391,7 +374,7 @@ class BulletinStore {
   }
 
   // assign states to regions
-  @computed get vectorRegions() {
+  getVectorRegions(ampm = null) {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
@@ -401,7 +384,7 @@ class BulletinStore {
       const regions =
         clonedGeojson.features && clonedGeojson.features.length
           ? clonedGeojson.features.map(f => {
-              const state = this.getRegionState(f.properties.bid);
+              const state = this.getRegionState(f.properties.bid, ampm);
 
               f = flip(f);
               f.properties.state = state;
