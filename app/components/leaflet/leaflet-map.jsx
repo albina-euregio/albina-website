@@ -277,4 +277,4 @@ class LeafletMap extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(observer(LeafletMap)));
+export default inject("locale")(injectIntl(LeafletMap));

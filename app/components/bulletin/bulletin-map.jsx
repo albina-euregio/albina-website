@@ -24,6 +24,9 @@ class BulletinMap extends React.Component {
 
   handleMapInit = (map) => {
     this.map = map;
+    if(typeof this.props.onMapInit === 'function') {
+      this.props.onMapInit(map);
+    }
   }
 
   styleOverMap() {
@@ -207,4 +210,4 @@ class BulletinMap extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(BulletinMap)));
+export default inject("locale")(injectIntl(BulletinMap));
