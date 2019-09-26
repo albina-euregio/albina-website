@@ -29,6 +29,8 @@ require('leaflet.sync');
 
 require('leaflet.sync');
 
+require('leaflet.sync');
+
 @observer
 class Bulletin extends React.Component {
   constructor(props) {
