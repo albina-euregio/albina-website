@@ -25,6 +25,8 @@ import { tooltip_init } from "../js/tooltip";
 import { runInThisContext } from "vm";
 import BulletinList from "../components/bulletin/bulletin-list";
 
+require('leaflet.sync');
+
 @observer
 class Bulletin extends React.Component {
   constructor(props) {
@@ -42,6 +44,8 @@ class Bulletin extends React.Component {
       sharable: false,
       highlightedRegion: null
     };
+
+    this.mapRefs = [];
   }
 
   componentDidMount() {
@@ -145,7 +149,20 @@ class Bulletin extends React.Component {
     });
   }
 
+  handleMapInit(map) {
+    if(this.mapRefs.length > 0) {
+      this.mapRefs.forEach((otherMap) => {
+        map.sync(otherMap);
+        otherMap.sync(map);
+      });
+    }
+
+    this.mapRefs.push(map);
+  }
+
   render() {
+    this.mapRefs = [];
+
     const collection = this.store.activeBulletinCollection;
     // console.log('rendering bulletin view(0)', this.store.vectorRegions)
     // console.log('rendering bulletin ', this.store.bulletins)
@@ -188,6 +205,7 @@ class Bulletin extends React.Component {
                   store={this.store}
                   highlightedRegion={this.state.highlightedRegion}
                   regions={this.store.getVectorRegions(daytime)}
+                  onMapInit={this.handleMapInit.bind(this)}
                   ampm={daytime}
                 />
               )}
