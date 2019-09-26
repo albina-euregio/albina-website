@@ -1,7 +1,7 @@
 import { observable, action, computed, toJS } from 'mobx';
 
 export default class MapStore {
-  @observable mapCenter;
+  mapCenter;
   _mapZoom;
 
   constructor() {
