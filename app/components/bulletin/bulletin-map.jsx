@@ -24,6 +24,10 @@ class BulletinMap extends React.Component {
 
   handleMapInit = (map) => {
     this.map = map;
+
+    map.on('click', (e) => {
+      this.props.handleSelectRegion(null);
+    });
   }
 
   styleOverMap() {
