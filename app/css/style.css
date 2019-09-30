@@ -7060,28 +7060,17 @@ $logo-interreg-width: 364px;
   display: block;
   height: 5.0625em;
   width: 11.375em;
-  background: transparent url("../images/pro/logos/logo_euregio_sw.png") no-repeat 0 0;
-  background-size: 11.375em 5.0625em;
-}
-
-.logo-euregio span {
-  display: block;
-  height: 5.0625em;
-  width: 11.375em;
   background: transparent url("../images/pro/logos/logo_euregio.png") no-repeat 0 0;
   background-size: 11.375em 5.0625em;
-  opacity: 0;
   -webkit-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
+  filter: grayscale(100%);
 }
 
 .logo-euregio:hover {
+  filter: none;
   -webkit-transform: scale(1.05);
           transform: scale(1.05);
-}
-
-.logo-euregio:hover span {
-  opacity: 1;
 }
 
 /*	TRANSPORTER
