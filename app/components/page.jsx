@@ -16,7 +16,6 @@ import SubscribeSocialMediaDialog from "./dialogs/subscribe-social-media-dialog"
 import SubscribeAppDialog from "./dialogs/subscribe-app-dialog";
 import SubscribeEmailDialog from "./dialogs/subscribe-email-dialog";
 import SubscribeBlogDialog from "./dialogs/subscribe-blog-dialog";
-import UnsupportedBrowserDialog from "./../components/dialogs/unsupported-browser-dialog";
 import CookieConsent from "./dialogs/cookie-consent";
 import FeedbackDialog from "./dialogs/feedback-dialog";
 
@@ -109,7 +108,6 @@ class Page extends React.Component {
           </main>
           <PageFooter menuStore={this.menuStore} />
         </div>
-        {appStore.unsupportedBrowserModal && <UnsupportedBrowserDialog />}
         <ModalDialog id="subscribeDialog">
           <SubscribeDialog />
         </ModalDialog>

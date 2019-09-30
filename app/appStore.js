@@ -11,7 +11,6 @@ class AppStore extends React.Component {
   @observable
   locale;
   @observable
-  _unsupportedBrowserModal;
   cookieConsent;
   navigation;
   regions;
@@ -22,8 +21,6 @@ class AppStore extends React.Component {
     super();
     this.languages = ["en", "de", "it"];
     const translationFallbackLanguage = "all";
-
-    this._unsupportedBrowserModal = observable.box(false);
 
     const translationLookup = {};
     this.languages.forEach(lang => {
@@ -68,20 +65,6 @@ class AppStore extends React.Component {
 
   get language() {
     return this.locale.value;
-  }
-
-  get unsupportedBrowserModal() {
-    return toJS(this._unsupportedBrowserModal);
-  }
-
-  @action
-  unsupportedBrowserModalOn() {
-    this._unsupportedBrowserModal.set(true);
-  }
-
-  @action
-  unsupportedBrowserModalOff() {
-    this._unsupportedBrowserModal.set(false);
   }
 
   @action
