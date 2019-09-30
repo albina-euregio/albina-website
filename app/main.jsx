@@ -57,6 +57,17 @@ const getBasePath = () => {
 };
 const basePath = getBasePath();
 
+// detect WebP support
+// test taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/img/webp.js
+const isWebpSupported = new Promise((resolve) => {
+  const webpImage = new Image();
+  webpImage.onload = webpImage.onerror = (event) => {
+    const isSupported = event.type === 'load' && webpImage.width === 1;
+    resolve(isSupported);
+  };
+  webpImage.src = "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=";
+});
+
 /*
  * Request config.json before starting the app (do not cache config!).
  * config.json is not bundled with the app to allow config editing without
@@ -64,11 +75,18 @@ const basePath = getBasePath();
  */
 const configUrl = basePath + "config.json";
 Base.cleanCache(configUrl);
-Base.doRequest(configUrl).then(configData => {
+Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(([configData, webp]) => {
   var configParsed = JSON.parse(configData);
   configParsed["projectRoot"] = basePath;
   configParsed["version"] = VERSION; // included via webpack.DefinePlugin
   configParsed['developmentMode'] = DEV; // included via webpack.DefinePlugin
+  configParsed["webp"] = webp;
+  if (webp) {
+    // enable WebP for ALBINA layer
+    configParsed["map"]["tileLayers"]
+      .filter(layer => layer["id"] === 'ALBINA')
+      .forEach(layer => (layer["url"] = layer["url"].replace(/\.png/, '.webp')));
+  }
 
   const languageHostConfig = configParsed["languageHostSettings"];
   const hostLang = Object.keys(languageHostConfig).filter((lang) =>
