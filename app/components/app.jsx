@@ -18,10 +18,6 @@ import StaticPage from "./../views/staticPage";
 import SubscribeConfirmation from "./../views/subscribeConfirmation";
 import Page from "./page";
 
-const { detect } = require("detect-browser");
-const browser = detect();
-import isES5Supported from "is-es5-supported";
-
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require("../css/style.css");
 require("../css/app.scss"); // CSS overrides
@@ -29,22 +25,6 @@ require("../css/app.scss"); // CSS overrides
 // require('./js/custom.js');
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    /* checking if the browser is supported */
-    //console.log(isES5Supported)
-    if (browser) {
-      window["browserVersion"] = browser.name + browser.version;
-      //console.log(browserVersion)
-
-      if (!isES5Supported) {
-        //console.log('browser not supported')
-        appStore.unsupportedBrowserModalOn();
-      }
-    }
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     return true;
   }
