@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
-import stringInject from "stringinject";
+import { Util } from "leaflet";
 import { dateToISODateString, dateToDateString } from "../../util/date.js";
 
 class ArchiveItem extends React.Component {
@@ -30,7 +30,7 @@ class ArchiveItem extends React.Component {
               <a
                 href={
                   baseLink +
-                  stringInject(config.get("links.downloads.pdf"), {
+                  Util.template(config.get("links.downloads.pdf"), {
                     date: dateString,
                     lang: this.props.lang
                   })
@@ -48,7 +48,7 @@ class ArchiveItem extends React.Component {
               <a
                 href={
                   baseLink +
-                  stringInject(config.get("links.downloads.xml"), {
+                  Util.template(config.get("links.downloads.xml"), {
                     date: dateString,
                     lang: this.props.lang
                   })

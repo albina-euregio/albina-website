@@ -9,7 +9,7 @@ import {
   defaultProcessor,
   replaceInternalLinksProcessor
 } from "../../util/htmlParser";
-import stringInject from "stringinject";
+import { Util } from "leaflet";
 
 class PageFooter extends React.Component {
   constructor(props) {
@@ -78,7 +78,7 @@ class PageFooter extends React.Component {
               <p className="page-footer-text">{this.state.content}</p>
               <p className="page-footer-euregio">
                 <a
-                  href={stringInject(config.get("links.interreg"), {
+                  href={Util.template(config.get("links.interreg"), {
                     lang: window["appStore"].language
                   })}
                   className="logo-euregio tooltip"
