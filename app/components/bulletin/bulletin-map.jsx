@@ -3,7 +3,6 @@ import { observer, inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Parser } from "html-to-react";
 import { ImageOverlay } from "react-leaflet";
-import { centroid, polygon } from "@turf/turf";
 import { Link } from "react-router-dom";
 
 import LeafletMap from "../leaflet/leaflet-map";
@@ -70,28 +69,12 @@ class BulletinMap extends React.Component {
           store={bulletinStore}
           regions={this.props.regions}
           handleSelectRegion={this.props.handleSelectRegion}
-          handleCenterToRegion={this.centerToRegion.bind(this)}
+          handleCenterToRegion={center => this.map.panTo(center)}
         />
       );
     }
 
     return overlays;
-  }
-
-  centerToRegion(bid) {
-    if (bid && this.props.regions && this.props.regions.length > 0) {
-      const region = this.props.regions.find(r => r.properties.bid === bid);
-      if (region) {
-        const regionCentroid = centroid(region);
-        if (
-          this.map &&
-          regionCentroid.geometry &&
-          regionCentroid.geometry.coordinates
-        ) {
-          this.map.panTo(regionCentroid.geometry.coordinates);
-        }
-      }
-    }
   }
 
   renderNoBulletinMessage() {
