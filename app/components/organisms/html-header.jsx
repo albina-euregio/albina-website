@@ -11,15 +11,17 @@ class HTMLHeader extends React.Component {
   render() {
     const breadcrumbs = [
       this.props.title,
-      this.props.intl.formatMessage({id: 'app:title'})
+      this.props.intl.formatMessage({ id: "app:title" })
     ];
 
-    const description = this.props.description ? this.props.description : this.props.title;
+    const description = this.props.description
+      ? this.props.description
+      : this.props.title;
     const title = breadcrumbs.join(" | ");
 
     const defaultMeta = {
-      'og:description': description,
-      'og:title': title,
+      "og:description": description,
+      "og:title": title
     };
     const meta = Object.assign({}, defaultMeta, this.props.meta);
 
@@ -28,12 +30,12 @@ class HTMLHeader extends React.Component {
         <MetaTags>
           <title>{title}</title>
           <meta name="description" content={description} />
-          {Object.keys(meta).map(key =>
+          {Object.keys(meta).map(key => (
             <meta key={key} property={key} content={meta[key]} />
-          )}
+          ))}
         </MetaTags>
       </div>
-    )
+    );
   }
 }
 

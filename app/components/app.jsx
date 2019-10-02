@@ -5,7 +5,7 @@ import { MobxIntlProvider } from "../util/mobx-react-intl.es5.js";
 import { Redirect } from "react-router";
 import { BrowserRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
-import { ScrollContext } from 'react-router-scroll-4';
+import { ScrollContext } from "react-router-scroll-4";
 
 import Bulletin from "./../views/bulletin";
 import BlogOverview from "./../views/blogOverview";
@@ -30,16 +30,19 @@ class App extends React.Component {
   }
 
   shouldUpdateScroll = (prevRouterProps, { location, history }) => {
-    if(!prevRouterProps) {
+    if (!prevRouterProps) {
       return true;
     }
 
-    if(location.pathname.match(/weather\/map/) && prevRouterProps.location.pathname.match(/weather\/map/)) {
+    if (
+      location.pathname.match(/weather\/map/) &&
+      prevRouterProps.location.pathname.match(/weather\/map/)
+    ) {
       return false;
     }
 
     return location.pathname !== prevRouterProps.location.pathname;
-  }
+  };
 
   routes() {
     return [

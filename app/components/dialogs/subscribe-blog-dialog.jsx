@@ -1,81 +1,83 @@
-import React from 'react'
-import { inject } from 'mobx-react'
-import { injectIntl, FormattedHTMLMessage } from 'react-intl'
+import React from "react";
+import { inject } from "mobx-react";
+import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 class SubscribeBlogDialog extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
   }
 
-  render () {
-    const blogs = {}
+  render() {
+    const blogs = {};
 
-    config.get('blogs').forEach(b => {
+    config.get("blogs").forEach(b => {
       b.regions.forEach(r => {
-        if (typeof blogs[r] === 'undefined') {
-          blogs[r] = []
+        if (typeof blogs[r] === "undefined") {
+          blogs[r] = [];
         }
-        blogs[r].push(b)
-      })
-    })
+        blogs[r].push(b);
+      });
+    });
 
     return (
-      <div className='modal-subscribe'>
-        <div className='modal-header'>
-          <h2 className='subheader'>
-            <FormattedHTMLMessage id='dialog:subscribe-blog:header' />
+      <div className="modal-subscribe">
+        <div className="modal-header">
+          <h2 className="subheader">
+            <FormattedHTMLMessage id="dialog:subscribe-blog:header" />
           </h2>
-          <h2><FormattedHTMLMessage id='dialog:subscribe-blog:subheader' /></h2>
-          <p className='tiny'>
+          <h2>
+            <FormattedHTMLMessage id="dialog:subscribe-blog:subheader" />
+          </h2>
+          <p className="tiny">
             <a
-              href='#subscribeDialog'
-              className='icon-link icon-arrow-left modal-trigger tooltip'
+              href="#subscribeDialog"
+              className="icon-link icon-arrow-left modal-trigger tooltip"
               title={this.props.intl.formatMessage({
-                id: 'dialog:subscribe-blog:back-button:hover'
-              })}>
-              <FormattedHTMLMessage id='dialog:subscribe-blog:back-button' />
+                id: "dialog:subscribe-blog:back-button:hover"
+              })}
+            >
+              <FormattedHTMLMessage id="dialog:subscribe-blog:back-button" />
             </a>
           </p>
         </div>
 
         {Object.keys(blogs).map((r, ri) => (
-          <div key={ri} className='follow-region'>
-            <h2 className='subheader'>
-              {this.props.intl.formatMessage({ id: 'region:' + r })}
+          <div key={ri} className="follow-region">
+            <h2 className="subheader">
+              {this.props.intl.formatMessage({ id: "region:" + r })}
             </h2>
-            <ul className='blog-list'>
+            <ul className="blog-list">
               {blogs[r].map((b, bi) => (
-                <div key={bi} className='blog-details'>
-                  {b.name}
-                  {' '}
-                  -
-                  {' '}
-                  <span className='blog-language'>{b.lang.toUpperCase()}</span>
-                  <ul className='list-inline list-buttongroup'>
+                <div key={bi} className="blog-details">
+                  {b.name} -{" "}
+                  <span className="blog-language">{b.lang.toUpperCase()}</span>
+                  <ul className="list-inline list-buttongroup">
                     <li>
                       <a
-                        href={'http://' + b.name + '/feeds/posts/default'}
-                        className='share-atom share-feed'>
+                        href={"http://" + b.name + "/feeds/posts/default"}
+                        className="share-atom share-feed"
+                      >
                         {this.props.intl.formatMessage({
-                          id: 'dialog:subscribe-blog:atom'
+                          id: "dialog:subscribe-blog:atom"
                         })}
                       </a>
                     </li>
                     <li>
-                      <span className='buttongroup-boolean'>
+                      <span className="buttongroup-boolean">
                         {this.props.intl.formatMessage({
-                          id: 'dialog:subscribe-blog:or'
+                          id: "dialog:subscribe-blog:or"
                         })}
                       </span>
                     </li>
                     <li>
                       <a
                         href={
-                          'http://' + b.name + '/feeds/posts/default?alt=rss'
+                          "http://" + b.name + "/feeds/posts/default?alt=rss"
                         }
-                        className='share-rss share-feed'>
+                        className="share-rss share-feed"
+                      >
                         {this.props.intl.formatMessage({
-                          id: 'dialog:subscribe-blog:rss'
+                          id: "dialog:subscribe-blog:rss"
                         })}
                       </a>
                     </li>
@@ -86,7 +88,7 @@ class SubscribeBlogDialog extends React.Component {
           </div>
         ))}
       </div>
-    )
+    );
   }
 }
-export default inject('locale')(injectIntl(SubscribeBlogDialog))
+export default inject("locale")(injectIntl(SubscribeBlogDialog));

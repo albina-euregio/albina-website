@@ -35,9 +35,7 @@ class BulletinHeader extends React.Component {
     return (
       <section
         id="section-bulletin-header"
-        className={`section-padding section-header section-bulletin-header bulletin-updated ${
-          this.statusClass
-        }`}
+        className={`section-padding section-header section-bulletin-header bulletin-updated ${this.statusClass}`}
       >
         <header className="section-centered">
           <BulletinStatusLine

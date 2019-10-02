@@ -15,7 +15,11 @@ import BulletinReport from "../components/bulletin/bulletin-report";
 import BulletinHowTo from "../components/bulletin/bulletin-howto";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { parseDate, dateToISODateString, dateToLongDateString } from "../util/date.js";
+import {
+  parseDate,
+  dateToISODateString,
+  dateToLongDateString
+} from "../util/date.js";
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
 import { runInThisContext } from "vm";
@@ -27,7 +31,7 @@ class Bulletin extends React.Component {
     if (typeof window.bulletinStore === "undefined") {
       window.bulletinStore = new BulletinStore();
     }
-    if(typeof window.mapStore === "undefined") {
+    if (typeof window.mapStore === "undefined") {
       window.mapStore = new MapStore();
     }
     this.store = window.bulletinStore;
@@ -71,17 +75,17 @@ class Bulletin extends React.Component {
   componentDidUpdate(prevProps) {
     const updateConditions = [
       // update when date changes to YEAR-MONTH-DAY format
-      this.props.location !== prevProps.location 
-        && this.props.match.params.date
-        && this.props.match.params.date != this.store.settings.date,
+      this.props.location !== prevProps.location &&
+        this.props.match.params.date &&
+        this.props.match.params.date != this.store.settings.date,
 
       // update when date changes to "latest"
-      typeof(this.props.match.params.date) === 'undefined'
-        && this.store.latest
-        && this.store.latest != this.store.settings.date
+      typeof this.props.match.params.date === "undefined" &&
+        this.store.latest &&
+        this.store.latest != this.store.settings.date
     ];
 
-    if(updateConditions.reduce((acc, cond) => acc || cond, false)) {
+    if (updateConditions.reduce((acc, cond) => acc || cond, false)) {
       // if any update condition holds
       this._fetchData(this.props);
     }
@@ -94,7 +98,10 @@ class Bulletin extends React.Component {
         ? props.match.params.date
         : this.store.latest;
 
-    if (!props.match.params.date || props.match.params.date == this.store.latest) {
+    if (
+      !props.match.params.date ||
+      props.match.params.date == this.store.latest
+    ) {
       // update URL if necessary
       this.props.history.replace({
         pathname: "/bulletin/latest",
@@ -142,26 +149,39 @@ class Bulletin extends React.Component {
     // console.log('rendering bulletin view(0)', this.store.vectorRegions)
     // console.log('rendering bulletin ', this.store.bulletins)
 
-    const shareDescription = (this.state.title && this.store.settings.date) ? (
-      collection
-        ? (this.state.title + ' | ' + dateToLongDateString(parseDate(this.store.settings.date)))
-        : this.props.intl.formatMessage({id: "bulletin:header:no-bulletin-info"}).replace(/<\/?a>/g, '')
-    ) : "";
+    const shareDescription =
+      this.state.title && this.store.settings.date
+        ? collection
+          ? this.state.title +
+            " | " +
+            dateToLongDateString(parseDate(this.store.settings.date))
+          : this.props.intl
+              .formatMessage({ id: "bulletin:header:no-bulletin-info" })
+              .replace(/<\/?a>/g, "")
+        : "";
 
-    const shareImage = (collection && this.store.settings.date) ? (
-      config.get('apis.geo') + this.store.settings.date + "/"
-      + (collection.hasDaytimeDependency() ? this.store.settings.ampm : "fd")
-      + "_albina_map.jpg"
-    ) :
-    "";
+    const shareImage =
+      collection && this.store.settings.date
+        ? config.get("apis.geo") +
+          this.store.settings.date +
+          "/" +
+          (collection.hasDaytimeDependency()
+            ? this.store.settings.ampm
+            : "fd") +
+          "_albina_map.jpg"
+        : "";
 
     return (
       <div>
-        <HTMLHeader title={this.state.title} description={shareDescription} meta={{
+        <HTMLHeader
+          title={this.state.title}
+          description={shareDescription}
+          meta={{
             "og:image": shareImage,
             "og:image:width": 1890,
             "og:image:height": 1890
-          }} />
+          }}
+        />
         <BulletinHeader store={this.store} title={this.state.title} />
 
         <BulletinMap
@@ -180,7 +200,13 @@ class Bulletin extends React.Component {
         <BulletinButtonbar store={this.store} />
         <BulletinReport store={this.store} />
         {!this.store.activeBulletin && <BulletinHowTo store={this.store} />}
-        {this.state.sharable && <SmShare image={shareImage} title={this.state.title} description={shareDescription} />}
+        {this.state.sharable && (
+          <SmShare
+            image={shareImage}
+            title={this.state.title}
+            description={shareDescription}
+          />
+        )}
         <div className="section-padding section-centered">
           {preprocessContent(this.state.content)}
         </div>

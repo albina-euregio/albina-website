@@ -91,7 +91,7 @@ class BulletinButtonbar extends React.Component {
                       })}
                       target="_blank"
                       className="pure-button tooltip emphasized"
-                      >
+                    >
                       {this.props.intl.formatMessage({
                         id: "bulletin:feedback"
                       })}

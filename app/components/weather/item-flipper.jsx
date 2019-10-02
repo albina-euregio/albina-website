@@ -1,16 +1,16 @@
-import React from 'react'
-import { observer, inject } from 'mobx-react'
-import { injectIntl } from 'react-intl'
+import React from "react";
+import { observer, inject } from "mobx-react";
+import { injectIntl } from "react-intl";
 
 class ItemFlipper extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
   }
 
   render() {
-    const lang = appStore.language
-    const previousItem = this.props.store.previousItem
-    const nextItem = this.props.store.nextItem
+    const lang = appStore.language;
+    const previousItem = this.props.store.previousItem;
+    const nextItem = this.props.store.nextItem;
 
     return (
       <div className="grid flipper-left-right">
@@ -23,9 +23,9 @@ class ItemFlipper extends React.Component {
                 id: 'weathermap:header:dateflipper:back'
               })} */
               onClick={e => {
-                e.preventDefault()
-                e.stopPropagation()
-                this.props.handleChange(previousItem.id)
+                e.preventDefault();
+                e.stopPropagation();
+                this.props.handleChange(previousItem.id);
               }}
             >
               <span className="icon-arrow icon-arrow-left" />
@@ -43,9 +43,9 @@ class ItemFlipper extends React.Component {
                 id: 'weathermap:header:dateflipper:forward'
               })} */
               onClick={e => {
-                e.preventDefault()
-                e.stopPropagation()
-                this.props.handleChange(nextItem.id)
+                e.preventDefault();
+                e.stopPropagation();
+                this.props.handleChange(nextItem.id);
               }}
             >
               {nextItem.descriptionTimeSpan[lang]}
@@ -55,8 +55,8 @@ class ItemFlipper extends React.Component {
           )}
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default inject('locale')(injectIntl(observer(ItemFlipper)))
+export default inject("locale")(injectIntl(observer(ItemFlipper)));

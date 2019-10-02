@@ -7,17 +7,9 @@ export default class CircleIcon extends React.Component {
     const b = 6.5;
 
     return (
-      <svg
-        className={this.props.className}
-        width={svgS}
-        height={svgS}>
+      <svg className={this.props.className} width={svgS} height={svgS}>
         <g transform={"translate(" + b + "," + b + ")"}>
-          <circle
-            className="inner"
-            cx={s}
-            cy={s}
-            r={s}>
-          </circle>
+          <circle className="inner" cx={s} cy={s} r={s}></circle>
         </g>
       </svg>
     );

@@ -47,7 +47,6 @@ a.pure-button.emphasized:hover {
   border-color: #ff5555;
 }
 
-
 /* messengerpeople */
 .messengerpeople {
   position: initial !important;
@@ -641,7 +640,10 @@ img {
 }
 @media (hover: none) {
   // disable hover styles on touch devices
-  .controlbar .filter a.label:not(.js-active):hover { color: #fff; background: transparent; }
+  .controlbar .filter a.label:not(.js-active):hover {
+    color: #fff;
+    background: transparent;
+  }
 }
 
 // version number in footer
@@ -660,7 +662,6 @@ img {
   $border_light: 0.5px solid #999;
   $font_default: "Helvetica Neue", Arial, Helvetica, sans-serif;
   $font_size_default: 14px;
-
 
   /* single stations */
   .station circle.inner {
