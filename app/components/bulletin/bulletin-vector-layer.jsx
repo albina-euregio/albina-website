@@ -129,7 +129,7 @@ export default class BulletinVectorLayer extends React.Component {
               config.get("map.regionStyling." + state)
             );
 
-            return vector.geometry.coordinates.map((g, gi) => {
+            return vector.properties.latlngs.map((g, gi) => {
               return this.renderRegion(vector, state, g, style, vi + "" + gi);
             });
           })}
@@ -146,7 +146,7 @@ export default class BulletinVectorLayer extends React.Component {
               config.get("map.regionStyling.mouseOver")
             );
 
-            return vector.geometry.coordinates.map((g, gi) =>
+            return vector.properties.latlngs.map((g, gi) =>
               this.renderRegion(vector, state, g, style, vi + "" + gi)
             );
           })}

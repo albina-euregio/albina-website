@@ -395,23 +395,16 @@ class BulletinStore {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
-      // clone original geojson
-      const clonedGeojson = Object.assign({}, collection.getGeoData());
-
-      const regions =
-        clonedGeojson.features && clonedGeojson.features.length
-          ? clonedGeojson.features.map(f => {
-              const state = this.getRegionState(f.properties.bid);
-
-              f = JSON.parse(JSON.stringify(f));
-              f.geometry.coordinates = GeoJSON.coordsToLatLngs(
-                f.geometry.coordinates,
-                f.geometry.type === 'Polygon' ? 1 : 2
-              );
-              f.properties.state = state;
-              return f;
-            })
-          : [];
+      const regions = (collection.getGeoData().features || []).map(f => {
+        f.properties.state = this.getRegionState(f.properties.bid);
+        if (!f.properties.latlngs) {
+          f.properties.latlngs = GeoJSON.coordsToLatLngs(
+            f.geometry.coordinates,
+            f.geometry.type === "Polygon" ? 1 : 2
+          );
+        }
+        return f;
+      });
 
       const states = [
         "selected",
