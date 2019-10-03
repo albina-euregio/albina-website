@@ -111,6 +111,8 @@ class LeafletMap extends React.Component {
         L.control
           .locate(
             Object.assign({}, config.get("map.locateOptions"), {
+              icon: "icon-geolocate",
+              iconLoading: "icon-geolocate",
               onLocationOutsideMapBounds: function(control) {
                 control.stop();
                 alert(outsideMessage);
