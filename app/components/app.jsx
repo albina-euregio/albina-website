@@ -1,4 +1,5 @@
 import React from "react";
+import loadable from '@loadable/component'
 import { Provider, observer } from "mobx-react";
 import { MobxIntlProvider } from "../util/mobx-react-intl.es5.js";
 
@@ -10,8 +11,8 @@ import { ScrollContext } from "react-router-scroll-4";
 import Bulletin from "./../views/bulletin";
 import BlogOverview from "./../views/blogOverview";
 import BlogPost from "./../views/blogPost";
-import Weather from "./../views/weather";
-import StationMeasurements from "./../views/stationMeasurements";
+const Weather = loadable(() => import(/* webpackChunkName: "app-weather" */ "./../views/weather"));
+const StationMeasurements = loadable(() => import(/* webpackChunkName: "app-stationMeasurements" */ "./../views/stationMeasurements"));
 import OverviewPage from "./../views/overviewPage";
 import Archive from "./../views/archive";
 import StaticPage from "./../views/staticPage";
