@@ -8,7 +8,7 @@ import {
   dateToISODateString
 } from "../util/date.js";
 
-import flip from "@turf/flip";
+import { GeoJSON } from "leaflet";
 import { autorun } from "../../node_modules/mobx/lib/mobx.js";
 
 class BulletinCollection {
@@ -395,19 +395,16 @@ class BulletinStore {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
-      // clone original geojson
-      const clonedGeojson = Object.assign({}, collection.getGeoData());
-
-      const regions =
-        clonedGeojson.features && clonedGeojson.features.length
-          ? clonedGeojson.features.map(f => {
-              const state = this.getRegionState(f.properties.bid);
-
-              f = flip(f);
-              f.properties.state = state;
-              return f;
-            })
-          : [];
+      const regions = (collection.getGeoData().features || []).map(f => {
+        f.properties.state = this.getRegionState(f.properties.bid);
+        if (!f.properties.latlngs) {
+          f.properties.latlngs = GeoJSON.coordsToLatLngs(
+            f.geometry.coordinates,
+            f.geometry.type === "Polygon" ? 1 : 2
+          );
+        }
+        return f;
+      });
 
       const states = [
         "selected",
