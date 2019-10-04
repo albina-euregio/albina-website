@@ -59,6 +59,7 @@ class PageHeader extends React.Component {
             title={this.props.intl.formatMessage({
               id: "header:logo:hover"
             })}
+            data-tilty
           >
             {langs.map(l => (
               <span key={l} className={"mark mark-" + l} />
@@ -134,12 +135,13 @@ class PageHeader extends React.Component {
             </span>
           </button>
         </div>
-        <div className="page-header-euregio">
+        <div className="page-header-logo-secondary">
           <a
             href={Util.template(config.get("links.interreg"), {
               lang: lang
             })}
-            className="logo-euregio tooltip"
+            data-tilty
+            className="header-footer-logo-secondary tooltip"
             title={this.props.intl.formatMessage({
               id: "header:euregio:hover"
             })}

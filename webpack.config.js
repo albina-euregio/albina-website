@@ -15,7 +15,8 @@ module.exports = (env, argv) => {
       app: "./main.jsx"
     },
     devServer: {
-      historyApiFallback: true
+      historyApiFallback: true,
+      host: '0.0.0.0' //enable external access for testing with vm
     },
     output: {
       publicPath: "/"
