@@ -3,10 +3,8 @@ import { Observable, Subject } from "rxjs/Rx";
 import { Http, Headers, RequestOptions, Response } from "@angular/http";
 import { WsChatService } from "../ws-chat-service/ws-chat.service";
 import { ChatMessageModel } from "../../models/chat-message.model";
-import { AuthorModel } from "../../models/author.model";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { ConstantsService } from "../constants-service/constants.service";
-import { WebSocketSubject } from "rxjs/observable/dom/WebSocketSubject";
 
 @Injectable()
 export class ChatService {
@@ -51,7 +49,7 @@ export class ChatService {
       });
 
     this.messages.subscribe(
-      msg => {
+      () => {
         console.log("Message sent!");
       },
       error => {
@@ -68,7 +66,7 @@ export class ChatService {
             this.addChatMessage(ChatMessageModel.createFromJson(jsonChatMessage), false);
           }
         },
-        error => {
+        () => {
           console.error("Chat messages could not be loaded!");
         }
       );

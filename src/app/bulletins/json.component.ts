@@ -1,9 +1,6 @@
 import { Component, ViewChild, TemplateRef, OnInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
-import { BulletinModel } from "../models/bulletin.model";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import * as Enums from "../enums/enums";
+import { Router } from "@angular/router";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 
@@ -27,10 +24,7 @@ export class JsonComponent implements OnInit {
   };
 
   constructor(
-    private translate: TranslateService,
     public bulletinsService: BulletinsService,
-    private translateService: TranslateService,
-    private route: ActivatedRoute,
     private router: Router,
     private modalService: BsModalService) {
     this.bulletins = undefined;
@@ -49,7 +43,7 @@ export class JsonComponent implements OnInit {
           this.bulletins = text;
         }
       },
-      error => {
+      () => {
         this.loading = false;
         this.openJsonNotLoadedModal(this.jsonNotLoadedTemplate);
       }
@@ -62,7 +56,7 @@ export class JsonComponent implements OnInit {
 
   openNoJsonModal(template: TemplateRef<any>) {
     this.noJsonModalRef = this.modalService.show(template, this.config);
-    this.modalService.onHide.subscribe((reason: string) => {
+    this.modalService.onHide.subscribe(() => {
       this.goBack();
     });
   }
@@ -74,7 +68,7 @@ export class JsonComponent implements OnInit {
 
   openJsonNotLoadedModal(template: TemplateRef<any>) {
     this.jsonNotLoadedModalRef = this.modalService.show(template, this.config);
-    this.modalService.onHide.subscribe((reason: string) => {
+    this.modalService.onHide.subscribe(() => {
       this.goBack();
     });
   }

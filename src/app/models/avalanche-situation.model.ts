@@ -1,6 +1,4 @@
 import * as Enums from "../enums/enums";
-import { BehaviorSubject } from "rxjs/Rx";
-import { MatrixInformationModel } from "./matrix-information.model";
 
 export class AvalancheSituationModel {
   public avalancheSituation: Enums.AvalancheSituation;

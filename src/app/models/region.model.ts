@@ -1,5 +1,3 @@
-import * as Enums from "../enums/enums";
-
 export class RegionModel {
   public id: string;
   public name: string;

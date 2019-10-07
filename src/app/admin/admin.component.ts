@@ -1,12 +1,11 @@
-import { Component, HostListener, AfterContentInit } from "@angular/core";
+import { Component, AfterContentInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core/src/translate.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { ConfigurationService } from "../providers/configuration-service/configuration.service";
 import { SocialmediaService } from "../providers/socialmedia-service/socialmedia.service";
-import { Observable } from "rxjs/Observable";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import * as Enums from "../enums/enums";
 import { SelectItem } from "primeng/primeng";
 import { AlertComponent } from "ngx-bootstrap";
@@ -126,10 +125,9 @@ export class AdminComponent implements AfterContentInit {
       endDate.setDate(endDate.getDate() + 3);
       endDate.setHours(0, 0, 0, 0);
 
-      // TODO use the information about the publciation process somewhere (maybe just as ADMIN?)
       this.bulletinsService.getPublicationsStatus(this.authenticationService.getActiveRegion(), startDate, endDate).subscribe(
-        data => {
-          const json = data.json();
+        _data => {
+          // TODO use the information about the publciation process somewhere (maybe just as ADMIN?)
         },
         error => {
           console.error("Publication status could not be loaded!");

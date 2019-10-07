@@ -6,13 +6,11 @@ import { SettingsService } from "../providers/settings-service/settings.service"
 import { WsChatService } from "../providers/ws-chat-service/ws-chat.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { ChatService } from "../providers/chat-service/chat.service";
-import { ChatMessageModel } from "../models/chat-message.model";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router } from "@angular/router";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 import { environment } from "../../environments/environment";
 import { DomSanitizer } from "@angular/platform-browser";
-import * as Enums from "../enums/enums";
 
 @Component({
   selector: "app-dashboard",
@@ -61,7 +59,7 @@ export class FullLayoutComponent implements OnInit {
     return this.chatService.getNewMessageCount(region) > 0 && !this.status.isopen;
   }
 
-  public toggled(open: boolean): void {
+  public toggled(): void {
   }
 
   public toggleDropdown($event: MouseEvent): void {
@@ -70,7 +68,7 @@ export class FullLayoutComponent implements OnInit {
     this.status.isopen = !this.status.isopen;
   }
 
-  public focusChat($event, region?: string) {
+  public focusChat(region?: string) {
     this.chatService.resetNewMessageCount(region);
   }
 
@@ -96,7 +94,7 @@ export class FullLayoutComponent implements OnInit {
     if (!this.authenticationService.getActiveRegion().startsWith(region)) {
       if (this.router.url === "/bulletins/new" && this.bulletinsService.getIsEditable()) {
         this.tmpRegion = region;
-        this.openChangeRegionModal(this.changeRegionTemplate, region);
+        this.openChangeRegionModal(this.changeRegionTemplate);
       } else {
         if (this.bulletinsService.getActiveDate()) {
           this.bulletinsService.unlockRegion(this.bulletinsService.getActiveDate(), this.authenticationService.getActiveRegion());
@@ -108,7 +106,7 @@ export class FullLayoutComponent implements OnInit {
     }
   }
 
-  openChangeRegionModal(template: TemplateRef<any>, region: string) {
+  openChangeRegionModal(template: TemplateRef<any>) {
     this.changeRegionModalRef = this.modalService.show(template, this.config);
   }
 

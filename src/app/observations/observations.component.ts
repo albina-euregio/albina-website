@@ -1,14 +1,8 @@
-import { Component, HostListener, OnInit, AfterViewInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
-import { ConstantsService } from "../providers/constants-service/constants.service";
 import { ObservationsService } from "../providers/observations-service/observations.service";
 import { MapService } from "../providers/map-service/map.service";
 import { QuickReportModel } from "../models/quick-report.model";
-import { Observable } from "rxjs/Observable";
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import * as Enums from "../enums/enums";
-import { ConfirmDialogModule, ConfirmationService, SharedModule } from "primeng/primeng";
 
 declare var L: any;
 
@@ -21,15 +15,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   public activeQuickReport: QuickReportModel;
 
   constructor(
-    private translate: TranslateService,
     private observationsService: ObservationsService,
-    private route: ActivatedRoute,
-    private translateService: TranslateService,
     private authenticationService: AuthenticationService,
-    private mapService: MapService,
-    private constantsService: ConstantsService,
-    private router: Router,
-    private confirmationService: ConfirmationService) {
+    private mapService: MapService) {
   }
 
   ngOnInit() {
@@ -147,13 +135,13 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   private createSnowProfileMarker(snowProfile) {
     new L.Marker(new L.LatLng(snowProfile.location.geo.latitude, snowProfile.location.geo.longitude), { icon: this.mapService.createSnowProfileMarker() })
-      .on({ click: () => this.snowProfileMarkerClicked(snowProfile) })
+      .on({ click: () => this.snowProfileMarkerClicked() })
       .addTo(this.mapService.layerGroups.observations);
   }
 
   private createHastyPitMarker(hastyPit) {
     new L.Marker(new L.LatLng(hastyPit.location.geo.latitude, hastyPit.location.geo.longitude), { icon: this.mapService.createHastyPitMarker() })
-      .on({ click: () => this.hastyPitMarkerClicked(hastyPit) })
+      .on({ click: () => this.hastyPitMarkerClicked() })
       .addTo(this.mapService.layerGroups.observations);
   }
 
@@ -173,7 +161,6 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     this.activeQuickReport = QuickReportModel.createFromJson(quickReport);
 
     const mapDiv = document.getElementById("mapDiv");
-    const quickReportDiv = document.getElementById("quickReport");
     mapDiv.classList.remove("col-md-12");
     mapDiv.classList.add("col-md-7");
     this.mapService.centerObservationsMap(this.activeQuickReport.getInfo().getLocation().getLatitude(), this.activeQuickReport.getInfo().getLocation().getLongitude());
@@ -181,7 +168,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     this.showQuickReport = true;
   }
 
-  snowProfileMarkerClicked(snowProfile) {
+  snowProfileMarkerClicked() {
     this.activeQuickReport = undefined;
 
     const mapDiv = document.getElementById("mapDiv");
@@ -217,7 +204,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     */
   }
 
-  hastyPitMarkerClicked(profile) {
+  hastyPitMarkerClicked() {
     this.activeQuickReport = undefined;
 
     const mapDiv = document.getElementById("mapDiv");

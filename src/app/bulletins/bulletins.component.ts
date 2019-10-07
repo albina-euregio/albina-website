@@ -1,17 +1,15 @@
 import { Component, HostListener, ViewChild, TemplateRef, OnInit, OnDestroy } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core/src/translate.service";
-import { BulletinModel } from "../models/bulletin.model";
 import { BulletinUpdateModel } from "../models/bulletin-update.model";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { WsUpdateService } from "../providers/ws-update-service/ws-update.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
-import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Rx";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import * as Enums from "../enums/enums";
-import { ConfirmDialogModule, ConfirmationService, SharedModule } from "primeng/primeng";
+import { ConfirmationService } from "primeng/primeng";
 import "rxjs/add/observable/forkJoin";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
@@ -134,7 +132,6 @@ export class BulletinsComponent implements OnInit, OnDestroy {
 
   isPast(date: Date) {
     const today = new Date();
-    const hours = today.getHours();
     today.setHours(0, 0, 0, 0);
 
     if (today.getTime() > date.getTime()) {
@@ -363,8 +360,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
           this.router.navigate(["/bulletins/new"]);
         } else {
           if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
-            const result = this.bulletinsService.lockRegion(this.authenticationService.getActiveRegion(), this.bulletinsService.getActiveDate());
-
+            this.bulletinsService.lockRegion(this.authenticationService.getActiveRegion(), this.bulletinsService.getActiveDate());
             this.bulletinsService.setIsEditable(true);
             this.router.navigate(["/bulletins/new"]);
           }
@@ -471,8 +467,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
       this.router.navigate(["/bulletins/new"]);
     } else {
       if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
-        const result = this.bulletinsService.lockRegion(this.authenticationService.getActiveRegion(), this.bulletinsService.getActiveDate());
-
+        this.bulletinsService.lockRegion(this.authenticationService.getActiveRegion(), this.bulletinsService.getActiveDate());
         this.bulletinsService.setIsEditable(true);
         this.bulletinsService.setIsSmallChange(true);
         this.router.navigate(["/bulletins/new"]);

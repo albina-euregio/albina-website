@@ -1,5 +1,3 @@
-import * as Enums from "../enums/enums";
-
 export class ChatMessageModel {
   public username: string;
   public time: Date;

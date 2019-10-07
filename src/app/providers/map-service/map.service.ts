@@ -581,26 +581,6 @@ export class MapService {
     });
   }
 
-  private getBaseStyle(feature?) {
-    return {
-      fillColor: this.constantsService.getDangerRatingColor("missing"),
-      weight: this.constantsService.lineWeight,
-      opacity: 0.0,
-      color: this.constantsService.lineColor,
-      fillOpacity: 0.0
-    };
-  }
-
-  private getAggregatedRegionsBaseStyle(feature?) {
-    return {
-      fillColor: this.constantsService.getDangerRatingColor("missing"),
-      weight: this.constantsService.lineWeight,
-      opacity: 0.0,
-      color: this.constantsService.lineColor,
-      fillOpacity: 0.0
-    };
-  }
-
   private getUserDependentBaseStyle(region) {
     return {
       fillColor: this.constantsService.getDangerRatingColor("missing"),

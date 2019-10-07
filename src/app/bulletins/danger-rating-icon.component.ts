@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, SimpleChange } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { BulletinModel } from "../models/bulletin.model";
 

@@ -1,13 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions, Response, ResponseOptions } from "@angular/http";
+import { Http, Headers, RequestOptions, Response } from "@angular/http";
 import { Observable, Subject } from "rxjs/Rx";
 import { ConstantsService } from "../constants-service/constants.service";
-import { RegionsService } from "../regions-service/regions.service";
 import { SettingsService } from "../settings-service/settings.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { WsBulletinService } from "../ws-bulletin-service/ws-bulletin.service";
 import { WsRegionService } from "../ws-region-service/ws-region.service";
-import { BulletinModel } from "../../models/bulletin.model";
 import { RegionLockModel } from "../../models/region-lock.model";
 import { BulletinLockModel } from "../../models/bulletin-lock.model";
 import * as Enums from "../../enums/enums";
@@ -69,7 +67,7 @@ export class BulletinsService {
           this.addLockedRegion(this.constantsService.codeTyrol, date);
         }
       },
-      error => {
+      () => {
         console.warn("Locked regions for Tyrol could not be loaded!");
       }
     );
@@ -81,7 +79,7 @@ export class BulletinsService {
           this.addLockedRegion(this.constantsService.codeSouthTyrol, date);
         }
       },
-      error => {
+      () => {
         console.warn("Locked regions for South Tyrol could not be loaded!");
       }
     );
@@ -93,7 +91,7 @@ export class BulletinsService {
           this.addLockedRegion(this.constantsService.codeTrentino, date);
         }
       },
-      error => {
+      () => {
         console.warn("Locked regions for Trentino could not be loaded!");
       }
     );
@@ -130,7 +128,7 @@ export class BulletinsService {
           this.statusMapTyrol.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
         }
       },
-      error => {
+      () => {
         console.error("Status Tyrol could not be loaded!");
       }
     );
@@ -141,7 +139,7 @@ export class BulletinsService {
           this.statusMapSouthTyrol.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
         }
       },
-      error => {
+      () => {
         console.error("Status South Tyrol could not be loaded!");
       }
     );
@@ -152,7 +150,7 @@ export class BulletinsService {
           this.statusMapTrentino.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
         }
       },
-      error => {
+      () => {
         console.error("Status Trentino could not be loaded!");
       }
     );
@@ -174,7 +172,7 @@ export class BulletinsService {
         return regionLock;
       });
 
-    this.regionLocks.subscribe(msg => {
+    this.regionLocks.subscribe(() => {
     });
   }
 
@@ -198,7 +196,7 @@ export class BulletinsService {
         return bulletinLock;
       });
 
-    this.bulletinLocks.subscribe(msg => {
+    this.bulletinLocks.subscribe(() => {
     });
   }
 
@@ -580,7 +578,6 @@ export class BulletinsService {
 
   isLocked(date: Date, region: string) {
     if (this.lockedRegions.has(region)) {
-      const index = this.lockedRegions.get(region).indexOf(date);
       for (const entry of this.lockedRegions.get(region)) {
         if (entry.getTime() === date.getTime()) {
           return true;
