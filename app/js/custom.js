@@ -7,6 +7,7 @@ import { scroll_init } from "./scroll";
 
 /* !dom loaded?
  ****************************************************/
+window["scroll_duration"] = 1000;
 
 $(function() {
   //debug pattern lab regarding line 33 ff of
@@ -41,7 +42,6 @@ $(function() {
     window["accordion"] = $(".accordion");
 
     //global variables
-    window["scroll_duration"] = 1000;
     window["lastPopUpElement"] = null;
 
     //init functions
