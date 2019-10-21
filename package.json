@@ -1,14 +1,17 @@
 {
-  "name": "ALBINA-Admin-GUI",
-  "version": "0.0.1-alpha.1",
+  "name": "albina-admin-gui",
+  "version": "2019.0.0",
   "description": "Admin user interface for avalanche bulletins.",
   "author": "Norbert Lanzanasto",
-  "url": "http://albina.eu",
+  "url": "https://avalanche.report/",
   "copyright": "Copyright 2017 Norbert Lanzanasto",
   "license": "GPL-3.0-or-later",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.com:n.lanzanasto/albina-euregio/albina-admin-gui.git"
+    "url": "git@gitlab.com:albina-euregio/albina-admin-gui.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/albina-euregio/albina-admin-gui"
   },
   "angular-cli": {},
   "scripts": {
