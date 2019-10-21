@@ -1,5 +1,3 @@
-import * as Enums from "../enums/enums";
-
 export class BulletinLockModel {
   public username: string;
   public bulletin: string;

@@ -1,9 +1,7 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions, Response, ResponseOptions } from "@angular/http";
+import { Http, Headers, RequestOptions } from "@angular/http";
 import { ConstantsService } from "../constants-service/constants.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
-import { Observable } from "rxjs/Observable";
-import { Body } from "@angular/http/src/body";
 
 @Injectable()
 export class SocialmediaService {

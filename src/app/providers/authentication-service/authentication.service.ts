@@ -2,7 +2,7 @@ import { Injectable, Sanitizer, SecurityContext } from "@angular/core";
 import { Http, Headers, RequestOptions, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { ConstantsService } from "../constants-service/constants.service";
-import { tokenNotExpired, JwtHelper } from "angular2-jwt";
+import { JwtHelper } from "angular2-jwt";
 import { AuthorModel } from "../../models/author.model";
 
 @Injectable()

@@ -1,6 +1,5 @@
-import { Component, Input, ViewChild, ElementRef, SimpleChange } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core/src/translate.service";
-import { QuickReportModel } from "../models/quick-report.model";
 import * as Enums from "../enums/enums";
 
 @Component({

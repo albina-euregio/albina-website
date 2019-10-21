@@ -43,7 +43,7 @@ import { PipeModule } from "./pipes/pipes.module";
 import { AuthGuard } from "./guards/auth.guard";
 
 import { TranslateModule } from "@ngx-translate/core";
-import { HttpModule, Http } from "@angular/http";
+import { HttpModule } from "@angular/http";
 
 import { BsDropdownModule, TabsModule, ModalModule, AlertModule } from "ngx-bootstrap";
 

@@ -1,9 +1,7 @@
 import { Component, ViewChild, TemplateRef, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core/src/translate.service";
-import { BulletinModel } from "../models/bulletin.model";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import * as Enums from "../enums/enums";
+import { Router, ActivatedRoute } from "@angular/router";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 

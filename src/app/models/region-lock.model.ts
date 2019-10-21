@@ -1,5 +1,3 @@
-import * as Enums from "../enums/enums";
-
 export class RegionLockModel {
   public username: string;
   public region: string;

@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, AfterContentInit } from "@angular/core";
+import { Component, Input, AfterContentInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core/src/translate.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { AvalancheSituationModel } from "../models/avalanche-situation.model";

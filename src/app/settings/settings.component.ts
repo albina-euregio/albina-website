@@ -1,10 +1,9 @@
-import { Component, HostListener, ViewChild, TemplateRef, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core/src/translate.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
-import { Observable } from "rxjs/Observable";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { AlertComponent } from "ngx-bootstrap";
 
 declare var L: any;

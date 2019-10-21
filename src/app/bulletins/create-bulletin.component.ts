@@ -1,19 +1,15 @@
-import { Component, Input, HostListener, ViewChild, ElementRef, NgZone, ApplicationRef, TemplateRef, OnDestroy, AfterViewInit, OnInit } from "@angular/core";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Component, HostListener, ViewChild, ElementRef, ApplicationRef, TemplateRef, OnDestroy, AfterViewInit, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import { BulletinModel } from "../models/bulletin.model";
-import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import { MatrixInformationModel } from "../models/matrix-information.model";
 import { TranslateService } from "@ngx-translate/core/src/translate.service";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { MapService } from "../providers/map-service/map.service";
-import { RegionsService } from "../providers/regions-service/regions.service";
 import { LocalStorageService } from "../providers/local-storage-service/local-storage.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { CopyService } from "../providers/copy-service/copy.service";
-import { ConfirmDialogModule, ConfirmationService, SharedModule } from "primeng/primeng";
-import { DialogModule } from "primeng/components/dialog/dialog";
 import { Observable } from "rxjs/Observable";
 import * as Enums from "../enums/enums";
 import "rxjs/add/operator/switchMap";
@@ -26,8 +22,6 @@ import { environment } from "../../environments/environment";
 import "leaflet";
 import "leaflet.sync";
 
-import { TabsComponent } from "./tabs.component";
-import { TabComponent } from "./tab.component";
 
 // For iframe
 import { Renderer2 } from "@angular/core";
@@ -144,8 +138,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   };
 
   constructor(
-    private translate: TranslateService,
-    private route: ActivatedRoute,
     private router: Router,
     public bulletinsService: BulletinsService,
     private localStorageService: LocalStorageService,
@@ -155,12 +147,9 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     private constantsService: ConstantsService,
     private copyService: CopyService,
     private mapService: MapService,
-    private regionsService: RegionsService,
-    private confirmationService: ConfirmationService,
-    private ngZone: NgZone,
     private applicationRef: ApplicationRef,
     private sanitizer: DomSanitizer,
-    private renderer: Renderer2,
+    renderer: Renderer2,
     private modalService: BsModalService
   ) {
     this.loading = true;
@@ -233,7 +222,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   ngOnInit() {
     // for reload iframe on change language
     this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
-      item => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode())
+      () => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode())
     );
 
     if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
@@ -259,14 +248,14 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
               data2 => {
                 this.addForeignBulletins(data2.json());
               },
-              error => {
+              () => {
                 console.error("Foreign bulletins could not be loaded!");
                 this.loading = false;
                 this.openLoadingErrorModal(this.loadingErrorTemplate);
               }
             );
           },
-          error => {
+          () => {
             console.error("Own bulletins could not be loaded!");
             this.loading = false;
             this.openLoadingErrorModal(this.loadingErrorTemplate);
@@ -393,7 +382,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       layers: [this.mapService.baseMaps.AlbinaBaseMap, this.mapService.overlayMaps.aggregatedRegions, this.mapService.overlayMaps.regions]
     });
 
-    map.on("click", (e) => { this.onMapClick(e); });
+    map.on("click", () => { this.onMapClick(); });
     // map.on('dblclick', (e)=>{this.onMapDoubleClick(e)});
 
     L.control.zoom({ position: "topleft" }).addTo(map);
@@ -402,7 +391,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
     if (this.showAfternoonMap) {
       L.Control.AM = L.Control.extend({
-        onAdd: function(m) {
+        onAdd: function() {
           const container = L.DomUtil.create("div", "leaflet-bar leaflet-control leaflet-control-custom");
           container.style.backgroundColor = "white";
           container.style.width = "52px";
@@ -411,7 +400,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           return container;
         },
 
-        onRemove: function(m) {
+        onRemove: function() {
           // Nothing to do here
         }
       });
@@ -424,7 +413,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
 
     const info = L.control();
-    info.onAdd = function(m) {
+    info.onAdd = function() {
       this._div = L.DomUtil.create("div", "info"); // create a div with a class "info"
       this.update();
       return this._div;
@@ -456,7 +445,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     // L.control.scale().addTo(afternoonMap);
 
     L.Control.PM = L.Control.extend({
-      onAdd: function(m) {
+      onAdd: function() {
         const container = L.DomUtil.create("div", "leaflet-bar leaflet-control leaflet-control-custom");
         container.style.backgroundColor = "white";
         container.style.width = "52px";
@@ -465,7 +454,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         return container;
       },
 
-      onRemove: function(m) {
+      onRemove: function() {
         // Nothing to do here
       }
     });
@@ -476,7 +465,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
     L.control.pm({ position: "bottomleft" }).addTo(afternoonMap);
 
-    afternoonMap.on("click", (e) => { this.onMapClick(e); });
+    afternoonMap.on("click", () => { this.onMapClick(); });
     // afternoonMap.on('dblclick', (e)=>{this.onMapDoubleClick(e)});
 
     this.mapService.afternoonMap = afternoonMap;
@@ -485,7 +474,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     afternoonMap.sync(map);
   }
 
-  private onMapClick(e) {
+  private onMapClick() {
     if (!this.editRegions) {
       const test = this.mapService.getClickedRegion();
       for (const bulletin of this.bulletinsList) {
@@ -760,7 +749,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.addBulletin(bulletin);
       this.selectBulletin(bulletin);
       this.mapService.selectAggregatedRegion(bulletin);
-      this.editBulletinRegions(bulletin);
+      this.editBulletinRegions();
     }
   }
 
@@ -953,7 +942,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  deleteBulletin(event, bulletin: BulletinModel) {
+  deleteBulletin(event) {
     event.stopPropagation();
     this.openDeleteAggregatedRegionModal(this.deleteAggregatedRegionTemplate);
   }
@@ -969,12 +958,12 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.deselectBulletin();
   }
 
-  editBulletin(event, bulletin: BulletinModel) {
+  editBulletin(event) {
     event.stopPropagation();
-    this.editBulletinRegions(bulletin);
+    this.editBulletinRegions();
   }
 
-  private editBulletinRegions(bulletin: BulletinModel) {
+  private editBulletinRegions() {
 
     // TODO websocket: lock whole day in region, check if any aggregated region is locked
 
@@ -982,18 +971,14 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.mapService.editAggregatedRegion(this.activeBulletin);
   }
 
-  saveBulletin(event, bulletin) {
+  saveBulletin(event) {
     event.stopPropagation();
 
     // save selected regions to active bulletin
     const regions = this.mapService.getSelectedRegions();
 
-    // TODO exclude already published regions from another provinz from "regions"
-
-    let oldRegionsHit = false;
     for (const region of this.activeBulletin.getSavedRegions()) {
       if (region.startsWith(this.authenticationService.getActiveRegion())) {
-        oldRegionsHit = true;
         break;
       }
     }
@@ -1168,13 +1153,13 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       if (result.length > 0) {
         if (this.bulletinsService.getIsSmallChange()) {
           this.bulletinsService.changeBulletins(result, this.bulletinsService.getActiveDate()).subscribe(
-            data => {
+            () => {
               this.localStorageService.clear();
               this.loading = false;
               this.goBack();
               console.log("Bulletins changed on server.");
             },
-            error => {
+            () => {
               this.loading = false;
               console.error("Bulletins could not be changed on server!");
               this.openChangeErrorModal(this.changeErrorTemplate);
@@ -1182,13 +1167,13 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           );
         } else {
           this.bulletinsService.saveBulletins(result, this.bulletinsService.getActiveDate()).subscribe(
-            data => {
+            () => {
               this.localStorageService.clear();
               this.loading = false;
               this.goBack();
               console.log("Bulletins saved on server.");
             },
-            error => {
+            () => {
               this.loading = false;
               console.error("Bulletins could not be saved on server!");
               this.openSaveErrorModal(this.saveErrorTemplate);
@@ -1238,7 +1223,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.showDialog();
   }
 
-  copyTextcat($event, field) {
+  copyTextcat(field) {
     this.setTexts();
     switch (field) {
       case "avActivityHighlights":
@@ -1278,7 +1263,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  pasteTextcat($event, field) {
+  pasteTextcat(field) {
     switch (field) {
       case "avActivityHighlights":
         if (this.activeAvActivityHighlightsTextcat !== undefined) {
@@ -1394,7 +1379,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.copyService.resetCopying();
   }
 
-  deleteTextcat($event, field) {
+  deleteTextcat(field) {
     switch (field) {
       case "avActivityHighlights":
         this.activeAvActivityHighlightsTextcat = undefined;
@@ -1500,7 +1485,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.copyBulletins(data.json());
         this.loading = false;
       },
-      error => {
+      () => {
         this.loading = false;
         this.openLoadingErrorModal(this.loadingErrorTemplate);
       }
@@ -1606,7 +1591,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.loading = false;
         this.startAutoSave();
       },
-      error => {
+      () => {
         console.error("Bulletins could not be loaded!");
         this.loading = false;
         this.openLoadingErrorModal(this.loadingErrorTemplate);

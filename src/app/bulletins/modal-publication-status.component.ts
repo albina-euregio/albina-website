@@ -29,7 +29,6 @@ export class ModalPublicationStatusComponent {
     event.stopPropagation();
     this.bulletinsService.createCaaml(this.date).subscribe(
       data => {
-        const response = data.json();
         console.info("CAAML created");
       },
       error => {
@@ -42,7 +41,6 @@ export class ModalPublicationStatusComponent {
     event.stopPropagation();
     this.bulletinsService.createPdf(this.date).subscribe(
       data => {
-        const response = data.json();
         console.info("PDF created");
       },
       error => {
@@ -55,7 +53,6 @@ export class ModalPublicationStatusComponent {
     event.stopPropagation();
     this.bulletinsService.createHtml(this.date).subscribe(
       data => {
-        const response = data.json();
         console.info("HTML created");
       },
       error => {
@@ -68,7 +65,6 @@ export class ModalPublicationStatusComponent {
     event.stopPropagation();
     this.bulletinsService.createMap(this.date).subscribe(
       data => {
-        const response = data.json();
         console.info("Map created");
       },
       error => {
@@ -81,7 +77,6 @@ export class ModalPublicationStatusComponent {
     event.stopPropagation();
     this.bulletinsService.createStaticWidget(this.date).subscribe(
       data => {
-        const response = data.json();
         console.info("Static widget created");
       },
       error => {
@@ -94,7 +89,6 @@ export class ModalPublicationStatusComponent {
     event.stopPropagation();
     this.bulletinsService.sendEmail(this.date, this.authenticationService.activeRegion).subscribe(
       data => {
-        const response = data.json();
         console.info("Email sent");
       },
       error => {
@@ -107,7 +101,6 @@ export class ModalPublicationStatusComponent {
     event.stopPropagation();
     this.bulletinsService.triggerMessengerpeople(this.date, this.authenticationService.activeRegion).subscribe(
       data => {
-        const response = data.json();
         console.info("Messengerpeople triggered");
       },
       error => {

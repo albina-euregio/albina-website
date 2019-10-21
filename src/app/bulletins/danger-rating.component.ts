@@ -1,6 +1,5 @@
-import { Component, Input, ViewChild, ElementRef, SimpleChange } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
-import { MatrixInformationModel } from "../models/matrix-information.model";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import * as Enums from "../enums/enums";
 
