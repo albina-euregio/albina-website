@@ -6689,6 +6689,14 @@ $logo-interreg-width: 364px;
   color: #19ABFF;
 }
 
+.page-header .navigation a:link[target="_blank"] {
+  padding-right: 0.7rem;
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-size: 0.5rem;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"><path fill="none" stroke="%23565F61" stroke-width="2" d="m8.6,7H1v12h12V11.4M9,1v2l2,2-6,6 4,4 6-6 2,2h2V1z"/></svg>');
+}
+
 .page-header > div {
   position: relative;
   display: -webkit-box;
