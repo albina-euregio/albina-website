@@ -23,6 +23,7 @@ import {
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
 import { runInThisContext } from "vm";
+import BulletinList from "../components/bulletin/bulletin-list";
 
 @observer
 class Bulletin extends React.Component {
@@ -198,8 +199,7 @@ class Bulletin extends React.Component {
           problems={this.store.problems}
         />
         <BulletinButtonbar store={this.store} />
-        <BulletinReport store={this.store} />
-        {!this.store.activeBulletin && <BulletinHowTo store={this.store} />}
+        {this.store.activeBulletinCollection && <BulletinList store={this.store} bulletinCollection={this.store.activeBulletinCollection} />}
         {this.state.sharable && (
           <SmShare
             image={shareImage}

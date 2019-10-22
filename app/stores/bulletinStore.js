@@ -27,11 +27,11 @@ class BulletinCollection {
   }
 
   get regions() {
-    if (this.status != "ok") {
-      return [];
+    if(this.length > 0) {
+      return this.getData().map(el => el.id);
     }
 
-    return []; // TODO implement
+    return [];
   }
 
   get problems() {
@@ -70,6 +70,13 @@ class BulletinCollection {
     return false;
   }
 
+  getBulletinForRegion(regionId) {
+    if(this.length > 0) {
+      return this.getData().find((el) => el.id == regionId);
+    }
+    return null;
+  }
+
   getData() {
     return this.dataRaw;
   }
@@ -79,13 +86,54 @@ class BulletinCollection {
   }
 
   setData(data) {
+    if(data && data.length > 0) {
+      // calculate maxWarnlevel for each bulletin
+      const defaultLevel = {
+        number: 0,
+        id: "no_rating"
+      };
+  
+      const comparator = (acc, w) => {
+        if (acc.number < w.number) {
+          return w;
+        }
+        // else prefer no_snow over no_rating
+        if (acc.number == 0 && acc.id == "no_rating" && w.id == "no_snow") {
+          return w;
+        }
+        return acc;
+      };
+
+      data.forEach((b) => {
+        const bulletins = b.hasDaytimeDependency ? [b["forenoon"], b["afternoon"]] : [b["forenoon"]];
+        b.maxWarnlevel = bulletins.map(b => {
+          const warnlevels = [];
+          if (b.dangerRatingAbove) {
+            warnlevels.push({
+              number: window["appStore"].getWarnlevelNumber(b.dangerRatingAbove),
+              id: b.dangerRatingAbove
+            });
+          }
+          if (b.dangerRatingBelow) {
+            warnlevels.push({
+              number: window["appStore"].getWarnlevelNumber(b.dangerRatingBelow),
+              id: b.dangerRatingBelow
+            });
+          }
+          // get the maximum for each daytime
+          return warnlevels.reduce(comparator, defaultLevel);
+        })
+        .reduce(comparator, defaultLevel); // return the total maximum
+      });
+    }
+
     this.dataRaw = data;
     this.status =
       typeof data === "object" && data
         ? data.length > 0
           ? "ok"
           : "empty"
-        : "n/a";
+        : "n/a";  
   }
 
   cancelLoad() {
@@ -326,31 +374,15 @@ class BulletinStore {
    *   this.date, this.ampm and this.region
    */
   get activeBulletin() {
-    return this.getBulletinForRegion(this.settings.region);
-  }
-
-  getBulletinForRegion(regionId) {
-    //console.log("getting bulletin", regionId);
-    const collection = this.activeBulletinCollection;
-
-    /*
-    if (collection && collection.length > 0) {
-      console.log("collection", collection.getData().map(el => el.id));
+    if(this.activeBulletinCollection) {
+      return this.activeBulletinCollection.getBulletinForRegion(this.settings.region);
     }
-    */
-
-    if (collection && collection.length > 0) {
-      return collection.getData().find(el => {
-        return el.id == regionId;
-      });
-    }
-
     return null;
   }
 
   getProblemsForRegion(regionId) {
     const problems = [];
-    const b = this.getBulletinForRegion(regionId);
+    const b = this.activeBulletinCollection.getBulletinForRegion(regionId);
     if (b) {
       const daytime =
         b.hasDaytimeDependency && this.settings.ampm == "pm"
