@@ -29,7 +29,9 @@ class BulletinDateFlipper extends React.Component {
       const latest = parseDate(this.props.latest);
       /* show next day only it is not the future or if this day is after bulletin.isTomorrow value */
 
-      return (isSameDay(latest, next) || isAfter(latest, next)) ? next : undefined;
+      return isSameDay(latest, next) || isAfter(latest, next)
+        ? next
+        : undefined;
     }
     return undefined;
   }

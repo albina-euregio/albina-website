@@ -10,10 +10,7 @@ export default class StationIcon extends React.Component {
 
     const frontArc1 = frontW / 2;
     const frontArc2 = (
-      (Math.sqrt(
-        Math.pow(s + cMargin, 2) + Math.pow(frontW / 2, 2),
-        2
-      ) -
+      (Math.sqrt(Math.pow(s + cMargin, 2) + Math.pow(frontW / 2, 2), 2) -
         cMargin -
         s) *
       2
@@ -21,10 +18,7 @@ export default class StationIcon extends React.Component {
 
     const backArc1 = backW / 2;
     const backArc2 = (
-      (Math.sqrt(
-        Math.pow(s + cMargin, 2) + Math.pow(backW / 2, 2),
-        2
-      ) -
+      (Math.sqrt(Math.pow(s + cMargin, 2) + Math.pow(backW / 2, 2), 2) -
         cMargin -
         s) *
       2
@@ -34,23 +28,44 @@ export default class StationIcon extends React.Component {
 
     return (
       <g className="direction" transform={"rotate(" + rotation + ")"}>
-        <path className="front" d={
-            "M 0 -" + (s + frontH)
-            + " l " + (frontW / 2)
-            + " " + (frontH - cMargin)
-            + " q -" + frontArc1
-            + ", -" + frontArc2
-            + " " + (-frontW)
-            + " 0 Z"} />
-        <path className="back" d={
-            "M -" + (backW / 2)
-            + " " + (backH + s + cMargin)
-            + " h " + backW
-            + " v -" + backH
-            + " q -" + backArc1
-            + " " + backArc2
-            + ", -" + backW
-            + " 0Z"} />
+        <path
+          className="front"
+          d={
+            "M 0 -" +
+            (s + frontH) +
+            " l " +
+            frontW / 2 +
+            " " +
+            (frontH - cMargin) +
+            " q -" +
+            frontArc1 +
+            ", -" +
+            frontArc2 +
+            " " +
+            -frontW +
+            " 0 Z"
+          }
+        />
+        <path
+          className="back"
+          d={
+            "M -" +
+            backW / 2 +
+            " " +
+            (backH + s + cMargin) +
+            " h " +
+            backW +
+            " v -" +
+            backH +
+            " q -" +
+            backArc1 +
+            " " +
+            backArc2 +
+            ", -" +
+            backW +
+            " 0Z"
+          }
+        />
       </g>
     );
   }
@@ -62,16 +77,19 @@ export default class StationIcon extends React.Component {
       <svg
         className={
           this.props.type +
-            (this.props.selected ? (' ' + this.props.type + '-selected') : '')}
+          (this.props.selected ? " " + this.props.type + "-selected" : "")
+        }
         width={svgS}
-        height={svgS}>
-        <g transform={"translate(" + (svgS / 2) + "," + (svgS / 2) + ")"}>
+        height={svgS}
+      >
+        <g transform={"translate(" + svgS / 2 + "," + svgS / 2 + ")"}>
           {this.props.direction && this.renderDirection(s)}
-          <circle className="inner"
+          <circle
+            className="inner"
             r={s}
-            fill={"rgb(" + this.props.color + ")"}>
-          </circle>
-          { this.props.selected &&
+            fill={"rgb(" + this.props.color + ")"}
+          ></circle>
+          {this.props.selected && (
             <circle className="outer" r={s}>
               <animate
                 attributeType="xml"
@@ -80,8 +98,8 @@ export default class StationIcon extends React.Component {
                 to={svgS / 2}
                 dur="1.5s"
                 begin="0s"
-                repeatCount="indefinite">
-              </animate>
+                repeatCount="indefinite"
+              ></animate>
               <animate
                 attributeType="xml"
                 attributeName="opacity"
@@ -89,10 +107,10 @@ export default class StationIcon extends React.Component {
                 to="0"
                 dur="1.5s"
                 begin="0s"
-                repeatCount="indefinite">
-              </animate>
+                repeatCount="indefinite"
+              ></animate>
             </circle>
-          }
+          )}
           <text y={s * 0.25 + 1} textAnchor="middle">
             {this.props.value}
           </text>

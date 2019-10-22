@@ -1,5 +1,5 @@
-import { observable, action, computed } from 'mobx';
-import Base from '../base';
+import { observable, action, computed } from "mobx";
+import Base from "../base";
 
 export default class StationDataStore {
   @observable data;
@@ -14,7 +14,7 @@ export default class StationDataStore {
 
     this._activeRegions = (() => {
       let regions = {};
-      Object.keys(window.appStore.regions).forEach((r) => {
+      Object.keys(window.appStore.regions).forEach(r => {
         regions[r] = true;
       });
       return regions;
@@ -22,19 +22,24 @@ export default class StationDataStore {
 
     this._searchText = observable.box("");
     this.activeData = {
-      "snow": true,
-      "temp": true,
-      "wind": true
-    }
-    this._sortValue = observable.box('');
-    this._sortDir = observable.box('asc');
+      snow: true,
+      temp: true,
+      wind: true
+    };
+    this._sortValue = observable.box("");
+    this._sortDir = observable.box("asc");
   }
 
   @computed get activeRegion() {
-    const actives = Object.keys(this._activeRegions)
-      .filter((e) => this._activeRegions[e]);
+    const actives = Object.keys(this._activeRegions).filter(
+      e => this._activeRegions[e]
+    );
 
-    const a = (actives.length > 0 && actives.length < Object.keys(this._activeRegions).length) ? actives[0] : 'all';
+    const a =
+      actives.length > 0 &&
+      actives.length < Object.keys(this._activeRegions).length
+        ? actives[0]
+        : "all";
     return a;
   }
 
@@ -43,7 +48,7 @@ export default class StationDataStore {
     const newActive = el ? [el] : Object.keys(this._activeRegions);
 
     Object.keys(this._activeRegions).forEach(e => {
-      this._activeRegions[e] = (newActive.indexOf(e) >= 0);
+      this._activeRegions[e] = newActive.indexOf(e) >= 0;
     });
   }
 
@@ -75,38 +80,45 @@ export default class StationDataStore {
   load() {
     // stations.json uses custom region codes 'tirol', 'suedtirol' and 'trentino'
     const regionCodes = {
-      'tirol': 'AT-07',
-      'suedtirol': 'IT-32-BZ',
-      'trentino': 'IT-32-TN'
+      tirol: "AT-07",
+      suedtirol: "IT-32-BZ",
+      trentino: "IT-32-TN"
     };
 
-    return Base.doRequest(config.get('apis.stations')).then((rawData) => {
-      const data = JSON.parse(rawData).features.filter((el) => el.properties.date);
+    return Base.doRequest(config.get("apis.stations")).then(rawData => {
+      const data = JSON.parse(rawData).features.filter(
+        el => el.properties.date
+      );
 
       // default ordering by "region" and "name"
       data.sort((a, b) => {
-        if(a.properties.region != b.properties.region) {
-          return (a.properties.region < b.properties.region) ? -1 : 1;
+        if (a.properties.region != b.properties.region) {
+          return a.properties.region < b.properties.region ? -1 : 1;
         }
         const nameA = a.properties.name.toLowerCase();
         const nameB = b.properties.name.toLowerCase();
 
-        if(nameA != nameB) {
-          return (nameA < nameB) ? -1 : 1;
+        if (nameA != nameB) {
+          return nameA < nameB ? -1 : 1;
         }
         return 0;
       });
 
       // add geo attributes
-      this.data = data.map((el) => Object.assign({
-          lon: el.geometry.coordinates[0],
-          lat: el.geometry.coordinates[1],
-          elev: el.geometry.coordinates[2]
-        }, el.properties, {
-          // use default region codes
-          region: regionCodes[el.properties.region]
-        }
-      ));
+      this.data = data.map(el =>
+        Object.assign(
+          {
+            lon: el.geometry.coordinates[0],
+            lat: el.geometry.coordinates[1],
+            elev: el.geometry.coordinates[2]
+          },
+          el.properties,
+          {
+            // use default region codes
+            region: regionCodes[el.properties.region]
+          }
+        )
+      );
     });
   }
 }

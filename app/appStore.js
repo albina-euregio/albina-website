@@ -38,8 +38,8 @@ class AppStore extends React.Component {
 
     // initial language is changed after config has arrived!!!
     this.locale = new LocaleStore("en", translationLookup);
-    this.cookieConsent = new CookieStore('cookieConsentAccepted');
-    this.cookieFeedback = new CookieStore('feedbackAccepted');
+    this.cookieConsent = new CookieStore("cookieConsentAccepted");
+    this.cookieFeedback = new CookieStore("feedbackAccepted");
     this.navigation = new NavigationStore();
 
     this.regions = {

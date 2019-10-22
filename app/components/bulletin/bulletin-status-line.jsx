@@ -2,7 +2,11 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { computed } from "mobx";
 import { injectIntl } from "react-intl";
-import { dateToDateString, dateToTimeString, getLocalDate } from "../../util/date.js";
+import {
+  dateToDateString,
+  dateToTimeString,
+  getLocalDate
+} from "../../util/date.js";
 
 class BulletinStatusLine extends React.Component {
   constructor(props) {

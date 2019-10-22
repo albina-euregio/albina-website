@@ -1,32 +1,33 @@
-import React from 'react';
-import { inject } from 'mobx-react';
-import { injectIntl } from 'react-intl';
+import React from "react";
+import { inject } from "mobx-react";
+import { injectIntl } from "react-intl";
 
 class SearchField extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: ''
+      text: ""
     };
   }
 
   componentDidMount() {
-    if(this.props.value) {
-      this.setState({text: this.props.value});
+    if (this.props.value) {
+      this.setState({ text: this.props.value });
     }
   }
 
   componentDidUpdate(prevProps) {
-    if(typeof(this.props.value) !== 'undefined'
-      && this.props.value != prevProps.value
-      && this.props.value != this.state.text) {
-
-      this.setState({text: this.props.value});
+    if (
+      typeof this.props.value !== "undefined" &&
+      this.props.value != prevProps.value &&
+      this.props.value != this.state.text
+    ) {
+      this.setState({ text: this.props.value });
     }
   }
 
   render() {
-    const placeholder = this.props.intl.formatMessage({id: 'filter:search'});
+    const placeholder = this.props.intl.formatMessage({ id: "filter:search" });
     return (
       <div>
         <p className="info">{this.props.title}</p>
@@ -35,24 +36,29 @@ class SearchField extends React.Component {
             type="text"
             id="input"
             placeholder={placeholder}
-            onChange={(e) => {
+            onChange={e => {
               const newVal = e.target.value;
-              if(newVal != this.state.text) {
+              if (newVal != this.state.text) {
                 window.setTimeout(() => {
-                  this.setState({text: newVal});
+                  this.setState({ text: newVal });
                 }, 0);
               }
             }}
-            onKeyPress={(e) => {
-              if(e.key == 'Enter') {
+            onKeyPress={e => {
+              if (e.key == "Enter") {
                 this.props.handleSearch(this.state.text);
               }
             }}
-            value={this.state.text} />
-          <button href="#"
+            value={this.state.text}
+          />
+          <button
+            href="#"
             title={placeholder}
             className="pure-button pure-button-icon icon-search tooltip"
-            onClick={() => { this.props.handleSearch(this.state.text); }}>
+            onClick={() => {
+              this.props.handleSearch(this.state.text);
+            }}
+          >
             <span>&nbsp;</span>
           </button>
         </div>
@@ -60,4 +66,4 @@ class SearchField extends React.Component {
     );
   }
 }
-export default inject('locale')(injectIntl(SearchField));
+export default inject("locale")(injectIntl(SearchField));

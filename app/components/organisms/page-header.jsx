@@ -18,7 +18,9 @@ class PageHeader extends React.Component {
 
     // window["appStore"].setLanguage(newLanguage);
     // Base.searchChange(this.props.history, { lang: newLanguage }, false);
-    document.location.hostname = (config.get('languageHostSettings'))[newLanguage];
+    document.location.hostname = config.get("languageHostSettings")[
+      newLanguage
+    ];
 
     // if (this.props.location.pathname.includes("blog")) {
     //   Base.searchChange(

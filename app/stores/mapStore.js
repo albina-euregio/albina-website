@@ -1,16 +1,16 @@
-import { observable, action, computed, toJS } from 'mobx';
+import { observable, action, computed, toJS } from "mobx";
 
 export default class MapStore {
   @observable mapCenter;
   _mapZoom;
 
   constructor() {
-    this.mapCenter = {lat: 47, lon: 12};
+    this.mapCenter = { lat: 47, lon: 12 };
     this._mapZoom = observable.box(9);
   }
 
   @action setMapViewport(mapState) {
-    if(mapState.center.lat && mapState.center.lng) {
+    if (mapState.center.lat && mapState.center.lng) {
       this.mapCenter.lat = mapState.center.lat;
       this.mapCenter.lng = mapState.center.lng;
     }

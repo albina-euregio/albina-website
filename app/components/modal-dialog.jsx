@@ -1,6 +1,6 @@
-import React from 'react';
-import { observer } from 'mobx-react';
-import { withRouter } from 'react-router-dom';
+import React from "react";
+import { observer } from "mobx-react";
+import { withRouter } from "react-router-dom";
 
 class ModalDialog extends React.Component {
   constructor(props) {
@@ -10,14 +10,14 @@ class ModalDialog extends React.Component {
   // closeDialog on locaionChange
   componentDidUpdate(prevProps) {
     if (this.props.location.pathname !== prevProps.location.pathname) {
-      $('.mfp-close').trigger('click');
+      $(".mfp-close").trigger("click");
     }
   }
 
   render() {
     return (
-      <div id={this.props.id} className={'modal-container mfp-hide'}>
-        { this.props.children }
+      <div id={this.props.id} className={"modal-container mfp-hide"}>
+        {this.props.children}
       </div>
     );
   }

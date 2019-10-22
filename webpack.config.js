@@ -1,5 +1,5 @@
 const webpack = require("webpack");
-const {execSync} = require("child_process");
+const { execSync } = require("child_process");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -76,14 +76,18 @@ module.exports = (env, argv) => {
       new FaviconsWebpackPlugin({
         logo: "./images/pro/logos/logo_mark_en.svg",
         mode: "webapp",
-        devMode: "webapp",
+        devMode: "webapp"
       }),
       new webpack.DefinePlugin({
         DEV: JSON.stringify(argv.mode !== "production"),
-        VERSION: JSON.stringify([
-          execSync('git describe --tags', {encoding: 'utf8'}).trim(),
-          execSync('git log -1 --format=%cd --date=short', {encoding: 'utf8'}).trim()
-        ].join(", "))
+        VERSION: JSON.stringify(
+          [
+            execSync("git describe --tags", { encoding: "utf8" }).trim(),
+            execSync("git log -1 --format=%cd --date=short", {
+              encoding: "utf8"
+            }).trim()
+          ].join(", ")
+        )
       }),
       new MiniCssExtractPlugin({
         filename: "[name].css",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default class HideFilter extends React.Component {
   constructor(props) {
@@ -6,25 +6,25 @@ export default class HideFilter extends React.Component {
   }
 
   render() {
-    const classes = [
-      "label",
-      "tooltip"
-    ];
-    if(this.props.active) {
-      classes.push('js-active');
+    const classes = ["label", "tooltip"];
+    if (this.props.active) {
+      classes.push("js-active");
     }
 
     return (
-      <a className={classes.join(' ')}
+      <a
+        className={classes.join(" ")}
         href="#"
         title={this.props.tooltip}
-        onClick={(e) => {
+        onClick={e => {
           //e.target.blur();
           e.preventDefault();
           e.stopPropagation();
           this.props.onToggle(this.props.id);
         }}
-        >{this.props.title}</a>
-    )
+      >
+        {this.props.title}
+      </a>
+    );
   }
 }

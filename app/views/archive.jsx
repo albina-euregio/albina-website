@@ -73,7 +73,7 @@ class Archive extends React.Component {
         return this.store.getStatus(dateToISODateString(date)) == "ok";
       };
 
-      if(startDate && endDate) {
+      if (startDate && endDate) {
         var d = startDate;
         const dates = [startDate];
         while (d < endDate) {

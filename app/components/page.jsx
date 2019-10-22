@@ -102,9 +102,7 @@ class Page extends React.Component {
         <div id="page-all" className="page-all">
           <PageHeader menuStore={this.menuStore} />
           <main id="page-main" className="page-main">
-            <div id="global-grid">
-              {renderRoutes(this.props.route.routes)}
-            </div>
+            <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
           </main>
           <PageFooter menuStore={this.menuStore} />
         </div>

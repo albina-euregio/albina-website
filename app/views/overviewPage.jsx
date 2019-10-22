@@ -1,7 +1,7 @@
-import React from 'react';
-import StaticPage from './staticPage';
-import PageHeadline from '../components/organisms/page-headline';
-import SmShare from '../components/organisms/sm-share';
+import React from "react";
+import StaticPage from "./staticPage";
+import PageHeadline from "../components/organisms/page-headline";
+import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 
 /*
@@ -16,16 +16,19 @@ export default class OverviewPage extends StaticPage {
     return (
       <div>
         <HTMLHeader title={this.state.title} />
-        <PageHeadline title={this.state.title} marginal={this.state.headerText} />
+        <PageHeadline
+          title={this.state.title}
+          marginal={this.state.headerText}
+        />
         <section className="section section-features">
-          {
-            this.state.content
-          }
+          {this.state.content}
         </section>
         <div className="clearfix"></div>
-        { this.state.sharable ?
-          <SmShare /> : <div className="section-padding"></div>
-        }
+        {this.state.sharable ? (
+          <SmShare />
+        ) : (
+          <div className="section-padding"></div>
+        )}
       </div>
     );
   }

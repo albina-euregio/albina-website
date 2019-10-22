@@ -48,12 +48,13 @@ export default class BlogStore {
   getHistory;
 
   update() {
-    const languageHostConfig = config.get('languageHostSettings');
+    const languageHostConfig = config.get("languageHostSettings");
     const l = this.languageActive;
     const searchLang =
-      (languageHostConfig[l] && languageHostConfig[l] == document.location.hostname)
-      ? ''
-      : this.languageActive;
+      languageHostConfig[l] &&
+      languageHostConfig[l] == document.location.hostname
+        ? ""
+        : this.languageActive;
 
     Base.searchChange(
       this.getHistory(),
@@ -89,7 +90,11 @@ export default class BlogStore {
   validateYear(valueToValidate) {
     const parsed = parseInt(valueToValidate);
     if (parsed) {
-      return Base.clamp(parsed, config.get("archive.minYear"), (new Date()).getFullYear());
+      return Base.clamp(
+        parsed,
+        config.get("archive.minYear"),
+        new Date().getFullYear()
+      );
     } else {
       return "";
     }
@@ -238,7 +243,7 @@ export default class BlogStore {
             maxResults: 500,
             fetchBodies: false,
             fetchImages: true,
-            status: 'live',
+            status: "live",
             key: window["config"].get("apiKeys.google")
           };
           if (this.searchText) {

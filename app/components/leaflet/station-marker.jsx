@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import ReactDOMServer from "react-dom/server";
 import StationIcon from "./station-icon";
 import { MapLayer } from "react-leaflet";
@@ -18,7 +18,8 @@ class StationMarker extends MapLayer {
         color={this.props.color}
         selected={this.props.selected}
         value={this.props.value}
-        direction={this.props.direction} />
+        direction={this.props.direction}
+      />
     );
 
     return L.divIcon({
@@ -33,7 +34,7 @@ class StationMarker extends MapLayer {
       icon: this.createStationIcon()
     });
 
-    marker.on('click', (e) => {
+    marker.on("click", e => {
       L.DomEvent.stopPropagation(e);
       this.props.onClick(e.target.options.data);
     });
@@ -50,7 +51,7 @@ class StationMarker extends MapLayer {
   // https://react-leaflet.js.org/docs/en/custom-components.html
   getChildContext() {
     return {
-      layerContainer: this.leafletElement,
+      layerContainer: this.leafletElement
     };
   }
 }

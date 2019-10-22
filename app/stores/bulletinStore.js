@@ -132,44 +132,51 @@ class BulletinStore {
       gliding_snow: { highlighted: false }
     });
 
-    if(config.get("bulletin.latestBulletinSwitchTime").match(/^\d{2}:\d{2}$/)) {
-      this.latest = dateToISODateString((() => {
-        const now = new Date();
-        const switchTime = config.get("bulletin.latestBulletinSwitchTime");
-        const matches = switchTime.match(/^(\d{2}):(\d{2})$/);
-      
-        if(matches && matches.length >= 3) {
-          const next = getSuccDate(now);
-          const hour = parseInt(matches[1]);
-          const minutes = parseInt(matches[2]);
-      
-          return todayIsTomorrow(now,hour,minutes)
-            ? next
-            : now;
-        }
-      
-        console.error("Misconfigured value for latestBulletinSwitchTime");
-        return now;
-      })());
+    if (
+      config.get("bulletin.latestBulletinSwitchTime").match(/^\d{2}:\d{2}$/)
+    ) {
+      this.latest = dateToISODateString(
+        (() => {
+          const now = new Date();
+          const switchTime = config.get("bulletin.latestBulletinSwitchTime");
+          const matches = switchTime.match(/^(\d{2}):(\d{2})$/);
+
+          if (matches && matches.length >= 3) {
+            const next = getSuccDate(now);
+            const hour = parseInt(matches[1]);
+            const minutes = parseInt(matches[2]);
+
+            return todayIsTomorrow(now, hour, minutes) ? next : now;
+          }
+
+          console.error("Misconfigured value for latestBulletinSwitchTime");
+          return now;
+        })()
+      );
     } else {
       this._latestBulletinChecker();
     }
   }
 
   @action _latestBulletinChecker() {
-    Base.doRequest(config.get("apis.bulletin") + "/latest").then((response) => {
-      const parsedResponse = JSON.parse(response);
-      if(parsedResponse && parsedResponse.date) {
-        const now = new Date();
-        const today = parseDate(dateToISODateString(now));
-        const latest = new Date(parsedResponse.date);
+    Base.doRequest(config.get("apis.bulletin") + "/latest")
+      .then(response => {
+        const parsedResponse = JSON.parse(response);
+        if (parsedResponse && parsedResponse.date) {
+          const now = new Date();
+          const today = parseDate(dateToISODateString(now));
+          const latest = new Date(parsedResponse.date);
 
-        this.latest = dateToISODateString((latest >= today) ? latest : today);
-      }
-    }).catch(() => {
-      console.error('Cannot get date of latest bulletin');
-    });
-    window.setTimeout(() => this._latestBulletinChecker(), config.get("bulletin.checkForLatestInterval") * 60000);
+          this.latest = dateToISODateString(latest >= today ? latest : today);
+        }
+      })
+      .catch(() => {
+        console.error("Cannot get date of latest bulletin");
+      });
+    window.setTimeout(
+      () => this._latestBulletinChecker(),
+      config.get("bulletin.checkForLatestInterval") * 60000
+    );
   }
 
   /**
@@ -427,8 +434,7 @@ class BulletinStore {
 
   _loadBulletinData(date) {
     const dateParam = encodeURIComponent(date);
-    const url =
-      config.get("apis.bulletin") + "?date=" + dateParam;
+    const url = config.get("apis.bulletin") + "?date=" + dateParam;
 
     return Base.doRequest(url).then(
       // query bulletin data

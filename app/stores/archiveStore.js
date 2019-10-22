@@ -166,8 +166,12 @@ export default class ArchiveStore {
 
     this.loading = true;
 
-    const timeFormatStart = isSummerTime(new Date(startDate)) ? "T22:00:00Z" : "T23:00:00Z";
-    const timeFormatEnd = isSummerTime(new Date(endDate)) ? "T22:00:00Z" : "T23:00:00Z";
+    const timeFormatStart = isSummerTime(new Date(startDate))
+      ? "T22:00:00Z"
+      : "T23:00:00Z";
+    const timeFormatEnd = isSummerTime(new Date(endDate))
+      ? "T22:00:00Z"
+      : "T23:00:00Z";
 
     const prevDay = date => dateToISODateString(getPredDate(parseDate(date)));
 
