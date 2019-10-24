@@ -25,11 +25,13 @@ import { tooltip_init } from "../js/tooltip";
 import { runInThisContext } from "vm";
 import BulletinList from "../components/bulletin/bulletin-list";
 
-require('leaflet.sync');
+require("leaflet.sync");
 
-require('leaflet.sync');
+require("leaflet.sync");
 
-require('leaflet.sync');
+require("leaflet.sync");
+
+require("leaflet.sync");
 
 @observer
 class Bulletin extends React.Component {
@@ -154,8 +156,8 @@ class Bulletin extends React.Component {
   }
 
   handleMapInit(map) {
-    if(this.mapRefs.length > 0) {
-      this.mapRefs.forEach((otherMap) => {
+    if (this.mapRefs.length > 0) {
+      this.mapRefs.forEach(otherMap => {
         map.sync(otherMap);
         otherMap.sync(map);
       });
@@ -171,18 +173,25 @@ class Bulletin extends React.Component {
     // console.log('rendering bulletin view(0)', this.store.vectorRegions)
     // console.log('rendering bulletin ', this.store.bulletins)
 
-    const shareDescription = (this.state.title && this.store.settings.date) ? (
-      collection
-        ? (this.state.title + ' | ' + dateToLongDateString(parseDate(this.store.settings.date)))
-        : this.props.intl.formatMessage({id: "bulletin:header:no-bulletin-info"}).replace(/<\/?a>/g, '')
-    ) : "";
+    const shareDescription =
+      this.state.title && this.store.settings.date
+        ? collection
+          ? this.state.title +
+            " | " +
+            dateToLongDateString(parseDate(this.store.settings.date))
+          : this.props.intl
+              .formatMessage({ id: "bulletin:header:no-bulletin-info" })
+              .replace(/<\/?a>/g, "")
+        : "";
 
-    const shareImage = (collection && this.store.settings.date) ? (
-      config.get('apis.geo') + this.store.settings.date + "/"
-      + (collection.hasDaytimeDependency() ? "am" : "fd") // FIXME: there should be a way to share "am" AND "pm" map
-      + "_albina_map.jpg"
-    ) :
-    "";
+    const shareImage =
+      collection && this.store.settings.date
+        ? config.get("apis.geo") +
+          this.store.settings.date +
+          "/" +
+          (collection.hasDaytimeDependency() ? "am" : "fd") + // FIXME: there should be a way to share "am" AND "pm" map
+          "_albina_map.jpg"
+        : "";
 
     return (
       <div>
@@ -197,39 +206,48 @@ class Bulletin extends React.Component {
         />
         <BulletinHeader store={this.store} title={this.state.title} />
 
-        { (this.store.activeBulletinCollection && this.store.activeBulletinCollection.hasDaytimeDependency())
-          ? <div className="bulletin-parallel-view">{
-              ["am", "pm"].map((daytime) => 
-                <BulletinMap
-                  key={daytime}
-                  handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
-                  handleSelectRegion={this.handleSelectRegion.bind(this)}
-                  date={this.props.match.params.date}
-                  history={this.props.history}
-                  store={this.store}
-                  highlightedRegion={this.state.highlightedRegion}
-                  regions={this.store.getVectorRegions(daytime)}
-                  onMapInit={this.handleMapInit.bind(this)}
-                  ampm={daytime}
-                />
-              )}
-            </div>
-          : <BulletinMap
-              handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
-              handleSelectRegion={this.handleSelectRegion.bind(this)}
-              date={this.props.match.params.date}
-              history={this.props.history}
-              store={this.store}
-              highlightedRegion={this.state.highlightedRegion}
-              regions={this.store.getVectorRegions()}
-            />
-        }
+        {this.store.activeBulletinCollection &&
+        this.store.activeBulletinCollection.hasDaytimeDependency() ? (
+          <div className="bulletin-parallel-view">
+            {["am", "pm"].map(daytime => (
+              <BulletinMap
+                key={daytime}
+                handleMapViewportChanged={this.handleMapViewportChanged.bind(
+                  this
+                )}
+                handleSelectRegion={this.handleSelectRegion.bind(this)}
+                date={this.props.match.params.date}
+                history={this.props.history}
+                store={this.store}
+                highlightedRegion={this.state.highlightedRegion}
+                regions={this.store.getVectorRegions(daytime)}
+                onMapInit={this.handleMapInit.bind(this)}
+                ampm={daytime}
+              />
+            ))}
+          </div>
+        ) : (
+          <BulletinMap
+            handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+            handleSelectRegion={this.handleSelectRegion.bind(this)}
+            date={this.props.match.params.date}
+            history={this.props.history}
+            store={this.store}
+            highlightedRegion={this.state.highlightedRegion}
+            regions={this.store.getVectorRegions()}
+          />
+        )}
         <BulletinLegend
           handleSelectRegion={this.handleSelectRegion.bind(this)}
           problems={this.store.problems}
         />
         <BulletinButtonbar store={this.store} />
-        {this.store.activeBulletinCollection && <BulletinList store={this.store} bulletinCollection={this.store.activeBulletinCollection} />}
+        {this.store.activeBulletinCollection && (
+          <BulletinList
+            store={this.store}
+            bulletinCollection={this.store.activeBulletinCollection}
+          />
+        )}
         {this.state.sharable && (
           <SmShare
             image={shareImage}
