@@ -9,7 +9,6 @@ import {
 } from "../util/date.js";
 
 import { GeoJSON } from "leaflet";
-import { autorun } from "../../node_modules/mobx/lib/mobx.js";
 
 class BulletinCollection {
   date;
@@ -27,7 +26,7 @@ class BulletinCollection {
   }
 
   get regions() {
-    if(this.length > 0) {
+    if (this.length > 0) {
       return this.getData().map(el => el.id);
     }
 
@@ -71,8 +70,8 @@ class BulletinCollection {
   }
 
   getBulletinForRegion(regionId) {
-    if(this.length > 0) {
-      return this.getData().find((el) => el.id == regionId);
+    if (this.length > 0) {
+      return this.getData().find(el => el.id == regionId);
     }
     return null;
   }
@@ -86,13 +85,13 @@ class BulletinCollection {
   }
 
   setData(data) {
-    if(data && data.length > 0) {
+    if (data && data.length > 0) {
       // calculate maxWarnlevel for each bulletin
       const defaultLevel = {
         number: 0,
         id: "no_rating"
       };
-  
+
       const comparator = (acc, w) => {
         if (acc.number < w.number) {
           return w;
@@ -104,26 +103,33 @@ class BulletinCollection {
         return acc;
       };
 
-      data.forEach((b) => {
-        const bulletins = b.hasDaytimeDependency ? [b["forenoon"], b["afternoon"]] : [b["forenoon"]];
-        b.maxWarnlevel = bulletins.map(b => {
-          const warnlevels = [];
-          if (b.dangerRatingAbove) {
-            warnlevels.push({
-              number: window["appStore"].getWarnlevelNumber(b.dangerRatingAbove),
-              id: b.dangerRatingAbove
-            });
-          }
-          if (b.dangerRatingBelow) {
-            warnlevels.push({
-              number: window["appStore"].getWarnlevelNumber(b.dangerRatingBelow),
-              id: b.dangerRatingBelow
-            });
-          }
-          // get the maximum for each daytime
-          return warnlevels.reduce(comparator, defaultLevel);
-        })
-        .reduce(comparator, defaultLevel); // return the total maximum
+      data.forEach(b => {
+        const bulletins = b.hasDaytimeDependency
+          ? [b["forenoon"], b["afternoon"]]
+          : [b["forenoon"]];
+        b.maxWarnlevel = bulletins
+          .map(b => {
+            const warnlevels = [];
+            if (b.dangerRatingAbove) {
+              warnlevels.push({
+                number: window["appStore"].getWarnlevelNumber(
+                  b.dangerRatingAbove
+                ),
+                id: b.dangerRatingAbove
+              });
+            }
+            if (b.dangerRatingBelow) {
+              warnlevels.push({
+                number: window["appStore"].getWarnlevelNumber(
+                  b.dangerRatingBelow
+                ),
+                id: b.dangerRatingBelow
+              });
+            }
+            // get the maximum for each daytime
+            return warnlevels.reduce(comparator, defaultLevel);
+          })
+          .reduce(comparator, defaultLevel); // return the total maximum
       });
     }
 
@@ -133,7 +139,7 @@ class BulletinCollection {
         ? data.length > 0
           ? "ok"
           : "empty"
-        : "n/a";  
+        : "n/a";
   }
 
   cancelLoad() {
@@ -357,8 +363,10 @@ class BulletinStore {
    *   this.date, this.ampm and this.region
    */
   get activeBulletin() {
-    if(this.activeBulletinCollection) {
-      return this.activeBulletinCollection.getBulletinForRegion(this.settings.region);
+    if (this.activeBulletinCollection) {
+      return this.activeBulletinCollection.getBulletinForRegion(
+        this.settings.region
+      );
     }
     return null;
   }
@@ -368,9 +376,7 @@ class BulletinStore {
     const b = this.activeBulletinCollection.getBulletinForRegion(regionId);
     if (b) {
       const daytime =
-        b.hasDaytimeDependency && ampm == "pm"
-          ? "afternoon"
-          : "forenoon";
+        b.hasDaytimeDependency && ampm == "pm" ? "afternoon" : "forenoon";
       const daytimeBulletin = b[daytime];
 
       if (daytimeBulletin && daytimeBulletin.avalancheSituation1) {
@@ -420,16 +426,16 @@ class BulletinStore {
       // clone original geojson
       const clonedGeojson = Object.assign({}, collection.getGeoData());
 
-      const regions =
-        clonedGeojson.features && clonedGeojson.features.length
-          ? clonedGeojson.features.map(f => {
-              const state = this.getRegionState(f.properties.bid, ampm);
-
-              f = flip(f);
-              f.properties.state = state;
-              return f;
-            })
-          : [];
+      const regions = (clonedGeojson.features || []).map(f => {
+        f.properties.state = this.getRegionState(f.properties.bid, ampm);
+        if (!f.properties.latlngs) {
+          f.properties.latlngs = GeoJSON.coordsToLatLngs(
+            f.geometry.coordinates,
+            f.geometry.type === "Polygon" ? 1 : 2
+          );
+        }
+        return f;
+      });
 
       const states = [
         "selected",
