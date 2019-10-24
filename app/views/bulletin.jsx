@@ -27,12 +27,6 @@ import BulletinList from "../components/bulletin/bulletin-list";
 
 require("leaflet.sync");
 
-require("leaflet.sync");
-
-require("leaflet.sync");
-
-require("leaflet.sync");
-
 @observer
 class Bulletin extends React.Component {
   constructor(props) {

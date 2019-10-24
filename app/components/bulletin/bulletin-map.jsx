@@ -28,7 +28,7 @@ class BulletinMap extends React.Component {
       this.props.handleSelectRegion(null);
     });
 
-    if(typeof this.props.onMapInit === 'function') {
+    if (typeof this.props.onMapInit === "function") {
       this.props.onMapInit(map);
     }
   };
@@ -44,9 +44,7 @@ class BulletinMap extends React.Component {
 
     const b = this.props.store.activeBulletinCollection;
     if (b) {
-      const daytime = b.hasDaytimeDependency()
-        ? this.props.ampm
-        : "fd";
+      const daytime = b.hasDaytimeDependency() ? this.props.ampm : "fd";
 
       const url =
         config.get("apis.geo") +
@@ -70,8 +68,11 @@ class BulletinMap extends React.Component {
       overlays.push(
         <BulletinVectorLayer
           key="bulletin-regions"
-          store={bulletinStore}
+          problems={this.props.store.problems}
+          date={this.props.store.settings.date}
+          activeRegion={this.props.store.settings.region}
           regions={this.props.regions}
+          bulletin={this.props.store.activeBulletin}
           handleSelectRegion={this.props.handleSelectRegion}
           handleCenterToRegion={center => this.map.panTo(center)}
         />
@@ -186,11 +187,13 @@ class BulletinMap extends React.Component {
               )}
             </div>
           )}
-          {this.props.ampm && 
-            <div className="bulletin-map-daytime">{this.props.intl.formatMessage({
-              id: "bulletin:header:" + this.props.ampm
-            })}</div>
-          }
+          {this.props.ampm && (
+            <div className="bulletin-map-daytime">
+              {this.props.intl.formatMessage({
+                id: "bulletin:header:" + this.props.ampm
+              })}
+            </div>
+          )}
         </div>
       </section>
     );
