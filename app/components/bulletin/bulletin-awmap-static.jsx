@@ -13,7 +13,7 @@ class BulletinAWMapStatic extends React.Component {
       this.props.date +
       "/" +
       this.props.region +
-      ((this.props.bulletin.hasDaytimeDependency && this.props.ampm == "pm") 
+      (this.props.bulletin.hasDaytimeDependency && this.props.ampm == "pm"
         ? "_PM"
         : "") +
       ".jpg";

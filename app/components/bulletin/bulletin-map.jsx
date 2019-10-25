@@ -27,6 +27,10 @@ class BulletinMap extends React.Component {
     map.on("click", e => {
       this.props.handleSelectRegion(null);
     });
+
+    if (typeof this.props.onMapInit === "function") {
+      this.props.onMapInit(map);
+    }
   };
 
   styleOverMap() {
@@ -40,9 +44,7 @@ class BulletinMap extends React.Component {
 
     const b = this.props.store.activeBulletinCollection;
     if (b) {
-      const daytime = b.hasDaytimeDependency()
-        ? this.props.store.settings.ampm
-        : "fd";
+      const daytime = b.hasDaytimeDependency() ? this.props.ampm : "fd";
 
       const url =
         config.get("apis.geo") +
@@ -66,8 +68,11 @@ class BulletinMap extends React.Component {
       overlays.push(
         <BulletinVectorLayer
           key="bulletin-regions"
-          store={bulletinStore}
+          problems={this.props.store.problems}
+          date={this.props.store.settings.date}
+          activeRegion={this.props.store.settings.region}
           regions={this.props.regions}
+          bulletin={this.props.store.activeBulletin}
           handleSelectRegion={this.props.handleSelectRegion}
           handleCenterToRegion={center => this.map.panTo(center)}
         />
@@ -161,6 +166,7 @@ class BulletinMap extends React.Component {
               <BulletinMapDetails
                 store={this.props.store}
                 bulletin={hlBulletin}
+                ampm={this.props.ampm}
               />
               {this.props.store.settings.region && (
                 <a
@@ -181,10 +187,17 @@ class BulletinMap extends React.Component {
               )}
             </div>
           )}
+          {this.props.ampm && (
+            <div className="bulletin-map-daytime">
+              {this.props.intl.formatMessage({
+                id: "bulletin:header:" + this.props.ampm
+              })}
+            </div>
+          )}
         </div>
       </section>
     );
   }
 }
 
-export default inject("locale")(injectIntl(observer(BulletinMap)));
+export default inject("locale")(injectIntl(BulletinMap));

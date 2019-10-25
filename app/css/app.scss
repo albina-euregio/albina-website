@@ -268,6 +268,40 @@ a.pure-button.emphasized:hover {
   background: rgba(245, 245, 245, 0.95);
 }
 
+.bulletin-parallel-view .section-bulletin-map {
+  width: 100%;
+  display: block;
+
+  &:first-child {
+    border-bottom: 1px solid #ccc;
+    border-right: none;
+  }
+
+  @media only screen and (min-width: 64em) {
+    width: 50%;
+    display: inline-block;
+
+    &:first-child {
+      border-bottom: none;
+      border-right: 1px solid #ccc;
+    }
+  }
+}
+
+.bulletin-map-daytime {
+  position: absolute;
+  top: 12px;
+  left: 68px;
+  z-index: 2;
+  font-size: 200%;
+  font-weight: bold;
+  opacity: 0.7;
+  color: #19ABFF;
+  /*text-transform: uppercase;*/
+  width: 50%;
+  display: inline-block;
+}
+
 .leaflet-control.zamg-logo-container {
   position: absolute;
   float: none;

@@ -1,6 +1,5 @@
 import React from "react";
 import L from "leaflet";
-import { observer } from "mobx-react";
 import { GeoJSON, Pane, Polygon } from "react-leaflet";
 
 export default class BulletinVectorLayer extends React.Component {
@@ -40,45 +39,6 @@ export default class BulletinVectorLayer extends React.Component {
     }
   }
 
-  // checking if at least one region changed the status
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.over !== this.state.over) {
-      return true;
-    } else {
-      const changesInRegions = this.props.regions.some(region => {
-        const region2 = nextProps.regions.find(
-          r => r.properties.bid === region.properties.bid
-        );
-        return region2
-          ? region2.properties.state !== region.properties.state
-          : true;
-      });
-      /*
-      const changes = this.props.regions
-        .filter(region => {
-          const region2 = nextProps.regions.find(
-            r => r.properties.bid === region.properties.bid
-          );
-          return region2
-            ? region2.properties.state !== region.properties.state
-            : true;
-        })
-        .map(region => {
-          const region2 = nextProps.regions.find(
-            r => r.properties.bid === region.properties.bid
-          );
-          return {
-            id: region.properties.bid,
-            oldState: region.properties.state,
-            newState: region2.properties.state
-          };
-        });
-      console.log("should", changes);
-      */
-      return changesInRegions;
-    }
-  }
-
   get uniqueKey() {
     // A unique key is needed for <GeoJSON> component to indicate the need
     // for rerendering. We use the selected date and region as well as a hash
@@ -88,14 +48,12 @@ export default class BulletinVectorLayer extends React.Component {
     // binary string are determined by the (lexicographical) order of the
     // problem ids (since neither Object.values nor for .. in loops are
     // guaranteed to preserve order).
-    const problemKeys = Object.keys(bulletinStore.problems).sort();
+    const problemKeys = Object.keys(this.props.problems).sort();
     const problemHash = problemKeys.reduce((acc, p) => {
-      return acc * 2 + (bulletinStore.problems[p].active ? 1 : 0);
+      return acc * 2 + (this.props.problems[p].active ? 1 : 0);
     }, 0);
 
-    return (
-      bulletinStore.settings.date + bulletinStore.settings.region + problemHash
-    );
+    return this.props.date + this.props.activeRegion + problemHash;
   }
 
   renderRegion(vector, state, geometry, style, key) {
@@ -154,7 +112,3 @@ export default class BulletinVectorLayer extends React.Component {
     );
   }
 }
-
-// 03a170db-4017-46e3-ae82-dd85d2066820
-// 03a170db-4017-46e3-ae82-dd85d2066820
-// 03a170db-4017-46e3-ae82-dd85d2066820

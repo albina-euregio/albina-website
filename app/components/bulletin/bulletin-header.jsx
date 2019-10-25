@@ -1,9 +1,8 @@
 import React from "react";
 import { computed } from "mobx";
 import { inject, observer } from "mobx-react";
-import { injectIntl, FormattedMessage } from "react-intl";
+import { injectIntl } from "react-intl";
 
-import BulletinAmPmSwitch from "./bulletin-ampm-switch.jsx";
 import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
 import BulletinStatusLine from "./bulletin-status-line.jsx";
 import { parseDate, dateToLongDateString } from "../../util/date.js";
@@ -44,7 +43,7 @@ class BulletinHeader extends React.Component {
           />
           <h2 className="subheader">{this.props.title}</h2>
           <h1 className="bulletin-datetime-validity">
-            {this.date} <BulletinAmPmSwitch store={this.props.store} />
+            {this.date}
           </h1>
           <BulletinDateFlipper
             date={this.props.store.settings.date}

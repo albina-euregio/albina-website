@@ -9,7 +9,6 @@ import {
 } from "../util/date.js";
 
 import { GeoJSON } from "leaflet";
-import { autorun } from "../../node_modules/mobx/lib/mobx.js";
 
 class BulletinCollection {
   date;
@@ -27,7 +26,7 @@ class BulletinCollection {
   }
 
   get regions() {
-    if(this.length > 0) {
+    if (this.length > 0) {
       return this.getData().map(el => el.id);
     }
 
@@ -71,8 +70,8 @@ class BulletinCollection {
   }
 
   getBulletinForRegion(regionId) {
-    if(this.length > 0) {
-      return this.getData().find((el) => el.id == regionId);
+    if (this.length > 0) {
+      return this.getData().find(el => el.id == regionId);
     }
     return null;
   }
@@ -86,13 +85,13 @@ class BulletinCollection {
   }
 
   setData(data) {
-    if(data && data.length > 0) {
+    if (data && data.length > 0) {
       // calculate maxWarnlevel for each bulletin
       const defaultLevel = {
         number: 0,
         id: "no_rating"
       };
-  
+
       const comparator = (acc, w) => {
         if (acc.number < w.number) {
           return w;
@@ -104,26 +103,33 @@ class BulletinCollection {
         return acc;
       };
 
-      data.forEach((b) => {
-        const bulletins = b.hasDaytimeDependency ? [b["forenoon"], b["afternoon"]] : [b["forenoon"]];
-        b.maxWarnlevel = bulletins.map(b => {
-          const warnlevels = [];
-          if (b.dangerRatingAbove) {
-            warnlevels.push({
-              number: window["appStore"].getWarnlevelNumber(b.dangerRatingAbove),
-              id: b.dangerRatingAbove
-            });
-          }
-          if (b.dangerRatingBelow) {
-            warnlevels.push({
-              number: window["appStore"].getWarnlevelNumber(b.dangerRatingBelow),
-              id: b.dangerRatingBelow
-            });
-          }
-          // get the maximum for each daytime
-          return warnlevels.reduce(comparator, defaultLevel);
-        })
-        .reduce(comparator, defaultLevel); // return the total maximum
+      data.forEach(b => {
+        const bulletins = b.hasDaytimeDependency
+          ? [b["forenoon"], b["afternoon"]]
+          : [b["forenoon"]];
+        b.maxWarnlevel = bulletins
+          .map(b => {
+            const warnlevels = [];
+            if (b.dangerRatingAbove) {
+              warnlevels.push({
+                number: window["appStore"].getWarnlevelNumber(
+                  b.dangerRatingAbove
+                ),
+                id: b.dangerRatingAbove
+              });
+            }
+            if (b.dangerRatingBelow) {
+              warnlevels.push({
+                number: window["appStore"].getWarnlevelNumber(
+                  b.dangerRatingBelow
+                ),
+                id: b.dangerRatingBelow
+              });
+            }
+            // get the maximum for each daytime
+            return warnlevels.reduce(comparator, defaultLevel);
+          })
+          .reduce(comparator, defaultLevel); // return the total maximum
       });
     }
 
@@ -133,7 +139,7 @@ class BulletinCollection {
         ? data.length > 0
           ? "ok"
           : "empty"
-        : "n/a";  
+        : "n/a";
   }
 
   cancelLoad() {
@@ -167,8 +173,7 @@ class BulletinStore {
     this.settings = observable({
       status: "",
       date: "",
-      region: "",
-      ampm: config.get("defaults.ampm")
+      region: ""
     });
     this.bulletins = {};
 
@@ -312,22 +317,6 @@ class BulletinStore {
     }
   }
 
-  /**
-   * Set the current active 'am'/'pm' state.
-   * @param ampm A string 'am' or 'pm'.
-   */
-  @action setAmPm(ampm) {
-    switch (ampm) {
-      case "am":
-      case "pm":
-        this.settings.ampm = ampm;
-        break;
-
-      default:
-        break;
-    }
-  }
-
   @action setRegion(id) {
     this.settings.region = id;
   }
@@ -374,20 +363,20 @@ class BulletinStore {
    *   this.date, this.ampm and this.region
    */
   get activeBulletin() {
-    if(this.activeBulletinCollection) {
-      return this.activeBulletinCollection.getBulletinForRegion(this.settings.region);
+    if (this.activeBulletinCollection) {
+      return this.activeBulletinCollection.getBulletinForRegion(
+        this.settings.region
+      );
     }
     return null;
   }
 
-  getProblemsForRegion(regionId) {
+  getProblemsForRegion(regionId, ampm = null) {
     const problems = [];
     const b = this.activeBulletinCollection.getBulletinForRegion(regionId);
     if (b) {
       const daytime =
-        b.hasDaytimeDependency && this.settings.ampm == "pm"
-          ? "afternoon"
-          : "forenoon";
+        b.hasDaytimeDependency && ampm == "pm" ? "afternoon" : "forenoon";
       const daytimeBulletin = b[daytime];
 
       if (daytimeBulletin && daytimeBulletin.avalancheSituation1) {
@@ -402,7 +391,7 @@ class BulletinStore {
     }
   }
 
-  getRegionState(regionId) {
+  getRegionState(regionId, ampm = null) {
     if (this.settings.region && this.settings.region === regionId) {
       return "selected";
     }
@@ -412,7 +401,7 @@ class BulletinStore {
     }
 
     const checkHighlight = rId => {
-      const problems = this.getProblemsForRegion(rId);
+      const problems = this.getProblemsForRegion(rId, ampm);
       return problems.some(
         p => this.problems[p] && this.problems[p].highlighted
       );
@@ -430,12 +419,15 @@ class BulletinStore {
   }
 
   // assign states to regions
-  @computed get vectorRegions() {
+  getVectorRegions(ampm = null) {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
-      const regions = (collection.getGeoData().features || []).map(f => {
-        f.properties.state = this.getRegionState(f.properties.bid);
+      // clone original geojson
+      const clonedGeojson = Object.assign({}, collection.getGeoData());
+
+      const regions = (clonedGeojson.features || []).map(f => {
+        f.properties.state = this.getRegionState(f.properties.bid, ampm);
         if (!f.properties.latlngs) {
           f.properties.latlngs = GeoJSON.coordsToLatLngs(
             f.geometry.coordinates,

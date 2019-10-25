@@ -13,7 +13,7 @@ export default class BulletinMapDetails extends React.Component {
     // TODO: create common component with bulletin-report
     const daytime =
       this.props.bulletin.hasDaytimeDependency &&
-      this.props.store.settings.ampm == "pm"
+      this.props.ampm == "pm"
         ? "afternoon"
         : "forenoon";
     const b = this.props.bulletin[daytime];
