@@ -29,5 +29,5 @@ deploy to development:
   environment:
     name: development
   only:
-    - development
+    - master
     - ci
