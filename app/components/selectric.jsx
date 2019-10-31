@@ -43,6 +43,7 @@ export default class Selectric extends React.Component {
     return (
       <select
         className="dropdown"
+        onChange={() => {}} // dummy handler to get rid of checkPropTypes warning
         ref={el => {
           this.el = el;
         }}
