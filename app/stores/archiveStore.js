@@ -152,7 +152,6 @@ export default class ArchiveStore {
   }
 
   getStatus(date) {
-    //console.log("getting status", date, this.archive);
     return this.archive[date] ? this.archive[date].status : "";
   }
 
@@ -192,13 +191,12 @@ export default class ArchiveStore {
     // we do not need region anymore
     //(region ? "&region=" + region : "");
 
-    console.log("asking for bulletin ", url);
+    if (APP_DEV_MODE) console.log("asking for bulletin ", url);
     return Base.doRequest(url)
       .then(
         // query status data
         response => {
           const values = JSON.parse(response);
-          console.log(values);
           if (typeof values === "object") {
             for (let v of values) {
               // only use date part (without time) and add 1 day to get the
@@ -222,7 +220,7 @@ export default class ArchiveStore {
                   message: v.status
                 };
               } else {
-                console.log("Cannot parse bulletin status for date: " + d);
+                console.warn("Cannot parse bulletin status for date: " + d);
               }
             }
           }

@@ -42,7 +42,6 @@ var Base = {
 
   doPost(url, payload, type = "json") {
     return new Promise(function(resolve, reject) {
-      console.log("post: " + url + " " + JSON.stringify(payload));
       let xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
         if (xhr.readyState == XMLHttpRequest.DONE) {
@@ -106,8 +105,6 @@ var Base = {
       }
     });
 
-    // console.log("search changes", JSON.stringify(changes));
-
     if (history && search && Object.keys(changes).length > 0) {
       // setting new search object
       Object.keys(changes).forEach(changeKey => {
@@ -118,7 +115,6 @@ var Base = {
           search.append(changeKey, changeValue);
         }
       });
-      // console.log("search, replace: ", replace, ". params", search.toString());
 
       // pushing to history
       if (search && history) {
