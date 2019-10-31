@@ -58,8 +58,6 @@ $(function() {
 
     //preload_files();
     orientation_change();
-
-    //console.log("custom.js initialised");
   }, debug_pl_delay);
 });
 
@@ -203,7 +201,6 @@ function flipper_init(flipper_start) {
     }
 
     function flipper_flip(flipper_next, init) {
-      //console.log(flipper_now, flipper_next);
       flipper_content.css({ left: -flipper_next * 100 + "vw" });
       flipper_now = flipper_next;
 

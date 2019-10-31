@@ -36,7 +36,6 @@ class SubscribeEmailDialog extends React.Component {
 
   handleChangeEmail = e => {
     const value = e.target.value;
-    console.log(value);
 
     if (this.validateEmail(value)) {
       this.setState({ email: value });

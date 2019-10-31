@@ -164,8 +164,7 @@ class Bulletin extends React.Component {
     this.mapRefs = [];
 
     const collection = this.store.activeBulletinCollection;
-    // console.log('rendering bulletin view(0)', this.store.vectorRegions)
-    // console.log('rendering bulletin ', this.store.bulletins)
+    if (APP_DEV_MODE) console.log("rendering bulletin ", this.store.bulletins);
 
     const shareDescription =
       this.state.title && this.store.settings.date

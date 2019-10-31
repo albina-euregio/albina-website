@@ -71,7 +71,7 @@ class AppStore extends React.Component {
   setLanguage(newLanguage) {
     if (this.languages.includes(newLanguage)) {
       if (this.locale.value !== newLanguage) {
-        console.log("new language set", newLanguage);
+        if (APP_DEV_MODE) console.log("new language set", newLanguage);
         this.locale.value = newLanguage;
       }
       return true;

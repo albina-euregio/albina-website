@@ -16,7 +16,6 @@ class DonwloadPdfDialog extends React.Component {
   }
 
   handleChangeRegion = newRegion => {
-    console.log(newRegion);
     this.setState({ region: newRegion !== "none" ? newRegion : false });
   };
   handleChangeMode = newMode => {

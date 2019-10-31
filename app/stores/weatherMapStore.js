@@ -138,7 +138,7 @@ export default class WeatherMapStore {
     setting a new active domain
   */
   @action changeDomain(domainId) {
-    console.log("CHANGE DOMAIN: " + domainId);
+    if (APP_DEV_MODE) console.log("CHANGE DOMAIN: " + domainId);
     if (this.checkDomainId(domainId)) {
       this._domainId.set(domainId);
       this.changeItem(this.domain.domainIdStart);
@@ -150,7 +150,6 @@ export default class WeatherMapStore {
     setting a new active item
   */
   @action changeItem(itemId) {
-    // console.log('changing item', itemId)
     if (this.checkItemId(this.domainId, itemId)) {
       this._itemId.set(itemId);
       this.selectedFeature = null;

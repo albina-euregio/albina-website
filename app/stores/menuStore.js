@@ -111,7 +111,7 @@ export default class MenuStore {
         }
         p.children.push(entry);
       } else {
-        console.log("cannot find parent " + parentId + " for " + entry.url);
+        console.warn("cannot find parent " + parentId + " for " + entry.url);
       }
     } else {
       this.menus[menuId].push(entry);
