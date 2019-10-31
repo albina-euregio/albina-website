@@ -13,6 +13,7 @@
     "clean-dist": "rm -f -r -d dist"
   },
   "dependencies": {
+    "@loadable/component": "^5.10.2",
     "animejs": "^2.2.0",
     "datatables.net": "^1.10.19",
     "fluidvids.js": "github:toddmotto/fluidvids",
@@ -46,6 +47,7 @@
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/plugin-proposal-decorators": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
