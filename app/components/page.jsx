@@ -11,7 +11,7 @@ import { injectIntl } from "react-intl";
 import ModalDialog from "./modal-dialog";
 import FollowDialog from "./dialogs/follow-dialog";
 import SubscribeDialog from "./dialogs/subscribe-dialog";
-import DonwloadPdfDialog from "./dialogs/dowload-pdf";
+import DownloadPdfDialog from "./dialogs/download-pdf-dialog";
 import SubscribeSocialMediaDialog from "./dialogs/subscribe-social-media-dialog";
 import SubscribeAppDialog from "./dialogs/subscribe-app-dialog";
 import SubscribeEmailDialog from "./dialogs/subscribe-email-dialog";
@@ -110,7 +110,7 @@ class Page extends React.Component {
           <SubscribeDialog />
         </ModalDialog>
         <ModalDialog id="downloadPdfDialog">
-          <DonwloadPdfDialog />
+          <DownloadPdfDialog />
         </ModalDialog>
         <ModalDialog id="followDialog">
           <FollowDialog />
