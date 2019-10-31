@@ -31,3 +31,20 @@ deploy to development:
   only:
     - master
     - ci
+
+deploy to production:
+  stage: deploy
+  script:
+    - "which rsync || ( apt-get update -y && apt-get install rsync -y )"
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - npm run build
+    - npm run deploy
+  environment:
+    name: production
+  only:
+    - tags
+  when: manual
