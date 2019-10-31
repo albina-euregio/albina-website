@@ -80,8 +80,9 @@ Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(
   ([configData, webp]) => {
     var configParsed = JSON.parse(configData);
     configParsed["projectRoot"] = basePath;
-    configParsed["version"] = VERSION; // included via webpack.DefinePlugin
-    configParsed["developmentMode"] = DEV; // included via webpack.DefinePlugin
+    configParsed["version"] = APP_VERSION; // included via webpack.DefinePlugin
+    configParsed["versionDate"] = APP_VERSION_DATE; // included via webpack.DefinePlugin
+    configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
     configParsed["webp"] = webp;
     if (webp) {
       // enable WebP for ALBINA layer
