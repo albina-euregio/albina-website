@@ -79,14 +79,14 @@ module.exports = (env, argv) => {
         devMode: "webapp"
       }),
       new webpack.DefinePlugin({
-        DEV: JSON.stringify(argv.mode !== "production"),
-        VERSION: JSON.stringify(
-          [
-            execSync("git describe --tags", { encoding: "utf8" }).trim(),
-            execSync("git log -1 --format=%cd --date=short", {
-              encoding: "utf8"
-            }).trim()
-          ].join(", ")
+        APP_DEV_MODE: JSON.stringify(argv.mode !== "production"),
+        APP_VERSION: JSON.stringify(
+          execSync("git describe --tags", { encoding: "utf8" }).trim()
+        ),
+        APP_VERSION_DATE: JSON.stringify(
+          execSync("git log -1 --format=%cd --date=short", {
+            encoding: "utf8"
+          }).trim()
         )
       }),
       new MiniCssExtractPlugin({

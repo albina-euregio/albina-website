@@ -116,7 +116,9 @@ class PageFooter extends React.Component {
                 */}
             </div>
             <div className="grid-item all-12">
-              <div className="version">version {config.get("version")}</div>
+              <div className="version">
+                version {config.get("version")}, {config.get("versionDate")}
+              </div>
             </div>
           </div>
         </section>
