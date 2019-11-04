@@ -394,7 +394,7 @@
         "serverImagesUrl" : "Path to server images",
         "serverImagesUrlLocalhost" : "Path to server images (localhost)",
         "mapsPath" : "Path to maps",
-        "univieMapProductionUrl" : "URL for map production",
+        "mapProductionUrl" : "URL for map production",
         "scriptsPath" : "Path to scripts"
       },
       "button" : {

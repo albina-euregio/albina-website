@@ -45,7 +45,7 @@ export class AdminComponent implements AfterContentInit {
   public serverImagesUrl: string;
   public serverImagesUrlLocalhost: string;
   public mapsPath: string;
-  public univieMapProductionUrl: string;
+  public mapProductionUrl: string;
   public scriptsPath: string;
 
   public regions: SelectItem[];
@@ -107,7 +107,7 @@ export class AdminComponent implements AfterContentInit {
           this.serverImagesUrl = response.serverImagesUrl;
           this.serverImagesUrlLocalhost = response.serverImagesUrlLocalhost;
           this.mapsPath = response.mapsPath;
-          this.univieMapProductionUrl = response.univieMapProductionUrl;
+          this.mapProductionUrl = response.mapProductionUrl;
           this.scriptsPath = response.scriptsPath;
           this.configurationPropertiesLoaded = true;
 
@@ -171,7 +171,7 @@ export class AdminComponent implements AfterContentInit {
     json["serverImagesUrl"] = this.serverImagesUrl;
     json["serverImagesUrlLocalhost"] = this.serverImagesUrlLocalhost;
     json["mapsPath"] = this.mapsPath;
-    json["univieMapProductionUrl"] = this.univieMapProductionUrl;
+    json["mapProductionUrl"] = this.mapProductionUrl;
     json["scriptsPath"] = this.scriptsPath;
 
     this.configurationService.saveConfigurationProperties(json).subscribe(

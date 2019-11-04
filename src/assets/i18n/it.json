@@ -394,7 +394,7 @@
         "serverImagesUrl" : "Percorso alle immagini sul server",
         "serverImagesUrlLocalhost" : "Percorso alle immagini sul server (localhost)",
         "mapsPath" : "Percorso verso le mappe",
-        "univieMapProductionUrl" : "URL per la produzione di mappe",
+        "mapProductionUrl" : "URL per la produzione di mappe",
         "scriptsPath" : "Percorso verso gli script"
       },
       "button" : {
