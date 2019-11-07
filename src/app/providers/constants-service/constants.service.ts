@@ -5,6 +5,7 @@ import { environment } from "../../../environments/environment";
 export class ConstantsService {
 
   public snowObserverServerUrl: string = "https://snowobserver.com/snowobserver/api/";
+  public zamgModelsUrl: string = "https://avalanche.report/zamg/";
   public natlefsServerUrl: string = "https://natlefs.snowobserver.com/snowobserver/api/";
   public natlefsUsername: string = "norbert.lanzanasto@tirol.gv.at";
   public natlefsPassword: string = "FRYLjTQ2";

@@ -32,6 +32,12 @@ export const routes: Routes = [
     loadChildren: "./admin/admin.module#AdminModule"
   },
   {
+    path: "modelling",
+    component: FullLayoutComponent,
+    canActivate: [AuthGuard],
+    loadChildren: "./modelling/modelling.module#ModellingModule"
+  },
+  {
     path: "settings",
     component: FullLayoutComponent,
     canActivate: [AuthGuard],

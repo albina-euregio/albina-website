@@ -13,6 +13,7 @@
   "sidebar" : {
     "bulletins" : "Lawinenvorhersagen",
     "observations" : "Rückmeldungen",
+    "modellingZamg": "ZAMG Multimodel",
     "admin" : "Admin",
     "catalogueOfPhrases" : "Satzkatalog"
   },
