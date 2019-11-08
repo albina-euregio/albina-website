@@ -9,7 +9,7 @@ export default class WeatherMapStore {
 
   constructor(initialDomainId) {
     this.config = false;
-    this.staions = null;
+    this.stations = null;
     this.grid = null;
     this._domainId = observable.box(false);
     this._itemId = observable.box(false);
