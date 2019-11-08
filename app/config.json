@@ -64,11 +64,10 @@
     "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/",
     "weather": {
       "domains": "https://avalanche.report/transfer/data/albina_domains.json",
-      "stations": "https://avalanche.report/transfer/data/albina_stations.json",
+      "stations": "https://api.avalanche.report/data/produkte/albina.geojson",
       "grid": "https://avalanche.report/transfer/data/albina_grid.json",
       "overlays": "https://avalanche.report/transfer/data/"
-    },
-    "stations": "https://data1.geo.univie.ac.at/exchange/albina2/meteo/stations.json"
+    }
   },
   "apiKeys": {
     "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo",
