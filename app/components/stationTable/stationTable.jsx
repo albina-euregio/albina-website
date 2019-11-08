@@ -164,14 +164,14 @@ export default class StationTable extends React.Component {
 
     return (
       this.props.data.length != nextProps.data.length ||
-      this._shoudColumnGroupsUpdate() ||
+      this._shouldColumnGroupsUpdate() ||
       shouldRegionFilterUpdate ||
       shouldSearchFilterUpdate ||
       shouldSortingUpdate
     );
   }
 
-  _shoudColumnGroupsUpdate() {
+  _shouldColumnGroupsUpdate() {
     return Object.keys(this.props.activeData)
       .map(id => this.props.activeData[id] != this.columnGroups[id].active)
       .reduce((acc, el) => acc || el, false);
@@ -206,7 +206,7 @@ export default class StationTable extends React.Component {
     }
 
     // hide filters
-    if (this._shoudColumnGroupsUpdate()) {
+    if (this._shouldColumnGroupsUpdate()) {
       Object.keys(this.columnGroups).forEach(e => {
         if (this.props.activeData[e] != this.columnGroups[e].active) {
           if (this.props.activeData[e]) {
