@@ -57,5 +57,9 @@ lib
 .project
 .settings
 
+# vscode
+*.code-workspace
+
 # Code
 settings.json
+
