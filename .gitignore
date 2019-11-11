@@ -59,3 +59,4 @@ lib
 
 # Code
 settings.json
+*.code-workspace
