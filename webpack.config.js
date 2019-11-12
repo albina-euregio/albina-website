@@ -6,6 +6,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => {
+  const production = !argv.mode || argv.mode === "production";
   return {
     resolve: {
       extensions: [".js", ".jsx"]
@@ -14,6 +15,7 @@ module.exports = (env, argv) => {
     entry: {
       app: "./main.jsx"
     },
+    devtool: production ? "source-map" : "cheap-module-eval-source-map",
     devServer: {
       historyApiFallback: true
     },
@@ -79,7 +81,7 @@ module.exports = (env, argv) => {
         devMode: "webapp"
       }),
       new webpack.DefinePlugin({
-        APP_DEV_MODE: JSON.stringify(argv.mode !== "production"),
+        APP_DEV_MODE: JSON.stringify(!production),
         APP_VERSION: JSON.stringify(
           execSync("git describe --tags", { encoding: "utf8" }).trim()
         ),
