@@ -50,41 +50,40 @@ export default class StationOverlay extends React.Component {
   }
 
   renderMarker(data, pos = null) {
-    const value = Math.round(data.properties[this.props.item.id]);
+    const value = Math.round(data[this.props.item.id]);
     const coordinates = pos
       ? [pos.lat, pos.lng]
       : [data.geometry.coordinates[1], data.geometry.coordinates[0]];
     const markerData = {
-      id: data.properties.id,
+      id: data.id,
       name:
-        data.properties.name +
+        data.name +
         " (" +
-        data.properties.country +
+        data.region +
         ") " +
         data.geometry.coordinates[2] +
         "m",
       detail: value + " " + this.props.item.units,
-      date: data.properties.date,
+      date: data.date,
       value: value
     };
 
     return (
       <StationMarker
         type="station"
-        key={this.props.item.id + "-" + data.properties.id}
+        key={this.props.item.id + "-" + data.id}
         itemId={this.props.item.id}
         data={markerData}
-        stationId={data.properties.id}
+        stationId={data.id}
         coordinates={coordinates}
         value={value}
         selected={
-          this.props.selectedFeature &&
-          data.properties.id == this.props.selectedFeature.id
+          this.props.selectedFeature && data.id == this.props.selectedFeature.id
         }
         color={this.getColor(value)}
         direction={
           this.props.item.direction && value >= 3.5
-            ? data.properties[this.props.item.direction]
+            ? data[this.props.item.direction]
             : false
         }
         onClick={data => {
@@ -108,13 +107,11 @@ export default class StationOverlay extends React.Component {
 
   render() {
     const points = this.props.features.filter(
-      point => point.properties[this.props.item.id] !== false
+      point => point[this.props.item.id] !== false
     );
 
     const selectedFeature = this.props.selectedFeature
-      ? points.find(
-          point => point.properties.id == this.props.selectedFeature.id
-        )
+      ? points.find(point => point.id == this.props.selectedFeature.id)
       : null;
 
     return (

@@ -1,5 +1,6 @@
 import { computed, observable, action } from "mobx";
 import Base from "../base";
+import StationDataStore from "./stationDataStore";
 
 export default class WeatherMapStore {
   @observable _itemId;
@@ -19,8 +20,8 @@ export default class WeatherMapStore {
       Base.doRequest(config.get("apis.weather.domains")).then(response => {
         this.config = JSON.parse(response);
       }),
-      Base.doRequest(config.get("apis.weather.stations")).then(response => {
-        this.stations = JSON.parse(response);
+      new StationDataStore().load().then(features => {
+        this.stations = { features };
       }),
       Base.doRequest(config.get("apis.weather.grid")).then(response => {
         this.grid = JSON.parse(response);
@@ -37,9 +38,9 @@ export default class WeatherMapStore {
         }
         this.changeDomain(initialDomainId);
       })
-      .catch(() => {
+      .catch(err => {
         // TODO fail with error dialog
-        console.error("Weather data API is not available");
+        console.error("Weather data API is not available", err);
       });
   }
 

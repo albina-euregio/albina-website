@@ -28,7 +28,7 @@ class GridOverlay extends React.Component {
       data.geometry.coordinates[0]
     ];
     const markerData = {
-      id: data.properties.id,
+      id: data.id,
       name: data.properties.name,
       detail: value + " " + this.props.item.units
     };
@@ -36,13 +36,12 @@ class GridOverlay extends React.Component {
     return (
       <StationMarker
         type="gridpoint"
-        key={data.properties.id}
+        key={data.id}
         coordinates={coordinates}
         data={markerData}
         value={value}
         selected={
-          this.props.selectedFeature &&
-          data.properties.id == this.props.selectedFeature.id
+          this.props.selectedFeature && data.id == this.props.selectedFeature.id
         }
         color={this.getColor(value)}
         direction={
@@ -63,9 +62,7 @@ class GridOverlay extends React.Component {
       .filter(point => point.properties.zoom <= this.props.zoom);
 
     const selectedFeature = this.props.selectedFeature
-      ? gridPoints.find(
-          point => point.properties.id == this.props.selectedFeature.id
-        )
+      ? gridPoints.find(point => point.id == this.props.selectedFeature.id)
       : null;
 
     return (
