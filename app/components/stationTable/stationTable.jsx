@@ -6,12 +6,7 @@ export default class StationTable extends React.Component {
   constructor(props) {
     super(props);
 
-    if (!$.DataTable) {
-      $.DataTable = require("datatables.net");
-    }
-
-    const defaultRender = (data) =>
-      data !== false ? data : "-";
+    const defaultRender = data => (data !== false ? data : "-");
 
     this.columns = [
       {
@@ -111,57 +106,6 @@ export default class StationTable extends React.Component {
     this.sortDir = "";
   }
 
-  componentDidMount() {
-    const table = $(this.refs.main).DataTable({
-      dom: '<"data-table-wrapper"t>',
-      scrollY: false,
-      scrollX: true,
-      scrollCollapse: true,
-      deferRender: true,
-      lengthChange: false,
-      paging: false,
-      info: false,
-      rowId: "id",
-      fixedHeader: true,
-      fixedColumns: {
-        heightMatch: "none"
-      },
-      data: this.props.data,
-      columns: this.columns,
-      ordering: false,
-      language: {
-        emptyTable: "",
-        zeroRecords: ""
-      }
-    });
-
-    $(".data-table-wrapper").find("table tbody").on('click', 'tr', function () {
-      window["modalStateStore"].setData({"stationData": table.row( this ).data().properties});
-      modal_open_by_params(null, "inline", "#weatherStationDiagrams", "weatherStationDiagrams", true);
-    } );
-
-
-  }
-
-  componentDidUpdate() {
-    const table = $(".data-table-wrapper")
-      .find("table")
-      .DataTable();
-
-    if (table) {
-      table.clear();
-      table.rows.add(this._applyFiltersAndSorting(table, this.props.data));
-      table.draw();
-    }
-  }
-
-  componentWillUnmount() {
-    $(".data-table-wrapper")
-      .find("table")
-      .DataTable()
-      .destroy(true);
-  }
-
   shouldComponentUpdate(nextProps) {
     const shouldRegionFilterUpdate =
       (nextProps.activeRegion == "all" && this.regionFilter != null) ||
@@ -188,7 +132,7 @@ export default class StationTable extends React.Component {
       .reduce((acc, el) => acc || el, false);
   }
 
-  _applyFiltersAndSorting(table, originalData) {
+  _applyFiltersAndSorting(originalData) {
     const filters = [];
 
     // sorting
@@ -199,7 +143,7 @@ export default class StationTable extends React.Component {
           const a = val1[this.props.sortValue];
           const b = val2[this.props.sortValue];
 
-          if (a == b) {
+          if (a === b) {
             return 0;
           }
           if (typeof b === "undefined" || b === false || b === null) {
@@ -221,9 +165,9 @@ export default class StationTable extends React.Component {
       Object.keys(this.columnGroups).forEach(e => {
         if (this.props.activeData[e] != this.columnGroups[e].active) {
           if (this.props.activeData[e]) {
-            table.columns(this.columnGroups[e].columnNumbers).visible(true);
+            // table.columns(this.columnGroups[e].columnNumbers).visible(true);
           } else {
-            table.columns(this.columnGroups[e].columnNumbers).visible(false);
+            // table.columns(this.columnGroups[e].columnNumbers).visible(false);
           }
           this.columnGroups[e].active = this.props.activeData[e];
         }
@@ -243,10 +187,12 @@ export default class StationTable extends React.Component {
     }
 
     // searchText
-    if (this.props.searchText != this.searchText) {
-      // do not use filtering but datatables' search function - search filter
-      // depends on the rendered content
-      table.search(this.props.searchText);
+    if (this.props.searchText) {
+      filters.push(data =>
+        data.filter(row =>
+          row.name.match(new RegExp(this.props.searchText, "i"))
+        )
+      );
       this.searchText = this.props.searchText;
     }
 
@@ -256,6 +202,17 @@ export default class StationTable extends React.Component {
       return composedFilter(originalData);
     }
     return originalData;
+  }
+
+  _rowClicked(row) {
+    window["modalStateStore"].setData({ stationData: row });
+    modal_open_by_params(
+      null,
+      "inline",
+      "#weatherStationDiagrams",
+      "weatherStationDiagrams",
+      true
+    );
   }
 
   render() {
@@ -269,6 +226,33 @@ export default class StationTable extends React.Component {
           sortValue={this.props.sortValue}
           sortDir={this.props.sortDir}
         />
+        <tbody>
+          {this._applyFiltersAndSorting(this.props.data).map(row => (
+            <tr key={row.id} onClick={() => this._rowClicked(row)}>
+              <td className=" mb-station m-name">
+                <strong>{row.name}</strong>{" "}
+                <span className="operator operator-st">({row.operator})</span>{" "}
+                <span className="region region-st">
+                  {appStore.getRegionName(row.region)}
+                </span>
+                <span className="datetime">{row.date}</span>
+              </td>
+              <td className="mb-snow m-altitude-1">{row.elev}</td>
+              <td className="mb-snow m-snowheight">{row.snow}</td>
+              <td className="mb-snow m-24">{row.snow24}</td>
+              <td className="mb-snow m-48">{row.snow48}</td>
+              <td className="mb-snow m-72">{row.snow72}</td>
+              <td className="mb-temp m-ltnow">{row.temp}</td>
+              <td className="mb-temp m-ltmax">{row.temp_max}</td>
+              <td className="mb-temp m-ltmin">{row.temp_min}</td>
+              <td className="mb-wind m-winddir">
+                {row.wdir} {row.x_wdir ? `(${row.x_wdir})` : ""}
+              </td>
+              <td className="mb-wind m-windspeed">{row.wspd}</td>
+              <td className="mb-wind m-windmax">{row.wgus}</td>
+            </tr>
+          ))}
+        </tbody>
       </table>
     );
   }
