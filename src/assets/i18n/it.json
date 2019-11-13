@@ -13,6 +13,7 @@
   "sidebar" : {
     "bulletins" : "Bollettino",
     "observations" : "Osservazzioni",
+    "modellingZamg": "ZAMG multi model",
     "admin" : "Admin",
     "catalogueOfPhrases" : "Catalogo delle frasi"
   },
