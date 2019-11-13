@@ -110,7 +110,7 @@ export default class StationTable extends React.Component {
   componentDidMount() {
     $(this.refs.main).DataTable({
       dom: '<"data-table-wrapper"t>',
-      scrollY: "25em",
+      scrollY: false,
       scrollX: true,
       scrollCollapse: true,
       deferRender: true,
