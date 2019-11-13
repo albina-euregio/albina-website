@@ -9398,3 +9398,18 @@ button.mfp-arrow.mfp-arrow-right:hover {
 .leaflet-control .legend .legend-toggle {
   background-image: url("../images/pro/meteoviewer/legend.png");
 }
+
+
+
+
+/* messenger-people-plugin */
+.messengerpeople-wrapper {
+  margin-left: -1.875rem;
+  margin-right: -1.875rem;
+}
+iframe.messengerpeople {
+  height: 280px;
+  width: 500px;
+  max-width: 100%;
+  border: none;
+}
