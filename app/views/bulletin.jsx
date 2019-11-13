@@ -52,6 +52,7 @@ class Bulletin extends React.Component {
     window["staticPageStore"].loadPage("bulletin").then(response => {
       // parse content
       const responseParsed = JSON.parse(response);
+      console.log("xxx", responseParsed.data.attributes.body);
       this.setState({
         title: responseParsed.data.attributes.title,
         content: responseParsed.data.attributes.body,
@@ -248,9 +249,9 @@ class Bulletin extends React.Component {
             description={shareDescription}
           />
         )}
-        <div className="section-padding section-centered">
-          {preprocessContent(this.state.content)}
-        </div>
+
+        {preprocessContent(this.state.content)}
+
       </div>
     );
   }
