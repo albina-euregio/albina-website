@@ -57,9 +57,9 @@
   ],
   "apis": {
     "content": "https://api.avalanche.report/cms/",
-    "bulletin": "https://api.avalanche.report/albina/api/bulletins",
+    "bulletin": "https://api.avalanche.report/albina_dev/api/bulletins",
     "subscribe": "https://api.avalanche.report/albina/api/email",
-    "geo": "https://avalanche.report/albina_files/",
+    "geo": "https://avalanche.report/albina_files_dev/",
     "blogger": "https://api.avalanche.report/blog/",
     "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/",
     "weather": {
@@ -97,19 +97,19 @@
     "buttonHidden": false,
     "messengerpeople": {
       "AT-07": {
-        "en": "https://wb.messengerpeople.com/?widget_hash=0d42e9dc5ad8f583a43d16620b7ed56f&lang=de&wn=2",
-        "de": "https://wb.messengerpeople.com/?widget_hash=0d42e9dc5ad8f583a43d16620b7ed56f&lang=de&wn=0",
-        "it": "https://wb.messengerpeople.com/?widget_hash=0d42e9dc5ad8f583a43d16620b7ed56f&lang=de&wn=1"
+        "en": "https://widget.msgp.pl/?id=40215db99c774b4c41.36711751",
+        "de": "https://widget.msgp.pl/?id=40185db999dbe4f965.00049580",
+        "it": "https://widget.msgp.pl/?id=44565dc9595eb7d776.32171189"
       },
       "IT-32-BZ": {
-        "en": "https://wb.messengerpeople.com/?widget_hash=28b607db06003630165cdc2f949e8891&lang=de&wn=2",
-        "de": "https://wb.messengerpeople.com/?widget_hash=28b607db06003630165cdc2f949e8891&lang=de&wn=0",
-        "it": "https://wb.messengerpeople.com/?widget_hash=28b607db06003630165cdc2f949e8891&lang=de&wn=1"
+        "en": "https://widget.msgp.pl/?id=40265db99cf07923a9.31782416",
+        "de": "https://widget.msgp.pl/?id=40245db99cbc34cf00.49093569",
+        "it": "https://widget.msgp.pl/?id=44595dc95a6b4eb4a6.10119866"
       },
       "IT-32-TN": {
-        "en": "https://wb.messengerpeople.com/?widget_hash=5f8821745634d04c06dbe2602cf1462e&lang=de&wn=1",
-        "de": "https://wb.messengerpeople.com/?widget_hash=5f8821745634d04c06dbe2602cf1462e&lang=de&wn=0",
-        "it": "https://wb.messengerpeople.com/?widget_hash=5f8821745634d04c06dbe2602cf1462e&lang=de&wn=2"
+        "en": "https://widget.msgp.pl/?id=40345db99d922899a3.63799720",
+        "de": "https://widget.msgp.pl/?id=40315db99d7293b0b5.38557216",
+        "it": "https://widget.msgp.pl/?id=44625dc95b0b548b38.51166384"
       }
     },
     "socialMedia": [
