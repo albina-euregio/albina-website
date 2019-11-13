@@ -58,12 +58,12 @@ export default class StationOverlay extends React.Component {
       id: data.id,
       name:
         data.name +
-        " (" +
-        data.region +
-        ") " +
+        " " +
+        (data.region ? `(${data.region}) ` : "") +
         data.geometry.coordinates[2] +
         "m",
       detail: value + " " + this.props.item.units,
+      operator: data.operator,
       date: data.date,
       value: value
     };
