@@ -12,6 +12,11 @@ export default class FeatureInfo extends React.Component {
           <div className="feature-name">
             <span>{this.props.feature.name}</span>
           </div>
+          {this.props.feature.operator && (
+            <div className="operator-name">
+              <span>{this.props.feature.operator}</span>
+            </div>
+          )}
           <div>
             {this.props.feature.detail && (
               <span className="feature-details">
