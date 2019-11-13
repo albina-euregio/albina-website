@@ -117,7 +117,13 @@ class PageFooter extends React.Component {
             </div>
             <div className="grid-item all-12">
               <div className="version">
-                version {config.get("version")}, {config.get("versionDate")}
+                <a
+                  href="https://gitlab.com/albina-euregio/albina-website"
+                  target="_blank"
+                >
+                  albina-website {config.get("version")}
+                </a>
+                , {config.get("versionDate")}
               </div>
             </div>
           </div>
