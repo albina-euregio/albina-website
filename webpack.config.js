@@ -1,11 +1,12 @@
 const webpack = require("webpack");
-const {execSync} = require("child_process");
+const { execSync } = require("child_process");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, argv) => {
+  const production = !argv.mode || argv.mode === "production";
   return {
     resolve: {
       extensions: [".js", ".jsx"]
@@ -14,6 +15,7 @@ module.exports = (env, argv) => {
     entry: {
       app: "./main.jsx"
     },
+    devtool: production ? "source-map" : "cheap-module-eval-source-map",
     devServer: {
       historyApiFallback: true,
       host: '0.0.0.0' //enable external access for testing with vm
@@ -77,14 +79,18 @@ module.exports = (env, argv) => {
       new FaviconsWebpackPlugin({
         logo: "./images/pro/logos/logo_mark_en.svg",
         mode: "webapp",
-        devMode: "webapp",
+        devMode: "webapp"
       }),
       new webpack.DefinePlugin({
-        DEV: JSON.stringify(argv.mode !== "production"),
-        VERSION: JSON.stringify([
-          execSync('git describe --tags', {encoding: 'utf8'}).trim(),
-          execSync('git log -1 --format=%cd --date=short', {encoding: 'utf8'}).trim()
-        ].join(", "))
+        APP_DEV_MODE: JSON.stringify(!production),
+        APP_VERSION: JSON.stringify(
+          execSync("git describe --tags", { encoding: "utf8" }).trim()
+        ),
+        APP_VERSION_DATE: JSON.stringify(
+          execSync("git log -1 --format=%cd --date=short", {
+            encoding: "utf8"
+          }).trim()
+        )
       }),
       new MiniCssExtractPlugin({
         filename: "[name].css",

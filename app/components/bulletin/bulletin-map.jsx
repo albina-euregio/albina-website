@@ -16,18 +16,22 @@ class BulletinMap extends React.Component {
     super(props);
     this.map = false;
 
-    if(!window.mapStore) {
+    if (!window.mapStore) {
       window.mapStore = new MapStore();
     }
   }
 
-  handleMapInit = (map) => {
+  handleMapInit = map => {
     this.map = map;
 
-    map.on('click', (e) => {
+    map.on("click", e => {
       this.props.handleSelectRegion(null);
     });
-  }
+
+    if (typeof this.props.onMapInit === "function") {
+      this.props.onMapInit(map);
+    }
+  };
 
   styleOverMap() {
     return {
@@ -40,9 +44,7 @@ class BulletinMap extends React.Component {
 
     const b = this.props.store.activeBulletinCollection;
     if (b) {
-      const daytime = b.hasDaytimeDependency()
-        ? this.props.store.settings.ampm
-        : "fd";
+      const daytime = b.hasDaytimeDependency() ? this.props.ampm : "fd";
 
       const url =
         config.get("apis.geo") +
@@ -62,12 +64,15 @@ class BulletinMap extends React.Component {
       );
     }
 
-    if(this.props.regions) {
+    if (this.props.regions) {
       overlays.push(
         <BulletinVectorLayer
           key="bulletin-regions"
-          store={bulletinStore}
+          problems={this.props.store.problems}
+          date={this.props.store.settings.date}
+          activeRegion={this.props.store.settings.region}
           regions={this.props.regions}
+          bulletin={this.props.store.activeBulletin}
           handleSelectRegion={this.props.handleSelectRegion}
           handleCenterToRegion={center => this.map.panTo(center)}
         />
@@ -79,22 +84,20 @@ class BulletinMap extends React.Component {
 
   renderNoBulletinMessage() {
     const msg = this.props.intl.formatHTMLMessage({
-      id: 'bulletin:header:no-bulletin-info'
+      id: "bulletin:header:no-bulletin-info"
     });
 
     // split the string at <a> and </a>
-    const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/)
+    const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/);
 
     return (
       <p>
         {parts.length > 1 && new Parser().parse(parts[1])}
-        {parts.length > 2 &&
-        <Link
-          to='/blog'
-          className='tooltip'
-          title={parts[2]}>
-          <strong>{parts[2]}</strong>
-        </Link>}
+        {parts.length > 2 && (
+          <Link to="/blog" className="tooltip" title={parts[2]}>
+            <strong>{parts[2]}</strong>
+          </Link>
+        )}
         {parts.length > 3 && new Parser().parse(parts[3])}
       </p>
     );
@@ -102,7 +105,6 @@ class BulletinMap extends React.Component {
 
   render() {
     const hlBulletin = this.props.store.activeBulletin;
-
 
     return (
       <section
@@ -122,7 +124,7 @@ class BulletinMap extends React.Component {
             config.get("bulletin.noBulletinBanner") && (
               <section className="bulletinbar section controlbar">
                 <div className="bar section-centered">
-                  { this.renderNoBulletinMessage() }
+                  {this.renderNoBulletinMessage()}
                 </div>
               </section>
             )}
@@ -164,10 +166,11 @@ class BulletinMap extends React.Component {
               <BulletinMapDetails
                 store={this.props.store}
                 bulletin={hlBulletin}
+                ampm={this.props.ampm}
               />
               {this.props.store.settings.region && (
                 <a
-                  href="#section-bulletin-buttonbar"
+                  href={"#" + this.props.store.settings.region}
                   className="pure-button tooltip"
                   title={this.props.intl.formatMessage({
                     id: "bulletin:map:info:details:hover"
@@ -184,10 +187,17 @@ class BulletinMap extends React.Component {
               )}
             </div>
           )}
+          {this.props.ampm && (
+            <div className="bulletin-map-daytime">
+              {this.props.intl.formatMessage({
+                id: "bulletin:header:" + this.props.ampm
+              })}
+            </div>
+          )}
         </div>
       </section>
     );
   }
 }
 
-export default inject("locale")(injectIntl(observer(BulletinMap)));
+export default inject("locale")(injectIntl(BulletinMap));

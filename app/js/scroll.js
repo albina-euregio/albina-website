@@ -56,7 +56,6 @@ var scroll_direction = () => {
 
   window.onscroll = function(event) {
     s_pos_new = this.pageYOffset;
-    //console.log(s_pos_new);
 
     if (s_pos_new < 20) {
       //up
@@ -78,32 +77,6 @@ var scroll_direction = () => {
       }
     }
   };
-
-  /*
-	  window.onscroll = function(event) {
-		  s_pos_new = this.pageYOffset;
-		  console.log(s_pos_new);
-  
-		  if (s_pos_new < 20) {
-			  //up
-			  page_body.removeClass("scrolling-down");
-		  } else {
-			  if (Math.abs(s_pos_new - s_pos_old) > s_dis) {
-  
-				  if (s_pos_old > s_pos_new) {
-					  //up
-					  page_body.removeClass("scrolling-down");
-				  } else {
-					  //down
-					  page_body.addClass("scrolling-down");
-					  if (s_pos_new > 0) {}
-				  }
-  
-				  s_pos_old = s_pos_new;
-			  }
-		  }
-	  }
-  */
 };
 
 export { scroll_init, scroll };

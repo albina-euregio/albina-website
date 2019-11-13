@@ -1,6 +1,6 @@
-import React from 'react';
-import { observer, inject } from 'mobx-react';
-import { injectIntl } from 'react-intl';
+import React from "react";
+import { inject } from "mobx-react";
+import { injectIntl } from "react-intl";
 
 class BulletinAWMapStatic extends React.Component {
   constructor(props) {
@@ -8,18 +8,25 @@ class BulletinAWMapStatic extends React.Component {
   }
 
   render() {
-    const url = window['config'].get('apis.geo')
-      + this.props.store.settings.date + '/'
-      + this.props.store.settings.region
-      //+ (this.props.bulletin.hasDaytimeDependency ? ('_' + this.props.store.settings.ampm.toUpperCase()) : '')
-      + ((this.props.bulletin.hasDaytimeDependency && this.props.ampm == 'pm') ? '_PM' : '')
-      + '.jpg';
+    const url =
+      window["config"].get("apis.geo") +
+      this.props.date +
+      "/" +
+      this.props.region +
+      (this.props.bulletin.hasDaytimeDependency && this.props.ampm == "pm"
+        ? "_PM"
+        : "") +
+      ".jpg";
 
     return (
-      <img src={url}
-        alt={this.props.intl.formatMessage({id: 'bulletin:report:selected-region:alt'})} />
+      <img
+        src={url}
+        alt={this.props.intl.formatMessage({
+          id: "bulletin:report:selected-region:alt"
+        })}
+      />
     );
   }
 }
 
-export default inject('locale')(injectIntl(observer(BulletinAWMapStatic)));
+export default inject("locale")(injectIntl(BulletinAWMapStatic));

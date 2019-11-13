@@ -1,5 +1,92 @@
-import { observable, action, computed } from 'mobx';
-import Base from '../base';
+import { observable, action, computed } from "mobx";
+import Base from "../base";
+
+export class StationData {
+  constructor(object) {
+    Object.assign(this, object);
+  }
+  get lon() {
+    return this.geometry.coordinates[0];
+  }
+  get lat() {
+    return this.geometry.coordinates[1];
+  }
+  get elev() {
+    return this.round(this.geometry.coordinates[2]);
+  }
+  get name() {
+    return this.properties.name;
+  }
+  get operator() {
+    return this.properties.operator;
+  }
+  get state() {
+    const region = this.properties["LWD-Region"];
+    if (typeof region === "string") {
+      const match = region.match(/AT-07|IT-32-BZ|IT-32-TN/);
+      return match ? match[0] : "";
+    } else {
+      return "";
+    }
+  }
+  get region() {
+    return this.state;
+  }
+  get date() {
+    return new Date(this.properties.date).toLocaleString("de");
+  }
+  get temp() {
+    return this.round(this.properties.LT, 1);
+  }
+  get temp_max() {
+    return this.round(this.properties.LT_MAX, 1);
+  }
+  get temp_min() {
+    return this.round(this.properties.LT_MIN, 1);
+  }
+  get snow() {
+    return this.round(this.properties.HS);
+  }
+  get snow24() {
+    return this.round(this.properties.HSD24);
+  }
+  get snow48() {
+    return this.round(this.properties.HSD48);
+  }
+  get snow72() {
+    return this.round(this.properties.HSD72);
+  }
+  get rhum() {
+    return this.round(this.properties.RH);
+  }
+  get wdir() {
+    return this.round(this.properties.WR);
+  }
+  get x_wdir() {
+    if (typeof this.properties.WR !== "number") {
+      return false;
+    }
+    const index = Math.round(((this.properties.WR + 360 - 22.5) % 360) / 45);
+    const classes = ["N", "NE", "E", "SE", "S", "SW", "W", "NW", "N"];
+    return classes[index];
+  }
+  get wspd() {
+    return this.round(this.properties.WG);
+  }
+  get wgus() {
+    return this.round(this.properties.WG_BOE);
+  }
+
+  round(value, digits = 0) {
+    if (typeof value === "number") {
+      return +value.toFixed(digits);
+    } else if (value === undefined) {
+      return false;
+    } else {
+      return value;
+    }
+  }
+}
 
 export default class StationDataStore {
   @observable data;
@@ -14,7 +101,7 @@ export default class StationDataStore {
 
     this._activeRegions = (() => {
       let regions = {};
-      Object.keys(window.appStore.regions).forEach((r) => {
+      Object.keys(window.appStore.regions).forEach(r => {
         regions[r] = true;
       });
       return regions;
@@ -22,19 +109,24 @@ export default class StationDataStore {
 
     this._searchText = observable.box("");
     this.activeData = {
-      "snow": true,
-      "temp": true,
-      "wind": true
-    }
-    this._sortValue = observable.box('');
-    this._sortDir = observable.box('asc');
+      snow: true,
+      temp: true,
+      wind: true
+    };
+    this._sortValue = observable.box("");
+    this._sortDir = observable.box("asc");
   }
 
   @computed get activeRegion() {
-    const actives = Object.keys(this._activeRegions)
-      .filter((e) => this._activeRegions[e]);
+    const actives = Object.keys(this._activeRegions).filter(
+      e => this._activeRegions[e]
+    );
 
-    const a = (actives.length > 0 && actives.length < Object.keys(this._activeRegions).length) ? actives[0] : 'all';
+    const a =
+      actives.length > 0 &&
+      actives.length < Object.keys(this._activeRegions).length
+        ? actives[0]
+        : "all";
     return a;
   }
 
@@ -43,7 +135,7 @@ export default class StationDataStore {
     const newActive = el ? [el] : Object.keys(this._activeRegions);
 
     Object.keys(this._activeRegions).forEach(e => {
-      this._activeRegions[e] = (newActive.indexOf(e) >= 0);
+      this._activeRegions[e] = newActive.indexOf(e) >= 0;
     });
   }
 
@@ -75,38 +167,32 @@ export default class StationDataStore {
   load() {
     // stations.json uses custom region codes 'tirol', 'suedtirol' and 'trentino'
     const regionCodes = {
-      'tirol': 'AT-07',
-      'suedtirol': 'IT-32-BZ',
-      'trentino': 'IT-32-TN'
+      tirol: "AT-07",
+      suedtirol: "IT-32-BZ",
+      trentino: "IT-32-TN"
     };
 
-    return Base.doRequest(config.get('apis.stations')).then((rawData) => {
-      const data = JSON.parse(rawData).features.filter((el) => el.properties.date);
+    return Base.doRequest(config.get("apis.weather.stations")).then(rawData => {
+      const data = JSON.parse(rawData).features.filter(
+        el => el.properties.date
+      );
+
+      this.data = data.map(el => new StationData(el));
 
       // default ordering by "region" and "name"
-      data.sort((a, b) => {
-        if(a.properties.region != b.properties.region) {
-          return (a.properties.region < b.properties.region) ? -1 : 1;
+      this.data.sort((a, b) => {
+        if (a.region != b.region) {
+          return a.region < b.region ? -1 : 1;
         }
         const nameA = a.properties.name.toLowerCase();
         const nameB = b.properties.name.toLowerCase();
 
-        if(nameA != nameB) {
-          return (nameA < nameB) ? -1 : 1;
+        if (nameA != nameB) {
+          return nameA < nameB ? -1 : 1;
         }
         return 0;
       });
-
-      // add geo attributes
-      this.data = data.map((el) => Object.assign({
-          lon: el.geometry.coordinates[0],
-          lat: el.geometry.coordinates[1],
-          elev: el.geometry.coordinates[2]
-        }, el.properties, {
-          // use default region codes
-          region: regionCodes[el.properties.region]
-        }
-      ));
+      return this.data;
     });
   }
 }

@@ -36,7 +36,7 @@ class Weather extends React.Component {
       mapCenter: false
     };
 
-    if(!window.mapStore) {
+    if (!window.mapStore) {
       window.mapStore = new MapStore();
     }
   }
@@ -55,7 +55,10 @@ class Weather extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(this.store.domainId && this.store.domainId !== this.props.match.params.domain) {
+    if (
+      this.store.domainId &&
+      this.store.domainId !== this.props.match.params.domain
+    ) {
       this.props.history.replace("/weather/map/" + this.store.domainId);
     }
   }
@@ -71,16 +74,16 @@ class Weather extends React.Component {
     this.store.changeItem(newItemId);
   }
 
-  handleMapViewportChanged = (map) => {
+  handleMapViewportChanged = map => {
     mapStore.setMapViewport({
       zoom: map.zoom,
       center: map.center
     });
   };
 
-  handleMarkerSelected = (feature) => {
+  handleMarkerSelected = feature => {
     this.store.selectedFeature = feature;
-  }
+  };
 
   render() {
     const domainButtons = this.store.config
@@ -154,7 +157,7 @@ class Weather extends React.Component {
                 selectedFeature={this.store.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}
-                />
+              />
               {this.store.selectedFeature && (
                 <FeatureInfo feature={this.store.selectedFeature} />
               )}

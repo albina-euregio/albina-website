@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { MapLayer } from "react-leaflet";
 import L from "leaflet";
 
@@ -13,60 +13,58 @@ class Cluster extends MapLayer {
     this.activeCluster = null;
   }
 
-  getActiveMarker = (cluster) => {
+  getActiveMarker = cluster => {
     const markers = cluster.getAllChildMarkers();
-    const values = markers.map((marker) =>
-      marker.options.data.value
-    );
+    const values = markers.map(marker => marker.options.data.value);
 
     const derivedValue =
-      (this.props.item.clusterOperation == 'max')
-      ? Math.max(...values)
-      : Math.min(...values);
+      this.props.item.clusterOperation == "max"
+        ? Math.max(...values)
+        : Math.min(...values);
 
     return markers[values.indexOf(derivedValue)];
-  }
+  };
 
-  createClusterIcon = (cluster) => {
+  createClusterIcon = cluster => {
     const activeMarker = this.getActiveMarker(cluster);
     // reuse the marker's icon
     return activeMarker.options.icon;
-  }
+  };
 
   createLeafletElement(props) {
     const map = this.context.map;
 
     const markerclusters = new L.markerClusterGroup({
-          maxClusterRadius: 40,
-          spiderfyDistanceSurplus: 50,
-          spiderfyDistanceMultiplier: 2,
-          elementsPlacementStrategy: "clock",
-          helpingCircles: true,
-          spiderfyDistanceSurplus: 50,
-          spiderfyDistanceMultiplier: 2,
-          elementsMultiplier: 1.4,
-          firstCircleElements: 8,
-          showCoverageOnHover: false,
-          spiderLegPolylineOptions: { weight: 0 },
-          clockHelpingCircleOptions: {
-            weight: 2,
-            opacity: 0.8,
-            fillOpacity: 0,
-            color: "rgb(50, 50, 50)",
-            fill: "black",
-            dashArray: "5 5"
-          },
-          iconCreateFunction: this.createClusterIcon.bind(this)
+      maxClusterRadius: 40,
+      spiderfyDistanceSurplus: 50,
+      spiderfyDistanceMultiplier: 2,
+      elementsPlacementStrategy: "clock",
+      helpingCircles: true,
+      spiderfyDistanceSurplus: 50,
+      spiderfyDistanceMultiplier: 2,
+      elementsMultiplier: 1.4,
+      firstCircleElements: 8,
+      showCoverageOnHover: false,
+      spiderLegPolylineOptions: { weight: 0 },
+      clockHelpingCircleOptions: {
+        weight: 2,
+        opacity: 0.8,
+        fillOpacity: 0,
+        color: "rgb(50, 50, 50)",
+        fill: "black",
+        dashArray: "5 5"
+      },
+      iconCreateFunction: this.createClusterIcon.bind(this)
     });
 
-    markerclusters.on('click', (e) => {
+    markerclusters.on("click", e => {
       const markerId = e.layer.options.data.id;
-      if(this.activeCluster) {
-        const activeClusterMarker = this.activeCluster.getAllChildMarkers().find(
-          (m) => m.options.data.id == markerId
-        );
+      if (this.activeCluster) {
+        const activeClusterMarker = this.activeCluster
+          .getAllChildMarkers()
+          .find(m => m.options.data.id == markerId);
 
-        if(activeClusterMarker) {
+        if (activeClusterMarker) {
           this.setPositionForActiveMarker(activeClusterMarker);
           this.props.onMarkerSelected(activeClusterMarker.options.data);
         } else {
@@ -75,17 +73,19 @@ class Cluster extends MapLayer {
       }
     });
 
-    markerclusters.on('spiderfied', (a) => {
+    markerclusters.on("spiderfied", a => {
       const activeMarker = this.getActiveMarker(a.cluster);
-      if(activeMarker) {
+      if (activeMarker) {
         this.setPositionForActiveMarker(activeMarker);
         this.props.onMarkerSelected(activeMarker.options.data);
       }
       this.activeCluster = a.cluster;
-      this.props.spiderfiedMarkers(this.activeCluster.getAllChildMarkers().map((m) => m.options.data.id));
+      this.props.spiderfiedMarkers(
+        this.activeCluster.getAllChildMarkers().map(m => m.options.data.id)
+      );
     });
 
-    markerclusters.on('unspiderfied', () => {
+    markerclusters.on("unspiderfied", () => {
       this.activeCluster = null;
       this.props.spiderfiedMarkers(null);
     });
@@ -97,7 +97,7 @@ class Cluster extends MapLayer {
 
   setPositionForActiveMarker(marker) {
     const activePos = this.leafletElement.getVisibleParent(marker);
-    if(activePos) {
+    if (activePos) {
       this.props.onActiveMarkerPositionUpdate(activePos.getLatLng());
     }
   }
@@ -110,7 +110,7 @@ class Cluster extends MapLayer {
   // https://react-leaflet.js.org/docs/en/custom-components.html
   getChildContext() {
     return {
-      layerContainer: this.leafletElement,
+      layerContainer: this.leafletElement
     };
   }
 }
@@ -120,8 +120,7 @@ Cluster.childContextTypes = {
 };
 
 Cluster.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node
 };
-
 
 export default Cluster;

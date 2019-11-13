@@ -36,7 +36,6 @@ class BlogOverview extends React.Component {
   }
 
   componentDidUpdate() {
-    //console.log("!!!! did update");
     if (!this.settingFilters) {
       this.store.checkUrl();
     }
@@ -77,7 +76,7 @@ class BlogOverview extends React.Component {
   };
 
   handleChangeLanguage = val => {
-    console.log("new lang", val);
+    if (APP_DEV_MODE) console.log("new lang", val);
     this.settingFilters = true;
     this.store.setLanguages(val);
     this.doStoreUpdate();

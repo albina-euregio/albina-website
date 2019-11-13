@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
 export default class PageHeadline extends React.Component {
   render() {
     // if no subtitle is given, take the active first-level header menu entry
     const subtitle = this.props.subtitle
       ? this.props.subtitle
-      : window['appStore'].navigation.activeTopLevelElement
-        ? window['appStore'].navigation.activeTopLevelElement.title
-        : ''
+      : window["appStore"].navigation.activeTopLevelElement
+      ? window["appStore"].navigation.activeTopLevelElement.title
+      : "";
 
     return (
       <section className="page-headline section-padding section-header">
@@ -20,6 +20,6 @@ export default class PageHeadline extends React.Component {
           {this.props.children}
         </header>
       </section>
-    )
+    );
   }
 }

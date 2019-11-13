@@ -12,8 +12,8 @@ class FooterLogos extends React.Component {
         <ul className="list-inline">
           {icons.map((icon, i) => (
             <li key={i}>
-              <a href={icon.url} target="_blank" className="logo">
-                <img title={icon.title} src={imgRoot + icon.img + ".png"} />
+              <a href={icon.url} target="_blank" className="logo tooltip">
+                <img title={icon.title} className="tooltip" src={imgRoot + icon.img + ".png"} />
               </a>
             </li>
           ))}

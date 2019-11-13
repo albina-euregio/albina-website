@@ -1,6 +1,5 @@
 import React from "react";
 import { inject } from "mobx-react";
-import { computed } from "mobx";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import WarnLevelIcon from "../icons/warn-level-icon.jsx";
 import TendencyIcon from "../icons/tendency-icon.jsx";
@@ -17,7 +16,6 @@ class BulletinDaytimeReport extends React.Component {
     super(props);
   }
 
-  @computed
   get problems() {
     const problems = [];
     const bulletin = this.props.bulletin;
@@ -56,7 +54,7 @@ class BulletinDaytimeReport extends React.Component {
           id: "bulletin:report:tendency:none"
         });
     const tendencyDate = dateToLongDateString(
-      getSuccDate(parseDate(this.props.store.settings.date))
+      getSuccDate(parseDate(this.props.date))
     );
 
     return (
@@ -79,7 +77,8 @@ class BulletinDaytimeReport extends React.Component {
               data-scroll=""
             >
               <BulletinAWMapStatic
-                store={this.props.store}
+                date={this.props.date}
+                region={this.props.fullBulletin.id}
                 bulletin={this.props.fullBulletin}
                 ampm={this.props.ampm}
               />

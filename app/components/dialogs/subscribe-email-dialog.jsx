@@ -14,11 +14,11 @@ class SubscribeEmailDialog extends React.Component {
 
   resetState() {
     this.setState({
-      email: '',
+      email: "",
       language: window["appStore"].language,
       region: false,
-      status: '',
-      errorMessage: '',
+      status: "",
+      errorMessage: "",
       agree: false
     });
   }
@@ -29,14 +29,13 @@ class SubscribeEmailDialog extends React.Component {
 
   componentDidUpdate(prevProps) {
     // reset on dialog close after form has been submitted
-    if(this.state.status !== '' && !window['modalStateStore'].isOpen) {
+    if (this.state.status !== "" && !window["modalStateStore"].isOpen) {
       this.resetState();
     }
   }
 
   handleChangeEmail = e => {
     const value = e.target.value;
-    console.log(value);
 
     if (this.validateEmail(value)) {
       this.setState({ email: value });
@@ -46,7 +45,7 @@ class SubscribeEmailDialog extends React.Component {
   };
 
   handleChangeAgree = e => {
-    this.setState({agree: e.target.checked});
+    this.setState({ agree: e.target.checked });
   };
 
   handleChangeLanguage = e => {
@@ -94,7 +93,7 @@ class SubscribeEmailDialog extends React.Component {
 
   render() {
     // add a dummy class to react to close events
-    const isOpen = window['modalStateStore'].isOpen ? '' : ' closed';
+    const isOpen = window["modalStateStore"].isOpen ? "" : " closed";
     return (
       <div className={"modal-subscribe " + isOpen}>
         <div className="modal-header">
@@ -117,7 +116,7 @@ class SubscribeEmailDialog extends React.Component {
           </p>
         </div>
 
-        {!(this.state.status) && (
+        {!this.state.status && (
           <form
             className="pure-form pure-form-stacked"
             onSubmit={this.handleSubmit}

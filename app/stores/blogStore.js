@@ -48,12 +48,13 @@ export default class BlogStore {
   getHistory;
 
   update() {
-    const languageHostConfig = config.get('languageHostSettings');
+    const languageHostConfig = config.get("languageHostSettings");
     const l = this.languageActive;
     const searchLang =
-      (languageHostConfig[l] && languageHostConfig[l] == document.location.hostname)
-      ? ''
-      : this.languageActive;
+      languageHostConfig[l] &&
+      languageHostConfig[l] == document.location.hostname
+        ? ""
+        : this.languageActive;
 
     Base.searchChange(
       this.getHistory(),
@@ -89,7 +90,11 @@ export default class BlogStore {
   validateYear(valueToValidate) {
     const parsed = parseInt(valueToValidate);
     if (parsed) {
-      return Base.clamp(parsed, config.get("archive.minYear"), (new Date()).getFullYear());
+      return Base.clamp(
+        parsed,
+        config.get("archive.minYear"),
+        new Date().getFullYear()
+      );
     } else {
       return "";
     }
@@ -172,7 +177,7 @@ export default class BlogStore {
     }
 
     if (needLoad) {
-      console.log("reload needed");
+      if (APP_DEV_MODE) console.log("reload needed");
       this.load(true);
     }
   }
@@ -238,7 +243,7 @@ export default class BlogStore {
             maxResults: 500,
             fetchBodies: false,
             fetchImages: true,
-            status: 'live',
+            status: "live",
             key: window["config"].get("apiKeys.google")
           };
           if (this.searchText) {
@@ -314,12 +319,11 @@ export default class BlogStore {
               Base.doRequest(url).then(
                 response => {
                   p.process(JSON.parse(response), cfg).forEach(i => {
-                    //console.log("new item", i);
                     newPosts[cfg.name].push(i);
                   });
                 },
                 (errorText, statusCode) => {
-                  console.log("err", errorText);
+                  console.warn(errorText);
                   if (
                     parseInt(statusCode) == 304 &&
                     Array.isArray(this._posts[cfg.name])
@@ -335,7 +339,7 @@ export default class BlogStore {
     }
 
     return Promise.all(loads).then(() => {
-      console.log("posts loaded", newPosts);
+      if (APP_DEV_MODE) console.log("posts loaded", newPosts);
       this.posts = newPosts;
       this.loading = false;
     });
@@ -483,7 +487,6 @@ export default class BlogStore {
     const totalLength = this.numberOfPosts;
 
     const posts = this.posts;
-    //console.log(posts);
     const queues = Object.keys(posts);
 
     const startIndex = Math.min(start, totalLength - 1);

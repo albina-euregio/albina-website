@@ -1,5 +1,5 @@
-import { observable } from 'mobx';
-import { storageAvailable } from '../util/storage';
+import { observable } from "mobx";
+import { storageAvailable } from "../util/storage";
 
 /**
  * Storage for cookie consent dialog. If the dialog is accepted, a localStorage
@@ -15,8 +15,8 @@ export default class CookieStore {
 
     // localStorage uses string-based key-value storage (no booleans)
     // -> flag is stored as a string !!!
-    const initialValue = (this.hasStorage)
-      ? (window.localStorage.getItem(this.name) !== 'true')
+    const initialValue = this.hasStorage
+      ? window.localStorage.getItem(this.name) !== "true"
       : true;
 
     this._active = observable.box(initialValue);
@@ -28,7 +28,7 @@ export default class CookieStore {
 
   set active(flag) {
     this._active.set(flag);
-    if(this.hasStorage) {
+    if (this.hasStorage) {
       window.localStorage.setItem(this.name, String(!flag));
     }
   }

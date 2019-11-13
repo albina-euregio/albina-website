@@ -1,52 +1,54 @@
-import React from 'react'
-import { observer, inject } from 'mobx-react'
-import { injectIntl } from 'react-intl'
-import ProblemIcon from '../icons/problem-icon.jsx'
+import React from "react";
+import { observer, inject } from "mobx-react";
+import { injectIntl } from "react-intl";
+import ProblemIcon from "../icons/problem-icon.jsx";
 
 class BulletinProblemFilterItem extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       active: this.props.active,
       id: this.props.problemId
-    }
+    };
   }
 
-  toggle (e) {
-    e.preventDefault()
+  toggle(e) {
+    e.preventDefault();
 
-    this.props.handleSelectRegion()
+    this.props.handleSelectRegion();
 
     if (this.state.active) {
-      window['bulletinStore'].dimProblem(this.state.id)
+      window["bulletinStore"].dimProblem(this.state.id);
     } else {
-      window['bulletinStore'].highlightProblem(this.state.id)
+      window["bulletinStore"].highlightProblem(this.state.id);
     }
-    this.state.active = !this.state.active
+    this.state.active = !this.state.active;
   }
 
-  render () {
+  render() {
     const problemText = this.props.intl.formatMessage({
-      id: 'problem:' + this.props.problemId
-    })
+      id: "problem:" + this.props.problemId
+    });
 
     const title = this.props.intl.formatMessage(
       {
         id: this.props.active
-          ? 'bulletin:legend:dehighlight:hover'
-          : 'bulletin:legend:highlight:hover'
+          ? "bulletin:legend:dehighlight:hover"
+          : "bulletin:legend:highlight:hover"
       },
       { problem: problemText }
-    )
-    const classes = 'img tooltip' + (this.props.active ? '' : ' js-deactivated')
+    );
+    const classes =
+      "img tooltip" + (this.props.active ? "" : " js-deactivated");
 
     return (
       <li>
         <a
-          href='#'
+          href="#"
           title={title}
           className={classes}
-          onClick={e => this.toggle(e)}>
+          onClick={e => this.toggle(e)}
+        >
           <ProblemIcon
             problem={this.props.problemId}
             active
@@ -59,8 +61,10 @@ class BulletinProblemFilterItem extends React.Component {
           />
         </a>
       </li>
-    )
+    );
   }
 }
 
-export default inject('locale')(injectIntl(observer(BulletinProblemFilterItem)))
+export default inject("locale")(
+  injectIntl(observer(BulletinProblemFilterItem))
+);

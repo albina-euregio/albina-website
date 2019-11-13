@@ -13,7 +13,7 @@ class GridOverlay extends React.Component {
 
     let color = colors[0];
     this.props.item.thresholds.forEach((tr, i) => {
-      if(v > tr) {
+      if (v > tr) {
         color = colors[i + 1];
       }
     });
@@ -23,9 +23,12 @@ class GridOverlay extends React.Component {
 
   renderMarker(data) {
     const value = Math.round(data.properties[this.props.item.id]);
-    const coordinates = [data.geometry.coordinates[1], data.geometry.coordinates[0]];
+    const coordinates = [
+      data.geometry.coordinates[1],
+      data.geometry.coordinates[0]
+    ];
     const markerData = {
-      id: data.properties.id,
+      id: data.id,
       name: data.properties.name,
       detail: value + " " + this.props.item.units
     };
@@ -33,18 +36,23 @@ class GridOverlay extends React.Component {
     return (
       <StationMarker
         type="gridpoint"
-        key={data.properties.id}
+        key={data.id}
         coordinates={coordinates}
         data={markerData}
         value={value}
         selected={
-          this.props.selectedFeature && (data.properties.id == this.props.selectedFeature.id)
+          this.props.selectedFeature && data.id == this.props.selectedFeature.id
         }
         color={this.getColor(value)}
-        direction={(this.props.item.direction && value >= 3.5) ? data.properties[this.props.item.direction] : false}
-        onClick={(e) => {
+        direction={
+          this.props.item.direction && value >= 3.5
+            ? data.properties[this.props.item.direction]
+            : false
+        }
+        onClick={e => {
           this.props.onMarkerSelected(markerData);
-        }} />
+        }}
+      />
     );
   }
 
@@ -54,19 +62,15 @@ class GridOverlay extends React.Component {
       .filter(point => point.properties.zoom <= this.props.zoom);
 
     const selectedFeature = this.props.selectedFeature
-      ? gridPoints.find((point) => point.properties.id == this.props.selectedFeature.id)
+      ? gridPoints.find(point => point.id == this.props.selectedFeature.id)
       : null;
 
     return (
       <div>
-        <FeatureGroup key={this.props.item.id + '-' + this.props.zoom}>
-          { gridPoints.map((point) =>
-            this.renderMarker(point)
-          )}>
+        <FeatureGroup key={this.props.item.id + "-" + this.props.zoom}>
+          {gridPoints.map(point => this.renderMarker(point))}>
         </FeatureGroup>
-        {selectedFeature &&
-          this.renderMarker(selectedFeature)
-        }
+        {selectedFeature && this.renderMarker(selectedFeature)}
       </div>
     );
   }

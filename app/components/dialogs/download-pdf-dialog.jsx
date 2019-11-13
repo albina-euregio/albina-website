@@ -6,7 +6,7 @@ import { Util } from "leaflet";
 import ProvinceFilter from "../filters/province-filter";
 import PdfModeFilter from "../filters/pdfmode-filter";
 
-class DonwloadPdfDialog extends React.Component {
+class DownloadPdfDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +16,6 @@ class DonwloadPdfDialog extends React.Component {
   }
 
   handleChangeRegion = newRegion => {
-    console.log(newRegion);
     this.setState({ region: newRegion !== "none" ? newRegion : false });
   };
   handleChangeMode = newMode => {
@@ -154,4 +153,4 @@ class DonwloadPdfDialog extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(DonwloadPdfDialog)));
+export default inject("locale")(injectIntl(observer(DownloadPdfDialog)));

@@ -1,50 +1,52 @@
-import React from 'react'
-import { inject } from 'mobx-react'
-import { injectIntl, FormattedHTMLMessage } from 'react-intl'
+import React from "react";
+import { inject } from "mobx-react";
+import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 class SubscribeDialog extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
   }
 
-  render () {
+  render() {
     return (
-      <div className='modal-subscribe'>
-        <div className='modal-header'>
-          <h2 className='subheader'>
-            <FormattedHTMLMessage id='dialog:subscribe:header' />
+      <div className="modal-subscribe">
+        <div className="modal-header">
+          <h2 className="subheader">
+            <FormattedHTMLMessage id="dialog:subscribe:header" />
           </h2>
-          <h2><FormattedHTMLMessage id='dialog:subscribe:subheader' /></h2>
+          <h2>
+            <FormattedHTMLMessage id="dialog:subscribe:subheader" />
+          </h2>
         </div>
 
-        <form className='pure-form pure-form-stacked'>
-          <label htmlFor='input'>
-            <FormattedHTMLMessage id='dialog:subscribe:select-subscrption' />
+        <form className="pure-form pure-form-stacked">
+          <label htmlFor="input">
+            <FormattedHTMLMessage id="dialog:subscribe:select-subscrption" />
           </label>
-          <ul className='list-inline list-buttongroup'>
+          <ul className="list-inline list-buttongroup">
             <li>
-              <a href='#subscribeEmailDialog' className='modal-trigger'>
-                <button className='inverse pure-button'>
+              <a href="#subscribeEmailDialog" className="modal-trigger">
+                <button className="inverse pure-button">
                   {this.props.intl.formatMessage({
-                    id: 'dialog:subscribe:email'
+                    id: "dialog:subscribe:email"
                   })}
                 </button>
               </a>
             </li>
             <li>
-              <a href='#subscribeSocialMediaDialog' className='modal-trigger'>
-                <button className='inverse pure-button'>
+              <a href="#subscribeSocialMediaDialog" className="modal-trigger">
+                <button className="inverse pure-button">
                   {this.props.intl.formatMessage({
-                    id: 'dialog:subscribe:social-media'
+                    id: "dialog:subscribe:social-media"
                   })}
                 </button>
               </a>
             </li>
             <li>
-              <a href='#subscribeAppDialog' title='' className='modal-trigger'>
-                <button className='inverse pure-button'>
+              <a href="#subscribeAppDialog" title="" className="modal-trigger">
+                <button className="inverse pure-button">
                   {this.props.intl.formatMessage({
-                    id: 'dialog:subscribe:app'
+                    id: "dialog:subscribe:app"
                   })}
                 </button>
               </a>
@@ -52,7 +54,7 @@ class SubscribeDialog extends React.Component {
           </ul>
         </form>
       </div>
-    )
+    );
   }
 }
-export default inject('locale')(injectIntl(SubscribeDialog))
+export default inject("locale")(injectIntl(SubscribeDialog));

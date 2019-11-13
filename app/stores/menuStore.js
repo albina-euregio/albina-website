@@ -1,5 +1,5 @@
-import { observable, action } from 'mobx';
-import Base from '../base';
+import { observable, action } from "mobx";
+import Base from "../base";
 
 // NOTE: Getting menuItems via CMS API is currently (Drupal 8.5 - July 2018)
 // blocked by issue https://www.drupal.org/project/drupal/issues/2915792 -
@@ -26,43 +26,61 @@ export default class MenuStore {
   }
 
   getMenu(menuId) {
-    return (!this.loading && this.menus[menuId]) ? this.menus[menuId] : null;
+    return !this.loading && this.menus[menuId] ? this.menus[menuId] : null;
   }
 
   @action
   _load() {
     this.loading = true;
-    const lang = window['appStore'].language;
-    const fields = ['internalId', 'title', 'link', 'menuInternalId', 'parentIs', 'isExternal'];
+    const lang = window["appStore"].language;
+    const fields = [
+      "internalId",
+      "title",
+      "link",
+      "menuInternalId",
+      "parentIs",
+      "isExternal"
+    ];
     const params = {
-      'fields[menuLinks]': fields.join(','),
-      'sort': 'weight'
+      "fields[menuLinks]": fields.join(","),
+      sort: "weight"
     };
-    const langParam = (!lang || (lang == 'en')) ? '' : (lang + '/');
-    const url = Base.makeUrl(config.get('apis.content') + langParam  + 'api/menuLinks', params);
-    
-    const processEntry = (entry) => {
+    const langParam = !lang || lang == "en" ? "" : lang + "/";
+    const url = Base.makeUrl(
+      config.get("apis.content") + langParam + "api/menuLinks",
+      params
+    );
+
+    const processEntry = entry => {
       const ats = entry.attributes;
       const parentId = ats.parentIs ? ats.parentIs.substr(18) : null;
 
-      this._addMenuEntry(ats.menuInternalId, {
-        id: entry.id,
-        title: ats.title,
-        url: ats.link.replace(/^internal:/, ''), // strip "internal:" prefix
-        isExternal: ats.isExternal
-      }, parentId);
+      this._addMenuEntry(
+        ats.menuInternalId,
+        {
+          id: entry.id,
+          title: ats.title,
+          url: ats.link.replace(/^internal:/, ""), // strip "internal:" prefix
+          isExternal: ats.isExternal
+        },
+        parentId
+      );
     };
 
-    Base.doRequest(url).then(
-      (response) => {
+    Base.doRequest(url)
+      .then(response => {
         const responseParsed = JSON.parse(response);
-        if(responseParsed && responseParsed.data && Array.isArray(responseParsed.data)) {
+        if (
+          responseParsed &&
+          responseParsed.data &&
+          Array.isArray(responseParsed.data)
+        ) {
           const rootEntries = [];
           const subEntries = [];
-          
-          responseParsed.data.forEach((entry) => {
-            if(entry && typeof(entry.attributes) === 'object') {
-              if(entry.attributes.parentIs) {
+
+          responseParsed.data.forEach(entry => {
+            if (entry && typeof entry.attributes === "object") {
+              if (entry.attributes.parentIs) {
                 subEntries.push(entry);
               } else {
                 rootEntries.push(entry);
@@ -73,25 +91,27 @@ export default class MenuStore {
           rootEntries.forEach(processEntry);
           subEntries.forEach(processEntry);
         }
-      }
-    ).then(() => {
-      this.loading = false;
-    });
+      })
+      .then(() => {
+        this.loading = false;
+      });
   }
 
   _addMenuEntry(menuId, entry, parentId = null) {
-    if(!this.menus[menuId]) {
+    if (!this.menus[menuId]) {
       this.menus[menuId] = [];
     }
-    if(parentId) {
-      const p = this.menus[menuId].find((e) => { return e.id == parentId; });
-      if(p) {
-        if(!p.children) {
+    if (parentId) {
+      const p = this.menus[menuId].find(e => {
+        return e.id == parentId;
+      });
+      if (p) {
+        if (!p.children) {
           p.children = [];
         }
         p.children.push(entry);
       } else {
-        console.log('cannot find parent ' + parentId + ' for ' + entry.url);
+        console.warn("cannot find parent " + parentId + " for " + entry.url);
       }
     } else {
       this.menus[menuId].push(entry);

@@ -9,7 +9,6 @@ import {
 } from "../util/date.js";
 
 import { GeoJSON } from "leaflet";
-import { autorun } from "../../node_modules/mobx/lib/mobx.js";
 
 class BulletinCollection {
   date;
@@ -27,11 +26,11 @@ class BulletinCollection {
   }
 
   get regions() {
-    if (this.status != "ok") {
-      return [];
+    if (this.length > 0) {
+      return this.getData().map(el => el.id);
     }
 
-    return []; // TODO implement
+    return [];
   }
 
   get problems() {
@@ -70,6 +69,13 @@ class BulletinCollection {
     return false;
   }
 
+  getBulletinForRegion(regionId) {
+    if (this.length > 0) {
+      return this.getData().find(el => el.id == regionId);
+    }
+    return null;
+  }
+
   getData() {
     return this.dataRaw;
   }
@@ -79,6 +85,54 @@ class BulletinCollection {
   }
 
   setData(data) {
+    if (data && data.length > 0) {
+      // calculate maxWarnlevel for each bulletin
+      const defaultLevel = {
+        number: 0,
+        id: "no_rating"
+      };
+
+      const comparator = (acc, w) => {
+        if (acc.number < w.number) {
+          return w;
+        }
+        // else prefer no_snow over no_rating
+        if (acc.number == 0 && acc.id == "no_rating" && w.id == "no_snow") {
+          return w;
+        }
+        return acc;
+      };
+
+      data.forEach(b => {
+        const bulletins = b.hasDaytimeDependency
+          ? [b["forenoon"], b["afternoon"]]
+          : [b["forenoon"]];
+        b.maxWarnlevel = bulletins
+          .map(b => {
+            const warnlevels = [];
+            if (b.dangerRatingAbove) {
+              warnlevels.push({
+                number: window["appStore"].getWarnlevelNumber(
+                  b.dangerRatingAbove
+                ),
+                id: b.dangerRatingAbove
+              });
+            }
+            if (b.dangerRatingBelow) {
+              warnlevels.push({
+                number: window["appStore"].getWarnlevelNumber(
+                  b.dangerRatingBelow
+                ),
+                id: b.dangerRatingBelow
+              });
+            }
+            // get the maximum for each daytime
+            return warnlevels.reduce(comparator, defaultLevel);
+          })
+          .reduce(comparator, defaultLevel); // return the total maximum
+      });
+    }
+
     this.dataRaw = data;
     this.status =
       typeof data === "object" && data
@@ -119,8 +173,7 @@ class BulletinStore {
     this.settings = observable({
       status: "",
       date: "",
-      region: "",
-      ampm: config.get("defaults.ampm")
+      region: ""
     });
     this.bulletins = {};
 
@@ -132,44 +185,51 @@ class BulletinStore {
       gliding_snow: { highlighted: false }
     });
 
-    if(config.get("bulletin.latestBulletinSwitchTime").match(/^\d{2}:\d{2}$/)) {
-      this.latest = dateToISODateString((() => {
-        const now = new Date();
-        const switchTime = config.get("bulletin.latestBulletinSwitchTime");
-        const matches = switchTime.match(/^(\d{2}):(\d{2})$/);
-      
-        if(matches && matches.length >= 3) {
-          const next = getSuccDate(now);
-          const hour = parseInt(matches[1]);
-          const minutes = parseInt(matches[2]);
-      
-          return todayIsTomorrow(now,hour,minutes)
-            ? next
-            : now;
-        }
-      
-        console.error("Misconfigured value for latestBulletinSwitchTime");
-        return now;
-      })());
+    if (
+      config.get("bulletin.latestBulletinSwitchTime").match(/^\d{2}:\d{2}$/)
+    ) {
+      this.latest = dateToISODateString(
+        (() => {
+          const now = new Date();
+          const switchTime = config.get("bulletin.latestBulletinSwitchTime");
+          const matches = switchTime.match(/^(\d{2}):(\d{2})$/);
+
+          if (matches && matches.length >= 3) {
+            const next = getSuccDate(now);
+            const hour = parseInt(matches[1]);
+            const minutes = parseInt(matches[2]);
+
+            return todayIsTomorrow(now, hour, minutes) ? next : now;
+          }
+
+          console.error("Misconfigured value for latestBulletinSwitchTime");
+          return now;
+        })()
+      );
     } else {
       this._latestBulletinChecker();
     }
   }
 
   @action _latestBulletinChecker() {
-    Base.doRequest(config.get("apis.bulletin") + "/latest").then((response) => {
-      const parsedResponse = JSON.parse(response);
-      if(parsedResponse && parsedResponse.date) {
-        const now = new Date();
-        const today = parseDate(dateToISODateString(now));
-        const latest = new Date(parsedResponse.date);
+    Base.doRequest(config.get("apis.bulletin") + "/latest")
+      .then(response => {
+        const parsedResponse = JSON.parse(response);
+        if (parsedResponse && parsedResponse.date) {
+          const now = new Date();
+          const today = parseDate(dateToISODateString(now));
+          const latest = new Date(parsedResponse.date);
 
-        this.latest = dateToISODateString((latest >= today) ? latest : today);
-      }
-    }).catch(() => {
-      console.error('Cannot get date of latest bulletin');
-    });
-    window.setTimeout(() => this._latestBulletinChecker(), config.get("bulletin.checkForLatestInterval") * 60000);
+          this.latest = dateToISODateString(latest >= today ? latest : today);
+        }
+      })
+      .catch(() => {
+        console.error("Cannot get date of latest bulletin");
+      });
+    window.setTimeout(
+      () => this._latestBulletinChecker(),
+      config.get("bulletin.checkForLatestInterval") * 60000
+    );
   }
 
   /**
@@ -208,7 +268,7 @@ class BulletinStore {
           .load(date)
           .then(() => {
             const status = this.archiveStore.getStatus(date);
-            console.log("status", status);
+            if (APP_DEV_MODE) console.log({ status });
             if (status == "ok") {
               return this._loadBulletinData(date);
             } else {
@@ -254,22 +314,6 @@ class BulletinStore {
         this.setRegion(b[0].id);
       }
       */
-    }
-  }
-
-  /**
-   * Set the current active 'am'/'pm' state.
-   * @param ampm A string 'am' or 'pm'.
-   */
-  @action setAmPm(ampm) {
-    switch (ampm) {
-      case "am":
-      case "pm":
-        this.settings.ampm = ampm;
-        break;
-
-      default:
-        break;
     }
   }
 
@@ -319,36 +363,20 @@ class BulletinStore {
    *   this.date, this.ampm and this.region
    */
   get activeBulletin() {
-    return this.getBulletinForRegion(this.settings.region);
-  }
-
-  getBulletinForRegion(regionId) {
-    //console.log("getting bulletin", regionId);
-    const collection = this.activeBulletinCollection;
-
-    /*
-    if (collection && collection.length > 0) {
-      console.log("collection", collection.getData().map(el => el.id));
+    if (this.activeBulletinCollection) {
+      return this.activeBulletinCollection.getBulletinForRegion(
+        this.settings.region
+      );
     }
-    */
-
-    if (collection && collection.length > 0) {
-      return collection.getData().find(el => {
-        return el.id == regionId;
-      });
-    }
-
     return null;
   }
 
-  getProblemsForRegion(regionId) {
+  getProblemsForRegion(regionId, ampm = null) {
     const problems = [];
-    const b = this.getBulletinForRegion(regionId);
+    const b = this.activeBulletinCollection.getBulletinForRegion(regionId);
     if (b) {
       const daytime =
-        b.hasDaytimeDependency && this.settings.ampm == "pm"
-          ? "afternoon"
-          : "forenoon";
+        b.hasDaytimeDependency && ampm == "pm" ? "afternoon" : "forenoon";
       const daytimeBulletin = b[daytime];
 
       if (daytimeBulletin && daytimeBulletin.avalancheSituation1) {
@@ -363,7 +391,7 @@ class BulletinStore {
     }
   }
 
-  getRegionState(regionId) {
+  getRegionState(regionId, ampm = null) {
     if (this.settings.region && this.settings.region === regionId) {
       return "selected";
     }
@@ -373,7 +401,7 @@ class BulletinStore {
     }
 
     const checkHighlight = rId => {
-      const problems = this.getProblemsForRegion(rId);
+      const problems = this.getProblemsForRegion(rId, ampm);
       return problems.some(
         p => this.problems[p] && this.problems[p].highlighted
       );
@@ -391,12 +419,15 @@ class BulletinStore {
   }
 
   // assign states to regions
-  @computed get vectorRegions() {
+  getVectorRegions(ampm = null) {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
-      const regions = (collection.getGeoData().features || []).map(f => {
-        f.properties.state = this.getRegionState(f.properties.bid);
+      // clone original geojson
+      const clonedGeojson = Object.assign({}, collection.getGeoData());
+
+      const regions = (clonedGeojson.features || []).map(f => {
+        f.properties.state = this.getRegionState(f.properties.bid, ampm);
         if (!f.properties.latlngs) {
           f.properties.latlngs = GeoJSON.coordsToLatLngs(
             f.geometry.coordinates,
@@ -427,8 +458,7 @@ class BulletinStore {
 
   _loadBulletinData(date) {
     const dateParam = encodeURIComponent(date);
-    const url =
-      config.get("apis.bulletin") + "?date=" + dateParam;
+    const url = config.get("apis.bulletin") + "?date=" + dateParam;
 
     return Base.doRequest(url).then(
       // query bulletin data

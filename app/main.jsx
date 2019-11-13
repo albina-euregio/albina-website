@@ -59,13 +59,14 @@ const basePath = getBasePath();
 
 // detect WebP support
 // test taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/img/webp.js
-const isWebpSupported = new Promise((resolve) => {
+const isWebpSupported = new Promise(resolve => {
   const webpImage = new Image();
-  webpImage.onload = webpImage.onerror = (event) => {
-    const isSupported = event.type === 'load' && webpImage.width === 1;
+  webpImage.onload = webpImage.onerror = event => {
+    const isSupported = event.type === "load" && webpImage.width === 1;
     resolve(isSupported);
   };
-  webpImage.src = "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=";
+  webpImage.src =
+    "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=";
 });
 
 /*
@@ -75,31 +76,35 @@ const isWebpSupported = new Promise((resolve) => {
  */
 const configUrl = basePath + "config.json";
 Base.cleanCache(configUrl);
-Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(([configData, webp]) => {
-  var configParsed = JSON.parse(configData);
-  configParsed["projectRoot"] = basePath;
-  configParsed["version"] = VERSION; // included via webpack.DefinePlugin
-  configParsed['developmentMode'] = DEV; // included via webpack.DefinePlugin
-  configParsed["webp"] = webp;
-  if (webp) {
-    // enable WebP for ALBINA layer
-    configParsed["map"]["tileLayers"]
-      .filter(layer => layer["id"] === 'ALBINA')
-      .forEach(layer => (layer["url"] = layer["url"].replace(/\.png/, '.webp')));
-  }
+Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(
+  ([configData, webp]) => {
+    var configParsed = JSON.parse(configData);
+    configParsed["projectRoot"] = basePath;
+    configParsed["version"] = APP_VERSION; // included via webpack.DefinePlugin
+    configParsed["versionDate"] = APP_VERSION_DATE; // included via webpack.DefinePlugin
+    configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
+    configParsed["webp"] = webp;
+    if (webp) {
+      // enable WebP for ALBINA layer
+      configParsed["map"]["tileLayers"]
+        .filter(layer => layer["id"] === "ALBINA")
+        .forEach(
+          layer => (layer["url"] = layer["url"].replace(/\.png/, ".webp"))
+        );
+    }
 
-  const languageHostConfig = configParsed["languageHostSettings"];
-  const hostLang = Object.keys(languageHostConfig).filter((lang) =>
-    (languageHostConfig[lang] == location.hostname)
-  );
-  if(hostLang.length > 0) {
-    window["appStore"].setLanguage(hostLang[0]);
-  }
-  window["config"] = new ConfigStore(configParsed);
-  // set initial language
+    const languageHostConfig = configParsed["languageHostSettings"];
+    const hostLang = Object.keys(languageHostConfig).filter(
+      lang => languageHostConfig[lang] == location.hostname
+    );
+    if (hostLang.length > 0) {
+      window["appStore"].setLanguage(hostLang[0]);
+    }
+    window["config"] = new ConfigStore(configParsed);
+    // set initial language
 
-  // init Analytics software - only on production builds
-  /*
+    // init Analytics software - only on production builds
+    /*
   if (!DEV) {
     const trackingKey = window["config"].get("apiKeys.gaTrackingId");
     if (trackingKey) {
@@ -113,27 +118,28 @@ Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(([configData, web
   }
   */
 
-  // replace language-dependent body classes on language change.
-  const languageDependentClassesHandler = reaction(
-    () => window["appStore"].locale.value,
-    newLang => {
-      document.body.className = document.body.className
-        .replace(/domain-[a-z]{2}/, "domain-" + newLang)
-        .replace(/language-[a-z]{2}/, "language-" + newLang);
-    }
-  );
+    // replace language-dependent body classes on language change.
+    const languageDependentClassesHandler = reaction(
+      () => window["appStore"].locale.value,
+      newLang => {
+        document.body.className = document.body.className
+          .replace(/domain-[a-z]{2}/, "domain-" + newLang)
+          .replace(/language-[a-z]{2}/, "language-" + newLang);
+      }
+    );
 
-  // initially set language-dependent body classes
-  const initialLang = window["appStore"].locale.value;
-  document.body.className +=
-    (document.body.className ? " " : "") +
-    "domain-" +
-    initialLang +
-    " language-" +
-    initialLang;
+    // initially set language-dependent body classes
+    const initialLang = window["appStore"].locale.value;
+    document.body.className +=
+      (document.body.className ? " " : "") +
+      "domain-" +
+      initialLang +
+      " language-" +
+      initialLang;
 
-  ReactDOM.render(
-    <App />,
-    document.body.appendChild(document.createElement("div"))
-  );
-});
+    ReactDOM.render(
+      <App />,
+      document.body.appendChild(document.createElement("div"))
+    );
+  }
+);

@@ -7,6 +7,7 @@ import { scroll_init } from "./scroll";
 
 /* !dom loaded?
  ****************************************************/
+window["scroll_duration"] = 1000;
 
 $(function() {
   //debug pattern lab regarding line 33 ff of
@@ -41,7 +42,6 @@ $(function() {
     window["accordion"] = $(".accordion");
 
     //global variables
-    window["scroll_duration"] = 1000;
     window["lastPopUpElement"] = null;
 
     //init functions
@@ -58,8 +58,6 @@ $(function() {
 
     //preload_files();
     orientation_change();
-
-    //console.log("custom.js initialised");
   }, debug_pl_delay);
 });
 
@@ -203,7 +201,6 @@ function flipper_init(flipper_start) {
     }
 
     function flipper_flip(flipper_next, init) {
-      //console.log(flipper_now, flipper_next);
       flipper_content.css({ left: -flipper_next * 100 + "vw" });
       flipper_now = flipper_next;
 
