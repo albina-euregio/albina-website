@@ -1,34 +1,46 @@
 import React from "react";
 import StationTableHeader from "./stationTableHeader";
 import { modal_open_by_params } from "../../js/modal";
+import { inject } from "mobx-react";
+import { injectIntl, FormattedNumber } from "react-intl";
+import { dateToDateTimeString } from "../../util/date.js";
 
-export default class StationTable extends React.Component {
+class StationTable extends React.Component {
   constructor(props) {
     super(props);
 
-    const defaultRender = data => (data !== false ? data : "-");
+    const defaultRender = (value, _row, digits = 0) =>
+      typeof value === "number" ? (
+        <FormattedNumber
+          value={value}
+          minimumFractionDigits={digits}
+          maximumFractionDigits={digits}
+        ></FormattedNumber>
+      ) : (
+        "–"
+      );
 
     this.columns = [
       {
         data: "name",
         width: "150px",
-        render: (_data, _type, full) =>
-          "<strong>" +
-          full.name +
-          '</strong> <span class="operator operator-st">(' +
-          full.operator +
-          ")" +
-          '</span> <span class="region region-st">' +
-          appStore.getRegionName(full.region) +
-          '</span> <span class="datetime">' +
-          full.date +
-          "</span>",
+        render: (_value, row) => (
+          <span>
+            <strong>{row.name}</strong>{" "}
+            <span className="operator operator-st">({row.operator})</span>{" "}
+            <span className="region region-st">
+              {appStore.getRegionName(row.region)}
+            </span>{" "}
+            <span className="datetime">{dateToDateTimeString(row.date)}</span>
+          </span>
+        ),
         orderable: false,
         bSortable: false,
         className: "mb-station m-name"
       },
       {
         data: "elev",
+        render: defaultRender,
         width: "10px",
         className: "mb-snow m-altitude-1"
       },
@@ -54,23 +66,30 @@ export default class StationTable extends React.Component {
       },
       {
         data: "temp",
+        digits: 1,
         render: defaultRender,
         className: "mb-temp m-ltnow"
       },
       {
         data: "temp_max",
+        digits: 1,
         render: defaultRender,
         className: "mb-temp m-ltmax"
       },
       {
         data: "temp_min",
+        digits: 1,
         render: defaultRender,
         className: "mb-temp m-ltmin"
       },
       {
         data: "wdir",
-        render: (_data, _type, full) =>
-          full.wdir ? full.wdir + " (" + full.x_wdir + ")" : "-",
+        render: (_value, row) => (
+          <span>
+            {defaultRender(row.wdir, row, 0)}{" "}
+            {row.x_wdir ? `(${row.x_wdir})` : ""}
+          </span>
+        ),
         className: "mb-wind m-winddir"
       },
       {
@@ -228,28 +247,12 @@ export default class StationTable extends React.Component {
         />
         <tbody>
           {this._applyFiltersAndSorting(this.props.data).map(row => (
-            <tr key={row.id} onClick={() => this._rowClicked(row)}>
-              <td className=" mb-station m-name">
-                <strong>{row.name}</strong>{" "}
-                <span className="operator operator-st">({row.operator})</span>{" "}
-                <span className="region region-st">
-                  {appStore.getRegionName(row.region)}
-                </span>
-                <span className="datetime">{row.date}</span>
-              </td>
-              <td className="mb-snow m-altitude-1">{row.elev}</td>
-              <td className="mb-snow m-snowheight">{row.snow}</td>
-              <td className="mb-snow m-24">{row.snow24}</td>
-              <td className="mb-snow m-48">{row.snow48}</td>
-              <td className="mb-snow m-72">{row.snow72}</td>
-              <td className="mb-temp m-ltnow">{row.temp}</td>
-              <td className="mb-temp m-ltmax">{row.temp_max}</td>
-              <td className="mb-temp m-ltmin">{row.temp_min}</td>
-              <td className="mb-wind m-winddir">
-                {row.wdir} {row.x_wdir ? `(${row.x_wdir})` : ""}
-              </td>
-              <td className="mb-wind m-windspeed">{row.wspd}</td>
-              <td className="mb-wind m-windmax">{row.wgus}</td>
+            <tr key={row.id}>
+              {this.columns.map((col, i) => (
+                <td key={row.id + "-" + i} className={col.className}>
+                  {col.render(row[col.data], row, col.digits)}
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>
@@ -257,3 +260,5 @@ export default class StationTable extends React.Component {
     );
   }
 }
+
+export default inject("locale")(injectIntl(StationTable));

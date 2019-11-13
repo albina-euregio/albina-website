@@ -12,7 +12,7 @@ export class StationData {
     return this.geometry.coordinates[1];
   }
   get elev() {
-    return this.round(this.geometry.coordinates[2]);
+    return this.geometry.coordinates[2];
   }
   get name() {
     return this.properties.name;
@@ -33,34 +33,34 @@ export class StationData {
     return this.state;
   }
   get date() {
-    return new Date(this.properties.date).toLocaleString("de");
+    return new Date(this.properties.date);
   }
   get temp() {
-    return this.round(this.properties.LT, 1);
+    return this.properties.LT;
   }
   get temp_max() {
-    return this.round(this.properties.LT_MAX, 1);
+    return this.properties.LT_MAX;
   }
   get temp_min() {
-    return this.round(this.properties.LT_MIN, 1);
+    return this.properties.LT_MIN;
   }
   get snow() {
-    return this.round(this.properties.HS);
+    return this.properties.HS;
   }
   get snow24() {
-    return this.round(this.properties.HSD24);
+    return this.properties.HSD24;
   }
   get snow48() {
-    return this.round(this.properties.HSD48);
+    return this.properties.HSD48;
   }
   get snow72() {
-    return this.round(this.properties.HSD72);
+    return this.properties.HSD72;
   }
   get rhum() {
-    return this.round(this.properties.RH);
+    return this.properties.RH;
   }
   get wdir() {
-    return this.round(this.properties.WR);
+    return this.properties.WR;
   }
   get x_wdir() {
     if (typeof this.properties.WR !== "number") {
@@ -71,10 +71,10 @@ export class StationData {
     return classes[index];
   }
   get wspd() {
-    return this.round(this.properties.WG);
+    return this.properties.WG;
   }
   get wgus() {
-    return this.round(this.properties.WG_BOE);
+    return this.properties.WG_BOE;
   }
 
   get plot() {
@@ -90,7 +90,7 @@ export class StationData {
       wgus: "km/h"
     };
     return Object.keys(typesUnits)
-      .filter(type => this[type] !== false)
+      .filter(type => this[type] !== undefined)
       .map(type => ({
         type,
         unit: typesUnits[type],
