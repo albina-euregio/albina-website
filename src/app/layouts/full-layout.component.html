@@ -53,7 +53,7 @@
       </div>
     </li>
     <li *ngIf="showChat" class="nav-item">
-      <a *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined" class="nav-link icon-speech aside-menu-toggler" href="#"><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegion()) }}</span></a>
+      <a *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined" class="nav-link"><i class="fa fa-comments aside-menu-toggler"></i><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegion()) }}</span></a>
     </li>
   </ul>
   
