@@ -34,52 +34,59 @@ class StationTable extends React.Component {
             <span className="datetime">{dateToDateTimeString(row.date)}</span>
           </span>
         ),
-        orderable: false,
-        bSortable: false,
+        sortable: false,
         className: "mb-station m-name"
       },
       {
         data: "elev",
         render: defaultRender,
+        unit: "m",
         width: "10px",
         className: "mb-snow m-altitude-1"
       },
       {
         data: "snow",
         render: defaultRender,
+        unit: "cm",
         className: "mb-snow m-snowheight"
       },
       {
         data: "snow24",
         render: defaultRender,
+        unit: "cm",
         className: "mb-snow m-24"
       },
       {
         data: "snow48",
         render: defaultRender,
+        unit: "cm",
         className: "mb-snow m-48"
       },
       {
         data: "snow72",
         render: defaultRender,
+        unit: "cm",
         className: "mb-snow m-72"
       },
       {
         data: "temp",
         digits: 1,
         render: defaultRender,
+        unit: "°C",
         className: "mb-temp m-ltnow"
       },
       {
         data: "temp_max",
         digits: 1,
         render: defaultRender,
+        unit: "°C",
         className: "mb-temp m-ltmax"
       },
       {
         data: "temp_min",
         digits: 1,
         render: defaultRender,
+        unit: "°C",
         className: "mb-temp m-ltmin"
       },
       {
@@ -90,16 +97,19 @@ class StationTable extends React.Component {
             {row.x_wdir ? `(${row.x_wdir})` : ""}
           </span>
         ),
+        unit: "°",
         className: "mb-wind m-winddir"
       },
       {
         data: "wspd",
         render: defaultRender,
+        unit: "km/h",
         className: "mb-wind m-windspeed"
       },
       {
         data: "wgus",
         render: defaultRender,
+        unit: "km/h",
         className: "mb-wind m-windmax"
       }
     ];
@@ -241,6 +251,7 @@ class StationTable extends React.Component {
         className="pure-table pure-table-striped pure-table-small table-measurements"
       >
         <StationTableHeader
+          columns={this.columns}
           handleSort={this.props.handleSort}
           sortValue={this.props.sortValue}
           sortDir={this.props.sortDir}

@@ -7,32 +7,6 @@ class StationTableHeader extends React.Component {
     super(props);
   }
 
-  get headers() {
-    const headerConfig = [
-      { id: "name", cl: "mb-station m-name", unit: false, sort: false },
-      { id: "elev", cl: "mb-snow m-altitude-1", unit: "m", sort: true },
-      { id: "snow", cl: "mb-snow m-snowheight", unit: "cm", sort: true },
-      { id: "snow24", cl: "mb-snow m-24", unit: "cm", sort: true },
-      { id: "snow48", cl: "mb-snow m-48", unit: "cm", sort: true },
-      { id: "snow72", cl: "mb-snow m-72", unit: "cm", sort: true },
-      { id: "temp", cl: "mb-temp m-ltnow", unit: "°C", sort: true },
-      { id: "temp_max", cl: "mb-temp m-ltmax", unit: "°C", sort: true },
-      { id: "temp_min", cl: "mb-temp m-ltmin", unit: "°C", sort: true },
-      { id: "wdir", cl: "mb-wind m-winddir", unit: "°", sort: true },
-      { id: "wspd", cl: "mb-wind m-windspeed", unit: "km/h", sort: true },
-      { id: "wgus", cl: "mb-wind m-windmax", unit: "km/h", sort: true }
-    ];
-
-    headerConfig.forEach(el => {
-      // add titles
-      el.title = this.props.intl.formatMessage({
-        id: "measurements:table:header:" + el.id
-      });
-    });
-
-    return headerConfig;
-  }
-
   render() {
     const sortClasses = (id, dir) => {
       const cls = ["tooltip"];
@@ -58,27 +32,32 @@ class StationTableHeader extends React.Component {
           (this.props.sortValue == id ? "sort-toggle" : "sort-" + dir)
       });
 
+    const title = id =>
+      this.props.intl.formatMessage({
+        id: "measurements:table:header:" + id
+      });
+
     return (
       <thead>
         <tr>
-          {this.headers.map((el, i) => (
+          {this.props.columns.map((el, i) => (
             <th key={i}>
-              {el.title}
+              {title(el.data)}
               {el.unit && <span className="measure">{el.unit}</span>}
-              {el.sort && (
+              {el.sortable !== false && (
                 <span className="sort-buttons">
                   {["asc", "desc"].map(dir => (
                     <a
                       key={dir}
                       href="#"
-                      className={sortClasses(el.id, dir)}
-                      title={sortTitle(el.id, dir)}
+                      className={sortClasses(el.data, dir)}
+                      title={sortTitle(el.data, dir)}
                       onClick={e => {
                         e.preventDefault();
                         e.stopPropagation();
                         this.props.handleSort(
-                          el.id,
-                          this.props.sortValue == el.id
+                          el.data,
+                          this.props.sortValue == el.data
                             ? toggleSortDir(dir)
                             : dir
                         );
