@@ -40,34 +40,37 @@ class StationTableHeader extends React.Component {
     return (
       <thead>
         <tr>
-          {this.props.columns.map((el, i) => (
-            <th key={i}>
-              {title(el.data)}
-              {el.unit && <span className="measure">{el.unit}</span>}
-              {el.sortable !== false && (
-                <span className="sort-buttons">
-                  {["asc", "desc"].map(dir => (
-                    <a
-                      key={dir}
-                      href="#"
-                      className={sortClasses(el.data, dir)}
-                      title={sortTitle(el.data, dir)}
-                      onClick={e => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        this.props.handleSort(
-                          el.data,
-                          this.props.sortValue == el.data
-                            ? toggleSortDir(dir)
-                            : dir
-                        );
-                      }}
-                    />
-                  ))}
-                </span>
-              )}
-            </th>
-          ))}
+          {this.props.columns.map(
+            (el, i) =>
+              this.props.isDisplayColumn(el) && (
+                <th key={i}>
+                  {title(el.data)}
+                  {el.unit && <span className="measure">{el.unit}</span>}
+                  {el.sortable !== false && (
+                    <span className="sort-buttons">
+                      {["asc", "desc"].map(dir => (
+                        <a
+                          key={dir}
+                          href="#"
+                          className={sortClasses(el.data, dir)}
+                          title={sortTitle(el.data, dir)}
+                          onClick={e => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            this.props.handleSort(
+                              el.data,
+                              this.props.sortValue == el.data
+                                ? toggleSortDir(dir)
+                                : dir
+                            );
+                          }}
+                        />
+                      ))}
+                    </span>
+                  )}
+                </th>
+              )
+          )}
         </tr>
       </thead>
     );

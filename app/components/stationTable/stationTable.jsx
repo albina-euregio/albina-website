@@ -45,30 +45,35 @@ class StationTable extends React.Component {
         className: "mb-snow m-altitude-1"
       },
       {
+        group: "snow",
         data: "snow",
         render: defaultRender,
         unit: "cm",
         className: "mb-snow m-snowheight"
       },
       {
+        group: "snow",
         data: "snow24",
         render: defaultRender,
         unit: "cm",
         className: "mb-snow m-24"
       },
       {
+        group: "snow",
         data: "snow48",
         render: defaultRender,
         unit: "cm",
         className: "mb-snow m-48"
       },
       {
+        group: "snow",
         data: "snow72",
         render: defaultRender,
         unit: "cm",
         className: "mb-snow m-72"
       },
       {
+        group: "temp",
         data: "temp",
         digits: 1,
         render: defaultRender,
@@ -76,6 +81,7 @@ class StationTable extends React.Component {
         className: "mb-temp m-ltnow"
       },
       {
+        group: "temp",
         data: "temp_max",
         digits: 1,
         render: defaultRender,
@@ -83,6 +89,7 @@ class StationTable extends React.Component {
         className: "mb-temp m-ltmax"
       },
       {
+        group: "temp",
         data: "temp_min",
         digits: 1,
         render: defaultRender,
@@ -90,6 +97,7 @@ class StationTable extends React.Component {
         className: "mb-temp m-ltmin"
       },
       {
+        group: "wind",
         data: "wdir",
         render: (_value, row) => (
           <span>
@@ -101,12 +109,14 @@ class StationTable extends React.Component {
         className: "mb-wind m-winddir"
       },
       {
+        group: "wind",
         data: "wspd",
         render: defaultRender,
         unit: "km/h",
         className: "mb-wind m-windspeed"
       },
       {
+        group: "wind",
         data: "wgus",
         render: defaultRender,
         unit: "km/h",
@@ -116,16 +126,13 @@ class StationTable extends React.Component {
 
     this.columnGroups = {
       snow: {
-        active: true,
-        columnNumbers: [2, 3, 4, 5]
+        active: true
       },
       temp: {
-        active: true,
-        columnNumbers: [6, 7, 8]
+        active: true
       },
       wind: {
-        active: true,
-        columnNumbers: [9, 10, 11]
+        active: true
       }
     };
 
@@ -133,6 +140,10 @@ class StationTable extends React.Component {
     this.searchText = "";
     this.sortValue = "";
     this.sortDir = "";
+  }
+
+  isDisplayColumn(column) {
+    return !column.group || this.columnGroups[column.group].active;
   }
 
   shouldComponentUpdate(nextProps) {
@@ -192,14 +203,7 @@ class StationTable extends React.Component {
     // hide filters
     if (this._shouldColumnGroupsUpdate()) {
       Object.keys(this.columnGroups).forEach(e => {
-        if (this.props.activeData[e] != this.columnGroups[e].active) {
-          if (this.props.activeData[e]) {
-            // table.columns(this.columnGroups[e].columnNumbers).visible(true);
-          } else {
-            // table.columns(this.columnGroups[e].columnNumbers).visible(false);
-          }
-          this.columnGroups[e].active = this.props.activeData[e];
-        }
+        this.columnGroups[e].active = this.props.activeData[e];
       });
     }
 
@@ -252,18 +256,22 @@ class StationTable extends React.Component {
       >
         <StationTableHeader
           columns={this.columns}
+          isDisplayColumn={this.isDisplayColumn.bind(this)}
           handleSort={this.props.handleSort}
           sortValue={this.props.sortValue}
           sortDir={this.props.sortDir}
         />
         <tbody>
           {this._applyFiltersAndSorting(this.props.data).map(row => (
-            <tr key={row.id}>
-              {this.columns.map((col, i) => (
-                <td key={row.id + "-" + i} className={col.className}>
-                  {col.render(row[col.data], row, col.digits)}
-                </td>
-              ))}
+            <tr key={row.id} onClick={() => this._rowClicked(row)}>
+              {this.columns.map(
+                (col, i) =>
+                  this.isDisplayColumn(col) && (
+                    <td key={row.id + "-" + i} className={col.className}>
+                      {col.render(row[col.data], row, col.digits)}
+                    </td>
+                  )
+              )}
             </tr>
           ))}
         </tbody>
