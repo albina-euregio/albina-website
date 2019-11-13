@@ -431,7 +431,8 @@
       "table" : {
         "showCaaml" : "Indicare CAAML",
         "showJson" : "Indicare JSON",
-        "useMatrix" : "Adoperare matrice"
+        "useMatrix" : "Adoperare matrice",
+        "showObservations" : "Mostra osservazioni"
       }
     }
   },
