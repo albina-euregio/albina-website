@@ -57,9 +57,9 @@
   ],
   "apis": {
     "content": "https://api.avalanche.report/cms/",
-    "bulletin": "https://api.avalanche.report/albina/api/bulletins",
+    "bulletin": "https://api.avalanche.report/albina_dev/api/bulletins",
     "subscribe": "https://api.avalanche.report/albina/api/email",
-    "geo": "https://avalanche.report/albina_files/",
+    "geo": "https://avalanche.report/albina_files_dev/",
     "blogger": "https://api.avalanche.report/blog/",
     "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/",
     "weather": {
