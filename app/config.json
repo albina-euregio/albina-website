@@ -313,6 +313,13 @@
     "de": "lawinen.report",
     "it": "valanghe.report"
   },
+  "hostLanguageSettings": {
+    "avalanche.report": "en",
+    "avalanches.report": "en",
+    "lawine.report": "de",
+    "lawinen.report": "de",
+    "valanghe.report": "it"
+  },
   "defaults": {
     "language": "auto",
     "ampm": "am"
