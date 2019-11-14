@@ -229,9 +229,8 @@ export default class ArchiveStore {
           console.error(
             "Cannot load bulletin status for date " +
               startDate +
-              (endDate ? " - " + endDate : "") +
-              ": " +
-              error
+              (endDate ? " - " + endDate : ""),
+            error
           );
         }
       )

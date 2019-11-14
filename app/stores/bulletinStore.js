@@ -223,8 +223,8 @@ class BulletinStore {
           this.latest = dateToISODateString(latest >= today ? latest : today);
         }
       })
-      .catch(() => {
-        console.error("Cannot get date of latest bulletin");
+      .catch(error => {
+        console.error("Cannot get date of latest bulletin", error);
       });
     window.setTimeout(
       () => this._latestBulletinChecker(),
@@ -466,7 +466,7 @@ class BulletinStore {
         this.bulletins[date].setData(JSON.parse(response));
       },
       error => {
-        console.error("Cannot load bulletin for date " + date + ": " + error);
+        console.error("Cannot load bulletin for date " + date, error);
         this.bulletins[date].setData(null);
       }
     );
@@ -483,7 +483,7 @@ class BulletinStore {
         this.bulletins[date].setGeoData(JSON.parse(response), daytime);
       },
       error => {
-        console.error("Cannot load geo data for date " + date + ": " + error);
+        console.error("Cannot load geo data for date " + date, error);
         this.bulletins[date].setGeoData(null, daytime);
       }
     );
