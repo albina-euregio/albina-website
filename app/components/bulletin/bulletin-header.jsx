@@ -41,7 +41,7 @@ class BulletinHeader extends React.Component {
             store={this.props.store}
             status={this.props.store.settings.status}
           />
-          <h2 className="subheader">{this.props.title}</h2>
+          {/* <h2 className="subheader">{this.props.title}</h2> */}
           <h1 className="bulletin-datetime-validity">
             {this.date}
           </h1>

@@ -188,11 +188,13 @@ class BulletinMap extends React.Component {
             </div>
           )}
           {this.props.ampm && (
-            <div className="bulletin-map-daytime">
+            <p className="bulletin-map-daytime">
+              <span className="primary label">
               {this.props.intl.formatMessage({
                 id: "bulletin:header:" + this.props.ampm
               })}
-            </div>
+              </span>
+            </p>
           )}
         </div>
       </section>
