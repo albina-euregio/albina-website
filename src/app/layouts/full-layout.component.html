@@ -96,31 +96,33 @@
 
   <!-- Sidebar right -->
   <aside class="aside-menu" style="overflow: auto">
+<!--
+    <div *ngIf="chatService.getNumberOfActiveUsers() > 0" class="p-1">
+      <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
+      <div *ngFor="let user of chatService.getActiveUsers()" class="message">
+        <div>
+          <div>
+            <small>{{ user }}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="chatService.getNumberOfActiveUsers() == 0" class="p-1">
+      <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
+      <div class="message">
+        <div>
+          <div>
+            <small>-</small>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr style="margin: 0px">
+-->
     <tabset>
       <!-- ALL -->
       <tab *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined">
         <ng-template tabHeading>{{ "chat.all" | translate }}<span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCount() }}</span></ng-template>
-<!--        <div *ngIf="chatService.getNumberOfActiveUsersForRegion() > 0" class="p-1">
-          <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
-          <div *ngFor="let user of chatService.getActiveUsersForRegion()" class="message">
-            <div>
-              <div>
-                <small>{{ user }}</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div *ngIf="chatService.getNumberOfActiveUsersForRegion() == 0" class="p-1">
-          <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>
-          <div class="message">
-            <div>
-              <div>
-                <small>-</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <hr style="margin: 0px"> -->
         <div class="p-1">
           <div class="message">
             <textarea type="text" rows="2" class="form-control" id="chatMessage" placeholder='{{ "chat.placeholder" | translate }}' [(ngModel)]="message" (click)="focusChat($event)"></textarea>

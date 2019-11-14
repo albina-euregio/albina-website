@@ -71,26 +71,23 @@ export class ChatService {
         }
       );
 
-      /*
-        this.getActiveUsers().subscribe(
-        data => {
-          debugger
-          let response = data.json();
-          for (let user of response) {
-          if (user != this.authenticationService.getUsername())
-          this.activeUsers.push(user);
-          }
-          this.activeUsers.sort((a, b) : number => {
-          if (a < b) return 1;
-          if (a > b) return -1;
-          return 0;
-          });
-        },
+      this.getActiveUsersFromServer().subscribe(
+      data => {
+        let response = data.json();
+        for (let user of response) {
+        if (user != this.authenticationService.getUsername())
+        this.activeUsers.push(user);
+        }
+        this.activeUsers.sort((a, b) : number => {
+        if (a < b) return 1;
+        if (a > b) return -1;
+        return 0;
+        });
+      },
         error => {
           console.error("Active users could not be loaded!");
         }
-        );
-      */
+      );
     }
   }
 
@@ -175,7 +172,7 @@ export class ChatService {
     return this.http.get(encodeURI(url), options);
   }
 
-  getActiveUsers(): Observable<Response> {
+  getActiveUsersFromServer(): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "chat/users";
     const authHeader = "Bearer " + this.authenticationService.getAccessToken();
     const headers = new Headers({
@@ -209,6 +206,14 @@ export class ChatService {
     return users;
     }
   */
+
+  getNumberOfActiveUsers() {
+    return this.activeUsers.length;
+  }
+
+  getActiveUsers() {
+    return this.activeUsers;
+  }
 
   getNewMessageCountSum(region: string) {
     switch (region) {
