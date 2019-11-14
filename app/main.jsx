@@ -101,12 +101,9 @@ Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(
         );
     }
 
-    const languageHostConfig = configParsed["languageHostSettings"];
-    const hostLang = Object.keys(languageHostConfig).filter(
-      lang => languageHostConfig[lang] == location.hostname
-    );
-    if (hostLang.length > 0) {
-      window["appStore"].setLanguage(hostLang[0]);
+    const language = configParsed["hostLanguageSettings"][location.host];
+    if (language) {
+      window["appStore"].setLanguage(language);
     }
     window["config"] = new ConfigStore(configParsed);
     // set initial language
