@@ -24,9 +24,11 @@ addLocaleData([...en, ...de, ...it]);
 
 /* enable JavaScript error tracking */
 import * as Sentry from "@sentry/browser";
-Sentry.init({
-  dsn: "https://513851e41d6e455998f0cc1a91828942@sentry.io/1819947"
-});
+if (!APP_DEV_MODE) {
+  Sentry.init({
+    dsn: "https://513851e41d6e455998f0cc1a91828942@sentry.io/1819947"
+  });
+}
 
 /* bower components */
 window["jQuery"] = window["$"] = require("jquery");
