@@ -3,6 +3,7 @@
   "description": "Avalanche. report - Avalanche Warning Services Tirol - South Tyrol - Trentino",
   "homepage": "https://avalanche.report/",
   "version": "0.2.0",
+  "private": false,
   "main": "app/main.jsx",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
