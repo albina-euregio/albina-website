@@ -73,15 +73,20 @@ export class ChatService {
 
       this.getActiveUsersFromServer().subscribe(
       data => {
-        let response = data.json();
-        for (let user of response) {
-        if (user != this.authenticationService.getUsername())
-        this.activeUsers.push(user);
+        const response = data.json();
+        for (const user of response) {
+          if (user !== this.authenticationService.getUsername()) {
+            this.activeUsers.push(user);
+          }
         }
         this.activeUsers.sort((a, b) : number => {
-        if (a < b) return 1;
-        if (a > b) return -1;
-        return 0;
+          if (a < b) {
+            return 1;
+          }
+          if (a > b) {
+            return -1;
+          }
+          return 0;
         });
       },
         error => {
