@@ -1223,7 +1223,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.showDialog();
   }
 
-  copyTextcat(field) {
+  copyTextcat(event, field) {
     this.setTexts();
     switch (field) {
       case "avActivityHighlights":
@@ -1263,7 +1263,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  pasteTextcat(field) {
+  pasteTextcat(event, field) {
     switch (field) {
       case "avActivityHighlights":
         if (this.activeAvActivityHighlightsTextcat !== undefined) {
@@ -1379,7 +1379,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.copyService.resetCopying();
   }
 
-  deleteTextcat(field) {
+  deleteTextcat(event, field) {
     switch (field) {
       case "avActivityHighlights":
         this.activeAvActivityHighlightsTextcat = undefined;
