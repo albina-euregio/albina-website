@@ -21,6 +21,7 @@ import en from "react-intl/locale-data/en";
 import de from "react-intl/locale-data/de";
 import it from "react-intl/locale-data/it";
 addLocaleData([...en, ...de, ...it]);
+import { dateToISODateString } from "./util/date.js";
 
 /* enable JavaScript error tracking */
 import * as Sentry from "@sentry/browser";
@@ -79,10 +80,11 @@ const isWebpSupported = new Promise(resolve => {
 
 /*
  * Request config.json before starting the app (do not cache config!).
+ * Also, append date to force reloading at least once a day.
  * config.json is not bundled with the app to allow config editing without
  * redeploying the whole app.
  */
-const configUrl = basePath + "config.json";
+const configUrl = basePath + "config.json?" + dateToISODateString(new Date());
 Base.cleanCache(configUrl);
 Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(
   ([configData, webp]) => {
