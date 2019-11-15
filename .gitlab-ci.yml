@@ -33,3 +33,22 @@ deploy to development:
   only:
     - master
     - ci
+
+deploy to production:
+  stage: deploy
+  script:
+    - npm install
+    - npm rebuild node-sass
+    - npm run build -- --prod --env=prod
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - ssh -o "$SSH_PROXY_COMMAND" "$SSH_SERVER" 'rm --recursive /opt/tomcat/webapps/ROOT/*'
+    - tar --create --verbose dist/ | ssh -o "$SSH_PROXY_COMMAND" "$SSH_SERVER" 'tar --directory=/opt/tomcat/webapps/ROOT --extract --strip-components=1'
+  environment:
+    name: production
+  only:
+    - tags
+  when: manual
