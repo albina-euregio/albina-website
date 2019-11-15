@@ -1,5 +1,5 @@
 import { observable, action, computed } from "mobx";
-import Base from "../base";
+import axios from "axios";
 
 export class StationData {
   constructor(object) {
@@ -172,10 +172,8 @@ export default class StationDataStore {
       trentino: "IT-32-TN"
     };
 
-    return Base.doRequest(config.get("apis.weather.stations")).then(rawData => {
-      const data = JSON.parse(rawData).features.filter(
-        el => el.properties.date
-      );
+    return axios.get(config.get("apis.weather.stations")).then(response => {
+      const data = response.data.features.filter(el => el.properties.date);
 
       this.data = data.map(el => new StationData(el));
 

@@ -9,6 +9,7 @@ import {
 } from "../util/date.js";
 
 import { GeoJSON } from "leaflet";
+import axios from "axios";
 
 class BulletinCollection {
   date;
@@ -212,9 +213,10 @@ class BulletinStore {
   }
 
   @action _latestBulletinChecker() {
-    Base.doRequest(config.get("apis.bulletin") + "/latest")
+    axios
+      .get(config.get("apis.bulletin") + "/latest")
       .then(response => {
-        const parsedResponse = JSON.parse(response);
+        const parsedResponse = response.data;
         if (parsedResponse && parsedResponse.date) {
           const now = new Date();
           const today = parseDate(dateToISODateString(now));
@@ -460,10 +462,10 @@ class BulletinStore {
     const dateParam = encodeURIComponent(date);
     const url = config.get("apis.bulletin") + "?date=" + dateParam;
 
-    return Base.doRequest(url).then(
+    return axios.get(url).then(
       // query bulletin data
       response => {
-        this.bulletins[date].setData(JSON.parse(response));
+        this.bulletins[date].setData(response.data);
       },
       error => {
         console.error("Cannot load bulletin for date " + date, error);
@@ -477,10 +479,10 @@ class BulletinStore {
     const d = daytime || "fd";
     const url = config.get("apis.geo") + date + "/" + d + "_regions.json";
 
-    return Base.doRequest(url).then(
+    return axios.get(url).then(
       // query vector data
       response => {
-        this.bulletins[date].setGeoData(JSON.parse(response), daytime);
+        this.bulletins[date].setGeoData(response.data, daytime);
       },
       error => {
         console.error("Cannot load geo data for date " + date, error);

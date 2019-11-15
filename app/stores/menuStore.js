@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import Base from "../base";
+import axios from "axios";
 
 // NOTE: Getting menuItems via CMS API is currently (Drupal 8.5 - July 2018)
 // blocked by issue https://www.drupal.org/project/drupal/issues/2915792 -
@@ -46,10 +46,7 @@ export default class MenuStore {
       sort: "weight"
     };
     const langParam = !lang || lang == "en" ? "" : lang + "/";
-    const url = Base.makeUrl(
-      config.get("apis.content") + langParam + "api/menuLinks",
-      params
-    );
+    const url = config.get("apis.content") + langParam + "api/menuLinks";
 
     const processEntry = entry => {
       const ats = entry.attributes;
@@ -67,9 +64,10 @@ export default class MenuStore {
       );
     };
 
-    Base.doRequest(url)
+    axios
+      .get(url, { params })
       .then(response => {
-        const responseParsed = JSON.parse(response);
+        const responseParsed = response.data;
         if (
           responseParsed &&
           responseParsed.data &&

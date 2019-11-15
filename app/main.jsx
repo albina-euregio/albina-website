@@ -21,6 +21,7 @@ import en from "react-intl/locale-data/en";
 import de from "react-intl/locale-data/de";
 import it from "react-intl/locale-data/it";
 addLocaleData([...en, ...de, ...it]);
+import axios from "axios";
 
 /* enable JavaScript error tracking */
 import * as Sentry from "@sentry/browser";
@@ -85,9 +86,9 @@ const isWebpSupported = new Promise(resolve => {
  * redeploying the whole app.
  */
 const configUrl = basePath + "config.json?" + Date.now();
-Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(
-  ([configData, webp]) => {
-    var configParsed = JSON.parse(configData);
+const configRequest = axios.get(configUrl).then(res => res.data);
+Promise.all([configRequest, isWebpSupported]).then(
+  ([configParsed, webp]) => {
     configParsed["projectRoot"] = basePath;
     configParsed["version"] = APP_VERSION; // included via webpack.DefinePlugin
     configParsed["versionDate"] = APP_VERSION_DATE; // included via webpack.DefinePlugin
