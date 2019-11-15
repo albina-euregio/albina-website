@@ -627,13 +627,14 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
   }
 
   private getNaturalAvalancheReleaseProability(id) {
-    if (id == 57 || id == 59 || id == 62 || id == 66) {
+    id = +id;
+    if (id === 57 || id === 59 || id === 62 || id === 66) {
       return Enums.NaturalAvalancheReleaseProbability.one;
-    } else if (id == 58 || id == 60 || id == 63 || id == 67 || id == 70) {
+    } else if (id === 58 || id === 60 || id === 63 || id === 67 || id === 70) {
       return Enums.NaturalAvalancheReleaseProbability.two;
-    } else if (id == 61 || id == 64 || id == 68 || id == 71) {
+    } else if (id === 61 || id === 64 || id === 68 || id === 71) {
       return Enums.NaturalAvalancheReleaseProbability.three;
-    } else if (id == 65 || id == 69 || id == 72) {
+    } else if (id === 65 || id === 69 || id === 72) {
       return Enums.NaturalAvalancheReleaseProbability.four;
     } else {
       return undefined;
