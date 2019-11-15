@@ -796,8 +796,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  deselectBulletin() {
-    if (this.checkElevation()) {
+  deselectBulletin(del?: boolean) {
+    if (del || this.checkElevation()) {
       if (!this.editRegions && this.activeBulletin !== null && this.activeBulletin !== undefined) {
 
         this.setTexts();
@@ -955,7 +955,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
     this.mapService.resetAggregatedRegions();
     this.updateMap();
-    this.deselectBulletin();
+    this.deselectBulletin(true);
   }
 
   editBulletin(event) {
