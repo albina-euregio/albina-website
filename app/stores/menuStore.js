@@ -92,6 +92,9 @@ export default class MenuStore {
           subEntries.forEach(processEntry);
         }
       })
+      .catch(error => {
+        console.error("Cannot load menu", error);
+      })
       .then(() => {
         this.loading = false;
       });
