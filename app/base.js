@@ -66,12 +66,6 @@ var Base = {
     });
   },
 
-  cleanCache(fileName) {
-    if (window.caches) {
-      window.caches.delete(fileName);
-    }
-  },
-
   clamp(num, min, max) {
     return num <= min ? min : num >= max ? max : num;
   },
