@@ -57,11 +57,10 @@
   ],
   "apis": {
     "content": "https://api.avalanche.report/cms/",
-    "bulletin": "https://api.avalanche.report/albina_dev/api/bulletins",
+    "bulletin": "https://api.avalanche.report/albina/api/bulletins",
     "subscribe": "https://api.avalanche.report/albina/api/email",
-    "geo": "https://avalanche.report/albina_files_dev/",
+    "geo": "https://avalanche.report/albina_files/",
     "blogger": "https://api.avalanche.report/blog/",
-    "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/",
     "weather": {
       "domains": "https://avalanche.report/transfer/data/albina_domains.json",
       "stations": "https://api.avalanche.report/data/produkte/albina.geojson",
@@ -70,7 +69,7 @@
     }
   },
   "apiKeys": {
-    "google": "AIzaSyAqcVbp5ZahRtgH5N77H4zwKhUJkEn-OJo",
+    "google": "AIzaSyBN0GUcRlTfoVnarVFVpA1hUEnDcDjuXQY",
     "gaTrackingId": "UA-69879901-5"
   },
   "links": {
@@ -91,7 +90,7 @@
   },
   "dialogs": {
     "cookieConsent": false,
-    "feedback": true
+    "feedback": false
   },
   "subscribe": {
     "buttonHidden": false,
@@ -118,7 +117,7 @@
         "name": "Facebook",
         "url": {
           "AT-07": "http://www.facebook.com/lawinenwarndienst",
-          "IT-32-BZ": "https://www.facebook.com/Lawinenwarndienst-S%C3%BCdtirol-Servizio-Prevenzione-Valanghe-Alto-Adige-577952379288951/​",
+          "IT-32-BZ": "https://www.facebook.com/Lawinenwarndienst-S%C3%BCdtirol-Servizio-Prevenzione-Valanghe-Alto-Adige-577952379288951/",
           "IT-32-TN": "https://www.facebook.com/Servizio-Prevenzione-Valanghe-Trentino-353994245173831/"
         }
       },
@@ -188,8 +187,8 @@
   },
   "bulletin": {
     "latestBulletinSwitchTime_auto": "auto",
-    "latestBulletinSwitchTime": "17:10",
-    "checkForLatestInterval": 10,
+    "latestBulletinSwitchTime": "auto",
+    "checkForLatestInterval": 5,
     "noBulletinBanner": true
   },
   "map": {
@@ -204,13 +203,11 @@
       "bbox": { "east": 13.2, "west": 9.5, "north": 48, "south": 45 }
     },
     "initOptions": {
-      "maxBounds_original": [[45.150876, 7.932124], [48.240084, 15.118646]],
       "maxBounds": [[44, 5], [49, 18]],
       "maxBoundsViscosity": 1,
       "maxZoom": 10,
       "minZoom": 7
     },
-
     "maxBounds": {
       "7": [[44.4, 6.732], [48.99, 16.318]],
       "8": [[44.65, 7.132], [48.74, 15.918]],
@@ -237,7 +234,7 @@
     ],
     "geonames": {
       "geonamesURL": "//api.geonames.org/searchJSON",
-      "username": "adammertel",
+      "username": "avalanche.report",
       "zoomLevel": null,
       "maxresults": 5,
       "className": "tooltip leaflet-geonames-icon",
