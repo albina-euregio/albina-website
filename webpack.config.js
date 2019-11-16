@@ -72,7 +72,6 @@ module.exports = (env, argv) => {
       new HtmlWebPackPlugin({
         template: "./index.html",
         filename: "./index.html",
-        favicon: "./images/fav/en/favicon.ico",
         hash: true
       }),
       new webpack.DefinePlugin({
