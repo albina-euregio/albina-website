@@ -16,6 +16,11 @@ export default class ProblemIcon extends React.Component {
     const path = this.imgRoot + this.props.problem + ".png";
     const style = this.props.active ? {} : { filter: "grayscale(100%)" };
 
-    return <img src={path} alt={this.props.alt} style={style} />;
+    return (
+      <picture>
+        <source srcset={path.replace(/png$/, "webp")} type="image/webp" />
+        <img src={path} alt={this.props.alt} style={style} />
+      </picture>
+    );
   }
 }

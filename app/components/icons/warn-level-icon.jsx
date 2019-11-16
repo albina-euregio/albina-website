@@ -85,7 +85,10 @@ class WarnLevelIcon extends React.Component {
 
     return (
       <div className="bulletin-report-picto tooltip" title={title}>
-        <img src={img} alt={alt} />
+        <picture>
+          <source srcset={img.replace(/png$/, "webp")} type="image/webp" />
+          <img src={img} alt={alt} />
+        </picture>
         {this.props.above != this.props.below && <span>{elevText}</span>}
       </div>
     );

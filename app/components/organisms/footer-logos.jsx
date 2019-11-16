@@ -13,7 +13,17 @@ class FooterLogos extends React.Component {
           {icons.map((icon, i) => (
             <li key={i}>
               <a href={icon.url} target="_blank" className="logo tooltip">
-                <img title={icon.title} className="tooltip" src={imgRoot + icon.img + ".png"} />
+                <picture>
+                  <source
+                    srcset={imgRoot + icon.img + ".webp"}
+                    type="image/webp"
+                  />
+                  <img
+                    title={icon.title}
+                    className="tooltip"
+                    src={imgRoot + icon.img + ".png"}
+                  />
+                </picture>
               </a>
             </li>
           ))}

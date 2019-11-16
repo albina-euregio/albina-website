@@ -55,7 +55,13 @@ class SubscribeAppDialog extends React.Component {
 
         {apps.map(a => (
           <div className="app-dl" key={a.id}>
-            <img className="app-logo" src={imgRoot + a.logo} title="" />
+            <picture>
+              <source
+                srcset={imgRoot + a.logo.replace(/png$/, "webp")}
+                type="image/webp"
+              />
+              <img className="app-logo" src={imgRoot + a.logo} title="" />
+            </picture>
             <h2 className="subheader">
               <FormattedHTMLMessage
                 id={"dialog:subscribe-app:" + a.id + ":title"}

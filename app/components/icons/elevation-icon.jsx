@@ -29,7 +29,10 @@ export default class ElevationIcon extends React.Component {
 
     return (
       <div className={classes.join(" ")} title={this.props.title}>
-        <img src={src} alt={this.props.title} />
+        <picture>
+          <source srcset={src.replace(/png$/, "webp")} type="image/webp" />
+          <img src={src} alt={this.props.title} />
+        </picture>
         {this.props.where != "all" && (
           <span>
             {this.props.text}
