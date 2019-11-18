@@ -122,8 +122,8 @@ class BulletinMap extends React.Component {
             */
           ["", "empty"].includes(this.props.store.settings.status) &&
             config.get("bulletin.noBulletinBanner") && (
-              <section className="bulletinbar section controlbar">
-                <div className="bar section-centered">
+              <section className="bulletin-map-bulletinbar">
+                <div className="controlbar">
                   {this.renderNoBulletinMessage()}
                 </div>
               </section>

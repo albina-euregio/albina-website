@@ -21,7 +21,7 @@ import Page from "./page";
 
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require("../css/style.css");
-require("../css/app.scss"); // CSS overrides
+// require("../css/app.scss"); // CSS overrides
 
 // require('./js/custom.js');
 
