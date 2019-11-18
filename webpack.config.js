@@ -76,6 +76,7 @@ module.exports = (env, argv) => {
         filename: "./index.html"
       }),
       new webpack.DefinePlugin({
+        APP_ENVIRONMENT: JSON.stringify(env),
         APP_DEV_MODE: JSON.stringify(!production),
         APP_VERSION: JSON.stringify(
           execSync("git describe --tags", { encoding: "utf8" }).trim()
