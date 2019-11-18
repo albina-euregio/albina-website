@@ -42,7 +42,8 @@ class WarnLevelIcon extends React.Component {
         })
       : "";
 
-    const img = this.imgRoot + "levels_" + b + "_" + a + ".png";
+    const imgFormat = window["config"].get("webp") ? ".webp" : ".png";
+    const img = this.imgRoot + "levels_" + b + "_" + a + imgFormat;
 
     var title, alt;
     if (below == this.props.above) {
@@ -85,10 +86,7 @@ class WarnLevelIcon extends React.Component {
 
     return (
       <div className="bulletin-report-picto tooltip" title={title}>
-        <picture>
-          <source srcset={img.replace(/png$/, "webp")} type="image/webp" />
-          <img src={img} alt={alt} />
-        </picture>
+        <img src={img} alt={alt} />
         {this.props.above != this.props.below && <span>{elevText}</span>}
       </div>
     );
