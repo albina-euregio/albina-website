@@ -20,6 +20,7 @@ module.exports = (env, argv) => {
       historyApiFallback: true
     },
     output: {
+      filename: "[name].[hash].js",
       publicPath: "/"
     },
     module: {
@@ -72,8 +73,7 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebPackPlugin({
         template: "./index.html",
-        filename: "./index.html",
-        hash: true
+        filename: "./index.html"
       }),
       new webpack.DefinePlugin({
         APP_DEV_MODE: JSON.stringify(!production),
@@ -87,8 +87,7 @@ module.exports = (env, argv) => {
         )
       }),
       new MiniCssExtractPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css"
+        filename: "[name]-[hash].css"
       }),
       new CopyWebpackPlugin(
         [
