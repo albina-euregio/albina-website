@@ -10,11 +10,12 @@ export default class ElevationIcon extends React.Component {
     // FIXME: should go to config.ini
     this.imgRoot =
       window["config"].get("projectRoot") + "images/pro/warning-pictos/";
+    this.imgFormat = window["config"].get("webp") ? ".webp" : ".png";
     this.icons = {
-      above: "levels_above.png",
-      below: "levels_below.png",
-      all: "levels_all.png",
-      middle: "levels_middle.png"
+      above: "levels_above" + this.imgFormat,
+      below: "levels_below" + this.imgFormat,
+      all: "levels_all" + this.imgFormat,
+      middle: "levels_middle" + this.imgFormat
     };
   }
 

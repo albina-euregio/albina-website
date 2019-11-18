@@ -3,6 +3,7 @@ const { execSync } = require("child_process");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 
 module.exports = (env, argv) => {
   const production = !argv.mode || argv.mode === "production";
@@ -54,7 +55,7 @@ module.exports = (env, argv) => {
           use: [MiniCssExtractPlugin.loader, "css-loader"]
         },
         {
-          test: /\.(jpe?g|png|gif|svg|eot|ttf|svg|woff|woff2|ico)$/i,
+          test: /\.(jpe?g|png|gif|svg|webp|eot|ttf|svg|woff|woff2|ico)$/i,
           use: [
             {
               loader: "file-loader",
@@ -97,7 +98,8 @@ module.exports = (env, argv) => {
           { from: "./config.json", to: "config.json" }
         ],
         {}
-      )
+      ),
+      new ImageminWebpWebpackPlugin()
     ]
   };
 };

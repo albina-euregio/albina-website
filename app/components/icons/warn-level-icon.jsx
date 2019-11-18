@@ -42,7 +42,8 @@ class WarnLevelIcon extends React.Component {
         })
       : "";
 
-    const img = this.imgRoot + "levels_" + b + "_" + a + ".png";
+    const imgFormat = window["config"].get("webp") ? ".webp" : ".png";
+    const img = this.imgRoot + "levels_" + b + "_" + a + imgFormat;
 
     var title, alt;
     if (below == this.props.above) {
