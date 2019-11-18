@@ -93,6 +93,7 @@ module.exports = (env, argv) => {
         [
           { from: "./data", to: "data" },
           { from: "./images", to: "images" },
+          { from: "./images/fav/en/favicon.ico", to: "favicon.ico" },
           { from: "./config.json", to: "config.json" }
         ],
         {}
