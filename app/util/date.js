@@ -65,6 +65,12 @@ function getLocalDate(date) {
   return new Date(date.valueOf() + offsetH * 60 * 60 * 1000);
 }
 
+function dateToMonthString(date) {
+  return _formatDate(date, {
+    month: "long"
+  });
+}
+
 function dateToDateString(date) {
   return _formatDate(date, {
     year: "numeric",
@@ -158,7 +164,11 @@ function getDaysOfMonth(year, month) {
 
 function _formatDate(date, options = {}) {
   if (date) {
-    return Intl.DateTimeFormat(window.appStore.language, options).format(date);
+    let language = window.appStore.language;
+    if (!language) {
+      language = "en";
+    }
+    return Intl.DateTimeFormat(language, options).format(date);
   }
   return "";
 }
@@ -171,6 +181,7 @@ export {
   isAfter,
   isSummerTime,
   getLocalDate,
+  dateToMonthString,
   dateToDateString,
   dateToTimeString,
   dateToDateTimeString,

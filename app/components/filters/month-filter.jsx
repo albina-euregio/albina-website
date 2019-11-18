@@ -1,5 +1,6 @@
 import React from "react";
 import Selectric from "../selectric";
+import { dateToMonthString } from "../../util/date";
 
 export default class MonthFilter extends React.Component {
   constructor(props) {
@@ -10,10 +11,7 @@ export default class MonthFilter extends React.Component {
     const getMonthName = idx => {
       const now = new Date();
       const d = new Date(now.getFullYear(), idx - 1, 1); // get first of month,
-
-      return Intl.DateTimeFormat(window.appStore.language, {
-        month: "long"
-      }).format(d);
+      return dateToMonthString(d);
     };
 
     const months = [];
