@@ -94,6 +94,7 @@ Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(
     configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
     configParsed["webp"] = webp;
     if (webp) {
+      document.body.className += " webp";
       // enable WebP for ALBINA layer
       configParsed["map"]["tileLayers"]
         .filter(layer => layer["id"] === "ALBINA")

@@ -7769,6 +7769,9 @@ $logo-interreg-width: 364px;
   transition: all 0.25s ease-out;
   filter: grayscale(100%);
 }
+.webp .logo-euregio {
+  background-image: url("../images/pro/logos/logo_euregio.webp");
+}
 
 .logo-euregio:hover {
   filter: none;
