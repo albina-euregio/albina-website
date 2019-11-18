@@ -174,6 +174,9 @@ function _formatDate(date, options = {}) {
     let language = window.appStore.language;
     if (!language) {
       language = "en";
+    } else if (language === "de") {
+      // Jänner :-)
+      language = "de-AT";
     }
     return Intl.DateTimeFormat(language, options).format(date);
   }
