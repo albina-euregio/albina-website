@@ -51,7 +51,8 @@ class BulletinMap extends React.Component {
         this.props.store.settings.date +
         "/" +
         daytime +
-        "_overlay.png";
+        "_overlay.png?" +
+        b.publicationDate.getTime();
       const params = config.get("map.overlay");
 
       overlays.push(

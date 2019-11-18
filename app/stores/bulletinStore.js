@@ -477,7 +477,17 @@ class BulletinStore {
   _loadGeoData(date, daytime = null) {
     // API uses daytimes 'am', 'pm' and 'fd' ('full day')
     const d = daytime || "fd";
-    const url = config.get("apis.geo") + date + "/" + d + "_regions.json";
+    const publicationDate =
+      this.bulletins[date] && this.bulletins[date].publicationDate
+        ? this.bulletins[date].publicationDate.getTime()
+        : Date.now();
+    const url =
+      config.get("apis.geo") +
+      date +
+      "/" +
+      d +
+      "_regions.json?" +
+      publicationDate;
 
     return axios.get(url).then(
       // query vector data
