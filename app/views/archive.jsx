@@ -40,9 +40,7 @@ class Archive extends React.Component {
   }
 
   componentDidMount() {
-    window["staticPageStore"].loadPage("archive").then(response => {
-      // parse content
-      const responseParsed = JSON.parse(response);
+    window["staticPageStore"].loadPage("archive").then(responseParsed => {
       this.setState({
         title: responseParsed.data.attributes.title,
         headerText: responseParsed.data.attributes.header_text,

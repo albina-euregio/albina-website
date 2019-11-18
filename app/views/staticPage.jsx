@@ -42,9 +42,7 @@ export default class StaticPage extends React.Component {
 
     // TODO: use subqueries to eleiminate the need of an additional API roundtrip: https://www.drupal.org/project/subrequests
     if (site) {
-      window["staticPageStore"].loadPage(site).then(response => {
-        // parse content
-        const responseParsed = JSON.parse(response);
+      window["staticPageStore"].loadPage(site).then(responseParsed => {
         this.setState({
           title: responseParsed.data.attributes.title,
           headerText: responseParsed.data.attributes.header_text,

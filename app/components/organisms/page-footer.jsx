@@ -18,8 +18,7 @@ class PageFooter extends React.Component {
   }
 
   componentDidMount() {
-    window["staticPageStore"].loadBlock("footer_text").then(content => {
-      const parsed = JSON.parse(content);
+    window["staticPageStore"].loadBlock("footer_text").then(parsed => {
       if (parsed.data && parsed.data.length > 0) {
         const el = parsed.data[0];
         if (

@@ -8,6 +8,7 @@ import {
   getDaysOfMonth,
   isSummerTime
 } from "../util/date.js";
+import axios from "axios";
 
 export default class ArchiveStore {
   archive;
@@ -174,29 +175,16 @@ export default class ArchiveStore {
 
     const prevDay = date => dateToISODateString(getPredDate(parseDate(date)));
 
-    const startDateParam = encodeURIComponent(
-      prevDay(startDate) + timeFormatStart
-    );
-    const endDateParam = endDate
-      ? encodeURIComponent(prevDay(endDate) + timeFormatEnd)
-      : startDateParam;
-
-    const url =
-      config.get("apis.bulletin") +
-      "/status?startDate=" +
-      startDateParam +
-      "&endDate=" +
-      endDateParam;
-
-    // we do not need region anymore
-    //(region ? "&region=" + region : "");
-
-    if (APP_DEV_MODE) console.log("asking for bulletin ", url);
-    return Base.doRequest(url)
+    const params = { startDate: prevDay(startDate) + timeFormatStart };
+    params.endDate = endDate
+      ? prevDay(endDate) + timeFormatEnd
+      : params.startDate;
+    return axios
+      .get(config.get("apis.bulletin") + "/status", { params })
       .then(
         // query status data
         response => {
-          const values = JSON.parse(response);
+          const values = response.data;
           if (typeof values === "object") {
             for (let v of values) {
               // only use date part (without time) and add 1 day to get the

@@ -15,57 +15,6 @@ var Base = {
     );
   },
 
-  doRequest(url, type = "json") {
-    return new Promise(function(resolve, reject) {
-      let xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-          if (xhr.status == 200) {
-            resolve(xhr.responseText);
-          } else {
-            reject(xhr.statusText, xhr.status);
-          }
-        }
-      };
-      xhr.open("GET", url, true);
-
-      // set content type
-      if (type === "json") {
-        xhr.setRequestHeader(
-          "Accept",
-          "application/json,application/vnd.application+json,application/vnd.api+json"
-        );
-      }
-      xhr.send(null);
-    });
-  },
-
-  doPost(url, payload, type = "json") {
-    return new Promise(function(resolve, reject) {
-      let xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState == XMLHttpRequest.DONE) {
-          if (xhr.status == 200) {
-            resolve(xhr.responseText);
-          } else {
-            reject(xhr.statusText, xhr.status);
-          }
-        }
-      };
-      xhr.open("POST", url, true);
-
-      // set content type
-      if (type === "json") {
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhr.setRequestHeader(
-          "Accept",
-          "application/json,application/vnd.application+json,application/vnd.api+json"
-        );
-      }
-      xhr.send(JSON.stringify(payload));
-    });
-  },
-
   clamp(num, min, max) {
     return num <= min ? min : num >= max ? max : num;
   },

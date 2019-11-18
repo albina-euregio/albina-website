@@ -1,4 +1,4 @@
-import Base from "../base";
+import axios from "axios";
 
 export default class StaticPageStore {
   constructor() {
@@ -23,48 +23,35 @@ export default class StaticPageStore {
     };
 
     const getPageId = response => {
-      return JSON.parse(response).entity.uuid;
+      const id = response.data.entity.uuid;
+      this.nodeLookup[url] = id;
+      return id;
     };
     const fallbackUrl = "404";
 
     // trying if we get a result with ///
-    return Base.doRequest(createLookupUrl(url, "///")).then(
-      response => {
-        const id = getPageId(response);
-        this.nodeLookup[url] = id;
-        return id;
-      },
-      () => {
+    return axios
+      .get(createLookupUrl(url, "///"))
+      .then(getPageId, () => {
         // trying the same with //
-        return Base.doRequest(createLookupUrl(url, "//")).then(
-          response => {
-            const id = getPageId(response);
-            this.nodeLookup[url] = id;
-            return id;
-          },
-          () => {
-            // error: try fallback url (aka 404)
-            if (this.nodeLookup[fallbackUrl]) {
-              return this.nodeLookup[fallbackUrl];
-            }
-            return Base.doRequest(createLookupUrl(fallbackUrl, "")).then(
-              response => {
-                const id = getPageId(response);
-                this.nodeLookup[fallbackUrl] = id;
-                return id;
-              }
-            );
+        return axios.get(createLookupUrl(url, "//")).then(getPageId, () => {
+          // error: try fallback url (aka 404)
+          if (this.nodeLookup[fallbackUrl]) {
+            return this.nodeLookup[fallbackUrl];
           }
-        );
-      }
-    );
+          return axios.get(createLookupUrl(fallbackUrl, "")).then(getPageId);
+        });
+      })
+      .catch(error =>
+        console.error("Error while loading translation for path=" + url, error)
+      );
   }
 
   _loadPage(id) {
     const lang = window["appStore"].language;
     const langParam = !lang || lang == "en" ? "" : lang + "/";
     const url = config.get("apis.content") + langParam + "api/pages/" + id;
-    return Base.doRequest(url);
+    return axios.get(url).then(response => response.data);
   }
 
   loadBlock(name) {
@@ -72,6 +59,6 @@ export default class StaticPageStore {
     const langParam = !lang || lang == "en" ? "" : lang + "/";
     const url =
       config.get("apis.content") + langParam + "api/block_content/" + name;
-    return Base.doRequest(url);
+    return axios.get(url).then(response => response.data);
   }
 }

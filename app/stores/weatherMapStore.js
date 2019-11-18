@@ -1,6 +1,6 @@
 import { computed, observable, action } from "mobx";
-import Base from "../base";
 import StationDataStore from "./stationDataStore";
+import axios from "axios";
 
 export default class WeatherMapStore {
   @observable _itemId;
@@ -17,14 +17,14 @@ export default class WeatherMapStore {
     this.selectedFeature = null;
 
     const loads = [
-      Base.doRequest(config.get("apis.weather.domains")).then(response => {
-        this.config = JSON.parse(response);
+      axios.get(config.get("apis.weather.domains")).then(response => {
+        this.config = response.data;
       }),
       new StationDataStore().load().then(features => {
         this.stations = { features };
       }),
-      Base.doRequest(config.get("apis.weather.grid")).then(response => {
-        this.grid = JSON.parse(response);
+      axios.get(config.get("apis.weather.grid")).then(response => {
+        this.grid = response.data;
       })
     ];
 

@@ -17,6 +17,7 @@
     "@loadable/component": "^5.10.2",
     "@sentry/browser": "^5.9.0",
     "animejs": "^2.2.0",
+    "axios": "^0.19.0",
     "datatables.net": "^1.10.19",
     "fluidvids.js": "github:toddmotto/fluidvids",
     "format-message": "^6.2.3",

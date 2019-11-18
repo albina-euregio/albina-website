@@ -42,9 +42,7 @@ class Weather extends React.Component {
   }
 
   componentDidMount() {
-    window["staticPageStore"].loadPage("weather/map").then(response => {
-      // parse content
-      const responseParsed = JSON.parse(response);
+    window["staticPageStore"].loadPage("weather/map").then(responseParsed => {
       this.setState({
         title: responseParsed.data.attributes.title,
         headerText: responseParsed.data.attributes.header_text,
