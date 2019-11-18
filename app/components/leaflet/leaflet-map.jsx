@@ -75,6 +75,7 @@ class LeafletMap extends React.Component {
 
       this.map.fitBounds(config.get("map.euregioBounds"));
 
+      const map = this.map;
       window.setTimeout(() => {
         const zoomControl = L.control
           .zoom({
@@ -86,7 +87,7 @@ class LeafletMap extends React.Component {
               id: "bulletin:map:zoom-out:hover"
             })
           })
-          .addTo(this.map);
+          .addTo(map);
 
         const geonamesOptions = Object.assign(
           {},
@@ -104,7 +105,7 @@ class LeafletMap extends React.Component {
           config.get("map.geonames")
         );
 
-        L.control.geonames(geonamesOptions).addTo(this.map);
+        L.control.geonames(geonamesOptions).addTo(map);
         const outsideMessage = this.props.intl.formatMessage({
           id: "bulletin:map:locate:outside"
         });
@@ -134,7 +135,7 @@ class LeafletMap extends React.Component {
               }
             })
           )
-          .addTo(this.map);
+          .addTo(map);
       }, 50);
 
       window.setTimeout(() => {
