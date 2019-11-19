@@ -74,7 +74,13 @@ class PageFooter extends React.Component {
                   </a>
                 </p>
               )}
-              <p className="page-footer-text">{this.state.content} version {config.get("version")}, {config.get("versionDate")}</p>
+              <p className="page-footer-text">
+                <a href="https://gitlab.com/albina-euregio/albina-website"
+                  target="_blank">
+                  albina-website {config.get("version")}
+                </a>
+                , {config.get("versionDate")}
+              </p>
               <p className="page-footer-logo-secondary">
                 <a
                   href={Util.template(config.get("links.interreg"), {
