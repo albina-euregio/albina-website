@@ -121,7 +121,7 @@ export default class BlogPost extends React.Component {
         postId;
 
       axios
-        .get(url, params)
+        .get(url, { params })
         .then(response => {
           const b = response.data;
 
