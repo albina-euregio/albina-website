@@ -75,7 +75,7 @@ class PageFooter extends React.Component {
                   </a>
                 </p>
               )}
-              <p className="page-footer-text">{this.state.content}</p>
+              <p className="page-footer-text">{this.state.content} version {config.get("version")}, {config.get("versionDate")}</p>
               <p className="page-footer-logo-secondary">
                 <a
                   href={Util.template(config.get("links.interreg"), {
@@ -116,11 +116,11 @@ class PageFooter extends React.Component {
                   )
                 */}
             </div>
-            <div className="grid-item all-12">
-              <div className="version">
+            {/* <div className="grid-item all-12">
+              <div className="page-footer-version">
                 version {config.get("version")}, {config.get("versionDate")}
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
         {!config.get("footer.iconsHidden") && <FooterLogos />}
