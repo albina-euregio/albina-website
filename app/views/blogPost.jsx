@@ -4,7 +4,7 @@ import Base from "./../base";
 import PageHeadline from "../components/organisms/page-headline";
 import HTMLHeader from "../components/organisms/html-header";
 import TagList from "../components/blog/tag-list";
-import { parseDate, dateToDateString } from "../util/date";
+import { parseDate, dateToDateTimeString } from "../util/date";
 import { parseTags } from "../util/tagging";
 import { modal_init } from "../js/modal";
 import { video_init } from "../js/video";
@@ -153,7 +153,9 @@ export default class BlogPost extends React.Component {
         <HTMLHeader title={this.state.title} />
         <PageHeadline title={this.state.title} subtitle="Blog">
           <ul className="list-inline blog-feature-meta">
-            <li className="blog-date">{dateToDateString(this.state.date)}</li>
+            <li className="blog-date">
+              {dateToDateTimeString(this.state.date)}
+            </li>
             <li className="blog-province">{this.state.regions.join(", ")}</li>
             <li className="blog-language">
               {this.state.language.toUpperCase()}
