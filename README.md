@@ -14,6 +14,8 @@ a location on your webserver. If the location is not the webserver's root,
 please adjust the `--output-public-path` option in the `scripts.build` settings
 of `package.json` before running the deploy target.
 
+Be aware that the config.json is not transfered to target servers. In order to use the beta backend and data for deployment you have to ajust config.json (apis section).
+
 ## Deployment
 
 NOTE: `package.json` contains deploy scripts for the live and beta version of the

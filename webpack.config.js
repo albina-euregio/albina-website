@@ -1,9 +1,9 @@
 const webpack = require("webpack");
 const { execSync } = require("child_process");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 
 module.exports = (env, argv) => {
   const production = !argv.mode || argv.mode === "production";
@@ -21,6 +21,7 @@ module.exports = (env, argv) => {
       host: '0.0.0.0' //enable external access for testing with vm
     },
     output: {
+      filename: "[name].[hash].js",
       publicPath: "/"
     },
     module: {
@@ -56,7 +57,7 @@ module.exports = (env, argv) => {
           use: [MiniCssExtractPlugin.loader, "css-loader"]
         },
         {
-          test: /\.(jpe?g|png|gif|svg|eot|ttf|svg|woff|woff2|ico)$/i,
+          test: /\.(jpe?g|png|gif|svg|webp|eot|ttf|svg|woff|woff2|ico)$/i,
           use: [
             {
               loader: "file-loader",
@@ -73,15 +74,10 @@ module.exports = (env, argv) => {
     plugins: [
       new HtmlWebPackPlugin({
         template: "./index.html",
-        filename: "./index.html",
-        hash: true
-      }),
-      new FaviconsWebpackPlugin({
-        logo: "./images/pro/logos/logo_mark_en.svg",
-        mode: "webapp",
-        devMode: "webapp"
+        filename: "./index.html"
       }),
       new webpack.DefinePlugin({
+        APP_ENVIRONMENT: JSON.stringify(env),
         APP_DEV_MODE: JSON.stringify(!production),
         APP_VERSION: JSON.stringify(
           execSync("git describe --tags", { encoding: "utf8" }).trim()
@@ -93,17 +89,18 @@ module.exports = (env, argv) => {
         )
       }),
       new MiniCssExtractPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css"
+        filename: "[name]-[hash].css"
       }),
       new CopyWebpackPlugin(
         [
           { from: "./data", to: "data" },
           { from: "./images", to: "images" },
+          { from: "./images/fav/en/favicon.ico", to: "favicon.ico" },
           { from: "./config.json", to: "config.json" }
         ],
         {}
-      )
+      ),
+      new ImageminWebpWebpackPlugin()
     ]
   };
 };

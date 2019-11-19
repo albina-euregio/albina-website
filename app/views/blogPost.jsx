@@ -8,6 +8,7 @@ import { parseDate, dateToDateString } from "../util/date";
 import { parseTags } from "../util/tagging";
 import { modal_init } from "../js/modal";
 import { video_init } from "../js/video";
+import axios from "axios";
 
 export default class BlogPost extends React.Component {
   constructor(props) {
@@ -119,9 +120,10 @@ export default class BlogPost extends React.Component {
         "/posts/" +
         postId;
 
-      Base.doRequest(Base.makeUrl(url, params))
+      axios
+        .get(url, params)
         .then(response => {
-          const b = JSON.parse(response);
+          const b = response.data;
 
           this.setState({
             title: b.title,

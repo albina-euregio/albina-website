@@ -14,13 +14,13 @@ class PageHeader extends React.Component {
 
   // changing language on header language button click
   handleChangeLanguage = newLanguage => {
-    if (APP_DEV_MODE) console.log("setting language header");
+    console.info("Changing language to " + newLanguage);
 
     // window["appStore"].setLanguage(newLanguage);
     // Base.searchChange(this.props.history, { lang: newLanguage }, false);
-    document.location.hostname = config.get("languageHostSettings")[
-      newLanguage
-    ];
+    const newHost = config.get("languageHostSettings")[newLanguage];
+    console.info("Changing hostname to " + newHost);
+    document.location.hostname = newHost;
 
     // if (this.props.location.pathname.includes("blog")) {
     //   Base.searchChange(

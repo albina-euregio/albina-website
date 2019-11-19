@@ -19,7 +19,10 @@ export default class StationTable extends React.Component {
         render: (data, type, full, meta) =>
           "<strong>" +
           full.name +
-          '</strong> <span class="region region-st">' +
+          '</strong> <span class="operator operator-st">(' +
+          full.operator +
+          ")" +
+          '</span> <span class="region region-st">' +
           appStore.getRegionName(full.region) +
           '</span> <span class="datetime">' +
           full.date +
@@ -110,7 +113,7 @@ export default class StationTable extends React.Component {
   componentDidMount() {
     $(this.refs.main).DataTable({
       dom: '<"data-table-wrapper"t>',
-      scrollY: "25em",
+      scrollY: false,
       scrollX: true,
       scrollCollapse: true,
       deferRender: true,

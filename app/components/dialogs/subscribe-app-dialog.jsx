@@ -9,6 +9,7 @@ class SubscribeAppDialog extends React.Component {
 
   render() {
     const imgRoot = window["config"].get("projectRoot") + "images/pro/apps/";
+    const imgFormat = window["config"].get("webp") ? ".webp" : ".png";
 
     const apps = config.get("subscribe.apps");
     const downloads = {};
@@ -55,7 +56,11 @@ class SubscribeAppDialog extends React.Component {
 
         {apps.map(a => (
           <div className="app-dl" key={a.id}>
-            <img className="app-logo" src={imgRoot + a.logo} title="" />
+            <img
+              className="app-logo"
+              src={imgRoot + a.logo.replace(/\.png$/, imgFormat)}
+              title=""
+            />
             <h2 className="subheader">
               <FormattedHTMLMessage
                 id={"dialog:subscribe-app:" + a.id + ":title"}

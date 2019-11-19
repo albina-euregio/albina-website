@@ -46,9 +46,7 @@ class BlogOverview extends React.Component {
   }
 
   componentDidMount() {
-    window["staticPageStore"].loadPage("/blog").then(response => {
-      // parse content
-      const responseParsed = JSON.parse(response);
+    window["staticPageStore"].loadPage("/blog").then(responseParsed => {
       this.setState({
         title: responseParsed.data.attributes.title,
         headerText: responseParsed.data.attributes.header_text,

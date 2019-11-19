@@ -10,7 +10,12 @@ export default class MapStore {
   }
 
   @action setMapViewport(mapState) {
-    if (mapState.center.lat && mapState.center.lng) {
+    if (
+      mapState &&
+      mapState.center &&
+      mapState.center.lat &&
+      mapState.center.lng
+    ) {
       this.mapCenter.lat = mapState.center.lat;
       this.mapCenter.lng = mapState.center.lng;
     }

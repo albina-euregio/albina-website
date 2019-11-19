@@ -21,6 +21,18 @@ import en from "react-intl/locale-data/en";
 import de from "react-intl/locale-data/de";
 import it from "react-intl/locale-data/it";
 addLocaleData([...en, ...de, ...it]);
+import axios from "axios";
+
+/* enable JavaScript error tracking */
+// https://unpkg.com/browse/@sentry/types@5.7.1/dist/options.d.ts
+import * as Sentry from "@sentry/browser";
+if (!APP_DEV_MODE) {
+  Sentry.init({
+    release: "albina-website@" + APP_VERSION,
+    environment: APP_ENVIRONMENT,
+    dsn: "https://513851e41d6e455998f0cc1a91828942@sentry.io/1819947"
+  });
+}
 
 /* bower components */
 window["jQuery"] = window["$"] = require("jquery");
@@ -71,20 +83,21 @@ const isWebpSupported = new Promise(resolve => {
 
 /*
  * Request config.json before starting the app (do not cache config!).
+ * Also, append date to force reloading at least once a day.
  * config.json is not bundled with the app to allow config editing without
  * redeploying the whole app.
  */
-const configUrl = basePath + "config.json";
-Base.cleanCache(configUrl);
-Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(
-  ([configData, webp]) => {
-    var configParsed = JSON.parse(configData);
+const configUrl = basePath + "config.json?" + Date.now();
+const configRequest = axios.get(configUrl).then(res => res.data);
+Promise.all([configRequest, isWebpSupported]).then(
+  ([configParsed, webp]) => {
     configParsed["projectRoot"] = basePath;
     configParsed["version"] = APP_VERSION; // included via webpack.DefinePlugin
     configParsed["versionDate"] = APP_VERSION_DATE; // included via webpack.DefinePlugin
     configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
     configParsed["webp"] = webp;
     if (webp) {
+      document.body.className += " webp";
       // enable WebP for ALBINA layer
       configParsed["map"]["tileLayers"]
         .filter(layer => layer["id"] === "ALBINA")
@@ -93,12 +106,9 @@ Promise.all([Base.doRequest(configUrl), isWebpSupported]).then(
         );
     }
 
-    const languageHostConfig = configParsed["languageHostSettings"];
-    const hostLang = Object.keys(languageHostConfig).filter(
-      lang => languageHostConfig[lang] == location.hostname
-    );
-    if (hostLang.length > 0) {
-      window["appStore"].setLanguage(hostLang[0]);
+    const language = configParsed["hostLanguageSettings"][location.host];
+    if (language) {
+      window["appStore"].setLanguage(language);
     }
     window["config"] = new ConfigStore(configParsed);
     // set initial language
