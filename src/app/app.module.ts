@@ -1,9 +1,12 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, ErrorHandler, Injectable } from "@angular/core";
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
+
+import * as Sentry from "@sentry/browser";
+
 import { NAV_DROPDOWN_DIRECTIVES } from "./shared/nav-dropdown.directive";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -53,6 +56,19 @@ import { ModalCheckComponent } from "./bulletins/modal-check.component";
 import { ModalPublicationStatusComponent } from "./bulletins/modal-publication-status.component";
 import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.component";
 
+Sentry.init({
+  dsn: "https://f01d3588732c4ed195093468989a45f2@sentry.io/1828063"
+});
+
+@Injectable()
+export class SentryErrorHandler implements ErrorHandler {
+  constructor() {}
+  handleError(error) {
+    const eventId = Sentry.captureException(error.originalError || error);
+    Sentry.showReportDialog({ eventId });
+  }
+}
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -86,6 +102,10 @@ import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.componen
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
+    },
+    {
+      provide: ErrorHandler,
+      useClass: SentryErrorHandler
     },
     AuthenticationService,
     AuthGuard,
