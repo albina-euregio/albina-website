@@ -16,8 +16,8 @@ class BulletinButtonbar extends React.Component {
   render() {
     return (
       <section
-        id="section-bulletin-buttonbar"
-        className="section-padding section-bulletin-buttonbar"
+        id="section-bulletin-linkbar"
+        className="section-padding section-linkbar section-bulletin-linkbar"
       >
         <div className="section-centered">
           <div className="grid linkbar">
@@ -90,7 +90,7 @@ class BulletinButtonbar extends React.Component {
                         id: "bulletin:feedback:hover"
                       })}
                       target="_blank"
-                      className="pure-button tooltip emphasized"
+                      className="success pure-button tooltip"
                     >
                       {this.props.intl.formatMessage({
                         id: "bulletin:feedback"

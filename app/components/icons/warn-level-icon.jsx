@@ -1,6 +1,7 @@
 import React from "react";
 import { inject } from "mobx-react";
 import { injectIntl, FormattedMessage } from "react-intl";
+import { Link } from "react-router-dom";
 
 class WarnLevelIcon extends React.Component {
   imgRoot;
@@ -23,6 +24,8 @@ class WarnLevelIcon extends React.Component {
       }
       return "";
     };
+
+    const link = "/education/dangerscale?lang=" + window["appStore"].language;
 
     const below =
       this.props.elevation || this.props.treeline
@@ -86,8 +89,15 @@ class WarnLevelIcon extends React.Component {
 
     return (
       <div className="bulletin-report-picto tooltip" title={title}>
-        <img src={img} alt={alt} />
-        {this.props.above != this.props.below && <span>{elevText}</span>}
+        <Link
+            to={link}
+            title={this.props.intl.formatMessage({
+              id: "bulletin:legend:danger-levels"
+            })}
+          >
+          <img src={img} alt={alt} />
+          {this.props.above != this.props.below && <span>{elevText}</span>}
+        </Link>
       </div>
     );
   }

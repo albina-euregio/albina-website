@@ -17,7 +17,8 @@ module.exports = (env, argv) => {
     },
     devtool: production ? "source-map" : "cheap-module-eval-source-map",
     devServer: {
-      historyApiFallback: true
+      historyApiFallback: true,
+      host: '0.0.0.0' //enable external access for testing with vm
     },
     output: {
       filename: "[name].[hash].js",

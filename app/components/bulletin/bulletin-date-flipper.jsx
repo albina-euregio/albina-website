@@ -67,7 +67,7 @@ class BulletinDateFlipper extends React.Component {
             {prevDate}
           </Link>
         </li>
-        {nextLink && <li className="bulletin-flipper-separator">—</li>}
+        {/* {nextLink && <li className="bulletin-flipper-separator">&nbsp;</li>} */}
         {nextLink && (
           <li className="bulletin-flipper-forward">
             <Link

@@ -1,6 +1,5 @@
 import React from "react";
 import { computed } from "mobx";
-import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
@@ -74,11 +73,6 @@ class BulletinReport extends React.Component {
     const daytimeBulletins = this.daytimeBulletins;
     const maxWarnlevel = bulletin.maxWarnlevel;
     const classes = "panel field callout warning-level-" + maxWarnlevel.number;
-    const link =
-      "/education/dangerscale?lang=" +
-      window["appStore"].language +
-      "#level" +
-      maxWarnlevel.number;
 
     return (
       <div>
@@ -99,7 +93,6 @@ class BulletinReport extends React.Component {
                   }}
                 />
               </p>
-              <Link to={link}>
                 <h1>
                   <FormattedHTMLMessage
                     id={
@@ -115,7 +108,6 @@ class BulletinReport extends React.Component {
                     }}
                   />
                 </h1>
-              </Link>
             </header>
             {Object.keys(daytimeBulletins).map(ampm => (
               <BulletinDaytimeReport

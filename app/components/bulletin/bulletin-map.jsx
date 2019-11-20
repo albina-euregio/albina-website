@@ -123,8 +123,8 @@ class BulletinMap extends React.Component {
             */
           ["", "empty"].includes(this.props.store.settings.status) &&
             config.get("bulletin.noBulletinBanner") && (
-              <section className="bulletinbar section controlbar">
-                <div className="bar section-centered">
+              <section className="bulletin-map-bulletinbar">
+                <div className="controlbar">
                   {this.renderNoBulletinMessage()}
                 </div>
               </section>
@@ -189,11 +189,13 @@ class BulletinMap extends React.Component {
             </div>
           )}
           {this.props.ampm && (
-            <div className="bulletin-map-daytime">
+            <p className="bulletin-map-daytime">
+              <span className="primary label">
               {this.props.intl.formatMessage({
                 id: "bulletin:header:" + this.props.ampm
               })}
-            </div>
+              </span>
+            </p>
           )}
         </div>
       </section>

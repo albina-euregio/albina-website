@@ -246,8 +246,9 @@ class Bulletin extends React.Component {
             description={shareDescription}
           />
         )}
-
-        {preprocessContent(this.state.content)}
+        {/* <div className="section-padding section-centered"> */}
+          {preprocessContent(this.state.content)}
+        {/* </div> */}
       </div>
     );
   }

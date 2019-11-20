@@ -54,11 +54,11 @@ class BulletinProblemFilterItem extends React.Component {
             active
             alt={problemText}
           />
-          <ProblemIcon
+          {/* <ProblemIcon
             problem={this.props.problemId}
             active={false}
             alt={problemText}
-          />
+          /> */}
         </a>
       </li>
     );

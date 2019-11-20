@@ -17,15 +17,17 @@ export default class BulletinList extends React.Component {
 
     render() {
         return (
-            <ul className="bulletin-list">
-                {this.bulletins.map((bulletin) =>
-                    <li id={bulletin.id} 
-                        key={bulletin.id} 
-                        className={"bulletin-list-item" + ((bulletin.id === this.props.store.settings.region) ? " selected" : "")}>
-                        { <BulletinReport bulletin={bulletin} date={this.props.store.settings.date} /> }
-                    </li>
-                )}
-            </ul>
+            <section id="section-bulletin-report" class="section-centered section-bulletin section-bulletin-report">
+                <ul className="list-plain bulletin-list">
+                    {this.bulletins.map((bulletin) =>
+                        <li id={bulletin.id} 
+                            key={bulletin.id} 
+                            className={"bulletin-list-item" + ((bulletin.id === this.props.store.settings.region) ? " selected" : "")}>
+                            { <BulletinReport bulletin={bulletin} date={this.props.store.settings.date} /> }
+                        </li>
+                    )}
+                </ul>
+            </section>
         );
     }
 }

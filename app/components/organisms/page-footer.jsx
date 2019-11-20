@@ -74,13 +74,20 @@ class PageFooter extends React.Component {
                   </a>
                 </p>
               )}
-              <p className="page-footer-text">{this.state.content}</p>
-              <p className="page-footer-euregio">
+              <p className="page-footer-text">
+                <a href="https://gitlab.com/albina-euregio/albina-website"
+                  target="_blank">
+                  albina-website {config.get("version")}
+                </a>
+                , {config.get("versionDate")}
+              </p>
+              <p className="page-footer-logo-secondary">
                 <a
                   href={Util.template(config.get("links.interreg"), {
                     lang: window["appStore"].language
                   })}
-                  className="logo-euregio tooltip"
+                  data-tilty
+                  className="header-footer-logo-secondary tooltip"
                   title={this.props.intl.formatMessage({
                     id: "footer:euregio:hover"
                   })}
@@ -114,17 +121,11 @@ class PageFooter extends React.Component {
                   )
                 */}
             </div>
-            <div className="grid-item all-12">
-              <div className="version">
-                <a
-                  href="https://gitlab.com/albina-euregio/albina-website"
-                  target="_blank"
-                >
-                  albina-website {config.get("version")}
-                </a>
-                , {config.get("versionDate")}
+            {/* <div className="grid-item all-12">
+              <div className="page-footer-version">
+                version {config.get("version")}, {config.get("versionDate")}
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
         {!config.get("footer.iconsHidden") && <FooterLogos />}
