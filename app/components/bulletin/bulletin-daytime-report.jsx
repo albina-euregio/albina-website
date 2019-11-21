@@ -85,7 +85,7 @@ class BulletinDaytimeReport extends React.Component {
             </a>
           </div>
           <ul className="list-plain list-bulletin-report-pictos">
-            <li>
+            <li className="bulletin-report-picto tooltip">
               <WarnLevelIcon
                 below={this.props.bulletin.dangerRatingBelow}
                 above={this.props.bulletin.dangerRatingAbove}

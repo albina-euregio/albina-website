@@ -88,17 +88,13 @@ class WarnLevelIcon extends React.Component {
     }
 
     return (
-      <div className="bulletin-report-picto tooltip" title={title}>
-        <Link
-            to={link}
-            title={this.props.intl.formatMessage({
-              id: "bulletin:legend:danger-levels"
-            })}
-          >
-          <img src={img} alt={alt} />
-          {this.props.above != this.props.below && <span>{elevText}</span>}
-        </Link>
-      </div>
+      <Link
+          to={link}
+          title={title}
+        >
+        <img src={img} alt={alt} />
+        {this.props.above != this.props.below && <span>{elevText}</span>}
+      </Link>
     );
   }
 }
