@@ -144,7 +144,7 @@ class Weather extends React.Component {
           }
         >
           {/*this.store.domainId*/ true && (
-            <div className="bulletin-map-container weather-map-container section-map">
+            <div className="weather-map-container section-map">
               <WeatherMap
                 domainId={this.store.domainId}
                 domain={this.store.domain}
