@@ -73,19 +73,11 @@ class Page extends React.Component {
       this.props.location.pathname === "/" ||
       this.props.location.pathname === "/bulletin"
     ) {
-      this.props.history.push({
+      this.props.history.replace({
         pathname: "/bulletin/latest",
         search: document.location.search.substring(1)
       });
     }
-
-    //this._setLanguage();
-
-    /*
-    if (this.hash && this.hash !== this.props.location.hash) {
-      this.props.history.push({ hash: this.hash });
-    }
-    */
 
     modal_init();
     tooltip_init();
