@@ -1,3 +1,6 @@
-node_modules/**
+app/bower_components/
+app/js/custom.js
+node_modules/
+dist/
 **/*.css
 **/*.html
