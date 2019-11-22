@@ -7,6 +7,8 @@
   "main": "app/main.jsx",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
+    "test": "npm run eslint",
+    "eslint": "eslint --ext=js,jsx .",
     "build": "npm run clean-dist && webpack --mode production --env prod --output-public-path=/",
     "build-beta": "npm run clean-dist && webpack --mode production --env dev --output-public-path=/beta/",
     "deploy": "rsync -avz -e 'ssh -p 2201' --progress --exclude=config.json dist/ karto@80.120.70.88:/var/www/html/albina-web/",
@@ -58,6 +60,9 @@
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^4.6.0",
     "css-loader": "^1.0.1",
+    "eslint": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
     "file-loader": "^1.1.11",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",

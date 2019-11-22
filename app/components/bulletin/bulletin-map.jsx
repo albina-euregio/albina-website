@@ -1,6 +1,6 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { inject } from "mobx-react";
+import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
 import { ImageOverlay } from "react-leaflet";
 import { Link } from "react-router-dom";
@@ -24,7 +24,7 @@ class BulletinMap extends React.Component {
   handleMapInit = map => {
     this.map = map;
 
-    map.on("click", e => {
+    map.on("click", () => {
       this.props.handleSelectRegion(null);
     });
 

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 

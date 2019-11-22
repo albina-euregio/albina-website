@@ -15,20 +15,19 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["prettier", "react"],
   "globals": {
-    "store": true,
-    "Base": true,
+    "APP_DEV_MODE": true,
+    "APP_ENVIRONMENT": true,
+    "APP_VERSION": true,
+    "APP_VERSION_DATE": true,
+    "appStore": true,
+    "mapStore": true,
     "config": true,
-    "map": true,
     "$": true
   },
   "rules": {
     "no-console": "off",
-    "strict": 0,
-    "indent": ["error", 2],
-    "linebreak-style": ["error", "unix"],
-    "quotes": ["error", "single"],
     "react/jsx-uses-vars": [2]
   }
 }

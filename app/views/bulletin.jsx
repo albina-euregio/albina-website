@@ -11,18 +11,11 @@ import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinMap from "../components/bulletin/bulletin-map";
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
-import BulletinReport from "../components/bulletin/bulletin-report";
-import BulletinHowTo from "../components/bulletin/bulletin-howto";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import {
-  parseDate,
-  dateToISODateString,
-  dateToLongDateString
-} from "../util/date.js";
+import {parseDate, dateToLongDateString} from '../util/date.js';
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
-import { runInThisContext } from "vm";
 import BulletinList from "../components/bulletin/bulletin-list";
 
 require("leaflet.sync");
@@ -57,13 +50,13 @@ class Bulletin extends React.Component {
       });
     });
 
-    const onUpdateStatus = reaction(
+    reaction(
       () => this.store.settings.status,
-      status => {
+      () => {
         window.setTimeout(tooltip_init, 100);
       }
     );
-    const onUpdateRegion = reaction(
+    reaction(
       () => this.store.settings.region,
       region => {
         if (region) {

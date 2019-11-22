@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // eslint-disable-line no-unused-vars
 import { MapLayer } from "react-leaflet";
 import L from "leaflet";
 import ReactDOMServer from "react-dom/server";

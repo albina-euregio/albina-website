@@ -14,7 +14,7 @@ export default class BulletinList extends React.Component {
 
     render() {
         return (
-            <section id="section-bulletin-report" class="section-centered section-bulletin section-bulletin-report">
+            <section id="section-bulletin-report" className="section-centered section-bulletin section-bulletin-report">
                 <ul className="list-plain bulletin-list">
                     {this.bulletins.map((bulletin) =>
                         <li id={bulletin.id} 

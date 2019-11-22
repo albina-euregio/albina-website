@@ -6,17 +6,15 @@ if (!window.Intl) {
 
 require("window.requestanimationframe");
 
-import React from "react";
+import React from "react"; // eslint-disable-line no-unused-vars
 import ReactDOM from "react-dom";
 import App from "./components/app.jsx";
-import Base from "./base.js";
 import AppStore from "./appStore.js";
 import ConfigStore from "./configStore.js";
 import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
 import { addLocaleData } from "react-intl";
 import { reaction } from "mobx";
-import { storageAvailable } from "./util/storage";
 import en from "react-intl/locale-data/en";
 import de from "react-intl/locale-data/de";
 import it from "react-intl/locale-data/it";
@@ -129,7 +127,7 @@ Promise.all([configRequest, isWebpSupported]).then(
   */
 
     // replace language-dependent body classes on language change.
-    const languageDependentClassesHandler = reaction(
+    reaction(
       () => window["appStore"].locale.value,
       newLang => {
         document.body.className = document.body.className

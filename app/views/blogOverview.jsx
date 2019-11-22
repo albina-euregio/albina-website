@@ -1,7 +1,6 @@
 import React from "react";
-import { computed } from "mobx";
 import { observer, inject } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
 import BlogStore from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
@@ -41,7 +40,7 @@ class BlogOverview extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     return this._fetchData();
   }
 
@@ -127,7 +126,6 @@ class BlogOverview extends React.Component {
 
   render() {
     const classChanged = "selectric-changed";
-    const classDisabled = "disabled";
     return (
       <div>
         <HTMLHeader title={this.state.title} />

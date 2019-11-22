@@ -1,4 +1,4 @@
-import { observable, action, computed, toJS } from "mobx";
+import { observable, action } from "mobx";
 import React from "react";
 import { LocaleStore } from "./util/mobx-react-intl.es5.js";
 import CookieStore from "./stores/cookieStore";
@@ -19,7 +19,7 @@ class AppStore extends React.Component {
   languages;
   warnlevelNumbers;
 
-  constructor(languages) {
+  constructor() {
     super();
     this.languages = ["en", "de", "it"];
     const translationLookup = {

@@ -26,11 +26,11 @@ require("../css/style.css");
 // require('./js/custom.js');
 
 class App extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate() {
     return true;
   }
 
-  shouldUpdateScroll = (prevRouterProps, { location, history }) => {
+  shouldUpdateScroll = (prevRouterProps, { location }) => {
     if (!prevRouterProps) {
       return true;
     }

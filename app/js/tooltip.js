@@ -3,7 +3,7 @@ function tooltip_init() {
   var tooltips = $(".tooltip").not("[data-tippy]");
   var tooltip_delay, tooltip_theme;
   if (tooltips.length) {
-    tooltips.each(function(index) {
+    tooltips.each(function() {
       if ($(this).hasClass("html")) {
         tooltip_delay = 0;
         tooltip_theme = "custom-html";
@@ -11,6 +11,7 @@ function tooltip_init() {
         tooltip_delay = window["scroll_duration"] / 4;
         tooltip_theme = "custom";
       }
+      /* global tippy */
       tippy($(this).get(0), {
         duration: [
           window["scroll_duration"] / 2,
