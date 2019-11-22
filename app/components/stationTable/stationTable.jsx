@@ -9,14 +9,14 @@ export default class StationTable extends React.Component {
       $.DataTable = require("datatables.net");
     }
 
-    const defaultRender = (data, type, full, meta) =>
+    const defaultRender = (data) =>
       data !== false ? data : "-";
 
     this.columns = [
       {
         data: "name",
         width: "150px",
-        render: (data, type, full, meta) =>
+        render: (_data, _type, full) =>
           "<strong>" +
           full.name +
           '</strong> <span class="operator operator-st">(' +
@@ -73,7 +73,7 @@ export default class StationTable extends React.Component {
       },
       {
         data: "wdir",
-        render: (data, type, full, meta) =>
+        render: (_data, _type, full) =>
           full.wdir ? full.wdir + " (" + full.x_wdir + ")" : "-",
         className: "mb-wind m-winddir"
       },

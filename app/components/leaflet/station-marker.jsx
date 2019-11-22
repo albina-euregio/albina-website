@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // eslint-disable-line no-unused-vars
 import PropTypes from "prop-types";
 import ReactDOMServer from "react-dom/server";
 import StationIcon from "./station-icon";

@@ -21,10 +21,9 @@
     "APP_ENVIRONMENT": true,
     "APP_VERSION": true,
     "APP_VERSION_DATE": true,
-    "store": true,
-    "Base": true,
+    "appStore": true,
+    "mapStore": true,
     "config": true,
-    "map": true,
     "$": true
   },
   "rules": {

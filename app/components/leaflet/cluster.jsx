@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"; // eslint-disable-line no-unused-vars
 import PropTypes from "prop-types";
 import { MapLayer } from "react-leaflet";
 import L from "leaflet";
@@ -31,17 +31,13 @@ class Cluster extends MapLayer {
     return activeMarker.options.icon;
   };
 
-  createLeafletElement(props) {
-    const map = this.context.map;
-
+  createLeafletElement() {
     const markerclusters = new L.markerClusterGroup({
       maxClusterRadius: 40,
       spiderfyDistanceSurplus: 50,
       spiderfyDistanceMultiplier: 2,
       elementsPlacementStrategy: "clock",
       helpingCircles: true,
-      spiderfyDistanceSurplus: 50,
-      spiderfyDistanceMultiplier: 2,
       elementsMultiplier: 1.4,
       firstCircleElements: 8,
       showCoverageOnHover: false,

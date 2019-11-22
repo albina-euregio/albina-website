@@ -49,7 +49,7 @@ class GridOverlay extends React.Component {
             ? data.properties[this.props.item.direction]
             : false
         }
-        onClick={e => {
+        onClick={() => {
           this.props.onMarkerSelected(markerData);
         }}
       />

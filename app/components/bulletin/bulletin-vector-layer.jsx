@@ -1,6 +1,6 @@
 import React from "react";
 import L from "leaflet";
-import { GeoJSON, Pane, Polygon } from "react-leaflet";
+import { Pane, Polygon } from "react-leaflet";
 
 export default class BulletinVectorLayer extends React.Component {
   constructor(props) {

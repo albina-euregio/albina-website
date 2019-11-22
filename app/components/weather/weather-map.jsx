@@ -96,7 +96,7 @@ class WeatherMap extends React.Component {
         overlays={overlays}
         controls={controls}
         onInit={map => {
-          map.on("click", e => {
+          map.on("click", () => {
             this.props.onMarkerSelected(null);
           });
         }}

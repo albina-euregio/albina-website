@@ -25,7 +25,7 @@ import { tooltip_init } from "../js/tooltip";
 import { navigation_init } from "../js/navigation";
 import { video_init } from "../js/video";
 
-import { scroll_init, scroll } from "../js/scroll";
+import { scroll_init } from "../js/scroll";
 
 class Page extends React.Component {
   constructor(props) {
