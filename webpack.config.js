@@ -18,7 +18,7 @@ module.exports = (env, argv) => {
     devtool: production ? "source-map" : "cheap-module-eval-source-map",
     devServer: {
       historyApiFallback: true,
-      host: '0.0.0.0' //enable external access for testing with vm
+      host: "0.0.0.0" //enable external access for testing with vm
     },
     output: {
       filename: "[name].[hash].js",
@@ -93,7 +93,7 @@ module.exports = (env, argv) => {
       }),
       new CopyWebpackPlugin(
         [
-          { from: "./data", to: "data" },
+          { from: "./i18n", to: "i18n" },
           { from: "./images", to: "images" },
           { from: "./images/fav/en/favicon.ico", to: "favicon.ico" },
           { from: "./config.json", to: "config.json" }
