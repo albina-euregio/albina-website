@@ -3,7 +3,9 @@ import React from "react";
 import { LocaleStore } from "./util/mobx-react-intl.es5.js";
 import CookieStore from "./stores/cookieStore";
 import NavigationStore from "./stores/navigationStore";
-import translations from "./data/translations.json";
+import de from "./i18n/de.json";
+import en from "./i18n/en.json";
+import it from "./i18n/it.json";
 
 class AppStore extends React.Component {
   @observable
@@ -20,21 +22,11 @@ class AppStore extends React.Component {
   constructor(languages) {
     super();
     this.languages = ["en", "de", "it"];
-    const translationFallbackLanguage = "all";
-
-    const translationLookup = {};
-    this.languages.forEach(lang => {
-      translationLookup[lang] = {};
-    });
-
-    Object.keys(translations).forEach(key =>
-      this.languages.forEach(lang => {
-        // take language key, or "all", if translation is missing
-        translationLookup[lang][key] = translations[key][lang]
-          ? translations[key][lang]
-          : translations[key][translationFallbackLanguage];
-      })
-    );
+    const translationLookup = {
+      en,
+      de,
+      it
+    };
 
     // initial language is changed after config has arrived!!!
     this.locale = new LocaleStore("en", translationLookup);
@@ -43,9 +35,21 @@ class AppStore extends React.Component {
     this.navigation = new NavigationStore();
 
     this.regions = {
-      "AT-07": translations["region:AT-07"],
-      "IT-32-BZ": translations["region:IT-32-BZ"],
-      "IT-32-TN": translations["region:IT-32-TN"]
+      "AT-07": {
+        en: en["region:AT-07"],
+        de: de["region:AT-07"],
+        it: it["region:AT-07"]
+      },
+      "IT-32-BZ": {
+        en: en["region:IT-32-BZ"],
+        de: de["region:IT-32-BZ"],
+        it: it["region:IT-32-BZ"]
+      },
+      "IT-32-TN": {
+        en: en["region:IT-32-TN"],
+        de: de["region:IT-32-TN"],
+        it: it["region:IT-32-TN"]
+      }
     };
 
     this.warnlevelNumbers = {
@@ -58,7 +62,7 @@ class AppStore extends React.Component {
       no_rating: 0
     };
 
-    this.avalancheProblems = Object.keys(translations)
+    this.avalancheProblems = Object.keys(en)
       .filter(k => k.match(/^problem:/))
       .map(k => k.substr(8));
   }
