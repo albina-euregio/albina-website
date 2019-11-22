@@ -165,13 +165,6 @@ export default class StationDataStore {
 
   @action
   load() {
-    // stations.json uses custom region codes 'tirol', 'suedtirol' and 'trentino'
-    const regionCodes = {
-      tirol: "AT-07",
-      suedtirol: "IT-32-BZ",
-      trentino: "IT-32-TN"
-    };
-
     return axios.get(config.get("apis.weather.stations")).then(response => {
       const data = response.data.features.filter(el => el.properties.date);
 

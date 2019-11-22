@@ -184,7 +184,6 @@ export default class BlogStore {
   }
 
   initialParams() {
-    const date = new Date();
     const searchLang = this.validateLanguage(Base.searchGet("searchLang"));
 
     const initialParameters = {
@@ -306,6 +305,7 @@ export default class BlogStore {
     const newPosts = {};
 
     // filter config for lang and region
+    // eslint-disable-next-line no-unused-vars
     for (let cfg of blogsConfig) {
       newPosts[cfg.name] = [];
 
@@ -446,6 +446,7 @@ export default class BlogStore {
 
   @action setRegions(region) {
     const newRegions = this.regions;
+    // eslint-disable-next-line no-unused-vars
     for (let r in newRegions) {
       newRegions[r] = [r, "all"].includes(region) || !region;
     }
@@ -454,6 +455,7 @@ export default class BlogStore {
 
   @action setLanguages(lang) {
     const newLanguages = this.languages;
+    // eslint-disable-next-line no-unused-vars
     for (let l in newLanguages) {
       newLanguages[l] = [l, "all"].includes(lang) || !lang;
     }

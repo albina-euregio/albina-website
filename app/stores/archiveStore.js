@@ -1,4 +1,3 @@
-import Base from "../base.js";
 import { observable, computed } from "mobx";
 import {
   parseDate,
@@ -186,7 +185,8 @@ export default class ArchiveStore {
         response => {
           const values = response.data;
           if (typeof values === "object") {
-            for (let v of values) {
+            let v;
+            for (v of values) {
               // only use date part (without time) and add 1 day to get the
               // correct day - otherwise it might depend on the browser and
               // OS settings how ISO dates are converted to local time
