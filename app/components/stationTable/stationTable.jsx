@@ -1,5 +1,6 @@
 import React from "react";
 import StationTableHeader from "./stationTableHeader";
+import { modal_open_by_params } from "../../js/modal";
 
 export default class StationTable extends React.Component {
   constructor(props) {
@@ -111,7 +112,7 @@ export default class StationTable extends React.Component {
   }
 
   componentDidMount() {
-    $(this.refs.main).DataTable({
+    const table = $(this.refs.main).DataTable({
       dom: '<"data-table-wrapper"t>',
       scrollY: false,
       scrollX: true,
@@ -133,6 +134,13 @@ export default class StationTable extends React.Component {
         zeroRecords: ""
       }
     });
+
+    $(".data-table-wrapper").find("table tbody").on('click', 'tr', function () {
+      window["modalStateStore"].setData({"stationData": table.row( this ).data().properties});
+      modal_open_by_params(null, "inline", "#weatherStationDiagrams", "weatherStationDiagrams", true);
+    } );
+
+
   }
 
   componentDidUpdate() {
