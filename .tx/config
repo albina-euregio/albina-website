@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[albina-website.website]
+source_file = app/i18n/en.json
+source_lang = en
+type = KEYVALUEJSON
+file_filter = app/i18n/<lang>.json
