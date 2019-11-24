@@ -4,42 +4,9 @@ import { injectIntl } from "react-intl";
 import Menu from "../menu";
 import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
-import {
-  parseRawHtml,
-  defaultProcessor,
-  replaceInternalLinksProcessor
-} from "../../util/htmlParser";
 import { Util } from "leaflet";
 
 class PageFooter extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { content: "" };
-  }
-
-  componentDidMount() {
-    window["staticPageStore"].loadBlock("footer_text").then(parsed => {
-      if (parsed.data && parsed.data.length > 0) {
-        const el = parsed.data[0];
-        if (
-          el &&
-          el.attributes &&
-          el.attributes.body &&
-          el.attributes.body.processed
-        ) {
-          this.setState({
-            content: this._preprocessContent(el.attributes.body.processed)
-          });
-        }
-      }
-    });
-  }
-
-  _preprocessContent(content) {
-    const instructions = [replaceInternalLinksProcessor(), defaultProcessor()];
-    return parseRawHtml(content, instructions);
-  }
-
   render() {
     const footerMenuMore = this.props.menuStore.getMenu("footer");
     const footerMenuMain = this.props.menuStore.getMenu("footer-main");
@@ -75,8 +42,10 @@ class PageFooter extends React.Component {
                 </p>
               )}
               <p className="page-footer-text">
-                <a href="https://gitlab.com/albina-euregio/albina-website"
-                  target="_blank">
+                <a
+                  href="https://gitlab.com/albina-euregio/albina-website"
+                  target="_blank"
+                >
                   albina-website {config.get("version")}
                 </a>
                 , {config.get("versionDate")}

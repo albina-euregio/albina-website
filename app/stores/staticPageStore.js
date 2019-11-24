@@ -14,12 +14,4 @@ export default class StaticPageStore {
       };
     });
   }
-
-  loadBlock(name) {
-    const lang = window["appStore"].language;
-    const langParam = !lang || lang == "en" ? "" : lang + "/";
-    const url =
-      config.get("apis.content") + langParam + "api/block_content/" + name;
-    return axios.get(url).then(response => response.data);
-  }
 }
