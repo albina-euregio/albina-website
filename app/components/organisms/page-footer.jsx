@@ -6,21 +6,23 @@ import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
 import { Util } from "leaflet";
 
+import footerMenuMore from "../../menu-footer.json";
+import footerMenuMain from "../../menu-footer-main.json";
+
 class PageFooter extends React.Component {
   render() {
-    const footerMenuMore = this.props.menuStore.getMenu("footer");
-    const footerMenuMain = this.props.menuStore.getMenu("footer-main");
-
     return (
       <div id="page-footer" className="page-footer">
         <section className="section section-padding page-footer-navigation">
           <div className="grid">
             <div className="grid-item normal-6">
               <Menu
+                intl={this.props.intl}
                 className="list-inline footer-navigation footer-navigation-more"
                 entries={footerMenuMore}
               />
               <Menu
+                intl={this.props.intl}
                 className="list-plain footer-navigation footer-navigation-main"
                 entries={footerMenuMain}
               />

@@ -4,7 +4,6 @@ import PageLoadingScreen from "./organisms/page-loading-screen.jsx";
 import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
-import MenuStore from "../stores/menuStore";
 import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
@@ -30,9 +29,7 @@ import { scroll_init } from "../js/scroll";
 class Page extends React.Component {
   constructor(props) {
     super(props);
-    this.menuStore = new MenuStore();
     this.hash = false;
-    window["menuStore"] = this.menuStore;
   }
 
   componentDidUpdate() {
@@ -92,11 +89,11 @@ class Page extends React.Component {
         <PageLoadingScreen />
         {false && <Jumpnav />}
         <div id="page-all" className="page-all">
-          <PageHeader menuStore={this.menuStore} />
+          <PageHeader />
           <main id="page-main" className="page-main">
             <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
           </main>
-          <PageFooter menuStore={this.menuStore} />
+          <PageFooter />
         </div>
         <ModalDialog id="subscribeDialog">
           <SubscribeDialog />

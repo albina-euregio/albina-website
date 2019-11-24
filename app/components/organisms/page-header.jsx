@@ -6,6 +6,8 @@ import { injectIntl } from "react-intl";
 import Menu from "./../menu";
 import { Util } from "leaflet";
 
+import menuItems from "../../menu.json";
+
 class PageHeader extends React.Component {
   constructor(props) {
     super(props);
@@ -49,7 +51,6 @@ class PageHeader extends React.Component {
   render() {
     const langs = window["appStore"].languages;
     const lang = window["appStore"].language;
-    const menuItems = this.props.menuStore.getMenu("main");
 
     return (
       <div id="page-header" className="page-header" data-scroll-header>
@@ -72,6 +73,7 @@ class PageHeader extends React.Component {
         </div>
         <div className="page-header-navigation">
           <Menu
+            intl={this.props.intl}
             className="list-plain navigation"
             entries={menuItems}
             childClassName="list-plain subnavigation"
