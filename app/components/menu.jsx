@@ -30,7 +30,7 @@ class Menu extends React.Component {
     const classes = this.props.menuItemClassName
       ? this.props.menuItemClassName.split(" ")
       : [];
-    const isActive = activeItem && e.id == activeItem.id;
+    const isActive = activeItem && e == activeItem;
 
     if (isActive) {
       if (this.props.onActiveMenuItem) {
@@ -46,7 +46,7 @@ class Menu extends React.Component {
     }
     return (
       <li
-        key={e.id}
+        key={e.url}
         onClick={event => {
           event.stopPropagation();
           if (typeof this.props.onSelect === "function") {
