@@ -6,7 +6,7 @@ export default class StaticPageStore {
     return axios.get(`/content/${url}/${lang}.html`).then(response => {
       const sharable = true;
       const body = response.data;
-      let title = body.match(/^<!--\s*title:\s*(.*)-->/);
+      let title = body.match(/^<!--\s*title:\s*(.*?)\s*-->/);
       title = title ? title[1] : undefined;
       return {
         data: {
