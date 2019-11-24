@@ -35,7 +35,8 @@ function fetch(lang) {
       }
       console.log(path, uuid, title);
       const page = pages.find(p => p.id === uuid);
-      const html = page.attributes.body || "";
+      const html = `<!-- title: ${page.attributes.title} -->\n\n${page
+        .attributes.body || ""}`;
       fs.mkdirSync(__dirname + path, { recursive: true });
       fs.writeFileSync(`${__dirname}${path}/${lang}.html`, html, "utf-8");
     });

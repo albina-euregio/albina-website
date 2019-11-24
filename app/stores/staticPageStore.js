@@ -5,9 +5,11 @@ export default class StaticPageStore {
     const lang = window["appStore"].language;
     return axios.get(`/content/${url}/${lang}.html`).then(response => {
       const body = response.data;
+      let title = body.match(/^<!--\s*title:\s*(.*)-->/);
+      title = title ? title[1] : undefined;
       return {
         data: {
-          attributes: { body }
+          attributes: { title, body }
         }
       };
     });
