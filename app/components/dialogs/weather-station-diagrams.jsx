@@ -1,10 +1,14 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import Selectric from "../selectric";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
     super(props);
+    this.timeRanges = ["tag", "dreitage", "woche", "monat", "winter"];
+    this.imageWidths = ["540", "800", "1100"];
+    this.state = { timeRange: this.timeRanges[0] };
   }
 
   get cacheHash() {
@@ -15,47 +19,83 @@ class WeatherStationDiagrams extends React.Component {
     return currentTS.valueOf();
   }
 
+  handleChangeTimeRange = newTimeRange => {
+    this.setState({
+      timeRange: newTimeRange !== "none" ? newTimeRange : this.timePeriods[0]
+    });
+  };
+
+  imageUrl(res, range, name) {
+    return (
+      "https://lawine.tirol.gv.at/data/grafiken/" +
+      res +
+      "/standard/" +
+      range +
+      "/" +
+      name +
+      ".png?" +
+      this.cacheHash
+    );
+  }
+
   render() {
     let stationData = window["modalStateStore"].data.stationData;
     // console.log('stationData', stationData);
 
     if (!stationData) return <div></div>;
     return (
-      <div class="modal-weatherstation">
-        <div class="modal-header">
+      <div className="modal-weatherstation">
+        <div className="modal-header">
           <h2 className="subheader">Weather Station</h2>
           <h2>{stationData.name}</h2>
         </div>
 
-        <div class="modal-content">
-          <form class="pure-form pure-form-stacked">
+        <div className="modal-content">
+          <form className="pure-form pure-form-stacked">
             <label htmlFor="timerange">
-              Select<span class="normal"> Time Range</span>
+              Select<span className="normal"> Time Range</span>
             </label>
             <ul className="list-inline list-buttongroup">
               <li>
-                <select class="dropdown" name="timerange">
-                  <option value="Day" selected="selected">
-                    Day
-                  </option>
-                  <option value="3 Days">3 Days</option>
-                  <option value="Week">Week</option>
-                  <option value="Month">Month</option>
-                  <option value="Winter">Winter</option>
-                </select>
+                <Selectric
+                  onChange={this.handleChangeTimeRange}
+                  value={this.state.timeRange}
+                >
+                  {this.timeRanges.map(r => (
+                    <option key={r} value={r}>
+                      {r}
+                    </option>
+                  ))}
+                </Selectric>
               </li>
             </ul>
           </form>
 
-          <img
-            src={
-              "https://lawine.tirol.gv.at/data/grafiken/540/standard/woche/" +
-              stationData.plot +
-              ".png?" +
-              this.cacheHash
-            }
-            className="weather-station-img"
-          />
+          {stationData && (
+            <img
+              src={this.imageUrl(
+                this.imageWidths[0],
+                this.state.timeRange,
+                stationData.plot
+              )}
+              srcSet={`${this.imageUrl(
+                this.imageWidths[0],
+                this.state.timeRange,
+                stationData.plot
+              )} 300w,
+              ${this.imageUrl(
+                this.imageWidths[1],
+                this.state.timeRange,
+                stationData.plot
+              )} 500w,
+              ${this.imageUrl(
+                this.imageWidths[2],
+                this.state.timeRange,
+                stationData.plot
+              )} 800w`}
+              className="weather-station-img"
+            />
+          )}
         </div>
       </div>
     );
