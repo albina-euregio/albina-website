@@ -64,8 +64,9 @@ export default class StationOverlay extends React.Component {
         "m",
       detail: value + " " + this.props.item.units,
       operator: data.operator,
-      date: data.date,
-      value: value
+      plainName: data.name,
+      value: value,
+      plot: data.plot
     };
 
     return (
@@ -87,6 +88,7 @@ export default class StationOverlay extends React.Component {
             : false
         }
         onClick={data => {
+          console.log("click station overlay item", data);
           if (data && data.id) {
             if (
               !this.state.spiderfiedMarkers ||
