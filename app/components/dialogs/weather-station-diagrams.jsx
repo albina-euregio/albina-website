@@ -19,19 +19,45 @@ class WeatherStationDiagrams extends React.Component {
     let stationData = window["modalStateStore"].data.stationData;
     // console.log('stationData', stationData);
 
-    if (!stationData) return <div>No Information available</div>;
+    if (!stationData) return <div></div>;
     return (
-      <h2 className="subheader">
-        Weather Station Info for {stationData.name}
-        <img
-          src={
-            "https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/" +
-            stationData.plot +
-            ".png?" +
-            this.cacheHash
-          }
-        />
-      </h2>
+      <div class="modal-weatherstation">
+        <div class="modal-header">
+          <h2 className="subheader">Weather Station</h2>
+          <h2>{stationData.name}</h2>
+        </div>
+
+        <div class="modal-content">
+          <form class="pure-form pure-form-stacked">
+            <label htmlFor="timerange">
+              Select<span class="normal"> Time Range</span>
+            </label>
+            <ul className="list-inline list-buttongroup">
+              <li>
+                <select class="dropdown" name="timerange">
+                  <option value="Day" selected="selected">
+                    Day
+                  </option>
+                  <option value="3 Days">3 Days</option>
+                  <option value="Week">Week</option>
+                  <option value="Month">Month</option>
+                  <option value="Winter">Winter</option>
+                </select>
+              </li>
+            </ul>
+          </form>
+
+          <img
+            src={
+              "https://lawine.tirol.gv.at/data/grafiken/540/standard/woche/" +
+              stationData.plot +
+              ".png?" +
+              this.cacheHash
+            }
+            className="weather-station-img"
+          />
+        </div>
+      </div>
     );
   }
 }
