@@ -151,6 +151,7 @@
   "weathermap:header:dateflipper:back": "Back",
   "weathermap:header:dateflipper:forward": "Forward",
   "weathermap:map:legend": "legend",
+  "weathermap:map:feature-info:more": "Stationsinfo",
   "blog:filter:avalanche-problem": "Avalanche Problem",
   "blog:filter:year": "Year",
   "blog:filter:month": "Month",
@@ -251,5 +252,11 @@
   "dialog:feedback:header": "ONLINE SURVEY on the new Euregio Avalanche.report",
   "dialog:feedback:text": "We want <strong>your feedback</strong> on the new cross-border avalanche forecast.<br /><strong>Help us</strong> to improve our products and <strong>win</strong> an attractive prize! The survey takes about <strong>10 minutes</strong>.<br />Thanks a lot!",
   "dialog:feedback:button": "No, thanks!",
-  "dialog:feedback:button:hover": "No, thanks!"
+  "dialog:feedback:button:hover": "No, thanks!",
+  "dialog:weather-station-diagram:header": "Weather Station",
+  "dialog:weather-station-diagram:timerange:day": "Day",
+  "dialog:weather-station-diagram:timerange:threedays": "Three days",
+  "dialog:weather-station-diagram:timerange:week": "Week",
+  "dialog:weather-station-diagram:timerange:month": "Month",
+  "dialog:weather-station-diagram:timerange:winter": "Winter"
 }

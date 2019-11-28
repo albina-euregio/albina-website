@@ -6,9 +6,15 @@ import Selectric from "../selectric";
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
     super(props);
-    this.timeRanges = ["tag", "dreitage", "woche", "monat", "winter"];
+    this.timeRanges = {
+      day: "tag",
+      threedays: "dreitage",
+      week: "woche",
+      month: "monat",
+      winter: "winter"
+    };
     this.imageWidths = ["540", "800", "1100"];
-    this.state = { timeRange: this.timeRanges[0] };
+    this.state = { timeRange: "day" };
   }
 
   get cacheHash() {
@@ -21,7 +27,7 @@ class WeatherStationDiagrams extends React.Component {
 
   handleChangeTimeRange = newTimeRange => {
     this.setState({
-      timeRange: newTimeRange !== "none" ? newTimeRange : this.timePeriods[0]
+      timeRange: newTimeRange !== "none" ? newTimeRange : "day"
     });
   };
 
@@ -40,13 +46,17 @@ class WeatherStationDiagrams extends React.Component {
 
   render() {
     let stationData = window["modalStateStore"].data.stationData;
-    // console.log('stationData', stationData);
+    let self = this;
 
     if (!stationData) return <div></div>;
     return (
       <div className="modal-weatherstation">
         <div className="modal-header">
-          <h2 className="subheader">Weather Station</h2>
+          <h2 className="subheader">
+            {this.props.intl.formatMessage({
+              id: "dialog:weather-station-diagram:header"
+            })}
+          </h2>
           <h2>{stationData.name}</h2>
         </div>
 
@@ -61,9 +71,11 @@ class WeatherStationDiagrams extends React.Component {
                   onChange={this.handleChangeTimeRange}
                   value={this.state.timeRange}
                 >
-                  {this.timeRanges.map(r => (
-                    <option key={r} value={r}>
-                      {r}
+                  {Object.keys(self.timeRanges).map(key => (
+                    <option key={key} value={key}>
+                      {self.props.intl.formatMessage({
+                        id: "dialog:weather-station-diagram:timerange:" + key
+                      })}
                     </option>
                   ))}
                 </Selectric>
@@ -75,22 +87,22 @@ class WeatherStationDiagrams extends React.Component {
             <img
               src={this.imageUrl(
                 this.imageWidths[0],
-                this.state.timeRange,
+                this.timeRanges[this.state.timeRange],
                 stationData.plot
               )}
               srcSet={`${this.imageUrl(
                 this.imageWidths[0],
-                this.state.timeRange,
+                this.timeRanges[this.state.timeRange],
                 stationData.plot
               )} 300w,
               ${this.imageUrl(
                 this.imageWidths[1],
-                this.state.timeRange,
+                this.timeRanges[this.state.timeRange],
                 stationData.plot
               )} 500w,
               ${this.imageUrl(
                 this.imageWidths[2],
-                this.state.timeRange,
+                this.timeRanges[this.state.timeRange],
                 stationData.plot
               )} 800w`}
               className="weather-station-img"

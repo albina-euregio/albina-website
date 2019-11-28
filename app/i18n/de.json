@@ -151,6 +151,7 @@
   "weathermap:header:dateflipper:back": "Zurück",
   "weathermap:header:dateflipper:forward": "Vor",
   "weathermap:map:legend": "Legende",
+  "weathermap:map:feature-info:more": "Stationsinfo",
   "blog:filter:avalanche-problem": "Lawinenproblem",
   "blog:filter:year": "Jahr",
   "blog:filter:month": "Monat",
@@ -251,5 +252,11 @@
   "dialog:feedback:header": "ONLINE UMFRAGE zum neuen Euregio Lawinen.report",
   "dialog:feedback:text": "Wir wollen <strong>Dein Feedback</strong> zur neuen grenzüberschreitenden Lawinenvorhersage.<br /><strong>Hilf uns</strong>, unsere Produkte zu verbessern und <strong>gewinne</strong> einen attraktiven Preis!<br />Die Umfrage dauert ca. <strong>10 Minuten</strong>.<br />Vielen Dank!",
   "dialog:feedback:button": "Nein, danke!",
-  "dialog:feedback:button:hover": "Nein, danke!"
+  "dialog:feedback:button:hover": "Nein, danke!",
+  "dialog:weather-station-diagram:header": "Weather Station",
+  "dialog:weather-station-diagram:timerange:day": "Tag",
+  "dialog:weather-station-diagram:timerange:threedays": "Drei Tage",
+  "dialog:weather-station-diagram:timerange:week": "Woche",
+  "dialog:weather-station-diagram:timerange:month": "Monat",
+  "dialog:weather-station-diagram:timerange:winter": "Winter"
 }

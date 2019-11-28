@@ -151,6 +151,7 @@
   "weathermap:header:dateflipper:back": "Indietro",
   "weathermap:header:dateflipper:forward": "Avanti",
   "weathermap:map:legend": "leggenda",
+  "weathermap:map:feature-info:more": "Stationsinfo",
   "blog:filter:avalanche-problem": "Problema tipico valanghivo",
   "blog:filter:year": "Anno",
   "blog:filter:month": "Mese",
@@ -251,5 +252,11 @@
   "dialog:feedback:header": "INDAGINE ONLINE sul nuovo Euregio Valanghe.report",
   "dialog:feedback:text": "Ci piacerebbe avere il <strong>vostro feedback</strong> sul nuovo bollettino valanghe transfrontaliero.<br /><strong>Aiutaci</strong> a migliorare i nostri prodotti e <strong>vinci</strong> un premio interessante!<br />L'indagine dura circa <strong>10 minuti</strong>.<br />Grazie mille!",
   "dialog:feedback:button": "No, grazie!",
-  "dialog:feedback:button:hover": "No, granzie!"
+  "dialog:feedback:button:hover": "No, granzie!",
+  "dialog:weather-station-diagram:header": "Weather Station",
+  "dialog:weather-station-diagram:timerange:day": "Day",
+  "dialog:weather-station-diagram:timerange:threedays": "Three days",
+  "dialog:weather-station-diagram:timerange:week": "Week",
+  "dialog:weather-station-diagram:timerange:month": "Month",
+  "dialog:weather-station-diagram:timerange:winter": "Winter"
 }

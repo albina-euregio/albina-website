@@ -1,15 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { modal_open_by_params } from "../../js/modal";
+import { inject } from "mobx-react";
+import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
-export default class FeatureInfo extends React.Component {
+class FeatureInfo extends React.Component {
   constructor(props) {
     super(props);
     this.triggerStationDiagrams = this.triggerStationDiagrams.bind(this);
   }
 
   triggerStationDiagrams() {
-    //console.log('this.props.feature.feature.data', this.props.feature);
     window["modalStateStore"].setData({ stationData: this.props.feature });
     modal_open_by_params(
       null,
@@ -43,7 +44,9 @@ export default class FeatureInfo extends React.Component {
             )}
             {this.props.feature.plot && (
               <a onClick={this.triggerStationDiagrams}>
-                <strong>more infos</strong>
+                {this.props.intl.formatMessage({
+                  id: "weathermap:map:feature-info:more"
+                })}
               </a>
             )}
           </div>
@@ -52,3 +55,5 @@ export default class FeatureInfo extends React.Component {
     );
   }
 }
+
+export default inject("locale")(injectIntl(FeatureInfo));
