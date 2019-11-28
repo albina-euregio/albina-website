@@ -39,8 +39,7 @@ function modal_open(modal) {
   modal_open_by_params(modal, modal_type, modal_url, modal_title);
 }
 
-function modal_open_by_params(modal, modal_type, modal_url, modal_title, open_immidiately = false) {
-
+function modal_open_by_params(modal, modal_type, modal_url, modal_title) {
   var settings = {
     type: modal_type,
     items: {
@@ -80,9 +79,8 @@ function modal_open_by_params(modal, modal_type, modal_url, modal_title, open_im
         return window["modalStateStore"].isOpen;
       },
       beforeOpen: function() {
+        console.log("beforeOpen", this.st);
 
-        console.log('beforeOpen', this.st);
- 
         window["modalStateStore"].open();
       },
       open: function() {
@@ -97,7 +95,7 @@ function modal_open_by_params(modal, modal_type, modal_url, modal_title, open_im
     }
   };
 
-  if(modal) modal.magnificPopup(settings);
+  if (modal) modal.magnificPopup(settings);
   else $.magnificPopup.open(settings);
 }
 
