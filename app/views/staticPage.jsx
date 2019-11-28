@@ -1,11 +1,10 @@
 import React from "react";
-import { ProcessNodeDefinitions } from "html-to-react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 
-import { scroll_init, scroll } from "../js/scroll";
+import { scroll } from "../js/scroll";
 /*
  * Compontent to be used for pages with content delivered by CMS API.
  */

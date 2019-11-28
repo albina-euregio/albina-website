@@ -47,3 +47,7 @@ RewriteRule ^ index.html [L]
 where `YOUR_PATH` is the path of the project location relative to the webserver's
 root (i.e. should be the same as the `--output-public-path` setting in the
 build script - use `/` for the webserver's root directory).
+
+## Translation
+
+This project uses Transifex for its translations: https://www.transifex.com/albina-euregio/albina-website/dashboard/

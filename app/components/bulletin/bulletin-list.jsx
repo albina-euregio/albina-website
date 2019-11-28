@@ -9,15 +9,12 @@ export default class BulletinList extends React.Component {
     }
 
     get bulletins() {
-        const collection = this.props.bulletinCollection;
-        const list = collection.regions.map((rId) => collection.getBulletinForRegion(rId));
-        list.sort((b1,b2) => b1.maxWarnlevel.number < b2.maxWarnlevel.number);
-        return list;
+        return this.props.bulletinCollection.getData();
     }
 
     render() {
         return (
-            <section id="section-bulletin-report" class="section-centered section-bulletin section-bulletin-report">
+            <section id="section-bulletin-report" className="section-centered section-bulletin section-bulletin-report">
                 <ul className="list-plain bulletin-list">
                     {this.bulletins.map((bulletin) =>
                         <li id={bulletin.id} 

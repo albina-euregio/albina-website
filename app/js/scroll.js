@@ -48,13 +48,12 @@ var scroll = (elId, time = 500) => {
 var scroll_direction = () => {
   var s_pos_old = 0; //old scroll position
   var s_pos_new = 0; //new scroll position
-  var s_dis = 20; //triggering distance
   var s_dis_down = 10; //triggering distance
   var s_dis_up = 100; //triggering distance
 
   var page_body = $("html, body");
 
-  window.onscroll = function(event) {
+  window.onscroll = function() {
     s_pos_new = this.pageYOffset;
 
     if (s_pos_new < 20) {

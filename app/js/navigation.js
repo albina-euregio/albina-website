@@ -3,7 +3,6 @@ import anime from "animejs";
 function navigation_init() {
   var nav_open = 0; //navigation is closed
   var navigation_trigger = $(".navigation-trigger");
-  var navigation = $(".navigation");
   var navigation_li = $(".navigation li");
   var page_window = $(window);
   var page_body = $("body");
@@ -24,7 +23,7 @@ function navigation_init() {
   function navigation_open_close() {
     if (nav_open == 0) {
       window["page_body"].addClass("navigation-open");
-      navigation_li.each(function(event) {
+      navigation_li.each(function() {
         anime.remove($(this).get(0));
         $(this)
           .css({
@@ -33,14 +32,14 @@ function navigation_init() {
             "margin-top": "-100px"
           })
           .show();
-        var cssSelector = anime({
+        anime({
           targets: $(this).get(0), //jquery object -> js-object
           opacity: 1,
           "margin-top": 0,
           duration: window["scroll_duration"] / 2,
           easing: "easeOutQuint",
-          begin: function(event) {},
-          complete: function(event) {}
+          begin: function() {},
+          complete: function() {}
         });
       });
 

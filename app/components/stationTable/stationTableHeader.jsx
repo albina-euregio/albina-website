@@ -1,6 +1,6 @@
 import React from "react";
 import { inject } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl } from "react-intl";
 
 class StationTableHeader extends React.Component {
   constructor(props) {

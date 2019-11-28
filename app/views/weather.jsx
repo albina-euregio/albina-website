@@ -1,24 +1,19 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
-import { Parser } from "html-to-react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 
-import Base from "../base";
-import { dateToLongDateString, dateToTimeString } from "../util/date";
 import Menu from "../components/menu";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
-import { TileLayer } from "react-leaflet";
 
 import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
 import MapStore from "../stores/mapStore";
-import AppStore from "../appStore";
 
 class Weather extends React.Component {
   constructor(props) {
@@ -52,7 +47,7 @@ class Weather extends React.Component {
     });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     if (
       this.store.domainId &&
       this.store.domainId !== this.props.match.params.domain

@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { inject } from "mobx-react";
 import L from "leaflet";
 require("leaflet/dist/leaflet.css");
 import {
@@ -7,13 +7,10 @@ import {
   TileLayer,
   LayersControl,
   AttributionControl,
-  ZoomControl,
   ScaleControl
 } from "react-leaflet";
 import { injectIntl } from "react-intl";
 import { tooltip_init } from "../../js/tooltip";
-import Base from "../../base";
-import AppStore from "../../appStore";
 
 require("leaflet-geonames");
 require("leaflet.locatecontrol");
@@ -77,7 +74,7 @@ class LeafletMap extends React.Component {
 
       const map = this.map;
       window.setTimeout(() => {
-        const zoomControl = L.control
+        L.control
           .zoom({
             position: "topleft",
             zoomInTitle: this.props.intl.formatMessage({
@@ -143,7 +140,6 @@ class LeafletMap extends React.Component {
         tooltip_init();
       }, 100);
 
-      const m = this.map;
       window.addEventListener("resize", this.invalidateMap);
       window.addEventListener("orientationchange", this.invalidateMap);
 

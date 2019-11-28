@@ -1,10 +1,10 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
 import { reaction } from "mobx";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
 import SmShare from "../components/organisms/sm-share.jsx";
-import { parseDate, getSuccDate, dateToISODateString } from "../util/date.js";
+import { getSuccDate, dateToISODateString } from "../util/date.js";
 import ArchiveStore from "../stores/archiveStore.js";
 import ArchiveItem from "../components/archive/archive-item.jsx";
 import PageHeadline from "../components/organisms/page-headline.jsx";
@@ -53,10 +53,10 @@ class Archive extends React.Component {
       window.setTimeout(tooltip_init, 1000);
     };
 
-    const onUpdateStatus = reaction(() => this.store.loading, up);
-    const onUpdateMonth = reaction(() => this.store.month, up);
-    const onUpdateYear = reaction(() => this.store.year, up);
-    const onUpdateDay = reaction(() => this.store.day, up);
+    reaction(() => this.store.loading, up);
+    reaction(() => this.store.month, up);
+    reaction(() => this.store.year, up);
+    reaction(() => this.store.day, up);
     up();
   }
 

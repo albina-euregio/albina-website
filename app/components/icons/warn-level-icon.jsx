@@ -1,6 +1,6 @@
 import React from "react";
 import { inject } from "mobx-react";
-import { injectIntl, FormattedMessage } from "react-intl";
+import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
 class WarnLevelIcon extends React.Component {

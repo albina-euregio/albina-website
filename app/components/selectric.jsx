@@ -33,7 +33,7 @@ export default class Selectric extends React.Component {
     }
   }
 
-  handleChange = e => {
+  handleChange = () => {
     // imported code from custom.js
     this.$el.closest(".selectric-wrapper").addClass("selectric-changed");
     this.props.onChange(this.$el.val());

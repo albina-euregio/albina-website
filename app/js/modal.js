@@ -1,9 +1,11 @@
+import { tooltip_init } from "./tooltip";
+
 function modal_init() {
   //to be initialised repeatedly if modals are added on the fly
   //delete modals;
   var modals = $(".modal-trigger");
   if (modals.length) {
-    modals.each(function(index, aModal) {
+    modals.each(function() {
       modal_open($(this));
     });
   }
@@ -12,7 +14,7 @@ function modal_init() {
   //delete modal_galleries;
   var modal_galleries = $(".modal-gallery");
   if (modal_galleries.length) {
-    modal_galleries.each(function(event) {
+    modal_galleries.each(function() {
       modal_gallery_open($(this));
     });
   }
@@ -47,7 +49,7 @@ function modal_open_by_params(modal, modal_type, modal_url, modal_title, open_im
 
     image: {
       verticalFit: true,
-      titleSrc: function(event) {
+      titleSrc: function() {
         return modal_title;
       }
     },
@@ -86,7 +88,7 @@ function modal_open_by_params(modal, modal_type, modal_url, modal_title, open_im
       open: function() {
         //lastPopUpElement = this;
       },
-      ajaxContentAdded: function(mfpResponse) {
+      ajaxContentAdded: function() {
         tooltip_init();
       },
       afterClose: function() {

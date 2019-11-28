@@ -3,7 +3,9 @@
   https://github.com/adammertel/Leaflet.MarkerCluster.PlacementStrategies
   Adam Mertel | univie
 */
-"use strict";
+
+import L from "leaflet";
+
 L.MarkerCluster.include({
   spiderfy: function a() {
     if (this._group._spiderfied === this || this._group._inZoomAnimation) {
@@ -14,8 +16,6 @@ L.MarkerCluster.include({
     var d = c._map;
     var e = d.latLngToLayerPoint(this._latlng);
     var f = [];
-    if (!(this._group.getLayers()[0] instanceof L.CircleMarker)) {
-    }
     for (var g in b) {
       if (b[g].setStyle) {
         b[g].setStyle({ className: "clustered-element" });

@@ -1,10 +1,9 @@
 import React from "react";
-import { matchPath, withRouter } from "react-router";
+import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { injectIntl, FormattedMessage } from "react-intl";
+import { injectIntl } from "react-intl";
 import Menu from "./../menu";
-import Base from "./../../base";
 import { Util } from "leaflet";
 
 class PageHeader extends React.Component {

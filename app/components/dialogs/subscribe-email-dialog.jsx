@@ -27,7 +27,7 @@ class SubscribeEmailDialog extends React.Component {
     this.resetState();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     // reset on dialog close after form has been submitted
     if (this.state.status !== "" && !window["modalStateStore"].isOpen) {
       this.resetState();
@@ -71,8 +71,8 @@ class SubscribeEmailDialog extends React.Component {
       () => {
         this.setState({ status: "submitted" });
       },
-      (errorText, statusCode) => {
-        this.setState({ errorMessage: errorText });
+      error => {
+        this.setState({ errorMessage: error });
       }
     );
   };
