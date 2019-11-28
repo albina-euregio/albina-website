@@ -1,7 +1,7 @@
 import React from "react";
 import { modal_open_by_params } from "../../js/modal";
 import { inject } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl } from "react-intl";
 
 class FeatureInfo extends React.Component {
   constructor(props) {
