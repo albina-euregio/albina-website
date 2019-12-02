@@ -4761,7 +4761,7 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .section-map {
   position: relative;
-  height: 65vh;
+  height: 50vh;
   min-height: 400px;
   width: 100%;
   overflow: hidden;
@@ -4779,7 +4779,7 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .bulletin-map {
   display: block;
-  height: 65vh;
+  height: 50vh;
   min-height: 400px;
   width: 100%;
   max-width: none;
@@ -4834,27 +4834,27 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .bulletin-map-details.top-left {
   top: 5rem;
-  left: 1.25rem;
+  left: 0.625rem;
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
 .bulletin-map-details.top-right {
-  top: 1.25rem;
-  left: calc(100% - 1.25rem);
+  top: 0.625rem;
+  left: calc(100% - 0.625rem);
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
 }
 .bulletin-map-details.bottom-right {
-  top: calc(100% - 1.25rem);
-  left: calc(100% - 1.25rem);
+  top: calc(100% - 0.625rem);
+  left: calc(100% - 0.625rem);
   -webkit-transform: translate(-100%, -100%);
   transform: translate(-100%, -100%);
 }
 .bulletin-map-details.bottom-left {
-  top: calc(100% - 1.25rem);
+  top: calc(100% - 0.625rem);
   -webkit-transform: translateY(-100%);
   transform: translateY(-100%);
-  left: 1.25rem;
+  left: 0.625rem;
 }
 .bulletin-map-details strong {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -4917,8 +4917,8 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .bulletin-map-daytime {
   position: absolute;
-  top: 1.25rem;
-  left: 0.9375rem;
+  top: 0.78125rem;
+  left: 0.625rem;
   z-index: 2;
 }
 .bulletin-map-daytime .label,
@@ -4945,11 +4945,11 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .leaflet-top.leaflet-left {
   position: absolute;
-  top: 1.25rem;
-  left: 1.25rem;
+  top: 0.625rem;
+  left: 0.625rem;
 }
 .bulletin-parallel-view .leaflet-top.leaflet-left {
-  top: 3.75rem;
+  top: 3.28125rem;
 }
 .leaflet-top.leaflet-left a {
   position: relative;
