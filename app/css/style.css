@@ -5042,7 +5042,7 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 .leaflet-bottom.leaflet-left {
   position: absolute;
   bottom: 0.625rem;
-  left: 1.25rem;
+  left: 0.625rem;
 }
 .leaflet-bottom.leaflet-left .leaflet-control-scale {
   margin: 0 !important;
@@ -5060,7 +5060,7 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 .leaflet-bottom.leaflet-right .zamg-logo-container {
   position: absolute;
   right: 4.375rem;
-  bottom: 1.875rem;
+  bottom: 1.5625rem;
   height: 40px;
   margin: 0;
   padding: 0;
@@ -5075,8 +5075,8 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .leaflet-bottom.leaflet-right .legend {
   position: absolute;
-  right: 1.25rem;
-  bottom: 1.875rem;
+  right: 0.625rem;
+  bottom: 1.5625rem;
   margin: 0;
   padding: 0;
 }
