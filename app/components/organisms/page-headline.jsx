@@ -10,7 +10,7 @@ export default class PageHeadline extends React.Component {
       : "";
 
     return (
-      <section className="page-headline section-padding section-header">
+      <section className="section-padding section-header">
         <header className="section-centered">
           {this.props.marginal && (
             <p className="marginal">{this.props.marginal}</p>

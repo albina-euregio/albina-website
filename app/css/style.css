@@ -4761,13 +4761,16 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .section-map {
   position: relative;
-  height: 50vh;
+  height: 65vh;
   min-height: 400px;
   width: 100%;
   overflow: hidden;
   border: 1px solid #99daff;
   border-left: none;
   border-right: none;
+}
+.section-bulletin-map .section-map {
+  height: 50vh;
 }
 .section-map.bulletin-map-static {
   background: transparent url(../images/dev/bulletin-report-map.jpg) no-repeat
@@ -4779,7 +4782,7 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .bulletin-map {
   display: block;
-  height: 50vh;
+  height: 65vh;
   min-height: 400px;
   width: 100%;
   max-width: none;
@@ -5667,6 +5670,15 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .flipper-buttongroup {
   margin-bottom: 0.625rem;
+}
+@media only screen and (min-width: 64em) {
+  .flipper-buttongroup.flipper-centered {
+    display: -webkit-box;
+    display: flex;
+    flex-wrap: wrap;
+    -webkit-box-pack: center;
+    justify-content: center;
+  }
 }
 .flipper-buttongroup li {
   float: left;

@@ -99,31 +99,31 @@ class Weather extends React.Component {
         />
         <section className="section-flipper">
           <div id="flipper">
+            {/* <div className="section-centered"> */}
             <div className="section-padding-width flipper-controls">
-              <div className="section-centered">
-                <Menu
-                  className="list-inline flipper-buttongroup"
-                  entries={domainButtons}
-                  childClassName="list-plain subnavigation"
-                  menuItemClassName="secondary pure-button"
-                  activeClassName="js-active"
-                  onSelect={this.handleClickDomainButton.bind(this)}
-                  onActiveMenuItem={e => {
-                    if (e.title != this.state.mapTitle) {
-                      const that = this;
-                      window.setTimeout(
-                        () => that.setState({ mapTitle: e.title }),
-                        100
-                      );
-                    }
-                  }}
-                />
-                <ItemFlipper
-                  store={this.store}
-                  handleChange={this.handleChangeItem.bind(this)}
-                />
-              </div>
+              <Menu
+                className="list-inline flipper-buttongroup flipper-centered"
+                entries={domainButtons}
+                childClassName="list-plain subnavigation"
+                menuItemClassName="secondary pure-button"
+                activeClassName="js-active"
+                onSelect={this.handleClickDomainButton.bind(this)}
+                onActiveMenuItem={e => {
+                  if (e.title != this.state.mapTitle) {
+                    const that = this;
+                    window.setTimeout(
+                      () => that.setState({ mapTitle: e.title }),
+                      100
+                    );
+                  }
+                }}
+              />
+              <ItemFlipper
+                store={this.store}
+                handleChange={this.handleChangeItem.bind(this)}
+              />
             </div>
+            {/* </div> */}
 
             <div className="section-centered">
               <div className="section-padding-width flipper-header">
