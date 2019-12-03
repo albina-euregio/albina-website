@@ -5109,6 +5109,122 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 .leaflet-pane .leaflet-image-layer {
   mix-blend-mode: multiply;
 }
+.weather-map-container .station circle.inner {
+  stroke: #000;
+  stroke-width: 1.25;
+  stroke-opacity: 0.8;
+  fill-opacity: 1;
+}
+.weather-map-container .station text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 700;
+  font-size: 10px;
+}
+.weather-map-container .station circle.outer,
+.weather-map-container .gridpoint circle.outer {
+  stroke: #000;
+  fill: none;
+  fill-opacity: 0;
+  stroke-width: 3;
+}
+.weather-map-container .blending-not-supported .station circle.outer,
+.weather-map-container .blending-not-supported .gridpoint circle.outer {
+  stroke-width: 4;
+  stroke: #839194;
+}
+.weather-map-container .station-selected-clustered circle.inner {
+  stroke: #000;
+  stroke-width: 2;
+  fill: #fff;
+}
+.weather-map-container .gridpoint circle.inner {
+  stroke-width: 2.2;
+  stroke-dasharray: 0 4;
+  stroke-linecap: round;
+  stroke: #000;
+  stroke-opacity: 0.8;
+}
+.weather-map-container .leaflet-marker-icon {
+  background: none;
+  border: none;
+}
+.weather-map-container .leaflet-marker-pane {
+  z-index: 700;
+}
+.weather-map-container .station .direction path,
+.weather-map-container .gridpoint .direction path {
+  stroke: #000;
+  fill: #000;
+  stroke-width: 0.75;
+}
+.weather-map-container .gridpoint text {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 700;
+  font-size: 10px;
+}
+.weather-map-details {
+  z-index: 100;
+  display: table;
+  position: absolute;
+  top: 0.625rem;
+  left: calc(100% - 0.625rem);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  min-width: 20em !important;
+  max-width: 75% !important;
+  padding: 0;
+  font-size: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.15);
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
+}
+.weather-map-details .weather-map-details-text {
+  margin: 1.25rem 1.25rem 0.9375rem 1.25rem;
+}
+.weather-map-details p {
+  margin: 0;
+}
+.weather-map-details .feature-name {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 700;
+}
+.weather-map-details .operator-name {
+  font-size: 0.9rem;
+}
+a.weather-map-details-button {
+  display: block;
+  width: 100%;
+  padding: 0.625rem;
+  font-size: 0.8rem;
+  color: #19abff;
+  background: transparent;
+  border-color: none;
+}
+a.weather-map-details-button span {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+a.weather-map-details-button span:before {
+  position: relative;
+  top: 0.15em;
+  margin: 0;
+}
+a.weather-map-details-button:hover {
+  color: #fff;
+  background: #19abff;
+  border-color: #19abff;
+}
 .section-bulletin .list-labels {
   margin-bottom: 0.9375rem;
 }
@@ -8143,82 +8259,5 @@ img {
     color: #fff;
     background: transparent;
   }
-}
-.weather-map-container .station circle.inner {
-  stroke: black;
-  stroke-width: 1.25;
-  stroke-opacity: 0.8;
-  fill-opacity: 1;
-}
-.weather-map-container .station text {
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-}
-.weather-map-container .station circle.outer,
-.weather-map-container .gridpoint circle.outer {
-  stroke: black;
-  fill: none;
-  fill-opacity: 0;
-  stroke-width: 3;
-}
-.weather-map-container .blending-not-supported .station circle.outer,
-.weather-map-container .blending-not-supported .gridpoint circle.outer {
-  stroke-width: 4;
-  stroke: grey;
-}
-.weather-map-container .station-selected-clustered circle.inner {
-  stroke: black;
-  stroke-width: 2;
-  fill: #fff;
-}
-.weather-map-container .gridpoint circle.inner {
-  stroke-width: 2.2;
-  stroke-dasharray: 0 4;
-  stroke-linecap: round;
-  stroke: black;
-  stroke-opacity: 0.8;
-}
-.weather-map-container .leaflet-marker-icon {
-  background: none;
-  border: none;
-}
-.weather-map-container .leaflet-marker-pane {
-  z-index: 700;
-}
-.weather-map-container .station .direction path,
-.weather-map-container .gridpoint .direction path {
-  stroke: #000;
-  fill: #000;
-  stroke-width: 0.75;
-}
-.weather-map-container .gridpoint text {
-  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-}
-.weather-map-container .feature-info {
-  border: 0.5px solid #19abff;
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 100;
-  background-color: #fff;
-  width: auto !important;
-  min-width: 280px !important;
-  max-width: 75% !important;
-  padding: 5px;
-}
-.weather-map-container .feature-info span {
-  font-family: "Helvetica Neue", Arial, sans-serif;
-  font-size: 80%;
-  color: #545c5f;
-}
-.weather-map-container .feature-info .feature-details {
-  font-weight: bold;
-}
-.weather-map-container .feature-info .feature-date {
-  font-style: italic;
-  float: right;
 }
 /*# sourceMappingURL=style.css.map */
