@@ -185,6 +185,7 @@
   "measurements:table:header:wdir": "Wind Direction",
   "measurements:table:header:wspd": "Wind Speed",
   "measurements:table:header:wgus": "Wind Gust",
+  "measurements:table:header:rhum": "Humidity",
   "dialog:download-pdf:heading": "download PDF",
   "dialog:download-pdf:text": "select PDF to download",
   "dialog:download-pdf:mode": "select color",
@@ -254,9 +255,11 @@
   "dialog:feedback:button": "No, thanks!",
   "dialog:feedback:button:hover": "No, thanks!",
   "dialog:weather-station-diagram:header": "Weather Station",
+  "dialog:weather-station-diagram:timerange:header": "Select<span class=\"normal\"> Time Range</span>",
   "dialog:weather-station-diagram:timerange:day": "Day",
   "dialog:weather-station-diagram:timerange:threedays": "Three days",
   "dialog:weather-station-diagram:timerange:week": "Week",
   "dialog:weather-station-diagram:timerange:month": "Month",
-  "dialog:weather-station-diagram:timerange:winter": "Winter"
+  "dialog:weather-station-diagram:timerange:winter": "Winter",
+  "dialog:weather-station-diagram:operator.caption": "This information is provided by"
 }

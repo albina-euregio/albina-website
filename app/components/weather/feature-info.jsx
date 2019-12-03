@@ -1,23 +1,10 @@
 import React from "react";
-import { modal_open_by_params } from "../../js/modal";
 import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 class FeatureInfo extends React.Component {
   constructor(props) {
     super(props);
-    this.triggerStationDiagrams = this.triggerStationDiagrams.bind(this);
-  }
-
-  triggerStationDiagrams() {
-    window["modalStateStore"].setData({ stationData: this.props.feature });
-    modal_open_by_params(
-      null,
-      "inline",
-      "#weatherStationDiagrams",
-      "weatherStationDiagrams",
-      true
-    );
   }
 
   render() {

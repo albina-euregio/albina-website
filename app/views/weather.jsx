@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
+import { modal_open_by_params } from "../js/modal";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
@@ -34,6 +35,7 @@ class Weather extends React.Component {
     if (!window.mapStore) {
       window.mapStore = new MapStore();
     }
+    this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
   }
 
   componentDidMount() {
@@ -75,7 +77,28 @@ class Weather extends React.Component {
   };
 
   handleMarkerSelected = feature => {
-    this.store.selectedFeature = feature;
+    console.log(
+      "handleMarkerSelected",
+      this.store.stations.features.find(point => point.id == feature.id)
+    );
+
+    if (feature.id) {
+      window["modalStateStore"].setData({
+        stationData: this.store.stations.features.find(
+          point => point.id == feature.id
+        )
+      });
+      modal_open_by_params(
+        null,
+        "inline",
+        "#weatherStationDiagrams",
+        "weatherStationDiagrams",
+        true
+      );
+      this.store.selectedFeature = null;
+    } else {
+      this.store.selectedFeature = feature;
+    }
   };
 
   render() {

@@ -1,6 +1,6 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { injectIntl } from "react-intl";
+import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import Selectric from "../selectric";
 
 class WeatherStationDiagrams extends React.Component {
@@ -44,26 +44,56 @@ class WeatherStationDiagrams extends React.Component {
     );
   }
 
+  assambleStationInfo(stationData) {
+    let stationInfo = [];
+    ["snow", "temp", "rhum", "wspd", "wgus"].forEach(infoType => {
+      stationInfo.push({
+        type: infoType,
+        caption: this.props.intl.formatMessage({
+          id: "measurements:table:header:" + infoType
+        }),
+        value: stationData[infoType]
+      });
+    });
+    console.log("assambleStationInfo", stationData, stationInfo);
+    return stationInfo;
+  }
+
   render() {
     let stationData = window["modalStateStore"].data.stationData;
     let self = this;
 
     if (!stationData) return <div></div>;
+    let stationInfo = this.assambleStationInfo(stationData);
     return (
       <div className="modal-weatherstation">
         <div className="modal-header">
           <h2 className="subheader">
-            {this.props.intl.formatMessage({
-              id: "dialog:weather-station-diagram:header"
-            })}
+            <span className="caption">
+              {this.props.intl.formatMessage({
+                id: "dialog:weather-station-diagram:header"
+              })}{" "}
+            </span>
+            <span className="stationName">{stationData.name} </span>
+            <span className="stationAlt">({stationData.elev})</span>
           </h2>
-          <h2>{stationData.name}</h2>
         </div>
 
         <div className="modal-content">
+          <div className="station-info">
+            <ul className="list-inline">
+              {stationInfo.map(aInfo => (
+                <li key={aInfo.type} className={aInfo.type}>
+                  <span className="caption">{aInfo.caption}</span>
+                  <span className="value">{aInfo.value || 0}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           <form className="pure-form pure-form-stacked">
             <label htmlFor="timerange">
-              Select<span className="normal"> Time Range</span>
+              <FormattedHTMLMessage id="dialog:weather-station-diagram:timerange:header" />
             </label>
             <ul className="list-inline list-buttongroup">
               <li>
@@ -108,6 +138,10 @@ class WeatherStationDiagrams extends React.Component {
               className="weather-station-img"
             />
           )}
+          <p className="provider">
+            <FormattedHTMLMessage id="dialog:weather-station-diagram:operator.caption" />{" "}
+            {stationData.operator}
+          </p>
         </div>
       </div>
     );
