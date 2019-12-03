@@ -68,28 +68,32 @@ class WeatherStationDiagrams extends React.Component {
     return (
       <div className="modal-weatherstation">
         <div className="modal-header">
-          <h2 className="subheader">
-            <span className="caption">
-              {this.props.intl.formatMessage({
-                id: "dialog:weather-station-diagram:header"
-              })}{" "}
+          <p className="caption">
+            {this.props.intl.formatMessage({
+              id: "dialog:weather-station-diagram:header"
+            })}{" "}
+          </p>
+          <h2 className="">
+            <span className="weatherstation-name">{stationData.name} </span>
+            <span className="weatherstation-altitude">
+              ({stationData.elev})
             </span>
-            <span className="stationName">{stationData.name} </span>
-            <span className="stationAlt">({stationData.elev})</span>
           </h2>
         </div>
 
         <div className="modal-content">
-          <div className="station-info">
-            <ul className="list-inline">
-              {stationInfo.map(aInfo => (
-                <li key={aInfo.type} className={aInfo.type}>
-                  <span className="caption">{aInfo.caption}</span>
-                  <span className="value">{aInfo.value || 0}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className="list-inline weatherstation-info">
+            {stationInfo.map(aInfo => (
+              <li key={aInfo.type} className={aInfo.type}>
+                <span className="weatherstation-info-caption">
+                  {aInfo.caption}:{" "}
+                </span>
+                <span className="weatherstation-info-value">
+                  {aInfo.value || 0}
+                </span>
+              </li>
+            ))}
+          </ul>
 
           <form className="pure-form pure-form-stacked">
             <label htmlFor="timerange">
@@ -135,10 +139,11 @@ class WeatherStationDiagrams extends React.Component {
                 this.timeRanges[this.state.timeRange],
                 stationData.plot
               )} 800w`}
-              className="weather-station-img"
+              className="weatherstation-img"
             />
           )}
-          <p className="provider">
+
+          <p className="weatherstation-provider">
             <FormattedHTMLMessage id="dialog:weather-station-diagram:operator.caption" />{" "}
             {stationData.operator}
           </p>

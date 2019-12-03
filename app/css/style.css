@@ -3129,7 +3129,8 @@ hr.brand {
 .controlbar {
   background-color: #19abff;
 }
-.bg-subtle {
+.bg-subtle,
+.modal-weatherstation .weatherstation-info {
   background-color: #f2f7fa;
 }
 .bg-gradient-snow,
@@ -7365,15 +7366,39 @@ button.mfp-arrow.mfp-arrow-right:hover {
 .follow-region .sm-buttons {
   margin: 0.625rem 0 1.25rem 0;
 }
-.modal-weatherstation .weather-station-img {
-  display: block;
-  margin: 0 auto;
+.modal-weatherstation .modal-header {
+  padding-bottom: 0.625rem;
+}
+.modal-weatherstation .modal-header .weatherstation-caption {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+.modal-weatherstation .modal-header .weatherstation-altitude {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 400;
+}
+.modal-weatherstation .weatherstation-info {
+  margin-bottom: 0.625rem;
+  padding: 0.625rem;
+}
+.modal-weatherstation .weatherstation-info li {
+  padding-bottom: 0;
 }
 .modal-weatherstation .pure-form {
   margin-bottom: 0;
 }
 .modal-weatherstation .pure-form ul li {
   padding-bottom: 0;
+}
+.modal-weatherstation .weatherstation-img {
+  display: block;
+  margin: 0 auto 1.875rem auto;
+}
+.modal-weatherstation .weatherstation-provider {
+  margin: 0;
+  font-size: 0.9rem;
 }
 .page-all:before {
   z-index: 1500;
