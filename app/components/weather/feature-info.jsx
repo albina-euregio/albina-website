@@ -55,13 +55,3 @@ class FeatureInfo extends React.Component {
 }
 
 export default inject("locale")(injectIntl(FeatureInfo));
-
-<a
-  href="#dcbc65d1-4fb1-40ae-a43f-bf37e51b0311"
-  class="pure-button tooltip"
-  data-scroll=""
-  data-tippy=""
-  data-original-title="Vollständige Lawinenvorhersage anzeigen"
->
-  Details<span class="icon-arrow-down"></span>
-</a>;
