@@ -30,7 +30,7 @@ class Menu extends React.Component {
     const classes = this.props.menuItemClassName
       ? this.props.menuItemClassName.split(" ")
       : [];
-    const isActive = activeItem && e.id == activeItem.id;
+    const isActive = activeItem && e == activeItem;
 
     if (isActive) {
       if (this.props.onActiveMenuItem) {
@@ -44,9 +44,14 @@ class Menu extends React.Component {
     if (e.children && e.children.length > 0) {
       classes.push("has-sub");
     }
+    const title =
+      e.title ||
+      this.props.intl.formatMessage({
+        id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
+      });
     return (
       <li
-        key={e.id}
+        key={e.url}
         onClick={event => {
           event.stopPropagation();
           if (typeof this.props.onSelect === "function") {
@@ -56,15 +61,16 @@ class Menu extends React.Component {
       >
         {e.url.match("^http(s)?://") ? (
           <a href={e.url} target="_blank">
-            {e.title}
+            {title}
           </a>
         ) : (
           <Link to={e.url} className={classes.join(" ")}>
-            {e.title}
+            {title}
           </Link>
         )}
         {e.children && e.children.length > 0 && (
           <Menu
+            intl={this.props.intl}
             className={this.props.childClassName}
             entries={e.children}
             location={this.props.location}

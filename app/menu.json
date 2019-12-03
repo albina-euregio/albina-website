@@ -1,0 +1,36 @@
+[
+  { "url": "/bulletin" },
+  { "url": "/blog" },
+  {
+    "url": "/weather",
+    "children": [
+      { "url": "/weather/map/" },
+      { "url": "/weather/measurements" },
+      { "key": "lawis:station", "url": "https://www.lawis.at/station?lang=de" },
+      { "key": "lawis:profile", "url": "https://www.lawis.at/profile?lang=de" },
+      { "key": "webcam", "url": "https://www.foto-webcam.eu" }
+    ]
+  },
+  {
+    "url": "/education",
+    "children": [
+      { "url": "/education/dangerscale" },
+      { "url": "/education/avp" },
+      { "url": "/education/matrix" },
+      { "url": "/education/avalanche-sizes" },
+      { "url": "/education/danger-patterns" },
+      { "key": "glossary", "url": "https://www.avalanches.org/glossary-2/" },
+      { "url": "/education/handbook" }
+    ]
+  },
+  {
+    "url": "/more",
+    "children": [
+      { "url": "/archive" },
+      { "url": "/about" },
+      { "url": "/contact" },
+      { "url": "/imprint" },
+      { "url": "/privacy" }
+    ]
+  }
+]
