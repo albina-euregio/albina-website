@@ -81,6 +81,23 @@ export class StationData {
     return this.properties.plot;
   }
 
+  get parametersForDialog() {
+    const typesUnits = {
+      snow: "cm",
+      temp: "°C",
+      rhum: "%",
+      wspd: "km/h",
+      wgus: "km/h"
+    };
+    return Object.keys(typesUnits)
+      .filter(type => this[type] !== false)
+      .map(type => ({
+        type,
+        unit: typesUnits[type],
+        value: this[type]
+      }));
+  }
+
   round(value, digits = 0) {
     if (typeof value === "number") {
       return +value.toFixed(digits);
