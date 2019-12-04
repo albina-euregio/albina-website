@@ -9,11 +9,11 @@ class FooterLogos extends React.Component {
     const imgFormat = window["config"].get("webp") ? ".webp" : ".png";
 
     return (
-      <section className="section section-padding footer-images">
+      <section className="section section-padding page-footer-images">
         <ul className="list-inline">
           {icons.map((icon, i) => (
             <li key={i}>
-              <a href={icon.url} target="_blank" className="logo tooltip">
+              <a href={icon.url} target="_blank" className="avoid-external-icon tooltip">
                 <img
                   title={icon.title}
                   className="tooltip"

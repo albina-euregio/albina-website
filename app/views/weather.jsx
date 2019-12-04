@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
+import { modal_open_by_params } from "../js/modal";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
@@ -34,6 +35,7 @@ class Weather extends React.Component {
     if (!window.mapStore) {
       window.mapStore = new MapStore();
     }
+    this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
   }
 
   componentDidMount() {
@@ -75,7 +77,28 @@ class Weather extends React.Component {
   };
 
   handleMarkerSelected = feature => {
-    this.store.selectedFeature = feature;
+    console.log(
+      "handleMarkerSelected",
+      this.store.stations.features.find(point => point.id == feature.id)
+    );
+
+    if (feature.id) {
+      window["modalStateStore"].setData({
+        stationData: this.store.stations.features.find(
+          point => point.id == feature.id
+        )
+      });
+      modal_open_by_params(
+        null,
+        "inline",
+        "#weatherStationDiagrams",
+        "weatherStationDiagrams",
+        true
+      );
+      this.store.selectedFeature = null;
+    } else {
+      this.store.selectedFeature = feature;
+    }
   };
 
   render() {
@@ -99,31 +122,30 @@ class Weather extends React.Component {
         />
         <section className="section-flipper">
           <div id="flipper">
+            {/* <div className="section-centered"> */}
             <div className="section-padding-width flipper-controls">
-              <div className="section-centered">
-                <Menu
-                  intl={this.props.intl}
-                  className="list-inline flipper-buttongroup"
-                  entries={domainButtons}
-                  childClassName="list-plain subnavigation"
-                  menuItemClassName="secondary pure-button"
-                  activeClassName="js-active"
-                  onSelect={this.handleClickDomainButton.bind(this)}
-                  onActiveMenuItem={e => {
-                    if (e.title != this.state.mapTitle) {
-                      const that = this;
-                      window.setTimeout(
-                        () => that.setState({ mapTitle: e.title }),
-                        100
-                      );
-                    }
-                  }}
-                />
-                <ItemFlipper
-                  store={this.store}
-                  handleChange={this.handleChangeItem.bind(this)}
-                />
-              </div>
+              <Menu
+                intl={this.props.intl}
+                className="list-inline flipper-buttongroup flipper-centered"
+                entries={domainButtons}
+                childClassName="list-plain subnavigation"
+                menuItemClassName="secondary pure-button"
+                activeClassName="js-active"
+                onSelect={this.handleClickDomainButton.bind(this)}
+                onActiveMenuItem={e => {
+                  if (e.title != this.state.mapTitle) {
+                    const that = this;
+                    window.setTimeout(
+                      () => that.setState({ mapTitle: e.title }),
+                      100
+                    );
+                  }
+                }}
+              />
+              <ItemFlipper
+                store={this.store}
+                handleChange={this.handleChangeItem.bind(this)}
+              />
             </div>
 
             <div className="section-centered">
@@ -140,7 +162,7 @@ class Weather extends React.Component {
           }
         >
           {/*this.store.domainId*/ true && (
-            <div className="bulletin-map-container weather-map-container section-map">
+            <div className="weather-map-container section-map">
               <WeatherMap
                 domainId={this.store.domainId}
                 domain={this.store.domain}

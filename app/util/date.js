@@ -79,6 +79,13 @@ function dateToDateString(date) {
   });
 }
 
+function dateToShortDateString(date) {
+  return _formatDate(date, {
+    month: "numeric",
+    day: "numeric"
+  });
+}
+
 function dateToTimeString(date) {
   return _formatDate(date, {
     hour: "numeric",
@@ -183,6 +190,7 @@ export {
   getLocalDate,
   dateToMonthString,
   dateToDateString,
+  dateToShortDateString,
   dateToTimeString,
   dateToDateTimeString,
   dateToLongDateString,

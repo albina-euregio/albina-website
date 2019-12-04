@@ -184,7 +184,7 @@ class SubscribeEmailDialog extends React.Component {
 
             <hr />
 
-            <div className="">
+            <p className="">
               <label htmlFor="agree">
                 <input
                   id="agree"
@@ -210,7 +210,7 @@ class SubscribeEmailDialog extends React.Component {
                   id: "dialog:subscribe-email:subscribe:agree-after-link"
                 })}
               </label>
-            </div>
+            </p>
 
             <button
               type="submit"

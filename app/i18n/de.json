@@ -173,6 +173,7 @@
   "weathermap:header:dateflipper:back": "Zurück",
   "weathermap:header:dateflipper:forward": "Vor",
   "weathermap:map:legend": "Legende",
+  "weathermap:map:feature-info:more": "Stationsinfo",
   "blog:filter:avalanche-problem": "Lawinenproblem",
   "blog:filter:year": "Jahr",
   "blog:filter:month": "Monat",

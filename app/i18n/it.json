@@ -173,6 +173,7 @@
   "weathermap:header:dateflipper:back": "Indietro",
   "weathermap:header:dateflipper:forward": "Avanti",
   "weathermap:map:legend": "leggenda",
+  "weathermap:map:feature-info:more": "Stationsinfo",
   "blog:filter:avalanche-problem": "Problema tipico valanghivo",
   "blog:filter:year": "Anno",
   "blog:filter:month": "Mese",

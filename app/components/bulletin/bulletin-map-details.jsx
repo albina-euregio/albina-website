@@ -42,7 +42,7 @@ export default class BulletinMapDetails extends React.Component {
 
     return (
       <ul className="list-plain">
-        <li>
+        <li className="bulletin-report-picto tooltip">
           <WarnLevelIcon
             below={b.dangerRatingBelow}
             above={b.dangerRatingAbove}

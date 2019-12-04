@@ -77,6 +77,10 @@ export class StationData {
     return this.round(this.properties.WG_BOE);
   }
 
+  get plot() {
+    return this.properties.plot;
+  }
+
   round(value, digits = 0) {
     if (typeof value === "number") {
       return +value.toFixed(digits);

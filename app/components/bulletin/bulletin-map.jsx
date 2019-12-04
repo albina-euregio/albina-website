@@ -114,7 +114,7 @@ class BulletinMap extends React.Component {
       >
         <div
           className={
-            "bulletin-map-container section-map" +
+            "section-map" +
             (config.get("map.useWindowWidth") ? "" : " section-centered")
           }
         >

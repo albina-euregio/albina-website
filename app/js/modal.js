@@ -36,7 +36,11 @@ function modal_open(modal) {
   const modal_url = modal.attr("href");
   const modal_title = modal.attr("title");
 
-  modal.magnificPopup({
+  modal_open_by_params(modal, modal_type, modal_url, modal_title);
+}
+
+function modal_open_by_params(modal, modal_type, modal_url, modal_title) {
+  var settings = {
     type: modal_type,
     items: {
       src: modal_url
@@ -75,6 +79,8 @@ function modal_open(modal) {
         return window["modalStateStore"].isOpen;
       },
       beforeOpen: function() {
+        console.log("beforeOpen", this.st);
+
         window["modalStateStore"].open();
       },
       open: function() {
@@ -87,7 +93,10 @@ function modal_open(modal) {
         window["modalStateStore"].close();
       }
     }
-  });
+  };
+
+  if (modal) modal.magnificPopup(settings);
+  else $.magnificPopup.open(settings);
 }
 
 function modal_gallery_open(modal) {
@@ -136,4 +145,4 @@ function modal_gallery_open(modal) {
   });
 }
 
-export { modal_init };
+export { modal_init, modal_open_by_params };

@@ -8,7 +8,7 @@ import {
   getPredDate,
   getSuccDate,
   dateToISODateString,
-  dateToDateString,
+  dateToShortDateString,
   isSameDay,
   isAfter
 } from "../../util/date.js";
@@ -50,8 +50,8 @@ class BulletinDateFlipper extends React.Component {
 
     const latestLink = this.props.latest ? this.props.latest : "";
 
-    const prevDate = this.prevDate ? dateToDateString(this.prevDate) : "";
-    const nextDate = this.nextDate ? dateToDateString(this.nextDate) : "";
+    const prevDate = this.prevDate ? dateToShortDateString(this.prevDate) : "";
+    const nextDate = this.nextDate ? dateToShortDateString(this.nextDate) : "";
 
     return (
       <ul className="list-inline bulletin-flipper">

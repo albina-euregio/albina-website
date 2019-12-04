@@ -1,34 +1,44 @@
 import React from "react";
+import { inject } from "mobx-react";
+import { injectIntl } from "react-intl";
 
-export default class FeatureInfo extends React.Component {
+class FeatureInfo extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     return (
-      <div className="feature-info">
+      <div className="feature-info weather-map-details">
         <div className="box-content">
-          <div className="feature-name">
-            <span>{this.props.feature.name}</span>
-          </div>
-          {this.props.feature.operator && (
-            <div className="operator-name">
-              <span>{this.props.feature.operator}</span>
-            </div>
-          )}
-          <div>
+          <div class="weather-map-details-text">
+            {this.props.feature.name && (
+              <p className="feature-name">{this.props.feature.name}</p>
+            )}
+            {this.props.feature.operator && (
+              <p className="operator-name">{this.props.feature.operator}</p>
+            )}
             {this.props.feature.detail && (
-              <span className="feature-details">
-                {this.props.feature.detail}
-              </span>
+              <p className="feature-details">{this.props.feature.detail}</p>
             )}
             {this.props.feature.date && (
-              <span className="feature-date">{this.props.feature.date}</span>
+              <p className="feature-date">{this.props.feature.date}</p>
             )}
           </div>
+          {this.props.feature.plot && (
+            <a
+              onClick={this.triggerStationDiagrams}
+              className="pure-button tooltip weather-map-details-button"
+            >
+              {this.props.intl.formatMessage({
+                id: "weathermap:map:feature-info:more"
+              })}
+            </a>
+          )}
         </div>
       </div>
     );
   }
 }
+
+export default inject("locale")(injectIntl(FeatureInfo));
