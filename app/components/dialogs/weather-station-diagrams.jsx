@@ -46,16 +46,16 @@ class WeatherStationDiagrams extends React.Component {
 
   assambleStationInfo(stationData) {
     let stationInfo = [];
-    ["snow", "temp", "rhum", "wspd", "wgus"].forEach(infoType => {
+    stationData.parametersForDialog.forEach(infoType => {
       stationInfo.push({
-        type: infoType,
+        ...infoType,
         caption: this.props.intl.formatMessage({
-          id: "measurements:table:header:" + infoType
-        }),
-        value: stationData[infoType]
+          id: "measurements:table:header:" + infoType.type
+        })
       });
     });
-    console.log("assambleStationInfo", stationData, stationInfo);
+    if (APP_DEV_MODE)
+      console.log("assambleStationInfo", stationData, stationInfo);
     return stationInfo;
   }
 
@@ -89,7 +89,7 @@ class WeatherStationDiagrams extends React.Component {
                   {aInfo.caption}:{" "}
                 </span>
                 <span className="weatherstation-info-value">
-                  {aInfo.value || 0}
+                  {aInfo.value}
                 </span>
               </li>
             ))}

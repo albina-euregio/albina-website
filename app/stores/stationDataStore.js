@@ -81,6 +81,15 @@ export class StationData {
     return this.properties.plot;
   }
 
+  get parametersForDialog() {
+    return ["snow", "temp", "rhum", "wspd", "wgus"]
+      .filter(type => this[type] !== false)
+      .map(type => ({
+        type,
+        value: this[type]
+      }));
+  }
+
   round(value, digits = 0) {
     if (typeof value === "number") {
       return +value.toFixed(digits);
