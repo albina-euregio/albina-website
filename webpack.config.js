@@ -7,6 +7,7 @@ const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 
 module.exports = (env, argv) => {
   const production = !argv.mode || argv.mode === "production";
+  const publicPath = env === "dev" ? "/beta/" : "/";
   return {
     resolve: {
       extensions: [".js", ".jsx"]
@@ -22,7 +23,7 @@ module.exports = (env, argv) => {
     },
     output: {
       filename: "[name].[hash].js",
-      publicPath: "/"
+      publicPath
     },
     module: {
       rules: [
@@ -78,6 +79,7 @@ module.exports = (env, argv) => {
       }),
       new webpack.DefinePlugin({
         APP_ENVIRONMENT: JSON.stringify(env),
+        APP_ASSET_PATH: JSON.stringify(publicPath),
         APP_DEV_MODE: JSON.stringify(!production),
         APP_VERSION: JSON.stringify(
           execSync("git describe --tags", { encoding: "utf8" }).trim()
