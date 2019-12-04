@@ -89,7 +89,7 @@ class WeatherStationDiagrams extends React.Component {
                   {aInfo.caption}:{" "}
                 </span>
                 <span className="weatherstation-info-value">
-                  {aInfo.value}
+                  {aInfo.value}&thinsp;{aInfo.unit}
                 </span>
               </li>
             ))}

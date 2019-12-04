@@ -82,10 +82,18 @@ export class StationData {
   }
 
   get parametersForDialog() {
-    return ["snow", "temp", "rhum", "wspd", "wgus"]
+    const typesUnits = {
+      snow: "cm",
+      temp: "°C",
+      rhum: "%",
+      wspd: "km/h",
+      wgus: "km/h"
+    };
+    return Object.keys(typesUnits)
       .filter(type => this[type] !== false)
       .map(type => ({
         type,
+        unit: typesUnits[type],
         value: this[type]
       }));
   }
