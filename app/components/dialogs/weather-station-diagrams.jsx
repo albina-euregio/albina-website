@@ -76,7 +76,7 @@ class WeatherStationDiagrams extends React.Component {
           <h2 className="">
             <span className="weatherstation-name">{stationData.name} </span>
             <span className="weatherstation-altitude">
-              ({stationData.elev})
+              ({stationData.elev}&thinsp;m)
             </span>
           </h2>
         </div>
