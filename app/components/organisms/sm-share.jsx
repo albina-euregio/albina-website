@@ -30,6 +30,13 @@ class SmShare extends React.Component {
       url = "https://wa.me/";
       params.text = currentUrl;
     }
+    if (type == "telegram") {
+      url = "https://telegram.me/share/";
+      params.url = currentUrl;
+      if (this.props.title) {
+        params.title = this.props.title;
+      }
+    }
 
     return url ? Base.makeUrl(url, params) : "#";
   }
@@ -111,6 +118,19 @@ class SmShare extends React.Component {
               target="_blank"
             >
               <span>WhatsApp</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href={this.getShareUrl("telegram")}
+              className="sm-button icon-sm-telegram tooltip"
+              title={this.props.intl.formatMessage(
+                { id: "main:share-this:hover" },
+                { on: "Telegram" }
+              )}
+              target="_blank"
+            >
+              <span>Telegram</span>
             </a>
           </li>
         </ul>
