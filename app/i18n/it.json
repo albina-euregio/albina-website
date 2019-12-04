@@ -207,6 +207,7 @@
   "measurements:table:header:wdir": "Vento Direzione",
   "measurements:table:header:wspd": "Vento",
   "measurements:table:header:wgus": "Ventata",
+  "measurements:table:header:rhum": "Umidità atmosferica",
   "dialog:download-pdf:heading": "scarica PDF",
   "dialog:download-pdf:text": "scegli il PDF da scaricare",
   "dialog:download-pdf:mode": "scegli il colore",
@@ -274,5 +275,13 @@
   "dialog:feedback:header": "INDAGINE ONLINE sul nuovo Euregio Valanghe.report",
   "dialog:feedback:text": "Ci piacerebbe avere il <strong>vostro feedback</strong> sul nuovo bollettino valanghe transfrontaliero.<br /><strong>Aiutaci</strong> a migliorare i nostri prodotti e <strong>vinci</strong> un premio interessante!<br />L'indagine dura circa <strong>10 minuti</strong>.<br />Grazie mille!",
   "dialog:feedback:button": "No, grazie!",
-  "dialog:feedback:button:hover": "No, granzie!"
+  "dialog:feedback:button:hover": "No, granzie!",
+  "dialog:weather-station-diagram:header": "Stazione meteorologica",
+  "dialog:weather-station-diagram:timerange:header": "Select<span class=\"normal\"> Time Range</span>",
+  "dialog:weather-station-diagram:timerange:day": "Giorno",
+  "dialog:weather-station-diagram:timerange:threedays": "Tre giorni",
+  "dialog:weather-station-diagram:timerange:week": "Settimana",
+  "dialog:weather-station-diagram:timerange:month": "Mese",
+  "dialog:weather-station-diagram:timerange:winter": "Inverno",
+  "dialog:weather-station-diagram:operator.caption": "Questa informazione è offerta da"
 }
