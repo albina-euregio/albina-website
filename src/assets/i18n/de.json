@@ -256,13 +256,13 @@
             "success" : "PDF wurde erstellt",
             "failed" : "PDF konnte nicht erstellt werden"
           },
-          "html" : {
-            "success" : "HTML wurde erstellt",
-            "failed" : "HTML konnte nicht erstellt werden"
-          },
           "staticWidget" : {
             "success" : "Statisches Widget wurde erstellt",
             "failed" : "Statisches Widget konnte nicht erstellt werden"
+          },
+          "html" : {
+            "success" : "HTML wurde erstellt",
+            "failed" : "HTML konnte nicht erstellt werden"
           },
           "email" : {
             "success" : "Emails wurden versandt",

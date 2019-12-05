@@ -256,13 +256,13 @@
             "success" : "È stato creato il file PDF",
             "failed" : "Non è stato possibile creare il file PDF"
           },
-          "html" : {
-            "success" : "È stato creato il file HTML",
-            "failed" : "Non è stato possibile creare il file HTML"
-          },
           "staticWidget" : {
             "success" : "È stato creato il widget statico",
             "failed" : "Non è stato possibile creare il widget statico"
+          },
+          "html" : {
+            "success" : "È stato creato il file HTML",
+            "failed" : "Non è stato possibile creare il file HTML"
           },
           "email" : {
             "success" : "Emails inviate",
@@ -366,8 +366,8 @@
     "config" : {
       "tabsocial" : "Configurazione Email & Social",
       "addChannel" : "Aggiungi canale",
-      "title" : "Configurazione Server",
       "titleShipment": "Spedizioni",
+      "title" : "Configurazione Server",
       "table" : {
         "title" : {
           "key" : "Parametro",
@@ -450,8 +450,7 @@
     "windDriftedSnow" : "Neve ventata",
     "oldSnow" : "Strati deboli persistenti",
     "wetSnow" : "Neve bagnata",
-    "glidingSnow" : "Valanghe di slittamento",
-    "favourable_situation" : "Situazione favorevole"
+    "glidingSnow" : "Valanghe di slittamento"
   },
   "dangerPattern" : {
     "dp1" : "st1: la seconda nevicata",
