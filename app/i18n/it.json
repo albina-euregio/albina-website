@@ -277,7 +277,7 @@
   "dialog:feedback:button": "No, grazie!",
   "dialog:feedback:button:hover": "No, granzie!",
   "dialog:weather-station-diagram:header": "Stazione meteorologica",
-  "dialog:weather-station-diagram:timerange:header": "Select<span class=\"normal\"> Time Range</span>",
+  "dialog:weather-station-diagram:timerange:header": "Seleziona <span class=\"normal\">l'intervallo di tempo</span>",
   "dialog:weather-station-diagram:timerange:day": "Giorno",
   "dialog:weather-station-diagram:timerange:threedays": "Tre giorni",
   "dialog:weather-station-diagram:timerange:week": "Settimana",
