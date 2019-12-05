@@ -50,6 +50,8 @@ export default class StationOverlay extends React.Component {
   }
 
   renderMarker(data, pos = null) {
+    if (data.date === undefined || data[this.props.item.id] === undefined)
+      return;
     const value = Math.round(data[this.props.item.id]);
     const coordinates = pos
       ? [pos.lat, pos.lng]

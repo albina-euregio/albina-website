@@ -1,6 +1,7 @@
 import React from "react";
 import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
+import { dateToDateTimeString } from "../../util/date.js";
 
 class FeatureInfo extends React.Component {
   constructor(props) {
@@ -22,7 +23,9 @@ class FeatureInfo extends React.Component {
               <p className="feature-details">{this.props.feature.detail}</p>
             )}
             {this.props.feature.date && (
-              <p className="feature-date">{this.props.feature.date}</p>
+              <p className="feature-date">
+                {dateToDateTimeString(this.props.feature.date)}
+              </p>
             )}
           </div>
           {this.props.feature.plot && (

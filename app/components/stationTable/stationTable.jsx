@@ -1,107 +1,138 @@
 import React from "react";
 import StationTableHeader from "./stationTableHeader";
 import { modal_open_by_params } from "../../js/modal";
+import { inject } from "mobx-react";
+import { injectIntl, FormattedNumber } from "react-intl";
+import { dateToDateTimeString } from "../../util/date.js";
 
-export default class StationTable extends React.Component {
+class StationTable extends React.Component {
   constructor(props) {
     super(props);
 
-    if (!$.DataTable) {
-      $.DataTable = require("datatables.net");
-    }
-
-    const defaultRender = (data) =>
-      data !== false ? data : "-";
+    const defaultRender = (value, _row, digits = 0) =>
+      typeof value === "number" ? (
+        <FormattedNumber
+          value={value}
+          minimumFractionDigits={digits}
+          maximumFractionDigits={digits}
+        ></FormattedNumber>
+      ) : (
+        "–"
+      );
 
     this.columns = [
       {
         data: "name",
         width: "150px",
-        render: (_data, _type, full) =>
-          "<strong>" +
-          full.name +
-          '</strong> <span class="operator operator-st">(' +
-          full.operator +
-          ")" +
-          '</span> <span class="region region-st">' +
-          appStore.getRegionName(full.region) +
-          '</span> <span class="datetime">' +
-          full.date +
-          "</span>",
-        orderable: false,
-        bSortable: false,
+        render: (_value, row) => (
+          <span>
+            <strong>{row.name}</strong>{" "}
+            <span className="operator operator-st">({row.operator})</span>{" "}
+            <span className="region region-st">
+              {appStore.getRegionName(row.region)}
+            </span>{" "}
+            <span className="datetime">{dateToDateTimeString(row.date)}</span>
+          </span>
+        ),
+        sortable: false,
         className: "mb-station m-name"
       },
       {
         data: "elev",
+        render: defaultRender,
+        unit: "m",
         width: "10px",
         className: "mb-snow m-altitude-1"
       },
       {
+        group: "snow",
         data: "snow",
         render: defaultRender,
+        unit: "cm",
         className: "mb-snow m-snowheight"
       },
       {
+        group: "snow",
         data: "snow24",
         render: defaultRender,
+        unit: "cm",
         className: "mb-snow m-24"
       },
       {
+        group: "snow",
         data: "snow48",
         render: defaultRender,
+        unit: "cm",
         className: "mb-snow m-48"
       },
       {
+        group: "snow",
         data: "snow72",
         render: defaultRender,
+        unit: "cm",
         className: "mb-snow m-72"
       },
       {
+        group: "temp",
         data: "temp",
+        digits: 1,
         render: defaultRender,
+        unit: "°C",
         className: "mb-temp m-ltnow"
       },
       {
+        group: "temp",
         data: "temp_max",
+        digits: 1,
         render: defaultRender,
+        unit: "°C",
         className: "mb-temp m-ltmax"
       },
       {
+        group: "temp",
         data: "temp_min",
+        digits: 1,
         render: defaultRender,
+        unit: "°C",
         className: "mb-temp m-ltmin"
       },
       {
+        group: "wind",
         data: "wdir",
-        render: (_data, _type, full) =>
-          full.wdir ? full.wdir + " (" + full.x_wdir + ")" : "-",
+        render: (_value, row) => (
+          <span>
+            {defaultRender(row.wdir, row, 0)}{" "}
+            {row.x_wdir ? `(${row.x_wdir})` : ""}
+          </span>
+        ),
+        unit: "°",
         className: "mb-wind m-winddir"
       },
       {
+        group: "wind",
         data: "wspd",
         render: defaultRender,
+        unit: "km/h",
         className: "mb-wind m-windspeed"
       },
       {
+        group: "wind",
         data: "wgus",
         render: defaultRender,
+        unit: "km/h",
         className: "mb-wind m-windmax"
       }
     ];
 
     this.columnGroups = {
       snow: {
-        active: true,
-        columnNumbers: [2, 3, 4, 5]
+        active: true
       },
       temp: {
-        active: true,
-        columnNumbers: [6, 7, 8]
+        active: true
       },
       wind: {
-        active: true,
-        columnNumbers: [9, 10, 11]
+        active: true
       }
     };
 
@@ -111,55 +142,8 @@ export default class StationTable extends React.Component {
     this.sortDir = "";
   }
 
-  componentDidMount() {
-    const table = $(this.refs.main).DataTable({
-      dom: '<"data-table-wrapper"t>',
-      scrollY: false,
-      scrollX: true,
-      scrollCollapse: true,
-      deferRender: true,
-      lengthChange: false,
-      paging: false,
-      info: false,
-      rowId: "id",
-      fixedHeader: true,
-      fixedColumns: {
-        heightMatch: "none"
-      },
-      data: this.props.data,
-      columns: this.columns,
-      ordering: false,
-      language: {
-        emptyTable: "",
-        zeroRecords: ""
-      }
-    });
-
-    $(".data-table-wrapper").find("table tbody").on('click', 'tr', function () {
-      window["modalStateStore"].setData({"stationData": table.row( this ).data().properties});
-      modal_open_by_params(null, "inline", "#weatherStationDiagrams", "weatherStationDiagrams", true);
-    } );
-
-
-  }
-
-  componentDidUpdate() {
-    const table = $(".data-table-wrapper")
-      .find("table")
-      .DataTable();
-
-    if (table) {
-      table.clear();
-      table.rows.add(this._applyFiltersAndSorting(table, this.props.data));
-      table.draw();
-    }
-  }
-
-  componentWillUnmount() {
-    $(".data-table-wrapper")
-      .find("table")
-      .DataTable()
-      .destroy(true);
+  isDisplayColumn(column) {
+    return !column.group || this.columnGroups[column.group].active;
   }
 
   shouldComponentUpdate(nextProps) {
@@ -188,7 +172,7 @@ export default class StationTable extends React.Component {
       .reduce((acc, el) => acc || el, false);
   }
 
-  _applyFiltersAndSorting(table, originalData) {
+  _applyFiltersAndSorting(originalData) {
     const filters = [];
 
     // sorting
@@ -199,7 +183,7 @@ export default class StationTable extends React.Component {
           const a = val1[this.props.sortValue];
           const b = val2[this.props.sortValue];
 
-          if (a == b) {
+          if (a === b) {
             return 0;
           }
           if (typeof b === "undefined" || b === false || b === null) {
@@ -219,14 +203,7 @@ export default class StationTable extends React.Component {
     // hide filters
     if (this._shouldColumnGroupsUpdate()) {
       Object.keys(this.columnGroups).forEach(e => {
-        if (this.props.activeData[e] != this.columnGroups[e].active) {
-          if (this.props.activeData[e]) {
-            table.columns(this.columnGroups[e].columnNumbers).visible(true);
-          } else {
-            table.columns(this.columnGroups[e].columnNumbers).visible(false);
-          }
-          this.columnGroups[e].active = this.props.activeData[e];
-        }
+        this.columnGroups[e].active = this.props.activeData[e];
       });
     }
 
@@ -243,10 +220,12 @@ export default class StationTable extends React.Component {
     }
 
     // searchText
-    if (this.props.searchText != this.searchText) {
-      // do not use filtering but datatables' search function - search filter
-      // depends on the rendered content
-      table.search(this.props.searchText);
+    if (this.props.searchText) {
+      filters.push(data =>
+        data.filter(row =>
+          row.name.match(new RegExp(this.props.searchText, "i"))
+        )
+      );
       this.searchText = this.props.searchText;
     }
 
@@ -258,6 +237,17 @@ export default class StationTable extends React.Component {
     return originalData;
   }
 
+  _rowClicked(row) {
+    window["modalStateStore"].setData({ stationData: row });
+    modal_open_by_params(
+      null,
+      "inline",
+      "#weatherStationDiagrams",
+      "weatherStationDiagrams",
+      true
+    );
+  }
+
   render() {
     return (
       <table
@@ -265,11 +255,29 @@ export default class StationTable extends React.Component {
         className="pure-table pure-table-striped pure-table-small table-measurements"
       >
         <StationTableHeader
+          columns={this.columns}
+          isDisplayColumn={this.isDisplayColumn.bind(this)}
           handleSort={this.props.handleSort}
           sortValue={this.props.sortValue}
           sortDir={this.props.sortDir}
         />
+        <tbody>
+          {this._applyFiltersAndSorting(this.props.data).map(row => (
+            <tr key={row.id} onClick={() => this._rowClicked(row)}>
+              {this.columns.map(
+                (col, i) =>
+                  this.isDisplayColumn(col) && (
+                    <td key={row.id + "-" + i} className={col.className}>
+                      {col.render(row[col.data], row, col.digits)}
+                    </td>
+                  )
+              )}
+            </tr>
+          ))}
+        </tbody>
       </table>
     );
   }
 }
+
+export default inject("locale")(injectIntl(StationTable));
