@@ -82,19 +82,18 @@ export class StationData {
   }
 
   get parametersForDialog() {
-    const typesUnits = {
-      snow: "cm",
-      temp: "°C",
-      rhum: "%",
-      wspd: "km/h",
-      wgus: "km/h"
-    };
-    return Object.keys(typesUnits)
-      .filter(type => this[type] !== undefined)
-      .map(type => ({
-        type,
-        unit: typesUnits[type],
-        value: this[type]
+    const types = [
+      { type: "snow", digits: 0, unit: "cm" },
+      { type: "temp", digits: 1, unit: "°C" },
+      { type: "rhum", digits: 0, unit: "%" },
+      { type: "wspd", digits: 0, unit: "km/h" },
+      { type: "wgus", digits: 0, unit: "km/h" }
+    ];
+    return types
+      .filter(t => this[t.type] !== undefined)
+      .map(t => ({
+        ...t,
+        value: this[t.type]
       }));
   }
 
