@@ -49,9 +49,10 @@ class Menu extends React.Component {
       this.props.intl.formatMessage({
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
+    const url = e["url:" + appStore.language] || e["url"];
     return (
       <li
-        key={e.url}
+        key={url}
         onClick={event => {
           event.stopPropagation();
           if (typeof this.props.onSelect === "function") {
@@ -59,12 +60,12 @@ class Menu extends React.Component {
           }
         }}
       >
-        {e.url.match("^http(s)?://") ? (
-          <a href={e.url} target="_blank">
+        {url.match("^http(s)?://") ? (
+          <a href={url} target="_blank">
             {title}
           </a>
         ) : (
-          <Link to={e.url} className={classes.join(" ")}>
+          <Link to={url} className={classes.join(" ")}>
             {title}
           </Link>
         )}
