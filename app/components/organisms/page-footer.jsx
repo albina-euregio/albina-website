@@ -53,23 +53,23 @@ class PageFooter extends React.Component {
                 </a>
                 , {config.get("versionDate")}
               </p>
-              <p className="page-footer-logo-secondary">
-                <a
-                  href={Util.template(config.get("links.interreg"), {
-                    lang: window["appStore"].language
-                  })}
-                  data-tilty
-                  className="header-footer-logo-secondary tooltip"
-                  title={this.props.intl.formatMessage({
-                    id: "footer:euregio:hover"
-                  })}
-                  target="_blank"
-                >
-                  <Tilt options={window["tiltySettings"]}>
+              <Tilt options={window["tiltySettings"]}>
+                <p className="page-footer-logo-secondary">
+                  <a
+                    href={Util.template(config.get("links.interreg"), {
+                      lang: window["appStore"].language
+                    })}
+                    data-tilty
+                    className="header-footer-logo-secondary tooltip"
+                    title={this.props.intl.formatMessage({
+                      id: "footer:euregio:hover"
+                    })}
+                    target="_blank"
+                  >
                     <span>Euregio</span>
-                  </Tilt>
-                </a>
-              </p>
+                  </a>
+                </p>
+              </Tilt>
             </div>
             <div className="grid-item all-12">
               <p className="page-footer-top">

@@ -46,7 +46,6 @@ class PageHeader extends React.Component {
   };
 
   render() {
-    console.log("window[iltySettings]", window["tiltySettings"]);
     const langs = window["appStore"].languages;
     const lang = window["appStore"].language;
 
