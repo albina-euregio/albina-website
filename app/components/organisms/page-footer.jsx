@@ -5,6 +5,7 @@ import Menu from "../menu";
 import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
 import { Util } from "leaflet";
+import Tilt from "react-tilt";
 
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
@@ -64,7 +65,9 @@ class PageFooter extends React.Component {
                   })}
                   target="_blank"
                 >
-                  <span>Euregio</span>
+                  <Tilt options={window["tiltySettings"]}>
+                    <span>Euregio</span>
+                  </Tilt>
                 </a>
               </p>
             </div>

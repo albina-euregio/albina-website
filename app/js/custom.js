@@ -8,6 +8,11 @@ import { scroll_init } from "./scroll";
 /* !dom loaded?
  ****************************************************/
 window["scroll_duration"] = 1000;
+window["tiltySettings"] = {
+  speed: window["scroll_duration"] / 2,
+  transition: false,
+  scale: 1.1
+};
 
 $(function() {
   //debug pattern lab regarding line 33 ff of
@@ -51,9 +56,8 @@ $(function() {
     }, 2000);
 
     flipper_init();
-    accordion_init();
+    // accordion_init();
     tilt_init();
-
     page_loaded();
 
     //preload_files();
@@ -255,40 +259,40 @@ function flipper_init(flipper_start) {
 /* !accordion_init
  ****************************************************/
 
-function accordion_init() {
-  if (accordion.length) {
-    $(".accordion-trigger").click(function(event) {
-      $(this)
-        .parent()
-        .toggleClass("js-active");
-      if (
-        $(this)
-          .parent()
-          .hasClass("js-active")
-      ) {
-        animation_slideIn($(this).next(), "-50px");
-      } else {
-        animation_slideOut($(this).next(), "-50px");
-      }
-    });
-  }
-}
+// function accordion_init() {
+//   if (accordion.length) {
+//     $(".accordion-trigger").click(function(event) {
+//       $(this)
+//         .parent()
+//         .toggleClass("js-active");
+//       if (
+//         $(this)
+//           .parent()
+//           .hasClass("js-active")
+//       ) {
+//         animation_slideIn($(this).next(), "-50px");
+//       } else {
+//         animation_slideOut($(this).next(), "-50px");
+//       }
+//     });
+//   }
+// }
 
 /* !tilt
  ****************************************************/
 
 function tilt_init() {
-  if (!is_safari) {
-    //delete my_tilts;
-    var my_tilts = $("[data-tilty]");
-    if (my_tilts.length) {
-      my_tilts.tilt({
-        speed: scroll_duration / 2,
-        transition: false,
-        scale: 1.1
-      });
-    }
-  }
+  // if (!is_safari) {
+  //   //delete my_tilts;
+  //   var my_tilts = $("[data-tilty]");
+  //   if (my_tilts.length) {
+  //     my_tilts.tilt({
+  //       speed: scroll_duration / 2,
+  //       transition: false,
+  //       scale: 1.1
+  //     });
+  //   }
+  // }
 }
 
 /* !video
