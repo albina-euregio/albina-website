@@ -1,5 +1,5 @@
 import React from "react";
-import loadable from '@loadable/component'
+import loadable from "@loadable/component";
 import { Provider, observer } from "mobx-react";
 import { MobxIntlProvider } from "../util/mobx-react-intl.es5.js";
 
@@ -11,13 +11,21 @@ import { ScrollContext } from "react-router-scroll-4";
 import Bulletin from "./../views/bulletin";
 import BlogOverview from "./../views/blogOverview";
 import BlogPost from "./../views/blogPost";
-const Weather = loadable(() => import(/* webpackChunkName: "app-weather" */ "./../views/weather"));
-const StationMeasurements = loadable(() => import(/* webpackChunkName: "app-stationMeasurements" */ "./../views/stationMeasurements"));
+const Weather = loadable(() =>
+  import(/* webpackChunkName: "app-weather" */ "./../views/weather")
+);
+const StationMeasurements = loadable(() =>
+  import(
+    /* webpackChunkName: "app-stationMeasurements" */ "./../views/stationMeasurements"
+  )
+);
 import OverviewPage from "./../views/overviewPage";
 import Archive from "./../views/archive";
 import StaticPage from "./../views/staticPage";
 import SubscribeConfirmation from "./../views/subscribeConfirmation";
 import Page from "./page";
+import { scroll_init } from "../js/scroll";
+import { orientation_change } from "../js/browser";
 
 // FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require("../css/style.css");
@@ -28,6 +36,22 @@ require("../css/style.css");
 class App extends React.Component {
   shouldComponentUpdate() {
     return true;
+  }
+
+  componentDidMount() {
+    window["page_html"] = $("html");
+    window["page_body"] = $("body");
+    window["page_loading_screen"] = $(".page-loading-screen");
+
+    let debug_selector = $(
+      ".modal-trigger, .modal-gallery-trigger, [data-scroll]"
+    );
+    for (var i = 0; i < debug_selector.length; i++) {
+      debug_selector[i].onclick = null;
+    }
+
+    orientation_change();
+    scroll_init();
   }
 
   shouldUpdateScroll = (prevRouterProps, { location }) => {
