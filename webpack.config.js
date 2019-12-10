@@ -8,6 +8,7 @@ const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 module.exports = (env, argv) => {
   const production = !argv.mode || argv.mode === "production";
   const publicPath = env === "dev" ? "/dev/" : env === "beta" ? "/beta/" : "/";
+  const config = env === "dev" ? "./config-dev.json" : "./config.json";
   return {
     resolve: {
       extensions: [".js", ".jsx"]
@@ -99,7 +100,10 @@ module.exports = (env, argv) => {
           { from: "./i18n", to: "i18n" },
           { from: "./images", to: "images" },
           { from: "./images/fav/en/favicon.ico", to: "favicon.ico" },
-          { from: "./config.json", to: "config.json" }
+          {
+            from: config,
+            to: "config.json"
+          }
         ],
         {}
       ),
