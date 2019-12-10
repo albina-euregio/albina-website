@@ -92,6 +92,19 @@ class Page extends React.Component {
         <div id="page-all" className="page-all">
           <PageHeader />
           <main id="page-main" className="page-main">
+            {APP_ENVIRONMENT === "dev" && (
+              <div
+                style={{
+                  backgroundColor: "yellow",
+                  fontWeight: "bold",
+                  padding: "20px",
+                  textAlign: "center"
+                }}
+              >
+                This is a <em>development</em> version of albina-website –{" "}
+                <strong>no real data is shown</strong>!
+              </div>
+            )}
             <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
           </main>
           <PageFooter />
