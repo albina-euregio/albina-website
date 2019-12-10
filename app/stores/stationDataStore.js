@@ -32,6 +32,9 @@ export class StationData {
   get region() {
     return this.state;
   }
+  get microRegion() {
+    return this.properties["LWD-Region"];
+  }
   get date() {
     return new Date(this.properties.date);
   }
