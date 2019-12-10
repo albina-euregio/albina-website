@@ -20,6 +20,12 @@ module.exports = (env, argv) => {
     devtool: production ? "source-map" : "cheap-module-eval-source-map",
     devServer: {
       historyApiFallback: true,
+      proxy: {
+        "/content_files": {
+          target: "https://avalanche.report/",
+          changeOrigin: true
+        }
+      },
       host: "0.0.0.0" //enable external access for testing with vm
     },
     output: {
