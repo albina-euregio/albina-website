@@ -44,30 +44,7 @@ function parseRawHtml(content, instructions = [defaultProcessor()]) {
 }
 
 function preprocessContent(content) {
-  const defaults = new ProcessNodeDefinitions(React);
-
-  const matches = config.get("apis.content").match(/^(https?:)?\/\/([^/]+)/);
-  let cmsHost = "";
-  if (matches && matches.length == 3) {
-    const proto = matches[1] ? matches[1] : window.location.protocol;
-    const host = matches[2];
-    cmsHost = proto + "//" + host;
-  }
-
-  const instructions = [
-    {
-      // Fix image paths for CMS-relative URLs
-      shouldProcessNode: node => {
-        return node.name == "img" && node.attribs.src.match(/^\//);
-      },
-      processNode: (node, ...args) => {
-        node.attribs.src = cmsHost + node.attribs.src;
-        return defaults.processDefaultNode(node, ...args);
-      }
-    },
-    replaceInternalLinksProcessor(),
-    defaultProcessor()
-  ];
+  const instructions = [replaceInternalLinksProcessor(), defaultProcessor()];
 
   return parseRawHtml(content, instructions);
 }
