@@ -161,7 +161,7 @@ class BlogOverview extends React.Component {
             value={this.store.regionActive}
             className={this.store.regionActive !== "all" ? classChanged : ""}
           />
-          <TagFilter
+          {/* <TagFilter
             title={this.props.intl.formatMessage({
               id: "blog:filter:avalanche-problem"
             })}
@@ -175,7 +175,7 @@ class BlogOverview extends React.Component {
                 ? "disabled"
                 : ""
             }
-          />
+          /> */}
           <YearFilter
             title={this.props.intl.formatMessage({
               id: "blog:filter:year"
