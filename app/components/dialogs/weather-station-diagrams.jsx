@@ -72,6 +72,7 @@ class WeatherStationDiagrams extends React.Component {
             {this.props.intl.formatMessage({
               id: "dialog:weather-station-diagram:header"
             })}{" "}
+            ({stationData.microRegion})
           </p>
           <h2 className="">
             <span className="weatherstation-name">{stationData.name} </span>
