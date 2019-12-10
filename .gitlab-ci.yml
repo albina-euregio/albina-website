@@ -27,6 +27,9 @@ deploy to development:
     - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
     - npm run build-beta
     - npm run deploy-beta
+    - npm run clean-dist
+    - npm run build-dev
+    - npm run deploy-dev
   environment:
     name: development
   only:
