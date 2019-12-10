@@ -1,20 +1,21 @@
+import anime from "animejs";
+
 function orientation_change() {
   window.addEventListener("orientationchange", function() {
-    var target = page_body;
-
+    let target = window["page_body"];
     switch (window.orientation) {
       //case -90:200
       //case 90:
       default:
         target.css({ opacity: "0" });
-        var cssSelector = anime({
+        anime({
           targets: target.get(0), //jquery object -> js-object
           opacity: [0, 1],
-          duration: scroll_duration,
+          duration: window["scroll_duration"],
           easing: "easeOutCubic",
-          delay: window["scroll_duration"] / 4,
-          begin: function(event) {},
-          complete: function(event) {}
+          delay: window["scroll_duration"] / 4
+          // begin: function(event) {},
+          // complete: function(event) {}
         });
         break;
     }

@@ -52,6 +52,11 @@ class App extends React.Component {
 
     orientation_change();
     scroll_init();
+
+    // remove splash screen
+    setTimeout(function() {
+      $("html").addClass("page-loaded");
+    }, 150);
   }
 
   shouldUpdateScroll = (prevRouterProps, { location }) => {
