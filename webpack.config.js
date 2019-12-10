@@ -7,7 +7,7 @@ const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 
 module.exports = (env, argv) => {
   const production = !argv.mode || argv.mode === "production";
-  const publicPath = env === "dev" ? "/beta/" : "/";
+  const publicPath = env === "dev" ? "/dev/" : env === "beta" ? "/beta/" : "/";
   return {
     resolve: {
       extensions: [".js", ".jsx"]
