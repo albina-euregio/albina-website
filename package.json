@@ -13,8 +13,8 @@
     "build-beta": "npm run clean-dist && webpack --mode production --env beta",
     "build-dev": "npm run clean-dist && webpack --mode production --env dev",
     "deploy": "rsync -avz -e 'ssh -p 2201' --progress --exclude=config.json dist/ karto@80.120.70.88:/var/www/html/albina-web/",
-    "deploy-beta": "rsync -avz -e 'ssh -p 2201' --delete --progress --exclude=config.json --exclude=.htaccess dist/ karto@80.120.70.88:/var/www/html/albina-web-beta/",
-    "deploy-dev": "rsync -avz -e 'ssh -p 2201' --delete --progress --exclude=config.json --exclude=.htaccess dist/ karto@80.120.70.88:/var/www/html/albina-web-dev/",
+    "deploy-beta": "rsync -avz -e 'ssh -p 2201' --delete --progress --exclude=.htaccess dist/ karto@80.120.70.88:/var/www/html/albina-web-beta/",
+    "deploy-dev": "rsync -avz -e 'ssh -p 2201' --delete --progress --exclude=.htaccess dist/ karto@80.120.70.88:/var/www/html/albina-web-dev/",
     "clean-dist": "rm -f -r -d dist"
   },
   "dependencies": {
