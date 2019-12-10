@@ -100,6 +100,7 @@ module.exports = (env, argv) => {
           { from: "./i18n", to: "i18n" },
           { from: "./images", to: "images" },
           { from: "./images/fav/en/favicon.ico", to: "favicon.ico" },
+          { from: "./sitemap.xml", to: "sitemap.xml" },
           {
             from: config,
             to: "config.json"
