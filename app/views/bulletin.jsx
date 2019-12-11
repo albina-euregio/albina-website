@@ -43,6 +43,7 @@ class Bulletin extends React.Component {
 
   componentDidMount() {
     window["staticPageStore"].loadPage("bulletin").then(responseParsed => {
+      if (APP_DEV_MODE) console.info("bulletin page ready");
       this.setState({
         title: responseParsed.data.attributes.title,
         content: responseParsed.data.attributes.body,
@@ -63,6 +64,11 @@ class Bulletin extends React.Component {
           window.setTimeout(tooltip_init, 100);
         }
       }
+    );
+
+    reaction(
+      () => this.store.latest,
+      () => this.componentDidUpdate({})
     );
     return this._fetchData(this.props);
     // this.checkRegion()
