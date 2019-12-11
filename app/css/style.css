@@ -3159,7 +3159,8 @@ body:before {
   background-color: #cf6;
 }
 .bg-warning-level-2,
-.section-bulletin-legend .list-legend .warning-level-2:before {
+.section-bulletin-legend .list-legend .warning-level-2:before,
+.controlbar-notice {
   background-color: #ff0;
 }
 .bg-warning-level-3,
@@ -5725,6 +5726,30 @@ a.weather-map-details-button:hover {
   color: #19abff;
   background: #fff;
   border-color: #fff;
+}
+.controlbar-notice p,
+.controlbar-notice ul,
+.controlbar-notice ol,
+.controlbar-notice dl,
+.controlbar-notice h1,
+.controlbar-notice h2,
+.controlbar-notice h3,
+.controlbar-notice h4,
+.controlbar-notice h5,
+.controlbar-notice h6 {
+  color: #000;
+}
+.controlbar-notice
+  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
+.controlbar-notice
+  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited {
+  color: #19abff;
+}
+.controlbar-notice
+  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
+.controlbar-notice
+  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active {
+  color: rgba(20, 137, 204, 0.9);
 }
 .linkbar {
   margin-bottom: 1.875rem;
