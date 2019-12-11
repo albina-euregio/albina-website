@@ -4774,9 +4774,7 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
   height: 50vh;
 }
 .section-map.bulletin-map-static {
-  background: transparent url(../images/dev/bulletin-report-map.jpg) no-repeat
-    33% 50%;
-  background-size: cover;
+  background: #fac;
 }
 .section-map.bulletin-map-static .bulletin-map-google {
   display: none;
@@ -6618,6 +6616,30 @@ a.weather-map-details-button:hover {
 }
 .header-footer-logo-secondary {
   display: inline-block;
+}
+.footer-logo-tertiary {
+  display: block;
+  overflow: hidden;
+  text-align: left;
+  text-indent: -9999px;
+  white-space: nowrap;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0;
+  position: relative;
+  display: block;
+  height: 3.59375em;
+  width: 11.375em;
+  background: transparent url("../images/pro/logos/logo_eaws.png") no-repeat 0 0;
+  background-size: 11.375em 3.59375em;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.footer-logo-tertiary:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+  -webkit-filter: grayscale(0%);
+  filter: grayscale(0%);
 }
 .page-footer-top {
   text-align: center;

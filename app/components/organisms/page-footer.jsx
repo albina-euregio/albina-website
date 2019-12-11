@@ -52,6 +52,17 @@ class PageFooter extends React.Component {
                 </a>
                 , {config.get("versionDate")}
               </p>
+              <p className="page-footer-logo-tertiary">
+                <a
+                  href="https://www.avalanches.org/"
+                  data-tilty
+                  className="footer-logo-tertiary tooltip"
+                  title="EAWS"
+                  target="_blank"
+                >
+                  <span>EAWS</span>
+                </a>
+              </p>
               <p className="page-footer-logo-secondary">
                 <a
                   href={Util.template(config.get("links.interreg"), {
