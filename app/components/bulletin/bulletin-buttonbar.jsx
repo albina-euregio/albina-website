@@ -17,7 +17,7 @@ class BulletinButtonbar extends React.Component {
     return (
       <section
         id="section-bulletin-linkbar"
-        className="section-padding section-linkbar section-bulletin-linkbar"
+        className="section-padding section-linkbar section-bulletin-linkbar top-fix"
       >
         <div className="section-centered">
           <div className="grid linkbar">
