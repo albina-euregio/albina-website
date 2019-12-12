@@ -222,6 +222,8 @@ class BulletinStore {
           const latest = new Date(parsedResponse.date);
 
           this.latest = dateToISODateString(latest >= today ? latest : today);
+          if (APP_DEV_MODE)
+            console.log("loaded bulletin latest", { latest: this.latest });
         }
       })
       .catch(error => {
@@ -241,6 +243,7 @@ class BulletinStore {
    *   if it need to be fetched.
    */
   @action load(date, activate = true) {
+    if (APP_DEV_MODE) console.log("loading bulletin", { date, activate });
     if (date) {
       if (this.bulletins[date]) {
         if (activate) {
@@ -269,7 +272,7 @@ class BulletinStore {
           .load(date)
           .then(() => {
             const status = this.archiveStore.getStatus(date);
-            if (APP_DEV_MODE) console.log({ status });
+            if (APP_DEV_MODE) console.log("loaded bulletin", { date, status });
             if (status == "ok") {
               return this._loadBulletinData(date);
             } else {
