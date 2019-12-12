@@ -41,7 +41,7 @@ export default class BlogStore {
 
   _page;
 
-  loading;
+  _loading;
   _posts;
 
   // show only 5 blog posts when the mobile phone is detected
@@ -230,7 +230,7 @@ export default class BlogStore {
 
     // For Mobx > v4 we have to use an obserable box instead of
     // @observable loading = ...;
-    this.loading = false;
+    this._loading = observable.box(false);
     this._searchText = observable.box(initialParameters.searchText);
 
     this.blogProcessor = {
@@ -297,7 +297,7 @@ export default class BlogStore {
       return;
     }
 
-    this.loading = true;
+    this._loading.set(true);
 
     const blogsConfig = window["config"].get("blogs");
     const loads = [];
@@ -339,11 +339,20 @@ export default class BlogStore {
       }
     }
 
+    //todo: indicate loading error
     return Promise.all(loads).then(() => {
       if (APP_DEV_MODE) console.log("posts loaded", newPosts);
       this.posts = newPosts;
-      this.loading = false;
+      this._loading.set(false);
     });
+  }
+
+  @computed get loading() {
+    return this._loading.get();
+  }
+
+  set loading(flag) {
+    this._loading.set(flag);
   }
 
   @computed get posts() {

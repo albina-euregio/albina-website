@@ -14,6 +14,8 @@ import LanguageFilter from "../components/filters/language-filter";
 import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
 import TagFilter from "../components/filters/tag-filter";
+import InfoBar from "../components/organisms/info-bar";
+import { Link } from "react-router-dom";
 
 class BlogOverview extends React.Component {
   _settingFilters;
@@ -24,20 +26,108 @@ class BlogOverview extends React.Component {
       window["blogStore"] = new BlogStore(getHistory);
     }
     this.settingFilters = false;
+    this.lastDate;
+    this.messageIntervall;
+
+    this.infoMessages = {
+      loading: {
+        intlId: "blog:overview:info-loading-data-slow",
+        link: "/blog"
+      },
+      noData: { intlId: "blog:overview:info-now-data", link: "/blog" }
+    };
 
     this.store = window["blogStore"];
     this.state = {
       title: "",
       headerText: "",
       content: "",
-      sharable: false
+      sharable: false,
+      currentInfoMessage: ""
     };
+  }
+
+  renderLinkedMessage(intlId, link) {
+    const msg = this.props.intl.formatHTMLMessage({
+      id: intlId
+    });
+
+    // split the string at <a> and </a>
+    const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/);
+
+    return (
+      <span>
+        {parts.length > 1 && new Parser().parse(parts[1])}
+        {parts.length > 2 && (
+          <Link to={link} className="tooltip" title={parts[2]}>
+            <strong>{parts[2]}</strong>
+          </Link>
+        )}
+        {parts.length > 3 && new Parser().parse(parts[3])}
+      </span>
+    );
+  }
+
+  setInfoMessage() {
+    let self = this;
+    let infoMessage = this.state.currentInfoMessage;
+    let delay;
+
+    if (this.store.loading) {
+      delay = 2000;
+      infoMessage = "loading";
+    } else {
+      if (self.messageIntervall) {
+        infoMessage = "ok";
+      }
+      if (this.store.postsList.length == 0) infoMessage = "noData";
+    }
+
+    console.log(
+      "setInfoMessage v2",
+      this.store.loading,
+      this.state.currentInfoMessage,
+      infoMessage,
+      this.store.postsList.length
+    );
+
+    if (this.state.currentInfoMessage != infoMessage) {
+      if (delay) {
+        this.messageIntervall = setTimeout(() => {
+          self.messageIntervall = undefined;
+          if (infoMessage != self.state.currentInfoMessage)
+            self.setState({ currentInfoMessage: infoMessage });
+        }, delay);
+      } else {
+        if (this.messageIntervall) {
+          clearTimeout(this.messageIntervall);
+          this.messageIntervall = undefined;
+        }
+        if (infoMessage != this.state.currentInfoMessage)
+          this.setState({ currentInfoMessage: infoMessage });
+      }
+    }
+  }
+
+  setLoadingIndicator() {
+    //show hide loading image
+    if (this.store.loading) {
+      $("html").addClass("page-loading");
+      $("html").removeClass("page-loaded");
+    } else {
+      $("html").removeClass("page-loading");
+      setTimeout(() => {
+        $("html").addClass("page-loaded");
+      }, 100);
+    }
   }
 
   componentDidUpdate() {
     if (!this.settingFilters) {
       this.store.checkUrl();
     }
+    this.setInfoMessage();
+    this.setLoadingIndicator();
   }
 
   componentWillReceiveProps() {
@@ -53,7 +143,8 @@ class BlogOverview extends React.Component {
         sharable: responseParsed.data.attributes.sharable
       });
     });
-
+    this.setInfoMessage();
+    this.setLoadingIndicator();
     return this._fetchData();
   }
 
@@ -62,6 +153,7 @@ class BlogOverview extends React.Component {
   }
 
   doStoreUpdate() {
+    console.log("doStoreUpdate");
     this.store.update();
     this.settingFilters = false;
   }
@@ -126,6 +218,14 @@ class BlogOverview extends React.Component {
 
   render() {
     const classChanged = "selectric-changed";
+    console.log("render v2", this.state.currentInfoMessage, this.infoMessages);
+    const infoMessage = ["", "ok"].includes(this.state.currentInfoMessage)
+      ? ""
+      : this.renderLinkedMessage(
+          this.infoMessages[this.state.currentInfoMessage].intlId,
+          this.infoMessages[this.state.currentInfoMessage].link
+        );
+
     return (
       <div>
         <HTMLHeader title={this.state.title} />
@@ -240,6 +340,7 @@ class BlogOverview extends React.Component {
             </div>
           )}
         </section>
+        <InfoBar message={infoMessage} />
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
             <BlogPostsList

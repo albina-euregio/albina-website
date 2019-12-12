@@ -4,6 +4,7 @@ import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
 import { ImageOverlay } from "react-leaflet";
 import { Link } from "react-router-dom";
+import InfoBar from "../organisms/info-bar";
 
 import LeafletMap from "../leaflet/leaflet-map";
 import BulletinMapDetails from "./bulletin-map-details";
@@ -15,10 +16,22 @@ class BulletinMap extends React.Component {
   constructor(props) {
     super(props);
     this.map = false;
+    this.lastDate;
+    this.messageIntervall;
+
+    this.infoMessages = {
+      loading: {
+        intlId: "bulletin:header:info-loading-data-slow",
+        link: "http://transporter.at"
+      },
+      noBulletin: { intlId: "bulletin:header:info-no-data", link: "/blog" }
+    };
 
     if (!window.mapStore) {
       window.mapStore = new MapStore();
     }
+
+    this.state = { currentInfoMessage: "" };
   }
 
   handleMapInit = map => {
@@ -83,52 +96,105 @@ class BulletinMap extends React.Component {
     return overlays;
   }
 
-  renderNoBulletinMessage() {
+  renderLinkedMessage(intlId, link) {
     const msg = this.props.intl.formatHTMLMessage({
-      id: "bulletin:header:no-bulletin-info"
+      id: intlId
     });
 
     // split the string at <a> and </a>
     const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/);
 
     return (
-      <p>
+      <span>
         {parts.length > 1 && new Parser().parse(parts[1])}
         {parts.length > 2 && (
-          <Link to="/blog" className="tooltip" title={parts[2]}>
+          <Link to={link} className="tooltip" title={parts[2]}>
             <strong>{parts[2]}</strong>
           </Link>
         )}
         {parts.length > 3 && new Parser().parse(parts[3])}
-      </p>
+      </span>
     );
+  }
+
+  setInfoMessage() {
+    let self = this;
+    let infoMessage = this.state.currentInfoMessage;
+    let delay;
+
+    if (this.props.date != this.lastDate) {
+      infoMessage = "";
+      this.lastDate = this.props.date;
+    } else {
+      if (["pending", "canceled"].includes(this.props.store.settings.status)) {
+        delay = 4000;
+        infoMessage = "loading";
+      }
+      if (["empty"].includes(this.props.store.settings.status)) {
+        infoMessage = "noBulletin";
+      }
+      if (["ok"].includes(this.props.store.settings.status)) {
+        if (this.messageIntervall) infoMessage = "ok";
+      }
+    }
+
+    //console.log("setInfoMessage", this.props.store.settings.status, this.messageIntervall, this.state.currentInfoMessage, infoMessage);
+
+    if (this.state.currentInfoMessage != infoMessage) {
+      if (delay) {
+        this.messageIntervall = setTimeout(() => {
+          self.messageIntervall = undefined;
+          self.setState({ currentInfoMessage: infoMessage });
+        }, delay);
+      } else {
+        if (self.messageIntervall) {
+          clearTimeout(self.messageIntervall);
+          this.messageIntervall = undefined;
+        }
+        this.setState({ currentInfoMessage: infoMessage });
+      }
+    }
+  }
+
+  setLoadingIndicator() {
+    //show hide loading image
+    if (["", "pending"].includes(this.props.store.settings.status)) {
+      $("html").addClass("page-loading");
+      $("html").removeClass("page-loaded");
+    } else {
+      $("html").removeClass("page-loading");
+      setTimeout(() => {
+        $("html").addClass("page-loaded");
+      }, 1000);
+    }
+  }
+
+  componentDidUpdate() {
+    this.setInfoMessage();
+    this.setLoadingIndicator();
   }
 
   render() {
     const hlBulletin = this.props.store.activeBulletin;
+    const infoMessage = ["", "ok"].includes(this.state.currentInfoMessage)
+      ? ""
+      : this.renderLinkedMessage(
+          this.infoMessages[this.state.currentInfoMessage].intlId,
+          this.infoMessages[this.state.currentInfoMessage].link
+        );
 
     return (
       <section
         id="section-bulletin-map"
         className="section section-bulletin section-bulletin-map"
       >
+        <InfoBar message={infoMessage} />
         <div
           className={
             "section-map" +
             (config.get("map.useWindowWidth") ? "" : " section-centered")
           }
         >
-          {/*
-              no-bulletin banner
-            */
-          ["", "empty"].includes(this.props.store.settings.status) &&
-            config.get("bulletin.noBulletinBanner") && (
-              <section className="bulletin-map-bulletinbar">
-                <div className="controlbar">
-                  {this.renderNoBulletinMessage()}
-                </div>
-              </section>
-            )}
           <LeafletMap
             loaded={this.props.regions && this.props.regions.length > 0}
             onViewportChanged={this.props.handleMapViewportChanged}
@@ -191,9 +257,9 @@ class BulletinMap extends React.Component {
           {this.props.ampm && (
             <p className="bulletin-map-daytime">
               <span className="primary label">
-              {this.props.intl.formatMessage({
-                id: "bulletin:header:" + this.props.ampm
-              })}
+                {this.props.intl.formatMessage({
+                  id: "bulletin:header:" + this.props.ampm
+                })}
               </span>
             </p>
           )}
