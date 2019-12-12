@@ -5766,6 +5766,24 @@ a.weather-map-details-button:hover {
     justify-content: flex-end;
   }
 }
+.top-fix {
+  border-bottom-width: 1px;
+}
+.js-top-fix .top-fix {
+  z-index: 300;
+  position: fixed;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #99daff;
+}
+.js-top-fix .top-fix.section-linkbar {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+.top-fix + section {
+  -webkit-transition: all 0s ease-in-out;
+  transition: all 0s ease-in-out;
+}
 .section-flipper {
   padding-top: 0 !important;
 }
@@ -7609,20 +7627,6 @@ button.mfp-arrow.mfp-arrow-right:hover {
   .page-header {
     font-size: 0.6rem;
   }
-}
-.top-fix {
-  border-bottom-width: 1px;
-}
-.js-top-fix .top-fix {
-  z-index: 300;
-  position: fixed;
-  width: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
-  border-bottom: 1px solid #99daff;
-}
-body .top-fix-follow {
-  -webkit-transition: all 0s ease-in-out;
-  transition: all 0s ease-in-out;
 }
 .page-main {
   -webkit-box-flex: 1;
