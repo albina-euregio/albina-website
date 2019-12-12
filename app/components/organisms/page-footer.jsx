@@ -75,7 +75,11 @@ class PageFooter extends React.Component {
                   })}
                   target="_blank"
                 >
-                  <span>Euregio</span>
+                  <span>
+                    {this.props.intl.formatMessage({
+                      id: "footer:euregio:hover"
+                    })}
+                  </span>
                 </a>
               </p>
             </div>
