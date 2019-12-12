@@ -72,6 +72,14 @@
 .quarter-width {
   width: 25%;
 }
+.fade-in {
+  -webkit-animation: fadeIn 0.5s ease-out 0s normal 1 forwards !important;
+  animation: fadeIn 0.5s ease-out 0s normal 1 forwards !important;
+}
+.fade-out {
+  -webkit-animation: fadeOut 0.5s ease-out 0s normal 1 forwards !important;
+  animation: fadeOut 0.5s ease-out 0s normal 1 forwards !important;
+}
 .is-hidden,
 .hidden,
 .hide {
@@ -3159,7 +3167,8 @@ body:before {
   background-color: #cf6;
 }
 .bg-warning-level-2,
-.section-bulletin-legend .list-legend .warning-level-2:before {
+.section-bulletin-legend .list-legend .warning-level-2:before,
+.controlbar-notice {
   background-color: #ff0;
 }
 .bg-warning-level-3,
@@ -3226,83 +3235,40 @@ body:before {
 .section-bulletin-legend .list-legend .warning-level-4:before h6 {
   color: rgba(255, 255, 255, 0.9);
 }
-.bg-brand a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.bg-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited,
-.bg-gradient-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.bg-gradient-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited,
-.bg-warning-level-4
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-4:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.bg-warning-level-4
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-4:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited {
+.bg-brand a:link,
+.controlbar a:link,
+.bg-brand a:visited,
+.controlbar a:visited,
+.bg-gradient-brand a:link,
+.bg-gradient-brand a:visited,
+.bg-warning-level-4 a:link,
+.section-bulletin-legend .list-legend .warning-level-4:before a:link,
+.bg-warning-level-4 a:visited,
+.section-bulletin-legend .list-legend .warning-level-4:before a:visited {
   color: #fff;
 }
-.bg-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.bg-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active,
-.bg-gradient-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.bg-gradient-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active,
-.bg-warning-level-4
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-4:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.bg-warning-level-4
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-4:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active {
+.bg-brand a:hover,
+.controlbar a:hover,
+.bg-brand a:active,
+.controlbar a:active,
+.bg-gradient-brand a:hover,
+.bg-gradient-brand a:active,
+.bg-warning-level-4 a:hover,
+.section-bulletin-legend .list-legend .warning-level-4:before a:hover,
+.bg-warning-level-4 a:active,
+.section-bulletin-legend .list-legend .warning-level-4:before a:active {
   color: rgba(255, 255, 255, 0.9);
 }
-.bg-warning-level-3
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-3:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.bg-warning-level-3
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-3:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited {
+.bg-warning-level-3 a:link,
+.section-bulletin-legend .list-legend .warning-level-3:before a:link,
+.bg-warning-level-3 a:visited,
+.section-bulletin-legend .list-legend .warning-level-3:before a:visited {
   color: #fff;
 }
-.bg-warning-level-3
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-3:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.bg-warning-level-3
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-3:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active {
+.bg-warning-level-3 a:hover,
+.section-bulletin-legend .list-legend .warning-level-3:before a:hover,
+.bg-warning-level-3 a:active,
+.section-bulletin-legend .list-legend .warning-level-3:before a:active {
   color: rgba(255, 255, 255, 0.9);
 }
 .bg-warning-level-5 p,
@@ -4774,9 +4740,7 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
   height: 50vh;
 }
 .section-map.bulletin-map-static {
-  background: transparent url(../images/dev/bulletin-report-map.jpg) no-repeat
-    33% 50%;
-  background-size: cover;
+  background: #fac;
 }
 .section-map.bulletin-map-static .bulletin-map-google {
   display: none;
@@ -5675,16 +5639,12 @@ a.weather-map-details-button:hover {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited {
+.controlbar a:link,
+.controlbar a:visited {
   color: #fff;
 }
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active {
+.controlbar a:hover,
+.controlbar a:active {
   color: rgba(255, 255, 255, 0.9);
 }
 @media only screen and (min-width: 48em) {
@@ -5728,6 +5688,26 @@ a.weather-map-details-button:hover {
   background: #fff;
   border-color: #fff;
 }
+.controlbar-notice p,
+.controlbar-notice ul,
+.controlbar-notice ol,
+.controlbar-notice dl,
+.controlbar-notice h1,
+.controlbar-notice h2,
+.controlbar-notice h3,
+.controlbar-notice h4,
+.controlbar-notice h5,
+.controlbar-notice h6 {
+  color: #000;
+}
+.controlbar-notice a:link,
+.controlbar-notice a:visited {
+  color: #19abff;
+}
+.controlbar-notice a:hover,
+.controlbar-notice a:active {
+  color: rgba(20, 137, 204, 0.9);
+}
 .linkbar {
   margin-bottom: 1.875rem;
 }
@@ -5742,6 +5722,24 @@ a.weather-map-details-button:hover {
     -webkit-box-pack: end;
     justify-content: flex-end;
   }
+}
+.top-fix {
+  border-bottom-width: 1px;
+}
+.js-top-fix .top-fix {
+  z-index: 300;
+  position: fixed;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid #99daff;
+}
+.js-top-fix .top-fix.section-linkbar {
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+}
+.top-fix + section {
+  -webkit-transition: all 0s ease-in-out;
+  transition: all 0s ease-in-out;
 }
 .section-flipper {
   padding-top: 0 !important;
@@ -6619,6 +6617,30 @@ a.weather-map-details-button:hover {
 .header-footer-logo-secondary {
   display: inline-block;
 }
+.footer-logo-tertiary {
+  display: block;
+  overflow: hidden;
+  text-align: left;
+  text-indent: -9999px;
+  white-space: nowrap;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: 0;
+  position: relative;
+  display: block;
+  height: 3.59375em;
+  width: 11.375em;
+  background: transparent url("../images/pro/logos/logo_eaws.png") no-repeat 0 0;
+  background-size: 11.375em 3.59375em;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+.footer-logo-tertiary:hover {
+  -webkit-transform: scale(1.05);
+  transform: scale(1.05);
+  -webkit-filter: grayscale(0%);
+  filter: grayscale(0%);
+}
 .page-footer-top {
   text-align: center;
 }
@@ -7453,6 +7475,22 @@ button.mfp-arrow.mfp-arrow-right:hover {
   }
   100% {
     opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 @-webkit-keyframes fadeMeOut {
