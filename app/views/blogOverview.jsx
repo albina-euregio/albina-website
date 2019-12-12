@@ -26,15 +26,24 @@ class BlogOverview extends React.Component {
       window["blogStore"] = new BlogStore(getHistory);
     }
     this.settingFilters = false;
-    this.lastDate;
-    this.messageIntervall;
 
-    this.infoMessages = {
-      loading: {
-        intlId: "blog:overview:info-loading-data-slow",
-        link: "/blog"
+    this.infoMessageLevels = {
+      init: {
+        message: "",
+        iconOn: true
       },
-      noData: { intlId: "blog:overview:info-now-data", link: "/blog" }
+      loading: {
+        message: this.renderLinkedMessage(
+          "blog:overview:info-loading-data-slow",
+          "/blog"
+        ),
+        iconOn: true,
+        delay: 1000
+      },
+      noData: {
+        message: this.renderLinkedMessage("blog:overview:info-no-data", "/blog")
+      },
+      ok: { message: "", keep: true }
     };
 
     this.store = window["blogStore"];
@@ -68,66 +77,10 @@ class BlogOverview extends React.Component {
     );
   }
 
-  setInfoMessage() {
-    let self = this;
-    let infoMessage = this.state.currentInfoMessage;
-    let delay;
-
-    if (this.store.loading) {
-      delay = 2000;
-      infoMessage = "loading";
-    } else {
-      if (self.messageIntervall) {
-        infoMessage = "ok";
-      }
-      if (this.store.postsList.length == 0) infoMessage = "noData";
-    }
-
-    console.log(
-      "setInfoMessage v2",
-      this.store.loading,
-      this.state.currentInfoMessage,
-      infoMessage,
-      this.store.postsList.length
-    );
-
-    if (this.state.currentInfoMessage != infoMessage) {
-      if (delay) {
-        this.messageIntervall = setTimeout(() => {
-          self.messageIntervall = undefined;
-          if (infoMessage != self.state.currentInfoMessage)
-            self.setState({ currentInfoMessage: infoMessage });
-        }, delay);
-      } else {
-        if (this.messageIntervall) {
-          clearTimeout(this.messageIntervall);
-          this.messageIntervall = undefined;
-        }
-        if (infoMessage != this.state.currentInfoMessage)
-          this.setState({ currentInfoMessage: infoMessage });
-      }
-    }
-  }
-
-  setLoadingIndicator() {
-    //show hide loading image
-    if (this.store.loading) {
-      $("html").addClass("page-loading");
-      $("html").removeClass("page-loaded");
-    } else {
-      $("html").removeClass("page-loading");
-      setTimeout(() => {
-        $("html").addClass("page-loaded");
-      }, 100);
-    }
-  }
-
   componentDidUpdate() {
     if (!this.settingFilters) {
       this.store.checkUrl();
     }
-    this.setInfoMessage();
-    this.setLoadingIndicator();
   }
 
   componentWillReceiveProps() {
@@ -143,8 +96,6 @@ class BlogOverview extends React.Component {
         sharable: responseParsed.data.attributes.sharable
       });
     });
-    this.setInfoMessage();
-    this.setLoadingIndicator();
     return this._fetchData();
   }
 
@@ -218,13 +169,17 @@ class BlogOverview extends React.Component {
 
   render() {
     const classChanged = "selectric-changed";
-    console.log("render v2", this.state.currentInfoMessage, this.infoMessages);
-    const infoMessage = ["", "ok"].includes(this.state.currentInfoMessage)
-      ? ""
-      : this.renderLinkedMessage(
-          this.infoMessages[this.state.currentInfoMessage].intlId,
-          this.infoMessages[this.state.currentInfoMessage].link
-        );
+
+    let newLevel = this.store.loading ? "loading" : "ok";
+    if (newLevel === "ok" && this.store.postsList.length == 0)
+      newLevel = "noData";
+
+    console.log(
+      "render v2",
+      this.store.loading,
+      this.store.postsList && this.store.postsList.length,
+      newLevel
+    );
 
     return (
       <div>
@@ -340,7 +295,7 @@ class BlogOverview extends React.Component {
             </div>
           )}
         </section>
-        <InfoBar message={infoMessage} />
+        <InfoBar level={newLevel} levels={this.infoMessageLevels} />
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
             <BlogPostsList

@@ -17,21 +17,32 @@ class BulletinMap extends React.Component {
     super(props);
     this.map = false;
     this.lastDate;
-    this.messageIntervall;
 
-    this.infoMessages = {
-      loading: {
-        intlId: "bulletin:header:info-loading-data-slow",
-        link: "http://transporter.at"
+    this.infoMessageLevels = {
+      init: {
+        message: "",
+        iconOn: true
       },
-      noBulletin: { intlId: "bulletin:header:info-no-data", link: "/blog" }
+      pending: {
+        message: this.renderLinkedMessage(
+          "bulletin:header:info-loading-data-slow",
+          "http://transporter.at"
+        ),
+        iconOn: true,
+        delay: 5000
+      },
+      empty: {
+        message: this.renderLinkedMessage(
+          "bulletin:header:info-no-data",
+          "/blog"
+        )
+      },
+      ok: { message: "", keep: true }
     };
 
     if (!window.mapStore) {
       window.mapStore = new MapStore();
     }
-
-    this.state = { currentInfoMessage: "" };
   }
 
   handleMapInit = map => {
@@ -117,78 +128,21 @@ class BulletinMap extends React.Component {
     );
   }
 
-  setInfoMessage() {
-    let self = this;
-    let infoMessage = this.state.currentInfoMessage;
-    let delay;
-
-    if (this.props.date != this.lastDate) {
-      infoMessage = "";
-      this.lastDate = this.props.date;
-    } else {
-      if (["pending", "canceled"].includes(this.props.store.settings.status)) {
-        delay = 4000;
-        infoMessage = "loading";
-      }
-      if (["empty"].includes(this.props.store.settings.status)) {
-        infoMessage = "noBulletin";
-      }
-      if (["ok"].includes(this.props.store.settings.status)) {
-        if (this.messageIntervall) infoMessage = "ok";
-      }
-    }
-
-    //console.log("setInfoMessage", this.props.store.settings.status, this.messageIntervall, this.state.currentInfoMessage, infoMessage);
-
-    if (this.state.currentInfoMessage != infoMessage) {
-      if (delay) {
-        this.messageIntervall = setTimeout(() => {
-          self.messageIntervall = undefined;
-          self.setState({ currentInfoMessage: infoMessage });
-        }, delay);
-      } else {
-        if (self.messageIntervall) {
-          clearTimeout(self.messageIntervall);
-          this.messageIntervall = undefined;
-        }
-        this.setState({ currentInfoMessage: infoMessage });
-      }
-    }
-  }
-
-  setLoadingIndicator() {
-    //show hide loading image
-    if (["", "pending"].includes(this.props.store.settings.status)) {
-      $("html").addClass("page-loading");
-      $("html").removeClass("page-loaded");
-    } else {
-      $("html").removeClass("page-loading");
-      setTimeout(() => {
-        $("html").addClass("page-loaded");
-      }, 1000);
-    }
-  }
-
-  componentDidUpdate() {
-    this.setInfoMessage();
-    this.setLoadingIndicator();
-  }
-
   render() {
     const hlBulletin = this.props.store.activeBulletin;
-    const infoMessage = ["", "ok"].includes(this.state.currentInfoMessage)
-      ? ""
-      : this.renderLinkedMessage(
-          this.infoMessages[this.state.currentInfoMessage].intlId,
-          this.infoMessages[this.state.currentInfoMessage].link
-        );
+
+    let newLevel = this.props.store.settings.status;
+    if (this.lastDate != this.props.date) {
+      newLevel = "init";
+      this.lastDate = this.props.date;
+    }
 
     return (
       <section
         id="section-bulletin-map"
         className="section section-bulletin section-bulletin-map"
       >
-        <InfoBar message={infoMessage} />
+        <InfoBar level={newLevel} levels={this.infoMessageLevels} />
         <div
           className={
             "section-map" +

@@ -4,8 +4,8 @@ export default class InfoBar extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { status: "" };
-
+    this.state = { currentLevel: "" };
+    this.delayedLevel = "";
     this.levels = props.levels || {
       "": { message: "Loading", iconOn: true },
       loading: { message: "Loading", delay: 1000, iconOn: true },
@@ -15,12 +15,14 @@ export default class InfoBar extends React.Component {
   }
 
   getI(def, para) {
-    if (isObject(def) && def[para]) return def[para];
-    if (para === message) return def;
+    // console.log("InfoBar->getI", typeof def, def, para);
+    if (typeof def === "string") return def;
+    if (typeof def === "object") return def[para];
     return undefined;
   }
 
   resetInterval() {
+    // console.log("InfoBar->resetInterval", this.messageIntervall);
     if (this.messageIntervall) {
       clearTimeout(this.messageIntervall);
       this.messageIntervall = undefined;
@@ -28,27 +30,45 @@ export default class InfoBar extends React.Component {
   }
 
   setInfoMessage() {
-    let self = this;
-    let newStatus = this.props.status;
-    let newLevel = this.levels[this.props.status];
+    // console.log("InfoBar->setInfoMessage", "state: " + this.state.currentLevel, "props: " + this.props.level, this.levels[this.props.level]);//, this.getI(this.levels[this.props.level], "iconOn"))
+    const self = this;
+    const newLevel = this.props.level;
+    const newLevelData = this.levels[newLevel];
+    let nDelay;
+    if (!newLevelData) return;
 
-    if (newStatus != this.state.status) {
-      if ((nDelay = this.getI(newLevel, "delay"))) {
-        this.resetInterval();
-        this.messageIntervall = setTimeout(() => {
-          self.messageIntervall = undefined;
-          self.setState({ currentInfoMessage: newStatus });
-          self.setLoadingIndicator(this.getI(newLevel, "IconOn") || false);
-        }, nDelay);
+    if (newLevel != this.state.currentLevel) {
+      if ((nDelay = this.getI(newLevelData, "delay"))) {
+        // console.log("InfoBar->setInfoMessage #1" , newLevel, this.delayedLevel);
+        if (newLevel != this.delayedLevel) {
+          // console.log("InfoBar->setInfoMessage #2" , nDelay);
+          this.resetInterval();
+          this.messageIntervall = setTimeout(() => {
+            self.messageIntervall = undefined;
+            // console.log("InfoBar->TIMEOUT", newLevel,  self.state.currentLevel);
+            if (newLevel != self.state.currentLevel) {
+              self.setState({ currentLevel: newLevel });
+              self.delayedLevel = "";
+            }
+          }, nDelay);
+          this.setLoadingIndicator(this.getI(newLevelData, "iconOn") || false);
+          this.delayedLevel = newLevel;
+        }
       } else {
-        if (!this.getI(newLevel, "keep")) this.resetInterval();
-        self.setState({ currentInfoMessage: newStatus });
+        if (newLevel != this.state.currentLevel) {
+          this.resetInterval();
+          this.delayedLevel = "";
+          if (!this.getI(newLevelData, "keep"))
+            self.setState({ currentLevel: newLevel });
+          self.setLoadingIndicator(this.getI(newLevelData, "iconOn") || false);
+        }
       }
     }
   }
 
   setLoadingIndicator(on) {
     //show hide loading image
+    // console.log("InfoBar->setLoadingIndicator", on)
     if (on) {
       $("html").addClass("page-loading");
       $("html").removeClass("page-loaded");
@@ -69,12 +89,16 @@ export default class InfoBar extends React.Component {
   }
 
   render() {
-    const message = this.getI(this.levels[this.state.status], "message");
-    if (message)
+    // console.log("InfoBar->render", this.getI(this.levels[this.state.currentLevel], "message"));
+    const infoMessage = this.getI(
+      this.levels[this.state.currentLevel],
+      "message"
+    );
+    if (infoMessage)
       return (
         <section className="section controlbar">
           <div className="section-centered">
-            <p>{message}</p>
+            <p>{infoMessage}</p>
           </div>
         </section>
       );
