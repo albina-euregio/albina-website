@@ -72,6 +72,14 @@
 .quarter-width {
   width: 25%;
 }
+.fade-in {
+  -webkit-animation: fadeIn 0.5s ease-out 0s normal 1 forwards !important;
+  animation: fadeIn 0.5s ease-out 0s normal 1 forwards !important;
+}
+.fade-out {
+  -webkit-animation: fadeOut 0.5s ease-out 0s normal 1 forwards !important;
+  animation: fadeOut 0.5s ease-out 0s normal 1 forwards !important;
+}
 .is-hidden,
 .hidden,
 .hide {
@@ -3227,83 +3235,40 @@ body:before {
 .section-bulletin-legend .list-legend .warning-level-4:before h6 {
   color: rgba(255, 255, 255, 0.9);
 }
-.bg-brand a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.bg-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited,
-.bg-gradient-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.bg-gradient-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited,
-.bg-warning-level-4
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-4:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.bg-warning-level-4
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-4:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited {
+.bg-brand a:link,
+.controlbar a:link,
+.bg-brand a:visited,
+.controlbar a:visited,
+.bg-gradient-brand a:link,
+.bg-gradient-brand a:visited,
+.bg-warning-level-4 a:link,
+.section-bulletin-legend .list-legend .warning-level-4:before a:link,
+.bg-warning-level-4 a:visited,
+.section-bulletin-legend .list-legend .warning-level-4:before a:visited {
   color: #fff;
 }
-.bg-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.bg-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active,
-.bg-gradient-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.bg-gradient-brand
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active,
-.bg-warning-level-4
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-4:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.bg-warning-level-4
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-4:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active {
+.bg-brand a:hover,
+.controlbar a:hover,
+.bg-brand a:active,
+.controlbar a:active,
+.bg-gradient-brand a:hover,
+.bg-gradient-brand a:active,
+.bg-warning-level-4 a:hover,
+.section-bulletin-legend .list-legend .warning-level-4:before a:hover,
+.bg-warning-level-4 a:active,
+.section-bulletin-legend .list-legend .warning-level-4:before a:active {
   color: rgba(255, 255, 255, 0.9);
 }
-.bg-warning-level-3
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-3:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.bg-warning-level-3
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-3:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited {
+.bg-warning-level-3 a:link,
+.section-bulletin-legend .list-legend .warning-level-3:before a:link,
+.bg-warning-level-3 a:visited,
+.section-bulletin-legend .list-legend .warning-level-3:before a:visited {
   color: #fff;
 }
-.bg-warning-level-3
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-3:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.bg-warning-level-3
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active,
-.section-bulletin-legend
-  .list-legend
-  .warning-level-3:before
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active {
+.bg-warning-level-3 a:hover,
+.section-bulletin-legend .list-legend .warning-level-3:before a:hover,
+.bg-warning-level-3 a:active,
+.section-bulletin-legend .list-legend .warning-level-3:before a:active {
   color: rgba(255, 255, 255, 0.9);
 }
 .bg-warning-level-5 p,
@@ -5674,16 +5639,12 @@ a.weather-map-details-button:hover {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited {
+.controlbar a:link,
+.controlbar a:visited {
   color: #fff;
 }
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.controlbar
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active {
+.controlbar a:hover,
+.controlbar a:active {
   color: rgba(255, 255, 255, 0.9);
 }
 @media only screen and (min-width: 48em) {
@@ -5739,16 +5700,12 @@ a.weather-map-details-button:hover {
 .controlbar-notice h6 {
   color: #000;
 }
-.controlbar-notice
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):link,
-.controlbar-notice
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):visited {
+.controlbar-notice a:link,
+.controlbar-notice a:visited {
   color: #19abff;
 }
-.controlbar-notice
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):hover,
-.controlbar-notice
-  a:not(.pure-button):not(.label):not(.tippy-tooltip.custom-theme):active {
+.controlbar-notice a:hover,
+.controlbar-notice a:active {
   color: rgba(20, 137, 204, 0.9);
 }
 .linkbar {
@@ -7518,6 +7475,22 @@ button.mfp-arrow.mfp-arrow-right:hover {
   }
   100% {
     opacity: 1;
+  }
+}
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 @-webkit-keyframes fadeMeOut {

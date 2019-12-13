@@ -16,7 +16,7 @@ export default class BulletinList extends React.Component {
     return (
       <section
         id="section-bulletin-reports"
-        className="section-centered section-bulletin-reports top-fix-follow"
+        className="section-centered section-bulletin-reports"
       >
         <ul className="list-plain bulletin-list">
           {this.bulletins.map(bulletin => (
