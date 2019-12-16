@@ -4747,7 +4747,7 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .bulletin-map {
   display: block;
-  height: 65vh;
+  height: 50vh;
   min-height: 400px;
   width: 100%;
   max-width: none;
