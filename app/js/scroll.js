@@ -81,12 +81,14 @@ let scroll_direction = () => {
         //up
         if (Math.abs(s_pos_new - s_pos_old) > s_dis_up) {
           page_body.removeClass("scrolling-down");
+          header_visible = 1;
           s_pos_old = s_pos_new;
         }
       } else {
         //down
         if (Math.abs(s_pos_new - s_pos_old) > s_dis_down) {
           page_body.addClass("scrolling-down");
+          header_visible = 0;
           s_pos_old = s_pos_new;
         }
       }
