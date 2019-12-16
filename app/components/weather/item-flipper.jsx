@@ -18,7 +18,7 @@ class ItemFlipper extends React.Component {
           {previousItem && (
             <a
               href="#"
-              className="icon-link tooltip flipper-left"
+              className="tooltip flipper-left"
               /* title={this.props.intl.formatMessage({
                 id: 'weathermap:header:dateflipper:back'
               })} */
@@ -38,7 +38,7 @@ class ItemFlipper extends React.Component {
           {nextItem && (
             <a
               href="#"
-              className="icon-link tooltip flipper-left"
+              className="tooltip flipper-right"
               /* title={this.props.intl.formatMessage({
                 id: 'weathermap:header:dateflipper:forward'
               })} */
