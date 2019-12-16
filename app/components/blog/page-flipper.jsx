@@ -24,7 +24,7 @@ class BlogPageFlipper extends React.Component {
     return (
       <ul className="list-inline bulletin-flipper">
         {this.isPreviousPage() && (
-          <li className="page-flipper-back">
+          <li className="bulletin-flipper-back">
             <a
               onClick={() => this.props.handlePreviousPage()}
               title={this.props.intl.formatMessage({
@@ -38,7 +38,7 @@ class BlogPageFlipper extends React.Component {
           </li>
         )}
 
-        <li className="page-flipper-separator">
+        <li className="bulletin-flipper-separator">
           {this.store.page} / {this.store.maxPages}
         </li>
         {this.isNextPage() && (

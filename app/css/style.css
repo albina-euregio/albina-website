@@ -4683,8 +4683,8 @@ ul.bulletin-flipper .bulletin-flipper-back span:before {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
-ul.bulletin-flipper .bulletin-flipper-back:hover span:before,
-ul.bulletin-flipper .bulletin-flipper-back:active span:before {
+ul.bulletin-flipper .bulletin-flipper-back a:hover span:before,
+ul.bulletin-flipper .bulletin-flipper-back a:active span:before {
   -webkit-transform: translateX(-0.3125rem);
   transform: translateX(-0.3125rem);
 }
@@ -4693,13 +4693,13 @@ ul.bulletin-flipper .bulletin-flipper-forward span:before {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
-ul.bulletin-flipper .bulletin-flipper-forward:hover span:before,
-ul.bulletin-flipper .bulletin-flipper-forward:active span:before {
+ul.bulletin-flipper .bulletin-flipper-forward a:hover span:before,
+ul.bulletin-flipper .bulletin-flipper-forward a:active span:before {
   -webkit-transform: translateX(0.3125rem);
   transform: translateX(0.3125rem);
 }
-ul.bulletin-flipper .bulletin-flipper-archive:hover,
-ul.bulletin-flipper .bulletin-flipper-archive:active {
+ul.bulletin-flipper .bulletin-flipper-archive a:hover,
+ul.bulletin-flipper .bulletin-flipper-archive a:active {
   display: inline-block;
 }
 @media only screen and (min-width: 30em) {
@@ -8138,13 +8138,13 @@ a.share-feed {
   text-align: center;
   color: #19abff;
 }
-.section.blog-page-flipper ul .page-flipper-separator,
-.blog-page-flipper.section-centered ul .page-flipper-separator,
-.blog-page-flipper.section-padding ul .page-flipper-separator,
-.blog-page-flipper.section-padding-width ul .page-flipper-separator,
-.blog-page-flipper.section-padding-height ul .page-flipper-separator {
+.section.blog-page-flipper ul .bulletin-flipper-separator,
+.blog-page-flipper.section-centered ul .bulletin-flipper-separator,
+.blog-page-flipper.section-padding ul .bulletin-flipper-separator,
+.blog-page-flipper.section-padding-width ul .bulletin-flipper-separator,
+.blog-page-flipper.section-padding-height ul .bulletin-flipper-separator {
   color: #565f61;
-  margin: 0 2rem;
+  margin: 0 0.625rem;
 }
 .section.blog-page-flipper ul a span:before,
 .blog-page-flipper.section-centered ul a span:before,
