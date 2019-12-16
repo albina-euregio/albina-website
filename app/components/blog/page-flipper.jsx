@@ -22,7 +22,7 @@ class BlogPageFlipper extends React.Component {
       id: "blog:page-flipper:page"
     });
     return (
-      <ul className="list-inline blog-page-flipper">
+      <ul className="list-inline bulletin-flipper">
         {this.isPreviousPage() && (
           <li className="page-flipper-back">
             <a
@@ -32,10 +32,8 @@ class BlogPageFlipper extends React.Component {
               })}
               className="tooltip"
             >
-              <span className="icon-arrow-left" />
-              <span className="">
-                {pageTranslation} {this.store.page - 1}
-              </span>
+              <span className="icon-arrow-left"></span>
+              {pageTranslation} {this.store.page - 1}
             </a>
           </li>
         )}
@@ -52,9 +50,7 @@ class BlogPageFlipper extends React.Component {
               })}
               className="tooltip"
             >
-              <span className="">
-                {pageTranslation} {this.store.page + 1}
-              </span>
+              {pageTranslation} {this.store.page + 1}{" "}
               <span className="icon-arrow-right" />
             </a>
           </li>

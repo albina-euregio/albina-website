@@ -8138,23 +8138,19 @@ a.share-feed {
   text-align: center;
   color: #19abff;
 }
-.section.blog-page-flipper .blog-page-flipper .page-flipper-separator,
-.blog-page-flipper.section-centered .blog-page-flipper .page-flipper-separator,
-.blog-page-flipper.section-padding .blog-page-flipper .page-flipper-separator,
-.blog-page-flipper.section-padding-width
-  .blog-page-flipper
-  .page-flipper-separator,
-.blog-page-flipper.section-padding-height
-  .blog-page-flipper
-  .page-flipper-separator {
+.section.blog-page-flipper ul .page-flipper-separator,
+.blog-page-flipper.section-centered ul .page-flipper-separator,
+.blog-page-flipper.section-padding ul .page-flipper-separator,
+.blog-page-flipper.section-padding-width ul .page-flipper-separator,
+.blog-page-flipper.section-padding-height ul .page-flipper-separator {
   color: #565f61;
   margin: 0 2rem;
 }
-.section.blog-page-flipper .blog-page-flipper a span:before,
-.blog-page-flipper.section-centered .blog-page-flipper a span:before,
-.blog-page-flipper.section-padding .blog-page-flipper a span:before,
-.blog-page-flipper.section-padding-width .blog-page-flipper a span:before,
-.blog-page-flipper.section-padding-height .blog-page-flipper a span:before {
+.section.blog-page-flipper ul a span:before,
+.blog-page-flipper.section-centered ul a span:before,
+.blog-page-flipper.section-padding ul a span:before,
+.blog-page-flipper.section-padding-width ul a span:before,
+.blog-page-flipper.section-padding-height ul a span:before {
   top: 0.175em;
   line-height: 0;
 }
