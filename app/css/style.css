@@ -4331,6 +4331,14 @@ a.linkbox-blog-feature:hover .content-text .blog-feature-meta li {
   color: #19abff;
   border-color: #19abff;
 }
+.filter.primary .label:hover,
+.filter.primary .tippy-tooltip.custom-theme:hover,
+.filter.primary .label.js-active,
+.filter.primary .js-active.tippy-tooltip.custom-theme {
+  color: #fff;
+  border-color: #19abff;
+  background-color: #19abff;
+}
 .candybar {
   z-index: 9500;
   position: fixed;
@@ -5851,7 +5859,7 @@ a.weather-map-details-button:hover {
 }
 .flipper-content .flipper-item {
   float: left;
-  width: 100vw;
+  width: calc(100vw - 2em);
   padding: 0;
   opacity: 1;
   -webkit-transition: all 0.25s ease-in-out;
