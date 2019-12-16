@@ -98,7 +98,7 @@ export default class InfoBar extends React.Component {
       return (
         <section className="section controlbar fade-in">
           <div className="section-centered">
-            <p class="align-center">{infoMessage}</p>
+            <p className="align-center">{infoMessage}</p>
           </div>
         </section>
       );

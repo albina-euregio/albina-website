@@ -2,6 +2,7 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
+import { renderLinkedMessage } from "../components/intlHelper";
 import BlogStore from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -15,7 +16,6 @@ import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
 import TagFilter from "../components/filters/tag-filter";
 import InfoBar from "../components/organisms/info-bar";
-import { Link } from "react-router-dom";
 
 class BlogOverview extends React.Component {
   _settingFilters;
@@ -33,7 +33,8 @@ class BlogOverview extends React.Component {
         iconOn: true
       },
       loading: {
-        message: this.renderLinkedMessage(
+        message: renderLinkedMessage(
+          props.intl,
           "blog:overview:info-loading-data-slow",
           "/blog"
         ),
@@ -41,7 +42,11 @@ class BlogOverview extends React.Component {
         delay: 1000
       },
       noData: {
-        message: this.renderLinkedMessage("blog:overview:info-no-data", "/blog")
+        message: renderLinkedMessage(
+          props.intl,
+          "blog:overview:info-no-data",
+          "/blog"
+        )
       },
       ok: { message: "", keep: true }
     };
@@ -54,27 +59,6 @@ class BlogOverview extends React.Component {
       sharable: false,
       currentInfoMessage: ""
     };
-  }
-
-  renderLinkedMessage(intlId, link) {
-    const msg = this.props.intl.formatHTMLMessage({
-      id: intlId
-    });
-
-    // split the string at <a> and </a>
-    const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/);
-
-    return (
-      <span>
-        {parts.length > 1 && new Parser().parse(parts[1])}
-        {parts.length > 2 && (
-          <Link to={link} className="tooltip" title={parts[2]}>
-            <strong>{parts[2]}</strong>
-          </Link>
-        )}
-        {parts.length > 3 && new Parser().parse(parts[3])}
-      </span>
-    );
   }
 
   componentDidUpdate() {

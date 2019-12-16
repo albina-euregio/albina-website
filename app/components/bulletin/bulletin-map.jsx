@@ -3,7 +3,7 @@ import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
 import { ImageOverlay } from "react-leaflet";
-import { Link } from "react-router-dom";
+import { renderLinkedMessage } from "../intlHelper";
 import InfoBar from "../organisms/info-bar";
 
 import LeafletMap from "../leaflet/leaflet-map";
@@ -24,7 +24,8 @@ class BulletinMap extends React.Component {
         iconOn: true
       },
       pending: {
-        message: this.renderLinkedMessage(
+        message: renderLinkedMessage(
+          props.intl,
           "bulletin:header:info-loading-data-slow",
           "http://transporter.at"
         ),
@@ -32,7 +33,8 @@ class BulletinMap extends React.Component {
         delay: 5000
       },
       empty: {
-        message: this.renderLinkedMessage(
+        message: renderLinkedMessage(
+          props.intl,
           "bulletin:header:info-no-data",
           "/blog"
         )
@@ -105,27 +107,6 @@ class BulletinMap extends React.Component {
     }
 
     return overlays;
-  }
-
-  renderLinkedMessage(intlId, link) {
-    const msg = this.props.intl.formatHTMLMessage({
-      id: intlId
-    });
-
-    // split the string at <a> and </a>
-    const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/);
-
-    return (
-      <span>
-        {parts.length > 1 && new Parser().parse(parts[1])}
-        {parts.length > 2 && (
-          <Link to={link} className="tooltip" title={parts[2]}>
-            <strong>{parts[2]}</strong>
-          </Link>
-        )}
-        {parts.length > 3 && new Parser().parse(parts[3])}
-      </span>
-    );
   }
 
   render() {
