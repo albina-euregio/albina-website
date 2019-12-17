@@ -137,6 +137,7 @@ class LeafletMap extends React.Component {
 
       window.setTimeout(() => {
         $(".leaflet-control-zoom a").addClass("tooltip");
+        $(".leaflet-control-locate a").addClass("tooltip");
         tooltip_init();
       }, 100);
 
