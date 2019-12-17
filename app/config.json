@@ -223,7 +223,7 @@
     "tileLayers": [
       {
         "id": "ALBINA",
-        "url": "https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png?v={v}",
+        "url": "https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png",
         "maxZoom": 10,
         "minZoom": 7,
         "detectRetina": false,
