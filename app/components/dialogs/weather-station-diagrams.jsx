@@ -67,6 +67,27 @@ class WeatherStationDiagrams extends React.Component {
     let stationInfo = this.assambleStationInfo(stationData);
     return (
       <div className="modal-weatherstation">
+        <div class="modal-flipper">
+          <div class="flipper-controls">
+            <div class="grid flipper-left-right">
+              <div class="all-6 grid-item">
+                <a
+                  href="#"
+                  title="Previous Station"
+                  class="icon-link icon-arrow-left tooltip flipper-left"
+                ></a>
+              </div>
+              <div class="all-6 grid-item">
+                <a
+                  href="#"
+                  title="Next Station"
+                  class="icon-link icon-arrow-right tooltip flipper-right"
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="modal-header">
           <p className="caption">
             {this.props.intl.formatMessage({
@@ -101,6 +122,7 @@ class WeatherStationDiagrams extends React.Component {
             ))}
           </ul>
 
+          {/* old: replace this ...  */}
           <form className="pure-form pure-form-stacked">
             <label htmlFor="timerange">
               <FormattedHTMLMessage id="dialog:weather-station-diagram:timerange:header" />
@@ -122,6 +144,34 @@ class WeatherStationDiagrams extends React.Component {
               </li>
             </ul>
           </form>
+          {/* ... new: with this */}
+          <ul class="list-inline filter primary">
+            <li>
+              <a href="#" class="label" title="Select Time Range">
+                Day
+              </a>
+            </li>
+            <li>
+              <a href="#" class="label" title="Select Time Range">
+                Three Days
+              </a>
+            </li>
+            <li>
+              <a href="#" class="label js-active" title="Select Time Range">
+                Week
+              </a>
+            </li>
+            <li>
+              <a href="#" class="label" title="Select Time Range">
+                Month
+              </a>
+            </li>
+            <li>
+              <a href="#" class="label" title="Select Time Range">
+                Winter
+              </a>
+            </li>
+          </ul>
 
           {stationData && (
             <img

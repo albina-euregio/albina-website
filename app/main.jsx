@@ -46,6 +46,12 @@ window[
 window["appStore"] = new AppStore();
 window["staticPageStore"] = new StaticPageStore();
 window["modalStateStore"] = new ModalStateStore();
+window["scroll_duration"] = 1000;
+window["tiltySettings"] = {
+  speed: window["scroll_duration"] / 2,
+  transition: false,
+  scale: 1.1
+};
 
 require("./js/custom.js");
 
@@ -87,32 +93,31 @@ const isWebpSupported = new Promise(resolve => {
  */
 const configUrl = basePath + "config.json?" + Date.now();
 const configRequest = axios.get(configUrl).then(res => res.data);
-Promise.all([configRequest, isWebpSupported]).then(
-  ([configParsed, webp]) => {
-    configParsed["projectRoot"] = basePath;
-    configParsed["version"] = APP_VERSION; // included via webpack.DefinePlugin
-    configParsed["versionDate"] = APP_VERSION_DATE; // included via webpack.DefinePlugin
-    configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
-    configParsed["webp"] = webp;
-    if (webp) {
-      document.body.className += " webp";
-      // enable WebP for ALBINA layer
-      configParsed["map"]["tileLayers"]
-        .filter(layer => layer["id"] === "ALBINA")
-        .forEach(
-          layer => (layer["url"] = layer["url"].replace(/\.png/, ".webp"))
-        );
-    }
+Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
+  configParsed["projectRoot"] = basePath;
+  configParsed["version"] = APP_VERSION; // included via webpack.DefinePlugin
+  configParsed["versionDate"] = APP_VERSION_DATE; // included via webpack.DefinePlugin
+  configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
+  configParsed["webp"] = webp;
+  if (webp) {
+    document.body.className += " webp";
+    // enable WebP for ALBINA layer
+    configParsed["map"]["tileLayers"]
+      .filter(layer => layer["id"] === "ALBINA")
+      .forEach(
+        layer => (layer["url"] = layer["url"].replace(/\.png/, ".webp"))
+      );
+  }
 
-    const language = configParsed["hostLanguageSettings"][location.host];
-    if (language) {
-      window["appStore"].setLanguage(language);
-    }
-    window["config"] = new ConfigStore(configParsed);
-    // set initial language
+  const language = configParsed["hostLanguageSettings"][location.host];
+  if (language) {
+    window["appStore"].setLanguage(language);
+  }
+  window["config"] = new ConfigStore(configParsed);
+  // set initial language
 
-    // init Analytics software - only on production builds
-    /*
+  // init Analytics software - only on production builds
+  /*
   if (!DEV) {
     const trackingKey = window["config"].get("apiKeys.gaTrackingId");
     if (trackingKey) {
@@ -126,28 +131,27 @@ Promise.all([configRequest, isWebpSupported]).then(
   }
   */
 
-    // replace language-dependent body classes on language change.
-    reaction(
-      () => window["appStore"].locale.value,
-      newLang => {
-        document.body.className = document.body.className
-          .replace(/domain-[a-z]{2}/, "domain-" + newLang)
-          .replace(/language-[a-z]{2}/, "language-" + newLang);
-      }
-    );
+  // replace language-dependent body classes on language change.
+  reaction(
+    () => window["appStore"].locale.value,
+    newLang => {
+      document.body.className = document.body.className
+        .replace(/domain-[a-z]{2}/, "domain-" + newLang)
+        .replace(/language-[a-z]{2}/, "language-" + newLang);
+    }
+  );
 
-    // initially set language-dependent body classes
-    const initialLang = window["appStore"].locale.value;
-    document.body.className +=
-      (document.body.className ? " " : "") +
-      "domain-" +
-      initialLang +
-      " language-" +
-      initialLang;
+  // initially set language-dependent body classes
+  const initialLang = window["appStore"].locale.value;
+  document.body.className +=
+    (document.body.className ? " " : "") +
+    "domain-" +
+    initialLang +
+    " language-" +
+    initialLang;
 
-    ReactDOM.render(
-      <App />,
-      document.body.appendChild(document.createElement("div"))
-    );
-  }
-);
+  ReactDOM.render(
+    <App />,
+    document.body.appendChild(document.createElement("div"))
+  );
+});
