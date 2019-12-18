@@ -4773,14 +4773,6 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 .section-bulletin-map .section-map {
   height: 50vh;
 }
-.section-map.bulletin-map-static {
-  background: transparent url(../images/dev/bulletin-report-map.jpg) no-repeat
-    33% 50%;
-  background-size: cover;
-}
-.section-map.bulletin-map-static .bulletin-map-google {
-  display: none;
-}
 .bulletin-map {
   display: block;
   height: 65vh;
