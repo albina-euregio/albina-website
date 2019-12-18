@@ -1,7 +1,6 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage, FormattedNumber } from "react-intl";
-import Selectric from "../selectric";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
