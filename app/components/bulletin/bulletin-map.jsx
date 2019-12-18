@@ -105,6 +105,7 @@ class BulletinMap extends React.Component {
   }
 
   render() {
+    console.log("bulletin-map->render", this.props.store);
     const hlBulletin = this.props.store.activeBulletin;
 
     return (
@@ -191,9 +192,9 @@ class BulletinMap extends React.Component {
           {this.props.ampm && (
             <p className="bulletin-map-daytime">
               <span className="primary label">
-              {this.props.intl.formatMessage({
-                id: "bulletin:header:" + this.props.ampm
-              })}
+                {this.props.intl.formatMessage({
+                  id: "bulletin:header:" + this.props.ampm
+                })}
               </span>
             </p>
           )}

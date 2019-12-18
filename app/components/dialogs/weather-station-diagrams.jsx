@@ -1,7 +1,6 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage, FormattedNumber } from "react-intl";
-import Selectric from "../selectric";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
@@ -67,6 +66,27 @@ class WeatherStationDiagrams extends React.Component {
     let stationInfo = this.assambleStationInfo(stationData);
     return (
       <div className="modal-weatherstation">
+        <div className="modal-flipper">
+          <div className="flipper-controls">
+            <div className="grid flipper-left-right">
+              <div className="all-6 grid-item">
+                <a
+                  href="#"
+                  title="Previous Station"
+                  className="icon-link icon-arrow-left tooltip flipper-left"
+                ></a>
+              </div>
+              <div className="all-6 grid-item">
+                <a
+                  href="#"
+                  title="Next Station"
+                  className="icon-link icon-arrow-right tooltip flipper-right"
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="modal-header">
           <p className="caption">
             {this.props.intl.formatMessage({
@@ -101,27 +121,26 @@ class WeatherStationDiagrams extends React.Component {
             ))}
           </ul>
 
-          <form className="pure-form pure-form-stacked">
-            <label htmlFor="timerange">
-              <FormattedHTMLMessage id="dialog:weather-station-diagram:timerange:header" />
-            </label>
-            <ul className="list-inline list-buttongroup">
-              <li>
-                <Selectric
-                  onChange={this.handleChangeTimeRange}
-                  value={this.state.timeRange}
-                >
-                  {Object.keys(self.timeRanges).map(key => (
-                    <option key={key} value={key}>
-                      {self.props.intl.formatMessage({
-                        id: "dialog:weather-station-diagram:timerange:" + key
-                      })}
-                    </option>
-                  ))}
-                </Selectric>
-              </li>
-            </ul>
-          </form>
+          <ul className="list-inline filter primary">
+            {Object.keys(self.timeRanges).map(key => {
+              let classes = ["label"];
+              if (key == self.state.timeRange) classes.push("js-active");
+              return (
+                <li>
+                  <a
+                    href="javascript:void()"
+                    onClick={self.handleChangeTimeRange.bind(self, key)}
+                    key={key}
+                    className={classes.join(" ")}
+                  >
+                    {self.props.intl.formatMessage({
+                      id: "dialog:weather-station-diagram:timerange:" + key
+                    })}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
 
           {stationData && (
             <img
