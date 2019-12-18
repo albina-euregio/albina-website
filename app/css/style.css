@@ -6008,6 +6008,9 @@ a.weather-map-details-button:hover {
   font-weight: 400;
   letter-spacing: 0.05em;
 }
+.table-measurements tr:hover {
+  cursor: pointer;
+}
 .table-measurements tr:hover td.mb-station.m-name {
   background-color: #f2f7fa;
   -webkit-transition: all 0.125s ease-out;
