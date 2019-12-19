@@ -45,7 +45,7 @@ export default class BlogStore {
   _posts;
 
   // show only 5 blog posts when the mobile phone is detected
-  perPage = L.Browser.mobile ? 5 : 10;
+  perPage = L.Browser.mobile ? 20 : 20;
   getHistory;
 
   update() {

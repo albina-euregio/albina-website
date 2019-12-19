@@ -226,14 +226,7 @@ class LeafletMap extends React.Component {
         {...mapOptions}
         attributionControl={false}
       >
-        <AttributionControl
-          prefix={
-            '<a target="_blank" href="https://leafletjs.com/">Leaflet</a> | ' +
-            config.get("map.attribution") +
-            " | v." +
-            config.get("version")
-          }
-        />
+        <AttributionControl prefix={config.get("map.attribution")} />
         {this.tileLayers}
         {this.props.overlays}
       </Map>
@@ -255,14 +248,7 @@ class LeafletMap extends React.Component {
         {...mapOptions}
         attributionControl={false}
       >
-        <AttributionControl
-          prefix={
-            '<a target="_blank" href="https://leafletjs.com/">Leaflet</a> | ' +
-            config.get("map.attribution") +
-            " | v." +
-            config.get("version")
-          }
-        />
+        <AttributionControl prefix={config.get("map.attribution")} />
         <ScaleControl imperial={false} position="bottomleft" />
         {this.props.controls}
         {this.tileLayers}
