@@ -47,7 +47,7 @@ class BulletinMap extends React.Component {
             ".html"
         ),
         iconOn: true,
-        delay: 1000
+        delay: 5000
       };
 
       this.infoMessageLevels.empty = {

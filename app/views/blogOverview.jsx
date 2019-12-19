@@ -39,7 +39,7 @@ class BlogOverview extends React.Component {
           "/blog"
         ),
         iconOn: true,
-        delay: 1000
+        delay: 5000
       },
       noData: {
         message: renderLinkedMessage(
