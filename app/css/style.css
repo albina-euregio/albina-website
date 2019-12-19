@@ -6659,7 +6659,7 @@ a.weather-map-details-button:hover {
   background-repeat: no-repeat;
   border: 0;
   position: relative;
-  display: block;
+  display: inline-block;
   height: 3.59375em;
   width: 11.375em;
   background: transparent url("../images/pro/logos/logo_eaws.png") no-repeat 0 0;
