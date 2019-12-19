@@ -40,18 +40,13 @@ class GridOverlay extends React.Component {
         coordinates={coordinates}
         data={markerData}
         value={value}
-        selected={
-          this.props.selectedFeature && data.properties.id == this.props.selectedFeature.id
-        }
         color={this.getColor(value)}
         direction={
           this.props.item.direction && value >= 3.5
             ? data.properties[this.props.item.direction]
             : false
         }
-        onClick={() => {
-          this.props.onMarkerSelected(markerData);
-        }}
+        onClick={() => {}}
       />
     );
   }
@@ -61,13 +56,11 @@ class GridOverlay extends React.Component {
       .filter(point => point.properties[this.props.item.id] !== false)
       .filter(point => point.properties.zoom <= this.props.zoom);
 
-      ? gridPoints.find(point => point.properties.id == this.props.selectedFeature.id)
     return (
       <div>
         <FeatureGroup key={this.props.item.id + "-" + this.props.zoom}>
           {gridPoints.map(point => this.renderMarker(point))}>
         </FeatureGroup>
-        {selectedFeature && this.renderMarker(selectedFeature)}
       </div>
     );
   }
