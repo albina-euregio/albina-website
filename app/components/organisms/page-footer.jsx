@@ -5,12 +5,17 @@ import Menu from "../menu";
 import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
 import { Util } from "leaflet";
-import Tilt from "react-tilt";
+window["tilty"] = require("vanilla-tilt");
 
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
 
 class PageFooter extends React.Component {
+  componentDidMount() {
+    window["tilty"].init(this.refs["logoTertiary"]);
+    window["tilty"].init(this.refs["logoSecondary"]);
+  }
+
   render() {
     return (
       <div id="page-footer" className="page-footer">
@@ -53,36 +58,36 @@ class PageFooter extends React.Component {
                 </a>
                 , {config.get("versionDate")}
               </p>
-              <Tilt options={window["tiltySettings"]}>
-                <p className="page-footer-logo-tertiary">
-                  <a
-                    href="https://www.avalanches.org/"
-                    data-tilty
-                    className="footer-logo-tertiary tooltip"
-                    title="EAWS"
-                    target="_blank"
-                  >
-                    <span>EAWS</span>
-                  </a>
-                </p>
-              </Tilt>
-              <Tilt options={window["tiltySettings"]}>
-                <p className="page-footer-logo-secondary">
-                  <a
-                    href={Util.template(config.get("links.interreg"), {
-                      lang: window["appStore"].language
-                    })}
-                    data-tilty
-                    className="header-footer-logo-secondary tooltip"
-                    title={this.props.intl.formatMessage({
-                      id: "footer:euregio:hover"
-                    })}
-                    target="_blank"
-                  >
-                    <span>Euregio</span>
-                  </a>
-                </p>
-              </Tilt>
+
+              <p className="page-footer-logo-tertiary">
+                <a
+                  href="https://www.avalanches.org/"
+                  ref="logoTertiary"
+                  data-tilty
+                  className="footer-logo-tertiary tooltip"
+                  title="EAWS"
+                  target="_blank"
+                >
+                  <span>EAWS</span>
+                </a>
+              </p>
+
+              <p className="page-footer-logo-secondary">
+                <a
+                  href={Util.template(config.get("links.interreg"), {
+                    lang: window["appStore"].language
+                  })}
+                  ref="logoSecondary"
+                  data-tilty
+                  className="header-footer-logo-secondary tooltip"
+                  title={this.props.intl.formatMessage({
+                    id: "footer:euregio:hover"
+                  })}
+                  target="_blank"
+                >
+                  <span>Euregio</span>
+                </a>
+              </p>
             </div>
             <div className="grid-item all-12">
               <p className="page-footer-top">
