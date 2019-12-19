@@ -14,7 +14,7 @@ import ProvinceFilter from "../components/filters/province-filter";
 import LanguageFilter from "../components/filters/language-filter";
 import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
-import TagFilter from "../components/filters/tag-filter";
+// import TagFilter from "../components/filters/tag-filter";
 import InfoBar from "../components/organisms/info-bar";
 
 class BlogOverview extends React.Component {
