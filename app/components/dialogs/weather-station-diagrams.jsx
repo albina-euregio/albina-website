@@ -126,11 +126,10 @@ class WeatherStationDiagrams extends React.Component {
               let classes = ["label"];
               if (key == self.state.timeRange) classes.push("js-active");
               return (
-                <li>
+                <li key={key}>
                   <a
                     href="javascript:void()"
                     onClick={self.handleChangeTimeRange.bind(self, key)}
-                    key={key}
                     className={classes.join(" ")}
                   >
                     {self.props.intl.formatMessage({
