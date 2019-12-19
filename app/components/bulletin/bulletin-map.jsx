@@ -5,6 +5,7 @@ import { Parser } from "html-to-react";
 import { ImageOverlay } from "react-leaflet";
 import { renderLinkedMessage } from "../intlHelper";
 import InfoBar from "../organisms/info-bar";
+import { dateToISODateString, parseDate } from "../../util/date";
 
 import LeafletMap from "../leaflet/leaflet-map";
 import BulletinMapDetails from "./bulletin-map-details";
@@ -17,33 +18,45 @@ class BulletinMap extends React.Component {
     super(props);
     this.map = false;
     this.lastDate;
-
     this.infoMessageLevels = {
       init: {
         message: "",
         iconOn: true
       },
-      pending: {
+      ok: { message: "", keep: true }
+    };
+    if (!window.mapStore) {
+      window.mapStore = new MapStore();
+    }
+  }
+
+  componentDidUpdate() {
+    this.setInfoMessages();
+  }
+
+  setInfoMessages() {
+    if (this.props.date) {
+      this.infoMessageLevels.pending = {
         message: renderLinkedMessage(
-          props.intl,
+          this.props.intl,
           "bulletin:header:info-loading-data-slow",
-          "http://transporter.at"
+          "https://avalanche.report/simple/" +
+            dateToISODateString(parseDate(this.props.date)) +
+            "/" +
+            window["appStore"].language +
+            ".html"
         ),
         iconOn: true,
-        delay: 5000
-      },
-      empty: {
+        delay: 1000
+      };
+
+      this.infoMessageLevels.empty = {
         message: renderLinkedMessage(
-          props.intl,
+          this.props.intl,
           "bulletin:header:info-no-data",
           "/blog"
         )
-      },
-      ok: { message: "", keep: true }
-    };
-
-    if (!window.mapStore) {
-      window.mapStore = new MapStore();
+      };
     }
   }
 

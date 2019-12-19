@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { Parser } from "html-to-react";
 
@@ -14,10 +13,14 @@ function renderLinkedMessage(intl, intlId, link) {
   return (
     <span>
       {parts.length > 1 && new Parser().parse(parts[1])}
-      {parts.length > 2 && (
+      {parts.length > 2 && ["http://", "https://"].includes(link) ? (
         <Link to={link} className="tooltip" title={parts[2]}>
           <strong>{parts[2]}</strong>
         </Link>
+      ) : (
+        <a href={link} className="tooltip" title={parts[2]}>
+          <strong>{parts[2]}</strong>
+        </a>
       )}
       {parts.length > 3 && new Parser().parse(parts[3])}
     </span>
