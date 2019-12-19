@@ -105,7 +105,7 @@ class BulletinMap extends React.Component {
   }
 
   render() {
-    console.log("bulletin-map->render", this.props.store);
+    if (APP_DEV_MODE) console.log("bulletin-map->render", this.props.store);
     const hlBulletin = this.props.store.activeBulletin;
 
     return (
