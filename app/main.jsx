@@ -35,7 +35,6 @@ if (!APP_DEV_MODE) {
 /* bower components */
 window["jQuery"] = window["$"] = require("jquery");
 
-require("./bower_components/jquery-selectric/public/jquery.selectric.min.js");
 require("./bower_components/tilt_1.1.19/dest/tilt.jquery.min.js");
 window[
   "tippy"
