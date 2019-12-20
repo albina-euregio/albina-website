@@ -47,6 +47,7 @@
     "react-router-scroll-4": "^1.0.0-beta.2",
     "react-tilt": "^0.1.4",
     "regenerator-runtime": "^0.13.2",
+    "selectric": "^1.13.0",
     "url-search-params-polyfill": "^5.1.0",
     "window.requestanimationframe": "^1.0.1"
   },
