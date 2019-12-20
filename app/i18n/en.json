@@ -183,7 +183,7 @@
   "blog:filter:province:nothing-selected": "Select",
   "blog:filter:language": "Language",
   "blog:search": "Search posts",
-  "blog:page-flipper:page": "page",
+  "blog:page-flipper:page": "Page",
   "blog:page-flipper:no-posts": "No content found, please choose different filters.",
   "blog:overview:info-no-data": "Currently no blog data available. You can find our stand alone version <a>here</a>.",
   "blog:overview:info-loading-data-slow": "Loading blogs. In case of slow network you might consinder to use our <a>stand alone version</a>.",

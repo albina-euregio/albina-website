@@ -5,12 +5,16 @@ import Menu from "../menu";
 import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
 import { Util } from "leaflet";
-import Tilt from "react-tilt";
+if (!window["tilty"]) window["tilty"] = require("vanilla-tilt");
 
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
 
 class PageFooter extends React.Component {
+  componentDidMount() {
+    window["tilty"].init(document.querySelectorAll(".tilt"));
+  }
+
   render() {
     return (
       <div id="page-footer" className="page-footer">
@@ -53,23 +57,34 @@ class PageFooter extends React.Component {
                 </a>
                 , {config.get("versionDate")}
               </p>
-              <Tilt options={window["tiltySettings"]}>
-                <p className="page-footer-logo-secondary">
-                  <a
-                    href={Util.template(config.get("links.interreg"), {
-                      lang: window["appStore"].language
-                    })}
-                    data-tilty
-                    className="header-footer-logo-secondary tooltip"
-                    title={this.props.intl.formatMessage({
-                      id: "footer:euregio:hover"
-                    })}
-                    target="_blank"
-                  >
-                    <span>Euregio</span>
-                  </a>
-                </p>
-              </Tilt>
+
+              <p className="page-footer-logo-tertiary">
+                <a
+                  href="https://www.avalanches.org/"
+                  {...window["tiltySettings"]}
+                  className="footer-logo-tertiary tooltip tilt"
+                  title="EAWS"
+                  target="_blank"
+                >
+                  <span>EAWS</span>
+                </a>
+              </p>
+
+              <p className="page-footer-logo-secondary">
+                <a
+                  href={Util.template(config.get("links.interreg"), {
+                    lang: window["appStore"].language
+                  })}
+                  {...window["tiltySettings"]}
+                  className="header-footer-logo-secondary tooltip tilt"
+                  title={this.props.intl.formatMessage({
+                    id: "footer:euregio:hover"
+                  })}
+                  target="_blank"
+                >
+                  <span>Euregio</span>
+                </a>
+              </p>
             </div>
             <div className="grid-item all-12">
               <p className="page-footer-top">

@@ -122,7 +122,69 @@ class BulletinMap extends React.Component {
     return overlays;
   }
 
+  renderNoBulletinMessage() {
+    const msg = this.props.intl.formatHTMLMessage({
+      id: "bulletin:header:no-bulletin-info"
+    });
+
+    // split the string at <a> and </a>
+    const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/);
+
+    return (
+      <p>
+        {parts.length > 1 && new Parser().parse(parts[1])}
+        {parts.length > 2 && (
+          <Link to="/blog" className="tooltip" title={parts[2]}>
+            <strong>{parts[2]}</strong>
+          </Link>
+        )}
+        {parts.length > 3 && new Parser().parse(parts[3])}
+      </p>
+    );
+  }
+
+  getBulletinMapDetails(hlBulletin) {
+    let res = [];
+    let detailsClasses = ["bulletin-map-details", "top-right"];
+    if (hlBulletin) {
+      detailsClasses.push("js-active");
+      res.push(
+        <BulletinMapDetails
+          store={this.props.store}
+          bulletin={hlBulletin}
+          ampm={this.props.ampm}
+        />
+      );
+      res.push(
+        this.props.store.settings.region && (
+          <a
+            href={"#" + this.props.store.settings.region}
+            className="pure-button tooltip"
+            title={this.props.intl.formatMessage({
+              id: "bulletin:map:info:details:hover"
+            })}
+            data-scroll=""
+          >
+            {new Parser().parse(
+              this.props.intl.formatHTMLMessage({
+                id: "bulletin:map:info:details"
+              })
+            )}
+            <span className="icon-arrow-down" />
+          </a>
+        )
+      );
+    }
+
+    return (
+      <div style={this.styleOverMap()} className={detailsClasses.join(" ")}>
+        {res}
+      </div>
+    );
+  }
+
   render() {
+    if (APP_DEV_MODE) console.log("bulletin-map->render", this.props.store);
     const hlBulletin = this.props.store.activeBulletin;
 
     let newLevel = this.props.store.settings.status;
@@ -173,35 +235,8 @@ class BulletinMap extends React.Component {
               </div>
             </div>
           )}
-          {hlBulletin && (
-            <div
-              style={this.styleOverMap()}
-              className="bulletin-map-details js-active top-right"
-            >
-              <BulletinMapDetails
-                store={this.props.store}
-                bulletin={hlBulletin}
-                ampm={this.props.ampm}
-              />
-              {this.props.store.settings.region && (
-                <a
-                  href={"#" + this.props.store.settings.region}
-                  className="pure-button tooltip"
-                  title={this.props.intl.formatMessage({
-                    id: "bulletin:map:info:details:hover"
-                  })}
-                  data-scroll=""
-                >
-                  {new Parser().parse(
-                    this.props.intl.formatHTMLMessage({
-                      id: "bulletin:map:info:details"
-                    })
-                  )}
-                  <span className="icon-arrow-down" />
-                </a>
-              )}
-            </div>
-          )}
+          {this.getBulletinMapDetails(hlBulletin)}
+
           {this.props.ampm && (
             <p className="bulletin-map-daytime">
               <span className="primary label">

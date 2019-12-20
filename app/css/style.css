@@ -4331,6 +4331,14 @@ a.linkbox-blog-feature:hover .content-text .blog-feature-meta li {
   color: #19abff;
   border-color: #19abff;
 }
+.filter.primary .label:hover,
+.filter.primary .tippy-tooltip.custom-theme:hover,
+.filter.primary .label.js-active,
+.filter.primary .js-active.tippy-tooltip.custom-theme {
+  color: #fff;
+  border-color: #19abff;
+  background-color: #19abff;
+}
 .candybar {
   z-index: 9500;
   position: fixed;
@@ -4667,8 +4675,10 @@ a.linkbox-blog-feature:hover .content-text .blog-feature-meta li {
 }
 ul.bulletin-flipper {
   line-height: 1;
-  font-size: 0.8rem;
   letter-spacing: 0.05em;
+}
+.section-bulletin-header ul.bulletin-flipper {
+  font-size: 0.8rem;
 }
 ul.bulletin-flipper li {
   padding: 0 1.25rem 0 0;
@@ -4683,8 +4693,8 @@ ul.bulletin-flipper .bulletin-flipper-back span:before {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
-ul.bulletin-flipper .bulletin-flipper-back:hover span:before,
-ul.bulletin-flipper .bulletin-flipper-back:active span:before {
+ul.bulletin-flipper .bulletin-flipper-back a:hover span:before,
+ul.bulletin-flipper .bulletin-flipper-back a:active span:before {
   -webkit-transform: translateX(-0.3125rem);
   transform: translateX(-0.3125rem);
 }
@@ -4693,13 +4703,13 @@ ul.bulletin-flipper .bulletin-flipper-forward span:before {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
-ul.bulletin-flipper .bulletin-flipper-forward:hover span:before,
-ul.bulletin-flipper .bulletin-flipper-forward:active span:before {
+ul.bulletin-flipper .bulletin-flipper-forward a:hover span:before,
+ul.bulletin-flipper .bulletin-flipper-forward a:active span:before {
   -webkit-transform: translateX(0.3125rem);
   transform: translateX(0.3125rem);
 }
-ul.bulletin-flipper .bulletin-flipper-archive:hover,
-ul.bulletin-flipper .bulletin-flipper-archive:active {
+ul.bulletin-flipper .bulletin-flipper-archive a:hover,
+ul.bulletin-flipper .bulletin-flipper-archive a:active {
   display: inline-block;
 }
 @media only screen and (min-width: 30em) {
@@ -4747,7 +4757,7 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .bulletin-map {
   display: block;
-  height: 65vh;
+  height: 50vh;
   min-height: 400px;
   width: 100%;
   max-width: none;
@@ -5153,6 +5163,7 @@ ul.bulletin-flipper .bulletin-flipper-archive:active {
 }
 .weather-map-details p {
   margin: 0;
+  font-size: 0.8rem;
 }
 .weather-map-details .feature-name {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
@@ -5421,8 +5432,7 @@ a.weather-map-details-button:hover {
 }
 .bulletin-report-picto > a:link,
 .bulletin-report-picto > a:visited {
-  display: -webkit-box;
-  display: flex;
+  display: grid;
   color: #565f61;
 }
 .bulletin-report-picto > a:hover,
@@ -5783,6 +5793,24 @@ a.weather-map-details-button:hover {
 .footer-navigation .flipper-controls a.icon-link.has-sub:active:before {
   right: -0.3125rem;
 }
+.flipper-controls .flipper-left span:before,
+.flipper-controls .flipper-right span:before {
+  top: 0.175em;
+  margin-right: 0;
+  line-height: 0;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+.flipper-controls .flipper-left:hover span:before,
+.flipper-controls .flipper-left:active span:before {
+  -webkit-transform: translateX(-0.3125rem);
+  transform: translateX(-0.3125rem);
+}
+.flipper-controls .flipper-right:hover span:before,
+.flipper-controls .flipper-right:active span:before {
+  -webkit-transform: translateX(0.3125rem);
+  transform: translateX(0.3125rem);
+}
 .flipper-buttongroup {
   margin-bottom: 0.625rem;
 }
@@ -5830,7 +5858,7 @@ a.weather-map-details-button:hover {
 }
 .flipper-content .flipper-item {
   float: left;
-  width: 100vw;
+  width: calc(100vw - 2em);
   padding: 0;
   opacity: 1;
   -webkit-transition: all 0.25s ease-in-out;
@@ -5978,6 +6006,9 @@ a.weather-map-details-button:hover {
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-weight: 400;
   letter-spacing: 0.05em;
+}
+.table-measurements tr:hover {
+  cursor: pointer;
 }
 .table-measurements tr:hover td.mb-station.m-name {
   background-color: #f2f7fa;
@@ -6627,7 +6658,7 @@ a.weather-map-details-button:hover {
   background-repeat: no-repeat;
   border: 0;
   position: relative;
-  display: block;
+  display: inline-block;
   height: 3.59375em;
   width: 11.375em;
   background: transparent url("../images/pro/logos/logo_eaws.png") no-repeat 0 0;
@@ -8071,12 +8102,6 @@ iframe#stationTable .dataTables_scrollBody {
 ´ .selectric-wrapper.disabled .selectric {
   opacity: 0.5;
 }
-.flipper-controls .icon-arrow {
-  vertical-align: sub;
-}
-.flipper-controls .icon-arrow ::before {
-  line-height: 100%;
-}
 .bulletin-datetime-validity {
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
@@ -8138,23 +8163,18 @@ a.share-feed {
   text-align: center;
   color: #19abff;
 }
-.section.blog-page-flipper .blog-page-flipper .page-flipper-separator,
-.blog-page-flipper.section-centered .blog-page-flipper .page-flipper-separator,
-.blog-page-flipper.section-padding .blog-page-flipper .page-flipper-separator,
-.blog-page-flipper.section-padding-width
-  .blog-page-flipper
-  .page-flipper-separator,
-.blog-page-flipper.section-padding-height
-  .blog-page-flipper
-  .page-flipper-separator {
+.section.blog-page-flipper ul .bulletin-flipper-separator,
+.blog-page-flipper.section-centered ul .bulletin-flipper-separator,
+.blog-page-flipper.section-padding ul .bulletin-flipper-separator,
+.blog-page-flipper.section-padding-width ul .bulletin-flipper-separator,
+.blog-page-flipper.section-padding-height ul .bulletin-flipper-separator {
   color: #565f61;
-  margin: 0 2rem;
 }
-.section.blog-page-flipper .blog-page-flipper a span:before,
-.blog-page-flipper.section-centered .blog-page-flipper a span:before,
-.blog-page-flipper.section-padding .blog-page-flipper a span:before,
-.blog-page-flipper.section-padding-width .blog-page-flipper a span:before,
-.blog-page-flipper.section-padding-height .blog-page-flipper a span:before {
+.section.blog-page-flipper ul a span:before,
+.blog-page-flipper.section-centered ul a span:before,
+.blog-page-flipper.section-padding ul a span:before,
+.blog-page-flipper.section-padding-width ul a span:before,
+.blog-page-flipper.section-padding-height ul a span:before {
   top: 0.175em;
   line-height: 0;
 }

@@ -77,11 +77,11 @@ class Weather extends React.Component {
   };
 
   handleMarkerSelected = feature => {
-    console.log(
-      "handleMarkerSelected",
-      this.store.stations.features.find(point => point.id == feature.id)
-    );
-
+    if (!feature) return;
+    // console.log(
+    //   "handleMarkerSelected", feature
+    //   ,this.store.stations.features.find(point => point.id == feature.id)
+    // );
     if (feature.id) {
       window["modalStateStore"].setData({
         stationData: this.store.stations.features.find(

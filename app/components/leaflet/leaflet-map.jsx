@@ -137,6 +137,7 @@ class LeafletMap extends React.Component {
 
       window.setTimeout(() => {
         $(".leaflet-control-zoom a").addClass("tooltip");
+        $(".leaflet-control-locate a").addClass("tooltip");
         tooltip_init();
       }, 100);
 
@@ -152,10 +153,7 @@ class LeafletMap extends React.Component {
   }
 
   get tileLayers() {
-    const tileLayerConfig = config.get("map.tileLayers").map(l => {
-      l.url = l.url.replace(/{v}/, encodeURIComponent(config.get("version")));
-      return l;
-    });
+    const tileLayerConfig = config.get("map.tileLayers");
     let tileLayers = "";
     if (tileLayerConfig.length == 1) {
       // only a single raster layer -> no layer control

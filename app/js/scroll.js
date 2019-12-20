@@ -55,7 +55,7 @@ let scroll_direction = () => {
 
   let header_visible = 1; //header visibility
   let top_fix = $(".top-fix");
-  let top_fix_follow = $(".top-fix-follow");
+  let top_fix_follow = $(".top-fix + section");
 
   let top_fix_offset = top_fix.offset();
   let topfix_height_now = topfix_height();
@@ -71,6 +71,7 @@ let scroll_direction = () => {
 
   window.onscroll = function() {
     s_pos_new = this.pageYOffset;
+    top_fix_follow = $(".top-fix + section");
 
     if (s_pos_new < 20) {
       //up
@@ -81,12 +82,14 @@ let scroll_direction = () => {
         //up
         if (Math.abs(s_pos_new - s_pos_old) > s_dis_up) {
           page_body.removeClass("scrolling-down");
+          header_visible = 1;
           s_pos_old = s_pos_new;
         }
       } else {
         //down
         if (Math.abs(s_pos_new - s_pos_old) > s_dis_down) {
           page_body.addClass("scrolling-down");
+          header_visible = 0;
           s_pos_old = s_pos_new;
         }
       }

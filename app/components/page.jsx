@@ -91,17 +91,14 @@ class Page extends React.Component {
           <PageHeader />
           <main id="page-main" className="page-main">
             {APP_ENVIRONMENT === "dev" && (
-              <div
-                style={{
-                  backgroundColor: "yellow",
-                  fontWeight: "bold",
-                  padding: "20px",
-                  textAlign: "center"
-                }}
-              >
-                This is a <em>development</em> version of albina-website –{" "}
-                <strong>no real data is shown</strong>!
-              </div>
+              <section class="section controlbar controlbar-notice">
+                <div class="section-centered">
+                  <p class="align-center">
+                    This is a development version –{" "}
+                    <strong>no real data is shown!</strong>
+                  </p>
+                </div>
+              </section>
             )}
             <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
           </main>
