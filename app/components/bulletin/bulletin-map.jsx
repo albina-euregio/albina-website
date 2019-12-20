@@ -3,7 +3,9 @@ import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
 import { ImageOverlay } from "react-leaflet";
-import { Link } from "react-router-dom";
+import { renderLinkedMessage } from "../intlHelper";
+import InfoBar from "../organisms/info-bar";
+import { dateToISODateString, parseDate } from "../../util/date";
 
 import LeafletMap from "../leaflet/leaflet-map";
 import BulletinMapDetails from "./bulletin-map-details";
@@ -15,9 +17,46 @@ class BulletinMap extends React.Component {
   constructor(props) {
     super(props);
     this.map = false;
-
+    this.lastDate;
+    this.infoMessageLevels = {
+      init: {
+        message: "",
+        iconOn: true
+      },
+      ok: { message: "", keep: true }
+    };
     if (!window.mapStore) {
       window.mapStore = new MapStore();
+    }
+  }
+
+  componentDidUpdate() {
+    this.setInfoMessages();
+  }
+
+  setInfoMessages() {
+    if (this.props.date) {
+      this.infoMessageLevels.pending = {
+        message: renderLinkedMessage(
+          this.props.intl,
+          "bulletin:header:info-loading-data-slow",
+          "https://avalanche.report/simple/" +
+            dateToISODateString(parseDate(this.props.date)) +
+            "/" +
+            window["appStore"].language +
+            ".html"
+        ),
+        iconOn: true,
+        delay: 5000
+      };
+
+      this.infoMessageLevels.empty = {
+        message: renderLinkedMessage(
+          this.props.intl,
+          "bulletin:header:info-no-data",
+          "/blog"
+        )
+      };
     }
   }
 
@@ -148,28 +187,24 @@ class BulletinMap extends React.Component {
     if (APP_DEV_MODE) console.log("bulletin-map->render", this.props.store);
     const hlBulletin = this.props.store.activeBulletin;
 
+    let newLevel = this.props.store.settings.status;
+    if (this.lastDate != this.props.date) {
+      newLevel = "init";
+      this.lastDate = this.props.date;
+    }
+
     return (
       <section
         id="section-bulletin-map"
         className="section section-bulletin section-bulletin-map"
       >
+        <InfoBar level={newLevel} levels={this.infoMessageLevels} />
         <div
           className={
             "section-map" +
             (config.get("map.useWindowWidth") ? "" : " section-centered")
           }
         >
-          {/*
-              no-bulletin banner
-            */
-          ["", "empty"].includes(this.props.store.settings.status) &&
-            config.get("bulletin.noBulletinBanner") && (
-              <section className="bulletin-map-bulletinbar">
-                <div className="controlbar">
-                  {this.renderNoBulletinMessage()}
-                </div>
-              </section>
-            )}
           <LeafletMap
             loaded={this.props.regions && this.props.regions.length > 0}
             onViewportChanged={this.props.handleMapViewportChanged}
