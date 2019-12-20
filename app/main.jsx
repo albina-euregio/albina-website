@@ -45,9 +45,9 @@ window["staticPageStore"] = new StaticPageStore();
 window["modalStateStore"] = new ModalStateStore();
 window["scroll_duration"] = 1000;
 window["tiltySettings"] = {
-  speed: window["scroll_duration"] / 2,
-  transition: false,
-  scale: 1.1
+  "data-tilt-speed": window["scroll_duration"] / 2,
+  "data-tilt-transition": "false",
+  "data-tilt-scale": 1.1
 };
 
 require("./js/custom.js");
