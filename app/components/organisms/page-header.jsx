@@ -5,7 +5,7 @@ import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import Menu from "./../menu";
 import { Util } from "leaflet";
-window["tilty"] = require("vanilla-tilt");
+if (!window["tilty"]) window["tilty"] = require("vanilla-tilt");
 
 import menuItems from "../../menu.json";
 

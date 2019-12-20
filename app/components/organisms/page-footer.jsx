@@ -5,7 +5,7 @@ import Menu from "../menu";
 import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
 import { Util } from "leaflet";
-window["tilty"] = require("vanilla-tilt");
+if (!window["tilty"]) window["tilty"] = require("vanilla-tilt");
 
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
