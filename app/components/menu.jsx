@@ -41,7 +41,7 @@ class Menu extends React.Component {
         this.props.activeClassName ? this.props.activeClassName : "active"
       );
     }
-    if (e.children && e.children.length > 0) {
+    if (e.showSub || (e.children && e.children.length > 0)) {
       classes.push("has-sub");
     }
     const title =
