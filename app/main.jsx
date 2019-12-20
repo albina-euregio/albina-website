@@ -49,7 +49,7 @@ window["modalStateStore"] = new ModalStateStore();
 window["scroll_duration"] = 1000;
 window["tiltySettings"] = {
   speed: window["scroll_duration"] / 2,
-  transition: false,
+  transition: 0,
   scale: 1.1
 };
 

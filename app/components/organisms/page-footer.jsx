@@ -12,8 +12,7 @@ import footerMenuMain from "../../menu-footer-main.json";
 
 class PageFooter extends React.Component {
   componentDidMount() {
-    window["tilty"].init(this.refs["logoTertiary"]);
-    window["tilty"].init(this.refs["logoSecondary"]);
+    window["tilty"].init(document.querySelectorAll(".tilt"));
   }
 
   render() {
@@ -62,9 +61,8 @@ class PageFooter extends React.Component {
               <p className="page-footer-logo-tertiary">
                 <a
                   href="https://www.avalanches.org/"
-                  ref="logoTertiary"
-                  data-tilty
-                  className="footer-logo-tertiary tooltip"
+                  {...window["tiltySettings"]}
+                  className="footer-logo-tertiary tooltip tilt"
                   title="EAWS"
                   target="_blank"
                 >
@@ -77,9 +75,8 @@ class PageFooter extends React.Component {
                   href={Util.template(config.get("links.interreg"), {
                     lang: window["appStore"].language
                   })}
-                  ref="logoSecondary"
-                  data-tilty
-                  className="header-footer-logo-secondary tooltip"
+                  {...window["tiltySettings"]}
+                  className="header-footer-logo-secondary tooltip tilt"
                   title={this.props.intl.formatMessage({
                     id: "footer:euregio:hover"
                   })}

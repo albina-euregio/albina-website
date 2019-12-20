@@ -11,8 +11,7 @@ import menuItems from "../../menu.json";
 
 class PageHeader extends React.Component {
   componentDidMount() {
-    window["tilty"].init(this.refs["logoImg"]);
-    window["tilty"].init(this.refs["interregImg"]);
+    window["tilty"].init(document.querySelectorAll(".tilt"));
   }
 
   // changing language on header language button click
@@ -56,9 +55,11 @@ class PageHeader extends React.Component {
 
     return (
       <div id="page-header" className="page-header" data-scroll-header>
-        <div className="page-header-logo" ref="logoImg" data-tilty>
+        <div className="page-header-logo">
           <Link
             to="/"
+            ref="logoImg"
+            {...window["tiltySettings"]}
             className="tooltip tilt"
             title={this.props.intl.formatMessage({
               id: "header:logo:hover"
@@ -144,8 +145,8 @@ class PageHeader extends React.Component {
             href={Util.template(config.get("links.interreg"), {
               lang: lang
             })}
-            ref="interregImg"
-            className="header-footer-logo-secondary tooltip"
+            {...window["tiltySettings"]}
+            className="header-footer-logo-secondary tooltip tilt"
             title={this.props.intl.formatMessage({
               id: "header:euregio:hover"
             })}
