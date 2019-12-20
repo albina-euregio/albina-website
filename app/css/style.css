@@ -1,3 +1,6 @@
+.huhu {
+  color: äFAC;
+}
 *,
 *:before,
 *:after {
@@ -4748,6 +4751,12 @@ ul.bulletin-flipper .bulletin-flipper-archive a:active {
 }
 .section-bulletin-map .section-map {
   height: 50vh;
+}
+.section-map.bulletin-map-static {
+  background: #fac;
+}
+.section-map.bulletin-map-static .bulletin-map-google {
+  display: none;
 }
 .bulletin-map {
   display: block;
