@@ -36,9 +36,6 @@ if (!APP_DEV_MODE) {
 window["jQuery"] = window["$"] = require("jquery");
 
 require("./bower_components/tilt_1.1.19/dest/tilt.jquery.min.js");
-window[
-  "tippy"
-] = require("./bower_components/tippyjs_2.2.3/dist/tippy.all.min.js");
 
 // TODO: check content API for maintenance mode before starting the app
 window["appStore"] = new AppStore();
