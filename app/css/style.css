@@ -5432,8 +5432,7 @@ a.weather-map-details-button:hover {
 }
 .bulletin-report-picto > a:link,
 .bulletin-report-picto > a:visited {
-  display: -webkit-box;
-  display: flex;
+  display: grid;
   color: #565f61;
 }
 .bulletin-report-picto > a:hover,
