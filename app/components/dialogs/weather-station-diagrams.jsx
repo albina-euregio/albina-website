@@ -66,7 +66,7 @@ class WeatherStationDiagrams extends React.Component {
     let stationInfo = this.assambleStationInfo(stationData);
     return (
       <div className="modal-weatherstation">
-        <div className="modal-flipper">
+        {/* <div className="modal-flipper">
           <div className="flipper-controls">
             <div className="grid flipper-left-right">
               <div className="all-6 grid-item">
@@ -85,7 +85,7 @@ class WeatherStationDiagrams extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="modal-header">
           <p className="caption">
