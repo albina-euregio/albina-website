@@ -2,6 +2,7 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
+import { renderLinkedMessage } from "../components/intlHelper";
 import BlogStore from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -14,6 +15,7 @@ import LanguageFilter from "../components/filters/language-filter";
 import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
 // import TagFilter from "../components/filters/tag-filter";
+import InfoBar from "../components/organisms/info-bar";
 
 class BlogOverview extends React.Component {
   _settingFilters;
@@ -25,12 +27,37 @@ class BlogOverview extends React.Component {
     }
     this.settingFilters = false;
 
+    this.infoMessageLevels = {
+      init: {
+        message: "",
+        iconOn: true
+      },
+      loading: {
+        message: renderLinkedMessage(
+          props.intl,
+          "blog:overview:info-loading-data-slow",
+          "/blog"
+        ),
+        iconOn: true,
+        delay: 5000
+      },
+      noData: {
+        message: renderLinkedMessage(
+          props.intl,
+          "blog:overview:info-no-data",
+          "/blog"
+        )
+      },
+      ok: { message: "", keep: true }
+    };
+
     this.store = window["blogStore"];
     this.state = {
       title: "",
       headerText: "",
       content: "",
-      sharable: false
+      sharable: false,
+      currentInfoMessage: ""
     };
   }
 
@@ -53,7 +80,6 @@ class BlogOverview extends React.Component {
         sharable: responseParsed.data.attributes.sharable
       });
     });
-
     return this._fetchData();
   }
 
@@ -62,6 +88,7 @@ class BlogOverview extends React.Component {
   }
 
   doStoreUpdate() {
+    console.log("doStoreUpdate");
     this.store.update();
     this.settingFilters = false;
   }
@@ -126,6 +153,18 @@ class BlogOverview extends React.Component {
 
   render() {
     const classChanged = "selectric-changed";
+
+    let newLevel = this.store.loading ? "loading" : "ok";
+    if (newLevel === "ok" && this.store.postsList.length == 0)
+      newLevel = "noData";
+
+    console.log(
+      "render v2",
+      this.store.loading,
+      this.store.postsList && this.store.postsList.length,
+      newLevel
+    );
+
     return (
       <div>
         <HTMLHeader title={this.state.title} />
@@ -240,6 +279,7 @@ class BlogOverview extends React.Component {
             </div>
           )}
         </section>
+        <InfoBar level={newLevel} levels={this.infoMessageLevels} />
         <section className="section-padding-height section-blog-posts">
           <div className="section-centered">
             <BlogPostsList
