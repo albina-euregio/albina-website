@@ -69,7 +69,7 @@ class StationMeasurements extends React.Component {
     const classChanged = "selectric-changed";
     const hideFilters = ["snow", "temp", "wind"];
     return (
-      <div>
+      <>
         <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.state.title}
@@ -136,7 +136,7 @@ class StationMeasurements extends React.Component {
         ) : (
           <div className="section-padding"></div>
         )}
-      </div>
+      </>
     );
   }
 }

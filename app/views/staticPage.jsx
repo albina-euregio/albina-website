@@ -53,7 +53,7 @@ export default class StaticPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.state.title}
@@ -66,7 +66,7 @@ export default class StaticPage extends React.Component {
         ) : (
           <div className="section-padding" />
         )}
-      </div>
+      </>
     );
   }
 }

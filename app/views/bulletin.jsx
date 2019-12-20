@@ -13,7 +13,7 @@ import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import {parseDate, dateToLongDateString} from '../util/date.js';
+import { parseDate, dateToLongDateString } from "../util/date.js";
 import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
@@ -66,10 +66,7 @@ class Bulletin extends React.Component {
       }
     );
 
-    reaction(
-      () => this.store.latest,
-      () => this.componentDidUpdate({})
-    );
+    reaction(() => this.store.latest, () => this.componentDidUpdate({}));
     return this._fetchData(this.props);
     // this.checkRegion()
   }
@@ -184,7 +181,7 @@ class Bulletin extends React.Component {
         : "";
 
     return (
-      <div>
+      <>
         <HTMLHeader
           title={this.state.title}
           description={shareDescription}
@@ -246,9 +243,9 @@ class Bulletin extends React.Component {
           />
         )}
         {/* <div className="section-padding section-centered"> */}
-          {preprocessContent(this.state.content)}
+        {preprocessContent(this.state.content)}
         {/* </div> */}
-      </div>
+      </>
     );
   }
 }

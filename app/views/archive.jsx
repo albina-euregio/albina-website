@@ -101,7 +101,7 @@ class Archive extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.state.title}
@@ -195,7 +195,7 @@ class Archive extends React.Component {
         ) : (
           <div className="section-padding" />
         )}
-      </div>
+      </>
     );
   }
 }

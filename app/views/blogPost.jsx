@@ -148,7 +148,7 @@ export default class BlogPost extends React.Component {
   /*<li className="blog-author">{this.state.author}</li> */
   render() {
     return (
-      <div>
+      <>
         <HTMLHeader title={this.state.title} />
         <PageHeadline title={this.state.title} subtitle="Blog">
           <ul className="list-inline blog-feature-meta">
@@ -165,7 +165,7 @@ export default class BlogPost extends React.Component {
         <section className="section-centered ">
           <section className="panel blog-post">{this.state.content}</section>
         </section>
-      </div>
+      </>
     );
   }
 }

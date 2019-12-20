@@ -14,7 +14,7 @@ export default class OverviewPage extends StaticPage {
 
   render() {
     return (
-      <div>
+      <>
         <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.state.title}
@@ -23,13 +23,12 @@ export default class OverviewPage extends StaticPage {
         <section className="section section-features">
           {this.state.content}
         </section>
-        <div className="clearfix"></div>
         {this.state.sharable ? (
           <SmShare />
         ) : (
           <div className="section-padding"></div>
         )}
-      </div>
+      </>
     );
   }
 }

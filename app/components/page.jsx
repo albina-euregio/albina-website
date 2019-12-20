@@ -86,26 +86,25 @@ class Page extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <PageLoadingScreen />
         {false && <Jumpnav />}
-        <div id="page-all" className="page-all">
-          <PageHeader />
-          <main id="page-main" className="page-main">
-            {APP_ENVIRONMENT === "dev" && (
-              <section class="section controlbar controlbar-notice">
-                <div class="section-centered">
-                  <p class="align-center">
-                    This is a development version –{" "}
-                    <strong>no real data is shown!</strong>
-                  </p>
-                </div>
-              </section>
-            )}
-            <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
-          </main>
-          <PageFooter />
-        </div>
+
+        <PageHeader />
+        <main id="page-main" className="page-main">
+          {APP_ENVIRONMENT === "dev" && (
+            <section class="section controlbar controlbar-notice">
+              <div class="section-centered">
+                <p class="align-center">
+                  This is a development version –{" "}
+                  <strong>no real data is shown!</strong>
+                </p>
+              </div>
+            </section>
+          )}
+          {renderRoutes(this.props.route.routes)}
+        </main>
+        <PageFooter />
         <ModalDialog id="weatherStationDiagrams">
           <WeatherStationDiagrams />
         </ModalDialog>
@@ -132,7 +131,7 @@ class Page extends React.Component {
         </ModalDialog>
         {config.get("dialogs.cookieConsent") && <CookieConsent />}
         {config.get("dialogs.feedback") && <FeedbackDialog />}
-      </div>
+      </>
     );
   }
 }
