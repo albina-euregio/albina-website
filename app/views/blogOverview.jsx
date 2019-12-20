@@ -13,7 +13,7 @@ import ProvinceFilter from "../components/filters/province-filter";
 import LanguageFilter from "../components/filters/language-filter";
 import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
-import TagFilter from "../components/filters/tag-filter";
+// import TagFilter from "../components/filters/tag-filter";
 
 class BlogOverview extends React.Component {
   _settingFilters;
@@ -161,7 +161,7 @@ class BlogOverview extends React.Component {
             value={this.store.regionActive}
             className={this.store.regionActive !== "all" ? classChanged : ""}
           />
-          <TagFilter
+          {/* <TagFilter
             title={this.props.intl.formatMessage({
               id: "blog:filter:avalanche-problem"
             })}
@@ -175,7 +175,7 @@ class BlogOverview extends React.Component {
                 ? "disabled"
                 : ""
             }
-          />
+          /> */}
           <YearFilter
             title={this.props.intl.formatMessage({
               id: "blog:filter:year"

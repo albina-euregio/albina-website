@@ -39,7 +39,6 @@ export default class StaticPage extends React.Component {
       .substr(config.get("projectRoot"))
       .replace(/^\//, "");
 
-    // TODO: use subqueries to eleiminate the need of an additional API roundtrip: https://www.drupal.org/project/subrequests
     if (site) {
       window["staticPageStore"].loadPage(site).then(responseParsed => {
         this.setState({

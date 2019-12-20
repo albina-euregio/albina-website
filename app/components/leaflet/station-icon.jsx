@@ -72,7 +72,7 @@ export default class StationIcon extends React.Component {
 
   render() {
     const s = 10;
-    const svgS = 50;
+    const svgS = 25;
     return (
       <svg
         className={

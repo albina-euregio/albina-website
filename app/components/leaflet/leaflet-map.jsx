@@ -153,10 +153,7 @@ class LeafletMap extends React.Component {
   }
 
   get tileLayers() {
-    const tileLayerConfig = config.get("map.tileLayers").map(l => {
-      l.url = l.url.replace(/{v}/, encodeURIComponent(config.get("version")));
-      return l;
-    });
+    const tileLayerConfig = config.get("map.tileLayers");
     let tileLayers = "";
     if (tileLayerConfig.length == 1) {
       // only a single raster layer -> no layer control
@@ -227,14 +224,7 @@ class LeafletMap extends React.Component {
         {...mapOptions}
         attributionControl={false}
       >
-        <AttributionControl
-          prefix={
-            '<a target="_blank" href="https://leafletjs.com/">Leaflet</a> | ' +
-            config.get("map.attribution") +
-            " | v." +
-            config.get("version")
-          }
-        />
+        <AttributionControl prefix={config.get("map.attribution")} />
         {this.tileLayers}
         {this.props.overlays}
       </Map>
@@ -256,14 +246,7 @@ class LeafletMap extends React.Component {
         {...mapOptions}
         attributionControl={false}
       >
-        <AttributionControl
-          prefix={
-            '<a target="_blank" href="https://leafletjs.com/">Leaflet</a> | ' +
-            config.get("map.attribution") +
-            " | v." +
-            config.get("version")
-          }
-        />
+        <AttributionControl prefix={config.get("map.attribution")} />
         <ScaleControl imperial={false} position="bottomleft" />
         {this.props.controls}
         {this.tileLayers}

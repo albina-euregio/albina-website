@@ -1,7 +1,6 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage, FormattedNumber } from "react-intl";
-import Selectric from "../selectric";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
@@ -67,26 +66,26 @@ class WeatherStationDiagrams extends React.Component {
     let stationInfo = this.assambleStationInfo(stationData);
     return (
       <div className="modal-weatherstation">
-        <div class="modal-flipper">
-          <div class="flipper-controls">
-            <div class="grid flipper-left-right">
-              <div class="all-6 grid-item">
+        {/* <div className="modal-flipper">
+          <div className="flipper-controls">
+            <div className="grid flipper-left-right">
+              <div className="all-6 grid-item">
                 <a
                   href="#"
                   title="Previous Station"
-                  class="icon-link icon-arrow-left tooltip flipper-left"
+                  className="icon-link icon-arrow-left tooltip flipper-left"
                 ></a>
               </div>
-              <div class="all-6 grid-item">
+              <div className="all-6 grid-item">
                 <a
                   href="#"
                   title="Next Station"
-                  class="icon-link icon-arrow-right tooltip flipper-right"
+                  className="icon-link icon-arrow-right tooltip flipper-right"
                 ></a>
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="modal-header">
           <p className="caption">
@@ -122,55 +121,24 @@ class WeatherStationDiagrams extends React.Component {
             ))}
           </ul>
 
-          {/* old: replace this ...  */}
-          <form className="pure-form pure-form-stacked">
-            <label htmlFor="timerange">
-              <FormattedHTMLMessage id="dialog:weather-station-diagram:timerange:header" />
-            </label>
-            <ul className="list-inline list-buttongroup">
-              <li>
-                <Selectric
-                  onChange={this.handleChangeTimeRange}
-                  value={this.state.timeRange}
-                >
-                  {Object.keys(self.timeRanges).map(key => (
-                    <option key={key} value={key}>
-                      {self.props.intl.formatMessage({
-                        id: "dialog:weather-station-diagram:timerange:" + key
-                      })}
-                    </option>
-                  ))}
-                </Selectric>
-              </li>
-            </ul>
-          </form>
-          {/* ... new: with this */}
-          <ul class="list-inline filter primary">
-            <li>
-              <a href="#" class="label" title="Select Time Range">
-                Day
-              </a>
-            </li>
-            <li>
-              <a href="#" class="label" title="Select Time Range">
-                Three Days
-              </a>
-            </li>
-            <li>
-              <a href="#" class="label js-active" title="Select Time Range">
-                Week
-              </a>
-            </li>
-            <li>
-              <a href="#" class="label" title="Select Time Range">
-                Month
-              </a>
-            </li>
-            <li>
-              <a href="#" class="label" title="Select Time Range">
-                Winter
-              </a>
-            </li>
+          <ul className="list-inline filter primary">
+            {Object.keys(self.timeRanges).map(key => {
+              let classes = ["label"];
+              if (key == self.state.timeRange) classes.push("js-active");
+              return (
+                <li key={key}>
+                  <a
+                    href="javascript:void()"
+                    onClick={self.handleChangeTimeRange.bind(self, key)}
+                    className={classes.join(" ")}
+                  >
+                    {self.props.intl.formatMessage({
+                      id: "dialog:weather-station-diagram:timerange:" + key
+                    })}
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
           {stationData && (
