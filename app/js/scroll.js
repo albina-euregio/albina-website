@@ -76,6 +76,7 @@ let scroll_direction = () => {
     if (s_pos_new < 20) {
       //up
       page_body.removeClass("scrolling-down");
+      header_visible = 1;
       s_pos_old = 0;
     } else {
       if (s_pos_old > s_pos_new) {
