@@ -126,7 +126,7 @@ class Weather extends React.Component {
             <div className="section-padding-width flipper-controls">
               <Menu
                 intl={this.props.intl}
-                className="list-inline flipper-buttongroup flipper-centered"
+                className="list-inline list-buttongroup-dense flipper-buttongroup flipper-centered"
                 entries={domainButtons}
                 childClassName="list-plain subnavigation"
                 menuItemClassName="secondary pure-button"

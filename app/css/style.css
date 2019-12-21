@@ -2059,6 +2059,21 @@ ol.list-inline.list-buttongroup .label,
 ol.list-inline.list-buttongroup .tippy-tooltip.custom-theme {
   margin-right: 0;
 }
+ul.list-inline.list-buttongroup-dense,
+ol.list-inline.list-buttongroup-dense {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+ul.list-inline.list-buttongroup-dense > li,
+ol.list-inline.list-buttongroup-dense > li {
+  margin: 0 -1px -1px 0;
+  padding: 0;
+}
+ul.list-inline.list-buttongroup-dense > li .js-active,
+ol.list-inline.list-buttongroup-dense > li .js-active {
+  z-index: 10;
+}
 ul.list-inline .buttongroup-boolean,
 ol.list-inline .buttongroup-boolean {
   font-size: 0.8rem;
@@ -5824,7 +5839,7 @@ a.weather-map-details-button:hover {
   transform: translateX(0.3125rem);
 }
 .flipper-buttongroup {
-  margin-bottom: 0.625rem;
+  margin-bottom: 1.25rem;
 }
 @media only screen and (min-width: 64em) {
   .flipper-buttongroup.flipper-centered {
@@ -5834,9 +5849,6 @@ a.weather-map-details-button:hover {
     -webkit-box-pack: center;
     justify-content: center;
   }
-}
-.flipper-buttongroup li {
-  float: left;
 }
 .flipper-left-right {
   clear: both;
