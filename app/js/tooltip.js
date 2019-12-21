@@ -1,3 +1,5 @@
+import tippy from "tippy.js";
+
 function tooltip_init() {
   //delete tooltips;
   var tooltips = $(".tooltip").not("[data-tippy]");
@@ -11,7 +13,6 @@ function tooltip_init() {
         tooltip_delay = window["scroll_duration"] / 4;
         tooltip_theme = "custom";
       }
-      /* global tippy */
       tippy($(this).get(0), {
         duration: [
           window["scroll_duration"] / 2,

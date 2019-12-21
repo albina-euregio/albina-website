@@ -1,4 +1,5 @@
 import React from "react";
+import "selectric";
 
 /**
  * Component to be used for selectric select boxes.

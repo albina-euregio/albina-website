@@ -5,11 +5,15 @@ import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import Menu from "./../menu";
 import { Util } from "leaflet";
-import Tilt from "react-tilt";
+if (!window["tilty"]) window["tilty"] = require("vanilla-tilt");
 
 import menuItems from "../../menu.json";
 
 class PageHeader extends React.Component {
+  componentDidMount() {
+    window["tilty"].init(document.querySelectorAll(".tilt"));
+  }
+
   // changing language on header language button click
   handleChangeLanguage = newLanguage => {
     console.info("Changing language to " + newLanguage);
@@ -54,20 +58,19 @@ class PageHeader extends React.Component {
         <div className="page-header-logo">
           <Link
             to="/"
+            ref="logoImg"
+            {...window["tiltySettings"]}
             className="tooltip tilt"
             title={this.props.intl.formatMessage({
               id: "header:logo:hover"
             })}
-            data-tilty
           >
-            <Tilt options={window["tiltySettings"]}>
-              {langs.map(l => (
-                <span key={l} className={"mark mark-" + l} />
-              ))}
-              {langs.map(l => (
-                <span key={l} className={"url url-" + l} />
-              ))}
-            </Tilt>
+            {langs.map(l => (
+              <span key={l} className={"mark mark-" + l} />
+            ))}
+            {langs.map(l => (
+              <span key={l} className={"url url-" + l} />
+            ))}
           </Link>
         </div>
         <div className="page-header-navigation">
@@ -138,20 +141,19 @@ class PageHeader extends React.Component {
           </button>
         </div>
         <div className="page-header-logo-secondary">
-          <Tilt options={window["tiltySettings"]}>
-            <a
-              href={Util.template(config.get("links.interreg"), {
-                lang: lang
-              })}
-              className="header-footer-logo-secondary tooltip"
-              title={this.props.intl.formatMessage({
-                id: "header:euregio:hover"
-              })}
-              target="_blank"
-            >
-              <span>Euregio</span>
-            </a>
-          </Tilt>
+          <a
+            href={Util.template(config.get("links.interreg"), {
+              lang: lang
+            })}
+            {...window["tiltySettings"]}
+            className="header-footer-logo-secondary tooltip tilt"
+            title={this.props.intl.formatMessage({
+              id: "header:euregio:hover"
+            })}
+            target="_blank"
+          >
+            <span>Euregio</span>
+          </a>
         </div>
       </div>
     );
