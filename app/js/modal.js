@@ -1,3 +1,4 @@
+import "magnific-popup";
 import { tooltip_init } from "./tooltip";
 
 function modal_init() {

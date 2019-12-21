@@ -35,12 +35,7 @@ if (!APP_DEV_MODE) {
 /* bower components */
 window["jQuery"] = window["$"] = require("jquery");
 
-require("./bower_components/jquery-selectric/public/jquery.selectric.min.js");
 require("./bower_components/tilt_1.1.19/dest/tilt.jquery.min.js");
-require("./bower_components/magnific-popup_1.1.0/dist/jquery.magnific-popup.min.js");
-window[
-  "tippy"
-] = require("./bower_components/tippyjs_2.2.3/dist/tippy.all.min.js");
 
 // TODO: check content API for maintenance mode before starting the app
 window["appStore"] = new AppStore();
@@ -48,9 +43,9 @@ window["staticPageStore"] = new StaticPageStore();
 window["modalStateStore"] = new ModalStateStore();
 window["scroll_duration"] = 1000;
 window["tiltySettings"] = {
-  speed: window["scroll_duration"] / 2,
-  transition: false,
-  scale: 1.1
+  "data-tilt-speed": window["scroll_duration"] / 2,
+  "data-tilt-transition": "false",
+  "data-tilt-scale": 1.1
 };
 
 require("./js/custom.js");

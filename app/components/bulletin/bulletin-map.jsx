@@ -3,7 +3,9 @@ import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
 import { ImageOverlay } from "react-leaflet";
-import { Link } from "react-router-dom";
+import { renderLinkedMessage } from "../intlHelper";
+import InfoBar from "../organisms/info-bar";
+import { dateToISODateString, parseDate } from "../../util/date";
 
 import LeafletMap from "../leaflet/leaflet-map";
 import BulletinMapDetails from "./bulletin-map-details";
@@ -15,9 +17,46 @@ class BulletinMap extends React.Component {
   constructor(props) {
     super(props);
     this.map = false;
-
+    this.lastDate;
+    this.infoMessageLevels = {
+      init: {
+        message: "",
+        iconOn: true
+      },
+      ok: { message: "", keep: true }
+    };
     if (!window.mapStore) {
       window.mapStore = new MapStore();
+    }
+  }
+
+  componentDidUpdate() {
+    this.setInfoMessages();
+  }
+
+  setInfoMessages() {
+    if (this.props.date) {
+      this.infoMessageLevels.pending = {
+        message: renderLinkedMessage(
+          this.props.intl,
+          "bulletin:header:info-loading-data-slow",
+          "https://avalanche.report/simple/" +
+            dateToISODateString(parseDate(this.props.date)) +
+            "/" +
+            window["appStore"].language +
+            ".html"
+        ),
+        iconOn: true,
+        delay: 5000
+      };
+
+      this.infoMessageLevels.empty = {
+        message: renderLinkedMessage(
+          this.props.intl,
+          "bulletin:header:info-no-data",
+          "/blog"
+        )
+      };
     }
   }
 
@@ -104,32 +143,68 @@ class BulletinMap extends React.Component {
     );
   }
 
+  getBulletinMapDetails(hlBulletin) {
+    let res = [];
+    let detailsClasses = ["bulletin-map-details", "top-right"];
+    if (hlBulletin) {
+      detailsClasses.push("js-active");
+      res.push(
+        <BulletinMapDetails
+          store={this.props.store}
+          bulletin={hlBulletin}
+          ampm={this.props.ampm}
+        />
+      );
+      res.push(
+        this.props.store.settings.region && (
+          <a
+            href={"#" + this.props.store.settings.region}
+            className="pure-button tooltip"
+            title={this.props.intl.formatMessage({
+              id: "bulletin:map:info:details:hover"
+            })}
+            data-scroll=""
+          >
+            {new Parser().parse(
+              this.props.intl.formatHTMLMessage({
+                id: "bulletin:map:info:details"
+              })
+            )}
+            <span className="icon-arrow-down" />
+          </a>
+        )
+      );
+    }
+
+    return (
+      <div style={this.styleOverMap()} className={detailsClasses.join(" ")}>
+        {res}
+      </div>
+    );
+  }
+
   render() {
     if (APP_DEV_MODE) console.log("bulletin-map->render", this.props.store);
     const hlBulletin = this.props.store.activeBulletin;
+
+    let newLevel = this.props.store.settings.status;
+    if (this.lastDate != this.props.date) {
+      newLevel = "init";
+      this.lastDate = this.props.date;
+    }
 
     return (
       <section
         id="section-bulletin-map"
         className="section section-bulletin section-bulletin-map"
       >
+        <InfoBar level={newLevel} levels={this.infoMessageLevels} />
         <div
           className={
             "section-map" +
             (config.get("map.useWindowWidth") ? "" : " section-centered")
           }
         >
-          {/*
-              no-bulletin banner
-            */
-          ["", "empty"].includes(this.props.store.settings.status) &&
-            config.get("bulletin.noBulletinBanner") && (
-              <section className="bulletin-map-bulletinbar">
-                <div className="controlbar">
-                  {this.renderNoBulletinMessage()}
-                </div>
-              </section>
-            )}
           <LeafletMap
             loaded={this.props.regions && this.props.regions.length > 0}
             onViewportChanged={this.props.handleMapViewportChanged}
@@ -160,35 +235,8 @@ class BulletinMap extends React.Component {
               </div>
             </div>
           )}
-          {hlBulletin && (
-            <div
-              style={this.styleOverMap()}
-              className="bulletin-map-details js-active top-right"
-            >
-              <BulletinMapDetails
-                store={this.props.store}
-                bulletin={hlBulletin}
-                ampm={this.props.ampm}
-              />
-              {this.props.store.settings.region && (
-                <a
-                  href={"#" + this.props.store.settings.region}
-                  className="pure-button tooltip"
-                  title={this.props.intl.formatMessage({
-                    id: "bulletin:map:info:details:hover"
-                  })}
-                  data-scroll=""
-                >
-                  {new Parser().parse(
-                    this.props.intl.formatHTMLMessage({
-                      id: "bulletin:map:info:details"
-                    })
-                  )}
-                  <span className="icon-arrow-down" />
-                </a>
-              )}
-            </div>
-          )}
+          {this.getBulletinMapDetails(hlBulletin)}
+
           {this.props.ampm && (
             <p className="bulletin-map-daytime">
               <span className="primary label">

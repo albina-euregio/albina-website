@@ -1,6 +1,5 @@
 import React from "react";
 import { withRouter } from "react-router";
-import PageLoadingScreen from "./organisms/page-loading-screen.jsx";
 import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
@@ -87,7 +86,6 @@ class Page extends React.Component {
   render() {
     return (
       <div>
-        <PageLoadingScreen />
         {false && <Jumpnav />}
         <div id="page-all" className="page-all">
           <PageHeader />

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Parser, ProcessNodeDefinitions } from "html-to-react";
 import PageHeadline from "../components/organisms/page-headline";
 import HTMLHeader from "../components/organisms/html-header";
@@ -129,9 +130,7 @@ export default class BlogPost extends React.Component {
             //author: b.author.displayName,
             date: parseDate(b.published),
             tags: parseTags(b.labels),
-            regions: blogConfig.regions.map(r =>
-              window["appStore"].getRegionName(r)
-            ),
+            regions: blogConfig.regions,
             language: blogConfig.lang,
             content: this._preprocessContent(b.content)
           });
@@ -155,9 +154,17 @@ export default class BlogPost extends React.Component {
             <li className="blog-date">
               {dateToDateTimeString(this.state.date)}
             </li>
-            <li className="blog-province">{this.state.regions.join(", ")}</li>
+            <li className="blog-province">
+              {this.state.regions.map(region => (
+                <Link key={region} to={"/blog?searchLang=all&region=" + region}>
+                  {window["appStore"].getRegionName(region)}
+                </Link>
+              ))}
+            </li>
             <li className="blog-language">
-              {this.state.language.toUpperCase()}
+              <Link to={"/blog?region=&searchLang=" + this.state.language}>
+                {this.state.language.toUpperCase()}
+              </Link>
             </li>
           </ul>
           <TagList tags={this.state.tags} />
