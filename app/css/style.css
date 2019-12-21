@@ -1,7 +1,3 @@
-.displayNone {
-  display: none;
-}
-
 *,
 *:before,
 *:after {
@@ -1885,7 +1881,8 @@ a.img {
   position: relative;
   display: inline-block;
   line-height: 0;
-  background-color: #19abff;
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
 }
 a.img[href^="http:"],
 a.img[href^="https:"] {
@@ -1898,16 +1895,25 @@ a.img[href^="https:"]:before {
 }
 a.img img {
   display: block;
+  position: relative;
   margin: 0;
-  opacity: 1;
+}
+a.img:after {
+  z-index: 5;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(25, 171, 255, 0);
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
 a.img:hover {
   cursor: hand;
 }
-a.img:hover img {
-  opacity: 0.5;
+a.img:hover:after {
+  background-color: rgba(25, 171, 255, 0.5);
   -webkit-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
 }
@@ -2052,6 +2058,21 @@ ol.list-inline.list-tags .tippy-tooltip.custom-theme,
 ol.list-inline.list-buttongroup .label,
 ol.list-inline.list-buttongroup .tippy-tooltip.custom-theme {
   margin-right: 0;
+}
+ul.list-inline.list-buttongroup-dense,
+ol.list-inline.list-buttongroup-dense {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+ul.list-inline.list-buttongroup-dense > li,
+ol.list-inline.list-buttongroup-dense > li {
+  margin: 0 -1px -1px 0;
+  padding: 0;
+}
+ul.list-inline.list-buttongroup-dense > li .js-active,
+ol.list-inline.list-buttongroup-dense > li .js-active {
+  z-index: 10;
 }
 ul.list-inline .buttongroup-boolean,
 ol.list-inline .buttongroup-boolean {
@@ -5352,6 +5373,7 @@ a.weather-map-details-button:hover {
   }
 }
 .bulletin-report-region a.img:before {
+  z-index: 10;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -5436,7 +5458,8 @@ a.weather-map-details-button:hover {
 }
 .bulletin-report-picto > a:link,
 .bulletin-report-picto > a:visited {
-  display: grid;
+  display: -webkit-box;
+  display: flex;
   color: #565f61;
 }
 .bulletin-report-picto > a:hover,
@@ -5816,7 +5839,7 @@ a.weather-map-details-button:hover {
   transform: translateX(0.3125rem);
 }
 .flipper-buttongroup {
-  margin-bottom: 0.625rem;
+  margin-bottom: 1.25rem;
 }
 @media only screen and (min-width: 64em) {
   .flipper-buttongroup.flipper-centered {
@@ -5826,9 +5849,6 @@ a.weather-map-details-button:hover {
     -webkit-box-pack: center;
     justify-content: center;
   }
-}
-.flipper-buttongroup li {
-  float: left;
 }
 .flipper-left-right {
   clear: both;
@@ -7442,6 +7462,9 @@ button.mfp-arrow.mfp-arrow-right:hover {
 }
 .modal-weatherstation .weatherstation-info li {
   padding-bottom: 0;
+}
+.modal-weatherstation .weatherstation-filter {
+  margin-bottom: 1.875rem;
 }
 .modal-weatherstation .pure-form {
   margin-bottom: 0;
