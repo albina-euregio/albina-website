@@ -15,6 +15,8 @@ import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import DayFilter from "../components/filters/day-filter.jsx";
 import { tooltip_init } from "../js/tooltip";
+import InfoBar from "../components/organisms/info-bar";
+import { renderLinkedMessage } from "../components/intlHelper";
 
 class Archive extends React.Component {
   constructor(props) {
@@ -23,6 +25,7 @@ class Archive extends React.Component {
       window["archiveStore"] = new ArchiveStore();
     }
     this.store = window["archiveStore"];
+    this.lastStartDate = "";
 
     if (!this.store.year) {
       const d = new Date();
@@ -30,6 +33,30 @@ class Archive extends React.Component {
       this.store.month = d.getMonth() + 1;
       this.store.year = d.getFullYear();
     }
+
+    this.infoMessageLevels = {
+      init: {
+        message: "",
+        iconOn: true
+      },
+      loading: {
+        message: renderLinkedMessage(
+          this.props.intl,
+          "archive:header:info-loading-data-slow",
+          "/blog"
+        ),
+        iconOn: true,
+        delay: 5000
+      },
+      loadingError: {
+        message: renderLinkedMessage(
+          props.intl,
+          "archive:header:info-no-data",
+          "/blog"
+        )
+      },
+      ok: { message: "", keep: true }
+    };
 
     this.state = {
       title: "",
@@ -100,6 +127,14 @@ class Archive extends React.Component {
   };
 
   render() {
+    let currentDates = this.dates;
+    let newLevel = "";
+    if (this.lastStartDate != this.store.startDate) newLevel = "init";
+    if (this.store.loading) newLevel = "loading";
+    else if (this.store.loadingError) newLevel = "loadingError";
+    else newLevel = "ok";
+    this.lastStartDate = dateToISODateString(this.store.startDate);
+
     return (
       <div>
         <HTMLHeader title={this.state.title} />
@@ -107,6 +142,7 @@ class Archive extends React.Component {
           title={this.state.title}
           marginal={this.state.headerText}
         />
+        <InfoBar level={newLevel} levels={this.infoMessageLevels} />
         <FilterBar search={false}>
           <YearFilter
             title={this.props.intl.formatMessage({
@@ -153,6 +189,7 @@ class Archive extends React.Component {
             />
           )}
         </FilterBar>
+
         <section className="section-padding-height">
           <section className="section-centered">
             <div className="table-container">
@@ -177,7 +214,7 @@ class Archive extends React.Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.dates.map(d => (
+                  {currentDates.map(d => (
                     <ArchiveItem
                       key={d.getTime()}
                       date={d}

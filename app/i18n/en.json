@@ -172,6 +172,9 @@
   "archive:download-pdf:hover": "Download",
   "archive:download-xml:hover": "Download",
   "archive:show-forecast:hover": "Show full archived Avalanche Forecast",
+  "archive:header:info-no-data": "Archive data could not be loaded. Current information and announcements are posted on our <a>blog</a>.",
+  "archive:header:info-loading-data-slow": "Loading archive data. In case of slow network you might have a look at out <a>blog</a>.",
+
   "weathermap:header:dateflipper:back": "Back",
   "weathermap:header:dateflipper:forward": "Forward",
   "weathermap:map:legend": "legend",

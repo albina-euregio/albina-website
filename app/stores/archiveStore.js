@@ -26,6 +26,7 @@ export default class ArchiveStore {
 
     // loading flag
     this._loading = observable.box(false);
+    this._loadingError = observable.box(false);
   }
 
   get loading() {
@@ -34,6 +35,14 @@ export default class ArchiveStore {
 
   set loading(flag) {
     this._loading.set(flag);
+  }
+
+  get loadingError() {
+    return this._loadingError.get();
+  }
+
+  set loadingError(flag) {
+    this._loadingError.set(flag);
   }
 
   get year() {
@@ -164,6 +173,7 @@ export default class ArchiveStore {
     // startDate = startDate.substr(0, startDate.length-2) + startDateDay
 
     this.loading = true;
+    this.loadingError = false;
 
     const timeFormatStart = isSummerTime(new Date(startDate))
       ? "T22:00:00Z"
@@ -220,6 +230,7 @@ export default class ArchiveStore {
               (endDate ? " - " + endDate : ""),
             error
           );
+          this.loadingError = true;
         }
       )
       .then(() => {
