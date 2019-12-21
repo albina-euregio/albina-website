@@ -1881,7 +1881,6 @@ a.img {
   position: relative;
   display: inline-block;
   line-height: 0;
-  background-color: #19abff;
 }
 a.img[href^="http:"],
 a.img[href^="https:"] {
@@ -1894,16 +1893,25 @@ a.img[href^="https:"]:before {
 }
 a.img img {
   display: block;
+  position: relative;
   margin: 0;
-  opacity: 1;
+}
+a.img:after {
+  z-index: 5;
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(25, 171, 255, 0);
   -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
 a.img:hover {
   cursor: hand;
 }
-a.img:hover img {
-  opacity: 0.5;
+a.img:hover:after {
+  background-color: rgba(25, 171, 255, 0.5);
   -webkit-transition: all 0.25s ease-out;
   transition: all 0.25s ease-out;
 }
@@ -5348,6 +5356,7 @@ a.weather-map-details-button:hover {
   }
 }
 .bulletin-report-region a.img:before {
+  z-index: 10;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -5432,7 +5441,8 @@ a.weather-map-details-button:hover {
 }
 .bulletin-report-picto > a:link,
 .bulletin-report-picto > a:visited {
-  display: grid;
+  display: -webkit-box;
+  display: flex;
   color: #565f61;
 }
 .bulletin-report-picto > a:hover,
