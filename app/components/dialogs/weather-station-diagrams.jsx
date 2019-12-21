@@ -121,7 +121,7 @@ class WeatherStationDiagrams extends React.Component {
             ))}
           </ul>
 
-          <ul className="list-inline filter primary">
+          <ul className="list-inline filter primary weatherstation-filter">
             {Object.keys(self.timeRanges).map(key => {
               let classes = ["label"];
               if (key == self.state.timeRange) classes.push("js-active");

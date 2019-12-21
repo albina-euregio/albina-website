@@ -1881,6 +1881,8 @@ a.img {
   position: relative;
   display: inline-block;
   line-height: 0;
+  -webkit-transform: rotate(0);
+  transform: rotate(0);
 }
 a.img[href^="http:"],
 a.img[href^="https:"] {
@@ -7448,6 +7450,9 @@ button.mfp-arrow.mfp-arrow-right:hover {
 }
 .modal-weatherstation .weatherstation-info li {
   padding-bottom: 0;
+}
+.modal-weatherstation .weatherstation-filter {
+  margin-bottom: 1.875rem;
 }
 .modal-weatherstation .pure-form {
   margin-bottom: 0;
