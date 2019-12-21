@@ -86,7 +86,7 @@ class Page extends React.Component {
   render() {
     return (
       <>
-        <PageLoadingScreen />
+        <div className="page-loading-screen" />
         {false && <Jumpnav />}
 
         <PageHeader />
