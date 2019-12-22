@@ -104,7 +104,7 @@ let scroll_direction = () => {
 
     //make .top-fix sticky or not
     if (top_fix_offset != undefined) {
-      if (ts_pos_new >= top_fix_offset.top) {
+      if (s_pos_new >= top_fix_offset.top) {
         page_body.addClass("js-top-fix");
         top_fix.css({ top: header_visible * page_header_height_now + "px" });
         top_fix_follow.css({ "padding-top": topfix_height_now + "px" });

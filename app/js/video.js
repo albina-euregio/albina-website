@@ -12,7 +12,7 @@ function video_init() {
     setTimeout(() => {
       const items = document.getElementsByTagName("iframe");
 
-      for (let item of items) {
+      for (item of items) {
         item.classList.remove("displayNone");
         // console.log("video_init #1", item);
       }
