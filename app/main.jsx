@@ -140,6 +140,6 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
 
   ReactDOM.render(
     <App />,
-    document.body.appendChild(document.createElement("div"))
+    document.body.appendChild(document.getElementById("page-all"))
   );
 });

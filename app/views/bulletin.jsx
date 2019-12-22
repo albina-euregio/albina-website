@@ -178,7 +178,7 @@ class Bulletin extends React.Component {
         : "";
 
     return (
-      <div>
+      <>
         <HTMLHeader
           title={this.state.title}
           description={shareDescription}
@@ -242,7 +242,7 @@ class Bulletin extends React.Component {
         {/* <div className="section-padding section-centered"> */}
         {preprocessContent(this.state.content)}
         {/* </div> */}
-      </div>
+      </>
     );
   }
 }

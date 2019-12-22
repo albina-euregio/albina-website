@@ -114,7 +114,7 @@ class Weather extends React.Component {
         })
       : [];
     return (
-      <div>
+      <>
         <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.state.title}
@@ -186,7 +186,7 @@ class Weather extends React.Component {
         ) : (
           <div className="section-padding" />
         )}
-      </div>
+      </>
     );
   }
 }

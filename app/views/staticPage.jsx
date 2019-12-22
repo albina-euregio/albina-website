@@ -3,6 +3,7 @@ import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
+import { video_init } from "../js/video";
 
 import { scroll } from "../js/scroll";
 /*
@@ -52,8 +53,9 @@ export default class StaticPage extends React.Component {
   }
 
   render() {
+    if (this.state.content != "") video_init();
     return (
-      <div>
+      <>
         <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.state.title}
@@ -66,7 +68,7 @@ export default class StaticPage extends React.Component {
         ) : (
           <div className="section-padding" />
         )}
-      </div>
+      </>
     );
   }
 }

@@ -22,7 +22,6 @@ import { renderRoutes } from "react-router-config";
 import { modal_init } from "../js/modal";
 import { tooltip_init } from "../js/tooltip";
 import { navigation_init } from "../js/navigation";
-import { video_init } from "../js/video";
 
 import { scroll_init } from "../js/scroll";
 
@@ -79,31 +78,30 @@ class Page extends React.Component {
     modal_init();
     tooltip_init();
     navigation_init();
-    video_init();
     scroll_init();
   }
 
   render() {
     return (
-      <div>
+      <>
+        <div className="page-loading-screen" />
         {false && <Jumpnav />}
-        <div id="page-all" className="page-all">
-          <PageHeader />
-          <main id="page-main" className="page-main">
-            {APP_ENVIRONMENT === "dev" && (
-              <section class="section controlbar controlbar-notice">
-                <div class="section-centered">
-                  <p class="align-center">
-                    This is a development version –{" "}
-                    <strong>no real data is shown!</strong>
-                  </p>
-                </div>
-              </section>
-            )}
-            <div id="global-grid">{renderRoutes(this.props.route.routes)}</div>
-          </main>
-          <PageFooter />
-        </div>
+
+        <PageHeader />
+        <main id="page-main" className="page-main">
+          {APP_ENVIRONMENT === "dev" && (
+            <section class="section controlbar controlbar-notice">
+              <div class="section-centered">
+                <p class="align-center">
+                  This is a development version –{" "}
+                  <strong>no real data is shown!</strong>
+                </p>
+              </div>
+            </section>
+          )}
+          {renderRoutes(this.props.route.routes)}
+        </main>
+        <PageFooter />
         <ModalDialog id="weatherStationDiagrams">
           <WeatherStationDiagrams />
         </ModalDialog>
@@ -130,7 +128,7 @@ class Page extends React.Component {
         </ModalDialog>
         {config.get("dialogs.cookieConsent") && <CookieConsent />}
         {config.get("dialogs.feedback") && <FeedbackDialog />}
-      </div>
+      </>
     );
   }
 }
