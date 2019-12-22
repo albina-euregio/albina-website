@@ -63,7 +63,7 @@ let scroll_direction = () => {
 
   window.onresize = function() {
     setTimeout(function() {
-      top_fix_offset = top_fix.offset();
+      if (top_fix_offset != undefined) top_fix_offset = top_fix.offset();
       topfix_height_now = topfix_height();
       page_header_height_now = page_header_height();
     }, 2000);
@@ -71,7 +71,7 @@ let scroll_direction = () => {
 
   window.onscroll = function() {
     s_pos_new = this.pageYOffset;
-    top_fix_follow = $(".top-fix + section");
+    if (top_fix_offset != undefined) top_fix_follow = $(".top-fix + section");
 
     if (s_pos_new < 20) {
       //up
@@ -103,18 +103,20 @@ let scroll_direction = () => {
     }
 
     //make .top-fix sticky or not
-    if (s_pos_new >= top_fix_offset.top) {
-      page_body.addClass("js-top-fix");
-      top_fix.css({ top: header_visible * page_header_height_now + "px" });
-      top_fix_follow.css({ "padding-top": topfix_height_now + "px" });
-    }
-    if (
-      s_pos_new <
-      top_fix_offset.top - header_visible * page_header_height_now
-    ) {
-      page_body.removeClass("js-top-fix");
-      top_fix.css({ top: "auto" });
-      top_fix_follow.css({ "padding-top": "0" });
+    if (top_fix_offset != undefined) {
+      if (ts_pos_new >= top_fix_offset.top) {
+        page_body.addClass("js-top-fix");
+        top_fix.css({ top: header_visible * page_header_height_now + "px" });
+        top_fix_follow.css({ "padding-top": topfix_height_now + "px" });
+      }
+      if (
+        s_pos_new <
+        top_fix_offset.top - header_visible * page_header_height_now
+      ) {
+        page_body.removeClass("js-top-fix");
+        top_fix.css({ top: "auto" });
+        top_fix_follow.css({ "padding-top": "0" });
+      }
     }
   };
 };
