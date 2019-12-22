@@ -286,5 +286,5 @@
   "dialog:weather-station-diagram:timerange:week": "Week",
   "dialog:weather-station-diagram:timerange:month": "Month",
   "dialog:weather-station-diagram:timerange:winter": "Winter",
-  "dialog:weather-station-diagram:operator.caption": "This information is provided by"
+  "dialog:weather-station-diagram:operator.caption": "This weather station is operated by {operator}."
 }

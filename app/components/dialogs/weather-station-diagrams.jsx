@@ -1,6 +1,6 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage, FormattedNumber } from "react-intl";
+import { injectIntl, FormattedMessage, FormattedNumber } from "react-intl";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
@@ -168,8 +168,10 @@ class WeatherStationDiagrams extends React.Component {
           )}
 
           <p className="weatherstation-provider">
-            <FormattedHTMLMessage id="dialog:weather-station-diagram:operator.caption" />{" "}
-            {stationData.operator}
+            <FormattedMessage
+              id="dialog:weather-station-diagram:operator.caption"
+              values={{ operator: stationData.operator }}
+            />
           </p>
         </div>
       </div>
