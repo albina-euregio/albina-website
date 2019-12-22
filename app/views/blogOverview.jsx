@@ -165,12 +165,13 @@ class BlogOverview extends React.Component {
     if (newLevel === "ok" && this.store.postsList.length == 0)
       newLevel = "noData";
 
-    console.log(
-      "render v2",
-      this.store.loading,
-      this.store.postsList && this.store.postsList.length,
-      newLevel
-    );
+    if (APP_DEV_MODE)
+      console.log(
+        "render v2",
+        this.store.loading,
+        this.store.postsList && this.store.postsList.length,
+        newLevel
+      );
 
     return (
       <div>
