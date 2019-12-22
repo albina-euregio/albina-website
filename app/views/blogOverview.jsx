@@ -26,6 +26,16 @@ class BlogOverview extends React.Component {
     }
     this.settingFilters = false;
 
+    const standaloneLinks = window["config"].get("blogs").map((blog, index) => [
+      index > 0 ? ", " : undefined,
+      <a key={blog.name} href={"https://" + blog.name}>
+        {blog.regions.map(region =>
+          this.props.intl.formatMessage({ id: "region:" + region })
+        )}{" "}
+        ({blog.lang})
+      </a>
+    ]);
+
     this.infoMessageLevels = {
       init: {
         message: "",
@@ -34,7 +44,7 @@ class BlogOverview extends React.Component {
       loading: {
         message: this.props.intl.formatMessage(
           { id: "blog:overview:info-loading-data-slow" },
-          { a: () => <a href="https://www.blogger.com/">Blogger</a> }
+          { a: () => standaloneLinks }
         ),
         iconOn: true,
         delay: 5000
@@ -42,7 +52,7 @@ class BlogOverview extends React.Component {
       noData: {
         message: this.props.intl.formatMessage(
           { id: "blog:overview:info-no-data" },
-          { a: () => <a href="https://www.blogger.com/">Blogger</a> }
+          { a: () => standaloneLinks }
         )
       },
       ok: { message: "", keep: true }
