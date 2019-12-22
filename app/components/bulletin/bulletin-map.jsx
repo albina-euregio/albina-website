@@ -36,27 +36,27 @@ class BulletinMap extends React.Component {
   }
 
   setInfoMessages() {
-    if (this.props.date) {
-      const simple = Util.template(window["config"].get("links.simple"), {
-        date: dateToISODateString(parseDate(this.props.date)),
-        lang: window["appStore"].language
-      });
-      this.infoMessageLevels.pending = {
-        message: this.props.intl.formatMessage(
-          { id: "bulletin:header:info-loading-data-slow" },
-          { a: msg => <a href={simple}>{msg}</a> }
-        ),
-        iconOn: true,
-        delay: 5000
-      };
+    const simple = Util.template(window["config"].get("links.simple"), {
+      date: this.props.date
+        ? dateToISODateString(parseDate(this.props.date))
+        : "",
+      lang: window["appStore"].language
+    });
+    this.infoMessageLevels.pending = {
+      message: this.props.intl.formatMessage(
+        { id: "bulletin:header:info-loading-data-slow" },
+        { a: msg => <a href={simple}>{msg}</a> }
+      ),
+      iconOn: true,
+      delay: 5000
+    };
 
-      this.infoMessageLevels.empty = {
-        message: this.props.intl.formatMessage(
-          { id: "bulletin:header:info-no-data" },
-          { a: msg => <Link to="/blog">{msg}</Link> }
-        )
-      };
-    }
+    this.infoMessageLevels.empty = {
+      message: this.props.intl.formatMessage(
+        { id: "bulletin:header:info-no-data" },
+        { a: msg => <Link to="/blog">{msg}</Link> }
+      )
+    };
   }
 
   handleMapInit = map => {
