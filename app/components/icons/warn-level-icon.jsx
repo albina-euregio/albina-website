@@ -67,12 +67,12 @@ class WarnLevelIcon extends React.Component {
     } else {
       const params = {
         elev: elevText,
-        "number-below": b == 0 ? "" : b,
-        "number-above": a == 0 ? "" : a,
-        "text-below": getWarnlevelText(below),
-        "text-above": getWarnlevelText(this.props.above)
+        numberBelow: b == 0 ? "" : b,
+        numberAbove: a == 0 ? "" : a,
+        textBelow: getWarnlevelText(below),
+        textAbove: getWarnlevelText(this.props.above)
       };
-      title = params["number-below"]
+      title = params["numberBelow"]
         ? this.props.intl.formatMessage(
             { id: "bulletin:map:info:danger-picto2:hover" },
             params

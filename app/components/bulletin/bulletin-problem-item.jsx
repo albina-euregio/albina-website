@@ -87,8 +87,8 @@ class BulletinProblemItem extends React.Component {
       return this.props.intl.formatMessage(
         { id: "bulletin:report:problem-at:hover" },
         {
-          "elev-low": this.elevation[0],
-          "elev-high": this.elevation[1]
+          elevLow: this.elevation[0],
+          elevHigh: this.elevation[1]
         }
       );
     }
