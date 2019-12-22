@@ -78,7 +78,6 @@
   "bulletin:header:updated-at": "Aggiornato il {date} alle ore {time}",
   "bulletin:header:loading": "Carica",
   "bulletin:header:no-bulletin": "Manca",
-
   "bulletin:header:am": "Mattina",
   "bulletin:header:pm": "Pomeriggio",
   "bulletin:header:switch-to-am": "scegli mattina",
@@ -185,8 +184,8 @@
   "blog:search": "Cerca",
   "blog:page-flipper:page": "pagina",
   "blog:page-flipper:no-posts": "Nessun contenuto trovato, si prega di scegliere diversi filtri.",
-  "blog:overview:info-no-data": "Derzeit keine Blog-Einträge verfügbar. Du kannst den eigenständigen Blog <a>hier</a> aufrufen.",
-  "blog:overview:info-loading-data-slow": "Blog-Einträge werden geladen. Im Falle einer langsamen Internetverbindung kannst du auch den <a>eigenständigen Blog</a> aufrufen.",
+  "blog:overview:info-no-data": "Currently no blog posts available. You can use our standalone versions: <a>here</a>",
+  "blog:overview:info-loading-data-slow": "Loading blogs posts. In case of slow network you might consider to use our standalone versions: <a>here</a>",
   "measurements:search": "Cercare Stazioni",
   "measurements:filter:province": "Stato / Provincia",
   "measurements:filter:hide": "Hide",
