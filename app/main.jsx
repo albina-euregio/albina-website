@@ -30,8 +30,6 @@ if (!APP_DEV_MODE) {
 /* bower components */
 window["jQuery"] = window["$"] = require("jquery");
 
-require("./bower_components/tilt_1.1.19/dest/tilt.jquery.min.js");
-
 // TODO: check content API for maintenance mode before starting the app
 window["appStore"] = new AppStore();
 window["staticPageStore"] = new StaticPageStore();
