@@ -13,12 +13,7 @@ import AppStore from "./appStore.js";
 import ConfigStore from "./configStore.js";
 import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
-import { addLocaleData } from "react-intl";
 import { reaction } from "mobx";
-import en from "react-intl/locale-data/en";
-import de from "react-intl/locale-data/de";
-import it from "react-intl/locale-data/it";
-addLocaleData([...en, ...de, ...it]);
 import axios from "axios";
 
 /* enable JavaScript error tracking */
