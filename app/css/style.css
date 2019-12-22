@@ -1,7 +1,3 @@
-.displayNone {
-  display: none;
-}
-
 *,
 *:before,
 *:after {
@@ -7735,9 +7731,6 @@ button.mfp-arrow.mfp-arrow-right:hover {
   margin: 0;
   -webkit-transition: all 0.25s ease-in-out;
   transition: all 0.25s ease-in-out;
-  opacity: 0;
-  -webkit-animation: 0.5s ease-out 0.25s 1 fadeIn forwards;
-  animation: 0.5s ease-out 0.25s 1 fadeIn forwards;
 }
 .section > :last-child,
 .section-centered > :last-child,

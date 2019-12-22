@@ -17,7 +17,7 @@ function video_init() {
         // console.log("video_init #1", item);
       }
     }, 100);
-  }, 2000);
+  }, 100);
 }
 
 export { video_init };
