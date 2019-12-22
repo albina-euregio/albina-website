@@ -37,12 +37,10 @@ class BulletinMap extends React.Component {
 
   setInfoMessages() {
     if (this.props.date) {
-      const simple =
-        "https://avalanche.report/simple/" +
-        dateToISODateString(parseDate(this.props.date)) +
-        "/" +
-        window["appStore"].language +
-        ".html";
+      const simple = Util.template(window["config"].get("links.simple"), {
+        date: dateToISODateString(parseDate(this.props.date)),
+        lang: window["appStore"].language
+      });
       this.infoMessageLevels.pending = {
         message: this.props.intl.formatMessage(
           { id: "bulletin:header:info-loading-data-slow" },
