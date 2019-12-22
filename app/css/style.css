@@ -1,3 +1,7 @@
+.displayNone {
+  display: none;
+}
+
 *,
 *:before,
 *:after {
