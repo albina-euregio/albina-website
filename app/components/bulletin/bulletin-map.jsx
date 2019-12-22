@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
 import { ImageOverlay } from "react-leaflet";
-import { renderLinkedMessage } from "../intlHelper";
 import InfoBar from "../organisms/info-bar";
 import { dateToISODateString, parseDate } from "../../util/date";
 
 import LeafletMap from "../leaflet/leaflet-map";
+import { Util } from "leaflet";
 import BulletinMapDetails from "./bulletin-map-details";
 import BulletinVectorLayer from "./bulletin-vector-layer";
 import MapStore from "../../stores/mapStore";
@@ -35,29 +36,27 @@ class BulletinMap extends React.Component {
   }
 
   setInfoMessages() {
-    if (this.props.date) {
-      this.infoMessageLevels.pending = {
-        message: renderLinkedMessage(
-          this.props.intl,
-          "bulletin:header:info-loading-data-slow",
-          "https://avalanche.report/simple/" +
-            dateToISODateString(parseDate(this.props.date)) +
-            "/" +
-            window["appStore"].language +
-            ".html"
-        ),
-        iconOn: true,
-        delay: 5000
-      };
+    const simple = Util.template(window["config"].get("links.simple"), {
+      date: this.props.date
+        ? dateToISODateString(parseDate(this.props.date))
+        : "",
+      lang: window["appStore"].language
+    });
+    this.infoMessageLevels.pending = {
+      message: this.props.intl.formatMessage(
+        { id: "bulletin:header:info-loading-data-slow" },
+        { a: msg => <a href={simple}>{msg}</a> }
+      ),
+      iconOn: true,
+      delay: 5000
+    };
 
-      this.infoMessageLevels.empty = {
-        message: renderLinkedMessage(
-          this.props.intl,
-          "bulletin:header:info-no-data",
-          "/blog"
-        )
-      };
-    }
+    this.infoMessageLevels.empty = {
+      message: this.props.intl.formatMessage(
+        { id: "bulletin:header:info-no-data" },
+        { a: msg => <Link to="/blog">{msg}</Link> }
+      )
+    };
   }
 
   handleMapInit = map => {
@@ -120,27 +119,6 @@ class BulletinMap extends React.Component {
     }
 
     return overlays;
-  }
-
-  renderNoBulletinMessage() {
-    const msg = this.props.intl.formatHTMLMessage({
-      id: "bulletin:header:no-bulletin-info"
-    });
-
-    // split the string at <a> and </a>
-    const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/);
-
-    return (
-      <p>
-        {parts.length > 1 && new Parser().parse(parts[1])}
-        {parts.length > 2 && (
-          <Link to="/blog" className="tooltip" title={parts[2]}>
-            <strong>{parts[2]}</strong>
-          </Link>
-        )}
-        {parts.length > 3 && new Parser().parse(parts[3])}
-      </p>
-    );
   }
 
   getBulletinMapDetails(hlBulletin) {

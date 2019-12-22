@@ -52,3 +52,12 @@ build script - use `/` for the webserver's root directory).
 ## Translation
 
 This project uses Transifex for its translations: https://www.transifex.com/albina-euregio/albina-website/dashboard/
+
+To interact with Transifex, install the official [transifex-client](https://github.com/transifex/transifex-client/).
+
+```sh
+# push updated en.json to Transifex
+$ tx push --source
+# fetch updated translations from Transifex
+$ tx pull
+```

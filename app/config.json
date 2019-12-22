@@ -73,6 +73,7 @@
   },
   "links": {
     "interreg": "http://www.europaregion.info/splash.html",
+    "simple": "https://avalanche.report/simple/{date}/{lang}.html",
     "downloads": {
       "base": "https://avalanche.report/albina_files/",
       "pdf": "{date}/{date}_{lang}.pdf",

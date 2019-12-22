@@ -2,7 +2,6 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Parser } from "html-to-react";
-import { renderLinkedMessage } from "../components/intlHelper";
 import BlogStore from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -27,25 +26,33 @@ class BlogOverview extends React.Component {
     }
     this.settingFilters = false;
 
+    const standaloneLinks = window["config"].get("blogs").map((blog, index) => [
+      index > 0 ? ", " : undefined,
+      <a key={blog.name} href={"https://" + blog.name}>
+        {blog.regions.map(region =>
+          this.props.intl.formatMessage({ id: "region:" + region })
+        )}{" "}
+        ({blog.lang})
+      </a>
+    ]);
+
     this.infoMessageLevels = {
       init: {
         message: "",
         iconOn: true
       },
       loading: {
-        message: renderLinkedMessage(
-          props.intl,
-          "blog:overview:info-loading-data-slow",
-          "/blog"
+        message: this.props.intl.formatMessage(
+          { id: "blog:overview:info-loading-data-slow" },
+          { a: () => standaloneLinks }
         ),
         iconOn: true,
         delay: 5000
       },
       noData: {
-        message: renderLinkedMessage(
-          props.intl,
-          "blog:overview:info-no-data",
-          "/blog"
+        message: this.props.intl.formatMessage(
+          { id: "blog:overview:info-no-data" },
+          { a: () => standaloneLinks }
         )
       },
       ok: { message: "", keep: true }
