@@ -57,10 +57,9 @@
   ],
   "apis": {
     "bulletin": "https://api.avalanche.report/albina_dev/api/bulletins",
-    "subscribe": "http://212.47.231.185:8080/albina/api/email",
+    "subscribe": "https://api.avalanche.report/albina_dev/api/email",
     "geo": "https://avalanche.report/albina_files_dev/",
     "blogger": "https://api.avalanche.report/blog/",
-    "blogger_original": "https://www.googleapis.com/blogger/v3/blogs/",
     "weather": {
       "domains": "https://avalanche.report/transfer/data/albina_domains.json",
       "stations": "https://api.avalanche.report/data/produkte/albina.geojson",
@@ -74,6 +73,7 @@
   },
   "links": {
     "interreg": "http://www.europaregion.info/splash.html",
+    "simple": "https://avalanche.report/simple/{date}/{lang}.html",
     "downloads": {
       "base": "https://avalanche.report/albina_files_dev/",
       "pdf": "{date}/{date}_{lang}.pdf",
@@ -117,7 +117,7 @@
         "name": "Facebook",
         "url": {
           "AT-07": "http://www.facebook.com/lawinenwarndienst",
-          "IT-32-BZ": "https://www.facebook.com/Lawinenwarndienst-S%C3%BCdtirol-Servizio-Prevenzione-Valanghe-Alto-Adige-577952379288951/​",
+          "IT-32-BZ": "https://www.facebook.com/Lawinenwarndienst-S%C3%BCdtirol-Servizio-Prevenzione-Valanghe-Alto-Adige-577952379288951/",
           "IT-32-TN": "https://www.facebook.com/Servizio-Prevenzione-Valanghe-Trentino-353994245173831/"
         }
       },
@@ -192,7 +192,7 @@
     "noBulletinBanner": true
   },
   "map": {
-    "attribution": "<a href='https://carto.univie.ac.at/' target='_blank'>(c) UniWien</a>",
+    "attribution": "<a href='https://carto.univie.ac.at/' target='_blank'>CC BY avalanche.report</a>",
     "useWindowWidth": true,
     "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],
     "overlay": {
@@ -203,13 +203,11 @@
       "bbox": { "east": 13.2, "west": 9.5, "north": 48, "south": 45 }
     },
     "initOptions": {
-      "maxBounds_original": [[45.150876, 7.932124], [48.240084, 15.118646]],
       "maxBounds": [[44, 5], [49, 18]],
       "maxBoundsViscosity": 1,
       "maxZoom": 10,
       "minZoom": 7
     },
-
     "maxBounds": {
       "7": [[44.4, 6.732], [48.99, 16.318]],
       "8": [[44.65, 7.132], [48.74, 15.918]],
