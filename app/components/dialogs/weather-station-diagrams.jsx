@@ -43,7 +43,7 @@ class WeatherStationDiagrams extends React.Component {
     );
   }
 
-  assambleStationInfo(stationData) {
+  assembleStationInfo(stationData) {
     let stationInfo = [];
     stationData.parametersForDialog.forEach(infoType => {
       stationInfo.push({
@@ -54,7 +54,7 @@ class WeatherStationDiagrams extends React.Component {
       });
     });
     if (APP_DEV_MODE)
-      console.log("assambleStationInfo", stationData, stationInfo);
+      console.log("assembleStationInfo", stationData, stationInfo);
     return stationInfo;
   }
 
@@ -63,7 +63,7 @@ class WeatherStationDiagrams extends React.Component {
     let self = this;
 
     if (!stationData) return <div></div>;
-    let stationInfo = this.assambleStationInfo(stationData);
+    let stationInfo = this.assembleStationInfo(stationData);
     return (
       <div className="modal-weatherstation">
         {/* <div className="modal-flipper">
