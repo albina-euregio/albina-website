@@ -43,24 +43,6 @@ window["tiltySettings"] = {
 
 require("./js/custom.js");
 
-/*
- * Set project root directory. The project root is determined by the location
- * of the bundled javascript (the first script tag within body). It can be
- * set by output.publicPath setting in webpack config when deploying the app.
- *
- * The project root directory is used by the app to determine all relative
- * paths: config, images, jsons, ...
- */
-const getBasePath = () => {
-  const bodyScriptTags = document.body.getElementsByTagName("script");
-  if (bodyScriptTags.length > 0) {
-    const bundleLocation = bodyScriptTags[0].getAttribute("src");
-    return bundleLocation.substring(0, bundleLocation.lastIndexOf("/") + 1);
-  }
-  return "/"; // fallback
-};
-const basePath = getBasePath();
-
 // detect WebP support
 // test taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/img/webp.js
 const isWebpSupported = new Promise(resolve => {
@@ -79,10 +61,10 @@ const isWebpSupported = new Promise(resolve => {
  * config.json is not bundled with the app to allow config editing without
  * redeploying the whole app.
  */
-const configUrl = basePath + "config.json?" + Date.now();
+const configUrl = APP_ASSET_PATH + "config.json?" + Date.now();
 const configRequest = axios.get(configUrl).then(res => res.data);
 Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
-  configParsed["projectRoot"] = basePath;
+  configParsed["projectRoot"] = APP_ASSET_PATH;
   configParsed["version"] = APP_VERSION; // included via webpack.DefinePlugin
   configParsed["versionDate"] = APP_VERSION_DATE; // included via webpack.DefinePlugin
   configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
