@@ -24,7 +24,9 @@ class WeatherStationDiagrams extends React.Component {
     return currentTS.valueOf();
   }
 
-  handleChangeTimeRange = newTimeRange => {
+  handleChangeTimeRange = (newTimeRange, event) => {
+    event.preventDefault();
+    event.stopPropagation();
     this.setState({
       timeRange: newTimeRange !== "none" ? newTimeRange : "day"
     });
@@ -128,7 +130,7 @@ class WeatherStationDiagrams extends React.Component {
               return (
                 <li key={key}>
                   <a
-                    href="javascript:void()"
+                    href="#"
                     onClick={self.handleChangeTimeRange.bind(self, key)}
                     className={classes.join(" ")}
                   >
