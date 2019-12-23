@@ -116,7 +116,6 @@ module.exports = (env, argv) => {
             transform: content => {
               let string = content.toString("utf8");
               string = string.replace(/{APP_ASSET_PATH}/g, publicPath);
-              console.log(string);
               return Buffer.from(string);
             }
           }
