@@ -126,8 +126,8 @@ class Page extends React.Component {
         <ModalDialog id="subscribeAppDialog">
           <SubscribeAppDialog />
         </ModalDialog>
-        {config.get("dialogs.cookieConsent") && <CookieConsent />}
-        {config.get("dialogs.feedback") && <FeedbackDialog />}
+        {config.dialogs.cookieConsent && <CookieConsent />}
+        {config.dialogs.feedback && <FeedbackDialog />}
       </>
     );
   }

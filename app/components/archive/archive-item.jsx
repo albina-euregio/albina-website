@@ -9,7 +9,7 @@ class ArchiveItem extends React.Component {
   get previewMap() {
     // TODO: fix daytime
     return (
-      window["config"].get("apis.geo") +
+      window.config.apis.geo +
       dateToISODateString(this.props.date) +
       "/am_albina_thumbnail.jpg"
     );
@@ -18,7 +18,7 @@ class ArchiveItem extends React.Component {
   render() {
     const dateString = dateToISODateString(this.props.date);
 
-    const baseLink = config.get("links.downloads")["base"];
+    const baseLink = config.links.downloads["base"];
     return (
       <tr>
         <td>
@@ -30,7 +30,7 @@ class ArchiveItem extends React.Component {
               <a
                 href={
                   baseLink +
-                  Util.template(config.get("links.downloads.pdf"), {
+                  Util.template(config.links.downloads.pdf, {
                     date: dateString,
                     lang: this.props.lang
                   })
@@ -48,7 +48,7 @@ class ArchiveItem extends React.Component {
               <a
                 href={
                   baseLink +
-                  Util.template(config.get("links.downloads.xml"), {
+                  Util.template(config.links.downloads.xml, {
                     date: dateString,
                     lang: this.props.lang
                   })

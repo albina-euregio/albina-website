@@ -36,7 +36,7 @@ class BulletinMap extends React.Component {
   }
 
   setInfoMessages() {
-    const simple = Util.template(window["config"].get("links.simple"), {
+    const simple = Util.template(window.config.links.simple, {
       date: this.props.date
         ? dateToISODateString(parseDate(this.props.date))
         : "",
@@ -85,13 +85,13 @@ class BulletinMap extends React.Component {
       const daytime = b.hasDaytimeDependency() ? this.props.ampm : "fd";
 
       const url =
-        config.get("apis.geo") +
+        config.apis.geo +
         this.props.store.settings.date +
         "/" +
         daytime +
         "_overlay.png?" +
         b.publicationDate.getTime();
-      const params = config.get("map.overlay");
+      const params = config.map.overlay;
 
       overlays.push(
         <ImageOverlay
@@ -180,7 +180,7 @@ class BulletinMap extends React.Component {
         <div
           className={
             "section-map" +
-            (config.get("map.useWindowWidth") ? "" : " section-centered")
+            (config.map.useWindowWidth ? "" : " section-centered")
           }
         >
           <LeafletMap

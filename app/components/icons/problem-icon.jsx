@@ -9,8 +9,8 @@ export default class ProblemIcon extends React.Component {
 
     // FIXME: should go to config.ini
     this.imgRoot =
-      window["config"].get("projectRoot") + "images/pro/avalanche-situations/";
-    this.imgFormat = window["config"].get("webp") ? ".webp" : ".png";
+      window.config.projectRoot + "images/pro/avalanche-situations/";
+    this.imgFormat = window.config.webp ? ".webp" : ".png";
   }
 
   render() {

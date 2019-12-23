@@ -185,13 +185,11 @@ class BulletinStore {
       gliding_snow: { highlighted: false }
     });
 
-    if (
-      config.get("bulletin.latestBulletinSwitchTime").match(/^\d{2}:\d{2}$/)
-    ) {
+    if (config.bulletin.latestBulletinSwitchTime.match(/^\d{2}:\d{2}$/)) {
       this.latest = dateToISODateString(
         (() => {
           const now = new Date();
-          const switchTime = config.get("bulletin.latestBulletinSwitchTime");
+          const switchTime = config.bulletin.latestBulletinSwitchTime;
           const matches = switchTime.match(/^(\d{2}):(\d{2})$/);
 
           if (matches && matches.length >= 3) {
@@ -213,7 +211,7 @@ class BulletinStore {
 
   @action _latestBulletinChecker() {
     axios
-      .get(config.get("apis.bulletin") + "/latest")
+      .get(config.apis.bulletin + "/latest")
       .then(response => {
         const parsedResponse = response.data;
         if (parsedResponse && parsedResponse.date) {
@@ -231,7 +229,7 @@ class BulletinStore {
       });
     window.setTimeout(
       () => this._latestBulletinChecker(),
-      config.get("bulletin.checkForLatestInterval") * 60000
+      config.bulletin.checkForLatestInterval * 60000
     );
   }
 
@@ -462,7 +460,7 @@ class BulletinStore {
 
   _loadBulletinData(date) {
     const dateParam = encodeURIComponent(date);
-    const url = config.get("apis.bulletin") + "?date=" + dateParam;
+    const url = config.apis.bulletin + "?date=" + dateParam;
 
     return axios.get(url).then(
       // query bulletin data
@@ -484,12 +482,7 @@ class BulletinStore {
         ? this.bulletins[date].publicationDate.getTime()
         : Date.now();
     const url =
-      config.get("apis.geo") +
-      date +
-      "/" +
-      d +
-      "_regions.json?" +
-      publicationDate;
+      config.apis.geo + date + "/" + d + "_regions.json?" + publicationDate;
 
     return axios.get(url).then(
       // query vector data

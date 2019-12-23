@@ -81,7 +81,7 @@ class Archive extends React.Component {
 
         return dates
           .filter(d => test(d))
-          .slice(0, window["config"].get("archive.maxResults"));
+          .slice(0, window.config.archive.maxResults);
       }
     }
     return [];
@@ -112,7 +112,7 @@ class Archive extends React.Component {
             title={this.props.intl.formatMessage({
               id: "archive:filter:year"
             })}
-            minYear={window["config"].get("archive.minYear")}
+            minYear={window.config.archive.minYear}
             handleChange={this.handleChangeYear}
             value={this.store.year}
           />

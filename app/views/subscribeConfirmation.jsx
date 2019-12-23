@@ -14,7 +14,7 @@ class SubscribeConfirmation extends React.Component {
   }
   componentDidMount() {
     axios
-      .post(config.get("apis.subscribe") + "/confirm", {
+      .post(config.apis.subscribe + "/confirm", {
         hash: decodeURIComponent(this.props.match.params.hash)
       })
       .then(

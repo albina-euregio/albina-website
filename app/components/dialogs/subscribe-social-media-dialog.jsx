@@ -19,7 +19,7 @@ class SubscribeSocialMediaDialog extends React.Component {
   };
 
   render() {
-    const socialMedia = config.get("subscribe.socialMedia");
+    const socialMedia = config.subscribe.socialMedia;
     const socialMediaNames = {};
     socialMedia.forEach(s => {
       socialMediaNames[s.id] = s.name;
@@ -34,7 +34,7 @@ class SubscribeSocialMediaDialog extends React.Component {
         .filter(e => e.url);
     });
 
-    const iframeUrls = config.get("subscribe.messengerpeople");
+    const iframeUrls = config.subscribe.messengerpeople;
     const iframeUrl = this.state.region
       ? iframeUrls[this.state.region][window["appStore"].language]
       : "";

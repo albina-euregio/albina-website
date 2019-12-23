@@ -8,7 +8,7 @@ class FollowDialog extends React.Component {
   }
 
   render() {
-    const socialMedia = config.get("subscribe.socialMedia");
+    const socialMedia = config.subscribe.socialMedia;
     const socialMediaNames = {};
     socialMedia.forEach(s => {
       socialMediaNames[s.id] = s.name;

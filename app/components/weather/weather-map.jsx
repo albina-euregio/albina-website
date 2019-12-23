@@ -21,8 +21,8 @@ class WeatherMap extends React.Component {
     const overlays = [];
     if (this.props.itemId && this.props.item) {
       if (this.props.item.layer.overlay) {
-        const mapMinZoom = config.get("map.initOptions.minZoom");
-        const mapMaxZoom = config.get("map.initOptions.maxZoom");
+        const mapMinZoom = config.map.initOptions.minZoom;
+        const mapMaxZoom = config.map.initOptions.maxZoom;
 
         const zoomBounds = this.props.item.overlay.tmsZoomLevel.split("-");
         const minZoom =
@@ -39,7 +39,7 @@ class WeatherMap extends React.Component {
             key="background-map"
             className="leaflet-image-layer"
             url={
-              config.get("apis.weather.overlays") +
+              config.apis.weather.overlays +
               this.props.item.overlay.tms +
               "/{z}/{x}/{y}.png"
             }

@@ -33,7 +33,7 @@ class PageFooter extends React.Component {
               />
             </div>
             <div className="grid-item normal-6">
-              {!config.get("subscribe.buttonHidden") && (
+              {!config.subscribe.buttonHidden && (
                 <p className="page-footer-subscribe">
                   <a
                     href="#subscribeDialog"
@@ -53,9 +53,9 @@ class PageFooter extends React.Component {
                   href="https://gitlab.com/albina-euregio/albina-website"
                   target="_blank"
                 >
-                  albina-website {config.get("version")}
+                  albina-website {config.version}
                 </a>
-                , {config.get("versionDate")}
+                , {config.versionDate}
               </p>
 
               <p className="page-footer-logo-tertiary">
@@ -72,7 +72,7 @@ class PageFooter extends React.Component {
 
               <p className="page-footer-logo-secondary">
                 <a
-                  href={Util.template(config.get("links.interreg"), {
+                  href={Util.template(config.links.interreg, {
                     lang: window["appStore"].language
                   })}
                   {...window["tiltySettings"]}
@@ -99,25 +99,10 @@ class PageFooter extends React.Component {
                   <span>Top</span>
                 </a>
               </p>
-              {/*
-                config.get('developmentMode') && (
-                  <p className="page-footer-dev-version">
-                  <span>
-                  Draft version - for internal use: v
-                  {config.get('version')}
-                  </span>
-                  </p>
-                  )
-                */}
             </div>
-            {/* <div className="grid-item all-12">
-              <div className="page-footer-version">
-                version {config.get("version")}, {config.get("versionDate")}
-              </div>
-            </div> */}
           </div>
         </section>
-        {!config.get("footer.iconsHidden") && <FooterLogos />}
+        {!config.footer.iconsHidden && <FooterLogos />}
 
         <SmFollow />
       </div>

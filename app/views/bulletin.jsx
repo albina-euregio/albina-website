@@ -170,7 +170,7 @@ class Bulletin extends React.Component {
 
     const shareImage =
       collection && this.store.settings.date
-        ? config.get("apis.geo") +
+        ? config.apis.geo +
           this.store.settings.date +
           "/" +
           (collection.hasDaytimeDependency() ? "am" : "fd") + // FIXME: there should be a way to share "am" AND "pm" map

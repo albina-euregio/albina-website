@@ -9,7 +9,7 @@ class BulletinAWMapStatic extends React.Component {
 
   render() {
     const url =
-      window["config"].get("apis.geo") +
+      window.config.apis.geo +
       this.props.date +
       "/" +
       this.props.region +

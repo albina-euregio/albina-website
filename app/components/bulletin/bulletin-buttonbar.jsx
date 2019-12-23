@@ -50,7 +50,7 @@ class BulletinButtonbar extends React.Component {
                     </a>
                     {false && (
                       <a
-                        href={Util.template(config.get("links.downloads.pdf"), {
+                        href={Util.template(config.links.downloads.pdf, {
                           date: this.props.store.settings.date,
                           lang: window["appStore"].language
                         })}
@@ -67,7 +67,7 @@ class BulletinButtonbar extends React.Component {
                     )}
                   </li>
                 )}
-                {!config.get("subscribe.buttonHidden") && (
+                {!config.subscribe.buttonHidden && (
                   <li>
                     <a
                       href="#subscribeDialog"
@@ -82,10 +82,10 @@ class BulletinButtonbar extends React.Component {
                     </a>
                   </li>
                 )}
-                {config.get("dialogs.feedback") && (
+                {config.dialogs.feedback && (
                   <li>
                     <a
-                      href={config.get("links.feedback." + appStore.language)}
+                      href={config.links.feedback[appStore.language]}
                       title={this.props.intl.formatMessage({
                         id: "bulletin:feedback:hover"
                       })}

@@ -107,18 +107,15 @@ export default class BlogPost extends React.Component {
     const blogName = props.match.params.blogName;
     const postId = props.match.params.postId;
 
-    const blogConfig = window["config"].get("blogs").find(e => {
+    const blogConfig = window.config.blogs.find(e => {
       return e.name === blogName;
     });
     if (blogConfig && postId) {
       const params = {
-        key: window["config"].get("apiKeys.google")
+        key: window.config.apiKeys.google
       };
       const url =
-        window["config"].get("apis.blogger") +
-        blogConfig.params.id +
-        "/posts/" +
-        postId;
+        window.config.apis.blogger + blogConfig.params.id + "/posts/" + postId;
 
       axios
         .get(url, { params })

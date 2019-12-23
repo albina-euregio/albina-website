@@ -67,7 +67,7 @@ class SubscribeEmailDialog extends React.Component {
     };
 
     this.setState({ status: "loading" });
-    axios.post(config.get("apis.subscribe") + "/subscribe", data).then(
+    axios.post(config.apis.subscribe + "/subscribe", data).then(
       () => {
         this.setState({ status: "submitted" });
       },

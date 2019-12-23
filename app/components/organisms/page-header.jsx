@@ -24,7 +24,7 @@ class PageHeader extends React.Component {
     }
 
     // Base.searchChange(this.props.history, { lang: newLanguage }, false);
-    const newHost = config.get("languageHostSettings")[newLanguage];
+    const newHost = config.languageHostSettings[newLanguage];
     console.info("Changing hostname to " + newHost);
     document.location.hostname = newHost;
 
@@ -146,7 +146,7 @@ class PageHeader extends React.Component {
         </div>
         <div className="page-header-logo-secondary">
           <a
-            href={Util.template(config.get("links.interreg"), {
+            href={Util.template(config.links.interreg, {
               lang: lang
             })}
             {...window["tiltySettings"]}
