@@ -37,7 +37,7 @@ export default class StaticPage extends React.Component {
   _fetchData(props) {
     // remove projectRoot from the URL
     const site = props.location.pathname
-      .substr(config.get("projectRoot"))
+      .substr(config.projectRoot)
       .replace(/^\//, "");
 
     if (site) {

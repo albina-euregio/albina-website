@@ -17,13 +17,13 @@ export default class WeatherMapStore {
     this.selectedFeature = null;
 
     const loads = [
-      axios.get(config.get("apis.weather.domains")).then(response => {
+      axios.get(config.apis.weather.domains).then(response => {
         this.config = response.data;
       }),
       new StationDataStore().load().then(features => {
         this.stations = { features };
       }),
-      axios.get(config.get("apis.weather.grid")).then(response => {
+      axios.get(config.apis.weather.grid).then(response => {
         this.grid = response.data;
       })
     ];

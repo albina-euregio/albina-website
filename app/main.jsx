@@ -10,7 +10,6 @@ import React from "react"; // eslint-disable-line no-unused-vars
 import ReactDOM from "react-dom";
 import App from "./components/app.jsx";
 import AppStore from "./appStore.js";
-import ConfigStore from "./configStore.js";
 import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
 import { reaction } from "mobx";
@@ -83,23 +82,7 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
   if (language) {
     window["appStore"].setLanguage(language);
   }
-  window["config"] = new ConfigStore(configParsed);
-  // set initial language
-
-  // init Analytics software - only on production builds
-  /*
-  if (!DEV) {
-    const trackingKey = window["config"].get("apiKeys.gaTrackingId");
-    if (trackingKey) {
-      ReactGA.initialize(trackingKey);
-      ReactGA.pageview(
-        window.location.hostname +
-          window.location.pathname +
-          window.location.search
-      );
-    }
-  }
-  */
+  window.config = configParsed;
 
   // replace language-dependent body classes on language change.
   reaction(

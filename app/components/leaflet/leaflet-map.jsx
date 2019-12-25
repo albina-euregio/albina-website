@@ -70,7 +70,7 @@ class LeafletMap extends React.Component {
 
       L.Util.setOptions(this.map, { gestureHandling: true });
 
-      this.map.fitBounds(config.get("map.euregioBounds"));
+      this.map.fitBounds(config.map.euregioBounds);
 
       const map = this.map;
       window.setTimeout(() => {
@@ -86,51 +86,45 @@ class LeafletMap extends React.Component {
           })
           .addTo(map);
 
-        const geonamesOptions = Object.assign(
-          {},
-          {
-            clearOnPopupClose: true,
+        L.control
+          .geonames({
             lang: appStore.language,
-            bbox: config.get("map.geonamesSearch.bbox"),
             title: this.props.intl.formatMessage({
               id: "bulletin:map:search"
             }),
             placeholder: this.props.intl.formatMessage({
               id: "bulletin:map:search:hover"
-            })
-          },
-          config.get("map.geonames")
-        );
-
-        L.control.geonames(geonamesOptions).addTo(map);
+            }),
+            ...config.map.geonames
+          })
+          .addTo(map);
         L.control
-          .locate(
-            Object.assign({}, config.get("map.locateOptions"), {
-              icon: "icon-geolocate",
-              iconLoading: "icon-geolocate",
-              strings: {
-                title: this.props.intl.formatMessage({
-                  id: "bulletin:map:locate:title"
-                }),
-                metersUnit: this.props.intl.formatMessage({
-                  id: "bulletin:map:locate:metersUnit"
-                }),
-                popup: this.props.intl.formatMessage(
-                  {
-                    id: "bulletin:map:locate:popup"
-                  },
-                  {
-                    // keep placeholders for L.control.locate
-                    distance: "{distance}",
-                    unit: "{unit}"
-                  }
-                ),
-                outsideMapBoundsMsg: this.props.intl.formatMessage({
-                  id: "bulletin:map:locate:outside"
-                })
-              }
-            })
-          )
+          .locate({
+            ...config.map.locateOptions,
+            icon: "icon-geolocate",
+            iconLoading: "icon-geolocate",
+            strings: {
+              title: this.props.intl.formatMessage({
+                id: "bulletin:map:locate:title"
+              }),
+              metersUnit: this.props.intl.formatMessage({
+                id: "bulletin:map:locate:metersUnit"
+              }),
+              popup: this.props.intl.formatMessage(
+                {
+                  id: "bulletin:map:locate:popup"
+                },
+                {
+                  // keep placeholders for L.control.locate
+                  distance: "{distance}",
+                  unit: "{unit}"
+                }
+              ),
+              outsideMapBoundsMsg: this.props.intl.formatMessage({
+                id: "bulletin:map:locate:outside"
+              })
+            }
+          })
           .addTo(map);
       }, 50);
 
@@ -145,14 +139,14 @@ class LeafletMap extends React.Component {
 
       this.map.on("zoomend", () => {
         const newZoom = this.map.getZoom();
-        this.map.setMaxBounds(config.get("map.maxBounds")[newZoom]);
+        this.map.setMaxBounds(config.map.maxBounds[newZoom]);
         this.invalidateMap();
       });
     }
   }
 
   get tileLayers() {
-    const tileLayerConfig = config.get("map.tileLayers");
+    const tileLayerConfig = config.map.tileLayers;
     let tileLayers = "";
     if (tileLayerConfig.length == 1) {
       // only a single raster layer -> no layer control
@@ -198,7 +192,7 @@ class LeafletMap extends React.Component {
   }
 
   render() {
-    const mapProps = config.get("map.initOptions");
+    const mapProps = config.map.initOptions;
     const mapOptions = Object.assign(
       {},
       this.props.loaded ? this._enabledMapProps() : this._disabledMapProps(),
@@ -223,7 +217,7 @@ class LeafletMap extends React.Component {
         {...mapOptions}
         attributionControl={false}
       >
-        <AttributionControl prefix={config.get("map.attribution")} />
+        <AttributionControl prefix={config.map.attribution} />
         {this.tileLayers}
         {this.props.overlays}
       </Map>
@@ -245,7 +239,7 @@ class LeafletMap extends React.Component {
         {...mapOptions}
         attributionControl={false}
       >
-        <AttributionControl prefix={config.get("map.attribution")} />
+        <AttributionControl prefix={config.map.attribution} />
         <ScaleControl imperial={false} position="bottomleft" />
         {this.props.controls}
         {this.tileLayers}

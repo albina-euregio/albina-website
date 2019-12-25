@@ -67,7 +67,7 @@ export default class BulletinVectorLayer extends React.Component {
         onMouseOut={this.handleMouseOut.bind(this)}
         positions={geometry}
         {...style}
-        {...config.get("map.vectorOptions")}
+        {...config.map.vectorOptions}
       />
     );
   }
@@ -83,8 +83,8 @@ export default class BulletinVectorLayer extends React.Component {
             // setting the style for each region
             const style = Object.assign(
               {},
-              config.get("map.regionStyling.all"),
-              config.get("map.regionStyling." + state)
+              config.map.regionStyling.all,
+              config.map.regionStyling[state]
             );
 
             return vector.properties.latlngs.map((g, gi) => {
@@ -99,9 +99,9 @@ export default class BulletinVectorLayer extends React.Component {
             // setting the style for each region
             const style = Object.assign(
               {},
-              config.get("map.regionStyling.all"),
-              config.get("map.regionStyling." + state),
-              config.get("map.regionStyling.mouseOver")
+              config.map.regionStyling.all,
+              config.map.regionStyling[state],
+              config.map.regionStyling.mouseOver
             );
 
             return vector.properties.latlngs.map((g, gi) =>

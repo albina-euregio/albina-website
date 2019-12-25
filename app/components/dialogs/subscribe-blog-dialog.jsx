@@ -10,7 +10,7 @@ class SubscribeBlogDialog extends React.Component {
   render() {
     const blogs = {};
 
-    config.get("blogs").forEach(b => {
+    config.blogs.forEach(b => {
       b.regions.forEach(r => {
         if (typeof blogs[r] === "undefined") {
           blogs[r] = [];

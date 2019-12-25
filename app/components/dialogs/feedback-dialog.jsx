@@ -15,7 +15,8 @@ class FeedbackDialog extends React.Component {
   };
 
   get url() {
-    return config.get("links.feedback." + window["appStore"].language);
+    const language = window["appStore"].language;
+    return config.links.feedback[language];
   }
 
   render() {

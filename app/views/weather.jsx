@@ -158,7 +158,7 @@ class Weather extends React.Component {
         <section
           className={
             "section-map" +
-            (config.get("map.useWindowWidth") ? "" : " section-centered")
+            (config.map.useWindowWidth ? "" : " section-centered")
           }
         >
           {/*this.store.domainId*/ true && (

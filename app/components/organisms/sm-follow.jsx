@@ -4,7 +4,7 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 class SmFollow extends React.Component {
   render() {
-    const accounts = config.get("subscribe.socialMedia").filter(account => {
+    const accounts = config.subscribe.socialMedia.filter(account => {
       return Object.keys(account.url).some(region => {
         return account.url[region];
       });

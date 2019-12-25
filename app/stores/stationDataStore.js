@@ -188,7 +188,7 @@ export default class StationDataStore {
 
   @action
   load() {
-    return axios.get(config.get("apis.weather.stations")).then(response => {
+    return axios.get(config.apis.weather.stations).then(response => {
       const data = response.data.features.filter(el => el.properties.date);
 
       this.data = data.map(el => new StationData(el));

@@ -31,7 +31,7 @@ class DownloadPdfDialog extends React.Component {
       const isRegion = !!this.state.region;
       const isBw = this.state.mode === "bw";
 
-      const links = config.get("links.downloads");
+      const links = config.links.downloads;
       const link =
         links["base"] +
         links["pdf" + (isRegion ? "-region" : "") + (isBw ? "-bw" : "")];

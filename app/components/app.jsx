@@ -150,7 +150,7 @@ class App extends React.Component {
     return (
       <Provider {...store}>
         <MobxIntlProvider>
-          <BrowserRouter basename={config.get("projectRoot")}>
+          <BrowserRouter basename={config.projectRoot}>
             <ScrollContext shouldUpdateScroll={this.shouldUpdateScroll}>
               {renderRoutes(this.routes())}
             </ScrollContext>

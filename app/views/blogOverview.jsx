@@ -26,7 +26,7 @@ class BlogOverview extends React.Component {
     }
     this.settingFilters = false;
 
-    const standaloneLinks = window["config"].get("blogs").map((blog, index) => [
+    const standaloneLinks = window.config.blogs.map((blog, index) => [
       index > 0 ? ", " : undefined,
       <a key={blog.name} href={"https://" + blog.name}>
         {blog.regions.map(region =>
@@ -228,7 +228,7 @@ class BlogOverview extends React.Component {
               id: "blog:filter:year"
             })}
             all={this.props.intl.formatMessage({ id: "filter:all" })}
-            minYear={window["config"].get("archive.minYear")}
+            minYear={window.config.archive.minYear}
             handleChange={this.handleChangeYear}
             value={this.store.year}
             className={

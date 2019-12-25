@@ -199,9 +199,6 @@
       "bounds": [[45.60608, 9.9174], [47.83039, 13.15173]],
       "opacity": 1.0
     },
-    "geonamesSearch": {
-      "bbox": { "east": 13.2, "west": 9.5, "north": 48, "south": 45 }
-    },
     "initOptions": {
       "maxBounds": [[44, 5], [49, 18]],
       "maxBoundsViscosity": 1,
@@ -237,6 +234,7 @@
       "username": "avalanche.report",
       "zoomLevel": null,
       "maxresults": 5,
+      "bbox": { "east": 13.2, "west": 9.5, "north": 48, "south": 45 },
       "className": "tooltip leaflet-geonames-icon",
       "workingClass": "leaflet-geonames-icon-working",
       "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
@@ -245,6 +243,7 @@
       "showMarker": true,
       "showPopup": true,
       "alwaysOpen": false,
+      "clearOnPopupClose": true,
       "enablePostalCodes": false
     },
     "regionStyling": {

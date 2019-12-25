@@ -4,16 +4,20 @@ import { injectIntl } from "react-intl";
 
 class FooterLogos extends React.Component {
   render() {
-    const icons = config.get("footer.icons");
-    const imgRoot = window["config"].get("projectRoot") + "images/pro/footer/";
-    const imgFormat = window["config"].get("webp") ? ".webp" : ".png";
+    const icons = config.footer.icons;
+    const imgRoot = window.config.projectRoot + "images/pro/footer/";
+    const imgFormat = window.config.webp ? ".webp" : ".png";
 
     return (
       <section className="section section-padding page-footer-images">
         <ul className="list-inline">
           {icons.map((icon, i) => (
             <li key={i}>
-              <a href={icon.url} target="_blank" className="avoid-external-icon tooltip">
+              <a
+                href={icon.url}
+                target="_blank"
+                className="avoid-external-icon tooltip"
+              >
                 <img
                   title={icon.title}
                   className="tooltip"

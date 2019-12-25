@@ -8,9 +8,8 @@ export default class ElevationIcon extends React.Component {
     super(props);
 
     // FIXME: should go to config.ini
-    this.imgRoot =
-      window["config"].get("projectRoot") + "images/pro/warning-pictos/";
-    this.imgFormat = window["config"].get("webp") ? ".webp" : ".png";
+    this.imgRoot = window.config.projectRoot + "images/pro/warning-pictos/";
+    this.imgFormat = window.config.webp ? ".webp" : ".png";
     this.icons = {
       above: "levels_above" + this.imgFormat,
       below: "levels_below" + this.imgFormat,

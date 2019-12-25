@@ -49,7 +49,7 @@ export default class BlogStore {
   getHistory;
 
   update() {
-    const languageHostConfig = config.get("languageHostSettings");
+    const languageHostConfig = config.languageHostSettings;
     const l = this.languageActive;
     const searchLang =
       languageHostConfig[l] &&
@@ -93,7 +93,7 @@ export default class BlogStore {
     if (parsed) {
       return Base.clamp(
         parsed,
-        config.get("archive.minYear"),
+        config.archive.minYear,
         new Date().getFullYear()
       );
     } else {
@@ -237,14 +237,14 @@ export default class BlogStore {
       blogger: {
         createUrl: config => {
           let baseUrl =
-            window["config"].get("apis.blogger") + config.params.id + "/posts";
+            window.config.apis.blogger + config.params.id + "/posts";
 
           const params = {
             maxResults: 500,
             fetchBodies: false,
             fetchImages: true,
             status: "live",
-            key: window["config"].get("apiKeys.google")
+            key: window.config.apiKeys.google
           };
           if (this.searchText) {
             params["q"] = this.searchText;
@@ -299,7 +299,7 @@ export default class BlogStore {
 
     this._loading.set(true);
 
-    const blogsConfig = window["config"].get("blogs");
+    const blogsConfig = window.config.blogs;
     const loads = [];
 
     const newPosts = {};

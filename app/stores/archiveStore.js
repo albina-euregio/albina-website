@@ -179,7 +179,7 @@ export default class ArchiveStore {
       ? prevDay(endDate) + timeFormatEnd
       : params.startDate;
     return axios
-      .get(config.get("apis.bulletin") + "/status", { params })
+      .get(config.apis.bulletin + "/status", { params })
       .then(
         // query status data
         response => {

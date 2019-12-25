@@ -8,10 +8,10 @@ class SubscribeAppDialog extends React.Component {
   }
 
   render() {
-    const imgRoot = window["config"].get("projectRoot") + "images/pro/apps/";
-    const imgFormat = window["config"].get("webp") ? ".webp" : ".png";
+    const imgRoot = window.config.projectRoot + "images/pro/apps/";
+    const imgFormat = window.config.webp ? ".webp" : ".png";
 
-    const apps = config.get("subscribe.apps");
+    const apps = config.subscribe.apps;
     const downloads = {};
     apps.forEach(a => {
       downloads[a.id] = Object.keys(a.url).map(t => (
