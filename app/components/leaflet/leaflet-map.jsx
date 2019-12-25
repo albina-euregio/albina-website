@@ -86,51 +86,45 @@ class LeafletMap extends React.Component {
           })
           .addTo(map);
 
-        const geonamesOptions = Object.assign(
-          {},
-          {
-            clearOnPopupClose: true,
+        L.control
+          .geonames({
             lang: appStore.language,
-            bbox: config.map.geonamesSearch.bbox,
             title: this.props.intl.formatMessage({
               id: "bulletin:map:search"
             }),
             placeholder: this.props.intl.formatMessage({
               id: "bulletin:map:search:hover"
-            })
-          },
-          config.map.geonames
-        );
-
-        L.control.geonames(geonamesOptions).addTo(map);
+            }),
+            ...config.map.geonames
+          })
+          .addTo(map);
         L.control
-          .locate(
-            Object.assign({}, config.map.locateOptions, {
-              icon: "icon-geolocate",
-              iconLoading: "icon-geolocate",
-              strings: {
-                title: this.props.intl.formatMessage({
-                  id: "bulletin:map:locate:title"
-                }),
-                metersUnit: this.props.intl.formatMessage({
-                  id: "bulletin:map:locate:metersUnit"
-                }),
-                popup: this.props.intl.formatMessage(
-                  {
-                    id: "bulletin:map:locate:popup"
-                  },
-                  {
-                    // keep placeholders for L.control.locate
-                    distance: "{distance}",
-                    unit: "{unit}"
-                  }
-                ),
-                outsideMapBoundsMsg: this.props.intl.formatMessage({
-                  id: "bulletin:map:locate:outside"
-                })
-              }
-            })
-          )
+          .locate({
+            ...config.map.locateOptions,
+            icon: "icon-geolocate",
+            iconLoading: "icon-geolocate",
+            strings: {
+              title: this.props.intl.formatMessage({
+                id: "bulletin:map:locate:title"
+              }),
+              metersUnit: this.props.intl.formatMessage({
+                id: "bulletin:map:locate:metersUnit"
+              }),
+              popup: this.props.intl.formatMessage(
+                {
+                  id: "bulletin:map:locate:popup"
+                },
+                {
+                  // keep placeholders for L.control.locate
+                  distance: "{distance}",
+                  unit: "{unit}"
+                }
+              ),
+              outsideMapBoundsMsg: this.props.intl.formatMessage({
+                id: "bulletin:map:locate:outside"
+              })
+            }
+          })
           .addTo(map);
       }, 50);
 
