@@ -105,6 +105,10 @@ module.exports = (env, argv) => {
           { from: "./content", to: "content" },
           { from: "./i18n", to: "i18n" },
           { from: "./images", to: "images" },
+          {
+            from: __dirname + "/node_modules/leaflet/dist/images",
+            to: "assets"
+          },
           { from: "./images/fav/en/favicon.ico", to: "favicon.ico" },
           { from: "./sitemap.xml", to: "sitemap.xml" },
           {
