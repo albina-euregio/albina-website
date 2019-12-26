@@ -50,12 +50,11 @@ export default class BulletinMapDetails extends React.Component {
             treeline={treeline}
           />
         </li>{" "}
-        {problems.length > 0 &&
-          problems.map(id => (
-            <li key={id}>
-              <ProblemIconLink problem={id} />
-            </li>
-          ))}
+        {problems.map(id => (
+          <li key={id}>
+            <ProblemIconLink problem={id} />
+          </li>
+        ))}
       </ul>
     );
   }

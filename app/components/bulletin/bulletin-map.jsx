@@ -128,6 +128,7 @@ class BulletinMap extends React.Component {
       detailsClasses.push("js-active");
       res.push(
         <BulletinMapDetails
+          key="details"
           store={this.props.store}
           bulletin={hlBulletin}
           ampm={this.props.ampm}
@@ -136,6 +137,7 @@ class BulletinMap extends React.Component {
       res.push(
         this.props.store.settings.region && (
           <a
+            key="link"
             href={"#" + this.props.store.settings.region}
             className="pure-button tooltip"
             title={this.props.intl.formatMessage({
