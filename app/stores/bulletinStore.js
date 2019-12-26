@@ -70,10 +70,11 @@ class BulletinCollection {
   }
 
   getBulletinForRegion(regionId) {
-    if (this.length > 0) {
-      return this.getData().find(el => el.id == regionId);
-    }
-    return null;
+    return (this.getData() || []).find(el => el.id == regionId);
+  }
+
+  getBulletinForMicroRegion(regionId) {
+    return (this.getData() || []).find(el => el.regions.indexOf(regionId) >= 0);
   }
 
   getData() {

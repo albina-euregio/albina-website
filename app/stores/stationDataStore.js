@@ -23,7 +23,7 @@ export class StationData {
   get state() {
     const region = this.properties["LWD-Region"];
     if (typeof region === "string") {
-      const match = region.match(/AT-07|IT-32-BZ|IT-32-TN/);
+      const match = region.match(window.config.regionsRegex);
       return match ? match[0] : "";
     } else {
       return "";

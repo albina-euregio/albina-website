@@ -112,8 +112,21 @@ class Bulletin extends React.Component {
   }
 
   checkRegion() {
-    const urlRegion = Base.searchGet("region");
+    let urlRegion = Base.searchGet("region");
     const storeRegion = this.store.settings.region;
+
+    // detect microregion such as AT-07-15
+    if (
+      urlRegion &&
+      urlRegion.match(config.regionsRegex) &&
+      this.store.activeBulletinCollection
+    ) {
+      const bulletins = this.store.activeBulletinCollection;
+      const bulletin = bulletins.getBulletinForMicroRegion(urlRegion);
+      if (bulletin) {
+        urlRegion = bulletin.id;
+      }
+    }
 
     if (urlRegion !== storeRegion) {
       this.store.setRegion(urlRegion);
