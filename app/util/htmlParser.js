@@ -39,19 +39,9 @@ function defaultProcessor() {
   };
 }
 
-function parseRawHtml(content, instructions = [defaultProcessor()]) {
+function preprocessContent(content) {
+  const instructions = [replaceInternalLinksProcessor(), defaultProcessor()];
   return htmlParser.parseWithInstructions(content, isValidNode, instructions);
 }
 
-function preprocessContent(content) {
-  const instructions = [replaceInternalLinksProcessor(), defaultProcessor()];
-
-  return parseRawHtml(content, instructions);
-}
-
-export {
-  parseRawHtml,
-  defaultProcessor,
-  replaceInternalLinksProcessor,
-  preprocessContent
-};
+export { preprocessContent };

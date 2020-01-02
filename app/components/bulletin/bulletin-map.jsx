@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
-import { Parser } from "html-to-react";
 import { ImageOverlay } from "react-leaflet";
 import InfoBar from "../organisms/info-bar";
 import { dateToISODateString, parseDate } from "../../util/date";
@@ -13,6 +12,7 @@ import BulletinMapDetails from "./bulletin-map-details";
 import BulletinVectorLayer from "./bulletin-vector-layer";
 import MapStore from "../../stores/mapStore";
 import Base from "../../base";
+import { preprocessContent } from "../../util/htmlParser";
 
 class BulletinMap extends React.Component {
   constructor(props) {
@@ -145,7 +145,7 @@ class BulletinMap extends React.Component {
             })}
             data-scroll=""
           >
-            {new Parser().parse(
+            {preprocessContent(
               this.props.intl.formatHTMLMessage({
                 id: "bulletin:map:info:details"
               })

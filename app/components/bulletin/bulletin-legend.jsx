@@ -2,8 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
-import { Parser } from "html-to-react";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
+import { preprocessContent } from "../../util/htmlParser.js";
 
 class BulletinLegend extends React.Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class BulletinLegend extends React.Component {
           <div className="grid">
             <div className="normal-6 grid-item">
               <p>
-                {parts.length > 1 && new Parser().parse(parts[1])}
+                {parts.length > 1 && preprocessContent(parts[1])}
                 {parts.length > 2 && (
                   <Link
                     to="/education/avp"
@@ -52,7 +52,7 @@ class BulletinLegend extends React.Component {
                     <strong>{parts[2]}</strong>
                   </Link>
                 )}
-                {parts.length > 3 && new Parser().parse(parts[3])}
+                {parts.length > 3 && preprocessContent(parts[3])}
               </p>
               <BulletinProblemFilter
                 handleSelectRegion={this.props.handleSelectRegion}
