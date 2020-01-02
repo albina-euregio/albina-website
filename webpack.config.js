@@ -1,5 +1,6 @@
 const webpack = require("webpack");
 const { execSync } = require("child_process");
+const { resolve } = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -11,6 +12,12 @@ module.exports = (env, argv) => {
   const config = env === "dev" ? "./config-dev.json" : "./config.json";
   return {
     resolve: {
+      alias: {
+        "react-intl": resolve(
+          __dirname,
+          "node_modules/react-intl/dist/react-intl.js"
+        )
+      },
       extensions: [".js", ".jsx"]
     },
     context: __dirname + "/app",
