@@ -154,6 +154,7 @@ class PageHeader extends React.Component {
             title={this.props.intl.formatMessage({
               id: "header:euregio:hover"
             })}
+            rel="noopener"
             target="_blank"
           >
             <span>Euregio</span>

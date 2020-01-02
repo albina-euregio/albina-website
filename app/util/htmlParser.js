@@ -32,6 +32,14 @@ function replaceInternalLinksProcessor() {
   };
 }
 
+function noOpenerForExternalLinks() {
+  return {
+    shouldPreprocessNode: node =>
+      node.name === "a" && node.attribs.target === "_blank",
+    preprocessNode: node => (node.attribs.rel = "noopener")
+  };
+}
+
 function defaultProcessor() {
   return {
     shouldProcessNode: () => true,
@@ -41,7 +49,13 @@ function defaultProcessor() {
 
 function preprocessContent(content) {
   const instructions = [replaceInternalLinksProcessor(), defaultProcessor()];
-  return htmlParser.parseWithInstructions(content, isValidNode, instructions);
+  const preprocessingInstructions = [noOpenerForExternalLinks()];
+  return htmlParser.parseWithInstructions(
+    content,
+    isValidNode,
+    instructions,
+    preprocessingInstructions
+  );
 }
 
 export { preprocessContent };

@@ -8,6 +8,7 @@ export default class ZamgControl extends React.Component {
         <a
           href="https://www.zamg.ac.at"
           className="pure-button secondary"
+          rel="noopener"
           target="_blank"
         >
           <div id="zamg-logo"></div>
