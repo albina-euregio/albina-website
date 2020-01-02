@@ -54,7 +54,7 @@ import { ModalCheckComponent } from "./bulletins/modal-check.component";
 import { ModalPublicationStatusComponent } from "./bulletins/modal-publication-status.component";
 import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.component";
 
-import * as Sentry from '@sentry/browser';
+import * as Sentry from "@sentry/browser";
 
 Sentry.init({
   dsn: "https://f01d3588732c4ed195093468989a45f2@sentry.io/1828063"
