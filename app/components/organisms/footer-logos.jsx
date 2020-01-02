@@ -19,6 +19,7 @@ class FooterLogos extends React.Component {
                 className="avoid-external-icon tooltip"
               >
                 <img
+                  alt={icon.title}
                   title={icon.title}
                   className="tooltip"
                   src={imgRoot + icon.img + imgFormat}
