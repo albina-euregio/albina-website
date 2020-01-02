@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { ErrorHandler, Injectable, NgModule } from "@angular/core";
 import { LocationStrategy, HashLocationStrategy } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -54,6 +54,20 @@ import { ModalCheckComponent } from "./bulletins/modal-check.component";
 import { ModalPublicationStatusComponent } from "./bulletins/modal-publication-status.component";
 import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.component";
 
+import * as Sentry from '@sentry/browser';
+
+Sentry.init({
+  dsn: "https://f01d3588732c4ed195093468989a45f2@sentry.io/1828063"
+});
+
+@Injectable()
+export class SentryErrorHandler implements ErrorHandler {
+  handleError(error) {
+    const eventId = Sentry.captureException(error.originalError || error);
+    Sentry.showReportDialog({ eventId });
+  }
+}
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -84,6 +98,10 @@ import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.componen
     ModalPublishAllComponent
   ],
   providers: [
+    {
+       provide: ErrorHandler,
+       useClass: SentryErrorHandler
+    },
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy
