@@ -10,6 +10,7 @@ module.exports = (env, argv) => {
   const production = !argv.mode || argv.mode === "production";
   const publicPath = env === "dev" ? "/dev/" : env === "beta" ? "/beta/" : "/";
   const config = env === "dev" ? "./config-dev.json" : "./config.json";
+  const mebibyte = 1024 * 1024;
   return {
     resolve: {
       alias: {
@@ -85,6 +86,11 @@ module.exports = (env, argv) => {
           ]
         }
       ]
+    },
+    performance: {
+      hints: production ? "error" : false,
+      maxEntrypointSize: 2.0 * mebibyte,
+      maxAssetSize: 1.5 * mebibyte
     },
     plugins: [
       new HtmlWebPackPlugin({
