@@ -56,7 +56,9 @@ import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.componen
 
 import * as Sentry from "@sentry/browser";
 
+const pkg = require("../../package.json");
 Sentry.init({
+  release: [pkg.name, pkg.version].join("@"),
   dsn: "https://f01d3588732c4ed195093468989a45f2@sentry.io/1828063"
 });
 
