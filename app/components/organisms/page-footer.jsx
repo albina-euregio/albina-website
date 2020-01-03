@@ -10,6 +10,10 @@ if (!window["tilty"]) window["tilty"] = require("vanilla-tilt");
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
 
+const version = APP_VERSION; // included via webpack.DefinePlugin
+const versionDate = APP_VERSION_DATE; // included via webpack.DefinePlugin
+const { license, repository } = require("../../../package.json");
+
 class PageFooter extends React.Component {
   componentDidMount() {
     window["tilty"].init(document.querySelectorAll(".tilt"));
@@ -49,14 +53,10 @@ class PageFooter extends React.Component {
                 </p>
               )}
               <p className="page-footer-text">
-                <a
-                  href="https://gitlab.com/albina-euregio/albina-website"
-                  rel="noopener"
-                  target="_blank"
-                >
-                  albina-website {config.version}
+                <a href={repository.url} rel="noopener" target="_blank">
+                  albina-website {version}
                 </a>
-                , {config.versionDate}
+                , {versionDate}, {license}
               </p>
 
               <p className="page-footer-logo-tertiary">

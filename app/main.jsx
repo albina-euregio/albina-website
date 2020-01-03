@@ -64,8 +64,6 @@ const configUrl = APP_ASSET_PATH + "config.json?" + Date.now();
 const configRequest = axios.get(configUrl).then(res => res.data);
 Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
   configParsed["projectRoot"] = APP_ASSET_PATH;
-  configParsed["version"] = APP_VERSION; // included via webpack.DefinePlugin
-  configParsed["versionDate"] = APP_VERSION_DATE; // included via webpack.DefinePlugin
   configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
   configParsed["webp"] = webp;
   if (webp) {
