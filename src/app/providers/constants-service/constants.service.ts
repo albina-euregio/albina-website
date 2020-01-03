@@ -1,8 +1,12 @@
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
+const pkg = require("../../../../package.json");
 
 @Injectable()
 export class ConstantsService {
+
+  public release = [pkg.name, pkg.version].join("@");
+  public gitlab = pkg.bugs.url;
 
   public snowObserverServerUrl: string = "https://snowobserver.com/snowobserver/api/";
   public zamgModelsUrl: string = "https://avalanche.report/zamg/";

@@ -8,6 +8,7 @@ import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
 import { environment } from "../../environments/environment";
 import { DomSanitizer } from "@angular/platform-browser";
+import { ConstantsService } from "app/providers/constants-service/constants.service";
 
 @Component({
   templateUrl: "login.component.html"
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private mapService: MapService,
+    private constantsService: ConstantsService,
     private translateService: TranslateService,
     private modalService: BsModalService,
     private chatService: ChatService,
