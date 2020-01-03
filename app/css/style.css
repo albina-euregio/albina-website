@@ -1483,6 +1483,9 @@ body:before {
 .icon-sm-whatsapp:before {
   content: "\e847";
 }
+.icon-sm-telegram:before {
+  content: "\e819";
+}
 .icon-close:before,
 button.mfp-close:before,
 button.mfp-arrow:before {
@@ -4433,6 +4436,12 @@ a.linkbox-blog-feature:hover .content-text .blog-feature-meta li {
 .page-footer .sm-button.icon-sm-whatsapp,
 .modal-follow .sm-button.icon-sm-whatsapp {
   color: #25d366;
+}
+.sm-button.icon-sm-telegram:hover,
+.sm-button.icon-sm-telegram:active,
+.page-footer .sm-button.icon-sm-telegram,
+.modal-follow .sm-button.icon-sm-telegram {
+  color: #08c;
 }
 .sm-button span {
   display: none;
