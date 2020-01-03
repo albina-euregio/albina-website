@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg xmlns="http://www.w3.org/2000/svg">
-<metadata>Copyright (C) 2018 by original authors @ fontello.com</metadata>
+<metadata>Copyright (C) 2020 by original authors @ fontello.com</metadata>
 <defs>
 <font id="fontello" horiz-adv-x="1000" >
 <font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
@@ -31,6 +31,8 @@
 <glyph glyph-name="arrow-right" unicode="&#xe817;" d="M910 317h-910v33h910l-134 133h48l150-150-150-150h-48z" horiz-adv-x="1000" />
 
 <glyph glyph-name="arrow-up" unicode="&#xe818;" d="M467 760v-910h33v910l133-133v46l-150 150-150-150v-46z" horiz-adv-x="1000" />
+
+<glyph glyph-name="sm-telegram" unicode="&#xe819;" d="M476 850c132 0 244-46 337-139 93-93 139-206 139-337 0-132-46-244-139-337-93-93-205-139-337-139-131 0-243 46-336 139-93 93-140 205-140 337 0 131 47 244 140 337 93 93 205 139 336 139z m262-214l-619-303 179-62 338 244-265-267 0-135 77 108 242-81 48 496z" horiz-adv-x="1000" />
 
 <glyph glyph-name="attention" unicode="&#xe81a;" d="M500 150a200 200 0 1 0 0 400 200 200 0 0 0 0-400z m0 33a167 167 0 1 1 0 334 167 167 0 0 1 0-334z m-17 267h34v-133h-34v133z m0-167h34v-33h-34v33z" horiz-adv-x="1000" />
 
