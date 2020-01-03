@@ -51,6 +51,7 @@ class PageFooter extends React.Component {
               <p className="page-footer-text">
                 <a
                   href="https://gitlab.com/albina-euregio/albina-website"
+                  rel="noopener"
                   target="_blank"
                 >
                   albina-website {config.version}
@@ -64,6 +65,7 @@ class PageFooter extends React.Component {
                   {...window["tiltySettings"]}
                   className="footer-logo-tertiary tooltip tilt"
                   title="EAWS"
+                  rel="noopener"
                   target="_blank"
                 >
                   <span>EAWS</span>
@@ -80,6 +82,7 @@ class PageFooter extends React.Component {
                   title={this.props.intl.formatMessage({
                     id: "footer:euregio:hover"
                   })}
+                  rel="noopener"
                   target="_blank"
                 >
                   <span>Euregio</span>

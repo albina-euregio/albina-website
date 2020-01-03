@@ -2,7 +2,6 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { reaction } from "mobx";
 import { injectIntl } from "react-intl";
-import { Parser } from "html-to-react";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
 import ArchiveStore from "../stores/archiveStore.js";
@@ -15,6 +14,7 @@ import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import DayFilter from "../components/filters/day-filter.jsx";
 import { tooltip_init } from "../js/tooltip";
+import { preprocessContent } from "../util/htmlParser.js";
 
 class Archive extends React.Component {
   constructor(props) {
@@ -189,7 +189,7 @@ class Archive extends React.Component {
             </div>
           </section>
         </section>
-        <div>{new Parser().parse(this.state.content)}</div>
+        <div>{preprocessContent(this.state.content)}</div>
         {this.state.sharable ? (
           <SmShare />
         ) : (

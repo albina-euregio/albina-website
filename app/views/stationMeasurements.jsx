@@ -1,6 +1,5 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Parser } from "html-to-react";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import StationDataStore from "../stores/stationDataStore";
@@ -12,6 +11,7 @@ import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import loadable from "@loadable/component";
+import { preprocessContent } from "../util/htmlParser";
 const StationTable = loadable(() =>
   import(
     /* webpackChunkName: "app-stationTable" */ "../components/stationTable/stationTable"
@@ -130,7 +130,7 @@ class StationMeasurements extends React.Component {
             />
           </div>
         </section>
-        <div>{new Parser().parse(this.state.content)}</div>
+        <div>{preprocessContent(this.state.content)}</div>
         {this.state.sharable ? (
           <SmShare />
         ) : (

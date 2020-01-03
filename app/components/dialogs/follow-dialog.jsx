@@ -44,6 +44,7 @@ class FollowDialog extends React.Component {
                     <a
                       className={"sm-button icon-sm-" + e.id + " tooltip"}
                       href={e.url}
+                      rel="noopener"
                       target="_blank"
                       title={this.props.intl.formatMessage(
                         { id: "footer:follow-us:hover" },

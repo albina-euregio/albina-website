@@ -54,6 +54,7 @@ class BulletinButtonbar extends React.Component {
                           date: this.props.store.settings.date,
                           lang: window["appStore"].language
                         })}
+                        rel="noopener"
                         target="_blank"
                         title={this.props.intl.formatMessage({
                           id: "bulletin:linkbar:pdf:hover"
@@ -89,6 +90,7 @@ class BulletinButtonbar extends React.Component {
                       title={this.props.intl.formatMessage({
                         id: "bulletin:feedback:hover"
                       })}
+                      rel="noopener"
                       target="_blank"
                       className="success pure-button tooltip"
                     >

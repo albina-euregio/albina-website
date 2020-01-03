@@ -35,6 +35,7 @@ class ArchiveItem extends React.Component {
                     lang: this.props.lang
                   })
                 }
+                rel="noopener"
                 target="_blank"
                 title={this.props.intl.formatMessage({
                   id: "archive:download-pdf:hover"
@@ -56,6 +57,7 @@ class ArchiveItem extends React.Component {
                 title={this.props.intl.formatMessage({
                   id: "archive:download-xml:hover"
                 })}
+                rel="noopener"
                 target="_blank"
                 className="small secondary pure-button tooltip"
               >

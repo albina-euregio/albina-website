@@ -1,7 +1,6 @@
 import React from "react";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
-import { Parser } from "html-to-react";
 import BlogStore from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -15,6 +14,7 @@ import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
 // import TagFilter from "../components/filters/tag-filter";
 import InfoBar from "../components/organisms/info-bar";
+import { preprocessContent } from "../util/htmlParser";
 
 class BlogOverview extends React.Component {
   _settingFilters;
@@ -307,7 +307,7 @@ class BlogOverview extends React.Component {
             </div>
           )}
         </section>
-        <div>{new Parser().parse(this.state.content)}</div>
+        <div>{preprocessContent(this.state.content)}</div>
 
         {this.state.sharable ? (
           <SmShare />
