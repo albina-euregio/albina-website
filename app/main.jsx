@@ -40,6 +40,7 @@ window["tiltySettings"] = {
   "data-tilt-scale": 1.1
 };
 
+import "./js/custom-event-polyfill"; // for vanilla-tilt
 require("./js/custom.js");
 
 // detect WebP support
