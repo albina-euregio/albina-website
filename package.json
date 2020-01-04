@@ -85,6 +85,12 @@
   },
   "keywords": [],
   "author": "",
+  "repository": {
+    "url": "https://gitlab.com/albina-euregio/albina-website"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/albina-euregio/albina-website/issues"
+  },
   "license": "GPL-3.0-or-later",
   "husky": {
     "hooks": {
