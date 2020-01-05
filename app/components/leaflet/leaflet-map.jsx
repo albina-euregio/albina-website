@@ -44,7 +44,11 @@ class LeafletMap extends React.Component {
     this.updateMaps();
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    if (this.map) {
+      this.map.off("zoomend", this._zoomend, this);
+    }
+  }
 
   updateMaps() {
     if (this.refs.mapDisabled && !this.mapDisabled) {
@@ -123,12 +127,14 @@ class LeafletMap extends React.Component {
         tooltip_init();
       }, 100);
 
-      this.map.on("zoomend", () => {
-        const map = this.map;
-        const newZoom = Math.round(map.getZoom());
-        map.setMaxBounds(config.map.maxBounds[newZoom]);
-      });
+      this.map.on("zoomend", this._zoomend, this);
     }
+  }
+
+  _zoomend() {
+    const map = this.map;
+    const newZoom = Math.round(map.getZoom());
+    map.setMaxBounds(config.map.maxBounds[newZoom]);
   }
 
   get tileLayers() {
