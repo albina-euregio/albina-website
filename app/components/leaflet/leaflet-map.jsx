@@ -44,12 +44,7 @@ class LeafletMap extends React.Component {
     this.updateMaps();
   }
 
-  componentWillUnmount() {
-    if (this.map) {
-      window.removeEventListener("resize", this.invalidateMap);
-      window.removeEventListener("orientationchange", this.invalidateMap);
-    }
-  }
+  componentWillUnmount() {}
 
   invalidateMap() {
     const map = this.map;
@@ -136,9 +131,6 @@ class LeafletMap extends React.Component {
         $(".leaflet-control-locate a").addClass("tooltip");
         tooltip_init();
       }, 100);
-
-      window.addEventListener("resize", this.invalidateMap);
-      window.addEventListener("orientationchange", this.invalidateMap);
 
       this.map.on("zoomend", () => {
         const newZoom = this.map.getZoom();
