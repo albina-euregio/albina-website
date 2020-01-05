@@ -21,7 +21,10 @@ require("../../css/geonames.css");
 class LeafletMap extends React.Component {
   constructor(props) {
     super(props);
-    this.map = false;
+    /**
+     * @type L.Map
+     */
+    this.map = undefined;
   }
 
   mapStyle() {
