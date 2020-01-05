@@ -47,6 +47,8 @@ class LeafletMap extends React.Component {
   componentWillUnmount() {
     if (this.map) {
       this.map.off("zoomend", this._zoomend, this);
+      // workaround for https://github.com/Leaflet/Leaflet/pull/6958
+      this.map.off("moveend", this._panInsideMaxBounds, this.map);
     }
   }
 
