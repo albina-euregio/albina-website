@@ -17,6 +17,9 @@ import { preprocessContent } from "../../util/htmlParser";
 class BulletinMap extends React.Component {
   constructor(props) {
     super(props);
+    /**
+     * @type L.Map
+     */
     this.map = false;
     this.lastDate;
     this.infoMessageLevels = {
@@ -62,14 +65,17 @@ class BulletinMap extends React.Component {
   handleMapInit = map => {
     this.map = map;
 
-    map.on("click", () => {
-      this.props.handleSelectRegion(null);
-    });
+    this.map.on("click", this._click, this);
+    this.map.on("unload", () => map.off("click", this._click, this));
 
     if (typeof this.props.onMapInit === "function") {
       this.props.onMapInit(map);
     }
   };
+
+  _click() {
+    this.props.handleSelectRegion(null);
+  }
 
   styleOverMap() {
     return {
