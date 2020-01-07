@@ -17,7 +17,7 @@ class StationMarker extends MapLayer {
         type={this.props.type}
         color={this.props.color}
         selected={this.props.selected}
-        value={this.props.value}
+        value={isFinite(this.props.value) ? this.props.value : ""}
         direction={this.props.direction}
       />
     );

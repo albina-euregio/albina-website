@@ -19,6 +19,9 @@ const StationMeasurements = loadable(() =>
     /* webpackChunkName: "app-stationMeasurements" */ "./../views/stationMeasurements"
   )
 );
+const StationMap = loadable(() =>
+  import(/* webpackChunkName: "app-stationMap" */ "./../views/stationMap")
+);
 import OverviewPage from "./../views/overviewPage";
 import Archive from "./../views/archive";
 import StaticPage from "./../views/staticPage";
@@ -97,6 +100,11 @@ class App extends React.Component {
             path: "/weather/measurements",
             exact: true,
             component: StationMeasurements
+          },
+          {
+            path: "/weather/stations",
+            exact: true,
+            component: StationMap
           },
           {
             path: "/weather",

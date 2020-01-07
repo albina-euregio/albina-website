@@ -15,6 +15,9 @@ class Cluster extends MapLayer {
 
   getActiveMarker = cluster => {
     const markers = cluster.getAllChildMarkers();
+    if (this.props.item.clusterOperation === "none") {
+      return markers[0];
+    }
     const values = markers.map(marker => marker.options.data.value);
 
     const derivedValue =
