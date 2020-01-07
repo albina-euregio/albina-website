@@ -9,8 +9,6 @@ class WarnLevelIcon extends React.Component {
   constructor(props) {
     super(props);
 
-    // http://localhost/projects/albina-cms/web/de/api/taxonomy_term/warning_levels?sort=level&fields[taxonomy_term--warning_levels]=name,level
-    // FIXME: should go to config.ini
     this.imgRoot = window.config.projectRoot + "images/pro/warning-pictos/";
   }
 
