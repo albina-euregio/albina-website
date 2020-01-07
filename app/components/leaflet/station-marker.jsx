@@ -31,6 +31,7 @@ class StationMarker extends MapLayer {
   createLeafletElement() {
     const marker = L.marker(this.props.coordinates, {
       data: this.props.data,
+      title: this.props.stationName,
       icon: this.createStationIcon()
     });
 

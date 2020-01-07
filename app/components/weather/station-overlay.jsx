@@ -78,6 +78,7 @@ export default class StationOverlay extends React.Component {
         itemId={this.props.item.id}
         data={markerData}
         stationId={data.id}
+        stationName={data.name}
         coordinates={coordinates}
         value={value}
         selected={
