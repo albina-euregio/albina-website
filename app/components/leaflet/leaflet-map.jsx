@@ -21,7 +21,10 @@ require("../../css/geonames.css");
 class LeafletMap extends React.Component {
   constructor(props) {
     super(props);
-    this.map = false;
+    /**
+     * @type L.Map
+     */
+    this.map = undefined;
   }
 
   mapStyle() {
@@ -43,17 +46,9 @@ class LeafletMap extends React.Component {
 
   componentWillUnmount() {
     if (this.map) {
-      window.removeEventListener("resize", this.invalidateMap);
-      window.removeEventListener("orientationchange", this.invalidateMap);
-    }
-  }
-
-  invalidateMap() {
-    const map = this.map;
-    if (map && map.invalidateSize) {
-      window.setTimeout(() => {
-        map.invalidateSize();
-      }, 200);
+      this.map.off("zoomend", this._zoomend, this);
+      // workaround for https://github.com/Leaflet/Leaflet/pull/6958
+      this.map.off("moveend", this._panInsideMaxBounds, this.map);
     }
   }
 
@@ -134,15 +129,14 @@ class LeafletMap extends React.Component {
         tooltip_init();
       }, 100);
 
-      window.addEventListener("resize", this.invalidateMap);
-      window.addEventListener("orientationchange", this.invalidateMap);
-
-      this.map.on("zoomend", () => {
-        const newZoom = this.map.getZoom();
-        this.map.setMaxBounds(config.map.maxBounds[newZoom]);
-        this.invalidateMap();
-      });
+      this.map.on("zoomend", this._zoomend, this);
     }
+  }
+
+  _zoomend() {
+    const map = this.map;
+    const newZoom = Math.round(map.getZoom());
+    map.setMaxBounds(config.map.maxBounds[newZoom]);
   }
 
   get tileLayers() {
