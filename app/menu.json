@@ -8,8 +8,7 @@
       { "url": "/weather/measurements" },
       {
         "key": "lawis:station",
-        "url": "https://www.lawis.at/station?lang=en",
-        "url:de": "https://www.lawis.at/station?lang=de"
+        "url": "/weather/stations"
       },
       {
         "key": "lawis:profile",
