@@ -27,11 +27,8 @@ import Page from "./page";
 import { scroll_init } from "../js/scroll";
 import { orientation_change } from "../js/browser";
 
-// FIXME: CSS cannot be parsed right now: require('../css/style.css');
 require("../css/style.css");
 // require("../css/app.scss"); // CSS overrides
-
-// require('./js/custom.js');
 
 class App extends React.Component {
   shouldComponentUpdate() {
