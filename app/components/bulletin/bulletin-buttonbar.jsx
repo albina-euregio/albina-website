@@ -1,7 +1,6 @@
 import React from "react";
 import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
-import { Util } from "leaflet";
 import { modal_init } from "../../js/modal";
 
 class BulletinButtonbar extends React.Component {
@@ -48,24 +47,6 @@ class BulletinButtonbar extends React.Component {
                         id: "bulletin:linkbar:pdf"
                       })}
                     </a>
-                    {false && (
-                      <a
-                        href={Util.template(config.links.downloads.pdf, {
-                          date: this.props.store.settings.date,
-                          lang: window["appStore"].language
-                        })}
-                        rel="noopener"
-                        target="_blank"
-                        title={this.props.intl.formatMessage({
-                          id: "bulletin:linkbar:pdf:hover"
-                        })}
-                        className="pure-button tooltip"
-                      >
-                        {this.props.intl.formatMessage({
-                          id: "bulletin:linkbar:pdf"
-                        })}
-                      </a>
-                    )}
                   </li>
                 )}
                 {!config.subscribe.buttonHidden && (
