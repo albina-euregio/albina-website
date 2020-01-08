@@ -27,7 +27,7 @@
     "html-to-react": "^1.4.2",
     "jquery": "^3.4.1",
     "leaflet": "^1.6.0",
-    "leaflet-geonames": "^0.4.8",
+    "leaflet-geonames": "^0.4.7",
     "leaflet-gesture-handling": "^1.1.8",
     "leaflet.locatecontrol": "^0.63.0",
     "leaflet.markercluster": "^1.4.1",
