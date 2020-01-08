@@ -257,7 +257,7 @@ class BulletinStore {
         }
 
         /*
-         * First check status data (via achiveStore). If status is 'ok'
+         * First check status data (via archiveStore). If status is 'ok'
          * (i.e. 'published' or 'republished'),
          * continue loading bulletin data and then load GeoJSON.
          *
