@@ -3,6 +3,7 @@ const { execSync } = require("child_process");
 const { resolve } = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 
@@ -139,7 +140,19 @@ module.exports = (env, argv) => {
         ],
         {}
       ),
-      new ImageminWebpWebpackPlugin()
-    ]
+      production &&
+        new CompressionPlugin({
+          filename: "[path].gz[query]",
+          algorithm: "gzip",
+          test: /\.(js|css|html|svg)$/
+        }),
+      production &&
+        new CompressionPlugin({
+          filename: "[path].br[query]",
+          algorithm: "brotliCompress",
+          test: /\.(js|css|html|svg)$/
+        }),
+      production && new ImageminWebpWebpackPlugin()
+    ].filter(plugin => !!plugin)
   };
 };
