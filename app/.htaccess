@@ -11,6 +11,21 @@ RewriteRule "^" "index.html" [L]
   Header set Cache-Control "public, no-cache"
 </FilesMatch>
 
-<FilesMatch ".[0-9a-f]{8,}.(js|css)$">
+# Serve JS/CSS files with a hash in the filename with a long caching header
+<FilesMatch "[0-9a-f]{8,}\.(js|css)(\.br)?$">
   Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# Serve pre-compressed files with Brotli compression
+RewriteCond "%{HTTP:Accept-encoding}" "br"
+RewriteCond "%{REQUEST_FILENAME}\.br" -s
+RewriteRule "^(.*)" "$1\.br" [QSA]
+RewriteRule "\.css\.br$" "-" [T=text/css,E=no-brotli:1,E=no-gzip:1]
+RewriteRule "\.html?\.br$" "-" [T=text/html,E=no-brotli:1,E=no-gzip:1]
+RewriteRule "\.js\.br$" "-" [T=text/javascript,E=no-brotli:1,E=no-gzip:1]
+RewriteRule "\.svg\.br$" "-" [T=image/svg+xml,E=no-brotli:1,E=no-gzip:1]
+RewriteRule "\.xml\.br$" "-" [T=text/xml,E=no-brotli:1,E=no-gzip:1]
+<FilesMatch "\.br$">
+  Header append Content-Encoding br
+  Header append Vary Accept-Encoding
 </FilesMatch>
