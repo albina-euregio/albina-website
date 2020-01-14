@@ -152,7 +152,7 @@ module.exports = (env, argv) => {
           algorithm: "brotliCompress",
           test: /\.(js|css|html|svg)$/
         }),
-      production && new ImageminWebpWebpackPlugin()
+      new ImageminWebpWebpackPlugin()
     ].filter(plugin => !!plugin)
   };
 };
