@@ -45,7 +45,7 @@ class WarnLevelIcon extends React.Component {
     const imgFormat = window.config.webp ? ".webp" : ".png";
     const img = this.imgRoot + "levels_" + b + "_" + a + imgFormat;
 
-    var title, alt;
+    var title;
     if (below == this.props.above) {
       const params = {
         number: a == 0 ? "" : a,
@@ -57,10 +57,6 @@ class WarnLevelIcon extends React.Component {
             params
           )
         : params.text;
-      alt = this.props.intl.formatMessage(
-        { id: "bulletin:map:info:danger-picto:alt" },
-        params
-      );
     } else {
       const params = {
         elev: elevText,
@@ -78,15 +74,11 @@ class WarnLevelIcon extends React.Component {
             { id: "bulletin:map:info:danger-picto2-no-value-below:hover" },
             params
           );
-      alt = this.props.intl.formatMessage(
-        { id: "bulletin:map:info:danger-picto2:alt" },
-        params
-      );
     }
 
     return (
       <Link to={link} title={title} className="tooltip">
-        <img src={img} alt={alt} />
+        <img src={img} alt={title} />
         {this.props.above != this.props.below && <span>{elevText}</span>}
       </Link>
     );
