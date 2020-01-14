@@ -15,9 +15,13 @@ class WarnLevelIcon extends React.Component {
   render() {
     const getWarnlevelText = warnLevel => {
       if (warnLevel) {
-        return this.props.intl.formatMessage({
-          id: "danger-level:" + warnLevel
-        });
+        const number = window["appStore"].getWarnlevelNumber(warnLevel);
+        return (
+          (number ? number + "–" : "") +
+          this.props.intl.formatMessage({
+            id: "danger-level:" + warnLevel
+          })
+        );
       }
       return "";
     };
@@ -29,57 +33,59 @@ class WarnLevelIcon extends React.Component {
         ? this.props.below
         : this.props.above;
 
-    const b = window["appStore"].getWarnlevelNumber(below);
-    const a = window["appStore"].getWarnlevelNumber(this.props.above);
-
-    const elevText = this.props.elevation
-      ? this.props.elevation + "m"
-      : this.props.treeline
-      ? this.props.intl.formatMessage({ id: "bulletin:treeline" })
-      : a == 0
-      ? this.props.intl.formatMessage({
-          id: "danger-level:" + this.props.above
-        })
-      : "";
+    const numberBelow = window["appStore"].getWarnlevelNumber(below);
+    const numberAbove = window["appStore"].getWarnlevelNumber(this.props.above);
 
     const imgFormat = window.config.webp ? ".webp" : ".png";
-    const img = this.imgRoot + "levels_" + b + "_" + a + imgFormat;
+    const img =
+      this.imgRoot + "levels_" + numberBelow + "_" + numberAbove + imgFormat;
 
     var title;
+    var elevationText;
     if (below == this.props.above) {
-      const params = {
-        number: a == 0 ? "" : a,
-        text: getWarnlevelText(this.props.above)
-      };
-      title = params.number
-        ? this.props.intl.formatMessage(
-            { id: "bulletin:map:info:danger-picto:hover" },
-            params
-          )
-        : params.text;
+      title = this.props.intl.formatMessage(
+        { id: "bulletin:report:dangerlevel" },
+        { level: getWarnlevelText(this.props.above) }
+      );
+      elevationText = "";
+    } else if (this.props.treeline) {
+      title = [
+        this.props.intl.formatMessage(
+          { id: "bulletin:report:dangerlevel-treeline-above" },
+          { level: getWarnlevelText(this.props.above) }
+        ),
+        this.props.intl.formatMessage(
+          { id: "bulletin:report:dangerlevel-treeline-below" },
+          { level: getWarnlevelText(this.props.below) }
+        )
+      ].join("<br />");
+      elevationText = this.props.intl.formatMessage({
+        id: "bulletin:treeline"
+      });
     } else {
-      const params = {
-        elev: elevText,
-        numberBelow: b == 0 ? "" : b,
-        numberAbove: a == 0 ? "" : a,
-        textBelow: getWarnlevelText(below),
-        textAbove: getWarnlevelText(this.props.above)
-      };
-      title = params["numberBelow"]
-        ? this.props.intl.formatMessage(
-            { id: "bulletin:map:info:danger-picto2:hover" },
-            params
-          )
-        : this.props.intl.formatMessage(
-            { id: "bulletin:map:info:danger-picto2-no-value-below:hover" },
-            params
-          );
+      title = [
+        this.props.intl.formatMessage(
+          { id: "bulletin:report:dangerlevel-above" },
+          {
+            elev: this.props.elevation,
+            level: getWarnlevelText(this.props.above)
+          }
+        ),
+        this.props.intl.formatMessage(
+          { id: "bulletin:report:dangerlevel-below" },
+          {
+            elev: this.props.elevation,
+            level: getWarnlevelText(this.props.below)
+          }
+        )
+      ].join("<br />");
+      elevationText = this.props.elevation + "m";
     }
 
     return (
       <Link to={link} title={title} className="tooltip">
         <img src={img} alt={title} />
-        {this.props.above != this.props.below && <span>{elevText}</span>}
+        {this.props.above != this.props.below && <span>{elevationText}</span>}
       </Link>
     );
   }
