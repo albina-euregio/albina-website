@@ -8,8 +8,9 @@ import {
   dateToISODateString
 } from "../util/date.js";
 
-import { GeoJSON } from "leaflet";
+import { GeoJSON, Util } from "leaflet";
 import axios from "axios";
+import { convertCaamlToJson } from "./caaml.js";
 
 class BulletinCollection {
   date;
@@ -87,6 +88,9 @@ class BulletinCollection {
   }
 
   setData(data) {
+    if (APP_DEV_MODE) console.log(convertCaamlToJson(data));
+    if (APP_DEV_MODE) console.log(JSON.stringify(convertCaamlToJson(data)));
+
     if (data && data.length > 0) {
       // calculate maxWarnlevel for each bulletin
       const defaultLevel = {
@@ -478,10 +482,15 @@ class BulletinStore {
   }
 
   _loadBulletinData(date) {
-    const dateParam = encodeURIComponent(date);
-    const url = config.apis.bulletin + "?date=" + dateParam;
+    const url = Util.template(
+      config.links.downloads.base + config.links.downloads.xml,
+      {
+        date,
+        lang: window["appStore"].language
+      }
+    );
 
-    return axios.get(url).then(
+    return axios.get(url, { responseType: "document" }).then(
       // query bulletin data
       response => {
         this.bulletins[date].setData(response.data);
