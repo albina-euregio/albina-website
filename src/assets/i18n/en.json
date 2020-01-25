@@ -36,11 +36,6 @@
     "IT-32-BZ" : "South Tyrol ",
     "IT-32-TN" : "Trentino "
   },
-  "languages" : {
-    "german" : "German",
-    "english" : "English",
-    "italian" : "Italian"
-  },
   "bulletins" : {
     "title" : "Bulletins",
     "tooltip" : {

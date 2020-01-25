@@ -36,11 +36,6 @@
     "IT-32-BZ" : "Alto Adige ",
     "IT-32-TN" : "Trentino "
   },
-  "languages" : {
-    "german" : "Tedesco",
-    "english" : "Inglese",
-    "italian" : "Italiano"
-  },
   "bulletins" : {
     "title" : "Bollettini",
     "tooltip" : {
