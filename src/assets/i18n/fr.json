@@ -1,0 +1,488 @@
+{
+  "undefined" : "---",
+  "login" : {
+    "title" : "Se connecter",
+    "text" : "connectez-vous à votre compte",
+    "button" : "Login",
+    "errorDialog" : {
+      "header" : "Erreur de login",
+      "message" : "L’identifiant ou le mot de passe est incorrect",
+      "accept" : "Ok"
+    }
+  },
+  "sidebar" : {
+    "bulletins" : "Bulletins",
+    "observations" : "Observations",
+    "modellingZamg": "ZAMG multi-modèle",
+    "admin" : "Admin",
+    "catalogueOfPhrases" : "Catalogue de phrases"
+  },
+  "menu" : {
+    "logout" : "Logout",
+    "language" : "Langue",
+    "en" : "Anglais",
+    "de" : "Allemand",
+    "fr" : "Français",
+    "it" : "Italien",
+    "settings" : "Paramètres",
+    "region" : "Région"
+  },
+  "chat" : {
+    "placeholder" : "Écrivez ici ...",
+    "send" : "Envoyer",
+    "activeUsers" : "Qui est en ligne?",
+    "all" : "Tous",
+    "AT-07" : "Tyrol",
+    "IT-32-BZ" : "Tyrol du Sud",
+    "IT-32-TN" : "Trentin"
+  },
+  "bulletins" : {
+    "title" : "Bulletins",
+    "tooltip" : {
+      "publish" : "Publier le bulletin immédiatement ",
+      "submit" : "Soumettre le bulletin",
+      "copy" : "Copier le bulletin",
+      "paste" : "Coller le bulletin",
+      "update" : "Créer une mise à jour du bulletin",
+      "caaml" : "Afficher CAAML",
+      "json" : "Afficher JSON",
+      "edit" : "Éditer le bulletin (ne sera plus publié)",
+      "create" : "Creer le bulletin",
+      "check" : "Vérifier le bulletin",
+      "info" : "Afficher l'état de la publication",
+      "publishAll" : "Publier toutes les régions"
+    },
+    "create" : {
+      "tooltip" : {
+        "edit" : "Éditer la région",
+        "copy" : "Copier la région",
+        "delete" : "Effacer la région",
+        "acceptSuggestion" : "Accepter les régions proposées",
+        "rejectSuggestion" : "Refuser les régions proposées",
+        "saveChanges" : "Sauvegarder les modifications",
+        "discardChanges" : "Abandoner les modifications",
+        "saveBulletin" : "Sauvegarder le bulletin",
+        "discardBulletin" : "Abandoner les modifications de bulletin",
+        "loadBulletin" : "Téléchargement du bulletin de la veille",
+        "elevationDependency" : "Dépendance à l'altitude",
+        "daytimeDependency" : "Dépendance diurne",
+        "treeline" : "Limite de la forêt",
+        "tendency" : {
+          "decreasing" : "Le Danger d'avalanche diminue",
+          "steady" : "Le danger d'avalanche reste le même",
+          "increasing" : "Le danger d'avalanche augmente"
+        },
+        "textcat" : {
+          "edit" : "Éditer",
+          "copy" : "Copier",
+          "paste" : "Coller",
+          "example" : "Télécharger exemple de texte",
+          "delete" : "Effacer"
+        }
+      },
+      "button" : "Créer",
+      "save" : "Sauvegarder",
+      "discard" : "Abandoner",
+      "back" : "Retour",
+      "createAggregatedRegion" : "Nouvelle région",
+      "saveAggregatedRegion" : "Sauvegarder",
+      "discardAggregatedRegion" : "Abandoner",
+      "deleteAggregatedRegion" : "Effacer",
+      "ownRegions" : "Mes régions",
+      "foreignRegions": "Régions étrangères",
+      "label" : {
+        "avActivityHighlights" : "Titre situation danger d'avalanche",
+        "avActivityComment" : "Déscription du danger d'avalanche",
+        "avalancheSituation1" : "Situation avalancheuse typique 1",
+        "avalancheSituation2" : "Situation avalancheuse typique 2",
+        "dangerRating" : "Degré de danger ",
+        "aspects" : "Expositions",
+        "elevation" : "Altitude",
+        "daytime" : "Matin/ Après-midi",
+        "snowpackStructureHighlights" : "Titre manteau neigeux",
+        "snowpackStructureComment" : "Déscription manteau neigeux",
+        "dangerPatterns" : "Situations avalancheuses",
+        "elevationHigh" : "Dessous",
+        "elevationLow" : "Sur",
+        "tendencyComment" : "Déscription de la tendance"
+      },
+      "title" : {
+        "map" : "Carte",
+        "dangerRating" : "Degré de danger",
+        "avalancheSituation" : "Situations d'avalanches",
+        "dangerDescription" : "Déscription du danger d'avalanche",
+        "detail" : "Détails",
+        "above" : "Sur",
+        "below" : "Dessous",
+        "forenoon" : "Matin",
+        "afternoon" : "Après-midi",
+        "forenoonAbove" : "Matin, Sur",
+        "afternoonAbove" : "Après-midi, Sur",
+        "forenoonBelow" : "Matin, Dessous",
+        "afternoonBelow" : "Après-midi, Dessous",
+        "snowpackStructure" : "Structure du manteau neigeux",
+        "tendency" : "Tendance",
+        "pmdialog" : "Catalogue de phrases",
+        "showTranslations" : "Afficher traductions",
+        "hideTranslations" : "Masquer traductions"
+      },
+      "pmDialog" : {
+        "noIFrameSupport" : "Votre navigateur ne supporte pas les IFrames !"
+      },
+      "discardDialog" : {
+        "header" : "Abandoner les modifications",
+        "message" : "Abandoner les modifications?",
+        "accept" : "Oui",
+        "reject" : "Non"
+      },
+      "deleteAggregatedRegionDialog" : {
+        "header" : "Effacer la région",
+        "message" : "Effacer la région?",
+        "accept" : "Oui",
+        "reject" : "Non"
+      },
+      "noRegionDialog" : {
+        "header" : "Chasser sur des terres étrangères",
+        "message" : "Au moins une région doit être la tien.",
+        "accept" : "Ok"
+      },
+      "loadDialog" : {
+        "header" : "Téléchargement du bulletin de la veille",
+        "message" : "Télécharger le bulletin de la veille?",
+        "accept" : "Oui",
+        "reject" : "Non"
+      },
+      "loadAutoSaveDialog" : {
+        "message" : "Télécharger le bulletin sauvegardé automatiquement?",
+        "accept" : "Oui",
+        "reject" : "Non"
+      },
+      "saveErrorDialog" : {
+        "header" : "Erreur en sauvegardant les bulletins! ",
+        "message" : "Il y avait une erreur en sauvegardant les bulletins!",
+        "accept" : "Ok"
+      },
+      "changeErrorDialog" : {
+        "header" : "Erreur en changement du bulletins!",
+        "message" : "Il y avait une erreur dans la modification des bulletins!",
+        "accept" : "Ok"
+      },
+      "loadingErrorDialog" : {
+        "header" : "Erreur en téléchargement du bulletins",
+        "message" : "Il y avait une erreur en téléchargant les bulletins!",
+        "accept" : "Ok"
+      },
+      "noElevationDialog" : {
+        "header" : "Altitude indéfinie",
+        "message" : "Fixez une altitude pour cette région, s'il vous plaît!",
+        "accept" : "Ok"
+      },
+      "incompleteTranslationDialog" : {
+        "header" : "Traduction incomplet",
+        "message" : "La traduction n'est pas complet!",
+        "accept" : "Ok"
+      },
+      "loadAvActivityCommentExampleTextDialog" : {
+        "header" : "Télécharger exemple de texte",
+        "message" : "Pour quelle situation souhaitez-vous charger un exemple de texte",
+        "newSnow" : "Neige fraîche",
+        "windDriftedSnow" : "Neige soufflée",
+        "oldSnow" : "Couche fragile persistante",
+        "wetSnow" : "Neige mouillée",
+        "glidingSnow" : "Neige glissante",
+        "favourableSituation" : "Situation favorable",
+        "cancel" : "Annuler"
+      }
+    },
+    "table" : {
+      "title" : {
+        "date" : "Date",
+        "status" : {
+          "IT-32-TN" : "Trentin",
+          "IT-32-BZ" : "Tyrol du Sud",
+          "AT-07" : "Tyrol"
+        },
+        "action" : "Action",
+        "caaml" : "CAAML"
+      },
+      "status" : {
+        "missing" : "manquant",
+        "draft" : "ébauche",
+        "submitted" : "soumis",
+        "published" : "publié",
+        "updated" : "mis à jour",
+        "resubmitted" : "soumis à nouveau",
+        "republished" : "publié à nouveau"
+      },
+      "edit" : "Editer",
+      "show" : "Afficher ",
+      "button" : {
+        "publish" : "Publier"
+      },
+      "publishBulletinsDialog" : {
+        "header" : "Publier bulletin",
+        "message" : "Publier le bulletin?",
+        "missingDangerRating" : "Degré de danger indéfini",
+        "missingRegion" : "Régions pas notées",
+        "duplicateRegion" : "Régions notées plusieurs fois",
+        "missingAvActivityHighlights" : "Titre situation danger d'avalanche manque",
+        "missingAvActivityComment" : "Déscription du danger d'avalanche manque",
+        "missingSnowpackStructureHighlights" : "Titre manteau neigeux manque",
+        "missingSnowpackStructureComment" : "Déscription manteau neigeux manque",
+        "pendingSuggestions" : "Propositions en attente",
+        "incompleteTranslation" : "Traduction incomplet",
+        "accept" : "Oui",
+        "reject" : "Non"
+      },
+      "publicationStatusDialog" : {
+        "header" : "Etat de la publication",
+        "publishedBy" : "Publié par:",
+        "publishedAt" : "Publié à:",
+        "validFor" : "Valide pour:",
+        "tooltip" : {
+          "caaml" : {
+            "success" : "fichier CAAML créé",
+            "failed" : "fichier CAAML ne pouvait pas être créé"
+          },
+          "map" : {
+            "success" : "Cartes créées",
+            "failed" : "Cartes ne pouvaient pas être créées"
+          },
+          "pdf" : {
+            "success" : "PDF créé",
+            "failed" : "PDF ne pouvait pas être créé"
+          },
+          "staticWidget" : {
+            "success" : "Widget statique créé",
+            "failed" : "Widget statique ne pouvait pas être créé"
+          },
+          "html" : {
+            "success" : "HTML créé",
+            "failed" : "HTML ne pouvait pas être créé"
+          },
+          "email" : {
+            "success" : "Emails envoyés",
+            "failed" : "Emails ne pouvaient pas être envoyés"
+          },
+          "whatsapp" : {
+            "success" : "Bulletin d'avalanche envoyé à What's App et Telegram",
+            "failed" : "Bulletin d'avalanche ne pouvait pas être envoyer à What's App et Telegram"
+          },
+          "twitter" : {
+            "success" : "Bulletin d'avalanche envoyé à Twitter",
+            "failed" : "Bulletin d'avalanche ne pouvait pas être envoyer à Twitter"
+          }
+        },
+        "accept" : "Ok"
+      },
+      "publishBulletinsErrorDialog" : {
+        "header" : "Erreur publier les bulletins!",
+        "message" : "Il y avait une erreur dans la publication des bulletins!",
+        "accept" : "Ok"
+      },
+      "submitBulletinsDialog" : {
+        "header" : "Soumettre bulletin",
+        "message" : "Soumettre le bulletin?",
+        "missingDangerRating" : "Degré de danger indéfini",
+        "missingRegion" : "Régions pas notées",
+        "duplicateRegion" : "Régions notées plusieurs fois",
+        "missingAvActivityHighlights" : "Titre situation danger d'avalanche",
+        "missingAvActivityComment" : "Déscription du danger d'avalanche manque",
+        "missingSnowpackStructureHighlights" : "Titre manteau neigeux manque",
+        "missingSnowpackStructureComment" : "Déscription manteau neigeux manque",
+        "pendingSuggestions" : "Propositions en attente",
+        "incompleteTranslation" : "Traduction incomplet",
+        "accept" : "Oui",
+        "reject" : "Non"
+      },
+      "submitBulletinsErrorDialog" : {
+        "header" : "Erreur en soumission de bulletins",
+        "message" : "Il y avait une erreur dans la soumission des bulletins!",
+        "accept" : "Ok"
+      },
+      "submitBulletinsDuplicateRegionDialog" : {
+        "header" : "Erreur en soumission de bulletins",
+        "message" : "Régions notées plusieurs fois! Bulletin ne peut pas être soumis",
+        "accept" : "Ok"
+      },
+      "checkBulletinsErrorDialog" : {
+        "header" : "Erreur en contrôle de bulletin",
+        "message" : "Il y avait une erreur dans la contrôle des bulletins!",
+        "accept" : "Ok"
+      },
+      "checkBulletinsDialog" : {
+        "header" : "Contrôler le bulletin",
+        "message" : "Contrôler le bulletin",
+        "missingDangerRating" : "Degré de danger indéfini",
+        "missingRegion" : "Régions pas notées",
+        "duplicateRegion" : "Régions notées plusieurs fois",
+        "missingAvActivityHighlights" : "Titre situation danger d'avalanche",
+        "missingAvActivityComment" : "Déscription du danger d'avalanche manque",
+        "missingSnowpackStructureHighlights" : "Titre manteau neigeux manque",
+        "missingSnowpackStructureComment" : "Déscription manteau neigeux manque",
+        "pendingSuggestions" : "Propositions en attente",
+        "incompleteTranslation" : "Traduction incomplet",
+        "ok" : "(tout bien)",
+        "accept" : "Ok"
+      },
+      "publishAllDialog" : {
+        "message" : "Publier tous les régions?",
+        "accept" : "Oui",
+        "reject" : "Non"
+      }
+    },
+    "caaml" : {
+      "title" : "CAAML",
+      "caamlNotLoadedDialog" : {
+        "header" : "CAAML",
+        "message" : "Erreur téléchargement de CAAML!",
+        "accept" : "Ok"
+      },
+      "noCaamlDialog" : {
+        "header" : "CAAML",
+        "message" : "Aucun bulletin publié n'est disponible",
+        "accept" : "Ok"
+      }
+    },
+    "json" : {
+      "title" : "JSON",
+      "jsonNotLoadedDialog" : {
+        "header" : "JSON",
+        "message" : "Erreur téléchargement de JSON!",
+        "accept" : "Ok"
+      },
+      "noJsonDialog" : {
+        "header" : "JSON",
+        "message" : "Aucun bulletin publié n'est disponible",
+        "accept" : "Ok"
+      }
+    }
+  },
+  "admin" : {
+    "config" : {
+      "tabsocial" : "Configurer Email & Sociaux",
+      "addChannel" : "Ajouter canal",
+      "titleShipment": "Transports",
+      "title" : "Configuration du serveur",
+      "table" : {
+        "title" : {
+          "key" : "Paramètre",
+          "value" : "Valeur"
+        },
+        "createCaaml" : "Creer CAAML",
+        "createMaps" : "Creer cartes",
+        "createPdf" : "Creer PDF",
+        "createStaticWidget" : "Creer widgets statiques",
+        "createSimpleHtml" : "Creer HTML simple",
+        "sendEmails" : "Envoyer les emails",
+        "publishToSocialMedia" : "Publier sur les réseaux sociaux",
+        "publishAt5PM" : "Publier à 5PM",
+        "publishAt8AM" : "Publier à 8AM",
+        "localImagesPath" : "Chemin vers les images locales",
+        "localFontsPath" : "Chemin vers la police de caractères",
+        "publishBulletinsTyrol" : "Publier bulletin d'avalanche pour Tyrol ",
+        "publishBulletinsSouthTyrol" : "Publier bulletin d'avalanche pour Tyrol du Sud",
+        "publishBulletinsTrentino" : "Publier bulletin d'avalanche pour le Trentin",
+        "publishBlogsTyrol" : "Publier blog pour Tyrol",
+        "publishBlogsSouthTyrol" : "Publier blog pour Tyrol du Sud",
+        "publishBlogsTrentino" : "Publier blog pour le Trentin",
+        "pdfDirectory" : "Répertoire pour PDF",
+        "htmlDirectory" : "Répertoire pour HTML",
+        "serverImagesUrl" : "Chemin vers les images du serveur",
+        "serverImagesUrlLocalhost" : "Chemin vers les images du serveur (localhost)",
+        "univieMapsPath" : "Chemin vers les cartes (Univie)",
+        "mapsPath" : "Chemin vers les cartes",
+        "mapProductionUrl" : "URL pour la production des cartes",
+        "scriptsPath" : "Chemin vers les scripts"
+      },
+      "button" : {
+        "save" : "Sauvegarder",
+        "discard" : "Abandoner"
+      }
+    }
+  },
+  "settings" : {
+    "title" : "Paramètres",
+    "changePassword" : {
+      "title" : "Modifier le mot de passe",
+      "oldPassword" : "Mot de passe actuel",
+      "newPassword1" : "Nouveau mot de passe",
+      "newPassword2" : "Nouveau mot de passe",
+      "oldPasswordHint" : "Saisissez votre mot de passe actuel",
+      "newPasswordHint1" : "Saisissez nouveau mot de passe ",
+      "newPasswordHint2" : "Confirmer le nouveau mot de passe",
+      "submit" : "Modifier le mot de passe",
+      "passwordChanged" : "Mot de passe changé avec succès",
+      "passwordChangeError" : "Mot de passe ne pouvait pas être changé",
+      "passwordIncorrect" : "Mot de passe incorrect",
+      "passwordsNotMatching" : "Les mots de passe ne correspondent pas",
+      "passwordEmpty" : "Mot de passe manque"
+    },
+    "saveConfiguration" : {
+      "success" : "Configuration sauvegardée avec succès",
+      "error" : "Configuration ne pouvait pas être enregistrer"
+    },
+    "display" : {
+      "title" : "Afficher",
+      "table" : {
+        "showCaaml" : "Afficher CAAML",
+        "showJson" : "Afficher JSON",
+        "useMatrix" : "Utiliser la matrice",
+        "showObservations" : "Afficher les observations"
+      }
+    }
+  },
+
+  "dangerRating" : {
+    "noRating" : "pas notée",
+    "low" : "faible",
+    "moderate" : "limité",
+    "considerable" : "marqué",
+    "high" : "fort",
+    "veryHigh" : "très fort"
+  },
+  "avalancheProblem" : {
+    "newSnow" : "Neige fraîche",
+    "windDriftedSnow" : "Neige soufflée",
+    "oldSnow" : "Couche fragile persistante",
+    "wetSnow" : "Neige mouillée",
+    "glidingSnow" : "Neige glissante"
+  },
+  "dangerPattern" : {
+    "dp1" : "md1: Sous-couche fragile persistante",
+    "dp2" : "md2: Avalanches de glissement",
+    "dp3" : "md3: pluie",
+    "dp4" : "md4: froid suivant chaud/ chaud suivant froid",
+    "dp5" : "md5: chute de neige après une longue période de froid",
+    "dp6" : "md6: froid, neige et vent",
+    "dp7" : "md7: zones avec peu de neige à coté des zones enneigées",
+    "dp8" : "md8: Givre de surface enneigé",
+    "dp9" : "md9: Neige roulée enneigé",
+    "dp10" : "md10: situation de printemps"
+  },
+  "aspect" : {
+    "N" : "N",
+    "NE" : "NE",
+    "E" : "E",
+    "SE" : "SE",
+    "S" : "S",
+    "SW" : "SO",
+    "W" : "O",
+    "NW" : "NO"
+  },
+  "region" : {
+    "AT-07" : "Tyrol",
+    "IT-32-BZ" : "Tyrol du Sud",
+    "IT-32-TN" : "Trentin"
+  },
+  "tendency" : {
+    "decreasing" : "Danger d'avalanche diminue",
+    "steady" : "Danger d'avalanche reste la même",
+    "increasing" : "Danger d'avalanche augmente"
+  },
+  "changeRegionDialog" : {
+    "message" : "Abandoner les modifications et changer la région?",
+    "accept" : "Oui",
+    "reject" : "Non"
+  }
+}

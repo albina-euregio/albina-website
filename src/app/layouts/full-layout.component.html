@@ -38,6 +38,7 @@
 
         <a class="dropdown-item" (click)='settingsService.setLangString("it")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.it" | translate }}<i *ngIf="settingsService.getLangString()=='it'" class="fa fa-check float-right"></i></a>
         <a class="dropdown-item" (click)='settingsService.setLangString("de")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.de" | translate }}<i *ngIf="settingsService.getLangString()=='de'" class="fa fa-check float-right"></i></a>
+        <a class="dropdown-item" (click)='settingsService.setLangString("fr")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.fr" | translate }}<i *ngIf="settingsService.getLangString()=='fr'" class="fa fa-check float-right"></i></a>
 
         <div class="dropdown-header text-center"><strong>{{ "menu.region" | translate }}</strong></div>
 
