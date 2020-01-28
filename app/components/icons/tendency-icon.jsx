@@ -6,23 +6,19 @@ export default class TendencyIcon extends React.Component {
   }
 
   get className() {
-    let cl = "";
-
     switch (this.props.tendency) {
       case "increasing":
+        return "icon-arrow-increase";
       case "steady":
+        return "icon-arrow-steady";
       case "decreasing":
-        cl = this.props.tendency;
-        break;
-
+        return "icon-arrow-decrease";
       default:
-        break;
+        return "";
     }
-
-    return cl;
   }
 
   render() {
-    return <span className={"icon-arrow-" + this.className} />;
+    return <span className={this.className} />;
   }
 }
