@@ -105,6 +105,7 @@ function dateToLongDateString(date) {
 
 function dateToDateTimeString(date) {
   return _formatDate(date, {
+    weekday: "long",
     year: "numeric",
     month: "numeric",
     day: "numeric",
