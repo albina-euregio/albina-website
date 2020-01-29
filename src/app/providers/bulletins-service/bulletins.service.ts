@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions, Response } from "@angular/http";
+import { Http, RequestOptions, Response } from "@angular/http";
 import { Observable, Subject } from "rxjs/Rx";
 import { ConstantsService } from "../constants-service/constants.service";
 import { SettingsService } from "../settings-service/settings.service";
@@ -279,12 +279,7 @@ export class BulletinsService {
 
   getStatus(region: string, startDate: Date, endDate: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/status/internal?startDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + "&endDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + "&region=" + region;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -292,12 +287,7 @@ export class BulletinsService {
 
   getPublicationsStatus(region: string, startDate: Date, endDate: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/status/publications?startDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + "&endDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + "&region=" + region;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -305,12 +295,7 @@ export class BulletinsService {
 
   getPublicationStatus(region: string, date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/status/publication?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -323,12 +308,7 @@ export class BulletinsService {
         url += "&regions=" + region;
       }
     }
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -336,12 +316,7 @@ export class BulletinsService {
 
   loadCaamlBulletins(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&lang=" + this.settingsService.getLangString();
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/xml",
-      "Accept": "application/xml",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader("application/xml");
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -352,12 +327,7 @@ export class BulletinsService {
     const params = {
       date: this.constantsService.getISOStringWithTimezoneOffset(date),
     };
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers, params });
 
     return this.http.get(url, options);
@@ -365,12 +335,7 @@ export class BulletinsService {
 
   saveBulletins(bulletins, date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion();
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const jsonBulletins = [];
     for (let i = bulletins.length - 1; i >= 0; i--) {
       jsonBulletins.push(bulletins[i].toJson());
@@ -383,12 +348,7 @@ export class BulletinsService {
 
   changeBulletins(bulletins, date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/change?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion();
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const jsonBulletins = [];
     for (let i = bulletins.length - 1; i >= 0; i--) {
       jsonBulletins.push(bulletins[i].toJson());
@@ -401,12 +361,7 @@ export class BulletinsService {
 
   submitBulletins(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/submit?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
@@ -415,12 +370,7 @@ export class BulletinsService {
 
   publishBulletins(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
@@ -429,12 +379,7 @@ export class BulletinsService {
 
   publishAllBulletins(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/all?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
@@ -443,12 +388,7 @@ export class BulletinsService {
 
   createCaaml(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/caaml?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
@@ -457,12 +397,7 @@ export class BulletinsService {
 
   createPdf(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/pdf?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
@@ -471,12 +406,7 @@ export class BulletinsService {
 
   createHtml(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/html?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
@@ -485,12 +415,7 @@ export class BulletinsService {
 
   createMap(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/map?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
@@ -499,12 +424,7 @@ export class BulletinsService {
 
   createStaticWidget(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/staticwidget?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
@@ -513,12 +433,7 @@ export class BulletinsService {
 
   sendEmail(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/email?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
@@ -527,12 +442,7 @@ export class BulletinsService {
 
   triggerMessengerpeople(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/messengerpeople?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
@@ -541,12 +451,7 @@ export class BulletinsService {
 
   checkBulletins(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/check?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -554,12 +459,7 @@ export class BulletinsService {
 
   getLockedRegions(region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "regions/locked?region=" + region;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -568,11 +468,7 @@ export class BulletinsService {
   /*
     getLockedBulletins() : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/locked';
-    let authHeader = 'Bearer ' + this.authenticationService.getAccessToken();
-    let headers = new Headers({
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': authHeader });
+    let headers = this.newAuthHeader();
     let options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs/Rx";
-import { Http, Headers, RequestOptions, Response } from "@angular/http";
+import { Http, RequestOptions, Response } from "@angular/http";
 import { WsChatService } from "../ws-chat-service/ws-chat.service";
 import { ChatMessageModel } from "../../models/chat-message.model";
 import { AuthenticationService } from "../authentication-service/authentication.service";
@@ -167,24 +167,14 @@ export class ChatService {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
     const url = this.constantsService.getServerUrl() + "chat?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
     return this.http.get(url, options);
   }
 
   getActiveUsersFromServer(): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "chat/users";
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
     return this.http.get(url, options);
   }

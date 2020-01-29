@@ -68,6 +68,15 @@ export class AuthenticationService {
     }
   }
 
+  public newAuthHeader(mime = "application/json"): Headers {
+    const authHeader = "Bearer " + this.getAccessToken();
+    return new Headers({
+      "Content-Type": mime,
+      "Accept": mime,
+      "Authorization": authHeader
+    });
+  }
+
   public getRefreshToken() {
     if (this.currentAuthor) {
       return this.currentAuthor.refreshToken;
@@ -210,7 +219,6 @@ export class AuthenticationService {
 
   public checkPassword(password: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "authentication/check";
-    const authHeader = "Bearer " + this.getAccessToken();
 
     const json = Object();
     if (password && password !== undefined) {
@@ -218,11 +226,7 @@ export class AuthenticationService {
     }
 
     const body = JSON.stringify(json);
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.put(url, body, options);
@@ -230,7 +234,6 @@ export class AuthenticationService {
 
   public changePassword(oldPassword: string, newPassword: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "authentication/change";
-    const authHeader = "Bearer " + this.getAccessToken();
 
     const json = Object();
     if (oldPassword && oldPassword !== undefined) {
@@ -241,11 +244,7 @@ export class AuthenticationService {
     }
 
     const body = JSON.stringify(json);
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.put(url, body, options);

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions } from "@angular/http";
+import { Http, RequestOptions } from "@angular/http";
 import { ConstantsService } from "../constants-service/constants.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 
@@ -14,12 +14,7 @@ export class SocialmediaService {
 
   public sendRapidMail(regionId: String, language: String, mailingsPost: String) {
     const url = this.constantsService.getServerUrl() + "social-media/rapidmail/send-message/" + regionId + "/" + language;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
     const body = mailingsPost;
     return this.http.post(url, body, options);
@@ -29,12 +24,7 @@ export class SocialmediaService {
     // http://localhost:8080/albina/api/social-media/messenger-people/send-message/IT-32-TN/IT?message=Testmessengerpeople&attachment=http%3A%2F%2Fwww.pdf995.com%2Fsamples%2Fpdf.pdf
     let url = this.constantsService.getServerUrl() + "social-media/messenger-people/send-message/" + regionId + "/" + language;
     url = url + "?message=" + message + "&attachment=" + attachment;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
     return this.http.post(url, options);
   }
@@ -46,12 +36,7 @@ export class SocialmediaService {
       url = url + "?previous_id=" + previous_id;
     }
 
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "text/html",
-      "Accept": "text/html",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader("text/html");
     const options = new RequestOptions({ headers: headers });
     const body = message;
     return this.http.post(url, body, options);

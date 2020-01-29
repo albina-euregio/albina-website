@@ -15,12 +15,7 @@ export class ConfigurationService {
 
   public loadConfigurationProperties(): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "configuration";
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -28,12 +23,7 @@ export class ConfigurationService {
 
   public saveConfigurationProperties(json) {
     const url = this.constantsService.getServerUrl() + "configuration";
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify(json);
     const options = new RequestOptions({ headers: headers });
 
@@ -42,12 +32,7 @@ export class ConfigurationService {
 
   public loadSocialMediaConfiguration(regionId: String): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "configuration/region?regionId=" + regionId;
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -55,12 +40,7 @@ export class ConfigurationService {
 
   public saveSocialMediaConfiguration(regionConfiguration) {
     const url = this.constantsService.getServerUrl() + "configuration/region";
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify(regionConfiguration);
     const options = new RequestOptions({ headers: headers });
     return this.http.post(url, body, options);
@@ -68,12 +48,7 @@ export class ConfigurationService {
 
   public loadSocialMediaChannels() {
     const url = this.constantsService.getServerUrl() + "configuration/channels";
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
 
     return this.http.get(url, options);
@@ -93,12 +68,7 @@ export class ConfigurationService {
 
   public loadShipments() {
     const url = this.constantsService.getServerUrl() + "social-media/shipments";
-    const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
-      "Content-Type": "application/json",
-      "Accept": "application/json",
-      "Authorization": authHeader
-    });
+    const headers = this.authenticationService.newAuthHeader();
     const options = new RequestOptions({ headers: headers });
     return this.http.get(url, options);
   }
