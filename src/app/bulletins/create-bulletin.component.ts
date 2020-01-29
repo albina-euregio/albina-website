@@ -219,10 +219,17 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.copyService.resetCopying();
   }
 
+  private getTextcatUrl(): SafeUrl {
+    const l = this.settingsService.getLangString() === "it" ? "it" : "de"; // only de+it are supported
+    const r = this.authenticationService.getActiveRegionCode();
+    const url = environment.textcatUrl + "?l=" +  l + "&r=" + r;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
   ngOnInit() {
     // for reload iframe on change language
     this.eventSubscriber = this.settingsService.getChangeEmitter().subscribe(
-      () => this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode())
+      () => this.pmUrl = this.getTextcatUrl()
     );
 
     if (this.bulletinsService.getActiveDate() && this.authenticationService.isUserLoggedIn()) {
@@ -230,7 +237,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.reset();
 
       // setting pm language for iframe
-      this.pmUrl = this.sanitizer.bypassSecurityTrustResourceUrl(environment.textcatUrl + "?l=" + this.settingsService.getLangString() + "&r=" + this.authenticationService.getActiveRegionCode());
+      this.pmUrl = this.getTextcatUrl();
 
 
       // copy bulletins from other date

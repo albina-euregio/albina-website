@@ -22,6 +22,7 @@
     "language" : "Sprache",
     "en" : " Englisch",
     "de" : " Deutsch",
+    "fr": " Französisch",
     "it" : " Italienisch",
     "settings" : "Einstellungen",
     "region" : "Region"
@@ -34,11 +35,6 @@
     "AT-07" : "Tirol ",
     "IT-32-BZ" : "Südtirol ",
     "IT-32-TN" : "Trentino "
-  },
-  "languages" : {
-    "german" : "Deutsch",
-    "english" : "Englisch",
-    "italian" : "Italienisch"
   },
   "bulletins" : {
     "title" : "Lawinenvorhersagen",

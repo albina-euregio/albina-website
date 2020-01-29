@@ -4,13 +4,14 @@ import * as Enums from "../../enums/enums";
 import { EventEmitter } from "@angular/core";
 import * as de from "../../../assets/i18n/de.json";
 import * as en from "../../../assets/i18n/en.json";
+import * as fr from "../../../assets/i18n/fr.json";
 import * as it from "../../../assets/i18n/it.json";
 
 
 @Injectable()
 export class SettingsService {
 
-  public translateService;
+  public translateService: TranslateService;
   public lang: Enums.LanguageCode;
   public useMatrix: boolean;
   public showObservations: boolean;
@@ -25,15 +26,14 @@ export class SettingsService {
 
     translate.setTranslation("de", de);
     translate.setTranslation("en", en);
+    translate.setTranslation("fr", fr);
     translate.setTranslation("it", it);
 
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang("en");
     // the lang to use, if the lang isn't available, it will use the current loader to get them
-    let lang = navigator.language.split("-")[0];
-    lang = /(de|it)/gi.test(lang) ? lang : "de";
-    translate.use(lang);
-    this.lang = Enums.LanguageCode[lang];
+    const lang = navigator.language.split("-")[0] as any as Enums.LanguageCode;
+    this.setLang(lang);
 
     this.useMatrix = true;
     this.showObservations = false;
@@ -47,7 +47,10 @@ export class SettingsService {
 
   setLang(lang: Enums.LanguageCode) {
     if (lang) {
-      const language = /(de|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : "de";
+      let language = Enums.LanguageCode[lang];
+      if (this.translateService.langs.indexOf(language) < 0) {
+        language = "de";
+      }
       this.translateService.use(language);
       this.lang = Enums.LanguageCode[language];
 

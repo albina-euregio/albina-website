@@ -22,6 +22,7 @@
     "language" : "Language",
     "en" : " English",
     "de" : " German",
+    "fr" : " French",
     "it" : " Italian",
     "settings" : "Settings",
     "region" : "Region"
@@ -34,11 +35,6 @@
     "AT-07" : "Tirol ",
     "IT-32-BZ" : "South Tyrol ",
     "IT-32-TN" : "Trentino "
-  },
-  "languages" : {
-    "german" : "German",
-    "english" : "English",
-    "italian" : "Italian"
   },
   "bulletins" : {
     "title" : "Bulletins",

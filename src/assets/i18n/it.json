@@ -22,6 +22,7 @@
     "language" : "Lingua",
     "en" : " Inglese",
     "de" : " Tedesco",
+    "fr" : " Francese",
     "it" : " Italiano",
     "settings" : "Impostazioni",
     "region" : "Regione"
@@ -34,11 +35,6 @@
     "AT-07" : "Tirolo ",
     "IT-32-BZ" : "Alto Adige ",
     "IT-32-TN" : "Trentino "
-  },
-  "languages" : {
-    "german" : "Tedesco",
-    "english" : "Inglese",
-    "italian" : "Italiano"
   },
   "bulletins" : {
     "title" : "Bollettini",
