@@ -47,7 +47,7 @@ export class SettingsService {
 
   setLang(lang: Enums.LanguageCode) {
     if (lang) {
-      const language = /(de|fr|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : "de";
+      const language = /(de|en|fr|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : "de";
       this.translateService.use(language);
       this.lang = Enums.LanguageCode[language];
 
