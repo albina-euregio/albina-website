@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private mapService: MapService,
-    private constantsService: ConstantsService,
+    public constantsService: ConstantsService,
     private translateService: TranslateService,
     private modalService: BsModalService,
     private chatService: ChatService,
