@@ -104,7 +104,8 @@
         "dangerPatterns" : "Danger patterns",
         "elevationHigh" : "Below",
         "elevationLow" : "Above",
-        "tendencyComment" : "Description of tendency"
+        "tendencyComment" : "Description of tendency",
+        "notes" : "Notes"
       },
       "title" : {
         "map" : "Map",
@@ -125,6 +126,9 @@
         "pmdialog" : "Catalog of phrases",
         "showTranslations" : " Show translations",
         "hideTranslations" : " Hide translations"
+      },
+      "placeholder" : {
+        "notes" : "Notes will not be saved"
       },
       "pmDialog" : {
         "noIFrameSupport" : "Your browser does not support IFrames!"
