@@ -26,7 +26,7 @@ export default class WeatherMapTitle extends React.Component {
       .map(dateString => {
         try {
           const match = dateString.match(
-            /^\w+ (\d\d\d\d-\d\d-\d\d \d\d:\d\d)$/
+            /^[^0-9]+ (\d\d\d\d-\d\d-\d\d \d\d:\d\d)$/
           );
           if (match) {
             const date = new Date(match[1]);
