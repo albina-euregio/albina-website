@@ -11,7 +11,7 @@ import * as it from "../../../assets/i18n/it.json";
 @Injectable()
 export class SettingsService {
 
-  public translateService;
+  public translateService: TranslateService;
   public lang: Enums.LanguageCode;
   public useMatrix: boolean;
   public showObservations: boolean;
@@ -47,7 +47,10 @@ export class SettingsService {
 
   setLang(lang: Enums.LanguageCode) {
     if (lang) {
-      const language = /(de|en|fr|it)/gi.test(Enums.LanguageCode[lang]) ? Enums.LanguageCode[lang] : "de";
+      let language = Enums.LanguageCode[lang];
+      if (this.translateService.langs.indexOf(language) < 0) {
+        language = "de";
+      }
       this.translateService.use(language);
       this.lang = Enums.LanguageCode[language];
 
