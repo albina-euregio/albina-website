@@ -23,7 +23,7 @@ export class ConfigurationService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   public saveConfigurationProperties(json) {
@@ -37,7 +37,7 @@ export class ConfigurationService {
     const body = JSON.stringify(json);
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   public loadSocialMediaConfiguration(regionId: String): Observable<Response> {
@@ -50,7 +50,7 @@ export class ConfigurationService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   public saveSocialMediaConfiguration(regionConfiguration) {
@@ -63,7 +63,7 @@ export class ConfigurationService {
     });
     const body = JSON.stringify(regionConfiguration);
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   public loadSocialMediaChannels() {
@@ -76,7 +76,7 @@ export class ConfigurationService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   public loadRecipientList(regionId: String) {
@@ -88,7 +88,7 @@ export class ConfigurationService {
       "Authorization": authHeader
     });
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   public loadShipments() {
@@ -100,6 +100,6 @@ export class ConfigurationService {
       "Authorization": authHeader
     });
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 }

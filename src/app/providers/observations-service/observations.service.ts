@@ -32,7 +32,7 @@ export class ObservationsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options)
+    return this.http.post(url, body, options)
       .subscribe((response: Response) => {
         const token = response.json() && response.json().token;
         if (token) {
@@ -56,7 +56,7 @@ export class ObservationsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   getSnowProfile(profileId): Observable<Response> {
@@ -67,7 +67,7 @@ export class ObservationsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   getSnowProfiles(): Observable<Response> {
@@ -82,7 +82,7 @@ export class ObservationsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   getHastyPits(): Observable<Response> {
@@ -103,7 +103,7 @@ export class ObservationsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 }
 

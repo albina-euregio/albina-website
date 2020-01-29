@@ -22,7 +22,7 @@ export class SocialmediaService {
     });
     const options = new RequestOptions({ headers: headers });
     const body = mailingsPost;
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   public sendMP(regionId: String, language: String, message: String, attachment: String) {
@@ -36,7 +36,7 @@ export class SocialmediaService {
       "Authorization": authHeader
     });
     const options = new RequestOptions({ headers: headers });
-    return this.http.post(encodeURI(url), options);
+    return this.http.post(url, options);
   }
 
   public sendTW(regionId: String, language: String, message: String, previous_id: Number) {
@@ -54,6 +54,6 @@ export class SocialmediaService {
     });
     const options = new RequestOptions({ headers: headers });
     const body = message;
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 }

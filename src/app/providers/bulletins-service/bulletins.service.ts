@@ -287,7 +287,7 @@ export class BulletinsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   getPublicationsStatus(region: string, startDate: Date, endDate: Date): Observable<Response> {
@@ -300,7 +300,7 @@ export class BulletinsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   getPublicationStatus(region: string, date: Date): Observable<Response> {
@@ -313,7 +313,7 @@ export class BulletinsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   loadBulletins(date: Date, regions?: String[]): Observable<Response> {
@@ -331,7 +331,7 @@ export class BulletinsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   loadCaamlBulletins(date: Date): Observable<Response> {
@@ -344,20 +344,23 @@ export class BulletinsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   loadJsonBulletins(date: Date): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    const url = this.constantsService.getServerUrl() + "bulletins";
+    const params = {
+      date: this.constantsService.getISOStringWithTimezoneOffset(date),
+    };
     const authHeader = "Bearer " + this.authenticationService.getAccessToken();
     const headers = new Headers({
       "Content-Type": "application/json",
       "Accept": "application/json",
       "Authorization": authHeader
     });
-    const options = new RequestOptions({ headers: headers });
+    const options = new RequestOptions({ headers, params });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   saveBulletins(bulletins, date): Observable<Response> {
@@ -375,7 +378,7 @@ export class BulletinsService {
     const body = JSON.stringify(jsonBulletins);
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   changeBulletins(bulletins, date): Observable<Response> {
@@ -393,7 +396,7 @@ export class BulletinsService {
     const body = JSON.stringify(jsonBulletins);
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   submitBulletins(date: Date, region: string): Observable<Response> {
@@ -407,7 +410,7 @@ export class BulletinsService {
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   publishBulletins(date: Date, region: string): Observable<Response> {
@@ -421,7 +424,7 @@ export class BulletinsService {
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   publishAllBulletins(date: Date): Observable<Response> {
@@ -435,7 +438,7 @@ export class BulletinsService {
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   createCaaml(date: Date): Observable<Response> {
@@ -449,7 +452,7 @@ export class BulletinsService {
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   createPdf(date: Date): Observable<Response> {
@@ -463,7 +466,7 @@ export class BulletinsService {
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   createHtml(date: Date): Observable<Response> {
@@ -477,7 +480,7 @@ export class BulletinsService {
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   createMap(date: Date): Observable<Response> {
@@ -491,7 +494,7 @@ export class BulletinsService {
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   createStaticWidget(date: Date): Observable<Response> {
@@ -505,7 +508,7 @@ export class BulletinsService {
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   sendEmail(date: Date, region: string): Observable<Response> {
@@ -519,7 +522,7 @@ export class BulletinsService {
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   triggerMessengerpeople(date: Date, region: string): Observable<Response> {
@@ -533,7 +536,7 @@ export class BulletinsService {
     const body = JSON.stringify("");
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options);
+    return this.http.post(url, body, options);
   }
 
   checkBulletins(date: Date, region: string): Observable<Response> {
@@ -546,7 +549,7 @@ export class BulletinsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   getLockedRegions(region: string): Observable<Response> {
@@ -559,7 +562,7 @@ export class BulletinsService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   /*
@@ -572,7 +575,7 @@ export class BulletinsService {
       'Authorization': authHeader });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
     }
   */
 

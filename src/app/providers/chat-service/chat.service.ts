@@ -174,7 +174,7 @@ export class ChatService {
       "Authorization": authHeader
     });
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   getActiveUsersFromServer(): Observable<Response> {
@@ -186,7 +186,7 @@ export class ChatService {
       "Authorization": authHeader
     });
     const options = new RequestOptions({ headers: headers });
-    return this.http.get(encodeURI(url), options);
+    return this.http.get(url, options);
   }
 
   /*

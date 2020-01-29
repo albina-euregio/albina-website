@@ -191,7 +191,7 @@ export class AuthenticationService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.post(encodeURI(url), body, options)
+    return this.http.post(url, body, options)
       .map((response: Response) => {
         const accessToken = response.json() && response.json().access_token;
         if (accessToken) {
@@ -225,7 +225,7 @@ export class AuthenticationService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.put(encodeURI(url), body, options);
+    return this.http.put(url, body, options);
   }
 
   public changePassword(oldPassword: string, newPassword: string): Observable<Response> {
@@ -248,7 +248,7 @@ export class AuthenticationService {
     });
     const options = new RequestOptions({ headers: headers });
 
-    return this.http.put(encodeURI(url), body, options);
+    return this.http.put(url, body, options);
   }
 
   public getCurrentAuthorRegions() {
