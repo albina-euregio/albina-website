@@ -73,6 +73,10 @@ export default class StationIcon extends React.Component {
   render() {
     const s = 10;
     const svgS = 25;
+    const fill =
+      typeof this.props.color === "string"
+        ? this.props.color
+        : "rgb(" + this.props.color + ")";
     return (
       <svg
         className={
@@ -84,11 +88,7 @@ export default class StationIcon extends React.Component {
       >
         <g transform={"translate(" + svgS / 2 + "," + svgS / 2 + ")"}>
           {this.props.direction && this.renderDirection(s)}
-          <circle
-            className="inner"
-            r={s}
-            fill={"rgb(" + this.props.color + ")"}
-          ></circle>
+          <circle className="inner" r={s} fill={fill}></circle>
           {this.props.selected && (
             <circle className="outer" r={s}>
               <animate

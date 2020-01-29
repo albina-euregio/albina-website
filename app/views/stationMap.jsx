@@ -59,7 +59,7 @@ class StationMap extends React.Component {
   render() {
     const item = {
       id: "name",
-      colors: [[255, 255, 255]],
+      colors: ["rgba(25, 171, 255, 0.75)"],
       thresholds: [],
       clusterOperation: "none"
     };
