@@ -955,9 +955,72 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private delBulletin(bulletin: BulletinModel) {
-    const index = this.bulletinsList.indexOf(bulletin);
-    if (index > -1) {
-      this.bulletinsList.splice(index, 1);
+
+    // check if there are other published or saved regions
+    let hit = false;
+    let newOwnerRegion = "";
+    for (const region of bulletin.getPublishedRegions()) {
+      if (!region.startsWith(this.authenticationService.getActiveRegion())) {
+        hit = true;
+        if (region.startsWith(this.constantsService.codeTyrol)) {
+          newOwnerRegion = this.constantsService.codeTyrol;
+        } else if (region.startsWith(this.constantsService.codeSouthTyrol)) {
+          newOwnerRegion = this.constantsService.codeSouthTyrol;
+        } else if (region.startsWith(this.constantsService.codeTrentino)) {
+          newOwnerRegion = this.constantsService.codeTrentino;
+        }
+        break;
+      }
+    }
+    if (!hit) {
+      for (const region of bulletin.getSavedRegions()) {
+        if (!region.startsWith(this.authenticationService.getActiveRegion())) {
+          hit = true;
+          if (region.startsWith(this.constantsService.codeTyrol)) {
+            newOwnerRegion = this.constantsService.codeTyrol;
+          } else if (region.startsWith(this.constantsService.codeSouthTyrol)) {
+            newOwnerRegion = this.constantsService.codeSouthTyrol;
+          } else if (region.startsWith(this.constantsService.codeTrentino)) {
+            newOwnerRegion = this.constantsService.codeTrentino;
+          }
+          break;
+        }
+      }
+    }
+
+    if (hit) {
+      // delete own saved regions
+      const oldSavedRegions = new Array<String>();
+      for (const region of bulletin.getSavedRegions()) {
+        if (region.startsWith(this.authenticationService.getActiveRegion())) {
+          oldSavedRegions.push(region);
+        }
+      }
+      for (const region of oldSavedRegions) {
+        const index = bulletin.getSavedRegions().indexOf(region);
+        bulletin.getSavedRegions().splice(index, 1);
+      }
+
+      // delete own published regions
+      const oldPublishedRegions = new Array<String>();
+      for (const region of bulletin.getPublishedRegions()) {
+        if (region.startsWith(this.authenticationService.getActiveRegion())) {
+          oldPublishedRegions.push(region);
+        }
+      }
+      for (const region of oldPublishedRegions) {
+        const index = bulletin.getPublishedRegions().indexOf(region);
+        bulletin.getPublishedRegions().splice(index, 1);
+      }
+
+      // change ownership
+      bulletin.setOwnerRegion(newOwnerRegion);
+
+    } else {
+      const index = this.bulletinsList.indexOf(bulletin);
+      if (index > -1) {
+        this.bulletinsList.splice(index, 1);
+      }
     }
 
     this.mapService.resetAggregatedRegions();
@@ -1157,41 +1220,34 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         }
       }
 
-      if (result.length > 0) {
-        if (this.bulletinsService.getIsSmallChange()) {
-          this.bulletinsService.changeBulletins(result, this.bulletinsService.getActiveDate()).subscribe(
-            () => {
-              this.localStorageService.clear();
-              this.loading = false;
-              this.goBack();
-              console.log("Bulletins changed on server.");
-            },
-            () => {
-              this.loading = false;
-              console.error("Bulletins could not be changed on server!");
-              this.openChangeErrorModal(this.changeErrorTemplate);
-            }
-          );
-        } else {
-          this.bulletinsService.saveBulletins(result, this.bulletinsService.getActiveDate()).subscribe(
-            () => {
-              this.localStorageService.clear();
-              this.loading = false;
-              this.goBack();
-              console.log("Bulletins saved on server.");
-            },
-            () => {
-              this.loading = false;
-              console.error("Bulletins could not be saved on server!");
-              this.openSaveErrorModal(this.saveErrorTemplate);
-            }
-          );
-        }
+      if (this.bulletinsService.getIsSmallChange()) {
+        this.bulletinsService.changeBulletins(result, this.bulletinsService.getActiveDate()).subscribe(
+          () => {
+            this.localStorageService.clear();
+            this.loading = false;
+            this.goBack();
+            console.log("Bulletins changed on server.");
+          },
+          () => {
+            this.loading = false;
+            console.error("Bulletins could not be changed on server!");
+            this.openChangeErrorModal(this.changeErrorTemplate);
+          }
+        );
       } else {
-        this.localStorageService.clear();
-        this.loading = false;
-        this.goBack();
-        console.log("No bulletins saved on server.");
+        this.bulletinsService.saveBulletins(result, this.bulletinsService.getActiveDate()).subscribe(
+          () => {
+            this.localStorageService.clear();
+            this.loading = false;
+            this.goBack();
+            console.log("Bulletins saved on server.");
+          },
+          () => {
+            this.loading = false;
+            console.error("Bulletins could not be saved on server!");
+            this.openSaveErrorModal(this.saveErrorTemplate);
+          }
+        );
       }
     }
   }
