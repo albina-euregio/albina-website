@@ -38,5 +38,8 @@
     border-radius: 5px;
 }
 
-
+textarea.form-control:disabled {
+	background-color: white;
+	color: #607d8b;
+}
 
