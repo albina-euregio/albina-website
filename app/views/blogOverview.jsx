@@ -270,7 +270,7 @@ class BlogOverview extends React.Component {
 */}
         </FilterBar>
         <section className="section section-padding-height section blog-page-flipper">
-          {this.store.maxPages === 0 && (
+          {!this.store.loading && this.store.maxPages === 0 && (
             <div className="section-centered">
               {this.props.intl.formatMessage({
                 id: "blog:page-flipper:no-posts"
