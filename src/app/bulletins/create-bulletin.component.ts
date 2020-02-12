@@ -1506,7 +1506,21 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   };
 
   textPostprocessingDe(bulletinTextDe) {
-    const dictionaryDeMap = {ausser: "außer", reissen: "reißen", Mitreiss: "Mitreiß", gross: "groß", Gross: "Gross", Grösse: "Größe", grösse: "größe", mässig: "mäßig", massnahmen: "maßnahmen", Strassen: "Straßen", stossen: "stoßen", fuss: "fuß", füsse: "füße"};
+    const dictionaryDeMap = {
+      ausser: "außer",
+      reissen: "reißen",
+      Mitreiss: "Mitreiß",
+      gross: "groß",
+      Gross: "Groß",
+      Grösse: "Größe",
+      grösse: "größe",
+      mässig: "mäßig",
+      massnahmen: "maßnahmen",
+      Strassen: "Straßen",
+      stossen: "stoßen",
+      fuss: "fuß",
+      füsse: "füße"
+    };
     const re = new RegExp(Object.keys(dictionaryDeMap).join("|"), "gi");
     return bulletinTextDe.replace(re, function(matched){
         return dictionaryDeMap[matched];
