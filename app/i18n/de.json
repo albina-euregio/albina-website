@@ -77,7 +77,7 @@
   "bulletin:header:published-at": "Veröffentlicht am {date} um {time}",
   "bulletin:header:updated-at": "Aktualisiert am {date} um {time}",
   "bulletin:header:loading": "Lädt",
-  "bulletin:header:no-bulletin": "Fehlt",
+  "bulletin:header:no-bulletin": " ",
   "bulletin:header:am": "Vormittags",
   "bulletin:header:pm": "Nachmittags",
   "bulletin:header:switch-to-am": "Vormittag auswählen",

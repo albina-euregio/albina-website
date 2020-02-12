@@ -77,7 +77,7 @@
   "bulletin:header:published-at": "Pubblicato il {date} alle ore {time}",
   "bulletin:header:updated-at": "Aggiornato il {date} alle ore {time}",
   "bulletin:header:loading": "Carica",
-  "bulletin:header:no-bulletin": "Manca",
+  "bulletin:header:no-bulletin": " ",
   "bulletin:header:am": "Mattina",
   "bulletin:header:pm": "Pomeriggio",
   "bulletin:header:switch-to-am": "scegli mattina",

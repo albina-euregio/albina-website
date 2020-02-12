@@ -77,7 +77,7 @@
   "bulletin:header:published-at": "Published {date}, {time}",
   "bulletin:header:updated-at": "Updated {date}, {time}",
   "bulletin:header:loading": "Loading",
-  "bulletin:header:no-bulletin": "Missing",
+  "bulletin:header:no-bulletin": " ",
   "bulletin:header:am": "AM",
   "bulletin:header:pm": "PM",
   "bulletin:header:switch-to-am": "switch to AM",
