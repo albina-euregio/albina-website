@@ -1,11 +1,3 @@
-/* IE polyfills */
-import "@babel/polyfill";
-if (!window.Intl) {
-  window["Intl"] = require("intl");
-}
-
-require("window.requestanimationframe");
-
 import React from "react"; // eslint-disable-line no-unused-vars
 import ReactDOM from "react-dom";
 import App from "./components/app.jsx";
@@ -29,7 +21,6 @@ window["tiltySettings"] = {
   "data-tilt-scale": 1.1
 };
 
-import "./js/custom-event-polyfill"; // for vanilla-tilt
 require("./js/custom.js");
 
 // detect WebP support

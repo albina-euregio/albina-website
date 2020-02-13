@@ -25,6 +25,7 @@ module.exports = (env, argv) => {
     context: __dirname + "/app",
     entry: {
       sentry: "./sentry.js",
+      polyfill: "./polyfill.js",
       app: "./main.jsx"
     },
     devtool: production ? "source-map" : "cheap-module-eval-source-map",
