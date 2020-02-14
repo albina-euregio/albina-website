@@ -8,6 +8,10 @@
       "header" : "Erreur de login",
       "message" : "L’identifiant ou le mot de passe est incorrect",
       "accept" : "Ok"
+    },
+    "placeholder" : {
+      "username" : "Veuillez entrer votre nom d'utilisateur",
+      "password" : "Veuillez saisir votre mot de passe"
     }
   },
   "sidebar" : {

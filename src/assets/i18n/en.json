@@ -8,6 +8,10 @@
       "header" : "Login failed",
       "message" : "Incorrect username or password!",
       "accept" : "Ok"
+    },
+    "placeholder" : {
+      "username" : "Please enter your username",
+      "password" : "Please enter your password"
     }
   },
   "sidebar" : {

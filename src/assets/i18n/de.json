@@ -8,6 +8,10 @@
       "header" : "Login fehlgeschlagen",
       "message" : "Benutzername oder Passwort falsch!",
       "accept" : "Ok"
+    },
+    "placeholder" : {
+      "username" : "Bitte gib deinen Benutzernamen ein",
+      "password" : "Bitte gib dein Passwort ein"
     }
   },
   "sidebar" : {
