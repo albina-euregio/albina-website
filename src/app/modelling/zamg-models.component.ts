@@ -19,16 +19,17 @@ export class ZamgModelsComponent implements OnInit {
 
   @HostListener("document:keydown", ["$event"])
   handleKeyboardEvent(event: KeyboardEvent) {
+    let newIndex = 0;
     // up arrow
     if (event.keyCode === 38) {
-      var newIndex = this.modelPoints.indexOf(this.selectedModelPoint);
+      newIndex = this.modelPoints.indexOf(this.selectedModelPoint);
       if (newIndex > 0) {
         newIndex -= 1;
       }
       this.selectedModelPoint = this.modelPoints[newIndex];
     // down arrow
     } else if (event.keyCode === 40) {
-      var newIndex = this.modelPoints.indexOf(this.selectedModelPoint);
+      newIndex = this.modelPoints.indexOf(this.selectedModelPoint);
       if (newIndex < this.modelPoints.length - 1) {
         newIndex += 1;
       }
