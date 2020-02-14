@@ -1544,7 +1544,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     event.currentTarget.setAttribute("disabled", true);
     this.loadModalRef.hide();
     this.loading = true;
-    const date = this.bulletinsService.getActiveDate();
+    const date = new Date(this.bulletinsService.getActiveDate());
     date.setDate(date.getDate() - 1);
 
     const regions = new Array<String>();
