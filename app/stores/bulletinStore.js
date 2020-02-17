@@ -92,54 +92,6 @@ class BulletinCollection {
     data = convertCaamlToAlbinaJson(data);
     if (APP_DEV_MODE) console.log(JSON.stringify(data));
 
-    if (data && data.length > 0) {
-      // calculate maxWarnlevel for each bulletin
-      const defaultLevel = {
-        number: 0,
-        id: "no_rating"
-      };
-
-      const comparator = (acc, w) => {
-        if (acc.number < w.number) {
-          return w;
-        }
-        // else prefer no_snow over no_rating
-        if (acc.number == 0 && acc.id == "no_rating" && w.id == "no_snow") {
-          return w;
-        }
-        return acc;
-      };
-
-      data.forEach(b => {
-        const bulletins = b.hasDaytimeDependency
-          ? [b["forenoon"], b["afternoon"]]
-          : [b["forenoon"]];
-        b.maxWarnlevel = bulletins
-          .map(b => {
-            const warnlevels = [];
-            if (b.dangerRatingAbove) {
-              warnlevels.push({
-                number: window["appStore"].getWarnlevelNumber(
-                  b.dangerRatingAbove
-                ),
-                id: b.dangerRatingAbove
-              });
-            }
-            if (b.dangerRatingBelow) {
-              warnlevels.push({
-                number: window["appStore"].getWarnlevelNumber(
-                  b.dangerRatingBelow
-                ),
-                id: b.dangerRatingBelow
-              });
-            }
-            // get the maximum for each daytime
-            return warnlevels.reduce(comparator, defaultLevel);
-          })
-          .reduce(comparator, defaultLevel); // return the total maximum
-      });
-    }
-
     this.dataRaw = data;
     this.status =
       typeof data === "object" && data

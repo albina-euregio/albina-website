@@ -118,10 +118,9 @@ export function convertCaamlToAlbinaJson(document) {
       }
       return typeof value === "string" ? parseInt(value, 10) : undefined;
     };
-    const getDangerRating = lwHi =>
-      window["appStore"].getWarnLevelId(
-        dangerRatings.find(r => r.validElevation.match(lwHi))?.mainValue
-      );
+    const getDangerRatingNumber = lwHi =>
+      dangerRatings.find(r => r.validElevation.match(lwHi))?.mainValue;
+    const getWarnLevelId = number => window["appStore"].getWarnLevelId(number);
     const getDangerPattern = index =>
       dangerPatterns?.[index]?.type.toLowerCase();
     const getAvalancheSituation = index => {
@@ -152,11 +151,15 @@ export function convertCaamlToAlbinaJson(document) {
     };
     const forenoon = {
       id,
-      dangerRatingBelow: getDangerRating(/Lw$/),
-      dangerRatingAbove: getDangerRating(/Hi$/),
+      dangerRatingBelow: getWarnLevelId(getDangerRatingNumber(/Lw$/)),
+      dangerRatingAbove: getWarnLevelId(getDangerRatingNumber(/Hi$/)),
       avalancheSituation1: getAvalancheSituation(0),
       avalancheSituation2: getAvalancheSituation(1)
     };
+    const maxWarnlevel = Math.max(
+      getDangerRatingNumber(/Lw$/),
+      getDangerRatingNumber(/Hi$/)
+    );
 
     // merge afternoon into forenoon observation
     if (id.match(/_PM$/)) {
@@ -167,6 +170,13 @@ export function convertCaamlToAlbinaJson(document) {
       forenoonObs.hasElevationDependency |= hasElevationDependency;
       forenoonObs.hasDaytimeDependency = true;
       forenoonObs.afternoon = afternoon;
+      forenoonObs.maxWarnlevel.number = Math.max(
+        forenoonObs.maxWarnlevel.number,
+        maxWarnlevel
+      );
+      forenoonObs.maxWarnlevel.id = getWarnLevelId(
+        forenoonObs.maxWarnlevel.number
+      );
       return;
     }
 
@@ -178,6 +188,10 @@ export function convertCaamlToAlbinaJson(document) {
       treeline: getIsTreeline(dangerRatings[0].validElevation),
       elevation: getElevation(dangerRatings[1].validElevation),
       hasElevationDependency,
+      maxWarnlevel: {
+        number: maxWarnlevel,
+        id: getWarnLevelId(maxWarnlevel)
+      },
       forenoon,
       hasDaytimeDependency: false,
       afternoon: undefined,
