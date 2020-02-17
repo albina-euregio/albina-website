@@ -10,7 +10,7 @@ import {
 
 import { GeoJSON, Util } from "leaflet";
 import axios from "axios";
-import { convertCaamlToJson } from "./caaml.js";
+import { convertCaamlToJson, convertCaamlToAlbinaJson } from "./caaml.js";
 
 class BulletinCollection {
   date;
@@ -88,8 +88,9 @@ class BulletinCollection {
   }
 
   setData(data) {
-    if (APP_DEV_MODE) console.log(convertCaamlToJson(data));
     if (APP_DEV_MODE) console.log(JSON.stringify(convertCaamlToJson(data)));
+    data = convertCaamlToAlbinaJson(data);
+    if (APP_DEV_MODE) console.log(JSON.stringify(data));
 
     if (data && data.length > 0) {
       // calculate maxWarnlevel for each bulletin

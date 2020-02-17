@@ -30,19 +30,21 @@ export function convertCaamlToJson(document) {
 
   // recurse children
   for (var child of children) {
+    const forceArray = [
+      "AvProblem",
+      "Bulletin",
+      "BulletinMeasurements",
+      "DangerPattern",
+      "DangerRating",
+      "locRef",
+      "MetaData",
+      "validAspect"
+    ];
     const asArray =
-      // checking is child has siblings of same name.
+      // checking if child has siblings of same name.
       children.filter(i => i.nodeName === child.nodeName).length > 1 ||
-      [
-        "AvProblem",
-        "Bulletin",
-        "BulletinMeasurements",
-        "DangerPattern",
-        "DangerRating",
-        "locRef",
-        "MetaData",
-        "validAspect"
-      ].indexOf(child.nodeName) >= 0;
+      // or child name is forced to be an array
+      forceArray.indexOf(child.nodeName) >= 0;
 
     // if child is array, save the values as array, else as strings.
     if (asArray && json[child.nodeName] === undefined) {
@@ -70,4 +72,127 @@ export function convertCaamlToJson(document) {
       return json.Bulletin;
   }
   return json;
+}
+
+/**
+ * @param {XMLDocument} document
+ */
+export function convertCaamlToAlbinaJson(document) {
+  const json = convertCaamlToJson(document);
+  const { observations } = json.ObsCollection;
+  return observations.map(observation => {
+    const { id, lang, metaDataProperty, validTime } = observation;
+    const {
+      dangerRatings,
+      dangerPatterns,
+      avProblems,
+      avActivityHighlights,
+      avActivityComment,
+      snowpackStructureComment,
+      tendencyComment
+    } = observation.bulletinResultsOf[0];
+
+    const hasElevationDependency =
+      dangerRatings.length === 1 ||
+      dangerRatings[0].mainValue !== dangerRatings[1].mainValue;
+    const getIsTreeline = (validElevation, lwHi) =>
+      typeof validElevation === "string" &&
+      (!lwHi || validElevation.match(lwHi)) &&
+      !!validElevation.match(/^ElevationRange_Treeline/);
+    const getElevation = (validElevation, lwHi) => {
+      let value;
+      if (typeof validElevation === "string") {
+        const match =
+          (!lwHi || validElevation.match(lwHi)) &&
+          validElevation.match(/^ElevationRange_(\d+)/);
+        if (match) value = match[1];
+      } else if (typeof validElevation === "object") {
+        const { elevationRange } = validElevation;
+        if (elevationRange && lwHi && lwHi.test("Lw")) {
+          // deal with typo "begionPosition" in old CAAML files, see https://gitlab.com/albina-euregio/albina-server/-/commit/d9b7c5d998a9f932f6b34c62d2b8df96d2ec4f39
+          value = elevationRange.beginPosition || elevationRange.begionPosition;
+        } else if (elevationRange && lwHi && lwHi.test("Hi")) {
+          value = elevationRange.endPosition;
+        }
+      }
+      return typeof value === "string" ? parseInt(value, 10) : undefined;
+    };
+    const getDangerRating = lwHi =>
+      window["appStore"].getWarnLevelId(
+        dangerRatings.find(r => r.validElevation.match(lwHi))?.mainValue
+      );
+    const getDangerPattern = index =>
+      dangerPatterns?.[index]?.type.toLowerCase();
+    const getAvalancheSituation = index => {
+      if (!avProblems[index]) return undefined;
+      const { type, validAspect, validElevation } = avProblems[index];
+      const typeMapping = {
+        "new snow": "new_snow",
+        "drifting snow": "wind_drifted_snow",
+        "old snow": "weak_persistent_layer",
+        "wet snow": "wet_snow",
+        "gliding snow": "gliding_snow",
+        "favourable situation": "favourable_situation"
+      };
+      return {
+        elevationLow: getElevation(validElevation, /Lw$/),
+        elevationHigh: getElevation(validElevation, /Hi$/),
+        treelineLow: getIsTreeline(validElevation, /Hi$/), // Low→Hi sic!
+        treelineHigh: getIsTreeline(validElevation, /Lw$/), // High→Lw sic!
+        avalancheSituation: typeMapping[type],
+        aspects: validAspect
+          ? validAspect.map(a => a.replace(/^AspectRange_/, ""))
+          : undefined
+      };
+    };
+
+    return {
+      id,
+      publicationDate: metaDataProperty[0].dateTimeReport,
+      validity: {
+        from: validTime.TimePeriod.beginPosition,
+        until: validTime.TimePeriod.endPosition
+      },
+      regions: observation.locRef,
+      treeline: getIsTreeline(dangerRatings[0].validElevation),
+      elevation: getElevation(dangerRatings[1].validElevation),
+      hasElevationDependency,
+      forenoon: {
+        id,
+        dangerRatingBelow: getDangerRating(/Lw$/),
+        dangerRatingAbove: getDangerRating(/Hi$/),
+        avalancheSituation1: getAvalancheSituation(0),
+        avalancheSituation2: getAvalancheSituation(1)
+      },
+      hasDaytimeDependency: false, // TODO
+      afternoon: undefined, // TODO
+      tendency: undefined, // TODO
+      dangerPattern1: getDangerPattern(0),
+      dangerPattern2: getDangerPattern(1),
+      avActivityHighlights: [
+        {
+          text: avActivityHighlights,
+          languageCode: lang
+        }
+      ],
+      avActivityComment: [
+        {
+          text: avActivityComment,
+          languageCode: lang
+        }
+      ],
+      snowpackStructureComment: [
+        {
+          text: snowpackStructureComment,
+          languageCode: lang
+        }
+      ],
+      tendencyComment: [
+        {
+          text: tendencyComment,
+          languageCode: lang
+        }
+      ]
+    };
+  });
 }
