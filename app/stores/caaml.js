@@ -119,7 +119,8 @@ export function convertCaamlToAlbinaJson(document) {
       return typeof value === "string" ? parseInt(value, 10) : undefined;
     };
     const getDangerRatingNumber = lwHi =>
-      dangerRatings.find(r => r.validElevation.match(lwHi))?.mainValue;
+      dangerRatings.find(r => !r.validElevation || r.validElevation.match(lwHi))
+        ?.mainValue;
     const getWarnLevelId = number => window["appStore"].getWarnLevelId(number);
     const getDangerPattern = index =>
       dangerPatterns?.[index]?.type.toLowerCase();
@@ -135,8 +136,8 @@ export function convertCaamlToAlbinaJson(document) {
         "favourable situation": "favourable_situation"
       };
       return {
-        elevationLow: getElevation(validElevation, /Lw$/),
-        elevationHigh: getElevation(validElevation, /Hi$/),
+        elevationLow: getElevation(validElevation, /Hi$/), // Low→Hi sic!
+        elevationHigh: getElevation(validElevation, /Lw$/), // Low→Hi sic!
         treelineLow: getIsTreeline(validElevation, /Hi$/), // Low→Hi sic!
         treelineHigh: getIsTreeline(validElevation, /Lw$/), // High→Lw sic!
         avalancheSituation: typeMapping[type],
@@ -185,8 +186,8 @@ export function convertCaamlToAlbinaJson(document) {
       publicationDate: metaDataProperty[0].dateTimeReport,
       validity,
       regions: observation.locRef,
-      treeline: getIsTreeline(dangerRatings[0].validElevation),
-      elevation: getElevation(dangerRatings[1].validElevation),
+      treeline: getIsTreeline(dangerRatings?.[0]?.validElevation),
+      elevation: getElevation(dangerRatings?.[1]?.validElevation),
       hasElevationDependency,
       maxWarnlevel: {
         number: maxWarnlevel,
@@ -200,25 +201,25 @@ export function convertCaamlToAlbinaJson(document) {
       dangerPattern2: getDangerPattern(1),
       avActivityHighlights: [
         {
-          text: avActivityHighlights,
+          text: avActivityHighlights.replace(/&lt;br\/&gt;/g, "<br/>"),
           languageCode: lang
         }
       ],
       avActivityComment: [
         {
-          text: avActivityComment,
+          text: avActivityComment.replace(/&lt;br\/&gt;/g, "<br/>"),
           languageCode: lang
         }
       ],
       snowpackStructureComment: [
         {
-          text: snowpackStructureComment,
+          text: snowpackStructureComment.replace(/&lt;br\/&gt;/g, "<br/>"),
           languageCode: lang
         }
       ],
       tendencyComment: [
         {
-          text: tendencyComment,
+          text: tendencyComment.replace(/&lt;br\/&gt;/g, "<br/>"),
           languageCode: lang
         }
       ]
