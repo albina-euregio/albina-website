@@ -80,7 +80,8 @@ export function convertCaamlToJson(document) {
 export function convertCaamlToAlbinaJson(document) {
   const json = convertCaamlToJson(document);
   const { observations } = json.ObsCollection;
-  return observations.map(observation => {
+  const albinaObservations = [];
+  observations.map(observation => {
     const { id, lang, metaDataProperty, validTime } = observation;
     const {
       dangerRatings,
@@ -145,27 +146,41 @@ export function convertCaamlToAlbinaJson(document) {
           : undefined
       };
     };
+    const validity = {
+      from: validTime.TimePeriod.beginPosition,
+      until: validTime.TimePeriod.endPosition
+    };
+    const forenoon = {
+      id,
+      dangerRatingBelow: getDangerRating(/Lw$/),
+      dangerRatingAbove: getDangerRating(/Hi$/),
+      avalancheSituation1: getAvalancheSituation(0),
+      avalancheSituation2: getAvalancheSituation(1)
+    };
 
-    return {
+    // merge afternoon into forenoon observation
+    if (id.match(/_PM$/)) {
+      const afternoon = forenoon;
+      afternoon.id = afternoon.id.replace(/_PM$/, "");
+      const forenoonObs = albinaObservations.find(o => o.id === afternoon.id);
+      forenoonObs.validity.until = validity.until;
+      forenoonObs.hasElevationDependency |= hasElevationDependency;
+      forenoonObs.hasDaytimeDependency = true;
+      forenoonObs.afternoon = afternoon;
+      return;
+    }
+
+    albinaObservations.push({
       id,
       publicationDate: metaDataProperty[0].dateTimeReport,
-      validity: {
-        from: validTime.TimePeriod.beginPosition,
-        until: validTime.TimePeriod.endPosition
-      },
+      validity,
       regions: observation.locRef,
       treeline: getIsTreeline(dangerRatings[0].validElevation),
       elevation: getElevation(dangerRatings[1].validElevation),
       hasElevationDependency,
-      forenoon: {
-        id,
-        dangerRatingBelow: getDangerRating(/Lw$/),
-        dangerRatingAbove: getDangerRating(/Hi$/),
-        avalancheSituation1: getAvalancheSituation(0),
-        avalancheSituation2: getAvalancheSituation(1)
-      },
-      hasDaytimeDependency: false, // TODO
-      afternoon: undefined, // TODO
+      forenoon,
+      hasDaytimeDependency: false,
+      afternoon: undefined,
       tendency: undefined, // TODO
       dangerPattern1: getDangerPattern(0),
       dangerPattern2: getDangerPattern(1),
@@ -193,6 +208,7 @@ export function convertCaamlToAlbinaJson(document) {
           languageCode: lang
         }
       ]
-    };
+    });
   });
+  return albinaObservations;
 }
