@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ModellingService, ZamgModelPoint } from "./modelling.service";
 
 @Component({
