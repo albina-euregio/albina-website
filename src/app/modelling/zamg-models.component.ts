@@ -16,24 +16,4 @@ export class ZamgModelsComponent implements OnInit {
       this.selectedModelPoint = zamgModelPoints[0];
     });
   }
-
-  @HostListener("document:keydown", ["$event"])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    let newIndex = 0;
-    // up arrow
-    if (event.keyCode === 38) {
-      newIndex = this.modelPoints.indexOf(this.selectedModelPoint);
-      if (newIndex > 0) {
-        newIndex -= 1;
-      }
-      this.selectedModelPoint = this.modelPoints[newIndex];
-    // down arrow
-    } else if (event.keyCode === 40) {
-      newIndex = this.modelPoints.indexOf(this.selectedModelPoint);
-      if (newIndex < this.modelPoints.length - 1) {
-        newIndex += 1;
-      }
-      this.selectedModelPoint = this.modelPoints[newIndex];
-    }
-  }
 }
