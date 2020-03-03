@@ -1,0 +1,194 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #ICONS
+\*------------------------------------*/
+
+//http://www.fontello.com
+
+@charset "UTF-8";
+
+$icon-font-name: "Fontello";
+$icon-font-path: "../fonts/fontello";
+$icon-font-margin: 0.25em;
+
+@font-face {
+  font-family: "#{$icon-font-name}";
+  src: url("#{$icon-font-path}/fontello.eot?88268438");
+  src: url("#{$icon-font-path}/fontello.eot?88268438#iefix")
+      format("embedded-opentype"),
+    url("#{$icon-font-path}/fontello.woff2?88268438") format("woff2"),
+    url("#{$icon-font-path}/fontello.woff?88268438") format("woff"),
+    url("#{$icon-font-path}/fontello.ttf?88268438") format("truetype"),
+    url("#{$icon-font-path}/fontello.svg?88268438#fontello") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icon-sm-facebook:before {
+  content: "\e809";
+} /* '' */
+.icon-sm-instagram:before {
+  content: "\e80a";
+} /* '' */
+.icon-sm-twitter:before {
+  content: "\e80b";
+} /* '' */
+.icon-sm-youtube:before {
+  content: "\e80d";
+} /* '' */
+.icon-sm-whatsapp:before {
+  content: "\e847";
+} /* '' */
+.icon-sm-telegram:before {
+  content: "\e819";
+} /* '' */
+.icon-close:before {
+  content: "\e810";
+} /* '' */
+.icon-down-open-big:before {
+  content: "\e811";
+} /* '' */
+.icon-up-open-big:before {
+  content: "\e812";
+} /* '' */
+.icon-search-big:before {
+  content: "\e813";
+} /* '' */
+.icon-hamburger:before {
+  content: "\e814";
+} /* '' */
+.icon-arrow-down:before {
+  content: "\e815";
+} /* '' */
+.icon-arrow-left:before {
+  content: "\e816";
+} /* '' */
+.icon-arrow-right:before {
+  content: "\e817";
+} /* '' */
+.icon-arrow-up:before {
+  content: "\e818";
+} /* '' */
+.icon-attention:before {
+  content: "\e81a";
+} /* '' */
+.icon-info:before {
+  content: "\e81b";
+} /* '' */
+.icon-down-open:before {
+  content: "\e81c";
+} /* '' */
+.icon-up-open:before {
+  content: "\e81d";
+} /* '' */
+.icon-search:before {
+  content: "\e81e";
+} /* '' */
+.icon-external:before {
+  content: "\e81f";
+} /* '' */
+.icon-download:before {
+  content: "\e820";
+} /* '' */
+.icon-arrow-decrease:before {
+  content: "\e821";
+} /* '' */
+.icon-arrow-increase:before {
+  content: "\e822";
+} /* '' */
+.icon-minus-big:before {
+  content: "\e823";
+} /* '' */
+.icon-plus-big:before {
+  content: "\e824";
+} /* '' */
+
+// mit diesem mixin können icons in sass inkludiert werden
+// z.B. @include icon(attention, 1.5em, 0.5em, #F00, 0, 2px 2px 5px #FFF);
+@mixin icon(
+  $type,
+  $size: auto,
+  $margin: auto,
+  $color: auto,
+  $top: auto,
+  $shadow: none
+) {
+  @extend %icon;
+  &:before {
+    @if $margin != auto {
+      margin-right: $margin;
+    }
+    @if $size != auto {
+      font-size: $size;
+    }
+    @if $top != auto {
+      position: relative;
+      top: $top;
+    }
+    @if $color != auto {
+      color: $color;
+    }
+    @if $shadow != none {
+      text-shadow: $shadow;
+    }
+  }
+  @include icon-glyph($type);
+}
+
+@mixin icon-glyph($type) {
+  @extend .icon-#{$type};
+}
+
+%icon {
+  &:before {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    margin-right: $icon-font-margin;
+    /* Animation center compensation - margins should be symmetric, remove if not needed */
+    //margin-left: $icon-margin;
+    //vertical-align: middle;
+    font-family: "Fontello";
+    font-weight: normal;
+    font-style: normal;
+    font-size: $icon-font-size;
+    text-decoration: none;
+    speak: none;
+    text-align: center;
+    /* you can be more comfortable with increased icons size */
+    //font-size: 1.2em;
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+    //background-color: #fac;
+    /* Uncomment for 3D effect */
+    //text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3);
+    @include rollover;
+  }
+}
+
+// generische icons per HTML-class, z.B. icon-hand
+[class^="icon-"],
+[class*=" icon-"] {
+  @extend %icon;
+}
+[class^="icon-sm"],
+[class*=" icon-sm"] {
+  &:before {
+    font-size: $icon-sm-font-size;
+  }
+}
+
+//überschreiben
+.icon-margin-no:before {
+  margin: 0;
+}
+.icon-margin-right:before {
+  margin-right: 0.5em;
+}
+.icon-margin-left:before {
+  margin-left: 0.5em;
+}

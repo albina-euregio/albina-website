@@ -1,0 +1,44 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #BLOG
+\*------------------------------------*/
+
+.blog-feature-meta {
+  margin-bottom: $margin-bottom / 2;
+  .linkbox & {
+    margin-bottom: 0;
+  }
+  font-size: $tiny-font-size;
+  li {
+    padding-bottom: $padding / 2;
+    @include rollout(all, $transition-duration * 2, ease-in-out);
+  }
+  .blog-author,
+  .blog-province {
+    @include font-heavy;
+  }
+}
+
+.blog-feature-title {
+  flex-grow: 10;
+  margin-bottom: $header-margin-bottom * 2;
+}
+
+.blog-list-labels {
+  .section-header & li {
+    line-height: inherit !important;
+  }
+  span {
+    margin: 0;
+    @include rollout(all, $transition-duration * 2, ease-in-out);
+    &:hover {
+      color: $anchor-font-color;
+      border-color: $anchor-font-color;
+      @include rollover(all, $transition-duration * 2, ease-in-out);
+    }
+  }
+}

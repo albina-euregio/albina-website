@@ -1,0 +1,234 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #NAVIGATION
+\*------------------------------------*/
+
+$page-header-height: 6em;
+$page-header-height-increaser: 2.2em;
+$page-header-height-medium: $page-header-height + $page-header-height-increaser;
+
+$page-header-padding-v-decreaser: 0; //0.25em;
+$page-header-padding-v: 1em - $page-header-padding-v-decreaser;
+$page-header-padding-h: 1em;
+$page-header-padding-h-medium: 2em;
+
+$items-per-column: 5;
+$first-item-in-second-column: $items-per-column + 1;
+$first-item-in-third-column: $items-per-column + $first-item-in-second-column;
+
+$item-padding: 0.175em;
+
+.navigation {
+  display: block;
+  position: relative;
+  top: -$item-padding;
+  margin: 0;
+
+  @include font-bold;
+  line-height: 1;
+  @include rollover;
+
+  a {
+    position: relative;
+    display: inline-block;
+    padding: $item-padding calc(#{$icon-font-size} + 0.5em) $item-padding 0;
+    white-space: nowrap;
+  }
+
+  .has-sub {
+    @include icon(arrow-right, auto, 0, $grey-light, -0.15em, none);
+    &:before {
+      display: block;
+      position: absolute;
+      right: 0;
+    }
+    &:hover,
+    &.active {
+      &:before {
+        right: -0.25em;
+        color: $anchor-font-color;
+      }
+    }
+    &.active {
+      + .subnavigation {
+        display: block;
+      }
+    }
+  }
+
+  small {
+    font-size: 0.9em;
+    @include uppercase(0.05em);
+  }
+
+  @media screen and (max-width: #{upper-bound($normal-range)}) {
+    .navigation-open & {
+      top: 0;
+      margin: 0 calc(#{$padding} * 6 + #{$border-width} * 4) $margin-bottom 0;
+
+      li {
+        &:first-child a {
+          padding-top: $padding / 2;
+        }
+      }
+
+      a {
+        display: block;
+        padding: ($padding * 2) 0 $padding 0;
+        font-size: $h1-font-size;
+        @include font-heavy;
+        white-space: normal;
+      }
+      .has-sub {
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media #{$medium-up} {
+  }
+}
+
+.subnavigation {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: calc(100% + 2em);
+  margin: 0;
+  @include font-normal;
+
+  a {
+    padding: $item-padding 1em $item-padding 0;
+  }
+  li {
+    position: relative;
+    max-width: 12.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:nth-child(1n + #{$first-item-in-second-column}) {
+      top: calc(
+        -#{$items-per-column}em - #{$item-padding} * #{$items-per-column} * 2
+      );
+      left: calc(100% + 0.5em);
+    }
+    &:nth-child(1n + #{$first-item-in-third-column}) {
+      top: calc(
+        -#{$items-per-column}em * 2 - #{$item-padding} * #{$items-per-column} * 2 *
+          2
+      );
+      left: calc(200% + 0.5em);
+    }
+  }
+
+  a {
+    &:link,
+    &:visited {
+      color: $grey !important;
+    }
+    &:hover,
+    &:active,
+    &.active {
+      color: $anchor-font-color !important;
+    }
+  }
+
+  @media screen and (max-width: #{upper-bound($normal-range)}) {
+    .navigation-open & {
+      display: block;
+      position: relative;
+      top: auto;
+      left: auto;
+
+      a {
+        padding: ($padding / 2) 0;
+        font-size: $body-font-size;
+        @include font-normal;
+        white-space: normal;
+      }
+
+      li {
+        max-width: none;
+        overflow: unset;
+        text-overflow: unset;
+        &:nth-child(1n + #{$first-item-in-second-column}) {
+          top: auto;
+          left: auto;
+        }
+        &:nth-child(1n + #{$first-item-in-third-column}) {
+          top: auto;
+          left: auto;
+        }
+        &:last-child {
+          padding-bottom: $padding * 2;
+        }
+      }
+    }
+  }
+}
+
+.footer-navigation {
+  margin-bottom: $margin-bottom / 2;
+  @include font-bold;
+  line-height: 1;
+  @include rollover;
+
+  a {
+    position: relative;
+    display: inline-block;
+  }
+
+  &.footer-navigation-more {
+    a {
+      padding: $item-padding 0;
+    }
+    li {
+      &:last-child {
+        @include font-normal;
+      }
+      @media #{$tiny-up} {
+        padding-right: $padding * 2;
+      }
+    }
+  }
+
+  &.footer-navigation-main {
+    a {
+      padding: $item-padding
+        calc(#{$icon-font-size} + #{$body-font-size-small} / 2);
+      @media #{$normal-up} {
+        padding-left: 0;
+      }
+    }
+    small {
+      font-size: 0.9em;
+      @include uppercase(0.05em);
+    }
+  }
+
+  .has-sub {
+    @include icon(arrow-right, auto, 0, $grey-light, -0.15em, none);
+
+    &:before {
+      display: block;
+      position: absolute;
+      right: 0;
+      @media #{$normal-up} {
+        color: $anchor-font-color;
+      }
+    }
+    &:hover,
+    &.active {
+      &:before {
+        right: -($padding) / 2;
+        color: $anchor-font-color-hover;
+      }
+    }
+  }
+}
