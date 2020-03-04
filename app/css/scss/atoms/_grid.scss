@@ -1,0 +1,138 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #GRID
+\*------------------------------------*/
+
+//only for debugging purpose
+$grid-activated: true;
+
+@mixin grid($grid-columns: $grid-columns, $margin-bottom: 0) {
+  //@include clearfix;
+  overflow: visible;
+  position: relative;
+  margin-bottom: $margin-bottom;
+
+  // T H E   F U C K I N G   F A L L B A C K
+  @include clearfix;
+  margin-left: -($grid-gutter-small / 2);
+  margin-right: -($grid-gutter-small / 2);
+  @media #{$normal-up} {
+    margin-left: -($grid-gutter / 2);
+    margin-right: -($grid-gutter / 2);
+  }
+
+  // T H E   G R I D
+  @if $grid-activated {
+    display: grid;
+    grid-template-columns: repeat(#{$grid-columns}, 1fr);
+    grid-template-rows: auto;
+    grid-gap: $grid-gutter-small;
+    @media #{$normal-up} {
+      grid-gap: $grid-gutter;
+    }
+    grid-auto-flow: row;
+
+    // I F   G R I D   U N D O   T H E   F U C K I N G   F A L L B A C K
+    @supports (display: grid) {
+      @include clearfix-undo;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+}
+
+@mixin grid-item($grid-columns: $grid-columns) {
+  transition: all ($transition-duration * 2) ease-in-out;
+  @include last-child();
+
+  // T H E   F U C K I N G   F A L L B A C K
+  float: left;
+  min-height: 1px;
+  width: calc(100% - #{$grid-gutter-small});
+  //margin: 0 ($grid-gutter-small / 2) $grid-gutter-small ($grid-gutter-small / 2);
+  margin: 0 ($grid-gutter-small / 2) ($grid-gutter-small / 2)
+    ($grid-gutter-small / 2);
+  @media #{$normal-up} {
+    width: calc(100% - #{$grid-gutter});
+    //margin: 0 ($grid-gutter / 2) $grid-gutter ($grid-gutter / 2);
+    margin: 0 ($grid-gutter / 2) ($grid-gutter / 2) ($grid-gutter / 2);
+  }
+
+  // T H E   G R I D
+  @if $grid-activated {
+    grid-column: span $grid-columns;
+
+    // I F   G R I D   U N D O   T H E   F U C K I N G   F A L L B A C K
+    @supports (display: grid) {
+      float: none;
+      min-height: none;
+      width: auto !important;
+      margin: 0;
+    }
+  }
+}
+
+@mixin grid-item-generator($query) {
+  $i: 1;
+  @for $i from 1 through $grid-columns {
+    .#{$query}-#{$i} {
+      // T H E   F U C K I N G   F A L L B A C K
+      width: calc(
+        100% / 12 * #{$i} - #{$grid-gutter-small} - 0.1px
+      ); // - 0.1px because of another fucking IE bug
+
+      @media #{$normal-up} {
+        width: calc(
+          100% / 12 * #{$i} - #{$grid-gutter} - 0.1px
+        ); // - 0.1px because of another fucking IE bug
+      }
+
+      // T H E   G R I D
+      @if $grid-activated {
+        grid-column: span $i;
+      }
+    }
+  }
+}
+
+//generate default grid und grid-item
+.grid {
+  @include grid();
+  //grid within grid
+  .grid {
+  }
+}
+.grid-item {
+  @include grid-item();
+}
+
+//generate responsive grid-items
+@include grid-item-generator(all);
+@media #{$tiny-up} {
+  @include grid-item-generator(tiny);
+}
+@media #{$small-up} {
+  @include grid-item-generator(small);
+}
+@media #{$normal-up} {
+  @include grid-item-generator(normal);
+}
+@media #{$medium-up} {
+  @include grid-item-generator(medium);
+}
+@media #{$large-up} {
+  @include grid-item-generator(large);
+}
+@media #{$xlarge-up} {
+  @include grid-item-generator(xlarge);
+}
+@media #{$xxlarge-up} {
+  @include grid-item-generator(xxlarge);
+}
+@media #{$xxxlarge-up} {
+  @include grid-item-generator(xxxlarge);
+}

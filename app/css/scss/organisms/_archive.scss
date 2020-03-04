@@ -1,0 +1,64 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #ARCHIVE
+\*------------------------------------*/
+
+.table-archive {
+  position: relative;
+
+  thead {
+    position: relative;
+    tr {
+      position: relative;
+    }
+    th {
+      line-height: 1;
+    }
+  }
+
+  tbody {
+    position: relative;
+    tr {
+      position: relative;
+    }
+    td {
+      position: relative;
+      line-height: 1;
+    }
+
+    .region-nt {
+      color: $tyrol-color;
+    }
+    .region-st {
+      color: $south-tyrol-color;
+    }
+    .region-tr {
+      color: $trentino-color;
+    }
+
+    .time {
+      font-size: $micro-font-size;
+      @include font-normal;
+      @include letter-spacing;
+    }
+
+    .list-download {
+      margin-bottom: 0;
+      li {
+        padding-bottom: 0;
+      }
+    }
+    .map-preview {
+      display: inline-block;
+      width: $picto-height;
+      height: $picto-height;
+      img {
+        @include box-border;
+      }
+    }
+  }
+}

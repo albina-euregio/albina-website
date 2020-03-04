@@ -1,0 +1,108 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #BODY
+\*------------------------------------*/
+
+$min-height-adjustment: (4 * ($rem-base + 2) + px); //4em;
+
+html,
+body {
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+
+  font-family: $body-font-family;
+  font-weight: $body-font-weight;
+  font-style: $body-font-style;
+  font-size: $body-font-size-small;
+  line-height: $body-line-height;
+
+  @include font-smoothing($font-smoothing);
+
+  color: $text-color;
+
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: $webkit-tap-highlight-color;
+
+  display: flex;
+  flex-direction: column;
+
+  @include rollout;
+}
+
+body {
+  &:before {
+    z-index: -100;
+    position: fixed;
+    content: "";
+    top: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    @extend .bg-gradient-snow;
+  }
+}
+
+@media #{$normal-up} {
+  html,
+  body {
+    font-size: $body-font-size;
+  }
+}
+
+@media #{$medium-up} and (min-height:#{lower-bound($normal-range)}) {
+  html,
+  body {
+    font-size: $body-font-size-medium;
+  }
+}
+
+@media #{$large-up} and (min-height:#{lower-bound($medium-range) - $min-height-adjustment}) {
+  .rf {
+    color: blue;
+  }
+  html,
+  body {
+    font-size: $body-font-size-large;
+  }
+}
+
+@media #{$xlarge-up} and (min-height:#{lower-bound($medium-range)}) {
+  html,
+  body {
+    font-size: $body-font-size-xlarge;
+  }
+}
+
+@media #{$xxlarge-up} and (min-height:#{lower-bound($medium-range) + $min-height-adjustment}) {
+  html,
+  body {
+    font-size: $body-font-size-xxlarge;
+  }
+}
+
+@media #{$xxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+  html,
+  body {
+    font-size: $body-font-size-xxxlarge;
+  }
+}
+
+@media #{$xxxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+  html,
+  body {
+    font-size: $body-font-size-xxxxlarge;
+  }
+}
+
+@media #{$xxxxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+  html,
+  body {
+    font-size: $body-font-size-xxxxxlarge;
+  }
+}

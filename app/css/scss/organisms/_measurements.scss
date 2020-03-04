@@ -1,0 +1,115 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #MEASUREMENTS
+\*------------------------------------*/
+
+.table-measurements {
+  position: relative;
+
+  thead {
+    position: relative;
+    tr {
+      position: relative;
+    }
+    th {
+      position: relative;
+      padding: ($padding * 2) $padding $padding $padding;
+      line-height: 1;
+      //vertical-align: middle;
+      text-align: center;
+      &:first-child {
+        text-align: left;
+      }
+    }
+    .measure {
+      display: block;
+      font-size: $micro-font-size;
+      @include font-normal;
+      @include letter-spacing;
+    }
+  }
+  .sort-buttons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.5em;
+    a {
+      align-self: center;
+      max-height: 1em;
+      overflow: hidden;
+      &:before {
+        display: block;
+        top: -0.25em;
+        margin-right: 0;
+      }
+    }
+  }
+
+  tbody {
+    position: relative;
+    tr {
+      position: relative;
+    }
+    td {
+      position: relative;
+      line-height: 1;
+      text-align: center;
+      &:first-child {
+        text-align: left;
+      }
+    }
+    .region {
+      font-size: $micro-font-size;
+    }
+    .region-nt {
+      color: $tyrol-color;
+    }
+    .region-st {
+      color: $south-tyrol-color;
+    }
+    .region-tr {
+      color: $trentino-color;
+    }
+
+    .datetime {
+      display: block;
+      font-size: $micro-font-size;
+      @include font-normal;
+      @include letter-spacing;
+    }
+  }
+
+  tr:hover {
+    cursor: pointer;
+    td.mb-station.m-name {
+      background-color: $table-row-hover-bg;
+      @include rollover;
+    }
+  }
+
+  .m-name,
+  .m-72,
+  .m-ltmin {
+    margin-right: $border-width;
+    border-right: $border-color $border-style $border-width;
+  }
+
+  &.js-hide-mb-snow {
+    .mb-snow {
+      display: none;
+    }
+  }
+  &.js-hide-mb-temp {
+    .mb-temp {
+      display: none;
+    }
+  }
+  &.js-hide-mb-wind {
+    .mb-wind {
+      display: none;
+    }
+  }
+}

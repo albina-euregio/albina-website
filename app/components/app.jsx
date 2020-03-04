@@ -30,8 +30,8 @@ import Page from "./page";
 import { scroll_init } from "../js/scroll";
 import { orientation_change } from "../js/browser";
 
-require("../css/style.css");
-// require("../css/app.scss"); // CSS overrides
+//require("../css/style.css");
+require("../css/style.scss"); // CSS overrides
 
 class App extends React.Component {
   shouldComponentUpdate() {

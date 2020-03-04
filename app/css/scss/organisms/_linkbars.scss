@@ -1,0 +1,25 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #LINKBARS
+\*------------------------------------*/
+
+.linkbar {
+  margin-bottom: $margin-bottom;
+  ul {
+    li {
+      padding-bottom: 0;
+    }
+  }
+  @media #{$normal-up} {
+    .grid-item:last-child {
+      text-align: right;
+    }
+    .list-buttongroup {
+      justify-content: flex-end;
+    }
+  }
+}
