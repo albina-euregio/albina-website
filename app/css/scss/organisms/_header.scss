@@ -30,13 +30,9 @@
     }
   }
   .list-inline:not(.bulletin-flipper) {
-    overflow: auto;
+    //overflow: auto;
     li {
       float: left;
-      /*
-			margin: 0 (- $border-width) (- $border-width) 0;
-			padding: 0;
-*/
     }
   }
 }
