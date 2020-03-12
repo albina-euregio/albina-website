@@ -26,6 +26,7 @@
   }
   h1 {
     + .list-inline:not(.bulletin-flipper) {
+      overflow: auto;
       margin-top: $padding * 2;
     }
   }
