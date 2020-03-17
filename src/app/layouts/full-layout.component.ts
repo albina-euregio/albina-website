@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, TemplateRef } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
@@ -8,7 +8,7 @@ import { ConstantsService } from "../providers/constants-service/constants.servi
 import { ChatService } from "../providers/chat-service/chat.service";
 import { Router } from "@angular/router";
 import { BsModalService } from "ngx-bootstrap/modal";
-import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { BsModalRef } from "ngx-bootstrap/modal";
 import { environment } from "../../environments/environment";
 import { DomSanitizer } from "@angular/platform-browser";
 

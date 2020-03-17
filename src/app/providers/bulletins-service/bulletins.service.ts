@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, RequestOptions, Response } from "@angular/http";
+import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Observable, Subject } from "rxjs/Rx";
 import { ConstantsService } from "../constants-service/constants.service";
 import { SettingsService } from "../settings-service/settings.service";
@@ -31,7 +31,7 @@ export class BulletinsService {
   public dates: Date[];
 
   constructor(
-    public http: Http,
+    public http: HttpClient,
     private constantsService: ConstantsService,
     private authenticationService: AuthenticationService,
     private settingsService: SettingsService,
@@ -61,8 +61,7 @@ export class BulletinsService {
 
     this.getLockedRegions(this.constantsService.codeTyrol).subscribe(
       data => {
-        const response = data.json();
-        for (const lockedDate of response) {
+        for (const lockedDate of (data as any)) {
           const date = new Date(lockedDate);
           this.addLockedRegion(this.constantsService.codeTyrol, date);
         }
@@ -73,8 +72,7 @@ export class BulletinsService {
     );
     this.getLockedRegions(this.constantsService.codeSouthTyrol).subscribe(
       data => {
-        const response = data.json();
-        for (const lockedDate of response) {
+        for (const lockedDate of (data as any)) {
           const date = new Date(lockedDate);
           this.addLockedRegion(this.constantsService.codeSouthTyrol, date);
         }
@@ -85,8 +83,7 @@ export class BulletinsService {
     );
     this.getLockedRegions(this.constantsService.codeTrentino).subscribe(
       data => {
-        const response = data.json();
-        for (const lockedDate of response) {
+        for (const lockedDate of (data as any)) {
           const date = new Date(lockedDate);
           this.addLockedRegion(this.constantsService.codeTrentino, date);
         }
@@ -123,9 +120,8 @@ export class BulletinsService {
 
     this.getStatus(this.constantsService.codeTyrol, startDate, endDate).subscribe(
       data => {
-        const json = data.json();
-        for (let i = json.length - 1; i >= 0; i--) {
-          this.statusMapTyrol.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
+        for (let i = (data as any).length - 1; i >= 0; i--) {
+          this.statusMapTyrol.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
         }
       },
       () => {
@@ -134,9 +130,8 @@ export class BulletinsService {
     );
     this.getStatus(this.constantsService.codeSouthTyrol, startDate, endDate).subscribe(
       data => {
-        const json = data.json();
-        for (let i = json.length - 1; i >= 0; i--) {
-          this.statusMapSouthTyrol.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
+        for (let i = (data as any).length - 1; i >= 0; i--) {
+          this.statusMapSouthTyrol.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
         }
       },
       () => {
@@ -145,9 +140,8 @@ export class BulletinsService {
     );
     this.getStatus(this.constantsService.codeTrentino, startDate, endDate).subscribe(
       data => {
-        const json = data.json();
-        for (let i = json.length - 1; i >= 0; i--) {
-          this.statusMapTrentino.set(Date.parse(json[i].date), Enums.BulletinStatus[<string>json[i].status]);
+        for (let i = (data as any).length - 1; i >= 0; i--) {
+          this.statusMapTrentino.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
         }
       },
       () => {
@@ -280,25 +274,25 @@ export class BulletinsService {
   getStatus(region: string, startDate: Date, endDate: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/status/internal?startDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + "&endDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   getPublicationsStatus(region: string, startDate: Date, endDate: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/status/publications?startDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + "&endDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   getPublicationStatus(region: string, date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/status/publication?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   loadBulletins(date: Date, regions?: String[]): Observable<Response> {
@@ -309,17 +303,17 @@ export class BulletinsService {
       }
     }
     const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   loadCaamlBulletins(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&lang=" + this.settingsService.getLangString();
     const headers = this.authenticationService.newAuthHeader("application/xml");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   loadJsonBulletins(date: Date): Observable<Response> {
@@ -328,9 +322,9 @@ export class BulletinsService {
       date: this.constantsService.getISOStringWithTimezoneOffset(date),
     };
     const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers, params });
+    const options = { headers, params };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   saveBulletins(bulletins, date): Observable<Response> {
@@ -341,9 +335,9 @@ export class BulletinsService {
       jsonBulletins.push(bulletins[i].toJson());
     }
     const body = JSON.stringify(jsonBulletins);
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   changeBulletins(bulletins, date): Observable<Response> {
@@ -354,124 +348,124 @@ export class BulletinsService {
       jsonBulletins.push(bulletins[i].toJson());
     }
     const body = JSON.stringify(jsonBulletins);
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   submitBulletins(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/submit?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   publishBulletins(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   publishAllBulletins(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/all?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   createCaaml(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/caaml?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   createPdf(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/pdf?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   createHtml(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/html?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   createMap(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/map?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   createStaticWidget(date: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/staticwidget?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   sendEmail(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/email?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   triggerMessengerpeople(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/publish/messengerpeople?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.post(url, body, options);
+    return this.http.post<Response>(url, body, options);
   }
 
   checkBulletins(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/check?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   getLockedRegions(region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "regions/locked?region=" + region;
     const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   /*
     getLockedBulletins() : Observable<Response> {
     let url = this.constantsService.getServerUrl() + 'bulletins/locked';
     let headers = this.newAuthHeader();
-    let options = new RequestOptions({ headers: headers });
+    let options = { headers: headers };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
     }
   */
 

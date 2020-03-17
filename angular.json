@@ -21,8 +21,6 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/bootstrap/theme.css",
               "src/scss/style.scss",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/MarkerCluster.css",
@@ -98,8 +96,6 @@
             "polyfills": "src/polyfills.ts",
             "scripts": [],
             "styles": [
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/bootstrap/theme.css",
               "src/scss/style.scss",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/MarkerCluster.css",

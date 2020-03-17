@@ -18,7 +18,8 @@ import { TabComponent } from "./tab.component";
 // Bulletins Routing
 import { BulletinsRoutingModule } from "./bulletins-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
-import { DialogModule, ConfirmDialogModule, SharedModule } from "primeng/primeng";
+import { DialogModule } from "primeng/dialog";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
@@ -34,7 +35,6 @@ import { AccordionModule } from "ngx-bootstrap";
         TranslateModule,
         DialogModule,
         ConfirmDialogModule,
-        SharedModule,
         PipeModule.forRoot(),
         AccordionModule.forRoot()
     ],

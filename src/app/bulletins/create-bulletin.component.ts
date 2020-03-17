@@ -2,7 +2,7 @@ import { Component, HostListener, ViewChild, ElementRef, ApplicationRef, Templat
 import { Router } from "@angular/router";
 import { BulletinModel } from "../models/bulletin.model";
 import { MatrixInformationModel } from "../models/matrix-information.model";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { TranslateService } from "@ngx-translate/core";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { MapService } from "../providers/map-service/map.service";
@@ -16,7 +16,7 @@ import "rxjs/add/operator/switchMap";
 import "rxjs/add/observable/forkJoin";
 import { BehaviorSubject } from "rxjs/Rx";
 import { BsModalService } from "ngx-bootstrap/modal";
-import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { BsModalRef } from "ngx-bootstrap/modal";
 import { environment } from "../../environments/environment";
 
 import "leaflet";
@@ -155,6 +155,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.loading = true;
     this.showAfternoonMap = false;
     this.stopListening = renderer.listen("window", "message", this.getText.bind(this));
+    this.mapService.resetAll();
     // this.preventClick = false;
     // this.timer = 0;
   }
@@ -248,12 +249,12 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         // load own bulletins from the date they are copied from
         this.bulletinsService.loadBulletins(this.bulletinsService.getCopyDate(), regions).subscribe(
           data => {
-            this.copyBulletins(data.json());
+            this.copyBulletins(data);
             this.bulletinsService.setCopyDate(undefined);
             // load foreign bulletins from the current date
             this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
               data2 => {
-                this.addForeignBulletins(data2.json());
+                this.addForeignBulletins(data2);
               },
               () => {
                 console.error("Foreign bulletins could not be loaded!");
@@ -1574,7 +1575,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           this.delBulletin(entry);
         }
 
-        this.copyBulletins(data.json());
+        this.copyBulletins(data);
         this.loading = false;
       },
       () => {
@@ -1622,8 +1623,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   private loadBulletinsFromServer() {
     this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
-        const response = data.json();
-        for (const jsonBulletin of response) {
+        for (const jsonBulletin of (data as any)) {
           const bulletin = BulletinModel.createFromJson(jsonBulletin);
 
           // only add bulletins with published or saved regions

@@ -2,7 +2,7 @@ import { Component, ViewChild, TemplateRef, OnInit } from "@angular/core";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { Router } from "@angular/router";
 import { BsModalService } from "ngx-bootstrap/modal";
-import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { BsModalRef } from "ngx-bootstrap/modal";
 
 @Component({
   templateUrl: "json.component.html"
@@ -36,10 +36,10 @@ export class JsonComponent implements OnInit {
     this.bulletinsService.loadJsonBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
         this.loading = false;
-        if (data.status === 204) {
+        if ((data as any).status === 204) {
           this.openNoJsonModal(this.noJsonTemplate);
         } else {
-          const text = data.text();
+          const text = (data as any).text();
           this.bulletins = text;
         }
       },

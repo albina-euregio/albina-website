@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -22,7 +22,7 @@ export class ZamgModelPoint {
 @Injectable()
 export class ModellingService {
   constructor(
-    public http: Http,
+    public http: HttpClient,
     public constantsService: ConstantsService,
     public regionsService: RegionsService
   ) {}
@@ -33,9 +33,16 @@ export class ModellingService {
   getZamgModelPoints(): Observable<ZamgModelPoint[]> {
     const regions = this.regionsService.getRegionsEuregio();
     const url = `${this.constantsService.zamgModelsUrl}MultimodelPointsEuregio_001.csv`;
-    return this.http.get(url).pipe(
+
+    const options: {
+      responseType: 'text'
+    } = {
+      responseType: 'text'
+    };
+
+    return this.http.get(url, options).pipe(
       map(response => {
-        const csv = Papa.parse(response.text(), {
+        const csv = Papa.parse(response, {
           header: true,
           skipEmptyLines: true
         });

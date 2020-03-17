@@ -17,7 +17,9 @@
     "target": "es2015",
     "typeRoots": [
       "../node_modules/@types"
-    ]
+    ],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "files": [
     "main.ts",

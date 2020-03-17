@@ -9,7 +9,9 @@ import { TranslateModule } from "@ngx-translate/core";
 
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
-import { TabViewModule, DropdownModule, DataTableModule } from "primeng/primeng";
+import { TabViewModule } from "primeng/tabview";
+import { DropdownModule } from "primeng/dropdown";
+import { TableModule } from "primeng/table";
 
 import { AlertModule } from "ngx-bootstrap";
 
@@ -22,7 +24,7 @@ import { AlertModule } from "ngx-bootstrap";
     PipeModule.forRoot(),
     TabViewModule,
     DropdownModule,
-    DataTableModule,
+    TableModule,
     AlertModule.forRoot()
   ],
   declarations: [

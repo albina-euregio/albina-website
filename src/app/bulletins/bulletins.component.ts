@@ -1,5 +1,5 @@
 import { Component, HostListener, ViewChild, TemplateRef, OnInit, OnDestroy } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { TranslateService } from "@ngx-translate/core";
 import { BulletinUpdateModel } from "../models/bulletin-update.model";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
@@ -9,10 +9,10 @@ import { SettingsService } from "../providers/settings-service/settings.service"
 import { Subject } from "rxjs/Rx";
 import { Router, ActivatedRoute } from "@angular/router";
 import * as Enums from "../enums/enums";
-import { ConfirmationService } from "primeng/primeng";
+import { ConfirmationService } from "primeng/api";
 import "rxjs/add/observable/forkJoin";
 import { BsModalService } from "ngx-bootstrap/modal";
-import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { BsModalRef } from "ngx-bootstrap/modal";
 import { ModalSubmitComponent } from "./modal-submit.component";
 import { ModalPublishComponent } from "./modal-publish.component";
 import { ModalCheckComponent } from "./modal-check.component";
@@ -428,8 +428,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     this.bulletinsService.getPublicationStatus(this.authenticationService.activeRegion, date).subscribe(
       data => {
-        const response = data.json();
-        this.openPublicationStatusModal(this.publicationStatusTemplate, response, date);
+        this.openPublicationStatusModal(this.publicationStatusTemplate, (data as any), date);
       },
       error => {
         console.error("Publication status could not be loaded!");
@@ -481,11 +480,9 @@ export class BulletinsComponent implements OnInit, OnDestroy {
 
     this.bulletinsService.checkBulletins(date, this.authenticationService.getActiveRegion()).subscribe(
       data => {
-        const result = data.json();
-
         let message = "<b>" + this.translateService.instant("bulletins.table.publishBulletinsDialog.message") + "</b><br><br>";
 
-        for (const entry of result) {
+        for (const entry of (data as any)) {
           if (entry === "missingDangerRating") {
             message += this.translateService.instant("bulletins.table.publishBulletinsDialog.missingDangerRating") + "<br>";
           }
@@ -536,12 +533,11 @@ export class BulletinsComponent implements OnInit, OnDestroy {
 
     this.bulletinsService.checkBulletins(date, this.authenticationService.getActiveRegion()).subscribe(
       data => {
-        const result = data.json();
         let duplicateRegion = false;
 
         let message = "<b>" + this.translateService.instant("bulletins.table.submitBulletinsDialog.message") + "</b><br><br>";
 
-        for (const entry of result) {
+        for (const entry of (data as any)) {
           if (entry === "duplicateRegion") {
             duplicateRegion = true;
           }
@@ -589,15 +585,14 @@ export class BulletinsComponent implements OnInit, OnDestroy {
 
     this.bulletinsService.checkBulletins(date, this.authenticationService.getActiveRegion()).subscribe(
       data => {
-        const result = data.json();
         let duplicateRegion = false;
 
         let message = "<b>" + this.translateService.instant("bulletins.table.checkBulletinsDialog.message") + "</b><br><br>";
 
-        if (result.length === 0) {
+        if ((data as any).length === 0) {
           message += this.translateService.instant("bulletins.table.checkBulletinsDialog.ok");
         } else {
-          for (const entry of result) {
+          for (const entry of (data as any)) {
             if (entry === "duplicateRegion") {
               duplicateRegion = true;
             }
@@ -730,6 +725,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
         this.publishing = undefined;
       },
       error => {
+        debugger
         console.error("Bulletins could not be submitted!");
         this.openSubmitBulletinsErrorModal(this.submitBulletinsErrorTemplate);
       }

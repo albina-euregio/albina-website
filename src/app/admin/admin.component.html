@@ -191,7 +191,7 @@
                         <label class="col-form-label">{{ "admin.config.table.localImagesPath" | translate }}</label>
                       </td>
                       <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="localImagesPath">
+                        <input type="text" class="form-control" id="input-local-images-path" placeholder="" [(ngModel)]="localImagesPath">
                       </td>
                     </tr>
                     <tr>
@@ -199,7 +199,7 @@
                         <label class="col-form-label">{{ "admin.config.table.localFontsPath" | translate }}</label>
                       </td>
                       <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="localFontsPath">
+                        <input type="text" class="form-control" id="input-local-fonts-path" placeholder="" [(ngModel)]="localFontsPath">
                       </td>
                     </tr>
                     <tr>
@@ -207,7 +207,7 @@
                         <label class="col-form-label">{{ "admin.config.table.pdfDirectory" | translate }}</label>
                       </td>
                       <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="pdfDirectory">
+                        <input type="text" class="form-control" id="input-pdf-directory" placeholder="" [(ngModel)]="pdfDirectory">
                       </td>
                     </tr>
                     <tr>
@@ -215,7 +215,7 @@
                         <label class="col-form-label">{{ "admin.config.table.htmlDirectory" | translate }}</label>
                       </td>
                       <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="htmlDirectory">
+                        <input type="text" class="form-control" id="input-html-directory" placeholder="" [(ngModel)]="htmlDirectory">
                       </td>
                     </tr>
                     <tr>
@@ -223,7 +223,7 @@
                         <label class="col-form-label">{{ "admin.config.table.serverImagesUrl" | translate }}</label>
                       </td>
                       <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="serverImagesUrl">
+                        <input type="text" class="form-control" id="input-server-images-url" placeholder="" [(ngModel)]="serverImagesUrl">
                       </td>
                     </tr>
                     <tr>
@@ -231,7 +231,7 @@
                         <label class="col-form-label">{{ "admin.config.table.serverImagesUrlLocalhost" | translate }}</label>
                       </td>
                       <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="serverImagesUrlLocalhost">
+                        <input type="text" class="form-control" id="input-server-images-url-localhost" placeholder="" [(ngModel)]="serverImagesUrlLocalhost">
                       </td>
                     </tr>
                     <tr>
@@ -239,7 +239,7 @@
                         <label class="col-form-label">{{ "admin.config.table.univieMapsPath" | translate }}</label>
                       </td>
                       <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="univieMapsPath">
+                        <input type="text" class="form-control" id="input-univie-maps-path" placeholder="" [(ngModel)]="univieMapsPath">
                       </td>
                     </tr>
                     <tr>
@@ -247,7 +247,7 @@
                         <label class="col-form-label">{{ "admin.config.table.mapsPath" | translate }}</label>
                       </td>
                       <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="mapsPath">
+                        <input type="text" class="form-control" id="input-maps-path" placeholder="" [(ngModel)]="mapsPath">
                       </td>
                     </tr>
                     <tr>
@@ -255,7 +255,7 @@
                         <label class="col-form-label">{{ "admin.config.table.mapProductionUrl" | translate }}</label>
                       </td>
                       <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="mapProductionUrl">
+                        <input type="text" class="form-control" id="input-map-production-url" placeholder="" [(ngModel)]="mapProductionUrl">
                       </td>
                     </tr>
                     <tr>
@@ -263,7 +263,7 @@
                         <label class="col-form-label">{{ "admin.config.table.scriptsPath" | translate }}</label>
                       </td>
                       <td>
-                        <input type="text" class="form-control" id="name" placeholder="" [(ngModel)]="scriptsPath">
+                        <input type="text" class="form-control" id="input-scripts-path" placeholder="" [(ngModel)]="scriptsPath">
                       </td>
                     </tr>
                   </tbody>
@@ -292,17 +292,17 @@
               </div>
               <div class="row">
                 <div class="col-md-12">
-                  <p-dataTable [style]="{'width':'50%'}" [value]="regionConfiguration?.channels">
-                    <p-column field="id" header="Id"></p-column>
-                    <p-column field="name" header="Name"></p-column>
-                    <p-column field="provider.name" header="Provider"></p-column>
-                    <!--<p-column field="enabled" header="Configured"></p-column>-->
-                    <p-column [style]="{'width':'30px'}">
+                  <p-table [style]="{'width':'50%'}" [value]="regionConfiguration?.channels">
+                    <td field="id" header="Id"></td>
+                    <td field="name" header="Name"></td>
+                    <td field="provider.name" header="Provider"></td>
+                    <!--<td field="enabled" header="Configured"></td>-->
+                    <td [style]="{'width':'30px'}">
                       <ng-template pTemplate type="body" let-col let-chn="rowData" let-ri="rowIndex">
                         <i class="fa fa-times-circle-o fa-lg" aria-hidden="true" (click)="deleteChannel(chn)"></i>
                       </ng-template>
-                    </p-column>
-                  </p-dataTable>
+                    </td>
+                  </p-table>
                 </div>
               </div>
               <div class="row">
@@ -435,18 +435,18 @@
             <div class="card">
               <div class="row">
                 <div class="col-md-9">
-                  <p-dataTable [value]="shipments">
-                    <p-column field="id" header="Id"></p-column>
-                    <p-column field="date" header="Date"></p-column>
-                    <p-column field="name" header="Name"></p-column>
-                    <p-column field="language" header="Language"></p-column>
-                    <p-column field="idMp" header="Mp"></p-column>
-                    <p-column field="idRm" header="Rm"></p-column>
-                    <p-column field="idTw" header="Tw"></p-column>
-                    <!-- <p-column field="request" header=""></p-column> -->
-                    <!-- <p-column field="response" header=""></p-column> -->
-                    <p-column field="provider.name" header="Provider"></p-column>
-                  </p-dataTable>
+                  <p-table [value]="shipments">
+                    <td field="id" header="Id"></td>
+                    <td field="date" header="Date"></td>
+                    <td field="name" header="Name"></td>
+                    <td field="language" header="Language"></td>
+                    <td field="idMp" header="Mp"></td>
+                    <td field="idRm" header="Rm"></td>
+                    <td field="idTw" header="Tw"></td>
+                    <!-- <td field="request" header=""></td> -->
+                    <!-- <td field="response" header=""></td> -->
+                    <td field="provider.name" header="Provider"></td>
+                  </p-table>
                 </div>
               </div>
             </div>

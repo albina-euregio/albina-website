@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { TranslateService } from "@ngx-translate/core";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { BulletinModel } from "../models/bulletin.model";
 import * as Enums from "../enums/enums";
