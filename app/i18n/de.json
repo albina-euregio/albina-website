@@ -1,5 +1,8 @@
 {
   "app:title": "Lawinen.report - Lawinenwarndienste Tirol - Südtirol - Trentino",
+  "app:covid-19:1": "Der Euregio-Lawinenreport wird weiterhin regelmäßig veröffentlicht, um die Gefahren für Infrastruktur und Siedlungsraum zum Schutz der Bewohner besser bewerten zu können.",
+  "app:covid-19:2": "Bitte keine Ski- und Bergtouren unternehmen!",
+  "app:covid-19:3": "Jeder Unfall ist eine unnötige Belastung für das Rettungs- und Gesundheitssystem.",
   "region:AT-07": "Tirol",
   "region:IT-32-BZ": "Südtirol",
   "region:IT-32-TN": "Trentino",
