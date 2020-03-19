@@ -239,7 +239,7 @@
         "mtn_reg": "Alps",
         "country_id": "CH",
         "country": "Switzerland",
-        "aws_1": "SLF",
+        "aws_1": "WSL-Institut für Schnee- und Lawinenforschung SLF",
         "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
         "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
         "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html"
@@ -695,7 +695,7 @@
         "mtn_reg": "Alps",
         "country_id": "AT",
         "country": "Austria",
-        "aws_1": "LWD Kaernten",
+        "aws_1": "LWD Kärnten",
         "url_1_en": "http://www.lawinenwarndienst.ktn.gv.at/Lawinenwarndienst_Kaernten/lgp",
         "url_1_de": "http://www.lawinenwarndienst.ktn.gv.at/Lawinenwarndienst_Kaernten/lgp",
         "url_1_it": "http://www.lawinenwarndienst.ktn.gv.at/Lawinenwarndienst_Kaernten/lgp"
@@ -1305,7 +1305,7 @@
         "mtn_reg": "Alps",
         "country_id": "LI",
         "country": "Liechtenstein",
-        "aws_1": "SLF",
+        "aws_1": "WSL-Institut für Schnee- und Lawinenforschung SLF",
         "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
         "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
         "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html"
