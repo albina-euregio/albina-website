@@ -52,6 +52,7 @@
     position: relative;
     tr {
       position: relative;
+      cursor: pointer;
     }
     td {
       position: relative;
@@ -83,7 +84,6 @@
   }
 
   tr:hover {
-    cursor: pointer;
     td.mb-station.m-name {
       background-color: $table-row-hover-bg;
       @include rollover;
