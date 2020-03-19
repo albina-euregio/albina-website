@@ -6,7 +6,7 @@
   "private": false,
   "main": "app/main.jsx",
   "scripts": {
-    "start": "webpack-dev-server --mode development --open",
+    "start": "webpack-dev-server --mode development",
     "test": "npm run eslint",
     "eslint": "eslint --ext=js,jsx .",
     "build": "npm run clean-dist && webpack --mode production --env prod",
