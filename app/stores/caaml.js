@@ -89,6 +89,7 @@ export function convertCaamlToAlbinaJson(document) {
       avProblems,
       avActivityHighlights,
       avActivityComment,
+      Tendency,
       snowpackStructureComment,
       tendencyComment
     } = observation.bulletinResultsOf[0];
@@ -196,7 +197,7 @@ export function convertCaamlToAlbinaJson(document) {
       forenoon,
       hasDaytimeDependency: false,
       afternoon: undefined,
-      tendency: undefined, // TODO
+      tendency: Tendency ? Tendency.type : undefined,
       dangerPattern1: getDangerPattern(0),
       dangerPattern2: getDangerPattern(1),
       avActivityHighlights: avActivityHighlights && [
