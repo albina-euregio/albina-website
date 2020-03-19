@@ -1,35 +1,18 @@
 {
   "type": "FeatureCollection",
-  "name": "eaws_areas_neighbour_regions_epsg4326",
-  "crs": {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
-    }
-  },
   "features": [
     {
       "type": "Feature",
       "properties": {
-        "OBJECTID": 98,
         "aws_ID": "sb_hohTau",
         "NUTS2_area": "Salzburg",
-        "reg_code": "n.a.",
         "mtn_reg": "Alps",
         "country_id": "AT",
         "country": "Austria",
         "aws_1": "LWD Salzburg",
-        "aws_2": "n.a.",
-        "aws_3": "n.a.",
         "url_1_en": "http://www.lawine.salzburg.at/start.html?lang=en_UK",
         "url_1_de": "http://www.lawine.salzburg.at/start.html",
-        "url_1_it": "http://www.lawine.salzburg.at/start.html?lang=en_UK",
-        "url_2_de": "n.a.",
-        "url_2_it": "n.a.",
-        "url_2_en": "n.a.",
-        "url_3_de": "n.a.",
-        "url_3_it": "n.a.",
-        "url_3_en": "n.a."
+        "url_1_it": "http://www.lawine.salzburg.at/start.html?lang=en_UK"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -154,25 +137,15 @@
     {
       "type": "Feature",
       "properties": {
-        "OBJECTID": 174,
         "aws_ID": "6",
         "NUTS2_area": "Vorarlberg",
-        "reg_code": "n.a.",
         "mtn_reg": "Alps",
         "country_id": "AT",
         "country": "Austria",
         "aws_1": "LWD Vorarlberg",
-        "aws_2": "n.a.",
-        "aws_3": "n.a.",
         "url_1_en": "https://warndienste.cnv.at/dibos/lawine_en/",
         "url_1_de": "http://warndienste.cnv.at/dibos/lawine/",
-        "url_1_it": "https://warndienste.cnv.at/dibos/lawine_en/",
-        "url_2_de": "n.a.",
-        "url_2_it": "n.a.",
-        "url_2_en": "n.a.",
-        "url_3_de": "n.a.",
-        "url_3_it": "n.a.",
-        "url_3_en": "n.a."
+        "url_1_it": "https://warndienste.cnv.at/dibos/lawine_en/"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -264,25 +237,15 @@
     {
       "type": "Feature",
       "properties": {
-        "OBJECTID": 185,
         "aws_ID": "1111",
         "NUTS2_area": "Schweiz",
-        "reg_code": "n.a.",
         "mtn_reg": "Alps",
         "country_id": "CH",
         "country": "Switzerland",
         "aws_1": "SLF",
-        "aws_2": "n.a.",
-        "aws_3": "n.a.",
         "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
         "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
-        "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html",
-        "url_2_de": "n.a.",
-        "url_2_it": "n.a.",
-        "url_2_en": "n.a.",
-        "url_3_de": "n.a.",
-        "url_3_it": "n.a.",
-        "url_3_en": "n.a."
+        "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -582,25 +545,15 @@
     {
       "type": "Feature",
       "properties": {
-        "OBJECTID": 182,
         "aws_ID": "4",
         "NUTS2_area": "Oberbayern",
-        "reg_code": "n.a.",
         "mtn_reg": "Alps",
         "country_id": "DE",
         "country": "Germany",
         "aws_1": "LWD Bayern",
-        "aws_2": "n.a.",
-        "aws_3": "n.a.",
         "url_1_en": "https://www.lawinenwarndienst-bayern.de/res/lawinenlage/lagebericht_en.php",
         "url_1_de": "https://www.lawinenwarndienst-bayern.de/res/start_winter.php",
-        "url_1_it": "https://www.lawinenwarndienst-bayern.de/res/lawinenlage/lagebericht_en.php",
-        "url_2_de": "n.a.",
-        "url_2_it": "n.a.",
-        "url_2_en": "n.a.",
-        "url_3_de": "n.a.",
-        "url_3_it": "n.a.",
-        "url_3_en": "n.a."
+        "url_1_it": "https://www.lawinenwarndienst-bayern.de/res/lawinenlage/lagebericht_en.php"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -741,7 +694,6 @@
     {
       "type": "Feature",
       "properties": {
-        "OBJECTID": 79,
         "aws_ID": "18",
         "NUTS2_area": "Kaernten",
         "reg_code": "AT-02-18",
@@ -749,17 +701,9 @@
         "country_id": "AT",
         "country": "Austria",
         "aws_1": "LWD Kaernten",
-        "aws_2": "n.a.",
-        "aws_3": "n.a.",
         "url_1_en": "http://www.lawinenwarndienst.ktn.gv.at/Lawinenwarndienst_Kaernten/lgp",
         "url_1_de": "http://www.lawinenwarndienst.ktn.gv.at/Lawinenwarndienst_Kaernten/lgp",
-        "url_1_it": "http://www.lawinenwarndienst.ktn.gv.at/Lawinenwarndienst_Kaernten/lgp",
-        "url_2_de": "n.a.",
-        "url_2_it": "n.a.",
-        "url_2_en": "n.a.",
-        "url_3_de": "n.a.",
-        "url_3_it": "n.a.",
-        "url_3_en": "n.a."
+        "url_1_it": "http://www.lawinenwarndienst.ktn.gv.at/Lawinenwarndienst_Kaernten/lgp"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -925,10 +869,7 @@
     {
       "type": "Feature",
       "properties": {
-        "OBJECTID": 467,
-        "aws_ID": "n.a.",
         "NUTS2_area": "Livigno",
-        "reg_code": "n.a.",
         "mtn_reg": "Alps",
         "country_id": "IT",
         "country": "Italy",
@@ -986,10 +927,7 @@
     {
       "type": "Feature",
       "properties": {
-        "OBJECTID": 38,
-        "aws_ID": "n.a.",
         "NUTS2_area": "Veneto",
-        "reg_code": "n.a.",
         "mtn_reg": "Alps",
         "country_id": "IT",
         "country": "Italy",
@@ -1220,25 +1158,14 @@
     {
       "type": "Feature",
       "properties": {
-        "OBJECTID": 422,
-        "aws_ID": "n.a.",
         "NUTS2_area": "Friuli-Venezia Giulia",
-        "reg_code": "n.a.",
         "mtn_reg": "Alps",
         "country_id": "IT",
         "country": "Italy",
         "aws_1": "AINEVA FRIULI VENEZIA GIULIA",
-        "aws_2": "n.a.",
-        "aws_3": "n.a.",
         "url_1_de": "https://www.aineva.it/bollettini/",
         "url_1_it": "https://www.aineva.it/bollettini/",
-        "url_1_en": "https://www.aineva.it/bollettini/",
-        "url_2_de": "n.a.",
-        "url_2_it": "n.a.",
-        "url_2_en": "n.a.",
-        "url_3_de": "n.a.",
-        "url_3_it": "n.a.",
-        "url_3_en": "n.a."
+        "url_1_en": "https://www.aineva.it/bollettini/"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1379,25 +1306,15 @@
     {
       "type": "Feature",
       "properties": {
-        "OBJECTID": 233,
         "aws_ID": "3311",
         "NUTS2_area": "Liechtenstein",
-        "reg_code": "n.a.",
         "mtn_reg": "Alps",
         "country_id": "LI",
         "country": "Liechtenstein",
         "aws_1": "SLF",
-        "aws_2": "n.a.",
-        "aws_3": "n.a.",
         "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
         "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
-        "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html",
-        "url_2_de": "n.a.",
-        "url_2_it": "n.a.",
-        "url_2_en": "n.a.",
-        "url_3_de": "n.a.",
-        "url_3_it": "n.a.",
-        "url_3_en": "n.a."
+        "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1431,10 +1348,7 @@
     {
       "type": "Feature",
       "properties": {
-        "OBJECTID": 440,
-        "aws_ID": "n.a.",
         "NUTS2_area": "Lombardia",
-        "reg_code": "n.a.",
         "mtn_reg": "Alps",
         "country_id": "IT",
         "country": "Italy",
