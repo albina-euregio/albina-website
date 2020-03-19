@@ -86,6 +86,21 @@ class BulletinMap extends React.Component {
   getMapOverlays() {
     const overlays = [];
 
+    if (this.props.store.neighborRegions) {
+      overlays.push(
+        <BulletinVectorLayer
+          key="neighbor-regions"
+          problems={this.props.store.problems}
+          date={this.props.store.settings.date}
+          activeRegion={this.props.store.settings.region}
+          regions={this.props.store.neighborRegions}
+          bulletin={this.props.store.activeBulletin}
+          handleSelectRegion={this.props.handleSelectRegion}
+          handleCenterToRegion={center => this.map.panTo(center)}
+        />
+      );
+    }
+
     const b = this.props.store.activeBulletinCollection;
     if (b) {
       const daytime = b.hasDaytimeDependency() ? this.props.ampm : "fd";
@@ -127,16 +142,17 @@ class BulletinMap extends React.Component {
     return overlays;
   }
 
-  getBulletinMapDetails(hlBulletin) {
+  getBulletinMapDetails() {
     let res = [];
     let detailsClasses = ["bulletin-map-details", "top-right"];
-    if (hlBulletin) {
+    const { activeBulletin, activeNeighbor } = this.props.store;
+    if (activeBulletin) {
       detailsClasses.push("js-active");
       res.push(
         <BulletinMapDetails
           key="details"
           store={this.props.store}
-          bulletin={hlBulletin}
+          bulletin={activeBulletin}
           ampm={this.props.ampm}
         />
       );
@@ -160,6 +176,26 @@ class BulletinMap extends React.Component {
           </a>
         )
       );
+    } else if (activeNeighbor) {
+      detailsClasses.push("js-active");
+      const language = window["appStore"].language;
+      const href = activeNeighbor.properties["url_1_" + language];
+      const label = activeNeighbor.properties.aws_1;
+      res.push(
+        <a
+          key="neighbor-link"
+          href={href}
+          rel="noopener"
+          target="_blank"
+          className="pure-button tooltip"
+          title={this.props.intl.formatMessage({
+            id: "bulletin:map:info:details:hover"
+          })}
+        >
+          {label}
+          <span className="icon-arrow-right" />
+        </a>
+      );
     }
 
     return (
@@ -171,7 +207,6 @@ class BulletinMap extends React.Component {
 
   render() {
     if (APP_DEV_MODE) console.log("bulletin-map->render", this.props.store);
-    const hlBulletin = this.props.store.activeBulletin;
 
     let newLevel = this.props.store.settings.status;
     if (this.lastDate != this.props.date) {
@@ -221,7 +256,7 @@ class BulletinMap extends React.Component {
               </div>
             </div>
           )}
-          {this.getBulletinMapDetails(hlBulletin)}
+          {this.getBulletinMapDetails()}
 
           {this.props.ampm && (
             <p className="bulletin-map-daytime">
