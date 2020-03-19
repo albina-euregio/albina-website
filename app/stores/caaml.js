@@ -199,25 +199,25 @@ export function convertCaamlToAlbinaJson(document) {
       tendency: undefined, // TODO
       dangerPattern1: getDangerPattern(0),
       dangerPattern2: getDangerPattern(1),
-      avActivityHighlights: [
+      avActivityHighlights: avActivityHighlights && [
         {
           text: avActivityHighlights.replace(/&lt;br\/&gt;/g, "<br/>"),
           languageCode: lang
         }
       ],
-      avActivityComment: [
+      avActivityComment: avActivityComment && [
         {
           text: avActivityComment.replace(/&lt;br\/&gt;/g, "<br/>"),
           languageCode: lang
         }
       ],
-      snowpackStructureComment: [
+      snowpackStructureComment: snowpackStructureComment && [
         {
           text: snowpackStructureComment.replace(/&lt;br\/&gt;/g, "<br/>"),
           languageCode: lang
         }
       ],
-      tendencyComment: [
+      tendencyComment: tendencyComment && [
         {
           text: tendencyComment.replace(/&lt;br\/&gt;/g, "<br/>"),
           languageCode: lang
