@@ -30,7 +30,9 @@ module.exports = (env, argv) => {
     },
     devtool: production ? "source-map" : "cheap-module-eval-source-map",
     devServer: {
-      historyApiFallback: true,
+      historyApiFallback: {
+        index: publicPath + "index.html"
+      },
       proxy: {
         "/content_files": {
           target: "https://avalanche.report/",
