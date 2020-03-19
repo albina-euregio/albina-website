@@ -4,7 +4,6 @@
     {
       "type": "Feature",
       "properties": {
-        "aws_ID": "sb_hohTau",
         "NUTS2_area": "Salzburg",
         "mtn_reg": "Alps",
         "country_id": "AT",
@@ -137,7 +136,6 @@
     {
       "type": "Feature",
       "properties": {
-        "aws_ID": "6",
         "NUTS2_area": "Vorarlberg",
         "mtn_reg": "Alps",
         "country_id": "AT",
@@ -237,7 +235,6 @@
     {
       "type": "Feature",
       "properties": {
-        "aws_ID": "1111",
         "NUTS2_area": "Schweiz",
         "mtn_reg": "Alps",
         "country_id": "CH",
@@ -545,7 +542,6 @@
     {
       "type": "Feature",
       "properties": {
-        "aws_ID": "4",
         "NUTS2_area": "Oberbayern",
         "mtn_reg": "Alps",
         "country_id": "DE",
@@ -694,7 +690,6 @@
     {
       "type": "Feature",
       "properties": {
-        "aws_ID": "18",
         "NUTS2_area": "Kaernten",
         "reg_code": "AT-02-18",
         "mtn_reg": "Alps",
@@ -1306,7 +1301,6 @@
     {
       "type": "Feature",
       "properties": {
-        "aws_ID": "3311",
         "NUTS2_area": "Liechtenstein",
         "mtn_reg": "Alps",
         "country_id": "LI",
