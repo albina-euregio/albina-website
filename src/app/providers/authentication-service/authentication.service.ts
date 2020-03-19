@@ -1,6 +1,6 @@
-import { Injectable, Sanitizer, SecurityContext } from "@angular/core";
-import { DomSanitizer } from '@angular/platform-browser';
-import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from "@angular/common/http";
+import { Injectable, SecurityContext } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { ConstantsService } from "../constants-service/constants.service";
 import { JwtHelperService } from "@auth0/angular-jwt";

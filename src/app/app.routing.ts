@@ -17,31 +17,31 @@ export const routes: Routes = [
     path: "bulletins",
     component: FullLayoutComponent,
     canActivate: [AuthGuard],
-    loadChildren: () => import('./bulletins/bulletins.module').then(m => m.BulletinsModule)
+    loadChildren: () => import("./bulletins/bulletins.module").then(m => m.BulletinsModule)
   },
   {
     path: "observations",
     component: FullLayoutComponent,
     canActivate: [AuthGuard],
-    loadChildren: () => import('./observations/observations.module').then(m => m.ObservationsModule)
+    loadChildren: () => import("./observations/observations.module").then(m => m.ObservationsModule)
   },
   {
     path: "admin",
     component: FullLayoutComponent,
     canActivate: [AuthGuard],
-    loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+    loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule)
   },
   {
     path: "modelling",
     component: FullLayoutComponent,
     canActivate: [AuthGuard],
-    loadChildren: () => import('./modelling/modelling.module').then(m => m.ModellingModule)
+    loadChildren: () => import("./modelling/modelling.module").then(m => m.ModellingModule)
   },
   {
     path: "settings",
     component: FullLayoutComponent,
     canActivate: [AuthGuard],
-    loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule)
+    loadChildren: () => import("./settings/settings.module").then(m => m.SettingsModule)
   },
   {
     path: "pages",
@@ -52,7 +52,7 @@ export const routes: Routes = [
     children: [
       {
         path: "",
-        loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule),
+        loadChildren: () => import("./pages/pages.module").then(m => m.PagesModule),
       }
     ]
   }

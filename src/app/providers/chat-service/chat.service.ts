@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs/Rx";
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { WsChatService } from "../ws-chat-service/ws-chat.service";
 import { ChatMessageModel } from "../../models/chat-message.model";
 import { AuthenticationService } from "../authentication-service/authentication.service";
@@ -77,7 +77,7 @@ export class ChatService {
             this.activeUsers.push(user);
           }
         }
-        this.activeUsers.sort((a, b) : number => {
+        this.activeUsers.sort((a, b): number => {
           if (a < b) {
             return 1;
           }

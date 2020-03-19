@@ -296,7 +296,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
       (!this.publishing || this.publishing.getTime() !== date.getTime()) &&
       !this.copying) {
       return true;
-    }else {
+    } else {
       return false;
     }
   }

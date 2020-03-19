@@ -44,7 +44,7 @@ import { PipeModule } from "./pipes/pipes.module";
 import { AuthGuard } from "./guards/auth.guard";
 
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 
@@ -58,10 +58,10 @@ import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.componen
 
 import * as Sentry from "@sentry/browser";
 
-import localeDe from '@angular/common/locales/de';
-import localeIt from '@angular/common/locales/it';
-import localeEn from '@angular/common/locales/en';
-import localeFr from '@angular/common/locales/fr';
+import localeDe from "@angular/common/locales/de";
+import localeIt from "@angular/common/locales/it";
+import localeEn from "@angular/common/locales/en";
+import localeFr from "@angular/common/locales/fr";
 
 const pkg = require("../../package.json");
 Sentry.init({
@@ -82,7 +82,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 registerLocaleData(localeDe, "de");
-registerLocaleData(localeIt,"it");
+registerLocaleData(localeIt, "it");
 registerLocaleData(localeEn, "en");
 registerLocaleData(localeFr, "fr");
 
@@ -105,7 +105,7 @@ registerLocaleData(localeFr, "fr");
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       },
-      defaultLanguage: 'de'
+      defaultLanguage: "de"
     })
   ],
   declarations: [

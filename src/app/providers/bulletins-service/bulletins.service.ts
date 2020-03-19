@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable, Subject } from "rxjs/Rx";
 import { ConstantsService } from "../constants-service/constants.service";
 import { SettingsService } from "../settings-service/settings.service";

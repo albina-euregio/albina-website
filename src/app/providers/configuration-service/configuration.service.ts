@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ConstantsService } from "../constants-service/constants.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { Observable } from "rxjs/Observable";
@@ -63,7 +63,7 @@ export class ConfigurationService {
 
   public loadShipments() {
     const url = this.constantsService.getServerUrl() + "social-media/shipments";
-    const options ={ headers: this.authenticationService.newAuthHeader() };
+    const options = { headers: this.authenticationService.newAuthHeader() };
     return this.http.get<Response>(url, options);
   }
 }

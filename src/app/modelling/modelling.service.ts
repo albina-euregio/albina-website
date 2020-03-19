@@ -35,9 +35,9 @@ export class ModellingService {
     const url = `${this.constantsService.zamgModelsUrl}MultimodelPointsEuregio_001.csv`;
 
     const options: {
-      responseType: 'text'
+      responseType: "text"
     } = {
-      responseType: 'text'
+      responseType: "text"
     };
 
     return this.http.get(url, options).pipe(

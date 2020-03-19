@@ -1532,7 +1532,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       Füsse: "Füße"
     };
     const re = new RegExp(Object.keys(dictionaryDeMap).join("|"), "gi");
-    return bulletinTextDe.replace(re, function(matched){
+    return bulletinTextDe.replace(re, function(matched) {
         return dictionaryDeMap[matched];
     });
   }
