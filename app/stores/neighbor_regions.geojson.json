@@ -235,7 +235,7 @@
         "mtn_reg": "Alps",
         "country_id": "CH",
         "country": "Switzerland",
-        "aws_1": "WSL-Institut für Schnee- und Lawinenforschung SLF",
+        "aws_1": "SLF",
         "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
         "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
         "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html"
@@ -864,14 +864,10 @@
         "url_1_en": "https://www.livigno.eu/en/avalanche-bulletin",
         "url_1_de": "https://www.livigno.eu/de/avalanche-bulletin",
         "url_1_it": "https://www.livigno.eu/bollettino-valanghe",
-        "aws_2": "AINEVA LIVIGNO",
-        "aws_3": "METEOMONT Carabinieri",
+        "aws_2": "AINEVA",
         "url_2_de": "https://www.aineva.it/bollettini/",
         "url_2_it": "https://www.aineva.it/bollettini/",
-        "url_2_en": "https://www.aineva.it/bollettini/",
-        "url_3_de": "http://www.meteomont.gov.it/infoMeteo/index.do",
-        "url_3_it": "http://www.meteomont.gov.it/infoMeteo/index.do",
-        "url_3_en": "http://www.meteomont.gov.it/infoMeteo/index.do"
+        "url_2_en": "https://www.aineva.it/bollettini/"
       },
       "geometry": {
         "type": "Polygon",
@@ -916,18 +912,10 @@
         "mtn_reg": "Alps",
         "country_id": "IT",
         "country": "Italy",
-        "aws_1": "METEOMONT Carabinieri",
-        "url_1_en": "http://www.meteomont.gov.it/infoMeteo/index.do?inglese=true",
-        "url_1_de": "http://www.meteomont.gov.it/infoMeteo/index.do?tedesco=true",
-        "url_1_it": "http://www.meteomont.gov.it/infoMeteo/index.do",
-        "aws_2": "AINEVA VENETO",
-        "aws_3": "METEOMONT Esercito",
-        "url_2_de": "https://www.aineva.it/bollettini/",
-        "url_2_it": "https://www.aineva.it/bollettini/",
-        "url_2_en": "https://www.aineva.it/bollettini/",
-        "url_3_de": "https://www.arpa.veneto.it/neve_valanghe/it/html/index.php",
-        "url_3_it": "https://www.arpa.veneto.it/neve_valanghe/it/html/index.php",
-        "url_3_en": "https://www.arpa.veneto.it/neve_valanghe/it/html/index.php"
+        "aws_1": "AINEVA",
+        "url_1_de": "https://www.aineva.it/bollettini/",
+        "url_1_it": "https://www.aineva.it/bollettini/",
+        "url_1_en": "https://www.aineva.it/bollettini/"
       },
       "geometry": {
         "type": "Polygon",
@@ -1145,7 +1133,7 @@
         "mtn_reg": "Alps",
         "country_id": "IT",
         "country": "Italy",
-        "aws_1": "AINEVA FRIULI VENEZIA GIULIA",
+        "aws_1": "AINEVA",
         "url_1_en": "https://www.aineva.it/bollettini/",
         "url_1_de": "https://www.aineva.it/bollettini/",
         "url_1_it": "https://www.aineva.it/bollettini/"
@@ -1291,7 +1279,7 @@
         "mtn_reg": "Alps",
         "country_id": "LI",
         "country": "Liechtenstein",
-        "aws_1": "WSL-Institut für Schnee- und Lawinenforschung SLF",
+        "aws_1": "SLF",
         "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
         "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
         "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html"
@@ -1330,18 +1318,10 @@
         "mtn_reg": "Alps",
         "country_id": "IT",
         "country": "Italy",
-        "aws_1": "METEOMONT Carabinieri",
-        "url_1_en": "http://www.meteomont.gov.it/infoMeteo/index.do?inglese=true",
-        "url_1_de": "http://www.meteomont.gov.it/infoMeteo/index.do?tedesco=true",
-        "url_1_it": "http://www.meteomont.gov.it/infoMeteo/index.do",
-        "aws_2": "AINEVA LOMBARDIA",
-        "aws_3": "METEOMONT Esercito",
+        "aws_2": "AINEVA",
         "url_2_de": "https://www.aineva.it/bollettini/",
         "url_2_it": "https://www.aineva.it/bollettini/",
-        "url_2_en": "https://www.aineva.it/bollettini/",
-        "url_3_de": "https://www.arpalombardia.it/Pages/Neve-Valanghe-Ghiacciai/Neve,-Valanghe-e-Ghiacciai.aspx",
-        "url_3_it": "https://www.arpalombardia.it/Pages/Neve-Valanghe-Ghiacciai/Neve,-Valanghe-e-Ghiacciai.aspx",
-        "url_3_en": "https://www.arpalombardia.it/Pages/Neve-Valanghe-Ghiacciai/Neve,-Valanghe-e-Ghiacciai.aspx"
+        "url_2_en": "https://www.aineva.it/bollettini/"
       },
       "geometry": {
         "type": "MultiPolygon",
