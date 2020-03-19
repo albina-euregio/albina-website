@@ -383,6 +383,9 @@ class BulletinStore {
 
   getProblemsForRegion(regionId, ampm = null) {
     const problems = [];
+    if (!this.activeBulletinCollection) {
+      return [];
+    }
     const b = this.activeBulletinCollection.getBulletinForRegion(regionId);
     if (b) {
       const daytime =
@@ -429,10 +432,11 @@ class BulletinStore {
   }
 
   get neighborRegions() {
-    return neighborRegions.features.map(this._augmentFeature);
+    return neighborRegions.features.map(f => this._augmentFeature(f));
   }
 
-  _augmentFeature(f) {
+  _augmentFeature(f, ampm = null) {
+    f.properties.state = this.getRegionState(f.properties.bid, ampm);
     if (!f.properties.latlngs) {
       f.properties.latlngs = GeoJSON.coordsToLatLngs(
         f.geometry.coordinates,
@@ -453,10 +457,9 @@ class BulletinStore {
       // clone original geojson
       const clonedGeojson = Object.assign({}, collection.getGeoData());
 
-      const regions = (clonedGeojson.features || []).map(f => {
-        f.properties.state = this.getRegionState(f.properties.bid, ampm);
-        return this._augmentFeature(f);
-      });
+      const regions = (clonedGeojson.features || []).map(f =>
+        this._augmentFeature(f, ampm)
+      );
 
       const states = [
         "selected",
