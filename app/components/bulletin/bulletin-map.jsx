@@ -179,23 +179,27 @@ class BulletinMap extends React.Component {
     } else if (activeNeighbor) {
       detailsClasses.push("js-active");
       const language = window["appStore"].language;
-      const href = activeNeighbor.properties["url_1_" + language];
-      const label = activeNeighbor.properties.aws_1;
-      res.push(
-        <a
-          key="neighbor-link"
-          href={href}
-          rel="noopener"
-          target="_blank"
-          className="pure-button tooltip"
-          title={this.props.intl.formatMessage({
-            id: "bulletin:map:info:details:hover"
-          })}
-        >
-          {label}
-          <span className="icon-arrow-right" />
-        </a>
-      );
+      for (let index = 1; index <= 3; index++) {
+        // aws_1, aws_2, aws_3
+        const label = activeNeighbor.properties[`aws_${index}`];
+        const href = activeNeighbor.properties[`url_${index}_${language}`];
+        if (!label) continue;
+        res.push(
+          <a
+            key={`neighbor-link-${index}`}
+            href={href}
+            rel="noopener"
+            target="_blank"
+            className="pure-button tooltip"
+            title={this.props.intl.formatMessage({
+              id: "bulletin:map:info:details:hover"
+            })}
+          >
+            {label}
+            <span className="icon-arrow-right" />
+          </a>
+        );
+      }
     }
 
     return (
