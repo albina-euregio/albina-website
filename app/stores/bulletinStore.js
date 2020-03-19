@@ -1,4 +1,5 @@
 import ArchiveStore from "./archiveStore.js";
+import neighborRegions from "./neighbor_regions.geojson.json";
 import { observable, action } from "mobx";
 import {
   parseDate,
@@ -374,6 +375,12 @@ class BulletinStore {
     return null;
   }
 
+  get activeNeighbor() {
+    return neighborRegions.features.find(
+      f => f.properties.bid === this.settings.region
+    );
+  }
+
   getProblemsForRegion(regionId, ampm = null) {
     const problems = [];
     const b = this.activeBulletinCollection.getBulletinForRegion(regionId);
@@ -421,6 +428,23 @@ class BulletinStore {
     return "default";
   }
 
+  get neighborRegions() {
+    return neighborRegions.features.map(this._augmentFeature);
+  }
+
+  _augmentFeature(f) {
+    if (!f.properties.latlngs) {
+      f.properties.latlngs = GeoJSON.coordsToLatLngs(
+        f.geometry.coordinates,
+        f.geometry.type === "Polygon" ? 1 : 2
+      );
+    }
+    if (!f.properties.bid) {
+      f.properties.bid = f.properties.NUTS2_area;
+    }
+    return f;
+  }
+
   // assign states to regions
   getVectorRegions(ampm = null) {
     const collection = this.activeBulletinCollection;
@@ -431,13 +455,7 @@ class BulletinStore {
 
       const regions = (clonedGeojson.features || []).map(f => {
         f.properties.state = this.getRegionState(f.properties.bid, ampm);
-        if (!f.properties.latlngs) {
-          f.properties.latlngs = GeoJSON.coordsToLatLngs(
-            f.geometry.coordinates,
-            f.geometry.type === "Polygon" ? 1 : 2
-          );
-        }
-        return f;
+        return this._augmentFeature(f);
       });
 
       const states = [
