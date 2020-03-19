@@ -12,7 +12,7 @@ class FeatureInfo extends React.Component {
     return (
       <div className="feature-info weather-map-details">
         <div className="box-content">
-          <div class="weather-map-details-text">
+          <div className="weather-map-details-text">
             {this.props.feature.name && (
               <p className="feature-name">{this.props.feature.name}</p>
             )}

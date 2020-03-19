@@ -90,9 +90,9 @@ class Page extends React.Component {
         <PageHeader />
         <main id="page-main" className="page-main">
           {APP_ENVIRONMENT === "dev" && (
-            <section class="section controlbar controlbar-notice">
-              <div class="section-centered">
-                <p class="align-center">
+            <section className="section controlbar controlbar-notice">
+              <div className="section-centered">
+                <p className="align-center">
                   This is a development version –{" "}
                   <strong>no real data is shown!</strong>
                 </p>
@@ -100,18 +100,18 @@ class Page extends React.Component {
             </section>
           )}
           {APP_ENVIRONMENT !== "dev" && (
-            <section class="section controlbar controlbar-warning">
-              <div class="section-centered">
-                <p class="align-center">
+            <section className="section controlbar controlbar-warning">
+              <div className="section-centered">
+                <p className="align-center">
                   {this.props.intl.formatMessage({ id: "app:covid-19:1" })}
                 </p>
                 <p
-                  class="align-center"
+                  className="align-center"
                   style={{ fontWeight: "bold", fontSize: "large" }}
                 >
                   {this.props.intl.formatMessage({ id: "app:covid-19:2" })}
                 </p>
-                <p class="align-center">
+                <p className="align-center">
                   {this.props.intl.formatMessage({ id: "app:covid-19:3" })}
                 </p>
               </div>
