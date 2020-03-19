@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { Map } from "leaflet";
 import { BulletinModel } from "../../models/bulletin.model";
 import { RegionsService } from "../regions-service/regions.service";
@@ -35,7 +34,6 @@ export class MapService {
   public layerGroups: LayerDict<L.MarkerClusterGroup>;
 
   constructor(
-    private http: HttpClient,
     private regionsService: RegionsService,
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService) {

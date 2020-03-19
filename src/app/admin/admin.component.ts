@@ -5,12 +5,9 @@ import { ConstantsService } from "../providers/constants-service/constants.servi
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { ConfigurationService } from "../providers/configuration-service/configuration.service";
 import { SocialmediaService } from "../providers/socialmedia-service/socialmedia.service";
-import { Router, ActivatedRoute } from "@angular/router";
 import * as Enums from "../enums/enums";
 import { SelectItem } from "primeng/api";
 import { AlertComponent } from "ngx-bootstrap";
-
-declare var L: any;
 
 @Component({
   templateUrl: "admin.component.html"
@@ -68,15 +65,12 @@ export class AdminComponent implements AfterContentInit {
   public h;
 
   constructor(
-    private translate: TranslateService,
-    private route: ActivatedRoute,
     private translateService: TranslateService,
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService,
     private bulletinsService: BulletinsService,
     public configurationService: ConfigurationService,
-    public socialmediaService: SocialmediaService,
-    private router: Router) {
+    public socialmediaService: SocialmediaService) {
     this.statusMap = new Map<number, Enums.BulletinStatus>();
     this.saveConfigurationLoading = false;
   }

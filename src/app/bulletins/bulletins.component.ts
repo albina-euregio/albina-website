@@ -585,17 +585,12 @@ export class BulletinsComponent implements OnInit, OnDestroy {
 
     this.bulletinsService.checkBulletins(date, this.authenticationService.getActiveRegion()).subscribe(
       data => {
-        let duplicateRegion = false;
-
         let message = "<b>" + this.translateService.instant("bulletins.table.checkBulletinsDialog.message") + "</b><br><br>";
 
         if ((data as any).length === 0) {
           message += this.translateService.instant("bulletins.table.checkBulletinsDialog.ok");
         } else {
           for (const entry of (data as any)) {
-            if (entry === "duplicateRegion") {
-              duplicateRegion = true;
-            }
             if (entry === "missingDangerRating") {
               message += this.translateService.instant("bulletins.table.checkBulletinsDialog.missingDangerRating") + "<br>";
             }
@@ -725,7 +720,6 @@ export class BulletinsComponent implements OnInit, OnDestroy {
         this.publishing = undefined;
       },
       error => {
-        debugger
         console.error("Bulletins could not be submitted!");
         this.openSubmitBulletinsErrorModal(this.submitBulletinsErrorTemplate);
       }

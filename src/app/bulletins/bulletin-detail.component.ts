@@ -1,5 +1,4 @@
 import { Component, Input } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { BulletinModel } from "../models/bulletin.model";
 import * as Enums from "../enums/enums";
@@ -17,7 +16,6 @@ export class BulletinDetailComponent {
   dangerRating = Enums.DangerRating;
 
   constructor(
-    private translate: TranslateService,
     public settingsService: SettingsService) {
   }
 }

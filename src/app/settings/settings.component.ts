@@ -2,11 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
-import { SettingsService } from "../providers/settings-service/settings.service";
-import { Router, ActivatedRoute } from "@angular/router";
 import { AlertComponent } from "ngx-bootstrap";
-
-declare var L: any;
 
 @Component({
   templateUrl: "settings.component.html"
@@ -22,13 +18,9 @@ export class SettingsComponent implements OnInit {
   public alerts: any[] = [];
 
   constructor(
-    private translate: TranslateService,
-    private route: ActivatedRoute,
     private translateService: TranslateService,
     private authenticationService: AuthenticationService,
-    private constantsService: ConstantsService,
-    private settingsService: SettingsService,
-    private router: Router) {
+    private constantsService: ConstantsService) {
     this.changePasswordLoading = false;
   }
 

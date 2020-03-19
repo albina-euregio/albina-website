@@ -1,7 +1,6 @@
 import { Component, ViewChild, TemplateRef, OnInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal";
 
@@ -25,10 +24,7 @@ export class CaamlComponent implements OnInit {
   };
 
   constructor(
-    private translate: TranslateService,
     public bulletinsService: BulletinsService,
-    private translateService: TranslateService,
-    private route: ActivatedRoute,
     private router: Router,
     private modalService: BsModalService) {
     this.bulletins = undefined;
