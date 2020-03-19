@@ -1268,21 +1268,18 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   openTextcat($event, field, l, textDef) {
     this.copyService.resetCopying();
-    const receiver = this.receiver.nativeElement.contentWindow;
     $event.preventDefault();
-    if (!textDef) {
-      textDef = "";
-    }
+
     // make Json to send to pm
-    const inputDef = {
+    const pmData = JSON.stringify({
       textField: field,
-      textDef: textDef,
+      textDef: textDef || "",
       srcLang: Enums.LanguageCode[l],
       currentLang: this.translateService.currentLang
-    };
+    });
 
-    const pmData = JSON.stringify(inputDef);
-    receiver.postMessage(pmData, "*");
+    // postMessage asynchronously (iframe does not exist before dialog is shown?)
+    setTimeout(() => this.receiver.nativeElement.contentWindow.postMessage(pmData, "*"), 0);
 
     this.showDialog();
   }
