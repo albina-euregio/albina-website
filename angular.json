@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "coreui-angular": {
+    "albina-admin-gui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -71,21 +71,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "coreui-angular:build"
+            "browserTarget": "albina-admin-gui:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "coreui-angular:build:dev"
+              "browserTarget": "albina-admin-gui:build:dev"
             },
             "production": {
-              "browserTarget": "coreui-angular:build:production"
+              "browserTarget": "albina-admin-gui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "coreui-angular:build"
+            "browserTarget": "albina-admin-gui:build"
           }
         },
         "test": {
@@ -117,7 +117,7 @@
         }
       }
     },
-    "coreui-angular-e2e": {
+    "albina-admin-gui-e2e": {
       "root": "e2e",
       "sourceRoot": "e2e",
       "projectType": "application",
@@ -126,7 +126,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "coreui-angular:serve"
+            "devServerTarget": "albina-admin-gui:serve"
           }
         },
         "lint": {
@@ -141,7 +141,7 @@
       }
     }
   },
-  "defaultProject": "coreui-angular",
+  "defaultProject": "albina-admin-gui",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
