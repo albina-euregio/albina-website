@@ -1,6 +1,7 @@
 import { observable, action } from "mobx";
 import React from "react";
 import { LocaleStore } from "./util/mobx-react-intl.es5.js";
+import { BulletinStore } from "./stores/bulletinStore";
 import CookieStore from "./stores/cookieStore";
 import NavigationStore from "./stores/navigationStore";
 import de from "./i18n/de.json";
@@ -75,6 +76,7 @@ class AppStore extends React.Component {
   setLanguage(newLanguage) {
     if (this.languages.includes(newLanguage)) {
       if (this.locale.value !== newLanguage) {
+        window.bulletinStore = new BulletinStore(); // bulleting store is language dependent
         if (APP_DEV_MODE) console.log("new language set", newLanguage);
         this.locale.value = newLanguage;
       }
