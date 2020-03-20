@@ -189,23 +189,12 @@ export default class StationDataStore {
   @action
   load() {
     return axios.get(config.apis.weather.stations).then(response => {
-      const data = response.data.features.filter(el => el.properties.date);
-
-      this.data = data.map(el => new StationData(el));
-
-      // default ordering by "region" and "name"
-      this.data.sort((a, b) => {
-        if (a.region != b.region) {
-          return a.region < b.region ? -1 : 1;
-        }
-        const nameA = a.properties.name.toLowerCase();
-        const nameB = b.properties.name.toLowerCase();
-
-        if (nameA != nameB) {
-          return nameA < nameB ? -1 : 1;
-        }
-        return 0;
-      });
+      this.data = response.data.features
+        .filter(el => el.properties.date)
+        .map(feature => new StationData(feature))
+        .sort((f1, f2) =>
+          f1.properties.name.localeCompare(f2.properties.name, "de")
+        );
       return this.data;
     });
   }
