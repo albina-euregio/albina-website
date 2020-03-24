@@ -43,7 +43,7 @@ const isWebpSupported = new Promise(resolve => {
  */
 const configUrl = APP_ASSET_PATH + "config.json?" + Date.now();
 const configRequest = axios.get(configUrl).then(res => res.data);
-Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
+Promise.all([configRequest, false]).then(([configParsed, webp]) => {
   configParsed["projectRoot"] = APP_ASSET_PATH;
   configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
   configParsed["webp"] = webp;
