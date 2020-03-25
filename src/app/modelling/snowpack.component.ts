@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 import { ModellingService, SnowpackPlots } from "./modelling.service";
+import { ConstantsService } from "app/providers/constants-service/constants.service";
 
 @Component({
   templateUrl: "./snowpack.component.html"
@@ -14,6 +15,7 @@ export class SnowpackComponent implements OnInit {
   plotUrl: SafeResourceUrl;
 
   constructor(
+    private constantsService: ConstantsService,
     private modellingService: ModellingService,
     private sanitizer: DomSanitizer
   ) {}
@@ -27,7 +29,10 @@ export class SnowpackComponent implements OnInit {
   }
 
   updatePlotUrl() {
-    const url = `https://orsera.alpsolut.eu/tyrol/graphs/${this.plotType}_plot_${this.aspect}_${this.station}.html`;
+    const url = [
+      this.constantsService.snowpackModelsUrl,
+      `${this.plotType}_plot_${this.aspect}_${this.station}.html`
+    ].join("");
     this.plotUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

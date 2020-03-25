@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 import { ModellingService } from "./modelling.service";
+import { ConstantsService } from "app/providers/constants-service/constants.service";
 
 @Component({
   templateUrl: "./snowpack.meteo.component.html"
@@ -12,6 +13,7 @@ export class SnowpackMeteoComponent implements OnInit {
   plotUrl: SafeResourceUrl;
 
   constructor(
+    private constantsService: ConstantsService,
     private modellingService: ModellingService,
     private sanitizer: DomSanitizer
   ) {}
@@ -23,7 +25,11 @@ export class SnowpackMeteoComponent implements OnInit {
   }
 
   updatePlotUrl() {
-    const url = `https://orsera.alpsolut.eu/tyrol/graphs/${this.snowpackMeteoPlot}.html`;
+    const url = [
+      this.constantsService.snowpackModelsUrl,
+      this.snowpackMeteoPlot,
+      ".html"
+    ].join("");
     this.plotUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
