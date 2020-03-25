@@ -20,6 +20,9 @@
     <li class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpack']">{{ "sidebar.modellingSnowpack" | translate }}</a>
     </li>
+    <li class="nav-item px-1">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']">{{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
+    </li>
     <li *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin']">{{ "sidebar.admin" | translate }}</a>
     </li>
