@@ -19,6 +19,12 @@ export class ZamgModelPoint {
   ) {}
 }
 
+export interface SnowpackPlots {
+  plotTypes: string[];
+  aspects: string[];
+  stations: string[];
+};
+
 @Injectable()
 export class ModellingService {
   constructor(
@@ -55,5 +61,36 @@ export class ModellingService {
         });
       })
     );
+  }
+
+  /**
+   * Returns a data structure for the snowpack visualizations.
+   */
+  getSnowpackPlots(): SnowpackPlots {
+    const plotTypes = [
+      "LWC_stratigraphy",
+      "wet_snow_instability",
+      "Sk38_stratigraphy",
+      "stratigraphy"
+    ];
+    const aspects = ["flat", "north", "south"];
+    const stations = [
+      "AKLE2",
+      "AXLIZ1",
+      "BJOE2",
+      "GGAL2",
+      "GJAM2",
+      "INAC2",
+      "ISEE2",
+      "KAUN2",
+      "MIOG2",
+      "NGAN2",
+      "PESE2",
+      "RHAN2",
+      "SDAW2",
+      "SSON2",
+      "TRAU2"
+    ];
+    return { plotTypes, aspects, stations };
   }
 }
