@@ -34,7 +34,7 @@ export class ModellingService {
   ) {}
 
   /**
-   * Fetches ZAMG multi model points via HTTP, parses CVS file and returns parsed results.
+   * Fetches ZAMG multi model points via HTTP, parses CSV file and returns parsed results.
    */
   getZamgModelPoints(): Observable<ZamgModelPoint[]> {
     const regions = this.regionsService.getRegionsEuregio();
