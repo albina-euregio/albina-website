@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 import { ModellingService } from "./modelling.service";
@@ -11,6 +11,7 @@ export class SnowpackMeteoComponent implements OnInit {
   snowpackMeteoPlots: string[];
   snowpackMeteoPlot: string;
   plotUrl: SafeResourceUrl;
+  @ViewChild("iframe") iframe;
 
   constructor(
     private constantsService: ConstantsService,
@@ -31,5 +32,12 @@ export class SnowpackMeteoComponent implements OnInit {
       ".html"
     ].join("");
     this.plotUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  toggleFullscreen() {
+    const element: HTMLIFrameElement = this.iframe.nativeElement;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    }
   }
 }

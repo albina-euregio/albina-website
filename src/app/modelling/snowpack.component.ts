@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 import { ModellingService, SnowpackPlots } from "./modelling.service";
@@ -13,6 +13,7 @@ export class SnowpackComponent implements OnInit {
   aspect: string;
   plotType: string;
   plotUrl: SafeResourceUrl;
+  @ViewChild("iframe") iframe;
 
   constructor(
     private constantsService: ConstantsService,
@@ -34,5 +35,12 @@ export class SnowpackComponent implements OnInit {
       `${this.plotType}_plot_${this.aspect}_${this.station}.html`
     ].join("");
     this.plotUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  toggleFullscreen() {
+    const element: HTMLIFrameElement = this.iframe.nativeElement;
+    if (element.requestFullscreen) {
+      element.requestFullscreen();
+    }
   }
 }
