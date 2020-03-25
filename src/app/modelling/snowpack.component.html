@@ -54,8 +54,18 @@
             {{ station }}
           </option>
         </select>
+        &mdash;
+        <button
+          type="button"
+          type="button"
+          class="btn btn-sm btn-secondary"
+          (click)="toggleFullscreen()"
+        >
+          <i class="fa fa-expand"></i>
+          {{ "menu.fullscreen" | translate }}
+        </button>
         <hr />
-        <iframe [src]="plotUrl" width="100%" height="800px"></iframe>
+        <iframe #iframe [src]="plotUrl" width="100%" height="800px"></iframe>
       </div>
     </div>
   </div>

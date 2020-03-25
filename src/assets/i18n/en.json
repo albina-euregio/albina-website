@@ -19,6 +19,7 @@
     "observations" : "Observations",
     "modellingZamg": "ZAMG multi model",
     "modellingSnowpack": "SNOWPACK model",
+    "modellingSnowpackMeteo": "SNOWPACK modelled meteo",
     "admin" : "Admin",
     "catalogueOfPhrases" : "Catalogue of Phrases"
   },
@@ -29,6 +30,7 @@
     "de" : " German",
     "fr" : " French",
     "it" : " Italian",
+    "fullscreen" : "Fullscreen",
     "settings" : "Settings",
     "region" : "Region"
   },
@@ -505,6 +507,25 @@
       "flat" : "flat",
       "north" : "north",
       "south" : "south"
+    },
+    "meteo" : {
+      "new_snow_plot_3day" : "new snow (3d)",
+      "new_snow_plot_7day" : "new snow (7d)",
+      "new_snow_plot_1month" : "new snow (31d)",
+      "new_snow_plot_season" : "new snow (season",
+      "new_snow_plot_forecast" : "new snow (forecast)",
+      "wet_snow_plot_3day" : "wet snow (3d)",
+      "wet_snow_plot_7day" : "wet snow (7d)",
+      "wet_snow_plot_1month" : "wet snow (31d)",
+      "wet_snow_plot_season" : "wet snow (season)",
+      "wet_snow_plot_forecast" : "wet snow (forecast)",
+      "HS_table_24h" : "HS table (1d)",
+      "HS_table_72h" : "HS table (3d)",
+      "HS_table_season" : "HS table (season)",
+      "HS_table_forecast" : "HS table (forecast)",
+      "TA_table_24h" : "TA table (1d)",
+      "TA_table_72h" : "TA table (3h)",
+      "TA_table_season" : "TA table (season)"
     }
   }
 }
