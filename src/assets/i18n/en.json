@@ -18,6 +18,7 @@
     "bulletins" : "Bulletins",
     "observations" : "Observations",
     "modellingZamg": "ZAMG multi model",
+    "modellingSnowpack": "SNOWPACK model",
     "admin" : "Admin",
     "catalogueOfPhrases" : "Catalogue of Phrases"
   },
@@ -492,5 +493,18 @@
     "message" : "Do you want to discard the changes and change the region?",
     "accept" : "Yes",
     "reject" : "No"
+  },
+  "snowpack" : {
+    "plotType" : {
+      "LWC_stratigraphy" : "wet snow: LWC_stratigraphy",
+      "wet_snow_instability" : "wet snow: wet_snow_instability",
+      "Sk38_stratigraphy" : "old now: Sk38_stratigraphy",
+      "stratigraphy" : "old now: stratigraphy"
+    },
+    "aspect" : {
+      "flat" : "flat",
+      "north" : "north",
+      "south" : "south"
+    }
   }
 }
