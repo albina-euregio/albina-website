@@ -25,15 +25,15 @@ require("./js/custom.js");
 
 // detect WebP support
 // test taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/img/webp.js
-//const isWebpSupported = new Promise(resolve => {
-//  const webpImage = new Image();
-//  webpImage.onload = webpImage.onerror = event => {
-//    const isSupported = event.type === "load" && webpImage.width === 1;
-//    resolve(isSupported);
-//  };
-//  webpImage.src =
-//    "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=";
-//});
+const isWebpSupported = new Promise(resolve => {
+  const webpImage = new Image();
+  webpImage.onload = webpImage.onerror = event => {
+    const isSupported = event.type === "load" && webpImage.width === 1;
+    resolve(isSupported);
+  };
+  webpImage.src =
+    "data:image/webp;base64,UklGRiQAAABXRUJQVlA4IBgAAAAwAQCdASoBAAEAAwA0JaQAA3AA/vuUAAA=";
+});
 
 /*
  * Request config.json before starting the app (do not cache config!).
