@@ -125,7 +125,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   public pmUrl: SafeUrl;
 
-  @ViewChild("receiver") receiver: ElementRef;
+  @ViewChild("receiver") receiver: ElementRef<HTMLIFrameElement>;
   stopListening: Function;
   display: boolean = false;
 
@@ -1278,8 +1278,14 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       currentLang: this.translateService.currentLang
     });
 
-    // postMessage asynchronously (iframe does not exist before dialog is shown?)
-    setTimeout(() => this.receiver.nativeElement.contentWindow.postMessage(pmData, "*"), 0);
+    const nativeElement = this.receiver.nativeElement;
+    const sendPmData = () => nativeElement.contentWindow.postMessage(pmData, "*");
+    if (nativeElement.contentWindow && nativeElement.contentWindow.postMessage) {
+      sendPmData();
+    } else {
+      // postMessage asynchronously (iframe does not exist before dialog is shown?)
+      nativeElement.addEventListener("load", sendPmData);
+    }
 
     this.showDialog();
   }
