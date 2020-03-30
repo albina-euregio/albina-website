@@ -127,10 +127,10 @@
         "forenoonAbove" : "Forenoon, above",
         "afternoonAbove" : "Afternoon, above",
         "forenoonBelow" : "Forenoon, below",
-        "afternoonBelow" : "Aafternoon, below",
+        "afternoonBelow" : "Afternoon, below",
         "snowpackStructure" : "Snowpack structure",
         "tendency" : "Tendency",
-        "pmdialog" : "Catalog of phrases",
+        "pmdialog" : "Catalogue of phrases",
         "showTranslations" : " Show translations",
         "hideTranslations" : " Hide translations"
       },
@@ -467,8 +467,8 @@
     "dp5" : "dp5: snowfall after a long period of cold",
     "dp6" : "dp6: cold, loose snow and wind",
     "dp7" : "dp7: snow-poor zones in snow-rich surrounding",
-    "dp8" : "dp8: surface hoar blanketed with snow",
-    "dp9" : "dp9: graupel blanketed with snow",
+    "dp8" : "dp8: buried surface hoar",
+    "dp9" : "dp9: buried graupel",
     "dp10" : "dp10: springtime scenario"
   },
   "aspect" : {
@@ -498,10 +498,10 @@
   },
   "snowpack" : {
     "plotType" : {
-      "LWC_stratigraphy" : "wet snow: LWC_stratigraphy",
-      "wet_snow_instability" : "wet snow: wet_snow_instability",
-      "Sk38_stratigraphy" : "old now: Sk38_stratigraphy",
-      "stratigraphy" : "old now: stratigraphy"
+      "LWC_stratigraphy" : "wet snow: liquid water content",
+      "wet_snow_instability" : "wet snow: wet snow instability",
+      "Sk38_stratigraphy" : "persistent weak layers: SK38 stability index",
+      "stratigraphy" : "persistent weak layers: snow stratigraphy"
     },
     "aspect" : {
       "flat" : "flat",
@@ -512,20 +512,20 @@
       "new_snow_plot_3day" : "new snow (3d)",
       "new_snow_plot_7day" : "new snow (7d)",
       "new_snow_plot_1month" : "new snow (31d)",
-      "new_snow_plot_season" : "new snow (season",
+      "new_snow_plot_season" : "new snow (season)",
       "new_snow_plot_forecast" : "new snow (forecast)",
       "wet_snow_plot_3day" : "wet snow (3d)",
       "wet_snow_plot_7day" : "wet snow (7d)",
       "wet_snow_plot_1month" : "wet snow (31d)",
       "wet_snow_plot_season" : "wet snow (season)",
       "wet_snow_plot_forecast" : "wet snow (forecast)",
-      "HS_table_24h" : "HS table (1d)",
-      "HS_table_72h" : "HS table (3d)",
-      "HS_table_season" : "HS table (season)",
-      "HS_table_forecast" : "HS table (forecast)",
-      "TA_table_24h" : "TA table (1d)",
-      "TA_table_72h" : "TA table (3h)",
-      "TA_table_season" : "TA table (season)"
+      "HS_table_24h" : "new snow table (1d)",
+      "HS_table_72h" : "new snow table (3d)",
+      "HS_table_season" : "new snow table (season)",
+      "HS_table_forecast" : "new snow table (forecast)",
+      "TA_table_24h" : "wet snow table (1d)",
+      "TA_table_72h" : "wet snow table (3h)",
+      "TA_table_season" : "wet snow table (season)"
     }
   }
 }
