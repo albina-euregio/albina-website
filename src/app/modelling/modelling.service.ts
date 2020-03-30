@@ -6,6 +6,13 @@ import { map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
 
+export interface ZamgFreshSnow {
+  hour: number;
+  values: number[];
+  min: number;
+  max: number;
+}
+
 /**
  * Represents one ZAMG multi model point.
  */
@@ -15,7 +22,8 @@ export class ZamgModelPoint {
     public regionCode: string,
     public regionNameDE: string,
     public regionNameIT: string,
-    public plotUrl
+    public freshSnow: ZamgFreshSnow[],
+    public plotUrl: string
   ) {}
 }
 
@@ -33,34 +41,72 @@ export class ModellingService {
     public regionsService: RegionsService
   ) {}
 
+  private parseCSV(text: string) {
+    return Papa.parse(text, {
+      header: true,
+      skipEmptyLines: true,
+      comments: "#"
+    });
+  }
+
   /**
    * Fetches ZAMG multi model points via HTTP, parses CSV file and returns parsed results.
    */
   getZamgModelPoints(): Observable<ZamgModelPoint[]> {
     const regions = this.regionsService.getRegionsEuregio();
-    const url = `${this.constantsService.zamgModelsUrl}MultimodelPointsEuregio_001.csv`;
-    return this.http.get(url).pipe(
-      map(response => {
-        const csv = Papa.parse(response.text(), {
-          header: true,
-          skipEmptyLines: true
-        });
-        return csv.data.map(row => {
-          const id = row.UID;
-          const regionCode = row.RegionCode;
-          const region = regions.features.find(
-            feature => feature.properties.id === regionCode
-          );
-          return new ZamgModelPoint(
-            id,
-            regionCode,
-            region ? region.properties.name_de : undefined,
-            region ? region.properties.name_it : undefined,
-            `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`
-          );
-        });
-      })
-    );
+    const urls = [
+      "MultimodelPointsEuregio_001.csv",
+      "snowgridmultimodel_modprog110_HN.txt",
+      "snowgridmultimodel_modprog213_HN.txt",
+      "snowgridmultimodel_modprog910_HN.txt",
+      "snowgridmultimodel_modprog990_HN.txt"
+    ].map(file => this.constantsService.zamgModelsUrl + file);
+    return Observable.forkJoin(urls.map(url => this.http.get(url)))
+      .pipe(map(responses => responses.map(r => this.parseCSV(r.text()))))
+      .pipe(
+        map(([points, hn110, hn213, hn910, hn990]) =>
+          points.data.map(row => {
+            const id = row.UID;
+            const regionCode = row.RegionCode;
+            const region = regions.features.find(
+              feature => feature.properties.id === regionCode
+            );
+
+            const freshSnow: ZamgFreshSnow[] = [];
+            try {
+              [12, 24, 48, 72].map(hour => {
+                const values = [hn110, hn213, hn910, hn990]
+                  .map(csv => {
+                    const rowIndex = csv.data.findIndex(
+                      r => r["-9999.0"] === `${hour}.0`
+                    );
+                    return rowIndex >= 0
+                      ? parseFloat(csv.data[rowIndex][`${id}.0`])
+                      : undefined;
+                  })
+                  .filter(v => isFinite(v));
+                freshSnow.push({
+                  hour,
+                  values,
+                  min: Math.min(...values),
+                  max: Math.max(...values)
+                });
+              });
+            } catch (e) {
+              console.warn("Failed to build fresh snow", e);
+            }
+
+            return new ZamgModelPoint(
+              id,
+              regionCode,
+              region ? region.properties.name_de : undefined,
+              region ? region.properties.name_it : undefined,
+              freshSnow,
+              `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`
+            );
+          })
+        )
+      );
   }
 
   /**
