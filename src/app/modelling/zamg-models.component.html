@@ -6,21 +6,71 @@
       </div>
 
       <div class="card-block">
-        <select #select
+        <select
+          #select
           [(ngModel)]="selectedModelPoint"
-          class="custom-select mb-2 mr-sm-2 mb-sm-0"
+          class="custom-select mb-2 mb-sm-0"
         >
           <option *ngFor="let point of modelPoints" [ngValue]="point">
-            {{ point.regionCode }}: {{ point.regionNameDE }} //
-            {{ point.regionNameIT }} ({{ point.id }})
+            {{ point.regionCode }}:
+            {{ currentLang === "it" ? point.regionNameIT : point.regionNameDE }}
+            ({{ point.id }})
           </option>
         </select>
+        &mdash;
+        <button
+          type="button"
+          type="button"
+          class="btn btn-sm btn-secondary"
+          (click)="selectedModelPoint = undefined"
+        >
+          <i class="fa fa-table"></i>
+          {{ "zamg.table" | translate }}
+        </button>
+
         <hr />
+
         <img
           *ngIf="selectedModelPoint"
           [src]="selectedModelPoint.plotUrl"
           class="img-fluid"
         />
+
+        <table
+          class="table"
+          *ngIf="modelPoints && modelPoints.length && !selectedModelPoint"
+        >
+          <thead>
+            <tr>
+              <th>{{ "zamg.region" | translate }}</th>
+              <th *ngFor="let snow of modelPoints[0].freshSnow">
+                {{ "zamg.newSnow" | translate }} {{ snow.hour }}h
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let point of modelPoints">
+              <td>
+                <a
+                  href="#"
+                  (click)="$event.preventDefault(); selectedModelPoint = point"
+                >
+                  {{ point.regionCode }}:
+                  {{
+                    currentLang === "it"
+                      ? point.regionNameIT
+                      : point.regionNameDE
+                  }}
+                </a>
+              </td>
+              <td *ngFor="let snow of point.freshSnow">
+                {{ snow.min | number: ".0-0" }}&#8239;…&#8239;{{
+                  snow.max | number: ".0-0"
+                }}&#8239;cm
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

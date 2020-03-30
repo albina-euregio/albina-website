@@ -10,6 +10,7 @@ export class ConstantsService {
 
   public snowObserverServerUrl: string = "https://snowobserver.com/snowobserver/api/";
   public zamgModelsUrl: string = "https://avalanche.report/zamg/";
+  public snowpackModelsUrl: string = "https://orsera.alpsolut.eu/tyrol/graphs/";
   public natlefsServerUrl: string = "https://natlefs.snowobserver.com/snowobserver/api/";
   public natlefsUsername: string = "norbert.lanzanasto@tirol.gv.at";
   public natlefsPassword: string = "FRYLjTQ2";
