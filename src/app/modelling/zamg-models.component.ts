@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { ModellingService, ZamgModelPoint } from "./modelling.service";
 
 @Component({
@@ -10,16 +11,22 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
 
   @ViewChild("select") select;
 
-  constructor(private modellingService: ModellingService) {}
+  constructor(
+    private modellingService: ModellingService,
+    public translate: TranslateService
+  ) {}
 
   ngOnInit() {
     this.modellingService.getZamgModelPoints().subscribe(zamgModelPoints => {
       this.modelPoints = zamgModelPoints;
-      this.selectedModelPoint = zamgModelPoints[0];
     });
   }
 
   ngAfterViewInit() {
     this.select.nativeElement.focus();
+  }
+
+  get currentLang() {
+    return this.translate.currentLang;
   }
 }
