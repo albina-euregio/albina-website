@@ -61,7 +61,7 @@ export class ModellingService {
       "snowgridmultimodel_modprog910_HN.txt",
       "snowgridmultimodel_modprog990_HN.txt"
     ].map(file => this.constantsService.zamgModelsUrl + file);
-    return Observable.forkJoin(urls.map(url => this.http.get(url)))
+    return Observable.forkJoin(urls.map(url => this.http.get(url, {responseType: 'text'})))
       .pipe(map(responses => responses.map(r => this.parseCSV(r.toString()))))
       .pipe(
         map(([points, hn110, hn213, hn910, hn990]) =>
