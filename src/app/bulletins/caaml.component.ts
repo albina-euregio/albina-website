@@ -1,9 +1,8 @@
 import { Component, ViewChild, TemplateRef, OnInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 import { BsModalService } from "ngx-bootstrap/modal";
-import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { BsModalRef } from "ngx-bootstrap/modal";
 
 @Component({
   templateUrl: "caaml.component.html"
@@ -25,10 +24,7 @@ export class CaamlComponent implements OnInit {
   };
 
   constructor(
-    private translate: TranslateService,
     public bulletinsService: BulletinsService,
-    private translateService: TranslateService,
-    private route: ActivatedRoute,
     private router: Router,
     private modalService: BsModalService) {
     this.bulletins = undefined;
@@ -40,10 +36,10 @@ export class CaamlComponent implements OnInit {
     this.bulletinsService.loadCaamlBulletins(this.bulletinsService.getActiveDate()).subscribe(
       data => {
         this.loading = false;
-        if (data.status === 204) {
+        if ((data as any).status === 204) {
           this.openNoCaamlModal(this.noCaamlTemplate);
         } else {
-          const text = data.text();
+          const text = (data as any).text();
           this.bulletins = text;
         }
       },

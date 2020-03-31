@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "coreui-angular": {
+    "albina-admin-gui": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -11,6 +11,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -20,8 +21,6 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/bootstrap/theme.css",
               "src/scss/style.scss",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/MarkerCluster.css",
@@ -31,6 +30,12 @@
           },
           "configurations": {
             "dev": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -39,6 +44,12 @@
               ]
             },
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -60,21 +71,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "coreui-angular:build"
+            "browserTarget": "albina-admin-gui:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "coreui-angular:build:dev"
+              "browserTarget": "albina-admin-gui:build:dev"
             },
             "production": {
-              "browserTarget": "coreui-angular:build:production"
+              "browserTarget": "albina-admin-gui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "coreui-angular:build"
+            "browserTarget": "albina-admin-gui:build"
           }
         },
         "test": {
@@ -85,8 +96,6 @@
             "polyfills": "src/polyfills.ts",
             "scripts": [],
             "styles": [
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/bootstrap/theme.css",
               "src/scss/style.scss",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/MarkerCluster.css",
@@ -108,7 +117,7 @@
         }
       }
     },
-    "coreui-angular-e2e": {
+    "albina-admin-gui-e2e": {
       "root": "e2e",
       "sourceRoot": "e2e",
       "projectType": "application",
@@ -117,7 +126,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "coreui-angular:serve"
+            "devServerTarget": "albina-admin-gui:serve"
           }
         },
         "lint": {
@@ -132,11 +141,11 @@
       }
     }
   },
-  "defaultProject": "coreui-angular",
+  "defaultProject": "albina-admin-gui",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "scss"
+      "style": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "app"

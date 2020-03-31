@@ -1,16 +1,13 @@
 import { Component, AfterContentInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
+import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { ConfigurationService } from "../providers/configuration-service/configuration.service";
 import { SocialmediaService } from "../providers/socialmedia-service/socialmedia.service";
-import { Router, ActivatedRoute } from "@angular/router";
 import * as Enums from "../enums/enums";
-import { SelectItem } from "primeng/primeng";
+import { SelectItem } from "primeng/api";
 import { AlertComponent } from "ngx-bootstrap";
-
-declare var L: any;
 
 @Component({
   templateUrl: "admin.component.html"
@@ -68,15 +65,12 @@ export class AdminComponent implements AfterContentInit {
   public h;
 
   constructor(
-    private translate: TranslateService,
-    private route: ActivatedRoute,
     private translateService: TranslateService,
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService,
     private bulletinsService: BulletinsService,
     public configurationService: ConfigurationService,
-    public socialmediaService: SocialmediaService,
-    private router: Router) {
+    public socialmediaService: SocialmediaService) {
     this.statusMap = new Map<number, Enums.BulletinStatus>();
     this.saveConfigurationLoading = false;
   }
@@ -85,32 +79,31 @@ export class AdminComponent implements AfterContentInit {
     if (this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin)) {
       this.configurationService.loadConfigurationProperties().subscribe(
         data => {
-          const response = data.json();
-          this.createCaaml = response.createCaaml;
-          this.createMaps = response.createMaps;
-          this.createPdf = response.createPdf;
-          this.createStaticWidget = response.createStaticWidget;
-          this.createSimpleHtml = response.createSimpleHtml;
-          this.sendEmails = response.sendEmails;
-          this.publishToSocialMedia = response.publishToSocialMedia;
-          this.publishAt5PM = response.publishAt5PM;
-          this.publishAt8AM = response.publishAt8AM;
-          this.localImagesPath = response.localImagesPath;
-          this.localFontsPath = response.localFontsPath;
-          this.publishBulletinsTyrol = response.publishBulletinsTyrol;
-          this.publishBulletinsSouthTyrol = response.publishBulletinsSouthTyrol;
-          this.publishBulletinsTrentino = response.publishBulletinsTrentino;
-          this.publishBlogsTyrol = response.publishBlogsTyrol;
-          this.publishBlogsSouthTyrol = response.publishBlogsSouthTyrol;
-          this.publishBlogsTrentino = response.publishBlogsTrentino;
-          this.pdfDirectory = response.pdfDirectory;
-          this.htmlDirectory = response.htmlDirectory;
-          this.serverImagesUrl = response.serverImagesUrl;
-          this.serverImagesUrlLocalhost = response.serverImagesUrlLocalhost;
-          this.univieMapsPath = response.univieMapsPath;
-          this.mapsPath = response.mapsPath;
-          this.mapProductionUrl = response.mapProductionUrl;
-          this.scriptsPath = response.scriptsPath;
+          this.createCaaml = (data as any).createCaaml;
+          this.createMaps = (data as any).createMaps;
+          this.createPdf = (data as any).createPdf;
+          this.createStaticWidget = (data as any).createStaticWidget;
+          this.createSimpleHtml = (data as any).createSimpleHtml;
+          this.sendEmails = (data as any).sendEmails;
+          this.publishToSocialMedia = (data as any).publishToSocialMedia;
+          this.publishAt5PM = (data as any).publishAt5PM;
+          this.publishAt8AM = (data as any).publishAt8AM;
+          this.localImagesPath = (data as any).localImagesPath;
+          this.localFontsPath = (data as any).localFontsPath;
+          this.publishBulletinsTyrol = (data as any).publishBulletinsTyrol;
+          this.publishBulletinsSouthTyrol = (data as any).publishBulletinsSouthTyrol;
+          this.publishBulletinsTrentino = (data as any).publishBulletinsTrentino;
+          this.publishBlogsTyrol = (data as any).publishBlogsTyrol;
+          this.publishBlogsSouthTyrol = (data as any).publishBlogsSouthTyrol;
+          this.publishBlogsTrentino = (data as any).publishBlogsTrentino;
+          this.pdfDirectory = (data as any).pdfDirectory;
+          this.htmlDirectory = (data as any).htmlDirectory;
+          this.serverImagesUrl = (data as any).serverImagesUrl;
+          this.serverImagesUrlLocalhost = (data as any).serverImagesUrlLocalhost;
+          this.univieMapsPath = (data as any).univieMapsPath;
+          this.mapsPath = (data as any).mapsPath;
+          this.mapProductionUrl = (data as any).mapProductionUrl;
+          this.scriptsPath = (data as any).scriptsPath;
           this.configurationPropertiesLoaded = true;
 
         },
@@ -205,7 +198,7 @@ export class AdminComponent implements AfterContentInit {
     this.currentRegion = regionId.toString();
     this.configurationService.loadSocialMediaConfiguration(regionId).subscribe(
       data => {
-        this.regionConfiguration = data.json();
+        this.regionConfiguration = data as any;
       },
       error => {
         console.error("Social Media configuration could not be loaded!");
@@ -227,7 +220,7 @@ export class AdminComponent implements AfterContentInit {
   public loadChannels() {
     this.configurationService.loadSocialMediaChannels().subscribe(
       data => {
-        this.channels = data.json();
+        this.channels = (data as any);
         this.currentChannel = this.channels[0];
       },
       error => {
@@ -275,7 +268,7 @@ export class AdminComponent implements AfterContentInit {
     this.recipientList = [];
     this.configurationService.loadRecipientList(regionId).subscribe(
       data => {
-        data.json()._embedded.recipientlists.forEach(element => {
+        (data as any)._embedded.recipientlists.forEach(element => {
           this.recipientList.push({
             label: element.name,
             value: element.id
@@ -291,7 +284,7 @@ export class AdminComponent implements AfterContentInit {
   public loadShipments() {
     this.configurationService.loadShipments().subscribe(
       data => {
-        this.shipments = data.json();
+        this.shipments = data as any;
       },
       error => {
         console.error("Social Media shipments could not be loaded!");
@@ -307,7 +300,6 @@ export class AdminComponent implements AfterContentInit {
     const mailingsPost = "{\"destinations\": [ { \"type\": \"recipientlist\", \"id\": \"2199\", \"action\": \"include\" } ], \"from_name\": \"Denis Miorandi\", \"from_email\": \"norbert.lanzanasto@tirol.gv.at\", \"subject\": \"Clesius TEST 2\", \"file\": { \"description\":\"mail-content.zip\", \"content\": \"UEsDBAoAAAAAAMl4cE2yoGG2IwAAACMAAAAJAAAAdGVzdC5odG1sPGI+IHRoaXMgaXMgYSB0ZXN0IGZyb20gQ2xlc2l1czwvYj5QSwECPwAKAAAAAADJeHBNsqBhtiMAAAAjAAAACQAkAAAAAAAAACAAAAAAAAAAdGVzdC5odG1sCgAgAAAAAAABABgAx9qLirV91AEJorp6tX3UAQmiunq1fdQBUEsFBgAAAAABAAEAWwAAAEoAAAAAAA==\", \"type\": \"application/zip\" } } ";
     this.socialmediaService.sendRapidMail(regionId, language, mailingsPost).subscribe(
       data => {
-        this.sendresult = data.json();
         // refresh Shipments
         this.loadShipments();
       },
@@ -324,7 +316,6 @@ export class AdminComponent implements AfterContentInit {
     const attachment = ""; // 'https://avalanche.report/albina_files/2018-11-20/2018-11-20_en.pdf'
     this.socialmediaService.sendMP(regionId, language, message, attachment).subscribe(
       data => {
-        this.sendresult = data.json();
         // refresh Shipments
         this.loadShipments();
       },
@@ -342,7 +333,6 @@ export class AdminComponent implements AfterContentInit {
     const previous_id = 1064896795929653248;
     this.socialmediaService.sendTW(regionId, language, message, previous_id).subscribe(
       data => {
-        this.sendresult = data.json();
         // refresh Shipments
         this.loadShipments();
       },

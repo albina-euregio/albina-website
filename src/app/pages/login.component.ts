@@ -1,11 +1,8 @@
 import { Component, OnInit, HostListener, TemplateRef, ViewChild } from "@angular/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
-import { MapService } from "../providers/map-service/map.service";
 import { ChatService } from "../providers/chat-service/chat.service";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
-import { Router, ActivatedRoute } from "@angular/router";
-import { BsModalService } from "ngx-bootstrap/modal";
-import { BsModalRef } from "ngx-bootstrap/modal/bs-modal-ref.service";
+import { Router } from "@angular/router";
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { environment } from "../../environments/environment";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
@@ -29,12 +26,9 @@ export class LoginComponent implements OnInit {
   };
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    private mapService: MapService,
     public constantsService: ConstantsService,
-    private translateService: TranslateService,
     private modalService: BsModalService,
     private chatService: ChatService,
     private sanitizer: DomSanitizer) {
@@ -64,7 +58,6 @@ export class LoginComponent implements OnInit {
         if (data === true) {
           console.debug("[" + this.username + "] Logged in!");
           this.chatService.connect();
-          this.mapService.resetAll();
           console.debug("Navigate to " + this.returnUrl);
           this.router.navigate([this.returnUrl]);
           this.loading = false;

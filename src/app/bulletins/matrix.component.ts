@@ -142,7 +142,9 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
   private deselectCell(cell) {
     if (cell !== undefined && cell !== null) {
       const element = this.getElement(cell);
-      element.nativeElement.style.fill = this.getGrayscaleColor(cell);
+      if (element !== undefined && element !== null) {
+        element.nativeElement.style.fill = this.getGrayscaleColor(cell);
+      }
     }
   }
 

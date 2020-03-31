@@ -14,7 +14,7 @@ production build:
   stage: build
   script:
     - npm run lint
-    - npm run build -- --prod --env=prod --stats-json
+    - npm run build-production
   artifacts:
     paths:
       - dist/
@@ -22,7 +22,7 @@ production build:
 deploy to development:
   stage: deploy
   script:
-    - npm run build -- --prod --env=dev
+    - npm run build-dev
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
@@ -39,7 +39,7 @@ deploy to development:
 deploy to production:
   stage: deploy
   script:
-    - npm run build -- --prod --env=prod
+    - npm run build-production
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
@@ -36,7 +36,7 @@ export interface SnowpackPlots {
 @Injectable()
 export class ModellingService {
   constructor(
-    public http: Http,
+    public http: HttpClient,
     public constantsService: ConstantsService,
     public regionsService: RegionsService
   ) {}
@@ -61,8 +61,8 @@ export class ModellingService {
       "snowgridmultimodel_modprog910_HN.txt",
       "snowgridmultimodel_modprog990_HN.txt"
     ].map(file => this.constantsService.zamgModelsUrl + file);
-    return Observable.forkJoin(urls.map(url => this.http.get(url)))
-      .pipe(map(responses => responses.map(r => this.parseCSV(r.text()))))
+    return Observable.forkJoin(urls.map(url => this.http.get(url, {responseType: "text"})))
+      .pipe(map(responses => responses.map(r => this.parseCSV(r.toString()))))
       .pipe(
         map(([points, hn110, hn213, hn910, hn990]) =>
           points.data.map(row => {

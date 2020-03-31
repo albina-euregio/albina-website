@@ -1,5 +1,4 @@
 import { Component, Input, ViewChild, ElementRef, SimpleChange, AfterViewInit, OnChanges } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
 import { AvalancheSituationModel } from "../models/avalanche-situation.model";
 import * as Enums from "../enums/enums";
 
@@ -23,8 +22,7 @@ export class AspectsComponent implements AfterViewInit, OnChanges {
 
   aspect = Enums.Aspect;
 
-  constructor(
-    private translate: TranslateService) {
+  constructor() {
   }
 
   ngAfterViewInit() {

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers, RequestOptions, Response } from "@angular/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ConstantsService } from "../constants-service/constants.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { Observable } from "rxjs/Observable";
@@ -8,68 +8,62 @@ import { Observable } from "rxjs/Observable";
 export class ConfigurationService {
 
   constructor(
-    public http: Http,
+    public http: HttpClient,
     private constantsService: ConstantsService,
     private authenticationService: AuthenticationService) {
   }
 
   public loadConfigurationProperties(): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "configuration";
-    const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: this.authenticationService.newAuthHeader() };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   public saveConfigurationProperties(json) {
     const url = this.constantsService.getServerUrl() + "configuration";
-    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify(json);
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: this.authenticationService.newAuthHeader() };
 
     return this.http.post(url, body, options);
   }
 
   public loadSocialMediaConfiguration(regionId: String): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "configuration/region?regionId=" + regionId;
-    const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: this.authenticationService.newAuthHeader() };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   public saveSocialMediaConfiguration(regionConfiguration) {
     const url = this.constantsService.getServerUrl() + "configuration/region";
-    const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify(regionConfiguration);
-    const options = new RequestOptions({ headers: headers });
-    return this.http.post(url, body, options);
+    const options = { headers: this.authenticationService.newAuthHeader() };
+    return this.http.post<Response>(url, body, options);
   }
 
   public loadSocialMediaChannels() {
     const url = this.constantsService.getServerUrl() + "configuration/channels";
-    const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: this.authenticationService.newAuthHeader() };
 
-    return this.http.get(url, options);
+    return this.http.get<Response>(url, options);
   }
 
   public loadRecipientList(regionId: String) {
     const url = this.constantsService.getServerUrl() + "social-media/rapidmail/recipient-list/" + regionId;
     const authHeader = "Bearer " + this.authenticationService.getAccessToken();
-    const headers = new Headers({
+    const headers = new HttpHeaders({
       "Content-Type": "application/json",
       "Accept": "application/hal+json",
       "Authorization": authHeader
     });
-    const options = new RequestOptions({ headers: headers });
-    return this.http.get(url, options);
+    const options = { headers: headers };
+    return this.http.get<Response>(url, options);
   }
 
   public loadShipments() {
     const url = this.constantsService.getServerUrl() + "social-media/shipments";
-    const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
-    return this.http.get(url, options);
+    const options = { headers: this.authenticationService.newAuthHeader() };
+    return this.http.get<Response>(url, options);
   }
 }

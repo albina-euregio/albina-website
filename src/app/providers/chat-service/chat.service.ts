@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs/Rx";
-import { Http, RequestOptions, Response } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { WsChatService } from "../ws-chat-service/ws-chat.service";
 import { ChatMessageModel } from "../../models/chat-message.model";
 import { AuthenticationService } from "../authentication-service/authentication.service";
@@ -21,7 +21,7 @@ export class ChatService {
   public newMessageCount3: number;
 
   constructor(
-    public http: Http,
+    public http: HttpClient,
     public constantsService: ConstantsService,
     public authenticationService: AuthenticationService,
     public wsChatService: WsChatService) {
@@ -61,8 +61,7 @@ export class ChatService {
     if (this.authenticationService.getActiveRegion() && this.authenticationService.getActiveRegion() !== undefined) {
       this.getMessages().subscribe(
         data => {
-          const response = data.json();
-          for (const jsonChatMessage of response) {
+          for (const jsonChatMessage of (data as any)) {
             this.addChatMessage(ChatMessageModel.createFromJson(jsonChatMessage), false);
           }
         },
@@ -73,13 +72,12 @@ export class ChatService {
 
       this.getActiveUsersFromServer().subscribe(
       data => {
-        const response = data.json();
-        for (const user of response) {
+        for (const user of (data as any)) {
           if (user !== this.authenticationService.getUsername()) {
             this.activeUsers.push(user);
           }
         }
-        this.activeUsers.sort((a, b) : number => {
+        this.activeUsers.sort((a, b): number => {
           if (a < b) {
             return 1;
           }
@@ -168,15 +166,15 @@ export class ChatService {
     date.setHours(0, 0, 0, 0);
     const url = this.constantsService.getServerUrl() + "chat?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
-    return this.http.get(url, options);
+    const options = { headers: headers };
+    return this.http.get<Response>(url, options);
   }
 
   getActiveUsersFromServer(): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "chat/users";
     const headers = this.authenticationService.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
-    return this.http.get(url, options);
+    const options = { headers: headers };
+    return this.http.get<Response>(url, options);
   }
 
   /*

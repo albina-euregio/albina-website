@@ -8,7 +8,7 @@ import { P500Component } from "./500.component";
 import { LoginComponent } from "./login.component";
 
 import { PagesRoutingModule } from "./pages-routing.module";
-import { ConfirmDialogModule, SharedModule } from "primeng/primeng";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 @NgModule({
   imports: [
@@ -16,8 +16,7 @@ import { ConfirmDialogModule, SharedModule } from "primeng/primeng";
     FormsModule,
     TranslateModule,
     CommonModule,
-    ConfirmDialogModule,
-    SharedModule
+    ConfirmDialogModule
   ],
   declarations: [
     P404Component,

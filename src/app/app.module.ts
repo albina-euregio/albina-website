@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, Injectable, NgModule } from "@angular/core";
-import { LocationStrategy, HashLocationStrategy } from "@angular/common";
+import { LocationStrategy, HashLocationStrategy, registerLocaleData } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AppComponent } from "./app.component";
@@ -36,15 +36,17 @@ import { LocalStorageService } from "./providers/local-storage-service/local-sto
 import { ConfigurationService } from "./providers/configuration-service/configuration.service";
 import { SocialmediaService } from "./providers/socialmedia-service/socialmedia.service";
 import { CopyService } from "./providers/copy-service/copy.service";
-import { ConfirmationService } from "primeng/primeng";
+import { ConfirmationService } from "primeng/api";
 
 // Pipes
 import { PipeModule } from "./pipes/pipes.module";
 
 import { AuthGuard } from "./guards/auth.guard";
 
-import { TranslateModule } from "@ngx-translate/core";
-import { HttpModule } from "@angular/http";
+import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 
 import { BsDropdownModule, TabsModule, ModalModule, AlertModule } from "ngx-bootstrap";
 
@@ -55,6 +57,11 @@ import { ModalPublicationStatusComponent } from "./bulletins/modal-publication-s
 import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.component";
 
 import * as Sentry from "@sentry/browser";
+
+import localeDe from "@angular/common/locales/de";
+import localeIt from "@angular/common/locales/it";
+import localeEn from "@angular/common/locales/en";
+import localeFr from "@angular/common/locales/fr";
 
 const pkg = require("../../package.json");
 Sentry.init({
@@ -69,6 +76,16 @@ export class SentryErrorHandler implements ErrorHandler {
   }
 }
 
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
+
+registerLocaleData(localeDe, "de");
+registerLocaleData(localeIt, "it");
+registerLocaleData(localeEn, "en");
+registerLocaleData(localeFr, "fr");
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -78,11 +95,18 @@ export class SentryErrorHandler implements ErrorHandler {
     AlertModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     PipeModule.forRoot(),
     ModalModule.forRoot(),
-    TranslateModule.forRoot()
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      },
+      defaultLanguage: "de"
+    })
   ],
   declarations: [
     AppComponent,
@@ -129,13 +153,6 @@ export class SentryErrorHandler implements ErrorHandler {
   bootstrap: [AppComponent],
   exports: [
     TranslateModule
-  ],
-  entryComponents: [
-    ModalSubmitComponent,
-    ModalPublishComponent,
-    ModalCheckComponent,
-    ModalPublicationStatusComponent,
-    ModalPublishAllComponent
   ]
 })
-export class AppModule { }
+export class AppModule {}

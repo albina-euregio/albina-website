@@ -1,5 +1,4 @@
 import { Component, Input, AfterContentInit } from "@angular/core";
-import { TranslateService } from "@ngx-translate/core/src/translate.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { AvalancheSituationModel } from "../models/avalanche-situation.model";
 import * as Enums from "../enums/enums";
@@ -20,7 +19,6 @@ export class AvalancheSituationComponent implements AfterContentInit {
   useElevationLow = false;
 
   constructor(
-    private translate: TranslateService,
     public settingsService: SettingsService) {
   }
 

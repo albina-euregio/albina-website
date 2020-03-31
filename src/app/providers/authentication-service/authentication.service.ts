@@ -1,27 +1,28 @@
-import { Injectable, Sanitizer, SecurityContext } from "@angular/core";
-import { Http, Headers, RequestOptions, Response } from "@angular/http";
+import { Injectable, SecurityContext } from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs/Observable";
 import { ConstantsService } from "../constants-service/constants.service";
-import { JwtHelper } from "angular2-jwt";
+import { JwtHelperService } from "@auth0/angular-jwt";
 import { AuthorModel } from "../../models/author.model";
 
 @Injectable()
 export class AuthenticationService {
 
   public currentAuthor: AuthorModel;
-  public jwtHelper: JwtHelper;
+  public jwtHelper: JwtHelperService;
   public activeRegion: string;
 
   constructor(
-    public http: Http,
+    public http: HttpClient,
     public constantsService: ConstantsService,
-    private sanitizer: Sanitizer) {
+    private sanitizer: DomSanitizer) {
     // this.currentAuthor = JSON.parse(localStorage.getItem('currentAuthor'));
     localStorage.removeItem("currentAuthor");
     localStorage.removeItem("accessToken");
     this.currentAuthor = null;
     this.activeRegion = undefined;
-    this.jwtHelper = new JwtHelper();
+    this.jwtHelper = new JwtHelperService();
   }
 
   isUserLoggedIn(): boolean {
@@ -68,9 +69,9 @@ export class AuthenticationService {
     }
   }
 
-  public newAuthHeader(mime = "application/json"): Headers {
+  public newAuthHeader(mime = "application/json"): HttpHeaders {
     const authHeader = "Bearer " + this.getAccessToken();
-    return new Headers({
+    return new HttpHeaders({
       "Content-Type": mime,
       "Accept": mime,
       "Authorization": authHeader
@@ -195,21 +196,21 @@ export class AuthenticationService {
     }
 
     const body = JSON.stringify(json);
-    const headers = new Headers({
+    const headers = new HttpHeaders({
       "Content-Type": "application/json"
     });
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
     return this.http.post(url, body, options)
-      .map((response: Response) => {
-        const accessToken = response.json() && response.json().access_token;
+      .map(data => {
+        const accessToken = (data as any).access_token;
         if (accessToken) {
-          this.currentAuthor = AuthorModel.createFromJson(response.json());
+          this.currentAuthor = AuthorModel.createFromJson((data as any));
           this.activeRegion = this.currentAuthor.getRegions()[0];
-          this.currentAuthor.accessToken = response.json().access_token;
-          this.currentAuthor.refreshToken = response.json().refresh_token;
-          localStorage.setItem("currentAuthor", JSON.stringify({ username: response.json().username, accessToken: response.json().access_token, refreshToken: response.json().refresh_token, image: response.json().image, region: response.json().region, roles: response.json().roles }));
-          localStorage.setItem("accessToken", response.json().access_token);
+          this.currentAuthor.accessToken = (data as any).access_token;
+          this.currentAuthor.refreshToken = (data as any).refresh_token;
+          localStorage.setItem("currentAuthor", JSON.stringify({ username: (data as any).username, accessToken: (data as any).access_token, refreshToken: (data as any).refresh_token, image: (data as any).image, region: (data as any).region, roles: (data as any).roles }));
+          localStorage.setItem("accessToken", (data as any).access_token);
           return true;
         } else {
           return false;
@@ -227,9 +228,9 @@ export class AuthenticationService {
 
     const body = JSON.stringify(json);
     const headers = this.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.put(url, body, options);
+    return this.http.put<Response>(url, body, options);
   }
 
   public changePassword(oldPassword: string, newPassword: string): Observable<Response> {
@@ -245,9 +246,9 @@ export class AuthenticationService {
 
     const body = JSON.stringify(json);
     const headers = this.newAuthHeader();
-    const options = new RequestOptions({ headers: headers });
+    const options = { headers: headers };
 
-    return this.http.put(url, body, options);
+    return this.http.put<Response>(url, body, options);
   }
 
   public getCurrentAuthorRegions() {

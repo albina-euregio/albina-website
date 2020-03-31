@@ -60,10 +60,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   private loadSnowProfiles() {
     this.observationsService.getSnowProfiles().subscribe(
       data => {
-        const response = data.json();
-        for (let i = response.length - 1; i >= 0; i--) {
-          if (response[i].location && response[i].location.geo && response[i].location.geo.latitude && response[i].location.geo.longitude) {
-            this.createSnowProfileMarker(response[i]);
+        for (let i = (data as any).length - 1; i >= 0; i--) {
+          if ((data as any)[i].location && (data as any)[i].location.geo && (data as any)[i].location.geo.latitude && (data as any)[i].location.geo.longitude) {
+            this.createSnowProfileMarker((data as any)[i]);
             console.debug("Snow profile added.");
           } else {
             console.debug("No coordinates in snow profile.");
@@ -79,10 +78,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   private loadHastyPits() {
     this.observationsService.getHastyPits().subscribe(
       data => {
-        const response = data.json();
-        for (let i = response.length - 1; i >= 0; i--) {
-          if (response[i].location && response[i].location.geo && response[i].location.geo.latitude && response[i].location.geo.longitude) {
-            this.createHastyPitMarker(response[i]);
+        for (let i = (data as any).length - 1; i >= 0; i--) {
+          if ((data as any)[i].location && (data as any)[i].location.geo && (data as any)[i].location.geo.latitude && (data as any)[i].location.geo.longitude) {
+            this.createHastyPitMarker((data as any)[i]);
             console.debug("Hasty pit added.");
           } else {
             console.debug("No coordinates in hasty pit.");
@@ -98,10 +96,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   private loadQuickReports() {
     this.observationsService.getQuickReports().subscribe(
       data => {
-        const response = data.json();
-        for (let i = response.length - 1; i >= 0; i--) {
-          if (response[i].location && response[i].location.geo && response[i].location.geo.latitude && response[i].location.geo.longitude) {
-            this.createQuickReportMarker(response[i]);
+        for (let i = (data as any).length - 1; i >= 0; i--) {
+          if ((data as any)[i].location && (data as any)[i].location.geo && (data as any)[i].location.geo.latitude && (data as any)[i].location.geo.longitude) {
+            this.createQuickReportMarker((data as any)[i]);
             console.debug("Quick report added.");
           } else {
             console.debug("No coordinates in quick report.");
@@ -117,10 +114,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   private loadNatlefs() {
     this.observationsService.getNatlefs().subscribe(
       data => {
-        const response = data.json();
-        for (let i = response.length - 1; i >= 0; i--) {
-          if (response[i].location && response[i].location.geo && response[i].location.geo.latitude && response[i].location.geo.longitude) {
-            this.createNatlefsMarker(response[i]);
+        for (let i = (data as any).length - 1; i >= 0; i--) {
+          if ((data as any)[i].location && (data as any)[i].location.geo && (data as any)[i].location.geo.latitude && (data as any)[i].location.geo.longitude) {
+            this.createNatlefsMarker((data as any)[i]);
             console.debug("NATLEFS added.");
           } else {
             console.debug("No coordinates in NATLEFS.");
@@ -179,8 +175,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     /*
         this.observationsService.getSnowProfile(snowProfile.serverId).subscribe(
         data => {
-          let response = data.json();
-          let snowProfile = SnowProfileModel.createFromJson(response);
+          let snowProfile = SnowProfileModel.createFromJson((data as any));
           this.nav.push(NewSnowProfilePage, {
           snowProfile: snowProfile,
           disabled: true
@@ -215,8 +210,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     /*
         this.observationsService.getHastyPit(profile.serverId).subscribe(
         data => {
-          let response = data.json();
-          let hastyPit = HastyPitModel.createFromJson(response);
+          let hastyPit = HastyPitModel.createFromJson((data as any));
           this.nav.push(NewHastyPitPage, {
           hastyPit: hastyPit,
           disabled: true
