@@ -18,6 +18,8 @@
     "bulletins" : "Bulletins",
     "observations" : "Observations",
     "modellingZamg": "ZAMG multi-modèle",
+    "modellingSnowpack": "SNOWPACK model",
+    "modellingSnowpackMeteo": "SNOWPACK modelled meteo",
     "admin" : "Admin",
     "catalogueOfPhrases" : "Catalogue de phrases"
   },
@@ -28,6 +30,7 @@
     "de" : "Allemand",
     "fr" : "Français",
     "it" : "Italien",
+    "fullscreen" : "Fullscreen",
     "settings" : "Paramètres",
     "region" : "Région"
   },
@@ -106,9 +109,10 @@
         "snowpackStructureHighlights" : "Titre manteau neigeux",
         "snowpackStructureComment" : "Déscription manteau neigeux",
         "dangerPatterns" : "Situations avalancheuses",
-        "elevationHigh" : "Dessous",
-        "elevationLow" : "Sur",
-        "tendencyComment" : "Déscription de la tendance"
+        "elevationHigh" : "Au-dessous",
+        "elevationLow" : "Au-dessus",
+        "tendencyComment" : "Déscription de la tendance",
+        "notes" : "Notes"
       },
       "title" : {
         "map" : "Carte",
@@ -116,19 +120,22 @@
         "avalancheSituation" : "Situations d'avalanches",
         "dangerDescription" : "Déscription du danger d'avalanche",
         "detail" : "Détails",
-        "above" : "Sur",
-        "below" : "Dessous",
+        "above" : "Au-dessus",
+        "below" : "Au-dessous",
         "forenoon" : "Matin",
         "afternoon" : "Après-midi",
-        "forenoonAbove" : "Matin, Sur",
-        "afternoonAbove" : "Après-midi, Sur",
-        "forenoonBelow" : "Matin, Dessous",
-        "afternoonBelow" : "Après-midi, Dessous",
+        "forenoonAbove" : "Matin, Au-dessus",
+        "afternoonAbove" : "Après-midi, Au-dessus",
+        "forenoonBelow" : "Matin, Au-dessous",
+        "afternoonBelow" : "Afternoon, below",
         "snowpackStructure" : "Structure du manteau neigeux",
         "tendency" : "Tendance",
-        "pmdialog" : "Catalogue de phrases",
+        "pmdialog" : "Catalogue of phrases",
         "showTranslations" : "Afficher traductions",
         "hideTranslations" : "Masquer traductions"
+      },
+      "placeholder" : {
+        "notes" : "Notes will not be saved"
       },
       "pmDialog" : {
         "noIFrameSupport" : "Votre navigateur ne supporte pas les IFrames !"
@@ -192,7 +199,7 @@
         "newSnow" : "Neige fraîche",
         "windDriftedSnow" : "Neige soufflée",
         "oldSnow" : "Couche fragile persistante",
-        "wetSnow" : "Neige mouillée",
+        "wetSnow" : "Neige humide",
         "glidingSnow" : "Neige glissante",
         "favourableSituation" : "Situation favorable",
         "cancel" : "Annuler"
@@ -437,7 +444,7 @@
   },
 
   "dangerRating" : {
-    "noRating" : "pas notée",
+    "noRating" : "pas noté",
     "low" : "faible",
     "moderate" : "limité",
     "considerable" : "marqué",
@@ -448,7 +455,7 @@
     "newSnow" : "Neige fraîche",
     "windDriftedSnow" : "Neige soufflée",
     "oldSnow" : "Couche fragile persistante",
-    "wetSnow" : "Neige mouillée",
+    "wetSnow" : "Neige humide",
     "glidingSnow" : "Neige glissante"
   },
   "dangerPattern" : {
@@ -479,13 +486,50 @@
     "IT-32-TN" : "Trentin"
   },
   "tendency" : {
-    "decreasing" : "Danger d'avalanche diminue",
+    "decreasing" : "Le Danger d'avalanche diminue",
     "steady" : "Danger d'avalanche reste la même",
-    "increasing" : "Danger d'avalanche augmente"
+    "increasing" : "Le danger d'avalanche augmente"
   },
   "changeRegionDialog" : {
     "message" : "Abandoner les modifications et changer la région?",
     "accept" : "Oui",
     "reject" : "Non"
+  },
+  "zamg": {
+    "table" : "Table",
+    "region" : "Region",
+    "newSnow" : "New snow"
+  },
+  "snowpack" : {
+    "plotType" : {
+      "LWC_stratigraphy" : "wet snow: liquid water content",
+      "wet_snow_instability" : "wet snow: wet snow instability",
+      "Sk38_stratigraphy" : "persistent weak layers: SK38 stability index",
+      "stratigraphy" : "persistent weak layers: snow stratigraphy"
+    },
+    "aspect" : {
+      "flat" : "flat",
+      "north" : "north",
+      "south" : "south"
+    },
+    "meteo" : {
+      "new_snow_plot_3day" : "new snow (3d)",
+      "new_snow_plot_7day" : "new snow (7d)",
+      "new_snow_plot_1month" : "new snow (31d)",
+      "new_snow_plot_season" : "new snow (season)",
+      "new_snow_plot_forecast" : "new snow (forecast)",
+      "wet_snow_plot_3day" : "wet snow (3d)",
+      "wet_snow_plot_7day" : "wet snow (7d)",
+      "wet_snow_plot_1month" : "wet snow (31d)",
+      "wet_snow_plot_season" : "wet snow (season)",
+      "wet_snow_plot_forecast" : "wet snow (forecast)",
+      "HS_table_24h" : "new snow table (1d)",
+      "HS_table_72h" : "new snow table (3d)",
+      "HS_table_season" : "new snow table (season)",
+      "HS_table_forecast" : "new snow table (forecast)",
+      "TA_table_24h" : "wet snow table (1d)",
+      "TA_table_72h" : "wet snow table (3h)",
+      "TA_table_season" : "wet snow table (season)"
+    }
   }
 }

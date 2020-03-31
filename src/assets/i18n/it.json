@@ -5,19 +5,21 @@
     "text" : "Accedi al tuo account",
     "button" : "Login",
     "errorDialog" : {
-      "header" : "Errore di login",
-      "message" : "Errore nome o password!",
+      "header" : "Errore login",
+      "message" : "Errore nome utente o password!",
       "accept" : "Ok"
     },
     "placeholder" : {
-      "username" : "Inserisci il tuo nome utente",
-      "password" : "Inserisci la tua password"
+      "username" : "Inserire nome utente",
+      "password" : "Inserire password"
     }
   },
   "sidebar" : {
-    "bulletins" : "Bollettino",
+    "bulletins" : "Bollettini",
     "observations" : "Osservazzioni",
-    "modellingZamg": "ZAMG multi model",
+    "modellingZamg": "Multi modelli ZAMG ",
+    "modellingSnowpack": "Modello SNOWPACK",
+    "modellingSnowpackMeteo": "Dati meteo simulati SNOWPACK",
     "admin" : "Admin",
     "catalogueOfPhrases" : "Catalogo delle frasi"
   },
@@ -28,6 +30,7 @@
     "de" : " Tedesco",
     "fr" : " Francese",
     "it" : " Italiano",
+    "fullscreen" : "A schermo pieno ",
     "settings" : "Impostazioni",
     "region" : "Regione"
   },
@@ -108,7 +111,8 @@
         "dangerPatterns" : "Situazioni tipo",
         "elevationHigh" : "Sotto",
         "elevationLow" : "Sopra",
-        "tendencyComment" : "Tendenza"
+        "tendencyComment" : "Tendenza",
+        "notes" : "Commenti"
       },
       "title" : {
         "map" : "Mappa",
@@ -129,6 +133,9 @@
         "pmdialog" : "Catalogo delle frasi",
         "showTranslations" : " Mostra traduzione",
         "hideTranslations" : " Nascondi traduzione"
+      },
+      "placeholder" : {
+        "notes" : "Commenti non verrano salvati"
       },
       "pmDialog" : {
         "noIFrameSupport" : "Il tuo browser non supporta IFrames!"
@@ -210,7 +217,7 @@
         "caaml" : "CAAML"
       },
       "status" : {
-        "missing" : "mancha",
+        "missing" : "manca",
         "draft" : "abbozzo",
         "submitted" : "inviato",
         "published" : "pubblicato",
@@ -229,10 +236,10 @@
         "missingDangerRating" : "Grado di pericolo non definato",
         "missingRegion" : "Micro-aree non valutate",
         "duplicateRegion" : "Micro-aree valutate più volte",
-        "missingAvActivityHighlights" : "Mancha il titolo situazione di pericolo",
-        "missingAvActivityComment" : "Mancha la valutazione pericolo valanghe",
-        "missingSnowpackStructureHighlights" : "Manche il titolo della descrizione manto nevoso",
-        "missingSnowpackStructureComment" : "Manche la descrizione del manto nevoso",
+        "missingAvActivityHighlights" : "Manca il titolo situazione di pericolo",
+        "missingAvActivityComment" : "Manca la valutazione pericolo valanghe",
+        "missingSnowpackStructureHighlights" : "Manca il titolo della descrizione manto nevoso",
+        "missingSnowpackStructureComment" : "Manca la descrizione del manto nevoso",
         "pendingSuggestions" : "Proposta non confermata",
         "incompleteTranslation" : "Traduzione incompleta",
         "accept" : "Sí",
@@ -290,10 +297,10 @@
         "missingDangerRating" : "Grado di pericolo non definato",
         "missingRegion" : "Micro-aree non valutate",
         "duplicateRegion" : "Micro-aree valutate più volte",
-        "missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
-        "missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
-        "missingSnowpackStructureHighlights" : "Manche il titolo della descrizione manto nevoso",
-        "missingSnowpackStructureComment" : "Manche la descrizione del manto nevoso",
+        "missingAvActivityHighlights" : "Manca titolo situazione di pericolo",
+        "missingAvActivityComment" : "Manca valutazione pericolo valanghe",
+        "missingSnowpackStructureHighlights" : "Manca il titolo della descrizione manto nevoso",
+        "missingSnowpackStructureComment" : "Manca la descrizione del manto nevoso",
         "pendingSuggestions" : "Proposta non confermata",
         "incompleteTranslation" : "Traduzione incompleta",
         "accept" : "Sí",
@@ -320,10 +327,10 @@
         "missingDangerRating" : "Grado di pericolo non definato",
         "missingRegion" : "Micro-aree non valutate",
         "duplicateRegion" : "Micro-aree valutate più volte",
-        "missingAvActivityHighlights" : "Mancha titolo situazione di pericolo",
-        "missingAvActivityComment" : "Mancha valutazione pericolo valanghe",
-        "missingSnowpackStructureHighlights" : "Manche il titolo della descrizione manto nevoso",
-        "missingSnowpackStructureComment" : "Manche la descrizione del manto nevoso",
+        "missingAvActivityHighlights" : "Manca titolo situazione di pericolo",
+        "missingAvActivityComment" : "Manca valutazione pericolo valanghe",
+        "missingSnowpackStructureHighlights" : "Manca il titolo della descrizione manto nevoso",
+        "missingSnowpackStructureComment" : "Manca la descrizione del manto nevoso",
         "pendingSuggestions" : "Proposta non confermata",
         "incompleteTranslation" : "Traduzione incompleta",
         "ok" : "(tutto va bene)",
@@ -419,7 +426,7 @@
       "passwordChangeError" : "Password non modificabile",
       "passwordIncorrect" : "Password non è correta",
       "passwordsNotMatching" : "Le password non corrispondono",
-      "passwordEmpty" : "Mancha la password"
+      "passwordEmpty" : "Manca la password"
     },
     "saveConfiguration" : {
       "success" : "Configurazione salvata",
@@ -487,5 +494,42 @@
     "message" : "Vuoi scartare i cambiamenti e cambiare la regione?",
     "accept" : "Sì",
     "reject" : "No"
+  },
+  "zamg": {
+    "table" : "Table",
+    "region" : "Region",
+    "newSnow" : "New snow"
+  },
+  "snowpack" : {
+    "plotType" : {
+      "LWC_stratigraphy" : "wet snow: liquid water content",
+      "wet_snow_instability" : "wet snow: wet snow instability",
+      "Sk38_stratigraphy" : "persistent weak layers: SK38 stability index",
+      "stratigraphy" : "persistent weak layers: snow stratigraphy"
+    },
+    "aspect" : {
+      "flat" : "piano",
+      "north" : "Versante nord",
+      "south" : "Versante sud"
+    },
+    "meteo" : {
+      "new_snow_plot_3day" : "new snow (3d)",
+      "new_snow_plot_7day" : "Neve fresca (7g)",
+      "new_snow_plot_1month" : "Neve fresca (31g)",
+      "new_snow_plot_season" : "new snow (season)",
+      "new_snow_plot_forecast" : "Neve fresca (previsione)",
+      "wet_snow_plot_3day" : "Neve bagnata (3g)",
+      "wet_snow_plot_7day" : "Neve bagnata (7g)",
+      "wet_snow_plot_1month" : "Neve bagnata (31g)",
+      "wet_snow_plot_season" : "Neve bagnata (stagione)",
+      "wet_snow_plot_forecast" : "Neve bagnata (previsione)",
+      "HS_table_24h" : "new snow table (1d)",
+      "HS_table_72h" : "new snow table (3d)",
+      "HS_table_season" : "new snow table (season)",
+      "HS_table_forecast" : "new snow table (forecast)",
+      "TA_table_24h" : "wet snow table (1d)",
+      "TA_table_72h" : "wet snow table (3h)",
+      "TA_table_season" : "wet snow table (season)"
+    }
   }
 }
