@@ -153,13 +153,6 @@ registerLocaleData(localeFr, "fr");
   bootstrap: [AppComponent],
   exports: [
     TranslateModule
-  ],
-  entryComponents: [
-    ModalSubmitComponent,
-    ModalPublishComponent,
-    ModalCheckComponent,
-    ModalPublicationStatusComponent,
-    ModalPublishAllComponent
   ]
 })
 export class AppModule {}
