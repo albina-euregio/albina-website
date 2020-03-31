@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
+import { SettingsService } from "../providers/settings-service/settings.service";
 import { AlertComponent } from "ngx-bootstrap";
 
 @Component({
@@ -20,7 +21,8 @@ export class SettingsComponent implements OnInit {
   constructor(
     private translateService: TranslateService,
     private authenticationService: AuthenticationService,
-    private constantsService: ConstantsService) {
+    private constantsService: ConstantsService,
+    private settingsService: SettingsService) {
     this.changePasswordLoading = false;
   }
 

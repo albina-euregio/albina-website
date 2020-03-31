@@ -380,7 +380,6 @@
           "key" : "Parameter",
           "value" : "Value"
         },
-        "createCaaml" : "Create CAAML",
         "createMaps" : "Create maps",
         "createPdf" : "Create PDF",
         "createStaticWidget" : "Create static widgets",

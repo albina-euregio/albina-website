@@ -20,7 +20,6 @@ export class AdminComponent implements AfterContentInit {
 
   public alerts: any[] = [];
 
-  public createCaaml: boolean;
   public createMaps: boolean;
   public createPdf: boolean;
   public createStaticWidget: boolean;
@@ -79,7 +78,6 @@ export class AdminComponent implements AfterContentInit {
     if (this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin)) {
       this.configurationService.loadConfigurationProperties().subscribe(
         data => {
-          this.createCaaml = (data as any).createCaaml;
           this.createMaps = (data as any).createMaps;
           this.createPdf = (data as any).createPdf;
           this.createStaticWidget = (data as any).createStaticWidget;
@@ -144,7 +142,6 @@ export class AdminComponent implements AfterContentInit {
   public save() {
     this.saveConfigurationLoading = true;
     const json = Object();
-    json["createCaaml"] = this.createCaaml;
     json["createMaps"] = this.createMaps;
     json["createPdf"] = this.createPdf;
     json["createStaticWidget"] = this.createStaticWidget;
