@@ -38,7 +38,6 @@
     "@angular/upgrade": "^9.1.0",
     "@auth0/angular-jwt": "^4.0.0",
     "@ngx-translate/core": "^12.1.2",
-    "@ngx-translate/http-loader": "^4.0.0",
     "@sentry/browser": "^5.14.2",
     "@types/leaflet": "^1.5.11",
     "@types/leaflet.markercluster": "^1.4.2",
