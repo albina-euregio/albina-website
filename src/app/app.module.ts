@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, Injectable, NgModule } from "@angular/core";
 import { LocationStrategy, HashLocationStrategy, registerLocaleData } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { Observable } from "rxjs";
 
 import { AppComponent } from "./app.component";
 
@@ -44,9 +45,8 @@ import { PipeModule } from "./pipes/pipes.module";
 import { AuthGuard } from "./guards/auth.guard";
 
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
-import { HttpClientModule, HttpClient } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 
 import { BsDropdownModule, TabsModule, ModalModule, AlertModule } from "ngx-bootstrap";
 
@@ -62,6 +62,10 @@ import localeDe from "@angular/common/locales/de";
 import localeIt from "@angular/common/locales/it";
 import localeEn from "@angular/common/locales/en";
 import localeFr from "@angular/common/locales/fr";
+import i18nDe from "../assets/i18n/de.json";
+import i18nIt from "../assets/i18n/it.json";
+import i18nEn from "../assets/i18n/en.json";
+import i18nFr from "../assets/i18n/fr.json";
 
 const pkg = require("../../package.json");
 Sentry.init({
@@ -76,9 +80,24 @@ export class SentryErrorHandler implements ErrorHandler {
   }
 }
 
+export class DirectTranslateLoader implements TranslateLoader {
+  getTranslation(lang: string): Observable<Object> {
+    switch (lang) {
+      case "de":
+        return Observable.of(i18nDe);
+      case "it":
+        return Observable.of(i18nIt);
+      case "en":
+        return Observable.of(i18nEn);
+      case "fr":
+        return Observable.of(i18nFr);
+    }
+  }
+}
+
 // AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http);
+export function DirectLoaderFactory() {
+    return new DirectTranslateLoader();
 }
 
 registerLocaleData(localeDe, "de");
@@ -102,8 +121,7 @@ registerLocaleData(localeFr, "fr");
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
+        useFactory: DirectLoaderFactory
       },
       defaultLanguage: "de"
     })
