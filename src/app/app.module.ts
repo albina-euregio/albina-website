@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, Injectable, NgModule } from "@angular/core";
 import { LocationStrategy, HashLocationStrategy, registerLocaleData } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from "@angular/material/dialog";
 import { Observable } from "rxjs";
 
 import { AppComponent } from "./app.component";
@@ -13,6 +13,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SIDEBAR_TOGGLE_DIRECTIVES } from "./shared/sidebar.directive";
 import { AsideToggleDirective } from "./shared/aside.directive";
 import { BreadcrumbsComponent } from "./shared/breadcrumb.component";
+
+import { CatalogOfPhrasesComponent } from "./catalog-of-phrases/catalog-of-phrases.component";
 
 // Routing Module
 import { AppRoutingModule } from "./app.routing";
@@ -67,7 +69,6 @@ import i18nDe from "../assets/i18n/de.json";
 import i18nIt from "../assets/i18n/it.json";
 import i18nEn from "../assets/i18n/en.json";
 import i18nFr from "../assets/i18n/fr.json";
-import { CatalogOfPhrasesComponent } from './catalog-of-phrases/catalog-of-phrases.component';
 
 const pkg = require("../../package.json");
 Sentry.init({

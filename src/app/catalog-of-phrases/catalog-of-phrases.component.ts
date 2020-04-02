@@ -1,12 +1,12 @@
-import {Component, Inject, Injectable, ViewChild, ElementRef} from  '@angular/core';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialog} from  '@angular/material/dialog';
+import { Component, Inject, Injectable, ViewChild, ElementRef, AfterViewInit } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 
 import { Renderer2 } from "@angular/core";
 import { DomSanitizer, SafeUrl, SafeResourceUrl } from "@angular/platform-browser";
 import { Subscription } from "rxjs/Rx";
 
 @Component({
-  templateUrl: 'catalog-of-phrases.component.html',
+  templateUrl: "catalog-of-phrases.component.html",
   styles: [`
     :host{
       display: flex;
@@ -20,7 +20,7 @@ import { Subscription } from "rxjs/Rx";
     }
   `]
 })
-export class CatalogOfPhrasesComponent {
+export class CatalogOfPhrasesComponent implements AfterViewInit {
 
   @ViewChild("receiver") receiver: ElementRef<HTMLIFrameElement>;
 
@@ -30,8 +30,7 @@ export class CatalogOfPhrasesComponent {
   constructor(
     private dialogRef: MatDialogRef<CatalogOfPhrasesComponent>,
     private sanitizer: DomSanitizer,
-    @Inject(MAT_DIALOG_DATA) public data: any)
-  {
+    @Inject(MAT_DIALOG_DATA) public data: any) {
     this.url = data.pmUrl;
     this.pmData = data.pmData;
   }

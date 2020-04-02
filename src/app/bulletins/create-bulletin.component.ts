@@ -20,7 +20,7 @@ import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal";
 import { environment } from "../../environments/environment";
 
-import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MatDialogConfig } from "@angular/material/dialog";
 
 import "leaflet";
 import "leaflet.sync";
