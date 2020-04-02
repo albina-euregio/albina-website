@@ -714,7 +714,7 @@
 </ng-template>
 
 
-<p-dialog styleClass="pmdialog" header='{{ "bulletins.create.title.pmdialog" | translate }}' [(visible)]="display" [draggable]="false" [resizable]="true" modal="modal"  [contentStyle]="{'height':'80%'}">
+<p-dialog styleClass="pmdialog" header='{{ "bulletins.create.title.pmdialog" | translate }}' [(visible)]="display" [draggable]="false" [resizable]="true" modal="modal" [responsive]="true" [contentStyle]="{'height':'80%'}">
   <iframe id="receiver" #receiver [src]="pmUrl" width="100%" height="100%">
     <p>{{ "bulletins.create.pmDialog.noIFrameSupport" | translate }</p>
   </iframe>
