@@ -23,6 +23,7 @@
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeicons/primeicons.css",
               "src/scss/style.scss",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/MarkerCluster.css",
@@ -100,6 +101,7 @@
             "styles": [
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeicons/primeicons.css",
               "src/scss/style.scss",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/MarkerCluster.css",
