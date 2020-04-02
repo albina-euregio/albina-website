@@ -17,7 +17,7 @@
       "mobile": false,
       "styles": [
         "../node_modules/primeng/resources/primeng.min.css",
-        "../node_modules/primeng/resources/themes/bootstrap/theme.css",
+        "../node_modules/primeng/resources/themes/nova-light/theme.css",
         "scss/style.scss",
         "assets/css/font-awesome.min.css",
         "assets/css/MarkerCluster.css",
