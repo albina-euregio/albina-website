@@ -43,3 +43,12 @@ textarea.form-control:disabled {
 	color: #607d8b;
 }
 
+button.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  line-height: 14px;
+  min-width: auto;
+  border: none;
+}

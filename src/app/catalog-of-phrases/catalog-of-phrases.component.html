@@ -1,0 +1,6 @@
+<button class="close" mat-button mat-dialog-close>X</button>
+<mat-dialog-content>
+	<iframe id="receiver" #receiver [src]="url" width="100%" height="100%">
+		<p>{{ "bulletins.create.pmDialog.noIFrameSupport" | translate }</p>
+	</iframe>
+</mat-dialog-content>

@@ -10,6 +10,7 @@ import { LocalStorageService } from "../providers/local-storage-service/local-st
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { CopyService } from "../providers/copy-service/copy.service";
+import { CatalogOfPhrasesComponent } from "../catalog-of-phrases/catalog-of-phrases.component";
 import { Observable } from "rxjs/Observable";
 import * as Enums from "../enums/enums";
 import "rxjs/add/operator/switchMap";
@@ -18,6 +19,8 @@ import { BehaviorSubject } from "rxjs/Rx";
 import { BsModalService } from "ngx-bootstrap/modal";
 import { BsModalRef } from "ngx-bootstrap/modal";
 import { environment } from "../../environments/environment";
+
+import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 
 import "leaflet";
 import "leaflet.sync";
@@ -140,6 +143,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   constructor(
     private router: Router,
     public bulletinsService: BulletinsService,
+    private dialog: MatDialog,
     private localStorageService: LocalStorageService,
     private authenticationService: AuthenticationService,
     private translateService: TranslateService,
@@ -160,12 +164,22 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     // this.timer = 0;
   }
 
-  showDialog() {
-    this.display = true;
+  showDialog(pmData) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "calc(100% - 10px)";
+    dialogConfig.height = "calc(100% - 10px)";
+    dialogConfig.maxHeight = "100%";
+    dialogConfig.maxWidth = "100%";
+    dialogConfig.data = {
+      pmUrl: this.pmUrl,
+      pmData: pmData
+    };
+
+    this.dialog.open(CatalogOfPhrasesComponent, dialogConfig);
   }
 
   hideDialog() {
-    this.display = false;
+    this.dialog.closeAll();
   }
 
   reset() {
@@ -1278,16 +1292,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       currentLang: this.translateService.currentLang
     });
 
-    const nativeElement = this.receiver.nativeElement;
-    const sendPmData = () => nativeElement.contentWindow.postMessage(pmData, "*");
-    if (nativeElement.contentWindow && nativeElement.contentWindow.postMessage) {
-      sendPmData();
-    } else {
-      // postMessage asynchronously (iframe does not exist before dialog is shown?)
-      nativeElement.addEventListener("load", sendPmData);
-    }
-
-    this.showDialog();
+    this.showDialog(pmData);
   }
 
   copyTextcat(event, field) {

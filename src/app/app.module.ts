@@ -2,6 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, Injectable, NgModule } from "@angular/core";
 import { LocationStrategy, HashLocationStrategy, registerLocaleData } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatDialogModule } from '@angular/material/dialog';
 import { Observable } from "rxjs";
 
 import { AppComponent } from "./app.component";
@@ -66,6 +67,7 @@ import i18nDe from "../assets/i18n/de.json";
 import i18nIt from "../assets/i18n/it.json";
 import i18nEn from "../assets/i18n/en.json";
 import i18nFr from "../assets/i18n/fr.json";
+import { CatalogOfPhrasesComponent } from './catalog-of-phrases/catalog-of-phrases.component';
 
 const pkg = require("../../package.json");
 Sentry.init({
@@ -109,6 +111,7 @@ registerLocaleData(localeFr, "fr");
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatDialogModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     AlertModule.forRoot(),
@@ -138,7 +141,8 @@ registerLocaleData(localeFr, "fr");
     ModalPublishComponent,
     ModalCheckComponent,
     ModalPublicationStatusComponent,
-    ModalPublishAllComponent
+    ModalPublishAllComponent,
+    CatalogOfPhrasesComponent
   ],
   providers: [
     {
