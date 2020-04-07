@@ -12,18 +12,6 @@
 	vertical-align: top;
 }
 
-.pmdialog {
-	width: 90% !important;
-	height: 80% !important;
-}
-
-@include media-breakpoint-down(md) {
-	.pmdialog {
-		width: 100% !important;
-		height: 100% !important;
-	}
-}
-
 .panel {
 	border: none;
 	margin-bottom: 0;
