@@ -275,9 +275,13 @@
             "success" : "Emails sent",
             "failed" : "Emails could not be sent"
           },
-          "whatsapp" : {
-            "success" : "Avalanche forecast sent to WhatsApp and Telegram",
-            "failed" : "Avalanche forecast could not be sent to WhatsApp and Telegram"
+          "messengerpeople" : {
+            "success" : "Avalanche forecast sent via Messengerpeople",
+            "failed" : "Avalanche forecast could not be sent via Messengerpeople"
+          },
+          "telegramChannel" : {
+            "success" : "Avalanche forecast sent via Telegram channel",
+            "failed" : "Avalanche forecast could not be sent via Telegram channel"
           },
           "twitter" : {
             "success" : "Avalanche forecast sent to Twitter",
@@ -385,7 +389,8 @@
         "createStaticWidget" : "Create static widgets",
         "createSimpleHtml" : "Create simple HTML",
         "sendEmails" : "Send emails",
-        "publishToSocialMedia" : "Publish on social media",
+        "publishToMessengerpeople" : "Publish via Messengerpeople",
+        "publishToTelegramChannel" : "Publish via Telegram channel",
         "publishAt5PM" : "Publish at 5PM",
         "publishAt8AM" : "Publish at 8AM",
         "localImagesPath" : "Path to local images",

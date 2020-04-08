@@ -78,11 +78,22 @@
                     </tr>
                     <tr>
                       <td>
-                        <label class="col-form-label">{{ "admin.config.table.publishToSocialMedia" | translate }}</label>
+                        <label class="col-form-label">{{ "admin.config.table.publishToMessengerpeople" | translate }}</label>
                       </td>
                       <td>
                         <label class="switch switch-primary">
-                          <input type="checkbox" class="switch-input" [(ngModel)]="publishToSocialMedia">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="publishToMessengerpeople">
+                          <span class="switch-slider"></span>
+                        </label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label class="col-form-label">{{ "admin.config.table.publishToTelegramChannel" | translate }}</label>
+                      </td>
+                      <td>
+                        <label class="switch switch-primary">
+                          <input type="checkbox" class="switch-input" [(ngModel)]="publishToTelegramChannel">
                           <span class="switch-slider"></span>
                         </label>
                       </td>

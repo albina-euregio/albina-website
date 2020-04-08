@@ -443,6 +443,15 @@ export class BulletinsService {
     return this.http.post<Response>(url, body, options);
   }
 
+  triggerTelegramChannel(date: Date, region: string): Observable<Response> {
+    const url = this.constantsService.getServerUrl() + "bulletins/publish/telegram?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    const headers = this.authenticationService.newAuthHeader();
+    const body = JSON.stringify("");
+    const options = { headers: headers };
+
+    return this.http.post<Response>(url, body, options);
+  }
+
   checkBulletins(date: Date, region: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/check?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();

@@ -20,6 +20,9 @@
 
 	  <i *ngIf="json.report.whatsappSent" class="fa fa-whatsapp" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.whatsapp.success' | translate }}"></i>
 	  <i *ngIf="!json.report.whatsappSent" class="fa fa-whatsapp" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.whatsapp.failed' | translate }}"></i>
+
+	  <i *ngIf="json.report.telegramChannelSent" class="fa fa-telegram" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.telegramChannel.success' | translate }}"></i>
+	  <i *ngIf="!json.report.telegramChannelSent" class="fa fa-telegram" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.telegramChannel.failed' | translate }}"></i>
 	</div>
 	<div *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" style="margin-top: 20px; margin-bottom: 20px;">
 	  <i *ngIf="json.report.caamlCreated" class="fa fa-file-text" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.caaml.success' | translate }}" (click)="createCaaml($event)"></i>
@@ -42,6 +45,9 @@
 
 	  <i *ngIf="json.report.whatsappSent" class="fa fa-whatsapp" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.whatsapp.success' | translate }}" (click)="triggerMessengerpeople($event)"></i>
 	  <i *ngIf="!json.report.whatsappSent" class="fa fa-whatsapp" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.whatsapp.failed' | translate }}" (click)="triggerMessengerpeople($event)"></i>
+
+	  <i *ngIf="json.report.telegramChannelSent" class="fa fa-telegram" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.telegramChannel.success' | translate }}" (click)="triggerTelegramChannel($event)"></i>
+	  <i *ngIf="!json.report.telegramChannelSent" class="fa fa-telegram" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.telegramChannel.failed' | translate }}" (click)="triggerTelegramChannel($event)"></i>
 	</div>
   <div>
   	<p>

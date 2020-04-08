@@ -275,9 +275,13 @@
             "success" : "Emails inviate",
             "failed" : "Non è stato possibile inviare e-mail"
           },
-          "whatsapp" : {
-            "success" : "Previsione valanghe inviata a WhatsApp e Telegram",
-            "failed" : "Non è stato possibile inviare la previsione delle valanghe a WhatsApp e Telegram"
+          "messengerpeople" : {
+            "success" : "Previsione valanghe inviata via Messengerpeople",
+            "failed" : "Non è stato possibile inviare la previsione delle valanghe via Messengerpeople"
+          },
+          "telegramChannel" : {
+            "success" : "Previsione valanghe inviata via calane Telegram",
+            "failed" : "Non è stato possibile inviare la previsione delle valanghe via canale Telegram"
           },
           "twitter" : {
             "success" : "Previsioni valanghe inviate a Twitter",
@@ -385,7 +389,8 @@
         "createStaticWidget" : "Creare widget statici",
         "createSimpleHtml" : "Creare simplice HTML",
         "sendEmails" : "Inviare e-mail",
-        "publishToSocialMedia" : "Pubblicazione sui social network",
+        "publishToMessengerpeople" : "Pubblicazione via Messengerpeople",
+        "publishToTelegramChannel" : "Pubblicazione via Telegram channel",
         "publishAt5PM" : "Publicare alle 17:00",
         "publishAt8AM" : "Publicare alle 08:00",
         "localImagesPath" : "Percoros alle immagini locali",

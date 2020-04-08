@@ -275,9 +275,13 @@
             "success" : "Emails envoyés",
             "failed" : "Emails ne pouvaient pas être envoyés"
           },
-          "whatsapp" : {
-            "success" : "Bulletin d'avalanche envoyé à What's App et Telegram",
-            "failed" : "Bulletin d'avalanche ne pouvait pas être envoyer à What's App et Telegram"
+          "messengerpeople" : {
+            "success" : "Bulletin d'avalanche envoyé via Messengerpeople",
+            "failed" : "Bulletin d'avalanche ne pouvait pas être envoyer via Messengerpeople"
+          },
+          "telegramChannel" : {
+            "success" : "Bulletin d'avalanche envoyé via chaîne de Telegram",
+            "failed" : "Bulletin d'avalanche ne pouvait pas être envoyer via chaîne de Telegram"
           },
           "twitter" : {
             "success" : "Bulletin d'avalanche envoyé à Twitter",
@@ -385,7 +389,8 @@
         "createStaticWidget" : "Creer widgets statiques",
         "createSimpleHtml" : "Creer HTML simple",
         "sendEmails" : "Envoyer les emails",
-        "publishToSocialMedia" : "Publier sur les réseaux sociaux",
+        "publishToMessengerpeople" : "Publier via les Messengerpeople",
+        "publishToTelegramChannel" : "Publier via les Telegram channel",
         "publishAt5PM" : "Publier à 5PM",
         "publishAt8AM" : "Publier à 8AM",
         "localImagesPath" : "Chemin vers les images locales",

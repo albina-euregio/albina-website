@@ -108,4 +108,16 @@ export class ModalPublicationStatusComponent {
       }
     );
   }
+
+  triggerTelegramChannel(event) {
+    event.stopPropagation();
+    this.bulletinsService.triggerTelegramChannel(this.date, this.authenticationService.activeRegion).subscribe(
+      data => {
+        console.info("Telegram channel triggered");
+      },
+      error => {
+        console.error("Telegram channel could not be triggered!");
+      }
+    );
+  }
 }

@@ -275,9 +275,13 @@
             "success" : "Emails wurden versandt",
             "failed" : "Emails konnten nicht versandt werden"
           },
-          "whatsapp" : {
-            "success" : "Lawinenvorhersage wurde auf WhatsApp und Telegram versandt",
-            "failed" : "Lawinenvorhersage konnte nicht auf WhatsApp und Telegram versandt werden"
+          "messengerpeople" : {
+            "success" : "Lawinenvorhersage wurde via Messengerpeople versandt",
+            "failed" : "Lawinenvorhersage konnte nicht via Messengerpeople versandt werden"
+          },
+          "telegramChannel" : {
+            "success" : "Lawinenvorhersage wurde via Telegram Kanal versandt",
+            "failed" : "Lawinenvorhersage konnte nicht via Telegram Kanal versandt werden"
           },
           "twitter" : {
             "success" : "Lawinenvorhersagen wurde auf Twitter versandt",
@@ -385,7 +389,8 @@
         "createStaticWidget" : "Statische Widgets erzeugen",
         "createSimpleHtml" : "Einfaches HTML erzeugen",
         "sendEmails" : "Emails versenden",
-        "publishToSocialMedia" : "Publizieren auf sozialen Netzwerken",
+        "publishToMessengerpeople" : "Publizieren via Messengerpeople",
+        "publishToTelegramChannel" : "Publizieren via Telegram Kanal",
         "publishAt5PM" : "Publizieren um 17:00 Uhr",
         "publishAt8AM" : "Publizieren um 08:00 Uhr",
         "localImagesPath" : "Pfad zu lokalen Bildern",

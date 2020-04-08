@@ -25,7 +25,8 @@ export class AdminComponent implements AfterContentInit {
   public createStaticWidget: boolean;
   public createSimpleHtml: boolean;
   public sendEmails: boolean;
-  public publishToSocialMedia: boolean;
+  public publishToMessengerpeople: boolean;
+  public publishToTelegramChannel: boolean;
   public publishAt5PM: boolean;
   public publishAt8AM: boolean;
   public localImagesPath: string;
@@ -83,7 +84,8 @@ export class AdminComponent implements AfterContentInit {
           this.createStaticWidget = (data as any).createStaticWidget;
           this.createSimpleHtml = (data as any).createSimpleHtml;
           this.sendEmails = (data as any).sendEmails;
-          this.publishToSocialMedia = (data as any).publishToSocialMedia;
+          this.publishToMessengerpeople = (data as any).publishToMessengerpeople;
+          this.publishToTelegramChannel = (data as any).publishToTelegramChannel;
           this.publishAt5PM = (data as any).publishAt5PM;
           this.publishAt8AM = (data as any).publishAt8AM;
           this.localImagesPath = (data as any).localImagesPath;
@@ -147,7 +149,8 @@ export class AdminComponent implements AfterContentInit {
     json["createStaticWidget"] = this.createStaticWidget;
     json["createSimpleHtml"] = this.createSimpleHtml;
     json["sendEmails"] = this.sendEmails;
-    json["publishToSocialMedia"] = this.publishToSocialMedia;
+    json["publishToMessengerpeople"] = this.publishToMessengerpeople;
+    json["publishToTelegramChannel"] = this.publishToTelegramChannel;
     json["publishAt5PM"] = this.publishAt5PM;
     json["publishAt8AM"] = this.publishAt8AM;
     json["localImagesPath"] = this.localImagesPath;
