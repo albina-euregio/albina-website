@@ -20,7 +20,6 @@
     "modellingZamg": "ZAMG multi model",
     "modellingSnowpack": "SNOWPACK model",
     "modellingSnowpackMeteo": "SNOWPACK modelled meteo",
-    "admin" : "Admin",
     "catalogueOfPhrases" : "Catalogue of Phrases"
   },
   "menu" : {
@@ -32,6 +31,7 @@
     "it" : " Italian",
     "fullscreen" : "Fullscreen",
     "settings" : "Settings",
+    "admin" : "Admin",
     "region" : "Region"
   },
   "chat" : {

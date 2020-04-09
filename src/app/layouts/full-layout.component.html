@@ -23,9 +23,6 @@
     <li class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']">{{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
     </li>
-    <li *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" class="nav-item px-1">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin']">{{ "sidebar.admin" | translate }}</a>
-    </li>
   </ul>
 
   <ul class="nav navbar-nav ml-auto">
@@ -56,7 +53,7 @@
         <div class="dropdown-header text-center"><strong>{{ "menu.settings" | translate }}</strong></div>
         
         <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/settings']"><i class="fa fa-gear"></i> {{ "menu.settings" | translate }}</a>
-
+        <a *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin']"><i class="fa fa-user-secret"></i>{{ "menu.admin" | translate }}</a>
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-sign-out"></i> {{ "menu.logout" | translate }}</a>
       </div>
     </li>
@@ -87,9 +84,6 @@
         </li>
         <li class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg']">{{ "sidebar.modellingZamg" | translate }}</a>
-        </li>
-        <li *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/admin']"><i class="fa fa-user-secret"></i> {{ "sidebar.admin" | translate }}</a>
         </li>
       </ul>
     </nav>

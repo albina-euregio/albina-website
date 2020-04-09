@@ -20,7 +20,6 @@
     "modellingZamg": "Multi modelli ZAMG ",
     "modellingSnowpack": "Modello SNOWPACK",
     "modellingSnowpackMeteo": "Dati meteo simulati SNOWPACK",
-    "admin" : "Admin",
     "catalogueOfPhrases" : "Catalogo delle frasi"
   },
   "menu" : {
@@ -32,6 +31,7 @@
     "it" : " Italiano",
     "fullscreen" : "A schermo pieno ",
     "settings" : "Impostazioni",
+    "admin" : "Admin",
     "region" : "Regione"
   },
   "chat" : {
