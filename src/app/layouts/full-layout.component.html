@@ -77,13 +77,19 @@
         </li>
 -->
         <li class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins']"><i class="fa fa-align-justify"></i> {{ "sidebar.bulletins" | translate }}</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins']"><i class="fa fa-snowflake-o"></i> {{ "sidebar.bulletins" | translate }}</a>
         </li>
         <li *ngIf="settingsService.getShowObservations()" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/observations']"><i class="fa fa-eye"></i> {{ "sidebar.observations" | translate }}</a>
         </li>
         <li class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg']">{{ "sidebar.modellingZamg" | translate }}</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg']"><i class="fa fa-line-chart"></i> {{ "sidebar.modellingZamg" | translate }}</a>
+        </li>
+        <li class="nav-item nav-dropdown" routerLinkActive="open">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpack']"><i class="fa fa-area-chart"></i> {{ "sidebar.modellingSnowpack" | translate }}</a>
+        </li>
+        <li class="nav-item nav-dropdown" routerLinkActive="open">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']"><i class="fa fa-bar-chart"></i> {{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
         </li>
       </ul>
     </nav>

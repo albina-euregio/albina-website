@@ -15,7 +15,7 @@
     }
   },
   "sidebar" : {
-    "bulletins" : "Bollettini",
+    "bulletins" : "Valanghe.report",
     "observations" : "Osservazzioni",
     "modellingZamg": "Multi modelli ZAMG ",
     "modellingSnowpack": "Modello SNOWPACK",
@@ -44,7 +44,7 @@
     "IT-32-TN" : "Trentino "
   },
   "bulletins" : {
-    "title" : "Bollettini",
+    "title" : "Valanghe.report",
     "tooltip" : {
       "publish" : "Pubblicare bollettino valanghe",
       "submit" : "Inviare bollettino valanghe",

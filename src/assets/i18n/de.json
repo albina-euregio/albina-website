@@ -15,7 +15,7 @@
     }
   },
   "sidebar" : {
-    "bulletins" : "Lawinenvorhersagen",
+    "bulletins" : "Lawinen.report",
     "observations" : "Rückmeldungen",
     "modellingZamg": "ZAMG Multimodel",
     "modellingSnowpack": "SNOWPACK Model",
@@ -44,7 +44,7 @@
     "IT-32-TN" : "Trentino "
   },
   "bulletins" : {
-    "title" : "Lawinenvorhersagen",
+    "title" : "Lawinen.report",
     "tooltip" : {
       "publish" : "Update zur Lawinenvorhersage sofort publizieren",
       "submit" : "Lawinenvorhersage absenden",

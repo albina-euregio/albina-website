@@ -15,7 +15,7 @@
     }
   },
   "sidebar" : {
-    "bulletins" : "Bulletins",
+    "bulletins" : "Avalanche.report",
     "observations" : "Observations",
     "modellingZamg": "ZAMG multi-modèle",
     "modellingSnowpack": "SNOWPACK model",
@@ -44,7 +44,7 @@
     "IT-32-TN" : "Trentin"
   },
   "bulletins" : {
-    "title" : "Bulletins",
+    "title" : "Avalanche.report",
     "tooltip" : {
       "publish" : "Publier le bulletin immédiatement ",
       "submit" : "Soumettre le bulletin",
