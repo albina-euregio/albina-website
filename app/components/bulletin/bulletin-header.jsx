@@ -42,9 +42,17 @@ class BulletinHeader extends React.Component {
             status={this.props.store.settings.status}
           />
           {/* <h2 className="subheader">{this.props.title}</h2> */}
-          <h1 className="bulletin-datetime-validity">
-            {this.date}
-          </h1>
+
+          <a
+            href="#videoDialog"
+            title={this.props.intl.formatMessage({
+              id: "bulletin:linkbar:subscribe:hover"
+            })}
+            className="modal-trigger popup-modal tooltip"
+          >
+            <h1 className="bulletin-datetime-validity">{this.date}</h1>
+          </a>
+
           <BulletinDateFlipper
             date={this.props.store.settings.date}
             latest={this.props.store.latest}
