@@ -189,7 +189,50 @@ class Archive extends React.Component {
             </div>
           </section>
         </section>
-        <div>{preprocessContent(this.state.content)}</div>
+        <section classname="section-centered section-context">
+          <div classname="panel">
+            <h2 classname="subheader">
+              {this.props.intl.formatMessage({
+                id: "archive:former-archives:headline"
+              })}
+            </h2>
+            <ul classname="list-inline ">
+              <li>
+                <a
+                  classname="secondary pure-button"
+                  href="https://avalanche.report/albina_files/archive/tyrol/"
+                  target="_blank"
+                >
+                  {this.props.intl.formatMessage({
+                    id: "archive:former-archives:tyrol"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a
+                  classname="secondary pure-button"
+                  href="http://wetter.provinz.bz.it/archiv-lawinen.asp"
+                  target="_blank"
+                >
+                  {this.props.intl.formatMessage({
+                    id: "archive:former-archives:south-tyrol"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a
+                  classname="secondary pure-button"
+                  href="https://www.meteotrentino.it/#!/content?menuItemDesktop=32"
+                  target="_blank"
+                >
+                  {this.props.intl.formatMessage({
+                    id: "archive:former-archives:trentino"
+                  })}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
         {this.state.sharable ? (
           <SmShare />
         ) : (

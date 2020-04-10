@@ -307,8 +307,6 @@ class BlogOverview extends React.Component {
             </div>
           )}
         </section>
-        <div>{preprocessContent(this.state.content)}</div>
-
         {this.state.sharable ? (
           <SmShare />
         ) : (

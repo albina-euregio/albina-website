@@ -23,7 +23,12 @@ const StationMap = loadable(() =>
   import(/* webpackChunkName: "app-stationMap" */ "./../views/stationMap")
 );
 import OverviewPage from "./../views/overviewPage";
+import More from "./../views/more";
 import Archive from "./../views/archive";
+import About from "./../views/about";
+import Contact from "./../views/contact";
+import Imprint from "./../views/imprint";
+import Privacy from "./../views/privacy";
 import StaticPage from "./../views/staticPage";
 import SubscribeConfirmation from "./../views/subscribeConfirmation";
 import Page from "./page";
@@ -128,12 +133,32 @@ class App extends React.Component {
           {
             path: "/more",
             exact: true,
-            component: OverviewPage
+            component: More
+          },
+          {
+            path: "/more/about",
+            exact: true,
+            component: About
           },
           {
             path: "/archive",
             exact: true,
             component: Archive
+          },
+          {
+            path: "/more/contact",
+            exact: true,
+            component: Contact
+          },
+          {
+            path: "/more/imprint",
+            exact: true,
+            component: Imprint
+          },
+          {
+            path: "/more/privacy",
+            exact: true,
+            component: Privacy
           },
           {
             path: "/subscribe/:hash",
