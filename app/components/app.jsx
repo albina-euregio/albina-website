@@ -22,7 +22,7 @@ const StationMeasurements = loadable(() =>
 const StationMap = loadable(() =>
   import(/* webpackChunkName: "app-stationMap" */ "./../views/stationMap")
 );
-import OverviewPage from "./../views/overviewPage";
+import Education from "./../views/education";
 import More from "./../views/more";
 import Archive from "./../views/archive";
 import About from "./../views/about";
@@ -119,7 +119,7 @@ class App extends React.Component {
           {
             path: "/education",
             exact: true,
-            component: OverviewPage
+            component: Education
           },
           {
             path: "/blog/:blogName/:postId",

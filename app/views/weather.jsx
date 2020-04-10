@@ -5,7 +5,6 @@ import { modal_open_by_params } from "../js/modal";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { preprocessContent } from "../util/htmlParser";
 
 import Menu from "../components/menu";
 import WeatherMap from "../components/weather/weather-map";
@@ -180,7 +179,6 @@ class Weather extends React.Component {
             </div>
           )}
         </section>
-        <div>{preprocessContent(this.state.content)}</div>
         {this.state.sharable ? (
           <SmShare />
         ) : (

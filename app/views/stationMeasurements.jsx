@@ -11,7 +11,6 @@ import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import loadable from "@loadable/component";
-import { preprocessContent } from "../util/htmlParser";
 const StationTable = loadable(() =>
   import(
     /* webpackChunkName: "app-stationTable" */ "../components/stationTable/stationTable"
@@ -130,7 +129,74 @@ class StationMeasurements extends React.Component {
             />
           </div>
         </section>
-        <div>{preprocessContent(this.state.content)}</div>
+        <section className="section-centered section-context">
+          <div className="panel">
+            <h2 className="subheader">
+              {this.props.intl.formatMessage({ id: "button:snow:headline" })}
+            </h2>
+
+            <ul className="list-inline list-buttongroup-dense">
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:snow:hn:link"
+                  })}
+                  target="_blank"
+                  title={this.props.intl.formatMessage({
+                    id: "button:snow:hn:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({ id: "button:snow:hn:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:snow:hs:link"
+                  })}
+                  target="_blank"
+                  title={this.props.intl.formatMessage({
+                    id: "button:snow:hs:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({ id: "button:snow:hs:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:snow:ff:link"
+                  })}
+                  target="_blank"
+                  title={this.props.intl.formatMessage({
+                    id: "button:snow:ff:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({ id: "button:snow:ff:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:snow:stations:link"
+                  })}
+                  target="_blank"
+                  title={this.props.intl.formatMessage({
+                    id: "button:snow:stations:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:snow:stations:text"
+                  })}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
         {this.state.sharable ? (
           <SmShare />
         ) : (

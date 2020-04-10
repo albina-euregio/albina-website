@@ -1,6 +1,5 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { preprocessContent } from "../util/htmlParser";
 import { reaction } from "mobx";
 import { observer, inject } from "mobx-react";
 import { BulletinStore } from "../stores/bulletinStore";
@@ -252,11 +251,234 @@ class Bulletin extends React.Component {
             description={shareDescription}
           />
         )}
-        {/* <div className="section-padding section-centered"> */}
-        {preprocessContent(this.state.content)}
-        {/* </div> */}
+        <section className="section-centered section-context">
+          <div className="panel">
+            <h2 className="subheader">
+              {this.props.intl.formatMessage({ id: "button:weather:headline" })}
+            </h2>
+
+            <ul className="list-inline list-buttongroup-dense">
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:weather:AT-07:link"
+                  })}
+                  target="_blank"
+                  title={this.props.intl.formatMessage({
+                    id: "button:weather:AT-07:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:weather:AT-07:text"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:weather:IT-32-BZ:link"
+                  })}
+                  target="_blank"
+                  title={this.props.intl.formatMessage({
+                    id: "button:weather:IT-32-BZ:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:weather:IT-32-BZ:text"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:weather:IT-32-TN:link"
+                  })}
+                  target="_blank"
+                  title={this.props.intl.formatMessage({
+                    id: "button:weather:IT-32-TN:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:weather:IT-32-TN:text"
+                  })}
+                </a>
+              </li>
+            </ul>
+
+            <h2 className="subheader">
+              {this.props.intl.formatMessage({ id: "button:blog:headline" })}
+            </h2>
+
+            <ul className="list-inline list-buttongroup-dense">
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:blog:AT-07:link"
+                  })}
+                  title={this.props.intl.formatMessage({
+                    id: "button:blog:AT-07:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:blog:AT-07:text"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:blog:IT-32-BZ:link"
+                  })}
+                  title={this.props.intl.formatMessage({
+                    id: "button:blog:IT-32-BZ:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:blog:IT-32-BZ:text"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:blog:IT-32-TN:link"
+                  })}
+                  title={this.props.intl.formatMessage({
+                    id: "button:blog:IT-32-TN:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:blog:IT-32-TN:text"
+                  })}
+                </a>
+              </li>
+            </ul>
+
+            <h2 className="subheader">
+              {this.props.intl.formatMessage({ id: "button:snow:headline" })}
+            </h2>
+
+            <ul className="list-inline list-buttongroup-dense">
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:snow:hn:link"
+                  })}
+                  title={this.props.intl.formatMessage({
+                    id: "button:snow:hn:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({ id: "button:snow:hn:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:snow:hs:link"
+                  })}
+                  title={this.props.intl.formatMessage({
+                    id: "button:snow:hs:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({ id: "button:snow:hs:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:snow:ff:link"
+                  })}
+                  title={this.props.intl.formatMessage({
+                    id: "button:snow:ff:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({ id: "button:snow:ff:text" })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:snow:stations:link"
+                  })}
+                  title={this.props.intl.formatMessage({
+                    id: "button:snow:stations:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:snow:stations:text"
+                  })}
+                </a>
+              </li>
+            </ul>
+
+            <h2 className="subheader">
+              {this.props.intl.formatMessage({
+                id: "button:education:headline"
+              })}
+            </h2>
+
+            <ul className="list-inline list-buttongroup-dense">
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:education:danger-scale:link"
+                  })}
+                  title={this.props.intl.formatMessage({
+                    id: "button:education:danger-scale:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:education:danger-scale:text"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:education:avalanche-problems:link"
+                  })}
+                  title={this.props.intl.formatMessage({
+                    id: "button:education:avalanche-problems:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:education:avalanche-problems:text"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href={this.props.intl.formatMessage({
+                    id: "button:education:danger-patterns:link"
+                  })}
+                  title={this.props.intl.formatMessage({
+                    id: "button:education:danger-patterns:text"
+                  })}
+                >
+                  {this.props.intl.formatMessage({
+                    id: "button:education:danger-patterns:text"
+                  })}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
       </>
     );
   }
 }
+
 export default inject("locale")(injectIntl(withRouter(Bulletin)));
