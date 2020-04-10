@@ -21,14 +21,14 @@ class More extends StaticPage {
           marginal={this.state.headerText}
         />
         <section className="section section-features">
-          <ul class="list-plain features">
-            <li class="feature-item">
+          <ul className="list-plain features">
+            <li className="feature-item">
               <a
                 href="/more/archive"
                 title="Archive"
-                class="linkbox linkbox-feature"
+                className="linkbox linkbox-feature"
               >
-                <div class="content-image">
+                <div className="content-image">
                   <img
                     src="/content_files/feature_archive.jpg"
                     title={this.props.intl.formatMessage({
@@ -37,11 +37,11 @@ class More extends StaticPage {
                     alt={this.props.intl.formatMessage({
                       id: "more:archive:image:alt"
                     })}
-                    class=""
+                    className=""
                   />
                 </div>
-                <div class="content-text">
-                  <p class="h1 subheader">
+                <div className="content-text">
+                  <p className="h1 subheader">
                     {this.props.intl.formatMessage({
                       id: "more:archive:headline"
                     })}
@@ -52,13 +52,13 @@ class More extends StaticPage {
                 </div>
               </a>
             </li>
-            <li class="feature-item">
+            <li className="feature-item">
               <a
                 href="/more/about"
                 title="About"
-                class="linkbox linkbox-feature"
+                className="linkbox linkbox-feature"
               >
-                <div class="content-image">
+                <div className="content-image">
                   <img
                     src="/content_files/feature_about.jpg"
                     title={this.props.intl.formatMessage({
@@ -67,11 +67,11 @@ class More extends StaticPage {
                     alt={this.props.intl.formatMessage({
                       id: "more:about:image:alt"
                     })}
-                    class=""
+                    className=""
                   />
                 </div>
-                <div class="content-text">
-                  <p class="h1 subheader">
+                <div className="content-text">
+                  <p className="h1 subheader">
                     {this.props.intl.formatMessage({
                       id: "more:about:headline"
                     })}
@@ -82,13 +82,13 @@ class More extends StaticPage {
                 </div>
               </a>
             </li>
-            <li class="feature-item">
+            <li className="feature-item">
               <a
                 href="/more/contact"
                 title="Contact"
-                class="linkbox linkbox-feature"
+                className="linkbox linkbox-feature"
               >
-                <div class="content-image">
+                <div className="content-image">
                   <img
                     src="/content_files/feature_contact.jpg"
                     title={this.props.intl.formatMessage({
@@ -97,11 +97,11 @@ class More extends StaticPage {
                     alt={this.props.intl.formatMessage({
                       id: "more:contact:image:alt"
                     })}
-                    class=""
+                    className=""
                   />
                 </div>
-                <div class="content-text">
-                  <p class="h1 subheader">
+                <div className="content-text">
+                  <p className="h1 subheader">
                     {this.props.intl.formatMessage({
                       id: "more:contact:headline"
                     })}
@@ -112,13 +112,13 @@ class More extends StaticPage {
                 </div>
               </a>
             </li>
-            <li class="feature-item">
+            <li className="feature-item">
               <a
                 href="/more/imprint"
                 title="Imprint"
-                class="linkbox linkbox-feature"
+                className="linkbox linkbox-feature"
               >
-                <div class="content-image">
+                <div className="content-image">
                   <img
                     src="/content_files/feature_imprint.jpg"
                     title={this.props.intl.formatMessage({
@@ -127,11 +127,11 @@ class More extends StaticPage {
                     alt={this.props.intl.formatMessage({
                       id: "more:imprint:image:alt"
                     })}
-                    class=""
+                    className=""
                   />
                 </div>
-                <div class="content-text">
-                  <p class="h1 subheader">
+                <div className="content-text">
+                  <p className="h1 subheader">
                     {this.props.intl.formatMessage({
                       id: "more:imprint:headline"
                     })}
@@ -142,13 +142,13 @@ class More extends StaticPage {
                 </div>
               </a>
             </li>
-            <li class="feature-item">
+            <li className="feature-item">
               <a
                 href="/more/privacy"
                 title="Privacy Policy"
-                class="linkbox linkbox-feature"
+                className="linkbox linkbox-feature"
               >
-                <div class="content-image">
+                <div className="content-image">
                   <img
                     src="/content_files/feature_privacy.jpg"
                     title={this.props.intl.formatMessage({
@@ -157,11 +157,11 @@ class More extends StaticPage {
                     alt={this.props.intl.formatMessage({
                       id: "more:privacy:image:alt"
                     })}
-                    class=""
+                    className=""
                   />
                 </div>
-                <div class="content-text">
-                  <p class="h1 subheader">
+                <div className="content-text">
+                  <p className="h1 subheader">
                     {this.props.intl.formatMessage({
                       id: "more:privacy:headline"
                     })}
