@@ -14,7 +14,6 @@ import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import DayFilter from "../components/filters/day-filter.jsx";
 import { tooltip_init } from "../js/tooltip";
-import { preprocessContent } from "../util/htmlParser.js";
 
 class Archive extends React.Component {
   constructor(props) {

@@ -14,7 +14,6 @@ import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
 // import TagFilter from "../components/filters/tag-filter";
 import InfoBar from "../components/organisms/info-bar";
-import { preprocessContent } from "../util/htmlParser";
 
 class BlogOverview extends React.Component {
   _settingFilters;

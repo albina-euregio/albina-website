@@ -1,7 +1,7 @@
 import React from "react"; // eslint-disable-line no-unused-vars
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl } from "react-intl";
 import StaticPage from "./staticPage";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
