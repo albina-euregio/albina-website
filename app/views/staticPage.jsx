@@ -2,7 +2,6 @@ import React from "react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import { preprocessContent } from "../util/htmlParser";
 import { video_init } from "../js/video";
 
 import { scroll } from "../js/scroll";

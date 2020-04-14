@@ -4,7 +4,6 @@ import { observer, inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import StaticPage from "./staticPage";
 import PageHeadline from "../components/organisms/page-headline";
-import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 
 class Privacy extends StaticPage {
