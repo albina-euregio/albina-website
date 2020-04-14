@@ -23,6 +23,12 @@ const StationMap = loadable(() =>
   import(/* webpackChunkName: "app-stationMap" */ "./../views/stationMap")
 );
 import Education from "./../views/education";
+import DangerScale from "./../views/danger-scale";
+import AvalancheProblems from "./../views/avalanche-problems";
+import EawsMatrix from "./../views/matrix";
+import AvalancheSizes from "./../views/avalanche-sizes";
+import DangerPatterns from "./../views/danger-patterns";
+import Handbook from "./../views/handbook";
 import More from "./../views/more";
 import Archive from "./../views/archive";
 import About from "./../views/about";
@@ -120,6 +126,36 @@ class App extends React.Component {
             path: "/education",
             exact: true,
             component: Education
+          },
+          {
+            path: "/education/dangerscale",
+            exact: true,
+            component: DangerScale
+          },
+          {
+            path: "/education/avp",
+            exact: true,
+            component: AvalancheProblems
+          },
+          {
+            path: "/education/matrix",
+            exact: true,
+            component: EawsMatrix
+          },
+          {
+            path: "/education/avalanche-sizes",
+            exact: true,
+            component: AvalancheSizes
+          },
+          {
+            path: "/education/danger-patterns",
+            exact: true,
+            component: DangerPatterns
+          },
+          {
+            path: "/education/handbook",
+            exact: true,
+            component: Handbook
           },
           {
             path: "/blog/:blogName/:postId",
