@@ -517,7 +517,6 @@
   "button:education:danger-patterns:link": "/education/danger-patterns",
   "education:avalanche-sizes:title": "Avalanche Sizes",
   "education:avalanche-sizes:headline": "Avalanche Sizes",
-  "education:avalanche-sizes:headline": "Avalanche sizes",
   "education:avalanche-sizes:introduction": "The European avalanche warning services divide avalanche sizes into five size classes (based on the Canadian classification). The avalanche size class is defined, among other things, by the potential damage caused.<br />Under this definition, fatal 'skier-triggered avalanches' are often classified as 'small' or (barely) as 'medium' avalanches despite their considerable dimensions, being typically 150 m in length and having a slab size of some 50 m by 80 m and an average slab thickness of around 50 cm. This is equivalent to a slab volume of approximately 2'000 m&sup3; or around 400 tonnes.<br />In the following we present the different size classes with their potential damage, run out and typical dimensions.",
   "education:avalanche-sizes:headline:potential-damage": "Potential damage",
   "education:avalanche-sizes:headline:run-out": "Run out",

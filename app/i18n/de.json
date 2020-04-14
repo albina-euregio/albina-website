@@ -517,7 +517,6 @@
   "button:education:danger-patterns:link": "/education/danger-patterns",
   "education:avalanche-sizes:title": "Lawinengrößen",
   "education:avalanche-sizes:headline": "Lawinengrößen",
-  "education:avalanche-sizes:headline": "Lawinengröße",
   "education:avalanche-sizes:introduction": "Lawinen werden durch die Europäischen Lawinenwarndienste (EAWS) in fünf Größenklassen eingeteilt (in Anlehnung an die kanadische Klassifikation). Die Lawinengröße ist unter anderem über das Schadenpotenzial definiert.<br />Tödliche \"Skifahrerlawinen\" sind gemäß dieser Definition zwar oft \"kleine\" oder knapp \"mittlere\" Lawinen, erreichen aber dennoch beachtliche Ausmaße: Sie sind typischerweise 150 m lang, wobei die Anrissfläche etwa 50 m mal 80 m und die mittlere Anrissmächtigkeit rund 50 cm betragen. Dies entspricht einem Anrissvolumen von etwa 2'000 m&sup3; oder ca. 400 Tonnen.<br />Im Folgenden wird das Ausmaß der Lawine - klassifiziert nach Schadenspotenzial, Auslauflänge und Größe - erklärt.",
   "education:avalanche-sizes:headline:potential-damage": "Schadenspotenzial",
   "education:avalanche-sizes:headline:run-out": "Reichweite",
