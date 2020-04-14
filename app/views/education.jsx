@@ -15,9 +15,15 @@ class Education extends StaticPage {
   render() {
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({
+            id: "education:overview:title"
+          })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({
+            id: "education:overview:headline"
+          })}
           marginal={this.state.headerText}
         />
         <section className="section section-features">
@@ -31,10 +37,10 @@ class Education extends StaticPage {
                   <img
                     src="/content_files/feature_danger-scale.jpg"
                     title={this.props.intl.formatMessage({
-                      id: "education:danger-scale:image:title"
+                      id: "education:overview:danger-scale:image:title"
                     })}
                     alt={this.props.intl.formatMessage({
-                      id: "education:danger-scale:image:alt"
+                      id: "education:overview:danger-scale:image:alt"
                     })}
                     className=""
                   />
@@ -42,12 +48,12 @@ class Education extends StaticPage {
                 <div className="content-text">
                   <p className="h1 subheader">
                     {this.props.intl.formatMessage({
-                      id: "education:danger-scale:headline"
+                      id: "education:overview:danger-scale:headline"
                     })}
                   </p>
                   <p>
                     {this.props.intl.formatMessage({
-                      id: "education:danger-scale:text"
+                      id: "education:overview:danger-scale:text"
                     })}
                   </p>
                 </div>
@@ -60,10 +66,10 @@ class Education extends StaticPage {
                   <img
                     src="/content_files/feature_avalanche-problem.jpg"
                     title={this.props.intl.formatMessage({
-                      id: "education:avalanche-problems:image:title"
+                      id: "education:overview:avalanche-problems:image:title"
                     })}
                     alt={this.props.intl.formatMessage({
-                      id: "education:avalanche-problems:image:alt"
+                      id: "education:overview:avalanche-problems:image:alt"
                     })}
                     className=""
                   />
@@ -71,12 +77,12 @@ class Education extends StaticPage {
                 <div className="content-text">
                   <p className="h1 subheader">
                     {this.props.intl.formatMessage({
-                      id: "education:avalanche-problems:headline"
+                      id: "education:overview:avalanche-problems:headline"
                     })}
                   </p>
                   <p>
                     {this.props.intl.formatMessage({
-                      id: "education:avalanche-problems:text"
+                      id: "education:overview:avalanche-problems:text"
                     })}
                   </p>
                 </div>
@@ -89,10 +95,10 @@ class Education extends StaticPage {
                   <img
                     src="/content_files/feature_matrix.jpg"
                     title={this.props.intl.formatMessage({
-                      id: "education:eaws-matrix:image:title"
+                      id: "education:overview:eaws-matrix:image:title"
                     })}
                     alt={this.props.intl.formatMessage({
-                      id: "education:eaws-matrix:image:alt"
+                      id: "education:overview:eaws-matrix:image:alt"
                     })}
                     className=""
                   />
@@ -100,12 +106,12 @@ class Education extends StaticPage {
                 <div className="content-text">
                   <p className="h1 subheader">
                     {this.props.intl.formatMessage({
-                      id: "education:eaws-matrix:headline"
+                      id: "education:overview:eaws-matrix:headline"
                     })}
                   </p>
                   <p>
                     {this.props.intl.formatMessage({
-                      id: "education:eaws-matrix:text"
+                      id: "education:overview:eaws-matrix:text"
                     })}
                   </p>
                 </div>
@@ -121,10 +127,10 @@ class Education extends StaticPage {
                   <img
                     src="/content_files/feature_avalanche-size.jpg"
                     title={this.props.intl.formatMessage({
-                      id: "education:avalanche-sizes:image:title"
+                      id: "education:overview:avalanche-sizes:image:title"
                     })}
                     alt={this.props.intl.formatMessage({
-                      id: "education:avalanche-sizes:image:alt"
+                      id: "education:overview:avalanche-sizes:image:alt"
                     })}
                     className=""
                   />
@@ -132,12 +138,12 @@ class Education extends StaticPage {
                 <div className="content-text">
                   <p className="h1 subheader">
                     {this.props.intl.formatMessage({
-                      id: "education:avalanche-sizes:headline"
+                      id: "education:overview:avalanche-sizes:headline"
                     })}
                   </p>
                   <p>
                     {this.props.intl.formatMessage({
-                      id: "education:avalanche-sizes:text"
+                      id: "education:overview:avalanche-sizes:text"
                     })}
                   </p>
                 </div>
@@ -153,10 +159,10 @@ class Education extends StaticPage {
                   <img
                     src="/content_files/feature_danger-pattern.jpg"
                     title={this.props.intl.formatMessage({
-                      id: "education:danger-patterns:image:title"
+                      id: "education:overview:danger-patterns:image:title"
                     })}
                     alt={this.props.intl.formatMessage({
-                      id: "education:danger-patterns:image:alt"
+                      id: "education:overview:danger-patterns:image:alt"
                     })}
                     className=""
                   />
@@ -164,12 +170,12 @@ class Education extends StaticPage {
                 <div className="content-text">
                   <p className="h1 subheader">
                     {this.props.intl.formatMessage({
-                      id: "education:danger-patterns:headline"
+                      id: "education:overview:danger-patterns:headline"
                     })}
                   </p>
                   <p>
                     {this.props.intl.formatMessage({
-                      id: "education:danger-patterns:text"
+                      id: "education:overview:danger-patterns:text"
                     })}
                   </p>
                 </div>
@@ -179,7 +185,7 @@ class Education extends StaticPage {
             <li className="feature-item">
               <a
                 href={this.props.intl.formatMessage({
-                  id: "education:glossary:link"
+                  id: "education:overview:glossary:link"
                 })}
                 target="_blank"
                 className="linkbox linkbox-feature"
@@ -188,10 +194,10 @@ class Education extends StaticPage {
                   <img
                     src="/content_files/feature_glossary.jpg"
                     title={this.props.intl.formatMessage({
-                      id: "education:glossary:image:title"
+                      id: "education:overview:glossary:image:title"
                     })}
                     alt={this.props.intl.formatMessage({
-                      id: "education:glossary:image:alt"
+                      id: "education:overview:glossary:image:alt"
                     })}
                     className=""
                   />
@@ -199,12 +205,12 @@ class Education extends StaticPage {
                 <div className="content-text">
                   <p className="h1 subheader">
                     {this.props.intl.formatMessage({
-                      id: "education:glossary:headline"
+                      id: "education:overview:glossary:headline"
                     })}
                   </p>
                   <p>
                     {this.props.intl.formatMessage({
-                      id: "education:glossary:text"
+                      id: "education:overview:glossary:text"
                     })}
                   </p>
                 </div>
@@ -221,10 +227,10 @@ class Education extends StaticPage {
                   <img
                     src="/content_files/feature_handbook.jpg"
                     title={this.props.intl.formatMessage({
-                      id: "education:handbook:image:title"
+                      id: "education:overview:handbook:image:title"
                     })}
                     alt={this.props.intl.formatMessage({
-                      id: "education:handbook:image:alt"
+                      id: "education:overview:handbook:image:alt"
                     })}
                     className=""
                   />
@@ -232,12 +238,12 @@ class Education extends StaticPage {
                 <div className="content-text">
                   <p className="h1 subheader">
                     {this.props.intl.formatMessage({
-                      id: "education:handbook:headline"
+                      id: "education:overview:handbook:headline"
                     })}
                   </p>
                   <p>
                     {this.props.intl.formatMessage({
-                      id: "education:handbook:text"
+                      id: "education:overview:handbook:text"
                     })}
                   </p>
                 </div>
@@ -245,11 +251,7 @@ class Education extends StaticPage {
             </li>
           </ul>
         </section>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding"></div>
-        )}
+        <SmShare />
       </>
     );
   }

@@ -15,9 +15,15 @@ class EawsMatrix extends StaticPage {
   render() {
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({
+            id: "education:eaws-matrix:title"
+          })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({
+            id: "education:eaws-matrix:headline"
+          })}
           marginal={this.state.headerText}
         />
         <section className="section section-features">
@@ -54,7 +60,7 @@ class EawsMatrix extends StaticPage {
                 <FormattedHTMLMessage id="education:eaws-matrix:image:caption" />
               </p>
               <h2>
-                <FormattedHTMLMessage id="education:eaws-matrix:headline" />
+                <FormattedHTMLMessage id="education:eaws-matrix:subheadline" />
               </h2>
               <p>
                 <FormattedHTMLMessage id="education:eaws-matrix:text:1" />
@@ -208,11 +214,7 @@ class EawsMatrix extends StaticPage {
             </div>
           </section>
         </section>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding"></div>
-        )}
+        <SmShare />
       </>
     );
   }

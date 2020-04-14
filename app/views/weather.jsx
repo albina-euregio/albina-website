@@ -1,7 +1,8 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { observer } from "mobx-react";
+import { observer, inject } from "mobx-react";
 import { modal_open_by_params } from "../js/modal";
+import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
@@ -35,17 +36,6 @@ class Weather extends React.Component {
       window.mapStore = new MapStore();
     }
     this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
-  }
-
-  componentDidMount() {
-    window["staticPageStore"].loadPage("weather/map").then(responseParsed => {
-      this.setState({
-        title: responseParsed.data.attributes.title,
-        headerText: responseParsed.data.attributes.header_text,
-        content: responseParsed.data.attributes.body,
-        sharable: responseParsed.data.attributes.sharable
-      });
-    });
   }
 
   componentDidUpdate() {
@@ -114,9 +104,11 @@ class Weather extends React.Component {
       : [];
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({ id: "weathermap:title" })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({ id: "weathermap:headline" })}
           marginal={this.state.headerText}
         />
         <section className="section-flipper">
@@ -179,13 +171,9 @@ class Weather extends React.Component {
             </div>
           )}
         </section>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding" />
-        )}
+        <SmShare />
       </>
     );
   }
 }
-export default withRouter(observer(Weather));
+export default inject("locale")(injectIntl(withRouter(observer(Weather))));

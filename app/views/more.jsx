@@ -15,9 +15,11 @@ class More extends StaticPage {
   render() {
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({ id: "more:title" })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({ id: "more:headline" })}
           marginal={this.state.headerText}
         />
         <section className="section section-features">
@@ -174,11 +176,7 @@ class More extends StaticPage {
             </li>
           </ul>
         </section>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding"></div>
-        )}
+        <SmShare />
       </>
     );
   }

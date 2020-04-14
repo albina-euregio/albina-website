@@ -20,35 +20,9 @@ export default class StaticPage extends React.Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    this._fetchData(nextProps);
-  }
-
-  componentDidMount() {
-    this._fetchData(this.props);
-  }
-
   componentDidUpdate() {
     if (this.props.location.hash) {
       scroll(this.props.location.hash, 2000);
-    }
-  }
-
-  _fetchData(props) {
-    // remove projectRoot from the URL
-    const site = props.location.pathname
-      .substr(config.projectRoot)
-      .replace(/^\//, "");
-
-    if (site) {
-      window["staticPageStore"].loadPage(site).then(responseParsed => {
-        this.setState({
-          title: responseParsed.data.attributes.title,
-          headerText: responseParsed.data.attributes.header_text,
-          content: preprocessContent(responseParsed.data.attributes.body),
-          sharable: responseParsed.data.attributes.sharable
-        });
-      });
     }
   }
 

@@ -41,15 +41,6 @@ class Bulletin extends React.Component {
   }
 
   componentDidMount() {
-    window["staticPageStore"].loadPage("bulletin").then(responseParsed => {
-      if (APP_DEV_MODE) console.info("bulletin page ready");
-      this.setState({
-        title: responseParsed.data.attributes.title,
-        content: responseParsed.data.attributes.body,
-        sharable: responseParsed.data.attributes.sharable
-      });
-    });
-
     reaction(
       () => this.store.settings.status,
       () => {
@@ -192,7 +183,7 @@ class Bulletin extends React.Component {
     return (
       <>
         <HTMLHeader
-          title={this.state.title}
+          title={this.props.intl.formatMessage({ id: "bulletin:title" })}
           description={shareDescription}
           meta={{
             "og:image": shareImage,
@@ -244,13 +235,11 @@ class Bulletin extends React.Component {
             bulletinCollection={this.store.activeBulletinCollection}
           />
         )}
-        {this.state.sharable && (
-          <SmShare
-            image={shareImage}
-            title={this.state.title}
-            description={shareDescription}
-          />
-        )}
+        <SmShare
+          image={shareImage}
+          title={this.state.title}
+          description={shareDescription}
+        />
         <section className="section-centered section-context">
           <div className="panel">
             <h2 className="subheader">

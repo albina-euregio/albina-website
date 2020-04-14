@@ -101,9 +101,11 @@ class Archive extends React.Component {
   render() {
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({ id: "archive:title" })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({ id: "archive:headline" })}
           marginal={this.state.headerText}
         />
         <FilterBar search={false}>
@@ -232,11 +234,7 @@ class Archive extends React.Component {
             </ul>
           </div>
         </section>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding" />
-        )}
+        <SmShare />
       </>
     );
   }

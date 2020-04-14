@@ -15,9 +15,11 @@ class Imprint extends StaticPage {
   render() {
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({ id: "imprint:title" })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({ id: "imprint:headline" })}
           marginal={this.state.headerText}
         />
         <section className="section section-features">
@@ -331,11 +333,7 @@ class Imprint extends StaticPage {
             </div>
           </section>
         </section>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding"></div>
-        )}
+        <div className="section-padding"></div>
       </>
     );
   }

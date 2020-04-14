@@ -73,26 +73,6 @@ class BlogOverview extends React.Component {
     }
   }
 
-  componentWillReceiveProps() {
-    return this._fetchData();
-  }
-
-  componentDidMount() {
-    window["staticPageStore"].loadPage("/blog").then(responseParsed => {
-      this.setState({
-        title: responseParsed.data.attributes.title,
-        headerText: responseParsed.data.attributes.header_text,
-        content: responseParsed.data.attributes.body,
-        sharable: responseParsed.data.attributes.sharable
-      });
-    });
-    return this._fetchData();
-  }
-
-  _fetchData() {
-    //return this.store.load();
-  }
-
   doStoreUpdate() {
     console.log("doStoreUpdate");
     this.store.update();
@@ -174,9 +154,11 @@ class BlogOverview extends React.Component {
 
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({ id: "blog:title" })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({ id: "blog:headline" })}
           marginal={this.state.headerText}
         />
         <FilterBar
@@ -306,11 +288,7 @@ class BlogOverview extends React.Component {
             </div>
           )}
         </section>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding" />
-        )}
+        <SmShare />
       </>
     );
   }

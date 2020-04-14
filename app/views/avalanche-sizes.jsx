@@ -15,9 +15,15 @@ class AvalancheSizes extends StaticPage {
   render() {
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({
+            id: "education:avalanche-sizes:title"
+          })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({
+            id: "education:avalanche-sizes:headline"
+          })}
           marginal={this.state.headerText}
         />
         <section className="section section-features">
@@ -690,11 +696,7 @@ class AvalancheSizes extends StaticPage {
             </div>
           </section>
         </section>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding"></div>
-        )}
+        <SmShare />
       </>
     );
   }

@@ -35,16 +35,6 @@ class StationMeasurements extends React.Component {
 
   componentDidMount() {
     this.store.load();
-    window["staticPageStore"]
-      .loadPage("weather/measurements")
-      .then(responseParsed => {
-        this.setState({
-          title: responseParsed.data.attributes.title,
-          headerText: responseParsed.data.attributes.header_text,
-          content: responseParsed.data.attributes.body,
-          sharable: responseParsed.data.attributes.sharable
-        });
-      });
   }
 
   handleChangeSearch = val => {
@@ -69,9 +59,11 @@ class StationMeasurements extends React.Component {
     const hideFilters = ["snow", "temp", "wind"];
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({ id: "measurements:title" })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({ id: "measurements:headline" })}
           marginal={this.state.headerText}
         />
         <FilterBar
@@ -197,11 +189,7 @@ class StationMeasurements extends React.Component {
             </ul>
           </div>
         </section>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding"></div>
-        )}
+        <SmShare />
       </>
     );
   }
