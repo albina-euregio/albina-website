@@ -31,8 +31,8 @@ export class AspectsComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-    this.resetAspects();
-    this.initAspects();
+    //this.resetAspects();
+    //this.initAspects();
   }
 
   private resetAspects() {
