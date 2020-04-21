@@ -161,8 +161,8 @@ export class BulletinDaytimeDescriptionModel {
     return this.getTerrainFeatureAboveIn(Enums.LanguageCode[language]);
   }
 
-  setTerrainFeatureAbove(TerrainFeatureAbove: TextModel[]) {
-    this.terrainFeatureAbove = TerrainFeatureAbove;
+  setTerrainFeatureAbove(terrainFeatureAbove: TextModel[]) {
+    this.terrainFeatureAbove = terrainFeatureAbove;
   }
 
   setTerrainFeatureAboveIn(text: string, language: Enums.LanguageCode) {
@@ -218,8 +218,8 @@ export class BulletinDaytimeDescriptionModel {
     return this.getTerrainFeatureBelowIn(Enums.LanguageCode[language]);
   }
 
-  setTerrainFeatureBelow(TerrainFeatureBelow: TextModel[]) {
-    this.terrainFeatureBelow = TerrainFeatureBelow;
+  setTerrainFeatureBelow(terrainFeatureBelow: TextModel[]) {
+    this.terrainFeatureBelow = terrainFeatureBelow;
   }
 
   setTerrainFeatureBelowIn(text: string, language: Enums.LanguageCode) {
