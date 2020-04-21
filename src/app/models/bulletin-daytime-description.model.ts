@@ -18,6 +18,9 @@ export class BulletinDaytimeDescriptionModel {
 
   public avalancheSituation1: AvalancheSituationModel;
   public avalancheSituation2: AvalancheSituationModel;
+  public avalancheSituation3: AvalancheSituationModel;
+  public avalancheSituation4: AvalancheSituationModel;
+  public avalancheSituation5: AvalancheSituationModel;
 
   static createFromJson(json) {
     const bulletinDaytimeDescription = new BulletinDaytimeDescriptionModel();
@@ -62,6 +65,15 @@ export class BulletinDaytimeDescriptionModel {
     if (json.avalancheSituation2) {
       bulletinDaytimeDescription.avalancheSituation2 = AvalancheSituationModel.createFromJson(json.avalancheSituation2);
     }
+    if (json.avalancheSituation3) {
+      bulletinDaytimeDescription.avalancheSituation3 = AvalancheSituationModel.createFromJson(json.avalancheSituation3);
+    }
+    if (json.avalancheSituation4) {
+      bulletinDaytimeDescription.avalancheSituation4 = AvalancheSituationModel.createFromJson(json.avalancheSituation4);
+    }
+    if (json.avalancheSituation5) {
+      bulletinDaytimeDescription.avalancheSituation5 = AvalancheSituationModel.createFromJson(json.avalancheSituation5);
+    }
 
     return bulletinDaytimeDescription;
   }
@@ -81,6 +93,9 @@ export class BulletinDaytimeDescriptionModel {
       this.terrainFeatureBelow = new Array<TextModel>();
       this.avalancheSituation1 = new AvalancheSituationModel();
       this.avalancheSituation2 = new AvalancheSituationModel();
+      this.avalancheSituation3 = new AvalancheSituationModel();
+      this.avalancheSituation4 = new AvalancheSituationModel();
+      this.avalancheSituation5 = new AvalancheSituationModel();
     } else {
       this.setDangerRatingAbove(bulletinDaytimeDescription.getDangerRatingAbove());
       this.matrixInformationAbove = new MatrixInformationModel(bulletinDaytimeDescription.getMatrixInformationAbove());
@@ -100,6 +115,9 @@ export class BulletinDaytimeDescriptionModel {
       this.terrainFeatureBelow = arrayBelow;
       this.avalancheSituation1 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation1());
       this.avalancheSituation2 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation2());
+      this.avalancheSituation3 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation3());
+      this.avalancheSituation4 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation4());
+      this.avalancheSituation5 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation5());
     }
   }
 
@@ -233,6 +251,30 @@ export class BulletinDaytimeDescriptionModel {
     this.avalancheSituation2 = avalancheSituation;
   }
 
+  getAvalancheSituation3() {
+    return this.avalancheSituation3;
+  }
+
+  setAvalancheSituation3(avalancheSituation) {
+    this.avalancheSituation3 = avalancheSituation;
+  }
+
+  getAvalancheSituation4() {
+    return this.avalancheSituation4;
+  }
+
+  setAvalancheSituation4(avalancheSituation) {
+    this.avalancheSituation4 = avalancheSituation;
+  }
+
+  getAvalancheSituation5() {
+    return this.avalancheSituation5;
+  }
+
+  setAvalancheSituation5(avalancheSituation) {
+    this.avalancheSituation5 = avalancheSituation;
+  }
+
   toJson(hasElevationDependency: boolean) {
     const json = Object();
 
@@ -274,6 +316,15 @@ export class BulletinDaytimeDescriptionModel {
     }
     if (this.avalancheSituation2 && this.avalancheSituation2 !== undefined) {
       json["avalancheSituation2"] = this.avalancheSituation2.toJson();
+    }
+    if (this.avalancheSituation3 && this.avalancheSituation3 !== undefined) {
+      json["avalancheSituation3"] = this.avalancheSituation3.toJson();
+    }
+    if (this.avalancheSituation4 && this.avalancheSituation4 !== undefined) {
+      json["avalancheSituation4"] = this.avalancheSituation4.toJson();
+    }
+    if (this.avalancheSituation5 && this.avalancheSituation5 !== undefined) {
+      json["avalancheSituation5"] = this.avalancheSituation5.toJson();
     }
 
     return json;
