@@ -254,8 +254,6 @@ export class BulletinModel {
       this.snowpackStructureHighlightsTextcat = undefined;
       this.snowpackStructureCommentTextcat = undefined;
       this.tendencyCommentTextcat = undefined;
-      this.snowpackStructureHighlights = undefined;
-      this.snowpackStructureComment = undefined;
       this.avActivityHighlights = new Array<TextModel>();
       this.avActivityComment = new Array<TextModel>();
       this.snowpackStructureHighlights = new Array<TextModel>();
