@@ -85,7 +85,11 @@
           "paste" : "Incollare",
           "example" : "Carica esempio testo",
           "delete" : "Elimina"
-        }
+        },
+        "showInBulletin" : "Il problema delle valanghe sarà mostrato nel bollettino",
+        "dontShowInBulletin" : "Il problema delle valanghe NON sarà mostrato nel bollettino",
+        "moveUpAvalancheSituation" : "Spostare il problema valanghe verso l'alto",
+        "moveDownAvalancheSituation" : "Spostare il problema valanghe verso il basso"
       },
       "button" : "Creato",
       "save" : " Salva",
@@ -95,6 +99,7 @@
       "saveAggregatedRegion" : "Salve",
       "discardAggregatedRegion" : "Scarta",
       "deleteAggregatedRegion" : "Cancella",
+      "createAvalancheSituation" : " Nuovo problema",
       "ownRegions" : "Propria provincia",
       "foreignRegions": "Altra provincia",
       "label" : {

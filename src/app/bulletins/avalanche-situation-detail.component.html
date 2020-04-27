@@ -1,0 +1,100 @@
+<div>
+  <div class="form-group row">
+    <div *ngIf="!disabled" class="col-md-12">
+      <img *ngIf="isAvalancheSituation('new_snow')" src="./assets/img/New_snow_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.new_snow)" width="60">
+      <img *ngIf="!isAvalancheSituation('new_snow')" src="./assets/img/New_snow_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.new_snow)" width="60" style="opacity: 0.3">
+
+      <img *ngIf="isAvalancheSituation('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.wind_drifted_snow)" width="60">
+      <img *ngIf="!isAvalancheSituation('wind_drifted_snow')" src="./assets/img/Drifting_snow_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.wind_drifted_snow)" width="60" style="opacity: 0.3">
+
+      <img *ngIf="isAvalancheSituation('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.weak_persistent_layer)" width="60">
+      <img *ngIf="!isAvalancheSituation('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.weak_persistent_layer)" width="60" style="opacity: 0.3">
+
+      <img *ngIf="isAvalancheSituation('wet_snow')" src="./assets/img/Wet_snow_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.wet_snow)" width="60">
+      <img *ngIf="!isAvalancheSituation('wet_snow')" src="./assets/img/Wet_snow_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.wet_snow)" width="60" style="opacity: 0.3">
+
+      <img *ngIf="isAvalancheSituation('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.gliding_snow)" width="60">
+      <img *ngIf="!isAvalancheSituation('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.gliding_snow)" width="60" style="opacity: 0.3">
+
+      <img *ngIf="isAvalancheSituation('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.favourable_situation)" width="60">
+      <img *ngIf="!isAvalancheSituation('favourable_situation')" src="./assets/img/Favourable_situation_bw.svg" (click)="selectAvalancheSituation(avalancheSituationEnum.favourable_situation)" width="60" style="opacity: 0.3">
+    </div>
+    <div *ngIf="disabled" class="col-md-12">
+      <img *ngIf="isAvalancheSituation('new_snow')" src="./assets/img/New_snow_c.svg" width="60">
+      <img *ngIf="!isAvalancheSituation('new_snow')" src="./assets/img/New_snow_bw.svg" width="60" style="opacity: 0.3">
+
+      <img *ngIf="isAvalancheSituation('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" width="60">
+      <img *ngIf="!isAvalancheSituation('wind_drifted_snow')" src="./assets/img/Drifting_snow_bw.svg" width="60" style="opacity: 0.3">
+
+      <img *ngIf="isAvalancheSituation('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_c.svg" width="60">
+      <img *ngIf="!isAvalancheSituation('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_bw.svg" width="60" style="opacity: 0.3">
+
+      <img *ngIf="isAvalancheSituation('wet_snow')" src="./assets/img/Wet_snow_c.svg" width="60">
+      <img *ngIf="!isAvalancheSituation('wet_snow')" src="./assets/img/Wet_snow_bw.svg" width="60" style="opacity: 0.3">
+
+      <img *ngIf="isAvalancheSituation('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" width="60">
+      <img *ngIf="!isAvalancheSituation('gliding_snow')" src="./assets/img/Gliding_snow_bw.svg" width="60" style="opacity: 0.3">
+
+      <img *ngIf="isAvalancheSituation('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" width="60">
+      <img *ngIf="!isAvalancheSituation('favourable_situation')" src="./assets/img/Favourable_situation_bw.svg" width="60" style="opacity: 0.3">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div *ngIf="showAspects" class="col-md-12">
+      <app-aspects [avalancheSituation]="avalancheSituationModel" [disabled]="disabled" [size]="150"></app-aspects>
+    </div>
+  </div>
+  <div class="form-group row" style="margin-bottom: 0">
+    <div *ngIf="showAspects" class="col-md-12">
+      <table>
+        <tbody>
+          <tr style="height: 60px">
+            <td style="padding-right: 10px; vertical-align: baseline">
+              <label class="switch switch-default switch-pill switch-primary">
+                <input type="checkbox" class="switch-input" [disabled]="disabled" (change)="setUseElevationHigh($event)" [(ngModel)]="useElevationHigh">
+                <span class="switch-label"></span>
+                <span class="switch-handle"></span>
+              </label>
+            </td>
+            <td style="padding-right: 10px; vertical-align: baseline">{{ "bulletins.create.label.elevationHigh" | translate }}</td>
+            <td class="input-prepend input-group">
+              <input step="100" min="0" max="9000" id="inputElevationHigh" class="form-control" size="14" type="number" name="elevation-input" [disabled]="disabled || avalancheSituationModel.treelineHigh || !useElevationHigh" [(ngModel)]="avalancheSituationModel.elevationHigh" (change)="updateElevationHigh(this.id)">
+              <span class="input-group-addon">m</span>
+            </td>
+            <td style="padding-left: 10px; vertical-align: baseline" *ngIf="!avalancheSituationModel.treelineHigh">
+              <button [disabled]="disabled || !useElevationHigh" type="reset" class="btn btn-secondary" (click)="treelineHighClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
+            </td>
+            <td style="padding-left: 10px; vertical-align: baseline" *ngIf="avalancheSituationModel.treelineHigh">
+              <button [disabled]="disabled || !useElevationHigh" type="reset" class="btn btn-primary" (click)="treelineHighClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
+            </td>
+          </tr>
+          <tr style="height: 60px">
+            <td style="padding-right: 10px; vertical-align: baseline">
+              <label class="switch switch-default switch-pill switch-primary">
+                <input type="checkbox" class="switch-input" [disabled]="disabled" (change)="setUseElevationLow($event)" [(ngModel)]="useElevationLow">
+                <span class="switch-label"></span>
+                <span class="switch-handle"></span>
+              </label>
+            </td>
+            <td style="padding-right: 10px; vertical-align: baseline">{{ "bulletins.create.label.elevationLow" | translate }}</td>
+            <td class="input-prepend input-group">
+              <input step="100" min="0" max="9000" id="inputElevationLow" class="form-control" size="14" type="number" name="elevation-input" [disabled]="disabled || avalancheSituationModel.treelineLow || !useElevationLow" [(ngModel)]="avalancheSituationModel.elevationLow" (change)="updateElevationLow(this.id)">
+              <span class="input-group-addon">m</span>
+            </td>
+            <td style="padding-left: 10px; vertical-align: baseline" *ngIf="!avalancheSituationModel.treelineLow">
+              <button [disabled]="disabled || !useElevationLow" type="reset" class="btn btn-secondary" (click)="treelineLowClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' || translate }}"><i class="fa fa-tree"></i></button>
+            </td>
+            <td style="padding-left: 10px; vertical-align: baseline" *ngIf="avalancheSituationModel.treelineLow">
+              <button [disabled]="disabled || !useElevationLow" type="reset" class="btn btn-primary" (click)="treelineLowClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' || translate }}"><i class="fa fa-tree"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="form-group row" style="margin-bottom: 0">
+    <div class="col-md-12">
+      <app-avalanche-situation-matrix [matrixInformation]="avalancheSituationModel.matrixInformation" [disabled]="disabled"></app-avalanche-situation-matrix>
+    </div>
+  </div>
+</div>

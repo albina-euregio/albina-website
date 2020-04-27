@@ -85,7 +85,11 @@
           "paste" : "Einfügen",
           "example" : "Beispieltext laden",
           "delete" : "Löschen"
-        }
+        },
+        "showInBulletin" : "Lawinenproblem wird im Bulletin angezeigt",
+        "dontShowInBulletin" : "Lawinenproblem wird im Bulletin NICHT angezeigt",
+        "moveUpAvalancheSituation" : "Lawinenproblem nach oben schieben",
+        "moveDownAvalancheSituation" : "Lawinenproblem nach unten schieben"
       },
       "button" : "Neu",
       "save" : " Speichern",
@@ -95,6 +99,7 @@
       "saveAggregatedRegion" : "Speichern",
       "discardAggregatedRegion" : "Verwerfen",
       "deleteAggregatedRegion" : "Löschen",
+      "createAvalancheSituation" : " Neues Lawinenproblem",
       "ownRegions" : "Eigene Regionen",
       "foreignRegions": "Fremde Regionen",
       "label" : {
@@ -112,7 +117,8 @@
         "elevationHigh" : "Unter",
         "elevationLow" : "Über",
         "tendencyComment" : "Beschreibung der Tendenz",
-        "notes" : "Notizen"
+        "notes" : "Notizen",
+        "terrainFeature": "Gelände"
       },
       "title" : {
         "map" : "Karte",

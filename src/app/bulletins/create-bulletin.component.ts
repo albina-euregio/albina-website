@@ -2,6 +2,7 @@ import { Component, HostListener, ViewChild, ElementRef, ApplicationRef, Templat
 import { Router } from "@angular/router";
 import { BulletinModel } from "../models/bulletin.model";
 import { MatrixInformationModel } from "../models/matrix-information.model";
+import { AvalancheSituationModel } from "../models/avalanche-situation.model";
 import { TranslateService } from "@ngx-translate/core";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
@@ -774,7 +775,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.editBulletinRegions();
     }
   }
-
 
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
@@ -1947,5 +1947,71 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   loadAvActivityCommentExampleTextCancel() {
     this.loadAvActivityCommentExampleTextModalRef.hide();
+  }
+
+  createAvalancheSituation(isAfternoon: boolean) {
+    var daytime;
+    if (isAfternoon) {
+      daytime = this.activeBulletin.afternoon;
+    } else {
+      daytime = this.activeBulletin.forenoon;
+    }
+    let lastAvalancheSituation = daytime.avalancheSituation1;
+    let count = 1;
+    while (lastAvalancheSituation !== undefined) {
+      count += 1;
+      switch (count) {
+        case 2:
+          lastAvalancheSituation = daytime.avalancheSituation2;
+          break;
+        case 3:
+          lastAvalancheSituation = daytime.avalancheSituation3;
+          break;
+        case 4:
+          lastAvalancheSituation = daytime.avalancheSituation4;
+          break;
+        case 5:
+          lastAvalancheSituation = daytime.avalancheSituation5;
+          break;
+        default:
+          break;
+      }
+      if (count > 5) {
+        break;
+      }
+    }
+    switch (count) {
+      case 1:
+        daytime.avalancheSituation1 = new AvalancheSituationModel();
+        break;
+      case 2:
+        daytime.avalancheSituation2 = new AvalancheSituationModel();
+        break;
+      case 3:
+        daytime.avalancheSituation3 = new AvalancheSituationModel();
+        break;
+      case 4:
+        daytime.avalancheSituation4 = new AvalancheSituationModel();
+        break;
+      case 5:
+        daytime.avalancheSituation5 = new AvalancheSituationModel();
+        break;
+      default:
+        break;
+    }
+  }
+
+  hasFiveAvalancheSituations(isAfternoon: boolean) {
+    var daytime;
+    if (isAfternoon) {
+      daytime = this.activeBulletin.afternoon;
+    } else {
+      daytime = this.activeBulletin.forenoon;
+    }
+    if (daytime.avalancheSituation5 === undefined) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

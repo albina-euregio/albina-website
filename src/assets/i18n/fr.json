@@ -85,8 +85,12 @@
           "paste" : "Coller",
           "example" : "Télécharger exemple de texte",
           "delete" : "Effacer"
-        }
-      },
+         },
+        "showInBulletin" : "Le problème des avalanches sera présenté dans un bulletin",
+        "dontShowInBulletin" : "Le problème des avalanches ne figurera pas dans le bulletin",
+        "moveUpAvalancheSituation" : "Déplacer le problème des avalanches",
+        "moveDownAvalancheSituation" : "Faire reculer le problème des avalanches"
+     },
       "button" : "Créer",
       "save" : "Sauvegarder",
       "discard" : "Abandoner",
@@ -95,6 +99,7 @@
       "saveAggregatedRegion" : "Sauvegarder",
       "discardAggregatedRegion" : "Abandoner",
       "deleteAggregatedRegion" : "Effacer",
+      "createAvalancheSituation" : " Nouveau problème",
       "ownRegions" : "Mes régions",
       "foreignRegions": "Régions étrangères",
       "label" : {

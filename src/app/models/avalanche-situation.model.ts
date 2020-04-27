@@ -60,7 +60,7 @@ export class AvalancheSituationModel {
       this.terrainFeatureTextcat = undefined;
       this.terrainFeature = new Array<TextModel>();
     } else {
-      this.avalancheSituation = avalancheSituation.getAvalancheSituation();
+      this.setAvalancheSituation(avalancheSituation.getAvalancheSituation());
       for (const aspect of avalancheSituation.aspects) {
         this.addAspect(aspect);
       }

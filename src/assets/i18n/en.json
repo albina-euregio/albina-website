@@ -85,7 +85,11 @@
           "paste" : "Paste",
           "example" : "Load example text",
           "delete" : "Delete"
-        }
+        },
+        "showInBulletin" : "Avalanche problem will be shown in bulletin",
+        "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
+        "moveUpAvalancheSituation" : "Move avalanche problem up",
+        "moveDownAvalancheSituation" : "Move avalanche problem down"
       },
       "button" : "Create",
       "save" : " Save",
@@ -95,6 +99,7 @@
       "saveAggregatedRegion" : "Save",
       "discardAggregatedRegion" : "Discard",
       "deleteAggregatedRegion" : "Delete",
+      "createAvalancheSituation" : " New problem",
       "ownRegions" : "Own regions",
       "foreignRegions": "Foreign regions",
       "label" : {
@@ -112,7 +117,8 @@
         "elevationHigh" : "Below",
         "elevationLow" : "Above",
         "tendencyComment" : "Description of tendency",
-        "notes" : "Notes"
+        "notes" : "Notes",
+        "terrainFeature": "Terrain features"
       },
       "title" : {
         "map" : "Map",

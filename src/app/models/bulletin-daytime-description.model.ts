@@ -91,11 +91,6 @@ export class BulletinDaytimeDescriptionModel {
       this.matrixInformationBelow = new MatrixInformationModel();
       this.terrainFeatureBelowTextcat = undefined;
       this.terrainFeatureBelow = new Array<TextModel>();
-      this.avalancheSituation1 = new AvalancheSituationModel();
-      this.avalancheSituation2 = new AvalancheSituationModel();
-      this.avalancheSituation3 = new AvalancheSituationModel();
-      this.avalancheSituation4 = new AvalancheSituationModel();
-      this.avalancheSituation5 = new AvalancheSituationModel();
     } else {
       this.setDangerRatingAbove(bulletinDaytimeDescription.getDangerRatingAbove());
       this.matrixInformationAbove = new MatrixInformationModel(bulletinDaytimeDescription.getMatrixInformationAbove());
@@ -113,11 +108,21 @@ export class BulletinDaytimeDescriptionModel {
         arrayBelow.push(TextModel.createFromJson(entry.toJson()));
       }
       this.terrainFeatureBelow = arrayBelow;
-      this.avalancheSituation1 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation1());
-      this.avalancheSituation2 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation2());
-      this.avalancheSituation3 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation3());
-      this.avalancheSituation4 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation4());
-      this.avalancheSituation5 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation5());
+      if (bulletinDaytimeDescription.getAvalancheSituation1() !== undefined) {
+        this.avalancheSituation1 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation1());
+      }
+      if (bulletinDaytimeDescription.getAvalancheSituation2() !== undefined) {
+        this.avalancheSituation2 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation2());
+      }
+      if (bulletinDaytimeDescription.getAvalancheSituation3() !== undefined) {
+        this.avalancheSituation3 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation3());
+      }
+      if (bulletinDaytimeDescription.getAvalancheSituation4() !== undefined) {
+        this.avalancheSituation4 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation4());
+      }
+      if (bulletinDaytimeDescription.getAvalancheSituation5() !== undefined) {
+        this.avalancheSituation5 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation5());
+      }
     }
   }
 
