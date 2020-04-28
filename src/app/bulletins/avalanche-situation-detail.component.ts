@@ -12,7 +12,6 @@ export class AvalancheSituationDetailComponent implements AfterContentInit {
   @Input() avalancheSituationModel: AvalancheSituationModel;
   @Input() disabled: boolean;
 
-  showAspects: boolean;
   avalancheSituationEnum = Enums.AvalancheSituation;
   useElevationHigh = false;
   useElevationLow = false;
@@ -28,12 +27,6 @@ export class AvalancheSituationDetailComponent implements AfterContentInit {
   }
 
   ngAfterContentInit() {
-    if (this.avalancheSituationModel.getAvalancheSituation() !== undefined && !this.isAvalancheSituation("favourable_situation")) {
-      this.showAspects = true;
-    } else {
-      this.showAspects = false;
-    }
-
     if (this.avalancheSituationModel.getTreelineHigh() || this.avalancheSituationModel.getElevationHigh() !== undefined) {
       this.useElevationHigh = true;
     }
@@ -53,15 +46,8 @@ export class AvalancheSituationDetailComponent implements AfterContentInit {
     if (this.isAvalancheSituation(Enums.AvalancheSituation[situation])) {
       this.avalancheSituationModel.setAvalancheSituation(undefined);
       this.avalancheSituationModel.setAspects(new Array<Enums.Aspect>());
-      this.showAspects = false;
     } else {
       this.avalancheSituationModel.setAvalancheSituation(Enums.AvalancheSituation[situation]);
-      if (this.isAvalancheSituation("favourable_situation")) {
-        this.avalancheSituationModel.setAspects(new Array<Enums.Aspect>());
-        this.showAspects = false;
-      } else {
-        this.showAspects = true;
-      }
     }
   }
 
