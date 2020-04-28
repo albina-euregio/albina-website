@@ -28,12 +28,14 @@ export class BulletinModel {
   public forenoon: BulletinDaytimeDescriptionModel;
   public afternoon: BulletinDaytimeDescriptionModel;
 
+  public highlightsTextcat: string;
   public avActivityHighlightsTextcat: string;
   public avActivityCommentTextcat: string;
   public snowpackStructureHighlightsTextcat: string;
   public snowpackStructureCommentTextcat: string;
   public tendencyCommentTextcat: string;
 
+  public highlights: TextModel[];
   public avActivityHighlights: TextModel[];
   public avActivityComment: TextModel[];
   public snowpackStructureHighlights: TextModel[];
@@ -108,6 +110,18 @@ export class BulletinModel {
     if (json.afternoon) {
       bulletin.setAfternoon(BulletinDaytimeDescriptionModel.createFromJson(json.afternoon));
     }
+
+    if (json.highlightsTextcat) {
+      bulletin.setHighlightsTextcat(json.highlightsTextcat);
+    }
+    const jsonHighlights = json.highlights;
+    const highlights = new Array<TextModel>();
+    for (const i in jsonHighlights) {
+      if (jsonHighlights[i] !== null) {
+        highlights.push(TextModel.createFromJson(jsonHighlights[i]));
+      }
+    }
+    bulletin.setHighlights(highlights);
 
     if (json.avActivityHighlightsTextcat) {
       bulletin.setAvActivityHighlightsTextcat(json.avActivityHighlightsTextcat);
@@ -196,6 +210,7 @@ export class BulletinModel {
       this.publishedRegions = bulletin.publishedRegions;
       this.forenoon = new BulletinDaytimeDescriptionModel(bulletin.forenoon);
       this.afternoon = new BulletinDaytimeDescriptionModel(bulletin.afternoon);
+      this.highlightsTextcat = bulletin.highlightsTextcat;
       this.avActivityHighlightsTextcat = bulletin.avActivityHighlightsTextcat;
       this.avActivityCommentTextcat = bulletin.avActivityCommentTextcat;
       this.snowpackStructureHighlightsTextcat = bulletin.snowpackStructureHighlightsTextcat;
@@ -203,6 +218,12 @@ export class BulletinModel {
       this.tendencyCommentTextcat = bulletin.tendencyCommentTextcat;
 
       let array = new Array<TextModel>();
+      for (const entry of bulletin.highlights) {
+        array.push(TextModel.createFromJson(entry.toJson()));
+      }
+      this.highlights = array;
+
+      array = new Array<TextModel>();
       for (const entry of bulletin.avActivityHighlights) {
         array.push(TextModel.createFromJson(entry.toJson()));
       }
@@ -249,11 +270,13 @@ export class BulletinModel {
       this.publishedRegions = new Array<String>();
       this.forenoon = new BulletinDaytimeDescriptionModel();
       this.afternoon = new BulletinDaytimeDescriptionModel();
+      this.highlightsTextcat = undefined;
       this.avActivityHighlightsTextcat = undefined;
       this.avActivityCommentTextcat = undefined;
       this.snowpackStructureHighlightsTextcat = undefined;
       this.snowpackStructureCommentTextcat = undefined;
       this.tendencyCommentTextcat = undefined;
+      this.highlights = new Array<TextModel>();
       this.avActivityHighlights = new Array<TextModel>();
       this.avActivityComment = new Array<TextModel>();
       this.snowpackStructureHighlights = new Array<TextModel>();
@@ -441,6 +464,47 @@ export class BulletinModel {
 
   setAvActivityHighlightsTextcat(avActivityHighlightsTextcat: string) {
     this.avActivityHighlightsTextcat = avActivityHighlightsTextcat;
+  }
+
+  getHighlightsTextcat(): string {
+    return this.highlightsTextcat;
+  }
+
+  setHighlightsTextcat(highlightsTextcat: string) {
+    this.highlightsTextcat = highlightsTextcat;
+  }
+
+  getHighlights(): TextModel[] {
+    return this.highlights;
+  }
+
+  getHighlightsIn(language: Enums.LanguageCode): string {
+    for (let i = this.highlights.length - 1; i >= 0; i--) {
+      if (this.highlights[i].getLanguageCode() === language) {
+        return this.highlights[i].getText();
+      }
+    }
+  }
+
+  getHighlightsInString(language: string): string {
+    return this.getHighlightsIn(Enums.LanguageCode[language]);
+  }
+
+  setHighlights(highlights: TextModel[]) {
+    this.highlights = highlights;
+  }
+
+  setHighlightsIn(text: string, language: Enums.LanguageCode) {
+    for (let i = this.highlights.length - 1; i >= 0; i--) {
+      if (this.highlights[i].getLanguageCode() === language) {
+        this.highlights[i].setText(text);
+        return;
+      }
+    }
+    const model = new TextModel();
+    model.setLanguageCode(language);
+    model.setText(text);
+    this.highlights.push(model);
   }
 
   getAvActivityHighlights(): TextModel[] {
@@ -737,6 +801,10 @@ export class BulletinModel {
       json["afternoon"] = this.afternoon.toJson(this.hasElevationDependency);
     }
 
+    if (this.highlightsTextcat && this.highlightsTextcat !== undefined) {
+      json["highlightsTextcat"] = this.highlightsTextcat;
+    }
+
     if (this.avActivityHighlightsTextcat && this.avActivityHighlightsTextcat !== undefined) {
       json["avActivityHighlightsTextcat"] = this.avActivityHighlightsTextcat;
     }
@@ -755,6 +823,14 @@ export class BulletinModel {
 
     if (this.tendencyCommentTextcat && this.tendencyCommentTextcat !== undefined) {
       json["tendencyCommentTextcat"] = this.tendencyCommentTextcat;
+    }
+
+    if (this.highlights && this.highlights !== undefined && this.highlights.length > 0) {
+      const highlight = [];
+      for (let i = 0; i <= this.highlights.length - 1; i++) {
+        highlight.push(this.highlights[i].toJson());
+      }
+      json["highlights"] = highlight;
     }
 
     if (this.avActivityHighlights && this.avActivityHighlights !== undefined && this.avActivityHighlights.length > 0) {

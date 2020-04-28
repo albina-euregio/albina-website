@@ -53,6 +53,12 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public activeBulletin: BulletinModel;
   public bulletinsList: BulletinModel[];
 
+  public activeHighlightsTextcat: string;
+  public activeHighlightsDe: string;
+  public activeHighlightsIt: string;
+  public activeHighlightsEn: string;
+  public activeHighlightsFr: string;
+
   public activeAvActivityHighlightsTextcat: string;
   public activeAvActivityHighlightsDe: string;
   public activeAvActivityHighlightsIt: string;
@@ -89,6 +95,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public isAccordionSnowpackStructureOpen: boolean;
   public isAccordionTendencyOpen: boolean;
 
+  public showTranslationsHighlights: boolean;
   public showTranslationsAvActivityHighlights: boolean;
   public showTranslationsAvActivityComment: boolean;
   public showTranslationsSnowpackStructureComment: boolean;
@@ -188,6 +195,12 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.activeBulletin = undefined;
     this.bulletinsList = new Array<BulletinModel>();
 
+    this.activeHighlightsTextcat = undefined;
+    this.activeHighlightsDe = undefined;
+    this.activeHighlightsIt = undefined;
+    this.activeHighlightsEn = undefined;
+    this.activeHighlightsFr = undefined;
+
     this.activeAvActivityHighlightsTextcat = undefined;
     this.activeAvActivityHighlightsDe = undefined;
     this.activeAvActivityHighlightsIt = undefined;
@@ -227,6 +240,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.isAccordionSnowpackStructureOpen = false;
     this.isAccordionTendencyOpen = false;
 
+    this.showTranslationsHighlights = false;
     this.showTranslationsAvActivityHighlights = false;
     this.showTranslationsAvActivityComment = false;
     this.showTranslationsSnowpackStructureComment = false;
@@ -328,6 +342,13 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   setShowTranslations(name: string) {
     switch (name) {
+      case "highlights":
+        if (this.showTranslationsHighlights) {
+          this.showTranslationsHighlights = false;
+        } else {
+          this.showTranslationsHighlights = true;
+        }
+        break;
       case "avActivityHighlights":
         if (this.showTranslationsAvActivityHighlights) {
           this.showTranslationsAvActivityHighlights = false;
@@ -783,6 +804,12 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
         this.activeBulletin = bulletin;
 
+        this.activeHighlightsTextcat = this.activeBulletin.getHighlightsTextcat();
+        this.activeHighlightsDe = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.de);
+        this.activeHighlightsIt = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.it);
+        this.activeHighlightsEn = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.en);
+        this.activeHighlightsFr = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.fr);
+
         this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcat();
         this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
         this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
@@ -928,12 +955,17 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   private setTexts() {
     if (this.activeBulletin) {
+      this.activeBulletin.setHighlightsTextcat(this.activeHighlightsTextcat);
+      this.activeBulletin.setHighlightsIn(this.activeHighlightsDe, Enums.LanguageCode.de);
+      this.activeBulletin.setHighlightsIn(this.activeHighlightsIt, Enums.LanguageCode.it);
+      this.activeBulletin.setHighlightsIn(this.activeHighlightsEn, Enums.LanguageCode.en);
+      this.activeBulletin.setHighlightsIn(this.activeHighlightsFr, Enums.LanguageCode.fr);
+
       this.activeBulletin.setAvActivityHighlightsTextcat(this.activeAvActivityHighlightsTextcat);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsFr, Enums.LanguageCode.fr);
-
 
       this.activeBulletin.setAvActivityCommentTextcat(this.activeAvActivityCommentTextcat);
       this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
@@ -1298,6 +1330,14 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   copyTextcat(event, field) {
     this.setTexts();
     switch (field) {
+      case "highlights":
+        this.copyService.setCopying(true);
+        this.copyService.setTextTextcat(this.activeBulletin.getHighlightsTextcat());
+        this.copyService.setTextDe(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.de));
+        this.copyService.setTextIt(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.it));
+        this.copyService.setTextEn(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.en));
+        this.copyService.setTextFr(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.fr));
+        break;
       case "avActivityHighlights":
         this.copyService.setCopying(true);
         this.copyService.setTextTextcat(this.activeBulletin.getAvActivityHighlightsTextcat());
@@ -1337,6 +1377,33 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   pasteTextcat(event, field) {
     switch (field) {
+      case "highlights":
+        if (this.activeHighlightsTextcat !== undefined) {
+          this.activeHighlightsTextcat = this.activeHighlightsTextcat + "." + this.copyService.getTextTextcat();
+        } else {
+          this.activeHighlightsTextcat = this.copyService.getTextTextcat();
+        }
+        if (this.activeHighlightsDe !== undefined) {
+          this.activeHighlightsDe = this.activeHighlightsDe + " " + this.copyService.getTextDe();
+        } else {
+          this.activeHighlightsDe = this.copyService.getTextDe();
+        }
+        if (this.activeHighlightsIt !== undefined) {
+          this.activeHighlightsIt = this.activeHighlightsIt + " " + this.copyService.getTextIt();
+        } else {
+          this.activeHighlightsIt = this.copyService.getTextIt();
+        }
+        if (this.activeHighlightsEn !== undefined) {
+          this.activeHighlightsEn = this.activeHighlightsEn + " " + this.copyService.getTextEn();
+        } else {
+          this.activeHighlightsEn = this.copyService.getTextEn();
+        }
+        if (this.activeHighlightsFr !== undefined) {
+          this.activeHighlightsFr = this.activeHighlightsFr + " " + this.copyService.getTextFr();
+        } else {
+          this.activeHighlightsFr = this.copyService.getTextFr();
+        }
+        break;
       case "avActivityHighlights":
         if (this.activeAvActivityHighlightsTextcat !== undefined) {
           this.activeAvActivityHighlightsTextcat = this.activeAvActivityHighlightsTextcat + "." + this.copyService.getTextTextcat();
@@ -1453,6 +1520,13 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   deleteTextcat(event, field) {
     switch (field) {
+      case "highlights":
+        this.activeHighlightsTextcat = undefined;
+        this.activeHighlightsDe = undefined;
+        this.activeHighlightsIt = undefined;
+        this.activeHighlightsEn = undefined;
+        this.activeHighlightsFr = undefined;
+        break;
       case "avActivityHighlights":
         this.activeAvActivityHighlightsTextcat = undefined;
         this.activeAvActivityHighlightsDe = undefined;

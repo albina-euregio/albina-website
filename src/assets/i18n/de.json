@@ -103,6 +103,7 @@
       "ownRegions" : "Eigene Regionen",
       "foreignRegions": "Fremde Regionen",
       "label" : {
+        "highlights" : "Besondere Warnung",
         "avActivityHighlights" : "Schlagzeile Gefahrensituation",
         "avActivityComment" : "Beurteilung der Lawinengefahr",
         "avalancheSituation1" : "Lawinenproblem 1",

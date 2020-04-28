@@ -173,7 +173,6 @@ export class AvalancheSituationPreviewComponent {
   }
 
   moveUpAvalancheSituation(event) {
-    debugger
     event.stopPropagation();
     switch (this.count) {
       case 2:

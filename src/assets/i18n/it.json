@@ -103,6 +103,7 @@
       "ownRegions" : "Propria provincia",
       "foreignRegions": "Altra provincia",
       "label" : {
+        "highlights" : "Allarme speciale",
         "avActivityHighlights" : "Titolo situazione pericolo valanghe",
         "avActivityComment" : "Testo di descrizione pericolo valanghe",
         "avalancheSituation1" : "Problema tipico valanghivo 1",
@@ -117,7 +118,8 @@
         "elevationHigh" : "Sotto",
         "elevationLow" : "Sopra",
         "tendencyComment" : "Tendenza",
-        "notes" : "Commenti"
+        "notes" : "Commenti",
+        "terrainFeature": "Caratteristiche del terreno"
       },
       "title" : {
         "map" : "Mappa",

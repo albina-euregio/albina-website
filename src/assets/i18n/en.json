@@ -103,6 +103,7 @@
       "ownRegions" : "Own regions",
       "foreignRegions": "Foreign regions",
       "label" : {
+        "highlights" : "Special alert",
         "avActivityHighlights" : "Headline avalanche situation",
         "avActivityComment" : "Description of avalanche danger",
         "avalancheSituation1" : "Avalanche Situation 1",

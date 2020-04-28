@@ -103,6 +103,7 @@
       "ownRegions" : "Mes régions",
       "foreignRegions": "Régions étrangères",
       "label" : {
+        "highlights" : "Alerte spéciale",
         "avActivityHighlights" : "Titre situation danger d'avalanche",
         "avActivityComment" : "Déscription du danger d'avalanche",
         "avalancheSituation1" : "Situation avalancheuse typique 1",
@@ -117,7 +118,8 @@
         "elevationHigh" : "Au-dessous",
         "elevationLow" : "Au-dessus",
         "tendencyComment" : "Déscription de la tendance",
-        "notes" : "Notes"
+        "notes" : "Notes",
+        "terrainFeature": "Caractéristiques du terrain"
       },
       "title" : {
         "map" : "Carte",
