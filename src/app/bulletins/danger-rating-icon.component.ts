@@ -15,22 +15,34 @@ export class DangerRatingIconComponent {
   }
 
   getForenoonColorAbove() {
-    const dangerRating = this.bulletin.getForenoonDangerRatingAbove().toString();
+    var dangerRating = undefined;
+    if (this.bulletin && this.bulletin !== undefined && this.bulletin.getForenoonDangerRatingAbove() && this.bulletin.getForenoonDangerRatingAbove() !== undefined) {
+      dangerRating = this.bulletin.getForenoonDangerRatingAbove().toString();
+    }
     return this.getDangerRatingColor(dangerRating);
   }
 
   getForenoonColorBelow() {
-    const dangerRating = this.bulletin.getForenoonDangerRatingBelow().toString();
+    var dangerRating = undefined;
+    if (this.bulletin && this.bulletin !== undefined && this.bulletin.getForenoonDangerRatingBelow() && this.bulletin.getForenoonDangerRatingBelow() !== undefined) {
+      dangerRating = this.bulletin.getForenoonDangerRatingBelow().toString();
+    }
     return this.getDangerRatingColor(dangerRating);
   }
 
   getAfternoonColorAbove() {
-    const dangerRating = this.bulletin.getAfternoonDangerRatingAbove().toString();
+    var dangerRating = undefined;
+    if (this.bulletin && this.bulletin !== undefined && this.bulletin.getAfternoonDangerRatingAbove() && this.bulletin.getAfternoonDangerRatingAbove() !== undefined) {
+      dangerRating = this.bulletin.getAfternoonDangerRatingAbove().toString();
+    }
     return this.getDangerRatingColor(dangerRating);
   }
 
   getAfternoonColorBelow() {
-    const dangerRating = this.bulletin.getAfternoonDangerRatingBelow().toString();
+    var dangerRating = undefined;
+    if (this.bulletin && this.bulletin !== undefined && this.bulletin.getAfternoonDangerRatingBelow() && this.bulletin.getAfternoonDangerRatingBelow() !== undefined) {
+      dangerRating = this.bulletin.getAfternoonDangerRatingBelow().toString();
+    }
     return this.getDangerRatingColor(dangerRating);
   }
 

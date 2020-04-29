@@ -196,6 +196,14 @@ export class AvalancheSituationModel {
     this.terrainFeature.push(model);
   }
 
+  getDangerRating() {
+    if (this.matrixInformation.getNaturalDangerRating() === undefined || Enums.DangerRating[this.matrixInformation.getNaturalDangerRating()] < Enums.DangerRating[this.matrixInformation.getArtificialDangerRating()]) {
+      return this.matrixInformation.getArtificialDangerRating()
+    } else {
+      return this.matrixInformation.getNaturalDangerRating();
+    }
+  }
+
   toJson() {
     const json = Object();
 

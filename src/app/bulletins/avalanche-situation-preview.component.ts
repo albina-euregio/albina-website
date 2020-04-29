@@ -135,6 +135,8 @@ export class AvalancheSituationPreviewComponent {
       } else {
         if (naturalDangerRating !== undefined) {
           return this.avalancheSituation.matrixInformation.naturalDangerRating
+        } else {
+          return "missing";
         }
       }
     } else {
@@ -153,19 +155,19 @@ export class AvalancheSituationPreviewComponent {
     event.stopPropagation();
     switch (this.count) {
       case 1:
-        this.daytimeDescriptionModel.avalancheSituation1 = undefined;
+        this.daytimeDescriptionModel.setAvalancheSituation1(undefined);
         break;
       case 2:
-        this.daytimeDescriptionModel.avalancheSituation2 = undefined;
+        this.daytimeDescriptionModel.setAvalancheSituation2(undefined);
         break;
       case 3:
-        this.daytimeDescriptionModel.avalancheSituation3 = undefined;
+        this.daytimeDescriptionModel.setAvalancheSituation3(undefined);
         break;
       case 4:
-        this.daytimeDescriptionModel.avalancheSituation4 = undefined;
+        this.daytimeDescriptionModel.setAvalancheSituation4(undefined);
         break;
       case 5:
-        this.daytimeDescriptionModel.avalancheSituation5 = undefined;
+        this.daytimeDescriptionModel.setAvalancheSituation5(undefined);
         break;      
       default:
         break;
@@ -206,7 +208,6 @@ export class AvalancheSituationPreviewComponent {
   }
 
   moveDownAvalancheSituation(event) {
-    debugger
     event.stopPropagation();
     switch (this.count) {
       case 1:

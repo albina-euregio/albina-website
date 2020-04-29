@@ -246,6 +246,7 @@ export class BulletinDaytimeDescriptionModel {
 
   setAvalancheSituation1(avalancheSituation) {
     this.avalancheSituation1 = avalancheSituation;
+    this.updateDangerRating();
   }
 
   getAvalancheSituation2() {
@@ -254,6 +255,7 @@ export class BulletinDaytimeDescriptionModel {
 
   setAvalancheSituation2(avalancheSituation) {
     this.avalancheSituation2 = avalancheSituation;
+    this.updateDangerRating();
   }
 
   getAvalancheSituation3() {
@@ -262,6 +264,7 @@ export class BulletinDaytimeDescriptionModel {
 
   setAvalancheSituation3(avalancheSituation) {
     this.avalancheSituation3 = avalancheSituation;
+    this.updateDangerRating();
   }
 
   getAvalancheSituation4() {
@@ -270,6 +273,7 @@ export class BulletinDaytimeDescriptionModel {
 
   setAvalancheSituation4(avalancheSituation) {
     this.avalancheSituation4 = avalancheSituation;
+    this.updateDangerRating();
   }
 
   getAvalancheSituation5() {
@@ -278,6 +282,51 @@ export class BulletinDaytimeDescriptionModel {
 
   setAvalancheSituation5(avalancheSituation) {
     this.avalancheSituation5 = avalancheSituation;
+    this.updateDangerRating();
+  }
+
+  updateDangerRating() {
+    this.setDangerRatingAbove(this.getHighestDangerRating());
+  }
+
+  private getHighestDangerRating() {
+    var dangerRating = undefined;
+    var tmpDangerRating = undefined;
+    for (var i = 5; i > 0; i--) {
+      switch (i) {
+        case 5:
+          if (this.avalancheSituation5 && this.avalancheSituation5 !== undefined) {
+            tmpDangerRating = this.avalancheSituation5.getDangerRating();
+          }
+          break;
+        case 4:
+          if (this.avalancheSituation4 && this.avalancheSituation4 !== undefined) {
+            tmpDangerRating = this.avalancheSituation4.getDangerRating();
+          }
+          break;
+        case 3:
+          if (this.avalancheSituation3 && this.avalancheSituation3 !== undefined) {
+            tmpDangerRating = this.avalancheSituation3.getDangerRating();
+          }
+          break;
+        case 2:
+          if (this.avalancheSituation2 && this.avalancheSituation2 !== undefined) {
+            tmpDangerRating = this.avalancheSituation2.getDangerRating();
+          }
+          break;
+        case 1:
+          if (this.avalancheSituation1 && this.avalancheSituation1 !== undefined) {
+            tmpDangerRating = this.avalancheSituation1.getDangerRating();
+          }
+          break;
+        default:
+          break;
+      }
+      if (dangerRating === undefined || Enums.DangerRating[tmpDangerRating] > Enums.DangerRating[dangerRating]) {
+        dangerRating = tmpDangerRating;
+      }
+    }
+    return dangerRating;
   }
 
   toJson(hasElevationDependency: boolean) {
