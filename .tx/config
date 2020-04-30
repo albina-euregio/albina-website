@@ -6,3 +6,9 @@ source_file = app/i18n/en.json
 source_lang = en
 type = KEYVALUEJSON
 file_filter = app/i18n/<lang>.json
+
+[albina-website.about]
+source_file = app/content/about/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/about/<lang>.html
