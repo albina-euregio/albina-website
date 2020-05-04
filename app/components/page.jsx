@@ -99,24 +99,6 @@ class Page extends React.Component {
               </div>
             </section>
           )}
-          {APP_ENVIRONMENT !== "dev" && (
-            <section class="section controlbar controlbar-warning">
-              <div class="section-centered">
-                <p class="align-center">
-                  {this.props.intl.formatMessage({ id: "app:covid-19:1" })}
-                </p>
-                <p
-                  class="align-center"
-                  style={{ fontWeight: "bold", fontSize: "large" }}
-                >
-                  {this.props.intl.formatMessage({ id: "app:covid-19:2" })}
-                </p>
-                <p class="align-center">
-                  {this.props.intl.formatMessage({ id: "app:covid-19:3" })}
-                </p>
-              </div>
-            </section>
-          )}
           {renderRoutes(this.props.route.routes)}
         </main>
         <PageFooter />
