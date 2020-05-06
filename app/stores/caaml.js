@@ -158,10 +158,13 @@ export function convertCaamlToAlbinaJson(document) {
       avalancheSituation1: getAvalancheSituation(0),
       avalancheSituation2: getAvalancheSituation(1)
     };
-    const maxWarnlevel = Math.max(
+    const maxWarnlevel = [
       getDangerRatingNumber(/Lw$/),
       getDangerRatingNumber(/Hi$/)
-    );
+    ]
+      .filter(s => typeof s === "string" && s.match(/[12345]/))
+      .map(s => +s)
+      .reduce(Math.max, 0);
 
     // merge afternoon into forenoon observation
     if (id.match(/_PM$/)) {
