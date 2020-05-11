@@ -18,7 +18,7 @@ class ProblemIconLink extends React.Component {
       <div className="bulletin-report-picto avalanche-situation">
         {title && (
           <Link
-            to={"/education/avp#" + this.props.problem}
+            to={"/education/avalanche-problems#" + this.props.problem}
             className="img tooltip"
             href="#"
             title={title}

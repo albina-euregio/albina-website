@@ -23,18 +23,8 @@ const StationMap = loadable(() =>
   import(/* webpackChunkName: "app-stationMap" */ "./../views/stationMap")
 );
 import Education from "./../views/education";
-import DangerScale from "./../views/danger-scale";
-import AvalancheProblems from "./../views/avalanche-problems";
-import EawsMatrix from "./../views/matrix";
-import AvalancheSizes from "./../views/avalanche-sizes";
-import DangerPatterns from "./../views/danger-patterns";
-import Handbook from "./../views/handbook";
 import More from "./../views/more";
 import Archive from "./../views/archive";
-import About from "./../views/about";
-import Contact from "./../views/contact";
-import Imprint from "./../views/imprint";
-import Privacy from "./../views/privacy";
 import StaticPage from "./../views/staticPage";
 import SubscribeConfirmation from "./../views/subscribeConfirmation";
 import Page from "./page";
@@ -128,36 +118,6 @@ class App extends React.Component {
             component: Education
           },
           {
-            path: "/education/dangerscale",
-            exact: true,
-            component: DangerScale
-          },
-          {
-            path: "/education/avp",
-            exact: true,
-            component: AvalancheProblems
-          },
-          {
-            path: "/education/matrix",
-            exact: true,
-            component: EawsMatrix
-          },
-          {
-            path: "/education/avalanche-sizes",
-            exact: true,
-            component: AvalancheSizes
-          },
-          {
-            path: "/education/danger-patterns",
-            exact: true,
-            component: DangerPatterns
-          },
-          {
-            path: "/education/handbook",
-            exact: true,
-            component: Handbook
-          },
-          {
             path: "/blog/:blogName/:postId",
             component: BlogPost
           },
@@ -172,29 +132,9 @@ class App extends React.Component {
             component: More
           },
           {
-            path: "/more/about",
-            exact: true,
-            component: About
-          },
-          {
-            path: "/archive",
+            path: "/more/archive",
             exact: true,
             component: Archive
-          },
-          {
-            path: "/more/contact",
-            exact: true,
-            component: Contact
-          },
-          {
-            path: "/more/imprint",
-            exact: true,
-            component: Imprint
-          },
-          {
-            path: "/more/privacy",
-            exact: true,
-            component: Privacy
           },
           {
             path: "/subscribe/:hash",

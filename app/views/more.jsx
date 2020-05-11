@@ -2,12 +2,11 @@ import React from "react"; // eslint-disable-line no-unused-vars
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
-import StaticPage from "./staticPage";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 
-class More extends StaticPage {
+class More extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -20,7 +19,6 @@ class More extends StaticPage {
         />
         <PageHeadline
           title={this.props.intl.formatMessage({ id: "more:headline" })}
-          marginal={this.state.headerText}
         />
         <section className="section section-features">
           <ul className="list-plain features">

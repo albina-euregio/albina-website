@@ -39,15 +39,6 @@ class Archive extends React.Component {
   }
 
   componentDidMount() {
-    window["staticPageStore"].loadPage("archive").then(responseParsed => {
-      this.setState({
-        title: responseParsed.data.attributes.title,
-        headerText: responseParsed.data.attributes.header_text,
-        content: responseParsed.data.attributes.body,
-        sharable: responseParsed.data.attributes.sharable
-      });
-    });
-
     const up = () => {
       window.setTimeout(tooltip_init, 1000);
     };
@@ -190,17 +181,18 @@ class Archive extends React.Component {
             </div>
           </section>
         </section>
-        <section classname="section-centered section-context">
-          <div classname="panel">
-            <h2 classname="subheader">
+
+        <section className="section-centered section-context">
+          <div className="panel">
+            <h2 className="subheader">
               {this.props.intl.formatMessage({
                 id: "archive:former-archives:headline"
               })}
             </h2>
-            <ul classname="list-inline ">
+            <ul className="list-inline list-buttongroup-dense">
               <li>
                 <a
-                  classname="secondary pure-button"
+                  className="secondary pure-button"
                   href="https://avalanche.report/albina_files/archive/tyrol/"
                   target="_blank"
                 >
@@ -211,7 +203,7 @@ class Archive extends React.Component {
               </li>
               <li>
                 <a
-                  classname="secondary pure-button"
+                  className="secondary pure-button"
                   href="http://wetter.provinz.bz.it/archiv-lawinen.asp"
                   target="_blank"
                 >
@@ -222,7 +214,7 @@ class Archive extends React.Component {
               </li>
               <li>
                 <a
-                  classname="secondary pure-button"
+                  className="secondary pure-button"
                   href="https://www.meteotrentino.it/#!/content?menuItemDesktop=32"
                   target="_blank"
                 >

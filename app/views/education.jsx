@@ -2,12 +2,11 @@ import React from "react"; // eslint-disable-line no-unused-vars
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
-import StaticPage from "./staticPage";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 
-class Education extends StaticPage {
+class Education extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -24,13 +23,12 @@ class Education extends StaticPage {
           title={this.props.intl.formatMessage({
             id: "education:overview:headline"
           })}
-          marginal={this.state.headerText}
         />
         <section className="section section-features">
           <ul className="list-plain features">
             <li className="feature-item">
               <a
-                href="/education/dangerscale"
+                href="/education/danger-scale"
                 className="linkbox linkbox-feature"
               >
                 <div className="content-image">
@@ -61,7 +59,10 @@ class Education extends StaticPage {
             </li>
 
             <li className="feature-item">
-              <a href="/education/avp" className="linkbox linkbox-feature">
+              <a
+                href="/education/avalanche-problems"
+                className="linkbox linkbox-feature"
+              >
                 <div className="content-image">
                   <img
                     src="/content_files/feature_avalanche-problem.jpg"

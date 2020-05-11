@@ -21,8 +21,8 @@
   {
     "url": "/education",
     "children": [
-      { "url": "/education/dangerscale" },
-      { "url": "/education/avp" },
+      { "url": "/education/danger-scale" },
+      { "url": "/education/avalanche-problems" },
       { "url": "/education/matrix" },
       { "url": "/education/avalanche-sizes" },
       { "url": "/education/danger-patterns" },
