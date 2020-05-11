@@ -1,8 +1,5 @@
 {
   "app:title": "Valanghe.report - Servizi Previsione Valanghe Tirolo - Alto Adige - Trentino",
-  "app:covid-19:1": "L’emissione del bollettino valanghe dell’Euregio continuerà regolarmente per valutare i rischi nelle aree antropizzate a tutela di residenti, strutture e infrastrutture.",
-  "app:covid-19:2": "Vi preghiamo di rinunciare a tutte le attività ludiche ed escursionistiche sulla neve!",
-  "app:covid-19:3": "Anche perché eventuali incidenti graverebbero pesantemente sui sistemi di soccorso e sanitari.",
   "region:AT-07": "Tirolo",
   "region:IT-32-BZ": "Alto Adige",
   "region:IT-32-TN": "Trentino",
@@ -150,6 +147,7 @@
   "bulletin:report:tendency:headline": "Tendenza",
   "bulletin:report:danger-patterns": "Situazione tipo",
   "bulletin:report:author": "Autore",
+  "bulletin:report:hightlights:headline": "ATTENZIONE: ",
   "bulletin:treeline": "Limite del bosco",
   "bulletin:howto": "<strong>Cliccate sulla carta</strong> per ottenere informazioni dettagliati sul pericolo di valanghe nelle diverse zone di avviso.",
   "bulletin:feedback": "Indagine",

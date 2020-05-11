@@ -78,28 +78,26 @@ class BulletinReport extends React.Component {
                 <FormattedHTMLMessage
                   id="bulletin:report:headline"
                   values={{
-                    date: dateToLongDateString(
-                      parseDate(this.props.date)
-                    ),
+                    date: dateToLongDateString(parseDate(this.props.date)),
                     daytime: ""
                   }}
                 />
               </p>
-                <h1>
-                  <FormattedHTMLMessage
-                    id={
-                      maxWarnlevel.number == 0
-                        ? "bulletin:report:headline2:level0"
-                        : "bulletin:report:headline2"
-                    }
-                    values={{
-                      number: maxWarnlevel.number,
-                      text: this.props.intl.formatMessage({
-                        id: "danger-level:" + maxWarnlevel.id
-                      })
-                    }}
-                  />
-                </h1>
+              <h1>
+                <FormattedHTMLMessage
+                  id={
+                    maxWarnlevel.number == 0
+                      ? "bulletin:report:headline2:level0"
+                      : "bulletin:report:headline2"
+                  }
+                  values={{
+                    number: maxWarnlevel.number,
+                    text: this.props.intl.formatMessage({
+                      id: "danger-level:" + maxWarnlevel.id
+                    })
+                  }}
+                />
+              </h1>
             </header>
             {Object.keys(daytimeBulletins).map(ampm => (
               <BulletinDaytimeReport
@@ -110,6 +108,21 @@ class BulletinReport extends React.Component {
                 ampm={ampm == "fd" ? "" : ampm}
               />
             ))}
+            {bulletin.highlights && (
+              <div
+                className="public-alert"
+                style={{
+                  marginTop: "10px",
+                  marginBottom: "20px",
+                  color: "#ff0000"
+                }}
+              >
+                <span className="heavy letterspace">
+                  <FormattedHTMLMessage id="bulletin:report:highlights:headline" />
+                  {this.getLocalizedText(bulletin.highlights)}
+                </span>
+              </div>
+            )}
             <h2 className="subheader">
               {this.getLocalizedText(bulletin.avActivityHighlights)}
             </h2>

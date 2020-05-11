@@ -64,9 +64,3 @@
   @include text-color($black);
   @include link-color($anchor-font-color, rgba($anchor-font-color-hover, 0.9));
 }
-
-.controlbar-warning {
-  @extend .bg-warning-level-4;
-  @include text-color($white);
-  @include link-color($anchor-font-color, rgba($anchor-font-color-hover, 0.9));
-}
