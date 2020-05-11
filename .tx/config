@@ -7,8 +7,62 @@ source_lang = en
 type = KEYVALUEJSON
 file_filter = app/i18n/<lang>.json
 
-[albina-website.about]
-source_file = app/content/about/en.html
+[albina-website.danger-scale]
+source_file = app/content/education/danger-scale/en.html
 source_lang = en
 type = HTML
-file_filter = app/content/about/<lang>.html
+file_filter = app/content/education/danger-scale/<lang>.html
+
+[albina-website.avalanche-problems]
+source_file = app/content/education/avalanche-problems/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/education/avalanche-problems/<lang>.html
+
+[albina-website.matrix]
+source_file = app/content/education/matrix/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/education/matrix/<lang>.html
+
+[albina-website.avalanche-sizes]
+source_file = app/content/education/avalanche-sizes/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/education/avalanche-sizes/<lang>.html
+
+[albina-website.danger-patterns]
+source_file = app/content/education/danger-patterns/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/education/danger-patterns/<lang>.html
+
+[albina-website.handbook]
+source_file = app/content/education/handbook/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/education/handbook/<lang>.html
+
+[albina-website.about]
+source_file = app/content/more/about/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/more/about/<lang>.html
+
+[albina-website.contact]
+source_file = app/content/more/contact/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/more/contact/<lang>.html
+
+[albina-website.imprint]
+source_file = app/content/more/imprint/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/more/imprint/<lang>.html
+
+[albina-website.privacy]
+source_file = app/content/more/privacy/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/more/privacy/<lang>.html
