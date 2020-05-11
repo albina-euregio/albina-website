@@ -33,11 +33,11 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://avalanche.report/education/dangerscale</loc>
+    <loc>https://avalanche.report/education/danger-scale</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://avalanche.report/education/avp</loc>
+    <loc>https://avalanche.report/education/avalanche-problems</loc>
     <priority>0.5</priority>
   </url>
   <url>
@@ -53,23 +53,23 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://avalanche.report/archive</loc>
+    <loc>https://avalanche.report/more/archive</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://avalanche.report/about</loc>
+    <loc>https://avalanche.report/more/about</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://avalanche.report/contact</loc>
+    <loc>https://avalanche.report/more/contact</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://avalanche.report/imprint</loc>
+    <loc>https://avalanche.report/more/imprint</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://avalanche.report/privacy</loc>
+    <loc>https://avalanche.report/more/privacy</loc>
     <priority>0.5</priority>
   </url>
 </urlset>

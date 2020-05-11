@@ -14,7 +14,6 @@ import YearFilter from "../components/filters/year-filter";
 import MonthFilter from "../components/filters/month-filter";
 // import TagFilter from "../components/filters/tag-filter";
 import InfoBar from "../components/organisms/info-bar";
-import { preprocessContent } from "../util/htmlParser";
 
 class BlogOverview extends React.Component {
   _settingFilters;
@@ -72,26 +71,6 @@ class BlogOverview extends React.Component {
     if (!this.settingFilters) {
       this.store.checkUrl();
     }
-  }
-
-  componentWillReceiveProps() {
-    return this._fetchData();
-  }
-
-  componentDidMount() {
-    window["staticPageStore"].loadPage("/blog").then(responseParsed => {
-      this.setState({
-        title: responseParsed.data.attributes.title,
-        headerText: responseParsed.data.attributes.header_text,
-        content: responseParsed.data.attributes.body,
-        sharable: responseParsed.data.attributes.sharable
-      });
-    });
-    return this._fetchData();
-  }
-
-  _fetchData() {
-    //return this.store.load();
   }
 
   doStoreUpdate() {
@@ -175,9 +154,11 @@ class BlogOverview extends React.Component {
 
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({ id: "blog:title" })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({ id: "blog:headline" })}
           marginal={this.state.headerText}
         />
         <FilterBar
@@ -307,13 +288,7 @@ class BlogOverview extends React.Component {
             </div>
           )}
         </section>
-        <div>{preprocessContent(this.state.content)}</div>
-
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding" />
-        )}
+        <SmShare />
       </>
     );
   }

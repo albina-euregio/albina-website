@@ -6,6 +6,7 @@ import CookieStore from "./stores/cookieStore";
 import NavigationStore from "./stores/navigationStore";
 import de from "./i18n/de.json";
 import en from "./i18n/en.json";
+import fr from "./i18n/fr.json";
 import it from "./i18n/it.json";
 
 class AppStore extends React.Component {
@@ -22,10 +23,11 @@ class AppStore extends React.Component {
 
   constructor() {
     super();
-    this.languages = ["en", "de", "it"];
+    this.languages = ["en", "de", "fr", "it"];
     const translationLookup = {
       en,
       de,
+      fr,
       it
     };
 
@@ -39,16 +41,19 @@ class AppStore extends React.Component {
       "AT-07": {
         en: en["region:AT-07"],
         de: de["region:AT-07"],
+        fr: fr["region:AT-07"],
         it: it["region:AT-07"]
       },
       "IT-32-BZ": {
         en: en["region:IT-32-BZ"],
         de: de["region:IT-32-BZ"],
+        fr: fr["region:IT-32-BZ"],
         it: it["region:IT-32-BZ"]
       },
       "IT-32-TN": {
         en: en["region:IT-32-TN"],
         de: de["region:IT-32-TN"],
+        fr: fr["region:IT-32-TN"],
         it: it["region:IT-32-TN"]
       }
     };

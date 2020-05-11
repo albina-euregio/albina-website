@@ -43,7 +43,7 @@ class BulletinLegend extends React.Component {
                 {parts.length > 1 && preprocessContent(parts[1])}
                 {parts.length > 2 && (
                   <Link
-                    to="/education/avp"
+                    to="/education/avalanche-problems"
                     className="tooltip"
                     title={this.props.intl.formatMessage({
                       id: "bulletin:legend:highlight-regions:hover"
@@ -62,7 +62,7 @@ class BulletinLegend extends React.Component {
             <div className="normal-6 grid-item">
               <p>
                 <Link
-                  to="/education/dangerscale"
+                  to="/education/danger-scale"
                   className="tooltip"
                   title={this.props.intl.formatMessage({
                     id: "bulletin:legend:danger-levels:hover"

@@ -14,7 +14,6 @@ import YearFilter from "../components/filters/year-filter.jsx";
 import MonthFilter from "../components/filters/month-filter.jsx";
 import DayFilter from "../components/filters/day-filter.jsx";
 import { tooltip_init } from "../js/tooltip";
-import { preprocessContent } from "../util/htmlParser.js";
 
 class Archive extends React.Component {
   constructor(props) {
@@ -40,15 +39,6 @@ class Archive extends React.Component {
   }
 
   componentDidMount() {
-    window["staticPageStore"].loadPage("archive").then(responseParsed => {
-      this.setState({
-        title: responseParsed.data.attributes.title,
-        headerText: responseParsed.data.attributes.header_text,
-        content: responseParsed.data.attributes.body,
-        sharable: responseParsed.data.attributes.sharable
-      });
-    });
-
     const up = () => {
       window.setTimeout(tooltip_init, 1000);
     };
@@ -102,9 +92,11 @@ class Archive extends React.Component {
   render() {
     return (
       <>
-        <HTMLHeader title={this.state.title} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({ id: "archive:title" })}
+        />
         <PageHeadline
-          title={this.state.title}
+          title={this.props.intl.formatMessage({ id: "archive:headline" })}
           marginal={this.state.headerText}
         />
         <FilterBar search={false}>
@@ -189,12 +181,52 @@ class Archive extends React.Component {
             </div>
           </section>
         </section>
-        <div>{preprocessContent(this.state.content)}</div>
-        {this.state.sharable ? (
-          <SmShare />
-        ) : (
-          <div className="section-padding" />
-        )}
+
+        <section className="section-centered section-context">
+          <div className="panel">
+            <h2 className="subheader">
+              {this.props.intl.formatMessage({
+                id: "archive:former-archives:headline"
+              })}
+            </h2>
+            <ul className="list-inline list-buttongroup-dense">
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="https://avalanche.report/albina_files/archive/tyrol/"
+                  target="_blank"
+                >
+                  {this.props.intl.formatMessage({
+                    id: "archive:former-archives:tyrol"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="http://wetter.provinz.bz.it/archiv-lawinen.asp"
+                  target="_blank"
+                >
+                  {this.props.intl.formatMessage({
+                    id: "archive:former-archives:south-tyrol"
+                  })}
+                </a>
+              </li>
+              <li>
+                <a
+                  className="secondary pure-button"
+                  href="https://www.meteotrentino.it/#!/content?menuItemDesktop=32"
+                  target="_blank"
+                >
+                  {this.props.intl.formatMessage({
+                    id: "archive:former-archives:trentino"
+                  })}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <SmShare />
       </>
     );
   }

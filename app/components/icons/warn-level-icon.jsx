@@ -26,7 +26,7 @@ class WarnLevelIcon extends React.Component {
       return "";
     };
 
-    const link = "/education/dangerscale?lang=" + window["appStore"].language;
+    const link = "/education/danger-scale?lang=" + window["appStore"].language;
 
     const below =
       this.props.elevation || this.props.treeline

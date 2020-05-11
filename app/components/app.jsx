@@ -22,7 +22,8 @@ const StationMeasurements = loadable(() =>
 const StationMap = loadable(() =>
   import(/* webpackChunkName: "app-stationMap" */ "./../views/stationMap")
 );
-import OverviewPage from "./../views/overviewPage";
+import Education from "./../views/education";
+import More from "./../views/more";
 import Archive from "./../views/archive";
 import StaticPage from "./../views/staticPage";
 import SubscribeConfirmation from "./../views/subscribeConfirmation";
@@ -114,7 +115,7 @@ class App extends React.Component {
           {
             path: "/education",
             exact: true,
-            component: OverviewPage
+            component: Education
           },
           {
             path: "/blog/:blogName/:postId",
@@ -128,10 +129,10 @@ class App extends React.Component {
           {
             path: "/more",
             exact: true,
-            component: OverviewPage
+            component: More
           },
           {
-            path: "/archive",
+            path: "/more/archive",
             exact: true,
             component: Archive
           },

@@ -21,14 +21,14 @@
   {
     "url": "/education",
     "children": [
-      { "url": "/education/dangerscale" },
-      { "url": "/education/avp" },
+      { "url": "/education/danger-scale" },
+      { "url": "/education/avalanche-problems" },
       { "url": "/education/matrix" },
       { "url": "/education/avalanche-sizes" },
       { "url": "/education/danger-patterns" },
       {
         "key": "glossary",
-        "url": "https://www.avalanches.org/glossary-2/",
+        "url": "https://www.avalanches.org/glossary/",
         "url:de": "https://www.avalanches.org/de/glossary/",
         "url:it": "https://www.avalanches.org/it/glossary/"
       },
@@ -38,11 +38,11 @@
   {
     "url": "/more",
     "children": [
-      { "url": "/archive" },
-      { "url": "/about" },
-      { "url": "/contact" },
-      { "url": "/imprint" },
-      { "url": "/privacy" }
+      { "url": "/more/archive" },
+      { "url": "/more/about" },
+      { "url": "/more/contact" },
+      { "url": "/more/imprint" },
+      { "url": "/more/privacy" }
     ]
   }
 ]

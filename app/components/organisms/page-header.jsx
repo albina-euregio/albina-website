@@ -128,6 +128,17 @@ class PageHeader extends React.Component {
                 EN
               </a>
             </li>
+            <li>
+              <a
+                className="language-trigger-fr tooltip"
+                title={this.props.intl.formatMessage({
+                  id: "header:language-switch:fr:hover"
+                })}
+                onClick={() => this.handleChangeLanguage("fr")}
+              >
+                FR
+              </a>
+            </li>
           </ul>
         </div>
         <div className="page-header-hamburger">

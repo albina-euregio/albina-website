@@ -20,18 +20,18 @@ export default class StaticPage extends React.Component {
     };
   }
 
+  componentDidUpdate() {
+    if (this.props.location.hash) {
+      scroll(this.props.location.hash, 2000);
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     this._fetchData(nextProps);
   }
 
   componentDidMount() {
     this._fetchData(this.props);
-  }
-
-  componentDidUpdate() {
-    if (this.props.location.hash) {
-      scroll(this.props.location.hash, 2000);
-    }
   }
 
   _fetchData(props) {

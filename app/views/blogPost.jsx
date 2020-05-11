@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Parser, ProcessNodeDefinitions } from "html-to-react";
+import { injectIntl } from "react-intl";
+import { withRouter } from "react-router-dom";
+import { observer, inject } from "mobx-react";
 import PageHeadline from "../components/organisms/page-headline";
+import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import TagList from "../components/blog/tag-list";
 import { parseDate, dateToDateTimeString } from "../util/date";
@@ -10,7 +14,7 @@ import { modal_init } from "../js/modal";
 import { video_init } from "../js/video";
 import axios from "axios";
 
-export default class BlogPost extends React.Component {
+class BlogPost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -146,7 +150,10 @@ export default class BlogPost extends React.Component {
     return (
       <>
         <HTMLHeader title={this.state.title} />
-        <PageHeadline title={this.state.title} subtitle="Blog">
+        <PageHeadline
+          title={this.state.title}
+          subtitle={this.props.intl.formatMessage({ id: "blog:subtitle" })}
+        >
           <ul className="list-inline blog-feature-meta">
             <li className="blog-date">
               {dateToDateTimeString(this.state.date)}
@@ -169,7 +176,9 @@ export default class BlogPost extends React.Component {
         <section className="section-centered ">
           <section className="panel blog-post">{this.state.content}</section>
         </section>
+        <SmShare />
       </>
     );
   }
 }
+export default inject("locale")(injectIntl(withRouter(observer(BlogPost))));
