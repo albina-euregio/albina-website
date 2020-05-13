@@ -79,6 +79,11 @@
           "steady" : "Lawinengefahr bleibt unverändert",
           "increasing" : "Lawinengefahr steigt"
         },
+        "complexity" : {
+          "easy" : "Einschätzung im Gelände ist einfach",
+          "challenging" : "Einschätzung im Gelände ist herausfordernd",
+          "complex" : "Einschätzung im Gelände ist komplex"
+        },
         "textcat" : {
           "edit" : "Bearbeiten",
           "copy" : "Kopieren",
@@ -501,6 +506,11 @@
     "decreasing" : " Lawinengefahr sinkt",
     "steady" : " Lawinengefahr bleibt gleich",
     "increasing" : " Lawinengefahr steigt"
+  },
+  "complexity": {
+    "easy": " Einfach",
+    "challenging": " Fordernd",
+    "complex": " Komplex"
   },
   "changeRegionDialog" : {
     "message" : "Möchtest du die Änderungen verwerfen und die Region wechseln?",

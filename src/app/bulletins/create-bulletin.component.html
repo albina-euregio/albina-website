@@ -269,34 +269,33 @@
                 </div>
                 <div class="form-group row">
                   <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
+                    <app-complexity [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-complexity>
                     <div style="height: 40px;">
-                      <div style="font-size: 16px; float: left;">
-                      </div>
-                      <div style="float: right;">
+                      <div style="text-align: right;">
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
                     </div>
                     <app-avalanche-situation [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
                   </div>
-                </div>
-                <div class="form-group row">
-                  <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: left; margin-top: 15px;">
+                  <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: left;">
+                    <div style="font-size: 16px;">
+                      <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+                    </div>
+                    <app-complexity [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-complexity>
                     <div style="height: 40px;">
-                      <div style="font-size: 16px; float: left;">
-                        <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
-                      </div>
-                      <div style="float: right;">
+                      <div style="text-align: right;">
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
                     </div>
                     <app-avalanche-situation [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
                   </div>
-                  <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: right; margin-top: 15px;">
+                  <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: right;">
+                    <div style="font-size: 16px;">
+                      <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+                    </div>
+                    <app-complexity [bulletinDaytimeDescription]="activeBulletin.afternoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-complexity>
                     <div style="height: 40px;">
-                      <div style="font-size: 16px; float: left;">
-                        <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
-                      </div>
-                      <div style="float: right;">
+                      <div style="text-align: right;">
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(true)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
                     </div>

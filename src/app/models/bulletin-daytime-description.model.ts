@@ -16,6 +16,8 @@ export class BulletinDaytimeDescriptionModel {
   public terrainFeatureBelowTextcat: string;
   public terrainFeatureBelow: TextModel[];
 
+  public complexity: Enums.Complexity;
+
   public avalancheSituation1: AvalancheSituationModel;
   public avalancheSituation2: AvalancheSituationModel;
   public avalancheSituation3: AvalancheSituationModel;
@@ -59,6 +61,10 @@ export class BulletinDaytimeDescriptionModel {
     }
     bulletinDaytimeDescription.setTerrainFeatureBelow(terrainFeatureBelow);
 
+    if (json.complexity) {
+      bulletinDaytimeDescription.setComplexity(json.complexity);
+    }
+
     if (json.avalancheSituation1) {
       bulletinDaytimeDescription.avalancheSituation1 = AvalancheSituationModel.createFromJson(json.avalancheSituation1);
     }
@@ -91,6 +97,7 @@ export class BulletinDaytimeDescriptionModel {
       this.matrixInformationBelow = new MatrixInformationModel();
       this.terrainFeatureBelowTextcat = undefined;
       this.terrainFeatureBelow = new Array<TextModel>();
+      this.complexity = undefined;
     } else {
       this.setDangerRatingAbove(bulletinDaytimeDescription.getDangerRatingAbove());
       this.matrixInformationAbove = new MatrixInformationModel(bulletinDaytimeDescription.getMatrixInformationAbove());
@@ -107,6 +114,7 @@ export class BulletinDaytimeDescriptionModel {
       for (const entry of bulletinDaytimeDescription.terrainFeatureBelow) {
         arrayBelow.push(TextModel.createFromJson(entry.toJson()));
       }
+      this.complexity = bulletinDaytimeDescription.getComplexity();
       this.terrainFeatureBelow = arrayBelow;
       if (bulletinDaytimeDescription.getAvalancheSituation1() !== undefined) {
         this.avalancheSituation1 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation1());
@@ -240,6 +248,14 @@ export class BulletinDaytimeDescriptionModel {
     this.terrainFeatureBelow.push(model);
   }
 
+  getComplexity() {
+    return this.complexity;
+  }
+
+  setComplexity(complexity: Enums.Complexity) {
+    this.complexity = complexity;
+  }
+
   getAvalancheSituation1() {
     return this.avalancheSituation1;
   }
@@ -363,6 +379,9 @@ export class BulletinDaytimeDescriptionModel {
         terrainFeature.push(this.terrainFeatureBelow[i].toJson());
       }
       json["terrainFeatureBelow"] = terrainFeature;
+    }
+    if (this.complexity && this.complexity !== undefined) {
+      json["complexity"] = this.complexity;
     }
 
     if (this.avalancheSituation1 && this.avalancheSituation1 !== undefined) {

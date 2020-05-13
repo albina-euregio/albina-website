@@ -79,6 +79,11 @@
           "steady" : "Avalanche danger stays the same",
           "increasing" : "Avalanche danger increases"
         },
+        "complexity" : {
+          "easy" : "Assessment in the field is easy",
+          "challenging" : "Assessment in the field is challenging",
+          "complex" : "Assessment in the field is complex"
+        },
         "textcat" : {
           "edit" : "Edit",
           "copy" : "Copy",
@@ -501,6 +506,11 @@
     "decreasing" : " Avalanche danger decreases",
     "steady" : " Avalanche danger stays the same",
     "increasing" : " Avalanche danger increases"
+  },
+  "complexity": {
+    "easy": " Easy",
+    "challenging": " Challenging",
+    "complex": " Complex"
   },
   "changeRegionDialog" : {
     "message" : "Do you want to discard the changes and change the region?",

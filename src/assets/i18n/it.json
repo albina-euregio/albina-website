@@ -79,6 +79,11 @@
           "steady" : "Pericolo valanghe stabile",
           "increasing" : "Pericolo valanghe in aumento"
         },
+        "complexity" : {
+          "easy" : "La valutazione sul campo è facile",
+          "challenging" : "La valutazione sul campo è impegnativa",
+          "complex" : "La valutazione sul campo è complessa"
+        },
         "textcat" : {
           "edit" : "Modifica",
           "copy" : "Copiare",
@@ -501,6 +506,11 @@
     "decreasing" : " Pericolo valanghe in diminuazione",
     "steady" : " Pericolo valanghe stabile",
     "increasing" : " Pericolo valanghe in aumento"
+  },
+  "complexity": {
+    "easy": " Facile",
+    "challenging": " Sfida",
+    "complex": " Complesso"
   },
   "changeRegionDialog" : {
     "message" : "Vuoi scartare i cambiamenti e cambiare la regione?",

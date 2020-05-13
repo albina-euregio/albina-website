@@ -79,6 +79,11 @@
           "steady" : "Le danger d'avalanche reste le même",
           "increasing" : "Le danger d'avalanche augmente"
         },
+        "complexity" : {
+          "easy" : "L'évaluation sur le terrain est facile",
+          "challenging" : "L'évaluation sur le terrain est un défi",
+          "complex" : "L'évaluation sur le terrain est complexe"
+        },
         "textcat" : {
           "edit" : "Éditer",
           "copy" : "Copier",
@@ -501,6 +506,11 @@
     "decreasing" : "Le Danger d'avalanche diminue",
     "steady" : "Danger d'avalanche reste la même",
     "increasing" : "Le danger d'avalanche augmente"
+  },
+  "complexity": {
+    "easy": " Facile",
+    "challenging": " Défi",
+    "complex": " Complexe"
   },
   "changeRegionDialog" : {
     "message" : "Abandoner les modifications et changer la région?",
