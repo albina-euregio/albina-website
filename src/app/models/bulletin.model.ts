@@ -19,6 +19,7 @@ export class BulletinModel {
   public savedRegions: String[];
   public publishedRegions: String[];
 
+  public isManualDangerRating: boolean;
   public hasElevationDependency: boolean;
   public hasDaytimeDependency: boolean;
 
@@ -101,6 +102,7 @@ export class BulletinModel {
 
     bulletin.setElevation(json.elevation);
     bulletin.setTreeline(json.treeline);
+    bulletin.setIsManualDangerRating(json.isManualDangerRating);
     bulletin.setHasDaytimeDependency(json.hasDaytimeDependency);
     bulletin.setHasElevationDependency(json.hasElevationDependency);
 
@@ -258,6 +260,7 @@ export class BulletinModel {
       this.dangerPattern2 = bulletin.dangerPattern2;
       this.elevation = bulletin.elevation;
       this.treeline = bulletin.treeline;
+      this.isManualDangerRating = bulletin.isManualDangerRating;
       this.hasDaytimeDependency = bulletin.hasDaytimeDependency;
       this.hasElevationDependency = bulletin.hasElevationDependency;
     } else {
@@ -287,6 +290,7 @@ export class BulletinModel {
       this.dangerPattern2 = undefined;
       this.elevation = undefined;
       this.treeline = false;
+      this.isManualDangerRating = false;
       this.hasDaytimeDependency = false;
       this.hasElevationDependency = false;
     }
@@ -400,6 +404,14 @@ export class BulletinModel {
 
   setHasElevationDependency(hasElevationDependency: boolean) {
     this.hasElevationDependency = hasElevationDependency;
+  }
+
+  getIsManualDangerRating() {
+    return this.isManualDangerRating;
+  }
+
+  setIsManualDangerRating(isManualDangerRating: boolean) {
+    this.isManualDangerRating = isManualDangerRating;
   }
 
   getHasDaytimeDependency() {
@@ -774,6 +786,12 @@ export class BulletinModel {
         publishedRegions.push(this.publishedRegions[i]);
       }
       json["publishedRegions"] = publishedRegions;
+    }
+
+    if (this.isManualDangerRating) {
+      json["isManualDangerRating"] = true;
+    } else {
+      json["isManualDangerRating"] = false;
     }
 
     if (this.hasDaytimeDependency) {

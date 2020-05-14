@@ -94,7 +94,8 @@
         "showInBulletin" : "Il problema delle valanghe sarà mostrato nel bollettino",
         "dontShowInBulletin" : "Il problema delle valanghe NON sarà mostrato nel bollettino",
         "moveUpAvalancheSituation" : "Spostare il problema valanghe verso l'alto",
-        "moveDownAvalancheSituation" : "Spostare il problema valanghe verso il basso"
+        "moveDownAvalancheSituation" : "Spostare il problema valanghe verso il basso",
+        "isManualDangerRating": "Scegliere la valutazione del pericolo manualmente"
       },
       "button" : "Creato",
       "save" : " Salva",

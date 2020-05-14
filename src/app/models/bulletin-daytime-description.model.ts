@@ -303,6 +303,9 @@ export class BulletinDaytimeDescriptionModel {
 
   updateDangerRating() {
     this.setDangerRatingAbove(this.getHighestDangerRating());
+    this.setMatrixInformationAbove(new MatrixInformationModel());
+    this.setDangerRatingBelow(undefined);
+    this.setMatrixInformationAbove(new MatrixInformationModel());
   }
 
   private getHighestDangerRating() {

@@ -94,7 +94,8 @@
         "showInBulletin" : "Lawinenproblem wird im Bulletin angezeigt",
         "dontShowInBulletin" : "Lawinenproblem wird im Bulletin NICHT angezeigt",
         "moveUpAvalancheSituation" : "Lawinenproblem nach oben schieben",
-        "moveDownAvalancheSituation" : "Lawinenproblem nach unten schieben"
+        "moveDownAvalancheSituation" : "Lawinenproblem nach unten schieben",
+        "isManualDangerRating": "Gefahrenstufe manuell wählen"
       },
       "button" : "Neu",
       "save" : " Speichern",

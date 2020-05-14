@@ -94,7 +94,8 @@
         "showInBulletin" : "Le problème des avalanches sera présenté dans un bulletin",
         "dontShowInBulletin" : "Le problème des avalanches ne figurera pas dans le bulletin",
         "moveUpAvalancheSituation" : "Déplacer le problème des avalanches",
-        "moveDownAvalancheSituation" : "Faire reculer le problème des avalanches"
+        "moveDownAvalancheSituation" : "Faire reculer le problème des avalanches",
+        "isManualDangerRating": "Choisissez la cote de danger manuellement"
      },
       "button" : "Créer",
       "save" : "Sauvegarder",

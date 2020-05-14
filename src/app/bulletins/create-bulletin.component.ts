@@ -909,6 +909,19 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
+  setManualDangerRating(event, value) {
+    event.stopPropagation();
+    this.activeBulletin.setIsManualDangerRating(value);
+    if (!this.activeBulletin.isManualDangerRating) {
+      this.activeBulletin.setHasElevationDependency(false);
+      this.activeBulletin.forenoon.updateDangerRating();
+      if (this.activeBulletin.hasDaytimeDependency) {
+        this.activeBulletin.afternoon.updateDangerRating();
+      }
+      this.activeBulletin.setHasElevationDependency(false);
+    }
+  }
+
   daytimeDependencyChanged(event, value) {
     event.stopPropagation();
     this.activeBulletin.setHasDaytimeDependency(value);
