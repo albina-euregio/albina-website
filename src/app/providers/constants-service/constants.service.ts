@@ -41,12 +41,19 @@ export class ConstantsService {
     [this.codeTrentino, ["IT-32-TN-01", "IT-32-TN-02", "IT-32-TN-03", "IT-32-TN-04", "IT-32-TN-05", "IT-32-TN-06", "IT-32-TN-07", "IT-32-TN-08", "IT-32-TN-09", "IT-32-TN-10", "IT-32-TN-11", "IT-32-TN-12", "IT-32-TN-13", "IT-32-TN-14", "IT-32-TN-15", "IT-32-TN-16", "IT-32-TN-17", "IT-32-TN-18", "IT-32-TN-19", "IT-32-TN-20", "IT-32-TN-21"]]
   ]);
 
+  // danger rating (color)
   public colorDangerRatingLow = "#CCFF66";
   public colorDangerRatingModerate = "#FFFF00";
   public colorDangerRatingConsiderable = "#FF9900";
   public colorDangerRatingHigh = "#FF0000";
-  // not standardized
   public colorDangerRatingVeryHigh = "#800000";
+  // danger rating (bw)
+  public colorDangerRatingLowBw = "#EFEFEF";
+  public colorDangerRatingModerateBw = "#D8D8D8";
+  public colorDangerRatingConsiderableBw = "#B0B0B0";
+  public colorDangerRatingHighBw = "#888888";
+  public colorDangerRatingVeryHighBw = "#666666";
+
   public colorDangerRatingMissing = "#969696";
   // TODO use correct color
   public colorDangerRatingNoSnow = "#A0522D";
@@ -120,6 +127,26 @@ export class ConstantsService {
         return this.colorDangerRatingModerate;
       case "low":
         return this.colorDangerRatingLow;
+      case "no_snow":
+        return this.colorDangerRatingNoSnow;
+
+      default:
+        return this.colorDangerRatingMissing;
+    }
+  }
+
+  getDangerRatingColorBw(dangerRating) {
+    switch (dangerRating) {
+      case "very_high":
+        return this.colorDangerRatingVeryHighBw;
+      case "high":
+        return this.colorDangerRatingHighBw;
+      case "considerable":
+        return this.colorDangerRatingConsiderableBw;
+      case "moderate":
+        return this.colorDangerRatingModerateBw;
+      case "low":
+        return this.colorDangerRatingLowBw;
       case "no_snow":
         return this.colorDangerRatingNoSnow;
 
