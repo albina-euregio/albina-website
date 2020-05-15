@@ -38,18 +38,18 @@ export class MapService {
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService) {
     this.baseMaps = {
-      AlbinaBaseMap: L.tileLayer("https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png", {
-        tms: true,
-        attribution: "Map data &copy <a href=\"http://carto.univie.ac.at/\">UNI-Wien Karto</a>",
+      AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+        tms: false,
+        attribution: "",
         minZoom: 8,
         maxZoom: 10
       })
     };
 
     this.afternoonBaseMaps = {
-      AlbinaBaseMap: L.tileLayer("https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png", {
-        tms: true,
-        attribution: "Map data &copy <a href=\"http://carto.univie.ac.at/\">UNI-Wien Karto</a>",
+      AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+        tms: false,
+        attribution: "",
         minZoom: 8,
         maxZoom: 10
       })
