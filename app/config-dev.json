@@ -195,7 +195,7 @@
     "noBulletinBanner": true
   },
   "map": {
-    "attribution": "<a href='https://carto.univie.ac.at/' rel='noopener' target='_blank'>CC BY avalanche.report</a>",
+    "attribution": "CC BY avalanche.report",
     "useWindowWidth": true,
     "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],
     "overlay": {
@@ -207,7 +207,7 @@
       "maxBoundsViscosity": 1,
       "zoomSnap": 0.25,
       "zoomDelta": 0.5,
-      "maxZoom": 10,
+      "maxZoom": 12,
       "minZoom": 7
     },
     "maxBounds": {
@@ -227,7 +227,7 @@
       {
         "id": "ALBINA",
         "url": "https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png",
-        "maxZoom": 10,
+        "maxZoom": 12,
         "minZoom": 7,
         "detectRetina": false,
         "tms": false,
