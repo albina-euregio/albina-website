@@ -177,27 +177,28 @@ export class AvalancheSituationPreviewComponent {
 
   moveUpAvalancheSituation(event) {
     event.stopPropagation();
+    let tmpAvalancheSituation = undefined;
     switch (this.count) {
       case 2:
-        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation1);
         this.daytimeDescriptionModel.avalancheSituation2 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation1 = tmpAvalancheSituation;
         break;
       case 3:
-        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2);
         this.daytimeDescriptionModel.avalancheSituation3 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation2 = tmpAvalancheSituation;
         break;
       case 4:
-        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation3);
         this.daytimeDescriptionModel.avalancheSituation4 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation3 = tmpAvalancheSituation;
         break;
       case 5:
-        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation4);
         this.daytimeDescriptionModel.avalancheSituation5 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation4 = tmpAvalancheSituation;
@@ -210,27 +211,28 @@ export class AvalancheSituationPreviewComponent {
 
   moveDownAvalancheSituation(event) {
     event.stopPropagation();
+    let tmpAvalancheSituation = undefined;
     switch (this.count) {
       case 1:
-        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2);
         this.daytimeDescriptionModel.avalancheSituation1 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation2 = tmpAvalancheSituation;
         break;
       case 2:
-        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation3);
         this.daytimeDescriptionModel.avalancheSituation2 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation3 = tmpAvalancheSituation;
         break;
       case 3:
-        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation4);
         this.daytimeDescriptionModel.avalancheSituation3 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation4 = tmpAvalancheSituation;
         break;
       case 4:
-        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation5);
         this.daytimeDescriptionModel.avalancheSituation4 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation5 = tmpAvalancheSituation;

@@ -311,7 +311,7 @@ export class BulletinDaytimeDescriptionModel {
   private getHighestDangerRating() {
     let dangerRating = undefined;
     let tmpDangerRating = undefined;
-    for (const i = 5; i > 0; i--) {
+    for (let i = 5; i > 0; i--) {
       switch (i) {
         case 5:
           if (this.avalancheSituation5 && this.avalancheSituation5 !== undefined) {
