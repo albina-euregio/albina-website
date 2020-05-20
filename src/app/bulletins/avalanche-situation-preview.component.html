@@ -1,0 +1,51 @@
+<table style="width: 100%;">
+  <tbody>
+    <tr>
+      <td style="padding-right: 10px;">
+        <i *ngIf="check" class="fa fa-circle" style="color: #20A8D8;" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.showInBulletin' | translate }}"></i>
+        <i *ngIf="!check" class="fa fa-circle" style="color: #ECEFF1;" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.dontShowInBulletin' | translate }}"></i>
+      </td>
+      <td style="padding-right: 10px;">
+        <img *ngIf="isAvalancheSituation('new_snow')" src="./assets/img/New_snow_c.svg" width="40">
+        <img *ngIf="isAvalancheSituation('wind_drifted_snow')" src="./assets/img/Drifting_snow_c.svg" width="40">
+        <img *ngIf="isAvalancheSituation('weak_persistent_layer')" src="./assets/img/Weak_persistent_layer_c.svg"  width="40">
+        <img *ngIf="isAvalancheSituation('wet_snow')" src="./assets/img/Wet_snow_c.svg" width="40">
+        <img *ngIf="isAvalancheSituation('gliding_snow')" src="./assets/img/Gliding_snow_c.svg" width="40">
+        <img *ngIf="isAvalancheSituation('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" width="40">
+      </td>
+      <td style="padding-right: 10px;">
+        <app-aspects [avalancheSituation]="avalancheSituation" [disabled]="true" [size]="40"></app-aspects>
+      </td>
+      <td style="padding-right: 10px;">
+        <!-- elevation -->
+        <div *ngIf="hasElevationHigh()">
+          <i class="fa fa-arrow-down">{{getElevationHighString()}}</i>
+        </div>
+        <div *ngIf="hasElevationLow()">
+          <i class="fa fa-arrow-up">{{getElevationLowString()}}</i>
+        </div>
+      </td>
+      <td style="padding-right: 10px; width: 100%;">
+        <!-- danger rating -->
+        <img *ngIf="isDangerRating('low')" src="./assets/img/danger_rating_low_c.svg" height="40">
+        <img *ngIf="isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_c.svg" height="40">
+        <img *ngIf="isDangerRating('considerable')" src="./assets/img/danger_rating_considerable_c.svg" height="40">
+        <img *ngIf="isDangerRating('high')" src="./assets/img/danger_rating_high_c.svg" height="40">
+        <img *ngIf="isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_c.svg" height="40">
+      </td>
+      <td style="padding-right: 10px;">
+        <!-- delete -->
+        <button [disabled]="disabled" type="reset" class="btn btn-sm btn-danger" (click)="deleteAvalancheSituation($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.delete' | translate }}"><i class="fa fa-trash"></i></button>
+      </td>
+      <td>
+        <!-- reorder -->
+        <tr style="height: 20px;" (click)="moveUpAvalancheSituation($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.moveUpAvalancheSituation' | translate }}">
+          <i *ngIf="!isFirst()" class="fa fa-chevron-up"></i>
+        </tr>
+        <tr style="height: 20px;" (click)="moveDownAvalancheSituation($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.moveDownAvalancheSituation' | translate }}">
+          <i *ngIf="!isLast()" class="fa fa-chevron-down"></i>
+        </tr>
+      </td>
+    </tr>
+  </tbody>
+</table>

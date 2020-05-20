@@ -79,13 +79,23 @@
           "steady" : "Lawinengefahr bleibt unverändert",
           "increasing" : "Lawinengefahr steigt"
         },
+        "complexity" : {
+          "easy" : "Einschätzung im Gelände ist einfach",
+          "challenging" : "Einschätzung im Gelände ist herausfordernd",
+          "complex" : "Einschätzung im Gelände ist komplex"
+        },
         "textcat" : {
           "edit" : "Bearbeiten",
           "copy" : "Kopieren",
           "paste" : "Einfügen",
           "example" : "Beispieltext laden",
           "delete" : "Löschen"
-        }
+        },
+        "showInBulletin" : "Lawinenproblem wird im Bulletin angezeigt",
+        "dontShowInBulletin" : "Lawinenproblem wird im Bulletin NICHT angezeigt",
+        "moveUpAvalancheSituation" : "Lawinenproblem nach oben schieben",
+        "moveDownAvalancheSituation" : "Lawinenproblem nach unten schieben",
+        "isManualDangerRating": "Gefahrenstufe manuell wählen"
       },
       "button" : "Neu",
       "save" : " Speichern",
@@ -95,9 +105,11 @@
       "saveAggregatedRegion" : "Speichern",
       "discardAggregatedRegion" : "Verwerfen",
       "deleteAggregatedRegion" : "Löschen",
+      "createAvalancheSituation" : " Neues Lawinenproblem",
       "ownRegions" : "Eigene Regionen",
       "foreignRegions": "Fremde Regionen",
       "label" : {
+        "highlights" : "Besondere Warnung",
         "avActivityHighlights" : "Schlagzeile Gefahrensituation",
         "avActivityComment" : "Beurteilung der Lawinengefahr",
         "avalancheSituation1" : "Lawinenproblem 1",
@@ -112,7 +124,8 @@
         "elevationHigh" : "Unter",
         "elevationLow" : "Über",
         "tendencyComment" : "Beschreibung der Tendenz",
-        "notes" : "Notizen"
+        "notes" : "Notizen",
+        "terrainFeature": "Gelände"
       },
       "title" : {
         "map" : "Karte",
@@ -494,6 +507,11 @@
     "decreasing" : " Lawinengefahr sinkt",
     "steady" : " Lawinengefahr bleibt gleich",
     "increasing" : " Lawinengefahr steigt"
+  },
+  "complexity": {
+    "easy": " Einfach",
+    "challenging": " Fordernd",
+    "complex": " Komplex"
   },
   "changeRegionDialog" : {
     "message" : "Möchtest du die Änderungen verwerfen und die Region wechseln?",

@@ -79,13 +79,23 @@
           "steady" : "Pericolo valanghe stabile",
           "increasing" : "Pericolo valanghe in aumento"
         },
+        "complexity" : {
+          "easy" : "La valutazione sul campo è facile",
+          "challenging" : "La valutazione sul campo è impegnativa",
+          "complex" : "La valutazione sul campo è complessa"
+        },
         "textcat" : {
           "edit" : "Modifica",
           "copy" : "Copiare",
           "paste" : "Incollare",
           "example" : "Carica esempio testo",
           "delete" : "Elimina"
-        }
+        },
+        "showInBulletin" : "Il problema delle valanghe sarà mostrato nel bollettino",
+        "dontShowInBulletin" : "Il problema delle valanghe NON sarà mostrato nel bollettino",
+        "moveUpAvalancheSituation" : "Spostare il problema valanghe verso l'alto",
+        "moveDownAvalancheSituation" : "Spostare il problema valanghe verso il basso",
+        "isManualDangerRating": "Scegliere la valutazione del pericolo manualmente"
       },
       "button" : "Creato",
       "save" : " Salva",
@@ -95,9 +105,11 @@
       "saveAggregatedRegion" : "Salve",
       "discardAggregatedRegion" : "Scarta",
       "deleteAggregatedRegion" : "Cancella",
+      "createAvalancheSituation" : " Nuovo problema",
       "ownRegions" : "Propria provincia",
       "foreignRegions": "Altra provincia",
       "label" : {
+        "highlights" : "Allarme speciale",
         "avActivityHighlights" : "Titolo situazione pericolo valanghe",
         "avActivityComment" : "Testo di descrizione pericolo valanghe",
         "avalancheSituation1" : "Problema tipico valanghivo 1",
@@ -112,7 +124,8 @@
         "elevationHigh" : "Sotto",
         "elevationLow" : "Sopra",
         "tendencyComment" : "Tendenza",
-        "notes" : "Commenti"
+        "notes" : "Commenti",
+        "terrainFeature": "Caratteristiche del terreno"
       },
       "title" : {
         "map" : "Mappa",
@@ -494,6 +507,11 @@
     "decreasing" : " Pericolo valanghe in diminuazione",
     "steady" : " Pericolo valanghe stabile",
     "increasing" : " Pericolo valanghe in aumento"
+  },
+  "complexity": {
+    "easy": " Facile",
+    "challenging": " Sfida",
+    "complex": " Complesso"
   },
   "changeRegionDialog" : {
     "message" : "Vuoi scartare i cambiamenti e cambiare la regione?",

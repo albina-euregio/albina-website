@@ -94,20 +94,26 @@
                             <td *ngIf="!bulletin.hasDaytimeDependency">
                               <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="daytimeDependencyChanged($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency">
+                            <td *ngIf="bulletin.isManualDangerRating">
+                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-primary" (click)="setManualDangerRating($event, false)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.isManualDangerRating' | translate }}"><i class="fa fa-sign-language"></i></button>
+                            </td>
+                            <td *ngIf="!bulletin.isManualDangerRating">
+                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="setManualDangerRating($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.isManualDangerRating' | translate }}"><i class="fa fa-sign-language"></i></button>
+                            </td>
+                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency">
                               <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-primary" (click)="elevationDependencyChanged($event, false)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
                             </td>
-                            <td *ngIf="!bulletin.hasElevationDependency">
+                            <td *ngIf="bulletin.isManualDangerRating && !bulletin.hasElevationDependency">
                               <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="elevationDependencyChanged($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
                             </td>
-                            <td *ngIf="activeBulletin.hasElevationDependency" class="input-prepend input-group">
+                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency" class="input-prepend input-group">
                               <input step="100" min="0" max="9000" class="form-control" size="14" type="number" name="elevation-input" (click)="elevationInputClicked($event)" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin) || !activeBulletin.hasElevationDependency || bulletin.treeline" [(ngModel)]="activeBulletin.elevation" (change)="updateElevation(this.id)">
                               <span class="input-group-addon" (click)="elevationInputClicked($event)">m</span>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency && bulletin.treeline">
+                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency && bulletin.treeline">
                               <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-primary" (click)="treelineClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency && !bulletin.treeline">
+                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency && !bulletin.treeline">
                               <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="treelineClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
                             </td>
                           </tr>
@@ -192,20 +198,26 @@
                             <td *ngIf="!bulletin.hasDaytimeDependency">
                               <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency">
+                            <td *ngIf="bulletin.isManualDangerRating">
+                              <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.isManualDangerRating' | translate }}"><i class="fa fa-sign-language"></i></button>
+                            </td>
+                            <td *ngIf="!bulletin.isManualDangerRating">
+                              <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.isManualDangerRating' | translate }}"><i class="fa fa-sign-language"></i></button>
+                            </td>
+                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency">
                               <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
                             </td>
-                            <td *ngIf="!bulletin.hasElevationDependency">
+                            <td *ngIf="bulletin.isManualDangerRating && !bulletin.hasElevationDependency">
                               <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency" class="input-prepend input-group">
+                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency" class="input-prepend input-group">
                               <input step="100" min="0" max="9000" class="form-control" size="14" type="number" name="elevation-input" [disabled]="true" [(ngModel)]="activeBulletin.elevation">
                               <span class="input-group-addon">m</span>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency && bulletin.treeline">
+                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency && bulletin.treeline">
                               <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency && !bulletin.treeline">
+                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency && !bulletin.treeline">
                               <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
                             </td>
                           </tr>
@@ -246,7 +258,7 @@
           <div *ngIf="activeBulletin">
             <accordion>
               <!-- Danger rating -->
-              <accordion-group [isOpen]="isAccordionDangerRatingOpen" (isOpenChange)="accordionChanged($event, 'dangerRating')">
+              <accordion-group *ngIf="activeBulletin.isManualDangerRating" [isOpen]="isAccordionDangerRatingOpen" (isOpenChange)="accordionChanged($event, 'dangerRating')">
                 <div accordion-heading class="clearfix">
                   <i *ngIf="!isAccordionDangerRatingOpen" class="fa fa-angle-down"></i>
                   <i *ngIf="isAccordionDangerRatingOpen" class="fa fa-angle-up"></i>
@@ -255,34 +267,47 @@
                 <app-bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-bulletin-detail>
               </accordion-group>
               <!-- Avalanche situation -->
-              <accordion-group [isOpen]="isAccordionAvalancheSituationOpen" (isOpenChange)="accordionChanged($event, 'avalancheSituation')" style="padding-bottom: 0">
+              <accordion-group [isOpen]="isAccordionAvalancheSituationOpen" (isOpenChange)="accordionChanged($event, 'avalancheSituation')" style="padding-bottom: 0;">
                 <div accordion-heading class="clearfix">
                   <i *ngIf="!isAccordionAvalancheSituationOpen" class="fa fa-angle-down"></i>
                   <i *ngIf="isAccordionAvalancheSituationOpen" class="fa fa-angle-up"></i>
                   <strong>{{ "bulletins.create.title.avalancheSituation" | translate }}</strong>
                 </div>
-                <form action="" method="post" enctype="multipart/form-data" class="form-horizontal">
-                  <div class="form-group row" style="margin-bottom: 0">
-                    <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
-                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation1'"></app-avalanche-situation>
-                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation2'"></app-avalanche-situation>
-                    </div>
-                    <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
-                      <div style="margin-bottom: 10px; font-size: 16px;">
-                        <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+                <div class="form-group row">
+                  <div *ngIf="!activeBulletin.hasDaytimeDependency" class="col-md-12">
+                    <app-complexity [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-complexity>
+                    <div style="height: 40px;">
+                      <div style="text-align: right;">
+                        <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
-                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation1'"></app-avalanche-situation>
-                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.forenoon.avalancheSituation2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation2'"></app-avalanche-situation>
                     </div>
-                    <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6">
-                      <div style="margin-bottom: 10px; font-size: 16px;">
-                        <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
-                      </div>
-                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation1" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation1'"></app-avalanche-situation>
-                      <app-avalanche-situation [avalancheSituationModel]="activeBulletin.afternoon.avalancheSituation2" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" [label]="'avalancheSituation2'"></app-avalanche-situation>
-                    </div>
+                    <app-avalanche-situation [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
                   </div>
-                </form>
+                  <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: left;">
+                    <div style="font-size: 16px;">
+                      <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.forenoon" | translate }}</strong></label>
+                    </div>
+                    <app-complexity [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-complexity>
+                    <div style="height: 40px;">
+                      <div style="text-align: right;">
+                        <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
+                      </div>
+                    </div>
+                    <app-avalanche-situation [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                  </div>
+                  <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: right;">
+                    <div style="font-size: 16px;">
+                      <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.title.afternoon" | translate }}</strong></label>
+                    </div>
+                    <app-complexity [bulletinDaytimeDescription]="activeBulletin.afternoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-complexity>
+                    <div style="height: 40px;">
+                      <div style="text-align: right;">
+                        <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(true)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
+                      </div>
+                    </div>
+                    <app-avalanche-situation [bulletinDaytimeDescription]="activeBulletin.afternoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                  </div>
+                </div>
               </accordion-group>
               <!-- Danger description -->
               <accordion-group [isOpen]="isAccordionDangerDescriptionOpen" (isOpenChange)="accordionChanged($event, 'dangerDescription')">
@@ -293,27 +318,76 @@
                 </div>
                 <div class="form-group row">
                   <div class="col-md-12">
-                    <div class="form-group row">
-                      <div class="col-md-8">
-                        <div style="margin-bottom: 10px;" class="col-md-12">
-                          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
-                            <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeAvActivityHighlights', this.settingsService.getLangString(), this.activeAvActivityHighlightsTextcat)"><i class="fa fa-pencil"></i></button>
-                            <button *ngIf="!copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.copy" | translate }}' (click)="copyTextcat($event, 'avActivityHighlights')"><i class="fa fa-copy"></i></button>
-                            <button *ngIf="copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.paste" | translate }}' (click)="pasteTextcat($event, 'avActivityHighlights')"><i class="fa fa-paste"></i></button>
-                            <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.delete" | translate }}' (click)="deleteTextcat($event, 'avActivityHighlights')"><i class="fa fa-trash"></i></button>
+                    <div class="form-group row" style="margin-bottom: 0">
+                      <div class="col-md-12">
+                        <div style="margin-bottom: 10px; padding-left: 0px;" class="col-md-12">
+                          <label class="form-control-label" for="text-input" style="color: #F86B6C; padding-right: 10px;"><strong>{{ "bulletins.create.label.highlights" | translate }}</strong></label>
+                          <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeHighlights', this.settingsService.getLangString(), this.activeHighlightsTextcat)"><i class="fa fa-pencil"></i></button>
+                          <button *ngIf="!copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.copy" | translate }}' (click)="copyTextcat($event, 'highlights')"><i class="fa fa-copy"></i></button>
+                          <button *ngIf="copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.paste" | translate }}' (click)="pasteTextcat($event, 'highlights')"><i class="fa fa-paste"></i></button>
+                          <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.delete" | translate }}' (click)="deleteTextcat($event, 'highlights')"><i class="fa fa-trash"></i></button>
                         </div>
+                        <div class="form-group row" style="margin-bottom: 0">
+                          <div class="col-md-12">
+                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="1" class="form-control" [disabled]="true" [ngModel]="activeHighlightsDe | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="1" class="form-control" [disabled]="true" [ngModel]="activeHighlightsIt | html"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <label *ngIf="showTranslationsHighlights" (click)="setShowTranslations('highlights')"><i class="fa fa-angle-up"></i>{{ "bulletins.create.title.hideTranslations" | translate }}</label>
+                    <label *ngIf="!showTranslationsHighlights" (click)="setShowTranslations('highlights')"><i class="fa fa-angle-down"></i>{{ "bulletins.create.title.showTranslations" | translate }}</label>
+
+                    <div *ngIf="showTranslationsHighlights" class="form-group row">
+                      <div class="col-md-4">
                         <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="2" class="form-control" [disabled]="true" [ngModel]="activeHighlightsIt | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="2" class="form-control" [disabled]="true" [ngModel]="activeHighlightsDe | html"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="2" class="form-control" [disabled]="true" [ngModel]="activeHighlightsEn | html"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="2" class="form-control" [disabled]="true" [ngModel]="activeHighlightsFr | html"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <div class="form-group row" style="margin-bottom: 0">
+                      <div class="col-md-8">
+                        <div style="margin-bottom: 10px; padding-left: 0px;" class="col-md-12">
+                          <label class="form-control-label" for="text-input" style="padding-right: 10px;"><strong>{{ "bulletins.create.label.avActivityHighlights" | translate }}</strong></label>
+                          <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeAvActivityHighlights', this.settingsService.getLangString(), this.activeAvActivityHighlightsTextcat)"><i class="fa fa-pencil"></i></button>
+                          <button *ngIf="!copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.copy" | translate }}' (click)="copyTextcat($event, 'avActivityHighlights')"><i class="fa fa-copy"></i></button>
+                          <button *ngIf="copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.paste" | translate }}' (click)="pasteTextcat($event, 'avActivityHighlights')"><i class="fa fa-paste"></i></button>
+                          <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.delete" | translate }}' (click)="deleteTextcat($event, 'avActivityHighlights')"><i class="fa fa-trash"></i></button>
+                        </div>
+                        <div class="form-group row" style="margin-bottom: 0">
                           <div class="col-md-12">
                             <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsDe | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsIt | html"></textarea>
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div style="margin-bottom: 10px;" class="col-md-12">
+                      <div class="col-md-4" style="margin-bottom: 0">
+                        <div style="margin-bottom: 10px; padding-left: 0px;" class="col-md-12">
                           <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.notes" | translate }}</strong></label>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" style="margin-bottom: 0">
                           <div class="col-md-12">
                             <textarea rows="9" class="form-control" [disabled]="false" placeholder="{{ 'bulletins.create.placeholder.notes' | translate }}"></textarea>
                           </div>
@@ -352,17 +426,17 @@
                 </div>
                 <div class="form-group row" style="margin-bottom: 0">
                   <div class="col-md-12">
-                    <div class="form-group row">
+                    <div class="form-group row" style="margin-bottom: 0">
                       <div class="col-md-8">
-                        <div style="margin-bottom: 10px;" class="col-md-12">
-                          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
+                        <div style="margin-bottom: 10px; padding-left: 0px;" class="col-md-12">
+                          <label class="form-control-label" for="text-input" style="padding-right: 10px;"><strong>{{ "bulletins.create.label.avActivityComment" | translate }}</strong></label>
                           <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeAvActivityComment', this.settingsService.getLangString(), activeAvActivityCommentTextcat)"><i class="fa fa-pencil"></i></button>
                           <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary float-right" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.example" | translate }}' (click)="openLoadAvActivityCommentExampleTextModal(loadAvActivityCommentExampleTextTemplate)"><i class="fa fa-file-text"></i></button>
                           <button *ngIf="!copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.copy" | translate }}' (click)="copyTextcat($event, 'avActivityComment')"><i class="fa fa-copy"></i></button>
                           <button *ngIf="copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.paste" | translate }}' (click)="pasteTextcat($event, 'avActivityComment')"><i class="fa fa-paste"></i></button>
                           <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.delete" | translate }}' (click)="deleteTextcat($event, 'avActivityComment')"><i class="fa fa-trash"></i></button>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" style="margin-bottom: 0">
                           <div class="col-md-12">
                             <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentDe | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentIt | html"></textarea>
@@ -370,10 +444,10 @@
                         </div>
                       </div>
                       <div class="col-md-4">
-                        <div style="margin-bottom: 10px;" class="col-md-12">
+                        <div style="margin-bottom: 10px; padding-left: 0px;" class="col-md-12">
                           <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.notes" | translate }}</strong></label>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" style="margin-bottom: 0">
                           <div class="col-md-12">
                             <textarea rows="9" class="form-control" [disabled]="false" placeholder="{{ 'bulletins.create.placeholder.notes' | translate }}"></textarea>
                           </div>
@@ -455,27 +529,27 @@
                 </div>
                 <div class="form-group row" style="margin-bottom: 0">
                   <div class="col-md-12">
-                    <div class="form-group row">
+                    <div class="form-group row" style="margin-bottom: 0">
                       <div class="col-md-8">
-                        <div style="margin-bottom: 10px;" class="col-md-12">
-                          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
+                        <div style="margin-bottom: 10px; padding-left: 0px;" class="col-md-12">
+                          <label class="form-control-label" for="text-input" style="padding-right: 10px;"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
                           <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeSnowpackStructureComment', this.settingsService.getLangString(), this.activeSnowpackStructureCommentTextcat)"><i class="fa fa-pencil"></i></button>
                           <button *ngIf="!copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.copy" | translate }}' (click)="copyTextcat($event, 'snowpackStructureComment')"><i class="fa fa-copy"></i></button>
                           <button *ngIf="copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.paste" | translate }}' (click)="pasteTextcat($event, 'snowpackStructureComment')"><i class="fa fa-paste"></i></button>
                           <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.delete" | translate }}' (click)="deleteTextcat($event, 'snowpackStructureComment')"><i class="fa fa-trash"></i></button>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" style="margin-bottom: 0">
                           <div class="col-md-12">
                             <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentDe | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentIt | html"></textarea>
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div style="margin-bottom: 10px;" class="col-md-12">
+                      <div class="col-md-4" style="margin-bottom: 0">
+                        <div style="margin-bottom: 10px; padding-left: 0px;" class="col-md-12">
                           <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.notes" | translate }}</strong></label>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" style="margin-bottom: 0">
                           <div class="col-md-12">
                             <textarea rows="9" class="form-control" [disabled]="false" placeholder="{{ 'bulletins.create.placeholder.notes' | translate }}"></textarea>
                           </div>
@@ -550,27 +624,27 @@
                 </div>
                 <div class="form-group row" style="margin-bottom: 0">
                   <div class="col-md-12">
-                    <div class="form-group row">
+                    <div class="form-group row" style="margin-bottom: 0">
                       <div class="col-md-8">
-                        <div style="margin-bottom: 10px;" class="col-md-12">
-                          <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.tendencyComment" | translate }}</strong></label>
+                        <div style="margin-bottom: 10px; padding-left: 0px;" class="col-md-12">
+                          <label class="form-control-label" for="text-input" style="padding-right: 10px;"><strong>{{ "bulletins.create.label.tendencyComment" | translate }}</strong></label>
                             <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeTendencyComment', this.settingsService.getLangString(), this.activeTendencyCommentTextcat)"><i class="fa fa-pencil"></i></button>
                             <button *ngIf="!copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.copy" | translate }}' (click)="copyTextcat($event, 'tendencyComment')"><i class="fa fa-copy"></i></button>
                             <button *ngIf="copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.paste" | translate }}' (click)="pasteTextcat($event, 'tendencyComment')"><i class="fa fa-paste"></i></button>
                             <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.delete" | translate }}' (click)="deleteTextcat($event, 'tendencyComment')"><i class="fa fa-trash"></i></button>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" style="margin-bottom: 0">
                           <div class="col-md-12">
                             <textarea *ngIf="this.settingsService.getLangString() == 'de'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentDe | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'it'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentIt | html"></textarea>
                           </div>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div style="margin-bottom: 10px;" class="col-md-12">
+                      <div class="col-md-4" style="margin-bottom: 0">
+                        <div style="margin-bottom: 10px; padding-left: 0px;" class="col-md-12">
                           <label class="form-control-label" for="text-input"><strong>{{ "bulletins.create.label.notes" | translate }}</strong></label>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row" style="margin-bottom: 0">
                           <div class="col-md-12">
                             <textarea rows="9" class="form-control" [disabled]="false" placeholder="{{ 'bulletins.create.placeholder.notes' | translate }}"></textarea>
                           </div>

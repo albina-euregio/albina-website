@@ -35,11 +35,11 @@ export class MatrixInformationModel {
       this.naturalAvalancheReleaseProbability = undefined;
       this.naturalHazardSiteDistribution = undefined;
     } else {
-      this.artificialDangerRating = matrixInformation.getArtificialDangerRating();
+      this.setArtificialDangerRating(matrixInformation.getArtificialDangerRating());
       this.artificialAvalancheSize = matrixInformation.getArtificialAvalancheSize();
       this.artificialAvalancheReleaseProbability = matrixInformation.getArtificialAvalancheReleaseProbability();
       this.artificialHazardSiteDistribution = matrixInformation.getArtificialHazardSiteDistribution();
-      this.naturalDangerRating = matrixInformation.getNaturalDangerRating();
+      this.setNaturalDangerRating(matrixInformation.getNaturalDangerRating());
       this.naturalAvalancheReleaseProbability = matrixInformation.getNaturalAvalancheReleaseProbability();
       this.naturalHazardSiteDistribution = matrixInformation.getNaturalHazardSiteDistribution();
     }

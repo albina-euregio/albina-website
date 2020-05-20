@@ -79,14 +79,24 @@
           "steady" : "Le danger d'avalanche reste le même",
           "increasing" : "Le danger d'avalanche augmente"
         },
+        "complexity" : {
+          "easy" : "L'évaluation sur le terrain est facile",
+          "challenging" : "L'évaluation sur le terrain est un défi",
+          "complex" : "L'évaluation sur le terrain est complexe"
+        },
         "textcat" : {
           "edit" : "Éditer",
           "copy" : "Copier",
           "paste" : "Coller",
           "example" : "Télécharger exemple de texte",
           "delete" : "Effacer"
-        }
-      },
+         },
+        "showInBulletin" : "Le problème des avalanches sera présenté dans un bulletin",
+        "dontShowInBulletin" : "Le problème des avalanches ne figurera pas dans le bulletin",
+        "moveUpAvalancheSituation" : "Déplacer le problème des avalanches",
+        "moveDownAvalancheSituation" : "Faire reculer le problème des avalanches",
+        "isManualDangerRating": "Choisissez la cote de danger manuellement"
+     },
       "button" : "Créer",
       "save" : "Sauvegarder",
       "discard" : "Abandoner",
@@ -95,9 +105,11 @@
       "saveAggregatedRegion" : "Sauvegarder",
       "discardAggregatedRegion" : "Abandoner",
       "deleteAggregatedRegion" : "Effacer",
+      "createAvalancheSituation" : " Nouveau problème",
       "ownRegions" : "Mes régions",
       "foreignRegions": "Régions étrangères",
       "label" : {
+        "highlights" : "Alerte spéciale",
         "avActivityHighlights" : "Titre situation danger d'avalanche",
         "avActivityComment" : "Déscription du danger d'avalanche",
         "avalancheSituation1" : "Situation avalancheuse typique 1",
@@ -112,7 +124,8 @@
         "elevationHigh" : "Au-dessous",
         "elevationLow" : "Au-dessus",
         "tendencyComment" : "Déscription de la tendance",
-        "notes" : "Notes"
+        "notes" : "Notes",
+        "terrainFeature": "Caractéristiques du terrain"
       },
       "title" : {
         "map" : "Carte",
@@ -494,6 +507,11 @@
     "decreasing" : "Le Danger d'avalanche diminue",
     "steady" : "Danger d'avalanche reste la même",
     "increasing" : "Le danger d'avalanche augmente"
+  },
+  "complexity": {
+    "easy": " Facile",
+    "challenging": " Défi",
+    "complex": " Complexe"
   },
   "changeRegionDialog" : {
     "message" : "Abandoner les modifications et changer la région?",

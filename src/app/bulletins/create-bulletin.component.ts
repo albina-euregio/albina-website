@@ -2,6 +2,7 @@ import { Component, HostListener, ViewChild, ElementRef, ApplicationRef, Templat
 import { Router } from "@angular/router";
 import { BulletinModel } from "../models/bulletin.model";
 import { MatrixInformationModel } from "../models/matrix-information.model";
+import { AvalancheSituationModel } from "../models/avalanche-situation.model";
 import { TranslateService } from "@ngx-translate/core";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
@@ -52,6 +53,12 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public activeBulletin: BulletinModel;
   public bulletinsList: BulletinModel[];
 
+  public activeHighlightsTextcat: string;
+  public activeHighlightsDe: string;
+  public activeHighlightsIt: string;
+  public activeHighlightsEn: string;
+  public activeHighlightsFr: string;
+
   public activeAvActivityHighlightsTextcat: string;
   public activeAvActivityHighlightsDe: string;
   public activeAvActivityHighlightsIt: string;
@@ -88,6 +95,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public isAccordionSnowpackStructureOpen: boolean;
   public isAccordionTendencyOpen: boolean;
 
+  public showTranslationsHighlights: boolean;
   public showTranslationsAvActivityHighlights: boolean;
   public showTranslationsAvActivityComment: boolean;
   public showTranslationsSnowpackStructureComment: boolean;
@@ -187,6 +195,12 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.activeBulletin = undefined;
     this.bulletinsList = new Array<BulletinModel>();
 
+    this.activeHighlightsTextcat = undefined;
+    this.activeHighlightsDe = undefined;
+    this.activeHighlightsIt = undefined;
+    this.activeHighlightsEn = undefined;
+    this.activeHighlightsFr = undefined;
+
     this.activeAvActivityHighlightsTextcat = undefined;
     this.activeAvActivityHighlightsDe = undefined;
     this.activeAvActivityHighlightsIt = undefined;
@@ -226,6 +240,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.isAccordionSnowpackStructureOpen = false;
     this.isAccordionTendencyOpen = false;
 
+    this.showTranslationsHighlights = false;
     this.showTranslationsAvActivityHighlights = false;
     this.showTranslationsAvActivityComment = false;
     this.showTranslationsSnowpackStructureComment = false;
@@ -327,6 +342,13 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   setShowTranslations(name: string) {
     switch (name) {
+      case "highlights":
+        if (this.showTranslationsHighlights) {
+          this.showTranslationsHighlights = false;
+        } else {
+          this.showTranslationsHighlights = true;
+        }
+        break;
       case "avActivityHighlights":
         if (this.showTranslationsAvActivityHighlights) {
           this.showTranslationsAvActivityHighlights = false;
@@ -775,13 +797,18 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
       if (this.checkElevation()) {
         this.deselectBulletin();
 
         this.activeBulletin = bulletin;
+
+        this.activeHighlightsTextcat = this.activeBulletin.getHighlightsTextcat();
+        this.activeHighlightsDe = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.de);
+        this.activeHighlightsIt = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.it);
+        this.activeHighlightsEn = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.en);
+        this.activeHighlightsFr = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.fr);
 
         this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcat();
         this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
@@ -882,6 +909,19 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
+  setManualDangerRating(event, value) {
+    event.stopPropagation();
+    this.activeBulletin.setIsManualDangerRating(value);
+    if (!this.activeBulletin.isManualDangerRating) {
+      this.activeBulletin.setHasElevationDependency(false);
+      this.activeBulletin.forenoon.updateDangerRating();
+      if (this.activeBulletin.hasDaytimeDependency) {
+        this.activeBulletin.afternoon.updateDangerRating();
+      }
+      this.activeBulletin.setHasElevationDependency(false);
+    }
+  }
+
   daytimeDependencyChanged(event, value) {
     event.stopPropagation();
     this.activeBulletin.setHasDaytimeDependency(value);
@@ -893,6 +933,21 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       }
       this.activeBulletin.afternoon.setDangerRatingAbove(this.activeBulletin.forenoon.getDangerRatingAbove());
       this.activeBulletin.afternoon.setMatrixInformationAbove(new MatrixInformationModel(this.activeBulletin.forenoon.getMatrixInformationAbove()));
+      if (this.activeBulletin.forenoon.getAvalancheSituation1() && this.activeBulletin.forenoon.getAvalancheSituation1() !== undefined) {
+        this.activeBulletin.afternoon.setAvalancheSituation1(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation1()));
+      }
+      if (this.activeBulletin.forenoon.getAvalancheSituation2() && this.activeBulletin.forenoon.getAvalancheSituation2() !== undefined) {
+        this.activeBulletin.afternoon.setAvalancheSituation2(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation2()));
+      }
+      if (this.activeBulletin.forenoon.getAvalancheSituation3() && this.activeBulletin.forenoon.getAvalancheSituation3() !== undefined) {
+        this.activeBulletin.afternoon.setAvalancheSituation3(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation3()));
+      }
+      if (this.activeBulletin.forenoon.getAvalancheSituation4() && this.activeBulletin.forenoon.getAvalancheSituation4() !== undefined) {
+        this.activeBulletin.afternoon.setAvalancheSituation4(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation4()));
+      }
+      if (this.activeBulletin.forenoon.getAvalancheSituation5() && this.activeBulletin.forenoon.getAvalancheSituation5() !== undefined) {
+        this.activeBulletin.afternoon.setAvalancheSituation5(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation5()));
+      }
       if (this.activeBulletin.hasElevationDependency) {
         this.activeBulletin.afternoon.setDangerRatingBelow(this.activeBulletin.forenoon.getDangerRatingBelow());
         this.activeBulletin.afternoon.setMatrixInformationBelow(new MatrixInformationModel(this.activeBulletin.forenoon.getMatrixInformationBelow()));
@@ -900,6 +955,11 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     } else {
       this.activeBulletin.afternoon.setDangerRatingAbove(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
       this.activeBulletin.afternoon.setMatrixInformationAbove(undefined);
+      this.activeBulletin.afternoon.setAvalancheSituation1(undefined);
+      this.activeBulletin.afternoon.setAvalancheSituation2(undefined);
+      this.activeBulletin.afternoon.setAvalancheSituation3(undefined);
+      this.activeBulletin.afternoon.setAvalancheSituation4(undefined);
+      this.activeBulletin.afternoon.setAvalancheSituation5(undefined);
       if (this.activeBulletin.hasElevationDependency) {
         this.activeBulletin.afternoon.setDangerRatingBelow(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
         this.activeBulletin.afternoon.setMatrixInformationBelow(undefined);
@@ -928,12 +988,17 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   private setTexts() {
     if (this.activeBulletin) {
+      this.activeBulletin.setHighlightsTextcat(this.activeHighlightsTextcat);
+      this.activeBulletin.setHighlightsIn(this.activeHighlightsDe, Enums.LanguageCode.de);
+      this.activeBulletin.setHighlightsIn(this.activeHighlightsIt, Enums.LanguageCode.it);
+      this.activeBulletin.setHighlightsIn(this.activeHighlightsEn, Enums.LanguageCode.en);
+      this.activeBulletin.setHighlightsIn(this.activeHighlightsFr, Enums.LanguageCode.fr);
+
       this.activeBulletin.setAvActivityHighlightsTextcat(this.activeAvActivityHighlightsTextcat);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsFr, Enums.LanguageCode.fr);
-
 
       this.activeBulletin.setAvActivityCommentTextcat(this.activeAvActivityCommentTextcat);
       this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
@@ -1298,6 +1363,14 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   copyTextcat(event, field) {
     this.setTexts();
     switch (field) {
+      case "highlights":
+        this.copyService.setCopying(true);
+        this.copyService.setTextTextcat(this.activeBulletin.getHighlightsTextcat());
+        this.copyService.setTextDe(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.de));
+        this.copyService.setTextIt(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.it));
+        this.copyService.setTextEn(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.en));
+        this.copyService.setTextFr(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.fr));
+        break;
       case "avActivityHighlights":
         this.copyService.setCopying(true);
         this.copyService.setTextTextcat(this.activeBulletin.getAvActivityHighlightsTextcat());
@@ -1337,6 +1410,33 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   pasteTextcat(event, field) {
     switch (field) {
+      case "highlights":
+        if (this.activeHighlightsTextcat !== undefined) {
+          this.activeHighlightsTextcat = this.activeHighlightsTextcat + "." + this.copyService.getTextTextcat();
+        } else {
+          this.activeHighlightsTextcat = this.copyService.getTextTextcat();
+        }
+        if (this.activeHighlightsDe !== undefined) {
+          this.activeHighlightsDe = this.activeHighlightsDe + " " + this.copyService.getTextDe();
+        } else {
+          this.activeHighlightsDe = this.copyService.getTextDe();
+        }
+        if (this.activeHighlightsIt !== undefined) {
+          this.activeHighlightsIt = this.activeHighlightsIt + " " + this.copyService.getTextIt();
+        } else {
+          this.activeHighlightsIt = this.copyService.getTextIt();
+        }
+        if (this.activeHighlightsEn !== undefined) {
+          this.activeHighlightsEn = this.activeHighlightsEn + " " + this.copyService.getTextEn();
+        } else {
+          this.activeHighlightsEn = this.copyService.getTextEn();
+        }
+        if (this.activeHighlightsFr !== undefined) {
+          this.activeHighlightsFr = this.activeHighlightsFr + " " + this.copyService.getTextFr();
+        } else {
+          this.activeHighlightsFr = this.copyService.getTextFr();
+        }
+        break;
       case "avActivityHighlights":
         if (this.activeAvActivityHighlightsTextcat !== undefined) {
           this.activeAvActivityHighlightsTextcat = this.activeAvActivityHighlightsTextcat + "." + this.copyService.getTextTextcat();
@@ -1453,6 +1553,13 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   deleteTextcat(event, field) {
     switch (field) {
+      case "highlights":
+        this.activeHighlightsTextcat = undefined;
+        this.activeHighlightsDe = undefined;
+        this.activeHighlightsIt = undefined;
+        this.activeHighlightsEn = undefined;
+        this.activeHighlightsFr = undefined;
+        break;
       case "avActivityHighlights":
         this.activeAvActivityHighlightsTextcat = undefined;
         this.activeAvActivityHighlightsDe = undefined;
@@ -1947,5 +2054,71 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   loadAvActivityCommentExampleTextCancel() {
     this.loadAvActivityCommentExampleTextModalRef.hide();
+  }
+
+  createAvalancheSituation(isAfternoon: boolean) {
+    let daytime;
+    if (isAfternoon) {
+      daytime = this.activeBulletin.afternoon;
+    } else {
+      daytime = this.activeBulletin.forenoon;
+    }
+    let lastAvalancheSituation = daytime.avalancheSituation1;
+    let count = 1;
+    while (lastAvalancheSituation !== undefined) {
+      count += 1;
+      switch (count) {
+        case 2:
+          lastAvalancheSituation = daytime.avalancheSituation2;
+          break;
+        case 3:
+          lastAvalancheSituation = daytime.avalancheSituation3;
+          break;
+        case 4:
+          lastAvalancheSituation = daytime.avalancheSituation4;
+          break;
+        case 5:
+          lastAvalancheSituation = daytime.avalancheSituation5;
+          break;
+        default:
+          break;
+      }
+      if (count > 5) {
+        break;
+      }
+    }
+    switch (count) {
+      case 1:
+        daytime.avalancheSituation1 = new AvalancheSituationModel();
+        break;
+      case 2:
+        daytime.avalancheSituation2 = new AvalancheSituationModel();
+        break;
+      case 3:
+        daytime.avalancheSituation3 = new AvalancheSituationModel();
+        break;
+      case 4:
+        daytime.avalancheSituation4 = new AvalancheSituationModel();
+        break;
+      case 5:
+        daytime.avalancheSituation5 = new AvalancheSituationModel();
+        break;
+      default:
+        break;
+    }
+  }
+
+  hasFiveAvalancheSituations(isAfternoon: boolean) {
+    let daytime;
+    if (isAfternoon) {
+      daytime = this.activeBulletin.afternoon;
+    } else {
+      daytime = this.activeBulletin.forenoon;
+    }
+    if (daytime.avalancheSituation5 === undefined) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }

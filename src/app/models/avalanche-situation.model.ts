@@ -1,4 +1,6 @@
 import * as Enums from "../enums/enums";
+import { MatrixInformationModel } from "./matrix-information.model";
+import { TextModel } from "./text.model";
 
 export class AvalancheSituationModel {
   public avalancheSituation: Enums.AvalancheSituation;
@@ -7,6 +9,9 @@ export class AvalancheSituationModel {
   public treelineHigh: boolean;
   public elevationLow: number;
   public treelineLow: boolean;
+  public matrixInformation: MatrixInformationModel;
+  public terrainFeatureTextcat: string;
+  public terrainFeature: TextModel[];
 
   static createFromJson(json) {
     const avalancheSituation = new AvalancheSituationModel();
@@ -25,6 +30,22 @@ export class AvalancheSituationModel {
     avalancheSituation.elevationLow = json.elevationLow;
     avalancheSituation.treelineLow = json.treelineLow;
 
+    if (json.matrixInformation) {
+      avalancheSituation.matrixInformation = MatrixInformationModel.createFromJson(json.matrixInformation);
+    }
+
+    if (json.terrainFeatureTextcat) {
+      avalancheSituation.setTerrainFeatureTextcat(json.terrainFeatureTextcat);
+    }
+    const jsonTerrainFeature = json.terrainFeature;
+    const terrainFeature = new Array<TextModel>();
+    for (const i in jsonTerrainFeature) {
+      if (jsonTerrainFeature[i] !== null) {
+        terrainFeature.push(TextModel.createFromJson(jsonTerrainFeature[i]));
+      }
+    }
+    avalancheSituation.setTerrainFeature(terrainFeature);
+
     return avalancheSituation;
   }
 
@@ -35,8 +56,11 @@ export class AvalancheSituationModel {
       this.avalancheSituation = undefined;
       this.treelineHigh = false;
       this.treelineLow = false;
+      this.matrixInformation = new MatrixInformationModel();
+      this.terrainFeatureTextcat = undefined;
+      this.terrainFeature = new Array<TextModel>();
     } else {
-      this.avalancheSituation = avalancheSituation.getAvalancheSituation();
+      this.setAvalancheSituation(avalancheSituation.getAvalancheSituation());
       for (const aspect of avalancheSituation.aspects) {
         this.addAspect(aspect);
       }
@@ -44,6 +68,13 @@ export class AvalancheSituationModel {
       this.treelineHigh = avalancheSituation.getTreelineHigh();
       this.elevationLow = avalancheSituation.getElevationLow();
       this.treelineLow = avalancheSituation.getTreelineLow();
+      this.matrixInformation = new MatrixInformationModel(avalancheSituation.getMatrixInformation());
+      this.terrainFeatureTextcat = avalancheSituation.terrainFeatureTextcat;
+      const array = new Array<TextModel>();
+      for (const entry of avalancheSituation.terrainFeature) {
+        array.push(TextModel.createFromJson(entry.toJson()));
+      }
+      this.terrainFeature = array;
     }
   }
 
@@ -116,6 +147,63 @@ export class AvalancheSituationModel {
     this.treelineLow = treeline;
   }
 
+  getMatrixInformation() {
+    return this.matrixInformation;
+  }
+
+  setMatrixInformation(matrixInformation) {
+    this.matrixInformation = matrixInformation;
+  }
+
+  getTerrainFeatureTextcat(): string {
+    return this.terrainFeatureTextcat;
+  }
+
+  setTerrainFeatureTextcat(terrainFeatureTextcat: string) {
+    this.terrainFeatureTextcat = terrainFeatureTextcat;
+  }
+
+  getTerrainFeature(): TextModel[] {
+    return this.terrainFeature;
+  }
+
+  getTerrainFeatureIn(language: Enums.LanguageCode): string {
+    for (let i = this.terrainFeature.length - 1; i >= 0; i--) {
+      if (this.terrainFeature[i].getLanguageCode() === language) {
+        return this.terrainFeature[i].getText();
+      }
+    }
+  }
+
+  getTerrainFeatureInString(language: string): string {
+    return this.getTerrainFeatureIn(Enums.LanguageCode[language]);
+  }
+
+  setTerrainFeature(terrainFeature: TextModel[]) {
+    this.terrainFeature = terrainFeature;
+  }
+
+  setTerrainFeatureIn(text: string, language: Enums.LanguageCode) {
+    for (let i = this.terrainFeature.length - 1; i >= 0; i--) {
+      if (this.terrainFeature[i].getLanguageCode() === language) {
+        this.terrainFeature[i].setText(text);
+        return;
+      }
+    }
+    const model = new TextModel();
+    model.setLanguageCode(language);
+    model.setText(text);
+    this.terrainFeature.push(model);
+  }
+
+  getDangerRating() {
+    if (this.matrixInformation.getNaturalDangerRating() === undefined || Enums.DangerRating[this.matrixInformation.getNaturalDangerRating()] < Enums.DangerRating[this.matrixInformation.getArtificialDangerRating()]) {
+      return this.matrixInformation.getArtificialDangerRating()
+    } else {
+      return this.matrixInformation.getNaturalDangerRating();
+    }
+  }
+
   toJson() {
     const json = Object();
 
@@ -142,6 +230,19 @@ export class AvalancheSituationModel {
       if (this.elevationLow && this.elevationLow !== undefined) {
         json["elevationLow"] = this.elevationLow;
       }
+    }
+    if (this.matrixInformation && this.matrixInformation !== undefined) {
+      json["matrixInformation"] = this.matrixInformation.toJson();
+    }
+    if (this.terrainFeatureTextcat && this.terrainFeatureTextcat !== undefined) {
+      json["terrainFeatureTextcat"] = this.terrainFeatureTextcat;
+    }
+    if (this.terrainFeature && this.terrainFeature !== undefined && this.terrainFeature.length > 0) {
+      const terrainFeature = [];
+      for (let i = 0; i <= this.terrainFeature.length - 1; i++) {
+        terrainFeature.push(this.terrainFeature[i].toJson());
+      }
+      json["terrainFeature"] = terrainFeature;
     }
 
     return json;

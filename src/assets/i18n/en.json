@@ -79,14 +79,24 @@
           "steady" : "Avalanche danger stays the same",
           "increasing" : "Avalanche danger increases"
         },
+        "complexity" : {
+          "easy" : "Assessment in the field is easy",
+          "challenging" : "Assessment in the field is challenging",
+          "complex" : "Assessment in the field is complex"
+        },
         "textcat" : {
           "edit" : "Edit",
           "copy" : "Copy",
           "paste" : "Paste",
           "example" : "Load example text",
           "delete" : "Delete"
-        }
-      },
+        },
+        "showInBulletin" : "Avalanche problem will be shown in bulletin",
+        "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
+        "moveUpAvalancheSituation" : "Move avalanche problem up",
+        "moveDownAvalancheSituation" : "Move avalanche problem down",
+        "isManualDangerRating": "Pick danger rating manually"
+    },
       "button" : "Create",
       "save" : " Save",
       "discard" : " Discard",
@@ -95,9 +105,11 @@
       "saveAggregatedRegion" : "Save",
       "discardAggregatedRegion" : "Discard",
       "deleteAggregatedRegion" : "Delete",
+      "createAvalancheSituation" : " New problem",
       "ownRegions" : "Own regions",
       "foreignRegions": "Foreign regions",
       "label" : {
+        "highlights" : "Special alert",
         "avActivityHighlights" : "Headline avalanche situation",
         "avActivityComment" : "Description of avalanche danger",
         "avalancheSituation1" : "Avalanche Situation 1",
@@ -112,7 +124,8 @@
         "elevationHigh" : "Below",
         "elevationLow" : "Above",
         "tendencyComment" : "Description of tendency",
-        "notes" : "Notes"
+        "notes" : "Notes",
+        "terrainFeature": "Terrain features"
       },
       "title" : {
         "map" : "Map",
@@ -494,6 +507,11 @@
     "decreasing" : " Avalanche danger decreases",
     "steady" : " Avalanche danger stays the same",
     "increasing" : " Avalanche danger increases"
+  },
+  "complexity": {
+    "easy": " Easy",
+    "challenging": " Challenging",
+    "complex": " Complex"
   },
   "changeRegionDialog" : {
     "message" : "Do you want to discard the changes and change the region?",
