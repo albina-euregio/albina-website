@@ -102,7 +102,7 @@ export class BulletinDaytimeDescriptionModel {
       this.setDangerRatingAbove(bulletinDaytimeDescription.getDangerRatingAbove());
       this.matrixInformationAbove = new MatrixInformationModel(bulletinDaytimeDescription.getMatrixInformationAbove());
       this.terrainFeatureAboveTextcat = bulletinDaytimeDescription.terrainFeatureAboveTextcat;
-      let arrayAbove = new Array<TextModel>();
+      const arrayAbove = new Array<TextModel>();
       for (const entry of bulletinDaytimeDescription.terrainFeatureAbove) {
         arrayAbove.push(TextModel.createFromJson(entry.toJson()));
       }
@@ -110,7 +110,7 @@ export class BulletinDaytimeDescriptionModel {
       this.setDangerRatingBelow(bulletinDaytimeDescription.getDangerRatingBelow());
       this.matrixInformationBelow = new MatrixInformationModel(bulletinDaytimeDescription.getMatrixInformationBelow());
       this.terrainFeatureBelowTextcat = bulletinDaytimeDescription.terrainFeatureBelowTextcat;
-      let arrayBelow = new Array<TextModel>();
+      const arrayBelow = new Array<TextModel>();
       for (const entry of bulletinDaytimeDescription.terrainFeatureBelow) {
         arrayBelow.push(TextModel.createFromJson(entry.toJson()));
       }
@@ -309,9 +309,9 @@ export class BulletinDaytimeDescriptionModel {
   }
 
   private getHighestDangerRating() {
-    var dangerRating = undefined;
-    var tmpDangerRating = undefined;
-    for (var i = 5; i > 0; i--) {
+    let dangerRating = undefined;
+    let tmpDangerRating = undefined;
+    for (const i = 5; i > 0; i--) {
       switch (i) {
         case 5:
           if (this.avalancheSituation5 && this.avalancheSituation5 !== undefined) {

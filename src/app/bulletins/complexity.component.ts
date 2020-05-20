@@ -20,9 +20,10 @@ export class ComplexityComponent {
   }
 
   isComplexity(complexity) {
-    if (this.bulletinDaytimeDescription.getComplexity() === complexity)
+    if (this.bulletinDaytimeDescription.getComplexity() === complexity) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 }

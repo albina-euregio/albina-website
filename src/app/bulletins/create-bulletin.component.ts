@@ -2057,7 +2057,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   createAvalancheSituation(isAfternoon: boolean) {
-    var daytime;
+    let daytime;
     if (isAfternoon) {
       daytime = this.activeBulletin.afternoon;
     } else {
@@ -2109,7 +2109,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   hasFiveAvalancheSituations(isAfternoon: boolean) {
-    var daytime;
+    let daytime;
     if (isAfternoon) {
       daytime = this.activeBulletin.afternoon;
     } else {

@@ -20,7 +20,7 @@ export class AvalancheSituationComponent {
   }
 
   hasAvalancheSituation(count: number) {
-    var avalancheSituation;
+    let avalancheSituation;
     switch (count) {
       case 1:
         avalancheSituation = this.bulletinDaytimeDescription.avalancheSituation1;
@@ -37,14 +37,15 @@ export class AvalancheSituationComponent {
       case 5:
         avalancheSituation = this.bulletinDaytimeDescription.avalancheSituation5;
         break;
-      
+
       default:
         break;
     }
 
-    if (avalancheSituation !== undefined)
+    if (avalancheSituation !== undefined) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 }

@@ -70,7 +70,7 @@ export class AvalancheSituationModel {
       this.treelineLow = avalancheSituation.getTreelineLow();
       this.matrixInformation = new MatrixInformationModel(avalancheSituation.getMatrixInformation());
       this.terrainFeatureTextcat = avalancheSituation.terrainFeatureTextcat;
-      let array = new Array<TextModel>();
+      const array = new Array<TextModel>();
       for (const entry of avalancheSituation.terrainFeature) {
         array.push(TextModel.createFromJson(entry.toJson()));
       }

@@ -33,9 +33,9 @@ export class AvalancheSituationPreviewComponent {
 
   hasAspects() {
     if (this.avalancheSituation && this.avalancheSituation.aspects && this.avalancheSituation.aspects.length > 0) {
-      true;
+      return true;
     } else {
-      false
+      return false
     }
   }
 
@@ -145,10 +145,11 @@ export class AvalancheSituationPreviewComponent {
   }
 
   isDangerRating(dangerRating) {
-    if (this.getHigherDangerRating() === dangerRating)
+    if (this.getHigherDangerRating() === dangerRating) {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
   deleteAvalancheSituation(event) {
@@ -168,7 +169,7 @@ export class AvalancheSituationPreviewComponent {
         break;
       case 5:
         this.daytimeDescriptionModel.setAvalancheSituation5(undefined);
-        break;      
+        break;
       default:
         break;
     }
@@ -178,65 +179,65 @@ export class AvalancheSituationPreviewComponent {
     event.stopPropagation();
     switch (this.count) {
       case 2:
-        var tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation1);
         this.daytimeDescriptionModel.avalancheSituation2 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation1 = tmpAvalancheSituation;
         break;
       case 3:
-        var tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2);
         this.daytimeDescriptionModel.avalancheSituation3 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation2 = tmpAvalancheSituation;
         break;
       case 4:
-        var tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation3);
         this.daytimeDescriptionModel.avalancheSituation4 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation3 = tmpAvalancheSituation;
         break;
       case 5:
-        var tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation4);
         this.daytimeDescriptionModel.avalancheSituation5 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation4 = tmpAvalancheSituation;
         break;
-      
+
       default:
         break;
-    }    
+    }
   }
 
   moveDownAvalancheSituation(event) {
     event.stopPropagation();
     switch (this.count) {
       case 1:
-        var tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2);
         this.daytimeDescriptionModel.avalancheSituation1 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation2 = tmpAvalancheSituation;
         break;
       case 2:
-        var tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation3);
         this.daytimeDescriptionModel.avalancheSituation2 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation3 = tmpAvalancheSituation;
         break;
       case 3:
-        var tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation4);
         this.daytimeDescriptionModel.avalancheSituation3 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation4 = tmpAvalancheSituation;
         break;
       case 4:
-        var tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
+        const tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation5);
         this.daytimeDescriptionModel.avalancheSituation4 = this.avalancheSituation;
         this.daytimeDescriptionModel.avalancheSituation5 = tmpAvalancheSituation;
         break;
-      
+
       default:
         break;
-    }    
+    }
   }
 }
