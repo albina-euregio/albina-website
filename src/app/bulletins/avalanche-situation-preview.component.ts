@@ -173,6 +173,44 @@ export class AvalancheSituationPreviewComponent {
       default:
         break;
     }
+    this.reorderAvalancheSituation(this.count);
+  }
+
+  reorderAvalancheSituation(count) {
+    for (let i = count; i <= 4; i++) {
+      switch (i) {
+        case 1:
+          if (this.daytimeDescriptionModel.avalancheSituation2) {
+            this.daytimeDescriptionModel.setAvalancheSituation1(new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2));
+          } else {
+            this.daytimeDescriptionModel.setAvalancheSituation1(undefined);
+          }
+          break;
+        case 2:
+          if (this.daytimeDescriptionModel.avalancheSituation3) {
+            this.daytimeDescriptionModel.setAvalancheSituation2(new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation3));
+          } else {
+            this.daytimeDescriptionModel.setAvalancheSituation2(undefined);
+          }
+          break;
+        case 3:
+          if (this.daytimeDescriptionModel.avalancheSituation4) {
+            this.daytimeDescriptionModel.setAvalancheSituation3(new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation4));
+          } else {
+            this.daytimeDescriptionModel.setAvalancheSituation3(undefined);
+          }
+          break;
+        case 4:
+          if (this.daytimeDescriptionModel.avalancheSituation5) {
+            this.daytimeDescriptionModel.setAvalancheSituation4(new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation5));
+          } else {
+            this.daytimeDescriptionModel.setAvalancheSituation4(undefined);
+          }
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   moveUpAvalancheSituation(event) {
