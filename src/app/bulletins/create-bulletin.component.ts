@@ -918,7 +918,17 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       if (this.activeBulletin.hasDaytimeDependency) {
         this.activeBulletin.afternoon.updateDangerRating();
       }
-      this.activeBulletin.setHasElevationDependency(false);
+    } else {
+      this.activeBulletin.forenoon.setDangerRatingAbove(this.activeBulletin.forenoon.getHighestDangerRating());
+      if (this.activeBulletin.forenoon.avalancheSituation1) {
+        this.activeBulletin.forenoon.setMatrixInformationAbove(new MatrixInformationModel(this.activeBulletin.forenoon.avalancheSituation1.matrixInformation));
+      }
+      if (this.activeBulletin.hasDaytimeDependency) {
+        this.activeBulletin.afternoon.setDangerRatingAbove(this.activeBulletin.afternoon.getHighestDangerRating());
+        if (this.activeBulletin.afternoon.avalancheSituation1) {
+          this.activeBulletin.afternoon.setMatrixInformationAbove(new MatrixInformationModel(this.activeBulletin.afternoon.avalancheSituation1.matrixInformation));
+        }
+      }
     }
   }
 

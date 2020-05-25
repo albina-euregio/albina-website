@@ -271,7 +271,6 @@ export class BulletinDaytimeDescriptionModel {
 
   setAvalancheSituation2(avalancheSituation) {
     this.avalancheSituation2 = avalancheSituation;
-    this.updateDangerRating();
   }
 
   getAvalancheSituation3() {
@@ -280,7 +279,6 @@ export class BulletinDaytimeDescriptionModel {
 
   setAvalancheSituation3(avalancheSituation) {
     this.avalancheSituation3 = avalancheSituation;
-    this.updateDangerRating();
   }
 
   getAvalancheSituation4() {
@@ -289,7 +287,6 @@ export class BulletinDaytimeDescriptionModel {
 
   setAvalancheSituation4(avalancheSituation) {
     this.avalancheSituation4 = avalancheSituation;
-    this.updateDangerRating();
   }
 
   getAvalancheSituation5() {
@@ -298,17 +295,18 @@ export class BulletinDaytimeDescriptionModel {
 
   setAvalancheSituation5(avalancheSituation) {
     this.avalancheSituation5 = avalancheSituation;
-    this.updateDangerRating();
   }
 
   updateDangerRating() {
-    this.setDangerRatingAbove(this.getHighestDangerRating());
+    if (this.avalancheSituation1) {
+      this.setDangerRatingAbove(this.avalancheSituation1.getDangerRating());
+    }
     this.setMatrixInformationAbove(new MatrixInformationModel());
     this.setDangerRatingBelow(undefined);
     this.setMatrixInformationAbove(new MatrixInformationModel());
   }
 
-  private getHighestDangerRating() {
+  getHighestDangerRating() {
     let dangerRating = Enums.DangerRating[Enums.DangerRating.low];
     let tmpDangerRating = undefined;
     for (let i = 5; i > 0; i--) {

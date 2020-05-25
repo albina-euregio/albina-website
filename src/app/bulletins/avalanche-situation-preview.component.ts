@@ -220,26 +220,26 @@ export class AvalancheSituationPreviewComponent {
       case 2:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation1);
-        this.daytimeDescriptionModel.avalancheSituation2 = this.avalancheSituation;
-        this.daytimeDescriptionModel.avalancheSituation1 = tmpAvalancheSituation;
+        this.daytimeDescriptionModel.setAvalancheSituation2(this.avalancheSituation);
+        this.daytimeDescriptionModel.setAvalancheSituation1(tmpAvalancheSituation);
         break;
       case 3:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2);
-        this.daytimeDescriptionModel.avalancheSituation3 = this.avalancheSituation;
-        this.daytimeDescriptionModel.avalancheSituation2 = tmpAvalancheSituation;
+        this.daytimeDescriptionModel.setAvalancheSituation3(this.avalancheSituation);
+        this.daytimeDescriptionModel.setAvalancheSituation2(tmpAvalancheSituation);
         break;
       case 4:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation3);
-        this.daytimeDescriptionModel.avalancheSituation4 = this.avalancheSituation;
-        this.daytimeDescriptionModel.avalancheSituation3 = tmpAvalancheSituation;
+        this.daytimeDescriptionModel.setAvalancheSituation4(this.avalancheSituation);
+        this.daytimeDescriptionModel.setAvalancheSituation3(tmpAvalancheSituation);
         break;
       case 5:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation4);
-        this.daytimeDescriptionModel.avalancheSituation5 = this.avalancheSituation;
-        this.daytimeDescriptionModel.avalancheSituation4 = tmpAvalancheSituation;
+        this.daytimeDescriptionModel.setAvalancheSituation5(this.avalancheSituation);
+        this.daytimeDescriptionModel.setAvalancheSituation4(tmpAvalancheSituation);
         break;
 
       default:
@@ -254,26 +254,26 @@ export class AvalancheSituationPreviewComponent {
       case 1:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2);
-        this.daytimeDescriptionModel.avalancheSituation1 = this.avalancheSituation;
-        this.daytimeDescriptionModel.avalancheSituation2 = tmpAvalancheSituation;
+        this.daytimeDescriptionModel.setAvalancheSituation1(this.avalancheSituation);
+        this.daytimeDescriptionModel.setAvalancheSituation2(tmpAvalancheSituation);
         break;
       case 2:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation3);
-        this.daytimeDescriptionModel.avalancheSituation2 = this.avalancheSituation;
-        this.daytimeDescriptionModel.avalancheSituation3 = tmpAvalancheSituation;
+        this.daytimeDescriptionModel.setAvalancheSituation2(this.avalancheSituation);
+        this.daytimeDescriptionModel.setAvalancheSituation3(tmpAvalancheSituation);
         break;
       case 3:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation4);
-        this.daytimeDescriptionModel.avalancheSituation3 = this.avalancheSituation;
-        this.daytimeDescriptionModel.avalancheSituation4 = tmpAvalancheSituation;
+        this.daytimeDescriptionModel.setAvalancheSituation3(this.avalancheSituation);
+        this.daytimeDescriptionModel.setAvalancheSituation4(tmpAvalancheSituation);
         break;
       case 4:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation5);
-        this.daytimeDescriptionModel.avalancheSituation4 = this.avalancheSituation;
-        this.daytimeDescriptionModel.avalancheSituation5 = tmpAvalancheSituation;
+        this.daytimeDescriptionModel.setAvalancheSituation4(this.avalancheSituation);
+        this.daytimeDescriptionModel.setAvalancheSituation5(tmpAvalancheSituation);
         break;
 
       default:
