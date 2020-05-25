@@ -281,7 +281,7 @@
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
                     </div>
-                    <app-avalanche-situation [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
                   </div>
                   <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: left;">
                     <div style="font-size: 16px;">
@@ -293,7 +293,7 @@
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
                     </div>
-                    <app-avalanche-situation [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
                   </div>
                   <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: right;">
                     <div style="font-size: 16px;">
@@ -305,7 +305,7 @@
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(true)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
                     </div>
-                    <app-avalanche-situation [bulletinDaytimeDescription]="activeBulletin.afternoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.afternoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
                   </div>
                 </div>
               </accordion-group>

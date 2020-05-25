@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { SettingsService } from "../providers/settings-service/settings.service";
+import { BulletinModel } from "../models/bulletin.model";
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import { AvalancheSituationModel } from "../models/avalanche-situation.model";
 import * as Enums from "../enums/enums";
@@ -11,6 +12,7 @@ import * as Enums from "../enums/enums";
 })
 export class AvalancheSituationPreviewComponent {
 
+  @Input() bulletinModel: BulletinModel;
   @Input() daytimeDescriptionModel: BulletinDaytimeDescriptionModel;
   @Input() avalancheSituation: AvalancheSituationModel;
   @Input() count: number;
@@ -157,6 +159,9 @@ export class AvalancheSituationPreviewComponent {
     switch (this.count) {
       case 1:
         this.daytimeDescriptionModel.setAvalancheSituation1(undefined);
+        if (this.bulletinModel && !this.bulletinModel.getIsManualDangerRating()) {
+          this.daytimeDescriptionModel.updateDangerRating();
+        }
         break;
       case 2:
         this.daytimeDescriptionModel.setAvalancheSituation2(undefined);
@@ -184,6 +189,9 @@ export class AvalancheSituationPreviewComponent {
             this.daytimeDescriptionModel.setAvalancheSituation1(new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2));
           } else {
             this.daytimeDescriptionModel.setAvalancheSituation1(undefined);
+          }
+          if (this.bulletinModel && !this.bulletinModel.getIsManualDangerRating()) {
+            this.daytimeDescriptionModel.updateDangerRating();
           }
           break;
         case 2:
@@ -222,6 +230,9 @@ export class AvalancheSituationPreviewComponent {
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation1);
         this.daytimeDescriptionModel.setAvalancheSituation2(this.avalancheSituation);
         this.daytimeDescriptionModel.setAvalancheSituation1(tmpAvalancheSituation);
+        if (this.bulletinModel && !this.bulletinModel.getIsManualDangerRating()) {
+          this.daytimeDescriptionModel.updateDangerRating();
+        }
         break;
       case 3:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
@@ -256,6 +267,9 @@ export class AvalancheSituationPreviewComponent {
         this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2);
         this.daytimeDescriptionModel.setAvalancheSituation1(this.avalancheSituation);
         this.daytimeDescriptionModel.setAvalancheSituation2(tmpAvalancheSituation);
+        if (this.bulletinModel && !this.bulletinModel.getIsManualDangerRating()) {
+          this.daytimeDescriptionModel.updateDangerRating();
+        }
         break;
       case 2:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);

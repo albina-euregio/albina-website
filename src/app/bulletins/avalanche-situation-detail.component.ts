@@ -1,5 +1,6 @@
 import { Component, Input, AfterContentInit } from "@angular/core";
 import { SettingsService } from "../providers/settings-service/settings.service";
+import { BulletinModel } from "../models/bulletin.model";
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import { AvalancheSituationModel } from "../models/avalanche-situation.model";
 import * as Enums from "../enums/enums";
@@ -10,6 +11,7 @@ import * as Enums from "../enums/enums";
 })
 export class AvalancheSituationDetailComponent implements AfterContentInit {
 
+  @Input() bulletinModel: BulletinModel;
   @Input() daytimeDescriptionModel: BulletinDaytimeDescriptionModel;
   @Input() avalancheSituationModel: AvalancheSituationModel;
   @Input() disabled: boolean;

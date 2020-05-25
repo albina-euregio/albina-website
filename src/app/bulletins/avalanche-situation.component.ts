@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { SettingsService } from "../providers/settings-service/settings.service";
+import { BulletinModel } from "../models/bulletin.model";
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import * as Enums from "../enums/enums";
 
@@ -9,6 +10,7 @@ import * as Enums from "../enums/enums";
 })
 export class AvalancheSituationComponent {
 
+  @Input() bulletinModel: BulletinModel;
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
   @Input() disabled: boolean;
 

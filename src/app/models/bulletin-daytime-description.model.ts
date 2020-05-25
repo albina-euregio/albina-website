@@ -262,7 +262,6 @@ export class BulletinDaytimeDescriptionModel {
 
   setAvalancheSituation1(avalancheSituation) {
     this.avalancheSituation1 = avalancheSituation;
-    this.updateDangerRating();
   }
 
   getAvalancheSituation2() {
@@ -300,50 +299,12 @@ export class BulletinDaytimeDescriptionModel {
   updateDangerRating() {
     if (this.avalancheSituation1) {
       this.setDangerRatingAbove(this.avalancheSituation1.getDangerRating());
+    } else {
+      this.setDangerRatingAbove(Enums.DangerRating[1]);
     }
     this.setMatrixInformationAbove(new MatrixInformationModel());
     this.setDangerRatingBelow(undefined);
     this.setMatrixInformationAbove(new MatrixInformationModel());
-  }
-
-  getHighestDangerRating() {
-    let dangerRating = Enums.DangerRating[Enums.DangerRating.low];
-    let tmpDangerRating = undefined;
-    for (let i = 5; i > 0; i--) {
-      switch (i) {
-        case 5:
-          if (this.avalancheSituation5 && this.avalancheSituation5 !== undefined) {
-            tmpDangerRating = this.avalancheSituation5.getDangerRating();
-          }
-          break;
-        case 4:
-          if (this.avalancheSituation4 && this.avalancheSituation4 !== undefined) {
-            tmpDangerRating = this.avalancheSituation4.getDangerRating();
-          }
-          break;
-        case 3:
-          if (this.avalancheSituation3 && this.avalancheSituation3 !== undefined) {
-            tmpDangerRating = this.avalancheSituation3.getDangerRating();
-          }
-          break;
-        case 2:
-          if (this.avalancheSituation2 && this.avalancheSituation2 !== undefined) {
-            tmpDangerRating = this.avalancheSituation2.getDangerRating();
-          }
-          break;
-        case 1:
-          if (this.avalancheSituation1 && this.avalancheSituation1 !== undefined) {
-            tmpDangerRating = this.avalancheSituation1.getDangerRating();
-          }
-          break;
-        default:
-          break;
-      }
-      if (dangerRating === undefined || Enums.DangerRating[tmpDangerRating] > Enums.DangerRating[dangerRating]) {
-        dangerRating = tmpDangerRating;
-      }
-    }
-    return dangerRating;
   }
 
   toJson(hasElevationDependency: boolean) {
