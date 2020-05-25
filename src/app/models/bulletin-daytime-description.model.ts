@@ -85,15 +85,15 @@ export class BulletinDaytimeDescriptionModel {
   }
 
   constructor(bulletinDaytimeDescription?: BulletinDaytimeDescriptionModel) {
-    this.dangerRatingAbove = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing);
-    this.dangerRatingBelow = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing);
+    this.dangerRatingAbove = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.low);
+    this.dangerRatingBelow = new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.low);
 
     if (!bulletinDaytimeDescription) {
-      this.setDangerRatingAbove("missing");
+      this.setDangerRatingAbove("low");
       this.matrixInformationAbove = new MatrixInformationModel();
       this.terrainFeatureAboveTextcat = undefined;
       this.terrainFeatureAbove = new Array<TextModel>();
-      this.setDangerRatingBelow("missing");
+      this.setDangerRatingBelow("low");
       this.matrixInformationBelow = new MatrixInformationModel();
       this.terrainFeatureBelowTextcat = undefined;
       this.terrainFeatureBelow = new Array<TextModel>();
@@ -309,7 +309,7 @@ export class BulletinDaytimeDescriptionModel {
   }
 
   private getHighestDangerRating() {
-    let dangerRating = undefined;
+    let dangerRating = Enums.DangerRating[Enums.DangerRating.low];
     let tmpDangerRating = undefined;
     for (let i = 5; i > 0; i--) {
       switch (i) {
