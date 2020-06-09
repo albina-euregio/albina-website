@@ -34,7 +34,7 @@ class WeatherStationDiagrams extends React.Component {
 
   imageUrl(res, range, name) {
     return (
-      "https://lawine.tirol.gv.at/data/grafiken/" +
+      "https://wiski.tirol.gv.at/lawine/grafiken/" +
       res +
       "/standard/" +
       range +
