@@ -1,6 +1,7 @@
 import React from "react";
 import { inject, observer } from "mobx-react";
 import { injectIntl, FormattedMessage, FormattedNumber } from "react-intl";
+import { Util } from "leaflet";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
@@ -32,17 +33,13 @@ class WeatherStationDiagrams extends React.Component {
     });
   };
 
-  imageUrl(res, range, name) {
-    return (
-      "https://wiski.tirol.gv.at/lawine/grafiken/" +
-      res +
-      "/standard/" +
-      range +
-      "/" +
-      name +
-      ".png?" +
-      this.cacheHash
-    );
+  imageUrl(width, interval, name) {
+    return Util.template(window.config.apis.weather.plots, {
+      width,
+      interval,
+      name,
+      t: this.cacheHash
+    });
   }
 
   assembleStationInfo(stationData) {
