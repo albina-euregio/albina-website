@@ -721,7 +721,7 @@ export class BulletinModel {
   }
 
   updateDangerRating(afternoon: boolean) {
-    var daytimeBulletin;
+    let daytimeBulletin;
     if (afternoon) {
       daytimeBulletin = this.getAfternoon();
     } else {
@@ -733,7 +733,7 @@ export class BulletinModel {
       if (daytimeBulletin.avalancheSituation1.elevationHigh > 0 || daytimeBulletin.avalancheSituation1.treelineHigh) {
         if (daytimeBulletin.avalancheSituation1.elevationLow > 0 || daytimeBulletin.avalancheSituation1.treelineLow) {
           // band
-          if (daytimeBulletin.avalancheSituation1.getDangerRatingDirection() == 'down') {
+          if (daytimeBulletin.avalancheSituation1.getDangerRatingDirection() === "down") {
             if (daytimeBulletin.avalancheSituation1.treelineHigh) {
               this.treeline = true;
             } else {
@@ -742,7 +742,7 @@ export class BulletinModel {
             this.hasElevationDependency = true;
             daytimeBulletin.setDangerRatingBelow(daytimeBulletin.avalancheSituation1.getDangerRating());
             daytimeBulletin.setDangerRatingAbove(this.getSecondDangerRating(daytimeBulletin, true));
-          } else if (daytimeBulletin.avalancheSituation1.getDangerRatingDirection() == 'up') {
+          } else if (daytimeBulletin.avalancheSituation1.getDangerRatingDirection() === "up") {
             if (daytimeBulletin.avalancheSituation1.treelineLow) {
               this.treeline = true;
             } else {
@@ -825,7 +825,7 @@ export class BulletinModel {
     let boundaryAvalancheSituation;
     let boundaryBulletin;
 
-    if (situation && situation != undefined) {
+    if (situation && situation !== undefined) {
       if (up) {
         if (situation.treelineHigh) {
           boundaryAvalancheSituation = 1800;
@@ -846,7 +846,7 @@ export class BulletinModel {
         } else {
           boundaryBulletin = this.elevation;
         }
-        if (boundaryAvalancheSituation == undefined || boundaryAvalancheSituation > boundaryBulletin) {
+        if (boundaryAvalancheSituation === undefined || boundaryAvalancheSituation > boundaryBulletin) {
           return situation.getDangerRating();
         }
       } else {
@@ -855,7 +855,7 @@ export class BulletinModel {
         } else {
           boundaryBulletin = this.elevation;
         }
-        if (boundaryAvalancheSituation == undefined || boundaryAvalancheSituation < boundaryBulletin) {
+        if (boundaryAvalancheSituation === undefined || boundaryAvalancheSituation < boundaryBulletin) {
           return situation.getDangerRating();
         }
       }
