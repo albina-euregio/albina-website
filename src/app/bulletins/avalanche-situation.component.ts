@@ -12,6 +12,7 @@ export class AvalancheSituationComponent {
 
   @Input() bulletinModel: BulletinModel;
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
+  @Input() afternoon: boolean;
   @Input() disabled: boolean;
 
   showAspects: boolean;

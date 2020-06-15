@@ -909,29 +909,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  setManualDangerRating(event, value) {
-    event.stopPropagation();
-    this.activeBulletin.setIsManualDangerRating(value);
-    if (!this.activeBulletin.isManualDangerRating) {
-      this.activeBulletin.setHasElevationDependency(false);
-      this.activeBulletin.forenoon.updateDangerRating();
-      if (this.activeBulletin.hasDaytimeDependency) {
-        this.activeBulletin.afternoon.updateDangerRating();
-      }
-    } else {
-      if (this.activeBulletin.forenoon.avalancheSituation1) {
-        this.activeBulletin.forenoon.setDangerRatingAbove(this.activeBulletin.forenoon.avalancheSituation1.getDangerRating());
-        this.activeBulletin.forenoon.setMatrixInformationAbove(new MatrixInformationModel(this.activeBulletin.forenoon.avalancheSituation1.matrixInformation));
-      }
-      if (this.activeBulletin.hasDaytimeDependency) {
-        if (this.activeBulletin.afternoon.avalancheSituation1) {
-          this.activeBulletin.afternoon.setDangerRatingAbove(this.activeBulletin.afternoon.avalancheSituation1.getDangerRating());
-          this.activeBulletin.afternoon.setMatrixInformationAbove(new MatrixInformationModel(this.activeBulletin.afternoon.avalancheSituation1.matrixInformation));
-        }
-      }
-    }
-  }
-
   daytimeDependencyChanged(event, value) {
     event.stopPropagation();
     this.activeBulletin.setHasDaytimeDependency(value);
@@ -945,9 +922,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.activeBulletin.afternoon.setMatrixInformationAbove(new MatrixInformationModel(this.activeBulletin.forenoon.getMatrixInformationAbove()));
       if (this.activeBulletin.forenoon.getAvalancheSituation1() && this.activeBulletin.forenoon.getAvalancheSituation1() !== undefined) {
         this.activeBulletin.afternoon.setAvalancheSituation1(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation1()));
-        if (!this.activeBulletin.getIsManualDangerRating()) {
-          this.activeBulletin.afternoon.updateDangerRating();
-        }
+        this.activeBulletin.updateDangerRating(true);
       }
       if (this.activeBulletin.forenoon.getAvalancheSituation2() && this.activeBulletin.forenoon.getAvalancheSituation2() !== undefined) {
         this.activeBulletin.afternoon.setAvalancheSituation2(new AvalancheSituationModel(this.activeBulletin.forenoon.getAvalancheSituation2()));
@@ -969,9 +944,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.activeBulletin.afternoon.setDangerRatingAbove(new BehaviorSubject<Enums.DangerRating>(Enums.DangerRating.missing));
       this.activeBulletin.afternoon.setMatrixInformationAbove(undefined);
       this.activeBulletin.afternoon.setAvalancheSituation1(undefined);
-      if (!this.activeBulletin.getIsManualDangerRating()) {
-        this.activeBulletin.afternoon.updateDangerRating();
-      }
+      this.activeBulletin.updateDangerRating(true);
       this.activeBulletin.afternoon.setAvalancheSituation2(undefined);
       this.activeBulletin.afternoon.setAvalancheSituation3(undefined);
       this.activeBulletin.afternoon.setAvalancheSituation4(undefined);

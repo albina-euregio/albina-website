@@ -13,13 +13,15 @@ import * as Enums from "../enums/enums";
 export class AvalancheSituationPreviewComponent {
 
   @Input() bulletinModel: BulletinModel;
-  @Input() daytimeDescriptionModel: BulletinDaytimeDescriptionModel;
+  @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
+  @Input() afternoon: boolean;
   @Input() avalancheSituation: AvalancheSituationModel;
   @Input() count: number;
   @Input() check: boolean;
   @Input() disabled: boolean;
 
   avalancheSituationEnum = Enums.AvalancheSituation;
+  directionEnum = Enums.Direction;
 
   constructor(
     public translateService: TranslateService,
@@ -52,25 +54,25 @@ export class AvalancheSituationPreviewComponent {
   isLast() {
     switch (this.count) {
       case 1:
-        if (this.daytimeDescriptionModel.avalancheSituation2 !== undefined) {
+        if (this.bulletinDaytimeDescription.avalancheSituation2 !== undefined) {
           return false;
         } else {
           return true;
         }
       case 2:
-        if (this.daytimeDescriptionModel.avalancheSituation3 !== undefined) {
+        if (this.bulletinDaytimeDescription.avalancheSituation3 !== undefined) {
           return false;
         } else {
           return true;
         }
       case 3:
-        if (this.daytimeDescriptionModel.avalancheSituation4 !== undefined) {
+        if (this.bulletinDaytimeDescription.avalancheSituation4 !== undefined) {
           return false;
         } else {
           return true;
         }
       case 4:
-        if (this.daytimeDescriptionModel.avalancheSituation5 !== undefined) {
+        if (this.bulletinDaytimeDescription.avalancheSituation5 !== undefined) {
           return false;
         } else {
           return true;
@@ -158,22 +160,19 @@ export class AvalancheSituationPreviewComponent {
     event.stopPropagation();
     switch (this.count) {
       case 1:
-        this.daytimeDescriptionModel.setAvalancheSituation1(undefined);
-        if (this.bulletinModel && !this.bulletinModel.getIsManualDangerRating()) {
-          this.daytimeDescriptionModel.updateDangerRating();
-        }
+        this.bulletinDaytimeDescription.setAvalancheSituation1(undefined);
         break;
       case 2:
-        this.daytimeDescriptionModel.setAvalancheSituation2(undefined);
+        this.bulletinDaytimeDescription.setAvalancheSituation2(undefined);
         break;
       case 3:
-        this.daytimeDescriptionModel.setAvalancheSituation3(undefined);
+        this.bulletinDaytimeDescription.setAvalancheSituation3(undefined);
         break;
       case 4:
-        this.daytimeDescriptionModel.setAvalancheSituation4(undefined);
+        this.bulletinDaytimeDescription.setAvalancheSituation4(undefined);
         break;
       case 5:
-        this.daytimeDescriptionModel.setAvalancheSituation5(undefined);
+        this.bulletinDaytimeDescription.setAvalancheSituation5(undefined);
         break;
       default:
         break;
@@ -185,40 +184,38 @@ export class AvalancheSituationPreviewComponent {
     for (let i = count; i <= 4; i++) {
       switch (i) {
         case 1:
-          if (this.daytimeDescriptionModel.avalancheSituation2) {
-            this.daytimeDescriptionModel.setAvalancheSituation1(new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2));
+          if (this.bulletinDaytimeDescription.avalancheSituation2) {
+            this.bulletinDaytimeDescription.setAvalancheSituation1(new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation2));
           } else {
-            this.daytimeDescriptionModel.setAvalancheSituation1(undefined);
-          }
-          if (this.bulletinModel && !this.bulletinModel.getIsManualDangerRating()) {
-            this.daytimeDescriptionModel.updateDangerRating();
+            this.bulletinDaytimeDescription.setAvalancheSituation1(undefined);
           }
           break;
         case 2:
-          if (this.daytimeDescriptionModel.avalancheSituation3) {
-            this.daytimeDescriptionModel.setAvalancheSituation2(new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation3));
+          if (this.bulletinDaytimeDescription.avalancheSituation3) {
+            this.bulletinDaytimeDescription.setAvalancheSituation2(new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation3));
           } else {
-            this.daytimeDescriptionModel.setAvalancheSituation2(undefined);
+            this.bulletinDaytimeDescription.setAvalancheSituation2(undefined);
           }
           break;
         case 3:
-          if (this.daytimeDescriptionModel.avalancheSituation4) {
-            this.daytimeDescriptionModel.setAvalancheSituation3(new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation4));
+          if (this.bulletinDaytimeDescription.avalancheSituation4) {
+            this.bulletinDaytimeDescription.setAvalancheSituation3(new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation4));
           } else {
-            this.daytimeDescriptionModel.setAvalancheSituation3(undefined);
+            this.bulletinDaytimeDescription.setAvalancheSituation3(undefined);
           }
           break;
         case 4:
-          if (this.daytimeDescriptionModel.avalancheSituation5) {
-            this.daytimeDescriptionModel.setAvalancheSituation4(new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation5));
+          if (this.bulletinDaytimeDescription.avalancheSituation5) {
+            this.bulletinDaytimeDescription.setAvalancheSituation4(new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation5));
           } else {
-            this.daytimeDescriptionModel.setAvalancheSituation4(undefined);
+            this.bulletinDaytimeDescription.setAvalancheSituation4(undefined);
           }
           break;
         default:
           break;
       }
     }
+    this.bulletinModel.updateDangerRating(this.afternoon);
   }
 
   moveUpAvalancheSituation(event) {
@@ -227,35 +224,33 @@ export class AvalancheSituationPreviewComponent {
     switch (this.count) {
       case 2:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
-        this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation1);
-        this.daytimeDescriptionModel.setAvalancheSituation2(this.avalancheSituation);
-        this.daytimeDescriptionModel.setAvalancheSituation1(tmpAvalancheSituation);
-        if (this.bulletinModel && !this.bulletinModel.getIsManualDangerRating()) {
-          this.daytimeDescriptionModel.updateDangerRating();
-        }
+        this.avalancheSituation = new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation1);
+        this.bulletinDaytimeDescription.setAvalancheSituation2(this.avalancheSituation);
+        this.bulletinDaytimeDescription.setAvalancheSituation1(tmpAvalancheSituation);
         break;
       case 3:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
-        this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2);
-        this.daytimeDescriptionModel.setAvalancheSituation3(this.avalancheSituation);
-        this.daytimeDescriptionModel.setAvalancheSituation2(tmpAvalancheSituation);
+        this.avalancheSituation = new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation2);
+        this.bulletinDaytimeDescription.setAvalancheSituation3(this.avalancheSituation);
+        this.bulletinDaytimeDescription.setAvalancheSituation2(tmpAvalancheSituation);
         break;
       case 4:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
-        this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation3);
-        this.daytimeDescriptionModel.setAvalancheSituation4(this.avalancheSituation);
-        this.daytimeDescriptionModel.setAvalancheSituation3(tmpAvalancheSituation);
+        this.avalancheSituation = new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation3);
+        this.bulletinDaytimeDescription.setAvalancheSituation4(this.avalancheSituation);
+        this.bulletinDaytimeDescription.setAvalancheSituation3(tmpAvalancheSituation);
         break;
       case 5:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
-        this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation4);
-        this.daytimeDescriptionModel.setAvalancheSituation5(this.avalancheSituation);
-        this.daytimeDescriptionModel.setAvalancheSituation4(tmpAvalancheSituation);
+        this.avalancheSituation = new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation4);
+        this.bulletinDaytimeDescription.setAvalancheSituation5(this.avalancheSituation);
+        this.bulletinDaytimeDescription.setAvalancheSituation4(tmpAvalancheSituation);
         break;
 
       default:
         break;
     }
+    this.bulletinModel.updateDangerRating(this.afternoon);
   }
 
   moveDownAvalancheSituation(event) {
@@ -264,34 +259,45 @@ export class AvalancheSituationPreviewComponent {
     switch (this.count) {
       case 1:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
-        this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation2);
-        this.daytimeDescriptionModel.setAvalancheSituation1(this.avalancheSituation);
-        this.daytimeDescriptionModel.setAvalancheSituation2(tmpAvalancheSituation);
-        if (this.bulletinModel && !this.bulletinModel.getIsManualDangerRating()) {
-          this.daytimeDescriptionModel.updateDangerRating();
-        }
+        this.avalancheSituation = new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation2);
+        this.bulletinDaytimeDescription.setAvalancheSituation1(this.avalancheSituation);
+        this.bulletinDaytimeDescription.setAvalancheSituation2(tmpAvalancheSituation);
         break;
       case 2:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
-        this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation3);
-        this.daytimeDescriptionModel.setAvalancheSituation2(this.avalancheSituation);
-        this.daytimeDescriptionModel.setAvalancheSituation3(tmpAvalancheSituation);
+        this.avalancheSituation = new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation3);
+        this.bulletinDaytimeDescription.setAvalancheSituation2(this.avalancheSituation);
+        this.bulletinDaytimeDescription.setAvalancheSituation3(tmpAvalancheSituation);
         break;
       case 3:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
-        this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation4);
-        this.daytimeDescriptionModel.setAvalancheSituation3(this.avalancheSituation);
-        this.daytimeDescriptionModel.setAvalancheSituation4(tmpAvalancheSituation);
+        this.avalancheSituation = new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation4);
+        this.bulletinDaytimeDescription.setAvalancheSituation3(this.avalancheSituation);
+        this.bulletinDaytimeDescription.setAvalancheSituation4(tmpAvalancheSituation);
         break;
       case 4:
         tmpAvalancheSituation = new AvalancheSituationModel(this.avalancheSituation);
-        this.avalancheSituation = new AvalancheSituationModel(this.daytimeDescriptionModel.avalancheSituation5);
-        this.daytimeDescriptionModel.setAvalancheSituation4(this.avalancheSituation);
-        this.daytimeDescriptionModel.setAvalancheSituation5(tmpAvalancheSituation);
+        this.avalancheSituation = new AvalancheSituationModel(this.bulletinDaytimeDescription.avalancheSituation5);
+        this.bulletinDaytimeDescription.setAvalancheSituation4(this.avalancheSituation);
+        this.bulletinDaytimeDescription.setAvalancheSituation5(tmpAvalancheSituation);
         break;
 
       default:
         break;
     }
+    this.bulletinModel.updateDangerRating(this.afternoon);
+  }
+
+  isDangerRatingDirection(dir) {
+    if (this.avalancheSituation && this.avalancheSituation.getDangerRatingDirection() === dir) {
+      return true;
+    }
+    return false;
+  }
+
+  setDangerRatingDirection(event, dir: string) {
+    event.stopPropagation();
+    this.avalancheSituation.setDangerRatingDirection(Enums.Direction[dir]);
+    this.bulletinModel.updateDangerRating(this.afternoon);
   }
 }

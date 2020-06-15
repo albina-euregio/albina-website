@@ -296,17 +296,6 @@ export class BulletinDaytimeDescriptionModel {
     this.avalancheSituation5 = avalancheSituation;
   }
 
-  updateDangerRating() {
-    if (this.avalancheSituation1) {
-      this.setDangerRatingAbove(this.avalancheSituation1.getDangerRating());
-    } else {
-      this.setDangerRatingAbove(Enums.DangerRating[1]);
-    }
-    this.setMatrixInformationAbove(new MatrixInformationModel());
-    this.setDangerRatingBelow(undefined);
-    this.setMatrixInformationAbove(new MatrixInformationModel());
-  }
-
   toJson(hasElevationDependency: boolean) {
     const json = Object();
 

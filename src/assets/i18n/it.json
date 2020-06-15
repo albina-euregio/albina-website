@@ -95,7 +95,8 @@
         "dontShowInBulletin" : "Il problema delle valanghe NON sarà mostrato nel bollettino",
         "moveUpAvalancheSituation" : "Spostare il problema valanghe verso l'alto",
         "moveDownAvalancheSituation" : "Spostare il problema valanghe verso il basso",
-        "isManualDangerRating": "Scegliere la valutazione del pericolo manualmente"
+        "dangerRatingDirectionUp" : "Estendere la valutazione del pericolo verso l'alto",
+        "dangerRatingDirectionDown" : "Estendere il grado di pericolo verso il basso"
       },
       "button" : "Creato",
       "save" : " Salva",

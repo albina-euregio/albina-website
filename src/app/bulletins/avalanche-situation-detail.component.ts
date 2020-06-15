@@ -1,4 +1,4 @@
-import { Component, Input, AfterContentInit } from "@angular/core";
+import { Component, Input, OnChanges } from "@angular/core";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { BulletinModel } from "../models/bulletin.model";
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
@@ -9,10 +9,11 @@ import * as Enums from "../enums/enums";
   selector: "app-avalanche-situation-detail",
   templateUrl: "avalanche-situation-detail.component.html"
 })
-export class AvalancheSituationDetailComponent implements AfterContentInit {
+export class AvalancheSituationDetailComponent implements OnChanges {
 
   @Input() bulletinModel: BulletinModel;
-  @Input() daytimeDescriptionModel: BulletinDaytimeDescriptionModel;
+  @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
+  @Input() afternoon: boolean;
   @Input() avalancheSituationModel: AvalancheSituationModel;
   @Input() disabled: boolean;
 
@@ -30,12 +31,16 @@ export class AvalancheSituationDetailComponent implements AfterContentInit {
     public settingsService: SettingsService) {
   }
 
-  ngAfterContentInit() {
+  ngOnChanges() {
     if (this.avalancheSituationModel.getTreelineHigh() || this.avalancheSituationModel.getElevationHigh() !== undefined) {
       this.useElevationHigh = true;
+    } else {
+      this.useElevationHigh = false;
     }
     if (this.avalancheSituationModel.getTreelineLow() || this.avalancheSituationModel.getElevationLow() !== undefined) {
       this.useElevationLow = true;
+    } else {
+      this.useElevationLow = false;
     }
   }
 
@@ -64,6 +69,7 @@ export class AvalancheSituationDetailComponent implements AfterContentInit {
         this.avalancheSituationModel.elevationHigh = 0;
       }
     }
+    this.bulletinModel.updateDangerRating(this.afternoon);
   }
 
   updateElevationLow() {
@@ -75,6 +81,7 @@ export class AvalancheSituationDetailComponent implements AfterContentInit {
         this.avalancheSituationModel.elevationLow = 0;
       }
     }
+    this.bulletinModel.updateDangerRating(this.afternoon);
   }
 
   treelineHighClicked(event) {
@@ -84,6 +91,7 @@ export class AvalancheSituationDetailComponent implements AfterContentInit {
     } else {
       this.avalancheSituationModel.treelineHigh = true;
     }
+    this.bulletinModel.updateDangerRating(this.afternoon);
   }
 
   treelineLowClicked(event) {
@@ -93,6 +101,7 @@ export class AvalancheSituationDetailComponent implements AfterContentInit {
     } else {
       this.avalancheSituationModel.treelineLow = true;
     }
+    this.bulletinModel.updateDangerRating(this.afternoon);
   }
 
   setUseElevationHigh(event) {

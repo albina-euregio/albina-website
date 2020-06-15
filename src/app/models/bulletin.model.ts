@@ -1,4 +1,6 @@
 import { BulletinDaytimeDescriptionModel } from "./bulletin-daytime-description.model";
+import { MatrixInformationModel } from "./matrix-information.model";
+import { AvalancheSituationModel } from "./avalanche-situation.model";
 import { TextModel } from "./text.model";
 import { AuthorModel } from "./author.model";
 import * as Enums from "../enums/enums";
@@ -19,7 +21,6 @@ export class BulletinModel {
   public savedRegions: String[];
   public publishedRegions: String[];
 
-  public isManualDangerRating: boolean;
   public hasElevationDependency: boolean;
   public hasDaytimeDependency: boolean;
 
@@ -102,7 +103,6 @@ export class BulletinModel {
 
     bulletin.setElevation(json.elevation);
     bulletin.setTreeline(json.treeline);
-    bulletin.setIsManualDangerRating(json.isManualDangerRating);
     bulletin.setHasDaytimeDependency(json.hasDaytimeDependency);
     bulletin.setHasElevationDependency(json.hasElevationDependency);
 
@@ -260,7 +260,6 @@ export class BulletinModel {
       this.dangerPattern2 = bulletin.dangerPattern2;
       this.elevation = bulletin.elevation;
       this.treeline = bulletin.treeline;
-      this.isManualDangerRating = bulletin.isManualDangerRating;
       this.hasDaytimeDependency = bulletin.hasDaytimeDependency;
       this.hasElevationDependency = bulletin.hasElevationDependency;
     } else {
@@ -290,7 +289,6 @@ export class BulletinModel {
       this.dangerPattern2 = undefined;
       this.elevation = undefined;
       this.treeline = false;
-      this.isManualDangerRating = false;
       this.hasDaytimeDependency = false;
       this.hasElevationDependency = false;
     }
@@ -404,14 +402,6 @@ export class BulletinModel {
 
   setHasElevationDependency(hasElevationDependency: boolean) {
     this.hasElevationDependency = hasElevationDependency;
-  }
-
-  getIsManualDangerRating() {
-    return this.isManualDangerRating;
-  }
-
-  setIsManualDangerRating(isManualDangerRating: boolean) {
-    this.isManualDangerRating = isManualDangerRating;
   }
 
   getHasDaytimeDependency() {
@@ -730,6 +720,148 @@ export class BulletinModel {
     }
   }
 
+  updateDangerRating(afternoon: boolean) {
+    var daytimeBulletin;
+    if (afternoon) {
+      daytimeBulletin = this.getAfternoon();
+    } else {
+      daytimeBulletin = this.getForenoon();
+    }
+
+    if (daytimeBulletin.avalancheSituation1) {
+      // ap.1
+      if (daytimeBulletin.avalancheSituation1.elevationHigh > 0 || daytimeBulletin.avalancheSituation1.treelineHigh) {
+        if (daytimeBulletin.avalancheSituation1.elevationLow > 0 || daytimeBulletin.avalancheSituation1.treelineLow) {
+          // band
+          if (daytimeBulletin.avalancheSituation1.getDangerRatingDirection() == 'down') {
+            if (daytimeBulletin.avalancheSituation1.treelineHigh) {
+              this.treeline = true;
+            } else {
+              this.elevation = daytimeBulletin.avalancheSituation1.elevationHigh;
+            }
+            this.hasElevationDependency = true;
+            daytimeBulletin.setDangerRatingBelow(daytimeBulletin.avalancheSituation1.getDangerRating());
+            daytimeBulletin.setDangerRatingAbove(this.getSecondDangerRating(daytimeBulletin, true));
+          } else if (daytimeBulletin.avalancheSituation1.getDangerRatingDirection() == 'up') {
+            if (daytimeBulletin.avalancheSituation1.treelineLow) {
+              this.treeline = true;
+            } else {
+              this.elevation = daytimeBulletin.avalancheSituation1.elevationLow;
+            }
+            this.hasElevationDependency = true;
+            daytimeBulletin.setDangerRatingAbove(daytimeBulletin.avalancheSituation1.getDangerRating());
+            daytimeBulletin.setDangerRatingBelow(this.getSecondDangerRating(daytimeBulletin, false));
+          } else {
+            this.treeline = false;
+            this.elevation = undefined;
+            this.hasElevationDependency = false;
+            daytimeBulletin.setDangerRatingAbove(daytimeBulletin.avalancheSituation1.getDangerRating());
+            daytimeBulletin.setDangerRatingBelow(daytimeBulletin.avalancheSituation1.getDangerRating());
+          }
+        } else {
+          // only elevation high
+          if (daytimeBulletin.avalancheSituation1.treelineHigh) {
+            this.treeline = true;
+          } else {
+            this.elevation = daytimeBulletin.avalancheSituation1.elevationHigh;
+          }
+          this.hasElevationDependency = true;
+          daytimeBulletin.setDangerRatingBelow(daytimeBulletin.avalancheSituation1.getDangerRating());
+          daytimeBulletin.setDangerRatingAbove(this.getSecondDangerRating(daytimeBulletin, true));
+        }
+      } else if (daytimeBulletin.avalancheSituation1.elevationLow > 0 || daytimeBulletin.avalancheSituation1.treelineLow) {
+        // only elevation low
+        if (daytimeBulletin.avalancheSituation1.treelineLow) {
+          this.treeline = true;
+        } else {
+          this.elevation = daytimeBulletin.avalancheSituation1.elevationLow;
+        }
+        this.hasElevationDependency = true;
+        daytimeBulletin.setDangerRatingAbove(daytimeBulletin.avalancheSituation1.getDangerRating());
+        daytimeBulletin.setDangerRatingBelow(this.getSecondDangerRating(daytimeBulletin, false));
+     } else {
+        // no elevation
+        this.treeline = false;
+        this.elevation = undefined;
+        this.hasElevationDependency = false;
+        daytimeBulletin.setDangerRatingAbove(daytimeBulletin.avalancheSituation1.getDangerRating());
+        daytimeBulletin.setDangerRatingBelow(daytimeBulletin.avalancheSituation1.getDangerRating());
+      }
+    } else {
+      this.treeline = false;
+      this.elevation = undefined;
+      this.hasElevationDependency = false;
+      daytimeBulletin.setDangerRatingAbove(Enums.DangerRating[1]);
+      daytimeBulletin.setDangerRatingBelow(Enums.DangerRating[1]);
+    }
+    daytimeBulletin.setMatrixInformationAbove(new MatrixInformationModel());
+    daytimeBulletin.setMatrixInformationAbove(new MatrixInformationModel());
+  }
+
+  getSecondDangerRating(daytimeBulletin: BulletinDaytimeDescriptionModel, up: boolean) {
+    let dangerRating = Enums.DangerRating[1];
+
+    let tmpDangerRating = this.getDangerRating(daytimeBulletin.avalancheSituation2, up);
+    if (Enums.DangerRating[dangerRating] < Enums.DangerRating[tmpDangerRating]) {
+      dangerRating = Enums.DangerRating[Enums.DangerRating[tmpDangerRating]];
+    }
+    tmpDangerRating = this.getDangerRating(daytimeBulletin.avalancheSituation3, up);
+    if (Enums.DangerRating[dangerRating] < Enums.DangerRating[tmpDangerRating]) {
+      dangerRating = Enums.DangerRating[Enums.DangerRating[tmpDangerRating]];
+    }
+    tmpDangerRating = this.getDangerRating(daytimeBulletin.avalancheSituation4, up);
+    if (Enums.DangerRating[dangerRating] < Enums.DangerRating[tmpDangerRating]) {
+      dangerRating = Enums.DangerRating[Enums.DangerRating[tmpDangerRating]];
+    }
+    tmpDangerRating = this.getDangerRating(daytimeBulletin.avalancheSituation5, up);
+    if (Enums.DangerRating[dangerRating] < Enums.DangerRating[tmpDangerRating]) {
+      dangerRating = Enums.DangerRating[Enums.DangerRating[tmpDangerRating]];
+    }
+
+    return dangerRating;
+  }
+
+  getDangerRating(situation: AvalancheSituationModel, up: boolean) {
+    let boundaryAvalancheSituation;
+    let boundaryBulletin;
+
+    if (situation && situation != undefined) {
+      if (up) {
+        if (situation.treelineHigh) {
+          boundaryAvalancheSituation = 1800;
+        } else {
+          boundaryAvalancheSituation = situation.elevationHigh;
+        }
+      } else {
+        if (situation.treelineLow) {
+          boundaryAvalancheSituation = 2000;
+        } else {
+          boundaryAvalancheSituation = situation.elevationLow;
+        }
+      }
+
+      if (up) {
+        if (this.treeline) {
+          boundaryBulletin = 1800;
+        } else {
+          boundaryBulletin = this.elevation;
+        }
+        if (boundaryAvalancheSituation == undefined || boundaryAvalancheSituation > boundaryBulletin) {
+          return situation.getDangerRating();
+        }
+      } else {
+        if (this.treeline) {
+          boundaryBulletin = 2000;
+        } else {
+          boundaryBulletin = this.elevation;
+        }
+        if (boundaryAvalancheSituation == undefined || boundaryAvalancheSituation < boundaryBulletin) {
+          return situation.getDangerRating();
+        }
+      }
+    }
+  }
+
   toJson() {
     const json = Object();
 
@@ -786,12 +918,6 @@ export class BulletinModel {
         publishedRegions.push(this.publishedRegions[i]);
       }
       json["publishedRegions"] = publishedRegions;
-    }
-
-    if (this.isManualDangerRating) {
-      json["isManualDangerRating"] = true;
-    } else {
-      json["isManualDangerRating"] = false;
     }
 
     if (this.hasDaytimeDependency) {

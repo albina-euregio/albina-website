@@ -9,6 +9,7 @@ export class AvalancheSituationModel {
   public treelineHigh: boolean;
   public elevationLow: number;
   public treelineLow: boolean;
+  public dangerRatingDirection: Enums.Direction;
   public matrixInformation: MatrixInformationModel;
   public terrainFeatureTextcat: string;
   public terrainFeature: TextModel[];
@@ -29,6 +30,10 @@ export class AvalancheSituationModel {
     avalancheSituation.treelineHigh = json.treelineHigh;
     avalancheSituation.elevationLow = json.elevationLow;
     avalancheSituation.treelineLow = json.treelineLow;
+
+    if (json.dangerRatingDirection) {
+      avalancheSituation.setDangerRatingDirection(json.dangerRatingDirection);
+    }
 
     if (json.matrixInformation) {
       avalancheSituation.matrixInformation = MatrixInformationModel.createFromJson(json.matrixInformation);
@@ -56,6 +61,7 @@ export class AvalancheSituationModel {
       this.avalancheSituation = undefined;
       this.treelineHigh = false;
       this.treelineLow = false;
+      this.dangerRatingDirection = undefined;
       this.matrixInformation = new MatrixInformationModel();
       this.terrainFeatureTextcat = undefined;
       this.terrainFeature = new Array<TextModel>();
@@ -68,6 +74,7 @@ export class AvalancheSituationModel {
       this.treelineHigh = avalancheSituation.getTreelineHigh();
       this.elevationLow = avalancheSituation.getElevationLow();
       this.treelineLow = avalancheSituation.getTreelineLow();
+      this.dangerRatingDirection = avalancheSituation.getDangerRatingDirection();
       this.matrixInformation = new MatrixInformationModel(avalancheSituation.getMatrixInformation());
       this.terrainFeatureTextcat = avalancheSituation.terrainFeatureTextcat;
       const array = new Array<TextModel>();
@@ -145,6 +152,14 @@ export class AvalancheSituationModel {
 
   setTreelineLow(treeline: boolean) {
     this.treelineLow = treeline;
+  }
+
+  getDangerRatingDirection() {
+    return this.dangerRatingDirection;
+  }
+
+  setDangerRatingDirection(dangerRatingDirection: Enums.Direction) {
+    this.dangerRatingDirection = dangerRatingDirection;
   }
 
   getMatrixInformation() {
@@ -230,6 +245,9 @@ export class AvalancheSituationModel {
       if (this.elevationLow && this.elevationLow !== undefined) {
         json["elevationLow"] = this.elevationLow;
       }
+    }
+    if (this.dangerRatingDirection) {
+      json["dangerRatingDirection"] = this.dangerRatingDirection;
     }
     if (this.matrixInformation && this.matrixInformation !== undefined) {
       json["matrixInformation"] = this.matrixInformation.toJson();

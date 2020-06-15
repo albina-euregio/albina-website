@@ -1198,3 +1198,7 @@ export class ComplexityUtil {
     }
   }
 }
+
+export enum Direction {
+  up, down
+}

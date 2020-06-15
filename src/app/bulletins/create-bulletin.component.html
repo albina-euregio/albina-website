@@ -94,27 +94,15 @@
                             <td *ngIf="!bulletin.hasDaytimeDependency">
                               <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="daytimeDependencyChanged($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
                             </td>
-                            <td *ngIf="bulletin.isManualDangerRating">
-                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-primary" (click)="setManualDangerRating($event, false)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.isManualDangerRating' | translate }}"><i class="fa fa-sign-language"></i></button>
+                            <td *ngIf="bulletin.hasElevationDependency" class="input-prepend input-group">
+                              <input [disabled]="true" step="100" min="0" max="9000" class="form-control" size="14" type="number" name="elevation-input" [(ngModel)]="activeBulletin.elevation">
+                              <span class="input-group-addon">m</span>
                             </td>
-                            <td *ngIf="!bulletin.isManualDangerRating">
-                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="setManualDangerRating($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.isManualDangerRating' | translate }}"><i class="fa fa-sign-language"></i></button>
+                            <td *ngIf="bulletin.hasElevationDependency && bulletin.treeline">
+                              <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
                             </td>
-                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency">
-                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-primary" (click)="elevationDependencyChanged($event, false)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
-                            </td>
-                            <td *ngIf="bulletin.isManualDangerRating && !bulletin.hasElevationDependency">
-                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="elevationDependencyChanged($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
-                            </td>
-                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency" class="input-prepend input-group">
-                              <input step="100" min="0" max="9000" class="form-control" size="14" type="number" name="elevation-input" (click)="elevationInputClicked($event)" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin) || !activeBulletin.hasElevationDependency || bulletin.treeline" [(ngModel)]="activeBulletin.elevation" (change)="updateElevation(this.id)">
-                              <span class="input-group-addon" (click)="elevationInputClicked($event)">m</span>
-                            </td>
-                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency && bulletin.treeline">
-                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-primary" (click)="treelineClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
-                            </td>
-                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency && !bulletin.treeline">
-                              <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="treelineClicked($event)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
+                            <td *ngIf="bulletin.hasElevationDependency && !bulletin.treeline">
+                              <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
                             </td>
                           </tr>
                         </tbody>
@@ -198,26 +186,20 @@
                             <td *ngIf="!bulletin.hasDaytimeDependency">
                               <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
                             </td>
-                            <td *ngIf="bulletin.isManualDangerRating">
-                              <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.isManualDangerRating' | translate }}"><i class="fa fa-sign-language"></i></button>
-                            </td>
-                            <td *ngIf="!bulletin.isManualDangerRating">
-                              <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.isManualDangerRating' | translate }}"><i class="fa fa-sign-language"></i></button>
-                            </td>
-                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency">
+                            <td *ngIf="bulletin.hasElevationDependency">
                               <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
                             </td>
-                            <td *ngIf="bulletin.isManualDangerRating && !bulletin.hasElevationDependency">
+                            <td *ngIf="!bulletin.hasElevationDependency">
                               <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.elevationDependency' | translate }}"><i class="fa fa-area-chart"></i></button>
                             </td>
-                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency" class="input-prepend input-group">
+                            <td *ngIf="bulletin.hasElevationDependency" class="input-prepend input-group">
                               <input step="100" min="0" max="9000" class="form-control" size="14" type="number" name="elevation-input" [disabled]="true" [(ngModel)]="activeBulletin.elevation">
                               <span class="input-group-addon">m</span>
                             </td>
-                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency && bulletin.treeline">
+                            <td *ngIf="bulletin.hasElevationDependency && bulletin.treeline">
                               <button [disabled]="true" type="reset" class="btn btn-primary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
                             </td>
-                            <td *ngIf="bulletin.isManualDangerRating && bulletin.hasElevationDependency && !bulletin.treeline">
+                            <td *ngIf="bulletin.hasElevationDependency && !bulletin.treeline">
                               <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.treeline' | translate }}"><i class="fa fa-tree"></i></button>
                             </td>
                           </tr>
@@ -257,15 +239,6 @@
           </div>
           <div *ngIf="activeBulletin">
             <accordion>
-              <!-- Danger rating -->
-              <accordion-group *ngIf="activeBulletin.isManualDangerRating" [isOpen]="isAccordionDangerRatingOpen" (isOpenChange)="accordionChanged($event, 'dangerRating')">
-                <div accordion-heading class="clearfix">
-                  <i *ngIf="!isAccordionDangerRatingOpen" class="fa fa-angle-down"></i>
-                  <i *ngIf="isAccordionDangerRatingOpen" class="fa fa-angle-up"></i>
-                  <strong>{{ "bulletins.create.title.dangerRating" | translate }}</strong>
-                </div>
-                <app-bulletin-detail [bulletin]="activeBulletin" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-bulletin-detail>
-              </accordion-group>
               <!-- Avalanche situation -->
               <accordion-group [isOpen]="isAccordionAvalancheSituationOpen" (isOpenChange)="accordionChanged($event, 'avalancheSituation')" style="padding-bottom: 0;">
                 <div accordion-heading class="clearfix">
@@ -281,7 +254,7 @@
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
                     </div>
-                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [afternoon]="false" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
                   </div>
                   <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: left;">
                     <div style="font-size: 16px;">
@@ -293,7 +266,7 @@
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(false)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
                     </div>
-                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.forenoon" [afternoon]="false" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
                   </div>
                   <div *ngIf="activeBulletin.hasDaytimeDependency" class="col-md-6" style="float: right;">
                     <div style="font-size: 16px;">
@@ -305,7 +278,7 @@
                         <button [disabled]="editRegions || loading || hasFiveAvalancheSituations(false)" *ngIf="bulletinsService.getIsEditable()" (click)="createAvalancheSituation(true)" class="btn btn-sm btn-primary px-3"><i class="fa fa-plus"></i>{{ "bulletins.create.createAvalancheSituation" | translate }}</button>
                       </div>
                     </div>
-                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.afternoon" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
+                    <app-avalanche-situation [bulletinModel]="activeBulletin" [bulletinDaytimeDescription]="activeBulletin.afternoon" [afternoon]="true" [disabled]="!bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)"></app-avalanche-situation>
                   </div>
                 </div>
               </accordion-group>

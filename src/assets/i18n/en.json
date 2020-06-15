@@ -95,7 +95,8 @@
         "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
         "moveUpAvalancheSituation" : "Move avalanche problem up",
         "moveDownAvalancheSituation" : "Move avalanche problem down",
-        "isManualDangerRating": "Pick danger rating manually"
+        "dangerRatingDirectionUp" : "Extend the danger rating upwards",
+        "dangerRatingDirectionDown" : "Extend the danger rating downwards"
     },
       "button" : "Create",
       "save" : " Save",
