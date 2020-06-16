@@ -965,6 +965,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.onShowAfternoonMapChange(false);
       }
     }
+    this.activeBulletin.updateDangerRating(false);
+    this.activeBulletin.updateDangerRating(true);
   }
 
   private checkElevation(): boolean {
