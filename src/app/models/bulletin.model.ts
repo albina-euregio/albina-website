@@ -736,7 +736,9 @@ export class BulletinModel {
           if (daytimeBulletin.avalancheSituation1.getDangerRatingDirection() === "down") {
             if (daytimeBulletin.avalancheSituation1.treelineHigh) {
               this.treeline = true;
+              this.elevation = undefined;
             } else {
+              this.treeline = false;
               this.elevation = daytimeBulletin.avalancheSituation1.elevationHigh;
             }
             this.hasElevationDependency = true;
@@ -745,7 +747,9 @@ export class BulletinModel {
           } else if (daytimeBulletin.avalancheSituation1.getDangerRatingDirection() === "up") {
             if (daytimeBulletin.avalancheSituation1.treelineLow) {
               this.treeline = true;
+              this.elevation = undefined;
             } else {
+              this.treeline = false;
               this.elevation = daytimeBulletin.avalancheSituation1.elevationLow;
             }
             this.hasElevationDependency = true;
@@ -762,7 +766,9 @@ export class BulletinModel {
           // only elevation high
           if (daytimeBulletin.avalancheSituation1.treelineHigh) {
             this.treeline = true;
+            this.elevation = undefined;
           } else {
+            this.treeline = false;
             this.elevation = daytimeBulletin.avalancheSituation1.elevationHigh;
           }
           this.hasElevationDependency = true;
@@ -773,7 +779,9 @@ export class BulletinModel {
         // only elevation low
         if (daytimeBulletin.avalancheSituation1.treelineLow) {
           this.treeline = true;
+          this.elevation = undefined;
         } else {
+          this.treeline = false;
           this.elevation = daytimeBulletin.avalancheSituation1.elevationLow;
         }
         this.hasElevationDependency = true;
