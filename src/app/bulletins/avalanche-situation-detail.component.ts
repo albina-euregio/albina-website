@@ -109,6 +109,7 @@ export class AvalancheSituationDetailComponent implements OnChanges {
       this.avalancheSituationModel.treelineHigh = false;
       this.avalancheSituationModel.elevationHigh = undefined;
     }
+    this.bulletinModel.updateDangerRating(this.afternoon);
   }
 
   setUseElevationLow(event) {
@@ -116,6 +117,7 @@ export class AvalancheSituationDetailComponent implements OnChanges {
       this.avalancheSituationModel.treelineLow = false;
       this.avalancheSituationModel.elevationLow = undefined;
     }
+    this.bulletinModel.updateDangerRating(this.afternoon);
   }
 
   deleteTextcat(event) {
