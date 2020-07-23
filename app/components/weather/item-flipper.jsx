@@ -5,6 +5,19 @@ import { injectIntl } from "react-intl";
 class ItemFlipper extends React.Component {
   constructor(props) {
     super(props);
+
+    // let itemsDirUp = true;
+    // let store = this.props.store;
+    // setInterval(()=>{
+    //   if(itemsDirUp) {
+    //     if(store.nextItem) this.props.handleChange(store.nextItem.id);
+    //     else itemsDirUp = !itemsDirUp;
+    //   } else {
+    //     if(store.previousItem) this.props.handleChange(store.previousItem.id);
+    //     else itemsDirUp = !itemsDirUp;
+    //   }
+
+    // }, 2000)
   }
 
   render() {
