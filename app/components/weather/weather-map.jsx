@@ -92,6 +92,7 @@ class WeatherMap extends React.Component {
     return (
       <LeafletMap
         loaded={this.props.domainId !== false}
+        identifier={this.props.domainId + "_" + this.props.itemId}
         onViewportChanged={this.props.onViewportChanged}
         overlays={overlays}
         controls={controls}

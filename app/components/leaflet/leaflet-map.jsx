@@ -16,6 +16,7 @@ require("leaflet-geonames");
 require("leaflet.locatecontrol");
 require("leaflet-gesture-handling");
 require("leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css");
+//require("./L.TimeDimension.Layer.ImageLayer.js");
 require("../../css/geonames.css");
 
 class LeafletMap extends React.Component {
@@ -25,6 +26,7 @@ class LeafletMap extends React.Component {
      * @type L.Map
      */
     this.map = undefined;
+    this._layers = [];
   }
 
   mapStyle() {
@@ -155,7 +157,12 @@ class LeafletMap extends React.Component {
               key={layerProps.id}
               checked={i == 0}
             >
-              <TileLayer key={layerProps.id} {...layerProps} />
+              <TileLayer
+                key={layerProps.id}
+                {...layerProps}
+                onload={this.onLayerLoad}
+                onerror={this.onLayerLoadError}
+              />
             </LayersControl.BaseLayer>
           ))}
         </LayersControl>
@@ -198,6 +205,16 @@ class LeafletMap extends React.Component {
       : this.renderDisabledMap(mapOptions);
   }
 
+  get overlays() {
+    console.log(
+      "overlays " + this.props.identifier,
+      this._layers[this.props.identifier]
+    );
+    if (!this._layers[this.props.identifier])
+      return (this._layers[this.props.identifier] = this.props.overlays);
+    return this._layers[this.props.identifier];
+  }
+
   renderDisabledMap(mapOptions) {
     return (
       <Map
@@ -213,7 +230,7 @@ class LeafletMap extends React.Component {
       >
         <AttributionControl prefix={config.map.attribution} />
         {this.tileLayers}
-        {this.props.overlays}
+        {this.overlays}
       </Map>
     );
   }
@@ -237,7 +254,7 @@ class LeafletMap extends React.Component {
         <ScaleControl imperial={false} position="bottomleft" />
         {this.props.controls}
         {this.tileLayers}
-        {this.props.overlays}
+        {this.overlays}
       </Map>
     );
   }
