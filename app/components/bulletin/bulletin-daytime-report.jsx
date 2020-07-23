@@ -11,6 +11,15 @@ import {
   getSuccDate
 } from "../../util/date.js";
 
+/**
+ * @typedef {object} Props
+ * @prop {Bulletin.DaytimeDescription} bulletin
+ * @prop {Bulletin.Bulletin} fullBulletin
+ * @prop {*} ampm
+ * @prop {*} intl
+ *
+ * @extends {React.Component<Props>}
+ */
 class BulletinDaytimeReport extends React.Component {
   constructor(props) {
     super(props);

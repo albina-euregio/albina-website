@@ -3,6 +3,12 @@ import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
+/**
+ * @typedef {object} Props
+ * @prop {Bulletin.DangerPattern} dangerPattern
+ *
+ * @extends {React.Component<Props>}
+ */
 class DangerPatternItem extends React.Component {
   patternTexts;
 

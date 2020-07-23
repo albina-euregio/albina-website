@@ -8,6 +8,9 @@ export default class BulletinList extends React.Component {
     super(props);
   }
 
+  /**
+   * @returns {Bulletin.Bulletin[]} bulletin
+   */
   get bulletins() {
     return this.props.bulletinCollection.getData();
   }

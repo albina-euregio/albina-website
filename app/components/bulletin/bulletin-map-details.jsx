@@ -3,6 +3,12 @@ import { observer } from "mobx-react";
 import ProblemIconLink from "../icons/problem-icon-link.jsx";
 import WarnLevelIcon from "../icons/warn-level-icon.jsx";
 
+/**
+ * @typedef {object} Props
+ * @prop {Bulletin.Bulletin} bulletin
+ *
+ * @extends {React.Component<Props>}
+ */
 @observer
 export default class BulletinMapDetails extends React.Component {
   constructor(props) {

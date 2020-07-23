@@ -16,6 +16,9 @@ class BulletinCollection {
   date;
   status;
   statusMessage;
+  /**
+   * @type {Bulletin.Bulletin[]}
+   */
   dataRaw;
   geodata;
 
@@ -118,6 +121,9 @@ class BulletinCollection {
 
 class BulletinStore {
   // TODO: add language support
+  /**
+   * @type {Record<date, BulletinCollection>}
+   */
   @observable bulletins = {};
   @observable latest = null;
   settings = {};

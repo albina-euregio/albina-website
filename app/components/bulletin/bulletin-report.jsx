@@ -7,9 +7,16 @@ import BulletinDaytimeReport from "./bulletin-daytime-report";
 import { dateToLongDateString, parseDate } from "../../util/date";
 import { preprocessContent } from "../../util/htmlParser";
 
-/*
+/**
  * This component shows the detailed bulletin report including all icons and
  * texts.
+ *
+ * @typedef {object} Props
+ * @prop {Bulletin.Bulletin} bulletin
+ * @prop {*} date
+ * @prop {*} intl
+ *
+ * @extends {React.Component<Props>}
  */
 class BulletinReport extends React.Component {
   constructor(props) {

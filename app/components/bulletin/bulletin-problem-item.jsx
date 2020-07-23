@@ -6,6 +6,12 @@ import ProblemIconLink from "../icons/problem-icon-link.jsx";
 import ExpositionIcon from "../icons/exposition-icon.jsx";
 import ElevationIcon from "../icons/elevation-icon.jsx";
 
+/**
+ * @typedef {object} Props
+ * @prop {Bulletin.AvalancheSituation} problem
+ *
+ * @extends {React.Component<Props>}
+ */
 class BulletinProblemItem extends React.Component {
   constructor(props) {
     super(props);

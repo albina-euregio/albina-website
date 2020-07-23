@@ -2,6 +2,15 @@ import React from "react";
 import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
+/**
+ * @typedef {object} Props
+ * @prop {Bulletin.Bulletin} bulletin
+ * @prop {*} ampm
+ * @prop {*} date
+ * @prop {*} region
+ *
+ * @extends {React.Component<Props>}
+ */
 class BulletinAWMapStatic extends React.Component {
   constructor(props) {
     super(props);

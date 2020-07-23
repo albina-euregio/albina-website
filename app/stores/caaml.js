@@ -1,5 +1,6 @@
 /**
  * @param {XMLDocument} document
+ * @returns {*} caaml
  */
 export function convertCaamlToJson(document) {
   const children = [...document.children];
@@ -76,10 +77,14 @@ export function convertCaamlToJson(document) {
 
 /**
  * @param {XMLDocument} document
+ * @returns {Bulletin.Bulletin} bulletin
  */
 export function convertCaamlToAlbinaJson(document) {
   const json = convertCaamlToJson(document);
   const { observations } = json.ObsCollection;
+  /**
+   * @type {Bulletin.Bulletin[]}
+   */
   const albinaObservations = [];
   observations.map(observation => {
     const { id, lang, metaDataProperty, validTime } = observation;
@@ -125,6 +130,10 @@ export function convertCaamlToAlbinaJson(document) {
     const getWarnLevelId = number => window["appStore"].getWarnLevelId(number);
     const getDangerPattern = index =>
       dangerPatterns?.[index]?.type.toLowerCase();
+    /**
+     * @param {number} index
+     * @returns {Bulletin.AvalancheSituation} situation
+     */
     const getAvalancheSituation = index => {
       if (!avProblems[index]) return undefined;
       const { type, validAspect, validElevation } = avProblems[index];
