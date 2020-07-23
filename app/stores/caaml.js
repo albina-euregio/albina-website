@@ -1,6 +1,6 @@
 /**
  * @param {XMLDocument} document
- * @returns {*} caaml
+ * @returns {Caaml.Bulletins} caaml
  */
 export function convertCaamlToJson(document) {
   const children = [...document.children];
@@ -12,7 +12,7 @@ export function convertCaamlToJson(document) {
   const attributes = document.attributes || [];
   for (var i = 0; i < attributes.length; i++) {
     const { name, value } = attributes[i];
-    if (!/^xmlns/.test(name)) {
+    if (!/^(xmlns|xsi)/.test(name)) {
       json[name.replace(/^.*:/, "")] = value;
     }
   }
@@ -32,20 +32,20 @@ export function convertCaamlToJson(document) {
   // recurse children
   for (var child of children) {
     const forceArray = [
-      "AvProblem",
-      "Bulletin",
-      "BulletinMeasurements",
-      "DangerPattern",
-      "DangerRating",
-      "locRef",
-      "MetaData",
-      "validAspect"
+      "aspect",
+      "avalancheProblem",
+      "bulletin",
+      "dangerPattern",
+      "dangerRating",
+      "extFile",
+      "metaData",
+      "region"
     ];
     const asArray =
       // checking if child has siblings of same name.
-      children.filter(i => i.nodeName === child.nodeName).length > 1 ||
+      children.some(i => i !== child && i.nodeName === child.nodeName) ||
       // or child name is forced to be an array
-      forceArray.indexOf(child.nodeName) >= 0;
+      forceArray.includes(child.nodeName);
 
     // if child is array, save the values as array, else as strings.
     if (asArray && json[child.nodeName] === undefined) {
@@ -59,18 +59,8 @@ export function convertCaamlToJson(document) {
 
   // unwrap array structure
   switch (document.nodeName) {
-    case "avProblems":
-      return json.AvProblem;
-    case "bulletinResultsOf":
-      return json.BulletinMeasurements;
-    case "dangerPatterns":
-      return json.DangerPattern;
-    case "dangerRatings":
-      return json.DangerRating;
-    case "metaDataProperty":
-      return json.MetaData;
-    case "observations":
-      return json.Bulletin;
+    case "#document":
+      return json.bulletins;
   }
   return json;
 }
