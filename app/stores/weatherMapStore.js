@@ -19,12 +19,14 @@ export default class WeatherMapStore {
     const loads = [
       axios.get(config.apis.weather.domains).then(response => {
         this.config = response.data;
+        console.log("this.config", this.config);
       }),
       new StationDataStore().load().then(features => {
         this.stations = { features };
       }),
       axios.get(config.apis.weather.grid).then(response => {
         this.grid = response.data;
+        console.log("this.grid", this.grid);
       })
     ];
 
@@ -69,6 +71,7 @@ export default class WeatherMapStore {
     returns item data based on the active item id
   */
   get item() {
+    console.log("this.domain", this.domain);
     return this.config && this.domainId && this.itemId && this.domain
       ? this.domain.items.find(i => i.id === this.itemId)
       : false;
