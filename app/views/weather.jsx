@@ -21,7 +21,7 @@ class Weather extends React.Component {
     super(props);
 
     this.store = new WeatherMapStore(this.props.match.params.domain);
-
+    console.log("Weather: Store:", this.store);
     this.state = {
       title: "",
       headerText: "",
