@@ -25,7 +25,7 @@ class BulletinDaytimeReport extends React.Component {
   }
 
   get problems() {
-    return this.props.bulletin?.avalancheProblem || [];
+    return this.props.bulletin?.avalancheProblems || [];
   }
 
   render() {

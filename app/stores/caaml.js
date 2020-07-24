@@ -41,17 +41,29 @@ export function convertCaamlToJson(document) {
       "region"
     ];
     const asArray =
-      // checking if child has siblings of same name.
-      children.some(i => i !== child && i.nodeName === child.nodeName) ||
-      // or child name is forced to be an array
       forceArray.includes(child.nodeName) ||
       (document.nodeName === "bulletin" && child.nodeName === "dangerRating");
+    const arrayChildName = {
+      aspect: "aspects",
+      avalancheProblem: "avalancheProblems",
+      bulletin: "bulletins",
+      dangerPattern: "dangerPatterns",
+      dangerRating: "dangerRatings",
+      extFile: "extFiles",
+      metaData: "metaData",
+      region: "regions"
+    }[child.nodeName];
 
     // if child is array, save the values as array, else as strings.
-    if (asArray && json[child.nodeName] === undefined) {
-      json[child.nodeName] = [convertCaamlToJson(child)];
+    if (asArray && json[arrayChildName] === undefined) {
+      json[arrayChildName] = [convertCaamlToJson(child)];
     } else if (asArray) {
-      json[child.nodeName].push(convertCaamlToJson(child));
+      json[arrayChildName].push(convertCaamlToJson(child));
+    } else if (json[child.nodeName] !== undefined) {
+      console.warn(
+        `${child.nodeName} is already present!`,
+        json[child.nodeName]
+      );
     } else {
       json[child.nodeName] = convertCaamlToJson(child);
     }
@@ -84,8 +96,8 @@ export function toDaytimeBulletins(bulletins) {
       };
       albina.hasDaytimeDependency = !!albina.afternoon;
       albina.maxWarnlevel = [
-        ...(albina?.forenoon?.dangerRating?.map(r => r.mainValue) || []),
-        ...(albina?.afternoon?.dangerRating?.map(r => r.mainValue) || [])
+        ...(albina?.forenoon?.dangerRatings?.map(r => r.mainValue) || []),
+        ...(albina?.afternoon?.dangerRatings?.map(r => r.mainValue) || [])
       ].reduce((r1, r2) =>
         getWarnlevelNumber(r1) > getWarnlevelNumber(r2) ? r1 : r2
       );

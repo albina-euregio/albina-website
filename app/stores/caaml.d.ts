@@ -1,7 +1,7 @@
 namespace Caaml {
   export interface Bulletins {
     metaData?: MetaData[];
-    bulletin: Bulletin[];
+    bulletins: Bulletin[];
   }
 
   export interface Bulletin {
@@ -11,11 +11,11 @@ namespace Caaml {
     publicationTime: Date;
     validTime: ValidTime;
     source: Source;
-    region: Region[];
+    regions: Region[];
     complexity?: "easy" | "challenging" | "complex" | "n/a";
-    dangerRating?: DangerRating[];
-    dangerPattern?: DangerPattern[];
-    avalancheProblem?: AvalancheProblem[];
+    dangerRatings?: DangerRating[];
+    dangerPatterns?: DangerPattern[];
+    avalancheProblems?: AvalancheProblem[];
     tendency?: Tendency;
     highlights?: string;
     wxSynopsisHighlights?: string;
@@ -107,7 +107,7 @@ namespace Caaml {
   }
 
   export interface MetaData {
-    extFile: ExtFile[];
+    extFiles: ExtFile[];
     comment?: string;
     customData?: any;
   }

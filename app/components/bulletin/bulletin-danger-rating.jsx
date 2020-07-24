@@ -13,16 +13,16 @@ class BulletinDangerRating extends React.Component {
   }
 
   render() {
-    const dangerRating = this.props.bulletin.dangerRating;
-    if (!dangerRating || !dangerRating.length) return null;
+    const dangerRatings = this.props.bulletin.dangerRatings;
+    if (!dangerRatings || !dangerRatings.length) return null;
 
-    const dangerRatingBelow = dangerRating.find(
+    const dangerRatingBelow = dangerRatings.find(
       r => r?.elevation?.lowerBound === undefined
     )?.mainValue;
-    const dangerRatingAbove = dangerRating.find(
+    const dangerRatingAbove = dangerRatings.find(
       r => r?.elevation?.upperBound === undefined
     )?.mainValue;
-    const dangerRatingBounds = dangerRating.flatMap(r => [
+    const dangerRatingBounds = dangerRatings.flatMap(r => [
       r?.elevation?.lowerBound,
       r?.elevation?.upperBound
     ]);

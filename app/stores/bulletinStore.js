@@ -68,7 +68,7 @@ class BulletinCollection {
 
   getBulletinForMicroRegion(regionId) {
     return this.daytimeBulletins.find(el =>
-      el.forenoon.region.find(r => r.id === regionId)
+      el.forenoon.regions.find(r => r.id === regionId)
     );
   }
 
@@ -82,11 +82,11 @@ class BulletinCollection {
 
   setData(data) {
     this.dataRaw = convertCaamlToJson(data);
-    this.daytimeBulletins = toDaytimeBulletins(this.dataRaw?.bulletin || []);
+    this.daytimeBulletins = toDaytimeBulletins(this.dataRaw?.bulletins || []);
     if (APP_DEV_MODE) console.log(this.dataRaw);
     this.status =
-      typeof this.dataRaw === "object" && this.dataRaw && this.dataRaw.bulletin
-        ? this.dataRaw.bulletin.length > 0
+      typeof this.dataRaw === "object" && this.dataRaw && this.dataRaw.bulletins
+        ? this.dataRaw.bulletins.length > 0
           ? "ok"
           : "empty"
         : "n/a";
@@ -344,7 +344,7 @@ class BulletinStore {
     }
     const daytime =
       bulletin.hasDaytimeDependency && ampm == "pm" ? "afternoon" : "forenoon";
-    return bulletin[daytime].avalancheProblem || [];
+    return bulletin[daytime].avalancheProblems || [];
   }
 
   getRegionState(regionId, ampm = null) {

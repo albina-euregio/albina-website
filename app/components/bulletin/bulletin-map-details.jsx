@@ -22,7 +22,7 @@ export default class BulletinMapDetails extends React.Component {
         ? "afternoon"
         : "forenoon";
     const bulletin = this.props.bulletin[daytime];
-    const problems = bulletin.avalancheProblem || [];
+    const problems = bulletin.avalancheProblems || [];
 
     return (
       <ul className="list-plain">

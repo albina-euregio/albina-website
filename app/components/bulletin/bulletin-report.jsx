@@ -32,7 +32,7 @@ class BulletinReport extends React.Component {
 
   @computed
   get dangerPatterns() {
-    return this.bulletin.dangerPattern || [];
+    return this.bulletin.dangerPatterns || [];
   }
 
   getLocalizedText(elem) {
