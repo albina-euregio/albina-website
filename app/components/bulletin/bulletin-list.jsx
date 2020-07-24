@@ -2,6 +2,13 @@ import React from "react";
 import { observer } from "mobx-react";
 import BulletinReport from "./bulletin-report";
 
+/**
+ * @typedef {object} Props
+ * @prop {import("../../stores/bulletinStore").BulletinCollection} bulletinCollection
+ * @prop {import("../../stores/bulletinStore").BulletinStore} store
+ *
+ * @extends {React.Component<Props>}
+ */
 @observer
 export default class BulletinList extends React.Component {
   constructor(props) {

@@ -302,7 +302,7 @@ class BulletinStore {
 
   /**
    * Get the bulletins that match the current selection.
-   * @return A list of bulletins that match the selection of
+   * @return {BulletinCollection} A list of bulletins that match the selection of
    *   this.date and this.ampm
    */
   get activeBulletinCollection() {

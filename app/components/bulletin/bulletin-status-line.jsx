@@ -8,6 +8,12 @@ import {
   getLocalDate
 } from "../../util/date.js";
 
+/**
+ * @typedef {object} Props
+ * @prop {import("../../stores/bulletinStore").BulletinStore} store
+ *
+ * @extends {React.Component<Props>}
+ */
 class BulletinStatusLine extends React.Component {
   constructor(props) {
     super(props);

@@ -7,6 +7,12 @@ import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
 import BulletinStatusLine from "./bulletin-status-line.jsx";
 import { parseDate, dateToLongDateString } from "../../util/date.js";
 
+/**
+ * @typedef {object} Props
+ * @prop {import("../../stores/bulletinStore").BulletinStore} store
+ *
+ * @extends {React.Component<Props>}
+ */
 @observer
 class BulletinHeader extends React.Component {
   constructor(props) {

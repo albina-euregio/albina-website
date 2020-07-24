@@ -3,6 +3,12 @@ import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { modal_init } from "../../js/modal";
 
+/**
+ * @typedef {object} Props
+ * @prop {import("../../stores/bulletinStore").BulletinStore} store
+ *
+ * @extends {React.Component<Props>}
+ */
 class BulletinButtonbar extends React.Component {
   constructor(props) {
     super(props);
