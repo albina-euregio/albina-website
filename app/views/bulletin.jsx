@@ -238,7 +238,9 @@ class Bulletin extends React.Component {
         {this.store.activeBulletinCollection && (
           <BulletinList
             store={this.store}
-            bulletinCollection={this.store.activeBulletinCollection}
+            daytimeBulletins={
+              this.store.activeBulletinCollection.daytimeBulletins
+            }
           />
         )}
         <SmShare

@@ -160,7 +160,6 @@ class BulletinMap extends React.Component {
       res.push(
         <BulletinMapDetails
           key="details"
-          store={this.props.store}
           bulletin={activeBulletin}
           ampm={this.props.ampm}
         />

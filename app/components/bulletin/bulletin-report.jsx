@@ -5,14 +5,13 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
 import { dateToLongDateString, parseDate } from "../../util/date";
-import { preprocessContent } from "../../util/htmlParser";
 
 /**
  * This component shows the detailed bulletin report including all icons and
  * texts.
  *
  * @typedef {object} Props
- * @prop {Bulletin.Bulletin} bulletin
+ * @prop {Albina.DaytimeBulletin} daytimeBulletin
  * @prop {*} date
  * @prop {*} intl
  *
@@ -23,54 +22,37 @@ class BulletinReport extends React.Component {
     super(props);
   }
 
+  /**
+   * @returns {Caaml.Bulletin}
+   */
   @computed
-  get daytimeBulletins() {
-    const bulletin = this.props.bulletin;
-    const bs = {};
-    if (bulletin.hasDaytimeDependency) {
-      bs["am"] = bulletin["forenoon"];
-      bs["pm"] = bulletin["afternoon"];
-    } else {
-      bs["fd"] = bulletin["forenoon"];
-    }
-    return bs;
+  get bulletin() {
+    return this.props.daytimeBulletin?.forenoon;
   }
 
   @computed
   get dangerPatterns() {
-    const bulletin = this.props.bulletin;
-    const dangerPatterns = [];
-    if (bulletin.dangerPattern1) {
-      dangerPatterns.push(bulletin.dangerPattern1);
-    }
-    if (bulletin.dangerPattern2) {
-      dangerPatterns.push(bulletin.dangerPattern2);
-    }
-    return dangerPatterns;
+    return this.bulletin.dangerPattern || [];
   }
 
-  /*
-   * Get Bulletin comment text in the language version the user is using.
-   * E.g. load bulletin.avActivityHighlights.de when showing the german version.
-   */
   getLocalizedText(elem) {
-    if (Array.isArray(elem)) {
-      const l = elem.find(e => e.languageCode === window["appStore"].language);
-      if (l) {
-        return preprocessContent(l.text);
-      }
-    }
-    return "";
+    // bulletins are loaded in correct language
+    return elem || "";
   }
 
   render() {
-    const bulletin = this.props.bulletin;
-    if (!bulletin) {
+    const daytimeBulletin = this.props.daytimeBulletin;
+    const bulletin = this.bulletin;
+    if (!daytimeBulletin || !bulletin) {
       return <div />;
     }
 
-    const daytimeBulletins = this.daytimeBulletins;
-    const maxWarnlevel = bulletin.maxWarnlevel;
+    const maxWarnlevel = {
+      id: daytimeBulletin.maxWarnlevel,
+      number: window["appStore"].getWarnlevelNumber(
+        daytimeBulletin.maxWarnlevel
+      )
+    };
     const classes = "panel field callout warning-level-" + maxWarnlevel.number;
 
     return (
@@ -106,15 +88,27 @@ class BulletinReport extends React.Component {
                 />
               </h1>
             </header>
-            {Object.keys(daytimeBulletins).map(ampm => (
+            {daytimeBulletin.hasDaytimeDependency ? (
+              [
+                <BulletinDaytimeReport
+                  key={"am"}
+                  bulletin={daytimeBulletin.forenoon}
+                  date={this.props.date}
+                  ampm={"am"}
+                />,
+                <BulletinDaytimeReport
+                  key={"pm"}
+                  bulletin={daytimeBulletin.afternoon}
+                  date={this.props.date}
+                  ampm={"pm"}
+                />
+              ]
+            ) : (
               <BulletinDaytimeReport
-                key={ampm}
-                bulletin={daytimeBulletins[ampm]}
+                bulletin={daytimeBulletin.forenoon}
                 date={this.props.date}
-                fullBulletin={bulletin}
-                ampm={ampm == "fd" ? "" : ampm}
               />
-            ))}
+            )}
             {bulletin.highlights && (
               <div
                 className="public-alert"
@@ -131,9 +125,9 @@ class BulletinReport extends React.Component {
               </div>
             )}
             <h2 className="subheader">
-              {this.getLocalizedText(bulletin.avActivityHighlights)}
+              {this.getLocalizedText(bulletin.avalancheActivityHighlights)}
             </h2>
-            <p>{this.getLocalizedText(bulletin.avActivityComment)}</p>
+            <p>{this.getLocalizedText(bulletin.avalancheActivityComment)}</p>
           </div>
         </section>
         {(bulletin.tendencyComment || bulletin.snowpackStructureComment) && (

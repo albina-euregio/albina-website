@@ -4,8 +4,6 @@ import { injectIntl } from "react-intl";
 
 /**
  * @typedef {object} Props
- * @prop {Bulletin.Bulletin} bulletin
- * @prop {*} ampm
  * @prop {*} date
  * @prop {*} region
  *
@@ -21,10 +19,7 @@ class BulletinAWMapStatic extends React.Component {
       window.config.apis.geo +
       this.props.date +
       "/" +
-      this.props.region +
-      (this.props.bulletin.hasDaytimeDependency && this.props.ampm == "pm"
-        ? "_PM"
-        : "") +
+      this.props.region + // possibly contains _PM
       ".jpg";
 
     return (

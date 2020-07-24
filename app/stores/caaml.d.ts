@@ -29,33 +29,20 @@ namespace Caaml {
   }
 
   export interface AvalancheProblem {
-    type:
-      | "new_snow"
-      | "wind_drifted_snow"
-      | "persistent_weak_layer"
-      | "wet_snow"
-      | "gliding_snow"
-      | "cornice_failure"
-      | "favourable_situation";
-    dangerRating: AvalancheProblemDangerRating[];
+    type: AvalancheProblemType;
+    dangerRating: DangerRating;
     comment?: string;
     customData?: any;
   }
 
-  export interface AvalancheProblemDangerRating {
-    mainValue?: DangerRatingValue;
-    aspect: Aspect[];
-    elevation?: Elevation;
-    terrainFeature?: string;
-    artificialDangerRating?: DangerRatingValue;
-    artificialAvalancheSize?: string;
-    artificialAvalancheReleaseProbability?: string;
-    artificialHazardSiteDistribution?: string;
-    naturalDangerRating?: DangerRatingValue;
-    naturalAvalancheReleaseProbability?: string;
-    naturalHazardSiteDistribution?: string;
-    comment?: string;
-    customData?: any;
+  export enum AvalancheProblemType {
+    "new_snow",
+    "wind_drifted_snow",
+    "persistent_weak_layer",
+    "wet_snow",
+    "gliding_snow",
+    "cornice_failure",
+    "favourable_situation"
   }
 
   export enum DangerRatingValue {
@@ -105,7 +92,18 @@ namespace Caaml {
 
   export interface DangerRating {
     mainValue: DangerRatingValue;
+    aspect?: Aspect[];
     elevation?: Elevation;
+    terrainFeature?: string;
+    artificialDangerRating?: DangerRatingValue;
+    artificialAvalancheSize?: string;
+    artificialAvalancheReleaseProbability?: string;
+    artificialHazardSiteDistribution?: string;
+    naturalDangerRating?: DangerRatingValue;
+    naturalAvalancheReleaseProbability?: string;
+    naturalHazardSiteDistribution?: string;
+    comment?: string;
+    customData?: any;
   }
 
   export interface MetaData {

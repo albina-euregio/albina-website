@@ -4,7 +4,7 @@ import BulletinReport from "./bulletin-report";
 
 /**
  * @typedef {object} Props
- * @prop {import("../../stores/bulletinStore").BulletinCollection} bulletinCollection
+ * @prop {Albina.DaytimeBulletin[]} daytimeBulletins
  * @prop {import("../../stores/bulletinStore").BulletinStore} store
  *
  * @extends {React.Component<Props>}
@@ -15,13 +15,6 @@ export default class BulletinList extends React.Component {
     super(props);
   }
 
-  /**
-   * @returns {Bulletin.Bulletin[]} bulletin
-   */
-  get bulletins() {
-    return this.props.bulletinCollection.getData();
-  }
-
   render() {
     return (
       <section
@@ -29,20 +22,20 @@ export default class BulletinList extends React.Component {
         className="section-centered section-bulletin-reports"
       >
         <ul className="list-plain bulletin-list">
-          {this.bulletins.map(bulletin => (
+          {this.props.daytimeBulletins.map(daytimeBulletin => (
             <li
-              id={bulletin.id}
-              key={bulletin.id}
+              id={daytimeBulletin.id}
+              key={daytimeBulletin.id}
               className={
                 "bulletin-list-item" +
-                (bulletin.id === this.props.store.settings.region
+                (daytimeBulletin.id === this.props.store.settings.region
                   ? " selected"
                   : "")
               }
             >
               {
                 <BulletinReport
-                  bulletin={bulletin}
+                  daytimeBulletin={daytimeBulletin}
                   date={this.props.store.settings.date}
                 />
               }
