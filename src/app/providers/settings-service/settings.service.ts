@@ -19,7 +19,7 @@ export class SettingsService {
   constructor(
     public translate: TranslateService) {
     this.translateService = translate;
-    this.translateService.addLangs(["de", "it", "en", "fr"]);
+    this.translateService.addLangs(["de", "it", "en", "fr", "es", "ca"]);
 
     // this language will be used as a fallback when a translation isn't found in the current language
     translate.setDefaultLang("en");
@@ -38,6 +38,7 @@ export class SettingsService {
   }
 
   setLang(lang: Enums.LanguageCode) {
+    debugger
     if (lang) {
       let language = Enums.LanguageCode[lang];
       if (this.translateService.langs.indexOf(language) < 0) {
