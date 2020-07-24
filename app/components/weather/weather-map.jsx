@@ -18,6 +18,7 @@ class WeatherMap extends React.Component {
   }
 
   render() {
+    console.log("WeatherMap->render", this.props.item);
     const overlays = [];
     if (this.props.itemId && this.props.item) {
       if (this.props.item.layer.overlay) {

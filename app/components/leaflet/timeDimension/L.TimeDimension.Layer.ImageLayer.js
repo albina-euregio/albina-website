@@ -1,8 +1,7 @@
-require("leaflet-timedimension");
 import L from "leaflet";
 
 /*
- * L.TimeDimension.Layer.ImageLayer.Portus: TimeDimension ImageLayer
+ * L.TimeDimension.Layer.ImageLayer: TimeDimension ImageLayer
  */
 
 L.TimeDimension.Layer.ImageLayer = L.TimeDimension.Layer.extend({});
@@ -11,7 +10,7 @@ L.timeDimension.layer.imageLayer = function(layer, options) {
   return new L.TimeDimension.Layer.ImageLayer(layer, options);
 };
 
-L.TimeDimension.Layer.ImageLayer.Base = L.TimeDimension.Layer.ImageLayer.extend(
+L.TimeDimension.Layer.ImageLayer.Albina = L.TimeDimension.Layer.ImageLayer.extend(
   {
     initialize: function(layer, options) {
       L.TimeDimension.Layer.ImageLayer.prototype.initialize.call(
@@ -21,21 +20,20 @@ L.TimeDimension.Layer.ImageLayer.Base = L.TimeDimension.Layer.ImageLayer.extend(
       );
       this._layers = {};
       this._defaultTime = 0;
-      this._availableTimes = [];
       this._timeCacheBackward =
         this.options.cacheBackward || this.options.cache || 0;
       this._timeCacheForward =
         this.options.cacheForward || this.options.cache || 0;
-
-      this._baseLayer.on(
-        "load",
-        function() {
-          this._baseLayer.setLoaded(true);
-          this.fire("timeload", {
-            time: this._defaultTime
-          });
-        }.bind(this)
-      );
+      console.log("xyz options", options, L);
+      // this._baseLayer.on(
+      //   "load",
+      //   function() {
+      //     this._baseLayer.setLoaded(true);
+      //     this.fire("timeload", {
+      //       time: this._defaultTime
+      //     });
+      //   }.bind(this)
+      // );
     },
 
     eachLayer: function(method, context) {
@@ -287,6 +285,6 @@ L.TimeDimension.Layer.ImageLayer.Base = L.TimeDimension.Layer.ImageLayer.extend(
   }
 );
 
-L.timeDimension.layer.imageLayer.base = function(layer, options) {
-  return new L.TimeDimension.Layer.ImageLayer.Base(layer, options);
+L.timeDimension.layer.imageLayer.albina = function(layer, options) {
+  return new L.TimeDimension.Layer.ImageLayer.Albina(layer, options);
 };
