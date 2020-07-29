@@ -24,7 +24,7 @@ L.TimeDimension.Layer.ImageLayer.Albina = L.TimeDimension.Layer.ImageLayer.exten
         this.options.cacheBackward || this.options.cache || 0;
       this._timeCacheForward =
         this.options.cacheForward || this.options.cache || 0;
-      console.log("xyz options", options, L);
+      console.log("xxx options", L);
       // this._baseLayer.on(
       //   "load",
       //   function() {
