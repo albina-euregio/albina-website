@@ -1,20 +1,23 @@
 import React from "react"; // eslint-disable-line no-unused-vars
 import PropTypes from "prop-types";
-import { MapLayer } from "react-leaflet";
+import { MapLayer, TileLayer } from "react-leaflet";
 import L from "leaflet";
 
 require("./timeDimension/L.TimeDimension.Layer.ImageLayer.js");
 
 class TimeDimensionLayerImageLayer extends MapLayer {
   constructor(props) {
+    console.log("TimeDimensionLayerImageLayer->constructor", props);
+
     super(props);
   }
 
   createLeafletElement() {
-    const imageLayer = new L.timeDimension.layer.imageLayer.albina(
-      this.props.layer,
-      this.props.options
+    console.log(
+      "TimeDimensionLayerImageLayer->createLeafletElement",
+      this.getOptions(this.props)
     );
+    const imageLayer = new TileLayer(this.props.options);
 
     this.leafletElement = imageLayer;
 

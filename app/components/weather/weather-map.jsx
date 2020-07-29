@@ -22,6 +22,7 @@ class WeatherMap extends React.Component {
     const overlays = [];
     if (this.props.itemId && this.props.item) {
       if (this.props.item.layer.overlay) {
+        console.log("this.props.item.layer.overlay", this.props.item);
         const mapMinZoom = config.map.initOptions.minZoom;
         const mapMaxZoom = config.map.initOptions.maxZoom;
 
@@ -55,6 +56,9 @@ class WeatherMap extends React.Component {
             updateWhenZooming={false}
             updateWhenIdle={true}
             updateInterval={1000}
+            onLoad={e => {
+              console.log("onLoad", e);
+            }}
             keepBuffer={4}
           />
         );
@@ -102,6 +106,7 @@ class WeatherMap extends React.Component {
             this.props.onMarkerSelected(null);
           });
         }}
+        timeAwareLayers={["background-map"]}
       />
     );
   }

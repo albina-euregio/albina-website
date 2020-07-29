@@ -75,6 +75,7 @@ class LeafletMap extends React.Component {
       this.map.fitBounds(config.map.euregioBounds);
 
       const map = this.map;
+      console.log("this.map", this.map);
       window.setTimeout(() => {
         L.control
           .zoom({
@@ -138,6 +139,7 @@ class LeafletMap extends React.Component {
 
       this.map.on("zoomend", this._zoomend, this);
     }
+    if (this.map) console.log("this.map._layers", this.map._layers);
   }
 
   _zoomend() {
@@ -292,12 +294,7 @@ class LeafletMap extends React.Component {
         {this.props.overlays.map(layer => {
           if (layer.key == "background-map") {
             console.log("this.props.overlays.map xxx", layer);
-            return (
-              <TimeDimensionLayerImageLayer
-                layer={layer}
-                options={{ timeDimension: L.timeDimension() }}
-              />
-            );
+            return <TimeDimensionLayerImageLayer />;
           }
         })}
       </Map>
