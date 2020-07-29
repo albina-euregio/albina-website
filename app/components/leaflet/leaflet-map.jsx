@@ -290,12 +290,15 @@ class LeafletMap extends React.Component {
         {this.tileLayers}
 
         {this.props.overlays.map(layer => {
-          return (
-            <TimeDimensionLayerImageLayer
-              layer={layer}
-              options={{ timeDimension: L.timeDimension() }}
-            />
-          );
+          if (layer.key == "background-map") {
+            console.log("this.props.overlays.map xxx", layer);
+            return (
+              <TimeDimensionLayerImageLayer
+                layer={layer}
+                options={{ timeDimension: L.timeDimension() }}
+              />
+            );
+          }
         })}
       </Map>
     );
