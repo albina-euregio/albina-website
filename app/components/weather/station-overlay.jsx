@@ -10,6 +10,7 @@ export default class StationOverlay extends React.Component {
       spiderfiedMarkers: null, // id's of spiderfied markers
       activeMarkerPos: null // position of highlighted marker within a cluster
     };
+    if (props.onLoading) props.onLoading();
   }
 
   getColor(value) {
@@ -109,6 +110,9 @@ export default class StationOverlay extends React.Component {
     );
   }
 
+  componentDidUpdate() {
+    if (this.props.onLoad) this.props.onLoad();
+  }
   render() {
     const points = this.props.features.filter(
       point => point[this.props.item.id] !== false

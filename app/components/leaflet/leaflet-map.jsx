@@ -290,11 +290,12 @@ class LeafletMap extends React.Component {
         <ScaleControl imperial={false} position="bottomleft" />
         {this.props.controls}
         {this.tileLayers}
+        {this.props.overlays}
 
         {this.props.overlays.map(layer => {
           if (layer.key == "background-map") {
             console.log("this.props.overlays.map xxx", layer);
-            return <TimeDimensionLayerImageLayer />;
+            //return <TimeDimensionLayerImageLayer />;
           }
         })}
       </Map>
