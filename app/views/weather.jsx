@@ -15,12 +15,15 @@ import WeatherMapStore from "../stores/weatherMapStore";
 import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
 import MapStore from "../stores/mapStore";
+import TimeStore from "../stores/timeStore";
 
 class Weather extends React.Component {
   constructor(props) {
     super(props);
 
     this.store = new WeatherMapStore(this.props.match.params.domain);
+    this.timeStore = new TimeStore({ avalailableTimes: ["a", "b", "c"] });
+    this.timeStore.start();
     console.log("Weather: Store:", this.store);
     this.state = {
       title: "",
@@ -161,6 +164,14 @@ class Weather extends React.Component {
                 item={this.store.item}
                 grid={this.store.grid}
                 stations={this.store.stations}
+                timeStoreTrigger={{
+                  addLayerToLoad: this.timeStore.addLayerToLoad.bind(
+                    this.timeStore
+                  ),
+                  removeLayerToLoad: this.timeStore.removeLayerToLoad.bind(
+                    this.timeStore
+                  )
+                }}
                 selectedFeature={this.store.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}

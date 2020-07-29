@@ -5,6 +5,7 @@ import StationMarker from "../leaflet/station-marker";
 class GridOverlay extends React.Component {
   constructor(props) {
     super(props);
+    if (props.onLoading) props.onLoading();
   }
 
   getColor(value) {
@@ -50,7 +51,9 @@ class GridOverlay extends React.Component {
       />
     );
   }
-
+  componentDidUpdate() {
+    if (this.props.onLoad) this.props.onLoad();
+  }
   render() {
     const gridPoints = this.props.grid.features
       .filter(point => point.properties[this.props.item.id] !== false)
