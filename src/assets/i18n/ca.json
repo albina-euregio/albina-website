@@ -1,7 +1,7 @@
 {
   "undefined" : "---",
   "login" : {
-    "title" : "Login",
+    "title" : " Iniciar Sessió",
     "text" : "Sign In to your account",
     "button" : "Login",
     "errorDialog" : {
@@ -25,12 +25,10 @@
   "menu" : {
     "logout" : "Logout",
     "language" : "Language",
-    "en" : "English",
-    "de" : "German",
-    "fr" : "French",
-    "it" : "Italian",
-    "es" : "Spanish",
-    "ca" : "Catalan",
+    "en" : " English",
+    "de" : " German",
+    "fr" : " French",
+    "it" : " Italian",
     "fullscreen" : "Fullscreen",
     "settings" : "Settings",
     "admin" : "Admin",
@@ -81,25 +79,14 @@
           "steady" : "Avalanche danger stays the same",
           "increasing" : "Avalanche danger increases"
         },
-        "complexity" : {
-          "easy" : "Assessment in the field is easy",
-          "challenging" : "Assessment in the field is challenging",
-          "complex" : "Assessment in the field is complex"
-        },
         "textcat" : {
           "edit" : "Edit",
           "copy" : "Copy",
           "paste" : "Paste",
           "example" : "Load example text",
           "delete" : "Delete"
-        },
-        "showInBulletin" : "Avalanche problem will be shown in bulletin",
-        "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
-        "moveUpAvalancheSituation" : "Move avalanche problem up",
-        "moveDownAvalancheSituation" : "Move avalanche problem down",
-        "dangerRatingDirectionUp" : "Extend the danger rating upwards",
-        "dangerRatingDirectionDown" : "Extend the danger rating downwards"
-    },
+        }
+      },
       "button" : "Create",
       "save" : " Save",
       "discard" : " Discard",
@@ -108,11 +95,9 @@
       "saveAggregatedRegion" : "Save",
       "discardAggregatedRegion" : "Discard",
       "deleteAggregatedRegion" : "Delete",
-      "createAvalancheSituation" : " New problem",
       "ownRegions" : "Own regions",
       "foreignRegions": "Foreign regions",
       "label" : {
-        "highlights" : "Special alert",
         "avActivityHighlights" : "Headline avalanche situation",
         "avActivityComment" : "Description of avalanche danger",
         "avalancheSituation1" : "Avalanche Situation 1",
@@ -127,8 +112,7 @@
         "elevationHigh" : "Below",
         "elevationLow" : "Above",
         "tendencyComment" : "Description of tendency",
-        "notes" : "Notes",
-        "terrainFeature": "Terrain features"
+        "notes" : "Notes"
       },
       "title" : {
         "map" : "Map",
@@ -510,11 +494,6 @@
     "decreasing" : " Avalanche danger decreases",
     "steady" : " Avalanche danger stays the same",
     "increasing" : " Avalanche danger increases"
-  },
-  "complexity": {
-    "easy": " Easy",
-    "challenging": " Challenging",
-    "complex": " Complex"
   },
   "changeRegionDialog" : {
     "message" : "Do you want to discard the changes and change the region?",

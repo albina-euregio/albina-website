@@ -65,10 +65,14 @@ import localeDe from "@angular/common/locales/de";
 import localeIt from "@angular/common/locales/it";
 import localeEn from "@angular/common/locales/en";
 import localeFr from "@angular/common/locales/fr";
+import localeEs from "@angular/common/locales/es";
+import localeCa from "@angular/common/locales/ca";
 import i18nDe from "../assets/i18n/de.json";
 import i18nIt from "../assets/i18n/it.json";
 import i18nEn from "../assets/i18n/en.json";
 import i18nFr from "../assets/i18n/fr.json";
+import i18nEs from "../assets/i18n/es.json";
+import i18nCa from "../assets/i18n/ca.json";
 
 const pkg = require("../../package.json");
 Sentry.init({
@@ -94,6 +98,10 @@ export class DirectTranslateLoader implements TranslateLoader {
         return Observable.of(i18nEn);
       case "fr":
         return Observable.of(i18nFr);
+      case "es":
+        return Observable.of(i18nEs);
+      case "ca":
+        return Observable.of(i18nCa);
     }
   }
 }
@@ -107,6 +115,8 @@ registerLocaleData(localeDe, "de");
 registerLocaleData(localeIt, "it");
 registerLocaleData(localeEn, "en");
 registerLocaleData(localeFr, "fr");
+registerLocaleData(localeFr, "es");
+registerLocaleData(localeFr, "ca");
 
 @NgModule({
   imports: [

@@ -58,36 +58,48 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public activeHighlightsIt: string;
   public activeHighlightsEn: string;
   public activeHighlightsFr: string;
+  public activeHighlightsEs: string;
+  public activeHighlightsCa: string;
 
   public activeAvActivityHighlightsTextcat: string;
   public activeAvActivityHighlightsDe: string;
   public activeAvActivityHighlightsIt: string;
   public activeAvActivityHighlightsEn: string;
   public activeAvActivityHighlightsFr: string;
+  public activeAvActivityHighlightsEs: string;
+  public activeAvActivityHighlightsCa: string;
 
   public activeAvActivityCommentTextcat: string;
   public activeAvActivityCommentDe: string;
   public activeAvActivityCommentIt: string;
   public activeAvActivityCommentEn: string;
   public activeAvActivityCommentFr: string;
+  public activeAvActivityCommentEs: string;
+  public activeAvActivityCommentCa: string;
 
   public activeSnowpackStructureHighlightsTextcat: string;
   public activeSnowpackStructureHighlightsDe: string;
   public activeSnowpackStructureHighlightsIt: string;
   public activeSnowpackStructureHighlightsEn: string;
   public activeSnowpackStructureHighlightsFr: string;
+  public activeSnowpackStructureHighlightsEs: string;
+  public activeSnowpackStructureHighlightsCa: string;
 
   public activeSnowpackStructureCommentTextcat: string;
   public activeSnowpackStructureCommentDe: string;
   public activeSnowpackStructureCommentIt: string;
   public activeSnowpackStructureCommentEn: string;
   public activeSnowpackStructureCommentFr: string;
+  public activeSnowpackStructureCommentEs: string;
+  public activeSnowpackStructureCommentCa: string;
 
   public activeTendencyCommentTextcat: string;
   public activeTendencyCommentDe: string;
   public activeTendencyCommentIt: string;
   public activeTendencyCommentEn: string;
   public activeTendencyCommentFr: string;
+  public activeTendencyCommentEs: string;
+  public activeTendencyCommentCa: string;
 
   public isAccordionDangerRatingOpen: boolean;
   public isAccordionAvalancheSituationOpen: boolean;
@@ -200,36 +212,48 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.activeHighlightsIt = undefined;
     this.activeHighlightsEn = undefined;
     this.activeHighlightsFr = undefined;
+    this.activeHighlightsEs = undefined;
+    this.activeHighlightsCa = undefined;
 
     this.activeAvActivityHighlightsTextcat = undefined;
     this.activeAvActivityHighlightsDe = undefined;
     this.activeAvActivityHighlightsIt = undefined;
     this.activeAvActivityHighlightsEn = undefined;
     this.activeAvActivityHighlightsFr = undefined;
+    this.activeAvActivityHighlightsEs = undefined;
+    this.activeAvActivityHighlightsCa = undefined;
 
     this.activeAvActivityCommentTextcat = undefined;
     this.activeAvActivityCommentDe = undefined;
     this.activeAvActivityCommentIt = undefined;
     this.activeAvActivityCommentEn = undefined;
     this.activeAvActivityCommentFr = undefined;
+    this.activeAvActivityCommentEs = undefined;
+    this.activeAvActivityCommentCa = undefined;
 
     this.activeSnowpackStructureHighlightsTextcat = undefined;
     this.activeSnowpackStructureHighlightsDe = undefined;
     this.activeSnowpackStructureHighlightsIt = undefined;
     this.activeSnowpackStructureHighlightsEn = undefined;
     this.activeSnowpackStructureHighlightsFr = undefined;
+    this.activeSnowpackStructureHighlightsEs = undefined;
+    this.activeSnowpackStructureHighlightsCa = undefined;
 
     this.activeSnowpackStructureCommentTextcat = undefined;
     this.activeSnowpackStructureCommentDe = undefined;
     this.activeSnowpackStructureCommentIt = undefined;
     this.activeSnowpackStructureCommentEn = undefined;
     this.activeSnowpackStructureCommentFr = undefined;
+    this.activeSnowpackStructureCommentEs = undefined;
+    this.activeSnowpackStructureCommentCa = undefined;
 
     this.activeTendencyCommentTextcat = undefined;
     this.activeTendencyCommentDe = undefined;
     this.activeTendencyCommentIt = undefined;
     this.activeTendencyCommentEn = undefined;
     this.activeTendencyCommentFr = undefined;
+    this.activeTendencyCommentEs = undefined;
+    this.activeTendencyCommentCa = undefined;
 
     this.editRegions = false;
     this.showAfternoonMap = false;
@@ -809,36 +833,48 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeHighlightsIt = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.it);
         this.activeHighlightsEn = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.en);
         this.activeHighlightsFr = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.fr);
+        this.activeHighlightsEs = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.es);
+        this.activeHighlightsCa = this.activeBulletin.getHighlightsIn(Enums.LanguageCode.ca);
 
         this.activeAvActivityHighlightsTextcat = this.activeBulletin.getAvActivityHighlightsTextcat();
         this.activeAvActivityHighlightsDe = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de);
         this.activeAvActivityHighlightsIt = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it);
         this.activeAvActivityHighlightsEn = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.en);
         this.activeAvActivityHighlightsFr = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.fr);
+        this.activeAvActivityHighlightsEs = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.es);
+        this.activeAvActivityHighlightsCa = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.ca);
 
         this.activeAvActivityCommentTextcat = this.activeBulletin.getAvActivityCommentTextcat();
         this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
         this.activeAvActivityCommentIt = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it);
         this.activeAvActivityCommentEn = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en);
         this.activeAvActivityCommentFr = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.fr);
+        this.activeAvActivityCommentEs = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.es);
+        this.activeAvActivityCommentCa = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.ca);
 
         this.activeSnowpackStructureHighlightsTextcat = this.activeBulletin.getSnowpackStructureHighlightsTextcat();
         this.activeSnowpackStructureHighlightsDe = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.de);
         this.activeSnowpackStructureHighlightsIt = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.it);
         this.activeSnowpackStructureHighlightsEn = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.en);
         this.activeSnowpackStructureHighlightsFr = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.fr);
+        this.activeSnowpackStructureHighlightsEs = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.es);
+        this.activeSnowpackStructureHighlightsCa = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.ca);
 
         this.activeSnowpackStructureCommentTextcat = this.activeBulletin.getSnowpackStructureCommentTextcat();
         this.activeSnowpackStructureCommentDe = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
         this.activeSnowpackStructureCommentIt = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it);
         this.activeSnowpackStructureCommentEn = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en);
         this.activeSnowpackStructureCommentFr = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.fr);
+        this.activeSnowpackStructureCommentEs = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.es);
+        this.activeSnowpackStructureCommentCa = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.ca);
 
         this.activeTendencyCommentTextcat = this.activeBulletin.getTendencyCommentTextcat();
         this.activeTendencyCommentDe = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.de);
         this.activeTendencyCommentIt = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.it);
         this.activeTendencyCommentEn = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.en);
         this.activeTendencyCommentFr = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.fr);
+        this.activeTendencyCommentEs = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.es);
+        this.activeTendencyCommentCa = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.ca);
 
         this.mapService.selectAggregatedRegion(this.activeBulletin);
       }
@@ -984,39 +1020,48 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.activeBulletin.setHighlightsIn(this.activeHighlightsIt, Enums.LanguageCode.it);
       this.activeBulletin.setHighlightsIn(this.activeHighlightsEn, Enums.LanguageCode.en);
       this.activeBulletin.setHighlightsIn(this.activeHighlightsFr, Enums.LanguageCode.fr);
+      this.activeBulletin.setHighlightsIn(this.activeHighlightsEs, Enums.LanguageCode.es);
+      this.activeBulletin.setHighlightsIn(this.activeHighlightsCa, Enums.LanguageCode.ca);
 
       this.activeBulletin.setAvActivityHighlightsTextcat(this.activeAvActivityHighlightsTextcat);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsDe, Enums.LanguageCode.de);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsIt, Enums.LanguageCode.it);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEn, Enums.LanguageCode.en);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsFr, Enums.LanguageCode.fr);
+      this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEs, Enums.LanguageCode.es);
+      this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsCa, Enums.LanguageCode.ca);
 
       this.activeBulletin.setAvActivityCommentTextcat(this.activeAvActivityCommentTextcat);
       this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
       this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentIt, Enums.LanguageCode.it);
       this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEn, Enums.LanguageCode.en);
       this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentFr, Enums.LanguageCode.fr);
+      this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEs, Enums.LanguageCode.es);
+      this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentCa, Enums.LanguageCode.ca);
 
       this.activeBulletin.setSnowpackStructureHighlightsTextcat(this.activeSnowpackStructureHighlightsTextcat);
       this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
       this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsIt, Enums.LanguageCode.it);
       this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEn, Enums.LanguageCode.en);
       this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsFr, Enums.LanguageCode.fr);
-
+      this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEs, Enums.LanguageCode.es);
+      this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsCa, Enums.LanguageCode.ca);
 
       this.activeBulletin.setSnowpackStructureCommentTextcat(this.activeSnowpackStructureCommentTextcat);
       this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
       this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentIt, Enums.LanguageCode.it);
       this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEn, Enums.LanguageCode.en);
       this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentFr, Enums.LanguageCode.fr);
-
+      this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEs, Enums.LanguageCode.es);
+      this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentCa, Enums.LanguageCode.ca);
 
       this.activeBulletin.setTendencyCommentTextcat(this.activeTendencyCommentTextcat);
       this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentDe, Enums.LanguageCode.de);
       this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentIt, Enums.LanguageCode.it);
       this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentEn, Enums.LanguageCode.en);
       this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentFr, Enums.LanguageCode.fr);
-
+      this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentEs, Enums.LanguageCode.es);
+      this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentCa, Enums.LanguageCode.ca);
     }
   }
 
@@ -1361,6 +1406,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.copyService.setTextIt(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.it));
         this.copyService.setTextEn(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.en));
         this.copyService.setTextFr(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.fr));
+        this.copyService.setTextEs(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.es));
+        this.copyService.setTextCa(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.ca));
         break;
       case "avActivityHighlights":
         this.copyService.setCopying(true);
@@ -1369,6 +1416,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.copyService.setTextIt(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it));
         this.copyService.setTextEn(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.en));
         this.copyService.setTextFr(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.fr));
+        this.copyService.setTextEs(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.es));
+        this.copyService.setTextCa(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.ca));
         break;
       case "avActivityComment":
         this.copyService.setCopying(true);
@@ -1377,6 +1426,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.copyService.setTextIt(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it));
         this.copyService.setTextEn(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.en));
         this.copyService.setTextFr(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.fr));
+        this.copyService.setTextEs(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.es));
+        this.copyService.setTextCa(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.ca));
         break;
       case "snowpackStructureComment":
         this.copyService.setCopying(true);
@@ -1385,6 +1436,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.copyService.setTextIt(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it));
         this.copyService.setTextEn(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.en));
         this.copyService.setTextFr(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.fr));
+        this.copyService.setTextEs(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.es));
+        this.copyService.setTextCa(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.ca));
         break;
       case "tendencyComment":
         this.copyService.setCopying(true);
@@ -1393,6 +1446,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.copyService.setTextIt(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.it));
         this.copyService.setTextEn(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.en));
         this.copyService.setTextFr(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.fr));
+        this.copyService.setTextEs(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.es));
+        this.copyService.setTextCa(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.ca));
         break;
       default:
         break;
@@ -1427,6 +1482,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         } else {
           this.activeHighlightsFr = this.copyService.getTextFr();
         }
+        if (this.activeHighlightsEs !== undefined) {
+          this.activeHighlightsEs = this.activeHighlightsEs + " " + this.copyService.getTextEs();
+        } else {
+          this.activeHighlightsEs = this.copyService.getTextEs();
+        }
+        if (this.activeHighlightsCa !== undefined) {
+          this.activeHighlightsCa = this.activeHighlightsCa + " " + this.copyService.getTextCa();
+        } else {
+          this.activeHighlightsCa = this.copyService.getTextCa();
+        }
         break;
       case "avActivityHighlights":
         if (this.activeAvActivityHighlightsTextcat !== undefined) {
@@ -1453,6 +1518,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           this.activeAvActivityHighlightsFr = this.activeAvActivityHighlightsFr + " " + this.copyService.getTextFr();
         } else {
           this.activeAvActivityHighlightsFr = this.copyService.getTextFr();
+        }
+        if (this.activeAvActivityHighlightsEs !== undefined) {
+          this.activeAvActivityHighlightsEs = this.activeAvActivityHighlightsEs + " " + this.copyService.getTextEs();
+        } else {
+          this.activeAvActivityHighlightsEs = this.copyService.getTextEs();
+        }
+        if (this.activeAvActivityHighlightsCa !== undefined) {
+          this.activeAvActivityHighlightsCa = this.activeAvActivityHighlightsCa + " " + this.copyService.getTextCa();
+        } else {
+          this.activeAvActivityHighlightsCa = this.copyService.getTextCa();
         }
         break;
       case "avActivityComment":
@@ -1481,6 +1556,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         } else {
           this.activeAvActivityCommentFr = this.copyService.getTextFr();
         }
+        if (this.activeAvActivityCommentEs !== undefined) {
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.copyService.getTextEs();
+        } else {
+          this.activeAvActivityCommentEs = this.copyService.getTextEs();
+        }
+        if (this.activeAvActivityCommentCa !== undefined) {
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.copyService.getTextCa();
+        } else {
+          this.activeAvActivityCommentCa = this.copyService.getTextCa();
+        }
         break;
       case "snowpackStructureComment":
         if (this.activeSnowpackStructureCommentTextcat !== undefined) {
@@ -1507,6 +1592,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.copyService.getTextFr();
         } else {
           this.activeSnowpackStructureCommentFr = this.copyService.getTextFr();
+        }
+        if (this.activeSnowpackStructureCommentEs !== undefined) {
+          this.activeSnowpackStructureCommentEs = this.activeSnowpackStructureCommentEs + " " + this.copyService.getTextEs();
+        } else {
+          this.activeSnowpackStructureCommentEs = this.copyService.getTextEs();
+        }
+        if (this.activeSnowpackStructureCommentCa !== undefined) {
+          this.activeSnowpackStructureCommentCa = this.activeSnowpackStructureCommentCa + " " + this.copyService.getTextCa();
+        } else {
+          this.activeSnowpackStructureCommentCa = this.copyService.getTextCa();
         }
         break;
       case "tendencyComment":
@@ -1535,6 +1630,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         } else {
           this.activeTendencyCommentFr = this.copyService.getTextFr();
         }
+        if (this.activeTendencyCommentEs !== undefined) {
+          this.activeTendencyCommentEs = this.activeTendencyCommentEs + " " + this.copyService.getTextEs();
+        } else {
+          this.activeTendencyCommentEs = this.copyService.getTextEs();
+        }
+        if (this.activeTendencyCommentCa !== undefined) {
+          this.activeTendencyCommentCa = this.activeTendencyCommentCa + " " + this.copyService.getTextCa();
+        } else {
+          this.activeTendencyCommentCa = this.copyService.getTextCa();
+        }
         break;
       default:
         break;
@@ -1550,6 +1655,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeHighlightsIt = undefined;
         this.activeHighlightsEn = undefined;
         this.activeHighlightsFr = undefined;
+        this.activeHighlightsEs = undefined;
+        this.activeHighlightsCa = undefined;
         break;
       case "avActivityHighlights":
         this.activeAvActivityHighlightsTextcat = undefined;
@@ -1557,6 +1664,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeAvActivityHighlightsIt = undefined;
         this.activeAvActivityHighlightsEn = undefined;
         this.activeAvActivityHighlightsFr = undefined;
+        this.activeAvActivityHighlightsEs = undefined;
+        this.activeAvActivityHighlightsCa = undefined;
         break;
       case "avActivityComment":
         this.activeAvActivityCommentTextcat = undefined;
@@ -1564,6 +1673,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeAvActivityCommentIt = undefined;
         this.activeAvActivityCommentEn = undefined;
         this.activeAvActivityCommentFr = undefined;
+        this.activeAvActivityCommentEs = undefined;
+        this.activeAvActivityCommentCa = undefined;
         break;
       case "snowpackStructureComment":
         this.activeSnowpackStructureCommentTextcat = undefined;
@@ -1571,6 +1682,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeSnowpackStructureCommentIt = undefined;
         this.activeSnowpackStructureCommentEn = undefined;
         this.activeSnowpackStructureCommentFr = undefined;
+        this.activeSnowpackStructureCommentEs = undefined;
+        this.activeSnowpackStructureCommentCa = undefined;
         break;
       case "tendencyComment":
         this.activeTendencyCommentTextcat = undefined;
@@ -1578,6 +1691,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeTendencyCommentIt = undefined;
         this.activeTendencyCommentEn = undefined;
         this.activeTendencyCommentFr = undefined;
+        this.activeTendencyCommentEs = undefined;
+        this.activeTendencyCommentCa = undefined;
         break;
       default:
         break;
@@ -1595,6 +1710,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this[pmData.textField + "De"] = undefined;
         this[pmData.textField + "En"] = undefined;
         this[pmData.textField + "Fr"] = undefined;
+        this[pmData.textField + "Es"] = undefined;
+        this[pmData.textField + "Ca"] = undefined;
         this.setTexts();
         this.hideDialog();
       } else {
@@ -1603,6 +1720,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this[pmData.textField + "De"] = this.textPostprocessingDe(pmData.textDe);
         this[pmData.textField + "En"] = pmData.textEn;
         this[pmData.textField + "Fr"] = pmData.textFr;
+        this[pmData.textField + "Es"] = pmData.textFr;
+        this[pmData.textField + "Ca"] = pmData.textFr;
         this.setTexts();
         this.hideDialog();
         if (pmData.textDe === this.constantsService.incompleteTranslationTextDe || pmData.textIt === this.constantsService.incompleteTranslationTextIt || pmData.textEn === this.constantsService.incompleteTranslationTextEn) {
@@ -1900,6 +2019,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         } else {
           this.activeAvActivityCommentFr = this.constantsService.newSnowFr;
         }
+        if (this.activeAvActivityCommentEs !== undefined) {
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.newSnowEs;
+        } else {
+          this.activeAvActivityCommentEs = this.constantsService.newSnowEs;
+        }
+        if (this.activeAvActivityCommentCa !== undefined) {
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.newSnowCa;
+        } else {
+          this.activeAvActivityCommentCa = this.constantsService.newSnowCa;
+        }
         break;
       case "windDriftedSnow":
         if (this.activeAvActivityCommentTextcat !== undefined) {
@@ -1926,6 +2055,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.windDriftedSnowFr;
         } else {
           this.activeAvActivityCommentFr = this.constantsService.windDriftedSnowFr;
+        }
+        if (this.activeAvActivityCommentEs !== undefined) {
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.windDriftedSnowEs;
+        } else {
+          this.activeAvActivityCommentEs = this.constantsService.windDriftedSnowEs;
+        }
+        if (this.activeAvActivityCommentCa !== undefined) {
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.windDriftedSnowCa;
+        } else {
+          this.activeAvActivityCommentCa = this.constantsService.windDriftedSnowCa;
         }
         break;
       case "oldSnow":
@@ -1954,6 +2093,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         } else {
           this.activeAvActivityCommentFr = this.constantsService.oldSnowFr;
         }
+        if (this.activeAvActivityCommentEs !== undefined) {
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.oldSnowEs;
+        } else {
+          this.activeAvActivityCommentEs = this.constantsService.oldSnowEs;
+        }
+        if (this.activeAvActivityCommentCa !== undefined) {
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.oldSnowCa;
+        } else {
+          this.activeAvActivityCommentCa = this.constantsService.oldSnowCa;
+        }
         break;
       case "wetSnow":
         if (this.activeAvActivityCommentTextcat !== undefined) {
@@ -1980,6 +2129,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.wetSnowFr;
         } else {
           this.activeAvActivityCommentFr = this.constantsService.wetSnowFr;
+        }
+        if (this.activeAvActivityCommentEs !== undefined) {
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.wetSnowEs;
+        } else {
+          this.activeAvActivityCommentEs = this.constantsService.wetSnowEs;
+        }
+        if (this.activeAvActivityCommentCa !== undefined) {
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.wetSnowCa;
+        } else {
+          this.activeAvActivityCommentCa = this.constantsService.wetSnowCa;
         }
         break;
       case "glidingSnow":
@@ -2008,6 +2167,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         } else {
           this.activeAvActivityCommentFr = this.constantsService.glidingSnowFr;
         }
+        if (this.activeAvActivityCommentEs !== undefined) {
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.glidingSnowEs;
+        } else {
+          this.activeAvActivityCommentEs = this.constantsService.glidingSnowEs;
+        }
+        if (this.activeAvActivityCommentCa !== undefined) {
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.glidingSnowCa;
+        } else {
+          this.activeAvActivityCommentCa = this.constantsService.glidingSnowCa;
+        }
         break;
       case "favourableSituation":
         if (this.activeAvActivityCommentTextcat !== undefined) {
@@ -2034,6 +2203,16 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.favourableSituationFr;
         } else {
           this.activeAvActivityCommentFr = this.constantsService.favourableSituationFr;
+        }
+        if (this.activeAvActivityCommentEs !== undefined) {
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.favourableSituationEs;
+        } else {
+          this.activeAvActivityCommentEs = this.constantsService.favourableSituationEs;
+        }
+        if (this.activeAvActivityCommentCa !== undefined) {
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.favourableSituationCa;
+        } else {
+          this.activeAvActivityCommentCa = this.constantsService.favourableSituationCa;
         }
         break;
       default:
