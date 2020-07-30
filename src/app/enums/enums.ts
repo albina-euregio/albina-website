@@ -986,7 +986,7 @@ export class SurfaceSnowWetnessUtil {
 }
 
 export enum AvalancheSituation {
-  new_snow, wind_drifted_snow, weak_persistent_layer, wet_snow, gliding_snow, favourable_situation
+  new_snow, wind_drifted_snow, persistent_weak_layers, wet_snow, gliding_snow, favourable_situation
 }
 export class AvalancheProblemUtil {
   public static getString(situation: AvalancheSituation) {
@@ -995,8 +995,8 @@ export class AvalancheProblemUtil {
         return "avalancheSituation.new_snow";
       case AvalancheSituation.wind_drifted_snow:
         return "avalancheSituation.wind_drifted_snow";
-      case AvalancheSituation.weak_persistent_layer:
-        return "avalancheSituation.weak_persistent_layer";
+      case AvalancheSituation.persistent_weak_layers:
+        return "avalancheSituation.persistent_weak_layers";
       case AvalancheSituation.wet_snow:
         return "avalancheSituation.wet_snow";
       case AvalancheSituation.gliding_snow:
