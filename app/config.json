@@ -81,7 +81,7 @@
       "pdf-bw": "{date}/{date}_{lang}_bw.pdf",
       "pdf-region": "{date}/{date}_{region}_{lang}.pdf",
       "pdf-region-bw": "{date}/{date}_{region}_{lang}_bw.pdf",
-      "xml": "{date}/{date}_{lang}.v6.xml"
+      "xml": "{date}/{date}_{lang}_CAAMLv6.xml"
     },
     "feedback": {
       "en": "https://docs.google.com/forms/d/e/1FAIpQLSe-sumwrNqze-TrwIH0AoD54xGNlwcbJ4Wn6AdopDMqZFiDuw/viewform?vc=0&c=0&w=1",
