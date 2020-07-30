@@ -38,7 +38,6 @@ export class SettingsService {
   }
 
   setLang(lang: Enums.LanguageCode) {
-    debugger
     if (lang) {
       let language = Enums.LanguageCode[lang];
       if (this.translateService.langs.indexOf(language) < 0) {
