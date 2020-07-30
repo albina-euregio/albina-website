@@ -5,6 +5,7 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
 import { dateToLongDateString, parseDate } from "../../util/date";
+import { preprocessContent } from "../../util/htmlParser";
 
 /**
  * This component shows the detailed bulletin report including all icons and
@@ -37,7 +38,8 @@ class BulletinReport extends React.Component {
 
   getLocalizedText(elem) {
     // bulletins are loaded in correct language
-    return elem || "";
+    if (!elem) return "";
+    return preprocessContent(elem.replace(/&lt;br\/&gt;/g, "<br/>"));
   }
 
   render() {
