@@ -25,12 +25,12 @@
   "menu" : {
     "logout" : "Logout",
     "language" : "Sprache",
-    "en" : "Englisch",
-    "de" : "Deutsch",
-    "fr" : "Französisch",
-    "it" : "Italienisch",
-    "es" : "Spanisch",
-    "ca" : "Katalanisch",
+    "en" : "English",
+    "de" : "German",
+    "fr" : "French",
+    "it" : "Italian",
+    "es" : "Spanish",
+    "ca" : "Catalan",
     "fullscreen" : "Vollbildschirm",
     "settings" : "Einstellungen",
     "admin" : "Admin",
@@ -82,9 +82,9 @@
           "increasing" : "Lawinengefahr steigt"
         },
         "complexity" : {
-          "easy" : "Einschätzung im Gelände ist einfach",
-          "challenging" : "Einschätzung im Gelände ist herausfordernd",
-          "complex" : "Einschätzung im Gelände ist komplex"
+          "easy" : "Assessment in the field is easy",
+          "challenging" : "Assessment in the field is challenging",
+          "complex" : "Assessment in the field is complex"
         },
         "textcat" : {
           "edit" : "Bearbeiten",
@@ -93,13 +93,13 @@
           "example" : "Beispieltext laden",
           "delete" : "Löschen"
         },
-        "showInBulletin" : "Lawinenproblem wird im Bulletin angezeigt",
-        "dontShowInBulletin" : "Lawinenproblem wird im Bulletin NICHT angezeigt",
-        "moveUpAvalancheSituation" : "Lawinenproblem nach oben schieben",
-        "moveDownAvalancheSituation" : "Lawinenproblem nach unten schieben",
-        "dangerRatingDirectionUp" : "Gefahrenstufe nach oben erweitern",
-        "dangerRatingDirectionDown" : "Gefahrenstufe nach unten erweitern"
-      },
+        "showInBulletin" : "Avalanche problem will be shown in bulletin",
+        "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
+        "moveUpAvalancheSituation" : "Move avalanche problem up",
+        "moveDownAvalancheSituation" : "Move avalanche problem down",
+        "dangerRatingDirectionUp" : "Extend the danger rating upwards",
+        "dangerRatingDirectionDown" : "Extend the danger rating downwards"
+    },
       "button" : "Neu",
       "save" : " Speichern",
       "discard" : " Verwerfen",
@@ -108,11 +108,11 @@
       "saveAggregatedRegion" : "Speichern",
       "discardAggregatedRegion" : "Verwerfen",
       "deleteAggregatedRegion" : "Löschen",
-      "createAvalancheSituation" : " Neues Lawinenproblem",
+      "createAvalancheSituation" : " New problem",
       "ownRegions" : "Eigene Regionen",
       "foreignRegions": "Fremde Regionen",
       "label" : {
-        "highlights" : "Besondere Warnung",
+        "highlights" : "Special alert",
         "avActivityHighlights" : "Schlagzeile Gefahrensituation",
         "avActivityComment" : "Beurteilung der Lawinengefahr",
         "avalancheSituation1" : "Lawinenproblem 1",
@@ -128,7 +128,7 @@
         "elevationLow" : "Über",
         "tendencyComment" : "Beschreibung der Tendenz",
         "notes" : "Notizen",
-        "terrainFeature": "Gelände"
+        "terrainFeature": "Terrain features"
       },
       "title" : {
         "map" : "Karte",
@@ -214,7 +214,7 @@
         "message" : "Für welche Situation möchtest du einen Beispieltext laden?",
         "newSnow" : "Neuschnee",
         "windDriftedSnow" : "Triebschnee",
-        "persistentWeakLayers" : "Altschnee",
+        "persistentWeakLayers" : "Persistent weak layers",
         "wetSnow" : "Nassschnee",
         "glidingSnow" : "Gleitschnee",
         "favourableSituation" : "Günstige Situation",
@@ -475,7 +475,7 @@
   "avalancheProblem" : {
     "newSnow" : "Neuschnee",
     "windDriftedSnow" : "Triebschnee",
-    "persistentWeakLayers" : "Altschnee",
+    "persistentWeakLayers" : "Persistent weak layers",
     "wetSnow" : "Nassschnee",
     "glidingSnow" : "Gleitschnee"
   },
@@ -512,9 +512,9 @@
     "increasing" : " Lawinengefahr steigt"
   },
   "complexity": {
-    "easy": " Einfach",
-    "challenging": " Fordernd",
-    "complex": " Komplex"
+    "easy": " Easy",
+    "challenging": " Challenging",
+    "complex": " Complex"
   },
   "changeRegionDialog" : {
     "message" : "Möchtest du die Änderungen verwerfen und die Region wechseln?",

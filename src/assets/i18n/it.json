@@ -25,12 +25,12 @@
   "menu" : {
     "logout" : "Logout",
     "language" : "Lingua",
-    "en" : "Inglese",
-    "de" : "Tedesco",
-    "fr" : "Francese",
-    "it" : "Italiano",
-    "es" : "Spagnolo",
-    "ca" : "Catalano",
+    "en" : "English",
+    "de" : "German",
+    "fr" : "French",
+    "it" : "Italian",
+    "es" : "Spanish",
+    "ca" : "Catalan",
     "fullscreen" : "A schermo pieno ",
     "settings" : "Impostazioni",
     "admin" : "Admin",
@@ -82,9 +82,9 @@
           "increasing" : "Pericolo valanghe in aumento"
         },
         "complexity" : {
-          "easy" : "La valutazione sul campo è facile",
-          "challenging" : "La valutazione sul campo è impegnativa",
-          "complex" : "La valutazione sul campo è complessa"
+          "easy" : "Assessment in the field is easy",
+          "challenging" : "Assessment in the field is challenging",
+          "complex" : "Assessment in the field is complex"
         },
         "textcat" : {
           "edit" : "Modifica",
@@ -93,13 +93,13 @@
           "example" : "Carica esempio testo",
           "delete" : "Elimina"
         },
-        "showInBulletin" : "Il problema delle valanghe sarà mostrato nel bollettino",
-        "dontShowInBulletin" : "Il problema delle valanghe NON sarà mostrato nel bollettino",
-        "moveUpAvalancheSituation" : "Spostare il problema valanghe verso l'alto",
-        "moveDownAvalancheSituation" : "Spostare il problema valanghe verso il basso",
-        "dangerRatingDirectionUp" : "Estendere la valutazione del pericolo verso l'alto",
-        "dangerRatingDirectionDown" : "Estendere il grado di pericolo verso il basso"
-      },
+        "showInBulletin" : "Avalanche problem will be shown in bulletin",
+        "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
+        "moveUpAvalancheSituation" : "Move avalanche problem up",
+        "moveDownAvalancheSituation" : "Move avalanche problem down",
+        "dangerRatingDirectionUp" : "Extend the danger rating upwards",
+        "dangerRatingDirectionDown" : "Extend the danger rating downwards"
+    },
       "button" : "Creato",
       "save" : " Salva",
       "discard" : " Scarta",
@@ -108,11 +108,11 @@
       "saveAggregatedRegion" : "Salve",
       "discardAggregatedRegion" : "Scarta",
       "deleteAggregatedRegion" : "Cancella",
-      "createAvalancheSituation" : " Nuovo problema",
+      "createAvalancheSituation" : " New problem",
       "ownRegions" : "Propria provincia",
       "foreignRegions": "Altra provincia",
       "label" : {
-        "highlights" : "Allarme speciale",
+        "highlights" : "Special alert",
         "avActivityHighlights" : "Titolo situazione pericolo valanghe",
         "avActivityComment" : "Testo di descrizione pericolo valanghe",
         "avalancheSituation1" : "Problema tipico valanghivo 1",
@@ -128,7 +128,7 @@
         "elevationLow" : "Sopra",
         "tendencyComment" : "Tendenza",
         "notes" : "Commenti",
-        "terrainFeature": "Caratteristiche del terreno"
+        "terrainFeature": "Terrain features"
       },
       "title" : {
         "map" : "Mappa",
@@ -214,7 +214,7 @@
         "message" : "Per quale situazione si desidera caricare il testo",
         "newSnow" : "Neve fresca",
         "windDriftedSnow" : "Neve ventata",
-        "persistentWeakLayers" : "Strati deboli persistenti",
+        "persistentWeakLayers" : "Persistent weak layers",
         "wetSnow" : "Neve bagnata",
         "glidingSnow" : "Valanghe di slittamento",
         "favourableSituation" : "Situazione favorevole",
@@ -475,7 +475,7 @@
   "avalancheProblem" : {
     "newSnow" : "Neve fresca",
     "windDriftedSnow" : "Neve ventata",
-    "persistentWeakLayers" : "Strati deboli persistenti",
+    "persistentWeakLayers" : "Persistent weak layers",
     "wetSnow" : "Neve bagnata",
     "glidingSnow" : "Valanghe di slittamento"
   },
@@ -512,9 +512,9 @@
     "increasing" : " Pericolo valanghe in aumento"
   },
   "complexity": {
-    "easy": " Facile",
-    "challenging": " Sfida",
-    "complex": " Complesso"
+    "easy": " Easy",
+    "challenging": " Challenging",
+    "complex": " Complex"
   },
   "changeRegionDialog" : {
     "message" : "Vuoi scartare i cambiamenti e cambiare la regione?",

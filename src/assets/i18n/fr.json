@@ -25,11 +25,11 @@
   "menu" : {
     "logout" : "Logout",
     "language" : "Langue",
-    "en" : "Anglais",
-    "de" : "Allemand",
-    "fr" : "Français",
-    "it" : "Italien",
-    "es" : "Espagnol",
+    "en" : "English",
+    "de" : "German",
+    "fr" : "French",
+    "it" : "Italian",
+    "es" : "Spanish",
     "ca" : "Catalan",
     "fullscreen" : "Fullscreen",
     "settings" : "Paramètres",
@@ -82,9 +82,9 @@
           "increasing" : "Le danger d'avalanche augmente"
         },
         "complexity" : {
-          "easy" : "L'évaluation sur le terrain est facile",
-          "challenging" : "L'évaluation sur le terrain est un défi",
-          "complex" : "L'évaluation sur le terrain est complexe"
+          "easy" : "Assessment in the field is easy",
+          "challenging" : "Assessment in the field is challenging",
+          "complex" : "Assessment in the field is complex"
         },
         "textcat" : {
           "edit" : "Éditer",
@@ -92,14 +92,14 @@
           "paste" : "Coller",
           "example" : "Télécharger exemple de texte",
           "delete" : "Effacer"
-         },
-        "showInBulletin" : "Le problème des avalanches sera présenté dans un bulletin",
-        "dontShowInBulletin" : "Le problème des avalanches ne figurera pas dans le bulletin",
-        "moveUpAvalancheSituation" : "Déplacer le problème des avalanches",
-        "moveDownAvalancheSituation" : "Faire reculer le problème des avalanches",
-        "dangerRatingDirectionUp" : "Augmenter la cote de danger",
-        "dangerRatingDirectionDown" : "Allonger la cote de danger vers le bas"
-     },
+        },
+        "showInBulletin" : "Avalanche problem will be shown in bulletin",
+        "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
+        "moveUpAvalancheSituation" : "Move avalanche problem up",
+        "moveDownAvalancheSituation" : "Move avalanche problem down",
+        "dangerRatingDirectionUp" : "Extend the danger rating upwards",
+        "dangerRatingDirectionDown" : "Extend the danger rating downwards"
+    },
       "button" : "Créer",
       "save" : "Sauvegarder",
       "discard" : "Abandoner",
@@ -108,11 +108,11 @@
       "saveAggregatedRegion" : "Sauvegarder",
       "discardAggregatedRegion" : "Abandoner",
       "deleteAggregatedRegion" : "Effacer",
-      "createAvalancheSituation" : " Nouveau problème",
+      "createAvalancheSituation" : " New problem",
       "ownRegions" : "Mes régions",
       "foreignRegions": "Régions étrangères",
       "label" : {
-        "highlights" : "Alerte spéciale",
+        "highlights" : "Special alert",
         "avActivityHighlights" : "Titre situation danger d'avalanche",
         "avActivityComment" : "Déscription du danger d'avalanche",
         "avalancheSituation1" : "Situation avalancheuse typique 1",
@@ -128,7 +128,7 @@
         "elevationLow" : "Au-dessus",
         "tendencyComment" : "Déscription de la tendance",
         "notes" : "Notes",
-        "terrainFeature": "Caractéristiques du terrain"
+        "terrainFeature": "Terrain features"
       },
       "title" : {
         "map" : "Carte",
@@ -214,7 +214,7 @@
         "message" : "Pour quelle situation souhaitez-vous charger un exemple de texte",
         "newSnow" : "Neige fraîche",
         "windDriftedSnow" : "Neige soufflée",
-        "persistentWeakLayers" : "Couche fragile persistante",
+        "persistentWeakLayers" : "Persistent weak layers",
         "wetSnow" : "Neige humide",
         "glidingSnow" : "Neige glissante",
         "favourableSituation" : "Situation favorable",
@@ -475,7 +475,7 @@
   "avalancheProblem" : {
     "newSnow" : "Neige fraîche",
     "windDriftedSnow" : "Neige soufflée",
-    "persistentWeakLayers" : "Couche fragile persistante",
+    "persistentWeakLayers" : "Persistent weak layers",
     "wetSnow" : "Neige humide",
     "glidingSnow" : "Neige glissante"
   },
@@ -512,9 +512,9 @@
     "increasing" : "Le danger d'avalanche augmente"
   },
   "complexity": {
-    "easy": " Facile",
-    "challenging": " Défi",
-    "complex": " Complexe"
+    "easy": " Easy",
+    "challenging": " Challenging",
+    "complex": " Complex"
   },
   "changeRegionDialog" : {
     "message" : "Abandoner les modifications et changer la région?",
