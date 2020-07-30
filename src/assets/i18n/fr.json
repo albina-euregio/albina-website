@@ -214,7 +214,7 @@
         "message" : "Pour quelle situation souhaitez-vous charger un exemple de texte",
         "newSnow" : "Neige fraîche",
         "windDriftedSnow" : "Neige soufflée",
-        "oldSnow" : "Couche fragile persistante",
+        "persistentWeakLayers" : "Couche fragile persistante",
         "wetSnow" : "Neige humide",
         "glidingSnow" : "Neige glissante",
         "favourableSituation" : "Situation favorable",
@@ -475,7 +475,7 @@
   "avalancheProblem" : {
     "newSnow" : "Neige fraîche",
     "windDriftedSnow" : "Neige soufflée",
-    "oldSnow" : "Couche fragile persistante",
+    "persistentWeakLayers" : "Couche fragile persistante",
     "wetSnow" : "Neige humide",
     "glidingSnow" : "Neige glissante"
   },

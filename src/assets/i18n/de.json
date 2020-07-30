@@ -214,7 +214,7 @@
         "message" : "Für welche Situation möchtest du einen Beispieltext laden?",
         "newSnow" : "Neuschnee",
         "windDriftedSnow" : "Triebschnee",
-        "oldSnow" : "Altschnee",
+        "persistentWeakLayers" : "Altschnee",
         "wetSnow" : "Nassschnee",
         "glidingSnow" : "Gleitschnee",
         "favourableSituation" : "Günstige Situation",
@@ -475,7 +475,7 @@
   "avalancheProblem" : {
     "newSnow" : "Neuschnee",
     "windDriftedSnow" : "Triebschnee",
-    "oldSnow" : "Altschnee",
+    "persistentWeakLayers" : "Altschnee",
     "wetSnow" : "Nassschnee",
     "glidingSnow" : "Gleitschnee"
   },

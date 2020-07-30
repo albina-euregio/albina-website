@@ -2067,41 +2067,41 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
           this.activeAvActivityCommentCa = this.constantsService.windDriftedSnowCa;
         }
         break;
-      case "oldSnow":
+      case "persistentWeakLayers":
         if (this.activeAvActivityCommentTextcat !== undefined) {
-          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.oldSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.persistentWeakLayersTextcat;
         } else {
-          this.activeAvActivityCommentTextcat = this.constantsService.oldSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.constantsService.persistentWeakLayersTextcat;
         }
         if (this.activeAvActivityCommentDe !== undefined) {
-          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.oldSnowDe;
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.persistentWeakLayersDe;
         } else {
-          this.activeAvActivityCommentDe = this.constantsService.oldSnowDe;
+          this.activeAvActivityCommentDe = this.constantsService.persistentWeakLayersDe;
         }
         if (this.activeAvActivityCommentIt !== undefined) {
-          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.oldSnowIt;
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.persistentWeakLayersIt;
         } else {
-          this.activeAvActivityCommentIt = this.constantsService.oldSnowIt;
+          this.activeAvActivityCommentIt = this.constantsService.persistentWeakLayersIt;
         }
         if (this.activeAvActivityCommentEn !== undefined) {
-          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.oldSnowEn;
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.persistentWeakLayersEn;
         } else {
-          this.activeAvActivityCommentEn = this.constantsService.oldSnowEn;
+          this.activeAvActivityCommentEn = this.constantsService.persistentWeakLayersEn;
         }
         if (this.activeAvActivityCommentFr !== undefined) {
-          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.oldSnowFr;
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.persistentWeakLayersFr;
         } else {
-          this.activeAvActivityCommentFr = this.constantsService.oldSnowFr;
+          this.activeAvActivityCommentFr = this.constantsService.persistentWeakLayersFr;
         }
         if (this.activeAvActivityCommentEs !== undefined) {
-          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.oldSnowEs;
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.persistentWeakLayersEs;
         } else {
-          this.activeAvActivityCommentEs = this.constantsService.oldSnowEs;
+          this.activeAvActivityCommentEs = this.constantsService.persistentWeakLayersEs;
         }
         if (this.activeAvActivityCommentCa !== undefined) {
-          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.oldSnowCa;
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.persistentWeakLayersCa;
         } else {
-          this.activeAvActivityCommentCa = this.constantsService.oldSnowCa;
+          this.activeAvActivityCommentCa = this.constantsService.persistentWeakLayersCa;
         }
         break;
       case "wetSnow":
