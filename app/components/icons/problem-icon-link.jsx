@@ -17,11 +17,7 @@ class ProblemIconLink extends React.Component {
 
   render() {
     const problem = this.props.problem;
-    const problemType =
-      // FIXME: consistently use persistent_weak_layer
-      problem.type === "persistent_weak_layer"
-        ? "weak_persistent_layer"
-        : problem.type;
+    const problemType = problem.type;
     const title = this.props.intl.formatMessage({
       id: "problem:" + problemType
     });

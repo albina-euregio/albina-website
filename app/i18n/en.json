@@ -45,7 +45,7 @@
   "danger-patterns:dp10": "dp 10: springtime scenario",
   "problem:new_snow": "New snow problem",
   "problem:wind_drifted_snow": "Wind-drifted snow problem",
-  "problem:weak_persistent_layer": "Persistent weak layer problem",
+  "problem:persistent_weak_layers": "Persistent weak layer problem",
   "problem:wet_snow": "Wet snow problem",
   "problem:gliding_snow": "Gliding snow problem",
   "problem:favourable_situation": "Favourable situation",

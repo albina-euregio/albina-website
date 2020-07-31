@@ -45,7 +45,7 @@
   "danger-patterns:dp10": "md10: situation de printemps",
   "problem:new_snow": "Problème de la neige fraîche",
   "problem:wind_drifted_snow": "Problème de la neige soufflée",
-  "problem:weak_persistent_layer": "Problème de couce fragile persistante",
+  "problem:persistent_weak_layers": "Problème de couce fragile persistante",
   "problem:wet_snow": "Problème de la neige humide",
   "problem:gliding_snow": "Problème de la neige glissante",
   "problem:favourable_situation": "Situation favorable",
