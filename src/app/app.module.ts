@@ -115,8 +115,8 @@ registerLocaleData(localeDe, "de");
 registerLocaleData(localeIt, "it");
 registerLocaleData(localeEn, "en");
 registerLocaleData(localeFr, "fr");
-registerLocaleData(localeFr, "es");
-registerLocaleData(localeFr, "ca");
+registerLocaleData(localeEs, "es");
+registerLocaleData(localeCa, "ca");
 
 @NgModule({
   imports: [
