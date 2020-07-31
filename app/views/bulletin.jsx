@@ -29,6 +29,9 @@ class Bulletin extends React.Component {
     if (typeof window.mapStore === "undefined") {
       window.mapStore = new MapStore();
     }
+    /**
+     * @type {import("../stores/bulletinStore").BulletinStore}
+     */
     this.store = window.bulletinStore;
     this.state = {
       title: "",
@@ -232,7 +235,9 @@ class Bulletin extends React.Component {
         {this.store.activeBulletinCollection && (
           <BulletinList
             store={this.store}
-            bulletinCollection={this.store.activeBulletinCollection}
+            daytimeBulletins={
+              this.store.activeBulletinCollection.daytimeBulletins
+            }
           />
         )}
         <SmShare

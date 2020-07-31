@@ -10,13 +10,20 @@ import {
 
 import { GeoJSON, Util } from "leaflet";
 import axios from "axios";
-import { convertCaamlToJson, convertCaamlToAlbinaJson } from "./caaml.js";
+import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.js";
 
 class BulletinCollection {
   date;
   status;
   statusMessage;
+  /**
+   * @type {Caaml.Bulletins}
+   */
   dataRaw;
+  /**
+   * @type {Albina.DaytimeBulletin[]}
+   */
+  daytimeBulletins;
   geodata;
 
   constructor(date) {
@@ -24,31 +31,20 @@ class BulletinCollection {
     this.status = "pending";
     this.statusMessage = "";
     this.dataRaw = null;
+    this.daytimeBulletins = [];
     this.geodata = {};
   }
 
   get regions() {
-    if (this.length > 0) {
-      return this.getData().map(el => el.id);
-    }
-
-    return [];
-  }
-
-  get problems() {
-    if (this.status != "ok") {
-      return [];
-    }
-
-    return []; // TODO implement
+    return this.daytimeBulletins.map(el => el.id);
   }
 
   get publicationDate() {
     // return maximum of all publicationDates
-    if (this.status == "ok" && this.dataRaw.length > 0) {
-      return this.dataRaw
+    if (this.status == "ok" && this.length > 0) {
+      return this.daytimeBulletins
         .map(b => {
-          return parseDate(b.publicationDate);
+          return parseDate(b.forenoon.publicationTime);
         })
         .reduce((acc, d) => {
           return d > acc ? d : acc;
@@ -59,24 +55,21 @@ class BulletinCollection {
   }
 
   get length() {
-    return this.dataRaw ? this.dataRaw.length : 0;
+    return this.daytimeBulletins.length;
   }
 
   hasDaytimeDependency() {
-    if (this.status == "ok" && this.dataRaw.length > 0) {
-      return this.dataRaw.reduce((acc, b) => {
-        return acc || b.hasDaytimeDependency;
-      }, false);
-    }
-    return false;
+    return this.daytimeBulletins.some(b => b.hasDaytimeDependency);
   }
 
   getBulletinForRegion(regionId) {
-    return (this.getData() || []).find(el => el.id == regionId);
+    return this.daytimeBulletins.find(el => el.id == regionId);
   }
 
   getBulletinForMicroRegion(regionId) {
-    return (this.getData() || []).find(el => el.regions.indexOf(regionId) >= 0);
+    return this.daytimeBulletins.find(el =>
+      el.forenoon.regions.find(r => r.id === regionId)
+    );
   }
 
   getData() {
@@ -88,14 +81,12 @@ class BulletinCollection {
   }
 
   setData(data) {
-    if (APP_DEV_MODE) console.log(JSON.stringify(convertCaamlToJson(data)));
-    data = convertCaamlToAlbinaJson(data);
-    if (APP_DEV_MODE) console.log(JSON.stringify(data));
-
-    this.dataRaw = data;
+    this.dataRaw = convertCaamlToJson(data);
+    this.daytimeBulletins = toDaytimeBulletins(this.dataRaw?.bulletins || []);
+    if (APP_DEV_MODE) console.log(this.dataRaw);
     this.status =
-      typeof data === "object" && data
-        ? data.length > 0
+      typeof this.dataRaw === "object" && this.dataRaw && this.dataRaw.bulletins
+        ? this.dataRaw.bulletins.length > 0
           ? "ok"
           : "empty"
         : "n/a";
@@ -118,9 +109,15 @@ class BulletinCollection {
 
 class BulletinStore {
   // TODO: add language support
+  /**
+   * @type {Record<date, BulletinCollection>}
+   */
   @observable bulletins = {};
   @observable latest = null;
   settings = {};
+  /**
+   * @type {Record<Caaml.AvalancheProblemType, {highlighted: boolean}}
+   */
   problems = {};
 
   constructor() {
@@ -139,7 +136,7 @@ class BulletinStore {
     this.problems = observable({
       new_snow: { highlighted: false },
       wind_drifted_snow: { highlighted: false },
-      weak_persistent_layer: { highlighted: false },
+      persistent_weak_layers: { highlighted: false },
       wet_snow: { highlighted: false },
       gliding_snow: { highlighted: false }
     });
@@ -296,7 +293,7 @@ class BulletinStore {
 
   /**
    * Get the bulletins that match the current selection.
-   * @return A list of bulletins that match the selection of
+   * @return {BulletinCollection} A list of bulletins that match the selection of
    *   this.date and this.ampm
    */
   get activeBulletinCollection() {
@@ -320,7 +317,7 @@ class BulletinStore {
 
   /**
    * Get the bulletin that is relevant for the currently set region.
-   * @return A bulletin object that matches the selection of
+   * @return {Albina.DaytimeBulletin} A bulletin object that matches the selection of
    *   this.date, this.ampm and this.region
    */
   get activeBulletin() {
@@ -339,26 +336,18 @@ class BulletinStore {
   }
 
   getProblemsForRegion(regionId, ampm = null) {
-    const problems = [];
     if (!this.activeBulletinCollection) {
       return [];
     }
-    const b = this.activeBulletinCollection.getBulletinForRegion(regionId);
-    if (b) {
-      const daytime =
-        b.hasDaytimeDependency && ampm == "pm" ? "afternoon" : "forenoon";
-      const daytimeBulletin = b[daytime];
-
-      if (daytimeBulletin && daytimeBulletin.avalancheSituation1) {
-        problems.push(daytimeBulletin.avalancheSituation1.avalancheSituation);
-      }
-      if (daytimeBulletin && daytimeBulletin.avalancheSituation2) {
-        problems.push(daytimeBulletin.avalancheSituation2.avalancheSituation);
-      }
-      return problems;
-    } else {
+    const bulletin = this.activeBulletinCollection.getBulletinForRegion(
+      regionId
+    );
+    if (!bulletin) {
       return [];
     }
+    const daytime =
+      bulletin.hasDaytimeDependency && ampm == "pm" ? "afternoon" : "forenoon";
+    return bulletin[daytime].avalancheProblems || [];
   }
 
   getRegionState(regionId, ampm = null) {
@@ -372,9 +361,7 @@ class BulletinStore {
 
     const checkHighlight = rId => {
       const problems = this.getProblemsForRegion(rId, ampm);
-      return problems.some(
-        p => this.problems[p] && this.problems[p].highlighted
-      );
+      return problems.some(p => this.problems?.[p.type]?.highlighted);
     };
 
     if (checkHighlight(regionId)) {

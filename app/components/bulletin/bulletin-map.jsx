@@ -14,6 +14,15 @@ import MapStore from "../../stores/mapStore";
 import Base from "../../base";
 import { preprocessContent } from "../../util/htmlParser";
 
+/**
+ * @typedef {object} Props
+ * @prop {import("../../stores/bulletinStore").BulletinStore} store
+ * @prop {*} date
+ * @prop {*} intl
+ * ... props
+ *
+ * @extends {React.Component<Props>}
+ */
 class BulletinMap extends React.Component {
   constructor(props) {
     super(props);
@@ -151,7 +160,6 @@ class BulletinMap extends React.Component {
       res.push(
         <BulletinMapDetails
           key="details"
-          store={this.props.store}
           bulletin={activeBulletin}
           ampm={this.props.ampm}
         />

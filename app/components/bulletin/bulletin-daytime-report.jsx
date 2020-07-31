@@ -1,8 +1,8 @@
 import React from "react";
 import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
-import WarnLevelIcon from "../icons/warn-level-icon.jsx";
 import TendencyIcon from "../icons/tendency-icon.jsx";
+import BulletinDangerRating from "./bulletin-danger-rating.jsx";
 import BulletinProblemItem from "./bulletin-problem-item.jsx";
 import BulletinAWMapStatic from "./bulletin-awmap-static.jsx";
 import {
@@ -11,48 +11,30 @@ import {
   getSuccDate
 } from "../../util/date.js";
 
+/**
+ * @typedef {object} Props
+ * @prop {Caaml.Bulletin} bulletin
+ * @prop {*} ampm
+ * @prop {*} intl
+ *
+ * @extends {React.Component<Props>}
+ */
 class BulletinDaytimeReport extends React.Component {
   constructor(props) {
     super(props);
   }
 
   get problems() {
-    const problems = [];
-    const bulletin = this.props.bulletin;
-    if (
-      bulletin.avalancheSituation1 &&
-      bulletin.avalancheSituation1.avalancheSituation
-    ) {
-      problems.push(bulletin.avalancheSituation1);
-    }
-    if (
-      bulletin.avalancheSituation2 &&
-      bulletin.avalancheSituation2.avalancheSituation
-    ) {
-      problems.push(bulletin.avalancheSituation2);
-    }
-    return problems;
+    return this.props.bulletin?.avalancheProblems || [];
   }
 
   render() {
-    const elevation =
-      this.props.fullBulletin.hasElevationDependency &&
-      !this.props.fullBulletin.treeline
-        ? this.props.fullBulletin.elevation
-        : null;
+    const bulletin = this.props.bulletin;
 
-    const treeline =
-      this.props.fullBulletin.hasElevationDependency &&
-      this.props.fullBulletin.treeline;
-
-    const tendency = this.props.fullBulletin.tendency;
-    const tendencyTitle = tendency
-      ? this.props.intl.formatMessage({
-          id: "bulletin:report:tendency:" + tendency
-        })
-      : this.props.intl.formatMessage({
-          id: "bulletin:report:tendency:none"
-        });
+    const tendency = bulletin?.tendency?.type || "none";
+    const tendencyTitle = this.props.intl.formatMessage({
+      id: "bulletin:report:tendency:" + tendency
+    });
     const tendencyDate = dateToLongDateString(
       getSuccDate(parseDate(this.props.date))
     );
@@ -78,21 +60,14 @@ class BulletinDaytimeReport extends React.Component {
             >
               <BulletinAWMapStatic
                 date={this.props.date}
-                region={this.props.fullBulletin.id}
-                bulletin={this.props.fullBulletin}
-                ampm={this.props.ampm}
+                region={bulletin.id} // possibly contains _PM
               />
             </a>
           </div>
           <ul className="list-plain list-bulletin-report-pictos">
             <li>
               <div className="bulletin-report-picto tooltip">
-                <WarnLevelIcon
-                  below={this.props.bulletin.dangerRatingBelow}
-                  above={this.props.bulletin.dangerRatingAbove}
-                  elevation={elevation}
-                  treeline={treeline}
-                />
+                <BulletinDangerRating bulletin={bulletin} />
               </div>
               <div
                 className="bulletin-report-tendency tooltip"

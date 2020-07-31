@@ -3,9 +3,13 @@ import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
+/**
+ * @typedef {object} Props
+ * @prop {Caaml.DangerPattern} dangerPattern
+ *
+ * @extends {React.Component<Props>}
+ */
 class DangerPatternItem extends React.Component {
-  patternTexts;
-
   constructor(props) {
     super(props);
   }
@@ -13,11 +17,11 @@ class DangerPatternItem extends React.Component {
   render() {
     return (
       <Link
-        to={"/education/danger-patterns#" + this.props.dangerPattern}
+        to={"/education/danger-patterns#" + this.props.dangerPattern.type}
         className="label"
       >
         {this.props.intl.formatMessage({
-          id: "danger-patterns:" + this.props.dangerPattern
+          id: "danger-patterns:" + this.props.dangerPattern.type
         })}
       </Link>
     );
