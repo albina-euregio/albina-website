@@ -45,7 +45,7 @@
   "danger-patterns:dp10": "gm 10: Frühjahrssituation",
   "problem:new_snow": "Neuschneeproblem",
   "problem:wind_drifted_snow": "Triebschneeproblem",
-  "problem:weak_persistent_layer": "Altschneeproblem",
+  "problem:persistent_weak_layers": "Altschneeproblem",
   "problem:wet_snow": "Nassschneeproblem",
   "problem:gliding_snow": "Gleitschneeproblem",
   "problem:favourable_situation": "Günstige Situation",

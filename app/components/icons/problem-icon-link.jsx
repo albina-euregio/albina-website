@@ -4,30 +4,34 @@ import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import ProblemIcon from "./problem-icon.jsx";
 
+/**
+ * @typedef {object} Props
+ * @prop {Caaml.AvalancheProblem} problem
+ *
+ * @extends {React.Component<Props>}
+ */
 class ProblemIconLink extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    const problem = this.props.problem;
+    const problemType = problem.type;
     const title = this.props.intl.formatMessage({
-      id: "problem:" + this.props.problem
+      id: "problem:" + problemType
     });
 
     return (
       <div className="bulletin-report-picto avalanche-situation">
         {title && (
           <Link
-            to={"/education/avalanche-problems#" + this.props.problem}
+            to={"/education/avalanche-problems#" + problemType}
             className="img tooltip"
             href="#"
             title={title}
           >
-            <ProblemIcon
-              problem={this.props.problem}
-              alt={title}
-              active={true}
-            />
+            <ProblemIcon problem={problemType} alt={title} active={true} />
           </Link>
         )}
       </div>
