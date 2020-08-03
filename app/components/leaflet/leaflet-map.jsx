@@ -4,6 +4,8 @@ import L from "leaflet";
 import "leaflet-timedimension/dist/leaflet.timedimension.src.withlog.js";
 import TimeDimensionLayerImageLayer from "./timeDimension-layer-imageLayer.jsx";
 require("leaflet/dist/leaflet.css");
+require("./leaflet-player.css");
+
 import {
   Map,
   TileLayer,
@@ -30,6 +32,11 @@ class LeafletMap extends React.Component {
     this.mapRef;
     this._layers = [];
   }
+
+  // onTick(){
+  //   console.log("onTick xxx", this.playerStore.currentTime.get());
+  //   this.test = this.props.currentTime.get();
+  // }
 
   mapStyle() {
     return {
@@ -139,7 +146,6 @@ class LeafletMap extends React.Component {
 
       this.map.on("zoomend", this._zoomend, this);
     }
-    if (this.map) console.log("this.map._layers", this.map._layers);
   }
 
   _zoomend() {
@@ -291,13 +297,6 @@ class LeafletMap extends React.Component {
         {this.props.controls}
         {this.tileLayers}
         {this.props.overlays}
-
-        {this.props.overlays.map(layer => {
-          if (layer.key == "background-map") {
-            console.log("this.props.overlays.map xxx", layer);
-            //return <TimeDimensionLayerImageLayer />;
-          }
-        })}
       </Map>
     );
   }
