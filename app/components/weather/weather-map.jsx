@@ -22,7 +22,7 @@ class WeatherMap extends React.Component {
     const overlays = [];
     if (this.props.itemId && this.props.item) {
       if (this.props.item.layer.overlay) {
-        console.log("this.props.item.layer.overlay", this.props.item);
+        //console.log("this.props.item.layer.overlay", this.props.item);
         const mapMinZoom = config.map.initOptions.minZoom;
         const mapMaxZoom = config.map.initOptions.maxZoom;
 
@@ -56,8 +56,15 @@ class WeatherMap extends React.Component {
             updateWhenZooming={false}
             updateWhenIdle={true}
             updateInterval={1000}
-            onLoading={this.props.timeStoreTrigger.addLayerToLoad("background")}
-            onLoad={this.props.timeStoreTrigger.removeLayerToLoad("background")}
+            onLoading={() => {
+              this.props.playerCB("background", "loading");
+            }}
+            onLoad={() => {
+              this.props.playerCB("background", "load");
+            }}
+            onTileerror={() => {
+              this.props.playerCB("background", "error");
+            }}
             keepBuffer={4}
           />
         );
@@ -70,8 +77,15 @@ class WeatherMap extends React.Component {
             zoom={mapStore.mapZoom}
             item={this.props.item}
             grid={this.props.grid}
-            onLoading={this.props.timeStoreTrigger.addLayerToLoad("grid")}
-            onLoad={this.props.timeStoreTrigger.removeLayerToLoad("grid")}
+            onLoading={() => {
+              this.props.playerCB("grid", "loading");
+            }}
+            onLoad={() => {
+              this.props.playerCB("gird", "load");
+            }}
+            onTileerror={() => {
+              this.props.playerCB("grid", "error");
+            }}
           />
         );
       }
@@ -85,8 +99,15 @@ class WeatherMap extends React.Component {
             selectedFeature={this.props.selectedFeature}
             item={this.props.item}
             features={this.props.stations.features}
-            onLoading={this.props.timeStoreTrigger.addLayerToLoad("stations")}
-            onLoad={this.props.timeStoreTrigger.removeLayerToLoad("stations")}
+            onLoading={() => {
+              this.props.playerCB("stations", "loading");
+            }}
+            onLoad={() => {
+              this.props.playerCB("stations", "load");
+            }}
+            onTileerror={() => {
+              this.props.playerCB("stations", "error");
+            }}
           />
         );
       }
