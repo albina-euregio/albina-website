@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { observer, inject } from "mobx-react";
+import { observer, inject, action } from "mobx-react";
 import { modal_open_by_params } from "../js/modal";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
@@ -15,15 +15,21 @@ import WeatherMapStore from "../stores/weatherMapStore";
 import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
 import MapStore from "../stores/mapStore";
-import TimeStore from "../stores/timeStore";
+import Player from "../js/player";
+import { observe } from "../../node_modules/mobx/lib/mobx";
 
 class Weather extends React.Component {
   constructor(props) {
     super(props);
 
     this.store = new WeatherMapStore(this.props.match.params.domain);
-    this.timeStore = new TimeStore({ avalailableTimes: ["a", "b", "c"] });
-    this.timeStore.start();
+    this.player = new Player({
+      transitionTime: 3000,
+      avalailableTimes: ["", "temp12f", "temp24f", "temp48f"],
+      owner: this,
+      onTick: this.onTick
+    });
+    this.player.start();
     console.log("Weather: Store:", this.store);
     this.state = {
       title: "",
@@ -39,6 +45,11 @@ class Weather extends React.Component {
       window.mapStore = new MapStore();
     }
     this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
+  }
+
+  onTick(newTime) {
+    console.log("onTick xxx", newTime, this.store.itemId);
+    this.store.changeItem(newTime);
   }
 
   componentDidUpdate() {
@@ -164,14 +175,7 @@ class Weather extends React.Component {
                 item={this.store.item}
                 grid={this.store.grid}
                 stations={this.store.stations}
-                timeStoreTrigger={{
-                  addLayerToLoad: this.timeStore.addLayerToLoad.bind(
-                    this.timeStore
-                  ),
-                  removeLayerToLoad: this.timeStore.removeLayerToLoad.bind(
-                    this.timeStore
-                  )
-                }}
+                playerCB={this.player.onEvent.bind(this.player)}
                 selectedFeature={this.store.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}
