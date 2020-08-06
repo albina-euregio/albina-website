@@ -11,6 +11,7 @@ import Menu from "../components/menu";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
+import WeatherMapStoreNew from "../stores/WeatherMapStore_new";
 
 import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
@@ -23,13 +24,14 @@ class Weather extends React.Component {
     super(props);
 
     this.store = new WeatherMapStore(this.props.match.params.domain);
+    config.newWM = new WeatherMapStoreNew(this.props.match.params.domain);
     this.player = new Player({
       transitionTime: 3000,
       avalailableTimes: ["", "temp12f", "temp24f", "temp48f"],
       owner: this,
       onTick: this.onTick
     });
-    this.player.start();
+    //this.player.start();
     console.log("Weather: Store:", this.store);
     this.state = {
       title: "",

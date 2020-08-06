@@ -187,7 +187,8 @@ export default class StationDataStore {
   }
 
   @action
-  load() {
+  load(dateTime) {
+    //todo add datatime logic
     return axios.get(config.apis.weather.stations).then(response => {
       this.data = response.data.features
         .filter(el => el.properties.date)
