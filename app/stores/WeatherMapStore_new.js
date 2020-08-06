@@ -3,7 +3,6 @@ import StationDataStore from "./stationDataStore";
 import axios from "axios";
 
 export default class WeatherMapStore_new {
-  @observable _timeIndicesIndex;
   @observable _domainId;
   @observable _loading;
   @observable selectedFeature;
@@ -27,7 +26,6 @@ export default class WeatherMapStore_new {
       initialDomainId = configDefaultDomainId;
     }
     this.changeDomain(initialDomainId);
-    this._loadData();
   }
 
   /* 
@@ -92,6 +90,13 @@ export default class WeatherMapStore_new {
   }
 
   /*
+    returns _loading prop
+  */
+  @computed get loading() {
+    return this._loading.get();
+  }
+
+  /*
     returns item
   */
   get item() {
@@ -124,22 +129,10 @@ export default class WeatherMapStore_new {
 
     if (this.checkDomainId(domainId)) {
       this._domainId.set(domainId);
+      this._timeSpan.set(null);
       this.changeTimeSpan(
         this.domain.item.defaultTimeSpan || this.domain.item.timeSpans[0]
       );
-      this.selectedFeature = null;
-    }
-  }
-
-  /*
-    setting a new active timeSpan
-  */
-  @action changeTimeSpan(timeSpan) {
-    console.log("weatherMapStore_new changeTimeSpan: " + timeSpan);
-    if (this.checktimeSpan(this.domainId, timeSpan)) {
-      this._timeIndicesIndex.set(null);
-      this._timeSpan.set(timeSpan);
-      this._setTimeIndices();
       this.selectedFeature = null;
     }
   }
@@ -160,7 +153,15 @@ export default class WeatherMapStore_new {
           10
         )
     );
-    //console.log("weatherMapStore_new _setTimeIndices", dateAt6, maxTime, parseInt(this.config.settings.timeRange[this._timeSpan.get() > 0 ? 1 : 0], 10));
+    console.log(
+      "weatherMapStore_new _setTimeIndices",
+      dateAt6,
+      maxTime,
+      parseInt(
+        this.config.settings.timeRange[this._timeSpan.get() > 0 ? 1 : 0],
+        10
+      )
+    );
     let currentTime = dateAt6;
     indices.push(new Date(currentTime));
 
@@ -179,9 +180,14 @@ export default class WeatherMapStore_new {
     } else {
       while (currentTime > maxTime) {
         currentTime.setHours(
-          currentTime.getHours() - parseInt(this._timeSpan.get(), 10)
+          currentTime.getHours() + parseInt(this._timeSpan.get(), 10)
         );
         indices.push(new Date(currentTime).getTime());
+        console.log(
+          "weatherMapStore_new _setTimeIndices add date",
+          new Date(currentTime),
+          new Date(currentTime).getTime()
+        );
       }
     }
     console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
@@ -204,7 +210,7 @@ export default class WeatherMapStore_new {
   /*
   control method to check if the item does exist in the config
 */
-  checktimeSpan(domainId, timeSpan) {
+  checkTimeSpan(domainId, timeSpan) {
     console.log(
       "weatherMapStore_new: checktimeSpan",
       domainId,
@@ -215,6 +221,23 @@ export default class WeatherMapStore_new {
       this.checkDomainId(domainId) &&
       this.config.domains[domainId].item.timeSpans.includes(timeSpan)
     );
+  }
+
+  /*
+    setting a new active timeSpan
+  */
+  @action changeTimeSpan(timeSpan) {
+    console.log("weatherMapStore_new changeTimeSpan: " + timeSpan);
+    if (
+      timeSpan != this._timeSpan.get() &&
+      this.checkTimeSpan(this.domainId, timeSpan)
+    ) {
+      this._timeIndicesIndex.set(0);
+      this._timeSpan.set(timeSpan);
+      this._setTimeIndices();
+      this.selectedFeature = null;
+      this._loadData();
+    }
   }
 
   /*

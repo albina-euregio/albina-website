@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { observer, inject, action } from "mobx-react";
+import { autorun } from "mobx";
 import { modal_open_by_params } from "../js/modal";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
@@ -25,6 +26,9 @@ class Weather extends React.Component {
 
     this.store = new WeatherMapStore(this.props.match.params.domain);
     config.newWM = new WeatherMapStoreNew(this.props.match.params.domain);
+    autorun(() =>
+      console.log("weatherMapStore_new->weather: ", config.newWM.loading)
+    );
     this.player = new Player({
       transitionTime: 3000,
       avalailableTimes: ["", "temp12f", "temp24f", "temp48f"],
@@ -118,6 +122,7 @@ class Weather extends React.Component {
           };
         })
       : [];
+
     return (
       <>
         <HTMLHeader
