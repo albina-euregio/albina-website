@@ -1,6 +1,7 @@
 import { computed, observable, action } from "mobx";
 import StationDataStore from "./stationDataStore";
 import axios from "axios";
+import { dateFormat } from "../util/date";
 
 export default class WeatherMapStore_new {
   @observable _domainId;
@@ -94,6 +95,41 @@ export default class WeatherMapStore_new {
   */
   @computed get loading() {
     return this._loading.get();
+  }
+
+  /*
+    returns filename for overlay e.g.2020-07-29_06-00_diff-snow_6h
+  */
+  @computed get overlayFileName() {
+    console.log(
+      "weatherMapStore_new overlayFileName: ",
+      this._domainId.get(),
+      this._timeSpan.get()
+    );
+    if (this._timeIndicesIndex.get() != null && this._timeIndices.length > 0) {
+      let datePlusOffset = new Date(
+        this._timeIndices[this._timeIndicesIndex.get()]
+      );
+      //if(parseInt(this._timeSpan.get(), 10) > 0)
+      datePlusOffset.setHours(
+        datePlusOffset.getHours() + parseInt(this._timeSpan.get(), 10)
+      );
+      console.log(
+        "weatherMapStore_new overlayFileName:#2 ",
+        datePlusOffset,
+        new Date(this._timeIndices[this._timeIndicesIndex.get()]).getUTCDate()
+      );
+
+      return (
+        dateFormat(datePlusOffset, "%Y-%m-%d_%H-%M", true) +
+        "_" +
+        this._domainId.get() +
+        "_" +
+        Math.abs(parseInt(this._timeSpan.get(), 10)) +
+        "h"
+      );
+    }
+    return false;
   }
 
   /*
