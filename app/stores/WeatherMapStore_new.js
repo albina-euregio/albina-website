@@ -15,7 +15,8 @@ export default class WeatherMapStore_new {
     this.grid = null;
     this._domainId = observable.box(false);
     this._timeSpan = observable.box(false);
-    this._timeIndices = observable.box(false);
+    this._dateAat6 = observable.box(false);
+    this._timeIndices = [];
     this._timeIndicesIndex = observable.box(false);
     this.selectedFeature = null;
     this._loading = observable.box(false);
@@ -88,6 +89,20 @@ export default class WeatherMapStore_new {
       this._timeIndicesIndex &&
       this._timeIndices[this._timeIndicesIndex.get()]
     );
+  }
+
+  /*
+    returns all _timeIndices
+  */
+  @computed get timeIndices() {
+    return this._timeIndices;
+  }
+
+  /*
+    returns the start date for all calculations
+  */
+  @computed get startDate() {
+    return this._dateAat6;
   }
 
   /*
@@ -179,9 +194,9 @@ export default class WeatherMapStore_new {
   _setTimeIndices = function() {
     console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
     let indices = [];
-    let dateAt6 = new Date();
-    dateAt6.setUTCHours(6, 0, 0, 0);
-    let maxTime = new Date(dateAt6);
+    this._dateAat6.set(new Date());
+    this._dateAat6.set(this._dateAat6.get().setUTCHours(6, 0, 0, 0));
+    let maxTime = new Date(this._dateAat6.get());
     maxTime.setHours(
       maxTime.getHours() +
         parseInt(
@@ -189,17 +204,17 @@ export default class WeatherMapStore_new {
           10
         )
     );
-    console.log(
-      "weatherMapStore_new _setTimeIndices",
-      dateAt6,
-      maxTime,
-      parseInt(
-        this.config.settings.timeRange[this._timeSpan.get() > 0 ? 1 : 0],
-        10
-      )
-    );
-    let currentTime = dateAt6;
-    indices.push(new Date(currentTime));
+    // console.log(
+    //   "weatherMapStore_new _setTimeIndices",
+    //   this._dateAat6.get(),
+    //   maxTime,
+    //   parseInt(
+    //     this.config.settings.timeRange[this._timeSpan.get() > 0 ? 1 : 0],
+    //     10
+    //   )
+    // );
+    let currentTime = new Date(this._dateAat6.get());
+    indices.push(new Date(currentTime).getTime());
 
     if (this._timeSpan.get() > 0) {
       while (currentTime < maxTime) {

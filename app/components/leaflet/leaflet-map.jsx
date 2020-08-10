@@ -1,8 +1,7 @@
 import React from "react";
 import { inject } from "mobx-react";
 import L from "leaflet";
-import "leaflet-timedimension/dist/leaflet.timedimension.src.withlog.js";
-import TimeDimensionLayerImageLayer from "./timeDimension-layer-imageLayer.jsx";
+//import createTimeSelector from "./L.Control.TimeSelector";
 require("leaflet/dist/leaflet.css");
 require("./leaflet-player.css");
 
@@ -84,6 +83,11 @@ class LeafletMap extends React.Component {
       const map = this.map;
       console.log("this.map", this.map);
       window.setTimeout(() => {
+        // let TimeSelector = createTimeSelector({
+        //   eventCallback: (info)=>{console.log("Timeselector clicked", info);},
+        //   startDate: this.props.startDate,
+        //   timeArray: this.props.timeArray
+        // }).addTo(map);
         L.control
           .zoom({
             position: "topleft",

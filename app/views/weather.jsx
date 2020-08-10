@@ -25,10 +25,13 @@ class Weather extends React.Component {
     super(props);
 
     this.store = new WeatherMapStore(this.props.match.params.domain);
-    config.newWM = new WeatherMapStoreNew(this.props.match.params.domain);
-    autorun(() =>
-      console.log("weatherMapStore_new->weather: ", config.newWM.loading)
-    );
+    if (!config.newWM) {
+      config.newWM = new WeatherMapStoreNew(this.props.match.params.domain);
+      autorun(() =>
+        console.log("weatherMapStore_new->weather: ", config.newWM.loading)
+      );
+    } else config.newWM.changeDomain(this.props.match.params.domain);
+
     this.player = new Player({
       transitionTime: 3000,
       avalailableTimes: ["", "temp12f", "temp24f", "temp48f"],
@@ -36,6 +39,7 @@ class Weather extends React.Component {
       onTick: this.onTick
     });
     //this.player.start();
+
     console.log("Weather: Store:", this.store);
     this.state = {
       title: "",
@@ -179,6 +183,11 @@ class Weather extends React.Component {
                 domainId={this.store.domainId}
                 domain={this.store.domain}
                 itemId={this.store.itemId}
+                timeArray={config.newWM.timeIndices}
+                startDate={config.newWM.startDate}
+                eventCallback={info => {
+                  console.log("Timeselector clicked", info);
+                }}
                 item={this.store.item}
                 grid={this.store.grid}
                 stations={this.store.stations}
