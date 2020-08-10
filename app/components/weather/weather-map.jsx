@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import Base from "../../base";
 import LeafletMap from "../leaflet/leaflet-map";
 import ZamgControl from "./zamg-control";
+import Timecontrol from "./time-control";
 import LegendControl from "./legend-control";
 import GridOverlay from "./grid-overlay";
 const StationOverlay = loadable(() =>
@@ -118,6 +119,17 @@ class WeatherMap extends React.Component {
       controls.push(<LegendControl key="legend" item={this.props.item} />);
     }
 
+    //if (this.props.timeArray && this.props.startDate) {
+    controls.push(
+      <Timecontrol
+        key="time"
+        startDate={this.props.startDate}
+        timeArray={this.props.timeArray}
+        eventCallback={this.props.eventCallback}
+      />
+    );
+    //}
+
     return (
       <LeafletMap
         loaded={this.props.domainId !== false}
@@ -125,6 +137,8 @@ class WeatherMap extends React.Component {
         onViewportChanged={this.props.onViewportChanged}
         overlays={overlays}
         controls={controls}
+        timeArray={this.props.timeArray}
+        startDate={this.props.startDate}
         onInit={map => {
           map.on("click", () => {
             this.props.onMarkerSelected(null);
