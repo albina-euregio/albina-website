@@ -274,6 +274,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private getTextcatUrl(): SafeUrl {
+    // lang
     const l = this.settingsService.getLangString() === "it" ? "it" : "de"; // only de+it are supported
     const r = this.authenticationService.getActiveRegionCode();
     const url = environment.textcatUrl + "?l=" +  l + "&r=" + r;
@@ -1070,6 +1071,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.openDeleteAggregatedRegionModal(this.deleteAggregatedRegionTemplate);
   }
 
+  // region
   private delBulletin(bulletin: BulletinModel) {
 
     // check if there are other published or saved regions

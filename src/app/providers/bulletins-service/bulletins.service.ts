@@ -59,6 +59,7 @@ export class BulletinsService {
     this.wsRegionConnect();
     this.wsBulletinConnect();
 
+    // region
     this.getLockedRegions(this.constantsService.codeTyrol).subscribe(
       data => {
         for (const lockedDate of (data as any)) {
@@ -118,6 +119,7 @@ export class BulletinsService {
       this.dates.push(date);
     }
 
+    // region
     this.getStatus(this.constantsService.codeTyrol, startDate, endDate).subscribe(
       data => {
         for (let i = (data as any).length - 1; i >= 0; i--) {
@@ -238,14 +240,15 @@ export class BulletinsService {
     this.isSmallChange = isSmallChange;
   }
 
+  // region
   getUserRegionStatus(date: Date): Enums.BulletinStatus {
     const region = this.authenticationService.getActiveRegion();
     switch (region) {
-      case "IT-32-TN":
+      case this.constantsService.codeTrentino:
         return this.statusMapTrentino.get(date.getTime());
-      case "IT-32-BZ":
+      case this.constantsService.codeSouthTyrol:
         return this.statusMapSouthTyrol.get(date.getTime());
-      case "AT-07":
+      case this.constantsService.codeTyrol:
         return this.statusMapTyrol.get(date.getTime());
 
       default:
@@ -253,16 +256,17 @@ export class BulletinsService {
     }
   }
 
+  // region
   setUserRegionStatus(date: Date, status: Enums.BulletinStatus) {
     const region = this.authenticationService.getActiveRegion();
     switch (region) {
-      case "IT-32-TN":
+      case this.constantsService.codeTrentino:
         this.statusMapTrentino.set(date.getTime(), status);
         break;
-      case "IT-32-BZ":
+      case this.constantsService.codeSouthTyrol:
         this.statusMapSouthTyrol.set(date.getTime(), status);
         break;
-      case "AT-07":
+      case this.constantsService.codeTyrol:
         this.statusMapTyrol.set(date.getTime(), status);
         break;
 

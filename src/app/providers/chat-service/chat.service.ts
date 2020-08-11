@@ -208,6 +208,7 @@ export class ChatService {
     return this.activeUsers;
   }
 
+  // region
   getNewMessageCountSum(region: string) {
     switch (region) {
       case this.constantsService.codeTyrol:

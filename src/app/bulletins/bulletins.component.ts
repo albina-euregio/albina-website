@@ -103,6 +103,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
     this.wsUpdateDisconnect();
   }
 
+  // region
   private wsUpdateConnect() {
     this.updates = <Subject<BulletinUpdateModel>>this.wsUpdateService
       .connect(this.constantsService.getWsUpdateUrl() + this.authenticationService.getUsername())

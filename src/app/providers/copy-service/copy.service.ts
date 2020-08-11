@@ -7,6 +7,7 @@ export class CopyService {
   private copying: boolean;
 
   private textTextcat: string;
+  // lang
   private textDe: string;
   private textIt: string;
   private textEn: string;

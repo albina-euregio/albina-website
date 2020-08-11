@@ -15,6 +15,7 @@ export class ConstantsService {
   public natlefsUsername: string = "norbert.lanzanasto@tirol.gv.at";
   public natlefsPassword: string = "FRYLjTQ2";
 
+  // region
   public codeTyrol: string = "AT-07";
   public codeSouthTyrol: string = "IT-32-BZ";
   public codeTrentino: string = "IT-32-TN";
@@ -24,9 +25,11 @@ export class ConstantsService {
   public roleForeman: string = "FOREMAN";
   public roleObserver: string = "OBSERVER";
 
+  // region
   public lat: Map<String, number> = new Map([["", 47.10], [this.codeTyrol, 47.10], [this.codeSouthTyrol, 46.65], [this.codeTrentino, 46.05]]);
   public lng: Map<String, number> = new Map([["", 11.44], [this.codeTyrol, 11.44], [this.codeSouthTyrol, 11.40], [this.codeTrentino, 11.07]]);
 
+  // region
   public mapBoundaryN: number = 48.0;
   public mapBoundaryE: number = 13.5;
   public mapBoundaryS: number = 45.0;
@@ -35,6 +38,7 @@ export class ConstantsService {
   public timeframe: number = 14;
   public autoSaveIntervall: number = 1000;
 
+  // region
   public regions: Map<string, String[]> = new Map([
     [this.codeTyrol, ["AT-07-01", "AT-07-02", "AT-07-03", "AT-07-04", "AT-07-05", "AT-07-06", "AT-07-07", "AT-07-08", "AT-07-09", "AT-07-10", "AT-07-11", "AT-07-12", "AT-07-13", "AT-07-14", "AT-07-15", "AT-07-16", "AT-07-17", "AT-07-18", "AT-07-19", "AT-07-20", "AT-07-21", "AT-07-22", "AT-07-23", "AT-07-24", "AT-07-25", "AT-07-26", "AT-07-27", "AT-07-28", "AT-07-29"]],
     [this.codeSouthTyrol, ["IT-32-BZ-01", "IT-32-BZ-02", "IT-32-BZ-03", "IT-32-BZ-04", "IT-32-BZ-05", "IT-32-BZ-06", "IT-32-BZ-07", "IT-32-BZ-08", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-11", "IT-32-BZ-12", "IT-32-BZ-13", "IT-32-BZ-14", "IT-32-BZ-15", "IT-32-BZ-16", "IT-32-BZ-17", "IT-32-BZ-18", "IT-32-BZ-19", "IT-32-BZ-20"]],
@@ -81,6 +85,7 @@ export class ConstantsService {
   public incompleteTranslationTextIt = "Attendere traduzione in corso....";
   public incompleteTranslationTextEn = "Wait for translation in progress ....";
 
+  // lang
   public newSnowTextcat = "13[9378[5862],11641,9413].13[9382[3741],11645[10214,5932[4170,3773]],9413].13[9367,11650[10215[9257,7593,825,12250],5932[4170,3773]],9413].92[2977[6242],3761,10399[3790],2798[7468,9568],12126[9570]].61[9516[12004],7703,9808,6621,11633,14841,7358,3736,9413].110[6144[10033,12054,10192],14928,8413[6754],7522,4185,5890,9413].8[796,7855,14189,477,9413].72[3674,4259]";
   public newSnowDe = "Der Neuschnee der letzten zwei Tage bildet die Hauptgefahr. Er kann an allen Expositionen oberhalb der Waldgrenze leicht ausgelöst werden oder spontan abgleiten. Der Neuschnee kann besonders an den Expositionen West über Nord bis Süd oberhalb der Waldgrenze von einzelnen Wintersportlern ausgelöst werden. Bis am Morgen fallen verbreitet oberhalb von rund 1800 m 50 cm Schnee, lokal bis zu 70 cm. Vor allem in den Hauptniederschlagsgebieten sind mit der Intensivierung der Schneefälle zahlreiche mittlere und vereinzelt grosse Schneebrettlawinen zu erwarten. Mit Neuschnee und teils stürmischem Wind entstehen im Tagesverlauf an allen Expositionen teils grosse Triebschneeansammlungen. Die Verhältnisse abseits der Pisten sind gefährlich. Temporäre Sicherheitsmassnahmen können nötig werden.";
   public newSnowIt = "La neve fresca degli ultimi due giorni rappresenta la principale fonte di pericolo. Essa può facilmente subire un distacco provocato o spontaneo a tutte le esposizioni al di sopra del limite del bosco. La neve fresca può subire un distacco in seguito al passaggio di un singolo appassionato di sport invernali soprattutto sui pendii esposti da ovest a nord sino a sud al di sopra del limite del bosco. In molte regioni sino al mattino cadranno 50 cm di neve al di sopra dei 1800 m circa, localmente sino a 70 cm. Con l'intensificarsi delle nevicate, soprattutto nelle regioni più colpite dalle precipitazioni sono previste numerose valanghe di neve a lastroni di medie e, a livello isolato, di grandi dimensioni. Con neve fresca e vento in parte tempestoso nel corso della giornata a tutte le esposizioni si formeranno accumuli di neve ventata in parte di grandi dimensioni. Le condizioni al di fuori delle piste sono pericolose. Misure temporanee di sicurezza potrebbero rendersi necessarie.";

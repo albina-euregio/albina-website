@@ -112,13 +112,15 @@ export class AuthenticationService {
     }
   }
 
+  // region
+  // lang (code used for textcat)
   public getActiveRegionCode(): number {
     switch (this.activeRegion) {
-      case "AT-07":
+      case this.constantsService.codeTyrol:
         return 2;
-      case "IT-32-BZ":
+      case this.constantsService.codeSouthTyrol:
         return 3;
-      case "IT-32-TN":
+      case this.constantsService.codeTrentino:
         return 3;
 
       default:
@@ -143,6 +145,7 @@ export class AuthenticationService {
     return false;
   }
 
+  // region
   public getChatId(region: string) {
     switch (region) {
       case this.constantsService.codeTyrol:
