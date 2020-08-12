@@ -27,6 +27,7 @@ export class BulletinsService {
   public statusMapTyrol: Map<number, Enums.BulletinStatus>;
   public statusMapSouthTyrol: Map<number, Enums.BulletinStatus>;
   public statusMapTrentino: Map<number, Enums.BulletinStatus>;
+  public statusMapAran: Map<number, Enums.BulletinStatus>;
 
   public dates: Date[];
 
@@ -40,6 +41,7 @@ export class BulletinsService {
     this.init();
   }
 
+  // region
   init() {
     this.dates = new Array<Date>();
     this.activeDate = undefined;
@@ -51,6 +53,7 @@ export class BulletinsService {
     this.statusMapTyrol = new Map<number, Enums.BulletinStatus>();
     this.statusMapSouthTyrol = new Map<number, Enums.BulletinStatus>();
     this.statusMapTrentino = new Map<number, Enums.BulletinStatus>();
+    this.statusMapAran = new Map<number, Enums.BulletinStatus>();
 
     this.lockedRegions = new Map<string, Date[]>();
     this.lockedBulletins = new Map<string, string>();
@@ -91,6 +94,17 @@ export class BulletinsService {
       },
       () => {
         console.warn("Locked regions for Trentino could not be loaded!");
+      }
+    );
+    this.getLockedRegions(this.constantsService.codeAran).subscribe(
+      data => {
+        for (const lockedDate of (data as any)) {
+          const date = new Date(lockedDate);
+          this.addLockedRegion(this.constantsService.codeAran, date);
+        }
+      },
+      () => {
+        console.warn("Locked regions for Aran could not be loaded!");
       }
     );
 
@@ -148,6 +162,16 @@ export class BulletinsService {
       },
       () => {
         console.error("Status Trentino could not be loaded!");
+      }
+    );
+    this.getStatus(this.constantsService.codeAran, startDate, endDate).subscribe(
+      data => {
+        for (let i = (data as any).length - 1; i >= 0; i--) {
+          this.statusMapAran.set(Date.parse((data as any)[i].date), Enums.BulletinStatus[<string>(data as any)[i].status]);
+        }
+      },
+      () => {
+        console.error("Status Aran could not be loaded!");
       }
     );
   }
@@ -244,6 +268,8 @@ export class BulletinsService {
   getUserRegionStatus(date: Date): Enums.BulletinStatus {
     const region = this.authenticationService.getActiveRegion();
     switch (region) {
+      case this.constantsService.codeAran:
+        return this.statusMapAran.get(date.getTime());
       case this.constantsService.codeTrentino:
         return this.statusMapTrentino.get(date.getTime());
       case this.constantsService.codeSouthTyrol:
@@ -260,6 +286,9 @@ export class BulletinsService {
   setUserRegionStatus(date: Date, status: Enums.BulletinStatus) {
     const region = this.authenticationService.getActiveRegion();
     switch (region) {
+      case this.constantsService.codeAran:
+        this.statusMapAran.set(date.getTime(), status);
+        break;
       case this.constantsService.codeTrentino:
         this.statusMapTrentino.set(date.getTime(), status);
         break;

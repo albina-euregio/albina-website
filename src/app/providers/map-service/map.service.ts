@@ -37,71 +37,131 @@ export class MapService {
     private regionsService: RegionsService,
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService) {
-    this.baseMaps = {
-      AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
-        tms: false,
-        attribution: "",
-        minZoom: 8,
-        maxZoom: 10
-      })
-    };
+    
+    if (this.authenticationService.isEuregio()) {
+      this.baseMaps = {
+        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+          tms: false,
+          attribution: ""
+        })
+      };
 
-    this.afternoonBaseMaps = {
-      AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
-        tms: false,
-        attribution: "",
-        minZoom: 8,
-        maxZoom: 10
-      })
-    };
+      this.afternoonBaseMaps = {
+        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+          tms: false,
+          attribution: ""
+        })
+      };
 
-    this.observationsMaps = {
-      OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-        maxZoom: 17,
-        attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
-      })
-    };
+      this.observationsMaps = {
+        OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+          maxZoom: 17,
+          attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
+        })
+      };
 
-    this.layerGroups = {
-      observations: L.markerClusterGroup()
-    };
+      this.layerGroups = {
+        observations: L.markerClusterGroup()
+      };
 
 
-    this.overlayMaps = {
-      // overlay to show regions
-      regions: L.geoJSON(this.regionsService.getRegionsEuregio(), {
-        onEachFeature: this.onEachAggregatedRegionsFeatureAM
-      }),
+      this.overlayMaps = {
+        // overlay to show regions
+        regions: L.geoJSON(this.regionsService.getRegionsEuregio(), {
+          onEachFeature: this.onEachAggregatedRegionsFeatureAM
+        }),
 
-      // overlay to show selected regions
-      activeSelection: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
+        // overlay to show selected regions
+        activeSelection: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
 
-      // overlay to select regions (when editing an aggregated region)
-      editSelection: L.geoJSON(this.regionsService.getRegionsEuregio(), {
-        onEachFeature: this.onEachFeature
-      }),
+        // overlay to select regions (when editing an aggregated region)
+        editSelection: L.geoJSON(this.regionsService.getRegionsEuregio(), {
+          onEachFeature: this.onEachFeature
+        }),
 
-      // overlay to show aggregated regions
-      aggregatedRegions: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation())
-    };
+        // overlay to show aggregated regions
+        aggregatedRegions: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation())
+      };
 
-    this.afternoonOverlayMaps = {
-      // overlay to show regions
-      regions: L.geoJSON(this.regionsService.getRegionsEuregio(), {
-        onEachFeature: this.onEachAggregatedRegionsFeaturePM
-      }),
+      this.afternoonOverlayMaps = {
+        // overlay to show regions
+        regions: L.geoJSON(this.regionsService.getRegionsEuregio(), {
+          onEachFeature: this.onEachAggregatedRegionsFeaturePM
+        }),
 
-      // overlay to show selected regions
-      activeSelection: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
+        // overlay to show selected regions
+        activeSelection: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation()),
 
-      // overlay to select regions (when editing an aggregated region)
-      editSelection: L.geoJSON(this.regionsService.getRegionsEuregio(), {
-        onEachFeature: this.onEachFeature
-      }),
+        // overlay to select regions (when editing an aggregated region)
+        editSelection: L.geoJSON(this.regionsService.getRegionsEuregio(), {
+          onEachFeature: this.onEachFeature
+        }),
 
-      // overlay to show aggregated regions
-      aggregatedRegions: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation())
-    };
+        // overlay to show aggregated regions
+        aggregatedRegions: L.geoJSON(this.regionsService.getRegionsEuregioWithElevation())
+      };
+    } else if (this.authenticationService.getActiveRegion() == this.constantsService.codeAran) {
+      this.baseMaps = {
+        AlbinaBaseMap: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
+          tms: false,
+          attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        })
+      };
+
+      this.afternoonBaseMaps = {
+        AlbinaBaseMap: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
+          tms: false,
+          attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        })
+      };
+
+      this.observationsMaps = {
+        OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+          maxZoom: 17,
+          attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
+        })
+      };
+
+      this.layerGroups = {
+        observations: L.markerClusterGroup()
+      };
+
+
+      this.overlayMaps = {
+        // overlay to show regions
+        regions: L.geoJSON(this.regionsService.getRegionsAran(), {
+          onEachFeature: this.onEachAggregatedRegionsFeatureAM
+        }),
+
+        // overlay to show selected regions
+        activeSelection: L.geoJSON(this.regionsService.getRegionsAranWithElevation()),
+
+        // overlay to select regions (when editing an aggregated region)
+        editSelection: L.geoJSON(this.regionsService.getRegionsAran(), {
+          onEachFeature: this.onEachFeature
+        }),
+
+        // overlay to show aggregated regions
+        aggregatedRegions: L.geoJSON(this.regionsService.getRegionsAranWithElevation())
+      };
+
+      this.afternoonOverlayMaps = {
+        // overlay to show regions
+        regions: L.geoJSON(this.regionsService.getRegionsAran(), {
+          onEachFeature: this.onEachAggregatedRegionsFeaturePM
+        }),
+
+        // overlay to show selected regions
+        activeSelection: L.geoJSON(this.regionsService.getRegionsAranWithElevation()),
+
+        // overlay to select regions (when editing an aggregated region)
+        editSelection: L.geoJSON(this.regionsService.getRegionsAran(), {
+          onEachFeature: this.onEachFeature
+        }),
+
+        // overlay to show aggregated regions
+        aggregatedRegions: L.geoJSON(this.regionsService.getRegionsAranWithElevation())
+      };    }
   }
 
   getClickedRegion(): String {
@@ -521,7 +581,8 @@ export class MapService {
         }
       },
       mouseover: function(e) {
-        e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name_de + "<br>" + e.target.feature.properties.name_it;
+        // TODO get current language
+         e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
         const l = e.target;
         l.setStyle({
           weight: 3
@@ -549,7 +610,8 @@ export class MapService {
         feature.properties.selected = true;
       },
       mouseover: function(e) {
-        e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name_de + "<br>" + e.target.feature.properties.name_it;
+        // TODO get current language
+        e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
         const l = e.target;
         l.setStyle({
           weight: 3

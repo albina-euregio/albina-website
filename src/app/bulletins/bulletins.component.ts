@@ -31,6 +31,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
   public loadingTrentino: boolean;
   public loadingSouthTyrol: boolean;
   public loadingTyrol: boolean;
+  public loadingAran: boolean;
   public publishing: Date;
   public copying: boolean;
 
@@ -81,6 +82,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
     this.loadingTrentino = false;
     this.loadingSouthTyrol = false;
     this.loadingTyrol = false;
+    this.loadingAran = false;
     this.copying = false;
     this.publishing = undefined;
 
@@ -91,6 +93,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
     this.loadingTrentino = false;
     this.loadingSouthTyrol = false;
     this.loadingTyrol = false;
+    this.loadingAran = false;
 
     this.wsUpdateConnect();
   }
@@ -99,6 +102,7 @@ export class BulletinsComponent implements OnInit, OnDestroy {
     this.loadingTrentino = false;
     this.loadingSouthTyrol = false;
     this.loadingTyrol = false;
+    this.loadingAran = false;
     this.copying = false;
     this.wsUpdateDisconnect();
   }

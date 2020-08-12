@@ -11,16 +11,16 @@
     <li class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins']">{{ "sidebar.bulletins" | translate }}</a>
     </li>
-    <li *ngIf="settingsService.getShowObservations()" class="nav-item px-1">
+    <li *ngIf="settingsService.getShowObservations() && authenticationService.isEuregio()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/observations']">{{ "sidebar.observations" | translate }}</a>
     </li>
-    <li class="nav-item px-1">
+    <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg']">{{ "sidebar.modellingZamg" | translate }}</a>
     </li>
-    <li class="nav-item px-1">
+    <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpack']">{{ "sidebar.modellingSnowpack" | translate }}</a>
     </li>
-    <li class="nav-item px-1">
+    <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']">{{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
     </li>
   </ul>
@@ -45,6 +45,7 @@
         <a class="dropdown-item" (click)='settingsService.setLangString("fr")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.fr" | translate }}<i *ngIf="settingsService.getLangString()=='fr'" class="fa fa-check float-right"></i></a>
         <a class="dropdown-item" (click)='settingsService.setLangString("es")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.es" | translate }}<i *ngIf="settingsService.getLangString()=='es'" class="fa fa-check float-right"></i></a>
         <a class="dropdown-item" (click)='settingsService.setLangString("ca")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.ca" | translate }}<i *ngIf="settingsService.getLangString()=='ca'" class="fa fa-check float-right"></i></a>
+        <a class="dropdown-item" (click)='settingsService.setLangString("oc")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.oc" | translate }}<i *ngIf="settingsService.getLangString()=='oc'" class="fa fa-check float-right"></i></a>
 
         <div class="dropdown-header text-center"><strong>{{ "menu.region" | translate }}</strong></div>
 
@@ -59,7 +60,7 @@
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-sign-out"></i> {{ "menu.logout" | translate }}</a>
       </div>
     </li>
-    <li *ngIf="showChat" class="nav-item">
+    <li *ngIf="showChat && authenticationService.isEuregio()" class="nav-item">
       <a *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined" class="nav-link"><i class="fa fa-comments aside-menu-toggler"></i><span *ngIf="showBadge()" class="badge badge-pill badge-danger">{{ chatService.getNewMessageCountSum(authenticationService.getActiveRegion()) }}</span></a>
     </li>
   </ul>
@@ -81,16 +82,16 @@
         <li class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/bulletins']"><i class="fa fa-snowflake-o"></i> {{ "sidebar.bulletins" | translate }}</a>
         </li>
-        <li *ngIf="settingsService.getShowObservations()" class="nav-item nav-dropdown" routerLinkActive="open">
+        <li *ngIf="settingsService.getShowObservations() && authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/observations']"><i class="fa fa-eye"></i> {{ "sidebar.observations" | translate }}</a>
         </li>
-        <li class="nav-item nav-dropdown" routerLinkActive="open">
+        <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg']"><i class="fa fa-line-chart"></i> {{ "sidebar.modellingZamg" | translate }}</a>
         </li>
-        <li class="nav-item nav-dropdown" routerLinkActive="open">
+        <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpack']"><i class="fa fa-area-chart"></i> {{ "sidebar.modellingSnowpack" | translate }}</a>
         </li>
-        <li class="nav-item nav-dropdown" routerLinkActive="open">
+        <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']"><i class="fa fa-bar-chart"></i> {{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
         </li>
       </ul>
@@ -105,7 +106,7 @@
   </main>
 
   <!-- Sidebar right -->
-  <aside class="aside-menu" style="overflow: auto">
+  <aside class="aside-menu" style="overflow: auto" *ngIf="authenticationService.getActiveRegion() && authenticationService.getActiveRegion() != undefined && authenticationService.getActiveRegion() != constantsService.codeAran" >
 <!--
     <div *ngIf="chatService.getNumberOfActiveUsers() > 0" class="p-1">
       <div class="message font-weight-bold text-muted small">{{ "chat.activeUsers" | translate }}</div>

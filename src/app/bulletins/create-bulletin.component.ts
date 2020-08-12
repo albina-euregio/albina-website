@@ -438,15 +438,25 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.mapService.afternoonMap.remove();
     }
 
+    let zoom = 8;
+    let minZoom = 8;
+    let maxZoom = 10;
+
+    if (this.authenticationService.getActiveRegion() == this.constantsService.codeAran) {
+      zoom = 10;
+      minZoom = 8;
+      maxZoom = 12;
+    }
+
     const map = L.map("map", {
       zoomControl: false,
       doubleClickZoom: false,
       scrollWheelZoom: false,
       touchZoom: true,
       center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
-      zoom: 8,
-      minZoom: 8,
-      maxZoom: 10,
+      zoom: zoom,
+      minZoom: minZoom,
+      maxZoom: maxZoom,
       // maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
       layers: [this.mapService.baseMaps.AlbinaBaseMap, this.mapService.overlayMaps.aggregatedRegions, this.mapService.overlayMaps.regions]
     });
@@ -502,9 +512,9 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       scrollWheelZoom: false,
       touchZoom: true,
       center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
-      zoom: 8,
-      minZoom: 8,
-      maxZoom: 10,
+      zoom: zoom,
+      minZoom: minZoom,
+      maxZoom: maxZoom,
       // maxBounds: L.latLngBounds(L.latLng(this.constantsService.mapBoundaryN, this.constantsService.mapBoundaryW), L.latLng(this.constantsService.mapBoundaryS, this.constantsService.mapBoundaryE)),
       layers: [this.mapService.afternoonBaseMaps.AlbinaBaseMap, this.mapService.afternoonOverlayMaps.aggregatedRegions, this.mapService.afternoonOverlayMaps.regions]
     });
