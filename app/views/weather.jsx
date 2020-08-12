@@ -185,8 +185,9 @@ class Weather extends React.Component {
                 itemId={this.store.itemId}
                 timeArray={config.newWM.timeIndices}
                 startDate={config.newWM.startDate}
-                eventCallback={info => {
-                  console.log("Timeselector clicked", info);
+                eventCallback={id => {
+                  console.log("Timeselector clicked", id);
+                  config.newWM.changeTimeIndex(id);
                 }}
                 item={this.store.item}
                 grid={this.store.grid}
