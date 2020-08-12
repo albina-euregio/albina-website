@@ -38,6 +38,10 @@ export class MapService {
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService) {
     
+    this.initMaps();
+  }
+
+  initMaps() {
     if (this.authenticationService.isEuregio()) {
       this.baseMaps = {
         AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
@@ -161,7 +165,9 @@ export class MapService {
 
         // overlay to show aggregated regions
         aggregatedRegions: L.geoJSON(this.regionsService.getRegionsAranWithElevation())
-      };    }
+      };
+    }
+    this.resetAll();
   }
 
   getClickedRegion(): String {

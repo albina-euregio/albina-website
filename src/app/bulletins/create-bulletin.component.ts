@@ -431,6 +431,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private initMaps() {
+    this.mapService.initMaps();
+
     if (this.mapService.map) {
       this.mapService.map.remove();
     }

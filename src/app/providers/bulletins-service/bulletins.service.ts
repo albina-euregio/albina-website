@@ -63,7 +63,7 @@ export class BulletinsService {
     this.wsBulletinConnect();
 
     // region
-    this.getLockedRegions(this.constantsService.codeTyrol).subscribe(
+    this.getLockedRegions(this.authenticationService.getActiveRegion()).subscribe(
       data => {
         for (const lockedDate of (data as any)) {
           const date = new Date(lockedDate);
@@ -71,40 +71,7 @@ export class BulletinsService {
         }
       },
       () => {
-        console.warn("Locked regions for Tyrol could not be loaded!");
-      }
-    );
-    this.getLockedRegions(this.constantsService.codeSouthTyrol).subscribe(
-      data => {
-        for (const lockedDate of (data as any)) {
-          const date = new Date(lockedDate);
-          this.addLockedRegion(this.constantsService.codeSouthTyrol, date);
-        }
-      },
-      () => {
-        console.warn("Locked regions for South Tyrol could not be loaded!");
-      }
-    );
-    this.getLockedRegions(this.constantsService.codeTrentino).subscribe(
-      data => {
-        for (const lockedDate of (data as any)) {
-          const date = new Date(lockedDate);
-          this.addLockedRegion(this.constantsService.codeTrentino, date);
-        }
-      },
-      () => {
-        console.warn("Locked regions for Trentino could not be loaded!");
-      }
-    );
-    this.getLockedRegions(this.constantsService.codeAran).subscribe(
-      data => {
-        for (const lockedDate of (data as any)) {
-          const date = new Date(lockedDate);
-          this.addLockedRegion(this.constantsService.codeAran, date);
-        }
-      },
-      () => {
-        console.warn("Locked regions for Aran could not be loaded!");
+        console.warn("Locked regions could not be loaded!");
       }
     );
 
