@@ -34,6 +34,7 @@ export class AdminComponent implements AfterContentInit {
   public publishBulletinsTyrol: boolean;
   public publishBulletinsSouthTyrol: boolean;
   public publishBulletinsTrentino: boolean;
+  public publishBulletinsAran: boolean;
   public publishBlogsTyrol: boolean;
   public publishBlogsSouthTyrol: boolean;
   public publishBlogsTrentino: boolean;
@@ -93,6 +94,7 @@ export class AdminComponent implements AfterContentInit {
           this.publishBulletinsTyrol = (data as any).publishBulletinsTyrol;
           this.publishBulletinsSouthTyrol = (data as any).publishBulletinsSouthTyrol;
           this.publishBulletinsTrentino = (data as any).publishBulletinsTrentino;
+          this.publishBulletinsAran = (data as any).publishBulletinsAran;
           this.publishBlogsTyrol = (data as any).publishBlogsTyrol;
           this.publishBlogsSouthTyrol = (data as any).publishBlogsSouthTyrol;
           this.publishBlogsTrentino = (data as any).publishBlogsTrentino;
@@ -158,6 +160,7 @@ export class AdminComponent implements AfterContentInit {
     json["publishBulletinsTyrol"] = this.publishBulletinsTyrol;
     json["publishBulletinsSouthTyrol"] = this.publishBulletinsSouthTyrol;
     json["publishBulletinsTrentino"] = this.publishBulletinsTrentino;
+    json["publishBulletinsAran"] = this.publishBulletinsAran;
     json["publishBlogsTyrol"] = this.publishBlogsTyrol;
     json["publishBlogsSouthTyrol"] = this.publishBlogsSouthTyrol;
     json["publishBlogsTrentino"] = this.publishBlogsTrentino;
