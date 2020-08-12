@@ -31,7 +31,7 @@
       <a class="nav-link" href="#"><i class="fa fa-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
     </li>
 -->
-    <li class="nav-item dropdown" dropdown (onToggle)="toggled()">
+    <li class="nav-item dropdown" dropdown (onToggle)="toggled()" style="padding-right: 10px">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
         <img src="{{ authenticationService.getUserImageSanitized() }}" class="img-avatar">
         <span class="hidden-md-down">{{ authenticationService.getUsername() }}</span>
