@@ -194,54 +194,66 @@ export default class WeatherMapStore_new {
   _setTimeIndices = function() {
     console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
     let indices = [];
+    let currentTimespan = this._timeSpan.get();
     this._dateAat6.set(new Date());
     this._dateAat6.set(this._dateAat6.get().setUTCHours(6, 0, 0, 0));
-    let maxTime = new Date(this._dateAat6.get());
-    maxTime.setHours(
-      maxTime.getHours() +
-        parseInt(
-          this.config.settings.timeRange[this._timeSpan.get() > 0 ? 1 : 0],
-          10
-        )
-    );
-    // console.log(
-    //   "weatherMapStore_new _setTimeIndices",
-    //   this._dateAat6.get(),
-    //   maxTime,
-    //   parseInt(
-    //     this.config.settings.timeRange[this._timeSpan.get() > 0 ? 1 : 0],
-    //     10
-    //   )
-    // );
-    let currentTime = new Date(this._dateAat6.get());
-    indices.push(new Date(currentTime).getTime());
 
-    if (this._timeSpan.get() > 0) {
+    let currentTime = new Date(this._dateAat6.get());
+    let maxTime;
+    //indices.push(new Date(currentTime).getTime());
+    let timeSpanDir = currentTimespan.includes("+-")
+      ? 0
+      : parseInt(currentTimespan, 10) > 0
+      ? 1
+      : -1;
+    let timeSpanVal = Math.abs(parseInt(currentTimespan.replace("+-", ""), 10));
+
+    console.log(
+      "weatherMapStore_new _setTimeIndices #1",
+      this._dateAat6.get(),
+      timeSpanDir,
+      timeSpanVal
+    );
+
+    if (timeSpanDir >= 0) {
+      currentTime = new Date(this._dateAat6.get());
+      maxTime = new Date(this._dateAat6.get());
+      maxTime.setHours(
+        maxTime.getHours() + parseInt(this.config.settings.timeRange[1], 10)
+      );
+      //console.log("weatherMapStore_new _setTimeIndices #2 >= 0", maxTime);
       while (currentTime < maxTime) {
-        currentTime.setHours(
-          currentTime.getHours() + parseInt(this._timeSpan.get(), 10)
-        );
         indices.push(new Date(currentTime).getTime());
-        console.log(
-          "weatherMapStore_new _setTimeIndices add date",
-          new Date(currentTime),
-          new Date(currentTime).getTime()
-        );
+        currentTime.setHours(currentTime.getHours() + timeSpanVal);
+        // console.log( "weatherMapStore_new _setTimeIndices add date", new Date(currentTime), new Date(currentTime).getTime());
       }
-    } else {
+    }
+    if (timeSpanDir <= 0) {
+      currentTime = new Date(this._dateAat6.get());
+      maxTime = new Date(this._dateAat6.get());
+      maxTime.setHours(
+        maxTime.getHours() + parseInt(this.config.settings.timeRange[0], 10)
+      );
+      //console.log("weatherMapStore_new _setTimeIndices #3 >= 0", maxTime);
       while (currentTime > maxTime) {
-        currentTime.setHours(
-          currentTime.getHours() + parseInt(this._timeSpan.get(), 10)
-        );
-        indices.push(new Date(currentTime).getTime());
+        if (timeSpanDir != 0 || !indices.includes(currentTime.getTime()))
+          indices.push(new Date(currentTime).getTime());
+        currentTime.setHours(currentTime.getHours() + timeSpanVal * -1);
         console.log(
           "weatherMapStore_new _setTimeIndices add date",
           new Date(currentTime),
-          new Date(currentTime).getTime()
+          maxTime
         );
       }
     }
-    console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
+    if (timeSpanDir === 0) indices.sort();
+    //console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
+    indices.map(aItem => {
+      console.log(
+        "weatherMapStore_new _setTimeIndices: new indices",
+        new Date(aItem)
+      );
+    });
     this._timeIndices = indices;
     this._timeIndicesIndex.set(0);
   };
@@ -288,7 +300,7 @@ export default class WeatherMapStore_new {
       this._setTimeIndices();
       this.selectedFeature = null;
       this._loadData();
-    }
+    } else console.error("Timespan does not exist!", timeSpan);
   }
 
   /*
