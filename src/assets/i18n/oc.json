@@ -1,0 +1,637 @@
+{
+  "undefined" : "---",
+  "login" : {
+    "title" : "Iniciar session",
+    "text" : "Iniciar session ath tòn compde",
+    "button" : "Iniciar session",
+    "errorDialog" : {
+      "header" : "Error ar iniciar session",
+      "message" : "Nòm d'usatgèr o contrasenya incorrècta!",
+      "accept" : "D'acòrd"
+    },
+    "placeholder" : {
+      "username" : "Se te platz, introdusís eth tòn nòm d'usatgèr",
+      "password" : "Se te platz, introdusís era tua contrasenya"
+    }
+  },
+  "sidebar" : {
+    "bulletins" : "Avalanche.report",
+    "observations" : "Observacions",
+    "modellingZamg": "Modèl multiple ZAMG",
+    "modellingSnowpack": "Modèl SNOWPACK",
+    "modellingSnowpackMeteo": "Modèl meteo SNOWPACK",
+    "catalogueOfPhrases" : "Catalòg de frases"
+  },
+  "menu" : {
+    "logout" : "Barrar session",
+    "language" : "Lengua",
+    "en" : "Anglés",
+    "de" : "Alemand",
+    "fr" : "Francés",
+    "it" : "Italian",
+    "es" : "Castelhan",
+    "ca" : "Catalan",
+    "oc" : "Aranese",
+    "fullscreen" : "Pantalha complèta",
+    "settings" : "Configuracion",
+    "admin" : "Administrador",
+    "region" : "Region"
+  },
+  "chat" : {
+    "placeholder" : "Escriu ací ...",
+    "send" : "Enviar",
+    "activeUsers" : "Qui ei en linha?",
+    "all" : "Tot",
+    "AT-07" : "Tiròl",
+    "IT-32-BZ" : "Sud-Tiròl",
+    "IT-32-TN" : "Trentin"
+  },
+  "bulletins" : {
+    "title" : "Avalanche.report",
+    "tooltip" : {
+      "publish" : "Publicar immediataments eth bulletin actualizat",
+      "submit" : "Editar bulletin",
+      "copy" : "Copiar bulletin",
+      "paste" : "Colar bulletin",
+      "update" : "Crear actualizacion deth bulletin",
+      "caaml" : "Mostrar CAAML",
+      "json" : "Mostrar JSON",
+      "edit" : "Editar bulletin (non se tornarà a publicar)",
+      "create" : "Crear bulletin",
+      "check" : "Verificar bulletin",
+      "info" : "Mostrar er estat de publicacion",
+      "publishAll" : "Publicar totes es regions"
+    },
+    "create" : {
+      "tooltip" : {
+        "edit" : "Editar region",
+        "copy" : "Copiar region",
+        "delete" : "Esborrar region",
+        "acceptSuggestion" : "Acceptar regions suggerides",
+        "rejectSuggestion" : "Refusar regions suggerides",
+        "saveChanges" : "Sauvar cambiaments",
+        "discardChanges" : "Escartar cambiaments",
+        "saveBulletin" : "Sauvar bulletin",
+        "discardBulletin" : "Escartar cambiaments deth bulletin",
+        "loadBulletin" : "Cargar bulletin deth dia anterior",
+        "elevationDependency" : "Dependéncia de nautada",
+        "daytimeDependency" : "Dependéncia ora deth dia",
+        "treeline" : "Limit deth bòsc",
+        "tendency" : {
+          "decreasing" : "Perilh de lauegi diminuís",
+          "steady" : "Perilh de lauegi seguís parièr",
+          "increasing" : "El perill d’allaus aumente"
+        },
+        "complexity" : {
+          "easy" : "L’avaloracion en terren ei facil",
+          "challenging" : "L’avaloracion en terren ei exigent",
+          "complex" : "L’avaloracion en terren ei complèxe"
+        },
+        "textcat" : {
+          "edit" : "Editar",
+          "copy" : "Copiar",
+          "paste" : "Colar",
+          "example" : "Cargar tèxte exemple",
+          "delete" : "Esborrar"
+        },
+        "showInBulletin" : "Eth problèma de lauegi se mostrarà ath bulletin",
+        "dontShowInBulletin" : "Eth problèma de lauegi NON se mostrarà ath bulletin",
+        "moveUpAvalancheSituation" : "Eth problèma de lauegi se mostrarà ath bulletin",
+        "moveDownAvalancheSituation" : "Botjar eth problèma de lauegi cap enjós",
+        "dangerRatingDirectionUp" : "Esténer eth grad de perilh cap ensús",
+        "dangerRatingDirectionDown" : "Esténer eth grad de perilh cap enjós"
+    },
+      "button" : "Crear",
+      "save" : "Sauvar",
+      "discard" : "Escartar",
+      "back" : "Endarrere",
+      "createAggregatedRegion" : "Naua region",
+      "saveAggregatedRegion" : "Sauvar",
+      "discardAggregatedRegion" : "Escartar",
+      "deleteAggregatedRegion" : "Esborrar",
+      "createAvalancheSituation" : "Nau problèma",
+      "ownRegions" : "Regions pròprias",
+      "foreignRegions": "Regions estrangères",
+      "label" : {
+        "highlights" : "Alèrte especiau",
+        "avActivityHighlights" : "Titular dera situacion de lauegi",
+        "avActivityComment" : "Descripcion deth perilh de lauegi",
+        "avalancheSituation1" : "Situacion de lauegi 1",
+        "avalancheSituation2" : "Situacion de lauegi 2",
+        "dangerRating" : "Grad de perilh",
+        "aspects" : "Orientacions",
+        "elevation" : "Nautada",
+        "daytime" : "Ora deth dia",
+        "snowpackStructureHighlights" : "Estructura deth celh de nhèu",
+        "snowpackStructureComment" : "Descripcion deth celh de nhèu",
+        "dangerPatterns" : "Patrons de perilh",
+        "elevationHigh" : "Enjós",
+        "elevationLow" : "Dessús",
+        "tendencyComment" : "Descripcion de tendéncia",
+        "notes" : "Nòtes",
+        "terrainFeature": "Caracteristiques deth terren"
+      },
+      "title" : {
+        "map" : "Mapa",
+        "dangerRating" : "Grad de perilh",
+        "avalancheSituation" : "Situacions de lauegi",
+        "dangerDescription" : "Descripcion deth perilh de lauegi",
+        "detail" : "Detalhs",
+        "above" : "Dessús",
+        "below" : "Enjós",
+        "forenoon" : "Maitin",
+        "afternoon" : "Tarde",
+        "forenoonAbove" : "Maitin, dessús",
+        "afternoonAbove" : "Tarde, dessús",
+        "forenoonBelow" : "Maitin, enjós",
+        "afternoonBelow" : "Tarde, enjós",
+        "snowpackStructure" : "Estructura deth celh de nhèu",
+        "tendency" : "Tendéncia",
+        "pmdialog" : "Catalòg de frases",
+        "showTranslations" : "Mostrar revirades",
+        "hideTranslations" : "Amagar revirades"
+      },
+      "placeholder" : {
+        "notes" : "Non se sauvaran es nòtes"
+      },
+      "pmDialog" : {
+        "noIFrameSupport" : "Eth tòn navigador non ei compatible damb IFrames."
+      },
+      "discardDialog" : {
+        "header" : "Escartar cambiaments",
+        "message" : "Vòs escartar es cambiaments?",
+        "accept" : "Òc",
+        "reject" : "Non"
+      },
+      "deleteAggregatedRegionDialog" : {
+        "header" : "Esborrar region",
+        "message" : "Vòs esborrar aquesta region?",
+        "accept" : "Òc",
+        "reject" : "Non"
+      },
+      "noRegionDialog" : {
+        "header" : "Pesca en aigües estrangères",
+        "message" : "Aumens ua region cau èster tua.",
+        "accept" : "D'acòrd"
+      },
+      "loadDialog" : {
+        "header" : "Cargar bulletins deth dia anterior",
+        "message" : "Vòs cargar es bulletins deth dia anterior?",
+        "accept" : "Òc",
+        "reject" : "Non"
+      },
+      "loadAutoSaveDialog" : {
+        "message" : "Vòs cargar es bulletins sauvadi automaticaments?",
+        "accept" : "Òc",
+        "reject" : "Non"
+      },
+      "saveErrorDialog" : {
+        "header" : "Error en sauvar es bulletins",
+        "message" : "S'a produsit un error en sauvar es bulletins!",
+        "accept" : "D'acòrd"
+      },
+      "changeErrorDialog" : {
+        "header" : "Error en cambiar es bulletins",
+        "message" : "S'a produsit un error en cambiar es bulletins!",
+        "accept" : "D'acòrd"
+      },
+      "loadingErrorDialog" : {
+        "header" : "Error en cargar es bulletins",
+        "message" : "S'a produsit un error en cargar es bulletins!",
+        "accept" : "D'acòrd"
+      },
+      "noElevationDialog" : {
+        "header" : "Nautada non definida",
+        "message" : "Se te platz, especifique ua nautada d'aguesta region!",
+        "accept" : "D'acòrd"
+      },
+      "incompleteTranslationDialog" : {
+        "header" : "Revirada incompleta",
+        "message" : "Era revirada ei incompleta!",
+        "accept" : "D'acòrd"
+      },
+      "loadAvActivityCommentExampleTextDialog" : {
+        "header" : "Cargar tèxte exemple",
+        "message" : "Entà quina situacion vòs cargar un tèxte d'exemple?",
+        "newSnow" : "Nhèu recenta",
+        "windDriftedSnow" : "Nhèu ventada",
+        "persistentWeakLayers" : "Coches fèbles persistentes",
+        "wetSnow" : "Nhèu umida",
+        "glidingSnow" : "Esguitlaments basaus",
+        "favourableSituation" : "Situacion favorabla",
+        "cancel" : "Anullar"
+      }
+    },
+    "table" : {
+      "title" : {
+        "date" : "Data",
+        "status" : {
+          "IT-32-TN" : "Trentin",
+          "IT-32-BZ" : "Sud-Tiròl",
+          "AT-07" : "Tiròl",
+          "ES-CT-L" : "Aran"
+        },
+        "action" : "Accion",
+        "caaml" : "CAAML"
+      },
+      "status" : {
+        "missing" : "absent",
+        "draft" : "borrolhon",
+        "submitted" : "enviat",
+        "published" : "publicat",
+        "updated" : "actualizat",
+        "resubmitted" : "re-enviat",
+        "republished" : "re-publicat"
+      },
+      "edit" : "Editar",
+      "show" : "Mostrar",
+      "button" : {
+        "publish" : "Publicar"
+      },
+      "publishBulletinsDialog" : {
+        "header" : "Publicar bulletin",
+        "message" : "Vòs publicar eth bulletin?",
+        "missingDangerRating" : "Grad de perilh non establit",
+        "missingRegion" : "Regions sense grad de perilh",
+        "duplicateRegion" : "Regions avalorades diuèrsi viatges",
+        "missingAvActivityHighlights" : "Manque eth titular dera situacion de lauegi",
+        "missingAvActivityComment" : "Manque era descripcion deth perilh de lauegi",
+        "missingSnowpackStructureHighlights" : "Manque eth titular dera estructura deth celh de nhèu",
+        "missingSnowpackStructureComment" : "Manque era descripcion deth celh de nhèu",
+        "pendingSuggestions" : "Suggeriments pendenti",
+        "incompleteTranslation" : "Revirada incomplèta",
+        "accept" : "Òc",
+        "reject" : "Non"
+      },
+      "publicationStatusDialog" : {
+        "header" : "Estat dera publicacion",
+        "publishedBy" : "Publicat per:",
+        "publishedAt" : "Publicat a les:",
+        "validFor" : "Valid per:",
+        "tooltip" : {
+          "caaml" : {
+            "success" : "S'a creat eth fichèr CAAML",
+            "failed" : "Eth fichèr CAAML non s'a pogut crear"
+          },
+          "map" : {
+            "success" : "Mapes creadi",
+            "failed" : "Non s'an pogut crear es mapes"
+          },
+          "pdf" : {
+            "success" : "PDF creat",
+            "failed" : "Non s'a pogut crear eth PDF"
+          },
+          "staticWidget" : {
+            "success" : "S'a creat un widget estàtic",
+            "failed" : "Non s'a pogut crear un widget estàtic"
+          },
+          "html" : {
+            "success" : "HTML creat",
+            "failed" : "Non s'a pogut crear eth HTML"
+          },
+          "email" : {
+            "success" : "Corrèus electronics enviadi",
+            "failed" : "Non s'an pogut enviar es corrèus electronics"
+          },
+          "messengerpeople" : {
+            "success" : "Prediccion de lauegi enviada a trauès de Messengerpeople",
+            "failed" : "Non s'a pogut enviar era prediccion de lauegi a traués de Messengerpeople"
+          },
+          "telegramChannel" : {
+            "success" : "Prediccion de lauegi enviada a traués deth canau de Telegram",
+            "failed" : "Non s'a pogut enviar era prediccion de lauegi a traués deth canau de Telegram"
+          },
+          "twitter" : {
+            "success" : "Prediccion de lauegi enviada per Twitter",
+            "failed" : "Non s'a pogut enviar era prediccion de lauegi per Twitter"
+          }
+        },
+        "accept" : "d'acòrd"
+      },
+      "publishBulletinsErrorDialog" : {
+        "header" : "Error en publicar bulletins",
+        "message" : "S'a produsit un error en publicar bulletins!",
+        "accept" : "d'acòrd"
+      },
+      "submitBulletinsDialog" : {
+        "header" : "Enviar bulletin",
+        "message" : "Vòs enviar eth bulletin?",
+        "missingDangerRating" : "Grad de perilh non establit",
+        "missingRegion" : "Regions sense grad de perilh",
+        "duplicateRegion" : "Regions avalorades diuèrsi viatges",
+        "missingAvActivityHighlights" : "Manque eth titular dera situacion de lauegi",
+        "missingAvActivityComment" : "Manque era descripcion deth perilh de lauegi",
+        "missingSnowpackStructureHighlights" : "Manque eth titular dera estructura deth celh de nhèu",
+        "missingSnowpackStructureComment" : "Manque era descripcion deth celh de nhèu",
+        "pendingSuggestions" : "Suggeriments pendenti",
+        "incompleteTranslation" : "Revirada incomplèta",
+        "accept" : "Òc",
+        "reject" : "Non"
+      },
+      "submitBulletinsErrorDialog" : {
+        "header" : "Error en enviar bulletins",
+        "message" : "S'ha produït un error en enviar butlletins!",
+        "accept" : "d'acòrd"
+      },
+      "submitBulletinsDuplicateRegionDialog" : {
+        "header" : "Error en enviar bulletins",
+        "message" : "Regions avalorades diuèrsi còps! Non se pòt enviar eth bulletin.",
+        "accept" : "d'acòrd"
+      },
+      "checkBulletinsErrorDialog" : {
+        "header" : "Error en verificar es bulletins",
+        "message" : "S'a produsit un error en verificar es bulletins!",
+        "accept" : "d'acòrd"
+      },
+      "checkBulletinsDialog" : {
+        "header" : "Verificar eth bulletin",
+        "message" : "Verificar eth bulletin",
+        "missingDangerRating" : "Grad de perilh non establit",
+        "missingRegion" : "Regions sense grad de perilh",
+        "duplicateRegion" : "Regions avalorades diuèrsi viatges",
+        "missingAvActivityHighlights" : "Manque eth titular dera situacion de lauegi",
+        "missingAvActivityComment" : "Manque era descripcion deth perilh de lauegi",
+        "missingSnowpackStructureHighlights" : "Manque eth titular dera estructura deth celh de nhèu",
+        "missingSnowpackStructureComment" : "Manque era descripcion deth celh de nhèu",
+        "pendingSuggestions" : "Suggeriments pendenti",
+        "incompleteTranslation" : "Revirada incomplèta",
+        "ok" : "(tot corrècte)",
+        "accept" : "D'acòrd"
+      },
+      "publishAllDialog" : {
+        "message" : "Vòs publicar totes es regions?",
+        "accept" : "Òc",
+        "reject" : "Non"
+      }
+    },
+    "caaml" : {
+      "title" : "CAAML",
+      "caamlNotLoadedDialog" : {
+        "header" : "CAAML",
+        "message" : "Non s'a pogut cargar eth CAAML.",
+        "accept" : "D'acòrd"
+      },
+      "noCaamlDialog" : {
+        "header" : "CAAML",
+        "message" : "Non i a bulletin publicat disponible!",
+        "accept" : "D'acòrd"
+      }
+    },
+    "json" : {
+      "title" : "JSON",
+      "jsonNotLoadedDialog" : {
+        "header" : "JSON",
+        "message" : "Non s'a pogut cargar eth JSON!",
+        "accept" : "D'acòrd"
+      },
+      "noJsonDialog" : {
+        "header" : "JSON",
+        "message" : "Non i a bulletin publicat disponible!",
+        "accept" : "D'acòrd"
+      }
+    }
+  },
+  "admin" : {
+    "config" : {
+      "tabsocial" : "Configuracion deth corrèu electronic e hilats sociaus",
+      "addChannel" : "Híger canau",
+      "titleShipment": "Enviaments",
+      "title" : "Configuracion deth servidor",
+      "table" : {
+        "title" : {
+          "key" : "Paramètre",
+          "value" : "Valor"
+        },
+        "createMaps" : "Crear mapes",
+        "createPdf" : "Crear PDF",
+        "createStaticWidget" : "Crear widgets estàtics",
+        "createSimpleHtml" : "Crear HTML simple",
+        "sendEmails" : "Corrèus electronics enviadi",
+        "publishToMessengerpeople" : "Publicar a traués de Messengerpeople",
+        "publishToTelegramChannel" : "Publicar a traués deth canau de Telegram",
+        "publishAt5PM" : "Publicar as 5 PM",
+        "publishAt8AM" : "Publicar as 8 AM",
+        "localImagesPath" : "Rota cap as imatges locaus",
+        "localFontsPath" : "Rota cap as hònts",
+        "publishBulletinsTyrol" : "Publicar prediccion de lauegi per Tiròl",
+        "publishBulletinsSouthTyrol" : "Publicar prediccion de lauegi per Sud-Tiròl",
+        "publishBulletinsTrentino" : "Publicar prediccion de lauegi per Trentin",
+        "publishBlogsTyrol" : "Publicar entrades ath blòc per Tiròl",
+        "publishBlogsSouthTyrol" : "Publicar entrades ath blòc per Sud-Tiròl",
+        "publishBlogsTrentino" : "Publicar entrades ath blòc per Trentin",
+        "pdfDirectory" : "Directòri entà PDF",
+        "htmlDirectory" : "Directòri entà HTML",
+        "serverImagesUrl" : "Rota as imatges deth servidor",
+        "serverImagesUrlLocalhost" : "Rota as imatges deth servidor (locau)",
+        "univieMapsPath" : "Rota as mapes (Univie)",
+        "mapsPath" : "Rota as mapes",
+        "mapProductionUrl" : "URL entara produccion de mapes",
+        "scriptsPath" : "Rota as scripts"
+      },
+      "button" : {
+        "save" : "Sauvar",
+        "discard" : "Escartar"
+      }
+    }
+  },
+  "settings" : {
+    "title" : "Configuracion",
+    "changePassword" : {
+      "title" : "Cambiar contrasenya",
+      "oldPassword" : "Contrasenya actuau",
+      "newPassword1" : "Naua contrasenya",
+      "newPassword2" : "Naua contrasenya",
+      "oldPasswordHint" : "Se te platz, entre era tua contrasenya actuau",
+      "newPasswordHint1" : "Se te platz, entre ua naua contrasenya",
+      "newPasswordHint2" : "Se te platz, entre era naua contrasenya un aute còp",
+      "submit" : "Cambiar contrasenya",
+      "passwordChanged" : "Contrasenya cambiada corrèctaments",
+      "passwordChangeError" : "Non s'a pogut cambiar era contrasenya",
+      "passwordIncorrect" : "Contrasenya incorrècte",
+      "passwordsNotMatching" : "Les contrasenyes non coïncidissen",
+      "passwordEmpty" : "Manque era contrasenya"
+    },
+    "saveConfiguration" : {
+      "success" : "Configuracion sauvada corrèctaments",
+      "error" : "Non s'a pogut sauvar era configuracion"
+    },
+    "display" : {
+      "title" : "Visualizacion",
+      "table" : {
+        "showCaaml" : "Mostrar CAAML",
+        "showJson" : "Mostrar JSON",
+        "useMatrix" : "Utilizar mairitz",
+        "showObservations" : "Mostrar observacions"
+      }
+    }
+  },
+
+  "dangerRating" : {
+    "noRating" : "Sense grad de perilh",
+    "low" : "fèble",
+    "moderate" : "moderat",
+    "considerable" : "mercat",
+    "high" : "fòrt",
+    "veryHigh" : "molt fòrt"
+  },
+  "avalancheProblem" : {
+    "newSnow" : "Nhèu recenta",
+    "windDriftedSnow" : "Nhèu ventada",
+    "persistentWeakLayers" : "Coches fèbles persistentes",
+    "wetSnow" : "Nhèu umida",
+    "glidingSnow" : "Litsades basaus"
+  },
+  "dangerPattern" : {
+    "dp1" : "dp1:  capa fèbla persistenta e prigonda",
+    "dp2" : "dp2: litsades basaus",
+    "dp3" : "dp3: ploja",
+    "dp4" : "dp4: heired dempús de caud / caud dempús de heired",
+    "dp5" : "dp5: nheuades dempús d’un long periòde de heired",
+    "dp6" : "dp6: nhèu heireda, sense coesion e vent",
+    "dp7" : "dp7: zònes praubes de nhèu as environs rics en nhèu",
+    "dp8" : "dp8: geladiua de superfícia enterrada",
+    "dp9" : "dp9: graupel enterrat",
+    "dp10" : "dp10: scenari de primauera"
+  },
+  "aspect" : {
+    "N" : "N",
+    "NE" : "NE",
+    "E" : "E",
+    "SE" : "SE",
+    "S" : "S",
+    "SW" : "SW",
+    "W" : "W",
+    "NW" : "NW"
+  },
+  "region" : {
+    "AT-07" : "Tiròl",
+    "AT-07-01" : "Allgäu Alps",
+    "AT-07-02" : "Eastern Lechtal Alps - Ammergau Alps",
+    "AT-07-03" : "Mieming Mountains",
+    "AT-07-04" : "Karwendel Mountains",
+    "AT-07-05" : "Brandenberg Alps",
+    "AT-07-06" : "Wilder Kaiser Mountains - Waidring Alps",
+    "AT-07-07" : "Western Lechtal Alps",
+    "AT-07-08" : "Central Lechtal Alps",
+    "AT-07-09" : "Grieskogel Mountains",
+    "AT-07-10" : "Western Verwall Mountains",
+    "AT-07-11" : "Eastern Verwall Mountains",
+    "AT-07-12" : "Silvretta",
+    "AT-07-13" : "Samnaun Mountains",
+    "AT-07-14" : "Northern Oetz e Stubai Alps",
+    "AT-07-15" : "Western Tuxer Alps",
+    "AT-07-16" : "Eastern Tuxer Alps",
+    "AT-07-17" : "Western Kitzbühel Alps",
+    "AT-07-18" : "Eastern Kitzbühel Alps",
+    "AT-07-19" : "Glockturm Range",
+    "AT-07-20" : "Weißkugel Range",
+    "AT-07-21" : "Gurgler Range",
+    "AT-07-22" : "Central Stubai Alps",
+    "AT-07-23" : "Northern Zillertal Alps",
+    "AT-07-24" : "Venediger Range",
+    "AT-07-25" : "Eastern Rieserferner Mountains",
+    "AT-07-26" : "Glockner Range",
+    "AT-07-27" : "Eastern Deferegger Alps",
+    "AT-07-28" : "Schober Mountains",
+    "AT-07-29" : "Lienzer Dolomites",
+    "IT-32-BZ" : "Sud-Tiròl",
+    "IT-32-BZ-01" : "Val Müstair Alps",
+    "IT-32-BZ-02" : "Langtaufers",
+    "IT-32-BZ-03" : "Schnals Ridge",
+    "IT-32-BZ-04" : "Southern Stubai Alps",
+    "IT-32-BZ-05" : "Southern Zillertal Alps e High Tauern",
+    "IT-32-BZ-06" : "Saldurn-Mastaun Ridge",
+    "IT-32-BZ-07" : "Texel Mountains",
+    "IT-32-BZ-08" : "Sarntal Alps",
+    "IT-32-BZ-09" : "Western Pfunderer Mountains",
+    "IT-32-BZ-10" : "Eastern Pfunderer Mountains",
+    "IT-32-BZ-11" : "Durreck Range",
+    "IT-32-BZ-12" : "Western Rieserferner Mountains",
+    "IT-32-BZ-13" : "Western Deferegger Alps",
+    "IT-32-BZ-14" : "Ortler Range",
+    "IT-32-BZ-15" : "Ulten Valley",
+    "IT-32-BZ-16" : "Eastern Nonsberg Alps",
+    "IT-32-BZ-17" : "Northern Dolomites of Fiemme",
+    "IT-32-BZ-18" : "Gröden Dolomites",
+    "IT-32-BZ-19" : "Prags Dolomites",
+    "IT-32-BZ-20" : "Sexten Dolomites",
+    "IT-32-TN" : "Trentin",
+    "IT-32-TN-01" : "Adamello - Presanella",
+    "IT-32-TN-02" : "Southern Adamello",
+    "IT-32-TN-03" : "Bondone and Stivo",
+    "IT-32-TN-04" : "Northern Brenta - Peller",
+    "IT-32-TN-05" : "Southern Brenta",
+    "IT-32-TN-06" : "Folgaria - Lavarone",
+    "IT-32-TN-07" : "Northern Lagorai",
+    "IT-32-TN-08" : "Southern Lagorai",
+    "IT-32-TN-09" : "Latemar",
+    "IT-32-TN-10" : "Marzola - Valsugana",
+    "IT-32-TN-11" : "Paganella",
+    "IT-32-TN-12" : "Pre-Alps",
+    "IT-32-TN-13" : "Primiero - Pale di S. Martino",
+    "IT-32-TN-14" : "Vallarsa",
+    "IT-32-TN-15" : "Cembra Valley",
+    "IT-32-TN-16" : "Fassa Valley",
+    "IT-32-TN-17" : "Western Nonsberg Alps",
+    "IT-32-TN-18" : "Ledro Valley",
+    "IT-32-TN-19" : "Sole, Pejo and Rabbi",
+    "IT-32-TN-20" : "Maddalene",
+    "IT-32-TN-21" : "Pine' - Mocheni Valley",
+    "ES-CT-L" : "Aran",
+    "ES-CT-L-01" : "North and center of Aran",
+    "ES-CT-L-02" : "Southern limit of Aran",
+    "ES-CT-L-03" : "South slope of Aran"
+  },
+  "tendency" : {
+    "decreasing" : "Perilh de lauegi diminuís",
+    "steady" : "Perilh de lauegi seguís parièr",
+    "increasing" : "El perill d’allaus aumente"
+  },
+  "complexity": {
+    "easy": "Facil",
+    "challenging": "Exigent",
+    "complex": "Complèxe"
+  },
+  "changeRegionDialog" : {
+    "message" : "Vòs escartar es cambiaments e cambiar era region?",
+    "accept" : "Òc",
+    "reject" : "Non"
+  },
+  "zamg": {
+    "table" : "Taula",
+    "region" : "Region",
+    "newSnow" : "Nhèu recenta"
+  },
+  "snowpack" : {
+    "plotType" : {
+      "LWC_stratigraphy" : "nhèu umida: contengut d'aigua liquida",
+      "wet_snow_instability" : "nhèu umida: inestabilitat dera nhèu umida",
+      "Sk38_stratigraphy" : "Coches fèbles persistentes: indèx estabilitat SK38",
+      "stratigraphy" : "Coches fèbles persistentes: estratigrafia dera nhèu"
+    },
+    "aspect" : {
+      "flat" : "plan",
+      "north" : "nòrd",
+      "south" : "sud"
+    },
+    "meteo" : {
+      "new_snow_plot_3day" : "nhèu recènta (3d)",
+      "new_snow_plot_7day" : "nhèu recènta (7d)",
+      "new_snow_plot_1month" : "nhèu recènta (31d)",
+      "new_snow_plot_season" : "nhèu recènta (sason)",
+      "new_snow_plot_forecast" : "nhèu recènta (prediccion)",
+      "wet_snow_plot_3day" : "nhèu umida (3d)",
+      "wet_snow_plot_7day" : "nhèu umida (7d)",
+      "wet_snow_plot_1month" : "nhèu umida (31d)",
+      "wet_snow_plot_season" : "nhèu umida (sason)",
+      "wet_snow_plot_forecast" : "nhèu umida (prediccion)",
+      "HS_table_24h" : "taula nhèu recènta (1d)",
+      "HS_table_72h" : "taula nhèu recènta (3d)",
+      "HS_table_season" : "taula nhèu recènta (sason)",
+      "HS_table_forecast" : "taula nhèu recènta (prediccion)",
+      "TA_table_24h" : "taula nhèu umida (1d)",
+      "TA_table_72h" : "taula nhèu umida (3or)",
+      "TA_table_season" : "taula nhèu umida (sason)"
+    }
+  }
+}
