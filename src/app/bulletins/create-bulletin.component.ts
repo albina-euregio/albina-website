@@ -444,7 +444,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     let minZoom = 8;
     let maxZoom = 10;
 
-    if (this.authenticationService.getActiveRegion() == this.constantsService.codeAran) {
+    if (this.authenticationService.getActiveRegion() === this.constantsService.codeAran) {
       zoom = 10;
       minZoom = 8;
       maxZoom = 12;

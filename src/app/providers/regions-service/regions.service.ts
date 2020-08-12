@@ -16,37 +16,41 @@ export class RegionsService {
   }
 
   getRegionsEuregio(): FeatureCollection {
-    var data = RegionsEuregio as any;
-    for (var item in data.features) {
-      let name = this.translateService.instant("region." + data.features[item].properties.id);
-      data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
+    const data = RegionsEuregio as any;
+    for (const item in Object.keys(data.features)) {
+      if (data.features.hasOwnProperty(item)) {
+        data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
+      }
     }
     return data;
   }
 
   getRegionsEuregioWithElevation(): FeatureCollection {
-    var data = RegionsEuregioElevation as any;
-    for (var item in data.features) {
-      let name = this.translateService.instant("region." + data.features[item].properties.id);
-      data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
+    const data = RegionsEuregioElevation as any;
+    for (const item in data.features) {
+      if (data.features.hasOwnProperty(item)) {
+        data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
+      }
     }
     return data;
   }
 
   getRegionsAran(): FeatureCollection {
-    var data = RegionsAran as any;
-    for (var item in data.features) {
-      let name = this.translateService.instant("region." + data.features[item].properties.id);
-      data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
+    const data = RegionsAran as any;
+    for (const item in Object.keys(data.features)) {
+      if (data.features.hasOwnProperty(item)) {
+        data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
+      }
     }
     return data;
   }
 
   getRegionsAranWithElevation(): FeatureCollection {
-    var data = RegionsAranElevation as any;
-    for (var item in data.features) {
-      let name = this.translateService.instant("region." + data.features[item].properties.id);
-      data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
+    const data = RegionsAranElevation as any;
+    for (const item in Object.keys(data.features)) {
+      if (data.features.hasOwnProperty(item)) {
+        data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
+      }
     }
     return data;
   }
