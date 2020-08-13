@@ -295,7 +295,7 @@ export class BulletinsService {
     return this.http.get<Response>(url, options);
   }
 
-  loadBulletins(date: Date, regions?: String[]): Observable<Response> {
+  loadBulletins(date: Date, regions: String[]): Observable<Response> {
     let url = this.constantsService.getServerUrl() + "bulletins/edit?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     if (regions) {
       for (const region of regions) {

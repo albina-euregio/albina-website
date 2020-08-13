@@ -318,16 +318,22 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
             this.copyBulletins(data);
             this.bulletinsService.setCopyDate(undefined);
             // load foreign bulletins from the current date
-            this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
-              data2 => {
-                this.addForeignBulletins(data2);
-              },
-              () => {
-                console.error("Foreign bulletins could not be loaded!");
-                this.loading = false;
-                this.openLoadingErrorModal(this.loadingErrorTemplate);
-              }
-            );
+            if (this.authenticationService.isEuregio()) {
+              const foreignRegions = new Array<String>();
+              foreignRegions.push(this.constantsService.codeTyrol);
+              foreignRegions.push(this.constantsService.codeSouthTyrol);
+              foreignRegions.push(this.constantsService.codeTrentino);
+              this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate(), regions).subscribe(
+                data2 => {
+                  this.addForeignBulletins(data2);
+                },
+                () => {
+                  console.error("Foreign bulletins could not be loaded!");
+                  this.loading = false;
+                  this.openLoadingErrorModal(this.loadingErrorTemplate);
+                }
+              );
+            }
           },
           () => {
             console.error("Own bulletins could not be loaded!");
@@ -1921,7 +1927,15 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private loadBulletinsFromServer() {
-    this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate()).subscribe(
+    const regions = new Array<String>();
+    if (this.authenticationService.isEuregio()) {
+      regions.push(this.constantsService.codeTyrol);
+      regions.push(this.constantsService.codeSouthTyrol);
+      regions.push(this.constantsService.codeTrentino);
+    } else {
+      regions.push(this.authenticationService.getActiveRegion());
+    }
+    this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate(), regions).subscribe(
       data => {
         for (const jsonBulletin of (data as any)) {
           const bulletin = BulletinModel.createFromJson(jsonBulletin);
