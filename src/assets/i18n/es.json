@@ -578,9 +578,9 @@
     "IT-32-TN-20" : "Maddalene",
     "IT-32-TN-21" : "Pine' - Mocheni Valley",
     "ES-CT-L" : "Aran",
-    "ES-CT-L-01" : "North and center of Aran",
-    "ES-CT-L-02" : "Southern limit of Aran",
-    "ES-CT-L-03" : "South slope of Aran"
+    "ES-CT-L-01" : "Norte y centro de Aran",
+    "ES-CT-L-02" : "Límite sur de Aran",
+    "ES-CT-L-03" : "Vertiente sur de Aran"
   },
   "tendency" : {
     "decreasing" : "El peligro de aludes desciende",
