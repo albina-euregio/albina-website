@@ -90,10 +90,13 @@ export default class InfoBar extends React.Component {
 
   render() {
     // console.log("InfoBar->render", this.getI(this.levels[this.state.currentLevel], "message"));
-    const infoMessage = this.getI(
+    let infoMessage = this.getI(
       this.levels[this.state.currentLevel],
       "message"
     );
+    if (Array.isArray(infoMessage) && infoMessage.length) {
+      infoMessage = infoMessage[0];
+    }
     if (infoMessage)
       return (
         <section className="section controlbar fade-in">
