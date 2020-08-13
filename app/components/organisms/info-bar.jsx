@@ -22,10 +22,10 @@ export default class InfoBar extends React.Component {
   }
 
   resetInterval() {
-    // console.log("InfoBar->resetInterval", this.messageIntervall);
-    if (this.messageIntervall) {
-      clearTimeout(this.messageIntervall);
-      this.messageIntervall = undefined;
+    // console.log("InfoBar->resetInterval", this.messageInterval);
+    if (this.messageInterval) {
+      clearTimeout(this.messageInterval);
+      this.messageInterval = undefined;
     }
   }
 
@@ -43,8 +43,8 @@ export default class InfoBar extends React.Component {
         if (newLevel != this.delayedLevel) {
           // console.log("InfoBar->setInfoMessage #2" , nDelay);
           this.resetInterval();
-          this.messageIntervall = setTimeout(() => {
-            self.messageIntervall = undefined;
+          this.messageInterval = setTimeout(() => {
+            self.messageInterval = undefined;
             // console.log("InfoBar->TIMEOUT", newLevel,  self.state.currentLevel);
             if (newLevel != self.state.currentLevel) {
               self.setState({ currentLevel: newLevel });
