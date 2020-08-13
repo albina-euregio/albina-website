@@ -303,6 +303,7 @@
                             <textarea *ngIf="this.settingsService.getLangString() == 'fr'" id="textarea-input" name="textarea-input" rows="1" class="form-control" [disabled]="true" [ngModel]="activeHighlightsFr | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'es'" id="textarea-input" name="textarea-input" rows="1" class="form-control" [disabled]="true" [ngModel]="activeHighlightsEs | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'ca'" id="textarea-input" name="textarea-input" rows="1" class="form-control" [disabled]="true" [ngModel]="activeHighlightsCa | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'oc'" id="textarea-input" name="textarea-input" rows="1" class="form-control" [disabled]="true" [ngModel]="activeHighlightsOc | html"></textarea>
                           </div>
                         </div>
                       </div>
@@ -354,6 +355,13 @@
                           </div>
                         </div>
                       </div>
+                      <div *ngIf="this.settingsService.getLangString() != 'oc'" class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="2" class="form-control" [disabled]="true" [ngModel]="activeHighlightsOc | html"></textarea>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -376,6 +384,7 @@
                             <textarea *ngIf="this.settingsService.getLangString() == 'fr'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsFr | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'es'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsEs | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'ca'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsCa | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'oc'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsOc | html"></textarea>
                           </div>
                         </div>
                       </div>
@@ -437,6 +446,13 @@
                           </div>
                         </div>
                       </div>
+                      <div *ngIf="this.settingsService.getLangString() != 'oc'" class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityHighlightsOc | html"></textarea>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -460,6 +476,7 @@
                             <textarea *ngIf="this.settingsService.getLangString() == 'fr'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentFr | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'es'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentEs | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'ca'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentCa | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'oc'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentOc | html"></textarea>
                           </div>
                         </div>
                       </div>
@@ -518,6 +535,13 @@
                         <div class="form-group row">
                           <div class="col-md-12">
                             <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentCa | html"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="this.settingsService.getLangString() != 'oc'" class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeAvActivityCommentOc | html"></textarea>
                           </div>
                         </div>
                       </div>
@@ -586,6 +610,7 @@
                             <textarea *ngIf="this.settingsService.getLangString() == 'fr'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentFr | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'es'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentEs | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'ca'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentCa | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'oc'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentOc | html"></textarea>
                           </div>
                         </div>
                       </div>
@@ -647,6 +672,13 @@
                           </div>
                         </div>
                       </div>
+                      <div *ngIf="this.settingsService.getLangString() != 'oc'" class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeSnowpackStructureCommentOc | html"></textarea>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -705,6 +737,7 @@
                             <textarea *ngIf="this.settingsService.getLangString() == 'fr'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentFr | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'es'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentEs | html"></textarea>
                             <textarea *ngIf="this.settingsService.getLangString() == 'ca'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentCa | html"></textarea>
+                            <textarea *ngIf="this.settingsService.getLangString() == 'oc'" id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentOc | html"></textarea>
                           </div>
                         </div>
                       </div>
@@ -763,6 +796,13 @@
                         <div class="form-group row">
                           <div class="col-md-12">
                             <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentCa | html"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="this.settingsService.getLangString() != 'oc'" class="col-md-4">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <textarea id="textarea-input" name="textarea-input" rows="9" class="form-control" [disabled]="true" [ngModel]="activeTendencyCommentOc | html"></textarea>
                           </div>
                         </div>
                       </div>

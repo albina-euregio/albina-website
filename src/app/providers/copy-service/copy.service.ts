@@ -14,6 +14,7 @@ export class CopyService {
   private textFr: string;
   private textEs: string;
   private textCa: string;
+  private textOc: string;
 
   constructor(
     public constantsService: ConstantsService) {
@@ -85,6 +86,14 @@ export class CopyService {
     this.textCa = textCa;
   }
 
+  getTextOc(): string {
+    return this.textOc;
+  }
+
+  setTextOc(textOc: string) {
+    this.textOc = textOc;
+  }
+
   resetCopying() {
     this.copying = false;
     this.textTextcat = undefined;
@@ -94,5 +103,6 @@ export class CopyService {
     this.textFr = undefined;
     this.textEs = undefined;
     this.textCa = undefined;
+    this.textOc = undefined;
   }
 }
