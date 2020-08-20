@@ -11,7 +11,7 @@ import GridOverlay from "./grid-overlay";
 const StationOverlay = loadable(() =>
   import(/* webpackChunkName: "app-stationOverlay" */ "./station-overlay")
 );
-import { TileLayer } from "react-leaflet";
+import { TileLayer, ImageOverlay } from "react-leaflet";
 
 class WeatherMap extends React.Component {
   constructor(props) {
@@ -36,39 +36,25 @@ class WeatherMap extends React.Component {
           Array.isArray(zoomBounds) && zoomBounds.length == 2
             ? zoomBounds[1]
             : mapMaxZoom;
-
-        overlays.push(
-          <TileLayer
-            key="background-map"
-            className="leaflet-image-layer"
-            url={
-              config.apis.weather.overlays +
-              this.props.item.overlay.tms +
-              "/{z}/{x}/{y}.png"
-            }
-            minNativeZoom={Math.max(minZoom, mapMinZoom)}
-            minZoom={mapMinZoom}
-            maxNativeZoom={Math.min(maxZoom, mapMaxZoom)}
-            maxZoom={mapMaxZoom}
-            opacity={Base.checkBlendingSupport() ? 1 : 0.5}
-            bounds={this.props.item.bbox}
-            tms={true}
-            detectRetina={false}
-            updateWhenZooming={false}
-            updateWhenIdle={true}
-            updateInterval={1000}
-            onLoading={() => {
-              this.props.playerCB("background", "loading");
-            }}
-            onLoad={() => {
-              this.props.playerCB("background", "load");
-            }}
-            onTileerror={() => {
-              this.props.playerCB("background", "error");
-            }}
-            keepBuffer={4}
-          />
-        );
+        //console.log("wather-map->render xxx1:", this.props.overlay);
+        if (this.props.overlay) {
+          overlays.push(
+            <ImageOverlay
+              key="background-map"
+              className="leaflet-image-layer"
+              url={this.props.overlay + ".gif"}
+              opacity={Base.checkBlendingSupport() ? 1 : 0.5}
+              bounds={this.props.item.bbox}
+              onLoad={() => {
+                this.props.playerCB("background", "load");
+              }}
+              onError={err => {
+                this.props.playerCB("background", err);
+              }}
+            />
+          );
+          this.props.playerCB("background", "loading");
+        }
       }
 
       if (this.props.item.layer.grid && this.props.grid) {
