@@ -66,7 +66,7 @@
       "plots": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
       "stations": "https://api.avalanche.report/data/produkte/albina.geojson",
       "grid": "https://avalanche.report/transfer/data/albina_grid.json",
-      "overlays": "https://avalanche.report/transfer/data/"
+      "overlays": "https://avalanche.report/zamg_meteo/overlays/"
     }
   },
   "apiKeys": {
@@ -327,5 +327,197 @@
   "defaults": {
     "language": "auto",
     "ampm": "am"
+  },
+  "weathermaps": {
+    "settings": {
+      "timeRange": ["-72", "+72"],
+      "bbox": [[45.550166, 9.765425], [47.876629, 13.15927]],
+      "metaFiles": {
+        "agl": "agl.ok",
+        "startDate": "startDate.ok"
+      }
+    },
+    "domains": {
+      "snow-height": {
+        "domainDefault": false,
+        "domainIdStart": "-1",
+        "item": {
+          "timeSpans": ["-1"],
+          "defaultTimeSpan": null,
+          "units": "cm",
+          "thresholds": [1, 10, 25, 50, 100, 200, 300, 400],
+          "colors": {
+            "1": [255, 255, 254],
+            "2": [255, 255, 179],
+            "3": [176, 255, 188],
+            "4": [140, 255, 255],
+            "5": [3, 205, 255],
+            "6": [4, 129, 255],
+            "7": [3, 91, 190],
+            "8": [120, 75, 255],
+            "9": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "displayedItems": ["snow"],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "fresh-snow": {
+        "domainDefault": true,
+        "domainIdStart": "+6",
+        "item": {
+          "timeSpans": ["+6", "+12", "+24", "+48", "+72"],
+          "defaultTimeSpan": "+12",
+          "units": "cm",
+          "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+          "colors": {
+            "1": [255, 255, 254],
+            "2": [255, 255, 179],
+            "3": [176, 255, 188],
+            "4": [140, 255, 255],
+            "5": [3, 205, 255],
+            "6": [4, 129, 255],
+            "7": [3, 91, 190],
+            "8": [120, 75, 255],
+            "9": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": false,
+            "grid": true
+          },
+          "displayedItems": ["snow6f"],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "snow-height-diff": {
+        "domainDefault": false,
+        "domainIdStart": "+6",
+        "item": {
+          "timeSpans": ["-6", "-12", "-24", "-48", "-72"],
+          "defaultTimeSpan": null,
+          "overlay": {
+            "image": "{datetime}_diff-snow_{timespan}h.gif"
+          },
+          "units": "cm",
+          "thresholds": [-20, -10, -5, 1, 5, 10, 20, 30, 50, 75, 100],
+          "colors": {
+            "1": [255, 100, 100],
+            "2": [255, 160, 160],
+            "3": [255, 210, 210],
+            "4": [255, 255, 254],
+            "5": [255, 255, 179],
+            "6": [176, 255, 188],
+            "7": [140, 255, 255],
+            "8": [3, 205, 255],
+            "9": [4, 129, 255],
+            "10": [3, 91, 190],
+            "11": [120, 75, 255],
+            "12": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": false,
+            "grid": true
+          },
+          "displayedItems": ["snow72"],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "temp": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "units": "\u00b0C",
+          "thresholds": [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
+          "colors": {
+            "1": [159, 128, 255],
+            "2": [120, 75, 255],
+            "3": [3, 91, 190],
+            "4": [4, 129, 255],
+            "5": [3, 205, 255],
+            "6": [140, 255, 255],
+            "7": [176, 255, 188],
+            "8": [255, 255, 103],
+            "9": [255, 190, 130],
+            "10": [255, 154, 53],
+            "11": [255, 85, 54],
+            "12": [255, 5, 5],
+            "13": [250, 55, 150]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "displayedItems": ["temp"],
+          "direction": false,
+          "clusterOperation": "min"
+        }
+      },
+      "wind": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "units": "km/h",
+          "thresholds": [5, 10, 20, 40, 60, 80],
+          "colors": {
+            "1": [255, 255, 100],
+            "2": [200, 255, 100],
+            "3": [150, 255, 150],
+            "4": [50, 200, 255],
+            "5": [100, 150, 255],
+            "6": [150, 100, 255],
+            "7": [255, 50, 50]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "displayedItems": ["wspd", "wdir", null],
+          "direction": "wdir",
+          "clusterOperation": "max"
+        }
+      },
+      "wgus": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "units": "km/h",
+          "thresholds": [5, 10, 20, 40, 60, 80],
+          "colors": {
+            "1": [255, 255, 100],
+            "2": [200, 255, 100],
+            "3": [150, 255, 150],
+            "4": [50, 200, 255],
+            "5": [100, 150, 255],
+            "6": [150, 100, 255],
+            "7": [255, 50, 50]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "displayedItems": ["wgus", "wdir", null],
+          "direction": "wdir",
+          "clusterOperation": "max"
+        }
+      }
+    }
   }
 }

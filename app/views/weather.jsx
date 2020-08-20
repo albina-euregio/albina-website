@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { observer, inject } from "mobx-react";
+import { observer, inject, action } from "mobx-react";
+import { autorun } from "mobx";
 import { modal_open_by_params } from "../js/modal";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
@@ -11,16 +12,41 @@ import Menu from "../components/menu";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
+import WeatherMapStoreNew from "../stores/WeatherMapStore_new";
 
 import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
 import MapStore from "../stores/mapStore";
+import Player from "../js/player";
+import { observe } from "../../node_modules/mobx/lib/mobx";
 
 class Weather extends React.Component {
   constructor(props) {
     super(props);
 
     this.store = new WeatherMapStore(this.props.match.params.domain);
+    if (!config.player) {
+      config.player = new Player({
+        transitionTime: 500,
+        avalailableTimes: null,
+        owner: this,
+        onTick: this.onTick
+      });
+    }
+
+    if (!config.newWM) {
+      config.newWM = new WeatherMapStoreNew(this.props.match.params.domain);
+      autorun(() => {
+        console.log(
+          "weatherMapStore_new->weather: yyyy",
+          config.newWM.timeIndices.length
+        );
+        config.player.setAvailableTimes(config.newWM.timeIndices);
+      });
+    } else config.newWM.changeDomain(this.props.match.params.domain);
+
+    //config.player.start();
+
     console.log("Weather: Store:", this.store);
     this.state = {
       title: "",
@@ -36,6 +62,11 @@ class Weather extends React.Component {
       window.mapStore = new MapStore();
     }
     this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
+  }
+
+  onTick(newTime) {
+    console.log("onTick xxx1", newTime, new Date(newTime));
+    config.newWM.changeTimeIndex(newTime);
   }
 
   componentDidUpdate() {
@@ -102,6 +133,8 @@ class Weather extends React.Component {
           };
         })
       : [];
+    console.log("Weather->render xxxx1", config.newWM.overlayFileName);
+
     return (
       <>
         <HTMLHeader
@@ -158,9 +191,17 @@ class Weather extends React.Component {
                 domainId={this.store.domainId}
                 domain={this.store.domain}
                 itemId={this.store.itemId}
+                timeArray={config.newWM.timeIndices}
+                startDate={config.newWM.startDate}
+                overlay={config.newWM.overlayFileName}
+                eventCallback={id => {
+                  console.log("Timeselector clicked", id);
+                  config.newWM.changeTimeIndex(id);
+                }}
                 item={this.store.item}
                 grid={this.store.grid}
                 stations={this.store.stations}
+                playerCB={config.player.onEvent.bind(config.player)}
                 selectedFeature={this.store.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}
