@@ -38,10 +38,11 @@ class Weather extends React.Component {
       config.newWM = new WeatherMapStoreNew(this.props.match.params.domain);
       autorun(() => {
         console.log(
-          "weatherMapStore_new->weather: yyyy",
+          "weatherMapStore_new->autorun: yyyy",
           config.newWM.timeIndices.length
         );
-        config.player.setAvailableTimes(config.newWM.timeIndices);
+        if (config.newWM.timeIndices.length > 0)
+          config.player.setAvailableTimes(config.newWM.timeIndices);
       });
     } else config.newWM.changeDomain(this.props.match.params.domain);
 

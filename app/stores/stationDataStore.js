@@ -1,5 +1,6 @@
 import { observable, action, computed } from "mobx";
 import axios from "axios";
+import { Util } from "leaflet";
 
 export class StationData {
   constructor(object) {
@@ -187,16 +188,27 @@ export default class StationDataStore {
   }
 
   @action
-  load(dateTime) {
-    //todo add datatime logic
-    return axios.get(config.apis.weather.stations).then(response => {
-      this.data = response.data.features
-        .filter(el => el.properties.date)
-        .map(feature => new StationData(feature))
-        .sort((f1, f2) =>
-          f1.properties.name.localeCompare(f2.properties.name, "de")
-        );
-      return this.data;
-    });
+  load(timePrefix) {
+    console.log(
+      "StationDataStore->load",
+      timePrefix,
+      Util.template(window.config.apis.weather.stations, { dateTime: "" })
+    );
+
+    return axios
+      .get(
+        Util.template(window.config.apis.weather.stations, {
+          dateTime: timePrefix
+        })
+      )
+      .then(response => {
+        this.data = response.data.features
+          .filter(el => el.properties.date)
+          .map(feature => new StationData(feature))
+          .sort((f1, f2) =>
+            f1.properties.name.localeCompare(f2.properties.name, "de")
+          );
+        return this.data;
+      });
   }
 }

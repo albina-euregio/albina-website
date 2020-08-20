@@ -38,8 +38,19 @@ export default class WeatherMapStore_new {
   */
   _loadData() {
     this._loading.set(true);
+    console.log(
+      "_loadData this.currentTimeIndex yyyy",
+      this._timeIndicesIndex.get(),
+      this._timeIndices,
+      this.currentTimeIndex
+    );
+    let prefix =
+      this.currentTimeIndex && this.currentTimeIndex
+        ? dateFormat(new Date(this.currentTimeIndex), "%Y-%m-%d_%H-%M", true) +
+          "_"
+        : "";
     const loads = [
-      new StationDataStore(this.currentTimeIndex).load().then(features => {
+      new StationDataStore().load(prefix).then(features => {
         this.stations = {
           features
         };
@@ -55,7 +66,7 @@ export default class WeatherMapStore_new {
             this.config.settings.metaFiles.agl
         )
         .then(response => {
-          console.log("_loadData agl data", response.data);
+          //console.log("_loadData agl data", response.data);
           if (response.data.includes("T"))
             this._dateStart = new Date(response.data.trim());
         }),
@@ -67,7 +78,7 @@ export default class WeatherMapStore_new {
             this.config.settings.metaFiles.startDate
         )
         .then(response => {
-          console.log("_loadData startdate data", response.data);
+          //console.log("_loadData startdate data", response.data);
           if (response.data.includes("T"))
             this._agl = new Date(response.data.trim());
         })
@@ -177,15 +188,15 @@ export default class WeatherMapStore_new {
         new Date(this._timeIndices[this._timeIndicesIndex.get()]).getUTCDate()
       );
 
-      return (
-        config.apis.weather.overlays +
-        this._domainId.get() +
-        "/" +
-        dateFormat(datePlusOffset, "%Y-%m-%d_%H-%M", true) +
-        "_" +
-        this._domainId.get() +
-        (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h" : "")
-      );
+      // return (
+      //   config.apis.weather.overlays +
+      //   this._domainId.get() +
+      //   "/" +
+      //   dateFormat(datePlusOffset, "%Y-%m-%d_%H-%M", true) +
+      //   "_" +
+      //   this._domainId.get() +
+      //   (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h" : "")
+      // );
     }
     return false;
   }
@@ -221,7 +232,7 @@ export default class WeatherMapStore_new {
   @action changeDomain(domainId) {
     console.log("weatherMapStore_new changeDomain: " + domainId);
 
-    if (this.checkDomainId(domainId)) {
+    if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
       this._domainId.set(domainId);
       this._timeSpan.set(null);
       this.changeTimeSpan(
@@ -235,7 +246,7 @@ export default class WeatherMapStore_new {
     calc indeces for timespan
   */
   _setTimeIndices = function() {
-    console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
+    //console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
     let indices = [];
     let currentTimespan = this._timeSpan.get();
 
@@ -247,12 +258,12 @@ export default class WeatherMapStore_new {
       ? 1
       : -1;
 
-    console.log(
-      "weatherMapStore_new _setTimeIndices #1",
-      this._dateStart,
-      timeSpanDir,
-      this._absTimeSpan
-    );
+    // console.log(
+    //   "weatherMapStore_new _setTimeIndices #1",
+    //   this._dateStart,
+    //   timeSpanDir,
+    //   this._absTimeSpan
+    // );
 
     if (timeSpanDir >= 0) {
       currentTime = new Date(this._agl);
@@ -280,19 +291,19 @@ export default class WeatherMapStore_new {
         currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
         console.log(
           "weatherMapStore_new _setTimeIndices add date",
-          new Date(currentTime),
-          maxTime
+          currentTime,
+          currentTime.getTime()
         );
       }
     }
     if (timeSpanDir === 0) indices.sort();
     //console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
-    indices.map(aItem => {
-      console.log(
-        "weatherMapStore_new _setTimeIndices: new indices",
-        new Date(aItem)
-      );
-    });
+    // indices.map(aItem => {
+    //   console.log(
+    //     "weatherMapStore_new _setTimeIndices: new indices",
+    //     new Date(aItem)
+    //   );
+    // });
     this._timeIndices = indices;
     this._timeIndicesIndex.set(0);
   };

@@ -21,7 +21,7 @@ export default class WeatherMapStore {
         this.config = response.data;
         console.log("this.config", this.config);
       }),
-      new StationDataStore().load().then(features => {
+      new StationDataStore().load("").then(features => {
         this.stations = { features };
       }),
       axios.get(config.apis.weather.grid).then(response => {
