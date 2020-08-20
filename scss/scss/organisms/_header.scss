@@ -47,6 +47,8 @@
   .bulletin-datetime-publishing {
   }
   .bulletin-datetime-validity {
+    //from alien app.scss
+    @include rollout;
   }
 
   .subheadern,
@@ -60,6 +62,13 @@
     .switch-text {
       display: inline-block;
       margin: 0;
+    }
+  }
+
+  //from alien app.scss
+  &.loading {
+    .bulletin-datetime-validity {
+      opacity: 0.5;
     }
   }
 
@@ -140,3 +149,10 @@ ul.bulletin-flipper {
     }
   }
 }
+
+//from alien app.scss
+// @media only screen and (min-width: 64em) {
+//   .page-headline header {
+//     padding: 0 25px;
+//   }
+// }

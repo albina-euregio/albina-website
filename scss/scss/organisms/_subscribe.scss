@@ -41,6 +41,11 @@
   }
 }
 
+//from alien app.scss
+.status-message .error {
+  color: $error-color;
+}
+
 .app-dl {
   .app-logo {
     max-width: 5em;
@@ -61,4 +66,17 @@
     max-width: 100%;
     border: none;
   }
+}
+
+//from alien app.scss
+a.share-feed {
+  line-height: 2em;
+  background: url("../images/pro/feed-icon-28x28.png");
+  background-repeat: no-repeat;
+  background-size: 1.3em 1.3em;
+  padding-left: 1.5em;
+}
+//from alien app.scss
+.modal-subscribe .blog-language {
+  @include font-bold;
 }

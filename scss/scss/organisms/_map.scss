@@ -537,3 +537,10 @@ a.weather-map-details-button {
     border-color: $anchor-font-color;
   }
 }
+
+//from alien app.scss
+.weather-map-icon {
+  position: absolute;
+  right: 10px;
+  width: 150px;
+}

@@ -46,6 +46,11 @@
         margin-right: 0;
       }
     }
+
+    //from alien app.scss
+    .sort-disabled {
+      visibility: hidden;
+    }
   }
 
   tbody {
@@ -62,6 +67,12 @@
         text-align: left;
       }
     }
+
+    //from alien app.scss
+    td.mb-wind {
+      white-space: nowrap;
+    }
+
     .region {
       font-size: $micro-font-size;
     }

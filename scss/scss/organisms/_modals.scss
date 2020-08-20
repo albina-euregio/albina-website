@@ -58,7 +58,8 @@ $mfp-caption-subtitle-color: $white; //Caption subtitle color
 // A11y
 $mfp-use-visuallyhidden: false; // Hide content from browsers, but make it available for screen readers
 
-@import "../../../bower_components/magnific-popup_1.1.0/src/css/main.scss";
+//@import "../../../bower_components/magnific-popup_1.1.0/src/css/main.scss";
+@import "../../../node_modules/magnific-popup/src/css/main.scss";
 
 .mfp-bg {
 }
@@ -135,6 +136,9 @@ $mfp-use-visuallyhidden: false; // Hide content from browsers, but make it avail
 //close
 button.mfp-close,
 button.mfp-arrow {
+  //from alien app.scss
+  cursor: pointer;
+
   @include ir;
   position: fixed !important;
   top: $padding;
@@ -151,6 +155,9 @@ button.mfp-arrow {
 
   @include icon(close, "auto", 0, $brand, 0, "none");
   &:before {
+    //from alien app.scss
+    cursor: pointer;
+
     position: absolute !important;
     top: 0 !important;
     left: 0 !important;
@@ -161,7 +168,9 @@ button.mfp-arrow {
   }
 
   &:hover {
-    cursor: zoom-out;
+    //from alien app.scss
+    cursor: pointer;
+
     color: $brand-dark;
     background-color: $white;
     @include rollover;

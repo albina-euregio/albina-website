@@ -59,6 +59,15 @@
   }
 }
 
+//from alien app.scss
+@media (hover: none) {
+  // disable hover styles on touch devices
+  .controlbar .filter a.label:not(.js-active):hover {
+    color: #fff;
+    background: transparent;
+  }
+}
+
 .controlbar-notice {
   @extend .bg-warning-level-2;
   @include text-color($black);
