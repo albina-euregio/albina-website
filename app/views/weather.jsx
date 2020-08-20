@@ -25,20 +25,27 @@ class Weather extends React.Component {
     super(props);
 
     this.store = new WeatherMapStore(this.props.match.params.domain);
+    if (!config.player) {
+      config.player = new Player({
+        transitionTime: 500,
+        avalailableTimes: null,
+        owner: this,
+        onTick: this.onTick
+      });
+    }
+
     if (!config.newWM) {
       config.newWM = new WeatherMapStoreNew(this.props.match.params.domain);
-      autorun(() =>
-        console.log("weatherMapStore_new->weather: ", config.newWM.loading)
-      );
+      autorun(() => {
+        console.log(
+          "weatherMapStore_new->weather: yyyy",
+          config.newWM.timeIndices.length
+        );
+        config.player.setAvailableTimes(config.newWM.timeIndices);
+      });
     } else config.newWM.changeDomain(this.props.match.params.domain);
 
-    this.player = new Player({
-      transitionTime: 3000,
-      avalailableTimes: ["", "temp12f", "temp24f", "temp48f"],
-      owner: this,
-      onTick: this.onTick
-    });
-    //this.player.start();
+    //config.player.start();
 
     console.log("Weather: Store:", this.store);
     this.state = {
@@ -58,8 +65,8 @@ class Weather extends React.Component {
   }
 
   onTick(newTime) {
-    console.log("onTick xxx", newTime, this.store.itemId);
-    this.store.changeItem(newTime);
+    console.log("onTick xxx1", newTime, new Date(newTime));
+    config.newWM.changeTimeIndex(newTime);
   }
 
   componentDidUpdate() {
@@ -126,6 +133,7 @@ class Weather extends React.Component {
           };
         })
       : [];
+    console.log("Weather->render xxxx1", config.newWM.overlayFileName);
 
     return (
       <>
@@ -185,6 +193,7 @@ class Weather extends React.Component {
                 itemId={this.store.itemId}
                 timeArray={config.newWM.timeIndices}
                 startDate={config.newWM.startDate}
+                overlay={config.newWM.overlayFileName}
                 eventCallback={id => {
                   console.log("Timeselector clicked", id);
                   config.newWM.changeTimeIndex(id);
@@ -192,7 +201,7 @@ class Weather extends React.Component {
                 item={this.store.item}
                 grid={this.store.grid}
                 stations={this.store.stations}
-                playerCB={this.player.onEvent.bind(this.player)}
+                playerCB={config.player.onEvent.bind(config.player)}
                 selectedFeature={this.store.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}

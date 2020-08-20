@@ -2,7 +2,7 @@ export default class Player {
   _itemsToLoad;
   _intervalID;
   _transitionTime;
-  _avalailableTimes;
+  _availableTimes;
   _onTick;
   _currentTimeId;
   _tickOverdue;
@@ -12,7 +12,7 @@ export default class Player {
     console.log("PlayerStore->constructor: ", options);
     this._itemsToLoad = [];
     this._owner = options.owner || self;
-    this._avalailableTimes = options.avalailableTimes;
+    this._availableTimes = options._availableTimes;
     this._transitionTime = options.transitionTime || 1000;
     this._onTick = options.onTick || null;
     this._currentTimeId = 0;
@@ -35,28 +35,25 @@ export default class Player {
 
   _tick() {
     //to be implemented
-    //console.log("PlayerStore->tick: ");
+    console.log("PlayerStore->tick: yyyy1", this);
     if (this._itemsToLoad.length > 0) {
       console.log("PlayerStore->tick: Waiting for xxx", this._itemsToLoad);
       this._tickOverdue = true;
       return;
     }
-    if (this._avalailableTimes.length > 0) {
-      if (this._currentTimeId >= this._avalailableTimes.length - 1)
+    if (this._availableTimes.length > 0) {
+      if (this._currentTimeId >= this._availableTimes.length - 1)
         this._currentTimeId = 0;
       else this._currentTimeId++;
       this._tickOverdue = false;
-    } else this._currentTime.set(null);
-    //this._currentTime.set(this._avalailableTimes[this._currentTimeId]);
+    } else this._currentTimeId = null;
+    //this._currentTime.set(this._availableTimes[this._currentTimeId]);
     console.log(
       "################ PlayerStore->tick - after: xxx",
-      this._avalailableTimes[this._currentTimeId]
+      this._availableTimes[this._currentTimeId]
     );
     if (this._onTick)
-      this._onTick.call(
-        this._owner,
-        this._avalailableTimes[this._currentTimeId]
-      );
+      this._onTick.call(this._owner, this._availableTimes[this._currentTimeId]);
   }
 
   reset() {
@@ -89,10 +86,11 @@ export default class Player {
   }
 
   setAvailableTimes(availableTimes) {
+    console.log("PlayerStore->setAvailableTimes: yyyy1", availableTimes);
     this._availableTimes = availableTimes;
   }
 
   get currentTime() {
-    return this._avalailableTimes[this._currentTimeId];
+    return this._availableTimes[this._currentTimeId];
   }
 }

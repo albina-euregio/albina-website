@@ -66,7 +66,7 @@
       "plots": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
       "stations": "https://api.avalanche.report/data/produkte/albina.geojson",
       "grid": "https://avalanche.report/transfer/data/albina_grid.json",
-      "overlays": "https://avalanche.report/transfer/data/"
+      "overlays": "https://avalanche.report/zamg_meteo/overlays/"
     }
   },
   "apiKeys": {
@@ -331,18 +331,19 @@
   "weathermaps": {
     "settings": {
       "timeRange": ["-72", "+72"],
-      "bbox": [[45.550166, 9.765425], [47.876629, 13.15927]]
+      "bbox": [[45.550166, 9.765425], [47.876629, 13.15927]],
+      "metaFiles": {
+        "agl": "agl.ok",
+        "startDate": "startDate.ok"
+      }
     },
     "domains": {
-      "snow_height": {
+      "snow-height": {
         "domainDefault": false,
         "domainIdStart": "-1",
         "item": {
           "timeSpans": ["-1"],
           "defaultTimeSpan": null,
-          "overlay": {
-            "image": "{dateTime}_snow_height.gif"
-          },
           "units": "cm",
           "thresholds": [1, 10, 25, 50, 100, 200, 300, 400],
           "colors": {
@@ -366,15 +367,12 @@
           "clusterOperation": "max"
         }
       },
-      "fresh_snow": {
+      "fresh-snow": {
         "domainDefault": true,
         "domainIdStart": "+6",
         "item": {
           "timeSpans": ["+6", "+12", "+24", "+48", "+72"],
           "defaultTimeSpan": "+12",
-          "overlay": {
-            "image": "{datetime}_new-snow_{timespan}h.gif"
-          },
           "units": "cm",
           "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
           "colors": {
@@ -398,7 +396,7 @@
           "clusterOperation": "max"
         }
       },
-      "snow_height_diff": {
+      "snow-height-diff": {
         "domainDefault": false,
         "domainIdStart": "+6",
         "item": {
@@ -439,9 +437,6 @@
         "item": {
           "timeSpans": ["+-1"],
           "defaultTimeSpan": null,
-          "overlay": {
-            "image": "{datetime}_temp.gif"
-          },
           "units": "\u00b0C",
           "thresholds": [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
           "colors": {
@@ -475,9 +470,6 @@
         "item": {
           "timeSpans": ["+-1"],
           "defaultTimeSpan": null,
-          "overlay": {
-            "image": "{datetime}_wind.gif"
-          },
           "units": "km/h",
           "thresholds": [5, 10, 20, 40, 60, 80],
           "colors": {
@@ -505,9 +497,6 @@
         "item": {
           "timeSpans": ["+-1"],
           "defaultTimeSpan": null,
-          "overlay": {
-            "image": "{datetime}_gust.gif"
-          },
           "units": "km/h",
           "thresholds": [5, 10, 20, 40, 60, 80],
           "colors": {
