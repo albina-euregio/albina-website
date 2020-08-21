@@ -114,6 +114,7 @@ export default class StationOverlay extends React.Component {
     if (this.props.onLoad) this.props.onLoad();
   }
   render() {
+    console.log("station-overlay->render", this.props);
     const points = this.props.features.filter(
       point => point[this.props.item.id] !== false
     );

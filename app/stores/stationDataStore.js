@@ -189,18 +189,13 @@ export default class StationDataStore {
 
   @action
   load(timePrefix) {
-    console.log(
-      "StationDataStore->load",
-      timePrefix,
-      Util.template(window.config.apis.weather.stations, { dateTime: "" })
-    );
+    let stationsFile = Util.template(window.config.apis.weather.stations, {
+      dateTime: timePrefix
+    });
+    console.log("StationDataStore->load", timePrefix, stationsFile);
 
     return axios
-      .get(
-        Util.template(window.config.apis.weather.stations, {
-          dateTime: timePrefix
-        })
-      )
+      .get(stationsFile)
       .then(response => {
         this.data = response.data.features
           .filter(el => el.properties.date)
@@ -209,6 +204,12 @@ export default class StationDataStore {
             f1.properties.name.localeCompare(f2.properties.name, "de")
           );
         return this.data;
+      })
+      .catch(error => {
+        if (error.response.status === 404) {
+          console.log("StationDataStore->load could not load", stationsFile);
+          return [];
+        } else return Promise.reject(error.response);
       });
   }
 }

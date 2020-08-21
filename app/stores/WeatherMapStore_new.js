@@ -36,28 +36,12 @@ export default class WeatherMapStore_new {
   /* 
     get data
   */
-  _loadData() {
+  _loadDomainData() {
     this._loading.set(true);
-    console.log(
-      "_loadData this.currentTimeIndex yyyy",
-      this._timeIndicesIndex.get(),
-      this._timeIndices,
-      this.currentTimeIndex
-    );
-    let prefix =
-      this.currentTimeIndex && this.currentTimeIndex
-        ? dateFormat(new Date(this.currentTimeIndex), "%Y-%m-%d_%H-%M", true) +
-          "_"
-        : "";
+
+    console.log("_loadDomainData this.currentTimeIndex bbb");
+
     const loads = [
-      new StationDataStore().load(prefix).then(features => {
-        this.stations = {
-          features
-        };
-      }),
-      axios.get(config.apis.weather.grid).then(response => {
-        this.grid = response.data;
-      }),
       axios
         .get(
           config.apis.weather.overlays +
@@ -66,7 +50,7 @@ export default class WeatherMapStore_new {
             this.config.settings.metaFiles.agl
         )
         .then(response => {
-          //console.log("_loadData agl data", response.data);
+          console.log("WeatherMapStore_new->_loadData aaa: AGL");
           if (response.data.includes("T"))
             this._dateStart = new Date(response.data.trim());
         }),
@@ -78,7 +62,7 @@ export default class WeatherMapStore_new {
             this.config.settings.metaFiles.startDate
         )
         .then(response => {
-          //console.log("_loadData startdate data", response.data);
+          console.log("WeatherMapStore_new->_loadData aaa: Startdate");
           if (response.data.includes("T"))
             this._agl = new Date(response.data.trim());
         })
@@ -87,12 +71,59 @@ export default class WeatherMapStore_new {
     Promise.all(loads)
       .then(() => {
         this._loading.set(false);
-        console.log("Weathermap_new: loaded", this);
+        console.log("Weathermap_new->_loadDomainData: loaded aaa", this);
         this._setTimeIndices();
+        this._loadIndexData();
       })
       .catch(err => {
         // TODO fail with error dialog
-        console.error("Weather data API is not available", err);
+        console.error("Weather data API is not available aaa", err);
+      });
+  }
+
+  /* 
+    get data for currentTimeIndex
+  */
+  _loadIndexData() {
+    this._loading.set(true);
+
+    let cTI = new Date(this.currentTimeIndex);
+    cTI.setHours(cTI.getHours() - 4);
+
+    console.log(
+      "_loadData this.currentTimeIndex bbb",
+      new Date(this.currentTimeIndex),
+      cTI
+    );
+
+    let prefix =
+      this.currentTimeIndex && this.currentTimeIndex
+        ? dateFormat(new Date(cTI.getTime()), "%Y-%m-%d_%H-%M", true) + "_"
+        : "";
+    const loads = [
+      new StationDataStore().load(prefix).then(features => {
+        console.log(
+          "WeatherMapStore_new->_loadData aaa: StationDataStore",
+          features
+        );
+        this.stations = {
+          features
+        };
+      }),
+      axios.get(config.apis.weather.grid).then(response => {
+        console.log("WeatherMapStore_new->_loadData aaa: Grid");
+        this.grid = response.data;
+      })
+    ];
+
+    Promise.all(loads)
+      .then(() => {
+        this._loading.set(false);
+        console.log("Weathermap_new->_loadIndexData: loaded bbb", this);
+      })
+      .catch(err => {
+        // TODO fail with error dialog
+        console.error("Data for timeindex not available", err);
       });
   }
 
@@ -289,21 +320,22 @@ export default class WeatherMapStore_new {
         if (timeSpanDir != 0 || !indices.includes(currentTime.getTime()))
           indices.push(new Date(currentTime).getTime());
         currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
-        console.log(
-          "weatherMapStore_new _setTimeIndices add date",
-          currentTime,
-          currentTime.getTime()
-        );
+        // console.log(
+        //   "weatherMapStore_new _setTimeIndices add date",
+        //   currentTime,
+        //   currentTime.getTime()
+        // );
       }
     }
     if (timeSpanDir === 0) indices.sort();
-    //console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
-    // indices.map(aItem => {
-    //   console.log(
-    //     "weatherMapStore_new _setTimeIndices: new indices",
-    //     new Date(aItem)
-    //   );
-    // });
+    console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
+    indices.map(aItem => {
+      console.log(
+        "weatherMapStore_new _setTimeIndices: new indices",
+        new Date(aItem),
+        aItem
+      );
+    });
     this._timeIndices = indices;
     this._timeIndicesIndex.set(0);
   };
@@ -347,7 +379,7 @@ export default class WeatherMapStore_new {
     ) {
       this._timeIndicesIndex.set(0);
       this._timeSpan.set(timeSpan);
-      this._loadData();
+      this._loadDomainData();
       this.selectedFeature = null;
     } else console.error("Timespan does not exist!", timeSpan);
   }
@@ -357,7 +389,7 @@ export default class WeatherMapStore_new {
   */
   @action changeTimeIndex(timeIndex) {
     console.log(
-      "weatherMapStore_new: changeTimeIndex",
+      "weatherMapStore_new: changeTimeIndex bbb",
       timeIndex,
       this._timeIndices
     );
@@ -366,6 +398,7 @@ export default class WeatherMapStore_new {
       this._timeIndicesIndex.get() !== this._timeIndices.indexOf(timeIndex)
     ) {
       this._timeIndicesIndex.set(this._timeIndices.indexOf(timeIndex));
+      this._loadIndexData();
       this.selectedFeature = null;
     }
   }

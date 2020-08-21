@@ -200,8 +200,8 @@ class Weather extends React.Component {
                   config.newWM.changeTimeIndex(id);
                 }}
                 item={this.store.item}
-                grid={this.store.grid}
-                stations={this.store.stations}
+                grid={config.newWM.grid}
+                stations={config.newWM.stations}
                 playerCB={config.player.onEvent.bind(config.player)}
                 selectedFeature={this.store.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
