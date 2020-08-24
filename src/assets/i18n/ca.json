@@ -201,7 +201,7 @@
         "accept" : "D'acord"
       },
       "avalancheSituationErrorDialog" : {
-        "header" : "Incomplete avalanche situation",
+        "header" : "Incomplete avalanche problem",
         "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
         "accept" : "D'acord"
       },

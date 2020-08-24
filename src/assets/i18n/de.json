@@ -201,7 +201,7 @@
         "accept" : "Ok"
       },
       "avalancheSituationErrorDialog" : {
-        "header" : "Unvollständiges Lawinenproblem",
+        "header" : "Incomplete avalanche problem",
         "message" : "Lawinenproblem Art, Exposition und/oder Gefahrenstufe fehlen bei mindestens einem Lawinenproblem",
         "accept" : "Ok"
       },

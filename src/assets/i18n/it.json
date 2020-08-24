@@ -27,10 +27,10 @@
     "language" : "Lingua",
     "en" : "English",
     "de" : "Tedesco",
-    "fr" : "French",
+    "fr" : "Francese",
     "it" : "Italiano",
-    "es" : "Spanish",
-    "ca" : "Catalan",
+    "es" : "Spagnolo",
+    "ca" : "Catalano",
     "oc" : "Aranese",
     "fullscreen" : "A schermo pieno ",
     "settings" : "Impostazioni",
@@ -83,9 +83,9 @@
           "increasing" : "Pericolo valanghe in aumento"
         },
         "complexity" : {
-          "easy" : "Assessment in the field is easy",
-          "challenging" : "Assessment in the field is challenging",
-          "complex" : "Assessment in the field is complex"
+          "easy" : "La valutazione sul terreno è facile",
+          "challenging" : "La valutazione sul terreno è impegnativo",
+          "complex" : "La valutazione sul terreno è complesso"
         },
         "textcat" : {
           "edit" : "Modifica",
@@ -94,12 +94,12 @@
           "example" : "Carica esempio testo",
           "delete" : "Elimina"
         },
-        "showInBulletin" : "Avalanche problem will be shown in bulletin",
-        "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
-        "moveUpAvalancheSituation" : "Move avalanche problem up",
-        "moveDownAvalancheSituation" : "Move avalanche problem down",
-        "dangerRatingDirectionUp" : "Extend the danger rating upwards",
-        "dangerRatingDirectionDown" : "Extend the danger rating downwards"
+        "showInBulletin" : "Problema valanghivo verra mostrato nel bollettino",
+        "dontShowInBulletin" : "Problema valanghivo NON verra mostrato nel bollettino",
+        "moveUpAvalancheSituation" : "Spostare problema valanghivo verso l'alto",
+        "moveDownAvalancheSituation" : "Spostare problema valanghivo verso il basso",
+        "dangerRatingDirectionUp" : "Estendere la valutazione del pericolo verso l'alto",
+        "dangerRatingDirectionDown" : "Estendere la valutazione del grado del pericolo verso il basso"
     },
       "button" : "Creato",
       "save" : " Salva",
@@ -109,11 +109,11 @@
       "saveAggregatedRegion" : "Salve",
       "discardAggregatedRegion" : "Scarta",
       "deleteAggregatedRegion" : "Cancella",
-      "createAvalancheSituation" : " New problem",
+      "createAvalancheSituation" : "Nuovo problema valanghivo",
       "ownRegions" : "Propria provincia",
       "foreignRegions": "Altra provincia",
       "label" : {
-        "highlights" : "Special alert",
+        "highlights" : "Alerta speciale",
         "avActivityHighlights" : "Titolo situazione pericolo valanghe",
         "avActivityComment" : "Testo di descrizione pericolo valanghe",
         "avalancheSituation1" : "Problema tipico valanghivo 1",
@@ -129,7 +129,7 @@
         "elevationLow" : "Sopra",
         "tendencyComment" : "Tendenza",
         "notes" : "Commenti",
-        "terrainFeature": "Terrain features"
+        "terrainFeature": "Caratteristiche del terreno"
       },
       "title" : {
         "map" : "Mappa",
@@ -201,8 +201,8 @@
         "accept" : "Ok"
       },
       "avalancheSituationErrorDialog" : {
-        "header" : "Incomplete avalanche situation",
-        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
+        "header" : "Problema valanghivo incompleto",
+        "message" : "Problema valanhgivo tipico, esposizione e/o valutazione del grado del pericolo mancano almeno in un dei problemi valanghivi",
         "accept" : "Ok"
       },
       "incompleteTranslationDialog" : {
@@ -579,9 +579,9 @@
     "IT-32-TN-20" : "Maddalene",
     "IT-32-TN-21" : "Pine' - Valle dei Mocheni",
     "ES-CT-L" : "Aran",
-    "ES-CT-L-01" : "North and center of Aran",
-    "ES-CT-L-02" : "Southern limit of Aran",
-    "ES-CT-L-03" : "South slope of Aran"
+    "ES-CT-L-01" : "Zona settentrionale e centro di Aran",
+    "ES-CT-L-02" : "Confine meridionale di Aran",
+    "ES-CT-L-03" : "Versanti meridionale di Aran"
   },
   "tendency" : {
     "decreasing" : " Pericolo valanghe in diminuazione",
@@ -589,9 +589,9 @@
     "increasing" : " Pericolo valanghe in aumento"
   },
   "complexity": {
-    "easy": " Easy",
-    "challenging": " Challenging",
-    "complex": " Complex"
+    "easy": "Facile",
+    "challenging": "Impegnativo",
+    "complex": "Complesso"
   },
   "changeRegionDialog" : {
     "message" : "Vuoi scartare i cambiamenti e cambiare la regione?",
