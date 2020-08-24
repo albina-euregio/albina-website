@@ -200,9 +200,9 @@
         "message" : "Errore durante il caricamento del bollettino valanghe!",
         "accept" : "Ok"
       },
-      "noElevationDialog" : {
-        "header" : "Quota non determinata",
-        "message" : "Determina una quota per questa zona!",
+      "avalancheSituationErrorDialog" : {
+        "header" : "Incomplete avalanche situation",
+        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
         "accept" : "Ok"
       },
       "incompleteTranslationDialog" : {
@@ -416,6 +416,7 @@
         "publishBulletinsTyrol" : "Pubblicare bollettino valanghe per il Tirolo",
         "publishBulletinsSouthTyrol" : "Pubblicare bollettino valanghe per l'Alto Adige",
         "publishBulletinsTrentino" : "Pubblicare bollettino valanghe per il Trentino",
+        "publishBulletinsAran" : "Pubblicare bollettino valanghe per l'Aran",
         "publishBlogsTyrol" : "Pubblicare blog posts per il Tirolo",
         "publishBlogsSouthTyrol" : "Pubblicare blog posts per l'Alto Adige",
         "publishBlogsTrentino" : "Pubblicare blog posts per il Trentino",

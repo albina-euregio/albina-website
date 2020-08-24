@@ -94,12 +94,12 @@
           "example" : "Beispieltext laden",
           "delete" : "Löschen"
         },
-        "showInBulletin" : "Avalanche problem will be shown in bulletin",
-        "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
-        "moveUpAvalancheSituation" : "Move avalanche problem up",
-        "moveDownAvalancheSituation" : "Move avalanche problem down",
-        "dangerRatingDirectionUp" : "Extend the danger rating upwards",
-        "dangerRatingDirectionDown" : "Extend the danger rating downwards"
+        "showInBulletin" : "Lawinenproblem wird im Report angezeigt",
+        "dontShowInBulletin" : "Lawinenproblem wird im Report NICHT angezeigt",
+        "moveUpAvalancheSituation" : "Lawinenproblem nach oben schieben",
+        "moveDownAvalancheSituation" : "Lawinenproblem nach unten schieben",
+        "dangerRatingDirectionUp" : "Erweitere die Gefahrenstufe nach oben",
+        "dangerRatingDirectionDown" : "Erweitere die Gefahrenstufe nach unten"
     },
       "button" : "Neu",
       "save" : " Speichern",
@@ -109,11 +109,11 @@
       "saveAggregatedRegion" : "Speichern",
       "discardAggregatedRegion" : "Verwerfen",
       "deleteAggregatedRegion" : "Löschen",
-      "createAvalancheSituation" : " New problem",
+      "createAvalancheSituation" : "Neues Lawinenproblem",
       "ownRegions" : "Eigene Regionen",
       "foreignRegions": "Fremde Regionen",
       "label" : {
-        "highlights" : "Special alert",
+        "highlights" : "Besondere Warnung",
         "avActivityHighlights" : "Schlagzeile Gefahrensituation",
         "avActivityComment" : "Beurteilung der Lawinengefahr",
         "avalancheSituation1" : "Lawinenproblem 1",
@@ -129,7 +129,7 @@
         "elevationLow" : "Über",
         "tendencyComment" : "Beschreibung der Tendenz",
         "notes" : "Notizen",
-        "terrainFeature": "Terrain features"
+        "terrainFeature": "Geländemerkmale"
       },
       "title" : {
         "map" : "Karte",
@@ -200,9 +200,9 @@
         "message" : "Beim Laden der Lawinenvorhersage ist ein Fehler aufgetreten!",
         "accept" : "Ok"
       },
-      "noElevationDialog" : {
-        "header" : "Keine Höhe definiert",
-        "message" : "Bitte definiere eine Höhe für diese Region!",
+      "avalancheSituationErrorDialog" : {
+        "header" : "Unvollständiges Lawinenproblem",
+        "message" : "Lawinenproblem Art, Exposition und/oder Gefahrenstufe fehlen bei mindestens einem Lawinenproblem",
         "accept" : "Ok"
       },
       "incompleteTranslationDialog" : {
@@ -416,6 +416,7 @@
         "publishBulletinsTyrol" : "Lawinenvorhersage für Tirol publizieren",
         "publishBulletinsSouthTyrol" : "Lawinenvorhersage für Südtirol publizieren",
         "publishBulletinsTrentino" : "Lawinenvorhersage für das Trentino publizieren",
+        "publishBulletinsAran" : "Lawinenvorhersage für Aran publizieren",
         "publishBlogsTyrol" : "Blog Posts für Tirol publizieren",
         "publishBlogsSouthTyrol" : "Blog Posts für Südtirol publizieren",
         "publishBlogsTrentino" : "Blog Posts für das Trentino publizieren",

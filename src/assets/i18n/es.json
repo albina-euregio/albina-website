@@ -31,7 +31,7 @@
     "it" : "Italiano",
     "es" : "Español",
     "ca" : "Catalán",
-    "oc" : "Aranese",
+    "oc" : "Aranés",
     "fullscreen" : "Pantalla completa",
     "settings" : "Ajustes",
     "admin" : "Admin",
@@ -200,9 +200,9 @@
         "message" : "Se ha producido un error cargando los boletines",
         "accept" : "De acuerdo"
       },
-      "noElevationDialog" : {
-        "header" : "Altitud no definida",
-        "message" : "¡Por favor, especificar la altitud para esta región!",
+      "avalancheSituationErrorDialog" : {
+        "header" : "Incomplete avalanche situation",
+        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
         "accept" : "De acuerdo"
       },
       "incompleteTranslationDialog" : {
@@ -416,6 +416,7 @@
         "publishBulletinsTyrol" : "Publicar predicción de aludes para el Tyrol",
         "publishBulletinsSouthTyrol" : "Publicar predicción de aludes para el South Tyrol",
         "publishBulletinsTrentino" : "Publicar predicción de aludes para el Trentino",
+        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
         "publishBlogsTyrol" : "Publicar entrada en el blog para el Tyrol",
         "publishBlogsSouthTyrol" : "Publicar entrada en el blog para el South Tyrol",
         "publishBlogsTrentino" : "Publicar entrada en el blog para el Trentino",
@@ -505,7 +506,7 @@
   },
   "region" : {
     "AT-07" : "Tyrol",
-    "AT-07-01" : "Allgäu Alps",
+    "AT-07-01" : "Alps d'Allgäu",
     "AT-07-02" : "Eastern Lechtal Alps - Ammergau Alps",
     "AT-07-03" : "Mieming Mountains",
     "AT-07-04" : "Karwendel Mountains",
@@ -550,7 +551,7 @@
     "IT-32-BZ-13" : "Western Deferegger Alps",
     "IT-32-BZ-14" : "Ortler Range",
     "IT-32-BZ-15" : "Ulten Valley",
-    "IT-32-BZ-16" : "Eastern Nonsberg Alps",
+    "IT-32-BZ-16" : "Alpes de Nonsberg del Este",
     "IT-32-BZ-17" : "Northern Dolomites of Fiemme",
     "IT-32-BZ-18" : "Gröden Dolomites",
     "IT-32-BZ-19" : "Prags Dolomites",

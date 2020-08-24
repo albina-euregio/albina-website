@@ -31,7 +31,7 @@
     "it" : "Italian",
     "es" : "Castelhan",
     "ca" : "Catalan",
-    "oc" : "Aranese",
+    "oc" : "Aranès",
     "fullscreen" : "Pantalha complèta",
     "settings" : "Configuracion",
     "admin" : "Administrador",
@@ -200,9 +200,9 @@
         "message" : "S'a produsit un error en cargar es bulletins!",
         "accept" : "D'acòrd"
       },
-      "noElevationDialog" : {
-        "header" : "Nautada non definida",
-        "message" : "Se te platz, especifique ua nautada d'aguesta region!",
+      "avalancheSituationErrorDialog" : {
+        "header" : "Incomplete avalanche situation",
+        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
         "accept" : "D'acòrd"
       },
       "incompleteTranslationDialog" : {
@@ -416,6 +416,7 @@
         "publishBulletinsTyrol" : "Publicar prediccion de lauegi per Tiròl",
         "publishBulletinsSouthTyrol" : "Publicar prediccion de lauegi per Sud-Tiròl",
         "publishBulletinsTrentino" : "Publicar prediccion de lauegi per Trentin",
+        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
         "publishBlogsTyrol" : "Publicar entrades ath blòc per Tiròl",
         "publishBlogsSouthTyrol" : "Publicar entrades ath blòc per Sud-Tiròl",
         "publishBlogsTrentino" : "Publicar entrades ath blòc per Trentin",
@@ -550,7 +551,7 @@
     "IT-32-BZ-13" : "Western Deferegger Alps",
     "IT-32-BZ-14" : "Ortler Range",
     "IT-32-BZ-15" : "Ulten Valley",
-    "IT-32-BZ-16" : "Eastern Nonsberg Alps",
+    "IT-32-BZ-16" : "Alps deth Nòrd de l’Èst",
     "IT-32-BZ-17" : "Northern Dolomites of Fiemme",
     "IT-32-BZ-18" : "Gröden Dolomites",
     "IT-32-BZ-19" : "Prags Dolomites",
@@ -578,9 +579,9 @@
     "IT-32-TN-20" : "Maddalene",
     "IT-32-TN-21" : "Pine' - Mocheni Valley",
     "ES-CT-L" : "Aran",
-    "ES-CT-L-01" : "North and center of Aran",
-    "ES-CT-L-02" : "Southern limit of Aran",
-    "ES-CT-L-03" : "South slope of Aran"
+    "ES-CT-L-01" : "Aran nòrd e centre",
+    "ES-CT-L-02" : "Limit sud d'Aran",
+    "ES-CT-L-03" : "Costat sud d'Aran"
   },
   "tendency" : {
     "decreasing" : "Perilh de lauegi diminuís",

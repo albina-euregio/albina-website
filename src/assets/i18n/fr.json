@@ -200,9 +200,9 @@
         "message" : "Il y avait une erreur en téléchargant les bulletins!",
         "accept" : "Ok"
       },
-      "noElevationDialog" : {
-        "header" : "Altitude indéfinie",
-        "message" : "Fixez une altitude pour cette région, s'il vous plaît!",
+      "avalancheSituationErrorDialog" : {
+        "header" : "Incomplete avalanche situation",
+        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
         "accept" : "Ok"
       },
       "incompleteTranslationDialog" : {
@@ -416,6 +416,7 @@
         "publishBulletinsTyrol" : "Publier bulletin d'avalanche pour Tyrol ",
         "publishBulletinsSouthTyrol" : "Publier bulletin d'avalanche pour Tyrol du Sud",
         "publishBulletinsTrentino" : "Publier bulletin d'avalanche pour le Trentin",
+        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
         "publishBlogsTyrol" : "Publier blog pour Tyrol",
         "publishBlogsSouthTyrol" : "Publier blog pour Tyrol du Sud",
         "publishBlogsTrentino" : "Publier blog pour le Trentin",

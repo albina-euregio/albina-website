@@ -31,7 +31,7 @@
     "it" : "Italià",
     "es" : "Castellà",
     "ca" : "Català",
-    "oc" : "Aranese",
+    "oc" : "Aranès",
     "fullscreen" : "Pantalla completa",
     "settings" : "Configuració",
     "admin" : "Admin",
@@ -200,9 +200,9 @@
         "message" : "Hi ha hagut un error llegint els butlletins!",
         "accept" : "D'acord"
       },
-      "noElevationDialog" : {
-        "header" : "No hi ha elevacions definides",
-        "message" : "Si us plau defineix una elevació per aquesta regió!",
+      "avalancheSituationErrorDialog" : {
+        "header" : "Incomplete avalanche situation",
+        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
         "accept" : "D'acord"
       },
       "incompleteTranslationDialog" : {
@@ -416,6 +416,7 @@
         "publishBulletinsTyrol" : "Publica la predicció d'allaus per Tirol",
         "publishBulletinsSouthTyrol" : "Publica la predicció d'allaus per Sud-Tirol",
         "publishBulletinsTrentino" : "Publica la predicció d'allaus per Trentino",
+        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
         "publishBlogsTyrol" : "Publica les entrades de blog per Tirol",
         "publishBlogsSouthTyrol" : "Publica les entrades del blog per Sud Tirol",
         "publishBlogsTrentino" : "Publica les entrades de blog per Trentino",
@@ -550,7 +551,7 @@
     "IT-32-BZ-13" : "Alps Deferegger Oest",
     "IT-32-BZ-14" : "Serralada d'Ortler",
     "IT-32-BZ-15" : "Vall d'Ulten",
-    "IT-32-BZ-16" : "Eastern Nonsberg Alps",
+    "IT-32-BZ-16" : "Alps de Nonsberger Est",
     "IT-32-BZ-17" : "Dolomites de Fiemme Nord",
     "IT-32-BZ-18" : "Gröden Dolomites",
     "IT-32-BZ-19" : "Prags Dolomites",
@@ -578,9 +579,9 @@
     "IT-32-TN-20" : "Maddalene",
     "IT-32-TN-21" : "Vall Pine' - Mocheni ",
     "ES-CT-L" : "Aran",
-    "ES-CT-L-01" : "North and center of Aran",
-    "ES-CT-L-02" : "Southern limit of Aran",
-    "ES-CT-L-03" : "South slope of Aran"
+    "ES-CT-L-01" : "Nord i centre de l'Aran",
+    "ES-CT-L-02" : "Límit sud de l'Aran",
+    "ES-CT-L-03" : "Cara sud de l'Aran"
   },
   "tendency" : {
     "decreasing" : "El perill d'allaus disminueix",

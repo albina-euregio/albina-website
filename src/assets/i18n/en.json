@@ -200,9 +200,9 @@
         "message" : "There was an error loading the bulletins!",
         "accept" : "Ok"
       },
-      "noElevationDialog" : {
-        "header" : "No elevation defined",
-        "message" : "Please specify an elevation for this region!",
+      "avalancheSituationErrorDialog" : {
+        "header" : "Incomplete avalanche situation",
+        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
         "accept" : "Ok"
       },
       "incompleteTranslationDialog" : {
