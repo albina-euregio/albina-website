@@ -1043,7 +1043,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   private checkAvalancheSituations(): boolean {
-    var error = false;
+    let error = false;
 
     if (this.activeBulletin) {
       if (this.activeBulletin.forenoon) {
