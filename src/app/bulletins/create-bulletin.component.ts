@@ -140,8 +140,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public changeErrorModalRef: BsModalRef;
   @ViewChild("changeErrorTemplate") changeErrorTemplate: TemplateRef<any>;
 
-  public noElevationModalRef: BsModalRef;
-  @ViewChild("noElevationTemplate") noElevationTemplate: TemplateRef<any>;
+  public avalancheSituationErrorModalRef: BsModalRef;
+  @ViewChild("avalancheSituationErrorTemplate") avalancheSituationErrorTemplate: TemplateRef<any>;
 
   public incompleteTranslationModalRef: BsModalRef;
   @ViewChild("incompleteTranslationTemplate") incompleteTranslationTemplate: TemplateRef<any>;
@@ -828,7 +828,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
     this.setTexts();
 
-    if (this.checkElevation()) {
+    if (this.checkAvalancheSituations()) {
       let bulletin: BulletinModel;
 
       if (copy && this.activeBulletin) {
@@ -854,7 +854,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   selectBulletin(bulletin: BulletinModel) {
     if (!this.editRegions) {
-      if (this.checkElevation()) {
+      if (this.checkAvalancheSituations()) {
         this.deselectBulletin();
 
         this.activeBulletin = bulletin;
@@ -919,7 +919,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   deselectBulletin(del?: boolean) {
-    if (del || this.checkElevation()) {
+    if (del || this.checkAvalancheSituations()) {
       if (!this.editRegions && this.activeBulletin !== null && this.activeBulletin !== undefined) {
 
         this.setTexts();
@@ -1042,9 +1042,68 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.activeBulletin.updateDangerRating(true);
   }
 
-  private checkElevation(): boolean {
-    if (this.activeBulletin && this.activeBulletin.hasElevationDependency && !this.activeBulletin.treeline && (this.activeBulletin.elevation === undefined || this.activeBulletin.elevation <= 0)) {
-      this.openNoElevationModal(this.noElevationTemplate);
+  private checkAvalancheSituations(): boolean {
+    var error = false;
+
+    if (this.activeBulletin) {
+      if (this.activeBulletin.forenoon) {
+        if (this.activeBulletin.forenoon.avalancheSituation1) {
+          if (this.activeBulletin.forenoon.avalancheSituation1.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheSituation1.getAvalancheSituation() || !this.activeBulletin.forenoon.avalancheSituation1.getDangerRating()) {
+            error = true;
+          }
+        }
+        if (this.activeBulletin.forenoon.avalancheSituation2) {
+          if (this.activeBulletin.forenoon.avalancheSituation2.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheSituation2.getAvalancheSituation() || !this.activeBulletin.forenoon.avalancheSituation2.getDangerRating()) {
+            error = true;
+          }
+        }
+        if (this.activeBulletin.forenoon.avalancheSituation3) {
+          if (this.activeBulletin.forenoon.avalancheSituation3.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheSituation3.getAvalancheSituation() || !this.activeBulletin.forenoon.avalancheSituation3.getDangerRating()) {
+            error = true;
+          }
+        }
+        if (this.activeBulletin.forenoon.avalancheSituation4) {
+          if (this.activeBulletin.forenoon.avalancheSituation4.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheSituation4.getAvalancheSituation() || !this.activeBulletin.forenoon.avalancheSituation4.getDangerRating()) {
+            error = true;
+          }
+        }
+        if (this.activeBulletin.forenoon.avalancheSituation5) {
+          if (this.activeBulletin.forenoon.avalancheSituation5.getAspects().length <= 0 || !this.activeBulletin.forenoon.avalancheSituation5.getAvalancheSituation() || !this.activeBulletin.forenoon.avalancheSituation5.getDangerRating()) {
+            error = true;
+          }
+        }
+      }
+      if (this.activeBulletin.afternoon) {
+        if (this.activeBulletin.afternoon.avalancheSituation1) {
+          if (this.activeBulletin.afternoon.avalancheSituation1.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheSituation1.getAvalancheSituation() || !this.activeBulletin.afternoon.avalancheSituation1.getDangerRating()) {
+            error = true;
+          }
+        }
+        if (this.activeBulletin.afternoon.avalancheSituation2) {
+          if (this.activeBulletin.afternoon.avalancheSituation2.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheSituation2.getAvalancheSituation() || !this.activeBulletin.afternoon.avalancheSituation2.getDangerRating()) {
+            error = true;
+          }
+        }
+        if (this.activeBulletin.afternoon.avalancheSituation3) {
+          if (this.activeBulletin.afternoon.avalancheSituation3.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheSituation3.getAvalancheSituation() || !this.activeBulletin.afternoon.avalancheSituation3.getDangerRating()) {
+            error = true;
+          }
+        }
+        if (this.activeBulletin.afternoon.avalancheSituation4) {
+          if (this.activeBulletin.afternoon.avalancheSituation4.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheSituation4.getAvalancheSituation() || !this.activeBulletin.afternoon.avalancheSituation4.getDangerRating()) {
+            error = true;
+          }
+        }
+        if (this.activeBulletin.afternoon.avalancheSituation5) {
+          if (this.activeBulletin.afternoon.avalancheSituation5.getAspects().length <= 0 || !this.activeBulletin.afternoon.avalancheSituation5.getAvalancheSituation() || !this.activeBulletin.afternoon.avalancheSituation5.getDangerRating()) {
+            error = true;
+          }
+        }
+      }
+    }
+
+    if (error) {
+      this.openAvalancheSituationErrorModal(this.avalancheSituationErrorTemplate);
     } else {
       return true;
     }
@@ -1358,7 +1417,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   save() {
-    if (this.checkElevation()) {
+    if (this.checkAvalancheSituations()) {
       this.loading = true;
 
       this.setTexts();
@@ -2060,12 +2119,12 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.changeErrorModalRef.hide();
   }
 
-  openNoElevationModal(template: TemplateRef<any>) {
-    this.noElevationModalRef = this.modalService.show(template, this.config);
+  openAvalancheSituationErrorModal(template: TemplateRef<any>) {
+    this.avalancheSituationErrorModalRef = this.modalService.show(template, this.config);
   }
 
-  noElevationModalConfirm(): void {
-    this.noElevationModalRef.hide();
+  avalancheSituationErrorModalConfirm(): void {
+    this.avalancheSituationErrorModalRef.hide();
   }
 
   openIncompleteTranslationModal(template: TemplateRef<any>) {
