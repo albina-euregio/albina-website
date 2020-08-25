@@ -175,7 +175,7 @@ class Weather extends React.Component {
 
             <div className="section-centered">
               <div className="section-padding-width flipper-header">
-                {this.store.item && <WeatherMapTitle store={this.store} />}
+                {this.store.item && <WeatherMapTitle store={config.newWM} />}
               </div>
             </div>
           </div>

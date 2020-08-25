@@ -171,6 +171,14 @@ export default class WeatherMapStore_new {
   }
 
   /*
+    returns current timespan selection
+  */
+  @computed get timeSpan() {
+    console.log("timeSpan GET", this._timeSpan);
+    return this._timeSpan;
+  }
+
+  /*
     returns the start date for all calculations
   */
   @computed get startDate() {
