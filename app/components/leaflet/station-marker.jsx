@@ -11,6 +11,7 @@ class StationMarker extends MapLayer {
   }
 
   createStationIcon() {
+    //console.log("StationMarker->createStationIcon qqq !!!!!!", this.props.stationName,  this.props.value);
     const icon = (
       <StationIcon
         itemId={this.props.itemId}
@@ -28,7 +29,20 @@ class StationMarker extends MapLayer {
     });
   }
 
+  updateLeafletElement() {
+    //console.log("StationMarker->updateLeafletElement qqq !!!!", this.props.stationName,  this.props.value);
+    this.layerContainer.removeLayer(this.leafletElement);
+    this.leafletElement = this.createElement();
+    this.layerContainer.addLayer(this.leafletElement);
+  }
+
   createLeafletElement() {
+    this.leafletElement = this.createElement();
+    return this.leafletElement;
+  }
+
+  createElement() {
+    //console.log("StationMarker->createElement qqq !!!!!!!!!!!!", this.props.stationName,  this.props.value);
     const marker = L.marker(this.props.coordinates, {
       data: this.props.data,
       title: this.props.stationName,
@@ -40,7 +54,6 @@ class StationMarker extends MapLayer {
       this.props.onClick(e.target.options.data);
     });
 
-    this.leafletElement = marker;
     return marker;
   }
 

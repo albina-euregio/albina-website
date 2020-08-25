@@ -51,9 +51,12 @@ export default class StationOverlay extends React.Component {
   }
 
   renderMarker(data, pos = null) {
-    if (data.date === undefined || data[this.props.item.id] === undefined)
+    //if(data.name !== "Tannheim") return <></>;
+    //console.log("station-overlay->renderMarker qqq", this.props.itemId, data.name,  data[this.props.itemId]);
+    if (data.date === undefined || data[this.props.itemId] === undefined)
       return;
-    const value = Math.round(data[this.props.item.id]);
+
+    const value = Math.round(data[this.props.itemId]);
     const coordinates = pos
       ? [pos.lat, pos.lng]
       : [data.geometry.coordinates[1], data.geometry.coordinates[0]];
@@ -71,12 +74,12 @@ export default class StationOverlay extends React.Component {
       value: value,
       plot: data.plot
     };
-
+    //console.log("station-overlay->renderMarker qqq", this.props.itemId, data.name,  value);
     return (
       <StationMarker
         type="station"
-        key={this.props.item.id + "-" + data.id}
-        itemId={this.props.item.id}
+        key={this.props.itemId + "-" + data.id}
+        itemId={this.props.itemId}
         data={markerData}
         stationId={data.id}
         stationName={data.name}
@@ -114,9 +117,11 @@ export default class StationOverlay extends React.Component {
     if (this.props.onLoad) this.props.onLoad();
   }
   render() {
-    console.log("station-overlay->render", this.props);
+    //let sPl = this.props.features ? this.props.features.find(feature => feature?.name == "Tannheim") : null;
+    //console.log("station-overlay->render qq", this.props.selectedFeature?.id, sPl?.name, sPl?.properties.LT);
+    //console.log("station-overlay->render", this.props.features);
     const points = this.props.features.filter(
-      point => point[this.props.item.id] !== false
+      point => point[this.props.itemId] !== false
     );
 
     const selectedFeature = this.props.selectedFeature
@@ -130,7 +135,7 @@ export default class StationOverlay extends React.Component {
           spiderfiedMarkers={this.handleSpiderfiedMarkers}
           onActiveMarkerPositionUpdate={this.handleActiveMarkerPositionUpdate}
         >
-          {points.map(point => this.renderMarker(point))}>
+          {points.map(point => this.renderMarker(point))}
         </Cluster>
         {selectedFeature &&
           this.renderMarker(selectedFeature, this.state.activeMarkerPos)}

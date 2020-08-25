@@ -9,6 +9,7 @@ export default class WeatherMapStore_new {
   @observable selectedFeature;
   @observable _timeSpan;
   @observable _timeIndices;
+  @observable stations;
   config;
 
   constructor(initialDomainId) {
@@ -219,15 +220,15 @@ export default class WeatherMapStore_new {
         new Date(this._timeIndices[this._timeIndicesIndex.get()]).getUTCDate()
       );
 
-      // return (
-      //   config.apis.weather.overlays +
-      //   this._domainId.get() +
-      //   "/" +
-      //   dateFormat(datePlusOffset, "%Y-%m-%d_%H-%M", true) +
-      //   "_" +
-      //   this._domainId.get() +
-      //   (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h" : "")
-      // );
+      return (
+        config.apis.weather.overlays +
+        this._domainId.get() +
+        "/" +
+        dateFormat(datePlusOffset, "%Y-%m-%d_%H-%M", true) +
+        "_" +
+        this._domainId.get() +
+        (this._absTimeSpan !== 1 ? "_" + this._absTimeSpan + "h" : "")
+      );
     }
     return false;
   }

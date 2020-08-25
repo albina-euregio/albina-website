@@ -228,7 +228,7 @@
       {
         "id": "ALBINA",
         "url": "https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png",
-        "maxZoom": 10,
+        "maxZoom": 12,
         "minZoom": 7,
         "detectRetina": false,
         "tms": true,
@@ -367,7 +367,7 @@
           "clusterOperation": "max"
         }
       },
-      "fresh-snow": {
+      "new-snow": {
         "domainDefault": true,
         "domainIdStart": "+6",
         "item": {
@@ -396,7 +396,7 @@
           "clusterOperation": "max"
         }
       },
-      "snow-height-diff": {
+      "diff-snow": {
         "domainDefault": false,
         "domainIdStart": "+6",
         "item": {
@@ -491,7 +491,7 @@
           "clusterOperation": "max"
         }
       },
-      "wgus": {
+      "gust": {
         "domainDefault": false,
         "domainIdStart": "+-1",
         "item": {

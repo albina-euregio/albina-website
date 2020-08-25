@@ -27,7 +27,7 @@ class Weather extends React.Component {
     this.store = new WeatherMapStore(this.props.match.params.domain);
     if (!config.player) {
       config.player = new Player({
-        transitionTime: 500,
+        transitionTime: 1000,
         avalailableTimes: null,
         owner: this,
         onTick: this.onTick
@@ -189,9 +189,8 @@ class Weather extends React.Component {
           {/*this.store.domainId*/ true && (
             <div className="weather-map-container section-map">
               <WeatherMap
-                domainId={this.store.domainId}
-                domain={this.store.domain}
-                itemId={this.store.itemId}
+                domainId={config.newWM.domainId}
+                domain={config.newWM.domain}
                 timeArray={config.newWM.timeIndices}
                 startDate={config.newWM.startDate}
                 overlay={config.newWM.overlayFileName}
@@ -199,11 +198,11 @@ class Weather extends React.Component {
                   console.log("Timeselector clicked", id);
                   config.newWM.changeTimeIndex(id);
                 }}
-                item={this.store.item}
+                item={config.newWM.item}
                 grid={config.newWM.grid}
                 stations={config.newWM.stations}
                 playerCB={config.player.onEvent.bind(config.player)}
-                selectedFeature={this.store.selectedFeature}
+                selectedFeature={config.newWM.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}
               />
