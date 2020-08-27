@@ -11,9 +11,7 @@ import * as Enums from "../enums/enums";
 })
 export class AvalancheSituationDetailComponent implements OnChanges {
 
-  @Input() bulletinModel: BulletinModel;
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
-  @Input() afternoon: boolean;
   @Input() avalancheSituationModel: AvalancheSituationModel;
   @Input() disabled: boolean;
 
@@ -69,7 +67,7 @@ export class AvalancheSituationDetailComponent implements OnChanges {
         this.avalancheSituationModel.elevationHigh = 0;
       }
     }
-    this.bulletinModel.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   updateElevationLow() {
@@ -81,7 +79,7 @@ export class AvalancheSituationDetailComponent implements OnChanges {
         this.avalancheSituationModel.elevationLow = 0;
       }
     }
-    this.bulletinModel.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   treelineHighClicked(event) {
@@ -91,7 +89,7 @@ export class AvalancheSituationDetailComponent implements OnChanges {
     } else {
       this.avalancheSituationModel.treelineHigh = true;
     }
-    this.bulletinModel.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   treelineLowClicked(event) {
@@ -101,7 +99,7 @@ export class AvalancheSituationDetailComponent implements OnChanges {
     } else {
       this.avalancheSituationModel.treelineLow = true;
     }
-    this.bulletinModel.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   setUseElevationHigh(event) {
@@ -109,7 +107,7 @@ export class AvalancheSituationDetailComponent implements OnChanges {
       this.avalancheSituationModel.treelineHigh = false;
       this.avalancheSituationModel.elevationHigh = undefined;
     }
-    this.bulletinModel.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   setUseElevationLow(event) {
@@ -117,7 +115,7 @@ export class AvalancheSituationDetailComponent implements OnChanges {
       this.avalancheSituationModel.treelineLow = false;
       this.avalancheSituationModel.elevationLow = undefined;
     }
-    this.bulletinModel.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   deleteTextcat(event) {

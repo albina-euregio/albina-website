@@ -18,6 +18,10 @@ export class BulletinDaytimeDescriptionModel {
 
   public complexity: Enums.Complexity;
 
+  public hasElevationDependency: boolean;
+  public elevation: number;
+  public treeline: boolean;
+
   public avalancheSituation1: AvalancheSituationModel;
   public avalancheSituation2: AvalancheSituationModel;
   public avalancheSituation3: AvalancheSituationModel;
@@ -81,6 +85,10 @@ export class BulletinDaytimeDescriptionModel {
       bulletinDaytimeDescription.avalancheSituation5 = AvalancheSituationModel.createFromJson(json.avalancheSituation5);
     }
 
+    bulletinDaytimeDescription.setElevation(json.elevation);
+    bulletinDaytimeDescription.setTreeline(json.treeline);
+    bulletinDaytimeDescription.setHasElevationDependency(json.hasElevationDependency);
+
     return bulletinDaytimeDescription;
   }
 
@@ -98,6 +106,9 @@ export class BulletinDaytimeDescriptionModel {
       this.terrainFeatureBelowTextcat = undefined;
       this.terrainFeatureBelow = new Array<TextModel>();
       this.complexity = undefined;
+      this.elevation = undefined;
+      this.treeline = false;
+      this.hasElevationDependency = false;
     } else {
       this.setDangerRatingAbove(bulletinDaytimeDescription.getDangerRatingAbove());
       this.matrixInformationAbove = new MatrixInformationModel(bulletinDaytimeDescription.getMatrixInformationAbove());
@@ -131,6 +142,9 @@ export class BulletinDaytimeDescriptionModel {
       if (bulletinDaytimeDescription.getAvalancheSituation5() !== undefined) {
         this.avalancheSituation5 = new AvalancheSituationModel(bulletinDaytimeDescription.getAvalancheSituation5());
       }
+      this.elevation = bulletinDaytimeDescription.elevation;
+      this.treeline = bulletinDaytimeDescription.treeline;
+      this.hasElevationDependency = bulletinDaytimeDescription.hasElevationDependency;
     }
   }
 
@@ -296,7 +310,174 @@ export class BulletinDaytimeDescriptionModel {
     this.avalancheSituation5 = avalancheSituation;
   }
 
-  toJson(hasElevationDependency: boolean) {
+  getElevation(): number {
+    return this.elevation;
+  }
+
+  setElevation(elevation: number) {
+    this.elevation = elevation;
+  }
+
+  getTreeline(): boolean {
+    return this.treeline;
+  }
+
+  setTreeline(treeline: boolean) {
+    this.treeline = treeline;
+  }
+
+  getHasElevationDependency() {
+    return this.hasElevationDependency;
+  }
+
+  setHasElevationDependency(hasElevationDependency: boolean) {
+    this.hasElevationDependency = hasElevationDependency;
+  }
+
+  getSecondDangerRating(up: boolean) {
+    let dangerRating = Enums.DangerRating[1];
+
+    let tmpDangerRating = this.getDangerRating(this.avalancheSituation2, up);
+    if (Enums.DangerRating[dangerRating] < Enums.DangerRating[tmpDangerRating]) {
+      dangerRating = Enums.DangerRating[Enums.DangerRating[tmpDangerRating]];
+    }
+    tmpDangerRating = this.getDangerRating(this.avalancheSituation3, up);
+    if (Enums.DangerRating[dangerRating] < Enums.DangerRating[tmpDangerRating]) {
+      dangerRating = Enums.DangerRating[Enums.DangerRating[tmpDangerRating]];
+    }
+    tmpDangerRating = this.getDangerRating(this.avalancheSituation4, up);
+    if (Enums.DangerRating[dangerRating] < Enums.DangerRating[tmpDangerRating]) {
+      dangerRating = Enums.DangerRating[Enums.DangerRating[tmpDangerRating]];
+    }
+    tmpDangerRating = this.getDangerRating(this.avalancheSituation5, up);
+    if (Enums.DangerRating[dangerRating] < Enums.DangerRating[tmpDangerRating]) {
+      dangerRating = Enums.DangerRating[Enums.DangerRating[tmpDangerRating]];
+    }
+
+    return dangerRating;
+  }
+
+  getDangerRating(situation: AvalancheSituationModel, up: boolean) {
+    let boundaryAvalancheSituation;
+    let boundaryBulletin;
+
+    if (situation && situation !== undefined) {
+      if (up) {
+        if (situation.treelineLow) {
+          boundaryAvalancheSituation = 2000;
+        } else {
+          boundaryAvalancheSituation = situation.elevationLow;
+        }
+      } else {
+        if (situation.treelineHigh) {
+          boundaryAvalancheSituation = 1800;
+        } else {
+          boundaryAvalancheSituation = situation.elevationHigh;
+        }
+      }
+
+      if (up) {
+        if (this.treeline) {
+          boundaryBulletin = 2000;
+        } else {
+          boundaryBulletin = this.elevation;
+        }
+        if (boundaryAvalancheSituation === undefined || boundaryAvalancheSituation < boundaryBulletin) {
+          return situation.getDangerRating();
+        }
+      } else {
+        if (this.treeline) {
+          boundaryBulletin = 1800;
+        } else {
+          boundaryBulletin = this.elevation;
+        }
+        if (boundaryAvalancheSituation === undefined || boundaryAvalancheSituation > boundaryBulletin) {
+          return situation.getDangerRating();
+        }
+      }
+    }
+  }
+
+  updateDangerRating() {
+    if (this.avalancheSituation1) {
+      // ap.1
+      if (this.avalancheSituation1.elevationHigh > 0 || this.avalancheSituation1.treelineHigh) {
+        if (this.avalancheSituation1.elevationLow > 0 || this.avalancheSituation1.treelineLow) {
+          // band
+          if (this.avalancheSituation1.getDangerRatingDirection() === Enums.Direction.down) {
+            if (this.avalancheSituation1.treelineHigh) {
+              this.treeline = true;
+              this.elevation = undefined;
+            } else {
+              this.treeline = false;
+              this.elevation = this.avalancheSituation1.elevationHigh;
+            }
+            this.hasElevationDependency = true;
+            this.setDangerRatingBelow(this.avalancheSituation1.getDangerRating());
+            this.setDangerRatingAbove(this.getSecondDangerRating(false));
+          } else if (this.avalancheSituation1.getDangerRatingDirection() === Enums.Direction.up) {
+            if (this.avalancheSituation1.treelineLow) {
+              this.treeline = true;
+              this.elevation = undefined;
+            } else {
+              this.treeline = false;
+              this.elevation = this.avalancheSituation1.elevationLow;
+            }
+            this.hasElevationDependency = true;
+            this.setDangerRatingAbove(this.avalancheSituation1.getDangerRating());
+            this.setDangerRatingBelow(this.getSecondDangerRating(true));
+          } else {
+            this.treeline = false;
+            this.elevation = undefined;
+            this.hasElevationDependency = false;
+            this.setDangerRatingAbove(this.avalancheSituation1.getDangerRating());
+            this.setDangerRatingBelow(this.avalancheSituation1.getDangerRating());
+          }
+        } else {
+          // only elevation high
+          if (this.avalancheSituation1.treelineHigh) {
+            this.treeline = true;
+            this.elevation = undefined;
+          } else {
+            this.treeline = false;
+            this.elevation = this.avalancheSituation1.elevationHigh;
+          }
+          this.hasElevationDependency = true;
+          this.setDangerRatingBelow(this.avalancheSituation1.getDangerRating());
+          this.setDangerRatingAbove(this.getSecondDangerRating(false));
+        }
+      } else if (this.avalancheSituation1.elevationLow > 0 || this.avalancheSituation1.treelineLow) {
+        // only elevation low
+        if (this.avalancheSituation1.treelineLow) {
+          this.treeline = true;
+          this.elevation = undefined;
+        } else {
+          this.treeline = false;
+          this.elevation = this.avalancheSituation1.elevationLow;
+        }
+        this.hasElevationDependency = true;
+        this.setDangerRatingAbove(this.avalancheSituation1.getDangerRating());
+        this.setDangerRatingBelow(this.getSecondDangerRating(true));
+     } else {
+        // no elevation
+        this.treeline = false;
+        this.elevation = undefined;
+        this.hasElevationDependency = false;
+        this.setDangerRatingAbove(this.avalancheSituation1.getDangerRating());
+        this.setDangerRatingBelow(this.avalancheSituation1.getDangerRating());
+      }
+    } else {
+      this.treeline = false;
+      this.elevation = undefined;
+      this.hasElevationDependency = false;
+      this.setDangerRatingAbove(Enums.DangerRating[1]);
+      this.setDangerRatingBelow(Enums.DangerRating[1]);
+    }
+    this.setMatrixInformationAbove(new MatrixInformationModel());
+    this.setMatrixInformationAbove(new MatrixInformationModel());
+  }
+
+  toJson() {
     const json = Object();
 
     if (this.dangerRatingAbove && this.dangerRatingAbove !== undefined) {
@@ -315,16 +496,16 @@ export class BulletinDaytimeDescriptionModel {
       }
       json["terrainFeatureAbove"] = terrainFeature;
     }
-    if (hasElevationDependency && this.dangerRatingBelow && this.dangerRatingBelow !== undefined) {
+    if (this.hasElevationDependency && this.dangerRatingBelow && this.dangerRatingBelow !== undefined) {
       json["dangerRatingBelow"] = this.dangerRatingBelow.getValue();
     }
-    if (hasElevationDependency && this.matrixInformationBelow && this.matrixInformationBelow !== undefined) {
+    if (this.hasElevationDependency && this.matrixInformationBelow && this.matrixInformationBelow !== undefined) {
       json["matrixInformationBelow"] = this.matrixInformationBelow.toJson();
     }
-    if (hasElevationDependency && this.terrainFeatureBelowTextcat && this.terrainFeatureBelowTextcat !== undefined) {
+    if (this.hasElevationDependency && this.terrainFeatureBelowTextcat && this.terrainFeatureBelowTextcat !== undefined) {
       json["terrainFeatureBelowTextcat"] = this.terrainFeatureBelowTextcat;
     }
-    if (hasElevationDependency && this.terrainFeatureBelow && this.terrainFeatureBelow !== undefined && this.terrainFeatureBelow.length > 0) {
+    if (this.hasElevationDependency && this.terrainFeatureBelow && this.terrainFeatureBelow !== undefined && this.terrainFeatureBelow.length > 0) {
       const terrainFeature = [];
       for (let i = 0; i <= this.terrainFeatureBelow.length - 1; i++) {
         terrainFeature.push(this.terrainFeatureBelow[i].toJson());
@@ -349,6 +530,17 @@ export class BulletinDaytimeDescriptionModel {
     }
     if (this.avalancheSituation5 && this.avalancheSituation5 !== undefined) {
       json["avalancheSituation5"] = this.avalancheSituation5.toJson();
+    }
+
+    if (this.hasElevationDependency) {
+      json["hasElevationDependency"] = true;
+      if (this.treeline) {
+        json["treeline"] = this.treeline;
+      } else if (this.elevation && this.elevation !== undefined) {
+        json["elevation"] = this.elevation;
+      }
+    } else {
+      json["hasElevationDependency"] = false;
     }
 
     return json;

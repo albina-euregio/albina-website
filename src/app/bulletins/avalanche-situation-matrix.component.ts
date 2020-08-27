@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ElementRef, SimpleChange, AfterViewInit, OnChanges } from "@angular/core";
-import { BulletinModel } from "../models/bulletin.model";
+import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import { MatrixInformationModel } from "../models/matrix-information.model";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
@@ -11,8 +11,7 @@ import * as Enums from "../enums/enums";
 })
 export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChanges {
 
-  @Input() bulletin: BulletinModel;
-  @Input() afternoon: boolean;
+  @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
   @Input() matrixInformation: MatrixInformationModel;
   @Input() disabled: boolean;
 
@@ -150,7 +149,7 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
 
   public selectArtificialDangerRating(event) {
     this.selectArtificialDangerRatingById(event.currentTarget.id);
-    this.bulletin.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   public selectArtificialDangerRatingById(id) {
@@ -172,7 +171,7 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
 
   public selectNaturalDangerRating(event) {
     this.selectNaturalDangerRatingById(event.currentTarget.id);
-    this.bulletin.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   public selectNaturalDangerRatingById(id) {

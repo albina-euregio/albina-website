@@ -1,7 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { SettingsService } from "../providers/settings-service/settings.service";
-import { BulletinModel } from "../models/bulletin.model";
 import { BulletinDaytimeDescriptionModel } from "../models/bulletin-daytime-description.model";
 import { AvalancheSituationModel } from "../models/avalanche-situation.model";
 import * as Enums from "../enums/enums";
@@ -12,9 +11,7 @@ import * as Enums from "../enums/enums";
 })
 export class AvalancheSituationPreviewComponent {
 
-  @Input() bulletinModel: BulletinModel;
   @Input() bulletinDaytimeDescription: BulletinDaytimeDescriptionModel;
-  @Input() afternoon: boolean;
   @Input() avalancheSituation: AvalancheSituationModel;
   @Input() count: number;
   @Input() check: boolean;
@@ -215,7 +212,7 @@ export class AvalancheSituationPreviewComponent {
           break;
       }
     }
-    this.bulletinModel.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   moveUpAvalancheSituation(event) {
@@ -250,7 +247,7 @@ export class AvalancheSituationPreviewComponent {
       default:
         break;
     }
-    this.bulletinModel.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   moveDownAvalancheSituation(event) {
@@ -285,7 +282,7 @@ export class AvalancheSituationPreviewComponent {
       default:
         break;
     }
-    this.bulletinModel.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   isDangerRatingDirection(dir) {
@@ -298,6 +295,6 @@ export class AvalancheSituationPreviewComponent {
   setDangerRatingDirection(event, dir: string) {
     event.stopPropagation();
     this.avalancheSituation.setDangerRatingDirection(Enums.Direction[dir]);
-    this.bulletinModel.updateDangerRating(this.afternoon);
+    this.bulletinDaytimeDescription.updateDangerRating();
   }
 }
