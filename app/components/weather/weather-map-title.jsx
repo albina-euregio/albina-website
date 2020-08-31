@@ -1,42 +1,35 @@
 import React from "react";
-import { observer } from "mobx-react";
 import { dateToDateTimeString } from "../../util/date.js";
+import { observer, inject } from "mobx-react";
+import { injectIntl } from "react-intl";
 
-@observer
-export default class WeatherMapTitle extends React.Component {
+class WeatherMapTitle extends React.Component {
   render() {
     const { language } = window["appStore"];
-    let { description, descriptionDate } = this.props.store.item || {};
-    if (descriptionDate[language]) {
-      descriptionDate[language] = WeatherMapTitle.formatDate(
-        descriptionDate[language]
-      );
-    }
+    let timeSpan = this.props.store.timeSpan;
+    let domainId = this.props.store.domainId;
+    let dateTime = new Date(this.props.store.currentTimeIndex);
+
+    const dateTimeFormat = new Intl.DateTimeFormat(window.appStore.language, {
+      weekday: "long",
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric"
+    });
+
+    dateTime.getDay;
     return (
       <div>
-        <h2 className="subheader">{descriptionDate[language] || ""}</h2>
-        <h2>{description[language] || ""}</h2>
+        <h2 className="subheader">{dateTimeFormat.format(dateTime)}</h2>
+        <h2>
+          {this.props.intl.formatMessage({
+            id: "weathermap:map-title:" + domainId + ":" + timeSpan
+          })}
+        </h2>
       </div>
     );
   }
-
-  static formatDate(date) {
-    return date
-      .split(/ - /g)
-      .map(dateString => {
-        try {
-          const match = dateString.match(
-            /^[^0-9]+ (\d\d\d\d-\d\d-\d\d \d\d:\d\d)$/
-          );
-          if (match) {
-            const date = new Date(match[1]);
-            return dateToDateTimeString(date);
-          }
-        } catch (e) {
-          // fall-through
-        }
-        return dateString;
-      })
-      .join(" – ");
-  }
 }
+export default inject("locale")(injectIntl(observer(WeatherMapTitle)));

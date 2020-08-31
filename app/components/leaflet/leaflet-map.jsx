@@ -204,7 +204,7 @@ class LeafletMap extends React.Component {
   }
 
   connectLayers(map) {
-    console.log("connectLayers", map);
+    //console.log("connectLayers", map);
     if (map) {
       this.mapRef = map;
     }

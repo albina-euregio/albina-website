@@ -34,7 +34,7 @@ class StationMeasurements extends React.Component {
   }
 
   componentDidMount() {
-    this.store.load();
+    this.store.load("");
   }
 
   handleChangeSearch = val => {

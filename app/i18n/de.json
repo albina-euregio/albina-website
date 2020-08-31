@@ -173,6 +173,7 @@
   "weathermap:header:dateflipper:forward": "Vor",
   "weathermap:map:legend": "Legende",
   "weathermap:map:feature-info:more": "Stationsinfo",
+  "weathermap:map-title:temp:+-1": "Temperatur stündlich",
   "blog:title": "Blog",
   "blog:subtitle": "Blog",
   "blog:headline": "Blog Beiträge",

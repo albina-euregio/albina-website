@@ -64,7 +64,7 @@
     "weather": {
       "domains": "https://avalanche.report/transfer/data/albina_domains.json",
       "plots": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-      "stations": "https://api.avalanche.report/data/produkte/albina.geojson",
+      "stations": "https://avalanche.report/albina_stations/{dateTime}stations.geojson",
       "grid": "https://avalanche.report/transfer/data/albina_grid.json",
       "overlays": "https://avalanche.report/zamg_meteo/overlays/"
     }
@@ -228,7 +228,7 @@
       {
         "id": "ALBINA",
         "url": "https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png",
-        "maxZoom": 10,
+        "maxZoom": 12,
         "minZoom": 7,
         "detectRetina": false,
         "tms": true,
@@ -330,7 +330,7 @@
   },
   "weathermaps": {
     "settings": {
-      "timeRange": ["-72", "+72"],
+      "timeRange": ["-8", "+8"],
       "bbox": [[45.550166, 9.765425], [47.876629, 13.15927]],
       "metaFiles": {
         "agl": "agl.ok",
@@ -367,7 +367,7 @@
           "clusterOperation": "max"
         }
       },
-      "fresh-snow": {
+      "new-snow": {
         "domainDefault": true,
         "domainIdStart": "+6",
         "item": {
@@ -396,7 +396,7 @@
           "clusterOperation": "max"
         }
       },
-      "snow-height-diff": {
+      "diff-snow": {
         "domainDefault": false,
         "domainIdStart": "+6",
         "item": {
@@ -491,7 +491,7 @@
           "clusterOperation": "max"
         }
       },
-      "wgus": {
+      "gust": {
         "domainDefault": false,
         "domainIdStart": "+-1",
         "item": {

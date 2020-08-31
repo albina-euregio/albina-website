@@ -21,21 +21,12 @@ class WeatherMap extends React.Component {
   render() {
     console.log("WeatherMap->render xyz", this.props);
     const overlays = [];
-    if (this.props.itemId && this.props.item) {
-      if (this.props.item.layer.overlay) {
-        //console.log("this.props.item.layer.overlay", this.props.item);
+    if (this.props.item) {
+      if (this.props.overlay) {
+        console.log("this.props.item.layer.overlay", this.props.item);
         const mapMinZoom = config.map.initOptions.minZoom;
         const mapMaxZoom = config.map.initOptions.maxZoom;
 
-        const zoomBounds = this.props.item.overlay.tmsZoomLevel.split("-");
-        const minZoom =
-          Array.isArray(zoomBounds) && zoomBounds.length == 2
-            ? zoomBounds[0]
-            : mapMinZoom;
-        const maxZoom =
-          Array.isArray(zoomBounds) && zoomBounds.length == 2
-            ? zoomBounds[1]
-            : mapMaxZoom;
         //console.log("wather-map->render xxx1:", this.props.overlay);
         if (this.props.overlay) {
           overlays.push(
@@ -44,7 +35,7 @@ class WeatherMap extends React.Component {
               className="leaflet-image-layer"
               url={this.props.overlay + ".gif"}
               opacity={Base.checkBlendingSupport() ? 1 : 0.5}
-              bounds={this.props.item.bbox}
+              bounds={config.weathermaps.settings.bbox}
               onLoad={() => {
                 this.props.playerCB("background", "load");
               }}
@@ -85,6 +76,7 @@ class WeatherMap extends React.Component {
             onMarkerSelected={this.props.onMarkerSelected}
             selectedFeature={this.props.selectedFeature}
             item={this.props.item}
+            itemId={this.props.domainId}
             features={this.props.stations.features}
             onLoading={() => {
               this.props.playerCB("stations", "loading");
@@ -101,7 +93,7 @@ class WeatherMap extends React.Component {
     }
 
     const controls = [<ZamgControl key="zamg" />];
-    if (this.props.itemId && this.props.item) {
+    if (this.props.item) {
       controls.push(<LegendControl key="legend" item={this.props.item} />);
     }
 

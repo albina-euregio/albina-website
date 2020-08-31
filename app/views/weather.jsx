@@ -27,7 +27,7 @@ class Weather extends React.Component {
     this.store = new WeatherMapStore(this.props.match.params.domain);
     if (!config.player) {
       config.player = new Player({
-        transitionTime: 500,
+        transitionTime: 1000,
         avalailableTimes: null,
         owner: this,
         onTick: this.onTick
@@ -38,10 +38,11 @@ class Weather extends React.Component {
       config.newWM = new WeatherMapStoreNew(this.props.match.params.domain);
       autorun(() => {
         console.log(
-          "weatherMapStore_new->weather: yyyy",
+          "weatherMapStore_new->autorun: yyyy",
           config.newWM.timeIndices.length
         );
-        config.player.setAvailableTimes(config.newWM.timeIndices);
+        if (config.newWM.timeIndices.length > 0)
+          config.player.setAvailableTimes(config.newWM.timeIndices);
       });
     } else config.newWM.changeDomain(this.props.match.params.domain);
 
@@ -174,7 +175,7 @@ class Weather extends React.Component {
 
             <div className="section-centered">
               <div className="section-padding-width flipper-header">
-                {this.store.item && <WeatherMapTitle store={this.store} />}
+                {this.store.item && <WeatherMapTitle store={config.newWM} />}
               </div>
             </div>
           </div>
@@ -188,9 +189,8 @@ class Weather extends React.Component {
           {/*this.store.domainId*/ true && (
             <div className="weather-map-container section-map">
               <WeatherMap
-                domainId={this.store.domainId}
-                domain={this.store.domain}
-                itemId={this.store.itemId}
+                domainId={config.newWM.domainId}
+                domain={config.newWM.domain}
                 timeArray={config.newWM.timeIndices}
                 startDate={config.newWM.startDate}
                 overlay={config.newWM.overlayFileName}
@@ -198,11 +198,11 @@ class Weather extends React.Component {
                   console.log("Timeselector clicked", id);
                   config.newWM.changeTimeIndex(id);
                 }}
-                item={this.store.item}
-                grid={this.store.grid}
-                stations={this.store.stations}
+                item={config.newWM.item}
+                grid={config.newWM.grid}
+                stations={config.newWM.stations}
                 playerCB={config.player.onEvent.bind(config.player)}
-                selectedFeature={this.store.selectedFeature}
+                selectedFeature={config.newWM.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}
               />
