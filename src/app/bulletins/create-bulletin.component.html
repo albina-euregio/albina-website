@@ -94,10 +94,16 @@
                             <td *ngIf="!bulletin.hasDaytimeDependency">
                               <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(bulletin)" type="reset" class="btn btn-secondary" (click)="daytimeDependencyChanged($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency && !bulletin.treeline" style="vertical-align: middle;">
-                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{activeBulletin.elevation}} m</b></div>
+                            <td *ngIf="bulletin.forenoon.hasElevationDependency && !bulletin.forenoon.treeline" style="vertical-align: middle;">
+                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{activeBulletin.forenoon.elevation}} m</b></div>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency && bulletin.treeline" style="vertical-align: middle;">
+                            <td *ngIf="bulletin.forenoon.hasElevationDependency && bulletin.forenoon.treeline" style="vertical-align: middle;">
+                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{ "bulletins.create.tooltip.treeline" | translate }}</b></div>
+                            </td>
+                            <td *ngIf="bulletin.hasDaytimeDependency && bulletin.afternoon.hasElevationDependency && !bulletin.afternoon.treeline" style="vertical-align: middle;">
+                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{activeBulletin.afternoon.elevation}} m</b></div>
+                            </td>
+                            <td *ngIf="bulletin.hasDaytimeDependency && bulletin.afternoon.hasElevationDependency && bulletin.afternoon.treeline" style="vertical-align: middle;">
                               <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{ "bulletins.create.tooltip.treeline" | translate }}</b></div>
                             </td>
                           </tr>
@@ -182,10 +188,16 @@
                             <td *ngIf="!bulletin.hasDaytimeDependency">
                               <button [disabled]="true" type="reset" class="btn btn-secondary" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.daytimeDependency' | translate }}"><i class="fa fa-clock-o"></i></button>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency && !bulletin.treeline" style="vertical-align: middle;">
-                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{activeBulletin.elevation}} m</b></div>
+                            <td *ngIf="bulletin.forenoon.hasElevationDependency && !bulletin.forenoon.treeline" style="vertical-align: middle;">
+                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{activeBulletin.forenoon.elevation}} m</b></div>
                             </td>
-                            <td *ngIf="bulletin.hasElevationDependency && bulletin.treeline" style="vertical-align: middle;">
+                            <td *ngIf="bulletin.forenoon.hasElevationDependency && bulletin.forenoon.treeline" style="vertical-align: middle;">
+                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{ "bulletins.create.tooltip.treeline" | translate }}</b></div>
+                            </td>
+                            <td *ngIf="bulletin.hasDaytimeDependency && bulletin.afternoon.hasElevationDependency && !bulletin.afternoon.treeline" style="vertical-align: middle;">
+                              <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{activeBulletin.afternoon.elevation}} m</b></div>
+                            </td>
+                            <td *ngIf="bulletin.hasDaytimeDependency && bulletin.afternoon.hasElevationDependency && bulletin.afternoon.treeline" style="vertical-align: middle;">
                               <div style="width: max-content;"><i class="fa fa-sort"></i><b> {{ "bulletins.create.tooltip.treeline" | translate }}</b></div>
                             </td>
                           </tr>
