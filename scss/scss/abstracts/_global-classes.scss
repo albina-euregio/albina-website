@@ -1,0 +1,119 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #GLOBAL CLASSES
+\*------------------------------------*/
+
+//colors
+.color-trans {
+  color: $trans-color;
+}
+.color-white {
+  color: $white;
+}
+.color-black {
+  color: $black;
+}
+.color,
+.color-brand {
+  color: $brand;
+}
+.color-brand-dark {
+  color: $brand-dark;
+}
+.color-brand-very-dark {
+  color: $brand-very-dark;
+}
+.color1 {
+  color: $brand;
+}
+.color2 {
+  color: $brand-2;
+}
+
+//border
+.radius {
+  border-radius: $global-radius;
+}
+.round {
+  border-radius: $global-rounded;
+}
+
+//text
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}
+.align-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+.text-indent {
+  text-indent: $padding * 3;
+  .label,
+  a {
+    text-indent: 0;
+  }
+}
+
+//block
+.float-left {
+  float: left;
+}
+.float-right {
+  float: right;
+}
+.clearfix {
+  @include clearfix;
+}
+.expand {
+  display: block;
+}
+.full-width {
+  width: 100%;
+}
+.half-width {
+  width: 50%;
+}
+.quarter-width {
+  width: 25%;
+}
+
+.fade-in {
+  animation: fadeIn ($transition-duration * 2) ease-out 0s normal 1 forwards !important;
+}
+.fade-out {
+  animation: fadeOut ($transition-duration * 2) ease-out 0s normal 1 forwards !important;
+}
+
+//visibility
+.is-hidden,
+.hidden,
+.hide {
+  //Completely remove from the flow and screen readers
+  @include hidden;
+}
+.is-visually-hidden {
+  //Completely remove from the flow but leave available to screen readers
+  @include visually-hidden;
+}
+
+//style classes generieren
+@mixin style-generator($property) {
+  @for $i from 1 through 10 {
+    .#{$property}-#{$i*5} {
+      #{$property}: $i * 5px !important;
+    }
+  }
+}
+
+//margins erzeugen, bspw. .margin-top-10 { margin-top: 10px !important; }
+//@include style-generator(margin-top);
+//@include style-generator(margin-bottom);

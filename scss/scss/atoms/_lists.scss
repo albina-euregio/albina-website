@@ -1,0 +1,55 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #LISTS
+\*------------------------------------*/
+
+ul,
+ol {
+  margin: 0 0 $margin-bottom $list-side-margin;
+  padding: 0;
+  list-style-position: $list-style-position;
+
+  li {
+    padding-left: $list-side-padding;
+  }
+
+  &.disc {
+    list-style-type: disc;
+  }
+  &.circle {
+    list-style-type: circle;
+  }
+  &.square {
+    list-style-type: square;
+  }
+
+  &.list-plain {
+    @include list-plain;
+  }
+  &.list-inline {
+    @include list-inline;
+  }
+  &.list-sidenav {
+    @include list-sidenav;
+  }
+
+  @include last-child();
+}
+
+ol {
+  margin-left: $list-ordered-side-margin;
+}
+
+dl {
+  margin-bottom: $margin-bottom;
+}
+dt {
+  @include font-bold;
+}
+dd {
+  margin: 0 0 $paragraph-margin-bottom 0;
+}

@@ -1,0 +1,82 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #SUBSCRIBE
+\*------------------------------------*/
+
+.modal-subscribe {
+  @include last-child;
+  .list-inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: $margin-bottom / 2;
+  }
+  .list-subscribe-language {
+    margin-bottom: 0;
+    li {
+      padding: 0 ($padding * 4) $padding 0;
+      &:last-child {
+        padding-right: 0;
+      }
+    }
+  }
+  input[type="email"] {
+    max-width: 30em;
+  }
+  hr {
+    margin-bottom: $margin-bottom / 2;
+  }
+  .iamok {
+    font-size: $small-font-size;
+  }
+  .status-message {
+    font-size: $small-font-size;
+    .error {
+      color: $error-color;
+    }
+  }
+}
+
+//from alien app.scss
+.status-message .error {
+  color: $error-color;
+}
+
+.app-dl {
+  .app-logo {
+    max-width: 5em;
+    margin-bottom: 0;
+  }
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
+// messenger-people-plugin
+.messengerpeople-wrapper {
+  margin-left: -($padding * 3);
+  margin-right: -($padding * 3);
+  iframe {
+    height: 280px;
+    width: 500px;
+    max-width: 100%;
+    border: none;
+  }
+}
+
+//from alien app.scss
+a.share-feed {
+  line-height: 2em;
+  background: url("../images/pro/feed-icon-28x28.png");
+  background-repeat: no-repeat;
+  background-size: 1.3em 1.3em;
+  padding-left: 1.5em;
+}
+//from alien app.scss
+.modal-subscribe .blog-language {
+  @include font-bold;
+}

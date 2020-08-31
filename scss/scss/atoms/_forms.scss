@@ -1,0 +1,611 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+		#FORMS
+\*------------------------------------*/
+
+form {
+  margin-bottom: $margin-bottom;
+}
+
+//http://purecss.io/forms
+
+//@import "../../../bower_components/pure-scss_1.0.0/forms";
+@import "../../../node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_forms.scss";
+
+.pure-form {
+  legend {
+    margin-bottom: $padding * 2;
+    padding: 0 0 ($padding / 2) 0;
+    font-size: $large-font-size; //$body-font-size-large;
+    color: $text-color;
+    border-color: $border-color;
+  }
+  label {
+    margin: 0;
+    @include font-heavy;
+    font-size: $tiny-font-size; //$body-font-size-tiny;
+    @include letter-spacing(0.05em);
+  }
+  .pure-checkbox,
+  .pure-radio {
+    margin: 0 0 $padding 0;
+    input {
+      margin-right: $padding;
+    }
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="url"],
+  input[type="date"],
+  input[type="month"],
+  input[type="time"],
+  input[type="datetime"],
+  input[type="datetime-local"],
+  input[type="week"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="color"],
+  select,
+  textarea {
+    margin: 0;
+    padding: $padding;
+    @include font-normal;
+    font-size: $tiny-font-size; //$body-font-size-tiny;
+    line-height: $header-line-height;
+    //@include letter-spacing(0.05em);
+    color: $brand;
+    border-radius: $global-radius;
+    -webkit-appearance: none;
+    @include box-shadow;
+    @include rollout;
+
+    &::placeholder {
+      color: $grey-light;
+      @include rollover;
+    }
+
+    &:hover {
+      border-color: $brand;
+      &::placeholder {
+        color: $grey;
+      }
+    }
+    &:focus {
+      color: $brand;
+      border-color: $brand;
+    }
+  }
+
+  .pure-control-group {
+    margin-bottom: $padding;
+    label {
+      margin-right: $padding;
+    }
+  }
+
+  .pure-group {
+    input:last-child {
+      top: -$border-width;
+      border-radius: $global-radius;
+    }
+  }
+}
+
+.pure-form-search {
+  display: inline-block;
+  input {
+    width: 5em;
+    //border: $white !important;
+    &:focus {
+      width: 10em;
+    }
+  }
+  &:hover {
+    input {
+      width: 10em;
+    }
+  }
+  .controlbar & {
+    input {
+      border-color: $white;
+      &:hover,
+      &:focus {
+        border-color: $white;
+      }
+    }
+  }
+}
+
+//https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+input[type="range"] {
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: transparent;
+  &:focus {
+    outline: none;
+  }
+
+  &::-webkit-slider-runnable-track {
+    width: 100%;
+    height: $bar-width;
+    margin-top: calc(#{$bar-width} * 2 - #{$bar-width} / 2);
+    cursor: pointer;
+    background: $grey-very-light;
+    border-radius: $global-rounded;
+    @include rollout;
+    &:hover,
+    &:focus {
+      background: $brand;
+      outline: none;
+    }
+  }
+  &::-webkit-slider-thumb {
+    height: $bar-width * 4;
+    width: $bar-width * 4;
+    margin-top: calc(-#{$bar-width} - #{$bar-width} / 2);
+    background: $white;
+    border: $border-width $border-style $brand;
+    border-radius: $global-rounded;
+    cursor: pointer;
+    -webkit-appearance: none;
+    @include rollout;
+    &:hover {
+    }
+  }
+
+  &::-moz-range-track {
+    width: 100%;
+    height: $bar-width * 2;
+    cursor: pointer;
+    background: $grey-very-light;
+    border-radius: $global-rounded;
+    &:hover,
+    &:focus {
+      background: $grey-light;
+      outline: none;
+    }
+  }
+  &::-moz-range-thumb {
+    height: $bar-width * 4;
+    width: $bar-width * 4;
+    background: $white;
+    border: $border-width $border-style $brand;
+    border-radius: $global-rounded;
+    cursor: pointer;
+    &:hover {
+      border-color: $brand;
+      background: $brand;
+    }
+  }
+
+  &::-ms-track {
+    width: 100%;
+    height: $bar-width * 2;
+    cursor: pointer;
+    background: transparent;
+    border-color: transparent;
+    border-width: $padding 0;
+    color: transparent;
+  }
+  &::-ms-fill-lower {
+    background: $grey-very-light;
+    border-radius: $global-rounded;
+    &:hover,
+    &:focus {
+      background: $grey-light;
+      outline: none;
+    }
+  }
+  &::-ms-fill-upper {
+    background: $grey-very-light;
+    border-radius: $global-rounded;
+    &:hover,
+    &:focus {
+      background: $grey-light;
+      outline: none;
+    }
+  }
+  &::-ms-thumb {
+    border: $border-width $border-style $brand;
+    height: $padding * 2;
+    width: $padding * 2;
+    border-radius: $global-rounded;
+    background: $white;
+    cursor: pointer;
+    &:hover {
+      border-color: $brand;
+      background: $brand;
+    }
+  }
+}
+
+//http://www.w3schools.com/howto/howto_css_switch.asp
+.switch {
+  margin-bottom: $margin-bottom;
+  label {
+    position: relative;
+    display: inline-block;
+    width: $padding * 4;
+    height: $padding * 2;
+  }
+  input {
+    display: none;
+  }
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $grey-light;
+    border-radius: $global-rounded;
+    @include rollout;
+    &:before {
+      position: absolute;
+      content: "";
+      height: calc(#{$padding} * 2 - #{$border-width} * 2);
+      width: calc(#{$padding} * 2 - #{$border-width} * 2);
+      left: $border-width;
+      right: $border-width;
+      bottom: $border-width;
+      background-color: $white;
+      border-radius: $global-rounded;
+      @include rollout;
+    }
+    &:hover {
+      background-color: $grey;
+    }
+  }
+  input:checked + .slider {
+    background-color: $brand;
+  }
+  input:checked + .slider:before {
+    transform: translateX($padding * 2);
+  }
+}
+
+.switch-text {
+  margin-bottom: $margin-bottom;
+  font-size: $small-font-size;
+  label {
+    position: relative;
+    display: inline-block;
+  }
+  input {
+    display: none;
+  }
+  .slider {
+    overflow: auto;
+    cursor: pointer;
+    padding: 0;
+    border-radius: $global-rounded;
+    @include rollout;
+
+    span {
+      display: inline-block;
+      float: left;
+      margin: 0;
+      padding: ($padding / 5) ($padding / 2) ($padding / 4) ($padding / 2);
+      color: rgba($brand, 0.5);
+      border: $border-width $border-style $brand;
+      background-color: transparent;
+      @include rollout;
+      &:first-child {
+        padding-left: $padding;
+        color: $white;
+        background-color: $brand;
+        border-radius: $global-rounded 0 0 $global-rounded;
+      }
+      &:last-child {
+        padding-right: $padding;
+        border-radius: 0 $global-rounded $global-rounded 0;
+      }
+    }
+    &:hover {
+      span {
+        &:last-child {
+          color: $brand;
+        }
+      }
+    }
+  }
+  input:checked + .slider {
+    span {
+      &:first-child {
+        color: rgba($brand, 0.5);
+        background-color: transparent;
+      }
+      &:last-child {
+        color: $white;
+        background-color: $brand;
+      }
+    }
+    &:hover {
+      span {
+        &:first-child {
+          color: $brand;
+        }
+      }
+    }
+  }
+}
+
+$selectric-min-width: 10em;
+$selectric-max-width: 20em;
+
+//dropdowns
+.selectric-wrapper {
+  position: relative;
+  cursor: pointer;
+
+  //from alien app.scss
+  &.disabled {
+    .selectric {
+      opacity: 0.5;
+    }
+  }
+}
+
+.selectric {
+  display: block; //inline-block;
+  position: relative;
+  min-width: $selectric-min-width;
+  padding: $padding ($padding * 3) $padding $padding;
+  font-size: $tiny-font-size; //$body-font-size-tiny;
+  //@media #{$medium-up} { font-size: $tiny-font-size; }
+  @include font-heavy;
+  line-height: $header-line-height;
+  @include letter-spacing(0.1em);
+  @include uppercase;
+
+  color: $brand;
+  background: $white;
+  border: $border-width $border-style $brand;
+  border-radius: $global-radius;
+  @include rollout;
+
+  .controlbar & {
+    color: $white;
+    background: $brand;
+    border-color: $white;
+  }
+
+  &:before {
+    //@mixin icon($type, $size: auto, $margin: auto, $color: auto, $top: auto, $shadow: none)
+    @include icon(down-open, $icon-font-size, 0, auto, 0, none);
+    position: absolute;
+    top: $padding / 2;
+    right: $padding / 2;
+    margin-right: 0;
+    color: $brand;
+    @include rollout;
+    .controlbar & {
+      color: $white;
+    }
+  }
+
+  .label {
+    top: 0;
+    margin: 0;
+    padding: 0;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: $tiny-font-size; //$body-font-size-tiny;
+    //@media #{$normal-up} { font-size: $tiny-font-size; }
+    text-overflow: ellipsis;
+    color: $brand;
+    background: none;
+    border: none;
+    border-radius: 0;
+    .controlbar & {
+      color: $white;
+    }
+  }
+  .button {
+    display: none;
+  }
+
+  &:hover,
+  .selectric-open &,
+  .selectric-changed & {
+    color: $white;
+    background: $brand;
+    border-color: $brand;
+    @include box-shadow;
+    @include rollover;
+    .controlbar & {
+      color: $brand;
+      background: $white;
+      border-color: $white;
+    }
+
+    &:before {
+      color: $white;
+      .controlbar & {
+        color: $brand;
+      }
+    }
+
+    .label {
+      color: $white;
+      .controlbar & {
+        color: $brand;
+      }
+    }
+  }
+  .selectric-open &,
+  .selectric-changed & {
+    .controlbar & {
+      border-color: $brand;
+    }
+  }
+}
+
+.selectric-open {
+  .selectric {
+    &:before {
+      transform: rotate(180deg);
+    }
+  }
+  .selectric-items {
+    display: block;
+    opacity: 1;
+    @include rollover;
+  }
+}
+
+.selectric-disabled {
+  opacity: 0.5;
+  cursor: default;
+  user-select: none;
+}
+
+.selectric-hide-select {
+  position: relative;
+  overflow: hidden;
+  width: 0;
+  height: 0;
+  select {
+    position: absolute;
+    left: -100%;
+  }
+
+  &.selectric-is-native {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    select {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      border: none;
+      z-index: 1;
+      opacity: 0;
+    }
+  }
+}
+
+.selectric-input {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: $border-width !important;
+  height: $border-width !important;
+  outline: none !important;
+  border: none !important;
+  *font: 0/0 a !important;
+  background: none !important;
+}
+
+.selectric-temp-show {
+  position: absolute !important;
+  visibility: hidden !important;
+  display: block !important;
+}
+
+/* Items box */
+.selectric-above .selectric-items {
+  top: auto;
+  bottom: calc(100% - #{$border-width});
+}
+
+.selectric-items {
+  display: none;
+  position: absolute;
+  top: calc(100% - #{$border-width});
+  left: 0;
+
+  min-width: $selectric-min-width !important;
+  max-width: $selectric-max-width !important;
+  width: auto !important;
+
+  font-size: $normal-font-size; //$body-font-size-tiny;
+  @media #{$medium-up} {
+    font-size: $tiny-font-size;
+  }
+  line-height: $header-line-height;
+  //@include letter-spacing(0.05em);
+
+  .controlbar & {
+    @include text-color($text-color);
+  }
+
+  background: $white;
+  border: $border-width $border-style $brand;
+  z-index: -1;
+  opacity: 0;
+  @include box-shadow;
+  @include rollout;
+
+  .selectric-scroll {
+    height: 100%;
+    overflow: auto;
+  }
+  ul {
+    @include list-plain;
+    margin-bottom: 0;
+  }
+  li {
+    padding: $padding !important;
+    border-top: $border-width $border-style $border-color;
+    cursor: pointer;
+    @include rollout;
+
+    &.selected {
+      color: $brand;
+    }
+    &.highlighted {
+      color: $brand;
+    }
+
+    &:hover {
+      color: $brand;
+      background: $table-row-hover-bg;
+      cursor: pointer;
+      @include rollover;
+    }
+  }
+
+  .disabled {
+    opacity: 0.5;
+    cursor: default !important;
+    background: none !important;
+    color: $grey-light !important;
+    user-select: none;
+  }
+
+  .selectric-group {
+    .selectric-group-label {
+      font-weight: bold;
+      padding-left: $padding;
+      cursor: default;
+      user-select: none;
+      background: none;
+    }
+    li {
+      padding-left: $padding * 2;
+    }
+    &.disabled li {
+      opacity: 1;
+    }
+  }
+}

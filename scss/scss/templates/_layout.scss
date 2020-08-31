@@ -1,0 +1,271 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #LAYOUT
+\*------------------------------------*/
+
+//z-indices
+.page-all:before {
+  z-index: 1500;
+}
+.page-header {
+  z-index: 1000;
+}
+.page-footer:after {
+  z-index: 100;
+}
+.tippy-popper {
+  z-index: 500;
+}
+.selectric-open {
+  z-index: 500;
+}
+//$mfp-z-index-base:		1024;// Base z-index of popup
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-$page-header-height);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes fadeMeOut {
+  0% {
+    transform: translate(-50%, -55%) scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -55%) scale(0.75);
+    opacity: 0;
+  }
+}
+
+//layout
+.v-padding {
+  @include v-padding($all-v-padding);
+}
+.h-padding {
+  @include h-padding($all-h-padding);
+}
+
+//page-loading-screen
+.page-loading-screen {
+  .page-loaded & {
+    pointer-events: none; //Disable pointer-events on page-loading screen when page is loaded, or otherwise elements that happen to be placed beneath it cannot receive these events
+    animation: fadeMeOut 0.5s ease-in-out 1 forwards;
+  }
+  .page-loading & {
+    animation: fadeMeIn 0.5s ease-in-out 1 forwards;
+  }
+}
+
+//jumpnav
+.jumpnav {
+  @include visually-hidden;
+}
+
+//page-all
+.page-all {
+  //https://philipwalton.com/articles/normalizing-cross-browser-flexbox-bugs/
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+  height: 100vh;
+  min-height: 100vh;
+  opacity: 0;
+  animation: ($transition-duration * 2) ease-out $transition-duration 1 fadeIn
+    forwards;
+  @media screen and (max-width: #{upper-bound($normal-range)}) {
+    .navigation-open & {
+      overflow: auto; //probably needed for IE / Edge, but *fkn* big problems with scrolling
+    }
+  }
+
+  &:before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $bar-width;
+    @extend .bg-colorbar;
+  }
+}
+
+//page-header
+.page-header {
+  position: fixed;
+  top: $bar-width;
+  left: 0;
+  right: 0;
+  font-size: 1rem;
+
+  @media #{$normal-up} {
+    font-size: 0.9rem;
+  }
+  @media #{$medium-up} {
+  }
+  @media #{$medium-up} and (min-height:#{lower-bound($normal-range)}) {
+    font-size: 0.8rem;
+  }
+  @media #{$large-up} and (min-height:#{lower-bound($medium-range) - $min-height-adjustment}) {
+  }
+  @media #{$xlarge-up} and (min-height:#{lower-bound($medium-range)}) {
+  }
+  @media #{$xxlarge-up} and (min-height:#{lower-bound($medium-range) + $min-height-adjustment}) {
+    font-size: 0.7rem;
+  }
+  @media #{$xxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+    font-size: 0.6rem;
+  }
+  @media #{$xxxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+  }
+  @media #{$xxxxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+  }
+
+  @include rollout(all, $transition-duration, $ease: ease-out);
+  animation: ($transition-duration * 2) ease-out 0s 1 slideInFromTop;
+}
+
+//page-main
+.page-main {
+  flex: 1 0 auto;
+  min-height: 10vh;
+  max-width: 100%; //iOS
+  overflow: hidden; //iOS
+
+  z-index: 50; //from app.scss
+  overflow: visible; //from app.scss
+  position: relative;
+  top: $bar-width;
+  margin: 0 0 $bar-width 0;
+  padding-top: $page-header-height;
+  @include rollout(all, $transition-duration, $ease: ease-out);
+  @media screen and (max-width: #{upper-bound($normal-range)}) {
+    .navigation-open & {
+      transform: translateY($page-header-height);
+      opacity: 0;
+    }
+  }
+
+  @media #{$normal-up} {
+    padding-top: $page-header-height * 0.9;
+  }
+  @media #{$medium-up} {
+    padding-top: $page-header-height-medium * 0.9;
+  }
+  @media #{$medium-up} and (min-height:#{lower-bound($normal-range)}) {
+    padding-top: $page-header-height-medium * 0.8;
+  }
+  @media #{$large-up} and (min-height:#{lower-bound($medium-range) - $min-height-adjustment}) {
+  }
+  @media #{$xlarge-up} and (min-height:#{lower-bound($medium-range)}) {
+  }
+  @media #{$xxlarge-up} and (min-height:#{lower-bound($medium-range) + $min-height-adjustment}) {
+    padding-top: $page-header-height-medium * 0.7;
+  }
+  @media #{$xxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+    padding-top: $page-header-height-medium * 0.6;
+  }
+  @media #{$xxxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+  }
+  @media #{$xxxxxlarge-up} and (min-height:#{lower-bound($large-range)}) {
+  }
+}
+
+//page-footer
+.page-footer {
+  flex-shrink: 0;
+
+  position: relative;
+  z-index: 0; //from app.scss
+  padding-bottom: $bar-width;
+  @include rollout;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: $bar-width;
+    @extend .bg-colorbar;
+  }
+}
+
+//sections
+.section {
+  position: relative;
+  margin: 0;
+  @include rollout;
+  @include last-child();
+  /*
+	opacity: 0;
+	animation: ($transition-duration * 2) ease-out $transition-duration 1 fadeIn forwards;
+*/
+}
+
+.section-centered {
+  @extend .section;
+  max-width: $line-length;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-padding {
+  @extend .section;
+  padding: $all-v-padding $all-h-padding;
+}
+
+.section-padding-width {
+  @extend .section;
+  padding: 0 $all-h-padding;
+}
+.section-padding-height {
+  @extend .section;
+  padding: $all-v-padding 0;
+}
+
+.section-hiddenSmallUp {
+  @media #{$small-up} {
+    display: none;
+  }
+}
+.section-hiddenNormalUp {
+  @media #{$normal-up} {
+    display: none;
+  }
+}
+.section-hiddenUntilSmall {
+  @media #{$screen} and (max-width:#{upper-bound($tiny-range)}) {
+    display: none;
+  }
+}
+.section-hiddenUntilNormal {
+  @media #{$screen} and (max-width:#{upper-bound($small-range)}) {
+    display: none;
+  }
+}
