@@ -52,7 +52,6 @@ export class AvalancheSituationDetailComponent implements OnChanges {
   selectAvalancheSituation(situation) {
     if (this.isAvalancheSituation(Enums.AvalancheSituation[situation])) {
       this.avalancheSituationModel.setAvalancheSituation(undefined);
-      this.avalancheSituationModel.setAspects(new Array<Enums.Aspect>());
     } else {
       this.avalancheSituationModel.setAvalancheSituation(Enums.AvalancheSituation[situation]);
     }
