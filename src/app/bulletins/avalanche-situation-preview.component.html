@@ -28,22 +28,22 @@
       </td>
       <td style="padding-right: 10px; min-width: 135px;">
         <!-- elevation -->
-        <tr *ngIf="hasElevationHigh()">
+        <tr *ngIf="avalancheSituation.hasElevationHigh()">
           <div style="width: max-content;"><i class="fa fa-arrow-down"></i> {{getElevationHighString()}}</div>
         </tr>
-        <tr *ngIf="hasElevationLow()">
+        <tr *ngIf="avalancheSituation.hasElevationLow()">
           <div style="width: max-content;"><i class="fa fa-arrow-up"></i> {{getElevationLowString()}}</div>
         </tr>
       </td>
       <td style="padding-right: 10px; width: 100%;">
         <!-- danger rating -->
-        <img *ngIf="isDangerRating('low')" src="./assets/img/danger_rating_low_c.svg" height="40">
-        <img *ngIf="isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_c.svg" height="40">
-        <img *ngIf="isDangerRating('considerable')" src="./assets/img/danger_rating_considerable_c.svg" height="40">
-        <img *ngIf="isDangerRating('high')" src="./assets/img/danger_rating_high_c.svg" height="40">
-        <img *ngIf="isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_c.svg" height="40">
+        <img *ngIf="avalancheSituation.isDangerRating('low')" src="./assets/img/danger_rating_low_c.svg" height="40">
+        <img *ngIf="avalancheSituation.isDangerRating('moderate')" src="./assets/img/danger_rating_moderate_c.svg" height="40">
+        <img *ngIf="avalancheSituation.isDangerRating('considerable')" src="./assets/img/danger_rating_considerable_c.svg" height="40">
+        <img *ngIf="avalancheSituation.isDangerRating('high')" src="./assets/img/danger_rating_high_c.svg" height="40">
+        <img *ngIf="avalancheSituation.isDangerRating('very_high')" src="./assets/img/danger_rating_very_high_c.svg" height="40">
       </td>
-      <td *ngIf="hasElevationHigh() && hasElevationLow()" style="padding-right: 10px;">
+      <td *ngIf="avalancheSituation.hasElevationHigh() && avalancheSituation.hasElevationLow()" style="padding-right: 10px;">
         <tr *ngIf="isDangerRatingDirection('up')" style="height: 20px;">
           <button [disabled]="disabled" type="reset" class="btn btn-sm btn-primary" (click)="setDangerRatingDirection($event, undefined)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.dangerRatingDirectionUp' | translate }}"><i class="fa fa-chevron-up"></i></button>
         </tr>

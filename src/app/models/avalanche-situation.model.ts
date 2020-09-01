@@ -219,6 +219,64 @@ export class AvalancheSituationModel {
     }
   }
 
+  hasElevationHigh() {
+    if (this.getTreelineHigh()) {
+      return true;
+    } else {
+      if (this.getElevationHigh() && this.getElevationHigh() !== undefined) {
+        return true
+      } else {
+        return false;
+      }
+    }
+  }
+
+  hasElevationLow() {
+    if (this.getTreelineLow()) {
+      return true;
+    } else {
+      if (this.getElevationLow() && this.getElevationLow() !== undefined) {
+        return true
+      } else {
+        return false;
+      }
+    }
+  }
+
+  getHigherDangerRating() {
+    if (this.matrixInformation) {
+      const artificialDangerRating = Enums.DangerRating[this.matrixInformation.artificialDangerRating];
+      const naturalDangerRating = Enums.DangerRating[this.matrixInformation.naturalDangerRating];
+      if (artificialDangerRating !== undefined) {
+        if (naturalDangerRating !== undefined) {
+          if (Enums.DangerRating[this.matrixInformation.artificialDangerRating] < Enums.DangerRating[this.matrixInformation.naturalDangerRating]) {
+            return this.matrixInformation.naturalDangerRating;
+          } else {
+            return this.matrixInformation.artificialDangerRating;
+          }
+        } else {
+          return this.matrixInformation.artificialDangerRating;
+        }
+      } else {
+        if (naturalDangerRating !== undefined) {
+          return this.matrixInformation.naturalDangerRating
+        } else {
+          return "missing";
+        }
+      }
+    } else {
+      return "missing";
+    }
+  }
+
+  isDangerRating(dangerRating) {
+    if (this.getHigherDangerRating() === dangerRating) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   toJson() {
     const json = Object();
 

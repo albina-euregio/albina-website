@@ -95,64 +95,6 @@ export class AvalancheSituationPreviewComponent {
     }
   }
 
-  hasElevationHigh() {
-    if (this.avalancheSituation && this.avalancheSituation.getTreelineHigh()) {
-      return true;
-    } else {
-      if (this.avalancheSituation && this.avalancheSituation.getElevationHigh() && this.avalancheSituation.getElevationHigh() !== undefined) {
-        return true
-      } else {
-        return false;
-      }
-    }
-  }
-
-  hasElevationLow() {
-    if (this.avalancheSituation && this.avalancheSituation.getTreelineLow()) {
-      return true;
-    } else {
-      if (this.avalancheSituation && this.avalancheSituation.getElevationLow() && this.avalancheSituation.getElevationLow() !== undefined) {
-        return true
-      } else {
-        return false;
-      }
-    }
-  }
-
-  getHigherDangerRating() {
-    if (this.avalancheSituation && this.avalancheSituation.matrixInformation) {
-      const artificialDangerRating = Enums.DangerRating[this.avalancheSituation.matrixInformation.artificialDangerRating];
-      const naturalDangerRating = Enums.DangerRating[this.avalancheSituation.matrixInformation.naturalDangerRating];
-      if (artificialDangerRating !== undefined) {
-        if (naturalDangerRating !== undefined) {
-          if (Enums.DangerRating[this.avalancheSituation.matrixInformation.artificialDangerRating] < Enums.DangerRating[this.avalancheSituation.matrixInformation.naturalDangerRating]) {
-            return this.avalancheSituation.matrixInformation.naturalDangerRating;
-          } else {
-            return this.avalancheSituation.matrixInformation.artificialDangerRating;
-          }
-        } else {
-          return this.avalancheSituation.matrixInformation.artificialDangerRating;
-        }
-      } else {
-        if (naturalDangerRating !== undefined) {
-          return this.avalancheSituation.matrixInformation.naturalDangerRating
-        } else {
-          return "missing";
-        }
-      }
-    } else {
-      return "missing";
-    }
-  }
-
-  isDangerRating(dangerRating) {
-    if (this.getHigherDangerRating() === dangerRating) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   deleteAvalancheSituation(event) {
     event.stopPropagation();
     switch (this.count) {
