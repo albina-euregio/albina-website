@@ -23,7 +23,9 @@ export class ZamgModelPoint {
     public regionNameDE: string,
     public regionNameIT: string,
     public freshSnow: ZamgFreshSnow[],
-    public plotUrl: string
+    public plotUrl: string,
+    public lat: number,
+    public lng: number
   ) {}
 }
 
@@ -71,6 +73,8 @@ export class ModellingService {
             const region = regions.features.find(
               feature => feature.properties.id === regionCode
             );
+            const lat = parseFloat(row.MuMo_Y.replace(/,/g, '.'));
+            const lng = parseFloat(row.MuMo_X.replace(/,/g, '.'));
 
             const freshSnow: ZamgFreshSnow[] = [];
             try {
@@ -102,7 +106,9 @@ export class ModellingService {
               region ? region.properties.name_de : undefined,
               region ? region.properties.name_it : undefined,
               freshSnow,
-              `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`
+              `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`,
+              lat,
+              lng
             );
           })
         )
