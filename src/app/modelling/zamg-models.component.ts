@@ -16,7 +16,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
   showTable: boolean;
 
   @ViewChild("select") select;
-  @ViewChild('map') mapDiv;
+  @ViewChild("map") mapDiv;
 
   constructor(
     private modellingService: ModellingService,
@@ -88,7 +88,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
     this.mapService.zamgModelsMap = map;
     this.mapService.layerGroups.zamgModelPoints.clearLayers();
 
-    for (var i = this.modelPoints.length - 1; i >= 0; i--) {
+    for (let i = this.modelPoints.length - 1; i >= 0; i--) {
       const modelPoint = this.modelPoints[i];
       new L.Marker(new L.LatLng(modelPoint.lat, modelPoint.lng), { icon: this.mapService.createSnowProfileMarker() })
       .on({ click: () => this.selectModelPoint(modelPoint)})

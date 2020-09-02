@@ -73,8 +73,8 @@ export class ModellingService {
             const region = regions.features.find(
               feature => feature.properties.id === regionCode
             );
-            const lat = parseFloat(row.MuMo_Y.replace(/,/g, '.'));
-            const lng = parseFloat(row.MuMo_X.replace(/,/g, '.'));
+            const lat = parseFloat(row.MuMo_Y.replace(/,/g, "."));
+            const lng = parseFloat(row.MuMo_X.replace(/,/g, "."));
 
             const freshSnow: ZamgFreshSnow[] = [];
             try {
