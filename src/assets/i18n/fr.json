@@ -29,9 +29,9 @@
     "de" : "Allemand",
     "fr" : "Français",
     "it" : "Italien",
-    "es" : "Spanish",
+    "es" : "Espagnol",
     "ca" : "Catalan",
-    "oc" : "Aranese",
+    "oc" : "Aranais",
     "fullscreen" : "Fullscreen",
     "settings" : "Paramètres",
     "admin" : "Admin",
@@ -83,9 +83,9 @@
           "increasing" : "Le danger d'avalanche augmente"
         },
         "complexity" : {
-          "easy" : "Assessment in the field is easy",
-          "challenging" : "Assessment in the field is challenging",
-          "complex" : "Assessment in the field is complex"
+          "easy" : "Appréciation sur le terrain est facile",
+          "challenging" : "Appréciation sur le terrain est exigeant",
+          "complex" : "Appréciation sur le terrain est complexe"
         },
         "textcat" : {
           "edit" : "Éditer",
@@ -94,12 +94,12 @@
           "example" : "Télécharger exemple de texte",
           "delete" : "Effacer"
         },
-        "showInBulletin" : "Avalanche problem will be shown in bulletin",
-        "dontShowInBulletin" : "Avalanche problem will NOT be shown in bulletin",
-        "moveUpAvalancheSituation" : "Move avalanche problem up",
-        "moveDownAvalancheSituation" : "Move avalanche problem down",
-        "dangerRatingDirectionUp" : "Extend the danger rating upwards",
-        "dangerRatingDirectionDown" : "Extend the danger rating downwards"
+        "showInBulletin" : "Situation avalancheuse typique sera présenté dans le bulletin",
+        "dontShowInBulletin" : "Situation avalancheuse typique ne sera pas présenté dans le bulletin",
+        "moveUpAvalancheSituation" : "Déplacer situation avalancheuse typique en haut",
+        "moveDownAvalancheSituation" : "Déplacer situation avalancheuse typique en bas",
+        "dangerRatingDirectionUp" : "Élargir le degré de danger vers le haut",
+        "dangerRatingDirectionDown" : "Élargir le degré de danger vers le bas"
     },
       "button" : "Créer",
       "save" : "Sauvegarder",
@@ -109,11 +109,11 @@
       "saveAggregatedRegion" : "Sauvegarder",
       "discardAggregatedRegion" : "Abandoner",
       "deleteAggregatedRegion" : "Effacer",
-      "createAvalancheSituation" : " New problem",
+      "createAvalancheSituation" : "Situation avalancheuse typique nouvelle",
       "ownRegions" : "Mes régions",
       "foreignRegions": "Régions étrangères",
       "label" : {
-        "highlights" : "Special alert",
+        "highlights" : "Alerte particulière ",
         "avActivityHighlights" : "Titre situation danger d'avalanche",
         "avActivityComment" : "Déscription du danger d'avalanche",
         "avalancheSituation1" : "Situation avalancheuse typique 1",
@@ -129,7 +129,7 @@
         "elevationLow" : "Au-dessus",
         "tendencyComment" : "Déscription de la tendance",
         "notes" : "Notes",
-        "terrainFeature": "Terrain features"
+        "terrainFeature": "Caractéristiques du terrain"
       },
       "title" : {
         "map" : "Carte",
@@ -201,8 +201,8 @@
         "accept" : "Ok"
       },
       "avalancheSituationErrorDialog" : {
-        "header" : "Incomplete avalanche problem",
-        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
+        "header" : "Situation avalancheuse typique incomplet",
+        "message" : "La situation avalancheuse typique, exposition et/ou le degré de danger manquent pour au moins une situation avalancheuse typique",
         "accept" : "Ok"
       },
       "incompleteTranslationDialog" : {
@@ -416,7 +416,7 @@
         "publishBulletinsTyrol" : "Publier bulletin d'avalanche pour Tyrol ",
         "publishBulletinsSouthTyrol" : "Publier bulletin d'avalanche pour Tyrol du Sud",
         "publishBulletinsTrentino" : "Publier bulletin d'avalanche pour le Trentin",
-        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
+        "publishBulletinsAran" : "Publier bulletin d'avalanche pour Aran",
         "publishBlogsTyrol" : "Publier blog pour Tyrol",
         "publishBlogsSouthTyrol" : "Publier blog pour Tyrol du Sud",
         "publishBlogsTrentino" : "Publier blog pour le Trentin",
@@ -519,7 +519,7 @@
     "AT-07-11" : "Östliche Verwallgruppe",
     "AT-07-12" : "Silvretta",
     "AT-07-13" : "Samnaungruppe",
-    "AT-07-14" : " \nNördliche Ötztaler- und Stubaier Alpen",
+    "AT-07-14" : "Nördliche Ötztaler- und Stubaier Alpen",
     "AT-07-15" : "Westliche Tuxer Alpen",
     "AT-07-16" : "Östliche Tuxer Alpen",
     "AT-07-17" : "Westliche Kitzbüheler Alpen",
@@ -551,7 +551,7 @@
     "IT-32-BZ-13" : "Westliche Deferegger Alpen /\nAlpi del Defereggen occidentali ",
     "IT-32-BZ-14" : "Ortlergruppe /\nGruppo dell'Ortles ",
     "IT-32-BZ-15" : "Ultental /\nVal d'Ultimo",
-    "IT-32-BZ-16" : "Eastern Nonsberg Alps",
+    "IT-32-BZ-16" : "Östliche Nonsberger Alpen /\nAlpi della Val di Non orientali ",
     "IT-32-BZ-17" : "Nördliche Fleimstaler Alpen /\nDolomiti di Fiemme settentrionali ",
     "IT-32-BZ-18" : "Groedner Dolomiten /\nDolomiti di Gardena ",
     "IT-32-BZ-19" : "Pragser Dolomiten /\nDolomiti di Braies ",
@@ -579,9 +579,9 @@
     "IT-32-TN-20" : "Maddalene",
     "IT-32-TN-21" : "Pine' - Valle dei Mocheni",
     "ES-CT-L" : "Aran",
-    "ES-CT-L-01" : "North and center of Aran",
-    "ES-CT-L-02" : "Southern limit of Aran",
-    "ES-CT-L-03" : "South slope of Aran"
+    "ES-CT-L-01" : "Nord et centre d'Aran",
+    "ES-CT-L-02" : "Frontière du sud d'Aran",
+    "ES-CT-L-03" : "Aran du Sud"
   },
   "tendency" : {
     "decreasing" : "Le Danger d'avalanche diminue",
@@ -589,9 +589,9 @@
     "increasing" : "Le danger d'avalanche augmente"
   },
   "complexity": {
-    "easy": " Easy",
-    "challenging": " Challenging",
-    "complex": " Complex"
+    "easy": "Facile",
+    "challenging": "Exigeant",
+    "complex": "Complexe"
   },
   "changeRegionDialog" : {
     "message" : "Abandoner les modifications et changer la région?",
@@ -600,6 +600,7 @@
   },
   "zamg": {
     "table" : "Table",
+    "map" : "Carte",
     "region" : "Region",
     "newSnow" : "New snow"
   },

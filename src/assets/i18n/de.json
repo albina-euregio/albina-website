@@ -201,7 +201,7 @@
         "accept" : "Ok"
       },
       "avalancheSituationErrorDialog" : {
-        "header" : "Incomplete avalanche problem",
+        "header" : "Unvollständiges Lawinenproblem",
         "message" : "Lawinenproblem Art, Exposition und/oder Gefahrenstufe fehlen bei mindestens einem Lawinenproblem",
         "accept" : "Ok"
       },
@@ -600,6 +600,7 @@
   },
   "zamg": {
     "table" : "Table",
+    "map" : "Karte",
     "region" : "Region",
     "newSnow" : "New snow"
   },

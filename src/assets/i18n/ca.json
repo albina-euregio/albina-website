@@ -600,6 +600,7 @@
   },
   "zamg": {
     "table" : "Taula",
+    "map" : "Mapa",
     "region" : "Regió",
     "newSnow" : "Neu recent"
   },

@@ -600,6 +600,7 @@
   },
   "zamg": {
     "table" : "Tabla",
+    "map" : "Mapa",
     "region" : "Región",
     "newSnow" : "Nieve reciente"
   },

@@ -600,6 +600,7 @@
   },
   "zamg": {
     "table" : "Table",
+    "map" : "Mappa",
     "region" : "Region",
     "newSnow" : "New snow"
   },
