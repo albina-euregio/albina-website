@@ -36,6 +36,30 @@ class WeatherMap extends React.Component {
               url={this.props.overlay + ".gif"}
               opacity={Base.checkBlendingSupport() ? 1 : 0.5}
               bounds={config.weathermaps.settings.bbox}
+              interactive={true}
+              onClick={e => {
+                let map = e.target._map;
+                if (map) {
+                  let mapWidth = map._container.offsetWidth;
+                  let mapHeight = map._container.offsetHeight;
+                  let x = (e.containerPoint.x * map._size.x) / mapWidth;
+                  let y = (e.containerPoint.y * map._size.y) / mapHeight;
+                  console.log("YYYYY GETPIXEL", e, x, y);
+
+                  let canvas = document.createElement("canvas");
+                  let ctx = canvas.getContext("2d");
+
+                  let image = new Image();
+                  image.crossOrigin = "anonymous";
+                  image.onload = function() {
+                    console.log("YYYYY GETPIXEL DATA");
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+                    ctx.drawImage(image, 0, 0, image.width, image.height);
+                  };
+                  image.src = map._url;
+                }
+              }}
               onLoad={() => {
                 this.props.playerCB("background", "load");
               }}
