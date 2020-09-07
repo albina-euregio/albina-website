@@ -34,6 +34,7 @@ export class MapService {
   public overlayMaps: LayerDict<L.GeoJSON>;
   public afternoonOverlayMaps: LayerDict<L.GeoJSON>;
   public layerGroups: LayerDict<L.MarkerClusterGroup>;
+  public layers: LayerDict<L.LayerGroup>;
 
   constructor(
     private regionsService: RegionsService,
@@ -74,9 +75,11 @@ export class MapService {
 
       this.layerGroups = {
         observations: L.markerClusterGroup(),
-        zamgModelPoints: L.markerClusterGroup()
-     };
+      };
 
+      this.layers = {
+        zamgModelPoints: L.layerGroup()
+      }
 
       this.overlayMaps = {
         // overlay to show regions
@@ -146,8 +149,11 @@ export class MapService {
         observations: L.markerClusterGroup()
       };
 
+      this.layers = {
+        zamgModelPoints: L.layerGroup()
+      }
 
-      this.overlayMaps = {
+     this.overlayMaps = {
         // overlay to show regions
         regions: L.geoJSON(this.regionsService.getRegionsAran(), {
           onEachFeature: this.onEachAggregatedRegionsFeatureAM
@@ -194,6 +200,17 @@ export class MapService {
       }
     }
     return null;
+  }
+
+  createZamgModelPointMarker() {
+    return new L.Icon({
+      iconUrl: "./assets/markers/marker-icon-2x-black.png",
+      shadowUrl: "./assets/markers/marker-shadow.png",
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
   }
 
   createSnowProfileMarker() {

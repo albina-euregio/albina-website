@@ -77,22 +77,23 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
       touchZoom: true,
       center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
       zoom: 8,
-      minZoom: 8,
-      maxZoom: 16,
-      layers: [this.mapService.zamgModelsMaps.AlbinaBaseMap, this.mapService.layerGroups.zamgModelPoints]
+      minZoom: 7,
+      maxZoom: 12,
+      zoomSnap: 0.25,
+      layers: [this.mapService.zamgModelsMaps.AlbinaBaseMap, this.mapService.layers.zamgModelPoints]
     });
 
     L.control.zoom({ position: "topleft" }).addTo(map);
     L.control.scale().addTo(map);
 
     this.mapService.zamgModelsMap = map;
-    this.mapService.layerGroups.zamgModelPoints.clearLayers();
+    this.mapService.layers.zamgModelPoints.clearLayers();
 
     for (let i = this.modelPoints.length - 1; i >= 0; i--) {
       const modelPoint = this.modelPoints[i];
-      new L.Marker(new L.LatLng(modelPoint.lat, modelPoint.lng), { icon: this.mapService.createSnowProfileMarker() })
+      new L.Marker(new L.LatLng(modelPoint.lat, modelPoint.lng), { icon: this.mapService.createZamgModelPointMarker() })
       .on({ click: () => this.selectModelPoint(modelPoint)})
-      .addTo(this.mapService.layerGroups.zamgModelPoints);
+      .addTo(this.mapService.layers.zamgModelPoints);
     }
   }
 }
