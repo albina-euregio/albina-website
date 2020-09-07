@@ -39,25 +39,59 @@ class WeatherMap extends React.Component {
               interactive={true}
               onClick={e => {
                 let map = e.target._map;
+                console.log(
+                  "mouseEventToContainerPoint YYYY".map
+                    .mouseEventToContainerPoint
+                );
+                //
+
                 if (map) {
                   let mapWidth = map._container.offsetWidth;
                   let mapHeight = map._container.offsetHeight;
-                  let x = (e.containerPoint.x * map._size.x) / mapWidth;
-                  let y = (e.containerPoint.y * map._size.y) / mapHeight;
-                  console.log("YYYYY GETPIXEL", e, x, y);
+                  let x = Math.round(
+                    (e.containerPoint.x * map._size.x) / mapWidth / 2
+                  );
+                  let y = Math.round(
+                    (e.containerPoint.y * map._size.y) / mapHeight / 2
+                  );
+                  console.log("YYYYY GETPIXEL", e.containerPoint);
 
                   let canvas = document.createElement("canvas");
-                  let ctx = canvas.getContext("2d");
+                  let img = new Image();
+                  img.src = "/content/testOverlay.png";
+                  useCanvas(canvas, img, () => {
+                    var p = canvas.getContext("2d").getImageData(x, y, 1, 1)
+                      .data;
+                    map.openPopup(
+                      "<h3>Pixel data</h3><p> at: " +
+                        x +
+                        "/" +
+                        y +
+                        "</p><p> r: " +
+                        p[0] +
+                        "g: " +
+                        p[1] +
+                        "b: " +
+                        p[2] +
+                        "</p>",
+                      e.latlng
+                    );
+                    //console.log("YYYYY GETPIXEL Data", x, y, p);
+                  });
 
-                  let image = new Image();
-                  image.crossOrigin = "anonymous";
-                  image.onload = function() {
-                    console.log("YYYYY GETPIXEL DATA");
-                    canvas.width = image.width;
-                    canvas.height = image.height;
-                    ctx.drawImage(image, 0, 0, image.width, image.height);
-                  };
-                  image.src = map._url;
+                  function useCanvas(el, image, callback) {
+                    //console.log("useCanvas", el,image,callback);
+                    el.width = image.width;
+                    el.height = image.height;
+                    el.getContext("2d").drawImage(
+                      image,
+                      0,
+                      0,
+                      image.width,
+                      image.height
+                    );
+                    return callback();
+                  }
                 }
               }}
               onLoad={() => {
@@ -66,6 +100,7 @@ class WeatherMap extends React.Component {
               onError={err => {
                 this.props.playerCB("background", err);
               }}
+              bindPopup
             />
           );
           this.props.playerCB("background", "loading");
