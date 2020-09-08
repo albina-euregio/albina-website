@@ -91,7 +91,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
 
     for (let i = this.modelPoints.length - 1; i >= 0; i--) {
       const modelPoint = this.modelPoints[i];
-      new L.Marker(new L.LatLng(modelPoint.lat, modelPoint.lng), { icon: this.mapService.createZamgModelPointMarker() })
+      new L.circleMarker(new L.LatLng(modelPoint.lat, modelPoint.lng), this.mapService.createZamgModelPointOptions())
       .on({ click: () => this.selectModelPoint(modelPoint)})
       .addTo(this.mapService.layers.zamgModelPoints);
     }

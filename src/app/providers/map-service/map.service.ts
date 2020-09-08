@@ -202,15 +202,15 @@ export class MapService {
     return null;
   }
 
-  createZamgModelPointMarker() {
-    return new L.Icon({
-      iconUrl: "./assets/markers/marker-icon-2x-black.png",
-      shadowUrl: "./assets/markers/marker-shadow.png",
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
+  createZamgModelPointOptions() {
+    return {
+      radius: 8,
+      fillColor: "#19abff",
+      color: "black",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8
+    };
   }
 
   createSnowProfileMarker() {
