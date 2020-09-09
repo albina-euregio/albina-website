@@ -219,6 +219,7 @@ $controls-width-height: $padding * 4;
   }
 }
 
+//leaflet
 .section-map .leaflet-control-container {
   .map-disabled & {
     display: none;
@@ -233,6 +234,13 @@ $controls-width-height: $padding * 4;
   }
 }
 
+.leaflet-container {
+  font: inherit;
+}
+.leaflet-bar {
+  border-radius: 0 !important;
+}
+
 //buttons
 .leaflet-top.leaflet-left {
   position: absolute;
@@ -243,28 +251,29 @@ $controls-width-height: $padding * 4;
   }
 
   a {
+    overflow: hidden;
     position: relative;
     display: block;
     width: $controls-width-height !important;
     height: $controls-width-height !important;
     margin: 0 !important;
     padding: 0 !important;
-    font-size: $xxxlarge-font-size !important;
-    font-weight: lighter;
-    font-family: "Fontello";
-    line-height: $controls-width-height - 0.1 !important;
     text-indent: 0;
+    font-size: $controls-width-height * 0.75 !important;
+    line-height: $controls-width-height !important;
     color: $brand !important;
     background-color: rgba($white, 0.95) !important;
     border: none !important;
     border-radius: 0 !important;
-    @include box-shadow(0.15);
     &:hover {
       color: $white !important;
       background-color: $anchor-font-color !important;
     }
     &.leaflet-disabled {
       color: $grey-light !important;
+      a:before {
+        color: $grey-light !important;
+      }
       &:hover {
         color: $grey-light !important;
         background-color: rgba($white, 0.95) !important;
@@ -276,22 +285,40 @@ $controls-width-height: $padding * 4;
   .leaflet-geonames-search,
   .leaflet-control-locate {
     margin-bottom: $padding;
+    @include box-shadow(0.15);
+    a:before {
+      height: 2.5rem !important;
+      width: 2.5rem !important;
+      margin: 0 !important;
+      font-size: $controls-width-height * 0.75 !important;
+      line-height: $controls-width-height !important;
+    }
   }
 
-  .leaflet-control-zoom {
-    @include box-shadow(0.15);
-    a {
-      box-shadow: none !important;
-      &:first-child {
-        margin-bottom: $border-width !important;
-      }
+  @media (hover: none) and (pointer: coarse) {
+    .leaflet-control-zoom {
+      display: none;
+    }
+  }
+
+  .leaflet-control-zoom-in {
+    &:before {
+      @include icon(plus-big, 0.75em, 0.5em, none, 0, none);
+    }
+  }
+  .leaflet-control-zoom-out {
+    &:before {
+      @include icon(minus-big, 0.75em, 0.5em, none, 0, none);
     }
   }
   .leaflet-geonames-search {
-    margin-bottom: $padding;
     .leaflet-geonames-icon {
-      background-size: 80% !important;
+      background-image: none !important;
+      &:before {
+        @include icon(search-midsize, 0, 0, none, 0, none);
+      }
     }
+
     form {
       margin-bottom: 0;
       font-size: $body-font-size;
@@ -322,19 +349,17 @@ $controls-width-height: $padding * 4;
     }
   }
   .leaflet-control-locate {
+    a {
+      &:before {
+        @include icon(location, 0, 0, none, 0, none);
+      }
+    }
     .icon-geolocate {
-      display: block;
-      position: relative;
-      top: 17%;
-      left: 13%;
-      width: 70%;
-      height: 70%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon fill="white" stroke-width="1.25" stroke="%2319abff" points="21 3 3 9.79 11.41 12.59 14.21 21 21 3"></polygon></svg>')
-        100% no-repeat;
-      background-size: 100% !important;
+      display: none;
     }
   }
 }
+
 //scale
 .leaflet-bottom.leaflet-left {
   position: absolute;
@@ -343,59 +368,20 @@ $controls-width-height: $padding * 4;
   .leaflet-control-scale {
     margin: 0 !important;
   }
+  .leaflet-control-scale-line {
+    padding: 3px 5px;
+    font-size: $micro-font-size;
+    border-color: $grey;
+  }
 }
-//copyright and weather
+
+//old copyright still used on bulletin map
 .leaflet-bottom.leaflet-right {
   .leaflet-control {
     position: absolute;
     right: 0;
     bottom: 0;
     float: none;
-    .pure-button {
-      margin: 0;
-      padding: 0;
-    }
-  }
-  .zamg-logo-container {
-    position: absolute;
-    right: $padding * 7;
-    bottom: $padding * 2.5;
-    height: 40px;
-    margin: 0;
-    padding: 0;
-    #zamg-logo {
-      width: 40px;
-      height: 40px;
-      background-repeat: no-repeat;
-      background-size: 36px 36px;
-      background-position: 2px 2px;
-      border: none !important;
-    }
-  }
-  .legend {
-    position: absolute;
-    right: $padding;
-    bottom: $padding * 2.5;
-    margin: 0;
-    padding: 0;
-    .legend-toggle {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      text-indent: -99999px;
-      background-repeat: no-repeat;
-      background-size: 36px 36px;
-      background-position: 2px 2px;
-    }
-    .legend-border {
-      stroke: #aaa;
-      stroke-width: 1px;
-      -webkit-transition: all 0.125s ease-out;
-      transition: all 0.125s ease-out;
-    }
-    .legend-close-button {
-      fill: $white;
-    }
   }
   .leaflet-control-attribution {
     position: relative;
@@ -480,6 +466,7 @@ $controls-width-height: $padding * 4;
   }
 }
 
+//202009: is this still  in use? existing in feature-info.jsx so better keep alive from here ...
 .weather-map-details {
   z-index: 100;
   display: table;
@@ -490,13 +477,11 @@ $controls-width-height: $padding * 4;
   min-width: 20em !important;
   max-width: 75% !important;
   padding: 0;
-  font-size: $tiny-font-size; //$body-font-size-tiny;
+  font-size: $tiny-font-size;
   background-color: rgba($white, 0.95);
   @include box-shadow(0.15);
   @include rollout();
 
-  .box-content {
-  }
   .weather-map-details-text {
     margin: ($padding * 2) ($padding * 2) ($padding * 1.5) ($padding * 2);
   }
@@ -511,7 +496,6 @@ $controls-width-height: $padding * 4;
     font-size: $small-font-size;
   }
 }
-
 a.weather-map-details-button {
   display: block;
   width: 100%;
@@ -537,10 +521,12 @@ a.weather-map-details-button {
     border-color: $anchor-font-color;
   }
 }
+//...to here
 
 //from alien app.scss
-.weather-map-icon {
-  position: absolute;
-  right: 10px;
-  width: 150px;
-}
+//202009: caanot be found in app/compnents so executed
+// .weather-map-icon {
+//   position: absolute;
+//   right: 10px;
+//   width: 150px;
+//}
