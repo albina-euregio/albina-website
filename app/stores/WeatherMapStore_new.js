@@ -267,6 +267,19 @@ export default class WeatherMapStore_new {
   }
 
   /*
+    returns value for pixel color
+  */
+  @computed get valueForPixelColor() {
+    switch (this.__domainId) {
+      case "temp":
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  /*
     setting a new active domain
   */
   @action changeDomain(domainId) {

@@ -69,7 +69,7 @@ class LeafletMap extends React.Component {
 
     if (this.mapRef && !this.map) {
       this.map = this.mapRef.leafletElement;
-
+      window.currMap = this.map;
       console.log("updateMaps xyz", L);
       if (this.props.onInit) {
         this.props.onInit(this.map);

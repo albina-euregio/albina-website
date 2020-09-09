@@ -4,14 +4,16 @@ import { observer } from "mobx-react";
 
 import Base from "../../base";
 import LeafletMap from "../leaflet/leaflet-map";
+import Overlay from "../leaflet/overlay";
+import { ImageOverlay } from "react-leaflet";
 import ZamgControl from "./zamg-control";
 import Timecontrol from "./time-control";
 import LegendControl from "./legend-control";
 import GridOverlay from "./grid-overlay";
+
 const StationOverlay = loadable(() =>
   import(/* webpackChunkName: "app-stationOverlay" */ "./station-overlay")
 );
-import { TileLayer, ImageOverlay } from "react-leaflet";
 
 class WeatherMap extends React.Component {
   constructor(props) {
@@ -29,81 +31,23 @@ class WeatherMap extends React.Component {
 
         //console.log("wather-map->render xxx1:", this.props.overlay);
         if (this.props.overlay) {
+          // overlays.push(
+          //   <ImageOverlay
+          //   key="background-map-data"
+          //   className="leaflet-image-layer"
+          //   url={this.props.overlay + ".png"}
+          //   opacity={1}
+          //   bounds={config.weathermaps.settings.bbox}
+          //   interactive={true}
+          //   />
+          // )
           overlays.push(
-            <ImageOverlay
+            <Overlay
               key="background-map"
-              className="leaflet-image-layer"
-              url={this.props.overlay + ".gif"}
-              opacity={Base.checkBlendingSupport() ? 1 : 0.5}
-              bounds={config.weathermaps.settings.bbox}
-              interactive={true}
-              onClick={e => {
-                let map = e.target._map;
-                console.log(
-                  "mouseEventToContainerPoint YYYY".map
-                    .mouseEventToContainerPoint
-                );
-                //
-
-                if (map) {
-                  let mapWidth = map._container.offsetWidth;
-                  let mapHeight = map._container.offsetHeight;
-                  let x = Math.round(
-                    (e.containerPoint.x * map._size.x) / mapWidth / 2
-                  );
-                  let y = Math.round(
-                    (e.containerPoint.y * map._size.y) / mapHeight / 2
-                  );
-                  console.log("YYYYY GETPIXEL", e.containerPoint);
-
-                  let canvas = document.createElement("canvas");
-                  let img = new Image();
-                  img.src = "/content/testOverlay.png";
-                  useCanvas(canvas, img, () => {
-                    var p = canvas.getContext("2d").getImageData(x, y, 1, 1)
-                      .data;
-                    map.openPopup(
-                      "<h3>Pixel data</h3><p> at: " +
-                        x +
-                        "/" +
-                        y +
-                        "</p><p> r: " +
-                        p[0] +
-                        "g: " +
-                        p[1] +
-                        "b: " +
-                        p[2] +
-                        "</p>",
-                      e.latlng
-                    );
-                    //console.log("YYYYY GETPIXEL Data", x, y, p);
-                  });
-
-                  function useCanvas(el, image, callback) {
-                    //console.log("useCanvas", el,image,callback);
-                    el.width = image.width;
-                    el.height = image.height;
-                    el.getContext("2d").drawImage(
-                      image,
-                      0,
-                      0,
-                      image.width,
-                      image.height
-                    );
-                    return callback();
-                  }
-                }
-              }}
-              onLoad={() => {
-                this.props.playerCB("background", "load");
-              }}
-              onError={err => {
-                this.props.playerCB("background", err);
-              }}
-              bindPopup
+              overlay={this.props.overlay}
+              playerCB={this.props.playerCB}
             />
           );
-          this.props.playerCB("background", "loading");
         }
       }
 
