@@ -28,6 +28,9 @@ $icon-font-margin: 0.25em;
   font-style: normal;
 }
 
+.icon-arrow-steady:before {
+  content: "\e802";
+} /* '' */
 .icon-sm-facebook:before {
   content: "\e809";
 } /* '' */
@@ -40,12 +43,6 @@ $icon-font-margin: 0.25em;
 .icon-sm-youtube:before {
   content: "\e80d";
 } /* '' */
-.icon-sm-whatsapp:before {
-  content: "\e847";
-} /* '' */
-.icon-sm-telegram:before {
-  content: "\e819";
-} /* '' */
 .icon-close:before {
   content: "\e810";
 } /* '' */
@@ -70,12 +67,12 @@ $icon-font-margin: 0.25em;
 .icon-arrow-right:before {
   content: "\e817";
 } /* '' */
-.icon-arrow-steady:before {
-  content: "\e817";
-} /* '' */
 .icon-arrow-up:before {
   content: "\e818";
 } /* '' */
+.icon-sm-telegram:before {
+  content: "\e819";
+} /* '' */
 .icon-attention:before {
   content: "\e81a";
 } /* '' */
@@ -109,6 +106,42 @@ $icon-font-margin: 0.25em;
 .icon-plus-big:before {
   content: "\e824";
 } /* '' */
+.icon-copyright:before {
+  content: "\e826";
+} /* '' */
+.icon-pause:before {
+  content: "\e838";
+} /* '' */
+.icon-play:before {
+  content: "\e839";
+} /* '' */
+.icon-search-midsize:before {
+  content: "\e83a";
+} /* '' */
+.icon-snow:before {
+  content: "\e83b";
+} /* '' */
+.icon-snow-diff:before {
+  content: "\e83c";
+} /* '' */
+.icon-snow-new:before {
+  content: "\e83d";
+} /* '' */
+.icon-temperature:before {
+  content: "\e83e";
+} /* '' */
+.icon-wind:before {
+  content: "\e83f";
+} /* '' */
+.icon-wind-gust:before {
+  content: "\e840";
+} /* '' */
+.icon-location:before {
+  content: "\e841";
+} /* '' */
+.icon-sm-whatsapp:before {
+  content: "\e847";
+} /* '' */
 
 // mit diesem mixin können icons in sass inkludiert werden
 // z.B. @include icon(attention, 1.5em, 0.5em, #F00, 0, 2px 2px 5px #FFF);
