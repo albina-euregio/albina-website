@@ -47,6 +47,7 @@ class WeatherMap extends React.Component {
               overlay={this.props.overlay}
               playerCB={this.props.playerCB}
               dataOverlays={this.props.dataOverlays}
+              dataOverlaysEnabled={this.props.dataOverlaysEnabled}
               rgbToValue={this.props.rgbToValue}
             />
           );

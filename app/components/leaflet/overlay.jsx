@@ -42,7 +42,7 @@ export default class Overlay extends React.Component {
             bounds={config.weathermaps.settings.bbox}
             interactive={true}
             onClick={e => {
-              if (e.target._map) {
+              if (self.props.dataOverlaysEnabled && e.target._map) {
                 let map = e.target._map;
                 console.log("YYYYY GETPIXEL", e.containerPoint);
                 function getPixelData() {

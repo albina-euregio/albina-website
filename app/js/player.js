@@ -1,6 +1,8 @@
+import { computed, observable, action } from "mobx";
+
 export default class Player {
   _itemsToLoad;
-  _intervalID;
+  @observable _intervalID = null;
   _transitionTime;
   _availableTimes;
   _onTick;
@@ -81,12 +83,17 @@ export default class Player {
   }
 
   setTransitionTime(transitionTime) {
-    console.log("PlayerStore->setTransitionTime:", transitionTime);
+    //console.log("PlayerStore->setTransitionTime:", transitionTime);
     this._transitionTime = transitionTime;
   }
 
+  @computed get playing() {
+    //console.log("playing", this._intervalID, this._intervalID !== null);
+    return this._intervalID !== null;
+  }
+
   setAvailableTimes(availableTimes) {
-    console.log("PlayerStore->setAvailableTimes: yyyy1", availableTimes);
+    //console.log("PlayerStore->setAvailableTimes: yyyy1", availableTimes);
     this._availableTimes = availableTimes;
   }
 
