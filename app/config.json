@@ -362,6 +362,7 @@
             "stations": true,
             "grid": false
           },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
           "displayedItems": ["snow"],
           "direction": false,
           "clusterOperation": "max"
@@ -391,6 +392,7 @@
             "stations": false,
             "grid": true
           },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
           "displayedItems": ["snow6f"],
           "direction": false,
           "clusterOperation": "max"
@@ -426,6 +428,7 @@
             "stations": false,
             "grid": true
           },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
           "displayedItems": ["snow72"],
           "direction": false,
           "clusterOperation": "max"
@@ -459,6 +462,7 @@
             "stations": true,
             "grid": false
           },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "temperature" }],
           "displayedItems": ["temp"],
           "direction": false,
           "clusterOperation": "min"
@@ -486,6 +490,10 @@
             "stations": true,
             "grid": false
           },
+          "dataOverlays": [
+            { "filePostfix": ".png", "type": "windSpeed" },
+            { "filePostfix": "-dir.png", "type": "windDirection" }
+          ],
           "displayedItems": ["wspd", "wdir", null],
           "direction": "wdir",
           "clusterOperation": "max"
@@ -513,6 +521,10 @@
             "stations": true,
             "grid": false
           },
+          "dataOverlays": [
+            { "filePostfix": ".png", "type": "windSpeed" },
+            { "filePostfix": "-dir.png", "type": "windDirection" }
+          ],
           "displayedItems": ["wgus", "wdir", null],
           "direction": "wdir",
           "clusterOperation": "max"

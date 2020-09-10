@@ -5,8 +5,22 @@ import Base from "../../base";
 export default class Overlay extends React.Component {
   constructor(props) {
     super(props);
-    this.dataCanvas;
-    this.dataCanvasCtx;
+    this.overlayCanvases = {};
+  }
+
+  getClickedPixel(clickEvent) {
+    let map = clickEvent.target._map;
+    let overlay = clickEvent.target;
+
+    let xY = overlay.getElement().naturalWidth / overlay.getElement().width;
+    let yY = overlay.getElement().naturalHeight / overlay.getElement().height;
+    let dx =
+      map.project(clickEvent.latlng).x -
+      map.project(overlay.getBounds()["_southWest"]).x;
+    let dy =
+      map.project(clickEvent.latlng).y -
+      map.project(overlay.getBounds()["_northEast"]).y;
+    return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
   }
 
   render() {
@@ -28,86 +42,99 @@ export default class Overlay extends React.Component {
             bounds={config.weathermaps.settings.bbox}
             interactive={true}
             onClick={e => {
-              let map = e.target._map;
-              let overlay = e.target;
-              if (map) {
+              if (e.target._map) {
+                let map = e.target._map;
                 console.log("YYYYY GETPIXEL", e.containerPoint);
                 function getPixelData() {
-                  if (!self.dataCanvasCtx) return;
+                  let pixel = self.getClickedPixel(e);
 
-                  let xY =
-                    overlay.getElement().naturalWidth /
-                    overlay.getElement().width;
-                  let yY =
-                    overlay.getElement().naturalHeight /
-                    overlay.getElement().height;
-                  let dx =
-                    map.project(e.latlng).x -
-                    map.project(overlay.getBounds()["_southWest"]).x;
-                  let dy =
-                    map.project(e.latlng).y -
-                    map.project(overlay.getBounds()["_northEast"]).y;
-                  let x = Math.round(xY * dx);
-                  let y = Math.round(yY * dy);
+                  let values = [];
+                  self.props.dataOverlays.forEach(anOverlay => {
+                    if (self.overlayCanvases[anOverlay.type]["loaded"]) {
+                      let p = self.overlayCanvases[anOverlay.type][
+                        "ctx"
+                      ].getImageData(pixel.x, pixel.y, 1, 1).data;
+                      values.push({
+                        type: anOverlay.type,
+                        calcValue: self.props.rgbToValue(anOverlay.type, {
+                          r: p[0],
+                          g: p[1],
+                          b: p[2]
+                        }),
+                        pixel: p
+                      });
+                    }
+                  });
 
-                  let p = self.dataCanvasCtx.getImageData(x, y, 1, 1).data;
+                  let valuesInfo = "";
+                  values.forEach(aValue => {
+                    valuesInfo +=
+                      "<p><b>" +
+                      aValue.type +
+                      "</b>: " +
+                      aValue.calcValue +
+                      "</p>";
+                  });
+
                   map.openPopup(
-                    '<div style="background-color:rgb(' +
-                      p[0] +
-                      "," +
-                      p[1] +
-                      "," +
-                      p[2] +
-                      ')">' +
+                    "<div>" +
                       "<h3>PIXEL DATA</h3>" +
                       "<p> Image coords: " +
-                      x +
+                      pixel.x +
                       "/" +
-                      y +
-                      "<br/> r: " +
-                      p[0] +
-                      "g: " +
-                      p[1] +
-                      "b: " +
-                      p[2] +
-                      // "<br/><br/>ContainerPoint:" +
-                      // e.containerPoint +
-                      // "<br/>LayerPoint:" +
-                      // e.layerPoint +
-                      // "<br/>latlng:" +
-                      // e.latlng +
-                      "<br/>Data–Canvas h/w: " +
-                      self.dataCanvas.width +
-                      "/" +
-                      self.dataCanvas.height +
+                      pixel.y +
+                      // "<br/> r: " + p[0] + "g: " + p[1] + "b: " + p[2] +
+                      "<br/>" +
+                      valuesInfo +
+                      // "<br/>Data–Canvas h/w: " + self.overlayCanvases.width + "/" + self.overlayCanvases.height +
                       "</p>" +
                       "</div>",
                     e.latlng
                   );
                 }
-                if (!self.dataCanvas) {
-                  self.dataCanvas = document.createElement("canvas");
-                  let img = new Image();
 
-                  img.crossOrigin = "anonymous";
-                  self.dataCanvasCtx = self.dataCanvas.getContext("2d");
-                  img.onload = function() {
-                    // data files have 1/2 the size
-                    self.dataCanvas.width = this.naturalWidth * 2;
-                    self.dataCanvas.height = this.naturalHeight * 2;
+                let allLoaded = true;
+                self.props.dataOverlays.forEach(anOverlay => {
+                  if (!self.overlayCanvases[anOverlay.type]) {
+                    self.overlayCanvases[anOverlay.type] = {
+                      canvas: document.createElement("canvas"),
+                      loaded: false
+                    };
+                    let img = new Image();
+                    img.crossOrigin = "anonymous";
+                    self.overlayCanvases[anOverlay.type][
+                      "ctx"
+                    ] = self.overlayCanvases[anOverlay.type][
+                      "canvas"
+                    ].getContext("2d");
+                    img.onload = function() {
+                      // data files have 1/2 the size
+                      self.overlayCanvases[anOverlay.type]["canvas"].width =
+                        this.naturalWidth * 2;
+                      self.overlayCanvases[anOverlay.type]["canvas"].height =
+                        this.naturalHeight * 2;
 
-                    self.dataCanvasCtx.drawImage(this, 0, 0);
-                    self.dataCanvasCtx.drawImage(
-                      this,
-                      0,
-                      0,
-                      this.width * 2,
-                      this.height * 2
-                    );
-                    getPixelData();
-                  };
-                  img.src = this.props.overlay + ".png";
-                } else getPixelData();
+                      self.overlayCanvases[anOverlay.type]["ctx"].drawImage(
+                        this,
+                        0,
+                        0
+                      );
+                      self.overlayCanvases[anOverlay.type]["ctx"].drawImage(
+                        this,
+                        0,
+                        0,
+                        this.width * 2,
+                        this.height * 2
+                      );
+                      self.overlayCanvases[anOverlay.type]["loaded"] = true;
+                      getPixelData(e);
+                    };
+                    img.src = this.props.overlay + ".png";
+                  } else if (!self.overlayCanvases[anOverlay.type]["loaded"])
+                    allLoaded = false;
+                });
+
+                if (allLoaded) getPixelData(e);
               }
             }}
             onLoad={() => {

@@ -194,6 +194,8 @@ class Weather extends React.Component {
                 timeArray={config.newWM.timeIndices}
                 startDate={config.newWM.startDate}
                 overlay={config.newWM.overlayFileName}
+                dataOverlays={config.newWM.domainConfig.dataOverlays}
+                rgbToValue={config.newWM.valueForPixel}
                 eventCallback={id => {
                   console.log("Timeselector clicked", id);
                   config.newWM.changeTimeIndex(id);
