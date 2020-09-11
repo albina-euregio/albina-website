@@ -185,7 +185,7 @@
   "blog:search": "Suchen",
   "blog:page-flipper:page": "Seite",
   "blog:page-flipper:no-posts": "Kein Inhalt gefunden, bitte andere Filter wählen.",
-  "blog:overview:info-no-data": "Derzeit sind keine Blog-Einträge verfügbar. Du kannst den eigenständigen Blogs aufrufen: <a>hier</a>",
+  "blog:overview:info-no-data": "Derzeit sind keine Blog-Einträge verfügbar. Du kannst die eigenständigen Blogs aufrufen: <a>hier</a>",
   "blog:overview:info-loading-data-slow": "Blog-Einträge werden geladen. Du kannst auch dieeigenständigen Blogs aufrufen: <a>here</a>",
   "measurements:title": "Stationsmesswerte",
   "measurements:headline": "Stationsmesswerte",
