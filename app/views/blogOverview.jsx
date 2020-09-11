@@ -46,7 +46,7 @@ class BlogOverview extends React.Component {
           { a: () => standaloneLinks }
         ),
         iconOn: true,
-        delay: 5000
+        delay: 0
       },
       noData: {
         message: this.props.intl.formatMessage(
@@ -54,7 +54,7 @@ class BlogOverview extends React.Component {
           { a: () => standaloneLinks }
         )
       },
-      ok: { message: "", keep: true }
+      ok: { message: "", keep: false }
     };
 
     this.store = window["blogStore"];
