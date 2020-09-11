@@ -8,13 +8,11 @@ import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 
-import Menu from "../components/menu";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
 import WeatherMapStoreNew from "../stores/WeatherMapStore_new";
 
-import ItemFlipper from "../components/weather/item-flipper";
 import WeatherMapTitle from "../components/weather/weather-map-title";
 import MapStore from "../stores/mapStore";
 import Player from "../js/player";
@@ -123,18 +121,9 @@ class Weather extends React.Component {
   };
 
   render() {
-    const domainButtons = this.store.config
-      ? Object.keys(this.store.config).map(domainId => {
-          const domain = this.store.config[domainId];
-          return {
-            id: domainId,
-            title: domain.description[appStore.language],
-            url: "/weather/map/" + domainId,
-            isExternal: false
-          };
-        })
-      : [];
-    console.log("Weather->render xxxx1", config.newWM.overlayFileName);
+    const wmStore = config.newWM;
+
+    console.log("Weather->render xxxx1", wmStore.overlayFileName);
 
     return (
       <>
@@ -148,34 +137,9 @@ class Weather extends React.Component {
         <section className="section-flipper">
           <div id="flipper">
             {/* <div className="section-centered"> */}
-            <div className="section-padding-width flipper-controls">
-              <Menu
-                intl={this.props.intl}
-                className="list-inline list-buttongroup-dense flipper-buttongroup flipper-centered"
-                entries={domainButtons}
-                childClassName="list-plain subnavigation"
-                menuItemClassName="secondary pure-button"
-                activeClassName="js-active"
-                onSelect={this.handleClickDomainButton.bind(this)}
-                onActiveMenuItem={e => {
-                  if (e.title != this.state.mapTitle) {
-                    const that = this;
-                    window.setTimeout(
-                      () => that.setState({ mapTitle: e.title }),
-                      100
-                    );
-                  }
-                }}
-              />
-              <ItemFlipper
-                store={this.store}
-                handleChange={this.handleChangeItem.bind(this)}
-              />
-            </div>
-
             <div className="section-centered">
               <div className="section-padding-width flipper-header">
-                {this.store.item && <WeatherMapTitle store={config.newWM} />}
+                {this.store.item && <WeatherMapTitle store={wmStore} />}
               </div>
             </div>
           </div>
@@ -189,23 +153,24 @@ class Weather extends React.Component {
           {/*this.store.domainId*/ true && (
             <div className="weather-map-container section-map">
               <WeatherMap
-                domainId={config.newWM.domainId}
-                domain={config.newWM.domain}
-                timeArray={config.newWM.timeIndices}
-                startDate={config.newWM.startDate}
-                overlay={config.newWM.overlayFileName}
-                dataOverlays={config.newWM.domainConfig.dataOverlays}
+                domainId={wmStore.domainId}
+                domain={wmStore.domain}
+                domainConfig={wmStore.config}
+                timeArray={wmStore.timeIndices}
+                startDate={wmStore.startDate}
+                overlay={wmStore.overlayFileName}
+                dataOverlays={wmStore.domainConfig.dataOverlays}
                 dataOverlaysEnabled={!config.player.playing}
-                rgbToValue={config.newWM.valueForPixel}
+                rgbToValue={wmStore.valueForPixel}
                 eventCallback={id => {
                   console.log("Timeselector clicked", id);
-                  config.newWM.changeTimeIndex(id);
+                  wmStore.changeTimeIndex(id);
                 }}
-                item={config.newWM.item}
-                grid={config.newWM.grid}
-                stations={config.newWM.stations}
+                item={wmStore.item}
+                grid={wmStore.grid}
+                stations={wmStore.stations}
                 playerCB={config.player.onEvent.bind(config.player)}
-                selectedFeature={config.newWM.selectedFeature}
+                selectedFeature={wmStore.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}
               />

@@ -7,7 +7,7 @@ import LeafletMap from "../leaflet/leaflet-map";
 import Overlay from "../leaflet/overlay";
 import { ImageOverlay } from "react-leaflet";
 import ZamgControl from "./zamg-control";
-import Timecontrol from "./time-control";
+import WeatherMapCockpit from "./weather-map-cockpit";
 import LegendControl from "./legend-control";
 import GridOverlay from "./grid-overlay";
 
@@ -103,33 +103,31 @@ class WeatherMap extends React.Component {
       controls.push(<LegendControl key="legend" item={this.props.item} />);
     }
 
-    //if (this.props.timeArray && this.props.startDate) {
-    controls.push(
-      <Timecontrol
-        key="time"
-        startDate={this.props.startDate}
-        timeArray={this.props.timeArray}
-        eventCallback={this.props.eventCallback}
-      />
-    );
-    //}
-
     return (
-      <LeafletMap
-        loaded={this.props.domainId !== false}
-        identifier={this.props.domainId + "_" + this.props.itemId}
-        onViewportChanged={this.props.onViewportChanged}
-        overlays={overlays}
-        controls={controls}
-        timeArray={this.props.timeArray}
-        startDate={this.props.startDate}
-        onInit={map => {
-          map.on("click", () => {
-            this.props.onMarkerSelected(null);
-          });
-        }}
-        timeAwareLayers={["background-map"]}
-      />
+      <>
+        <LeafletMap
+          loaded={this.props.domainId !== false}
+          identifier={this.props.domainId + "_" + this.props.itemId}
+          onViewportChanged={this.props.onViewportChanged}
+          overlays={overlays}
+          controls={controls}
+          timeArray={this.props.timeArray}
+          startDate={this.props.startDate}
+          onInit={map => {
+            map.on("click", () => {
+              this.props.onMarkerSelected(null);
+            });
+          }}
+          timeAwareLayers={["background-map"]}
+        />
+        <WeatherMapCockpit
+          key="time"
+          startDate={this.props.startDate}
+          timeArray={this.props.timeArray}
+          eventCallback={this.props.eventCallback}
+          domainConfig={this.props.domainConfig}
+        />
+      </>
     );
   }
 }
