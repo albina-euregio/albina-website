@@ -10,19 +10,21 @@ class WeatherMapTitle extends React.Component {
     let domainId = this.props.store.domainId;
     let dateTime = new Date(this.props.store.currentTimeIndex);
 
-    const dateTimeFormat = new Intl.DateTimeFormat(window.appStore.language, {
-      weekday: "long",
-      day: "numeric",
-      month: "numeric",
-      year: "numeric",
-      hour: "numeric",
-      minute: "numeric"
-    });
+    // const dateTimeFormat = new Intl.DateTimeFormat(window.appStore.language, {
+    //   weekday: "long",
+    //   day: "numeric",
+    //   month: "numeric",
+    //   year: "numeric",
+    //   hour: "numeric",
+    //   minute: "numeric"
+    // });
 
     dateTime.getDay;
     return (
       <div>
-        <h2 className="subheader">{dateTimeFormat.format(dateTime)}</h2>
+        <h2 className="subheader">
+          {this.props.store.currentTimeIndex && dateToDateTimeString(dateTime)}
+        </h2>
         <h2>
           {this.props.intl.formatMessage({
             id: "weathermap:map-title:" + domainId + ":" + timeSpan

@@ -7,7 +7,7 @@ import LeafletMap from "../leaflet/leaflet-map";
 import Overlay from "../leaflet/overlay";
 import { ImageOverlay } from "react-leaflet";
 import ZamgControl from "./zamg-control";
-import WeatherMapCockpit from "./weather-map-cockpit";
+
 import LegendControl from "./legend-control";
 import GridOverlay from "./grid-overlay";
 
@@ -119,13 +119,6 @@ class WeatherMap extends React.Component {
             });
           }}
           timeAwareLayers={["background-map"]}
-        />
-        <WeatherMapCockpit
-          key="time"
-          startDate={this.props.startDate}
-          timeArray={this.props.timeArray}
-          eventCallback={this.props.eventCallback}
-          domainConfig={this.props.domainConfig}
         />
       </>
     );
