@@ -229,7 +229,7 @@ class BulletinMap extends React.Component {
     return (
       <section
         id="section-bulletin-map"
-        className="section section-bulletin section-bulletin-map"
+        className="section section-bulletin-map"
       >
         <InfoBar level={newLevel} levels={this.infoMessageLevels} />
         <div

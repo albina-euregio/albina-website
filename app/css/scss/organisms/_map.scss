@@ -10,21 +10,16 @@
 $map-width: 100%;
 
 $map-height-mobile: 50vh;
-$map-height: 65vh;
 $map-height-bulletin: 50vh;
+$map-height-weather: 100vh;
 $map-height-min: 400px;
 
 $map-google-topbar-height: 46px;
 
 $controls-width-height: $padding * 4;
 
-//the outer container
+//the outer container for bulletin-map
 .section-bulletin-map {
-  /*
-	width: 100%;
-	overflow-x: hidden;
-	overflow-y: auto;
-*/
   .bulletin-parallel-view & {
     display: block;
     width: 100%;
@@ -46,42 +41,26 @@ $controls-width-height: $padding * 4;
   }
 }
 
-//the map itself
+//the maps themselves
 .section-map {
   position: relative;
-  height: $map-height;
-  .section-bulletin-map & {
-    height: $map-height-bulletin;
-  }
   min-height: $map-height-min;
   width: $map-width;
   overflow: hidden;
-  @include box-border($brand-very-light);
-  border-left: none;
-  border-right: none;
-  &.bulletin-map-static {
-    /*
-		background: transparent url(../images/dev/bulletin-report-map.jpg) no-repeat 33% 50%;
-		background-size: cover;
-*/
-    background: #fac;
-    .bulletin-map-google {
-      display: none;
-    }
+
+  .section-bulletin-map & {
+    height: $map-height-bulletin;
+    @include box-border($brand-very-light);
+    border-left: none;
+    border-right: none;
+  }
+
+  .section-weather-map & {
+    height: $map-height-weather;
   }
 }
 
-//in case of google iframe
-.bulletin-map {
-  display: block;
-  height: $map-height-bulletin; //$map-height;
-  min-height: $map-height-min;
-  width: $map-width;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  border: none;
-}
+//bulletin
 
 //in case of no bulletin
 .bulletin-map-bulletinbar {
@@ -111,7 +90,7 @@ $controls-width-height: $padding * 4;
   }
 }
 
-//tooltip details
+//details in floating tooltipp box
 .bulletin-map-details {
   display: table;
   position: absolute;
@@ -220,14 +199,14 @@ $controls-width-height: $padding * 4;
 }
 
 //leaflet
-.section-map .leaflet-control-container {
+.leaflet-control-container {
   .map-disabled & {
     display: none;
   }
   .leaflet-control {
     margin: 0;
     border: none !important;
-    //rf: was added to compiled style.css by outside dev, brought back here, propably not used anymore, who cares anyway
+    //rf: was added to compiled style.css by outside dev, brought back here, propably not used anymore, but who knows ...
     .legend .legend-toggle {
       background-image: url("../images/pro/meteoviewer/legend.png");
     }
@@ -236,12 +215,19 @@ $controls-width-height: $padding * 4;
 
 .leaflet-container {
   font: inherit;
+  //just local map image
+  .patternlab & {
+    width: 100%;
+    height: 100%;
+    background: transparent url(/images/dev/bulletin-report-map.jpg);
+    background-size: cover;
+  }
 }
 .leaflet-bar {
   border-radius: 0 !important;
 }
 
-//buttons
+//zoom, search, locate
 .leaflet-top.leaflet-left {
   position: absolute;
   top: $padding;
@@ -287,14 +273,15 @@ $controls-width-height: $padding * 4;
     margin-bottom: $padding;
     @include box-shadow(0.15);
     a:before {
-      height: 2.5rem !important;
-      width: 2.5rem !important;
+      height: $controls-width-height !important;
+      width: $controls-width-height !important;
       margin: 0 !important;
       font-size: $controls-width-height * 0.75 !important;
       line-height: $controls-width-height !important;
     }
   }
 
+  //no zoom on touch devices
   @media (hover: none) and (pointer: coarse) {
     .leaflet-control-zoom {
       display: none;
@@ -311,6 +298,7 @@ $controls-width-height: $padding * 4;
       @include icon(minus-big, 0.75em, 0.5em, none, 0, none);
     }
   }
+
   .leaflet-geonames-search {
     .leaflet-geonames-icon {
       background-image: none !important;
@@ -319,6 +307,7 @@ $controls-width-height: $padding * 4;
       }
     }
 
+    //geonames search form
     form {
       margin-bottom: 0;
       font-size: $body-font-size;
@@ -348,6 +337,7 @@ $controls-width-height: $padding * 4;
       }
     }
   }
+
   .leaflet-control-locate {
     a {
       &:before {
@@ -369,7 +359,7 @@ $controls-width-height: $padding * 4;
     margin: 0 !important;
   }
   .leaflet-control-scale-line {
-    padding: 3px 5px;
+    padding: 0.25em 0.5em;
     font-size: $micro-font-size;
     border-color: $grey;
   }
@@ -389,13 +379,22 @@ $controls-width-height: $padding * 4;
   }
 }
 
+//map overlays
 .leaflet-pane.leaflet-overlay-pane,
 .leaflet-pane .leaflet-image-layer {
   mix-blend-mode: multiply;
 }
 
-.weather-map-container {
-  /* single stations */
+//202009
+//used .section-weather-map instead of .weather-map-container
+//changed this in SCSS and jsx:
+//  <section id="section-weather-map" class="section section-weather-map">
+//    <div class="section-map">
+
+//weather-map <2020
+//.weather-map-container,
+.section-weather-map {
+  //single stations
   .station circle.inner {
     stroke: $black;
     stroke-width: 1.25;
@@ -404,12 +403,11 @@ $controls-width-height: $padding * 4;
   }
 
   .station text {
-    @include font-bold; //font-family: $font_default; //'Open Sans', sans-serif;
+    @include font-bold;
     font-size: 10px;
-    //font-weight: 700;
   }
 
-  /* outer circle - only selected stations */
+  //outer circle - only selected stations
   .station circle.outer,
   .gridpoint circle.outer {
     stroke: $black;
@@ -423,14 +421,14 @@ $controls-width-height: $padding * 4;
     stroke: $grey;
   }
 
-  /* selected circle in clusters*/
+  //selected circle in clusters
   .station-selected-clustered circle.inner {
     stroke: $black;
     stroke-width: 2;
     fill: $white;
   }
 
-  /* grid point*/
+  //grid point
   .gridpoint circle.inner {
     stroke-width: 2.2;
     stroke-dasharray: 0 4;
@@ -460,13 +458,12 @@ $controls-width-height: $padding * 4;
   }
 
   .gridpoint text {
-    @include font-bold; //font-family: $font_default; //'Open Sans', sans-serif;
+    @include font-bold;
     font-size: 10px;
-    //font-weight: 600;
   }
 }
 
-//202009: is this still  in use? existing in feature-info.jsx so better keep alive from here ...
+//202009: is this still in use? existing in feature-info.jsx so better keep alive from here ...
 .weather-map-details {
   z-index: 100;
   display: table;
@@ -524,7 +521,7 @@ a.weather-map-details-button {
 //...to here
 
 //from alien app.scss
-//202009: caanot be found in app/compnents so executed
+//202009: cannot be found in app/components therefore executed
 // .weather-map-icon {
 //   position: absolute;
 //   right: 10px;

@@ -80,12 +80,10 @@ class StationMap extends React.Component {
           marginal={this.state.headerText}
         />
         <section
-          className={
-            "section-map" +
-            (config.map.useWindowWidth ? "" : " section-centered")
-          }
+          id="section-weather-map"
+          className="section section-weather-map"
         >
-          <div className="weather-map-container section-map">
+          <div className="section-map">
             <LeafletMap
               loaded={this.props.domainId !== false}
               onViewportChanged={() => {}}
