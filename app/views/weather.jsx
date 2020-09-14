@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Switch } from "react-router-dom";
 import { observer, inject, action } from "mobx-react";
 import { autorun } from "mobx";
 import { modal_open_by_params } from "../js/modal";
@@ -84,11 +84,27 @@ class Weather extends React.Component {
     }
   }
 
-  handleClickDomainButton(menuItem) {
-    console.log("handleClickDomainButton 777", menuItem);
-    const newDomainId = menuItem.id;
-    if (newDomainId !== config.newWM.domainId) {
-      config.newWM.changeDomain(newDomainId);
+  handleClickCockpitEvent(type, value) {
+    console.log("handleClickCockpitEvent 777", type, value);
+    const wmStore = config.newWM;
+    const player = config.player;
+
+    switch (type) {
+      case "domain":
+        wmStore.changeDomain(value);
+        break;
+      case "timeSpan":
+        wmStore.changeTimeSpan(value);
+        break;
+      case "time":
+        wmStore.changeTimeIndex(value);
+        break;
+      case "play":
+        if (value) player.start();
+        else player.stop();
+        break;
+      default:
+        break;
     }
   }
 
@@ -126,6 +142,7 @@ class Weather extends React.Component {
 
   render() {
     const wmStore = config.newWM;
+    const wmPlayer = config.player;
 
     console.log("Weather->render xxxx1", wmStore.overlayFileName);
 
@@ -168,7 +185,7 @@ class Weather extends React.Component {
                 item={wmStore.item}
                 grid={wmStore.grid}
                 stations={wmStore.stations}
-                playerCB={config.player.onEvent.bind(config.player)}
+                playerCB={config.player.onLayerEvent.bind(config.player)}
                 selectedFeature={wmStore.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}
@@ -184,12 +201,10 @@ class Weather extends React.Component {
             key="cockpit"
             startDate={wmStore.startDate}
             timeArray={wmStore.timeIndices}
-            eventCallback={id => {
-              console.log("Timeselector clicked", id);
-              wmStore.changeTimeIndex(id);
-            }}
-            domainConfig={wmStore.config}
-            onChangeDomain={this.handleClickDomainButton.bind(this)}
+            storeConfig={wmStore.config}
+            domainId={wmStore.domainId}
+            player={wmPlayer}
+            eventCallback={this.handleClickCockpitEvent.bind(this)}
           />
         </section>
         <SmShare />

@@ -35,6 +35,12 @@ export default class Player {
     this._intervalID = null;
   }
 
+  toggle() {
+    console.log("PlayerStore->toggle: yyyy1", this);
+    if (!this._intervalID) this.start();
+    else this.stop();
+  }
+
   _tick() {
     //to be implemented
     console.log("PlayerStore->tick: yyyy1", this);
@@ -63,7 +69,7 @@ export default class Player {
     this.start();
   }
 
-  onEvent(layerId, state) {
+  onLayerEvent(layerId, state) {
     console.log("PlayerStore->onEvent: xxx", state, layerId);
 
     switch (state) {
