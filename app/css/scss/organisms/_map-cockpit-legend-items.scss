@@ -1,0 +1,189 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+/*------------------------------------*\
+    #MAP-COCKPIT-LEGEND-ITEMS
+\*------------------------------------*/
+
+@mixin legend-generator($legend-type, $item-count) {
+  span {
+    width: calc(100% / #{$item-count});
+  }
+  $i: 1;
+  @for $i from 1 through $item-count {
+    span:nth-child(#{$i}) {
+      display: block;
+      background-color: get-legend-item-value(
+        $legend-type,
+        colors,
+        color-#{$i}
+      );
+      @if $i > 1 {
+        &:before {
+          content: get-legend-item-value($legend-type, units, unit-#{$i});
+        }
+      }
+    }
+  }
+}
+@function get-legend-item-value($legend-type, $what, $value) {
+  @return map-get(map-get($legend-type, $what), $value);
+}
+
+$cp-legend-snow-items: (
+  colors: (
+    color-1: #fff,
+    color-2: #ffffb2,
+    color-3: #b0ffbc,
+    color-4: #8cffff,
+    color-5: #19cdff,
+    color-6: #1982ff,
+    color-7: #0f5abe,
+    color-8: #784bff,
+    color-9: #cd0feb
+  ),
+  units: (
+    unit-1: "0",
+    unit-2: "1",
+    unit-3: "10",
+    unit-4: "25",
+    unit-5: "50",
+    unit-6: "100",
+    unit-7: "200",
+    unit-8: "300",
+    unit-9: ">400"
+  )
+);
+
+$cp-legend-snownew-items: (
+  colors: (
+    color-1: #fff,
+    color-2: #ffffb2,
+    color-3: #b0ffbc,
+    color-4: #8cffff,
+    color-5: #19cdff,
+    color-6: #1982ff,
+    color-7: #0f5abe,
+    color-8: #784bff,
+    color-9: #cd0feb
+  ),
+  units: (
+    unit-1: "0",
+    unit-2: "1",
+    unit-3: "5",
+    unit-4: "10",
+    unit-5: "20",
+    unit-6: "30",
+    unit-7: "50",
+    unit-8: "75",
+    unit-9: ">100"
+  )
+);
+
+$cp-legend-snowdiff-items: (
+  colors: (
+    color-1: #ff6464,
+    color-2: #ffa0a0,
+    color-3: #ffd2d2,
+    color-4: #fff,
+    color-5: #ffffb2,
+    color-6: #b0ffbc,
+    color-7: #8cffff,
+    color-8: #19cdff,
+    color-9: #1982ff,
+    color-10: #0f5abe,
+    color-11: #784bff,
+    color-12: #cd0feb
+  ),
+  units: (
+    unit-1: "0",
+    unit-2: "<-20",
+    unit-3: "-10",
+    unit-4: "-5",
+    unit-5: "1",
+    unit-6: "5",
+    unit-7: "10",
+    unit-8: "20",
+    unit-9: "30",
+    unit-10: "50",
+    unit-11: "75",
+    unit-12: ">100"
+  )
+);
+
+$cp-legend-temperature-items: (
+  colors: (
+    color-1: #9f80ff,
+    color-2: #784cff,
+    color-3: #0f5abe,
+    color-4: #1380ff,
+    color-5: #19cdff,
+    color-6: #8fffff,
+    color-7: #b0ffbc,
+    color-8: #ffff73,
+    color-9: #ffbe7d,
+    color-10: #ff9b41,
+    color-11: #ff5a41,
+    color-12: #ff1e23,
+    color-13: #fa3c96
+  ),
+  units: (
+    unit-1: "0",
+    unit-2: "<-25",
+    unit-3: "-20",
+    unit-4: "-15",
+    unit-5: "-10",
+    unit-6: "-5",
+    unit-7: "0",
+    unit-8: "5",
+    unit-9: "10",
+    unit-10: "15",
+    unit-11: "20",
+    unit-12: "25",
+    unit-13: ">30"
+  )
+);
+
+$cp-legend-wind-items: (
+  colors: (
+    color-1: #ffff64,
+    color-2: #c8ff64,
+    color-3: #96ff96,
+    color-4: #32c8ff,
+    color-5: #6496ff,
+    color-6: #9664ff,
+    color-7: #ff3232
+  ),
+  units: (
+    unit-1: "0",
+    unit-2: "5",
+    unit-3: "10",
+    unit-4: "20",
+    unit-5: "40",
+    unit-6: "60",
+    unit-7: ">80"
+  )
+);
+
+$cp-legend-windgust-items: (
+  colors: (
+    color-1: #ffff64,
+    color-2: #c8ff64,
+    color-3: #96ff96,
+    color-4: #32c8ff,
+    color-5: #6496ff,
+    color-6: #9664ff,
+    color-7: #ff3232
+  ),
+  units: (
+    unit-1: "0",
+    unit-2: "5",
+    unit-3: "10",
+    unit-4: "20",
+    unit-5: "40",
+    unit-6: "60",
+    unit-7: ">80"
+  )
+);

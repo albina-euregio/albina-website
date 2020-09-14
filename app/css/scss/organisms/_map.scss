@@ -11,7 +11,7 @@ $map-width: 100%;
 
 $map-height-mobile: 50vh;
 $map-height-bulletin: 50vh;
-$map-height-weather: 100vh;
+$map-height-weather: calc(100vh - #{$bar-width});
 $map-height-min: 400px;
 
 $map-google-topbar-height: 46px;
@@ -41,9 +41,23 @@ $controls-width-height: $padding * 4;
   }
 }
 
+//the outer container for weather-map
+.section-weather-map {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: $map-height-weather;
+  width: 100vw;
+  overflow: hidden;
+  transition: none !important;
+}
+
 //the maps themselves
 .section-map {
   position: relative;
+  height: $map-height-bulletin;
   min-height: $map-height-min;
   width: $map-width;
   overflow: hidden;
@@ -57,144 +71,6 @@ $controls-width-height: $padding * 4;
 
   .section-weather-map & {
     height: $map-height-weather;
-  }
-}
-
-//bulletin
-
-//in case of no bulletin
-.bulletin-map-bulletinbar {
-  z-index: 461;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 0;
-  background: rgba(0, 0, 0, 0.5);
-  .controlbar {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    left: 0;
-    right: 0;
-    p {
-      margin: 0;
-      text-align: center;
-    }
-    a:link,
-    a:visited {
-      color: $white;
-    }
-  }
-}
-
-//details in floating tooltipp box
-.bulletin-map-details {
-  display: table;
-  position: absolute;
-  top: $padding * 8;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 0;
-  font-size: $tiny-font-size; //$body-font-size-tiny;
-  background-color: rgba($white, 0.95);
-  @include box-shadow(0.15);
-  opacity: 0;
-  @include rollout();
-
-  &.js-active {
-    opacity: 1;
-  }
-
-  //@media #{$normal-up} {
-  &.top-left {
-    top: $padding * 8;
-    left: $padding;
-    transform: translateX(0);
-  }
-  &.top-right {
-    top: $padding;
-    left: calc(100% - #{$padding});
-    transform: translateX(-100%);
-  }
-  &.bottom-right {
-    top: calc(100% - #{$padding});
-    left: calc(100% - #{$padding});
-    transform: translate(-100%, -100%);
-  }
-  &.bottom-left {
-    top: calc(100% - #{$padding});
-    transform: translateY(-100%);
-    left: $padding;
-  }
-  //}
-
-  strong {
-    @include font-heavy;
-    @include letter-spacing;
-  }
-  ul {
-    display: flex;
-    flex-wrap: nowrap;
-    margin: $padding * 2; //($padding * 2) ($padding * 2) $padding ($padding * 2);
-    li {
-      display: flex;
-      align-self: center;
-      margin-right: $padding;
-      &:first-child {
-        margin-right: $padding * 2;
-      }
-      &:last-child {
-        margin-right: 0;
-      }
-      img {
-        max-width: none; //<- why?
-        box-sizing: content-box;
-      }
-    }
-    li:not(.bulletin-report-no) + li img {
-      border: $border-width $border-style $border-color;
-    }
-  }
-  //details link
-  > a {
-    display: block;
-    width: 100%;
-    padding: 0 $padding $padding $padding;
-    //text-align: left;
-    font-size: $tiny-font-size;
-    color: $anchor-font-color;
-    background: transparent;
-    border-color: none;
-    span {
-      @include font-normal;
-      @include letter-spacing(0);
-      text-transform: none;
-      &:before {
-        position: relative;
-        top: 0.15em;
-        margin: 0;
-      }
-    }
-    &:hover {
-      color: $white;
-      background: $anchor-font-color;
-      border-color: $anchor-font-color;
-    }
-  }
-}
-
-//am/pm
-.bulletin-map-daytime {
-  position: absolute;
-  top: $padding * 1.25;
-  left: $padding;
-  z-index: 2;
-  .label {
-    font-size: $body-font-size-normal;
-    @include font-bold;
   }
 }
 
@@ -215,16 +91,29 @@ $controls-width-height: $padding * 4;
 
 .leaflet-container {
   font: inherit;
-  //just local map image
-  .patternlab & {
+
+  //to develop and test with local map images
+  .patternlab .section-bulletin-map & {
     width: 100%;
     height: 100%;
     background: transparent url(/images/dev/bulletin-report-map.jpg);
     background-size: cover;
   }
+  .patternlab .section-weather-map & {
+    width: 100%;
+    height: 100%;
+    background: transparent url(/images/dev/weather-map.png);
+    background-size: cover;
+  }
 }
 .leaflet-bar {
   border-radius: 0 !important;
+}
+
+//overlays
+.leaflet-pane.leaflet-overlay-pane,
+.leaflet-pane .leaflet-image-layer {
+  mix-blend-mode: multiply;
 }
 
 //zoom, search, locate
@@ -365,7 +254,7 @@ $controls-width-height: $padding * 4;
   }
 }
 
-//old copyright still used on bulletin map
+//copyright still used on bulletin map
 .leaflet-bottom.leaflet-right {
   .leaflet-control {
     position: absolute;
@@ -379,11 +268,148 @@ $controls-width-height: $padding * 4;
   }
 }
 
-//map overlays
-.leaflet-pane.leaflet-overlay-pane,
-.leaflet-pane .leaflet-image-layer {
-  mix-blend-mode: multiply;
+//
+// bulletin-map
+//
+
+//in case of no bulletin
+.bulletin-map-bulletinbar {
+  z-index: 461;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+  .controlbar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    p {
+      margin: 0;
+      text-align: center;
+    }
+    a:link,
+    a:visited {
+      color: $white;
+    }
+  }
 }
+
+//details in floating tooltipp box
+.bulletin-map-details {
+  display: table;
+  position: absolute;
+  top: $padding * 8;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+  font-size: $tiny-font-size; //$body-font-size-tiny;
+  background-color: rgba($white, 0.95);
+  @include box-shadow(0.15);
+  opacity: 0;
+  @include rollout();
+
+  &.js-active {
+    opacity: 1;
+  }
+
+  //@media #{$normal-up} {
+  &.top-left {
+    top: $padding * 8;
+    left: $padding;
+    transform: translateX(0);
+  }
+  &.top-right {
+    top: $padding;
+    left: calc(100% - #{$padding});
+    transform: translateX(-100%);
+  }
+  &.bottom-right {
+    top: calc(100% - #{$padding});
+    left: calc(100% - #{$padding});
+    transform: translate(-100%, -100%);
+  }
+  &.bottom-left {
+    top: calc(100% - #{$padding});
+    transform: translateY(-100%);
+    left: $padding;
+  }
+  //}
+
+  strong {
+    @include font-heavy;
+    @include letter-spacing;
+  }
+  ul {
+    display: flex;
+    flex-wrap: nowrap;
+    margin: $padding * 2; //($padding * 2) ($padding * 2) $padding ($padding * 2);
+    li {
+      display: flex;
+      align-self: center;
+      margin-right: $padding;
+      &:first-child {
+        margin-right: $padding * 2;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+      img {
+        max-width: none; //<- why?
+        box-sizing: content-box;
+      }
+    }
+    li:not(.bulletin-report-no) + li img {
+      border: $border-width $border-style $border-color;
+    }
+  }
+  //details link
+  > a {
+    display: block;
+    width: 100%;
+    padding: 0 $padding $padding $padding;
+    font-size: $tiny-font-size;
+    color: $anchor-font-color;
+    background: transparent;
+    border-color: none;
+    span {
+      @include font-normal;
+      @include letter-spacing(0);
+      text-transform: none;
+      &:before {
+        position: relative;
+        top: 0.15em;
+        margin: 0;
+      }
+    }
+    &:hover {
+      color: $white;
+      background: $anchor-font-color;
+      border-color: $anchor-font-color;
+    }
+  }
+}
+
+//am/pm
+.bulletin-map-daytime {
+  position: absolute;
+  top: $padding * 1.25;
+  left: $padding;
+  z-index: 2;
+  .label {
+    font-size: $body-font-size-normal;
+    @include font-bold;
+  }
+}
+
+//
+// weather-map
+//
 
 //202009
 //used .section-weather-map instead of .weather-map-container
@@ -391,7 +417,7 @@ $controls-width-height: $padding * 4;
 //  <section id="section-weather-map" class="section section-weather-map">
 //    <div class="section-map">
 
-//weather-map <2020
+//weather-map pane styles
 //.weather-map-container,
 .section-weather-map {
   //single stations
@@ -497,7 +523,6 @@ a.weather-map-details-button {
   display: block;
   width: 100%;
   padding: $padding;
-  //text-align: left;
   font-size: $tiny-font-size;
   color: $anchor-font-color;
   background: transparent;
