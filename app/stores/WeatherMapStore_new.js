@@ -10,6 +10,7 @@ export default class WeatherMapStore_new {
   @observable _timeSpan;
   @observable _timeIndices;
   @observable stations;
+  @observable domainConfig;
   config;
 
   constructor(initialDomainId) {
@@ -23,6 +24,7 @@ export default class WeatherMapStore_new {
     this._timeIndices = [];
     this._timeIndicesIndex = observable.box(false);
     this.selectedFeature = null;
+    this.domainConfig = null;
     this._loading = observable.box(false);
 
     const configDefaultDomainId = Object.keys(this.config.domains).find(
@@ -267,18 +269,44 @@ export default class WeatherMapStore_new {
   }
 
   /*
-    setting a new active domain
+    returns value for pixel color
   */
-  @action changeDomain(domainId) {
-    console.log("weatherMapStore_new changeDomain: " + domainId);
-
-    if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
-      this._domainId.set(domainId);
-      this._timeSpan.set(null);
-      this.changeTimeSpan(
-        this.domain.item.defaultTimeSpan || this.domain.item.timeSpans[0]
-      );
-      this.selectedFeature = null;
+  valueForPixel(overlayType, pixelRGB) {
+    switch (overlayType) {
+      case "temperature":
+        console.log("valueForPixel", pixelRGB);
+        if (pixelRGB.r <= 0) return "<59,5";
+        if (pixelRGB.r >= 255) return null;
+        return -59.5 + (pixelRGB.r - 1) * 0.5;
+        break;
+      case "windDirection":
+        if (pixelRGB.r <= 0 || pixelRGB.r > 180) return null;
+        return pixelRGB.r * 2;
+        break;
+      case "windSpeed":
+        if (pixelRGB.r <= 0 || pixelRGB.r >= 255) return null;
+        return pixelRGB.r;
+        break;
+      case "snowHeight":
+        const snowHeightDef = {
+          "1-0-0": -250,
+          "250-0-0": -1,
+          "0-0-0": 0,
+          "255-255-255": 250,
+          "0-0-1": 255,
+          "0-0-150": 1000,
+          "0-0-250": 2000,
+          "0-1-0": 2020,
+          "0-250-0": 7000
+        };
+        return (
+          snowHeightDef[pixelRGB.r + "-" + pixelRGB.g + "-" + pixelRGB.b] ||
+          null
+        );
+        break;
+      default:
+        return null;
+        break;
     }
   }
 
@@ -361,6 +389,24 @@ export default class WeatherMapStore_new {
       this.config.domains[domainId].domainIdStart
     );
   }
+
+  /*
+    setting a new active domain
+  */
+  @action changeDomain(domainId) {
+    console.log("weatherMapStore_new changeDomain: " + domainId);
+
+    if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
+      this._domainId.set(domainId);
+      this._timeSpan.set(null);
+      this.changeTimeSpan(
+        this.domain.item.defaultTimeSpan || this.domain.item.timeSpans[0]
+      );
+      this.domainConfig = this.config.domains[domainId].item;
+      this.selectedFeature = null;
+    }
+  }
+
   /*
   control method to check if the item does exist in the config
 */

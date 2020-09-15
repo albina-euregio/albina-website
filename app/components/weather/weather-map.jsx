@@ -4,14 +4,16 @@ import { observer } from "mobx-react";
 
 import Base from "../../base";
 import LeafletMap from "../leaflet/leaflet-map";
+import Overlay from "../leaflet/overlay";
+import { ImageOverlay } from "react-leaflet";
 import ZamgControl from "./zamg-control";
-import Timecontrol from "./time-control";
+
 import LegendControl from "./legend-control";
 import GridOverlay from "./grid-overlay";
+
 const StationOverlay = loadable(() =>
   import(/* webpackChunkName: "app-stationOverlay" */ "./station-overlay")
 );
-import { TileLayer, ImageOverlay } from "react-leaflet";
 
 class WeatherMap extends React.Component {
   constructor(props) {
@@ -29,22 +31,26 @@ class WeatherMap extends React.Component {
 
         //console.log("wather-map->render xxx1:", this.props.overlay);
         if (this.props.overlay) {
+          // overlays.push(
+          //   <ImageOverlay
+          //   key="background-map-data"
+          //   className="leaflet-image-layer"
+          //   url={this.props.overlay + ".png"}
+          //   opacity={1}
+          //   bounds={config.weathermaps.settings.bbox}
+          //   interactive={true}
+          //   />
+          // )
           overlays.push(
-            <ImageOverlay
+            <Overlay
               key="background-map"
-              className="leaflet-image-layer"
-              url={this.props.overlay + ".gif"}
-              opacity={Base.checkBlendingSupport() ? 1 : 0.5}
-              bounds={config.weathermaps.settings.bbox}
-              onLoad={() => {
-                this.props.playerCB("background", "load");
-              }}
-              onError={err => {
-                this.props.playerCB("background", err);
-              }}
+              overlay={this.props.overlay}
+              playerCB={this.props.playerCB}
+              dataOverlays={this.props.dataOverlays}
+              dataOverlaysEnabled={this.props.dataOverlaysEnabled}
+              rgbToValue={this.props.rgbToValue}
             />
           );
-          this.props.playerCB("background", "loading");
         }
       }
 
@@ -97,33 +103,24 @@ class WeatherMap extends React.Component {
       controls.push(<LegendControl key="legend" item={this.props.item} />);
     }
 
-    //if (this.props.timeArray && this.props.startDate) {
-    controls.push(
-      <Timecontrol
-        key="time"
-        startDate={this.props.startDate}
-        timeArray={this.props.timeArray}
-        eventCallback={this.props.eventCallback}
-      />
-    );
-    //}
-
     return (
-      <LeafletMap
-        loaded={this.props.domainId !== false}
-        identifier={this.props.domainId + "_" + this.props.itemId}
-        onViewportChanged={this.props.onViewportChanged}
-        overlays={overlays}
-        controls={controls}
-        timeArray={this.props.timeArray}
-        startDate={this.props.startDate}
-        onInit={map => {
-          map.on("click", () => {
-            this.props.onMarkerSelected(null);
-          });
-        }}
-        timeAwareLayers={["background-map"]}
-      />
+      <>
+        <LeafletMap
+          loaded={this.props.domainId !== false}
+          identifier={this.props.domainId + "_" + this.props.itemId}
+          onViewportChanged={this.props.onViewportChanged}
+          overlays={overlays}
+          controls={controls}
+          timeArray={this.props.timeArray}
+          startDate={this.props.startDate}
+          onInit={map => {
+            map.on("click", () => {
+              this.props.onMarkerSelected(null);
+            });
+          }}
+          timeAwareLayers={["background-map"]}
+        />
+      </>
     );
   }
 }

@@ -31,7 +31,7 @@ class StationMap extends React.Component {
   }
 
   componentDidMount() {
-    window.stationDataStore.load();
+    window.stationDataStore.load("");
   }
 
   componentDidUpdate() {}

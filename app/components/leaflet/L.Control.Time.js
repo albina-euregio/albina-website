@@ -19,7 +19,7 @@ L.Control.TimeSelector = L.Control.extend({
       "div",
       "leaflet-control-locate leaflet-bar leaflet-control"
     );
-    container.innerHTML = "this is a test";
+    //container.innerHTML = "this is a test";
     this._container = container;
     this._createButtons(
       container,

@@ -1,6 +1,8 @@
+import { computed, observable, action } from "mobx";
+
 export default class Player {
   _itemsToLoad;
-  _intervalID;
+  @observable _intervalID = null;
   _transitionTime;
   _availableTimes;
   _onTick;
@@ -33,6 +35,12 @@ export default class Player {
     this._intervalID = null;
   }
 
+  toggle() {
+    console.log("PlayerStore->toggle: yyyy1", this);
+    if (!this._intervalID) this.start();
+    else this.stop();
+  }
+
   _tick() {
     //to be implemented
     console.log("PlayerStore->tick: yyyy1", this);
@@ -61,7 +69,7 @@ export default class Player {
     this.start();
   }
 
-  onEvent(layerId, state) {
+  onLayerEvent(layerId, state) {
     console.log("PlayerStore->onEvent: xxx", state, layerId);
 
     switch (state) {
@@ -81,12 +89,17 @@ export default class Player {
   }
 
   setTransitionTime(transitionTime) {
-    console.log("PlayerStore->setTransitionTime:", transitionTime);
+    //console.log("PlayerStore->setTransitionTime:", transitionTime);
     this._transitionTime = transitionTime;
   }
 
+  @computed get playing() {
+    //console.log("playing", this._intervalID, this._intervalID !== null);
+    return this._intervalID !== null;
+  }
+
   setAvailableTimes(availableTimes) {
-    console.log("PlayerStore->setAvailableTimes: yyyy1", availableTimes);
+    //console.log("PlayerStore->setAvailableTimes: yyyy1", availableTimes);
     this._availableTimes = availableTimes;
   }
 
