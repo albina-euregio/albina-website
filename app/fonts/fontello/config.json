@@ -427,18 +427,6 @@
       "search": ["snownew"]
     },
     {
-      "uid": "fff6b258984750991ffe525daf92cb36",
-      "css": "temperature",
-      "code": 59454,
-      "src": "custom_icons",
-      "selected": true,
-      "svg": {
-        "path": "M516.7 566.7A116.7 116.7 0 1 1 516.7 800 116.7 116.7 0 0 1 516.7 566.7ZM516.7 600A83.3 83.3 0 1 0 516.7 766.7 83.3 83.3 0 0 0 516.7 600ZM533.3 600H500V200H533.3V266.7H600V300H533.3V366.7H600V400H533.3V466.7H600V500H533.3V600Z",
-        "width": 1000
-      },
-      "search": ["temperature"]
-    },
-    {
       "uid": "137305e3982eaa5e6c3bd03cf933f7f3",
       "css": "wind",
       "code": 59455,
@@ -461,6 +449,18 @@
         "width": 1000
       },
       "search": ["windgust"]
+    },
+    {
+      "uid": "d02f6638e4705d6284e96edf121c83d0",
+      "css": "temperature",
+      "code": 59430,
+      "src": "custom_icons",
+      "selected": true,
+      "svg": {
+        "path": "M533.3 200V266.7H600V300H533.3V366.7H600V400H533.3V466.7H600V500H533.3V567.9A116.7 116.7 0 1 1 500 567.9V200H533.3ZM516.7 600A83.3 83.3 0 1 0 516.7 766.7 83.3 83.3 0 0 0 516.7 600Z",
+        "width": 1000
+      },
+      "search": ["temperature"]
     }
   ]
 }

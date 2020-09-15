@@ -56,20 +56,18 @@ $cp-breakpoint-2: 1024px;
 //layer-selector in dropup or left
 .cp-container-1 {
   z-index: 1000;
-  display: none;
 
   position: absolute;
   bottom: calc(
-    #{$cp-legend-release-height} + #{$cp-layer-range-height} - #{$border-width}
+    #{$cp-legend-release-height} + #{$cp-layer-range-height} + #{$border-width}
   );
   left: 0;
 
   @media screen and (min-width: $cp-breakpoint-1) {
-    bottom: calc(#{$cp-layer-range-height} - #{$border-width});
+    bottom: calc(#{$cp-layer-range-height} + #{$border-width});
   }
   @media screen and (min-width: $cp-breakpoint-2) {
     z-index: auto;
-    display: block;
 
     position: relative;
     bottom: auto;
@@ -80,11 +78,18 @@ $cp-breakpoint-2: 1024px;
 
 //layer-selector
 .cp-layer-selector {
+  display: none;
+
   height: $cp-layer-selector-button-height * 6;
   width: $cp-layer-selector-width;
+  @include font-bold;
 
   @extend .bg-box;
   @include box-shadow;
+
+  .layer-selector-open & {
+    display: block;
+  }
 
   @media screen and (min-width: $cp-breakpoint-2) {
     overflow: hidden;
@@ -94,6 +99,58 @@ $cp-breakpoint-2: 1024px;
     width: $cp-layer-selector-width-open;
 
     box-shadow: none;
+
+    display: flex !important;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+}
+.cp-layer-selector-item {
+  height: $cp-layer-selector-button-height;
+  width: 100%;
+  line-height: $cp-layer-selector-button-height;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media screen and (min-width: $cp-breakpoint-2) {
+    width: 50%;
+    flex-grow: 1;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+  }
+
+  .layer-select {
+    &:before {
+      margin: 0;
+      font-size: 32px;
+    }
+  }
+
+  &.js-active {
+    @extend .bg-brand;
+  }
+
+  &.cp-layer-trigger {
+    height: $cp-layer-range-height;
+  }
+  .layer-trigger {
+    &:before {
+      @include icon(hamburger, 0.75em, 0.5em, none, 0, none);
+      margin: 0 10px 0 0;
+      font-size: 24px;
+    }
+    .layer-selector-open & {
+      &:before {
+        @include icon(close, 0.75em, 0.5em, none, 0, none);
+        margin: 0 10px 0 0;
+        font-size: 24px;
+      }
+    }
   }
 }
 
@@ -150,7 +207,7 @@ $cp-breakpoint-2: 1024px;
   display: block;
   height: 15px;
   width: 100%;
-  background-color: $brand;
+  @extend .bg-brand;
 }
 .cp-scale-stamp-range-begin {
   position: absolute;
@@ -328,7 +385,7 @@ $cp-breakpoint-2: 1024px;
   left: 20px;
   height: $cp-scale-height;
   width: 175px;
-  background-color: $grey-very-very-light;
+  @extend .bg-subtle;
 }
 .cp-scale-forecast-bar {
   display: none;
@@ -386,6 +443,8 @@ $cp-breakpoint-2: 1024px;
 
   height: $cp-layer-range-height;
   width: calc(100% - #{$cp-range-width});
+  @include font-bold;
+  line-height: $cp-layer-range-height;
 
   @media screen and (min-width: $cp-breakpoint-2) {
     display: none;
@@ -430,12 +489,12 @@ $cp-breakpoint-2: 1024px;
     &:hover,
     &.js-active {
       color: $white;
-      background-color: $brand;
+      @extend .bg-brand;
     }
     &.js-inactive {
       color: $grey;
       &:hover {
-        background-color: $white;
+        @extend .bg-box;
       }
     }
   }
@@ -456,6 +515,7 @@ $cp-breakpoint-2: 1024px;
 
   @media screen and (min-width: $cp-breakpoint-1) {
     width: calc(50% - #{$cp-copyright-width});
+    border-left: $border-width $border-style $brand-very-light;
   }
 }
 

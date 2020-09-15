@@ -106,9 +106,12 @@ $icon-font-margin: 0.25em;
 .icon-plus-big:before {
   content: "\e824";
 } /* '' */
-.icon-copyright:before {
+.icon-temperature:before {
   content: "\e826";
 } /* '' */
+.icon-copyright:before {
+  content: "\e836";
+} /* '' */
 .icon-pause:before {
   content: "\e838";
 } /* '' */
@@ -127,9 +130,6 @@ $icon-font-margin: 0.25em;
 .icon-snow-new:before {
   content: "\e83d";
 } /* '' */
-.icon-temperature:before {
-  content: "\e83e";
-} /* '' */
 .icon-wind:before {
   content: "\e83f";
 } /* '' */
