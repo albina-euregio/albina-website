@@ -34,6 +34,7 @@ $cp-breakpoint-1: 720px;
 $cp-breakpoint-2: 1024px;
 
 .weather-map-cockpit {
+  z-index: 2;
   position: absolute;
   bottom: 0;
   width: 100vw;
