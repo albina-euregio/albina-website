@@ -88,28 +88,56 @@ class WeatherMapCockpit extends React.Component {
         .item;
 
       domainConfig.timeSpans.forEach(aItem => {
-        let buttonClass = "leaflet-bar-part leaflet-bar-part-single";
+        let linkClasses = ["tooltip", "cp-range-" + aItem.replace(/\D/g, "")];
 
         buttons.push(
           <a
             key={aItem}
             href="javascript: void(0)"
             onClick={this.handleEvent.bind(this, "timeSpan", aItem)}
-            role="button"
+            className={linkClasses.join(" ")}
+            data-tippy=""
+            data-original-title={this.props.intl.formatMessage({
+              id:
+                "weathermap:domain:" +
+                this.props.domainId +
+                ":timespan:" +
+                aItem +
+                ":long"
+            })}
           >
             {this.props.intl.formatMessage({
               id:
                 "weathermap:domain:" +
                 this.props.domainId +
                 ":timespan:" +
-                aItem
+                aItem +
+                ":short"
             })}
           </a>
         );
       });
     }
 
-    return buttons;
+    return (
+      <div class="cp-container-layer-range">
+        <div class="cp-layer">
+          <a
+            href="#"
+            class="cp-layer-selector-item cp-layer-trigger tooltip"
+            data-tippy=""
+            data-original-title="Layer wählen"
+          >
+            <span class="layer-select icon-snow">Schneehöhe</span>
+            <span class="layer-trigger"></span>
+          </a>
+        </div>
+
+        <div class="cp-range">
+          <div class="cp-range-buttons 0js-inactive">{buttons}</div>
+        </div>
+      </div>
+    );
   }
 
   getPlayerButtons() {
@@ -138,10 +166,12 @@ class WeatherMapCockpit extends React.Component {
         <div class="cp-container-1">
           <div class="cp-layer-selector">{this.getDomainButtons()}</div>
         </div>
+        <div class="cp-container-2">
+          {this.getTimeSpanOptions()}
+          {this.getTickButtons()}
 
-        {this.getTickButtons()}
-        {this.getTimeSpanOptions()}
-        {this.getPlayerButtons()}
+          {this.getPlayerButtons()}
+        </div>
       </div>
     );
   }
