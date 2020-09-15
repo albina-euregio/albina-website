@@ -166,13 +166,11 @@ class Weather extends React.Component {
           </div>
         </section>
         <section
-          className={
-            "section-map" +
-            (config.map.useWindowWidth ? "" : " section-centered")
-          }
+          id="section-weather-map"
+          className="section section-weather-map"
         >
-          {/*config.newWM.domainId*/ true && (
-            <div className="weather-map-container section-map">
+          {/*this.store.domainId*/ true && (
+            <div className="section-map">
               <WeatherMap
                 domainId={wmStore.domainId}
                 domain={wmStore.domain}

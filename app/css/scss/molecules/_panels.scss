@@ -102,13 +102,6 @@
     .bulletin-report-header h1 {
       margin-left: -$all-h-padding;
 
-      //from alien app.scss
-      // @media only screen and (min-width: 48em) {
-      //   .panel.warning-level-1 .bulletin-report-header h1 {
-      //     margin-left: -1.3rem;
-      //   }
-      // }
-
       span {
         padding: 0 ($padding / 2) 0 $all-h-padding;
         color: $text-color;
@@ -116,12 +109,6 @@
 
         //from alien app.scss
         white-space: nowrap;
-      }
-      @media #{$normal-up} {
-        margin-left: -$normal-h-padding;
-        span {
-          padding-left: $normal-h-padding;
-        }
       }
     }
   }
@@ -139,12 +126,6 @@
         //from alien app.scss
         white-space: nowrap;
       }
-      @media #{$normal-up} {
-        margin-left: -$normal-h-padding;
-        span {
-          padding-left: $normal-h-padding;
-        }
-      }
     }
   }
   &.warning-level-3 {
@@ -159,12 +140,6 @@
 
         //from alien app.scss
         white-space: nowrap;
-      }
-      @media #{$normal-up} {
-        margin-left: -$normal-h-padding;
-        span {
-          padding-left: $normal-h-padding;
-        }
       }
     }
   }
@@ -181,12 +156,6 @@
         //from alien app.scss
         white-space: nowrap;
       }
-      @media #{$normal-up} {
-        margin-left: -$normal-h-padding;
-        span {
-          padding-left: $normal-h-padding;
-        }
-      }
     }
   }
   &.warning-level-5 {
@@ -202,12 +171,6 @@
 
         //from alien app.scss
         white-space: nowrap;
-      }
-      @media #{$normal-up} {
-        margin-left: -$normal-h-padding;
-        span {
-          padding-left: $normal-h-padding;
-        }
       }
     }
   }
