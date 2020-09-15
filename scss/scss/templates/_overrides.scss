@@ -1,0 +1,25 @@
+/*	TRANSPORTER
+	Creating Your Web
+	www.transporter.at
+*/
+
+// These styles were found on the productive website, propably introduced by TU Wien. Since we have no idea what they are for, we'll keep them alive for safety reasons.
+
+iframe#meteoMap {
+  width: 100%;
+  height: calc(100vh - 215px);
+  min-height: 400px;
+  margin: 0;
+  border: none;
+}
+
+iframe#stationTable {
+  width: 100%;
+  height: auto;
+  min-height: 33em;
+  margin: 0;
+  border: none;
+  .dataTables_scrollBody {
+    min-height: 600px !important;
+  }
+}
