@@ -71,6 +71,18 @@ function dateToMonthString(date) {
   });
 }
 
+function dateToWeekdayString(date) {
+  return _formatDate(date, {
+    weekday: "long"
+  });
+}
+
+function dateToShortDayString(date) {
+  return _formatDate(date, {
+    day: "numeric"
+  });
+}
+
 function dateToDateString(date) {
   return _formatDate(date, {
     year: "numeric",
@@ -225,6 +237,8 @@ export {
   dateToMonthString,
   dateToDateString,
   dateToShortDateString,
+  dateToWeekdayString,
+  dateToShortDayString,
   dateToTimeString,
   dateToDateTimeString,
   dateToLongDateString,

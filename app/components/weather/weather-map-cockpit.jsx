@@ -2,7 +2,13 @@ import React from "react";
 import { withRouter, matchPath } from "react-router";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
-import { dateToDateTimeString } from "../../util/date.js";
+import { reaction } from "mobx";
+import {
+  dateToDateTimeString,
+  dateToShortDayString,
+  dateToWeekdayString
+} from "../../util/date.js";
+import { tooltip_init } from "../../js/tooltip";
 
 const DOMAIN_ICON_CLASSES = {
   temp: "icon-temperature",
@@ -10,12 +16,30 @@ const DOMAIN_ICON_CLASSES = {
   "new-snow": "icon-snow-new",
   "diff-snow": "icon-snow-diff",
   wind: "icon-wind",
-  gust: "icon-gust"
+  gust: "icon-wind-gust"
 };
 
 class WeatherMapCockpit extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    reaction(
+      () => this.props.domainId,
+      () => {
+        console.log("update tooltip #1");
+        window.setTimeout(tooltip_init, 100);
+      }
+    );
+    reaction(
+      () => this.props.timeSpan,
+      () => {
+        console.log("update tooltip #2");
+        window.setTimeout(tooltip_init, 100);
+      }
+    );
+    window.setTimeout(tooltip_init, 100);
   }
 
   handleEvent(type, value) {
@@ -30,7 +54,7 @@ class WeatherMapCockpit extends React.Component {
           return {
             id: domainId,
             title: this.props.intl.formatMessage({
-              id: "weathermap:domain:description:" + domainId
+              id: "weathermap:domain:title:" + domainId
             }),
             url: "/weather/map/" + domainId,
             isExternal: false
@@ -46,6 +70,7 @@ class WeatherMapCockpit extends React.Component {
       if (aButton.id === this.props.domainId) linkClasses.push("js-active");
       buttons.push(
         <Link
+          key={aButton.id}
           to={aButton.url}
           onClick={this.handleEvent.bind(this, "domain", aButton.id)}
           className={linkClasses.join(" ")}
@@ -56,6 +81,65 @@ class WeatherMapCockpit extends React.Component {
     });
     return buttons;
   }
+
+  getTimeSpanOptions() {
+    let self = this;
+    let buttons = [];
+    console.log("getTimeSpanOptions 777", this.props);
+    if (
+      this.props.storeConfig &&
+      this.props.storeConfig.domains[this.props.domainId]
+    ) {
+      let domainConfig = this.props.storeConfig.domains[this.props.domainId]
+        .item;
+
+      domainConfig.timeSpans.forEach(aItem => {
+        let nrOnlyTimespan = aItem.replace(/\D/g, "");
+        let linkClasses = ["tooltip", "cp-range-" + nrOnlyTimespan];
+        if (self.props.timeSpan === aItem) linkClasses.push("js-active");
+
+        buttons.push(
+          <a
+            key={aItem}
+            href="javascript: void(0)"
+            onClick={this.handleEvent.bind(this, "timeSpan", aItem)}
+            className={linkClasses.join(" ")}
+            data-tippy=""
+            data-original-title={this.props.intl.formatMessage({
+              id: "weathermap:domain:timespan:description:" + nrOnlyTimespan
+            })}
+          >
+            {nrOnlyTimespan}h
+          </a>
+        );
+      });
+    }
+
+    return (
+      <div className="cp-container-layer-range">
+        <div className="cp-layer">
+          <a
+            href="#"
+            className="cp-layer-selector-item cp-layer-trigger tooltip"
+            data-tippy=""
+            data-original-title="Layer wählen"
+          >
+            <span className="layer-select icon-snow">
+              {this.props.intl.formatMessage({
+                id: "weathermap:domain:title:" + this.props.domainId
+              })}
+            </span>
+            <span className="layer-trigger"></span>
+          </a>
+        </div>
+
+        <div className="cp-range">
+          <div className="cp-range-buttons 0js-inactive">{buttons}</div>
+        </div>
+      </div>
+    );
+  }
+
   getTickButtons() {
     let buttons = [];
 
@@ -77,64 +161,79 @@ class WeatherMapCockpit extends React.Component {
     return buttons;
   }
 
-  getTimeSpanOptions() {
-    let buttons = [];
-    //console.log("getTimeSpanOptions 777", this.props.storeConfig.domains[this.props.domainId].item);
-    if (
-      this.props.storeConfig &&
-      this.props.storeConfig.domains[this.props.domainId]
-    ) {
-      let domainConfig = this.props.storeConfig.domains[this.props.domainId]
-        .item;
+  getTimeline() {
+    let self = this;
+    let lastTime;
+    let days = [];
 
-      domainConfig.timeSpans.forEach(aItem => {
-        let linkClasses = ["tooltip", "cp-range-" + aItem.replace(/\D/g, "")];
+    this.props.timeArray.forEach(aTime => {
+      let weekday = dateToWeekdayString(aTime);
+      if (lastTime !== weekday) {
+        let hours = [];
+        for (let i = 1; i < 25; i++) {
+          let currentHour = new Date(aTime).setHours(i);
+          let isSelectable = self.props.timeArray.includes(currentHour);
+          let spanClass = "cp-scale-hour-" + (i - 1);
+          hours.push(
+            <span
+              key={currentHour}
+              className={spanClass}
+              data-timestamp={currentHour}
+              data-selectable={isSelectable}
+              data-time={dateToDateTimeString(currentHour)}
+            ></span>
+          );
+        }
 
-        buttons.push(
-          <a
-            key={aItem}
-            href="javascript: void(0)"
-            onClick={this.handleEvent.bind(this, "timeSpan", aItem)}
-            className={linkClasses.join(" ")}
-            data-tippy=""
-            data-original-title={this.props.intl.formatMessage({
-              id:
-                "weathermap:domain:" +
-                this.props.domainId +
-                ":timespan:" +
-                aItem +
-                ":long"
-            })}
-          >
-            {this.props.intl.formatMessage({
-              id:
-                "weathermap:domain:" +
-                this.props.domainId +
-                ":timespan:" +
-                aItem +
-                ":short"
-            })}
-          </a>
+        days.push(
+          <div className="cp-scale-day" key={weekday}>
+            <span className="cp-scale-day-name">
+              {weekday.substring(0, 2)}
+              <span>{weekday.substring(2, 20)}</span>{" "}
+              {dateToShortDayString(aTime)}
+            </span>
+            <div className="cp-scale-hours">{hours}</div>
+          </div>
         );
-      });
-    }
 
+        lastTime = weekday;
+      }
+    });
     return (
-      <div class="cp-container-layer-range">
-        <div class="cp-layer">
-          <a
-            href="#"
-            class="cp-layer-selector-item cp-layer-trigger tooltip"
-            data-tippy=""
-            data-original-title="Layer wählen"
-          >
-            <span class="layer-select icon-snow">Schneehöhe</span>
-            <span class="layer-trigger"></span>
-          </a>
+      <div className="cp-scale">
+        <div className="cp-scale-stamp">
+          <div className="cp-scale-stamp-range js-active">
+            <span className="cp-scale-stamp-range-bar"></span>
+            <span className="cp-scale-stamp-range-begin">12:00</span>
+            <span className="cp-scale-stamp-range-end">18:00</span>
+          </div>
+
+          <div className="cp-scale-stamp-point js-active">
+            <span className="cp-scale-stamp-point-arrow"></span>
+            <span className="cp-scale-stamp-point-exact">17:00</span>
+          </div>
         </div>
 
-        <div class="cp-range">
-          <div class="cp-range-buttons 0js-inactive">{buttons}</div>
+        <div className="cp-scale-flipper">
+          <a
+            href="#"
+            className="cp-scale-flipper-left icon-arrow-left tooltip"
+            data-tippy=""
+            data-original-title="Früher"
+          ></a>
+          <a
+            href="#"
+            className="cp-scale-flipper-right icon-arrow-right tooltip"
+            data-tippy=""
+            data-original-title="Später"
+          ></a>
+        </div>
+
+        <div className="cp-scale-days">{days}</div>
+
+        <div className="cp-scale-analyse-forecast">
+          <span className="cp-scale-analyse-bar"></span>
+          <span className="cp-scale-forecast-bar"></span>
         </div>
       </div>
     );
@@ -142,35 +241,116 @@ class WeatherMapCockpit extends React.Component {
 
   getPlayerButtons() {
     console.log("getPlayerButtons", this.props.player.playing);
-    const label =
-      "weathermap:player:" + (this.props.player.playing ? "stop" : "play");
+    // const label =
+    //   "weathermap:player:" + (this.props.player.playing ? "stop" : "play");
+
+    let linkClassesPlay = ["cp-movie-play", "icon-play", "tooltip"];
+    let linkClassesStop = ["cp-movie-stop", "icon-pause", "tooltip"];
+    let divClasses = ["cp-movie"];
+    if (this.props.player.playing) divClasses.push("js-playing");
     return (
-      <a
-        key="playerButton"
-        href="javascript: void(0)"
-        onClick={() => {
-          this.props.player.toggle();
-        }}
-        role="button"
-      >
-        {this.props.intl.formatMessage({
-          id: label
-        })}
-      </a>
+      <div className={divClasses.join(" ")}>
+        <a
+          key="playerButton"
+          className={linkClassesPlay.join(" ")}
+          href="javascript: void(0)"
+          data-tippy=""
+          data-original-title="Play"
+          onClick={() => {
+            this.props.player.toggle();
+          }}
+        ></a>
+        <a
+          key="stopButton"
+          className={linkClassesStop.join(" ")}
+          href="javascript: void(0)"
+          data-tippy=""
+          data-original-title="Stop"
+          onClick={() => {
+            this.props.player.toggle();
+          }}
+        ></a>
+      </div>
+    );
+  }
+
+  getLegend() {
+    return (
+      <div className="cp-legend">
+        <div className="cp-legend-items cp-legend-temperature">
+          <span className="cp-legend-item-1"></span>
+          <span className="cp-legend-item-2"></span>
+          <span className="cp-legend-item-3"></span>
+          <span className="cp-legend-item-4"></span>
+          <span className="cp-legend-item-5"></span>
+          <span className="cp-legend-item-6"></span>
+          <span className="cp-legend-item-7"></span>
+          <span className="cp-legend-item-8"></span>
+          <span className="cp-legend-item-9"></span>
+          <span className="cp-legend-item-10"></span>
+          <span className="cp-legend-item-11"></span>
+          <span className="cp-legend-item-12"></span>
+          <span className="cp-legend-item-13"></span>
+        </div>
+      </div>
+    );
+  }
+  getReleaseInfo() {
+    return (
+      <div className="cp-release">
+        <span
+          className="cp-release-released tooltip"
+          data-tippy=""
+          data-original-title="Zeitpunkt der Erstellung"
+        >
+          Erstellt 03.09.2020 18:00
+        </span>
+        <span
+          className="cp-release-update tooltip"
+          data-tippy=""
+          data-original-title="Voraussichtlicher Zeitpunkt des nächsten Updates"
+        >
+          <span>Update</span> 04.01.2020 00:00
+        </span>
+        <span className="cp-release-copyright">
+          <a
+            href="#"
+            className="icon-copyright icon-margin-no tooltip"
+            data-tippy=""
+            data-original-title="Copyright"
+          ></a>
+        </span>
+      </div>
     );
   }
 
   render() {
+    window.setTimeout(tooltip_init, 100);
     return (
-      <div class="map-cockpit weather-map-cockpit">
-        <div class="cp-container-1">
-          <div class="cp-layer-selector">{this.getDomainButtons()}</div>
+      <div className="map-cockpit weather-map-cockpit">
+        <div className="cp-container-1">
+          <div className="cp-layer-selector">{this.getDomainButtons()}</div>
         </div>
-        <div class="cp-container-2">
+        <div className="cp-container-2">
+          {/* {this.getTickButtons()}
+           */}
+          <div className="cp-container-timeline">
+            {this.getTimeline()}
+            {this.getPlayerButtons()}
+          </div>
           {this.getTimeSpanOptions()}
-          {this.getTickButtons()}
-
-          {this.getPlayerButtons()}
+          <div className="cp-container-legend-release">
+            {this.getLegend()}
+            {this.getReleaseInfo()}
+          </div>
+          <div className="cp-copyright">
+            <a
+              href="https://www.zamg.ac.at"
+              className="tooltip"
+              data-tippy=""
+              data-original-title="ZAMG"
+            ></a>
+          </div>
         </div>
       </div>
     );

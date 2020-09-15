@@ -177,7 +177,7 @@ export default class WeatherMapStore_new {
   */
   @computed get timeSpan() {
     console.log("timeSpan GET", this._timeSpan);
-    return this._timeSpan;
+    return this._timeSpan.get();
   }
 
   /*

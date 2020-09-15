@@ -155,16 +155,16 @@ class Weather extends React.Component {
           title={this.props.intl.formatMessage({ id: "weathermap:headline" })}
           marginal={this.state.headerText}
         />
-        <section className="section-flipper">
+        {/* <section className="section-flipper">
           <div id="flipper">
-            {/* <div className="section-centered"> */}
+            <div className="section-centered">
             <div className="section-centered">
               <div className="section-padding-width flipper-header">
                 {wmStore.item && <WeatherMapTitle store={wmStore} />}
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section
           id="section-weather-map"
           className="section section-weather-map"
@@ -191,17 +191,18 @@ class Weather extends React.Component {
               {wmStore.selectedFeature && (
                 <FeatureInfo feature={wmStore.selectedFeature} />
               )}
+              <WeatherMapCockpit
+                key="cockpit"
+                startDate={wmStore.startDate}
+                timeArray={wmStore.timeIndices}
+                storeConfig={wmStore.config}
+                domainId={wmStore.domainId}
+                timeSpan={wmStore.timeSpan}
+                player={wmPlayer}
+                eventCallback={this.handleClickCockpitEvent.bind(this)}
+              />
             </div>
           )}
-          <WeatherMapCockpit
-            key="cockpit"
-            startDate={wmStore.startDate}
-            timeArray={wmStore.timeIndices}
-            storeConfig={wmStore.config}
-            domainId={wmStore.domainId}
-            player={wmPlayer}
-            eventCallback={this.handleClickCockpitEvent.bind(this)}
-          />
         </section>
         <SmShare />
       </>
