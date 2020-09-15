@@ -195,8 +195,6 @@ class Weather extends React.Component {
               )}
             </div>
           )}
-        </section>
-        <section>
           <WeatherMapCockpit
             key="cockpit"
             startDate={wmStore.startDate}

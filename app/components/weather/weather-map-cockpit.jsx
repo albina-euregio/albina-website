@@ -4,6 +4,15 @@ import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import { dateToDateTimeString } from "../../util/date.js";
 
+const DOMAIN_ICON_CLASSES = {
+  temp: "icon-temperature",
+  "snow-height": "icon-snow",
+  "new-snow": "icon-snow-new",
+  "diff-snow": "icon-snow-diff",
+  wind: "icon-wind",
+  gust: "icon-gust"
+};
+
 class WeatherMapCockpit extends React.Component {
   constructor(props) {
     super(props);
@@ -29,18 +38,20 @@ class WeatherMapCockpit extends React.Component {
         })
       : [];
 
-    let classes = [];
     let buttons = [];
     domainButtons.forEach(aButton => {
+      let linkClasses = ["cp-layer-selector-item"];
+      let spanClasses = ["layer-select"];
+      spanClasses.push(DOMAIN_ICON_CLASSES[aButton.id]);
+      if (aButton.id === this.props.domainId) linkClasses.push("js-active");
       buttons.push(
-        <div
-          key={aButton.title}
+        <Link
+          to={aButton.url}
           onClick={this.handleEvent.bind(this, "domain", aButton.id)}
+          className={linkClasses.join(" ")}
         >
-          <Link to={aButton.url} className={classes.join(" ")}>
-            {aButton.title}
-          </Link>
-        </div>
+          <span className={spanClasses.join(" ")}>{aButton.title}</span>
+        </Link>
       );
     });
     return buttons;
@@ -123,8 +134,11 @@ class WeatherMapCockpit extends React.Component {
 
   render() {
     return (
-      <div className="cockpit">
-        {this.getDomainButtons()}
+      <div class="map-cockpit weather-map-cockpit">
+        <div class="cp-container-1">
+          <div class="cp-layer-selector">{this.getDomainButtons()}</div>
+        </div>
+
         {this.getTickButtons()}
         {this.getTimeSpanOptions()}
         {this.getPlayerButtons()}
