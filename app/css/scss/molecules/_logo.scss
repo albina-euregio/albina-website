@@ -30,31 +30,33 @@ $logo-header-footer-secondary-height: 162px;
 $logo-header-footer-secondary-width: 364px;
 */
 
-$logo-factor: 16;
-$logo-mark-de-height: 71 / $logo-factor + 0em;
-$logo-mark-de-width: 55 / $logo-factor + 0em;
+$logo-factor-mark: 30;
+$logo-factor-url-and-else: 16;
 
-$logo-mark-it-height: 53 / $logo-factor + 0em;
-$logo-mark-it-width: 74 / $logo-factor + 0em;
+$logo-mark-de-height: 71 / $logo-factor-mark + 0em;
+$logo-mark-de-width: 55 / $logo-factor-mark + 0em;
 
-$logo-mark-en-height: 55 / $logo-factor + 0em;
-$logo-mark-en-width: 79 / $logo-factor + 0em;
+$logo-mark-it-height: 53 / $logo-factor-mark + 0em;
+$logo-mark-it-width: 74 / $logo-factor-mark + 0em;
 
-$logo-url-de-height: 16 / $logo-factor + 0em;
-$logo-url-de-width: 121 / $logo-factor + 0em;
+$logo-mark-en-height: 55 / $logo-factor-mark + 0em;
+$logo-mark-en-width: 79 / $logo-factor-mark + 0em;
 
-$logo-url-it-height: 17 / $logo-factor + 0em;
-$logo-url-it-width: 130 / $logo-factor + 0em;
+$logo-url-de-height: 16 / $logo-factor-url-and-else + 0em;
+$logo-url-de-width: 121 / $logo-factor-url-and-else + 0em;
 
-$logo-url-en-height: 17 / $logo-factor + 0em;
-$logo-url-en-width: 138 / $logo-factor + 0em;
+$logo-url-it-height: 17 / $logo-factor-url-and-else + 0em;
+$logo-url-it-width: 130 / $logo-factor-url-and-else + 0em;
 
-$logo-header-footer-secondary-height: 162 / $logo-factor + 0em;
-$logo-header-footer-secondary-width: 364 / $logo-factor + 0em;
+$logo-url-en-height: 17 / $logo-factor-url-and-else + 0em;
+$logo-url-en-width: 138 / $logo-factor-url-and-else + 0em;
+
+$logo-header-footer-secondary-height: 162 / $logo-factor-url-and-else + 0em;
+$logo-header-footer-secondary-width: 364 / $logo-factor-url-and-else + 0em;
 
 //400 125
-$logo-footer-tertiary-height: 115 / $logo-factor + 0em;
-$logo-footer-tertiary-width: 364 / $logo-factor + 0em;
+$logo-footer-tertiary-height: 115 / $logo-factor-url-and-else + 0em;
+$logo-footer-tertiary-width: 364 / $logo-factor-url-and-else + 0em;
 
 .logo {
   @extend .h3;

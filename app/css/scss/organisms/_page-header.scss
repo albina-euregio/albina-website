@@ -14,7 +14,7 @@
   justify-content: space-between;
   background-color: rgba($white, 0.95);
   border-bottom: $border-width $border-style $brand-very-light;
-  overflow: hidden;
+  //overflow: hidden;
   &:before {
     //preload for print
     position: absolute;
@@ -44,14 +44,13 @@
     display: flex;
     top: 0;
     height: $page-header-height;
-    padding: $page-header-padding-v $page-header-padding-h;
+    padding: 0 $page-header-padding-h;
     border-right: $border-width $border-style $border-color;
     opacity: 1;
     @include rollover(all, $transition-duration * 2);
 
     @media #{$medium-up} {
-      height: $page-header-height-medium;
-      padding: $page-header-padding-v $page-header-padding-h-medium;
+      padding: 0 $page-header-padding-h-medium;
     }
 
     &:last-child {
@@ -69,7 +68,8 @@
       height: calc(100vh - #{$bar-width} + #{$border-width});
 
       .page-header-logo,
-      .page-header-language {
+      .page-header-language,
+      .page-header-logo-secondary {
         top: -$page-header-height;
         opacity: 0;
       }
@@ -123,22 +123,11 @@
     }
 
     .page-header-logo-secondary {
-      margin-right: calc(
-        -#{$logo-header-footer-secondary-width} / 2 - #{$page-header-padding-h-medium} *
-          2 - #{$border-width} * 2
-      );
-      opacity: 0;
-    }
-
-    body:not(.has-sub) & {
-      .page-header-logo-secondary {
-        margin-right: 0;
-        opacity: 1;
-      }
+      margin-right: 0;
     }
 
     .scrolling-down & {
-      top: -$page-header-height-medium;
+      top: -$page-header-height; //-$page-header-height-medium;
       opacity: 0;
       @include rollout(all, $transition-duration, $ease: ease-in);
     }
@@ -159,8 +148,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    margin: 0 auto;
-    //@media #{$medium-up} { margin-top: $page-header-height-increaser / 2; }
+    margin: 0; //0 auto;
     background-color: transparent;
     background-repeat: no-repeat;
     background-position: 0 0;
@@ -172,14 +160,14 @@
   }
 
   .mark {
-    top: -0.4em;
+    top: 0.5; //-0.4em;
     @media #{$medium-up} {
-      top: -0.4em + $page-header-height-increaser / 2;
+      top: 0.5; //-0.4em;
     }
     opacity: 0;
   }
   .mark-de {
-    left: -1em;
+    //left: -1em;
     height: $logo-mark-de-height;
     width: $logo-mark-de-width;
     background-image: url("../images/pro/logos/logo_mark_de.svg");
@@ -187,10 +175,10 @@
     transform: rotate(90deg);
   }
   .mark-it {
-    top: -0.1;
-    @media #{$medium-up} {
-      top: -0.1 + $page-header-height-increaser / 2;
-    }
+    // top: 0;//-0.1;
+    // @media #{$medium-up} {
+    //   top: 0;//-0.1;
+    // }
     height: $logo-mark-it-height;
     width: $logo-mark-it-width;
     background-image: url("../images/pro/logos/logo_mark_it.svg");
@@ -207,9 +195,9 @@
 
   .url {
     display: none;
-    top: 3.5em;
+    top: 0; //3.5em;
     @media #{$medium-up} {
-      top: 3.8em + $page-header-height-increaser / 2;
+      top: 0; //3.8em;
     }
   }
   .url-de {
@@ -247,7 +235,7 @@
     text-align: center;
 
     &:hover {
-      transform: scale(1.05); //transform: perspective(1px) scale(1.05);
+      transform: scale(1.05);
       .domain-de & {
         .mark-en {
           transform: rotate(-135deg);
@@ -278,39 +266,66 @@
 
 .page-header-language {
   flex-grow: 1;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-end;
-
-  //font-size: $tiny-font-size;//$body-font-size-tiny;
-  @include letter-spacing(0.05em);
 
   .language-trigger {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
 
     margin-bottom: 0;
 
-    li {
-      padding-bottom: 0;
+    > li {
+      position: relative;
+      display: flex;
+      > a {
+        display: flex;
+        align-items: center;
+        color: $anchor-font-color;
+
+        @include icon(language, auto, 0, $anchor-font-color, 0, none);
+        &:before {
+          margin: 0;
+        }
+
+        span {
+          margin: 0 -0.75em 0 -0.25em;
+          @include icon(down-open, auto, 0, $anchor-font-color, 0, none);
+          &:before {
+            margin: 0;
+          }
+        }
+
+        &:hover {
+          &:before {
+            color: $anchor-font-color-hover;
+          }
+          span {
+            &:before {
+              color: $anchor-font-color-hover;
+            }
+          }
+
+          + .subnavigation {
+            display: block;
+          }
+        }
+      }
     }
 
     .language-de & {
       .language-trigger-de {
-        @include font-heavy;
-        color: $grey-dark;
+        color: $anchor-font-color !important;
       }
     }
     .language-it & {
       .language-trigger-it {
-        @include font-heavy;
-        color: $grey-dark;
+        color: $anchor-font-color !important;
       }
     }
     .language-en & {
       .language-trigger-en {
-        @include font-heavy;
-        color: $grey-dark;
+        color: $anchor-font-color !important;
       }
     }
   }
@@ -322,22 +337,24 @@
 
 .page-header-hamburger {
   .pure-button {
+    padding: 0;
+    font-size: 0.9em;
     color: $anchor-font-color;
     background-color: transparent;
 
     span {
       position: relative;
-      width: 3rem;
+      width: 2em;
       &:before {
         margin: 0;
-        font-size: 2rem;
+        font-size: 2em;
         opacity: 1;
       }
       span {
         position: absolute;
         top: 0;
         &:before {
-          font-size: 2rem;
+          font-size: 2em; //2rem;
           opacity: 0;
           transform: rotate(45deg);
         }
@@ -353,26 +370,34 @@
   }
 }
 
-.page-header-logo-secondary {
-  align-items: center;
-  margin-right: calc(
-    -#{$logo-header-footer-secondary-width} / 2 - #{$page-header-padding-h} * 2 -
-      #{$border-width} * 2
-  );
-}
 .header-footer-logo-secondary {
   @include ir;
   position: relative;
   display: block;
   height: $logo-header-footer-secondary-height / 2;
   width: $logo-header-footer-secondary-width / 2;
-  background: transparent url("../images/pro/logos/logo_euregio.png") no-repeat
-    0 0;
+  background: transparent
+    url("../images/pro/logos/logo_euregio_transparent.png") no-repeat 0 0;
   background-size: ($logo-header-footer-secondary-width / 2)
     ($logo-header-footer-secondary-height / 2);
   filter: grayscale(100%);
+
   &:hover {
     transform: scale(1.05);
     filter: grayscale(0%);
+  }
+}
+.page-header-logo-secondary {
+  align-items: center;
+  margin-right: calc(
+    -#{$logo-header-footer-secondary-width} / 3.5 - #{$page-header-padding-h} * 2 -
+      #{$border-width} * 2
+  );
+
+  .header-footer-logo-secondary {
+    height: $logo-header-footer-secondary-height / 3.5;
+    width: $logo-header-footer-secondary-width / 3.5;
+    background-size: ($logo-header-footer-secondary-width / 3.5)
+      ($logo-header-footer-secondary-height / 3.5);
   }
 }
