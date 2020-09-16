@@ -6,7 +6,8 @@ import { reaction } from "mobx";
 import {
   dateToDateTimeString,
   dateToShortDayString,
-  dateToWeekdayString
+  dateToWeekdayString,
+  dateToTimeString
 } from "../../util/date.js";
 import { tooltip_init } from "../../js/tooltip";
 
@@ -40,6 +41,22 @@ class WeatherMapCockpit extends React.Component {
       }
     );
     window.setTimeout(tooltip_init, 100);
+  }
+
+  componentDidUpdate() {
+    if (this.props.currentTimeIndex) {
+      const timespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
+      const currentTick = $(".t" + this.props.currentTimeIndex);
+      const pos = currentTick.position();
+      let posNext = currentTick.next().position();
+      if (!posNext) posNext = currentTick.prev().position();
+      $(".cp-scale-stamp-point").css("left", pos.left);
+      $(".cp-scale-stamp-range").css("left", pos.left);
+      $(".cp-scale-stamp-range").css(
+        "width",
+        Math.abs(pos.left - posNext.left) * timespan
+      );
+    }
   }
 
   handleEvent(type, value) {
@@ -165,6 +182,8 @@ class WeatherMapCockpit extends React.Component {
     let self = this;
     let lastTime;
     let days = [];
+    let nrOnlyTimespan = this.props.timeSpan.replace(/\D/g, "");
+    let parts = [];
 
     this.props.timeArray.forEach(aTime => {
       let weekday = dateToWeekdayString(aTime);
@@ -173,11 +192,11 @@ class WeatherMapCockpit extends React.Component {
         for (let i = 1; i < 25; i++) {
           let currentHour = new Date(aTime).setHours(i);
           let isSelectable = self.props.timeArray.includes(currentHour);
-          let spanClass = "cp-scale-hour-" + (i - 1);
+          let spanClass = ["cp-scale-hour-" + (i - 1), "t" + currentHour];
           hours.push(
             <span
               key={currentHour}
-              className={spanClass}
+              className={spanClass.join(" ")}
               data-timestamp={currentHour}
               data-selectable={isSelectable}
               data-time={dateToDateTimeString(currentHour)}
@@ -199,21 +218,43 @@ class WeatherMapCockpit extends React.Component {
         lastTime = weekday;
       }
     });
+
+    if (this.props.currentTimeIndex) {
+      const timeStart = dateToTimeString(this.props.currentTimeIndex);
+      let timeEnd = new Date(this.props.currentTimeIndex);
+      //timeEnd.setHours(timeEnd.getHours() + parseInt(nrOnlyTimespan, 10));
+      console.log(
+        "xxx",
+        this.props.currentTimeIndex,
+        timeEnd,
+        timeEnd.getHours(),
+        parseInt(nrOnlyTimespan, 10)
+      );
+
+      parts.push(
+        <div className="cp-scale-stamp">
+          {nrOnlyTimespan !== "1" && (
+            <div className="cp-scale-stamp-range js-active">
+              <span className="cp-scale-stamp-range-bar"></span>
+              <span className="cp-scale-stamp-range-begin">{timeStart}</span>
+              <span className="cp-scale-stamp-range-end">
+                {dateToTimeString(timeEnd)}
+              </span>
+            </div>
+          )}
+          {nrOnlyTimespan === "1" && (
+            <div className="cp-scale-stamp-point js-active">
+              <span className="cp-scale-stamp-point-arrow"></span>
+              <span className="cp-scale-stamp-point-exact">{timeStart}</span>
+            </div>
+          )}
+        </div>
+      );
+    }
+
     return (
       <div className="cp-scale">
-        <div className="cp-scale-stamp">
-          <div className="cp-scale-stamp-range js-active">
-            <span className="cp-scale-stamp-range-bar"></span>
-            <span className="cp-scale-stamp-range-begin">12:00</span>
-            <span className="cp-scale-stamp-range-end">18:00</span>
-          </div>
-
-          <div className="cp-scale-stamp-point js-active">
-            <span className="cp-scale-stamp-point-arrow"></span>
-            <span className="cp-scale-stamp-point-exact">17:00</span>
-          </div>
-        </div>
-
+        {parts}
         <div className="cp-scale-flipper">
           <a
             href="#"
@@ -325,7 +366,7 @@ class WeatherMapCockpit extends React.Component {
   }
 
   render() {
-    window.setTimeout(tooltip_init, 100);
+    console.log("weather-map-cockpit->render");
     return (
       <div className="map-cockpit weather-map-cockpit">
         <div className="cp-container-1">
