@@ -57,8 +57,11 @@ export default class Player {
     } else this._currentTimeId = null;
     //this._currentTime.set(this._availableTimes[this._currentTimeId]);
     console.log(
-      "################ PlayerStore->tick - after: xxx",
-      this._availableTimes[this._currentTimeId]
+      "PlayerStore->tick - after: xyxx",
+      this._currentTimeId,
+      this._availableTimes.length,
+      this._availableTimes[this._currentTimeId],
+      new Date(this._availableTimes[this._currentTimeId])
     );
     if (this._onTick)
       this._onTick.call(this._owner, this._availableTimes[this._currentTimeId]);

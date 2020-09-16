@@ -20,6 +20,15 @@ const DOMAIN_ICON_CLASSES = {
   gust: "icon-wind-gust"
 };
 
+const DOMAIN_LEGEND_CLASSES = {
+  temp: "cp-legend-temperature",
+  "snow-height": "cp-legend-snow",
+  "new-snow": "cp-legend-snow",
+  "diff-snow": "cp-legend-snow",
+  wind: "cp-legend-wind",
+  gust: "cp-legend-wind"
+};
+
 class WeatherMapCockpit extends React.Component {
   constructor(props) {
     super(props);
@@ -47,15 +56,33 @@ class WeatherMapCockpit extends React.Component {
     if (this.props.currentTimeIndex) {
       const timespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
       const currentTick = $(".t" + this.props.currentTimeIndex);
-      const pos = currentTick.position();
-      let posNext = currentTick.next().position();
+      const posContainer = $(".cp-scale-days").offset();
+      const pos = currentTick.offset();
+      const posFirst = $(".t" + this.props.timeArray[0]).offset();
+      const posLast = $(
+        ".t" + this.props.timeArray[this.props.timeArray.length - 1]
+      ).offset();
+      console.log("componentDidUpdate xyxx:", this.props.currentTimeIndex);
+      let posNext = currentTick.next().offset();
       if (!posNext) posNext = currentTick.prev().position();
-      $(".cp-scale-stamp-point").css("left", pos.left);
-      $(".cp-scale-stamp-range").css("left", pos.left);
-      $(".cp-scale-stamp-range").css(
-        "width",
-        Math.abs(pos.left - posNext.left) * timespan
+      const tickWidth = Math.abs(pos.left - posNext.left);
+      $(".cp-scale-stamp-point").css(
+        "left",
+        tickWidth + pos.left - posContainer.left
       );
+      $(".cp-scale-flipper-left").css(
+        "left",
+        tickWidth + posFirst.left - posContainer.left
+      );
+      $(".cp-scale-flipper-right").css(
+        "left",
+        tickWidth + posLast.left - posContainer.left
+      );
+      $(".cp-scale-stamp-range").css(
+        "left",
+        tickWidth + pos.left - posContainer.left
+      );
+      $(".cp-scale-stamp-range").css("width", tickWidth * timespan);
     }
   }
 
@@ -243,7 +270,7 @@ class WeatherMapCockpit extends React.Component {
             </div>
           )}
           {nrOnlyTimespan === "1" && (
-            <div className="cp-scale-stamp-point js-active">
+            <div draggable="true" className="cp-scale-stamp-point js-active">
               <span className="cp-scale-stamp-point-arrow"></span>
               <span className="cp-scale-stamp-point-exact">{timeStart}</span>
             </div>
@@ -316,9 +343,12 @@ class WeatherMapCockpit extends React.Component {
   }
 
   getLegend() {
+    let divClasses = ["cp-legend-items"];
+    if (DOMAIN_LEGEND_CLASSES[this.props.domainId])
+      divClasses.push(DOMAIN_LEGEND_CLASSES[this.props.domainId]);
     return (
       <div className="cp-legend">
-        <div className="cp-legend-items cp-legend-temperature">
+        <div className={divClasses.join(" ")}>
           <span className="cp-legend-item-1"></span>
           <span className="cp-legend-item-2"></span>
           <span className="cp-legend-item-3"></span>

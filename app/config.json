@@ -330,7 +330,7 @@
   },
   "weathermaps": {
     "settings": {
-      "timeRange": ["-8", "+8"],
+      "timeRange": ["-72", "+72"],
       "bbox": [[45.550166, 9.765425], [47.876629, 13.15927]],
       "metaFiles": {
         "agl": "agl.ok",

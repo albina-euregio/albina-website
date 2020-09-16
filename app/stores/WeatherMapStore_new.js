@@ -365,7 +365,7 @@ export default class WeatherMapStore_new {
       }
     }
     if (timeSpanDir === 0) indices.sort();
-    console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
+    //console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
     indices.map(aItem => {
       console.log(
         "weatherMapStore_new _setTimeIndices: new indices",
