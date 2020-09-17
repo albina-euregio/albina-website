@@ -150,6 +150,7 @@ a.linkbox-feature {
 a.linkbox-blog-feature {
   &:link,
   &:visited {
+    margin-bottom: 0;
     background-color: $white;
     border: $border-width $border-style $border-color;
     @media screen and (max-width: #{upper-bound($small-range)}) {
@@ -163,34 +164,41 @@ a.linkbox-blog-feature {
 
   .content-image {
     width: 100%;
-    padding: calc(#{$all-v-padding} - 0.5em) $all-h-padding
-      calc(#{$all-v-padding} - 1em) $all-h-padding;
+    height: 33.333vw;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
     img {
-      width: 25%;
-      @include box-border;
+      object-fit: cover;
+      min-width: 100%;
+      min-height: 100%;
     }
+
     @media #{$small-up} {
       width: 25%;
-      padding: 0;
+      height: auto;
+      padding-top: 25%;
+      position: relative;
       img {
-        width: 100%;
-        border: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
       }
-    }
-    @media #{$medium-up} {
-      width: 20%;
     }
   }
 
   .content-text {
     width: 100%;
-    padding: 0.5em $all-h-padding calc(#{$all-v-padding} - 0.5em) $all-h-padding;
+    padding: 0.5em $all-h-padding ($all-v-padding * 2) $all-h-padding; //0.5em $all-h-padding calc(#{$all-v-padding} - 0.5em) $all-h-padding;
     @media #{$small-up} {
       width: 75%;
       padding: calc(#{$all-v-padding} - 0.5em) $all-h-padding;
-    }
-    @media #{$medium-up} {
-      width: 80%;
     }
 
     display: flex;
@@ -212,6 +220,13 @@ a.linkbox-blog-feature {
     background-color: $white;
     border-color: $anchor-font-color;
     @include rollover(all, $transition-duration * 2, ease-in-out);
+
+    .content-image {
+      img {
+        transform: none;
+        scale: 1.05;
+      }
+    }
 
     .content-text {
       @include text-color($anchor-font-color);

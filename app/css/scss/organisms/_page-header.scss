@@ -49,8 +49,8 @@
     opacity: 1;
     @include rollover(all, $transition-duration * 2);
 
-    @media #{$medium-up} {
-      padding: 0 $page-header-padding-h-medium;
+    @media #{$large-up} {
+      padding: 0 $page-header-padding-h-large;
     }
 
     &:last-child {
@@ -80,7 +80,7 @@
         left: 0;
         right: 0;
         margin: 0;
-        padding: ($page-header-padding-v * 5) $page-header-padding-h-medium;
+        padding: ($page-header-padding-v * 5) $page-header-padding-h-large;
         height: calc(100vh - #{$bar-width} + #{$border-width});
         border-right: none;
         opacity: 1;
