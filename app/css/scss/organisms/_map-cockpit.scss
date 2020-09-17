@@ -203,6 +203,9 @@ $cp-breakpoint-2: 1024px;
   &.js-active {
     display: block;
   }
+  &.js-dragging {
+    transition: none;
+  }
 }
 .cp-scale-stamp-range-bar {
   display: block;
@@ -248,6 +251,9 @@ $cp-breakpoint-2: 1024px;
 
   &.js-active {
     display: block;
+  }
+  &.js-dragging {
+    transition: none;
   }
 }
 .cp-scale-stamp-point-arrow {

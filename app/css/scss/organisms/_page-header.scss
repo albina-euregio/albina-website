@@ -141,120 +141,144 @@
   }
 }
 
+$page-header-logo-width: 3.5em;
+
 .page-header-logo {
   align-items: center;
 
-  span {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin: 0; //0 auto;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-
-    @include font-smoothing(subpixel-antialiased);
-
-    opacity: 1;
-    @include rollout;
+  a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
   }
 
   .mark {
-    top: 0.5; //-0.4em;
-    @media #{$medium-up} {
-      top: 0.5; //-0.4em;
+    position: relative;
+    display: block;
+    height: $page-header-height;
+    width: $page-header-logo-width;
+
+    span {
+      position: absolute;
+      top: $page-header-height / 2;
+      left: $page-header-logo-width / 2;
+      transform: translate(-50% -50%);
+
+      background-color: transparent;
+      background-repeat: no-repeat;
+      background-position: 0 0;
+
+      @include font-smoothing(subpixel-antialiased);
+
+      opacity: 0;
+      @include rollout;
     }
-    opacity: 0;
-  }
-  .mark-de {
-    //left: -1em;
-    height: $logo-mark-de-height;
-    width: $logo-mark-de-width;
-    background-image: url("../images/pro/logos/logo_mark_de.svg");
-    background-size: $logo-mark-de-width $logo-mark-de-height;
-    transform: rotate(90deg);
-  }
-  .mark-it {
-    // top: 0;//-0.1;
-    // @media #{$medium-up} {
-    //   top: 0;//-0.1;
-    // }
-    height: $logo-mark-it-height;
-    width: $logo-mark-it-width;
-    background-image: url("../images/pro/logos/logo_mark_it.svg");
-    background-size: $logo-mark-it-width $logo-mark-it-height;
-    transform: rotate(180deg);
-  }
-  .mark-en {
-    height: $logo-mark-en-height;
-    width: $logo-mark-en-width;
-    background-image: url("../images/pro/logos/logo_mark_en.svg");
-    background-size: $logo-mark-en-width $logo-mark-en-height;
-    opacity: 1;
+
+    .mark-de {
+      height: $logo-mark-de-height;
+      width: $logo-mark-de-width;
+      background-image: url("../images/pro/logos/logo_mark_de.svg");
+      background-size: $logo-mark-de-width $logo-mark-de-height;
+      background-position: 50% 50%;
+      rotate: 180deg;
+    }
+    .mark-it {
+      height: $logo-mark-it-height;
+      width: $logo-mark-it-width;
+      background-image: url("../images/pro/logos/logo_mark_it.svg");
+      background-size: $logo-mark-it-width $logo-mark-it-height;
+      rotate: 180deg;
+    }
+    .mark-en {
+      opacity: 1;
+      height: $logo-mark-en-height;
+      width: $logo-mark-en-width;
+      background-image: url("../images/pro/logos/logo_mark_en.svg");
+      background-size: $logo-mark-en-width $logo-mark-en-height;
+    }
   }
 
   .url {
-    display: none;
-    top: 0; //3.5em;
-    @media #{$medium-up} {
-      top: 0; //3.8em;
+    position: relative;
+    display: block;
+    height: $page-header-height;
+    width: 4em;
+
+    .domain-de & {
+      width: $logo-url-de-width;
+      .url-de {
+        opacity: 1;
+      }
+    }
+    .domain-it & {
+      width: $logo-url-it-width;
+      .url-it {
+        opacity: 1;
+      }
+    }
+    .domain-en & {
+      width: $logo-url-en-width;
+      .url-en {
+        opacity: 1;
+      }
+    }
+
+    span {
+      position: absolute;
+      top: calc(#{$page-header-height} / 2 + 2px);
+      left: 0;
+      transform: translateY(-50%);
+
+      background-color: transparent;
+      background-repeat: no-repeat;
+      background-position: 0 0;
+
+      @include font-smoothing(subpixel-antialiased);
+
+      opacity: 0;
+      @include rollout;
     }
   }
+
   .url-de {
-    .domain-de & {
-      display: block;
-    }
     height: $logo-url-de-height;
     width: $logo-url-de-width;
     background-image: url("../images/pro/logos/logo_url_de.svg");
     background-size: $logo-url-de-width $logo-url-de-height;
   }
   .url-it {
-    .domain-it & {
-      display: block;
-    }
     height: $logo-url-it-height;
     width: $logo-url-it-width;
     background-image: url("../images/pro/logos/logo_url_it.svg");
     background-size: $logo-url-it-width $logo-url-it-height;
   }
   .url-en {
-    .domain-en & {
-      display: block;
-    }
     height: $logo-url-en-height;
     width: $logo-url-en-width;
     background-image: url("../images/pro/logos/logo_url_en.svg");
     background-size: $logo-url-en-width $logo-url-en-height;
   }
 
-  a {
-    position: relative;
-    height: 100%;
-    width: $logo-url-en-width;
-    text-align: center;
-
-    &:hover {
-      transform: scale(1.05);
-      .domain-de & {
-        .mark-en {
-          transform: rotate(-135deg);
-          opacity: 0;
-        }
-        .mark-de {
-          transform: rotate(-45deg);
-          opacity: 1;
-        }
+  a:hover {
+    transform: scale(1.05);
+    .domain-de & {
+      .mark-en {
+        rotate: -135deg;
+        opacity: 0;
       }
-      .domain-it & {
-        .mark-en {
-          transform: rotate(-180deg);
-          opacity: 0;
-        }
-        .mark-it {
-          transform: rotate(0deg);
-          opacity: 1;
-        }
+      .mark-de {
+        rotate: -45deg;
+        opacity: 1;
+      }
+    }
+    .domain-it & {
+      .mark-en {
+        rotate: -180deg;
+        opacity: 0;
+      }
+      .mark-it {
+        rotate: 0deg;
+        opacity: 1;
       }
     }
   }
