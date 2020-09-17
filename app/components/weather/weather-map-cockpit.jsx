@@ -2,7 +2,9 @@ import React from "react";
 import { withRouter, matchPath } from "react-router";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
+import Draggable from "react-draggable";
 import { reaction } from "mobx";
+
 import {
   dateToDateTimeString,
   dateToShortDayString,
@@ -160,8 +162,8 @@ class WeatherMapCockpit extends React.Component {
     }
 
     return (
-      <div className="cp-container-layer-range">
-        <div className="cp-layer">
+      <div key="cp-container-layer-range" className="cp-container-layer-range">
+        <div key="cp-player" className="cp-layer">
           <a
             href="#"
             className="cp-layer-selector-item cp-layer-trigger tooltip"
@@ -177,8 +179,10 @@ class WeatherMapCockpit extends React.Component {
           </a>
         </div>
 
-        <div className="cp-range">
-          <div className="cp-range-buttons 0js-inactive">{buttons}</div>
+        <div key="cp-range" className="cp-range">
+          <div key="cp-range-buttons" className="cp-range-buttons 0js-inactive">
+            {buttons}
+          </div>
         </div>
       </div>
     );
@@ -203,6 +207,49 @@ class WeatherMapCockpit extends React.Component {
         );
       });
     return buttons;
+  }
+
+  setClosestTick(draggable) {
+    // console.log("setClosestTick", draggable);
+
+    let closestDist = 9999;
+    let closestTime;
+    this.props.timeArray.forEach(eTime => {
+      //console.log("setClosestTick eTime", eTime);
+      const arrowLeft =
+        $(".cp-scale-stamp-point-arrow").offset()["left"] +
+        $(".cp-scale-stamp-point-arrow").width() / 2;
+      const curItemLeft = $(".t" + eTime).offset()["left"];
+      console.log(
+        "setClosestTick ccc ITEM",
+        eTime,
+        arrowLeft,
+        curItemLeft,
+        Math.abs(arrowLeft - curItemLeft)
+      );
+      if (closestDist > Math.abs(arrowLeft - curItemLeft)) {
+        closestTime = eTime;
+        closestDist = Math.abs(arrowLeft - curItemLeft);
+        console.log(
+          "setClosestTick ccc SET",
+          closestDist,
+          new Date(eTime),
+          arrowLeft
+        );
+      }
+    });
+    try {
+      console.log(
+        "setClosestTick ccc closestTime:",
+        new Date(closestTime),
+        closestDist
+      );
+      if (closestTime) this.props.changeTimeIndex(closestTime);
+    } catch (e) {
+      // Anweisungen für jeden Fehler
+      console.log(e, this.props); // Fehler-Objekt an die Error-Funktion geben
+    }
+    $(".scale-stamp-point").css("transition", "");
   }
 
   getTimeline() {
@@ -238,7 +285,9 @@ class WeatherMapCockpit extends React.Component {
               <span>{weekday.substring(2, 20)}</span>{" "}
               {dateToShortDayString(aTime)}
             </span>
-            <div className="cp-scale-hours">{hours}</div>
+            <div key="cp-scale-hours" className="cp-scale-hours">
+              {hours}
+            </div>
           </div>
         );
 
@@ -258,50 +307,103 @@ class WeatherMapCockpit extends React.Component {
         parseInt(nrOnlyTimespan, 10)
       );
 
+      function dragging(e, ui) {
+        console.log("dragging", e, ui);
+      }
+
+      function onStart() {
+        console.log("onStart");
+        $(".cp-scale-stamp-point").css("transition", "none !important");
+      }
+
+      const dragHandlers = {
+        onStart: onStart,
+        onStop: self.setClosestTick.bind(self),
+        onDrag: dragging
+      };
       parts.push(
-        <div className="cp-scale-stamp">
+        <div key="cp-scale-stamp" className="cp-scale-stamp">
           {nrOnlyTimespan !== "1" && (
-            <div className="cp-scale-stamp-range js-active">
-              <span className="cp-scale-stamp-range-bar"></span>
-              <span className="cp-scale-stamp-range-begin">{timeStart}</span>
-              <span className="cp-scale-stamp-range-end">
-                {dateToTimeString(timeEnd)}
-              </span>
-            </div>
+            <Draggable axis="x" onDrag={this.dragging}>
+              <div
+                key="scale-stamp-range"
+                className="cp-scale-stamp-range js-active"
+              >
+                <span
+                  key="cp-scale-stamp-range-bar"
+                  className="cp-scale-stamp-range-bar"
+                ></span>
+                <span
+                  key="cp-scale-stamp-range-begin"
+                  className="cp-scale-stamp-range-begin"
+                >
+                  {timeStart}
+                </span>
+                <span
+                  key="cp-scale-stamp-range-end"
+                  className="cp-scale-stamp-range-end"
+                >
+                  {dateToTimeString(timeEnd)}
+                </span>
+              </div>
+            </Draggable>
           )}
           {nrOnlyTimespan === "1" && (
-            <div draggable="true" className="cp-scale-stamp-point js-active">
-              <span className="cp-scale-stamp-point-arrow"></span>
-              <span className="cp-scale-stamp-point-exact">{timeStart}</span>
-            </div>
+            <Draggable axis="x" {...dragHandlers}>
+              <div
+                key="scale-stamp-point"
+                className="cp-scale-stamp-point js-active"
+              >
+                <span
+                  key="cp-scale-stamp-point-arrow"
+                  className="cp-scale-stamp-point-arrow"
+                ></span>
+                <span
+                  key="cp-scale-stamp-point-exact"
+                  className="cp-scale-stamp-point-exact"
+                >
+                  {timeStart}
+                </span>
+              </div>
+            </Draggable>
           )}
         </div>
       );
     }
 
     return (
-      <div className="cp-scale">
+      <div key="cp-scale" className="cp-scale">
         {parts}
-        <div className="cp-scale-flipper">
+        <div key="flipper" className="cp-scale-flipper">
           <a
             href="#"
+            key="arrow-left"
             className="cp-scale-flipper-left icon-arrow-left tooltip"
             data-tippy=""
             data-original-title="Früher"
           ></a>
           <a
             href="#"
+            key="arrow-right"
             className="cp-scale-flipper-right icon-arrow-right tooltip"
             data-tippy=""
             data-original-title="Später"
           ></a>
         </div>
 
-        <div className="cp-scale-days">{days}</div>
+        <div key="days" className="cp-scale-days">
+          {days}
+        </div>
 
-        <div className="cp-scale-analyse-forecast">
-          <span className="cp-scale-analyse-bar"></span>
-          <span className="cp-scale-forecast-bar"></span>
+        <div key="analyse-forcast" className="cp-scale-analyse-forecast">
+          <span
+            key="cp-scale-analyse-bar"
+            className="cp-scale-analyse-bar"
+          ></span>
+          <span
+            key="cp-scale-forecast-bar"
+            className="cp-scale-forecast-bar"
+          ></span>
         </div>
       </div>
     );
@@ -317,7 +419,7 @@ class WeatherMapCockpit extends React.Component {
     let divClasses = ["cp-movie"];
     if (this.props.player.playing) divClasses.push("js-playing");
     return (
-      <div className={divClasses.join(" ")}>
+      <div key="cp-movie" className={divClasses.join(" ")}>
         <a
           key="playerButton"
           className={linkClassesPlay.join(" ")}
@@ -347,29 +449,30 @@ class WeatherMapCockpit extends React.Component {
     if (DOMAIN_LEGEND_CLASSES[this.props.domainId])
       divClasses.push(DOMAIN_LEGEND_CLASSES[this.props.domainId]);
     return (
-      <div className="cp-legend">
-        <div className={divClasses.join(" ")}>
-          <span className="cp-legend-item-1"></span>
-          <span className="cp-legend-item-2"></span>
-          <span className="cp-legend-item-3"></span>
-          <span className="cp-legend-item-4"></span>
-          <span className="cp-legend-item-5"></span>
-          <span className="cp-legend-item-6"></span>
-          <span className="cp-legend-item-7"></span>
-          <span className="cp-legend-item-8"></span>
-          <span className="cp-legend-item-9"></span>
-          <span className="cp-legend-item-10"></span>
-          <span className="cp-legend-item-11"></span>
-          <span className="cp-legend-item-12"></span>
-          <span className="cp-legend-item-13"></span>
+      <div key="cp-legend" className="cp-legend">
+        <div key="cp-legend-items" className={divClasses.join(" ")}>
+          <span key="cp-legend-item-1" className="cp-legend-item-1"></span>
+          <span key="cp-legend-item-2" className="cp-legend-item-2"></span>
+          <span key="cp-legend-item-3" className="cp-legend-item-3"></span>
+          <span key="cp-legend-item-4" className="cp-legend-item-4"></span>
+          <span key="cp-legend-item-5" className="cp-legend-item-5"></span>
+          <span key="cp-legend-item-6" className="cp-legend-item-6"></span>
+          <span key="cp-legend-item-7" className="cp-legend-item-7"></span>
+          <span key="cp-legend-item-8" className="cp-legend-item-8"></span>
+          <span key="cp-legend-item-9" className="cp-legend-item-9"></span>
+          <span key="cp-legend-item-10" className="cp-legend-item-10"></span>
+          <span key="cp-legend-item-11" className="cp-legend-item-11"></span>
+          <span key="cp-legend-item-12" className="cp-legend-item-12"></span>
+          <span key="cp-legend-item-13" className="cp-legend-item-13"></span>
         </div>
       </div>
     );
   }
   getReleaseInfo() {
     return (
-      <div className="cp-release">
+      <div key="cp-release" className="cp-release">
         <span
+          key="cp-release-released"
           className="cp-release-released tooltip"
           data-tippy=""
           data-original-title="Zeitpunkt der Erstellung"
@@ -377,13 +480,14 @@ class WeatherMapCockpit extends React.Component {
           Erstellt 03.09.2020 18:00
         </span>
         <span
+          key="cp-release-update"
           className="cp-release-update tooltip"
           data-tippy=""
           data-original-title="Voraussichtlicher Zeitpunkt des nächsten Updates"
         >
           <span>Update</span> 04.01.2020 00:00
         </span>
-        <span className="cp-release-copyright">
+        <span key="cp-release-copyright" className="cp-release-copyright">
           <a
             href="#"
             className="icon-copyright icon-margin-no tooltip"
@@ -398,23 +502,28 @@ class WeatherMapCockpit extends React.Component {
   render() {
     console.log("weather-map-cockpit->render");
     return (
-      <div className="map-cockpit weather-map-cockpit">
-        <div className="cp-container-1">
-          <div className="cp-layer-selector">{this.getDomainButtons()}</div>
+      <div key="map-cockpit" className="map-cockpit weather-map-cockpit">
+        <div key="cp-container-1" className="cp-container-1">
+          <div key="cp-layer-selector" className="cp-layer-selector">
+            {this.getDomainButtons()}
+          </div>
         </div>
-        <div className="cp-container-2">
+        <div key="cp-container-2" className="cp-container-2">
           {/* {this.getTickButtons()}
            */}
-          <div className="cp-container-timeline">
+          <div key="cp-container-timeline" className="cp-container-timeline">
             {this.getTimeline()}
             {this.getPlayerButtons()}
           </div>
           {this.getTimeSpanOptions()}
-          <div className="cp-container-legend-release">
+          <div
+            key="cp-containerl-legend-release"
+            className="cp-container-legend-release"
+          >
             {this.getLegend()}
             {this.getReleaseInfo()}
           </div>
-          <div className="cp-copyright">
+          <div key="cp-copyright" className="cp-copyright">
             <a
               href="https://www.zamg.ac.at"
               className="tooltip"

@@ -445,16 +445,29 @@ export default class WeatherMapStore_new {
   @action changeTimeIndex(timeIndex) {
     console.log(
       "weatherMapStore_new: changeTimeIndex bbb",
+      this._timeIndicesIndex.get(),
       timeIndex,
+      this._timeIndices.indexOf(timeIndex),
       this._timeIndices
     );
-    if (
-      this._timeIndices.includes(timeIndex) &&
-      this._timeIndicesIndex.get() !== this._timeIndices.indexOf(timeIndex)
-    ) {
-      this._timeIndicesIndex.set(this._timeIndices.indexOf(timeIndex));
-      this._loadIndexData();
-      this.selectedFeature = null;
-    }
+    if (this._timeIndices.includes(timeIndex)) {
+      console.log(
+        "weatherMapStore_new: bbb changeTimeIndex SET",
+        new Date(timeIndex),
+        timeIndex
+      );
+      if (
+        this._timeIndicesIndex.get() !== this._timeIndices.indexOf(timeIndex)
+      ) {
+        this._timeIndicesIndex.set(this._timeIndices.indexOf(timeIndex));
+        this._loadIndexData();
+        this.selectedFeature = null;
+      }
+    } else
+      console.error(
+        "timeIndex not available bbb",
+        timeIndex,
+        this._timeIndices
+      );
   }
 }

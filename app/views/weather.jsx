@@ -198,6 +198,7 @@ class Weather extends React.Component {
                 storeConfig={wmStore.config}
                 domainId={wmStore.domainId}
                 timeSpan={wmStore.timeSpan}
+                changeTimeIndex={wmStore.changeTimeIndex.bind(wmStore)}
                 player={wmPlayer}
                 currentTimeIndex={wmStore.currentTimeIndex}
                 eventCallback={this.handleClickCockpitEvent.bind(this)}
