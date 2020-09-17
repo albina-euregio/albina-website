@@ -28,6 +28,12 @@ $icon-font-margin: 0.25em;
   font-style: normal;
 }
 
+.icon-copyright:before {
+  content: "\e800";
+} /* '' */
+.icon-language:before {
+  content: "\e801";
+} /* '' */
 .icon-arrow-steady:before {
   content: "\e802";
 } /* '' */
@@ -109,9 +115,6 @@ $icon-font-margin: 0.25em;
 .icon-temperature:before {
   content: "\e826";
 } /* '' */
-.icon-copyright:before {
-  content: "\e836";
-} /* '' */
 .icon-pause:before {
   content: "\e838";
 } /* '' */
