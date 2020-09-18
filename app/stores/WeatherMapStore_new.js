@@ -276,7 +276,7 @@ export default class WeatherMapStore_new {
   }
 
   /*
-    returns currentTime
+    returns currentIndex
   */
   @computed get currentIndex() {
     return this._timeIndex.get();
@@ -424,6 +424,10 @@ export default class WeatherMapStore_new {
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
       this._domainId.set(domainId);
       this._timeSpan.set(null);
+      this._timeIndex.set(null);
+      this._agl = null;
+      this._dateStart = null;
+
       this.changeTimeSpan(
         this.domain.item.defaultTimeSpan || this.domain.item.timeSpans[0]
       );
@@ -457,7 +461,9 @@ export default class WeatherMapStore_new {
       timeSpan != this._timeSpan.get() &&
       this.checkTimeSpan(this.domainId, timeSpan)
     ) {
-      this._timeIndex.set(0);
+      this._timeIndex.set(null);
+      this._agl = null;
+      this._dateStart = null;
       this._timeSpan.set(timeSpan);
       this._loadDomainData();
       this.selectedFeature = null;

@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, matchPath } from "react-router";
+import { withRouter } from "react-router";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import Draggable from "react-draggable";
@@ -36,21 +36,27 @@ const DOMAIN_LEGEND_CLASSES = {
 class WeatherMapCockpit extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      redraw: null
+    };
+    this.redrawForPositioning = "update";
   }
 
   componentDidMount() {
     reaction(
       () => this.props.domainId,
       () => {
-        console.log("update tooltip #1");
+        console.log("Domain change hhh");
         window.setTimeout(tooltip_init, 200);
+        this.redrawForPositioning = "update";
       }
     );
     reaction(
       () => this.props.timeSpan,
       () => {
-        console.log("WeatherMapCockpit->window.setTimeout tooltip_init #2");
+        console.log("timeSpan change hhh");
         window.setTimeout(tooltip_init, 200);
+        this.redrawForPositioning = "update";
       }
     );
 
@@ -59,7 +65,15 @@ class WeatherMapCockpit extends React.Component {
       this.props.currentTime,
       this.props.firstAnalyticTime
     );
-    this.placeCockpitItems();
+    window.addEventListener(
+      "resize",
+      this.setState({ redraw: new Date().getTime() })
+    );
+    console.log("componentDidMount hhh", this.redrawForPositioning);
+    if (this.redrawForPositioning === "redraw") {
+      this.setState({ redraw: new Date().getTime() });
+      this.redrawForPositioning = "";
+    } else if (this.redrawForPositioning === "") this.placeCockpitItems();
   }
 
   componentDidUpdate() {
@@ -69,15 +83,23 @@ class WeatherMapCockpit extends React.Component {
       this.props.firstAnalyticTime
     );
     tooltip_init();
-    this.placeCockpitItems();
+    console.log("componentDidUpdate hhh", this.redrawForPositioning);
+    if (this.redrawForPositioning === "redraw") {
+      this.setState({ redraw: new Date().getTime() });
+      this.redrawForPositioning = "";
+    } else if (this.redrawForPositioning === "") this.placeCockpitItems();
+  }
+
+  UNSAFE_componentWillReceiveProps(props) {
+    console.log("componentWillReceiveProps hhh iii:", props);
   }
 
   placeCockpitItems() {
     console.log(
-      "placeCockpitItems hhh:",
-      this.props.currentTime,
-      this.props.firstAnalyticTime,
-      this.setStampPos
+      "placeCockpitItems: hhh",
+      // this.props.currentTime,
+      // this.props.firstAnalyticTime,
+      this.redrawForPositioning
     );
     if (this.props.currentTime) {
       const timespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
@@ -88,29 +110,37 @@ class WeatherMapCockpit extends React.Component {
       ).offset();
       //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
       $(".cp-scale-flipper-left").css({
-        left: posFirstAvailable.left - posContainer.left
+        left: posFirstAvailable.left - posContainer.left + this.tickWidth
       });
       $(".cp-scale-flipper-right").css({
         left: this.tickWidth + posLast.left - posContainer.left
       });
 
-      // if(this.setStampPos) {
-      //   $(".cp-scale-stamp-range").css({
-      //     left: this.leftPosForCurrentTime
-      //   });
-      //   $(".cp-scale-stamp-point").css({
-      //     left: this.leftPosForCurrentTime
-      //   });
-      //   this.setStampPos = false;
-      // } else {
-
-      //   $(".cp-scale-stamp-range").css({
-      //     left: ""
-      //   });
-      //   $(".cp-scale-stamp-point").css({
-      //     left: ""
-      //   });
-      // }
+      if (this.redrawForPositioning === "redraw") {
+        // this.setState({redraw: new Date().getTime()});
+        // this.redrawForPositioning = "";
+        // console.log(
+        //   "placeCockpitItems hhh iii:",
+        //   this.props.currentTime,
+        //   this.state,
+        //   this.redrawForPositioning,
+        //   this.tickWidth
+        // );
+        //   $(".cp-scale-stamp-range").css({
+        //     left: this.leftPosForCurrentTime
+        //   });
+        //   $(".cp-scale-stamp-point").css({
+        //     left: this.leftPosForCurrentTime
+        //   });
+        //   this.redrawForPositioning = false;
+        // } else {
+        //   $(".cp-scale-stamp-range").css({
+        //     left: ""
+        //   });
+        //   $(".cp-scale-stamp-point").css({
+        //     left: ""
+        //   });
+      }
 
       if (this.props.firstAnalyticTime) {
         const firstAnalyticTime = $(
@@ -139,7 +169,7 @@ class WeatherMapCockpit extends React.Component {
 
   get leftPosForCurrentTime() {
     const currentTick = $(".t" + this.props.currentTime);
-    if (currentTick.offset() === undefined) return 0;
+    if (currentTick.offset() === undefined) return null;
     let left = Math.abs(
       currentTick.offset()["left"] -
         $(".cp-scale-days").offset()["left"] +
@@ -372,12 +402,18 @@ class WeatherMapCockpit extends React.Component {
       //   $(".cp-scale-stamp-range").addClass("js-dragging");
       // }
 
-      if (this.leftPosForCurrentTime === 0) this.setStampPos = true;
-      console.log("getTimeline tick ggg", this.tickWidth, nrOnlyTimespan);
+      // test if scale has been drawn already
+      if (this.redrawForPositioning === "update")
+        this.redrawForPositioning = "redraw";
+      console.log(
+        "getTimeline tick hhh",
+        this.redrawForPositioning,
+        this.state.redraw
+      );
       const dragSettings = {
         axis: "x",
-        defaultPosition: { x: this.leftPosForCurrentTime, y: 0 },
-        key: this.props.currentTime,
+        defaultPosition: { x: this.leftPosForCurrentTime || 0, y: 0 },
+        key: this.state.redraw + this.props.currentTime,
         //grid: [this.tickWidth, 0],
         bounds: "parent",
         defaultClassName: "",
@@ -607,4 +643,4 @@ class WeatherMapCockpit extends React.Component {
     );
   }
 }
-export default injectIntl(withRouter(WeatherMapCockpit));
+export default injectIntl(WeatherMapCockpit);
