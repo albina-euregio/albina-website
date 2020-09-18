@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter, Switch } from "react-router-dom";
 import { observer, inject, action } from "mobx-react";
-import { autorun } from "mobx";
 import { modal_open_by_params } from "../js/modal";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
@@ -10,12 +9,10 @@ import HTMLHeader from "../components/organisms/html-header";
 
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
-import WeatherMapStore from "../stores/weatherMapStore";
 import WeatherMapStoreNew from "../stores/WeatherMapStore_new";
 
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 
-import WeatherMapTitle from "../components/weather/weather-map-title";
 import MapStore from "../stores/mapStore";
 import Player from "../js/player";
 import { observe } from "../../node_modules/mobx/lib/mobx";
@@ -146,16 +143,7 @@ class Weather extends React.Component {
           title={this.props.intl.formatMessage({ id: "weathermap:headline" })}
           marginal={this.state.headerText}
         />
-        {/* <section className="section-flipper">
-          <div id="flipper">
-            <div className="section-centered">
-            <div className="section-centered">
-              <div className="section-padding-width flipper-header">
-                {wmStore.item && <WeatherMapTitle store={wmStore} />}
-              </div>
-            </div>
-          </div>
-        </section> */}
+
         <section
           id="section-weather-map"
           className="section section-weather-map"

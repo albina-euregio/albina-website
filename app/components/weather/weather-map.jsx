@@ -6,9 +6,7 @@ import Base from "../../base";
 import LeafletMap from "../leaflet/leaflet-map";
 import Overlay from "../leaflet/overlay";
 import { ImageOverlay } from "react-leaflet";
-import ZamgControl from "./zamg-control";
 
-import LegendControl from "./legend-control";
 import GridOverlay from "./grid-overlay";
 
 const StationOverlay = loadable(() =>
@@ -98,10 +96,7 @@ class WeatherMap extends React.Component {
       }
     }
 
-    const controls = [<ZamgControl key="zamg" />];
-    if (this.props.item) {
-      controls.push(<LegendControl key="legend" item={this.props.item} />);
-    }
+    const controls = [];
 
     return (
       <>

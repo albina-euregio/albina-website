@@ -198,13 +198,22 @@
   "map": {
     "attribution": "<a href='https://carto.univie.ac.at/' rel='noopener' target='_blank'>CC BY avalanche.report</a>",
     "useWindowWidth": true,
-    "euregioBounds": [[45.6, 9.9], [47.8, 13.1]],
+    "euregioBounds": [
+      [45.6, 9.9],
+      [47.8, 13.1]
+    ],
     "overlay": {
-      "bounds": [[45.60608, 9.9174], [47.83039, 13.15173]],
+      "bounds": [
+        [45.60608, 9.9174],
+        [47.83039, 13.15173]
+      ],
       "opacity": 1.0
     },
     "initOptions": {
-      "maxBounds": [[44, 5], [49, 18]],
+      "maxBounds": [
+        [44, 5],
+        [49, 18]
+      ],
       "maxBoundsViscosity": 1,
       "zoomSnap": 0.25,
       "zoomDelta": 0.5,
@@ -212,10 +221,22 @@
       "minZoom": 7
     },
     "maxBounds": {
-      "7": [[44.4, 6.732], [48.99, 16.318]],
-      "8": [[44.65, 7.132], [48.74, 15.918]],
-      "9": [[44.9, 7.532], [48.49, 15.518]],
-      "10": [[45.150876, 7.932124], [48.240084, 15.118646]]
+      "7": [
+        [44.4, 6.732],
+        [48.99, 16.318]
+      ],
+      "8": [
+        [44.65, 7.132],
+        [48.74, 15.918]
+      ],
+      "9": [
+        [44.9, 7.532],
+        [48.49, 15.518]
+      ],
+      "10": [
+        [45.150876, 7.932124],
+        [48.240084, 15.118646]
+      ]
     },
     "locateOptions": {
       "position": "topleft",
@@ -232,7 +253,10 @@
         "minZoom": 7,
         "detectRetina": false,
         "tms": true,
-        "maxBounds": [[45.150876, 7.932124], [48.240084, 15.118646]]
+        "maxBounds": [
+          [45.150876, 7.932124],
+          [48.240084, 15.118646]
+        ]
       }
     ],
     "geonames": {
@@ -331,7 +355,10 @@
   "weathermaps": {
     "settings": {
       "timeRange": ["-72", "+72"],
-      "bbox": [[45.550166, 9.765425], [47.876629, 13.15927]],
+      "bbox": [
+        [45.550166, 9.765425],
+        [47.876629, 13.15927]
+      ],
       "metaFiles": {
         "agl": "agl.ok",
         "startDate": "startDate.ok"
@@ -390,7 +417,7 @@
           "layer": {
             "overlay": true,
             "stations": false,
-            "grid": true
+            "grid": false
           },
           "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
           "displayedItems": ["snow6f"],
@@ -426,7 +453,7 @@
           "layer": {
             "overlay": true,
             "stations": false,
-            "grid": true
+            "grid": false
           },
           "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
           "displayedItems": ["snow72"],
