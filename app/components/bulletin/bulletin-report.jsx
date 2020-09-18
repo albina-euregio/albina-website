@@ -65,7 +65,7 @@ class BulletinReport extends React.Component {
         >
           <div className={classes}>
             <header className="bulletin-report-header">
-              <p>
+              <p className="bulletin-report-header-meta">
                 <FormattedHTMLMessage
                   id="bulletin:report:headline"
                   values={{
@@ -74,7 +74,7 @@ class BulletinReport extends React.Component {
                   }}
                 />
               </p>
-              <h1>
+              <h1 className="bulletin-report-header-danger-level">
                 <FormattedHTMLMessage
                   id={
                     maxWarnlevel.number == 0

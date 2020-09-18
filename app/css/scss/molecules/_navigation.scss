@@ -57,13 +57,12 @@ $item-padding: 0.175em;
     }
   }
 
-  //HOME
+  //HOME and Posts
   small {
     @include font-normal;
     font-size: 0.7em;
     &.label {
       margin: 0 0 0 0.25em;
-      padding: 0.25em 0.4em;
     }
   }
 
@@ -88,6 +87,15 @@ $item-padding: 0.175em;
       .has-sub {
         &:before {
           display: none;
+        }
+      }
+      //HOME and Posts
+      small {
+        font-size: 0.5em;
+        &.label {
+          position: relative;
+          top: -0.15em;
+          margin: 0 0 0 0.5em;
         }
       }
     }

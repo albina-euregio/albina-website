@@ -348,7 +348,7 @@ $controls-width-height: $padding * 4;
   ul {
     display: flex;
     flex-wrap: nowrap;
-    margin: $padding * 2; //($padding * 2) ($padding * 2) $padding ($padding * 2);
+    margin: $padding * 2;
     li {
       display: flex;
       align-self: center;
@@ -368,6 +368,13 @@ $controls-width-height: $padding * 4;
       border: $border-width $border-style $border-color;
     }
   }
+
+  .bulletin-report-public-alert {
+    margin: $padding * 2;
+    font-size: $tiny-font-size;
+    @include letter-spacing;
+  }
+
   //details link
   > a {
     display: block;
