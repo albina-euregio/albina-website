@@ -256,6 +256,7 @@ class WeatherMapCockpit extends React.Component {
 
     let closestDist = 9999;
     let closestTime;
+    let nrOnlyTimespan = this.props.timeSpan.replace(/\D/g, "");
 
     const arrowLeft = ui.x; // + $(".cp-scale-stamp-point-arrow").outerWidth() / 2;
     $("#whereami").css({ left: ui.x });
@@ -352,7 +353,7 @@ class WeatherMapCockpit extends React.Component {
     if (this.props.currentTime) {
       const timeStart = dateToTimeString(this.props.currentTime);
       let timeEnd = new Date(this.props.currentTime);
-      //timeEnd.setHours(timeEnd.getHours() + parseInt(nrOnlyTimespan, 10));
+      timeEnd.setHours(timeEnd.getHours() + parseInt(nrOnlyTimespan, 10));
       console.log(
         "xxxxx",
         this.props.currentTime,
@@ -402,9 +403,8 @@ class WeatherMapCockpit extends React.Component {
           {nrOnlyTimespan !== "1" && (
             <Draggable {...dragSettings}>
               <div
-                style={{ left: 0 }}
                 key="scale-stamp-range"
-                style={{ width: this.tickWidth * nrOnlyTimespan }}
+                style={{ left: 0, width: this.tickWidth * nrOnlyTimespan }}
                 className="cp-scale-stamp-range js-active"
               >
                 <span
