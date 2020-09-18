@@ -11,7 +11,7 @@ $page-header-height: 3em;
 
 $page-header-padding-v: 0.5em;
 $page-header-padding-h: 1em;
-$page-header-padding-h-medium: 1.5em;
+$page-header-padding-h-large: 1.5em;
 
 $items-per-column: 5;
 $first-item-in-second-column: $items-per-column + 1;
@@ -57,11 +57,13 @@ $item-padding: 0.175em;
     }
   }
 
-  //HOME
+  //HOME and Posts
   small {
     @include font-normal;
     font-size: 0.7em;
-    @include uppercase(0.05em);
+    &.label {
+      margin: 0 0 0 0.25em;
+    }
   }
 
   @media screen and (max-width: #{upper-bound($normal-range)}) {
@@ -85,6 +87,15 @@ $item-padding: 0.175em;
       .has-sub {
         &:before {
           display: none;
+        }
+      }
+      //HOME and Posts
+      small {
+        font-size: 0.5em;
+        &.label {
+          position: relative;
+          top: -0.15em;
+          margin: 0 0 0 0.5em;
         }
       }
     }

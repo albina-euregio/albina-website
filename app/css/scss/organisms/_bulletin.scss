@@ -188,7 +188,7 @@
 
 //from alien app.scss
 #section-bulletin-report {
-  //commented out for it won't select anything anyway
+  //commented out 'cause it won't select anything anyway
   // @media only screen and (max-width: 57.5em) {
   //   .page-main section.section-centered {
   //     padding: 0px !important;
@@ -198,19 +198,22 @@
 
 .bulletin-report-header {
   margin-bottom: $margin-bottom;
-  p {
+  .bulletin-report-header-meta {
     margin-bottom: 0;
-    font-size: $tiny-font-size; //$body-font-size-tiny;
+    font-size: $tiny-font-size;
     @include letter-spacing;
     strong {
       @include font-heavy;
     }
   }
+  .bulletin-report-public-alert {
+    margin-bottom: 0;
+  }
 }
 
 .bulletin-report-pictobar {
   margin-bottom: $margin-bottom;
-  font-size: $tiny-font-size; //$body-font-size-tiny;
+  font-size: $tiny-font-size;
   @media #{$normal-up} {
     display: flex;
     flex-wrap: wrap;
