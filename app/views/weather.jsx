@@ -183,6 +183,12 @@ class Weather extends React.Component {
                 currentTime={wmStore.currentTime}
                 eventCallback={this.handleClickCockpitEvent.bind(this)}
                 firstAnalyticTime={wmStore.firstAnalyticTime}
+                nextTime={() => {
+                  wmStore.changeCurrentTime(wmStore.nextTime);
+                }}
+                previousTime={() => {
+                  wmStore.changeCurrentTime(wmStore.previousTime);
+                }}
               />
             </div>
           )}

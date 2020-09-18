@@ -492,12 +492,14 @@ class WeatherMapCockpit extends React.Component {
         <div key="flipper" className="cp-scale-flipper">
           <a
             href="#"
+            onClick={self.props.previousTime}
             key="arrow-left"
             className="cp-scale-flipper-left icon-arrow-left tooltip"
             title="Früher"
           ></a>
           <a
             href="#"
+            onClick={self.props.nextTime}
             key="arrow-right"
             className="cp-scale-flipper-right icon-arrow-right tooltip"
             title="Später"
