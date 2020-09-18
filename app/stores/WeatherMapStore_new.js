@@ -11,6 +11,8 @@ export default class WeatherMapStore_new {
   @observable _availableTimes;
   @observable stations;
   @observable domainConfig;
+  @observable _agl;
+  @observable _dateStart;
   config;
 
   constructor(initialDomainId) {
@@ -42,7 +44,7 @@ export default class WeatherMapStore_new {
   _loadDomainData() {
     this._loading.set(true);
 
-    console.log("_loadDomainData this.currentTimeIndex bbb");
+    console.log("_loadDomainData this.currentTime bbb");
 
     const loads = [
       axios
@@ -55,7 +57,7 @@ export default class WeatherMapStore_new {
         .then(response => {
           console.log("WeatherMapStore_new->_loadData aaa: AGL");
           if (response.data.includes("T"))
-            this._dateStart = new Date(response.data.trim());
+            this._dateStart = new Date(response.data.trim()).getTime();
         }),
       axios
         .get(
@@ -65,9 +67,13 @@ export default class WeatherMapStore_new {
             this.config.settings.metaFiles.startDate
         )
         .then(response => {
-          console.log("WeatherMapStore_new->_loadData aaa: Startdate");
+          console.log(
+            "WeatherMapStore_new->_loadData fff: Startdate",
+            response.data,
+            new Date(response.data.trim())
+          );
           if (response.data.includes("T"))
-            this._agl = new Date(response.data.trim());
+            this._agl = new Date(response.data.trim()).getTime();
         })
     ];
 
@@ -85,22 +91,22 @@ export default class WeatherMapStore_new {
   }
 
   /* 
-    get data for currentTimeIndex
+    get data for currentTime
   */
   _loadIndexData() {
     this._loading.set(true);
 
-    let cTI = new Date(this.currentTimeIndex);
+    let cTI = new Date(this.currentTime);
     cTI.setHours(cTI.getHours() - 4);
 
     console.log(
-      "_loadData this.currentTimeIndex bbb",
-      new Date(this.currentTimeIndex),
+      "_loadData this.currentTime bbb",
+      new Date(this.currentTime),
       cTI
     );
 
     let prefix =
-      this.currentTimeIndex && this.currentTimeIndex
+      this.currentTime && this.currentTime
         ? dateFormat(new Date(cTI.getTime()), "%Y-%m-%d_%H-%M", true) + "_"
         : "";
     const loads = [
@@ -156,7 +162,7 @@ export default class WeatherMapStore_new {
   /*
     returns current timeIndex
   */
-  @computed get currentTimeIndex() {
+  @computed get currentTime() {
     return (
       this._availableTimes &&
       this._timeIndex &&
@@ -181,7 +187,7 @@ export default class WeatherMapStore_new {
   }
 
   /*
-    returns the start date for all calculations
+    returns the start date for history information
   */
   @computed get startDate() {
     return this._dateStart;
@@ -270,7 +276,7 @@ export default class WeatherMapStore_new {
   }
 
   /*
-    returns currentTimeIndex
+    returns currentTime
   */
   @computed get currentIndex() {
     return this._timeIndex.get();

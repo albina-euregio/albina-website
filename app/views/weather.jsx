@@ -185,6 +185,7 @@ class Weather extends React.Component {
               <WeatherMapCockpit
                 key="cockpit"
                 startDate={wmStore.startDate}
+                agl={wmStore.agl}
                 timeArray={wmStore.availableTimes}
                 storeConfig={wmStore.config}
                 domainId={wmStore.domainId}
