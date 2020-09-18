@@ -4,9 +4,7 @@ export default class Player {
   _itemsToLoad;
   @observable _intervalID = null;
   _transitionTime;
-  _availableTimes;
   _onTick;
-  _currentTimeId;
   _tickOverdue;
   _owner;
 
@@ -14,10 +12,8 @@ export default class Player {
     console.log("PlayerStore->constructor: ", options);
     this._itemsToLoad = [];
     this._owner = options.owner || self;
-    this._availableTimes = options._availableTimes;
     this._transitionTime = options.transitionTime || 1000;
     this._onTick = options.onTick || null;
-    this._currentTimeId = 0;
     this._tickOverdue = false;
   }
 
@@ -49,22 +45,7 @@ export default class Player {
       this._tickOverdue = true;
       return;
     }
-    if (this._availableTimes.length > 0) {
-      if (this._currentTimeId >= this._availableTimes.length - 1)
-        this._currentTimeId = 0;
-      else this._currentTimeId++;
-      this._tickOverdue = false;
-    } else this._currentTimeId = null;
-    //this._currentTime.set(this._availableTimes[this._currentTimeId]);
-    console.log(
-      "PlayerStore->tick - after: xyxx",
-      this._currentTimeId,
-      this._availableTimes.length,
-      this._availableTimes[this._currentTimeId],
-      new Date(this._availableTimes[this._currentTimeId])
-    );
-    if (this._onTick)
-      this._onTick.call(this._owner, this._availableTimes[this._currentTimeId]);
+    if (this._onTick) this._onTick.call(this._owner);
   }
 
   reset() {
@@ -99,14 +80,5 @@ export default class Player {
   @computed get playing() {
     //console.log("playing", this._intervalID, this._intervalID !== null);
     return this._intervalID !== null;
-  }
-
-  setAvailableTimes(availableTimes) {
-    //console.log("PlayerStore->setAvailableTimes: yyyy1", availableTimes);
-    this._availableTimes = availableTimes;
-  }
-
-  get currentTime() {
-    return this._availableTimes[this._currentTimeId];
   }
 }

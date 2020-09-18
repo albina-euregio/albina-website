@@ -8,7 +8,7 @@ export default class WeatherMapStore_new {
   @observable _loading;
   @observable selectedFeature;
   @observable _timeSpan;
-  @observable _timeIndices;
+  @observable _availableTimes;
   @observable stations;
   @observable domainConfig;
   config;
@@ -21,8 +21,8 @@ export default class WeatherMapStore_new {
     this._timeSpan = observable.box(false);
     this._dateStart = null;
     this._agl = null;
-    this._timeIndices = [];
-    this._timeIndicesIndex = observable.box(false);
+    this._availableTimes = [];
+    this._timeIndex = observable.box(false);
     this.selectedFeature = null;
     this.domainConfig = null;
     this._loading = observable.box(false);
@@ -75,7 +75,7 @@ export default class WeatherMapStore_new {
       .then(() => {
         this._loading.set(false);
         console.log("Weathermap_new->_loadDomainData: loaded aaa", this);
-        this._setTimeIndices();
+        this._setAvailableTimes();
         this._loadIndexData();
       })
       .catch(err => {
@@ -158,18 +158,18 @@ export default class WeatherMapStore_new {
   */
   @computed get currentTimeIndex() {
     return (
-      this._timeIndices &&
-      this._timeIndicesIndex &&
-      this._timeIndices[this._timeIndicesIndex.get()]
+      this._availableTimes &&
+      this._timeIndex &&
+      this._availableTimes[this._timeIndex.get()]
     );
   }
 
   /*
-    returns all _timeIndices
+    returns all _availableTimes
   */
-  @computed get timeIndices() {
-    console.log("timeIndices GET", this._timeIndices);
-    return this._timeIndices;
+  @computed get availableTimes() {
+    console.log("timeIndices GET", this._availableTimes);
+    return this._availableTimes;
   }
 
   /*
@@ -218,16 +218,16 @@ export default class WeatherMapStore_new {
       this._timeSpan.get()
     );
 
-    if (this._timeIndicesIndex.get() != null && this._timeIndices.length > 0) {
+    if (this._timeIndex.get() != null && this._availableTimes.length > 0) {
       let datePlusOffset = new Date(
-        this._timeIndices[this._timeIndicesIndex.get()]
+        this._availableTimes[this._timeIndex.get()]
       );
       //if(parseInt(this._timeSpan.get(), 10) > 0)
       datePlusOffset.setHours(datePlusOffset.getHours() + this._absTimeSpan);
       console.log(
         "weatherMapStore_new overlayFileName:#2 ",
         datePlusOffset,
-        new Date(this._timeIndices[this._timeIndicesIndex.get()]).getUTCDate()
+        new Date(this._availableTimes[this._timeIndex.get()]).getUTCDate()
       );
 
       return (
@@ -254,18 +254,26 @@ export default class WeatherMapStore_new {
   /*
    returns index of active timeIndex decremented by 1
   */
-  @computed get previousIndex() {
-    return this._timeIndices[this._timeIndicesIndex.get() - 1]
-      ? this._timeIndicesIndex.get() - 1
-      : false;
+  @computed get previousTime() {
+    return this._availableTimes[this._timeIndex.get() - 1]
+      ? this._availableTimes[this._timeIndex.get() - 1]
+      : this._availableTimes[this._availableTimes.length - 1];
   }
   /*
     returns index of active timeIndex incremented by 1
   */
-  @computed get nextIndex() {
-    return this._timeIndices[this._timeIndicesIndex.get() - 1]
-      ? this._timeIndicesIndex.get() + 1
-      : false;
+  @computed get nextTime() {
+    console.log("nextTime xxx1", this._availableTimes, this._timeIndex.get());
+    return this._availableTimes[this._timeIndex.get() + 1]
+      ? this._availableTimes[this._timeIndex.get() + 1]
+      : this._availableTimes[0];
+  }
+
+  /*
+    returns currentTimeIndex
+  */
+  @computed get currentIndex() {
+    return this._timeIndex.get();
   }
 
   /*
@@ -313,7 +321,7 @@ export default class WeatherMapStore_new {
   /*
     calc indeces for timespan
   */
-  _setTimeIndices = function() {
+  _setAvailableTimes = function() {
     //console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
     let indices = [];
     let currentTimespan = this._timeSpan.get();
@@ -373,8 +381,8 @@ export default class WeatherMapStore_new {
         aItem
       );
     });
-    this._timeIndices = indices;
-    this._timeIndicesIndex.set(0);
+    this._availableTimes = indices;
+    this._timeIndex.set(0);
   };
 
   /*
@@ -432,7 +440,7 @@ export default class WeatherMapStore_new {
       timeSpan != this._timeSpan.get() &&
       this.checkTimeSpan(this.domainId, timeSpan)
     ) {
-      this._timeIndicesIndex.set(0);
+      this._timeIndex.set(0);
       this._timeSpan.set(timeSpan);
       this._loadDomainData();
       this.selectedFeature = null;
@@ -442,24 +450,22 @@ export default class WeatherMapStore_new {
   /*
     setting a new timeIndex
   */
-  @action changeTimeIndex(timeIndex) {
+  @action changeCurrentTime(timeIndex) {
     console.log(
-      "weatherMapStore_new: changeTimeIndex bbb",
-      this._timeIndicesIndex.get(),
+      "weatherMapStore_new: changeCurrentTime bbb",
+      this._timeIndex.get(),
       timeIndex,
-      this._timeIndices.indexOf(timeIndex),
-      this._timeIndices
+      this._availableTimes.indexOf(timeIndex),
+      this._availableTimes
     );
-    if (this._timeIndices.includes(timeIndex)) {
+    if (this._availableTimes.includes(timeIndex)) {
       console.log(
-        "weatherMapStore_new: bbb changeTimeIndex SET",
+        "weatherMapStore_new: bbb changeCurrentTime SET",
         new Date(timeIndex),
         timeIndex
       );
-      if (
-        this._timeIndicesIndex.get() !== this._timeIndices.indexOf(timeIndex)
-      ) {
-        this._timeIndicesIndex.set(this._timeIndices.indexOf(timeIndex));
+      if (this._timeIndex.get() !== this._availableTimes.indexOf(timeIndex)) {
+        this._timeIndex.set(this._availableTimes.indexOf(timeIndex));
         this._loadIndexData();
         this.selectedFeature = null;
       }
@@ -467,7 +473,7 @@ export default class WeatherMapStore_new {
       console.error(
         "timeIndex not available bbb",
         timeIndex,
-        this._timeIndices
+        this._availableTimes
       );
   }
 }

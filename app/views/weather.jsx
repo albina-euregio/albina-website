@@ -27,7 +27,6 @@ class Weather extends React.Component {
     if (!config.player) {
       config.player = new Player({
         transitionTime: 1000,
-        avalailableTimes: null,
         owner: this,
         onTick: this.onTick
       });
@@ -35,14 +34,6 @@ class Weather extends React.Component {
 
     if (!config.newWM) {
       config.newWM = new WeatherMapStoreNew(this.props.match.params.domain);
-      autorun(() => {
-        console.log(
-          "weatherMapStore_new->autorun: yyyy",
-          config.newWM.timeIndices.length
-        );
-        if (config.newWM.timeIndices.length > 0)
-          config.player.setAvailableTimes(config.newWM.timeIndices);
-      });
     } else {
       console.log(
         "rechange domain 777",
@@ -70,9 +61,9 @@ class Weather extends React.Component {
     this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
   }
 
-  onTick(newTime) {
-    console.log("onTick xxx1", newTime, new Date(newTime));
-    config.newWM.changeTimeIndex(newTime);
+  onTick() {
+    console.log("onTick xxx1", config.newWM.nextTime);
+    config.newWM.changeCurrentTime(config.newWM.nextTime);
   }
 
   componentDidUpdate() {
@@ -97,7 +88,7 @@ class Weather extends React.Component {
         wmStore.changeTimeSpan(value);
         break;
       case "time":
-        wmStore.changeTimeIndex(value);
+        wmStore.changeCurrentTime(value);
         break;
       case "play":
         if (value) player.start();
@@ -174,7 +165,7 @@ class Weather extends React.Component {
               <WeatherMap
                 domainId={wmStore.domainId}
                 domain={wmStore.domain}
-                timeArray={wmStore.timeIndices}
+                timeArray={wmStore.availableTimes}
                 startDate={wmStore.startDate}
                 overlay={wmStore.overlayFileName}
                 dataOverlays={wmStore.domainConfig.dataOverlays}
@@ -194,11 +185,11 @@ class Weather extends React.Component {
               <WeatherMapCockpit
                 key="cockpit"
                 startDate={wmStore.startDate}
-                timeArray={wmStore.timeIndices}
+                timeArray={wmStore.availableTimes}
                 storeConfig={wmStore.config}
                 domainId={wmStore.domainId}
                 timeSpan={wmStore.timeSpan}
-                changeTimeIndex={wmStore.changeTimeIndex.bind(wmStore)}
+                changeCurrentTime={wmStore.changeCurrentTime.bind(wmStore)}
                 player={wmPlayer}
                 currentTimeIndex={wmStore.currentTimeIndex}
                 eventCallback={this.handleClickCockpitEvent.bind(this)}
