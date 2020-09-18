@@ -283,6 +283,17 @@ export default class WeatherMapStore_new {
   }
 
   /*
+    returns first analytic time
+  */
+  @computed get firstAnalyticTime() {
+    let foundTime = null;
+    this._availableTimes.forEach(aTime => {
+      if (aTime < this._agl) foundTime = aTime;
+    });
+    return foundTime;
+  }
+
+  /*
     returns value for pixel color
   */
   valueForPixel(overlayType, pixelRGB) {
@@ -378,7 +389,7 @@ export default class WeatherMapStore_new {
         // );
       }
     }
-    if (timeSpanDir === 0) indices.sort();
+    indices.sort();
     //console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
     indices.map(aItem => {
       console.log(

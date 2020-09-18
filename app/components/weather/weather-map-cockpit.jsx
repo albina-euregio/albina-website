@@ -4,6 +4,7 @@ import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import Draggable from "react-draggable";
 import { reaction } from "mobx";
+import { observer } from "mobx-react";
 
 import {
   dateToDateTimeString,
@@ -31,6 +32,7 @@ const DOMAIN_LEGEND_CLASSES = {
   gust: "cp-legend-wind"
 };
 
+@observer
 class WeatherMapCockpit extends React.Component {
   constructor(props) {
     super(props);
@@ -41,44 +43,92 @@ class WeatherMapCockpit extends React.Component {
       () => this.props.domainId,
       () => {
         console.log("update tooltip #1");
-        window.setTimeout(tooltip_init, 100);
+        window.setTimeout(() => {
+          console.log("WeatherMapCockpit->window.setTimeout tooltip_init");
+          tooltip_init();
+          this.props.changeCurrentTime(this.props.timeArray[0]);
+        }, 200);
       }
     );
     reaction(
       () => this.props.timeSpan,
       () => {
-        console.log("update tooltip #2");
-        window.setTimeout(tooltip_init, 100);
+        console.log("WeatherMapCockpit->window.setTimeout tooltip_init #2");
+        window.setTimeout(tooltip_init, 200);
       }
     );
     window.setTimeout(tooltip_init, 100);
+    console.log(
+      "componentDidMount ggg:",
+      this.props.currentTime,
+      this.props.firstAnalyticTime
+    );
+    this.placeCockpitItems();
   }
 
   componentDidUpdate() {
+    console.log(
+      "componentDidUpdate ggg:",
+      this.props.currentTime,
+      this.props.firstAnalyticTime
+    );
+    tooltip_init();
+    this.placeCockpitItems();
+  }
+
+  placeCockpitItems() {
+    console.log(
+      "placeCockpitItems ggg:",
+      this.props.currentTime,
+      this.props.firstAnalyticTime
+    );
     if (this.props.currentTime) {
       const timespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
 
       const posContainer = $(".cp-scale-days").offset();
 
-      const posFirst = $(".t" + this.props.timeArray[0]).offset();
-      const posSecond = $(".t" + this.props.timeArray[1]).offset();
+      const posFirstAvailable = $(".t" + this.props.timeArray[0]).offset();
+
       const posLast = $(
         ".t" + this.props.timeArray[this.props.timeArray.length - 1]
       ).offset();
-      console.log("componentDidUpdate xyxx:", this.props.currentTime);
-      const tickThickness = posSecond.left - posFirst.left;
-      const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
+
+      const tickWidth = this.getTickWidth();
+      //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
       $(".cp-scale-flipper-left").css({
-        left: posFirst.left - posContainer.left
+        left: posFirstAvailable.left - posContainer.left
       });
       $(".cp-scale-flipper-right").css({
-        left: tickThickness + posLast.left - posContainer.left
+        left: tickWidth + posLast.left - posContainer.left
       });
+
+      if (this.props.firstAnalyticTime) {
+        const firstAnalyticTime = $(
+          ".t" + this.props.firstAnalyticTime
+        ).offset();
+        $(".cp-scale-analyse-bar").css({
+          left: posFirstAvailable.left - posContainer.left,
+          width: firstAnalyticTime.left - posFirstAvailable.left
+        });
+      }
+    }
+  }
+
+  getTickWidth() {
+    if (this.props.currentTime) {
+      const posFirstTick = $(".cp-scale-hour-0")
+        .first()
+        .offset();
+      const posSecondTick = $(".cp-scale-hour-1")
+        .first()
+        .offset();
+      if (posFirstTick === undefined || posSecondTick === undefined) return 0;
+      return posSecondTick.left - posFirstTick.left;
     }
   }
 
   getLeftPosForCurrentTime() {
-    // console.log("getLeftPosForCurrentTime eee", this.props.currentTime);
+    console.log("getLeftPosForCurrentTime ggg", this.props.currentTime);
     const currentTick = $(".t" + this.props.currentTime);
     if (currentTick.offset() === undefined) return 0;
     let left = Math.abs(
@@ -151,11 +201,10 @@ class WeatherMapCockpit extends React.Component {
         buttons.push(
           <a
             key={aItem}
-            href="javascript: void(0)"
+            href="#"
             onClick={this.handleEvent.bind(this, "timeSpan", aItem)}
             className={linkClasses.join(" ")}
-            data-tippy=""
-            data-original-title={this.props.intl.formatMessage({
+            title={this.props.intl.formatMessage({
               id: "weathermap:domain:timespan:description:" + nrOnlyTimespan
             })}
           >
@@ -171,8 +220,7 @@ class WeatherMapCockpit extends React.Component {
           <a
             href="#"
             className="cp-layer-selector-item cp-layer-trigger tooltip"
-            data-tippy=""
-            data-original-title="Layer wählen"
+            title="Layer wählen"
           >
             <span className="layer-select icon-snow">
               {this.props.intl.formatMessage({
@@ -191,27 +239,6 @@ class WeatherMapCockpit extends React.Component {
       </div>
     );
   }
-
-  // getTickButtons() {
-  //   let buttons = [];
-
-  //   if (this.props.timeArray)
-  //     this.props.timeArray.forEach(aTime => {
-  //       let buttonClass = "leaflet-bar-part leaflet-bar-part-single";
-  //       if (aTime < this.props.startDate) buttonClass = "future";
-  //       buttons.push(
-  //         <a
-  //           key={aTime}
-  //           href="javascript: void(0)"
-  //           onClick={this.handleEvent.bind(this, "time", aTime)}
-  //           role="button"
-  //         >
-  //           {dateToDateTimeString(aTime)}
-  //         </a>
-  //       );
-  //     });
-  //   return buttons;
-  // }
 
   setClosestTick(e, ui) {
     console.log("setClosestTick cccc", ui);
@@ -318,7 +345,7 @@ class WeatherMapCockpit extends React.Component {
       let timeEnd = new Date(this.props.currentTime);
       //timeEnd.setHours(timeEnd.getHours() + parseInt(nrOnlyTimespan, 10));
       console.log(
-        "xxx",
+        "xxxxx",
         this.props.currentTime,
         timeEnd,
         timeEnd.getHours(),
@@ -365,6 +392,7 @@ class WeatherMapCockpit extends React.Component {
               <div
                 style={{ left: 0 }}
                 key="scale-stamp-range"
+                style={{ width: this.getTickWidth() * nrOnlyTimespan }}
                 className="cp-scale-stamp-range js-active"
               >
                 <span
@@ -418,15 +446,13 @@ class WeatherMapCockpit extends React.Component {
             href="#"
             key="arrow-left"
             className="cp-scale-flipper-left icon-arrow-left tooltip"
-            data-tippy=""
-            data-original-title="Früher"
+            title="Früher"
           ></a>
           <a
             href="#"
             key="arrow-right"
             className="cp-scale-flipper-right icon-arrow-right tooltip"
-            data-tippy=""
-            data-original-title="Später"
+            title="Später"
           ></a>
         </div>
 
@@ -462,9 +488,8 @@ class WeatherMapCockpit extends React.Component {
         <a
           key="playerButton"
           className={linkClassesPlay.join(" ")}
-          href="javascript: void(0)"
-          data-tippy=""
-          data-original-title="Play"
+          href="#"
+          title="Play"
           onClick={() => {
             this.props.player.toggle();
           }}
@@ -472,9 +497,8 @@ class WeatherMapCockpit extends React.Component {
         <a
           key="stopButton"
           className={linkClassesStop.join(" ")}
-          href="javascript: void(0)"
-          data-tippy=""
-          data-original-title="Stop"
+          href="#"
+          title="Stop"
           onClick={() => {
             this.props.player.toggle();
           }}
@@ -513,16 +537,14 @@ class WeatherMapCockpit extends React.Component {
         <span
           key="cp-release-released"
           className="cp-release-released tooltip"
-          data-tippy=""
-          data-original-title="Zeitpunkt der Erstellung"
+          title="Zeitpunkt der Erstellung"
         >
           Erstellt 03.09.2020 18:00
         </span>
         <span
           key="cp-release-update"
           className="cp-release-update tooltip"
-          data-tippy=""
-          data-original-title="Voraussichtlicher Zeitpunkt des nächsten Updates"
+          title="Voraussichtlicher Zeitpunkt des nächsten Updates"
         >
           <span>Update</span> 04.01.2020 00:00
         </span>
@@ -530,8 +552,7 @@ class WeatherMapCockpit extends React.Component {
           <a
             href="#"
             className="icon-copyright icon-margin-no tooltip"
-            data-tippy=""
-            data-original-title="Copyright"
+            title="Copyright"
           ></a>
         </span>
       </div>
@@ -566,8 +587,7 @@ class WeatherMapCockpit extends React.Component {
             <a
               href="https://www.zamg.ac.at"
               className="tooltip"
-              data-tippy=""
-              data-original-title="ZAMG"
+              title="ZAMG"
             ></a>
           </div>
         </div>
