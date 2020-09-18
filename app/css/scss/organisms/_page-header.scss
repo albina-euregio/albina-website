@@ -348,6 +348,11 @@ $page-header-logo-width: 3.25em;
         color: $anchor-font-color !important;
       }
     }
+    .language-fr & {
+      .language-trigger-fr {
+        color: $anchor-font-color !important;
+      }
+    }
   }
 
   @media #{$medium-up} {

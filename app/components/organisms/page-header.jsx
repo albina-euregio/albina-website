@@ -5,15 +5,10 @@ import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import Menu from "./../menu";
 import { Util } from "leaflet";
-if (!window["tilty"]) window["tilty"] = require("vanilla-tilt");
 
 import menuItems from "../../menu.json";
 
 class PageHeader extends React.Component {
-  componentDidMount() {
-    window["tilty"].init(document.querySelectorAll(".tilt"));
-  }
-
   // changing language on header language button click
   handleChangeLanguage = newLanguage => {
     console.info("Changing language to " + newLanguage);
@@ -63,18 +58,21 @@ class PageHeader extends React.Component {
           <Link
             to="/"
             ref="logoImg"
-            {...window["tiltySettings"]}
-            className="tooltip tilt"
+            className="tooltip"
             title={this.props.intl.formatMessage({
               id: "header:logo:hover"
             })}
           >
-            {langs.map(l => (
-              <span key={l} className={"mark mark-" + l} />
-            ))}
-            {langs.map(l => (
-              <span key={l} className={"url url-" + l} />
-            ))}
+            <span className="mark">
+              {langs.map(l => (
+                <span key={l} className={"mark-" + l} />
+              ))}
+            </span>
+            <span className="url">
+              {langs.map(l => (
+                <span key={l} className={"url-" + l} />
+              ))}
+            </span>
           </Link>
         </div>
         <div className="page-header-navigation">
@@ -94,50 +92,45 @@ class PageHeader extends React.Component {
           />
         </div>
         <div className="page-header-language">
-          <ul className="list-inline language-trigger">
+          <ul className="list-plain language-trigger">
             <li>
-              <a
-                className="language-trigger-de tooltip"
-                title={this.props.intl.formatMessage({
-                  id: "header:language-switch:de:hover"
-                })}
-                onClick={() => this.handleChangeLanguage("de")}
-              >
-                DE
+              <a href="" className="has-sub" title="">
+                <span></span>
               </a>
-            </li>
-            <li>
-              <a
-                className="language-trigger-it tooltip"
-                title={this.props.intl.formatMessage({
-                  id: "header:language-switch:it:hover"
-                })}
-                onClick={() => this.handleChangeLanguage("it")}
-              >
-                IT
-              </a>
-            </li>
-            <li>
-              <a
-                className="language-trigger-en tooltip"
-                title={this.props.intl.formatMessage({
-                  id: "header:language-switch:en:hover"
-                })}
-                onClick={() => this.handleChangeLanguage("en")}
-              >
-                EN
-              </a>
-            </li>
-            <li>
-              <a
-                className="language-trigger-fr tooltip"
-                title={this.props.intl.formatMessage({
-                  id: "header:language-switch:fr:hover"
-                })}
-                onClick={() => this.handleChangeLanguage("fr")}
-              >
-                FR
-              </a>
+              <ul className="list-plain subnavigation">
+                <li>
+                  <a
+                    className="language-trigger-de"
+                    onClick={() => this.handleChangeLanguage("de")}
+                  >
+                    Deutsch
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="language-trigger-it"
+                    onClick={() => this.handleChangeLanguage("it")}
+                  >
+                    Italiano
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="language-trigger-en"
+                    onClick={() => this.handleChangeLanguage("en")}
+                  >
+                    English
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="language-trigger-fr"
+                    onClick={() => this.handleChangeLanguage("fr")}
+                  >
+                    Français
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -160,8 +153,7 @@ class PageHeader extends React.Component {
             href={Util.template(config.links.interreg, {
               lang: lang
             })}
-            {...window["tiltySettings"]}
-            className="header-footer-logo-secondary tooltip tilt"
+            className="header-footer-logo-secondary tooltip"
             title={this.props.intl.formatMessage({
               id: "header:euregio:hover"
             })}
