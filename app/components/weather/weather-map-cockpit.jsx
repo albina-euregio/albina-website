@@ -43,11 +43,7 @@ class WeatherMapCockpit extends React.Component {
       () => this.props.domainId,
       () => {
         console.log("update tooltip #1");
-        window.setTimeout(() => {
-          console.log("WeatherMapCockpit->window.setTimeout tooltip_init");
-          tooltip_init();
-          this.props.changeCurrentTime(this.props.timeArray[0]);
-        }, 200);
+        window.setTimeout(tooltip_init, 200);
       }
     );
     reaction(
@@ -57,7 +53,7 @@ class WeatherMapCockpit extends React.Component {
         window.setTimeout(tooltip_init, 200);
       }
     );
-    window.setTimeout(tooltip_init, 100);
+
     console.log(
       "componentDidMount ggg:",
       this.props.currentTime,
@@ -78,29 +74,43 @@ class WeatherMapCockpit extends React.Component {
 
   placeCockpitItems() {
     console.log(
-      "placeCockpitItems ggg:",
+      "placeCockpitItems hhh:",
       this.props.currentTime,
-      this.props.firstAnalyticTime
+      this.props.firstAnalyticTime,
+      this.setStampPos
     );
     if (this.props.currentTime) {
       const timespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
-
       const posContainer = $(".cp-scale-days").offset();
-
       const posFirstAvailable = $(".t" + this.props.timeArray[0]).offset();
-
       const posLast = $(
         ".t" + this.props.timeArray[this.props.timeArray.length - 1]
       ).offset();
-
-      const tickWidth = this.getTickWidth();
       //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
       $(".cp-scale-flipper-left").css({
         left: posFirstAvailable.left - posContainer.left
       });
       $(".cp-scale-flipper-right").css({
-        left: tickWidth + posLast.left - posContainer.left
+        left: this.tickWidth + posLast.left - posContainer.left
       });
+
+      // if(this.setStampPos) {
+      //   $(".cp-scale-stamp-range").css({
+      //     left: this.leftPosForCurrentTime
+      //   });
+      //   $(".cp-scale-stamp-point").css({
+      //     left: this.leftPosForCurrentTime
+      //   });
+      //   this.setStampPos = false;
+      // } else {
+
+      //   $(".cp-scale-stamp-range").css({
+      //     left: ""
+      //   });
+      //   $(".cp-scale-stamp-point").css({
+      //     left: ""
+      //   });
+      // }
 
       if (this.props.firstAnalyticTime) {
         const firstAnalyticTime = $(
@@ -114,12 +124,12 @@ class WeatherMapCockpit extends React.Component {
     }
   }
 
-  getTickWidth() {
+  get tickWidth() {
     if (this.props.currentTime) {
-      const posFirstTick = $(".cp-scale-hour-0")
+      const posFirstTick = $(".cp-scale-hour-1")
         .first()
         .offset();
-      const posSecondTick = $(".cp-scale-hour-1")
+      const posSecondTick = $(".cp-scale-hour-2")
         .first()
         .offset();
       if (posFirstTick === undefined || posSecondTick === undefined) return 0;
@@ -127,15 +137,16 @@ class WeatherMapCockpit extends React.Component {
     }
   }
 
-  getLeftPosForCurrentTime() {
-    console.log("getLeftPosForCurrentTime ggg", this.props.currentTime);
+  get leftPosForCurrentTime() {
     const currentTick = $(".t" + this.props.currentTime);
     if (currentTick.offset() === undefined) return 0;
     let left = Math.abs(
-      currentTick.offset()["left"] - $(".cp-scale-days").offset()["left"]
+      currentTick.offset()["left"] -
+        $(".cp-scale-days").offset()["left"] +
+        this.tickWidth
     );
     console.log(
-      "getLeftPosForCurrentTime eee",
+      "leftPosForCurrentTime ggg",
       new Date(this.props.currentTime),
       left
     );
@@ -246,9 +257,6 @@ class WeatherMapCockpit extends React.Component {
     let closestDist = 9999;
     let closestTime;
 
-    const posFirst = $(".t" + this.props.timeArray[0]).offset();
-    const posSec = $(".t" + this.props.timeArray[1]).offset();
-    const tickWidth = Math.abs(posFirst.left - posSec.left);
     const arrowLeft = ui.x; // + $(".cp-scale-stamp-point-arrow").outerWidth() / 2;
     $("#whereami").css({ left: ui.x });
     this.props.timeArray.forEach(eTime => {
@@ -261,6 +269,7 @@ class WeatherMapCockpit extends React.Component {
         eTime,
         arrowLeft,
         curItemLeft,
+        new Date(eTime),
         Math.abs(arrowLeft - curItemLeft)
       );
       if (closestDist > Math.abs(arrowLeft - curItemLeft)) {
@@ -307,10 +316,10 @@ class WeatherMapCockpit extends React.Component {
 
       if (lastTime !== weekday) {
         let hours = [];
-        for (let i = 1; i < 25; i++) {
+        for (let i = 1; i < 26; i++) {
           let currentHour = new Date(aTime).setHours(i);
           let isSelectable = self.props.timeArray.includes(currentHour);
-          let spanClass = ["cp-scale-hour-" + (i - 1), "t" + currentHour];
+          let spanClass = ["cp-scale-hour-" + i, "t" + currentHour];
           if (aTime < self.props.startDate) spanClass.push("cp-analyse-item");
           hours.push(
             <span
@@ -362,10 +371,13 @@ class WeatherMapCockpit extends React.Component {
       //   $(".cp-scale-stamp-range").addClass("js-dragging");
       // }
 
+      if (this.leftPosForCurrentTime === 0) this.setStampPos = true;
+      console.log("getTimeline tick ggg", this.tickWidth, nrOnlyTimespan);
       const dragSettings = {
         axis: "x",
-        defaultPosition: { x: this.getLeftPosForCurrentTime(), y: 0 },
+        defaultPosition: { x: this.leftPosForCurrentTime, y: 0 },
         key: this.props.currentTime,
+        //grid: [this.tickWidth, 0],
         bounds: "parent",
         defaultClassName: "",
         defaultClassNameDragging: "js-dragging",
@@ -392,7 +404,7 @@ class WeatherMapCockpit extends React.Component {
               <div
                 style={{ left: 0 }}
                 key="scale-stamp-range"
-                style={{ width: this.getTickWidth() * nrOnlyTimespan }}
+                style={{ width: this.tickWidth * nrOnlyTimespan }}
                 className="cp-scale-stamp-range js-active"
               >
                 <span
