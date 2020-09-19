@@ -1,11 +1,13 @@
 import React from "react";
 import { ImageOverlay } from "react-leaflet";
+import StationMarker from "../leaflet/station-marker";
 import Base from "../../base";
 
 export default class Overlay extends React.Component {
   constructor(props) {
     super(props);
     this.overlayCanvases = {};
+    this.state = { dataMarker: null };
   }
 
   getClickedPixel(clickEvent) {
@@ -21,6 +23,40 @@ export default class Overlay extends React.Component {
       map.project(clickEvent.latlng).y -
       map.project(overlay.getBounds()["_northEast"]).y;
     return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
+  }
+
+  getColor(value) {
+    const v = parseFloat(value);
+    const colors = Object.values(this.props.item.colors);
+
+    let color = colors[0];
+    this.props.item.thresholds.forEach((tr, i) => {
+      if (v > tr) {
+        color = colors[i + 1];
+      }
+    });
+
+    return color;
+  }
+
+  setDataMarker(data) {
+    console.log("setDataMarker jjj", data);
+    this.setState({
+      dataMarker: (
+        <StationMarker
+          type="station"
+          key="dataMarker"
+          itemId="dataMarker"
+          data={{}}
+          stationId="dataMarker"
+          stationName="dataMarker"
+          coordinates={data.coordinates}
+          color={this.getColor(data.value)}
+          value={data.value}
+          direction={data.direction}
+        />
+      )
+    });
   }
 
   render() {
@@ -48,49 +84,48 @@ export default class Overlay extends React.Component {
                 function getPixelData() {
                   let pixel = self.getClickedPixel(e);
 
-                  let values = [];
+                  let values = {};
                   self.props.dataOverlays.forEach(anOverlay => {
                     if (self.overlayCanvases[anOverlay.type]["loaded"]) {
                       let p = self.overlayCanvases[anOverlay.type][
                         "ctx"
                       ].getImageData(pixel.x, pixel.y, 1, 1).data;
-                      values.push({
-                        type: anOverlay.type,
-                        calcValue: self.props.rgbToValue(anOverlay.type, {
+                      values[anOverlay.type] = self.props.rgbToValue(
+                        anOverlay.type,
+                        {
                           r: p[0],
                           g: p[1],
                           b: p[2]
-                        }),
-                        pixel: p
-                      });
+                        }
+                      );
                     }
                   });
+                  console.log("overclick jjj", values);
 
-                  let valuesInfo = "";
-                  values.forEach(aValue => {
-                    valuesInfo +=
-                      "<p><b>" +
-                      aValue.type +
-                      "</b>: " +
-                      aValue.calcValue +
-                      "</p>";
+                  self.setDataMarker({
+                    coordinates: e.latlng,
+                    value:
+                      values.temperature ||
+                      values.windSpeed ||
+                      values.snowHeight,
+                    direction: values.windDirection
                   });
 
-                  map.openPopup(
-                    "<div>" +
-                      "<h3>PIXEL DATA</h3>" +
-                      "<p> Image coords: " +
-                      pixel.x +
-                      "/" +
-                      pixel.y +
-                      // "<br/> r: " + p[0] + "g: " + p[1] + "b: " + p[2] +
-                      "<br/>" +
-                      valuesInfo +
-                      // "<br/>Data–Canvas h/w: " + self.overlayCanvases.width + "/" + self.overlayCanvases.height +
-                      "</p>" +
-                      "</div>",
-                    e.latlng
-                  );
+                  // map.openPopup(
+                  //   "<div>" +
+                  //     "<h3>PIXEL DATA</h3>" +
+                  //     "<p> Image coords: " +
+                  //     pixel.x +
+                  //     "/" +
+                  //     pixel.y +
+                  //     // "<br/> r: " + p[0] + "g: " + p[1] + "b: " + p[2] +
+                  //     "<br/>" +
+                  //     valuesInfo +
+                  //     // "<br/>Data–Canvas h/w: " + self.overlayCanvases.width + "/" + self.overlayCanvases.height +
+                  //     "</p>" +
+                  //     "</div>",
+                  //   e.latlng
+                  // );
                 }
 
                 let allLoaded = true;
@@ -149,6 +184,7 @@ export default class Overlay extends React.Component {
         this.props.playerCB("background", "loading");
       }
     }
+    if (this.state.dataMarker) overlays.push(this.state.dataMarker);
 
     return <>{overlays}</>;
   }
