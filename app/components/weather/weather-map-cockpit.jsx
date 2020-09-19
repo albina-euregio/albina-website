@@ -242,7 +242,6 @@ class WeatherMapCockpit extends React.Component {
         buttons.push(
           <a
             key={aItem}
-            href="#"
             onClick={this.handleEvent.bind(this, "timeSpan", aItem)}
             className={linkClasses.join(" ")}
             title={this.props.intl.formatMessage({
@@ -259,7 +258,6 @@ class WeatherMapCockpit extends React.Component {
       <div key="cp-container-layer-range" className="cp-container-layer-range">
         <div key="cp-player" className="cp-layer">
           <a
-            href="#"
             className="cp-layer-selector-item cp-layer-trigger tooltip"
             title="Layer wählen"
           >
@@ -268,7 +266,12 @@ class WeatherMapCockpit extends React.Component {
                 id: "weathermap:domain:title:" + this.props.domainId
               })}
             </span>
-            <span className="layer-trigger"></span>
+            <span
+              onClick={() => {
+                $("body").toggleClass("layer-selector-open");
+              }}
+              className="layer-trigger"
+            ></span>
           </a>
         </div>
 
