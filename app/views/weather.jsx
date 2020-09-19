@@ -157,7 +157,9 @@ class Weather extends React.Component {
                 startDate={wmStore.startDate}
                 overlay={wmStore.overlayFileName}
                 dataOverlays={wmStore.domainConfig.dataOverlays}
-                dataOverlaysEnabled={!config.player.playing}
+                dataOverlaysEnabled={
+                  !config.player.playing && wmStore.currentTime >= wmStore.agl
+                }
                 rgbToValue={wmStore.valueForPixel}
                 item={wmStore.item}
                 grid={wmStore.grid}

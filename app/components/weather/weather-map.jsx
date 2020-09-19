@@ -52,7 +52,11 @@ class WeatherMap extends React.Component {
         }
       }
 
-      if (this.props.item.layer.grid && this.props.grid) {
+      if (
+        this.props.item.layer.grid &&
+        this.props.grid &&
+        this.props.grid.features
+      ) {
         overlays.push(
           <GridOverlay
             key={"grid"}
@@ -72,7 +76,11 @@ class WeatherMap extends React.Component {
         );
       }
 
-      if (this.props.item.layer.stations && this.props.stations) {
+      if (
+        this.props.item.layer.stations &&
+        this.props.stations &&
+        this.props.stations.features
+      ) {
         overlays.push(
           <StationOverlay
             key={"stations"}

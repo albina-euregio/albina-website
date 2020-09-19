@@ -10,10 +10,9 @@ export default class WeatherMapStore_new {
   @observable _timeSpan;
   @observable _availableTimes;
   @observable stations;
-  @observable domainConfig;
   @observable _agl;
   @observable _dateStart;
-  config;
+  @observable config;
 
   constructor(initialDomainId) {
     this.config = config.weathermaps;
@@ -26,7 +25,6 @@ export default class WeatherMapStore_new {
     this._availableTimes = [];
     this._timeIndex = observable.box(false);
     this.selectedFeature = null;
-    this.domainConfig = null;
     this._loading = observable.box(false);
 
     const configDefaultDomainId = Object.keys(this.config.domains).find(
@@ -105,25 +103,38 @@ export default class WeatherMapStore_new {
       cTI
     );
 
+    this.stations = {};
+    this.grid = {};
     let prefix =
       this.currentTime && this.currentTime
         ? dateFormat(new Date(cTI.getTime()), "%Y-%m-%d_%H-%M", true) + "_"
         : "";
-    const loads = [
-      new StationDataStore().load(prefix).then(features => {
-        console.log(
-          "WeatherMapStore_new->_loadData aaa: StationDataStore",
-          features
-        );
-        this.stations = {
-          features
-        };
-      }),
-      axios.get(config.apis.weather.grid).then(response => {
-        console.log("WeatherMapStore_new->_loadData aaa: Grid");
-        this.grid = response.data;
-      })
-    ];
+    let loads = [];
+    if (
+      this.domainConfig &&
+      this.domainConfig.layer.stations &&
+      this.currentTime < this._agl
+    ) {
+      loads.push(
+        new StationDataStore().load(prefix).then(features => {
+          // console.log(
+          //   "WeatherMapStore_new->_loadData aaa: StationDataStore",
+          //   features
+          // );
+          this.stations = {
+            features
+          };
+        })
+      );
+    } else this.stations = [];
+    if (this.domainConfig && this.domainConfig.layer.grid) {
+      loads.push(
+        axios.get(config.apis.weather.grid).then(response => {
+          // console.log("WeatherMapStore_new->_loadData aaa: Grid");
+          this.grid = response.data;
+        })
+      );
+    } else this.grid = [];
 
     Promise.all(loads)
       .then(() => {
@@ -283,6 +294,14 @@ export default class WeatherMapStore_new {
   }
 
   /*
+    returns currentIndex
+  */
+  @computed get domainConfig() {
+    return this.config.domains && this.domainId
+      ? this.config.domains[this.domainId].item
+      : null;
+  }
+  /*
     returns first analytic time
   */
   @computed get firstAnalyticTime() {
@@ -431,7 +450,6 @@ export default class WeatherMapStore_new {
       this.changeTimeSpan(
         this.domain.item.defaultTimeSpan || this.domain.item.timeSpans[0]
       );
-      this.domainConfig = this.config.domains[domainId].item;
       this.selectedFeature = null;
     }
   }
