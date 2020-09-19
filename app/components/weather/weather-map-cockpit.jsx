@@ -495,14 +495,18 @@ class WeatherMapCockpit extends React.Component {
             onClick={self.props.previousTime}
             key="arrow-left"
             className="cp-scale-flipper-left icon-arrow-left tooltip"
-            title="Früher"
+            title={this.props.intl.formatMessage({
+              id: "weathermap:cockpit:flipper:previous"
+            })}
           ></a>
           <a
             href="#"
             onClick={self.props.nextTime}
             key="arrow-right"
             className="cp-scale-flipper-right icon-arrow-right tooltip"
-            title="Später"
+            title={this.props.intl.formatMessage({
+              id: "weathermap:cockpit:flipper:next"
+            })}
           ></a>
         </div>
 
@@ -587,16 +591,28 @@ class WeatherMapCockpit extends React.Component {
         <span
           key="cp-release-released"
           className="cp-release-released tooltip"
-          title="Zeitpunkt der Erstellung"
+          title={this.props.intl.formatMessage({
+            id: "weathermap:cockpit:maps-creation-date:title"
+          })}
         >
-          Erstellt 03.09.2020 18:00
+          {this.props.intl.formatMessage({
+            id: "weathermap:cockpit:maps-creation-date:prefix"
+          })}{" "}
+          03.09.2020 18:00
         </span>
         <span
           key="cp-release-update"
           className="cp-release-update tooltip"
-          title="Voraussichtlicher Zeitpunkt des nächsten Updates"
+          title={this.props.intl.formatMessage({
+            id: "weathermap:cockpit:maps-update-date:title"
+          })}
         >
-          <span>Update</span> 04.01.2020 00:00
+          <span>
+            {this.props.intl.formatMessage({
+              id: "weathermap:cockpit:maps-update-date:prefix"
+            })}{" "}
+          </span>{" "}
+          04.01.2020 00:00
         </span>
         <span key="cp-release-copyright" className="cp-release-copyright">
           <a
