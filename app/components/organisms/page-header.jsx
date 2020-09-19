@@ -94,7 +94,13 @@ class PageHeader extends React.Component {
         <div className="page-header-language">
           <ul className="list-plain language-trigger">
             <li>
-              <a href="" className="has-sub" title="">
+              <a
+                onClick={e => {
+                  e.preventDefault();
+                }}
+                className="has-sub"
+                title=""
+              >
                 <span></span>
               </a>
               <ul className="list-plain subnavigation">
