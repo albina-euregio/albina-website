@@ -11,7 +11,7 @@ class StationMarker extends MapLayer {
   }
 
   createStationIcon() {
-    console.log("StationMarker->createStationIcon jjj", this.props);
+    //console.log("StationMarker->createStationIcon jjj", this.props);
     const icon = (
       <StationIcon
         itemId={this.props.itemId}
@@ -42,11 +42,11 @@ class StationMarker extends MapLayer {
   }
 
   createElement() {
-    console.log(
-      "StationMarker->createElement jjj",
-      this.props.stationName,
-      this.props.value
-    );
+    // console.log(
+    //   "StationMarker->createElement jjj",
+    //   this.props.stationName,
+    //   this.props.value
+    // );
     const marker = L.marker(this.props.coordinates, {
       data: this.props.data,
       title: this.props.stationName,
