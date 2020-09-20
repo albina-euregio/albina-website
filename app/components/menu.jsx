@@ -73,7 +73,7 @@ class Menu extends React.Component {
         ) : (
           <Link
             onTouchStart={e => {
-              window.IS_TOUCHING_DEVICE = true;
+              if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
             }}
             onClick={e => {
               this.onLinkClick(e, classes.includes("has-sub"));
