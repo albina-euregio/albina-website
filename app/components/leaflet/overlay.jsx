@@ -45,6 +45,7 @@ export default class Overlay extends React.Component {
       dataMarker: (
         <StationMarker
           type="station"
+          dataType="forcast"
           key="dataMarker"
           itemId="dataMarker"
           data={{}}

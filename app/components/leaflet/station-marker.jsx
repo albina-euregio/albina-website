@@ -17,6 +17,7 @@ class StationMarker extends MapLayer {
         itemId={this.props.itemId}
         type={this.props.type}
         color={this.props.color}
+        dataType={this.props.dataType || "analyse"}
         selected={this.props.selected}
         value={isFinite(this.props.value) ? this.props.value : ""}
         direction={this.props.direction}
