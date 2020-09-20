@@ -71,7 +71,13 @@ export default class StationIcon extends React.Component {
         viewBox="0 0 22 22"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <text x="50%" y="52%" dominantBaseline="middle" textAnchor="middle">
+        <text
+          fontSize="12"
+          x="50%"
+          y="52%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+        >
           {text}
         </text>
       </svg>

@@ -52,7 +52,12 @@ export default class StationOverlay extends React.Component {
 
   renderMarker(data, pos = null) {
     //if(data.name !== "Tannheim") return <></>;
-    //console.log("station-overlay->renderMarker qqq", this.props.itemId, data.name,  data[this.props.itemId]);
+    console.log(
+      "station-overlay->renderMarker aaa",
+      this.props.itemId,
+      data,
+      data[this.props.itemId]
+    );
     if (data.date === undefined || data[this.props.itemId] === undefined)
       return;
 
@@ -119,7 +124,7 @@ export default class StationOverlay extends React.Component {
   render() {
     //let sPl = this.props.features ? this.props.features.find(feature => feature?.name == "Tannheim") : null;
     //console.log("station-overlay->render qq", this.props.selectedFeature?.id, sPl?.name, sPl?.properties.LT);
-    //console.log("station-overlay->render", this.props.features);
+    //console.log("station-overlay->render aaa", this.props.selectedFeature, this.props.features);
     const points = this.props.features.filter(
       point => point[this.props.itemId] !== false
     );

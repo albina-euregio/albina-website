@@ -132,7 +132,7 @@ class Weather extends React.Component {
     const wmStore = config.newWM;
     const wmPlayer = config.player;
 
-    //console.log("Weather->render xxxx1", wmStore.overlayFileName);
+    console.log("Weather->render xxxx1", wmStore.domainConfig);
 
     return (
       <>
@@ -157,6 +157,7 @@ class Weather extends React.Component {
                 startDate={wmStore.startDate}
                 overlay={wmStore.overlayFileName}
                 dataOverlays={wmStore.domainConfig.dataOverlays}
+                stationDataId={wmStore.domainConfig.stationDataId}
                 dataOverlaysEnabled={
                   !config.player.playing && wmStore.currentTime >= wmStore.agl
                 }

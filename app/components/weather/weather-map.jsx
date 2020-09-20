@@ -29,16 +29,6 @@ class WeatherMap extends React.Component {
 
         //console.log("wather-map->render xxx1:", this.props.overlay);
         if (this.props.overlay) {
-          // overlays.push(
-          //   <ImageOverlay
-          //   key="background-map-data"
-          //   className="leaflet-image-layer"
-          //   url={this.props.overlay + ".png"}
-          //   opacity={1}
-          //   bounds={config.weathermaps.settings.bbox}
-          //   interactive={true}
-          //   />
-          // )
           overlays.push(
             <Overlay
               key="background-map"
@@ -89,7 +79,7 @@ class WeatherMap extends React.Component {
             onMarkerSelected={this.props.onMarkerSelected}
             selectedFeature={this.props.selectedFeature}
             item={this.props.item}
-            itemId={this.props.domainId}
+            itemId={this.props.stationDataId}
             features={this.props.stations.features}
             onLoading={() => {
               this.props.playerCB("stations", "loading");
