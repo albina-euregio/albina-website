@@ -86,14 +86,6 @@ export default class StationIcon extends React.Component {
         ? this.props.color
         : "rgb(" + this.props.color + ")";
 
-    // return(
-    //   <>
-    //     {iconSVGS.analyseCircle}
-    //     {iconSVGS.directionArrow}
-    //   </>
-
-    // )
-    console.log("StationIcon iii", this.props);
     return (
       <div
         className={

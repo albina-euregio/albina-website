@@ -90,10 +90,6 @@ class WeatherMapCockpit extends React.Component {
     } else if (this.redrawForPositioning === "") this.placeCockpitItems();
   }
 
-  UNSAFE_componentWillReceiveProps(props) {
-    console.log("componentWillReceiveProps hhh iii:", props);
-  }
-
   placeCockpitItems() {
     console.log(
       "placeCockpitItems: hhh",
