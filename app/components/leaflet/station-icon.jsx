@@ -20,59 +20,31 @@ export default class StationIcon extends React.Component {
   }
 
   getCircle(type, color) {
-    let svgs = [];
-    if (type === "forcast") {
-      svgs.push(
-        <svg
-          style={{ position: "absolute", left: "0px", top: "0px" }}
-          width="22"
-          height="22"
-          viewBox="0 0 22 22"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d={iconSVGS["analyseCircle"]}
-            fill={color || "#fff"}
-            stroke={color}
-            fill-rule="nonzero"
-          />
-        </svg>
-      );
-      svgs.push(
-        <svg
-          style={{ position: "absolute", left: "0px", top: "0px" }}
-          width="22"
-          height="22"
-          viewBox="0 0 22 22"
-          xmlns="http://www.w3.org/2000/svg"
-        >
+    let analyseStrokeColor = type === "forcast" ? color : "#000";
+    return (
+      <svg
+        style={{ position: "absolute", left: "0px", top: "0px" }}
+        width="22"
+        height="22"
+        viewBox="0 0 22 22"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d={iconSVGS["analyseCircle"]}
+          fill={color || "#fff"}
+          stroke={analyseStrokeColor}
+          fill-rule="nonzero"
+        />
+        {type === "forcast" && (
           <path
             d={iconSVGS["forcastCircle"]}
             fill="#000"
             stroke="#000"
             fill-rule="nonzero"
           />
-        </svg>
-      );
-    } else
-      svgs.push(
-        <svg
-          style={{ position: "absolute", left: "0px", top: "0px" }}
-          width="22"
-          height="22"
-          viewBox="0 0 22 22"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d={iconSVGS["analyseCircle"]}
-            fill={color || "#fff"}
-            stroke="#000"
-            fill-rule="nonzero"
-          />
-        </svg>
-      );
-
-    return svgs;
+        )}
+      </svg>
+    );
   }
 
   getdirection(name, direction) {
