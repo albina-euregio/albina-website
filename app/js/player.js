@@ -9,7 +9,7 @@ export default class Player {
   _owner;
 
   constructor(options) {
-    console.log("PlayerStore->constructor: ", options);
+    //console.log("PlayerStore->constructor: ", options);
     this._itemsToLoad = [];
     this._owner = options.owner || self;
     this._transitionTime = options.transitionTime || 1000;
@@ -32,14 +32,14 @@ export default class Player {
   }
 
   toggle() {
-    console.log("PlayerStore->toggle: yyyy1", this);
+    //console.log("PlayerStore->toggle: yyyy1", this);
     if (!this._intervalID) this.start();
     else this.stop();
   }
 
   _tick() {
     //to be implemented
-    console.log("PlayerStore->tick: yyyy1", this);
+    //console.log("PlayerStore->tick: yyyy1", this);
     if (this._itemsToLoad.length > 0) {
       console.log("PlayerStore->tick: Waiting for xxx", this._itemsToLoad);
       this._tickOverdue = true;
@@ -54,7 +54,7 @@ export default class Player {
   }
 
   onLayerEvent(layerId, state) {
-    console.log("PlayerStore->onEvent: xxx", state, layerId);
+    //console.log("PlayerStore->onEvent: xxx", state, layerId);
 
     switch (state) {
       case "loading":

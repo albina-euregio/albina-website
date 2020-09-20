@@ -40,7 +40,7 @@ export default class Overlay extends React.Component {
   }
 
   setDataMarker(data) {
-    console.log("setDataMarker jjj", data);
+    //console.log("setDataMarker jjj", data);
     this.setState({
       dataMarker: (
         <StationMarker
@@ -64,7 +64,7 @@ export default class Overlay extends React.Component {
     let overlays = [];
     let self = this;
     if (this.props.overlay) {
-      console.log("this.props.item.layer.overlay", this.props);
+      //console.log("this.props.item.layer.overlay", this.props);
       const mapMinZoom = config.map.initOptions.minZoom;
       const mapMaxZoom = config.map.initOptions.maxZoom;
 
@@ -81,7 +81,7 @@ export default class Overlay extends React.Component {
             onClick={e => {
               if (self.props.dataOverlaysEnabled && e.target._map) {
                 let map = e.target._map;
-                console.log("YYYYY GETPIXEL", e.containerPoint);
+                //console.log("YYYYY GETPIXEL", e.containerPoint);
                 function getPixelData() {
                   let pixel = self.getClickedPixel(e);
 
@@ -101,7 +101,7 @@ export default class Overlay extends React.Component {
                       );
                     }
                   });
-                  console.log("overclick jjj", values);
+                  //console.log("overclick jjj", values);
 
                   self.setDataMarker({
                     coordinates: e.latlng,

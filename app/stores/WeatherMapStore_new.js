@@ -42,7 +42,7 @@ export default class WeatherMapStore_new {
   _loadDomainData() {
     this._loading.set(true);
 
-    console.log("_loadDomainData this.currentTime bbb");
+    //console.log("_loadDomainData this.currentTime bbb");
 
     const loads = [
       axios
@@ -53,7 +53,7 @@ export default class WeatherMapStore_new {
             this.config.settings.metaFiles.agl
         )
         .then(response => {
-          console.log("WeatherMapStore_new->_loadData aaa: AGL");
+          //console.log("WeatherMapStore_new->_loadData aaa: AGL");
           if (response.data.includes("T"))
             this._dateStart = new Date(response.data.trim()).getTime();
         }),
@@ -65,11 +65,11 @@ export default class WeatherMapStore_new {
             this.config.settings.metaFiles.startDate
         )
         .then(response => {
-          console.log(
-            "WeatherMapStore_new->_loadData fff: Startdate",
-            response.data,
-            new Date(response.data.trim())
-          );
+          // console.log(
+          //   "WeatherMapStore_new->_loadData fff: Startdate",
+          //   response.data,
+          //   new Date(response.data.trim())
+          // );
           if (response.data.includes("T"))
             this._agl = new Date(response.data.trim()).getTime();
         })
@@ -78,7 +78,7 @@ export default class WeatherMapStore_new {
     Promise.all(loads)
       .then(() => {
         this._loading.set(false);
-        console.log("Weathermap_new->_loadDomainData: loaded aaa", this);
+        //console.log("Weathermap_new->_loadDomainData: loaded aaa", this);
         this._setAvailableTimes();
         this._loadIndexData();
       })
@@ -97,11 +97,11 @@ export default class WeatherMapStore_new {
     let cTI = new Date(this.currentTime);
     cTI.setHours(cTI.getHours() - 4);
 
-    console.log(
-      "_loadData this.currentTime bbb",
-      new Date(this.currentTime),
-      cTI
-    );
+    // console.log(
+    //   "_loadData this.currentTime bbb",
+    //   new Date(this.currentTime),
+    //   cTI
+    // );
 
     this.stations = {};
     this.grid = {};
@@ -139,7 +139,7 @@ export default class WeatherMapStore_new {
     Promise.all(loads)
       .then(() => {
         this._loading.set(false);
-        console.log("Weathermap_new->_loadIndexData: loaded bbb", this);
+        //console.log("Weathermap_new->_loadIndexData: loaded bbb", this);
       })
       .catch(err => {
         // TODO fail with error dialog
@@ -185,7 +185,7 @@ export default class WeatherMapStore_new {
     returns all _availableTimes
   */
   @computed get availableTimes() {
-    console.log("timeIndices GET", this._availableTimes);
+    //console.log("timeIndices GET", this._availableTimes);
     return this._availableTimes;
   }
 
@@ -193,7 +193,7 @@ export default class WeatherMapStore_new {
     returns current timespan selection
   */
   @computed get timeSpan() {
-    console.log("timeSpan GET", this._timeSpan);
+    //console.log("timeSpan GET", this._timeSpan);
     return this._timeSpan.get();
   }
 
@@ -229,11 +229,11 @@ export default class WeatherMapStore_new {
     returns filename for overlay e.g.2020-07-29_06-00_diff-snow_6h
   */
   @computed get overlayFileName() {
-    console.log(
-      "weatherMapStore_new overlayFileName: ",
-      this._domainId.get(),
-      this._timeSpan.get()
-    );
+    // console.log(
+    //   "weatherMapStore_new overlayFileName: ",
+    //   this._domainId.get(),
+    //   this._timeSpan.get()
+    // );
 
     if (this._timeIndex.get() != null && this._availableTimes.length > 0) {
       let datePlusOffset = new Date(
@@ -241,11 +241,11 @@ export default class WeatherMapStore_new {
       );
       //if(parseInt(this._timeSpan.get(), 10) > 0)
       datePlusOffset.setHours(datePlusOffset.getHours() + this._absTimeSpan);
-      console.log(
-        "weatherMapStore_new overlayFileName:#2 ",
-        datePlusOffset,
-        new Date(this._availableTimes[this._timeIndex.get()]).getUTCDate()
-      );
+      // console.log(
+      //   "weatherMapStore_new overlayFileName:#2 ",
+      //   datePlusOffset,
+      //   new Date(this._availableTimes[this._timeIndex.get()]).getUTCDate()
+      // );
 
       return (
         config.apis.weather.overlays +
@@ -280,7 +280,7 @@ export default class WeatherMapStore_new {
     returns index of active timeIndex incremented by 1
   */
   @computed get nextTime() {
-    console.log("nextTime xxx1", this._availableTimes, this._timeIndex.get());
+    //console.log("nextTime xxx1", this._availableTimes, this._timeIndex.get());
     return this._availableTimes[this._timeIndex.get() + 1]
       ? this._availableTimes[this._timeIndex.get() + 1]
       : this._availableTimes[0];
@@ -318,7 +318,7 @@ export default class WeatherMapStore_new {
   valueForPixel(overlayType, pixelRGB) {
     switch (overlayType) {
       case "temperature":
-        console.log("valueForPixel", pixelRGB);
+        //console.log("valueForPixel", pixelRGB);
         if (pixelRGB.r <= 0) return "<59,5";
         if (pixelRGB.r >= 255) return null;
         return -59.5 + (pixelRGB.r - 1) * 0.5;
@@ -410,13 +410,13 @@ export default class WeatherMapStore_new {
     }
     indices.sort();
     //console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
-    indices.map(aItem => {
-      console.log(
-        "weatherMapStore_new _setTimeIndices: new indices",
-        new Date(aItem),
-        aItem
-      );
-    });
+    // indices.map(aItem => {
+    //   console.log(
+    //     "weatherMapStore_new _setTimeIndices: new indices",
+    //     new Date(aItem),
+    //     aItem
+    //   );
+    // });
     this._availableTimes = indices;
     this._timeIndex.set(0);
   };
@@ -438,7 +438,7 @@ export default class WeatherMapStore_new {
     setting a new active domain
   */
   @action changeDomain(domainId) {
-    console.log("weatherMapStore_new changeDomain: " + domainId);
+    //console.log("weatherMapStore_new changeDomain: " + domainId);
 
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
       this._domainId.set(domainId);
@@ -458,12 +458,12 @@ export default class WeatherMapStore_new {
   control method to check if the item does exist in the config
 */
   checkTimeSpan(domainId, timeSpan) {
-    console.log(
-      "weatherMapStore_new: checktimeSpan",
-      domainId,
-      timeSpan,
-      this.config.domains[domainId].item.timeSpans
-    );
+    // console.log(
+    //   "weatherMapStore_new: checktimeSpan",
+    //   domainId,
+    //   timeSpan,
+    //   this.config.domains[domainId].item.timeSpans
+    // );
     return (
       this.checkDomainId(domainId) &&
       this.config.domains[domainId].item.timeSpans.includes(timeSpan)
@@ -474,7 +474,7 @@ export default class WeatherMapStore_new {
     setting a new active timeSpan
   */
   @action changeTimeSpan(timeSpan) {
-    console.log("weatherMapStore_new changeTimeSpan: " + timeSpan);
+    //console.log("weatherMapStore_new changeTimeSpan: " + timeSpan);
     if (
       timeSpan != this._timeSpan.get() &&
       this.checkTimeSpan(this.domainId, timeSpan)
@@ -492,19 +492,19 @@ export default class WeatherMapStore_new {
     setting a new timeIndex
   */
   @action changeCurrentTime(timeIndex) {
-    console.log(
-      "weatherMapStore_new: changeCurrentTime bbb",
-      this._timeIndex.get(),
-      timeIndex,
-      this._availableTimes.indexOf(timeIndex),
-      this._availableTimes
-    );
+    // console.log(
+    //   "weatherMapStore_new: changeCurrentTime bbb",
+    //   this._timeIndex.get(),
+    //   timeIndex,
+    //   this._availableTimes.indexOf(timeIndex),
+    //   this._availableTimes
+    // );
     if (this._availableTimes.includes(timeIndex)) {
-      console.log(
-        "weatherMapStore_new: bbb changeCurrentTime SET",
-        new Date(timeIndex),
-        timeIndex
-      );
+      // console.log(
+      //   "weatherMapStore_new: bbb changeCurrentTime SET",
+      //   new Date(timeIndex),
+      //   timeIndex
+      // );
       if (this._timeIndex.get() !== this._availableTimes.indexOf(timeIndex)) {
         this._timeIndex.set(this._availableTimes.indexOf(timeIndex));
         this._loadIndexData();

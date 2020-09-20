@@ -33,14 +33,14 @@ export default class StationIcon extends React.Component {
           d={iconSVGS["analyseCircle"]}
           fill={color || "#fff"}
           stroke={analyseStrokeColor}
-          fill-rule="nonzero"
+          fillRule="nonzero"
         />
         {type === "forcast" && (
           <path
             d={iconSVGS["forcastCircle"]}
             fill="#000"
             stroke="#000"
-            fill-rule="nonzero"
+            fillRule="nonzero"
           />
         )}
       </svg>
@@ -71,7 +71,7 @@ export default class StationIcon extends React.Component {
         viewBox="0 0 22 22"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <text x="50%" y="52%" dominant-baseline="middle" text-anchor="middle">
+        <text x="50%" y="52%" dominantBaseline="middle" textAnchor="middle">
           {text}
         </text>
       </svg>

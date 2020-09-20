@@ -41,7 +41,7 @@ class Weather extends React.Component {
     }
     //config.player.start();
 
-    console.log("Weather: Store:", config.newWM);
+    //console.log("Weather: Store:", config.newWM);
     this.state = {
       title: "",
       headerText: "",
@@ -59,7 +59,7 @@ class Weather extends React.Component {
   }
 
   onTick() {
-    console.log("onTick xxx1", config.newWM.nextTime);
+    //console.log("onTick xxx1", config.newWM.nextTime);
     config.newWM.changeCurrentTime(config.newWM.nextTime);
   }
 
@@ -132,7 +132,7 @@ class Weather extends React.Component {
     const wmStore = config.newWM;
     const wmPlayer = config.player;
 
-    console.log("Weather->render xxxx1", wmStore.overlayFileName);
+    //console.log("Weather->render xxxx1", wmStore.overlayFileName);
 
     return (
       <>

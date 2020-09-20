@@ -70,7 +70,7 @@ class LeafletMap extends React.Component {
     if (this.mapRef && !this.map) {
       this.map = this.mapRef.leafletElement;
       window.currMap = this.map;
-      console.log("updateMaps xyz", L);
+      //console.log("updateMaps xyz", L);
       if (this.props.onInit) {
         this.props.onInit(this.map);
       }
@@ -80,7 +80,7 @@ class LeafletMap extends React.Component {
       this.map.fitBounds(config.map.euregioBounds);
 
       const map = this.map;
-      console.log("this.map", this.map);
+      //console.log("this.map", this.map);
       window.setTimeout(() => {
         L.control
           .zoom({

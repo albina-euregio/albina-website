@@ -46,7 +46,7 @@ class WeatherMapCockpit extends React.Component {
     reaction(
       () => this.props.domainId,
       () => {
-        console.log("Domain change hhh");
+        //console.log("Domain change hhh");
         window.setTimeout(tooltip_init, 200);
         this.redrawForPositioning = "update";
       }
@@ -54,22 +54,22 @@ class WeatherMapCockpit extends React.Component {
     reaction(
       () => this.props.timeSpan,
       () => {
-        console.log("timeSpan change hhh");
+        //console.log("timeSpan change hhh");
         window.setTimeout(tooltip_init, 200);
         this.redrawForPositioning = "update";
       }
     );
 
-    console.log(
-      "componentDidMount ggg:",
-      this.props.currentTime,
-      this.props.firstAnalyticTime
-    );
+    // console.log(
+    //   "componentDidMount ggg:",
+    //   this.props.currentTime,
+    //   this.props.firstAnalyticTime
+    // );
     window.addEventListener(
       "resize",
       this.setState({ redraw: new Date().getTime() })
     );
-    console.log("componentDidMount hhh", this.redrawForPositioning);
+    //console.log("componentDidMount hhh", this.redrawForPositioning);
     if (this.redrawForPositioning === "redraw") {
       this.setState({ redraw: new Date().getTime() });
       this.redrawForPositioning = "";
@@ -77,13 +77,13 @@ class WeatherMapCockpit extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(
-      "componentDidUpdate ggg:",
-      this.props.currentTime,
-      this.props.firstAnalyticTime
-    );
+    // console.log(
+    //   "componentDidUpdate ggg:",
+    //   this.props.currentTime,
+    //   this.props.firstAnalyticTime
+    // );
     tooltip_init();
-    console.log("componentDidUpdate hhh", this.redrawForPositioning);
+    //console.log("componentDidUpdate hhh", this.redrawForPositioning);
     if (this.redrawForPositioning === "redraw") {
       this.setState({ redraw: new Date().getTime() });
       this.redrawForPositioning = "";
@@ -91,12 +91,12 @@ class WeatherMapCockpit extends React.Component {
   }
 
   placeCockpitItems() {
-    console.log(
-      "placeCockpitItems: hhh",
-      // this.props.currentTime,
-      // this.props.firstAnalyticTime,
-      this.redrawForPositioning
-    );
+    // console.log(
+    //   "placeCockpitItems: hhh",
+    //   // this.props.currentTime,
+    //   // this.props.firstAnalyticTime,
+    //   this.redrawForPositioning
+    // );
     if (this.props.currentTime) {
       const timespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
       const posContainer = $(".cp-scale-days").offset();
@@ -171,11 +171,11 @@ class WeatherMapCockpit extends React.Component {
         $(".cp-scale-days").offset()["left"] +
         this.tickWidth
     );
-    console.log(
-      "leftPosForCurrentTime ggg",
-      new Date(this.props.currentTime),
-      left
-    );
+    // console.log(
+    //   "leftPosForCurrentTime ggg",
+    //   new Date(this.props.currentTime),
+    //   left
+    // );
     return left;
   }
 
@@ -222,7 +222,7 @@ class WeatherMapCockpit extends React.Component {
   getTimeSpanOptions() {
     let self = this;
     let buttons = [];
-    console.log("getTimeSpanOptions 777", this.props);
+    //console.log("getTimeSpanOptions 777", this.props);
     if (
       this.props.storeConfig &&
       this.props.storeConfig.domains[this.props.domainId]
@@ -281,7 +281,7 @@ class WeatherMapCockpit extends React.Component {
   }
 
   setClosestTick(e, ui) {
-    console.log("setClosestTick cccc", ui);
+    //console.log("setClosestTick cccc", ui);
 
     let closestDist = 9999;
     let closestTime;
@@ -294,32 +294,32 @@ class WeatherMapCockpit extends React.Component {
       const curItemLeft = Math.abs(
         $(".t" + eTime).offset()["left"] - $(".cp-scale-days").offset()["left"]
       );
-      console.log(
-        "setClosestTick ccc eee ITEM",
-        eTime,
-        arrowLeft,
-        curItemLeft,
-        new Date(eTime),
-        Math.abs(arrowLeft - curItemLeft)
-      );
+      // console.log(
+      //   "setClosestTick ccc eee ITEM",
+      //   eTime,
+      //   arrowLeft,
+      //   curItemLeft,
+      //   new Date(eTime),
+      //   Math.abs(arrowLeft - curItemLeft)
+      // );
       if (closestDist > Math.abs(arrowLeft - curItemLeft)) {
         closestTime = eTime;
         closestDist = Math.abs(arrowLeft - curItemLeft);
-        console.log(
-          "setClosestTick eee SET",
-          closestDist,
-          new Date(eTime),
-          arrowLeft,
-          curItemLeft
-        );
+        // console.log(
+        //   "setClosestTick eee SET",
+        //   closestDist,
+        //   new Date(eTime),
+        //   arrowLeft,
+        //   curItemLeft
+        // );
       }
     });
     try {
-      console.log(
-        "setClosestTick ccc  eee closestTime:",
-        new Date(closestTime),
-        closestDist
-      );
+      // console.log(
+      //   "setClosestTick ccc  eee closestTime:",
+      //   new Date(closestTime),
+      //   closestDist
+      // );
 
       if (closestTime) this.props.changeCurrentTime(closestTime);
     } catch (e) {
@@ -335,12 +335,12 @@ class WeatherMapCockpit extends React.Component {
     let nrOnlyTimespan = this.props.timeSpan.replace(/\D/g, "");
     let parts = [];
 
-    console.log(
-      "getTimeline fff",
-      self.props.timeArray.indexOf(self.props.startDate),
-      self.props.startDate,
-      self.props.agl
-    );
+    // console.log(
+    //   "getTimeline fff",
+    //   self.props.timeArray.indexOf(self.props.startDate),
+    //   self.props.startDate,
+    //   self.props.agl
+    // );
     this.props.timeArray.forEach(aTime => {
       let weekday = dateToWeekdayString(aTime);
 
@@ -383,17 +383,17 @@ class WeatherMapCockpit extends React.Component {
       const timeStart = dateToTimeString(this.props.currentTime);
       let timeEnd = new Date(this.props.currentTime);
       timeEnd.setHours(timeEnd.getHours() + parseInt(nrOnlyTimespan, 10));
-      console.log(
-        "xxxxx",
-        this.props.currentTime,
-        timeEnd,
-        timeEnd.getHours(),
-        parseInt(nrOnlyTimespan, 10)
-      );
+      // console.log(
+      //   "xxxxx",
+      //   this.props.currentTime,
+      //   timeEnd,
+      //   timeEnd.getHours(),
+      //   parseInt(nrOnlyTimespan, 10)
+      // );
 
-      function dragging(e, ui) {
-        console.log("dragging", e, ui);
-      }
+      // function dragging(e, ui) {
+      //   console.log("dragging", e, ui);
+      // }
 
       // function onStart() {
       //   console.log("onStart");
@@ -404,11 +404,11 @@ class WeatherMapCockpit extends React.Component {
       // test if scale has been drawn already
       if (this.redrawForPositioning === "update")
         this.redrawForPositioning = "redraw";
-      console.log(
-        "getTimeline tick hhh",
-        this.redrawForPositioning,
-        this.state.redraw
-      );
+      // console.log(
+      //   "getTimeline tick hhh",
+      //   this.redrawForPositioning,
+      //   this.state.redraw
+      // );
       const dragSettings = {
         axis: "x",
         defaultPosition: { x: this.leftPosForCurrentTime || 0, y: 0 },
@@ -528,7 +528,7 @@ class WeatherMapCockpit extends React.Component {
   }
 
   getPlayerButtons() {
-    console.log("getPlayerButtons", this.props.player.playing);
+    //console.log("getPlayerButtons", this.props.player.playing);
     // const label =
     //   "weathermap:player:" + (this.props.player.playing ? "stop" : "play");
 
@@ -625,7 +625,7 @@ class WeatherMapCockpit extends React.Component {
   }
 
   render() {
-    console.log("weather-map-cockpit->render");
+    //console.log("weather-map-cockpit->render");
     return (
       <div key="map-cockpit" className="map-cockpit weather-map-cockpit">
         <div key="cp-container-1" className="cp-container-1">

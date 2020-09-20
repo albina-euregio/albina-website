@@ -19,11 +19,11 @@ class WeatherMap extends React.Component {
   }
 
   render() {
-    console.log("WeatherMap->render xyz", this.props);
+    //console.log("WeatherMap->render xyz", this.props);
     const overlays = [];
     if (this.props.item) {
       if (this.props.overlay) {
-        console.log("this.props.item.layer.overlay", this.props.item);
+        //console.log("this.props.item.layer.overlay", this.props.item);
         const mapMinZoom = config.map.initOptions.minZoom;
         const mapMaxZoom = config.map.initOptions.maxZoom;
 
