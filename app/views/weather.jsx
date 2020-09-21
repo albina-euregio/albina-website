@@ -164,7 +164,7 @@ class Weather extends React.Component {
                 rgbToValue={wmStore.valueForPixel}
                 item={wmStore.item}
                 grid={wmStore.grid}
-                stations={wmStore.stations}
+                stations={!wmPlayer.playing && wmStore.stations}
                 playerCB={config.player.onLayerEvent.bind(config.player)}
                 selectedFeature={wmStore.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
