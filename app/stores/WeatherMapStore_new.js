@@ -220,8 +220,7 @@ export default class WeatherMapStore_new {
 
   get _absTimeSpan() {
     let tempTimeSpan = this._timeSpan.get();
-    if (tempTimeSpan.includes("+-"))
-      tempTimeSpan = tempTimeSpan.replace("+-", "");
+    tempTimeSpan = tempTimeSpan.replace("+-", "");
     return Math.abs(parseInt(tempTimeSpan, 10));
   }
 
@@ -378,9 +377,9 @@ export default class WeatherMapStore_new {
       );
       //console.log("weatherMapStore_new _setTimeIndices #2 >= 0", maxTime);
       while (currentTime < maxTime) {
+        //console.log( "weatherMapStore_new _setTimeIndices add date", this._absTimeSpan, new Date(currentTime), new Date(maxTime));
         indices.push(new Date(currentTime).getTime());
         currentTime.setHours(currentTime.getHours() + this._absTimeSpan);
-        // console.log( "weatherMapStore_new _setTimeIndices add date", new Date(currentTime), new Date(currentTime).getTime());
       }
     }
     if (timeSpanDir <= 0) {
