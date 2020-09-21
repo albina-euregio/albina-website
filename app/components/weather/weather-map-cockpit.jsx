@@ -109,7 +109,11 @@ class WeatherMapCockpit extends React.Component {
         left: posFirstAvailable.left - posContainer.left + this.tickWidth
       });
       $(".cp-scale-flipper-right").css({
-        left: this.tickWidth + posLast.left - posContainer.left
+        left:
+          this.tickWidth +
+          posLast.left -
+          posContainer.left +
+          timespan * this.tickWidth
       });
 
       if (this.redrawForPositioning === "redraw") {
