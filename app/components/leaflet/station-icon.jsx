@@ -43,7 +43,7 @@ export default class StationIcon extends React.Component {
             style={{
               stroke: "#000000",
               strokeWidth: 1,
-              "stroke-dasharray": 1.3675,
+              strokeDasharray: 1.3675,
               fill: "none"
             }}
           />

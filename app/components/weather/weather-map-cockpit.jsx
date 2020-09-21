@@ -26,10 +26,10 @@ const DOMAIN_ICON_CLASSES = {
 const DOMAIN_LEGEND_CLASSES = {
   temp: "cp-legend-temperature",
   "snow-height": "cp-legend-snow",
-  "new-snow": "cp-legend-snow",
-  "diff-snow": "cp-legend-snow",
+  "new-snow": "cp-legend-snownew",
+  "diff-snow": "cp-legend-snowdiff",
   wind: "cp-legend-wind",
-  gust: "cp-legend-wind"
+  gust: "cp-legend-windgust"
 };
 
 @observer

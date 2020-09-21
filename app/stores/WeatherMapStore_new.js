@@ -332,21 +332,14 @@ export default class WeatherMapStore_new {
         return pixelRGB.r;
         break;
       case "snowHeight":
-        const snowHeightDef = {
-          "1-0-0": -250,
-          "250-0-0": -1,
-          "0-0-0": 0,
-          "255-255-255": 250,
-          "0-0-1": 255,
-          "0-0-150": 1000,
-          "0-0-250": 2000,
-          "0-1-0": 2020,
-          "0-250-0": 7000
-        };
-        return (
-          snowHeightDef[pixelRGB.r + "-" + pixelRGB.g + "-" + pixelRGB.b] ||
-          null
-        );
+        console.log("snowHeight", pixelRGB);
+        if (pixelRGB.r + pixelRGB.g + pixelRGB.g === 0) return 0;
+        if (pixelRGB.g + pixelRGB.g === 0) return -251 + pixelRGB.r;
+        if (pixelRGB.r + pixelRGB.g === 0) return 249 + pixelRGB.b;
+        if (pixelRGB.r + pixelRGB.b === 0) return 2019 + pixelRGB.g;
+        if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
+          return pixelRGB.r;
+        return null;
         break;
       default:
         return null;
