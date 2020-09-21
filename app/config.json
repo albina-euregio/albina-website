@@ -506,11 +506,7 @@
         "item": {
           "timeSpans": ["+-1"],
           "defaultTimeSpan": null,
-<<<<<<< HEAD
           "timeSpanToDataId": { "+-1": "wspd" },
-=======
-          "timeSpanToDataId": { "+-1": "wsp" },
->>>>>>> weathermaps-with-timedimensions
           "units": "km/h",
           "thresholds": [5, 10, 20, 40, 60, 80],
           "colors": {
