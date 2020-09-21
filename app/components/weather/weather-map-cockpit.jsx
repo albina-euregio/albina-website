@@ -336,7 +336,7 @@ class WeatherMapCockpit extends React.Component {
     let self = this;
     let lastTime;
     let days = [];
-    let nrOnlyTimespan = this.props.timeSpan.replace(/\D/g, "");
+    let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
     let parts = [];
 
     // console.log(
@@ -345,7 +345,22 @@ class WeatherMapCockpit extends React.Component {
     //   self.props.startDate,
     //   self.props.agl
     // );
-    this.props.timeArray.forEach(aTime => {
+    let timeArray = this.props.timeArray.slice();
+
+    if (nrOnlyTimespan > 1) {
+      let extraTime = new Date(timeArray[timeArray.length - 1]);
+      let maxTime = new Date(extraTime);
+      //console.log("timeArray#1", extraTime, maxTime, nrOnlyTimespan);
+      maxTime.setHours(maxTime.getHours() + nrOnlyTimespan);
+
+      //console.log("timeArray#2", extraTime, maxTime, nrOnlyTimespan);
+      while (extraTime < maxTime) {
+        extraTime.setHours(extraTime.getHours() + 24);
+        timeArray.push(extraTime.getTime());
+      }
+    }
+    //console.log("timeArray#3", timeArray, this.props.timeArray);
+    timeArray.forEach(aTime => {
       let weekday = dateToWeekdayString(aTime);
 
       if (lastTime !== weekday) {
