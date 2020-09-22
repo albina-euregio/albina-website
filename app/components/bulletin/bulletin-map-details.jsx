@@ -26,7 +26,6 @@ class BulletinMapDetails extends React.Component {
         : "forenoon";
     const bulletin = this.props.bulletin[daytime];
     const problems = bulletin.avalancheProblems || [];
-    console.log("BulletinMapDetails", bulletin);
 
     return (
       <>
