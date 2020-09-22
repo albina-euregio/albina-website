@@ -103,6 +103,7 @@
   "bulletin:map:info:no-report:hover": "Derzeit keine Gefahreneinschätzung vorhanden",
   "bulletin:map:info:no-snow": "Kein Schnee",
   "bulletin:map:info:no-snow:hover": "Derzeit keine Gefahreneinschätzung vorhanden",
+  "bulletin:map:details:warning:title": "Warnung",
   "bulletin:legend:highlight-regions": "Regionen mit bestimmten <a>Lawinenproblemen</a> hervorheben",
   "bulletin:legend:highlight-regions:hover": "Mehr erfahren",
   "bulletin:legend:highlight:hover": "Regionen mit {problem} hervorheben",
