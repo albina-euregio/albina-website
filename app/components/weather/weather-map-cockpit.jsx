@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import Draggable from "react-draggable";
 import { reaction } from "mobx";
 import { observer } from "mobx-react";
+import Timeline from "./timeline.jsx";
 
 import {
   dateToDateTimeString,
@@ -40,6 +41,9 @@ class WeatherMapCockpit extends React.Component {
       redraw: null
     };
     this.redrawForPositioning = "update";
+    this.getClosestTick;
+    this.getLeftForTime;
+    this.tickWidth = 0;
   }
 
   componentDidMount() {
@@ -91,12 +95,12 @@ class WeatherMapCockpit extends React.Component {
   }
 
   placeCockpitItems() {
-    // console.log(
-    //   "placeCockpitItems: hhh",
-    //   // this.props.currentTime,
-    //   // this.props.firstAnalyticTime,
-    //   this.redrawForPositioning
-    // );
+    console.log(
+      "placeCockpitItems: hhh",
+      this.props.currentTime,
+      this.props.firstAnalyticTime,
+      this.tickWidth
+    );
     if (this.props.currentTime) {
       const timespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
       const posContainer = $(".cp-scale-days").offset();
@@ -116,32 +120,6 @@ class WeatherMapCockpit extends React.Component {
           timespan * this.tickWidth
       });
 
-      if (this.redrawForPositioning === "redraw") {
-        // this.setState({redraw: new Date().getTime()});
-        // this.redrawForPositioning = "";
-        // console.log(
-        //   "placeCockpitItems hhh iii:",
-        //   this.props.currentTime,
-        //   this.state,
-        //   this.redrawForPositioning,
-        //   this.tickWidth
-        // );
-        //   $(".cp-scale-stamp-range").css({
-        //     left: this.leftPosForCurrentTime
-        //   });
-        //   $(".cp-scale-stamp-point").css({
-        //     left: this.leftPosForCurrentTime
-        //   });
-        //   this.redrawForPositioning = false;
-        // } else {
-        //   $(".cp-scale-stamp-range").css({
-        //     left: ""
-        //   });
-        //   $(".cp-scale-stamp-point").css({
-        //     left: ""
-        //   });
-      }
-
       if (this.props.firstAnalyticTime) {
         const firstAnalyticTime = $(
           ".t" + this.props.firstAnalyticTime
@@ -154,33 +132,12 @@ class WeatherMapCockpit extends React.Component {
     }
   }
 
-  get tickWidth() {
-    if (this.props.currentTime) {
-      const posFirstTick = $(".cp-scale-hour-1")
-        .first()
-        .offset();
-      const posSecondTick = $(".cp-scale-hour-2")
-        .first()
-        .offset();
-      if (posFirstTick === undefined || posSecondTick === undefined) return 0;
-      return posSecondTick.left - posFirstTick.left;
-    }
-  }
-
-  get leftPosForCurrentTime() {
-    const currentTick = $(".t" + this.props.currentTime);
-    if (currentTick.offset() === undefined) return null;
-    let left = Math.abs(
-      currentTick.offset()["left"] -
-        $(".cp-scale-days").offset()["left"] +
-        this.tickWidth
-    );
-    // console.log(
-    //   "leftPosForCurrentTime ggg",
-    //   new Date(this.props.currentTime),
-    //   left
-    // );
-    return left;
+  onTimelineUpdate({ tickWidth, getClosestTick, getLeftForTime }) {
+    console.log("onTimelineUpdate hhh", tickWidth);
+    this.tickWidth = tickWidth;
+    this.getClosestTick = getClosestTick;
+    this.getLeftForTime = getLeftForTime;
+    this.placeCockpitItems();
   }
 
   handleEvent(type, value) {
@@ -287,43 +244,9 @@ class WeatherMapCockpit extends React.Component {
   setClosestTick(e, ui) {
     //console.log("setClosestTick cccc", ui);
 
-    let closestDist = 9999;
-    let closestTime;
-    let nrOnlyTimespan = this.props.timeSpan.replace(/\D/g, "");
-
-    const arrowLeft = ui.x; // + $(".cp-scale-stamp-point-arrow").outerWidth() / 2;
-    $("#whereami").css({ left: ui.x });
-    this.props.timeArray.forEach(eTime => {
-      //console.log("setClosestTick eTime", eTime);
-      const curItemLeft = Math.abs(
-        $(".t" + eTime).offset()["left"] - $(".cp-scale-days").offset()["left"]
-      );
-      // console.log(
-      //   "setClosestTick ccc eee ITEM",
-      //   eTime,
-      //   arrowLeft,
-      //   curItemLeft,
-      //   new Date(eTime),
-      //   Math.abs(arrowLeft - curItemLeft)
-      // );
-      if (closestDist > Math.abs(arrowLeft - curItemLeft)) {
-        closestTime = eTime;
-        closestDist = Math.abs(arrowLeft - curItemLeft);
-        // console.log(
-        //   "setClosestTick eee SET",
-        //   closestDist,
-        //   new Date(eTime),
-        //   arrowLeft,
-        //   curItemLeft
-        // );
-      }
-    });
+    let closestTime = this.getClosestTick(ui.x);
     try {
-      // console.log(
-      //   "setClosestTick ccc  eee closestTime:",
-      //   new Date(closestTime),
-      //   closestDist
-      // );
+      console.log("setClosestTick hhh closestTime:", new Date(closestTime));
 
       if (closestTime) this.props.changeCurrentTime(closestTime);
     } catch (e) {
@@ -339,98 +262,26 @@ class WeatherMapCockpit extends React.Component {
     let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
     let parts = [];
 
-    // console.log(
-    //   "getTimeline fff",
-    //   self.props.timeArray.indexOf(self.props.startDate),
-    //   self.props.startDate,
-    //   self.props.agl
-    // );
-    let timeArray = this.props.timeArray.slice();
-
-    if (nrOnlyTimespan > 1) {
-      let extraTime = new Date(timeArray[timeArray.length - 1]);
-      let maxTime = new Date(extraTime);
-      //console.log("timeArray#1", extraTime, maxTime, nrOnlyTimespan);
-      maxTime.setHours(maxTime.getHours() + nrOnlyTimespan);
-
-      //console.log("timeArray#2", extraTime, maxTime, nrOnlyTimespan);
-      while (extraTime < maxTime) {
-        extraTime.setHours(extraTime.getHours() + 24);
-        timeArray.push(extraTime.getTime());
-      }
-    }
-    //console.log("timeArray#3", timeArray, this.props.timeArray);
-    timeArray.forEach(aTime => {
-      let weekday = dateToWeekdayString(aTime);
-
-      if (lastTime !== weekday) {
-        let hours = [];
-        for (let i = 1; i < 26; i++) {
-          let currentHour = new Date(aTime).setHours(i);
-          let isSelectable = self.props.timeArray.includes(currentHour);
-          let spanClass = ["cp-scale-hour-" + i, "t" + currentHour];
-          if (aTime < self.props.startDate) spanClass.push("cp-analyse-item");
-          hours.push(
-            <span
-              key={currentHour}
-              className={spanClass.join(" ")}
-              data-timestamp={currentHour}
-              data-selectable={isSelectable}
-              data-time={dateToDateTimeString(currentHour)}
-            ></span>
-          );
-        }
-
-        days.push(
-          <div className="cp-scale-day" key={aTime}>
-            <span className="cp-scale-day-name">
-              {weekday.substring(0, 2)}
-              <span>{weekday.substring(2, 20)}</span>{" "}
-              {dateToShortDayString(aTime)}
-            </span>
-            <div key="cp-scale-hours" className="cp-scale-hours">
-              {hours}
-            </div>
-          </div>
-        );
-
-        lastTime = weekday;
-      }
-    });
-
     if (this.props.currentTime) {
       const timeStart = dateToTimeString(this.props.currentTime);
       let timeEnd = new Date(this.props.currentTime);
       timeEnd.setHours(timeEnd.getHours() + parseInt(nrOnlyTimespan, 10));
-      // console.log(
-      //   "xxxxx",
-      //   this.props.currentTime,
-      //   timeEnd,
-      //   timeEnd.getHours(),
-      //   parseInt(nrOnlyTimespan, 10)
-      // );
-
-      // function dragging(e, ui) {
-      //   console.log("dragging", e, ui);
-      // }
-
-      // function onStart() {
-      //   console.log("onStart");
-      //   $(".cp-scale-stamp-point").addClass("js-dragging");
-      //   $(".cp-scale-stamp-range").addClass("js-dragging");
-      // }
 
       // test if scale has been drawn already
       if (this.redrawForPositioning === "update")
         this.redrawForPositioning = "redraw";
       // console.log(
       //   "getTimeline tick hhh",
-      //   this.redrawForPositioning,
-      //   this.state.redraw
+      //   this.getLeftForTime ? this.getLeftForTime(this.props.currentTime) : 0
       // );
       const dragSettings = {
         axis: "x",
-        defaultPosition: { x: this.leftPosForCurrentTime || 0, y: 0 },
+        defaultPosition: {
+          x: this.getLeftForTime
+            ? this.getLeftForTime(this.props.currentTime)
+            : 0,
+          y: 0
+        },
         key: this.state.redraw + this.props.currentTime,
         //grid: [this.tickWidth, 0],
         bounds: "parent",
@@ -528,9 +379,11 @@ class WeatherMapCockpit extends React.Component {
           ></a>
         </div>
 
-        <div key="days" className="cp-scale-days">
-          {days}
-        </div>
+        <Timeline
+          timeArray={this.props.timeArray}
+          timeSpan={this.props.timeSpan}
+          updateCB={this.onTimelineUpdate.bind(this)}
+        />
 
         <div key="analyse-forcast" className="cp-scale-analyse-forecast">
           <span
