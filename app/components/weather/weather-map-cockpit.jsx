@@ -150,6 +150,7 @@ class WeatherMapCockpit extends React.Component {
   getTimeSpanOptions() {
     let self = this;
     let buttons = [];
+    let allButtons;
     //console.log("getTimeSpanOptions 777", this.props);
     if (
       this.props.storeConfig &&
@@ -157,6 +158,8 @@ class WeatherMapCockpit extends React.Component {
     ) {
       let domainConfig = this.props.storeConfig.domains[this.props.domainId]
         .item;
+
+      let firstNrOnlyTimespan = domainConfig.timeSpans[0].replace(/\D/g, "");
 
       domainConfig.timeSpans.forEach(aItem => {
         let nrOnlyTimespan = aItem.replace(/\D/g, "");
@@ -176,6 +179,21 @@ class WeatherMapCockpit extends React.Component {
           </a>
         );
       });
+
+      if (firstNrOnlyTimespan != "1")
+        allButtons = (
+          <div key="cp-range-buttons" className="cp-range-buttons 0js-inactive">
+            {buttons}
+          </div>
+        );
+      else
+        allButtons = (
+          <span className="cp-range-hourly js-active">
+            {this.props.intl.formatMessage({
+              id: "weathermap:domain:timespan:description:1"
+            })}
+          </span>
+        );
     }
 
     return (
@@ -200,9 +218,7 @@ class WeatherMapCockpit extends React.Component {
         </div>
 
         <div key="cp-range" className="cp-range">
-          <div key="cp-range-buttons" className="cp-range-buttons 0js-inactive">
-            {buttons}
-          </div>
+          {allButtons}
         </div>
       </div>
     );

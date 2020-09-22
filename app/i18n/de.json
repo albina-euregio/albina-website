@@ -180,7 +180,7 @@
   "weathermap:domain:title:new-snow": "Neuschnee",
   "weathermap:domain:title:wind": "Wind",
   "weathermap:domain:title:gust": "Windböe",
-  "weathermap:domain:timespan:description:1": "Zeitraum: stündlich",
+  "weathermap:domain:timespan:description:1": "stündlich",
   "weathermap:domain:timespan:description:6": "Zeitraum: 6 Stunden",
   "weathermap:domain:timespan:description:12": "Zeitraum: 12 Stunden",
   "weathermap:domain:timespan:description:24": "Zeitraum: 24 Stunden",
