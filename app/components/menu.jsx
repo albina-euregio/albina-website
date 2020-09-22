@@ -1,11 +1,16 @@
 import React from "react";
 import { withRouter, matchPath } from "react-router";
+import BlogStore from "../stores/blogStore";
 import { Link } from "react-router-dom";
 
 @withRouter
 class Menu extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      specialTreatments: {}
+    };
   }
 
   testActive(e, recursive = true) {
@@ -24,6 +29,29 @@ class Menu extends React.Component {
       return doTest(this.props.location.pathname, e);
     }
     return false;
+  }
+
+  getSpecialTreatment(url) {
+    const self = this;
+    if (url === "/blog") {
+      if (this.state.specialTreatments.blog)
+        return this.state.specialTreatments.blog;
+      window.setTimeout(() => {
+        if (!window["blogStore"]) {
+          const getHistory = () => self.props.history;
+          window["blogStore"] = new BlogStore(getHistory);
+        }
+        const newEntries = window["blogStore"].numberNewPosts;
+        let treatment = "";
+        if (newEntries > 0)
+          treatment = <small className="label blog-new">{newEntries}</small>;
+        self.setState({
+          specialTreatments: Object.assign({}, this.state.specialTreatments, {
+            blog: treatment
+          })
+        });
+      }, 100);
+    }
   }
 
   renderMenuItem(e, activeItem) {
@@ -67,6 +95,7 @@ class Menu extends React.Component {
         ) : (
           <Link to={url} className={classes.join(" ")}>
             {title}
+            {this.getSpecialTreatment(url)}
           </Link>
         )}
         {e.children && e.children.length > 0 && (

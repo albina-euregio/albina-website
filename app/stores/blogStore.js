@@ -16,7 +16,8 @@ class BlogPostPreviewItem {
     lang,
     regions = [],
     image = null,
-    tags = []
+    tags = [],
+    newUntil
   ) {
     this.blogName = blogName;
     this.postId = postId;
@@ -28,6 +29,7 @@ class BlogPostPreviewItem {
     this.regions = regions;
     this.image = image;
     this.tags = tags;
+    this.newUntil = newUntil;
   }
 }
 
@@ -183,6 +185,16 @@ export default class BlogStore {
     }
   }
 
+  getNewUntil(labels, published) {
+    let newUntil = new Date(published);
+    //newUntil.setMonth(newUntil.getMonth() + 12);
+    if (labels.includes("valid_72h"))
+      return newUntil.setHours(newUntil.getHours() + 72);
+    if (labels.includes("valid_48h"))
+      return newUntil.setHours(newUntil.getHours() + 48);
+    return newUntil.setHours(newUntil.getHours() + 24);
+  }
+
   initialParams() {
     const searchLang = this.validateLanguage(Base.searchGet("searchLang"));
 
@@ -281,7 +293,8 @@ export default class BlogStore {
                 config.lang,
                 config.regions,
                 previewImage,
-                parseTags(item.labels)
+                parseTags(item.labels),
+                this.getNewUntil(item.labels || [], parseDate(item.published))
               );
             });
           }
@@ -492,6 +505,19 @@ export default class BlogStore {
           .map(l => l.length)
           .reduce((acc, v) => acc + v, 0)
       : 0;
+  }
+
+  @computed get numberNewPosts() {
+    const currentDate = new Date().getTime();
+    let nrOfNewPosts = 0;
+    if (this.posts) {
+      for (let prop in this.posts) {
+        this.posts[prop].forEach(aPost => {
+          if (currentDate < aPost.newUntil) nrOfNewPosts++;
+        });
+      }
+    }
+    return nrOfNewPosts;
   }
 
   @computed get postsList() {
