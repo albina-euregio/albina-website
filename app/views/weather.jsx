@@ -132,7 +132,7 @@ class Weather extends React.Component {
     const wmStore = config.newWM;
     const wmPlayer = config.player;
 
-    console.log("Weather->render xxxx1", wmStore.domainConfig);
+    //console.log("Weather->render xxxx1", wmStore.domainConfig);
 
     return (
       <>

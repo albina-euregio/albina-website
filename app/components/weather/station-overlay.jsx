@@ -52,12 +52,12 @@ export default class StationOverlay extends React.Component {
 
   renderMarker(data, pos = null) {
     //if(data.name !== "Tannheim") return <></>;
-    console.log(
-      "station-overlay->renderMarker aaa",
-      this.props.itemId,
-      data,
-      data[this.props.itemId]
-    );
+    // console.log(
+    //   "station-overlay->renderMarker aaa",
+    //   this.props.itemId,
+    //   data,
+    //   data[this.props.itemId]
+    // );
     if (data.date === undefined || data[this.props.itemId] === undefined)
       return;
 
