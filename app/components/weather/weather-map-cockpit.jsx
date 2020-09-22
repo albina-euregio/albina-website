@@ -1,11 +1,10 @@
 import React from "react";
-import { withRouter } from "react-router";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
-import Draggable from "react-draggable";
 import { reaction } from "mobx";
 import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
+import Dragger from "./dragger.jsx";
 
 import {
   dateToDateTimeString,
@@ -37,61 +36,29 @@ const DOMAIN_LEGEND_CLASSES = {
 class WeatherMapCockpit extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      redraw: null
-    };
-    this.redrawForPositioning = "update";
     this.getClosestTick;
     this.getLeftForTime;
     this.tickWidth = 0;
+    this.redraw = this.redraw.bind(this);
+    this.state = {
+      lastRedraw: new Date().getTime()
+    };
   }
 
   componentDidMount() {
-    reaction(
-      () => this.props.domainId,
-      () => {
-        //console.log("Domain change hhh");
-        window.setTimeout(tooltip_init, 200);
-        this.redrawForPositioning = "update";
-      }
-    );
-    reaction(
-      () => this.props.timeSpan,
-      () => {
-        //console.log("timeSpan change hhh");
-        window.setTimeout(tooltip_init, 200);
-        this.redrawForPositioning = "update";
-      }
-    );
+    window.addEventListener("resize", this.redraw);
+  }
 
-    // console.log(
-    //   "componentDidMount ggg:",
-    //   this.props.currentTime,
-    //   this.props.firstAnalyticTime
-    // );
-    window.addEventListener(
-      "resize",
-      this.setState({ redraw: new Date().getTime() })
-    );
-    //console.log("componentDidMount hhh", this.redrawForPositioning);
-    if (this.redrawForPositioning === "redraw") {
-      this.setState({ redraw: new Date().getTime() });
-      this.redrawForPositioning = "";
-    } else if (this.redrawForPositioning === "") this.placeCockpitItems();
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.redraw);
+  }
+
+  redraw() {
+    this.setState({ lastRedraw: new Date().getTime() });
   }
 
   componentDidUpdate() {
-    // console.log(
-    //   "componentDidUpdate ggg:",
-    //   this.props.currentTime,
-    //   this.props.firstAnalyticTime
-    // );
-    tooltip_init();
-    //console.log("componentDidUpdate hhh", this.redrawForPositioning);
-    if (this.redrawForPositioning === "redraw") {
-      this.setState({ redraw: new Date().getTime() });
-      this.redrawForPositioning = "";
-    } else if (this.redrawForPositioning === "") this.placeCockpitItems();
+    window.setTimeout(tooltip_init, 200);
   }
 
   placeCockpitItems() {
@@ -241,10 +208,10 @@ class WeatherMapCockpit extends React.Component {
     );
   }
 
-  setClosestTick(e, ui) {
-    //console.log("setClosestTick cccc", ui);
+  setClosestTick(x, y) {
+    console.log("setClosestTick hhh", x, y);
 
-    let closestTime = this.getClosestTick(ui.x);
+    let closestTime = this.getClosestTick(x);
     try {
       console.log("setClosestTick hhh closestTime:", new Date(closestTime));
 
@@ -267,30 +234,15 @@ class WeatherMapCockpit extends React.Component {
       let timeEnd = new Date(this.props.currentTime);
       timeEnd.setHours(timeEnd.getHours() + parseInt(nrOnlyTimespan, 10));
 
-      // test if scale has been drawn already
-      if (this.redrawForPositioning === "update")
-        this.redrawForPositioning = "redraw";
-      // console.log(
-      //   "getTimeline tick hhh",
-      //   this.getLeftForTime ? this.getLeftForTime(this.props.currentTime) : 0
-      // );
       const dragSettings = {
-        axis: "x",
-        defaultPosition: {
-          x: this.getLeftForTime
-            ? this.getLeftForTime(this.props.currentTime)
-            : 0,
-          y: 0
-        },
-        key: this.state.redraw + this.props.currentTime,
-        //grid: [this.tickWidth, 0],
-        bounds: "parent",
-        defaultClassName: "",
-        defaultClassNameDragging: "js-dragging",
-        //onStart: onStart,
-        onStop: self.setClosestTick.bind(self)
-        //onDrag: dragging
+        left: this.getLeftForTime
+          ? this.getLeftForTime(this.props.currentTime)
+          : 0,
+        onDragEnd: self.setClosestTick.bind(self),
+        parent: ".cp-scale-stamp",
+        classes: []
       };
+
       parts.push(
         <div key="cp-scale-stamp" className="cp-scale-stamp">
           <div
@@ -305,8 +257,8 @@ class WeatherMapCockpit extends React.Component {
             }}
           ></div>
 
-          {nrOnlyTimespan !== "1" && (
-            <Draggable {...dragSettings}>
+          {nrOnlyTimespan !== 1 && (
+            <Dragger {...dragSettings}>
               <div
                 key="scale-stamp-range"
                 style={{ left: 0, width: this.tickWidth * nrOnlyTimespan }}
@@ -329,10 +281,10 @@ class WeatherMapCockpit extends React.Component {
                   {dateToTimeString(timeEnd)}
                 </span>
               </div>
-            </Draggable>
+            </Dragger>
           )}
-          {nrOnlyTimespan === "1" && (
-            <Draggable {...dragSettings}>
+          {nrOnlyTimespan === 1 && (
+            <Dragger {...dragSettings}>
               <div
                 style={{ left: 0 }}
                 key="scale-stamp-point"
@@ -349,7 +301,7 @@ class WeatherMapCockpit extends React.Component {
                   {timeStart}
                 </span>
               </div>
-            </Draggable>
+            </Dragger>
           )}
         </div>
       );
@@ -498,8 +450,13 @@ class WeatherMapCockpit extends React.Component {
 
   render() {
     //console.log("weather-map-cockpit->render");
+    let classes = [
+      "map-cockpit",
+      "weather-map-cockpit",
+      "lastRedraw-" + this.state.lastRedraw
+    ];
     return (
-      <div key="map-cockpit" className="map-cockpit weather-map-cockpit">
+      <div key="map-cockpit" className={classes.join(" ")}>
         <div key="cp-container-1" className="cp-container-1">
           <div key="cp-layer-selector" className="cp-layer-selector">
             {this.getDomainButtons()}

@@ -9,11 +9,19 @@ import {
 class Timeline extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      lastRedraw: new Date().getTime()
+    };
     this.getClosestTick = this.getClosestTick.bind(this);
     this.getLeftForTime = this.getLeftForTime.bind(this);
+    //this.redraw = this.redraw.bind(this);
   }
 
   componentDidMount() {
+    // window.addEventListener(
+    //     "resize",
+    //     this.redraw
+    // );
     this.onMountorUpdate();
   }
 
@@ -21,7 +29,16 @@ class Timeline extends React.Component {
     this.onMountorUpdate();
   }
 
+  // componentWillUnmount() {
+  //   window.removeEventListener('resize', this.redraw);
+  // }
+
+  // redraw() {
+  //   this.setState({ lastRedraw: new Date().getTime() })
+  // }
+
   onMountorUpdate() {
+    console.log("onMountorUpdate hhh", this.state);
     const thickWidth = this.tickWidth();
     if (thickWidth > 0)
       this.props.updateCB({
@@ -167,8 +184,9 @@ class Timeline extends React.Component {
   }
 
   render() {
+    let classes = ["cp-scale-days", "redraw-" + this.state.lastRedraw];
     return (
-      <div ref="daysContainer" key="days" className="cp-scale-days">
+      <div ref="daysContainer" key="days" className={classes.join(" ")}>
         {this.getTimeline()}
       </div>
     );
