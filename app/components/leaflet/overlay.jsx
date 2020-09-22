@@ -8,6 +8,7 @@ export default class Overlay extends React.Component {
     super(props);
     this.overlayCanvases = {};
     this.state = { dataMarker: null };
+    this.showDataMarker = this.showDataMarker.bind(this);
   }
 
   getClickedPixel(clickEvent) {
@@ -61,6 +62,78 @@ export default class Overlay extends React.Component {
     });
   }
 
+  showDataMarker(e) {
+    let self = this;
+    if (self.props.dataOverlaysEnabled && e.target._map) {
+      let map = e.target._map;
+      //console.log("YYYYY GETPIXEL", e.containerPoint);
+      function getPixelData() {
+        let pixel = self.getClickedPixel(e);
+
+        let values = {};
+        self.props.dataOverlays.forEach(anOverlay => {
+          if (self.overlayCanvases[anOverlay.type]["loaded"]) {
+            let p = self.overlayCanvases[anOverlay.type]["ctx"].getImageData(
+              pixel.x,
+              pixel.y,
+              1,
+              1
+            ).data;
+            values[anOverlay.type] = self.props.rgbToValue(anOverlay.type, {
+              r: p[0],
+              g: p[1],
+              b: p[2]
+            });
+          }
+        });
+        //console.log("overclick jjj", values);
+
+        self.setDataMarker({
+          coordinates: e.latlng,
+          value: values.temperature || values.windSpeed || values.snowHeight,
+          direction: values.windDirection
+        });
+      }
+
+      let allLoaded = true;
+      self.props.dataOverlays.forEach(anOverlay => {
+        if (!self.overlayCanvases[anOverlay.type]) {
+          self.overlayCanvases[anOverlay.type] = {
+            canvas: document.createElement("canvas"),
+            loaded: false
+          };
+          let img = new Image();
+          img.crossOrigin = "anonymous";
+          self.overlayCanvases[anOverlay.type]["ctx"] = self.overlayCanvases[
+            anOverlay.type
+          ]["canvas"].getContext("2d");
+          img.onload = function() {
+            // data files have 1/2 the size
+            self.overlayCanvases[anOverlay.type]["canvas"].width =
+              this.naturalWidth * 2;
+            self.overlayCanvases[anOverlay.type]["canvas"].height =
+              this.naturalHeight * 2;
+
+            self.overlayCanvases[anOverlay.type]["ctx"].drawImage(this, 0, 0);
+            self.overlayCanvases[anOverlay.type]["ctx"].drawImage(
+              this,
+              0,
+              0,
+              this.width * 2,
+              this.height * 2
+            );
+            self.overlayCanvases[anOverlay.type]["loaded"] = true;
+            getPixelData(e);
+          };
+          img.src = this.props.overlay + ".png";
+        } else if (!self.overlayCanvases[anOverlay.type]["loaded"])
+          allLoaded = false;
+      });
+
+      if (allLoaded) getPixelData(e);
+    }
+  }
+
   render() {
     let overlays = [];
     let self = this;
@@ -75,89 +148,15 @@ export default class Overlay extends React.Component {
           <ImageOverlay
             key="background-map"
             className="leaflet-image-layer"
+            style={
+              this.props.dataOverlaysEnabled ? { cursor: "crosshair" } : {}
+            }
             url={this.props.overlay + ".gif"}
             opacity={Base.checkBlendingSupport() ? 1 : 0.5}
             bounds={config.weathermaps.settings.bbox}
             interactive={true}
-            onClick={e => {
-              if (self.props.dataOverlaysEnabled && e.target._map) {
-                let map = e.target._map;
-                //console.log("YYYYY GETPIXEL", e.containerPoint);
-                function getPixelData() {
-                  let pixel = self.getClickedPixel(e);
-
-                  let values = {};
-                  self.props.dataOverlays.forEach(anOverlay => {
-                    if (self.overlayCanvases[anOverlay.type]["loaded"]) {
-                      let p = self.overlayCanvases[anOverlay.type][
-                        "ctx"
-                      ].getImageData(pixel.x, pixel.y, 1, 1).data;
-                      values[anOverlay.type] = self.props.rgbToValue(
-                        anOverlay.type,
-                        {
-                          r: p[0],
-                          g: p[1],
-                          b: p[2]
-                        }
-                      );
-                    }
-                  });
-                  //console.log("overclick jjj", values);
-
-                  self.setDataMarker({
-                    coordinates: e.latlng,
-                    value:
-                      values.temperature ||
-                      values.windSpeed ||
-                      values.snowHeight,
-                    direction: values.windDirection
-                  });
-                }
-
-                let allLoaded = true;
-                self.props.dataOverlays.forEach(anOverlay => {
-                  if (!self.overlayCanvases[anOverlay.type]) {
-                    self.overlayCanvases[anOverlay.type] = {
-                      canvas: document.createElement("canvas"),
-                      loaded: false
-                    };
-                    let img = new Image();
-                    img.crossOrigin = "anonymous";
-                    self.overlayCanvases[anOverlay.type][
-                      "ctx"
-                    ] = self.overlayCanvases[anOverlay.type][
-                      "canvas"
-                    ].getContext("2d");
-                    img.onload = function() {
-                      // data files have 1/2 the size
-                      self.overlayCanvases[anOverlay.type]["canvas"].width =
-                        this.naturalWidth * 2;
-                      self.overlayCanvases[anOverlay.type]["canvas"].height =
-                        this.naturalHeight * 2;
-
-                      self.overlayCanvases[anOverlay.type]["ctx"].drawImage(
-                        this,
-                        0,
-                        0
-                      );
-                      self.overlayCanvases[anOverlay.type]["ctx"].drawImage(
-                        this,
-                        0,
-                        0,
-                        this.width * 2,
-                        this.height * 2
-                      );
-                      self.overlayCanvases[anOverlay.type]["loaded"] = true;
-                      getPixelData(e);
-                    };
-                    img.src = this.props.overlay + ".png";
-                  } else if (!self.overlayCanvases[anOverlay.type]["loaded"])
-                    allLoaded = false;
-                });
-
-                if (allLoaded) getPixelData(e);
-              }
-            }}
+            onClick={self.showDataMarker}
+            //onMouseover={self.showDataMarker}
             onLoad={() => {
               this.props.playerCB("background", "load");
             }}

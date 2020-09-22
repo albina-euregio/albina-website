@@ -320,7 +320,7 @@ export default class WeatherMapStore_new {
         //console.log("valueForPixel", pixelRGB);
         if (pixelRGB.r <= 0) return "<59,5";
         if (pixelRGB.r >= 255) return null;
-        return -59.5 + (pixelRGB.r - 1) * 0.5;
+        return Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);
         break;
       case "windDirection":
         if (pixelRGB.r <= 0 || pixelRGB.r > 180) return null;
