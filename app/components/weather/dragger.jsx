@@ -23,6 +23,7 @@ class Dragger extends React.Component {
   }
 
   onMouseDown(event) {
+    event.stopPropagation();
     const self = this;
     if (this.props.onDragStart) this.props.onDragStart(event);
 
@@ -54,11 +55,13 @@ class Dragger extends React.Component {
     document.addEventListener("mousemove", onMouseMove);
 
     // drop the draggable, remove unneeded handlers
-    document.onmouseup = function() {
+    document.onmouseup = function(event) {
+      console.log("onmouseup aaaa", event);
+      event.stopPropagation();
       document.removeEventListener("mousemove", onMouseMove);
       if (self.props.onDragEnd)
         self.props.onDragEnd(self.currentX, self.currentY);
-      self.draggable.onmouseup = null;
+      document.onmouseup = null;
     };
   }
 
