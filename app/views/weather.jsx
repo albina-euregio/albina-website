@@ -56,6 +56,12 @@ class Weather extends React.Component {
       window.mapStore = new MapStore();
     }
     this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
+
+    $("#page-footer").css({ display: "none" });
+  }
+
+  componentWillUnmount() {
+    $("#page-footer").css({ display: "" });
   }
 
   onTick() {
