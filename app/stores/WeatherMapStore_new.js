@@ -485,7 +485,7 @@ export default class WeatherMapStore_new {
   */
   @action changeCurrentTime(timeIndex) {
     // console.log(
-    //   "weatherMapStore_new: changeCurrentTime bbb",
+    //   "weatherMapStore_new: changeCurrentTime hhhh",
     //   this._timeIndex.get(),
     //   timeIndex,
     //   this._availableTimes.indexOf(timeIndex),

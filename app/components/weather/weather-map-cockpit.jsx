@@ -62,12 +62,12 @@ class WeatherMapCockpit extends React.Component {
   }
 
   placeCockpitItems() {
-    console.log(
-      "placeCockpitItems: hhh",
-      this.props.currentTime,
-      this.props.firstAnalyticTime,
-      this.tickWidth
-    );
+    // console.log(
+    //   "placeCockpitItems: hhh",
+    //   this.props.currentTime,
+    //   this.props.firstAnalyticTime,
+    //   this.tickWidth
+    // );
     if (this.props.currentTime) {
       const timespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
       const posContainer = $(".cp-scale-days").offset();
@@ -100,7 +100,7 @@ class WeatherMapCockpit extends React.Component {
   }
 
   onTimelineUpdate({ tickWidth, getClosestTick, getLeftForTime }) {
-    console.log("onTimelineUpdate hhh", tickWidth);
+    //console.log("onTimelineUpdate hhh", tickWidth);
     this.tickWidth = tickWidth;
     this.getClosestTick = getClosestTick;
     this.getLeftForTime = getLeftForTime;
@@ -209,11 +209,16 @@ class WeatherMapCockpit extends React.Component {
   }
 
   setClosestTick(x, y) {
-    console.log("setClosestTick hhh", x, y);
+    //console.log("setClosestTick hhhh", x, y);
 
     let closestTime = this.getClosestTick(x);
+
+    // place back to origin
+    if (closestTime === this.props.currentTime)
+      this.rePostionsStamp(this.getLeftForTime(this.props.currentTime));
+
     try {
-      console.log("setClosestTick hhh closestTime:", new Date(closestTime));
+      //console.log("setClosestTick hhhh closestTime:", new Date(closestTime));
 
       if (closestTime) this.props.changeCurrentTime(closestTime);
     } catch (e) {
@@ -240,6 +245,9 @@ class WeatherMapCockpit extends React.Component {
           : 0,
         onDragEnd: self.setClosestTick.bind(self),
         parent: ".cp-scale-stamp",
+        rePosition: f => {
+          this.rePostionsStamp = f;
+        },
         classes: []
       };
 
@@ -449,7 +457,7 @@ class WeatherMapCockpit extends React.Component {
   }
 
   render() {
-    //console.log("weather-map-cockpit->render");
+    //console.log("weather-map-cockpit->render hhhh", this.props.currentTime);
     let classes = [
       "map-cockpit",
       "weather-map-cockpit",

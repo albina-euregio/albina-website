@@ -38,7 +38,7 @@ class Timeline extends React.Component {
   // }
 
   onMountorUpdate() {
-    console.log("onMountorUpdate hhh", this.state);
+    //console.log("onMountorUpdate hhh", this.state);
     const thickWidth = this.tickWidth();
     if (thickWidth > 0)
       this.props.updateCB({

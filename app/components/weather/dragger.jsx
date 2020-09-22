@@ -5,6 +5,7 @@ class Dragger extends React.Component {
     super(props);
     this.currentX = 0;
     this.currentY = 0;
+    this.forcePositionTo = this.forcePositionTo.bind(this);
   }
 
   componentDidUpdate() {
@@ -13,6 +14,7 @@ class Dragger extends React.Component {
 
   componentDidMount() {
     this.updateOrMount();
+    if (this.props.rePosition) this.props.rePosition(this.forcePositionTo);
   }
 
   updateOrMount() {
@@ -58,6 +60,14 @@ class Dragger extends React.Component {
         self.props.onDragEnd(self.currentX, self.currentY);
       self.draggable.onmouseup = null;
     };
+  }
+
+  forcePositionTo(x, y) {
+    //console.log("dragger->forcePositionTo gggg", x, y, this.draggable);
+    this.currentX = x;
+    this.currentY = y;
+    this.draggable.style.left = this.currentX + "px";
+    //this.draggable.style.top = this.currentY + "px";
   }
 
   render() {
