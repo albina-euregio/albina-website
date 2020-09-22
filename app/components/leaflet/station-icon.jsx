@@ -62,7 +62,7 @@ export default class StationIcon extends React.Component {
         width="9"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d={iconSVGS[name]} fill-rule="evenodd" />
+        <path d={iconSVGS[name]} fillRule="evenodd" />
       </svg>
     );
   }

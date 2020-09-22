@@ -25,7 +25,7 @@ class StationMarker extends MapLayer {
     );
 
     return L.divIcon({
-      iconAnchor: [25, 25],
+      iconAnchor: this.props.iconAnchor || [25, 25],
       html: ReactDOMServer.renderToStaticMarkup(icon)
     });
   }
@@ -56,7 +56,7 @@ class StationMarker extends MapLayer {
 
     marker.on("click", e => {
       L.DomEvent.stopPropagation(e);
-      this.props.onClick(e.target.options.data);
+      if (this.props.onClick) this.props.onClick(e.target.options.data);
     });
 
     return marker;

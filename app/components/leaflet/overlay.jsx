@@ -40,7 +40,7 @@ export default class Overlay extends React.Component {
   }
 
   setDataMarker(data) {
-    //console.log("setDataMarker jjj", data);
+    console.log("setDataMarker jjj", data);
     this.setState({
       dataMarker: (
         <StationMarker
@@ -48,6 +48,7 @@ export default class Overlay extends React.Component {
           dataType="forcast"
           key="dataMarker"
           itemId="dataMarker"
+          iconAnchor={[12, 12]}
           data={{}}
           stationId="dataMarker"
           stationName="dataMarker"
@@ -111,22 +112,6 @@ export default class Overlay extends React.Component {
                       values.snowHeight,
                     direction: values.windDirection
                   });
-
-                  // map.openPopup(
-                  //   "<div>" +
-                  //     "<h3>PIXEL DATA</h3>" +
-                  //     "<p> Image coords: " +
-                  //     pixel.x +
-                  //     "/" +
-                  //     pixel.y +
-                  //     // "<br/> r: " + p[0] + "g: " + p[1] + "b: " + p[2] +
-                  //     "<br/>" +
-                  //     valuesInfo +
-                  //     // "<br/>Data–Canvas h/w: " + self.overlayCanvases.width + "/" + self.overlayCanvases.height +
-                  //     "</p>" +
-                  //     "</div>",
-                  //   e.latlng
-                  // );
                 }
 
                 let allLoaded = true;
