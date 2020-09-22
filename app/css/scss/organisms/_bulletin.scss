@@ -308,6 +308,25 @@
         margin-right: 0;
       }
     }
+
+    &.list-bulletin-report-pictos-trigger {
+      @include font-bold;
+      a {
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      ~ li {
+        display: none;
+      }
+
+      .js-show-all-bulletin-report-pictos & {
+        display: none;
+        ~ li {
+          display: flex;
+        }
+      }
+    }
   }
 }
 
