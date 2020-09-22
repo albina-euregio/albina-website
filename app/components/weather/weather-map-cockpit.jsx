@@ -268,7 +268,7 @@ class WeatherMapCockpit extends React.Component {
 
       parts.push(
         <div key="cp-scale-stamp" className="cp-scale-stamp">
-          <div
+          {/* <div
             key="whereami"
             id="whereami"
             style={{
@@ -278,7 +278,7 @@ class WeatherMapCockpit extends React.Component {
               backgroundColor: "#f00",
               left: "20px"
             }}
-          ></div>
+          ></div> */}
 
           {nrOnlyTimespan !== 1 && (
             <Dragger {...dragSettings}>
