@@ -59,6 +59,7 @@ class WeatherMapCockpit extends React.Component {
 
   componentDidUpdate() {
     window.setTimeout(tooltip_init, 200);
+    $("body").removeClass("layer-selector-open");
   }
 
   placeCockpitItems() {
@@ -202,18 +203,16 @@ class WeatherMapCockpit extends React.Component {
           <a
             className="cp-layer-selector-item cp-layer-trigger tooltip"
             title="Layer wählen"
+            onClick={() => {
+              $("body").toggleClass("layer-selector-open");
+            }}
           >
             <span className="layer-select icon-snow">
               {this.props.intl.formatMessage({
                 id: "weathermap:domain:title:" + this.props.domainId
               })}
             </span>
-            <span
-              onClick={() => {
-                $("body").toggleClass("layer-selector-open");
-              }}
-              className="layer-trigger"
-            ></span>
+            <span className="layer-trigger"></span>
           </a>
         </div>
 
