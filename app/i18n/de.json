@@ -148,6 +148,8 @@
   "bulletin:report:danger-patterns": "Gefahrenmuster",
   "bulletin:report:author": "Autor",
   "bulletin:report:highlights:headline": "ACHTUNG:",
+  "bulletin:report:more-problems:title": "Für diese Region sind weitere Lawinenprobleme prognostiziert",
+  "bulletin:report:more-problems:caption": "Weitere Lawinenprobleme",
   "bulletin:treeline": "Waldgrenze",
   "bulletin:howto": "<strong>Klick auf die Karte</strong> für detaillierte Informationen zur Lawinengefahr in den verschiedenen Warnregionen.",
   "bulletin:feedback": "Umfrage",

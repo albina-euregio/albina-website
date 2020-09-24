@@ -24,8 +24,17 @@ class BulletinDaytimeReport extends React.Component {
     super(props);
   }
 
-  get problems() {
-    return this.props.bulletin?.avalancheProblems || [];
+  splitProblems() {
+    let problems = this.props.bulletin?.avalancheProblems || [];
+    problems = problems.concat(this.props.bulletin?.avalancheProblems);
+    let problemsSplit = { default: [], optional: [] };
+    problems.forEach((p, index) =>
+      problemsSplit[index > 1 ? "optional" : "default"].push(
+        <BulletinProblemItem key={index} problem={p} />
+      )
+    );
+
+    return problemsSplit;
   }
 
   render() {
@@ -38,6 +47,8 @@ class BulletinDaytimeReport extends React.Component {
     const tendencyDate = dateToLongDateString(
       getSuccDate(parseDate(this.props.date))
     );
+
+    const splitupProblems = this.splitProblems();
 
     return (
       <div>
@@ -86,9 +97,30 @@ class BulletinDaytimeReport extends React.Component {
                 <TendencyIcon tendency={tendency} />
               </div>
             </li>
-            {this.problems.map((p, index) => (
-              <BulletinProblemItem key={index} problem={p} />
-            ))}
+            {splitupProblems.default}
+            {splitupProblems.optional.length > 0 && (
+              <>
+                <li className="list-bulletin-report-pictos-trigger">
+                  <a
+                    onClick={() => {
+                      $("body").addClass("js-show-all-bulletin-report-pictos");
+                    }}
+                    className="tooltip"
+                    title={this.props.intl.formatMessage({
+                      id: "bulletin:report:more-problems:title"
+                    })}
+                  >
+                    <span className="icon-down-open-big"></span>
+                    <span>
+                      {this.props.intl.formatMessage({
+                        id: "bulletin:report:more-problems:caption"
+                      })}
+                    </span>
+                  </a>
+                </li>
+                {splitupProblems.optional}
+              </>
+            )}
           </ul>
         </div>
       </div>
