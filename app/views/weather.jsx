@@ -9,7 +9,7 @@ import HTMLHeader from "../components/organisms/html-header";
 
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
-import WeatherMapStoreNew from "../stores/WeatherMapStore_new";
+import WeatherMapStore from "../stores/weatherMapStore";
 
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 
@@ -29,19 +29,21 @@ class Weather extends React.Component {
       });
     }
 
-    if (!config.newWM) {
-      config.newWM = new WeatherMapStoreNew(this.props.match.params.domain);
+    if (!config.weathermapStore) {
+      config.weathermapStore = new WeatherMapStore(
+        this.props.match.params.domain
+      );
     } else {
       console.log(
         "rechange domain 777",
         this.props.match.params.domain,
         this.props.match.params
       );
-      config.newWM.changeDomain(this.props.match.params.domain);
+      config.weathermapStore.changeDomain(this.props.match.params.domain);
     }
     //config.player.start();
 
-    //console.log("Weather: Store:", config.newWM);
+    //console.log("Weather: Store:", config.weathermapStore);
     this.state = {
       title: "",
       headerText: "",
@@ -65,22 +67,24 @@ class Weather extends React.Component {
   }
 
   onTick() {
-    //console.log("onTick xxx1", config.newWM.nextTime);
-    config.newWM.changeCurrentTime(config.newWM.nextTime);
+    //console.log("onTick xxx1", config.weathermapStore.nextTime);
+    config.weathermapStore.changeCurrentTime(config.weathermapStore.nextTime);
   }
 
   componentDidUpdate() {
     if (
-      config.newWM.domainId &&
-      config.newWM.domainId !== this.props.match.params.domain
+      config.weathermapStore.domainId &&
+      config.weathermapStore.domainId !== this.props.match.params.domain
     ) {
-      this.props.history.replace("/weather/map/" + config.newWM.domainId);
+      this.props.history.replace(
+        "/weather/map/" + config.weathermapStore.domainId
+      );
     }
   }
 
   handleClickCockpitEvent(type, value) {
     console.log("handleClickCockpitEvent 777", type, value);
-    const wmStore = config.newWM;
+    const wmStore = config.weathermapStore;
     const player = config.player;
 
     switch (type) {
@@ -113,11 +117,11 @@ class Weather extends React.Component {
     if (!feature) return;
     // console.log(
     //   "handleMarkerSelected", feature
-    //   ,config.newWM.stations.features.find(point => point.id == feature.id)
+    //   ,config.weathermapStore.stations.features.find(point => point.id == feature.id)
     // );
     if (feature.id) {
       window["modalStateStore"].setData({
-        stationData: config.newWM.stations.features.find(
+        stationData: config.weathermapStore.stations.features.find(
           point => point.id == feature.id
         )
       });
@@ -128,14 +132,14 @@ class Weather extends React.Component {
         "weatherStationDiagrams",
         true
       );
-      config.newWM.selectedFeature = null;
+      config.weathermapStore.selectedFeature = null;
     } else {
-      config.newWM.selectedFeature = feature;
+      config.weathermapStore.selectedFeature = feature;
     }
   };
 
   render() {
-    const wmStore = config.newWM;
+    const wmStore = config.weathermapStore;
     const wmPlayer = config.player;
 
     //console.log("Weather->render xxxx1", wmStore.domainConfig);
