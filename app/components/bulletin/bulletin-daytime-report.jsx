@@ -26,7 +26,7 @@ class BulletinDaytimeReport extends React.Component {
 
   splitProblems() {
     let problems = this.props.bulletin?.avalancheProblems || [];
-    problems = problems.concat(this.props.bulletin?.avalancheProblems);
+    //problems = problems.concat(this.props.bulletin?.avalancheProblems);
     let problemsSplit = { default: [], optional: [] };
     problems.forEach((p, index) =>
       problemsSplit[index > 1 ? "optional" : "default"].push(
