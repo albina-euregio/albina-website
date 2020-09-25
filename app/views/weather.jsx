@@ -58,12 +58,16 @@ class Weather extends React.Component {
       window.mapStore = new MapStore();
     }
     this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
+  }
 
+  componentDidMount() {
     $("#page-footer").css({ display: "none" });
+    $("body").addClass("s-weathermap-2020");
   }
 
   componentWillUnmount() {
     $("#page-footer").css({ display: "" });
+    $("body").removeClass("s-weathermap-2020");
   }
 
   onTick() {
@@ -83,7 +87,7 @@ class Weather extends React.Component {
   }
 
   handleClickCockpitEvent(type, value) {
-    console.log("handleClickCockpitEvent 777", type, value);
+    //console.log("handleClickCockpitEvent 777", type, value);
     const wmStore = config.weathermapStore;
     const player = config.player;
 
