@@ -78,7 +78,7 @@ class WeatherMapCockpit extends React.Component {
       ).offset();
       //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
       $(".cp-scale-flipper-left").css({
-        left: posFirstAvailable.left - posContainer.left + this.tickWidth
+        left: this.tickWidth + posFirstAvailable.left - posContainer.left
       });
       $(".cp-scale-flipper-right").css({
         left:
@@ -88,15 +88,18 @@ class WeatherMapCockpit extends React.Component {
           timespan * this.tickWidth
       });
 
-      if (this.props.firstAnalyticTime) {
-        const firstAnalyticTime = $(
-          ".t" + this.props.firstAnalyticTime
-        ).offset();
+      if (this.props.lastAnalyticTime) {
+        const lastAnalyticTime = $(".t" + this.props.lastAnalyticTime).offset();
         $(".cp-scale-analyse-bar").css({
-          left: posFirstAvailable.left - posContainer.left,
-          width: firstAnalyticTime.left - posFirstAvailable.left
+          left: posFirstAvailable.left - posContainer.left + this.tickWidth,
+          width:
+            lastAnalyticTime.left - posFirstAvailable.left + this.tickWidth,
+          display: ""
         });
-      }
+      } else
+        $(".cp-scale-analyse-bar").css({
+          display: "none"
+        });
     }
   }
 

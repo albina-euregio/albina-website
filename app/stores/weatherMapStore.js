@@ -301,12 +301,14 @@ export default class WeatherMapStore_new {
       : null;
   }
   /*
-    returns first analytic time
+    returns last analytic time
   */
-  @computed get firstAnalyticTime() {
-    console.log("firstAnalyticTime", this._dateStart, this._availableTimes[0]);
-    if (this._dateStart && this._dateStart > this._availableTimes[0])
-      return this._availableTimes[0];
+  @computed get lastAnalyticTime() {
+    let foundTime = null;
+    this._availableTimes.forEach(aTime => {
+      if (aTime < this._agl) foundTime = aTime;
+    });
+    return foundTime;
   }
 
   /*
