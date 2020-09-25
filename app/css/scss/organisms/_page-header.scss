@@ -1,10 +1,10 @@
 /*	TRANSPORTER
-	Creating Your Web
-	www.transporter.at
+ Creating Your Web
+ www.transporter.at
 */
 
 /*------------------------------------*\
-    #PAGE-HEADER
+	#PAGE-HEADER
 \*------------------------------------*/
 
 .page-header {
@@ -53,7 +53,8 @@
       padding: 0 $page-header-padding-h-large;
     }
 
-    &:last-child {
+    //&:last-child {
+    &:nth-last-child(-n + 2) {
       border: none;
     }
   }
@@ -109,7 +110,6 @@
 
     .scrolling-down:not(.navigation-open) & {
       top: -$page-header-height;
-      opacity: 0;
       @include rollout(all, $transition-duration, $ease: ease-in);
     }
   }
@@ -128,7 +128,6 @@
 
     .scrolling-down & {
       top: -$page-header-height; //-$page-header-height-medium;
-      opacity: 0;
       @include rollout(all, $transition-duration, $ease: ease-in);
     }
   }
@@ -136,7 +135,6 @@
   @media #{$large-up} {
     .page-header-logo-secondary {
       margin-right: 0;
-      opacity: 1;
     }
   }
 }
@@ -424,5 +422,73 @@ $page-header-logo-width: 3.25em;
     width: $logo-header-footer-secondary-width / 3.5;
     background-size: ($logo-header-footer-secondary-width / 3.5)
       ($logo-header-footer-secondary-height / 3.5);
+  }
+}
+
+.page-header-weather-map-trigger {
+  display: none !important;
+}
+.page-header-trigger {
+  height: calc(#{$page-header-height} * 0.75 + #{$bar-width});
+  width: $page-header-height;
+  padding: $bar-width 0 0 0 !important;
+  font-size: 1em;
+  color: $anchor-font-color;
+  background-color: transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    position: relative;
+    width: 2em !important;
+    font-size: 0.9em;
+    &:before {
+      margin: 0;
+      opacity: 1;
+    }
+    span {
+      position: absolute;
+      top: 0;
+      font-size: 1em;
+      &:before {
+        opacity: 0;
+      }
+    }
+  }
+
+  .scrolling-down & {
+    span {
+      &:before {
+        opacity: 0;
+      }
+      span {
+        &:before {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &:hover,
+  &:active {
+    color: $anchor-font-color-hover;
+    background: none;
+    border-color: transparent;
+    box-shadow: none;
+  }
+}
+.s-weathermap-2020 {
+  .page-header-weather-map-trigger {
+    display: block !important;
+    position: absolute;
+    top: $page-header-height;
+    left: 50vw;
+    transform: translateX(-50%);
+    height: calc(#{$page-header-height} * 0.75 + #{$bar-width});
+    width: $page-header-height;
+    padding: 0;
+    background-color: rgba($white, 0.95);
   }
 }
