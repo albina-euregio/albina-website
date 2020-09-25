@@ -81,11 +81,7 @@ class WeatherMapCockpit extends React.Component {
         left: this.tickWidth + posFirstAvailable.left - posContainer.left
       });
       $(".cp-scale-flipper-right").css({
-        left:
-          this.tickWidth +
-          posLast.left -
-          posContainer.left +
-          timespan * this.tickWidth
+        left: posLast.left - posContainer.left + timespan * this.tickWidth
       });
 
       if (this.props.lastAnalyticTime) {
@@ -98,7 +94,8 @@ class WeatherMapCockpit extends React.Component {
         const lastAnalyticTime = $(".t" + this.props.lastAnalyticTime).offset();
         $(".cp-scale-analyse-bar").css({
           left: posFirstAvailable.left - posContainer.left + this.tickWidth,
-          width: lastAnalyticTime.left - posFirstAvailable.left,
+          width:
+            lastAnalyticTime.left - posFirstAvailable.left - this.tickWidth,
           display: ""
         });
       } else
