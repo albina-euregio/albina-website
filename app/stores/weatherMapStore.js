@@ -12,6 +12,7 @@ export default class WeatherMapStore_new {
   @observable stations;
   @observable _agl;
   @observable _dateStart;
+  @observable _lastDataUpdate;
   @observable config;
 
   constructor(initialDomainId) {
@@ -20,7 +21,7 @@ export default class WeatherMapStore_new {
     this.grid = null;
     this._domainId = observable.box(false);
     this._timeSpan = observable.box(false);
-    this._dateStart = null;
+    (this._lastDataUpdate = 0), (this._dateStart = null);
     this._agl = null;
     this._availableTimes = [];
     this._timeIndex = observable.box(false);
@@ -40,8 +41,9 @@ export default class WeatherMapStore_new {
     get data
   */
   _loadDomainData() {
+    const self = this;
     this._loading.set(true);
-
+    this._lastDataUpdate = 0;
     //console.log("_loadDomainData this.currentTime bbb");
 
     const loads = [
@@ -53,9 +55,9 @@ export default class WeatherMapStore_new {
             this.config.settings.metaFiles.agl
         )
         .then(response => {
-          //console.log("WeatherMapStore_new->_loadData aaa: AGL");
           if (response.data.includes("T"))
             this._dateStart = new Date(response.data.trim()).getTime();
+          self.lastUpdateTime = response.headers["last-modified"];
         }),
       axios
         .get(
@@ -72,6 +74,7 @@ export default class WeatherMapStore_new {
           // );
           if (response.data.includes("T"))
             this._agl = new Date(response.data.trim()).getTime();
+          self.lastUpdateTime = response.headers["last-modified"];
         })
     ];
 
@@ -145,6 +148,24 @@ export default class WeatherMapStore_new {
         // TODO fail with error dialog
         console.error("Data for timeindex not available", err);
       });
+  }
+
+  /*
+    sets last update time
+  */
+  set lastUpdateTime(dateTime) {
+    //console.log("set lastUpdateTime kkk ", dateTime, this._lastDataUpdate);
+    const updateDateTime = new Date(dateTime).getTime();
+    if (updateDateTime < this._lastDataUpdate || this._lastDataUpdate === 0)
+      this._lastDataUpdate = new Date(dateTime).getTime();
+  }
+
+  /*
+    returns lastUpdateTime
+  */
+  @computed get lastUpdateTime() {
+    //console.log("get lastUpdateTime kkk", this._lastDataUpdate);
+    return this._lastDataUpdate;
   }
 
   /*
@@ -299,6 +320,44 @@ export default class WeatherMapStore_new {
     return this.config.domains && this.domainId
       ? this.config.domains[this.domainId].item
       : null;
+  }
+
+  /*
+    returns nextUpdateTime
+  */
+  @computed get nextUpdateTime() {
+    //console.log("nextUpdateTime kkk #0", this.domainConfig);
+    if (!this.domainConfig.updateTimes) return null;
+    //console.log("nextUpdateTime kkk #1", this.domainConfig.updateTimes, Object.entries(this.domainConfig.updateTimes));
+    let res = null;
+    const timesConfig = this.domainConfig.updateTimes;
+    const now = new Date();
+
+    const utcHour = now.getUTCHours();
+
+    let addHours;
+
+    this.domainConfig.updateTimes.forEach((aDef, index) => {
+      const range = aDef.range.split("-");
+      const setting = aDef.setting;
+      //console.log("nextUpdateTime kkk #2", parseInt(range[0], 10), parseInt(range[1], 10), utcHour);
+      if (
+        utcHour >= parseInt(range[0], 10) &&
+        utcHour < parseInt(range[1], 10)
+      ) {
+        //console.log("nextUpdateTime kkk #3", range, utcHour, setting);
+        if (typeof setting === "string") {
+          if (setting === "hourly") addHours = 1;
+        } else {
+          if (setting < utcHour) addHours = 24 - utcHour + setting;
+          else addHours = setting - utcHour;
+        }
+      }
+      //console.log("nextUpdateTime kkk #4", utcHour, addHours);
+      if (addHours)
+        res = new Date(now).setUTCHours(now.getUTCHours() + addHours, 0, 0);
+    });
+    return res;
   }
 
   /*

@@ -192,7 +192,7 @@ export default class StationDataStore {
     let stationsFile = Util.template(window.config.apis.weather.stations, {
       dateTime: timePrefix
     });
-    console.log("StationDataStore->load", timePrefix, stationsFile);
+    //console.log("StationDataStore->load", timePrefix, stationsFile);
 
     return axios
       .get(stationsFile)
@@ -207,7 +207,7 @@ export default class StationDataStore {
       })
       .catch(error => {
         if (error.response.status === 404) {
-          console.log("StationDataStore->load could not load", stationsFile);
+          //console.log("StationDataStore->load could not load", stationsFile);
           return [];
         } else return Promise.reject(error.response);
       });

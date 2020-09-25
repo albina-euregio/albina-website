@@ -85,12 +85,12 @@ class WeatherMapCockpit extends React.Component {
       });
 
       if (this.props.lastAnalyticTime) {
-        console.log(
-          "xxx",
-          this.props.lastAnalyticTime,
-          new Date(this.props.lastAnalyticTime),
-          $(".t" + this.props.lastAnalyticTime)
-        );
+        // console.log(
+        //   "xxx",
+        //   this.props.lastAnalyticTime,
+        //   new Date(this.props.lastAnalyticTime),
+        //   $(".t" + this.props.lastAnalyticTime)
+        // );
         const lastAnalyticTime = $(".t" + this.props.lastAnalyticTime).offset();
         $(".cp-scale-analyse-bar").css({
           left: posFirstAvailable.left - posContainer.left + this.tickWidth,
@@ -437,6 +437,8 @@ class WeatherMapCockpit extends React.Component {
     );
   }
   getReleaseInfo() {
+    //console.log("getReleaseInfo: kkk", this.props, dateToDateTimeString(this.props.lastUpdateTime));
+
     return (
       <div key="cp-release" className="cp-release">
         <span
@@ -449,7 +451,7 @@ class WeatherMapCockpit extends React.Component {
           {this.props.intl.formatMessage({
             id: "weathermap:cockpit:maps-creation-date:prefix"
           })}{" "}
-          03.09.2020 18:00
+          {dateToDateTimeString(this.props.lastUpdateTime)}
         </span>
         <span
           key="cp-release-update"
@@ -463,7 +465,7 @@ class WeatherMapCockpit extends React.Component {
               id: "weathermap:cockpit:maps-update-date:prefix"
             })}{" "}
           </span>{" "}
-          04.01.2020 00:00
+          {dateToDateTimeString(this.props.nextUpdateTime)}
         </span>
         <span key="cp-release-copyright" className="cp-release-copyright">
           <a
