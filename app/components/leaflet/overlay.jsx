@@ -11,6 +11,10 @@ export default class Overlay extends React.Component {
     this.showDataMarker = this.showDataMarker.bind(this);
   }
 
+  onComponentDidUpdate() {
+    this.setDataMarker({});
+  }
+
   getClickedPixel(clickEvent) {
     let map = clickEvent.target._map;
     let overlay = clickEvent.target;
