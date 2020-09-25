@@ -7,7 +7,7 @@
     #NAVIGATION
 \*------------------------------------*/
 
-$page-header-height: 3em;
+$page-header-height: calc(3 * #{$body-font-size});
 
 $page-header-padding-v: 0.5em;
 $page-header-padding-h: 1em;
@@ -117,6 +117,7 @@ $item-padding: 0.175em;
 }
 
 .subnavigation {
+  z-index: 5;
   display: none;
   &:hover {
     display: block;
@@ -129,7 +130,7 @@ $item-padding: 0.175em;
   padding: 0.5em 0 !important;
   @include font-normal;
 
-  @extend .bg-box;
+  background-color: rgba($white, 0.95);
   @include box-shadow;
 
   a {
@@ -185,9 +186,6 @@ $item-padding: 0.175em;
         }
       }
     }
-  }
-
-  @media #{$medium-up} {
   }
 }
 

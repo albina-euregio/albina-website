@@ -14,7 +14,7 @@
   justify-content: space-between;
   background-color: rgba($white, 0.95);
   border-bottom: $border-width $border-style $brand-very-light;
-  //overflow: hidden;
+
   &:before {
     //preload for print
     position: absolute;
@@ -109,7 +109,7 @@
     }
 
     .scrolling-down:not(.navigation-open) & {
-      top: -$page-header-height;
+      top: calc(0px - #{$page-header-height});
       @include rollout(all, $transition-duration, $ease: ease-in);
     }
   }
@@ -127,7 +127,7 @@
     }
 
     .scrolling-down & {
-      top: -$page-header-height; //-$page-header-height-medium;
+      top: calc(0px - #{$page-header-height});
       @include rollout(all, $transition-duration, $ease: ease-in);
     }
   }
@@ -427,6 +427,23 @@ $page-header-logo-width: 3.25em;
 
 .page-header-weather-map-trigger {
   display: none !important;
+
+  .s-weathermap-2020 & {
+    display: block !important;
+    position: absolute;
+    top: $page-header-height;
+    left: 50vw;
+    transform: translateX(-50%);
+    height: calc(#{$page-header-height} * 0.75 + #{$bar-width});
+    width: $page-header-height;
+    padding: 0;
+    background-color: rgba($white, 0.95);
+  }
+  @media screen and (max-width: #{upper-bound($normal-range)}) {
+    .s-weathermap-2020.navigation-open & {
+      display: none !important;
+    }
+  }
 }
 .page-header-trigger {
   height: calc(#{$page-header-height} * 0.75 + #{$bar-width});
@@ -477,18 +494,5 @@ $page-header-logo-width: 3.25em;
     background: none;
     border-color: transparent;
     box-shadow: none;
-  }
-}
-.s-weathermap-2020 {
-  .page-header-weather-map-trigger {
-    display: block !important;
-    position: absolute;
-    top: $page-header-height;
-    left: 50vw;
-    transform: translateX(-50%);
-    height: calc(#{$page-header-height} * 0.75 + #{$bar-width});
-    width: $page-header-height;
-    padding: 0;
-    background-color: rgba($white, 0.95);
   }
 }
