@@ -300,16 +300,6 @@ export default class WeatherMapStore_new {
       ? this.config.domains[this.domainId].item
       : null;
   }
-  /*
-    returns last analytic time
-  */
-  @computed get lastAnalyticTime() {
-    let foundTime = null;
-    this._availableTimes.forEach(aTime => {
-      if (aTime < this._agl) foundTime = aTime;
-    });
-    return foundTime;
-  }
 
   /*
     returns value for pixel color
@@ -383,8 +373,12 @@ export default class WeatherMapStore_new {
       }
     }
     if (timeSpanDir <= 0) {
-      let startFrom = this._agl ? this._agl : this._dateStart;
+      let startFrom =
+        currentTimespan.includes("+") && this._agl
+          ? this._agl
+          : this._dateStart;
       currentTime = new Date(startFrom);
+      currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
       maxTime = new Date(startFrom);
       maxTime.setHours(
         maxTime.getHours() + parseInt(this.config.settings.timeRange[0], 10)
