@@ -177,7 +177,7 @@
 
   "weathermap:domain:title:temp": "Temperature",
   "weathermap:domain:title:snow-height": "Snow Height",
-  "weathermap:domain:title:diff-snow": "Snow Heigt Diff",
+  "weathermap:domain:title:diff-snow": "Snow Height Diff",
   "weathermap:domain:title:new-snow": "Fresh Snow",
   "weathermap:domain:title:wind": "Wind",
   "weathermap:domain:title:gust": "Wind Gust",
@@ -189,10 +189,10 @@
   "weathermap:domain:timespan:description:72": "Time range: 72 Hours",
   "weathermap:cockpit:flipper:previous": "Previous",
   "weathermap:cockpit:flipper:next": "Next",
-  "weathermap:cockpit:maps-creation-date:title": "Created:",
+  "weathermap:cockpit:maps-creation-date:title": "Created",
   "weathermap:cockpit:maps-creation-date:prefix": "Created:",
   "weathermap:cockpit:maps-update-date:title": "Next Update",
-  "weathermap:cockpit:maps-update-date:prefix": "Update",
+  "weathermap:cockpit:maps-update-date:prefix": "Update:",
 
   "blog:title": "Blog",
   "blog:subtitle": "Blog",
