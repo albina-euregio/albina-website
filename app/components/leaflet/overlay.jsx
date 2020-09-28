@@ -3,11 +3,22 @@ import { ImageOverlay } from "react-leaflet";
 import StationMarker from "../leaflet/station-marker";
 import Base from "../../base";
 
+const css = `
+    .debug-almost-invisible {
+        opacity: 0.1 !important
+    }
+    .debug-no-blending {
+      mix-blend-mode: unset !important
+    }
+    .debug-high-contrast {
+      filter: contrast(20);
+    }
+`;
 export default class Overlay extends React.Component {
   constructor(props) {
     super(props);
     this.overlayCanvases = {};
-    this.state = { dataMarker: null };
+    this.state = { dataMarker: null, showDataLayer: false };
     this.showDataMarker = this.showDataMarker.bind(this);
   }
 
@@ -68,6 +79,14 @@ export default class Overlay extends React.Component {
 
   showDataMarker(e) {
     let self = this;
+
+    if (self.props.debug && e.originalEvent.ctrlKey) {
+      //$(".map-info-layer").toggleClass("debug-almost-invisible");
+      $(".map-data-layer").toggleClass("hide");
+      $(".map-data-layer").toggleClass("debug-high-contrast");
+      //$(".leaflet-overlay-pane").toggleClass("debug-no-blending");
+    }
+
     if (self.props.dataOverlaysEnabled && e.target._map) {
       let map = e.target._map;
       //console.log("YYYYY GETPIXEL", e.containerPoint);
@@ -148,10 +167,25 @@ export default class Overlay extends React.Component {
 
       //console.log("wather-map->render xxx1:", this.props.overlay);
       if (this.props.overlay) {
+        if (this.props.debug)
+          overlays.push(
+            <ImageOverlay
+              key="data-image"
+              className={["leaflet-image-layer", "map-data-layer", "hide"].join(
+                " "
+              )}
+              url={this.props.overlay + ".png"}
+              opacity={1}
+              bounds={config.weathermaps.settings.bbox}
+              attribution="Show datalayer with CTRL+Click"
+              onClick={self.showDataMarker}
+              interactive={true}
+            />
+          );
         overlays.push(
           <ImageOverlay
             key="background-map"
-            className="leaflet-image-layer"
+            className={["leaflet-image-layer", "map-info-layer"].join(" ")}
             style={
               this.props.dataOverlaysEnabled ? { cursor: "crosshair" } : {}
             }
@@ -159,6 +193,9 @@ export default class Overlay extends React.Component {
             opacity={Base.checkBlendingSupport() ? 1 : 0.5}
             bounds={config.weathermaps.settings.bbox}
             interactive={true}
+            attribution={
+              self.props.debug ? "Show datalayer with CTRL+Click" : null
+            }
             onClick={self.showDataMarker}
             //onMouseover={self.showDataMarker}
             onLoad={() => {
@@ -175,6 +212,11 @@ export default class Overlay extends React.Component {
     }
     if (this.state.dataMarker) overlays.push(this.state.dataMarker);
 
-    return <>{overlays}</>;
+    return (
+      <>
+        <style>{css}</style>
+        {overlays}
+      </>
+    );
   }
 }

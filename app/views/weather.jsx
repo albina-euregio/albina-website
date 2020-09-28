@@ -147,7 +147,7 @@ class Weather extends React.Component {
     const wmStore = config.weathermapStore;
     const wmPlayer = config.player;
 
-    //console.log("Weather->render xxxx1", wmStore.domainConfig);
+    //console.log("Weather->render xxxx1", wmStore);
 
     return (
       <>
@@ -180,6 +180,7 @@ class Weather extends React.Component {
                 }
                 rgbToValue={wmStore.valueForPixel}
                 item={wmStore.item}
+                debug={wmStore.config.settings.debugModus}
                 grid={wmStore.grid}
                 stations={!wmPlayer.playing && wmStore.stations}
                 playerCB={config.player.onLayerEvent.bind(config.player)}
