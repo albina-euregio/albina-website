@@ -163,6 +163,19 @@ class PageHeader extends React.Component {
             <span>Euregio</span>
           </a>
         </div>
+        <div className="page-header-weather-map-trigger">
+          <button
+            onClick={() => {
+              $("body").toggleClass("scrolling-down");
+            }}
+            className="pure-button pure-button-icon page-header-trigger tooltip"
+            title="Navigation"
+          >
+            <span className="icon-up-open-big">
+              <span className="icon-down-open-big"></span>&nbsp;
+            </span>
+          </button>
+        </div>
       </div>
     );
   }
