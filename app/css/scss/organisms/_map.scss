@@ -12,6 +12,9 @@ $map-width: 100%;
 $map-height-mobile: 50vh;
 $map-height-bulletin: 50vh;
 $map-height-weather: calc(100vh - #{$bar-width});
+$map-height-weather-when-menu: calc(
+  100vh - #{$bar-width} - #{$page-header-height}
+);
 $map-height-min: 400px;
 
 $map-google-topbar-height: 46px;
@@ -44,14 +47,18 @@ $controls-width-height: $padding * 4;
 //the outer container for weather-map
 .section-weather-map {
   position: absolute !important;
-  top: 0;
+  top: $page-header-height;
   left: 0;
   right: 0;
   bottom: 0;
-  height: $map-height-weather;
+  height: $map-height-weather-when-menu;
   width: 100vw;
   overflow: hidden;
-  transition: none !important;
+  //transition: none !important;
+  .scrolling-down & {
+    top: 0;
+    height: $map-height-weather;
+  }
 }
 
 //the maps themselves
@@ -70,7 +77,11 @@ $controls-width-height: $padding * 4;
   }
 
   .section-weather-map & {
-    height: $map-height-weather;
+    height: $map-height-weather-when-menu;
+    @include rollout;
+    .scrolling-down & {
+      height: $map-height-weather;
+    }
   }
 }
 

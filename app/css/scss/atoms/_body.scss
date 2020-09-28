@@ -71,9 +71,6 @@ body {
 }
 
 @media #{$large-up} and (min-height:#{lower-bound($medium-range) - $min-height-adjustment}) {
-  .rf {
-    color: blue;
-  }
   html,
   body {
     font-size: $body-font-size-large;
