@@ -97,23 +97,9 @@ class SubscribeEmailDialog extends React.Component {
     return (
       <div className={"modal-subscribe " + isOpen}>
         <div className="modal-header">
-          <h2 className="subheader">
-            <FormattedHTMLMessage id="dialog:subscribe-email:header" />
-          </h2>
           <h2>
             <FormattedHTMLMessage id="dialog:subscribe-email:subheader" />
           </h2>
-          <p className="tiny">
-            <a
-              href="#subscribeDialog"
-              className="icon-link icon-arrow-left modal-trigger tooltip"
-              title={this.props.intl.formatMessage({
-                id: "dialog:subscribe-email:back-button:hover"
-              })}
-            >
-              <FormattedHTMLMessage id="dialog:subscribe-email:back-button" />
-            </a>
-          </p>
         </div>
 
         {!this.state.status && (
