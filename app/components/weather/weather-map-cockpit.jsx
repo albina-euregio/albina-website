@@ -289,7 +289,10 @@ class WeatherMapCockpit extends React.Component {
             <Dragger {...dragSettings}>
               <div
                 key="scale-stamp-range"
-                style={{ left: 0, width: this.tickWidth * nrOnlyTimespan }}
+                style={{
+                  left: 0,
+                  width: this.tickWidth * nrOnlyTimespan - this.tickWidth
+                }}
                 className="cp-scale-stamp-range js-active"
               >
                 <span
