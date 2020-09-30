@@ -43,6 +43,7 @@ class WeatherMapCockpit extends React.Component {
     this.state = {
       lastRedraw: new Date().getTime()
     };
+    this.onKeyPressed = this.onKeyPressed.bind(this);
   }
 
   componentDidMount() {
@@ -481,6 +482,24 @@ class WeatherMapCockpit extends React.Component {
     );
   }
 
+  onKeyPressed(e) {
+    //console.log(e.keyCode);
+    switch (e.keyCode) {
+      case 37:
+        this.props.previousTime();
+        break;
+      case 39:
+        this.props.nextTime();
+        break;
+      case 32:
+        this.props.player.toggle();
+        break;
+      default:
+        this.props.previousTime();
+        break;
+    }
+  }
+
   render() {
     //console.log("weather-map-cockpit->render hhhh", this.props.currentTime);
     let classes = [
@@ -489,7 +508,12 @@ class WeatherMapCockpit extends React.Component {
       "lastRedraw-" + this.state.lastRedraw
     ];
     return (
-      <div key="map-cockpit" className={classes.join(" ")}>
+      <div
+        key="map-cockpit"
+        className={classes.join(" ")}
+        onKeyDown={this.onKeyPressed}
+        tabIndex="0"
+      >
         <div key="cp-container-1" className="cp-container-1">
           <div key="cp-layer-selector" className="cp-layer-selector">
             {this.getDomainButtons()}
