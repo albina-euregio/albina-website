@@ -65,12 +65,12 @@ $controls-width-height: $padding * 4;
 .section-map {
   position: relative;
   height: $map-height-bulletin;
-  min-height: $map-height-min;
   width: $map-width;
   overflow: hidden;
 
   .section-bulletin-map & {
     height: $map-height-bulletin;
+    min-height: $map-height-min;
     @include box-border($brand-very-light);
     border-left: none;
     border-right: none;
