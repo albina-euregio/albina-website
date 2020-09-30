@@ -2,6 +2,8 @@ import React from "react";
 import { observer } from "mobx-react";
 import ProblemIconLink from "../icons/problem-icon-link.jsx";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
+import { inject } from "mobx-react";
+import { injectIntl } from "react-intl";
 
 /**
  * @typedef {object} Props
@@ -10,13 +12,14 @@ import BulletinDangerRating from "./bulletin-danger-rating.jsx";
  * @extends {React.Component<Props>}
  */
 @observer
-export default class BulletinMapDetails extends React.Component {
+class BulletinMapDetails extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
     // TODO: create common component with bulletin-report
+
     const daytime =
       this.props.bulletin.hasDaytimeDependency && this.props.ampm == "pm"
         ? "afternoon"
@@ -25,16 +28,34 @@ export default class BulletinMapDetails extends React.Component {
     const problems = bulletin.avalancheProblems || [];
 
     return (
-      <ul className="list-plain">
-        <li className="bulletin-report-picto tooltip">
-          <BulletinDangerRating bulletin={bulletin} />
-        </li>{" "}
-        {problems.map(problem => (
-          <li key={problem.type}>
-            <ProblemIconLink problem={problem} />
-          </li>
-        ))}
-      </ul>
+      <>
+        <ul className="list-plain">
+          <li className="bulletin-report-picto tooltip">
+            <BulletinDangerRating bulletin={bulletin} />
+          </li>{" "}
+          {problems.map(problem => (
+            <li key={problem.type}>
+              <ProblemIconLink problem={problem} />
+            </li>
+          ))}
+        </ul>
+
+        {bulletin.highlights && (
+          <p className="bulletin-report-public-alert">
+            <span
+              className="warning label tooltip"
+              title={this.props.intl.formatMessage({
+                id: "bulletin:map:details:warning:title"
+              })}
+            >
+              !
+            </span>
+            {bulletin.highlights}
+          </p>
+        )}
+      </>
     );
   }
 }
+
+export default inject("locale")(injectIntl(BulletinMapDetails));
