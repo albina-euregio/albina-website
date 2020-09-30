@@ -473,7 +473,6 @@ export default class WeatherMapStore_new {
   */
   @action changeDomain(domainId) {
     //console.log("weatherMapStore_new changeDomain: " + domainId);
-
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
       this._domainId.set(domainId);
       this._timeSpan.set(null);
