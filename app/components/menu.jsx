@@ -54,6 +54,11 @@ class Menu extends React.Component {
     }
   }
 
+  onLinkClick(e, hasSubs) {
+    console.log("onLinkClick jjj", window.IS_TOUCHING_DEVICE, hasSubs);
+    if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
+  }
+
   renderMenuItem(e, activeItem) {
     const classes = this.props.menuItemClassName
       ? this.props.menuItemClassName.split(" ")
@@ -78,6 +83,7 @@ class Menu extends React.Component {
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
     const url = e["url:" + appStore.language] || e["url"];
+
     return (
       <li
         key={url}
@@ -93,7 +99,16 @@ class Menu extends React.Component {
             {title}
           </a>
         ) : (
-          <Link to={url} className={classes.join(" ")}>
+          <Link
+            onTouchStart={e => {
+              if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
+            }}
+            onClick={e => {
+              this.onLinkClick(e, classes.includes("has-sub"));
+            }}
+            to={url}
+            className={classes.join(" ")}
+          >
             {title}
             {this.getSpecialTreatment(url)}
           </Link>
