@@ -12,8 +12,11 @@
   .list-inline {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     margin-bottom: $margin-bottom / 2;
+    //not overview
+    &:not(.list-buttongroup-dense) {
+      align-items: center;
+    }
   }
   .list-subscribe-language {
     margin-bottom: 0;
@@ -47,19 +50,25 @@
 }
 
 .app-dl {
+  margin-bottom: $margin-bottom / 2;
+  border-bottom: $border-width $border-style $border-color;
+  &:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
+  }
   .app-logo {
     max-width: 5em;
     margin-bottom: 0;
   }
   h2 {
-    margin-bottom: 0;
+    //margin-bottom: 0;
   }
 }
 
 // messenger-people-plugin
 .messengerpeople-wrapper {
-  margin-left: -($padding * 3);
-  margin-right: -($padding * 3);
+  margin-left: -($padding / 2);
+  margin-right: -($padding / 2);
   iframe {
     height: 280px;
     width: 500px;

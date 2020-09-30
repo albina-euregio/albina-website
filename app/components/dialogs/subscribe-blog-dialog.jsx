@@ -20,73 +20,63 @@ class SubscribeBlogDialog extends React.Component {
     });
 
     return (
-      <div className="modal-subscribe">
-        <div className="modal-header">
-          <h2 className="subheader">
-            <FormattedHTMLMessage id="dialog:subscribe-blog:header" />
-          </h2>
-          <h2>
-            <FormattedHTMLMessage id="dialog:subscribe-blog:subheader" />
-          </h2>
-          <p className="tiny">
-            <a
-              href="#subscribeDialog"
-              className="icon-link icon-arrow-left modal-trigger tooltip"
-              title={this.props.intl.formatMessage({
-                id: "dialog:subscribe-blog:back-button:hover"
-              })}
-            >
-              <FormattedHTMLMessage id="dialog:subscribe-blog:back-button" />
-            </a>
-          </p>
-        </div>
-
-        {Object.keys(blogs).map((r, ri) => (
-          <div key={ri} className="follow-region">
-            <h2 className="subheader">
-              {this.props.intl.formatMessage({ id: "region:" + r })}
+      <div className="modal-container">
+        <div className="modal-subscribe">
+          <div className="modal-header">
+            <h2>
+              <FormattedHTMLMessage id="dialog:subscribe-blog:subheader" />
             </h2>
-            <ul className="blog-list">
-              {blogs[r].map((b, bi) => (
-                <div key={bi} className="blog-details">
-                  {b.name} -{" "}
-                  <span className="blog-language">{b.lang.toUpperCase()}</span>
-                  <ul className="list-inline list-buttongroup">
-                    <li>
-                      <a
-                        href={"http://" + b.name + "/feeds/posts/default"}
-                        className="share-atom share-feed"
-                      >
-                        {this.props.intl.formatMessage({
-                          id: "dialog:subscribe-blog:atom"
-                        })}
-                      </a>
-                    </li>
-                    <li>
-                      <span className="buttongroup-boolean">
-                        {this.props.intl.formatMessage({
-                          id: "dialog:subscribe-blog:or"
-                        })}
-                      </span>
-                    </li>
-                    <li>
-                      <a
-                        href={
-                          "http://" + b.name + "/feeds/posts/default?alt=rss"
-                        }
-                        className="share-rss share-feed"
-                      >
-                        {this.props.intl.formatMessage({
-                          id: "dialog:subscribe-blog:rss"
-                        })}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              ))}
-            </ul>
           </div>
-        ))}
+
+          {Object.keys(blogs).map((r, ri) => (
+            <div key={ri} className="follow-region">
+              <h2 className="subheader">
+                {this.props.intl.formatMessage({ id: "region:" + r })}
+              </h2>
+              <ul className="blog-list">
+                {blogs[r].map((b, bi) => (
+                  <div key={bi} className="blog-details">
+                    {b.name} -{" "}
+                    <span className="blog-language">
+                      {b.lang.toUpperCase()}
+                    </span>
+                    <ul className="list-inline list-buttongroup">
+                      <li>
+                        <a
+                          href={"http://" + b.name + "/feeds/posts/default"}
+                          className="share-atom share-feed"
+                        >
+                          {this.props.intl.formatMessage({
+                            id: "dialog:subscribe-blog:atom"
+                          })}
+                        </a>
+                      </li>
+                      <li>
+                        <span className="buttongroup-boolean">
+                          {this.props.intl.formatMessage({
+                            id: "dialog:subscribe-blog:or"
+                          })}
+                        </span>
+                      </li>
+                      <li>
+                        <a
+                          href={
+                            "http://" + b.name + "/feeds/posts/default?alt=rss"
+                          }
+                          className="share-rss share-feed"
+                        >
+                          {this.props.intl.formatMessage({
+                            id: "dialog:subscribe-blog:rss"
+                          })}
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }

@@ -16,7 +16,7 @@ class ModalDialog extends React.Component {
 
   render() {
     return (
-      <div id={this.props.id} className={"modal-container mfp-hide"}>
+      <div id={this.props.id} className={"mfp-hide"}>
         {this.props.children}
       </div>
     );
