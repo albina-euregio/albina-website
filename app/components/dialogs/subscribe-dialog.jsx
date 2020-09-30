@@ -13,7 +13,7 @@ class SubscribeDialog extends React.Component {
   }
 
   selectDialog(e, selection) {
-    console.log("selectDialog", e, selection);
+    //console.log("selectDialog", e, selection);
     e.preventDefault();
     this.setState({ selectedDialog: selection });
   }
