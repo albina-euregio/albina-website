@@ -115,7 +115,7 @@ $mfp-use-visuallyhidden: false; // Hide content from browsers, but make it avail
   }
 
   .modal-container + .modal-container {
-    border-top: $bar-width $debug-color dotted;
+    border-top: $border-width $border-style $brand-very-light;
   }
 }
 
@@ -359,8 +359,11 @@ button.mfp-arrow {
 }
 
 .modal-follow {
-  text-align: center;
+  //text-align: center;
   @include last-child;
+  .list-inline {
+    margin-bottom: $margin-bottom / 2;
+  }
 }
 .follow-region {
   h1,

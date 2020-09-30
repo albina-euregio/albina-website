@@ -23,7 +23,7 @@ class SubscribeDialog extends React.Component {
           <label htmlFor="input">
             <FormattedHTMLMessage id="dialog:subscribe:select-subscrption" />
           </label>
-          <ul className="list-inline list-buttongroup">
+          <ul className="list-inline list-buttongroup-dense">
             <li>
               <a href="#subscribeEmailDialog" className="modal-trigger">
                 <button className="inverse pure-button">

@@ -22,23 +22,9 @@ class SubscribeBlogDialog extends React.Component {
     return (
       <div className="modal-subscribe">
         <div className="modal-header">
-          <h2 className="subheader">
-            <FormattedHTMLMessage id="dialog:subscribe-blog:header" />
-          </h2>
           <h2>
             <FormattedHTMLMessage id="dialog:subscribe-blog:subheader" />
           </h2>
-          <p className="tiny">
-            <a
-              href="#subscribeDialog"
-              className="icon-link icon-arrow-left modal-trigger tooltip"
-              title={this.props.intl.formatMessage({
-                id: "dialog:subscribe-blog:back-button:hover"
-              })}
-            >
-              <FormattedHTMLMessage id="dialog:subscribe-blog:back-button" />
-            </a>
-          </p>
         </div>
 
         {Object.keys(blogs).map((r, ri) => (
