@@ -364,9 +364,9 @@ export default class WeatherMapStore_new {
     returns value for pixel color
   */
   valueForPixel(overlayType, pixelRGB) {
+    //console.log("valueForPixel jjj", overlayType, pixelRGB);
     switch (overlayType) {
       case "temperature":
-        //console.log("valueForPixel", pixelRGB);
         if (pixelRGB.r <= 0) return "<59,5";
         if (pixelRGB.r >= 255) return null;
         return Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);

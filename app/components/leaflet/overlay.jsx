@@ -56,7 +56,7 @@ export default class Overlay extends React.Component {
   }
 
   setDataMarker(data) {
-    console.log("setDataMarker jjj", data);
+    //console.log("setDataMarker jjj", data);
     this.setState({
       dataMarker: (
         <StationMarker
@@ -113,7 +113,7 @@ export default class Overlay extends React.Component {
 
         self.setDataMarker({
           coordinates: e.latlng,
-          value: values.temperature || values.windSpeed || values.snowHeight,
+          value: values.temperature ?? values.windSpeed ?? values.snowHeight,
           direction: values.windDirection
         });
       }
