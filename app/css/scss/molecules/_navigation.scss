@@ -134,7 +134,7 @@ $item-padding: 0.175em;
   @include box-shadow;
 
   a {
-    padding: 0.25em 1em;
+    padding: 0.25em 2em 0.25em 1em;
   }
   li {
     position: relative;
@@ -149,6 +149,9 @@ $item-padding: 0.175em;
     &:active,
     &.active {
       color: $anchor-font-color !important;
+    }
+    &:before {
+      right: 0.25em !important;
     }
   }
 
