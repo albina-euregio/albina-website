@@ -49,103 +49,105 @@ class DownloadPdfDialog extends React.Component {
 
   render() {
     return (
-      <div className="modal-subscribe">
-        <div
-          className="modal-header"
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center"
-          }}
-        >
-          <h2 className="subheader">
-            <FormattedHTMLMessage id="dialog:download-pdf:heading" />
-          </h2>
-        </div>
-        <div
-          className="modal mfp-content"
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            textAlign: "center",
-            display: "flex"
-          }}
-        >
-          <div className="modal-container">
-            <div style={{}}>
-              <div>
-                <label htmlFor="province">
-                  <FormattedHTMLMessage id="dialog:download-pdf:region" />
-                </label>
-                <ul
-                  style={{
-                    alignContent: "center",
-                    textAlign: "center"
-                  }}
-                  className="list-inline list-buttongroup"
-                >
-                  <li style={{ margin: "0 auto" }}>
-                    <ProvinceFilter
-                      name="province"
-                      all={this.props.intl.formatMessage({
-                        id: "dialog:subscribe-email:region-all:button"
-                      })}
-                      handleChange={r => this.handleChangeRegion(r)}
-                      value={this.state.region}
-                    />
-                  </li>
-                </ul>
+      <div className="modal-container">
+        <div className="modal-subscribe">
+          <div
+            className="modal-header"
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center"
+            }}
+          >
+            <h2 className="subheader">
+              <FormattedHTMLMessage id="dialog:download-pdf:heading" />
+            </h2>
+          </div>
+          <div
+            className="modal mfp-content"
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              textAlign: "center",
+              display: "flex"
+            }}
+          >
+            <div className="modal-container">
+              <div style={{}}>
+                <div>
+                  <label htmlFor="province">
+                    <FormattedHTMLMessage id="dialog:download-pdf:region" />
+                  </label>
+                  <ul
+                    style={{
+                      alignContent: "center",
+                      textAlign: "center"
+                    }}
+                    className="list-inline list-buttongroup"
+                  >
+                    <li style={{ margin: "0 auto" }}>
+                      <ProvinceFilter
+                        name="province"
+                        all={this.props.intl.formatMessage({
+                          id: "dialog:subscribe-email:region-all:button"
+                        })}
+                        handleChange={r => this.handleChangeRegion(r)}
+                        value={this.state.region}
+                      />
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <label htmlFor="mode">
+                    <FormattedHTMLMessage id="dialog:download-pdf:mode" />
+                  </label>
+                  <ul
+                    style={{
+                      alignContent: "center",
+                      textAlign: "center"
+                    }}
+                    className="list-inline list-buttongroup"
+                  >
+                    <li style={{ margin: "0 auto" }}>
+                      {/* mode */}
+                      <PdfModeFilter
+                        name="mode"
+                        onChange={this.handleChangeMode}
+                        value={this.state.mode}
+                        options={[
+                          {
+                            value: "color",
+                            label: this.props.intl.formatMessage({
+                              id: "dialog:download-pdf:mode:color"
+                            })
+                          },
+                          {
+                            value: "bw",
+                            label: this.props.intl.formatMessage({
+                              id: "dialog:download-pdf:mode:bw"
+                            })
+                          }
+                        ]}
+                      />
+                    </li>
+                  </ul>
+                </div>
+                <p>
+                  <a
+                    href={this.pdfLink()}
+                    rel="noopener"
+                    target="_blank"
+                    title={this.props.intl.formatMessage({
+                      id: "bulletin:linkbar:pdf:hover"
+                    })}
+                    className="pure-button tooltip"
+                  >
+                    {this.props.intl.formatMessage({
+                      id: "bulletin:linkbar:pdf"
+                    })}
+                  </a>
+                </p>
               </div>
-              <div>
-                <label htmlFor="mode">
-                  <FormattedHTMLMessage id="dialog:download-pdf:mode" />
-                </label>
-                <ul
-                  style={{
-                    alignContent: "center",
-                    textAlign: "center"
-                  }}
-                  className="list-inline list-buttongroup"
-                >
-                  <li style={{ margin: "0 auto" }}>
-                    {/* mode */}
-                    <PdfModeFilter
-                      name="mode"
-                      onChange={this.handleChangeMode}
-                      value={this.state.mode}
-                      options={[
-                        {
-                          value: "color",
-                          label: this.props.intl.formatMessage({
-                            id: "dialog:download-pdf:mode:color"
-                          })
-                        },
-                        {
-                          value: "bw",
-                          label: this.props.intl.formatMessage({
-                            id: "dialog:download-pdf:mode:bw"
-                          })
-                        }
-                      ]}
-                    />
-                  </li>
-                </ul>
-              </div>
-              <p>
-                <a
-                  href={this.pdfLink()}
-                  rel="noopener"
-                  target="_blank"
-                  title={this.props.intl.formatMessage({
-                    id: "bulletin:linkbar:pdf:hover"
-                  })}
-                  className="pure-button tooltip"
-                >
-                  {this.props.intl.formatMessage({
-                    id: "bulletin:linkbar:pdf"
-                  })}
-                </a>
-              </p>
             </div>
           </div>
         </div>

@@ -9,13 +9,17 @@ class SubscribeDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = { selectedDialog: null };
+    this.selectDialog = this.selectDialog.bind(this);
   }
 
-  selectDialog(selection) {
+  selectDialog(e, selection) {
+    console.log("selectDialog", e, selection);
+    e.preventDefault();
     this.setState({ selectedDialog: selection });
   }
 
   render() {
+    const self = this;
     return (
       <>
         <div className="modal-container">
@@ -33,10 +37,20 @@ class SubscribeDialog extends React.Component {
               <label htmlFor="input">
                 <FormattedHTMLMessage id="dialog:subscribe:select-subscrption" />
               </label>
-              <ul className="list-inline list-buttongroup">
+              <ul className="list-inline list-buttongroup-dense">
                 <li>
-                  <a onClick={this.selectDialog.bind(this, "Email")}>
-                    <button className="inverse pure-button">
+                  <a
+                    onClick={e => {
+                      this.selectDialog(e, "Email");
+                    }}
+                  >
+                    <button
+                      className={
+                        this.state.selectedDialog === "Email"
+                          ? "pure-button"
+                          : "inverse pure-button"
+                      }
+                    >
                       {this.props.intl.formatMessage({
                         id: "dialog:subscribe:email"
                       })}
@@ -44,8 +58,19 @@ class SubscribeDialog extends React.Component {
                   </a>
                 </li>
                 <li>
-                  <a onClick={this.selectDialog.bind(this, "SM")}>
-                    <button className="inverse pure-button">
+                  <a
+                    href="#"
+                    onClick={e => {
+                      this.selectDialog(e, "SM");
+                    }}
+                  >
+                    <button
+                      className={
+                        this.state.selectedDialog === "SM"
+                          ? "pure-button"
+                          : "inverse pure-button"
+                      }
+                    >
                       {this.props.intl.formatMessage({
                         id: "dialog:subscribe:social-media"
                       })}
@@ -53,8 +78,19 @@ class SubscribeDialog extends React.Component {
                   </a>
                 </li>
                 <li>
-                  <a onClick={this.selectDialog.bind(this, "App")}>
-                    <button className="inverse pure-button">
+                  <a
+                    href="#"
+                    onClick={e => {
+                      this.selectDialog(e, "App");
+                    }}
+                  >
+                    <button
+                      className={
+                        this.state.selectedDialog === "App"
+                          ? "pure-button"
+                          : "inverse pure-button"
+                      }
+                    >
                       {this.props.intl.formatMessage({
                         id: "dialog:subscribe:app"
                       })}
@@ -64,45 +100,6 @@ class SubscribeDialog extends React.Component {
               </ul>
             </form>
           </div>
-
-          <form className="pure-form pure-form-stacked">
-            <label htmlFor="input">
-              <FormattedHTMLMessage id="dialog:subscribe:select-subscrption" />
-            </label>
-            <ul className="list-inline list-buttongroup-dense">
-              <li>
-                <a href="#subscribeEmailDialog" className="modal-trigger">
-                  <button className="inverse pure-button">
-                    {this.props.intl.formatMessage({
-                      id: "dialog:subscribe:email"
-                    })}
-                  </button>
-                </a>
-              </li>
-              <li>
-                <a href="#subscribeSocialMediaDialog" className="modal-trigger">
-                  <button className="inverse pure-button">
-                    {this.props.intl.formatMessage({
-                      id: "dialog:subscribe:social-media"
-                    })}
-                  </button>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#subscribeAppDialog"
-                  title=""
-                  className="modal-trigger"
-                >
-                  <button className="inverse pure-button">
-                    {this.props.intl.formatMessage({
-                      id: "dialog:subscribe:app"
-                    })}
-                  </button>
-                </a>
-              </li>
-            </ul>
-          </form>
         </div>
         {this.state.selectedDialog === "Email" && <SubscribeEmailDialog />}
         {this.state.selectedDialog === "SM" && <SubscribeSMDialog />}
