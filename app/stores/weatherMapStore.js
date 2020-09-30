@@ -21,7 +21,8 @@ export default class WeatherMapStore_new {
     this.grid = null;
     this._domainId = observable.box(false);
     this._timeSpan = observable.box(false);
-    (this._lastDataUpdate = 0), (this._dateStart = null);
+    this._lastDataUpdate = 0;
+    this._dateStart = null;
     this._agl = null;
     this._availableTimes = [];
     this._timeIndex = observable.box(false);
@@ -327,36 +328,23 @@ export default class WeatherMapStore_new {
   */
   @computed get nextUpdateTime() {
     //console.log("nextUpdateTime kkk #0", this.domainConfig);
-    if (!this.domainConfig.updateTimes) return null;
+    if (!this.domainConfig.updateTimesOffset || this._lastDataUpdate === 0)
+      return null;
     //console.log("nextUpdateTime kkk #1", this.domainConfig.updateTimes, Object.entries(this.domainConfig.updateTimes));
     let res = null;
-    const timesConfig = this.domainConfig.updateTimes;
-    const now = new Date();
+    const timesConfig = this.domainConfig.updateTimesOffset;
+    const lastUpdate = new Date(this._lastDataUpdate);
 
-    const utcHour = now.getUTCHours();
+    const utcHour = lastUpdate.getUTCHours();
 
     let addHours;
 
-    this.domainConfig.updateTimes.forEach((aDef, index) => {
-      const range = aDef.range.split("-");
-      const setting = aDef.setting;
-      //console.log("nextUpdateTime kkk #2", parseInt(range[0], 10), parseInt(range[1], 10), utcHour);
-      if (
-        utcHour >= parseInt(range[0], 10) &&
-        utcHour < parseInt(range[1], 10)
-      ) {
-        //console.log("nextUpdateTime kkk #3", range, utcHour, setting);
-        if (typeof setting === "string") {
-          if (setting === "hourly") addHours = 1;
-        } else {
-          if (setting < utcHour) addHours = 24 - utcHour + setting;
-          else addHours = setting - utcHour;
-        }
-      }
-      //console.log("nextUpdateTime kkk #4", utcHour, addHours);
-      if (addHours)
-        res = new Date(now).setUTCHours(now.getUTCHours() + addHours, 0, 0);
-    });
+    addHours = timesConfig[this._timeSpan] || timesConfig["*"];
+
+    //console.log("nextUpdateTime kkk #4", utcHour, addHours);
+    if (addHours)
+      res = new Date(lastUpdate).setHours(lastUpdate.getHours() + addHours);
+
     return res;
   }
 

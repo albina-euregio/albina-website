@@ -373,7 +373,7 @@
           "timeSpans": ["-1"],
           "defaultTimeSpan": null,
           "timeSpanToDataId": { "-1": "snow" },
-          "updateTimes": [{ "range": "0-24", "setting": "hourly" }],
+          "updateTimesOffset": { "-1": 1 },
           "units": "cm",
           "thresholds": [1, 10, 25, 50, 100, 200, 300, 400],
           "colors": {
@@ -408,7 +408,7 @@
             "+48": "snow48",
             "+72": "snow72"
           },
-          "updateTimes": [{ "range": "0-24", "setting": "hourly" }],
+          "updateTimesOffset": { "*": 1 },
           "units": "cm",
           "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
           "colors": {
@@ -440,10 +440,7 @@
           "timeSpans": ["-6", "-12", "-24", "-48", "-72"],
           "defaultTimeSpan": null,
           "timeSpanToDataId": {},
-          "updateTimes": [
-            { "range": "0-12", "setting": 6 },
-            { "range": "12-24", "setting": 18 }
-          ],
+          "updateTimesOffset": { "*": 24, "-6": 6, "-12": 12 },
           "overlay": {
             "image": "{datetime}_diff-snow_{timespan}h.gif"
           },
@@ -480,7 +477,7 @@
           "timeSpans": ["+-1"],
           "defaultTimeSpan": null,
           "timeSpanToDataId": { "+-1": "temp" },
-          "updateTimes": [{ "range": "0-24", "setting": "hourly" }],
+          "updateTimesOffset": { "*": 1 },
           "units": "\u00b0C",
           "thresholds": [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
           "colors": {
@@ -515,7 +512,7 @@
           "timeSpans": ["+-1"],
           "defaultTimeSpan": null,
           "timeSpanToDataId": { "+-1": "wspd" },
-          "updateTimes": [{ "range": "0-24", "setting": "hourly" }],
+          "updateTimesOffset": { "*": 1 },
           "units": "km/h",
           "thresholds": [5, 10, 20, 40, 60, 80],
           "colors": {
@@ -547,7 +544,7 @@
           "timeSpans": ["+-1"],
           "defaultTimeSpan": null,
           "timeSpanToDataId": { "+-1": "wgus" },
-          "updateTimes": [{ "range": "0-24", "setting": "hourly" }],
+          "updateTimesOffset": { "*": 1 },
           "units": "km/h",
           "thresholds": [5, 10, 20, 40, 60, 80],
           "colors": {
