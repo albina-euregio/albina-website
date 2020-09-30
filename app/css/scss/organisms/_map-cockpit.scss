@@ -43,7 +43,7 @@ $cp-breakpoint-2: 1024px;
   user-select: none;
 
   @extend .bg-box;
-  @include box-shadow;
+  @include box-shadow(0.15);
 
   @media screen and (min-width: $cp-breakpoint-2) {
     max-width: $cp-breakpoint-2;
@@ -616,5 +616,23 @@ $cp-breakpoint-2: 1024px;
     background: transparent url(../images/pro/logos/zamg-logo-small.png)
       no-repeat 50% 50%;
     background-size: contain;
+  }
+}
+
+//leaflet-bottom.leaflet-left scale
+.leaflet-bottom.leaflet-left {
+  .section-weather-map & {
+    @media screen and (max-width: calc(#{$cp-breakpoint-2} + 300px)) {
+      bottom: calc(
+        #{$cp-timeline-height} + #{$cp-legend-release-height} +
+          (2 * #{$padding})
+      );
+    }
+    @media screen and (max-width: $cp-breakpoint-1) {
+      bottom: calc(
+        #{$cp-timeline-height} + #{$cp-layer-range-height} + #{$cp-legend-release-height} +
+          (2 * #{$padding})
+      );
+    }
   }
 }
