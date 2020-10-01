@@ -63,9 +63,7 @@ class Timeline extends React.Component {
     const theTick = $(".t" + time);
     if (theTick.offset() === undefined) return null;
     let left = Math.abs(
-      theTick.offset()["left"] -
-        $(this.refs.daysContainer).offset()["left"] +
-        this.tickWidth()
+      theTick.offset()["left"] - $(this.refs.daysContainer).offset()["left"]
     );
     // console.log(
     //   "leftPosForCurrentTime ggg",
