@@ -103,7 +103,9 @@ export default class StationOverlay extends React.Component {
             : false
         }
         onClick={data => {
+          //console.log("onClick ggg #1", data);
           if (data && data.id) {
+            //console.log("onClick ggg #2", data);
             if (
               !this.state.spiderfiedMarkers ||
               this.state.spiderfiedMarkers.indexOf(data.id) < 0
@@ -144,6 +146,7 @@ export default class StationOverlay extends React.Component {
           item={this.props.item}
           spiderfiedMarkers={this.handleSpiderfiedMarkers}
           onActiveMarkerPositionUpdate={this.handleActiveMarkerPositionUpdate}
+          onMarkerSelected={this.props.onMarkerSelected}
         >
           {points.map(point => this.renderMarker(point))}
         </Cluster>

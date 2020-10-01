@@ -13,14 +13,15 @@ import MapStore from "../stores/mapStore";
 class StationMap extends React.Component {
   constructor(props) {
     super(props);
+    this.onMarkerSelected = this.onMarkerSelected.bind(this);
     const title = this.props.intl.formatMessage({
       id: "menu:lawis:station"
     });
-    this.state = {
-      title,
-      headerText: "",
-      selectedFeature: null
-    };
+    // this.state = {
+    //   title,
+    //   headerText: "",
+    //   //selectedFeature: null
+    // };
 
     if (!window.mapStore) {
       window.mapStore = new MapStore();
@@ -37,6 +38,7 @@ class StationMap extends React.Component {
   componentDidUpdate() {}
 
   onMarkerSelected(feature) {
+    //console.log("StationMap->onMarkerSelected ggg ", feature);
     if (feature && feature.id) {
       window["modalStateStore"].setData({
         stationData: window.stationDataStore.data.find(
@@ -57,7 +59,6 @@ class StationMap extends React.Component {
   }
 
   render() {
-
     const item = {
       id: "name",
       colors: [[25, 171, 255]],
@@ -67,7 +68,7 @@ class StationMap extends React.Component {
     const overlays = [
       <StationOverlay
         key={"stations"}
-        onMarkerSelected={this.onMarkerSelected.bind(this)}
+        onMarkerSelected={this.onMarkerSelected}
         itemId="any"
         item={item}
         features={window.stationDataStore.data}
@@ -75,11 +76,11 @@ class StationMap extends React.Component {
     ];
     return (
       <>
-        <HTMLHeader title={this.state.title} />
-        <PageHeadline
+        {/* <HTMLHeader title={this.state.title} /> */}
+        {/* <PageHeadline
           title={this.state.title}
           marginal={this.state.headerText}
-        />
+        /> */}
         <section
           id="section-weather-map"
           className="section section-weather-map"
@@ -95,7 +96,7 @@ class StationMap extends React.Component {
             />
           </div>
         </section>
-        <SmShare />
+        {/* <SmShare /> */}
       </>
     );
   }
