@@ -68,7 +68,7 @@ export default class StationIcon extends React.Component {
     );
   }
 
-  getText(text, size) {
+  getText(text) {
     return (
       <svg
         style={{ position: "absolute", left: "0px", top: "0px" }}

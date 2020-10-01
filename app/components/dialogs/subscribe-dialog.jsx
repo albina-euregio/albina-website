@@ -19,7 +19,7 @@ class SubscribeDialog extends React.Component {
   }
 
   render() {
-    const self = this;
+    //const self = this;
     return (
       <>
         <div className="modal-container">

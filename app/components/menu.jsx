@@ -100,7 +100,7 @@ class Menu extends React.Component {
           </a>
         ) : (
           <Link
-            onTouchStart={e => {
+            onTouchStart={() => {
               if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
             }}
             onClick={e => {

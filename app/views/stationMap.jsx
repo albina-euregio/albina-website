@@ -2,9 +2,6 @@ import React from "react";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { modal_open_by_params } from "../js/modal";
-import PageHeadline from "../components/organisms/page-headline";
-import SmShare from "../components/organisms/sm-share";
-import HTMLHeader from "../components/organisms/html-header";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import StationDataStore from "../stores/stationDataStore";
@@ -14,9 +11,9 @@ class StationMap extends React.Component {
   constructor(props) {
     super(props);
     this.onMarkerSelected = this.onMarkerSelected.bind(this);
-    const title = this.props.intl.formatMessage({
-      id: "menu:lawis:station"
-    });
+    // const title = this.props.intl.formatMessage({
+    //   id: "menu:lawis:station"
+    // });
     // this.state = {
     //   title,
     //   headerText: "",

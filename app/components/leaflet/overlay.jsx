@@ -77,6 +77,33 @@ export default class Overlay extends React.Component {
     });
   }
 
+  getPixelData(e) {
+    let self = this;
+    let pixel = self.getClickedPixel(e);
+
+    let values = {};
+    self.props.dataOverlays.forEach(anOverlay => {
+      if (self.overlayCanvases[anOverlay.type]["loaded"]) {
+        let p = self.overlayCanvases[anOverlay.type]["ctx"].getImageData(
+          pixel.x,
+          pixel.y,
+          1,
+          1
+        ).data;
+        values[anOverlay.type] = self.props.rgbToValue(anOverlay.type, {
+          r: p[0],
+          g: p[1],
+          b: p[2]
+        });
+      }
+    });
+    self.setDataMarker({
+      coordinates: e.latlng,
+      value: values.temperature ?? values.windSpeed ?? values.snowHeight,
+      direction: values.windDirection
+    });
+  }
+
   showDataMarker(e) {
     let self = this;
 
@@ -88,35 +115,9 @@ export default class Overlay extends React.Component {
     }
 
     if (self.props.dataOverlaysEnabled && e.target._map) {
-      let map = e.target._map;
       //console.log("YYYYY GETPIXEL", e.containerPoint);
-      function getPixelData() {
-        let pixel = self.getClickedPixel(e);
 
-        let values = {};
-        self.props.dataOverlays.forEach(anOverlay => {
-          if (self.overlayCanvases[anOverlay.type]["loaded"]) {
-            let p = self.overlayCanvases[anOverlay.type]["ctx"].getImageData(
-              pixel.x,
-              pixel.y,
-              1,
-              1
-            ).data;
-            values[anOverlay.type] = self.props.rgbToValue(anOverlay.type, {
-              r: p[0],
-              g: p[1],
-              b: p[2]
-            });
-          }
-        });
-        //console.log("overclick jjj", values);
-
-        self.setDataMarker({
-          coordinates: e.latlng,
-          value: values.temperature ?? values.windSpeed ?? values.snowHeight,
-          direction: values.windDirection
-        });
-      }
+      //console.log("overclick jjj", values);
 
       let allLoaded = true;
       self.props.dataOverlays.forEach(anOverlay => {
@@ -146,14 +147,14 @@ export default class Overlay extends React.Component {
               this.height * 2
             );
             self.overlayCanvases[anOverlay.type]["loaded"] = true;
-            getPixelData(e);
+            self.getPixelData(e);
           };
           img.src = this.props.overlay + ".png";
         } else if (!self.overlayCanvases[anOverlay.type]["loaded"])
           allLoaded = false;
       });
 
-      if (allLoaded) getPixelData(e);
+      if (allLoaded) self.getPixelData(e);
     }
   }
 
@@ -162,8 +163,8 @@ export default class Overlay extends React.Component {
     let self = this;
     if (this.props.overlay) {
       //console.log("this.props.item.layer.overlay", this.props);
-      const mapMinZoom = config.map.initOptions.minZoom;
-      const mapMaxZoom = config.map.initOptions.maxZoom;
+      //const mapMinZoom = config.map.initOptions.minZoom;
+      //const mapMaxZoom = config.map.initOptions.maxZoom;
 
       //console.log("wather-map->render xxx1:", this.props.overlay);
       if (this.props.overlay) {

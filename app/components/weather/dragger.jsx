@@ -44,7 +44,7 @@ class Dragger extends React.Component {
       self.currentY = pageY - shiftY - parentOffset.top;
       self.draggable.style.left = self.currentX + "px";
       //draggable.style.top = self.currentY + 'px';
-      if (self.props.onDrag) self.props.onDrag(x, y);
+      if (self.props.onDrag) self.props.onDrag(self.currentX, self.currentY);
     }
 
     function onMouseMove(event) {

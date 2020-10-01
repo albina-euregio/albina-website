@@ -335,7 +335,7 @@ export default class WeatherMapStore_new {
     const timesConfig = this.domainConfig.updateTimesOffset;
     const lastUpdate = new Date(this._lastDataUpdate);
 
-    const utcHour = lastUpdate.getUTCHours();
+    //const utcHour = lastUpdate.getUTCHours();
 
     let addHours;
 
@@ -353,34 +353,34 @@ export default class WeatherMapStore_new {
   */
   valueForPixel(overlayType, pixelRGB) {
     //console.log("valueForPixel jjj", overlayType, pixelRGB);
+    let res;
     switch (overlayType) {
       case "temperature":
-        if (pixelRGB.r <= 0) return "<59,5";
-        if (pixelRGB.r >= 255) return null;
-        return Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);
+        if (pixelRGB.r <= 0) res = "<59,5";
+        else if (pixelRGB.r >= 255) res = null;
+        else res = Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);
         break;
       case "windDirection":
-        if (pixelRGB.r <= 0 || pixelRGB.r > 180) return null;
-        return pixelRGB.r * 2;
+        if (pixelRGB.r <= 0 || pixelRGB.r > 180) res = null;
+        else res = pixelRGB.r * 2;
         break;
       case "windSpeed":
-        if (pixelRGB.r <= 0 || pixelRGB.r >= 255) return null;
-        return pixelRGB.r;
+        if (pixelRGB.r <= 0 || pixelRGB.r >= 255) res = null;
+        else res = pixelRGB.r;
         break;
       case "snowHeight":
         console.log("snowHeight", pixelRGB);
-        if (pixelRGB.r + pixelRGB.g + pixelRGB.g === 0) return 0;
-        if (pixelRGB.g + pixelRGB.g === 0) return -251 + pixelRGB.r;
-        if (pixelRGB.r + pixelRGB.g === 0) return 249 + pixelRGB.b;
-        if (pixelRGB.r + pixelRGB.b === 0) return 2019 + pixelRGB.g;
-        if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
-          return pixelRGB.r;
-        return null;
+        if (pixelRGB.r + pixelRGB.g + pixelRGB.g === 0) res = 0;
+        else if (pixelRGB.g + pixelRGB.g === 0) res = -251 + pixelRGB.r;
+        else if (pixelRGB.r + pixelRGB.g === 0) res = 249 + pixelRGB.b;
+        else if (pixelRGB.r + pixelRGB.b === 0) res = 2019 + pixelRGB.g;
+        else if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0);
+        else res = pixelRGB.r;
         break;
       default:
-        return null;
         break;
     }
+    return res;
   }
 
   /*

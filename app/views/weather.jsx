@@ -1,6 +1,6 @@
 import React from "react";
-import { withRouter, Switch } from "react-router-dom";
-import { observer, inject, action } from "mobx-react";
+import { withRouter } from "react-router-dom";
+import { observer, inject } from "mobx-react";
 import { modal_open_by_params } from "../js/modal";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
@@ -15,7 +15,6 @@ import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 
 import MapStore from "../stores/mapStore";
 import Player from "../js/player";
-import { observe } from "../../node_modules/mobx/lib/mobx";
 
 class Weather extends React.Component {
   constructor(props) {

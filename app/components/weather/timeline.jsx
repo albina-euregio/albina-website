@@ -80,7 +80,7 @@ class Timeline extends React.Component {
 
     let closestDist = 9999;
     let closestTime;
-    let nrOnlyTimespan = this.props.timeSpan.replace(/\D/g, "");
+    //let nrOnlyTimespan = this.props.timeSpan.replace(/\D/g, "");
 
     const arrowLeft = left; // + $(".cp-scale-stamp-point-arrow").outerWidth() / 2;
     $("#whereami").css({ left: left });

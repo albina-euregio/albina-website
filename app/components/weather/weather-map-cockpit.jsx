@@ -1,17 +1,11 @@
 import React from "react";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
-import { reaction } from "mobx";
 import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import Dragger from "./dragger.jsx";
 
-import {
-  dateToDateTimeString,
-  dateToShortDayString,
-  dateToWeekdayString,
-  dateToTimeString
-} from "../../util/date.js";
+import { dateToDateTimeString, dateToTimeString } from "../../util/date.js";
 import { tooltip_init } from "../../js/tooltip";
 
 const DOMAIN_ICON_CLASSES = {
@@ -229,7 +223,7 @@ class WeatherMapCockpit extends React.Component {
     );
   }
 
-  setClosestTick(x, y) {
+  setClosestTick(x) {
     //console.log("setClosestTick hhhh", x, y);
 
     let closestTime = this.getClosestTick(x);
@@ -250,8 +244,6 @@ class WeatherMapCockpit extends React.Component {
 
   getTimeline() {
     let self = this;
-    let lastTime;
-    let days = [];
     let nrOnlyTimespan = parseInt(this.props.timeSpan.replace(/\D/g, ""), 10);
     let parts = [];
 

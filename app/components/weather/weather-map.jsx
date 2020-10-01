@@ -2,10 +2,8 @@ import React from "react";
 import loadable from "@loadable/component";
 import { observer } from "mobx-react";
 
-import Base from "../../base";
 import LeafletMap from "../leaflet/leaflet-map";
 import Overlay from "../leaflet/overlay";
-import { ImageOverlay } from "react-leaflet";
 
 import GridOverlay from "./grid-overlay";
 
@@ -24,8 +22,8 @@ class WeatherMap extends React.Component {
     if (this.props.item) {
       if (this.props.overlay) {
         //console.log("this.props.item.layer.overlay", this.props.item);
-        const mapMinZoom = config.map.initOptions.minZoom;
-        const mapMaxZoom = config.map.initOptions.maxZoom;
+        // const mapMinZoom = config.map.initOptions.minZoom;
+        // const mapMaxZoom = config.map.initOptions.maxZoom;
 
         //console.log("wather-map->render xxx1:", this.props.overlay);
         if (this.props.overlay) {

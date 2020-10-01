@@ -1,4 +1,4 @@
-import { computed, observable, action } from "mobx";
+import { computed, observable } from "mobx";
 
 export default class Player {
   _itemsToLoad;
@@ -59,8 +59,10 @@ export default class Player {
     switch (state) {
       case "loading":
         this._itemsToLoad.push(layerId);
+        break;
       case "load":
         this._removeItemToLoad(layerId);
+        break;
       case "error":
       //this._removeItemToLoad(layerId);
     }
