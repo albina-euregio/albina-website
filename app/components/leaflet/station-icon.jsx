@@ -4,6 +4,7 @@ const iconSVGS = {
 };
 export default class StationIcon extends React.Component {
   RGBToHex(color) {
+    //console.log("RGBToHex", color);
     let r = color[0].toString(16);
     let g = color[1].toString(16);
     let b = color[2].toString(16);
@@ -89,8 +90,8 @@ export default class StationIcon extends React.Component {
     const fill =
       typeof this.props.color === "string"
         ? this.props.color
-        : "rgb(" + this.props.color + ")";
-
+        : this.RGBToHex(this.props.color);
+    // console.log("StationIcon->render", fill);
     return (
       <div
         className={
@@ -98,7 +99,7 @@ export default class StationIcon extends React.Component {
           (this.props.selected ? " " + this.props.type + "-selected" : "")
         }
       >
-        {this.getCircle(this.props.dataType, this.RGBToHex(this.props.color))}
+        {this.getCircle(this.props.dataType, fill)}
         {this.props.direction &&
           this.getdirection("directionArrow", this.props.direction)}
         {this.getText(this.props.value, s)}

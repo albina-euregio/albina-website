@@ -50,16 +50,17 @@ class StationMap extends React.Component {
         "weatherStationDiagrams",
         true
       );
-      this.setState({ selectedFeature: null });
+      //this.setState({ selectedFeature: null });
     } else {
-      this.setState({ selectedFeature: feature });
+      //this.setState({ selectedFeature: feature });
     }
   }
 
   render() {
+
     const item = {
       id: "name",
-      colors: ["rgba(25, 171, 255, 0.75)"],
+      colors: [[25, 171, 255]],
       thresholds: [],
       clusterOperation: "none"
     };
@@ -67,7 +68,7 @@ class StationMap extends React.Component {
       <StationOverlay
         key={"stations"}
         onMarkerSelected={this.onMarkerSelected.bind(this)}
-        selectedFeature={this.props.selectedFeature}
+        itemId="any"
         item={item}
         features={window.stationDataStore.data}
       />

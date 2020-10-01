@@ -16,14 +16,13 @@ export default class StationOverlay extends React.Component {
   getColor(value) {
     const v = parseFloat(value);
     const colors = Object.values(this.props.item.colors);
-
+    //console.log("StationOverlay->getColor#1", value, this.props.item.colors);
     let color = colors[0];
     this.props.item.thresholds.forEach((tr, i) => {
       if (v > tr) {
         color = colors[i + 1];
       }
     });
-
     return color;
   }
 
@@ -55,10 +54,14 @@ export default class StationOverlay extends React.Component {
     // console.log(
     //   "station-overlay->renderMarker aaa",
     //   this.props.itemId,
+    //   this.props.item.colors || this.getColor(Math.round(data[this.props.itemId])),
     //   data,
     //   data[this.props.itemId]
     // );
-    if (data.date === undefined || data[this.props.itemId] === undefined)
+    if (
+      (data.date === undefined || data[this.props.itemId] === undefined) &&
+      this.props.itemId !== "any"
+    )
       return;
 
     const value = Math.round(data[this.props.itemId]);
@@ -79,7 +82,7 @@ export default class StationOverlay extends React.Component {
       value: value,
       plot: data.plot
     };
-    //console.log("station-overlay->renderMarker qqq", this.props.itemId, data.name,  value);
+    //console.log("station-overlay->renderMarker qqq", this.props.item,  value);
     return (
       <StationMarker
         type="station"
@@ -126,12 +129,14 @@ export default class StationOverlay extends React.Component {
     //console.log("station-overlay->render qq", this.props.selectedFeature?.id, sPl?.name, sPl?.properties.LT);
     //console.log("station-overlay->render aaa", this.props.selectedFeature, this.props.features);
     const points = this.props.features.filter(
-      point => point[this.props.itemId] !== false
+      point => this.props.itemId === "any" || point[this.props.itemId] !== false
     );
 
     const selectedFeature = this.props.selectedFeature
       ? points.find(point => point.id == this.props.selectedFeature.id)
       : null;
+
+    // console.log("station-overlay lll", this.props, points);
 
     return (
       <div>
