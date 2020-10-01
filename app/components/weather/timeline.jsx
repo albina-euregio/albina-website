@@ -145,12 +145,15 @@ class Timeline extends React.Component {
       let weekday = dateToWeekdayString(aTime);
 
       if (lastTime !== weekday) {
+        let firstAvailableTime;
         let hours = [];
         for (let i = 1; i < 26; i++) {
           let currentHour = new Date(aTime).setHours(i);
           let isSelectable = self.props.timeArray.includes(currentHour);
           let spanClass = ["cp-scale-hour-" + i, "t" + currentHour];
           if (aTime < self.props.startDate) spanClass.push("cp-analyse-item");
+          if (isSelectable && !firstAvailableTime)
+            firstAvailableTime = currentHour;
           hours.push(
             <span
               key={currentHour}
@@ -173,9 +176,15 @@ class Timeline extends React.Component {
             key={aTime}
           >
             <span className="cp-scale-day-name">
-              {weekday.substring(0, 2)}
-              <span>{weekday.substring(2, 20)}</span>{" "}
-              {dateToShortDayString(aTime)}
+              <a
+                onClick={() => {
+                  this.props.changeCurrentTime(firstAvailableTime);
+                }}
+              >
+                {weekday.substring(0, 2)}
+                <span>{weekday.substring(2, 20)}</span>{" "}
+                {dateToShortDayString(aTime)}
+              </a>
             </span>
             <div key="cp-scale-hours" className="cp-scale-hours">
               {hours}
