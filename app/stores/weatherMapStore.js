@@ -415,7 +415,7 @@ export default class WeatherMapStore_new {
       );
       endTime = new Date(currentTime);
       endTime.setHours(endTime.getHours() + this._absTimeSpan);
-      //console.log("weatherMapStore_new _setTimeIndices #2 >= 0", maxTime);
+      //console.log("weatherMapStore_new _setTimeIndices #2", endTime, maxTime);
       while (endTime <= maxTime) {
         //console.log( "weatherMapStore_new _setTimeIndices add date", this._absTimeSpan, new Date(currentTime), new Date(maxTime));
         indices.push(new Date(currentTime).getTime());
@@ -434,8 +434,12 @@ export default class WeatherMapStore_new {
       maxTime.setHours(
         maxTime.getHours() + parseInt(this.config.settings.timeRange[0], 10)
       );
-      //console.log("weatherMapStore_new _setTimeIndices #3 >= 0", maxTime);
-      while (currentTime > maxTime) {
+      console.log(
+        "weatherMapStore_new _setTimeIndices #3 >= 0",
+        currentTime,
+        maxTime
+      );
+      while (currentTime >= maxTime) {
         if (timeSpanDir != 0 || !indices.includes(currentTime.getTime()))
           indices.push(new Date(currentTime).getTime());
         currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
