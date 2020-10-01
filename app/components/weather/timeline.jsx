@@ -3,7 +3,8 @@ import React from "react";
 import {
   dateToDateTimeString,
   dateToShortDayString,
-  dateToWeekdayString
+  dateToWeekdayString,
+  isSameDay
 } from "../../util/date.js";
 
 class Timeline extends React.Component {
@@ -162,7 +163,15 @@ class Timeline extends React.Component {
         }
 
         days.push(
-          <div className="cp-scale-day" key={aTime}>
+          <div
+            className={
+              self.props.currentTime &&
+              isSameDay(new Date(self.props.currentTime), new Date(aTime))
+                ? "cp-scale-day cp-scale-day-today"
+                : "cp-scale-day "
+            }
+            key={aTime}
+          >
             <span className="cp-scale-day-name">
               {weekday.substring(0, 2)}
               <span>{weekday.substring(2, 20)}</span>{" "}

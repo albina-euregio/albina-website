@@ -358,6 +358,7 @@ class WeatherMapCockpit extends React.Component {
         <Timeline
           timeArray={this.props.timeArray}
           timeSpan={this.props.timeSpan}
+          currentTime={this.props.currentTime}
           updateCB={this.onTimelineUpdate.bind(this)}
         />
 
