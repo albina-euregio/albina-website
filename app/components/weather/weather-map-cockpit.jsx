@@ -57,6 +57,23 @@ class WeatherMapCockpit extends React.Component {
     $("body").removeClass("layer-selector-open");
   }
 
+  onDragStart() {
+    //console.log("onDragging");
+    this.showTimes(false);
+  }
+
+  showTimes(show) {
+    $(".cp-scale-stamp-range-end").css({
+      display: show ? "" : "none"
+    });
+    $(".cp-scale-stamp-range-begin").css({
+      display: show ? "" : "none"
+    });
+    $(".cp-scale-stamp-point-exact").css({
+      display: show ? "" : "none"
+    });
+  }
+
   placeCockpitItems() {
     // console.log(
     //   "placeCockpitItems: hhh",
@@ -72,6 +89,7 @@ class WeatherMapCockpit extends React.Component {
         ".t" + this.props.timeArray[this.props.timeArray.length - 1]
       ).offset();
       //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
+      this.showTimes(true);
       if (this.props.timeArray.length < 2) {
         $(".cp-scale-flipper-left").css({
           display: "none"
@@ -246,8 +264,10 @@ class WeatherMapCockpit extends React.Component {
     let closestTime = this.getClosestTick(x);
 
     // place back to origin
-    if (closestTime === this.props.currentTime)
+    if (closestTime === this.props.currentTime) {
+      this.showTimes(true);
       this.rePostionsStamp(this.getLeftForTime(this.props.currentTime));
+    }
 
     try {
       //console.log("setClosestTick hhhh closestTime:", new Date(closestTime));
@@ -274,6 +294,7 @@ class WeatherMapCockpit extends React.Component {
           ? this.getLeftForTime(this.props.currentTime)
           : 0,
         onDragEnd: self.setClosestTick.bind(self),
+        onDragStart: self.onDragStart.bind(this),
         parent: ".cp-scale-stamp",
         rePosition: f => {
           this.rePostionsStamp = f;
