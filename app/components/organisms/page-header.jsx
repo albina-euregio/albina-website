@@ -25,8 +25,10 @@ class PageHeader extends React.Component {
 
     // Base.searchChange(this.props.history, { lang: newLanguage }, false);
     const newHost = config.languageHostSettings[newLanguage];
-    console.info("Changing hostname to " + newHost);
-    document.location.hostname = newHost;
+    if (newHost && document.location.hostname !== newHost) {
+      console.info("Changing hostname to " + newHost);
+      document.location.hostname = newHost;
+    }
 
     // if (this.props.location.pathname.includes("blog")) {
     //   Base.searchChange(
