@@ -1,5 +1,10 @@
 # albina-website
 
+- https://lawinen.report/
+- https://valanghe.report/
+- https://avalanche.report/
+- https://avalanche.report/fr/
+
 ## Development
 
 Use `npm install` to download necessary packages.
