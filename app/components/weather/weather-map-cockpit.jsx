@@ -463,13 +463,13 @@ class WeatherMapCockpit extends React.Component {
           </span>{" "}
           {dateToDateTimeString(this.props.nextUpdateTime)}
         </span>
-        <span key="cp-release-copyright" className="cp-release-copyright">
+        {/* <span key="cp-release-copyright" className="cp-release-copyright">
           <a
             href="#"
             className="icon-copyright icon-margin-no tooltip"
             title="Copyright"
           ></a>
-        </span>
+        </span> */}
       </div>
     );
   }
