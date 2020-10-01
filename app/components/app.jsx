@@ -141,6 +141,14 @@ class App extends React.Component {
             component: SubscribeConfirmation
           },
           {
+            path: "/:lang([a-z]{2})",
+            component: ({ match }) => {
+              const lang = match?.params?.lang;
+              window["appStore"].setLanguage(lang);
+              return <Redirect to={"/"} />;
+            }
+          },
+          {
             // NOTE: 404 error will be handled by StaticPage, since we do not
             // know which pages reside on the CMS in this router config
             path: "/:name",
