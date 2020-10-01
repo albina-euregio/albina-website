@@ -4,6 +4,9 @@
 - https://valanghe.report/
 - https://avalanche.report/
 - https://avalanche.report/fr/
+- https://avalanche.report/ca/
+- https://avalanche.report/es/
+- https://avalanche.report/oc/
 
 ## Development
 

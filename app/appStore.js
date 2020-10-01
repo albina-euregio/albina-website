@@ -4,10 +4,15 @@ import { LocaleStore } from "./util/mobx-react-intl.es5.js";
 import { BulletinStore } from "./stores/bulletinStore";
 import CookieStore from "./stores/cookieStore";
 import NavigationStore from "./stores/navigationStore";
+
+// i18n
+import ca from "./i18n/ca.json";
 import de from "./i18n/de.json";
 import en from "./i18n/en.json";
+import es from "./i18n/es.json";
 import fr from "./i18n/fr.json";
 import it from "./i18n/it.json";
+import oc from "./i18n/oc.json";
 
 class AppStore extends React.Component {
   @observable
@@ -23,13 +28,8 @@ class AppStore extends React.Component {
 
   constructor() {
     super();
-    this.languages = ["en", "de", "fr", "it"];
-    const translationLookup = {
-      en,
-      de,
-      fr,
-      it
-    };
+    this.languages = ["ca", "en", "de", "es", "fr", "it", "oc"];
+    const translationLookup = { ca, en, de, es, fr, it, oc };
 
     // initial language is changed after config has arrived!!!
     this.locale = new LocaleStore("en", translationLookup);
