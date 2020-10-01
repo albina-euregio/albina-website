@@ -72,12 +72,29 @@ class WeatherMapCockpit extends React.Component {
         ".t" + this.props.timeArray[this.props.timeArray.length - 1]
       ).offset();
       //const flipperWidth = $(".cp-scale-flipper-right").outerWidth();
-      $(".cp-scale-flipper-left").css({
-        left: posFirstAvailable.left - posContainer.left
-      });
-      $(".cp-scale-flipper-right").css({
-        left: posLast.left - posContainer.left + timespan * this.tickWidth
-      });
+      if (this.props.timeArray.length < 2) {
+        $(".cp-scale-flipper-left").css({
+          display: "none"
+        });
+        $(".cp-scale-flipper-right").css({
+          display: "none"
+        });
+        $(".cp-movie").css({
+          display: "none"
+        });
+      } else {
+        $(".cp-scale-flipper-left").css({
+          left: posFirstAvailable.left - posContainer.left,
+          display: ""
+        });
+        $(".cp-scale-flipper-right").css({
+          left: posLast.left - posContainer.left + timespan * this.tickWidth,
+          display: ""
+        });
+        $(".cp-movie").css({
+          display: ""
+        });
+      }
 
       if (this.props.lastAnalyticTime) {
         // console.log(

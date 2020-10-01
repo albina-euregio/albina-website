@@ -393,6 +393,7 @@ export default class WeatherMapStore_new {
 
     let currentTime = new Date(this._dateStart);
     let maxTime;
+    let endTime;
     let timeSpanDir = currentTimespan.includes("+-")
       ? 0
       : parseInt(currentTimespan, 10) > 0
@@ -412,11 +413,14 @@ export default class WeatherMapStore_new {
       maxTime.setHours(
         maxTime.getHours() + parseInt(this.config.settings.timeRange[1], 10)
       );
+      endTime = new Date(currentTime);
+      endTime.setHours(endTime.getHours() + this._absTimeSpan);
       //console.log("weatherMapStore_new _setTimeIndices #2 >= 0", maxTime);
-      while (currentTime < maxTime) {
+      while (endTime <= maxTime) {
         //console.log( "weatherMapStore_new _setTimeIndices add date", this._absTimeSpan, new Date(currentTime), new Date(maxTime));
         indices.push(new Date(currentTime).getTime());
         currentTime.setHours(currentTime.getHours() + this._absTimeSpan);
+        endTime.setHours(endTime.getHours() + this._absTimeSpan);
       }
     }
     if (timeSpanDir <= 0) {
