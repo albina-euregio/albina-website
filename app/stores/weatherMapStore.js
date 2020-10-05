@@ -45,7 +45,7 @@ export default class WeatherMapStore_new {
     const self = this;
     this._loading.set(true);
     this._lastDataUpdate = 0;
-    //console.log("_loadDomainData this.currentTime bbb");
+    //console.log("_loadDomainData bbb", this._domainId, this.getMetaFile("agl"));
 
     const loads = [
       axios
@@ -53,7 +53,7 @@ export default class WeatherMapStore_new {
           config.apis.weather.overlays +
             this._domainId.get() +
             "/" +
-            this.config.settings.metaFiles.agl
+            this.getMetaFile("agl")
         )
         .then(response => {
           if (response.data.includes("T"))
@@ -65,7 +65,7 @@ export default class WeatherMapStore_new {
           config.apis.weather.overlays +
             this._domainId.get() +
             "/" +
-            this.config.settings.metaFiles.startDate
+            this.getMetaFile("startDate")
         )
         .then(response => {
           // console.log(
@@ -159,6 +159,23 @@ export default class WeatherMapStore_new {
     const updateDateTime = new Date(dateTime).getTime();
     if (updateDateTime < this._lastDataUpdate || this._lastDataUpdate === 0)
       this._lastDataUpdate = new Date(dateTime).getTime();
+  }
+
+  /*
+    returns metafile
+  */
+  getMetaFile(type) {
+    let foundDef;
+    if (type === "agl")
+      foundDef =
+        this.domainConfig.metaFiles?.startDate ||
+        this.config.settings.metaFiles.startDate;
+    if (type === "startDate")
+      foundDef =
+        this.domainConfig.metaFiles?.startDate ||
+        this.config.settings.metaFiles.startDate;
+
+    return foundDef.replace("{timespan}", this._absTimeSpan);
   }
 
   /*
@@ -369,13 +386,13 @@ export default class WeatherMapStore_new {
         else res = pixelRGB.r;
         break;
       case "snowHeight":
-        console.log("snowHeight", pixelRGB);
+        //console.log("snowHeight", pixelRGB);
         if (pixelRGB.r + pixelRGB.g + pixelRGB.g === 0) res = 0;
         else if (pixelRGB.g + pixelRGB.g === 0) res = -251 + pixelRGB.r;
         else if (pixelRGB.r + pixelRGB.g === 0) res = 249 + pixelRGB.b;
         else if (pixelRGB.r + pixelRGB.b === 0) res = 2019 + pixelRGB.g;
-        else if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0);
-        else res = pixelRGB.r;
+        else if (pixelRGB.r !== 0 && pixelRGB.g !== 0 && pixelRGB.b !== 0)
+          res = pixelRGB.r;
         break;
       default:
         break;
@@ -552,10 +569,6 @@ export default class WeatherMapStore_new {
         this.selectedFeature = null;
       }
     } else
-      console.error(
-        "timeIndex not available bbb",
-        timeIndex,
-        this._availableTimes
-      );
+      console.error("timeIndex not available", timeIndex, this._availableTimes);
   }
 }

@@ -441,8 +441,8 @@
           "defaultTimeSpan": null,
           "timeSpanToDataId": {},
           "updateTimesOffset": { "*": 24, "-6": 6, "-12": 12 },
-          "overlay": {
-            "image": "{datetime}_diff-snow_{timespan}h.gif"
+          "metaFiles": {
+            "agl": "agl_{timespan}h.ok"
           },
           "units": "cm",
           "thresholds": [-20, -10, -5, 1, 5, 10, 20, 30, 50, 75, 100],
