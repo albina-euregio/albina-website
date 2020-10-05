@@ -511,6 +511,7 @@ export default class BlogStore {
     const currentDate = new Date().getTime();
     let nrOfNewPosts = 0;
     if (this.posts) {
+      // eslint-disable-next-line no-unused-vars
       for (let prop in this.posts) {
         this.posts[prop].forEach(aPost => {
           if (currentDate < aPost.newUntil) nrOfNewPosts++;
