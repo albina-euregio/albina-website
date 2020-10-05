@@ -2,6 +2,8 @@ import React from "react";
 import { inject } from "mobx-react";
 import L from "leaflet";
 require("leaflet/dist/leaflet.css");
+require("./leaflet-player.css");
+
 import {
   Map,
   TileLayer,
@@ -25,7 +27,14 @@ class LeafletMap extends React.Component {
      * @type L.Map
      */
     this.map = undefined;
+    this.mapRef;
+    this._layers = [];
   }
+
+  // onTick(){
+  //   console.log("onTick xxx", this.playerStore.currentTime.get());
+  //   this.test = this.props.currentTime.get();
+  // }
 
   mapStyle() {
     return {
@@ -57,8 +66,11 @@ class LeafletMap extends React.Component {
       this.mapDisabled = this.refs.mapDisabled.leafletElement;
       L.Util.setOptions(this.mapDisabled, { gestureHandling: false });
     }
-    if (this.refs.map && !this.map) {
-      this.map = this.refs.map.leafletElement;
+
+    if (this.mapRef && !this.map) {
+      this.map = this.mapRef.leafletElement;
+      window.currMap = this.map;
+      //console.log("updateMaps xyz", L);
       if (this.props.onInit) {
         this.props.onInit(this.map);
       }
@@ -68,6 +80,7 @@ class LeafletMap extends React.Component {
       this.map.fitBounds(config.map.euregioBounds);
 
       const map = this.map;
+      //console.log("this.map", this.map);
       window.setTimeout(() => {
         L.control
           .zoom({
@@ -155,7 +168,12 @@ class LeafletMap extends React.Component {
               key={layerProps.id}
               checked={i == 0}
             >
-              <TileLayer key={layerProps.id} {...layerProps} />
+              <TileLayer
+                key={layerProps.id}
+                {...layerProps}
+                onload={this.onLayerLoad}
+                onerror={this.onLayerLoadError}
+              />
             </LayersControl.BaseLayer>
           ))}
         </LayersControl>
@@ -185,6 +203,13 @@ class LeafletMap extends React.Component {
     };
   }
 
+  connectLayers(map) {
+    //console.log("connectLayers", map);
+    if (map) {
+      this.mapRef = map;
+    }
+  }
+
   render() {
     const mapProps = config.map.initOptions;
     const mapOptions = Object.assign(
@@ -198,7 +223,26 @@ class LeafletMap extends React.Component {
       : this.renderDisabledMap(mapOptions);
   }
 
+  get overlays() {
+    console.log(
+      "overlays " + this.props.identifier,
+      this._layers[this.props.identifier]
+    );
+    if (!this._layers[this.props.identifier])
+      return (this._layers[this.props.identifier] = this.props.overlays);
+    return this._layers[this.props.identifier];
+  }
+
   renderDisabledMap(mapOptions) {
+    let timeDimensionControlOptions = {
+      autoPlay: false,
+      playerOptions: {
+        buffer: 10,
+        transitionTime: 500,
+        loop: true
+      }
+    };
+
     return (
       <Map
         className="map-disabled"
@@ -209,21 +253,31 @@ class LeafletMap extends React.Component {
         zoom={window.mapStore.mapZoom}
         center={window.mapStore.mapCenter}
         {...mapOptions}
+        timeDimension={true}
+        timeDimensionControl={true}
+        timeDimensionControlOptions={timeDimensionControlOptions}
         attributionControl={false}
       >
         <AttributionControl prefix={config.map.attribution} />
         {this.tileLayers}
-        {this.props.overlays}
       </Map>
     );
   }
 
   renderLoadedMap(mapOptions) {
+    let timeDimensionControlOptions = {
+      autoPlay: false,
+      playerOptions: {
+        buffer: 10,
+        transitionTime: 500,
+        loop: true
+      }
+    };
     return (
       <Map
         onViewportChanged={this.props.onViewportChanged.bind(this.map)}
         useFlyTo
-        ref="map"
+        ref={el => this.connectLayers(el)}
         gestureHandling
         dragging={L.Browser.mobile}
         style={this.mapStyle()}
@@ -232,6 +286,9 @@ class LeafletMap extends React.Component {
         center={window.mapStore.mapCenter}
         {...mapOptions}
         attributionControl={false}
+        timeDimension={true}
+        timeDimensionControl={true}
+        timeDimensionControlOptions={timeDimensionControlOptions}
       >
         <AttributionControl prefix={config.map.attribution} />
         <ScaleControl imperial={false} position="bottomleft" />

@@ -40,48 +40,33 @@ class SubscribeSocialMediaDialog extends React.Component {
       : "";
 
     return (
-      <div className="modal-follow" style={{ textAlign: "center" }}>
+      <div className="modal-container">
         <div className="modal-header">
-          <h2 className="subheader">
-            <FormattedHTMLMessage id="dialog:subscribe-social-media:header" />
-          </h2>
           <h2>
             <FormattedHTMLMessage id="dialog:subscribe-social-media:subheader" />
           </h2>
-          <p className="tiny">
-            <a
-              href="#subscribeDialog"
-              className="icon-link icon-arrow-left modal-trigger tooltip"
-              title={this.props.intl.formatMessage({
-                id: "dialog:subscribe-social-media:back-button:hover"
-              })}
-            >
-              <FormattedHTMLMessage id="dialog:subscribe-social-media:back-button" />
-            </a>
-          </p>
         </div>
 
-        <div
-          style={{
-            textAlign: "center",
-            width: "fit-content",
-            margin: "0 auto",
-            paddingBottom: "2em"
-          }}
-        >
+        <form className="pure-form pure-form-stacked">
           <label htmlFor="province">
             <FormattedHTMLMessage id="dialog:subscribe-email:region" />
           </label>
-          <ProvinceFilter
-            name="province"
-            className={this.state.region && "selectric-changed"}
-            handleChange={r => this.handleChangeRegion(r)}
-            value={this.state.region}
-            none={this.props.intl.formatMessage({
-              id: "blog:filter:province:nothing-selected"
-            })}
-          />
-        </div>
+          <ul className="list-inline list-buttongroup">
+            <li>
+              <ProvinceFilter
+                name="province"
+                className={this.state.region && "selectric-changed"}
+                handleChange={r => this.handleChangeRegion(r)}
+                value={this.state.region}
+                none={this.props.intl.formatMessage({
+                  id: "blog:filter:province:nothing-selected"
+                })}
+              />
+            </li>
+          </ul>
+
+          <hr />
+        </form>
 
         <div
           className="messengerpeople-wrapper"

@@ -7,21 +7,42 @@ import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 
-import Menu from "../components/menu";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
 
-import ItemFlipper from "../components/weather/item-flipper";
-import WeatherMapTitle from "../components/weather/weather-map-title";
+import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
+
 import MapStore from "../stores/mapStore";
+import Player from "../js/player";
 
 class Weather extends React.Component {
   constructor(props) {
     super(props);
 
-    this.store = new WeatherMapStore(this.props.match.params.domain);
+    if (!config.player) {
+      config.player = new Player({
+        transitionTime: 1000,
+        owner: this,
+        onTick: this.onTick
+      });
+    }
 
+    if (!config.weathermapStore) {
+      config.weathermapStore = new WeatherMapStore(
+        this.props.match.params.domain
+      );
+    } else {
+      console.log(
+        "rechange domain 777",
+        this.props.match.params.domain,
+        this.props.match.params
+      );
+      config.weathermapStore.changeDomain(this.props.match.params.domain);
+    }
+    //config.player.start();
+
+    //console.log("Weather: Store:", config.weathermapStore);
     this.state = {
       title: "",
       headerText: "",
@@ -38,24 +59,55 @@ class Weather extends React.Component {
     this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
   }
 
+  componentDidMount() {
+    $("#page-footer").css({ display: "none" });
+    $("body").addClass("s-weathermap-2020");
+    $("body").addClass("scrolling-down");
+  }
+
+  componentWillUnmount() {
+    $("#page-footer").css({ display: "" });
+    $("body").removeClass("s-weathermap-2020");
+  }
+
+  onTick() {
+    //console.log("onTick xxx1", config.weathermapStore.nextTime);
+    config.weathermapStore.changeCurrentTime(config.weathermapStore.nextTime);
+  }
+
   componentDidUpdate() {
     if (
-      this.store.domainId &&
-      this.store.domainId !== this.props.match.params.domain
+      config.weathermapStore.domainId &&
+      config.weathermapStore.domainId !== this.props.match.params.domain
     ) {
-      this.props.history.replace("/weather/map/" + this.store.domainId);
+      this.props.history.replace(
+        "/weather/map/" + config.weathermapStore.domainId
+      );
     }
   }
 
-  handleClickDomainButton(menuItem) {
-    const newDomainId = menuItem.id;
-    if (newDomainId !== this.store.domainId) {
-      this.store.changeDomain(newDomainId);
-    }
-  }
+  handleClickCockpitEvent(type, value) {
+    //console.log("handleClickCockpitEvent 777", type, value);
+    const wmStore = config.weathermapStore;
+    const player = config.player;
 
-  handleChangeItem(newItemId) {
-    this.store.changeItem(newItemId);
+    switch (type) {
+      case "domain":
+        wmStore.changeDomain(value);
+        break;
+      case "timeSpan":
+        wmStore.changeTimeSpan(value);
+        break;
+      case "time":
+        wmStore.changeCurrentTime(value);
+        break;
+      case "play":
+        if (value) player.start();
+        else player.stop();
+        break;
+      default:
+        break;
+    }
   }
 
   handleMapViewportChanged = map => {
@@ -69,11 +121,11 @@ class Weather extends React.Component {
     if (!feature) return;
     // console.log(
     //   "handleMarkerSelected", feature
-    //   ,this.store.stations.features.find(point => point.id == feature.id)
+    //   ,config.weathermapStore.stations.features.find(point => point.id == feature.id)
     // );
     if (feature.id) {
       window["modalStateStore"].setData({
-        stationData: this.store.stations.features.find(
+        stationData: config.weathermapStore.stations.features.find(
           point => point.id == feature.id
         )
       });
@@ -84,24 +136,18 @@ class Weather extends React.Component {
         "weatherStationDiagrams",
         true
       );
-      this.store.selectedFeature = null;
+      config.weathermapStore.selectedFeature = null;
     } else {
-      this.store.selectedFeature = feature;
+      config.weathermapStore.selectedFeature = feature;
     }
   };
 
   render() {
-    const domainButtons = this.store.config
-      ? Object.keys(this.store.config).map(domainId => {
-          const domain = this.store.config[domainId];
-          return {
-            id: domainId,
-            title: domain.description[appStore.language],
-            url: "/weather/map/" + domainId,
-            isExternal: false
-          };
-        })
-      : [];
+    const wmStore = config.weathermapStore;
+    const wmPlayer = config.player;
+
+    //console.log("Weather->render xxxx1", wmStore);
+
     return (
       <>
         <HTMLHeader
@@ -111,63 +157,61 @@ class Weather extends React.Component {
           title={this.props.intl.formatMessage({ id: "weathermap:headline" })}
           marginal={this.state.headerText}
         />
-        <section className="section-flipper">
-          <div id="flipper">
-            {/* <div className="section-centered"> */}
-            <div className="section-padding-width flipper-controls">
-              <Menu
-                intl={this.props.intl}
-                className="list-inline list-buttongroup-dense flipper-buttongroup flipper-centered"
-                entries={domainButtons}
-                childClassName="list-plain subnavigation"
-                menuItemClassName="secondary pure-button"
-                activeClassName="js-active"
-                onSelect={this.handleClickDomainButton.bind(this)}
-                onActiveMenuItem={e => {
-                  if (e.title != this.state.mapTitle) {
-                    const that = this;
-                    window.setTimeout(
-                      () => that.setState({ mapTitle: e.title }),
-                      100
-                    );
-                  }
-                }}
-              />
-              <ItemFlipper
-                store={this.store}
-                handleChange={this.handleChangeItem.bind(this)}
-              />
-            </div>
 
-            <div className="section-centered">
-              <div className="section-padding-width flipper-header">
-                {this.store.item && <WeatherMapTitle store={this.store} />}
-              </div>
-            </div>
-          </div>
-        </section>
         <section
-          className={
-            "section-map" +
-            (config.map.useWindowWidth ? "" : " section-centered")
-          }
+          id="section-weather-map"
+          className="section section-weather-map"
         >
           {/*this.store.domainId*/ true && (
-            <div className="weather-map-container section-map">
+            <div className="section-map">
               <WeatherMap
-                domainId={this.store.domainId}
-                domain={this.store.domain}
-                itemId={this.store.itemId}
-                item={this.store.item}
-                grid={this.store.grid}
-                stations={this.store.stations}
-                selectedFeature={this.store.selectedFeature}
+                domainId={wmStore.domainId}
+                domain={wmStore.domain}
+                timeArray={wmStore.availableTimes}
+                startDate={wmStore.startDate}
+                overlay={wmStore.overlayFileName}
+                dataOverlays={wmStore.domainConfig.dataOverlays}
+                stationDataId={
+                  wmStore.domainConfig.timeSpanToDataId[wmStore.timeSpan]
+                }
+                dataOverlaysEnabled={
+                  !config.player.playing && wmStore.currentTime >= wmStore.agl
+                }
+                rgbToValue={wmStore.valueForPixel}
+                item={wmStore.item}
+                debug={wmStore.config.settings.debugModus}
+                grid={wmStore.grid}
+                stations={!wmPlayer.playing && wmStore.stations}
+                playerCB={config.player.onLayerEvent.bind(config.player)}
+                selectedFeature={wmStore.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}
               />
-              {this.store.selectedFeature && (
-                <FeatureInfo feature={this.store.selectedFeature} />
+              {wmStore.selectedFeature && (
+                <FeatureInfo feature={wmStore.selectedFeature} />
               )}
+              <WeatherMapCockpit
+                key="cockpit"
+                startDate={wmStore.startDate}
+                agl={wmStore.agl}
+                timeArray={wmStore.availableTimes}
+                storeConfig={wmStore.config}
+                domainId={wmStore.domainId}
+                timeSpan={wmStore.timeSpan}
+                changeCurrentTime={wmStore.changeCurrentTime.bind(wmStore)}
+                player={wmPlayer}
+                currentTime={wmStore.currentTime}
+                eventCallback={this.handleClickCockpitEvent.bind(this)}
+                lastAnalyticTime={wmStore.startDate}
+                nextUpdateTime={wmStore.nextUpdateTime}
+                lastUpdateTime={wmStore.lastUpdateTime}
+                nextTime={() => {
+                  wmStore.changeCurrentTime(wmStore.nextTime);
+                }}
+                previousTime={() => {
+                  wmStore.changeCurrentTime(wmStore.previousTime);
+                }}
+              />
             </div>
           )}
         </section>

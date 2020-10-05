@@ -14,6 +14,17 @@
 }
 
 .section-bulletin-legend {
+  //from alien app.scss
+  /*
+  //Bulletin Filter bar
+  .section-bulletin-legend
+  .list-avalanche-problems-filter
+  a:not(.js-deactivated):hover
+  img:first-child {
+  opacity: 1;
+  }
+  */
+
   &.section-padding {
     padding-top: $all-v-padding / 2;
     padding-bottom: 0;
@@ -45,7 +56,11 @@
       top: 0;
       opacity: 1;
       background: none;
-      //background: none !important;//*****
+
+      //from alien app.scss
+      //Animation bei den Lawinenproblemen lässt kleinen blauen Strich an der Oberkannte der Logos erkennen
+      //background: none !important;
+
       border: $border-width $border-style $border-color;
       transform: translateY(0);
       &:first-child {
@@ -157,23 +172,48 @@
       margin-bottom: 0;
     }
   }
+
+  //from alien app.scss
+  /*
+  .bulletin-list-item {
+    list-style-type: none;
+    padding-bottom: 5em;
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+  */
+}
+
+//from alien app.scss
+#section-bulletin-report {
+  //commented out 'cause it won't select anything anyway
+  // @media only screen and (max-width: 57.5em) {
+  //   .page-main section.section-centered {
+  //     padding: 0px !important;
+  //   }
+  // }
 }
 
 .bulletin-report-header {
   margin-bottom: $margin-bottom;
-  p {
+  .bulletin-report-header-meta {
     margin-bottom: 0;
-    font-size: $tiny-font-size; //$body-font-size-tiny;
+    font-size: $tiny-font-size;
     @include letter-spacing;
     strong {
       @include font-heavy;
     }
   }
+  .bulletin-report-public-alert {
+    margin-bottom: 0;
+  }
 }
 
 .bulletin-report-pictobar {
   margin-bottom: $margin-bottom;
-  font-size: $tiny-font-size; //$body-font-size-tiny;
+  font-size: $tiny-font-size;
   @media #{$normal-up} {
     display: flex;
     flex-wrap: wrap;
@@ -247,25 +287,49 @@
   margin-bottom: 0;
   li {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    padding: $padding 0;
+    padding: 0;
     border-top: $border-width $border-style $border-color;
     &:first-child {
       > div:first-child {
-        padding-right: $padding * 2;
+        padding-right: $padding;
+        @media #{$tiny-up} {
+          padding-right: $padding * 2;
+        }
         border-right: $border-width $border-style $border-color;
       }
       padding-top: 0;
       border-top: none;
     }
-    &:last-child {
-      padding-bottom: 0;
-    }
     > div {
       position: relative;
-      margin-right: $padding * 2;
+      margin-right: $padding;
+      @media #{$tiny-up} {
+        margin-right: $padding * 2;
+      }
+      padding: $padding 0;
       &:last-child {
         margin-right: 0;
+      }
+    }
+
+    &.list-bulletin-report-pictos-trigger {
+      @include font-bold;
+      a {
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      ~ li {
+        display: none;
+      }
+
+      .js-show-all-bulletin-report-pictos & {
+        display: none;
+        ~ li {
+          display: flex;
+        }
       }
     }
   }
@@ -309,6 +373,9 @@
     }
     span {
       position: relative;
+      @media screen and (max-width: #{lower-bound($tiny-range)}) {
+        font-size: $micro-font-size;
+      }
       @include icon(down-open, auto, 0, auto, 0, none);
       &:before {
         position: absolute;
@@ -347,6 +414,10 @@
     &.problem-middle {
       span {
         margin-top: 0.1em;
+
+        //from alien app.scss
+        white-space: nowrap;
+
         &:before {
           top: -0.8em;
         }
@@ -369,6 +440,13 @@
           }
         }
       }
+    }
+  }
+  &.situation-frequency {
+    img {
+      width: $picto-height-plus;
+      height: 100%;
+      //border: $border-width $border-style $border-color;
     }
   }
 }

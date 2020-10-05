@@ -1,0 +1,13 @@
+/* zoom and fade animations */
+
+body,
+.leaflet-zoom-anim .leaflet-zoom-animated,
+.leaflet-fade-anim .leaflet-popup,
+.leaflet-zoom-animated,
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-zoom-anim .leaflet-zoom-animated {
+  opacity: 1 !important;
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  transition: none !important;
+}

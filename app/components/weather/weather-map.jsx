@@ -2,15 +2,14 @@ import React from "react";
 import loadable from "@loadable/component";
 import { observer } from "mobx-react";
 
-import Base from "../../base";
 import LeafletMap from "../leaflet/leaflet-map";
-import ZamgControl from "./zamg-control";
-import LegendControl from "./legend-control";
+import Overlay from "../leaflet/overlay";
+
 import GridOverlay from "./grid-overlay";
+
 const StationOverlay = loadable(() =>
   import(/* webpackChunkName: "app-stationOverlay" */ "./station-overlay")
 );
-import { TileLayer } from "react-leaflet";
 
 class WeatherMap extends React.Component {
   constructor(props) {
@@ -18,59 +17,60 @@ class WeatherMap extends React.Component {
   }
 
   render() {
+    //console.log("WeatherMap->render xyz", this.props);
     const overlays = [];
-    if (this.props.itemId && this.props.item) {
-      if (this.props.item.layer.overlay) {
-        const mapMinZoom = config.map.initOptions.minZoom;
-        const mapMaxZoom = config.map.initOptions.maxZoom;
+    if (this.props.item) {
+      if (this.props.overlay) {
+        //console.log("this.props.item.layer.overlay", this.props.item);
+        // const mapMinZoom = config.map.initOptions.minZoom;
+        // const mapMaxZoom = config.map.initOptions.maxZoom;
 
-        const zoomBounds = this.props.item.overlay.tmsZoomLevel.split("-");
-        const minZoom =
-          Array.isArray(zoomBounds) && zoomBounds.length == 2
-            ? zoomBounds[0]
-            : mapMinZoom;
-        const maxZoom =
-          Array.isArray(zoomBounds) && zoomBounds.length == 2
-            ? zoomBounds[1]
-            : mapMaxZoom;
-
-        overlays.push(
-          <TileLayer
-            key="background-map"
-            className="leaflet-image-layer"
-            url={
-              config.apis.weather.overlays +
-              this.props.item.overlay.tms +
-              "/{z}/{x}/{y}.png"
-            }
-            minNativeZoom={Math.max(minZoom, mapMinZoom)}
-            minZoom={mapMinZoom}
-            maxNativeZoom={Math.min(maxZoom, mapMaxZoom)}
-            maxZoom={mapMaxZoom}
-            opacity={Base.checkBlendingSupport() ? 1 : 0.5}
-            bounds={this.props.item.bbox}
-            tms={true}
-            detectRetina={false}
-            updateWhenZooming={false}
-            updateWhenIdle={true}
-            updateInterval={1000}
-            keepBuffer={4}
-          />
-        );
+        //console.log("wather-map->render xxx1:", this.props.overlay);
+        if (this.props.overlay) {
+          overlays.push(
+            <Overlay
+              key="background-map"
+              overlay={this.props.overlay}
+              debug={this.props.debug}
+              playerCB={this.props.playerCB}
+              item={this.props.item}
+              dataOverlays={this.props.dataOverlays}
+              dataOverlaysEnabled={this.props.dataOverlaysEnabled}
+              rgbToValue={this.props.rgbToValue}
+            />
+          );
+        }
       }
 
-      if (this.props.item.layer.grid && this.props.grid) {
+      if (
+        this.props.item.layer.grid &&
+        this.props.grid &&
+        this.props.grid.features
+      ) {
         overlays.push(
           <GridOverlay
             key={"grid"}
             zoom={mapStore.mapZoom}
             item={this.props.item}
             grid={this.props.grid}
+            onLoading={() => {
+              this.props.playerCB("grid", "loading");
+            }}
+            onLoad={() => {
+              this.props.playerCB("gird", "load");
+            }}
+            onTileerror={() => {
+              this.props.playerCB("grid", "error");
+            }}
           />
         );
       }
 
-      if (this.props.item.layer.stations && this.props.stations) {
+      if (
+        this.props.item.layer.stations &&
+        this.props.stations &&
+        this.props.stations.features
+      ) {
         overlays.push(
           <StationOverlay
             key={"stations"}
@@ -78,29 +78,42 @@ class WeatherMap extends React.Component {
             onMarkerSelected={this.props.onMarkerSelected}
             selectedFeature={this.props.selectedFeature}
             item={this.props.item}
+            itemId={this.props.stationDataId}
             features={this.props.stations.features}
+            onLoading={() => {
+              this.props.playerCB("stations", "loading");
+            }}
+            onLoad={() => {
+              this.props.playerCB("stations", "load");
+            }}
+            onTileerror={() => {
+              this.props.playerCB("stations", "error");
+            }}
           />
         );
       }
     }
 
-    const controls = [<ZamgControl key="zamg" />];
-    if (this.props.itemId && this.props.item) {
-      controls.push(<LegendControl key="legend" item={this.props.item} />);
-    }
+    const controls = [];
 
     return (
-      <LeafletMap
-        loaded={this.props.domainId !== false}
-        onViewportChanged={this.props.onViewportChanged}
-        overlays={overlays}
-        controls={controls}
-        onInit={map => {
-          map.on("click", () => {
-            this.props.onMarkerSelected(null);
-          });
-        }}
-      />
+      <>
+        <LeafletMap
+          loaded={this.props.domainId !== false}
+          identifier={this.props.domainId + "_" + this.props.itemId}
+          onViewportChanged={this.props.onViewportChanged}
+          overlays={overlays}
+          controls={controls}
+          timeArray={this.props.timeArray}
+          startDate={this.props.startDate}
+          onInit={map => {
+            map.on("click", () => {
+              this.props.onMarkerSelected(null);
+            });
+          }}
+          timeAwareLayers={["background-map"]}
+        />
+      </>
     );
   }
 }

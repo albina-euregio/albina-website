@@ -1,121 +1,109 @@
 import React from "react";
-
+const iconSVGS = {
+  directionArrow: "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0z"
+};
 export default class StationIcon extends React.Component {
-  renderDirection(s) {
-    const cMargin = 2;
-    const frontH = 11;
-    const frontW = 11;
-    const backH = 4;
-    const backW = 4;
+  RGBToHex(color) {
+    //console.log("RGBToHex", color);
+    let r = color[0].toString(16);
+    let g = color[1].toString(16);
+    let b = color[2].toString(16);
 
-    const frontArc1 = frontW / 2;
-    const frontArc2 = (
-      (Math.sqrt(Math.pow(s + cMargin, 2) + Math.pow(frontW / 2, 2), 2) -
-        cMargin -
-        s) *
-      2
-    ).toPrecision(2);
+    if (r.length == 1) r = "0" + r;
+    if (g.length == 1) g = "0" + g;
+    if (b.length == 1) b = "0" + b;
 
-    const backArc1 = backW / 2;
-    const backArc2 = (
-      (Math.sqrt(Math.pow(s + cMargin, 2) + Math.pow(backW / 2, 2), 2) -
-        cMargin -
-        s) *
-      2
-    ).toPrecision(2);
+    return "#" + r + g + b;
+  }
 
-    const rotation = parseInt(this.props.direction, 10) + 180;
-
+  getCircle(type, color) {
+    let analyseStrokeColor = type === "forcast" ? color : "#000";
     return (
-      <g className="direction" transform={"rotate(" + rotation + ")"}>
-        <path
-          className="front"
-          d={
-            "M 0 -" +
-            (s + frontH) +
-            " l " +
-            frontW / 2 +
-            " " +
-            (frontH - cMargin) +
-            " q -" +
-            frontArc1 +
-            ", -" +
-            frontArc2 +
-            " " +
-            -frontW +
-            " 0 Z"
-          }
+      <svg
+        style={{ position: "absolute", left: "0px", top: "0px" }}
+        width="22"
+        height="22"
+        viewBox="0 0 22 22"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="11"
+          cy="11"
+          r="10.5"
+          style={{
+            stroke: analyseStrokeColor,
+            strokeWidth: 1,
+            fill: color || "#fff"
+          }}
         />
-        <path
-          className="back"
-          d={
-            "M -" +
-            backW / 2 +
-            " " +
-            (backH + s + cMargin) +
-            " h " +
-            backW +
-            " v -" +
-            backH +
-            " q -" +
-            backArc1 +
-            " " +
-            backArc2 +
-            ", -" +
-            backW +
-            " 0Z"
-          }
-        />
-      </g>
+        {type === "forcast" && (
+          <circle
+            cx="11"
+            cy="11"
+            r="10.5"
+            style={{
+              stroke: "#000000",
+              strokeWidth: 1,
+              strokeDasharray: 1.3675,
+              fill: "none"
+            }}
+          />
+        )}
+      </svg>
+    );
+  }
+
+  getdirection(name, direction) {
+    return (
+      <svg
+        transform={"rotate(" + direction + ")"}
+        style={{ position: "absolute", left: "6.5px", top: "-11px" }}
+        height="42"
+        viewBox="0 0 9 42"
+        width="9"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d={iconSVGS[name]} fillRule="evenodd" />
+      </svg>
+    );
+  }
+
+  getText(text) {
+    return (
+      <svg
+        style={{ position: "absolute", left: "0px", top: "0px" }}
+        width="22"
+        height="22"
+        viewBox="0 0 22 22"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <text x="50%" y="52%" dominantBaseline="middle" textAnchor="middle">
+          {text}
+        </text>
+      </svg>
     );
   }
 
   render() {
-    const s = 10;
-    const svgS = 25;
+    const s = 12;
+
     const fill =
       typeof this.props.color === "string"
         ? this.props.color
-        : "rgb(" + this.props.color + ")";
+        : this.RGBToHex(this.props.color);
+    // console.log("StationIcon->render", fill);
     return (
-      <svg
+      <div
         className={
           this.props.type +
           (this.props.selected ? " " + this.props.type + "-selected" : "")
         }
-        width={svgS}
-        height={svgS}
       >
-        <g transform={"translate(" + svgS / 2 + "," + svgS / 2 + ")"}>
-          {this.props.direction && this.renderDirection(s)}
-          <circle className="inner" r={s} fill={fill}></circle>
-          {this.props.selected && (
-            <circle className="outer" r={s}>
-              <animate
-                attributeType="xml"
-                attributeName="r"
-                from={s}
-                to={svgS / 2}
-                dur="1.5s"
-                begin="0s"
-                repeatCount="indefinite"
-              ></animate>
-              <animate
-                attributeType="xml"
-                attributeName="opacity"
-                from="0.8"
-                to="0"
-                dur="1.5s"
-                begin="0s"
-                repeatCount="indefinite"
-              ></animate>
-            </circle>
-          )}
-          <text y={s * 0.25 + 1} textAnchor="middle">
-            {this.props.value}
-          </text>
-        </g>
-      </svg>
+        {this.getCircle(this.props.dataType, fill)}
+        {this.props.direction &&
+          this.getdirection("directionArrow", this.props.direction)}
+        {this.getText(this.props.value, s)}
+      </div>
     );
   }
 }

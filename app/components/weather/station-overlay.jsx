@@ -10,19 +10,19 @@ export default class StationOverlay extends React.Component {
       spiderfiedMarkers: null, // id's of spiderfied markers
       activeMarkerPos: null // position of highlighted marker within a cluster
     };
+    if (props.onLoading) props.onLoading();
   }
 
   getColor(value) {
     const v = parseFloat(value);
     const colors = Object.values(this.props.item.colors);
-
+    //console.log("StationOverlay->getColor#1", value, this.props.item.colors);
     let color = colors[0];
     this.props.item.thresholds.forEach((tr, i) => {
       if (v > tr) {
         color = colors[i + 1];
       }
     });
-
     return color;
   }
 
@@ -50,9 +50,21 @@ export default class StationOverlay extends React.Component {
   }
 
   renderMarker(data, pos = null) {
-    if (data.date === undefined || data[this.props.item.id] === undefined)
+    //if(data.name !== "Tannheim") return <></>;
+    // console.log(
+    //   "station-overlay->renderMarker aaa",
+    //   this.props.itemId,
+    //   this.props.item.colors || this.getColor(Math.round(data[this.props.itemId])),
+    //   data,
+    //   data[this.props.itemId]
+    // );
+    if (
+      (data.date === undefined || data[this.props.itemId] === undefined) &&
+      this.props.itemId !== "any"
+    )
       return;
-    const value = Math.round(data[this.props.item.id]);
+
+    const value = Math.round(data[this.props.itemId]);
     const coordinates = pos
       ? [pos.lat, pos.lng]
       : [data.geometry.coordinates[1], data.geometry.coordinates[0]];
@@ -70,12 +82,12 @@ export default class StationOverlay extends React.Component {
       value: value,
       plot: data.plot
     };
-
+    //console.log("station-overlay->renderMarker qqq", this.props.item,  value);
     return (
       <StationMarker
         type="station"
-        key={this.props.item.id + "-" + data.id}
-        itemId={this.props.item.id}
+        key={this.props.itemId + "-" + data.id}
+        itemId={this.props.itemId}
         data={markerData}
         stationId={data.id}
         stationName={data.name}
@@ -91,7 +103,9 @@ export default class StationOverlay extends React.Component {
             : false
         }
         onClick={data => {
+          //console.log("onClick ggg #1", data);
           if (data && data.id) {
+            //console.log("onClick ggg #2", data);
             if (
               !this.state.spiderfiedMarkers ||
               this.state.spiderfiedMarkers.indexOf(data.id) < 0
@@ -109,14 +123,22 @@ export default class StationOverlay extends React.Component {
     );
   }
 
+  componentDidUpdate() {
+    if (this.props.onLoad) this.props.onLoad();
+  }
   render() {
+    //let sPl = this.props.features ? this.props.features.find(feature => feature?.name == "Tannheim") : null;
+    //console.log("station-overlay->render qq", this.props.selectedFeature?.id, sPl?.name, sPl?.properties.LT);
+    //console.log("station-overlay->render aaa", this.props.selectedFeature, this.props.features);
     const points = this.props.features.filter(
-      point => point[this.props.item.id] !== false
+      point => this.props.itemId === "any" || point[this.props.itemId] !== false
     );
 
     const selectedFeature = this.props.selectedFeature
       ? points.find(point => point.id == this.props.selectedFeature.id)
       : null;
+
+    // console.log("station-overlay lll", this.props, points);
 
     return (
       <div>
@@ -124,8 +146,9 @@ export default class StationOverlay extends React.Component {
           item={this.props.item}
           spiderfiedMarkers={this.handleSpiderfiedMarkers}
           onActiveMarkerPositionUpdate={this.handleActiveMarkerPositionUpdate}
+          onMarkerSelected={this.props.onMarkerSelected}
         >
-          {points.map(point => this.renderMarker(point))}>
+          {points.map(point => this.renderMarker(point))}
         </Cluster>
         {selectedFeature &&
           this.renderMarker(selectedFeature, this.state.activeMarkerPos)}

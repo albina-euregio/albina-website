@@ -10,21 +10,19 @@
 $map-width: 100%;
 
 $map-height-mobile: 50vh;
-$map-height: 65vh;
 $map-height-bulletin: 50vh;
+$map-height-weather: calc(100vh - #{$bar-width});
+$map-height-weather-when-menu: calc(
+  100vh - #{$bar-width} - #{$page-header-height}
+);
 $map-height-min: 400px;
 
 $map-google-topbar-height: 46px;
 
 $controls-width-height: $padding * 4;
 
-//the outer container
+//the outer container for bulletin-map
 .section-bulletin-map {
-  /*
-	width: 100%;
-	overflow-x: hidden;
-	overflow-y: auto;
-*/
   .bulletin-parallel-view & {
     display: block;
     width: 100%;
@@ -46,42 +44,244 @@ $controls-width-height: $padding * 4;
   }
 }
 
-//the map itself
+//the outer container for weather-map
+.section-weather-map {
+  position: absolute !important;
+  top: $page-header-height;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: $map-height-weather-when-menu;
+  width: 100vw;
+  overflow: hidden;
+  //transition: none !important;
+  .scrolling-down & {
+    top: 0;
+    height: $map-height-weather;
+  }
+}
+
+//the maps themselves
 .section-map {
   position: relative;
-  height: $map-height;
-  .section-bulletin-map & {
-    height: $map-height-bulletin;
-  }
-  min-height: $map-height-min;
+  height: $map-height-bulletin;
   width: $map-width;
   overflow: hidden;
-  @include box-border($brand-very-light);
-  border-left: none;
-  border-right: none;
-  &.bulletin-map-static {
-    /*
-		background: transparent url(../images/dev/bulletin-report-map.jpg) no-repeat 33% 50%;
-		background-size: cover;
-*/
-    background: #fac;
-    .bulletin-map-google {
+
+  .section-bulletin-map & {
+    height: $map-height-bulletin;
+    min-height: $map-height-min;
+    @include box-border($brand-very-light);
+    border-left: none;
+    border-right: none;
+  }
+
+  .section-weather-map & {
+    height: $map-height-weather-when-menu;
+    @include rollout;
+    .scrolling-down & {
+      height: $map-height-weather;
+    }
+  }
+}
+
+//leaflet
+.leaflet-control-container {
+  .map-disabled & {
+    display: none;
+  }
+  .leaflet-control {
+    margin: 0;
+    border: none !important;
+    //rf: was added to compiled style.css by outside dev, brought back here, propably not used anymore, but who knows ...
+    .legend .legend-toggle {
+      background-image: url("../images/pro/meteoviewer/legend.png");
+    }
+  }
+}
+
+.leaflet-container {
+  font: inherit;
+
+  //to develop and test with local map images
+  .patternlab .section-bulletin-map & {
+    width: 100%;
+    height: 100%;
+    background: transparent url(../images/dev/bulletin-report-map.jpg);
+    background-size: cover;
+  }
+  .patternlab .section-weather-map & {
+    width: 100%;
+    height: 100%;
+    background: transparent url(../images/dev/weather-map.png);
+    background-size: cover;
+  }
+}
+.leaflet-bar {
+  border-radius: 0 !important;
+}
+
+//overlays
+.leaflet-pane.leaflet-overlay-pane,
+.leaflet-pane .leaflet-image-layer {
+  mix-blend-mode: multiply;
+}
+
+//zoom, search, locate
+.leaflet-top.leaflet-left {
+  position: absolute;
+  top: $padding;
+  left: $padding;
+  .bulletin-parallel-view & {
+    top: $padding * 5.25;
+  }
+
+  a {
+    overflow: hidden;
+    position: relative;
+    display: block;
+    width: $controls-width-height !important;
+    height: $controls-width-height !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    text-indent: 0;
+    font-size: $controls-width-height * 0.75 !important;
+    line-height: $controls-width-height !important;
+    color: $brand !important;
+    background-color: rgba($white, 0.95) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    &:hover {
+      color: $white !important;
+      background-color: $anchor-font-color !important;
+    }
+    &.leaflet-disabled {
+      color: $grey-light !important;
+      a:before {
+        color: $grey-light !important;
+      }
+      &:hover {
+        color: $grey-light !important;
+        background-color: rgba($white, 0.95) !important;
+      }
+    }
+  }
+
+  .leaflet-control-zoom,
+  .leaflet-geonames-search,
+  .leaflet-control-locate {
+    margin-bottom: $padding;
+    @include box-shadow(0.15);
+    a:before {
+      height: $controls-width-height !important;
+      width: $controls-width-height !important;
+      margin: 0 !important;
+      font-size: $controls-width-height * 0.75 !important;
+      line-height: $controls-width-height !important;
+    }
+  }
+
+  //no zoom on touch devices
+  @media (hover: none) and (pointer: coarse) {
+    .leaflet-control-zoom {
+      display: none;
+    }
+  }
+
+  .leaflet-control-zoom-in {
+    &:before {
+      @include icon(plus-big, 0.75em, 0.5em, none, 0, none);
+    }
+  }
+  .leaflet-control-zoom-out {
+    &:before {
+      @include icon(minus-big, 0.75em, 0.5em, none, 0, none);
+    }
+  }
+
+  .leaflet-geonames-search {
+    .leaflet-geonames-icon {
+      background-image: none !important;
+      &:before {
+        @include icon(search-midsize, 0, 0, none, 0, none);
+      }
+    }
+
+    //geonames search form
+    form {
+      margin-bottom: 0;
+      font-size: $body-font-size;
+      input {
+        left: $controls-width-height + 0.5 !important;
+        height: $controls-width-height !important;
+        padding: $padding;
+        font-size: $tiny-font-size; //$body-font-size-tiny;
+        line-height: $header-line-height;
+        color: $brand;
+      }
+    }
+    ul {
+      left: $controls-width-height + 0.5 !important;
+      border: $border-width $border-style $brand;
+      border-top: none;
+      &.noResults {
+        display: none;
+      }
+      li {
+        padding: ($padding / 2) $padding;
+        border: none !important;
+        border-bottom: $border-width $border-style $border-color !important;
+        &:last-child {
+          border-bottom: none !important;
+        }
+      }
+    }
+  }
+
+  .leaflet-control-locate {
+    a {
+      &:before {
+        @include icon(location, 0, 0, none, 0, none);
+      }
+    }
+    .icon-geolocate {
       display: none;
     }
   }
 }
 
-//in case of google iframe
-.bulletin-map {
-  display: block;
-  height: $map-height-bulletin; //$map-height;
-  min-height: $map-height-min;
-  width: $map-width;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  border: none;
+//scale
+.leaflet-bottom.leaflet-left {
+  position: absolute;
+  bottom: $padding;
+  left: $padding;
+  .leaflet-control-scale {
+    margin: 0 !important;
+  }
+  .leaflet-control-scale-line {
+    padding: 0.25em 0.5em;
+    font-size: $micro-font-size;
+    border-color: $grey;
+  }
 }
+
+//copyright still used on bulletin map
+.leaflet-bottom.leaflet-right {
+  .leaflet-control {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    float: none;
+  }
+  .leaflet-control-attribution {
+    position: relative;
+    background-color: rgba($white, 0.5) !important;
+  }
+}
+
+//
+// bulletin-map
+//
 
 //in case of no bulletin
 .bulletin-map-bulletinbar {
@@ -111,7 +311,7 @@ $controls-width-height: $padding * 4;
   }
 }
 
-//tooltip details
+//details in floating tooltipp box
 .bulletin-map-details {
   display: table;
   position: absolute;
@@ -159,7 +359,7 @@ $controls-width-height: $padding * 4;
   ul {
     display: flex;
     flex-wrap: nowrap;
-    margin: $padding * 2; //($padding * 2) ($padding * 2) $padding ($padding * 2);
+    margin: $padding * 2;
     li {
       display: flex;
       align-self: center;
@@ -179,12 +379,18 @@ $controls-width-height: $padding * 4;
       border: $border-width $border-style $border-color;
     }
   }
+
+  .bulletin-report-public-alert {
+    margin: $padding * 2;
+    font-size: $tiny-font-size;
+    @include letter-spacing;
+  }
+
   //details link
   > a {
     display: block;
     width: 100%;
     padding: 0 $padding $padding $padding;
-    //text-align: left;
     font-size: $tiny-font-size;
     color: $anchor-font-color;
     background: transparent;
@@ -219,197 +425,20 @@ $controls-width-height: $padding * 4;
   }
 }
 
-.section-map .leaflet-control-container {
-  .map-disabled & {
-    display: none;
-  }
-  .leaflet-control {
-    margin: 0;
-    border: none !important;
-    //rf: was added to compiled style.css by outside dev, brought back here, propably not used anymore, who cares anyway
-    .legend .legend-toggle {
-      background-image: url("../images/pro/meteoviewer/legend.png");
-    }
-  }
-}
+//
+// weather-map
+//
 
-//buttons
-.leaflet-top.leaflet-left {
-  position: absolute;
-  top: $padding;
-  left: $padding;
-  .bulletin-parallel-view & {
-    top: $padding * 5.25;
-  }
+//202009
+//used .section-weather-map instead of .weather-map-container
+//changed this in SCSS and jsx:
+//  <section id="section-weather-map" class="section section-weather-map">
+//    <div class="section-map">
 
-  a {
-    position: relative;
-    display: block;
-    width: $controls-width-height !important;
-    height: $controls-width-height !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    font-size: $xxxlarge-font-size !important;
-    font-weight: lighter;
-    font-family: "Fontello";
-    line-height: $controls-width-height - 0.1 !important;
-    text-indent: 0;
-    color: $brand !important;
-    background-color: rgba($white, 0.95) !important;
-    border: none !important;
-    border-radius: 0 !important;
-    @include box-shadow(0.15);
-    &:hover {
-      color: $white !important;
-      background-color: $anchor-font-color !important;
-    }
-    &.leaflet-disabled {
-      color: $grey-light !important;
-      &:hover {
-        color: $grey-light !important;
-        background-color: rgba($white, 0.95) !important;
-      }
-    }
-  }
-
-  .leaflet-control-zoom,
-  .leaflet-geonames-search,
-  .leaflet-control-locate {
-    margin-bottom: $padding;
-  }
-
-  .leaflet-control-zoom {
-    @include box-shadow(0.15);
-    a {
-      box-shadow: none !important;
-      &:first-child {
-        margin-bottom: $border-width !important;
-      }
-    }
-  }
-  .leaflet-geonames-search {
-    margin-bottom: $padding;
-    .leaflet-geonames-icon {
-      background-size: 80% !important;
-    }
-    form {
-      margin-bottom: 0;
-      font-size: $body-font-size;
-      input {
-        left: $controls-width-height + 0.5 !important;
-        height: $controls-width-height !important;
-        padding: $padding;
-        font-size: $tiny-font-size; //$body-font-size-tiny;
-        line-height: $header-line-height;
-        color: $brand;
-      }
-    }
-    ul {
-      left: $controls-width-height + 0.5 !important;
-      border: $border-width $border-style $brand;
-      border-top: none;
-      &.noResults {
-        display: none;
-      }
-      li {
-        padding: ($padding / 2) $padding;
-        border: none !important;
-        border-bottom: $border-width $border-style $border-color !important;
-        &:last-child {
-          border-bottom: none !important;
-        }
-      }
-    }
-  }
-  .leaflet-control-locate {
-    .icon-geolocate {
-      display: block;
-      position: relative;
-      top: 17%;
-      left: 13%;
-      width: 70%;
-      height: 70%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon fill="white" stroke-width="1.25" stroke="%2319abff" points="21 3 3 9.79 11.41 12.59 14.21 21 21 3"></polygon></svg>')
-        100% no-repeat;
-      background-size: 100% !important;
-    }
-  }
-}
-//scale
-.leaflet-bottom.leaflet-left {
-  position: absolute;
-  bottom: $padding;
-  left: $padding;
-  .leaflet-control-scale {
-    margin: 0 !important;
-  }
-}
-//copyright and weather
-.leaflet-bottom.leaflet-right {
-  .leaflet-control {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    float: none;
-    .pure-button {
-      margin: 0;
-      padding: 0;
-    }
-  }
-  .zamg-logo-container {
-    position: absolute;
-    right: $padding * 7;
-    bottom: $padding * 2.5;
-    height: 40px;
-    margin: 0;
-    padding: 0;
-    #zamg-logo {
-      width: 40px;
-      height: 40px;
-      background-repeat: no-repeat;
-      background-size: 36px 36px;
-      background-position: 2px 2px;
-      border: none !important;
-    }
-  }
-  .legend {
-    position: absolute;
-    right: $padding;
-    bottom: $padding * 2.5;
-    margin: 0;
-    padding: 0;
-    .legend-toggle {
-      display: inline-block;
-      width: 40px;
-      height: 40px;
-      text-indent: -99999px;
-      background-repeat: no-repeat;
-      background-size: 36px 36px;
-      background-position: 2px 2px;
-    }
-    .legend-border {
-      stroke: #aaa;
-      stroke-width: 1px;
-      -webkit-transition: all 0.125s ease-out;
-      transition: all 0.125s ease-out;
-    }
-    .legend-close-button {
-      fill: $white;
-    }
-  }
-  .leaflet-control-attribution {
-    position: relative;
-    background-color: rgba($white, 0.5) !important;
-  }
-}
-
-.leaflet-pane.leaflet-overlay-pane,
-.leaflet-pane .leaflet-image-layer {
-  mix-blend-mode: multiply;
-}
-
-.weather-map-container {
-  /* single stations */
+//weather-map pane styles
+//.weather-map-container,
+.section-weather-map {
+  //single stations
   .station circle.inner {
     stroke: $black;
     stroke-width: 1.25;
@@ -418,12 +447,11 @@ $controls-width-height: $padding * 4;
   }
 
   .station text {
-    @include font-bold; //font-family: $font_default; //'Open Sans', sans-serif;
+    @include font-bold;
     font-size: 10px;
-    //font-weight: 700;
   }
 
-  /* outer circle - only selected stations */
+  //outer circle - only selected stations
   .station circle.outer,
   .gridpoint circle.outer {
     stroke: $black;
@@ -437,14 +465,14 @@ $controls-width-height: $padding * 4;
     stroke: $grey;
   }
 
-  /* selected circle in clusters*/
+  //selected circle in clusters
   .station-selected-clustered circle.inner {
     stroke: $black;
     stroke-width: 2;
     fill: $white;
   }
 
-  /* grid point*/
+  //grid point
   .gridpoint circle.inner {
     stroke-width: 2.2;
     stroke-dasharray: 0 4;
@@ -474,12 +502,12 @@ $controls-width-height: $padding * 4;
   }
 
   .gridpoint text {
-    @include font-bold; //font-family: $font_default; //'Open Sans', sans-serif;
+    @include font-bold;
     font-size: 10px;
-    //font-weight: 600;
   }
 }
 
+//202009: is this still in use? existing in feature-info.jsx so better keep alive from here ...
 .weather-map-details {
   z-index: 100;
   display: table;
@@ -490,13 +518,11 @@ $controls-width-height: $padding * 4;
   min-width: 20em !important;
   max-width: 75% !important;
   padding: 0;
-  font-size: $tiny-font-size; //$body-font-size-tiny;
+  font-size: $tiny-font-size;
   background-color: rgba($white, 0.95);
   @include box-shadow(0.15);
   @include rollout();
 
-  .box-content {
-  }
   .weather-map-details-text {
     margin: ($padding * 2) ($padding * 2) ($padding * 1.5) ($padding * 2);
   }
@@ -511,12 +537,10 @@ $controls-width-height: $padding * 4;
     font-size: $small-font-size;
   }
 }
-
 a.weather-map-details-button {
   display: block;
   width: 100%;
   padding: $padding;
-  //text-align: left;
   font-size: $tiny-font-size;
   color: $anchor-font-color;
   background: transparent;
@@ -537,3 +561,12 @@ a.weather-map-details-button {
     border-color: $anchor-font-color;
   }
 }
+//...to here
+
+//from alien app.scss
+//202009: cannot be found in app/components therefore executed
+// .weather-map-icon {
+//   position: absolute;
+//   right: 10px;
+//   width: 150px;
+//}

@@ -64,9 +64,9 @@
     "weather": {
       "domains": "https://avalanche.report/transfer/data/albina_domains.json",
       "plots": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
-      "stations": "https://api.avalanche.report/data/produkte/albina.geojson",
+      "stations": "https://avalanche.report/albina_stations/{dateTime}stations.geojson",
       "grid": "https://avalanche.report/transfer/data/albina_grid.json",
-      "overlays": "https://avalanche.report/transfer/data/"
+      "overlays": "https://avalanche.report/zamg_meteo/overlays/"
     }
   },
   "apiKeys": {
@@ -249,7 +249,7 @@
       {
         "id": "ALBINA",
         "url": "https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png",
-        "maxZoom": 10,
+        "maxZoom": 12,
         "minZoom": 7,
         "detectRetina": false,
         "tms": true,
@@ -350,5 +350,224 @@
   "defaults": {
     "language": "auto",
     "ampm": "am"
+  },
+  "weathermaps": {
+    "settings": {
+      "timeRange": ["-72", "+72"],
+      "bbox": [
+        [45.6167, 9.9833],
+        [47.8167, 13.0333]
+      ],
+      "debugModus": true,
+      "metaFiles": {
+        "agl": "agl.ok",
+        "startDate": "startDate.ok"
+      }
+    },
+    "domains": {
+      "snow-height": {
+        "domainDefault": false,
+        "domainIdStart": "-1",
+        "item": {
+          "timeSpans": ["-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": { "-1": "snow" },
+          "updateTimesOffset": { "-1": 1 },
+          "units": "cm",
+          "thresholds": [1, 10, 25, 50, 100, 200, 300, 400],
+          "colors": {
+            "1": [255, 255, 254],
+            "2": [255, 255, 179],
+            "3": [176, 255, 188],
+            "4": [140, 255, 255],
+            "5": [3, 205, 255],
+            "6": [4, 129, 255],
+            "7": [3, 91, 190],
+            "8": [120, 75, 255],
+            "9": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "new-snow": {
+        "domainDefault": true,
+        "domainIdStart": "+6",
+        "item": {
+          "timeSpans": ["+6", "+12", "+24", "+48", "+72"],
+          "defaultTimeSpan": "+12",
+          "timeSpanToDataId": {
+            "+24": "snow24",
+            "+48": "snow48",
+            "+72": "snow72"
+          },
+          "updateTimesOffset": { "*": 1 },
+          "units": "cm",
+          "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+          "colors": {
+            "1": [255, 255, 254],
+            "2": [255, 255, 179],
+            "3": [176, 255, 188],
+            "4": [140, 255, 255],
+            "5": [3, 205, 255],
+            "6": [4, 129, 255],
+            "7": [3, 91, 190],
+            "8": [120, 75, 255],
+            "9": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": false,
+            "grid": false
+          },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
+          "displayedItems": ["snow6f"],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "diff-snow": {
+        "domainDefault": false,
+        "domainIdStart": "+6",
+        "item": {
+          "timeSpans": ["-6", "-12", "-24", "-48", "-72"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": {},
+          "updateTimesOffset": { "*": 24, "-6": 6, "-12": 12 },
+          "metaFiles": {
+            "agl": "agl_{timespan}h.ok"
+          },
+          "units": "cm",
+          "thresholds": [-20, -10, -5, 1, 5, 10, 20, 30, 50, 75, 100],
+          "colors": {
+            "1": [255, 100, 100],
+            "2": [255, 160, 160],
+            "3": [255, 210, 210],
+            "4": [255, 255, 254],
+            "5": [255, 255, 179],
+            "6": [176, 255, 188],
+            "7": [140, 255, 255],
+            "8": [3, 205, 255],
+            "9": [4, 129, 255],
+            "10": [3, 91, 190],
+            "11": [120, 75, 255],
+            "12": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": false,
+            "grid": false
+          },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "temp": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": { "+-1": "temp" },
+          "updateTimesOffset": { "*": 1 },
+          "units": "\u00b0C",
+          "thresholds": [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
+          "colors": {
+            "1": [159, 128, 255],
+            "2": [120, 75, 255],
+            "3": [3, 91, 190],
+            "4": [4, 129, 255],
+            "5": [3, 205, 255],
+            "6": [140, 255, 255],
+            "7": [176, 255, 188],
+            "8": [255, 255, 103],
+            "9": [255, 190, 130],
+            "10": [255, 154, 53],
+            "11": [255, 85, 54],
+            "12": [255, 5, 5],
+            "13": [250, 55, 150]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "temperature" }],
+          "direction": false,
+          "clusterOperation": "min"
+        }
+      },
+      "wind": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": { "+-1": "wspd" },
+          "updateTimesOffset": { "*": 1 },
+          "units": "km/h",
+          "thresholds": [5, 10, 20, 40, 60, 80],
+          "colors": {
+            "1": [255, 255, 100],
+            "2": [200, 255, 100],
+            "3": [150, 255, 150],
+            "4": [50, 200, 255],
+            "5": [100, 150, 255],
+            "6": [150, 100, 255],
+            "7": [255, 50, 50]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [
+            { "filePostfix": ".png", "type": "windSpeed" },
+            { "filePostfix": "-dir.png", "type": "windDirection" }
+          ],
+          "direction": "wdir",
+          "clusterOperation": "max"
+        }
+      },
+      "gust": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": { "+-1": "wgus" },
+          "updateTimesOffset": { "*": 1 },
+          "units": "km/h",
+          "thresholds": [5, 10, 20, 40, 60, 80],
+          "colors": {
+            "1": [255, 255, 100],
+            "2": [200, 255, 100],
+            "3": [150, 255, 150],
+            "4": [50, 200, 255],
+            "5": [100, 150, 255],
+            "6": [150, 100, 255],
+            "7": [255, 50, 50]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [
+            { "filePostfix": ".png", "type": "windSpeed" },
+            { "filePostfix": "-dir.png", "type": "windDirection" }
+          ],
+          "direction": "wdir",
+          "clusterOperation": "max"
+        }
+      }
+    }
   }
 }

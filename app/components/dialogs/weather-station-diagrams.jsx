@@ -64,114 +64,116 @@ class WeatherStationDiagrams extends React.Component {
     if (!stationData) return <div></div>;
     let stationInfo = this.assembleStationInfo(stationData);
     return (
-      <div className="modal-weatherstation">
-        {/* <div className="modal-flipper">
-          <div className="flipper-controls">
-            <div className="grid flipper-left-right">
-              <div className="all-6 grid-item">
-                <a
-                  href="#"
-                  title="Previous Station"
-                  className="icon-link icon-arrow-left tooltip flipper-left"
-                ></a>
-              </div>
-              <div className="all-6 grid-item">
-                <a
-                  href="#"
-                  title="Next Station"
-                  className="icon-link icon-arrow-right tooltip flipper-right"
-                ></a>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
-        <div className="modal-header">
-          <p className="caption">
-            {this.props.intl.formatMessage({
-              id: "dialog:weather-station-diagram:header"
-            })}{" "}
-            ({stationData.microRegion})
-          </p>
-          <h2 className="">
-            <span className="weatherstation-name">{stationData.name} </span>
-            <span className="weatherstation-altitude">
-              ({stationData.elev}&thinsp;m)
-            </span>
-          </h2>
-        </div>
-
-        <div className="modal-content">
-          <ul className="list-inline weatherstation-info">
-            {stationInfo.map(aInfo => (
-              <li key={aInfo.type} className={aInfo.type}>
-                <span className="weatherstation-info-caption">
-                  {aInfo.caption}:{" "}
-                </span>
-                <span className="weatherstation-info-value">
-                  <FormattedNumber
-                    value={aInfo.value}
-                    minimumFractionDigits={aInfo.digits}
-                    maximumFractionDigits={aInfo.digits}
-                  ></FormattedNumber>
-                  &thinsp;{aInfo.unit}
-                </span>
-              </li>
-            ))}
-          </ul>
-
-          <ul className="list-inline filter primary">
-            {Object.keys(self.timeRanges).map(key => {
-              let classes = ["label"];
-              if (key == self.state.timeRange) classes.push("js-active");
-              return (
-                <li key={key}>
+      <div className="modal-container">
+        <div className="modal-weatherstation">
+          {/* <div className="modal-flipper">
+            <div className="flipper-controls">
+              <div className="grid flipper-left-right">
+                <div className="all-6 grid-item">
                   <a
                     href="#"
-                    onClick={self.handleChangeTimeRange.bind(self, key)}
-                    className={classes.join(" ")}
-                  >
-                    {self.props.intl.formatMessage({
-                      id: "dialog:weather-station-diagram:timerange:" + key
-                    })}
-                  </a>
+                    title="Previous Station"
+                    className="icon-link icon-arrow-left tooltip flipper-left"
+                  ></a>
+                </div>
+                <div className="all-6 grid-item">
+                  <a
+                    href="#"
+                    title="Next Station"
+                    className="icon-link icon-arrow-right tooltip flipper-right"
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div> */}
+
+          <div className="modal-header">
+            <p className="caption">
+              {this.props.intl.formatMessage({
+                id: "dialog:weather-station-diagram:header"
+              })}{" "}
+              ({stationData.microRegion})
+            </p>
+            <h2 className="">
+              <span className="weatherstation-name">{stationData.name} </span>
+              <span className="weatherstation-altitude">
+                ({stationData.elev}&thinsp;m)
+              </span>
+            </h2>
+          </div>
+
+          <div className="modal-content">
+            <ul className="list-inline weatherstation-info">
+              {stationInfo.map(aInfo => (
+                <li key={aInfo.type} className={aInfo.type}>
+                  <span className="weatherstation-info-caption">
+                    {aInfo.caption}:{" "}
+                  </span>
+                  <span className="weatherstation-info-value">
+                    <FormattedNumber
+                      value={aInfo.value}
+                      minimumFractionDigits={aInfo.digits}
+                      maximumFractionDigits={aInfo.digits}
+                    ></FormattedNumber>
+                    &thinsp;{aInfo.unit}
+                  </span>
                 </li>
-              );
-            })}
-          </ul>
+              ))}
+            </ul>
 
-          {stationData && (
-            <img
-              src={this.imageUrl(
-                this.imageWidths[0],
-                this.timeRanges[this.state.timeRange],
-                stationData.plot
-              )}
-              srcSet={`${this.imageUrl(
-                this.imageWidths[0],
-                this.timeRanges[this.state.timeRange],
-                stationData.plot
-              )} 300w,
-              ${this.imageUrl(
-                this.imageWidths[1],
-                this.timeRanges[this.state.timeRange],
-                stationData.plot
-              )} 500w,
-              ${this.imageUrl(
-                this.imageWidths[2],
-                this.timeRanges[this.state.timeRange],
-                stationData.plot
-              )} 800w`}
-              className="weatherstation-img"
-            />
-          )}
+            <ul className="list-inline filter primary">
+              {Object.keys(self.timeRanges).map(key => {
+                let classes = ["label"];
+                if (key == self.state.timeRange) classes.push("js-active");
+                return (
+                  <li key={key}>
+                    <a
+                      href="#"
+                      onClick={self.handleChangeTimeRange.bind(self, key)}
+                      className={classes.join(" ")}
+                    >
+                      {self.props.intl.formatMessage({
+                        id: "dialog:weather-station-diagram:timerange:" + key
+                      })}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
 
-          <p className="weatherstation-provider">
-            <FormattedMessage
-              id="dialog:weather-station-diagram:operator.caption"
-              values={{ operator: stationData.operator }}
-            />
-          </p>
+            {stationData && (
+              <img
+                src={this.imageUrl(
+                  this.imageWidths[0],
+                  this.timeRanges[this.state.timeRange],
+                  stationData.plot
+                )}
+                srcSet={`${this.imageUrl(
+                  this.imageWidths[0],
+                  this.timeRanges[this.state.timeRange],
+                  stationData.plot
+                )} 300w,
+                ${this.imageUrl(
+                  this.imageWidths[1],
+                  this.timeRanges[this.state.timeRange],
+                  stationData.plot
+                )} 500w,
+                ${this.imageUrl(
+                  this.imageWidths[2],
+                  this.timeRanges[this.state.timeRange],
+                  stationData.plot
+                )} 800w`}
+                className="weatherstation-img"
+              />
+            )}
+
+            <p className="weatherstation-provider">
+              <FormattedMessage
+                id="dialog:weather-station-diagram:operator.caption"
+                values={{ operator: stationData.operator }}
+              />
+            </p>
+          </div>
         </div>
       </div>
     );

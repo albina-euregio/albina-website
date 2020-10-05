@@ -46,6 +46,14 @@ body {
     height: 100vh;
     @extend .bg-gradient-snow;
   }
+
+  &.s-weathermap-2020 {
+    height: 100vh;
+    width: 100vw;
+    max-height: 100vh;
+    max-width: 100vw;
+    overflow: hidden;
+  }
 }
 
 @media #{$normal-up} {
@@ -63,9 +71,6 @@ body {
 }
 
 @media #{$large-up} and (min-height:#{lower-bound($medium-range) - $min-height-adjustment}) {
-  .rf {
-    color: blue;
-  }
   html,
   body {
     font-size: $body-font-size-large;

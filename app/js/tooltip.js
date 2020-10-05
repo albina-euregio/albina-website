@@ -2,6 +2,7 @@ import tippy from "tippy.js";
 
 function tooltip_init() {
   //delete tooltips;
+  //console.log("tooltip_init");
   var tooltips = $(".tooltip").not("[data-tippy]");
   var tooltip_delay, tooltip_theme;
   if (tooltips.length) {
