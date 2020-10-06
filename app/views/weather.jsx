@@ -33,11 +33,11 @@ class Weather extends React.Component {
         this.props.match.params.domain
       );
     } else {
-      console.log(
-        "rechange domain 777",
-        this.props.match.params.domain,
-        this.props.match.params
-      );
+      // console.log(
+      //   "rechange domain 777",
+      //   this.props.match.params.domain,
+      //   this.props.match.params
+      // );
       config.weathermapStore.changeDomain(this.props.match.params.domain);
     }
     //config.player.start();
@@ -71,7 +71,7 @@ class Weather extends React.Component {
   }
 
   onTick() {
-    //console.log("onTick xxx1", config.weathermapStore.nextTime);
+    //console.log("onTick eee", config.weathermapStore.nextTime);
     config.weathermapStore.changeCurrentTime(config.weathermapStore.nextTime);
   }
 

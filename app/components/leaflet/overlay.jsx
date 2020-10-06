@@ -200,14 +200,17 @@ export default class Overlay extends React.Component {
             onClick={self.showDataMarker}
             //onMouseover={self.showDataMarker}
             onLoad={() => {
+              //console.log("background eee", "load");
               this.props.playerCB("background", "load");
             }}
             onError={err => {
+              //console.log("background eee", "error");
               this.props.playerCB("background", err);
             }}
             bindPopup
           />
         );
+        //console.log("background eeee", "loading");
         this.props.playerCB("background", "loading");
       }
     }
