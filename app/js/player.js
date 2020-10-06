@@ -18,10 +18,11 @@ export default class Player {
   }
 
   start() {
-    console.log("PlayerStore->start: ", this);
+    //console.log("PlayerStore->start: ", this);
     if (this._intervalID) return;
     this._tickOverdue = false;
-    console.log("PlayerStore->start: setInterval", this);
+    //console.log("PlayerStore->start: eee setInterval", this);
+    if (this._onTick) this._onTick.call(this._owner);
     this._intervalID = setInterval(this._tick.bind(this), this._transitionTime);
   }
 
@@ -32,7 +33,7 @@ export default class Player {
   }
 
   toggle() {
-    //console.log("PlayerStore->toggle: yyyy1", this);
+    //console.log("PlayerStore->toggle: eee", this);
     if (!this._intervalID) this.start();
     else this.stop();
   }
@@ -41,7 +42,7 @@ export default class Player {
     //to be implemented
     //console.log("PlayerStore->tick: yyyy1", this);
     if (this._itemsToLoad.length > 0) {
-      console.log("PlayerStore->tick: Waiting for xxx", this._itemsToLoad);
+      //console.log("PlayerStore->tick: Waiting for eee", this._itemsToLoad);
       this._tickOverdue = true;
       return;
     }
@@ -54,17 +55,18 @@ export default class Player {
   }
 
   onLayerEvent(layerId, state) {
-    //console.log("PlayerStore->onEvent: xxx", state, layerId);
+    //console.log("PlayerStore->onEvent: eee", state, layerId, this._itemsToLoad, this._itemsToLoad.includes(layerId));
 
     switch (state) {
       case "loading":
-        this._itemsToLoad.push(layerId);
+        if (!this._itemsToLoad.includes(layerId))
+          this._itemsToLoad.push(layerId);
         break;
       case "load":
         this._removeItemToLoad(layerId);
         break;
       case "error":
-      //this._removeItemToLoad(layerId);
+        this._removeItemToLoad(layerId);
     }
     //console.log("PlayerStore->addLayerToLoad - after:", this._layersToLoad);
   }
