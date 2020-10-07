@@ -123,7 +123,13 @@ export default class StationOverlay extends React.Component {
     );
   }
 
+  componentDidMount() {
+    //console.log("StationOverlay->componentDidMount ddd", this.props.onLoad);
+    if (this.props.onLoad) this.props.onLoad();
+  }
+
   componentDidUpdate() {
+    //console.log("StationOverlay->componentDidUpdate ddd", this.props.onLoad);
     if (this.props.onLoad) this.props.onLoad();
   }
   render() {
