@@ -183,6 +183,7 @@ class Weather extends React.Component {
                 grid={wmStore.grid}
                 stations={!wmPlayer.playing && wmStore.stations}
                 playerCB={config.player.onLayerEvent.bind(config.player)}
+                isPlaying={wmPlayer.playing}
                 selectedFeature={wmStore.selectedFeature}
                 onMarkerSelected={this.handleMarkerSelected}
                 onViewportChanged={this.handleMapViewportChanged}

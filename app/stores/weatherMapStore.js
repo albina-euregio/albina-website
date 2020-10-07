@@ -417,12 +417,12 @@ export default class WeatherMapStore_new {
       ? 1
       : -1;
 
-    // console.log(
-    //   "weatherMapStore_new _setTimeIndices #1",
-    //   this._dateStart,
-    //   timeSpanDir,
-    //   this._absTimeSpan
-    // );
+    console.log(
+      "weatherMapStore_new _setTimeIndices #1",
+      this._dateStart,
+      timeSpanDir,
+      this._absTimeSpan
+    );
 
     if (timeSpanDir >= 0) {
       currentTime = new Date(this._agl);
@@ -451,11 +451,11 @@ export default class WeatherMapStore_new {
       maxTime.setHours(
         maxTime.getHours() + parseInt(this.config.settings.timeRange[0], 10)
       );
-      console.log(
-        "weatherMapStore_new _setTimeIndices #3 >= 0",
-        currentTime,
-        maxTime
-      );
+      // console.log(
+      //   "weatherMapStore_new _setTimeIndices #3 >= 0",
+      //   currentTime,
+      //   maxTime
+      // );
       while (currentTime >= maxTime) {
         if (timeSpanDir != 0 || !indices.includes(currentTime.getTime()))
           indices.push(new Date(currentTime).getTime());

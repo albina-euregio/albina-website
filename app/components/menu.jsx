@@ -55,7 +55,7 @@ class Menu extends React.Component {
   }
 
   onLinkClick(e, hasSubs) {
-    console.log("onLinkClick jjj", window.IS_TOUCHING_DEVICE, hasSubs);
+    //console.log("onLinkClick jjj", window.IS_TOUCHING_DEVICE, hasSubs);
     if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
   }
 

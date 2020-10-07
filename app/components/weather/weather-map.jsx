@@ -69,7 +69,8 @@ class WeatherMap extends React.Component {
       if (
         this.props.item.layer.stations &&
         this.props.stations &&
-        this.props.stations.features
+        this.props.stations.features &&
+        !this.props.isPlaying
       ) {
         overlays.push(
           <StationOverlay

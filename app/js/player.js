@@ -73,7 +73,7 @@ export default class Player {
 
   _removeItemToLoad(layerId) {
     this._itemsToLoad = this._itemsToLoad.filter(item => item !== layerId);
-    if (this._tickOverdue) this._tick();
+    if (this._intervalID && this._tickOverdue) this._tick();
   }
 
   setTransitionTime(transitionTime) {
