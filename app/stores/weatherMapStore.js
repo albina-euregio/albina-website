@@ -481,14 +481,14 @@ export default class WeatherMapStore_new {
       }
     }
     indices.sort();
-    console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
-    indices.map(aItem => {
-      console.log(
-        "weatherMapStore_new _setTimeIndices: new indices",
-        new Date(aItem),
-        aItem
-      );
-    });
+    // console.log("weatherMapStore_new _setTimeIndices: new indices", indices);
+    // indices.map(aItem => {
+    //   console.log(
+    //     "weatherMapStore_new _setTimeIndices: new indices",
+    //     new Date(aItem),
+    //     aItem
+    //   );
+    // });
     this._availableTimes = indices;
     this._timeIndex.set(0);
   };
@@ -529,12 +529,12 @@ export default class WeatherMapStore_new {
   control method to check if the item does exist in the config
 */
   checkTimeSpan(domainId, timeSpan) {
-    console.log(
-      "weatherMapStore_new: checktimeSpan",
-      domainId,
-      timeSpan,
-      this.config.domains[domainId].item.timeSpans
-    );
+    // console.log(
+    //   "weatherMapStore_new: checktimeSpan",
+    //   domainId,
+    //   timeSpan,
+    //   this.config.domains[domainId].item.timeSpans
+    // );
     return (
       this.checkDomainId(domainId) &&
       this.config.domains[domainId].item.timeSpans.includes(timeSpan)
@@ -545,11 +545,11 @@ export default class WeatherMapStore_new {
     setting a new active timeSpan
   */
   @action changeTimeSpan(timeSpan) {
-    console.log(
-      "weatherMapStore_new changeTimeSpan: ",
-      timeSpan,
-      this.domainConfig
-    );
+    // console.log(
+    //   "weatherMapStore_new changeTimeSpan: ",
+    //   timeSpan,
+    //   this.domainConfig
+    // );
     if (
       timeSpan != this._timeSpan.get() &&
       this.checkTimeSpan(this.domainId, timeSpan)

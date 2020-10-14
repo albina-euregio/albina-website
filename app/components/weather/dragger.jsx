@@ -56,7 +56,6 @@ class Dragger extends React.Component {
 
     // drop the draggable, remove unneeded handlers
     document.onmouseup = function(event) {
-      console.log("onmouseup aaaa", event);
       event.stopPropagation();
       document.removeEventListener("mousemove", onMouseMove);
       if (self.props.onDragEnd)
