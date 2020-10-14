@@ -354,6 +354,7 @@
   "weathermaps": {
     "settings": {
       "timeRange": ["-72", "+72"],
+      "aglUTCHourFor_24_48_72": 5,
       "bbox": [
         [45.6167, 9.9833],
         [47.8167, 13.0333]
@@ -407,7 +408,7 @@
             "+48": "snow48",
             "+72": "snow72"
           },
-          "updateTimesOffset": { "*": 1 },
+          "updateTimesOffset": { "*": 12 },
           "units": "cm",
           "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
           "colors": {

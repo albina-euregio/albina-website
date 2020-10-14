@@ -42,6 +42,7 @@ class WeatherMapCockpit extends React.Component {
 
   componentDidMount() {
     window.addEventListener("resize", this.redraw);
+    this.adaptVH();
   }
 
   componentWillUnmount() {
@@ -50,6 +51,12 @@ class WeatherMapCockpit extends React.Component {
 
   redraw() {
     this.setState({ lastRedraw: new Date().getTime() });
+    this.adaptVH();
+  }
+
+  adaptVH() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
   }
 
   componentDidUpdate() {

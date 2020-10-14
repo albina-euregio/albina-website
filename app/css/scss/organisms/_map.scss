@@ -11,10 +11,16 @@ $map-width: 100%;
 
 $map-height-mobile: 50vh;
 $map-height-bulletin: 50vh;
-$map-height-weather: calc(100vh - #{$bar-width});
+
+:root {
+  --vh: 1vh;
+}
+
+$map-height-weather: calc((var(--vh, 1vh) * 100) - #{$bar-width});
 $map-height-weather-when-menu: calc(
-  100vh - #{$bar-width} - #{$page-header-height}
+  (var(--vh, 1vh) * 100) - #{$bar-width} - #{$page-header-height}
 );
+
 $map-height-min: 400px;
 
 $map-google-topbar-height: 46px;

@@ -354,13 +354,13 @@ $cp-breakpoint-2: 1024px;
   align-items: flex-start;
 
   span {
-    display: none;
+    display: block;
     height: 10px;
     width: 1px;
-    background-color: $grey-medium-light;
+    background-color: transparent;
 
     @media screen and (min-width: 500px) {
-      display: block;
+      background-color: $grey-medium-light;
     }
   }
   .cp-scale-hour-0,
