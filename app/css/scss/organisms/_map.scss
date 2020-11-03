@@ -387,9 +387,9 @@ $controls-width-height: $padding * 4;
   }
 
   .bulletin-report-public-alert {
-    margin: $padding * 2;
+    margin: ($padding * 2) ($padding * 2) 0 ($padding * 2);
+    @include font-normal;
     font-size: $tiny-font-size;
-    @include letter-spacing;
   }
 
   //details link
