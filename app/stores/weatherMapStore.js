@@ -28,6 +28,7 @@ export default class WeatherMapStore_new {
     this._timeIndex = observable.box(false);
     this.selectedFeature = null;
     this._loading = observable.box(false);
+    this._lastCurrentTime = null;
 
     const configDefaultDomainId = Object.keys(this.config.domains).find(
       domainKey => this.config.domains[domainKey].domainDefault
@@ -490,7 +491,9 @@ export default class WeatherMapStore_new {
     //   );
     // });
     this._availableTimes = indices;
-    this._timeIndex.set(0);
+    if (indices.includes(this._lastCurrentTime))
+      this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
+    else this._timeIndex.set(0);
   };
 
   /*
@@ -512,6 +515,7 @@ export default class WeatherMapStore_new {
   @action changeDomain(domainId) {
     //console.log("weatherMapStore_new changeDomain: " + domainId);
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
+      this._lastCurrentTime = this.currentTime;
       this._domainId.set(domainId);
       this._timeSpan.set(null);
       this._timeIndex.set(null);
