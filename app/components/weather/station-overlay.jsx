@@ -92,6 +92,7 @@ export default class StationOverlay extends React.Component {
         stationId={data.id}
         stationName={data.name}
         coordinates={coordinates}
+        iconAnchor={[12.5, 12.5]}
         value={value}
         selected={
           this.props.selectedFeature && data.id == this.props.selectedFeature.id

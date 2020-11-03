@@ -25,7 +25,7 @@ class StationMarker extends MapLayer {
     );
 
     return L.divIcon({
-      iconAnchor: this.props.iconAnchor || [25, 25],
+      iconAnchor: this.props.iconAnchor || [12.5, 12.5],
       html: ReactDOMServer.renderToStaticMarkup(icon)
     });
   }

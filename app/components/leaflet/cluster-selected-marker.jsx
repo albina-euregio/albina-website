@@ -11,7 +11,7 @@ export default class ClusterSelectedMarker extends MapLayer {
 
   createLeafletElement() {
     const icon = L.divIcon({
-      iconAnchor: [11.5, 11.5],
+      iconAnchor: [12.5, 12.5],
       html: ReactDOMServer.renderToStaticMarkup(
         <CircleIcon className="station-selected-clustered" />
       )
