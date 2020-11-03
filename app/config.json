@@ -354,7 +354,7 @@
   "weathermaps": {
     "settings": {
       "timeRange": ["-72", "+72"],
-      "aglUTCHourFor_24_48_72": 5,
+      "startUTCHourForTimespans": 5,
       "bbox": [
         [45.6167, 9.9833],
         [47.8167, 13.0333]

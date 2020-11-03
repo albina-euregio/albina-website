@@ -1,7 +1,7 @@
 import { computed, observable, action } from "mobx";
 import StationDataStore from "./stationDataStore";
 import axios from "axios";
-import { dateFormat } from "../util/date";
+import { dateFormat, isSummerTime } from "../util/date";
 
 export default class WeatherMapStore_new {
   @observable _domainId;
@@ -413,14 +413,23 @@ export default class WeatherMapStore_new {
 
   _getStartTimeForSpan = function(initDate) {
     let currentTime = new Date(initDate);
-
+    //console.log("_getStartTimeForSpan #1", isSummerTime(currentTime), currentTime, this._timeSpan.get());
     if (
-      ["+24", "+48", "+72"].includes(this._timeSpan.get()) &&
-      currentTime.getUTCHours() !== this.config.settings.aglUTCHourFor_24_48_72
+      ["-12", "-24", "-48", "-72", "+12", "+24", "+48", "+72"].includes(
+        this._timeSpan.get()
+      ) &&
+      currentTime.getUTCHours() !==
+        this.config.settings.startUTCHourForTimespans
     ) {
-      currentTime.setUTCHours(this.config.settings.aglUTCHourFor_24_48_72);
+      if (isSummerTime(currentTime))
+        currentTime.setUTCHours(this.config.settings.startUTCHourForTimespans);
+      else
+        currentTime.setUTCHours(
+          this.config.settings.startUTCHourForTimespans + 1
+        );
+      //console.log("_getStartTimeForSpan #2", currentTime);
     }
-    // console.log("_getStartTimeForSpan #2", ["+24", "+48", "+72"].includes(this._timeSpan.get()), this._timeSpan.get(), this.config.settings.aglUTCHourFor_24_48_72, currentTime.getUTCHours(), this.config);
+    // console.log("_getStartTimeForSpan #2", ["+24", "+48", "+72"].includes(this._timeSpan.get()), this._timeSpan.get(), this.config.settings.startUTCHourForTimespans, currentTime.getUTCHours(), this.config);
     return currentTime;
   };
 
@@ -468,7 +477,7 @@ export default class WeatherMapStore_new {
       let startFrom =
         currentTimespan.includes("+") && this._agl
           ? this._agl
-          : this._dateStart;
+          : this._getStartTimeForSpan(this._dateStart);
       currentTime = new Date(startFrom);
       currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
       maxTime = new Date(startFrom);
