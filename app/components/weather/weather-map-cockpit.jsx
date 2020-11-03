@@ -26,6 +26,8 @@ const DOMAIN_LEGEND_CLASSES = {
   gust: "cp-legend-windgust"
 };
 
+const LOOP = false;
+
 @observer
 class WeatherMapCockpit extends React.Component {
   constructor(props) {
@@ -382,7 +384,7 @@ class WeatherMapCockpit extends React.Component {
         <div key="flipper" className="cp-scale-flipper">
           <a
             href="#"
-            onClick={self.props.previousTime}
+            onClick={self.setPreviousTime.bind(self)}
             key="arrow-left"
             className="cp-scale-flipper-left icon-arrow-left tooltip"
             title={this.props.intl.formatMessage({
@@ -391,7 +393,7 @@ class WeatherMapCockpit extends React.Component {
           ></a>
           <a
             href="#"
-            onClick={self.props.nextTime}
+            onClick={self.setNextTime.bind(self)}
             key="arrow-right"
             className="cp-scale-flipper-right icon-arrow-right tooltip"
             title={this.props.intl.formatMessage({
@@ -521,20 +523,34 @@ class WeatherMapCockpit extends React.Component {
     );
   }
 
+  setPreviousTime() {
+    if (LOOP || this.props.currentTime != this.props.timeArray[0])
+      this.props.previousTime();
+  }
+
+  setNextTime() {
+    if (
+      LOOP ||
+      this.props.currentTime !=
+        this.props.timeArray[this.props.timeArray.length - 1]
+    )
+      this.props.nextTime();
+  }
+
   onKeyPressed(e) {
     //console.log(e.keyCode);
     switch (e.keyCode) {
       case 37:
-        this.props.previousTime();
+        this.setPreviousTime();
         break;
       case 39:
-        this.props.nextTime();
+        this.setNextTime();
         break;
       case 32:
         this.props.player.toggle();
         break;
       default:
-        this.props.previousTime();
+        this.setPreviousTime();
         break;
     }
   }
