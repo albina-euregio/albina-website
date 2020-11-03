@@ -401,6 +401,16 @@ export default class WeatherMapStore_new {
     return res;
   }
 
+  /*
+  finds index of arr item closest to needle
+*/
+  _findClosestIndex(arr, needle) {
+    let foundItem = arr.reduce(function(prev, curr) {
+      return Math.abs(curr - needle) < Math.abs(prev - needle) ? curr : prev;
+    });
+    return arr.indexOf(foundItem) || 0;
+  }
+
   _getStartTimeForSpan = function(initDate) {
     let currentTime = new Date(initDate);
 
@@ -491,9 +501,10 @@ export default class WeatherMapStore_new {
     //   );
     // });
     this._availableTimes = indices;
+
     if (indices.includes(this._lastCurrentTime))
       this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
-    else this._timeIndex.set(0);
+    else this._timeIndex.set(this._findClosestIndex(indices, new Date()));
   };
 
   /*
