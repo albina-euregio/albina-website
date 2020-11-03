@@ -61,7 +61,7 @@ $controls-width-height: $padding * 4;
   width: 100vw;
   overflow: hidden;
   //transition: none !important;
-  .scrolling-down & {
+  .scrolling-down.s-weathermap-2020 & {
     top: 0;
     height: $map-height-weather;
   }
@@ -85,7 +85,7 @@ $controls-width-height: $padding * 4;
   .section-weather-map & {
     height: $map-height-weather-when-menu;
     @include rollout;
-    .scrolling-down & {
+    .scrolling-down.s-weathermap-2020 & {
       height: $map-height-weather;
     }
   }
