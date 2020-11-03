@@ -5,7 +5,10 @@ import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import Dragger from "./dragger.jsx";
 
-import { dateToDateTimeString, dateToTimeString } from "../../util/date.js";
+import {
+  dateToShortDateTimeString,
+  dateToTimeString
+} from "../../util/date.js";
 import { tooltip_init } from "../../js/tooltip";
 
 const DOMAIN_ICON_CLASSES = {
@@ -497,7 +500,7 @@ class WeatherMapCockpit extends React.Component {
           {this.props.intl.formatMessage({
             id: "weathermap:cockpit:maps-creation-date:prefix"
           })}{" "}
-          {dateToDateTimeString(this.props.lastUpdateTime)}
+          {dateToShortDateTimeString(this.props.lastUpdateTime)}
         </span>
         <span
           key="cp-release-update"
@@ -511,7 +514,7 @@ class WeatherMapCockpit extends React.Component {
               id: "weathermap:cockpit:maps-update-date:prefix"
             })}{" "}
           </span>{" "}
-          {dateToDateTimeString(this.props.nextUpdateTime)}
+          {dateToShortDateTimeString(this.props.nextUpdateTime)}
         </span>
         {/* <span key="cp-release-copyright" className="cp-release-copyright">
           <a

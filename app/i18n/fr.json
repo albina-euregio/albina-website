@@ -189,7 +189,7 @@
   "weathermap:cockpit:flipper:previous": "Précédent",
   "weathermap:cockpit:flipper:next": "Suivant",
   "weathermap:cockpit:maps-creation-date:title": "Dernière mise à jour",
-  "weathermap:cockpit:maps-creation-date:prefix": "Updated:",
+  "weathermap:cockpit:maps-creation-date:prefix": "Updated",
   "weathermap:cockpit:maps-update-date:title": "Prochaine mise à jour (estimée)",
   "weathermap:cockpit:maps-update-date:prefix": "Prochaine mise à jour",
 

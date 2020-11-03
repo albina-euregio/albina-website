@@ -191,7 +191,7 @@
   "weathermap:cockpit:maps-creation-date:title": "Last Update",
   "weathermap:cockpit:maps-creation-date:prefix": "Updated:",
   "weathermap:cockpit:maps-update-date:title": "Next Update (estimated)",
-  "weathermap:cockpit:maps-update-date:prefix": "Next Update:",
+  "weathermap:cockpit:maps-update-date:prefix": "Next Update",
 
   "blog:title": "Blog",
   "blog:subtitle": "Blog",
