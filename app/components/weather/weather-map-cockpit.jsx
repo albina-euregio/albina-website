@@ -154,6 +154,7 @@ class WeatherMapCockpit extends React.Component {
 
   handleEvent(type, value) {
     if (typeof this.props.eventCallback === "function") {
+      this.props.player.stop();
       this.props.eventCallback(type, value);
     }
   }
