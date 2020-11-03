@@ -167,7 +167,7 @@ class Weather extends React.Component {
         </section>
         <section
           id="section-weather-map"
-          className="section section-weather-map"
+          className="section section-weather-map section-weather-map-cockpit"
         >
           {/*this.store.domainId*/ true && (
             <div className="section-map">
