@@ -2,6 +2,7 @@ import React from "react";
 import Cluster from "../leaflet/cluster";
 import StationMarker from "../leaflet/station-marker";
 import ClusterSelectedMarker from "../leaflet/cluster-selected-marker";
+import { tooltip_init } from "../../js/tooltip";
 
 export default class StationOverlay extends React.Component {
   constructor(props) {
@@ -124,15 +125,26 @@ export default class StationOverlay extends React.Component {
     );
   }
 
+  init_tooltip() {
+    window.setTimeout(() => {
+      //console.log("update tooltip");
+      $(".leaflet-marker-icon").addClass("tooltip");
+      tooltip_init();
+    }, 100);
+  }
+
   componentDidMount() {
     //console.log("StationOverlay->componentDidMount ddd", this.props.onLoad);
     if (this.props.onLoad) this.props.onLoad();
+    this.init_tooltip();
   }
 
   componentDidUpdate() {
     //console.log("StationOverlay->componentDidUpdate ddd", this.props.onLoad);
     if (this.props.onLoad) this.props.onLoad();
+    this.init_tooltip();
   }
+
   render() {
     //let sPl = this.props.features ? this.props.features.find(feature => feature?.name == "Tannheim") : null;
     //console.log("station-overlay->render qq", this.props.selectedFeature?.id, sPl?.name, sPl?.properties.LT);
