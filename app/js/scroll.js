@@ -104,15 +104,14 @@ let scroll_direction = () => {
 
     //make .top-fix sticky or not
     if (top_fix_offset != undefined) {
-      if (s_pos_new >= top_fix_offset.top) {
+      if (s_pos_new >= top_fix_offset.top - page_header_height_now) {
         page_body.addClass("js-top-fix");
-        top_fix.css({ top: header_visible * page_header_height_now + "px" });
+        //top_fix.css({ "top": (header_visible * page_header_height_now) + "px" });
+        top_fix.css({ top: page_header_height_now + "px" });
         top_fix_follow.css({ "padding-top": topfix_height_now + "px" });
       }
-      if (
-        s_pos_new <
-        top_fix_offset.top - header_visible * page_header_height_now
-      ) {
+      //if (s_pos_new < (top_fix_offset.top - (header_visible * page_header_height_now))) {
+      if (s_pos_new < top_fix_offset.top - page_header_height_now) {
         page_body.removeClass("js-top-fix");
         top_fix.css({ top: "auto" });
         top_fix_follow.css({ "padding-top": "0" });
