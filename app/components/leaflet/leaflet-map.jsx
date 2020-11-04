@@ -195,9 +195,9 @@ class LeafletMap extends React.Component {
   _enabledMapProps() {
     return {
       dragging: true,
-      touchZoom: true,
+      touchZoom: false,
       doubleClickZoom: true,
-      scrollWheelZoom: true,
+      scrollWheelZoom: false,
       boxZoom: true,
       keyboard: true
     };
@@ -234,15 +234,6 @@ class LeafletMap extends React.Component {
   }
 
   renderDisabledMap(mapOptions) {
-    let timeDimensionControlOptions = {
-      autoPlay: false,
-      playerOptions: {
-        buffer: 10,
-        transitionTime: 500,
-        loop: true
-      }
-    };
-
     return (
       <Map
         className="map-disabled"
@@ -253,9 +244,6 @@ class LeafletMap extends React.Component {
         zoom={window.mapStore.mapZoom}
         center={window.mapStore.mapCenter}
         {...mapOptions}
-        timeDimension={true}
-        timeDimensionControl={true}
-        timeDimensionControlOptions={timeDimensionControlOptions}
         attributionControl={false}
       >
         <AttributionControl prefix={config.map.attribution} />
@@ -265,14 +253,6 @@ class LeafletMap extends React.Component {
   }
 
   renderLoadedMap(mapOptions) {
-    let timeDimensionControlOptions = {
-      autoPlay: false,
-      playerOptions: {
-        buffer: 10,
-        transitionTime: 500,
-        loop: true
-      }
-    };
     return (
       <Map
         onViewportChanged={this.props.onViewportChanged.bind(this.map)}
@@ -286,9 +266,6 @@ class LeafletMap extends React.Component {
         center={window.mapStore.mapCenter}
         {...mapOptions}
         attributionControl={false}
-        timeDimension={true}
-        timeDimensionControl={true}
-        timeDimensionControlOptions={timeDimensionControlOptions}
       >
         <AttributionControl prefix={config.map.attribution} />
         <ScaleControl imperial={false} position="bottomleft" />
