@@ -62,7 +62,7 @@ class LeafletMap extends React.Component {
   }
 
   updateMaps() {
-    console.log("updateMaps xyy");
+    //console.log("updateMaps xyy");
     if (this.refs.mapDisabled && !this.mapDisabled) {
       this.mapDisabled = this.refs.mapDisabled.leafletElement;
       L.Util.setOptions(this.mapDisabled, { gestureHandling: false });
