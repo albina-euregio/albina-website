@@ -57,6 +57,7 @@ class Cluster extends MapLayer {
     });
 
     markerclusters.on("click", e => {
+      console.log("click.on(click) ggg1", e.layer.options);
       const markerId = e.layer.options.data.id;
       if (this.activeCluster) {
         const activeClusterMarker = this.activeCluster
@@ -64,8 +65,9 @@ class Cluster extends MapLayer {
           .find(m => m.options.data.id == markerId);
 
         if (activeClusterMarker) {
+          console.log("click.on(click) #2 ggg1", activeClusterMarker);
           this.setPositionForActiveMarker(activeClusterMarker);
-          this.props.onMarkerSelected(activeClusterMarker.options.data);
+          //this.props.onMarkerSelected(activeClusterMarker.options.data);
         } else {
           this.activeCluster.unspiderfy();
         }
@@ -73,10 +75,11 @@ class Cluster extends MapLayer {
     });
 
     markerclusters.on("spiderfied", a => {
+      console.log("on spiderfied.on ggg2", a, activeMarker);
       const activeMarker = this.getActiveMarker(a.cluster);
       if (activeMarker) {
+        console.log("on spiderfied.on #2 ggg2", activeMarker);
         this.setPositionForActiveMarker(activeMarker);
-        this.props.onMarkerSelected(activeMarker.options.data);
       }
       this.activeCluster = a.cluster;
       this.props.spiderfiedMarkers(
@@ -85,6 +88,7 @@ class Cluster extends MapLayer {
     });
 
     markerclusters.on("unspiderfied", () => {
+      console.log("on unspiderfied.onggg1");
       this.activeCluster = null;
       this.props.spiderfiedMarkers(null);
     });

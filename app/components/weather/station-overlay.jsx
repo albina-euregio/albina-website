@@ -28,18 +28,19 @@ export default class StationOverlay extends React.Component {
   }
 
   handleActiveMarkerPositionUpdate = pos => {
-    this.setState({ activeMarkerPos: pos });
+    //this.setState({ activeMarkerPos: pos });
   };
 
   handleSpiderfiedMarkers = list => {
-    if (Array.isArray(list) && list.length > 0) {
-      this.setState({ spiderfiedMarkers: list });
-    } else {
-      this.setState({
-        spiderfiedMarkers: null,
-        activeMarkerPos: null
-      });
-    }
+    console.log("handleSpiderfiedMarkers ggg", list);
+    // if (Array.isArray(list) && list.length > 0) {
+    //   this.setState({ spiderfiedMarkers: list });
+    // } else {
+    //   this.setState({
+    //     spiderfiedMarkers: null,
+    //     activeMarkerPos: null
+    //   });
+    // }
   };
 
   renderPositionMarker(data) {
@@ -51,19 +52,20 @@ export default class StationOverlay extends React.Component {
   }
 
   renderMarker(data, pos = null) {
-    //if(data.name !== "Tannheim") return <></>;
-    // console.log(
-    //   "station-overlay->renderMarker aaa",
-    //   this.props.itemId,
-    //   this.props.item.colors || this.getColor(Math.round(data[this.props.itemId])),
-    //   data,
-    //   data[this.props.itemId]
-    // );
     if (
       (data.date === undefined || data[this.props.itemId] === undefined) &&
       this.props.itemId !== "any"
     )
       return;
+
+    console.log(
+      "station-overlay->renderMarker aaa",
+      this.props.itemId
+      //   this.props.item.colors ||
+      //     this.getColor(Math.round(data[this.props.itemId])),
+      //   data,
+      //   data[this.props.itemId]
+    );
 
     const value = Math.round(data[this.props.itemId]);
     const coordinates = pos
@@ -83,7 +85,10 @@ export default class StationOverlay extends React.Component {
       value: value,
       plot: data.plot
     };
-    //console.log("station-overlay->renderMarker qqq", this.props.item,  value);
+    console.log(
+      "station-overlay->renderMarker qqq",
+      this.props.itemId + "-" + data.id
+    );
     return (
       <StationMarker
         type="station"
@@ -105,15 +110,15 @@ export default class StationOverlay extends React.Component {
             : false
         }
         onClick={data => {
-          //console.log("onClick ggg #1", data);
+          console.log("onClick ggg2 #1", data);
           if (data && data.id) {
-            //console.log("onClick ggg #2", data);
             if (
               !this.state.spiderfiedMarkers ||
               this.state.spiderfiedMarkers.indexOf(data.id) < 0
             ) {
               // only handle click events for markers outside of cluster -
               // other markers will be handled by cluster's click-event-handler
+              console.log("onClick ggg2 #2", this.state.spiderfiedMarkers);
               this.handleSpiderfiedMarkers(null);
               this.props.onMarkerSelected(data);
             }
@@ -136,13 +141,27 @@ export default class StationOverlay extends React.Component {
   componentDidMount() {
     //console.log("StationOverlay->componentDidMount ddd", this.props.onLoad);
     if (this.props.onLoad) this.props.onLoad();
-    this.init_tooltip();
+    //this.init_tooltip();
+  }
+
+  UNSAFE_componentWillUpdate(nextProps) {
+    console.log("UNSAFE_componentWillUpdate ggg", nextProps, this.props);
+  }
+
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
+    console.log(
+      "UNSAFE_componentWillUpdate ggg",
+      nextProps,
+      nextState,
+      this.props,
+      this.state
+    );
   }
 
   componentDidUpdate() {
-    //console.log("StationOverlay->componentDidUpdate ddd", this.props.onLoad);
-    if (this.props.onLoad) this.props.onLoad();
-    this.init_tooltip();
+    console.log("StationOverlay->componentDidUpdate ggg", this.props.onLoad);
+    //if (this.props.onLoad) this.props.onLoad();
+    //this.init_tooltip();
   }
 
   render() {
@@ -165,15 +184,14 @@ export default class StationOverlay extends React.Component {
           item={this.props.item}
           spiderfiedMarkers={this.handleSpiderfiedMarkers}
           onActiveMarkerPositionUpdate={this.handleActiveMarkerPositionUpdate}
-          onMarkerSelected={this.props.onMarkerSelected}
         >
           {points.map(point => this.renderMarker(point))}
         </Cluster>
-        {selectedFeature &&
-          this.renderMarker(selectedFeature, this.state.activeMarkerPos)}
-        {selectedFeature &&
+        {/* {selectedFeature &&
+          this.renderMarker(selectedFeature, this.state.activeMarkerPos)} */}
+        {/* {selectedFeature &&
           this.state.spiderfiedMarkers &&
-          this.renderPositionMarker(selectedFeature)}
+          this.renderPositionMarker(selectedFeature)} */}
       </div>
     );
   }

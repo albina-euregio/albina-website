@@ -119,10 +119,13 @@ class Weather extends React.Component {
 
   handleMarkerSelected = feature => {
     if (!feature) return;
-    // console.log(
-    //   "handleMarkerSelected", feature
-    //   ,config.weathermapStore.stations.features.find(point => point.id == feature.id)
-    // );
+    console.log(
+      "handleMarkerSelected ggg1",
+      feature,
+      config.weathermapStore.stations.features.find(
+        point => point.id == feature.id
+      )
+    );
     if (feature.id) {
       window["modalStateStore"].setData({
         stationData: config.weathermapStore.stations.features.find(

@@ -43,11 +43,7 @@ class StationMarker extends MapLayer {
   }
 
   createElement() {
-    // console.log(
-    //   "StationMarker->createElement jjj",
-    //   this.props.stationName,
-    //   this.props.value
-    // );
+    //console.log("StationMarker->createElement ggg", this.props);
     const marker = L.marker(this.props.coordinates, {
       data: this.props.data,
       title: this.props.stationName,
@@ -55,7 +51,13 @@ class StationMarker extends MapLayer {
     });
 
     marker.on("click", e => {
+      console.log(
+        "marker.on(click) ggg",
+        this.props.onClick,
+        e.target.options.data
+      );
       L.DomEvent.stopPropagation(e);
+
       if (this.props.onClick) this.props.onClick(e.target.options.data);
     });
 
