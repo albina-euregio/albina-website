@@ -242,6 +242,7 @@ class BulletinMap extends React.Component {
             loaded={this.props.regions && this.props.regions.length > 0}
             onViewportChanged={this.props.handleMapViewportChanged}
             overlays={this.getMapOverlays()}
+            gestureHandling={true}
             onInit={this.handleMapInit}
           />
           {false /* hide map search */ && (

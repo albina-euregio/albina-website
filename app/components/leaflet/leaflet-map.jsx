@@ -62,6 +62,7 @@ class LeafletMap extends React.Component {
   }
 
   updateMaps() {
+    console.log("updateMaps xyy");
     if (this.refs.mapDisabled && !this.mapDisabled) {
       this.mapDisabled = this.refs.mapDisabled.leafletElement;
       L.Util.setOptions(this.mapDisabled, { gestureHandling: false });
@@ -69,13 +70,14 @@ class LeafletMap extends React.Component {
 
     if (this.mapRef && !this.map) {
       this.map = this.mapRef.leafletElement;
-      window.currMap = this.map;
+      //window.currMap = this.map;
       //console.log("updateMaps xyz", L);
       if (this.props.onInit) {
         this.props.onInit(this.map);
       }
 
-      L.Util.setOptions(this.map, { gestureHandling: true });
+      if (this.props.gestureHandling)
+        L.Util.setOptions(this.map, { gestureHandling: true });
 
       this.map.fitBounds(config.map.euregioBounds);
 
@@ -142,11 +144,12 @@ class LeafletMap extends React.Component {
         tooltip_init();
       }, 100);
 
-      this.map.on("zoomend", this._zoomend, this);
+      //this.map.on("zoomend", this._zoomend, this);
     }
   }
 
   _zoomend() {
+    //console.log("_zoomend xyy");
     const map = this.map;
     const newZoom = Math.round(map.getZoom());
     map.setMaxBounds(config.map.maxBounds[newZoom]);
@@ -168,12 +171,7 @@ class LeafletMap extends React.Component {
               key={layerProps.id}
               checked={i == 0}
             >
-              <TileLayer
-                key={layerProps.id}
-                {...layerProps}
-                onload={this.onLayerLoad}
-                onerror={this.onLayerLoadError}
-              />
+              <TileLayer key={layerProps.id} {...layerProps} />
             </LayersControl.BaseLayer>
           ))}
         </LayersControl>
@@ -195,9 +193,9 @@ class LeafletMap extends React.Component {
   _enabledMapProps() {
     return {
       dragging: true,
-      touchZoom: false,
+      touchZoom: true,
       doubleClickZoom: true,
-      scrollWheelZoom: false,
+      scrollWheelZoom: true,
       boxZoom: true,
       keyboard: true
     };
@@ -221,16 +219,6 @@ class LeafletMap extends React.Component {
     return this.props.loaded
       ? this.renderLoadedMap(mapOptions)
       : this.renderDisabledMap(mapOptions);
-  }
-
-  get overlays() {
-    console.log(
-      "overlays " + this.props.identifier,
-      this._layers[this.props.identifier]
-    );
-    if (!this._layers[this.props.identifier])
-      return (this._layers[this.props.identifier] = this.props.overlays);
-    return this._layers[this.props.identifier];
   }
 
   renderDisabledMap(mapOptions) {
@@ -258,7 +246,7 @@ class LeafletMap extends React.Component {
         onViewportChanged={this.props.onViewportChanged.bind(this.map)}
         useFlyTo
         ref={el => this.connectLayers(el)}
-        gestureHandling
+        gestureHandling={this.props.gestureHandling}
         dragging={L.Browser.mobile}
         style={this.mapStyle()}
         zoomControl={false}

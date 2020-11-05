@@ -107,6 +107,7 @@ class WeatherMap extends React.Component {
           controls={controls}
           timeArray={this.props.timeArray}
           startDate={this.props.startDate}
+          gestureHandling={false}
           onInit={map => {
             map.on("click", () => {
               this.props.onMarkerSelected(null);
