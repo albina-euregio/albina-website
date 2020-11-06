@@ -26,15 +26,16 @@ class StationMarker extends MapLayer {
 
     return L.divIcon({
       iconAnchor: this.props.iconAnchor || [12.5, 12.5],
-      html: ReactDOMServer.renderToStaticMarkup(icon)
+      html: ReactDOMServer.renderToStaticMarkup(icon),
+      className: this.props.className
     });
   }
 
   updateLeafletElement() {
     //console.log("StationMarker->updateLeafletElement qqq !!!!", this.props.stationName,  this.props.value);
-    this.layerContainer.removeLayer(this.leafletElement);
-    this.leafletElement = this.createElement();
-    this.layerContainer.addLayer(this.leafletElement);
+    //this.layerContainer.removeLayer(this.leafletElement);
+    //this.leafletElement = this.createElement();
+    //this.layerContainer.addLayer(this.leafletElement);
   }
 
   createLeafletElement() {
@@ -51,11 +52,11 @@ class StationMarker extends MapLayer {
     });
 
     marker.on("click", e => {
-      console.log(
-        "marker.on(click) ggg",
-        this.props.onClick,
-        e.target.options.data
-      );
+      // console.log(
+      //   "marker.on(click) ggg",
+      //   this.props.onClick,
+      //   e.target.options.data
+      // );
       L.DomEvent.stopPropagation(e);
 
       if (this.props.onClick) this.props.onClick(e.target.options.data);

@@ -138,21 +138,33 @@ class LeafletMap extends React.Component {
           .addTo(map);
       }, 50);
 
-      window.setTimeout(() => {
-        $(".leaflet-control-zoom a").addClass("tooltip");
-        $(".leaflet-control-locate a").addClass("tooltip");
-        tooltip_init();
-      }, 100);
-
-      //this.map.on("zoomend", this._zoomend, this);
+      this._init_tooltip();
+      this.map.on("zoomend", this._zoomend, this);
     }
   }
 
+  _init_tooltip() {
+    window.setTimeout(() => {
+      // console.log("leaflet-map ggg1 update tooltip");
+      $(".leaflet-cluster-marker").prop(
+        "title",
+        this.props.intl.formatMessage({
+          id: "station-overlay:cluster:title"
+        })
+      );
+      $(".leaflet-control-zoom a").addClass("tooltip");
+      $(".leaflet-control-zoom a").addClass("tooltip");
+      $(".leaflet-control-locate a").addClass("tooltip");
+      tooltip_init();
+    }, 100);
+  }
+
   _zoomend() {
-    //console.log("_zoomend xyy");
+    //console.log("ggg _zoomend xyy");
     const map = this.map;
     const newZoom = Math.round(map.getZoom());
     map.setMaxBounds(config.map.maxBounds[newZoom]);
+    this._init_tooltip();
   }
 
   get tileLayers() {

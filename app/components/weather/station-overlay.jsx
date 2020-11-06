@@ -4,7 +4,7 @@ import StationMarker from "../leaflet/station-marker";
 import ClusterSelectedMarker from "../leaflet/cluster-selected-marker";
 import { tooltip_init } from "../../js/tooltip";
 
-export default class StationOverlay extends React.Component {
+class StationOverlay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,19 +28,20 @@ export default class StationOverlay extends React.Component {
   }
 
   handleActiveMarkerPositionUpdate = pos => {
-    //this.setState({ activeMarkerPos: pos });
+    //console.log("handleActiveMarkerPositionUpdate qqq3", pos);
+    this.setState({ activeMarkerPos: pos });
   };
 
   handleSpiderfiedMarkers = list => {
-    console.log("handleSpiderfiedMarkers ggg", list);
-    // if (Array.isArray(list) && list.length > 0) {
-    //   this.setState({ spiderfiedMarkers: list });
-    // } else {
-    //   this.setState({
-    //     spiderfiedMarkers: null,
-    //     activeMarkerPos: null
-    //   });
-    // }
+    //console.log("handleSpiderfiedMarkers ggg3", list);
+    if (Array.isArray(list) && list.length > 0) {
+      this.setState({ spiderfiedMarkers: list });
+    } else {
+      this.setState({
+        spiderfiedMarkers: null,
+        activeMarkerPos: null
+      });
+    }
   };
 
   renderPositionMarker(data) {
@@ -58,14 +59,14 @@ export default class StationOverlay extends React.Component {
     )
       return;
 
-    console.log(
-      "station-overlay->renderMarker aaa",
-      this.props.itemId
-      //   this.props.item.colors ||
-      //     this.getColor(Math.round(data[this.props.itemId])),
-      //   data,
-      //   data[this.props.itemId]
-    );
+    // console.log(
+    //   "station-overlay->renderMarker aaa",
+    //   this.props.itemId
+    //   this.props.item.colors ||
+    //     this.getColor(Math.round(data[this.props.itemId])),
+    //   data,
+    //   data[this.props.itemId]
+    // );
 
     const value = Math.round(data[this.props.itemId]);
     const coordinates = pos
@@ -85,10 +86,10 @@ export default class StationOverlay extends React.Component {
       value: value,
       plot: data.plot
     };
-    console.log(
-      "station-overlay->renderMarker qqq",
-      this.props.itemId + "-" + data.id
-    );
+    // console.log(
+    //   "station-overlay->renderMarker qqq",
+    //   this.props.itemId + "-" + data.id
+    // );
     return (
       <StationMarker
         type="station"
@@ -97,6 +98,7 @@ export default class StationOverlay extends React.Component {
         data={markerData}
         stationId={data.id}
         stationName={data.name}
+        className="tooltip"
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
         value={value}
@@ -110,7 +112,7 @@ export default class StationOverlay extends React.Component {
             : false
         }
         onClick={data => {
-          console.log("onClick ggg2 #1", data);
+          //console.log("onClick ggg2 #1", data.id, this.state.spiderfiedMarkers);
           if (data && data.id) {
             if (
               !this.state.spiderfiedMarkers ||
@@ -118,13 +120,12 @@ export default class StationOverlay extends React.Component {
             ) {
               // only handle click events for markers outside of cluster -
               // other markers will be handled by cluster's click-event-handler
-              console.log("onClick ggg2 #2", this.state.spiderfiedMarkers);
+              //console.log("onClick ggg2 #2", this.state.spiderfiedMarkers);
               this.handleSpiderfiedMarkers(null);
-              this.props.onMarkerSelected(data);
+              //this.props.onMarkerSelected(data);
             }
-          } else {
-            this.props.onMarkerSelected(null);
           }
+          if (data.id) this.props.onMarkerSelected(data);
         }}
       />
     );
@@ -132,8 +133,6 @@ export default class StationOverlay extends React.Component {
 
   init_tooltip() {
     window.setTimeout(() => {
-      //console.log("update tooltip");
-      $(".leaflet-marker-icon").addClass("tooltip");
       tooltip_init();
     }, 100);
   }
@@ -141,27 +140,13 @@ export default class StationOverlay extends React.Component {
   componentDidMount() {
     //console.log("StationOverlay->componentDidMount ddd", this.props.onLoad);
     if (this.props.onLoad) this.props.onLoad();
-    //this.init_tooltip();
-  }
-
-  UNSAFE_componentWillUpdate(nextProps) {
-    console.log("UNSAFE_componentWillUpdate ggg", nextProps, this.props);
-  }
-
-  UNSAFE_componentWillUpdate(nextProps, nextState) {
-    console.log(
-      "UNSAFE_componentWillUpdate ggg",
-      nextProps,
-      nextState,
-      this.props,
-      this.state
-    );
+    this.init_tooltip();
   }
 
   componentDidUpdate() {
-    console.log("StationOverlay->componentDidUpdate ggg", this.props.onLoad);
-    //if (this.props.onLoad) this.props.onLoad();
-    //this.init_tooltip();
+    //console.log("StationOverlay->componentDidUpdate ggg", this.props.onLoad);
+    if (this.props.onLoad) this.props.onLoad();
+    this.init_tooltip();
   }
 
   render() {
@@ -172,11 +157,11 @@ export default class StationOverlay extends React.Component {
       point => this.props.itemId === "any" || point[this.props.itemId] !== false
     );
 
-    const selectedFeature = this.props.selectedFeature
-      ? points.find(point => point.id == this.props.selectedFeature.id)
-      : null;
+    // const selectedFeature = this.props.selectedFeature
+    //   ? points.find(point => point.id == this.props.selectedFeature.id)
+    //   : null;
 
-    // console.log("station-overlay lll", this.props, points);
+    //console.log("render qqq3", this.props, points);
 
     return (
       <div>
@@ -184,6 +169,7 @@ export default class StationOverlay extends React.Component {
           item={this.props.item}
           spiderfiedMarkers={this.handleSpiderfiedMarkers}
           onActiveMarkerPositionUpdate={this.handleActiveMarkerPositionUpdate}
+          // onMarkerSelected={this.props.onMarkerSelected}
         >
           {points.map(point => this.renderMarker(point))}
         </Cluster>
@@ -196,3 +182,5 @@ export default class StationOverlay extends React.Component {
     );
   }
 }
+
+export default StationOverlay;

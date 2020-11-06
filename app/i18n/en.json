@@ -193,7 +193,7 @@
   "weathermap:cockpit:maps-creation-date:prefix": "Updated",
   "weathermap:cockpit:maps-update-date:title": "Next Update (estimated)",
   "weathermap:cockpit:maps-update-date:prefix": "Next Update",
-
+  "station-overlay:cluster:title": "Click to see stations",
   "blog:title": "Blog",
   "blog:subtitle": "Blog",
   "blog:headline": "Blog Posts",
