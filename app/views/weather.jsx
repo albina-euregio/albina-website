@@ -171,6 +171,7 @@ class Weather extends React.Component {
                 domainId={wmStore.domainId}
                 domain={wmStore.domain}
                 timeArray={wmStore.availableTimes}
+                currentTime={wmStore.currentTime}
                 startDate={wmStore.startDate}
                 overlay={wmStore.overlayFileName}
                 dataOverlays={wmStore.domainConfig.dataOverlays}

@@ -18,39 +18,40 @@ export default class StationIcon extends React.Component {
 
   getCircle(type, color) {
     let analyseStrokeColor = type === "forcast" ? color : "#000";
-    return (
-      <svg
-        style={{ position: "absolute", left: "0px", top: "0px" }}
-        width="22"
-        height="22"
-        viewBox="0 0 22 22"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          cx="11"
-          cy="11"
-          r="10.5"
-          style={{
-            stroke: analyseStrokeColor,
-            strokeWidth: 1,
-            fill: color || "#fff"
-          }}
-        />
-        {type === "forcast" && (
+    if (["forcast", "analyse"].includes(type))
+      return (
+        <svg
+          style={{ position: "absolute", left: "0px", top: "0px" }}
+          width="22"
+          height="22"
+          viewBox="0 0 22 22"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <circle
             cx="11"
             cy="11"
             r="10.5"
             style={{
-              stroke: "#000000",
+              stroke: analyseStrokeColor,
               strokeWidth: 1,
-              strokeDasharray: 1.3675,
-              fill: "none"
+              fill: color || "#fff"
             }}
           />
-        )}
-      </svg>
-    );
+          {type === "forcast" && (
+            <circle
+              cx="11"
+              cy="11"
+              r="10.5"
+              style={{
+                stroke: "#000000",
+                strokeWidth: 1,
+                strokeDasharray: 1.3675,
+                fill: "none"
+              }}
+            />
+          )}
+        </svg>
+      );
   }
 
   getdirection(name, direction) {
@@ -102,7 +103,7 @@ export default class StationIcon extends React.Component {
         {this.getCircle(this.props.dataType, fill)}
         {this.props.direction &&
           this.getdirection("directionArrow", this.props.direction)}
-        {this.getText(this.props.value, s)}
+        {this.props.value && this.getText(this.props.value, s)}
       </div>
     );
   }
