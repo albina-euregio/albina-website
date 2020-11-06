@@ -31,7 +31,7 @@ class StationMap extends React.Component {
   }
 
   onMarkerSelected(feature) {
-    console.log("StationMap->onMarkerSelected ggg2 ", feature);
+    //console.log("StationMap->onMarkerSelected ggg2 ", feature);
     if (feature && feature.id) {
       window["modalStateStore"].setData({
         stationData: window.stationDataStore.data.find(
