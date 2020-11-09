@@ -18,20 +18,13 @@ class PageHeader extends React.Component {
       return;
     }
 
-    // Base.searchChange(this.props.history, { lang: newLanguage }, false);
     const newHost = config.languageHostSettings[newLanguage];
     if (newHost && document.location.hostname !== newHost) {
       console.info("Changing hostname to " + newHost);
       document.location.hostname = newHost;
+    } else {
+      window["appStore"].setLanguage(newLanguage);
     }
-
-    // if (this.props.location.pathname.includes("blog")) {
-    //   Base.searchChange(
-    //     this.props.history,
-    //     { searchLang: appStore.language },
-    //     false
-    //   );
-    // }
   };
 
   setActiveMenuItem = e => {
