@@ -31,7 +31,7 @@ you can copy over the contents of the `dist` directory to the server.
 
 | environment | build                | deploy                | link                           |
 | ----------- | -------------------- | --------------------- | ------------------------------ |
-| production  | `npm run build`      | `npm run deploy`      | https://avalanche.report/      |
+| production  | `npm run build-prod` | `npm run deploy-prod` | https://avalanche.report/      |
 | beta        | `npm run build-beta` | `npm run deploy-beta` | https://avalanche.report/beta/ |
 | development | `npm run build-dev`  | `npm run deploy-dev`  | https://avalanche.report/dev/  |
 
