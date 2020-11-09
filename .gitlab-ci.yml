@@ -11,6 +11,7 @@ cache:
 .build:
   stage: build
   script:
+    - "which cwebp || ( apt-get update -y && apt-get install webp -y )"
     - npm ci --cache .npm --prefer-offline
     - npm run test
     - npm run build-$CI_ENVIRONMENT_NAME
