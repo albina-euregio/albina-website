@@ -23,21 +23,34 @@ export default class Overlay extends React.Component {
       showDataLayer: false,
       directionMarkers: []
     };
+    this.map = null;
+    this.directionOverlay = null;
     this.showDataMarker = this.showDataMarker.bind(this);
+    this.setupDataLayer = this.setupDataLayer.bind(this);
+    this.getLayerPixelAtLatLng = this.getLayerPixelAtLatLng.bind(this);
   }
 
   onComponentDidUpdate() {
     this.setDataMarker({});
   }
 
-  getLayerPixelAtLatLng(map, overlay, latlng) {
-    let xY = overlay.getElement().naturalWidth / overlay.getElement().width;
-    let yY = overlay.getElement().naturalHeight / overlay.getElement().height;
+  getLayerPixelAtLatLng(latlng) {
+    //onsole.log("getLayerPixelAtLatLng", this);
+    const self = this;
+    const map = self.directionOverlay._map;
+    let xY =
+      self.directionOverlay.getElement().naturalWidth /
+      self.directionOverlay.getElement().width;
+    let yY =
+      self.directionOverlay.getElement().naturalHeight /
+      self.directionOverlay.getElement().height;
     let dx =
-      map.project(latlng).x - map.project(overlay.getBounds()["_southWest"]).x;
+      map.project(latlng).x -
+      map.project(self.directionOverlay.getBounds()["_southWest"]).x;
     let dy =
-      map.project(latlng).y - map.project(overlay.getBounds()["_northEast"]).y;
-    //console.log("getClickedPixel", {"xY": xY, "yY": yY, "SWx": map.project(overlay.getBounds()["_southWest"]).x, "NEy": map.project(overlay.getBounds()["_northEast"]).y});
+      map.project(latlng).y -
+      map.project(self.directionOverlay.getBounds()["_northEast"]).y;
+    //console.log("getClickedPixel", {"xY": xY, "yY": yY, "SWx": map.project(self.directionOverlay.getBounds()["_southWest"]).x, "NEy": map.project(self.directionOverlay.getBounds()["_northEast"]).y});
     return { x: Math.round(xY * dx), y: Math.round(yY * dy) };
   }
 
@@ -56,7 +69,7 @@ export default class Overlay extends React.Component {
   }
 
   getPixelData(coordinates) {
-    let self = this;
+    const self = this;
 
     let values = {};
     self.props.dataOverlays.forEach(anOverlay => {
@@ -104,7 +117,7 @@ export default class Overlay extends React.Component {
   }
 
   showDataMarker(e) {
-    let self = this;
+    const self = this;
 
     if (self.props.debug && e.originalEvent.ctrlKey) {
       $(".map-data-layer").toggleClass("hide");
@@ -116,15 +129,13 @@ export default class Overlay extends React.Component {
         ([key, value]) => value.loaded === false
       )
     );
-    //console.log("showDataMarker", loadingCanvases);
+    console.log("showDataMarker", loadingCanvases);
     if (
       self.props.dataOverlaysEnabled &&
       e.target._map &&
       Object.entries(loadingCanvases).length === 0
     ) {
-      const pixelData = self.getPixelData(
-        self.getLayerPixelAtLatLng(e.target._map, e.target, e.latlng)
-      );
+      const pixelData = self.getPixelData(self.getLayerPixelAtLatLng(e.latlng));
 
       self.setState({
         dataMarker: (
@@ -151,7 +162,7 @@ export default class Overlay extends React.Component {
     return Object.fromEntries(Object.entries(obj).filter(predicate));
   }
   setupDataLayer(e) {
-    let self = this;
+    const self = this;
     //console.log("setupDataLayer#1", self);
     if (self.props.dataOverlaysEnabled) {
       self.overlayCanvases = [];
@@ -190,7 +201,9 @@ export default class Overlay extends React.Component {
             );
             self.overlayCanvases[anOverlay.type]["loaded"] = true;
             if (["windDirection"].includes(anOverlay.type))
-              self.addDirectionIndicators(e);
+              //console.log("setupDataLayer#3 eee direction loaded");
+              self.directionOverlay = e.target;
+            self.addDirectionIndicators();
           };
           //console.log("setupDataLayer #3 png", this.props.overlay + ".png");
           img.src = this.props.overlay + ".png";
@@ -199,16 +212,18 @@ export default class Overlay extends React.Component {
     }
   }
 
-  addDirectionIndicators(e) {
-    //console.log("addDirectionIndicators eee", this.props.dataOverlays);
-    const GRIDS = 10;
-    let self = this;
+  addDirectionIndicators() {
+    if (!this.directionOverlay) return;
+    const map = this.directionOverlay._map;
+    let grids = Math.round((map.getZoom() - map._layersMinZoom) * 8);
+    //console.log("addDirectionIndicators eee", map.getZoom(), map._layersMinZoom, grids);
+    const self = this;
     const bounds = config.weathermaps.settings.bbox;
     let markers = [];
 
     if (self.props.dataOverlaysEnabled) {
       const foundOverlays = self.props.dataOverlays.filter(element => {
-        console.log("addDirectionIndicators eee element", element.type);
+        //console.log("addDirectionIndicators eee element", element.type);
         return ["windDirection"].includes(element.type);
       });
       if (foundOverlays) {
@@ -217,8 +232,8 @@ export default class Overlay extends React.Component {
           const SOUTH = bounds[0][0];
           const EAST = bounds[1][1];
           const NORTH = bounds[1][0];
-          const DIST_H = (EAST - WEST) / GRIDS;
-          const DIST_V = (NORTH - SOUTH) / GRIDS;
+          const DIST_H = (EAST - WEST) / grids;
+          const DIST_V = (NORTH - SOUTH) / grids;
           let curH = WEST + DIST_H;
 
           //console.log("addDirectionIndicators eee #3", WEST, DIST_H, curH + "<" + EAST, NORTH);
@@ -227,12 +242,11 @@ export default class Overlay extends React.Component {
             //console.log("addDirectionIndicators eee #4", WEST, curH + "<" + EAST, NORTH, DIST_V, curV + "<" + NORTH);
             while (curV < NORTH) {
               //console.log("addDirectionIndicators eee #5", WEST, curH + "<" + EAST, NORTH, DIST_V, curV + "<" + NORTH);
-              //console.log("addDirectionIndicators eee #2", [curV, curH]);
-              const pixelPos = self.getLayerPixelAtLatLng(
-                e.target._map,
-                e.target,
-                { lat: curV, lng: curH }
-              );
+              //console.log("addDirectionIndicators eee #2", self, [curV, curH]);
+              const pixelPos = self.getLayerPixelAtLatLng({
+                lat: curV,
+                lng: curH
+              });
               const pixelData = self.getPixelData(pixelPos);
               //console.log("addDirectionIndicators eee #5", curH, curV, pixelPos, pixelData);
               markers.push(
@@ -265,7 +279,7 @@ export default class Overlay extends React.Component {
 
   render() {
     let overlays = [];
-    let self = this;
+    const self = this;
     if (this.props.overlay) {
       //console.log("this.props.item.layer.overlay", this.props);
       //const mapMinZoom = config.map.initOptions.minZoom;
@@ -305,8 +319,12 @@ export default class Overlay extends React.Component {
             onClick={self.showDataMarker}
             //onMouseover={self.showDataMarker}
             onLoad={e => {
-              //console.log("background eee", "load", e);
+              console.log("background eee", "load", e.target._map);
               this.setupDataLayer(e);
+              e.target._map.on("zoomend", e => {
+                console.log("onZoomed eee", e);
+                self.addDirectionIndicators(e);
+              });
 
               this.props.playerCB("background", "load");
             }}
