@@ -9,7 +9,6 @@ import { injectIntl } from "react-intl";
 import ModalDialog from "./modal-dialog";
 import FollowDialog from "./dialogs/follow-dialog";
 import SubscribeDialog from "./dialogs/subscribe-dialog";
-import VideoDialog from "./dialogs/video-dialog";
 import WeatherStationDiagrams from "./dialogs/weather-station-diagrams";
 import DownloadPdfDialog from "./dialogs/download-pdf-dialog";
 import SubscribeSocialMediaDialog from "./dialogs/subscribe-social-media-dialog";
@@ -108,9 +107,6 @@ class Page extends React.Component {
         </ModalDialog>
         <ModalDialog id="subscribeDialog">
           <SubscribeDialog />
-        </ModalDialog>
-        <ModalDialog id="videoDialog">
-          <VideoDialog />
         </ModalDialog>
         <ModalDialog id="downloadPdfDialog">
           <DownloadPdfDialog />
