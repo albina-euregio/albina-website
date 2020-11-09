@@ -92,7 +92,7 @@ export default class StationIcon extends React.Component {
       typeof this.props.color === "string"
         ? this.props.color
         : this.RGBToHex(this.props.color);
-    //console.log("StationIcon->render ggg", this.props);
+    //console.log("StationIcon->render eee", this.props);
     return (
       <div
         className={

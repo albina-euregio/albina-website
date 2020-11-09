@@ -24,11 +24,13 @@ class StationMarker extends MapLayer {
       />
     );
 
-    return L.divIcon({
+    const divIcon = L.divIcon({
       iconAnchor: this.props.iconAnchor || [12.5, 12.5],
       html: ReactDOMServer.renderToStaticMarkup(icon),
       className: this.props.className
     });
+    //console.log("StationMarker->createStationIcon eee", divIcon);
+    return divIcon;
   }
 
   updateLeafletElement() {
@@ -51,16 +53,17 @@ class StationMarker extends MapLayer {
       icon: this.createStationIcon()
     });
 
-    marker.on("click", e => {
-      // console.log(
-      //   "marker.on(click) ggg",
-      //   this.props.onClick,
-      //   e.target.options.data
-      // );
-      L.DomEvent.stopPropagation(e);
+    if (this.props.onClick)
+      marker.on("click", e => {
+        // console.log(
+        //   "marker.on(click) ggg",
+        //   this.props.onClick,
+        //   e.target.options.data
+        // );
+        L.DomEvent.stopPropagation(e);
 
-      if (this.props.onClick) this.props.onClick(e.target.options.data);
-    });
+        this.props.onClick(e.target.options.data);
+      });
 
     return marker;
   }
