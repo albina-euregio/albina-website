@@ -124,7 +124,7 @@
         "daytime" : "Matin/ Après-midi",
         "snowpackStructureHighlights" : "Titre manteau neigeux",
         "snowpackStructureComment" : "Déscription manteau neigeux",
-        "dangerPatterns" : "Situations avalancheuses",
+        "dangerPatterns" : "Modèles de danger",
         "elevationHigh" : "Au-dessous",
         "elevationLow" : "Au-dessus",
         "tendencyComment" : "Déscription de la tendance",
@@ -214,10 +214,10 @@
         "header" : "Télécharger exemple de texte",
         "message" : "Pour quelle situation souhaitez-vous charger un exemple de texte",
         "newSnow" : "Neige fraîche",
-        "windDriftedSnow" : "Neige soufflée",
-        "persistentWeakLayers" : "Couche fragile persistante",
-        "wetSnow" : "Neige humide",
-        "glidingSnow" : "Neige glissante",
+        "windDriftedSnow" : "Neige soufflée (Neige ventée)",
+        "persistentWeakLayers" : "Neige ancienne (Sous-couche fragile persistante)",
+        "wetSnow" : "Avalanches mouillées (Neige humide)",
+        "glidingSnow" : "Avalanches de glissement (Avalanches de fond)",
         "favourableSituation" : "Situation favorable",
         "cancel" : "Annuler"
       }
@@ -477,21 +477,21 @@
   },
   "avalancheProblem" : {
     "newSnow" : "Neige fraîche",
-    "windDriftedSnow" : "Neige soufflée",
-    "persistentWeakLayers" : "Couche fragile persistante",
-    "wetSnow" : "Neige humide",
-    "glidingSnow" : "Neige glissante"
+    "windDriftedSnow" : "Neige soufflée (Neige ventée)",
+    "persistentWeakLayers" : "Neige ancienne (Sous-couche fragile persistante)",
+    "wetSnow" : "Avalanches mouillées (Neige humide)",
+    "glidingSnow" : "Avalanches de glissement (Avalanches de fond)"
   },
   "dangerPattern" : {
-    "dp1" : "md1: Sous-couche fragile persistante",
-    "dp2" : "md2: Avalanches de glissement",
+    "dp1" : "md1: sous-couche fragile persistante",
+    "dp2" : "md2: neige glissante",
     "dp3" : "md3: pluie",
     "dp4" : "md4: froid suivant chaud/ chaud suivant froid",
     "dp5" : "md5: chute de neige après une longue période de froid",
-    "dp6" : "md6: froid, neige et vent",
+    "dp6" : "md6: froid, neige légère et vent",
     "dp7" : "md7: zones avec peu de neige à coté des zones enneigées",
-    "dp8" : "md8: Givre de surface enneigé",
-    "dp9" : "md9: Neige roulée enneigé",
+    "dp8" : "md8: givre de surface enneigé",
+    "dp9" : "md9: neige roulée enneigé",
     "dp10" : "md10: situation de printemps"
   },
   "aspect" : {
@@ -602,38 +602,38 @@
     "table" : "Table",
     "map" : "Carte",
     "region" : "Region",
-    "newSnow" : "New snow"
+    "newSnow" : "Neige fraîche"
   },
   "snowpack" : {
     "plotType" : {
-      "LWC_stratigraphy" : "wet snow: liquid water content",
-      "wet_snow_instability" : "wet snow: wet snow instability",
-      "Sk38_stratigraphy" : "persistent weak layers: SK38 stability index",
-      "stratigraphy" : "persistent weak layers: snow stratigraphy"
+      "LWC_stratigraphy" : "neige humide: teneur en eau liquide",
+      "wet_snow_instability" : "neige humide: instabilité de la neige mouillée",
+      "Sk38_stratigraphy" : "couches fragiles persistantes: SK38 index de stabilité",
+      "stratigraphy" : "couches fragiles persistantes: stratigraphie de la neige"
     },
     "aspect" : {
-      "flat" : "flat",
-      "north" : "north",
-      "south" : "south"
+      "flat" : "plat",
+      "north" : "nord",
+      "south" : "sud"
     },
     "meteo" : {
-      "new_snow_plot_3day" : "new snow (3d)",
-      "new_snow_plot_7day" : "new snow (7d)",
-      "new_snow_plot_1month" : "new snow (31d)",
-      "new_snow_plot_season" : "new snow (season)",
-      "new_snow_plot_forecast" : "new snow (forecast)",
-      "wet_snow_plot_3day" : "wet snow (3d)",
-      "wet_snow_plot_7day" : "wet snow (7d)",
-      "wet_snow_plot_1month" : "wet snow (31d)",
-      "wet_snow_plot_season" : "wet snow (season)",
-      "wet_snow_plot_forecast" : "wet snow (forecast)",
-      "HS_table_24h" : "new snow table (1d)",
-      "HS_table_72h" : "new snow table (3d)",
-      "HS_table_season" : "new snow table (season)",
-      "HS_table_forecast" : "new snow table (forecast)",
-      "TA_table_24h" : "wet snow table (1d)",
-      "TA_table_72h" : "wet snow table (3h)",
-      "TA_table_season" : "wet snow table (season)"
+      "new_snow_plot_3day" : "Neige fraîche (3j)",
+      "new_snow_plot_7day" : "Neige fraîche (7j)",
+      "new_snow_plot_1month" : "Neige fraîche (31j)",
+      "new_snow_plot_season" : "Neige fraîche (toute la saison)",
+      "new_snow_plot_forecast" : "Neige fraîche (prévisons)",
+      "wet_snow_plot_3day" : "neige humide (3j)",
+      "wet_snow_plot_7day" : "neige humide (7j)",
+      "wet_snow_plot_1month" : "neige humide (31j)",
+      "wet_snow_plot_season" : "neige humide (toute la saison)",
+      "wet_snow_plot_forecast" : "neige humide (prévisions)",
+      "HS_table_24h" : "Neige fraîche tableau (1j)",
+      "HS_table_72h" : "Neige fraîche tableau (3j)",
+      "HS_table_season" : "Neige fraîche tableau (toute la saison)",
+      "HS_table_forecast" : "Neige fraîche tableau (prévisions)",
+      "TA_table_24h" : "neige humide tableau (1j)",
+      "TA_table_72h" : "neige humide tableau (3h)",
+      "TA_table_season" : "neige humide tableau (season)"
     }
   }
 }
