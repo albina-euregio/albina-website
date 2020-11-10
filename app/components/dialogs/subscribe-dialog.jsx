@@ -20,6 +20,8 @@ class SubscribeDialog extends React.Component {
 
   render() {
     //const self = this;
+
+    //console.log("render", this.state.selectedDialog);
     return (
       <>
         <div className="modal-container">
@@ -40,7 +42,9 @@ class SubscribeDialog extends React.Component {
               <ul className="list-inline list-buttongroup-dense">
                 <li>
                   <a
+                    style={{ cursor: "pointer" }}
                     onClick={e => {
+                      //console.log("click Email");
                       this.selectDialog(e, "Email");
                     }}
                   >
@@ -60,7 +64,9 @@ class SubscribeDialog extends React.Component {
                 <li>
                   <a
                     href="#"
+                    style={{ cursor: "pointer" }}
                     onClick={e => {
+                      //console.log("click SM");
                       this.selectDialog(e, "SM");
                     }}
                   >
@@ -80,7 +86,9 @@ class SubscribeDialog extends React.Component {
                 <li>
                   <a
                     href="#"
+                    style={{ cursor: "pointer" }}
                     onClick={e => {
+                      //console.log("click App");
                       this.selectDialog(e, "App");
                     }}
                   >
