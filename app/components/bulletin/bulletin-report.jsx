@@ -112,19 +112,16 @@ class BulletinReport extends React.Component {
               />
             )}
             {bulletin.highlights && (
-              <div
-                className="public-alert"
-                style={{
-                  marginTop: "10px",
-                  marginBottom: "20px",
-                  color: "#ff0000"
-                }}
-              >
-                <span className="heavy letterspace">
-                  <FormattedHTMLMessage id="bulletin:report:highlights:headline" />
-                  {this.getLocalizedText(bulletin.highlights)}
-                </span>
-              </div>
+              <p className="bulletin-report-public-alert">
+                <span class="icon-attention bulletin-report-public-alert-icon"></span>
+                <span
+                  className="bulletin-report-public-alert-text"
+                  title={this.props.intl.formatMessage({
+                    id: "bulletin:map:details:warning:title"
+                  })}
+                ></span>
+                {bulletin.highlights}
+              </p>
             )}
             <h2 className="subheader">
               {this.getLocalizedText(bulletin.avalancheActivityHighlights)}
