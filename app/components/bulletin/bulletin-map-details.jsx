@@ -52,14 +52,13 @@ class BulletinMapDetails extends React.Component {
 
         {bulletin.highlights && (
           <p className="bulletin-report-public-alert">
+            <span class="icon-attention bulletin-report-public-alert-icon"></span>
             <span
-              className="warning label tooltip"
+              className="bulletin-report-public-alert-text"
               title={this.props.intl.formatMessage({
                 id: "bulletin:map:details:warning:title"
               })}
-            >
-              !
-            </span>
+            ></span>
             {bulletin.highlights}
           </p>
         )}
