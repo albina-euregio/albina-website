@@ -26,7 +26,7 @@ class BulletinMapDetails extends React.Component {
         : "forenoon";
     const bulletin = this.props.bulletin[daytime];
     const problems = bulletin.avalancheProblems || [];
-
+    let key = 0;
     return (
       <>
         <ul className="list-plain">
@@ -34,7 +34,7 @@ class BulletinMapDetails extends React.Component {
             <BulletinDangerRating bulletin={bulletin} />
           </li>{" "}
           {problems.map(problem => (
-            <li key={problem.type}>
+            <li key={key++}>
               <ProblemIconLink problem={problem} />
             </li>
           ))}
