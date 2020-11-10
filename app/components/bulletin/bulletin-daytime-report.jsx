@@ -22,7 +22,7 @@ import {
 class BulletinDaytimeReport extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showMoreProblems: true };
+    this.state = { showMoreProblems: false };
   }
 
   splitProblems() {
@@ -101,41 +101,49 @@ class BulletinDaytimeReport extends React.Component {
             {splitupProblems.default}
             {splitupProblems.optional.length > 0 && (
               <>
-                <li className="list-bulletin-report-pictos-trigger">
-                  <a
-                    onClick={() => {
-                      console.log("xxx", this.state);
-                      $("body").toggleClass(
-                        "js-show-all-bulletin-report-pictos"
-                      );
-                      self.setState({
-                        showMoreProblems: !this.state.showMoreProblems
-                      });
-                    }}
-                    className="tooltip"
-                    title={this.props.intl.formatMessage({
-                      id: this.state.showMoreProblems
-                        ? "bulletin:report:more-problems:open:title"
-                        : "bulletin:report:more-problem:hide:title"
-                    })}
-                  >
-                    <span
-                      className={
-                        this.state.showMoreProblems
-                          ? "icon-down-open-big"
-                          : "icon-up-open-big"
-                      }
-                    ></span>
-                    <span>
-                      {this.props.intl.formatMessage({
-                        id: this.state.showMoreProblems
-                          ? "bulletin:report:more-problems:open:caption"
-                          : "bulletin:report:more-problem:hide:caption"
+                {!this.state.showMoreProblems && (
+                  <li className="list-bulletin-report-pictos-trigger">
+                    <a
+                      onClick={() => {
+                        this.setState({
+                          showMoreProblems: true
+                        });
+                      }}
+                      className="tooltip"
+                      title={this.props.intl.formatMessage({
+                        id: "bulletin:report:more-problems:show:title"
                       })}
-                    </span>
-                  </a>
-                </li>
-                {splitupProblems.optional}
+                    >
+                      <span className={"icon-down-open-big"}></span>
+                      <span>
+                        {this.props.intl.formatMessage({
+                          id: "bulletin:report:more-problems:show:caption"
+                        })}
+                      </span>
+                    </a>
+                  </li>
+                )}
+                {this.state.showMoreProblems && splitupProblems.optional}
+                {this.state.showMoreProblems && (
+                  <li className="list-bulletin-report-pictos-trigger">
+                    <a
+                      onClick={() => {
+                        this.setState({ showMoreProblems: false });
+                      }}
+                      className="tooltip"
+                      title={this.props.intl.formatMessage({
+                        id: "bulletin:report:more-problems:hide:title"
+                      })}
+                    >
+                      <span className={"icon-up-open-big"}></span>
+                      <span>
+                        {this.props.intl.formatMessage({
+                          id: "bulletin:report:more-problems:hide:caption"
+                        })}
+                      </span>
+                    </a>
+                  </li>
+                )}
               </>
             )}
           </ul>
