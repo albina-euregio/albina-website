@@ -1,5 +1,5 @@
 import React from "react"; // eslint-disable-line no-unused-vars
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
@@ -23,10 +23,10 @@ class More extends React.Component {
         <section className="section section-features">
           <ul className="list-plain features">
             <li className="feature-item">
-              <a
-                href="/more/archive"
+              <Link
+                to="/more/archive"
                 title="Archive"
-                className="linkbox linkbox-feature"
+                className="linkbox linkbox-feature tooltip"
               >
                 <div className="content-image">
                   <img
@@ -50,13 +50,14 @@ class More extends React.Component {
                     {this.props.intl.formatMessage({ id: "more:archive:text" })}
                   </p>
                 </div>
-              </a>
+                }
+              </Link>
             </li>
             <li className="feature-item">
-              <a
-                href="/more/about"
+              <Link
+                to="/more/about"
                 title="About"
-                className="linkbox linkbox-feature"
+                className="linkbox linkbox-feature tooltip"
               >
                 <div className="content-image">
                   <img
@@ -80,13 +81,13 @@ class More extends React.Component {
                     {this.props.intl.formatMessage({ id: "more:about:text" })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
             <li className="feature-item">
-              <a
-                href="/more/contact"
+              <Link
+                to="/more/contact"
                 title="Contact"
-                className="linkbox linkbox-feature"
+                className="linkbox linkbox-feature tooltip"
               >
                 <div className="content-image">
                   <img
@@ -110,13 +111,13 @@ class More extends React.Component {
                     {this.props.intl.formatMessage({ id: "more:contact:text" })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
             <li className="feature-item">
-              <a
-                href="/more/imprint"
+              <Link
+                to="/more/imprint"
                 title="Imprint"
-                className="linkbox linkbox-feature"
+                className="linkbox linkbox-feature tooltip"
               >
                 <div className="content-image">
                   <img
@@ -140,13 +141,13 @@ class More extends React.Component {
                     {this.props.intl.formatMessage({ id: "more:imprint:text" })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
             <li className="feature-item">
-              <a
-                href="/more/privacy"
+              <Link
+                to="/more/privacy"
                 title="Privacy Policy"
-                className="linkbox linkbox-feature"
+                className="linkbox linkbox-feature tooltip"
               >
                 <div className="content-image">
                   <img
@@ -170,7 +171,7 @@ class More extends React.Component {
                     {this.props.intl.formatMessage({ id: "more:privacy:text" })}
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
           </ul>
         </section>
