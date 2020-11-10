@@ -115,7 +115,7 @@ class BulletinProblemItem extends React.Component {
         {this.props.problem && <ProblemIconLink problem={this.props.problem} />}
         <ExpositionIcon expositions={expositions} title={expositionText} />
         {this.getElevationIcon()}
-        <FrequencyIconLink frequency={frequency || 3} title={frequencyText} />
+        {/* <FrequencyIconLink frequency={frequency || 3} title={frequencyText} /> */}
       </li>
     );
   }
