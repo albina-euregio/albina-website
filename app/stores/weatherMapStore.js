@@ -379,11 +379,11 @@ export default class WeatherMapStore_new {
         else res = Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);
         break;
       case "windDirection":
-        if (pixelRGB.r <= 0 || pixelRGB.r > 180) res = null;
+        if (pixelRGB.r < 0 || pixelRGB.r > 180) res = null;
         else res = pixelRGB.r * 2;
         break;
       case "windSpeed":
-        if (pixelRGB.r <= 0 || pixelRGB.r >= 255) res = null;
+        if (pixelRGB.r < 0 || pixelRGB.r >= 255) res = null;
         else res = pixelRGB.r;
         break;
       case "snowHeight":

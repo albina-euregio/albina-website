@@ -76,12 +76,14 @@ export default class Overlay extends React.Component {
           1,
           1
         );
+        //if(anOverlay.type === "windDirection" && values[anOverlay.type] === null) console.log("getPixelData eee #5", coordinates, values[anOverlay.type], p)
 
         values[anOverlay.type] = self.props.rgbToValue(anOverlay.type, {
           r: p.data[0],
           g: p.data[1],
           b: p.data[2]
         });
+
         // if (self.props.debug) {
         //   for (var y = 0; y < p.height; y++) {
         //     for (var x = 0; x < p.width; x++) {
@@ -114,9 +116,10 @@ export default class Overlay extends React.Component {
   allCanvasesLoaded() {
     //console.log("allCanvasesLoaded ggg", this.overlayCanvases);
     let loadingCanvases = Object.fromEntries(
-      Object.entries(this.overlayCanvases).filter(
-        ([key, value]) => value.loaded === false
-      )
+      Object.entries(this.overlayCanvases).filter(([key, value]) => {
+        //console.log("allCanvasesLoaded", key, value);
+        return !value.loaded;
+      })
     );
     return Object.entries(loadingCanvases).length === 0;
   }
@@ -159,15 +162,21 @@ export default class Overlay extends React.Component {
     }
   }
 
-  allDataLayersLoaded() {
-    return Object.fromEntries(Object.entries(obj).filter(predicate));
+  allDataLayersLoaded(ob, crit) {
+    return Object.fromEntries(
+      Object.entries(this.overlayCanvases).filter(([key, val]) => {
+        console.log("allDataLayersLoaded", key, val);
+        return val.loaded;
+      })
+    );
   }
+
   setupDataLayer(e) {
     //console.log("setupDataLayer#1 jjj", this);
     const self = this;
-    self.overlayCanvases = [];
+    self.overlayCanvases = {};
     self.directionOverlay = null;
-    if (true || self.props.dataOverlaysEnabled) {
+    if (self.props.dataOverlaysEnabled) {
       self.props.dataOverlays.forEach(anOverlay => {
         //console.log("setupDataLayer#2 jjj1", anOverlay.type, self.overlayCanvases);
         if (!self.overlayCanvases[anOverlay.type]) {
@@ -205,12 +214,15 @@ export default class Overlay extends React.Component {
             );
             self.overlayCanvases[anOverlay.type]["loaded"] = true;
             //console.log("setupDataLayer#3-1 jjj1 direction loaded", anOverlay.type, self.overlayCanvases, self.overlayCanvases.filter(canvas => !canvas.loaded));
-            if (["windDirection"].includes(anOverlay.type)) {
-              self.directionOverlay = e.target;
-              self.addDirectionIndicators();
-            }
-            if (self.allCanvasesLoaded())
+
+            if (self.allCanvasesLoaded()) {
+              //console.log("setupDataLayer #4 ALL LOADED", self.overlayCanvases);
+              if (self.overlayCanvases["windDirection"]) {
+                self.directionOverlay = e.target;
+                self.addDirectionIndicators();
+              }
               self.props.playerCB("background", "load");
+            }
           };
           //console.log("setupDataLayer #3 png", this.props.overlay + ".png");
           img.src = this.props.overlay + ".png";
@@ -234,6 +246,7 @@ export default class Overlay extends React.Component {
         //console.log("addDirectionIndicators eee element", element.type);
         return ["windDirection"].includes(element.type);
       });
+      //console.log("addDirectionIndicators #2 jjj", foundOverlays);
       if (foundOverlays) {
         foundOverlays.forEach(anOverlay => {
           const WEST = bounds[0][1];
@@ -339,7 +352,7 @@ export default class Overlay extends React.Component {
             //onMouseover={self.showDataMarker}
             onLoad={e => {
               //console.log("background jjj", "load", e.target._map);
-              self.setState({ dataMarker: null });
+              self.setState({ dataMarker: null, directionMarkers: null });
               self.setupDataLayer(e);
               e.target._map.on("zoomend", e => {
                 //console.log("onZoomed eee", e);
