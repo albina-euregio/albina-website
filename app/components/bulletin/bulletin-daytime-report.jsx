@@ -22,6 +22,7 @@ import {
 class BulletinDaytimeReport extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { showMoreProblems: true };
   }
 
   splitProblems() {
@@ -103,17 +104,33 @@ class BulletinDaytimeReport extends React.Component {
                 <li className="list-bulletin-report-pictos-trigger">
                   <a
                     onClick={() => {
-                      $("body").addClass("js-show-all-bulletin-report-pictos");
+                      console.log("xxx", this.state);
+                      $("body").toggleClass(
+                        "js-show-all-bulletin-report-pictos"
+                      );
+                      self.setState({
+                        showMoreProblems: !this.state.showMoreProblems
+                      });
                     }}
                     className="tooltip"
                     title={this.props.intl.formatMessage({
-                      id: "bulletin:report:more-problems:title"
+                      id: this.state.showMoreProblems
+                        ? "bulletin:report:more-problems:open:title"
+                        : "bulletin:report:more-problem:hide:title"
                     })}
                   >
-                    <span className="icon-down-open-big"></span>
+                    <span
+                      className={
+                        this.state.showMoreProblems
+                          ? "icon-down-open-big"
+                          : "icon-up-open-big"
+                      }
+                    ></span>
                     <span>
                       {this.props.intl.formatMessage({
-                        id: "bulletin:report:more-problems:caption"
+                        id: this.state.showMoreProblems
+                          ? "bulletin:report:more-problems:open:caption"
+                          : "bulletin:report:more-problem:hide:caption"
                       })}
                     </span>
                   </a>
