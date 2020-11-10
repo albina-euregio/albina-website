@@ -1,6 +1,8 @@
 import React from "react";
 const iconSVGS = {
-  directionArrow: "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0z"
+  //directionArrow: "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0z"
+  directionArrow:
+    "M9 4.5v1.414L5.002 1.917V30.5h-1V1.911L0 5.914V4.5L4.5 0 9 4.5z"
 };
 export default class StationIcon extends React.Component {
   RGBToHex(color) {
