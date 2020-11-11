@@ -196,7 +196,7 @@
     "noBulletinBanner": true
   },
   "map": {
-    "attribution": "<a href='https://carto.univie.ac.at/' rel='noopener' target='_blank'>CC BY avalanche.report</a>",
+    "attribution": "CC BY avalanche.report",
     "useWindowWidth": true,
     "euregioBounds": [
       [45.6, 9.9],
