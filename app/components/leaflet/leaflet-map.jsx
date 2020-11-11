@@ -160,9 +160,9 @@ class LeafletMap extends React.Component {
   }
 
   _zoomend() {
-    //console.log("ggg _zoomend xyy");
     const map = this.map;
     const newZoom = Math.round(map.getZoom());
+    console.log("leaflet-map->_zoomend newZoom", newZoom);
     map.setMaxBounds(config.map.maxBounds[newZoom]);
     this._init_tooltip();
   }
@@ -172,7 +172,15 @@ class LeafletMap extends React.Component {
     let tileLayers = "";
     if (tileLayerConfig.length == 1) {
       // only a single raster layer -> no layer control
-      tileLayers = <TileLayer {...tileLayerConfig[0]} />;
+      tileLayers = (
+        <TileLayer
+          {...Object.assign(
+            {},
+            tileLayerConfig[0],
+            this.props.tileLayerConfigOverride
+          )}
+        />
+      );
     } else if (tileLayerConfig.length > 1) {
       // add a layer switch zoomControl
       tileLayers = (
@@ -183,7 +191,14 @@ class LeafletMap extends React.Component {
               key={layerProps.id}
               checked={i == 0}
             >
-              <TileLayer key={layerProps.id} {...layerProps} />
+              <TileLayer
+                key={layerProps.id}
+                {...Object.assign(
+                  {},
+                  layerProps,
+                  this.props.tileLayerConfigOverride
+                )}
+              />
             </LayersControl.BaseLayer>
           ))}
         </LayersControl>
@@ -225,7 +240,8 @@ class LeafletMap extends React.Component {
     const mapOptions = Object.assign(
       {},
       this.props.loaded ? this._enabledMapProps() : this._disabledMapProps(),
-      mapProps
+      mapProps,
+      this.props.mapConfigOverride
     );
 
     return this.props.loaded

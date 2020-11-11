@@ -107,6 +107,10 @@ class WeatherMap extends React.Component {
           overlays={overlays}
           controls={controls}
           timeArray={this.props.timeArray}
+          mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
+          tileLayerConfigOverride={
+            config.weathermaps.settings.mapOptionsOverride
+          }
           startDate={this.props.startDate}
           gestureHandling={false}
           onInit={map => {
