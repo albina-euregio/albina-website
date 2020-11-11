@@ -483,16 +483,16 @@
     "glidingSnow" : "Litsades basaus"
   },
   "dangerPattern" : {
-    "dp1" : "dp1:  capa fèbla persistenta e prigonda",
-    "dp2" : "dp2: litsades basaus",
-    "dp3" : "dp3: ploja",
-    "dp4" : "dp4: heired dempús de caud / caud dempús de heired",
-    "dp5" : "dp5: nheuades dempús d’un long periòde de heired",
-    "dp6" : "dp6: nhèu heireda, sense coesion e vent",
-    "dp7" : "dp7: zònes praubes de nhèu as environs rics en nhèu",
-    "dp8" : "dp8: geladiua de superfícia enterrada",
-    "dp9" : "dp9: graupel enterrat",
-    "dp10" : "dp10: scenari de primauera"
+    "dp1" : "pp.1:  capa fèbla persistenta e prigonda",
+    "dp2" : "pp.2: litsades basaus",
+    "dp3" : "pp.3: ploja",
+    "dp4" : "pp.4: heired dempús de caud / caud dempús de heired",
+    "dp5" : "pp.5: nheuades dempús d’un long periòde de heired",
+    "dp6" : "pp.6: nhèu heireda, sense coesion e vent",
+    "dp7" : "pp.7: zònes praubes de nhèu as environs rics en nhèu",
+    "dp8" : "pp.8: geladiua de superfícia enterrada",
+    "dp9" : "pp.9: graupel enterrat",
+    "dp10" : "pp.10: scenari de primauera"
   },
   "aspect" : {
     "N" : "N",

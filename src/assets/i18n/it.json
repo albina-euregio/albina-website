@@ -483,16 +483,16 @@
     "glidingSnow" : "Valanghe di slittamento"
   },
   "dangerPattern" : {
-    "dp1" : "st1: la seconda nevicata",
-    "dp2" : "st2: valanga per scivolamento di neve",
-    "dp3" : "st3: pioggia",
-    "dp4" : "st4: freddo su caldo / caldo su freddo",
-    "dp5" : "st5: neve dopo un lungo periodo di freddo",
-    "dp6" : "st6: neve fresca fredda a debole coesione e vento",
-    "dp7" : "st7: zone con poca neve durante inverni ricchi di neve",
-    "dp8" : "st8: brina di superficie sepolta",
-    "dp9" : "st9: neve pallottolare coperta da neve fresca",
-    "dp10" : "st10: situazione primaverile"
+    "dp1" : "st.1: strato debole persistente basale",
+    "dp2" : "st.2: valanga per scivolamento di neve",
+    "dp3" : "st.3: pioggia",
+    "dp4" : "st.4: freddo su caldo / caldo su freddo",
+    "dp5" : "st.5: neve dopo un lungo periodo di freddo",
+    "dp6" : "st.6: neve fresca fredda a debole coesione e vento",
+    "dp7" : "st.7: zone con poca neve durante inverni ricchi di neve",
+    "dp8" : "st.8: brina di superficie sepolta",
+    "dp9" : "st.9: neve pallottolare coperta da neve fresca",
+    "dp10" : "st.10: situazione primaverile"
   },
   "aspect" : {
     "N" : "N",

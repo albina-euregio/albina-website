@@ -483,16 +483,16 @@
     "glidingSnow" : "Gliding snow"
   },
   "dangerPattern" : {
-    "dp1" : "dp1: deep persistent weak layer",
-    "dp2" : "dp2: gliding avalanches",
-    "dp3" : "dp3: rain",
-    "dp4" : "dp4: cold following warm / warm following cold",
-    "dp5" : "dp5: snowfall after a long period of cold",
-    "dp6" : "dp6: cold, loose snow and wind",
-    "dp7" : "dp7: snow-poor zones in snow-rich surrounding",
-    "dp8" : "dp8: buried surface hoar",
-    "dp9" : "dp9: buried graupel",
-    "dp10" : "dp10: springtime scenario"
+    "dp1" : "dp.1: deep persistent weak layer",
+    "dp2" : "dp.2: gliding avalanches",
+    "dp3" : "dp.3: rain",
+    "dp4" : "dp.4: cold following warm / warm following cold",
+    "dp5" : "dp.5: snowfall after a long period of cold",
+    "dp6" : "dp.6: cold, loose snow and wind",
+    "dp7" : "dp.7: snow-poor zones in snow-rich surrounding",
+    "dp8" : "dp.8: buried surface hoar",
+    "dp9" : "dp.9: buried graupel",
+    "dp10" : "dp.10: springtime scenario"
   },
   "aspect" : {
     "N" : "N",

@@ -483,16 +483,16 @@
     "glidingSnow" : "Lliscaments"
   },
   "dangerPattern" : {
-    "dp1" : "dp1: Capa feble persistent profunda",
-    "dp2" : "dp2: allaus de lliscament",
-    "dp3" : "dp3: pluja",
-    "dp4" : "dp4: fred després de temperat / temperat després de fred",
-    "dp5" : "dp5: nevada després d'un llarg període fred",
-    "dp6" : "dp6: neu freda i solta i vent",
-    "dp7" : "dp7: zones de mantell prim en un entorn de mantell gruixut",
-    "dp8" : "dp8: gebre enterrat",
-    "dp9" : "dp9: Neu rodona enterrada",
-    "dp10" : "dp10: escenari de primavera"
+    "dp1" : "pp.1: capa feble persistent profunda",
+    "dp2" : "pp.2: allaus de lliscament",
+    "dp3" : "pp.3: pluja",
+    "dp4" : "pp.4: fred després de temperat / temperat després de fred",
+    "dp5" : "pp.5: nevada després d'un llarg període fred",
+    "dp6" : "pp.6: neu freda i solta i vent",
+    "dp7" : "pp.7: zones de mantell prim en un entorn de mantell gruixut",
+    "dp8" : "pp.8: gebre enterrat",
+    "dp9" : "pp.9: neu rodona enterrada",
+    "dp10" : "pp.10: escenari de primavera"
   },
   "aspect" : {
     "N" : "N",
