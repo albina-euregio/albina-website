@@ -78,6 +78,10 @@ class StationMap extends React.Component {
             <LeafletMap
               loaded={this.props.domainId !== false}
               onViewportChanged={() => {}}
+              mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
+              tileLayerConfigOverride={
+                config.weathermaps.settings.mapOptionsOverride
+              }
               overlays={overlays}
               onInit={map => {
                 map.on("click", () => this.onMarkerSelected(), this);
