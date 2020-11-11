@@ -10,7 +10,17 @@ const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 module.exports = (env, argv) => {
   const production = !argv.mode || argv.mode === "production";
   const publicPath = env === "dev" ? "/dev/" : env === "beta" ? "/beta/" : "/";
-  const config = env === "dev" ? "./config-dev.json" : "./config.json";
+  const config = "./config.json";
+  //override config with optional additional config e.g. for dev
+  const additionalConfig = env === "dev" ? "config-dev.json" : "";
+  let addtitionalConfigDev = additionalConfig
+    ? [
+        {
+          from: "./" + additionalConfig,
+          to: additionalConfig
+        }
+      ]
+    : [];
   const mebibyte = 1024 * 1024;
   return {
     resolve: {
@@ -131,8 +141,14 @@ module.exports = (env, argv) => {
           { from: "./sitemap.xml", to: "sitemap.xml" },
           {
             from: config,
-            to: "config.json"
+            to: "config.json",
+            transform: content => {
+              let string = content.toString("utf8");
+              string = string.replace(/{additionalConf}/g, additionalConfig);
+              return Buffer.from(string);
+            }
           },
+          ...addtitionalConfigDev,
           {
             from: "./.htaccess",
             transform: content => {

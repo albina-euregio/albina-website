@@ -1,4 +1,5 @@
 {
+  "additionalConf": "{additionalConf}",
   "regionsRegex": "^(AT-07|IT-32-BZ|IT-32-TN)",
   "blogs": [
     {
@@ -248,11 +249,11 @@
     "tileLayers": [
       {
         "id": "ALBINA",
-        "url": "https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png",
+        "url": "https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png",
         "maxZoom": 10,
         "minZoom": 7,
         "detectRetina": false,
-        "tms": true,
+        "tms": false,
         "maxBounds": [
           [45.150876, 7.932124],
           [48.240084, 15.118646]
@@ -355,6 +356,10 @@
     "settings": {
       "timeRange": ["-72", "+72"],
       "startUTCHourForTimespans": 5,
+      "mapOptionsOverride": {
+        "maxZoom": 12,
+        "minZoom": 7
+      },
       "bbox": [
         [45.6167, 9.9833],
         [47.8167, 13.0333]
