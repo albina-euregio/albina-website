@@ -3,7 +3,7 @@ import loadable from "@loadable/component";
 import { observer } from "mobx-react";
 
 import LeafletMap from "../leaflet/leaflet-map";
-import Overlay from "../leaflet/overlay";
+import DataOverlay from "../leaflet/dataOverlay";
 
 import GridOverlay from "./grid-overlay";
 
@@ -28,7 +28,7 @@ class WeatherMap extends React.Component {
         //console.log("wather-map->render xxx1:", this.props.overlay);
         if (this.props.overlay) {
           overlays.push(
-            <Overlay
+            <DataOverlay
               key="background-map"
               overlay={this.props.overlay}
               currentTime={this.props.currentTime}

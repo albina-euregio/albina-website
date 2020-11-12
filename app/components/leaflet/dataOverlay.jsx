@@ -1,6 +1,6 @@
 import React from "react";
 import { ImageOverlay } from "react-leaflet";
-import StationMarker from "../leaflet/station-marker";
+import StationMarker from "./station-marker";
 import Base from "../../base";
 
 const css = `
@@ -14,7 +14,7 @@ const css = `
       filter: contrast(20);
     }
 `;
-export default class Overlay extends React.Component {
+export default class DataOverlay extends React.Component {
   constructor(props) {
     super(props);
     this.overlayCanvases = {};
