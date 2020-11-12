@@ -20,7 +20,7 @@ class SubscribeBlogDialog extends React.Component {
     });
 
     return (
-      <div class="modal-subscribe-blog">
+      <div className="modal-subscribe-blog">
         <div className="modal-header">
           <h2>
             <FormattedHTMLMessage id="dialog:subscribe-blog:subheader" />

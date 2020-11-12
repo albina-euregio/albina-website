@@ -34,7 +34,7 @@ class SubscribeAppDialog extends React.Component {
     });
 
     return (
-      <div class="modal-subscribe-apps">
+      <div className="modal-subscribe-apps">
         <div className="modal-header">
           <h2>
             <FormattedHTMLMessage id="dialog:subscribe-app:subheader" />

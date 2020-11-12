@@ -26,7 +26,7 @@ class SubscribeDialog extends React.Component {
       <>
         <div className="modal-container">
           <div className=" modal-subscribe">
-            <div class="modal-subscribe-overview">
+            <div claclassNamess="modal-subscribe-overview">
               <div className="modal-header">
                 <h2 className="subheader">
                   <FormattedHTMLMessage id="dialog:subscribe:header" />
