@@ -26,92 +26,81 @@ class SubscribeDialog extends React.Component {
       <>
         <div className="modal-container">
           <div className=" modal-subscribe">
-            <div className="modal-header">
-              <h2 className="subheader">
-                <FormattedHTMLMessage id="dialog:subscribe:header" />
-              </h2>
-              <h2>
-                <FormattedHTMLMessage id="dialog:subscribe:subheader" />
-              </h2>
-            </div>
+            <div class="modal-subscribe-overview">
+              <div className="modal-header">
+                <h2 className="subheader">
+                  <FormattedHTMLMessage id="dialog:subscribe:header" />
+                </h2>
+                <h2>
+                  <FormattedHTMLMessage id="dialog:subscribe:subheader" />
+                </h2>
+              </div>
 
-            <form className="pure-form pure-form-stacked">
-              <label htmlFor="input">
-                <FormattedHTMLMessage id="dialog:subscribe:select-subscrption" />
-              </label>
-              <ul className="list-inline list-buttongroup-dense">
-                <li>
-                  <a
-                    style={{ cursor: "pointer" }}
-                    onClick={e => {
-                      //console.log("click Email");
-                      this.selectDialog(e, "Email");
-                    }}
-                  >
-                    <button
+              <form className="pure-form pure-form-stacked">
+                <label htmlFor="input">
+                  <FormattedHTMLMessage id="dialog:subscribe:select-subscrption" />
+                </label>
+                <ul className="list-inline list-buttongroup-dense">
+                  <li>
+                    <a
+                      href="#"
                       className={
                         this.state.selectedDialog === "Email"
                           ? "pure-button"
                           : "inverse pure-button"
                       }
+                      onClick={e => {
+                        this.selectDialog(e, "Email");
+                      }}
                     >
                       {this.props.intl.formatMessage({
                         id: "dialog:subscribe:email"
                       })}
-                    </button>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    style={{ cursor: "pointer" }}
-                    onClick={e => {
-                      //console.log("click SM");
-                      this.selectDialog(e, "SM");
-                    }}
-                  >
-                    <button
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
                       className={
                         this.state.selectedDialog === "SM"
                           ? "pure-button"
                           : "inverse pure-button"
                       }
+                      onClick={e => {
+                        this.selectDialog(e, "SM");
+                      }}
                     >
                       {this.props.intl.formatMessage({
                         id: "dialog:subscribe:social-media"
                       })}
-                    </button>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    style={{ cursor: "pointer" }}
-                    onClick={e => {
-                      //console.log("click App");
-                      this.selectDialog(e, "App");
-                    }}
-                  >
-                    <button
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
                       className={
                         this.state.selectedDialog === "App"
                           ? "pure-button"
                           : "inverse pure-button"
                       }
+                      onClick={e => {
+                        this.selectDialog(e, "App");
+                      }}
                     >
                       {this.props.intl.formatMessage({
                         id: "dialog:subscribe:app"
                       })}
-                    </button>
-                  </a>
-                </li>
-              </ul>
-            </form>
+                    </a>
+                  </li>
+                </ul>
+              </form>
+            </div>
+
+            {this.state.selectedDialog === "Email" && <SubscribeEmailDialog />}
+            {this.state.selectedDialog === "SM" && <SubscribeSMDialog />}
+            {this.state.selectedDialog === "App" && <SubscribeAppDialog />}
           </div>
         </div>
-        {this.state.selectedDialog === "Email" && <SubscribeEmailDialog />}
-        {this.state.selectedDialog === "SM" && <SubscribeSMDialog />}
-        {this.state.selectedDialog === "App" && <SubscribeAppDialog />}
       </>
     );
   }

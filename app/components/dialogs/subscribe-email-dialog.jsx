@@ -95,145 +95,143 @@ class SubscribeEmailDialog extends React.Component {
     // add a dummy class to react to close events
     const isOpen = window["modalStateStore"].isOpen ? "" : " closed";
     return (
-      <div className="modal-container">
-        <div className={"modal-subscribe " + isOpen}>
-          <div className="modal-header">
-            <h2>
-              <FormattedHTMLMessage id="dialog:subscribe-email:subheader" />
-            </h2>
-          </div>
+      <div class="modal-subscribe-email">
+        <div className="modal-header">
+          <h2>
+            <FormattedHTMLMessage id="dialog:subscribe-email:subheader" />
+          </h2>
+        </div>
 
-          {!this.state.status && (
-            <form
-              className="pure-form pure-form-stacked"
-              onSubmit={this.handleSubmit}
-            >
-              <label htmlFor="province">
-                <FormattedHTMLMessage id="dialog:subscribe-email:region" />
-              </label>
-              <ul className="list-inline list-buttongroup">
-                <li>
-                  <ProvinceFilter
-                    name="province"
-                    className={this.state.region && "selectric-changed"}
-                    handleChange={r => this.handleChangeRegion(r)}
-                    value={this.state.region}
-                    none={this.props.intl.formatMessage({
-                      id: "blog:filter:province:nothing-selected"
-                    })}
-                  />
-                </li>
-              </ul>
-
-              <hr />
-
-              <p>
-                <label htmlFor="email">
-                  <FormattedHTMLMessage id="dialog:subscribe-email:email" />
-                  <span className="normal" />
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  className="full-width"
-                  onChange={this.handleChangeEmail}
-                  placeholder={this.props.intl.formatMessage({
-                    id: "dialog:subscribe-email:email"
+        {!this.state.status && (
+          <form
+            className="pure-form pure-form-stacked"
+            onSubmit={this.handleSubmit}
+          >
+            <label htmlFor="province">
+              <FormattedHTMLMessage id="dialog:subscribe-email:region" />
+            </label>
+            <ul className="list-inline list-buttongroup">
+              <li>
+                <ProvinceFilter
+                  name="province"
+                  className={this.state.region && "selectric-changed"}
+                  handleChange={r => this.handleChangeRegion(r)}
+                  value={this.state.region}
+                  none={this.props.intl.formatMessage({
+                    id: "blog:filter:province:nothing-selected"
                   })}
                 />
-              </p>
-              <label htmlFor="language">
-                <FormattedHTMLMessage id="dialog:subscribe-email:language" />
+              </li>
+            </ul>
+
+            <hr />
+
+            <p>
+              <label htmlFor="email">
+                <FormattedHTMLMessage id="dialog:subscribe-email:email" />
                 <span className="normal" />
               </label>
-              <ul className="list-inline list-subscribe-language">
-                {window["appStore"].languages.map(l => (
-                  <li key={l}>
-                    <label
-                      className="pure-checkbox"
-                      htmlFor={"subscribe-language-" + l}
-                    >
-                      <input
-                        id={"subscribe-language-" + l}
-                        name="language"
-                        onChange={this.handleChangeLanguage}
-                        value={l}
-                        type="radio"
-                        checked={this.state.language == l ? "checked" : ""}
-                      />
-                      &nbsp;
-                      <span className="normal">{l.toUpperCase()}</span>
-                    </label>
-                  </li>
-                ))}
-              </ul>
-
-              <hr />
-
-              <p className="">
-                <label htmlFor="agree">
-                  <input
-                    id="agree"
-                    type="checkbox"
-                    onChange={e => this.handleChangeAgree(e)}
-                    checked={!!this.state.agree}
-                  />
-                  {this.props.intl.formatMessage({
-                    id: "dialog:subscribe-email:subscribe:agree-before-link"
-                  })}
-                  <Link
-                    title={this.props.intl.formatMessage({
-                      id: "dialog:subscribe-email:subscribe:agree-link"
-                    })}
-                    to="/declaration/"
-                    target="_blank"
-                  >
-                    {this.props.intl.formatMessage({
-                      id: "dialog:subscribe-email:subscribe:agree-link"
-                    })}
-                  </Link>
-                  {this.props.intl.formatMessage({
-                    id: "dialog:subscribe-email:subscribe:agree-after-link"
-                  })}
-                </label>
-              </p>
-
-              <button
-                type="submit"
-                className="pure-button"
-                disabled={this.validate() ? "" : "disabled"}
-              >
-                {this.props.intl.formatMessage({
-                  id: "dialog:subscribe-email:subscribe:button"
+              <input
+                id="email"
+                name="email"
+                type="email"
+                className="full-width"
+                onChange={this.handleChangeEmail}
+                placeholder={this.props.intl.formatMessage({
+                  id: "dialog:subscribe-email:email"
                 })}
-              </button>
-            </form>
-          )}
+              />
+            </p>
+            <label htmlFor="language">
+              <FormattedHTMLMessage id="dialog:subscribe-email:language" />
+              <span className="normal" />
+            </label>
+            <ul className="list-inline list-subscribe-language">
+              {window["appStore"].languages.map(l => (
+                <li key={l}>
+                  <label
+                    className="pure-checkbox"
+                    htmlFor={"subscribe-language-" + l}
+                  >
+                    <input
+                      id={"subscribe-language-" + l}
+                      name="language"
+                      onChange={this.handleChangeLanguage}
+                      value={l}
+                      type="radio"
+                      checked={this.state.language == l ? "checked" : ""}
+                    />
+                    &nbsp;
+                    <span className="normal">{l.toUpperCase()}</span>
+                  </label>
+                </li>
+              ))}
+            </ul>
 
-          {(this.state.status || this.state.errorMessage) && this.state.agree && (
-            <div className="field-2 panel">
-              {this.state.status && (
-                <p className="status-message">
-                  <FormattedHTMLMessage
-                    id={"dialog:subscribe-email:status:" + this.state.status}
-                  />
-                </p>
-              )}
-              {this.state.errorMessage && (
-                <p className="status-message">
-                  <strong className="error">
-                    {this.props.intl.formatMessage({
-                      id: "dialog:subscribe-email:error"
-                    })}
-                    :
-                  </strong>
-                  &nbsp;{this.state.errorMessage}
-                </p>
-              )}
-            </div>
-          )}
-        </div>
+            <hr />
+
+            <p className="">
+              <label htmlFor="agree">
+                <input
+                  id="agree"
+                  type="checkbox"
+                  onChange={e => this.handleChangeAgree(e)}
+                  checked={!!this.state.agree}
+                />
+                {this.props.intl.formatMessage({
+                  id: "dialog:subscribe-email:subscribe:agree-before-link"
+                })}
+                <Link
+                  title={this.props.intl.formatMessage({
+                    id: "dialog:subscribe-email:subscribe:agree-link"
+                  })}
+                  to="/declaration/"
+                  target="_blank"
+                >
+                  {this.props.intl.formatMessage({
+                    id: "dialog:subscribe-email:subscribe:agree-link"
+                  })}
+                </Link>
+                {this.props.intl.formatMessage({
+                  id: "dialog:subscribe-email:subscribe:agree-after-link"
+                })}
+              </label>
+            </p>
+
+            <button
+              type="submit"
+              className="pure-button"
+              disabled={this.validate() ? "" : "disabled"}
+            >
+              {this.props.intl.formatMessage({
+                id: "dialog:subscribe-email:subscribe:button"
+              })}
+            </button>
+          </form>
+        )}
+
+        {(this.state.status || this.state.errorMessage) && this.state.agree && (
+          <div className="field-2 panel">
+            {this.state.status && (
+              <p className="status-message">
+                <FormattedHTMLMessage
+                  id={"dialog:subscribe-email:status:" + this.state.status}
+                />
+              </p>
+            )}
+            {this.state.errorMessage && (
+              <p className="status-message">
+                <strong className="error">
+                  {this.props.intl.formatMessage({
+                    id: "dialog:subscribe-email:error"
+                  })}
+                  :
+                </strong>
+                &nbsp;{this.state.errorMessage}
+              </p>
+            )}
+          </div>
+        )}
       </div>
     );
   }

@@ -40,7 +40,7 @@ class SubscribeSocialMediaDialog extends React.Component {
       : "";
 
     return (
-      <div className="modal-container">
+      <div class="modal-subscribe-socialmedia">
         <div className="modal-header">
           <h2>
             <FormattedHTMLMessage id="dialog:subscribe-social-media:subheader" />
