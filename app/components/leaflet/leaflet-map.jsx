@@ -162,7 +162,7 @@ class LeafletMap extends React.Component {
   _zoomend() {
     const map = this.map;
     const newZoom = Math.round(map.getZoom());
-    console.log("leaflet-map->_zoomend newZoom", newZoom);
+    //console.log("leaflet-map->_zoomend newZoom", newZoom);
     map.setMaxBounds(config.map.maxBounds[newZoom]);
     this._init_tooltip();
   }
