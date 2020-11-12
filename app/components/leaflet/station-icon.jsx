@@ -100,20 +100,21 @@ export default class StationIcon extends React.Component {
     );
   }
 
+  showCircle() {
+    return (
+      ["any"].includes(this.props.itemId) ||
+      (["forcast", "analyse"].includes(this.props.dataType) && this.props.value)
+    );
+  }
+
   render() {
     const s = 12;
-    let renderType = "";
-    if (
-      ["forcast", "analyse"].includes(this.props.dataType) &&
-      this.props.value
-    )
-      renderType = "all";
 
     const fill =
       typeof this.props.color === "string"
         ? this.props.color
         : this.RGBToHex(this.props.color);
-    //console.log("StationIcon->render eee", this.props);
+    //console.log("StationIcon->render kkk", this.showCircle(), this.props);
     return (
       <div
         className={
@@ -121,9 +122,7 @@ export default class StationIcon extends React.Component {
           (this.props.selected ? " " + this.props.type + "-selected" : "")
         }
       >
-        {["forcast", "analyse"].includes(this.props.dataType) &&
-          this.props.value &&
-          this.getCircle(this.props.dataType, fill)}
+        {this.showCircle() && this.getCircle(this.props.dataType, fill)}
         {this.props.direction &&
           this.getdirection(
             this.props.value ? "combined" : "only",
