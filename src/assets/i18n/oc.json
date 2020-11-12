@@ -201,13 +201,13 @@
         "accept" : "D'acòrd"
       },
       "avalancheSituationErrorDialog" : {
-        "header" : "Incomplete avalanche problem",
-        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
+        "header" : "Problèma de lauegi incomplèt",
+        "message" : "Manque un tipe de problèma de lauegi, orientacions e/o avaloracion deth perilh per aumens un problèma de lauegi",
         "accept" : "D'acòrd"
       },
       "incompleteTranslationDialog" : {
-        "header" : "Revirada incompleta",
-        "message" : "Era revirada ei incompleta!",
+        "header" : "Revirada incomplèta",
+        "message" : "Era revirada ei incomplèta!",
         "accept" : "D'acòrd"
       },
       "loadAvActivityCommentExampleTextDialog" : {
@@ -413,10 +413,10 @@
         "publishAt8AM" : "Publicar as 8 AM",
         "localImagesPath" : "Rota cap as imatges locaus",
         "localFontsPath" : "Rota cap as hònts",
-        "publishBulletinsTyrol" : "Publicar prediccion de lauegi per Tiròl",
-        "publishBulletinsSouthTyrol" : "Publicar prediccion de lauegi per Sud-Tiròl",
-        "publishBulletinsTrentino" : "Publicar prediccion de lauegi per Trentin",
-        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
+        "publishBulletinsTyrol" : "Publicar prediccion de lauegi entath Tiròl",
+        "publishBulletinsSouthTyrol" : "Publicar prediccion de lauegi entath Sud-Tiròl",
+        "publishBulletinsTrentino" : "Publicar prediccion de lauegi entath Trentin",
+        "publishBulletinsAran" : "Publicar prediccion de lauegi entà Aran",
         "publishBlogsTyrol" : "Publicar entrades ath blòc per Tiròl",
         "publishBlogsSouthTyrol" : "Publicar entrades ath blòc per Sud-Tiròl",
         "publishBlogsTrentino" : "Publicar entrades ath blòc per Trentin",

@@ -201,8 +201,8 @@
         "accept" : "De acuerdo"
       },
       "avalancheSituationErrorDialog" : {
-        "header" : "Incomplete avalanche problem",
-        "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
+        "header" : "Problema de aludes incompleto",
+        "message" : "Falta el tipo de problema de aludes, orientaciones y/o valoración del peligro para al menos un problema de aludes",
         "accept" : "De acuerdo"
       },
       "incompleteTranslationDialog" : {
@@ -416,7 +416,7 @@
         "publishBulletinsTyrol" : "Publicar predicción de aludes para el Tyrol",
         "publishBulletinsSouthTyrol" : "Publicar predicción de aludes para el South Tyrol",
         "publishBulletinsTrentino" : "Publicar predicción de aludes para el Trentino",
-        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
+        "publishBulletinsAran" : "Publicar la predicción de aludes para Aran",
         "publishBlogsTyrol" : "Publicar entrada en el blog para el Tyrol",
         "publishBlogsSouthTyrol" : "Publicar entrada en el blog para el South Tyrol",
         "publishBlogsTrentino" : "Publicar entrada en el blog para el Trentino",
