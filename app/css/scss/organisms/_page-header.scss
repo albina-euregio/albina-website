@@ -108,7 +108,7 @@
       }
     }
 
-    .scrolling-down:not(.navigation-open) & {
+    .scrolling-down.s-weathermap-2020:not(.navigation-open) & {
       top: calc(0px - #{$page-header-height});
       @include rollout(all, $transition-duration, $ease: ease-in);
     }
@@ -126,7 +126,7 @@
       margin-right: 0;
     }
 
-    .scrolling-down & {
+    .scrolling-down.s-weathermap-2020 & {
       top: calc(0px - #{$page-header-height});
       @include rollout(all, $transition-duration, $ease: ease-in);
     }
@@ -476,7 +476,7 @@ $page-header-logo-width: 3.25em;
     }
   }
 
-  .scrolling-down & {
+  .scrolling-down.s-weathermap-2020 & {
     span {
       &:before {
         opacity: 0;

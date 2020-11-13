@@ -1,6 +1,9 @@
 import React from "react";
 const iconSVGS = {
-  directionArrow: "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0z"
+  "directionArrow-centered":
+    "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0 9 4.5z",
+  "directionArrow-combined":
+    "M9 4.5v1.414L5.002 1.917V10.5h-1V1.911L0 5.914V4.5L4.5 0z"
 };
 export default class StationIcon extends React.Component {
   RGBToHex(color) {
@@ -18,52 +21,65 @@ export default class StationIcon extends React.Component {
 
   getCircle(type, color) {
     let analyseStrokeColor = type === "forcast" ? color : "#000";
-    return (
-      <svg
-        style={{ position: "absolute", left: "0px", top: "0px" }}
-        width="22"
-        height="22"
-        viewBox="0 0 22 22"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          cx="11"
-          cy="11"
-          r="10.5"
-          style={{
-            stroke: analyseStrokeColor,
-            strokeWidth: 1,
-            fill: color || "#fff"
-          }}
-        />
-        {type === "forcast" && (
+    if (["forcast", "analyse"].includes(type))
+      return (
+        <svg
+          style={{ position: "absolute", left: "0px", top: "0px" }}
+          width="22"
+          height="22"
+          viewBox="0 0 22 22"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <circle
             cx="11"
             cy="11"
             r="10.5"
             style={{
-              stroke: "#000000",
+              stroke: analyseStrokeColor,
               strokeWidth: 1,
-              strokeDasharray: 1.3675,
-              fill: "none"
+              fill: color || "#fff"
             }}
           />
-        )}
-      </svg>
-    );
+          {type === "forcast" && (
+            <circle
+              cx="11"
+              cy="11"
+              r="10.5"
+              style={{
+                stroke: "#000000",
+                strokeWidth: 1,
+                strokeDasharray: 1.3675,
+                fill: "none"
+              }}
+            />
+          )}
+        </svg>
+      );
   }
 
-  getdirection(name, direction) {
+  getdirection(type, direction) {
+    let style = { position: "absolute", left: "6px", top: "6" };
+    let svg = iconSVGS["directionArrow-centered"];
+    let height = "12";
+    let viewBox = "0 0 9 12";
+
+    if (type === "combined") {
+      style = { position: "absolute", left: "6.5px", top: "-11px" };
+      svg = iconSVGS["directionArrow-combined"];
+      height = "42";
+      viewBox = "0 0 9 42";
+    }
+
     return (
       <svg
         transform={"rotate(" + direction + ")"}
-        style={{ position: "absolute", left: "6.5px", top: "-11px" }}
-        height="42"
-        viewBox="0 0 9 42"
+        style={style}
+        height={height}
+        viewBox={viewBox}
         width="9"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d={iconSVGS[name]} fillRule="evenodd" />
+        <path d={svg} fillRule="evenodd" />
       </svg>
     );
   }
@@ -84,6 +100,13 @@ export default class StationIcon extends React.Component {
     );
   }
 
+  showCircle() {
+    return (
+      ["any"].includes(this.props.itemId) ||
+      (["forcast", "analyse"].includes(this.props.dataType) && this.props.value)
+    );
+  }
+
   render() {
     const s = 12;
 
@@ -91,7 +114,7 @@ export default class StationIcon extends React.Component {
       typeof this.props.color === "string"
         ? this.props.color
         : this.RGBToHex(this.props.color);
-    // console.log("StationIcon->render", fill);
+    //console.log("StationIcon->render kkk", this.showCircle(), this.props);
     return (
       <div
         className={
@@ -99,10 +122,13 @@ export default class StationIcon extends React.Component {
           (this.props.selected ? " " + this.props.type + "-selected" : "")
         }
       >
-        {this.getCircle(this.props.dataType, fill)}
+        {this.showCircle() && this.getCircle(this.props.dataType, fill)}
         {this.props.direction &&
-          this.getdirection("directionArrow", this.props.direction)}
-        {this.getText(this.props.value, s)}
+          this.getdirection(
+            this.props.value ? "combined" : "only",
+            this.props.direction
+          )}
+        {this.props.value && this.getText(this.props.value, s)}
       </div>
     );
   }

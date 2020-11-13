@@ -127,6 +127,17 @@ function dateToDateTimeString(date) {
   });
 }
 
+function dateToShortDateTimeString(date) {
+  return _formatDate(date, {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false
+  });
+}
+
 function dateToISODateString(date) {
   let pad = function(d) {
     if (d < 10) {
@@ -242,6 +253,7 @@ export {
   dateToTimeString,
   dateToDateTimeString,
   dateToLongDateString,
+  dateToShortDateTimeString,
   dateToISODateString,
   getDaysOfMonth,
   todayIsTomorrow,

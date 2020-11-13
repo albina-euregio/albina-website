@@ -24,17 +24,20 @@ class StationMarker extends MapLayer {
       />
     );
 
-    return L.divIcon({
-      iconAnchor: this.props.iconAnchor || [25, 25],
-      html: ReactDOMServer.renderToStaticMarkup(icon)
+    const divIcon = L.divIcon({
+      iconAnchor: this.props.iconAnchor || [12.5, 12.5],
+      html: ReactDOMServer.renderToStaticMarkup(icon),
+      className: this.props.className
     });
+    //console.log("StationMarker->createStationIcon eee", divIcon);
+    return divIcon;
   }
 
   updateLeafletElement() {
     //console.log("StationMarker->updateLeafletElement qqq !!!!", this.props.stationName,  this.props.value);
-    this.layerContainer.removeLayer(this.leafletElement);
-    this.leafletElement = this.createElement();
-    this.layerContainer.addLayer(this.leafletElement);
+    //this.layerContainer.removeLayer(this.leafletElement);
+    //this.leafletElement = this.createElement();
+    //this.layerContainer.addLayer(this.leafletElement);
   }
 
   createLeafletElement() {
@@ -43,21 +46,24 @@ class StationMarker extends MapLayer {
   }
 
   createElement() {
-    // console.log(
-    //   "StationMarker->createElement jjj",
-    //   this.props.stationName,
-    //   this.props.value
-    // );
+    //console.log("StationMarker->createElement ggg", this.props);
     const marker = L.marker(this.props.coordinates, {
       data: this.props.data,
       title: this.props.stationName,
       icon: this.createStationIcon()
     });
 
-    marker.on("click", e => {
-      L.DomEvent.stopPropagation(e);
-      if (this.props.onClick) this.props.onClick(e.target.options.data);
-    });
+    if (this.props.onClick)
+      marker.on("click", e => {
+        // console.log(
+        //   "marker.on(click) ggg",
+        //   this.props.onClick,
+        //   e.target.options.data
+        // );
+        L.DomEvent.stopPropagation(e);
+
+        this.props.onClick(e.target.options.data);
+      });
 
     return marker;
   }

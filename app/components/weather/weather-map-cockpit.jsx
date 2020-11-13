@@ -5,7 +5,10 @@ import { observer } from "mobx-react";
 import Timeline from "./timeline.jsx";
 import Dragger from "./dragger.jsx";
 
-import { dateToDateTimeString, dateToTimeString } from "../../util/date.js";
+import {
+  dateToShortDateTimeString,
+  dateToTimeString
+} from "../../util/date.js";
 import { tooltip_init } from "../../js/tooltip";
 
 const DOMAIN_ICON_CLASSES = {
@@ -25,6 +28,8 @@ const DOMAIN_LEGEND_CLASSES = {
   wind: "cp-legend-wind",
   gust: "cp-legend-windgust"
 };
+
+const LOOP = false;
 
 @observer
 class WeatherMapCockpit extends React.Component {
@@ -152,6 +157,7 @@ class WeatherMapCockpit extends React.Component {
 
   handleEvent(type, value) {
     if (typeof this.props.eventCallback === "function") {
+      this.props.player.stop();
       this.props.eventCallback(type, value);
     }
   }
@@ -382,7 +388,7 @@ class WeatherMapCockpit extends React.Component {
         <div key="flipper" className="cp-scale-flipper">
           <a
             href="#"
-            onClick={self.props.previousTime}
+            onClick={self.setPreviousTime.bind(self)}
             key="arrow-left"
             className="cp-scale-flipper-left icon-arrow-left tooltip"
             title={this.props.intl.formatMessage({
@@ -391,7 +397,7 @@ class WeatherMapCockpit extends React.Component {
           ></a>
           <a
             href="#"
-            onClick={self.props.nextTime}
+            onClick={self.setNextTime.bind(self)}
             key="arrow-right"
             className="cp-scale-flipper-right icon-arrow-right tooltip"
             title={this.props.intl.formatMessage({
@@ -494,7 +500,7 @@ class WeatherMapCockpit extends React.Component {
           {this.props.intl.formatMessage({
             id: "weathermap:cockpit:maps-creation-date:prefix"
           })}{" "}
-          {dateToDateTimeString(this.props.lastUpdateTime)}
+          {dateToShortDateTimeString(this.props.lastUpdateTime)}
         </span>
         <span
           key="cp-release-update"
@@ -508,7 +514,7 @@ class WeatherMapCockpit extends React.Component {
               id: "weathermap:cockpit:maps-update-date:prefix"
             })}{" "}
           </span>{" "}
-          {dateToDateTimeString(this.props.nextUpdateTime)}
+          {dateToShortDateTimeString(this.props.nextUpdateTime)}
         </span>
         {/* <span key="cp-release-copyright" className="cp-release-copyright">
           <a
@@ -521,20 +527,34 @@ class WeatherMapCockpit extends React.Component {
     );
   }
 
+  setPreviousTime() {
+    if (LOOP || this.props.currentTime != this.props.timeArray[0])
+      this.props.previousTime();
+  }
+
+  setNextTime() {
+    if (
+      LOOP ||
+      this.props.currentTime !=
+        this.props.timeArray[this.props.timeArray.length - 1]
+    )
+      this.props.nextTime();
+  }
+
   onKeyPressed(e) {
     //console.log(e.keyCode);
     switch (e.keyCode) {
       case 37:
-        this.props.previousTime();
+        this.setPreviousTime();
         break;
       case 39:
-        this.props.nextTime();
+        this.setNextTime();
         break;
       case 32:
         this.props.player.toggle();
         break;
       default:
-        this.props.previousTime();
+        this.setPreviousTime();
         break;
     }
   }

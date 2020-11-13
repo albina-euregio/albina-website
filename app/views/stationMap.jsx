@@ -14,11 +14,9 @@ class StationMap extends React.Component {
     // const title = this.props.intl.formatMessage({
     //   id: "menu:lawis:station"
     // });
-    // this.state = {
-    //   title,
-    //   headerText: "",
-    //   //selectedFeature: null
-    // };
+    this.state = {
+      selectedFeature: null
+    };
 
     if (!window.mapStore) {
       window.mapStore = new MapStore();
@@ -32,10 +30,8 @@ class StationMap extends React.Component {
     window.stationDataStore.load("");
   }
 
-  componentDidUpdate() {}
-
   onMarkerSelected(feature) {
-    //console.log("StationMap->onMarkerSelected ggg ", feature);
+    //console.log("StationMap->onMarkerSelected ggg2 ", feature);
     if (feature && feature.id) {
       window["modalStateStore"].setData({
         stationData: window.stationDataStore.data.find(
@@ -66,6 +62,7 @@ class StationMap extends React.Component {
       <StationOverlay
         key={"stations"}
         onMarkerSelected={this.onMarkerSelected}
+        selectedFeature={this.props.selectedFeature}
         itemId="any"
         item={item}
         features={window.stationDataStore.data}
@@ -73,11 +70,6 @@ class StationMap extends React.Component {
     ];
     return (
       <>
-        {/* <HTMLHeader title={this.state.title} /> */}
-        {/* <PageHeadline
-          title={this.state.title}
-          marginal={this.state.headerText}
-        /> */}
         <section
           id="section-weather-map"
           className="section section-weather-map"
@@ -86,6 +78,10 @@ class StationMap extends React.Component {
             <LeafletMap
               loaded={this.props.domainId !== false}
               onViewportChanged={() => {}}
+              mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
+              tileLayerConfigOverride={
+                config.weathermaps.settings.mapOptionsOverride
+              }
               overlays={overlays}
               onInit={map => {
                 map.on("click", () => this.onMarkerSelected(), this);
@@ -93,7 +89,6 @@ class StationMap extends React.Component {
             />
           </div>
         </section>
-        {/* <SmShare /> */}
       </>
     );
   }

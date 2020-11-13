@@ -3,7 +3,7 @@ import loadable from "@loadable/component";
 import { observer } from "mobx-react";
 
 import LeafletMap from "../leaflet/leaflet-map";
-import Overlay from "../leaflet/overlay";
+import DataOverlay from "../leaflet/dataOverlay";
 
 import GridOverlay from "./grid-overlay";
 
@@ -28,9 +28,10 @@ class WeatherMap extends React.Component {
         //console.log("wather-map->render xxx1:", this.props.overlay);
         if (this.props.overlay) {
           overlays.push(
-            <Overlay
+            <DataOverlay
               key="background-map"
               overlay={this.props.overlay}
+              currentTime={this.props.currentTime}
               debug={this.props.debug}
               playerCB={this.props.playerCB}
               item={this.props.item}
@@ -106,7 +107,12 @@ class WeatherMap extends React.Component {
           overlays={overlays}
           controls={controls}
           timeArray={this.props.timeArray}
+          mapConfigOverride={config.weathermaps.settings.mapOptionsOverride}
+          tileLayerConfigOverride={
+            config.weathermaps.settings.mapOptionsOverride
+          }
           startDate={this.props.startDate}
+          gestureHandling={false}
           onInit={map => {
             map.on("click", () => {
               this.props.onMarkerSelected(null);

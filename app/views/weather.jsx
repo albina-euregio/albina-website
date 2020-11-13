@@ -119,10 +119,13 @@ class Weather extends React.Component {
 
   handleMarkerSelected = feature => {
     if (!feature) return;
-    // console.log(
-    //   "handleMarkerSelected", feature
-    //   ,config.weathermapStore.stations.features.find(point => point.id == feature.id)
-    // );
+    console.log(
+      "handleMarkerSelected ggg1",
+      feature,
+      config.weathermapStore.stations.features.find(
+        point => point.id == feature.id
+      )
+    );
     if (feature.id) {
       window["modalStateStore"].setData({
         stationData: config.weathermapStore.stations.features.find(
@@ -160,7 +163,7 @@ class Weather extends React.Component {
 
         <section
           id="section-weather-map"
-          className="section section-weather-map"
+          className="section section-weather-map section-weather-map-cockpit"
         >
           {/*this.store.domainId*/ true && (
             <div className="section-map">
@@ -168,15 +171,14 @@ class Weather extends React.Component {
                 domainId={wmStore.domainId}
                 domain={wmStore.domain}
                 timeArray={wmStore.availableTimes}
+                currentTime={wmStore.currentTime}
                 startDate={wmStore.startDate}
                 overlay={wmStore.overlayFileName}
                 dataOverlays={wmStore.domainConfig.dataOverlays}
                 stationDataId={
                   wmStore.domainConfig.timeSpanToDataId[wmStore.timeSpan]
                 }
-                dataOverlaysEnabled={
-                  !config.player.playing && wmStore.currentTime >= wmStore.agl
-                }
+                dataOverlaysEnabled={wmStore.currentTime >= wmStore.agl}
                 rgbToValue={wmStore.valueForPixel}
                 item={wmStore.item}
                 debug={wmStore.config.settings.debugModus}

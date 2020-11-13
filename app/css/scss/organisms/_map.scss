@@ -61,7 +61,7 @@ $controls-width-height: $padding * 4;
   width: 100vw;
   overflow: hidden;
   //transition: none !important;
-  .scrolling-down & {
+  .scrolling-down.s-weathermap-2020 & {
     top: 0;
     height: $map-height-weather;
   }
@@ -85,7 +85,7 @@ $controls-width-height: $padding * 4;
   .section-weather-map & {
     height: $map-height-weather-when-menu;
     @include rollout;
-    .scrolling-down & {
+    .scrolling-down.s-weathermap-2020 & {
       height: $map-height-weather;
     }
   }
@@ -387,9 +387,9 @@ $controls-width-height: $padding * 4;
   }
 
   .bulletin-report-public-alert {
-    margin: $padding * 2;
+    margin: ($padding * 2) ($padding * 2) 0 ($padding * 2);
+    @include font-normal;
     font-size: $tiny-font-size;
-    @include letter-spacing;
   }
 
   //details link

@@ -1,7 +1,7 @@
 import { computed, observable, action } from "mobx";
 import StationDataStore from "./stationDataStore";
 import axios from "axios";
-import { dateFormat } from "../util/date";
+import { dateFormat, isSummerTime } from "../util/date";
 
 export default class WeatherMapStore_new {
   @observable _domainId;
@@ -28,6 +28,7 @@ export default class WeatherMapStore_new {
     this._timeIndex = observable.box(false);
     this.selectedFeature = null;
     this._loading = observable.box(false);
+    this._lastCurrentTime = null;
 
     const configDefaultDomainId = Object.keys(this.config.domains).find(
       domainKey => this.config.domains[domainKey].domainDefault
@@ -378,11 +379,11 @@ export default class WeatherMapStore_new {
         else res = Math.round(-59.5 + (pixelRGB.r - 1) * 0.5);
         break;
       case "windDirection":
-        if (pixelRGB.r <= 0 || pixelRGB.r > 180) res = null;
+        if (pixelRGB.r < 0 || pixelRGB.r > 180) res = null;
         else res = pixelRGB.r * 2;
         break;
       case "windSpeed":
-        if (pixelRGB.r <= 0 || pixelRGB.r >= 255) res = null;
+        if (pixelRGB.r < 0 || pixelRGB.r >= 255) res = null;
         else res = pixelRGB.r;
         break;
       case "snowHeight":
@@ -400,16 +401,35 @@ export default class WeatherMapStore_new {
     return res;
   }
 
+  /*
+  finds index of arr item closest to needle
+*/
+  _findClosestIndex(arr, needle) {
+    let foundItem = arr.reduce(function(prev, curr) {
+      return Math.abs(curr - needle) < Math.abs(prev - needle) ? curr : prev;
+    });
+    return arr.indexOf(foundItem) || 0;
+  }
+
   _getStartTimeForSpan = function(initDate) {
     let currentTime = new Date(initDate);
-
+    //console.log("_getStartTimeForSpan #1", isSummerTime(currentTime), currentTime, this._timeSpan.get());
     if (
-      ["+24", "+48", "+72"].includes(this._timeSpan.get()) &&
-      currentTime.getUTCHours() !== this.config.settings.aglUTCHourFor_24_48_72
+      ["-12", "-24", "-48", "-72", "+12", "+24", "+48", "+72"].includes(
+        this._timeSpan.get()
+      ) &&
+      currentTime.getUTCHours() !==
+        this.config.settings.startUTCHourForTimespans
     ) {
-      currentTime.setUTCHours(this.config.settings.aglUTCHourFor_24_48_72);
+      if (isSummerTime(currentTime))
+        currentTime.setUTCHours(this.config.settings.startUTCHourForTimespans);
+      else
+        currentTime.setUTCHours(
+          this.config.settings.startUTCHourForTimespans + 1
+        );
+      //console.log("_getStartTimeForSpan #2", currentTime);
     }
-    // console.log("_getStartTimeForSpan #2", ["+24", "+48", "+72"].includes(this._timeSpan.get()), this._timeSpan.get(), this.config.settings.aglUTCHourFor_24_48_72, currentTime.getUTCHours(), this.config);
+    // console.log("_getStartTimeForSpan #2", ["+24", "+48", "+72"].includes(this._timeSpan.get()), this._timeSpan.get(), this.config.settings.startUTCHourForTimespans, currentTime.getUTCHours(), this.config);
     return currentTime;
   };
 
@@ -457,7 +477,7 @@ export default class WeatherMapStore_new {
       let startFrom =
         currentTimespan.includes("+") && this._agl
           ? this._agl
-          : this._dateStart;
+          : this._getStartTimeForSpan(this._dateStart);
       currentTime = new Date(startFrom);
       currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
       maxTime = new Date(startFrom);
@@ -490,7 +510,10 @@ export default class WeatherMapStore_new {
     //   );
     // });
     this._availableTimes = indices;
-    this._timeIndex.set(0);
+
+    if (indices.includes(this._lastCurrentTime))
+      this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
+    else this._timeIndex.set(this._findClosestIndex(indices, new Date()));
   };
 
   /*
@@ -512,6 +535,7 @@ export default class WeatherMapStore_new {
   @action changeDomain(domainId) {
     //console.log("weatherMapStore_new changeDomain: " + domainId);
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
+      this._lastCurrentTime = this.currentTime;
       this._domainId.set(domainId);
       this._timeSpan.set(null);
       this._timeIndex.set(null);

@@ -1,4 +1,5 @@
 {
+  "additionalConf": "{additionalConf}",
   "regionsRegex": "^(AT-07|IT-32-BZ|IT-32-TN)",
   "blogs": [
     {
@@ -196,7 +197,7 @@
     "noBulletinBanner": true
   },
   "map": {
-    "attribution": "<a href='https://carto.univie.ac.at/' rel='noopener' target='_blank'>CC BY avalanche.report</a>",
+    "attribution": "CC BY avalanche.report",
     "useWindowWidth": true,
     "euregioBounds": [
       [45.6, 9.9],
@@ -248,11 +249,11 @@
     "tileLayers": [
       {
         "id": "ALBINA",
-        "url": "https://avalanche.report/albina_tms/EUREGIO-TMS/{z}/{x}/{y}.png",
-        "maxZoom": 12,
+        "url": "https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png",
+        "maxZoom": 10,
         "minZoom": 7,
         "detectRetina": false,
-        "tms": true,
+        "tms": false,
         "maxBounds": [
           [45.150876, 7.932124],
           [48.240084, 15.118646]
@@ -354,7 +355,11 @@
   "weathermaps": {
     "settings": {
       "timeRange": ["-72", "+72"],
-      "aglUTCHourFor_24_48_72": 5,
+      "startUTCHourForTimespans": 5,
+      "mapOptionsOverride": {
+        "maxZoom": 12,
+        "minZoom": 7
+      },
       "bbox": [
         [45.6167, 9.9833],
         [47.8167, 13.0333]

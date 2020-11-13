@@ -25,7 +25,14 @@ class BulletinMapDetails extends React.Component {
         ? "afternoon"
         : "forenoon";
     const bulletin = this.props.bulletin[daytime];
-    const problems = bulletin.avalancheProblems || [];
+    function sortByMainValue(a, b) {
+      return (
+        window["appStore"].getWarnlevelNumber(a.dangerRating.mainValue) >
+        window["appStore"].getWarnlevelNumber(b.dangerRating.mainValue)
+      );
+    }
+    const problems = bulletin.avalancheProblems.sort(sortByMainValue) || [];
+    let key = 0;
 
     return (
       <>
@@ -33,23 +40,25 @@ class BulletinMapDetails extends React.Component {
           <li className="bulletin-report-picto tooltip">
             <BulletinDangerRating bulletin={bulletin} />
           </li>{" "}
-          {problems.map(problem => (
-            <li key={problem.type}>
-              <ProblemIconLink problem={problem} />
-            </li>
-          ))}
+          {problems.map(problem => {
+            if (key < 2)
+              return (
+                <li key={key++}>
+                  <ProblemIconLink problem={problem} />
+                </li>
+              );
+          })}
         </ul>
 
         {bulletin.highlights && (
           <p className="bulletin-report-public-alert">
+            <span className="icon-attention bulletin-report-public-alert-icon"></span>
             <span
-              className="warning label tooltip"
+              className="bulletin-report-public-alert-text"
               title={this.props.intl.formatMessage({
                 id: "bulletin:map:details:warning:title"
               })}
-            >
-              !
-            </span>
+            ></span>
             {bulletin.highlights}
           </p>
         )}

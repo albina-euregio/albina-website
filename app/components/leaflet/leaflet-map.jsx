@@ -62,6 +62,7 @@ class LeafletMap extends React.Component {
   }
 
   updateMaps() {
+    //console.log("updateMaps xyy");
     if (this.refs.mapDisabled && !this.mapDisabled) {
       this.mapDisabled = this.refs.mapDisabled.leafletElement;
       L.Util.setOptions(this.mapDisabled, { gestureHandling: false });
@@ -69,13 +70,14 @@ class LeafletMap extends React.Component {
 
     if (this.mapRef && !this.map) {
       this.map = this.mapRef.leafletElement;
-      window.currMap = this.map;
+      //window.currMap = this.map;
       //console.log("updateMaps xyz", L);
       if (this.props.onInit) {
         this.props.onInit(this.map);
       }
 
-      L.Util.setOptions(this.map, { gestureHandling: true });
+      if (this.props.gestureHandling)
+        L.Util.setOptions(this.map, { gestureHandling: true });
 
       this.map.fitBounds(config.map.euregioBounds);
 
@@ -136,20 +138,33 @@ class LeafletMap extends React.Component {
           .addTo(map);
       }, 50);
 
-      window.setTimeout(() => {
-        $(".leaflet-control-zoom a").addClass("tooltip");
-        $(".leaflet-control-locate a").addClass("tooltip");
-        tooltip_init();
-      }, 100);
-
+      this._init_tooltip();
       this.map.on("zoomend", this._zoomend, this);
     }
+  }
+
+  _init_tooltip() {
+    window.setTimeout(() => {
+      // console.log("leaflet-map ggg1 update tooltip");
+      $(".leaflet-cluster-marker").prop(
+        "title",
+        this.props.intl.formatMessage({
+          id: "station-overlay:cluster:title"
+        })
+      );
+      $(".leaflet-control-zoom a").addClass("tooltip");
+      $(".leaflet-control-zoom a").addClass("tooltip");
+      $(".leaflet-control-locate a").addClass("tooltip");
+      tooltip_init();
+    }, 100);
   }
 
   _zoomend() {
     const map = this.map;
     const newZoom = Math.round(map.getZoom());
+    //console.log("leaflet-map->_zoomend newZoom", newZoom);
     map.setMaxBounds(config.map.maxBounds[newZoom]);
+    this._init_tooltip();
   }
 
   get tileLayers() {
@@ -157,7 +172,15 @@ class LeafletMap extends React.Component {
     let tileLayers = "";
     if (tileLayerConfig.length == 1) {
       // only a single raster layer -> no layer control
-      tileLayers = <TileLayer {...tileLayerConfig[0]} />;
+      tileLayers = (
+        <TileLayer
+          {...Object.assign(
+            {},
+            tileLayerConfig[0],
+            this.props.tileLayerConfigOverride
+          )}
+        />
+      );
     } else if (tileLayerConfig.length > 1) {
       // add a layer switch zoomControl
       tileLayers = (
@@ -170,9 +193,11 @@ class LeafletMap extends React.Component {
             >
               <TileLayer
                 key={layerProps.id}
-                {...layerProps}
-                onload={this.onLayerLoad}
-                onerror={this.onLayerLoadError}
+                {...Object.assign(
+                  {},
+                  layerProps,
+                  this.props.tileLayerConfigOverride
+                )}
               />
             </LayersControl.BaseLayer>
           ))}
@@ -215,7 +240,8 @@ class LeafletMap extends React.Component {
     const mapOptions = Object.assign(
       {},
       this.props.loaded ? this._enabledMapProps() : this._disabledMapProps(),
-      mapProps
+      mapProps,
+      this.props.mapConfigOverride
     );
 
     return this.props.loaded
@@ -223,26 +249,7 @@ class LeafletMap extends React.Component {
       : this.renderDisabledMap(mapOptions);
   }
 
-  get overlays() {
-    console.log(
-      "overlays " + this.props.identifier,
-      this._layers[this.props.identifier]
-    );
-    if (!this._layers[this.props.identifier])
-      return (this._layers[this.props.identifier] = this.props.overlays);
-    return this._layers[this.props.identifier];
-  }
-
   renderDisabledMap(mapOptions) {
-    let timeDimensionControlOptions = {
-      autoPlay: false,
-      playerOptions: {
-        buffer: 10,
-        transitionTime: 500,
-        loop: true
-      }
-    };
-
     return (
       <Map
         className="map-disabled"
@@ -253,9 +260,6 @@ class LeafletMap extends React.Component {
         zoom={window.mapStore.mapZoom}
         center={window.mapStore.mapCenter}
         {...mapOptions}
-        timeDimension={true}
-        timeDimensionControl={true}
-        timeDimensionControlOptions={timeDimensionControlOptions}
         attributionControl={false}
       >
         <AttributionControl prefix={config.map.attribution} />
@@ -265,20 +269,12 @@ class LeafletMap extends React.Component {
   }
 
   renderLoadedMap(mapOptions) {
-    let timeDimensionControlOptions = {
-      autoPlay: false,
-      playerOptions: {
-        buffer: 10,
-        transitionTime: 500,
-        loop: true
-      }
-    };
     return (
       <Map
         onViewportChanged={this.props.onViewportChanged.bind(this.map)}
         useFlyTo
         ref={el => this.connectLayers(el)}
-        gestureHandling
+        gestureHandling={this.props.gestureHandling}
         dragging={L.Browser.mobile}
         style={this.mapStyle()}
         zoomControl={false}
@@ -286,9 +282,6 @@ class LeafletMap extends React.Component {
         center={window.mapStore.mapCenter}
         {...mapOptions}
         attributionControl={false}
-        timeDimension={true}
-        timeDimensionControl={true}
-        timeDimensionControlOptions={timeDimensionControlOptions}
       >
         <AttributionControl prefix={config.map.attribution} />
         <ScaleControl imperial={false} position="bottomleft" />

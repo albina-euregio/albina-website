@@ -4,7 +4,7 @@ import { injectIntl } from "react-intl";
 import ProblemIconLink from "../icons/problem-icon-link.jsx";
 import ExpositionIcon from "../icons/exposition-icon.jsx";
 import ElevationIcon from "../icons/elevation-icon.jsx";
-import FrequencyIconLink from "../icons/frequency-icon-link.jsx";
+//import FrequencyIconLink from "../icons/frequency-icon-link.jsx";
 
 /**
  * @typedef {object} Props
@@ -103,19 +103,19 @@ class BulletinProblemItem extends React.Component {
     if (!this.props.problem) return <li></li>;
 
     const expositions = this.props.problem.dangerRating.aspects;
-    const frequency = this.props.problem.dangerRating.frequency;
+    //const frequency = this.props.problem.dangerRating.frequency;
     const expositionText = this.props.intl.formatMessage({
       id: "bulletin:report:exposition"
     });
-    const frequencyText = this.props.intl.formatMessage({
-      id: "bulletin:report:frequency"
-    });
+    // const frequencyText = this.props.intl.formatMessage({
+    //   id: "bulletin:report:frequency"
+    // });
     return (
       <li>
         {this.props.problem && <ProblemIconLink problem={this.props.problem} />}
         <ExpositionIcon expositions={expositions} title={expositionText} />
         {this.getElevationIcon()}
-        <FrequencyIconLink frequency={frequency || 3} title={frequencyText} />
+        {/* <FrequencyIconLink frequency={frequency || 3} title={frequencyText} /> */}
       </li>
     );
   }

@@ -22,22 +22,23 @@ class Dragger extends React.Component {
     this.parent = $(this.props.parent);
   }
 
-  onMouseDown(event) {
+  onDragStart(event, getXInit, getYInit, getXOnMove, getYOnMove) {
     event.stopPropagation();
+    //console.log("onTouchStart", event);
     const self = this;
     if (this.props.onDragStart) this.props.onDragStart(event);
 
-    let shiftX = event.clientX - self.draggable.getBoundingClientRect().left;
-    let shiftY = event.clientY - self.draggable.getBoundingClientRect().top;
+    let shiftX = getXInit(event) - self.draggable.getBoundingClientRect().left;
+    let shiftY = getYInit(event) - self.draggable.getBoundingClientRect().top;
 
-    //draggable.style.position = 'absolute';
     self.draggable.style.zIndex = 1000;
 
-    moveAt(event.pageX, event.pageY);
+    moveAt(getXOnMove(event), getYOnMove(event));
 
     // moves the draggable at (pageX, pageY) coordinates
     // taking initial shifts into account
     function moveAt(pageX, pageY) {
+      //console.log("moveAt" ,pageX, pageY, shiftX, shiftY);
       let parentOffset = self.parent.offset();
       let left = pageX - shiftX - parentOffset.left;
       self.currentX = Math.min(self.parent.width(), Math.max(left));
@@ -48,20 +49,43 @@ class Dragger extends React.Component {
     }
 
     function onMouseMove(event) {
-      moveAt(event.pageX, event.pageY);
+      //console.log("onMouseMove", event);
+      moveAt(getXOnMove(event), getYOnMove(event));
     }
 
     // move the draggable on mousemove
+    document.addEventListener("touchmove", onMouseMove);
     document.addEventListener("mousemove", onMouseMove);
 
     // drop the draggable, remove unneeded handlers
-    document.onmouseup = function(event) {
+    document.onmouseup = document.ontouchend = function(event) {
       event.stopPropagation();
+      document.removeEventListener("touchmove", onMouseMove);
       document.removeEventListener("mousemove", onMouseMove);
       if (self.props.onDragEnd)
         self.props.onDragEnd(self.currentX, self.currentY);
       document.onmouseup = null;
     };
+  }
+
+  onTouchStart(event) {
+    this.onDragStart(
+      event,
+      event => event.changedTouches[0].clientX,
+      event => event.changedTouches[0].clientY,
+      event => event.changedTouches[0].clientX,
+      event => event.changedTouches[0].clientY
+    );
+  }
+
+  onMouseDown(event) {
+    this.onDragStart(
+      event,
+      event => event.clientX,
+      event => event.clientY,
+      event => event.pageX,
+      event => event.pageY
+    );
   }
 
   forcePositionTo(x, y) {
@@ -87,6 +111,7 @@ class Dragger extends React.Component {
         }}
         className={this.props.classes ? this.props.classes.join(" ") : ""}
         onMouseDown={this.onMouseDown.bind(this)}
+        onTouchStart={this.onTouchStart.bind(this)}
         ref="draggingContainer"
       >
         {this.props.children}
