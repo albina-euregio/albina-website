@@ -93,7 +93,7 @@ class SubscribeEmailDialog extends React.Component {
 
   render() {
     // add a dummy class to react to close events
-    const isOpen = window["modalStateStore"].isOpen ? "" : " closed";
+    //const isOpen = window["modalStateStore"].isOpen ? "" : " closed";
     return (
       <div className="modal-subscribe-email">
         <div className="modal-header">

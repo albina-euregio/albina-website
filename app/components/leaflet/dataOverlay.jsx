@@ -37,7 +37,7 @@ export default class DataOverlay extends React.Component {
 
   getLayerPixelAtLatLng(overlay, latlng) {
     //onsole.log("getLayerPixelAtLatLng", this);
-    const self = this;
+    //const self = this;
     const map = overlay._map;
     let xY = overlay.getElement().naturalWidth / overlay.getElement().width;
     let yY = overlay.getElement().naturalHeight / overlay.getElement().height;
@@ -117,7 +117,8 @@ export default class DataOverlay extends React.Component {
     //console.log("allCanvasesLoaded ggg", this.overlayCanvases);
     let loadingCanvases = Object.fromEntries(
       Object.entries(this.overlayCanvases).filter(([key, value]) => {
-        //console.log("allCanvasesLoaded", key, value);
+        // eslint-disable-line no-unused-vars
+        console.log("allCanvasesLoaded", value);
         return !value.loaded;
       })
     );
@@ -160,15 +161,6 @@ export default class DataOverlay extends React.Component {
         )
       });
     }
-  }
-
-  allDataLayersLoaded(ob, crit) {
-    return Object.fromEntries(
-      Object.entries(this.overlayCanvases).filter(([key, val]) => {
-        console.log("allDataLayersLoaded", key, val);
-        return val.loaded;
-      })
-    );
   }
 
   setupDataLayer(e) {
@@ -248,61 +240,58 @@ export default class DataOverlay extends React.Component {
       });
       //console.log("addDirectionIndicators #2 jjj", foundOverlays);
       if (foundOverlays) {
-        foundOverlays.forEach(anOverlay => {
-          const WEST = bounds[0][1];
-          const SOUTH = bounds[0][0];
-          const EAST = bounds[1][1];
-          const NORTH = bounds[1][0];
-          const DIST_H = (EAST - WEST) / grids;
-          const DIST_V = (NORTH - SOUTH) / grids;
-          let curH = WEST + DIST_H;
+        //foundOverlays.forEach(anOverlay => {
+        const WEST = bounds[0][1];
+        const SOUTH = bounds[0][0];
+        const EAST = bounds[1][1];
+        const NORTH = bounds[1][0];
+        const DIST_H = (EAST - WEST) / grids;
+        const DIST_V = (NORTH - SOUTH) / grids;
+        let curH = WEST + DIST_H;
 
-          //console.log("addDirectionIndicators eee #3", WEST, DIST_H, curH + "<" + EAST, NORTH);
-          while (curH < EAST - 0.001) {
-            let curV = SOUTH + DIST_V;
-            //console.log("addDirectionIndicators eee #4", WEST, curH + "<" + EAST, NORTH, DIST_V, curV + "<" + NORTH);
-            while (curV < NORTH - 0.001) {
-              //console.log("addDirectionIndicators eee #5", WEST, DIST_H, curH + "<" + EAST, NORTH, DIST_V, curV + "<" + NORTH);
-              //console.log("addDirectionIndicators eee #2", self, [curV, curH]);
-              const pixelPos = self.getLayerPixelAtLatLng(
-                this.directionOverlay,
-                {
-                  lat: curV,
-                  lng: curH
+        //console.log("addDirectionIndicators eee #3", WEST, DIST_H, curH + "<" + EAST, NORTH);
+        while (curH < EAST - 0.001) {
+          let curV = SOUTH + DIST_V;
+          //console.log("addDirectionIndicators eee #4", WEST, curH + "<" + EAST, NORTH, DIST_V, curV + "<" + NORTH);
+          while (curV < NORTH - 0.001) {
+            //console.log("addDirectionIndicators eee #5", WEST, DIST_H, curH + "<" + EAST, NORTH, DIST_V, curV + "<" + NORTH);
+            //console.log("addDirectionIndicators eee #2", self, [curV, curH]);
+            const pixelPos = self.getLayerPixelAtLatLng(this.directionOverlay, {
+              lat: curV,
+              lng: curH
+            });
+            const pixelData = self.getPixelData(pixelPos);
+            //console.log("addDirectionIndicators eee #5", curH, curV, pixelPos, pixelData);
+            markers.push(
+              <StationMarker
+                type="grid"
+                dataType="noCircle"
+                key={
+                  "pos-" +
+                  curV +
+                  "_" +
+                  curH +
+                  "_" +
+                  self.props.currentTime +
+                  "_" +
+                  curZoom
                 }
-              );
-              const pixelData = self.getPixelData(pixelPos);
-              //console.log("addDirectionIndicators eee #5", curH, curV, pixelPos, pixelData);
-              markers.push(
-                <StationMarker
-                  type="grid"
-                  dataType="noCircle"
-                  key={
-                    "pos-" +
-                    curV +
-                    "_" +
-                    curH +
-                    "_" +
-                    self.props.currentTime +
-                    "_" +
-                    curZoom
-                  }
-                  itemId="directionMarker"
-                  iconAnchor={[12, 12]}
-                  data={{}}
-                  stationId="directionMarker"
-                  stationName="directionMarker"
-                  coordinates={[curV, curH]}
-                  color={[255, 0, 0]}
-                  value={null}
-                  direction={pixelData.direction}
-                />
-              );
-              curV += DIST_V;
-            }
-            curH += DIST_H;
+                itemId="directionMarker"
+                iconAnchor={[12, 12]}
+                data={{}}
+                stationId="directionMarker"
+                stationName="directionMarker"
+                coordinates={[curV, curH]}
+                color={[255, 0, 0]}
+                value={null}
+                direction={pixelData.direction}
+              />
+            );
+            curV += DIST_V;
           }
-        });
+          curH += DIST_H;
+        }
+        //});
       }
     }
     //console.log("addDirectionIndicators eee #6", markers);
