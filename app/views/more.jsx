@@ -25,7 +25,9 @@ class More extends React.Component {
             <li className="feature-item">
               <Link
                 to="/more/archive"
-                title="Archive"
+                title={this.props.intl.formatMessage({
+                  id: "more:archive:headline"
+                })}
                 className="linkbox linkbox-feature tooltip"
               >
                 <div className="content-image">
@@ -56,7 +58,9 @@ class More extends React.Component {
             <li className="feature-item">
               <Link
                 to="/more/about"
-                title="About"
+                title={this.props.intl.formatMessage({
+                  id: "more:about:headline"
+                })}
                 className="linkbox linkbox-feature tooltip"
               >
                 <div className="content-image">
@@ -86,7 +90,9 @@ class More extends React.Component {
             <li className="feature-item">
               <Link
                 to="/more/contact"
-                title="Contact"
+                title={this.props.intl.formatMessage({
+                  id: "more:contact:headline"
+                })}
                 className="linkbox linkbox-feature tooltip"
               >
                 <div className="content-image">
@@ -116,7 +122,9 @@ class More extends React.Component {
             <li className="feature-item">
               <Link
                 to="/more/imprint"
-                title="Imprint"
+                title={this.props.intl.formatMessage({
+                  id: "more:imprint:headline"
+                })}
                 className="linkbox linkbox-feature tooltip"
               >
                 <div className="content-image">
@@ -146,7 +154,9 @@ class More extends React.Component {
             <li className="feature-item">
               <Link
                 to="/more/privacy"
-                title="Privacy Policy"
+                title={this.props.intl.formatMessage({
+                  id: "more:privacy:headline"
+                })}
                 className="linkbox linkbox-feature tooltip"
               >
                 <div className="content-image">
