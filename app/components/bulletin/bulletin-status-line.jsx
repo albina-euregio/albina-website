@@ -58,7 +58,7 @@ class BulletinStatusLine extends React.Component {
       }
     }
 
-    return this.props.intl.formatMessage({ id: "bulletin:header:no-bulletin" });
+    return "";
   }
 
   render() {
