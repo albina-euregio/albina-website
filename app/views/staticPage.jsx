@@ -56,11 +56,12 @@ export default class StaticPage extends React.Component {
     if (this.state.content != "") video_init();
     return (
       <>
-        <HTMLHeader title={this.props.intl.formatMessage({id: this.state.title})}/>
+        <HTMLHeader title={this.state.title} />
         <PageHeadline
-          title={this.props.intl.formatMessage({id: this.state.title})}/>
+          title={this.state.title}
           marginal={this.state.headerText}
         />
+        {/* <section className="section-centered">{this.state.content}</section> */}
         {this.state.content}
         <div className="clearfix" />
         {this.state.sharable ? (
