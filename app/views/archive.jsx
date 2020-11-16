@@ -93,10 +93,10 @@ class Archive extends React.Component {
     return (
       <>
         <HTMLHeader
-          title={this.props.intl.formatMessage({ id: "archive:title" })}
+          title={this.props.intl.formatMessage({ id: "more:archive:headline" })}
         />
         <PageHeadline
-          title={this.props.intl.formatMessage({ id: "archive:headline" })}
+          title={this.props.intl.formatMessage({ id: "more:archive:headline" })}
           marginal={this.state.headerText}
         />
         <FilterBar search={false}>
