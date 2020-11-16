@@ -147,7 +147,7 @@ class SubscribeEmailDialog extends React.Component {
               <span className="normal" />
             </label>
             <ul className="list-inline list-subscribe-language">
-              {window["appStore"].emailLanguages.map(l => (
+              {window["appStore"].mainLanguages.map(l => (
                 <li key={l}>
                   <label
                     className="pure-checkbox"
