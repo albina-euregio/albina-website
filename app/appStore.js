@@ -29,6 +29,7 @@ class AppStore extends React.Component {
   constructor() {
     super();
     this.languages = ["ca", "en", "de", "es", "fr", "it", "oc"];
+    this.emailLanguages = ["en", "de", "it"];
     const translationLookup = { ca, en, de, es, fr, it, oc };
 
     // initial language is changed after config has arrived!!!
