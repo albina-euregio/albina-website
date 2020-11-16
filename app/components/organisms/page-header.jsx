@@ -99,6 +99,7 @@ class PageHeader extends React.Component {
                 <span></span>
               </a>
               <ul className="list-plain subnavigation">
+                {/* de, it first */}
                 <li>
                   <a
                     className="language-trigger-de"
@@ -115,6 +116,15 @@ class PageHeader extends React.Component {
                     Italiano
                   </a>
                 </li>
+                {/* all other languages in alphabetical order */}
+                <li>
+                  <a
+                    className="language-trigger-de"
+                    onClick={() => this.handleChangeLanguage("ca")}
+                  >
+                    Català
+                  </a>
+                </li>
                 <li>
                   <a
                     className="language-trigger-en"
@@ -125,10 +135,26 @@ class PageHeader extends React.Component {
                 </li>
                 <li>
                   <a
+                    className="language-trigger-es"
+                    onClick={() => this.handleChangeLanguage("es")}
+                  >
+                    Español
+                  </a>
+                </li>
+                <li>
+                  <a
                     className="language-trigger-fr"
                     onClick={() => this.handleChangeLanguage("fr")}
                   >
                     Français
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="language-trigger-fr"
+                    onClick={() => this.handleChangeLanguage("oc")}
+                  >
+                    Occitan
                   </a>
                 </li>
               </ul>
