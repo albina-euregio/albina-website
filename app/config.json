@@ -338,11 +338,21 @@
   },
   "languageHostSettings": {
     "en": "avalanche.report",
+    "ca": "ca.avalanche.report",
     "de": "lawinen.report",
+    "es": "es.avalanche.report",
+    "fr": "fr.avalanche.report",
+    "oc": "oc.avalanche.report",
     "it": "valanghe.report"
   },
   "hostLanguageSettings": {
     "avalanche.report": "en",
+    "ca.avalanche.report": "ca",
+    "de.avalanche.report": "de",
+    "es.avalanche.report": "es",
+    "fr.avalanche.report": "fr",
+    "it.avalanche.report": "it",
+    "oc.avalanche.report": "oc",
     "avalanches.report": "en",
     "lawine.report": "de",
     "lawinen.report": "de",
