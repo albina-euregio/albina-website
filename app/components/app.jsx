@@ -137,6 +137,11 @@ class App extends React.Component {
             component: Archive
           },
           {
+            path: "/archive",
+            exact: true,
+            component: () => <Redirect to={"/more/archive"} />
+          },
+          {
             path: "/subscribe/:hash",
             component: SubscribeConfirmation
           },
