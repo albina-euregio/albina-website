@@ -1446,7 +1446,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       textField: field,
       textDef: textDef || "",
       srcLang: Enums.LanguageCode[l],
-      currentLang: this.translateService.currentLang
+      currentLang: this.translateService.currentLang,
+      region: this.authenticationService.getTextcatRegionCode();
     });
 
     this.showDialog(pmData);

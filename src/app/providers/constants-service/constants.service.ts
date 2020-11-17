@@ -15,11 +15,13 @@ export class ConstantsService {
   public natlefsUsername: string = "norbert.lanzanasto@tirol.gv.at";
   public natlefsPassword: string = "FRYLjTQ2";
 
-  // region
+  // region (ISO-3166)
+  public codeSwitzerland: string = "CH";
   public codeTyrol: string = "AT-07";
   public codeSouthTyrol: string = "IT-32-BZ";
   public codeTrentino: string = "IT-32-TN";
   public codeAran: string = "ES-CT-L";
+  public codeAndorra: string = "AD";
 
   public roleAdmin: string = "ADMIN";
   public roleForecaster: string = "FORECASTER";

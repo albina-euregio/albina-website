@@ -128,6 +128,28 @@ export class AuthenticationService {
     }
   }
 
+  // region
+  // lang (code used for textcat-ng)
+  public getTextcatRegionCode(): string {
+    switch (this.activeRegion) {
+      case this.constantsService.codeSwitzerland:
+        return "Switzerland";
+      case this.constantsService.codeTyrol:
+        return "Tyrol";
+      case this.constantsService.codeSouthTyrol:
+        return "South Tyrol";
+      case this.constantsService.codeTrentino:
+        return "Trentino";
+      case this.constantsService.codeAran:
+        return "Aran";
+      case this.constantsService.codeAndorra:
+        return "Andorra";
+
+      default:
+        return "Switzerland";
+    }
+  }
+
   public isEuregio() {
     if (this.getActiveRegion() === this.constantsService.codeTyrol || this.getActiveRegion() === this.constantsService.codeSouthTyrol || this.getActiveRegion() === this.constantsService.codeTrentino) {
       return true;
