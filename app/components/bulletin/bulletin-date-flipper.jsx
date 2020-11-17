@@ -99,7 +99,7 @@ class BulletinDateFlipper extends React.Component {
         )}
         <li className="bulletin-flipper-archive">
           <Link
-            to="/archive"
+            to="/more/archive"
             title={this.props.intl.formatMessage({
               id: "bulletin:header:archive:hover"
             })}
