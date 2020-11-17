@@ -351,6 +351,21 @@ $page-header-logo-width: 3.25em;
         color: $anchor-font-color !important;
       }
     }
+    .language-es & {
+      .language-trigger-es {
+        color: $anchor-font-color !important;
+      }
+    }
+    .language-ca & {
+      .language-trigger-ca {
+        color: $anchor-font-color !important;
+      }
+    }
+    .language-oc & {
+      .language-trigger-oc {
+        color: $anchor-font-color !important;
+      }
+    }
   }
 
   @media #{$medium-up} {

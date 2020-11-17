@@ -99,20 +99,21 @@ class PageHeader extends React.Component {
                 <span></span>
               </a>
               <ul className="list-plain subnavigation">
+                {/* languages in alphabetical order */}
+                <li>
+                  <a
+                    className="language-trigger-ca"
+                    onClick={() => this.handleChangeLanguage("ca")}
+                  >
+                    Català
+                  </a>
+                </li>
                 <li>
                   <a
                     className="language-trigger-de"
                     onClick={() => this.handleChangeLanguage("de")}
                   >
                     Deutsch
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="language-trigger-it"
-                    onClick={() => this.handleChangeLanguage("it")}
-                  >
-                    Italiano
                   </a>
                 </li>
                 <li>
@@ -125,10 +126,34 @@ class PageHeader extends React.Component {
                 </li>
                 <li>
                   <a
+                    className="language-trigger-es"
+                    onClick={() => this.handleChangeLanguage("es")}
+                  >
+                    Español
+                  </a>
+                </li>
+                <li>
+                  <a
                     className="language-trigger-fr"
                     onClick={() => this.handleChangeLanguage("fr")}
                   >
                     Français
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="language-trigger-it"
+                    onClick={() => this.handleChangeLanguage("it")}
+                  >
+                    Italiano
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="language-trigger-oc"
+                    onClick={() => this.handleChangeLanguage("oc")}
+                  >
+                    Occitan
                   </a>
                 </li>
               </ul>
