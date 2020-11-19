@@ -82,7 +82,7 @@ class SubscribeSocialMediaDialog extends React.Component {
 
         <p>
           <Link
-            to="/contact"
+            to="/more/contact"
             title={this.props.intl.formatMessage({
               id: "dialog:subscribe-social-media:contact-button:hover"
             })}
