@@ -180,7 +180,7 @@
 
   "weathermap:domain:title:temp": "Température",
   "weathermap:domain:title:snow-height": "Hauteur de neige",
-  "weathermap:domain:title:diff-snow": "Hauteur de neige Différence",
+  "weathermap:domain:title:diff-snow": "Diff. de neige",
   "weathermap:domain:title:new-snow": "Neige fraîche",
   "weathermap:domain:title:wind": "Vent",
   "weathermap:domain:title:gust": "Coup de vent",
