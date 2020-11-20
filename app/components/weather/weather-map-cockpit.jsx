@@ -250,7 +250,9 @@ class WeatherMapCockpit extends React.Component {
         <div key="cp-player" className="cp-layer">
           <a
             className="cp-layer-selector-item cp-layer-trigger tooltip"
-            title="Layer wählen"
+            title={this.props.intl.formatMessage({
+              id: "weathermap:cockpit:select-parameter"
+            })}
             onClick={() => {
               $("body").toggleClass("layer-selector-open");
             }}
@@ -443,7 +445,9 @@ class WeatherMapCockpit extends React.Component {
           key="playerButton"
           className={linkClassesPlay.join(" ")}
           href="#"
-          title="Play"
+          title={this.props.intl.formatMessage({
+              id: "weathermap:cockpit:play"
+            })}
           onClick={() => {
             this.props.player.toggle();
           }}
@@ -452,7 +456,9 @@ class WeatherMapCockpit extends React.Component {
           key="stopButton"
           className={linkClassesStop.join(" ")}
           href="#"
-          title="Stop"
+          title={this.props.intl.formatMessage({
+              id: "weathermap:cockpit:stop"
+            })}
           onClick={() => {
             this.props.player.toggle();
           }}
