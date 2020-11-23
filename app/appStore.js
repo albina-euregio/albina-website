@@ -42,20 +42,29 @@ class AppStore extends React.Component {
       "AT-07": {
         en: en["region:AT-07"],
         de: de["region:AT-07"],
+        it: it["region:AT-07"],
         fr: fr["region:AT-07"],
-        it: it["region:AT-07"]
+        es: es["region:AT-07"],
+        ca: ca["region:AT-07"],
+        oc: oc["region:AT-07"]
       },
       "IT-32-BZ": {
         en: en["region:IT-32-BZ"],
         de: de["region:IT-32-BZ"],
+        it: it["region:IT-32-BZ"],
         fr: fr["region:IT-32-BZ"],
-        it: it["region:IT-32-BZ"]
+        es: es["region:IT-32-BZ"],
+        ca: ca["region:IT-32-BZ"],
+        oc: oc["region:IT-32-BZ"]
       },
       "IT-32-TN": {
         en: en["region:IT-32-TN"],
         de: de["region:IT-32-TN"],
+        it: it["region:IT-32-TN"],
         fr: fr["region:IT-32-TN"],
-        it: it["region:IT-32-TN"]
+        es: es["region:IT-32-TN"],
+        ca: ca["region:IT-32-TN"],
+        oc: oc["region:IT-32-TN"]
       }
     };
 
