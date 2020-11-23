@@ -2,3 +2,7 @@ app/bower_components/
 app/content/**/de.html
 app/content/**/fr.html
 app/content/**/it.html
+app/content/**/fr.html
+app/content/**/es.html
+app/content/**/ca.html
+app/content/**/oc.html
