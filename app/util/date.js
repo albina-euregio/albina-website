@@ -227,7 +227,9 @@ function _formatDate(date, options = {}) {
   if (date) {
     let language = window.appStore.language;
     if (!language) {
-      language = "en";
+      language = "en-GB";
+    } else if (language === "en") {
+      language = "en-GB";
     } else if (language === "de") {
       // Jänner :-)
       language = "de-AT";
