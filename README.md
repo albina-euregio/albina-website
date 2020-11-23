@@ -3,10 +3,10 @@
 - https://lawinen.report/
 - https://valanghe.report/
 - https://avalanche.report/
-- https://avalanche.report/fr/
-- https://avalanche.report/ca/
-- https://avalanche.report/es/
-- https://avalanche.report/oc/
+- https://fr.avalanche.report/
+- https://ca.avalanche.report/
+- https://es.avalanche.report/
+- https://oc.avalanche.report/
 
 ## Development
 
