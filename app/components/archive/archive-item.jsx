@@ -15,6 +15,27 @@ class ArchiveItem extends React.Component {
     );
   }
 
+  showMap(dateString) {
+    var lang = window["appStore"].language;
+    var thresholdDateString = "10.1.2020";
+    var thresholdDate = new Date(Date.parse(thresholdDateString));
+    var date = new Date(Date.parse(dateString));
+
+    if (date < thresholdDate) {
+      switch (lang) {
+        case "fr":
+        case "es":
+        case "ca":
+        case "oc":
+          return false;
+        default:
+          return true;
+      }
+    } else {
+      return true;
+    }
+  }
+
   render() {
     const dateString = dateToISODateString(this.props.date);
 
@@ -66,17 +87,19 @@ class ArchiveItem extends React.Component {
             </li>
           </ul>
         </td>
-        <td>
-          <Link
-            to={"/bulletin/" + dateString}
-            className="map-preview img tooltip"
-            title={this.props.intl.formatMessage({
-              id: "archive:show-forecast:hover"
-            })}
-          >
-            <img src={this.previewMap} alt="Region" />
-          </Link>
-        </td>
+        {this.showMap(dateString) && (
+          <td>
+            <Link
+              to={"/bulletin/" + dateString}
+              className="map-preview img tooltip"
+              title={this.props.intl.formatMessage({
+                id: "archive:show-forecast:hover"
+              })}
+            >
+              <img src={this.previewMap} alt="Region" />
+            </Link>
+          </td>
+        )}
       </tr>
     );
   }

@@ -77,6 +77,26 @@ class Archive extends React.Component {
     return [];
   }
 
+  getLanguage(d) {
+    var lang = window["appStore"].language;
+    var thresholdDateString = "10.1.2020";
+    var thresholdDate = new Date(Date.parse(thresholdDateString));
+
+    if (d < thresholdDate) {
+      switch (lang) {
+        case "fr":
+        case "es":
+        case "ca":
+        case "oc":
+          return "en";
+        default:
+          return lang;
+      }
+    } else {
+      return lang;
+    }
+  }
+
   handleChangeYear = val => {
     this.store.year = val;
   };
@@ -173,7 +193,7 @@ class Archive extends React.Component {
                     <ArchiveItem
                       key={d.getTime()}
                       date={d}
-                      lang={window["appStore"].language}
+                      lang={this.getLanguage(d)}
                     />
                   ))}
                 </tbody>
