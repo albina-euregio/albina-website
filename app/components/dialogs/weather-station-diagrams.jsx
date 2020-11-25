@@ -42,6 +42,14 @@ class WeatherStationDiagrams extends React.Component {
     });
   }
 
+  regionName(microRegion) {
+    var pieces = microRegion.split(" ");
+    var name = this.props.intl.formatMessage({
+      id: "region:" + pieces[0]
+    });
+    return pieces[0] + " " + name;
+  }
+
   assembleStationInfo(stationData) {
     let stationInfo = [];
     stationData.parametersForDialog.forEach(infoType => {
@@ -92,7 +100,7 @@ class WeatherStationDiagrams extends React.Component {
               {this.props.intl.formatMessage({
                 id: "dialog:weather-station-diagram:header"
               })}{" "}
-              ({stationData.microRegion})
+              ({this.regionName(stationData.microRegion)})
             </p>
             <h2 className="">
               <span className="weatherstation-name">{stationData.name} </span>
