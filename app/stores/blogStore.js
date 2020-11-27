@@ -59,19 +59,21 @@ export default class BlogStore {
         ? ""
         : this.languageActive;
 
-    Base.searchChange(
-      this.getHistory(),
-      {
-        year: this.year,
-        month: this.month,
-        searchLang: searchLang,
-        region: this.regionActive,
-        problem: this.problem,
-        page: this.page,
-        searchText: this.searchText
-      },
-      false
-    );
+    if (document.location.pathname === "/blog") {
+      Base.searchChange(
+        this.getHistory(),
+        {
+          year: this.year,
+          month: this.month,
+          searchLang: searchLang,
+          region: this.regionActive,
+          problem: this.problem,
+          page: this.page,
+          searchText: this.searchText
+        },
+        false
+      );
+    }
 
     this.load(true);
   }
