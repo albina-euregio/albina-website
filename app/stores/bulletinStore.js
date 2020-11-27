@@ -1,12 +1,7 @@
 import ArchiveStore from "./archiveStore.js";
 import neighborRegions from "./neighbor_regions.geojson.json";
 import { observable, action } from "mobx";
-import {
-  parseDate,
-  getSuccDate,
-  todayIsTomorrow,
-  dateToISODateString
-} from "../util/date.js";
+import { parseDate, getSuccDate, dateToISODateString } from "../util/date.js";
 
 import { GeoJSON, Util } from "leaflet";
 import axios from "axios";
@@ -141,48 +136,18 @@ class BulletinStore {
       gliding_snow: { highlighted: false }
     });
 
-    if (config.bulletin.latestBulletinSwitchTime.match(/^\d{2}:\d{2}$/)) {
-      this.latest = dateToISODateString(
-        (() => {
-          const now = new Date();
-          const switchTime = config.bulletin.latestBulletinSwitchTime;
-          const matches = switchTime.match(/^(\d{2}):(\d{2})$/);
-
-          if (matches && matches.length >= 3) {
-            const next = getSuccDate(now);
-            const hour = parseInt(matches[1]);
-            const minutes = parseInt(matches[2]);
-
-            return todayIsTomorrow(now, hour, minutes) ? next : now;
-          }
-
-          console.error("Misconfigured value for latestBulletinSwitchTime");
-          return now;
-        })()
-      );
-    } else {
-      this._latestBulletinChecker();
-    }
+    this._latestBulletinChecker();
   }
 
   @action _latestBulletinChecker() {
-    axios
-      .get(config.apis.bulletin + "/latest")
-      .then(response => {
-        const parsedResponse = response.data;
-        if (parsedResponse && parsedResponse.date) {
-          const now = new Date();
-          const today = parseDate(dateToISODateString(now));
-          const latest = new Date(parsedResponse.date);
-
-          this.latest = dateToISODateString(latest >= today ? latest : today);
-          if (APP_DEV_MODE)
-            console.log("loaded bulletin latest", { latest: this.latest });
-        }
-      })
-      .catch(error => {
-        console.error("Cannot get date of latest bulletin", error);
-      });
+    const now = new Date();
+    const today = dateToISODateString(now);
+    const tomorrow = dateToISODateString(getSuccDate(now));
+    const url = this._getBulletinUrl(tomorrow);
+    axios.head(url).then(
+      () => (this.latest = tomorrow),
+      () => (this.latest = today)
+    );
     window.setTimeout(
       () => this._latestBulletinChecker(),
       config.bulletin.checkForLatestInterval * 60000
@@ -424,15 +389,18 @@ class BulletinStore {
     }
   }
 
-  _loadBulletinData(date) {
-    const url = Util.template(
+  _getBulletinUrl(date) {
+    return Util.template(
       config.links.downloads.base + config.links.downloads.xml,
       {
         date,
         lang: window["appStore"].language
       }
     );
+  }
 
+  _loadBulletinData(date) {
+    const url = this._getBulletinUrl(date);
     return axios.get(url, { responseType: "document" }).then(
       // query bulletin data
       response => {

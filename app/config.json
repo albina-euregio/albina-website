@@ -191,8 +191,6 @@
     ]
   },
   "bulletin": {
-    "latestBulletinSwitchTime_auto": "auto",
-    "latestBulletinSwitchTime": "auto",
     "checkForLatestInterval": 5,
     "noBulletinBanner": true
   },
