@@ -6,9 +6,10 @@ export default class StaticPageStore {
     url = `${APP_ASSET_PATH}content/${url}/${lang}.html`;
     return axios.get(url).then(response => {
       const sharable = true;
-      const body = response.data;
-      let title = body.match(/^<!--\s*title:\s*(.*?)\s*-->/);
-      title = title ? title[1] : undefined;
+      // extract title from first <h1>...</h1>
+      const titlePattern = /<h1>\s*(.*?)\s*<\/h1>/;
+      const title = response.data.match(titlePattern)?.[1];
+      const body = response.data.replace(titlePattern, "");
       return {
         data: {
           attributes: { title, body, sharable }
