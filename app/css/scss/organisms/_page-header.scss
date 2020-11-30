@@ -236,6 +236,30 @@ $page-header-logo-width: 3.25em;
         opacity: 1;
       }
     }
+    .domain-fr & {
+      width: $logo-url-en-width;
+      .url-fr {
+        opacity: 1;
+      }
+    }
+    .domain-es & {
+      width: $logo-url-en-width;
+      .url-es {
+        opacity: 1;
+      }
+    }
+    .domain-ca & {
+      width: $logo-url-en-width;
+      .url-ca {
+        opacity: 1;
+      }
+    }
+    .domain-oc & {
+      width: $logo-url-en-width;
+      .url-oc {
+        opacity: 1;
+      }
+    }
 
     span {
       position: absolute;
@@ -267,6 +291,34 @@ $page-header-logo-width: 3.25em;
     background-size: $logo-url-it-width $logo-url-it-height;
   }
   .url-en {
+    height: $logo-url-en-height;
+    width: $logo-url-en-width;
+    background-image: url("../images/pro/logos/logo_url_en.svg");
+    background-size: $logo-url-en-width $logo-url-en-height;
+  }
+
+  .url-fr {
+    height: $logo-url-en-height;
+    width: $logo-url-en-width;
+    background-image: url("../images/pro/logos/logo_url_en.svg");
+    background-size: $logo-url-en-width $logo-url-en-height;
+  }
+
+  .url-es {
+    height: $logo-url-en-height;
+    width: $logo-url-en-width;
+    background-image: url("../images/pro/logos/logo_url_en.svg");
+    background-size: $logo-url-en-width $logo-url-en-height;
+  }
+
+  .url-ca {
+    height: $logo-url-en-height;
+    width: $logo-url-en-width;
+    background-image: url("../images/pro/logos/logo_url_en.svg");
+    background-size: $logo-url-en-width $logo-url-en-height;
+  }
+
+  .url-oc {
     height: $logo-url-en-height;
     width: $logo-url-en-width;
     background-image: url("../images/pro/logos/logo_url_en.svg");

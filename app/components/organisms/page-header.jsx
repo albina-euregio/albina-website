@@ -59,14 +59,11 @@ class PageHeader extends React.Component {
             })}
           >
             <span className="mark">
-              {langs.map(l => (
-                <span key={l} className={"mark-" + l} />
-              ))}
+              <span key={lang} className={"mark-" + lang} />
+              <span key="en" className={"mark-en"} />
             </span>
             <span className="url">
-              {langs.map(l => (
-                <span key={l} className={"url-" + l} />
-              ))}
+              <span key={lang} className={"url-" + lang} />
             </span>
           </Link>
         </div>
