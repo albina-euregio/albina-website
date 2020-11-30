@@ -100,9 +100,8 @@ class BulletinProblemItem extends React.Component {
   }
 
   render() {
-    if (!this.props.problem) return <li></li>;
-
-    const expositions = this.props.problem.dangerRating.aspects;
+    const expositions = this.props.problem?.dangerRating?.aspects;
+    if (!expositions) return <li></li>;
     //const frequency = this.props.problem.dangerRating.frequency;
     const expositionText = this.props.intl.formatMessage({
       id: "bulletin:report:exposition"
