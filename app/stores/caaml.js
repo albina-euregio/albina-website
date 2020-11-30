@@ -20,7 +20,7 @@ export function convertCaamlToJson(document) {
   }
 
   // base case for recursion
-  if (!document.children.length) {
+  if (!document?.children?.length) {
     json.$ = document.innerHTML || undefined;
     if (!attributes.length) {
       return json.$;
