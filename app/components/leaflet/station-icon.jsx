@@ -100,10 +100,14 @@ export default class StationIcon extends React.Component {
     );
   }
 
+  get hasValue() {
+    return isFinite(this.props.value);
+  }
+
   showCircle() {
     return (
       ["any"].includes(this.props.itemId) ||
-      (["forcast", "analyse"].includes(this.props.dataType) && this.props.value)
+      (["forcast", "analyse"].includes(this.props.dataType) && this.hasValue)
     );
   }
 
@@ -125,10 +129,10 @@ export default class StationIcon extends React.Component {
         {this.showCircle() && this.getCircle(this.props.dataType, fill)}
         {this.props.direction &&
           this.getdirection(
-            this.props.value ? "combined" : "only",
+            this.hasValue ? "combined" : "only",
             this.props.direction
           )}
-        {this.props.value && this.getText(this.props.value, s)}
+        {this.hasValue && this.getText(this.props.value, s)}
       </div>
     );
   }
