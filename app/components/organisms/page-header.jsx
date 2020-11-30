@@ -44,7 +44,6 @@ class PageHeader extends React.Component {
   };
 
   render() {
-    const langs = window["appStore"].languages;
     const lang = window["appStore"].language;
 
     return (
