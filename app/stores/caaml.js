@@ -3,7 +3,6 @@
  * @returns {Caaml.Bulletins} caaml
  */
 export function convertCaamlToJson(document) {
-  const children = [...document.children];
   const json = {};
 
   /**
@@ -18,7 +17,7 @@ export function convertCaamlToJson(document) {
   }
 
   // base case for recursion
-  if (!children.length) {
+  if (!document.children.length) {
     json.$ = document.innerHTML || undefined;
     if (!attributes.length) {
       return json.$;
@@ -30,7 +29,8 @@ export function convertCaamlToJson(document) {
   }
 
   // recurse children
-  for (var child of children) {
+  for (let i = 0; i < document.children.length; i++) {
+    const child = document.children[i];
     const forceArray = [
       "aspect",
       "avalancheProblem",
