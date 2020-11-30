@@ -5,6 +5,8 @@ if (!APP_DEV_MODE) {
   Sentry.init({
     release: "albina-website@" + APP_VERSION,
     environment: APP_ENVIRONMENT,
+    // ignore axios errors via axios/lib/core/createError
+    ignoreErrors: [/Network Error/, /Request aborted/],
     dsn: "https://513851e41d6e455998f0cc1a91828942@sentry.io/1819947"
   });
 }
