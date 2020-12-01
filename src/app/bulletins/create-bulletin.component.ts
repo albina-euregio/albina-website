@@ -333,6 +333,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
                   this.openLoadingErrorModal(this.loadingErrorTemplate);
                 }
               );
+            } else {
+              this.loading = false;
             }
           },
           () => {
