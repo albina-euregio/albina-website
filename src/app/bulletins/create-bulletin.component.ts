@@ -143,9 +143,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public avalancheSituationErrorModalRef: BsModalRef;
   @ViewChild("avalancheSituationErrorTemplate") avalancheSituationErrorTemplate: TemplateRef<any>;
 
-  public incompleteTranslationModalRef: BsModalRef;
-  @ViewChild("incompleteTranslationTemplate") incompleteTranslationTemplate: TemplateRef<any>;
-
   public loadAutoSaveModalRef: BsModalRef;
   @ViewChild("loadAutoSaveTemplate") loadAutoSaveTemplate: TemplateRef<any>;
 
@@ -1821,9 +1818,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this[pmData.textField + "Oc"] = pmData.textOc;
         this.setTexts();
         this.hideDialog();
-        if (pmData.textDe === this.constantsService.incompleteTranslationTextDe || pmData.textIt === this.constantsService.incompleteTranslationTextIt || pmData.textEn === this.constantsService.incompleteTranslationTextEn) {
-          this.openIncompleteTranslationModal(this.incompleteTranslationTemplate);
-        }
       }
     }
   };
@@ -2082,14 +2076,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
   avalancheSituationErrorModalConfirm(): void {
     this.avalancheSituationErrorModalRef.hide();
-  }
-
-  openIncompleteTranslationModal(template: TemplateRef<any>) {
-    this.incompleteTranslationModalRef = this.modalService.show(template, this.config);
-  }
-
-  incompleteTranslationModalConfirm(): void {
-    this.incompleteTranslationModalRef.hide();
   }
 
   openLoadAvActivityCommentExampleTextModal(template: TemplateRef<any>) {
