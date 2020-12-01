@@ -1818,7 +1818,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this[pmData.textField + "Fr"] = pmData.textFr;
         this[pmData.textField + "Es"] = pmData.textEs;
         this[pmData.textField + "Ca"] = pmData.textCa;
-        this[pmData.textField + "Oc"] = pmData.textAr;
+        this[pmData.textField + "Oc"] = pmData.textOc;
         this.setTexts();
         this.hideDialog();
         if (pmData.textDe === this.constantsService.incompleteTranslationTextDe || pmData.textIt === this.constantsService.incompleteTranslationTextIt || pmData.textEn === this.constantsService.incompleteTranslationTextEn) {
