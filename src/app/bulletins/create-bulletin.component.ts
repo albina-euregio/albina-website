@@ -152,6 +152,9 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public loadAvActivityCommentExampleTextModalRef: BsModalRef;
   @ViewChild("loadAvActivityCommentExampleTextTemplate") loadAvActivityCommentExampleTextTemplate: TemplateRef<any>;
 
+  public loadSnowpackStructureCommentExampleTextModalRef: BsModalRef;
+  @ViewChild("loadSnowpackStructureCommentExampleTextTemplate") loadSnowpackStructureCommentExampleTextTemplate: TemplateRef<any>;
+
   public pmUrl: SafeUrl;
 
   @ViewChild("receiver") receiver: ElementRef<HTMLIFrameElement>;
@@ -2097,254 +2100,254 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     switch (avalancheProblem) {
       case "newSnow":
         if (this.activeAvActivityCommentTextcat !== undefined) {
-          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.newSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.avActivityCommentNewSnowTextcat;
         } else {
-          this.activeAvActivityCommentTextcat = this.constantsService.newSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.constantsService.avActivityCommentNewSnowTextcat;
         }
         if (this.activeAvActivityCommentDe !== undefined) {
-          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.newSnowDe;
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.avActivityCommentNewSnowDe;
         } else {
-          this.activeAvActivityCommentDe = this.constantsService.newSnowDe;
+          this.activeAvActivityCommentDe = this.constantsService.avActivityCommentNewSnowDe;
         }
         if (this.activeAvActivityCommentIt !== undefined) {
-          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.newSnowIt;
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.avActivityCommentNewSnowIt;
         } else {
-          this.activeAvActivityCommentIt = this.constantsService.newSnowIt;
+          this.activeAvActivityCommentIt = this.constantsService.avActivityCommentNewSnowIt;
         }
         if (this.activeAvActivityCommentEn !== undefined) {
-          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.newSnowEn;
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.avActivityCommentNewSnowEn;
         } else {
-          this.activeAvActivityCommentEn = this.constantsService.newSnowEn;
+          this.activeAvActivityCommentEn = this.constantsService.avActivityCommentNewSnowEn;
         }
         if (this.activeAvActivityCommentFr !== undefined) {
-          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.newSnowFr;
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.avActivityCommentNewSnowFr;
         } else {
-          this.activeAvActivityCommentFr = this.constantsService.newSnowFr;
+          this.activeAvActivityCommentFr = this.constantsService.avActivityCommentNewSnowFr;
         }
         if (this.activeAvActivityCommentEs !== undefined) {
-          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.newSnowEs;
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.avActivityCommentNewSnowEs;
         } else {
-          this.activeAvActivityCommentEs = this.constantsService.newSnowEs;
+          this.activeAvActivityCommentEs = this.constantsService.avActivityCommentNewSnowEs;
         }
         if (this.activeAvActivityCommentCa !== undefined) {
-          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.newSnowCa;
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.avActivityCommentNewSnowCa;
         } else {
-          this.activeAvActivityCommentCa = this.constantsService.newSnowCa;
+          this.activeAvActivityCommentCa = this.constantsService.avActivityCommentNewSnowCa;
         }
         if (this.activeAvActivityCommentOc !== undefined) {
-          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.newSnowOc;
+          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.avActivityCommentNewSnowOc;
         } else {
-          this.activeAvActivityCommentOc = this.constantsService.newSnowOc;
+          this.activeAvActivityCommentOc = this.constantsService.avActivityCommentNewSnowOc;
         }
         break;
       case "windDriftedSnow":
         if (this.activeAvActivityCommentTextcat !== undefined) {
-          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.windDriftedSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.avActivityCommentWindDriftedSnowTextcat;
         } else {
-          this.activeAvActivityCommentTextcat = this.constantsService.windDriftedSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.constantsService.avActivityCommentWindDriftedSnowTextcat;
         }
         if (this.activeAvActivityCommentDe !== undefined) {
-          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.windDriftedSnowDe;
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.avActivityCommentWindDriftedSnowDe;
         } else {
-          this.activeAvActivityCommentDe = this.constantsService.windDriftedSnowDe;
+          this.activeAvActivityCommentDe = this.constantsService.avActivityCommentWindDriftedSnowDe;
         }
         if (this.activeAvActivityCommentIt !== undefined) {
-          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.windDriftedSnowIt;
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.avActivityCommentWindDriftedSnowIt;
         } else {
-          this.activeAvActivityCommentIt = this.constantsService.windDriftedSnowIt;
+          this.activeAvActivityCommentIt = this.constantsService.avActivityCommentWindDriftedSnowIt;
         }
         if (this.activeAvActivityCommentEn !== undefined) {
-          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.windDriftedSnowEn;
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.avActivityCommentWindDriftedSnowEn;
         } else {
-          this.activeAvActivityCommentEn = this.constantsService.windDriftedSnowEn;
+          this.activeAvActivityCommentEn = this.constantsService.avActivityCommentWindDriftedSnowEn;
         }
         if (this.activeAvActivityCommentFr !== undefined) {
-          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.windDriftedSnowFr;
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.avActivityCommentWindDriftedSnowFr;
         } else {
-          this.activeAvActivityCommentFr = this.constantsService.windDriftedSnowFr;
+          this.activeAvActivityCommentFr = this.constantsService.avActivityCommentWindDriftedSnowFr;
         }
         if (this.activeAvActivityCommentEs !== undefined) {
-          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.windDriftedSnowEs;
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.avActivityCommentWindDriftedSnowEs;
         } else {
-          this.activeAvActivityCommentEs = this.constantsService.windDriftedSnowEs;
+          this.activeAvActivityCommentEs = this.constantsService.avActivityCommentWindDriftedSnowEs;
         }
         if (this.activeAvActivityCommentCa !== undefined) {
-          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.windDriftedSnowCa;
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.avActivityCommentWindDriftedSnowCa;
         } else {
-          this.activeAvActivityCommentCa = this.constantsService.windDriftedSnowCa;
+          this.activeAvActivityCommentCa = this.constantsService.avActivityCommentWindDriftedSnowCa;
         }
         if (this.activeAvActivityCommentOc !== undefined) {
-          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.windDriftedSnowOc;
+          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.avActivityCommentWindDriftedSnowOc;
         } else {
-          this.activeAvActivityCommentOc = this.constantsService.windDriftedSnowOc;
+          this.activeAvActivityCommentOc = this.constantsService.avActivityCommentWindDriftedSnowOc;
         }
         break;
       case "persistentWeakLayers":
         if (this.activeAvActivityCommentTextcat !== undefined) {
-          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.persistentWeakLayersTextcat;
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.avActivityCommentPersistentWeakLayersTextcat;
         } else {
-          this.activeAvActivityCommentTextcat = this.constantsService.persistentWeakLayersTextcat;
+          this.activeAvActivityCommentTextcat = this.constantsService.avActivityCommentPersistentWeakLayersTextcat;
         }
         if (this.activeAvActivityCommentDe !== undefined) {
-          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.persistentWeakLayersDe;
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.avActivityCommentPersistentWeakLayersDe;
         } else {
-          this.activeAvActivityCommentDe = this.constantsService.persistentWeakLayersDe;
+          this.activeAvActivityCommentDe = this.constantsService.avActivityCommentPersistentWeakLayersDe;
         }
         if (this.activeAvActivityCommentIt !== undefined) {
-          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.persistentWeakLayersIt;
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.avActivityCommentPersistentWeakLayersIt;
         } else {
-          this.activeAvActivityCommentIt = this.constantsService.persistentWeakLayersIt;
+          this.activeAvActivityCommentIt = this.constantsService.avActivityCommentPersistentWeakLayersIt;
         }
         if (this.activeAvActivityCommentEn !== undefined) {
-          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.persistentWeakLayersEn;
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.avActivityCommentPersistentWeakLayersEn;
         } else {
-          this.activeAvActivityCommentEn = this.constantsService.persistentWeakLayersEn;
+          this.activeAvActivityCommentEn = this.constantsService.avActivityCommentPersistentWeakLayersEn;
         }
         if (this.activeAvActivityCommentFr !== undefined) {
-          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.persistentWeakLayersFr;
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.avActivityCommentPersistentWeakLayersFr;
         } else {
-          this.activeAvActivityCommentFr = this.constantsService.persistentWeakLayersFr;
+          this.activeAvActivityCommentFr = this.constantsService.avActivityCommentPersistentWeakLayersFr;
         }
         if (this.activeAvActivityCommentEs !== undefined) {
-          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.persistentWeakLayersEs;
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.avActivityCommentPersistentWeakLayersEs;
         } else {
-          this.activeAvActivityCommentEs = this.constantsService.persistentWeakLayersEs;
+          this.activeAvActivityCommentEs = this.constantsService.avActivityCommentPersistentWeakLayersEs;
         }
         if (this.activeAvActivityCommentCa !== undefined) {
-          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.persistentWeakLayersCa;
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.avActivityCommentPersistentWeakLayersCa;
         } else {
-          this.activeAvActivityCommentCa = this.constantsService.persistentWeakLayersCa;
+          this.activeAvActivityCommentCa = this.constantsService.avActivityCommentPersistentWeakLayersCa;
         }
         if (this.activeAvActivityCommentOc !== undefined) {
-          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.persistentWeakLayersOc;
+          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.avActivityCommentPersistentWeakLayersOc;
         } else {
-          this.activeAvActivityCommentOc = this.constantsService.persistentWeakLayersOc;
+          this.activeAvActivityCommentOc = this.constantsService.avActivityCommentPersistentWeakLayersOc;
         }
         break;
       case "wetSnow":
         if (this.activeAvActivityCommentTextcat !== undefined) {
-          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.wetSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.avActivityCommentWetSnowTextcat;
         } else {
-          this.activeAvActivityCommentTextcat = this.constantsService.wetSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.constantsService.avActivityCommentWetSnowTextcat;
         }
         if (this.activeAvActivityCommentDe !== undefined) {
-          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.wetSnowDe;
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.avActivityCommentWetSnowDe;
         } else {
-          this.activeAvActivityCommentDe = this.constantsService.wetSnowDe;
+          this.activeAvActivityCommentDe = this.constantsService.avActivityCommentWetSnowDe;
         }
         if (this.activeAvActivityCommentIt !== undefined) {
-          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.wetSnowIt;
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.avActivityCommentWetSnowIt;
         } else {
-          this.activeAvActivityCommentIt = this.constantsService.wetSnowIt;
+          this.activeAvActivityCommentIt = this.constantsService.avActivityCommentWetSnowIt;
         }
         if (this.activeAvActivityCommentEn !== undefined) {
-          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.wetSnowEn;
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.avActivityCommentWetSnowEn;
         } else {
-          this.activeAvActivityCommentEn = this.constantsService.wetSnowEn;
+          this.activeAvActivityCommentEn = this.constantsService.avActivityCommentWetSnowEn;
         }
         if (this.activeAvActivityCommentFr !== undefined) {
-          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.wetSnowFr;
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.avActivityCommentWetSnowFr;
         } else {
-          this.activeAvActivityCommentFr = this.constantsService.wetSnowFr;
+          this.activeAvActivityCommentFr = this.constantsService.avActivityCommentWetSnowFr;
         }
         if (this.activeAvActivityCommentEs !== undefined) {
-          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.wetSnowEs;
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.avActivityCommentWetSnowEs;
         } else {
-          this.activeAvActivityCommentEs = this.constantsService.wetSnowEs;
+          this.activeAvActivityCommentEs = this.constantsService.avActivityCommentWetSnowEs;
         }
         if (this.activeAvActivityCommentCa !== undefined) {
-          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.wetSnowCa;
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.avActivityCommentWetSnowCa;
         } else {
-          this.activeAvActivityCommentCa = this.constantsService.wetSnowCa;
+          this.activeAvActivityCommentCa = this.constantsService.avActivityCommentWetSnowCa;
         }
         if (this.activeAvActivityCommentOc !== undefined) {
-          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.wetSnowOc;
+          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.avActivityCommentWetSnowOc;
         } else {
-          this.activeAvActivityCommentOc = this.constantsService.wetSnowOc;
+          this.activeAvActivityCommentOc = this.constantsService.avActivityCommentWetSnowOc;
         }
         break;
       case "glidingSnow":
         if (this.activeAvActivityCommentTextcat !== undefined) {
-          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.glidingSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.avActivityCommentGlidingSnowTextcat;
         } else {
-          this.activeAvActivityCommentTextcat = this.constantsService.glidingSnowTextcat;
+          this.activeAvActivityCommentTextcat = this.constantsService.avActivityCommentGlidingSnowTextcat;
         }
         if (this.activeAvActivityCommentDe !== undefined) {
-          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.glidingSnowDe;
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.avActivityCommentGlidingSnowDe;
         } else {
-          this.activeAvActivityCommentDe = this.constantsService.glidingSnowDe;
+          this.activeAvActivityCommentDe = this.constantsService.avActivityCommentGlidingSnowDe;
         }
         if (this.activeAvActivityCommentIt !== undefined) {
-          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.glidingSnowIt;
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.avActivityCommentGlidingSnowIt;
         } else {
-          this.activeAvActivityCommentIt = this.constantsService.glidingSnowIt;
+          this.activeAvActivityCommentIt = this.constantsService.avActivityCommentGlidingSnowIt;
         }
         if (this.activeAvActivityCommentEn !== undefined) {
-          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.glidingSnowEn;
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.avActivityCommentGlidingSnowEn;
         } else {
-          this.activeAvActivityCommentEn = this.constantsService.glidingSnowEn;
+          this.activeAvActivityCommentEn = this.constantsService.avActivityCommentGlidingSnowEn;
         }
         if (this.activeAvActivityCommentFr !== undefined) {
-          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.glidingSnowFr;
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.avActivityCommentGlidingSnowFr;
         } else {
-          this.activeAvActivityCommentFr = this.constantsService.glidingSnowFr;
+          this.activeAvActivityCommentFr = this.constantsService.avActivityCommentGlidingSnowFr;
         }
         if (this.activeAvActivityCommentEs !== undefined) {
-          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.glidingSnowEs;
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.avActivityCommentGlidingSnowEs;
         } else {
-          this.activeAvActivityCommentEs = this.constantsService.glidingSnowEs;
+          this.activeAvActivityCommentEs = this.constantsService.avActivityCommentGlidingSnowEs;
         }
         if (this.activeAvActivityCommentCa !== undefined) {
-          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.glidingSnowCa;
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.avActivityCommentGlidingSnowCa;
         } else {
-          this.activeAvActivityCommentCa = this.constantsService.glidingSnowCa;
+          this.activeAvActivityCommentCa = this.constantsService.avActivityCommentGlidingSnowCa;
         }
         if (this.activeAvActivityCommentOc !== undefined) {
-          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.glidingSnowOc;
+          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.avActivityCommentGlidingSnowOc;
         } else {
-          this.activeAvActivityCommentOc = this.constantsService.glidingSnowOc;
+          this.activeAvActivityCommentOc = this.constantsService.avActivityCommentGlidingSnowOc;
         }
         break;
       case "favourableSituation":
         if (this.activeAvActivityCommentTextcat !== undefined) {
-          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.favourableSituationTextcat;
+          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.constantsService.avActivityCommentFavourableSituationTextcat;
         } else {
-          this.activeAvActivityCommentTextcat = this.constantsService.favourableSituationTextcat;
+          this.activeAvActivityCommentTextcat = this.constantsService.avActivityCommentFavourableSituationTextcat;
         }
         if (this.activeAvActivityCommentDe !== undefined) {
-          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.favourableSituationDe;
+          this.activeAvActivityCommentDe = this.activeAvActivityCommentDe + " " + this.constantsService.avActivityCommentFavourableSituationDe;
         } else {
-          this.activeAvActivityCommentDe = this.constantsService.favourableSituationDe;
+          this.activeAvActivityCommentDe = this.constantsService.avActivityCommentFavourableSituationDe;
         }
         if (this.activeAvActivityCommentIt !== undefined) {
-          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.favourableSituationIt;
+          this.activeAvActivityCommentIt = this.activeAvActivityCommentIt + " " + this.constantsService.avActivityCommentFavourableSituationIt;
         } else {
-          this.activeAvActivityCommentIt = this.constantsService.favourableSituationIt;
+          this.activeAvActivityCommentIt = this.constantsService.avActivityCommentFavourableSituationIt;
         }
         if (this.activeAvActivityCommentEn !== undefined) {
-          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.favourableSituationEn;
+          this.activeAvActivityCommentEn = this.activeAvActivityCommentEn + " " + this.constantsService.avActivityCommentFavourableSituationEn;
         } else {
-          this.activeAvActivityCommentEn = this.constantsService.favourableSituationEn;
+          this.activeAvActivityCommentEn = this.constantsService.avActivityCommentFavourableSituationEn;
         }
         if (this.activeAvActivityCommentFr !== undefined) {
-          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.favourableSituationFr;
+          this.activeAvActivityCommentFr = this.activeAvActivityCommentFr + " " + this.constantsService.avActivityCommentFavourableSituationFr;
         } else {
-          this.activeAvActivityCommentFr = this.constantsService.favourableSituationFr;
+          this.activeAvActivityCommentFr = this.constantsService.avActivityCommentFavourableSituationFr;
         }
         if (this.activeAvActivityCommentEs !== undefined) {
-          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.favourableSituationEs;
+          this.activeAvActivityCommentEs = this.activeAvActivityCommentEs + " " + this.constantsService.avActivityCommentFavourableSituationEs;
         } else {
-          this.activeAvActivityCommentEs = this.constantsService.favourableSituationEs;
+          this.activeAvActivityCommentEs = this.constantsService.avActivityCommentFavourableSituationEs;
         }
         if (this.activeAvActivityCommentCa !== undefined) {
-          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.favourableSituationCa;
+          this.activeAvActivityCommentCa = this.activeAvActivityCommentCa + " " + this.constantsService.avActivityCommentFavourableSituationCa;
         } else {
-          this.activeAvActivityCommentCa = this.constantsService.favourableSituationCa;
+          this.activeAvActivityCommentCa = this.constantsService.avActivityCommentFavourableSituationCa;
         }
         if (this.activeAvActivityCommentOc !== undefined) {
-          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.favourableSituationOc;
+          this.activeAvActivityCommentOc = this.activeAvActivityCommentOc + " " + this.constantsService.avActivityCommentFavourableSituationOc;
         } else {
-          this.activeAvActivityCommentOc = this.constantsService.favourableSituationOc;
+          this.activeAvActivityCommentOc = this.constantsService.avActivityCommentFavourableSituationOc;
         }
         break;
       default:
@@ -2357,6 +2360,280 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   loadAvActivityCommentExampleTextCancel() {
     this.loadAvActivityCommentExampleTextModalRef.hide();
   }
+
+  openLoadSnowpackStructureCommentExampleTextModal(template: TemplateRef<any>) {
+    this.loadSnowpackStructureCommentExampleTextModalRef = this.modalService.show(template, this.config);
+  }
+
+  loadSnowpackStructureCommentExampleText(avalancheProblem) {
+    switch (avalancheProblem) {
+      case "newSnow":
+        if (this.activeSnowpackStructureCommentTextcat !== undefined) {
+          this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.constantsService.snowpackStructureCommentNewSnowTextcat;
+        } else {
+          this.activeSnowpackStructureCommentTextcat = this.constantsService.snowpackStructureCommentNewSnowTextcat;
+        }
+        if (this.activeSnowpackStructureCommentDe !== undefined) {
+          this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.constantsService.snowpackStructureCommentNewSnowDe;
+        } else {
+          this.activeSnowpackStructureCommentDe = this.constantsService.snowpackStructureCommentNewSnowDe;
+        }
+        if (this.activeSnowpackStructureCommentIt !== undefined) {
+          this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.constantsService.snowpackStructureCommentNewSnowIt;
+        } else {
+          this.activeSnowpackStructureCommentIt = this.constantsService.snowpackStructureCommentNewSnowIt;
+        }
+        if (this.activeSnowpackStructureCommentEn !== undefined) {
+          this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.constantsService.snowpackStructureCommentNewSnowEn;
+        } else {
+          this.activeSnowpackStructureCommentEn = this.constantsService.snowpackStructureCommentNewSnowEn;
+        }
+        if (this.activeSnowpackStructureCommentFr !== undefined) {
+          this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.constantsService.snowpackStructureCommentNewSnowFr;
+        } else {
+          this.activeSnowpackStructureCommentFr = this.constantsService.snowpackStructureCommentNewSnowFr;
+        }
+        if (this.activeSnowpackStructureCommentEs !== undefined) {
+          this.activeSnowpackStructureCommentEs = this.activeSnowpackStructureCommentEs + " " + this.constantsService.snowpackStructureCommentNewSnowEs;
+        } else {
+          this.activeSnowpackStructureCommentEs = this.constantsService.snowpackStructureCommentNewSnowEs;
+        }
+        if (this.activeSnowpackStructureCommentCa !== undefined) {
+          this.activeSnowpackStructureCommentCa = this.activeSnowpackStructureCommentCa + " " + this.constantsService.snowpackStructureCommentNewSnowCa;
+        } else {
+          this.activeSnowpackStructureCommentCa = this.constantsService.snowpackStructureCommentNewSnowCa;
+        }
+        if (this.activeSnowpackStructureCommentOc !== undefined) {
+          this.activeSnowpackStructureCommentOc = this.activeSnowpackStructureCommentOc + " " + this.constantsService.snowpackStructureCommentNewSnowOc;
+        } else {
+          this.activeSnowpackStructureCommentOc = this.constantsService.snowpackStructureCommentNewSnowOc;
+        }
+        break;
+      case "windDriftedSnow":
+        if (this.activeSnowpackStructureCommentTextcat !== undefined) {
+          this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.constantsService.snowpackStructureCommentWindDriftedSnowTextcat;
+        } else {
+          this.activeSnowpackStructureCommentTextcat = this.constantsService.snowpackStructureCommentWindDriftedSnowTextcat;
+        }
+        if (this.activeSnowpackStructureCommentDe !== undefined) {
+          this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowDe;
+        } else {
+          this.activeSnowpackStructureCommentDe = this.constantsService.snowpackStructureCommentWindDriftedSnowDe;
+        }
+        if (this.activeSnowpackStructureCommentIt !== undefined) {
+          this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowIt;
+        } else {
+          this.activeSnowpackStructureCommentIt = this.constantsService.snowpackStructureCommentWindDriftedSnowIt;
+        }
+        if (this.activeSnowpackStructureCommentEn !== undefined) {
+          this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowEn;
+        } else {
+          this.activeSnowpackStructureCommentEn = this.constantsService.snowpackStructureCommentWindDriftedSnowEn;
+        }
+        if (this.activeSnowpackStructureCommentFr !== undefined) {
+          this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowFr;
+        } else {
+          this.activeSnowpackStructureCommentFr = this.constantsService.snowpackStructureCommentWindDriftedSnowFr;
+        }
+        if (this.activeSnowpackStructureCommentEs !== undefined) {
+          this.activeSnowpackStructureCommentEs = this.activeSnowpackStructureCommentEs + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowEs;
+        } else {
+          this.activeSnowpackStructureCommentEs = this.constantsService.snowpackStructureCommentWindDriftedSnowEs;
+        }
+        if (this.activeSnowpackStructureCommentCa !== undefined) {
+          this.activeSnowpackStructureCommentCa = this.activeSnowpackStructureCommentCa + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowCa;
+        } else {
+          this.activeSnowpackStructureCommentCa = this.constantsService.snowpackStructureCommentWindDriftedSnowCa;
+        }
+        if (this.activeSnowpackStructureCommentOc !== undefined) {
+          this.activeSnowpackStructureCommentOc = this.activeSnowpackStructureCommentOc + " " + this.constantsService.snowpackStructureCommentWindDriftedSnowOc;
+        } else {
+          this.activeSnowpackStructureCommentOc = this.constantsService.snowpackStructureCommentWindDriftedSnowOc;
+        }
+        break;
+      case "persistentWeakLayers":
+        if (this.activeSnowpackStructureCommentTextcat !== undefined) {
+          this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.constantsService.snowpackStructureCommentPersistentWeakLayersTextcat;
+        } else {
+          this.activeSnowpackStructureCommentTextcat = this.constantsService.snowpackStructureCommentPersistentWeakLayersTextcat;
+        }
+        if (this.activeSnowpackStructureCommentDe !== undefined) {
+          this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.constantsService.snowpackStructureCommentPersistentWeakLayersDe;
+        } else {
+          this.activeSnowpackStructureCommentDe = this.constantsService.snowpackStructureCommentPersistentWeakLayersDe;
+        }
+        if (this.activeSnowpackStructureCommentIt !== undefined) {
+          this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.constantsService.snowpackStructureCommentPersistentWeakLayersIt;
+        } else {
+          this.activeSnowpackStructureCommentIt = this.constantsService.snowpackStructureCommentPersistentWeakLayersIt;
+        }
+        if (this.activeSnowpackStructureCommentEn !== undefined) {
+          this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.constantsService.snowpackStructureCommentPersistentWeakLayersEn;
+        } else {
+          this.activeSnowpackStructureCommentEn = this.constantsService.snowpackStructureCommentPersistentWeakLayersEn;
+        }
+        if (this.activeSnowpackStructureCommentFr !== undefined) {
+          this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.constantsService.snowpackStructureCommentPersistentWeakLayersFr;
+        } else {
+          this.activeSnowpackStructureCommentFr = this.constantsService.snowpackStructureCommentPersistentWeakLayersFr;
+        }
+        if (this.activeSnowpackStructureCommentEs !== undefined) {
+          this.activeSnowpackStructureCommentEs = this.activeSnowpackStructureCommentEs + " " + this.constantsService.snowpackStructureCommentPersistentWeakLayersEs;
+        } else {
+          this.activeSnowpackStructureCommentEs = this.constantsService.snowpackStructureCommentPersistentWeakLayersEs;
+        }
+        if (this.activeSnowpackStructureCommentCa !== undefined) {
+          this.activeSnowpackStructureCommentCa = this.activeSnowpackStructureCommentCa + " " + this.constantsService.snowpackStructureCommentPersistentWeakLayersCa;
+        } else {
+          this.activeSnowpackStructureCommentCa = this.constantsService.snowpackStructureCommentPersistentWeakLayersCa;
+        }
+        if (this.activeSnowpackStructureCommentOc !== undefined) {
+          this.activeSnowpackStructureCommentOc = this.activeSnowpackStructureCommentOc + " " + this.constantsService.snowpackStructureCommentPersistentWeakLayersOc;
+        } else {
+          this.activeSnowpackStructureCommentOc = this.constantsService.snowpackStructureCommentPersistentWeakLayersOc;
+        }
+        break;
+      case "wetSnow":
+        if (this.activeSnowpackStructureCommentTextcat !== undefined) {
+          this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.constantsService.snowpackStructureCommentWetSnowTextcat;
+        } else {
+          this.activeSnowpackStructureCommentTextcat = this.constantsService.snowpackStructureCommentWetSnowTextcat;
+        }
+        if (this.activeSnowpackStructureCommentDe !== undefined) {
+          this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.constantsService.snowpackStructureCommentWetSnowDe;
+        } else {
+          this.activeSnowpackStructureCommentDe = this.constantsService.snowpackStructureCommentWetSnowDe;
+        }
+        if (this.activeSnowpackStructureCommentIt !== undefined) {
+          this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.constantsService.snowpackStructureCommentWetSnowIt;
+        } else {
+          this.activeSnowpackStructureCommentIt = this.constantsService.snowpackStructureCommentWetSnowIt;
+        }
+        if (this.activeSnowpackStructureCommentEn !== undefined) {
+          this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.constantsService.snowpackStructureCommentWetSnowEn;
+        } else {
+          this.activeSnowpackStructureCommentEn = this.constantsService.snowpackStructureCommentWetSnowEn;
+        }
+        if (this.activeSnowpackStructureCommentFr !== undefined) {
+          this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.constantsService.snowpackStructureCommentWetSnowFr;
+        } else {
+          this.activeSnowpackStructureCommentFr = this.constantsService.snowpackStructureCommentWetSnowFr;
+        }
+        if (this.activeSnowpackStructureCommentEs !== undefined) {
+          this.activeSnowpackStructureCommentEs = this.activeSnowpackStructureCommentEs + " " + this.constantsService.snowpackStructureCommentWetSnowEs;
+        } else {
+          this.activeSnowpackStructureCommentEs = this.constantsService.snowpackStructureCommentWetSnowEs;
+        }
+        if (this.activeSnowpackStructureCommentCa !== undefined) {
+          this.activeSnowpackStructureCommentCa = this.activeSnowpackStructureCommentCa + " " + this.constantsService.snowpackStructureCommentWetSnowCa;
+        } else {
+          this.activeSnowpackStructureCommentCa = this.constantsService.snowpackStructureCommentWetSnowCa;
+        }
+        if (this.activeSnowpackStructureCommentOc !== undefined) {
+          this.activeSnowpackStructureCommentOc = this.activeSnowpackStructureCommentOc + " " + this.constantsService.snowpackStructureCommentWetSnowOc;
+        } else {
+          this.activeSnowpackStructureCommentOc = this.constantsService.snowpackStructureCommentWetSnowOc;
+        }
+        break;
+      case "glidingSnow":
+        if (this.activeSnowpackStructureCommentTextcat !== undefined) {
+          this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.constantsService.snowpackStructureCommentGlidingSnowTextcat;
+        } else {
+          this.activeSnowpackStructureCommentTextcat = this.constantsService.snowpackStructureCommentGlidingSnowTextcat;
+        }
+        if (this.activeSnowpackStructureCommentDe !== undefined) {
+          this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.constantsService.snowpackStructureCommentGlidingSnowDe;
+        } else {
+          this.activeSnowpackStructureCommentDe = this.constantsService.snowpackStructureCommentGlidingSnowDe;
+        }
+        if (this.activeSnowpackStructureCommentIt !== undefined) {
+          this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.constantsService.snowpackStructureCommentGlidingSnowIt;
+        } else {
+          this.activeSnowpackStructureCommentIt = this.constantsService.snowpackStructureCommentGlidingSnowIt;
+        }
+        if (this.activeSnowpackStructureCommentEn !== undefined) {
+          this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.constantsService.snowpackStructureCommentGlidingSnowEn;
+        } else {
+          this.activeSnowpackStructureCommentEn = this.constantsService.snowpackStructureCommentGlidingSnowEn;
+        }
+        if (this.activeSnowpackStructureCommentFr !== undefined) {
+          this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.constantsService.snowpackStructureCommentGlidingSnowFr;
+        } else {
+          this.activeSnowpackStructureCommentFr = this.constantsService.snowpackStructureCommentGlidingSnowFr;
+        }
+        if (this.activeSnowpackStructureCommentEs !== undefined) {
+          this.activeSnowpackStructureCommentEs = this.activeSnowpackStructureCommentEs + " " + this.constantsService.snowpackStructureCommentGlidingSnowEs;
+        } else {
+          this.activeSnowpackStructureCommentEs = this.constantsService.snowpackStructureCommentGlidingSnowEs;
+        }
+        if (this.activeSnowpackStructureCommentCa !== undefined) {
+          this.activeSnowpackStructureCommentCa = this.activeSnowpackStructureCommentCa + " " + this.constantsService.snowpackStructureCommentGlidingSnowCa;
+        } else {
+          this.activeSnowpackStructureCommentCa = this.constantsService.snowpackStructureCommentGlidingSnowCa;
+        }
+        if (this.activeSnowpackStructureCommentOc !== undefined) {
+          this.activeSnowpackStructureCommentOc = this.activeSnowpackStructureCommentOc + " " + this.constantsService.snowpackStructureCommentGlidingSnowOc;
+        } else {
+          this.activeSnowpackStructureCommentOc = this.constantsService.snowpackStructureCommentGlidingSnowOc;
+        }
+        break;
+      case "favourableSituation":
+        if (this.activeSnowpackStructureCommentTextcat !== undefined) {
+          this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.constantsService.snowpackStructureCommentFavourableSituationTextcat;
+        } else {
+          this.activeSnowpackStructureCommentTextcat = this.constantsService.snowpackStructureCommentFavourableSituationTextcat;
+        }
+        if (this.activeSnowpackStructureCommentDe !== undefined) {
+          this.activeSnowpackStructureCommentDe = this.activeSnowpackStructureCommentDe + " " + this.constantsService.snowpackStructureCommentFavourableSituationDe;
+        } else {
+          this.activeSnowpackStructureCommentDe = this.constantsService.snowpackStructureCommentFavourableSituationDe;
+        }
+        if (this.activeSnowpackStructureCommentIt !== undefined) {
+          this.activeSnowpackStructureCommentIt = this.activeSnowpackStructureCommentIt + " " + this.constantsService.snowpackStructureCommentFavourableSituationIt;
+        } else {
+          this.activeSnowpackStructureCommentIt = this.constantsService.snowpackStructureCommentFavourableSituationIt;
+        }
+        if (this.activeSnowpackStructureCommentEn !== undefined) {
+          this.activeSnowpackStructureCommentEn = this.activeSnowpackStructureCommentEn + " " + this.constantsService.snowpackStructureCommentFavourableSituationEn;
+        } else {
+          this.activeSnowpackStructureCommentEn = this.constantsService.snowpackStructureCommentFavourableSituationEn;
+        }
+        if (this.activeSnowpackStructureCommentFr !== undefined) {
+          this.activeSnowpackStructureCommentFr = this.activeSnowpackStructureCommentFr + " " + this.constantsService.snowpackStructureCommentFavourableSituationFr;
+        } else {
+          this.activeSnowpackStructureCommentFr = this.constantsService.snowpackStructureCommentFavourableSituationFr;
+        }
+        if (this.activeSnowpackStructureCommentEs !== undefined) {
+          this.activeSnowpackStructureCommentEs = this.activeSnowpackStructureCommentEs + " " + this.constantsService.snowpackStructureCommentFavourableSituationEs;
+        } else {
+          this.activeSnowpackStructureCommentEs = this.constantsService.snowpackStructureCommentFavourableSituationEs;
+        }
+        if (this.activeSnowpackStructureCommentCa !== undefined) {
+          this.activeSnowpackStructureCommentCa = this.activeSnowpackStructureCommentCa + " " + this.constantsService.snowpackStructureCommentFavourableSituationCa;
+        } else {
+          this.activeSnowpackStructureCommentCa = this.constantsService.snowpackStructureCommentFavourableSituationCa;
+        }
+        if (this.activeSnowpackStructureCommentOc !== undefined) {
+          this.activeSnowpackStructureCommentOc = this.activeSnowpackStructureCommentOc + " " + this.constantsService.snowpackStructureCommentFavourableSituationOc;
+        } else {
+          this.activeSnowpackStructureCommentOc = this.constantsService.snowpackStructureCommentFavourableSituationOc;
+        }
+        break;
+      default:
+        break;
+    }
+    this.setTexts();
+    this.loadSnowpackStructureCommentExampleTextModalRef.hide();
+  }
+
+  loadSnowpackStructureCommentExampleTextCancel() {
+    this.loadSnowpackStructureCommentExampleTextModalRef.hide();
+  }
+
+
+
+
+
 
   createAvalancheSituation(isAfternoon: boolean) {
     let daytime;

@@ -610,6 +610,7 @@
                         <div style="margin-bottom: 10px; padding-left: 0px;" class="col-md-12">
                           <label class="form-control-label" for="text-input" style="padding-right: 10px;"><strong>{{ "bulletins.create.label.snowpackStructureComment" | translate }}</strong></label>
                           <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-primary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.edit" | translate }}' (click)="openTextcat($event, 'activeSnowpackStructureComment', this.settingsService.getLangString(), this.activeSnowpackStructureCommentTextcat)"><i class="fa fa-pencil"></i></button>
+                          <button [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary float-right" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.example" | translate }}' (click)="openLoadSnowpackStructureCommentExampleTextModal(loadSnowpackStructureCommentExampleTextTemplate)"><i class="fa fa-file-text"></i></button>
                           <button *ngIf="!copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.copy" | translate }}' (click)="copyTextcat($event, 'snowpackStructureComment')"><i class="fa fa-copy"></i></button>
                           <button *ngIf="copyService.isCopying()" style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.paste" | translate }}' (click)="pasteTextcat($event, 'snowpackStructureComment')"><i class="fa fa-paste"></i></button>
                           <button style="margin-left: 5px;" [disabled]="loading || !bulletinsService.getIsEditable() || editRegions || !isCreator(activeBulletin)" type="reset" class="btn btn-sm btn-secondary" data-toggle="tooltip" title='{{ "bulletins.create.tooltip.textcat.delete" | translate }}' (click)="deleteTextcat($event, 'snowpackStructureComment')"><i class="fa fa-trash"></i></button>
@@ -924,5 +925,18 @@
     <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadAvActivityCommentExampleText('glidingSnow')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.glidingSnow" | translate }}</button>
     <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadAvActivityCommentExampleText('favourableSituation')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.favourableSituation" | translate }}</button>
     <button style="margin-bottom: 5px;" type="button" class="btn btn-default" (click)="loadAvActivityCommentExampleTextCancel()">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.cancel" | translate }}</button>
+  </div>
+</ng-template>
+
+<ng-template #loadSnowpackStructureCommentExampleTextTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.message" | translate }}</p>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadSnowpackStructureCommentExampleText('newSnow')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.newSnow" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadSnowpackStructureCommentExampleText('windDriftedSnow')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.windDriftedSnow" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadSnowpackStructureCommentExampleText('persistentWeakLayers')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.persistentWeakLayers" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadSnowpackStructureCommentExampleText('wetSnow')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.wetSnow" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadSnowpackStructureCommentExampleText('glidingSnow')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.glidingSnow" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-primary" (click)="loadSnowpackStructureCommentExampleText('favourableSituation')">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.favourableSituation" | translate }}</button>
+    <button style="margin-bottom: 5px;" type="button" class="btn btn-default" (click)="loadSnowpackStructureCommentExampleTextCancel()">{{ "bulletins.create.loadAvActivityCommentExampleTextDialog.cancel" | translate }}</button>
   </div>
 </ng-template>
