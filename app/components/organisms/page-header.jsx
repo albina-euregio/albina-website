@@ -98,6 +98,14 @@ class PageHeader extends React.Component {
                 {/* languages in alphabetical order */}
                 <li>
                   <a
+                    className="language-trigger-oc"
+                    onClick={() => this.handleChangeLanguage("oc")}
+                  >
+                    Aranese
+                  </a>
+                </li>
+                <li>
+                  <a
                     className="language-trigger-ca"
                     onClick={() => this.handleChangeLanguage("ca")}
                   >
@@ -142,14 +150,6 @@ class PageHeader extends React.Component {
                     onClick={() => this.handleChangeLanguage("it")}
                   >
                     Italiano
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="language-trigger-oc"
-                    onClick={() => this.handleChangeLanguage("oc")}
-                  >
-                    Aranese
                   </a>
                 </li>
               </ul>
