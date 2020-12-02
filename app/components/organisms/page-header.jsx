@@ -149,7 +149,7 @@ class PageHeader extends React.Component {
                     className="language-trigger-oc"
                     onClick={() => this.handleChangeLanguage("oc")}
                   >
-                    Occitan
+                    Aranese
                   </a>
                 </li>
               </ul>
