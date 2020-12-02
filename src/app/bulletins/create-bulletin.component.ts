@@ -1447,7 +1447,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     const pmData = JSON.stringify({
       textField: field,
       textDef: textDef || "",
-      srcLang: Enums.LanguageCode[l], // DEPRECATED with textcat-ng
       currentLang: this.translateService.currentLang,
       region: this.authenticationService.getTextcatRegionCode()
     });
