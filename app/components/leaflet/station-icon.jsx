@@ -129,7 +129,7 @@ export default class StationIcon extends React.Component {
         {this.showCircle() && this.getCircle(this.props.dataType, fill)}
         {this.props.direction &&
           this.getdirection(
-            this.props.value ? "combined" : "only",
+            this.hasValue ? "combined" : "only",
             this.props.direction + 180
           )}
         {this.hasValue && this.getText(this.props.value, s)}
