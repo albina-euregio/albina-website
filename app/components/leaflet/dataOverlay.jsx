@@ -219,8 +219,14 @@ export default class DataOverlay extends React.Component {
               self.props.playerCB("background", "load");
             }
           };
-          //console.log("setupDataLayer #3 png", this.props.overlay + ".png", anOverlay.type, anOverlay);
-          img.src = this.props.overlay + anOverlay.filePostfix;
+
+          let overlayFile = this.props.overlay + anOverlay.filePostfix;
+          if (anOverlay.fixPath)
+            overlayFile = overlayFile.replace(
+              RegExp(anOverlay.fixPath.find, "g"),
+              anOverlay.fixPath.replace
+            );
+          img.src = overlayFile;
         }
       });
     } else self.props.playerCB("background", "load");

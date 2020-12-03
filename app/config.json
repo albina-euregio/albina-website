@@ -576,7 +576,11 @@
           },
           "dataOverlays": [
             { "filePostfix": ".png", "type": "windSpeed" },
-            { "filePostfix": "-dir.png", "type": "windDirection" }
+            {
+              "filePostfix": "-dir.png",
+              "type": "windDirection",
+              "fixPath": { "find": "gust", "replace": "wind" }
+            }
           ],
           "direction": "wdir",
           "clusterOperation": "max"
