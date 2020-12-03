@@ -1517,11 +1517,15 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
+  concatTextcat(text1, text2) {
+    return text1.slice(0, -1).concat(",", text2.substring(1));
+  }
+
   pasteTextcat(event, field) {
     switch (field) {
       case "highlights":
         if (this.activeHighlightsTextcat !== undefined) {
-          this.activeHighlightsTextcat = this.activeHighlightsTextcat + "." + this.copyService.getTextTextcat();
+          this.activeHighlightsTextcat = this.concatTextcat(this.activeHighlightsTextcat, this.copyService.getTextTextcat());
         } else {
           this.activeHighlightsTextcat = this.copyService.getTextTextcat();
         }
@@ -1563,7 +1567,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         break;
       case "avActivityHighlights":
         if (this.activeAvActivityHighlightsTextcat !== undefined) {
-          this.activeAvActivityHighlightsTextcat = this.activeAvActivityHighlightsTextcat + "." + this.copyService.getTextTextcat();
+          this.activeAvActivityHighlightsTextcat = this.concatTextcat(this.activeAvActivityHighlightsTextcat, this.copyService.getTextTextcat());
         } else {
           this.activeAvActivityHighlightsTextcat = this.copyService.getTextTextcat();
         }
@@ -1605,7 +1609,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         break;
       case "avActivityComment":
         if (this.activeAvActivityCommentTextcat !== undefined) {
-          this.activeAvActivityCommentTextcat = this.activeAvActivityCommentTextcat + "." + this.copyService.getTextTextcat();
+          this.activeAvActivityCommentTextcat = this.concatTextcat(this.activeAvActivityCommentTextcat, this.copyService.getTextTextcat());
         } else {
           this.activeAvActivityCommentTextcat = this.copyService.getTextTextcat();
         }
@@ -1647,7 +1651,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         break;
       case "snowpackStructureComment":
         if (this.activeSnowpackStructureCommentTextcat !== undefined) {
-          this.activeSnowpackStructureCommentTextcat = this.activeSnowpackStructureCommentTextcat + "." + this.copyService.getTextTextcat();
+          this.activeSnowpackStructureCommentTextcat = this.concatTextcat(this.activeSnowpackStructureCommentTextcat, this.copyService.getTextTextcat());
         } else {
           this.activeSnowpackStructureCommentTextcat = this.copyService.getTextTextcat();
         }
@@ -1689,7 +1693,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         break;
       case "tendencyComment":
         if (this.activeTendencyCommentTextcat !== undefined) {
-          this.activeTendencyCommentTextcat = this.activeTendencyCommentTextcat + "." + this.copyService.getTextTextcat();
+          this.activeTendencyCommentTextcat = this.concatTextcat(this.activeTendencyCommentTextcat, this.copyService.getTextTextcat());
         } else {
           this.activeTendencyCommentTextcat = this.copyService.getTextTextcat();
         }
