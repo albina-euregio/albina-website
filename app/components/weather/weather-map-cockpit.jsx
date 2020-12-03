@@ -446,8 +446,8 @@ class WeatherMapCockpit extends React.Component {
           className={linkClassesPlay.join(" ")}
           href="#"
           title={this.props.intl.formatMessage({
-              id: "weathermap:cockpit:play"
-            })}
+            id: "weathermap:cockpit:play"
+          })}
           onClick={() => {
             this.props.player.toggle();
           }}
@@ -457,8 +457,8 @@ class WeatherMapCockpit extends React.Component {
           className={linkClassesStop.join(" ")}
           href="#"
           title={this.props.intl.formatMessage({
-              id: "weathermap:cockpit:stop"
-            })}
+            id: "weathermap:cockpit:stop"
+          })}
           onClick={() => {
             this.props.player.toggle();
           }}
@@ -560,7 +560,6 @@ class WeatherMapCockpit extends React.Component {
         this.props.player.toggle();
         break;
       default:
-        this.setPreviousTime();
         break;
     }
   }
