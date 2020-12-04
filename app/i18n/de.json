@@ -459,7 +459,7 @@
   "button:blog:IT-32-TN:text": "Trentino",
   "button:blog:IT-32-TN:link": "/blog?region=IT-32-TN",
   "button:snow:headline": "Schnee & Wetter",
-  "button:snow:hn:text": "Neuschneeproblem",
+  "button:snow:hn:text": "Neuschnee",
   "button:snow:hn:link": "/weather/map/new-snow",
   "button:snow:hs:text": "Schneehöhe",
   "button:snow:hs:link": "/weather/map/snow-height",
