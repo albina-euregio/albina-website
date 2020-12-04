@@ -130,7 +130,7 @@ export default class StationIcon extends React.Component {
         {this.props.direction &&
           this.getdirection(
             this.hasValue ? "combined" : "only",
-            this.props.direction
+            this.props.direction + 180
           )}
         {this.hasValue && this.getText(this.props.value, s)}
       </div>

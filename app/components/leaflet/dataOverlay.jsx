@@ -84,6 +84,8 @@ export default class DataOverlay extends React.Component {
           b: p.data[2]
         });
 
+        //console.log("pixelData", anOverlay.type, p.data, self.overlayCanvases[anOverlay.type]);
+
         // if (self.props.debug) {
         //   for (var y = 0; y < p.height; y++) {
         //     for (var x = 0; x < p.width; x++) {
@@ -119,7 +121,7 @@ export default class DataOverlay extends React.Component {
     let loadingCanvases = Object.fromEntries(
       // eslint-disable-next-line no-unused-vars
       Object.entries(this.overlayCanvases).filter(([key, value]) => {
-        console.log("allCanvasesLoaded", value);
+        //console.log("allCanvasesLoaded", key, value);
         return !value.loaded;
       })
     );
@@ -217,8 +219,14 @@ export default class DataOverlay extends React.Component {
               self.props.playerCB("background", "load");
             }
           };
-          //console.log("setupDataLayer #3 png", this.props.overlay + ".png");
-          img.src = this.props.overlay + ".png";
+
+          let overlayFile = this.props.overlay + anOverlay.filePostfix;
+          if (anOverlay.fixPath)
+            overlayFile = overlayFile.replace(
+              RegExp(anOverlay.fixPath.find, "g"),
+              anOverlay.fixPath.replace
+            );
+          img.src = overlayFile;
         }
       });
     } else self.props.playerCB("background", "load");
