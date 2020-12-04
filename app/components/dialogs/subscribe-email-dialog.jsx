@@ -185,7 +185,7 @@ class SubscribeEmailDialog extends React.Component {
                   title={this.props.intl.formatMessage({
                     id: "dialog:subscribe-email:subscribe:agree-link"
                   })}
-                  to="/declaration/"
+                  to="/more/privacy/"
                   target="_blank"
                 >
                   {this.props.intl.formatMessage({
