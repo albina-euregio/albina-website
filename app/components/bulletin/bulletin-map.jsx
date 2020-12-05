@@ -113,13 +113,19 @@ class BulletinMap extends React.Component {
     const b = this.props.store.activeBulletinCollection;
     if (b) {
       const daytime = b.hasDaytimeDependency() ? this.props.ampm : "fd";
+      const imgFormat =
+        window.config.webp && this.props.store.settings.date > "2020-12-01"
+          ? ".webp"
+          : ".png";
 
       const url =
         config.apis.geo +
         this.props.store.settings.date +
         "/" +
         daytime +
-        "_overlay.png?" +
+        "_overlay" +
+        imgFormat +
+        "?" +
         b.publicationDate.getTime();
       const params = config.map.overlay;
 
