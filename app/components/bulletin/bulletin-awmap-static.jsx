@@ -15,12 +15,14 @@ class BulletinAWMapStatic extends React.Component {
   }
 
   render() {
+    const imgFormat =
+      window.config.webp && this.props.date > "2020-12-01" ? ".webp" : ".jpg";
     const url =
       window.config.apis.geo +
       this.props.date +
       "/" +
       this.props.region + // possibly contains _PM
-      ".jpg";
+      imgFormat;
 
     return (
       <img
