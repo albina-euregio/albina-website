@@ -35,7 +35,7 @@ const BulletinMap = props => {
 
   const infoMessageLevels = useMemo(() => {
     const simple = Util.template(window.config.apis.bulletin.simple, {
-      date: props.date ? dateToISODateString(parseDate(props.date)) : "",
+      date: props.date ? dateToISODateString(parseDate(props.date)) : "latest",
       lang: APP_STORE.language
     });
 
