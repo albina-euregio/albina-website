@@ -80,7 +80,7 @@ function modal_open_by_params(modal, modal_type, modal_url, modal_title) {
         return window["modalStateStore"].isOpen;
       },
       beforeOpen: function() {
-        if (APP_DEV_MODE) console.log("beforeOpen", this.st);
+        // console.log("beforeOpen", this.st);
 
         window["modalStateStore"].open();
       },

@@ -224,7 +224,7 @@ class BulletinMap extends React.Component {
   }
 
   render() {
-    if (APP_DEV_MODE) console.log("bulletin-map->render", this.props.store);
+    // console.log("bulletin-map->render", this.props.store);
 
     let newLevel = this.props.store.settings.status;
     if (this.lastDate != this.props.date) {

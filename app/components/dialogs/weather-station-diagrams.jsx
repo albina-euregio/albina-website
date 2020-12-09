@@ -60,8 +60,7 @@ class WeatherStationDiagrams extends React.Component {
         })
       });
     });
-    if (APP_DEV_MODE)
-      console.log("assembleStationInfo", stationData, stationInfo);
+    // console.log("assembleStationInfo", stationData, stationInfo);
     return stationInfo;
   }
 
