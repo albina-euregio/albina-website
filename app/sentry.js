@@ -1,6 +1,6 @@
 /* enable JavaScript error tracking */
 // https://unpkg.com/browse/@sentry/types@5.7.1/dist/options.d.ts
-import * as Sentry from "@sentry/browser";
+import * as Sentry from "@sentry/react";
 if (!APP_DEV_MODE) {
   Sentry.init({
     release: "albina-website@" + APP_VERSION,
