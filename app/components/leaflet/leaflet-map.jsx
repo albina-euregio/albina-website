@@ -53,12 +53,6 @@ class LeafletMap extends React.Component {
     this.updateMaps();
   }
 
-  componentWillUnmount() {
-    if (this.map) {
-      this.map.off("zoomend", this._zoomend, this);
-    }
-  }
-
   updateMaps() {
     //console.log("updateMaps xyy");
     if (this.refs.mapDisabled && !this.mapDisabled) {
@@ -137,7 +131,6 @@ class LeafletMap extends React.Component {
       }, 50);
 
       this._init_tooltip();
-      this.map.on("zoomend", this._zoomend, this);
     }
   }
 
@@ -250,6 +243,7 @@ class LeafletMap extends React.Component {
   renderDisabledMap(mapOptions) {
     return (
       <Map
+        onZoomEnd={this._zoomend.bind(this)}
         className="map-disabled"
         ref="mapDisabled"
         gestureHandling
@@ -269,6 +263,7 @@ class LeafletMap extends React.Component {
   renderLoadedMap(mapOptions) {
     return (
       <Map
+        onZoomEnd={this._zoomend.bind(this)}
         onViewportChanged={this.props.onViewportChanged.bind(this.map)}
         useFlyTo
         ref={el => this.connectLayers(el)}
