@@ -7,7 +7,7 @@ import { video_init } from "../js/video";
 
 import { scroll } from "../js/scroll";
 /*
- * Compontent to be used for pages with content delivered by CMS API.
+ * Component to be used for pages with content delivered by CMS API.
  */
 export default class StaticPage extends React.Component {
   constructor(props) {
@@ -20,23 +20,22 @@ export default class StaticPage extends React.Component {
     };
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
+    if (this.props?.location?.pathname !== prevProps?.location?.pathname) {
+      this._fetchData();
+    }
     if (this.props.location.hash) {
       scroll(this.props.location.hash, 2000);
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    this._fetchData(nextProps);
-  }
-
   componentDidMount() {
-    this._fetchData(this.props);
+    this._fetchData();
   }
 
-  _fetchData(props) {
+  _fetchData() {
     // remove projectRoot from the URL
-    const site = props.location.pathname
+    const site = this.props.location.pathname
       .substr(config.projectRoot)
       .replace(/^\//, "");
 
