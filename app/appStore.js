@@ -94,7 +94,7 @@ class AppStore extends React.Component {
         if (window.bulletinStore !== undefined) {
           window.bulletinStore = new BulletinStore(); // bulleting store is language dependent
         }
-        if (APP_DEV_MODE) console.log("new language set", newLanguage);
+        // console.log("new language set", newLanguage);
         this.locale.value = newLanguage;
       }
       return true;

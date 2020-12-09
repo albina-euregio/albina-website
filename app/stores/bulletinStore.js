@@ -78,7 +78,7 @@ class BulletinCollection {
   setData(data) {
     this.dataRaw = convertCaamlToJson(data);
     this.daytimeBulletins = toDaytimeBulletins(this.dataRaw?.bulletins || []);
-    if (APP_DEV_MODE) console.log(this.dataRaw);
+    // console.log(this.dataRaw);
     this.status =
       typeof this.dataRaw === "object" && this.dataRaw && this.dataRaw.bulletins
         ? this.dataRaw.bulletins.length > 0
@@ -162,7 +162,7 @@ class BulletinStore {
    *   if it need to be fetched.
    */
   @action load(date, activate = true) {
-    if (APP_DEV_MODE) console.log("loading bulletin", { date, activate });
+    // console.log("loading bulletin", { date, activate });
     if (date) {
       if (this.bulletins[date]) {
         if (activate) {
@@ -191,7 +191,7 @@ class BulletinStore {
           .load(date)
           .then(() => {
             const status = this.archiveStore.getStatus(date);
-            if (APP_DEV_MODE) console.log("loaded bulletin", { date, status });
+            // console.log("loaded bulletin", { date, status });
             if (status == "ok") {
               return this._loadBulletinData(date);
             } else {

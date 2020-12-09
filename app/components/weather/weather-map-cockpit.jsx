@@ -290,7 +290,7 @@ class WeatherMapCockpit extends React.Component {
       if (closestTime) this.props.changeCurrentTime(closestTime);
     } catch (e) {
       // Anweisungen für jeden Fehler
-      console.log(e, this.props); // Fehler-Objekt an die Error-Funktion geben
+      console.error(e, this.props); // Fehler-Objekt an die Error-Funktion geben
     }
   }
 

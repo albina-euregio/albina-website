@@ -59,7 +59,10 @@ class Bulletin extends React.Component {
       }
     );
 
-    reaction(() => this.store.latest, () => this.componentDidUpdate({}));
+    reaction(
+      () => this.store.latest,
+      () => this.componentDidUpdate({})
+    );
     return this._fetchData(this.props);
     // this.checkRegion()
   }
@@ -161,7 +164,7 @@ class Bulletin extends React.Component {
     this.mapRefs = [];
 
     const collection = this.store.activeBulletinCollection;
-    if (APP_DEV_MODE) console.log("rendering bulletin ", this.store.bulletins);
+    // console.log("rendering bulletin ", this.store.bulletins);
 
     const shareDescription =
       this.state.title && this.store.settings.date
