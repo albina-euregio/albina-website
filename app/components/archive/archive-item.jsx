@@ -4,15 +4,12 @@ import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Util } from "leaflet";
 import { dateToISODateString, dateToDateString } from "../../util/date.js";
+import BulletinAwmapStatic from "../bulletin/bulletin-awmap-static.jsx";
 
 class ArchiveItem extends React.Component {
-  get previewMap() {
-    // TODO: fix daytime
-    return (
-      window.config.apis.geo +
-      dateToISODateString(this.props.date) +
-      "/am_albina_thumbnail.jpg"
-    );
+  constructor(props) {
+    super(props);
+    this.state = { fd: false };
   }
 
   getLanguage(dateString) {
@@ -110,7 +107,13 @@ class ArchiveItem extends React.Component {
                 id: "archive:show-forecast:hover"
               })}
             >
-              <img src={this.previewMap} alt="Region" />
+              <BulletinAwmapStatic
+                date={dateString}
+                region={
+                  this.state.fd ? "fd_albina_thumbnail" : "am_albina_thumbnail"
+                }
+                onError={() => this.setState({ fd: true })}
+              />
             </Link>
           )}
         </td>
