@@ -9,9 +9,9 @@
         "country_id": "AT",
         "country": "Austria",
         "aws_1": "LWD Salzburg",
-        "url_1_en": "http://www.lawine.salzburg.at/start.html?lang=en_UK",
-        "url_1_de": "http://www.lawine.salzburg.at/start.html",
-        "url_1_it": "http://www.lawine.salzburg.at/start.html?lang=en_UK"
+        "url_1_en": "https://lawine.salzburg.at/en/",
+        "url_1_de": "https://lawine.salzburg.at/",
+        "url_1_it": "https://lawine.salzburg.at/en/"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -973,7 +973,7 @@
         "country": "Austria",
         "aws_1": "LWD Vorarlberg",
         "url_1_en": "https://warndienste.cnv.at/dibos/lawine_en/",
-        "url_1_de": "http://warndienste.cnv.at/dibos/lawine/",
+        "url_1_de": "https://warndienste.cnv.at/dibos/lawine/",
         "url_1_it": "https://warndienste.cnv.at/dibos/lawine_en/"
       },
       "geometry": {
@@ -4477,9 +4477,9 @@
         "country_id": "AT",
         "country": "Austria",
         "aws_1": "LWD Kärnten",
-        "url_1_en": "http://www.lawinenwarndienst.ktn.gv.at/Lawinenwarndienst_Kaernten/lgp",
-        "url_1_de": "http://www.lawinenwarndienst.ktn.gv.at/Lawinenwarndienst_Kaernten/lgp",
-        "url_1_it": "http://www.lawinenwarndienst.ktn.gv.at/Lawinenwarndienst_Kaernten/lgp",
+        "url_1_en": "https://lawine-kaernten.at/",
+        "url_1_de": "https://lawine-kaernten.at/",
+        "url_1_it": "https://lawine-kaernten.at/",
         "reg_code": "AT-02-18"
       },
       "geometry": {
