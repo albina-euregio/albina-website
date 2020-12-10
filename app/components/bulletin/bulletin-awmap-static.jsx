@@ -30,6 +30,7 @@ class BulletinAWMapStatic extends React.Component {
         alt={this.props.intl.formatMessage({
           id: "bulletin:report:selected-region:alt"
         })}
+        onError={this.props.onError}
       />
     );
   }
