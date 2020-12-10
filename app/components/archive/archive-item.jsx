@@ -15,13 +15,26 @@ class ArchiveItem extends React.Component {
     );
   }
 
+  getLanguage(dateString) {
+    var lang = window["appStore"].language;
+    if (dateString < "2020-12-01") {
+      switch (lang) {
+        case "fr":
+        case "es":
+        case "ca":
+        case "oc":
+          return "en";
+        default:
+          return lang;
+      }
+    } else {
+      return lang;
+    }
+  }
+
   showMap(dateString) {
     var lang = window["appStore"].language;
-    var thresholdDateString = "10.1.2020";
-    var thresholdDate = new Date(Date.parse(thresholdDateString));
-    var date = new Date(Date.parse(dateString));
-
-    if (date < thresholdDate) {
+    if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
         case "es":
@@ -38,6 +51,7 @@ class ArchiveItem extends React.Component {
 
   render() {
     const dateString = dateToISODateString(this.props.date);
+    const lang = this.getLanguage(dateString);
 
     const baseLink = config.links.downloads["base"];
     return (
@@ -53,7 +67,7 @@ class ArchiveItem extends React.Component {
                   baseLink +
                   Util.template(config.links.downloads.pdf, {
                     date: dateString,
-                    lang: this.props.lang
+                    lang
                   })
                 }
                 rel="noopener"
@@ -72,7 +86,7 @@ class ArchiveItem extends React.Component {
                   baseLink +
                   Util.template(config.links.downloads.xml, {
                     date: dateString,
-                    lang: this.props.lang
+                    lang
                   })
                 }
                 title={this.props.intl.formatMessage({
@@ -87,8 +101,8 @@ class ArchiveItem extends React.Component {
             </li>
           </ul>
         </td>
-        {this.showMap(dateString) && (
-          <td>
+        <td>
+          {this.showMap(dateString) && (
             <Link
               to={"/bulletin/" + dateString}
               className="map-preview img tooltip"
@@ -98,8 +112,8 @@ class ArchiveItem extends React.Component {
             >
               <img src={this.previewMap} alt="Region" />
             </Link>
-          </td>
-        )}
+          )}
+        </td>
       </tr>
     );
   }
