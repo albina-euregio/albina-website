@@ -131,7 +131,7 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
 
   private selectNaturalCell(cell) {
     this.getDaytimeMatrixInformation().setNaturalDangerRating(Enums.DangerRating[this.getDangerRating(cell)]);
-    this.getDaytimeMatrixInformation().setNaturalAvalancheReleaseProbability(Enums.NaturalAvalancheReleaseProbability[this.getNaturalAvalancheReleaseProability(cell)]);
+    this.getDaytimeMatrixInformation().setNaturalAvalancheReleaseProbability(Enums.NaturalAvalancheReleaseProbability[this.getNaturalAvalancheReleaseProbability(cell)]);
     this.getDaytimeMatrixInformation().setNaturalHazardSiteDistribution(Enums.HazardSiteDistribution[this.getNaturalHazardSiteDistribution(cell)]);
     const element = this.getElement(cell);
     if (element && element !== undefined) {
@@ -628,7 +628,7 @@ export class MatrixComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  private getNaturalAvalancheReleaseProability(id) {
+  private getNaturalAvalancheReleaseProbability(id) {
     id = +id;
     if (id === 57 || id === 59 || id === 62 || id === 66) {
       return Enums.NaturalAvalancheReleaseProbability.one;
