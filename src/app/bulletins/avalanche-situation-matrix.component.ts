@@ -149,7 +149,6 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
 
   public selectArtificialDangerRating(event) {
     this.selectArtificialDangerRatingById(event.currentTarget.id);
-    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   public selectArtificialDangerRatingById(id) {
@@ -166,12 +165,13 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
         this.matrixInformation.setArtificialHazardSiteDistribution(undefined);
         this.matrixInformation.setArtificialAvalancheSize(undefined);
       }
+
+      this.bulletinDaytimeDescription.updateDangerRating();
     }
   }
 
   public selectNaturalDangerRating(event) {
     this.selectNaturalDangerRatingById(event.currentTarget.id);
-    this.bulletinDaytimeDescription.updateDangerRating();
   }
 
   public selectNaturalDangerRatingById(id) {
@@ -187,6 +187,8 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
         this.matrixInformation.setNaturalAvalancheReleaseProbability(undefined);
         this.matrixInformation.setNaturalHazardSiteDistribution(undefined);
       }
+  
+      this.bulletinDaytimeDescription.updateDangerRating();
     }
   }
 
