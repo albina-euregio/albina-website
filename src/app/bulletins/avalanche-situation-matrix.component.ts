@@ -202,7 +202,7 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
       } else {
         this.deselectNaturalCell(id);
       }
-  
+
       const artificialCell = this.getArtificialCell(this.matrixInformation);
       this.deselectArtificialCell(artificialCell);
 
