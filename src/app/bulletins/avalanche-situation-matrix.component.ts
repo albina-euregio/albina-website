@@ -108,7 +108,7 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
 
   resetMatrix() {
     for (let i = 0; i <= 72; i++) {
-      this.deselectCell("" + i);
+      this.setCellStyleInactive("" + i);
     }
   }
 
@@ -122,23 +122,41 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
     this.matrixInformation.setArtificialAvalancheReleaseProbability(Enums.ArtificialAvalancheReleaseProbability[this.getArtificialAvalancheReleaseProbability(cell)]);
     this.matrixInformation.setArtificialHazardSiteDistribution(Enums.HazardSiteDistribution[this.getArtificialHazardSiteDistribution(cell)]);
     this.matrixInformation.setArtificialAvalancheSize(Enums.AvalancheSize[this.getAvalancheSize(cell)]);
-    const element = this.getElement(cell);
-    if (element && element !== undefined) {
-      element.nativeElement.style.fill = this.getColor(cell);
-    }
+    this.setCellStyleActive(cell);
+  }
+
+  private deselectArtificialCell(cell) {
+    this.matrixInformation.setArtificialDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
+    this.matrixInformation.setArtificialAvalancheReleaseProbability(undefined);
+    this.matrixInformation.setArtificialHazardSiteDistribution(undefined);
+    this.matrixInformation.setArtificialAvalancheSize(undefined);
+    this.setCellStyleInactive(cell);
   }
 
   private selectNaturalCell(cell) {
     this.matrixInformation.setNaturalDangerRating(Enums.DangerRating[this.getDangerRating(cell)]);
     this.matrixInformation.setNaturalAvalancheReleaseProbability(Enums.NaturalAvalancheReleaseProbability[this.getNaturalAvalancheReleaseProbability(cell)]);
     this.matrixInformation.setNaturalHazardSiteDistribution(Enums.HazardSiteDistribution[this.getNaturalHazardSiteDistribution(cell)]);
-    const element = this.getElement(cell);
-    if (element && element !== undefined) {
-      element.nativeElement.style.fill = this.getColor(cell);
+    this.setCellStyleActive(cell);
+  }
+
+  private deselectNaturalCell(cell) {
+    this.matrixInformation.setNaturalDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
+    this.matrixInformation.setNaturalAvalancheReleaseProbability(undefined);
+    this.matrixInformation.setNaturalHazardSiteDistribution(undefined);
+    this.setCellStyleInactive(cell);
+  }
+
+  private setCellStyleActive(cell) {
+    if (cell !== undefined && cell !== null) {
+      const element = this.getElement(cell);
+      if (element && element !== undefined) {
+        element.nativeElement.style.fill = this.getColor(cell);
+      }
     }
   }
 
-  private deselectCell(cell) {
+  private setCellStyleInactive(cell) {
     if (cell !== undefined && cell !== null) {
       const element = this.getElement(cell);
       if (element !== undefined && element !== null) {
@@ -152,19 +170,19 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
   }
 
   public selectArtificialDangerRatingById(id) {
+    debugger
     if (!this.disabled) {
       const oldCell = this.getArtificialCell(this.matrixInformation);
-
-      this.deselectCell(oldCell);
+      this.setCellStyleInactive(oldCell);
 
       if (oldCell !== id) {
         this.selectArtificialCell(id);
       } else {
-        this.matrixInformation.setArtificialDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
-        this.matrixInformation.setArtificialAvalancheReleaseProbability(undefined);
-        this.matrixInformation.setArtificialHazardSiteDistribution(undefined);
-        this.matrixInformation.setArtificialAvalancheSize(undefined);
+        this.deselectArtificialCell(id);
       }
+
+      const naturalCell = this.getNaturalCell(this.matrixInformation);
+      this.deselectNaturalCell(naturalCell);
 
       this.bulletinDaytimeDescription.updateDangerRating();
     }
@@ -175,19 +193,21 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
   }
 
   public selectNaturalDangerRatingById(id) {
+    debugger
     if (!this.disabled) {
       const oldCell = this.getNaturalCell(this.matrixInformation);
 
-      this.deselectCell(oldCell);
+      this.setCellStyleInactive(oldCell);
 
       if (oldCell !== id) {
         this.selectNaturalCell(id);
       } else {
-        this.matrixInformation.setNaturalDangerRating(Enums.DangerRating[this.getDangerRating(Enums.DangerRating.missing)]);
-        this.matrixInformation.setNaturalAvalancheReleaseProbability(undefined);
-        this.matrixInformation.setNaturalHazardSiteDistribution(undefined);
+        this.deselectNaturalCell(id);
       }
   
+      const artificialCell = this.getArtificialCell(this.matrixInformation);
+      this.deselectArtificialCell(artificialCell);
+
       this.bulletinDaytimeDescription.updateDangerRating();
     }
   }
