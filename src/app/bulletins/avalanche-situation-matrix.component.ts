@@ -119,7 +119,7 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
 
   private selectArtificialCell(cell) {
     this.matrixInformation.setArtificialDangerRating(Enums.DangerRating[this.getDangerRating(cell)]);
-    this.matrixInformation.setArtificialAvalancheReleaseProbability(Enums.ArtificialAvalancheReleaseProbability[this.getArtificialAvalancheReleaseProability(cell)]);
+    this.matrixInformation.setArtificialAvalancheReleaseProbability(Enums.ArtificialAvalancheReleaseProbability[this.getArtificialAvalancheReleaseProbability(cell)]);
     this.matrixInformation.setArtificialHazardSiteDistribution(Enums.HazardSiteDistribution[this.getArtificialHazardSiteDistribution(cell)]);
     this.matrixInformation.setArtificialAvalancheSize(Enums.AvalancheSize[this.getAvalancheSize(cell)]);
     const element = this.getElement(cell);
@@ -504,7 +504,7 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
     }
   }
 
-  private getArtificialAvalancheReleaseProability(id) {
+  private getArtificialAvalancheReleaseProbability(id) {
     if ((id > 0 && id <= 4) || (id > 12 && id <= 16) || (id > 28 && id <= 32)) {
       return Enums.ArtificialAvalancheReleaseProbability.one;
     } else if ((id > 4 && id <= 8) || (id > 16 && id <= 20) || (id > 32 && id <= 36)) {
