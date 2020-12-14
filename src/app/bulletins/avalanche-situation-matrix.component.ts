@@ -170,7 +170,6 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
   }
 
   public selectArtificialDangerRatingById(id) {
-    debugger
     if (!this.disabled) {
       const oldCell = this.getArtificialCell(this.matrixInformation);
       this.setCellStyleInactive(oldCell);
@@ -193,7 +192,6 @@ export class AvalancheSituationMatrixComponent implements AfterViewInit, OnChang
   }
 
   public selectNaturalDangerRatingById(id) {
-    debugger
     if (!this.disabled) {
       const oldCell = this.getNaturalCell(this.matrixInformation);
 
