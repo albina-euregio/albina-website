@@ -85,10 +85,7 @@ class Timeline extends React.Component {
     $("#whereami").css({ left: left });
     this.props.timeArray.forEach(eTime => {
       //console.log("setClosestTick eTime", eTime);
-      const curItemLeft = Math.abs(
-        $(".t" + eTime).offset()["left"] -
-          $(this.refs.daysContainer).offset()["left"]
-      );
+      const curItemLeft = this.getLeftForTime(eTime);
       // console.log(
       //   "setClosestTick ccc eee ITEM",
       //   eTime,
