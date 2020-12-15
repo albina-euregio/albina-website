@@ -70,6 +70,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public activeAvActivityHighlightsEs: string;
   public activeAvActivityHighlightsCa: string;
   public activeAvActivityHighlightsOc: string;
+  public activeAvActivityHighlightsNotes: string;
 
   public activeAvActivityCommentTextcat: string;
   public activeAvActivityCommentDe: string;
@@ -79,6 +80,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public activeAvActivityCommentEs: string;
   public activeAvActivityCommentCa: string;
   public activeAvActivityCommentOc: string;
+  public activeAvActivityCommentNotes: string;
 
   public activeSnowpackStructureHighlightsTextcat: string;
   public activeSnowpackStructureHighlightsDe: string;
@@ -88,6 +90,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public activeSnowpackStructureHighlightsEs: string;
   public activeSnowpackStructureHighlightsCa: string;
   public activeSnowpackStructureHighlightsOc: string;
+  public activeSnowpackStructureHighlightsNotes: string;
 
   public activeSnowpackStructureCommentTextcat: string;
   public activeSnowpackStructureCommentDe: string;
@@ -97,6 +100,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public activeSnowpackStructureCommentEs: string;
   public activeSnowpackStructureCommentCa: string;
   public activeSnowpackStructureCommentOc: string;
+  public activeSnowpackStructureCommentNotes: string;
 
   public activeTendencyCommentTextcat: string;
   public activeTendencyCommentDe: string;
@@ -106,6 +110,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public activeTendencyCommentEs: string;
   public activeTendencyCommentCa: string;
   public activeTendencyCommentOc: string;
+  public activeTendencyCommentNotes: string;
 
   public isAccordionDangerRatingOpen: boolean;
   public isAccordionAvalancheSituationOpen: boolean;
@@ -230,6 +235,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.activeAvActivityHighlightsEs = undefined;
     this.activeAvActivityHighlightsCa = undefined;
     this.activeAvActivityHighlightsOc = undefined;
+    this.activeAvActivityHighlightsNotes = undefined;
 
     this.activeAvActivityCommentTextcat = undefined;
     this.activeAvActivityCommentDe = undefined;
@@ -239,6 +245,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.activeAvActivityCommentEs = undefined;
     this.activeAvActivityCommentCa = undefined;
     this.activeAvActivityCommentOc = undefined;
+    this.activeAvActivityCommentNotes = undefined;
 
     this.activeSnowpackStructureHighlightsTextcat = undefined;
     this.activeSnowpackStructureHighlightsDe = undefined;
@@ -248,6 +255,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.activeSnowpackStructureHighlightsEs = undefined;
     this.activeSnowpackStructureHighlightsCa = undefined;
     this.activeSnowpackStructureHighlightsOc = undefined;
+    this.activeSnowpackStructureHighlightsNotes = undefined;
 
     this.activeSnowpackStructureCommentTextcat = undefined;
     this.activeSnowpackStructureCommentDe = undefined;
@@ -257,6 +265,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.activeSnowpackStructureCommentEs = undefined;
     this.activeSnowpackStructureCommentCa = undefined;
     this.activeSnowpackStructureCommentOc = undefined;
+    this.activeSnowpackStructureCommentNotes = undefined;
 
     this.activeTendencyCommentTextcat = undefined;
     this.activeTendencyCommentDe = undefined;
@@ -266,6 +275,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.activeTendencyCommentEs = undefined;
     this.activeTendencyCommentCa = undefined;
     this.activeTendencyCommentOc = undefined;
+    this.activeTendencyCommentNotes = undefined;
 
     this.editRegions = false;
     this.showAfternoonMap = false;
@@ -867,6 +877,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeAvActivityHighlightsEs = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.es);
         this.activeAvActivityHighlightsCa = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.ca);
         this.activeAvActivityHighlightsOc = this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.oc);
+        this.activeAvActivityHighlightsNotes = this.activeBulletin.getAvActivityHighlightsNotes();
 
         this.activeAvActivityCommentTextcat = this.activeBulletin.getAvActivityCommentTextcat();
         this.activeAvActivityCommentDe = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de);
@@ -876,6 +887,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeAvActivityCommentEs = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.es);
         this.activeAvActivityCommentCa = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.ca);
         this.activeAvActivityCommentOc = this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.oc);
+        this.activeAvActivityCommentNotes = this.activeBulletin.getAvActivityCommentNotes();
 
         this.activeSnowpackStructureHighlightsTextcat = this.activeBulletin.getSnowpackStructureHighlightsTextcat();
         this.activeSnowpackStructureHighlightsDe = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.de);
@@ -885,6 +897,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeSnowpackStructureHighlightsEs = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.es);
         this.activeSnowpackStructureHighlightsCa = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.ca);
         this.activeSnowpackStructureHighlightsOc = this.activeBulletin.getSnowpackStructureHighlightIn(Enums.LanguageCode.oc);
+        this.activeSnowpackStructureHighlightsNotes = this.activeBulletin.getSnowpackStructureHighlightsNotes();
 
         this.activeSnowpackStructureCommentTextcat = this.activeBulletin.getSnowpackStructureCommentTextcat();
         this.activeSnowpackStructureCommentDe = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de);
@@ -894,6 +907,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeSnowpackStructureCommentEs = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.es);
         this.activeSnowpackStructureCommentCa = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.ca);
         this.activeSnowpackStructureCommentOc = this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.oc);
+        this.activeSnowpackStructureCommentNotes = this.activeBulletin.getSnowpackStructureCommentNotes();
 
         this.activeTendencyCommentTextcat = this.activeBulletin.getTendencyCommentTextcat();
         this.activeTendencyCommentDe = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.de);
@@ -903,6 +917,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.activeTendencyCommentEs = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.es);
         this.activeTendencyCommentCa = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.ca);
         this.activeTendencyCommentOc = this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.oc);
+        this.activeTendencyCommentNotes = this.activeBulletin.getTendencyCommentNotes();
 
         this.mapService.selectAggregatedRegion(this.activeBulletin);
       }
@@ -1083,6 +1098,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsEs, Enums.LanguageCode.es);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsCa, Enums.LanguageCode.ca);
       this.activeBulletin.setAvActivityHighlightsIn(this.activeAvActivityHighlightsOc, Enums.LanguageCode.oc);
+      this.activeBulletin.setAvActivityHighlightsNotes(this.activeAvActivityHighlightsNotes);
 
       this.activeBulletin.setAvActivityCommentTextcat(this.activeAvActivityCommentTextcat);
       this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentDe, Enums.LanguageCode.de);
@@ -1092,6 +1108,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentEs, Enums.LanguageCode.es);
       this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentCa, Enums.LanguageCode.ca);
       this.activeBulletin.setAvActivityCommentIn(this.activeAvActivityCommentOc, Enums.LanguageCode.oc);
+      this.activeBulletin.setAvActivityCommentNotes(this.activeAvActivityCommentNotes);
 
       this.activeBulletin.setSnowpackStructureHighlightsTextcat(this.activeSnowpackStructureHighlightsTextcat);
       this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsDe, Enums.LanguageCode.de);
@@ -1101,6 +1118,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsEs, Enums.LanguageCode.es);
       this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsCa, Enums.LanguageCode.ca);
       this.activeBulletin.setSnowpackStructureHighlightsIn(this.activeSnowpackStructureHighlightsOc, Enums.LanguageCode.oc);
+      this.activeBulletin.setSnowpackStructureHighlightsNotes(this.activeSnowpackStructureHighlightsNotes);
 
       this.activeBulletin.setSnowpackStructureCommentTextcat(this.activeSnowpackStructureCommentTextcat);
       this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentDe, Enums.LanguageCode.de);
@@ -1110,6 +1128,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentEs, Enums.LanguageCode.es);
       this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentCa, Enums.LanguageCode.ca);
       this.activeBulletin.setSnowpackStructureCommentIn(this.activeSnowpackStructureCommentOc, Enums.LanguageCode.oc);
+      this.activeBulletin.setSnowpackStructureCommentNotes(this.activeSnowpackStructureCommentNotes);
 
       this.activeBulletin.setTendencyCommentTextcat(this.activeTendencyCommentTextcat);
       this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentDe, Enums.LanguageCode.de);
@@ -1119,6 +1138,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentEs, Enums.LanguageCode.es);
       this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentCa, Enums.LanguageCode.ca);
       this.activeBulletin.setTendencyCommentIn(this.activeTendencyCommentOc, Enums.LanguageCode.oc);
+      this.activeBulletin.setTendencyCommentNotes(this.activeTendencyCommentNotes);
     }
   }
 

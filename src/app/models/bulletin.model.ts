@@ -33,6 +33,12 @@ export class BulletinModel {
   public snowpackStructureCommentTextcat: string;
   public tendencyCommentTextcat: string;
 
+  public avActivityHighlightsNotes: string;
+  public avActivityCommentNotes: string;
+  public snowpackStructureHighlightsNotes: string;
+  public snowpackStructureCommentNotes: string;
+  public tendencyCommentNotes: string;
+
   public highlights: TextModel[];
   public avActivityHighlights: TextModel[];
   public avActivityComment: TextModel[];
@@ -129,6 +135,9 @@ export class BulletinModel {
       }
     }
     bulletin.setAvActivityHighlights(avActivityHighlights);
+    if (json.avActivityHighlightsNotes) {
+      bulletin.setAvActivityHighlightsNotes(json.avActivityHighlightsNotes);
+    }
 
     if (json.avActivityCommentTextcat) {
       bulletin.setAvActivityCommentTextcat(json.avActivityCommentTextcat);
@@ -141,6 +150,9 @@ export class BulletinModel {
       }
     }
     bulletin.setAvActivityComment(avActivityComment);
+    if (json.avActivityCommentNotes) {
+      bulletin.setAvActivityCommentNotes(json.avActivityCommentNotes);
+    }
 
     if (json.snowpackStructureHighlightsTextcat) {
       bulletin.setSnowpackStructureHighlightsTextcat(json.snowpackStructureHighlightsTextcat);
@@ -153,6 +165,9 @@ export class BulletinModel {
       }
     }
     bulletin.setSnowpackStructureHighlight(snowpackStructureHighlights);
+    if (json.snowpackStructureHighlightsNotes) {
+      bulletin.setSnowpackStructureHighlightsNotes(json.SnowpackStructureHighlightsNotes);
+    }
 
     if (json.snowpackStructureCommentTextcat) {
       bulletin.setSnowpackStructureCommentTextcat(json.snowpackStructureCommentTextcat);
@@ -165,6 +180,9 @@ export class BulletinModel {
       }
     }
     bulletin.setSnowpackStructureComment(snowpackStructureComment);
+    if (json.snowpackStructureCommentNotes) {
+      bulletin.setSnowpackStructureCommentNotes(json.snowpackStructureCommentNotes);
+    }
 
     if (json.tendencyCommentTextcat) {
       bulletin.setTendencyCommentTextcat(json.tendencyCommentTextcat);
@@ -177,6 +195,9 @@ export class BulletinModel {
       }
     }
     bulletin.setTendencyComment(tendencyComment);
+    if (json.tendencyCommentNotes) {
+      bulletin.setTendencyCommentNotes(json.tendencyCommentNotes);
+    }
 
     if (json.tendency) {
       bulletin.setTendency(json.tendency);
@@ -211,6 +232,11 @@ export class BulletinModel {
       this.snowpackStructureHighlightsTextcat = bulletin.snowpackStructureHighlightsTextcat;
       this.snowpackStructureCommentTextcat = bulletin.snowpackStructureCommentTextcat;
       this.tendencyCommentTextcat = bulletin.tendencyCommentTextcat;
+      this.avActivityHighlightsNotes = bulletin.avActivityHighlightsNotes;
+      this.avActivityCommentNotes = bulletin.avActivityCommentNotes;
+      this.snowpackStructureHighlightsNotes = bulletin.snowpackStructureHighlightsNotes;
+      this.snowpackStructureCommentNotes = bulletin.snowpackStructureCommentNotes;
+      this.tendencyCommentNotes = bulletin.tendencyCommentNotes;
 
       let array = new Array<TextModel>();
       for (const entry of bulletin.highlights) {
@@ -268,6 +294,11 @@ export class BulletinModel {
       this.snowpackStructureHighlightsTextcat = undefined;
       this.snowpackStructureCommentTextcat = undefined;
       this.tendencyCommentTextcat = undefined;
+      this.avActivityHighlightsNotes = undefined;
+      this.avActivityCommentNotes = undefined;
+      this.snowpackStructureHighlightsNotes = undefined;
+      this.snowpackStructureCommentNotes = undefined;
+      this.tendencyCommentNotes = undefined;
       this.highlights = new Array<TextModel>();
       this.avActivityHighlights = new Array<TextModel>();
       this.avActivityComment = new Array<TextModel>();
@@ -429,6 +460,46 @@ export class BulletinModel {
 
   setAvActivityHighlightsTextcat(avActivityHighlightsTextcat: string) {
     this.avActivityHighlightsTextcat = avActivityHighlightsTextcat;
+  }
+
+  getAvActivityHighlightsNotes(): string {
+    return this.avActivityHighlightsNotes;
+  }
+
+  setAvActivityHighlightsNotes(avActivityHighlightsNotes: string) {
+    this.avActivityHighlightsNotes = avActivityHighlightsNotes;
+  }
+
+  getAvActivityCommentNotes(): string {
+    return this.avActivityCommentNotes;
+  }
+
+  setAvActivityCommentNotes(avActivityCommentNotes: string) {
+    this.avActivityCommentNotes = avActivityCommentNotes;
+  }
+
+  getSnowpackStructureHighlightsNotes(): string {
+    return this.snowpackStructureHighlightsNotes;
+  }
+
+  setSnowpackStructureHighlightsNotes(snowpackStructureHighlightsNotes: string) {
+    this.snowpackStructureHighlightsNotes = snowpackStructureHighlightsNotes;
+  }
+
+  getSnowpackStructureCommentNotes(): string {
+    return this.snowpackStructureCommentNotes;
+  }
+
+  setSnowpackStructureCommentNotes(snowpackStructureCommentNotes: string) {
+    this.snowpackStructureCommentNotes = snowpackStructureCommentNotes;
+  }
+
+  getTendencyCommentNotes(): string {
+    return this.tendencyCommentNotes;
+  }
+
+  setTendencyCommentNotes(tendencyCommentNotes: string) {
+    this.tendencyCommentNotes = tendencyCommentNotes;
   }
 
   getHighlightsTextcat(): string {
@@ -777,6 +848,26 @@ export class BulletinModel {
 
     if (this.tendencyCommentTextcat && this.tendencyCommentTextcat !== undefined) {
       json["tendencyCommentTextcat"] = this.tendencyCommentTextcat;
+    }
+
+    if (this.avActivityHighlightsNotes && this.avActivityHighlightsNotes !== undefined) {
+      json["avActivityHighlightsNotes"] = this.avActivityHighlightsNotes;
+    }
+
+    if (this.avActivityCommentNotes && this.avActivityCommentNotes !== undefined) {
+      json["avActivityCommentNotes"] = this.avActivityCommentNotes;
+    }
+
+    if (this.snowpackStructureHighlightsNotes && this.snowpackStructureHighlightsNotes !== undefined) {
+      json["snowpackStructureHighlightsNotes"] = this.snowpackStructureHighlightsNotes;
+    }
+
+    if (this.snowpackStructureCommentNotes && this.snowpackStructureCommentNotes !== undefined) {
+      json["snowpackStructureCommentNotes"] = this.snowpackStructureCommentNotes;
+    }
+
+    if (this.tendencyCommentNotes && this.tendencyCommentNotes !== undefined) {
+      json["tendencyCommentNotes"] = this.tendencyCommentNotes;
     }
 
     if (this.highlights && this.highlights !== undefined && this.highlights.length > 0) {
