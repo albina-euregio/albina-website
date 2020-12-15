@@ -116,16 +116,9 @@ export default class DataOverlay extends React.Component {
   }
 
   allCanvasesLoaded() {
-    //console.log("allCanvasesLoaded ggg", this.overlayCanvases);
-
-    let loadingCanvases = Object.fromEntries(
-      // eslint-disable-next-line no-unused-vars
-      Object.entries(this.overlayCanvases).filter(([key, value]) => {
-        //console.log("allCanvasesLoaded", key, value);
-        return !value.loaded;
-      })
+    return Object.keys(this.overlayCanvases).every(
+      key => this.overlayCanvases[key].loaded
     );
-    return Object.entries(loadingCanvases).length === 0;
   }
 
   showDataMarker(e) {
