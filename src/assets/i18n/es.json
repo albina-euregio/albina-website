@@ -152,7 +152,7 @@
         "hideTranslations" : "Ocultar traducciones"
       },
       "placeholder" : {
-        "notes" : "La notas no se han guardado"
+        "notes" : "Escribir aquí..."
       },
       "pmDialog" : {
         "noIFrameSupport" : "Tu navegador no soporta IFrames!"
@@ -424,7 +424,6 @@
         "htmlDirectory" : "Directorio para HTML",
         "serverImagesUrl" : "Ruta de acceso al servidor de imágenes",
         "serverImagesUrlLocalhost" : "Ruta de acceso al servidor de imágenes (localhost)",
-        "univieMapsPath" : "Ruta de acceso a mapas (Univie)",
         "mapsPath" : "Ruta de acceso a mapas",
         "mapProductionUrl" : "URL para producción de mapas",
         "scriptsPath" : "Ruta de acceso a los scripts"

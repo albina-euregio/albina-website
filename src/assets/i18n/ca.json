@@ -152,7 +152,7 @@
         "hideTranslations" : "Amaga traduccions"
       },
       "placeholder" : {
-        "notes" : "Les notes no es guardaran"
+        "notes" : "Escriu aquí..."
       },
       "pmDialog" : {
         "noIFrameSupport" : "El teu navegador no admet Iframes!"
@@ -424,7 +424,6 @@
         "htmlDirectory" : "Directori per HTML",
         "serverImagesUrl" : "Adreça de les imatges del servidor",
         "serverImagesUrlLocalhost" : "Adreça de les imatges del servidor (localhost)",
-        "univieMapsPath" : "Adreça dels mapes (univie)",
         "mapsPath" : "Adreça dels mapes",
         "mapProductionUrl" : "URL per la producció dels mapes",
         "scriptsPath" : "Adreça dels scripts"

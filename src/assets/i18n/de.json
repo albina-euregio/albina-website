@@ -152,7 +152,7 @@
         "hideTranslations" : " Übersetzungen verbergen"
       },
       "placeholder" : {
-        "notes" : "Notizen werden nicht gespeichert"
+        "notes" : "Schreib deine Notizen hier ..."
       },
       "pmDialog" : {
         "noIFrameSupport" : "Dein Browser unterstützt keine IFrames!"
@@ -424,7 +424,6 @@
         "htmlDirectory" : "Ordner für HTML",
         "serverImagesUrl" : "Pfad zu Bildern am Server",
         "serverImagesUrlLocalhost" : "Pfad zu Bildern am Server (localhost)",
-        "univieMapsPath" : "Pfad zu Karten (Univie)",
         "mapsPath" : "Pfad zu Karten",
         "mapProductionUrl" : "URL zur Kartenproduktion",
         "scriptsPath" : "Pfad zu den Skripten"

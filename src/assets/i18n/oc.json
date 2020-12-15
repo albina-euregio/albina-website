@@ -152,7 +152,7 @@
         "hideTranslations" : "Amagar revirades"
       },
       "placeholder" : {
-        "notes" : "Non se sauvaran es nòtes"
+        "notes" : "Escriu ací ..."
       },
       "pmDialog" : {
         "noIFrameSupport" : "Eth tòn navigador non ei compatible damb IFrames."
@@ -424,7 +424,6 @@
         "htmlDirectory" : "Directòri entà HTML",
         "serverImagesUrl" : "Rota as imatges deth servidor",
         "serverImagesUrlLocalhost" : "Rota as imatges deth servidor (locau)",
-        "univieMapsPath" : "Rota as mapes (Univie)",
         "mapsPath" : "Rota as mapes",
         "mapProductionUrl" : "URL entara produccion de mapes",
         "scriptsPath" : "Rota as scripts"
