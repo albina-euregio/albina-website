@@ -42,7 +42,6 @@ export class AdminComponent implements AfterContentInit {
   public htmlDirectory: string;
   public serverImagesUrl: string;
   public serverImagesUrlLocalhost: string;
-  public univieMapsPath: string;
   public mapsPath: string;
   public mapProductionUrl: string;
   public scriptsPath: string;
@@ -102,7 +101,6 @@ export class AdminComponent implements AfterContentInit {
           this.htmlDirectory = (data as any).htmlDirectory;
           this.serverImagesUrl = (data as any).serverImagesUrl;
           this.serverImagesUrlLocalhost = (data as any).serverImagesUrlLocalhost;
-          this.univieMapsPath = (data as any).univieMapsPath;
           this.mapsPath = (data as any).mapsPath;
           this.mapProductionUrl = (data as any).mapProductionUrl;
           this.scriptsPath = (data as any).scriptsPath;
@@ -168,7 +166,6 @@ export class AdminComponent implements AfterContentInit {
     json["htmlDirectory"] = this.htmlDirectory;
     json["serverImagesUrl"] = this.serverImagesUrl;
     json["serverImagesUrlLocalhost"] = this.serverImagesUrlLocalhost;
-    json["univieMapsPath"] = this.univieMapsPath;
     json["mapsPath"] = this.mapsPath;
     json["mapProductionUrl"] = this.mapProductionUrl;
     json["scriptsPath"] = this.scriptsPath;

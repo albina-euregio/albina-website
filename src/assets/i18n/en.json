@@ -152,7 +152,7 @@
         "hideTranslations" : " Hide translations"
       },
       "placeholder" : {
-        "notes" : "Notes will not be saved"
+        "notes" : "Write your notes here ..."
       },
       "pmDialog" : {
         "noIFrameSupport" : "Your browser does not support IFrames!"
@@ -424,7 +424,6 @@
         "htmlDirectory" : "Directory for HTML",
         "serverImagesUrl" : "Path to server images",
         "serverImagesUrlLocalhost" : "Path to server images (localhost)",
-        "univieMapsPath" : "Path to maps (Univie)",
         "mapsPath" : "Path to maps",
         "mapProductionUrl" : "URL for map production",
         "scriptsPath" : "Path to scripts"
