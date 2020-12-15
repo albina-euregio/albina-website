@@ -75,8 +75,13 @@ class BulletinCollection {
     return this.geodata;
   }
 
-  setData(data) {
-    this.dataRaw = convertCaamlToJson(data);
+  /**
+   * @param {string} xmlString
+   */
+  setData(xmlString) {
+    const parser = new DOMParser();
+    const document = parser.parseFromString(xmlString, "application/xml");
+    this.dataRaw = convertCaamlToJson(document);
     this.daytimeBulletins = toDaytimeBulletins(this.dataRaw?.bulletins || []);
     // console.log(this.dataRaw);
     this.status =
@@ -401,7 +406,7 @@ class BulletinStore {
 
   _loadBulletinData(date) {
     const url = this._getBulletinUrl(date);
-    return axios.get(url, { responseType: "document" }).then(
+    return axios.get(url, { responseType: "text" }).then(
       // query bulletin data
       response => {
         this.bulletins[date].setData(response.data);
