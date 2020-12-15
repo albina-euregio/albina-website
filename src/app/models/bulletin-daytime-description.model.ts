@@ -473,8 +473,6 @@ export class BulletinDaytimeDescriptionModel {
       this.setDangerRatingAbove(Enums.DangerRating[1]);
       this.setDangerRatingBelow(Enums.DangerRating[1]);
     }
-    this.setMatrixInformationAbove(new MatrixInformationModel());
-    this.setMatrixInformationAbove(new MatrixInformationModel());
   }
 
   toJson() {
