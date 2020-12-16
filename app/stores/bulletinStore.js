@@ -75,10 +75,15 @@ class BulletinCollection {
     return this.geodata;
   }
 
-  setData(data) {
-    this.dataRaw = convertCaamlToJson(data);
+  /**
+   * @param {string} xmlString
+   */
+  setData(xmlString) {
+    const parser = new DOMParser();
+    const document = parser.parseFromString(xmlString, "application/xml");
+    this.dataRaw = convertCaamlToJson(document);
     this.daytimeBulletins = toDaytimeBulletins(this.dataRaw?.bulletins || []);
-    if (APP_DEV_MODE) console.log(this.dataRaw);
+    // console.log(this.dataRaw);
     this.status =
       typeof this.dataRaw === "object" && this.dataRaw && this.dataRaw.bulletins
         ? this.dataRaw.bulletins.length > 0
@@ -162,7 +167,7 @@ class BulletinStore {
    *   if it need to be fetched.
    */
   @action load(date, activate = true) {
-    if (APP_DEV_MODE) console.log("loading bulletin", { date, activate });
+    // console.log("loading bulletin", { date, activate });
     if (date) {
       if (this.bulletins[date]) {
         if (activate) {
@@ -191,7 +196,7 @@ class BulletinStore {
           .load(date)
           .then(() => {
             const status = this.archiveStore.getStatus(date);
-            if (APP_DEV_MODE) console.log("loaded bulletin", { date, status });
+            // console.log("loaded bulletin", { date, status });
             if (status == "ok") {
               return this._loadBulletinData(date);
             } else {
@@ -401,7 +406,7 @@ class BulletinStore {
 
   _loadBulletinData(date) {
     const url = this._getBulletinUrl(date);
-    return axios.get(url, { responseType: "document" }).then(
+    return axios.get(url, { responseType: "text" }).then(
       // query bulletin data
       response => {
         this.bulletins[date].setData(response.data);

@@ -28,8 +28,8 @@
     "$": true
   },
   "rules": {
-    "no-console": "off",
+    "no-console": ["error", { "allow": ["info", "warn", "error", "assert"] }],
     "react/jsx-uses-vars": [2],
-    "react/jsx-uses-react": "error",
+    "react/jsx-uses-react": "error"
   }
 }

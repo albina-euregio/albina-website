@@ -74,7 +74,7 @@ class BlogOverview extends React.Component {
   }
 
   doStoreUpdate() {
-    console.log("doStoreUpdate");
+    // console.log("doStoreUpdate");
     this.store.update();
     this.settingFilters = false;
   }
@@ -86,7 +86,7 @@ class BlogOverview extends React.Component {
   };
 
   handleChangeLanguage = val => {
-    if (APP_DEV_MODE) console.log("new lang", val);
+    // console.log("new lang", val);
     this.settingFilters = true;
     this.store.setLanguages(val);
     this.doStoreUpdate();
@@ -144,13 +144,12 @@ class BlogOverview extends React.Component {
     if (newLevel === "ok" && this.store.postsList.length == 0)
       newLevel = "noData";
 
-    if (APP_DEV_MODE)
-      console.log(
-        "render v2",
-        this.store.loading,
-        this.store.postsList && this.store.postsList.length,
-        newLevel
-      );
+    // console.log(
+    //   "render v2",
+    //   this.store.loading,
+    //   this.store.postsList && this.store.postsList.length,
+    //   newLevel
+    // );
 
     return (
       <>

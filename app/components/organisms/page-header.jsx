@@ -58,11 +58,11 @@ class PageHeader extends React.Component {
             })}
           >
             <span className="mark">
-              <span key={lang} className={"mark-" + lang} />
+              <span key={"mark-" + lang} className={"mark-" + lang} />
               <span key="en" className={"mark-en"} />
             </span>
             <span className="url">
-              <span key={lang} className={"url-" + lang} />
+              <span key={"url-" + lang} className={"url-" + lang} />
             </span>
           </Link>
         </div>

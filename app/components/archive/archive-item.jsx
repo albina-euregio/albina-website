@@ -4,24 +4,34 @@ import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Util } from "leaflet";
 import { dateToISODateString, dateToDateString } from "../../util/date.js";
+import BulletinAwmapStatic from "../bulletin/bulletin-awmap-static.jsx";
 
 class ArchiveItem extends React.Component {
-  get previewMap() {
-    // TODO: fix daytime
-    return (
-      window.config.apis.geo +
-      dateToISODateString(this.props.date) +
-      "/am_albina_thumbnail.jpg"
-    );
+  constructor(props) {
+    super(props);
+    this.state = { fd: false };
+  }
+
+  getLanguage(dateString) {
+    var lang = window["appStore"].language;
+    if (dateString < "2020-12-01") {
+      switch (lang) {
+        case "fr":
+        case "es":
+        case "ca":
+        case "oc":
+          return "en";
+        default:
+          return lang;
+      }
+    } else {
+      return lang;
+    }
   }
 
   showMap(dateString) {
     var lang = window["appStore"].language;
-    var thresholdDateString = "10.1.2020";
-    var thresholdDate = new Date(Date.parse(thresholdDateString));
-    var date = new Date(Date.parse(dateString));
-
-    if (date < thresholdDate) {
+    if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
         case "es":
@@ -38,6 +48,7 @@ class ArchiveItem extends React.Component {
 
   render() {
     const dateString = dateToISODateString(this.props.date);
+    const lang = this.getLanguage(dateString);
 
     const baseLink = config.links.downloads["base"];
     return (
@@ -53,7 +64,7 @@ class ArchiveItem extends React.Component {
                   baseLink +
                   Util.template(config.links.downloads.pdf, {
                     date: dateString,
-                    lang: this.props.lang
+                    lang
                   })
                 }
                 rel="noopener"
@@ -72,7 +83,7 @@ class ArchiveItem extends React.Component {
                   baseLink +
                   Util.template(config.links.downloads.xml, {
                     date: dateString,
-                    lang: this.props.lang
+                    lang
                   })
                 }
                 title={this.props.intl.formatMessage({
@@ -87,8 +98,8 @@ class ArchiveItem extends React.Component {
             </li>
           </ul>
         </td>
-        {this.showMap(dateString) && (
-          <td>
+        <td>
+          {this.showMap(dateString) && (
             <Link
               to={"/bulletin/" + dateString}
               className="map-preview img tooltip"
@@ -96,10 +107,16 @@ class ArchiveItem extends React.Component {
                 id: "archive:show-forecast:hover"
               })}
             >
-              <img src={this.previewMap} alt="Region" />
+              <BulletinAwmapStatic
+                date={dateString}
+                region={
+                  this.state.fd ? "fd_albina_thumbnail" : "am_albina_thumbnail"
+                }
+                onError={() => this.setState({ fd: true })}
+              />
             </Link>
-          </td>
-        )}
+          )}
+        </td>
       </tr>
     );
   }

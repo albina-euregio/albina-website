@@ -8,8 +8,7 @@ export default class ProvinceFilter extends React.Component {
 
   render() {
     const regions = window["appStore"].getRegions();
-    if (APP_DEV_MODE)
-      console.log("rendering province filter with value", this.props.value);
+    // console.log("rendering province filter with value", this.props.value);
 
     return (
       <div>

@@ -182,7 +182,7 @@ export default class BlogStore {
     }
 
     if (needLoad) {
-      if (APP_DEV_MODE) console.log("reload needed");
+      // console.log("reload needed");
       this.load(true);
     }
   }
@@ -357,7 +357,7 @@ export default class BlogStore {
 
     //todo: indicate loading error
     return Promise.all(loads).then(() => {
-      if (APP_DEV_MODE) console.log("posts loaded", newPosts);
+      // console.log("posts loaded", newPosts);
       this.posts = newPosts;
       this._loading.set(false);
     });

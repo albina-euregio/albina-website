@@ -31,35 +31,32 @@ class Page extends React.Component {
     this.hash = false;
   }
 
-  componentDidUpdate() {
-    this._didUpdate();
-  }
-
   componentDidMount() {
     this._didUpdate();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps && nextProps.location && nextProps.location.hash) {
-      if (this.hash !== nextProps.location.hash) {
-        this.hash = nextProps.location.hash;
+  componentDidUpdate() {
+    if (this.props && this.props.location && this.props.location.hash) {
+      if (this.hash !== this.props.location.hash) {
+        this.hash = this.props.location.hash;
       }
     } else {
       this.hash = false;
     }
 
     if (
-      nextProps.location !== this.props.location &&
-      nextProps.history.action === "PUSH" &&
-      !nextProps.location.hash
+      this.props.location !== this.props.location &&
+      this.props.history.action === "PUSH" &&
+      !this.props.location.hash
     ) {
       // do not scroll if bulletin region was clicked
-      if (!nextProps.location.pathname.split("/").includes("bulletin")) {
+      if (!this.props.location.pathname.split("/").includes("bulletin")) {
         window.scrollTo(0, 0);
       }
       // scroll to top on forward page change (if no hash is set)
       // see https://github.com/ReactTraining/react-router/issues/2019
     }
+    this._didUpdate();
   }
 
   _didUpdate() {

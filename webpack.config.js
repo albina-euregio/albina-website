@@ -33,11 +33,13 @@ module.exports = (env, argv) => {
       extensions: [".js", ".jsx"]
     },
     context: __dirname + "/app",
-    entry: {
-      sentry: "./sentry.js",
-      polyfill: "./polyfill.js",
-      app: "./main.jsx"
-    },
+    entry: [
+      "core-js/stable",
+      "regenerator-runtime/runtime",
+      "./polyfill.js",
+      "./sentry.js",
+      "./main.jsx"
+    ],
     devtool: production ? "source-map" : "cheap-module-eval-source-map",
     devServer: {
       historyApiFallback: {
@@ -104,8 +106,8 @@ module.exports = (env, argv) => {
     },
     performance: {
       hints: production ? "error" : false,
-      maxEntrypointSize: 2.0 * mebibyte,
-      maxAssetSize: 1.6 * mebibyte
+      maxEntrypointSize: 2.1 * mebibyte,
+      maxAssetSize: 1.9 * mebibyte
     },
     plugins: [
       new HtmlWebPackPlugin({

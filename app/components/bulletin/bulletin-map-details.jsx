@@ -25,13 +25,7 @@ class BulletinMapDetails extends React.Component {
         ? "afternoon"
         : "forenoon";
     const bulletin = this.props.bulletin[daytime];
-    function sortByMainValue(a, b) {
-      return (
-        window["appStore"].getWarnlevelNumber(a.dangerRating.mainValue) >
-        window["appStore"].getWarnlevelNumber(b.dangerRating.mainValue)
-      );
-    }
-    const problems = bulletin.avalancheProblems.sort(sortByMainValue) || [];
+    const problems = bulletin.avalancheProblems || [];
     let key = 0;
 
     return (

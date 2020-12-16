@@ -3,9 +3,6 @@
  * @returns {Caaml.Bulletins} caaml
  */
 export function convertCaamlToJson(document) {
-  if (!document) {
-    return undefined;
-  }
   const json = {};
 
   /**

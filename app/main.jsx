@@ -52,7 +52,7 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
         .then(res => res.data)
     ])
       .then(([additionalConfigParsed]) => {
-        console.log("main additionalConf loaded xxx", additionalConfigParsed);
+        // console.log("main additionalConf loaded xxx", additionalConfigParsed);
         init(_.merge(configParsed, additionalConfigParsed), webp);
       })
       .catch(reason => {
@@ -62,7 +62,7 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
 });
 
 const init = function(configParsed, webp) {
-  console.log("main->init xxx", configParsed, webp);
+  // console.log("main->init xxx", configParsed, webp);
   configParsed["projectRoot"] = APP_ASSET_PATH;
   configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
   configParsed["webp"] = webp;
