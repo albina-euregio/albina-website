@@ -66,3 +66,9 @@ source_file = app/content/more/privacy/en.html
 source_lang = en
 type = HTML
 file_filter = app/content/more/privacy/<lang>.html
+
+[albina-website.open-data]
+source_file = app/content/more/open-data/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/more/open-data/<lang>.html
