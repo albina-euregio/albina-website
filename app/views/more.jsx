@@ -183,6 +183,40 @@ class More extends React.Component {
                 </div>
               </Link>
             </li>
+            <li className="feature-item">
+              <Link
+                to="/more/open-data"
+                title={this.props.intl.formatMessage({
+                  id: "more:open-data:headline"
+                })}
+                className="linkbox linkbox-feature tooltip"
+              >
+                <div className="content-image">
+                  <img
+                    src="/content_files/feature_open_data.jpg"
+                    title={this.props.intl.formatMessage({
+                      id: "more:open-data:image:title"
+                    })}
+                    alt={this.props.intl.formatMessage({
+                      id: "more:open-data:image:alt"
+                    })}
+                    className=""
+                  />
+                </div>
+                <div className="content-text">
+                  <p className="h1 subheader">
+                    {this.props.intl.formatMessage({
+                      id: "more:open-data:headline"
+                    })}
+                  </p>
+                  <p>
+                    {this.props.intl.formatMessage({
+                      id: "more:open-data:text"
+                    })}
+                  </p>
+                </div>
+              </Link>
+            </li>
           </ul>
         </section>
         <SmShare />
