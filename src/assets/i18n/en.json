@@ -18,6 +18,7 @@
     "bulletins" : "Avalanche.report",
     "observations" : "Observations",
     "modellingZamg": "ZAMG multi model",
+    "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "SNOWPACK model",
     "modellingSnowpackMeteo": "SNOWPACK modelled meteo",
     "catalogueOfPhrases" : "Catalogue of Phrases"

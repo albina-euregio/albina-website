@@ -14,6 +14,14 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: "zamg_eps_ecmwf",
+    component: ZamgModelsComponent,
+    data: {
+      ecmwf: true
+    },
+    canActivate: [AuthGuard]
+  },
+  {
     path: "snowpack",
     component: SnowpackComponent,
     canActivate: [AuthGuard]

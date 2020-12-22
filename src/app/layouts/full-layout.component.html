@@ -18,6 +18,9 @@
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg']">{{ "sidebar.modellingZamg" | translate }}</a>
     </li>
     <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg_eps_ecmwf']">{{ "sidebar.modellingZamgECMWF" | translate }}</a>
+    </li>
+    <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpack']">{{ "sidebar.modellingSnowpack" | translate }}</a>
     </li>
     <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">

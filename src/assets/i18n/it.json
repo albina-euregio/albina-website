@@ -18,6 +18,7 @@
     "bulletins" : "Valanghe.report",
     "observations" : "Osservazzioni",
     "modellingZamg": "Multi modelli ZAMG ",
+    "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "Modello SNOWPACK",
     "modellingSnowpackMeteo": "Dati meteo simulati SNOWPACK",
     "catalogueOfPhrases" : "Catalogo delle frasi"
