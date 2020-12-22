@@ -52,9 +52,15 @@ export class ModellingService {
   }
 
   /**
-   * Fetches ZAMG multi model points via HTTP, parses CSV file and returns parsed results.
+   * Fetches ZAMG model points via HTTP, parses CSV file and returns parsed results.
    */
-  getZamgModelPoints(): Observable<ZamgModelPoint[]> {
+  getZamgModelPoints({ ecmwf }): Observable<ZamgModelPoint[]> {
+    return ecmwf
+      ? this.getZamgEcmwfModelPoints()
+      : this.getZamgMultiModelPoints();
+  }
+
+  private getZamgMultiModelPoints(): Observable<ZamgModelPoint[]> {
     const regions = this.regionsService.getRegionsEuregio();
     const urls = [
       "MultimodelPointsEuregio_001.csv",
@@ -111,6 +117,37 @@ export class ModellingService {
               lng
             );
           })
+        )
+      );
+  }
+
+  private getZamgEcmwfModelPoints(): Observable<ZamgModelPoint[]> {
+    const { zamgModelsUrl } = this.constantsService;
+    const url = `${zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_stationlist.txt`;
+    return this.http
+      .get(url, { responseType: "text" })
+      .pipe(
+        map(response => this.parseCSV(response.toString().replace(/^#\s*/, "")))
+      )
+      .pipe(
+        map(parseResult =>
+          ["HN", "HN_WOS", "HS"]
+            .map(type =>
+              parseResult.data.map(
+                ({ synop, lat, lon, name }) =>
+                  new ZamgModelPoint(
+                    synop,
+                    `${type} ${synop}`,
+                    name,
+                    name,
+                    [],
+                    `${zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_${synop}_${type}.png`,
+                    +lat,
+                    +lon
+                  )
+              )
+            )
+            .reduce((acc, x) => acc.concat(x))
         )
       );
   }

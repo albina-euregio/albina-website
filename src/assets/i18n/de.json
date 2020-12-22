@@ -18,6 +18,7 @@
     "bulletins" : "Lawinen.report",
     "observations" : "Rückmeldungen",
     "modellingZamg": "ZAMG Multimodel",
+    "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "SNOWPACK Model",
     "modellingSnowpackMeteo": "Modellierte Meteodaten SNOWPACK",
     "catalogueOfPhrases" : "Satzkatalog"

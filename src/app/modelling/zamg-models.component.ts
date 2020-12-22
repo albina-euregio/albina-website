@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { ModellingService, ZamgModelPoint } from "./modelling.service";
 import { MapService } from "../providers/map-service/map.service";
@@ -14,11 +15,13 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
   selectedModelPoint: ZamgModelPoint;
   showMap: boolean;
   showTable: boolean;
+  ecmwf: boolean;
 
   @ViewChild("select") select: ElementRef<HTMLSelectElement>;
   @ViewChild("map") mapDiv: ElementRef<HTMLDivElement>;
 
   constructor(
+    private route: ActivatedRoute,
     private modellingService: ModellingService,
     public translate: TranslateService,
     private authenticationService: AuthenticationService,
@@ -28,9 +31,14 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.showMap = true;
     this.showTable = false;
-    this.modellingService.getZamgModelPoints().subscribe(zamgModelPoints => {
-      this.modelPoints = zamgModelPoints;
-      this.initMaps();
+    this.route.data.subscribe(({ ecmwf }) => {
+      this.ecmwf = ecmwf;
+      this.modellingService
+        .getZamgModelPoints({ ecmwf })
+        .subscribe(zamgModelPoints => {
+          this.modelPoints = zamgModelPoints;
+          this.initMaps();
+        });
     });
   }
 
