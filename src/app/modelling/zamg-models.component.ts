@@ -4,7 +4,7 @@ import { ModellingService, ZamgModelPoint } from "./modelling.service";
 import { MapService } from "../providers/map-service/map.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 
-declare var L: any;
+import * as L from "leaflet";
 
 @Component({
   templateUrl: "./zamg-models.component.html"
@@ -91,7 +91,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
 
     for (let i = this.modelPoints.length - 1; i >= 0; i--) {
       const modelPoint = this.modelPoints[i];
-      new L.circleMarker(new L.LatLng(modelPoint.lat, modelPoint.lng), this.mapService.createZamgModelPointOptions())
+      L.circleMarker(L.latLng(modelPoint.lat, modelPoint.lng), this.mapService.createZamgModelPointOptions())
       .on({ click: () => this.selectModelPoint(modelPoint)})
       .addTo(this.mapService.layers.zamgModelPoints);
     }
