@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ModellingService, ZamgModelPoint } from "./modelling.service";
 import { MapService } from "../providers/map-service/map.service";
@@ -15,8 +15,8 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
   showMap: boolean;
   showTable: boolean;
 
-  @ViewChild("select") select;
-  @ViewChild("map") mapDiv;
+  @ViewChild("select") select: ElementRef<HTMLSelectElement>;
+  @ViewChild("map") mapDiv: ElementRef<HTMLDivElement>;
 
   constructor(
     private modellingService: ModellingService,
