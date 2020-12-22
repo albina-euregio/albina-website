@@ -103,8 +103,8 @@ export class ModellingService {
             return new ZamgModelPoint(
               id,
               regionCode,
-              region ? region.properties.name_de : undefined,
-              region ? region.properties.name_it : undefined,
+              region?.properties?.name_de,
+              region?.properties?.name_it,
               freshSnow,
               `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`,
               lat,
