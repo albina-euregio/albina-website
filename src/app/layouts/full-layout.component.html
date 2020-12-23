@@ -92,6 +92,9 @@
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg']"><i class="fa fa-line-chart"></i> {{ "sidebar.modellingZamg" | translate }}</a>
         </li>
         <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/zamg_eps_ecmwf']"><i class="fa fa-line-chart"></i> {{ "sidebar.modellingZamgECMWF" | translate }}</a>
+        </li>
+        <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpack']"><i class="fa fa-area-chart"></i> {{ "sidebar.modellingSnowpack" | translate }}</a>
         </li>
         <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
