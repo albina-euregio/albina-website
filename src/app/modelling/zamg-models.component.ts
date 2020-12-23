@@ -46,6 +46,26 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
     this.select.nativeElement.focus();
   }
 
+  onSelectedModelPointKeydown(event: KeyboardEvent) {
+    if (!this.ecmwf) {
+      return;
+    }
+    const lengthPoints = this.modelPoints.length;
+    const lengthTypes = this.modellingService.getZamgEcmwfTypes().length;
+    const change =
+      event.key === "ArrowLeft" || event.keyCode === 37
+        ? (2 * lengthPoints) / lengthTypes
+        : event.key === "ArrowRight" || event.keyCode === 39
+        ? (1 * lengthPoints) / lengthTypes
+        : 0;
+    if (change === 0) {
+      return;
+    }
+    const index = this.modelPoints.indexOf(this.selectedModelPoint);
+    this.selectedModelPoint = this.modelPoints[(index + change) % lengthPoints];
+    event.preventDefault();
+  }
+
   onSelectedModelPointChange(event) {
     this.mapDiv.nativeElement.style.height = "0";
     this.showTable = false;

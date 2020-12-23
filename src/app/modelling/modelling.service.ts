@@ -121,6 +121,10 @@ export class ModellingService {
       );
   }
 
+  getZamgEcmwfTypes(): string[] {
+    return ["HN", "HN_WOS", "HS"];
+  }
+
   private getZamgEcmwfModelPoints(): Observable<ZamgModelPoint[]> {
     const { zamgModelsUrl } = this.constantsService;
     const url = `${zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_stationlist.txt`;
@@ -131,7 +135,7 @@ export class ModellingService {
       )
       .pipe(
         map(parseResult =>
-          ["HN", "HN_WOS", "HS"]
+          this.getZamgEcmwfTypes()
             .map(type =>
               parseResult.data.map(
                 ({ synop, lat, lon, name }) =>

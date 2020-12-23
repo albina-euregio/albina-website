@@ -10,6 +10,7 @@
           #select
           [(ngModel)]="selectedModelPoint"
           (change)="onSelectedModelPointChange($event)"
+          (keydown)="onSelectedModelPointKeydown($event)"
           class="custom-select mb-2 mb-sm-0"
         >
           <option *ngFor="let point of modelPoints" [ngValue]="point">
