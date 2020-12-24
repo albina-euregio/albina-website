@@ -6,7 +6,6 @@ import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
 import { reaction } from "mobx";
 import axios from "axios";
-import _ from "lodash";
 
 /* bower components */
 window["jQuery"] = window["$"] = require("jquery");
@@ -45,24 +44,6 @@ const isWebpSupported = new Promise(resolve => {
 const configUrl = APP_ASSET_PATH + "config.json?" + Date.now();
 const configRequest = axios.get(configUrl).then(res => res.data);
 Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
-  if (configParsed["additionalConf"]) {
-    Promise.all([
-      axios
-        .get(APP_ASSET_PATH + configParsed["additionalConf"] + "?" + Date.now())
-        .then(res => res.data)
-    ])
-      .then(([additionalConfigParsed]) => {
-        // console.log("main additionalConf loaded xxx", additionalConfigParsed);
-        init(_.merge(configParsed, additionalConfigParsed), webp);
-      })
-      .catch(reason => {
-        console.error("Loading additional config", reason);
-      });
-  } else init(configParsed, webp);
-});
-
-const init = function(configParsed, webp) {
-  // console.log("main->init xxx", configParsed, webp);
   configParsed["projectRoot"] = APP_ASSET_PATH;
   configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
   configParsed["webp"] = webp;
@@ -108,4 +89,4 @@ const init = function(configParsed, webp) {
     <App />,
     document.body.appendChild(document.getElementById("page-all"))
   );
-};
+});
