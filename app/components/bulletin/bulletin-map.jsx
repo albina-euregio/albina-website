@@ -160,21 +160,26 @@ class BulletinMap extends React.Component {
   getBulletinMapDetails() {
     let res = [];
     let detailsClasses = ["bulletin-map-details", "top-right"];
-    const { activeBulletin, activeNeighbor } = this.props.store;
+    const {
+      activeBulletin,
+      activeNeighbor,
+      activeRegionName
+    } = this.props.store;
     if (activeBulletin) {
       detailsClasses.push("js-active");
       res.push(
         <BulletinMapDetails
           key="details"
           bulletin={activeBulletin}
+          region={activeRegionName}
           ampm={this.props.ampm}
         />
       );
       res.push(
-        this.props.store.settings.region && (
+        activeBulletin?.id && (
           <a
             key="link"
-            href={"#" + this.props.store.settings.region}
+            href={"#" + activeBulletin?.id}
             className="pure-button tooltip"
             title={this.props.intl.formatMessage({
               id: "bulletin:map:info:details:hover"

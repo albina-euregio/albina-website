@@ -262,6 +262,21 @@ class BulletinStore {
   }
 
   /**
+   * @returns {string}
+   */
+  get activeRegionName() {
+    if (!this.settings?.region?.match(config.regionsRegex)) {
+      return "";
+    }
+    const feature = microRegions.features.find(
+      f => f.properties.bid === this.settings.region
+    );
+    return window["appStore"].language === "it"
+      ? feature?.properties?.["regione"]
+      : feature?.properties?.["Region"];
+  }
+
+  /**
    * Get the bulletin that is relevant for the currently set region.
    * @return {Albina.DaytimeBulletin} A bulletin object that matches the selection of
    *   this.date, this.ampm and this.region
