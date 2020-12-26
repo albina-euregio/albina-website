@@ -57,12 +57,11 @@ class BulletinCollection {
   }
 
   getBulletinForRegion(regionId) {
-    return this.daytimeBulletins.find(el => el.id == regionId);
-  }
-
-  getBulletinForMicroRegion(regionId) {
-    return this.daytimeBulletins.find(el =>
-      el.forenoon.regions.find(r => r.id === regionId)
+    return (
+      this.daytimeBulletins.find(el => el.id == regionId) ??
+      this.daytimeBulletins.find(el =>
+        el.forenoon.regions.find(r => r.id === regionId)
+      )
     );
   }
 
