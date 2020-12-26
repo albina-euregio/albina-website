@@ -106,8 +106,8 @@ module.exports = (env, argv) => {
     },
     performance: {
       hints: production ? "error" : false,
-      maxEntrypointSize: 2.1 * mebibyte,
-      maxAssetSize: 1.9 * mebibyte
+      maxEntrypointSize: 2.2 * mebibyte,
+      maxAssetSize: 2.0 * mebibyte
     },
     plugins: [
       new HtmlWebPackPlugin({
