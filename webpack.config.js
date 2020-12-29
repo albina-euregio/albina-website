@@ -5,6 +5,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const SizePlugin = require("size-plugin");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 
 module.exports = (env, argv) => {
@@ -22,6 +23,14 @@ module.exports = (env, argv) => {
       ]
     : [];
   const mebibyte = 1024 * 1024;
+  const sizePlugin = new SizePlugin({
+    writeFile: false,
+    exclude: "content/**",
+    stripHash: filename =>
+      sizePlugin.reverseTemplate(filename, "[name].[hash].js") ||
+      sizePlugin.reverseTemplate(filename, "[name].[hash].css") ||
+      filename
+  });
   return {
     resolve: {
       alias: {
@@ -104,6 +113,7 @@ module.exports = (env, argv) => {
         }
       ]
     },
+    stats: "errors-only",
     performance: {
       hints: production ? "error" : false,
       maxEntrypointSize: 2.1 * mebibyte,
@@ -128,7 +138,7 @@ module.exports = (env, argv) => {
         )
       }),
       new MiniCssExtractPlugin({
-        filename: "[name]-[hash].css"
+        filename: "[name].[hash].css"
       }),
       new CopyWebpackPlugin(
         [
@@ -174,6 +184,7 @@ module.exports = (env, argv) => {
           algorithm: "brotliCompress",
           test: /\.(js|css|html|svg)$/
         }),
+      sizePlugin,
       new ImageminWebpWebpackPlugin()
     ].filter(plugin => !!plugin)
   };
