@@ -35,10 +35,6 @@ import { orientation_change } from "../js/browser";
 require("../css/style.scss"); // CSS overrides
 
 class App extends React.Component {
-  shouldComponentUpdate() {
-    return true;
-  }
-
   componentDidMount() {
     window["page_html"] = $("html");
     window["page_body"] = $("body");
