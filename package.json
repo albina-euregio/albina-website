@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@loadable/component": "^5.13.1",
+    "@mapbox/polyline": "^1.1.1",
     "@sentry/react": "^5.29.0",
     "animejs": "^2.2.0",
     "axios": "^0.19.2",
