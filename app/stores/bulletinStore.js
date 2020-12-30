@@ -1,11 +1,14 @@
 import ArchiveStore from "./archiveStore.js";
-import neighborRegions from "./neighbor_regions.geojson.json";
 import { observable, action } from "mobx";
 import { parseDate, getSuccDate, dateToISODateString } from "../util/date.js";
 
 import { GeoJSON, Util } from "leaflet";
 import axios from "axios";
 import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.js";
+
+import { decodeFeatureCollection } from "../util/polyline.js";
+import encodedNeighborRegions from "./neighbor_regions.polyline.json";
+const neighborRegions = decodeFeatureCollection(encodedNeighborRegions);
 
 class BulletinCollection {
   date;
