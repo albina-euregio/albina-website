@@ -1,6 +1,7 @@
 import { observable, action, computed } from "mobx";
 import axios from "axios";
 import { Util } from "leaflet";
+import { regionCodes } from "../util/regions";
 
 export class StationData {
   constructor(object) {
@@ -125,7 +126,7 @@ export default class StationDataStore {
 
     this._activeRegions = (() => {
       let regions = {};
-      Object.keys(window.appStore.regions).forEach(r => {
+      regionCodes.forEach(r => {
         regions[r] = true;
       });
       return regions;

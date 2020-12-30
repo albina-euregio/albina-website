@@ -24,7 +24,6 @@ class AppStore extends React.Component {
   navigation;
   regions;
   languages;
-  warnlevelNumbers;
 
   constructor() {
     super();
@@ -37,46 +36,6 @@ class AppStore extends React.Component {
     this.cookieConsent = new CookieStore("cookieConsentAccepted");
     this.cookieFeedback = new CookieStore("feedbackAccepted");
     this.navigation = new NavigationStore();
-
-    this.regions = {
-      "AT-07": {
-        en: en["region:AT-07"],
-        de: de["region:AT-07"],
-        it: it["region:AT-07"],
-        fr: fr["region:AT-07"],
-        es: es["region:AT-07"],
-        ca: ca["region:AT-07"],
-        oc: oc["region:AT-07"]
-      },
-      "IT-32-BZ": {
-        en: en["region:IT-32-BZ"],
-        de: de["region:IT-32-BZ"],
-        it: it["region:IT-32-BZ"],
-        fr: fr["region:IT-32-BZ"],
-        es: es["region:IT-32-BZ"],
-        ca: ca["region:IT-32-BZ"],
-        oc: oc["region:IT-32-BZ"]
-      },
-      "IT-32-TN": {
-        en: en["region:IT-32-TN"],
-        de: de["region:IT-32-TN"],
-        it: it["region:IT-32-TN"],
-        fr: fr["region:IT-32-TN"],
-        es: es["region:IT-32-TN"],
-        ca: ca["region:IT-32-TN"],
-        oc: oc["region:IT-32-TN"]
-      }
-    };
-
-    this.warnlevelNumbers = {
-      low: 1,
-      moderate: 2,
-      considerable: 3,
-      high: 4,
-      very_high: 5,
-      no_snow: 0,
-      no_rating: 0
-    };
 
     this.avalancheProblems = Object.keys(en)
       .filter(k => k.match(/^problem:/))
@@ -100,40 +59,6 @@ class AppStore extends React.Component {
       return true;
     }
     return false;
-  }
-
-  /**
-   * Get regions for current language.
-   */
-  getRegions() {
-    return Object.keys(this.regions).reduce((acc, r) => {
-      acc[r] = this.getRegionName(r);
-      return acc;
-    }, {});
-  }
-
-  getRegionName(code) {
-    if (this.regions[code]) {
-      const lang = this.language;
-      return this.regions[code][lang];
-    }
-    return "";
-  }
-
-  getWarnlevelNumber(id) {
-    if (this.warnlevelNumbers[id]) {
-      return this.warnlevelNumbers[id];
-    }
-    return 0;
-  }
-
-  getWarnLevelId(num) {
-    if (num > 0) {
-      return Object.keys(this.warnlevelNumbers).find(k => {
-        return this.warnlevelNumbers[k] == num;
-      });
-    }
-    return "";
   }
 }
 

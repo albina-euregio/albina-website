@@ -2,6 +2,7 @@ import React from "react";
 import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
+import { getWarnlevelNumber } from "../../util/warn-levels";
 
 class WarnLevelIcon extends React.Component {
   imgRoot;
@@ -15,7 +16,7 @@ class WarnLevelIcon extends React.Component {
   render() {
     const getWarnlevelText = warnLevel => {
       if (warnLevel) {
-        const number = window["appStore"].getWarnlevelNumber(warnLevel);
+        const number = getWarnlevelNumber(warnLevel);
         return (
           (number ? number + "–" : "") +
           this.props.intl.formatMessage({
@@ -33,8 +34,8 @@ class WarnLevelIcon extends React.Component {
         ? this.props.below
         : this.props.above;
 
-    const numberBelow = window["appStore"].getWarnlevelNumber(below);
-    const numberAbove = window["appStore"].getWarnlevelNumber(this.props.above);
+    const numberBelow = getWarnlevelNumber(below);
+    const numberAbove = getWarnlevelNumber(this.props.above);
 
     const imgFormat = window.config.webp ? ".webp" : ".png";
     const img =

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { observer } from "mobx-react";
+import { inject, observer } from "mobx-react";
+import { injectIntl } from "react-intl";
 import TagList from "./tag-list";
 import { dateToDateTimeString } from "../../util/date.js";
 
@@ -35,7 +36,9 @@ class BlogPostsList extends React.Component {
                   </li>
                   <li className="blog-province">
                     {item.regions
-                      .map(r => window["appStore"].getRegionName(r))
+                      .map(r =>
+                        this.props.intl.formatMessage({ id: `region:${r}` })
+                      )
                       .join(", ")}
                   </li>
                   <li className="blog-language">{item.lang.toUpperCase()}</li>
@@ -53,4 +56,4 @@ class BlogPostsList extends React.Component {
   }
 }
 
-export default BlogPostsList;
+export default inject("locale")(injectIntl(BlogPostsList));

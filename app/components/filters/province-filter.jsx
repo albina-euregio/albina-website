@@ -1,24 +1,24 @@
 import React from "react";
+import { inject } from "mobx-react";
+import { injectIntl } from "react-intl";
+import { regionCodes } from "../../util/regions";
 import Selectric from "../selectric";
 
-export default class ProvinceFilter extends React.Component {
+class ProvinceFilter extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const regions = window["appStore"].getRegions();
-    // console.log("rendering province filter with value", this.props.value);
-
     return (
       <div>
         {this.props.title && <p className="info">{this.props.title}</p>}
         <Selectric onChange={this.props.handleChange} {...this.props}>
           {this.props.all && <option value="">{this.props.all}</option>}
           {this.props.none && <option value="none">{this.props.none}</option>}
-          {Object.keys(regions).map(r => (
+          {regionCodes.map(r => (
             <option key={r} value={r}>
-              {regions[r]}
+              {this.props.intl.formatMessage({ id: `region:${r}` })}
             </option>
           ))}
         </Selectric>
@@ -26,3 +26,5 @@ export default class ProvinceFilter extends React.Component {
     );
   }
 }
+
+export default inject("locale")(injectIntl(ProvinceFilter));

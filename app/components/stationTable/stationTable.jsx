@@ -4,6 +4,7 @@ import { modal_open_by_params } from "../../js/modal";
 import { inject } from "mobx-react";
 import { injectIntl, FormattedNumber } from "react-intl";
 import { dateToDateTimeString } from "../../util/date.js";
+import { regionCodes } from "../../util/regions";
 
 class StationTable extends React.Component {
   constructor(props) {
@@ -29,7 +30,9 @@ class StationTable extends React.Component {
             <strong>{row.name}</strong>{" "}
             <span className="operator operator-st">({row.operator})</span>{" "}
             <span className="region region-st">
-              {appStore.getRegionName(row.region)}
+              {row.region &&
+                regionCodes.includes(row.region) &&
+                this.props.intl.formatMessage({ id: `region:${row.region}` })}
             </span>{" "}
             <span className="datetime">{dateToDateTimeString(row.date)}</span>
           </span>
@@ -208,9 +211,7 @@ class StationTable extends React.Component {
     }
 
     // region filter
-    if (
-      Object.keys(window.appStore.regions).indexOf(this.props.activeRegion) >= 0
-    ) {
+    if (regionCodes.indexOf(this.props.activeRegion) >= 0) {
       filters.push(data =>
         data.filter(row => row.region == this.props.activeRegion)
       );
