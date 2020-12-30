@@ -6,6 +6,7 @@ import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
 import { dateToLongDateString, parseDate } from "../../util/date";
 import { preprocessContent } from "../../util/htmlParser";
+import { getWarnlevelNumber } from "../../util/warn-levels";
 
 /**
  * This component shows the detailed bulletin report including all icons and
@@ -51,9 +52,7 @@ class BulletinReport extends React.Component {
 
     const maxWarnlevel = {
       id: daytimeBulletin.maxWarnlevel,
-      number: window["appStore"].getWarnlevelNumber(
-        daytimeBulletin.maxWarnlevel
-      )
+      number: getWarnlevelNumber(daytimeBulletin.maxWarnlevel)
     };
     const classes = "panel field callout warning-level-" + maxWarnlevel.number;
 
