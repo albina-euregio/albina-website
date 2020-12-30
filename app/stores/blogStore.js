@@ -4,6 +4,7 @@ import axios from "axios";
 import { parseDate, getDaysOfMonth } from "../util/date";
 import { parseTags } from "../util/tagging";
 import L from "leaflet";
+import { regionCodes } from "../util/regions";
 
 class BlogPostPreviewItem {
   constructor(
@@ -106,9 +107,7 @@ export default class BlogStore {
   }
 
   validateRegion(valueToValidate) {
-    return Object.keys(window["appStore"].regions).includes(valueToValidate)
-      ? valueToValidate
-      : "all";
+    return regionCodes.includes(valueToValidate) ? valueToValidate : "all";
   }
 
   validateLanguage(valueToValidate) {
@@ -217,9 +216,9 @@ export default class BlogStore {
     // get all regions from appStore and activate them
     const searchRegion = this.validateRegion(Base.searchGet("region"));
     const initialRegions = {};
-    Object.keys(window["appStore"].regions).forEach(regionName => {
-      initialRegions[regionName] =
-        ["", "all", regionName].includes(searchRegion) || !searchRegion;
+    regionCodes.forEach(region => {
+      initialRegions[region] =
+        ["", "all", region].includes(searchRegion) || !searchRegion;
     });
     initialParameters.regions = initialRegions;
 
