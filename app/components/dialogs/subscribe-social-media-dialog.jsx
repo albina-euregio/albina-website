@@ -5,6 +5,7 @@ import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 import ProvinceFilter from "../filters/province-filter";
+import { regionCodes } from "../../util/regions";
 
 class SubscribeSocialMediaDialog extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ class SubscribeSocialMediaDialog extends React.Component {
     });
 
     const subscriptions = {};
-    Object.keys(window["appStore"].regions).forEach(r => {
+    regionCodes.forEach(r => {
       subscriptions[r] = socialMedia
         .map(s => {
           return { id: s.id, url: s.url[r] ? s.url[r] : null };

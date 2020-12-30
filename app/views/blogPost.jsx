@@ -161,7 +161,7 @@ class BlogPost extends React.Component {
             <li className="blog-province">
               {this.state.regions.map(region => (
                 <Link key={region} to={"/blog?searchLang=all&region=" + region}>
-                  {window["appStore"].getRegionName(region)}
+                  {this.props.intl.formatMessage({ id: `region:${region}` })}
                 </Link>
               ))}
             </li>
