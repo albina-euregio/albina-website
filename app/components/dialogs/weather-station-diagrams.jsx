@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl, FormattedMessage, FormattedNumber } from "react-intl";
+import { injectIntl } from "react-intl";
 import { Util } from "leaflet";
 
 class WeatherStationDiagrams extends React.Component {
@@ -117,11 +117,10 @@ class WeatherStationDiagrams extends React.Component {
                     {aInfo.caption}:{" "}
                   </span>
                   <span className="weatherstation-info-value">
-                    <FormattedNumber
-                      value={aInfo.value}
-                      minimumFractionDigits={aInfo.digits}
-                      maximumFractionDigits={aInfo.digits}
-                    ></FormattedNumber>
+                    {this.props.intl.formatNumber(aInfo.value, {
+                      minimumFractionDigits: aInfo.digits,
+                      maximumFractionDigits: aInfo.digits
+                    })}
                     &thinsp;{aInfo.unit}
                   </span>
                 </li>
@@ -175,10 +174,10 @@ class WeatherStationDiagrams extends React.Component {
             )}
 
             <p className="weatherstation-provider">
-              <FormattedMessage
-                id="dialog:weather-station-diagram:operator.caption"
-                values={{ operator: stationData.operator }}
-              />
+              {self.props.intl.formatMessage(
+                { id: "dialog:weather-station-diagram:operator.caption" },
+                { operator: stationData.operator }
+              )}
             </p>
           </div>
         </div>
