@@ -1,27 +1,18 @@
 const webpack = require("webpack");
 const { execSync } = require("child_process");
 const { resolve } = require("path");
+const { readFileSync } = require("fs");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const SizePlugin = require("size-plugin");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
+const merge = require("lodash/merge");
 
 module.exports = (env, argv) => {
   const production = !argv.mode || argv.mode === "production";
   const publicPath = env === "dev" ? "/dev/" : env === "beta" ? "/beta/" : "/";
-  const config = "./config.json";
-  //override config with optional additional config e.g. for dev
-  const additionalConfig = env === "dev" ? "config-dev.json" : "";
-  let addtitionalConfigDev = additionalConfig
-    ? [
-        {
-          from: "./" + additionalConfig,
-          to: additionalConfig
-        }
-      ]
-    : [];
   const mebibyte = 1024 * 1024;
   const sizePlugin = new SizePlugin({
     writeFile: false,
@@ -151,16 +142,27 @@ module.exports = (env, argv) => {
           },
           { from: "./images/fav/en/favicon.ico", to: "favicon.ico" },
           { from: "./sitemap.xml", to: "sitemap.xml" },
-          {
-            from: config,
-            to: "config.json",
-            transform: content => {
-              let string = content.toString("utf8");
-              string = string.replace(/{additionalConf}/g, additionalConfig);
-              return Buffer.from(string);
-            }
-          },
-          ...addtitionalConfigDev,
+          env !== "dev"
+            ? {
+                from: "./config.json",
+                to: "config.json"
+              }
+            : {
+                from: "./config.json",
+                to: "config.json",
+                transform: (content, path) => {
+                  const config = content.toString("utf8");
+                  const configDev = readFileSync(
+                    path.replace("config.json", "config-dev.json")
+                  );
+                  const configMerged = merge(
+                    JSON.parse(config),
+                    JSON.parse(configDev)
+                  );
+                  const string = JSON.stringify(configMerged);
+                  return Buffer.from(string);
+                }
+              },
           {
             from: "./.htaccess",
             transform: content => {
