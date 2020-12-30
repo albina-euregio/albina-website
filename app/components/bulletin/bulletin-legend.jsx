@@ -4,6 +4,7 @@ import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { preprocessContent } from "../../util/htmlParser.js";
+import { getWarnlevelNumber } from "../../util/warn-levels.js";
 
 class BulletinLegend extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ class BulletinLegend extends React.Component {
       "very_high"
     ];
     const warnlevels = warnlevelKeys.map(k => {
-      return { id: k, num: window["appStore"].getWarnlevelNumber(k) };
+      return { id: k, num: getWarnlevelNumber(k) };
     });
 
     return (

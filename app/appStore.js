@@ -24,7 +24,6 @@ class AppStore extends React.Component {
   navigation;
   regions;
   languages;
-  warnlevelNumbers;
 
   constructor() {
     super();
@@ -37,16 +36,6 @@ class AppStore extends React.Component {
     this.cookieConsent = new CookieStore("cookieConsentAccepted");
     this.cookieFeedback = new CookieStore("feedbackAccepted");
     this.navigation = new NavigationStore();
-
-    this.warnlevelNumbers = {
-      low: 1,
-      moderate: 2,
-      considerable: 3,
-      high: 4,
-      very_high: 5,
-      no_snow: 0,
-      no_rating: 0
-    };
 
     this.avalancheProblems = Object.keys(en)
       .filter(k => k.match(/^problem:/))
@@ -70,22 +59,6 @@ class AppStore extends React.Component {
       return true;
     }
     return false;
-  }
-
-  getWarnlevelNumber(id) {
-    if (this.warnlevelNumbers[id]) {
-      return this.warnlevelNumbers[id];
-    }
-    return 0;
-  }
-
-  getWarnLevelId(num) {
-    if (num > 0) {
-      return Object.keys(this.warnlevelNumbers).find(k => {
-        return this.warnlevelNumbers[k] == num;
-      });
-    }
-    return "";
   }
 }
 

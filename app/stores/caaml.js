@@ -1,3 +1,5 @@
+import { getWarnlevelNumber } from "../util/warn-levels";
+
 /**
  * @param {XMLDocument} document
  * @returns {Caaml.Bulletins} caaml
@@ -82,7 +84,6 @@ export function convertCaamlToJson(document) {
  * @returns {Albina.DaytimeBulletin[]}
  */
 export function toDaytimeBulletins(bulletins) {
-  const getWarnlevelNumber = id => window["appStore"].getWarnlevelNumber(id);
   return bulletins
     .map(forenoon => {
       if (forenoon.id.match(/_PM$/)) return;
