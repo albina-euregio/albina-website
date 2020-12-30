@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import Selectric from "../selectric";
 
@@ -25,4 +24,4 @@ class TagFilter extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(TagFilter));
+export default injectIntl(TagFilter);

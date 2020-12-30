@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 class SearchField extends React.Component {
@@ -66,4 +65,4 @@ class SearchField extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(SearchField));
+export default injectIntl(SearchField);

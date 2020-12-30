@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 /**
@@ -36,4 +35,4 @@ class BulletinAWMapStatic extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(BulletinAWMapStatic));
+export default injectIntl(BulletinAWMapStatic);

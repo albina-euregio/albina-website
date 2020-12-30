@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import L from "leaflet";
 require("leaflet/dist/leaflet.css");
 require("./leaflet-player.css");
@@ -285,4 +284,4 @@ class LeafletMap extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(LeafletMap));
+export default injectIntl(LeafletMap);

@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { modal_open_by_params } from "../js/modal";
 import StationOverlay from "../components/weather/station-overlay";
@@ -93,4 +93,4 @@ class StationMap extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(observer(StationMap)));
+export default injectIntl(observer(StationMap));

@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 class Jumpnav extends React.Component {
@@ -30,4 +29,4 @@ class Jumpnav extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(Jumpnav));
+export default injectIntl(Jumpnav);

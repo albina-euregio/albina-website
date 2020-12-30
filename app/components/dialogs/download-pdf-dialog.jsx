@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Util } from "leaflet";
 
@@ -152,4 +152,4 @@ class DownloadPdfDialog extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(DownloadPdfDialog)));
+export default injectIntl(observer(DownloadPdfDialog));

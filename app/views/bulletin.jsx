@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { reaction } from "mobx";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { BulletinStore } from "../stores/bulletinStore";
 import MapStore from "../stores/mapStore";
 
@@ -478,4 +478,4 @@ class Bulletin extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(withRouter(Bulletin)));
+export default injectIntl(withRouter(Bulletin));

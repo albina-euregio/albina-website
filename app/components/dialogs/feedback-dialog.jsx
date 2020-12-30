@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 class FeedbackDialog extends React.Component {
@@ -60,4 +60,4 @@ class FeedbackDialog extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(FeedbackDialog)));
+export default injectIntl(observer(FeedbackDialog));

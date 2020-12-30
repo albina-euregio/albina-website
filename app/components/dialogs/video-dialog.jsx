@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 class VideoDialog extends React.Component {
@@ -43,4 +42,4 @@ class VideoDialog extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(VideoDialog));
+export default injectIntl(VideoDialog);

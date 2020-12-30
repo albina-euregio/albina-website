@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import SubscribeAppDialog from "./subscribe-app-dialog";
 import SubscribeEmailDialog from "./subscribe-email-dialog";
@@ -105,4 +104,4 @@ class SubscribeDialog extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(SubscribeDialog));
+export default injectIntl(SubscribeDialog);

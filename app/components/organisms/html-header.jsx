@@ -1,6 +1,5 @@
 import React from "react";
 import MetaTags from "react-meta-tags";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 class HTMLHeader extends React.Component {
@@ -39,4 +38,4 @@ class HTMLHeader extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(HTMLHeader));
+export default injectIntl(HTMLHeader);

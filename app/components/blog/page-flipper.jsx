@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 class BlogPageFlipper extends React.Component {
@@ -59,4 +59,4 @@ class BlogPageFlipper extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(BlogPageFlipper)));
+export default injectIntl(observer(BlogPageFlipper));

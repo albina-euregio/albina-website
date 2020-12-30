@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Iframe from "react-iframe";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 import ProvinceFilter from "../filters/province-filter";
@@ -98,4 +97,4 @@ class SubscribeSocialMediaDialog extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(SubscribeSocialMediaDialog));
+export default injectIntl(SubscribeSocialMediaDialog);

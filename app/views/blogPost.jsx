@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Parser, ProcessNodeDefinitions } from "html-to-react";
 import { injectIntl } from "react-intl";
 import { withRouter } from "react-router-dom";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
@@ -181,4 +181,4 @@ class BlogPost extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(withRouter(observer(BlogPost))));
+export default injectIntl(withRouter(observer(BlogPost)));

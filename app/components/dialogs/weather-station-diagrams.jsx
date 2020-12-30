@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl, FormattedMessage, FormattedNumber } from "react-intl";
 import { Util } from "leaflet";
 
@@ -187,4 +187,4 @@ class WeatherStationDiagrams extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(WeatherStationDiagrams)));
+export default injectIntl(observer(WeatherStationDiagrams));

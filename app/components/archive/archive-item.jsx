@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Util } from "leaflet";
 import { dateToISODateString, dateToDateString } from "../../util/date.js";
@@ -122,4 +121,4 @@ class ArchiveItem extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(ArchiveItem));
+export default injectIntl(ArchiveItem);

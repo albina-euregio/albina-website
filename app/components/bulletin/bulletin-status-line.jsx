@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { computed } from "mobx";
 import { injectIntl } from "react-intl";
 import {
@@ -77,4 +77,4 @@ class BulletinStatusLine extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(BulletinStatusLine)));
+export default injectIntl(observer(BulletinStatusLine));

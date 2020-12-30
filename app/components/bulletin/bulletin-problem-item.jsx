@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import ProblemIconLink from "../icons/problem-icon-link.jsx";
 import ExpositionIcon from "../icons/exposition-icon.jsx";
@@ -120,4 +120,4 @@ class BulletinProblemItem extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(BulletinProblemItem)));
+export default injectIntl(observer(BulletinProblemItem));

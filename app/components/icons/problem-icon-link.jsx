@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import ProblemIcon from "./problem-icon.jsx";
 
@@ -39,4 +38,4 @@ class ProblemIconLink extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(ProblemIconLink));
+export default injectIntl(ProblemIconLink);

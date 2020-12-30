@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import StationDataStore from "../stores/stationDataStore";
 import PageHeadline from "../components/organisms/page-headline";
@@ -194,6 +194,4 @@ class StationMeasurements extends React.Component {
     );
   }
 }
-export default inject("locale")(
-  injectIntl(withRouter(observer(StationMeasurements)))
-);
+export default injectIntl(withRouter(observer(StationMeasurements)));

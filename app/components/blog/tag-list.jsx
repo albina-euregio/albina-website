@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 class TagList extends React.Component {
@@ -25,4 +24,4 @@ class TagList extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(TagList));
+export default injectIntl(TagList);

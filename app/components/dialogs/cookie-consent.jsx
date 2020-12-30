@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 class CookieConsent extends React.Component {
@@ -41,4 +41,4 @@ class CookieConsent extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(CookieConsent)));
+export default injectIntl(observer(CookieConsent));

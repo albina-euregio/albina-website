@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 class FooterLogos extends React.Component {
@@ -33,4 +32,4 @@ class FooterLogos extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(FooterLogos));
+export default injectIntl(FooterLogos);
