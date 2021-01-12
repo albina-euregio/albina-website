@@ -343,7 +343,7 @@ class BulletinStore {
 
   _augmentFeature(f, ampm = null) {
     f.properties.bid =
-      f.properties.bid ?? f.properties.RegionCode ?? f.properties.NUTS2_area;
+      f.properties.bid ?? f.properties.RegionCode ?? f.properties.region_id;
     f.properties.state = this.getRegionState(f.properties.bid, ampm);
     if (!f.properties.latlngs) {
       f.properties.latlngs = GeoJSON.coordsToLatLngs(

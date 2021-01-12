@@ -4,10 +4,8 @@
     {
       "type": "Feature",
       "properties": {
-        "NUTS2_area": "Salzburg",
-        "mtn_reg": "Alps",
         "country_id": "AT",
-        "country": "Austria",
+        "region_id": "AT-05",
         "aws_1": "LWD Salzburg",
         "url_1_en": "https://lawine.salzburg.at/en/",
         "url_1_de": "https://lawine.salzburg.at/",
@@ -967,10 +965,8 @@
     {
       "type": "Feature",
       "properties": {
-        "NUTS2_area": "Vorarlberg",
-        "mtn_reg": "Alps",
         "country_id": "AT",
-        "country": "Austria",
+        "region_id": "AT-08",
         "aws_1": "LWD Vorarlberg",
         "url_1_en": "https://warndienste.cnv.at/dibos/lawine_en/",
         "url_1_de": "https://warndienste.cnv.at/dibos/lawine/",
@@ -1413,10 +1409,8 @@
     {
       "type": "Feature",
       "properties": {
-        "NUTS2_area": "Schweiz",
-        "mtn_reg": "Alps",
         "country_id": "CH",
-        "country": "Switzerland",
+        "region_id": "CH",
         "aws_1": "SLF",
         "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
         "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
@@ -3377,10 +3371,8 @@
     {
       "type": "Feature",
       "properties": {
-        "NUTS2_area": "Oberbayern",
-        "mtn_reg": "Alps",
         "country_id": "DE",
-        "country": "Germany",
+        "region_id": "DE-BY",
         "aws_1": "LWD Bayern",
         "url_1_en": "https://www.lawinenwarndienst-bayern.de/res/lawinenlage/lagebericht_en.php",
         "url_1_de": "https://www.lawinenwarndienst-bayern.de/res/start_winter.php",
@@ -4472,10 +4464,8 @@
     {
       "type": "Feature",
       "properties": {
-        "NUTS2_area": "Kaernten",
-        "mtn_reg": "Alps",
         "country_id": "AT",
-        "country": "Austria",
+        "region_id": "AT-02",
         "aws_1": "LWD Kärnten",
         "url_1_en": "https://lawine-kaernten.at/",
         "url_1_de": "https://lawine-kaernten.at/",
@@ -5413,10 +5403,8 @@
     {
       "type": "Feature",
       "properties": {
-        "NUTS2_area": "Livigno",
-        "mtn_reg": "Alps",
         "country_id": "IT",
-        "country": "Italy",
+        "region_id": "IT-25-SO-LI",
         "aws_1": "ALPSOLUT",
         "url_1_en": "https://www.livigno.eu/en/avalanche-bulletin",
         "url_1_de": "https://www.livigno.eu/de/avalanche-bulletin",
@@ -5494,10 +5482,8 @@
     {
       "type": "Feature",
       "properties": {
-        "NUTS2_area": "Veneto",
-        "mtn_reg": "Alps",
         "country_id": "IT",
-        "country": "Italy",
+        "region_id": "IT-34",
         "aws_1": "AINEVA",
         "url_1_de": "https://www.aineva.it/bollettini/",
         "url_1_it": "https://www.aineva.it/bollettini/",
@@ -6955,10 +6941,8 @@
     {
       "type": "Feature",
       "properties": {
-        "NUTS2_area": "Friuli-Venezia Giulia",
-        "mtn_reg": "Alps",
         "country_id": "IT",
-        "country": "Italy",
+        "region_id": "IT-36",
         "aws_1": "AINEVA",
         "url_1_en": "https://www.aineva.it/bollettini/",
         "url_1_de": "https://www.aineva.it/bollettini/",
@@ -7263,10 +7247,8 @@
     {
       "type": "Feature",
       "properties": {
-        "NUTS2_area": "Liechtenstein",
-        "mtn_reg": "Alps",
         "country_id": "LI",
-        "country": "Liechtenstein",
+        "region_id": "LI",
         "aws_1": "SLF",
         "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
         "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
@@ -7370,10 +7352,8 @@
     {
       "type": "Feature",
       "properties": {
-        "NUTS2_area": "Lombardia",
-        "mtn_reg": "Alps",
         "country_id": "IT",
-        "country": "Italy",
+        "region_id": "IT-25",
         "aws_2": "AINEVA",
         "url_2_de": "https://www.aineva.it/bollettini/",
         "url_2_it": "https://www.aineva.it/bollettini/",
