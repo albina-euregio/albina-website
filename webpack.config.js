@@ -133,6 +133,7 @@ module.exports = (env, argv) => {
       }),
       new CopyWebpackPlugin(
         [
+          { from: "./service-worker.js", to: "service-worker.js" },
           { from: "./content", to: "content" },
           { from: "./i18n", to: "i18n" },
           { from: "./images", to: "images" },

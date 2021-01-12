@@ -58,6 +58,7 @@
   ],
   "apis": {
     "bulletin": "https://api.avalanche.report/albina/api/bulletins",
+    "push": "https://api.avalanche.report/albina/api/push",
     "subscribe": "https://api.avalanche.report/albina/api/email",
     "geo": "https://avalanche.report/albina_files/",
     "blogger": "https://api.avalanche.report/blog/",

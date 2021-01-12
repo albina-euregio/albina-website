@@ -90,3 +90,21 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
     document.body.appendChild(document.getElementById("page-all"))
   );
 });
+
+if ("serviceWorker" in navigator && "PushManager" in window) {
+  navigator.serviceWorker
+    .register(APP_ASSET_PATH + "service-worker.js")
+    .then(serviceWorkerRegistration => {
+      console.info("Service worker was registered.", {
+        serviceWorkerRegistration
+      });
+    })
+    .catch(error => {
+      console.error(
+        "An error occurred while registering the service worker.",
+        error
+      );
+    });
+} else {
+  console.error("Browser does not support service workers or push messages.");
+}

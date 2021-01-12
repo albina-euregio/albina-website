@@ -4,6 +4,7 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import SubscribeAppDialog from "./subscribe-app-dialog";
 import SubscribeEmailDialog from "./subscribe-email-dialog";
 import SubscribeSMDialog from "./subscribe-social-media-dialog";
+import SubscribePushNotificationDialog from "./subscribe-push-notification-dialog";
 
 class SubscribeDialog extends React.Component {
   constructor(props) {
@@ -99,6 +100,7 @@ class SubscribeDialog extends React.Component {
             {this.state.selectedDialog === "Email" && <SubscribeEmailDialog />}
             {this.state.selectedDialog === "SM" && <SubscribeSMDialog />}
             {this.state.selectedDialog === "App" && <SubscribeAppDialog />}
+            <SubscribePushNotificationDialog />
           </div>
         </div>
       </>
