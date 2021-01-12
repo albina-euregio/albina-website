@@ -41,6 +41,10 @@ export default function SubscribePushNotificationDialog() {
     () => "serviceWorker" in navigator && "Notification" in window
   );
 
+  if (!isSupported || APP_ENVIRONMENT !== "dev") {
+    return null;
+  }
+
   const handleEnable = useCallback(async () => {
     const permission = await Notification.requestPermission();
     if (permission !== "granted") return;
@@ -72,7 +76,7 @@ export default function SubscribePushNotificationDialog() {
     setIsSubscribed(Boolean(subscription));
   }, [setIsSubscribed]);
 
-  return !isSupported ? null : isSubscribed ? (
+  return isSubscribed ? (
     <button className="pure-button" onClick={handleDisable}>
       Disable notifications
     </button>
