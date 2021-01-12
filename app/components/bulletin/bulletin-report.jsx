@@ -113,12 +113,6 @@ class BulletinReport extends React.Component {
             {bulletin.highlights && (
               <p className="bulletin-report-public-alert">
                 <span className="icon-attention bulletin-report-public-alert-icon"></span>
-                <span
-                  className="bulletin-report-public-alert-text"
-                  title={this.props.intl.formatMessage({
-                    id: "bulletin:map:details:warning:title"
-                  })}
-                ></span>
                 {bulletin.highlights}
               </p>
             )}
