@@ -271,9 +271,7 @@ class BulletinStore {
     const feature = microRegions.features.find(
       f => f.properties.bid === this.settings.region
     );
-    return window["appStore"].language === "it"
-      ? feature?.properties?.["regione"]
-      : feature?.properties?.["Region"];
+    return feature?.properties?.["RegionCode"];
   }
 
   /**

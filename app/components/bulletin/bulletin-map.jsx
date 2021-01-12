@@ -171,7 +171,9 @@ class BulletinMap extends React.Component {
         <BulletinMapDetails
           key="details"
           bulletin={activeBulletin}
-          region={activeRegionName}
+          region={this.props.intl.formatMessage({
+            id: "region:" + activeRegionName
+          })}
           ampm={this.props.ampm}
         />
       );
