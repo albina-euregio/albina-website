@@ -202,17 +202,17 @@ class BulletinMap extends React.Component {
       const language = window["appStore"].language;
       const country = activeNeighbor.properties[`country_id`];
       const region = activeNeighbor.properties[`region_id`];
+      res.push(
+        <p>{this.props.intl.formatMessage({ id: "region:" + country })}</p>
+      );
+      res.push(
+        <p>{this.props.intl.formatMessage({ id: "region:" + region })}</p>
+      );
       for (let index = 1; index <= 3; index++) {
         // aws_1, aws_2, aws_3
         const label = activeNeighbor.properties[`aws_${index}`];
         const href = activeNeighbor.properties[`url_${index}_${language}`];
         if (!label) continue;
-        res.push(
-          <p>{this.props.intl.formatMessage({ id: "region:" + country })}</p>
-        );
-        res.push(
-          <p>{this.props.intl.formatMessage({ id: "region:" + region })}</p>
-        );
         res.push(
           <a
             key={`neighbor-link-${index}`}
