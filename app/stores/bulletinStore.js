@@ -310,11 +310,11 @@ class BulletinStore {
   }
 
   getRegionState(regionId, ampm = null) {
-    if (
-      this.settings?.region === regionId ||
-      this.activeBulletin?.forenoon?.regions?.some(r => r.id === regionId)
-    ) {
+    if (this.settings?.region === regionId) {
       return "selected";
+    }
+    if (this.activeBulletin?.forenoon?.regions?.some(r => r.id === regionId)) {
+      return "highlighted";
     }
     if (this.settings.region) {
       // some other region is selected
