@@ -71,6 +71,7 @@
     }
   },
   "apiKeys": {
+    "vapidPublicKey": "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM",
     "google": "AIzaSyBN0GUcRlTfoVnarVFVpA1hUEnDcDjuXQY"
   },
   "links": {

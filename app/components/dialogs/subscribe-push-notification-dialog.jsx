@@ -1,8 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 
-const VAPID_PUBLIC_KEY =
-  "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM";
-
 /**
  * @param {PushSubscription} subscription
  */
@@ -50,7 +47,7 @@ export default function SubscribePushNotificationDialog() {
     const registration = await navigator.serviceWorker.getRegistration();
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY)
+      applicationServerKey: urlBase64ToUint8Array(config.apiKeys.vapidPublicKey)
     });
     if (!subscription) return;
     await updatePushSubscription(subscription, `${config.apis.push}/subscribe`);
