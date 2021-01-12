@@ -333,7 +333,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
               foreignRegions.push(this.constantsService.codeTyrol);
               foreignRegions.push(this.constantsService.codeSouthTyrol);
               foreignRegions.push(this.constantsService.codeTrentino);
-              this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate(), regions).subscribe(
+              this.bulletinsService.loadBulletins(this.bulletinsService.getActiveDate(), foreignRegions).subscribe(
                 data2 => {
                   this.addForeignBulletins(data2);
                 },
