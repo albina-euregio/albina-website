@@ -84,10 +84,12 @@ export default function SubscribeWebPushDialog() {
     setIsSubscribed(false);
   }, []);
 
-  useEffect(async () => {
-    const registration = await navigator.serviceWorker.getRegistration();
-    const subscription = await registration.pushManager.getSubscription();
-    setIsSubscribed(Boolean(subscription));
+  useEffect(() => {
+    (async () => {
+      const registration = await navigator.serviceWorker.getRegistration();
+      const subscription = await registration.pushManager.getSubscription();
+      setIsSubscribed(Boolean(subscription));
+    })();
   }, [setIsSubscribed]);
 
   return isSubscribed ? (
