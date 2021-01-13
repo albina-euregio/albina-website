@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 /**
  * @param {PushSubscription} subscription
@@ -34,14 +34,22 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray;
 }
 
+export function isPushNotificationSupported() {
+  if (APP_ENVIRONMENT !== "dev") {
+    // disable for now
+    return false;
+  }
+  return (
+    "serviceWorker" in navigator &&
+    "Notification" in window &&
+    "PushManager" in window
+  );
+}
+
 export default function SubscribePushNotificationDialog() {
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const isSupported = useMemo(
-    () => "serviceWorker" in navigator && "Notification" in window
-  );
-
-  if (!isSupported || APP_ENVIRONMENT !== "dev") {
+  if (!isPushNotificationSupported()) {
     return null;
   }
 

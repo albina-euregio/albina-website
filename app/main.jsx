@@ -6,6 +6,7 @@ import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
 import { reaction } from "mobx";
 import axios from "axios";
+import { isPushNotificationSupported } from "./components/dialogs/subscribe-push-notification-dialog.jsx";
 
 /* bower components */
 window["jQuery"] = window["$"] = require("jquery");
@@ -91,7 +92,7 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
   );
 });
 
-if ("serviceWorker" in navigator && "PushManager" in window) {
+if (isPushNotificationSupported()) {
   navigator.serviceWorker
     .register(APP_ASSET_PATH + "service-worker.js")
     .then(serviceWorkerRegistration => {
