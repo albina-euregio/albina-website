@@ -745,6 +745,7 @@ export class MapService {
   private getActiveSelectionStyle(region, dangerRating, status) {
     let fillOpacity = this.constantsService.fillOpacityOwnSelected;
     const opacity = 0.0;
+    const fillColor = this.constantsService.getDangerRatingColor(dangerRating);
 
     // own area
     if (region.startsWith(this.authenticationService.getActiveRegion())) {
@@ -766,8 +767,6 @@ export class MapService {
         fillOpacity = this.constantsService.fillOpacityForeignSelected;
       }
     }
-
-    const fillColor = this.constantsService.getDangerRatingColor(dangerRating);
 
     return {
       color: this.constantsService.lineColor,
