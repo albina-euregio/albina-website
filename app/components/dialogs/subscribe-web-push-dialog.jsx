@@ -34,7 +34,7 @@ function urlBase64ToUint8Array(base64String) {
   return outputArray;
 }
 
-export function isPushNotificationSupported() {
+export function isWebPushSupported() {
   if (APP_ENVIRONMENT !== "dev") {
     // disable for now
     return false;
@@ -46,10 +46,14 @@ export function isPushNotificationSupported() {
   );
 }
 
-export default function SubscribePushNotificationDialog() {
+/**
+ * Subscription via Web Push Notifications
+ * @see https://developers.google.com/web/fundamentals/push-notifications
+ */
+export default function SubscribeWebPushDialog() {
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  if (!isPushNotificationSupported()) {
+  if (!isWebPushSupported()) {
     return null;
   }
 
