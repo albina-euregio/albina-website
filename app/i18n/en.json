@@ -369,6 +369,8 @@
   "dialog:subscribe-email:status:submitted": "<strong>Please check your email inbox</strong> to confirm your subscription",
   "dialog:subscribe-email:status:ok": "<strong>Subscription confirmed:</strong> You are now subscribed",
   "dialog:subscribe-email:error": "Error",
+  "dialog:subscribe-web-push:enable": "Enable Web Push",
+  "dialog:subscribe-web-push:disable": "Disable Web Push",
   "dialog:subscribe-blog:header": "Subscriptions",
   "dialog:subscribe-blog:subheader": "Blog",
   "dialog:subscribe-blog:back-button": "All subscriptions",

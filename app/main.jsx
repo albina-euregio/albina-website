@@ -6,6 +6,7 @@ import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
 import { reaction } from "mobx";
 import axios from "axios";
+import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
 
 /* bower components */
 window["jQuery"] = window["$"] = require("jquery");
@@ -90,3 +91,21 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
     document.body.appendChild(document.getElementById("page-all"))
   );
 });
+
+if (isWebPushSupported()) {
+  navigator.serviceWorker
+    .register(APP_ASSET_PATH + "service-worker.js")
+    .then(serviceWorkerRegistration => {
+      console.info("Service worker was registered.", {
+        serviceWorkerRegistration
+      });
+    })
+    .catch(error => {
+      console.error(
+        "An error occurred while registering the service worker.",
+        error
+      );
+    });
+} else {
+  console.error("Browser does not support service workers or push messages.");
+}
