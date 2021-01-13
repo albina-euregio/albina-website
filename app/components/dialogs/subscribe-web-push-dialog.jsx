@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { useIntl } from "react-intl";
 
 /**
  * @param {PushSubscription} subscription
@@ -52,6 +53,7 @@ export function isWebPushSupported() {
  */
 export default function SubscribeWebPushDialog() {
   const [isSubscribed, setIsSubscribed] = useState(false);
+  const intl = useIntl();
 
   if (!isWebPushSupported()) {
     return null;
@@ -90,11 +92,11 @@ export default function SubscribeWebPushDialog() {
 
   return isSubscribed ? (
     <button className="pure-button" onClick={handleDisable}>
-      Disable notifications
+      {intl.formatMessage({ id: "dialog:subscribe-web-push:disable" })}
     </button>
   ) : (
     <button className="pure-button" onClick={handleEnable}>
-      Enable notifications
+      {intl.formatMessage({ id: "dialog:subscribe-web-push:enable" })}
     </button>
   );
 }
