@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 class BulletinHowTo extends React.Component {
@@ -17,4 +17,4 @@ class BulletinHowTo extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(BulletinHowTo)));
+export default injectIntl(observer(BulletinHowTo));

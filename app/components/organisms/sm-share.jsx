@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import Base from "../../base";
 
@@ -138,4 +137,4 @@ class SmShare extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(SmShare));
+export default injectIntl(SmShare);

@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { inject } from "mobx-react";
 import { computed } from "mobx";
 import { injectIntl } from "react-intl";
 import {
@@ -115,4 +114,4 @@ class BulletinDateFlipper extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(BulletinDateFlipper));
+export default injectIntl(BulletinDateFlipper);

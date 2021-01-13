@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import TagList from "./tag-list";
 import { dateToDateTimeString } from "../../util/date.js";
@@ -56,4 +56,4 @@ class BlogPostsList extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(BlogPostsList));
+export default injectIntl(BlogPostsList);

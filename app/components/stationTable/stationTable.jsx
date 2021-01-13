@@ -1,7 +1,6 @@
 import React from "react";
 import StationTableHeader from "./stationTableHeader";
 import { modal_open_by_params } from "../../js/modal";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedNumber } from "react-intl";
 import { dateToDateTimeString } from "../../util/date.js";
 import { regionCodes } from "../../util/regions";
@@ -281,4 +280,4 @@ class StationTable extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(StationTable));
+export default injectIntl(StationTable);

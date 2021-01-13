@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 import ModalDialog from "./modal-dialog";
@@ -130,4 +129,4 @@ class Page extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(withRouter(Page)));
+export default injectIntl(withRouter(Page));

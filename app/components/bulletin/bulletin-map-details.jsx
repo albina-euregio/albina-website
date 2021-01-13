@@ -2,7 +2,6 @@ import React from "react";
 import { observer } from "mobx-react";
 import ProblemIconLink from "../icons/problem-icon-link.jsx";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 /**
@@ -61,4 +60,4 @@ class BulletinMapDetails extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(BulletinMapDetails));
+export default injectIntl(BulletinMapDetails);

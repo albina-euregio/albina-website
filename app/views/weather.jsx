@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { modal_open_by_params } from "../js/modal";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
@@ -223,4 +223,4 @@ class Weather extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(withRouter(observer(Weather))));
+export default injectIntl(withRouter(observer(Weather)));

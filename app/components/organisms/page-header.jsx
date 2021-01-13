@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import Menu from "./../menu";
 import { Util } from "leaflet";
@@ -203,4 +203,4 @@ class PageHeader extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(withRouter(observer(PageHeader))));
+export default injectIntl(withRouter(observer(PageHeader)));

@@ -1,6 +1,6 @@
 import React from "react";
 import { computed } from "mobx";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
@@ -186,4 +186,4 @@ class BulletinReport extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(BulletinReport)));
+export default injectIntl(observer(BulletinReport));

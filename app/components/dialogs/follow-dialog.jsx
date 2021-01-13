@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { regionCodes } from "../../util/regions";
 
@@ -65,4 +64,4 @@ class FollowDialog extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(FollowDialog));
+export default injectIntl(FollowDialog);

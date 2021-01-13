@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
@@ -27,4 +26,4 @@ class DangerPatternItem extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(DangerPatternItem));
+export default injectIntl(DangerPatternItem);

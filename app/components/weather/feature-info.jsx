@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { dateToDateTimeString } from "../../util/date.js";
 
@@ -44,4 +43,4 @@ class FeatureInfo extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(FeatureInfo));
+export default injectIntl(FeatureInfo);

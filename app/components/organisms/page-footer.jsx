@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import Menu from "../menu";
 import SmFollow from "./sm-follow.jsx";
@@ -112,4 +112,4 @@ class PageFooter extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(observer(PageFooter)));
+export default injectIntl(observer(PageFooter));

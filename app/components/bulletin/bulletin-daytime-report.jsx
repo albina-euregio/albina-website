@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import TendencyIcon from "../icons/tendency-icon.jsx";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
@@ -152,4 +151,4 @@ class BulletinDaytimeReport extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(BulletinDaytimeReport));
+export default injectIntl(BulletinDaytimeReport);

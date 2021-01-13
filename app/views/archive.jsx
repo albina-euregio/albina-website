@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { reaction } from "mobx";
 import { injectIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
@@ -228,4 +228,4 @@ class Archive extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(Archive)));
+export default injectIntl(observer(Archive));

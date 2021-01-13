@@ -1,5 +1,5 @@
 import React from "react";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Link } from "react-router-dom";
 
@@ -236,4 +236,4 @@ class SubscribeEmailDialog extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(observer(SubscribeEmailDialog)));
+export default injectIntl(observer(SubscribeEmailDialog));

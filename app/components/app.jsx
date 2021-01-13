@@ -1,7 +1,7 @@
 import React from "react";
 import loadable from "@loadable/component";
-import { Provider, observer } from "mobx-react";
-import { MobxIntlProvider } from "../util/mobx-react-intl.es5.js";
+import { observer } from "mobx-react";
+import { IntlProvider } from "react-intl";
 
 import { Redirect } from "react-router";
 import { BrowserRouter } from "react-router-dom";
@@ -35,10 +35,6 @@ import { orientation_change } from "../js/browser";
 require("../css/style.scss"); // CSS overrides
 
 class App extends React.Component {
-  shouldComponentUpdate() {
-    return true;
-  }
-
   componentDidMount() {
     window["page_html"] = $("html");
     window["page_body"] = $("body");
@@ -165,17 +161,17 @@ class App extends React.Component {
   }
 
   render() {
-    const store = window["appStore"];
     return (
-      <Provider {...store}>
-        <MobxIntlProvider>
-          <BrowserRouter basename={config.projectRoot}>
-            <ScrollContext shouldUpdateScroll={this.shouldUpdateScroll}>
-              {renderRoutes(this.routes())}
-            </ScrollContext>
-          </BrowserRouter>
-        </MobxIntlProvider>
-      </Provider>
+      <IntlProvider
+        locale={window["appStore"].language}
+        messages={window["appStore"].messages}
+      >
+        <BrowserRouter basename={config.projectRoot}>
+          <ScrollContext shouldUpdateScroll={this.shouldUpdateScroll}>
+            {renderRoutes(this.routes())}
+          </ScrollContext>
+        </BrowserRouter>
+      </IntlProvider>
     );
   }
 }

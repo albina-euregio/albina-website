@@ -1,6 +1,6 @@
 import React from "react";
 import { computed } from "mobx";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
@@ -48,9 +48,7 @@ class BulletinHeader extends React.Component {
             status={this.props.store.settings.status}
           />
           {/* <h2 className="subheader">{this.props.title}</h2> */}
-          <h1 className="bulletin-datetime-validity">
-            {this.date}
-          </h1>
+          <h1 className="bulletin-datetime-validity">{this.date}</h1>
           <BulletinDateFlipper
             date={this.props.store.settings.date}
             latest={this.props.store.latest}
@@ -60,4 +58,4 @@ class BulletinHeader extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(BulletinHeader));
+export default injectIntl(BulletinHeader);

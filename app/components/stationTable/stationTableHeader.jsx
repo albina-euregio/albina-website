@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 
 class StationTableHeader extends React.Component {
@@ -77,4 +76,4 @@ class StationTableHeader extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(StationTableHeader));
+export default injectIntl(StationTableHeader);

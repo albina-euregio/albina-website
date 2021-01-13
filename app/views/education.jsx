@@ -1,6 +1,6 @@
 import React from "react"; // eslint-disable-line no-unused-vars
 import { withRouter } from "react-router-dom";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -257,4 +257,4 @@ class Education extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(withRouter(observer(Education))));
+export default injectIntl(withRouter(observer(Education)));

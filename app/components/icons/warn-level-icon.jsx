@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Link } from "react-router-dom";
 import { getWarnlevelNumber } from "../../util/warn-levels";
@@ -91,4 +90,4 @@ class WarnLevelIcon extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(WarnLevelIcon));
+export default injectIntl(WarnLevelIcon);

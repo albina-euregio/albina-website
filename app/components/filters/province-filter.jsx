@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { regionCodes } from "../../util/regions";
 import Selectric from "../selectric";
@@ -27,4 +26,4 @@ class ProvinceFilter extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(ProvinceFilter));
+export default injectIntl(ProvinceFilter);

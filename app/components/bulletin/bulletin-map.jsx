@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { inject } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { ImageOverlay } from "react-leaflet";
 import InfoBar from "../organisms/info-bar";
@@ -294,4 +293,4 @@ class BulletinMap extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(BulletinMap));
+export default injectIntl(BulletinMap);

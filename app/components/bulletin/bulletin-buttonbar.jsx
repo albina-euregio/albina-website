@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { modal_init } from "../../js/modal";
 
@@ -95,4 +94,4 @@ class BulletinButtonbar extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(BulletinButtonbar));
+export default injectIntl(BulletinButtonbar);

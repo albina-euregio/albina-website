@@ -67,7 +67,7 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
 
   // replace language-dependent body classes on language change.
   reaction(
-    () => window["appStore"].locale.value,
+    () => window["appStore"].language,
     newLang => {
       document.body.parentElement.lang = newLang;
       document.body.className = document.body.className
@@ -77,7 +77,7 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
   );
 
   // initially set language-dependent body classes
-  const initialLang = window["appStore"].locale.value;
+  const initialLang = window["appStore"].language;
   document.body.parentElement.lang = initialLang;
   document.body.className +=
     (document.body.className ? " " : "") +

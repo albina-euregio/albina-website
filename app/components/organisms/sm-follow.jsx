@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 class SmFollow extends React.Component {
@@ -36,4 +35,4 @@ class SmFollow extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(SmFollow));
+export default injectIntl(SmFollow);

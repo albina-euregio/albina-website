@@ -1,5 +1,4 @@
 import React from "react";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import axios from "axios";
 import PageHeadline from "../components/organisms/page-headline";
@@ -65,4 +64,4 @@ class SubscribeConfirmation extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(SubscribeConfirmation));
+export default injectIntl(SubscribeConfirmation);

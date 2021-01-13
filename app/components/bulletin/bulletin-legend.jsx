@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { inject } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { preprocessContent } from "../../util/htmlParser.js";
@@ -91,4 +90,4 @@ class BulletinLegend extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(BulletinLegend));
+export default injectIntl(BulletinLegend);

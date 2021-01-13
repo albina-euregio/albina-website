@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import BlogStore from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
@@ -291,4 +291,4 @@ class BlogOverview extends React.Component {
   }
 }
 
-export default inject("locale")(injectIntl(observer(BlogOverview)));
+export default injectIntl(observer(BlogOverview));
