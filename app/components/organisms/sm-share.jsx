@@ -1,43 +1,42 @@
 import React from "react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
-import Base from "../../base";
 
 class SmShare extends React.Component {
   getShareUrl(type) {
     const currentUrl = String(window.location);
     let url = "";
-    const params = {};
+    const params = new URLSearchParams();
 
     if (type == "facebook") {
       url = "https://www.facebook.com/sharer.php";
-      params.u = currentUrl;
+      params.set("u", currentUrl);
       if (this.props.image) {
-        params.picture = this.props.image;
+        params.set("picture", this.props.image);
       }
       if (this.props.title) {
-        params.title = this.props.title;
+        params.set("title", this.props.title);
       }
       if (this.props.description) {
-        params.description = this.props.description;
+        params.set("description", this.props.description);
       }
     }
     if (type == "twitter") {
       url = "https://www.twitter.com/share";
-      params.url = currentUrl;
+      params.set("url", currentUrl);
     }
     if (type == "whatsapp") {
       url = "https://wa.me/";
-      params.text = currentUrl;
+      params.set("text", currentUrl);
     }
     if (type == "telegram") {
       url = "https://telegram.me/share/";
-      params.url = currentUrl;
+      params.set("url", currentUrl);
       if (this.props.title) {
-        params.title = this.props.title;
+        params.set("title", this.props.title);
       }
     }
 
-    return url ? Base.makeUrl(url, params) : "#";
+    return url ? `${url}?${params}` : "#";
   }
 
   render() {

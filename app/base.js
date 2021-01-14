@@ -1,20 +1,6 @@
 require("url-search-params-polyfill");
 
 var Base = {
-  makeUrl(baseUrl, params = {}) {
-    return (
-      baseUrl +
-      (Object.keys(params).length > 0
-        ? "?" +
-          Object.keys(params)
-            .map(k => {
-              return k + "=" + encodeURIComponent(params[k]);
-            })
-            .join("&")
-        : "")
-    );
-  },
-
   clamp(num, min, max) {
     return num <= min ? min : num >= max ? max : num;
   },
