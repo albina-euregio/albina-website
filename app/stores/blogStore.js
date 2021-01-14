@@ -5,6 +5,7 @@ import { parseDate, getDaysOfMonth } from "../util/date";
 import { parseTags } from "../util/tagging";
 import L from "leaflet";
 import { regionCodes } from "../util/regions";
+import { parseSearchParams } from "../util/searchParams";
 
 class BlogPostPreviewItem {
   constructor(
@@ -125,7 +126,7 @@ export default class BlogStore {
   checkUrl() {
     let needLoad = false;
 
-    const search = Base.makeSearch();
+    const search = parseSearchParams();
     const urlValues = {
       year: this.validateYear(search.get("year")),
       month: this.validateMonth(search.get("month")),
@@ -195,7 +196,7 @@ export default class BlogStore {
   }
 
   initialParams() {
-    const search = Base.makeSearch();
+    const search = parseSearchParams();
     const searchLang = this.validateLanguage(search.get("searchLang"));
 
     const initialParameters = {

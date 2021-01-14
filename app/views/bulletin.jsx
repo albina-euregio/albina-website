@@ -13,9 +13,9 @@ import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { parseDate, dateToLongDateString } from "../util/date.js";
-import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
+import { parseSearchParams } from "../util/searchParams";
 
 require("leaflet.sync");
 
@@ -108,7 +108,7 @@ class Bulletin extends React.Component {
   }
 
   checkRegion() {
-    let urlRegion = Base.makeSearch().get("region");
+    let urlRegion = parseSearchParams().get("region");
     const storeRegion = this.store.settings.region;
 
     // detect microregion such as AT-07-15
@@ -131,7 +131,7 @@ class Bulletin extends React.Component {
 
   handleSelectRegion = id => {
     if (id) {
-      const oldRegion = Base.makeSearch().get("region");
+      const oldRegion = parseSearchParams().get("region");
       if (oldRegion !== id) {
         const search = "region=" + encodeURIComponent(id);
         if (oldRegion) {

@@ -1,5 +1,3 @@
-require("url-search-params-polyfill");
-
 var Base = {
   clamp(num, min, max) {
     return num <= min ? min : num >= max ? max : num;
@@ -10,10 +8,6 @@ var Base = {
     const bodyElStyle = window.getComputedStyle(bodyEl);
     const blendMode = bodyElStyle.getPropertyValue("mix-blend-mode");
     return !!blendMode;
-  },
-
-  makeSearch() {
-    return new URLSearchParams(document.location.search.substring(1));
   }
 };
 
