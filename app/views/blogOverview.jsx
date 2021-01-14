@@ -57,6 +57,9 @@ class BlogOverview extends React.Component {
       ok: { message: "", keep: false }
     };
 
+    /**
+     * @type {BlogStore}
+     */
     this.store = window["blogStore"];
     this.state = {
       title: "",
@@ -65,6 +68,14 @@ class BlogOverview extends React.Component {
       sharable: false,
       currentInfoMessage: ""
     };
+  }
+
+  componentDidMount() {
+    this.store.updateURL = true;
+  }
+
+  componentWillUnmount() {
+    this.store.updateURL = false;
   }
 
   componentDidUpdate() {

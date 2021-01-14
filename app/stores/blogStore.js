@@ -47,6 +47,8 @@ export default class BlogStore {
   _loading;
   _posts;
 
+  updateURL = false;
+
   // show only 5 blog posts when the mobile phone is detected
   perPage = L.Browser.mobile ? 20 : 20;
   getHistory;
@@ -60,7 +62,7 @@ export default class BlogStore {
         ? ""
         : this.languageActive;
 
-    if (document.location.pathname === "/blog") {
+    if (this.updateURL) {
       Base.searchChange(
         this.getHistory(),
         {
