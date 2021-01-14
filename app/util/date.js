@@ -19,12 +19,68 @@ function parseDate(dateString) {
   return null;
 }
 
+function parseDateSeconds(dateString) {
+  const dateMatch = dateString.match(/^(\d{4}-\d{2}-\d{2})([T ].*)?$/);
+  if (dateMatch) {
+    console.assert(typeof dateMatch[1] === "string", dateMatch);
+    const dateString = dateMatch[1];
+    if (typeof dateMatch[2] === "undefined") {
+      // no time supplied
+      return _parseDatetime(dateString + "T00:00:00");
+    }
+
+    // time supplied
+    const timeString = dateMatch[2].substr(1);
+    let timeMatch = timeString.match(/^(\d{2}:\d{2})(:\d{2})?.*$/);
+    if (timeMatch) {
+      const str = timeMatch[1] + (timeMatch[2] ? timeMatch[2] : ":00");
+      return _parseDatetimeSeconds(dateString + "T" + str);
+    }
+  }
+  return null;
+}
+
 function _parseDatetime(dateTimeString) {
   var a = dateTimeString.split(/[^0-9]/);
   //for (i=0;i<a.length;i++) { alert(a[i]); }
   var parsedDate = new Date(a[0], a[1] - 1, a[2], a[3], a[4]);
 
   return parsedDate ? parsedDate : null;
+}
+
+function _parseDatetimeSeconds(dateTimeString) {
+  var a = dateTimeString.split(/[^0-9]/);
+  //for (i=0;i<a.length;i++) { alert(a[i]); }
+  var parsedDate = new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
+
+  return parsedDate ? parsedDate : null;
+}
+
+function getPublicationTimeString(date) {
+  debugger;
+  let pad = function(d) {
+    if (d < 10) {
+      return "0" + d;
+    }
+    return d;
+  };
+
+  if (date) {
+    return (
+      date.getFullYear() +
+      "-" +
+      pad(date.getMonth() + 1) +
+      "-" +
+      pad(date.getDate()) +
+      "_" +
+      pad(date.getHours()) +
+      "-" +
+      pad(date.getMinutes()) +
+      "-" +
+      pad(date.getSeconds())
+    );
+  }
+  return "";
 }
 
 function getPredDate(date) {
@@ -259,5 +315,7 @@ export {
   dateToISODateString,
   getDaysOfMonth,
   todayIsTomorrow,
-  dateFormat
+  dateFormat,
+  getPublicationTimeString,
+  parseDateSeconds
 };

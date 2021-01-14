@@ -71,6 +71,7 @@ class BulletinDaytimeReport extends React.Component {
             >
               <BulletinAWMapStatic
                 date={this.props.date}
+                publicationTime={this.props.publicationTime}
                 region={bulletin.id} // possibly contains _PM
               />
             </a>

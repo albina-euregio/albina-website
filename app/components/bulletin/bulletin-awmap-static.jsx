@@ -1,5 +1,6 @@
 import React from "react";
 import { injectIntl } from "react-intl";
+import { getPublicationTimeString, parseDateSeconds } from "../../util/date.js";
 
 /**
  * @typedef {object} Props
@@ -19,6 +20,8 @@ class BulletinAWMapStatic extends React.Component {
     const url =
       window.config.apis.geo +
       this.props.date +
+      "/" +
+      getPublicationTimeString(parseDateSeconds(this.props.publicationTime)) +
       "/" +
       this.props.region + // possibly contains _PM
       imgFormat;

@@ -95,12 +95,14 @@ class BulletinReport extends React.Component {
                   key={"am"}
                   bulletin={daytimeBulletin.forenoon}
                   date={this.props.date}
+                  publicationTime={daytimeBulletin.forenoon.publicationTime}
                   ampm={"am"}
                 />,
                 <BulletinDaytimeReport
                   key={"pm"}
                   bulletin={daytimeBulletin.afternoon}
                   date={this.props.date}
+                  publicationTime={daytimeBulletin.afternoon.publicationTime}
                   ampm={"pm"}
                 />
               ]
@@ -108,6 +110,7 @@ class BulletinReport extends React.Component {
               <BulletinDaytimeReport
                 bulletin={daytimeBulletin.forenoon}
                 date={this.props.date}
+                publicationTime={daytimeBulletin.forenoon.publicationTime}
               />
             )}
             {bulletin.highlights && (
