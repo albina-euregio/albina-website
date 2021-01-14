@@ -13,9 +13,9 @@ import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { parseDate, dateToLongDateString } from "../util/date.js";
-import Base from "./../base";
 import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
+import { parseSearchParams } from "../util/searchParams";
 
 require("leaflet.sync");
 
@@ -108,7 +108,7 @@ class Bulletin extends React.Component {
   }
 
   checkRegion() {
-    let urlRegion = Base.searchGet("region");
+    let urlRegion = parseSearchParams().get("region");
     const storeRegion = this.store.settings.region;
 
     // detect microregion such as AT-07-15
@@ -131,14 +131,18 @@ class Bulletin extends React.Component {
 
   handleSelectRegion = id => {
     if (id) {
-      const oldRegion = Base.searchGet("region");
+      const oldRegion = parseSearchParams().get("region");
       if (oldRegion !== id) {
-        // replace history when a (different) region was selected previously to avoid polluting browser history
-        const replace = !!oldRegion;
-        Base.searchChange(this.props.history, { region: id }, replace);
+        const search = "region=" + encodeURIComponent(id);
+        if (oldRegion) {
+          // replace history when a (different) region was selected previously to avoid polluting browser history
+          this.props.history.replace({ search });
+        } else {
+          this.props.history.push({ search });
+        }
       }
     } else if (this.store.settings.region) {
-      Base.searchChange(this.props.history, { region: "" }, false);
+      this.props.history.push({ search: "" });
     }
   };
 
