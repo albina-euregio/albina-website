@@ -12,11 +12,6 @@ var Base = {
     return !!blendMode;
   },
 
-  searchGet(variable, search = false) {
-    const searchParams = search ? search : this.makeSearch();
-    return searchParams.get(variable);
-  },
-
   makeSearch() {
     return new URLSearchParams(document.location.search.substring(1));
   }

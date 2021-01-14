@@ -127,13 +127,13 @@ export default class BlogStore {
 
     const search = Base.makeSearch();
     const urlValues = {
-      year: this.validateYear(Base.searchGet("year", search)),
-      month: this.validateMonth(Base.searchGet("month", search)),
-      searchLang: this.validateLanguage(Base.searchGet("searchLang", search)),
-      region: this.validateRegion(Base.searchGet("region", search)),
-      problem: this.validateProblem(Base.searchGet("problem", search)),
-      page: this.validatePage(Base.searchGet("page", search)),
-      searchText: Base.searchGet("searchText", search)
+      year: this.validateYear(search.get("year")),
+      month: this.validateMonth(search.get("month")),
+      searchLang: this.validateLanguage(search.get("searchLang")),
+      region: this.validateRegion(search.get("region")),
+      problem: this.validateProblem(search.get("problem")),
+      page: this.validatePage(search.get("page")),
+      searchText: search.get("searchText")
     };
 
     // year
@@ -195,14 +195,15 @@ export default class BlogStore {
   }
 
   initialParams() {
-    const searchLang = this.validateLanguage(Base.searchGet("searchLang"));
+    const search = Base.makeSearch();
+    const searchLang = this.validateLanguage(search.get("searchLang"));
 
     const initialParameters = {
-      year: this.validateYear(Base.searchGet("year")),
-      month: this.validateMonth(Base.searchGet("month")),
-      problem: this.validateProblem(Base.searchGet("problem")),
-      page: this.validatePage(Base.searchGet("page")) || 1,
-      searchText: Base.searchGet("searchText"),
+      year: this.validateYear(search.get("year")),
+      month: this.validateMonth(search.get("month")),
+      problem: this.validateProblem(search.get("problem")),
+      page: this.validatePage(search.get("page")) || 1,
+      searchText: search.get("searchText"),
       languages: {
         de: ["", "de", "all"].includes(searchLang) || !searchLang,
         it: ["", "it", "all"].includes(searchLang) || !searchLang,
@@ -212,7 +213,7 @@ export default class BlogStore {
     };
 
     // get all regions from appStore and activate them
-    const searchRegion = this.validateRegion(Base.searchGet("region"));
+    const searchRegion = this.validateRegion(search.get("region"));
     const initialRegions = {};
     regionCodes.forEach(region => {
       initialRegions[region] =

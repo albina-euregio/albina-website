@@ -108,7 +108,7 @@ class Bulletin extends React.Component {
   }
 
   checkRegion() {
-    let urlRegion = Base.searchGet("region");
+    let urlRegion = Base.makeSearch().get("region");
     const storeRegion = this.store.settings.region;
 
     // detect microregion such as AT-07-15
