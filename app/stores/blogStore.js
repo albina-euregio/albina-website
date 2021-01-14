@@ -63,19 +63,15 @@ export default class BlogStore {
         : this.languageActive;
 
     if (this.updateURL) {
-      Base.searchChange(
-        this.getHistory(),
-        {
-          year: this.year,
-          month: this.month,
-          searchLang: searchLang,
-          region: this.regionActive,
-          problem: this.problem,
-          page: this.page,
-          searchText: this.searchText
-        },
-        false
-      );
+      const params = new URLSearchParams();
+      params.set("year", this.year);
+      params.set("searchLang", searchLang || "");
+      params.set("region", this.regionActive);
+      params.set("problem", this.problem);
+      params.set("page", this.page);
+      params.set("searchText", this.searchText || "");
+      params.forEach((value, key) => value || params.delete(key));
+      this.getHistory().push({ search: params.toString() });
     }
 
     this.load(true);

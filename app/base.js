@@ -19,41 +19,6 @@ var Base = {
 
   makeSearch() {
     return new URLSearchParams(document.location.search.substring(1));
-  },
-
-  searchChange(history, params, replace = false) {
-    const search = this.makeSearch();
-
-    // checking, what has changed
-    const changes = {};
-    Object.keys(params).forEach(paramKey => {
-      const newValue = params[paramKey] ? params[paramKey].toString() : "";
-      const oldValue = search.get(paramKey);
-      if (oldValue != newValue) {
-        changes[paramKey] = newValue;
-      }
-    });
-
-    if (history && search && Object.keys(changes).length > 0) {
-      // setting new search object
-      Object.keys(changes).forEach(changeKey => {
-        const changeValue = changes[changeKey];
-        if (search.has(changeKey)) {
-          search.set(changeKey, changeValue);
-        } else {
-          search.append(changeKey, changeValue);
-        }
-      });
-
-      // pushing to history
-      if (search && history) {
-        if (replace) {
-          history.replace({ search: search.toString() });
-        } else {
-          history.push({ search: search.toString() });
-        }
-      }
-    }
   }
 };
 
