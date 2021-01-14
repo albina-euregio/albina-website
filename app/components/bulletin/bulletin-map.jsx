@@ -13,6 +13,8 @@ import MapStore from "../../stores/mapStore";
 import Base from "../../base";
 import { preprocessContent } from "../../util/htmlParser";
 
+import { getPublicationTimeString, parseDateSeconds } from "../../util/date.js";
+
 /**
  * @typedef {object} Props
  * @prop {import("../../stores/bulletinStore").BulletinStore} store
@@ -116,10 +118,13 @@ class BulletinMap extends React.Component {
         window.config.webp && this.props.store.settings.date > "2020-12-01"
           ? ".webp"
           : ".png";
-
       const url =
         config.apis.geo +
         this.props.store.settings.date +
+        "/" +
+        getPublicationTimeString(
+          parseDateSeconds(b.daytimeBulletins[0].forenoon.publicationTime)
+        ) +
         "/" +
         daytime +
         "_overlay" +
