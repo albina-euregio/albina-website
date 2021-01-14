@@ -1,11 +1,11 @@
 import { observable, action, computed, toJS } from "mobx";
-import Base from "../base";
 import axios from "axios";
 import { parseDate, getDaysOfMonth } from "../util/date";
 import { parseTags } from "../util/tagging";
 import L from "leaflet";
 import { regionCodes } from "../util/regions";
 import { parseSearchParams } from "../util/searchParams";
+import { clamp } from "../util/clamp";
 
 class BlogPostPreviewItem {
   constructor(
@@ -80,13 +80,13 @@ export default class BlogStore {
 
   validatePage(valueToValidate) {
     const maxPages = this.maxPages;
-    return Base.clamp(valueToValidate, 1, maxPages);
+    return clamp(valueToValidate, 1, maxPages);
   }
 
   validateMonth(valueToValidate) {
     const parsed = parseInt(valueToValidate);
     if (parsed) {
-      return Base.clamp(parsed, 1, 12);
+      return clamp(parsed, 1, 12);
     } else {
       return "";
     }
@@ -95,11 +95,7 @@ export default class BlogStore {
   validateYear(valueToValidate) {
     const parsed = parseInt(valueToValidate);
     if (parsed) {
-      return Base.clamp(
-        parsed,
-        config.archive.minYear,
-        new Date().getFullYear()
-      );
+      return clamp(parsed, config.archive.minYear, new Date().getFullYear());
     } else {
       return "";
     }
