@@ -10,7 +10,7 @@ import { Util } from "leaflet";
 import BulletinMapDetails from "./bulletin-map-details";
 import BulletinVectorLayer from "./bulletin-vector-layer";
 import MapStore from "../../stores/mapStore";
-import Base from "../../base";
+import { isBlendingSupported } from "../../util/blendMode";
 import { preprocessContent } from "../../util/htmlParser";
 
 import { getPublicationTimeString, parseDateSeconds } from "../../util/date.js";
@@ -138,7 +138,7 @@ class BulletinMap extends React.Component {
           key="bulletin-overlay"
           url={url}
           {...params}
-          opacity={Base.checkBlendingSupport() ? 1 : 0.5}
+          opacity={isBlendingSupported() ? 1 : 0.5}
         />
       );
     }

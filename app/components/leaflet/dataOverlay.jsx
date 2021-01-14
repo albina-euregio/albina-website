@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageOverlay } from "react-leaflet";
 import StationMarker from "./station-marker";
-import Base from "../../base";
+import { isBlendingSupported } from "../../util/blendMode";
 
 const css = `
     .debug-almost-invisible {
@@ -333,7 +333,7 @@ export default class DataOverlay extends React.Component {
               this.props.dataOverlaysEnabled ? { cursor: "crosshair" } : {}
             }
             url={this.props.overlay + ".gif"}
-            opacity={Base.checkBlendingSupport() ? 1 : 0.5}
+            opacity={isBlendingSupported() ? 1 : 0.5}
             bounds={config.weathermaps.settings.bbox}
             interactive={true}
             attribution={
