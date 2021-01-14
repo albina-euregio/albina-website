@@ -57,7 +57,6 @@ function _parseDatetimeSeconds(dateTimeString) {
 }
 
 function getPublicationTimeString(date) {
-  debugger;
   let pad = function(d) {
     if (d < 10) {
       return "0" + d;
