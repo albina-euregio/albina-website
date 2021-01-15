@@ -10,6 +10,9 @@ const SizePlugin = require("size-plugin");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const merge = require("lodash/merge");
 
+/**
+ * @returns {webpack.Configuration}
+ */
 module.exports = (env, argv) => {
   const production = !argv.mode || argv.mode === "production";
   const publicPath = env === "dev" ? "/dev/" : env === "beta" ? "/beta/" : "/";
