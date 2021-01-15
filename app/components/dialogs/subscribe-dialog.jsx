@@ -97,7 +97,9 @@ class SubscribeDialog extends React.Component {
             </div>
 
             {this.state.selectedDialog === "Email" && <SubscribeEmailDialog />}
-            {this.state.selectedDialog === "SM" && <SubscribeTelegramDialog />}
+            {this.state.selectedDialog === "Telegram" && (
+              <SubscribeTelegramDialog />
+            )}
             {this.state.selectedDialog === "App" && <SubscribeAppDialog />}
             <SubscribeWebPushDialog />
           </div>
