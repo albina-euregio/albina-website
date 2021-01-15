@@ -2,7 +2,7 @@ import React from "react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import SubscribeAppDialog from "./subscribe-app-dialog";
 import SubscribeEmailDialog from "./subscribe-email-dialog";
-import SubscribeSMDialog from "./subscribe-social-media-dialog";
+import SubscribeTelegramDialog from "./subscribe-telegram-dialog";
 import SubscribeWebPushDialog from "./subscribe-web-push-dialog";
 
 class SubscribeDialog extends React.Component {
@@ -62,16 +62,16 @@ class SubscribeDialog extends React.Component {
                     <a
                       href="#"
                       className={
-                        this.state.selectedDialog === "SM"
+                        this.state.selectedDialog === "Telegram"
                           ? "pure-button"
                           : "inverse pure-button"
                       }
                       onClick={e => {
-                        this.selectDialog(e, "SM");
+                        this.selectDialog(e, "Telegram");
                       }}
                     >
                       {this.props.intl.formatMessage({
-                        id: "dialog:subscribe:social-media"
+                        id: "dialog:subscribe:telegram"
                       })}
                     </a>
                   </li>
@@ -97,7 +97,7 @@ class SubscribeDialog extends React.Component {
             </div>
 
             {this.state.selectedDialog === "Email" && <SubscribeEmailDialog />}
-            {this.state.selectedDialog === "SM" && <SubscribeSMDialog />}
+            {this.state.selectedDialog === "SM" && <SubscribeTelegramDialog />}
             {this.state.selectedDialog === "App" && <SubscribeAppDialog />}
             <SubscribeWebPushDialog />
           </div>
