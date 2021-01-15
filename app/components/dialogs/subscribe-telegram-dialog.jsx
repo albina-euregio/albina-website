@@ -1,10 +1,10 @@
 import React from "react";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 import ProvinceFilter from "../filters/province-filter";
 
-class SubscribeEmailDialog extends React.Component {
+class SubscribeTelegramDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -148,4 +148,4 @@ class SubscribeEmailDialog extends React.Component {
     );
   }
 }
-export default inject("locale")(injectIntl(observer(SubscribeEmailDialog)));
+export default injectIntl(observer(SubscribeTelegramDialog));
