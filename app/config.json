@@ -97,25 +97,16 @@
   },
   "subscribe": {
     "buttonHidden": false,
-    "messengerpeople": {
-      "AT-07": {
-        "en": "https://widget.msgp.pl/?id=40215db99c774b4c41.36711751",
-        "de": "https://widget.msgp.pl/?id=40185db999dbe4f965.00049580",
-        "it": "https://widget.msgp.pl/?id=44565dc9595eb7d776.32171189",
-        "fr": "https://widget.msgp.pl/?id=40215db99c774b4c41.36711751"
-      },
-      "IT-32-BZ": {
-        "en": "https://widget.msgp.pl/?id=40265db99cf07923a9.31782416",
-        "de": "https://widget.msgp.pl/?id=40245db99cbc34cf00.49093569",
-        "it": "https://widget.msgp.pl/?id=44595dc95a6b4eb4a6.10119866",
-        "fr": "https://widget.msgp.pl/?id=40265db99cf07923a9.31782416"
-      },
-      "IT-32-TN": {
-        "en": "https://widget.msgp.pl/?id=40345db99d922899a3.63799720",
-        "de": "https://widget.msgp.pl/?id=40315db99d7293b0b5.38557216",
-        "it": "https://widget.msgp.pl/?id=44625dc95b0b548b38.51166384",
-        "fr": "https://widget.msgp.pl/?id=40345db99d922899a3.63799720"
-      }
+    "telegram": {
+      "AT-07-de": "https://t.me/lawinenwarndienst_tirol",
+      "AT-07-it": "https://t.me/servizio_valanghe_tirolo",
+      "AT-07-en": "https://t.me/avalanche_warning_service_tirol",
+      "IT-32-BZ-de": "https://t.me/lawinenwarndienst_suedtirol",
+      "IT-32-BZ-it": "https://t.me/servizio_valanghe_alto_adige",
+      "IT-32-BZ-en": "https://t.me/aws_south_tyrol",
+      "IT-32-TN-de": "https://t.me/lawinenwarndienst_trentino",
+      "IT-32-TN-it": "https://t.me/servizio_valanghe_trento",
+      "IT-32-TN-en": "https://t.me/avalanche_warning_service_trento"
     },
     "socialMedia": [
       {
