@@ -11,11 +11,14 @@
 .bg-box {
   background-color: $white;
 }
+.bg-subtle {
+  background-color: $grey-very-very-light;
+}
 .bg-brand {
   background-color: $brand;
 }
-.bg-subtle {
-  background-color: $grey-very-very-light;
+.bg-brand-subtle {
+  background-color: $brand-very-very-light;
 }
 
 .bg-gradient-snow {

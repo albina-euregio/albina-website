@@ -9,7 +9,8 @@
 
 //http://purecss.io/buttons
 
-@import "../../../bower_components/pure-scss_1.0.0/buttons";
+//@import "../../../bower_components/pure-scss_1.0.0/buttons";
+@import "../../../../node_modules/purecss-sass/vendor/assets/stylesheets/purecss/_buttons.scss";
 
 .pure-button,
 a.pure-button {
@@ -28,7 +29,15 @@ a.pure-button {
   border-radius: $global-radius;
   @include rollout;
 
-  &:hover,
+  @media (hover: hover) {
+    &:hover {
+      color: $primary-color;
+      background: $white;
+      border-color: $primary-color;
+      @include box-shadow;
+      @include rollover;
+    }
+  }
   &.js-active {
     color: $primary-color;
     background: $white;
@@ -46,7 +55,13 @@ a.pure-button {
     color: $primary-color;
     background: $white;
     border-color: $primary-color;
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        color: $white;
+        background: $primary-color;
+        border-color: $primary-color;
+      }
+    }
     &.js-active {
       color: $white;
       background: $primary-color;
@@ -57,7 +72,13 @@ a.pure-button {
     color: $text-color;
     background: $white;
     border-color: $secondary-color;
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        color: $primary-color;
+        background: $white;
+        border-color: $primary-color;
+      }
+    }
     &.js-active {
       color: $primary-color;
       background: $white;
@@ -68,7 +89,13 @@ a.pure-button {
     color: $text-color;
     background: $tertiary-color;
     border-color: $tertiary-color;
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        color: $primary-color;
+        background: $white;
+        border-color: $primary-color;
+      }
+    }
     &.js-active {
       color: $primary-color;
       background: $white;
@@ -78,7 +105,13 @@ a.pure-button {
 
   &.success {
     background: $success-color;
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        color: $success-color;
+        background: $white;
+        border-color: $success-color;
+      }
+    }
     &.js-active {
       color: $success-color;
       background: $white;
@@ -87,7 +120,13 @@ a.pure-button {
   }
   &.error {
     background: $error-color;
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        color: $error-color;
+        background: $white;
+        border-color: $error-color;
+      }
+    }
     &.js-active {
       color: $error-color;
       background: $white;
@@ -96,7 +135,13 @@ a.pure-button {
   }
   &.warning {
     background: $warning-color;
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        color: $warning-color;
+        background: $white;
+        border-color: $warning-color;
+      }
+    }
     &.js-active {
       color: $warning-color;
       background: $white;
@@ -105,7 +150,13 @@ a.pure-button {
   }
   &.emphasize {
     background: $green;
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        color: $orange;
+        background: $white;
+        border-color: $orange;
+      }
+    }
     &.js-active {
       color: $orange;
       background: $white;
@@ -115,7 +166,13 @@ a.pure-button {
 
   &.black {
     background: $black;
-    &:hover,
+    @media (hover: hover) {
+      &:hover {
+        color: $black;
+        background: $white;
+        border-color: $black;
+      }
+    }
     &.js-active {
       color: $black;
       background: $white;

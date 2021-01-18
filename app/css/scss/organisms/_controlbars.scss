@@ -8,6 +8,10 @@
 \*------------------------------------*/
 
 .controlbar {
+  z-index: 10;
+  ~ .controlbar {
+    z-index: 9;
+  }
   @extend .bg-brand;
   padding: ($all-v-padding / 2) $all-h-padding;
 
@@ -55,6 +59,15 @@
         border-color: $white;
       }
     }
+  }
+}
+
+//from alien app.scss
+@media (hover: none) {
+  // disable hover styles on touch devices
+  .controlbar .filter a.label:not(.js-active):hover {
+    color: #fff;
+    background: transparent;
   }
 }
 

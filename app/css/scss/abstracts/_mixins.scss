@@ -116,6 +116,10 @@
 
 //text color
 @mixin text-color($color) {
+  color: $color;
+  @if $color == $white {
+    @include font-smoothing(antialiased);
+  }
   p,
   ul,
   ol,

@@ -42,3 +42,56 @@
     }
   }
 }
+
+/*------------------------------------*\
+  all from here downwards comes from super funny fancy freaky funky alien app.scss
+\*------------------------------------*/
+
+.blog-page-flipper {
+  text-align: center;
+  a {
+    color: $brand;
+  }
+}
+
+img {
+  -ms-interpolation-mode: bicubic;
+}
+
+/* blog styling */
+.blog-post tr td.tr-caption,
+.blog-post tr td.tr-caption * {
+  font-size: 0.8rem !important;
+}
+
+.blog-post * {
+  font-size: 1rem !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+/* blog styling from Bernhard */
+
+.blog-post,
+.blog-post span {
+  color: $text-color;
+  word-wrap: break-word;
+  //text-align: justify;
+}
+.blog-post a {
+  word-wrap: break-word;
+  //text-align: justify;
+}
+
+.blog-post {
+  padding-top: 0;
+  .Apple-style-span {
+    color: #ff0000 !important;
+  }
+
+  p {
+    margin-top: 0em;
+    margin-bottom: 0em;
+  }
+}

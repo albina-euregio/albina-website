@@ -7,14 +7,11 @@
     #NAVIGATION
 \*------------------------------------*/
 
-$page-header-height: 6em;
-$page-header-height-increaser: 2.2em;
-$page-header-height-medium: $page-header-height + $page-header-height-increaser;
+$page-header-height: calc(3 * #{$body-font-size});
 
-$page-header-padding-v-decreaser: 0; //0.25em;
-$page-header-padding-v: 1em - $page-header-padding-v-decreaser;
+$page-header-padding-v: 0.5em;
 $page-header-padding-h: 1em;
-$page-header-padding-h-medium: 2em;
+$page-header-padding-h-large: 1.5em;
 
 $items-per-column: 5;
 $first-item-in-second-column: $items-per-column + 1;
@@ -25,7 +22,6 @@ $item-padding: 0.175em;
 .navigation {
   display: block;
   position: relative;
-  top: -$item-padding;
   margin: 0;
 
   @include font-bold;
@@ -34,35 +30,40 @@ $item-padding: 0.175em;
 
   a {
     position: relative;
-    display: inline-block;
-    padding: $item-padding calc(#{$icon-font-size} + 0.5em) $item-padding 0;
+    display: block;
+    padding: 0 2em 0 0;
     white-space: nowrap;
   }
 
   .has-sub {
-    @include icon(arrow-right, auto, 0, $grey-light, -0.15em, none);
+    @include icon(down-open, auto, 0, $text-color, 0, none);
+    padding-right: 3em;
     &:before {
       display: block;
       position: absolute;
-      right: 0;
+      top: 0.3em;
+      right: 0.5em;
     }
     &:hover,
     &.active {
       &:before {
-        right: -0.25em;
         color: $anchor-font-color;
       }
     }
-    &.active {
+    &:hover {
       + .subnavigation {
         display: block;
       }
     }
   }
 
+  //HOME and Posts
   small {
-    font-size: 0.9em;
-    @include uppercase(0.05em);
+    @include font-normal;
+    font-size: 0.7em;
+    &.label {
+      margin: 0 0 0 0.25em;
+    }
   }
 
   @media screen and (max-width: #{upper-bound($normal-range)}) {
@@ -88,43 +89,55 @@ $item-padding: 0.175em;
           display: none;
         }
       }
+      //HOME and Posts
+      small {
+        font-size: 0.5em;
+        &.label {
+          position: relative;
+          top: -0.15em;
+          margin: 0 0 0 0.5em;
+        }
+      }
     }
   }
 
   @media #{$medium-up} {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    > li {
+      position: relative;
+      display: flex;
+      > a {
+        display: flex;
+        align-items: center;
+      }
+    }
   }
 }
 
 .subnavigation {
+  z-index: 5;
   display: none;
+  &:hover {
+    display: block;
+  }
   position: absolute;
-  top: 0;
-  left: calc(100% + 2em);
+  top: $page-header-height;
+  left: -1em;
+  min-width: 5em;
   margin: 0;
+  padding: 0.5em 0 !important;
   @include font-normal;
 
+  background-color: rgba($white, 0.95);
+  @include box-shadow;
+
   a {
-    padding: $item-padding 1em $item-padding 0;
+    padding: 0.25em 2em 0.25em 1em;
   }
   li {
     position: relative;
-    max-width: 12.5em;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    &:nth-child(1n + #{$first-item-in-second-column}) {
-      top: calc(
-        -#{$items-per-column}em - #{$item-padding} * #{$items-per-column} * 2
-      );
-      left: calc(100% + 0.5em);
-    }
-    &:nth-child(1n + #{$first-item-in-third-column}) {
-      top: calc(
-        -#{$items-per-column}em * 2 - #{$item-padding} * #{$items-per-column} * 2 *
-          2
-      );
-      left: calc(200% + 0.5em);
-    }
   }
 
   a {
@@ -137,6 +150,9 @@ $item-padding: 0.175em;
     &.active {
       color: $anchor-font-color !important;
     }
+    &:before {
+      right: 0.25em !important;
+    }
   }
 
   @media screen and (max-width: #{upper-bound($normal-range)}) {
@@ -145,6 +161,9 @@ $item-padding: 0.175em;
       position: relative;
       top: auto;
       left: auto;
+
+      background-color: none;
+      box-shadow: none;
 
       a {
         padding: ($padding / 2) 0;
@@ -207,7 +226,7 @@ $item-padding: 0.175em;
       }
     }
     small {
-      font-size: 0.9em;
+      font-size: 0.7em;
       @include uppercase(0.05em);
     }
   }
