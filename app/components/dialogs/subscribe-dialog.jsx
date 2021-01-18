@@ -3,7 +3,9 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import SubscribeAppDialog from "./subscribe-app-dialog";
 import SubscribeEmailDialog from "./subscribe-email-dialog";
 import SubscribeTelegramDialog from "./subscribe-telegram-dialog";
-import SubscribeWebPushDialog from "./subscribe-web-push-dialog";
+import SubscribeWebPushDialog, {
+  isWebPushSupported
+} from "./subscribe-web-push-dialog";
 
 class SubscribeDialog extends React.Component {
   constructor(props) {
@@ -21,6 +23,9 @@ class SubscribeDialog extends React.Component {
     //const self = this;
 
     //console.log("render", this.state.selectedDialog);
+    const dialogTypes = isWebPushSupported()
+      ? ["Email", "Telegram", "App", "WebPush"]
+      : ["Email", "Telegram", "App"];
     return (
       <>
         <div className="modal-container">
@@ -40,7 +45,7 @@ class SubscribeDialog extends React.Component {
                   <FormattedHTMLMessage id="dialog:subscribe:select-subscrption" />
                 </label>
                 <ul className="list-inline list-buttongroup-dense">
-                  {["Email", "Telegram", "App"].map(type => (
+                  {dialogTypes.map(type => (
                     <li key={type}>
                       <a
                         href="#"
@@ -59,6 +64,8 @@ class SubscribeDialog extends React.Component {
                               ? "dialog:subscribe:telegram"
                               : type === "App"
                               ? "dialog:subscribe:app"
+                              : type === "WebPush"
+                              ? "dialog:subscribe:web-push"
                               : undefined
                         })}
                       </a>
@@ -73,7 +80,9 @@ class SubscribeDialog extends React.Component {
               <SubscribeTelegramDialog />
             )}
             {this.state.selectedDialog === "App" && <SubscribeAppDialog />}
-            <SubscribeWebPushDialog />
+            {this.state.selectedDialog === "WebPush" && (
+              <SubscribeWebPushDialog />
+            )}
           </div>
         </div>
       </>

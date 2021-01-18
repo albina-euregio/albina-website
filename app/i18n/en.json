@@ -403,6 +403,7 @@
   "dialog:subscribe-telegram:subscribe:agree-link": "declaration of consent",
   "dialog:subscribe-telegram:status:loading": "<strong>Please stand by:</strong> Subscription in progress …",
   "dialog:subscribe-telegram:error": "Error",
+  "dialog:subscribe:web-push": "Web Push",
   "dialog:subscribe-web-push:enable": "Enable Web Push",
   "dialog:subscribe-web-push:disable": "Disable Web Push",
   "dialog:subscribe-blog:header": "Subscriptions",
