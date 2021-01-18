@@ -503,9 +503,11 @@ class WeatherMapCockpit extends React.Component {
             id: "weathermap:cockpit:maps-creation-date:title"
           })}
         >
-          {this.props.intl.formatMessage({
-            id: "weathermap:cockpit:maps-creation-date:prefix"
-          })}{" "}
+          <span>
+            {this.props.intl.formatMessage({
+              id: "weathermap:cockpit:maps-creation-date:prefix"
+            })}{" "}
+          </span>
           {dateToShortDateTimeString(this.props.lastUpdateTime)}
         </span>
         <span
