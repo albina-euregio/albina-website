@@ -3,13 +3,14 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import SubscribeAppDialog from "./subscribe-app-dialog";
 import SubscribeEmailDialog from "./subscribe-email-dialog";
 import SubscribeTelegramDialog from "./subscribe-telegram-dialog";
-import SubscribeWebPushDialog from "./subscribe-web-push-dialog";
+import SubscribeWebPushDialog, {
+  isWebPushSupported
+} from "./subscribe-web-push-dialog";
 
 class SubscribeDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = { selectedDialog: null };
-    this.selectDialog = this.selectDialog.bind(this);
   }
 
   selectDialog(e, selection) {
@@ -22,6 +23,9 @@ class SubscribeDialog extends React.Component {
     //const self = this;
 
     //console.log("render", this.state.selectedDialog);
+    const dialogTypes = isWebPushSupported()
+      ? ["Email", "Telegram", "App", "WebPush"]
+      : ["Email", "Telegram", "App"];
     return (
       <>
         <div className="modal-container">
@@ -41,57 +45,32 @@ class SubscribeDialog extends React.Component {
                   <FormattedHTMLMessage id="dialog:subscribe:select-subscrption" />
                 </label>
                 <ul className="list-inline list-buttongroup-dense">
-                  <li>
-                    <a
-                      href="#"
-                      className={
-                        this.state.selectedDialog === "Email"
-                          ? "pure-button"
-                          : "inverse pure-button"
-                      }
-                      onClick={e => {
-                        this.selectDialog(e, "Email");
-                      }}
-                    >
-                      {this.props.intl.formatMessage({
-                        id: "dialog:subscribe:email"
-                      })}
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className={
-                        this.state.selectedDialog === "Telegram"
-                          ? "pure-button"
-                          : "inverse pure-button"
-                      }
-                      onClick={e => {
-                        this.selectDialog(e, "Telegram");
-                      }}
-                    >
-                      {this.props.intl.formatMessage({
-                        id: "dialog:subscribe:telegram"
-                      })}
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className={
-                        this.state.selectedDialog === "App"
-                          ? "pure-button"
-                          : "inverse pure-button"
-                      }
-                      onClick={e => {
-                        this.selectDialog(e, "App");
-                      }}
-                    >
-                      {this.props.intl.formatMessage({
-                        id: "dialog:subscribe:app"
-                      })}
-                    </a>
-                  </li>
+                  {dialogTypes.map(type => (
+                    <li key={type}>
+                      <a
+                        href="#"
+                        className={
+                          this.state.selectedDialog === type
+                            ? "pure-button"
+                            : "inverse pure-button"
+                        }
+                        onClick={e => this.selectDialog(e, type)}
+                      >
+                        {this.props.intl.formatMessage({
+                          id:
+                            type === "Email"
+                              ? "dialog:subscribe:email"
+                              : type === "Telegram"
+                              ? "dialog:subscribe:telegram"
+                              : type === "App"
+                              ? "dialog:subscribe:app"
+                              : type === "WebPush"
+                              ? "dialog:subscribe:web-push"
+                              : undefined
+                        })}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </form>
             </div>
@@ -101,7 +80,9 @@ class SubscribeDialog extends React.Component {
               <SubscribeTelegramDialog />
             )}
             {this.state.selectedDialog === "App" && <SubscribeAppDialog />}
-            <SubscribeWebPushDialog />
+            {this.state.selectedDialog === "WebPush" && (
+              <SubscribeWebPushDialog />
+            )}
           </div>
         </div>
       </>
