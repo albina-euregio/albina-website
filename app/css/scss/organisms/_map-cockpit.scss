@@ -584,7 +584,15 @@ $cp-breakpoint-2: 1024px;
       padding-left: $cp-base-unit;
     }
     &:last-child {
+      padding-left: 0;
       padding-right: $cp-base-unit;
+    }
+  }
+}
+.cp-release-released {
+  @media screen and (max-width: 420px) {
+    span {
+      display: none;
     }
   }
 }
