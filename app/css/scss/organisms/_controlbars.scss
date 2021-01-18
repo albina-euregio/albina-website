@@ -9,6 +9,9 @@
 
 .controlbar {
   z-index: 10;
+  ~ .controlbar {
+    z-index: 9;
+  }
   @extend .bg-brand;
   padding: ($all-v-padding / 2) $all-h-padding;
 
