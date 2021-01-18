@@ -524,7 +524,12 @@ class WeatherMapCockpit extends React.Component {
           </span>{" "}
           {dateToShortDateTimeString(this.props.nextUpdateTime)}
         </span>
-        <span className="cp-legend-unit tooltip" title="Einheit">
+        <span
+          className="cp-legend-unit tooltip"
+          title={this.props.intl.formatMessage({
+            id: "weathermap:cockpit:unit:title"
+          })}
+        >
           {this.props.intl.formatMessage({
             id: "weathermap:cockpit:" + this.props.domainId + ":unit:title"
           })}

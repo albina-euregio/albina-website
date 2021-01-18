@@ -274,6 +274,7 @@
   "weathermap:cockpit:play": "Play",
   "weathermap:cockpit:stop": "Stop",
   "weathermap:cockpit:select-parameter": "Select parameter",
+  "weathermap:cockpit:unit:title": "Unit",
   "weathermap:cockpit:snow-height:unit:title": "cm",
   "weathermap:cockpit:new-snow:unit:title": "cm",
   "weathermap:cockpit:diff-snow:unit:title": "cm",
