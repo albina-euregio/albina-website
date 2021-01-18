@@ -33,6 +33,7 @@
   },
   "rules": {
     "no-console": ["error", { "allow": ["info", "warn", "error", "assert"] }],
+    "react/no-string-refs": "warn",
     "react/prop-types": "off",
     "react/jsx-uses-vars": "error",
     "react/jsx-uses-react": "error"
