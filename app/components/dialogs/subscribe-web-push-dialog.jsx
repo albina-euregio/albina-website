@@ -59,10 +59,6 @@ export default function SubscribeWebPushDialog() {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const intl = useIntl();
 
-  if (!isWebPushSupported()) {
-    return null;
-  }
-
   const handleEnable = useCallback(async () => {
     setErrorMessage(undefined);
     try {
@@ -127,6 +123,10 @@ export default function SubscribeWebPushDialog() {
       }
     })();
   }, [setErrorMessage, setIsSubscribed]);
+
+  if (!isWebPushSupported()) {
+    return null;
+  }
 
   return (
     <div className="modal-subscribe-telegram">
