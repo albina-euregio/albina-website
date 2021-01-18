@@ -190,6 +190,7 @@ class Archive extends React.Component {
                 <a
                   className="secondary pure-button"
                   href="https://avalanche.report/albina_files/archive/tyrol/"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   {this.props.intl.formatMessage({
@@ -201,6 +202,7 @@ class Archive extends React.Component {
                 <a
                   className="secondary pure-button"
                   href="http://wetter.provinz.bz.it/archiv-lawinen.asp"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   {this.props.intl.formatMessage({
@@ -212,6 +214,7 @@ class Archive extends React.Component {
                 <a
                   className="secondary pure-button"
                   href="https://www.meteotrentino.it/#!/content?menuItemDesktop=32"
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   {this.props.intl.formatMessage({

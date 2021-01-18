@@ -206,7 +206,7 @@ class BulletinMap extends React.Component {
           <a
             key={`neighbor-link-${index}`}
             href={href}
-            rel="noopener"
+            rel="noopener noreferrer"
             target="_blank"
             className="pure-button tooltip"
             title={this.props.intl.formatMessage({

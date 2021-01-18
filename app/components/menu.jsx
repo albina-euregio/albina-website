@@ -95,7 +95,7 @@ class Menu extends React.Component {
         }}
       >
         {url.match("^http(s)?://") ? (
-          <a href={url} rel="noopener" target="_blank">
+          <a href={url} rel="noopener noreferrer" target="_blank">
             {title}
           </a>
         ) : (

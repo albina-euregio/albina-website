@@ -18,7 +18,7 @@ class SubscribeAppDialog extends React.Component {
           <a
             className="pure-button tooltip"
             href={a.url[t]}
-            rel="noopener"
+            rel="noopener noreferrer"
             target="_blank"
             title={this.props.intl.formatMessage({
               id: "dialog:subscribe-app:" + t + ":hover"

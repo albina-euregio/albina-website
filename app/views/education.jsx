@@ -188,6 +188,7 @@ class Education extends React.Component {
                 href={this.props.intl.formatMessage({
                   id: "education:overview:glossary:link"
                 })}
+                rel="noopener noreferrer"
                 target="_blank"
                 className="linkbox linkbox-feature"
               >

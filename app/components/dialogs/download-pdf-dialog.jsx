@@ -131,7 +131,7 @@ class DownloadPdfDialog extends React.Component {
                 <p>
                   <a
                     href={this.pdfLink()}
-                    rel="noopener"
+                    rel="noopener noreferrer"
                     target="_blank"
                     title={this.props.intl.formatMessage({
                       id: "bulletin:linkbar:pdf:hover"
