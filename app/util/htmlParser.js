@@ -17,6 +17,7 @@ function replaceInternalLinksProcessor() {
         !node.attribs.href.includes("#")
       );
     },
+    // eslint-disable-next-line react/display-name
     processNode: (node, ...args) => {
       const attrs = { to: node.attribs.href };
 
