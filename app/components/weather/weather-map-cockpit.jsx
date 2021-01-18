@@ -527,7 +527,6 @@ class WeatherMapCockpit extends React.Component {
             id: "weathermap:cockpit:" + this.props.domainId + ":unit:title"
           })}
         </span>
-
         {/* <span key="cp-release-copyright" className="cp-release-copyright">
           <a
             href="#"
