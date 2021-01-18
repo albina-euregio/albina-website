@@ -9,7 +9,6 @@ class SubscribeDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = { selectedDialog: null };
-    this.selectDialog = this.selectDialog.bind(this);
   }
 
   selectDialog(e, selection) {
@@ -41,57 +40,30 @@ class SubscribeDialog extends React.Component {
                   <FormattedHTMLMessage id="dialog:subscribe:select-subscrption" />
                 </label>
                 <ul className="list-inline list-buttongroup-dense">
-                  <li>
-                    <a
-                      href="#"
-                      className={
-                        this.state.selectedDialog === "Email"
-                          ? "pure-button"
-                          : "inverse pure-button"
-                      }
-                      onClick={e => {
-                        this.selectDialog(e, "Email");
-                      }}
-                    >
-                      {this.props.intl.formatMessage({
-                        id: "dialog:subscribe:email"
-                      })}
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className={
-                        this.state.selectedDialog === "Telegram"
-                          ? "pure-button"
-                          : "inverse pure-button"
-                      }
-                      onClick={e => {
-                        this.selectDialog(e, "Telegram");
-                      }}
-                    >
-                      {this.props.intl.formatMessage({
-                        id: "dialog:subscribe:telegram"
-                      })}
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className={
-                        this.state.selectedDialog === "App"
-                          ? "pure-button"
-                          : "inverse pure-button"
-                      }
-                      onClick={e => {
-                        this.selectDialog(e, "App");
-                      }}
-                    >
-                      {this.props.intl.formatMessage({
-                        id: "dialog:subscribe:app"
-                      })}
-                    </a>
-                  </li>
+                  {["Email", "Telegram", "App"].map(type => (
+                    <li key={type}>
+                      <a
+                        href="#"
+                        className={
+                          this.state.selectedDialog === type
+                            ? "pure-button"
+                            : "inverse pure-button"
+                        }
+                        onClick={e => this.selectDialog(e, type)}
+                      >
+                        {this.props.intl.formatMessage({
+                          id:
+                            type === "Email"
+                              ? "dialog:subscribe:email"
+                              : type === "Telegram"
+                              ? "dialog:subscribe:telegram"
+                              : type === "App"
+                              ? "dialog:subscribe:app"
+                              : undefined
+                        })}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </form>
             </div>
