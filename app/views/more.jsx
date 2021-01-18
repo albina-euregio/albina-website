@@ -52,7 +52,6 @@ class More extends React.Component {
                     {this.props.intl.formatMessage({ id: "more:archive:text" })}
                   </p>
                 </div>
-                }
               </Link>
             </li>
             <li className="feature-item">

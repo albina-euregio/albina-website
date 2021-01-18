@@ -62,7 +62,7 @@ class GridOverlay extends React.Component {
     return (
       <div>
         <FeatureGroup key={this.props.item.id + "-" + this.props.zoom}>
-          {gridPoints.map(point => this.renderMarker(point))}>
+          {gridPoints.map(point => this.renderMarker(point))}
         </FeatureGroup>
       </div>
     );
