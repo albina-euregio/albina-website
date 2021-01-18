@@ -59,6 +59,17 @@
     }
   }
 
+  @media screen and (max-width: #{lower-bound($tiny-range)}) {
+    .page-header-logo {
+      .mark {
+        display: none;
+      }
+      .url {
+        margin-left: $padding / 4;
+      }
+    }
+  }
+
   @media screen and (max-width: #{upper-bound($normal-range)}) {
     .page-header-navigation {
       display: none;
