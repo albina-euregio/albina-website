@@ -31,7 +31,11 @@ class BulletinMapDetails extends React.Component {
 
     return (
       <>
-        <p>{this.props.region}</p>
+        <p className="bulletin-report-region-name">
+          <span className="bulletin-report-region-name-region">
+            {this.props.region}
+          </span>
+        </p>
         <ul className="list-plain">
           <li className="bulletin-report-picto tooltip">
             <BulletinDangerRating bulletin={bulletin} />

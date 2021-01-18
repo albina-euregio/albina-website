@@ -202,11 +202,21 @@ class BulletinMap extends React.Component {
       const language = window["appStore"].language;
       const country = activeNeighbor.properties[`country_id`];
       const region = activeNeighbor.properties[`region_id`];
+      // res.push(
+      //   <p>{this.props.intl.formatMessage({ id: "region:" + country })}</p>
+      // );
+      // res.push(
+      //   <p>{this.props.intl.formatMessage({ id: "region:" + region })}</p>
+      // );
       res.push(
-        <p>{this.props.intl.formatMessage({ id: "region:" + country })}</p>
-      );
-      res.push(
-        <p>{this.props.intl.formatMessage({ id: "region:" + region })}</p>
+        <p className="bulletin-report-region-name">
+          <span className="bulletin-report-region-name-country">
+            {this.props.intl.formatMessage({ id: "region:" + country })}
+          </span>
+          <span className="bulletin-report-region-name-region">
+            {this.props.intl.formatMessage({ id: "region:" + region })}
+          </span>
+        </p>
       );
       for (let index = 1; index <= 3; index++) {
         // aws_1, aws_2, aws_3
