@@ -10,7 +10,7 @@ import FollowDialog from "./dialogs/follow-dialog";
 import SubscribeDialog from "./dialogs/subscribe-dialog";
 import WeatherStationDiagrams from "./dialogs/weather-station-diagrams";
 import DownloadPdfDialog from "./dialogs/download-pdf-dialog";
-import SubscribeSocialMediaDialog from "./dialogs/subscribe-social-media-dialog";
+import SubscribeTelegramDialog from "./dialogs/subscribe-telegram-dialog";
 import SubscribeAppDialog from "./dialogs/subscribe-app-dialog";
 import SubscribeEmailDialog from "./dialogs/subscribe-email-dialog";
 import SubscribeBlogDialog from "./dialogs/subscribe-blog-dialog";
@@ -116,8 +116,8 @@ class Page extends React.Component {
         <ModalDialog id="subscribeBlogDialog">
           <SubscribeBlogDialog />
         </ModalDialog>
-        <ModalDialog id="subscribeSocialMediaDialog">
-          <SubscribeSocialMediaDialog />
+        <ModalDialog id="subscribeTelegramDialog">
+          <SubscribeTelegramDialog />
         </ModalDialog>
         <ModalDialog id="subscribeAppDialog">
           <SubscribeAppDialog />
