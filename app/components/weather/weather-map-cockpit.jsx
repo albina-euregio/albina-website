@@ -503,9 +503,11 @@ class WeatherMapCockpit extends React.Component {
             id: "weathermap:cockpit:maps-creation-date:title"
           })}
         >
-          {this.props.intl.formatMessage({
-            id: "weathermap:cockpit:maps-creation-date:prefix"
-          })}{" "}
+          <span>
+            {this.props.intl.formatMessage({
+              id: "weathermap:cockpit:maps-creation-date:prefix"
+            })}{" "}
+          </span>
           {dateToShortDateTimeString(this.props.lastUpdateTime)}
         </span>
         <span
@@ -521,6 +523,16 @@ class WeatherMapCockpit extends React.Component {
             })}{" "}
           </span>{" "}
           {dateToShortDateTimeString(this.props.nextUpdateTime)}
+        </span>
+        <span
+          className="cp-legend-unit tooltip"
+          title={this.props.intl.formatMessage({
+            id: "weathermap:cockpit:unit:title"
+          })}
+        >
+          {this.props.intl.formatMessage({
+            id: "weathermap:cockpit:" + this.props.domainId + ":unit:title"
+          })}
         </span>
         {/* <span key="cp-release-copyright" className="cp-release-copyright">
           <a
