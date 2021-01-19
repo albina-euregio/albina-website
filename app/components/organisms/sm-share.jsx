@@ -54,7 +54,7 @@ class SmShare extends React.Component {
                 { id: "main:share-this:hover" },
                 { on: "Facebook" }
               )}
-              rel="noopener"
+              rel="noopener noreferrer"
               target="_blank"
             >
               <span>Facebook</span>
@@ -68,7 +68,7 @@ class SmShare extends React.Component {
                 { id: "main:share-this:hover" },
                 { on: "Twitter" }
               )}
-              rel="noopener"
+              rel="noopener noreferrer"
               target="_blank"
             >
               <span>Twitter</span>
@@ -82,7 +82,7 @@ class SmShare extends React.Component {
                   { id: "main:share-this:hover" },
                   { on: "Instagram" }
                 )}
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 <span>Instagram</span>
@@ -97,7 +97,7 @@ class SmShare extends React.Component {
                   { id: "main:share-this:hover" },
                   { on: "YouTube" }
                 )}
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
               >
                 <span>YouTube</span>
@@ -112,7 +112,7 @@ class SmShare extends React.Component {
                 { id: "main:share-this:hover" },
                 { on: "WhatsApp" }
               )}
-              rel="noopener"
+              rel="noopener noreferrer"
               target="_blank"
             >
               <span>WhatsApp</span>
@@ -126,6 +126,7 @@ class SmShare extends React.Component {
                 { id: "main:share-this:hover" },
                 { on: "Telegram" }
               )}
+              rel="noopener noreferrer"
               target="_blank"
             >
               <span>Telegram</span>

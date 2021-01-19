@@ -76,7 +76,7 @@ class BulletinButtonbar extends React.Component {
                       title={this.props.intl.formatMessage({
                         id: "bulletin:feedback:hover"
                       })}
-                      rel="noopener"
+                      rel="noopener noreferrer"
                       target="_blank"
                       className="success pure-button tooltip"
                     >

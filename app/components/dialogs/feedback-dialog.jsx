@@ -32,6 +32,7 @@ class FeedbackDialog extends React.Component {
           <p>
             <a
               href={this.url}
+              rel="noopener noreferrer"
               target="_blank"
               onClick={e => {
                 e.preventDefault();

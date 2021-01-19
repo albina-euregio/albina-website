@@ -22,7 +22,9 @@ class BulletinProblemFilterItem extends React.Component {
     } else {
       window["bulletinStore"].highlightProblem(this.state.id);
     }
-    this.state.active = !this.state.active;
+    this.setState({
+      active: !this.state.active
+    });
   }
 
   render() {

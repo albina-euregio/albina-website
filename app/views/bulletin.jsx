@@ -265,6 +265,7 @@ class Bulletin extends React.Component {
                   href={this.props.intl.formatMessage({
                     id: "button:weather:AT-07:link"
                   })}
+                  rel="noopener noreferrer"
                   target="_blank"
                   title={this.props.intl.formatMessage({
                     id: "button:weather:AT-07:text"
@@ -281,6 +282,7 @@ class Bulletin extends React.Component {
                   href={this.props.intl.formatMessage({
                     id: "button:weather:IT-32-BZ:link"
                   })}
+                  rel="noopener noreferrer"
                   target="_blank"
                   title={this.props.intl.formatMessage({
                     id: "button:weather:IT-32-BZ:text"
@@ -297,6 +299,7 @@ class Bulletin extends React.Component {
                   href={this.props.intl.formatMessage({
                     id: "button:weather:IT-32-TN:link"
                   })}
+                  rel="noopener noreferrer"
                   target="_blank"
                   title={this.props.intl.formatMessage({
                     id: "button:weather:IT-32-TN:text"

@@ -134,6 +134,7 @@ class StationMeasurements extends React.Component {
                   href={this.props.intl.formatMessage({
                     id: "button:snow:hn:link"
                   })}
+                  rel="noopener noreferrer"
                   target="_blank"
                   title={this.props.intl.formatMessage({
                     id: "button:snow:hn:text"
@@ -148,6 +149,7 @@ class StationMeasurements extends React.Component {
                   href={this.props.intl.formatMessage({
                     id: "button:snow:hs:link"
                   })}
+                  rel="noopener noreferrer"
                   target="_blank"
                   title={this.props.intl.formatMessage({
                     id: "button:snow:hs:text"
@@ -162,6 +164,7 @@ class StationMeasurements extends React.Component {
                   href={this.props.intl.formatMessage({
                     id: "button:snow:ff:link"
                   })}
+                  rel="noopener noreferrer"
                   target="_blank"
                   title={this.props.intl.formatMessage({
                     id: "button:snow:ff:text"
@@ -176,6 +179,7 @@ class StationMeasurements extends React.Component {
                   href={this.props.intl.formatMessage({
                     id: "button:snow:stations:link"
                   })}
+                  rel="noopener noreferrer"
                   target="_blank"
                   title={this.props.intl.formatMessage({
                     id: "button:snow:stations:text"

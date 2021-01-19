@@ -14,7 +14,7 @@ class FooterLogos extends React.Component {
             <li key={i}>
               <a
                 href={icon.url}
-                rel="noopener"
+                rel="noopener noreferrer"
                 target="_blank"
                 className="avoid-external-icon tooltip"
               >
