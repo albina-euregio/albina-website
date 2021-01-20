@@ -24,8 +24,8 @@ class SubscribeDialog extends React.Component {
 
     //console.log("render", this.state.selectedDialog);
     const dialogTypes = isWebPushSupported()
-      ? ["Email", "Telegram", "App", "WebPush"]
-      : ["Email", "Telegram", "App"];
+      ? ["WebPush", "Telegram", "Email", "App"]
+      : ["Telegram", "Email", "App"];
     return (
       <>
         <div className="modal-container">
@@ -58,14 +58,14 @@ class SubscribeDialog extends React.Component {
                       >
                         {this.props.intl.formatMessage({
                           id:
-                            type === "Email"
-                              ? "dialog:subscribe:email"
+                            type === "WebPush"
+                              ? "dialog:subscribe:web-push"
                               : type === "Telegram"
                               ? "dialog:subscribe:telegram"
+                              : type === "Email"
+                              ? "dialog:subscribe:email"
                               : type === "App"
                               ? "dialog:subscribe:app"
-                              : type === "WebPush"
-                              ? "dialog:subscribe:web-push"
                               : undefined
                         })}
                       </a>
@@ -75,14 +75,14 @@ class SubscribeDialog extends React.Component {
               </form>
             </div>
 
-            {this.state.selectedDialog === "Email" && <SubscribeEmailDialog />}
-            {this.state.selectedDialog === "Telegram" && (
-              <SubscribeTelegramDialog />
-            )}
-            {this.state.selectedDialog === "App" && <SubscribeAppDialog />}
             {this.state.selectedDialog === "WebPush" && (
               <SubscribeWebPushDialog />
             )}
+            {this.state.selectedDialog === "Telegram" && (
+              <SubscribeTelegramDialog />
+            )}
+            {this.state.selectedDialog === "Email" && <SubscribeEmailDialog />}
+            {this.state.selectedDialog === "App" && <SubscribeAppDialog />}
           </div>
         </div>
       </>
