@@ -38,6 +38,7 @@ class SubscribeDialog extends React.Component {
                 <h2>
                   <FormattedHTMLMessage id="dialog:subscribe:subheader" />
                 </h2>
+                <FormattedHTMLMessage id="dialog:subscribe:description" />
               </div>
 
               <form className="pure-form pure-form-stacked">
