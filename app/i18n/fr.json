@@ -350,7 +350,7 @@
   "dialog:follow:header": "Suivez nous",
   "dialog:subscribe:header": "Abonnements",
   "dialog:subscribe:subheader": "Rester au courant",
-  "dialog:subscribe:description": "We will inform you when we publish avalanche reports and blog entries.",
+  "dialog:subscribe:description": "Nous vous informerons lorsque nous publierons des bulletins d'avalanche et des articles de blog.",
   "dialog:subscribe:select-subscrption": "Sélectionnez <span class=\"normal\">ce à quoi vous voulez vous abonner</span>",
   "dialog:subscribe:email": "Email",
   "dialog:subscribe:social-media": "Réseaux sociaux",
