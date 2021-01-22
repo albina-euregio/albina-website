@@ -29,6 +29,15 @@ const DOMAIN_LEGEND_CLASSES = {
   gust: "cp-legend-windgust"
 };
 
+const DOMAIN_UNITS = {
+  "snow-height": "cm",
+  "new-snow": "cm",
+  "diff-snow": "cm",
+  temp: "°C",
+  wind: "km/h",
+  gust: "km/h"
+};
+
 const LOOP = false;
 
 @observer
@@ -530,9 +539,7 @@ class WeatherMapCockpit extends React.Component {
             id: "weathermap:cockpit:unit:title"
           })}
         >
-          {this.props.intl.formatMessage({
-            id: "weathermap:cockpit:" + this.props.domainId + ":unit:title"
-          })}
+          {DOMAIN_UNITS[this.props.domainId]}
         </span>
         {/* <span key="cp-release-copyright" className="cp-release-copyright">
           <a
