@@ -468,12 +468,22 @@ export default class WeatherMapStore_new {
         currentTimespan.includes("+") && this._agl
           ? this._agl
           : this._getStartTimeForSpan(this._dateStart);
+      console.log("_setAvailableTimes->this._agl", this._agl);
+      console.log(
+        "_setAvailableTimes->this._getStart",
+        this._getStartTimeForSpan(this._dateStart)
+      );
       currentTime = new Date(startFrom);
+      console.log("_setAvailableTimes->currentTime#1", currentTime);
       currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
+      console.log("_setAvailableTimes->currentTime#2", currentTime);
       maxTime = new Date(startFrom);
+      console.log("_setAvailableTimes->maxTime", maxTime);
       maxTime.setHours(
         maxTime.getHours() + parseInt(this.config.settings.timeRange[0], 10)
       );
+      if (maxTime > startFrom)
+        maxTime.setHours(maxTime.getHours() + this._absTimeSpan * -1);
       // console.log(
       //   "weatherMapStore_new _setTimeIndices #3 >= 0",
       //   currentTime,
