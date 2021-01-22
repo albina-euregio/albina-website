@@ -300,12 +300,9 @@ class Bulletin extends React.Component {
                   href={this.props.intl.formatMessage({
                     id: "button:blog:AT-07:link"
                   })}
-                  title={this.props.intl.formatMessage({
-                    id: "button:blog:AT-07:text"
-                  })}
                 >
                   {this.props.intl.formatMessage({
-                    id: "button:blog:AT-07:text"
+                    id: "region:AT-07"
                   })}
                 </a>
               </li>
@@ -315,12 +312,9 @@ class Bulletin extends React.Component {
                   href={this.props.intl.formatMessage({
                     id: "button:blog:IT-32-BZ:link"
                   })}
-                  title={this.props.intl.formatMessage({
-                    id: "button:blog:IT-32-BZ:text"
-                  })}
                 >
                   {this.props.intl.formatMessage({
-                    id: "button:blog:IT-32-BZ:text"
+                    id: "region:IT-32-BZ"
                   })}
                 </a>
               </li>
@@ -330,12 +324,9 @@ class Bulletin extends React.Component {
                   href={this.props.intl.formatMessage({
                     id: "button:blog:IT-32-TN:link"
                   })}
-                  title={this.props.intl.formatMessage({
-                    id: "button:blog:IT-32-TN:text"
-                  })}
                 >
                   {this.props.intl.formatMessage({
-                    id: "button:blog:IT-32-TN:text"
+                    id: "region:IT-32-TN"
                   })}
                 </a>
               </li>
