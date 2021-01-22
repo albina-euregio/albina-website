@@ -272,9 +272,9 @@ class BulletinStore {
       return "";
     }
     const feature = microRegions.features.find(
-      f => f.properties.bid === this.settings.region
+      f => f.properties?.bid === this.settings.region
     );
-    return feature?.properties?.["RegionCode"];
+    return feature?.properties?.bid;
   }
 
   /**
@@ -345,8 +345,10 @@ class BulletinStore {
   }
 
   _augmentFeature(f, ampm = null) {
-    f.properties.bid =
-      f.properties.bid ?? f.properties.RegionCode ?? f.properties.region_id;
+    if (!f.properties) {
+      f.properties = {};
+    }
+    f.properties.bid = f.properties.bid ?? f.id ?? f.properties.region_id;
     f.properties.state = this.getRegionState(f.properties.bid, ampm);
     if (!f.properties.latlngs) {
       f.properties.latlngs = GeoJSON.coordsToLatLngs(
