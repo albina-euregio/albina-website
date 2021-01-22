@@ -60,16 +60,14 @@ export default class BulletinVectorLayer extends React.Component {
     return (
       <Pane key={this.uniqueKey}>
         {this.props.regions.map((vector, vi) => {
-          const bid = vector.properties.bid;
+          const bid = vector.id;
           const state = vector.properties.state;
           // setting the style for each region
           const style = Object.assign(
             {},
             config.map.regionStyling.all,
             config.map.regionStyling[state],
-            this.state.over === vector.properties.bid
-              ? config.map.regionStyling.mouseOver
-              : {}
+            bid === this.state.over ? config.map.regionStyling.mouseOver : {}
           );
 
           return vector.properties.latlngs.map((geometry, gi) => (

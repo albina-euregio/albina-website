@@ -272,9 +272,9 @@ class BulletinStore {
       return "";
     }
     const feature = microRegions.features.find(
-      f => f.properties?.bid === this.settings.region
+      f => f.id === this.settings.region
     );
-    return feature?.properties?.bid;
+    return feature?.id;
   }
 
   /**
@@ -292,9 +292,7 @@ class BulletinStore {
   }
 
   get activeNeighbor() {
-    return neighborRegions.features.find(
-      f => f.properties.bid === this.settings.region
-    );
+    return neighborRegions.features.find(f => f.id === this.settings.region);
   }
 
   getProblemsForRegion(regionId, ampm = null) {
@@ -345,11 +343,8 @@ class BulletinStore {
   }
 
   _augmentFeature(f, ampm = null) {
-    if (!f.properties) {
-      f.properties = {};
-    }
-    f.properties.bid = f.properties.bid ?? f.id;
-    f.properties.state = this.getRegionState(f.properties.bid, ampm);
+    if (!f.properties) f.properties = {};
+    f.properties.state = this.getRegionState(f.id, ampm);
     if (!f.properties.latlngs) {
       f.properties.latlngs = GeoJSON.coordsToLatLngs(
         f.geometry.coordinates,
