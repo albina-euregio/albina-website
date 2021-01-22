@@ -205,7 +205,7 @@ class BulletinMap extends React.Component {
       detailsClasses.push("js-active");
       const language = window["appStore"].language;
       const country = activeNeighbor.properties[`country_id`];
-      const region = activeNeighbor.properties[`region_id`];
+      const region = activeNeighbor.properties[`bid`];
       // res.push(
       //   <p>{this.props.intl.formatMessage({ id: "region:" + country })}</p>
       // );

@@ -348,7 +348,7 @@ class BulletinStore {
     if (!f.properties) {
       f.properties = {};
     }
-    f.properties.bid = f.properties.bid ?? f.id ?? f.properties.region_id;
+    f.properties.bid = f.properties.bid ?? f.id;
     f.properties.state = this.getRegionState(f.properties.bid, ampm);
     if (!f.properties.latlngs) {
       f.properties.latlngs = GeoJSON.coordsToLatLngs(
