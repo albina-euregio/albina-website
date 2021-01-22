@@ -253,12 +253,9 @@ class Bulletin extends React.Component {
                   })}
                   rel="noopener noreferrer"
                   target="_blank"
-                  title={this.props.intl.formatMessage({
-                    id: "button:weather:AT-07:text"
-                  })}
                 >
                   {this.props.intl.formatMessage({
-                    id: "button:weather:AT-07:text"
+                    id: "region:AT-07"
                   })}
                 </a>
               </li>
@@ -270,12 +267,9 @@ class Bulletin extends React.Component {
                   })}
                   rel="noopener noreferrer"
                   target="_blank"
-                  title={this.props.intl.formatMessage({
-                    id: "button:weather:IT-32-BZ:text"
-                  })}
                 >
                   {this.props.intl.formatMessage({
-                    id: "button:weather:IT-32-BZ:text"
+                    id: "region:IT-32-BZ"
                   })}
                 </a>
               </li>
@@ -287,12 +281,9 @@ class Bulletin extends React.Component {
                   })}
                   rel="noopener noreferrer"
                   target="_blank"
-                  title={this.props.intl.formatMessage({
-                    id: "button:weather:IT-32-TN:text"
-                  })}
                 >
                   {this.props.intl.formatMessage({
-                    id: "button:weather:IT-32-TN:text"
+                    id: "region:IT-32-TN"
                   })}
                 </a>
               </li>
