@@ -509,13 +509,8 @@
   "button:snow:stations:text": "Weather Stations",
   "button:education:headline": "Education & Prevention",
   "button:education:danger-scale:text": "Danger Scale",
-  "button:education:danger-scale:link": "/education/danger-scale",
   "button:education:eaws-matrix:text": "EAWS Matrix",
-  "button:education:eaws-matrix:link": "/education/matrix",
   "button:education:avalanche-sizes:text": "Avalanche Sizes",
-  "button:education:avalanche-sizes:link": "/education/avalanche-sizes",
   "button:education:avalanche-problems:text": "Avalanche Problems",
-  "button:education:avalanche-problems:link": "/education/avalanche-problems",
-  "button:education:danger-patterns:text": "Danger Patterns",
-  "button:education:danger-patterns:link": "/education/danger-patterns"
+  "button:education:danger-patterns:text": "Danger Patterns"
 }

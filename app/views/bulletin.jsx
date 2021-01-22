@@ -371,12 +371,7 @@ class Bulletin extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:education:danger-scale:link"
-                  })}
-                  title={this.props.intl.formatMessage({
-                    id: "button:education:danger-scale:text"
-                  })}
+                  href="/education/danger-scale"
                 >
                   {this.props.intl.formatMessage({
                     id: "button:education:danger-scale:text"
@@ -386,12 +381,7 @@ class Bulletin extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:education:avalanche-problems:link"
-                  })}
-                  title={this.props.intl.formatMessage({
-                    id: "button:education:avalanche-problems:text"
-                  })}
+                  href="/education/avalanche-problems"
                 >
                   {this.props.intl.formatMessage({
                     id: "button:education:avalanche-problems:text"
@@ -401,12 +391,7 @@ class Bulletin extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:education:danger-patterns:link"
-                  })}
-                  title={this.props.intl.formatMessage({
-                    id: "button:education:danger-patterns:text"
-                  })}
+                  href="/education/danger-patterns"
                 >
                   {this.props.intl.formatMessage({
                     id: "button:education:danger-patterns:text"
