@@ -334,12 +334,7 @@ class Bulletin extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:snow:hn:link"
-                  })}
-                  title={this.props.intl.formatMessage({
-                    id: "button:snow:hn:text"
-                  })}
+                  href="/weather/map/new-snow"
                 >
                   {this.props.intl.formatMessage({ id: "button:snow:hn:text" })}
                 </a>
@@ -347,39 +342,18 @@ class Bulletin extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:snow:hs:link"
-                  })}
-                  title={this.props.intl.formatMessage({
-                    id: "button:snow:hs:text"
-                  })}
+                  href="/weather/map/snow-height"
                 >
                   {this.props.intl.formatMessage({ id: "button:snow:hs:text" })}
                 </a>
               </li>
               <li>
-                <a
-                  className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:snow:ff:link"
-                  })}
-                  title={this.props.intl.formatMessage({
-                    id: "button:snow:ff:text"
-                  })}
-                >
+                <a className="secondary pure-button" href="/weather/map/wind">
                   {this.props.intl.formatMessage({ id: "button:snow:ff:text" })}
                 </a>
               </li>
               <li>
-                <a
-                  className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:snow:stations:link"
-                  })}
-                  title={this.props.intl.formatMessage({
-                    id: "button:snow:stations:text"
-                  })}
-                >
+                <a className="secondary pure-button" href="/weather/stations">
                   {this.props.intl.formatMessage({
                     id: "button:snow:stations:text"
                   })}
