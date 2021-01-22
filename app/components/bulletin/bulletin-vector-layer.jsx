@@ -56,58 +56,35 @@ export default class BulletinVectorLayer extends React.Component {
     return this.props.date + this.props.activeRegion + problemHash;
   }
 
-  renderRegion(vector, state, geometry, style, key) {
-    const bid = vector.properties.bid;
-    return (
-      <Polygon
-        key={key + bid}
-        onClick={this.handleClickRegion.bind(this, bid, state)}
-        bid={bid}
-        onMouseMove={this.handleMouseMove.bind(this)}
-        onMouseOut={this.handleMouseOut.bind(this)}
-        positions={geometry}
-        {...style}
-        {...config.map.vectorOptions}
-      />
-    );
-  }
-
   render() {
     return (
       <Pane key={this.uniqueKey}>
-        {// not over state regions
-        this.props.regions
-          .filter(vector => this.state.over !== vector.properties.bid)
-          .map((vector, vi) => {
-            const state = vector.properties.state;
-            // setting the style for each region
-            const style = Object.assign(
-              {},
-              config.map.regionStyling.all,
-              config.map.regionStyling[state]
-            );
+        {this.props.regions.map((vector, vi) => {
+          const bid = vector.properties.bid;
+          const state = vector.properties.state;
+          // setting the style for each region
+          const style = Object.assign(
+            {},
+            config.map.regionStyling.all,
+            config.map.regionStyling[state],
+            this.state.over === vector.properties.bid
+              ? config.map.regionStyling.mouseOver
+              : {}
+          );
 
-            return vector.properties.latlngs.map((g, gi) => {
-              return this.renderRegion(vector, state, g, style, vi + "" + gi);
-            });
-          })}
-        {// over state region
-        this.props.regions
-          .filter(vector => this.state.over === vector.properties.bid)
-          .map((vector, vi) => {
-            const state = vector.properties.state;
-            // setting the style for each region
-            const style = Object.assign(
-              {},
-              config.map.regionStyling.all,
-              config.map.regionStyling[state],
-              config.map.regionStyling.mouseOver
-            );
-
-            return vector.properties.latlngs.map((g, gi) =>
-              this.renderRegion(vector, state, g, style, vi + "" + gi)
-            );
-          })}
+          return vector.properties.latlngs.map((geometry, gi) => (
+            <Polygon
+              key={`${vi}${gi}${bid}`}
+              onClick={this.handleClickRegion.bind(this, bid, state)}
+              bid={bid}
+              onMouseMove={this.handleMouseMove.bind(this)}
+              onMouseOut={this.handleMouseOut.bind(this)}
+              positions={geometry}
+              {...style}
+              {...config.map.vectorOptions}
+            />
+          ));
+        })}
       </Pane>
     );
   }

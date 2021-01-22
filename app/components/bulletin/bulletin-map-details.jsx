@@ -7,6 +7,7 @@ import { injectIntl } from "react-intl";
 /**
  * @typedef {object} Props
  * @prop {Albina.DaytimeBulletin} bulletin
+ * @prop {string} region
  *
  * @extends {React.Component<Props>}
  */
@@ -29,6 +30,11 @@ class BulletinMapDetails extends React.Component {
 
     return (
       <>
+        <p className="bulletin-report-region-name">
+          <span className="bulletin-report-region-name-region">
+            {this.props.region}
+          </span>
+        </p>
         <ul className="list-plain">
           <li className="bulletin-report-picto tooltip">
             <BulletinDangerRating bulletin={bulletin} />
@@ -46,12 +52,6 @@ class BulletinMapDetails extends React.Component {
         {bulletin.highlights && (
           <p className="bulletin-report-public-alert">
             <span className="icon-attention bulletin-report-public-alert-icon"></span>
-            <span
-              className="bulletin-report-public-alert-text"
-              title={this.props.intl.formatMessage({
-                id: "bulletin:map:details:warning:title"
-              })}
-            ></span>
             {bulletin.highlights}
           </p>
         )}

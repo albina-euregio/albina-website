@@ -70,17 +70,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 10,
-        "Id": 10,
-        "Region": "M�nstertaler Alpen",
+        "Region": "Münstertaler Alpen",
         "regione": "Alpi della Val Muestair",
-        "RegionCode": "IT-32-BZ-01",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Alta Venosta occidentale",
-        "Name_Zone": "Westlicher Oberer Vinschgau",
-        "Nr_Zone": 1
+        "RegionCode": "IT-32-BZ-01"
       }
     },
     {
@@ -152,17 +144,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 11,
-        "Id": 11,
         "Region": "Saldurn-Mastaun Kamm",
         "regione": "Gruppo Saldura-Mastaun",
-        "RegionCode": "IT-32-BZ-06",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Cresta di confine occidentale",
-        "Name_Zone": "Westlicher Alpenhauptkamm",
-        "Nr_Zone": 2
+        "RegionCode": "IT-32-BZ-06"
       }
     },
     {
@@ -216,17 +200,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 13,
-        "Id": 13,
         "Region": "Durreckgruppe",
         "regione": "Gruppo della Cima Dura",
-        "RegionCode": "IT-32-BZ-11",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Cresta di confine orientale",
-        "Name_Zone": "Oestlicher Alpenhauptkamm",
-        "Nr_Zone": 5
+        "RegionCode": "IT-32-BZ-11"
       }
     },
     {
@@ -306,17 +282,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 17,
-        "Id": 17,
         "Region": "Westliche Rieserfernergruppe",
         "regione": "Catena delle Vedrette di Ries occidentali",
-        "RegionCode": "IT-32-BZ-12",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Alpi Alta Pusteria",
-        "Name_Zone": "Hochpustertal",
-        "Nr_Zone": 6
+        "RegionCode": "IT-32-BZ-12"
       }
     },
     {
@@ -390,17 +358,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 25,
-        "Id": 25,
         "Region": "Sextner Dolomiten",
         "regione": "Dolomiti di Sesto",
-        "RegionCode": "IT-32-BZ-20",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Dolomiti orientali",
-        "Name_Zone": "Oestliche Dolomiten",
-        "Nr_Zone": 7
+        "RegionCode": "IT-32-BZ-20"
       }
     },
     {
@@ -567,17 +527,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 24,
-        "Id": 24,
         "Region": "Groedner Dolomiten",
         "regione": "Dolomiti di Gardena",
-        "RegionCode": "IT-32-BZ-18",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Dolomiti centrali",
-        "Name_Zone": "Zentrale Dolomiten",
-        "Nr_Zone": 8
+        "RegionCode": "IT-32-BZ-18"
       }
     },
     {
@@ -682,17 +634,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 23,
-        "Id": 23,
-        "Region": "N�rdliche Fleimstaler Alpen",
+        "Region": "Nördliche Fleimstaler Alpen",
         "regione": "Dolomiti di Fiemme settentrionali",
-        "RegionCode": "IT-32-BZ-17",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Dolomiti occidentali",
-        "Name_Zone": "Westliche Dolomiten",
-        "Nr_Zone": 9
+        "RegionCode": "IT-32-BZ-17"
       }
     },
     {
@@ -807,17 +751,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 22,
-        "Id": 22,
-        "Region": "�stliche Nonsberger Alpen",
+        "Region": "Östliche Nonsberger Alpen",
         "regione": "Alpi della Val di Non orientali",
-        "RegionCode": "IT-32-BZ-16",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Alpi della Val di Non",
-        "Name_Zone": "Nonsberger Alpen",
-        "Nr_Zone": 10
+        "RegionCode": "IT-32-BZ-16"
       }
     },
     {
@@ -941,15 +877,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 26,
-        "Id": 26,
         "Region": "Lienzer Dolomiten",
         "regione": "Dolomiti di Lienz",
-        "RegionCode": "AT-07-29",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 12
+        "RegionCode": "AT-07-29"
       }
     },
     {
@@ -1104,15 +1034,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 9,
-        "Id": 9,
-        "Region": "N�rdliche Zillertaler Alpen",
+        "Region": "Nördliche Zillertaler Alpen",
         "regione": "Alpi della Zillertal settentrionali",
-        "RegionCode": "AT-07-23",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 9
+        "RegionCode": "AT-07-23"
       }
     },
     {
@@ -1189,15 +1113,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 6,
-        "Id": 6,
-        "Region": "�stliche Tuxer Alpen",
+        "Region": "Östliche Tuxer Alpen",
         "regione": "Alpi del Tux orientali",
-        "RegionCode": "AT-07-16",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 6
+        "RegionCode": "AT-07-16"
       }
     },
     {
@@ -1280,15 +1198,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 7,
-        "Id": 7,
-        "Region": "�stliche Kitzb�hler Alpen",
-        "regione": "Alpi di Kitzb�hel orientali",
-        "RegionCode": "AT-07-18",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 7
+        "Region": "Östliche Kitzbühler Alpen",
+        "regione": "Alpi di Kitzbühel orientali",
+        "RegionCode": "AT-07-18"
       }
     },
     {
@@ -1407,15 +1319,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 3,
-        "Id": 3,
         "Region": "Wilder Kaiser - Waidringer Alpen",
         "regione": "Monti del Kaiser - Alpi di Waidring",
-        "RegionCode": "AT-07-06",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 3
+        "RegionCode": "AT-07-06"
       }
     },
     {
@@ -1544,15 +1450,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 1,
-        "Id": 1,
-        "Region": "�stliche Lechtaler Alpen - Ammergebirge",
+        "Region": "Östliche Lechtaler Alpen - Ammergebirge",
         "regione": "Alpi della Lechtal orientali - Alpi dell'Ammergau",
-        "RegionCode": "AT-07-02",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 1
+        "RegionCode": "AT-07-02"
       }
     },
     {
@@ -1651,15 +1551,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 4,
-        "Id": 4,
         "Region": "Samnaungruppe",
         "regione": "Gruppo Samnaun",
-        "RegionCode": "AT-07-13",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 4
+        "RegionCode": "AT-07-13"
       }
     },
     {
@@ -1747,15 +1641,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 8,
-        "Id": 8,
         "Region": "Gurgler Gruppe",
         "regione": "Alpi Passirie",
-        "RegionCode": "AT-07-21",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 8
+        "RegionCode": "AT-07-21"
       }
     },
     {
@@ -1851,15 +1739,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 30,
-        "Id": 30,
         "Region": "Fassatal",
         "regione": "Valle di Fassa",
-        "RegionCode": "IT-32-TN-16",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 16
+        "RegionCode": "IT-32-TN-16"
       }
     },
     {
@@ -1958,15 +1840,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 21,
-        "Id": 21,
         "Region": "Westlilche Nonsberger Alpen",
         "regione": "Valle di Non",
-        "RegionCode": "IT-32-TN-17",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 17
+        "RegionCode": "IT-32-TN-17"
       }
     },
     {
@@ -2085,15 +1961,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 19,
-        "Id": 19,
         "Region": "Sulzberg, Pejo und Rabbi",
         "regione": "Sole, Pejo e Rabbi",
-        "RegionCode": "IT-32-TN-19",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 19
+        "RegionCode": "IT-32-TN-19"
       }
     },
     {
@@ -2156,15 +2026,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 20,
-        "Id": 20,
         "Region": "Magdalena",
         "regione": "Maddalene",
-        "RegionCode": "IT-32-TN-20",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 20
+        "RegionCode": "IT-32-TN-20"
       }
     },
     {
@@ -2237,15 +2101,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 29,
-        "Id": 29,
         "Region": "Latemar",
         "regione": "Latemar",
-        "RegionCode": "IT-32-TN-09",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 9
+        "RegionCode": "IT-32-TN-09"
       }
     },
     {
@@ -2337,15 +2195,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 28,
-        "Id": 28,
-        "Region": "N�rdliche Brenta - Peller",
+        "Region": "Nördliche Brenta - Peller",
         "regione": "Brenta Nord - Peller",
-        "RegionCode": "IT-32-TN-04",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 4
+        "RegionCode": "IT-32-TN-04"
       }
     },
     {
@@ -2458,15 +2310,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 36,
-        "Id": 36,
         "Region": "Primiero - Pale di S. Martino",
         "regione": "Primiero - Pale di S. Martino",
-        "RegionCode": "IT-32-TN-13",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 13
+        "RegionCode": "IT-32-TN-13"
       }
     },
     {
@@ -2540,15 +2386,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 27,
-        "Id": 27,
         "Region": "Adamello Presanella",
         "regione": "Adamello - Presanella",
-        "RegionCode": "IT-32-TN-01",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 1
+        "RegionCode": "IT-32-TN-01"
       }
     },
     {
@@ -2636,15 +2476,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 35,
-        "Id": 35,
-        "Region": "N�rdliche Lagorai",
+        "Region": "Nördliche Lagorai",
         "regione": "Lagorai settentrionale",
-        "RegionCode": "IT-32-TN-07",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 7
+        "RegionCode": "IT-32-TN-07"
       }
     },
     {
@@ -2755,15 +2589,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 34,
-        "Id": 34,
         "Region": "Cimberntal",
         "regione": "Valle di Cembra",
-        "RegionCode": "IT-32-TN-15",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 15
+        "RegionCode": "IT-32-TN-15"
       }
     },
     {
@@ -2859,15 +2687,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 32,
-        "Id": 32,
-        "Region": "S�dliche Brenta",
+        "Region": "Südliche Brenta",
         "regione": "Brenta meridionale",
-        "RegionCode": "IT-32-TN-05",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 5
+        "RegionCode": "IT-32-TN-05"
       }
     },
     {
@@ -2934,15 +2756,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 33,
-        "Id": 33,
         "Region": "Paganella",
         "regione": "Paganella",
-        "RegionCode": "IT-32-TN-11",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 11
+        "RegionCode": "IT-32-TN-11"
       }
     },
     {
@@ -3054,15 +2870,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 40,
-        "Id": 40,
-        "Region": "S�dliche Lagorai",
+        "Region": "Südliche Lagorai",
         "regione": "Lagorai settentrionale",
-        "RegionCode": "IT-32-TN-08",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 8
+        "RegionCode": "IT-32-TN-08"
       }
     },
     {
@@ -3132,15 +2942,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 39,
-        "Id": 39,
         "Region": "Pine' - Mochental",
         "regione": "Pine' - Valle dei Mocheni",
-        "RegionCode": "IT-32-TN-21",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 21
+        "RegionCode": "IT-32-TN-21"
       }
     },
     {
@@ -3262,15 +3066,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 31,
-        "Id": 31,
-        "Region": "S�dlicher Adamello",
+        "Region": "Südlicher Adamello",
         "regione": "Adamello meridionale",
-        "RegionCode": "IT-32-TN-02",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 2
+        "RegionCode": "IT-32-TN-02"
       }
     },
     {
@@ -3373,15 +3171,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 38,
-        "Id": 38,
         "Region": "Bondone und Stivo",
         "regione": "Bondone e Stivo",
-        "RegionCode": "IT-32-TN-03",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 3
+        "RegionCode": "IT-32-TN-03"
       }
     },
     {
@@ -3502,15 +3294,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 41,
-        "Id": 41,
         "Region": "Marzola - Valsugana",
         "regione": "Marzola - Valsugana",
-        "RegionCode": "IT-32-TN-10",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 10
+        "RegionCode": "IT-32-TN-10"
       }
     },
     {
@@ -3631,15 +3417,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 37,
-        "Id": 37,
         "Region": "Ledrotal",
         "regione": "Valle di Ledro",
-        "RegionCode": "IT-32-TN-18",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 18
+        "RegionCode": "IT-32-TN-18"
       }
     },
     {
@@ -3740,15 +3520,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 44,
-        "Id": 44,
         "Region": "Folgaria - Lavarone",
         "regione": "Folgaria - Lavarone",
-        "RegionCode": "IT-32-TN-06",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 6
+        "RegionCode": "IT-32-TN-06"
       }
     },
     {
@@ -3834,15 +3608,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 43,
-        "Id": 43,
         "Region": "Vallarse",
         "regione": "Vallarsa",
-        "RegionCode": "IT-32-TN-14",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 14
+        "RegionCode": "IT-32-TN-14"
       }
     },
     {
@@ -3920,15 +3688,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 42,
-        "Id": 42,
         "Region": "Prealpi",
         "regione": "Prealpi",
-        "RegionCode": "IT-32-TN-12",
-        "Provinz": "Trentino",
-        "provincia": "Trentino",
-        "ProvinzId": 3,
-        "Nr_Zone": 12
+        "RegionCode": "IT-32-TN-12"
       }
     },
     {
@@ -4073,15 +3835,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 2,
-        "Id": 2,
         "Region": "Karwendel",
         "regione": "Monti del Karwendel",
-        "RegionCode": "AT-07-04",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 2
+        "RegionCode": "AT-07-04"
       }
     },
     {
@@ -4227,15 +3983,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 1,
-        "Id": 1,
-        "Region": "Allg�uer Alpen",
-        "regione": "Alpi dell'Allg�u",
-        "RegionCode": "AT-07-01",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 1
+        "Region": "Allgäuer Alpen",
+        "regione": "Alpi dell'Allgäu",
+        "RegionCode": "AT-07-01"
       }
     },
     {
@@ -4283,15 +4033,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 1,
-        "Id": 1,
-        "Region": "�stliche Verwallgruppe",
+        "Region": "Östliche Verwallgruppe",
         "regione": "Gruppo Verwall orientali",
-        "RegionCode": "AT-07-11",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 1
+        "RegionCode": "AT-07-11"
       }
     },
     {
@@ -4354,15 +4098,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 4,
-        "Id": 4,
         "Region": "Silvretta",
         "regione": "Silvretta",
-        "RegionCode": "AT-07-12",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 4
+        "RegionCode": "AT-07-12"
       }
     },
     {
@@ -4433,15 +4171,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 1,
-        "Id": 1,
         "Region": "Westliche Verwallgruppe",
         "regione": "Gruppo Verwall occidentali",
-        "RegionCode": "AT-07-10",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 1
+        "RegionCode": "AT-07-10"
       }
     },
     {
@@ -4533,15 +4265,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 1,
-        "Id": 1,
         "Region": "Zentrale Lechtaler Alpen",
         "regione": "Alpi della Lechtal centrali",
-        "RegionCode": "AT-07-08",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 1
+        "RegionCode": "AT-07-08"
       }
     },
     {
@@ -4622,15 +4348,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 1,
-        "Id": 1,
         "Region": "Westliche Lechtaler Alpen",
         "regione": "Alpi della Lechtal occidentali",
-        "RegionCode": "AT-07-07",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 1
+        "RegionCode": "AT-07-07"
       }
     },
     {
@@ -4752,15 +4472,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 3,
-        "Id": 3,
         "Region": "Brandenberger Alpen",
         "regione": "Alpi di Brandenberg",
-        "RegionCode": "AT-07-05",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 3
+        "RegionCode": "AT-07-05"
       }
     },
     {
@@ -4926,15 +4640,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 7,
-        "Id": 7,
-        "Region": "Westliche Kitzb�hler Alpen",
-        "regione": "Alpi di Kitzb�hel occidentali",
-        "RegionCode": "AT-07-17",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 7
+        "Region": "Westliche Kitzbühler Alpen",
+        "regione": "Alpi di Kitzbühel occidentali",
+        "RegionCode": "AT-07-17"
       }
     },
     {
@@ -5146,15 +4854,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 5,
-        "Id": 5,
-        "Region": "Noerdliche �tztaler- und Stubaier Alpen",
+        "Region": "Nördliche Ötztaler- und Stubaier Alpen",
         "regione": "Alpi della valle Oetz e dello Stubai settentrionale",
-        "RegionCode": "AT-07-14",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 5
+        "RegionCode": "AT-07-14"
       }
     },
     {
@@ -5231,15 +4933,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 5,
-        "Id": 5,
         "Region": "Grieskogelgruppe",
         "regione": "Gruppo del Grieskogel",
-        "RegionCode": "AT-07-09",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 5
+        "RegionCode": "AT-07-09"
       }
     },
     {
@@ -5363,15 +5059,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 2,
-        "Id": 2,
         "Region": "Mieminger Gebirge",
         "regione": "Monti di Mieming",
-        "RegionCode": "AT-07-03",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 2
+        "RegionCode": "AT-07-03"
       }
     },
     {
@@ -5461,15 +5151,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 6,
-        "Id": 6,
         "Region": "Westliche Tuxer Alpen",
         "regione": "Alpi del Tux occidentali",
-        "RegionCode": "AT-07-15",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 6
+        "RegionCode": "AT-07-15"
       }
     },
     {
@@ -5543,15 +5227,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 8,
-        "Id": 8,
         "Region": "Glockturmgruppe",
         "regione": "Gruppo della Punta della Gallina",
-        "RegionCode": "AT-07-19",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 8
+        "RegionCode": "AT-07-19"
       }
     },
     {
@@ -5672,15 +5350,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 8,
-        "Id": 8,
         "Region": "Zentrale Stubaier Alpen",
         "regione": "Alpi dello Stubai centrali",
-        "RegionCode": "AT-07-22",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 8
+        "RegionCode": "AT-07-22"
       }
     },
     {
@@ -5785,17 +5457,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 12,
-        "Id": 12,
-        "Region": "S�dliche Stubaier Alpen",
+        "Region": "Südliche Stubaier Alpen",
         "regione": "Alpi dello Stubai meridionali",
-        "RegionCode": "IT-32-BZ-04",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Cresta di confine centrale",
-        "Name_Zone": "Zentraler Alpenhauptkamm",
-        "Nr_Zone": 3
+        "RegionCode": "IT-32-BZ-04"
       }
     },
     {
@@ -5878,15 +5542,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 8,
-        "Id": 8,
-        "Region": "Wei�kugelgruppe",
+        "Region": "Weißkugelgruppe",
         "regione": "Gruppo della Palla Bianca",
-        "RegionCode": "AT-07-20",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 8
+        "RegionCode": "AT-07-20"
       }
     },
     {
@@ -5969,17 +5627,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 11,
-        "Id": 11,
         "Region": "Langtaufers",
         "regione": "Vallelunga",
-        "RegionCode": "IT-32-BZ-02",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Cresta di confine occidentale",
-        "Name_Zone": "Westlicher Alpenhauptkamm",
-        "Nr_Zone": 2
+        "RegionCode": "IT-32-BZ-02"
       }
     },
     {
@@ -6047,17 +5697,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 11,
-        "Id": 11,
         "Region": "Schnalser Kamm",
         "regione": "Cresta di Senales",
-        "RegionCode": "IT-32-BZ-03",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Cresta di confine occidentale",
-        "Name_Zone": "Westlicher Alpenhauptkamm",
-        "Nr_Zone": 2
+        "RegionCode": "IT-32-BZ-03"
       }
     },
     {
@@ -6153,17 +5795,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 15,
-        "Id": 15,
         "Region": "Ortlergruppe",
         "regione": "Gruppo dell'Ortles",
-        "RegionCode": "IT-32-BZ-14",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Gruppo Ortles-Cevedale",
-        "Name_Zone": "Ortler-Cevedale Gruppe",
-        "Nr_Zone": 11
+        "RegionCode": "IT-32-BZ-14"
       }
     },
     {
@@ -6299,17 +5933,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 15,
-        "Id": 15,
         "Region": "Ultental",
         "regione": "Val d'Ultimo",
-        "RegionCode": "IT-32-BZ-15",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Gruppo Ortles-Cevedale",
-        "Name_Zone": "Ortler-Cevedale Gruppe",
-        "Nr_Zone": 11
+        "RegionCode": "IT-32-BZ-15"
       }
     },
     {
@@ -6416,17 +6042,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 25,
-        "Id": 25,
         "Region": "Pragser Dolomiten",
         "regione": "Dolomiti di Braies",
-        "RegionCode": "IT-32-BZ-19",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Dolomiti orientali",
-        "Name_Zone": "Oestliche Dolomiten",
-        "Nr_Zone": 7
+        "RegionCode": "IT-32-BZ-19"
       }
     },
     {
@@ -6561,17 +6179,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 16,
-        "Id": 16,
         "Region": "Sarntaler Alpen",
         "regione": "Alpi Sarentine",
-        "RegionCode": "IT-32-BZ-08",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Alpi Sarentine",
-        "Name_Zone": "Sarntaler Alpen",
-        "Nr_Zone": 4
+        "RegionCode": "IT-32-BZ-08"
       }
     },
     {
@@ -6651,17 +6261,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 17,
-        "Id": 17,
         "Region": "Westliche Deferegger Alpen",
         "regione": "Alpi del Defereggen occidentali",
-        "RegionCode": "IT-32-BZ-13",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Alpi Alta Pusteria",
-        "Name_Zone": "Hochpustertal",
-        "Nr_Zone": 6
+        "RegionCode": "IT-32-BZ-13"
       }
     },
     {
@@ -6731,17 +6333,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 13,
-        "Id": 13,
         "Region": "Westliche Pfunderer Berge",
         "regione": "Monti di Fundres occidentali",
-        "RegionCode": "IT-32-BZ-09",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Cresta di confine orientale",
-        "Name_Zone": "Oestlicher Alpenhauptkamm",
-        "Nr_Zone": 5
+        "RegionCode": "IT-32-BZ-09"
       }
     },
     {
@@ -6828,17 +6422,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 13,
-        "Id": 13,
-        "Region": "�stliche Pfunderer Berge",
+        "Region": "Östliche Pfunderer Berge",
         "regione": "Monti di Fundres orientali",
-        "RegionCode": "IT-32-BZ-10",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Cresta di confine orientale",
-        "Name_Zone": "Oestlicher Alpenhauptkamm",
-        "Nr_Zone": 5
+        "RegionCode": "IT-32-BZ-10"
       }
     },
     {
@@ -6908,15 +6494,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 14,
-        "Id": 14,
         "Region": "Glocknergruppe",
         "regione": "Gruppo del Glockner",
-        "RegionCode": "AT-07-26",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 10
+        "RegionCode": "AT-07-26"
       }
     },
     {
@@ -7022,15 +6602,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 14,
-        "Id": 14,
         "Region": "Venedigergruppe",
         "regione": "Gruppo del Venediger",
-        "RegionCode": "AT-07-24",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 10
+        "RegionCode": "AT-07-24"
       }
     },
     {
@@ -7138,15 +6712,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 14,
-        "Id": 14,
-        "Region": "�stliche Rieserfernergruppe",
+        "Region": "Östliche Rieserfernergruppe",
         "regione": "Catena delle Vedrette di Ries orientali",
-        "RegionCode": "AT-07-25",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 10
+        "RegionCode": "AT-07-25"
       }
     },
     {
@@ -7229,15 +6797,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 18,
-        "Id": 18,
         "Region": "Schobergruppe",
         "regione": "Gruppo dello Schober",
-        "RegionCode": "AT-07-28",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 11
+        "RegionCode": "AT-07-28"
       }
     },
     {
@@ -7350,15 +6912,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 18,
-        "Id": 18,
-        "Region": "�stliche Deferegger Alpen",
+        "Region": "Östliche Deferegger Alpen",
         "regione": "Alpi del Defereggen orientali",
-        "RegionCode": "AT-07-27",
-        "Provinz": "Tirol",
-        "provincia": "Tirolo",
-        "ProvinzId": 1,
-        "Nr_Zone": 11
+        "RegionCode": "AT-07-27"
       }
     },
     {
@@ -7516,17 +7072,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 13,
-        "Id": 13,
-        "Region": "S�dliche Zillertaler Alpen und Hohe Tauern",
+        "Region": "Südliche Zillertaler Alpen und Hohe Tauern",
         "regione": "Alpi della Zillertal meridionali e Alti Tauri",
-        "RegionCode": "IT-32-BZ-05",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Cresta di confine orientale",
-        "Name_Zone": "Oestlicher Alpenhauptkamm",
-        "Nr_Zone": 5
+        "RegionCode": "IT-32-BZ-05"
       }
     },
     {
@@ -7621,17 +7169,9 @@
         ]
       },
       "properties": {
-        "OBJECTID": 12,
-        "Id": 12,
         "Region": "Texelgruppe",
         "regione": "Gruppo Tessa",
-        "RegionCode": "IT-32-BZ-07",
-        "Provinz": "Suedtirol",
-        "provincia": "Alto Adige",
-        "ProvinzId": 2,
-        "nome_zona": "Cresta di confine centrale",
-        "Name_Zone": "Zentraler Alpenhauptkamm",
-        "Nr_Zone": 3
+        "RegionCode": "IT-32-BZ-07"
       }
     }
   ]

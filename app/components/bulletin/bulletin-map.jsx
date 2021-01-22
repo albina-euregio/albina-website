@@ -164,21 +164,28 @@ class BulletinMap extends React.Component {
   getBulletinMapDetails() {
     let res = [];
     let detailsClasses = ["bulletin-map-details", "top-right"];
-    const { activeBulletin, activeNeighbor } = this.props.store;
+    const {
+      activeBulletin,
+      activeNeighbor,
+      activeRegionName
+    } = this.props.store;
     if (activeBulletin) {
       detailsClasses.push("js-active");
       res.push(
         <BulletinMapDetails
           key="details"
           bulletin={activeBulletin}
+          region={this.props.intl.formatMessage({
+            id: "region:" + activeRegionName
+          })}
           ampm={this.props.ampm}
         />
       );
       res.push(
-        this.props.store.settings.region && (
+        activeBulletin?.id && (
           <a
             key="link"
-            href={"#" + this.props.store.settings.region}
+            href={"#" + activeBulletin?.id}
             className="pure-button tooltip"
             title={this.props.intl.formatMessage({
               id: "bulletin:map:info:details:hover"
@@ -197,6 +204,25 @@ class BulletinMap extends React.Component {
     } else if (activeNeighbor) {
       detailsClasses.push("js-active");
       const language = window["appStore"].language;
+      const country = activeNeighbor.properties[`country_id`];
+      const region = activeNeighbor.properties[`region_id`];
+      // res.push(
+      //   <p>{this.props.intl.formatMessage({ id: "region:" + country })}</p>
+      // );
+      // res.push(
+      //   <p>{this.props.intl.formatMessage({ id: "region:" + region })}</p>
+      // );
+      res.push(
+        <p className="bulletin-report-region-name">
+          <span className="bulletin-report-region-name-country">
+            {this.props.intl.formatMessage({ id: "region:" + country })}
+          </span>
+          <span>&nbsp;/ </span>
+          <span className="bulletin-report-region-name-region">
+            {this.props.intl.formatMessage({ id: "region:" + region })}
+          </span>
+        </p>
+      );
       for (let index = 1; index <= 3; index++) {
         // aws_1, aws_2, aws_3
         const label = activeNeighbor.properties[`aws_${index}`];
@@ -213,8 +239,7 @@ class BulletinMap extends React.Component {
               id: "bulletin:map:info:details:hover"
             })}
           >
-            {label}
-            <span className="icon-arrow-right" />
+            {label} <span className="icon-arrow-right" />
           </a>
         );
       }

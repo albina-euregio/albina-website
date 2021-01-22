@@ -1,4 +1,5 @@
 import ArchiveStore from "./archiveStore.js";
+import microRegions from "./micro_regions.geojson.json";
 import { observable, action } from "mobx";
 import { parseDate, getSuccDate, dateToISODateString } from "../util/date.js";
 
@@ -22,7 +23,6 @@ class BulletinCollection {
    * @type {Albina.DaytimeBulletin[]}
    */
   daytimeBulletins;
-  geodata;
 
   constructor(date) {
     this.date = date;
@@ -30,7 +30,6 @@ class BulletinCollection {
     this.statusMessage = "";
     this.dataRaw = null;
     this.daytimeBulletins = [];
-    this.geodata = {};
   }
 
   get regions() {
@@ -61,21 +60,16 @@ class BulletinCollection {
   }
 
   getBulletinForRegion(regionId) {
-    return this.daytimeBulletins.find(el => el.id == regionId);
-  }
-
-  getBulletinForMicroRegion(regionId) {
-    return this.daytimeBulletins.find(el =>
-      el.forenoon.regions.find(r => r.id === regionId)
+    return (
+      this.daytimeBulletins.find(el => el.id == regionId) ??
+      this.daytimeBulletins.find(el =>
+        el.forenoon.regions.find(r => r.id === regionId)
+      )
     );
   }
 
   getData() {
     return this.dataRaw;
-  }
-
-  getGeoData() {
-    return this.geodata;
   }
 
   /**
@@ -97,12 +91,6 @@ class BulletinCollection {
 
   cancelLoad() {
     this.status = "empty";
-  }
-
-  setGeoData(data) {
-    if (typeof data === "object") {
-      this.geodata = data;
-    }
   }
 
   toString() {
@@ -207,18 +195,6 @@ class BulletinStore {
             }
           })
           .then(() => {
-            if (this.bulletins[date].status == "ok") {
-              // bulletin data has been loaded, continue with GeoJSON
-              if (this.bulletins[date].hasDaytimeDependency()) {
-                // only request 'am' geojson - 'pm' has same geometries, only
-                // different properties which are irrelevant here
-                return this._loadGeoData(date, "am");
-              }
-              // else (this will load the 'fd' geojson)
-              return this._loadGeoData(date);
-            }
-          })
-          .then(() => {
             if (activate && this.settings.date == date) {
               // reactivate to notify status change
               this.activate(date);
@@ -289,6 +265,19 @@ class BulletinStore {
   }
 
   /**
+   * @returns {string}
+   */
+  get activeRegionName() {
+    if (!this.settings?.region?.match(config.regionsRegex)) {
+      return "";
+    }
+    const feature = microRegions.features.find(
+      f => f.properties.bid === this.settings.region
+    );
+    return feature?.properties?.["RegionCode"];
+  }
+
+  /**
    * Get the bulletin that is relevant for the currently set region.
    * @return {Albina.DaytimeBulletin} A bulletin object that matches the selection of
    *   this.date, this.ampm and this.region
@@ -324,8 +313,11 @@ class BulletinStore {
   }
 
   getRegionState(regionId, ampm = null) {
-    if (this.settings.region && this.settings.region === regionId) {
+    if (this.settings?.region === regionId) {
       return "selected";
+    }
+    if (this.activeBulletin?.forenoon?.regions?.some(r => r.id === regionId)) {
+      return "highlighted";
     }
     if (this.settings.region) {
       // some other region is selected
@@ -353,15 +345,14 @@ class BulletinStore {
   }
 
   _augmentFeature(f, ampm = null) {
+    f.properties.bid =
+      f.properties.bid ?? f.properties.RegionCode ?? f.properties.region_id;
     f.properties.state = this.getRegionState(f.properties.bid, ampm);
     if (!f.properties.latlngs) {
       f.properties.latlngs = GeoJSON.coordsToLatLngs(
         f.geometry.coordinates,
         f.geometry.type === "Polygon" ? 1 : 2
       );
-    }
-    if (!f.properties.bid) {
-      f.properties.bid = f.properties.NUTS2_area;
     }
     return f;
   }
@@ -371,10 +362,7 @@ class BulletinStore {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
-      // clone original geojson
-      const clonedGeojson = Object.assign({}, collection.getGeoData());
-
-      const regions = (clonedGeojson.features || []).map(f =>
+      const regions = microRegions.features.map(f =>
         this._augmentFeature(f, ampm)
       );
 
@@ -417,28 +405,6 @@ class BulletinStore {
       error => {
         console.error("Cannot load bulletin for date " + date, error);
         this.bulletins[date].setData(null);
-      }
-    );
-  }
-
-  _loadGeoData(date, daytime = null) {
-    // API uses daytimes 'am', 'pm' and 'fd' ('full day')
-    const d = daytime || "fd";
-    const publicationDate =
-      this.bulletins[date] && this.bulletins[date].publicationDate
-        ? this.bulletins[date].publicationDate.getTime()
-        : Date.now();
-    const url =
-      config.apis.geo + date + "/" + d + "_regions.json?" + publicationDate;
-
-    return axios.get(url).then(
-      // query vector data
-      response => {
-        this.bulletins[date].setGeoData(response.data, daytime);
-      },
-      error => {
-        console.error("Cannot load geo data for date " + date, error);
-        this.bulletins[date].setGeoData(null, daytime);
       }
     );
   }
