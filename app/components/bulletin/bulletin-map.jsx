@@ -213,7 +213,10 @@ class BulletinMap extends React.Component {
       //   <p>{this.props.intl.formatMessage({ id: "region:" + region })}</p>
       // );
       res.push(
-        <p className="bulletin-report-region-name">
+        <p
+          key={`neighbor-name-${country}`}
+          className="bulletin-report-region-name"
+        >
           <span className="bulletin-report-region-name-country">
             {this.props.intl.formatMessage({ id: "region:" + country })}
           </span>
