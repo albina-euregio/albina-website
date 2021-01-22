@@ -4,6 +4,10 @@ import { BulletinStore } from "./stores/bulletinStore";
 import CookieStore from "./stores/cookieStore";
 import NavigationStore from "./stores/navigationStore";
 
+/**
+ * @typedef {"ca" | "en" | "de" | "es" | "fr" | "it" | "oc"} Language
+ */
+
 // i18n
 import ca from "./i18n/ca.json";
 import de from "./i18n/de.json";
@@ -12,6 +16,9 @@ import es from "./i18n/es.json";
 import fr from "./i18n/fr.json";
 import it from "./i18n/it.json";
 import oc from "./i18n/oc.json";
+/**
+ * @type {Record<Language, Record<string, string>}
+ */
 const translationLookup = Object.freeze({ ca, en, de, es, fr, it, oc });
 
 class AppStore extends React.Component {
@@ -21,8 +28,14 @@ class AppStore extends React.Component {
   cookieConsent;
   navigation;
   regions;
+  /**
+   * @type {Language}
+   */
   @observable
   language;
+  /**
+   * @type {Language[]}
+   */
   languages;
 
   constructor() {
@@ -41,11 +54,17 @@ class AppStore extends React.Component {
       .map(k => k.substr(8));
   }
 
+  /**
+   * @returns {Record<string, string>}
+   */
   @computed
   get messages() {
     return translationLookup[this.language];
   }
 
+  /**
+   * @param {Language} newLanguage
+   */
   @action
   setLanguage(newLanguage) {
     if (this.languages.includes(newLanguage)) {
