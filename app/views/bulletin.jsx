@@ -297,9 +297,7 @@ class Bulletin extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:blog:AT-07:link"
-                  })}
+                  href={"/blog?region=AT-07"}
                 >
                   {this.props.intl.formatMessage({
                     id: "region:AT-07"
@@ -309,9 +307,7 @@ class Bulletin extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:blog:IT-32-BZ:link"
-                  })}
+                  href={"/blog?region=IT-32-BZ"}
                 >
                   {this.props.intl.formatMessage({
                     id: "region:IT-32-BZ"
@@ -321,9 +317,7 @@ class Bulletin extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:blog:IT-32-TN:link"
-                  })}
+                  href={"/blog?region=IT-32-TN"}
                 >
                   {this.props.intl.formatMessage({
                     id: "region:IT-32-TN"
