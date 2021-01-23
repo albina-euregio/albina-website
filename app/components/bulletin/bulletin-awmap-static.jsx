@@ -15,14 +15,17 @@ class BulletinAWMapStatic extends React.Component {
   }
 
   render() {
+    const { publicationTime } = this.props;
+    const publicationDirectory = publicationTime
+      ? getPublicationTimeString(parseDateSeconds(publicationTime)) + "/"
+      : "";
     const imgFormat =
       window.config.webp && this.props.date > "2020-12-01" ? ".webp" : ".jpg";
     const url =
       window.config.apis.geo +
       this.props.date +
       "/" +
-      getPublicationTimeString(parseDateSeconds(this.props.publicationTime)) +
-      "/" +
+      publicationDirectory +
       this.props.region + // possibly contains _PM
       imgFormat;
 
