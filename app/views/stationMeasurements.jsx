@@ -131,14 +131,9 @@ class StationMeasurements extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:snow:hn:link"
-                  })}
+                  href="/weather/map/new-snow"
                   rel="noopener noreferrer"
                   target="_blank"
-                  title={this.props.intl.formatMessage({
-                    id: "button:snow:hn:text"
-                  })}
                 >
                   {this.props.intl.formatMessage({ id: "button:snow:hn:text" })}
                 </a>
@@ -146,14 +141,9 @@ class StationMeasurements extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:snow:hs:link"
-                  })}
+                  href="/weather/map/snow-height"
                   rel="noopener noreferrer"
                   target="_blank"
-                  title={this.props.intl.formatMessage({
-                    id: "button:snow:hs:text"
-                  })}
                 >
                   {this.props.intl.formatMessage({ id: "button:snow:hs:text" })}
                 </a>
@@ -161,14 +151,9 @@ class StationMeasurements extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:snow:ff:link"
-                  })}
+                  href="/weather/map/wind"
                   rel="noopener noreferrer"
                   target="_blank"
-                  title={this.props.intl.formatMessage({
-                    id: "button:snow:ff:text"
-                  })}
                 >
                   {this.props.intl.formatMessage({ id: "button:snow:ff:text" })}
                 </a>
@@ -176,14 +161,9 @@ class StationMeasurements extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:snow:stations:link"
-                  })}
+                  href="/weather/stations"
                   rel="noopener noreferrer"
                   target="_blank"
-                  title={this.props.intl.formatMessage({
-                    id: "button:snow:stations:text"
-                  })}
                 >
                   {this.props.intl.formatMessage({
                     id: "button:snow:stations:text"
