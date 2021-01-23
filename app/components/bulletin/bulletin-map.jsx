@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { injectIntl } from "react-intl";
-import { ImageOverlay } from "react-leaflet";
+import { GeoJSON, ImageOverlay } from "react-leaflet";
 import InfoBar from "../organisms/info-bar";
 import { dateToISODateString, parseDate } from "../../util/date";
 
@@ -107,6 +107,17 @@ class BulletinMap extends React.Component {
           bulletin={this.props.store.activeBulletin}
           handleSelectRegion={this.props.handleSelectRegion}
           handleCenterToRegion={center => this.map.panTo(center)}
+        />
+      );
+    }
+
+    if (this.props.store.neighborGeoJSON) {
+      overlays.push(
+        <GeoJSON
+          key="neighbor-bulletins"
+          data={this.props.store.neighborGeoJSON}
+          pane="mapPane"
+          style={feature => feature.properties.style}
         />
       );
     }

@@ -9,6 +9,7 @@ import {
 import { GeoJSON, Util } from "leaflet";
 import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.js";
 import { fetchText } from "../util/fetch.js";
+import { loadNeighborBulletins } from "./bulletinStoreNeighbor.js";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import encodedMicroRegions from "./micro_regions.polyline.json";
@@ -174,6 +175,11 @@ class BulletinStore {
    */
   @action load(date, activate = true) {
     // console.log("loading bulletin", { date, activate });
+    if (APP_DEV_MODE || APP_ENVIRONMENT === "beta") {
+      loadNeighborBulletins().then(
+        geojson => (this.neighborGeoJSON = geojson)
+      );
+    }
     if (date) {
       if (this.bulletins[date]) {
         if (activate) {
