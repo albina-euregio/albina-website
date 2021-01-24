@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable, action, computed } from "mobx";
 import {
   parseDate,
   parseDateSeconds,
@@ -131,6 +131,10 @@ class BulletinStore {
    * @type {Record<Caaml.AvalancheProblemType, {highlighted: boolean}}
    */
   problems = {};
+  /**
+   * @type {Record<date, any>}
+   */
+  @observable neighborBulletins = {};
 
   constructor() {
     this.settings = observable({
@@ -175,10 +179,13 @@ class BulletinStore {
    */
   @action load(date, activate = true) {
     // console.log("loading bulletin", { date, activate });
-    if (APP_DEV_MODE || APP_ENVIRONMENT === "beta") {
-      loadNeighborBulletins().then(
-        geojson => (this.neighborGeoJSON = geojson)
-      );
+    if (
+      (APP_DEV_MODE || APP_ENVIRONMENT === "beta") &&
+      !this.neighborBulletins[date]
+    ) {
+      loadNeighborBulletins(date).then(geojson => {
+        this.neighborBulletins[date] = geojson;
+      });
     }
     if (date) {
       if (this.bulletins[date]) {
@@ -249,6 +256,10 @@ class BulletinStore {
       return this.bulletins[this.settings.date];
     }
     return null;
+  }
+
+  @computed get activeNeighborBulletins() {
+    return this.neighborBulletins[this.settings.date];
   }
 
   /**

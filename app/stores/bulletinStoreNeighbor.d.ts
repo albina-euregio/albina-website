@@ -2,6 +2,7 @@ namespace Albina {
   export interface NeighborBulletin {
     validRegions: string[];
     repDate: Date;
+    validityDate: string;
     timeBegin: string;
     timeEnd: string;
     dangerMain: DangerMain[];

@@ -1,7 +1,7 @@
 /**
  * @returns {Promise<GeoJSON.FeatureCollection>}
  */
-export async function loadNeighborBulletins() {
+export async function loadNeighborBulletins(date) {
   const response = await fetch(
     "https://avalanche.report/transfer/bulletins-AT.json"
   );
@@ -16,14 +16,16 @@ export async function loadNeighborBulletins() {
   const regions = (await import("./neighbor_micro_regions.geojson.json"))
     .default;
 
-  regions.features = regions.features.filter(
-    // exclude ALBINA regions
-    feature => !feature.properties.id.match(window.config.regionsRegex)
-  );
-  regions.features.forEach(feature =>
-    augmentNeighborFeature(feature, bulletins)
-  );
-  return regions;
+  return Object.freeze({
+    ...regions,
+    features: regions.features
+      .filter(
+        // exclude ALBINA regions
+        feature => !feature.properties.id.match(window.config.regionsRegex)
+      )
+      .map(feature => augmentNeighborFeature(feature, bulletins))
+      .filter(feature => feature.properties.validityDate === date)
+  });
 }
 
 const WARNLEVEL_COLORS = [
@@ -38,6 +40,7 @@ const WARNLEVEL_COLORS = [
 /**
  * @param {GeoJSON.Feature} feature
  * @param {Albina.NeighborBulletin} bulletins
+ * @returns {GeoJSON.Feature}
  */
 function augmentNeighborFeature(feature, bulletins) {
   const region = feature.properties.id;
@@ -45,6 +48,7 @@ function augmentNeighborFeature(feature, bulletins) {
   const bulletin = bulletins.find(bulletin =>
     bulletin.validRegions.includes(region)
   );
+  const { validityDate } = bulletin;
   const dangerMain = bulletin?.dangerMain?.find(
     danger =>
       !danger.validElev ||
@@ -63,8 +67,10 @@ function augmentNeighborFeature(feature, bulletins) {
   };
   Object.assign(feature.properties, {
     bulletin,
+    validityDate,
     dangerMain,
     warnlevel,
     style
   });
+  return feature;
 }
