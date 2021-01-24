@@ -9,7 +9,7 @@ export class AuthorModel {
   public image: string;
   public regions: string[];
 
-  static createFromJson(json) {
+  static createFromJson(json: Partial<AuthorModel> & {access_token?: string; refresh_token?: string}) {
     const author = new AuthorModel();
 
     author.setName(json.name);
@@ -33,6 +33,9 @@ export class AuthorModel {
       }
     }
     author.setRegions(regions);
+
+    author.setAccessToken(json.accessToken ?? json.access_token);
+    author.setRefreshToken(json.refreshToken ?? json.refresh_token);
 
     return author;
   }
