@@ -1,5 +1,5 @@
 import { observable, action, computed } from "mobx";
-import axios from "axios";
+import { fetchJSON } from "../util/fetch";
 import { Util } from "leaflet";
 import { regionCodes } from "../util/regions";
 
@@ -195,10 +195,9 @@ export default class StationDataStore {
     });
     //console.log("StationDataStore->load", timePrefix, stationsFile);
 
-    return axios
-      .get(stationsFile)
-      .then(response => {
-        this.data = response.data.features
+    return fetchJSON(stationsFile)
+      .then(data => {
+        this.data = data.features
           .filter(el => el.properties.date)
           .map(feature => new StationData(feature))
           .sort((f1, f2) =>

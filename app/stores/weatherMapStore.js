@@ -1,6 +1,6 @@
 import { computed, observable, action } from "mobx";
 import StationDataStore from "./stationDataStore";
-import axios from "axios";
+import { fetchJSON } from "../util/fetch";
 import { dateFormat, isSummerTime } from "../util/date";
 
 export default class WeatherMapStore_new {
@@ -43,41 +43,31 @@ export default class WeatherMapStore_new {
     get data
   */
   _loadDomainData() {
-    const self = this;
     this._loading.set(true);
     this._lastDataUpdate = 0;
     //console.log("_loadDomainData bbb", this._domainId, this.getMetaFile("agl"));
 
+    const fetchDate = async url => {
+      const response = await fetch(url);
+      if (!response.ok) throw Error(response.statusText);
+      this.lastUpdateTime = response.headers.get("last-modified");
+      const date = await response.text();
+      return date.includes("T") ? new Date(date.trim()).getTime() : undefined;
+    };
+
     const loads = [
-      axios
-        .get(
-          config.apis.weather.overlays +
-            this._domainId.get() +
-            "/" +
-            this.getMetaFile("agl")
-        )
-        .then(response => {
-          if (response.data.includes("T"))
-            this._dateStart = new Date(response.data.trim()).getTime();
-          self.lastUpdateTime = response.headers["last-modified"];
-        }),
-      axios
-        .get(
-          config.apis.weather.overlays +
-            this._domainId.get() +
-            "/" +
-            this.getMetaFile("startDate")
-        )
-        .then(response => {
-          // console.log(
-          //   "WeatherMapStore_new->_loadData fff: Startdate",
-          //   response.data,
-          //   new Date(response.data.trim())
-          // );
-          if (response.data.includes("T"))
-            this._agl = new Date(response.data.trim()).getTime();
-          self.lastUpdateTime = response.headers["last-modified"];
-        })
+      fetchDate(
+        config.apis.weather.overlays +
+          this._domainId.get() +
+          "/" +
+          this.getMetaFile("agl")
+      ).then(date => (this._dateStart = date ?? this._dateStart)),
+      fetchDate(
+        config.apis.weather.overlays +
+          this._domainId.get() +
+          "/" +
+          this.getMetaFile("startDate")
+      ).then(date => (this._agl = date ?? this._agl))
     ];
 
     Promise.all(loads)
@@ -134,7 +124,7 @@ export default class WeatherMapStore_new {
     } else this.stations = [];
     if (this.domainConfig && this.domainConfig.layer.grid) {
       loads.push(
-        axios.get(config.apis.weather.grid).then(response => {
+        fetchJSON(config.apis.weather.grid).then(response => {
           // console.log("WeatherMapStore_new->_loadData aaa: Grid");
           this.grid = response.data;
         })

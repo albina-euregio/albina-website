@@ -1,6 +1,6 @@
 import React from "react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
-import axios from "axios";
+import { fetchJSON } from "../util/fetch";
 import PageHeadline from "../components/organisms/page-headline";
 
 class SubscribeConfirmation extends React.Component {
@@ -12,18 +12,19 @@ class SubscribeConfirmation extends React.Component {
     };
   }
   componentDidMount() {
-    axios
-      .post(config.apis.subscribe + "/confirm", {
+    fetchJSON(config.apis.subscribe + "/confirm", {
+      method: "POST",
+      body: JSON.stringify({
         hash: decodeURIComponent(this.props.match.params.hash)
       })
-      .then(
-        () => {
-          this.setState({ confirmed: true });
-        },
-        errorText => {
-          this.setState({ errorMessage: errorText });
-        }
-      );
+    }).then(
+      () => {
+        this.setState({ confirmed: true });
+      },
+      errorText => {
+        this.setState({ errorMessage: errorText });
+      }
+    );
   }
 
   render() {

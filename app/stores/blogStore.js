@@ -1,5 +1,5 @@
 import { observable, action, computed, toJS } from "mobx";
-import axios from "axios";
+import { fetchJSON } from "../util/fetch";
 import { parseDate, getDaysOfMonth } from "../util/date";
 import { parseTags } from "../util/tagging";
 import L from "leaflet";
@@ -269,7 +269,7 @@ export default class BlogStore {
             }
           }
 
-          return { baseUrl, params };
+          return baseUrl + "?" + new URLSearchParams(params);
         },
 
         process: (response, config) => {
@@ -324,13 +324,12 @@ export default class BlogStore {
         if (cfg.regions.some(r => this.regions[r] && this.regions[r])) {
           if (this.blogProcessor[cfg.apiType]) {
             const p = this.blogProcessor[cfg.apiType];
-
-            const { baseUrl, params } = p.createUrl(cfg);
+            const url = p.createUrl(cfg);
 
             loads.push(
-              axios.get(baseUrl, { params }).then(
-                response => {
-                  p.process(response.data, cfg).forEach(i => {
+              fetchJSON(url).then(
+                data => {
+                  p.process(data, cfg).forEach(i => {
                     newPosts[cfg.name].push(i);
                   });
                 },

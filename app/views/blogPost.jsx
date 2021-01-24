@@ -12,7 +12,7 @@ import { parseDate, dateToDateTimeString } from "../util/date";
 import { parseTags } from "../util/tagging";
 import { modal_init } from "../js/modal";
 import { video_init } from "../js/video";
-import axios from "axios";
+import { fetchJSON } from "../util/fetch";
 
 class BlogPost extends React.Component {
   constructor(props) {
@@ -115,17 +115,15 @@ class BlogPost extends React.Component {
       return e.name === blogName;
     });
     if (blogConfig && postId) {
-      const params = {
-        key: window.config.apiKeys.google
-      };
       const url =
-        window.config.apis.blogger + blogConfig.params.id + "/posts/" + postId;
-
-      axios
-        .get(url, { params })
-        .then(response => {
-          const b = response.data;
-
+        window.config.apis.blogger +
+        blogConfig.params.id +
+        "/posts/" +
+        postId +
+        "?key=" +
+        encodeURIComponent(window.config.apiKeys.google);
+      fetchJSON(url)
+        .then(b => {
           this.setState({
             title: b.title,
             //author: b.author.displayName,
