@@ -5,7 +5,7 @@ import AppStore from "./appStore.js";
 import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
 import { reaction } from "mobx";
-import axios from "axios";
+import { fetchJSON } from "./util/fetch.js";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
 
 /* bower components */
@@ -43,7 +43,7 @@ const isWebpSupported = new Promise(resolve => {
  * redeploying the whole app.
  */
 const configUrl = APP_ASSET_PATH + "config.json?" + Date.now();
-const configRequest = axios.get(configUrl).then(res => res.data);
+const configRequest = fetchJSON(configUrl);
 Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
   configParsed["projectRoot"] = APP_ASSET_PATH;
   configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin

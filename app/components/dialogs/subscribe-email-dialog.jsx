@@ -4,7 +4,7 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Link } from "react-router-dom";
 
 import ProvinceFilter from "../filters/province-filter";
-import axios from "axios";
+import { fetchJSON } from "../../util/fetch";
 
 class SubscribeEmailDialog extends React.Component {
   constructor(props) {
@@ -67,7 +67,10 @@ class SubscribeEmailDialog extends React.Component {
     };
 
     this.setState({ status: "loading" });
-    axios.post(config.apis.subscribe + "/subscribe", data).then(
+    fetchJSON(config.apis.subscribe + "/subscribe", {
+      method: "POST",
+      body: JSON.stringify(data)
+    }).then(
       () => {
         this.setState({ status: "submitted" });
       },

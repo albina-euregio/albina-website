@@ -4,8 +4,8 @@ import { observable, action } from "mobx";
 import { parseDate, getSuccDate, dateToISODateString } from "../util/date.js";
 
 import { GeoJSON, Util } from "leaflet";
-import axios from "axios";
 import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.js";
+import { fetchText } from "../util/fetch.js";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import encodedNeighborRegions from "./neighbor_regions.polyline.json";
@@ -140,7 +140,7 @@ class BulletinStore {
     const today = dateToISODateString(now);
     const tomorrow = dateToISODateString(getSuccDate(now));
     const url = this._getBulletinUrl(tomorrow);
-    axios.head(url).then(
+    fetchText(url, { method: "head" }).then(
       () => (this.latest = tomorrow),
       () => (this.latest = today)
     );
@@ -394,10 +394,10 @@ class BulletinStore {
 
   _loadBulletinData(date) {
     const url = this._getBulletinUrl(date);
-    return axios.get(url, { responseType: "text" }).then(
+    return fetchText(url).then(
       // query bulletin data
       response => {
-        this.bulletins[date].setData(response.data);
+        this.bulletins[date].setData(response);
       },
       error => {
         console.error("Cannot load bulletin for date " + date, error);

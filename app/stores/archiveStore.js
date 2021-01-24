@@ -7,7 +7,7 @@ import {
   getDaysOfMonth,
   isSummerTime
 } from "../util/date.js";
-import axios from "axios";
+import { fetchJSON } from "../util/fetch.js";
 
 export default class ArchiveStore {
   archive;
@@ -162,7 +162,7 @@ export default class ArchiveStore {
   _loadBulletinStatus(startDate, endDate = "") {
     // const startDateDay = parseInt(startDate.split('-')[2], 10) - 1
     // startDate = startDate.substr(0, startDate.length-2) + startDateDay
-
+    if (!endDate) endDate = startDate;
     this.loading = true;
 
     const timeFormatStart = isSummerTime(new Date(startDate))
@@ -174,16 +174,14 @@ export default class ArchiveStore {
 
     const prevDay = date => dateToISODateString(getPredDate(parseDate(date)));
 
-    const params = { startDate: prevDay(startDate) + timeFormatStart };
-    params.endDate = endDate
-      ? prevDay(endDate) + timeFormatEnd
-      : params.startDate;
-    return axios
-      .get(config.apis.bulletin + "/status", { params })
+    const params = new URLSearchParams();
+    params.set("startDate", prevDay(startDate) + timeFormatStart);
+    params.set("endDate", prevDay(endDate) + timeFormatEnd);
+
+    return fetchJSON(config.apis.bulletin + "/status?" + params)
       .then(
         // query status data
-        response => {
-          const values = response.data;
+        values => {
           if (typeof values === "object") {
             let v;
             for (v of values) {
@@ -215,9 +213,8 @@ export default class ArchiveStore {
         },
         error => {
           console.error(
-            "Cannot load bulletin status for date " +
-              startDate +
-              (endDate ? " - " + endDate : ""),
+            "Cannot load bulletin status for date ",
+            { startDate, endDate },
             error
           );
         }
