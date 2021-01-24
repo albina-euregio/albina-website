@@ -16,3 +16,4 @@ function encodeFile(filename) {
 
 encodeFile("app/stores/micro_regions.geojson.json");
 encodeFile("app/stores/neighbor_regions.geojson.json");
+encodeFile("app/stores/neighbor_micro_regions.geojson.json");

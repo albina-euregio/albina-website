@@ -1,3 +1,5 @@
+import { decodeFeatureCollection } from "../util/polyline";
+
 /**
  * @returns {Promise<GeoJSON.FeatureCollection>}
  */
@@ -10,11 +12,13 @@ export async function loadNeighborBulletins(date) {
    * @type {Albina.NeighborBulletin[]}
    */
   const bulletins = await response.json();
+  const regionsPolyline = await import(
+    "./neighbor_micro_regions.polyline.json"
+  );
   /**
    * @type {GeoJSON.FeatureCollection}
    */
-  const regions = (await import("./neighbor_micro_regions.geojson.json"))
-    .default;
+  const regions = decodeFeatureCollection(regionsPolyline.default);
 
   return Object.freeze({
     ...regions,
