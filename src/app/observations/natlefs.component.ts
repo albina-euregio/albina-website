@@ -70,7 +70,7 @@ export class NatlefsComponent {
   getAvalancheProblemsString() {
     let result = "";
     for (let i = this.natlefs.avalancheProblems.length - 1; i >= 0; i--) {
-      result = result + this.translateService.instant("avalancheProblem." + Enums.AvalancheSituation[this.natlefs.avalancheProblems[i]]);
+      result = result + this.translateService.instant("avalancheProblemNatlefs." + Enums.AvalancheSituation[this.natlefs.avalancheProblems[i]]);
       if (i > 0) {
         result = result + ", ";
       }

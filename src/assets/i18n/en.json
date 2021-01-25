@@ -637,37 +637,10 @@
     }
   },
   "natlefs" : {
-    "title" : "NATLEFS",
-    "detailsTitle" : "NATLEFS",
     "noData" : "---",
     "anonymous" : "<anonymous>",
-    "new" : {
-      "title" : "New Quick Report",
-      "newTest" : "New",
-      "saveQuickReport" : "Save",
-      "discardQuickReport" : "Discard",
-      "save" : "Save",
-      "discard" : "Discard",
-      "next" : "Next",
-      "discardAlert" : {
-        "title" : "Discard Quick Report?",
-        "text" : "Do you really want to discard this quick report?",
-        "discard" : "Discard",
-        "cancel" : "Cancel"
-      },
-      "discardChangesAlert" : {
-        "title" : "Discard Changes?",
-        "text" : "Do you really want to discard the changes to this quick report?",
-        "discard" : "Discard",
-        "cancel" : "Cancel"
-      },
-      "info" : {
-        "pageTitle" : "Info",
-        "tabTitle" : "Info",
-        "missing" : "missing"
-      },
+    "title" : {
       "locationName" : "Location name",
-      "info" : "Info",
       "ridingQuality" : "Riding quality",
       "snowConditions" : "Snow conditions",
       "rode" : "We rode",
@@ -741,7 +714,7 @@
     "sticky" : "Sticky",
     "wet" : "Wet"
   },
-  "avalancheProblem" : {
+  "avalancheProblemNatlefs" : {
     "new_snow" : "New snow",
     "wind_drifted_snow" : "Wind-drifted snow",
     "weak_persistent_layer" : "Weak persistent layer",
@@ -755,19 +728,8 @@
     "many" : "Many"
   },
   "location" : {
-    "title" : "Location",
-    "country" : "Country",
-    "region" : "Region",
-    "subregion" : "Subregion",
-    "name" : "Name",
-    "latitude" : "Latitude",
-    "longitude" : "Longitude",
     "accuracy" : "Accuracy: ",
-    "unknownAccuracy" : "(accuracy unknown)",
-    "elevation" : "Elevation",
-    "angle" : "Angle",
-    "aspect" : "Aspect",
-    "quality" : "Quality"
+    "unknownAccuracy" : "(accuracy unknown)"
   },
   "units" : {
     "cm" : "cm",
