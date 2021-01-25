@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import * as Enums from "../enums/enums";
+import { Natlefs } from "app/models/natlefs.model";
 
 @Component({
   selector: "app-natlefs",
@@ -8,77 +8,42 @@ import * as Enums from "../enums/enums";
 })
 export class NatlefsComponent {
 
-  @Input() natlefs;
+  @Input() natlefs: Natlefs;
 
-  ridingQuality = Enums.RidingQuality;
-  snowConditions = Enums.SnowConditions;
-  terrainFeature = Enums.TerrainFeature;
-  alarmSigns = Enums.AlarmSignsFrequency;
-  newSnow = Enums.NewSnow;
-  driftingSnow = Enums.DriftingSnow;
-  avalanches = Enums.Avalanches;
-  penetrationDepth = Enums.PenetrationDepth;
-  surfaceSnowWetness = Enums.SurfaceSnowWetness;
-  avalancheSituation = Enums.AvalancheSituation;
-  tracks = Enums.Tracks;
-
-  constructor(
-    private translateService: TranslateService) {
-  }
+  constructor(private translateService: TranslateService) {}
 
   hasCoordinates() {
-    if (this.natlefs && this.natlefs.getInfo() && this.natlefs.getInfo().getLocation() && this.natlefs.getInfo().getLocation() && this.natlefs.getInfo().getLocation().getLatitude() && this.natlefs.getInfo().getLocation().getLongitude()) {
-      return true;
-    } else {
-      return false;
-    }
+    return (
+      this.natlefs?.location?.geo?.latitude &&
+      this.natlefs?.location?.geo?.longitude
+    );
   }
 
   getSnowConditionsString() {
-    let result = "";
-    for (let i = this.natlefs.snowConditions.length - 1; i >= 0; i--) {
-      result = result + this.translateService.instant("snowConditions." + Enums.SnowConditions[this.natlefs.snowConditions[i]]);
-      if (i > 0) {
-        result = result + ", ";
-      }
-    }
-    return result;
+    return this.natlefs.snowConditions
+      .map((c) => this.translateService.instant("snowConditions." + c))
+      .join(", ");
   }
 
   getRodeString() {
-    let result = "";
-    for (let i = this.natlefs.rode.length - 1; i >= 0; i--) {
-      result = result + this.translateService.instant("terrainFeature." + Enums.TerrainFeature[this.natlefs.rode[i]]);
-      if (i > 0) {
-        result = result + ", ";
-      }
-    }
-    return result;
+    return this.natlefs.rode
+      .map((r) => this.translateService.instant("terrainFeature." + r))
+      .join(", ");
   }
 
   getAvoidedString() {
-    let result = "";
-    for (let i = this.natlefs.avoided.length - 1; i >= 0; i--) {
-      result = result + this.translateService.instant("terrainFeature." + Enums.TerrainFeature[this.natlefs.avoided[i]]);
-      if (i > 0) {
-        result = result + ", ";
-      }
-    }
-    return result;
+    return this.natlefs.avoided
+      .map((t) => this.translateService.instant("terrainFeature." + t))
+      .join(", ");
   }
 
   getAvalancheProblemsString() {
-    let result = "";
-    for (let i = this.natlefs.avalancheProblems.length - 1; i >= 0; i--) {
-      result = result + this.translateService.instant("avalancheProblemNatlefs." + Enums.AvalancheSituation[this.natlefs.avalancheProblems[i]]);
-      if (i > 0) {
-        result = result + ", ";
-      }
-    }
-    return result;
+    return this.natlefs.avalancheProblems
+      .map((p) => this.translateService.instant("avalancheProblemNatlefs." + p))
+      .join(", ");
   }
 
   getAccuracy() {
-    return Math.round(this.natlefs.getInfo().getLocation().getAccuracy());
+    return Math.round(this.natlefs.location.accuracy);
   }
 }

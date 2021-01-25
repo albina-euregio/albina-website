@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from "@angular/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "../providers/observations-service/observations.service";
 import { MapService } from "../providers/map-service/map.service";
-import { NatlefsModel } from "../models/natlefs.model";
+import { Natlefs } from "../models/natlefs.model";
 
 declare var L: any;
 
@@ -12,7 +12,7 @@ declare var L: any;
 export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   public showNatlefs: boolean = false;
-  public activeNatlefs: NatlefsModel;
+  public activeNatlefs: Natlefs;
 
   constructor(
     private observationsService: ObservationsService,
@@ -70,19 +70,19 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     );
   }
 
-  private createNatlefsMarker(natlefs) {
+  private createNatlefsMarker(natlefs: Natlefs) {
     new L.circleMarker(L.latLng(natlefs.location.geo.latitude, natlefs.location.geo.longitude), this.mapService.createNatlefsOptions())
       .on({ click: () => this.natlefsMarkerClicked(natlefs)})
       .addTo(this.mapService.layers.observations);
   }
 
-  natlefsMarkerClicked(natlefs) {
-    this.activeNatlefs = NatlefsModel.createFromJson(natlefs);
+  natlefsMarkerClicked(natlefs: Natlefs) {
+    this.activeNatlefs = natlefs;
 
     const mapDiv = document.getElementById("mapDiv");
     mapDiv.classList.remove("col-md-12");
     mapDiv.classList.add("col-md-7");
-    this.mapService.centerObservationsMap(this.activeNatlefs.getInfo().getLocation().getLatitude(), this.activeNatlefs.getInfo().getLocation().getLongitude());
+    this.mapService.centerObservationsMap(this.activeNatlefs.location.geo.latitude, this.activeNatlefs.location.geo.longitude);
 
     this.showNatlefs = true;
   }
