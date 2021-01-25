@@ -56,7 +56,6 @@ export default class WeatherMapStore_new {
     };
 
     const loads = [
-            this._dateStart = tDate.getTime();
       fetchDate(
         config.apis.weather.overlays +
           this._domainId.get() +
