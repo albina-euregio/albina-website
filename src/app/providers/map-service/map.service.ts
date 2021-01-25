@@ -33,7 +33,6 @@ export class MapService {
   public zamgModelsMaps: LayerDict<L.TileLayer>;
   public overlayMaps: LayerDict<L.GeoJSON>;
   public afternoonOverlayMaps: LayerDict<L.GeoJSON>;
-  public layerGroups: LayerDict<L.MarkerClusterGroup>;
   public layers: LayerDict<L.LayerGroup>;
 
   constructor(
@@ -63,6 +62,11 @@ export class MapService {
         OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
           maxZoom: 17,
           attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
+        }),
+        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+          maxZoom: 12,
+          tms: false,
+          attribution: ""
         })
       };
 
@@ -73,12 +77,9 @@ export class MapService {
         })
       };
 
-      this.layerGroups = {
-        observations: L.markerClusterGroup(),
-      };
-
       this.layers = {
-        zamgModelPoints: L.layerGroup()
+        zamgModelPoints: L.layerGroup(),
+        observations: L.layerGroup()
       }
 
       this.overlayMaps = {
@@ -145,12 +146,9 @@ export class MapService {
         })
       };
 
-      this.layerGroups = {
-        observations: L.markerClusterGroup()
-      };
-
       this.layers = {
-        zamgModelPoints: L.layerGroup()
+        zamgModelPoints: L.layerGroup(),
+        observations: L.layerGroup()
       }
 
      this.overlayMaps = {
@@ -213,48 +211,15 @@ export class MapService {
     };
   }
 
-  createSnowProfileMarker() {
-    return new L.Icon({
-      iconUrl: "./assets/markers/marker-icon-2x-blue.png",
-      shadowUrl: "./assets/markers/marker-shadow.png",
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
-  }
-
-  createHastyPitMarker() {
-    return new L.Icon({
-      iconUrl: "./assets/markers/marker-icon-2x-green.png",
-      shadowUrl: "./assets/markers/marker-shadow.png",
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
-  }
-
-  createQuickReportMarker() {
-    return new L.Icon({
-      iconUrl: "./assets/markers/marker-icon-2x-red.png",
-      shadowUrl: "./assets/markers/marker-shadow.png",
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
-  }
-
-  createNatlefsMarker() {
-    return new L.Icon({
-      iconUrl: "./assets/markers/marker-icon-2x-black.png",
-      shadowUrl: "./assets/markers/marker-shadow.png",
-      iconSize: [25, 41],
-      iconAnchor: [12, 41],
-      popupAnchor: [1, -34],
-      shadowSize: [41, 41]
-    });
+  createNatlefsOptions() {
+    return {
+      radius: 6,
+      fillColor: "black",
+      color: "black",
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.6
+    };
   }
 
   resetAggregatedRegions() {

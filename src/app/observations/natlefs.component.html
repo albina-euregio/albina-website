@@ -1,0 +1,159 @@
+<div class="row">
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <h1>{{ natlefs.getInfo().getLocation().getName() }}</h1>
+      <div *ngIf="natlefs.getShowUsername()">{{ natlefs.getInfo().getAuthor().getName() }}</div>
+      <div *ngIf="!natlefs.getShowUsername()">{{ "natlefs.anonymous" | translate }}</div>
+      <div>{{ natlefs.getInfo().getDatetime().getDate() | localizedDate:'fullDate' }}</div>
+      <div *ngIf="natlefs.getInfo().getLocation().getAccuracy()">{{ "location.accuracy" | translate }}{{ getAccuracy() }}{{ "units.m" | translate }}</div>
+      <div *ngIf="!natlefs.getInfo().getLocation().getAccuracy()">{{ "location.unknownAccuracy" | translate }}</div>
+    </div>
+    <div class="card-block">
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.newSnow" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.newSnow != undefined">
+            <p>{{ "newSnow." + newSnow[natlefs.newSnow] | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.newSnow == undefined">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.alarmSignsFrequency" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.alarmSigns != undefined">
+            <p>{{ "alarmSignsFrequency." + alarmSigns[natlefs.alarmSigns] | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.alarmSigns == undefined">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.driftingSnow" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.driftingSnow != undefined">
+            <p>{{ "driftingSnow." + driftingSnow[natlefs.driftingSnow] | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.driftingSnow == undefined">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.avalanches" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.avalanches != undefined">
+            <p>{{ "avalanches." + avalanches[natlefs.avalanches] | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.avalanches == undefined">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.penetrationDepth" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.penetrationDepth != undefined">
+            <p>{{ "penetrationDepth." + penetrationDepth[natlefs.penetrationDepth] | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.penetrationDepth == undefined">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.surfaceSnowWetness" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.surfaceSnowWetness != undefined">
+            <p>{{ "surfaceSnowWetness." + surfaceSnowWetness[natlefs.surfaceSnowWetness] | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.surfaceSnowWetness == undefined">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.tracks" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.tracks != undefined">
+            <p>{{ "tracks." + tracks[natlefs.tracks] | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.tracks == undefined">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.avalancheProblems" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.avalancheProblems && natlefs.avalancheProblems.length > 0">
+            <p>{{ getAvalancheProblemsString() }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="!natlefs.avalancheProblems || natlefs.avalancheProblems.length == 0">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.rode" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.rode && natlefs.rode.length > 0">
+            <p>{{ getRodeString() }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="!natlefs.rode || natlefs.rode.length == 0">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.avoided" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.avoided && natlefs.avoided.length > 0">
+            <p>{{ getAvoidedString() }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="!natlefs.avoided || natlefs.avoided.length == 0">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.snowConditions" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.snowConditions && natlefs.snowConditions.length > 0">
+            <p>{{ getSnowConditionsString() }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="!natlefs.snowConditions || natlefs.snowConditions.length == 0">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.ridingQuality" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.ridingQuality != undefined">
+            <p>{{ "ridingQuality." + ridingQuality[natlefs.ridingQuality] | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.ridingQuality == undefined">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>{{ "natlefs.new.comment" | translate }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.info.comment != undefined">
+            <p>{{ natlefs.info.comment }}</p>
+          </div>
+          <div class="col-md-6" *ngIf="natlefs.info.comment == undefined">
+            <p>{{ "natlefs.noData" | translate }}</p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>

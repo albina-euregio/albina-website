@@ -3,7 +3,7 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
 import { ObservationsComponent } from "./observations.component";
-import { QuickReportComponent } from "./quick-report.component";
+import { NatlefsComponent } from "./natlefs.component";
 
 // Bulletins Routing
 import { ObservationsRoutingModule } from "./observations-routing.module";
@@ -25,7 +25,7 @@ import { PipeModule } from "../pipes/pipes.module";
   ],
   declarations: [
     ObservationsComponent,
-    QuickReportComponent
+    NatlefsComponent
   ]
 })
 export class ObservationsModule { }

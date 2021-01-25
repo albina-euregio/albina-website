@@ -8,7 +8,6 @@ export class ConstantsService {
   public release = [pkg.name, pkg.version].join("@");
   public gitlab = pkg.bugs.url;
 
-  public snowObserverServerUrl: string = "https://snowobserver.com/snowobserver/api/";
   public zamgModelsUrl: string = "https://avalanche.report/zamg/";
   public snowpackModelsUrl: string = "https://orsera.alpsolut.eu/tyrol/graphs/";
   public natlefsServerUrl: string = "https://natlefs.snowobserver.com/snowobserver/api/";
@@ -245,10 +244,6 @@ export class ConstantsService {
 
   getWsUpdateUrl() {
     return environment.wsBaseUrl + "update/";
-  }
-
-  getSnowObserverServerUrl() {
-    return this.snowObserverServerUrl;
   }
 
   getNatlefsServerUrl() {

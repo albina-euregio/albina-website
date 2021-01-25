@@ -58,52 +58,5 @@ export class ObservationsService {
 
     return this.http.get<Response>(url, options);
   }
-
-  getSnowProfile(profileId): Observable<Response> {
-    const url = this.constantsService.getSnowObserverServerUrl() + "profiles/" + profileId;
-    const headers = new HttpHeaders({
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    });
-    const options = { headers: headers };
-
-    return this.http.get<Response>(url, options);
-  }
-
-  getSnowProfiles(): Observable<Response> {
-    return this.get("profiles");
-  }
-
-  getHastyPit(profileId): Observable<Response> {
-    const url = this.constantsService.getSnowObserverServerUrl() + "hastyPits/" + profileId;
-    const headers = new HttpHeaders({
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    });
-    const options = { headers: headers };
-
-    return this.http.get<Response>(url, options);
-  }
-
-  getHastyPits(): Observable<Response> {
-    return this.get("hastyPits");
-  }
-
-  getQuickReports(): Observable<Response> {
-    return this.get("quickReports");
-  }
-
-  private get(type): Observable<Response> {
-    const date = new Date();
-    date.setDate(date.getDate() - this.constantsService.getTimeframe());
-    const url = this.constantsService.getSnowObserverServerUrl() + type + "?from=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    const headers = new HttpHeaders({
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    });
-    const options = { headers: headers };
-
-    return this.http.get<Response>(url, options);
-  }
 }
 

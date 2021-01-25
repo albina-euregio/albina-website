@@ -3,12 +3,12 @@ import { TranslateService } from "@ngx-translate/core";
 import * as Enums from "../enums/enums";
 
 @Component({
-  selector: "app-quick-report",
-  templateUrl: "quick-report.component.html"
+  selector: "app-natlefs",
+  templateUrl: "natlefs.component.html"
 })
-export class QuickReportComponent {
+export class NatlefsComponent {
 
-  @Input() quickReport;
+  @Input() natlefs;
 
   ridingQuality = Enums.RidingQuality;
   snowConditions = Enums.SnowConditions;
@@ -27,7 +27,7 @@ export class QuickReportComponent {
   }
 
   hasCoordinates() {
-    if (this.quickReport && this.quickReport.getInfo() && this.quickReport.getInfo().getLocation() && this.quickReport.getInfo().getLocation() && this.quickReport.getInfo().getLocation().getLatitude() && this.quickReport.getInfo().getLocation().getLongitude()) {
+    if (this.natlefs && this.natlefs.getInfo() && this.natlefs.getInfo().getLocation() && this.natlefs.getInfo().getLocation() && this.natlefs.getInfo().getLocation().getLatitude() && this.natlefs.getInfo().getLocation().getLongitude()) {
       return true;
     } else {
       return false;
@@ -36,8 +36,8 @@ export class QuickReportComponent {
 
   getSnowConditionsString() {
     let result = "";
-    for (let i = this.quickReport.snowConditions.length - 1; i >= 0; i--) {
-      result = result + this.translateService.instant("snowConditions." + Enums.SnowConditions[this.quickReport.snowConditions[i]]);
+    for (let i = this.natlefs.snowConditions.length - 1; i >= 0; i--) {
+      result = result + this.translateService.instant("snowConditions." + Enums.SnowConditions[this.natlefs.snowConditions[i]]);
       if (i > 0) {
         result = result + ", ";
       }
@@ -47,8 +47,8 @@ export class QuickReportComponent {
 
   getRodeString() {
     let result = "";
-    for (let i = this.quickReport.rode.length - 1; i >= 0; i--) {
-      result = result + this.translateService.instant("terrainFeature." + Enums.TerrainFeature[this.quickReport.rode[i]]);
+    for (let i = this.natlefs.rode.length - 1; i >= 0; i--) {
+      result = result + this.translateService.instant("terrainFeature." + Enums.TerrainFeature[this.natlefs.rode[i]]);
       if (i > 0) {
         result = result + ", ";
       }
@@ -58,8 +58,8 @@ export class QuickReportComponent {
 
   getAvoidedString() {
     let result = "";
-    for (let i = this.quickReport.avoided.length - 1; i >= 0; i--) {
-      result = result + this.translateService.instant("terrainFeature." + Enums.TerrainFeature[this.quickReport.avoided[i]]);
+    for (let i = this.natlefs.avoided.length - 1; i >= 0; i--) {
+      result = result + this.translateService.instant("terrainFeature." + Enums.TerrainFeature[this.natlefs.avoided[i]]);
       if (i > 0) {
         result = result + ", ";
       }
@@ -69,8 +69,8 @@ export class QuickReportComponent {
 
   getAvalancheProblemsString() {
     let result = "";
-    for (let i = this.quickReport.avalancheProblems.length - 1; i >= 0; i--) {
-      result = result + this.translateService.instant("avalancheProblem." + Enums.AvalancheSituation[this.quickReport.avalancheProblems[i]]);
+    for (let i = this.natlefs.avalancheProblems.length - 1; i >= 0; i--) {
+      result = result + this.translateService.instant("avalancheProblem." + Enums.AvalancheSituation[this.natlefs.avalancheProblems[i]]);
       if (i > 0) {
         result = result + ", ";
       }
@@ -79,6 +79,6 @@ export class QuickReportComponent {
   }
 
   getAccuracy() {
-    return Math.round(this.quickReport.getInfo().getLocation().getAccuracy());
+    return Math.round(this.natlefs.getInfo().getLocation().getAccuracy());
   }
 }

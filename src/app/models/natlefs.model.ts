@@ -5,7 +5,7 @@ import { LocationModel } from "./location.model";
 import { DatetimeModel } from "./datetime.model";
 import * as Enums from "../enums/enums";
 
-export class QuickReportModel {
+export class NatlefsModel {
 
   public id: number;
   public serverId: string;
@@ -29,16 +29,16 @@ export class QuickReportModel {
   public tracks: Enums.Tracks;
 
   static createFromJson(json, id?) {
-    const quickReport = new QuickReportModel(json.showUsername);
+    const natlefs = new NatlefsModel(json.showUsername);
 
     if (id) {
-      quickReport.setId(id);
+      natlefs.setId(id);
     }
     if (json.serverId) {
-      quickReport.setServerId(json.serverId);
+      natlefs.setServerId(json.serverId);
     }
     if (json.status) {
-      quickReport.setStatus(Enums.Status[json.status]);
+      natlefs.setStatus(Enums.Status[json.status]);
     }
 
     const info = new InfoModel();
@@ -57,10 +57,10 @@ export class QuickReportModel {
     if (json.comment) {
       info.setComment(json.comment);
     }
-    quickReport.setInfo(info);
+    natlefs.setInfo(info);
 
     if (json.ridingQuality) {
-      quickReport.setRidingQuality(Enums.RidingQuality[json.ridingQuality]);
+      natlefs.setRidingQuality(Enums.RidingQuality[json.ridingQuality]);
     }
 
     if (json.snowConditions) {
@@ -68,7 +68,7 @@ export class QuickReportModel {
       for (let i = json.snowConditions.length - 1; i >= 0; i--) {
         snowConditions.push(Enums.SnowConditions[json.snowConditions[i]]);
       }
-      quickReport.setSnowConditions(snowConditions);
+      natlefs.setSnowConditions(snowConditions);
     }
 
     if (json.rode) {
@@ -76,7 +76,7 @@ export class QuickReportModel {
       for (let i = json.rode.length - 1; i >= 0; i--) {
         rode.push(Enums.TerrainFeature[json.rode[i]]);
       }
-      quickReport.setRode(rode);
+      natlefs.setRode(rode);
     }
 
     if (json.avoided) {
@@ -84,26 +84,26 @@ export class QuickReportModel {
       for (let i = json.avoided.length - 1; i >= 0; i--) {
         avoided.push(Enums.TerrainFeature[json.avoided[i]]);
       }
-      quickReport.setAvoided(avoided);
+      natlefs.setAvoided(avoided);
     }
 
     if (json.alarmSigns) {
-      quickReport.setAlarmSigns(Enums.AlarmSignsFrequency[json.alarmSigns]);
+      natlefs.setAlarmSigns(Enums.AlarmSignsFrequency[json.alarmSigns]);
     }
     if (json.newSnow) {
-      quickReport.setNewSnow(Enums.NewSnow[json.newSnow]);
+      natlefs.setNewSnow(Enums.NewSnow[json.newSnow]);
     }
     if (json.driftingSnow) {
-      quickReport.setDriftingSnow(Enums.DriftingSnow[json.driftingSnow]);
+      natlefs.setDriftingSnow(Enums.DriftingSnow[json.driftingSnow]);
     }
     if (json.avalanches) {
-      quickReport.setAvalanches(Enums.Avalanches[json.avalanches]);
+      natlefs.setAvalanches(Enums.Avalanches[json.avalanches]);
     }
     if (json.penetrationDepth) {
-      quickReport.setPenetrationDepth(Enums.PenetrationDepth[json.penetrationDepth]);
+      natlefs.setPenetrationDepth(Enums.PenetrationDepth[json.penetrationDepth]);
     }
     if (json.surfaceSnowWetness) {
-      quickReport.setSurfaceSnowWetness(Enums.SurfaceSnowWetness[json.surfaceSnowWetness]);
+      natlefs.setSurfaceSnowWetness(Enums.SurfaceSnowWetness[json.surfaceSnowWetness]);
     }
 
     if (json.avalancheProblems) {
@@ -111,39 +111,39 @@ export class QuickReportModel {
       for (let i = json.avalancheProblems.length - 1; i >= 0; i--) {
         avalancheProblems.push(Enums.AvalancheSituation[json.avalancheProblems[i]]);
       }
-      quickReport.setAvalancheProblems(avalancheProblems);
+      natlefs.setAvalancheProblems(avalancheProblems);
     }
 
     if (json.tracks) {
-      quickReport.setTracks(Enums.Tracks[json.tracks]);
+      natlefs.setTracks(Enums.Tracks[json.tracks]);
     }
 
-    return quickReport;
+    return natlefs;
   }
 
-  constructor(showUsername, quickReport?) {
+  constructor(showUsername, natlefs?) {
     if (showUsername !== undefined && showUsername !== null) {
       this.setShowUsername(showUsername);
     }
 
     this.status = Enums.Status.draft;
-    if (quickReport) {
-      this.setId(quickReport.getId());
-      this.setServerId(quickReport.getServerId());
-      this.setShowUsername(quickReport.getShowUsername());
-      this.setInfo(quickReport.getInfo());
-      this.setRidingQuality(quickReport.getRidingQuality());
-      this.setSnowConditions(quickReport.getSnowConditions());
-      this.setAvoided(quickReport.getAvoided());
-      this.setRode(quickReport.getRode());
-      this.setAlarmSigns(quickReport.getAlarmSigns());
-      this.setNewSnow(quickReport.getNewSnow());
-      this.setDriftingSnow(quickReport.getDriftingSnow());
-      this.setAvalanches(quickReport.getAvalanches());
-      this.setPenetrationDepth(quickReport.getPenetrationDepth());
-      this.setSurfaceSnowWetness(quickReport.getSurfaceSnowWetness());
-      this.setAvalancheProblems(quickReport.getAvalancheProblems());
-      this.setTracks(quickReport.getTracks());
+    if (natlefs) {
+      this.setId(natlefs.getId());
+      this.setServerId(natlefs.getServerId());
+      this.setShowUsername(natlefs.getShowUsername());
+      this.setInfo(natlefs.getInfo());
+      this.setRidingQuality(natlefs.getRidingQuality());
+      this.setSnowConditions(natlefs.getSnowConditions());
+      this.setAvoided(natlefs.getAvoided());
+      this.setRode(natlefs.getRode());
+      this.setAlarmSigns(natlefs.getAlarmSigns());
+      this.setNewSnow(natlefs.getNewSnow());
+      this.setDriftingSnow(natlefs.getDriftingSnow());
+      this.setAvalanches(natlefs.getAvalanches());
+      this.setPenetrationDepth(natlefs.getPenetrationDepth());
+      this.setSurfaceSnowWetness(natlefs.getSurfaceSnowWetness());
+      this.setAvalancheProblems(natlefs.getAvalancheProblems());
+      this.setTracks(natlefs.getTracks());
     } else {
       this.id = undefined;
       this.serverId = undefined;

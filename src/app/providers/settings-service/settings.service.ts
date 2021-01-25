@@ -29,7 +29,7 @@ export class SettingsService {
     this.setLang(lang);
 
     this.useMatrix = true;
-    this.showObservations = false;
+    this.showObservations = true;
     this.showCaaml = false;
     this.showJson = false;
   }
