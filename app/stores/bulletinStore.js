@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx";
+import { observable, action, runInAction } from "mobx";
 import {
   parseDate,
   parseDateSeconds,
@@ -29,6 +29,7 @@ class BulletinCollection {
    * @type {Albina.DaytimeBulletin[]}
    */
   daytimeBulletins;
+  neighborBulletins;
 
   constructor(date) {
     this.date = date;
@@ -131,10 +132,6 @@ class BulletinStore {
    * @type {Record<Caaml.AvalancheProblemType, {highlighted: boolean}}
    */
   problems = {};
-  /**
-   * @type {Record<date, any>}
-   */
-  @observable neighborBulletins = {};
 
   constructor() {
     this.settings = observable({
@@ -179,14 +176,6 @@ class BulletinStore {
    */
   @action load(date, activate = true) {
     // console.log("loading bulletin", { date, activate });
-    if (
-      (APP_DEV_MODE || APP_ENVIRONMENT === "beta") &&
-      !this.neighborBulletins[date]
-    ) {
-      loadNeighborBulletins(date).then(geojson => {
-        this.neighborBulletins[date] = geojson;
-      });
-    }
     if (date) {
       if (this.bulletins[date]) {
         if (activate) {
@@ -200,6 +189,13 @@ class BulletinStore {
           this.activate(date);
         }
 
+        if (APP_DEV_MODE || APP_ENVIRONMENT === "beta") {
+          loadNeighborBulletins(date).then(geojson => {
+            runInAction(
+              () => (this.bulletins[date].neighborBulletins = geojson)
+            );
+          });
+        }
         return this._loadBulletinData(date).then(() => {
           if (activate && this.settings.date == date) {
             // reactivate to notify status change
@@ -258,8 +254,8 @@ class BulletinStore {
     return null;
   }
 
-  @computed get activeNeighborBulletins() {
-    return this.neighborBulletins[this.settings.date];
+  get activeNeighborBulletins() {
+    return this.activeBulletinCollection?.neighborBulletins;
   }
 
   /**

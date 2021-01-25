@@ -14,6 +14,7 @@ import { isBlendingSupported } from "../../util/blendMode";
 import { preprocessContent } from "../../util/htmlParser";
 
 import { getPublicationTimeString } from "../../util/date.js";
+import { observer } from "mobx-react";
 
 /**
  * @typedef {object} Props
@@ -111,12 +112,13 @@ class BulletinMap extends React.Component {
       );
     }
 
-    if (this.props.store.activeNeighborBulletins) {
+    const { activeNeighborBulletins } = this.props.store;
+    if (activeNeighborBulletins?.features?.length) {
       overlays.push(
         <GeoJSON
           // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
-          key={`neighbor-bulletins-${this.props.store.settings.date}`}
-          data={this.props.store.activeNeighborBulletins}
+          key={`neighbor-bulletins-${activeNeighborBulletins.name}-${activeNeighborBulletins?.features?.length}`}
+          data={activeNeighborBulletins}
           pane="mapPane"
           style={feature => feature.properties.style}
         />
@@ -336,4 +338,4 @@ class BulletinMap extends React.Component {
   }
 }
 
-export default injectIntl(BulletinMap);
+export default injectIntl(observer(BulletinMap));
