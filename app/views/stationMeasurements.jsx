@@ -10,12 +10,7 @@ import HideGroupFilter from "../components/filters/hide-group-filter";
 import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
-import loadable from "@loadable/component";
-const StationTable = loadable(() =>
-  import(
-    /* webpackChunkName: "app-stationTable" */ "../components/stationTable/stationTable"
-  )
-);
+import StationTable from "../components/stationTable/stationTable";
 
 class StationMeasurements extends React.Component {
   constructor(props) {
