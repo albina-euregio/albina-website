@@ -717,7 +717,7 @@
   "avalancheProblemNatlefs" : {
     "new_snow" : "New snow",
     "wind_drifted_snow" : "Wind-drifted snow",
-    "weak_persistent_layer" : "Weak persistent layer",
+    "weak_persistent_layer" : "Persistent weak layers",
     "wet_snow" : "Wet snow",
     "gliding_snow" : "Gliding snow",
     "favourable_situation" : "Favourable situation"
