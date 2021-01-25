@@ -1,15 +1,11 @@
 import React from "react";
-import loadable from "@loadable/component";
 import { observer } from "mobx-react";
 
 import LeafletMap from "../leaflet/leaflet-map";
 import DataOverlay from "../leaflet/dataOverlay";
 
 import GridOverlay from "./grid-overlay";
-
-const StationOverlay = loadable(() =>
-  import(/* webpackChunkName: "app-stationOverlay" */ "./station-overlay")
-);
+import StationOverlay from "./station-overlay";
 
 class WeatherMap extends React.Component {
   constructor(props) {
