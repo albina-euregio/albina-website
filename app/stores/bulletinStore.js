@@ -1,4 +1,3 @@
-import microRegions from "./micro_regions.geojson.json";
 import { observable, action } from "mobx";
 import { parseDate, getSuccDate, dateToISODateString } from "../util/date.js";
 
@@ -7,7 +6,9 @@ import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.js";
 import { fetchText } from "../util/fetch.js";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
+import encodedMicroRegions from "./micro_regions.polyline.json";
 import encodedNeighborRegions from "./neighbor_regions.polyline.json";
+const microRegions = decodeFeatureCollection(encodedMicroRegions);
 const neighborRegions = decodeFeatureCollection(encodedNeighborRegions);
 
 class BulletinCollection {
