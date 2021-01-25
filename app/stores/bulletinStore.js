@@ -1,4 +1,4 @@
-import { observable, action, runInAction } from "mobx";
+import { observable, action } from "mobx";
 import {
   parseDate,
   parseDateSeconds,
@@ -128,6 +128,7 @@ class BulletinStore {
   @observable latest = null;
   @observable settings = {
     status: "",
+    neighbors: 0,
     date: "",
     region: ""
   };
@@ -184,10 +185,13 @@ class BulletinStore {
         }
 
         if (APP_DEV_MODE || APP_ENVIRONMENT === "beta") {
+          this.settings.neighbors = 0;
           loadNeighborBulletins(date).then(geojson => {
-            runInAction(
-              () => (this.bulletins[date].neighborBulletins = geojson)
-            );
+            this.bulletins[date].neighborBulletins = geojson;
+            if (activate && this.settings.date == date) {
+              // reactivate to notify status change
+              this.activate(date);
+            }
           });
         }
         return this._loadBulletinData(date).then(() => {
@@ -209,6 +213,8 @@ class BulletinStore {
       this.settings.region = "";
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
+      this.settings.neighbors =
+        this.bulletins[date].neighborBulletins?.features?.length ?? 0;
 
       /*
       if (this.bulletins[date].length === 1) {

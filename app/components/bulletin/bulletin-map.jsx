@@ -113,11 +113,11 @@ class BulletinMap extends React.Component {
     }
 
     const { activeNeighborBulletins } = this.props.store;
-    if (activeNeighborBulletins?.features?.length) {
+    if (this.props.store.settings.neighbors && activeNeighborBulletins) {
       overlays.push(
         <GeoJSON
           // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
-          key={`neighbor-bulletins-${activeNeighborBulletins.name}-${activeNeighborBulletins?.features?.length}`}
+          key={`neighbor-bulletins-${activeNeighborBulletins.name}`}
           data={activeNeighborBulletins}
           pane="mapPane"
           style={feature => feature.properties.style}
