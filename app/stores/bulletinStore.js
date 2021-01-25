@@ -121,34 +121,28 @@ class BulletinCollection {
 }
 
 class BulletinStore {
-  // TODO: add language support
   /**
    * @type {Record<date, BulletinCollection>}
    */
   @observable bulletins = {};
   @observable latest = null;
-  settings = {};
+  @observable settings = {
+    status: "",
+    date: "",
+    region: ""
+  };
   /**
    * @type {Record<Caaml.AvalancheProblemType, {highlighted: boolean}}
    */
-  problems = {};
+  @observable problems = {
+    new_snow: { highlighted: false },
+    wind_drifted_snow: { highlighted: false },
+    persistent_weak_layers: { highlighted: false },
+    wet_snow: { highlighted: false },
+    gliding_snow: { highlighted: false }
+  };
 
   constructor() {
-    this.settings = observable({
-      status: "",
-      date: "",
-      region: ""
-    });
-    this.bulletins = {};
-
-    this.problems = observable({
-      new_snow: { highlighted: false },
-      wind_drifted_snow: { highlighted: false },
-      persistent_weak_layers: { highlighted: false },
-      wet_snow: { highlighted: false },
-      gliding_snow: { highlighted: false }
-    });
-
     this._latestBulletinChecker();
   }
 
