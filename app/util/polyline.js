@@ -21,43 +21,54 @@ function mapFeatureCollection(geojson, geometryMapper) {
  * @param {GeoJSON.FeatureCollection<Polygon>} geojson
  */
 function encodeFeatureCollection(geojson) {
-  return mapFeatureCollection(geojson, encodePolygon);
+  return mapFeatureCollection(geojson, encodeGeometry);
 }
 
 /**
  * @param {GeoJSON.FeatureCollection<Polygon>} geojson
  */
 function decodeFeatureCollection(geojson) {
-  return mapFeatureCollection(geojson, decodePolygon);
+  return mapFeatureCollection(geojson, decodeGeometry);
 }
 
 /**
- * @param {GeoJSON.Polygon} geometry
+ * @param {GeoJSON.Geometry} geometry
  */
-function encodePolygon(geometry) {
-  if (geometry.type !== "Polygon") {
-    throw "Invalid type " + geometry.type;
+function encodeGeometry(geometry) {
+  if (geometry.type === "Polygon") {
+    return {
+      ...geometry,
+      coordinates: geometry.coordinates.map(c => polyline.encode(c)).join("\n")
+    };
+  } else if (geometry.type === "MultiPolygon") {
+    return {
+      ...geometry,
+      coordinates: geometry.coordinates.map(cc =>
+        cc.map(c => polyline.encode(c)).join("\n")
+      )
+    };
   }
-  return {
-    ...geometry,
-    coordinates: geometry.coordinates.map(c => polyline.encode(c)).join("\n")
-  };
+  throw "Invalid type " + geometry.type;
 }
 
 /**
- * @param {GeoJSON.Polygon} geometry
+ * @param {GeoJSON.Geometry} geometry
  */
-function decodePolygon(geometry) {
-  if (geometry.type !== "Polygon") {
-    throw "Invalid type " + geometry.type;
+function decodeGeometry(geometry) {
+  if (geometry.type === "Polygon") {
+    return {
+      ...geometry,
+      coordinates: geometry.coordinates.split("\n").map(c => polyline.decode(c))
+    };
+  } else if (geometry.type === "MultiPolygon") {
+    return {
+      ...geometry,
+      coordinates: geometry.coordinates.map(cc =>
+        cc.split("\n").map(c => polyline.decode(c))
+      )
+    };
   }
-  return {
-    ...geometry,
-    coordinates:
-      typeof geometry.coordinates === "string"
-        ? geometry.coordinates.split("\n").map(c => polyline.decode(c))
-        : geometry.coordinates
-  };
+  throw "Invalid type " + geometry.type;
 }
 
 module.exports = {
