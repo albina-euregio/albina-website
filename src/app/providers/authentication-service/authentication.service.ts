@@ -218,17 +218,7 @@ export class AuthenticationService {
 
   public login(username: string, password: string): Observable<boolean> {
     const url = this.constantsService.getServerUrl() + "authentication";
-    console.debug(url);
-
-    const json = Object();
-    if (username && username !== undefined) {
-      json["username"] = username;
-    }
-    if (password && password !== undefined) {
-      json["password"] = password;
-    }
-
-    const body = JSON.stringify(json);
+    const body = JSON.stringify({username, password});
     const headers = new HttpHeaders({
       "Content-Type": "application/json"
     });
@@ -256,13 +246,7 @@ export class AuthenticationService {
 
   public checkPassword(password: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "authentication/check";
-
-    const json = Object();
-    if (password && password !== undefined) {
-      json["password"] = password;
-    }
-
-    const body = JSON.stringify(json);
+    const body = JSON.stringify({password});
     const headers = this.newAuthHeader();
     const options = { headers: headers };
 
@@ -271,16 +255,7 @@ export class AuthenticationService {
 
   public changePassword(oldPassword: string, newPassword: string): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "authentication/change";
-
-    const json = Object();
-    if (oldPassword && oldPassword !== undefined) {
-      json["oldPassword"] = oldPassword;
-    }
-    if (newPassword && newPassword !== undefined) {
-      json["newPassword"] = newPassword;
-    }
-
-    const body = JSON.stringify(json);
+    const body = JSON.stringify({oldPassword, newPassword});
     const headers = this.newAuthHeader();
     const options = { headers: headers };
 
