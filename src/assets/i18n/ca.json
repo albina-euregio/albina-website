@@ -316,7 +316,7 @@
       },
       "submitBulletinsDialog" : {
         "header" : "Puja el butlletí",
-        "message" : "Vols publicar el butlletí?",
+        "message" : "Vols enviar el butlletí?",
         "missingDangerRating" : "Grau de perill no especificat ",
         "missingRegion" : "Regions sense graduar",
         "duplicateRegion" : "Regions graduades més d'un cop",
@@ -635,5 +635,105 @@
       "TA_table_72h" : "taula neu humida (3d)",
       "TA_table_season" : "taula neu humida (temporada)"
     }
+  },
+  "natlefs" : {
+    "noData" : "---",
+    "anonymous" : "<anonymous>",
+    "title" : {
+      "locationName" : "Location name",
+      "ridingQuality" : "Riding quality",
+      "snowConditions" : "Snow conditions",
+      "rode" : "We rode",
+      "avoided" : "We stayed away from",
+      "alarmSignsFrequency" : "Signs of instability",
+      "newSnow" : "Neu recent",
+      "driftingSnow" : "Fresh drifting snow",
+      "avalanches" : "Fresh avalanches",
+      "penetrationDepth" : "Penetration depth without ski",
+      "surfaceSnowWetness" : "Surface snow wetness",
+      "avalancheProblems" : "Avalanche problems",
+      "tracks" : "Tracks",
+      "comment" : "Comment"
+    }
+  },
+  "ridingQuality" : {
+    "amazing" : "Amazing",
+    "good" : "Good",
+    "ok" : "D'acord",
+    "indifferent" : "Indifferent",
+    "terrible" : "Terrible"
+  },
+  "snowConditions" : {
+    "crusty" : "Crusty",
+    "heavy" : "Heavy",
+    "hard" : "Hard",
+    "wet" : "Wet",
+    "powder" : "Powder",
+    "firn" : "Firn",
+    "windAffected" : "Wind affected"
+  },
+  "terrainFeature" : {
+    "moderatelySteepSlopes" : "Moderately steep slopes (< 30°)",
+    "steepSlopes" : "Steep slopes (30° - 40°)",
+    "verySteepSlopes" : "Very steep slopes (> 40°)",
+    "convexSlopes" : "Convex slopes",
+    "denseTrees" : "Dense trees",
+    "openTrees" : "Open trees",
+    "sunnySlopes" : "Sunny slopes",
+    "shadySlopes" : "Shady slopes"
+  },
+  "alarmSignsFrequency" : {
+    "none" : "None",
+    "occasional" : "Occasional (1 - 2)",
+    "frequent" : "Frequent (> 2)"
+  },
+  "newSnow" : {
+    "none" : "None",
+    "low" : "< 10 cm",
+    "medium" : "10 - 30 cm",
+    "high" : "> 30 cm"
+  },
+  "driftingSnow" : {
+    "none" : "None",
+    "occasional" : "Occasional",
+    "widespread" : "Widespread"
+  },
+  "avalanches" : {
+    "none" : "None",
+    "some" : "Some (1 - 3)",
+    "many" : "Many (> 3)"
+  },
+  "penetrationDepth" : {
+    "little" : "< 5 cm",
+    "medium" : "5 - 30 cm",
+    "much" : "> 30 cm",
+    "spotty" : "spotty"
+  },
+  "surfaceSnowWetness" : {
+    "dry" : "Dry",
+    "sticky" : "Sticky",
+    "wet" : "Wet"
+  },
+  "avalancheProblemNatlefs" : {
+    "new_snow" : "Neu recent",
+    "wind_drifted_snow" : "Neu ventada",
+    "weak_persistent_layer" : "Capes febles persistents",
+    "wet_snow" : "Neu humida",
+    "gliding_snow" : "Lliscaments",
+    "favourable_situation" : "Situació favorable"
+  },
+  "tracks" : {
+    "none" : "None",
+    "some" : "Some",
+    "many" : "Many"
+  },
+  "location" : {
+    "accuracy" : "Accuracy: ",
+    "unknownAccuracy" : "(accuracy unknown)"
+  },
+  "units" : {
+    "cm" : "cm",
+    "mm" : "mm",
+    "m" : "m"
   }
 }

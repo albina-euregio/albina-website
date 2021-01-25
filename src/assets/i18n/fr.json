@@ -635,5 +635,105 @@
       "TA_table_72h" : "neige humide tableau (3h)",
       "TA_table_season" : "neige humide tableau (season)"
     }
+  },
+  "natlefs" : {
+    "noData" : "---",
+    "anonymous" : "<anonymous>",
+    "title" : {
+      "locationName" : "Location name",
+      "ridingQuality" : "Riding quality",
+      "snowConditions" : "Snow conditions",
+      "rode" : "We rode",
+      "avoided" : "We stayed away from",
+      "alarmSignsFrequency" : "Signs of instability",
+      "newSnow" : "Neige fraîche",
+      "driftingSnow" : "Fresh drifting snow",
+      "avalanches" : "Fresh avalanches",
+      "penetrationDepth" : "Penetration depth without ski",
+      "surfaceSnowWetness" : "Surface snow wetness",
+      "avalancheProblems" : "Avalanche problems",
+      "tracks" : "Tracks",
+      "comment" : "Comment"
+    }
+  },
+  "ridingQuality" : {
+    "amazing" : "Amazing",
+    "good" : "Good",
+    "ok" : "Ok",
+    "indifferent" : "Indifferent",
+    "terrible" : "Terrible"
+  },
+  "snowConditions" : {
+    "crusty" : "Crusty",
+    "heavy" : "Heavy",
+    "hard" : "Hard",
+    "wet" : "Wet",
+    "powder" : "Powder",
+    "firn" : "Firn",
+    "windAffected" : "Wind affected"
+  },
+  "terrainFeature" : {
+    "moderatelySteepSlopes" : "Moderately steep slopes (< 30°)",
+    "steepSlopes" : "Steep slopes (30° - 40°)",
+    "verySteepSlopes" : "Very steep slopes (> 40°)",
+    "convexSlopes" : "Convex slopes",
+    "denseTrees" : "Dense trees",
+    "openTrees" : "Open trees",
+    "sunnySlopes" : "Sunny slopes",
+    "shadySlopes" : "Shady slopes"
+  },
+  "alarmSignsFrequency" : {
+    "none" : "None",
+    "occasional" : "Occasional (1 - 2)",
+    "frequent" : "Frequent (> 2)"
+  },
+  "newSnow" : {
+    "none" : "None",
+    "low" : "< 10 cm",
+    "medium" : "10 - 30 cm",
+    "high" : "> 30 cm"
+  },
+  "driftingSnow" : {
+    "none" : "None",
+    "occasional" : "Occasional",
+    "widespread" : "Widespread"
+  },
+  "avalanches" : {
+    "none" : "None",
+    "some" : "Some (1 - 3)",
+    "many" : "Many (> 3)"
+  },
+  "penetrationDepth" : {
+    "little" : "< 5 cm",
+    "medium" : "5 - 30 cm",
+    "much" : "> 30 cm",
+    "spotty" : "spotty"
+  },
+  "surfaceSnowWetness" : {
+    "dry" : "Dry",
+    "sticky" : "Sticky",
+    "wet" : "Wet"
+  },
+  "avalancheProblemNatlefs" : {
+    "new_snow" : "Neige fraîche",
+    "wind_drifted_snow" : "Neige soufflée (Neige ventée)",
+    "weak_persistent_layer" : "Neige ancienne (Sous-couche fragile persistante)",
+    "wet_snow" : "Avalanches mouillées (Neige humide)",
+    "gliding_snow" : "Avalanches de glissement (Avalanches de fond)",
+    "favourable_situation" : "Situation favorable"
+  },
+  "tracks" : {
+    "none" : "None",
+    "some" : "Some",
+    "many" : "Many"
+  },
+  "location" : {
+    "accuracy" : "Accuracy: ",
+    "unknownAccuracy" : "(accuracy unknown)"
+  },
+  "units" : {
+    "cm" : "cm",
+    "mm" : "mm",
+    "m" : "m"
   }
 }
