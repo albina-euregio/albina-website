@@ -1,34 +1,48 @@
 import { decodeFeatureCollection } from "../util/polyline";
 
 /**
- * @returns {Promise<GeoJSON.FeatureCollection>}
+ * @return {Promise<GeoJSON.FeatureCollection>}
  */
-export async function loadNeighborBulletins(date) {
-  const response = await fetch(
-    "https://avalanche.report/transfer/bulletins-AT.json"
-  );
-  if (!response.ok) throw Error(response.statusText);
-  /**
-   * @type {Albina.NeighborBulletin[]}
-   */
-  const bulletins = await response.json();
+async function loadRegions() {
   const regionsPolyline = await import(
     "./neighbor_micro_regions.polyline.json"
   );
-  /**
-   * @type {GeoJSON.FeatureCollection}
-   */
-  const regions = decodeFeatureCollection(regionsPolyline.default);
+  return decodeFeatureCollection(regionsPolyline.default);
+}
+
+/**
+ * @type {Promise<Albina.NeighborBulletin[]>}
+ */
+async function loadBulletins(date) {
+  const regions = ["AT-02", "AT-03", "AT-04", "AT-05", "AT-06", "AT-08", "BY"];
+  const responses = regions.map(region =>
+    fetch(`https://avalanche.report/albina_neighbors/${date}-${region}.json`)
+  );
+  const bulletins = responses.flatMap(response =>
+    response.then(r => ((r.ok ? r.json() : []))).catch(() => [])
+  );
+  const allBulletins = await Promise.all(bulletins);
+  return allBulletins.flat();
+}
+
+/**
+ * @returns {Promise<GeoJSON.FeatureCollection>}
+ */
+export async function loadNeighborBulletins(date) {
+  if (typeof date !== "string") return;
+  const bulletins = await loadBulletins(date);
+  const regions = await loadRegions();
 
   return Object.freeze({
     ...regions,
+    name: `neighbor_bulletins_${date}`,
     features: regions.features
       .filter(
         // exclude ALBINA regions
         feature => !feature.properties.id.match(window.config.regionsRegex)
       )
       .map(feature => augmentNeighborFeature(feature, bulletins))
-      .filter(feature => feature.properties.validityDate === date)
+      .filter(feature => feature.properties.bulletin)
   });
 }
 
@@ -52,7 +66,6 @@ function augmentNeighborFeature(feature, bulletins) {
   const bulletin = bulletins.find(bulletin =>
     bulletin.validRegions.includes(region)
   );
-  const { validityDate } = bulletin;
   const dangerMain = bulletin?.dangerMain?.find(
     danger =>
       !danger.validElev ||
@@ -69,12 +82,14 @@ function augmentNeighborFeature(feature, bulletins) {
     fillOpacity: 0.5,
     className: "mix-blend-mode-multiply"
   };
-  Object.assign(feature.properties, {
-    bulletin,
-    validityDate,
-    dangerMain,
-    warnlevel,
-    style
-  });
-  return feature;
+  return {
+    ...feature,
+    properties: {
+      ...feature.properties,
+      bulletin,
+      dangerMain,
+      warnlevel,
+      style
+    }
+  };
 }
