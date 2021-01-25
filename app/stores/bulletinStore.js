@@ -226,18 +226,6 @@ class BulletinStore {
   }
 
   /**
-   *
-   *
-   */
-  get activeBulletinValid() {
-    return (
-      !!this.activeBulletinCollection &&
-      this.vectorRegions.length &&
-      this.vectorRegions.length > 0
-    );
-  }
-
-  /**
    * @returns {string}
    */
   get activeRegionName() {
