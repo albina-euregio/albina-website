@@ -1,6 +1,6 @@
 import React from "react";
 import L from "leaflet";
-import { Pane, Polygon } from "react-leaflet";
+import { Pane, Polygon, Tooltip } from "react-leaflet";
 
 export default class BulletinVectorLayer extends React.Component {
   constructor(props) {
@@ -69,6 +69,7 @@ export default class BulletinVectorLayer extends React.Component {
             config.map.regionStyling[state],
             bid === this.state.over ? config.map.regionStyling.mouseOver : {}
           );
+          const tooltip = window["appStore"].messages["region:" + bid];
 
           return vector.properties.latlngs.map((geometry, gi) => (
             <Polygon
@@ -80,7 +81,13 @@ export default class BulletinVectorLayer extends React.Component {
               positions={geometry}
               {...style}
               {...config.map.vectorOptions}
-            />
+            >
+              {tooltip && (
+                <Tooltip>
+                  <div>{tooltip}</div>
+                </Tooltip>
+              )}
+            </Polygon>
           ));
         })}
       </Pane>
