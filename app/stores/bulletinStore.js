@@ -1,4 +1,3 @@
-import ArchiveStore from "./archiveStore.js";
 import microRegions from "./micro_regions.geojson.json";
 import { observable, action } from "mobx";
 import { parseDate, getSuccDate, dateToISODateString } from "../util/date.js";
@@ -112,11 +111,6 @@ class BulletinStore {
   problems = {};
 
   constructor() {
-    if (!window["archiveStore"]) {
-      window["archiveStore"] = new ArchiveStore();
-    }
-    this.archiveStore = window["archiveStore"];
-
     this.settings = observable({
       status: "",
       date: "",
@@ -172,34 +166,12 @@ class BulletinStore {
           this.activate(date);
         }
 
-        /*
-         * First check status data (via archiveStore). If status is 'ok'
-         * (i.e. 'published' or 'republished'),
-         * continue loading bulletin data and then load GeoJSON.
-         *
-         * NOTE: It would (in principle) be possible to load GeoJSON and
-         * bulletin data in parallel (using Promise.all). However GeoJSON
-         * filename conventions use 'fd_...' for non-time-dependent bulletins.
-         * Therefore, we have to check daytime dependency before being able to
-         * determine the correct url.
-         */
-        return this.archiveStore
-          .load(date)
-          .then(() => {
-            const status = this.archiveStore.getStatus(date);
-            // console.log("loaded bulletin", { date, status });
-            if (status == "ok") {
-              return this._loadBulletinData(date);
-            } else {
-              this.bulletins[date].cancelLoad();
-            }
-          })
-          .then(() => {
-            if (activate && this.settings.date == date) {
-              // reactivate to notify status change
-              this.activate(date);
-            }
-          });
+        return this._loadBulletinData(date).then(() => {
+          if (activate && this.settings.date == date) {
+            // reactivate to notify status change
+            this.activate(date);
+          }
+        });
       }
     }
   }
