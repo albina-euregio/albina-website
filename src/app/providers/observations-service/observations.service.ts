@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ConstantsService } from "../constants-service/constants.service";
 import { Natlefs } from "app/models/natlefs.model";
+import { AvaObs, Observation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
 
 
 @Injectable()
@@ -28,9 +29,7 @@ export class ObservationsService {
 
   async getNatlefs(): Promise<Natlefs[]> {
     const token = await this.getAuthToken();
-    const date = new Date();
-    date.setDate(date.getDate() - this.constantsService.getTimeframe());
-    const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+    const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.fromDate;
     const headers = new HttpHeaders({
       "Content-Type": "application/json",
       "Accept": "application/json",
@@ -39,6 +38,26 @@ export class ObservationsService {
     const options = { headers: headers };
 
     return this.http.get<Natlefs[]>(url, options).toPromise();
+  }
+
+  async getAvaObs(): Promise<AvaObs> {
+    const { avaObsApi } = this.constantsService;
+    const timeframe = this.fromDate + "/" + this.untilDate;
+    const observations = await this.http.get<Observation[]>(avaObsApi.observations + timeframe).toPromise();
+    const simpleObservations = await this.http.get<SimpleObservation[]>(avaObsApi.simpleObservations + timeframe).toPromise();
+    const snowProfiles = await this.http.get<SnowProfile[]>(avaObsApi.snowProfiles + timeframe).toPromise();
+    return { observations, simpleObservations, snowProfiles };
+  }
+
+  private get fromDate(): string {
+    const date = new Date();
+    date.setDate(date.getDate() - this.constantsService.getTimeframe());
+    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+  }
+
+  private get untilDate(): string {
+    const date = new Date();
+    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
   }
 }
 
