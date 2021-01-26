@@ -1,63 +1,44 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ConstantsService } from "../constants-service/constants.service";
-import { Observable } from "rxjs/Observable";
 import { Natlefs } from "app/models/natlefs.model";
 
 
 @Injectable()
 export class ObservationsService {
 
-  private natlefsToken: string;
-
   constructor(
     public http: HttpClient,
     public constantsService: ConstantsService) {
-    this.authenticate(this.constantsService.getNatlefsUsername(), this.constantsService.getNatlefsPassword());
   }
 
-  public authenticate(username, password) {
+  private async getAuthToken(): Promise<string> {
+    const username = this.constantsService.getNatlefsUsername();
+    const password = this.constantsService.getNatlefsPassword();
     const url = this.constantsService.getNatlefsServerUrl() + "authentication";
-
-    const json = Object();
-    if (username && username !== undefined) {
-      json["username"] = username;
-    }
-    if (password && password !== undefined) {
-      json["password"] = password;
-    }
-
-    const body = JSON.stringify(json);
+    const body = JSON.stringify({username, password});
     const headers = new HttpHeaders({
       "Content-Type": "application/json"
     });
     const options = { headers: headers };
 
-    return this.http.post(url, body, options)
-      .subscribe(data => {
-        const token = (data as any).token;
-        if (token) {
-          this.natlefsToken = (data as any).token;
-          return true;
-        } else {
-          return false;
-        }
-      });
+    const data = await this.http.post<{token: string}>(url, body, options).toPromise();
+    return data.token;
   }
 
-  getNatlefs(): Observable<Natlefs[]> {
+  async getNatlefs(): Promise<Natlefs[]> {
+    const token = await this.getAuthToken();
     const date = new Date();
     date.setDate(date.getDate() - this.constantsService.getTimeframe());
     const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
-    const authHeader = "Bearer " + this.natlefsToken;
     const headers = new HttpHeaders({
       "Content-Type": "application/json",
       "Accept": "application/json",
-      "Authorization": authHeader
+      "Authorization": "Bearer " + token
     });
     const options = { headers: headers };
 
-    return this.http.get<Natlefs[]>(url, options);
+    return this.http.get<Natlefs[]>(url, options).toPromise();
   }
 }
 

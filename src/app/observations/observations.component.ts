@@ -52,14 +52,14 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     this.mapService.observationsMap = map;
   }
 
-  private loadNatlefs() {
-    this.observationsService.getNatlefs().subscribe(data => data
-      .filter(natlefs => natlefs?.location?.geo?.latitude && natlefs?.location?.geo?.longitude)
-      .forEach(natlefs => this.createNatlefsMarker(natlefs)),
-      error => {
-        console.error("NATLEFS could not be loaded from server: " + JSON.stringify(error._body));
-      }
-    );
+  private async loadNatlefs() {
+    try {
+    let data = await this.observationsService.getNatlefs();
+    data = data.filter(natlefs => natlefs?.location?.geo?.latitude && natlefs?.location?.geo?.longitude);
+    data.forEach(natlefs => this.createNatlefsMarker(natlefs))
+    } catch (error) {
+      console.error("NATLEFS could not be loaded from server: " + JSON.stringify(error._body));
+    }
   }
 
   private createNatlefsMarker(natlefs: Natlefs) {
