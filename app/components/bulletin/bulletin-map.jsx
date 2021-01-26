@@ -13,7 +13,7 @@ import MapStore from "../../stores/mapStore";
 import { isBlendingSupported } from "../../util/blendMode";
 import { preprocessContent } from "../../util/htmlParser";
 
-import { getPublicationTimeString, parseDateSeconds } from "../../util/date.js";
+import { getPublicationTimeString } from "../../util/date.js";
 
 /**
  * @typedef {object} Props
