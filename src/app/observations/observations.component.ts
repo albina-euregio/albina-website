@@ -3,6 +3,7 @@ import { AuthenticationService } from "../providers/authentication-service/authe
 import { ObservationsService } from "../providers/observations-service/observations.service";
 import { MapService } from "../providers/map-service/map.service";
 import { Natlefs } from "../models/natlefs.model";
+import { SimpleObservation } from "app/models/avaobs.model";
 
 import * as L from "leaflet";
 
@@ -25,6 +26,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.initMaps();
     this.mapService.layers.observations.clearLayers();
+    this.loadAvaObs();
     this.loadNatlefs();
   }
 
@@ -51,19 +53,39 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     this.mapService.observationsMap = map;
   }
 
+  private async loadAvaObs() {
+    const { observations, simpleObservations, snowProfiles } = await this.observationsService.getAvaObs();
+    observations.forEach((o) => this.createAvaObsMarker(o, "blue", "https://www.avaobs.info/observation/" + o.uuId));
+    simpleObservations.forEach((o) => this.createAvaObsMarker(o, "green", "https://www.avaobs.info/simpleObservation/" + o.uuId));
+    snowProfiles.forEach((o) => this.createAvaObsMarker(o, "red", "https://www.avaobs.info/snowprofile/" + o.uuId));
+  }
+
+  private createAvaObsMarker(o: SimpleObservation, color: string, url: string) {
+    if (!o.positionLat || !o.positionLng) {
+      return;
+    }
+    L.circleMarker(L.latLng(o.positionLat, o.positionLng), this.mapService.createNatlefsOptions(color))
+      .bindTooltip(o.placeDescription)
+      .on({ click: () => window.open(url) })
+      .addTo(this.mapService.layers.observations);
+  }
+
   private async loadNatlefs() {
     try {
-    let data = await this.observationsService.getNatlefs();
-    data = data.filter(natlefs => natlefs?.location?.geo?.latitude && natlefs?.location?.geo?.longitude);
-    data.forEach(natlefs => this.createNatlefsMarker(natlefs))
+      const data = await this.observationsService.getNatlefs();
+      data.forEach((natlefs) => this.createNatlefsMarker(natlefs));
     } catch (error) {
       console.error("NATLEFS could not be loaded from server: " + JSON.stringify(error._body));
     }
   }
 
   private createNatlefsMarker(natlefs: Natlefs) {
-    L.circleMarker(L.latLng(natlefs.location.geo.latitude, natlefs.location.geo.longitude), this.mapService.createNatlefsOptions())
-      .on({ click: () => this.setActiveNatlefs(natlefs)})
+    const { latitude, longitude } = natlefs?.location?.geo ?? {};
+    if (!latitude || !longitude) {
+      return;
+    }
+    L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions())
+      .on({ click: () => this.setActiveNatlefs(natlefs) })
       .addTo(this.mapService.layers.observations);
   }
 

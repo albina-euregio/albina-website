@@ -14,6 +14,12 @@ export class ConstantsService {
   public natlefsUsername: string = "norbert.lanzanasto@tirol.gv.at";
   public natlefsPassword: string = "FRYLjTQ2";
 
+  public avaObsApi = {
+    observations: "https://api.avalanche.report/avaobs/dataexport/observations/",
+    simpleObservations: "https://api.avalanche.report/avaobs/dataexport/simpleobservations/",
+    snowProfiles: "https://api.avalanche.report/avaobs/dataexport/snowprofiles/"
+  }
+
   // region (ISO-3166)
   public codeSwitzerland: string = "CH";
   public codeTyrol: string = "AT-07";

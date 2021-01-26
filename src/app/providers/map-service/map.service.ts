@@ -210,11 +210,11 @@ export class MapService {
     };
   }
 
-  createNatlefsOptions(): L.CircleMarkerOptions {
+  createNatlefsOptions(color = "black"): L.CircleMarkerOptions {
     return {
       radius: 6,
-      fillColor: "black",
-      color: "black",
+      fillColor: color,
+      color,
       weight: 1,
       opacity: 1,
       fillOpacity: 0.6
