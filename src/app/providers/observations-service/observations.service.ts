@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ConstantsService } from "../constants-service/constants.service";
 import { Observable } from "rxjs/Observable";
+import { Natlefs } from "app/models/natlefs.model";
 
 
 @Injectable()
@@ -44,7 +45,7 @@ export class ObservationsService {
       });
   }
 
-  getNatlefs(): Observable<Response> {
+  getNatlefs(): Observable<Natlefs[]> {
     const date = new Date();
     date.setDate(date.getDate() - this.constantsService.getTimeframe());
     const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
@@ -56,7 +57,7 @@ export class ObservationsService {
     });
     const options = { headers: headers };
 
-    return this.http.get<Response>(url, options);
+    return this.http.get<Natlefs[]>(url, options);
   }
 }
 
