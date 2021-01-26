@@ -5,6 +5,7 @@ import { ObservationsService } from "../providers/observations-service/observati
 import { MapService } from "../providers/map-service/map.service";
 import { Natlefs } from "../models/natlefs.model";
 import { SimpleObservation } from "app/models/avaobs.model";
+import * as Enums from "../enums/enums";
 
 import * as L from "leaflet";
 
@@ -15,6 +16,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   public dateRange: Date[] = [this.observationsService.startDate, this.observationsService.endDate];
   public elevationRange = [200, 4000];
+  public aspects: string[] = [];
   public activeNatlefs: Natlefs;
 
   constructor(
@@ -116,8 +118,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   private async loadLawis() {
     try {
       const profiles = await this.observationsService.getLawis();
-      profiles.forEach(({ latitude, longitude, seehoehe, ort, profil_id }) => {
-        if (!latitude || !longitude || !this.inElevationRange(seehoehe)) {
+      profiles.forEach(({ latitude, longitude, seehoehe, exposition_id, ort, profil_id }) => {
+        const aspect = Enums.Aspect[exposition_id];
+        if (!latitude || !longitude || !this.inElevationRange(seehoehe) || !this.inAspects(aspect)) {
           return;
         }
         L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions("orange"))
@@ -132,5 +135,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   private inElevationRange(elevation: number | undefined) {
     return elevation === undefined || (this.elevationRange[0] <= elevation && elevation <= this.elevationRange[1]);
+  }
+
+  private inAspects(aspect: string) {
+    return !this.aspects.length || (typeof aspect === "string" && this.aspects.includes(aspect.toUpperCase()));
   }
 }

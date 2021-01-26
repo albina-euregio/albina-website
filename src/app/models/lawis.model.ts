@@ -1,3 +1,5 @@
+import * as Enums from "../enums/enums";
+
 // https://lawis.at/lawis_api/normalizer/profile/
 export interface Lawis extends Array<Profile> {}
 
@@ -12,7 +14,7 @@ export interface Profile {
   latitude: number;
   longitude: number;
   hangneigung: number;
-  exposition_id: number | null;
+  exposition_id: Enums.Aspect | undefined;
   loggedon: string;
   revision: number;
 }

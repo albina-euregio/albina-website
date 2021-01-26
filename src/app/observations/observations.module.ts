@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 import { ObservationsComponent } from "./observations.component";
 import { NatlefsComponent } from "./natlefs.component";
 
+import { BulletinsModule } from "../bulletins/bulletins.module";
 // Bulletins Routing
 import { ObservationsRoutingModule } from "./observations-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
@@ -18,6 +19,7 @@ import { PipeModule } from "../pipes/pipes.module";
 @NgModule({
   imports: [
     ObservationsRoutingModule,
+    BulletinsModule,
     FormsModule,
     CommonModule,
     TranslateModule,
