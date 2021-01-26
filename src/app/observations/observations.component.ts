@@ -13,6 +13,8 @@ import * as L from "leaflet";
 })
 export class ObservationsComponent  implements OnInit, AfterViewInit {
 
+  public dateRange: Date[] = [this.observationsService.startDate, this.observationsService.endDate];
+  public elevationRange = [200, 4000];
   public activeNatlefs: Natlefs;
 
   constructor(
@@ -27,6 +29,12 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.initMaps();
+    this.loadObservations();
+  }
+
+  loadObservations() {
+    this.observationsService.startDate = this.dateRange[0];
+    this.observationsService.endDate = this.dateRange[1];
     this.mapService.layers.observations.clearLayers();
     this.loadAvaObs();
     this.loadNatlefs();
@@ -84,7 +92,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   private createNatlefsMarker(natlefs: Natlefs) {
     const { latitude, longitude } = natlefs?.location?.geo ?? {};
-    if (!latitude || !longitude) {
+    if (!latitude || !longitude || !this.inElevationRange(natlefs?.location?.elevation)) {
       return;
     }
     L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions())
@@ -108,8 +116,8 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   private async loadLawis() {
     try {
       const profiles = await this.observationsService.getLawis();
-      profiles.forEach(({ latitude, longitude, ort, profil_id }) => {
-        if (!latitude || !longitude) {
+      profiles.forEach(({ latitude, longitude, seehoehe, ort, profil_id }) => {
+        if (!latitude || !longitude || !this.inElevationRange(seehoehe)) {
           return;
         }
         L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions("orange"))
@@ -120,5 +128,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     } catch (error) {
       console.error("Failed fetching lawis.at profiles", error);
     }
+  }
+
+  private inElevationRange(elevation: number | undefined) {
+    return elevation === undefined || (this.elevationRange[0] <= elevation && elevation <= this.elevationRange[1]);
   }
 }
