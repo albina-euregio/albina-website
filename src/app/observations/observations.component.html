@@ -4,6 +4,15 @@
       <p-calendar [(ngModel)]="dateRange" selectionMode="range" [showIcon]="true"></p-calendar>
     </div>
     <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-tree"></i></span>
+        <input type="text" pInputText [(ngModel)]="elevationRange[0]">
+        <span class="ui-inputgroup-addon">&mdash;</span>
+        <input type="text" pInputText [(ngModel)]="elevationRange[1]">
+        <span class="ui-inputgroup-addon">m</span>
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-4">
       <button type="button" class="btn btn-primary" (click)="loadObservations()"><i class="fa fa-refresh"></i></button>
     </div>
   </div>
