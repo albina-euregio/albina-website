@@ -2,6 +2,7 @@ image: node:lts
 
 cache:
   paths:
+    - node_modules/.cache/
     - npm_cache/
 
 before_script:
