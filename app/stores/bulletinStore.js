@@ -1,5 +1,10 @@
 import { observable, action } from "mobx";
-import { parseDate, getSuccDate, dateToISODateString } from "../util/date.js";
+import {
+  parseDate,
+  parseDateSeconds,
+  getSuccDate,
+  dateToISODateString
+} from "../util/date.js";
 
 import { GeoJSON, Util } from "leaflet";
 import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.js";
@@ -42,6 +47,21 @@ class BulletinCollection {
       return this.daytimeBulletins
         .map(b => {
           return parseDate(b.forenoon.publicationTime);
+        })
+        .reduce((acc, d) => {
+          return d > acc ? d : acc;
+        }, new Date(0));
+    }
+
+    return null;
+  }
+
+  get publicationDateSeconds() {
+    // return maximum of all publicationDates
+    if (this.status == "ok" && this.length > 0) {
+      return this.daytimeBulletins
+        .map(b => {
+          return parseDateSeconds(b.forenoon.publicationTime);
         })
         .reduce((acc, d) => {
           return d > acc ? d : acc;

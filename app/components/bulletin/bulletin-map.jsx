@@ -122,9 +122,7 @@ class BulletinMap extends React.Component {
         config.apis.geo +
         this.props.store.settings.date +
         "/" +
-        getPublicationTimeString(
-          parseDateSeconds(b.daytimeBulletins[0].forenoon.publicationTime)
-        ) +
+        getPublicationTimeString(b.publicationDateSeconds) +
         "/" +
         daytime +
         "_overlay" +
