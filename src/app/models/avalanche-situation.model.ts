@@ -68,7 +68,7 @@ export class AvalancheSituationModel {
     } else {
       this.setAvalancheSituation(avalancheSituation.getAvalancheSituation());
       for (const aspect of avalancheSituation.aspects) {
-        this.addAspect(aspect);
+        this.aspects.push(aspect);
       }
       this.elevationHigh = avalancheSituation.getElevationHigh();
       this.treelineHigh = avalancheSituation.getTreelineHigh();
@@ -99,27 +99,6 @@ export class AvalancheSituationModel {
 
   setAspects(aspects) {
     this.aspects = aspects;
-  }
-
-  addAspect(aspect) {
-    if (this.aspects.indexOf(aspect) === -1) {
-      this.aspects.push(aspect);
-    }
-  }
-
-  removeAspect(aspect) {
-    const index = this.aspects.indexOf(aspect);
-    if (index > -1) {
-      this.aspects.splice(index, 1);
-    }
-  }
-
-  containsAspect(aspect) {
-    if (this.aspects.includes(aspect)) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   getElevationHigh() {

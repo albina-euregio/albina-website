@@ -39,6 +39,9 @@ import { AccordionModule } from "ngx-bootstrap";
         PipeModule.forRoot(),
         AccordionModule.forRoot()
     ],
+    exports: [
+        AspectsComponent
+    ],
     declarations: [
         BulletinsComponent,
         CreateBulletinComponent,
