@@ -17,6 +17,7 @@ export class ObservationsService {
     public constantsService: ConstantsService) {
       this.startDate.setDate(this.startDate.getDate() - this.constantsService.getTimeframe());
       this.startDate.setHours(0, 0, 0, 0);
+      this.endDate.setHours(23, 59, 0, 0);
   }
 
   private async getAuthToken(): Promise<string> {
@@ -56,10 +57,9 @@ export class ObservationsService {
   }
 
   async getLawis(): Promise<Lawis> {
-    const { startDateString: fromDate } = this;
     const { lawisApi } = this.constantsService;
     const profiles = await this.http.get<Lawis>(lawisApi.profile).toPromise();
-    return profiles.filter((profile) => profile.datum > fromDate);
+    return profiles.filter((profile) => this.inDateRange(new Date(profile.datum.replace(/ /, "T"))));
   }
 
   private get startDateString(): string {
@@ -68,6 +68,10 @@ export class ObservationsService {
 
   private get endDateString(): string {
     return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.endDate);
+  }
+
+  private inDateRange(date: Date): boolean {
+    return this.startDate <= date && date <= this.endDate;
   }
 }
 
