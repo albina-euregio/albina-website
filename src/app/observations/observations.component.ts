@@ -53,17 +53,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   }
 
   private loadNatlefs() {
-    this.observationsService.getNatlefs().subscribe(
-      data => {
-        for (let i = (data as any).length - 1; i >= 0; i--) {
-          if ((data as any)[i].location && (data as any)[i].location.geo && (data as any)[i].location.geo.latitude && (data as any)[i].location.geo.longitude) {
-            this.createNatlefsMarker((data as any)[i]);
-            console.debug("NATLEFS added.");
-          } else {
-            console.debug("No coordinates in NATLEFS.");
-          }
-        }
-      },
+    this.observationsService.getNatlefs().subscribe(data => data
+      .filter(natlefs => natlefs?.location?.geo?.latitude && natlefs?.location?.geo?.longitude)
+      .forEach(natlefs => this.createNatlefsMarker(natlefs)),
       error => {
         console.error("NATLEFS could not be loaded from server: " + JSON.stringify(error._body));
       }
