@@ -265,10 +265,6 @@ export class MapService {
     this.resetEditSelection();
   }
 
-  centerObservationsMap(lat, lon) {
-    this.observationsMap.panTo(L.latLng(lat, lon));
-  }
-
   addAggregatedRegion(bulletin: BulletinModel) {
     bulletin.forenoon.dangerRatingBelow.subscribe(dangerRating => {
       this.updateAggregatedRegion(bulletin);

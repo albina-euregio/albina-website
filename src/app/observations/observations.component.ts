@@ -74,8 +74,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     const mapDiv = document.getElementById("mapDiv");
     mapDiv.classList.remove("col-md-12");
     mapDiv.classList.add("col-md-7");
-    this.mapService.centerObservationsMap(this.activeNatlefs.location.geo.latitude, this.activeNatlefs.location.geo.longitude);
 
     this.showNatlefs = true;
+    this.mapService.observationsMap.invalidateSize();
+    this.mapService.observationsMap.panTo([this.activeNatlefs.location.geo.latitude, this.activeNatlefs.location.geo.longitude]);
   }
 }
