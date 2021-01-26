@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ConstantsService } from "../constants-service/constants.service";
 import { Natlefs } from "app/models/natlefs.model";
 import { AvaObs, Observation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
+import { Lawis } from "app/models/lawis.model";
 
 
 @Injectable()
@@ -47,6 +48,13 @@ export class ObservationsService {
     const simpleObservations = await this.http.get<SimpleObservation[]>(avaObsApi.simpleObservations + timeframe).toPromise();
     const snowProfiles = await this.http.get<SnowProfile[]>(avaObsApi.snowProfiles + timeframe).toPromise();
     return { observations, simpleObservations, snowProfiles };
+  }
+
+  async getLawis(): Promise<Lawis> {
+    const { fromDate } = this;
+    const { lawisApi } = this.constantsService;
+    const profiles = await this.http.get<Lawis>(lawisApi.profile).toPromise();
+    return profiles.filter((profile) => profile.datum > fromDate);
   }
 
   private get fromDate(): string {
