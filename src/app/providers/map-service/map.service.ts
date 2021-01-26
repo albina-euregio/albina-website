@@ -200,7 +200,7 @@ export class MapService {
     return null;
   }
 
-  createZamgModelPointOptions() {
+  createZamgModelPointOptions(): L.CircleMarkerOptions {
     return {
       radius: 8,
       fillColor: "#19abff",
@@ -211,7 +211,7 @@ export class MapService {
     };
   }
 
-  createNatlefsOptions() {
+  createNatlefsOptions(): L.CircleMarkerOptions {
     return {
       radius: 6,
       fillColor: "black",
