@@ -8,7 +8,6 @@ import * as Enums from "../../enums/enums";
 
 import * as L from "leaflet";
 import * as geojson from "geojson";
-import "leaflet.markercluster";
 
 interface LayerDict<T extends L.Layer> {
   [key: string]: T;

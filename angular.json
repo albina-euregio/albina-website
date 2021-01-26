@@ -26,9 +26,7 @@
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeicons/primeicons.css",
               "src/scss/style.scss",
-              "src/assets/css/font-awesome.min.css",
-              "src/assets/css/MarkerCluster.css",
-              "src/assets/css/MarkerCluster.Default.css"
+              "src/assets/css/font-awesome.min.css"
             ],
             "scripts": []
           },
@@ -105,9 +103,7 @@
               "node_modules/primeng/resources/themes/nova-light/theme.css",
               "node_modules/primeicons/primeicons.css",
               "src/scss/style.scss",
-              "src/assets/css/font-awesome.min.css",
-              "src/assets/css/MarkerCluster.css",
-              "src/assets/css/MarkerCluster.Default.css"
+              "src/assets/css/font-awesome.min.css"
             ],
             "assets": [
               "src/assets"

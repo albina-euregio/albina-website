@@ -20,9 +20,7 @@
         "../node_modules/primeng/resources/themes/nova-light/theme.css",
         "../node_modules/primeicons/primeicons.css",
         "scss/style.scss",
-        "assets/css/font-awesome.min.css",
-        "assets/css/MarkerCluster.css",
-        "assets/css/MarkerCluster.Default.css"
+        "assets/css/font-awesome.min.css"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
