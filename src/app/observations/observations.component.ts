@@ -11,7 +11,6 @@ declare var L: any;
 })
 export class ObservationsComponent  implements OnInit, AfterViewInit {
 
-  public showNatlefs: boolean = false;
   public activeNatlefs: Natlefs;
 
   constructor(
@@ -64,19 +63,20 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   private createNatlefsMarker(natlefs: Natlefs) {
     new L.circleMarker(L.latLng(natlefs.location.geo.latitude, natlefs.location.geo.longitude), this.mapService.createNatlefsOptions())
-      .on({ click: () => this.natlefsMarkerClicked(natlefs)})
+      .on({ click: () => this.setActiveNatlefs(natlefs)})
       .addTo(this.mapService.layers.observations);
   }
 
-  natlefsMarkerClicked(natlefs: Natlefs) {
+  setActiveNatlefs(natlefs: Natlefs | undefined) {
     this.activeNatlefs = natlefs;
 
     const mapDiv = document.getElementById("mapDiv");
-    mapDiv.classList.remove("col-md-12");
-    mapDiv.classList.add("col-md-7");
+    mapDiv.classList.remove(natlefs ? "col-md-12" : "col-md-7");
+    mapDiv.classList.add(natlefs ? "col-md-7" : "col-md-12");
 
-    this.showNatlefs = true;
     this.mapService.observationsMap.invalidateSize();
-    this.mapService.observationsMap.panTo([this.activeNatlefs.location.geo.latitude, this.activeNatlefs.location.geo.longitude]);
+    if (natlefs) {
+      this.mapService.observationsMap.panTo([natlefs.location.geo.latitude, natlefs.location.geo.longitude]);
+    }
   }
 }

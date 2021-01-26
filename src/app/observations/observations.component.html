@@ -3,7 +3,8 @@
     <div class="observations-map" id="map">
     </div>
   </div>
-  <div *ngIf="showNatlefs" class="col-md-5">
+  <div *ngIf="activeNatlefs" class="col-md-5">
+    <button type="button" class="btn btn-default float-right" (click)="setActiveNatlefs(undefined)">&times;</button>
     <app-natlefs [natlefs]="activeNatlefs"></app-natlefs>
   </div>
 </div>
