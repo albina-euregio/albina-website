@@ -18,7 +18,12 @@ export class ConstantsService {
     observations: "https://admin.avalanche.report/avaobs/dataexport/observations/",
     simpleObservations: "https://admin.avalanche.report/avaobs/dataexport/simpleobservations/",
     snowProfiles: "https://admin.avalanche.report/avaobs/dataexport/snowprofiles/"
-  }
+  };
+
+  public lawisApi = {
+    profile: "https://admin.avalanche.report/lawis/normalizer/profile/",
+    profilePDF: "https://lawis.at/lawis_api/normalizer/files/profiles/snowprofile_{{id}}.pdf"
+  };
 
   // region (ISO-3166)
   public codeSwitzerland: string = "CH";

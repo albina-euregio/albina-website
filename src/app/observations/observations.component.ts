@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { ConstantsService } from "../providers/constants-service/constants.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "../providers/observations-service/observations.service";
 import { MapService } from "../providers/map-service/map.service";
@@ -15,6 +16,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   public activeNatlefs: Natlefs;
 
   constructor(
+    private constantsService: ConstantsService,
     private observationsService: ObservationsService,
     private authenticationService: AuthenticationService,
     private mapService: MapService) {
@@ -28,6 +30,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     this.mapService.layers.observations.clearLayers();
     this.loadAvaObs();
     this.loadNatlefs();
+    this.loadLawis();
   }
 
   private initMaps() {
@@ -99,6 +102,23 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     this.mapService.observationsMap.invalidateSize();
     if (natlefs) {
       this.mapService.observationsMap.panTo([natlefs.location.geo.latitude, natlefs.location.geo.longitude]);
+    }
+  }
+
+  private async loadLawis() {
+    try {
+      const profiles = await this.observationsService.getLawis();
+      profiles.forEach(({ latitude, longitude, ort, profil_id }) => {
+        if (!latitude || !longitude) {
+          return;
+        }
+        L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions("orange"))
+          .bindTooltip(ort)
+          .on({ click: () => window.open(this.constantsService.lawisApi.profilePDF.replace("{{id}}", String(profil_id))) })
+          .addTo(this.mapService.layers.observations);
+      });
+    } catch (error) {
+      console.error("Failed fetching lawis.at profiles", error);
     }
   }
 }
