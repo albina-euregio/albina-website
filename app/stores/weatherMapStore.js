@@ -401,23 +401,63 @@ export default class WeatherMapStore_new {
     return arr.indexOf(foundItem) || 0;
   }
 
+  /*
+    Get hours of day for current timespan settings
+  */
+  _getPossibleTimesForSpan() {
+    let posTimes = [];
+    let temp = this.config.settings.startUTCHourForTimespans;
+    const absTimeSpan = this._absTimeSpan;
+    //console.log("temp#1", temp, absTimeSpan, temp % 24);
+    while (temp < 24 + this.config.settings.startUTCHourForTimespans) {
+      posTimes.push(temp < 24 ? temp : temp - 24);
+      temp = temp + absTimeSpan;
+      //console.log("temp#2", temp, temp % 24);
+    }
+    //console.log("posTimes", posTimes);
+    return posTimes;
+  }
+
+  /*
+    Calculate startdate for current timespan
+  */
   _getStartTimeForSpan = function(initDate) {
     let currentTime = new Date(initDate);
-    //console.log("_getStartTimeForSpan #1", isSummerTime(currentTime), currentTime, this._timeSpan.get());
+    //currentTime.setUTCHours(currentTime.getUTCHours() - 6);
+    //console.log("_getStartTimeForSpan #1", currentTime.getUTCHours(), isSummerTime(currentTime), currentTime.toUTCString(), this._timeSpan.get());
+
     if (
-      ["-12", "-24", "-48", "-72", "+12", "+24", "+48", "+72"].includes(
-        this._timeSpan.get()
-      ) &&
+      [
+        "-6",
+        "-12",
+        "-24",
+        "-48",
+        "-72",
+        "+6",
+        "+12",
+        "+24",
+        "+48",
+        "+72"
+      ].includes(this._timeSpan.get()) &&
       currentTime.getUTCHours() !==
         this.config.settings.startUTCHourForTimespans
     ) {
-      if (isSummerTime(currentTime))
-        currentTime.setUTCHours(this.config.settings.startUTCHourForTimespans);
-      else
-        currentTime.setUTCHours(
-          this.config.settings.startUTCHourForTimespans + 1
-        );
+      let foundStartHour;
+      const currHours = currentTime.getUTCHours();
+      const timesForSpan = this._getPossibleTimesForSpan();
+      const soonerTimesToday = timesForSpan.filter(aTime => aTime < currHours);
+      if (soonerTimesToday.length)
+        foundStartHour = Math.max.apply(Math, soonerTimesToday);
+      else foundStartHour = Math.max.apply(Math, timesForSpan);
+
+      // last possible time was last day
+      if (soonerTimesToday.length === 0)
+        currentTime.setUTCHours(currentTime.getUTCHours() - 24);
+
+      if (isSummerTime(currentTime)) currentTime.setUTCHours(foundStartHour);
+      else currentTime.setUTCHours(foundStartHour + 1);
       //console.log("_getStartTimeForSpan #2", currentTime);
+      //console.log("_getStartTimeForSpan #3", currentTime, foundStartHour, timesForSpan, soonerTimes);
     }
     // console.log("_getStartTimeForSpan #2", ["+24", "+48", "+72"].includes(this._timeSpan.get()), this._timeSpan.get(), this.config.settings.startUTCHourForTimespans, currentTime.getUTCHours(), this.config);
     return currentTime;
@@ -468,12 +508,22 @@ export default class WeatherMapStore_new {
         currentTimespan.includes("+") && this._agl
           ? this._agl
           : this._getStartTimeForSpan(this._dateStart);
+      //console.log("_setAvailableTimes->this._agl", this._agl);
+      // console.log(
+      //   "_setAvailableTimes->this._getStart",
+      //   this._getStartTimeForSpan(this._dateStart)
+      // );
       currentTime = new Date(startFrom);
+      //console.log("_setAvailableTimes->currentTime#1", currentTime);
       currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
+      //console.log("_setAvailableTimes->currentTime#2", currentTime);
       maxTime = new Date(startFrom);
+      //console.log("_setAvailableTimes->maxTime", maxTime);
       maxTime.setHours(
         maxTime.getHours() + parseInt(this.config.settings.timeRange[0], 10)
       );
+      // if (maxTime. > startFrom)
+      maxTime.setHours(maxTime.getHours() - this._absTimeSpan);
       // console.log(
       //   "weatherMapStore_new _setTimeIndices #3 >= 0",
       //   currentTime,
