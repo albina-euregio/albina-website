@@ -8,6 +8,7 @@ import { NatlefsComponent } from "./natlefs.component";
 // Bulletins Routing
 import { ObservationsRoutingModule } from "./observations-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
+import { CalendarModule } from "primeng/calendar";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 // Pipes
@@ -20,6 +21,7 @@ import { PipeModule } from "../pipes/pipes.module";
     FormsModule,
     CommonModule,
     TranslateModule,
+    CalendarModule,
     ConfirmDialogModule,
     PipeModule.forRoot()
   ],

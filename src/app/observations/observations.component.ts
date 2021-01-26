@@ -27,6 +27,10 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.initMaps();
+    this.loadObservations();
+  }
+
+  loadObservations() {
     this.mapService.layers.observations.clearLayers();
     this.loadAvaObs();
     this.loadNatlefs();
@@ -120,5 +124,22 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     } catch (error) {
       console.error("Failed fetching lawis.at profiles", error);
     }
+  }
+
+  get startDate(): Date {
+    return this.observationsService.startDate;
+  }
+
+  set startDate(date: Date) {
+    this.observationsService.startDate = date;
+  }
+
+  get endDate(): Date {
+    return this.observationsService.endDate;
+  }
+
+  set endDate(date: Date) {
+    this.observationsService.endDate = date;
+    this.observationsService.endDate.setHours(23, 59, 59, 0);
   }
 }

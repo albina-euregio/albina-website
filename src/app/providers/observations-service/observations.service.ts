@@ -9,9 +9,14 @@ import { Lawis } from "app/models/lawis.model";
 @Injectable()
 export class ObservationsService {
 
+  public startDate = new Date();
+  public endDate = new Date();
+
   constructor(
     public http: HttpClient,
     public constantsService: ConstantsService) {
+      this.startDate.setDate(this.startDate.getDate() - this.constantsService.getTimeframe());
+      this.startDate.setHours(0, 0, 0, 0);
   }
 
   private async getAuthToken(): Promise<string> {
@@ -30,7 +35,7 @@ export class ObservationsService {
 
   async getNatlefs(): Promise<Natlefs[]> {
     const token = await this.getAuthToken();
-    const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.fromDate;
+    const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.startDateString;
     const headers = new HttpHeaders({
       "Content-Type": "application/json",
       "Accept": "application/json",
@@ -43,7 +48,7 @@ export class ObservationsService {
 
   async getAvaObs(): Promise<AvaObs> {
     const { avaObsApi } = this.constantsService;
-    const timeframe = this.fromDate + "/" + this.untilDate;
+    const timeframe = this.startDateString + "/" + this.endDateString;
     const observations = await this.http.get<Observation[]>(avaObsApi.observations + timeframe).toPromise();
     const simpleObservations = await this.http.get<SimpleObservation[]>(avaObsApi.simpleObservations + timeframe).toPromise();
     const snowProfiles = await this.http.get<SnowProfile[]>(avaObsApi.snowProfiles + timeframe).toPromise();
@@ -51,21 +56,18 @@ export class ObservationsService {
   }
 
   async getLawis(): Promise<Lawis> {
-    const { fromDate } = this;
+    const { startDateString: fromDate } = this;
     const { lawisApi } = this.constantsService;
     const profiles = await this.http.get<Lawis>(lawisApi.profile).toPromise();
     return profiles.filter((profile) => profile.datum > fromDate);
   }
 
-  private get fromDate(): string {
-    const date = new Date();
-    date.setDate(date.getDate() - this.constantsService.getTimeframe());
-    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+  private get startDateString(): string {
+    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.startDate);
   }
 
-  private get untilDate(): string {
-    const date = new Date();
-    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
+  private get endDateString(): string {
+    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.endDate);
   }
 }
 

@@ -4,6 +4,35 @@ import { ConstantsService } from "../constants-service/constants.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { Observable } from "rxjs/Observable";
 
+export interface Configuration {
+  localImagesPath: string;
+  localFontsPath: string;
+  pdfDirectory: string;
+  htmlDirectory: string;
+  serverImagesUrl: string;
+  serverImagesUrlLocalhost: string;
+  mapsPath: string;
+  mapProductionUrl: string;
+  scriptsPath: string;
+  createMaps: boolean;
+  createPdf: boolean;
+  createSimpleHtml: boolean;
+  createStaticWidget: boolean;
+  sendEmails: boolean;
+  publishToMessengerpeople: boolean;
+  publishToTelegramChannel: boolean;
+  publishAt5PM: boolean;
+  publishAt8AM: boolean;
+  publishBulletinsTyrol: boolean;
+  publishBulletinsSouthTyrol: boolean;
+  publishBulletinsTrentino: boolean;
+  publishBulletinsAran: boolean;
+  publishBlogsTyrol: boolean;
+  publishBlogsSouthTyrol: boolean;
+  publishBlogsTrentino: boolean;
+}
+
+
 @Injectable()
 export class ConfigurationService {
 
@@ -13,11 +42,11 @@ export class ConfigurationService {
     private authenticationService: AuthenticationService) {
   }
 
-  public loadConfigurationProperties(): Observable<Response> {
+  public loadConfigurationProperties(): Observable<Configuration> {
     const url = this.constantsService.getServerUrl() + "configuration";
     const options = { headers: this.authenticationService.newAuthHeader() };
 
-    return this.http.get<Response>(url, options);
+    return this.http.get<Configuration>(url, options);
   }
 
   public saveConfigurationProperties(json) {
