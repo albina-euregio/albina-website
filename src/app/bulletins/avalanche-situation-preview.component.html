@@ -24,7 +24,7 @@
         <img *ngIf="isAvalancheSituation('favourable_situation')" src="./assets/img/Favourable_situation_c.svg" width="40">
       </td>
       <td style="padding-right: 10px;">
-        <app-aspects [avalancheSituation]="avalancheSituation" [disabled]="true" [size]="40"></app-aspects>
+        <app-aspects [(aspects)]="avalancheSituation.aspects" [disabled]="true" [size]="40"></app-aspects>
       </td>
       <td style="padding-right: 10px; min-width: 135px;">
         <!-- elevation -->
