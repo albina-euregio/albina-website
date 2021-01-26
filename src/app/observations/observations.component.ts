@@ -4,7 +4,7 @@ import { ObservationsService } from "../providers/observations-service/observati
 import { MapService } from "../providers/map-service/map.service";
 import { Natlefs } from "../models/natlefs.model";
 
-declare var L: any;
+import * as L from "leaflet";
 
 @Component({
   templateUrl: "observations.component.html"
@@ -62,7 +62,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   }
 
   private createNatlefsMarker(natlefs: Natlefs) {
-    new L.circleMarker(L.latLng(natlefs.location.geo.latitude, natlefs.location.geo.longitude), this.mapService.createNatlefsOptions())
+    L.circleMarker(L.latLng(natlefs.location.geo.latitude, natlefs.location.geo.longitude), this.mapService.createNatlefsOptions())
       .on({ click: () => this.setActiveNatlefs(natlefs)})
       .addTo(this.mapService.layers.observations);
   }
