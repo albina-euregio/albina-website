@@ -63,7 +63,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     });
 
     L.control.scale().addTo(map);
-    L.control.layers(this.mapService.observationsMaps, this.mapService.observationLayers).addTo(map)
+    L.control.layers(this.mapService.observationsMaps, this.mapService.observationLayers, {position: 'bottomright'}).addTo(map)
 
     this.mapService.observationsMap = map;
   }
