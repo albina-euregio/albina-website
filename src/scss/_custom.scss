@@ -44,3 +44,43 @@ button.close {
 .leaflet-pane {
   mix-blend-mode: multiply;
 }
+
+.section-observations-map {
+  height: calc(100vh - 55px);
+  .leaflet-pane {
+    mix-blend-mode: normal;
+  }
+  .leaflet-top {
+    margin-top: 55px;
+  }
+}
+
+.section-observations-map {
+  z-index: 10;
+  position: absolute !important;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0px;
+  height: calc(100vh - 55px);
+  width: 100vw;
+  overflow: hidden;
+  padding: 0;
+}
+
+.section-map {
+  position: relative;
+  overflow: hidden;
+  height: calc(100vh - 55px);
+}
+
+.section-observations-filter {
+  z-index: 100;
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  background-color: rgb(0,0,0,0.2);
+  margin: 0;
+}

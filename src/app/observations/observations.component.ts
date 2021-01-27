@@ -60,7 +60,6 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
       layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.layers.observations]
     });
 
-    L.control.zoom({ position: "topleft" }).addTo(map);
     L.control.scale().addTo(map);
 
     this.mapService.observationsMap = map;
