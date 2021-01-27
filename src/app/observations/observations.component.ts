@@ -37,7 +37,9 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   loadObservations() {
     this.observationsService.startDate = this.dateRange[0];
     this.observationsService.endDate = this.dateRange[1];
-    this.mapService.layers.observations.clearLayers();
+    this.mapService.observationLayers.AvaObs.clearLayers();
+    this.mapService.observationLayers.Natlefs.clearLayers();
+    this.mapService.observationLayers.Lawis.clearLayers();
     this.loadAvaObs();
     this.loadNatlefs();
     this.loadLawis();
@@ -57,10 +59,11 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
       zoom: 8,
       minZoom: 8,
       maxZoom: 16,
-      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.layers.observations]
+      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationLayers.Natlefs, this.mapService.observationLayers.AvaObs, this.mapService.observationLayers.Lawis]
     });
 
     L.control.scale().addTo(map);
+    L.control.layers(this.mapService.observationsMaps, this.mapService.observationLayers).addTo(map)
 
     this.mapService.observationsMap = map;
   }
@@ -79,7 +82,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     L.circleMarker(L.latLng(o.positionLat, o.positionLng), this.mapService.createNatlefsOptions(color))
       .bindTooltip(o.placeDescription)
       .on({ click: () => window.open(url) })
-      .addTo(this.mapService.layers.observations);
+      .addTo(this.mapService.observationLayers.AvaObs);
   }
 
   private async loadNatlefs() {
@@ -98,7 +101,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     }
     L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions())
       .on({ click: () => this.setActiveNatlefs(natlefs) })
-      .addTo(this.mapService.layers.observations);
+      .addTo(this.mapService.observationLayers.Natlefs);
   }
 
   setActiveNatlefs(natlefs: Natlefs | undefined) {
@@ -125,7 +128,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
         L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions("orange"))
           .bindTooltip(ort)
           .on({ click: () => window.open(this.constantsService.lawisApi.profilePDF.replace("{{id}}", String(profil_id))) })
-          .addTo(this.mapService.layers.observations);
+          .addTo(this.mapService.observationLayers.Lawis);
       });
     } catch (error) {
       console.error("Failed fetching lawis.at profiles", error);

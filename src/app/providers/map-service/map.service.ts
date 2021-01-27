@@ -33,6 +33,7 @@ export class MapService {
   public overlayMaps: LayerDict<L.GeoJSON>;
   public afternoonOverlayMaps: LayerDict<L.GeoJSON>;
   public layers: LayerDict<L.LayerGroup>;
+  public observationLayers: LayerDict<L.LayerGroup>;
 
   constructor(
     private regionsService: RegionsService,
@@ -77,8 +78,13 @@ export class MapService {
       };
 
       this.layers = {
-        zamgModelPoints: L.layerGroup(),
-        observations: L.layerGroup()
+        zamgModelPoints: L.layerGroup()
+      }
+
+      this.observationLayers = {
+        Lawis: L.layerGroup(),
+        Natlefs: L.layerGroup(),
+        AvaObs: L.layerGroup()
       }
 
       this.overlayMaps = {
@@ -146,8 +152,7 @@ export class MapService {
       };
 
       this.layers = {
-        zamgModelPoints: L.layerGroup(),
-        observations: L.layerGroup()
+        zamgModelPoints: L.layerGroup()
       }
 
      this.overlayMaps = {
