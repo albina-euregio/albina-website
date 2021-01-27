@@ -106,15 +106,6 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   setActiveNatlefs(natlefs: Natlefs | undefined) {
     this.activeNatlefs = natlefs;
-
-    const mapDiv = document.getElementById("mapDiv");
-    mapDiv.classList.remove(natlefs ? "col-md-12" : "col-md-7");
-    mapDiv.classList.add(natlefs ? "col-md-7" : "col-md-12");
-
-    this.mapService.observationsMap.invalidateSize();
-    if (natlefs) {
-      this.mapService.observationsMap.panTo([natlefs.location.geo.latitude, natlefs.location.geo.longitude]);
-    }
   }
 
   private async loadLawis() {

@@ -25,7 +25,7 @@
     <div class="section-map observations-map" id="map">
     </div>
   </div>
-  <div *ngIf="activeNatlefs" class="col-md-5">
+  <div *ngIf="activeNatlefs" style="z-index: 10; margin-top: 60px" class="col-md-12">
     <button type="button" class="btn btn-default float-right" (click)="setActiveNatlefs(undefined)">&times;</button>
     <app-natlefs [natlefs]="activeNatlefs"></app-natlefs>
   </div>
