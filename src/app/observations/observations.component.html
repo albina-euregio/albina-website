@@ -6,9 +6,9 @@
     <div style="float: left; margin-right: 10px">
       <div class="ui-inputgroup">
         <span class="ui-inputgroup-addon"><i class="fa fa-tree"></i></span>
-        <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText [(ngModel)]="elevationRange[0]">
+        <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText [(ngModel)]="elevationRange[0]" />
         <span class="ui-inputgroup-addon">&mdash;</span>
-        <input style="width: 50px" type="text" pInputText [(ngModel)]="elevationRange[1]">
+        <input style="width: 50px" type="text" pInputText [(ngModel)]="elevationRange[1]" />
         <span class="ui-inputgroup-addon">m</span>
       </div>
     </div>
@@ -22,8 +22,7 @@
 </div>
 <div class="row section-observations-map-2">
   <div class="section-observations-map col-md-12" id="mapDiv">
-    <div class="section-map observations-map" id="map">
-    </div>
+    <div class="section-map observations-map" id="map"></div>
   </div>
   <div *ngIf="activeNatlefs" style="z-index: 10; margin-top: 60px" class="col-md-12">
     <button type="button" class="btn btn-default float-right" (click)="setActiveNatlefs(undefined)">&times;</button>
