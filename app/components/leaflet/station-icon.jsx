@@ -72,14 +72,15 @@ export default class StationIcon extends React.Component {
 
     return (
       <svg
-        transform={"rotate(" + direction + ")"}
         style={style}
         height={height}
         viewBox={viewBox}
         width="9"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d={svg} fillRule="evenodd" />
+        <g transform={"rotate(" + direction + ")"}>
+          <path d={svg} fillRule="evenodd" />
+        </g>
       </svg>
     );
   }
