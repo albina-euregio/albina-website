@@ -11,6 +11,7 @@ export class ObservationsService {
 
   public startDate = new Date();
   public endDate = new Date();
+  private natlefsToken: Promise<string>;
 
   constructor(
     public http: HttpClient,
@@ -20,7 +21,7 @@ export class ObservationsService {
       this.endDate.setHours(23, 59, 0, 0);
   }
 
-  private async getAuthToken(): Promise<string> {
+  private async getNatlefsAuthToken(): Promise<string> {
     const username = this.constantsService.getNatlefsUsername();
     const password = this.constantsService.getNatlefsPassword();
     const url = this.constantsService.getNatlefsServerUrl() + "authentication";
@@ -35,7 +36,10 @@ export class ObservationsService {
   }
 
   async getNatlefs(): Promise<Natlefs[]> {
-    const token = await this.getAuthToken();
+    if (!this.natlefsToken) {
+      this.natlefsToken = this.getNatlefsAuthToken();
+    }
+    const token = await this.natlefsToken;
     const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.startDateString;
     const headers = new HttpHeaders({
       "Content-Type": "application/json",
