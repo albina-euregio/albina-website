@@ -37,7 +37,7 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 export function isWebPushSupported() {
-  if (APP_ENVIRONMENT !== "dev") {
+  if (APP_ENVIRONMENT == "prod") {
     // disable for now
     return false;
   }
