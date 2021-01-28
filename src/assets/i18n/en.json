@@ -636,6 +636,20 @@
       "TA_table_season" : "wet snow table (season)"
     }
   },
+  "observations": {
+    "aspect": "Aspect",
+    "authorName": "Author name",
+    "content": "Content",
+    "elevation": "Elevation",
+    "eventDate": "Event date",
+    "eventType": "Event type",
+    "heading": "Observations",
+    "locationName": "Location",
+    "region": "Region",
+    "reportDate": "Report date",
+    "showMap": "Map",
+    "showTable": "Table"
+  },
   "natlefs" : {
     "noData" : "---",
     "anonymous" : "<anonymous>",

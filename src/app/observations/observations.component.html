@@ -1,6 +1,22 @@
 <div class="row section-observations-filter">
   <div class="col-md-12">
     <div style="float: left; margin-right: 10px">
+      <p-toggleButton
+        onLabel="{{ 'observations.showTable' | translate }}"
+        offLabel="{{ 'observations.showTable' | translate }}"
+        onIcon="fa fa-table"
+        offIcon="fa fa-table"
+        [(ngModel)]="showTable"
+      ></p-toggleButton>
+      <p-toggleButton
+        onLabel="{{ 'observations.showMap' | translate }}"
+        offLabel="{{ 'observations.showMap' | translate }}"
+        onIcon="fa fa-map"
+        offIcon="fa fa-map"
+        [(ngModel)]="showMap"
+      ></p-toggleButton>
+    </div>
+    <div style="float: left; margin-right: 10px">
       <p-calendar [(ngModel)]="dateRange" selectionMode="range" [showIcon]="true"></p-calendar>
     </div>
     <div style="float: left; margin-right: 10px">
@@ -20,7 +36,15 @@
     </div>
   </div>
 </div>
-<div class="row section-observations-map-2">
+
+<div *ngIf="showTable" style="margin-top: 70px" class="row">
+  <div class="col-md-12">
+    <h1>{{ "sidebar.observations" | translate }}</h1>
+    <app-observation-table [observations]="observations"></app-observation-table>
+  </div>
+</div>
+
+<div [ngStyle]="{ display: showMap ? '' : 'none' }" class="row">
   <div class="section-observations-map col-md-12" id="mapDiv">
     <div class="section-map observations-map" id="map"></div>
   </div>

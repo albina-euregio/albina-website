@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AuthenticationService } from "../authentication-service/authentication.service";
 import { ConstantsService } from "../constants-service/constants.service";
+import { Observation } from "app/models/observation.model";
 import { Natlefs } from "app/models/natlefs.model";
-import { AvaObs, Observation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
+import { AvaObs, Observation as AvaObservation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
 import { Lawis } from "app/models/lawis.model";
 
 
@@ -15,10 +17,18 @@ export class ObservationsService {
 
   constructor(
     public http: HttpClient,
+    public authenticationService: AuthenticationService,
     public constantsService: ConstantsService) {
       this.startDate.setDate(this.startDate.getDate() - this.constantsService.getTimeframe());
       this.startDate.setHours(0, 0, 0, 0);
       this.endDate.setHours(23, 59, 0, 0);
+  }
+
+  async getAlbina(): Promise<Observation[]> {
+    const url = this.constantsService.getServerUrl() + "observations?startDate=" + this.startDateString + "&endDate=" + this.endDateString;
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers };
+    return this.http.get<Observation[]>(url, options).toPromise();
   }
 
   private async getNatlefsAuthToken(): Promise<string> {
@@ -54,7 +64,7 @@ export class ObservationsService {
   async getAvaObs(): Promise<AvaObs> {
     const { avaObsApi } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    const observations = await this.http.get<Observation[]>(avaObsApi.observations + timeframe).toPromise();
+    const observations = await this.http.get<AvaObservation[]>(avaObsApi.observations + timeframe).toPromise();
     const simpleObservations = await this.http.get<SimpleObservation[]>(avaObsApi.simpleObservations + timeframe).toPromise();
     const snowProfiles = await this.http.get<SnowProfile[]>(avaObsApi.snowProfiles + timeframe).toPromise();
     return { observations, simpleObservations, snowProfiles };
