@@ -84,6 +84,10 @@ a.pure-button {
       background: $white;
       border-color: $primary-color;
     }
+    .controlbar & {
+      color: $primary-color;
+      border-color: $primary-color;
+    }
   }
   &.tertiary {
     color: $text-color;

@@ -86,7 +86,7 @@ class Page extends React.Component {
         <PageHeader />
         <main id="page-main" className="page-main">
           {APP_ENVIRONMENT === "dev" && (
-            <section className="section controlbar controlbar-notice">
+            <section className="section controlbar controlbar-dev">
               <div className="section-centered">
                 <p className="align-center">
                   This is a development version –{" "}

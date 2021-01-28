@@ -188,6 +188,13 @@
   margin-right: auto;
 }
 
+.section-centered-small {
+  @extend .section;
+  max-width: $line-length * 0.75;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .section-padding {
   @extend .section;
   padding: $all-v-padding $all-h-padding;
