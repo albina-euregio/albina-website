@@ -58,13 +58,23 @@ export default class StationIcon extends React.Component {
   }
 
   getdirection(type, direction) {
-    let style = { position: "absolute", left: "6px", top: "6" };
+    let style = {
+      position: "absolute",
+      left: "6px",
+      top: "6",
+      transform: "rotate(" + direction + "deg)"
+    };
     let svg = iconSVGS["directionArrow-centered"];
     let height = "12";
     let viewBox = "0 0 9 12";
 
     if (type === "combined") {
-      style = { position: "absolute", left: "6.5px", top: "-11px" };
+      style = {
+        position: "absolute",
+        left: "6.5px",
+        top: "-11px",
+        transform: "rotate(" + direction + "deg)"
+      };
       svg = iconSVGS["directionArrow-combined"];
       height = "42";
       viewBox = "0 0 9 42";
@@ -72,7 +82,6 @@ export default class StationIcon extends React.Component {
 
     return (
       <svg
-        transform={"rotate(" + direction + ")"}
         style={style}
         height={height}
         viewBox={viewBox}
