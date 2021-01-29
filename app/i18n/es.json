@@ -505,5 +505,6 @@
   "button:education:eaws-matrix:text": "Matriz EAWS",
   "button:education:avalanche-sizes:text": "Tamaño de Aludes",
   "button:education:avalanche-problems:text": "Problemas de Avalanchas",
-  "button:education:danger-patterns:text": "Patrones de Peligro"
+  "button:education:danger-patterns:text": "Patrones de Peligro",
+  "button:education:handbook:text": "Manual"
 }

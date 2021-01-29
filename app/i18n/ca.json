@@ -505,5 +505,6 @@
   "button:education:eaws-matrix:text": "Matriu EAWS",
   "button:education:avalanche-sizes:text": "Mides d'Allaus",
   "button:education:avalanche-problems:text": "Problemes d'allaus",
-  "button:education:danger-patterns:text": "Patrons de Perill"
+  "button:education:danger-patterns:text": "Patrons de Perill",
+  "button:education:handbook:text": "Manual"
 }

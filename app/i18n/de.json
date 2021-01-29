@@ -505,5 +505,6 @@
   "button:education:eaws-matrix:text": "EAWS Matrix",
   "button:education:avalanche-sizes:text": "Lawinengrößen",
   "button:education:avalanche-problems:text": "Lawinenprobleme",
-  "button:education:danger-patterns:text": "Gefahrenmuster"
+  "button:education:danger-patterns:text": "Gefahrenmuster",
+  "button:education:handbook:text": "Handbuch"
 }

@@ -505,5 +505,6 @@
   "button:education:eaws-matrix:text": "EAWS Matrice",
   "button:education:avalanche-sizes:text": "Dimensione valanghe",
   "button:education:avalanche-problems:text": "Probleme Tipici Valanghivi",
-  "button:education:danger-patterns:text": "Situazione Tipo"
+  "button:education:danger-patterns:text": "Situazione Tipo",
+  "button:education:handbook:text": "Manuale"
 }
