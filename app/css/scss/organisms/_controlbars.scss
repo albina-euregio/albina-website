@@ -86,3 +86,32 @@
   @include link-color($anchor-font-color, rgba($anchor-font-color-hover, 0.9));
   @extend .bg-warning-level-2;
 }
+
+.controlbar-bg-image {
+  display: none;
+  .controlbar-image & {
+    display: block;
+  }
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  mix-blend-mode: luminosity;
+  opacity: 0.2;
+}
+
+.controlbar-big-hide {
+  .controlbar-big & {
+    display: none;
+  }
+}
+.controlbar-big-show {
+  display: none;
+  .controlbar-big & {
+    display: block;
+  }
+}
