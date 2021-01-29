@@ -398,6 +398,13 @@ class Bulletin extends React.Component {
                   })}
                 </a>
               </li>
+              <li>
+                <a className="secondary pure-button" href="/education/handbook">
+                  {this.props.intl.formatMessage({
+                    id: "button:education:handbook:text"
+                  })}
+                </a>
+              </li>
             </ul>
           </div>
         </section>
