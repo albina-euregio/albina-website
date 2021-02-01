@@ -24,11 +24,32 @@ export class ObservationsService {
       this.endDate.setHours(23, 59, 0, 0);
   }
 
-  async getAlbina(): Promise<Observation[]> {
+  async getObservations(): Promise<Observation[]> {
     const url = this.constantsService.getServerUrl() + "observations?startDate=" + this.startDateString + "&endDate=" + this.endDateString;
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
     return this.http.get<Observation[]>(url, options).toPromise();
+  }
+
+  async postObservation(observation: Observation): Promise<Observation> {
+    const url = this.constantsService.getServerUrl() + "observations";
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers };
+    return this.http.post<Observation>(url, observation, options).toPromise();
+  }
+
+  async putObservation(observation: Observation): Promise<Observation> {
+    const url = this.constantsService.getServerUrl() + "observations/" + observation.id;
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers };
+    return this.http.put<Observation>(url, observation, options).toPromise();
+  }
+
+  async deleteObservation(observation: Observation): Promise<void> {
+    const url = this.constantsService.getServerUrl() + "observations/" + observation.id;
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers };
+    await this.http.delete(url, options).toPromise();
   }
 
   private async getNatlefsAuthToken(): Promise<string> {

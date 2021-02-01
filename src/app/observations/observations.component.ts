@@ -38,6 +38,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   }
 
   loadObservations() {
+    this.observations.length = 0;
     this.observationsService.startDate = this.dateRange[0];
     this.observationsService.endDate = this.dateRange[1];
     this.mapService.observationLayers.AvaObs.clearLayers();
@@ -74,7 +75,7 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   private async loadAlbina() {
     try {
-      this.observations = await this.observationsService.getAlbina();
+      this.observations = await this.observationsService.getObservations();
       this.observations.sort((o1, o2) => (o1.eventDate === o2.eventDate ? 0 : o1.eventDate < o2.eventDate ? 1 : -1));
     } catch (error) {
       console.error("Failed fetching ALBINA observations", error);

@@ -639,6 +639,13 @@
   "observations": {
     "aspect": "Aspect",
     "authorName": "Author name",
+    "button" : {
+      "add" : "Add observation",
+      "save" : "Save observation",
+      "delete" : "Delete observation",
+      "deleteConfirm" : "Delete observation?",
+      "discard" : "Discard"
+    },
     "content": "Content",
     "elevation": "Elevation",
     "eventDate": "Event date",

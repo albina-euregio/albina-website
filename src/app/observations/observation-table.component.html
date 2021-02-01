@@ -1,6 +1,18 @@
 <table class="table table-hover" *ngIf="observations && observations.length">
   <thead>
     <tr>
+      <td colspan="99" style="text-align: right">
+        <button
+          type="button"
+          pButton
+          icon="pi pi-plus"
+          (click)="newObservation()"
+          label="{{ 'observations.button.add' | translate }}"
+          class="ui-button-primary"
+        ></button>
+      </td>
+    </tr>
+    <tr>
       <th><i class="fa fa-calendar"></i> {{ "observations.eventDate" | translate }}</th>
       <th><i class="fa fa-user"></i> {{ "observations.authorName" | translate }}</th>
       <th><i class="fa fa-globe"></i> {{ "observations.locationName" | translate }}</th>
@@ -15,11 +27,32 @@
       <td>{{ observation.content }}</td>
     </tr>
   </tbody>
-  <p-dialog [visible]="observation" [modal]="true" [header]="observation?.locationName" [style]="{ width: '80vw' }">
+  <p-dialog [(visible)]="showDialog" [modal]="true" [header]="observation?.locationName" [style]="{ width: '80vw' }">
     <app-observation-editor *ngIf="observation" [observation]="observation"></app-observation-editor>
     <p-footer>
-      <button type="button" pButton icon="pi pi-save" (click)="setObservation()" label="Save"></button>
-      <button type="button" pButton icon="pi pi-times" (click)="setObservation()" label="Discard" class="ui-button-secondary"></button>
+      <button
+        type="button"
+        pButton
+        icon="pi pi-save"
+        (click)="saveObservation(observation)"
+        label="{{ 'observations.button.save' | translate }}"
+      ></button>
+      <button
+        type="button"
+        pButton
+        icon="pi pi-trash"
+        (click)="deleteObservation(observation)"
+        label="{{ 'observations.button.delete' | translate }}"
+        class="ui-button-danger"
+      ></button>
+      <button
+        type="button"
+        pButton
+        icon="pi pi-times"
+        (click)="showDialog = false"
+        label="{{ 'observations.button.discard' | translate }}"
+        class="ui-button-secondary"
+      ></button>
     </p-footer>
   </p-dialog>
 </table>
