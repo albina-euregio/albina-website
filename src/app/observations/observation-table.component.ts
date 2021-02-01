@@ -7,4 +7,9 @@ import { Observation } from "app/models/observation.model";
 })
 export class ObservationTableComponent {
   @Input() observations: Observation[];
+  observation: Observation;
+
+  setObservation(observation: Observation) {
+    this.observation = observation ? {...observation} : undefined;
+  }
 }

@@ -643,6 +643,14 @@
     "elevation": "Elevation",
     "eventDate": "Event date",
     "eventType": "Event type",
+    "eventTypes": {
+      "IMPORTANT": "Important event",
+      "NORMAL": "Normal event",
+      "PERSON_DEAD": "Event involving persons (dead)",
+      "PERSON_INJURED": "Event involving persons (injured)",
+      "PERSON_NO": "Event not involving persons",
+      "PERSON_UNINJURED": "Event involving persons (uninjured)"
+    },
     "heading": "Observations",
     "locationName": "Location",
     "region": "Region",

@@ -8,11 +8,18 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let observation of observations">
+    <tr *ngFor="let observation of observations" (click)="setObservation(observation)" style="cursor: pointer">
       <td style="white-space: nowrap">{{ observation.eventDate | localizedDate: "medium" }}</td>
       <td>{{ observation.authorName }}</td>
       <td>{{ observation.locationName }}</td>
       <td>{{ observation.content }}</td>
     </tr>
   </tbody>
+  <p-dialog [visible]="observation" [modal]="true" [header]="observation?.locationName" [style]="{ width: '80vw' }">
+    <app-observation-editor *ngIf="observation" [observation]="observation"></app-observation-editor>
+    <p-footer>
+      <button type="button" pButton icon="pi pi-save" (click)="setObservation()" label="Save"></button>
+      <button type="button" pButton icon="pi pi-times" (click)="setObservation()" label="Discard" class="ui-button-secondary"></button>
+    </p-footer>
+  </p-dialog>
 </table>
