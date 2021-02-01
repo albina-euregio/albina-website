@@ -21,6 +21,12 @@ export class ObservationTableComponent {
 
   setObservation(observation: Observation) {
     this.observation = observation ? { ...observation } : undefined;
+    if (typeof this.observation?.eventDate === "string") {
+      this.observation.eventDate = new Date(this.observation.eventDate);
+    }
+    if (typeof this.observation?.reportDate === "string") {
+      this.observation.reportDate = new Date(this.observation.reportDate);
+    }
   }
 
   get showDialog(): boolean {

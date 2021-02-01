@@ -3,14 +3,14 @@ export interface Observation {
   authorName: string;
   content: string;
   elevation: number;
-  eventDate: string;
+  eventDate: string | Date;
   eventType: EventType;
   id: number;
   latitude: number;
   locationName: string;
   longitude: number;
   region: string;
-  reportDate?: string;
+  reportDate?: string | Date;
 }
 
 export enum Aspect {
