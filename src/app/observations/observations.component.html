@@ -39,8 +39,14 @@
 
 <div *ngIf="showTable" style="margin-top: 70px" class="row">
   <div class="col-md-12">
-    <h1>{{ "sidebar.observations" | translate }}</h1>
-    <app-observation-table [observations]="observations"></app-observation-table>
+    <div class="card">
+      <div class="card-header">{{ "sidebar.observations" | translate }}</div>
+      <div class="card-block">
+        <div>
+          <app-observation-table [observations]="observations"></app-observation-table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
