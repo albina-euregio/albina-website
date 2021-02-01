@@ -1,6 +1,6 @@
 <div *ngIf="observation" class="ui-fluid p-formgrid p-grid">
   <div class="p-field p-col-12 p-md-6">
-    <label for="eventType">{{ "observations.eventType" | translate }}</label>
+    <label for="eventType"><i class="fa fa-square"></i> {{ "observations.eventType" | translate }}</label>
     <p-dropdown
       inputId="eventType"
       [options]="eventTypes"
@@ -11,23 +11,23 @@
     </p-dropdown>
   </div>
   <div class="p-field p-col-12 p-md-6">
-    <label for="eventDate">{{ "observations.eventDate" | translate }}</label>
+    <label for="eventDate"><i class="fa fa-calendar"></i> {{ "observations.eventDate" | translate }}</label>
     <input id="eventDate" [(ngModel)]="observation.eventDate" type="text" pInputText />
   </div>
   <div class="p-field p-col-12">
-    <label for="locationName">{{ "observations.locationName" | translate }}</label>
+    <label for="locationName"><i class="fa fa-globe"></i> {{ "observations.locationName" | translate }}</label>
     <input id="locationName" [(ngModel)]="observation.locationName" type="text" pInputText />
   </div>
   <div class="p-field p-col-12 p-md-6">
-    <label for="authorName">{{ "observations.authorName" | translate }}</label>
+    <label for="authorName"><i class="fa fa-user"></i> {{ "observations.authorName" | translate }}</label>
     <input id="authorName" [(ngModel)]="observation.authorName" type="text" pInputText />
   </div>
   <div class="p-field p-col-12 p-md-6">
-    <label for="reportDate">{{ "observations.reportDate" | translate }}</label>
+    <label for="reportDate"><i class="fa fa-pencil"></i> {{ "observations.reportDate" | translate }}</label>
     <input id="reportDate" [(ngModel)]="observation.reportDate" type="text" pInputText />
   </div>
   <div class="p-field p-col-12">
-    <label for="content">{{ "observations.content" | translate }}</label>
+    <label for="content"><i class="fa fa-comment"></i> {{ "observations.content" | translate }}</label>
     <textarea id="content" [(ngModel)]="observation.content" type="text" rows="8" pInputTextarea></textarea>
   </div>
 </div>
