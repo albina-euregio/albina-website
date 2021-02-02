@@ -165,6 +165,16 @@ class BulletinReport extends React.Component {
                     <p>{this.getLocalizedText(bulletin.tendencyComment)}</p>
                   </div>
                 )}
+              <a
+                href="#page-main"
+                title={this.props.intl.formatMessage({
+                  id: "bulletin:linkbar:back-to-map:hover"
+                })}
+                className="icon-link icon-arrow-up tooltip"
+                data-scroll=""
+              >
+                <FormattedHTMLMessage id="bulletin:linkbar:back-to-map" />
+              </a>
               {/*
             <p className="bulletin-author">
               <FormattedHTMLMessage id="bulletin:report:author" />
