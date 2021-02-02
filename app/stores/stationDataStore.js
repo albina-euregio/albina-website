@@ -142,6 +142,50 @@ export default class StationDataStore {
     this._sortDir = observable.box("asc");
   }
 
+  /**
+   * @param {URLSearchParams} params
+   */
+  fromURLSearchParams(params) {
+    if (params.has("searchText")) {
+      this.searchText = params.get("searchText");
+    }
+    if (params.has("activeRegion")) {
+      this.activeRegion = params.get("activeRegion");
+    }
+    if (params.has("sortValue")) {
+      this.sortValue = params.get("sortValue");
+    }
+    if (params.has("sortDir")) {
+      this.sortDir = params.get("sortDir");
+    }
+    Object.keys(this.activeData).filter(
+      key => (this.activeData[key] = params.get(key) !== "false")
+    );
+  }
+
+  /**
+   * @returns {URLSearchParams}
+   */
+  toURLSearchParams() {
+    const params = new URLSearchParams();
+    if (this.searchText) {
+      params.set("searchText", this.searchText);
+    }
+    if (this.activeRegion !== "all") {
+      params.set("activeRegion", this.activeRegion);
+    }
+    if (this.sortValue) {
+      params.set("sortValue", this.sortValue);
+    }
+    if (this.sortDir && this.sortDir !== "asc") {
+      params.set("sortDir", this.sortDir);
+    }
+    Object.keys(this.activeData)
+      .filter(key => this.activeData[key] === false)
+      .forEach(key => params.set(key, String(this.activeData[key])));
+    return params;
+  }
+
   @computed get activeRegion() {
     const actives = Object.keys(this._activeRegions).filter(
       e => this._activeRegions[e]
