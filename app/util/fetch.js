@@ -1,4 +1,4 @@
-import "unfetch";
+import "unfetch/polyfill";
 
 /**
  * @param {RequestInfo} request
