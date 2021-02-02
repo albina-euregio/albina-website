@@ -19,8 +19,8 @@ export class ObservationTableComponent {
     } as Observation;
   }
 
-  setObservation(observation: Observation) {
-    this.observation = observation ? { ...observation } : undefined;
+  async editObservation(observation: Observation) {
+    this.observation = await this.observationsService.getObservation(observation.id);
     if (typeof this.observation?.eventDate === "string") {
       this.observation.eventDate = new Date(this.observation.eventDate);
     }

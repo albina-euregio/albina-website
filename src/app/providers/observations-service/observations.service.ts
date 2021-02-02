@@ -24,6 +24,13 @@ export class ObservationsService {
       this.endDate.setHours(23, 59, 0, 0);
   }
 
+  async getObservation(id: number): Promise<Observation> {
+    const url = this.constantsService.getServerUrl() + "observations/" + id;
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers };
+    return this.http.get<Observation>(url, options).toPromise();
+  }
+
   async getObservations(): Promise<Observation[]> {
     const url = this.constantsService.getServerUrl() + "observations?startDate=" + this.startDateString + "&endDate=" + this.endDateString;
     const headers = this.authenticationService.newAuthHeader();
