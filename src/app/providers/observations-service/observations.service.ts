@@ -39,6 +39,7 @@ export class ObservationsService {
   }
 
   async postObservation(observation: Observation): Promise<Observation> {
+    observation = this.serializeObservation(observation);
     const url = this.constantsService.getServerUrl() + "observations";
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
@@ -46,10 +47,19 @@ export class ObservationsService {
   }
 
   async putObservation(observation: Observation): Promise<Observation> {
+    observation = this.serializeObservation(observation);
     const url = this.constantsService.getServerUrl() + "observations/" + observation.id;
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
     return this.http.put<Observation>(url, observation, options).toPromise();
+  }
+
+  private serializeObservation(observation: Observation): Observation {
+    return {
+      ...observation,
+      eventDate: typeof observation.eventDate === "object" ? getISOString(observation.eventDate) : observation.eventDate,
+      reportDate: typeof observation.reportDate === "object" ? getISOString(observation.reportDate) : observation.reportDate
+    };
   }
 
   async deleteObservation(observation: Observation): Promise<void> {
@@ -117,3 +127,22 @@ export class ObservationsService {
   }
 }
 
+function getISOString(date: Date) {
+  // like Date.toISOString(), but not using UTC
+  return (
+    date.getFullYear() +
+    "-" +
+    pad(date.getMonth() + 1) +
+    "-" +
+    pad(date.getDate()) +
+    "T" +
+    pad(date.getHours()) +
+    ":" +
+    pad(date.getMinutes()) +
+    ":" +
+    pad(date.getSeconds())
+  );
+  function pad(number: number): string {
+    return number < 10 ? `0${number}` : `${number}`;
+  }
+}
