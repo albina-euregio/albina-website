@@ -59,6 +59,9 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
   }
 
   const language = configParsed["hostLanguageSettings"][location.host];
+  if (!language && location.host.startsWith("www.")) {
+    location.host = location.host.substring("www.".length);
+  }
   if (language) {
     window["appStore"].setLanguage(language);
   }
