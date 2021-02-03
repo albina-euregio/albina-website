@@ -1,4 +1,4 @@
-<table class="table table-hover" *ngIf="observations && observations.length">
+<table class="table table-hover">
   <thead>
     <tr>
       <td colspan="99" style="text-align: right">
@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let observation of observations" (click)="editObservation(observation)" style="cursor: pointer">
+    <tr *ngFor="let observation of (observations || [])" (click)="editObservation(observation)" style="cursor: pointer">
       <td style="white-space: nowrap">{{ observation.eventDate | localizedDate: "medium" }}</td>
       <td>{{ observation.authorName }}</td>
       <td>{{ observation.locationName }}</td>

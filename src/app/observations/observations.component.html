@@ -32,7 +32,13 @@
       <app-aspects [(aspects)]="aspects" [size]="50"></app-aspects>
     </div>
     <div style="float: right">
-      <button type="button" class="btn btn-success" (click)="loadObservations()"><i class="fa fa-refresh"></i></button>
+      <button
+        type="button"
+        pButton
+        class="ui-button-success"
+        (click)="loadObservations()"
+        [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"
+      ></button>
     </div>
   </div>
 </div>
