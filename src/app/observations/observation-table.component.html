@@ -28,19 +28,22 @@
     </tr>
   </tbody>
   <p-dialog [(visible)]="showDialog" [modal]="true" [header]="observation?.locationName" [style]="{ width: '80vw' }">
+    <p-messages [(value)]="messages"></p-messages>
     <app-observation-editor *ngIf="observation" [observation]="observation"></app-observation-editor>
     <p-footer>
       <button
         type="button"
         pButton
-        icon="pi pi-save"
+        [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
+        [disabled]="saving"
         (click)="saveObservation(observation)"
         label="{{ 'observations.button.save' | translate }}"
       ></button>
       <button
         type="button"
         pButton
-        icon="pi pi-trash"
+        [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-trash'"
+        [disabled]="saving"
         (click)="deleteObservation(observation)"
         label="{{ 'observations.button.delete' | translate }}"
         class="ui-button-danger"

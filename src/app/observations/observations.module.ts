@@ -19,6 +19,8 @@ import { ToggleButtonModule } from "primeng/togglebutton";
 import { InputTextModule } from "primeng/inputtext";
 import { InputTextareaModule } from "primeng/inputtextarea";
 import { DropdownModule } from "primeng/dropdown";
+import { MessagesModule } from "primeng/messages";
+import { MessageModule } from "primeng/message";
 
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
@@ -38,6 +40,8 @@ import { PipeModule } from "../pipes/pipes.module";
     InputTextModule,
     InputTextareaModule,
     DropdownModule,
+    MessagesModule,
+    MessageModule,
     PipeModule.forRoot()
   ],
   declarations: [
