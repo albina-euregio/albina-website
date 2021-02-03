@@ -68,6 +68,6 @@
     [closeOnEscape]="true"
     [dismissableMask]="true"
   >
-    <app-natlefs [natlefs]="activeNatlefs"></app-natlefs>
+    <app-natlefs *ngIf="activeNatlefs" [natlefs]="activeNatlefs"></app-natlefs>
   </p-dialog>
 </div>
