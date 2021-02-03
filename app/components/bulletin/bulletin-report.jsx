@@ -165,16 +165,6 @@ class BulletinReport extends React.Component {
                     <p>{this.getLocalizedText(bulletin.tendencyComment)}</p>
                   </div>
                 )}
-              <a
-                href="#page-main"
-                title={this.props.intl.formatMessage({
-                  id: "bulletin:linkbar:back-to-map:hover"
-                })}
-                className="icon-link icon-arrow-up tooltip"
-                data-scroll=""
-              >
-                <FormattedHTMLMessage id="bulletin:linkbar:back-to-map" />
-              </a>
               {/*
             <p className="bulletin-author">
               <FormattedHTMLMessage id="bulletin:report:author" />
@@ -188,6 +178,23 @@ class BulletinReport extends React.Component {
             </div>
           </section>
         )}
+        <section
+          id="section-bulletin-additional"
+          className="section-centered section-bulletin section-bulletin-additional"
+        >
+          <div className="panel brand">
+            <a
+              href="#page-main"
+              title={this.props.intl.formatMessage({
+                id: "bulletin:linkbar:back-to-map:hover"
+              })}
+              className="icon-link icon-arrow-up tooltip"
+              data-scroll=""
+            >
+              <FormattedHTMLMessage id="bulletin:linkbar:back-to-map" />
+            </a>
+          </div>
+        </section>
       </div>
     );
   }
