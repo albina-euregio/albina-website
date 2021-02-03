@@ -37,5 +37,6 @@ export interface ObservationTableRow {
   label: string;
   date?: Date;
   number?: number;
+  boolean?: boolean;
   value?: string;
 }
