@@ -60,8 +60,14 @@
   <div class="section-observations-map col-md-12" id="mapDiv">
     <div class="section-map observations-map" id="map"></div>
   </div>
-  <div *ngIf="activeNatlefs" style="z-index: 10; margin-top: 60px" class="col-md-12">
-    <button type="button" class="btn btn-default float-right" (click)="setActiveNatlefs(undefined)">&times;</button>
+  <p-dialog
+    [(visible)]="activeNatlefsDialog"
+    [modal]="true"
+    header="NATTLEFS"
+    [style]="{ width: '80vw' }"
+    [closeOnEscape]="true"
+    [dismissableMask]="true"
+  >
     <app-natlefs [natlefs]="activeNatlefs"></app-natlefs>
-  </div>
+  </p-dialog>
 </div>

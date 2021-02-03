@@ -117,12 +117,19 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
       return;
     }
     L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions())
-      .on({ click: () => this.setActiveNatlefs(natlefs) })
+      .on({ click: () => this.activeNatlefs = natlefs })
       .addTo(this.mapService.observationLayers.Natlefs);
   }
 
-  setActiveNatlefs(natlefs: Natlefs | undefined) {
-    this.activeNatlefs = natlefs;
+  get activeNatlefsDialog(): boolean {
+    return this.activeNatlefs !== undefined;
+  }
+
+  set activeNatlefsDialog(value: boolean) {
+    if (value) {
+      throw Error(String(value));
+    }
+    this.activeNatlefs = undefined;
   }
 
   private async loadLawis() {
