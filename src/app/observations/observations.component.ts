@@ -7,6 +7,7 @@ import { MapService } from "../providers/map-service/map.service";
 import { Observation, ObservationTableRow } from "app/models/observation.model";
 import { Natlefs, toNatlefsTable } from "../models/natlefs.model";
 import { SimpleObservation } from "app/models/avaobs.model";
+import { toLawisIncidentTable } from "app/models/lawis.model";
 import { toLoLaTable } from "app/models/lola-safety.model";
 import * as Enums from "../enums/enums";
 
@@ -170,7 +171,16 @@ export class ObservationsComponent implements OnInit, AfterContentInit {
         }
         L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions("#b76bd9"))
           .bindTooltip(`${ort} (${datum})`)
-          .on({ click: () => window.open(this.constantsService.lawisApi.incidentWeb.replace("{{id}}", String(incident_id))) })
+          .on({
+            click: async () => {
+              try {
+                const incidentDetails = await this.observationsService.getLawisIncidentDetails(incident_id);
+                this.activeTable = toLawisIncidentTable(incidentDetails, (key) => this.translateService.instant(key));
+              } catch (error) {
+                window.open(this.constantsService.lawisApi.incidentWeb.replace("{{id}}", String(incident_id)));
+              }
+            }
+          })
           .addTo(this.mapService.observationLayers.Lawis);
       });
     } catch (error) {

@@ -6,7 +6,7 @@ import { Observation } from "app/models/observation.model";
 import { Natlefs } from "app/models/natlefs.model";
 import { AvaObs, Observation as AvaObservation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
 import { LoLaSafety } from "app/models/lola-safety.model";
-import { Lawis, Profile, Incident } from "app/models/lawis.model";
+import { Lawis, Profile, Incident, IncidentDetails, parseLawisDate } from "app/models/lawis.model";
 
 
 @Injectable()
@@ -118,10 +118,15 @@ export class ObservationsService {
   async getLawis(): Promise<Lawis> {
     const { lawisApi } = this.constantsService;
     let profiles = await this.http.get<Profile[]>(lawisApi.profile).toPromise();
-    profiles = profiles.filter((profile) => this.inDateRange(new Date(profile.datum.replace(/ /, "T"))));
+    profiles = profiles.filter((profile) => this.inDateRange(parseLawisDate(profile.datum)));
     let incidents = await this.http.get<Incident[]>(lawisApi.incident).toPromise();
-    incidents = incidents.filter((profile) => this.inDateRange(new Date(profile.datum.replace(/ /, "T"))));
+    incidents = incidents.filter((profile) => this.inDateRange(parseLawisDate(profile.datum)));
     return { profiles, incidents };
+  }
+
+  async getLawisIncidentDetails(id: number): Promise<IncidentDetails> {
+    const { lawisApi } = this.constantsService;
+    return await this.http.get<IncidentDetails>(lawisApi.incident + id).toPromise();
   }
 
   private get startDateString(): string {
