@@ -47,7 +47,7 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
       this.mapService.observationLayers.AvaObs.clearLayers();
       this.mapService.observationLayers.Natlefs.clearLayers();
       this.mapService.observationLayers.Lawis.clearLayers();
-      await Promise.all([this.loadAlbina(), this.loadAvaObs(), this.loadNatlefs(), this.loadLawis()]);
+      await Promise.all([this.loadAlbina(), this.loadAvaObs(), this.loadLoLaSafety(), this.loadNatlefs(), this.loadLawis()]);
     } finally {
       this.loading = false;
     }
@@ -67,7 +67,10 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
       zoom: 8,
       minZoom: 8,
       maxZoom: 16,
-      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationLayers.Natlefs, this.mapService.observationLayers.AvaObs, this.mapService.observationLayers.Lawis]
+      layers: [
+        this.mapService.observationsMaps.AlbinaBaseMap,
+        ...Object.values(this.mapService.observationLayers)
+      ]
     });
 
     L.control.scale().addTo(map);
@@ -92,14 +95,27 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
     snowProfiles.forEach((o) => this.createAvaObsMarker(o, "red", "https://www.avaobs.info/snowprofile/" + o.uuId));
   }
 
-  private createAvaObsMarker(o: SimpleObservation, color: string, url: string) {
+  private async loadLoLaSafety() {
+    const { avalancheReports, snowProfiles } = await this.observationsService.getLoLaSafety();
+    avalancheReports.forEach((o) => {
+      if (!o.latitude || !o.longitude) {
+        return;
+      }
+      L.circleMarker(L.latLng(o.latitude, o.longitude), this.mapService.createNatlefsOptions("#eed839"))
+        .bindTooltip(o.avalancheName)
+        .addTo(this.mapService.observationLayers.LoLaSafety);
+    });
+    snowProfiles.forEach((o) => this.createAvaObsMarker(o, "#cc4221", undefined, this.mapService.observationLayers.LoLaSafety));
+  }
+
+  private createAvaObsMarker(o: SimpleObservation, color: string, url?: string, layer = this.mapService.observationLayers.AvaObs) {
     if (!o.positionLat || !o.positionLng) {
       return;
     }
     L.circleMarker(L.latLng(o.positionLat, o.positionLng), this.mapService.createNatlefsOptions(color))
       .bindTooltip(o.placeDescription)
-      .on({ click: () => window.open(url) })
-      .addTo(this.mapService.observationLayers.AvaObs);
+      .on(url ? { click: () => window.open(url) } : {})
+      .addTo(layer);
   }
 
   private async loadNatlefs() {

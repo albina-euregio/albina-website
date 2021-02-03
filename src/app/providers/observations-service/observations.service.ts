@@ -5,6 +5,7 @@ import { ConstantsService } from "../constants-service/constants.service";
 import { Observation } from "app/models/observation.model";
 import { Natlefs } from "app/models/natlefs.model";
 import { AvaObs, Observation as AvaObservation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
+import { LoLaSafety } from "app/models/lola-safety.model";
 import { Lawis, Profile, Incident } from "app/models/lawis.model";
 
 
@@ -106,6 +107,12 @@ export class ObservationsService {
     const simpleObservations = await this.http.get<SimpleObservation[]>(avaObsApi.simpleObservations + timeframe).toPromise();
     const snowProfiles = await this.http.get<SnowProfile[]>(avaObsApi.snowProfiles + timeframe).toPromise();
     return { observations, simpleObservations, snowProfiles };
+  }
+
+  async getLoLaSafety(): Promise<LoLaSafety> {
+    const { lolaSafety } = this.constantsService;
+    const timeframe = this.startDateString + "/" + this.endDateString;
+    return await this.http.get<LoLaSafety>(lolaSafety + timeframe).toPromise();
   }
 
   async getLawis(): Promise<Lawis> {
