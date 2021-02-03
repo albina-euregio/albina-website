@@ -21,6 +21,8 @@ export class ConstantsService {
   };
 
   public lawisApi = {
+    incident: "https://admin.avalanche.report/lawis/normalizer/incident/",
+    incidentWeb: "https://lawis.at/incident/#{{id}}",
     profile: "https://admin.avalanche.report/lawis/normalizer/profile/",
     profilePDF: "https://lawis.at/lawis_api/normalizer/files/profiles/snowprofile_{{id}}.pdf"
   };
