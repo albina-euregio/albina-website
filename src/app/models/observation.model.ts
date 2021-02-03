@@ -32,3 +32,11 @@ export enum EventType {
   PersonNo = "PERSON_NO",
   PersonUninjured = "PERSON_UNINJURED"
 }
+
+export interface ObservationTableRow {
+  label: string;
+  date?: Date;
+  number?: number;
+  boolean?: boolean;
+  value?: string;
+}

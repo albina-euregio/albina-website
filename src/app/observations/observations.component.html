@@ -61,13 +61,23 @@
     <div class="section-map observations-map" id="map"></div>
   </div>
   <p-dialog
-    [(visible)]="activeNatlefsDialog"
+    [(visible)]="activeTableDialog"
     [modal]="true"
-    header="NATTLEFS"
     [style]="{ width: '80vw' }"
     [closeOnEscape]="true"
     [dismissableMask]="true"
   >
-    <app-natlefs *ngIf="activeNatlefs" [natlefs]="activeNatlefs"></app-natlefs>
+    <table *ngIf="activeTable">
+      <tr *ngFor="let row of activeTable">
+        <th>{{ row.label }}</th>
+        <td>
+          <span *ngIf="row.date !== undefined">{{ row.date | localizedDate: "full" }}</span>
+          <span *ngIf="row.number !== undefined">{{ row.number | number }}</span>
+          <span *ngIf="row.boolean !== undefined"><i [class]="row.boolean ? 'pi pi-check' : 'pi pi-times'"></i></span>
+          <span *ngIf="row.value !== undefined">{{ row.value }}</span>
+          <span *ngIf="row.date === undefined && row.number === undefined && row.boolean === undefined && row.value === undefined">&mdash;</span>
+        </td>
+      </tr>
+    </table>
   </p-dialog>
 </div>

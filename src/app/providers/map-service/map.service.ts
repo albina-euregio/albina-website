@@ -32,8 +32,15 @@ export class MapService {
   public zamgModelsMaps: LayerDict<L.TileLayer>;
   public overlayMaps: LayerDict<L.GeoJSON>;
   public afternoonOverlayMaps: LayerDict<L.GeoJSON>;
-  public layers: LayerDict<L.LayerGroup>;
-  public observationLayers: LayerDict<L.LayerGroup>;
+  public layers = {
+    zamgModelPoints: L.layerGroup()
+  };
+  public observationLayers = {
+    Lawis: L.layerGroup(),
+    LoLaSafety: L.layerGroup(),
+    Natlefs: L.layerGroup(),
+    AvaObs: L.layerGroup()
+  };
 
   constructor(
     private regionsService: RegionsService,
@@ -76,16 +83,6 @@ export class MapService {
           attribution: ""
         })
       };
-
-      this.layers = {
-        zamgModelPoints: L.layerGroup()
-      }
-
-      this.observationLayers = {
-        Lawis: L.layerGroup(),
-        Natlefs: L.layerGroup(),
-        AvaObs: L.layerGroup()
-      }
 
       this.overlayMaps = {
         // overlay to show regions
@@ -150,10 +147,6 @@ export class MapService {
           attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
         })
       };
-
-      this.layers = {
-        zamgModelPoints: L.layerGroup()
-      }
 
      this.overlayMaps = {
         // overlay to show regions

@@ -1,11 +1,13 @@
 import { Component, OnInit, AfterContentInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "../providers/observations-service/observations.service";
 import { MapService } from "../providers/map-service/map.service";
-import { Observation } from "app/models/observation.model";
-import { Natlefs } from "../models/natlefs.model";
+import { Observation, ObservationTableRow } from "app/models/observation.model";
+import { Natlefs, toNatlefsTable } from "../models/natlefs.model";
 import { SimpleObservation } from "app/models/avaobs.model";
+import { toLoLaTable } from "app/models/lola-safety.model";
 import * as Enums from "../enums/enums";
 
 import * as L from "leaflet";
@@ -13,8 +15,7 @@ import * as L from "leaflet";
 @Component({
   templateUrl: "observations.component.html"
 })
-export class ObservationsComponent  implements OnInit, AfterContentInit {
-
+export class ObservationsComponent implements OnInit, AfterContentInit {
   public loading = false;
   public showTable = false;
   public dateRange: Date[] = [this.observationsService.startDate, this.observationsService.endDate];
@@ -22,16 +23,17 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
   public aspects: string[] = [];
   public observations: Observation[] = [];
   public activeNatlefs: Natlefs;
+  public activeTable: ObservationTableRow[];
 
   constructor(
+    private translateService: TranslateService,
     private constantsService: ConstantsService,
     private observationsService: ObservationsService,
     private authenticationService: AuthenticationService,
-    private mapService: MapService) {
-  }
+    private mapService: MapService
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngAfterContentInit() {
     this.initMaps();
@@ -47,7 +49,7 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
       this.mapService.observationLayers.AvaObs.clearLayers();
       this.mapService.observationLayers.Natlefs.clearLayers();
       this.mapService.observationLayers.Lawis.clearLayers();
-      await Promise.all([this.loadAlbina(), this.loadAvaObs(), this.loadNatlefs(), this.loadLawis()]);
+      await Promise.all([this.loadAlbina(), this.loadAvaObs(), this.loadLoLaSafety(), this.loadNatlefs(), this.loadLawis()]);
     } finally {
       this.loading = false;
     }
@@ -67,11 +69,11 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
       zoom: 8,
       minZoom: 8,
       maxZoom: 16,
-      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationLayers.Natlefs, this.mapService.observationLayers.AvaObs, this.mapService.observationLayers.Lawis]
+      layers: [this.mapService.observationsMaps.AlbinaBaseMap, ...Object.values(this.mapService.observationLayers)]
     });
 
     L.control.scale().addTo(map);
-    L.control.layers(this.mapService.observationsMaps, this.mapService.observationLayers, {position: "bottomright"}).addTo(map)
+    L.control.layers(this.mapService.observationsMaps, this.mapService.observationLayers, { position: "bottomright" }).addTo(map);
 
     this.mapService.observationsMap = map;
   }
@@ -92,14 +94,28 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
     snowProfiles.forEach((o) => this.createAvaObsMarker(o, "red", "https://www.avaobs.info/snowprofile/" + o.uuId));
   }
 
-  private createAvaObsMarker(o: SimpleObservation, color: string, url: string) {
+  private async loadLoLaSafety() {
+    const { avalancheReports, snowProfiles } = await this.observationsService.getLoLaSafety();
+    avalancheReports.forEach((o) => {
+      if (!o.latitude || !o.longitude) {
+        return;
+      }
+      L.circleMarker(L.latLng(o.latitude, o.longitude), this.mapService.createNatlefsOptions("#eed839"))
+        .bindTooltip(o.avalancheName)
+        .on({ click: () => (this.activeTable = toLoLaTable(o, (key) => this.translateService.instant(key))) })
+        .addTo(this.mapService.observationLayers.LoLaSafety);
+    });
+    snowProfiles.forEach((o) => this.createAvaObsMarker(o, "#cc4221", undefined, this.mapService.observationLayers.LoLaSafety));
+  }
+
+  private createAvaObsMarker(o: SimpleObservation, color: string, url?: string, layer = this.mapService.observationLayers.AvaObs) {
     if (!o.positionLat || !o.positionLng) {
       return;
     }
     L.circleMarker(L.latLng(o.positionLat, o.positionLng), this.mapService.createNatlefsOptions(color))
       .bindTooltip(o.placeDescription)
-      .on({ click: () => window.open(url) })
-      .addTo(this.mapService.observationLayers.AvaObs);
+      .on(url ? { click: () => window.open(url) } : {})
+      .addTo(layer);
   }
 
   private async loadNatlefs() {
@@ -117,19 +133,21 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
       return;
     }
     L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions())
-      .on({ click: () => this.activeNatlefs = natlefs })
+      .on({
+        click: () => (this.activeTable = toNatlefsTable(natlefs, (key) => this.translateService.instant(key)))
+      })
       .addTo(this.mapService.observationLayers.Natlefs);
   }
 
-  get activeNatlefsDialog(): boolean {
-    return this.activeNatlefs !== undefined;
+  get activeTableDialog(): boolean {
+    return this.activeTable !== undefined;
   }
 
-  set activeNatlefsDialog(value: boolean) {
+  set activeTableDialog(value: boolean) {
     if (value) {
       throw Error(String(value));
     }
-    this.activeNatlefs = undefined;
+    this.activeTable = undefined;
   }
 
   private async loadLawis() {

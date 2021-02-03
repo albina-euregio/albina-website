@@ -20,6 +20,8 @@ export class ConstantsService {
     snowProfiles: "https://admin.avalanche.report/avaobs/dataexport/snowprofiles/"
   };
 
+  public lolaSafety = "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/";
+
   public lawisApi = {
     incident: "https://admin.avalanche.report/lawis/normalizer/incident/",
     incidentWeb: "https://lawis.at/incident/#{{id}}",
