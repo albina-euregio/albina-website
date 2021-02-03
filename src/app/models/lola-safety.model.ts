@@ -90,6 +90,7 @@ export function toLoLaTable(report: AvalancheReport, t: (key: string) => string)
     { label: t("observations.locationName"), value: report.avalancheName },
     { label: t("observations.authorName"), value: report.firstName + " " + report.lastName },
     { label: t("observations.eventDate"), date: report.time },
+    { label: t("observations.content"), value: report.headlineGerman + " " + report.headlineEnglish },
     { label: t("LoLaAvalanchePotential.riskAssessment"), number: report.avalanchePotential.riskAssessment },
     { label: t("LoLaAvalanchePotential.snowpackStructure"), number: report.avalanchePotential.snowpackStructure },
     { label: t("LoLaAvalanchePotential.avalanchePotentialValue"), number: report.avalanchePotential.avalanchePotentialValue },
