@@ -7,6 +7,7 @@ import { MapService } from "../providers/map-service/map.service";
 import { Observation, ObservationTableRow } from "app/models/observation.model";
 import { Natlefs, toNatlefsTable } from "../models/natlefs.model";
 import { SimpleObservation } from "app/models/avaobs.model";
+import { toLoLaTable } from "app/models/lola-safety.model";
 import * as Enums from "../enums/enums";
 
 import * as L from "leaflet";
@@ -101,6 +102,7 @@ export class ObservationsComponent implements OnInit, AfterContentInit {
       }
       L.circleMarker(L.latLng(o.latitude, o.longitude), this.mapService.createNatlefsOptions("#eed839"))
         .bindTooltip(o.avalancheName)
+        .on({ click: () => (this.activeTable = toLoLaTable(o, (key) => this.translateService.instant(key))) })
         .addTo(this.mapService.observationLayers.LoLaSafety);
     });
     snowProfiles.forEach((o) => this.createAvaObsMarker(o, "#cc4221", undefined, this.mapService.observationLayers.LoLaSafety));

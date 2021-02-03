@@ -1,4 +1,6 @@
+import { formatDate } from "@angular/common";
 import { SnowProfile } from "./avaobs.model";
+import { ObservationTableRow } from "./observation.model";
 
 export interface LoLaSafety {
   snowProfiles: SnowProfile[];
@@ -81,4 +83,31 @@ export interface Weather {
   windDirection: any[];
   windSpeed: string;
   visibilityConditions: string;
+}
+
+export function toLoLaTable(report: AvalancheReport, t: (key: string) => string): ObservationTableRow[] {
+  return [
+    {
+      label: t("observations.region"),
+      value: report.regionName
+    },
+    {
+      label: t("observations.locationName"),
+      value: report.avalancheName
+    },
+    {
+      label: t("observations.authorName"),
+      value: report.firstName + " " + report.lastName
+    },
+    {
+      label: t("observations.eventDate"),
+      value: formatDate(report.time, "full", "de")
+    },
+    ...Object.keys(report.avalanchePotential)
+      .map((label) => ({ label, value: report.avalanchePotential[label] }))
+      .filter(({ value }) => typeof value === "string"),
+    ...Object.keys(report.weather)
+      .map((label) => ({ label, value: report.weather[label] }))
+      .filter(({ value }) => typeof value === "string")
+  ];
 }
