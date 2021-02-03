@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { AuthenticationService } from "../authentication-service/authentication.service";
 import { ConstantsService } from "../constants-service/constants.service";
+import { Observation } from "app/models/observation.model";
 import { Natlefs } from "app/models/natlefs.model";
-import { AvaObs, Observation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
+import { AvaObs, Observation as AvaObservation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
 import { Lawis } from "app/models/lawis.model";
 
 
@@ -11,16 +13,63 @@ export class ObservationsService {
 
   public startDate = new Date();
   public endDate = new Date();
+  private natlefsToken: Promise<string>;
 
   constructor(
     public http: HttpClient,
+    public authenticationService: AuthenticationService,
     public constantsService: ConstantsService) {
       this.startDate.setDate(this.startDate.getDate() - this.constantsService.getTimeframe());
       this.startDate.setHours(0, 0, 0, 0);
       this.endDate.setHours(23, 59, 0, 0);
   }
 
-  private async getAuthToken(): Promise<string> {
+  async getObservation(id: number): Promise<Observation> {
+    const url = this.constantsService.getServerUrl() + "observations/" + id;
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers };
+    return this.http.get<Observation>(url, options).toPromise();
+  }
+
+  async getObservations(): Promise<Observation[]> {
+    const url = this.constantsService.getServerUrl() + "observations?startDate=" + this.startDateString + "&endDate=" + this.endDateString;
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers };
+    return this.http.get<Observation[]>(url, options).toPromise();
+  }
+
+  async postObservation(observation: Observation): Promise<Observation> {
+    observation = this.serializeObservation(observation);
+    const url = this.constantsService.getServerUrl() + "observations";
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers };
+    return this.http.post<Observation>(url, observation, options).toPromise();
+  }
+
+  async putObservation(observation: Observation): Promise<Observation> {
+    observation = this.serializeObservation(observation);
+    const url = this.constantsService.getServerUrl() + "observations/" + observation.id;
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers };
+    return this.http.put<Observation>(url, observation, options).toPromise();
+  }
+
+  private serializeObservation(observation: Observation): Observation {
+    return {
+      ...observation,
+      eventDate: typeof observation.eventDate === "object" ? getISOString(observation.eventDate) : observation.eventDate,
+      reportDate: typeof observation.reportDate === "object" ? getISOString(observation.reportDate) : observation.reportDate
+    };
+  }
+
+  async deleteObservation(observation: Observation): Promise<void> {
+    const url = this.constantsService.getServerUrl() + "observations/" + observation.id;
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers };
+    await this.http.delete(url, options).toPromise();
+  }
+
+  private async getNatlefsAuthToken(): Promise<string> {
     const username = this.constantsService.getNatlefsUsername();
     const password = this.constantsService.getNatlefsPassword();
     const url = this.constantsService.getNatlefsServerUrl() + "authentication";
@@ -35,7 +84,10 @@ export class ObservationsService {
   }
 
   async getNatlefs(): Promise<Natlefs[]> {
-    const token = await this.getAuthToken();
+    if (!this.natlefsToken) {
+      this.natlefsToken = this.getNatlefsAuthToken();
+    }
+    const token = await this.natlefsToken;
     const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.startDateString;
     const headers = new HttpHeaders({
       "Content-Type": "application/json",
@@ -50,7 +102,7 @@ export class ObservationsService {
   async getAvaObs(): Promise<AvaObs> {
     const { avaObsApi } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    const observations = await this.http.get<Observation[]>(avaObsApi.observations + timeframe).toPromise();
+    const observations = await this.http.get<AvaObservation[]>(avaObsApi.observations + timeframe).toPromise();
     const simpleObservations = await this.http.get<SimpleObservation[]>(avaObsApi.simpleObservations + timeframe).toPromise();
     const snowProfiles = await this.http.get<SnowProfile[]>(avaObsApi.snowProfiles + timeframe).toPromise();
     return { observations, simpleObservations, snowProfiles };
@@ -75,3 +127,22 @@ export class ObservationsService {
   }
 }
 
+function getISOString(date: Date) {
+  // like Date.toISOString(), but not using UTC
+  return (
+    date.getFullYear() +
+    "-" +
+    pad(date.getMonth() + 1) +
+    "-" +
+    pad(date.getDate()) +
+    "T" +
+    pad(date.getHours()) +
+    ":" +
+    pad(date.getMinutes()) +
+    ":" +
+    pad(date.getSeconds())
+  );
+  function pad(number: number): string {
+    return number < 10 ? `0${number}` : `${number}`;
+  }
+}

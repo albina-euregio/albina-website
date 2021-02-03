@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
+import { Component, OnInit, AfterContentInit } from "@angular/core";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "../providers/observations-service/observations.service";
 import { MapService } from "../providers/map-service/map.service";
+import { Observation } from "app/models/observation.model";
 import { Natlefs } from "../models/natlefs.model";
 import { SimpleObservation } from "app/models/avaobs.model";
 import * as Enums from "../enums/enums";
@@ -12,11 +13,14 @@ import * as L from "leaflet";
 @Component({
   templateUrl: "observations.component.html"
 })
-export class ObservationsComponent  implements OnInit, AfterViewInit {
+export class ObservationsComponent  implements OnInit, AfterContentInit {
 
+  public loading = false;
+  public showTable = false;
   public dateRange: Date[] = [this.observationsService.startDate, this.observationsService.endDate];
   public elevationRange = [200, 4000];
   public aspects: string[] = [];
+  public observations: Observation[] = [];
   public activeNatlefs: Natlefs;
 
   constructor(
@@ -29,20 +33,24 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit() {
+  ngAfterContentInit() {
     this.initMaps();
     this.loadObservations();
   }
 
-  loadObservations() {
-    this.observationsService.startDate = this.dateRange[0];
-    this.observationsService.endDate = this.dateRange[1];
-    this.mapService.observationLayers.AvaObs.clearLayers();
-    this.mapService.observationLayers.Natlefs.clearLayers();
-    this.mapService.observationLayers.Lawis.clearLayers();
-    this.loadAvaObs();
-    this.loadNatlefs();
-    this.loadLawis();
+  async loadObservations() {
+    try {
+      this.loading = true;
+      this.observations.length = 0;
+      this.observationsService.startDate = this.dateRange[0];
+      this.observationsService.endDate = this.dateRange[1];
+      this.mapService.observationLayers.AvaObs.clearLayers();
+      this.mapService.observationLayers.Natlefs.clearLayers();
+      this.mapService.observationLayers.Lawis.clearLayers();
+      await Promise.all([this.loadAlbina(), this.loadAvaObs(), this.loadNatlefs(), this.loadLawis()]);
+    } finally {
+      this.loading = false;
+    }
   }
 
   private initMaps() {
@@ -66,6 +74,15 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
     L.control.layers(this.mapService.observationsMaps, this.mapService.observationLayers, {position: "bottomright"}).addTo(map)
 
     this.mapService.observationsMap = map;
+  }
+
+  private async loadAlbina() {
+    try {
+      this.observations = await this.observationsService.getObservations();
+      this.observations.sort((o1, o2) => (o1.eventDate === o2.eventDate ? 0 : o1.eventDate < o2.eventDate ? 1 : -1));
+    } catch (error) {
+      console.error("Failed fetching ALBINA observations", error);
+    }
   }
 
   private async loadAvaObs() {
@@ -132,5 +149,13 @@ export class ObservationsComponent  implements OnInit, AfterViewInit {
 
   private inAspects(aspect: string) {
     return !this.aspects.length || (typeof aspect === "string" && this.aspects.includes(aspect.toUpperCase()));
+  }
+
+  get showMap(): boolean {
+    return !this.showTable;
+  }
+
+  set showMap(value: boolean) {
+    this.showTable = !value;
   }
 }

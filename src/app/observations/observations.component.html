@@ -1,14 +1,30 @@
 <div class="row section-observations-filter">
   <div class="col-md-12">
     <div style="float: left; margin-right: 10px">
-      <p-calendar [(ngModel)]="dateRange" selectionMode="range" [showIcon]="true"></p-calendar>
+      <p-toggleButton
+        onLabel="{{ 'observations.showTable' | translate }}"
+        offLabel="{{ 'observations.showTable' | translate }}"
+        onIcon="fa fa-table"
+        offIcon="fa fa-table"
+        [(ngModel)]="showTable"
+      ></p-toggleButton>
+      <p-toggleButton
+        onLabel="{{ 'observations.showMap' | translate }}"
+        offLabel="{{ 'observations.showMap' | translate }}"
+        onIcon="fa fa-map"
+        offIcon="fa fa-map"
+        [(ngModel)]="showMap"
+      ></p-toggleButton>
+    </div>
+    <div style="float: left; margin-right: 10px">
+      <p-calendar [(ngModel)]="dateRange" selectionMode="range" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
     </div>
     <div style="float: left; margin-right: 10px">
       <div class="ui-inputgroup">
         <span class="ui-inputgroup-addon"><i class="fa fa-tree"></i></span>
-        <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText [(ngModel)]="elevationRange[0]">
+        <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText [(ngModel)]="elevationRange[0]" />
         <span class="ui-inputgroup-addon">&mdash;</span>
-        <input style="width: 50px" type="text" pInputText [(ngModel)]="elevationRange[1]">
+        <input style="width: 50px" type="text" pInputText [(ngModel)]="elevationRange[1]" />
         <span class="ui-inputgroup-addon">m</span>
       </div>
     </div>
@@ -16,14 +32,33 @@
       <app-aspects [(aspects)]="aspects" [size]="50"></app-aspects>
     </div>
     <div style="float: right">
-      <button type="button" class="btn btn-primary" (click)="loadObservations()"><i class="fa fa-refresh"></i></button>
+      <button
+        type="button"
+        pButton
+        class="ui-button-success"
+        (click)="loadObservations()"
+        [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"
+      ></button>
     </div>
   </div>
 </div>
-<div class="row section-observations-map-2">
-  <div class="section-observations-map col-md-12" id="mapDiv">
-    <div class="section-map observations-map" id="map">
+
+<div *ngIf="showTable" style="margin-top: 70px" class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">{{ "sidebar.observations" | translate }}</div>
+      <div class="card-block">
+        <div>
+          <app-observation-table [observations]="observations"></app-observation-table>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+
+<div [ngStyle]="{ display: showMap ? '' : 'none' }" class="row">
+  <div class="section-observations-map col-md-12" id="mapDiv">
+    <div class="section-map observations-map" id="map"></div>
   </div>
   <div *ngIf="activeNatlefs" style="z-index: 10; margin-top: 60px" class="col-md-12">
     <button type="button" class="btn btn-default float-right" (click)="setActiveNatlefs(undefined)">&times;</button>
