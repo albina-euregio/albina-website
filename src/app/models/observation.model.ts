@@ -35,5 +35,7 @@ export enum EventType {
 
 export interface ObservationTableRow {
   label: string;
-  value: string | number | Date;
+  date?: Date;
+  number?: number;
+  value?: string;
 }

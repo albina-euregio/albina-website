@@ -130,11 +130,11 @@ export function toNatlefsTable(natlefs: Natlefs, t: (string) => string): Observa
     },
     {
       label: t("observations.eventDate"),
-      value: natlefs.datetime.date
+      date: natlefs.datetime.date
     },
     {
       label: t("observations.elevation"),
-      value: natlefs.location.elevation
+      number: natlefs.location.elevation
     },
     {
       label: t("observations.aspect"),
@@ -142,7 +142,7 @@ export function toNatlefsTable(natlefs: Natlefs, t: (string) => string): Observa
     },
     {
       label: t("location.accuracy"),
-      value: natlefs.location.accuracy
+      number: natlefs.location.accuracy
     },
     {
       label: t("natlefs.title.newSnow"),

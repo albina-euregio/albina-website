@@ -70,7 +70,12 @@
     <table *ngIf="activeTable">
       <tr *ngFor="let row of activeTable">
         <th>{{ row.label }}</th>
-        <td>{{ row.value || "&mdash;" }}</td>
+        <td>
+          <span *ngIf="row.date !== undefined">{{ row.date | localizedDate: "full" }}</span>
+          <span *ngIf="row.number !== undefined">{{ row.number | number }}</span>
+          <span *ngIf="row.value !== undefined">{{ row.value }}</span>
+          <span *ngIf="row.date === undefined && row.number === undefined && row.value === undefined">&mdash;</span>
+        </td>
       </tr>
     </table>
   </p-dialog>

@@ -1,4 +1,3 @@
-import { formatDate } from "@angular/common";
 import { SnowProfile } from "./avaobs.model";
 import { ObservationTableRow } from "./observation.model";
 
@@ -18,7 +17,7 @@ export interface AvalancheReport {
   headlineGerman: string;
   headlineEnglish: string;
   type: string;
-  time: string;
+  time: Date;
   avalancheId: string;
   avalancheName: string;
   userId: string;
@@ -101,7 +100,7 @@ export function toLoLaTable(report: AvalancheReport, t: (key: string) => string)
     },
     {
       label: t("observations.eventDate"),
-      value: formatDate(report.time, "full", "de")
+      date: report.time
     },
     ...Object.keys(report.avalanchePotential)
       .map((label) => ({ label, value: report.avalanchePotential[label] }))
