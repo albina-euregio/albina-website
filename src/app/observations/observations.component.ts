@@ -127,19 +127,29 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
 
   private async loadLawis() {
     try {
-      const profiles = await this.observationsService.getLawis();
-      profiles.forEach(({ latitude, longitude, seehoehe, exposition_id, ort, profil_id }) => {
+      const { profiles, incidents } = await this.observationsService.getLawis();
+      profiles.forEach(({ latitude, longitude, seehoehe, exposition_id, ort, datum, profil_id }) => {
         const aspect = Enums.Aspect[exposition_id];
         if (!latitude || !longitude || !this.inElevationRange(seehoehe) || !this.inAspects(aspect)) {
           return;
         }
-        L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions("orange"))
-          .bindTooltip(ort)
+        L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions("#44a9db"))
+          .bindTooltip(`${ort} (${datum})`)
           .on({ click: () => window.open(this.constantsService.lawisApi.profilePDF.replace("{{id}}", String(profil_id))) })
           .addTo(this.mapService.observationLayers.Lawis);
       });
+      incidents.forEach(({ latitude, longitude, elevation, aspect_id, ort, datum, incident_id }) => {
+        const aspect = Enums.Aspect[aspect_id];
+        if (!latitude || !longitude || !this.inElevationRange(elevation) || !this.inAspects(aspect)) {
+          return;
+        }
+        L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions("#b76bd9"))
+          .bindTooltip(`${ort} (${datum})`)
+          .on({ click: () => window.open(this.constantsService.lawisApi.incidentWeb.replace("{{id}}", String(incident_id))) })
+          .addTo(this.mapService.observationLayers.Lawis);
+      });
     } catch (error) {
-      console.error("Failed fetching lawis.at profiles", error);
+      console.error("Failed fetching lawis.at", error);
     }
   }
 

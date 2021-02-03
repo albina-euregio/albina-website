@@ -1,8 +1,11 @@
 import * as Enums from "../enums/enums";
 
-// https://lawis.at/lawis_api/normalizer/profile/
-export interface Lawis extends Array<Profile> {}
+export interface Lawis {
+  profiles: Profile[],
+  incidents: Incident[]
+}
 
+// https://lawis.at/lawis_api/normalizer/profile/
 export interface Profile {
   profil_id: number;
   datum: string;
@@ -62,4 +65,33 @@ export interface ProfileTest {
   testprocedureend: string;
   test_id: string;
   profil_id: number;
+}
+
+// https://lawis.at/lawis_api/normalizer/incident/
+export interface Incident {
+  incident_id:  number;
+  datum:        string;
+  country_id:   number;
+  region_id:    number;
+  subregion_id: number;
+  ort:          string;
+  elevation?:    number ;
+  latitude:     number;
+  longitude:    number;
+  incline?:      number ;
+  aspect_id:    number;
+  danger_id?:    number ;
+  n_injured?:    number ;
+  n_dead?:       number ;
+  n_uninjured?:  number ;
+  involved_sum?: number ;
+  involved:     Involved;
+  valid_time:   boolean;
+  revision:     number;
+}
+
+export enum Involved {
+  None = "none",
+  Unknown = "unknown",
+  Yes = "yes",
 }
