@@ -5,7 +5,6 @@ import { CommonModule } from "@angular/common";
 import { ObservationsComponent } from "./observations.component";
 import { ObservationEditorComponent } from "./observation-editor.component";
 import { ObservationTableComponent } from "./observation-table.component";
-import { NatlefsComponent } from "./natlefs.component";
 
 import { BulletinsModule } from "../bulletins/bulletins.module";
 // Bulletins Routing
@@ -47,8 +46,7 @@ import { PipeModule } from "../pipes/pipes.module";
   declarations: [
     ObservationsComponent,
     ObservationEditorComponent,
-    ObservationTableComponent,
-    NatlefsComponent
+    ObservationTableComponent
   ]
 })
 export class ObservationsModule { }

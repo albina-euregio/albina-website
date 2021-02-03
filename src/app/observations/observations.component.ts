@@ -1,10 +1,11 @@
 import { Component, OnInit, AfterContentInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "../providers/observations-service/observations.service";
 import { MapService } from "../providers/map-service/map.service";
-import { Observation } from "app/models/observation.model";
-import { Natlefs } from "../models/natlefs.model";
+import { Observation, ObservationTableRow } from "app/models/observation.model";
+import { Natlefs, toNatlefsTable } from "../models/natlefs.model";
 import { SimpleObservation } from "app/models/avaobs.model";
 import * as Enums from "../enums/enums";
 
@@ -21,8 +22,10 @@ export class ObservationsComponent implements OnInit, AfterContentInit {
   public aspects: string[] = [];
   public observations: Observation[] = [];
   public activeNatlefs: Natlefs;
+  public activeTable: ObservationTableRow[];
 
   constructor(
+    private translateService: TranslateService,
     private constantsService: ConstantsService,
     private observationsService: ObservationsService,
     private authenticationService: AuthenticationService,
@@ -128,19 +131,21 @@ export class ObservationsComponent implements OnInit, AfterContentInit {
       return;
     }
     L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions())
-      .on({ click: () => (this.activeNatlefs = natlefs) })
+      .on({
+        click: () => (this.activeTable = toNatlefsTable(natlefs, (key) => this.translateService.instant(key)))
+      })
       .addTo(this.mapService.observationLayers.Natlefs);
   }
 
-  get activeNatlefsDialog(): boolean {
-    return this.activeNatlefs !== undefined;
+  get activeTableDialog(): boolean {
+    return this.activeTable !== undefined;
   }
 
-  set activeNatlefsDialog(value: boolean) {
+  set activeTableDialog(value: boolean) {
     if (value) {
       throw Error(String(value));
     }
-    this.activeNatlefs = undefined;
+    this.activeTable = undefined;
   }
 
   private async loadLawis() {

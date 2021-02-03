@@ -61,13 +61,17 @@
     <div class="section-map observations-map" id="map"></div>
   </div>
   <p-dialog
-    [(visible)]="activeNatlefsDialog"
+    [(visible)]="activeTableDialog"
     [modal]="true"
-    header="NATTLEFS"
     [style]="{ width: '80vw' }"
     [closeOnEscape]="true"
     [dismissableMask]="true"
   >
-    <app-natlefs *ngIf="activeNatlefs" [natlefs]="activeNatlefs"></app-natlefs>
+    <table *ngIf="activeTable">
+      <tr *ngFor="let row of activeTable">
+        <th>{{ row.label }}</th>
+        <td>{{ row.value || "&mdash;" }}</td>
+      </tr>
+    </table>
   </p-dialog>
 </div>
