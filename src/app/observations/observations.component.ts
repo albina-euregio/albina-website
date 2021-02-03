@@ -13,8 +13,7 @@ import * as L from "leaflet";
 @Component({
   templateUrl: "observations.component.html"
 })
-export class ObservationsComponent  implements OnInit, AfterContentInit {
-
+export class ObservationsComponent implements OnInit, AfterContentInit {
   public loading = false;
   public showTable = false;
   public dateRange: Date[] = [this.observationsService.startDate, this.observationsService.endDate];
@@ -27,11 +26,10 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
     private constantsService: ConstantsService,
     private observationsService: ObservationsService,
     private authenticationService: AuthenticationService,
-    private mapService: MapService) {
-  }
+    private mapService: MapService
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngAfterContentInit() {
     this.initMaps();
@@ -67,14 +65,11 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
       zoom: 8,
       minZoom: 8,
       maxZoom: 16,
-      layers: [
-        this.mapService.observationsMaps.AlbinaBaseMap,
-        ...Object.values(this.mapService.observationLayers)
-      ]
+      layers: [this.mapService.observationsMaps.AlbinaBaseMap, ...Object.values(this.mapService.observationLayers)]
     });
 
     L.control.scale().addTo(map);
-    L.control.layers(this.mapService.observationsMaps, this.mapService.observationLayers, {position: "bottomright"}).addTo(map)
+    L.control.layers(this.mapService.observationsMaps, this.mapService.observationLayers, { position: "bottomright" }).addTo(map);
 
     this.mapService.observationsMap = map;
   }
@@ -133,7 +128,7 @@ export class ObservationsComponent  implements OnInit, AfterContentInit {
       return;
     }
     L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions())
-      .on({ click: () => this.activeNatlefs = natlefs })
+      .on({ click: () => (this.activeNatlefs = natlefs) })
       .addTo(this.mapService.observationLayers.Natlefs);
   }
 
