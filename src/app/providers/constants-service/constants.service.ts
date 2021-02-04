@@ -52,7 +52,6 @@ export class ConstantsService {
   public mapBoundaryS: number = 45.0;
   public mapBoundaryW: number = 9.0;
 
-  public timeframe: number = 14;
   public autoSaveIntervall: number = 1000;
 
   // region
@@ -271,10 +270,6 @@ export class ConstantsService {
 
   getNatlefsPassword() {
     return this.natlefsPassword;
-  }
-
-  getTimeframe() {
-    return this.timeframe;
   }
 
   getISOStringWithTimezoneOffsetUrlEncoded(date: Date) {

@@ -19,11 +19,7 @@ export class ObservationsService {
   constructor(
     public http: HttpClient,
     public authenticationService: AuthenticationService,
-    public constantsService: ConstantsService) {
-      this.startDate.setDate(this.startDate.getDate() - this.constantsService.getTimeframe());
-      this.startDate.setHours(0, 0, 0, 0);
-      this.endDate.setHours(23, 59, 0, 0);
-  }
+    public constantsService: ConstantsService) {}
 
   async getObservation(id: number): Promise<Observation> {
     const url = this.constantsService.getServerUrl() + "observations/" + id;

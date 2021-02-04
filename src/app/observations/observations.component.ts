@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterContentInit } from "@angular/core";
+import { Component, AfterContentInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
@@ -16,10 +16,10 @@ import * as L from "leaflet";
 @Component({
   templateUrl: "observations.component.html"
 })
-export class ObservationsComponent implements OnInit, AfterContentInit {
+export class ObservationsComponent implements AfterContentInit {
   public loading = false;
   public showTable = false;
-  public dateRange: Date[] = [this.observationsService.startDate, this.observationsService.endDate];
+  public dateRange: Date[] = [];
   public elevationRange = [200, 4000];
   public aspects: string[] = [];
   public observations: Observation[] = [];
@@ -34,14 +34,20 @@ export class ObservationsComponent implements OnInit, AfterContentInit {
     private mapService: MapService
   ) {}
 
-  ngOnInit() {}
-
   ngAfterContentInit() {
     this.initMaps();
-    this.loadObservations();
+    this.loadObservations({days: 3});
   }
 
-  async loadObservations() {
+  async loadObservations({days}: {days?: number} = {}) {
+    if (typeof days === "number") {
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() - (days - 1));
+      startDate.setHours(0, 0, 0, 0);
+      const endDate = new Date();
+      endDate.setHours(23, 59, 0, 0);
+      this.dateRange = [startDate, endDate];
+    }
     try {
       this.loading = true;
       this.observations.length = 0;
