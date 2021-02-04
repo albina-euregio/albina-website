@@ -1,11 +1,14 @@
 // https://www.avaobs.info/api/archiv/all/:VON/:BIS
 // https://www.avaobs.info/api/dataexport/observations/:VON/:BIS
 // https://www.avaobs.info/api/dataexport/simpleobservations/:VON/:BIS
+
+import { GenericObservation, Source } from "./generic-observation.model";
+
 // https://www.avaobs.info/api/dataexport/snowprofiles/:VON/:BIS
 export interface AvaObs {
-  snowProfiles: SnowProfile[];
-  observations: Observation[];
-  simpleObservations: SimpleObservation[];
+  snowProfiles: GenericObservation<SnowProfile>[];
+  observations: GenericObservation<Observation>[];
+  simpleObservations: GenericObservation<SimpleObservation>[];
 }
 
 export interface SimpleObservation {
@@ -155,4 +158,26 @@ export interface SnowLayer {
 export interface Temperature {
   temperature: number;
   position: number;
+}
+
+export function convertAvaObsToGeneric<T extends SimpleObservation>(
+  obs: T,
+  $markerColor: string,
+  urlPrefix?: string
+): GenericObservation<T> {
+  return {
+    $data: obs,
+    $externalURL: urlPrefix ? urlPrefix + obs.uuId : undefined,
+    $markerColor,
+    $source: Source.avaobs,
+    aspect: undefined,
+    authorName: obs.firstName + " " + obs.lastName,
+    content: obs.comment,
+    elevation: undefined,
+    eventDate: obs.time,
+    latitude: obs.positionLat,
+    locationName: obs.placeDescription,
+    longitude: obs.positionLng,
+    region: ""
+  };
 }

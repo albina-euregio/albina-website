@@ -13,6 +13,7 @@
       </td>
     </tr>
     <tr>
+      <th></th>
       <th><i class="fa fa-calendar"></i> {{ "observations.eventDate" | translate }}</th>
       <th><i class="fa fa-user"></i> {{ "observations.authorName" | translate }}</th>
       <th><i class="fa fa-globe"></i> {{ "observations.locationName" | translate }}</th>
@@ -20,7 +21,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let observation of (observations || [])" (click)="editObservation(observation)" style="cursor: pointer">
+    <tr *ngFor="let observation of observations || []" (click)="onClick(observation)" style="cursor: pointer">
+      <td [style]="{ color: observation.$markerColor }">█</td>
       <td style="white-space: nowrap">{{ observation.eventDate | localizedDate: "dd.MM.yyyy HH:mm" }}</td>
       <td>{{ observation.authorName }}</td>
       <td>{{ observation.locationName }}</td>
@@ -36,7 +38,7 @@
         pButton
         [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-save'"
         [disabled]="saving"
-        (click)="saveObservation(observation)"
+        (click)="saveObservation()"
         label="{{ 'observations.button.save' | translate }}"
       ></button>
       <button
@@ -44,7 +46,7 @@
         pButton
         [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-trash'"
         [disabled]="saving"
-        (click)="deleteObservation(observation)"
+        (click)="deleteObservation()"
         label="{{ 'observations.button.delete' | translate }}"
         class="ui-button-danger"
       ></button>
@@ -52,7 +54,7 @@
         type="button"
         pButton
         icon="pi pi-times"
-        (click)="showDialog = false"
+        (click)="discardObservation()"
         label="{{ 'observations.button.discard' | translate }}"
         class="ui-button-secondary"
       ></button>

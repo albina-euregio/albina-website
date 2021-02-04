@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { SettingsService } from "./providers/settings-service/settings.service";
-import { ObservationsService } from "./providers/observations-service/observations.service";
 
 
 @Component({
@@ -12,7 +11,6 @@ import { ObservationsService } from "./providers/observations-service/observatio
 export class AppComponent {
   constructor(
     settingsService: SettingsService,
-    observationsService: ObservationsService,
     translate: TranslateService) {
   }
 }

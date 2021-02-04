@@ -23,6 +23,7 @@ import { MessageModule } from "primeng/message";
 
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
+import { ObservationsService } from "./observations.service";
 
 
 @NgModule({
@@ -47,6 +48,9 @@ import { PipeModule } from "../pipes/pipes.module";
     ObservationsComponent,
     ObservationEditorComponent,
     ObservationTableComponent
+  ],
+  providers: [
+    ObservationsService
   ]
 })
 export class ObservationsModule { }

@@ -1,9 +1,9 @@
 import * as Enums from "../enums/enums";
-import { ObservationTableRow } from "./observation.model";
+import { GenericObservation, ObservationTableRow } from "./generic-observation.model";
 
 export interface Lawis {
-  profiles: Profile[];
-  incidents: Incident[];
+  profiles: GenericObservation<Profile>[];
+  incidents: GenericObservation<Incident>[];
 }
 
 // https://lawis.at/lawis_api/normalizer/profile/
@@ -172,25 +172,17 @@ export enum AvalancheSize {
 
 export function toLawisIncidentTable(incident: IncidentDetails, t: (key: string) => string): ObservationTableRow[] {
   const dangerRating = Enums.DangerRating[Enums.DangerRating[incident.danger_id]];
-  const aspect = Enums.Aspect[Enums.Aspect[incident.aspect_id]];
   const avalancheType = AvalancheType[AvalancheType[incident.type_id]];
   const avalancheSize = AvalancheSize[AvalancheSize[incident.size_id]];
   return [
-    { label: t("observations.eventDate"), date: parseLawisDate(incident.datum) },
-    { label: t("observations.reportDate"), date: parseLawisDate(incident.reporting_date) },
-    { label: t("observations.authorName"), value: incident.name },
-    { label: t("observations.locationName"), value: incident.ort },
     { label: t("observations.dangerRating"), value: t("dangerRating." + dangerRating) },
     { label: t("observations.avalancheProblem"), value: incident.av_problem },
-    { label: t("observations.elevation"), number: incident.elevation },
     { label: t("observations.incline"), number: incident.incline },
-    { label: t("observations.aspect"), value: t("aspect." + aspect) },
     { label: t("observations.avalancheType"), value: avalancheType },
     { label: t("observations.avalancheSize"), value: avalancheSize },
     { label: t("observations.avalancheLength"), number: incident.extent_x },
     { label: t("observations.avalancheWidth"), number: incident.extent_y },
     { label: t("observations.fractureDepth"), number: incident.breakheight },
-    { label: t("observations.comment"), value: incident.comments },
     { label: "URL", value: "https://lawis.at/incident/#" + incident.incident_id }
   ];
 }

@@ -1,16 +1,18 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { EventType, Observation } from "app/models/observation.model";
-import { ObservationsService } from "app/providers/observations-service/observations.service";
+import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
+import { GenericObservation, Source } from "app/models/generic-observation.model";
 
 @Component({
   selector: "app-observation-table",
   templateUrl: "observation-table.component.html"
 })
 export class ObservationTableComponent {
-  @Input() observations: Observation[];
+  @Input() observations: GenericObservation[];
+  @Output() observationClick: EventEmitter<GenericObservation> = new EventEmitter<GenericObservation>();
   observation: Observation;
   saving = false;
   messages: Message[] = [];
@@ -23,8 +25,16 @@ export class ObservationTableComponent {
     } as Observation;
   }
 
+  onClick(observation: GenericObservation) {
+    if (observation.$source === Source.albina) {
+      this.editObservation(observation.$data);
+    } else {
+      this.observationClick.emit(observation);
+    }
+  }
+
   async editObservation(observation: Observation) {
-    this.observation = await this.observationsService.getObservation(observation.id);
+    this.observation = (await this.observationsService.getObservation(observation.id)).$data;
     if (typeof this.observation?.eventDate === "string") {
       this.observation.eventDate = new Date(this.observation.eventDate);
     }
@@ -45,18 +55,19 @@ export class ObservationTableComponent {
     }
   }
 
-  async saveObservation(observation: Observation) {
+  async saveObservation() {
+    const { observation } = this;
     try {
       this.saving = true;
       if (observation.id) {
-        observation = await this.observationsService.putObservation(observation);
+        const newObservation = await this.observationsService.putObservation(observation);
         Object.assign(
-          this.observations.find((o) => o.id === observation.id),
-          observation
+          this.observations.find((o) => o.$source === Source.albina && o.$data.id === observation.id),
+          newObservation
         );
       } else {
-        observation = await this.observationsService.postObservation(observation);
-        this.observations.splice(0, 0, observation);
+        const newObservation = await this.observationsService.postObservation(observation);
+        this.observations.splice(0, 0, newObservation);
       }
       this.showDialog = false;
     } catch (error) {
@@ -66,14 +77,15 @@ export class ObservationTableComponent {
     }
   }
 
-  async deleteObservation(observation: Observation) {
+  async deleteObservation() {
+    const { observation } = this;
     if (!window.confirm(this.translate.instant("observations.button.deleteConfirm"))) {
       return;
     }
     try {
       this.saving = true;
       await this.observationsService.deleteObservation(observation);
-      const index = this.observations.findIndex((o) => o.id === observation.id);
+      const index = this.observations.findIndex((o) => o.$source === Source.albina && o.$data.id === observation.id);
       this.observations.splice(index, 1);
       this.showDialog = false;
     } catch (error) {
@@ -81,6 +93,10 @@ export class ObservationTableComponent {
     } finally {
       this.saving = false;
     }
+  }
+
+  discardObservation() {
+    this.observation = undefined;
   }
 
   private reportError(error: HttpErrorResponse) {

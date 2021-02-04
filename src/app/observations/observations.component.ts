@@ -1,15 +1,9 @@
 import { Component, AfterContentInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { ConstantsService } from "../providers/constants-service/constants.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
-import { ObservationsService } from "../providers/observations-service/observations.service";
+import { ObservationsService } from "./observations.service";
 import { MapService } from "../providers/map-service/map.service";
-import { Observation, ObservationTableRow } from "app/models/observation.model";
-import { Natlefs, toNatlefsTable } from "../models/natlefs.model";
-import { SimpleObservation } from "app/models/avaobs.model";
-import { toLawisIncidentTable } from "app/models/lawis.model";
-import { toLoLaTable } from "app/models/lola-safety.model";
-import * as Enums from "../enums/enums";
+import { GenericObservation, ObservationTableRow, toObservationTable } from "app/models/generic-observation.model";
 
 import * as L from "leaflet";
 
@@ -22,13 +16,11 @@ export class ObservationsComponent implements AfterContentInit {
   public dateRange: Date[] = [];
   public elevationRange = [200, 4000];
   public aspects: string[] = [];
-  public observations: Observation[] = [];
-  public activeNatlefs: Natlefs;
-  public activeTable: ObservationTableRow[];
+  public observations: GenericObservation[] = [];
+  public popupTable: ObservationTableRow[];
 
   constructor(
     private translateService: TranslateService,
-    private constantsService: ConstantsService,
     private observationsService: ObservationsService,
     private authenticationService: AuthenticationService,
     private mapService: MapService
@@ -58,6 +50,7 @@ export class ObservationsComponent implements AfterContentInit {
       this.mapService.observationLayers.Lawis.clearLayers();
       await Promise.all([this.loadAlbina(), this.loadAvaObs(), this.loadLoLaSafety(), this.loadNatlefs(), this.loadLawis()]);
     } finally {
+      this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
       this.loading = false;
     }
   }
@@ -87,111 +80,90 @@ export class ObservationsComponent implements AfterContentInit {
 
   private async loadAlbina() {
     try {
-      this.observations = await this.observationsService.getObservations();
-      this.observations.sort((o1, o2) => (o1.eventDate === o2.eventDate ? 0 : o1.eventDate < o2.eventDate ? 1 : -1));
+      const observations = await this.observationsService.getObservations();
+      observations.forEach((o) => this.addObservation(o, this.mapService.observationLayers.Albina));
     } catch (error) {
       console.error("Failed fetching ALBINA observations", error);
     }
   }
 
   private async loadAvaObs() {
-    const { observations, simpleObservations, snowProfiles } = await this.observationsService.getAvaObs();
-    observations.forEach((o) => this.createAvaObsMarker(o, "blue", "https://www.avaobs.info/observation/" + o.uuId));
-    simpleObservations.forEach((o) => this.createAvaObsMarker(o, "green", "https://www.avaobs.info/simpleObservation/" + o.uuId));
-    snowProfiles.forEach((o) => this.createAvaObsMarker(o, "red", "https://www.avaobs.info/snowprofile/" + o.uuId));
+    try {
+      const { observations, simpleObservations, snowProfiles } = await this.observationsService.getAvaObs();
+      observations.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObs));
+      simpleObservations.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObs));
+      snowProfiles.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObs));
+    } catch (error) {
+      console.log("AvaObs loading failed", error);
+    }
   }
 
   private async loadLoLaSafety() {
-    const { avalancheReports, snowProfiles } = await this.observationsService.getLoLaSafety();
-    avalancheReports.forEach((o) => {
-      if (!o.latitude || !o.longitude) {
-        return;
-      }
-      L.circleMarker(L.latLng(o.latitude, o.longitude), this.mapService.createNatlefsOptions("#eed839"))
-        .bindTooltip(o.avalancheName)
-        .on({ click: () => (this.activeTable = toLoLaTable(o, (key) => this.translateService.instant(key))) })
-        .addTo(this.mapService.observationLayers.LoLaSafety);
-    });
-    snowProfiles.forEach((o) => this.createAvaObsMarker(o, "#cc4221", undefined, this.mapService.observationLayers.LoLaSafety));
-  }
-
-  private createAvaObsMarker(o: SimpleObservation, color: string, url?: string, layer = this.mapService.observationLayers.AvaObs) {
-    if (!o.positionLat || !o.positionLng) {
-      return;
+    try {
+      const { avalancheReports, snowProfiles } = await this.observationsService.getLoLaSafety();
+      avalancheReports.forEach((o) => this.addObservation(o, this.mapService.observationLayers.LoLaSafety));
+      snowProfiles.forEach((o) => this.addObservation(o, this.mapService.observationLayers.LoLaSafety));
+    } catch (error) {
+      console.log("LO.LA loading failed", error);
     }
-    L.circleMarker(L.latLng(o.positionLat, o.positionLng), this.mapService.createNatlefsOptions(color))
-      .bindTooltip(o.placeDescription)
-      .on(url ? { click: () => window.open(url) } : {})
-      .addTo(layer);
   }
 
   private async loadNatlefs() {
     try {
       const data = await this.observationsService.getNatlefs();
-      data.forEach((natlefs) => this.createNatlefsMarker(natlefs));
+      data.forEach((natlefs) => this.addObservation(natlefs, this.mapService.observationLayers.Natlefs));
     } catch (error) {
-      console.error("NATLEFS could not be loaded from server: " + JSON.stringify(error._body));
+      console.error("NATLEFS loading failed", error);
     }
   }
 
-  private createNatlefsMarker(natlefs: Natlefs) {
-    const { latitude, longitude } = natlefs?.location?.geo ?? {};
-    if (!latitude || !longitude || !this.inElevationRange(natlefs?.location?.elevation)) {
-      return;
-    }
-    L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions())
-      .on({
-        click: () => (this.activeTable = toNatlefsTable(natlefs, (key) => this.translateService.instant(key)))
-      })
-      .addTo(this.mapService.observationLayers.Natlefs);
+  get popupTableVisible(): boolean {
+    return this.popupTable !== undefined;
   }
 
-  get activeTableDialog(): boolean {
-    return this.activeTable !== undefined;
-  }
-
-  set activeTableDialog(value: boolean) {
+  set popupTableVisible(value: boolean) {
     if (value) {
       throw Error(String(value));
     }
-    this.activeTable = undefined;
+    this.popupTable = undefined;
   }
 
   private async loadLawis() {
     try {
       const { profiles, incidents } = await this.observationsService.getLawis();
-      profiles.forEach(({ latitude, longitude, seehoehe, exposition_id, ort, datum, profil_id }) => {
-        const aspect = Enums.Aspect[exposition_id];
-        if (!latitude || !longitude || !this.inElevationRange(seehoehe) || !this.inAspects(aspect)) {
-          return;
-        }
-        L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions("#44a9db"))
-          .bindTooltip(`${ort} (${datum})`)
-          .on({ click: () => window.open(this.constantsService.lawisApi.profilePDF.replace("{{id}}", String(profil_id))) })
-          .addTo(this.mapService.observationLayers.Lawis);
-      });
-      incidents.forEach(({ latitude, longitude, elevation, aspect_id, ort, datum, incident_id }) => {
-        const aspect = Enums.Aspect[aspect_id];
-        if (!latitude || !longitude || !this.inElevationRange(elevation) || !this.inAspects(aspect)) {
-          return;
-        }
-        L.circleMarker(L.latLng(latitude, longitude), this.mapService.createNatlefsOptions("#b76bd9"))
-          .bindTooltip(`${ort} (${datum})`)
-          .on({
-            click: async () => {
-              try {
-                const incidentDetails = await this.observationsService.getLawisIncidentDetails(incident_id);
-                this.activeTable = toLawisIncidentTable(incidentDetails, (key) => this.translateService.instant(key));
-              } catch (error) {
-                window.open(this.constantsService.lawisApi.incidentWeb.replace("{{id}}", String(incident_id)));
-              }
-            }
-          })
-          .addTo(this.mapService.observationLayers.Lawis);
-      });
+      profiles.forEach((profile) => this.addObservation(profile, this.mapService.observationLayers.Lawis));
+      incidents.forEach((incident) => this.addObservation(incident, this.mapService.observationLayers.Lawis));
     } catch (error) {
       console.error("Failed fetching lawis.at", error);
     }
+  }
+
+  private addObservation(observation: GenericObservation, layer: L.LayerGroup): void {
+    if (!this.inElevationRange(observation.elevation) || !this.inAspects(observation.aspect)) {
+      return;
+    }
+    this.observations.push(observation);
+
+    if (!observation.latitude || !observation.longitude) {
+      return;
+    }
+    const ll = L.latLng(observation.latitude, observation.longitude);
+    L.circleMarker(ll, this.mapService.createNatlefsOptions(observation.$markerColor))
+      .bindTooltip(observation.locationName)
+      .on({ click: () => this.onObservationClick(observation) })
+      .addTo(layer);
+  }
+
+  async onObservationClick(observation: GenericObservation): Promise<void> {
+    if (observation.$externalURL) {
+      window.open(observation.$externalURL);
+      return;
+    }
+    const extraRows = observation.$extraDialogRows
+      ? await observation.$extraDialogRows(observation, (key) => this.translateService.instant(key))
+      : [];
+    const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
+    this.popupTable = [...rows, ...extraRows];
   }
 
   private inElevationRange(elevation: number | undefined) {

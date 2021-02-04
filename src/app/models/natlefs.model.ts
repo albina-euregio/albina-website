@@ -1,4 +1,4 @@
-import { ObservationTableRow } from "./observation.model";
+import { GenericObservation, ObservationTableRow, Source } from "./generic-observation.model";
 
 export interface Natlefs {
   snowConditions?: SnowCondition[];
@@ -55,7 +55,7 @@ export enum TerrainFeature {
 }
 
 export interface DateTime {
-  date: Date;
+  date: string;
   quality: Quality;
 }
 
@@ -118,28 +118,26 @@ export enum SurfaceSnowWetness {
   Sticky = "sticky"
 }
 
-export function toNatlefsTable(natlefs: Natlefs, t: (string) => string): ObservationTableRow[] {
+export function convertNatlefsToGeneric(natlefs: Natlefs): GenericObservation<Natlefs> {
+  return {
+    $data: natlefs,
+    $source: Source.natlefs,
+    $extraDialogRows: async (_, t) => toNatlefsTable(natlefs, t),
+    $markerColor: "black",
+    aspect: natlefs.location.aspect as any,
+    authorName: natlefs.author.name,
+    content: natlefs.comment,
+    elevation: natlefs.location.elevation,
+    eventDate: new Date(natlefs.datetime.date),
+    latitude: natlefs.location?.geo?.latitude,
+    locationName: natlefs.location.name,
+    longitude: natlefs.location?.geo?.longitude,
+    region: ""
+  };
+}
+
+function toNatlefsTable(natlefs: Natlefs, t: (key: string) => string): ObservationTableRow[] {
   return [
-    {
-      label: t("observations.locationName"),
-      value: natlefs.location.name
-    },
-    {
-      label: t("observations.authorName"),
-      value: natlefs.author.name
-    },
-    {
-      label: t("observations.eventDate"),
-      date: natlefs.datetime.date
-    },
-    {
-      label: t("observations.elevation"),
-      number: natlefs.location.elevation
-    },
-    {
-      label: t("observations.aspect"),
-      value: natlefs.location.aspect
-    },
     {
       label: t("location.accuracy"),
       number: natlefs.location.accuracy
