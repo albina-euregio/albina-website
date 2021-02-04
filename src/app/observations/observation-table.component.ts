@@ -2,7 +2,7 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { EventType, Observation } from "app/models/observation.model";
-import { ObservationsService } from "app/providers/observations-service/observations.service";
+import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
 
 @Component({

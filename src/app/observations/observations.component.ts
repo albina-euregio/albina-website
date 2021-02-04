@@ -2,7 +2,7 @@ import { Component, AfterContentInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
-import { ObservationsService } from "../providers/observations-service/observations.service";
+import { ObservationsService } from "./observations.service";
 import { MapService } from "../providers/map-service/map.service";
 import { Observation, ObservationTableRow } from "app/models/observation.model";
 import { Natlefs, toNatlefsTable } from "../models/natlefs.model";

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { AuthenticationService } from "../authentication-service/authentication.service";
-import { ConstantsService } from "../constants-service/constants.service";
+import { AuthenticationService } from "app/providers/authentication-service/authentication.service";
+import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { Observation } from "app/models/observation.model";
 import { Natlefs } from "app/models/natlefs.model";
 import { AvaObs, Observation as AvaObservation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
