@@ -1,6 +1,6 @@
 import React from "react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
-import { fetchJSON } from "../util/fetch";
+import { fetchText } from "../util/fetch";
 import PageHeadline from "../components/organisms/page-headline";
 
 class SubscribeConfirmation extends React.Component {
@@ -12,7 +12,7 @@ class SubscribeConfirmation extends React.Component {
     };
   }
   componentDidMount() {
-    fetchJSON(config.apis.subscribe + "/confirm", {
+    fetchText(config.apis.subscribe + "/confirm", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
