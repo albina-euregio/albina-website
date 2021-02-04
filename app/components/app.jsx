@@ -26,7 +26,6 @@ import Education from "./../views/education";
 import More from "./../views/more";
 import Archive from "./../views/archive";
 import StaticPage from "./../views/staticPage";
-import SubscribeConfirmation from "./../views/subscribeConfirmation";
 import Page from "./page";
 import { scroll_init } from "../js/scroll";
 import { orientation_change } from "../js/browser";
@@ -136,10 +135,6 @@ class App extends React.Component {
             path: "/archive",
             exact: true,
             component: () => <Redirect to={"/more/archive"} />
-          },
-          {
-            path: "/subscribe/:hash",
-            component: SubscribeConfirmation
           },
           {
             path: "/:lang([a-z]{2})",
