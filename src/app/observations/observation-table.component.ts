@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from "@angular/common/http";
-import { Component, Input, NgZone } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { EventType, Observation } from "app/models/observation.model";
 import { ObservationsService } from "app/providers/observations-service/observations.service";
@@ -15,7 +15,7 @@ export class ObservationTableComponent {
   saving = false;
   messages: Message[] = [];
 
-  constructor(private ngZone: NgZone, private observationsService: ObservationsService, private translate: TranslateService) {}
+  constructor(private observationsService: ObservationsService, private translate: TranslateService) {}
 
   newObservation() {
     this.observation = {
@@ -23,15 +23,14 @@ export class ObservationTableComponent {
     } as Observation;
   }
 
-  async editObservation({ id }: Observation) {
-    const observation = await this.observationsService.getObservation(id);
-    if (typeof observation?.eventDate === "string") {
-      observation.eventDate = new Date(observation.eventDate);
+  async editObservation(observation: Observation) {
+    this.observation = await this.observationsService.getObservation(observation.id);
+    if (typeof this.observation?.eventDate === "string") {
+      this.observation.eventDate = new Date(this.observation.eventDate);
     }
-    if (typeof observation?.reportDate === "string") {
-      observation.reportDate = new Date(observation.reportDate);
+    if (typeof this.observation?.reportDate === "string") {
+      this.observation.reportDate = new Date(this.observation.reportDate);
     }
-    this.ngZone.run(() => (this.observation = observation));
   }
 
   get showDialog(): boolean {
