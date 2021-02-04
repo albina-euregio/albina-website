@@ -23,7 +23,6 @@ export class ObservationsComponent implements AfterContentInit {
   public elevationRange = [200, 4000];
   public aspects: string[] = [];
   public observations: Observation[] = [];
-  public activeNatlefs: Natlefs;
   public activeTable: ObservationTableRow[];
 
   constructor(
