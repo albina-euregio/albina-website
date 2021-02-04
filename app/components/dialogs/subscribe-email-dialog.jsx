@@ -69,6 +69,9 @@ class SubscribeEmailDialog extends React.Component {
     this.setState({ status: "loading" });
     fetchJSON(config.apis.subscribe + "/subscribe", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(data)
     }).then(
       () => {

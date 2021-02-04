@@ -14,6 +14,9 @@ class SubscribeConfirmation extends React.Component {
   componentDidMount() {
     fetchJSON(config.apis.subscribe + "/confirm", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
         hash: decodeURIComponent(this.props.match.params.hash)
       })
