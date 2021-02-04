@@ -801,7 +801,7 @@
     "many" : "Many"
   },
   "location" : {
-    "accuracy" : "Accuracy: ",
+    "accuracy" : "GPS Accuracy",
     "unknownAccuracy" : "(accuracy unknown)"
   },
   "units" : {

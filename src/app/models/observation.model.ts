@@ -1,3 +1,5 @@
+import { GenericObservation, Aspect, Source } from "./generic-observation.model";
+
 export interface Observation {
   aspect: Aspect;
   authorName: string;
@@ -13,17 +15,6 @@ export interface Observation {
   reportDate?: string | Date;
 }
 
-export enum Aspect {
-  N = "N",
-  NE = "NE",
-  E = "E",
-  SE = "SE",
-  S = "S",
-  SW = "SW",
-  W = "W",
-  NW = "NW"
-}
-
 export enum EventType {
   Important = "IMPORTANT",
   Normal = "NORMAL",
@@ -33,10 +24,14 @@ export enum EventType {
   PersonUninjured = "PERSON_UNINJURED"
 }
 
-export interface ObservationTableRow {
-  label: string;
-  date?: Date;
-  number?: number;
-  boolean?: boolean;
-  value?: string;
+export function convertObservationToGeneric(observation: Observation): GenericObservation<Observation> {
+  return {
+    ...observation,
+    $data: observation,
+    $extraDialogRows: null,
+    $markerColor: "#ca0020",
+    $source: Source.albina,
+    eventDate: observation.eventDate ? new Date(observation.eventDate) : undefined,
+    reportDate: observation.reportDate ? new Date(observation.reportDate) : undefined
+  };
 }

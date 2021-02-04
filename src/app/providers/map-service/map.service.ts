@@ -36,6 +36,7 @@ export class MapService {
     zamgModelPoints: L.layerGroup()
   };
   public observationLayers = {
+    Albina: L.layerGroup(),
     Lawis: L.layerGroup(),
     LoLaSafety: L.layerGroup(),
     Natlefs: L.layerGroup(),

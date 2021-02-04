@@ -15,6 +15,9 @@ export class ConstantsService {
   public natlefsPassword: string = "FRYLjTQ2";
 
   public avaObsApi = {
+    observationWeb: "https://www.avaobs.info/observation/",
+    simpleObservationWeb: "https://www.avaobs.info/simpleObservation/",
+    snowProfileWeb: "https://www.avaobs.info/snowprofile/",
     observations: "https://admin.avalanche.report/avaobs/dataexport/observations/",
     simpleObservations: "https://admin.avalanche.report/avaobs/dataexport/simpleobservations/",
     snowProfiles: "https://admin.avalanche.report/avaobs/dataexport/snowprofiles/"

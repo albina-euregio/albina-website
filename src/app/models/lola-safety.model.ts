@@ -1,9 +1,14 @@
 import { SnowProfile } from "./avaobs.model";
-import { ObservationTableRow } from "./observation.model";
+import { GenericObservation, ObservationTableRow, Source } from "./generic-observation.model";
 
-export interface LoLaSafety {
+export interface LoLaSafetyApi {
   snowProfiles: SnowProfile[];
   avalancheReports: AvalancheReport[];
+}
+
+export interface LoLaSafety {
+  snowProfiles: GenericObservation<SnowProfile>[];
+  avalancheReports: GenericObservation<AvalancheReport>[];
 }
 
 export interface AvalancheReport {
@@ -17,7 +22,7 @@ export interface AvalancheReport {
   headlineGerman: string;
   headlineEnglish: string;
   type: string;
-  time: Date;
+  time: string;
   avalancheId: string;
   avalancheName: string;
   userId: string;
@@ -84,13 +89,26 @@ export interface Weather {
   visibilityConditions: string;
 }
 
+export function convertLoLaToGeneric(report: AvalancheReport): GenericObservation<AvalancheReport> {
+  return {
+    $data: report,
+    $extraDialogRows: async (_, t) => toLoLaTable(report, t),
+    $markerColor: "#1a9641",
+    $source: Source.lola_safety,
+    aspect: undefined,
+    authorName: report.firstName + " " + report.lastName,
+    content: report.headlineGerman + " " + report.headlineEnglish,
+    elevation: undefined,
+    eventDate: new Date(report.time),
+    latitude: report.latitude,
+    locationName: report.regionName + " " + report.avalancheName,
+    longitude: report.longitude,
+    region: undefined
+  };
+}
+
 export function toLoLaTable(report: AvalancheReport, t: (key: string) => string): ObservationTableRow[] {
   return [
-    { label: t("observations.region"), value: report.regionName },
-    { label: t("observations.locationName"), value: report.avalancheName },
-    { label: t("observations.authorName"), value: report.firstName + " " + report.lastName },
-    { label: t("observations.eventDate"), date: report.time },
-    { label: t("observations.content"), value: report.headlineGerman + " " + report.headlineEnglish },
     { label: t("LoLaAvalanchePotential.riskAssessment"), number: report.avalanchePotential.riskAssessment },
     { label: t("LoLaAvalanchePotential.snowpackStructure"), number: report.avalanchePotential.snowpackStructure },
     { label: t("LoLaAvalanchePotential.avalanchePotentialValue"), number: report.avalanchePotential.avalanchePotentialValue },
