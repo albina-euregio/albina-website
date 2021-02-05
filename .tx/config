@@ -43,6 +43,12 @@ source_lang = en
 type = HTML
 file_filter = app/content/education/handbook/<lang>.html
 
+[albina-website.community]
+source_file = app/content/education/community/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/education/community/<lang>.html
+
 [albina-website.about]
 source_file = app/content/more/about/en.html
 source_lang = en
