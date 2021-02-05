@@ -66,9 +66,9 @@
   </div>
 </div>
 
-<p-dialog [(visible)]="popupTableVisible" [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true">
-  <table *ngIf="popupTable">
-    <tr *ngFor="let row of popupTable">
+<p-dialog [(visible)]="observationPopupVisible" [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true">
+  <table *ngIf="observationPopup" class="table table-sm">
+    <tr *ngFor="let row of observationPopup.table">
       <th style="padding-right: 1ex">{{ row.label }}</th>
       <td>
         <span *ngIf="row.date !== undefined">{{ row.date | localizedDate: "full" }}</span>
@@ -81,4 +81,5 @@
       </td>
     </tr>
   </table>
+  <iframe *ngIf="observationPopup?.iframe" sandbox="allow-forms allow-same-origin allow-scripts" [src]="observationPopup?.iframe" style="margin-top: 1ex; width: 100%; height: 80vh;"></iframe>
 </p-dialog>

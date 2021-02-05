@@ -1,4 +1,5 @@
 import { Component, AfterContentInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
@@ -17,7 +18,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public elevationRange = [200, 4000];
   public aspects: string[] = [];
   public observations: GenericObservation[] = [];
-  public popupTable: ObservationTableRow[];
+  public observationPopup: {
+    observation: GenericObservation;
+    table: ObservationTableRow[];
+    iframe: SafeResourceUrl;
+  };
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
 
@@ -25,6 +30,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private translateService: TranslateService,
     private observationsService: ObservationsService,
     private authenticationService: AuthenticationService,
+    private sanitizer: DomSanitizer,
     private mapService: MapService
   ) {}
 
@@ -125,15 +131,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
-  get popupTableVisible(): boolean {
-    return this.popupTable !== undefined;
+  get observationPopupVisible(): boolean {
+    return this.observationPopup !== undefined;
   }
 
-  set popupTableVisible(value: boolean) {
+  set observationPopupVisible(value: boolean) {
     if (value) {
       throw Error(String(value));
     }
-    this.popupTable = undefined;
+    this.observationPopup = undefined;
   }
 
   private async loadLawis() {
@@ -163,15 +169,13 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   async onObservationClick(observation: GenericObservation): Promise<void> {
-    if (observation.$externalURL) {
-      window.open(observation.$externalURL);
-      return;
-    }
     const extraRows = observation.$extraDialogRows
       ? await observation.$extraDialogRows(observation, (key) => this.translateService.instant(key))
       : [];
     const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
-    this.popupTable = [...rows, ...extraRows];
+    const table = [...rows, ...extraRows];
+    const iframe = observation.$externalURL ? this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL) : undefined;
+    this.observationPopup = { observation, table, iframe };
   }
 
   private inElevationRange(elevation: number | undefined) {
