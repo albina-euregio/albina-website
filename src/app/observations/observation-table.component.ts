@@ -26,7 +26,7 @@ export class ObservationTableComponent {
   }
 
   onClick(observation: GenericObservation) {
-    if (observation.$source === Source.albina) {
+    if (isAlbinaObservation(observation)) {
       this.editObservation(observation.$data);
     } else {
       this.observationClick.emit(observation);
@@ -62,7 +62,7 @@ export class ObservationTableComponent {
       if (observation.id) {
         const newObservation = await this.observationsService.putObservation(observation);
         Object.assign(
-          this.observations.find((o) => o.$source === Source.albina && o.$data.id === observation.id),
+          this.observations.find((o) => isAlbinaObservation(o) && o.$data.id === observation.id),
           newObservation
         );
       } else {
@@ -85,7 +85,7 @@ export class ObservationTableComponent {
     try {
       this.saving = true;
       await this.observationsService.deleteObservation(observation);
-      const index = this.observations.findIndex((o) => o.$source === Source.albina && o.$data.id === observation.id);
+      const index = this.observations.findIndex((o) => isAlbinaObservation(o) && o.$data.id === observation.id);
       this.observations.splice(index, 1);
       this.showDialog = false;
     } catch (error) {

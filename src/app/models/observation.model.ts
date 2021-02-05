@@ -35,3 +35,7 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
     reportDate: observation.reportDate ? new Date(observation.reportDate) : undefined
   };
 }
+
+export function isAlbinaObservation(observation: GenericObservation): observation is GenericObservation<Observation> {
+  return observation.$source === Source.albina;
+}
