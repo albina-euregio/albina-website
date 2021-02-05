@@ -16,6 +16,7 @@ import SubscribeEmailDialog from "./dialogs/subscribe-email-dialog";
 import SubscribeBlogDialog from "./dialogs/subscribe-blog-dialog";
 import CookieConsent from "./dialogs/cookie-consent";
 import FeedbackDialog from "./dialogs/feedback-dialog";
+import ControlBar from "../components/organisms/control-bar.jsx";
 
 import { renderRoutes } from "react-router-config";
 import { modal_init } from "../js/modal";
@@ -86,14 +87,15 @@ class Page extends React.Component {
         <PageHeader />
         <main id="page-main" className="page-main">
           {APP_ENVIRONMENT === "dev" && (
-            <section className="section controlbar controlbar-dev">
-              <div className="section-centered">
-                <p className="align-center">
+            <ControlBar
+              style="yellow"
+              message={
+                <>
                   This is a development version –{" "}
                   <strong>no real data is shown!</strong>
-                </p>
-              </div>
-            </section>
+                </>
+              }
+            />
           )}
           {renderRoutes(this.props.route.routes)}
         </main>
