@@ -5,53 +5,53 @@ import RegionsEuregio from "../../regions/regions.euregio.geojson.json";
 import RegionsEuregioElevation from "../../regions/regions-elevation.euregio.geojson.json";
 import RegionsAran from "../../regions/regions.aran.geojson.json";
 import RegionsAranElevation from "../../regions/regions-elevation.aran.geojson.json";
-import { FeatureCollection } from "geojson";
+import { FeatureCollection, Polygon, MultiPolygon } from "geojson";
 
 @Injectable()
 export class RegionsService {
+  constructor(private translateService: TranslateService) {}
 
-  constructor(
-    private translateService: TranslateService,
-    ) {
-  }
-
-  getRegionsEuregio(): FeatureCollection {
-    const data = RegionsEuregio as any;
-    for (const item in Object.keys(data.features)) {
-      if (data.features.hasOwnProperty(item)) {
-        data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
-      }
-    }
+  getRegionsEuregio(): FeatureCollection<Polygon, RegionProperties> {
+    const data = RegionsEuregio as FeatureCollection<Polygon, RegionProperties>;
+    this.translateNames(data);
     return data;
   }
 
-  getRegionsEuregioWithElevation(): FeatureCollection {
-    const data = RegionsEuregioElevation as any;
-    for (const item in data.features) {
-      if (data.features.hasOwnProperty(item)) {
-        data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
-      }
-    }
+  getRegionsEuregioWithElevation(): FeatureCollection<Polygon, RegionWithElevationProperties> {
+    const data = RegionsEuregioElevation as FeatureCollection<Polygon, RegionWithElevationProperties>;
+    this.translateNames(data);
     return data;
   }
 
-  getRegionsAran(): FeatureCollection {
-    const data = RegionsAran as any;
-    for (const item in Object.keys(data.features)) {
-      if (data.features.hasOwnProperty(item)) {
-        data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
-      }
-    }
+  getRegionsAran(): FeatureCollection<Polygon, RegionProperties> {
+    const data = RegionsAran as FeatureCollection<Polygon, RegionProperties>;
+    this.translateNames(data);
     return data;
   }
 
-  getRegionsAranWithElevation(): FeatureCollection {
-    const data = RegionsAranElevation as any;
-    for (const item in Object.keys(data.features)) {
-      if (data.features.hasOwnProperty(item)) {
-        data.features[item].properties.name = this.translateService.instant("region." + data.features[item].properties.id);
-      }
-    }
+  getRegionsAranWithElevation(): FeatureCollection<MultiPolygon, RegionWithElevationProperties> {
+    const data = RegionsAranElevation as FeatureCollection<MultiPolygon, RegionWithElevationProperties>;
+    this.translateNames(data);
     return data;
   }
+
+  private translateNames(data: FeatureCollection<any, RegionProperties>) {
+    data.features.forEach(feature => feature.properties.name = this.translateService.instant("region." + feature.properties.id));
+  }
+}
+
+export interface RegionProperties {
+  id: string;
+  name?: string;
+  name_ar?: string;
+  name_cat?: string;
+  name_de?: string;
+  name_en?: string;
+  name_it?: string;
+  name_sp?: string;
+}
+
+export interface RegionWithElevationProperties extends RegionProperties {
+  threshold: number;
+  elevation: "h" | "l";
 }
