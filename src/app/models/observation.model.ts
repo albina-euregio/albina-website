@@ -17,11 +17,14 @@ export interface Observation {
 
 export enum EventType {
   Important = "IMPORTANT",
+  NeighborRegion = "NEIGHBOR_REGION",
   Normal = "NORMAL",
   PersonDead = "PERSON_DEAD",
   PersonInjured = "PERSON_INJURED",
   PersonNo = "PERSON_NO",
-  PersonUninjured = "PERSON_UNINJURED"
+  PersonUninjured = "PERSON_UNINJURED",
+  PersonUnknown = "PERSON_UNKNOWN",
+  Traffic = "TRAFFIC"
 }
 
 export function convertObservationToGeneric(observation: Observation): GenericObservation<Observation> {

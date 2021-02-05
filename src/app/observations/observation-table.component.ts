@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { EventType, Observation } from "app/models/observation.model";
+import { EventType, isAlbinaObservation, Observation } from "app/models/observation.model";
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
 import { GenericObservation, Source } from "app/models/generic-observation.model";
@@ -105,5 +105,27 @@ export class ObservationTableComponent {
       summary: error.statusText,
       detail: error.message
     });
+  }
+
+  getTableRowStyle(observation: GenericObservation): Partial<CSSStyleDeclaration> {
+    if (!isAlbinaObservation(observation)) {
+      return;
+    }
+    switch (observation.$data.eventType) {
+      case EventType.Important:
+        return { color: "red" };
+      case EventType.PersonNo:
+        return { background: "linear-gradient(90deg, cyan 0%, white 50%)" };
+      case EventType.PersonUninjured:
+        return { background: "linear-gradient(90deg, limegreen 0%, white 50%)" };
+      case EventType.PersonInjured:
+        return { background: "linear-gradient(90deg, yellow 0%, white 50%)" };
+      case EventType.PersonDead:
+        return { background: "linear-gradient(90deg, red 0%, white 50%)" };
+      case EventType.PersonUnknown:
+        return { background: "linear-gradient(90deg, gray 0%, white 50%)" };
+      case EventType.NeighborRegion:
+        return { background: "linear-gradient(90deg, darkviolet 0%, white 50%)" };
+    }
   }
 }
