@@ -45,7 +45,7 @@
         type="button"
         pButton
         [icon]="saving ? 'pi pi-spin pi-spinner' : 'pi pi-trash'"
-        [disabled]="saving"
+        [disabled]="saving || observation?.id === undefined"
         (click)="deleteObservation()"
         label="{{ 'observations.button.delete' | translate }}"
         class="ui-button-danger"
