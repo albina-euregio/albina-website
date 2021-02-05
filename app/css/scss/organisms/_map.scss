@@ -133,6 +133,16 @@ $controls-width-height: $padding * 4;
   mix-blend-mode: multiply;
 }
 
+.leaflet-tooltip {
+  padding: ($padding / 4) ($padding / 2);
+  //border: none;
+  border-radius: 0;
+  color: $text-color;
+  font-size: $tiny-font-size;
+  background: rgba($white, 1) !important;
+  @include box-shadow(0.15);
+}
+
 //zoom, search, locate
 .leaflet-top.leaflet-left {
   position: absolute;

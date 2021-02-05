@@ -1,4 +1,5 @@
 import React from "react";
+import ControlBar from "./control-bar.jsx";
 
 export default class InfoBar extends React.Component {
   constructor(props) {
@@ -98,13 +99,7 @@ export default class InfoBar extends React.Component {
       infoMessage = infoMessage[0];
     }
     if (infoMessage)
-      return (
-        <section className="section controlbar fade-in">
-          <div className="section-centered">
-            <p className="align-center">{infoMessage}</p>
-          </div>
-        </section>
-      );
+      return <ControlBar addClass="fade-in" l message={infoMessage} />;
     return [];
   }
 }
