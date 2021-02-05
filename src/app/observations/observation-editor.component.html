@@ -16,7 +16,16 @@
   </div>
   <div class="p-field p-col-12">
     <label for="locationName"><i class="fa fa-globe"></i> {{ "observations.locationName" | translate }}</label>
-    <input id="locationName" required [(ngModel)]="observation.locationName" type="text" pInputText />
+    <p-autoComplete
+      id="locationName"
+      required
+      [(ngModel)]="observation.locationName"
+      (completeMethod)="searchLocation($event)"
+      [suggestions]="locationResults"
+      (onSelect)="selectLocation($event)"
+    >
+    <ng-template let-feature pTemplate="item">{{ feature.properties.display_name }}</ng-template>
+  </p-autoComplete>
   </div>
   <div class="p-field p-col-12 p-md-4">
     <label for="latitude"><i class="fa fa-map-marker"></i> {{ "observations.latitude" | translate }}</label>
