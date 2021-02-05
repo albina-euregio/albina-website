@@ -32,6 +32,9 @@ export class ConstantsService {
     profilePDF: "https://lawis.at/lawis_api/normalizer/files/profiles/snowprofile_{{id}}.pdf"
   };
 
+  public osmNominatimApi = "https://nominatim.openstreetmap.org/search";
+  public osmNominatimCountries = "at,it";
+
   // region (ISO-3166)
   public codeSwitzerland: string = "CH";
   public codeTyrol: string = "AT-07";

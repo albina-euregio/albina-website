@@ -20,6 +20,7 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { DropdownModule } from "primeng/dropdown";
 import { MessagesModule } from "primeng/messages";
 import { MessageModule } from "primeng/message";
+import { AutoCompleteModule } from "primeng/autocomplete";
 
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
@@ -42,6 +43,7 @@ import { ObservationsService } from "./observations.service";
     DropdownModule,
     MessagesModule,
     MessageModule,
+    AutoCompleteModule,
     PipeModule.forRoot()
   ],
   declarations: [
