@@ -1,4 +1,4 @@
-import { Component, AfterContentInit } from "@angular/core";
+import { Component, AfterContentInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
@@ -10,7 +10,7 @@ import * as L from "leaflet";
 @Component({
   templateUrl: "observations.component.html"
 })
-export class ObservationsComponent implements AfterContentInit {
+export class ObservationsComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   public loading = false;
   public showTable = false;
   public dateRange: Date[] = [];
@@ -18,6 +18,8 @@ export class ObservationsComponent implements AfterContentInit {
   public aspects: string[] = [];
   public observations: GenericObservation[] = [];
   public popupTable: ObservationTableRow[];
+
+  @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
 
   constructor(
     private translateService: TranslateService,
@@ -27,8 +29,18 @@ export class ObservationsComponent implements AfterContentInit {
   ) {}
 
   ngAfterContentInit() {
-    this.initMaps();
     this.loadObservations({days: 3});
+  }
+
+  ngAfterViewInit() {
+    this.initMaps();
+  }
+
+  ngOnDestroy() {
+    if (this.mapService.observationsMap) {
+      this.mapService.observationsMap.remove();
+      this.mapService.observationsMap = undefined;
+    }
   }
 
   async loadObservations({days}: {days?: number} = {}) {
@@ -56,11 +68,7 @@ export class ObservationsComponent implements AfterContentInit {
   }
 
   private initMaps() {
-    if (this.mapService.observationsMap) {
-      this.mapService.observationsMap.remove();
-    }
-
-    const map = L.map("map", {
+    const map = L.map(this.mapDiv.nativeElement, {
       zoomControl: false,
       doubleClickZoom: true,
       scrollWheelZoom: true,

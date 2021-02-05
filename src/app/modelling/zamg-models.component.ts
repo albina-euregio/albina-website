@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { ModellingService, ZamgModelPoint } from "./modelling.service";
@@ -10,7 +10,7 @@ import * as L from "leaflet";
 @Component({
   templateUrl: "./zamg-models.component.html"
 })
-export class ZamgModelsComponent implements OnInit, AfterViewInit {
+export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
   modelPoints: ZamgModelPoint[];
   selectedModelPoint: ZamgModelPoint;
   showMap: boolean;
@@ -18,7 +18,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
   ecmwf: boolean;
 
   @ViewChild("select") select: ElementRef<HTMLSelectElement>;
-  @ViewChild("map") mapDiv: ElementRef<HTMLDivElement>;
+  @ViewChild("zamgModelsMap") mapDiv: ElementRef<HTMLDivElement>;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +44,13 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.select.nativeElement.focus();
+  }
+
+  ngOnDestroy() {
+    if (this.mapService.zamgModelsMap) {
+      this.mapService.zamgModelsMap.remove();
+      this.mapService.zamgModelsMap = undefined;
+    }
   }
 
   onSelectedModelPointKeydown(event: KeyboardEvent) {
@@ -94,11 +101,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit {
   }
 
   private initMaps() {
-    if (this.mapService.zamgModelsMap) {
-      this.mapService.zamgModelsMap.remove();
-    }
-
-    const map = L.map("map", {
+    const map = L.map(this.mapDiv.nativeElement, {
       zoomControl: false,
       doubleClickZoom: true,
       scrollWheelZoom: true,
