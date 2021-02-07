@@ -29,7 +29,7 @@ export class ConstantsService {
     incident: "https://admin.avalanche.report/lawis/normalizer/incident/",
     incidentWeb: "https://lawis.at/incident/#{{id}}",
     profile: "https://admin.avalanche.report/lawis/normalizer/profile/",
-    profilePDF: "https://lawis.at/lawis_api/normalizer/files/profiles/snowprofile_{{id}}.pdf"
+    profilePDF: "https://admin.avalanche.report/lawis/normalizer/files/profiles/snowprofile_{{id}}.pdf"
   };
 
   public osmNominatimApi = "https://nominatim.openstreetmap.org/search";
