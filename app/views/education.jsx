@@ -185,6 +185,38 @@ class Education extends React.Component {
 
             <li className="feature-item">
               <a
+                href="/education/community"
+                className="linkbox linkbox-feature"
+              >
+                <div className="content-image">
+                  <img
+                    src="/content_files/feature_community.jpg"
+                    title={this.props.intl.formatMessage({
+                      id: "education:overview:community:image:title"
+                    })}
+                    alt={this.props.intl.formatMessage({
+                      id: "education:overview:community:image:alt"
+                    })}
+                    className=""
+                  />
+                </div>
+                <div className="content-text">
+                  <p className="h1 subheader">
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:community:headline"
+                    })}
+                  </p>
+                  <p>
+                    {this.props.intl.formatMessage({
+                      id: "education:overview:community:text"
+                    })}
+                  </p>
+                </div>
+              </a>
+            </li>
+
+            <li className="feature-item">
+              <a
                 href={this.props.intl.formatMessage({
                   id: "education:overview:glossary:link"
                 })}

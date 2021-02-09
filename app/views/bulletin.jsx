@@ -5,12 +5,13 @@ import { observer } from "mobx-react";
 import { BulletinStore } from "../stores/bulletinStore";
 import MapStore from "../stores/mapStore";
 
-import { injectIntl } from "react-intl";
+import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
 import BulletinMap from "../components/bulletin/bulletin-map";
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
+import ControlBar from "../components/organisms/control-bar.jsx";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { parseDate, dateToLongDateString } from "../util/date.js";
@@ -187,6 +188,16 @@ class Bulletin extends React.Component {
             "og:image:width": 1890,
             "og:image:height": 1890
           }}
+        />
+        <ControlBar
+          style="light"
+          backgroundImage="/content_files/ava_size5-2560.jpg"
+          message={
+            <>
+              <FormattedHTMLMessage id="bulletin:control-bar:community:text" />
+              <FormattedHTMLMessage id="bulletin:control-bar:community:link" />
+            </>
+          }
         />
         <BulletinHeader store={this.store} title={this.state.title} />
 
