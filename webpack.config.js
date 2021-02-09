@@ -10,6 +10,10 @@ const SizePlugin = require("size-plugin");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const merge = require("lodash/merge");
 
+function git(command) {
+  return execSync(`git ${command}`, { encoding: "utf8" }).trim();
+}
+
 /**
  * @returns {webpack.Configuration}
  */
@@ -122,14 +126,8 @@ module.exports = (env, argv) => {
         APP_ENVIRONMENT: JSON.stringify(env),
         APP_ASSET_PATH: JSON.stringify(publicPath),
         APP_DEV_MODE: JSON.stringify(!production),
-        APP_VERSION: JSON.stringify(
-          execSync("git describe --tags", { encoding: "utf8" }).trim()
-        ),
-        APP_VERSION_DATE: JSON.stringify(
-          execSync("git log -1 --format=%cd --date=short", {
-            encoding: "utf8"
-          }).trim()
-        )
+        APP_VERSION: JSON.stringify(git("describe --tags")),
+        APP_VERSION_DATE: JSON.stringify(git("log -1 --format=%cd --date=short"))
       }),
       new MiniCssExtractPlugin({
         filename: "[name].[hash].css"
