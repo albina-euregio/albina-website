@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const SizePlugin = require("size-plugin");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const merge = require("lodash/merge");
+const { license, repository } = require ("./package.json");
 
 function git(command) {
   return execSync(`git ${command}`, { encoding: "utf8" }).trim();
@@ -126,6 +127,8 @@ module.exports = (env, argv) => {
         APP_ENVIRONMENT: JSON.stringify(env),
         APP_ASSET_PATH: JSON.stringify(publicPath),
         APP_DEV_MODE: JSON.stringify(!production),
+        APP_LICENSE: JSON.stringify(license),
+        APP_REPOSITORY: JSON.stringify(repository),
         APP_VERSION: JSON.stringify(git("describe --tags")),
         APP_VERSION_DATE: JSON.stringify(git("log -1 --format=%cd --date=short"))
       }),

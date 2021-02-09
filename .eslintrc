@@ -24,6 +24,8 @@
     "APP_DEV_MODE": true,
     "APP_ASSET_PATH": true,
     "APP_ENVIRONMENT": true,
+    "APP_LICENSE": true,
+    "APP_REPOSITORY": true,
     "APP_VERSION": true,
     "APP_VERSION_DATE": true,
     "appStore": true,
