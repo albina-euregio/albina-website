@@ -63,9 +63,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       this.observations.length = 0;
       this.observationsService.startDate = this.dateRange[0];
       this.observationsService.endDate = this.dateRange[1];
-      this.mapService.observationLayers.AvaObs.clearLayers();
+      this.mapService.observationLayers.Albina.clearLayers();
+      this.mapService.observationLayers.AvaObsSnowProfiles.clearLayers();
+      this.mapService.observationLayers.AvaObsObservations.clearLayers();
+      this.mapService.observationLayers.AvaObsSimpleObservations.clearLayers();
+      this.mapService.observationLayers.LoLaSafetySnowProfiles.clearLayers();
+      this.mapService.observationLayers.LoLaSafetyAvalancheReports.clearLayers();
       this.mapService.observationLayers.Natlefs.clearLayers();
-      this.mapService.observationLayers.Lawis.clearLayers();
+      this.mapService.observationLayers.LawisSnowProfiles.clearLayers();
+      this.mapService.observationLayers.LawisIncidents.clearLayers();
       await Promise.all([this.loadAlbina(), this.loadAvaObs(), this.loadLoLaSafety(), this.loadNatlefs(), this.loadLawis()]);
     } finally {
       this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
@@ -104,9 +110,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   private async loadAvaObs() {
     try {
       const { observations, simpleObservations, snowProfiles } = await this.observationsService.getAvaObs();
-      observations.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObs));
-      simpleObservations.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObs));
-      snowProfiles.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObs));
+      observations.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObsObservations));
+      simpleObservations.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObsSimpleObservations));
+      snowProfiles.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObsSnowProfiles));
     } catch (error) {
       console.log("AvaObs loading failed", error);
     }
@@ -115,8 +121,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   private async loadLoLaSafety() {
     try {
       const { avalancheReports, snowProfiles } = await this.observationsService.getLoLaSafety();
-      avalancheReports.forEach((o) => this.addObservation(o, this.mapService.observationLayers.LoLaSafety));
-      snowProfiles.forEach((o) => this.addObservation(o, this.mapService.observationLayers.LoLaSafety));
+      avalancheReports.forEach((o) => this.addObservation(o, this.mapService.observationLayers.LoLaSafetyAvalancheReports));
+      snowProfiles.forEach((o) => this.addObservation(o, this.mapService.observationLayers.LoLaSafetySnowProfiles));
     } catch (error) {
       console.log("LO.LA loading failed", error);
     }
@@ -145,8 +151,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   private async loadLawis() {
     try {
       const { profiles, incidents } = await this.observationsService.getLawis();
-      profiles.forEach((profile) => this.addObservation(profile, this.mapService.observationLayers.Lawis));
-      incidents.forEach((incident) => this.addObservation(incident, this.mapService.observationLayers.Lawis));
+      profiles.forEach((profile) => this.addObservation(profile, this.mapService.observationLayers.LawisSnowProfiles));
+      incidents.forEach((incident) => this.addObservation(incident, this.mapService.observationLayers.LawisIncidents));
     } catch (error) {
       console.error("Failed fetching lawis.at", error);
     }

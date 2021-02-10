@@ -37,10 +37,14 @@ export class MapService {
   };
   public observationLayers = {
     Albina: L.layerGroup(),
-    Lawis: L.layerGroup(),
-    LoLaSafety: L.layerGroup(),
+    LawisSnowProfiles: L.layerGroup(),
+    LawisIncidents: L.layerGroup(),
+    LoLaSafetySnowProfiles: L.layerGroup(),
+    LoLaSafetyAvalancheReports: L.layerGroup(),
     Natlefs: L.layerGroup(),
-    AvaObs: L.layerGroup()
+    AvaObsSnowProfiles: L.layerGroup(),
+    AvaObsObservations: L.layerGroup(),
+    AvaObsSimpleObservations: L.layerGroup()
   };
 
   constructor(
