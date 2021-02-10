@@ -1,4 +1,4 @@
-import { GenericObservation, ObservationTableRow, Source } from "./generic-observation.model";
+import { GenericObservation, ObservationTableRow, ObservationSource } from "./generic-observation.model";
 
 export interface Natlefs {
   snowConditions?: SnowCondition[];
@@ -121,7 +121,7 @@ export enum SurfaceSnowWetness {
 export function convertNatlefsToGeneric(natlefs: Natlefs): GenericObservation<Natlefs> {
   return {
     $data: natlefs,
-    $source: Source.natlefs,
+    $source: ObservationSource.Natlefs,
     $extraDialogRows: async (_, t) => toNatlefsTable(natlefs, t),
     $markerColor: "black",
     aspect: natlefs.location.aspect as any,

@@ -101,7 +101,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   private async loadAlbina() {
     try {
       const observations = await this.observationsService.getObservations();
-      observations.forEach((o) => this.addObservation(o, this.mapService.observationLayers.Albina));
+      observations.forEach((o) => this.addObservation(o));
     } catch (error) {
       console.error("Failed fetching ALBINA observations", error);
     }
@@ -110,9 +110,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   private async loadAvaObs() {
     try {
       const { observations, simpleObservations, snowProfiles } = await this.observationsService.getAvaObs();
-      observations.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObsObservations));
-      simpleObservations.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObsSimpleObservations));
-      snowProfiles.forEach((o) => this.addObservation(o, this.mapService.observationLayers.AvaObsSnowProfiles));
+      observations.forEach((o) => this.addObservation(o));
+      simpleObservations.forEach((o) => this.addObservation(o));
+      snowProfiles.forEach((o) => this.addObservation(o));
     } catch (error) {
       console.log("AvaObs loading failed", error);
     }
@@ -121,8 +121,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   private async loadLoLaSafety() {
     try {
       const { avalancheReports, snowProfiles } = await this.observationsService.getLoLaSafety();
-      avalancheReports.forEach((o) => this.addObservation(o, this.mapService.observationLayers.LoLaSafetyAvalancheReports));
-      snowProfiles.forEach((o) => this.addObservation(o, this.mapService.observationLayers.LoLaSafetySnowProfiles));
+      avalancheReports.forEach((o) => this.addObservation(o));
+      snowProfiles.forEach((o) => this.addObservation(o));
     } catch (error) {
       console.log("LO.LA loading failed", error);
     }
@@ -131,7 +131,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   private async loadNatlefs() {
     try {
       const data = await this.observationsService.getNatlefs();
-      data.forEach((natlefs) => this.addObservation(natlefs, this.mapService.observationLayers.Natlefs));
+      data.forEach((natlefs) => this.addObservation(natlefs));
     } catch (error) {
       console.error("NATLEFS loading failed", error);
     }
@@ -151,14 +151,14 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   private async loadLawis() {
     try {
       const { profiles, incidents } = await this.observationsService.getLawis();
-      profiles.forEach((profile) => this.addObservation(profile, this.mapService.observationLayers.LawisSnowProfiles));
-      incidents.forEach((incident) => this.addObservation(incident, this.mapService.observationLayers.LawisIncidents));
+      profiles.forEach((profile) => this.addObservation(profile));
+      incidents.forEach((incident) => this.addObservation(incident));
     } catch (error) {
       console.error("Failed fetching lawis.at", error);
     }
   }
 
-  private addObservation(observation: GenericObservation, layer: L.LayerGroup): void {
+  private addObservation(observation: GenericObservation): void {
     if (!this.inElevationRange(observation.elevation) || !this.inAspects(observation.aspect)) {
       return;
     }
@@ -171,7 +171,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     L.circleMarker(ll, this.mapService.createNatlefsOptions(observation.$markerColor))
       .bindTooltip(observation.locationName)
       .on({ click: () => this.onObservationClick(observation) })
-      .addTo(layer);
+      .addTo(this.mapService.observationLayers[observation.$source]);
   }
 
   async onObservationClick(observation: GenericObservation): Promise<void> {

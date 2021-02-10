@@ -5,6 +5,7 @@ import { RegionsService } from "../regions-service/regions.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { ConstantsService } from "../constants-service/constants.service";
 import * as Enums from "../../enums/enums";
+import { ObservationSource } from "../../models/generic-observation.model";
 
 import * as L from "leaflet";
 import * as geojson from "geojson";
@@ -35,16 +36,16 @@ export class MapService {
   public layers = {
     zamgModelPoints: L.layerGroup()
   };
-  public observationLayers = {
-    Albina: L.layerGroup(),
-    LawisSnowProfiles: L.layerGroup(),
-    LawisIncidents: L.layerGroup(),
-    LoLaSafetySnowProfiles: L.layerGroup(),
-    LoLaSafetyAvalancheReports: L.layerGroup(),
-    Natlefs: L.layerGroup(),
-    AvaObsSnowProfiles: L.layerGroup(),
-    AvaObsObservations: L.layerGroup(),
-    AvaObsSimpleObservations: L.layerGroup()
+  public observationLayers: Record<ObservationSource, L.LayerGroup> = {
+    [ObservationSource.Albina]: L.layerGroup(),
+    [ObservationSource.LawisSnowProfiles]: L.layerGroup(),
+    [ObservationSource.LawisIncidents]: L.layerGroup(),
+    [ObservationSource.LoLaSafetySnowProfiles]: L.layerGroup(),
+    [ObservationSource.LoLaSafetyAvalancheReports]: L.layerGroup(),
+    [ObservationSource.Natlefs]: L.layerGroup(),
+    [ObservationSource.AvaObsSnowProfiles]: L.layerGroup(),
+    [ObservationSource.AvaObsObservations]: L.layerGroup(),
+    [ObservationSource.AvaObsSimpleObservations]: L.layerGroup()
   };
 
   constructor(

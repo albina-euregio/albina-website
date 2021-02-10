@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
+import { ObservationSource } from "app/models/generic-observation.model";
 import { environment } from "../../../environments/environment";
 const pkg = require("../../../../package.json");
 
 @Injectable()
 export class ConstantsService {
-
   public release = [pkg.name, pkg.version].join("@");
   public gitlab = pkg.bugs.url;
 
@@ -14,22 +14,20 @@ export class ConstantsService {
   public natlefsUsername: string = "norbert.lanzanasto@tirol.gv.at";
   public natlefsPassword: string = "FRYLjTQ2";
 
-  public avaObsApi = {
-    observationWeb: "https://www.avaobs.info/observation/",
-    simpleObservationWeb: "https://www.avaobs.info/simpleObservation/",
-    snowProfileWeb: "https://www.avaobs.info/snowprofile/",
-    observations: "https://admin.avalanche.report/avaobs/dataexport/observations/",
-    simpleObservations: "https://admin.avalanche.report/avaobs/dataexport/simpleobservations/",
-    snowProfiles: "https://admin.avalanche.report/avaobs/dataexport/snowprofiles/"
+  public observationApi = {
+    [ObservationSource.AvaObsObservations]: "https://admin.avalanche.report/avaobs/dataexport/observations/",
+    [ObservationSource.AvaObsSimpleObservations]: "https://admin.avalanche.report/avaobs/dataexport/simpleobservations/",
+    [ObservationSource.AvaObsSnowProfiles]: "https://admin.avalanche.report/avaobs/dataexport/snowprofiles/",
+    [ObservationSource.LawisIncidents]: "https://admin.avalanche.report/lawis/normalizer/incident/",
+    [ObservationSource.LawisSnowProfiles]: "https://admin.avalanche.report/lawis/normalizer/profile/",
+    [ObservationSource.LoLaSafetyAvalancheReports]: "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
   };
-
-  public lolaSafety = "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/";
-
-  public lawisApi = {
-    incident: "https://admin.avalanche.report/lawis/normalizer/incident/",
-    incidentWeb: "https://lawis.at/incident/#{{id}}",
-    profile: "https://admin.avalanche.report/lawis/normalizer/profile/",
-    profilePDF: "https://admin.avalanche.report/lawis/normalizer/files/profiles/snowprofile_{{id}}.pdf"
+  public observationWeb = {
+    [ObservationSource.AvaObsObservations]: "https://www.avaobs.info/observation/",
+    [ObservationSource.AvaObsSimpleObservations]: "https://www.avaobs.info/simpleObservation/",
+    [ObservationSource.AvaObsSnowProfiles]: "https://www.avaobs.info/snowprofile/",
+    [ObservationSource.LawisIncidents]: "https://lawis.at/incident/#{{id}}",
+    [ObservationSource.LawisSnowProfiles]: "https://admin.avalanche.report/lawis/normalizer/files/profiles/snowprofile_{{id}}.pdf",
   };
 
   public osmNominatimApi = "https://nominatim.openstreetmap.org/search";

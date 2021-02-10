@@ -5,7 +5,7 @@ export interface GenericObservation<Data = any> {
   $externalURL?: string;
   $extraDialogRows?: (observation: this, t: (key: string) => string) => Promise<ObservationTableRow[]>;
   $markerColor: string;
-  $source: Source;
+  $source: ObservationSource;
   aspect: Aspect;
   authorName: string;
   content: string;
@@ -18,12 +18,16 @@ export interface GenericObservation<Data = any> {
   reportDate?: Date;
 }
 
-export enum Source {
-  albina,
-  avaobs,
-  lawis,
-  lola_safety,
-  natlefs
+export enum ObservationSource {
+  Albina = "Albina",
+  LawisSnowProfiles = "LawisSnowProfiles",
+  LawisIncidents = "LawisIncidents",
+  LoLaSafetySnowProfiles = "LoLaSafetySnowProfiles",
+  LoLaSafetyAvalancheReports = "LoLaSafetyAvalancheReports",
+  Natlefs = "Natlefs",
+  AvaObsSnowProfiles = "AvaObsSnowProfiles",
+  AvaObsObservations = "AvaObsObservations",
+  AvaObsSimpleObservations = "AvaObsSimpleObservations"
 }
 
 export enum Aspect {

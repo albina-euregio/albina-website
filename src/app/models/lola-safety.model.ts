@@ -1,5 +1,5 @@
 import { SnowProfile } from "./avaobs.model";
-import { GenericObservation, ObservationTableRow, Source } from "./generic-observation.model";
+import { GenericObservation, ObservationTableRow, ObservationSource } from "./generic-observation.model";
 
 export interface LoLaSafetyApi {
   snowProfiles: SnowProfile[];
@@ -94,7 +94,7 @@ export function convertLoLaToGeneric(report: AvalancheReport): GenericObservatio
     $data: report,
     $extraDialogRows: async (_, t) => toLoLaTable(report, t),
     $markerColor: "#1a9641",
-    $source: Source.lola_safety,
+    $source: ObservationSource.LoLaSafetyAvalancheReports,
     aspect: undefined,
     authorName: report.firstName + " " + report.lastName,
     content: report.headlineGerman + " " + report.headlineEnglish,

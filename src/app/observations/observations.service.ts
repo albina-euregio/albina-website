@@ -7,7 +7,7 @@ import { convertNatlefsToGeneric, Natlefs } from "app/models/natlefs.model";
 import { AvaObs, convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
 import { convertLoLaToGeneric, LoLaSafety, LoLaSafetyApi } from "app/models/lola-safety.model";
 import { Lawis, Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "app/models/lawis.model";
-import { GenericObservation, Source, toAspect } from "app/models/generic-observation.model";
+import { GenericObservation, ObservationSource, toAspect } from "app/models/generic-observation.model";
 import { TranslateService } from "@ngx-translate/core";
 import { FeatureCollection, Point } from "geojson";
 
@@ -101,36 +101,42 @@ export class ObservationsService {
   }
 
   async getAvaObs(): Promise<AvaObs> {
-    const { avaObsApi } = this.constantsService;
+    const { observationApi: api } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    const observations = await this.http.get<AvaObservation[]>(avaObsApi.observations + timeframe).toPromise();
-    const simpleObservations = await this.http.get<SimpleObservation[]>(avaObsApi.simpleObservations + timeframe).toPromise();
-    const snowProfiles = await this.http.get<SnowProfile[]>(avaObsApi.snowProfiles + timeframe).toPromise();
+    const observations = await this.http.get<AvaObservation[]>(api.AvaObsObservations + timeframe).toPromise();
+    const simpleObservations = await this.http.get<SimpleObservation[]>(api.AvaObsSimpleObservations + timeframe).toPromise();
+    const snowProfiles = await this.http.get<SnowProfile[]>(api.AvaObsSnowProfiles + timeframe).toPromise();
     return {
-      observations: observations.map((obs) => convertAvaObsToGeneric(obs, "#018571", avaObsApi.observationWeb)),
-      simpleObservations: simpleObservations.map((obs) => convertAvaObsToGeneric(obs, "#80cdc1", avaObsApi.simpleObservationWeb)),
-      snowProfiles: snowProfiles.map((obs) => convertAvaObsToGeneric(obs, "#2c7bb6", avaObsApi.snowProfileWeb))
+      observations: observations.map((obs) =>
+        convertAvaObsToGeneric(obs, "#018571", ObservationSource.AvaObsObservations, api.AvaObsObservations)
+      ),
+      simpleObservations: simpleObservations.map((obs) =>
+        convertAvaObsToGeneric(obs, "#80cdc1", ObservationSource.AvaObsSimpleObservations, api.AvaObsSimpleObservations)
+      ),
+      snowProfiles: snowProfiles.map((obs) =>
+        convertAvaObsToGeneric(obs, "#2c7bb6", ObservationSource.AvaObsSnowProfiles, api.AvaObsSnowProfiles)
+      )
     };
   }
 
   async getLoLaSafety(): Promise<LoLaSafety> {
-    const { lolaSafety } = this.constantsService;
+    const { observationApi: api } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    const { avalancheReports, snowProfiles } = await this.http.get<LoLaSafetyApi>(lolaSafety + timeframe).toPromise();
+    const { avalancheReports, snowProfiles } = await this.http.get<LoLaSafetyApi>(api.LoLaSafetyAvalancheReports + timeframe).toPromise();
     return {
       avalancheReports: avalancheReports.map((report) => convertLoLaToGeneric(report)),
-      snowProfiles: snowProfiles.map((obs) => convertAvaObsToGeneric(obs, "#a6d96a"))
+      snowProfiles: snowProfiles.map((obs) => convertAvaObsToGeneric(obs, "#a6d96a", ObservationSource.LoLaSafetySnowProfiles))
     };
   }
 
   async getLawis(): Promise<Lawis> {
-    const { lawisApi } = this.constantsService;
-    const profiles = (await this.http.get<Profile[]>(lawisApi.profile).toPromise())
+    const { observationApi: api, observationWeb: web } = this.constantsService;
+    const profiles = (await this.http.get<Profile[]>(api.LawisSnowProfiles).toPromise())
       .map<GenericObservation<Profile>>((lawis) => ({
         $data: lawis,
-        $externalURL: lawisApi.profilePDF.replace("{{id}}", String(lawis.profil_id)),
+        $externalURL: web.LawisSnowProfiles.replace("{{id}}", String(lawis.profil_id)),
         $markerColor: "#44a9db",
-        $source: Source.lawis,
+        $source: ObservationSource.LawisSnowProfiles,
         aspect: toAspect(lawis.exposition_id),
         authorName: "",
         content: "(LAWIS snow profile)",
@@ -143,15 +149,15 @@ export class ObservationsService {
       }))
       .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation));
     profiles.forEach(async (profile) => {
-      const lawisDetails = await this.getCachedOrFetch<ProfileDetails>(lawisApi.profile + profile.$data.profil_id);
+      const lawisDetails = await this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + profile.$data.profil_id);
       profile.authorName = lawisDetails.name;
       profile.content = lawisDetails.bemerkungen;
     });
-    const incidents = (await this.http.get<Incident[]>(lawisApi.incident).toPromise())
+    const incidents = (await this.http.get<Incident[]>(api.LawisIncidents).toPromise())
       .map<GenericObservation<Incident>>((lawis) => ({
         $data: lawis,
         $markerColor: "#b76bd9",
-        $source: Source.lawis,
+        $source: ObservationSource.LawisIncidents,
         aspect: toAspect(lawis.aspect_id),
         authorName: "",
         content: "(LAWIS incident)",
@@ -164,7 +170,7 @@ export class ObservationsService {
       }))
       .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation));
     incidents.forEach(async (incident) => {
-      const lawisDetails = await this.getCachedOrFetch<IncidentDetails>(lawisApi.incident + incident.$data.incident_id);
+      const lawisDetails = await this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + incident.$data.incident_id);
       incident.$extraDialogRows = async (_, t) => toLawisIncidentTable(lawisDetails, t);
       incident.authorName = lawisDetails.name;
       incident.content = lawisDetails.comments;

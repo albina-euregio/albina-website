@@ -1,4 +1,4 @@
-import { GenericObservation, Aspect, Source } from "./generic-observation.model";
+import { GenericObservation, Aspect, ObservationSource } from "./generic-observation.model";
 
 export interface Observation {
   aspect: Aspect;
@@ -33,12 +33,12 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
     $data: observation,
     $extraDialogRows: null,
     $markerColor: "#ca0020",
-    $source: Source.albina,
+    $source: ObservationSource.Albina,
     eventDate: observation.eventDate ? new Date(observation.eventDate) : undefined,
     reportDate: observation.reportDate ? new Date(observation.reportDate) : undefined
   };
 }
 
 export function isAlbinaObservation(observation: GenericObservation): observation is GenericObservation<Observation> {
-  return observation.$source === Source.albina;
+  return observation.$source === ObservationSource.Albina;
 }
