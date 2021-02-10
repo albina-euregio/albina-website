@@ -101,20 +101,20 @@ export class ObservationsService {
   }
 
   async getAvaObs(): Promise<AvaObs> {
-    const { observationApi: api } = this.constantsService;
+    const { observationApi: api, observationWeb: web } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
     const observations = await this.http.get<AvaObservation[]>(api.AvaObsObservations + timeframe).toPromise();
     const simpleObservations = await this.http.get<SimpleObservation[]>(api.AvaObsSimpleObservations + timeframe).toPromise();
     const snowProfiles = await this.http.get<SnowProfile[]>(api.AvaObsSnowProfiles + timeframe).toPromise();
     return {
       observations: observations.map((obs) =>
-        convertAvaObsToGeneric(obs, "#018571", ObservationSource.AvaObsObservations, api.AvaObsObservations)
+        convertAvaObsToGeneric(obs, "#018571", ObservationSource.AvaObsObservations, web.AvaObsObservations)
       ),
       simpleObservations: simpleObservations.map((obs) =>
-        convertAvaObsToGeneric(obs, "#80cdc1", ObservationSource.AvaObsSimpleObservations, api.AvaObsSimpleObservations)
+        convertAvaObsToGeneric(obs, "#80cdc1", ObservationSource.AvaObsSimpleObservations, web.AvaObsSimpleObservations)
       ),
       snowProfiles: snowProfiles.map((obs) =>
-        convertAvaObsToGeneric(obs, "#2c7bb6", ObservationSource.AvaObsSnowProfiles, api.AvaObsSnowProfiles)
+        convertAvaObsToGeneric(obs, "#2c7bb6", ObservationSource.AvaObsSnowProfiles, web.AvaObsSnowProfiles)
       )
     };
   }
