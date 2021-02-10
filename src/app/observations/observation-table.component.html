@@ -25,7 +25,10 @@
       <td [style]="{ color: observation.$markerColor }">█</td>
       <td style="white-space: nowrap">{{ observation.eventDate | localizedDate: "dd.MM.yyyy HH:mm" }}</td>
       <td>{{ observation.authorName }}</td>
-      <td>{{ observation.locationName }}</td>
+      <td>
+        {{ observation.locationName }}
+        <i *ngIf="observation.latitude && observation.longitude" class="fa fa-map-marker" title="{{ 'observations.hasCoordinates' | translate }}"></i>
+      </td>
       <td>{{ observation.content }}</td>
     </tr>
   </tbody>

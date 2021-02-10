@@ -666,6 +666,7 @@
       "PERSON_UNINJURED": "Event involving persons (uninjured)"
     },
     "fractureDepth": "Fracture depth",
+    "hasCoordinates": "Has coordinates",
     "heading": "Observations",
     "incline": "Incline",
     "latitude": "Latitude",
