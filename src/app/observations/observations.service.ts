@@ -6,7 +6,7 @@ import { convertObservationToGeneric, Observation } from "app/models/observation
 import { convertNatlefsToGeneric, Natlefs } from "app/models/natlefs.model";
 import { AvaObs, convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
 import { convertLoLaToGeneric, LoLaSafety, LoLaSafetyApi } from "app/models/lola-safety.model";
-import { Lawis, Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable } from "app/models/lawis.model";
+import { Lawis, Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "app/models/lawis.model";
 import { GenericObservation, Source, toAspect } from "app/models/generic-observation.model";
 import { TranslateService } from "@ngx-translate/core";
 import { FeatureCollection, Point } from "geojson";
@@ -142,16 +142,14 @@ export class ObservationsService {
         region: String(lawis.subregion_id) // todo
       }))
       .filter(({ eventDate }) => this.inDateRange(eventDate));
+    profiles.forEach(async (profile) => {
+      const lawisDetails = await this.getCachedOrFetch<ProfileDetails>(lawisApi.profile + profile.$data.profil_id);
+      profile.authorName = lawisDetails.name;
+      profile.content = lawisDetails.bemerkungen;
+    });
     const incidents = (await this.http.get<Incident[]>(lawisApi.incident).toPromise())
       .map<GenericObservation<Incident>>((lawis) => ({
         $data: lawis,
-        $extraDialogRows: async (incident, t) => {
-          const lawisDetails = await this.getLawisIncidentDetails(lawis.incident_id);
-          incident.authorName = lawisDetails.name;
-          incident.reportDate = parseLawisDate(lawisDetails.reporting_date);
-          incident.content = lawisDetails.comments;
-          return toLawisIncidentTable(lawisDetails, t);
-        },
         $markerColor: "#b76bd9",
         $source: Source.lawis,
         aspect: toAspect(lawis.aspect_id),
@@ -165,12 +163,33 @@ export class ObservationsService {
         region: String(lawis.subregion_id) // todo
       }))
       .filter(({ eventDate }) => this.inDateRange(eventDate));
+    incidents.forEach(async (incident) => {
+      const lawisDetails = await this.getCachedOrFetch<IncidentDetails>(lawisApi.incident + incident.$data.incident_id);
+      incident.$extraDialogRows = async (_, t) => toLawisIncidentTable(lawisDetails, t);
+      incident.authorName = lawisDetails.name;
+      incident.content = lawisDetails.comments;
+      incident.reportDate = parseLawisDate(lawisDetails.reporting_date);
+    });
     return { profiles, incidents };
   }
 
-  async getLawisIncidentDetails(id: number): Promise<IncidentDetails> {
-    const { lawisApi } = this.constantsService;
-    return await this.http.get<IncidentDetails>(lawisApi.incident + id).toPromise();
+  async getCachedOrFetch<T>(url: string): Promise<T> {
+    let cache: Cache;
+    try {
+      cache = await caches.open("observations");
+      const cached = await cache.match(url);
+      if (cached) {
+        return cached.json();
+      }
+    } catch (ignore) {}
+    const response = await fetch(url, { mode: "cors" });
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    if (cache) {
+      cache.put(url, response);
+    }
+    return response.json();
   }
 
   private get startDateString(): string {
