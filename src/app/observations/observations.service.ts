@@ -97,9 +97,7 @@ export class ObservationsService {
     const options = { headers: headers };
 
     const reports = await this.http.get<Natlefs[]>(url, options).toPromise();
-    return reports
-      .map<GenericObservation<Natlefs>>((natlefs) => convertNatlefsToGeneric(natlefs))
-      .filter((observation) => this.inDateRange(observation));
+    return reports.map<GenericObservation<Natlefs>>((natlefs) => convertNatlefsToGeneric(natlefs));
   }
 
   async getAvaObs(): Promise<AvaObs> {
@@ -208,11 +206,11 @@ export class ObservationsService {
     return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.endDate);
   }
 
-  private inDateRange({ eventDate }: GenericObservation): boolean {
+  inDateRange({ eventDate }: GenericObservation): boolean {
     return this.startDate <= eventDate && eventDate <= this.endDate;
   }
 
-  private inMapBounds({ latitude, longitude }: GenericObservation): boolean {
+  inMapBounds({ latitude, longitude }: GenericObservation): boolean {
     if (!latitude || !longitude) {
       return true;
     }

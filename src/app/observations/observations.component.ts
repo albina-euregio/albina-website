@@ -159,7 +159,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   private addObservation(observation: GenericObservation): void {
-    if (!this.inElevationRange(observation.elevation) || !this.inAspects(observation.aspect)) {
+    if (
+      !this.observationsService.inDateRange(observation) ||
+      !this.observationsService.inMapBounds(observation) ||
+      !this.inElevationRange(observation) ||
+      !this.inAspects(observation)
+    ) {
       return;
     }
     this.observations.push(observation);
@@ -184,11 +189,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationPopup = { observation, table, iframe };
   }
 
-  private inElevationRange(elevation: number | undefined) {
+  private inElevationRange({ elevation }: GenericObservation) {
     return elevation === undefined || (this.elevationRange[0] <= elevation && elevation <= this.elevationRange[1]);
   }
 
-  private inAspects(aspect: string) {
+  private inAspects({ aspect }: GenericObservation) {
     return !this.aspects.length || (typeof aspect === "string" && this.aspects.includes(aspect.toUpperCase()));
   }
 
