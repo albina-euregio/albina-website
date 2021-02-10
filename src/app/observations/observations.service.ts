@@ -141,7 +141,7 @@ export class ObservationsService {
         longitude: lawis.longitude,
         region: String(lawis.subregion_id) // todo
       }))
-      .filter(({ eventDate }) => this.inDateRange(eventDate));
+      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation));
     profiles.forEach(async (profile) => {
       const lawisDetails = await this.getCachedOrFetch<ProfileDetails>(lawisApi.profile + profile.$data.profil_id);
       profile.authorName = lawisDetails.name;
@@ -162,7 +162,7 @@ export class ObservationsService {
         longitude: lawis.longitude,
         region: String(lawis.subregion_id) // todo
       }))
-      .filter(({ eventDate }) => this.inDateRange(eventDate));
+      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation));
     incidents.forEach(async (incident) => {
       const lawisDetails = await this.getCachedOrFetch<IncidentDetails>(lawisApi.incident + incident.$data.incident_id);
       incident.$extraDialogRows = async (_, t) => toLawisIncidentTable(lawisDetails, t);
@@ -200,8 +200,16 @@ export class ObservationsService {
     return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.endDate);
   }
 
-  private inDateRange(date: Date): boolean {
-    return this.startDate <= date && date <= this.endDate;
+  private inDateRange({ eventDate }: GenericObservation): boolean {
+    return this.startDate <= eventDate && eventDate <= this.endDate;
+  }
+
+  private inMapBounds({ latitude, longitude }: GenericObservation): boolean {
+    if (!latitude || !longitude) {
+      return true;
+    }
+    const { mapBoundaryS, mapBoundaryN, mapBoundaryW, mapBoundaryE } = this.constantsService;
+    return mapBoundaryS < latitude && latitude < mapBoundaryN && mapBoundaryW < longitude && longitude < mapBoundaryE;
   }
 
   async searchLocation(query: string, limit = 8): Promise<FeatureCollection<Point, GeocodingProperties>> {
