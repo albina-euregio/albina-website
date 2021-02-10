@@ -97,7 +97,9 @@ export class ObservationsService {
     const options = { headers: headers };
 
     const reports = await this.http.get<Natlefs[]>(url, options).toPromise();
-    return reports.map<GenericObservation<Natlefs>>((natlefs) => convertNatlefsToGeneric(natlefs));
+    return reports
+      .map<GenericObservation<Natlefs>>((natlefs) => convertNatlefsToGeneric(natlefs))
+      .filter((observation) => this.inDateRange(observation));
   }
 
   async getAvaObs(): Promise<AvaObs> {
