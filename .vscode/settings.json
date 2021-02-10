@@ -1,6 +1,6 @@
 {
   "i18n-ally.localesPaths": "src/assets/i18n",
-  "i18n-ally.regex.usageMatch": [
+  "i18n-ally.regex.usageMatchAppend": [
     "\\bt\\(['\"`]({key})['\"`]",
   ],
   "i18n-ally.keystyle": "nested"
