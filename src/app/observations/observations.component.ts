@@ -63,15 +63,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       this.observations.length = 0;
       this.observationsService.startDate = this.dateRange[0];
       this.observationsService.endDate = this.dateRange[1];
-      this.mapService.observationLayers.Albina.clearLayers();
-      this.mapService.observationLayers.AvaObsSnowProfiles.clearLayers();
-      this.mapService.observationLayers.AvaObsObservations.clearLayers();
-      this.mapService.observationLayers.AvaObsSimpleObservations.clearLayers();
-      this.mapService.observationLayers.LoLaSafetySnowProfiles.clearLayers();
-      this.mapService.observationLayers.LoLaSafetyAvalancheReports.clearLayers();
-      this.mapService.observationLayers.Natlefs.clearLayers();
-      this.mapService.observationLayers.LawisSnowProfiles.clearLayers();
-      this.mapService.observationLayers.LawisIncidents.clearLayers();
+      Object.values(this.mapService.observationLayers).forEach((layer) => layer.clearLayers());
       await Promise.all([this.loadAlbina(), this.loadLwdKip(), this.loadAvaObs(), this.loadLoLaSafety(), this.loadNatlefs(), this.loadLawis()]);
     } finally {
       this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
