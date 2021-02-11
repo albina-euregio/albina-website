@@ -34,7 +34,7 @@ export class ObservationTableComponent {
   }
 
   async editObservation(observation: Observation) {
-    this.observation = (await this.observationsService.getObservation(observation.id)).$data;
+    this.observation = (await this.observationsService.getObservation(observation.id).toPromise()).$data;
     if (typeof this.observation?.eventDate === "string") {
       this.observation.eventDate = new Date(this.observation.eventDate);
     }
@@ -60,13 +60,13 @@ export class ObservationTableComponent {
     try {
       this.saving = true;
       if (observation.id) {
-        const newObservation = await this.observationsService.putObservation(observation);
+        const newObservation = await this.observationsService.putObservation(observation).toPromise();
         Object.assign(
           this.observations.find((o) => isAlbinaObservation(o) && o.$data.id === observation.id),
           newObservation
         );
       } else {
-        const newObservation = await this.observationsService.postObservation(observation);
+        const newObservation = await this.observationsService.postObservation(observation).toPromise();
         this.observations.splice(0, 0, newObservation);
       }
       this.showDialog = false;

@@ -19,9 +19,8 @@ export class ObservationEditorComponent {
   }));
   locationResults: Feature<Point, GeocodingProperties>[] = [];
 
-  async searchLocation($event: { originalEvent: Event; query: string }) {
-    const result = await this.observationsService.searchLocation($event.query);
-    this.locationResults = result?.features ?? [];
+  searchLocation($event: { originalEvent: Event; query: string }) {
+    this.observationsService.searchLocation($event.query).subscribe((collection) => (this.locationResults = collection.features));
   }
 
   selectLocation(feature: Feature<Point, GeocodingProperties>): void {

@@ -6,6 +6,7 @@ import { ObservationsService } from "./observations.service";
 import { MapService } from "../providers/map-service/map.service";
 import { GenericObservation, ObservationTableRow, toObservationTable } from "app/models/generic-observation.model";
 
+import { Observable } from "rxjs";
 import * as L from "leaflet";
 
 @Component({
@@ -35,7 +36,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   ) {}
 
   ngAfterContentInit() {
-    this.loadObservations({days: 3});
+    this.loadObservations({ days: 3 });
   }
 
   ngAfterViewInit() {
@@ -49,7 +50,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
-  async loadObservations({days}: {days?: number} = {}) {
+  loadObservations({ days }: { days?: number } = {}) {
     if (typeof days === "number") {
       const startDate = new Date();
       startDate.setDate(startDate.getDate() - (days - 1));
@@ -58,17 +59,27 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       endDate.setHours(23, 59, 0, 0);
       this.dateRange = [startDate, endDate];
     }
-    try {
-      this.loading = true;
-      this.observations.length = 0;
-      this.observationsService.startDate = this.dateRange[0];
-      this.observationsService.endDate = this.dateRange[1];
-      Object.values(this.mapService.observationLayers).forEach((layer) => layer.clearLayers());
-      await Promise.all([this.loadAlbina(), this.loadLwdKip(), this.loadAvaObs(), this.loadLoLaSafety(), this.loadNatlefs(), this.loadLawis()]);
-    } finally {
-      this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
-      this.loading = false;
-    }
+    this.loading = true;
+    this.observations.length = 0;
+    this.observationsService.startDate = this.dateRange[0];
+    this.observationsService.endDate = this.dateRange[1];
+    Object.values(this.mapService.observationLayers).forEach((layer) => layer.clearLayers());
+    Observable.merge<GenericObservation>(
+      this.observationsService.getAvaObs().catch((err) => this.warnAndContinue("Failed fetching AvaObs", err)),
+      this.observationsService.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
+      this.observationsService.getLawisProfiles().catch((err) => this.warnAndContinue("Failed fetching lawis profiles", err)),
+      this.observationsService.getLoLaSafety().catch((err) => this.warnAndContinue("Failed fetching LoLa safety observations", err)),
+      this.observationsService.getLwdKipObservations().catch((err) => this.warnAndContinue("Failed fetching LWDKIP observations", err)),
+      this.observationsService.getNatlefs().catch((err) => this.warnAndContinue("Failed fetching Natlefs observations", err)),
+      this.observationsService.getObservations().catch((err) => this.warnAndContinue("Failed fetching observations", err)),
+    )
+      .forEach((observation) => this.addObservation(observation))
+      .finally(() => (this.loading = false));
+  }
+
+  private warnAndContinue(message: string, err: any): Observable<GenericObservation> {
+    console.error(message, err);
+    return Observable.of();
   }
 
   private initMaps() {
@@ -90,54 +101,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.mapService.observationsMap = map;
   }
 
-  private async loadAlbina() {
-    try {
-      const observations = await this.observationsService.getObservations();
-      observations.forEach((o) => this.addObservation(o));
-    } catch (error) {
-      console.error("Failed fetching ALBINA observations", error);
-    }
-  }
-
-  private async loadLwdKip() {
-    try {
-      const observations = await this.observationsService.getLwdKipObservations();
-      observations.forEach((o) => this.addObservation(o));
-    } catch (error) {
-      console.error("Failed fetching LwdKip observations", error);
-    }
-  }
-
-  private async loadAvaObs() {
-    try {
-      const { observations, simpleObservations, snowProfiles } = await this.observationsService.getAvaObs();
-      observations.forEach((o) => this.addObservation(o));
-      simpleObservations.forEach((o) => this.addObservation(o));
-      snowProfiles.forEach((o) => this.addObservation(o));
-    } catch (error) {
-      console.log("AvaObs loading failed", error);
-    }
-  }
-
-  private async loadLoLaSafety() {
-    try {
-      const { avalancheReports, snowProfiles } = await this.observationsService.getLoLaSafety();
-      avalancheReports.forEach((o) => this.addObservation(o));
-      snowProfiles.forEach((o) => this.addObservation(o));
-    } catch (error) {
-      console.log("LO.LA loading failed", error);
-    }
-  }
-
-  private async loadNatlefs() {
-    try {
-      const data = await this.observationsService.getNatlefs();
-      data.forEach((natlefs) => this.addObservation(natlefs));
-    } catch (error) {
-      console.error("NATLEFS loading failed", error);
-    }
-  }
-
   get observationPopupVisible(): boolean {
     return this.observationPopup !== undefined;
   }
@@ -147,16 +110,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       throw Error(String(value));
     }
     this.observationPopup = undefined;
-  }
-
-  private async loadLawis() {
-    try {
-      const { profiles, incidents } = await this.observationsService.getLawis();
-      profiles.forEach((profile) => this.addObservation(profile));
-      incidents.forEach((incident) => this.addObservation(incident));
-    } catch (error) {
-      console.error("Failed fetching lawis.at", error);
-    }
   }
 
   private addObservation(observation: GenericObservation): void {
@@ -169,6 +122,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       return;
     }
     this.observations.push(observation);
+    this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
 
     if (!observation.latitude || !observation.longitude) {
       return;

@@ -4,19 +4,20 @@ import { AuthenticationService } from "app/providers/authentication-service/auth
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { convertObservationToGeneric, Observation } from "app/models/observation.model";
 import { convertNatlefsToGeneric, Natlefs } from "app/models/natlefs.model";
-import { AvaObs, convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
-import { convertLoLaToGeneric, LoLaSafety, LoLaSafetyApi } from "app/models/lola-safety.model";
-import { Lawis, Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "app/models/lawis.model";
+import { convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
+import { convertLoLaToGeneric, LoLaSafetyApi } from "app/models/lola-safety.model";
+import { Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "app/models/lawis.model";
 import { GenericObservation, ObservationSource, toAspect } from "app/models/generic-observation.model";
-import { convertLwdKipToGeneric, LwdKipSprengerfolg, SprengerfolgProperties } from "app/models/lwdkip.model";
+import { convertLwdKipToGeneric, LwdKipSprengerfolg } from "app/models/lwdkip.model";
 import { TranslateService } from "@ngx-translate/core";
 import { FeatureCollection, Point } from "geojson";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class ObservationsService {
   public startDate = new Date();
   public endDate = new Date();
-  private natlefsToken: Promise<string>;
+  private natlefsToken: Observable<string>;
 
   constructor(
     public http: HttpClient,
@@ -25,14 +26,14 @@ export class ObservationsService {
     public constantsService: ConstantsService
   ) {}
 
-  async getObservation(id: number): Promise<GenericObservation<Observation>> {
+  getObservation(id: number): Observable<GenericObservation<Observation>> {
     const url = this.constantsService.getServerUrl() + "observations/" + id;
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
-    return convertObservationToGeneric(await this.http.get<Observation>(url, options).toPromise());
+    return this.http.get<Observation>(url, options).map((o) => convertObservationToGeneric(o));
   }
 
-  async getLwdKipObservations(): Promise<GenericObservation<SprengerfolgProperties>[]> {
+  getLwdKipObservations(): Observable<GenericObservation> {
     const url = this.constantsService.getServerUrl() + "observations/lwdkip/6";
     const headers = this.authenticationService.newAuthHeader();
     const params: Record<string, string> = {
@@ -41,33 +42,35 @@ export class ObservationsService {
       datumTransformation: "5891",
       f: "geojson"
     };
-    const collection = await this.http
+    return this.http
       .get<LwdKipSprengerfolg>(url, { headers, params })
-      .toPromise();
-    return collection.features.map((feature) => convertLwdKipToGeneric(feature));
+      .flatMap((featureCollection) => featureCollection.features)
+      .map((feature) => convertLwdKipToGeneric(feature));
   }
 
-  async getObservations(): Promise<GenericObservation<Observation>[]> {
+  getObservations(): Observable<GenericObservation<Observation>> {
     const url = this.constantsService.getServerUrl() + "observations?startDate=" + this.startDateString + "&endDate=" + this.endDateString;
     const headers = this.authenticationService.newAuthHeader();
-    const options = { headers };
-    return (await this.http.get<Observation[]>(url, options).toPromise()).map((o) => convertObservationToGeneric(o));
+    return this.http
+      .get<Observation[]>(url, { headers })
+      .mergeAll()
+      .map((o) => convertObservationToGeneric(o));
   }
 
-  async postObservation(observation: Observation): Promise<GenericObservation<Observation>> {
+  postObservation(observation: Observation): Observable<GenericObservation<Observation>> {
     observation = this.serializeObservation(observation);
     const url = this.constantsService.getServerUrl() + "observations";
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
-    return convertObservationToGeneric(await this.http.post<Observation>(url, observation, options).toPromise());
+    return this.http.post<Observation>(url, observation, options).map((o) => convertObservationToGeneric(o));
   }
 
-  async putObservation(observation: Observation): Promise<GenericObservation<Observation>> {
+  putObservation(observation: Observation): Observable<GenericObservation<Observation>> {
     observation = this.serializeObservation(observation);
     const url = this.constantsService.getServerUrl() + "observations/" + observation.id;
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
-    return convertObservationToGeneric(await this.http.put<Observation>(url, observation, options).toPromise());
+    return this.http.put<Observation>(url, observation, options).map((o) => convertObservationToGeneric(o));
   }
 
   private serializeObservation(observation: Observation): Observation {
@@ -85,7 +88,7 @@ export class ObservationsService {
     await this.http.delete(url, options).toPromise();
   }
 
-  private async getNatlefsAuthToken(): Promise<string> {
+  private getNatlefsAuthToken(): Observable<string> {
     const username = this.constantsService.getNatlefsUsername();
     const password = this.constantsService.getNatlefsPassword();
     const url = this.constantsService.getNatlefsServerUrl() + "authentication";
@@ -94,61 +97,66 @@ export class ObservationsService {
       "Content-Type": "application/json"
     });
     const options = { headers: headers };
-
-    const data = await this.http.post<{ token: string }>(url, body, options).toPromise();
-    return data.token;
+    return this.http.post<{ token: string }>(url, body, options).map((data) => data.token);
   }
 
-  async getNatlefs(): Promise<GenericObservation<Natlefs>[]> {
+  getNatlefs(): Observable<GenericObservation> {
     if (!this.natlefsToken) {
       this.natlefsToken = this.getNatlefsAuthToken();
     }
-    const token = await this.natlefsToken;
-    const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.startDateString;
-    const headers = new HttpHeaders({
-      "Content-Type": "application/json",
-      Accept: "application/json",
-      Authorization: "Bearer " + token
-    });
-    const options = { headers: headers };
-
-    const reports = await this.http.get<Natlefs[]>(url, options).toPromise();
-    return reports.map<GenericObservation<Natlefs>>((natlefs) => convertNatlefsToGeneric(natlefs));
+    return this.natlefsToken
+      .last()
+      .flatMap((token) => {
+        const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.startDateString;
+        const headers = new HttpHeaders({
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + token
+        });
+        const options = { headers: headers };
+        return this.http.get<Natlefs[]>(url, options);
+      })
+      .mergeAll()
+      .map((natlefs) => convertNatlefsToGeneric(natlefs));
   }
 
-  async getAvaObs(): Promise<AvaObs> {
+  getAvaObs(): Observable<GenericObservation> {
     const { observationApi: api, observationWeb: web } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    const observations = await this.http.get<AvaObservation[]>(api.AvaObsObservations + timeframe).toPromise();
-    const simpleObservations = await this.http.get<SimpleObservation[]>(api.AvaObsSimpleObservations + timeframe).toPromise();
-    const snowProfiles = await this.http.get<SnowProfile[]>(api.AvaObsSnowProfiles + timeframe).toPromise();
-    return {
-      observations: observations.map((obs) =>
-        convertAvaObsToGeneric(obs, "#018571", ObservationSource.AvaObsObservations, web.AvaObsObservations)
-      ),
-      simpleObservations: simpleObservations.map((obs) =>
-        convertAvaObsToGeneric(obs, "#80cdc1", ObservationSource.AvaObsSimpleObservations, web.AvaObsSimpleObservations)
-      ),
-      snowProfiles: snowProfiles.map((obs) =>
-        convertAvaObsToGeneric(obs, "#2c7bb6", ObservationSource.AvaObsSnowProfiles, web.AvaObsSnowProfiles)
-      )
-    };
+    const observations = this.http
+      .get<AvaObservation[]>(api.AvaObsObservations + timeframe)
+      .mergeAll()
+      .map((obs) => convertAvaObsToGeneric(obs, "#018571", ObservationSource.AvaObsObservations, web.AvaObsObservations));
+    const simpleObservations = this.http
+      .get<SimpleObservation[]>(api.AvaObsSimpleObservations + timeframe)
+      .mergeAll()
+      .map((obs) => convertAvaObsToGeneric(obs, "#80cdc1", ObservationSource.AvaObsSimpleObservations, web.AvaObsSimpleObservations));
+    const snowProfiles = this.http
+      .get<SnowProfile[]>(api.AvaObsSnowProfiles + timeframe)
+      .mergeAll()
+      .map((obs) => convertAvaObsToGeneric(obs, "#2c7bb6", ObservationSource.AvaObsSnowProfiles, web.AvaObsSnowProfiles));
+    return Observable.merge(observations, simpleObservations, snowProfiles);
   }
 
-  async getLoLaSafety(): Promise<LoLaSafety> {
+  getLoLaSafety(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    const { avalancheReports, snowProfiles } = await this.http.get<LoLaSafetyApi>(api.LoLaSafetyAvalancheReports + timeframe).toPromise();
-    return {
-      avalancheReports: avalancheReports.map((report) => convertLoLaToGeneric(report)),
-      snowProfiles: snowProfiles.map((obs) => convertAvaObsToGeneric(obs, "#a6d96a", ObservationSource.LoLaSafetySnowProfiles))
-    };
+    const data = this.http.get<LoLaSafetyApi>(api.LoLaSafetyAvalancheReports + timeframe);
+    return data.flatMap(({ avalancheReports, snowProfiles }) => {
+      const o1 = Observable.from(avalancheReports).map((report) => convertLoLaToGeneric(report));
+      const o2 = Observable.from(snowProfiles).map((obs) =>
+        convertAvaObsToGeneric(obs, "#a6d96a", ObservationSource.LoLaSafetySnowProfiles)
+      );
+      return Observable.merge<GenericObservation>(o1, o2);
+    });
   }
 
-  async getLawis(): Promise<Lawis> {
+  getLawisProfiles(): Observable<GenericObservation> {
     const { observationApi: api, observationWeb: web } = this.constantsService;
-    const profiles = (await this.http.get<Profile[]>(api.LawisSnowProfiles).toPromise())
-      .map<GenericObservation<Profile>>((lawis) => ({
+    const profiles = this.http
+      .get<Profile[]>(api.LawisSnowProfiles)
+      .mergeAll()
+      .map<Profile, GenericObservation<Profile>>((lawis) => ({
         $data: lawis,
         $externalURL: web.LawisSnowProfiles.replace("{{id}}", String(lawis.profil_id)),
         $markerColor: "#44a9db",
@@ -169,8 +177,15 @@ export class ObservationsService {
       profile.authorName = lawisDetails.name;
       profile.content = lawisDetails.bemerkungen;
     });
-    const incidents = (await this.http.get<Incident[]>(api.LawisIncidents).toPromise())
-      .map<GenericObservation<Incident>>((lawis) => ({
+    return profiles;
+  }
+
+  getLawisIncidents(): Observable<GenericObservation> {
+    const { observationApi: api } = this.constantsService;
+    const incidents = this.http
+      .get<Incident[]>(api.LawisIncidents)
+      .mergeAll()
+      .map<Incident, GenericObservation<Incident>>((lawis) => ({
         $data: lawis,
         $markerColor: "#b76bd9",
         $source: ObservationSource.LawisIncidents,
@@ -192,7 +207,7 @@ export class ObservationsService {
       incident.content = lawisDetails.comments;
       incident.reportDate = parseLawisDate(lawisDetails.reporting_date);
     });
-    return { profiles, incidents };
+    return incidents;
   }
 
   async getCachedOrFetch<T>(url: string): Promise<T> {
@@ -234,7 +249,7 @@ export class ObservationsService {
     return mapBoundaryS < latitude && latitude < mapBoundaryN && mapBoundaryW < longitude && longitude < mapBoundaryE;
   }
 
-  async searchLocation(query: string, limit = 8): Promise<FeatureCollection<Point, GeocodingProperties>> {
+  searchLocation(query: string, limit = 8): Observable<FeatureCollection<Point, GeocodingProperties>> {
     // https://nominatim.org/release-docs/develop/api/Search/
     const { osmNominatimApi, osmNominatimCountries } = this.constantsService;
     const params: Record<string, string> = {
@@ -244,9 +259,7 @@ export class ObservationsService {
       limit: String(limit),
       q: query
     };
-    return this.http
-      .get<FeatureCollection<Point, GeocodingProperties>>(osmNominatimApi, { params })
-      .toPromise();
+    return this.http.get<FeatureCollection<Point, GeocodingProperties>>(osmNominatimApi, { params });
   }
 }
 
