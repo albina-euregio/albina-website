@@ -20,6 +20,8 @@ export interface SprengerfolgProperties {
 }
 
 export function convertLwdKipToGeneric(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>) {
+  let eventDate = feature.properties.BEOBDATUM + feature.properties.SPRENGUNGZEIT;
+  eventDate += 60_000 * new Date(feature.properties.BEOBDATUM).getTimezoneOffset();
   return {
     $data: feature.properties,
     $markerColor: "#a6761d",
@@ -34,7 +36,7 @@ export function convertLwdKipToGeneric(feature: GeoJSON.Feature<GeoJSON.Point, S
       .filter((s) => !!s)
       .join(" – "),
     elevation: feature.properties.SEEHOEHE,
-    eventDate: new Date(feature.properties.BEOBDATUM + feature.properties.SPRENGUNGZEIT),
+    eventDate: new Date(eventDate),
     latitude: feature.geometry.coordinates[1],
     locationName: feature.properties.BEZEICHNUNG,
     longitude: feature.geometry.coordinates[0],
