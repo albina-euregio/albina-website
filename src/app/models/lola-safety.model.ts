@@ -92,7 +92,7 @@ export interface Weather {
 export function convertLoLaToGeneric(report: AvalancheReport): GenericObservation<AvalancheReport> {
   return {
     $data: report,
-    $extraDialogRows: async (_, t) => toLoLaTable(report, t),
+    $extraDialogRows: (t) => toLoLaTable(report, t),
     $markerColor: "#1a9641",
     $source: ObservationSource.LoLaSafetyAvalancheReports,
     aspect: undefined,

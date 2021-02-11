@@ -136,7 +136,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   async onObservationClick(observation: GenericObservation): Promise<void> {
     const extraRows = observation.$extraDialogRows
-      ? await observation.$extraDialogRows(observation, (key) => this.translateService.instant(key))
+      ? await observation.$extraDialogRows((key) => this.translateService.instant(key))
       : [];
     const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
     const table = [...rows, ...extraRows];

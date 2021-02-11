@@ -3,7 +3,7 @@ import * as Enums from "../enums/enums";
 export interface GenericObservation<Data = any> {
   $data: Data;
   $externalURL?: string;
-  $extraDialogRows?: (observation: this, t: (key: string) => string) => Promise<ObservationTableRow[]>;
+  $extraDialogRows?: (t: (key: string) => string) => ObservationTableRow[];
   $markerColor: string;
   $source: ObservationSource;
   aspect: Aspect;

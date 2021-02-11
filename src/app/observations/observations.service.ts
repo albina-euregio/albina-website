@@ -153,7 +153,7 @@ export class ObservationsService {
 
   getLawisProfiles(): Observable<GenericObservation> {
     const { observationApi: api, observationWeb: web } = this.constantsService;
-    const profiles = this.http
+    return this.http
       .get<Profile[]>(api.LawisSnowProfiles)
       .mergeAll()
       .map<Profile, GenericObservation<Profile>>((lawis) => ({
@@ -171,18 +171,21 @@ export class ObservationsService {
         longitude: lawis.longitude,
         region: String(lawis.subregion_id) // todo
       }))
-      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation));
-    profiles.forEach(async (profile) => {
-      const lawisDetails = await this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + profile.$data.profil_id);
-      profile.authorName = lawisDetails.name;
-      profile.content = lawisDetails.bemerkungen;
-    });
-    return profiles;
+      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation))
+      .flatMap((profile) =>
+        Observable.fromPromise(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + profile.$data.profil_id))
+          .map<ProfileDetails, GenericObservation>((lawisDetails) => ({
+            ...profile,
+            authorName: lawisDetails.name,
+            content: lawisDetails.bemerkungen
+          }))
+          .catch(() => Observable.of(profile))
+      );
   }
 
   getLawisIncidents(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
-    const incidents = this.http
+    return this.http
       .get<Incident[]>(api.LawisIncidents)
       .mergeAll()
       .map<Incident, GenericObservation<Incident>>((lawis) => ({
@@ -199,15 +202,18 @@ export class ObservationsService {
         longitude: lawis.longitude,
         region: String(lawis.subregion_id) // todo
       }))
-      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation));
-    incidents.forEach(async (incident) => {
-      const lawisDetails = await this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + incident.$data.incident_id);
-      incident.$extraDialogRows = async (_, t) => toLawisIncidentTable(lawisDetails, t);
-      incident.authorName = lawisDetails.name;
-      incident.content = lawisDetails.comments;
-      incident.reportDate = parseLawisDate(lawisDetails.reporting_date);
-    });
-    return incidents;
+      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation))
+      .flatMap((incident) =>
+        Observable.fromPromise(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + incident.$data.incident_id))
+          .map<IncidentDetails, GenericObservation>((lawisDetails) => ({
+            ...incident,
+            $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
+            authorName: lawisDetails.name,
+            content: lawisDetails.comments,
+            reportDate: parseLawisDate(lawisDetails.reporting_date)
+          }))
+          .catch(() => Observable.of(incident))
+      );
   }
 
   async getCachedOrFetch<T>(url: string): Promise<T> {
