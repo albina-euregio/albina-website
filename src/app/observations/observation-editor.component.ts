@@ -25,9 +25,11 @@ export class ObservationEditorComponent {
   }
 
   selectLocation(feature: Feature<Point, GeocodingProperties>): void {
-    // display_name	"Zischgeles, Gemeinde Sankt Sigmund im Sellrain, Bezirk Innsbruck-Land, Tirol, Österreich" -> "Zischgeles"
-    this.observation.locationName = feature.properties.display_name.replace(/,.*/, "");
-    this.observation.latitude = feature.geometry.coordinates[1];
-    this.observation.longitude = feature.geometry.coordinates[0];
+    setTimeout(() => {
+      // display_name	"Zischgeles, Gemeinde Sankt Sigmund im Sellrain, Bezirk Innsbruck-Land, Tirol, Österreich" -> "Zischgeles"
+      this.observation.locationName = feature.properties.display_name.replace(/,.*/, "");
+      this.observation.latitude = feature.geometry.coordinates[1];
+      this.observation.longitude = feature.geometry.coordinates[0];
+    }, 0);
   }
 }
