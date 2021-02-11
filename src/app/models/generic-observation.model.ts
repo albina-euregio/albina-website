@@ -20,6 +20,7 @@ export interface GenericObservation<Data = any> {
 
 export enum ObservationSource {
   Albina = "Albina",
+  LwdKipSprengerfolg = "LwdKipSprengerfolg",
   LawisSnowProfiles = "LawisSnowProfiles",
   LawisIncidents = "LawisIncidents",
   LoLaSafetySnowProfiles = "LoLaSafetySnowProfiles",

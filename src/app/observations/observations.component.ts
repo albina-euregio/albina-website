@@ -72,7 +72,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       this.mapService.observationLayers.Natlefs.clearLayers();
       this.mapService.observationLayers.LawisSnowProfiles.clearLayers();
       this.mapService.observationLayers.LawisIncidents.clearLayers();
-      await Promise.all([this.loadAlbina(), this.loadAvaObs(), this.loadLoLaSafety(), this.loadNatlefs(), this.loadLawis()]);
+      await Promise.all([this.loadAlbina(), this.loadLwdKip(), this.loadAvaObs(), this.loadLoLaSafety(), this.loadNatlefs(), this.loadLawis()]);
     } finally {
       this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
       this.loading = false;
@@ -104,6 +104,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       observations.forEach((o) => this.addObservation(o));
     } catch (error) {
       console.error("Failed fetching ALBINA observations", error);
+    }
+  }
+
+  private async loadLwdKip() {
+    try {
+      const observations = await this.observationsService.getLwdKipObservations();
+      observations.forEach((o) => this.addObservation(o));
+    } catch (error) {
+      console.error("Failed fetching LwdKip observations", error);
     }
   }
 

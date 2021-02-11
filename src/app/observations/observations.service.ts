@@ -8,6 +8,7 @@ import { AvaObs, convertAvaObsToGeneric, Observation as AvaObservation, SimpleOb
 import { convertLoLaToGeneric, LoLaSafety, LoLaSafetyApi } from "app/models/lola-safety.model";
 import { Lawis, Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "app/models/lawis.model";
 import { GenericObservation, ObservationSource, toAspect } from "app/models/generic-observation.model";
+import { convertLwdKipToGeneric, LwdKipSprengerfolg, SprengerfolgProperties } from "app/models/lwdkip.model";
 import { TranslateService } from "@ngx-translate/core";
 import { FeatureCollection, Point } from "geojson";
 
@@ -29,6 +30,21 @@ export class ObservationsService {
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
     return convertObservationToGeneric(await this.http.get<Observation>(url, options).toPromise());
+  }
+
+  async getLwdKipObservations(): Promise<GenericObservation<SprengerfolgProperties>[]> {
+    const url = this.constantsService.getServerUrl() + "observations/lwdkip/6";
+    const headers = this.authenticationService.newAuthHeader();
+    const params: Record<string, string> = {
+      where: "BEOBDATUM > (SYSDATE - 7)",
+      outFields: "*",
+      datumTransformation: "5891",
+      f: "geojson"
+    };
+    const collection = await this.http
+      .get<LwdKipSprengerfolg>(url, { headers, params })
+      .toPromise();
+    return collection.features.map((feature) => convertLwdKipToGeneric(feature));
   }
 
   async getObservations(): Promise<GenericObservation<Observation>[]> {

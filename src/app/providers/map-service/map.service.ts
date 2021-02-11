@@ -38,6 +38,7 @@ export class MapService {
   };
   public observationLayers: Record<ObservationSource, L.LayerGroup> = {
     [ObservationSource.Albina]: L.layerGroup(),
+    [ObservationSource.LwdKipSprengerfolg]: L.layerGroup(),
     [ObservationSource.LawisSnowProfiles]: L.layerGroup(),
     [ObservationSource.LawisIncidents]: L.layerGroup(),
     [ObservationSource.LoLaSafetySnowProfiles]: L.layerGroup(),
