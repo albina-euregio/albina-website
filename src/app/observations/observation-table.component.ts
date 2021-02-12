@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { EventType, isAlbinaObservation, Observation } from "app/models/observation.model";
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
-import { GenericObservation } from "app/models/generic-observation.model";
+import { GenericObservation, ObservationSourceColors } from "app/models/generic-observation.model";
 
 @Component({
   selector: "app-observation-table",
@@ -18,6 +18,10 @@ export class ObservationTableComponent {
   messages: Message[] = [];
 
   constructor(private observationsService: ObservationsService, private translate: TranslateService) {}
+
+  getObservationColor(observation: GenericObservation): string {
+    return ObservationSourceColors[observation.$source];
+  }
 
   newObservation() {
     this.observation = {

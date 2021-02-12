@@ -93,7 +93,6 @@ export function convertLoLaToGeneric(report: AvalancheReport): GenericObservatio
   return {
     $data: report,
     $extraDialogRows: (t) => toLoLaTable(report, t),
-    $markerColor: "#1a9641",
     $source: ObservationSource.LoLaSafetyAvalancheReports,
     aspect: undefined,
     authorName: report.firstName + " " + report.lastName,

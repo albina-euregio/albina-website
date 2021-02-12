@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
 import { MapService } from "../providers/map-service/map.service";
-import { GenericObservation, ObservationTableRow, toObservationTable } from "app/models/generic-observation.model";
+import { GenericObservation, ObservationSourceColors, ObservationTableRow, toObservationTable } from "app/models/generic-observation.model";
 
 import { Observable } from "rxjs";
 import * as L from "leaflet";
@@ -127,8 +127,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     if (!observation.latitude || !observation.longitude) {
       return;
     }
+    const color = ObservationSourceColors[observation.$source];
     const ll = L.latLng(observation.latitude, observation.longitude);
-    L.circleMarker(ll, this.mapService.createNatlefsOptions(observation.$markerColor))
+    L.circleMarker(ll, this.mapService.createObservationMarkerOptions(color))
       .bindTooltip(observation.locationName)
       .on({ click: () => this.onObservationClick(observation) })
       .addTo(this.mapService.observationLayers[observation.$source]);

@@ -123,7 +123,6 @@ export function convertNatlefsToGeneric(natlefs: Natlefs): GenericObservation<Na
     $data: natlefs,
     $source: ObservationSource.Natlefs,
     $extraDialogRows: (t) => toNatlefsTable(natlefs, t),
-    $markerColor: "black",
     aspect: natlefs.location.aspect as any,
     authorName: natlefs.author.name,
     content: natlefs.comment,

@@ -151,15 +151,15 @@ export class ObservationsService {
     const observations = this.http
       .get<AvaObservation[]>(api.AvaObsObservations + timeframe)
       .mergeAll()
-      .map((obs) => convertAvaObsToGeneric(obs, "#018571", ObservationSource.AvaObsObservations, web.AvaObsObservations));
+      .map((obs) => convertAvaObsToGeneric(obs, ObservationSource.AvaObsObservations, web.AvaObsObservations));
     const simpleObservations = this.http
       .get<SimpleObservation[]>(api.AvaObsSimpleObservations + timeframe)
       .mergeAll()
-      .map((obs) => convertAvaObsToGeneric(obs, "#80cdc1", ObservationSource.AvaObsSimpleObservations, web.AvaObsSimpleObservations));
+      .map((obs) => convertAvaObsToGeneric(obs, ObservationSource.AvaObsSimpleObservations, web.AvaObsSimpleObservations));
     const snowProfiles = this.http
       .get<SnowProfile[]>(api.AvaObsSnowProfiles + timeframe)
       .mergeAll()
-      .map((obs) => convertAvaObsToGeneric(obs, "#2c7bb6", ObservationSource.AvaObsSnowProfiles, web.AvaObsSnowProfiles));
+      .map((obs) => convertAvaObsToGeneric(obs, ObservationSource.AvaObsSnowProfiles, web.AvaObsSnowProfiles));
     return Observable.merge(observations, simpleObservations, snowProfiles);
   }
 
@@ -170,7 +170,7 @@ export class ObservationsService {
     return data.flatMap(({ avalancheReports, snowProfiles }) => {
       const o1 = Observable.from(avalancheReports).map((report) => convertLoLaToGeneric(report));
       const o2 = Observable.from(snowProfiles).map((obs) =>
-        convertAvaObsToGeneric(obs, "#a6d96a", ObservationSource.LoLaSafetySnowProfiles)
+        convertAvaObsToGeneric(obs, ObservationSource.LoLaSafetySnowProfiles)
       );
       return Observable.merge<GenericObservation>(o1, o2);
     });
@@ -184,7 +184,6 @@ export class ObservationsService {
       .map<Profile, GenericObservation<Profile>>((lawis) => ({
         $data: lawis,
         $externalURL: web.LawisSnowProfiles.replace("{{id}}", String(lawis.profil_id)),
-        $markerColor: "#44a9db",
         $source: ObservationSource.LawisSnowProfiles,
         aspect: toAspect(lawis.exposition_id),
         authorName: "",
@@ -215,7 +214,6 @@ export class ObservationsService {
       .mergeAll()
       .map<Incident, GenericObservation<Incident>>((lawis) => ({
         $data: lawis,
-        $markerColor: "#b76bd9",
         $source: ObservationSource.LawisIncidents,
         aspect: toAspect(lawis.aspect_id),
         authorName: "",

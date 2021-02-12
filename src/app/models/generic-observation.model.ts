@@ -4,7 +4,6 @@ export interface GenericObservation<Data = any> {
   $data: Data;
   $externalURL?: string;
   $extraDialogRows?: (t: (key: string) => string) => ObservationTableRow[];
-  $markerColor: string;
   $source: ObservationSource;
   aspect: Aspect;
   authorName: string;
@@ -31,6 +30,20 @@ export enum ObservationSource {
   AvaObsObservations = "AvaObsObservations",
   AvaObsSimpleObservations = "AvaObsSimpleObservations"
 }
+
+export const ObservationSourceColors: Record<ObservationSource, string> = Object.freeze({
+  [ObservationSource.Albina]: "#ca0020",
+  [ObservationSource.LwdKipLawinenabgang]: "#ff7f00",
+  [ObservationSource.LwdKipSprengerfolg]: "#a6761d",
+  [ObservationSource.LawisSnowProfiles]: "#44a9db",
+  [ObservationSource.LawisIncidents]: "#b76bd9",
+  [ObservationSource.LoLaSafetySnowProfiles]: "#a6d96a",
+  [ObservationSource.LoLaSafetyAvalancheReports]: "#1a9641",
+  [ObservationSource.Natlefs]: "#000000",
+  [ObservationSource.AvaObsSnowProfiles]: "#2c7bb6",
+  [ObservationSource.AvaObsObservations]: "#018571",
+  [ObservationSource.AvaObsSimpleObservations]: "#80cdc1"
+});
 
 export enum Aspect {
   N = "N",

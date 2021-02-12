@@ -22,7 +22,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let observation of observations || []" (click)="onClick(observation)" style="cursor: pointer" [ngStyle]="getTableRowStyle(observation)">
-      <td [style]="{ color: observation.$markerColor }">█</td>
+      <td [style]="{ color: getObservationColor(observation) }">█</td>
       <td style="white-space: nowrap">{{ observation.eventDate | localizedDate: "dd.MM.yyyy HH:mm" }}</td>
       <td>{{ observation.authorName }}</td>
       <td>

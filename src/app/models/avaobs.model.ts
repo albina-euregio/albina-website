@@ -162,14 +162,12 @@ export interface Temperature {
 
 export function convertAvaObsToGeneric<T extends SimpleObservation>(
   obs: T,
-  $markerColor: string,
   $source: ObservationSource,
   urlPrefix?: string
 ): GenericObservation<T> {
   return {
     $data: obs,
     $externalURL: urlPrefix ? urlPrefix + obs.uuId : undefined,
-    $markerColor,
     $source,
     aspect: undefined,
     authorName: obs.firstName + " " + obs.lastName,

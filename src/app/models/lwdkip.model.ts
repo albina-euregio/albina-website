@@ -38,7 +38,6 @@ export function convertLwdKipSprengerfolg(feature: GeoJSON.Feature<GeoJSON.Point
       { label: "Sprenggrund", value: feature.properties.SPRENGGRUND },
       { label: t("observations.incline"), number: feature.properties.NEIGUNG }
     ],
-    $markerColor: "#a6761d",
     $source: ObservationSource.LwdKipSprengerfolg,
     aspect: toAspect(feature.properties.EXPOSITION),
     authorName: undefined,
@@ -87,7 +86,6 @@ export function convertLwdKipLawinenabgang(feature: GeoJSON.Feature<GeoJSON.Line
       { label: "Sprengung", boolean: feature.properties.SPRENGUNG > 0 },
       { label: t("observations.incline"), number: feature.properties.NEIGUNG }
     ],
-    $markerColor: "#ff7f00",
     $source: ObservationSource.LwdKipLawinenabgang,
     aspect: toAspect(feature.properties.EXPOSITION),
     authorName: undefined,

@@ -216,7 +216,7 @@ export class MapService {
     };
   }
 
-  createNatlefsOptions(color = "black"): L.CircleMarkerOptions {
+  createObservationMarkerOptions(color: string): L.CircleMarkerOptions {
     return {
       radius: 6,
       fillColor: color,

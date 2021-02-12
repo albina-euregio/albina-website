@@ -32,7 +32,6 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
     ...observation,
     $data: observation,
     $extraDialogRows: null,
-    $markerColor: "#ca0020",
     $source: ObservationSource.Albina,
     eventDate: observation.eventDate ? new Date(observation.eventDate) : undefined,
     reportDate: observation.reportDate ? new Date(observation.reportDate) : undefined
