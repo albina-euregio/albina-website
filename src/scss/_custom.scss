@@ -79,3 +79,7 @@ button.close {
   background-color: rgb(0,0,0,0.2);
   margin: 0;
 }
+
+.leaflet-layer-grayscale .leaflet-tile {
+  filter: grayscale(80%);
+}

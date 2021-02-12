@@ -92,7 +92,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       zoom: 8,
       minZoom: 8,
       maxZoom: 16,
-      layers: [this.mapService.observationsMaps.AlbinaBaseMap, ...Object.values(this.mapService.observationLayers)]
+      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationsMaps.OpenTopoMap, ...Object.values(this.mapService.observationLayers)]
     });
 
     L.control.scale().addTo(map);
