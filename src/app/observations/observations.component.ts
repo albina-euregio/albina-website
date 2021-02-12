@@ -127,9 +127,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     if (!observation.latitude || !observation.longitude) {
       return;
     }
-    const color = ObservationSourceColors[observation.$source];
+    observation.$markerColor = ObservationSourceColors[observation.$source];
     const ll = L.latLng(observation.latitude, observation.longitude);
-    L.circleMarker(ll, this.mapService.createObservationMarkerOptions(color))
+    L.circleMarker(ll, this.mapService.createObservationMarkerOptions(observation.$markerColor))
       .bindTooltip(observation.locationName)
       .on({ click: () => this.onObservationClick(observation) })
       .addTo(this.mapService.observationLayers[observation.$source]);

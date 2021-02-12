@@ -67,6 +67,10 @@
 </div>
 
 <p-dialog [(visible)]="observationPopupVisible" [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true">
+  <p-header>
+    <span [style]="{ color: observationPopup?.observation?.$markerColor }" [title]="observationPopup?.observation?.$source">█</span>
+    {{ observationPopup?.observation?.locationName }}
+  </p-header>
   <table *ngIf="observationPopup" class="table table-sm">
     <tr *ngFor="let row of observationPopup.table">
       <th style="padding-right: 1ex">{{ row.label }}</th>

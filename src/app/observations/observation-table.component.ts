@@ -19,10 +19,6 @@ export class ObservationTableComponent {
 
   constructor(private observationsService: ObservationsService, private translate: TranslateService) {}
 
-  getObservationColor(observation: GenericObservation): string {
-    return ObservationSourceColors[observation.$source];
-  }
-
   newObservation() {
     this.observation = {
       eventType: EventType.Normal
