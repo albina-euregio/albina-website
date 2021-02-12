@@ -8,7 +8,7 @@ import { convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservatio
 import { convertLoLaToGeneric, LoLaSafetyApi } from "app/models/lola-safety.model";
 import { Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "app/models/lawis.model";
 import { GenericObservation, ObservationSource, toAspect } from "app/models/generic-observation.model";
-import { convertLwdKipToGeneric, LwdKipSprengerfolg } from "app/models/lwdkip.model";
+import { ArcGisLayer, convertLwdKipToGeneric, LwdKipSprengerfolg } from "app/models/lwdkip.model";
 import { TranslateService } from "@ngx-translate/core";
 import { FeatureCollection, Point } from "geojson";
 import { Observable } from "rxjs";
@@ -17,6 +17,7 @@ import { Observable } from "rxjs";
 export class ObservationsService {
   public startDate = new Date();
   public endDate = new Date();
+  private lwdKipLayers: Observable<ArcGisLayer[]>;
   private natlefsToken: Observable<string>;
 
   constructor(
@@ -33,17 +34,31 @@ export class ObservationsService {
     return this.http.get<Observation>(url, options).map((o) => convertObservationToGeneric(o));
   }
 
+  private getLwdKipLayer<T>(name: string, params: Record<string, string>) {
+    if (!this.lwdKipLayers) {
+      const url = this.constantsService.getServerUrl() + "observations/lwdkip/layers?f=json";
+      const headers = this.authenticationService.newAuthHeader();
+      this.lwdKipLayers = this.http
+        .get<{ layers: ArcGisLayer[] }>(url, { headers })
+        .map((data) => data.layers);
+    }
+    const lwdKipLayers = this.lwdKipLayers.last();
+    return lwdKipLayers.flatMap((layers) => {
+      const layer = layers.find((l) => l.name === name && l.type === "Feature Layer");
+      const url = this.constantsService.getServerUrl() + "observations/lwdkip/" + layer.id;
+      const headers = this.authenticationService.newAuthHeader();
+      return this.http.get<T>(url, { headers, params });
+    });
+  }
+
   getLwdKipObservations(): Observable<GenericObservation> {
-    const url = this.constantsService.getServerUrl() + "observations/lwdkip/6";
-    const headers = this.authenticationService.newAuthHeader();
     const params: Record<string, string> = {
       where: "BEOBDATUM > (SYSDATE - 7)",
       outFields: "*",
       datumTransformation: "5891",
       f: "geojson"
     };
-    return this.http
-      .get<LwdKipSprengerfolg>(url, { headers, params })
+    return this.getLwdKipLayer<LwdKipSprengerfolg>("Sprengerfolg", params)
       .flatMap((featureCollection) => featureCollection.features)
       .map((feature) => convertLwdKipToGeneric(feature));
   }

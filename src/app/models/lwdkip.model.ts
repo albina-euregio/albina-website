@@ -1,5 +1,14 @@
 import { ObservationSource } from "./generic-observation.model";
 
+// https://gis.tirol.gv.at/arcgis/rest/services/APPS_DVT/lwdkip/MapServer/layers?f=json
+export interface ArcGisLayer {
+  id: number;
+  name: string;
+  description: string;
+  type: "Feature Layer" | "Group Layer" | "Mosaic Layer" | "Raster Layer";
+  geometryType?: "esriGeometryPoint" | "esriGeometryPolygon" | "esriGeometryPolyline";
+}
+
 export type LwdKipSprengerfolg = GeoJSON.FeatureCollection<GeoJSON.Point, SprengerfolgProperties>;
 
 export interface SprengerfolgProperties {
