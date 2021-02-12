@@ -8,7 +8,13 @@ import { convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservatio
 import { convertLoLaToGeneric, LoLaSafetyApi } from "app/models/lola-safety.model";
 import { Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "app/models/lawis.model";
 import { GenericObservation, ObservationSource, toAspect } from "app/models/generic-observation.model";
-import { ArcGisLayer, convertLwdKipToGeneric, LwdKipSprengerfolg } from "app/models/lwdkip.model";
+import {
+  ArcGisLayer,
+  convertLwdKipLawinenabgang,
+  convertLwdKipSprengerfolg,
+  LwdKipLawinenabgang,
+  LwdKipSprengerfolg
+} from "app/models/lwdkip.model";
 import { TranslateService } from "@ngx-translate/core";
 import { FeatureCollection, Point } from "geojson";
 import { Observable } from "rxjs";
@@ -58,9 +64,13 @@ export class ObservationsService {
       datumTransformation: "5891",
       f: "geojson"
     };
-    return this.getLwdKipLayer<LwdKipSprengerfolg>("Sprengerfolg", params)
+    const o1 = this.getLwdKipLayer<LwdKipSprengerfolg>("Sprengerfolg", params)
       .flatMap((featureCollection) => featureCollection.features)
-      .map((feature) => convertLwdKipToGeneric(feature));
+      .map((feature) => convertLwdKipSprengerfolg(feature));
+    const o2 = this.getLwdKipLayer<LwdKipLawinenabgang>("Lawinenabgänge", params)
+      .flatMap((featureCollection) => featureCollection.features)
+      .map((feature) => convertLwdKipLawinenabgang(feature));
+    return Observable.merge(o1, o2);
   }
 
   getObservations(): Observable<GenericObservation<Observation>> {
