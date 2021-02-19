@@ -10,10 +10,6 @@ import { ObservationSource, ObservationSourceColors } from "../../models/generic
 import * as L from "leaflet";
 import * as geojson from "geojson";
 
-interface LayerDict<T extends L.Layer> {
-  [key: string]: T;
-}
-
 declare module "leaflet" {
   interface GeoJSON<P = any> {
     feature?: geojson.Feature<geojson.MultiPoint, P>;
@@ -27,12 +23,12 @@ export class MapService {
   public afternoonMap: Map;
   public observationsMap: Map;
   public zamgModelsMap: Map;
-  public baseMaps: LayerDict<L.TileLayer>;
-  public afternoonBaseMaps: LayerDict<L.TileLayer>;
-  public observationsMaps: LayerDict<L.TileLayer>;
-  public zamgModelsMaps: LayerDict<L.TileLayer>;
-  public overlayMaps: LayerDict<L.GeoJSON>;
-  public afternoonOverlayMaps: LayerDict<L.GeoJSON>;
+  public baseMaps: Record<string, L.TileLayer>;
+  public afternoonBaseMaps: Record<string, L.TileLayer>;
+  public observationsMaps: Record<string, L.TileLayer>;
+  public zamgModelsMaps: Record<string, L.TileLayer>;
+  public overlayMaps: Record<string, L.GeoJSON>;
+  public afternoonOverlayMaps: Record<string, L.GeoJSON>;
   public layers = {
     zamgModelPoints: L.layerGroup()
   };
