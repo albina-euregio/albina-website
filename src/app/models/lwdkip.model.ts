@@ -9,6 +9,136 @@ export interface ArcGisLayer {
   geometryType?: "esriGeometryPoint" | "esriGeometryPolygon" | "esriGeometryPolyline";
 }
 
+export type LwdKipBeobachtung = GeoJSON.FeatureCollection<GeoJSON.Point | undefined, BeobachtungProperties>;
+
+export interface BeobachtungProperties {
+  STANDORT: string;
+  HOEHE?: number;
+  BEOBDATUM: number;
+  GVOUID: string;
+  BEZEICHNUNG: string;
+  TBEOBACHTUNGSEQ: number;
+  LW_PROBLEM?: number;
+  PR_NEU_EXP?: string;
+  PR_NEU_TEXT?: string;
+  PR_TRIEB_EXP?: string;
+  PR_TRIEB_TEXT?: string;
+  PR_ALT_EXP?: string;
+  PR_ALT_TEXT?: string;
+  PR_NASS_EXP?: string;
+  PR_NASS_TEXT: null;
+  PR_GLEIT_EXP?: string;
+  PR_GLEIT_TEXT: null;
+  LW_ABGANGS?: string;
+  LW_BELASTUNG?: string;
+  LW_SCHNEEBRETT?: string;
+  LW_LOCCKERSCHNEE?: string;
+  LW_GLEITSCHNEE?: string;
+  GEFAEHRDUNG: string;
+  NOTIZEN?: string;
+  MN_KEINE?: string;
+  MN_LAUFENDE_BEOB?: string;
+  MN_ALLGEMEIN: null;
+  MN_KUENSTL_AUSL?: string;
+  MN_TEMP_SPERRE?: string;
+  MN_TEMP_EVAK: null;
+  MN_PRAEVENTIV: null;
+  MN_ANDERE: null;
+  MN_SCHNEEPROFIL?: string;
+  BESCHREIBUNG?: string;
+  BESCHLUSS?: string;
+  WEITER_BGM?: string;
+  WEITER_BTRL?: string;
+  WEITER_POLIZEI?: string;
+  WEITER_SHBDE?: string;
+  WEITER_SONSTIGE?: string;
+  NAECHSTESITZUNG?: number;
+  MITGLIED?: string;
+  MITTEILUNG?: string;
+  USER_MITTTEILUNG?: string;
+  WZ_TREIBEN_FEGEN?: string;
+  WZ_WECHTE?: string;
+  WZ_WINDGANGELN?: string;
+  WZ_WINDKOLKE?: string;
+  WZ_FAHNEN?: string;
+  WZ_ANRAUM?: string;
+  WZ_DEUNEN?: string;
+  WZ_TRIEBSCHNEE?: string;
+  NEUSCHNEE_24?: number;
+  NEUSCHNEE_48?: number;
+  NEUSCHNEE_72?: number;
+  GESAMTSCHNEEHOEHE?: number;
+  SD_NEUSCHNEEDECKE?: string;
+  SD_ALTSCHNEEDECKE?: string;
+  SD_TRAGFAEHIG?: string;
+  SD_NICHT_TRAGFAEHIG?: string;
+  SD_GLATT?: string;
+  SD_UNREGELMAESSIG?: string;
+  SD_GEB_SCHNEE?: string;
+  SD_UNGEB_SCHNEE?: string;
+  SD_OBERFLAECHENREIF?: string;
+  SD_SCHMELZHARSCHDECKEL?: string;
+  SD_WINDDECKEL?: string;
+  SD_TROCKEN?: string;
+  SD_FEUCHT?: string;
+  SD_NASS: null;
+  SCHNEE_TEMPERATUR?: number;
+  GZ_RISSBILDUNG?: string;
+  GZ_SETZ_GERAEUSCH: null;
+  GZ_GLEITS_MAEULER?: string;
+  EINZUGSGEBIET?: string;
+  STURZBAHNEN?: string;
+  NOTIZEN_SCHNEE?: string;
+  LW_AKTIVITAET_SCHNEEBRETT?: string;
+  LW_AKTIVITAET_LOCKERSCHNEE?: string;
+  LW_AKTIVITAET_GLEITSCHNEE?: string;
+  LW_AUSLOESE_SCHEEBRETT?: string;
+  LW_AUSLOESE_LOCKERSCHNEE?: string;
+  LW_ANZAHL_SCHEEBRETT?: string;
+  LW_ANZAHL_LOCKERSCHNEE?: string;
+  LW_ANZAHL_GLEITSCHNEE?: string;
+  LW_NOTIZEN?: string;
+  KUENST_AL_KEINE?: number;
+  KUENST_AL_MAESSIG?: number;
+  KUENST_AL_GUT?: number;
+  KUENST_AL_SEHRGUT?: number;
+  SB_VERBAUU?: string;
+  SB_LEITWER?: string;
+  SB_DAEM?: string;
+  KUM_NEUSCHNEE_24?: number;
+  EINSINKTIEFE?: string;
+  LUFTTEMPERATUR?: number;
+  TENDENZ_LT?: string;
+  BEWOELKUNG?: string;
+  NIEDERSCHLAG?: string;
+  NS_INTENSITAET?: string;
+  WINDGESCHWINDIGKEIT?: string;
+  WINDRICHTUNG?: string;
+  SHAPE?: null;
+}
+
+export function convertLwdKipBeobachtung(feature: GeoJSON.Feature<GeoJSON.Point | undefined, BeobachtungProperties>): GenericObservation {
+  let eventDate = feature.properties.BEOBDATUM;
+  eventDate += 60_000 * new Date(feature.properties.BEOBDATUM).getTimezoneOffset();
+  return {
+    $data: feature.properties,
+    $extraDialogRows: (t) =>
+      Object.keys(feature.properties)
+        .map((label) => (typeof feature.properties[label] === "string" ? { label, value: feature.properties[label] } : undefined))
+        .filter((row) => row !== undefined),
+    $source: ObservationSource.LwdKipBeobachtung,
+    aspect: undefined,
+    authorName: feature.properties.BEZEICHNUNG,
+    content: feature.properties.NOTIZEN,
+    elevation: feature.properties.HOEHE,
+    eventDate: new Date(eventDate),
+    latitude: feature.geometry?.coordinates?.[1],
+    locationName: feature.properties.BEZEICHNUNG,
+    longitude: feature.geometry?.coordinates?.[0],
+    region: undefined
+  };
+}
+
 export type LwdKipSprengerfolg = GeoJSON.FeatureCollection<GeoJSON.Point, SprengerfolgProperties>;
 
 export interface SprengerfolgProperties {

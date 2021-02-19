@@ -10,8 +10,10 @@ import { Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTabl
 import { GenericObservation, ObservationSource, toAspect } from "app/models/generic-observation.model";
 import {
   ArcGisLayer,
+  convertLwdKipBeobachtung,
   convertLwdKipLawinenabgang,
   convertLwdKipSprengerfolg,
+  LwdKipBeobachtung,
   LwdKipLawinenabgang,
   LwdKipSprengerfolg
 } from "app/models/lwdkip.model";
@@ -64,13 +66,16 @@ export class ObservationsService {
       datumTransformation: "5891",
       f: "geojson"
     };
+    const o0 = this.getLwdKipLayer<LwdKipBeobachtung>("Beobachtungen", params)
+      .flatMap((featureCollection) => featureCollection.features)
+      .map((feature) => convertLwdKipBeobachtung(feature));
     const o1 = this.getLwdKipLayer<LwdKipSprengerfolg>("Sprengerfolg", params)
       .flatMap((featureCollection) => featureCollection.features)
       .map((feature) => convertLwdKipSprengerfolg(feature));
     const o2 = this.getLwdKipLayer<LwdKipLawinenabgang>("Lawinenabgänge", params)
       .flatMap((featureCollection) => featureCollection.features)
       .map((feature) => convertLwdKipLawinenabgang(feature));
-    return Observable.merge(o1, o2);
+    return Observable.merge(o0, o1, o2);
   }
 
   getObservations(): Observable<GenericObservation<Observation>> {
