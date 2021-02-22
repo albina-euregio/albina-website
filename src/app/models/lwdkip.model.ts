@@ -129,7 +129,7 @@ export function convertLwdKipBeobachtung(feature: GeoJSON.Feature<GeoJSON.Point 
     $source: ObservationSource.LwdKipBeobachtung,
     aspect: undefined,
     authorName: feature.properties.BEZEICHNUNG,
-    content: feature.properties.NOTIZEN,
+    content: [feature.properties.BESCHREIBUNG, feature.properties.NOTIZEN].filter((s) => !!s).join(" – "),
     elevation: feature.properties.HOEHE,
     eventDate: new Date(eventDate),
     latitude: feature.geometry?.coordinates?.[1],
