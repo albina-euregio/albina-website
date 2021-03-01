@@ -249,7 +249,7 @@
   "bulletin:howto": "<strong>Cliccate sulla carta</strong> per ottenere informazioni dettagliati sul pericolo di valanghe nelle diverse zone di avviso.",
   "bulletin:feedback": "Indagine",
   "bulletin:feedback:hover": "INDAGINE ONLINE sul nuovo Euregio Valanghe.report",
-  "bulletin:control-bar:community:text": "<a href=\"https://en.euregio.avalancheresearch.ca/\" target=\"_blank\"><strong>SONDAGGIO ONLINE</strong></a> sul bollettino valanghe EUREGIO",
+  "bulletin:control-bar:community:text": "<a href=\"https://it.euregio.avalancheresearch.ca/\" target=\"_blank\"><strong>SONDAGGIO ONLINE</strong></a> sul bollettino valanghe EUREGIO",
   "bulletin:control-bar:community:link": " (<a href=\"/education/community\">più info</a>)",
   "archive:filter:year": "Anno",
   "archive:filter:month": "Mese",
