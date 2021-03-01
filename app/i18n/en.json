@@ -249,7 +249,7 @@
   "bulletin:howto": "<strong>Click on the map</strong> for detailed information on the avalanche danger in the various warning regions.",
   "bulletin:feedback": "Survey",
   "bulletin:feedback:hover": "ONLINE SURVEY on the new Euregio Avalanche.report",
-  "bulletin:control-bar:community:text": "<a href=\"https://tyrolsignup.avalancheresearch.ca/\" target=\"_blank\"><strong>ONLINE SURVEY</strong></a> on the Euregio Avalanche.report",
+  "bulletin:control-bar:community:text": "<a href=\"https://en.euregio.avalancheresearch.ca/\" target=\"_blank\"><strong>ONLINE SURVEY</strong></a> on the Euregio Avalanche.report",
   "bulletin:control-bar:community:link": " (<a href=\"/education/community\">more info</a>)",
   "archive:filter:year": "Year",
   "archive:filter:month": "Month",

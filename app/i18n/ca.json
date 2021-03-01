@@ -249,7 +249,7 @@
   "bulletin:howto": "<strong>Fes click al mapa</strong> per rebre informació detallada del grau de perill de les diferents regions",
   "bulletin:feedback": "Enquesta",
   "bulletin:feedback:hover": "Enquesta online del nou Euregio Avalanche.report",
-  "bulletin:control-bar:community:text": "<a href=\"https://tyrolsignup.avalancheresearch.ca/\" target=\"_blank\"><strong>ENQUESTA ON-LINE</strong></a> sobre el Avalanche.report de l'Euregio",
+  "bulletin:control-bar:community:text": "<a href=\"https://en.euregio.avalancheresearch.ca/\" target=\"_blank\"><strong>ENQUESTA ON-LINE</strong></a> sobre el Avalanche.report de l'Euregio",
   "bulletin:control-bar:community:link": " (<a href=\"/education/community\">més info</a>)",
   "archive:filter:year": "Any",
   "archive:filter:month": "Mes",
