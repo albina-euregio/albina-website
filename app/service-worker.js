@@ -12,7 +12,7 @@ sw.addEventListener("push", event => {
   sw.registration.showNotification(data.title, {
     data: data,
     body: data.body,
-    icon: data.icon
+    image: data.image || data.icon
   });
 });
 
