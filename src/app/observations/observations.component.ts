@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
 import { MapService } from "../providers/map-service/map.service";
-import { GenericObservation, ObservationSourceColors, ObservationTableRow, toObservationTable } from "app/models/generic-observation.model";
+import { GenericObservation, ObservationSourceColors, ObservationTableRow, toObservationTable } from "./models/generic-observation.model";
 
 import { Observable } from "rxjs";
 import * as L from "leaflet";

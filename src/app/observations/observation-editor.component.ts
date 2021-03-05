@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { Observation, EventType } from "app/models/observation.model";
+import { Observation, EventType } from "./models/observation.model";
 import { Feature, Point } from "geojson";
 import { SelectItem } from "primeng/api";
 import { GeocodingProperties, ObservationsService } from "./observations.service";

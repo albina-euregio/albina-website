@@ -2,12 +2,12 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthenticationService } from "app/providers/authentication-service/authentication.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
-import { convertObservationToGeneric, Observation } from "app/models/observation.model";
-import { convertNatlefsToGeneric, Natlefs } from "app/models/natlefs.model";
-import { convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "app/models/avaobs.model";
-import { convertLoLaToGeneric, LoLaSafetyApi } from "app/models/lola-safety.model";
-import { Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "app/models/lawis.model";
-import { GenericObservation, ObservationSource, toAspect } from "app/models/generic-observation.model";
+import { convertObservationToGeneric, Observation } from "./models/observation.model";
+import { convertNatlefsToGeneric, Natlefs } from "./models/natlefs.model";
+import { convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "./models/avaobs.model";
+import { convertLoLaToGeneric, LoLaSafetyApi } from "./models/lola-safety.model";
+import { Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "./models/lawis.model";
+import { GenericObservation, ObservationSource, toAspect } from "./models/generic-observation.model";
 import {
   ArcGisLayer,
   convertLwdKipBeobachtung,
@@ -16,7 +16,7 @@ import {
   LwdKipBeobachtung,
   LwdKipLawinenabgang,
   LwdKipSprengerfolg
-} from "app/models/lwdkip.model";
+} from "./models/lwdkip.model";
 import { TranslateService } from "@ngx-translate/core";
 import { FeatureCollection, Point } from "geojson";
 import { Observable } from "rxjs";

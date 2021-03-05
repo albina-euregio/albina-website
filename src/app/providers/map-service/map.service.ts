@@ -5,7 +5,7 @@ import { RegionsService } from "../regions-service/regions.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { ConstantsService } from "../constants-service/constants.service";
 import * as Enums from "../../enums/enums";
-import { ObservationSource, ObservationSourceColors } from "../../models/generic-observation.model";
+import { ObservationSource, ObservationSourceColors } from "app/observations/models/generic-observation.model";
 
 import * as L from "leaflet";
 import * as geojson from "geojson";

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ObservationSource } from "app/models/generic-observation.model";
+import { ObservationSource } from "app/observations/models/generic-observation.model";
 import { environment } from "../../../environments/environment";
 const pkg = require("../../../../package.json");
 

@@ -1,4 +1,4 @@
-import * as Enums from "../enums/enums";
+import * as Enums from "app/enums/enums";
 
 export interface GenericObservation<Data = any> {
   $data: Data;

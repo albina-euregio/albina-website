@@ -1,4 +1,4 @@
-import * as Enums from "../enums/enums";
+import * as Enums from "app/enums/enums";
 import { GenericObservation, ObservationTableRow } from "./generic-observation.model";
 
 export interface Lawis {
