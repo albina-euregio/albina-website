@@ -4,9 +4,7 @@ import { decodeFeatureCollection } from "../util/polyline";
  * @return {Promise<GeoJSON.FeatureCollection>}
  */
 async function loadRegions() {
-  const regionsPolyline = await import(
-    "./neighbor_micro_regions.polyline.json"
-  );
+  const regionsPolyline = await import("./neighbor_micro_regions.polyline.json");
   return decodeFeatureCollection(regionsPolyline.default);
 }
 
@@ -15,12 +13,8 @@ async function loadRegions() {
  */
 async function loadBulletins(date) {
   const regions = ["AT-02", "AT-03", "AT-04", "AT-05", "AT-06", "AT-08", "BY"];
-  const responses = regions.map(region =>
-    fetch(`https://avalanche.report/albina_neighbors/${date}-${region}.json`)
-  );
-  const bulletins = responses.flatMap(response =>
-    response.then(r => ((r.ok ? r.json() : []))).catch(() => [])
-  );
+  const responses = regions.map(region => fetch(`https://avalanche.report/albina_neighbors/${date}-${region}.json`));
+  const bulletins = responses.flatMap(response => response.then(r => ((r.ok ? r.json() : []))).catch(() => []));
   const allBulletins = await Promise.all(bulletins);
   return allBulletins.flat();
 }
@@ -46,33 +40,24 @@ export async function loadNeighborBulletins(date) {
   });
 }
 
-const WARNLEVEL_COLORS = [
-  undefined,
-  "#ccff66",
-  "#ffff00",
-  "#ff9900",
-  "#ff0000",
-  "#ff0000"
-];
+const WARNLEVEL_COLORS = [undefined, "#ccff66", "#ffff00", "#ff9900", "#ff0000", "#ff0000"];
 
 /**
  * @param {GeoJSON.Feature} feature
- * @param {Albina.NeighborBulletin} bulletins
+ * @param {Albina.NeighborBulletin[]} bulletins
  * @returns {GeoJSON.Feature}
  */
 function augmentNeighborFeature(feature, bulletins) {
   const region = feature.properties.id;
   const elev = feature.properties.hoehe;
-  const bulletin = bulletins.find(bulletin =>
-    bulletin.validRegions.includes(region)
-  );
-  const dangerMain = bulletin?.dangerMain?.find(
+  const bulletin = bulletins.find(bulletin => bulletin.valid_regions.includes(region));
+  const dangerMain = bulletin?.danger_main?.find(
     danger =>
-      !danger.validElev ||
-      (danger.validElev.charAt(0) === "<" && elev === 1) ||
-      (danger.validElev.charAt(0) === ">" && elev === 2)
+      !danger.valid_elevation ||
+      (danger.valid_elevation.charAt(0) === "<" && elev === 1) ||
+      (danger.valid_elevation.charAt(0) === ">" && elev === 2)
   );
-  const warnlevel = dangerMain?.mainValue;
+  const warnlevel = dangerMain?.main_value;
   /**
    * @type {import("leaflet").PathOptions}
    */

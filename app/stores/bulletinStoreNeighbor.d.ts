@@ -1,28 +1,25 @@
 namespace Albina {
   export interface NeighborBulletin {
-    validRegions: string[];
-    repDate: Date;
-    validityDate: string;
-    timeBegin: string;
-    timeEnd: string;
-    dangerMain: DangerMain[];
-    dangerPattern: any[];
-    problemList: ProblemList[];
-    activityHighl: null;
-    activityCom: null;
-    snowStrucCom: null;
-    tendencyCom: null;
+    valid_regions: string[];
+    danger_main: DangerMain[];
+    dangerpattern: string[];
+    problem_list: ProblemList[];
+    report_texts: null;
+    rep_date: Date;
+    report_id: string;
+    validity_begin: Date;
+    validity_end: Date;
   }
 
   export interface DangerMain {
-    mainValue: number;
-    validElev?: string;
+    main_value: number;
+    valid_elevation?: string;
   }
 
   export interface ProblemList {
-    type: string;
+    problem_type: string;
     aspect: Aspect[];
-    validElev?: string;
+    valid_elevation?: string;
   }
 
   export enum Aspect {
