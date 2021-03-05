@@ -11,16 +11,8 @@ import { FeatureCollection, Polygon, MultiPolygon } from "geojson";
 export class RegionsService {
 
   constructor(private translateService: TranslateService) {
-    this.translateNames(this.getRegionsEuregio());
-    this.translateNames(this.getRegionsEuregioWithElevation());
-    this.translateNames(this.getRegionsAran());
-    this.translateNames(this.getRegionsAranWithElevation());
-    this.translateService.onLangChange.subscribe(() => {
-      this.translateNames(this.getRegionsEuregio());
-      this.translateNames(this.getRegionsEuregioWithElevation());
-      this.translateNames(this.getRegionsAran());
-      this.translateNames(this.getRegionsAranWithElevation());
-    });
+    this.translateAllNames();
+    this.translateService.onLangChange.subscribe(() => this.translateAllNames());
   }
 
   getRegionsEuregio(): FeatureCollection<Polygon, RegionProperties> {
@@ -41,6 +33,13 @@ export class RegionsService {
   getRegionsAranWithElevation(): FeatureCollection<MultiPolygon, RegionWithElevationProperties> {
     const data = RegionsAranElevation as FeatureCollection<MultiPolygon, RegionWithElevationProperties>;
     return data;
+  }
+
+  private translateAllNames() {
+    this.translateNames(this.getRegionsEuregio());
+    this.translateNames(this.getRegionsEuregioWithElevation());
+    this.translateNames(this.getRegionsAran());
+    this.translateNames(this.getRegionsAranWithElevation());
   }
 
   private translateNames(data: FeatureCollection<any, RegionProperties>) {
