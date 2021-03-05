@@ -11,6 +11,7 @@ let loadedRegions = undefined;
 async function loadRegions() {
   const regionsPolyline = await import("./neighbor_micro_regions.polyline.json");
   const regions = decodeFeatureCollection(regionsPolyline.default);
+  regions.features.push(...(await loadRegionsCH()));
   regions.features = regions.features.map(f => Object.freeze(f));
   return Object.freeze(regions);
 }
@@ -19,7 +20,7 @@ async function loadRegions() {
  * @type {Promise<Albina.NeighborBulletin[]>}
  */
 async function loadBulletins(date) {
-  const regions = ["AT-02", "AT-03", "AT-04", "AT-05", "AT-06", "AT-08", "BY"];
+  const regions = ["AT-02", "AT-03", "AT-04", "AT-05", "AT-06", "AT-08", "BY", "CH"];
   const responses = regions.map(region => fetch(`https://avalanche.report/albina_neighbors/${date}-${region}.json`));
   const bulletins = responses.flatMap(response => response.then(r => ((r.ok ? r.json() : []))).catch(() => []));
   const allBulletins = await Promise.all(bulletins);
@@ -58,7 +59,8 @@ const WARNLEVEL_COLORS = [undefined, "#ccff66", "#ffff00", "#ff9900", "#ff0000",
 function augmentNeighborFeature(feature, bulletins) {
   const region = feature.properties.id;
   const elev = feature.properties.hoehe;
-  const bulletin = bulletins.find(bulletin => bulletin.valid_regions.includes(region));
+  const bulletin =
+    region === "CH" || region == "LI" ? findBulletinCH(bulletins) : bulletins.find(bulletin => bulletin.valid_regions.includes(region));
   const dangerMain = bulletin?.danger_main?.find(
     danger =>
       !danger.valid_elevation ||
@@ -85,4 +87,28 @@ function augmentNeighborFeature(feature, bulletins) {
       style
     }
   };
+}
+
+/**
+ * @returns{Promise<GeoJSON.Feature[]>}}
+ */
+async function loadRegionsCH() {
+  const extraRegionsPolyline = await import("./neighbor_regions.polyline.json");
+  const extraRegions = decodeFeatureCollection(extraRegionsPolyline.default).features.filter(
+    feature => feature.id === "CH" || feature.id === "LI"
+  );
+  extraRegions.forEach(feature => (feature.properties.id = feature.id));
+  return extraRegions;
+}
+
+/**
+ * @param {Albina.NeighborBulletin[]} bulletins
+ * @returns {Albina.NeighborBulletin}
+ */
+function findBulletinCH(bulletins) {
+  bulletins = bulletins.filter(bulletin => bulletin.valid_regions?.[0]?.startsWith("CH-"));
+  if (!bulletins.length) return;
+  return bulletins.reduce((b1, b2) =>
+    Math.max(...b1.danger_main.map(d => d.main_value)) >= Math.max(...b2.danger_main.map(d => d.main_value)) ? b1 : b2
+  );
 }
