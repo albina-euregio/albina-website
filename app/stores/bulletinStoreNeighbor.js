@@ -1,11 +1,18 @@
 import { decodeFeatureCollection } from "../util/polyline";
 
 /**
+ * @type {Promise<GeoJSON.FeatureCollection>}
+ */
+let loadedRegions = undefined;
+
+/**
  * @return {Promise<GeoJSON.FeatureCollection>}
  */
 async function loadRegions() {
   const regionsPolyline = await import("./neighbor_micro_regions.polyline.json");
-  return decodeFeatureCollection(regionsPolyline.default);
+  const regions = decodeFeatureCollection(regionsPolyline.default);
+  regions.features = regions.features.map(f => Object.freeze(f));
+  return Object.freeze(regions);
 }
 
 /**
@@ -25,7 +32,8 @@ async function loadBulletins(date) {
 export async function loadNeighborBulletins(date) {
   if (typeof date !== "string") return;
   const bulletins = await loadBulletins(date);
-  const regions = await loadRegions();
+  if (!loadedRegions) loadedRegions = loadRegions();
+  const regions = await loadedRegions;
 
   return Object.freeze({
     ...regions,
