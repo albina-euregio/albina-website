@@ -35,6 +35,11 @@
     <div style="float: left; margin-right: 10px">
       <app-aspects [(aspects)]="aspects" [size]="50"></app-aspects>
     </div>
+    <div style="float: left; margin-right: 10px">
+      <select [(ngModel)]="regions" [multiple]="true" [size]="3" style="max-width: 16em;">
+        <option *ngFor="let region of allRegions" [value]="region.id">{{region.id}} {{region.name}}</option>
+    </select>
+    </div>
     <div style="float: right">
       <button
         type="button"

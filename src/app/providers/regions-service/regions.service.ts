@@ -6,13 +6,17 @@ import RegionsEuregioElevation from "../../regions/regions-elevation.euregio.geo
 import RegionsAran from "../../regions/regions.aran.geojson.json";
 import RegionsAranElevation from "../../regions/regions-elevation.aran.geojson.json";
 import { FeatureCollection, Polygon, MultiPolygon } from "geojson";
+import * as L from "leaflet";
+import { isMarkerInsidePolygon } from "./isMarkerInsidePolygon";
 
 @Injectable()
 export class RegionsService {
+  euregioGeoJSON: L.GeoJSON;
 
   constructor(private translateService: TranslateService) {
     this.translateAllNames();
     this.translateService.onLangChange.subscribe(() => this.translateAllNames());
+    this.euregioGeoJSON = L.geoJSON(this.getRegionsEuregio());
   }
 
   getRegionsEuregio(): FeatureCollection<Polygon, RegionProperties> {
@@ -48,6 +52,12 @@ export class RegionsService {
 
   getRegionForId(id: string): RegionProperties {
     return this.getRegionsEuregio().features.find((feature) => feature.properties.id === id)?.properties;
+  }
+
+  getRegionForLatLng(ll: L.LatLng): RegionProperties {
+    const polygons = (this.euregioGeoJSON.getLayers() as any) as L.Polygon[];
+    const polygon = polygons.find((p) => isMarkerInsidePolygon(ll, p));
+    return polygon?.feature?.properties;
   }
 }
 

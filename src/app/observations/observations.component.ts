@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
+import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
 import { MapService } from "../providers/map-service/map.service";
 import { GenericObservation, ObservationSourceColors, ObservationTableRow, toObservationTable } from "./models/generic-observation.model";
 
@@ -17,6 +18,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public showTable = false;
   public dateRange: Date[] = [];
   public elevationRange = [200, 4000];
+  public regions: string[] = [];
   public aspects: string[] = [];
   public observations: GenericObservation[] = [];
   public observationPopup: {
@@ -24,6 +26,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     table: ObservationTableRow[];
     iframe: SafeResourceUrl;
   };
+  public readonly allRegions: RegionProperties[];
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
 
@@ -32,8 +35,14 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private observationsService: ObservationsService,
     private authenticationService: AuthenticationService,
     private sanitizer: DomSanitizer,
+    private regionsService: RegionsService,
     private mapService: MapService
-  ) {}
+  ) {
+    this.allRegions = this.regionsService
+      .getRegionsEuregio()
+      .features.map((f) => f.properties)
+      .sort((r1, r2) => r1.id.localeCompare(r2.id));
+  }
 
   ngAfterContentInit() {
     this.loadObservations({ days: 3 });
@@ -113,9 +122,14 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   private addObservation(observation: GenericObservation): void {
+    const ll = observation.latitude && observation.longitude ? L.latLng(observation.latitude, observation.longitude) : undefined;
+    if (ll) {
+      observation.region = this.regionsService.getRegionForLatLng(ll)?.id;
+    }
     if (
       !this.observationsService.inDateRange(observation) ||
       !this.observationsService.inMapBounds(observation) ||
+      !this.inRegions(observation) ||
       !this.inElevationRange(observation) ||
       !this.inAspects(observation)
     ) {
@@ -124,11 +138,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observations.push(observation);
     this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
 
-    if (!observation.latitude || !observation.longitude) {
+    if (!ll) {
       return;
     }
     observation.$markerColor = ObservationSourceColors[observation.$source];
-    const ll = L.latLng(observation.latitude, observation.longitude);
     L.circleMarker(ll, this.mapService.createObservationMarkerOptions(observation.$markerColor))
       .bindTooltip(observation.locationName)
       .on({ click: () => this.onObservationClick(observation) })
@@ -141,6 +154,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     const table = [...rows, ...extraRows];
     const iframe = observation.$externalURL ? this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL) : undefined;
     this.observationPopup = { observation, table, iframe };
+  }
+
+  private inRegions({ region }: GenericObservation) {
+    return !this.regions.length || (typeof region === "string" && this.regions.includes(region));
   }
 
   private inElevationRange({ elevation }: GenericObservation) {
