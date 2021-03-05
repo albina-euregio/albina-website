@@ -135,10 +135,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       .addTo(this.mapService.observationLayers[observation.$source]);
   }
 
-  async onObservationClick(observation: GenericObservation): Promise<void> {
-    const extraRows = observation.$extraDialogRows
-      ? await observation.$extraDialogRows((key) => this.translateService.instant(key))
-      : [];
+  onObservationClick(observation: GenericObservation): void {
+    const extraRows = observation.$extraDialogRows ? observation.$extraDialogRows((key) => this.translateService.instant(key)) : [];
     const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
     const table = [...rows, ...extraRows];
     const iframe = observation.$externalURL ? this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL) : undefined;
