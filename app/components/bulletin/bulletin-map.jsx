@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { injectIntl } from "react-intl";
-import { ImageOverlay } from "react-leaflet";
+import { GeoJSON, ImageOverlay } from "react-leaflet";
 import InfoBar from "../organisms/info-bar";
 import { dateToISODateString, parseDate } from "../../util/date";
 
@@ -14,6 +14,7 @@ import { isBlendingSupported } from "../../util/blendMode";
 import { preprocessContent } from "../../util/htmlParser";
 
 import { getPublicationTimeString } from "../../util/date.js";
+import { observer } from "mobx-react";
 
 /**
  * @typedef {object} Props
@@ -107,6 +108,19 @@ class BulletinMap extends React.Component {
           bulletin={this.props.store.activeBulletin}
           handleSelectRegion={this.props.handleSelectRegion}
           handleCenterToRegion={center => this.map.panTo(center)}
+        />
+      );
+    }
+
+    const { activeNeighborBulletins } = this.props.store;
+    if (this.props.store.settings.neighbors && activeNeighborBulletins) {
+      overlays.push(
+        <GeoJSON
+          // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
+          key={`neighbor-bulletins-${activeNeighborBulletins.name}`}
+          data={activeNeighborBulletins}
+          pane="mapPane"
+          style={feature => feature.properties.style}
         />
       );
     }
@@ -324,4 +338,4 @@ class BulletinMap extends React.Component {
   }
 }
 
-export default injectIntl(BulletinMap);
+export default injectIntl(observer(BulletinMap));

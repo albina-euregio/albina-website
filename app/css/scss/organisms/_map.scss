@@ -128,6 +128,7 @@ $controls-width-height: $padding * 4;
 }
 
 //overlays
+.mix-blend-mode-multiply,
 .leaflet-pane.leaflet-overlay-pane,
 .leaflet-pane .leaflet-image-layer {
   mix-blend-mode: multiply;
