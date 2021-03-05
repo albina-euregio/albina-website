@@ -61,7 +61,6 @@ export class ModellingService {
   }
 
   private getZamgMultiModelPoints(): Observable<ZamgModelPoint[]> {
-    const regions = this.regionsService.getRegionsEuregio();
     const urls = [
       "MultimodelPointsEuregio_001.csv",
       "snowgridmultimodel_modprog110_HN.txt",
@@ -76,9 +75,7 @@ export class ModellingService {
           points.data.map(row => {
             const id = row.UID;
             const regionCode = row.RegionCode;
-            const region = regions.features.find(
-              feature => feature.properties.id === regionCode
-            );
+            const region = this.regionsService.getRegionForId(regionCode);
             const lat = parseFloat(row.MuMo_Y.replace(/,/g, "."));
             const lng = parseFloat(row.MuMo_X.replace(/,/g, "."));
 
@@ -109,8 +106,8 @@ export class ModellingService {
             return new ZamgModelPoint(
               id,
               regionCode,
-              region?.properties?.name_de,
-              region?.properties?.name_it,
+              region?.name_de,
+              region?.name_it,
               freshSnow,
               `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`,
               lat,

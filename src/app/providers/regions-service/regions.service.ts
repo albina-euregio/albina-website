@@ -9,34 +9,40 @@ import { FeatureCollection, Polygon, MultiPolygon } from "geojson";
 
 @Injectable()
 export class RegionsService {
-  constructor(private translateService: TranslateService) {}
+
+  constructor(private translateService: TranslateService) {
+    this.translateNames(this.getRegionsEuregio());
+    this.translateNames(this.getRegionsEuregioWithElevation());
+    this.translateNames(this.getRegionsAran());
+    this.translateNames(this.getRegionsAranWithElevation());
+  }
 
   getRegionsEuregio(): FeatureCollection<Polygon, RegionProperties> {
     const data = RegionsEuregio as FeatureCollection<Polygon, RegionProperties>;
-    this.translateNames(data);
     return data;
   }
 
   getRegionsEuregioWithElevation(): FeatureCollection<Polygon, RegionWithElevationProperties> {
     const data = RegionsEuregioElevation as FeatureCollection<Polygon, RegionWithElevationProperties>;
-    this.translateNames(data);
     return data;
   }
 
   getRegionsAran(): FeatureCollection<Polygon, RegionProperties> {
     const data = RegionsAran as FeatureCollection<Polygon, RegionProperties>;
-    this.translateNames(data);
     return data;
   }
 
   getRegionsAranWithElevation(): FeatureCollection<MultiPolygon, RegionWithElevationProperties> {
     const data = RegionsAranElevation as FeatureCollection<MultiPolygon, RegionWithElevationProperties>;
-    this.translateNames(data);
     return data;
   }
 
   private translateNames(data: FeatureCollection<any, RegionProperties>) {
-    data.features.forEach(feature => feature.properties.name = this.translateService.instant("region." + feature.properties.id));
+    data.features.forEach((feature) => (feature.properties.name = this.translateService.instant("region." + feature.properties.id)));
+  }
+
+  getRegionForId(id: string): RegionProperties {
+    return this.getRegionsEuregio().features.find((feature) => feature.properties.id === id)?.properties;
   }
 }
 
