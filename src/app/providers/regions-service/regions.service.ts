@@ -15,6 +15,12 @@ export class RegionsService {
     this.translateNames(this.getRegionsEuregioWithElevation());
     this.translateNames(this.getRegionsAran());
     this.translateNames(this.getRegionsAranWithElevation());
+    this.translateService.onLangChange.subscribe(() => {
+      this.translateNames(this.getRegionsEuregio());
+      this.translateNames(this.getRegionsEuregioWithElevation());
+      this.translateNames(this.getRegionsAran());
+      this.translateNames(this.getRegionsAranWithElevation());
+    });
   }
 
   getRegionsEuregio(): FeatureCollection<Polygon, RegionProperties> {

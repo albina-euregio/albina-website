@@ -20,8 +20,7 @@ export class ZamgModelPoint {
   constructor(
     public id: string,
     public regionCode: string,
-    public regionNameDE: string,
-    public regionNameIT: string,
+    public regionName: string,
     public freshSnow: ZamgFreshSnow[],
     public plotUrl: string,
     public lat: number,
@@ -106,8 +105,7 @@ export class ModellingService {
             return new ZamgModelPoint(
               id,
               regionCode,
-              region?.name_de,
-              region?.name_it,
+              region?.name,
               freshSnow,
               `${this.constantsService.zamgModelsUrl}snowgridmultimodel_${id}.png`,
               lat,
@@ -139,7 +137,6 @@ export class ModellingService {
                   new ZamgModelPoint(
                     synop,
                     `${type} ${synop}`,
-                    name,
                     name,
                     [],
                     `${zamgModelsUrl}eps_ecmwf/snowgrid_ECMWF_EPS_${synop}_${type}.png`,

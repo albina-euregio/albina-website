@@ -15,7 +15,7 @@
         >
           <option *ngFor="let point of modelPoints" [ngValue]="point">
             {{ point.regionCode }}:
-            {{ currentLang === "it" ? point.regionNameIT : point.regionNameDE }}
+            {{ point.regionName }}
             ({{ point.id }})
           </option>
         </select>
@@ -76,11 +76,7 @@
                   (click)="$event.preventDefault(); selectedModelPoint = point"
                 >
                   {{ point.regionCode }}:
-                  {{
-                    currentLang === "it"
-                      ? point.regionNameIT
-                      : point.regionNameDE
-                  }}
+                  {{ point.regionName }}
                 </a>
               </td>
               <td *ngFor="let snow of point.freshSnow">
