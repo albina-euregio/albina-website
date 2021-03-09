@@ -166,13 +166,8 @@ export class AuthenticationService {
     return this.constantsService.lng.get(this.getActiveRegion() ?? "");
   }
 
-  public isCurrentUserInRole(role) {
-    if (this.currentAuthor && this.currentAuthor.getRoles() && this.currentAuthor.getRoles() !== undefined) {
-      if (this.currentAuthor.getRoles().indexOf(role) > -1) {
-        return true;
-      }
-    }
-    return false;
+  public isCurrentUserInRole(role: string): boolean {
+    return this.currentAuthor?.getRoles?.()?.includes(role);
   }
 
   // region
