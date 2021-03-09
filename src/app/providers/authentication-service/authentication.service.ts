@@ -46,27 +46,15 @@ export class AuthenticationService {
   }
 
   public getUsername(): string {
-    if (this.currentAuthor) {
-      return this.currentAuthor.name;
-    } else {
-      return null;
-    }
+    return this.currentAuthor?.name;
   }
 
   public getEmail(): string {
-    if (this.currentAuthor) {
-      return this.currentAuthor.email;
-    } else {
-      return null;
-    }
+    return this.currentAuthor?.email;
   }
 
   public getAccessToken() {
-    if (this.currentAuthor) {
-      return this.currentAuthor.accessToken;
-    } else {
-      return null;
-    }
+    return this.currentAuthor?.accessToken;
   }
 
   public newAuthHeader(mime = "application/json"): HttpHeaders {
@@ -79,19 +67,11 @@ export class AuthenticationService {
   }
 
   public getRefreshToken() {
-    if (this.currentAuthor) {
-      return this.currentAuthor.refreshToken;
-    } else {
-      return null;
-    }
+    return this.currentAuthor?.refreshToken;
   }
 
   public getUserImage() {
-    if (this.currentAuthor) {
-      return this.currentAuthor.image;
-    } else {
-      return null;
-    }
+    return this.currentAuthor?.image;
   }
 
   public getUserImageSanitized() {
