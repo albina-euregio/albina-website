@@ -298,20 +298,4 @@ export class ConstantsService {
     const norm = Math.abs(Math.floor(num));
     return (norm < 10 ? "0" : "") + norm;
   }
-
-  getLat(region: String) {
-    if (region && region !== undefined) {
-      return this.lat.get(region);
-    } else {
-      return this.lat.get("");
-    }
-  }
-
-  getLng(region: String) {
-    if (region && region !== undefined) {
-      return this.lng.get(region);
-    } else {
-      return this.lng.get("");
-    }
-  }
 }

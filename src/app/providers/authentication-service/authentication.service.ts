@@ -159,11 +159,11 @@ export class AuthenticationService {
   }
 
   public getUserLat() {
-    return this.constantsService.getLat(this.getActiveRegion());
+    return this.constantsService.lat.get(this.getActiveRegion() ?? "");
   }
 
   public getUserLng() {
-    return this.constantsService.getLng(this.getActiveRegion());
+    return this.constantsService.lng.get(this.getActiveRegion() ?? "");
   }
 
   public isCurrentUserInRole(role) {
