@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ObservationSource } from "app/observations/models/generic-observation.model";
 import { environment } from "../../../environments/environment";
+import * as Enums from "../../enums/enums";
 const pkg = require("../../../../package.json");
 
 @Injectable()
@@ -204,7 +205,7 @@ export class ConstantsService {
   constructor() {
   }
 
-  getDangerRatingColor(dangerRating) {
+  getDangerRatingColor(dangerRating: keyof typeof Enums.DangerRating) {
     switch (dangerRating) {
       case "very_high":
         return this.colorDangerRatingVeryHigh;
@@ -224,7 +225,7 @@ export class ConstantsService {
     }
   }
 
-  getDangerRatingColorBw(dangerRating) {
+  getDangerRatingColorBw(dangerRating: keyof typeof Enums.DangerRating) {
     switch (dangerRating) {
       case "very_high":
         return this.colorDangerRatingVeryHighBw;
