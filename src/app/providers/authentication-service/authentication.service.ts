@@ -150,12 +150,12 @@ export class AuthenticationService {
     }
   }
 
-  public isEuregio() {
-    if (this.getActiveRegion() === this.constantsService.codeTyrol || this.getActiveRegion() === this.constantsService.codeSouthTyrol || this.getActiveRegion() === this.constantsService.codeTrentino) {
-      return true;
-    } else {
-      return false;
-    }
+  public isEuregio(): boolean {
+    return (
+      this.getActiveRegion() === this.constantsService.codeTyrol ||
+      this.getActiveRegion() === this.constantsService.codeSouthTyrol ||
+      this.getActiveRegion() === this.constantsService.codeTrentino
+    );
   }
 
   public getUserLat() {
