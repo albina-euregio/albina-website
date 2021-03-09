@@ -37,10 +37,6 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 export function isWebPushSupported() {
-  if (APP_ENVIRONMENT == "prod") {
-    // disable for now
-    return false;
-  }
   return (
     "serviceWorker" in navigator &&
     "Notification" in window &&
