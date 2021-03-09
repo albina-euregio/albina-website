@@ -59,8 +59,15 @@ const WARNLEVEL_COLORS = [undefined, "#ccff66", "#ffff00", "#ff9900", "#ff0000",
 function augmentNeighborFeature(feature, bulletins) {
   const region = feature.properties.id;
   const elev = feature.properties.hoehe;
+  bulletins =
+    region === "CH" || region == "LI"
+      ? bulletins.filter(bulletin => bulletin.valid_regions?.[0]?.startsWith("CH-"))
+      : bulletins.filter(bulletin => bulletin.valid_regions.includes(region));
   const bulletin =
-    region === "CH" || region == "LI" ? findBulletinCH(bulletins) : bulletins.find(bulletin => bulletin.valid_regions.includes(region));
+    bulletins.length &&
+    bulletins.reduce((b1, b2) =>
+      Math.max(...b1.danger_main.map(d => d.main_value)) >= Math.max(...b2.danger_main.map(d => d.main_value)) ? b1 : b2
+    );
   const dangerMain = bulletin?.danger_main?.find(
     danger =>
       !danger.valid_elevation ||
@@ -99,16 +106,4 @@ async function loadRegionsCH() {
   );
   extraRegions.forEach(feature => (feature.properties.id = feature.id));
   return extraRegions;
-}
-
-/**
- * @param {Albina.NeighborBulletin[]} bulletins
- * @returns {Albina.NeighborBulletin}
- */
-function findBulletinCH(bulletins) {
-  bulletins = bulletins.filter(bulletin => bulletin.valid_regions?.[0]?.startsWith("CH-"));
-  if (!bulletins.length) return;
-  return bulletins.reduce((b1, b2) =>
-    Math.max(...b1.danger_main.map(d => d.main_value)) >= Math.max(...b2.danger_main.map(d => d.main_value)) ? b1 : b2
-  );
 }
