@@ -38,7 +38,7 @@ export default class ControllBar extends React.Component {
         {props.backgroundImage && (
           <div
             className="controlbar-bg-image"
-            style={{ "background-image": "url(" + props.backgroundImage + ")" }}
+            style={{ backgroundImage: "url(" + props.backgroundImage + ")" }}
           ></div>
         )}
 
