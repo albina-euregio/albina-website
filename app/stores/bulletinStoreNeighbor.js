@@ -68,13 +68,15 @@ function augmentNeighborFeature(feature, bulletins) {
     bulletins.reduce((b1, b2) =>
       Math.max(...b1.danger_main.map(d => d.main_value)) >= Math.max(...b2.danger_main.map(d => d.main_value)) ? b1 : b2
     );
-  const dangerMain = bulletin?.danger_main?.find(
-    danger =>
-      !danger.valid_elevation ||
-      (danger.valid_elevation.charAt(0) === "<" && elev === 1) ||
-      (danger.valid_elevation.charAt(0) === ">" && elev === 2)
-  );
-  const warnlevel = dangerMain?.main_value;
+  const warnlevel = bulletin?.danger_main
+    ?.filter(
+      danger =>
+        !danger.valid_elevation ||
+        (danger.valid_elevation.charAt(0) === "<" && elev === 1) ||
+        (danger.valid_elevation.charAt(0) === ">" && elev === 2)
+    )
+    .map(danger => danger.main_value)
+    .reduce((w1, w2) => Math.max(w1, w2), 0);
   /**
    * @type {import("leaflet").PathOptions}
    */
@@ -89,7 +91,6 @@ function augmentNeighborFeature(feature, bulletins) {
     properties: {
       ...feature.properties,
       bulletin,
-      dangerMain,
       warnlevel,
       style
     }
