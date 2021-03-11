@@ -155,12 +155,8 @@ class SubscribeEmailDialog extends React.Component {
             <ul className="list-inline list-subscribe-language">
               {window["appStore"].mainLanguages.map(l => (
                 <li key={l}>
-                  <label
-                    className="pure-checkbox"
-                    htmlFor={"subscribe-language-" + l}
-                  >
+                  <label className="pure-checkbox">
                     <input
-                      id={"subscribe-language-" + l}
                       name="language"
                       onChange={this.handleChangeLanguage}
                       value={l}
