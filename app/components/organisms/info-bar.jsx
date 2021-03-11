@@ -15,6 +15,10 @@ export default class InfoBar extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    this.resetInterval();
+  }
+
   getI(def, para) {
     // console.log("InfoBar->getI", typeof def, def, para);
     if (typeof def === "string") return def;
