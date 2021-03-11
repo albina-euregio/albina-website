@@ -250,10 +250,7 @@ class StationTable extends React.Component {
 
   render() {
     return (
-      <table
-        ref="main"
-        className="pure-table pure-table-striped pure-table-small table-measurements"
-      >
+      <table className="pure-table pure-table-striped pure-table-small table-measurements">
         <StationTableHeader
           columns={this.columns}
           isDisplayColumn={this.isDisplayColumn.bind(this)}
