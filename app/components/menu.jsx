@@ -10,7 +10,7 @@ class Menu extends React.Component {
   constructor(props) {
     super(props);
     if (!window["blogStore"]) {
-      const getHistory = () => self.props.history;
+      const getHistory = () => this.props.history;
       window["blogStore"] = new BlogStore(getHistory);
     }
   }
