@@ -48,7 +48,7 @@ module.exports = (env, argv) => {
       "./sentry.js",
       "./main.jsx"
     ],
-    devtool: production ? "source-map" : "cheap-module-eval-source-map",
+    devtool: production ? "source-map" : "eval-cheap-module-source-map",
     devServer: {
       historyApiFallback: {
         index: publicPath + "index.html"
