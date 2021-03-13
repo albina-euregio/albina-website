@@ -50,26 +50,11 @@ class WeatherStationDiagrams extends React.Component {
     return pieces[0] + " " + name;
   }
 
-  assembleStationInfo(stationData) {
-    let stationInfo = [];
-    stationData.parametersForDialog.forEach(infoType => {
-      stationInfo.push({
-        ...infoType,
-        caption: this.props.intl.formatMessage({
-          id: "measurements:table:header:" + infoType.type
-        })
-      });
-    });
-    // console.log("assembleStationInfo", stationData, stationInfo);
-    return stationInfo;
-  }
-
   render() {
     let stationData = window["modalStateStore"].data.stationData;
     let self = this;
 
     if (!stationData) return <div></div>;
-    let stationInfo = this.assembleStationInfo(stationData);
     return (
       <div className="modal-container">
         <div className="modal-weatherstation">
@@ -111,10 +96,12 @@ class WeatherStationDiagrams extends React.Component {
 
           <div className="modal-content">
             <ul className="list-inline weatherstation-info">
-              {stationInfo.map(aInfo => (
+              {stationData.parametersForDialog.map(aInfo => (
                 <li key={aInfo.type} className={aInfo.type}>
                   <span className="weatherstation-info-caption">
-                    {aInfo.caption}:{" "}
+                    {this.props.intl.formatMessage({
+                      id: "measurements:table:header:" + aInfo.type
+                    })}:{" "}
                   </span>
                   <span className="weatherstation-info-value">
                     {this.props.intl.formatNumber(aInfo.value, {
