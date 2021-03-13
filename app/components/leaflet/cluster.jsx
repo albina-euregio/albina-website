@@ -31,10 +31,10 @@ class Cluster extends MapLayer {
   createClusterIcon = cluster => {
     const activeMarker = this.getActiveMarker(cluster);
     // reuse the marker's icon
-    let iconProbs = Object.assign({}, activeMarker.options.icon.options, {
+    return L.divIcon({
+      ...activeMarker.options.icon.options,
       className: "leaflet-cluster-marker tooltip"
     });
-    return L.divIcon(iconProbs);
   };
 
   createLeafletElement() {
