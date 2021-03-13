@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import { Util } from "leaflet";
+import { dateToDateTimeString } from "../../util/date";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
@@ -112,6 +113,9 @@ class WeatherStationDiagrams extends React.Component {
                   </span>
                 </li>
               ))}
+              <li>
+                <small>(<time>{dateToDateTimeString(stationData.date)}</time>)</small>
+              </li>
             </ul>
 
             <ul className="list-inline filter primary">
