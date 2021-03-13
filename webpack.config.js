@@ -83,14 +83,13 @@ module.exports = (env, argv) => {
           use: [MiniCssExtractPlugin.loader, "css-loader"]
         },
         {
-          test: /\.(jpe?g|png|gif|svg|webp|eot|ttf|svg|woff|woff2|ico)$/i,
+          test: /\.(jpe?g|png|gif|svg|webp|eot|ttf|svg|woff|woff2|ico|pbf)$/i,
           use: [
             {
               loader: "file-loader",
               options: {
                 name: "[name].[ext]",
-                outputPath: "./assets/",
-                publicPath: "./assets/"
+                outputPath: "./assets/"
               }
             }
           ]
@@ -163,13 +162,13 @@ module.exports = (env, argv) => {
         new CompressionPlugin({
           filename: "[path].gz[query]",
           algorithm: "gzip",
-          test: /\.(js|css|html|svg)$/
+          test: /\.(js|css|html|svg|pbf)$/
         }),
       production &&
         new CompressionPlugin({
           filename: "[path].br[query]",
           algorithm: "brotliCompress",
-          test: /\.(js|css|html|svg)$/
+          test: /\.(js|css|html|svg|pbf)$/
         }),
       sizePlugin,
       new ImageminWebpWebpackPlugin()

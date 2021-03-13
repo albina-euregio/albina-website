@@ -1,4 +1,6 @@
-import { decodeFeatureCollection } from "../util/polyline";
+import { decodeGeobuf } from "../util/geobuf";
+import regionsPbf from "./neighbor_micro_regions.pbf";
+import extraRegionsPbf from "./neighbor_regions.pbf";
 
 /**
  * @type {Promise<GeoJSON.FeatureCollection>}
@@ -9,8 +11,8 @@ let loadedRegions = undefined;
  * @return {Promise<GeoJSON.FeatureCollection>}
  */
 async function loadRegions() {
-  const regionsPolyline = await import("./neighbor_micro_regions.polyline.json");
-  const regions = decodeFeatureCollection(regionsPolyline.default);
+  const regionsBuffer = await (await fetch(regionsPbf)).arrayBuffer();
+  const regions = decodeGeobuf(regionsBuffer);
   regions.features.push(...(await loadRegionsCH()));
   regions.features = regions.features.map(f => Object.freeze(f));
   return Object.freeze(regions);
@@ -101,8 +103,8 @@ function augmentNeighborFeature(feature, bulletins) {
  * @returns{Promise<GeoJSON.Feature[]>}}
  */
 async function loadRegionsCH() {
-  const extraRegionsPolyline = await import("./neighbor_regions.polyline.json");
-  const extraRegions = decodeFeatureCollection(extraRegionsPolyline.default).features.filter(
+  const extraRegionsBuffer = await (await fetch(extraRegionsPbf)).arrayBuffer();
+  const extraRegions = decodeGeobuf(extraRegionsBuffer).features.filter(
     feature => feature.id === "CH" || feature.id === "LI"
   );
   extraRegions.forEach(feature => (feature.properties.id = feature.id));
