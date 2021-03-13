@@ -1,5 +1,4 @@
-import React from "react";
-import loadable from "@loadable/component";
+import React, { Suspense } from "react";
 import { observer } from "mobx-react";
 import { IntlProvider } from "react-intl";
 
@@ -11,15 +10,15 @@ import { ScrollContext } from "react-router-scroll-4";
 import Bulletin from "./../views/bulletin";
 import BlogOverview from "./../views/blogOverview";
 import BlogPost from "./../views/blogPost";
-const Weather = loadable(() =>
+const Weather = React.lazy(() =>
   import(/* webpackChunkName: "app-weather" */ "./../views/weather")
 );
-const StationMeasurements = loadable(() =>
+const StationMeasurements = React.lazy(() =>
   import(
     /* webpackChunkName: "app-stationMeasurements" */ "./../views/stationMeasurements"
   )
 );
-const StationMap = loadable(() =>
+const StationMap = React.lazy(() =>
   import(/* webpackChunkName: "app-stationMap" */ "./../views/stationMap")
 );
 import Education from "./../views/education";
@@ -163,7 +162,9 @@ class App extends React.Component {
       >
         <BrowserRouter basename={config.projectRoot}>
           <ScrollContext shouldUpdateScroll={this.shouldUpdateScroll}>
-            {renderRoutes(this.routes())}
+            <Suspense fallback={"..."}>
+              {renderRoutes(this.routes())}
+            </Suspense>
           </ScrollContext>
         </BrowserRouter>
       </IntlProvider>

@@ -8,7 +8,7 @@ import MapStore from "../stores/mapStore";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
-import BulletinMap from "../components/bulletin/bulletin-map";
+const BulletinMap = React.lazy(() => import("../components/bulletin/bulletin-map"));
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import ControlBar from "../components/organisms/control-bar.jsx";
@@ -18,6 +18,7 @@ import { parseDate, dateToLongDateString } from "../util/date.js";
 import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { parseSearchParams } from "../util/searchParams";
+import { Suspense } from "react";
 
 require("leaflet.sync");
 
@@ -201,41 +202,43 @@ class Bulletin extends React.Component {
         />
         <BulletinHeader store={this.store} title={this.state.title} />
 
-        {this.store.activeBulletinCollection &&
-        this.store.activeBulletinCollection.hasDaytimeDependency() ? (
-          <div className="bulletin-parallel-view">
-            {["am", "pm"].map(daytime => (
-              <BulletinMap
-                key={daytime}
-                handleMapViewportChanged={this.handleMapViewportChanged.bind(
-                  this
-                )}
-                handleSelectRegion={this.handleSelectRegion.bind(this)}
-                date={this.props.match.params.date}
-                history={this.props.history}
-                store={this.store}
-                highlightedRegion={this.state.highlightedRegion}
-                regions={this.store.getVectorRegions(daytime)}
-                onMapInit={this.handleMapInit.bind(this)}
-                ampm={daytime}
-              />
-            ))}
-          </div>
-        ) : (
-          <BulletinMap
-            handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+        <Suspense fallback={<div>...</div>}>
+          {this.store.activeBulletinCollection &&
+          this.store.activeBulletinCollection.hasDaytimeDependency() ? (
+            <div className="bulletin-parallel-view">
+              {["am", "pm"].map(daytime => (
+                <BulletinMap
+                  key={daytime}
+                  handleMapViewportChanged={this.handleMapViewportChanged.bind(
+                    this
+                  )}
+                  handleSelectRegion={this.handleSelectRegion.bind(this)}
+                  date={this.props.match.params.date}
+                  history={this.props.history}
+                  store={this.store}
+                  highlightedRegion={this.state.highlightedRegion}
+                  regions={this.store.getVectorRegions(daytime)}
+                  onMapInit={this.handleMapInit.bind(this)}
+                  ampm={daytime}
+                />
+              ))}
+            </div>
+          ) : (
+            <BulletinMap
+              handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+              handleSelectRegion={this.handleSelectRegion.bind(this)}
+              date={this.props.match.params.date}
+              history={this.props.history}
+              store={this.store}
+              highlightedRegion={this.state.highlightedRegion}
+              regions={this.store.getVectorRegions()}
+            />
+          )}
+          <BulletinLegend
             handleSelectRegion={this.handleSelectRegion.bind(this)}
-            date={this.props.match.params.date}
-            history={this.props.history}
-            store={this.store}
-            highlightedRegion={this.state.highlightedRegion}
-            regions={this.store.getVectorRegions()}
+            problems={this.store.problems}
           />
-        )}
-        <BulletinLegend
-          handleSelectRegion={this.handleSelectRegion.bind(this)}
-          problems={this.store.problems}
-        />
+        </Suspense>
         <BulletinButtonbar store={this.store} />
         {this.store.activeBulletinCollection && (
           <BulletinList
