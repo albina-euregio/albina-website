@@ -1,7 +1,7 @@
 import React from "react";
 import StationTableHeader from "./stationTableHeader";
 import { modal_open_by_params } from "../../js/modal";
-import { injectIntl, FormattedNumber } from "react-intl";
+import { injectIntl } from "react-intl";
 import { dateToDateTimeString } from "../../util/date.js";
 import { regionCodes } from "../../util/regions";
 
@@ -11,11 +11,10 @@ class StationTable extends React.Component {
 
     const defaultRender = (value, _row, digits = 0) =>
       typeof value === "number" ? (
-        <FormattedNumber
-          value={value}
-          minimumFractionDigits={digits}
-          maximumFractionDigits={digits}
-        ></FormattedNumber>
+        this.props.intl.formatNumber(value, {
+          minimumFractionDigits: digits,
+          maximumFractionDigits: digits
+        })
       ) : (
         "–"
       );
