@@ -26,17 +26,28 @@ module.exports = (env, argv) => {
     writeFile: false,
     exclude: "content/**",
     stripHash: filename =>
-      sizePlugin.reverseTemplate(filename, "[name].[hash].js") || sizePlugin.reverseTemplate(filename, "[name].[hash].css") || filename
+      sizePlugin.reverseTemplate(filename, "[name].[hash].js") ||
+      sizePlugin.reverseTemplate(filename, "[name].[hash].css") ||
+      filename
   });
   return {
     resolve: {
       alias: {
-        "react-intl": resolve(__dirname, "node_modules/react-intl/dist/react-intl.js")
+        "react-intl": resolve(
+          __dirname,
+          "node_modules/react-intl/dist/react-intl.js"
+        )
       },
       extensions: [".js", ".jsx"]
     },
     context: __dirname + "/app",
-    entry: ["core-js/stable", "regenerator-runtime/runtime", "./polyfill.js", "./sentry.js", "./main.jsx"],
+    entry: [
+      "core-js/stable",
+      "regenerator-runtime/runtime",
+      "./polyfill.js",
+      "./sentry.js",
+      "./main.jsx"
+    ],
     devtool: production ? "source-map" : "eval-cheap-module-source-map",
     devServer: {
       historyApiFallback: {
@@ -76,7 +87,11 @@ module.exports = (env, argv) => {
         },
         {
           test: /\.scss$/,
-          loaders: [MiniCssExtractPlugin.loader, { loader: "css-loader", options: { importLoaders: 1 } }, "sass-loader"]
+          loaders: [
+            MiniCssExtractPlugin.loader,
+            { loader: "css-loader", options: { importLoaders: 1 } },
+            "sass-loader"
+          ]
         },
         {
           test: /\.css$/,
@@ -101,7 +116,7 @@ module.exports = (env, argv) => {
     performance: {
       hints: production ? "error" : false,
       maxEntrypointSize: 2.2 * mebibyte,
-      maxAssetSize: 1.6 * mebibyte
+      maxAssetSize: 1.7 * mebibyte
     },
     plugins: [
       new HtmlWebPackPlugin({
@@ -115,7 +130,9 @@ module.exports = (env, argv) => {
         APP_LICENSE: JSON.stringify(license),
         APP_REPOSITORY: JSON.stringify(repository),
         APP_VERSION: JSON.stringify(git("describe --tags")),
-        APP_VERSION_DATE: JSON.stringify(git("log -1 --format=%cd --date=short"))
+        APP_VERSION_DATE: JSON.stringify(
+          git("log -1 --format=%cd --date=short")
+        )
       }),
       new MiniCssExtractPlugin({
         filename: "[name].[hash].css"
@@ -142,8 +159,13 @@ module.exports = (env, argv) => {
                 to: "config.json",
                 transform: (content, path) => {
                   const config = content.toString("utf8");
-                  const configDev = readFileSync(path.replace("config.json", "config-dev.json"));
-                  const configMerged = merge(JSON.parse(config), JSON.parse(configDev));
+                  const configDev = readFileSync(
+                    path.replace("config.json", "config-dev.json")
+                  );
+                  const configMerged = merge(
+                    JSON.parse(config),
+                    JSON.parse(configDev)
+                  );
                   const string = JSON.stringify(configMerged);
                   return Buffer.from(string);
                 }
