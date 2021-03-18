@@ -1,23 +1,9 @@
 {
   "type": "FeatureCollection",
-  "name": "micro_regions",
-  "crs": {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
-    }
-  },
   "features": [
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-24",
-        "name_de": "Venedigergruppe",
-        "name_it": "Gruppo del Venediger",
-        "name_en": "Venediger Range",
-        "threshold": 3400
-      },
+      "id": "AT-07-24",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -27,14 +13,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-27",
-        "name_de": "Östliche Deferegger Alpen",
-        "name_it": "Alpi del Defereggen orientali",
-        "name_en": "Eastern Deferegger Alps",
-        "threshold": 2700
-      },
+      "id": "AT-07-27",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -44,14 +23,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-29",
-        "name_de": "Lienzer Dolomiten",
-        "name_it": "Dolomiti di Lienz",
-        "name_en": "Lienzer Dolomites",
-        "threshold": 2500
-      },
+      "id": "AT-07-29",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -61,14 +33,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-23",
-        "name_de": "Nördliche Zillertaler Alpen",
-        "name_it": "Alpi della Zillertal settentrionali",
-        "name_en": "Northern Zillertal Alps",
-        "threshold": 3200
-      },
+      "id": "AT-07-23",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -78,14 +43,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-15",
-        "name_de": "Westliche Tuxer Alpen",
-        "name_it": "Alpi del Tux occidentali",
-        "name_en": "Western Tuxer Alps",
-        "threshold": 2600
-      },
+      "id": "AT-07-15",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -95,14 +53,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-17",
-        "name_de": "Westliche Kitzbüheler Alpen",
-        "name_it": "Alpi di Kitzbühel occidentali",
-        "name_en": "Western Kitzbühel Alps",
-        "threshold": 2400
-      },
+      "id": "AT-07-17",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -112,14 +63,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-06",
-        "name_de": "Wilder Kaiser - Waidringer Alpen",
-        "name_it": "Monti del Kaiser - Alpi di Waidring",
-        "name_en": "Wilder Kaiser Mountains - Waidring Alps",
-        "threshold": 2200
-      },
+      "id": "AT-07-06",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -129,14 +73,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-04",
-        "name_de": "Karwendel",
-        "name_it": "Monti del Karwendel",
-        "name_en": "Karwendel Mountains",
-        "threshold": 2500
-      },
+      "id": "AT-07-04",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -146,14 +83,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-08",
-        "name_de": "Zentrale Lechtaler Alpen",
-        "name_it": "Alpi della Lechtal centrali",
-        "name_en": "Central Lechtal Alps",
-        "threshold": 2600
-      },
+      "id": "AT-07-08",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -163,14 +93,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-13",
-        "name_de": "Samnaungruppe",
-        "name_it": "Gruppo Samnaun",
-        "name_en": "Samnaun Mountains",
-        "threshold": 2800
-      },
+      "id": "AT-07-13",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -180,14 +103,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-20",
-        "name_de": "Weißkugelgruppe",
-        "name_it": "Gruppo della Palla Bianca",
-        "name_en": "Weißkugel Range",
-        "threshold": 3400
-      },
+      "id": "AT-07-20",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -197,14 +113,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-14",
-        "name_de": "Nördliche Ötztaler- und Stubaier Alpen",
-        "name_it": "Alpi della Valle Oetz e dello Stubai settentrionale",
-        "name_en": "Northern Oetz and Stubai Alps",
-        "threshold": 3200
-      },
+      "id": "AT-07-14",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -214,14 +123,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-19",
-        "name_de": "Sole, Pejo und Rabbi",
-        "name_it": "Sole, Pejo e Rabbi",
-        "name_en": "Sole, Pejo and Rabbi",
-        "threshold": 3400
-      },
+      "id": "IT-32-TN-19",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -231,14 +133,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-20",
-        "name_de": "Maddalene",
-        "name_it": "Maddalene",
-        "name_en": "Maddalene",
-        "threshold": 2600
-      },
+      "id": "IT-32-TN-20",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -248,14 +143,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-02",
-        "name_de": "Südlicher Adamello",
-        "name_it": "Adamello meridionale",
-        "name_en": "Southern Adamello",
-        "threshold": 3200
-      },
+      "id": "IT-32-TN-02",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -265,14 +153,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-05",
-        "name_de": "Südliche Brenta",
-        "name_it": "Brenta meridionale",
-        "name_en": "Southern Brenta",
-        "threshold": 2800
-      },
+      "id": "IT-32-TN-05",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -282,14 +163,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-01",
-        "name_de": "Adamello - Presanella",
-        "name_it": "Adamello - Presanella",
-        "name_en": "Adamello - Presanella",
-        "threshold": 3200
-      },
+      "id": "IT-32-TN-01",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -299,14 +173,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-04",
-        "name_de": "Nördliche Brenta - Peller",
-        "name_it": "Brenta settentrionale - Peller",
-        "name_en": "Northern Brenta - Peller",
-        "threshold": 2800
-      },
+      "id": "IT-32-TN-04",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -316,14 +183,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-17",
-        "name_de": "Westliche Nonsberger Alpen",
-        "name_it": "Alpi della Val di Non occidentali",
-        "name_en": "Western Nonsberg Alps",
-        "threshold": 1900
-      },
+      "id": "IT-32-TN-17",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -333,14 +193,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-18",
-        "name_de": "Ledrotal",
-        "name_it": "Valle di Ledro",
-        "name_en": "Ledro Valley",
-        "threshold": 1900
-      },
+      "id": "IT-32-TN-18",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -350,14 +203,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-03",
-        "name_de": "Bondone und Stivo",
-        "name_it": "Bondone e Stivo",
-        "name_en": "Bondone and Stivo",
-        "threshold": 1900
-      },
+      "id": "IT-32-TN-03",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -367,14 +213,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-12",
-        "name_de": "Prealpi",
-        "name_it": "Prealpi",
-        "name_en": "Prealps",
-        "threshold": 1900
-      },
+      "id": "IT-32-TN-12",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -384,14 +223,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-14",
-        "name_de": "Vallarse",
-        "name_it": "Vallarsa",
-        "name_en": "Vallarsa",
-        "threshold": 2000
-      },
+      "id": "IT-32-TN-14",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -401,14 +233,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-06",
-        "name_de": "Folgaria - Lavarone",
-        "name_it": "Folgaria - Lavarone",
-        "name_en": "Folgaria - Lavarone",
-        "threshold": 2000
-      },
+      "id": "IT-32-TN-06",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -418,14 +243,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-10",
-        "name_de": "Marzola - Valsugana",
-        "name_it": "Marzola - Valsugana",
-        "name_en": "Marzola - Valsugana",
-        "threshold": 2000
-      },
+      "id": "IT-32-TN-10",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -435,14 +253,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-21",
-        "name_de": "Pine' - Fersental",
-        "name_it": "Pine' - Valle dei Mocheni",
-        "name_en": "Pine' - Mocheni Valley",
-        "threshold": 2200
-      },
+      "id": "IT-32-TN-21",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -452,14 +263,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-08",
-        "name_de": "Südliche Lagorai",
-        "name_it": "Lagorai meridionale",
-        "name_en": "Southern Lagorai",
-        "threshold": 2400
-      },
+      "id": "IT-32-TN-08",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -469,14 +273,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-15",
-        "name_de": "Cimberntal",
-        "name_it": "Valle di Cembra",
-        "name_en": "Cembra Valley",
-        "threshold": 2200
-      },
+      "id": "IT-32-TN-15",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -486,14 +283,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-11",
-        "name_de": "Paganella",
-        "name_it": "Paganella",
-        "name_en": "Paganella",
-        "threshold": 1900
-      },
+      "id": "IT-32-TN-11",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -503,14 +293,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-07",
-        "name_de": "Nördliche Lagorai",
-        "name_it": "Lagorai settentrionale",
-        "name_en": "Northern Lagorai",
-        "threshold": 2400
-      },
+      "id": "IT-32-TN-07",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -520,14 +303,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-09",
-        "name_de": "Latemar",
-        "name_it": "Latemar",
-        "name_en": "Latemar",
-        "threshold": 2400
-      },
+      "id": "IT-32-TN-09",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -537,14 +313,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-13",
-        "name_de": "Primiero - Pale di S. Martino",
-        "name_it": "Primiero - Pale di S. Martino",
-        "name_en": "Primiero - Pale di S. Martino",
-        "threshold": 2800
-      },
+      "id": "IT-32-TN-13",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -554,14 +323,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-TN-16",
-        "name_de": "Fassatal",
-        "name_it": "Valle di Fassa",
-        "name_en": "Fassa Valley",
-        "threshold": 2800
-      },
+      "id": "IT-32-TN-16",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -571,14 +333,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-01",
-        "name_de": "Allgäuer Alpen",
-        "name_it": "Alpi dell'Allgäu",
-        "name_en": "Allgäu Alps",
-        "threshold": 2400
-      },
+      "id": "AT-07-01",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -588,14 +343,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-12",
-        "name_de": "Silvretta",
-        "name_it": "Silvretta",
-        "name_en": "Silvretta",
-        "threshold": 3000
-      },
+      "id": "AT-07-12",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -605,14 +353,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-10",
-        "name_de": "Westliche Verwallgruppe",
-        "name_it": "Gruppo Verwall occidentali",
-        "name_en": "Western Verwall Mountains",
-        "threshold": 2800
-      },
+      "id": "AT-07-10",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -622,14 +363,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-28",
-        "name_de": "Schobergruppe",
-        "name_it": "Gruppo dello Schober",
-        "name_en": "Schober Mountains",
-        "threshold": 3000
-      },
+      "id": "AT-07-28",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -639,14 +373,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-26",
-        "name_de": "Glocknergruppe",
-        "name_it": "Gruppo del Glockner",
-        "name_en": "Glockner Range",
-        "threshold": 3400
-      },
+      "id": "AT-07-26",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -656,14 +383,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-16",
-        "name_de": "Östliche Tuxer Alpen",
-        "name_it": "Alpi del Tux orientali",
-        "name_en": "Eastern Tuxer Alps",
-        "threshold": 2600
-      },
+      "id": "AT-07-16",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -673,14 +393,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-05",
-        "name_de": "Brandenberger Alpen",
-        "name_it": "Alpi di Brandenberg",
-        "name_en": "Brandenberg Alps",
-        "threshold": 2000
-      },
+      "id": "AT-07-05",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -690,14 +403,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-03",
-        "name_de": "Mieminger Gebirge",
-        "name_it": "Monti di Mieming",
-        "name_en": "Mieming Mountains",
-        "threshold": 2500
-      },
+      "id": "AT-07-03",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -707,14 +413,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-22",
-        "name_de": "Zentrale Stubaier Alpen",
-        "name_it": "Alpi dello Stubai centrali",
-        "name_en": "Central Stubai Alps",
-        "threshold": 3200
-      },
+      "id": "AT-07-22",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -724,14 +423,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-02",
-        "name_de": "Östliche Lechtaler Alpen - Ammergauer Alpen",
-        "name_it": "Alpi della Lechtal orientali - Alpi dell'Ammergau",
-        "name_en": "Eastern Lechtal Alps - Ammergau Alps",
-        "threshold": 2600
-      },
+      "id": "AT-07-02",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -741,14 +433,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-17",
-        "name_de": "Nördliche Fleimstaler Alpen",
-        "name_it": "Dolomiti di Fiemme settentrionali",
-        "name_en": "Northern Dolomites of Fiemme",
-        "threshold": 2400
-      },
+      "id": "IT-32-BZ-17",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -758,14 +443,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-19",
-        "name_de": "Pragser Dolomiten",
-        "name_it": "Dolomiti di Braies",
-        "name_en": "Prags Dolomites",
-        "threshold": 2800
-      },
+      "id": "IT-32-BZ-19",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -775,14 +453,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-13",
-        "name_de": "Westliche Deferegger Alpen",
-        "name_it": "Alpi del Defereggen occidentali",
-        "name_en": "Western Deferegger Alps",
-        "threshold": 2700
-      },
+      "id": "IT-32-BZ-13",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -792,14 +463,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-12",
-        "name_de": "Westliche Rieserfernergruppe",
-        "name_it": "Catena delle Vedrette di Ries occidentali",
-        "name_en": "Western Rieserferner Mountains",
-        "threshold": 3000
-      },
+      "id": "IT-32-BZ-12",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -809,14 +473,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-18",
-        "name_de": "Grödner Dolomiten",
-        "name_it": "Dolomiti di Gardena",
-        "name_en": "Gröden Dolomites",
-        "threshold": 2800
-      },
+      "id": "IT-32-BZ-18",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -826,14 +483,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-05",
-        "name_de": "Südliche Zillertaler Alpen und Hohe Tauern",
-        "name_it": "Alpi della Zillertal meridionali e Alti Tauri",
-        "name_en": "Southern Zillertal Alps and High Tauern",
-        "threshold": 3200
-      },
+      "id": "IT-32-BZ-05",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -843,14 +493,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-04",
-        "name_de": "Südliche Stubaier Alpen",
-        "name_it": "Alpi dello Stubai meridionali",
-        "name_en": "Southern Stubai Alps",
-        "threshold": 3200
-      },
+      "id": "IT-32-BZ-04",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -860,14 +503,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-08",
-        "name_de": "Sarntaler Alpen",
-        "name_it": "Alpi Sarentine",
-        "name_en": "Sarntal Alps",
-        "threshold": 2500
-      },
+      "id": "IT-32-BZ-08",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -877,14 +513,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-16",
-        "name_de": "Östliche Nonsberger Alpen",
-        "name_it": "Alpi della Val di Non orientali",
-        "name_en": "Eastern Nonsberg Alps",
-        "threshold": 1900
-      },
+      "id": "IT-32-BZ-16",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -894,14 +523,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-15",
-        "name_de": "Ultental",
-        "name_it": "Val d'Ultimo",
-        "name_en": "Ulten Valley",
-        "threshold": 3200
-      },
+      "id": "IT-32-BZ-15",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -911,14 +533,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-01",
-        "name_de": "Münstertaler Alpen",
-        "name_it": "Alpi della Val Müstair",
-        "name_en": "Val Müstair Alps",
-        "threshold": 3000
-      },
+      "id": "IT-32-BZ-01",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -928,14 +543,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-14",
-        "name_de": "Ortlergruppe",
-        "name_it": "Gruppo dell'Ortles",
-        "name_en": "Ortler Range",
-        "threshold": 3400
-      },
+      "id": "IT-32-BZ-14",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -945,14 +553,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-07",
-        "name_de": "Texelgruppe",
-        "name_it": "Gruppo Tessa",
-        "name_en": "Texel Mountains",
-        "threshold": 3200
-      },
+      "id": "IT-32-BZ-07",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -962,14 +563,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-06",
-        "name_de": "Saldurn-Mastaun Kamm",
-        "name_it": "Gruppo Saldura-Mastaun",
-        "name_en": "Saldurn-Mastaun Ridge",
-        "threshold": 3200
-      },
+      "id": "IT-32-BZ-06",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -979,14 +573,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-20",
-        "name_de": "Sextner Dolomiten",
-        "name_it": "Dolomiti di Sesto",
-        "name_en": "Sexten Dolomites",
-        "threshold": 2800
-      },
+      "id": "IT-32-BZ-20",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -996,14 +583,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-02",
-        "name_de": "Langtaufers",
-        "name_it": "Vallelunga",
-        "name_en": "Langtaufers",
-        "threshold": 3200
-      },
+      "id": "IT-32-BZ-02",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1013,14 +593,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-03",
-        "name_de": "Schnalser Kamm",
-        "name_it": "Cresta di Senales",
-        "name_en": "Schnals Ridge",
-        "threshold": 3200
-      },
+      "id": "IT-32-BZ-03",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1030,14 +603,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-11",
-        "name_de": "Durreckgruppe",
-        "name_it": "Gruppo del la Cima Dura",
-        "name_en": "Durreck Range",
-        "threshold": 2900
-      },
+      "id": "IT-32-BZ-11",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1047,14 +613,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-10",
-        "name_de": "Östliche Pfunderer Berge",
-        "name_it": "Monti di Fundres orientali",
-        "name_en": "Eastern Pfunderer Mountains",
-        "threshold": 2700
-      },
+      "id": "IT-32-BZ-10",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1064,14 +623,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "IT-32-BZ-09",
-        "name_de": "Westliche Pfunderer Berge",
-        "name_it": "Monti di Fundres occidentali",
-        "name_en": "Western Pfunderer Mountains",
-        "threshold": 2900
-      },
+      "id": "IT-32-BZ-09",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1081,14 +633,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-25",
-        "name_de": "Östliche Rieserfernergruppe",
-        "name_it": "Catena delle Vedrette di Ries orientali",
-        "name_en": "Eastern Rieserferner Mountains",
-        "threshold": 3000
-      },
+      "id": "AT-07-25",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1098,14 +643,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-18",
-        "name_de": "Östliche Kitzbüheler Alpen",
-        "name_it": "Alpi di Kitzbühel orientali",
-        "name_en": "Eastern Kitzbühel Alps",
-        "threshold": 2000
-      },
+      "id": "AT-07-18",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1115,14 +653,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-09",
-        "name_de": "Grieskogelgruppe",
-        "name_it": "Gruppo del Grieskogel",
-        "name_en": "Grieskogel Mountains",
-        "threshold": 2700
-      },
+      "id": "AT-07-09",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1132,14 +663,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-21",
-        "name_de": "Gurgler Gruppe",
-        "name_it": "Alpi Passirie",
-        "name_en": "Gurgler Range",
-        "threshold": 3200
-      },
+      "id": "AT-07-21",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1149,14 +673,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-19",
-        "name_de": "Glockturmgruppe",
-        "name_it": "Gruppo della Punta della Gallina",
-        "name_en": "Glockturm Range",
-        "threshold": 3200
-      },
+      "id": "AT-07-19",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1166,14 +683,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-07",
-        "name_de": "Westliche Lechtaler Alpen",
-        "name_it": "Alpi della Lechtal occidentali",
-        "name_en": "Western Lechtal Alps",
-        "threshold": 2600
-      },
+      "id": "AT-07-07",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
@@ -1183,14 +693,7 @@
     },
     {
       "type": "Feature",
-      "properties": {
-        "style": 3502,
-        "code": "AT-07-11",
-        "name_de": "Östliche Verwallgruppe",
-        "name_it": "Gruppo Verwall orientali",
-        "name_en": "Eastern Verwall Mountains",
-        "threshold": 2800
-      },
+      "id": "AT-07-11",
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
