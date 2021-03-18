@@ -1,26 +1,15 @@
 {
   "type": "FeatureCollection",
-  "name": "neighbor_regions",
-  "crs": {
-    "type": "name",
-    "properties": {
-      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
-    }
-  },
   "features": [
     {
       "type": "Feature",
+      "id": "AT-05",
       "properties": {
-        "id": "AT-05",
         "country_id": "AT",
         "aws_1": "LWD Salzburg",
         "url_1_en": "https://lawine.salzburg.at/en/",
         "url_1_de": "https://lawine.salzburg.at/",
-        "url_1_it": "https://lawine.salzburg.at/en/",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "url_1_it": "https://lawine.salzburg.at/en/"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31,17 +20,13 @@
     },
     {
       "type": "Feature",
+      "id": "AT-08",
       "properties": {
-        "id": "AT-08",
         "country_id": "AT",
         "aws_1": "LWD Vorarlberg",
         "url_1_en": "https://warndienste.cnv.at/dibos/lawine_en/",
         "url_1_de": "https://warndienste.cnv.at/dibos/lawine/",
-        "url_1_it": "https://warndienste.cnv.at/dibos/lawine_en/",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "url_1_it": "https://warndienste.cnv.at/dibos/lawine_en/"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -52,17 +37,13 @@
     },
     {
       "type": "Feature",
+      "id": "CH",
       "properties": {
-        "id": "CH",
         "country_id": "CH",
         "aws_1": "SLF",
         "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
         "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
-        "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -73,8 +54,8 @@
     },
     {
       "type": "Feature",
+      "id": "DE-BY",
       "properties": {
-        "id": "DE-BY",
         "country_id": "DE",
         "aws_1": "LWD Bayern",
         "url_1_en": "https://www.lawinenwarndienst-bayern.de/res/lawinenlage/lagebericht_en.php",
@@ -94,8 +75,8 @@
     },
     {
       "type": "Feature",
+      "id": "AT-02",
       "properties": {
-        "id": "AT-02",
         "country_id": "AT",
         "aws_1": "LWD Kärnten",
         "url_1_en": "https://lawine-kaernten.at/",
@@ -115,8 +96,8 @@
     },
     {
       "type": "Feature",
+      "id": "IT-25-SO-LI",
       "properties": {
-        "id": "IT-25-SO-LI",
         "country_id": "IT",
         "aws_1": "ALPSOLUT",
         "url_1_en": "https://www.livigno.eu/en/avalanche-bulletin",
@@ -136,8 +117,8 @@
     },
     {
       "type": "Feature",
+      "id": "IT-34",
       "properties": {
-        "id": "IT-34",
         "country_id": "IT",
         "aws_1": "AINEVA",
         "url_1_en": "https://www.aineva.it/bollettini/",
@@ -157,8 +138,8 @@
     },
     {
       "type": "Feature",
+      "id": "IT-36",
       "properties": {
-        "id": "IT-36",
         "country_id": "IT",
         "aws_1": "AINEVA",
         "url_1_en": "https://www.aineva.it/bollettini/",
@@ -178,8 +159,8 @@
     },
     {
       "type": "Feature",
+      "id": "LI",
       "properties": {
-        "id": "LI",
         "country_id": "LI",
         "aws_1": "SLF",
         "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
@@ -199,8 +180,8 @@
     },
     {
       "type": "Feature",
+      "id": "IT-25",
       "properties": {
-        "id": "IT-25",
         "country_id": "IT",
         "aws_1": null,
         "url_1_en": null,
@@ -221,8 +202,8 @@
     },
     {
       "type": "Feature",
+      "id": "AT-03",
       "properties": {
-        "id": "AT-03",
         "country_id": "AT",
         "aws_1": "LWD Niederösterreich",
         "url_1_en": "https://www.lawinenwarndienst-niederoesterreich.at/",
@@ -242,8 +223,8 @@
     },
     {
       "type": "Feature",
+      "id": "AT-04",
       "properties": {
-        "id": "AT-04",
         "country_id": "AT",
         "aws_1": "LWD Oberösterreich",
         "url_1_en": "https://oberoesterreich.avalanche-warnings.eu/",
@@ -263,8 +244,8 @@
     },
     {
       "type": "Feature",
+      "id": "AT-06",
       "properties": {
-        "id": "AT-06",
         "country_id": "AT",
         "aws_1": "LWD Steiermark",
         "url_1_en": "https://www.lawine-steiermark.at/",
