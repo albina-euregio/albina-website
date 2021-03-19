@@ -12,7 +12,6 @@ async function loadRegions() {
   const regionsPolyline = await import(
     "./neighbor_micro_regions.polyline.json"
   );
-  debugger;
   const regions = decodeFeatureCollection(regionsPolyline.default);
   regions.features.push(...(await loadRegionsCH()));
   regions.features = regions.features.map(f => Object.freeze(f));
