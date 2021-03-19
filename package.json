@@ -8,6 +8,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "start-dev": "webpack-dev-server --mode development --env dev",
+    "start-prod": "webpack-dev-server --mode development --env prod",
     "test": "npm run eslint",
     "eslint": "eslint --ext=js,jsx .",
     "build-prod": "npm run clean-dist && webpack --mode production --env prod",
