@@ -497,7 +497,12 @@ export default class WeatherMapStore_new {
       endTime.setHours(endTime.getHours() + this._absTimeSpan);
       //console.log("weatherMapStore_new _setTimeIndices #2", endTime, maxTime);
       while (endTime <= maxTime) {
-        //console.log( "weatherMapStore_new _setTimeIndices add date", this._absTimeSpan, new Date(currentTime), new Date(maxTime));
+        console.log(
+          "weatherMapStore_new _setTimeIndices add date",
+          this._absTimeSpan,
+          new Date(currentTime),
+          new Date(maxTime)
+        );
         indices.push(new Date(currentTime).getTime());
         currentTime.setHours(currentTime.getHours() + this._absTimeSpan);
         endTime.setHours(endTime.getHours() + this._absTimeSpan);
@@ -530,12 +535,21 @@ export default class WeatherMapStore_new {
       //   maxTime
       // );
       while (currentTime >= maxTime) {
-        if (timeSpanDir != 0 || !indices.includes(currentTime.getTime()))
+        if (timeSpanDir != 0 || !indices.includes(currentTime.getTime())) {
           indices.push(new Date(currentTime).getTime());
+        }
+        const lastTime = new Date(currentTime.getTime());
         currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -1);
+        //fix summertime and wintertime change bug
+        if (currentTime.toUTCString() === lastTime.toUTCString()) {
+          //console.log("weatherMapStore_new _setTimeIndices FIX BUG",);
+          currentTime.setHours(currentTime.getHours() + this._absTimeSpan * -2);
+        }
         // console.log(
         //   "weatherMapStore_new _setTimeIndices add date",
+        //   currentTime.getHours() + this._absTimeSpan * -1,
         //   currentTime,
+        //   this._absTimeSpan,
         //   currentTime.getTime()
         // );
       }
