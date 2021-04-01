@@ -12,5 +12,68 @@
     "downloads": {
       "base": "https://avalanche.report/albina_files_dev/"
     }
+  },
+  "map": {
+    "overlay": {
+      "bounds": [],
+      "opacity": 1.0
+    },
+    "initOptions": {
+      "maxBounds": [
+        [0, 0],
+        [180, 180]
+      ],
+      "maxBoundsViscosity": 1,
+      "zoomSnap": 0.25,
+      "zoomDelta": 0.5,
+      "maxZoom": 10,
+      "minZoom": 5
+    },
+    "maxBounds": {
+      "7": [
+        [0, 0],
+        [180, 180]
+      ],
+      "8": [
+        [0, 0],
+        [180, 180]
+      ],
+      "9": [
+        [0, 0],
+        [180, 180]
+      ],
+      "10": [
+        [0, 0],
+        [180, 180]
+      ],
+      "11": [
+        [0, 0],
+        [180, 180]
+      ],
+      "12": [
+        [0, 0],
+        [180, 180]
+      ]
+    },
+    "tileLayers": [
+      {
+        "id": "ALBINA",
+        "url": "https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png",
+        "maxZoom": 10,
+        "minZoom": 5,
+        "detectRetina": false,
+        "tms": false,
+        "maxBounds": []
+      }
+    ]
+  },
+  "weathermaps": {
+    "settings": {
+      "mapOptionsOverride": {
+        "maxZoom": 12,
+        "minZoom": 5
+      },
+      "bbox": []
+    }
   }
 }
