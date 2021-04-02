@@ -13,6 +13,10 @@
     "measurements:table:header:*",
     "menu:*",
     "problem:*",
-    "region:*"
+    "region:*",
+    "dialog:subscribe:*",
+    "dialog:weather-station-diagram:timerange:*",
+    "bulletin:header:*",
+    "measurements:filter:hide:*"
   ]
 }
