@@ -229,9 +229,10 @@ class WeatherMapCockpit extends React.Component {
             key={aItem}
             onClick={this.handleEvent.bind(this, "timeSpan", aItem)}
             className={linkClasses.join(" ")}
-            title={this.props.intl.formatMessage({
-              id: "weathermap:domain:timespan:description:" + nrOnlyTimespan
-            })}
+            title={this.props.intl.formatMessage(
+              { id: "weathermap:domain:timespan:description" },
+              { range: nrOnlyTimespan }
+            )}
           >
             {nrOnlyTimespan}h
           </a>

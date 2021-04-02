@@ -43,7 +43,7 @@ class SubscribeDialog extends React.Component {
 
               <form className="pure-form pure-form-stacked">
                 <label htmlFor="input">
-                  <FormattedHTMLMessage id="dialog:subscribe:select-subscrption" />
+                  <FormattedHTMLMessage id="dialog:subscribe:select-subscription" />
                 </label>
                 <ul className="list-inline list-buttongroup-dense">
                   {dialogTypes.map(type => (
