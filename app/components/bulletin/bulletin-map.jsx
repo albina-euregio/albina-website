@@ -132,17 +132,29 @@ class BulletinMap extends React.Component {
         window.config.webp && this.props.store.settings.date > "2020-12-01"
           ? ".webp"
           : ".png";
-      const url =
-        config.apis.geo +
-        this.props.store.settings.date +
-        "/" +
-        getPublicationTimeString(b.publicationDateSeconds) +
-        "/" +
-        daytime +
-        "_overlay" +
-        imgFormat +
-        "?" +
-        b.publicationDate.getTime();
+      if (this.props.store.settings.date > "2019-05-06") {
+        const url =
+          config.apis.geo +
+          this.props.store.settings.date +
+          "/" +
+          getPublicationTimeString(b.publicationDateSeconds) +
+          "/" +
+          daytime +
+          "_overlay" +
+          imgFormat +
+          "?" +
+          b.publicationDate.getTime();
+      } else {
+        const url =
+          config.apis.geo +
+          this.props.store.settings.date +
+          "/" +
+          daytime +
+          "_overlay" +
+          imgFormat +
+          "?" +
+          b.publicationDate.getTime();
+      }
       const params = config.map.overlay;
 
       overlays.push(
