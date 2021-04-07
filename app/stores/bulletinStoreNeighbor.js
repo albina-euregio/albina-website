@@ -30,7 +30,8 @@ async function loadBulletins(date) {
     "AT-06",
     "AT-08",
     "BY",
-    "CH"
+    "CH",
+    "SI"
   ];
   const responses = regions.map(region =>
     fetch(`https://avalanche.report/albina_neighbors/${date}-${region}.json`)
