@@ -354,9 +354,9 @@
         "id": "SI",
         "country_id": "SI",
         "aws_1": "ARSO METEO",
-        "url_1_it": "meteo.arso.gov.si/met/sl/weather/bulletin/mountain/avalanche/",
-        "url_1_en": "meteo.arso.gov.si/met/sl/weather/bulletin/mountain/avalanche/",
-        "url_1_de": "meteo.arso.gov.si/met/sl/weather/bulletin/mountain/avalanche/"
+        "url_1_it": "https://meteo.arso.gov.si/met/sl/weather/bulletin/mountain/avalanche/",
+        "url_1_en": "https://meteo.arso.gov.si/met/sl/weather/bulletin/mountain/avalanche/",
+        "url_1_de": "https://meteo.arso.gov.si/met/sl/weather/bulletin/mountain/avalanche/"
       },
       "geometry": {
         "type": "MultiPolygon",
