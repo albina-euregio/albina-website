@@ -11,19 +11,25 @@ before_script:
   - npm --no-git-tag-version version $(git describe)
   - npm rebuild node-sass
 
-production build:
+build:development:
   stage: build
   script:
     - npm run lint
-    - npm run build-production
+    - npm run build-dev
   artifacts:
     paths:
       - dist/
+  environment:
+    name: development
+  only:
+    - master
+    - ci
 
-deploy to development:
+deploy:development:
   stage: deploy
+  needs:
+    - build:development
   script:
-    - npm run build-dev
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
@@ -37,10 +43,24 @@ deploy to development:
     - master
     - ci
 
-deploy to production:
-  stage: deploy
+build:production:
+  stage: build
   script:
+    - npm run lint
     - npm run build-production
+  artifacts:
+    paths:
+      - dist/
+  environment:
+    name: production
+  only:
+    - tags
+
+deploy:production:
+  stage: deploy
+  needs:
+    - build:production
+  script:
     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
