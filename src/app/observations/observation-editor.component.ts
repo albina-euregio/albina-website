@@ -14,7 +14,7 @@ export class ObservationEditorComponent {
 
   @Input() observation: Observation;
   eventTypes: SelectItem[] = Object.values(EventType).map((value) => ({
-    label: this.translate.instant('observations.eventTypes.${value}'),
+    label: this.translate.instant("observations.eventTypes.${value}"),
     value
   }));
   locationResults: Feature<Point, GeocodingProperties>[] = [];
