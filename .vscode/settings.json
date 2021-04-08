@@ -1,22 +1,32 @@
 {
   "i18n-ally.enabledFrameworks": ["react"],
   "i18n-ally.keystyle": "nested",
+  "i18n-ally.sortKeys": true,
   "i18n-ally.localesPaths": "app/i18n",
   "i18n-ally.regex.usageMatch": [
-    "\\b(?:(?:FormattedHTMLMessage|FormattedMessage)[ (]\\s*id=|t\\(\\s*)['\"`]({key})['\"`]",
-    "\\b(?:formatHTMLMessage|formatMessage)\\(\\{[\\n\\s]*['\"`]?id['\"`]?:\\s*['\"`]({key})['\"`]"
+    "\\b(?:(?:FormattedHTMLMessage|FormattedMessage)[(\\n\\s]*id=|t\\(\\s*)['\"`]({key})['\"`]\\s[^+]",
+    "\\b(?:formatHTMLMessage|formatMessage)\\([\\n\\s]*\\{[\\n\\s]*['\"`]?id['\"`]?:\\s*['\"`]({key})['\"`]\\s[^+]"
   ],
   "i18n-ally.keysInUse": [
+    "bulletin:header:*",
+    "bulletin:legend:dehighlight:hover",
+    "bulletin:legend:highlight:hover",
+    "bulletin:report:daytime:*",
+    "bulletin:report:headline2",
+    "bulletin:report:headline2:level0",
     "bulletin:report:tendency:*",
     "danger-level:*",
     "danger-patterns:*",
+    "dialog:subscribe:*",
+    "dialog:subscribe-app:*",
+    "dialog:subscribe-email:status:*",
+    "dialog:weather-station-diagram:timerange:*",
+    "measurements:filter:hide:*",
+    "measurements:table:*",
     "measurements:table:header:*",
     "menu:*",
     "problem:*",
     "region:*",
-    "dialog:subscribe:*",
-    "dialog:weather-station-diagram:timerange:*",
-    "bulletin:header:*",
-    "measurements:filter:hide:*"
+    "weathermap:domain:title:*"
   ]
 }

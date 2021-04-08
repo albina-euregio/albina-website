@@ -102,7 +102,8 @@ class WeatherStationDiagrams extends React.Component {
                   <span className="weatherstation-info-caption">
                     {this.props.intl.formatMessage({
                       id: "measurements:table:header:" + aInfo.type
-                    })}:{" "}
+                    })}
+                    :{" "}
                   </span>
                   <span className="weatherstation-info-value">
                     {this.props.intl.formatNumber(aInfo.value, {
@@ -114,7 +115,9 @@ class WeatherStationDiagrams extends React.Component {
                 </li>
               ))}
               <li>
-                <small>(<time>{dateToDateTimeString(stationData.date)}</time>)</small>
+                <small>
+                  (<time>{dateToDateTimeString(stationData.date)}</time>)
+                </small>
               </li>
             </ul>
 
@@ -166,7 +169,7 @@ class WeatherStationDiagrams extends React.Component {
 
             <p className="weatherstation-provider">
               {self.props.intl.formatMessage(
-                { id: "dialog:weather-station-diagram:operator.caption" },
+                { id: "dialog:weather-station-diagram:operator:caption" },
                 { operator: stationData.operator }
               )}
             </p>

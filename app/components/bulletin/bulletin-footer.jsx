@@ -149,6 +149,23 @@ class BulletinFooter extends React.Component {
               </a>
             </li>
             <li>
+              <a className="secondary pure-button" href="/education/matrix">
+                {this.props.intl.formatMessage({
+                  id: "button:education:eaws-matrix:text"
+                })}
+              </a>
+            </li>
+            <li>
+              <a
+                className="secondary pure-button"
+                href="/education/avalanche-problems"
+              >
+                {this.props.intl.formatMessage({
+                  id: "button:education:avalanche-sizes:text"
+                })}
+              </a>
+            </li>
+            <li>
               <a
                 className="secondary pure-button"
                 href="/education/danger-patterns"
