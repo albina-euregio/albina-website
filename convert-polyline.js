@@ -57,3 +57,18 @@ encodeFiles(
   ],
   "app/stores/neighbor_regions.polyline.json"
 );
+
+encodeFiles(
+  [
+    "eaws-regions/public/micro-regions_elevation/AT-02_micro-regions_alt.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/AT-03_micro-regions_alt.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/AT-04_micro-regions_alt.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/AT-05_micro-regions_alt.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/AT-06_micro-regions_alt.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/AT-08_micro-regions_alt.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/CH_micro-regions_alt.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/DE-BY_micro-regions_alt.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/SI_micro-regions_alt.geojson.json"
+  ],
+  "app/stores/neighbor_micro_regions.polyline.json"
+);
