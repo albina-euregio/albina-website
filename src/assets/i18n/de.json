@@ -1,11 +1,9 @@
 {
-  "undefined" : "---",
   "login" : {
     "title" : "Login",
     "text" : "Melde dich mit deinem Account an",
     "button" : "Login",
     "errorDialog" : {
-      "header" : "Login fehlgeschlagen",
       "message" : "Benutzername oder Passwort falsch!",
       "accept" : "Ok"
     },
@@ -20,8 +18,7 @@
     "modellingZamg": "ZAMG Multimodel",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "SNOWPACK Model",
-    "modellingSnowpackMeteo": "Modellierte Meteodaten SNOWPACK",
-    "catalogueOfPhrases" : "Satzkatalog"
+    "modellingSnowpackMeteo": "Modellierte Meteodaten SNOWPACK"
   },
   "menu" : {
     "logout" : "Logout",
@@ -75,7 +72,6 @@
         "saveBulletin" : "Lawinenvorhersage speichern",
         "discardBulletin" : "Änderungen an der Lawinenvorhersage verwerfen",
         "loadBulletin" : "Lawinenvorhersage vom Vortag laden",
-        "elevationDependency" : "Höhenabhängigkeit",
         "daytimeDependency" : "Tageszeitliche Abhängigkeit",
         "treeline" : "Waldgrenze",
         "tendency" : {
@@ -102,14 +98,10 @@
         "dangerRatingDirectionUp" : "Erweitere die Gefahrenstufe nach oben",
         "dangerRatingDirectionDown" : "Erweitere die Gefahrenstufe nach unten"
     },
-      "button" : "Neu",
       "save" : " Speichern",
       "discard" : " Verwerfen",
       "back" : " Zurück",
       "createAggregatedRegion" : " Neue Region",
-      "saveAggregatedRegion" : "Speichern",
-      "discardAggregatedRegion" : "Verwerfen",
-      "deleteAggregatedRegion" : "Löschen",
       "createAvalancheSituation" : "Neues Lawinenproblem",
       "ownRegions" : "Eigene Regionen",
       "foreignRegions": "Fremde Regionen",
@@ -117,27 +109,16 @@
         "highlights" : "Besondere Warnung",
         "avActivityHighlights" : "Schlagzeile Gefahrensituation",
         "avActivityComment" : "Beurteilung der Lawinengefahr",
-        "avalancheSituation1" : "Lawinenproblem 1",
-        "avalancheSituation2" : "Lawinenproblem 2",
-        "dangerRating" : "Gefahrenstufe",
-        "aspects" : "Exposition",
-        "elevation" : "Höhenabhängigkeit",
-        "daytime" : "Tageszeitliche Abhängigkeit",
-        "snowpackStructureHighlights" : "Schlagzeile Schneedeckenaufbau",
         "snowpackStructureComment" : "Beschreibung des Schneedeckenaufbaus",
         "dangerPatterns" : "Gefahrenmuster",
         "elevationHigh" : "Unter",
         "elevationLow" : "Über",
         "tendencyComment" : "Beschreibung der Tendenz",
-        "notes" : "Notizen",
-        "terrainFeature": "Geländemerkmale"
+        "notes" : "Notizen"
       },
       "title" : {
-        "map" : "Karte",
-        "dangerRating" : "Gefahrenstufe",
         "avalancheSituation" : "Lawinenprobleme",
         "dangerDescription" : "Gefahrenbeurteilung",
-        "detail" : "Details",
         "above" : "Oben",
         "below" : "Unten",
         "forenoon" : "Vormittag",
@@ -148,7 +129,6 @@
         "afternoonBelow" : "Nachmittag, unten",
         "snowpackStructure" : "Schneedeckenaufbau",
         "tendency" : "Tendenz",
-        "pmdialog" : "Satzkatalog",
         "showTranslations" : " Übersetzungen anzeigen",
         "hideTranslations" : " Übersetzungen verbergen"
       },
@@ -159,24 +139,20 @@
         "noIFrameSupport" : "Dein Browser unterstützt keine IFrames!"
       },
       "discardDialog" : {
-        "header" : "Änderungen verwerfen",
         "message" : "Willst du die Änderungen verwerfen?",
         "accept" : "Ja",
         "reject" : "Nein"
       },
       "deleteAggregatedRegionDialog" : {
-        "header" : "Region löschen",
         "message" : "Willst du die Region löschen?",
         "accept" : "Ja",
         "reject" : "Nein"
       },
       "noRegionDialog" : {
-        "header" : "Fischen in fremden Gewässern",
         "message" : "Zumindest eine Region muss deine sein.",
         "accept" : "Ok"
       },
       "loadDialog" : {
-        "header" : "Lawinenvorhersage vom Vortag laden",
         "message" : "Willst du die Lawinenvorhersage vom Vortag laden?",
         "accept" : "Ja",
         "reject" : "Nein"
@@ -187,32 +163,22 @@
         "reject" : "Nein"
       },
       "saveErrorDialog" : {
-        "header" : "Fehler beim Speichern",
         "message" : "Beim Speichern der Lawinenvorhersage ist ein Fehler aufgetreten!",
         "accept" : "Ok"
       },
       "changeErrorDialog" : {
-        "header" : "Fehler beim Ändern",
         "message" : "Beim Ändern der Lawinenvorhersage ist ein Fehler aufgetreten!",
         "accept" : "Ok"
       },
       "loadingErrorDialog" : {
-        "header" : "Fehler beim Laden",
         "message" : "Beim Laden der Lawinenvorhersage ist ein Fehler aufgetreten!",
         "accept" : "Ok"
       },
       "avalancheSituationErrorDialog" : {
-        "header" : "Unvollständiges Lawinenproblem",
         "message" : "Lawinenproblem Art, Exposition und/oder Gefahrenstufe fehlen bei mindestens einem Lawinenproblem",
         "accept" : "Ok"
       },
-      "incompleteTranslationDialog" : {
-        "header" : "Unvollständige Übersetzung",
-        "message" : "Die Übersetzung ist unvollständig!",
-        "accept" : "Ok"
-      },
       "loadAvActivityCommentExampleTextDialog" : {
-        "header" : "Beispieltext laden",
         "message" : "Für welche Situation möchtest du einen Beispieltext laden?",
         "newSnow" : "Neuschnee",
         "windDriftedSnow" : "Triebschnee",
@@ -231,9 +197,7 @@
           "IT-32-BZ" : "Südtirol",
           "AT-07" : "Tirol",
           "ES-CT-L" : "Aran"
-        },
-        "action" : "Aktion",
-        "caaml" : "CAAML"
+        }
       },
       "status" : {
         "missing" : "fehlt",
@@ -244,13 +208,7 @@
         "resubmitted" : "Update gesendet",
         "republished" : "Update publiziert"
       },
-      "edit" : "Bearbeiten",
-      "show" : "Anzeigen",
-      "button" : {
-        "publish" : "Publizieren"
-      },
       "publishBulletinsDialog" : {
-        "header" : "Lawinenvorhersage publizieren",
         "message" : "Willst du die Lawinenvorhersage publizieren?",
         "missingDangerRating" : "Gefahrenstufe nicht definiert",
         "missingRegion" : "Regionen nicht beurteilt",
@@ -265,7 +223,6 @@
         "reject" : "Nein"
       },
       "publicationStatusDialog" : {
-        "header" : "Publikationsstatus",
         "publishedBy" : "Publiziert von: ",
         "publishedAt" : "Publiziert um: ",
         "validFor" : "Gültig für: ",
@@ -301,55 +258,42 @@
           "telegramChannel" : {
             "success" : "Lawinenvorhersage wurde via Telegram Kanal versandt",
             "failed" : "Lawinenvorhersage konnte nicht via Telegram Kanal versandt werden"
-          },
-          "twitter" : {
-            "success" : "Lawinenvorhersagen wurde auf Twitter versandt",
-            "failed" : "Lawinenvorhersage konnte auf Twitter nicht versandt werden"
           }
         },
         "accept" : "Ok"
       },
       "publishBulletinsErrorDialog" : {
-        "header" : "Fehler beim Publizieren",
         "message" : "Beim Publizieren der Lawinenvorhersage ist ein Fehler aufgetreten!",
         "accept" : "Ok"
       },
       "submitBulletinsDialog" : {
-        "header" : "Lawinenvorhersage absenden",
         "message" : "Willst du die Lawinenvorhersage absenden?",
         "missingDangerRating" : "Gefahrenstufe nicht definiert",
         "missingRegion" : "Regionen nicht beurteilt",
-        "duplicateRegion" : "Regionen mehrfach beurteilt",
         "missingAvActivityHighlights" : "Schlagzeile der Lawinengefahr fehlt",
         "missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
         "missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
         "missingSnowpackStructureComment" : "Beurteilung des Schneedeckenaufbaus fehlt",
         "pendingSuggestions" : "Unbeantwortete Vorschläge",
-        "incompleteTranslation" : "Unvollständige Übersetzung",
         "accept" : "Ja",
         "reject" : "Nein"
       },
       "submitBulletinsErrorDialog" : {
-        "header" : "Fehler beim Absenden",
         "message" : "Beim Absenden der Lawinenvorhersage ist ein Fehler aufgetreten!",
         "accept" : "Ok"
       },
       "submitBulletinsDuplicateRegionDialog" : {
-        "header" : "Fehler beim Absenden",
         "message" : "Regionen sind mehrfach beurteilt! Lawinenvorhersage kann nicht abgesendet werden.",
         "accept" : "Ok"
       },
       "checkBulletinsErrorDialog" : {
-        "header" : "Fehler beim Überprüfen",
         "message" : "Beim Überprüfen der Lawinenvorhersage ist ein Fehler aufgetreten!",
         "accept" : "Ok"
       },
       "checkBulletinsDialog" : {
-        "header" : "Lawinenvorhersage prüfen",
         "message" : "Lawinenvorhersage prüfen",
         "missingDangerRating" : "Gefahrenstufe nicht definiert",
         "missingRegion" : "Regionen nicht beurteilt",
-        "duplicateRegion" : "Regionen mehrfach beurteilt",
         "missingAvActivityHighlights" : "Schlagzeile der Lawinengefahr fehlt",
         "missingAvActivityComment" : "Beurteilung der Lawinengefahr fehlt",
         "missingSnowpackStructureHighlights" : "Schlagzeile des Schneedeckenaufbaus fehlt",
@@ -368,12 +312,10 @@
     "caaml" : {
       "title" : "CAAML",
       "caamlNotLoadedDialog" : {
-        "header" : "CAAML",
         "message" : "CAAML konnte nicht geladen werden!",
         "accept" : "Ok"
       },
       "noCaamlDialog" : {
-        "header" : "CAAML",
         "message" : "Keine publizierte Lawinenvorhersage vorhanden!",
         "accept" : "Ok"
       }
@@ -381,12 +323,10 @@
     "json" : {
       "title" : "JSON",
       "jsonNotLoadedDialog" : {
-        "header" : "JSON",
         "message" : "JSON konnte nicht geladen werden!",
         "accept" : "Ok"
       },
       "noJsonDialog" : {
-        "header" : "JSON",
         "message" : "Keine publizierte Lawinenvorhersage vorhanden!",
         "accept" : "Ok"
       }
@@ -430,13 +370,11 @@
         "scriptsPath" : "Pfad zu den Skripten"
       },
       "button" : {
-        "save" : "Speichern",
-        "discard" : "Verwerfen"
+        "save" : "Speichern"
       }
     }
   },
   "settings" : {
-    "title" : "Einstellungen",
     "changePassword" : {
       "title" : "Passwort ändern",
       "oldPassword" : "Derzeitiges Passwort",
@@ -636,13 +574,83 @@
       "TA_table_season" : "wet snow table (season)"
     }
   },
+  "observations": {
+    "aspect": "Exposition",
+    "authorName": "Autor Name",
+    "avalancheLength": "Lawinenlänge",
+    "avalancheProblem": "Lawinenproblem",
+    "avalancheSize": "Lawinengröße",
+    "avalancheType": "Lawinenart",
+    "avalancheWidth": "Lawinenbreite",
+    "button": {
+      "add": "Beobachtung erstellen",
+      "save": "Beobachtung speichern",
+      "delete": "Beobachtung löschen",
+      "deleteConfirm": "Beobachtung wirklich löschen?",
+      "discard": "Verwerfen"
+    },
+    "comment": "Kommentar",
+    "content": "Inhalt",
+    "dangerRating": "Gefahrenstufe",
+    "elevation": "Seehöhe",
+    "eventDate": "Ereignisdatum",
+    "eventType": "Ereignisart",
+    "eventTypes": {
+      "IMPORTANT": "Wichtiges Ereignis",
+      "NORMAL": "Normales Ereignis",
+      "PERSON_DEAD": "Personenbeteiligung (tot)",
+      "PERSON_INJURED": "Personenbeteiligung (verletzt)",
+      "PERSON_NO": "Keine Personenbeteiligung",
+      "PERSON_UNINJURED": "Personenbeteiligung (unverletzt)"
+    },
+    "fractureDepth": "Anrisshöhe",
+    "hasCoordinates": "Has coordinates",
+    "incline": "Hangneigung",
+    "latitude": "Breitengrad",
+    "locationName": "Ort",
+    "longitude": "Längengrad",
+    "reportDate": "Meldedatum",
+    "showMap": "Karte",
+    "showTable": "Table"
+  },
+  "LoLaAvalanchePotential": {
+    "riskAssessment": "Risikoeinschätzung",
+    "snowpackStructure": "Schneedeckenaufbau",
+    "avalanchePotentialValue": "Lawinenpotenzial",
+    "avalancheCharacteristicString": "Lawinencharakteristik",
+    "windDriftedSnow": "Triebschnee",
+    "persistentWeakLayer": "Altschnee",
+    "wetSnow": "Nassschnee",
+    "glidingSnow": "Gleitschnee",
+    "newSnow": "Neuschnee",
+    "snowpackStructureActive": "Snowpack Structure Active",
+    "triggeringProbability": "Auslösewahrscheinlichkeit",
+    "avalancheRiskTendency24h": "Tendenz des Lawinenrisikos 24h",
+    "avalancheRiskTendency48h": "Tendenz des Lawinenrisikos 48h",
+    "oldSnowFloatingSnow": "Schwimmschnee / Tiefenreif",
+    "oldSnowSleet": "Graupel",
+    "oldSnowWeakLayers": "schwache Zwischenschichten",
+    "wetSnowRain": "Regen",
+    "wetSnowTemperatureIncrease": "Erwärmung",
+    "wetSnowHighRadiation": "Strahlung"
+  },
+  "LoLaWeather": {
+    "cloudiness": "Bewölkung",
+    "freshSnowAmount": "Neuschneesumme",
+    "officialAvalancheReport": "Offizieller Lawinen Report",
+    "precipitationIntensity": "Niederschlagsintensität",
+    "precipitationType": "Niederschlagsart",
+    "temperaturePeak": "Temperatur Gipfel",
+    "temperatureTreeline": "Temperatur Waldgrenze",
+    "temperatureValley": "Temperatur Tal",
+    "weatherTendency": "Tendenz Wetter",
+    "windDirection": "Wind Richtung",
+    "windSpeed": "Wind Geschw.",
+    "visibilityConditions": "Sicht"
+  },
   "natlefs" : {
-    "noData" : "---",
-    "anonymous" : "<anonymous>",
     "title" : {
-      "locationName" : "Ort",
       "ridingQuality" : "Fahrspaß",
-      "snowConditions" : "Schneeverhältnisse",
       "rode" : "Wir fuhren",
       "avoided" : "Wir hielten uns fern von",
       "alarmSignsFrequency" : "Alarmzeichen",
@@ -728,8 +736,7 @@
     "many" : "Viele"
   },
   "location" : {
-    "accuracy" : "Genauigkeit:",
-    "unknownAccuracy" : "(Genauigkeit unbekannt)"
+    "accuracy" : "GPS Genauigkeit"
   },
   "units" : {
     "cm" : "cm",

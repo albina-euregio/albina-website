@@ -1,11 +1,9 @@
 {
-  "undefined" : "---",
   "login" : {
     "title" : "Iniciar sesión",
     "text" : "Iniciar sesión en tu cuenta",
     "button" : "Iniciar sesión",
     "errorDialog" : {
-      "header" : "Inicio de sesión fallida",
       "message" : "Usuario o contraseña incorrectas",
       "accept" : "De acuerdo"
     },
@@ -20,8 +18,7 @@
     "modellingZamg": "ZAMG multi modelo",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "modelo SNOWPACK",
-    "modellingSnowpackMeteo": "SNOWPACK modelled meteo",
-    "catalogueOfPhrases" : "Catálogo de frases"
+    "modellingSnowpackMeteo": "SNOWPACK modelled meteo"
   },
   "menu" : {
     "logout" : "Cerrar sesión",
@@ -75,7 +72,6 @@
         "saveBulletin" : "Guarda el boletín",
         "discardBulletin" : "Descarta los cambios del boletín",
         "loadBulletin" : "Carga el boletín del día anterior",
-        "elevationDependency" : "Dependencia de elevación",
         "daytimeDependency" : "Dependencia diurna",
         "treeline" : "Límite superior del bosque",
         "tendency" : {
@@ -102,14 +98,10 @@
         "dangerRatingDirectionUp" : "Extender el grado de peligro hacia arriba",
         "dangerRatingDirectionDown" : "Extender el grado de peligro hacia abajo"
     },
-      "button" : "Crear",
       "save" : "Guardar",
       "discard" : "Descartar",
       "back" : "Volver",
       "createAggregatedRegion" : "Nueva región",
-      "saveAggregatedRegion" : "Guardar",
-      "discardAggregatedRegion" : "Descartar",
-      "deleteAggregatedRegion" : "Borrar",
       "createAvalancheSituation" : "Nuevo problema",
       "ownRegions" : "Regiones propias",
       "foreignRegions": "Regiones extranjeras",
@@ -117,27 +109,16 @@
         "highlights" : "Alerta especial",
         "avActivityHighlights" : "Titular de la situación de aludes",
         "avActivityComment" : "Descripción del peligro de aludes",
-        "avalancheSituation1" : "Situación de aludes 1",
-        "avalancheSituation2" : "Situación de aludes 2",
-        "dangerRating" : "Clasificación del peligro",
-        "aspects" : "Orientaciones",
-        "elevation" : "Altitud",
-        "daytime" : "Hora del día",
-        "snowpackStructureHighlights" : "Titular de la estructura del manto",
         "snowpackStructureComment" : "Descripción de la estructura del manto",
         "dangerPatterns" : "Patrón de peligro",
         "elevationHigh" : "Debajo",
         "elevationLow" : "Encima",
         "tendencyComment" : "Descripción de la tendencia",
-        "notes" : "Notas",
-        "terrainFeature": "Características del terreno"
+        "notes" : "Notas"
       },
       "title" : {
-        "map" : "Mapa",
-        "dangerRating" : "Clasificación del peligro",
         "avalancheSituation" : "Situación de aludes",
         "dangerDescription" : "Descripción del peligro de aludes",
-        "detail" : "Detalles",
         "above" : "Encima",
         "below" : "Debajo",
         "forenoon" : "Mañana",
@@ -148,7 +129,6 @@
         "afternoonBelow" : "Tarde, debajo",
         "snowpackStructure" : "Estructura del manto",
         "tendency" : "Tendencia",
-        "pmdialog" : "Catálogo de frases",
         "showTranslations" : "Mostrar traducciones",
         "hideTranslations" : "Ocultar traducciones"
       },
@@ -159,24 +139,20 @@
         "noIFrameSupport" : "Tu navegador no soporta IFrames!"
       },
       "discardDialog" : {
-        "header" : "Descartar cambios",
         "message" : "¿Quieres descartar los cambios?",
         "accept" : "Si",
         "reject" : "No"
       },
       "deleteAggregatedRegionDialog" : {
-        "header" : "Borrar región",
         "message" : "¿Quieres borrar esta región?",
         "accept" : "Si",
         "reject" : "No"
       },
       "noRegionDialog" : {
-        "header" : "Pescando en aguas extrangeras",
         "message" : "Al menos una región debe ser tuya",
         "accept" : "De acuerdo"
       },
       "loadDialog" : {
-        "header" : "Carga los boletines del día anterior",
         "message" : "¿Quieres cargar los boletines del día anterior?",
         "accept" : "Si",
         "reject" : "No"
@@ -187,32 +163,22 @@
         "reject" : "No"
       },
       "saveErrorDialog" : {
-        "header" : "Error al guardar los boletines",
         "message" : "¡Se ha producido un error guardando los boletines!",
         "accept" : "De acuerdo"
       },
       "changeErrorDialog" : {
-        "header" : "Error cargando boletines",
         "message" : "Se ha producido un error cargando los boletines",
         "accept" : "De acuerdo"
       },
       "loadingErrorDialog" : {
-        "header" : "Error cargando boletines",
         "message" : "Se ha producido un error cargando los boletines",
         "accept" : "De acuerdo"
       },
       "avalancheSituationErrorDialog" : {
-        "header" : "Problema de aludes incompleto",
         "message" : "Falta el tipo de problema de aludes, orientaciones y/o valoración del peligro para al menos un problema de aludes",
         "accept" : "De acuerdo"
       },
-      "incompleteTranslationDialog" : {
-        "header" : "Traducción incompleta",
-        "message" : "¡La traducción está incompleta!",
-        "accept" : "De acuerdo"
-      },
       "loadAvActivityCommentExampleTextDialog" : {
-        "header" : "Cargar texto de ejemplo",
         "message" : "Para que situación quieres cargar un texto de ejemplo",
         "newSnow" : "Nieve reciente",
         "windDriftedSnow" : "Nieve venteada",
@@ -231,9 +197,7 @@
           "IT-32-BZ" : "South Tyrol",
           "AT-07" : "Tyrol",
           "ES-CT-L" : "Aran"
-        },
-        "action" : "Acción",
-        "caaml" : "CAAML"
+        }
       },
       "status" : {
         "missing" : "ausente",
@@ -244,13 +208,7 @@
         "resubmitted" : "reenviado",
         "republished" : "republicado"
       },
-      "edit" : "Editar",
-      "show" : "Mostrar",
-      "button" : {
-        "publish" : "Publicar"
-      },
       "publishBulletinsDialog" : {
-        "header" : "Publicar boletín",
         "message" : "¿Quieres publicar el boletín?",
         "missingDangerRating" : "Grado de peligro no establecido",
         "missingRegion" : "Regiones no establecidas",
@@ -265,7 +223,6 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
-        "header" : "Estado de la publicación",
         "publishedBy" : "Publicado por:",
         "publishedAt" : "Publicado a las:",
         "validFor" : "Válido para:",
@@ -301,55 +258,42 @@
           "telegramChannel" : {
             "success" : "Predicción de aludes enviada a través de canal de Telegram",
             "failed" : "No se ha podido enviar la predicción de aludes a través de canal de Telegram"
-          },
-          "twitter" : {
-            "success" : "Predicción de aludes enviada a través de Twitter",
-            "failed" : "No se ha podido enviar la predicción de aludes a través de Twitter"
           }
         },
         "accept" : "De acuerdo"
       },
       "publishBulletinsErrorDialog" : {
-        "header" : "Error publicando los boletines",
         "message" : "¡Se ha producido un error publicando los boletines!",
         "accept" : "De acuerdo"
       },
       "submitBulletinsDialog" : {
-        "header" : "Enviar boletín",
         "message" : "¿Quieres enviar el boletín?",
         "missingDangerRating" : "Grado de peligro no establecido",
         "missingRegion" : "Regiones no establecidas",
-        "duplicateRegion" : "Regiones establecidas varias veces",
         "missingAvActivityHighlights" : "Falta el titular de la situación de aludes",
         "missingAvActivityComment" : "Falta la descripción del peligro de aludes",
         "missingSnowpackStructureHighlights" : "Falta el titular de la estructura del manto",
         "missingSnowpackStructureComment" : "Falta la descripción de la estructura del manto",
         "pendingSuggestions" : "Sugerencias pendientes",
-        "incompleteTranslation" : "Traducción incompleta",
         "accept" : "Si",
         "reject" : "No"
       },
       "submitBulletinsErrorDialog" : {
-        "header" : "Error enviando los boletines",
         "message" : "¡Se ha producido un error enviando los boletines!",
         "accept" : "De acuerdo"
       },
       "submitBulletinsDuplicateRegionDialog" : {
-        "header" : "Error enviando los boletines",
         "message" : "¡Regiones establecidas varias veces! Los boletines no se pueden enviar.",
         "accept" : "De acuerdo"
       },
       "checkBulletinsErrorDialog" : {
-        "header" : "Error comprobando los boletines",
         "message" : "Se ha producido un error comprobando los boletines",
         "accept" : "De acuerdo"
       },
       "checkBulletinsDialog" : {
-        "header" : "Comprobar boletín",
         "message" : "Comprobar boletín",
         "missingDangerRating" : "Grado de peligro no establecido",
         "missingRegion" : "Regiones no establecidas",
-        "duplicateRegion" : "Regiones establecidas varias veces",
         "missingAvActivityHighlights" : "Falta el titular de la situación de aludes",
         "missingAvActivityComment" : "Falta la descripción del peligro de aludes",
         "missingSnowpackStructureHighlights" : "Falta el titular de la estructura del manto",
@@ -368,12 +312,10 @@
     "caaml" : {
       "title" : "CAAML",
       "caamlNotLoadedDialog" : {
-        "header" : "CAAML",
         "message" : "¡No se ha podido cargar el CAAML!",
         "accept" : "De acuerdo"
       },
       "noCaamlDialog" : {
-        "header" : "CAAML",
         "message" : "No hay ningun boletín publicado disponible",
         "accept" : "De acuerdo"
       }
@@ -381,12 +323,10 @@
     "json" : {
       "title" : "JSON",
       "jsonNotLoadedDialog" : {
-        "header" : "JSON",
         "message" : "No se ha podido cargar el JSON",
         "accept" : "De acuerdo"
       },
       "noJsonDialog" : {
-        "header" : "JSON",
         "message" : "No hay ningun boletín publicado disponible",
         "accept" : "De acuerdo"
       }
@@ -430,13 +370,11 @@
         "scriptsPath" : "Ruta de acceso a los scripts"
       },
       "button" : {
-        "save" : "Guardar",
-        "discard" : "Descartar"
+        "save" : "Guardar"
       }
     }
   },
   "settings" : {
-    "title" : "Ajustes",
     "changePassword" : {
       "title" : "Cambiar la contraseña ",
       "oldPassword" : "Contraseña actual ",
@@ -636,13 +574,83 @@
       "TA_table_season" : "tabla nieve húmeda (temporada)"
     }
   },
+  "observations": {
+    "aspect": "Orientación",
+    "authorName": "Author name",
+    "avalancheLength": "Avalanche length",
+    "avalancheProblem": "Problema de aludes",
+    "avalancheSize": "Avalanche size",
+    "avalancheType": "Avalanche type",
+    "avalancheWidth": "Avalanche width",
+    "button": {
+      "add": "Add observation",
+      "save": "Save observation",
+      "delete": "Delete observation",
+      "deleteConfirm": "Delete observation?",
+      "discard": "Descartar"
+    },
+    "comment": "Comment",
+    "content": "Content",
+    "dangerRating": "Clasificación del peligro",
+    "elevation": "Altitud",
+    "eventDate": "Event date",
+    "eventType": "Event type",
+    "eventTypes": {
+      "IMPORTANT": "Important event",
+      "NORMAL": "Normal event",
+      "PERSON_DEAD": "Event involving persons (dead)",
+      "PERSON_INJURED": "Event involving persons (injured)",
+      "PERSON_NO": "Event not involving persons",
+      "PERSON_UNINJURED": "Event involving persons (uninjured)"
+    },
+    "fractureDepth": "Fracture depth",
+    "hasCoordinates": "Has coordinates",
+    "incline": "Incline",
+    "latitude": "Latitude",
+    "locationName": "Location",
+    "longitude": "Longitude",
+    "reportDate": "Report date",
+    "showMap": "Mapa",
+    "showTable": "Tabla"
+  },
+  "LoLaAvalanchePotential": {
+    "riskAssessment": "Risk Assessment",
+    "snowpackStructure": "Snowpack Structure",
+    "avalanchePotentialValue": "Avalanche Potential Value",
+    "avalancheCharacteristicString": "Avalanche Characteristic String",
+    "windDriftedSnow": "Wind Drifted Snow",
+    "persistentWeakLayer": "Persistent Weak Layer",
+    "wetSnow": "Wet Snow",
+    "glidingSnow": "Gliding Snow",
+    "newSnow": "Nieve reciente",
+    "snowpackStructureActive": "Snowpack Structure Active",
+    "triggeringProbability": "Triggering Probability",
+    "avalancheRiskTendency24h": "Avalanche Risk Tendency 24h",
+    "avalancheRiskTendency48h": "Avalanche Risk Tendency 48h",
+    "oldSnowFloatingSnow": "Old Snow Floating Snow",
+    "oldSnowSleet": "Old Snow Sleet",
+    "oldSnowWeakLayers": "Old Snow Weak Layers",
+    "wetSnowRain": "Wet Snow Rain",
+    "wetSnowTemperatureIncrease": "Wet Snow Temperature Increase",
+    "wetSnowHighRadiation": "Wet Snow High Radiation"
+  },
+  "LoLaWeather": {
+    "cloudiness": "Cloudiness",
+    "freshSnowAmount": "Fresh Snow Amount",
+    "officialAvalancheReport": "Official Avalanche Report",
+    "precipitationIntensity": "Precipitation Intensity",
+    "precipitationType": "Precipitation Type",
+    "temperaturePeak": "Temperature Peak",
+    "temperatureTreeline": "Temperature Treeline",
+    "temperatureValley": "Temperature Valley",
+    "weatherTendency": "Weather Tendency",
+    "windDirection": "Dirección del viento",
+    "windSpeed": "Velocidad del viento",
+    "visibilityConditions": "Visibility Conditions"
+  },
   "natlefs" : {
-    "noData" : "---",
-    "anonymous" : "<anonymous>",
     "title" : {
-      "locationName" : "Location name",
       "ridingQuality" : "Riding quality",
-      "snowConditions" : "Snow conditions",
       "rode" : "We rode",
       "avoided" : "We stayed away from",
       "alarmSignsFrequency" : "Signs of instability",
@@ -728,8 +736,7 @@
     "many" : "Many"
   },
   "location" : {
-    "accuracy" : "Accuracy: ",
-    "unknownAccuracy" : "(accuracy unknown)"
+    "accuracy" : "GPS Accuracy"
   },
   "units" : {
     "cm" : "cm",

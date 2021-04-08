@@ -3,5 +3,29 @@
   "i18n-ally.regex.usageMatchAppend": [
     "\\bt\\(['\"`]({key})['\"`]",
   ],
-  "i18n-ally.keystyle": "nested"
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.keysInUse": [
+    "avalancheProblemNatlefs.*",
+    "alarmSignsFrequency.*",
+    "surfaceSnowWetness.*",
+    "avalancheProblem.*",
+    "penetrationDepth.*",
+    "snowConditions.*",
+    "terrainFeature.*",
+    "ridingQuality.*",
+    "dangerRating.*",
+    "driftingSnow.*",
+    "avalanches.*",
+    "newSnow.*",
+    "aspect.*",
+    "region.*",
+    "tracks.*",
+    "units.*",
+    "LoLaAvalanchePotential.*",
+    "observations.eventTypes.*",
+    "LoLaWeather.*",
+    "snowpack.plotType.*",
+    "snowpack.aspect.*",
+    "snowpack.meteo.*"
+  ]
 }

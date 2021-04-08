@@ -1,11 +1,9 @@
 {
-  "undefined" : "---",
   "login" : {
     "title" : "Login",
     "text" : "Accedi al tuo account",
     "button" : "Login",
     "errorDialog" : {
-      "header" : "Errore login",
       "message" : "Errore nome utente o password!",
       "accept" : "Ok"
     },
@@ -20,8 +18,7 @@
     "modellingZamg": "Multi modelli ZAMG ",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "Modello SNOWPACK",
-    "modellingSnowpackMeteo": "Dati meteo simulati SNOWPACK",
-    "catalogueOfPhrases" : "Catalogo delle frasi"
+    "modellingSnowpackMeteo": "Dati meteo simulati SNOWPACK"
   },
   "menu" : {
     "logout" : "Logout",
@@ -75,7 +72,6 @@
         "saveBulletin" : "Salva bollettino valanghe",
         "discardBulletin" : "Scarta modifiche del bollettino valanghe",
         "loadBulletin" : "Copia da giorno precedente",
-        "elevationDependency" : "Dipendenzza d'altitudine",
         "daytimeDependency" : "Dipendenzza diurna",
         "treeline" : "Limite del bosco",
         "tendency" : {
@@ -102,14 +98,10 @@
         "dangerRatingDirectionUp" : "Estendere la valutazione del pericolo verso l'alto",
         "dangerRatingDirectionDown" : "Estendere la valutazione del grado del pericolo verso il basso"
     },
-      "button" : "Creato",
       "save" : " Salva",
       "discard" : " Scarta",
       "back" : " Indietro",
       "createAggregatedRegion" : " Nuova regione",
-      "saveAggregatedRegion" : "Salve",
-      "discardAggregatedRegion" : "Scarta",
-      "deleteAggregatedRegion" : "Cancella",
       "createAvalancheSituation" : "Nuovo problema valanghivo",
       "ownRegions" : "Propria provincia",
       "foreignRegions": "Altra provincia",
@@ -117,27 +109,16 @@
         "highlights" : "Alerta speciale",
         "avActivityHighlights" : "Titolo situazione pericolo valanghe",
         "avActivityComment" : "Testo di descrizione pericolo valanghe",
-        "avalancheSituation1" : "Problema tipico valanghivo 1",
-        "avalancheSituation2" : "Problema tipico valanghivo 2",
-        "dangerRating" : "Grado del pericolo valanghe",
-        "aspects" : "Versanti",
-        "elevation" : "Altezza",
-        "daytime" : "Mattina/pomeriggio",
-        "snowpackStructureHighlights" : "Titolo struttura manto nevoso",
         "snowpackStructureComment" : "Descrizione struttura manto nevoso",
         "dangerPatterns" : "Situazioni tipo",
         "elevationHigh" : "Sotto",
         "elevationLow" : "Sopra",
         "tendencyComment" : "Tendenza",
-        "notes" : "Commenti",
-        "terrainFeature": "Caratteristiche del terreno"
+        "notes" : "Commenti"
       },
       "title" : {
-        "map" : "Mappa",
-        "dangerRating" : "Grado pericolo valanghe",
         "avalancheSituation" : "Problema tipico valanghivo",
         "dangerDescription" : "Descrizione pericolo",
-        "detail" : "Dettagli",
         "above" : "Al disopra",
         "below" : "Al disotto",
         "forenoon" : "Mattina",
@@ -148,7 +129,6 @@
         "afternoonBelow" : "Pomeriggio, al disotto",
         "snowpackStructure" : "Struttura manto nevoso",
         "tendency" : "Tendenza",
-        "pmdialog" : "Catalogo delle frasi",
         "showTranslations" : " Mostra traduzione",
         "hideTranslations" : " Nascondi traduzione"
       },
@@ -159,24 +139,20 @@
         "noIFrameSupport" : "Il tuo browser non supporta IFrames!"
       },
       "discardDialog" : {
-        "header" : "Scarta modifiche",
         "message" : "Vuoi scartare le modifiche?",
         "accept" : "Sí",
         "reject" : "No"
       },
       "deleteAggregatedRegionDialog" : {
-        "header" : "Cancella micro-area",
         "message" : "Vuoi scartare la micro-area?",
         "accept" : "Sí",
         "reject" : "No"
       },
       "noRegionDialog" : {
-        "header" : "Pescare nelle acqua altrui",
         "message" : "Almeno una micro-area é neccesaria.",
         "accept" : "Ok"
       },
       "loadDialog" : {
-        "header" : "Carica bollettino valanghe del giorno precedente",
         "message" : "Vuoi caricare il bollettino valanghe di ieri?",
         "accept" : "Sí",
         "reject" : "No"
@@ -187,32 +163,22 @@
         "reject" : "No"
       },
       "saveErrorDialog" : {
-        "header" : "Errore durante salvare",
         "message" : "Errore salvando il bollettino valanghe!",
         "accept" : "Ok"
       },
       "changeErrorDialog" : {
-        "header" : "Errore durante la modificazione",
         "message" : "Errore durante la modificazione del bollettino valanghe!",
         "accept" : "Ok"
       },
       "loadingErrorDialog" : {
-        "header" : "Errore di caricamento",
         "message" : "Errore durante il caricamento del bollettino valanghe!",
         "accept" : "Ok"
       },
       "avalancheSituationErrorDialog" : {
-        "header" : "Problema valanghivo incompleto",
         "message" : "Problema valanhgivo tipico, esposizione e/o valutazione del grado del pericolo mancano almeno in un dei problemi valanghivi",
         "accept" : "Ok"
       },
-      "incompleteTranslationDialog" : {
-        "header" : "Traduzione incompleta",
-        "message" : "La traduzione è incompleta!",
-        "accept" : "Ok"
-      },
       "loadAvActivityCommentExampleTextDialog" : {
-        "header" : "Carica testo di esempio",
         "message" : "Per quale situazione si desidera caricare il testo",
         "newSnow" : "Neve fresca",
         "windDriftedSnow" : "Neve ventata",
@@ -231,9 +197,7 @@
           "IT-32-BZ" : "Alto adige",
           "AT-07" : "Tirolo",
           "ES-CT-L" : "Aran"
-        },
-        "action" : "Azzioni",
-        "caaml" : "CAAML"
+        }
       },
       "status" : {
         "missing" : "manca",
@@ -244,13 +208,7 @@
         "resubmitted" : "versione aggiornata inviato",
         "republished" : "versione aggiornata pubblicato"
       },
-      "edit" : "Modifica",
-      "show" : "Mostra",
-      "button" : {
-        "publish" : "Pubblicare"
-      },
       "publishBulletinsDialog" : {
-        "header" : "Pubblicazione bollettino",
         "message" : "Vuoi pubblicare il bollettino?",
         "missingDangerRating" : "Grado di pericolo non definato",
         "missingRegion" : "Micro-aree non valutate",
@@ -265,7 +223,6 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
-        "header" : "Stato della pubblicazione",
         "publishedBy" : "Pubblicato da: ",
         "publishedAt" : "Pubblicato su: ",
         "validFor" : "Valido per: ",
@@ -301,55 +258,42 @@
           "telegramChannel" : {
             "success" : "Previsione valanghe inviata via calane Telegram",
             "failed" : "Non è stato possibile inviare la previsione delle valanghe via canale Telegram"
-          },
-          "twitter" : {
-            "success" : "Previsioni valanghe inviate a Twitter",
-            "failed" : "Non è stato possibile inviare la previsione delle valanghe a Twitter"
           }
         },
         "accept" : "Ok"
       },
       "publishBulletinsErrorDialog" : {
-        "header" : "Errore durante pubblicare",
         "message" : "Errore pubblicando il bollettino valanghe!",
         "accept" : "Ok"
       },
       "submitBulletinsDialog" : {
-        "header" : "Inviare bollettino valanghe",
         "message" : "Vuoi inviare il bollettino valanghe?",
         "missingDangerRating" : "Grado di pericolo non definato",
         "missingRegion" : "Micro-aree non valutate",
-        "duplicateRegion" : "Micro-aree valutate più volte",
         "missingAvActivityHighlights" : "Manca titolo situazione di pericolo",
         "missingAvActivityComment" : "Manca valutazione pericolo valanghe",
         "missingSnowpackStructureHighlights" : "Manca il titolo della descrizione manto nevoso",
         "missingSnowpackStructureComment" : "Manca la descrizione del manto nevoso",
         "pendingSuggestions" : "Proposta non confermata",
-        "incompleteTranslation" : "Traduzione incompleta",
         "accept" : "Sí",
         "reject" : "No"
       },
       "submitBulletinsErrorDialog" : {
-        "header" : "Errore durante l'invio",
         "message" : "Errore durante l'invio del bollettino valanghe!",
         "accept" : "Ok"
       },
       "submitBulletinsDuplicateRegionDialog" : {
-        "header" : "Errore durante l'invio",
         "message" : "Micro-aree valutate più volte! Non è possibile inviare previsioni sulle valanghe.",
         "accept" : "Ok"
       },
       "checkBulletinsErrorDialog" : {
-        "header" : "Errore durante verifica",
         "message" : "Errore verficando il bollettino valanghe!",
         "accept" : "Ok"
       },
       "checkBulletinsDialog" : {
-        "header" : "Controllare bollettino valanghe",
         "message" : "Controllare bollettino valanghe",
         "missingDangerRating" : "Grado di pericolo non definato",
         "missingRegion" : "Micro-aree non valutate",
-        "duplicateRegion" : "Micro-aree valutate più volte",
         "missingAvActivityHighlights" : "Manca titolo situazione di pericolo",
         "missingAvActivityComment" : "Manca valutazione pericolo valanghe",
         "missingSnowpackStructureHighlights" : "Manca il titolo della descrizione manto nevoso",
@@ -368,12 +312,10 @@
     "caaml" : {
       "title" : "CAAML",
       "caamlNotLoadedDialog" : {
-        "header" : "CAAML",
         "message" : "Errore caricando CAAML!",
         "accept" : "Ok"
       },
       "noCaamlDialog" : {
-        "header" : "CAAML",
         "message" : "Mancha il bolletino valanghe pubblicato!",
         "accept" : "Ok"
       }
@@ -381,12 +323,10 @@
     "json" : {
       "title" : "JSON",
       "jsonNotLoadedDialog" : {
-        "header" : "JSON",
         "message" : "Errore caricando JSON!",
         "accept" : "Ok"
       },
       "noJsonDialog" : {
-        "header" : "JSON",
         "message" : "Mancha il bolletino valanghe pubblicato!",
         "accept" : "Ok"
       }
@@ -430,13 +370,11 @@
         "scriptsPath" : "Percorso verso gli script"
       },
       "button" : {
-        "save" : "Salva",
-        "discard" : "Scarta"
+        "save" : "Salva"
       }
     }
   },
   "settings" : {
-    "title" : "Impostazioni",
     "changePassword" : {
       "title" : "Cambiare password",
       "oldPassword" : "Password attuale",
@@ -636,13 +574,83 @@
       "TA_table_season" : "wet snow table (season)"
     }
   },
+  "observations": {
+    "aspect": "Esposizione",
+    "authorName": "Author name",
+    "avalancheLength": "Avalanche length",
+    "avalancheProblem": "Problemi valanghivi",
+    "avalancheSize": "Avalanche size",
+    "avalancheType": "Avalanche type",
+    "avalancheWidth": "Avalanche width",
+    "button": {
+      "add": "Add observation",
+      "save": "Save observation",
+      "delete": "Delete observation",
+      "deleteConfirm": "Delete observation?",
+      "discard": "Scarta"
+    },
+    "comment": "Commento",
+    "content": "Content",
+    "dangerRating": "Grado pericolo valanghe",
+    "elevation": "Elevazione",
+    "eventDate": "Event date",
+    "eventType": "Event type",
+    "eventTypes": {
+      "IMPORTANT": "Important event",
+      "NORMAL": "Normal event",
+      "PERSON_DEAD": "Event involving persons (dead)",
+      "PERSON_INJURED": "Event involving persons (injured)",
+      "PERSON_NO": "Event not involving persons",
+      "PERSON_UNINJURED": "Event involving persons (uninjured)"
+    },
+    "fractureDepth": "Fracture depth",
+    "hasCoordinates": "Has coordinates",
+    "incline": "Incline",
+    "latitude": "Latitude",
+    "locationName": "Location",
+    "longitude": "Longitude",
+    "reportDate": "Report date",
+    "showMap": "Mappa",
+    "showTable": "Table"
+  },
+  "LoLaAvalanchePotential": {
+    "riskAssessment": "Risk Assessment",
+    "snowpackStructure": "Snowpack Structure",
+    "avalanchePotentialValue": "Avalanche Potential Value",
+    "avalancheCharacteristicString": "Avalanche Characteristic String",
+    "windDriftedSnow": "Wind Drifted Snow",
+    "persistentWeakLayer": "Persistent Weak Layer",
+    "wetSnow": "Wet Snow",
+    "glidingSnow": "Gliding Snow",
+    "newSnow": "Neve fresca",
+    "snowpackStructureActive": "Snowpack Structure Active",
+    "triggeringProbability": "Triggering Probability",
+    "avalancheRiskTendency24h": "Avalanche Risk Tendency 24h",
+    "avalancheRiskTendency48h": "Avalanche Risk Tendency 48h",
+    "oldSnowFloatingSnow": "Old Snow Floating Snow",
+    "oldSnowSleet": "Old Snow Sleet",
+    "oldSnowWeakLayers": "Old Snow Weak Layers",
+    "wetSnowRain": "Wet Snow Rain",
+    "wetSnowTemperatureIncrease": "Wet Snow Temperature Increase",
+    "wetSnowHighRadiation": "Wet Snow High Radiation"
+  },
+  "LoLaWeather": {
+    "cloudiness": "Cloudiness",
+    "freshSnowAmount": "Fresh Snow Amount",
+    "officialAvalancheReport": "Official Avalanche Report",
+    "precipitationIntensity": "Precipitation Intensity",
+    "precipitationType": "Precipitation Type",
+    "temperaturePeak": "Temperature Peak",
+    "temperatureTreeline": "Temperature Treeline",
+    "temperatureValley": "Temperature Valley",
+    "weatherTendency": "Weather Tendency",
+    "windDirection": "Vento Direzione",
+    "windSpeed": "Vento",
+    "visibilityConditions": "Visibility Conditions"
+  },
   "natlefs" : {
-    "noData" : "---",
-    "anonymous" : "<anonymous>",
     "title" : {
-      "locationName" : "Nome della località",
       "ridingQuality" : "Godibilitá sugli sci",
-      "snowConditions" : "Condizioni neve",
       "rode" : "percorso sciato",
       "avoided" : "zone evitate",
       "alarmSignsFrequency" : "Segnali di allamre",
@@ -728,8 +736,7 @@
     "many" : "molte"
   },
   "location" : {
-    "accuracy" : "Precisione: ",
-    "unknownAccuracy" : "(Precisione sconosciuta)"
+    "accuracy" : "GPS Accuracy"
   },
   "units" : {
     "cm" : "cm",
