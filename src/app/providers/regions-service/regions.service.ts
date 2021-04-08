@@ -1,11 +1,29 @@
 import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
+import { FeatureCollection, Polygon, MultiPolygon, Geometry } from "geojson";
 
-import RegionsEuregio from "../../regions/regions.euregio.geojson.json";
-import RegionsEuregioElevation from "../../regions/regions-elevation.euregio.geojson.json";
+import RegionsEuregio_AT_07 from "../../../../eaws-regions/public/micro-regions/AT-07_micro-regions.geojson.json";
+import RegionsEuregio_IT_32_BZ from "../../../../eaws-regions/public/micro-regions/IT-32-BZ_micro-regions.geojson.json";
+import RegionsEuregio_IT_32_TN from "../../../../eaws-regions/public/micro-regions/IT-32-TN_micro-regions.geojson.json";
+const RegionsEuregio: FeatureCollection<MultiPolygon, RegionProperties> = mergeFeatureCollections(
+  (properties) => properties,
+  RegionsEuregio_AT_07 as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsEuregio_IT_32_BZ as FeatureCollection<MultiPolygon, RegionProperties>,
+  RegionsEuregio_IT_32_TN as FeatureCollection<MultiPolygon, RegionProperties>
+);
+
+import RegionsEuregioElevation_AT_07 from "../../../../eaws-regions/public/micro-regions_elevation/AT-07_micro-regions_elevation.geojson.json";
+import RegionsEuregioElevation_IT_32_BZ from "../../../../eaws-regions/public/micro-regions_elevation/IT-32-BZ_micro-regions_elevation.geojson.json";
+import RegionsEuregioElevation_IT_32_TN from "../../../../eaws-regions/public/micro-regions_elevation/IT-32-TN_micro-regions_elevation.geojson.json";
+const RegionsEuregioElevation: FeatureCollection<MultiPolygon, RegionWithElevationProperties> = mergeFeatureCollections(
+  (properties) => ({ ...properties, elevation: properties.hoehe === 1 ? "l" : properties.hoehe === 2 ? "h" : undefined }),
+  RegionsEuregioElevation_AT_07 as FeatureCollection<MultiPolygon, RawRegionWithElevationProperties>,
+  RegionsEuregioElevation_IT_32_BZ as FeatureCollection<MultiPolygon, RawRegionWithElevationProperties>,
+  RegionsEuregioElevation_IT_32_TN as FeatureCollection<MultiPolygon, RawRegionWithElevationProperties>
+);
+
 import RegionsAran from "../../regions/regions.aran.geojson.json";
 import RegionsAranElevation from "../../regions/regions-elevation.aran.geojson.json";
-import { FeatureCollection, Polygon, MultiPolygon } from "geojson";
 import * as L from "leaflet";
 import { isMarkerInsidePolygon } from "./isMarkerInsidePolygon";
 
@@ -19,14 +37,12 @@ export class RegionsService {
     this.euregioGeoJSON = L.geoJSON(this.getRegionsEuregio());
   }
 
-  getRegionsEuregio(): FeatureCollection<Polygon, RegionProperties> {
-    const data = RegionsEuregio as FeatureCollection<Polygon, RegionProperties>;
-    return data;
+  getRegionsEuregio(): FeatureCollection<MultiPolygon, RegionProperties> {
+    return RegionsEuregio;
   }
 
-  getRegionsEuregioWithElevation(): FeatureCollection<Polygon, RegionWithElevationProperties> {
-    const data = RegionsEuregioElevation as FeatureCollection<Polygon, RegionWithElevationProperties>;
-    return data;
+  getRegionsEuregioWithElevation(): FeatureCollection<MultiPolygon, RegionWithElevationProperties> {
+    return RegionsEuregioElevation;
   }
 
   getRegionsAran(): FeatureCollection<Polygon, RegionProperties> {
@@ -72,7 +88,27 @@ export interface RegionProperties {
   name_sp?: string;
 }
 
+interface RawRegionWithElevationProperties extends RegionProperties {
+  hoehe: 1 | 2;
+}
+
 export interface RegionWithElevationProperties extends RegionProperties {
-  threshold: number;
   elevation: "h" | "l";
+}
+
+function mergeFeatureCollections<G extends Geometry, P, Q>(
+  mapper: (properties: P) => Q,
+  ...collections: FeatureCollection<G, P>[]
+): FeatureCollection<G, Q> {
+  return {
+    type: "FeatureCollection",
+    features: [].concat(
+      ...collections.map((collection) =>
+        collection.features.map((feature) => ({
+          ...feature,
+          properties: mapper(feature.properties)
+        }))
+      )
+    )
+  };
 }
