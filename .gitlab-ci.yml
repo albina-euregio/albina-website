@@ -21,9 +21,6 @@ build:development:
       - dist/
   environment:
     name: development
-  only:
-    - master
-    - ci
 
 deploy:development:
   stage: deploy
