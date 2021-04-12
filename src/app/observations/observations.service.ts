@@ -60,8 +60,9 @@ export class ObservationsService {
   }
 
   getLwdKipObservations(): Observable<GenericObservation> {
+    const days = Math.ceil((Date.now() - this.startDate.getTime()) / 24 / 60 / 60 / 1000);
     const params: Record<string, string> = {
-      where: "BEOBDATUM > (SYSDATE - 7)",
+      where: "BEOBDATUM > (SYSDATE - " + days + ")",
       outFields: "*",
       datumTransformation: "5891",
       f: "geojson"
