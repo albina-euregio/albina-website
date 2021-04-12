@@ -22,8 +22,18 @@ const RegionsEuregioElevation: FeatureCollection<MultiPolygon, RegionWithElevati
   RegionsEuregioElevation_IT_32_TN as FeatureCollection<MultiPolygon, RawRegionWithElevationProperties>
 );
 
-import RegionsAran from "../../regions/regions.aran.geojson.json";
-import RegionsAranElevation from "../../regions/regions-elevation.aran.geojson.json";
+import RegionsAran_ES_CT_L from "../../../../eaws-regions/public/micro-regions/ES-CT-L_micro-regions.geojson.json";
+const RegionsAran: FeatureCollection<Polygon, RegionProperties> = mergeFeatureCollections(
+  (properties) => properties,
+  RegionsAran_ES_CT_L as FeatureCollection<Polygon, RegionProperties>
+);
+
+import RegionsAranElevation_ES_CT_L from "../../../../eaws-regions/public/micro-regions_elevation/ES-CT-L_micro-regions_elevation.geojson.json";
+const RegionsAranElevation: FeatureCollection<MultiPolygon, RegionWithElevationProperties> = mergeFeatureCollections(
+  (properties) => ({ ...properties, elevation: properties.hoehe === 1 ? "l" : properties.hoehe === 2 ? "h" : undefined }),
+  RegionsAranElevation_ES_CT_L as FeatureCollection<MultiPolygon, RawRegionWithElevationProperties>
+);
+
 import * as L from "leaflet";
 import { isMarkerInsidePolygon } from "./isMarkerInsidePolygon";
 
@@ -46,13 +56,11 @@ export class RegionsService {
   }
 
   getRegionsAran(): FeatureCollection<Polygon, RegionProperties> {
-    const data = RegionsAran as FeatureCollection<Polygon, RegionProperties>;
-    return data;
+    return RegionsAran;
   }
 
   getRegionsAranWithElevation(): FeatureCollection<MultiPolygon, RegionWithElevationProperties> {
-    const data = RegionsAranElevation as FeatureCollection<MultiPolygon, RegionWithElevationProperties>;
-    return data;
+    return RegionsAranElevation;
   }
 
   private translateAllNames() {
