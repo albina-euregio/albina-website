@@ -9,9 +9,7 @@ let loadedRegions = undefined;
  * @return {Promise<GeoJSON.FeatureCollection>}
  */
 async function loadRegions() {
-  const regionsPolyline = await import(
-    "./neighbor_micro_regions.polyline.json"
-  );
+  const regionsPolyline = await import("./neighbor_micro_regions.polyline.json");
   const regions = decodeFeatureCollection(regionsPolyline.default);
   regions.features.push(...(await loadRegionsCH()));
   regions.features = regions.features.map(f => Object.freeze(f));
@@ -22,23 +20,9 @@ async function loadRegions() {
  * @type {Promise<Albina.NeighborBulletin[]>}
  */
 async function loadBulletins(date) {
-  const regions = [
-    "AT-02",
-    "AT-03",
-    "AT-04",
-    "AT-05",
-    "AT-06",
-    "AT-08",
-    "BY",
-    "CH",
-    "SI"
-  ];
-  const responses = regions.map(region =>
-    fetch(`https://avalanche.report/albina_neighbors/${date}-${region}.json`)
-  );
-  const bulletins = responses.flatMap(response =>
-    response.then(r => ((r.ok ? r.json() : []))).catch(() => [])
-  );
+  const regions = ["AT-02", "AT-03", "AT-04", "AT-05", "AT-06", "AT-08", "BY", "CH", "SI"];
+  const responses = regions.map(region => fetch(`https://avalanche.report/albina_neighbors/${date}-${region}.json`));
+  const bulletins = responses.flatMap(response => response.then(r => ((r.ok ? r.json() : []))).catch(() => []));
   const allBulletins = await Promise.all(bulletins);
   return allBulletins.flat();
 }
@@ -65,14 +49,7 @@ export async function loadNeighborBulletins(date) {
   });
 }
 
-const WARNLEVEL_COLORS = [
-  undefined,
-  "#ccff66",
-  "#ffff00",
-  "#ff9900",
-  "#ff0000",
-  "#ff0000"
-];
+const WARNLEVEL_COLORS = [undefined, "#ccff66", "#ffff00", "#ff9900", "#ff0000", "#ff0000"];
 
 /**
  * @param {GeoJSON.Feature} feature
@@ -81,24 +58,19 @@ const WARNLEVEL_COLORS = [
  */
 function augmentNeighborFeature(feature, bulletins) {
   const region = feature.properties.id;
-  const elev = feature.properties.hoehe;
-  bulletins = bulletins.filter(bulletin =>
-    bulletin.valid_regions.includes(region)
-  );
+  const elevation = feature.properties.elevation;
+  bulletins = bulletins.filter(bulletin => bulletin.valid_regions.includes(region));
   const bulletin =
     bulletins.length &&
     bulletins.reduce((b1, b2) =>
-      Math.max(...b1.danger_main.map(d => d.main_value)) >=
-      Math.max(...b2.danger_main.map(d => d.main_value))
-        ? b1
-        : b2
+      Math.max(...b1.danger_main.map(d => d.main_value)) >= Math.max(...b2.danger_main.map(d => d.main_value)) ? b1 : b2
     );
   const warnlevel = bulletin?.danger_main
     ?.filter(
       danger =>
         !danger.valid_elevation ||
-        (danger.valid_elevation.charAt(0) === "<" && elev === 1) ||
-        (danger.valid_elevation.charAt(0) === ">" && elev === 2)
+        (danger.valid_elevation.charAt(0) === "<" && elevation === "low") ||
+        (danger.valid_elevation.charAt(0) === ">" && elevation === "high")
     )
     .map(danger => danger.main_value)
     .reduce((w1, w2) => Math.max(w1, w2), 0);
@@ -127,9 +99,9 @@ function augmentNeighborFeature(feature, bulletins) {
  */
 async function loadRegionsCH() {
   const extraRegionsPolyline = await import("./neighbor_regions.polyline.json");
-  const extraRegions = decodeFeatureCollection(
-    extraRegionsPolyline.default
-  ).features.filter(feature => feature.id === "CH" || feature.id === "LI");
+  const extraRegions = decodeFeatureCollection(extraRegionsPolyline.default).features.filter(
+    feature => feature.id === "CH" || feature.id === "LI"
+  );
   extraRegions.forEach(feature => (feature.properties.id = feature.id));
   return extraRegions;
 }

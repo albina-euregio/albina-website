@@ -5,10 +5,8 @@
       "id": "AT-02-01",
       "type": "Feature",
       "properties": {
-        "name": "Glocknergruppe",
         "id": "AT-02-01",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -21,10 +19,8 @@
       "id": "AT-02-01",
       "type": "Feature",
       "properties": {
-        "name": "Glocknergruppe",
         "id": "AT-02-01",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -37,10 +33,8 @@
       "id": "AT-02-02",
       "type": "Feature",
       "properties": {
-        "name": "Schobergruppe",
         "id": "AT-02-02",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -53,10 +47,8 @@
       "id": "AT-02-02",
       "type": "Feature",
       "properties": {
-        "name": "Schobergruppe",
         "id": "AT-02-02",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -69,10 +61,8 @@
       "id": "AT-02-03",
       "type": "Feature",
       "properties": {
-        "name": "Ankogelgruppe",
         "id": "AT-02-03",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -85,10 +75,8 @@
       "id": "AT-02-03",
       "type": "Feature",
       "properties": {
-        "name": "Ankogelgruppe",
         "id": "AT-02-03",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -102,10 +90,8 @@
       "id": "AT-02-04",
       "type": "Feature",
       "properties": {
-        "name": "Nockberge",
         "id": "AT-02-04",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -120,10 +106,8 @@
       "id": "AT-02-04",
       "type": "Feature",
       "properties": {
-        "name": "Nockberge",
         "id": "AT-02-04",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -139,10 +123,8 @@
       "id": "AT-02-05",
       "type": "Feature",
       "properties": {
-        "name": "Gurktaler Alpen",
         "id": "AT-02-05",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -156,10 +138,8 @@
       "id": "AT-02-05",
       "type": "Feature",
       "properties": {
-        "name": "Gurktaler Alpen",
         "id": "AT-02-05",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -182,10 +162,8 @@
       "id": "AT-02-06",
       "type": "Feature",
       "properties": {
-        "name": "Saualpe",
         "id": "AT-02-06",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -198,10 +176,8 @@
       "id": "AT-02-06",
       "type": "Feature",
       "properties": {
-        "name": "Saualpe",
         "id": "AT-02-06",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -214,10 +190,8 @@
       "id": "AT-02-07",
       "type": "Feature",
       "properties": {
-        "name": "Packalpe",
         "id": "AT-02-07",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -230,10 +204,8 @@
       "id": "AT-02-07",
       "type": "Feature",
       "properties": {
-        "name": "Packalpe",
         "id": "AT-02-07",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -246,10 +218,8 @@
       "id": "AT-02-08",
       "type": "Feature",
       "properties": {
-        "name": "Koralpe",
         "id": "AT-02-08",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -263,10 +233,8 @@
       "id": "AT-02-08",
       "type": "Feature",
       "properties": {
-        "name": "Koralpe",
         "id": "AT-02-08",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -280,10 +248,8 @@
       "id": "AT-02-09",
       "type": "Feature",
       "properties": {
-        "name": "Kreuzeckgruppe",
         "id": "AT-02-09",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -296,10 +262,8 @@
       "id": "AT-02-09",
       "type": "Feature",
       "properties": {
-        "name": "Kreuzeckgruppe",
         "id": "AT-02-09",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -312,10 +276,8 @@
       "id": "AT-02-10",
       "type": "Feature",
       "properties": {
-        "name": "Lienzer Dolomiten",
         "id": "AT-02-10",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -328,10 +290,8 @@
       "id": "AT-02-10",
       "type": "Feature",
       "properties": {
-        "name": "Lienzer Dolomiten",
         "id": "AT-02-10",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -345,10 +305,8 @@
       "id": "AT-02-11",
       "type": "Feature",
       "properties": {
-        "name": "Gailtaler Alpen West",
         "id": "AT-02-11",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -361,10 +319,8 @@
       "id": "AT-02-11",
       "type": "Feature",
       "properties": {
-        "name": "Gailtaler Alpen West",
         "id": "AT-02-11",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -378,10 +334,8 @@
       "id": "AT-02-12",
       "type": "Feature",
       "properties": {
-        "name": "Gailtaler Alpen Mitte",
         "id": "AT-02-12",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -394,10 +348,8 @@
       "id": "AT-02-12",
       "type": "Feature",
       "properties": {
-        "name": "Gailtaler Alpen Mitte",
         "id": "AT-02-12",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -416,10 +368,8 @@
       "id": "AT-02-13",
       "type": "Feature",
       "properties": {
-        "name": "Villacher Alpe",
         "id": "AT-02-13",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -432,10 +382,8 @@
       "id": "AT-02-13",
       "type": "Feature",
       "properties": {
-        "name": "Villacher Alpe",
         "id": "AT-02-13",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -448,10 +396,8 @@
       "id": "AT-02-14",
       "type": "Feature",
       "properties": {
-        "name": "Karnische Alpen West",
         "id": "AT-02-14",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -464,10 +410,8 @@
       "id": "AT-02-14",
       "type": "Feature",
       "properties": {
-        "name": "Karnische Alpen West",
         "id": "AT-02-14",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -480,10 +424,8 @@
       "id": "AT-02-15",
       "type": "Feature",
       "properties": {
-        "name": "Karnische Alpen Mitte",
         "id": "AT-02-15",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -496,10 +438,8 @@
       "id": "AT-02-15",
       "type": "Feature",
       "properties": {
-        "name": "Karnische Alpen Mitte",
         "id": "AT-02-15",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -516,10 +456,8 @@
       "id": "AT-02-16",
       "type": "Feature",
       "properties": {
-        "name": "Karnische Alpen Ost",
         "id": "AT-02-16",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -532,10 +470,8 @@
       "id": "AT-02-16",
       "type": "Feature",
       "properties": {
-        "name": "Karnische Alpen Ost",
         "id": "AT-02-16",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -550,10 +486,8 @@
       "id": "AT-02-17",
       "type": "Feature",
       "properties": {
-        "name": "Karawanken West",
         "id": "AT-02-17",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -566,10 +500,8 @@
       "id": "AT-02-17",
       "type": "Feature",
       "properties": {
-        "name": "Karawanken West",
         "id": "AT-02-17",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -583,10 +515,8 @@
       "id": "AT-02-18",
       "type": "Feature",
       "properties": {
-        "name": "Karawanken Mitte",
         "id": "AT-02-18",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -599,10 +529,8 @@
       "id": "AT-02-18",
       "type": "Feature",
       "properties": {
-        "name": "Karawanken Mitte",
         "id": "AT-02-18",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -619,10 +547,8 @@
       "id": "AT-02-19",
       "type": "Feature",
       "properties": {
-        "name": "Karawanken Ost",
         "id": "AT-02-19",
-        "bld": "Kärnten",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -635,10 +561,8 @@
       "id": "AT-02-19",
       "type": "Feature",
       "properties": {
-        "name": "Karawanken Ost",
         "id": "AT-02-19",
-        "bld": "Kärnten",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -658,10 +582,8 @@
       "id": "AT-03-01",
       "type": "Feature",
       "properties": {
-        "name": "Ybbstaler Alpen",
         "id": "AT-03-01",
-        "bld": "Niederösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -674,10 +596,8 @@
       "id": "AT-03-01",
       "type": "Feature",
       "properties": {
-        "name": "Ybbstaler Alpen",
         "id": "AT-03-01",
-        "bld": "Niederösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -702,10 +622,8 @@
       "id": "AT-03-02",
       "type": "Feature",
       "properties": {
-        "name": "Türnitzer Alpen",
         "id": "AT-03-02",
-        "bld": "Niederösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -718,10 +636,8 @@
       "id": "AT-03-02",
       "type": "Feature",
       "properties": {
-        "name": "Türnitzer Alpen",
         "id": "AT-03-02",
-        "bld": "Niederösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -740,10 +656,8 @@
       "id": "AT-03-03",
       "type": "Feature",
       "properties": {
-        "name": "Gutensteiner Alpen",
         "id": "AT-03-03",
-        "bld": "Niederösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -756,10 +670,8 @@
       "id": "AT-03-03",
       "type": "Feature",
       "properties": {
-        "name": "Gutensteiner Alpen",
         "id": "AT-03-03",
-        "bld": "Niederösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -776,10 +688,8 @@
       "id": "AT-03-04",
       "type": "Feature",
       "properties": {
-        "name": "Rax- Schneeberggebiet",
         "id": "AT-03-04",
-        "bld": "Niederösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -792,10 +702,8 @@
       "id": "AT-03-04",
       "type": "Feature",
       "properties": {
-        "name": "Rax- Schneeberggebiet",
         "id": "AT-03-04",
-        "bld": "Niederösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -811,10 +719,8 @@
       "id": "AT-03-05",
       "type": "Feature",
       "properties": {
-        "name": "Semmering- Wechselgebiet",
         "id": "AT-03-05",
-        "bld": "Niederösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -827,10 +733,8 @@
       "id": "AT-03-05",
       "type": "Feature",
       "properties": {
-        "name": "Semmering- Wechselgebiet",
         "id": "AT-03-05",
-        "bld": "Niederösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -844,10 +748,8 @@
       "id": "AT-03-06",
       "type": "Feature",
       "properties": {
-        "name": "Gippel- Göllergebiet",
         "id": "AT-03-06",
-        "bld": "Niederösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -860,10 +762,8 @@
       "id": "AT-03-06",
       "type": "Feature",
       "properties": {
-        "name": "Gippel- Göllergebiet",
         "id": "AT-03-06",
-        "bld": "Niederösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -877,10 +777,8 @@
       "id": "AT-04-01",
       "type": "Feature",
       "properties": {
-        "name": "Dachstein, Gosaukamm",
         "id": "AT-04-01",
-        "bld": "Oberösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -893,10 +791,8 @@
       "id": "AT-04-01",
       "type": "Feature",
       "properties": {
-        "name": "Dachstein, Gosaukamm",
         "id": "AT-04-01",
-        "bld": "Oberösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -912,10 +808,8 @@
       "id": "AT-04-02",
       "type": "Feature",
       "properties": {
-        "name": "Kalmberg, Katergebirge",
         "id": "AT-04-02",
-        "bld": "Oberösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -928,10 +822,8 @@
       "id": "AT-04-02",
       "type": "Feature",
       "properties": {
-        "name": "Kalmberg, Katergebirge",
         "id": "AT-04-02",
-        "bld": "Oberösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -946,10 +838,8 @@
       "id": "AT-04-03",
       "type": "Feature",
       "properties": {
-        "name": "Totes Gebirge",
         "id": "AT-04-03",
-        "bld": "Oberösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -962,10 +852,8 @@
       "id": "AT-04-03",
       "type": "Feature",
       "properties": {
-        "name": "Totes Gebirge",
         "id": "AT-04-03",
-        "bld": "Oberösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -979,10 +867,8 @@
       "id": "AT-04-04",
       "type": "Feature",
       "properties": {
-        "name": "Pyhrgas, Haller Mauer",
         "id": "AT-04-04",
-        "bld": "Oberösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -995,10 +881,8 @@
       "id": "AT-04-04",
       "type": "Feature",
       "properties": {
-        "name": "Pyhrgas, Haller Mauer",
         "id": "AT-04-04",
-        "bld": "Oberösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1013,10 +897,8 @@
       "id": "AT-04-05",
       "type": "Feature",
       "properties": {
-        "name": "Zimnitzmassiv, Höllengebirge",
         "id": "AT-04-05",
-        "bld": "Oberösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1029,10 +911,8 @@
       "id": "AT-04-05",
       "type": "Feature",
       "properties": {
-        "name": "Zimnitzmassiv, Höllengebirge",
         "id": "AT-04-05",
-        "bld": "Oberösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1047,10 +927,8 @@
       "id": "AT-04-06",
       "type": "Feature",
       "properties": {
-        "name": "Traunstein, Eibenberg",
         "id": "AT-04-06",
-        "bld": "Oberösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1063,10 +941,8 @@
       "id": "AT-04-06",
       "type": "Feature",
       "properties": {
-        "name": "Traunstein, Eibenberg",
         "id": "AT-04-06",
-        "bld": "Oberösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1084,10 +960,8 @@
       "id": "AT-04-07",
       "type": "Feature",
       "properties": {
-        "name": "Kasbergblock",
         "id": "AT-04-07",
-        "bld": "Oberösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1100,10 +974,8 @@
       "id": "AT-04-07",
       "type": "Feature",
       "properties": {
-        "name": "Kasbergblock",
         "id": "AT-04-07",
-        "bld": "Oberösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1117,10 +989,8 @@
       "id": "AT-04-08",
       "type": "Feature",
       "properties": {
-        "name": "Sengsengebirge, Reichraminger Hintergebirge",
         "id": "AT-04-08",
-        "bld": "Oberösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1133,10 +1003,8 @@
       "id": "AT-04-08",
       "type": "Feature",
       "properties": {
-        "name": "Sengsengebirge, Reichraminger Hintergebirge",
         "id": "AT-04-08",
-        "bld": "Oberösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1154,10 +1022,8 @@
       "id": "AT-04-09",
       "type": "Feature",
       "properties": {
-        "name": "Ennstaler Voralpen",
         "id": "AT-04-09",
-        "bld": "Oberösterreich",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1170,10 +1036,8 @@
       "id": "AT-04-09",
       "type": "Feature",
       "properties": {
-        "name": "Ennstaler Voralpen",
         "id": "AT-04-09",
-        "bld": "Oberösterreich",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1190,10 +1054,8 @@
       "id": "AT-05-01",
       "type": "Feature",
       "properties": {
-        "name": "Nockberge",
         "id": "AT-05-01",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1206,10 +1068,8 @@
       "id": "AT-05-01",
       "type": "Feature",
       "properties": {
-        "name": "Nockberge",
         "id": "AT-05-01",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1225,10 +1085,8 @@
       "id": "AT-05-02",
       "type": "Feature",
       "properties": {
-        "name": "Niedere Tauern Süd",
         "id": "AT-05-02",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1241,10 +1099,8 @@
       "id": "AT-05-02",
       "type": "Feature",
       "properties": {
-        "name": "Niedere Tauern Süd",
         "id": "AT-05-02",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1259,10 +1115,8 @@
       "id": "AT-05-03",
       "type": "Feature",
       "properties": {
-        "name": "Ankogelgruppe, Muhr",
         "id": "AT-05-03",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1275,10 +1129,8 @@
       "id": "AT-05-03",
       "type": "Feature",
       "properties": {
-        "name": "Ankogelgruppe, Muhr",
         "id": "AT-05-03",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1291,10 +1143,8 @@
       "id": "AT-05-04",
       "type": "Feature",
       "properties": {
-        "name": "Niedere Tauern Alpenhauptkamm",
         "id": "AT-05-04",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1312,10 +1162,8 @@
       "id": "AT-05-04",
       "type": "Feature",
       "properties": {
-        "name": "Niedere Tauern Alpenhauptkamm",
         "id": "AT-05-04",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1329,10 +1177,8 @@
       "id": "AT-05-05",
       "type": "Feature",
       "properties": {
-        "name": "Goldberggruppe Alpenhauptkamm",
         "id": "AT-05-05",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1349,10 +1195,8 @@
       "id": "AT-05-05",
       "type": "Feature",
       "properties": {
-        "name": "Goldberggruppe Alpenhauptkamm",
         "id": "AT-05-05",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1365,10 +1209,8 @@
       "id": "AT-05-06",
       "type": "Feature",
       "properties": {
-        "name": "Glocknergruppe Alpenhauptkamm",
         "id": "AT-05-06",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1384,10 +1226,8 @@
       "id": "AT-05-06",
       "type": "Feature",
       "properties": {
-        "name": "Glocknergruppe Alpenhauptkamm",
         "id": "AT-05-06",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1400,10 +1240,8 @@
       "id": "AT-05-07",
       "type": "Feature",
       "properties": {
-        "name": "Großvenedigergruppe Alpenhauptkamm",
         "id": "AT-05-07",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1421,10 +1259,8 @@
       "id": "AT-05-07",
       "type": "Feature",
       "properties": {
-        "name": "Großvenedigergruppe Alpenhauptkamm",
         "id": "AT-05-07",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1437,10 +1273,8 @@
       "id": "AT-05-08",
       "type": "Feature",
       "properties": {
-        "name": "Niedere Tauern Nord",
         "id": "AT-05-08",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1453,10 +1287,8 @@
       "id": "AT-05-08",
       "type": "Feature",
       "properties": {
-        "name": "Niedere Tauern Nord",
         "id": "AT-05-08",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1475,10 +1307,8 @@
       "id": "AT-05-09",
       "type": "Feature",
       "properties": {
-        "name": "Goldberggruppe Nord",
         "id": "AT-05-09",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1491,10 +1321,8 @@
       "id": "AT-05-09",
       "type": "Feature",
       "properties": {
-        "name": "Goldberggruppe Nord",
         "id": "AT-05-09",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1510,10 +1338,8 @@
       "id": "AT-05-10",
       "type": "Feature",
       "properties": {
-        "name": "Glocknergruppe Nord",
         "id": "AT-05-10",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1526,10 +1352,8 @@
       "id": "AT-05-10",
       "type": "Feature",
       "properties": {
-        "name": "Glocknergruppe Nord",
         "id": "AT-05-10",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1544,10 +1368,8 @@
       "id": "AT-05-11",
       "type": "Feature",
       "properties": {
-        "name": "Großvenedigergruppe Nord",
         "id": "AT-05-11",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1560,10 +1382,8 @@
       "id": "AT-05-11",
       "type": "Feature",
       "properties": {
-        "name": "Großvenedigergruppe Nord",
         "id": "AT-05-11",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1581,10 +1401,8 @@
       "id": "AT-05-12",
       "type": "Feature",
       "properties": {
-        "name": "Pongauer Grasberge",
         "id": "AT-05-12",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1597,10 +1415,8 @@
       "id": "AT-05-12",
       "type": "Feature",
       "properties": {
-        "name": "Pongauer Grasberge",
         "id": "AT-05-12",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1615,10 +1431,8 @@
       "id": "AT-05-13",
       "type": "Feature",
       "properties": {
-        "name": "Dientner Grasberge",
         "id": "AT-05-13",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1631,10 +1445,8 @@
       "id": "AT-05-13",
       "type": "Feature",
       "properties": {
-        "name": "Dientner Grasberge",
         "id": "AT-05-13",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1649,10 +1461,8 @@
       "id": "AT-05-14",
       "type": "Feature",
       "properties": {
-        "name": "Kitzbüheler Alpen, Glemmtal",
         "id": "AT-05-14",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1665,10 +1475,8 @@
       "id": "AT-05-14",
       "type": "Feature",
       "properties": {
-        "name": "Kitzbüheler Alpen, Glemmtal",
         "id": "AT-05-14",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1683,10 +1491,8 @@
       "id": "AT-05-15",
       "type": "Feature",
       "properties": {
-        "name": "Oberpinzgau, Grasberge",
         "id": "AT-05-15",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1699,10 +1505,8 @@
       "id": "AT-05-15",
       "type": "Feature",
       "properties": {
-        "name": "Oberpinzgau, Grasberge",
         "id": "AT-05-15",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1715,10 +1519,8 @@
       "id": "AT-05-16",
       "type": "Feature",
       "properties": {
-        "name": "Tennengebirge, Gosaukamm",
         "id": "AT-05-16",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1731,10 +1533,8 @@
       "id": "AT-05-16",
       "type": "Feature",
       "properties": {
-        "name": "Tennengebirge, Gosaukamm",
         "id": "AT-05-16",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1749,10 +1549,8 @@
       "id": "AT-05-17",
       "type": "Feature",
       "properties": {
-        "name": "Hochkönig, Hagengebirge, Göllstock",
         "id": "AT-05-17",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1765,10 +1563,8 @@
       "id": "AT-05-17",
       "type": "Feature",
       "properties": {
-        "name": "Hochkönig, Hagengebirge, Göllstock",
         "id": "AT-05-17",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1782,10 +1578,8 @@
       "id": "AT-05-18",
       "type": "Feature",
       "properties": {
-        "name": "Loferer und Leoganger Steinberge",
         "id": "AT-05-18",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1798,10 +1592,8 @@
       "id": "AT-05-18",
       "type": "Feature",
       "properties": {
-        "name": "Loferer und Leoganger Steinberge",
         "id": "AT-05-18",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1815,10 +1607,8 @@
       "id": "AT-05-19",
       "type": "Feature",
       "properties": {
-        "name": "Osterhorngruppe, Gamsfeldgruppe",
         "id": "AT-05-19",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1831,10 +1621,8 @@
       "id": "AT-05-19",
       "type": "Feature",
       "properties": {
-        "name": "Osterhorngruppe, Gamsfeldgruppe",
         "id": "AT-05-19",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1855,10 +1643,8 @@
       "id": "AT-05-20",
       "type": "Feature",
       "properties": {
-        "name": "Unterbergstock",
         "id": "AT-05-20",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1871,10 +1657,8 @@
       "id": "AT-05-20",
       "type": "Feature",
       "properties": {
-        "name": "Unterbergstock",
         "id": "AT-05-20",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1887,10 +1671,8 @@
       "id": "AT-05-21",
       "type": "Feature",
       "properties": {
-        "name": "Chiemgauer Alpen, Heutal, Reiteralpe",
         "id": "AT-05-21",
-        "bld": "Salzburg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1903,10 +1685,8 @@
       "id": "AT-05-21",
       "type": "Feature",
       "properties": {
-        "name": "Chiemgauer Alpen, Heutal, Reiteralpe",
         "id": "AT-05-21",
-        "bld": "Salzburg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1921,10 +1701,8 @@
       "id": "AT-06-01",
       "type": "Feature",
       "properties": {
-        "name": "Dachsteingebiet",
         "id": "AT-06-01",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1937,10 +1715,8 @@
       "id": "AT-06-01",
       "type": "Feature",
       "properties": {
-        "name": "Dachsteingebiet",
         "id": "AT-06-01",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1957,10 +1733,8 @@
       "id": "AT-06-02",
       "type": "Feature",
       "properties": {
-        "name": "Totes Gebirge",
         "id": "AT-06-02",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1973,10 +1747,8 @@
       "id": "AT-06-02",
       "type": "Feature",
       "properties": {
-        "name": "Totes Gebirge",
         "id": "AT-06-02",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1992,10 +1764,8 @@
       "id": "AT-06-03",
       "type": "Feature",
       "properties": {
-        "name": "Ennstaler Alpen",
         "id": "AT-06-03",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2008,10 +1778,8 @@
       "id": "AT-06-03",
       "type": "Feature",
       "properties": {
-        "name": "Ennstaler Alpen",
         "id": "AT-06-03",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2030,10 +1798,8 @@
       "id": "AT-06-04",
       "type": "Feature",
       "properties": {
-        "name": "Schladminger Tauern",
         "id": "AT-06-04",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2046,10 +1812,8 @@
       "id": "AT-06-04",
       "type": "Feature",
       "properties": {
-        "name": "Schladminger Tauern",
         "id": "AT-06-04",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2063,10 +1827,8 @@
       "id": "AT-06-05",
       "type": "Feature",
       "properties": {
-        "name": "Nördliche Wölzer Tauern",
         "id": "AT-06-05",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2079,10 +1841,8 @@
       "id": "AT-06-05",
       "type": "Feature",
       "properties": {
-        "name": "Nördliche Wölzer Tauern",
         "id": "AT-06-05",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2095,10 +1855,8 @@
       "id": "AT-06-06",
       "type": "Feature",
       "properties": {
-        "name": "Rottenmanner Tauern",
         "id": "AT-06-06",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2111,10 +1869,8 @@
       "id": "AT-06-06",
       "type": "Feature",
       "properties": {
-        "name": "Rottenmanner Tauern",
         "id": "AT-06-06",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2127,10 +1883,8 @@
       "id": "AT-06-07",
       "type": "Feature",
       "properties": {
-        "name": "Südliche Wölzer Tauern",
         "id": "AT-06-07",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2144,10 +1898,8 @@
       "id": "AT-06-07",
       "type": "Feature",
       "properties": {
-        "name": "Südliche Wölzer Tauern",
         "id": "AT-06-07",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2161,10 +1913,8 @@
       "id": "AT-06-08",
       "type": "Feature",
       "properties": {
-        "name": "Seckauer Tauern",
         "id": "AT-06-08",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2177,10 +1927,8 @@
       "id": "AT-06-08",
       "type": "Feature",
       "properties": {
-        "name": "Seckauer Tauern",
         "id": "AT-06-08",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2193,10 +1941,8 @@
       "id": "AT-06-09",
       "type": "Feature",
       "properties": {
-        "name": "Eisenerzer Alpen",
         "id": "AT-06-09",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2209,10 +1955,8 @@
       "id": "AT-06-09",
       "type": "Feature",
       "properties": {
-        "name": "Eisenerzer Alpen",
         "id": "AT-06-09",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2228,10 +1972,8 @@
       "id": "AT-06-10",
       "type": "Feature",
       "properties": {
-        "name": "Hochschwabgebiet",
         "id": "AT-06-10",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2244,10 +1986,8 @@
       "id": "AT-06-10",
       "type": "Feature",
       "properties": {
-        "name": "Hochschwabgebiet",
         "id": "AT-06-10",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2272,10 +2012,8 @@
       "id": "AT-06-11",
       "type": "Feature",
       "properties": {
-        "name": "Mürzsteger Alpen",
         "id": "AT-06-11",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2288,10 +2026,8 @@
       "id": "AT-06-11",
       "type": "Feature",
       "properties": {
-        "name": "Mürzsteger Alpen",
         "id": "AT-06-11",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2311,10 +2047,8 @@
       "id": "AT-06-12",
       "type": "Feature",
       "properties": {
-        "name": "Mürztaler Alpen",
         "id": "AT-06-12",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2327,10 +2061,8 @@
       "id": "AT-06-12",
       "type": "Feature",
       "properties": {
-        "name": "Mürztaler Alpen",
         "id": "AT-06-12",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2350,10 +2082,8 @@
       "id": "AT-06-13",
       "type": "Feature",
       "properties": {
-        "name": "Östliche Fischbacher Alpen und Wechselgebiet",
         "id": "AT-06-13",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2366,10 +2096,8 @@
       "id": "AT-06-13",
       "type": "Feature",
       "properties": {
-        "name": "Östliche Fischbacher Alpen und Wechselgebiet",
         "id": "AT-06-13",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2383,10 +2111,8 @@
       "id": "AT-06-14",
       "type": "Feature",
       "properties": {
-        "name": "Westliche Fischbacher Alpen und Grazer Bergland",
         "id": "AT-06-14",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2399,10 +2125,8 @@
       "id": "AT-06-14",
       "type": "Feature",
       "properties": {
-        "name": "Westliche Fischbacher Alpen und Grazer Bergland",
         "id": "AT-06-14",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2421,10 +2145,8 @@
       "id": "AT-06-15",
       "type": "Feature",
       "properties": {
-        "name": "Stub- und Gleinalpe",
         "id": "AT-06-15",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2437,10 +2159,8 @@
       "id": "AT-06-15",
       "type": "Feature",
       "properties": {
-        "name": "Stub- und Gleinalpe",
         "id": "AT-06-15",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2455,10 +2175,8 @@
       "id": "AT-06-16",
       "type": "Feature",
       "properties": {
-        "name": "Koralpe",
         "id": "AT-06-16",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2471,10 +2189,8 @@
       "id": "AT-06-16",
       "type": "Feature",
       "properties": {
-        "name": "Koralpe",
         "id": "AT-06-16",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2489,10 +2205,8 @@
       "id": "AT-06-17",
       "type": "Feature",
       "properties": {
-        "name": "Seetaler Alpen",
         "id": "AT-06-17",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2505,10 +2219,8 @@
       "id": "AT-06-17",
       "type": "Feature",
       "properties": {
-        "name": "Seetaler Alpen",
         "id": "AT-06-17",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2521,10 +2233,8 @@
       "id": "AT-06-18",
       "type": "Feature",
       "properties": {
-        "name": "Gurktaler Alpen",
         "id": "AT-06-18",
-        "bld": "Steiermark",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2537,10 +2247,8 @@
       "id": "AT-06-18",
       "type": "Feature",
       "properties": {
-        "name": "Gurktaler Alpen",
         "id": "AT-06-18",
-        "bld": "Steiermark",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2563,10 +2271,8 @@
       "id": "AT-08-01",
       "type": "Feature",
       "properties": {
-        "name": "Bregenzerwaldgebirge",
         "id": "AT-08-01",
-        "bld": "Vorarlberg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2579,10 +2285,8 @@
       "id": "AT-08-01",
       "type": "Feature",
       "properties": {
-        "name": "Bregenzerwaldgebirge",
         "id": "AT-08-01",
-        "bld": "Vorarlberg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2597,10 +2301,8 @@
       "id": "AT-08-02",
       "type": "Feature",
       "properties": {
-        "name": "Allgäuer Alpen",
         "id": "AT-08-02",
-        "bld": "Vorarlberg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2614,10 +2316,8 @@
       "id": "AT-08-02",
       "type": "Feature",
       "properties": {
-        "name": "Allgäuer Alpen",
         "id": "AT-08-02",
-        "bld": "Vorarlberg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2630,10 +2330,8 @@
       "id": "AT-08-03",
       "type": "Feature",
       "properties": {
-        "name": "Lechquellengebirge-Lechtaler Alpen",
         "id": "AT-08-03",
-        "bld": "Vorarlberg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2647,10 +2345,8 @@
       "id": "AT-08-03",
       "type": "Feature",
       "properties": {
-        "name": "Lechquellengebirge-Lechtaler Alpen",
         "id": "AT-08-03",
-        "bld": "Vorarlberg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2666,10 +2362,8 @@
       "id": "AT-08-04",
       "type": "Feature",
       "properties": {
-        "name": "Verwall",
         "id": "AT-08-04",
-        "bld": "Vorarlberg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2682,10 +2376,8 @@
       "id": "AT-08-04",
       "type": "Feature",
       "properties": {
-        "name": "Verwall",
         "id": "AT-08-04",
-        "bld": "Vorarlberg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2699,10 +2391,8 @@
       "id": "AT-08-05",
       "type": "Feature",
       "properties": {
-        "name": "Rätikon",
         "id": "AT-08-05",
-        "bld": "Vorarlberg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2715,10 +2405,8 @@
       "id": "AT-08-05",
       "type": "Feature",
       "properties": {
-        "name": "Rätikon",
         "id": "AT-08-05",
-        "bld": "Vorarlberg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2732,10 +2420,8 @@
       "id": "AT-08-06",
       "type": "Feature",
       "properties": {
-        "name": "Silvretta",
         "id": "AT-08-06",
-        "bld": "Vorarlberg",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2748,10 +2434,8 @@
       "id": "AT-08-06",
       "type": "Feature",
       "properties": {
-        "name": "Silvretta",
         "id": "AT-08-06",
-        "bld": "Vorarlberg",
-        "hoehe": 2
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2764,10 +2448,10 @@
       "id": "BYALL",
       "type": "Feature",
       "properties": {
-        "name": "Allgäuer Alpen",
         "id": "BYALL",
-        "bld": "Bayern",
-        "hoehe": 2
+        "hoehe": 2,
+        "elevation": "high",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2788,10 +2472,10 @@
       "id": "BYALL",
       "type": "Feature",
       "properties": {
-        "name": "Allgäuer Alpen",
         "id": "BYALL",
-        "bld": "Bayern",
-        "hoehe": 1
+        "hoehe": 1,
+        "elevation": "low",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2807,10 +2491,10 @@
       "id": "BYAMM",
       "type": "Feature",
       "properties": {
-        "name": "Ammergauer Alpen",
         "id": "BYAMM",
-        "bld": "Bayern",
-        "hoehe": 2
+        "hoehe": 2,
+        "elevation": "high",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2828,10 +2512,10 @@
       "id": "BYAMM",
       "type": "Feature",
       "properties": {
-        "name": "Ammergauer Alpen",
         "id": "BYAMM",
-        "bld": "Bayern",
-        "hoehe": 1
+        "hoehe": 1,
+        "elevation": "low",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2844,10 +2528,10 @@
       "id": "BYBGD",
       "type": "Feature",
       "properties": {
-        "name": "Berchtesgadener Alpen",
         "id": "BYBGD",
-        "bld": "Bayern",
-        "hoehe": 2
+        "hoehe": 2,
+        "elevation": "high",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2863,10 +2547,10 @@
       "id": "BYBGD",
       "type": "Feature",
       "properties": {
-        "name": "Berchtesgadener Alpen",
         "id": "BYBGD",
-        "bld": "Bayern",
-        "hoehe": 1
+        "hoehe": 1,
+        "elevation": "low",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2881,10 +2565,10 @@
       "id": "BYBVA",
       "type": "Feature",
       "properties": {
-        "name": "Bayerische Voralpen",
         "id": "BYBVA",
-        "bld": "Bayern",
-        "hoehe": 2
+        "hoehe": 2,
+        "elevation": "high",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2909,10 +2593,10 @@
       "id": "BYBVA",
       "type": "Feature",
       "properties": {
-        "name": "Bayerische Voralpen",
         "id": "BYBVA",
-        "bld": "Bayern",
-        "hoehe": 1
+        "hoehe": 1,
+        "elevation": "low",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2925,10 +2609,10 @@
       "id": "BYCHG",
       "type": "Feature",
       "properties": {
-        "name": "Chiemgauer Alpen",
         "id": "BYCHG",
-        "bld": "Bayern",
-        "hoehe": 2
+        "hoehe": 2,
+        "elevation": "high",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2943,10 +2627,10 @@
       "id": "BYCHG",
       "type": "Feature",
       "properties": {
-        "name": "Chiemgauer Alpen",
         "id": "BYCHG",
-        "bld": "Bayern",
-        "hoehe": 1
+        "hoehe": 1,
+        "elevation": "low",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2959,10 +2643,10 @@
       "id": "BYWFK",
       "type": "Feature",
       "properties": {
-        "name": "Werdenfelser Alpen",
         "id": "BYWFK",
-        "bld": "Bayern",
-        "hoehe": 2
+        "hoehe": 2,
+        "elevation": "high",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2986,10 +2670,10 @@
       "id": "BYWFK",
       "type": "Feature",
       "properties": {
-        "name": "Werdenfelser Alpen",
         "id": "BYWFK",
-        "bld": "Bayern",
-        "hoehe": 1
+        "hoehe": 1,
+        "elevation": "low",
+        "threshold": 1500
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3003,10 +2687,8 @@
       "id": "CH-1111",
       "type": "Feature",
       "properties": {
-        "name": "Waadtländer Voralpen",
         "id": "CH-1111",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3017,10 +2699,8 @@
       "id": "CH-1112",
       "type": "Feature",
       "properties": {
-        "name": "Pays d'Enhaut",
         "id": "CH-1112",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3033,10 +2713,8 @@
       "id": "CH-1113",
       "type": "Feature",
       "properties": {
-        "name": "Aigle-Leysin",
         "id": "CH-1113",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3049,10 +2727,8 @@
       "id": "CH-1114",
       "type": "Feature",
       "properties": {
-        "name": "Bex-Villars",
         "id": "CH-1114",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3065,10 +2741,8 @@
       "id": "CH-1121",
       "type": "Feature",
       "properties": {
-        "name": "Jaun",
         "id": "CH-1121",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3081,10 +2755,8 @@
       "id": "CH-1122",
       "type": "Feature",
       "properties": {
-        "name": "Gruyère",
         "id": "CH-1122",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3097,10 +2769,8 @@
       "id": "CH-1211",
       "type": "Feature",
       "properties": {
-        "name": "westliche Berner Voralpen",
         "id": "CH-1211",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3113,10 +2783,8 @@
       "id": "CH-1212",
       "type": "Feature",
       "properties": {
-        "name": "östliche Berner Voralpen",
         "id": "CH-1212",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3129,10 +2797,8 @@
       "id": "CH-1213",
       "type": "Feature",
       "properties": {
-        "name": "Hohgant",
         "id": "CH-1213",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3145,10 +2811,8 @@
       "id": "CH-1221",
       "type": "Feature",
       "properties": {
-        "name": "Niedersimmental",
         "id": "CH-1221",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3161,10 +2825,8 @@
       "id": "CH-1222",
       "type": "Feature",
       "properties": {
-        "name": "Gstaad",
         "id": "CH-1222",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3177,10 +2839,8 @@
       "id": "CH-1223",
       "type": "Feature",
       "properties": {
-        "name": "Wildhorn",
         "id": "CH-1223",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3191,10 +2851,8 @@
       "id": "CH-1224",
       "type": "Feature",
       "properties": {
-        "name": "Lenk",
         "id": "CH-1224",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3207,10 +2865,8 @@
       "id": "CH-1225",
       "type": "Feature",
       "properties": {
-        "name": "Iffigen",
         "id": "CH-1225",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3221,10 +2877,8 @@
       "id": "CH-1226",
       "type": "Feature",
       "properties": {
-        "name": "Adelboden",
         "id": "CH-1226",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3237,10 +2891,8 @@
       "id": "CH-1227",
       "type": "Feature",
       "properties": {
-        "name": "Engstligen",
         "id": "CH-1227",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3251,10 +2903,8 @@
       "id": "CH-1228",
       "type": "Feature",
       "properties": {
-        "name": "Obersimmental",
         "id": "CH-1228",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3267,10 +2917,8 @@
       "id": "CH-1231",
       "type": "Feature",
       "properties": {
-        "name": "Kandersteg",
         "id": "CH-1231",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3283,10 +2931,8 @@
       "id": "CH-1232",
       "type": "Feature",
       "properties": {
-        "name": "Blüemlisalp",
         "id": "CH-1232",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3299,10 +2945,8 @@
       "id": "CH-1233",
       "type": "Feature",
       "properties": {
-        "name": "Lauterbrunnen",
         "id": "CH-1233",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3315,10 +2959,8 @@
       "id": "CH-1234",
       "type": "Feature",
       "properties": {
-        "name": "Jungfrau - Schilthorn",
         "id": "CH-1234",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3331,10 +2973,8 @@
       "id": "CH-1241",
       "type": "Feature",
       "properties": {
-        "name": "Brienz-Interlaken",
         "id": "CH-1241",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3347,10 +2987,8 @@
       "id": "CH-1242",
       "type": "Feature",
       "properties": {
-        "name": "Grindelwald",
         "id": "CH-1242",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3361,10 +2999,8 @@
       "id": "CH-1243",
       "type": "Feature",
       "properties": {
-        "name": "Schreckhorn",
         "id": "CH-1243",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3375,10 +3011,8 @@
       "id": "CH-1244",
       "type": "Feature",
       "properties": {
-        "name": "Hasliberg - Rosenlaui",
         "id": "CH-1244",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3389,10 +3023,8 @@
       "id": "CH-1245",
       "type": "Feature",
       "properties": {
-        "name": "Guttannen",
         "id": "CH-1245",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3403,10 +3035,8 @@
       "id": "CH-1246",
       "type": "Feature",
       "properties": {
-        "name": "Gadmertal",
         "id": "CH-1246",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3419,10 +3049,8 @@
       "id": "CH-1247",
       "type": "Feature",
       "properties": {
-        "name": "Grimselpass",
         "id": "CH-1247",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3433,10 +3061,8 @@
       "id": "CH-1311",
       "type": "Feature",
       "properties": {
-        "name": "Vouvry",
         "id": "CH-1311",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3449,10 +3075,8 @@
       "id": "CH-1312",
       "type": "Feature",
       "properties": {
-        "name": "Monthey-Val d'Illiez",
         "id": "CH-1312",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3465,10 +3089,8 @@
       "id": "CH-2111",
       "type": "Feature",
       "properties": {
-        "name": "Pilatus",
         "id": "CH-2111",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3481,10 +3103,8 @@
       "id": "CH-2112",
       "type": "Feature",
       "properties": {
-        "name": "Schwarzenberg",
         "id": "CH-2112",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3497,10 +3117,8 @@
       "id": "CH-2121",
       "type": "Feature",
       "properties": {
-        "name": "Glaubenberg",
         "id": "CH-2121",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3513,10 +3131,8 @@
       "id": "CH-2122",
       "type": "Feature",
       "properties": {
-        "name": "Engelberg",
         "id": "CH-2122",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3529,10 +3145,8 @@
       "id": "CH-2123",
       "type": "Feature",
       "properties": {
-        "name": "Melchtal",
         "id": "CH-2123",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3545,10 +3159,8 @@
       "id": "CH-2124",
       "type": "Feature",
       "properties": {
-        "name": "Gersau",
         "id": "CH-2124",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3561,10 +3173,8 @@
       "id": "CH-2131",
       "type": "Feature",
       "properties": {
-        "name": "Rothenthurm",
         "id": "CH-2131",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3577,10 +3187,8 @@
       "id": "CH-2132",
       "type": "Feature",
       "properties": {
-        "name": "Ybrig",
         "id": "CH-2132",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3593,10 +3201,8 @@
       "id": "CH-2133",
       "type": "Feature",
       "properties": {
-        "name": "Stoos",
         "id": "CH-2133",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3607,10 +3213,8 @@
       "id": "CH-2134",
       "type": "Feature",
       "properties": {
-        "name": "Bisistal",
         "id": "CH-2134",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3623,10 +3227,8 @@
       "id": "CH-2211",
       "type": "Feature",
       "properties": {
-        "name": "Schächental",
         "id": "CH-2211",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3639,10 +3241,8 @@
       "id": "CH-2212",
       "type": "Feature",
       "properties": {
-        "name": "Uri Rot Stock",
         "id": "CH-2212",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3655,10 +3255,8 @@
       "id": "CH-2221",
       "type": "Feature",
       "properties": {
-        "name": "Meiental",
         "id": "CH-2221",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3671,10 +3269,8 @@
       "id": "CH-2222",
       "type": "Feature",
       "properties": {
-        "name": "Maderanertal",
         "id": "CH-2222",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3685,10 +3281,8 @@
       "id": "CH-2223",
       "type": "Feature",
       "properties": {
-        "name": "nördliches Urseren",
         "id": "CH-2223",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3701,10 +3295,8 @@
       "id": "CH-2224",
       "type": "Feature",
       "properties": {
-        "name": "südliches Urseren",
         "id": "CH-2224",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3717,10 +3309,8 @@
       "id": "CH-3111",
       "type": "Feature",
       "properties": {
-        "name": "Glarus Nord",
         "id": "CH-3111",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3733,10 +3323,8 @@
       "id": "CH-3112",
       "type": "Feature",
       "properties": {
-        "name": "Glarus Süd-Grosstal",
         "id": "CH-3112",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3749,10 +3337,8 @@
       "id": "CH-3113",
       "type": "Feature",
       "properties": {
-        "name": "Glarus Süd-Sernftal",
         "id": "CH-3113",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3765,10 +3351,8 @@
       "id": "CH-3114",
       "type": "Feature",
       "properties": {
-        "name": "Glarus Mitte",
         "id": "CH-3114",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3781,10 +3365,8 @@
       "id": "CH-3211",
       "type": "Feature",
       "properties": {
-        "name": "Appenzeller Alpen",
         "id": "CH-3211",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3797,10 +3379,8 @@
       "id": "CH-3221",
       "type": "Feature",
       "properties": {
-        "name": "Toggenburg",
         "id": "CH-3221",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3813,10 +3393,8 @@
       "id": "CH-3222",
       "type": "Feature",
       "properties": {
-        "name": "Alpstein - Alvier",
         "id": "CH-3222",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3829,10 +3407,8 @@
       "id": "CH-3223",
       "type": "Feature",
       "properties": {
-        "name": "Flumserberg",
         "id": "CH-3223",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3845,10 +3421,8 @@
       "id": "CH-3224",
       "type": "Feature",
       "properties": {
-        "name": "Sarganserland",
         "id": "CH-3224",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3861,10 +3435,8 @@
       "id": "CH-3311",
       "type": "Feature",
       "properties": {
-        "name": "Liechtenstein",
         "id": "CH-3311",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3877,10 +3449,8 @@
       "id": "CH-4111",
       "type": "Feature",
       "properties": {
-        "name": "Emosson",
         "id": "CH-4111",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3893,10 +3463,8 @@
       "id": "CH-4112",
       "type": "Feature",
       "properties": {
-        "name": "Génépi",
         "id": "CH-4112",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3909,10 +3477,8 @@
       "id": "CH-4113",
       "type": "Feature",
       "properties": {
-        "name": "Val d'Entremont-Val Ferret",
         "id": "CH-4113",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3925,10 +3491,8 @@
       "id": "CH-4114",
       "type": "Feature",
       "properties": {
-        "name": "Conthey-Fully",
         "id": "CH-4114",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3941,10 +3505,8 @@
       "id": "CH-4115",
       "type": "Feature",
       "properties": {
-        "name": "Martigny-Verbier",
         "id": "CH-4115",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3957,10 +3519,8 @@
       "id": "CH-4116",
       "type": "Feature",
       "properties": {
-        "name": "Haut Val de Bagnes",
         "id": "CH-4116",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3973,10 +3533,8 @@
       "id": "CH-4121",
       "type": "Feature",
       "properties": {
-        "name": "Montana",
         "id": "CH-4121",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -3989,10 +3547,8 @@
       "id": "CH-4122",
       "type": "Feature",
       "properties": {
-        "name": "Val d'Hérens",
         "id": "CH-4122",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4005,10 +3561,8 @@
       "id": "CH-4123",
       "type": "Feature",
       "properties": {
-        "name": "Arolla",
         "id": "CH-4123",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4021,10 +3575,8 @@
       "id": "CH-4124",
       "type": "Feature",
       "properties": {
-        "name": "Val d'Anniviers",
         "id": "CH-4124",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4037,10 +3589,8 @@
       "id": "CH-4125",
       "type": "Feature",
       "properties": {
-        "name": "Mountet",
         "id": "CH-4125",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4051,10 +3601,8 @@
       "id": "CH-4211",
       "type": "Feature",
       "properties": {
-        "name": "Leukerbad - Lötschental",
         "id": "CH-4211",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4067,10 +3615,8 @@
       "id": "CH-4212",
       "type": "Feature",
       "properties": {
-        "name": "Turtmanntal",
         "id": "CH-4212",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4081,10 +3627,8 @@
       "id": "CH-4213",
       "type": "Feature",
       "properties": {
-        "name": "Konkordia Gebiet",
         "id": "CH-4213",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4097,10 +3641,8 @@
       "id": "CH-4214",
       "type": "Feature",
       "properties": {
-        "name": "Riederalp",
         "id": "CH-4214",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4113,10 +3655,8 @@
       "id": "CH-4215",
       "type": "Feature",
       "properties": {
-        "name": "Leuk",
         "id": "CH-4215",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4129,10 +3669,8 @@
       "id": "CH-4221",
       "type": "Feature",
       "properties": {
-        "name": "untere Vispertäler",
         "id": "CH-4221",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4145,10 +3683,8 @@
       "id": "CH-4222",
       "type": "Feature",
       "properties": {
-        "name": "Zermatt",
         "id": "CH-4222",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4161,10 +3697,8 @@
       "id": "CH-4223",
       "type": "Feature",
       "properties": {
-        "name": "Saas Fee",
         "id": "CH-4223",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4175,10 +3709,8 @@
       "id": "CH-4224",
       "type": "Feature",
       "properties": {
-        "name": "Monte Rosa",
         "id": "CH-4224",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4191,10 +3723,8 @@
       "id": "CH-4225",
       "type": "Feature",
       "properties": {
-        "name": "Mattmark",
         "id": "CH-4225",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4207,10 +3737,8 @@
       "id": "CH-4231",
       "type": "Feature",
       "properties": {
-        "name": "nördliches Simplon Gebiet",
         "id": "CH-4231",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4223,10 +3751,8 @@
       "id": "CH-4232",
       "type": "Feature",
       "properties": {
-        "name": "südliches Simplon Gebiet",
         "id": "CH-4232",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4239,10 +3765,8 @@
       "id": "CH-4241",
       "type": "Feature",
       "properties": {
-        "name": "Reckingen",
         "id": "CH-4241",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4253,10 +3777,8 @@
       "id": "CH-4242",
       "type": "Feature",
       "properties": {
-        "name": "Binntal",
         "id": "CH-4242",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4269,10 +3791,8 @@
       "id": "CH-4243",
       "type": "Feature",
       "properties": {
-        "name": "nördliches Obergoms",
         "id": "CH-4243",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4285,10 +3805,8 @@
       "id": "CH-4244",
       "type": "Feature",
       "properties": {
-        "name": "südliches Obergoms",
         "id": "CH-4244",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4301,10 +3819,8 @@
       "id": "CH-5111",
       "type": "Feature",
       "properties": {
-        "name": "nördliches Prättigau",
         "id": "CH-5111",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4317,10 +3833,8 @@
       "id": "CH-5112",
       "type": "Feature",
       "properties": {
-        "name": "südliches Prättigau",
         "id": "CH-5112",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4333,10 +3847,8 @@
       "id": "CH-5113",
       "type": "Feature",
       "properties": {
-        "name": "westliche Silvretta",
         "id": "CH-5113",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4347,10 +3859,8 @@
       "id": "CH-5121",
       "type": "Feature",
       "properties": {
-        "name": "Calanda",
         "id": "CH-5121",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4363,10 +3873,8 @@
       "id": "CH-5122",
       "type": "Feature",
       "properties": {
-        "name": "Schanfigg",
         "id": "CH-5122",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4379,10 +3887,8 @@
       "id": "CH-5123",
       "type": "Feature",
       "properties": {
-        "name": "Davos",
         "id": "CH-5123",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4395,10 +3901,8 @@
       "id": "CH-5124",
       "type": "Feature",
       "properties": {
-        "name": "Flims",
         "id": "CH-5124",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4411,10 +3915,8 @@
       "id": "CH-5211",
       "type": "Feature",
       "properties": {
-        "name": "nördliches Tujetsch",
         "id": "CH-5211",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4427,10 +3929,8 @@
       "id": "CH-5212",
       "type": "Feature",
       "properties": {
-        "name": "südliches Tujetsch",
         "id": "CH-5212",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4443,10 +3943,8 @@
       "id": "CH-5214",
       "type": "Feature",
       "properties": {
-        "name": "Obersaxen - Safiental",
         "id": "CH-5214",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4459,10 +3957,8 @@
       "id": "CH-5215",
       "type": "Feature",
       "properties": {
-        "name": "Val Sumvitg",
         "id": "CH-5215",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4473,10 +3969,8 @@
       "id": "CH-5216",
       "type": "Feature",
       "properties": {
-        "name": "Zervreila",
         "id": "CH-5216",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4489,10 +3983,8 @@
       "id": "CH-5221",
       "type": "Feature",
       "properties": {
-        "name": "Domleschg - Lenzerheide",
         "id": "CH-5221",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4505,10 +3997,8 @@
       "id": "CH-5222",
       "type": "Feature",
       "properties": {
-        "name": "Schams",
         "id": "CH-5222",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4521,10 +4011,8 @@
       "id": "CH-5223",
       "type": "Feature",
       "properties": {
-        "name": "Rheinwald",
         "id": "CH-5223",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4537,10 +4025,8 @@
       "id": "CH-5231",
       "type": "Feature",
       "properties": {
-        "name": "Albulatal",
         "id": "CH-5231",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4553,10 +4039,8 @@
       "id": "CH-5232",
       "type": "Feature",
       "properties": {
-        "name": "Savognin",
         "id": "CH-5232",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4569,10 +4053,8 @@
       "id": "CH-5233",
       "type": "Feature",
       "properties": {
-        "name": "Avers",
         "id": "CH-5233",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4585,10 +4067,8 @@
       "id": "CH-5234",
       "type": "Feature",
       "properties": {
-        "name": "Bivio",
         "id": "CH-5234",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4601,10 +4081,8 @@
       "id": "CH-6111",
       "type": "Feature",
       "properties": {
-        "name": "Bedrettotal",
         "id": "CH-6111",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4617,10 +4095,8 @@
       "id": "CH-6112",
       "type": "Feature",
       "properties": {
-        "name": "obere Leventina",
         "id": "CH-6112",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4631,10 +4107,8 @@
       "id": "CH-6113",
       "type": "Feature",
       "properties": {
-        "name": "Bleniotal",
         "id": "CH-6113",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4647,10 +4121,8 @@
       "id": "CH-6114",
       "type": "Feature",
       "properties": {
-        "name": "obere Maggiatäler",
         "id": "CH-6114",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4663,10 +4135,8 @@
       "id": "CH-6115",
       "type": "Feature",
       "properties": {
-        "name": "untere Leventina",
         "id": "CH-6115",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4679,10 +4149,8 @@
       "id": "CH-6121",
       "type": "Feature",
       "properties": {
-        "name": "untere Maggiatäler",
         "id": "CH-6121",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4695,10 +4163,8 @@
       "id": "CH-6122",
       "type": "Feature",
       "properties": {
-        "name": "Riviera",
         "id": "CH-6122",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4711,10 +4177,8 @@
       "id": "CH-6131",
       "type": "Feature",
       "properties": {
-        "name": "Luganese",
         "id": "CH-6131",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4727,10 +4191,8 @@
       "id": "CH-6132",
       "type": "Feature",
       "properties": {
-        "name": "Mendrisiotto",
         "id": "CH-6132",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4743,10 +4205,8 @@
       "id": "CH-6211",
       "type": "Feature",
       "properties": {
-        "name": "alto Moesano",
         "id": "CH-6211",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4759,10 +4219,8 @@
       "id": "CH-6212",
       "type": "Feature",
       "properties": {
-        "name": "basso Moesano",
         "id": "CH-6212",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4775,10 +4233,8 @@
       "id": "CH-7111",
       "type": "Feature",
       "properties": {
-        "name": "Corvatsch",
         "id": "CH-7111",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4791,10 +4247,8 @@
       "id": "CH-7112",
       "type": "Feature",
       "properties": {
-        "name": "Bernina",
         "id": "CH-7112",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4807,10 +4261,8 @@
       "id": "CH-7113",
       "type": "Feature",
       "properties": {
-        "name": "Zuoz",
         "id": "CH-7113",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4823,10 +4275,8 @@
       "id": "CH-7114",
       "type": "Feature",
       "properties": {
-        "name": "St. Moritz",
         "id": "CH-7114",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4839,10 +4289,8 @@
       "id": "CH-7115",
       "type": "Feature",
       "properties": {
-        "name": "Val Chamuera",
         "id": "CH-7115",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4855,10 +4303,8 @@
       "id": "CH-7121",
       "type": "Feature",
       "properties": {
-        "name": "Samnaun",
         "id": "CH-7121",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4871,10 +4317,8 @@
       "id": "CH-7122",
       "type": "Feature",
       "properties": {
-        "name": "östliche Silvretta",
         "id": "CH-7122",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4885,10 +4329,8 @@
       "id": "CH-7123",
       "type": "Feature",
       "properties": {
-        "name": "Sur Tasna",
         "id": "CH-7123",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4901,10 +4343,8 @@
       "id": "CH-7124",
       "type": "Feature",
       "properties": {
-        "name": "Val Suot",
         "id": "CH-7124",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4917,10 +4357,8 @@
       "id": "CH-7125",
       "type": "Feature",
       "properties": {
-        "name": "Val dal Spöl",
         "id": "CH-7125",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4933,10 +4371,8 @@
       "id": "CH-7126",
       "type": "Feature",
       "properties": {
-        "name": "Val S-charl",
         "id": "CH-7126",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4949,10 +4385,8 @@
       "id": "CH-7211",
       "type": "Feature",
       "properties": {
-        "name": "Bergell",
         "id": "CH-7211",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4965,10 +4399,8 @@
       "id": "CH-7221",
       "type": "Feature",
       "properties": {
-        "name": "oberes Puschlav",
         "id": "CH-7221",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4981,10 +4413,8 @@
       "id": "CH-7222",
       "type": "Feature",
       "properties": {
-        "name": "unteres Puschlav",
         "id": "CH-7222",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4997,10 +4427,8 @@
       "id": "CH-7231",
       "type": "Feature",
       "properties": {
-        "name": "Münstertal",
         "id": "CH-7231",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5013,10 +4441,8 @@
       "id": "CH-8111",
       "type": "Feature",
       "properties": {
-        "name": "Saint-Cergue",
         "id": "CH-8111",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5029,10 +4455,8 @@
       "id": "CH-8112",
       "type": "Feature",
       "properties": {
-        "name": "Vallée de Joux",
         "id": "CH-8112",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5045,10 +4469,8 @@
       "id": "CH-8113",
       "type": "Feature",
       "properties": {
-        "name": "Yverdon - Bevaix",
         "id": "CH-8113",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5061,10 +4483,8 @@
       "id": "CH-8114",
       "type": "Feature",
       "properties": {
-        "name": "Val de Travers",
         "id": "CH-8114",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5077,10 +4497,8 @@
       "id": "CH-8211",
       "type": "Feature",
       "properties": {
-        "name": "Val de Ruz - Colombier",
         "id": "CH-8211",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5093,10 +4511,8 @@
       "id": "CH-8212",
       "type": "Feature",
       "properties": {
-        "name": "Biel- Neuenburg",
         "id": "CH-8212",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5109,10 +4525,8 @@
       "id": "CH-8213",
       "type": "Feature",
       "properties": {
-        "name": "Vallon de Saint-Imier",
         "id": "CH-8213",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5125,10 +4539,8 @@
       "id": "CH-8214",
       "type": "Feature",
       "properties": {
-        "name": "Moutier - Tavannes",
         "id": "CH-8214",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5141,10 +4553,8 @@
       "id": "CH-8215",
       "type": "Feature",
       "properties": {
-        "name": "Thal",
         "id": "CH-8215",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5157,10 +4567,8 @@
       "id": "CH-8216",
       "type": "Feature",
       "properties": {
-        "name": "Olten-Gösgen",
         "id": "CH-8216",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5171,10 +4579,8 @@
       "id": "CH-8221",
       "type": "Feature",
       "properties": {
-        "name": "La Chaux-de-Fonds - Le Locle",
         "id": "CH-8221",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5187,10 +4593,8 @@
       "id": "CH-8222",
       "type": "Feature",
       "properties": {
-        "name": "Franches-Montagnes",
         "id": "CH-8222",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5203,10 +4607,8 @@
       "id": "CH-8223",
       "type": "Feature",
       "properties": {
-        "name": "Ajoie",
         "id": "CH-8223",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5219,10 +4621,8 @@
       "id": "CH-8224",
       "type": "Feature",
       "properties": {
-        "name": "Delsberg– Bellelay",
         "id": "CH-8224",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5235,10 +4635,8 @@
       "id": "CH-8225",
       "type": "Feature",
       "properties": {
-        "name": "Laufental",
         "id": "CH-8225",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5251,10 +4649,8 @@
       "id": "CH-8226",
       "type": "Feature",
       "properties": {
-        "name": "Basel",
         "id": "CH-8226",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5267,10 +4663,8 @@
       "id": "CH-8227",
       "type": "Feature",
       "properties": {
-        "name": "Oberes Baselbiet",
         "id": "CH-8227",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5283,10 +4677,8 @@
       "id": "CH-8228",
       "type": "Feature",
       "properties": {
-        "name": "Rheinfelden",
         "id": "CH-8228",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5299,10 +4691,8 @@
       "id": "CH-9111",
       "type": "Feature",
       "properties": {
-        "name": "westliches Mittelland",
         "id": "CH-9111",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5315,10 +4705,8 @@
       "id": "CH-9211",
       "type": "Feature",
       "properties": {
-        "name": "zentrales Mittelland",
         "id": "CH-9211",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5331,10 +4719,8 @@
       "id": "CH-9311",
       "type": "Feature",
       "properties": {
-        "name": "östliches Mittelland",
         "id": "CH-9311",
-        "bld": "Schweiz",
-        "hoehe": 1
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5347,10 +4733,9 @@
       "id": "SI2",
       "type": "Feature",
       "properties": {
-        "name": "Julische Alpen Süd und West",
-        "hoehe": 2,
-        "bld": "Slowenien",
-        "id": "SI2"
+        "id": "SI2",
+        "elevation": "high",
+        "threshold": 1400
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5371,10 +4756,9 @@
       "id": "SI2",
       "type": "Feature",
       "properties": {
-        "name": "Julische Alpen Süd und West",
-        "hoehe": 1,
-        "bld": "Slowenien",
-        "id": "SI2"
+        "id": "SI2",
+        "elevation": "low",
+        "threshold": 1400
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5392,10 +4776,9 @@
       "id": "SI3",
       "type": "Feature",
       "properties": {
-        "name": "Julische Alpen Mitte und Karawanken West",
-        "hoehe": 2,
-        "bld": "Slowenien",
-        "id": "SI3"
+        "id": "SI3",
+        "elevation": "high",
+        "threshold": 1400
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5419,10 +4802,9 @@
       "id": "SI3",
       "type": "Feature",
       "properties": {
-        "name": "Julische Alpen Mitte und Karawanken West",
-        "hoehe": 1,
-        "bld": "Slowenien",
-        "id": "SI3"
+        "id": "SI3",
+        "elevation": "low",
+        "threshold": 1400
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5435,10 +4817,9 @@
       "id": "SI4",
       "type": "Feature",
       "properties": {
-        "name": "Steiner und Sanntaler Alpen und Karawanken Ost",
-        "hoehe": 2,
-        "bld": "Slowenien",
-        "id": "SI4"
+        "id": "SI4",
+        "elevation": "high",
+        "threshold": 1400
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -5461,10 +4842,9 @@
       "id": "SI4",
       "type": "Feature",
       "properties": {
-        "name": "Steiner und Sanntaler Alpen und Karawanken Ost",
-        "hoehe": 1,
-        "bld": "Slowenien",
-        "id": "SI4"
+        "id": "SI4",
+        "elevation": "low",
+        "threshold": 1400
       },
       "geometry": {
         "type": "MultiPolygon",
