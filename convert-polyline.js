@@ -47,8 +47,6 @@ encodeFiles(
     "eaws-regions/public/outline/DE-BY_outline.geojson.json",
     "eaws-regions/public/outline/IT-25_outline.geojson.json",
     "eaws-regions/public/outline/IT-25-SO-LI_outline.geojson.json",
-    "eaws-regions/public/outline/IT-32-BZ_outline.geojson.json",
-    "eaws-regions/public/outline/IT-32-TN_outline.geojson.json",
     "eaws-regions/public/outline/IT-34_outline.geojson.json",
     "eaws-regions/public/outline/IT-36_outline.geojson.json",
     "eaws-regions/public/outline/LI_outline.geojson.json",

@@ -225,42 +225,6 @@
       }
     },
     {
-      "id": "IT-32-BZ-17",
-      "type": "Feature",
-      "properties": {
-        "id": "IT-32-BZ-17",
-        "country_id": "IT",
-        "aws_1": "LWD Südtirol",
-        "url_1_en": "https://avalanche.report/bulletin/latest",
-        "url_1_de": "https://lawinen.report/bulletin/latest",
-        "url_1_it": "https://valanghe.report/bulletin/latest"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          "snvbAoxh}G]ea@gfAaLsAm~@i`@a`@wrCvUcpD{zA_HyNrc@y_@{Kk`BacArRydAwk@ev@wDym@|OcXra@ayAaj@{|BwC{o@aZcm@Bed@ae@}t@tC{qBwc@opBtGepAet@odBvp@ou@sc@wnAQclB|dAeg@hx@}tB|_@ctCgZ_|@q[sp@iRo~@u_BkfBwNkFcr@}p@uo@wvDx^??_[zCwV~b@cgBrr@}\\rk@syFgfAiSmf@wu@sUalAoEslAye@}lA_Cop@j_AsvDvdAwtCwUooCxLmoA`oAaRbp@{xBjU}pBeZy_@{z@keA_z@eo@nNsuCb@_mCeSwv@_v@_l@lHq|AadAwh@|Ecc@kd@cpAo@gOaYmuBmq@sGyWakBa]esA~Ya{@ez@}mAfNebAux@si@fQ}jA{KwlChMiy@uRo_@{n@on@}QoqE~N_^mhAefBws@kaCn[u|AiYmMmSk|A|G{xEoqAqbGz`AsoAjnAxsCjaAjArsAxgAhrB|bEnRpw@j^fjBwf@vdCljAb\\de@c{@trA|Rrn@wU~Fqj@dNhF`_B|\\zUse@de@izBfg@yaAtqAjaBh`Cjp@zIioBnm@sl@gQuvCtf@ea@|l@lNtS_PpPg`BdcBwh@ub@cz@sAgZkq@ub@aLmcEzi@cZhc@hMd^_cBjn@EbQW`lA{Wvf@i_AvThOvo@f_CrjByh@||@tKp~@bm@fQgT|v@uyDyAcqGnv@wnA`oEy@tCwk@zsBegFffC}lAlGkDxXqxA`h@sWqImlDpS{b@zz@dwFdr@pyA~kAv}BhtAl_Db@pI`b@ifAx{@lYx^x|C`Qvs@kMds@}n@~t@|ExsBsHn]~~@biDxIrjAgKn}@oy@`kB|b@xHrm@~tApTfzA|UjkA|zAr}@q@_NupA_DqxAvqAzDdn@_jA`nAmVlhBxOz_@os@xuAuPfnDcgBtzC_dAnYvS_K~r@tPjq@a^jx@vVlWtT~lBpdAt[bFbf@rq@n[ik@zn@be@d`BblAnl@pr@dbBvtCz~Cvd@k@hq@i|@xjCvFxaBta@v`@tq@b~@rNnhCs^bnC|_Ax}Et_@j|C`t@n\\yvA|p@qp@lr@wEf{A~fAp@`f@joBl\\h{Db[rjDss@`hBv}@|jEjb@pvBt@b_As^lYdTwBl`@wgBpkA~Rro@hf@cCl}Ad_@aQb|@bt@dVx]taCaTjbA|h@|{@le@hz@~\\hm@~Jxk@|]lh@trD|Ldn@bsBrLnkAja@jd@xyBulAdoIak@gBjr@fyAb`@~{@rbBvqHdz@|v@jwAtu@nn@`jDtRyBp^ekCdO_jAhsBiVzw@jStB`SrDzMdDpQpAtMHz@@lEBzg@cDd^sB|R{AlRyA|K]fTs@bE?jSieAbvAy`@zWq{AdeDjlAcg@bcAhzAbqAxkBwJlwFraEfnFxhArvC}y@ja@wb@dh@yi@_`Byv@ih@`Zif@aVsOgu@tw@cI~`DwWjiBslBnu@gTiPub@{|Ay@ap@on@ypAab@i}@cyB_Cq`@ctAaxAn^up@tq@uw@cCu^mq@{N_Ugw@udA{kCrI}_A`^mhBew@klArUm}Awe@uh@`Aas@~`AyjDzhCwtAlu@n|@pqA|VhXpf@l`Eps@n}@{u@|s@om@`h@pItiB_x@tZmqCbo@fIvuB`{@ndBpU{BxZicA|Scs@luAeb@jbC_pAjcCb_@vt@~vBcq@~aAlNbeB{dBt}FkcCp~BvLty@xhA`wB|Wj^nqAl}Abu@bgC`AhzAsf@xsBvuApbKse@v|C_jEfy@}eAlaC~JpdB`hApyAnkAntBnRfjApp@xkBqL|`Dtm@tlBsWx}@s_@~q@aeAr@eA??~LeRrf@eIdpB}[d{CgeBlfJkn@~{@`[py@{QngBqwAf`@cgCa`@wn@w|@kL_Ymh@cWqe@~Em~@ix@snAaOceA`Km`Bc]ul@~BgXbiCysA~b@sPnBu@tfBwq@f}Frb@xmAmgCpKumBjYw_Akc@aTynAglBkbAcNkQ_l@vI}\\hyAqqAgaFgqBoZuX?iwA`Zu]tuA{oAy_@mu@uqBsd@ejAcvBrDia@qj@an@`CqZwh@gy@lGga@WsBkgAeY{jBngAyg@tB}`BzG_eEc[kYhRf]jb@ilA?w~Csx@wc@ol@qkAkC_jBsf@ubDoIqdB}x@iZp]ovBzPed@t_@lUt~@m_Ah^goAB_A?yc@rz@}mEl_@or@f|@zvAj~@`X`q@~xBbi@eUdw@gmDpU}bCke@om@s^clDzbCqiApGwk@gk@sk@gDaoAzq@_yAfGiGvg@e{AlPcd@kE{_@gb@ilAlGodAoi@ihEZs}Gxp@unBg_@ir@hj@irAslDcu@}q@x]}V{oBeZq`D_rAnh@anAlg@kQm[m_@lQqrA_c@uLifA_zBqmAmdAp[sGaByiB\naun`Aumq|GgCniAb@oRbB_v@"
-        ]
-      }
-    },
-    {
-      "id": "IT-32-TN",
-      "type": "Feature",
-      "properties": {
-        "id": "IT-32-TN",
-        "country_id": "IT",
-        "aws_1": "LWD Trentino",
-        "url_1_en": "https://avalanche.report/bulletin/latest",
-        "url_1_de": "https://lawinen.report/bulletin/latest",
-        "url_1_it": "https://valanghe.report/bulletin/latest"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          "ejy_AmilzGbVis@c^_]ulBrW}`Dum@ykBpLgjAqp@otBoRqyAokAqdBahAmaC_Kgy@|eAw|C~iEqbKre@ysBwuAizArf@cgCaAm}Acu@k^oqAawB}Wuy@yhAq~BwLu}FjcCceBzdB_bAmN_wBbq@c_@wt@~oAkcCdb@kbCbs@muAhcA}SzByZodBqUwuBa{@co@gIuZlqCuiB~w@ah@qI}s@nm@o}@zu@m`Eqs@iXqf@qqA}Vmu@o|@{hCvtA_aAxjDaA`s@ve@th@sUl}Adw@jlAa^lhBsI|_AtdAzkC~Tfw@lq@zNbCt^uq@tw@o^tp@btA`xA~Bp`@h}@byBxpA`b@`p@nn@z|Ax@hPtb@ou@fTkiBrlB_aDvWuw@bIrOfu@hf@`Vhh@aZ~_Bxv@eh@xi@ka@vb@svC|y@gnFyhAmwFsaEykBvJizAcqAbg@ccAeeDklA{Wp{AcvAx`@kSheAcE?gTr@}K\\mRxA}RzAe^rB{g@bDmEC{@AuMIqQqA{MeDaSsDkSuBhV{w@~iAisBdkCeOxBq^ajDuRuu@on@}v@kwAwqHez@_|@sbBgyAc`@fBkr@eoI`k@yyBtlAka@kd@sLokAen@csBurD}L}]mh@_Kyk@_]im@me@iz@}h@}{@`TkbAy]uaCct@eV`Qc|@m}Ae_@if@bC_Sso@vgBqkAvBm`@mYeTc_Ar^qvBu@}jEkb@ahBw}@sjDrs@i{Dc[koBm\\q@af@g{A_gAmr@vE}p@pp@o\\xvArkA|x@xL`qA{M`q@}sD~PqiElV_~@fe@}Epx@dJvtArbBrz@~bCyCpd@xf@yG|Xxh@jj@eXzc@fd@fmBdMzeAeJvbBdp@kPby@}r@|uAzt@~tAU|eBt_Aak@le@caC~g@kYxlAuqCpx@u[paAgk@xn@rmA~bArJj~@}cAxvAseDaHw~A{_@a_@uD}XdcAv`@fj@}p@jn@apAsVoqAvc@ko@~CgJlQlpAf_AlBniA{eArl@goAp`BgpCjUm@xv@tmA`aA{Gn^nYnJrpBc[cCxe@nz@voAkEbd@pbBfpAUzZxtBj_BrfKhx@tu@ba@dmGkCvZfVnFhEzZvOjFxDz@fB|YeDhWmr@blA}CxlCjPtyApfAft@cWr{@pIfMz_@_O~o@~ExHw\\ntA}kBfbAo@dq@b_D`EvjA`v@q]re@id@kAkGzKp[lY`k@nj@qZnZmcBvlCtZvd@vBjEuFbXlSdVe@\\}B|ByFvFmE|EeB|Dm@~EFfAblAv_@raCwEruBbVz\\iBwEmk@nu@sL|w@d_@dvAkb@py@nHfkAc`FpeFmj@rdHd]xm@nv@fyBrXjtBf}AvsKqMlk@lDzHj~@e|@pxBlEj|@dcCcEhIjL_Jdj@jUfs@veAzVgTv~@tQ~D`nDex@b\\i{@dk@lMba@uj@vU`E}Vv_Bz`EtHre@_KxNrIhHvhAhy@j\\zCfMuh@f`AxIfT~r@eLn~@hj@il@xShZtaC`iBbp@hYhvA~pBdr@vVrn@`h@rRm@vdAqb@nL_E|MhR~Uqw@hgA~ZpB|sB_Zl`@lGsj@|rCpTjbA[pxAz_Eh~Bf|@frA}Fng@nwA|\\fMoRtr@mEntB~VfdCygA~vAklA|n@fLf~@vt@lvC}DdEwmA?C@?~^hBjZls@foA`K{TfeAdsC|wAlSeDyh@oyAd\\uTvhAjaBpaAnPji@r}@v_Cee@peAuy@mDsFuIkHsZ{OmQyHkLoKYk@yDwHg@kA`sDmz@`dA_g@~fEiNpy@uNeg@k{A}kAov@cQsm@iLo}@}v@mMuKom@ei@uTri@imAlZwHq\\c{Aiy@et@fmEs_Bb@KfyAs\\nnA}Yf@BtvElQnxBaw@ds@xVn]n]|d@hGvz@gm@zmBsI|pAn^zv@qIx~@n@ziBho@jeB_N`l@z@wQtcAdd@fVlNxiAfn@nTt_@iWvaC`C`sAhUbfBbi@x[nh@f{Ab[p{A`FllBk[kMa[pJ}ItV}OU]o@}@o@y@W[EGOSQSSUUUYUWW]Y]YuAgAWUWSWUWUSUQSKKIKIKIKGKGKGKEIGKEKCKEICKCKAICKCQAQCQAQAQ?QAO?O?O@O?M@M@MBK@KBKBGDIDGDGFGFGHEHGJEJCLELCNENCNCRANCRARARAT?TAV?XAp@?v@?x@@fD@p@@R?X?p@Al@?TARAR?RAVATCRARCPCRCNCNENCNELEJEJGJGHEHGJIHIFIHKHKHKFMHMLYL[L[b@eAFSHQHQHQHOHMnAqBZc@Va@Xa@V_@V]V[X[VYVYVWXWVUXSVS^WoJmCcJcBaSeC[E_J}AqTgFwVoLyVsOsFqDx]{XnzAqg@xcBvTfh@er@gb@_z@Iop@CmVfa@yj@oMuxArkA}nAa[m`@hMm\\siAsg@iP{lA|I{l@t_Bau@dD}x@nb@}Xu[cpCj[eJfl@xNvX}XtkCab@_HufAi_@ab@xGeuA_wAuhAkiA{F}Seo@dZweAsKoj@|b@k`@}qA}xAymB_p@oeAsrAmgCw{Ayz@whDp_@ozA}r@a^}@gHyJsw@ia@ah@ji@khAxqA}bA__@ml@qOqs@c|BscBtFokAudB_cAjz@abEjwAmo@orBu|Af~Am`B~BilAxqHeeBaYqnAilCf@Eg{@ggAuOskA_x@whCb@kvBgUsC{b@euCm}AnG_g@jc@xBhm@k_AtEyjA_Zk`@"
-        ]
-      }
-    },
-    {
       "id": "IT-34",
       "type": "Feature",
       "properties": {
