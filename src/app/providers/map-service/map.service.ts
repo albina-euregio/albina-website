@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Map } from "leaflet";
 import { BulletinModel } from "../../models/bulletin.model";
-import { RegionsService } from "../regions-service/regions.service";
+import { RegionsService, RegionWithElevationProperties } from "../regions-service/regions.service";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { ConstantsService } from "../constants-service/constants.service";
 import * as Enums from "../../enums/enums";
@@ -13,8 +13,12 @@ import * as geojson from "geojson";
 declare module "leaflet" {
   interface GeoJSON<P = any> {
     feature?: geojson.Feature<geojson.MultiPoint, P>;
-    getLayers(): GeoJSON[];
+    getLayers(): GeoJSON<P>[];
   }
+}
+
+interface SelectableRegionProperties extends RegionWithElevationProperties {
+  selected: boolean;
 }
 
 @Injectable()
@@ -27,8 +31,18 @@ export class MapService {
   public afternoonBaseMaps: Record<string, L.TileLayer>;
   public observationsMaps: Record<string, L.TileLayer>;
   public zamgModelsMaps: Record<string, L.TileLayer>;
-  public overlayMaps: Record<string, L.GeoJSON>;
-  public afternoonOverlayMaps: Record<string, L.GeoJSON>;
+  public overlayMaps: {
+    regions: L.GeoJSON<SelectableRegionProperties>;
+    activeSelection: L.GeoJSON<SelectableRegionProperties>;
+    editSelection: L.GeoJSON<SelectableRegionProperties>;
+    aggregatedRegions: L.GeoJSON<SelectableRegionProperties>;
+  };
+  public afternoonOverlayMaps: {
+    regions: L.GeoJSON<SelectableRegionProperties>;
+    activeSelection: L.GeoJSON<SelectableRegionProperties>;
+    editSelection: L.GeoJSON<SelectableRegionProperties>;
+    aggregatedRegions: L.GeoJSON<SelectableRegionProperties>;
+  };
   public layers = {
     zamgModelPoints: L.layerGroup()
   };
