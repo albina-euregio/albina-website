@@ -294,7 +294,7 @@ export class MapService {
     for (const entry of this.overlayMaps.aggregatedRegions.getLayers()) {
       for (let j = bulletin.savedRegions.length - 1; j >= 0; j--) {
         if (entry.feature.properties.id === bulletin.savedRegions[j]) {
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingAbove, Enums.RegionStatus.saved));
           } else {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingBelow, Enums.RegionStatus.saved));
@@ -303,7 +303,7 @@ export class MapService {
       }
       for (let j = bulletin.suggestedRegions.length - 1; j >= 0; j--) {
         if (entry.feature.properties.id === bulletin.suggestedRegions[j]) {
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingAbove, Enums.RegionStatus.suggested));
           } else {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingBelow, Enums.RegionStatus.suggested));
@@ -312,7 +312,7 @@ export class MapService {
       }
       for (let j = bulletin.publishedRegions.length - 1; j >= 0; j--) {
         if (entry.feature.properties.id === bulletin.publishedRegions[j]) {
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingAbove, Enums.RegionStatus.published));
           } else {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, dangerRatingBelow, Enums.RegionStatus.published));
@@ -326,7 +326,7 @@ export class MapService {
     for (const entry of this.afternoonOverlayMaps.aggregatedRegions.getLayers()) {
       for (let j = bulletin.savedRegions.length - 1; j >= 0; j--) {
         if (entry.feature.properties.id === bulletin.savedRegions[j]) {
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingAbove, Enums.RegionStatus.saved));
           } else {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingBelow, Enums.RegionStatus.saved));
@@ -335,7 +335,7 @@ export class MapService {
       }
       for (let j = bulletin.suggestedRegions.length - 1; j >= 0; j--) {
         if (entry.feature.properties.id === bulletin.suggestedRegions[j]) {
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingAbove, Enums.RegionStatus.suggested));
           } else {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingBelow, Enums.RegionStatus.suggested));
@@ -344,7 +344,7 @@ export class MapService {
       }
       for (let j = bulletin.publishedRegions.length - 1; j >= 0; j--) {
         if (entry.feature.properties.id === bulletin.publishedRegions[j]) {
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingAbove, Enums.RegionStatus.published));
           } else {
             entry.setStyle(this.getDangerRatingStyle(entry.feature.properties.id, afternoonDangerRatingBelow, Enums.RegionStatus.published));
@@ -368,7 +368,7 @@ export class MapService {
       for (const region of bulletin.savedRegions) {
         if (entry.feature.properties.id === region) {
           entry.feature.properties.selected = true;
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingAbove(), Enums.RegionStatus.saved));
           } else {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingBelow(), Enums.RegionStatus.saved));
@@ -378,7 +378,7 @@ export class MapService {
       for (const region of bulletin.suggestedRegions) {
         if (entry.feature.properties.id === region) {
           entry.feature.properties.selected = true;
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingAbove(), Enums.RegionStatus.suggested));
           } else {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingBelow(), Enums.RegionStatus.suggested));
@@ -388,7 +388,7 @@ export class MapService {
       for (const region of bulletin.publishedRegions) {
         if (entry.feature.properties.id === region) {
           entry.feature.properties.selected = true;
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingAbove(), Enums.RegionStatus.published));
           } else {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getForenoonDangerRatingBelow(), Enums.RegionStatus.published));
@@ -403,7 +403,7 @@ export class MapService {
       for (const region of bulletin.savedRegions) {
         if (entry.feature.properties.id === region) {
           entry.feature.properties.selected = true;
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingAbove(), Enums.RegionStatus.saved));
           } else {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingBelow(), Enums.RegionStatus.saved));
@@ -413,7 +413,7 @@ export class MapService {
       for (const region of bulletin.suggestedRegions) {
         if (entry.feature.properties.id === region) {
           entry.feature.properties.selected = true;
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingAbove(), Enums.RegionStatus.suggested));
           } else {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingBelow(), Enums.RegionStatus.suggested));
@@ -423,7 +423,7 @@ export class MapService {
       for (const region of bulletin.publishedRegions) {
         if (entry.feature.properties.id === region) {
           entry.feature.properties.selected = true;
-          if (entry.feature.properties.elevation === "h") {
+          if (entry.feature.properties.elevation === "high") {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingAbove(), Enums.RegionStatus.published));
           } else {
             entry.setStyle(this.getActiveSelectionStyle(entry.feature.properties.id, bulletin.getAfternoonDangerRatingBelow(), Enums.RegionStatus.published));
