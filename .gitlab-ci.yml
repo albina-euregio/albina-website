@@ -1,5 +1,8 @@
 image: node:lts
 
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
 cache:
   paths:
     - node_modules/.cache/
