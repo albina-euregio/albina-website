@@ -1,10 +1,5 @@
 import { observable, action } from "mobx";
-import {
-  parseDate,
-  parseDateSeconds,
-  getSuccDate,
-  dateToISODateString
-} from "../util/date.js";
+import { parseDate, parseDateSeconds, getSuccDate, dateToISODateString } from "../util/date.js";
 
 import { GeoJSON, Util } from "leaflet";
 import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.js";
@@ -84,9 +79,7 @@ class BulletinCollection {
   getBulletinForRegion(regionId) {
     return (
       this.daytimeBulletins.find(el => el.id == regionId) ??
-      this.daytimeBulletins.find(el =>
-        el.forenoon.regions.find(r => r.id === regionId)
-      )
+      this.daytimeBulletins.find(el => el.forenoon.regions.find(r => r.id === regionId))
     );
   }
 
@@ -98,6 +91,11 @@ class BulletinCollection {
    * @param {string} xmlString
    */
   setData(xmlString) {
+    if (typeof xmlString !== "string" || xmlString.length == 0) {
+      this.dataRaw = undefined;
+      this.status = "empty";
+      return;
+    }
     const parser = new DOMParser();
     const document = parser.parseFromString(xmlString, "application/xml");
     this.dataRaw = convertCaamlToJson(document);
@@ -156,10 +154,7 @@ class BulletinStore {
       () => (this.latest = tomorrow),
       () => (this.latest = today)
     );
-    window.setTimeout(
-      () => this._latestBulletinChecker(),
-      config.bulletin.checkForLatestInterval * 60000
-    );
+    window.setTimeout(() => this._latestBulletinChecker(), config.bulletin.checkForLatestInterval * 60000);
   }
 
   /**
@@ -213,8 +208,7 @@ class BulletinStore {
       this.settings.region = "";
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
-      this.settings.neighbors =
-        this.bulletins[date].neighborBulletins?.features?.length ?? 0;
+      this.settings.neighbors = this.bulletins[date].neighborBulletins?.features?.length ?? 0;
 
       /*
       if (this.bulletins[date].length === 1) {
@@ -265,9 +259,7 @@ class BulletinStore {
     if (!this.settings?.region?.match(config.regionsRegex)) {
       return "";
     }
-    const feature = microRegions.features.find(
-      f => f.id === this.settings.region
-    );
+    const feature = microRegions.features.find(f => f.id === this.settings.region);
     return feature?.id;
   }
 
@@ -278,9 +270,7 @@ class BulletinStore {
    */
   get activeBulletin() {
     if (this.activeBulletinCollection) {
-      return this.activeBulletinCollection.getBulletinForRegion(
-        this.settings.region
-      );
+      return this.activeBulletinCollection.getBulletinForRegion(this.settings.region);
     }
     return null;
   }
@@ -293,14 +283,11 @@ class BulletinStore {
     if (!this.activeBulletinCollection) {
       return [];
     }
-    const bulletin = this.activeBulletinCollection.getBulletinForRegion(
-      regionId
-    );
+    const bulletin = this.activeBulletinCollection.getBulletinForRegion(regionId);
     if (!bulletin) {
       return [];
     }
-    const daytime =
-      bulletin.hasDaytimeDependency && ampm == "pm" ? "afternoon" : "forenoon";
+    const daytime = bulletin.hasDaytimeDependency && ampm == "pm" ? "afternoon" : "forenoon";
     return bulletin[daytime].avalancheProblems || [];
   }
 
@@ -340,10 +327,7 @@ class BulletinStore {
     if (!f.properties) f.properties = {};
     f.properties.state = this.getRegionState(f.id, ampm);
     if (!f.properties.latlngs) {
-      f.properties.latlngs = GeoJSON.coordsToLatLngs(
-        f.geometry.coordinates,
-        f.geometry.type === "Polygon" ? 1 : 2
-      );
+      f.properties.latlngs = GeoJSON.coordsToLatLngs(f.geometry.coordinates, f.geometry.type === "Polygon" ? 1 : 2);
     }
     return f;
   }
@@ -353,22 +337,11 @@ class BulletinStore {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
-      const regions = microRegions.features.map(f =>
-        this._augmentFeature(f, ampm)
-      );
+      const regions = microRegions.features.map(f => this._augmentFeature(f, ampm));
 
-      const states = [
-        "selected",
-        "highlighted",
-        "dehighlighted",
-        "dimmed",
-        "default"
-      ];
+      const states = ["selected", "highlighted", "dehighlighted", "dimmed", "default"];
       regions.sort((r1, r2) => {
-        return states.indexOf(r1.properties.state) <
-          states.indexOf(r2.properties.state)
-          ? 1
-          : -1;
+        return states.indexOf(r1.properties.state) < states.indexOf(r2.properties.state) ? 1 : -1;
       });
       return regions;
     } else {
@@ -377,13 +350,10 @@ class BulletinStore {
   }
 
   _getBulletinUrl(date) {
-    return Util.template(
-      config.links.downloads.base + config.links.downloads.xml,
-      {
-        date,
-        lang: window["appStore"].language
-      }
-    );
+    return Util.template(config.links.downloads.base + config.links.downloads.xml, {
+      date,
+      lang: window["appStore"].language
+    });
   }
 
   _loadBulletinData(date) {
