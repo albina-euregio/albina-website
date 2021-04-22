@@ -15,7 +15,7 @@ class WeatherStationDiagrams extends React.Component {
       winter: "winter"
     };
     this.imageWidths = ["540", "800", "1100"];
-    this.state = { timeRange: "day" };
+    this.state = { timeRange: "threedays" };
   }
 
   get cacheHash() {
@@ -30,7 +30,7 @@ class WeatherStationDiagrams extends React.Component {
     event.preventDefault();
     event.stopPropagation();
     this.setState({
-      timeRange: newTimeRange !== "none" ? newTimeRange : "day"
+      timeRange: newTimeRange !== "none" ? newTimeRange : "threedays"
     });
   };
 
