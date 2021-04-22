@@ -295,7 +295,7 @@ class BulletinMap extends React.Component {
           }
         >
           <LeafletMap
-            loaded={this.props.regions && this.props.regions.length > 0}
+            loaded={this.props.regions}
             onViewportChanged={this.props.handleMapViewportChanged}
             overlays={this.getMapOverlays()}
             mapConfigOverride={{}}
