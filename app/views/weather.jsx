@@ -128,9 +128,8 @@ class Weather extends React.Component {
     // );
     if (feature.id) {
       window["modalStateStore"].setData({
-        stationData: config.weathermapStore.stations.features.find(
-          point => point.id == feature.id
-        )
+        stationData: config.weathermapStore.stations.features,
+        rowId: feature.id
       });
       modal_open_by_params(
         null,

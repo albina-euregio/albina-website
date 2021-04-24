@@ -10,14 +10,12 @@ class StationTable extends React.Component {
     super(props);
 
     const defaultRender = (value, _row, digits = 0) =>
-      typeof value === "number" ? (
-        this.props.intl.formatNumber(value, {
-          minimumFractionDigits: digits,
-          maximumFractionDigits: digits
-        })
-      ) : (
-        "–"
-      );
+      typeof value === "number"
+        ? this.props.intl.formatNumber(value, {
+            minimumFractionDigits: digits,
+            maximumFractionDigits: digits
+          })
+        : "–";
 
     this.columns = [
       {
@@ -236,8 +234,11 @@ class StationTable extends React.Component {
     return originalData;
   }
 
-  _rowClicked(row) {
-    window["modalStateStore"].setData({ stationData: row });
+  _rowClicked(stationData, rowId) {
+    window["modalStateStore"].setData({
+      stationData: stationData,
+      rowId: rowId
+    });
     modal_open_by_params(
       null,
       "inline",
@@ -259,7 +260,15 @@ class StationTable extends React.Component {
         />
         <tbody>
           {this._applyFiltersAndSorting(this.props.data).map(row => (
-            <tr key={row.id} onClick={() => this._rowClicked(row)}>
+            <tr
+              key={row.id}
+              onClick={() =>
+                this._rowClicked(
+                  this._applyFiltersAndSorting(this.props.data),
+                  row.id
+                )
+              }
+            >
               {this.columns.map(
                 (col, i) =>
                   this.isDisplayColumn(col) && (

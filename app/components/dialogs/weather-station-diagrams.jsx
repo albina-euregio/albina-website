@@ -16,6 +16,55 @@ class WeatherStationDiagrams extends React.Component {
     };
     this.imageWidths = ["540", "800", "1100"];
     this.state = { timeRange: "threedays" };
+    this.keyFunction = this.keyFunction.bind(this);
+  }
+
+  keyFunction(event) {
+    if (window["modalStateStore"].isOpen) {
+      if (event.keyCode === 37) {
+        //arrow left
+        this.previous();
+      } else if (event.keyCode === 39) {
+        //arrow right
+        this.next();
+      }
+    }
+  }
+
+  previous() {
+    let stationsData = window["modalStateStore"].data.stationData;
+    let rowId = window["modalStateStore"].data.rowId;
+
+    let index = stationsData.findIndex(element => element.id == rowId);
+    if (index > 0) {
+      index--;
+    }
+    window["modalStateStore"].setData({
+      stationData: stationsData,
+      rowId: stationsData[index].id
+    });
+  }
+
+  next() {
+    let stationsData = window["modalStateStore"].data.stationData;
+    let rowId = window["modalStateStore"].data.rowId;
+
+    let index = stationsData.findIndex(element => element.id == rowId);
+    if (index < stationsData.length - 1) {
+      index++;
+    }
+    window["modalStateStore"].setData({
+      stationData: stationsData,
+      rowId: stationsData[index].id
+    });
+  }
+
+  componentDidMount() {
+    document.addEventListener("keydown", this.keyFunction, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.keyFunction, false);
   }
 
   get cacheHash() {
@@ -52,9 +101,11 @@ class WeatherStationDiagrams extends React.Component {
   }
 
   render() {
-    let stationData = window["modalStateStore"].data.stationData;
+    let stationsData = window["modalStateStore"].data.stationData;
+    let rowId = window["modalStateStore"].data.rowId;
     let self = this;
-
+    if (!stationsData) return <div></div>;
+    var stationData = stationsData.find(element => element.id == rowId);
     if (!stationData) return <div></div>;
     return (
       <div className="modal-container">
