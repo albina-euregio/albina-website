@@ -128,7 +128,12 @@ class Weather extends React.Component {
     // );
     if (feature.id) {
       window["modalStateStore"].setData({
-        stationData: config.weathermapStore.stations.features,
+        stationData: config.weathermapStore.stations.features.sort((f1, f2) =>
+          f1.properties["LWD-Region"].localeCompare(
+            f2.properties["LWD-Region"],
+            "de"
+          )
+        ),
         rowId: feature.id
       });
       modal_open_by_params(
