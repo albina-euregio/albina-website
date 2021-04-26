@@ -300,6 +300,7 @@
   "measurements:table:sort-desc": "Ordena descendent",
   "measurements:table:sort-toggle": "Inverteix ordre",
   "measurements:table:header:name": "Estació",
+  "measurements:table:header:microRegion": "Regió",
   "measurements:table:header:elev": "Altitud",
   "measurements:table:header:snow": "Gruix de neu",
   "measurements:table:header:snow24": "Diferència de gruix de neu en 24h",

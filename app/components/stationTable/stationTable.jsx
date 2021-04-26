@@ -33,8 +33,17 @@ class StationTable extends React.Component {
             <span className="datetime">{dateToDateTimeString(row.date)}</span>
           </span>
         ),
-        sortable: false,
+        sortable: true,
         className: "mb-station m-name"
+      },
+      {
+        data: "microRegion",
+        render: (_value, row) => (
+          <span className="region">{row.microRegion}</span>
+        ),
+        unit: " ",
+        width: "10px",
+        className: "mb-snow m-name"
       },
       {
         data: "elev",

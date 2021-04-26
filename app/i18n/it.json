@@ -300,6 +300,7 @@
   "measurements:table:sort-desc": "Ordina decrescente",
   "measurements:table:sort-toggle": "Invertire l'ordine ",
   "measurements:table:header:name": "Stazioni",
+  "measurements:table:header:microRegion": "Regione",
   "measurements:table:header:elev": "Elevazione",
   "measurements:table:header:snow": "Altezza Neve",
   "measurements:table:header:snow24": "24h Altezza Neve Differenza",
