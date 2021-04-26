@@ -206,7 +206,6 @@
   "bulletin:report:dangerlevel-below": "Gefahrenstufe unterhalb von {elev}m: {level}",
   "bulletin:report:dangerlevel-treeline-above": "Gefahrenstufe oberhalb der Waldgrenze: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Gefahrenstufe unterhalb der Waldgrenze: {level}",
-  "bulletin:report:selected-region:alt": "Ausgewählte Region",
   "bulletin:report:selected-region:hover": "Du siehst die Gefahreneinschätzung für die ausgewählte Region.<br />Klicke, um zur Karte zurückzukehren",
   "bulletin:report:tendency": "<strong className=\"heavy\">Tendenz: {tendency}</strong><br />am {date} {daytime}",
   "bulletin:report:tendency:daytime:am": "vormittags",

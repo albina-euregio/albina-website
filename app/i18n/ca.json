@@ -206,7 +206,6 @@
   "bulletin:report:dangerlevel-below": "Grau de perill per sota {elev}m: {level}",
   "bulletin:report:dangerlevel-treeline-above": "Grau de perill per sobre del nivell del bosc: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Grau de perill per sota del nivell del bosc: {level}",
-  "bulletin:report:selected-region:alt": "Regió seleccionada ",
   "bulletin:report:selected-region:hover": "Veus la previsió per la regió seleccionada. <br /> Click per tornar al mapa",
   "bulletin:report:tendency": "<strong className=\"heavy\">Tendencia: {tendency}</strong><br />en {date} {daytime}",
   "bulletin:report:tendency:daytime:am": "AM",

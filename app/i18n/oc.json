@@ -206,7 +206,6 @@
   "bulletin:report:dangerlevel-below": "Grad de perilh ath dejós {elev}m: {level}",
   "bulletin:report:dangerlevel-treeline-above": "Grad de perilh ath dessús deth limit deth bòsc: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Grad de perilh ath dejós deth limit deth bòsc: {level}",
-  "bulletin:report:selected-region:alt": "Region seleccionada",
   "bulletin:report:selected-region:hover": "Veir era prediccion dera region seleccionada.<br />Hèr clic entà tornar ath mapa",
   "bulletin:report:tendency": "<strong className=\"heavy\">Tendencia: {tendency}</strong><br />en {date} {daytime}",
   "bulletin:report:tendency:daytime:am": "AM",

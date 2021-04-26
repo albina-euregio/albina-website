@@ -206,7 +206,6 @@
   "bulletin:report:dangerlevel-below": "Grado de Peligro por debajo {elev}m: {level}",
   "bulletin:report:dangerlevel-treeline-above": "Grado de Peligro por encima el límite del bosque: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Grado de Peligro por debajo del límite del bosque: {level}",
-  "bulletin:report:selected-region:alt": "Región seleccionada",
   "bulletin:report:selected-region:hover": "Ves la predicción de aludes para la región seleccionada. <br />Click para volver al mapa",
   "bulletin:report:tendency": "<strong className=\"heavy\">Tendencia: {tendency}</strong><br />en {date} {daytime}",
   "bulletin:report:tendency:daytime:am": "AM",

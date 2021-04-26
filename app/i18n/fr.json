@@ -206,7 +206,6 @@
   "bulletin:report:dangerlevel-below": "Degré de danger sous {elev}m: {level}",
   "bulletin:report:dangerlevel-treeline-above": "Degré de danger au-dessus de la limite de la forêt: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Degré de danger au-dessous de la limite de la forêt: {level}",
-  "bulletin:report:selected-region:alt": "Région sélectionnée",
   "bulletin:report:selected-region:hover": "Vous voyez les prévisions pour la région sélectionnée. <br />Cliquer pour retourner à la carte.",
   "bulletin:report:tendency": "<strong className=\"heavy\">Tendence: {tendency}</strong><br />le {date} {daytime}",
   "bulletin:report:tendency:daytime:am": "Matin",

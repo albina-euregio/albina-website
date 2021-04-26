@@ -206,7 +206,6 @@
   "bulletin:report:dangerlevel-below": "Danger level below {elev}m: {level}",
   "bulletin:report:dangerlevel-treeline-above": "Danger level above treeline: {level}",
   "bulletin:report:dangerlevel-treeline-below": "Danger level below treeline: {level}",
-  "bulletin:report:selected-region:alt": "Selected region",
   "bulletin:report:selected-region:hover": "You see the forecast for the selected region.<br />Click to return to map",
   "bulletin:report:tendency": "<strong className=\"heavy\">Tendency: {tendency}</strong><br />on {date} {daytime}",
   "bulletin:report:tendency:daytime:am": "AM",

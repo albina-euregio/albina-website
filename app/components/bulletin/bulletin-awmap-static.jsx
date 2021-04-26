@@ -29,13 +29,13 @@ class BulletinAWMapStatic extends React.Component {
       publicationDirectory +
       this.props.region + // possibly contains _PM
       imgFormat;
-
+    const regions = window["bulletinStore"].bulletins[this.props.date].daytimeBulletins.find(element => element.id == this.props.region.split("_")[0]).forenoon.regions.map(function(elem) {
+      return elem.name;
+  }).join(", ");
     return (
       <img
         src={url}
-        alt={this.props.intl.formatMessage({
-          id: "bulletin:report:selected-region:alt"
-        })}
+        alt={regions}
         onError={this.props.onError}
       />
     );
