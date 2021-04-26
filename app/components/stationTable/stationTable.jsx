@@ -228,8 +228,11 @@ class StationTable extends React.Component {
     // searchText
     if (this.props.searchText) {
       filters.push(data =>
-        data.filter(row =>
-          row.name.match(new RegExp(this.props.searchText, "i"))
+        data.filter(
+          row =>
+            row.name.match(new RegExp(this.props.searchText, "i")) ||
+            row.microRegion.match(new RegExp(this.props.searchText, "i")) ||
+            row.operator.match(new RegExp(this.props.searchText, "i"))
         )
       );
       this.searchText = this.props.searchText;
