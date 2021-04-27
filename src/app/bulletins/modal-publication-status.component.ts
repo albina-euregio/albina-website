@@ -97,18 +97,6 @@ export class ModalPublicationStatusComponent {
     );
   }
 
-  triggerMessengerpeople(event) {
-    event.stopPropagation();
-    this.bulletinsService.triggerMessengerpeople(this.date, this.authenticationService.activeRegion).subscribe(
-      data => {
-        console.info("Messengerpeople triggered");
-      },
-      error => {
-        console.error("Messengerpeople could not be triggered!");
-      }
-    );
-  }
-
   triggerTelegramChannel(event) {
     event.stopPropagation();
     this.bulletinsService.triggerTelegramChannel(this.date, this.authenticationService.activeRegion).subscribe(

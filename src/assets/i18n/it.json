@@ -251,10 +251,6 @@
             "success" : "Emails inviate",
             "failed" : "Non è stato possibile inviare e-mail"
           },
-          "messengerpeople" : {
-            "success" : "Previsione valanghe inviata via Messengerpeople",
-            "failed" : "Non è stato possibile inviare la previsione delle valanghe via Messengerpeople"
-          },
           "telegramChannel" : {
             "success" : "Previsione valanghe inviata via calane Telegram",
             "failed" : "Non è stato possibile inviare la previsione delle valanghe via canale Telegram"
@@ -334,9 +330,6 @@
   },
   "admin" : {
     "config" : {
-      "tabsocial" : "Configurazione Email & Social",
-      "addChannel" : "Aggiungi canale",
-      "titleShipment": "Spedizioni",
       "title" : "Configurazione Server",
       "table" : {
         "title" : {
@@ -348,7 +341,6 @@
         "createStaticWidget" : "Creare widget statici",
         "createSimpleHtml" : "Creare simplice HTML",
         "sendEmails" : "Inviare e-mail",
-        "publishToMessengerpeople" : "Pubblicazione via Messengerpeople",
         "publishToTelegramChannel" : "Pubblicazione via Telegram channel",
         "publishAt5PM" : "Publicare alle 17:00",
         "publishAt8AM" : "Publicare alle 08:00",

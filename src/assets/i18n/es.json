@@ -251,10 +251,6 @@
             "success" : "Correos enviados",
             "failed" : "No se han podido enviar los correos"
           },
-          "messengerpeople" : {
-            "success" : "Predicción de aludes enviada a través de Mensajeria",
-            "failed" : "No se ha podido enviar la predicción de aludes a través de Mensajeria"
-          },
           "telegramChannel" : {
             "success" : "Predicción de aludes enviada a través de canal de Telegram",
             "failed" : "No se ha podido enviar la predicción de aludes a través de canal de Telegram"
@@ -334,9 +330,6 @@
   },
   "admin" : {
     "config" : {
-      "tabsocial" : "Configuración Email & Social",
-      "addChannel" : "Añadir canal",
-      "titleShipment": "Envíos",
       "title" : "Configuración del servidor",
       "table" : {
         "title" : {
@@ -348,7 +341,6 @@
         "createStaticWidget" : "Crear widgets estáticos",
         "createSimpleHtml" : "Crear HTML simple",
         "sendEmails" : "Enviar correos",
-        "publishToMessengerpeople" : "Publicar a través de Mensajeria",
         "publishToTelegramChannel" : "Publicar a través de canal de Telegram",
         "publishAt5PM" : "Publicar a las 5PM",
         "publishAt8AM" : "Publicar a las 8PM",
@@ -576,151 +568,151 @@
   },
   "observations": {
     "aspect": "Orientación",
-    "authorName": "Author name",
-    "avalancheLength": "Avalanche length",
+    "authorName": "Nombre del autor",
+    "avalancheLength": "Longitud de alud",
     "avalancheProblem": "Problema de aludes",
-    "avalancheSize": "Avalanche size",
-    "avalancheType": "Avalanche type",
-    "avalancheWidth": "Avalanche width",
+    "avalancheSize": "Tamaño de alud",
+    "avalancheType": "Tipo de alud",
+    "avalancheWidth": "Ancho de alud",
     "button": {
-      "add": "Add observation",
-      "save": "Save observation",
-      "delete": "Delete observation",
-      "deleteConfirm": "Delete observation?",
+      "add": "Añadir observación",
+      "save": "Guardar observación",
+      "delete": "Eliminar observación",
+      "deleteConfirm": "Eliminar observación?",
       "discard": "Descartar"
     },
-    "comment": "Comment",
-    "content": "Content",
+    "comment": "Comentario",
+    "content": "Contenido",
     "dangerRating": "Clasificación del peligro",
     "elevation": "Altitud",
-    "eventDate": "Event date",
-    "eventType": "Event type",
+    "eventDate": "Fecha del evento",
+    "eventType": "Tipo de evento",
     "eventTypes": {
-      "IMPORTANT": "Important event",
-      "NORMAL": "Normal event",
-      "PERSON_DEAD": "Event involving persons (dead)",
-      "PERSON_INJURED": "Event involving persons (injured)",
-      "PERSON_NO": "Event not involving persons",
-      "PERSON_UNINJURED": "Event involving persons (uninjured)"
+      "IMPORTANT": "Evento importante",
+      "NORMAL": "Evento normal",
+      "PERSON_DEAD": "Evento con personas implicadas (muertos)",
+      "PERSON_INJURED": "Evento con personas implicadas (heridos)",
+      "PERSON_NO": "Evento sin personas implicadas",
+      "PERSON_UNINJURED": "Evento con personas implicadas (ilesos)"
     },
-    "fractureDepth": "Fracture depth",
-    "hasCoordinates": "Has coordinates",
-    "incline": "Incline",
-    "latitude": "Latitude",
-    "locationName": "Location",
-    "longitude": "Longitude",
-    "reportDate": "Report date",
+    "fractureDepth": "Profundiad de cicatriz",
+    "hasCoordinates": "Tiene coordenadas",
+    "incline": "Inclinación",
+    "latitude": "Laltitud",
+    "locationName": "Localización",
+    "longitude": "Longitud",
+    "reportDate": "Fecha del informe",
     "showMap": "Mapa",
     "showTable": "Tabla"
   },
   "LoLaAvalanchePotential": {
-    "riskAssessment": "Risk Assessment",
-    "snowpackStructure": "Snowpack Structure",
-    "avalanchePotentialValue": "Avalanche Potential Value",
-    "avalancheCharacteristicString": "Avalanche Characteristic String",
-    "windDriftedSnow": "Wind Drifted Snow",
-    "persistentWeakLayer": "Persistent Weak Layer",
-    "wetSnow": "Wet Snow",
-    "glidingSnow": "Gliding Snow",
+    "riskAssessment": "Evaluación del riesgo",
+    "snowpackStructure": "Estructura del manto de nieve",
+    "avalanchePotentialValue": "Valor potencial del alud",
+    "avalancheCharacteristicString": "Características del alud",
+    "windDriftedSnow": "Nieve venteada",
+    "persistentWeakLayer": "Capa débil persistente",
+    "wetSnow": "Nieve húmeda",
+    "glidingSnow": "Deslizamiento basal",
     "newSnow": "Nieve reciente",
-    "snowpackStructureActive": "Snowpack Structure Active",
-    "triggeringProbability": "Triggering Probability",
-    "avalancheRiskTendency24h": "Avalanche Risk Tendency 24h",
-    "avalancheRiskTendency48h": "Avalanche Risk Tendency 48h",
-    "oldSnowFloatingSnow": "Old Snow Floating Snow",
-    "oldSnowSleet": "Old Snow Sleet",
-    "oldSnowWeakLayers": "Old Snow Weak Layers",
-    "wetSnowRain": "Wet Snow Rain",
-    "wetSnowTemperatureIncrease": "Wet Snow Temperature Increase",
-    "wetSnowHighRadiation": "Wet Snow High Radiation"
+    "snowpackStructureActive": "Estructura de manto de nieve activa",
+    "triggeringProbability": "Probabilidad de desencadenamiento",
+    "avalancheRiskTendency24h": "Tendencia riesgo de alud 24h",
+    "avalancheRiskTendency48h": "Tendencia riesgo de alud 48h",
+    "oldSnowFloatingSnow": "Nieve vieja",
+    "oldSnowSleet": "Nieve vieja",
+    "oldSnowWeakLayers": "Capas débiles de nieve vieja",
+    "wetSnowRain": "Agua-nieve húmeda",
+    "wetSnowTemperatureIncrease": "Incremento de temperatura de la nieve húmeda",
+    "wetSnowHighRadiation": "Radiación alta de la nieve húmeda"
   },
   "LoLaWeather": {
-    "cloudiness": "Cloudiness",
-    "freshSnowAmount": "Fresh Snow Amount",
-    "officialAvalancheReport": "Official Avalanche Report",
-    "precipitationIntensity": "Precipitation Intensity",
-    "precipitationType": "Precipitation Type",
-    "temperaturePeak": "Temperature Peak",
-    "temperatureTreeline": "Temperature Treeline",
-    "temperatureValley": "Temperature Valley",
-    "weatherTendency": "Weather Tendency",
+    "cloudiness": "Nubolosidad",
+    "freshSnowAmount": "Cantidad nieve reciente",
+    "officialAvalancheReport": "Boletín de aludes oficial",
+    "precipitationIntensity": "Intensidad de precipitación",
+    "precipitationType": "Tipo de precipitación",
+    "temperaturePeak": "Pico de temperatura",
+    "temperatureTreeline": "Temperatura en el límite del bosque",
+    "temperatureValley": "Temperatura en el valle",
+    "weatherTendency": "Tendencia del tiempo",
     "windDirection": "Dirección del viento",
     "windSpeed": "Velocidad del viento",
-    "visibilityConditions": "Visibility Conditions"
+    "visibilityConditions": "Condiciones de visibilidad"
   },
   "natlefs" : {
     "title" : {
-      "ridingQuality" : "Riding quality",
-      "rode" : "We rode",
-      "avoided" : "We stayed away from",
-      "alarmSignsFrequency" : "Signs of instability",
+      "ridingQuality" : "Calidad del esquí",
+      "rode" : "Hemos esquiado",
+      "avoided" : "Hemos evitado",
+      "alarmSignsFrequency" : "Signos de inestabilidad",
       "newSnow" : "Nieve reciente",
-      "driftingSnow" : "Fresh drifting snow",
-      "avalanches" : "Fresh avalanches",
-      "penetrationDepth" : "Penetration depth without ski",
-      "surfaceSnowWetness" : "Surface snow wetness",
-      "avalancheProblems" : "Avalanche problems",
+      "driftingSnow" : "Nieve venteada reciente",
+      "avalanches" : "Aludes recientes",
+      "penetrationDepth" : "Penetración sin esquiar",
+      "surfaceSnowWetness" : "Humedad de la nieve en superfície",
+      "avalancheProblems" : "Problemas de aludes",
       "tracks" : "Tracks",
-      "comment" : "Comment"
+      "comment" : "Comentario"
     }
   },
   "ridingQuality" : {
-    "amazing" : "Amazing",
-    "good" : "Good",
+    "amazing" : "Increïble",
+    "good" : "Buena",
     "ok" : "De acuerdo",
-    "indifferent" : "Indifferent",
+    "indifferent" : "Indiferente",
     "terrible" : "Terrible"
   },
   "snowConditions" : {
-    "crusty" : "Crusty",
-    "heavy" : "Heavy",
-    "hard" : "Hard",
-    "wet" : "Wet",
-    "powder" : "Powder",
-    "firn" : "Firn",
-    "windAffected" : "Wind affected"
+    "crusty" : "Costra",
+    "heavy" : "Pesada",
+    "hard" : "Dura",
+    "wet" : "Húmeda",
+    "powder" : "Polvo",
+    "firn" : "Primavera firme",
+    "windAffected" : "Venteada"
   },
   "terrainFeature" : {
-    "moderatelySteepSlopes" : "Moderately steep slopes (< 30°)",
-    "steepSlopes" : "Steep slopes (30° - 40°)",
-    "verySteepSlopes" : "Very steep slopes (> 40°)",
-    "convexSlopes" : "Convex slopes",
-    "denseTrees" : "Dense trees",
-    "openTrees" : "Open trees",
-    "sunnySlopes" : "Sunny slopes",
-    "shadySlopes" : "Shady slopes"
+    "moderatelySteepSlopes" : "Laderas moderadamente inclinadas (< 30°)",
+    "steepSlopes" : "Laderas inclinadas (30° - 40°)",
+    "verySteepSlopes" : "Laderas muy inclinadas (> 40°)",
+    "convexSlopes" : "Laderas convexas",
+    "denseTrees" : "Bosque denso",
+    "openTrees" : "Bosque abierto",
+    "sunnySlopes" : "Laderas solanas",
+    "shadySlopes" : "Laderas umbrías"
   },
   "alarmSignsFrequency" : {
-    "none" : "None",
-    "occasional" : "Occasional (1 - 2)",
-    "frequent" : "Frequent (> 2)"
+    "none" : "Ninguno",
+    "occasional" : "Ocasional (1 - 2)",
+    "frequent" : "Frequente (> 2)"
   },
   "newSnow" : {
-    "none" : "None",
+    "none" : "Ninguno",
     "low" : "< 10 cm",
     "medium" : "10 - 30 cm",
     "high" : "> 30 cm"
   },
   "driftingSnow" : {
-    "none" : "None",
-    "occasional" : "Occasional",
-    "widespread" : "Widespread"
+    "none" : "Ninguno",
+    "occasional" : "Ocasional",
+    "widespread" : "Generalizada"
   },
   "avalanches" : {
-    "none" : "None",
-    "some" : "Some (1 - 3)",
-    "many" : "Many (> 3)"
+    "none" : "Ninguno",
+    "some" : "Algunas (1 - 3)",
+    "many" : "Muchas (> 3)"
   },
   "penetrationDepth" : {
     "little" : "< 5 cm",
     "medium" : "5 - 30 cm",
     "much" : "> 30 cm",
-    "spotty" : "spotty"
+    "spotty" : "Irregular"
   },
   "surfaceSnowWetness" : {
-    "dry" : "Dry",
-    "sticky" : "Sticky",
-    "wet" : "Wet"
+    "dry" : "Seca",
+    "sticky" : "Pegajosa",
+    "wet" : "Húmeda"
   },
   "avalancheProblemNatlefs" : {
     "new_snow" : "Nieve reciente",
@@ -731,12 +723,12 @@
     "favourable_situation" : "Situación favorable"
   },
   "tracks" : {
-    "none" : "None",
-    "some" : "Some",
-    "many" : "Many"
+    "none" : "Ninguno",
+    "some" : "Algunas",
+    "many" : "Muchas"
   },
   "location" : {
-    "accuracy" : "GPS Accuracy"
+    "accuracy" : "Precisión GPS"
   },
   "units" : {
     "cm" : "cm",

@@ -251,10 +251,6 @@
             "success" : "Emails envoyés",
             "failed" : "Emails ne pouvaient pas être envoyés"
           },
-          "messengerpeople" : {
-            "success" : "Bulletin d'avalanche envoyé via Messengerpeople",
-            "failed" : "Bulletin d'avalanche ne pouvait pas être envoyer via Messengerpeople"
-          },
           "telegramChannel" : {
             "success" : "Bulletin d'avalanche envoyé via chaîne de Telegram",
             "failed" : "Bulletin d'avalanche ne pouvait pas être envoyer via chaîne de Telegram"
@@ -334,9 +330,6 @@
   },
   "admin" : {
     "config" : {
-      "tabsocial" : "Configurer Email & Sociaux",
-      "addChannel" : "Ajouter canal",
-      "titleShipment": "Transports",
       "title" : "Configuration du serveur",
       "table" : {
         "title" : {
@@ -348,7 +341,6 @@
         "createStaticWidget" : "Creer widgets statiques",
         "createSimpleHtml" : "Creer HTML simple",
         "sendEmails" : "Envoyer les emails",
-        "publishToMessengerpeople" : "Publier via les Messengerpeople",
         "publishToTelegramChannel" : "Publier via les Telegram channel",
         "publishAt5PM" : "Publier à 5PM",
         "publishAt8AM" : "Publier à 8AM",

@@ -251,10 +251,6 @@
             "success" : "Correus enviats",
             "failed" : "No es poden enviar els correus"
           },
-          "messengerpeople" : {
-            "success" : "Predicció d'allaus enviada  via Messengerpeople",
-            "failed" : "No es pot enviar la predicció d'allaus via Messengerpeople"
-          },
           "telegramChannel" : {
             "success" : "Predicció d'allaus enviada  via Telegram",
             "failed" : "No es pot enviar la predicció d'allaus via Telegram"
@@ -334,9 +330,6 @@
   },
   "admin" : {
     "config" : {
-      "tabsocial" : "Configuració email i xarxes",
-      "addChannel" : "Afegeix canal",
-      "titleShipment": "Enviaments",
       "title" : "Configuració del servidor",
       "table" : {
         "title" : {
@@ -348,10 +341,9 @@
         "createStaticWidget" : "Crea widgets estàtics",
         "createSimpleHtml" : "Crea HTML simple",
         "sendEmails" : "Envia correus",
-        "publishToMessengerpeople" : "Publica via Messengerpeople",
         "publishToTelegramChannel" : "Publica via canal de Telegram",
-        "publishAt5PM" : "Publica a les 17:00",
-        "publishAt8AM" : "Publica a les 08:00",
+        "publishAt5PM" : "Publica a les 5 PM",
+        "publishAt8AM" : "Publica a les 8 AM",
         "localImagesPath" : "Adreça de les imatges locals",
         "localFontsPath" : "Adreça de les fonts",
         "publishBulletinsTyrol" : "Publica la predicció d'allaus per Tirol",
@@ -576,151 +568,151 @@
   },
   "observations": {
     "aspect": "Orientació",
-    "authorName": "Author name",
-    "avalancheLength": "Avalanche length",
+    "authorName": "Nom de l'autor",
+    "avalancheLength": "Longitud d'allau",
     "avalancheProblem": "Problema d'allaus",
-    "avalancheSize": "Avalanche size",
-    "avalancheType": "Avalanche type",
-    "avalancheWidth": "Avalanche width",
+    "avalancheSize": "Mida d'allau",
+    "avalancheType": "Tipus d'allau",
+    "avalancheWidth": "Amplada d'allau",
     "button": {
-      "add": "Add observation",
-      "save": "Save observation",
-      "delete": "Delete observation",
-      "deleteConfirm": "Delete observation?",
+      "add": "Afegir observació",
+      "save": "Guardar observació",
+      "delete": "Eliminar observació",
+      "deleteConfirm": "Eliminar observació?",
       "discard": "Descarta"
     },
-    "comment": "Comment",
-    "content": "Content",
+    "comment": "Comentari",
+    "content": "Contingut",
     "dangerRating": "Grau de perill",
     "elevation": "Altitud",
-    "eventDate": "Event date",
-    "eventType": "Event type",
+    "eventDate": "Data d'esdeveniment",
+    "eventType": "Tipus d'esdeveniment",
     "eventTypes": {
-      "IMPORTANT": "Important event",
-      "NORMAL": "Normal event",
-      "PERSON_DEAD": "Event involving persons (dead)",
-      "PERSON_INJURED": "Event involving persons (injured)",
-      "PERSON_NO": "Event not involving persons",
-      "PERSON_UNINJURED": "Event involving persons (uninjured)"
+      "IMPORTANT": "Esdeveniment important",
+      "NORMAL": "Esdeveniment normal",
+      "PERSON_DEAD": "Esdeveniment amb persones implicades (mortes)",
+      "PERSON_INJURED": "Esdeveniment amb persones implicades (ferides)",
+      "PERSON_NO": "Esdeveniment sense persones implicades",
+      "PERSON_UNINJURED": "Esdeveniment amb persones implicades (il·leses)"
     },
-    "fractureDepth": "Fracture depth",
-    "hasCoordinates": "Has coordinates",
-    "incline": "Incline",
-    "latitude": "Latitude",
-    "locationName": "Location",
-    "longitude": "Longitude",
-    "reportDate": "Report date",
+    "fractureDepth": "Profunditat cicatriu",
+    "hasCoordinates": "Té coordenades",
+    "incline": "Pendent",
+    "latitude": "Laltitud",
+    "locationName": "Localitat",
+    "longitude": "Longitud",
+    "reportDate": "Data de l'informe",
     "showMap": "Mapa",
     "showTable": "Taula"
   },
   "LoLaAvalanchePotential": {
-    "riskAssessment": "Risk Assessment",
-    "snowpackStructure": "Snowpack Structure",
-    "avalanchePotentialValue": "Avalanche Potential Value",
-    "avalancheCharacteristicString": "Avalanche Characteristic String",
-    "windDriftedSnow": "Wind Drifted Snow",
-    "persistentWeakLayer": "Persistent Weak Layer",
-    "wetSnow": "Wet Snow",
-    "glidingSnow": "Gliding Snow",
+    "riskAssessment": "Avaluació de risc",
+    "snowpackStructure": "Estructura del mantell de neu",
+    "avalanchePotentialValue": "Valor potencial d'allau",
+    "avalancheCharacteristicString": "Característiques de l'allau",
+    "windDriftedSnow": "Neu ventada",
+    "persistentWeakLayer": "Capa feble persistent",
+    "wetSnow": "Neu humida",
+    "glidingSnow": "Lliscament basal",
     "newSnow": "Neu recent",
-    "snowpackStructureActive": "Snowpack Structure Active",
-    "triggeringProbability": "Triggering Probability",
-    "avalancheRiskTendency24h": "Avalanche Risk Tendency 24h",
-    "avalancheRiskTendency48h": "Avalanche Risk Tendency 48h",
-    "oldSnowFloatingSnow": "Old Snow Floating Snow",
-    "oldSnowSleet": "Old Snow Sleet",
-    "oldSnowWeakLayers": "Old Snow Weak Layers",
-    "wetSnowRain": "Wet Snow Rain",
-    "wetSnowTemperatureIncrease": "Wet Snow Temperature Increase",
-    "wetSnowHighRadiation": "Wet Snow High Radiation"
+    "snowpackStructureActive": "Estructura del mantell de neu activa",
+    "triggeringProbability": "Probabilitat de desencadenament",
+    "avalancheRiskTendency24h": "Tendència risc d'allau 24h",
+    "avalancheRiskTendency48h": "Tendència risc d'allau 48h",
+    "oldSnowFloatingSnow": "Neu vella",
+    "oldSnowSleet": "Neu vella",
+    "oldSnowWeakLayers": "Capes febles de neu vella",
+    "wetSnowRain": "Aiguaneu humida",
+    "wetSnowTemperatureIncrease": "Augment de la temperatura de la neu humida",
+    "wetSnowHighRadiation": "Radiació elevada de la neu humida"
   },
   "LoLaWeather": {
-    "cloudiness": "Cloudiness",
-    "freshSnowAmount": "Fresh Snow Amount",
-    "officialAvalancheReport": "Official Avalanche Report",
-    "precipitationIntensity": "Precipitation Intensity",
-    "precipitationType": "Precipitation Type",
-    "temperaturePeak": "Temperature Peak",
-    "temperatureTreeline": "Temperature Treeline",
-    "temperatureValley": "Temperature Valley",
-    "weatherTendency": "Weather Tendency",
+    "cloudiness": "Nuvolositat",
+    "freshSnowAmount": "Quantitat neu recent",
+    "officialAvalancheReport": "Butlletí d'allaus oficial",
+    "precipitationIntensity": "Intensitat de precipitació",
+    "precipitationType": "Tipus de precipitació",
+    "temperaturePeak": "Pic de temperatura",
+    "temperatureTreeline": "Temperatura del límit del bosc",
+    "temperatureValley": "Temperatura de la vall",
+    "weatherTendency": "Tendència del temps",
     "windDirection": "Direcció del vent",
     "windSpeed": "Velocitat del vent",
-    "visibilityConditions": "Visibility Conditions"
+    "visibilityConditions": "Condicions de visibilitat"
   },
   "natlefs" : {
     "title" : {
-      "ridingQuality" : "Riding quality",
-      "rode" : "We rode",
-      "avoided" : "We stayed away from",
-      "alarmSignsFrequency" : "Signs of instability",
+      "ridingQuality" : "Qualitat d'esquí",
+      "rode" : "Hem esquiat",
+      "avoided" : "Hem evitat",
+      "alarmSignsFrequency" : "Signes d'inestabilitat",
       "newSnow" : "Neu recent",
-      "driftingSnow" : "Fresh drifting snow",
-      "avalanches" : "Fresh avalanches",
-      "penetrationDepth" : "Penetration depth without ski",
-      "surfaceSnowWetness" : "Surface snow wetness",
-      "avalancheProblems" : "Avalanche problems",
+      "driftingSnow" : "Neu ventada",
+      "avalanches" : "Allaus recents",
+      "penetrationDepth" : "Penetració de la neu sense esquí",
+      "surfaceSnowWetness" : "Humitat de la neu en superfície",
+      "avalancheProblems" : "Problemes d'allaus",
       "tracks" : "Tracks",
-      "comment" : "Comment"
+      "comment" : "Comentari"
     }
   },
   "ridingQuality" : {
-    "amazing" : "Amazing",
-    "good" : "Good",
+    "amazing" : "Increïble",
+    "good" : "Bona",
     "ok" : "D'acord",
-    "indifferent" : "Indifferent",
+    "indifferent" : "Indiferent",
     "terrible" : "Terrible"
   },
   "snowConditions" : {
-    "crusty" : "Crusty",
-    "heavy" : "Heavy",
-    "hard" : "Hard",
-    "wet" : "Wet",
-    "powder" : "Powder",
-    "firn" : "Firn",
-    "windAffected" : "Wind affected"
+    "crusty" : "Crosta",
+    "heavy" : "Pesada",
+    "hard" : "Dura",
+    "wet" : "Humida",
+    "powder" : "Pols",
+    "firn" : "Primavera ferma",
+    "windAffected" : "Ventada"
   },
   "terrainFeature" : {
-    "moderatelySteepSlopes" : "Moderately steep slopes (< 30°)",
-    "steepSlopes" : "Steep slopes (30° - 40°)",
-    "verySteepSlopes" : "Very steep slopes (> 40°)",
-    "convexSlopes" : "Convex slopes",
-    "denseTrees" : "Dense trees",
-    "openTrees" : "Open trees",
-    "sunnySlopes" : "Sunny slopes",
-    "shadySlopes" : "Shady slopes"
+    "moderatelySteepSlopes" : "Vessants moderadament inclinats (< 30°)",
+    "steepSlopes" : "Vessants inclinats (30° - 40°)",
+    "verySteepSlopes" : "Vessants molt inclinats (30° - 40°)",
+    "convexSlopes" : "Vessants convexos",
+    "denseTrees" : "Bosc dens",
+    "openTrees" : "Bosc obert",
+    "sunnySlopes" : "Vessants solans",
+    "shadySlopes" : "Vessants obacs"
   },
   "alarmSignsFrequency" : {
-    "none" : "None",
-    "occasional" : "Occasional (1 - 2)",
-    "frequent" : "Frequent (> 2)"
+    "none" : "Cap",
+    "occasional" : "Ocasional (1 - 2)",
+    "frequent" : "Freqüent (> 2)"
   },
   "newSnow" : {
-    "none" : "None",
+    "none" : "Cap",
     "low" : "< 10 cm",
     "medium" : "10 - 30 cm",
     "high" : "> 30 cm"
   },
   "driftingSnow" : {
-    "none" : "None",
-    "occasional" : "Occasional",
-    "widespread" : "Widespread"
+    "none" : "Cap",
+    "occasional" : "Ocasional",
+    "widespread" : "Generalitzat"
   },
   "avalanches" : {
-    "none" : "None",
-    "some" : "Some (1 - 3)",
-    "many" : "Many (> 3)"
+    "none" : "Cap",
+    "some" : "Algunes (1 - 3)",
+    "many" : "Moltes (> 3)"
   },
   "penetrationDepth" : {
     "little" : "< 5 cm",
     "medium" : "5 - 30 cm",
     "much" : "> 30 cm",
-    "spotty" : "spotty"
+    "spotty" : "irregular"
   },
   "surfaceSnowWetness" : {
-    "dry" : "Dry",
-    "sticky" : "Sticky",
-    "wet" : "Wet"
+    "dry" : "Seca",
+    "sticky" : "enganxosa",
+    "wet" : "Humida"
   },
   "avalancheProblemNatlefs" : {
     "new_snow" : "Neu recent",
@@ -731,12 +723,12 @@
     "favourable_situation" : "Situació favorable"
   },
   "tracks" : {
-    "none" : "None",
-    "some" : "Some",
-    "many" : "Many"
+    "none" : "Cap",
+    "some" : "Algunes",
+    "many" : "Moltes"
   },
   "location" : {
-    "accuracy" : "GPS Accuracy"
+    "accuracy" : "Precisió GPS"
   },
   "units" : {
     "cm" : "cm",

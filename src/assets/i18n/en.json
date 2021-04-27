@@ -251,10 +251,6 @@
             "success" : "Emails sent",
             "failed" : "Emails could not be sent"
           },
-          "messengerpeople" : {
-            "success" : "Avalanche forecast sent via Messengerpeople",
-            "failed" : "Avalanche forecast could not be sent via Messengerpeople"
-          },
           "telegramChannel" : {
             "success" : "Avalanche forecast sent via Telegram channel",
             "failed" : "Avalanche forecast could not be sent via Telegram channel"
@@ -334,9 +330,6 @@
   },
   "admin" : {
     "config" : {
-      "tabsocial" : "Configuration Email & Social",
-      "addChannel" : "Add channel",
-      "titleShipment": "Shipments",
       "title" : "Server Configuration",
       "table" : {
         "title" : {
@@ -348,7 +341,6 @@
         "createStaticWidget" : "Create static widgets",
         "createSimpleHtml" : "Create simple HTML",
         "sendEmails" : "Send emails",
-        "publishToMessengerpeople" : "Publish via Messengerpeople",
         "publishToTelegramChannel" : "Publish via Telegram channel",
         "publishAt5PM" : "Publish at 5PM",
         "publishAt8AM" : "Publish at 8AM",

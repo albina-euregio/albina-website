@@ -251,10 +251,6 @@
             "success" : "Corrèus electronics enviadi",
             "failed" : "Non s'an pogut enviar es corrèus electronics"
           },
-          "messengerpeople" : {
-            "success" : "Prediccion de lauegi enviada a trauès de Messengerpeople",
-            "failed" : "Non s'a pogut enviar era prediccion de lauegi a traués de Messengerpeople"
-          },
           "telegramChannel" : {
             "success" : "Prediccion de lauegi enviada a traués deth canau de Telegram",
             "failed" : "Non s'a pogut enviar era prediccion de lauegi a traués deth canau de Telegram"
@@ -334,9 +330,6 @@
   },
   "admin" : {
     "config" : {
-      "tabsocial" : "Configuracion deth corrèu electronic e hilats sociaus",
-      "addChannel" : "Híger canau",
-      "titleShipment": "Enviaments",
       "title" : "Configuracion deth servidor",
       "table" : {
         "title" : {
@@ -348,7 +341,6 @@
         "createStaticWidget" : "Crear widgets estàtics",
         "createSimpleHtml" : "Crear HTML simple",
         "sendEmails" : "Corrèus electronics enviadi",
-        "publishToMessengerpeople" : "Publicar a traués de Messengerpeople",
         "publishToTelegramChannel" : "Publicar a traués deth canau de Telegram",
         "publishAt5PM" : "Publicar as 5 PM",
         "publishAt8AM" : "Publicar as 8 AM",
@@ -576,151 +568,151 @@
   },
   "observations": {
     "aspect": "Orientacion",
-    "authorName": "Author name",
-    "avalancheLength": "Avalanche length",
+    "authorName": "Nom de l'autor",
+    "avalancheLength": "Longitud de lauet",
     "avalancheProblem": "Problèma de lauegi",
-    "avalancheSize": "Avalanche size",
-    "avalancheType": "Avalanche type",
-    "avalancheWidth": "Avalanche width",
+    "avalancheSize": "Mida de lauet",
+    "avalancheType": "Tipe de lauet",
+    "avalancheWidth": "Amplada de lauet",
     "button": {
-      "add": "Add observation",
-      "save": "Save observation",
-      "delete": "Delete observation",
-      "deleteConfirm": "Delete observation?",
+      "add": "íger observacion",
+      "save": "Sauvar observacion",
+      "delete": "Eliminar observacion",
+      "deleteConfirm": "Eliminar observacion?",
       "discard": "Escartar"
     },
-    "comment": "Comment",
-    "content": "Content",
+    "comment": "Comentari",
+    "content": "Contengut",
     "dangerRating": "Grad de perilh",
     "elevation": "Nautada",
-    "eventDate": "Event date",
-    "eventType": "Event type",
+    "eventDate": "Data d'eveniment",
+    "eventType": "Tipe d'eveniment",
     "eventTypes": {
-      "IMPORTANT": "Important event",
-      "NORMAL": "Normal event",
-      "PERSON_DEAD": "Event involving persons (dead)",
-      "PERSON_INJURED": "Event involving persons (injured)",
-      "PERSON_NO": "Event not involving persons",
-      "PERSON_UNINJURED": "Event involving persons (uninjured)"
+      "IMPORTANT": "Eveniment important",
+      "NORMAL": "Eveniment normau",
+      "PERSON_DEAD": "Eveniment damb persones implicades (mòrtes)",
+      "PERSON_INJURED": "Eveniment damb persones implicades (herides)",
+      "PERSON_NO": "Eveniment sense persones implicades",
+      "PERSON_UNINJURED": "Eveniment damb persones implicades (il·leses)"
     },
-    "fractureDepth": "Fracture depth",
-    "hasCoordinates": "Has coordinates",
-    "incline": "Incline",
-    "latitude": "Latitude",
-    "locationName": "Location",
-    "longitude": "Longitude",
-    "reportDate": "Report date",
+    "fractureDepth": "Prigondor de cicatritz",
+    "hasCoordinates": "A coordenades",
+    "incline": "Inclinacion",
+    "latitude": "Latitud",
+    "locationName": "Localitat",
+    "longitude": "Longitud",
+    "reportDate": "Data der infòrme",
     "showMap": "Mapa",
     "showTable": "Taula"
   },
   "LoLaAvalanchePotential": {
-    "riskAssessment": "Risk Assessment",
-    "snowpackStructure": "Snowpack Structure",
-    "avalanchePotentialValue": "Avalanche Potential Value",
-    "avalancheCharacteristicString": "Avalanche Characteristic String",
-    "windDriftedSnow": "Wind Drifted Snow",
-    "persistentWeakLayer": "Persistent Weak Layer",
-    "wetSnow": "Wet Snow",
-    "glidingSnow": "Gliding Snow",
+    "riskAssessment": "Avaloracion deth risc",
+    "snowpackStructure": "Estructura deth celh de nhèu",
+    "avalanchePotentialValue": "Valor potenciau de lauet",
+    "avalancheCharacteristicString": "Característiques des lauegi",
+    "windDriftedSnow": "Nhèu ventada",
+    "persistentWeakLayer": "Coches fèbles persistentes",
+    "wetSnow": "Nhèu umida",
+    "glidingSnow": "Esguitlament basau",
     "newSnow": "Nhèu recenta",
-    "snowpackStructureActive": "Snowpack Structure Active",
-    "triggeringProbability": "Triggering Probability",
-    "avalancheRiskTendency24h": "Avalanche Risk Tendency 24h",
-    "avalancheRiskTendency48h": "Avalanche Risk Tendency 48h",
-    "oldSnowFloatingSnow": "Old Snow Floating Snow",
-    "oldSnowSleet": "Old Snow Sleet",
-    "oldSnowWeakLayers": "Old Snow Weak Layers",
-    "wetSnowRain": "Wet Snow Rain",
-    "wetSnowTemperatureIncrease": "Wet Snow Temperature Increase",
-    "wetSnowHighRadiation": "Wet Snow High Radiation"
+    "snowpackStructureActive": "Estructura de celh de nhèu actiua",
+    "triggeringProbability": "Probabilitat de desencadenament",
+    "avalancheRiskTendency24h": "Tendéncia risc de lauegi 24h",
+    "avalancheRiskTendency48h": "Tendéncia risc de lauegi 48h",
+    "oldSnowFloatingSnow": "Nhèu vielha",
+    "oldSnowSleet": "Nhèu vielha",
+    "oldSnowWeakLayers": "Coches fèbles de nhèu vielha",
+    "wetSnowRain": "Aiguanhèu umida",
+    "wetSnowTemperatureIncrease": "Aument de temperatura de nhèu umida",
+    "wetSnowHighRadiation": "Radiacion elevada de nhèu umida"
   },
   "LoLaWeather": {
-    "cloudiness": "Cloudiness",
-    "freshSnowAmount": "Fresh Snow Amount",
-    "officialAvalancheReport": "Official Avalanche Report",
-    "precipitationIntensity": "Precipitation Intensity",
-    "precipitationType": "Precipitation Type",
-    "temperaturePeak": "Temperature Peak",
-    "temperatureTreeline": "Temperature Treeline",
-    "temperatureValley": "Temperature Valley",
-    "weatherTendency": "Weather Tendency",
+    "cloudiness": "Nivolositat",
+    "freshSnowAmount": "Quantitat nhèu recenta",
+    "officialAvalancheReport": "Bulletin de lauegi oficiau",
+    "precipitationIntensity": "Intensitat de precipitacion ",
+    "precipitationType": "Tipe precipitacion",
+    "temperaturePeak": "Pic de temperatura",
+    "temperatureTreeline": "Temperatura en límit deth bòsc",
+    "temperatureValley": "Temperatura dera val",
+    "weatherTendency": "Tendéncia deth temps",
     "windDirection": "Direccion vent",
     "windSpeed": "Velocitat vent",
-    "visibilityConditions": "Visibility Conditions"
+    "visibilityConditions": "Condicions de visibilitat"
   },
   "natlefs" : {
     "title" : {
-      "ridingQuality" : "Riding quality",
-      "rode" : "We rode",
-      "avoided" : "We stayed away from",
-      "alarmSignsFrequency" : "Signs of instability",
+      "ridingQuality" : "Qualitat d'esquí",
+      "rode" : "Auem esquiat",
+      "avoided" : "Auem evitat",
+      "alarmSignsFrequency" : "Signes d'inestabilitat",
       "newSnow" : "Nhèu recenta",
-      "driftingSnow" : "Fresh drifting snow",
-      "avalanches" : "Fresh avalanches",
-      "penetrationDepth" : "Penetration depth without ski",
-      "surfaceSnowWetness" : "Surface snow wetness",
-      "avalancheProblems" : "Avalanche problems",
+      "driftingSnow" : "Nhèu ventada recenta",
+      "avalanches" : "Lauegi recenti",
+      "penetrationDepth" : "Penetracion sense esquiar ",
+      "surfaceSnowWetness" : "Umitat dera nhèu en superfícia",
+      "avalancheProblems" : "Problèmes de lauegi",
       "tracks" : "Tracks",
-      "comment" : "Comment"
+      "comment" : "Comentari"
     }
   },
   "ridingQuality" : {
-    "amazing" : "Amazing",
-    "good" : "Good",
+    "amazing" : "Increïble",
+    "good" : "Bona",
     "ok" : "D'acòrd",
-    "indifferent" : "Indifferent",
+    "indifferent" : "Indiferent",
     "terrible" : "Terrible"
   },
   "snowConditions" : {
-    "crusty" : "Crusty",
-    "heavy" : "Heavy",
-    "hard" : "Hard",
-    "wet" : "Wet",
-    "powder" : "Powder",
-    "firn" : "Firn",
-    "windAffected" : "Wind affected"
+    "crusty" : "Crosta",
+    "heavy" : "Pesada",
+    "hard" : "Dura",
+    "wet" : "Umida",
+    "powder" : "Povàs",
+    "firn" : "Primauera ferma",
+    "windAffected" : "Ventada"
   },
   "terrainFeature" : {
-    "moderatelySteepSlopes" : "Moderately steep slopes (< 30°)",
-    "steepSlopes" : "Steep slopes (30° - 40°)",
-    "verySteepSlopes" : "Very steep slopes (> 40°)",
-    "convexSlopes" : "Convex slopes",
-    "denseTrees" : "Dense trees",
-    "openTrees" : "Open trees",
-    "sunnySlopes" : "Sunny slopes",
-    "shadySlopes" : "Shady slopes"
+    "moderatelySteepSlopes" : "Pales moderadament inclinades (< 30°)",
+    "steepSlopes" : "Pales inclinades (30° - 40°)",
+    "verySteepSlopes" : "Pales molt inclinades (> 40°)",
+    "convexSlopes" : "Pales convexes",
+    "denseTrees" : "Bòsc dens",
+    "openTrees" : "Bòsc clar",
+    "sunnySlopes" : "Pales soleienques",
+    "shadySlopes" : "Pales ombrères"
   },
   "alarmSignsFrequency" : {
-    "none" : "None",
-    "occasional" : "Occasional (1 - 2)",
-    "frequent" : "Frequent (> 2)"
+    "none" : "Cap",
+    "occasional" : "Ocasionau (1 - 2)",
+    "frequent" : "Freqüent (> 2)"
   },
   "newSnow" : {
-    "none" : "None",
+    "none" : "Cap",
     "low" : "< 10 cm",
     "medium" : "10 - 30 cm",
     "high" : "> 30 cm"
   },
   "driftingSnow" : {
-    "none" : "None",
-    "occasional" : "Occasional",
-    "widespread" : "Widespread"
+    "none" : "Cap",
+    "occasional" : "Ocasionau",
+    "widespread" : "Generalizada"
   },
   "avalanches" : {
-    "none" : "None",
-    "some" : "Some (1 - 3)",
-    "many" : "Many (> 3)"
+    "none" : "Cap",
+    "some" : "Quauques (1 - 3)",
+    "many" : "Moltes (> 3)"
   },
   "penetrationDepth" : {
     "little" : "< 5 cm",
     "medium" : "5 - 30 cm",
     "much" : "> 30 cm",
-    "spotty" : "spotty"
+    "spotty" : "Irregular"
   },
   "surfaceSnowWetness" : {
-    "dry" : "Dry",
-    "sticky" : "Sticky",
-    "wet" : "Wet"
+    "dry" : "Shuta",
+    "sticky" : "Enganchosa",
+    "wet" : "Umida"
   },
   "avalancheProblemNatlefs" : {
     "new_snow" : "Nhèu recenta",
@@ -731,12 +723,12 @@
     "favourable_situation" : "Situacion favorabla"
   },
   "tracks" : {
-    "none" : "None",
-    "some" : "Some",
-    "many" : "Many"
+    "none" : "Cap",
+    "some" : "Quauques",
+    "many" : "Moltes"
   },
   "location" : {
-    "accuracy" : "GPS Accuracy"
+    "accuracy" : "Precision GPS"
   },
   "units" : {
     "cm" : "cm",

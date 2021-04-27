@@ -19,7 +19,6 @@ export interface Configuration {
   createSimpleHtml: boolean;
   createStaticWidget: boolean;
   sendEmails: boolean;
-  publishToMessengerpeople: boolean;
   publishToTelegramChannel: boolean;
   publishAt5PM: boolean;
   publishAt8AM: boolean;
@@ -87,12 +86,6 @@ export class ConfigurationService {
       "Authorization": authHeader
     });
     const options = { headers: headers };
-    return this.http.get<Response>(url, options);
-  }
-
-  public loadShipments() {
-    const url = this.constantsService.getServerUrl() + "social-media/shipments";
-    const options = { headers: this.authenticationService.newAuthHeader() };
     return this.http.get<Response>(url, options);
   }
 }

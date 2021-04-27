@@ -251,10 +251,6 @@
             "success" : "Emails wurden versandt",
             "failed" : "Emails konnten nicht versandt werden"
           },
-          "messengerpeople" : {
-            "success" : "Lawinenvorhersage wurde via Messengerpeople versandt",
-            "failed" : "Lawinenvorhersage konnte nicht via Messengerpeople versandt werden"
-          },
           "telegramChannel" : {
             "success" : "Lawinenvorhersage wurde via Telegram Kanal versandt",
             "failed" : "Lawinenvorhersage konnte nicht via Telegram Kanal versandt werden"
@@ -334,9 +330,6 @@
   },
   "admin" : {
     "config" : {
-      "tabsocial" : "Email & Social Konfiguration",
-      "addChannel" : "Kanal hinzufügen",
-      "titleShipment": "Versand",
       "title" : "Server Konfiguration",
       "table" : {
         "title" : {
@@ -348,7 +341,6 @@
         "createStaticWidget" : "Statische Widgets erzeugen",
         "createSimpleHtml" : "Einfaches HTML erzeugen",
         "sendEmails" : "Emails versenden",
-        "publishToMessengerpeople" : "Publizieren via Messengerpeople",
         "publishToTelegramChannel" : "Publizieren via Telegram Kanal",
         "publishAt5PM" : "Publizieren um 17:00 Uhr",
         "publishAt8AM" : "Publizieren um 08:00 Uhr",
