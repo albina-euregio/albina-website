@@ -66,6 +66,7 @@ export default class BlogStore {
     if (this.updateURL) {
       const params = new URLSearchParams();
       params.set("year", this.year);
+      if (this.year != "") params.set("month", this.month);
       params.set("searchLang", searchLang || "");
       params.set("region", this.regionActive);
       params.set("problem", this.problem);
