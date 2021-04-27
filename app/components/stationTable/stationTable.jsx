@@ -1,7 +1,7 @@
 import React from "react";
 import StationTableHeader from "./stationTableHeader";
 import { modal_open_by_params } from "../../js/modal";
-import { injectIntl, FormattedNumber } from "react-intl";
+import { injectIntl } from "react-intl";
 import { dateToDateTimeString } from "../../util/date.js";
 import { regionCodes } from "../../util/regions";
 
@@ -10,15 +10,12 @@ class StationTable extends React.Component {
     super(props);
 
     const defaultRender = (value, _row, digits = 0) =>
-      typeof value === "number" ? (
-        <FormattedNumber
-          value={value}
-          minimumFractionDigits={digits}
-          maximumFractionDigits={digits}
-        ></FormattedNumber>
-      ) : (
-        "–"
-      );
+      typeof value === "number"
+        ? this.props.intl.formatNumber(value, {
+            minimumFractionDigits: digits,
+            maximumFractionDigits: digits
+          })
+        : "–";
 
     this.columns = [
       {
@@ -36,8 +33,17 @@ class StationTable extends React.Component {
             <span className="datetime">{dateToDateTimeString(row.date)}</span>
           </span>
         ),
-        sortable: false,
+        sortable: true,
         className: "mb-station m-name"
+      },
+      {
+        data: "microRegion",
+        render: (_value, row) => (
+          <span className="region">{row.microRegion}</span>
+        ),
+        unit: " ",
+        width: "10px",
+        className: "mb-snow m-name"
       },
       {
         data: "elev",
@@ -222,8 +228,11 @@ class StationTable extends React.Component {
     // searchText
     if (this.props.searchText) {
       filters.push(data =>
-        data.filter(row =>
-          row.name.match(new RegExp(this.props.searchText, "i"))
+        data.filter(
+          row =>
+            row.name.match(new RegExp(this.props.searchText, "i")) ||
+            row.microRegion.match(new RegExp(this.props.searchText, "i")) ||
+            row.operator.match(new RegExp(this.props.searchText, "i"))
         )
       );
       this.searchText = this.props.searchText;
@@ -237,8 +246,11 @@ class StationTable extends React.Component {
     return originalData;
   }
 
-  _rowClicked(row) {
-    window["modalStateStore"].setData({ stationData: row });
+  _rowClicked(stationData, rowId) {
+    window["modalStateStore"].setData({
+      stationData: stationData,
+      rowId: rowId
+    });
     modal_open_by_params(
       null,
       "inline",
@@ -250,10 +262,7 @@ class StationTable extends React.Component {
 
   render() {
     return (
-      <table
-        ref="main"
-        className="pure-table pure-table-striped pure-table-small table-measurements"
-      >
+      <table className="pure-table pure-table-striped pure-table-small table-measurements">
         <StationTableHeader
           columns={this.columns}
           isDisplayColumn={this.isDisplayColumn.bind(this)}
@@ -263,7 +272,15 @@ class StationTable extends React.Component {
         />
         <tbody>
           {this._applyFiltersAndSorting(this.props.data).map(row => (
-            <tr key={row.id} onClick={() => this._rowClicked(row)}>
+            <tr
+              key={row.id}
+              onClick={() =>
+                this._rowClicked(
+                  this._applyFiltersAndSorting(this.props.data),
+                  row.id
+                )
+              }
+            >
               {this.columns.map(
                 (col, i) =>
                   this.isDisplayColumn(col) && (

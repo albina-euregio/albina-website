@@ -4,7 +4,7 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Link } from "react-router-dom";
 
 import ProvinceFilter from "../filters/province-filter";
-import { fetchJSON } from "../../util/fetch";
+import { fetchText } from "../../util/fetch";
 
 class SubscribeEmailDialog extends React.Component {
   constructor(props) {
@@ -67,8 +67,11 @@ class SubscribeEmailDialog extends React.Component {
     };
 
     this.setState({ status: "loading" });
-    fetchJSON(config.apis.subscribe + "/subscribe", {
+    fetchText(config.apis.subscribe + "/subscribe", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(data)
     }).then(
       () => {
@@ -152,12 +155,8 @@ class SubscribeEmailDialog extends React.Component {
             <ul className="list-inline list-subscribe-language">
               {window["appStore"].mainLanguages.map(l => (
                 <li key={l}>
-                  <label
-                    className="pure-checkbox"
-                    htmlFor={"subscribe-language-" + l}
-                  >
+                  <label className="pure-checkbox">
                     <input
-                      id={"subscribe-language-" + l}
                       name="language"
                       onChange={this.handleChangeLanguage}
                       value={l}

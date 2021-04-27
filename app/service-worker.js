@@ -10,12 +10,14 @@ const sw = self;
 sw.addEventListener("push", event => {
   const data = event.data.json();
   sw.registration.showNotification(data.title, {
+    data: data,
     body: data.body,
-    icon: data.icon
+    image: data.image || data.icon
   });
 });
 
 sw.addEventListener("notificationclick", event => {
   event.notification.close();
-  event.waitUntil(sw.clients.openWindow("https://avalanche.report/"));
+  const url = event.notification.data.url || "https://avalanche.report/";
+  event.waitUntil(sw.clients.openWindow(url));
 });

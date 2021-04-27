@@ -53,6 +53,14 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://avalanche.report/education/community</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://avalanche.report/education/handbook</loc>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://avalanche.report/more/archive</loc>
     <priority>0.5</priority>
   </url>

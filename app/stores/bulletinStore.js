@@ -9,6 +9,7 @@ import {
 import { GeoJSON, Util } from "leaflet";
 import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.js";
 import { fetchText } from "../util/fetch.js";
+import { loadNeighborBulletins } from "./bulletinStoreNeighbor.js";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import encodedMicroRegions from "./micro_regions.polyline.json";
@@ -28,6 +29,7 @@ class BulletinCollection {
    * @type {Albina.DaytimeBulletin[]}
    */
   daytimeBulletins;
+  neighborBulletins;
 
   constructor(date) {
     this.date = date;
@@ -96,6 +98,11 @@ class BulletinCollection {
    * @param {string} xmlString
    */
   setData(xmlString) {
+    if (typeof xmlString !== "string" || xmlString.length == 0) {
+      this.dataRaw = undefined;
+      this.status = "empty";
+      return;
+    }
     const parser = new DOMParser();
     const document = parser.parseFromString(xmlString, "application/xml");
     this.dataRaw = convertCaamlToJson(document);
@@ -119,34 +126,29 @@ class BulletinCollection {
 }
 
 class BulletinStore {
-  // TODO: add language support
   /**
    * @type {Record<date, BulletinCollection>}
    */
   @observable bulletins = {};
   @observable latest = null;
-  settings = {};
+  @observable settings = {
+    status: "",
+    neighbors: 0,
+    date: "",
+    region: ""
+  };
   /**
    * @type {Record<Caaml.AvalancheProblemType, {highlighted: boolean}}
    */
-  problems = {};
+  @observable problems = {
+    new_snow: { highlighted: false },
+    wind_drifted_snow: { highlighted: false },
+    persistent_weak_layers: { highlighted: false },
+    wet_snow: { highlighted: false },
+    gliding_snow: { highlighted: false }
+  };
 
   constructor() {
-    this.settings = observable({
-      status: "",
-      date: "",
-      region: ""
-    });
-    this.bulletins = {};
-
-    this.problems = observable({
-      new_snow: { highlighted: false },
-      wind_drifted_snow: { highlighted: false },
-      persistent_weak_layers: { highlighted: false },
-      wet_snow: { highlighted: false },
-      gliding_snow: { highlighted: false }
-    });
-
     this._latestBulletinChecker();
   }
 
@@ -187,6 +189,20 @@ class BulletinStore {
           this.activate(date);
         }
 
+        if (
+          APP_DEV_MODE ||
+          APP_ENVIRONMENT === "beta" ||
+          APP_ENVIRONMENT === "dev"
+        ) {
+          this.settings.neighbors = 0;
+          loadNeighborBulletins(date).then(geojson => {
+            this.bulletins[date].neighborBulletins = geojson;
+            if (activate && this.settings.date == date) {
+              // reactivate to notify status change
+              this.activate(date);
+            }
+          });
+        }
         return this._loadBulletinData(date).then(() => {
           if (activate && this.settings.date == date) {
             // reactivate to notify status change
@@ -206,6 +222,8 @@ class BulletinStore {
       this.settings.region = "";
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
+      this.settings.neighbors =
+        this.bulletins[date].neighborBulletins?.features?.length ?? 0;
 
       /*
       if (this.bulletins[date].length === 1) {
@@ -243,6 +261,10 @@ class BulletinStore {
       return this.bulletins[this.settings.date];
     }
     return null;
+  }
+
+  get activeNeighborBulletins() {
+    return this.bulletins[this.settings.date]?.neighborBulletins;
   }
 
   /**

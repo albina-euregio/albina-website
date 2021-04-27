@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { injectIntl } from "react-intl";
-import { ImageOverlay } from "react-leaflet";
+import { GeoJSON, ImageOverlay } from "react-leaflet";
 import InfoBar from "../organisms/info-bar";
 import { dateToISODateString, parseDate } from "../../util/date";
 
@@ -14,6 +14,7 @@ import { isBlendingSupported } from "../../util/blendMode";
 import { preprocessContent } from "../../util/htmlParser";
 
 import { getPublicationTimeString } from "../../util/date.js";
+import { observer } from "mobx-react";
 
 /**
  * @typedef {object} Props
@@ -111,6 +112,19 @@ class BulletinMap extends React.Component {
       );
     }
 
+    const { activeNeighborBulletins } = this.props.store;
+    if (this.props.store.settings.neighbors && activeNeighborBulletins) {
+      overlays.push(
+        <GeoJSON
+          // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
+          key={`neighbor-bulletins-${activeNeighborBulletins.name}`}
+          data={activeNeighborBulletins}
+          pane="mapPane"
+          style={feature => feature.properties.style}
+        />
+      );
+    }
+
     const b = this.props.store.activeBulletinCollection;
     if (b) {
       const daytime = b.hasDaytimeDependency() ? this.props.ampm : "fd";
@@ -118,17 +132,23 @@ class BulletinMap extends React.Component {
         window.config.webp && this.props.store.settings.date > "2020-12-01"
           ? ".webp"
           : ".png";
+
+      const publicationTime =
+        this.props.store.settings.date > "2019-05-06"
+          ? getPublicationTimeString(b.publicationDateSeconds) + "/"
+          : "";
+
       const url =
         config.apis.geo +
         this.props.store.settings.date +
         "/" +
-        getPublicationTimeString(b.publicationDateSeconds) +
-        "/" +
+        publicationTime +
         daytime +
         "_overlay" +
         imgFormat +
         "?" +
         b.publicationDate.getTime();
+
       const params = config.map.overlay;
 
       overlays.push(
@@ -275,7 +295,7 @@ class BulletinMap extends React.Component {
           }
         >
           <LeafletMap
-            loaded={this.props.regions && this.props.regions.length > 0}
+            loaded={this.props.regions}
             onViewportChanged={this.props.handleMapViewportChanged}
             overlays={this.getMapOverlays()}
             mapConfigOverride={{}}
@@ -324,4 +344,4 @@ class BulletinMap extends React.Component {
   }
 }
 
-export default injectIntl(BulletinMap);
+export default injectIntl(observer(BulletinMap));

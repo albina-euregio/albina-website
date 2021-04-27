@@ -8,6 +8,7 @@
   "scripts": {
     "start": "webpack-dev-server --mode development",
     "start-dev": "webpack-dev-server --mode development --env dev",
+    "start-prod": "webpack-dev-server --mode development --env prod",
     "test": "npm run eslint",
     "eslint": "eslint --ext=js,jsx .",
     "build-prod": "npm run clean-dist && webpack --mode production --env prod",
@@ -19,7 +20,6 @@
     "clean-dist": "rm -f -r -d dist"
   },
   "dependencies": {
-    "@loadable/component": "^5.13.1",
     "@mapbox/polyline": "^1.1.1",
     "@sentry/react": "^5.29.0",
     "animejs": "^2.2.0",
@@ -38,7 +38,7 @@
     "mobx-react": "^6.3.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-iframe": "^1.8.0",
+    "react-easy-swipe": "0.0.21",
     "react-intl": "^3.12.1",
     "react-leaflet": "^1.9.1",
     "react-leaflet-control": "^1.4.1",
@@ -48,7 +48,7 @@
     "react-router-dom": "^4.3.1",
     "react-router-scroll-4": "^1.0.0-beta.2",
     "regenerator-runtime": "^0.13.7",
-    "selectric": "^1.13.0",
+    "selectric": "lcdsantos/jQuery-Selectric#1335d34ec8ea02cfe3834cae01e2f6c0203c0f45",
     "tippy.js": "^2.6.0",
     "unfetch": "^4.2.0",
     "url-search-params-polyfill": "^5.1.0",

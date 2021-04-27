@@ -222,13 +222,7 @@ class BlogOverview extends React.Component {
             minYear={window.config.archive.minYear}
             handleChange={this.handleChangeYear}
             value={this.store.year}
-            className={
-              this.store.year !== ""
-                ? classChanged
-                : "" + this.store.searchText
-                ? "disabled"
-                : ""
-            }
+            className={this.store.year !== "" ? classChanged : ""}
           />
 
           {this.store.year && (
@@ -241,22 +235,9 @@ class BlogOverview extends React.Component {
               })}
               handleChange={this.handleChangeMonth}
               value={this.store.month}
-              className={
-                this.store.month !== ""
-                  ? classChanged
-                  : "" + this.store.searchText
-                  ? "disabled"
-                  : ""
-              }
+              className={this.store.month !== "" ? classChanged : ""}
             />
           )}
-          {/*
-            <LanguageFilter
-              title={this.props.intl.formatMessage({id: 'blog:filter:language'})}
-              all={this.props.intl.formatMessage({id: 'filter:all'})}
-              handleChange={this.handleChangeLanguage}
-              value={this.activeLanguage} />
-*/}
         </FilterBar>
         <section className="section section-padding-height section blog-page-flipper">
           {!this.store.loading && this.store.maxPages === 0 && (

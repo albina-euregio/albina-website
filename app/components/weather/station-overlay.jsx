@@ -52,7 +52,7 @@ class StationOverlay extends React.Component {
     return <ClusterSelectedMarker coordinates={coordinates} />;
   }
 
-  renderMarker(data, pos = null) {
+  renderMarker(data, features, pos = null) {
     if (
       (data.date === undefined || data[this.props.itemId] === undefined) &&
       this.props.itemId !== "any"
@@ -171,7 +171,7 @@ class StationOverlay extends React.Component {
           onActiveMarkerPositionUpdate={this.handleActiveMarkerPositionUpdate}
           // onMarkerSelected={this.props.onMarkerSelected}
         >
-          {points.map(point => this.renderMarker(point))}
+          {points.map(point => this.renderMarker(point, this.props.features))}
         </Cluster>
         {/* {selectedFeature &&
           this.renderMarker(selectedFeature, this.state.activeMarkerPos)} */}

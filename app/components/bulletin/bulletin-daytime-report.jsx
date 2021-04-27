@@ -29,7 +29,7 @@ class BulletinDaytimeReport extends React.Component {
     //problems = problems.concat(this.props.bulletin?.avalancheProblems);
     let problemsSplit = { default: [], optional: [] };
     problems.forEach((p, index) =>
-      problemsSplit[index > 1 ? "optional" : "default"].push(
+      problemsSplit["default"].push(
         <BulletinProblemItem key={index} problem={p} />
       )
     );
@@ -99,53 +99,6 @@ class BulletinDaytimeReport extends React.Component {
               </div>
             </li>
             {splitupProblems.default}
-            {splitupProblems.optional.length > 0 && (
-              <>
-                {!this.state.showMoreProblems && (
-                  <li className="list-bulletin-report-pictos-trigger">
-                    <a
-                      onClick={() => {
-                        this.setState({
-                          showMoreProblems: true
-                        });
-                      }}
-                      className="tooltip"
-                      title={this.props.intl.formatMessage({
-                        id: "bulletin:report:more-problems:show:title"
-                      })}
-                    >
-                      <span className={"icon-down-open-big"}></span>
-                      <span>
-                        {this.props.intl.formatMessage({
-                          id: "bulletin:report:more-problems:show:caption"
-                        })}
-                      </span>
-                    </a>
-                  </li>
-                )}
-                {this.state.showMoreProblems && splitupProblems.optional}
-                {this.state.showMoreProblems && (
-                  <li className="list-bulletin-report-pictos-trigger">
-                    <a
-                      onClick={() => {
-                        this.setState({ showMoreProblems: false });
-                      }}
-                      className="tooltip"
-                      title={this.props.intl.formatMessage({
-                        id: "bulletin:report:more-problems:hide:title"
-                      })}
-                    >
-                      <span className={"icon-up-open-big"}></span>
-                      <span>
-                        {this.props.intl.formatMessage({
-                          id: "bulletin:report:more-problems:hide:caption"
-                        })}
-                      </span>
-                    </a>
-                  </li>
-                )}
-              </>
-            )}
           </ul>
         </div>
       </div>

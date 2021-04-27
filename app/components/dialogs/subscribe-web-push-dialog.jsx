@@ -37,10 +37,6 @@ function urlBase64ToUint8Array(base64String) {
 }
 
 export function isWebPushSupported() {
-  if (APP_ENVIRONMENT == "prod") {
-    // disable for now
-    return false;
-  }
   return (
     "serviceWorker" in navigator &&
     "Notification" in window &&
@@ -180,12 +176,8 @@ export default function SubscribeWebPushDialog() {
           <ul className="list-inline list-subscribe-language">
             {window["appStore"].mainLanguages.map(l => (
               <li key={l}>
-                <label
-                  className="pure-checkbox"
-                  htmlFor={"subscribe-language-" + l}
-                >
+                <label className="pure-checkbox">
                   <input
-                    id={"subscribe-language-" + l}
                     name="language"
                     onChange={() => setLanguage(l)}
                     value={l}

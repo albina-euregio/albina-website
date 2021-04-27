@@ -1,16 +1,18 @@
 import React from "react";
 import { withRouter, matchPath } from "react-router";
+import { observer } from "mobx-react";
 import BlogStore from "../stores/blogStore";
 import { Link } from "react-router-dom";
 
 @withRouter
+@observer
 class Menu extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      specialTreatments: {}
-    };
+    if (!window["blogStore"]) {
+      const getHistory = () => this.props.history;
+      window["blogStore"] = new BlogStore(getHistory);
+    }
   }
 
   testActive(e, recursive = true) {
@@ -18,10 +20,7 @@ class Menu extends React.Component {
     // is active.
     const doTest = (loc, element) => {
       return (
-        matchPath(loc, element.url.split("?")[0]) != null ||
-        (recursive &&
-          element.children &&
-          element.children.some(el => doTest(loc, el)))
+        matchPath(loc, element.url.split("?")[0]) != null || (recursive && element.children && element.children.some(el => doTest(loc, el)))
       );
     };
 
@@ -31,38 +30,13 @@ class Menu extends React.Component {
     return false;
   }
 
-  getSpecialTreatment(url) {
-    const self = this;
-    if (url === "/blog") {
-      if (this.state.specialTreatments.blog)
-        return this.state.specialTreatments.blog;
-      window.setTimeout(() => {
-        if (!window["blogStore"]) {
-          const getHistory = () => self.props.history;
-          window["blogStore"] = new BlogStore(getHistory);
-        }
-        const newEntries = window["blogStore"].numberNewPosts;
-        let treatment = "";
-        if (newEntries > 0)
-          treatment = <small className="label blog-new">{newEntries}</small>;
-        self.setState({
-          specialTreatments: Object.assign({}, this.state.specialTreatments, {
-            blog: treatment
-          })
-        });
-      }, 100);
-    }
-  }
-
   onLinkClick(e, hasSubs) {
     //console.log("onLinkClick jjj", window.IS_TOUCHING_DEVICE, hasSubs);
     if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
   }
 
   renderMenuItem(e, activeItem) {
-    const classes = this.props.menuItemClassName
-      ? this.props.menuItemClassName.split(" ")
-      : [];
+    const classes = this.props.menuItemClassName ? this.props.menuItemClassName.split(" ") : [];
     const isActive = activeItem && e == activeItem;
 
     if (isActive) {
@@ -70,9 +44,7 @@ class Menu extends React.Component {
         this.props.onActiveMenuItem(e);
       }
 
-      classes.push(
-        this.props.activeClassName ? this.props.activeClassName : "active"
-      );
+      classes.push(this.props.activeClassName ? this.props.activeClassName : "active");
     }
     if (e.showSub || (e.children && e.children.length > 0)) {
       classes.push("has-sub");
@@ -83,6 +55,7 @@ class Menu extends React.Component {
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
     const url = e["url:" + appStore.language] || e["url"];
+    const numberNewPosts = window["blogStore"].numberNewPosts;
 
     return (
       <li
@@ -110,7 +83,7 @@ class Menu extends React.Component {
             className={classes.join(" ")}
           >
             {title}
-            {this.getSpecialTreatment(url)}
+            {url === "/blog" && numberNewPosts > 0 && <small className="label blog-new">{numberNewPosts}</small>}
           </Link>
         )}
         {e.children && e.children.length > 0 && (
@@ -129,19 +102,13 @@ class Menu extends React.Component {
 
   render() {
     if (this.props.entries && this.props.entries.length > 0) {
-      const activeMenuItems = this.props.entries.filter(e =>
-        this.testActive(e)
-      );
+      const activeMenuItems = this.props.entries.filter(e => this.testActive(e));
       const activeItem =
         activeMenuItems.length > 0
           ? activeMenuItems[0] // in case someone messed up the menu
           : null;
 
-      return (
-        <ul className={this.props.className}>
-          {this.props.entries.map(e => this.renderMenuItem(e, activeItem))}
-        </ul>
-      );
+      return <ul className={this.props.className}>{this.props.entries.map(e => this.renderMenuItem(e, activeItem))}</ul>;
     }
     return null;
   }

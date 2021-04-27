@@ -60,8 +60,5 @@ lib
 # vscode
 *.code-workspace
 
-# Code
-settings.json
-
 .favorites.json
 size-plugin.json

@@ -26,11 +26,12 @@
       { "url": "/education/matrix" },
       { "url": "/education/avalanche-sizes" },
       { "url": "/education/danger-patterns" },
+      { "url": "/education/community" },
       {
         "key": "glossary",
-        "url": "https://www.avalanches.org/glossary/",
-        "url:de": "https://www.avalanches.org/de/glossary/",
-        "url:it": "https://www.avalanches.org/it/glossary/"
+        "url": "https://www.avalanches.org/glossary/?lang=en",
+        "url:de": "https://www.avalanches.org/glossary/?lang=de",
+        "url:it": "https://www.avalanches.org/glossary/?lang=it"
       },
       { "url": "/education/handbook" }
     ]

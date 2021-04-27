@@ -59,7 +59,7 @@ class BulletinReport extends React.Component {
     return (
       <div>
         <section
-          id="section-bulletin-report"
+          id={daytimeBulletin.id}
           className="section-centered section-bulletin section-bulletin-report"
         >
           <div className={classes}>

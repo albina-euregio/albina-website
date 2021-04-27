@@ -16,9 +16,10 @@ class BulletinAWMapStatic extends React.Component {
 
   render() {
     const { publicationTime } = this.props;
-    const publicationDirectory = publicationTime
-      ? getPublicationTimeString(parseDateSeconds(publicationTime)) + "/"
-      : "";
+    const publicationDirectory =
+      publicationTime && this.props.date > "2019-05-06"
+        ? getPublicationTimeString(parseDateSeconds(publicationTime)) + "/"
+        : "";
     const imgFormat =
       window.config.webp && this.props.date > "2020-12-01" ? ".webp" : ".jpg";
     const url =
@@ -28,16 +29,15 @@ class BulletinAWMapStatic extends React.Component {
       publicationDirectory +
       this.props.region + // possibly contains _PM
       imgFormat;
-
-    return (
-      <img
-        src={url}
-        alt={this.props.intl.formatMessage({
-          id: "bulletin:report:selected-region:alt"
-        })}
-        onError={this.props.onError}
-      />
-    );
+    const regions = window["bulletinStore"].bulletins[
+      this.props.date
+    ].daytimeBulletins
+      .find(element => element.id == this.props.region.split("_")[0])
+      .forenoon.regions.map(function(elem) {
+        return elem.name;
+      })
+      .join(", ");
+    return <img src={url} alt={regions} onError={this.props.onError} />;
   }
 }
 

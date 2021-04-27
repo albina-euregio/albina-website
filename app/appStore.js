@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx";
+import { observable, action, computed, reaction } from "mobx";
 import React from "react";
 import { BulletinStore } from "./stores/bulletinStore";
 import CookieStore from "./stores/cookieStore";
@@ -52,6 +52,17 @@ class AppStore extends React.Component {
     this.avalancheProblems = Object.keys(en)
       .filter(k => k.match(/^problem:/))
       .map(k => k.substr(8));
+
+    // replace language-dependent body classes on language change.
+    reaction(
+      () => this.language,
+      newLang => {
+        document.body.parentElement.lang = newLang;
+        document.body.className = document.body.className
+          .replace(/domain-[a-z]{2}/, "domain-" + newLang)
+          .replace(/language-[a-z]{2}/, "language-" + newLang);
+      }
+    );
   }
 
   /**

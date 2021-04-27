@@ -51,7 +51,6 @@ class PageHeader extends React.Component {
         <div className="page-header-logo">
           <Link
             to="/"
-            ref="logoImg"
             className="tooltip"
             title={this.props.intl.formatMessage({
               id: "header:logo:hover"

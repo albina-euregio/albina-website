@@ -34,9 +34,14 @@ class StationMap extends React.Component {
     //console.log("StationMap->onMarkerSelected ggg2 ", feature);
     if (feature && feature.id) {
       window["modalStateStore"].setData({
-        stationData: window.stationDataStore.data.find(
-          point => point.id == feature.id
-        )
+        stationData: window.stationDataStore.data.sort((f1, f2) =>
+          f1.properties["LWD-Region"].localeCompare(
+            f2.properties["LWD-Region"],
+            "de"
+          )
+        ),
+
+        rowId: feature.id
       });
       modal_open_by_params(
         null,

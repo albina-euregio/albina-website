@@ -5,17 +5,20 @@ import { observer } from "mobx-react";
 import { BulletinStore } from "../stores/bulletinStore";
 import MapStore from "../stores/mapStore";
 
-import { injectIntl } from "react-intl";
+import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
-import BulletinMap from "../components/bulletin/bulletin-map";
+import BulletinFooter from "../components/bulletin/bulletin-footer";
+const BulletinMap = React.lazy(() => import("../components/bulletin/bulletin-map"));
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
+import ControlBar from "../components/organisms/control-bar.jsx";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { parseDate, dateToLongDateString } from "../util/date.js";
 import { tooltip_init } from "../js/tooltip";
 import BulletinList from "../components/bulletin/bulletin-list";
 import { parseSearchParams } from "../util/searchParams";
+import { Suspense } from "react";
 
 require("leaflet.sync");
 
@@ -187,43 +190,55 @@ class Bulletin extends React.Component {
             "og:image:height": 1890
           }}
         />
+        <ControlBar
+          style="light"
+          backgroundImage="/content_files/ava_size5-2560.jpg"
+          message={
+            <>
+              <FormattedHTMLMessage id="bulletin:control-bar:community:text" />
+              <FormattedHTMLMessage id="bulletin:control-bar:community:link" />
+            </>
+          }
+        />
         <BulletinHeader store={this.store} title={this.state.title} />
 
-        {this.store.activeBulletinCollection &&
-        this.store.activeBulletinCollection.hasDaytimeDependency() ? (
-          <div className="bulletin-parallel-view">
-            {["am", "pm"].map(daytime => (
-              <BulletinMap
-                key={daytime}
-                handleMapViewportChanged={this.handleMapViewportChanged.bind(
-                  this
-                )}
-                handleSelectRegion={this.handleSelectRegion.bind(this)}
-                date={this.props.match.params.date}
-                history={this.props.history}
-                store={this.store}
-                highlightedRegion={this.state.highlightedRegion}
-                regions={this.store.getVectorRegions(daytime)}
-                onMapInit={this.handleMapInit.bind(this)}
-                ampm={daytime}
-              />
-            ))}
-          </div>
-        ) : (
-          <BulletinMap
-            handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+        <Suspense fallback={<div>...</div>}>
+          {this.store.activeBulletinCollection &&
+          this.store.activeBulletinCollection.hasDaytimeDependency() ? (
+            <div className="bulletin-parallel-view">
+              {["am", "pm"].map(daytime => (
+                <BulletinMap
+                  key={daytime}
+                  handleMapViewportChanged={this.handleMapViewportChanged.bind(
+                    this
+                  )}
+                  handleSelectRegion={this.handleSelectRegion.bind(this)}
+                  date={this.props.match.params.date}
+                  history={this.props.history}
+                  store={this.store}
+                  highlightedRegion={this.state.highlightedRegion}
+                  regions={this.store.getVectorRegions(daytime)}
+                  onMapInit={this.handleMapInit.bind(this)}
+                  ampm={daytime}
+                />
+              ))}
+            </div>
+          ) : (
+            <BulletinMap
+              handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+              handleSelectRegion={this.handleSelectRegion.bind(this)}
+              date={this.props.match.params.date}
+              history={this.props.history}
+              store={this.store}
+              highlightedRegion={this.state.highlightedRegion}
+              regions={this.store.getVectorRegions()}
+            />
+          )}
+          <BulletinLegend
             handleSelectRegion={this.handleSelectRegion.bind(this)}
-            date={this.props.match.params.date}
-            history={this.props.history}
-            store={this.store}
-            highlightedRegion={this.state.highlightedRegion}
-            regions={this.store.getVectorRegions()}
+            problems={this.store.problems}
           />
-        )}
-        <BulletinLegend
-          handleSelectRegion={this.handleSelectRegion.bind(this)}
-          problems={this.store.problems}
-        />
+        </Suspense>
         <BulletinButtonbar store={this.store} />
         {this.store.activeBulletinCollection && (
           <BulletinList
@@ -238,176 +253,7 @@ class Bulletin extends React.Component {
           title={this.state.title}
           description={shareDescription}
         />
-        <section className="section-centered section-context">
-          <div className="panel">
-            <h2 className="subheader">
-              {this.props.intl.formatMessage({ id: "button:weather:headline" })}
-            </h2>
-
-            <ul className="list-inline list-buttongroup-dense">
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:weather:AT-07:link"
-                  })}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {this.props.intl.formatMessage({
-                    id: "region:AT-07"
-                  })}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:weather:IT-32-BZ:link"
-                  })}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {this.props.intl.formatMessage({
-                    id: "region:IT-32-BZ"
-                  })}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href={this.props.intl.formatMessage({
-                    id: "button:weather:IT-32-TN:link"
-                  })}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {this.props.intl.formatMessage({
-                    id: "region:IT-32-TN"
-                  })}
-                </a>
-              </li>
-            </ul>
-
-            <h2 className="subheader">
-              {this.props.intl.formatMessage({ id: "button:blog:headline" })}
-            </h2>
-
-            <ul className="list-inline list-buttongroup-dense">
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href={"/blog?region=AT-07"}
-                >
-                  {this.props.intl.formatMessage({
-                    id: "region:AT-07"
-                  })}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href={"/blog?region=IT-32-BZ"}
-                >
-                  {this.props.intl.formatMessage({
-                    id: "region:IT-32-BZ"
-                  })}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href={"/blog?region=IT-32-TN"}
-                >
-                  {this.props.intl.formatMessage({
-                    id: "region:IT-32-TN"
-                  })}
-                </a>
-              </li>
-            </ul>
-
-            <h2 className="subheader">
-              {this.props.intl.formatMessage({ id: "button:snow:headline" })}
-            </h2>
-
-            <ul className="list-inline list-buttongroup-dense">
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href="/weather/map/new-snow"
-                >
-                  {this.props.intl.formatMessage({ id: "button:snow:hn:text" })}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href="/weather/map/snow-height"
-                >
-                  {this.props.intl.formatMessage({ id: "button:snow:hs:text" })}
-                </a>
-              </li>
-              <li>
-                <a className="secondary pure-button" href="/weather/map/wind">
-                  {this.props.intl.formatMessage({ id: "button:snow:ff:text" })}
-                </a>
-              </li>
-              <li>
-                <a className="secondary pure-button" href="/weather/stations">
-                  {this.props.intl.formatMessage({
-                    id: "button:snow:stations:text"
-                  })}
-                </a>
-              </li>
-            </ul>
-
-            <h2 className="subheader">
-              {this.props.intl.formatMessage({
-                id: "button:education:headline"
-              })}
-            </h2>
-
-            <ul className="list-inline list-buttongroup-dense">
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href="/education/danger-scale"
-                >
-                  {this.props.intl.formatMessage({
-                    id: "button:education:danger-scale:text"
-                  })}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href="/education/avalanche-problems"
-                >
-                  {this.props.intl.formatMessage({
-                    id: "button:education:avalanche-problems:text"
-                  })}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="secondary pure-button"
-                  href="/education/danger-patterns"
-                >
-                  {this.props.intl.formatMessage({
-                    id: "button:education:danger-patterns:text"
-                  })}
-                </a>
-              </li>
-              <li>
-                <a className="secondary pure-button" href="/education/handbook">
-                  {this.props.intl.formatMessage({
-                    id: "button:education:handbook:text"
-                  })}
-                </a>
-              </li>
-            </ul>
-          </div>
-        </section>
+        <BulletinFooter />
       </>
     );
   }

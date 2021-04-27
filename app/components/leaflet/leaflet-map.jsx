@@ -27,6 +27,7 @@ class LeafletMap extends React.Component {
      */
     this.map = undefined;
     this.mapRef;
+    this.mapDisabledRef;
     this._layers = [];
   }
 
@@ -54,8 +55,8 @@ class LeafletMap extends React.Component {
 
   updateMaps() {
     //console.log("updateMaps xyy");
-    if (this.refs.mapDisabled && !this.mapDisabled) {
-      this.mapDisabled = this.refs.mapDisabled.leafletElement;
+    if (this.mapDisabledRef && !this.mapDisabled) {
+      this.mapDisabled = this.mapDisabledRef.leafletElement;
       L.Util.setOptions(this.mapDisabled, { gestureHandling: false });
     }
 
@@ -244,7 +245,7 @@ class LeafletMap extends React.Component {
       <Map
         onZoomEnd={this._zoomend.bind(this)}
         className="map-disabled"
-        ref="mapDisabled"
+        ref={map => (this.mapDisabledRef = map)}
         gestureHandling
         style={this.mapStyle()}
         zoomControl={false}
@@ -265,7 +266,7 @@ class LeafletMap extends React.Component {
         onZoomEnd={this._zoomend.bind(this)}
         onViewportChanged={this.props.onViewportChanged.bind(this.map)}
         useFlyTo
-        ref={el => this.connectLayers(el)}
+        ref={map => (this.mapRef = map)}
         gestureHandling={this.props.gestureHandling}
         dragging={L.Browser.mobile}
         style={this.mapStyle()}

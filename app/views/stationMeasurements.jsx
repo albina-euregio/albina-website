@@ -11,7 +11,16 @@ import HideFilter from "../components/filters/hide-filter";
 import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import StationTable from "../components/stationTable/stationTable";
+import { parseSearchParams } from "../util/searchParams";
 
+/**
+ * @typedef {object} Props
+ * @prop {import("history").History} history
+ * @prop {*} intl
+ * ... props
+ *
+ * @extends {React.Component<Props>}
+ */
 class StationMeasurements extends React.Component {
   constructor(props) {
     super(props);
@@ -25,28 +34,41 @@ class StationMeasurements extends React.Component {
     if (!window["stationDataStore"]) {
       window["stationDataStore"] = new StationDataStore();
     }
+    /**
+     * @type {StationDataStore}
+     */
     this.store = window["stationDataStore"];
   }
 
   componentDidMount() {
     this.store.load("");
+    this.store.fromURLSearchParams(parseSearchParams());
+  }
+
+  updateURL() {
+    const search = this.store.toURLSearchParams().toString();
+    this.props.history.replace({ search });
   }
 
   handleChangeSearch = val => {
     this.store.searchText = val;
+    this.updateURL();
   };
 
   handleToggleActive = val => {
     this.store.activeData[val] = !this.store.activeData[val];
+    this.updateURL();
   };
 
   handleChangeRegion = val => {
     this.store.activeRegion = val;
+    this.updateURL();
   };
 
   handleSort = (id, dir) => {
     this.store.sortValue = id;
     this.store.sortDir = dir;
+    this.updateURL();
   };
 
   render() {

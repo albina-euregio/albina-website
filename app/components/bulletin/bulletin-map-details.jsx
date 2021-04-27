@@ -27,6 +27,7 @@ class BulletinMapDetails extends React.Component {
     const bulletin = this.props.bulletin[daytime];
     const problems = bulletin.avalancheProblems || [];
     let key = 0;
+    let count = 0;
 
     return (
       <>
@@ -40,12 +41,18 @@ class BulletinMapDetails extends React.Component {
             <BulletinDangerRating bulletin={bulletin} />
           </li>{" "}
           {problems.map(problem => {
-            if (key < 2)
-              return (
-                <li key={key++}>
-                  <ProblemIconLink problem={problem} />
-                </li>
-              );
+            if (count < 2) {
+              if (!(key > 0 && problems[0].type == problems[key].type)) {
+                count++;
+                return (
+                  <li key={key++}>
+                    <ProblemIconLink problem={problem} />
+                  </li>
+                );
+              } else {
+                key++;
+              }
+            }
           })}
         </ul>
 

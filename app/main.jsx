@@ -4,7 +4,6 @@ import App from "./components/app.jsx";
 import AppStore from "./appStore.js";
 import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
-import { reaction } from "mobx";
 import { fetchJSON } from "./util/fetch.js";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
 
@@ -67,17 +66,6 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
   }
 
   window.config = configParsed;
-
-  // replace language-dependent body classes on language change.
-  reaction(
-    () => window["appStore"].language,
-    newLang => {
-      document.body.parentElement.lang = newLang;
-      document.body.className = document.body.className
-        .replace(/domain-[a-z]{2}/, "domain-" + newLang)
-        .replace(/language-[a-z]{2}/, "language-" + newLang);
-    }
-  );
 
   // initially set language-dependent body classes
   const initialLang = window["appStore"].language;

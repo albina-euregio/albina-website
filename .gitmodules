@@ -1,0 +1,3 @@
+[submodule "eaws-regions"]
+	path = eaws-regions
+	url = https://gitlab.com/eaws/eaws-regions.git

@@ -10,9 +10,10 @@ if (!window["tilty"]) window["tilty"] = require("vanilla-tilt");
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
 
+const license = APP_LICENSE; // included via webpack.DefinePlugin
+const repository = APP_REPOSITORY; // included via webpack.DefinePlugin
 const version = APP_VERSION; // included via webpack.DefinePlugin
 const versionDate = APP_VERSION_DATE; // included via webpack.DefinePlugin
-const { license, repository } = require("../../../package.json");
 
 class PageFooter extends React.Component {
   componentDidMount() {

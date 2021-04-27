@@ -9,6 +9,11 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const SizePlugin = require("size-plugin");
 const ImageminWebpWebpackPlugin = require("imagemin-webp-webpack-plugin");
 const merge = require("lodash/merge");
+const { license, repository } = require("./package.json");
+
+function git(command) {
+  return execSync(`git ${command}`, { encoding: "utf8" }).trim();
+}
 
 /**
  * @returns {webpack.Configuration}
@@ -43,7 +48,7 @@ module.exports = (env, argv) => {
       "./sentry.js",
       "./main.jsx"
     ],
-    devtool: production ? "source-map" : "cheap-module-eval-source-map",
+    devtool: production ? "source-map" : "eval-cheap-module-source-map",
     devServer: {
       historyApiFallback: {
         index: publicPath + "index.html"
@@ -111,7 +116,7 @@ module.exports = (env, argv) => {
     performance: {
       hints: production ? "error" : false,
       maxEntrypointSize: 2.2 * mebibyte,
-      maxAssetSize: 2.0 * mebibyte
+      maxAssetSize: 1.7 * mebibyte
     },
     plugins: [
       new HtmlWebPackPlugin({
@@ -122,13 +127,11 @@ module.exports = (env, argv) => {
         APP_ENVIRONMENT: JSON.stringify(env),
         APP_ASSET_PATH: JSON.stringify(publicPath),
         APP_DEV_MODE: JSON.stringify(!production),
-        APP_VERSION: JSON.stringify(
-          execSync("git describe --tags", { encoding: "utf8" }).trim()
-        ),
+        APP_LICENSE: JSON.stringify(license),
+        APP_REPOSITORY: JSON.stringify(repository),
+        APP_VERSION: JSON.stringify(git("describe --tags")),
         APP_VERSION_DATE: JSON.stringify(
-          execSync("git log -1 --format=%cd --date=short", {
-            encoding: "utf8"
-          }).trim()
+          git("log -1 --format=%cd --date=short")
         )
       }),
       new MiniCssExtractPlugin({
