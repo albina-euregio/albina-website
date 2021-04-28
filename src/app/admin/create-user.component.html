@@ -10,13 +10,13 @@
       <div class="form-group row">
         <label for="inputEmail" class="col-sm-2 col-form-label">{{ "admin.create-user.table.email" | translate }}</label>
         <div class="col-sm-10">
-          <input type="email" class="form-control" id="inputEmail" name="email" [(ngModel)]="activeEmail" placeholder="{{ 'admin.create-user.table.email' | translate }}">
+          <input type="email" [disabled]="update" class="form-control" id="inputEmail" name="email" [(ngModel)]="activeEmail" placeholder="{{ 'admin.create-user.table.email' | translate }}">
         </div>
       </div>
       <div class="form-group row">
         <label for="inputPassword" class="col-sm-2 col-form-label">{{ "admin.create-user.table.password" | translate }}</label>
         <div class="col-sm-10">
-          <input type="password" class="form-control" id="inputPassword" name="password" [(ngModel)]="activePassword" placeholder="{{ 'admin.create-user.table.password' | translate }}">
+          <input type="password" [disabled]="update" class="form-control" id="inputPassword" name="password" [(ngModel)]="activePassword" placeholder="{{ 'admin.create-user.table.password' | translate }}">
         </div>
       </div>
       <div class="form-group row">
@@ -52,8 +52,12 @@
     </div>
     <!-- Footer -->
     <div class="card-footer">
-      <button type="submit" class="btn btn-sm btn-primary px-3" (click)="createUser()"><i class="fa fa-check"></i>{{
+      <button *ngIf="!update" type="submit" class="btn btn-sm btn-primary px-3" (click)="createUser()">{{
         "admin.create-user.button.create" | translate }}</button>
+      <button *ngIf="update" type="submit" class="btn btn-sm btn-primary px-3" (click)="updateUser()">{{
+        "admin.create-user.button.update" | translate }}</button>
+      <button class="btn btn-sm btn-secondary px-3" (click)="closeDialog()"><i class="fa fa-cross"></i>{{
+        "admin.create-user.button.cancel" | translate }}</button>
     </div>
   </form>
 </div>

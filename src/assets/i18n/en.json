@@ -368,12 +368,38 @@
       "error" : "Configuration could not be saved"
     },
     "users" : {
-      "title" : "Users"
+      "title" : "Users",
+      "button" : {
+        "create" : "Create user"
+      },
+      "tooltip" : {
+        "edit" : "Edit user",
+        "delete" : "Delete user",
+        "create" : "Create user"
+      },
+      "table" : {
+        "name" : "Name",
+        "email" : "Email",
+        "organization" : "Organization",
+        "regions" : "Regions",
+        "roles" : "Roles"
+      },
+      "deleteUserModalDialog" : {
+        "message" : "Do you want to delete the user?",
+        "accept" : "Yes",
+        "reject" : "No"
+      },
+      "deleteUser" : {
+        "success" : "User deleted",
+        "error" : "User could not be deleted"
+      }
     },
     "create-user" : {
       "title" : "Create User",
       "success" : "User successfully created",
       "error" : "User could not be created",
+      "updateSuccess" : "User successfully updated",
+      "updateError" : "User could not be updated",
       "table" : {
         "name" : "Name",
         "email" : "Email",
@@ -383,7 +409,9 @@
         "regions" : "Regions"
       },
       "button" : {
-        "create" : "Create user"
+        "create" : "Create user",
+        "update" : "Update user",
+        "cancel" : "Cancel"
       }  
     }
   },

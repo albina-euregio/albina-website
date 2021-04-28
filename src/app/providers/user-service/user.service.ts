@@ -41,6 +41,15 @@ export class UserService {
     return this.http.post<Response>(url, body, options);
   }
 
+  public updateUser(user): Observable<Response> {
+    const url = this.constantsService.getServerUrl() + "user";
+    const body = JSON.stringify(user.toJson());
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers: headers };
+
+    return this.http.put<Response>(url, body, options);
+  }
+
   public getUsers(): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "user";
     const headers = this.authenticationService.newAuthHeader();
@@ -63,5 +72,13 @@ export class UserService {
     const options = { headers: headers };
 
     return this.http.get<Response>(url, options);
+  }
+
+  public deleteUser(userId): Observable<Response> {
+    const url = this.constantsService.getServerUrl() + "user/" + userId;
+    const headers = this.authenticationService.newAuthHeader();
+    const options = { headers: headers };
+
+    return this.http.delete<Response>(url, options);
   }
 }

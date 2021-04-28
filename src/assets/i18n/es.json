@@ -330,50 +330,76 @@
   },
   "admin" : {
     "server-configuration" : {
-      "title" : "Configuración del servidor",
+      "title" : "Server Configuration",
       "table" : {
         "title" : {
-          "key" : "Parámetro",
-          "value" : "Valor"
+          "key" : "Parameter",
+          "value" : "Value"
         },
-        "createMaps" : "Crear mapas",
-        "createPdf" : "Crear PDF",
-        "createStaticWidget" : "Crear widgets estáticos",
-        "createSimpleHtml" : "Crear HTML simple",
-        "sendEmails" : "Enviar correos",
-        "publishToTelegramChannel" : "Publicar a través de canal de Telegram",
-        "publishAt5PM" : "Publicar a las 5PM",
-        "publishAt8AM" : "Publicar a las 8PM",
-        "localImagesPath" : "Ruta de acceso a imágenes locales",
-        "localFontsPath" : "Ruta de acceso a fuentes",
-        "publishBulletinsTyrol" : "Publicar predicción de aludes para el Tyrol",
-        "publishBulletinsSouthTyrol" : "Publicar predicción de aludes para el South Tyrol",
-        "publishBulletinsTrentino" : "Publicar predicción de aludes para el Trentino",
-        "publishBulletinsAran" : "Publicar la predicción de aludes para Aran",
-        "publishBlogsTyrol" : "Publicar entrada en el blog para el Tyrol",
-        "publishBlogsSouthTyrol" : "Publicar entrada en el blog para el South Tyrol",
-        "publishBlogsTrentino" : "Publicar entrada en el blog para el Trentino",
-        "pdfDirectory" : "Directorio para PDF",
-        "htmlDirectory" : "Directorio para HTML",
-        "serverImagesUrl" : "Ruta de acceso al servidor de imágenes",
-        "serverImagesUrlLocalhost" : "Ruta de acceso al servidor de imágenes (localhost)",
-        "mapsPath" : "Ruta de acceso a mapas",
-        "mapProductionUrl" : "URL para producción de mapas",
-        "scriptsPath" : "Ruta de acceso a los scripts"
+        "createMaps" : "Create maps",
+        "createPdf" : "Create PDF",
+        "createStaticWidget" : "Create static widgets",
+        "createSimpleHtml" : "Create simple HTML",
+        "sendEmails" : "Send emails",
+        "publishToTelegramChannel" : "Publish via Telegram channel",
+        "publishAt5PM" : "Publish at 5PM",
+        "publishAt8AM" : "Publish at 8AM",
+        "localImagesPath" : "Path to local images",
+        "localFontsPath" : "Path to fonts",
+        "publishBulletinsTyrol" : "Publish avalanche forecast for Tirol",
+        "publishBulletinsSouthTyrol" : "Publish avalanche forecast for South Tyrol",
+        "publishBulletinsTrentino" : "Publish avalanche forecast for Trentino",
+        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
+        "publishBlogsTyrol" : "Publish blog posts for Tirol",
+        "publishBlogsSouthTyrol" : "Publish blog posts for South Tyrol",
+        "publishBlogsTrentino" : "Publish blog posts for Trentino",
+        "pdfDirectory" : "Directory for PDF",
+        "htmlDirectory" : "Directory for HTML",
+        "serverImagesUrl" : "Path to server images",
+        "serverImagesUrlLocalhost" : "Path to server images (localhost)",
+        "mapsPath" : "Path to maps",
+        "mapProductionUrl" : "URL for map production",
+        "scriptsPath" : "Path to scripts"
       },
       "button" : {
-        "save" : "Guardar"
+        "save" : "Save"
       },
-      "success" : "Configuración guardada con éxito",
-      "error" : "No se puede guardar la configuración"
+      "success" : "Configuration successfully saved",
+      "error" : "Configuration could not be saved"
     },
     "users" : {
-      "title" : "Users"
+      "title" : "Users",
+      "button" : {
+        "create" : "Create user"
+      },
+      "tooltip" : {
+        "edit" : "Edit user",
+        "delete" : "Delete user",
+        "create" : "Create user"
+      },
+      "table" : {
+        "name" : "Name",
+        "email" : "Email",
+        "organization" : "Organization",
+        "regions" : "Regions",
+        "roles" : "Roles"
+      },
+      "deleteUserModalDialog" : {
+        "message" : "Do you want to delete the user?",
+        "accept" : "Yes",
+        "reject" : "No"
+      },
+      "deleteUser" : {
+        "success" : "User deleted",
+        "error" : "User could not be deleted"
+      }
     },
     "create-user" : {
       "title" : "Create User",
       "success" : "User successfully created",
       "error" : "User could not be created",
+      "updateSuccess" : "User successfully updated",
+      "updateError" : "User could not be updated",
       "table" : {
         "name" : "Name",
         "email" : "Email",
@@ -383,7 +409,9 @@
         "regions" : "Regions"
       },
       "button" : {
-        "create" : "Create user"
+        "create" : "Create user",
+        "update" : "Update user",
+        "cancel" : "Cancel"
       }  
     }
   },

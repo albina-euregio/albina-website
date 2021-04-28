@@ -76,6 +76,7 @@ import i18nFr from "../assets/i18n/fr.json";
 import i18nEs from "../assets/i18n/es.json";
 import i18nCa from "../assets/i18n/ca.json";
 import i18nOc from "../assets/i18n/oc.json";
+import { CreateUserComponent } from "./admin/create-user.component";
 
 const pkg = require("../../package.json");
 Sentry.init({
@@ -159,7 +160,8 @@ registerLocaleData(localeOc, "oc");
     ModalCheckComponent,
     ModalPublicationStatusComponent,
     ModalPublishAllComponent,
-    CatalogOfPhrasesComponent
+    CatalogOfPhrasesComponent,
+    CreateUserComponent
   ],
   providers: [
     {

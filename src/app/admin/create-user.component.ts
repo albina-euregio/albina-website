@@ -1,9 +1,11 @@
-import { Component, AfterContentInit } from "@angular/core";
+import { Component, AfterContentInit, Inject } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConfigurationService } from "../providers/configuration-service/configuration.service";
 import { AlertComponent } from "ngx-bootstrap";
 import { UserService } from "../providers/user-service/user.service";
 import { UserModel } from "../models/user.model";
+
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 
 import * as bcrypt from "bcryptjs";
 
@@ -14,6 +16,7 @@ import * as bcrypt from "bcryptjs";
 export class CreateUserComponent implements AfterContentInit {
 
   public createUserLoading: boolean;
+  public update: boolean;
 
   public alerts: any[] = [];
   public roles: any;
@@ -29,7 +32,18 @@ export class CreateUserComponent implements AfterContentInit {
   constructor(
     private translateService: TranslateService,
     private userService: UserService,
-    public configurationService: ConfigurationService) {
+    public configurationService: ConfigurationService,
+    private dialogRef: MatDialogRef<CreateUserComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any)
+  {
+    this.update = data.update;
+    if (data.user) {
+      this.activeName = data.user.name;
+      this.activeEmail = data.user.email;
+      this.activeOrganization = data.user.organization;
+      this.activeRole = data.user.roles[0];
+      this.activeRegions = data.user.regions;
+    }
   }
 
   ngAfterContentInit() {
@@ -103,5 +117,45 @@ export class CreateUserComponent implements AfterContentInit {
         });
       }
     );
+  }
+
+  public updateUser() {
+    this.createUserLoading = true;
+
+    const user = new UserModel();
+    user.setName(this.activeName);
+    user.setEmail(this.activeEmail);
+    user.setOrganization(this.activeOrganization);
+    user.addRole(this.activeRole);
+    user.setRegions(this.activeRegions);
+
+    this.userService.updateUser(user).subscribe(
+      data => {
+        this.createUserLoading = false;
+        console.debug("User updated!");
+        window.scrollTo(0, 0);
+        this.alerts.push({
+          type: "success",
+          msg: this.translateService.instant("admin.create-user.updateSuccess"),
+          timeout: 5000
+        });
+        this.closeDialog();
+      },
+      error => {
+        this.createUserLoading = false;
+        console.error("User could not be updated!");
+        window.scrollTo(0, 0);
+        this.alerts.push({
+          type: "danger",
+          msg: this.translateService.instant("admin.create-user.updateError"),
+          timeout: 5000
+        });
+        this.closeDialog();
+      }
+    );
+  }
+
+  closeDialog() {
+    this.dialogRef.close();
   }
 }
