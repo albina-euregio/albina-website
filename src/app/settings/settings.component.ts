@@ -23,6 +23,7 @@ export class SettingsComponent implements OnInit {
     private translateService: TranslateService,
     private authenticationService: AuthenticationService,
     private userService: UserService,
+    private settingsService: SettingsService,
     private constantsService: ConstantsService) {
     this.changePasswordLoading = false;
   }
