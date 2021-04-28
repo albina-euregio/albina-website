@@ -1,0 +1,263 @@
+<div class="card">
+  <!-- <div class="card-header">
+            <i class="fa fa-user-secret"></i>{{ "admin.server-configuration.title" | translate }}
+          </div> -->
+  <div *ngIf="configurationPropertiesLoaded" class="card-block">
+    <div *ngFor="let alert of alerts">
+      <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+    </div>
+    <table class="table table-bordered table-striped table-condensed" style="margin-bottom: 0">
+      <thead>
+        <tr>
+          <th>{{ "admin.server-configuration.table.title.key" | translate }}</th>
+          <th>{{ "admin.server-configuration.table.title.value" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.createMaps" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="createMaps">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.createPdf" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="createPdf">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.createStaticWidget" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="createStaticWidget">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.createSimpleHtml" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="createSimpleHtml">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.sendEmails" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="sendEmails">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.publishToTelegramChannel" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="publishToTelegramChannel">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.publishAt5PM" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="publishAt5PM">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.publishAt8AM" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="publishAt8AM">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.publishBulletinsTyrol" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsTyrol">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.publishBulletinsSouthTyrol" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsSouthTyrol">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.publishBulletinsTrentino" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsTrentino">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.publishBulletinsAran" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="publishBulletinsAran">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.publishBlogsTyrol" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="publishBlogsTyrol">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.publishBlogsSouthTyrol" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="publishBlogsSouthTyrol">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.publishBlogsTrentino" | translate }}</label>
+          </td>
+          <td>
+            <label class="switch switch-primary">
+              <input type="checkbox" class="switch-input" [(ngModel)]="publishBlogsTrentino">
+              <span class="switch-slider"></span>
+            </label>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.localImagesPath" | translate }}</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="input-local-images-path" placeholder="" [(ngModel)]="localImagesPath">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.localFontsPath" | translate }}</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="input-local-fonts-path" placeholder="" [(ngModel)]="localFontsPath">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.pdfDirectory" | translate }}</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="input-pdf-directory" placeholder="" [(ngModel)]="pdfDirectory">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.htmlDirectory" | translate }}</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="input-html-directory" placeholder="" [(ngModel)]="htmlDirectory">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.serverImagesUrl" | translate }}</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="input-server-images-url" placeholder="" [(ngModel)]="serverImagesUrl">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.serverImagesUrlLocalhost" | translate }}</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="input-server-images-url-localhost" placeholder="" [(ngModel)]="serverImagesUrlLocalhost">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.mapsPath" | translate }}</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="input-maps-path" placeholder="" [(ngModel)]="mapsPath">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.mapProductionUrl" | translate }}</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="input-map-production-url" placeholder="" [(ngModel)]="mapProductionUrl">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <label class="col-form-label">{{ "admin.server-configuration.table.scriptsPath" | translate }}</label>
+          </td>
+          <td>
+            <input type="text" class="form-control" id="input-scripts-path" placeholder="" [(ngModel)]="scriptsPath">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Footer -->
+  <div class="card-footer">
+    <button *ngIf="!saveConfigurationLoading" type="submit" class="btn btn-sm btn-primary px-3" (click)="save()"><i class="fa fa-check"></i>{{
+      "admin.server-configuration.button.save" | translate }}</button>
+    <button *ngIf="saveConfigurationLoading" type="submit" [disabled]="true" class="btn btn-sm btn-primary px-3" ><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
+  </div>
+</div>

@@ -1,6 +1,4 @@
 import { BulletinDaytimeDescriptionModel } from "./bulletin-daytime-description.model";
-import { MatrixInformationModel } from "./matrix-information.model";
-import { AvalancheSituationModel } from "./avalanche-situation.model";
 import { TextModel } from "./text.model";
 import { AuthorModel } from "./author.model";
 import * as Enums from "../enums/enums";

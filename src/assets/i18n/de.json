@@ -329,7 +329,7 @@
     }
   },
   "admin" : {
-    "config" : {
+    "server-configuration" : {
       "title" : "Server Konfiguration",
       "table" : {
         "title" : {
@@ -363,7 +363,28 @@
       },
       "button" : {
         "save" : "Speichern"
-      }
+      },
+      "success" : "Konfiguration erfolgreich gespeichert",
+      "error" : "Konfiguration konnte nicht gespeichert werden"
+    },
+    "users" : {
+      "title" : "Benutzer"
+    },
+    "create-user" : {
+      "title" : "Benutzer anlegen",
+      "success" : "Benutzer erfolgreich angelegt",
+      "error" : "Benutzer konnte nicht angelegt werden",
+      "table" : {
+        "name" : "Name",
+        "email" : "Email",
+        "organization" : "Organisation",
+        "password" : "Passwort",
+        "role" : "Rolle",
+        "regions" : "Regionen"
+      },
+      "button" : {
+        "create" : "Benutzer anlegen"
+      }  
     }
   },
   "settings" : {
@@ -381,10 +402,6 @@
       "passwordIncorrect" : "Passwort ist nicht korrekt",
       "passwordsNotMatching" : "Passwörter stimmen nicht überein",
       "passwordEmpty" : "Passwort fehlt"
-    },
-    "saveConfiguration" : {
-      "success" : "Konfiguration erfolgreich gespeichert",
-      "error" : "Konfiguration konnte nicht gespeichert werden"
     },
     "display" : {
       "title" : "Anzeige",
@@ -596,7 +613,7 @@
       "PERSON_UNINJURED": "Personenbeteiligung (unverletzt)"
     },
     "fractureDepth": "Anrisshöhe",
-    "hasCoordinates": "Has coordinates",
+    "hasCoordinates": "Koordinaten vorhanden",
     "incline": "Hangneigung",
     "latitude": "Breitengrad",
     "locationName": "Ort",

@@ -3,6 +3,9 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
 import { AdminComponent } from "./admin.component";
+import { ServerConfigurationComponent } from "./server-configuration.component";
+import { CreateUserComponent } from "./create-user.component";
+import { UsersComponent } from "./users.component";
 
 import { AdminRoutingModule } from "./admin-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
@@ -28,7 +31,10 @@ import { AlertModule } from "ngx-bootstrap";
     AlertModule.forRoot()
   ],
   declarations: [
-    AdminComponent
+    AdminComponent,
+    ServerConfigurationComponent,
+    CreateUserComponent,
+    UsersComponent
   ]
 })
 export class AdminModule { }

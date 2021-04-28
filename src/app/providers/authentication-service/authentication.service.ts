@@ -219,24 +219,6 @@ export class AuthenticationService {
     this.activeRegion = this.currentAuthor.getRegions()[0];
   }
 
-  public checkPassword(password: string): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "authentication/check";
-    const body = JSON.stringify({password});
-    const headers = this.newAuthHeader();
-    const options = { headers: headers };
-
-    return this.http.put<Response>(url, body, options);
-  }
-
-  public changePassword(oldPassword: string, newPassword: string): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "authentication/change";
-    const body = JSON.stringify({oldPassword, newPassword});
-    const headers = this.newAuthHeader();
-    const options = { headers: headers };
-
-    return this.http.put<Response>(url, body, options);
-  }
-
   public getCurrentAuthorRegions() {
     return this.currentAuthor.getRegions();
   }

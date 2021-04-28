@@ -329,7 +329,7 @@
     }
   },
   "admin" : {
-    "config" : {
+    "server-configuration" : {
       "title" : "Configuracion deth servidor",
       "table" : {
         "title" : {
@@ -363,7 +363,28 @@
       },
       "button" : {
         "save" : "Sauvar"
-      }
+      },
+      "success" : "Configuracion sauvada corrèctaments",
+      "error" : "Non s'a pogut sauvar era configuracion"
+    },
+    "users" : {
+      "title" : "Users"
+    },
+    "create-user" : {
+      "title" : "Create User",
+      "success" : "User successfully created",
+      "error" : "User could not be created",
+      "table" : {
+        "name" : "Name",
+        "email" : "Corrèu electronic",
+        "organization" : "Organization",
+        "password" : "Password",
+        "role" : "Role",
+        "regions" : "Regions"
+      },
+      "button" : {
+        "create" : "Create user"
+      }  
     }
   },
   "settings" : {
@@ -381,10 +402,6 @@
       "passwordIncorrect" : "Contrasenya incorrècte",
       "passwordsNotMatching" : "Les contrasenyes non coïncidissen",
       "passwordEmpty" : "Manque era contrasenya"
-    },
-    "saveConfiguration" : {
-      "success" : "Configuracion sauvada corrèctaments",
-      "error" : "Non s'a pogut sauvar era configuracion"
     },
     "display" : {
       "title" : "Visualizacion",

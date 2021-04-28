@@ -4,6 +4,7 @@ import { AuthenticationService } from "../providers/authentication-service/authe
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
 import { AlertComponent } from "ngx-bootstrap";
+import { UserService } from "app/providers/user-service/user.service";
 
 @Component({
   templateUrl: "settings.component.html"
@@ -21,8 +22,8 @@ export class SettingsComponent implements OnInit {
   constructor(
     private translateService: TranslateService,
     private authenticationService: AuthenticationService,
-    private constantsService: ConstantsService,
-    private settingsService: SettingsService) {
+    private userService: UserService,
+    private constantsService: ConstantsService) {
     this.changePasswordLoading = false;
   }
 
@@ -40,9 +41,9 @@ export class SettingsComponent implements OnInit {
         timeout: 5000
       });
     } else if (this.newPassword1 === this.newPassword2) {
-      this.authenticationService.checkPassword(this.oldPassword).subscribe(
+      this.userService.checkPassword(this.oldPassword).subscribe(
         data => {
-          this.authenticationService.changePassword(this.oldPassword, this.newPassword1).subscribe(
+          this.userService.changePassword(this.oldPassword, this.newPassword1).subscribe(
             data2 => {
               this.oldPassword = "";
               this.newPassword1 = "";

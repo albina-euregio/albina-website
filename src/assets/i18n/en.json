@@ -329,7 +329,7 @@
     }
   },
   "admin" : {
-    "config" : {
+    "server-configuration" : {
       "title" : "Server Configuration",
       "table" : {
         "title" : {
@@ -363,7 +363,28 @@
       },
       "button" : {
         "save" : "Save"
-      }
+      },
+      "success" : "Configuration successfully saved",
+      "error" : "Configuration could not be saved"
+    },
+    "users" : {
+      "title" : "Users"
+    },
+    "create-user" : {
+      "title" : "Create User",
+      "success" : "User successfully created",
+      "error" : "User could not be created",
+      "table" : {
+        "name" : "Name",
+        "email" : "Email",
+        "organization" : "Organization",
+        "password" : "Password",
+        "role" : "Role",
+        "regions" : "Regions"
+      },
+      "button" : {
+        "create" : "Create user"
+      }  
     }
   },
   "settings" : {
@@ -381,10 +402,6 @@
       "passwordIncorrect" : "Password incorrect",
       "passwordsNotMatching" : "Passwords are not matching",
       "passwordEmpty" : "Password missing"
-    },
-    "saveConfiguration" : {
-      "success" : "Configuration successfully saved",
-      "error" : "Configuration could not be saved"
     },
     "display" : {
       "title" : "Display",
