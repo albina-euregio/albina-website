@@ -392,14 +392,18 @@
       "deleteUser" : {
         "success" : "User deleted",
         "error" : "User could not be deleted"
+      },
+      "createUser" : {
+        "success" : "User created",
+        "error" : "User could not be created"
+      },
+      "updateUser" : {
+        "success" : "User updated",
+        "error" : "User could not be updated"
       }
     },
     "create-user" : {
       "title" : "Create User",
-      "success" : "User successfully created",
-      "error" : "User could not be created",
-      "updateSuccess" : "User successfully updated",
-      "updateError" : "User could not be updated",
       "table" : {
         "name" : "Name",
         "email" : "Email",

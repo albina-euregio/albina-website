@@ -80,10 +80,6 @@ export class CreateUserComponent implements AfterContentInit {
     }
   }
 
-  onClosed(dismissedAlert: AlertComponent): void {
-    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
-  }
-
   public createUser() {
     this.createUserLoading = true;
 
@@ -102,21 +98,18 @@ export class CreateUserComponent implements AfterContentInit {
       data => {
         this.createUserLoading = false;
         console.debug("User created!");
-        window.scrollTo(0, 0);
-        this.alerts.push({
+        this.closeDialog({
           type: "success",
-          msg: this.translateService.instant("admin.create-user.success"),
-          timeout: 5000
+          msg: this.translateService.instant("admin.users.createUser.success"),
         });
       },
       error => {
         this.createUserLoading = false;
         console.error("User could not be created!");
         window.scrollTo(0, 0);
-        this.alerts.push({
+        this.closeDialog({
           type: "danger",
-          msg: this.translateService.instant("admin.create-user.error"),
-          timeout: 5000
+          msg: this.translateService.instant("admin.users.createUser.error")
         });
       }
     );
@@ -136,29 +129,23 @@ export class CreateUserComponent implements AfterContentInit {
       data => {
         this.createUserLoading = false;
         console.debug("User updated!");
-        window.scrollTo(0, 0);
-        this.alerts.push({
+        this.closeDialog({
           type: "success",
-          msg: this.translateService.instant("admin.create-user.updateSuccess"),
-          timeout: 5000
+          msg: this.translateService.instant("admin.users.updateUser.success")
         });
-        this.closeDialog();
       },
       error => {
         this.createUserLoading = false;
         console.error("User could not be updated!");
-        window.scrollTo(0, 0);
-        this.alerts.push({
+        this.closeDialog({
           type: "danger",
-          msg: this.translateService.instant("admin.create-user.updateError"),
-          timeout: 5000
+          msg: this.translateService.instant("admin.users.createUser.error")
         });
-        this.closeDialog();
       }
     );
   }
 
-  closeDialog() {
-    this.dialogRef.close();
+  closeDialog(data) {
+    this.dialogRef.close(data);
   }
 }

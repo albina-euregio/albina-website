@@ -33,16 +33,6 @@ export class UsersComponent implements AfterContentInit {
     private userService: UserService,
     private modalService: BsModalService,
     public configurationService: ConfigurationService) {
-    dialog.afterAllClosed.subscribe(result => {
-      this.updateUsers();
-      if (result !== undefined) {
-        this.alerts.push({
-          type: "danger",
-          msg: result,
-          timeout: 5000
-        });
-      }
-    });
   }
 
   ngAfterContentInit() {
@@ -78,11 +68,20 @@ export class UsersComponent implements AfterContentInit {
       user: user
     };
 
-    this.dialog.open(CreateUserComponent, dialogConfig);
-  }
-
-  hideDialog() {
-    this.dialog.closeAll();
+    const dialogRef = this.dialog.open(CreateUserComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      data => {
+        window.scrollTo(0, 0);
+        this.updateUsers();
+        if (data !== undefined && data !== "") {
+          this.alerts.push({
+            type: data.type,
+            msg: data.msg,
+            timeout: 5000
+          });
+        }
+      }
+    )
   }
 
   editUser(event, user) {
