@@ -50,7 +50,7 @@ export class UserModel {
   }
 
   addRole(role: string) {
-    if (role != undefined && role.length > 0) {
+    if (role !== undefined && role.length > 0) {
       this.roles.push(role);
     }
   }

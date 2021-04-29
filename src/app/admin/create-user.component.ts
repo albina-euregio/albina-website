@@ -34,8 +34,7 @@ export class CreateUserComponent implements AfterContentInit {
     private userService: UserService,
     public configurationService: ConfigurationService,
     private dialogRef: MatDialogRef<CreateUserComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any)
-  {
+    @Inject(MAT_DIALOG_DATA) public data: any) {
     this.update = data.update;
     if (data.user) {
       this.activeName = data.user.name;
