@@ -412,6 +412,19 @@
         "role" : "Role",
         "regions" : "Regions"
       },
+      "error" : {
+        "name" : {
+          "required" : "Please enter a name"
+        },
+        "email" : {
+          "required" : "Please enter an email address",
+          "invalid" : "Email address is invalid"
+        },
+        "password" : {
+          "required" : "Please enter a password",
+          "length" : "Password has to be at least 8 characters"
+        }
+      },
       "button" : {
         "create" : "Create user",
         "update" : "Update user",
