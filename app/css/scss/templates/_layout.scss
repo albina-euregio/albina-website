@@ -93,7 +93,7 @@
   flex-direction: column;
 
   position: relative;
-  height: 100vh;
+  //height: 100vh;//ioS 12 Pro Safari //https://www.freecodecamp.org/news/html-page-width-height/
   min-height: 100vh;
   opacity: 0;
   animation: ($transition-duration * 2) ease-out $transition-duration 1 fadeIn

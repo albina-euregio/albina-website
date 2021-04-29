@@ -27,6 +27,9 @@ $map-google-topbar-height: 46px;
 
 $controls-width-height: $padding * 4;
 
+$search-width: 200px;
+$search-width-wide: 300px;
+
 //the outer container for bulletin-map
 .section-bulletin-map {
   .bulletin-parallel-view & {
@@ -128,7 +131,6 @@ $controls-width-height: $padding * 4;
 }
 
 //overlays
-.mix-blend-mode-multiply,
 .leaflet-pane.leaflet-overlay-pane,
 .leaflet-pane .leaflet-image-layer {
   mix-blend-mode: multiply;
@@ -218,7 +220,6 @@ $controls-width-height: $padding * 4;
 
   .leaflet-geonames-search {
     .leaflet-geonames-icon {
-      background-image: none !important;
       &:before {
         @include icon(search-midsize, 0, 0, none, 0, none);
       }
@@ -226,30 +227,73 @@ $controls-width-height: $padding * 4;
 
     //geonames search form
     form {
+      width: 100%;
       margin-bottom: 0;
       font-size: $body-font-size;
+      background: $white;
       input {
+        display: none;
+        position: absolute;
+        top: 0;
         left: $controls-width-height + 0.5 !important;
         height: $controls-width-height !important;
+        width: $search-width;
+        @media #{$medium-up} {
+          width: $search-width-wide;
+        }
+        margin: 0;
         padding: $padding;
-        font-size: $tiny-font-size; //$body-font-size-tiny;
+        font-size: $tiny-font-size;
         line-height: $header-line-height;
         color: $brand;
+        border: $border-width $border-style $brand;
+        outline-style: none;
       }
     }
     ul {
+      list-style: none;
+      display: none;
+      position: absolute;
+      top: $controls-width-height;
       left: $controls-width-height + 0.5 !important;
+      width: $search-width;
+      @media #{$medium-up} {
+        width: $search-width-wide;
+      }
+      margin: 0;
+      padding: 0;
+      background: $white;
       border: $border-width $border-style $brand;
       border-top: none;
+      &.hasResults {
+        display: block;
+      }
       &.noResults {
         display: none;
       }
       li {
+        cursor: pointer;
         padding: ($padding / 2) $padding;
+        font-size: $tiny-font-size;
+        line-height: $body-line-height;
         border: none !important;
         border-bottom: $border-width $border-style $border-color !important;
         &:last-child {
           border-bottom: none !important;
+        }
+        &:hover {
+          background: $grey-very-very-light;
+        }
+        em {
+          color: $grey;
+        }
+      }
+    }
+    &.active {
+      form {
+        input,
+        label {
+          display: inline-block;
         }
       }
     }
