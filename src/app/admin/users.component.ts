@@ -8,7 +8,6 @@ import { TemplateRef } from "@angular/core";
 import { CreateUserComponent } from "./create-user.component";
 
 import { MatDialog, MatDialogRef, MatDialogConfig } from "@angular/material/dialog";
-import { UpgradeAdapter } from "@angular/upgrade";
 
 @Component({
   templateUrl: "users.component.html",
@@ -34,9 +33,23 @@ export class UsersComponent implements AfterContentInit {
     private userService: UserService,
     private modalService: BsModalService,
     public configurationService: ConfigurationService) {
+    dialog.afterAllClosed.subscribe(result => {
+      this.updateUsers();
+      if (result != undefined) {
+        this.alerts.push({
+          type: "danger",
+          msg: result,
+          timeout: 5000
+        });
+      }
+    });
   }
 
   ngAfterContentInit() {
+    this.updateUsers();
+  }
+
+  updateUsers() {
     this.userService.getUsers().subscribe(
       data => {
         this.users = data;
@@ -92,7 +105,7 @@ export class UsersComponent implements AfterContentInit {
       this.userService.deleteUser(this.activeUser.email).subscribe(
         data => {
           console.debug("User deleted!");
-          this.ngAfterContentInit();
+          this.updateUsers();
           window.scrollTo(0, 0);
           this.alerts.push({
             type: "success",
