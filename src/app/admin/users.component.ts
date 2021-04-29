@@ -35,7 +35,7 @@ export class UsersComponent implements AfterContentInit {
     public configurationService: ConfigurationService) {
     dialog.afterAllClosed.subscribe(result => {
       this.updateUsers();
-      if (result != undefined) {
+      if (result !== undefined) {
         this.alerts.push({
           type: "danger",
           msg: result,

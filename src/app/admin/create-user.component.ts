@@ -40,10 +40,12 @@ export class CreateUserComponent implements AfterContentInit {
       this.activeName = data.user.name;
       this.activeEmail = data.user.email;
       this.activeOrganization = data.user.organization;
-      if (data.user.roles && data.user.roles.length > 0)
+      if (data.user.roles && data.user.roles.length > 0) {
         this.activeRole = data.user.roles[0];
-      if (data.user.regions)
+      }
+      if (data.user.regions) {
         this.activeRegions = data.user.regions;
+      }
     }
   }
 
