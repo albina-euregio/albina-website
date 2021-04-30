@@ -409,6 +409,7 @@
         "email" : "Email",
         "organization" : "Organization",
         "password" : "Password",
+        "password2" : "Repeat password",
         "role" : "Role",
         "regions" : "Regions"
       },
@@ -422,7 +423,8 @@
         },
         "password" : {
           "required" : "Please enter a password",
-          "length" : "Password has to be at least 8 characters"
+          "length" : "Password has to be at least 8 characters",
+          "mismatch" : "Passwords do not match"
         }
       },
       "button" : {

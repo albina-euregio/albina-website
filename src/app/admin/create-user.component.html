@@ -1,6 +1,6 @@
 <mat-dialog-content>
   <div class="card">
-    <form>
+    <form #createUserForm="ngForm" appPasswordMismatch>
       <div class="card-block">
         <div class="form-group row">
           <label for="inputName" class="col-sm-2 col-form-label">{{ "admin.create-user.table.name" | translate }}</label>
@@ -39,7 +39,16 @@
                 {{ 'admin.create-user.error.password.length' | translate }}
               </div>
             </div>
+          </div>
         </div>
+        <div *ngIf="!update" class="form-group row">
+          <label for="inputPassword2" class="col-sm-2 col-form-label">{{ "admin.create-user.table.password2" | translate }}</label>
+          <div class="col-sm-10">
+            <input type="password" #password2="ngModel" class="form-control" id="inputPassword2" name="password2" [(ngModel)]="activePassword2" placeholder="{{ 'admin.create-user.table.password' | translate }}">
+            <div *ngIf="createUserForm.errors?.passwordMismatch && (createUserForm.touched || createUserForm.dirty)" class="cross-validation-error-message alert alert-danger">
+              {{ 'admin.create-user.error.password.mismatch' | translate }}
+            </div>
+          </div>
         </div>
         <div class="form-group row">
           <label for="inputOrganization" class="col-sm-2 col-form-label">{{ "admin.create-user.table.organization" | translate }}</label>
@@ -47,19 +56,19 @@
             <input type="text" class="form-control" id="inputOrganization" name="organization" [(ngModel)]="activeOrganization" placeholder="{{ 'admin.create-user.table.organization' | translate }}">
           </div>
         </div>
-        <fieldset class="form-group">
-          <div>
-            <label class="col-form-label col-sm-2 pt-0">{{ "admin.create-user.table.role" | translate }}</label>
-            <div class="col-sm-10">
+        <div class="form-group row">
+          <div class="col-sm-2">{{ "admin.create-user.table.role" | translate }}</div>
+          <div class="col-sm-10">
+            <fieldset>
               <div *ngFor="let role of roles" class="row" class="form-check">
                 <input class="form-check-input" type="radio" name="roles" id="{{ 'role' + role }}" value="{{ role }}" [checked]="activeRole === role" (change)="onRoleSelectionChange(role)">
                 <label class="form-check-label" for="{{ 'role' + role }}">
                   {{role}}
                 </label>
               </div>
-            </div>
+            </fieldset>
           </div>
-        </fieldset>
+        </div>
         <div class="form-group row">
           <div class="col-sm-2">{{ "admin.create-user.table.regions" | translate }}</div>
           <div class="col-sm-10">
@@ -74,9 +83,9 @@
       </div>
       <!-- Footer -->
       <div class="card-footer">
-        <button *ngIf="!update" type="submit" class="btn btn-sm btn-primary px-3" (click)="createUser()">{{
+        <button *ngIf="!update" [disabled]="!createUserForm.valid" type="submit" class="btn btn-sm btn-primary px-3" (click)="createUser()">{{
           "admin.create-user.button.create" | translate }}</button>
-        <button *ngIf="update" type="submit" class="btn btn-sm btn-primary px-3" (click)="updateUser()">{{
+        <button *ngIf="update" [disabled]="!createUserForm.valid" type="submit" class="btn btn-sm btn-primary px-3" (click)="updateUser()">{{
           "admin.create-user.button.update" | translate }}</button>
         <button class="btn btn-sm btn-secondary px-3" (click)="closeDialog('')">{{"admin.create-user.button.cancel" | translate }}</button>
       </div>

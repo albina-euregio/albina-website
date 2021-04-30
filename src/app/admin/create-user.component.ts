@@ -25,6 +25,7 @@ export class CreateUserComponent implements AfterContentInit {
   public activeName: string;
   public activeEmail: string;
   public activePassword: string;
+  public activePassword2: string;
   public activeOrganization: string;
   public activeRole: string;
   public activeRegions: any[] = [];
