@@ -3,41 +3,54 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
-        <div class="card-header">
-          <i class="fa fa-lock"></i>{{ "settings.changePassword.title" | translate }}
-        </div>
-        <div class="card-block">
-          <form action="" method="post" class="form-horizontal">
+        <form #changePasswordForm="ngForm" appPassword2Mismatch>
+          <div class="card-header">
+            <i class="fa fa-lock"></i>{{ "settings.changePassword.title" | translate }}
+          </div>
+          <div class="card-block">
             <div *ngFor="let alert of alerts">
               <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="old-password">{{ "settings.changePassword.oldPassword" | translate }}</label>
+              <label class="col-md-3 col-form-label" for="old-password">{{ "settings.changePassword.oldPassword.label" | translate }}</label>
               <div class="col-md-9">
-                <input type="password" id="old-password" name="old-password" class="form-control" required [(ngModel)]="oldPassword">
-                <span class="help-block">{{ "settings.changePassword.oldPasswordHint" | translate }}</span>
+                <input type="password" autocomplete="on" #password1="ngModel" required id="old-password" name="old-password" class="form-control" required [(ngModel)]="oldPassword" placeholder="{{ 'settings.changePassword.oldPassword.placeholder' | translate }}">
+                <div *ngIf="password1.invalid && (password1.dirty || password1.touched)" class="alert alert-danger">
+                  <div *ngIf="password1.errors.required">
+                    {{ 'settings.changePassword.error.oldPassword.required' | translate }}
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="new-password1">{{ "settings.changePassword.newPassword1" | translate }}</label>
+              <label class="col-md-3 col-form-label" for="new-password1">{{ "settings.changePassword.newPassword1.label" | translate }}</label>
               <div class="col-md-9">
-                <input type="password" id="new-password-1" name="new-password1" class="form-control" required [(ngModel)]="newPassword1">
-                <span class="help-block">{{ "settings.changePassword.newPasswordHint1" | translate }}</span>
+                <input type="password" autocomplete="off" #password="ngModel" required minlength="8" id="password" name="password" class="form-control" required [(ngModel)]="newPassword1" placeholder="{{ 'settings.changePassword.newPassword1.placeholder' | translate }}">
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
+                  <div *ngIf="password.errors.required">
+                    {{ 'settings.changePassword.error.newPassword.required' | translate }}
+                  </div>
+                  <div *ngIf="password.errors.minlength">
+                    {{ 'admin.createUser.error.password.length' | translate }}
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label" for="new-password2">{{ "settings.changePassword.newPassword2" | translate }}</label>
+              <label class="col-md-3 col-form-label" for="new-password2">{{ "settings.changePassword.newPassword2.label" | translate }}</label>
               <div class="col-md-9">
-                <input type="password" id="new-password-2" name="new-password2" class="form-control" required [(ngModel)]="newPassword2">
-                <span class="help-block">{{ "settings.changePassword.newPasswordHint2" | translate }}</span>
+                <input type="password" autocomplete="off" #password2="ngModel" id="password2" name="password2" class="form-control" [(ngModel)]="newPassword2" placeholder="{{ 'settings.changePassword.newPassword2.placeholder' | translate }}">
+                <div *ngIf="changePasswordForm.errors?.passwordMismatch && (changePasswordForm.touched || changePasswordForm.dirty)" class="cross-validation-error-message alert alert-danger">
+                  {{ 'settings.changePassword.error.newPassword.mismatch' | translate }}
+                </div>
               </div>
             </div>
-          </form>
-        </div>
-        <div class="card-footer">
-          <button *ngIf="!changePasswordLoading" type="submit" class="btn btn-primary" (click)="changePassword()">{{ "settings.changePassword.submit" | translate }}</button>
-          <button *ngIf="changePasswordLoading" type="submit" [disabled]="true" class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
-        </div>
+          </div>
+          <div class="card-footer">
+            <button *ngIf="!changePasswordLoading" [disabled]="!changePasswordForm.valid" type="submit" class="btn btn-primary" (click)="changePassword()">{{ "settings.changePassword.submit" | translate }}</button>
+            <button *ngIf="changePasswordLoading" type="submit" [disabled]="true" class="btn btn-primary"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i></button>
+          </div>
+        </form>
       </div>
     </div>
     <!--/.col-->

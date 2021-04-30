@@ -330,42 +330,42 @@
   },
   "admin" : {
     "server-configuration" : {
-      "title" : "Server Configuration",
+      "title" : "Configuracion deth servidor",
       "table" : {
         "title" : {
-          "key" : "Parameter",
-          "value" : "Value"
+          "key" : "Paramètre",
+          "value" : "Valor"
         },
-        "createMaps" : "Create maps",
-        "createPdf" : "Create PDF",
-        "createStaticWidget" : "Create static widgets",
-        "createSimpleHtml" : "Create simple HTML",
-        "sendEmails" : "Send emails",
-        "publishToTelegramChannel" : "Publish via Telegram channel",
-        "publishAt5PM" : "Publish at 5PM",
-        "publishAt8AM" : "Publish at 8AM",
-        "localImagesPath" : "Path to local images",
-        "localFontsPath" : "Path to fonts",
-        "publishBulletinsTyrol" : "Publish avalanche forecast for Tirol",
-        "publishBulletinsSouthTyrol" : "Publish avalanche forecast for South Tyrol",
-        "publishBulletinsTrentino" : "Publish avalanche forecast for Trentino",
-        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
-        "publishBlogsTyrol" : "Publish blog posts for Tirol",
-        "publishBlogsSouthTyrol" : "Publish blog posts for South Tyrol",
-        "publishBlogsTrentino" : "Publish blog posts for Trentino",
-        "pdfDirectory" : "Directory for PDF",
-        "htmlDirectory" : "Directory for HTML",
-        "serverImagesUrl" : "Path to server images",
-        "serverImagesUrlLocalhost" : "Path to server images (localhost)",
-        "mapsPath" : "Path to maps",
-        "mapProductionUrl" : "URL for map production",
-        "scriptsPath" : "Path to scripts"
+        "createMaps" : "Crear mapes",
+        "createPdf" : "Crear PDF",
+        "createStaticWidget" : "Crear widgets estàtics",
+        "createSimpleHtml" : "Crear HTML simple",
+        "sendEmails" : "Corrèus electronics enviadi",
+        "publishToTelegramChannel" : "Publicar a traués deth canau de Telegram",
+        "publishAt5PM" : "Publicar as 5 PM",
+        "publishAt8AM" : "Publicar as 8 AM",
+        "localImagesPath" : "Rota cap as imatges locaus",
+        "localFontsPath" : "Rota cap as hònts",
+        "publishBulletinsTyrol" : "Publicar prediccion de lauegi entath Tiròl",
+        "publishBulletinsSouthTyrol" : "Publicar prediccion de lauegi entath Sud-Tiròl",
+        "publishBulletinsTrentino" : "Publicar prediccion de lauegi entath Trentin",
+        "publishBulletinsAran" : "Publicar prediccion de lauegi entà Aran",
+        "publishBlogsTyrol" : "Publicar entrades ath blòc per Tiròl",
+        "publishBlogsSouthTyrol" : "Publicar entrades ath blòc per Sud-Tiròl",
+        "publishBlogsTrentino" : "Publicar entrades ath blòc per Trentin",
+        "pdfDirectory" : "Directòri entà PDF",
+        "htmlDirectory" : "Directòri entà HTML",
+        "serverImagesUrl" : "Rota as imatges deth servidor",
+        "serverImagesUrlLocalhost" : "Rota as imatges deth servidor (locau)",
+        "mapsPath" : "Rota as mapes",
+        "mapProductionUrl" : "URL entara produccion de mapes",
+        "scriptsPath" : "Rota as scripts"
       },
       "button" : {
-        "save" : "Save"
+        "save" : "Sauvar"
       },
-      "success" : "Configuration successfully saved",
-      "error" : "Configuration could not be saved"
+      "success" : "Configuracion sauvada corrèctaments",
+      "error" : "Non s'a pogut sauvar era configuracion"
     },
     "users" : {
       "title" : "Users",
@@ -374,62 +374,92 @@
       },
       "tooltip" : {
         "edit" : "Edit user",
-        "delete" : "Delete user",
-        "create" : "Create user"
+        "delete" : "Delete user"
       },
       "table" : {
         "name" : "Name",
-        "email" : "Email",
+        "email" : "Corrèu electronic",
         "organization" : "Organization",
         "regions" : "Regions",
         "roles" : "Roles"
       },
       "deleteUserModalDialog" : {
         "message" : "Do you want to delete the user?",
-        "accept" : "Yes",
-        "reject" : "No"
+        "accept" : "Òc",
+        "reject" : "Non"
       },
       "deleteUser" : {
         "success" : "User deleted",
         "error" : "User could not be deleted"
+      },
+      "createUser" : {
+        "success" : "User created",
+        "error" : "User could not be created"
+      },
+      "updateUser" : {
+        "success" : "User updated",
+        "error" : "User could not be updated"
       }
     },
-    "create-user" : {
-      "title" : "Create User",
-      "success" : "User successfully created",
-      "error" : "User could not be created",
-      "updateSuccess" : "User successfully updated",
-      "updateError" : "User could not be updated",
+    "createUser" : {
       "table" : {
         "name" : "Name",
-        "email" : "Email",
+        "email" : "Corrèu electronic",
         "organization" : "Organization",
         "password" : "Password",
+        "password2" : "Repeat password",
         "role" : "Role",
         "regions" : "Regions"
+      },
+      "error" : {
+        "name" : {
+          "required" : "Please enter a name"
+        },
+        "email" : {
+          "required" : "Please enter an email address",
+          "invalid" : "Email address is invalid"
+        },
+        "password" : {
+          "required" : "Please enter a password",
+          "length" : "Password has to be at least 8 characters",
+          "mismatch" : "Passwords do not match"
+        }
       },
       "button" : {
         "create" : "Create user",
         "update" : "Update user",
-        "cancel" : "Cancel"
+        "cancel" : "Anullar"
       }  
     }
   },
   "settings" : {
     "changePassword" : {
       "title" : "Cambiar contrasenya",
-      "oldPassword" : "Contrasenya actuau",
-      "newPassword1" : "Naua contrasenya",
-      "newPassword2" : "Naua contrasenya",
-      "oldPasswordHint" : "Se te platz, entre era tua contrasenya actuau",
-      "newPasswordHint1" : "Se te platz, entre ua naua contrasenya",
-      "newPasswordHint2" : "Se te platz, entre era naua contrasenya un aute còp",
+      "oldPassword" : {
+        "label" : "Contrasenya actuau",
+        "placeholder" : "Contrasenya actuau"
+      },
+      "newPassword1" : {
+        "label" : "Naua contrasenya",
+        "placeholder" : "Naua contrasenya"
+      },
+      "newPassword2" : {
+        "label" : "New password (repeat)",
+        "placeholder" : "Naua contrasenya"
+      },
       "submit" : "Cambiar contrasenya",
       "passwordChanged" : "Contrasenya cambiada corrèctaments",
       "passwordChangeError" : "Non s'a pogut cambiar era contrasenya",
-      "passwordIncorrect" : "Contrasenya incorrècte",
-      "passwordsNotMatching" : "Les contrasenyes non coïncidissen",
-      "passwordEmpty" : "Manque era contrasenya"
+      "passwordIncorrect" : "Current password incorrect",
+      "error" : {
+        "oldPassword" : {
+          "required" : "Se te platz, entre era tua contrasenya actuau"
+        },
+        "newPassword" : {
+          "required" : "Se te platz, entre ua naua contrasenya",
+          "mismatch" : "Passwords do not match"
+        }
+      }
     },
     "display" : {
       "title" : "Visualizacion",

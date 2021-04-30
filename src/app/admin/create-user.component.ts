@@ -140,7 +140,7 @@ export class CreateUserComponent implements AfterContentInit {
         console.error("User could not be updated!");
         this.closeDialog({
           type: "danger",
-          msg: this.translateService.instant("admin.users.createUser.error")
+          msg: this.translateService.instant("admin.users.updateUser.error")
         });
       }
     );

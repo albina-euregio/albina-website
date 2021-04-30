@@ -127,7 +127,7 @@ export class ServerConfigurationComponent implements AfterContentInit {
         window.scrollTo(0, 0);
         this.alerts.push({
           type: "success",
-          msg: this.translateService.instant("settings.saveConfiguration.success"),
+          msg: this.translateService.instant("admin.server-configuration.success"),
           timeout: 5000
         });
       },
@@ -137,7 +137,7 @@ export class ServerConfigurationComponent implements AfterContentInit {
         window.scrollTo(0, 0);
         this.alerts.push({
           type: "danger",
-          msg: this.translateService.instant("settings.saveConfiguration.error"),
+          msg: this.translateService.instant("admin.server-configuration.error"),
           timeout: 5000
         });
       }

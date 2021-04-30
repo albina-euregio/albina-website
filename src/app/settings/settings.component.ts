@@ -33,63 +33,44 @@ export class SettingsComponent implements OnInit {
 
   changePassword() {
     this.changePasswordLoading = true;
-    if (this.oldPassword === undefined || this.oldPassword === "") {
-      console.warn("Password empty");
-      this.changePasswordLoading = false;
-      this.alerts.push({
-        type: "danger",
-        msg: this.translateService.instant("settings.changePassword.passwordEmpty"),
-        timeout: 5000
-      });
-    } else if (this.newPassword1 === this.newPassword2) {
-      this.userService.checkPassword(this.oldPassword).subscribe(
-        data => {
-          this.userService.changePassword(this.oldPassword, this.newPassword1).subscribe(
-            data2 => {
-              this.oldPassword = "";
-              this.newPassword1 = "";
-              this.newPassword2 = "";
-              this.changePasswordLoading = false;
-              window.scrollTo(0, 0);
-              this.alerts.push({
-                type: "success",
-                msg: this.translateService.instant("settings.changePassword.passwordChanged"),
-                timeout: 5000
-              });
-            },
-            error => {
-              console.error("Password could not be changed: " + JSON.stringify(error._body));
-              this.changePasswordLoading = false;
-              window.scrollTo(0, 0);
-              this.alerts.push({
-                type: "danger",
-                msg: this.translateService.instant("settings.changePassword.passwordChangeError"),
-                timeout: 5000
-              });
-            }
-          );
-        },
-        error => {
-          console.warn("Password incorrect: " + JSON.stringify(error._body));
-          this.changePasswordLoading = false;
-          window.scrollTo(0, 0);
-          this.alerts.push({
-            type: "danger",
-            msg: this.translateService.instant("settings.changePassword.passwordIncorrect"),
-            timeout: 5000
-          });
-        }
-      );
-    } else {
-      console.warn("Passwords not matching");
-      this.changePasswordLoading = false;
-      window.scrollTo(0, 0);
-      this.alerts.push({
-        type: "danger",
-        msg: this.translateService.instant("settings.changePassword.passwordsNotMatching"),
-        timeout: 5000
-      });
-    }
+    this.userService.checkPassword(this.oldPassword).subscribe(
+      data => {
+        this.userService.changePassword(this.oldPassword, this.newPassword1).subscribe(
+          data2 => {
+            this.oldPassword = "";
+            this.newPassword1 = "";
+            this.newPassword2 = "";
+            this.changePasswordLoading = false;
+            window.scrollTo(0, 0);
+            this.alerts.push({
+              type: "success",
+              msg: this.translateService.instant("settings.changePassword.passwordChanged"),
+              timeout: 5000
+            });
+          },
+          error => {
+            console.error("Password could not be changed: " + JSON.stringify(error._body));
+            this.changePasswordLoading = false;
+            window.scrollTo(0, 0);
+            this.alerts.push({
+              type: "danger",
+              msg: this.translateService.instant("settings.changePassword.passwordChangeError"),
+              timeout: 5000
+            });
+          }
+        );
+      },
+      error => {
+        console.warn("Password incorrect: " + JSON.stringify(error._body));
+        this.changePasswordLoading = false;
+        window.scrollTo(0, 0);
+        this.alerts.push({
+          type: "danger",
+          msg: this.translateService.instant("settings.changePassword.passwordIncorrect"),
+          timeout: 5000
+        });
+      }
+    );
   }
 
   onClosed(dismissedAlert: AlertComponent): void {

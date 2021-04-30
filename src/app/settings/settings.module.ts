@@ -11,6 +11,7 @@ import { TranslateModule } from "@ngx-translate/core";
 import { PipeModule } from "../pipes/pipes.module";
 
 import { AlertModule } from "ngx-bootstrap";
+import { Password2MismatchValidatorDirective } from "./password2-mismatch.directive";
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AlertModule } from "ngx-bootstrap";
     AlertModule.forRoot()
   ],
   declarations: [
-    SettingsComponent
+    SettingsComponent,
+    Password2MismatchValidatorDirective
   ]
 })
 export class SettingsModule { }

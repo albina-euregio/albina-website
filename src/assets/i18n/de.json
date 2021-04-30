@@ -330,106 +330,136 @@
   },
   "admin" : {
     "server-configuration" : {
-      "title" : "Server Configuration",
+      "title" : "Server Konfiguration",
       "table" : {
         "title" : {
           "key" : "Parameter",
-          "value" : "Value"
+          "value" : "Wert"
         },
-        "createMaps" : "Create maps",
-        "createPdf" : "Create PDF",
-        "createStaticWidget" : "Create static widgets",
-        "createSimpleHtml" : "Create simple HTML",
-        "sendEmails" : "Send emails",
-        "publishToTelegramChannel" : "Publish via Telegram channel",
-        "publishAt5PM" : "Publish at 5PM",
-        "publishAt8AM" : "Publish at 8AM",
-        "localImagesPath" : "Path to local images",
-        "localFontsPath" : "Path to fonts",
-        "publishBulletinsTyrol" : "Publish avalanche forecast for Tirol",
-        "publishBulletinsSouthTyrol" : "Publish avalanche forecast for South Tyrol",
-        "publishBulletinsTrentino" : "Publish avalanche forecast for Trentino",
-        "publishBulletinsAran" : "Publish avalanche forecast for Aran",
-        "publishBlogsTyrol" : "Publish blog posts for Tirol",
-        "publishBlogsSouthTyrol" : "Publish blog posts for South Tyrol",
-        "publishBlogsTrentino" : "Publish blog posts for Trentino",
-        "pdfDirectory" : "Directory for PDF",
-        "htmlDirectory" : "Directory for HTML",
-        "serverImagesUrl" : "Path to server images",
-        "serverImagesUrlLocalhost" : "Path to server images (localhost)",
-        "mapsPath" : "Path to maps",
-        "mapProductionUrl" : "URL for map production",
-        "scriptsPath" : "Path to scripts"
+        "createMaps" : "Karten erzeugen",
+        "createPdf" : "PDF erzeugen",
+        "createStaticWidget" : "Statische Widgets erzeugen",
+        "createSimpleHtml" : "Einfaches HTML erzeugen",
+        "sendEmails" : "Emails versenden",
+        "publishToTelegramChannel" : "Publizieren via Telegram Kanal",
+        "publishAt5PM" : "Publizieren um 17:00 Uhr",
+        "publishAt8AM" : "Publizieren um 08:00 Uhr",
+        "localImagesPath" : "Pfad zu lokalen Bildern",
+        "localFontsPath" : "Pfad zu Schriften",
+        "publishBulletinsTyrol" : "Lawinenvorhersage für Tirol publizieren",
+        "publishBulletinsSouthTyrol" : "Lawinenvorhersage für Südtirol publizieren",
+        "publishBulletinsTrentino" : "Lawinenvorhersage für das Trentino publizieren",
+        "publishBulletinsAran" : "Lawinenvorhersage für Aran publizieren",
+        "publishBlogsTyrol" : "Blog Posts für Tirol publizieren",
+        "publishBlogsSouthTyrol" : "Blog Posts für Südtirol publizieren",
+        "publishBlogsTrentino" : "Blog Posts für das Trentino publizieren",
+        "pdfDirectory" : "Ordner für PDF",
+        "htmlDirectory" : "Ordner für HTML",
+        "serverImagesUrl" : "Pfad zu Bildern am Server",
+        "serverImagesUrlLocalhost" : "Pfad zu Bildern am Server (localhost)",
+        "mapsPath" : "Pfad zu Karten",
+        "mapProductionUrl" : "URL zur Kartenproduktion",
+        "scriptsPath" : "Pfad zu den Skripten"
       },
       "button" : {
-        "save" : "Save"
+        "save" : "Speichern"
       },
-      "success" : "Configuration successfully saved",
-      "error" : "Configuration could not be saved"
+      "success" : "Konfiguration erfolgreich gespeichert",
+      "error" : "Konfiguration konnte nicht gespeichert werden"
     },
     "users" : {
-      "title" : "Users",
+      "title" : "Benutzer",
       "button" : {
-        "create" : "Create user"
+        "create" : "Benutzer anlegen"
       },
       "tooltip" : {
         "edit" : "Edit user",
-        "delete" : "Delete user",
-        "create" : "Create user"
+        "delete" : "Delete user"
       },
       "table" : {
         "name" : "Name",
         "email" : "Email",
-        "organization" : "Organization",
-        "regions" : "Regions",
+        "organization" : "Organisation",
+        "regions" : "Regionen",
         "roles" : "Roles"
       },
       "deleteUserModalDialog" : {
         "message" : "Do you want to delete the user?",
-        "accept" : "Yes",
-        "reject" : "No"
+        "accept" : "Ja",
+        "reject" : "Nein"
       },
       "deleteUser" : {
         "success" : "User deleted",
         "error" : "User could not be deleted"
+      },
+      "createUser" : {
+        "success" : "User created",
+        "error" : "Benutzer konnte nicht angelegt werden"
+      },
+      "updateUser" : {
+        "success" : "User updated",
+        "error" : "User could not be updated"
       }
     },
-    "create-user" : {
-      "title" : "Create User",
-      "success" : "User successfully created",
-      "error" : "User could not be created",
-      "updateSuccess" : "User successfully updated",
-      "updateError" : "User could not be updated",
+    "createUser" : {
       "table" : {
         "name" : "Name",
         "email" : "Email",
-        "organization" : "Organization",
-        "password" : "Password",
-        "role" : "Role",
-        "regions" : "Regions"
+        "organization" : "Organisation",
+        "password" : "Passwort",
+        "password2" : "Repeat password",
+        "role" : "Rolle",
+        "regions" : "Regionen"
+      },
+      "error" : {
+        "name" : {
+          "required" : "Please enter a name"
+        },
+        "email" : {
+          "required" : "Please enter an email address",
+          "invalid" : "Email address is invalid"
+        },
+        "password" : {
+          "required" : "Please enter a password",
+          "length" : "Password has to be at least 8 characters",
+          "mismatch" : "Passwords do not match"
+        }
       },
       "button" : {
-        "create" : "Create user",
+        "create" : "Benutzer anlegen",
         "update" : "Update user",
-        "cancel" : "Cancel"
+        "cancel" : "Abbrechen"
       }  
     }
   },
   "settings" : {
     "changePassword" : {
       "title" : "Passwort ändern",
-      "oldPassword" : "Derzeitiges Passwort",
-      "newPassword1" : "Neues Passwort",
-      "newPassword2" : "Neues Passwort",
-      "oldPasswordHint" : "Bitte gib dein derzeitiges Passwort ein",
-      "newPasswordHint1" : "Bitte gib ein neues Passwort ein",
-      "newPasswordHint2" : "Bitte wiederhole das neue Passwort",
+      "oldPassword" : {
+        "label" : "Derzeitiges Passwort",
+        "placeholder" : "Derzeitiges Passwort"
+      },
+      "newPassword1" : {
+        "label" : "Neues Passwort",
+        "placeholder" : "Neues Passwort"
+      },
+      "newPassword2" : {
+        "label" : "New password (repeat)",
+        "placeholder" : "Neues Passwort"
+      },
       "submit" : "Passwort ändern",
       "passwordChanged" : "Passwort erfolgreich geändert",
       "passwordChangeError" : "Passwort konnte nicht geändert werden",
-      "passwordIncorrect" : "Passwort ist nicht korrekt",
-      "passwordsNotMatching" : "Passwörter stimmen nicht überein",
-      "passwordEmpty" : "Passwort fehlt"
+      "passwordIncorrect" : "Current password incorrect",
+      "error" : {
+        "oldPassword" : {
+          "required" : "Bitte gib dein derzeitiges Passwort ein"
+        },
+        "newPassword" : {
+          "required" : "Bitte gib ein neues Passwort ein",
+          "mismatch" : "Passwords do not match"
+        }
+      }
     },
     "display" : {
       "title" : "Anzeige",

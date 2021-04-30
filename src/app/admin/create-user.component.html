@@ -3,61 +3,61 @@
     <form #createUserForm="ngForm" appPasswordMismatch>
       <div class="card-block">
         <div class="form-group row">
-          <label for="inputName" class="col-sm-2 col-form-label">{{ "admin.create-user.table.name" | translate }}</label>
+          <label for="inputName" class="col-sm-2 col-form-label">{{ "admin.createUser.table.name" | translate }}</label>
           <div class="col-sm-10">
-            <input required type="text" #name="ngModel" class="form-control" id="inputName" name="name" [(ngModel)]="activeName" placeholder="{{ 'admin.create-user.table.name' | translate }}">
+            <input required type="text" #name="ngModel" class="form-control" id="inputName" name="name" [(ngModel)]="activeName" placeholder="{{ 'admin.createUser.table.name' | translate }}">
             <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
               <div *ngIf="name.errors.required">
-                {{ 'admin.create-user.error.name.required' | translate }}
+                {{ 'admin.createUser.error.name.required' | translate }}
               </div>
             </div>
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputEmail" class="col-sm-2 col-form-label">{{ "admin.create-user.table.email" | translate }}</label>
+          <label for="inputEmail" class="col-sm-2 col-form-label">{{ "admin.createUser.table.email" | translate }}</label>
           <div class="col-sm-10">
-            <input required email type="email" #email="ngModel" [disabled]="update" class="form-control" id="inputEmail" name="email" [(ngModel)]="activeEmail" placeholder="{{ 'admin.create-user.table.email' | translate }}">
+            <input required email type="email" #email="ngModel" [disabled]="update" class="form-control" id="inputEmail" name="email" [(ngModel)]="activeEmail" placeholder="{{ 'admin.createUser.table.email' | translate }}">
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
               <div *ngIf="email.errors.required">
-                {{ 'admin.create-user.error.email.required' | translate }}
+                {{ 'admin.createUser.error.email.required' | translate }}
               </div>
               <div *ngIf="email.errors.email">
-                {{ 'admin.create-user.error.email.invalid' | translate }}
+                {{ 'admin.createUser.error.email.invalid' | translate }}
               </div>
             </div>
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputPassword" class="col-sm-2 col-form-label">{{ "admin.create-user.table.password" | translate }}</label>
+          <label for="inputPassword" class="col-sm-2 col-form-label">{{ "admin.createUser.table.password" | translate }}</label>
           <div class="col-sm-10">
-            <input required minlength="8" type="password" #password="ngModel" [disabled]="update" class="form-control" id="inputPassword" name="password" [(ngModel)]="activePassword" placeholder="{{ 'admin.create-user.table.password' | translate }}">
+            <input required minlength="8" type="password" autocomplete="off" #password="ngModel" [disabled]="update" class="form-control" id="inputPassword" name="password" [(ngModel)]="activePassword" placeholder="{{ 'admin.createUser.table.password' | translate }}">
             <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
               <div *ngIf="password.errors.required">
-                {{ 'admin.create-user.error.password.required' | translate }}
+                {{ 'admin.createUser.error.password.required' | translate }}
               </div>
               <div *ngIf="password.errors.minlength">
-                {{ 'admin.create-user.error.password.length' | translate }}
+                {{ 'admin.createUser.error.password.length' | translate }}
               </div>
             </div>
           </div>
         </div>
         <div *ngIf="!update" class="form-group row">
-          <label for="inputPassword2" class="col-sm-2 col-form-label">{{ "admin.create-user.table.password2" | translate }}</label>
+          <label for="inputPassword2" class="col-sm-2 col-form-label">{{ "admin.createUser.table.password2" | translate }}</label>
           <div class="col-sm-10">
-            <input type="password" #password2="ngModel" class="form-control" id="inputPassword2" name="password2" [(ngModel)]="activePassword2" placeholder="{{ 'admin.create-user.table.password' | translate }}">
+            <input type="password" autocomplete="off" #password2="ngModel" class="form-control" id="inputPassword2" name="password2" [(ngModel)]="activePassword2" placeholder="{{ 'admin.createUser.table.password' | translate }}">
             <div *ngIf="createUserForm.errors?.passwordMismatch && (createUserForm.touched || createUserForm.dirty)" class="cross-validation-error-message alert alert-danger">
-              {{ 'admin.create-user.error.password.mismatch' | translate }}
+              {{ 'admin.createUser.error.password.mismatch' | translate }}
             </div>
           </div>
         </div>
         <div class="form-group row">
-          <label for="inputOrganization" class="col-sm-2 col-form-label">{{ "admin.create-user.table.organization" | translate }}</label>
+          <label for="inputOrganization" class="col-sm-2 col-form-label">{{ "admin.createUser.table.organization" | translate }}</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputOrganization" name="organization" [(ngModel)]="activeOrganization" placeholder="{{ 'admin.create-user.table.organization' | translate }}">
+            <input type="text" class="form-control" id="inputOrganization" name="organization" [(ngModel)]="activeOrganization" placeholder="{{ 'admin.createUser.table.organization' | translate }}">
           </div>
         </div>
         <div class="form-group row">
-          <div class="col-sm-2">{{ "admin.create-user.table.role" | translate }}</div>
+          <div class="col-sm-2">{{ "admin.createUser.table.role" | translate }}</div>
           <div class="col-sm-10">
             <fieldset>
               <div *ngFor="let role of roles" class="row" class="form-check">
@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <div class="col-sm-2">{{ "admin.create-user.table.regions" | translate }}</div>
+          <div class="col-sm-2">{{ "admin.createUser.table.regions" | translate }}</div>
           <div class="col-sm-10">
             <div *ngFor="let region of regions" class="form-check">
               <input class="form-check-input" type="checkbox" id="{{ 'region' + region }}" [checked]="activeRegions.indexOf(region) > -1" (change)="onRegionSelectionChange(region)">
@@ -84,10 +84,10 @@
       <!-- Footer -->
       <div class="card-footer">
         <button *ngIf="!update" [disabled]="!createUserForm.valid" type="submit" class="btn btn-sm btn-primary px-3" (click)="createUser()">{{
-          "admin.create-user.button.create" | translate }}</button>
+          "admin.createUser.button.create" | translate }}</button>
         <button *ngIf="update" [disabled]="!createUserForm.valid" type="submit" class="btn btn-sm btn-primary px-3" (click)="updateUser()">{{
-          "admin.create-user.button.update" | translate }}</button>
-        <button class="btn btn-sm btn-secondary px-3" (click)="closeDialog('')">{{"admin.create-user.button.cancel" | translate }}</button>
+          "admin.createUser.button.update" | translate }}</button>
+        <button class="btn btn-sm btn-secondary px-3" (click)="closeDialog('')">{{"admin.createUser.button.cancel" | translate }}</button>
       </div>
     </form>
   </div>

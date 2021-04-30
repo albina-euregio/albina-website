@@ -374,8 +374,7 @@
       },
       "tooltip" : {
         "edit" : "Edit user",
-        "delete" : "Delete user",
-        "create" : "Create user"
+        "delete" : "Delete user"
       },
       "table" : {
         "name" : "Name",
@@ -402,8 +401,7 @@
         "error" : "User could not be updated"
       }
     },
-    "create-user" : {
-      "title" : "Create User",
+    "createUser" : {
       "table" : {
         "name" : "Name",
         "email" : "Email",
@@ -437,18 +435,31 @@
   "settings" : {
     "changePassword" : {
       "title" : "Change password",
-      "oldPassword" : "Current password",
-      "newPassword1" : "New password",
-      "newPassword2" : "New Password",
-      "oldPasswordHint" : "Please enter your current password",
-      "newPasswordHint1" : "Please enter a new password",
-      "newPasswordHint2" : "Please enter the new password again",
+      "oldPassword" : {
+        "label" : "Current password",
+        "placeholder" : "Current password"
+      },
+      "newPassword1" : {
+        "label" : "New password",
+        "placeholder" : "New password"
+      },
+      "newPassword2" : {
+        "label" : "New password (repeat)",
+        "placeholder" : "New password"
+      },
       "submit" : "Change password",
       "passwordChanged" : "Password successfully changed",
       "passwordChangeError" : "Password could not be changed",
-      "passwordIncorrect" : "Password incorrect",
-      "passwordsNotMatching" : "Passwords are not matching",
-      "passwordEmpty" : "Password missing"
+      "passwordIncorrect" : "Current password incorrect",
+      "error" : {
+        "oldPassword" : {
+          "required" : "Please enter your current password"
+        },
+        "newPassword" : {
+          "required" : "Please enter a new password",
+          "mismatch" : "Passwords do not match"
+        }
+      }
     },
     "display" : {
       "title" : "Display",
