@@ -109,7 +109,11 @@ class WeatherStationDiagrams extends React.Component {
     var stationData = stationsData.find(element => element.id == rowId);
     if (!stationData) return <div></div>;
     return (
-      <Swipe onSwipeLeft={this.next} onSwipeRight={this.previous}>
+      <Swipe
+        onSwipeLeft={this.next}
+        onSwipeRight={this.previous}
+        tolerance={100}
+      >
         <div className="modal-container">
           <div className="modal-weatherstation">
             {/* <div className="modal-flipper">
