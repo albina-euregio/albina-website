@@ -170,7 +170,11 @@ export class BulletinsComponent implements OnInit, OnDestroy {
       (
         this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.missing
       ) &&
-      !this.copying) {
+      !this.copying &&
+      (
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster) ||
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForeman)
+      )) {
       return true;
     } else {
       return false;
@@ -182,7 +186,11 @@ export class BulletinsComponent implements OnInit, OnDestroy {
       (!this.publishing || this.publishing.getTime() !== date.getTime()) &&
       this.bulletinsService.getUserRegionStatus(date) &&
       this.bulletinsService.getUserRegionStatus(date) !== this.bulletinStatus.missing &&
-      !this.copying) {
+      !this.copying &&
+      (
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster) ||
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForeman)
+      )) {
       return true;
     } else {
       return false;
@@ -279,7 +287,8 @@ export class BulletinsComponent implements OnInit, OnDestroy {
         this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.published ||
         this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.republished
       ) &&
-      !this.copying) {
+      !this.copying &&
+      this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster)) {
       return true;
     } else {
       return false;
@@ -333,7 +342,11 @@ export class BulletinsComponent implements OnInit, OnDestroy {
         this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.missing ||
         this.bulletinsService.getUserRegionStatus(date) === undefined
       ) &&
-      !this.copying) {
+      !this.copying &&
+      (
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster) ||
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForeman)
+      )) {
       return true;
     } else {
       return false;
