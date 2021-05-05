@@ -45,7 +45,9 @@ class SubscribeAppDialog extends React.Component {
             <img
               className="app-logo"
               src={imgRoot + a.logo.replace(/\.png$/, imgFormat)}
-              title=""
+              title={this.props.intl.formatMessage({
+                id: "dialog:subscribe-app:" + a.id + ":title"
+              })}
             />
             <h2 className="subheader">
               <FormattedHTMLMessage
