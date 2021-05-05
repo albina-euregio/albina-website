@@ -180,6 +180,7 @@
   "bulletin:map:locate:popup": "You are within {distance} {unit} from this point",
   "bulletin:map:search": "Search",
   "bulletin:map:search:hover": "Type in a location",
+  "bulletin:map:search:label": "Search for a location",
   "bulletin:map:zoom-in:hover": "Zoom in",
   "bulletin:map:zoom-out:hover": "Zoom out",
   "bulletin:map:info:details": "<span>Click for</span> details",

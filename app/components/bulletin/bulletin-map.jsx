@@ -319,7 +319,9 @@ class BulletinMap extends React.Component {
                 />
                 <button
                   href="#"
-                  title="The Button"
+                  title={this.props.intl.formatMessage({
+                    id: "bulletin:map:search:label"
+                  })}
                   className="pure-button pure-button-icon icon-search"
                 >
                   <span>&nbsp;</span>
