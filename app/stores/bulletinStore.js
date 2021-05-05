@@ -232,6 +232,8 @@ class BulletinStore {
         this.setRegion(b[0].id);
       }
       */
+    } else {
+      this.settings.status = "missing";
     }
   }
 
