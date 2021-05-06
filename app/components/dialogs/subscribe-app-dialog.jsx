@@ -48,6 +48,9 @@ class SubscribeAppDialog extends React.Component {
               title={this.props.intl.formatMessage({
                 id: "dialog:subscribe-app:" + a.id + ":title"
               })}
+              alt={this.props.intl.formatMessage({
+                id: "dialog:subscribe-app:" + a.id + ":title"
+              })}
             />
             <h2 className="subheader">
               <FormattedHTMLMessage
