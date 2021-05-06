@@ -6,6 +6,7 @@ import { UserService } from "../providers/user-service/user.service";
 import { UserModel } from "../models/user.model";
 import { TemplateRef } from "@angular/core";
 import { CreateUserComponent } from "./create-user.component";
+import { UpdateUserComponent } from "./update-user.component";
 
 import { MatDialog, MatDialogRef, MatDialogConfig } from "@angular/material/dialog";
 
@@ -55,18 +56,14 @@ export class UsersComponent implements AfterContentInit {
   }
 
   createUser(event) {
-    this.showDialog(false);
+    this.showCreateDialog();
   }
 
-  showDialog(update, user?) {
+  showCreateDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.width = "calc(100% - 10px)";
     dialogConfig.maxHeight = "100%";
     dialogConfig.maxWidth = "100%";
-    dialogConfig.data = {
-      update: update,
-      user: user
-    };
 
     const dialogRef = this.dialog.open(CreateUserComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
@@ -84,8 +81,33 @@ export class UsersComponent implements AfterContentInit {
     )
   }
 
+  showUpdateDialog(user) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = "calc(100% - 10px)";
+    dialogConfig.maxHeight = "100%";
+    dialogConfig.maxWidth = "100%";
+    dialogConfig.data = {
+      user: user
+    };
+
+    const dialogRef = this.dialog.open(UpdateUserComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      data => {
+        window.scrollTo(0, 0);
+        this.updateUsers();
+        if (data !== undefined && data !== "") {
+          this.alerts.push({
+            type: data.type,
+            msg: data.msg,
+            timeout: 5000
+          });
+        }
+      }
+    )
+  }
+
   editUser(event, user) {
-    this.showDialog(true, user);
+    this.showUpdateDialog(user);
   }
 
   deleteUser(event, user) {

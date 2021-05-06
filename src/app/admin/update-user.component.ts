@@ -10,12 +10,13 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from "@angular/material/dial
 import * as bcrypt from "bcryptjs";
 
 @Component({
-  templateUrl: "create-user.component.html",
-  selector: "app-create-user"
+  templateUrl: "update-user.component.html",
+  selector: "app-update-user"
 })
-export class CreateUserComponent implements AfterContentInit {
+export class UpdateUserComponent implements AfterContentInit {
 
-  public createUserLoading: boolean;
+  public updateUserLoading: boolean;
+  public update: boolean;
 
   public alerts: any[] = [];
   public roles: any;
@@ -33,8 +34,20 @@ export class CreateUserComponent implements AfterContentInit {
     private translateService: TranslateService,
     private userService: UserService,
     public configurationService: ConfigurationService,
-    private dialogRef: MatDialogRef<CreateUserComponent>,
+    private dialogRef: MatDialogRef<UpdateUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.update = data.update;
+    if (data.user) {
+      this.activeName = data.user.name;
+      this.activeEmail = data.user.email;
+      this.activeOrganization = data.user.organization;
+      if (data.user.roles) {
+        this.activeRoles = data.user.roles;
+      }
+      if (data.user.regions) {
+        this.activeRegions = data.user.regions;
+      }
+    }
   }
 
   ngAfterContentInit() {
@@ -73,7 +86,7 @@ export class CreateUserComponent implements AfterContentInit {
   }
 
   public createUser() {
-    this.createUserLoading = true;
+    this.updateUserLoading = true;
 
     const salt = bcrypt.genSaltSync(10);
     const password = bcrypt.hashSync(this.activePassword, salt);
@@ -88,7 +101,7 @@ export class CreateUserComponent implements AfterContentInit {
 
     this.userService.createUser(user).subscribe(
       data => {
-        this.createUserLoading = false;
+        this.updateUserLoading = false;
         console.debug("User created!");
         this.closeDialog({
           type: "success",
@@ -96,12 +109,42 @@ export class CreateUserComponent implements AfterContentInit {
         });
       },
       error => {
-        this.createUserLoading = false;
+        this.updateUserLoading = false;
         console.error("User could not be created!");
         window.scrollTo(0, 0);
         this.closeDialog({
           type: "danger",
           msg: this.translateService.instant("admin.users.createUser.error")
+        });
+      }
+    );
+  }
+
+  public updateUser() {
+    this.updateUserLoading = true;
+
+    const user = new UserModel();
+    user.setName(this.activeName);
+    user.setEmail(this.activeEmail);
+    user.setOrganization(this.activeOrganization);
+    user.setRoles(this.activeRoles);
+    user.setRegions(this.activeRegions);
+
+    this.userService.updateUser(user).subscribe(
+      data => {
+        this.updateUserLoading = false;
+        console.debug("User updated!");
+        this.closeDialog({
+          type: "success",
+          msg: this.translateService.instant("admin.users.updateUser.success")
+        });
+      },
+      error => {
+        this.updateUserLoading = false;
+        console.error("User could not be updated!");
+        this.closeDialog({
+          type: "danger",
+          msg: this.translateService.instant("admin.users.updateUser.error")
         });
       }
     );
