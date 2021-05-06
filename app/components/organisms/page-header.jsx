@@ -50,6 +50,9 @@ class PageHeader extends React.Component {
       <div id="page-header" className="page-header" data-scroll-header>
         <div className="page-header-logo">
           <Link
+            aria-label={this.props.intl.formatMessage({
+              id: "header:logo:hover"
+            })}
             to="/"
             className="tooltip"
             title={this.props.intl.formatMessage({
