@@ -92,7 +92,13 @@ class PageHeader extends React.Component {
                   e.preventDefault();
                 }}
                 className="has-sub"
-                title=""
+                title={this.props.intl.formatMessage({
+                  id: "header:languages:title"
+                })}
+                name={this.props.intl.formatMessage({
+                  id: "header:languages:title"
+                })}
+                id="languages"
               >
                 <span></span>
               </a>

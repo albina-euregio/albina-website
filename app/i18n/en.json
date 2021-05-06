@@ -148,6 +148,7 @@
   "jumpnav:content": "Go to Content",
   "jumpnav:navigation": "Go to Navigation",
   "jumpnav:footer": "Go to Footer",
+  "header:languages:title": "Languages",
   "header:logo:hover": "Home",
   "header:euregio:hover": "Euregio",
   "header:hamburger:hover": "Menu",
