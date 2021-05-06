@@ -50,6 +50,7 @@ export default class Selectric extends React.Component {
         }}
         value={this.props.value}
         disabled={this.props.disabled}
+        title={this.props.value}
       >
         {this.props.children}
       </select>
