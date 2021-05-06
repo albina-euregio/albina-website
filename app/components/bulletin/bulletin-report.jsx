@@ -59,7 +59,7 @@ class BulletinReport extends React.Component {
     return (
       <div>
         <section
-          id={daytimeBulletin.id}
+          id={daytimeBulletin.id + "-main"}
           className="section-centered section-bulletin section-bulletin-report"
         >
           <div className={classes}>
@@ -127,7 +127,7 @@ class BulletinReport extends React.Component {
         </section>
         {(bulletin.tendencyComment || bulletin.snowpackStructureComment) && (
           <section
-            id="section-bulletin-additional"
+            id={daytimeBulletin.id + "-bulletin-additional"}
             className="section-centered section-bulletin section-bulletin-additional"
           >
             <div className="panel brand">
@@ -179,7 +179,7 @@ class BulletinReport extends React.Component {
           </section>
         )}
         <section
-          id="section-bulletin-additional"
+          id={daytimeBulletin.id + "-back-to-map"}
           className="section-centered section-bulletin section-bulletin-additional"
         >
           <div className="panel brand">
