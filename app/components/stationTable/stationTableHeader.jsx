@@ -64,7 +64,7 @@ class StationTableHeader extends React.Component {
                             );
                           }}
                         >
-                          <span>
+                          <span className="is-visually-hidden">
                             {title(el.data)}: {sortTitle(el.data, dir)}
                           </span>
                         </a>
