@@ -468,6 +468,8 @@ $selectric-max-width: 20em;
 .selectric-disabled {
   opacity: 0.5;
   cursor: default;
+  -webkit-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 
@@ -590,6 +592,8 @@ $selectric-max-width: 20em;
     cursor: default !important;
     background: none !important;
     color: $grey-light !important;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
   }
 
@@ -598,6 +602,8 @@ $selectric-max-width: 20em;
       font-weight: bold;
       padding-left: $padding;
       cursor: default;
+      -webkit-user-select: none;
+      -ms-user-select: none;
       user-select: none;
       background: none;
     }
