@@ -303,6 +303,13 @@ $cp-breakpoint-2: 1024px;
     &:before {
       margin: -12px 0 0 0;
     }
+    span {
+      height: 1px;
+      width: 1px;
+      position: absolute;
+      overflow: hidden;
+      top: -10px;
+    }
   }
 }
 .cp-scale-flipper-left {
@@ -412,6 +419,13 @@ $cp-breakpoint-2: 1024px;
     left: 0;
     &:before {
       margin: 0;
+    }
+    span {
+      height: 1px;
+      width: 1px;
+      position: absolute;
+      overflow: hidden;
+      top: -10px;
     }
   }
 
@@ -624,6 +638,14 @@ $cp-breakpoint-2: 1024px;
     background: transparent url(../images/pro/logos/zamg-logo-small.png)
       no-repeat 50% 50%;
     background-size: contain;
+
+    span {
+      height: 1px;
+      width: 1px;
+      position: absolute;
+      overflow: hidden;
+      top: -10px;
+    }
   }
 }
 
