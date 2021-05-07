@@ -63,7 +63,11 @@ class StationTableHeader extends React.Component {
                                 : dir
                             );
                           }}
-                        />
+                        >
+                          <span>
+                            {title(el.data)}: {sortTitle(el.data, dir)}
+                          </span>
+                        </a>
                       ))}
                     </span>
                   )}
