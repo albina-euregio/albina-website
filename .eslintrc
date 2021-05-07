@@ -9,7 +9,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
   "parserOptions": {
     "ecmaFeatures": {
@@ -19,7 +20,7 @@
     },
     "sourceType": "module"
   },
-  "plugins": ["prettier", "react"],
+  "plugins": ["prettier", "react", "jsx-a11y"],
   "globals": {
     "APP_DEV_MODE": true,
     "APP_ASSET_PATH": true,
