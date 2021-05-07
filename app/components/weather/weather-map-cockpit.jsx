@@ -413,7 +413,7 @@ class WeatherMapCockpit extends React.Component {
               id: "weathermap:cockpit:flipper:previous"
             })}
           >
-            <span>
+            <span className="is-visually-hidden">
               {this.props.intl.formatMessage({
                 id: "weathermap:cockpit:flipper:previous"
               })}
@@ -430,7 +430,7 @@ class WeatherMapCockpit extends React.Component {
               id: "weathermap:cockpit:flipper:next"
             })}
           >
-            <span>
+            <span className="is-visually-hidden">
               {this.props.intl.formatMessage({
                 id: "weathermap:cockpit:flipper:next"
               })}
@@ -482,7 +482,7 @@ class WeatherMapCockpit extends React.Component {
             this.props.player.toggle();
           }}
         >
-          <span>
+          <span className="is-visually-hidden">
             {this.props.intl.formatMessage({
               id: "weathermap:cockpit:play"
             })}
@@ -499,7 +499,7 @@ class WeatherMapCockpit extends React.Component {
             this.props.player.toggle();
           }}
         >
-          <span>
+          <span className="is-visually-hidden">
             {this.props.intl.formatMessage({
               id: "weathermap:cockpit:stop"
             })}
@@ -653,7 +653,7 @@ class WeatherMapCockpit extends React.Component {
           </div>
           <div key="cp-copyright" className="cp-copyright">
             <a href="https://www.zamg.ac.at" className="tooltip" title="ZAMG">
-              <span>ZAMG</span>
+              <span className="is-visually-hidden">ZAMG</span>
             </a>
           </div>
         </div>
