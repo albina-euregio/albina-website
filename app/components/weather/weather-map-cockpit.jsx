@@ -226,6 +226,8 @@ class WeatherMapCockpit extends React.Component {
 
         buttons.push(
           <a
+            role="button"
+            tabIndex="0"
             key={aItem}
             onClick={this.handleEvent.bind(this, "timeSpan", aItem)}
             className={linkClasses.join(" ")}
@@ -259,6 +261,8 @@ class WeatherMapCockpit extends React.Component {
       <div key="cp-container-layer-range" className="cp-container-layer-range">
         <div key="cp-player" className="cp-layer">
           <a
+            role="button"
+            tabIndex="0"
             className="cp-layer-selector-item cp-layer-trigger tooltip"
             title={this.props.intl.formatMessage({
               id: "weathermap:cockpit:select-parameter"
@@ -399,6 +403,8 @@ class WeatherMapCockpit extends React.Component {
         {parts}
         <div key="flipper" className="cp-scale-flipper">
           <a
+            role="button"
+            tabIndex="0"
             href="#"
             onClick={self.setPreviousTime.bind(self)}
             key="arrow-left"
@@ -406,8 +412,16 @@ class WeatherMapCockpit extends React.Component {
             title={this.props.intl.formatMessage({
               id: "weathermap:cockpit:flipper:previous"
             })}
-          ></a>
+          >
+            <span>
+              {this.props.intl.formatMessage({
+                id: "weathermap:cockpit:flipper:previous"
+              })}
+            </span>
+          </a>
           <a
+            role="button"
+            tabIndex="0"
             href="#"
             onClick={self.setNextTime.bind(self)}
             key="arrow-right"
@@ -415,7 +429,13 @@ class WeatherMapCockpit extends React.Component {
             title={this.props.intl.formatMessage({
               id: "weathermap:cockpit:flipper:next"
             })}
-          ></a>
+          >
+            <span>
+              {this.props.intl.formatMessage({
+                id: "weathermap:cockpit:flipper:next"
+              })}
+            </span>
+          </a>
         </div>
 
         <Timeline
@@ -426,7 +446,7 @@ class WeatherMapCockpit extends React.Component {
           updateCB={this.onTimelineUpdate.bind(this)}
         />
 
-        <div key="analyse-forcast" className="cp-scale-analyse-forecast">
+        <div key="analyse-forecast" className="cp-scale-analyse-forecast">
           <span
             key="cp-scale-analyse-bar"
             className="cp-scale-analyse-bar"
@@ -461,7 +481,13 @@ class WeatherMapCockpit extends React.Component {
           onClick={() => {
             this.props.player.toggle();
           }}
-        ></a>
+        >
+          <span>
+            {this.props.intl.formatMessage({
+              id: "weathermap:cockpit:play"
+            })}
+          </span>
+        </a>
         <a
           key="stopButton"
           className={linkClassesStop.join(" ")}
@@ -472,7 +498,13 @@ class WeatherMapCockpit extends React.Component {
           onClick={() => {
             this.props.player.toggle();
           }}
-        ></a>
+        >
+          <span>
+            {this.props.intl.formatMessage({
+              id: "weathermap:cockpit:stop"
+            })}
+          </span>
+        </a>
       </div>
     );
   }
@@ -593,10 +625,11 @@ class WeatherMapCockpit extends React.Component {
     ];
     return (
       <div
+        role="button"
+        tabIndex="0"
         key="map-cockpit"
         className={classes.join(" ")}
         onKeyDown={this.onKeyPressed}
-        tabIndex="0"
       >
         <div key="cp-container-1" className="cp-container-1">
           <div key="cp-layer-selector" className="cp-layer-selector">
@@ -619,11 +652,9 @@ class WeatherMapCockpit extends React.Component {
             {this.getReleaseInfo()}
           </div>
           <div key="cp-copyright" className="cp-copyright">
-            <a
-              href="https://www.zamg.ac.at"
-              className="tooltip"
-              title="ZAMG"
-            ></a>
+            <a href="https://www.zamg.ac.at" className="tooltip" title="ZAMG">
+              <span>ZAMG</span>
+            </a>
           </div>
         </div>
       </div>

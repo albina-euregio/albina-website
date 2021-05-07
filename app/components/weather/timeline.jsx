@@ -174,6 +174,8 @@ class Timeline extends React.Component {
           >
             <span className="cp-scale-day-name">
               <a
+                role="button"
+                tabIndex="0"
                 onClick={() => {
                   this.props.changeCurrentTime(firstAvailableTime);
                 }}

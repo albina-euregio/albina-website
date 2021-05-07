@@ -20,6 +20,9 @@ class VideoDialog extends React.Component {
             }}
           >
             <iframe
+              title={this.props.intl.formatMessage({
+                id: "app:title"
+              })}
               src="https://www.youtube.com/embed/uzY5uj_VIEs"
               webkitallowfullscreen=""
               mozallowfullscreen=""

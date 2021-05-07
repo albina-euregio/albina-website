@@ -29,6 +29,8 @@ class FeatureInfo extends React.Component {
           </div>
           {this.props.feature.plot && (
             <a
+              role="button"
+              tabIndex="0"
               onClick={this.triggerStationDiagrams}
               className="pure-button tooltip weather-map-details-button"
             >

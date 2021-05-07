@@ -1,12 +1,13 @@
 import React from "react";
 import "selectric/src/jquery.selectric.js";
+import { injectIntl } from "react-intl";
 
 /**
  * Component to be used for selectric select boxes.
  * Implementation is inspired by
  * https://reactjs.org/docs/integrating-with-other-libraries.html#integrating-with-jquery-chosen-plugin
  */
-export default class Selectric extends React.Component {
+class Selectric extends React.Component {
   componentDidMount() {
     this.$el = $(this.el);
     const update = () => {
@@ -44,16 +45,21 @@ export default class Selectric extends React.Component {
     return (
       <select
         className="dropdown"
-        onChange={() => {}} // dummy handler to get rid of checkPropTypes warning
+        onBlur={() => {}} // dummy handler to get rid of checkPropTypes warning
         ref={el => {
           this.el = el;
         }}
         value={this.props.value}
         disabled={this.props.disabled}
-        title={this.props.value}
+        title={this.props.intl.formatMessage({
+          id: this.props.name
+        })}
+        readOnly
       >
         {this.props.children}
       </select>
     );
   }
 }
+
+export default injectIntl(Selectric);

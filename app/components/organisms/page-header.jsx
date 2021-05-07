@@ -88,6 +88,8 @@ class PageHeader extends React.Component {
           <ul className="list-plain language-trigger">
             <li>
               <a
+                role="button"
+                tabIndex="0"
                 onClick={e => {
                   e.preventDefault();
                 }}

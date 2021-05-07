@@ -25,6 +25,8 @@ class BlogPageFlipper extends React.Component {
         {this.isPreviousPage() && (
           <li className="bulletin-flipper-back">
             <a
+              role="button"
+              tabIndex="0"
               onClick={() => this.props.handlePreviousPage()}
               title={this.props.intl.formatMessage({
                 id: "bulletin:header:dateflipper:back"
@@ -43,6 +45,8 @@ class BlogPageFlipper extends React.Component {
         {this.isNextPage() && (
           <li className="bulletin-flipper-forward">
             <a
+              role="button"
+              tabIndex="0"
               onClick={() => this.props.handleNextPage()}
               title={this.props.intl.formatMessage({
                 id: "bulletin:header:dateflipper:forward"
