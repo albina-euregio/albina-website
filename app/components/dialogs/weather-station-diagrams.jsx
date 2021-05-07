@@ -200,6 +200,7 @@ class WeatherStationDiagrams extends React.Component {
 
               {stationData && (
                 <img
+                  alt={stationData.name}
                   src={this.imageUrl(
                     this.imageWidths[0],
                     this.timeRanges[this.state.timeRange],
