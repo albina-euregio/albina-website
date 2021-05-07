@@ -45,7 +45,7 @@ class Selectric extends React.Component {
     return (
       <select
         className="dropdown"
-        onChange={() => {}} // dummy handler to get rid of checkPropTypes warning
+        onBlur={() => {}} // dummy handler to get rid of checkPropTypes warning
         ref={el => {
           this.el = el;
         }}
@@ -54,6 +54,7 @@ class Selectric extends React.Component {
         title={this.props.intl.formatMessage({
           id: this.props.name
         })}
+        readOnly
       >
         {this.props.children}
       </select>
