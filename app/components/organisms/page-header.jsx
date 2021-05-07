@@ -106,6 +106,8 @@ class PageHeader extends React.Component {
                 {/* languages in alphabetical order */}
                 <li>
                   <a
+                    role="button"
+                    tabIndex="0"
                     className="language-trigger-oc"
                     onClick={() => this.handleChangeLanguage("oc")}
                   >
@@ -114,6 +116,8 @@ class PageHeader extends React.Component {
                 </li>
                 <li>
                   <a
+                    role="button"
+                    tabIndex="0"
                     className="language-trigger-ca"
                     onClick={() => this.handleChangeLanguage("ca")}
                   >
@@ -122,6 +126,8 @@ class PageHeader extends React.Component {
                 </li>
                 <li>
                   <a
+                    role="button"
+                    tabIndex="0"
                     className="language-trigger-de"
                     onClick={() => this.handleChangeLanguage("de")}
                   >
@@ -130,6 +136,8 @@ class PageHeader extends React.Component {
                 </li>
                 <li>
                   <a
+                    role="button"
+                    tabIndex="0"
                     className="language-trigger-en"
                     onClick={() => this.handleChangeLanguage("en")}
                   >
@@ -138,6 +146,8 @@ class PageHeader extends React.Component {
                 </li>
                 <li>
                   <a
+                    role="button"
+                    tabIndex="0"
                     className="language-trigger-es"
                     onClick={() => this.handleChangeLanguage("es")}
                   >
@@ -146,6 +156,8 @@ class PageHeader extends React.Component {
                 </li>
                 <li>
                   <a
+                    role="button"
+                    tabIndex="0"
                     className="language-trigger-fr"
                     onClick={() => this.handleChangeLanguage("fr")}
                   >
@@ -154,6 +166,8 @@ class PageHeader extends React.Component {
                 </li>
                 <li>
                   <a
+                    role="button"
+                    tabIndex="0"
                     className="language-trigger-it"
                     onClick={() => this.handleChangeLanguage("it")}
                   >
