@@ -457,5 +457,6 @@
   "button:education:danger-patterns:text": "Danger Patterns",
   "button:education:handbook:text": "Handbook",
   "province": "Province",
-  "color": "Color"
+  "color": "Color",
+  "mode": "Color mode"
 }
