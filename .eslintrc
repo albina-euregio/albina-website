@@ -40,8 +40,8 @@
     "react/prop-types": "off",
     "react/jsx-uses-vars": "error",
     "react/jsx-uses-react": "error",
-    "jsx-a11y/anchor-is-valid": 0, // TODO: enable rule
-    "jsx-a11y/click-events-have-key-events": 0,  // TODO: enable rule
-    "jsx-a11y/no-noninteractive-element-interactions": 0  // TODO: enable rule
+    "jsx-a11y/anchor-is-valid": "warn", // TODO: enable rule
+    "jsx-a11y/click-events-have-key-events": "warn",  // TODO: enable rule
+    "jsx-a11y/no-noninteractive-element-interactions": "warn"  // TODO: enable rule
   }
 }
