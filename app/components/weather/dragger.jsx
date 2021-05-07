@@ -101,6 +101,8 @@ class Dragger extends React.Component {
     this.currentY = this.props.top || 0;
     return (
       <div
+        role="button"
+        tabIndex="0"
         style={{
           display: "block",
           position: "absolute",
