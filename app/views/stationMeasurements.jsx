@@ -92,7 +92,6 @@ class StationMeasurements extends React.Component {
           searchValue={this.store.searchText}
         >
           <ProvinceFilter
-            name="province"
             title={this.props.intl.formatMessage({
               id: "measurements:filter:province"
             })}

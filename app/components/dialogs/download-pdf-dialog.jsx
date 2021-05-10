@@ -83,7 +83,9 @@ class DownloadPdfDialog extends React.Component {
                   >
                     <li style={{ margin: "0 auto" }}>
                       <ProvinceFilter
-                        name="province"
+                        title={this.props.intl.formatMessage({
+                          id: "measurements:filter:province"
+                        })}
                         all={this.props.intl.formatMessage({
                           id: "dialog:subscribe-email:region-all:button"
                         })}
@@ -107,6 +109,9 @@ class DownloadPdfDialog extends React.Component {
                     <li style={{ margin: "0 auto" }}>
                       {/* mode */}
                       <PdfModeFilter
+                        title={this.props.intl.formatMessage({
+                          id: "dialog:download-pdf:mode"
+                        })}
                         name="mode"
                         onChange={this.handleChangeMode}
                         value={this.state.mode}

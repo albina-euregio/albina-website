@@ -192,7 +192,7 @@ class BlogOverview extends React.Component {
           />
           <ProvinceFilter
             title={this.props.intl.formatMessage({
-              id: "blog:filter:province"
+              id: "measurements:filter:province"
             })}
             all={this.props.intl.formatMessage({ id: "filter:all" })}
             handleChange={this.handleChangeRegion}

@@ -74,7 +74,9 @@ class SubscribeTelegramDialog extends React.Component {
             <ul className="list-inline list-buttongroup">
               <li>
                 <ProvinceFilter
-                  name="province"
+                  title={this.props.intl.formatMessage({
+                    id: "measurements:filter:province"
+                  })}
                   className={this.state.region && "selectric-changed"}
                   handleChange={r => this.handleChangeRegion(r)}
                   value={this.state.region}

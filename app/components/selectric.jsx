@@ -51,9 +51,7 @@ class Selectric extends React.Component {
         }}
         value={this.props.value}
         disabled={this.props.disabled}
-        title={this.props.intl.formatMessage({
-          id: this.props.name
-        })}
+        title={this.props.title}
         readOnly
       >
         {this.props.children}
