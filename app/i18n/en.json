@@ -455,8 +455,5 @@
   "button:education:avalanche-sizes:text": "Avalanche Sizes",
   "button:education:avalanche-problems:text": "Avalanche Problems",
   "button:education:danger-patterns:text": "Danger Patterns",
-  "button:education:handbook:text": "Handbook",
-  "province": "Province",
-  "color": "Color",
-  "mode": "Color mode"
+  "button:education:handbook:text": "Handbook"
 }
