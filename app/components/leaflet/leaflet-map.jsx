@@ -131,6 +131,7 @@ class LeafletMap extends React.Component {
       }, 50);
 
       this._init_tooltip();
+      this._init_aria();
     }
   }
 
@@ -147,6 +148,16 @@ class LeafletMap extends React.Component {
       $(".leaflet-control-zoom a").addClass("tooltip");
       $(".leaflet-control-locate a").addClass("tooltip");
       tooltip_init();
+    }, 100);
+  }
+
+  _init_aria() {
+    window.setTimeout(() => {
+      $(".leaflet-control-zoom a").attr("tabIndex", "-1");
+      $(".leaflet-control-zoom a").attr("tabIndex", "-1");
+      $(".leaflet-control-locate a").attr("tabIndex", "-1");
+      $(".leaflet-geonames-search a").attr("tabIndex", "-1");
+      $(".leaflet-touch-zoom").attr("tabIndex", "-1");
     }, 100);
   }
 

@@ -202,6 +202,7 @@ class BulletinMap extends React.Component {
       res.push(
         activeBulletin?.id && (
           <a
+            tabIndex="-1"
             key="link"
             href={"#" + activeBulletin?.id}
             className="pure-button tooltip"
@@ -251,6 +252,7 @@ class BulletinMap extends React.Component {
         if (!label) continue;
         res.push(
           <a
+            tabIndex="-1"
             key={`neighbor-link-${index}`}
             href={href}
             rel="noopener noreferrer"
@@ -308,6 +310,7 @@ class BulletinMap extends React.Component {
             <div style={this.styleOverMap()} className="bulletin-map-search">
               <div className="pure-form pure-form-search">
                 <input
+                  tabIndex="-1"
                   type="text"
                   id="input"
                   className="tooltip"
@@ -319,6 +322,7 @@ class BulletinMap extends React.Component {
                   })}
                 />
                 <button
+                  tabIndex="-1"
                   href="#"
                   title={this.props.intl.formatMessage({
                     id: "bulletin:map:search:label"
