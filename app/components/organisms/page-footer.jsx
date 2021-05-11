@@ -102,6 +102,9 @@ class PageFooter extends React.Component {
                   title={this.props.intl.formatMessage({
                     id: "footer:top:hover"
                   })}
+                  aria-label={this.props.intl.formatMessage({
+                    id: "footer:top:hover"
+                  })}
                   data-scroll=""
                 >
                   <span>Top</span>

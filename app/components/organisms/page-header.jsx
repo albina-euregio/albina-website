@@ -186,6 +186,9 @@ class PageHeader extends React.Component {
             title={this.props.intl.formatMessage({
               id: "header:hamburger:hover"
             })}
+            aria-label={this.props.intl.formatMessage({
+              id: "header:hamburger:hover"
+            })}
             className="pure-button pure-button-icon navigation-trigger tooltip"
           >
             <span className="icon-hamburger">

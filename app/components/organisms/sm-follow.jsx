@@ -25,6 +25,10 @@ class SmFollow extends React.Component {
                   { id: "footer:follow-us:hover" },
                   { on: a.name }
                 )}
+                aria-label={this.props.intl.formatMessage(
+                  { id: "footer:follow-us:hover" },
+                  { on: a.name }
+                )}
               >
                 <span>{a.name}</span>
               </a>

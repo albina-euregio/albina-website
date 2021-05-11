@@ -54,6 +54,10 @@ class SmShare extends React.Component {
                 { id: "main:share-this:hover" },
                 { on: "Facebook" }
               )}
+              aria-label={this.props.intl.formatMessage(
+                { id: "main:share-this:hover" },
+                { on: "Facebook" }
+              )}
               rel="noopener noreferrer"
               target="_blank"
             >
