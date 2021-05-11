@@ -286,6 +286,7 @@ class BulletinMap extends React.Component {
       <section
         id="section-bulletin-map"
         className="section section-bulletin-map"
+        aria-hidden
       >
         <InfoBar level={newLevel} levels={this.infoMessageLevels} />
         <div
