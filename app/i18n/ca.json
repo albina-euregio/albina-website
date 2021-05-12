@@ -148,6 +148,7 @@
   "jumpnav:content": "Ves al contingut",
   "jumpnav:navigation": "Ves a Navegació",
   "jumpnav:footer": "Ves al peu",
+  "header:languages:title": "Languages",
   "header:logo:hover": "Inici",
   "header:euregio:hover": "Euregio",
   "header:hamburger:hover": "Menu",
@@ -180,6 +181,7 @@
   "bulletin:map:locate:popup": "Estàs a  {distance} {unit} d'aquest punt",
   "bulletin:map:search": "Cerca",
   "bulletin:map:search:hover": "Escriu un lloc",
+  "bulletin:map:search:label": "Search for a location",
   "bulletin:map:zoom-in:hover": "Zoom in",
   "bulletin:map:zoom-out:hover": "Zoom out",
   "bulletin:map:info:details": "<span>Click per </span>detalls",
@@ -453,5 +455,8 @@
   "button:education:avalanche-sizes:text": "Mides d'Allaus",
   "button:education:avalanche-problems:text": "Problemes d'allaus",
   "button:education:danger-patterns:text": "Patrons de Perill",
-  "button:education:handbook:text": "Manual"
+  "button:education:handbook:text": "Manual",
+  "province": "Provincia",
+  "color": "Color",
+  "mode": "Color mode"
 }

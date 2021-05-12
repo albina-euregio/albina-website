@@ -148,6 +148,7 @@
   "jumpnav:content": "Anar tath contengut",
   "jumpnav:navigation": "Anar tara navegacion",
   "jumpnav:footer": "Anar tath pè de pagina",
+  "header:languages:title": "Languages",
   "header:logo:hover": "Inici",
   "header:euregio:hover": "Euregio",
   "header:hamburger:hover": "Menu",
@@ -180,6 +181,7 @@
   "bulletin:map:locate:popup": "Ès laguens {distance} {unit} d'aguest punt",
   "bulletin:map:search": "Cercar",
   "bulletin:map:search:hover": "Escriu ua ubicacion",
+  "bulletin:map:search:label": "Search for a location",
   "bulletin:map:zoom-in:hover": "Apropar",
   "bulletin:map:zoom-out:hover": "Aluenhar",
   "bulletin:map:info:details": "<span>Clicar tàs </span> detalhs",
@@ -453,5 +455,8 @@
   "button:education:avalanche-sizes:text": "Mides de lauegi",
   "button:education:avalanche-problems:text": "Problèmes de lauegi",
   "button:education:danger-patterns:text": "Patrons de perilh",
-  "button:education:handbook:text": "Manuau"
+  "button:education:handbook:text": "Manuau",
+  "province": "Provincia",
+  "color": "Color",
+  "mode": "Color mode"
 }

@@ -148,6 +148,7 @@
   "jumpnav:content": "Aller au contenu",
   "jumpnav:navigation": "Aller au navigation",
   "jumpnav:footer": "Aller au pied de page",
+  "header:languages:title": "Languages",
   "header:logo:hover": "Accueil",
   "header:euregio:hover": "Euregio",
   "header:hamburger:hover": "Menu",
@@ -180,6 +181,7 @@
   "bulletin:map:locate:popup": "Vous êtes à {distance} {unit} de ce point.",
   "bulletin:map:search": "Rechercher",
   "bulletin:map:search:hover": "Saisissez  un lieu",
+  "bulletin:map:search:label": "Search for a location",
   "bulletin:map:zoom-in:hover": "Zoom +",
   "bulletin:map:zoom-out:hover": "Zoom -",
   "bulletin:map:info:details": "<span>Cliquez</span>pour plus de détails",
@@ -453,5 +455,8 @@
   "button:education:avalanche-sizes:text": "Taille d'avalanche",
   "button:education:avalanche-problems:text": "Situations avalancheuses typiques",
   "button:education:danger-patterns:text": "Situations avalancheuses",
-  "button:education:handbook:text": "Manuel"
+  "button:education:handbook:text": "Manuel",
+  "province": "Province",
+  "color": "Color",
+  "mode": "Color mode"
 }

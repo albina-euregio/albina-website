@@ -148,6 +148,7 @@
   "jumpnav:content": "Ir al contenido",
   "jumpnav:navigation": "Ir a Navegación",
   "jumpnav:footer": "Ir al pie de página",
+  "header:languages:title": "Languages",
   "header:logo:hover": "Inicio",
   "header:euregio:hover": "Euregio",
   "header:hamburger:hover": "Menú",
@@ -180,6 +181,7 @@
   "bulletin:map:locate:popup": "Estás dentro {distance} {unit} de este punto",
   "bulletin:map:search": "Busca",
   "bulletin:map:search:hover": "Escribe una localización",
+  "bulletin:map:search:label": "Search for a location",
   "bulletin:map:zoom-in:hover": "Zoom in",
   "bulletin:map:zoom-out:hover": "Zoom out",
   "bulletin:map:info:details": "<span>Click para</span> detalles",
@@ -453,5 +455,8 @@
   "button:education:avalanche-sizes:text": "Tamaño de Aludes",
   "button:education:avalanche-problems:text": "Problemas de Avalanchas",
   "button:education:danger-patterns:text": "Patrones de Peligro",
-  "button:education:handbook:text": "Manual"
+  "button:education:handbook:text": "Manual",
+  "province": "Provincia",
+  "color": "Color",
+  "mode": "Color mode"
 }

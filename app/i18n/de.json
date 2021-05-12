@@ -148,6 +148,7 @@
   "jumpnav:content": "Zum Inhalt",
   "jumpnav:navigation": "Zur Navigation",
   "jumpnav:footer": "Zum Footer",
+  "header:languages:title": "Sprachen",
   "header:logo:hover": "Home",
   "header:euregio:hover": "Euregio",
   "header:hamburger:hover": "Menü",
@@ -180,6 +181,7 @@
   "bulletin:map:locate:popup": "Du bist innerhalb von {distance} {unit} um diesen Punkt",
   "bulletin:map:search": "Suchen",
   "bulletin:map:search:hover": "In Karte suchen",
+  "bulletin:map:search:label": "Search for a location",
   "bulletin:map:zoom-in:hover": "Vergrößern",
   "bulletin:map:zoom-out:hover": "Verkleinern",
   "bulletin:map:info:details": "Details",
@@ -272,7 +274,7 @@
   "station-overlay:cluster:title": "Klicken um die Station zu sehen",
   "blog:title": "Blog",
   "blog:subtitle": "Blog",
-  "blog:headline": "Blog Beiträge",
+  "blog:headline": "Blog-Beiträge",
   "blog:filter:avalanche-problem": "Lawinenproblem",
   "blog:filter:year": "Jahr",
   "blog:filter:month": "Monat",
@@ -453,5 +455,8 @@
   "button:education:avalanche-sizes:text": "Lawinengrößen",
   "button:education:avalanche-problems:text": "Lawinenprobleme",
   "button:education:danger-patterns:text": "Gefahrenmuster",
-  "button:education:handbook:text": "Handbuch"
+  "button:education:handbook:text": "Handbuch",
+  "province": "Region",
+  "color": "Color",
+  "mode": "Color mode"
 }
