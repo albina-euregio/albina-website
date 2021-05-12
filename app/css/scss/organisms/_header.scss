@@ -115,6 +115,7 @@ ul.bulletin-flipper {
     }
     a {
       &:hover,
+      &:focus,
       &:active {
         span {
           &:before {
@@ -135,6 +136,7 @@ ul.bulletin-flipper {
     }
     a {
       &:hover,
+      &:focus,
       &:active {
         span {
           &:before {
@@ -147,6 +149,7 @@ ul.bulletin-flipper {
   .bulletin-flipper-archive {
     a {
       &:hover,
+      &:focus,
       &:active {
         display: inline-block;
       }

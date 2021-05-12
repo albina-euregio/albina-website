@@ -53,6 +53,7 @@
       border-color: $white;
       background: transparent;
       &:hover,
+      &:focus,
       &.js-active {
         color: $brand;
         background: $white;

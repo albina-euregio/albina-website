@@ -74,39 +74,27 @@
       width: $picto-height-plus;
       height: $picto-height-plus;
       background: none;
-      &:hover {
+      &:hover,
+      &:focus {
         img {
           opacity: 1;
-          /*
-					transform: translateY($padding);//translateY($padding / 2);
-					&:first-child { opacity: 0.5; }
-					&:last-child { opacity: 0; }
-*/
         }
+        outline: none;
       }
       &.js-deactivated {
         top: $padding;
         img {
           opacity: 0.5;
           filter: grayscale(100%);
-          /*
-					&:first-child { opacity: 0; }
-					&:last-child { opacity: 0.5; }
-*/
         }
-        &:hover {
+        &:hover,
+        &:focus {
           img {
             filter: grayscale(50%);
-            /*
-						transform: translateY(-$padding);//translateY(-$padding / 2);
-						&:first-child { opacity: 0.5; }
-						&:last-child { opacity: 0; }
-*/
           }
         }
       }
     }
-    //a:not(.js-deactivated):hover img:first-child { opacity: 1; }//*****
   }
   .list-legend {
     display: flex;
@@ -187,14 +175,14 @@
 }
 
 //from alien app.scss
-#section-bulletin-report {
-  //commented out 'cause it won't select anything anyway
-  // @media only screen and (max-width: 57.5em) {
-  //   .page-main section.section-centered {
-  //     padding: 0px !important;
-  //   }
-  // }
-}
+// commented out 'cause it won't select anything anyway
+// #section-bulletin-report {
+//   @media only screen and (max-width: 57.5em) {
+//     .page-main section.section-centered {
+//       padding: 0px !important;
+//     }
+//   }
+// }
 
 .bulletin-report-header {
   margin-bottom: $margin-bottom;
@@ -240,13 +228,13 @@
       transform: translate(-50%, 0%);
       opacity: 0;
     }
-    &:hover {
-      img {
-      }
+    &:hover,
+    &:focus {
       &:before {
         transform: translate(-50%, -50%);
         opacity: 1;
       }
+      outline: none;
     }
   }
   img {
@@ -341,8 +329,10 @@
       color: $text-color;
     }
     &:hover,
+    &:focus,
     &:active {
       color: $anchor-font-color-hover;
+      outline: none;
     }
   }
   img {

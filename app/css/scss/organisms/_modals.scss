@@ -167,7 +167,8 @@ button.mfp-arrow {
     @include rollout;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     //from alien app.scss
     cursor: pointer;
 

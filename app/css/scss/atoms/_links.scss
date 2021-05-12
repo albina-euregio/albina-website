@@ -14,16 +14,14 @@ a {
     text-decoration: $anchor-text-decoration;
     @include rollout;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     cursor: pointer;
     color: $anchor-font-color-hover;
     @include rollover;
     span {
       cursor: pointer;
     }
-  }
-  &:focus {
-    outline: none;
   }
 }
 
@@ -38,15 +36,11 @@ a.textlink {
     border: $border-width $border-style transparent;
     border-radius: $global-radius;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     color: $anchor-font-color;
     background-color: $white;
     border-color: $anchor-font-color;
-  }
-  &:focus {
-  }
-  &[href^="http:"],
-  &[href^="https:"] {
   }
 }
 
@@ -58,45 +52,14 @@ a.translink {
     color: $trans-color;
     background-color: transparent;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     color: $white;
     background-color: $trans-color;
     border-color: $trans-color;
   }
 }
 
-//img
-/*
-a.img {
-	position: relative;
-	display: inline-block;
-	line-height: 0;
-	background-color: $brand;
-	
-	&[href^="http:"], &[href^="https:"] {
-		padding-left: 0;
-		&:before {
-			display: none;
-			content: none;
-		}
-	}
-	
-	img {
-		display: block;
-		margin: 0;
-		opacity: 1;
-		@include rollout(all, $transition-duration * 2);
-	}
-	
-	&:hover {
-		cursor: hand;
-		img {
-			opacity: 0.5;
-			@include rollover(all, $transition-duration * 2);
-		}
-	}
-}
-*/
 a.img {
   position: relative;
   display: inline-block;
@@ -130,7 +93,8 @@ a.img {
     @include rollout(all, $transition-duration * 2);
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     cursor: hand;
     img {
     }
@@ -147,7 +111,8 @@ a.label {
   &:visited {
     border-color: $anchor-font-color;
   }
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: $anchor-font-color-hover;
   }
 }
@@ -162,7 +127,8 @@ a.icon-link {
   display: inline-block;
   &.icon-arrow-left {
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
       &:before {
         left: -$padding / 2;
       }
@@ -170,7 +136,8 @@ a.icon-link {
   }
   &.icon-arrow-up {
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
       &:before {
         top: -$padding / 2;
       }
@@ -182,7 +149,8 @@ a.icon-link {
       right: 0;
     }
     &:hover,
-    &:active {
+    &:active,
+    &:focus {
       &:before {
         right: -$padding / 2;
       }
@@ -203,7 +171,5 @@ a[target*="_blank"]:not([class*="pure-button"]):not([class*="sm-button"]):not([c
     right: 0;
     width: 0.5em;
     line-height: 0.5em;
-  }
-  &:hover {
   }
 }

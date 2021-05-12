@@ -66,7 +66,8 @@ a.linkbox {
     @include rollout(all, $transition-duration * 2, ease-in-out);
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     border-color: $anchor-font-color;
     @include box-shadow;
     @include rollover(all, $transition-duration * 2, ease-in-out);
@@ -127,7 +128,8 @@ a.linkbox-feature {
     margin-top: $paragraph-margin-bottom;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     .content-image {
       img {
         transform: translateY(50%) scale3d(2.01, 2.01, 1);
@@ -215,7 +217,8 @@ a.linkbox-blog-feature {
     }
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: $anchor-font-color;
     background-color: $white;
     border-color: $anchor-font-color;
@@ -237,6 +240,70 @@ a.linkbox-blog-feature {
           @include rollover(all, $transition-duration * 2, ease-in-out);
         }
       }
+    }
+  }
+}
+
+a.linkbox-linktree-feature {
+  &:link,
+  &:visited {
+    margin-bottom: 0;
+    background-color: $white;
+    border: $border-width $border-style $border-color;
+    @media screen and (max-width: #{upper-bound($small-range)}) {
+      border-left: none;
+      border-right: none;
+    }
+
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .content-image {
+    width: 20%;
+    height: auto;
+    padding: 20% 0 0 0;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      object-fit: cover;
+      min-width: 100%;
+      min-height: 100%;
+    }
+  }
+
+  .content-text {
+    width: 80%;
+    padding: calc(#{$all-v-padding} / 2) $all-h-padding;
+  }
+
+  &:hover,
+  &:focus {
+    color: $anchor-font-color;
+    background-color: $white;
+    border-color: $anchor-font-color;
+    @include rollover(all, $transition-duration * 2, ease-in-out);
+
+    .content-image {
+      img {
+        transform: none;
+        scale: 1.05;
+      }
+    }
+
+    .content-text {
+      @include text-color($anchor-font-color);
+      background-color: $white;
     }
   }
 }

@@ -396,10 +396,12 @@ $page-header-logo-width: 3.25em;
     }
 
     &:hover,
+    &:focus,
     &:active {
       color: $anchor-font-color-hover;
       border-color: transparent;
       box-shadow: none;
+      outline: none;
     }
   }
 }

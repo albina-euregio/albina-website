@@ -30,7 +30,8 @@ a.pure-button {
   @include rollout;
 
   @media (hover: hover) {
-    &:hover {
+    &:hover,
+    &:focus {
       color: $primary-color;
       background: $white;
       border-color: $primary-color;
@@ -56,7 +57,8 @@ a.pure-button {
     background: $white;
     border-color: $primary-color;
     @media (hover: hover) {
-      &:hover {
+      &:hover,
+      &:focus {
         color: $white;
         background: $primary-color;
         border-color: $primary-color;
@@ -73,7 +75,8 @@ a.pure-button {
     background: $white;
     border-color: $secondary-color;
     @media (hover: hover) {
-      &:hover {
+      &:hover,
+      &:focus {
         color: $primary-color;
         background: $white;
         border-color: $primary-color;
@@ -94,7 +97,8 @@ a.pure-button {
     background: $tertiary-color;
     border-color: $tertiary-color;
     @media (hover: hover) {
-      &:hover {
+      &:hover,
+      &:focus {
         color: $primary-color;
         background: $white;
         border-color: $primary-color;
@@ -110,7 +114,8 @@ a.pure-button {
   &.success {
     background: $success-color;
     @media (hover: hover) {
-      &:hover {
+      &:hover,
+      &:focus {
         color: $success-color;
         background: $white;
         border-color: $success-color;
@@ -125,7 +130,8 @@ a.pure-button {
   &.error {
     background: $error-color;
     @media (hover: hover) {
-      &:hover {
+      &:hover,
+      &:focus {
         color: $error-color;
         background: $white;
         border-color: $error-color;
@@ -140,7 +146,8 @@ a.pure-button {
   &.warning {
     background: $warning-color;
     @media (hover: hover) {
-      &:hover {
+      &:hover,
+      &:focus {
         color: $warning-color;
         background: $white;
         border-color: $warning-color;
@@ -155,7 +162,8 @@ a.pure-button {
   &.emphasize {
     background: $green;
     @media (hover: hover) {
-      &:hover {
+      &:hover,
+      &:focus {
         color: $orange;
         background: $white;
         border-color: $orange;
@@ -171,7 +179,8 @@ a.pure-button {
   &.black {
     background: $black;
     @media (hover: hover) {
-      &:hover {
+      &:hover,
+      &:focus {
         color: $black;
         background: $white;
         border-color: $black;
@@ -217,7 +226,8 @@ a.pure-button {
     .controlbar & {
       background-color: $white;
       color: $brand;
-      &:hover {
+      &:hover,
+      &:focus {
         border-color: $white;
         background-color: $brand;
         color: $white;

@@ -47,7 +47,8 @@
         max-width: none;
         width: 100%;
       }
-      &:hover {
+      &:hover,
+      &:focus {
         z-index: 10;
       }
     }

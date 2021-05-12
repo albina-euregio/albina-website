@@ -32,14 +32,17 @@
     color: $text-color;
   }
   &:hover,
+  &:focus,
   &:active {
     &:before {
       transform: translateY(-$padding / 2);
     }
+    outline: none;
   }
 
   &.icon-sm-facebook {
     &:hover,
+    &:focus,
     &:active,
     .page-footer &,
     .modal-follow & {
@@ -48,6 +51,7 @@
   }
   &.icon-sm-twitter {
     &:hover,
+    &:focus,
     &:active,
     .page-footer &,
     .modal-follow & {
@@ -56,6 +60,7 @@
   }
   &.icon-sm-instagram {
     &:hover,
+    &:focus,
     &:active,
     .page-footer &,
     .modal-follow & {
@@ -64,6 +69,7 @@
   }
   &.icon-sm-youtube {
     &:hover,
+    &:focus,
     &:active,
     .page-footer &,
     .modal-follow & {
@@ -72,6 +78,7 @@
   }
   &.icon-sm-whatsapp {
     &:hover,
+    &:focus,
     &:active,
     .page-footer &,
     .modal-follow & {
@@ -80,6 +87,7 @@
   }
   &.icon-sm-telegram {
     &:hover,
+    &:focus,
     &:active,
     .page-footer &,
     .modal-follow & {

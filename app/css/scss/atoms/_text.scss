@@ -217,6 +217,12 @@ abbr {
   }
 }
 
+//keyboard focus
+//https://css-tricks.com/the-focus-visible-trick/
+:focus-visible {
+  outline: $border-width $border-style $brand;
+}
+
 //auswahl
 ::-moz-selection {
   background: $primary-color;

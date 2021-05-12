@@ -65,9 +65,11 @@
   background-size: ($logo-footer-tertiary-width / 2)
     ($logo-footer-tertiary-height / 2);
   filter: grayscale(100%);
-  &:hover {
+  &:hover,
+  &:focus {
     transform: scale(1.05);
     filter: grayscale(0%);
+    outline: none;
   }
 }
 
@@ -83,10 +85,12 @@
       transform: translateY(0);
     }
     &:hover,
+    &:focus,
     &:active {
       &:before {
         transform: translateY(-$padding / 2);
       }
+      outline: none;
     }
   }
 }
