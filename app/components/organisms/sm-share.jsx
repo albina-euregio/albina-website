@@ -72,6 +72,10 @@ class SmShare extends React.Component {
                 { id: "main:share-this:hover" },
                 { on: "Twitter" }
               )}
+              aria-label={this.props.intl.formatMessage(
+                { id: "main:share-this:hover" },
+                { on: "Twitter" }
+              )}
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -83,6 +87,10 @@ class SmShare extends React.Component {
               <a
                 className="sm-button icon-sm-instagram tooltip"
                 title={this.props.intl.formatMessage(
+                  { id: "main:share-this:hover" },
+                  { on: "Instagram" }
+                )}
+                aria-label={this.props.intl.formatMessage(
                   { id: "main:share-this:hover" },
                   { on: "Instagram" }
                 )}
@@ -101,6 +109,10 @@ class SmShare extends React.Component {
                   { id: "main:share-this:hover" },
                   { on: "YouTube" }
                 )}
+                aria-label={this.props.intl.formatMessage(
+                  { id: "main:share-this:hover" },
+                  { on: "YouTube" }
+                )}
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -116,6 +128,10 @@ class SmShare extends React.Component {
                 { id: "main:share-this:hover" },
                 { on: "WhatsApp" }
               )}
+              aria-label={this.props.intl.formatMessage(
+                { id: "main:share-this:hover" },
+                { on: "WhatsApp" }
+              )}
               rel="noopener noreferrer"
               target="_blank"
             >
@@ -127,6 +143,10 @@ class SmShare extends React.Component {
               href={this.getShareUrl("telegram")}
               className="sm-button icon-sm-telegram tooltip"
               title={this.props.intl.formatMessage(
+                { id: "main:share-this:hover" },
+                { on: "Telegram" }
+              )}
+              aria-label={this.props.intl.formatMessage(
                 { id: "main:share-this:hover" },
                 { on: "Telegram" }
               )}

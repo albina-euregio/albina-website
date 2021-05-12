@@ -53,6 +53,7 @@ class SearchField extends React.Component {
           <button
             href="#"
             title={placeholder}
+            aria-label={placeholder}
             className="pure-button pure-button-icon icon-search tooltip"
             onClick={() => {
               this.props.handleSearch(this.state.text);

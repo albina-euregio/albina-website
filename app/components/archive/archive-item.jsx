@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Util } from "leaflet";
 import { dateToISODateString, dateToDateString } from "../../util/date.js";
-import BulletinAwmapStatic from "../bulletin/bulletin-awmap-static.jsx";
+import ArchiveAwmapStatic from "./archive-awmap-static.jsx";
 
 class ArchiveItem extends React.Component {
   constructor(props) {
@@ -106,7 +106,7 @@ class ArchiveItem extends React.Component {
                 id: "archive:show-forecast:hover"
               })}
             >
-              <BulletinAwmapStatic
+              <ArchiveAwmapStatic
                 date={dateString}
                 region={
                   this.state.fd ? "fd_albina_thumbnail" : "am_albina_thumbnail"

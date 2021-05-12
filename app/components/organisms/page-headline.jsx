@@ -15,7 +15,11 @@ export default class PageHeadline extends React.Component {
           {this.props.marginal && (
             <p className="marginal">{this.props.marginal}</p>
           )}
-          {subtitle && <h2 className="subheader">{subtitle}</h2>}
+          {subtitle && (
+            <h2 className="subheader" aria-hidden>
+              {subtitle}
+            </h2>
+          )}
           {this.props.title && <h1>{this.props.title}</h1>}
           {this.props.children}
         </header>

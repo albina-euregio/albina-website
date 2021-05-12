@@ -184,6 +184,40 @@ class More extends React.Component {
             </li>
             <li className="feature-item">
               <Link
+                to="/more/accessibility"
+                title={this.props.intl.formatMessage({
+                  id: "more:accessibility:headline"
+                })}
+                className="linkbox linkbox-feature tooltip"
+              >
+                <div className="content-image">
+                  <img
+                    src="/content_files/feature_accessibility.jpg"
+                    title={this.props.intl.formatMessage({
+                      id: "more:accessibility:image:title"
+                    })}
+                    alt={this.props.intl.formatMessage({
+                      id: "more:accessibility:image:alt"
+                    })}
+                    className=""
+                  />
+                </div>
+                <div className="content-text">
+                  <p className="h1 subheader">
+                    {this.props.intl.formatMessage({
+                      id: "more:accessibility:headline"
+                    })}
+                  </p>
+                  <p>
+                    {this.props.intl.formatMessage({
+                      id: "more:accessibility:text"
+                    })}
+                  </p>
+                </div>
+              </Link>
+            </li>
+            <li className="feature-item">
+              <Link
                 to="/more/open-data"
                 title={this.props.intl.formatMessage({
                   id: "more:open-data:headline"
