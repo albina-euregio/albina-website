@@ -8,7 +8,9 @@ import MapStore from "../stores/mapStore";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
-const BulletinMap = React.lazy(() => import("../components/bulletin/bulletin-map"));
+const BulletinMap = React.lazy(() =>
+  import("../components/bulletin/bulletin-map")
+);
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
 import ControlBar from "../components/organisms/control-bar.jsx";
@@ -206,12 +208,13 @@ class Bulletin extends React.Component {
           {this.store.activeBulletinCollection &&
           this.store.activeBulletinCollection.hasDaytimeDependency() ? (
             <div className="bulletin-parallel-view">
-              {["am", "pm"].map(daytime => (
+              {["am", "pm"].map((daytime, index) => (
                 <BulletinMap
                   key={daytime}
                   handleMapViewportChanged={this.handleMapViewportChanged.bind(
                     this
                   )}
+                  administrateLoadingBar={index === 0}
                   handleSelectRegion={this.handleSelectRegion.bind(this)}
                   date={this.props.match.params.date}
                   history={this.props.history}
@@ -225,7 +228,10 @@ class Bulletin extends React.Component {
             </div>
           ) : (
             <BulletinMap
-              handleMapViewportChanged={this.handleMapViewportChanged.bind(this)}
+              administrateLoadingBar={true}
+              handleMapViewportChanged={this.handleMapViewportChanged.bind(
+                this
+              )}
               handleSelectRegion={this.handleSelectRegion.bind(this)}
               date={this.props.match.params.date}
               history={this.props.history}

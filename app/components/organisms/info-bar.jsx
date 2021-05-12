@@ -35,7 +35,7 @@ export default class InfoBar extends React.Component {
   }
 
   setInfoMessage() {
-    // console.log("InfoBar->setInfoMessage", "state: " + this.state.currentLevel, "props: " + this.props.level, this.levels[this.props.level]);//, this.getI(this.levels[this.props.level], "iconOn"))
+    //console.log("InfoBar->setInfoMessage", "state: " + this.state.currentLevel, "props: " + this.props.level, this.levels);//, this.getI(this.levels[this.props.level], "iconOn"))
     const self = this;
     const newLevel = this.props.level;
     const newLevelData = this.levels[newLevel];
@@ -46,7 +46,7 @@ export default class InfoBar extends React.Component {
       if ((nDelay = this.getI(newLevelData, "delay"))) {
         // console.log("InfoBar->setInfoMessage #1" , newLevel, this.delayedLevel);
         if (newLevel != this.delayedLevel) {
-          // console.log("InfoBar->setInfoMessage #2" , nDelay);
+          //console.log("InfoBar->setInfoMessage #2" , this.state.currentLevel, newLevel, nDelay);
           this.resetInterval();
           this.messageInterval = setTimeout(() => {
             self.messageInterval = undefined;
@@ -73,7 +73,7 @@ export default class InfoBar extends React.Component {
 
   setLoadingIndicator(on) {
     //show hide loading image
-    // console.log("InfoBar->setLoadingIndicator", on)
+    //console.log("InfoBar->setLoadingIndicator", on)
     if (on) {
       $("html").addClass("page-loading");
       $("html").removeClass("page-loaded");

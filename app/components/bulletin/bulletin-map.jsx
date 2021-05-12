@@ -40,6 +40,7 @@ class BulletinMap extends React.Component {
       },
       ok: { message: "", keep: true }
     };
+    this.setInfoMessages();
     if (!window.mapStore) {
       window.mapStore = new MapStore();
     }
@@ -274,13 +275,14 @@ class BulletinMap extends React.Component {
   }
 
   render() {
-    // console.log("bulletin-map->render", this.props.store);
+    //console.log("bulletin-map->render", this.props.store.settings.status);
 
     let newLevel = this.props.store.settings.status;
-    if (this.lastDate != this.props.date) {
-      newLevel = "init";
-      this.lastDate = this.props.date;
-    }
+    // if (this.lastDate != this.props.date) {
+    //   console.log("bulletin-map->render:SET TO INIT #aaa",  this.props.store.settings.status, this.lastDate, this.props.date);
+    //   newLevel = "init";
+    //   this.lastDate = this.props.date;
+    // }
 
     return (
       <section
@@ -288,7 +290,9 @@ class BulletinMap extends React.Component {
         className="section section-bulletin-map"
         aria-hidden
       >
-        <InfoBar level={newLevel} levels={this.infoMessageLevels} />
+        {this.props.administrateLoadingBar && (
+          <InfoBar level={newLevel} levels={this.infoMessageLevels} />
+        )}
         <div
           className={
             "section-map" +
