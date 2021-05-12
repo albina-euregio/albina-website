@@ -73,6 +73,12 @@ source_lang = en
 type = HTML
 file_filter = app/content/more/privacy/<lang>.html
 
+[albina-website.accessibility]
+source_file = app/content/more/accessibility/en.html
+source_lang = en
+type = HTML
+file_filter = app/content/more/accessibility/<lang>.html
+
 [albina-website.open-data]
 source_file = app/content/more/open-data/en.html
 source_lang = en
