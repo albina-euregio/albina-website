@@ -1,5 +1,5 @@
 {
-  "app:title": "Avalanche.report - Centros de Predicción de Aludes Tirol - South Tyrol - Trentino",
+  "app:title": "Avalanche.report",
   "region:AT": "Austria",
   "region:AT-02": "Carintia",
   "region:AT-03": "Baja Austria",
@@ -104,7 +104,8 @@
   "menu:more:about": "A cerca de",
   "menu:more:contact": "Contacto",
   "menu:more:imprint": "Imprimir",
-  "menu:more:privacy": "Política de Privacidad",
+  "menu:more:privacy": "Privacy",
+  "menu:more:accessibility": "Accessibility",
   "menu:more:open-data": "Open Data",
   "menu:weather:map:": "Mapas del Tiempo",
   "menu:weather:measurements": "Estaciones de Medida",
@@ -245,6 +246,7 @@
   "archive:download-xml": "XML",
   "archive:download-pdf:hover": "Descargar",
   "archive:download-xml:hover": "Descargar",
+  "archive:map:alt": "Danger rating map for {date}",
   "archive:show-forecast:hover": "Mostrar la Predicción de Aludes archivada completa",
   "archive:former-archives:headline": "Archivos anteriores",
   "archive:former-archives:tyrol": "Tyrol",
@@ -400,6 +402,10 @@
   "more:privacy:image:alt": "Política de Privacidad",
   "more:privacy:headline": "Política de Privacidad",
   "more:privacy:text": "¿Qué pasa con tus datos?",
+  "more:accessibility:image:title": "Accessibility Declaration",
+  "more:accessibility:image:alt": "Accessibility Declaration",
+  "more:accessibility:headline": "Accessibility Declaration",
+  "more:accessibility:text": "Can you access the data?",
   "more:open-data:image:title": "Open Data",
   "more:open-data:image:alt": "Open Data",
   "more:open-data:headline": "Open Data",
@@ -455,8 +461,5 @@
   "button:education:avalanche-sizes:text": "Tamaño de Aludes",
   "button:education:avalanche-problems:text": "Problemas de Avalanchas",
   "button:education:danger-patterns:text": "Patrones de Peligro",
-  "button:education:handbook:text": "Manual",
-  "province": "Provincia",
-  "color": "Color",
-  "mode": "Color mode"
+  "button:education:handbook:text": "Manual"
 }

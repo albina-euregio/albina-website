@@ -1,5 +1,5 @@
 {
-  "app:title": "Avalanche.report - Service de Prévision d’avalanches Tyrol - Tyrol du Sud - Trentin",
+  "app:title": "Avalanche.report",
   "region:AT": "Autriche",
   "region:AT-02": "Carinthie",
   "region:AT-03": "Basse-Autriche",
@@ -104,7 +104,8 @@
   "menu:more:about": "À propos de nous",
   "menu:more:contact": "Contact",
   "menu:more:imprint": "Mentions légales",
-  "menu:more:privacy": "Politique de confidentialité",
+  "menu:more:privacy": "Privacy",
+  "menu:more:accessibility": "Accessibility",
   "menu:more:open-data": "Open Data",
   "menu:weather:map:": "Cartes Météo",
   "menu:weather:measurements": "Valeurs mesurées",
@@ -245,6 +246,7 @@
   "archive:download-xml": "XML",
   "archive:download-pdf:hover": "Télécharger",
   "archive:download-xml:hover": "Télécharger",
+  "archive:map:alt": "Danger rating map for {date}",
   "archive:show-forecast:hover": "Afficher tous bulletins d'avalanche archivés",
   "archive:former-archives:headline": "Anciennes Archives",
   "archive:former-archives:tyrol": "Tyrol",
@@ -400,6 +402,10 @@
   "more:privacy:image:alt": "Politique de confidentialité",
   "more:privacy:headline": "Politique de confidentialité",
   "more:privacy:text": "Comment est-ce qu'on utilise vos données personnelles?",
+  "more:accessibility:image:title": "Accessibility Declaration",
+  "more:accessibility:image:alt": "Accessibility Declaration",
+  "more:accessibility:headline": "Accessibility Declaration",
+  "more:accessibility:text": "Can you access the data?",
   "more:open-data:image:title": "Open Data",
   "more:open-data:image:alt": "Open Data",
   "more:open-data:headline": "Open Data",
@@ -455,8 +461,5 @@
   "button:education:avalanche-sizes:text": "Taille d'avalanche",
   "button:education:avalanche-problems:text": "Situations avalancheuses typiques",
   "button:education:danger-patterns:text": "Situations avalancheuses",
-  "button:education:handbook:text": "Manuel",
-  "province": "Province",
-  "color": "Color",
-  "mode": "Color mode"
+  "button:education:handbook:text": "Manuel"
 }

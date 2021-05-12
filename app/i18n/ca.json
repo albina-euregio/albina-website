@@ -1,5 +1,5 @@
 {
-  "app:title": "Avalanche.report - Serveis de predicció d'allaus del Tirol - Tirol del sud - Trentino",
+  "app:title": "Avalanche.report",
   "region:AT": "Àustria",
   "region:AT-02": "Caríntia",
   "region:AT-03": "Baixa Àustria",
@@ -104,7 +104,8 @@
   "menu:more:about": "Sobre",
   "menu:more:contact": "Contacte",
   "menu:more:imprint": "Imprimir",
-  "menu:more:privacy": "Política de privacitat",
+  "menu:more:privacy": "Privacy",
+  "menu:more:accessibility": "Accessibility",
   "menu:more:open-data": "Open Data",
   "menu:weather:map:": "Mapes del temps",
   "menu:weather:measurements": "Mesures de les estacions",
@@ -245,6 +246,7 @@
   "archive:download-xml": "XML",
   "archive:download-pdf:hover": "Descarrega",
   "archive:download-xml:hover": "Descarrega",
+  "archive:map:alt": "Danger rating map for {date}",
   "archive:show-forecast:hover": "Veure Predicció d'Allaus arxivada sencera",
   "archive:former-archives:headline": "Arxius anteriors",
   "archive:former-archives:tyrol": "Tyrol",
@@ -400,6 +402,10 @@
   "more:privacy:image:alt": "Política de privacitat",
   "more:privacy:headline": "Política de privacitat",
   "more:privacy:text": "Què passa amb les teves dades?",
+  "more:accessibility:image:title": "Accessibility Declaration",
+  "more:accessibility:image:alt": "Accessibility Declaration",
+  "more:accessibility:headline": "Accessibility Declaration",
+  "more:accessibility:text": "Can you access the data?",
   "more:open-data:image:title": "Open Data",
   "more:open-data:image:alt": "Open Data",
   "more:open-data:headline": "Open Data",
@@ -455,8 +461,5 @@
   "button:education:avalanche-sizes:text": "Mides d'Allaus",
   "button:education:avalanche-problems:text": "Problemes d'allaus",
   "button:education:danger-patterns:text": "Patrons de Perill",
-  "button:education:handbook:text": "Manual",
-  "province": "Provincia",
-  "color": "Color",
-  "mode": "Color mode"
+  "button:education:handbook:text": "Manual"
 }
