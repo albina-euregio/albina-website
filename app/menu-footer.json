@@ -1,6 +1,6 @@
 [
-  { "url": "/more/archive" },
-  { "url": "/more/about" },
-  { "url": "/more/contact" },
-  { "url": "/more/imprint" }
+  { "url": "/more/imprint" },
+  { "url": "/more/privacy" },
+  { "url": "/more/accessibility" },
+  { "url": "/more/contact" }
 ]
