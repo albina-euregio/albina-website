@@ -30,6 +30,7 @@ class Selectric extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    $(".selectric-input").attr("aria-label", this.props.title);
     if (prevProps.children !== this.props.children) {
       this.$el.selectric("refresh");
     }
