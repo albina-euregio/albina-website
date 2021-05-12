@@ -245,6 +245,7 @@
   "archive:download-xml": "XML",
   "archive:download-pdf:hover": "Download",
   "archive:download-xml:hover": "Download",
+  "archive:map:alt": "Danger rating map for {date}",
   "archive:show-forecast:hover": "Show full archived Avalanche Forecast",
   "archive:former-archives:headline": "Former Archives",
   "archive:former-archives:tyrol": "Tyrol",
