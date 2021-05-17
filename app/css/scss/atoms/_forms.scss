@@ -77,10 +77,6 @@ form {
         color: $grey;
       }
     }
-    &:focus {
-      color: $brand;
-      border-color: $brand;
-    }
   }
 
   .pure-control-group {
@@ -131,6 +127,14 @@ input[type="range"] {
   width: 100%;
   background-color: transparent;
   &:focus {
+    outline: none;
+  }
+  //Focusing  with a keyboard
+  &:focus-visible {
+    @include keyboard-focus();
+  }
+  //Focusing with a mouse, touch, or stylus
+  &:focus:not(:focus-visible) {
     outline: none;
   }
 
@@ -236,6 +240,14 @@ input[type="range"] {
     display: inline-block;
     width: $padding * 4;
     height: $padding * 2;
+    //Focusing  with a keyboard
+    &:focus-visible {
+      @include keyboard-focus();
+    }
+    //Focusing with a mouse, touch, or stylus
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
   }
   input {
     display: none;

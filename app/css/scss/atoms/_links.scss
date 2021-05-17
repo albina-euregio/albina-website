@@ -22,9 +22,6 @@ a {
       cursor: pointer;
     }
   }
-  &:focus {
-    outline: none;
-  }
 }
 
 //textlink
@@ -42,8 +39,6 @@ a.textlink {
     color: $anchor-font-color;
     background-color: $white;
     border-color: $anchor-font-color;
-  }
-  &:focus {
   }
 }
 

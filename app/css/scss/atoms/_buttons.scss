@@ -46,7 +46,17 @@ a.pure-button {
     @include rollover;
   }
   &:focus {
+    filter: none;
     background-image: none;
+    outline: initial;
+  }
+  //Focusing  with a keyboard
+  &:focus-visible {
+    @include keyboard-focus();
+  }
+  //Focusing with a mouse, touch, or stylus
+  &:focus:not(:focus-visible) {
+    outline: none;
   }
 
   &.primary {
