@@ -74,12 +74,10 @@
       width: $picto-height-plus;
       height: $picto-height-plus;
       background: none;
-      &:hover,
-      &:focus {
+      &:hover {
         img {
           opacity: 1;
         }
-        outline: none;
       }
       &.js-deactivated {
         top: $padding;
@@ -87,8 +85,7 @@
           opacity: 0.5;
           filter: grayscale(100%);
         }
-        &:hover,
-        &:focus {
+        &:hover {
           img {
             filter: grayscale(50%);
           }
@@ -160,23 +157,11 @@
       margin-bottom: 0;
     }
   }
-
-  //from alien app.scss
-  /*
-  .bulletin-list-item {
-    list-style-type: none;
-    padding-bottom: 5em;
-
-    &:last-child {
-      padding-bottom: 0;
-    }
-  }
-  */
 }
 
 //from alien app.scss
-// commented out 'cause it won't select anything anyway
 // #section-bulletin-report {
+//   commented out 'cause it won't select anything anyway
 //   @media only screen and (max-width: 57.5em) {
 //     .page-main section.section-centered {
 //       padding: 0px !important;
@@ -228,13 +213,13 @@
       transform: translate(-50%, 0%);
       opacity: 0;
     }
-    &:hover,
-    &:focus {
+    &:hover {
+      img {
+      }
       &:before {
         transform: translate(-50%, -50%);
         opacity: 1;
       }
-      outline: none;
     }
   }
   img {
@@ -329,10 +314,8 @@
       color: $text-color;
     }
     &:hover,
-    &:focus,
     &:active {
       color: $anchor-font-color-hover;
-      outline: none;
     }
   }
   img {

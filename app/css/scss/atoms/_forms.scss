@@ -107,8 +107,7 @@ form {
       width: 10em;
     }
   }
-  &:hover,
-  &:focus {
+  &:hover {
     input {
       width: 10em;
     }
@@ -131,6 +130,9 @@ input[type="range"] {
   padding: 0;
   width: 100%;
   background-color: transparent;
+  &:focus {
+    outline: none;
+  }
 
   &::-webkit-slider-runnable-track {
     width: 100%;
@@ -143,6 +145,7 @@ input[type="range"] {
     &:hover,
     &:focus {
       background: $brand;
+      outline: none;
     }
   }
   &::-webkit-slider-thumb {
@@ -155,6 +158,8 @@ input[type="range"] {
     cursor: pointer;
     -webkit-appearance: none;
     @include rollout;
+    &:hover {
+    }
   }
 
   &::-moz-range-track {
@@ -166,6 +171,7 @@ input[type="range"] {
     &:hover,
     &:focus {
       background: $grey-light;
+      outline: none;
     }
   }
   &::-moz-range-thumb {
@@ -196,6 +202,7 @@ input[type="range"] {
     &:hover,
     &:focus {
       background: $grey-light;
+      outline: none;
     }
   }
   &::-ms-fill-upper {
@@ -204,6 +211,7 @@ input[type="range"] {
     &:hover,
     &:focus {
       background: $grey-light;
+      outline: none;
     }
   }
   &::-ms-thumb {
@@ -254,8 +262,7 @@ input[type="range"] {
       border-radius: $global-rounded;
       @include rollout;
     }
-    &:hover,
-    &:focus {
+    &:hover {
       background-color: $grey;
     }
   }

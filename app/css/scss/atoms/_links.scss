@@ -14,14 +14,16 @@ a {
     text-decoration: $anchor-text-decoration;
     @include rollout;
   }
-  &:hover,
-  &:focus {
+  &:hover {
     cursor: pointer;
     color: $anchor-font-color-hover;
     @include rollover;
     span {
       cursor: pointer;
     }
+  }
+  &:focus {
+    outline: none;
   }
 }
 
@@ -36,11 +38,12 @@ a.textlink {
     border: $border-width $border-style transparent;
     border-radius: $global-radius;
   }
-  &:hover,
-  &:focus {
+  &:hover {
     color: $anchor-font-color;
     background-color: $white;
     border-color: $anchor-font-color;
+  }
+  &:focus {
   }
 }
 
@@ -52,8 +55,7 @@ a.translink {
     color: $trans-color;
     background-color: transparent;
   }
-  &:hover,
-  &:focus {
+  &:hover {
     color: $white;
     background-color: $trans-color;
     border-color: $trans-color;
@@ -93,8 +95,7 @@ a.img {
     @include rollout(all, $transition-duration * 2);
   }
 
-  &:hover,
-  &:focus {
+  &:hover {
     cursor: hand;
     img {
     }
@@ -111,8 +112,7 @@ a.label {
   &:visited {
     border-color: $anchor-font-color;
   }
-  &:hover,
-  &:focus {
+  &:hover {
     border-color: $anchor-font-color-hover;
   }
 }
@@ -127,8 +127,7 @@ a.icon-link {
   display: inline-block;
   &.icon-arrow-left {
     &:hover,
-    &:active,
-    &:focus {
+    &:active {
       &:before {
         left: -$padding / 2;
       }
@@ -136,8 +135,7 @@ a.icon-link {
   }
   &.icon-arrow-up {
     &:hover,
-    &:active,
-    &:focus {
+    &:active {
       &:before {
         top: -$padding / 2;
       }
@@ -149,8 +147,7 @@ a.icon-link {
       right: 0;
     }
     &:hover,
-    &:active,
-    &:focus {
+    &:active {
       &:before {
         right: -$padding / 2;
       }

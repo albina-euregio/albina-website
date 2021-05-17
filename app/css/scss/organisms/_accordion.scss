@@ -44,8 +44,7 @@
       margin-right: 0;
     }
   }
-  &:hover,
-  &:focus {
+  &:hover {
     @include text-color($anchor-font-color-hover);
   }
 }

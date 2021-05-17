@@ -293,7 +293,7 @@
   &.list-buttongroup-dense {
     display: flex;
     flex-wrap: wrap;
-    //overflow: hidden;//removed to let keyboard focus style appear
+    overflow: hidden;
     > li {
       margin: 0 (-$border-width) (-$border-width) 0;
       padding: 0;

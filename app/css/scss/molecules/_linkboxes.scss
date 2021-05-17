@@ -66,8 +66,7 @@ a.linkbox {
     @include rollout(all, $transition-duration * 2, ease-in-out);
   }
 
-  &:hover,
-  &:focus {
+  &:hover {
     border-color: $anchor-font-color;
     @include box-shadow;
     @include rollover(all, $transition-duration * 2, ease-in-out);
@@ -128,8 +127,7 @@ a.linkbox-feature {
     margin-top: $paragraph-margin-bottom;
   }
 
-  &:hover,
-  &:focus {
+  &:hover {
     .content-image {
       img {
         transform: translateY(50%) scale3d(2.01, 2.01, 1);
@@ -217,8 +215,7 @@ a.linkbox-blog-feature {
     }
   }
 
-  &:hover,
-  &:focus {
+  &:hover {
     color: $anchor-font-color;
     background-color: $white;
     border-color: $anchor-font-color;
@@ -287,8 +284,7 @@ a.linkbox-linktree-feature {
     padding: calc(#{$all-v-padding} / 2) $all-h-padding;
   }
 
-  &:hover,
-  &:focus {
+  &:hover {
     color: $anchor-font-color;
     background-color: $white;
     border-color: $anchor-font-color;
