@@ -163,6 +163,11 @@
   }
 }
 
+@mixin keyboard-focus() {
+  z-index: 2;
+  outline: $bar-width dotted $brand;
+}
+
 //bg, vborder, shadow
 @mixin bg-retina(
   $color,
@@ -293,7 +298,7 @@
   &.list-buttongroup-dense {
     display: flex;
     flex-wrap: wrap;
-    overflow: hidden;
+    //overflow: hidden;//removed to let keyboard focus style appear
     > li {
       margin: 0 (-$border-width) (-$border-width) 0;
       padding: 0;

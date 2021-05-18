@@ -217,6 +217,16 @@ abbr {
   }
 }
 
+//focus https://css-tricks.com/the-focus-visible-trick/
+//keyboard
+:focus-visible {
+  @include keyboard-focus();
+}
+//mouse, touch, stylus
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 //auswahl
 ::-moz-selection {
   background: $primary-color;

@@ -40,8 +40,6 @@ $cp-breakpoint-2: 1024px;
   width: 100vw;
 
   font-size: $cp-font-size-medium;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 
   @extend .bg-box;

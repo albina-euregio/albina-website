@@ -22,9 +22,6 @@ a {
       cursor: pointer;
     }
   }
-  &:focus {
-    outline: none;
-  }
 }
 
 //textlink
@@ -43,11 +40,6 @@ a.textlink {
     background-color: $white;
     border-color: $anchor-font-color;
   }
-  &:focus {
-  }
-  &[href^="http:"],
-  &[href^="https:"] {
-  }
 }
 
 //translink
@@ -65,38 +57,6 @@ a.translink {
   }
 }
 
-//img
-/*
-a.img {
-	position: relative;
-	display: inline-block;
-	line-height: 0;
-	background-color: $brand;
-	
-	&[href^="http:"], &[href^="https:"] {
-		padding-left: 0;
-		&:before {
-			display: none;
-			content: none;
-		}
-	}
-	
-	img {
-		display: block;
-		margin: 0;
-		opacity: 1;
-		@include rollout(all, $transition-duration * 2);
-	}
-	
-	&:hover {
-		cursor: hand;
-		img {
-			opacity: 0.5;
-			@include rollover(all, $transition-duration * 2);
-		}
-	}
-}
-*/
 a.img {
   position: relative;
   display: inline-block;
@@ -203,7 +163,5 @@ a[target*="_blank"]:not([class*="pure-button"]):not([class*="sm-button"]):not([c
     right: 0;
     width: 0.5em;
     line-height: 0.5em;
-  }
-  &:hover {
   }
 }

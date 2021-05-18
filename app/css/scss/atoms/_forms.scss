@@ -77,10 +77,6 @@ form {
         color: $grey;
       }
     }
-    &:focus {
-      color: $brand;
-      border-color: $brand;
-    }
   }
 
   .pure-control-group {
@@ -131,6 +127,14 @@ input[type="range"] {
   width: 100%;
   background-color: transparent;
   &:focus {
+    outline: none;
+  }
+  //Focusing  with a keyboard
+  &:focus-visible {
+    @include keyboard-focus();
+  }
+  //Focusing with a mouse, touch, or stylus
+  &:focus:not(:focus-visible) {
     outline: none;
   }
 
@@ -236,6 +240,14 @@ input[type="range"] {
     display: inline-block;
     width: $padding * 4;
     height: $padding * 2;
+    //Focusing  with a keyboard
+    &:focus-visible {
+      @include keyboard-focus();
+    }
+    //Focusing with a mouse, touch, or stylus
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
   }
   input {
     display: none;
@@ -468,8 +480,6 @@ $selectric-max-width: 20em;
 .selectric-disabled {
   opacity: 0.5;
   cursor: default;
-  -webkit-user-select: none;
-  -ms-user-select: none;
   user-select: none;
 }
 
@@ -592,8 +602,6 @@ $selectric-max-width: 20em;
     cursor: default !important;
     background: none !important;
     color: $grey-light !important;
-    -webkit-user-select: none;
-    -ms-user-select: none;
     user-select: none;
   }
 
@@ -602,8 +610,6 @@ $selectric-max-width: 20em;
       font-weight: bold;
       padding-left: $padding;
       cursor: default;
-      -webkit-user-select: none;
-      -ms-user-select: none;
       user-select: none;
       background: none;
     }
