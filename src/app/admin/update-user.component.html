@@ -66,7 +66,7 @@
       <div class="card-footer">
         <button [disabled]="!updateUserForm.valid" type="submit" class="btn btn-sm btn-primary px-3" (click)="updateUser()">{{
           "admin.createUser.button.update" | translate }}</button>
-        <button class="btn btn-sm btn-secondary px-3" (click)="closeDialog('')">{{"admin.createUser.button.cancel" | translate }}</button>
+        <button type="button" btn btn-sm btn-secondary px-3" (click)="closeDialog('')">{{"admin.createUser.button.cancel" | translate }}
       </div>
     </form>
   </div>
