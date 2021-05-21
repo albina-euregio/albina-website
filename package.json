@@ -51,7 +51,7 @@
     "leaflet": "^1.6.0",
     "leaflet.sync": "0.2.4",
     "ngx-bootstrap": "^5.5.0",
-    "papaparse": "^5.1.1",
+    "papaparse": "^5.3.0",
     "primeflex": "^2.0.0",
     "primeicons": "^2.0.0",
     "primeng": "^9.0.0",
