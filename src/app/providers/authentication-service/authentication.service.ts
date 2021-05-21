@@ -220,7 +220,11 @@ export class AuthenticationService {
   }
 
   public getCurrentAuthorRegions() {
-    return this.currentAuthor.getRegions();
+    if (this.currentAuthor) {
+      return this.currentAuthor.getRegions();
+    } else {
+      return [];
+    }
   }
 }
 
