@@ -656,6 +656,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       afternoonMap.style.border = "";
     }
     this.initMaps();
+    this.updateMap();
 
     if (bulletin) {
       this.selectBulletin(bulletin);
