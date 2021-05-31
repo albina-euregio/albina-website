@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
-import { MapService } from "../providers/map-service/map.service";
+import { ObservationsMapService } from "../providers/map-service/observations-map.service";
 import { GenericObservation, ObservationSourceColors, ObservationTableRow, toObservationTable } from "./models/generic-observation.model";
 
 import { Observable } from "rxjs";
@@ -36,7 +36,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private authenticationService: AuthenticationService,
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
-    private mapService: MapService
+    private mapService: ObservationsMapService
   ) {
     this.allRegions = this.regionsService
       .getRegionsEuregio()

@@ -5,7 +5,6 @@ import { RegionsService, RegionWithElevationProperties } from "../regions-servic
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { ConstantsService } from "../constants-service/constants.service";
 import * as Enums from "../../enums/enums";
-import { ObservationSource, ObservationSourceColors } from "app/observations/models/generic-observation.model";
 
 import * as L from "leaflet";
 import * as geojson from "geojson";
@@ -25,12 +24,8 @@ interface SelectableRegionProperties extends RegionWithElevationProperties {
 export class MapService {
   public map: Map;
   public afternoonMap: Map;
-  public observationsMap: Map;
-  public zamgModelsMap: Map;
   public baseMaps: Record<string, L.TileLayer>;
   public afternoonBaseMaps: Record<string, L.TileLayer>;
-  public observationsMaps: Record<string, L.TileLayer>;
-  public zamgModelsMaps: Record<string, L.TileLayer>;
   public overlayMaps: {
     regions: L.GeoJSON<SelectableRegionProperties>;
     activeSelection: L.GeoJSON<SelectableRegionProperties>;
@@ -43,20 +38,12 @@ export class MapService {
     editSelection: L.GeoJSON<SelectableRegionProperties>;
     aggregatedRegions: L.GeoJSON<SelectableRegionProperties>;
   };
-  public layers = {
-    zamgModelPoints: L.layerGroup()
-  };
-  public observationLayers: Record<ObservationSource, L.LayerGroup>;
 
   constructor(
     private regionsService: RegionsService,
     private authenticationService: AuthenticationService,
     private constantsService: ConstantsService) {
     this.initMaps();
-    this.observationLayers = {} as any;
-    Object.keys(ObservationSource).forEach(source => this.observationLayers[source] = L.layerGroup([], {
-      attribution: `<span style="color: ${ObservationSourceColors[source]}">⬤</span> ${source}`
-    }))
   }
 
   initMaps() {
@@ -69,27 +56,6 @@ export class MapService {
       };
 
       this.afternoonBaseMaps = {
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
-          tms: false,
-          attribution: ""
-        })
-      };
-
-      this.observationsMaps = {
-        OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-          className: "leaflet-layer-grayscale",
-          minZoom: 12.5,
-          maxZoom: 17,
-          attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
-        }),
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
-          maxZoom: 12,
-          tms: false,
-          attribution: ""
-        })
-      };
-
-      this.zamgModelsMaps = {
         AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
           tms: false,
           attribution: ""
@@ -143,20 +109,6 @@ export class MapService {
         AlbinaBaseMap: L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.png", {
           tms: false,
           attribution: "Map tiles by <a href='http://stamen.com'>Stamen Design</a>, <a href='http://creativecommons.org/licenses/by/3.0'>CC BY 3.0</a> &mdash; Map data &copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
-        })
-      };
-
-      this.observationsMaps = {
-        OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-          maxZoom: 17,
-          attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
-        })
-      };
-
-      this.zamgModelsMaps = {
-        OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
-          maxZoom: 17,
-          attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
         })
       };
 

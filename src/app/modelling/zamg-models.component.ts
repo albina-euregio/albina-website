@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } fr
 import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { ModellingService, ZamgModelPoint } from "./modelling.service";
-import { MapService } from "../providers/map-service/map.service";
+import { ZamgModelsMapService } from "../providers/map-service/zamg-models-map.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 
 import * as L from "leaflet";
@@ -25,7 +25,7 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
     private modellingService: ModellingService,
     public translate: TranslateService,
     private authenticationService: AuthenticationService,
-    private mapService: MapService
+    private mapService: ZamgModelsMapService
   ) {}
 
   ngOnInit() {
