@@ -590,7 +590,6 @@ export class MapService {
         }
       },
       mouseover: function(e) {
-        // TODO get current language
          e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
         const l = e.target;
         l.setStyle({
@@ -619,7 +618,6 @@ export class MapService {
         feature.properties.selected = true;
       },
       mouseover: function(e) {
-        // TODO get current language
         e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
         const l = e.target;
         l.setStyle({
