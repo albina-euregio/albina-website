@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Map } from "leaflet";
+import { ConstantsService } from "../constants-service/constants.service";
 
 import * as L from "leaflet";
 import * as geojson from "geojson";
@@ -19,13 +20,14 @@ export class ZamgModelsMapService {
     zamgModelPoints: L.layerGroup()
   };
 
-  constructor() {
+  constructor(
+    private constantsService: ConstantsService) {
     this.initMaps();
   }
 
   initMaps() {
     this.zamgModelsMaps = {
-      AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+      AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
         tms: false,
         attribution: ""
       })
@@ -35,7 +37,7 @@ export class ZamgModelsMapService {
   createZamgModelPointOptions(): L.CircleMarkerOptions {
     return {
       radius: 8,
-      fillColor: "#19abff",
+      fillColor: this.constantsService.colorBrand,
       color: "black",
       weight: 1,
       opacity: 1,
