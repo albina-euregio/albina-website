@@ -49,14 +49,14 @@ export class MapService {
   initMaps() {
     if (this.authenticationService.isEuregio()) {
       this.baseMaps = {
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
           tms: false,
           attribution: ""
         })
       };
 
       this.afternoonBaseMaps = {
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
           tms: false,
           attribution: ""
         })
@@ -159,28 +159,6 @@ export class MapService {
       }
     }
     return null;
-  }
-
-  createZamgModelPointOptions(): L.CircleMarkerOptions {
-    return {
-      radius: 8,
-      fillColor: "#19abff",
-      color: "black",
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.8
-    };
-  }
-
-  createObservationMarkerOptions(color: string): L.CircleMarkerOptions {
-    return {
-      radius: 6,
-      fillColor: color,
-      color,
-      weight: 1,
-      opacity: 1,
-      fillOpacity: 0.6
-    };
   }
 
   resetAggregatedRegions() {
