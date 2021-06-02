@@ -94,6 +94,9 @@ export function convertLoLaToGeneric(report: AvalancheReport): GenericObservatio
     $data: report,
     $extraDialogRows: (t) => toLoLaTable(report, t),
     $source: ObservationSource.LoLaSafetyAvalancheReports,
+    $markerColor: getAvalancheReportMarkerColor(report),
+    $markerRadius: getAvalancheReportMarkerRadius(report),
+    $markerType: getAvalancheReportMarkerType(report),
     aspect: undefined,
     authorName: report.firstName + " " + report.lastName,
     content: report.headlineGerman + " " + report.headlineEnglish,
@@ -138,4 +141,19 @@ export function toLoLaTable(report: AvalancheReport, t: (key: string) => string)
 
 function formatAvalancheSituation(situation: AvalancheSituation): string {
   return situation.aspects?.join(", ");
+}
+
+function getAvalancheReportMarkerColor(report: AvalancheReport): string {
+  // TODO implement
+  return "yellow";
+}
+
+function getAvalancheReportMarkerRadius(report: AvalancheReport): number {
+  // TODO implement
+  return 15;
+}
+
+function getAvalancheReportMarkerType(report: AvalancheReport): string {
+  // TODO implement
+  return "Albina";
 }

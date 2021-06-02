@@ -5,6 +5,8 @@ export interface GenericObservation<Data = any> {
   $externalURL?: string;
   $extraDialogRows?: (t: (key: string) => string) => ObservationTableRow[];
   $markerColor?: string;
+  $markerRadius?: number;
+  $markerType?: string,
   $source: ObservationSource;
   aspect: Aspect;
   authorName: string;

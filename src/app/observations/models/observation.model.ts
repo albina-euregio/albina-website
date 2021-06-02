@@ -33,6 +33,9 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
     $data: observation,
     $extraDialogRows: null,
     $source: ObservationSource.Albina,
+    $markerColor: getObservationMarkerColor(observation),
+    $markerRadius: getObservationMarkerRadius(observation),
+    $markerType: getObservationMarkerType(observation),
     eventDate: observation.eventDate ? new Date(observation.eventDate) : undefined,
     reportDate: observation.reportDate ? new Date(observation.reportDate) : undefined
   };
@@ -40,4 +43,19 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
 
 export function isAlbinaObservation(observation: GenericObservation): observation is GenericObservation<Observation> {
   return observation.$source === ObservationSource.Albina;
+}
+
+function getObservationMarkerColor(observation: Observation): string {
+  // TODO implement
+  return "blue";
+}
+
+function getObservationMarkerRadius(observation: Observation): number {
+  // TODO implement
+  return 15;
+}
+
+function getObservationMarkerType(observation: Observation): string {
+  // TODO implement
+  return "Albina";
 }
