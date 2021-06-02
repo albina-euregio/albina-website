@@ -62,53 +62,52 @@ export class ObservationMarker extends L.CircleMarker {
 // TODO: define the shape of different observation markers as SVG
 L.Canvas.include({
   _profileMarker: function (layer) {
-    debugger
     if (!this._drawing || layer._empty()) { return; }
-    var p = layer._point,
+    const p = layer._point,
         ctx = this._ctx,
         r = Math.max(Math.round(layer._radius), 1);
     this._layers[layer._leaflet_id] = layer
     ctx.beginPath();
-    ctx.moveTo(p.x + r     , p.y );
-    ctx.lineTo(p.x + 0.43*r, p.y + 0.25 * r);
-    ctx.lineTo(p.x + 0.50*r, p.y + 0.87 * r);
-    ctx.lineTo(p.x         , p.y + 0.50 * r);
-    ctx.lineTo(p.x - 0.50*r, p.y + 0.87 * r);
-    ctx.lineTo(p.x - 0.43*r, p.y + 0.25 * r);
-    ctx.lineTo(p.x -      r, p.y );
-    ctx.lineTo(p.x - 0.43*r, p.y - 0.25 * r);
-    ctx.lineTo(p.x - 0.50*r, p.y - 0.87 * r);
-    ctx.lineTo(p.x         , p.y - 0.50 * r);
-    ctx.lineTo(p.x + 0.50*r, p.y - 0.87 * r);
-    ctx.lineTo(p.x + 0.43*r, p.y - 0.25 * r);
+    ctx.moveTo(p.x + r       , p.y );
+    ctx.lineTo(p.x + 0.43 * r, p.y + 0.25 * r);
+    ctx.lineTo(p.x + 0.50 * r, p.y + 0.87 * r);
+    ctx.lineTo(p.x           , p.y + 0.50 * r);
+    ctx.lineTo(p.x - 0.50 * r, p.y + 0.87 * r);
+    ctx.lineTo(p.x - 0.43 * r, p.y + 0.25 * r);
+    ctx.lineTo(p.x -        r, p.y );
+    ctx.lineTo(p.x - 0.43 * r, p.y - 0.25 * r);
+    ctx.lineTo(p.x - 0.50 * r, p.y - 0.87 * r);
+    ctx.lineTo(p.x           , p.y - 0.50 * r);
+    ctx.lineTo(p.x + 0.50 * r, p.y - 0.87 * r);
+    ctx.lineTo(p.x + 0.43 * r, p.y - 0.25 * r);
     ctx.closePath();
     this._fillStroke(ctx, layer);
   },
   _observationMarker: function (layer) {
     if (!this._drawing || layer._empty()) { return; }
-    var p = layer._point,
+    const p = layer._point,
         ctx = this._ctx,
         r = Math.max(Math.round(layer._radius), 1);
     this._layers[layer._leaflet_id] = layer
     ctx.beginPath();
     ctx.moveTo(p.x + r     , p.y );
-    ctx.lineTo(p.x + 0.43*r, p.y + 0.25 * r);
-    ctx.lineTo(p.x + 0.50*r, p.y + 0.87 * r);
-    ctx.lineTo(p.x         , p.y + 0.50 * r);
-    ctx.lineTo(p.x - 0.50*r, p.y + 0.87 * r);
-    ctx.lineTo(p.x - 0.43*r, p.y + 0.25 * r);
-    ctx.lineTo(p.x -      r, p.y );
-    ctx.lineTo(p.x - 0.43*r, p.y - 0.25 * r);
-    ctx.lineTo(p.x - 0.50*r, p.y - 0.87 * r);
-    ctx.lineTo(p.x         , p.y - 0.50 * r);
-    ctx.lineTo(p.x + 0.50*r, p.y - 0.87 * r);
-    ctx.lineTo(p.x + 0.43*r, p.y - 0.25 * r);
+    ctx.lineTo(p.x + 0.43 * r, p.y + 0.25 * r);
+    ctx.lineTo(p.x + 0.50 * r, p.y + 0.87 * r);
+    ctx.lineTo(p.x           , p.y + 0.50 * r);
+    ctx.lineTo(p.x - 0.50 * r, p.y + 0.87 * r);
+    ctx.lineTo(p.x - 0.43 * r, p.y + 0.25 * r);
+    ctx.lineTo(p.x -        r, p.y );
+    ctx.lineTo(p.x - 0.43 * r, p.y - 0.25 * r);
+    ctx.lineTo(p.x - 0.50 * r, p.y - 0.87 * r);
+    ctx.lineTo(p.x           , p.y - 0.50 * r);
+    ctx.lineTo(p.x + 0.50 * r, p.y - 0.87 * r);
+    ctx.lineTo(p.x + 0.43 * r, p.y - 0.25 * r);
     ctx.closePath();
     this._fillStroke(ctx, layer);
   },
   _incidentMarker: function (layer) {
     if (!this._drawing || layer._empty()) { return; }
-    var p = layer._point,
+    const p = layer._point,
         ctx = this._ctx,
         r = Math.max(Math.round(layer._radius), 1);
     this._layers[layer._leaflet_id] = layer
@@ -122,7 +121,7 @@ L.Canvas.include({
   },
   _natlefsMarker: function (layer) {
     if (!this._drawing || layer._empty()) { return; }
-    var p = layer._point,
+    const p = layer._point,
         ctx = this._ctx,
         r = Math.max(Math.round(layer._radius), 1);
     this._layers[layer._leaflet_id] = layer
@@ -136,7 +135,7 @@ L.Canvas.include({
   },
   _blastingMarker: function (layer) {
     if (!this._drawing || layer._empty()) { return; }
-    var p = layer._point,
+    const p = layer._point,
         ctx = this._ctx,
         r = Math.max(Math.round(layer._radius), 1);
     this._layers[layer._leaflet_id] = layer
@@ -150,7 +149,7 @@ L.Canvas.include({
   },
   _defaultMarker: function (layer) {
     if (!this._drawing || layer._empty()) { return; }
-    var p = layer._point,
+    const p = layer._point,
         ctx = this._ctx,
         r = Math.max(Math.round(layer._radius), 1);
     this._layers[layer._leaflet_id] = layer
