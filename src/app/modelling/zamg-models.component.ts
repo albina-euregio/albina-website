@@ -5,7 +5,7 @@ import { ModellingService, ZamgModelPoint } from "./modelling.service";
 import { ZamgModelsMapService } from "../providers/map-service/zamg-models-map.service";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 
-import * as L from "leaflet";
+import { Map, CircleMarker, LatLng, Control } from "leaflet";
 
 @Component({
   templateUrl: "./zamg-models.component.html"
@@ -101,12 +101,12 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initMaps() {
-    const map = L.map(this.mapDiv.nativeElement, {
+    const map = new Map(this.mapDiv.nativeElement, {
       zoomControl: false,
       doubleClickZoom: true,
       scrollWheelZoom: true,
       touchZoom: true,
-      center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
+      center: new LatLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
       zoom: 8,
       minZoom: 7,
       maxZoom: 12,
@@ -114,15 +114,15 @@ export class ZamgModelsComponent implements OnInit, AfterViewInit, OnDestroy {
       layers: [this.mapService.zamgModelsMaps.AlbinaBaseMap, this.mapService.layers.zamgModelPoints]
     });
 
-    L.control.zoom({ position: "topleft" }).addTo(map);
-    L.control.scale().addTo(map);
+    new Control.Zoom({ position: "topleft" }).addTo(map);
+    new Control.Scale().addTo(map);
 
     this.mapService.zamgModelsMap = map;
     this.mapService.layers.zamgModelPoints.clearLayers();
 
     for (let i = this.modelPoints.length - 1; i >= 0; i--) {
       const modelPoint = this.modelPoints[i];
-      L.circleMarker(L.latLng(modelPoint.lat, modelPoint.lng), this.mapService.createZamgModelPointOptions())
+      new CircleMarker(new LatLng(modelPoint.lat, modelPoint.lng), this.mapService.createZamgModelPointOptions())
       .on({ click: () => this.selectModelPoint(modelPoint)})
       .addTo(this.mapService.layers.zamgModelPoints);
     }

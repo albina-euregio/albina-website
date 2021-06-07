@@ -8,7 +8,8 @@ import { ObservationMarker, ObservationsMapService } from "../providers/map-serv
 import { GenericObservation, ObservationSourceColors, ObservationTableRow, toObservationTable } from "./models/generic-observation.model";
 
 import { Observable } from "rxjs";
-import * as L from "leaflet";
+
+import { Map, LatLng, Control } from "leaflet";
 
 @Component({
   templateUrl: "observations.component.html"
@@ -92,20 +93,32 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   private initMaps() {
-    const map = L.map(this.mapDiv.nativeElement, {
+    const map = new Map(this.mapDiv.nativeElement, {
       zoomControl: false,
       doubleClickZoom: true,
       scrollWheelZoom: true,
       touchZoom: true,
-      center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
+      center: new LatLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
       zoom: 8,
       minZoom: 8,
       maxZoom: 16,
       layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationsMaps.OpenTopoMap, ...Object.values(this.mapService.observationLayers)]
     });
 
-    L.control.scale().addTo(map);
-    L.control.layers(this.mapService.observationsMaps, this.mapService.observationLayers, { position: "bottomright" }).addTo(map);
+    const layers = new Control.Layers(null, this.mapService.observationLayers, { collapsed: false });
+    layers.addTo(map);
+
+    // Call the getContainer routine.
+    var htmlObject = layers.getContainer();
+    // Get the desired parent node.
+    var a = document.getElementById('sourcesDiv');
+
+    // Finally append that node to the new parent, recursively searching out and re-parenting nodes.
+    function setParent(el, newParent)
+    {
+        newParent.appendChild(el);
+    }
+    setParent(htmlObject, a);
 
     this.mapService.observationsMap = map;
   }
@@ -122,7 +135,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   private addObservation(observation: GenericObservation): void {
-    const ll = observation.latitude && observation.longitude ? L.latLng(observation.latitude, observation.longitude) : undefined;
+    const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
     if (ll) {
       observation.region = this.regionsService.getRegionForLatLng(ll)?.id;
     }

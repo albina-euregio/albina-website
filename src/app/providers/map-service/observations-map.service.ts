@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Map } from "leaflet";
+/// <reference types="leaflet-sidebar-v2" />
+import { Map, CircleMarker, Canvas, LayerGroup, TileLayer, MarkerOptions, SidebarOptions } from "leaflet";
 import { ObservationSource, ObservationSourceColors } from "app/observations/models/generic-observation.model";
 import { ConstantsService } from "../constants-service/constants.service";
 
-import * as L from "leaflet";
 import * as geojson from "geojson";
 
 declare module "leaflet" {
@@ -13,10 +13,10 @@ declare module "leaflet" {
   }
 }
 
-export class ObservationMarker extends L.CircleMarker {
+export class ObservationMarker extends CircleMarker {
   public type: String;
 
-  constructor(latLng, type, options?: L.MarkerOptions) {
+  constructor(latLng, type, options?: MarkerOptions) {
     super(latLng, options);
     this.type = type;
   }
@@ -60,7 +60,7 @@ export class ObservationMarker extends L.CircleMarker {
 }
 
 // TODO: define the shape of different observation markers as SVG
-L.Canvas.include({
+Canvas.include({
   _profileMarker: function (layer) {
     if (!this._drawing || layer._empty()) { return; }
     const p = layer._point,
@@ -166,12 +166,19 @@ L.Canvas.include({
 @Injectable()
 export class ObservationsMapService {
   public observationsMap: Map;
-  public observationsMaps: Record<string, L.TileLayer>;
-  public observationLayers: Record<ObservationSource, L.LayerGroup>;
+  public observationsMaps: Record<string, TileLayer>;
+  public observationLayers: Record<ObservationSource, LayerGroup>;
+
+  public sidebarOptions: SidebarOptions = {
+    position: 'right',
+    autopan: false,
+    closeButton: false,
+    container: 'sidebar',
+  }
 
   // This is very important! Use a canvas otherwise the chart is too heavy for the browser when
   // the number of points is too high
-  public myRenderer = new L.Canvas({
+  public myRenderer = new Canvas({
     padding: 0.5
   });
 
@@ -179,18 +186,18 @@ export class ObservationsMapService {
     private constantsService: ConstantsService) {
     this.initMaps();
     this.observationLayers = {} as any;
-    Object.keys(ObservationSource).forEach(source => this.observationLayers[source] = L.layerGroup([]));
+    Object.keys(ObservationSource).forEach(source => this.observationLayers[source] = new LayerGroup([]));
   }
 
   initMaps() {
     this.observationsMaps = {
-      OpenTopoMap: L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+      OpenTopoMap: new TileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
         className: "leaflet-layer-grayscale",
         minZoom: 12.5,
         maxZoom: 17,
         attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
       }),
-      AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
+      AlbinaBaseMap: new TileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
         maxZoom: 12,
         tms: false,
         attribution: ""

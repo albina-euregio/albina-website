@@ -27,7 +27,9 @@
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.css",
               "src/scss/style.scss",
-              "src/assets/css/font-awesome.min.css"
+              "src/assets/css/font-awesome.min.css",
+              "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/leaflet-sidebar-v2/css/leaflet-sidebar.min.css"
             ],
             "scripts": []
           },
@@ -61,7 +63,7 @@
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
-              "buildOptimizer": true,
+              "buildOptimizer": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

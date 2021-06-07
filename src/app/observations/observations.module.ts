@@ -1,6 +1,8 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { NgxSidebarControlModule } from '@runette/ngx-leaflet-sidebar';
+import { LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 import { ObservationsComponent } from "./observations.component";
 import { ObservationEditorComponent } from "./observation-editor.component";
@@ -40,6 +42,8 @@ import { ObservationsService } from "./observations.service";
     ToggleButtonModule,
     InputTextModule,
     InputTextareaModule,
+    NgxSidebarControlModule,
+    LeafletModule,
     DropdownModule,
     MessagesModule,
     MessageModule,

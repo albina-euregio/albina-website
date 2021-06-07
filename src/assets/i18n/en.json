@@ -684,7 +684,24 @@
     "longitude": "Longitude",
     "reportDate": "Report date",
     "showMap": "Map",
-    "showTable": "Table"
+    "showTable": "Table",
+    "sidebar": {
+      "filter": {
+        "title": "Filter"
+      },
+      "legend": {
+        "title": "Legend"
+      },
+      "sources": {
+        "title": "Data Sources"
+      },
+      "layers": {
+        "title": "Layers"
+      },
+      "settings": {
+        "title": "Settings"
+      }
+    }
   },
   "LoLaAvalanchePotential": {
     "riskAssessment": "Risk Assessment",
