@@ -125,7 +125,6 @@ export function convertNatlefsToGeneric(natlefs: Natlefs): GenericObservation<Na
     $extraDialogRows: (t) => toNatlefsTable(natlefs, t),
     $markerColor: getNatlefsMarkerColor(natlefs),
     $markerRadius: getNatlefsMarkerRadius(natlefs),
-    $markerType: getNatlefsMarkerType(natlefs),
     aspect: natlefs.location.aspect as any,
     authorName: natlefs.author.name,
     content: natlefs.comment,
@@ -203,9 +202,4 @@ function getNatlefsMarkerColor(natlefs: Natlefs): string {
 function getNatlefsMarkerRadius(natlefs: Natlefs): number {
   // TODO implement
   return 15;
-}
-
-function getNatlefsMarkerType(natlefs: Natlefs): string {
-  // TODO implement
-  return "Natlefs";
 }

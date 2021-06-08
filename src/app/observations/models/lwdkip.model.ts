@@ -129,7 +129,6 @@ export function convertLwdKipBeobachtung(feature: GeoJSON.Feature<GeoJSON.Point 
     $source: ObservationSource.LwdKipBeobachtung,
     $markerColor: getLwdKipBeobachtungMarkerColor(feature),
     $markerRadius: getLwdKipBeobachtungMarkerRadius(feature),
-    $markerType: getLwdKipBeobachtungMarkerType(feature),
     aspect: undefined,
     authorName: feature.properties.BEZEICHNUNG,
     content: [feature.properties.BESCHREIBUNG, feature.properties.NOTIZEN].filter((s) => !!s).join(" – "),
@@ -174,7 +173,6 @@ export function convertLwdKipSprengerfolg(feature: GeoJSON.Feature<GeoJSON.Point
     $source: ObservationSource.LwdKipSprengerfolg,
     $markerColor: getLwdKipSprengerfolgMarkerColor(feature),
     $markerRadius: getLwdKipSprengerfolgMarkerRadius(feature),
-    $markerType: getLwdKipSprengerfolgMarkerType(feature),
     aspect: toAspect(feature.properties.EXPOSITION),
     authorName: undefined,
     content: [
@@ -225,7 +223,6 @@ export function convertLwdKipLawinenabgang(feature: GeoJSON.Feature<GeoJSON.Line
     $source: ObservationSource.LwdKipLawinenabgang,
     $markerColor: getLwdKipLawinenabgangMarkerColor(feature),
     $markerRadius: getLwdKipLawinenabgangMarkerRadius(feature),
-    $markerType: getLwdKipLawinenabgangMarkerType(feature),
     aspect: toAspect(feature.properties.EXPOSITION),
     authorName: undefined,
     content: [
@@ -255,11 +252,6 @@ function getLwdKipBeobachtungMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point
   return 15;
 }
 
-function getLwdKipBeobachtungMarkerType(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): string {
-  // TODO implement
-  return "LwdKipBeobachtung";
-}
-
 function getLwdKipSprengerfolgMarkerColor(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): string {
   // TODO implement
   return "red";
@@ -270,11 +262,6 @@ function getLwdKipSprengerfolgMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Poin
   return 15;
 }
 
-function getLwdKipSprengerfolgMarkerType(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): string {
-  // TODO implement
-  return "LwdKipSprengerfolg";
-}
-
 function getLwdKipLawinenabgangMarkerColor(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): string {
   // TODO implement
   return "red";
@@ -283,9 +270,4 @@ function getLwdKipLawinenabgangMarkerColor(feature: GeoJSON.Feature<GeoJSON.Line
 function getLwdKipLawinenabgangMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): number {
   // TODO implement
   return 15;
-}
-
-function getLwdKipLawinenabgangMarkerType(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): string {
-  // TODO implement
-  return "LwdKipLawinenabgang";
 }

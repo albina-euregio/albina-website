@@ -35,7 +35,6 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
     $source: ObservationSource.Albina,
     $markerColor: getObservationMarkerColor(observation),
     $markerRadius: getObservationMarkerRadius(observation),
-    $markerType: getObservationMarkerType(observation),
     eventDate: observation.eventDate ? new Date(observation.eventDate) : undefined,
     reportDate: observation.reportDate ? new Date(observation.reportDate) : undefined
   };
@@ -53,9 +52,4 @@ function getObservationMarkerColor(observation: Observation): string {
 function getObservationMarkerRadius(observation: Observation): number {
   // TODO implement
   return 15;
-}
-
-function getObservationMarkerType(observation: Observation): string {
-  // TODO implement
-  return "Albina";
 }

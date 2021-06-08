@@ -96,7 +96,6 @@ export function convertLoLaToGeneric(report: AvalancheReport): GenericObservatio
     $source: ObservationSource.LoLaSafetyAvalancheReports,
     $markerColor: getAvalancheReportMarkerColor(report),
     $markerRadius: getAvalancheReportMarkerRadius(report),
-    $markerType: getAvalancheReportMarkerType(report),
     aspect: undefined,
     authorName: report.firstName + " " + report.lastName,
     content: report.headlineGerman + " " + report.headlineEnglish,
@@ -151,9 +150,4 @@ function getAvalancheReportMarkerColor(report: AvalancheReport): string {
 function getAvalancheReportMarkerRadius(report: AvalancheReport): number {
   // TODO implement
   return 15;
-}
-
-function getAvalancheReportMarkerType(report: AvalancheReport): string {
-  // TODO implement
-  return "Albina";
 }

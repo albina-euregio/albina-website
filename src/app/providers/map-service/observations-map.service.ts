@@ -93,9 +93,7 @@ export class ObservationsMapService {
 
   private getIcon(observation: GenericObservation<any>): import("leaflet").Icon<import("leaflet").IconOptions> | import("leaflet").DivIcon {
 
-    // const iconSize = observation.getRadius();
-    const iconSize = 20;
-
+    const iconSize = observation.$markerRadius;
     const iconUrl = 'data:image/svg+xml;base64,' + btoa(this.getSvg(observation));
 
     const icon = new Icon({
@@ -110,8 +108,7 @@ export class ObservationsMapService {
   private getSvg(observation: GenericObservation<any>) {
     let svg: string;
 
-    // const iconColor = observation.getColor();
-    const iconColor = this.constantsService.colorBrand;
+    const iconColor = observation.$markerColor;
 
     switch (observation.$source) {
       case "Albina": {
@@ -168,6 +165,6 @@ export class ObservationsMapService {
       }
     }
 
-    return svg;
+    return svg.replace(/{color}/g, iconColor);
   }
 }

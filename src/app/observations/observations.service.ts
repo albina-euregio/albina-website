@@ -191,6 +191,8 @@ export class ObservationsService {
         $data: lawis,
         $externalURL: web.LawisSnowProfiles.replace("{{id}}", String(lawis.profil_id)),
         $source: ObservationSource.LawisSnowProfiles,
+        $markerColor: this.getLawisProfileMarkerColor(lawis),
+        $markerRadius: this.getLawisProfileMarkerRadius(lawis),
         aspect: toAspect(lawis.exposition_id),
         authorName: "",
         content: "(LAWIS snow profile)",
@@ -221,6 +223,8 @@ export class ObservationsService {
       .map<Incident, GenericObservation<Incident>>((lawis) => ({
         $data: lawis,
         $source: ObservationSource.LawisIncidents,
+        $markerColor: this.getLawisIncidentMarkerColor(lawis),
+        $markerRadius: this.getLawisIncidentMarkerRadius(lawis),
         aspect: toAspect(lawis.aspect_id),
         authorName: "",
         content: "(LAWIS incident)",
@@ -296,6 +300,26 @@ export class ObservationsService {
     };
     return this.http.get<FeatureCollection<Point, GeocodingProperties>>(osmNominatimApi, { params });
   }
+
+  getLawisProfileMarkerColor(profile: Profile): string {
+    // TODO implement
+    return "yellow";
+  }
+  
+  getLawisProfileMarkerRadius(profile: Profile): number {
+    // TODO implement
+    return 15;
+  }
+  
+  getLawisIncidentMarkerColor(incident: Incident): string {
+    // TODO implement
+    return "yellow";
+  }
+  
+  getLawisIncidentMarkerRadius(incident: Incident): number {
+    // TODO implement
+    return 15;
+  }  
 }
 
 function getISOString(date: Date) {

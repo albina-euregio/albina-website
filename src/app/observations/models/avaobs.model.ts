@@ -171,7 +171,6 @@ export function convertAvaObsToGeneric<T extends SimpleObservation>(
     $source,
     $markerColor: getAvaobsMarkerColor(obs, $source),
     $markerRadius: getAvaobsMarkerRadius(obs, $source),
-    $markerType: getAvaobsMarkerType(obs, $source),
     aspect: undefined,
     authorName: obs.firstName + " " + obs.lastName,
     content: obs.comment,
@@ -192,9 +191,4 @@ function getAvaobsMarkerColor(obs, source): string {
 function getAvaobsMarkerRadius(obs, source): number {
   // TODO implement
   return 15;
-}
-
-function getAvaobsMarkerType(obs, source): string {
-  // TODO implement
-  return source;
 }
