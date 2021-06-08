@@ -4,6 +4,18 @@ import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon } from "leafle
 import { GenericObservation, ObservationSource } from "app/observations/models/generic-observation.model";
 import { ConstantsService } from "../constants-service/constants.service";
 
+// icons
+import { appCircleAddIcon } from "../../svg/circle_add";
+import { appCircleAlertIcon } from "../../svg/circle_alert";
+import { appCircleCheckIcon } from "../../svg/circle_check";
+import { appCircleDotsHorizontalIcon } from "../../svg/circle_dots_horizontal";
+import { appCircleFullIcon } from "../../svg/circle_full";
+import { appCircleMinusIcon } from "../../svg/circle_minus";
+import { appCircleOkayTickIcon } from "../../svg/circle_okay_tick";
+import { appCirclePlayEmptyIcon } from "../../svg/circle_play_empty";
+import { appCirclePlayIcon } from "../../svg/circle_play";
+import { appCircleStopIcon } from "../../svg/circle_stop";
+
 import * as geojson from "geojson";
 import '../../../assets/js/leaflet.canvas-markers.js';
 import * as L from "leaflet";
@@ -96,10 +108,66 @@ export class ObservationsMapService {
   }
 
   private getSvg(observation: GenericObservation<any>) {
-    
+    let svg: string;
+
     // const iconColor = observation.getColor();
     const iconColor = this.constantsService.colorBrand;
 
-    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M11 5H9v4H5v2h4v4h2v-4h4V9h-4V5zm-1-5C4.5 0 0 4.5 0 10s4.5 10 10 10 10-4.5 10-10S15.5 0 10 0zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" fill="' + iconColor + '" fill-rule="evenodd"/></svg>';
+    switch (observation.$source) {
+      case "Albina": {
+        svg = appCircleAddIcon.data;
+        break;
+      }
+      case "LwdKipBeobachtung": {
+        svg = appCircleAlertIcon.data;
+        break;
+      }
+      case "LwdKipLawinenabgang": {
+        svg = appCircleCheckIcon.data;
+        break;
+      }
+      case "LwdKipSprengerfolg": {
+        svg = appCircleDotsHorizontalIcon.data;
+        break;
+      }
+      case "LawisSnowProfiles": {
+        svg = appCircleFullIcon.data;
+        break;
+      }
+      case "LawisIncidents": {
+        svg = appCircleMinusIcon.data;
+        break;
+      }
+      case "LoLaSafetySnowProfiles": {
+        svg = appCircleOkayTickIcon.data;
+        break;
+      }
+      case "LoLaSafetyAvalancheReports": {
+        svg = appCirclePlayEmptyIcon.data;
+        break;
+      }
+      case "Natlefs": {
+        svg = appCirclePlayIcon.data;
+        break;
+      }
+      case "AvaObsSnowProfiles": {
+        svg = appCircleStopIcon.data;
+        break;
+      }
+      case "AvaObsObservations": {
+        svg = appCircleStopIcon.data;
+        break;
+      }
+      case "AvaObsSimpleObservations": {
+        svg = appCircleStopIcon.data;
+        break;
+      }
+      default: {
+        svg = appCircleStopIcon.data;
+        break;
+      }
+    }
+
+    return svg;
   }
 }
