@@ -4,13 +4,16 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
-import { ObservationMarker, ObservationsMapService } from "../providers/map-service/observations-map.service";
-import { GenericObservation, ObservationSourceColors, ObservationTableRow, toObservationTable } from "./models/generic-observation.model";
+import { ObservationsMapService } from "../providers/map-service/observations-map.service";
+import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, toObservationTable } from "./models/generic-observation.model";
 
 import { Observable } from "rxjs";
 
-import { Map, LatLng, Control } from "leaflet";
+import { Map, LatLng, Control, Icon, Marker } from "leaflet";
 
+import '../../assets/js/leaflet.canvas-markers.js';
+
+import * as L from "leaflet";
 @Component({
   templateUrl: "observations.component.html"
 })
@@ -105,6 +108,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationsMaps.OpenTopoMap, ...Object.values(this.mapService.observationLayers)]
     });
 
+    Object.keys(ObservationSource).forEach(source => {
+      this.mapService.observationLayers[source].addOnClickListener(function (e, data) {
+        data[0].data.component.onObservationClick(data[0].data.observation)
+      });
+    });
+
     const layers = new Control.Layers(null, this.mapService.observationLayers, { collapsed: false });
     layers.addTo(map);
 
@@ -154,9 +163,13 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     if (!ll) {
       return;
     }
-    (new ObservationMarker(ll, observation.$markerType, this.mapService.style(observation)))
-      .bindTooltip(observation.locationName)
-      .on({ click: () => this.onObservationClick(observation) })
+
+    const marker = new Marker(ll, this.mapService.style(observation));
+    // @ts-ignore
+    marker.observation = observation;
+    // @ts-ignore
+    marker.component = this;
+    marker.bindTooltip(observation.locationName)
       .addTo(this.mapService.observationLayers[observation.$source]);
   }
 

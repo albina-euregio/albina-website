@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
 /// <reference types="leaflet-sidebar-v2" />
-import { Map, CircleMarker, Canvas, LayerGroup, TileLayer, MarkerOptions, SidebarOptions } from "leaflet";
-import { ObservationSource, ObservationSourceColors } from "app/observations/models/generic-observation.model";
+import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon } from "leaflet";
+import { GenericObservation, ObservationSource } from "app/observations/models/generic-observation.model";
 import { ConstantsService } from "../constants-service/constants.service";
 
 import * as geojson from "geojson";
+import '../../../assets/js/leaflet.canvas-markers.js';
+import * as L from "leaflet";
 
 declare module "leaflet" {
   interface GeoJSON<P = any> {
@@ -12,156 +14,6 @@ declare module "leaflet" {
     getLayers(): GeoJSON<P>[];
   }
 }
-
-export class ObservationMarker extends CircleMarker {
-  public type: String;
-
-  constructor(latLng, type, options?: MarkerOptions) {
-    super(latLng, options);
-    this.type = type;
-  }
-
-  // TODO: match marker types to observation types
-  _updatePath() {
-    switch (this.type) {
-      case "LawisSnowProfiles":
-      case "LoLaSafetySnowProfiles":
-      case "AvaObsSnowProfiles":
-        // @ts-ignore
-        this._renderer._profileMarker(this);
-        break;
-      case "LwdKipBeobachtung":
-      case "LoLaSafetyAvalancheReports":
-      case "AvaObsObservations":
-      case "AvaObsSimpleObservations":
-      case "Albina":
-        // @ts-ignore
-        this._renderer._observationMarker(this);
-        break;
-      case "Natlefs":
-        // @ts-ignore
-        this._renderer._natlefsMarker(this);
-        break;
-      case "LawisIncidents":
-      case "LwdKipLawinenabgang":
-          // @ts-ignore
-        this._renderer._incidentMarker(this);
-        break;
-      case "LwdKipSprengerfolg":
-        // @ts-ignore
-        this._renderer._blastingMarker(this);
-        break;
-      default:
-        // @ts-ignore
-        this._renderer._defaultMarker(this);
-        break;
-    }
-  }
-}
-
-// TODO: define the shape of different observation markers as SVG
-Canvas.include({
-  _profileMarker: function (layer) {
-    if (!this._drawing || layer._empty()) { return; }
-    const p = layer._point,
-        ctx = this._ctx,
-        r = Math.max(Math.round(layer._radius), 1);
-    this._layers[layer._leaflet_id] = layer
-    ctx.beginPath();
-    ctx.moveTo(p.x + r       , p.y );
-    ctx.lineTo(p.x + 0.43 * r, p.y + 0.25 * r);
-    ctx.lineTo(p.x + 0.50 * r, p.y + 0.87 * r);
-    ctx.lineTo(p.x           , p.y + 0.50 * r);
-    ctx.lineTo(p.x - 0.50 * r, p.y + 0.87 * r);
-    ctx.lineTo(p.x - 0.43 * r, p.y + 0.25 * r);
-    ctx.lineTo(p.x -        r, p.y );
-    ctx.lineTo(p.x - 0.43 * r, p.y - 0.25 * r);
-    ctx.lineTo(p.x - 0.50 * r, p.y - 0.87 * r);
-    ctx.lineTo(p.x           , p.y - 0.50 * r);
-    ctx.lineTo(p.x + 0.50 * r, p.y - 0.87 * r);
-    ctx.lineTo(p.x + 0.43 * r, p.y - 0.25 * r);
-    ctx.closePath();
-    this._fillStroke(ctx, layer);
-  },
-  _observationMarker: function (layer) {
-    if (!this._drawing || layer._empty()) { return; }
-    const p = layer._point,
-        ctx = this._ctx,
-        r = Math.max(Math.round(layer._radius), 1);
-    this._layers[layer._leaflet_id] = layer
-    ctx.beginPath();
-    ctx.moveTo(p.x + r     , p.y );
-    ctx.lineTo(p.x + 0.43 * r, p.y + 0.25 * r);
-    ctx.lineTo(p.x + 0.50 * r, p.y + 0.87 * r);
-    ctx.lineTo(p.x           , p.y + 0.50 * r);
-    ctx.lineTo(p.x - 0.50 * r, p.y + 0.87 * r);
-    ctx.lineTo(p.x - 0.43 * r, p.y + 0.25 * r);
-    ctx.lineTo(p.x -        r, p.y );
-    ctx.lineTo(p.x - 0.43 * r, p.y - 0.25 * r);
-    ctx.lineTo(p.x - 0.50 * r, p.y - 0.87 * r);
-    ctx.lineTo(p.x           , p.y - 0.50 * r);
-    ctx.lineTo(p.x + 0.50 * r, p.y - 0.87 * r);
-    ctx.lineTo(p.x + 0.43 * r, p.y - 0.25 * r);
-    ctx.closePath();
-    this._fillStroke(ctx, layer);
-  },
-  _incidentMarker: function (layer) {
-    if (!this._drawing || layer._empty()) { return; }
-    const p = layer._point,
-        ctx = this._ctx,
-        r = Math.max(Math.round(layer._radius), 1);
-    this._layers[layer._leaflet_id] = layer
-    ctx.beginPath();
-    ctx.moveTo(p.x + r , p.y + r);
-    ctx.lineTo(p.x + r , p.y - r);
-    ctx.lineTo(p.x - r , p.y - r);
-    ctx.lineTo(p.x - r , p.y + r);
-    ctx.closePath();
-    this._fillStroke(ctx, layer);
-  },
-  _natlefsMarker: function (layer) {
-    if (!this._drawing || layer._empty()) { return; }
-    const p = layer._point,
-        ctx = this._ctx,
-        r = Math.max(Math.round(layer._radius), 1);
-    this._layers[layer._leaflet_id] = layer
-    ctx.beginPath();
-    ctx.moveTo(p.x + r , p.y + r);
-    ctx.lineTo(p.x + r , p.y - r);
-    ctx.lineTo(p.x - r , p.y - r);
-    ctx.lineTo(p.x - r , p.y + r);
-    ctx.closePath();
-    this._fillStroke(ctx, layer);
-  },
-  _blastingMarker: function (layer) {
-    if (!this._drawing || layer._empty()) { return; }
-    const p = layer._point,
-        ctx = this._ctx,
-        r = Math.max(Math.round(layer._radius), 1);
-    this._layers[layer._leaflet_id] = layer
-    ctx.beginPath();
-    ctx.moveTo(p.x + r , p.y + r);
-    ctx.lineTo(p.x + r , p.y - r);
-    ctx.lineTo(p.x - r , p.y - r);
-    ctx.lineTo(p.x - r , p.y + r);
-    ctx.closePath();
-    this._fillStroke(ctx, layer);
-  },
-  _defaultMarker: function (layer) {
-    if (!this._drawing || layer._empty()) { return; }
-    const p = layer._point,
-        ctx = this._ctx,
-        r = Math.max(Math.round(layer._radius), 1);
-    this._layers[layer._leaflet_id] = layer
-    ctx.beginPath();
-    ctx.moveTo(p.x + r , p.y + r);
-    ctx.lineTo(p.x     , p.y - r);
-    ctx.lineTo(p.x - r , p.y - r);
-    ctx.lineTo(p.x - r , p.y + r);
-    ctx.closePath();
-    this._fillStroke(ctx, layer);
-  }
-});
 
 @Injectable()
 export class ObservationsMapService {
@@ -186,7 +38,8 @@ export class ObservationsMapService {
     private constantsService: ConstantsService) {
     this.initMaps();
     this.observationLayers = {} as any;
-    Object.keys(ObservationSource).forEach(source => this.observationLayers[source] = new LayerGroup([]));
+    // @ts-ignore
+    Object.keys(ObservationSource).forEach(source => this.observationLayers[source] = L.canvasIconLayer({}));
   }
 
   initMaps() {
@@ -198,6 +51,7 @@ export class ObservationsMapService {
         attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
       }),
       AlbinaBaseMap: new TileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
+        minZoom: 5,
         maxZoom: 12,
         tms: false,
         attribution: ""
@@ -207,24 +61,45 @@ export class ObservationsMapService {
 
   style(observation) {
     return {
+        icon: this.getIcon(observation),
         radius: observation.$markerRadius,
-        fillColor: observation.$markerColor,
-        color: observation.$markerColor,
         weight: 0,
         opacity: 1,
-        fillOpacity: 0.9,
         renderer: this.myRenderer
     };
   }
 
   highlightStyle(observation) {
     return {
+        icon: this.getIcon(observation),
         radius: observation.$markerRadius,
-        fillColor: this.constantsService.colorBrand,
-        color: this.constantsService.colorBrand,
         weight: 1,
         opacity: 1,
-        fillOpacity: 0.9
+        renderer: this.myRenderer
     };
+  }
+
+  private getIcon(observation: GenericObservation<any>): import("leaflet").Icon<import("leaflet").IconOptions> | import("leaflet").DivIcon {
+
+    // const iconSize = observation.getRadius();
+    const iconSize = 20;
+
+    const iconUrl = 'data:image/svg+xml;base64,' + btoa(this.getSvg(observation));
+
+    const icon = new Icon({
+      iconUrl: iconUrl,
+      iconSize: [iconSize, iconSize],
+      iconAnchor: [iconSize/2, iconSize/2]
+    });
+
+    return icon;
+  }
+
+  private getSvg(observation: GenericObservation<any>) {
+    
+    // const iconColor = observation.getColor();
+    const iconColor = this.constantsService.colorBrand;
+
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M11 5H9v4H5v2h4v4h2v-4h4V9h-4V5zm-1-5C4.5 0 0 4.5 0 10s4.5 10 10 10 10-4.5 10-10S15.5 0 10 0zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z" fill="' + iconColor + '" fill-rule="evenodd"/></svg>';
   }
 }

@@ -26,6 +26,7 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
+
 import { ObservationsService } from "./observations.service";
 
 
