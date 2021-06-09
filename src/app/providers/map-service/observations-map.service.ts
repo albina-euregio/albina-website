@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+// @ts-ignore
 /// <reference types="leaflet-sidebar-v2" />
 import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon } from "leaflet";
 import { GenericObservation, ObservationSource } from "app/observations/models/generic-observation.model";
