@@ -16,6 +16,7 @@ export class ObservationTableComponent {
   observation: Observation;
   saving = false;
   messages: Message[] = [];
+  showObservationsWithoutCoordinates: boolean = false;
 
   constructor(private observationsService: ObservationsService, private translate: TranslateService) {}
 
@@ -24,6 +25,10 @@ export class ObservationTableComponent {
       eventType: EventType.Normal
     } as Observation;
   }
+
+  hasNoCoordinates(element, index, array) { 
+    return (!element.latitude || !element.longitude); 
+  } 
 
   onClick(observation: GenericObservation) {
     if (isAlbinaObservation(observation)) {

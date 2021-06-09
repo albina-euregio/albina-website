@@ -14,6 +14,8 @@ import { Map, LatLng, Control, Icon, Marker } from "leaflet";
 import '../../assets/js/leaflet.canvas-markers.js';
 
 import * as L from "leaflet";
+import { SidebarEvent } from "@runette/ngx-leaflet-sidebar";
+import { ObservationTableComponent } from "./observation-table.component";
 @Component({
   templateUrl: "observations.component.html"
 })
@@ -25,6 +27,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public regions: string[] = [];
   public aspects: string[] = [];
   public observations: GenericObservation[] = [];
+  public observationsWithoutCoordinates: number = 0;
   public observationPopup: {
     observation: GenericObservation;
     table: ObservationTableRow[];
@@ -33,6 +36,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public readonly allRegions: RegionProperties[];
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
+  @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
 
   constructor(
     private translateService: TranslateService,
@@ -63,7 +67,19 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
+  onSidebarChange(e: SidebarEvent) {
+    if (e.type === 'opening') {
+      this.showTable = false;
+    } 
+  }
+  
+  newObservation() {
+    this.showTable = true;
+    this.observationTableComponent.newObservation();
+  }
+
   loadObservations({ days }: { days?: number } = {}) {
+    this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
       const startDate = new Date();
       startDate.setDate(startDate.getDate() - (days - 1));
@@ -161,6 +177,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
 
     if (!ll) {
+      this.observationsWithoutCoordinates++;
       return;
     }
 
@@ -191,13 +208,5 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   private inAspects({ aspect }: GenericObservation) {
     return !this.aspects.length || (typeof aspect === "string" && this.aspects.includes(aspect.toUpperCase()));
-  }
-
-  get showMap(): boolean {
-    return !this.showTable;
-  }
-
-  set showMap(value: boolean) {
-    this.showTable = !value;
   }
 }

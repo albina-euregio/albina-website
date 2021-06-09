@@ -8,42 +8,46 @@
         offIcon="fa fa-table"
         [(ngModel)]="showTable"
       ></p-toggleButton>
-      <p-toggleButton
-        onLabel="{{ 'observations.showMap' | translate }}"
-        offLabel="{{ 'observations.showMap' | translate }}"
-        onIcon="fa fa-map"
-        offIcon="fa fa-map"
-        [(ngModel)]="showMap"
-      ></p-toggleButton>
+    </div>
+    <div style="float: left; background-color: rgba(256,256,256,.6); padding: 5px; border-radius: 5px; margin-top: 1px;">
+      <p style="margin: 0">{{ "observations.withoutCoordinates" | translate }} <b>{{ observationsWithoutCoordinates }}</b></p>
+    </div>
+    <div style="float: right;">
+      <button
+        type="button"
+        pButton
+        icon="pi pi-plus"
+        (click)="newObservation()"
+        label="{{ 'observations.button.add' | translate }}"
+        class="ui-button-primary"
+      ></button>
     </div>
   </div>
 </div>
 
-<div *ngIf="showTable" style="margin-top: 70px" class="row">
-  <div class="col-md-12">
-    <div class="card">
+<div class="row">
+  <div class="section-observations-map col-md-12">
+    <div class="section-map observations-map" id="observationsMap" #observationsMap></div>
+  </div>
+  <div [ngStyle]="{ display: showTable ? '' : 'none' }" class="col-md-12 section-observations-table">
+    <div class="card" style="height: 100%;">
       <div class="card-header">{{ "sidebar.observations" | translate }}</div>
-      <div class="card-block">
+      <div class="card-block" style="overflow-y: auto;">
         <div>
-          <app-observation-table [observations]="observations" (observationClick)="onObservationClick($event)"></app-observation-table>
+          <app-observation-table #observationTable [observations]="observations" (observationClick)="onObservationClick($event)"></app-observation-table>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div [ngStyle]="{ display: showMap ? '' : 'none' }" class="row">
-  <div class="section-observations-map col-md-12">
-    <div class="section-map observations-map" id="observationsMap" #observationsMap></div>
-  </div>
-</div>
-
 <leaflet-sidebar-control
     [map]="mapService.observationsMap"
     [options]="mapService.sidebarOptions"
+    (change$)="onSidebarChange($event)"
 ></leaflet-sidebar-control>
 
-<div id="sidebar" #sidebar class="leaflet-sidebar collapsed">
+<div id="sidebar" #sidebar class="leaflet-sidebar collapsed observations-sidebar">
   <!-- Nav tabs -->
   <div class="leaflet-sidebar-tabs">
       <ul role="tablist"> <!-- top aligned tabs -->

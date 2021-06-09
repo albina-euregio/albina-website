@@ -685,6 +685,7 @@
     "reportDate": "Report date",
     "showMap": "Map",
     "showTable": "Table",
+    "withoutCoordinates": "Observations without coordinates:",
     "sidebar": {
       "filter": {
         "title": "Filter"
