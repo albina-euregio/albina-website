@@ -1,121 +1,92 @@
-import React from "react"; // eslint-disable-line no-unused-vars
-import { withRouter } from "react-router-dom";
-import { observer } from "mobx-react";
-import { injectIntl } from "react-intl";
+import React from "react";
 import PageHeadline from "../components/organisms/page-headline";
-import BlogPostsList from "../components/blog/blog-posts-list";
-import BlogStore from "../stores/blogStore";
-import { Link } from "react-router-dom";
-import { dateToDateTimeString } from "../util/date.js";
+import SmShare from "../components/organisms/sm-share";
+import HTMLHeader from "../components/organisms/html-header";
+import LinkTreeFeature from "../components/organisms/linktree-feature";
+import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
+import { scroll } from "../js/scroll";
+/*
+ * Component to be used for pages with content delivered by CMS API.
+ */
 class LinkTree extends React.Component {
   constructor(props) {
     super(props);
-    this.store = new BlogStore();
-  }
-
-  componentDidMount() {
-    this.store.setRegions(["trentino"]);
-    this.store.setLanguages("de");
-    this.store.update();
-    $("#page-footer").css({ display: "none" });
-    $("#page-header").css({ display: "none" });
-  }
-
-  componentWillUnmount() {
-    $("#page-footer").css({ display: "" });
-    $("#page-header").css({ display: "" });
+    this.state = {
+      title: "Linktree",
+      subtitle: "subtitle",
+      marginalText: "marginal",
+      sharable: false
+    };
   }
 
   render() {
     return (
       <>
+        <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.props.intl.formatMessage({
-            id: "app:title"
+            id: "more:linktree:title"
+          })}
+          subtitle={this.props.intl.formatMessage({
+            id: "more:linktree:subtitle"
+          })}
+          marginal={this.props.intl.formatMessage({
+            id: "more:linktree:marginal"
           })}
         />
-        <section className="section-centered section-dangerscale">
-          <a href="/bulletin">
-            <div id="report" className="panel field border">
-              <div className="grid">
-                <div className="grid-item small-3">
-                  <img
-                    src="/content_files/base-map.webp"
-                    alt="Base Map"
-                    className="warning-level-icon"
-                  />
-                </div>
-                <div className="grid-item small-9">
-                  <div className="panel-header">
-                    <h4>Report</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-
+        <section className="section-padding-height section-linktree-features">
           <div className="section-centered">
-            <BlogPostsList
-              posts={this.store.postsList.slice(0, 1)}
-              loading={this.store.loading}
+            <LinkTreeFeature
+              url={this.props.intl.formatMessage({
+                id: "more:linktree:bulletin:link"
+              })}
+              image={{
+                url: "https://source.unsplash.com/random",
+                title: "the image",
+                alt: "the alt"
+              }}
+              title={this.props.intl.formatMessage({
+                id: "more:linktree:bulletin:title"
+              })}
+            />
+
+            <LinkTreeFeature
+              url={this.props.intl.formatMessage({
+                id: "more:linktree:blog:link"
+              })}
+              image={{
+                url: "https://source.unsplash.com/random",
+                title: "the image",
+                alt: "the alt"
+              }}
+              title={this.props.intl.formatMessage({
+                id: "more:linktree:blog:title"
+              })}
+            />
+
+            <LinkTreeFeature
+              external={true}
+              url={this.props.intl.formatMessage({
+                id: "more:linktree:survey:link"
+              })}
+              image={{
+                url: "https://source.unsplash.com/random",
+                title: "the image",
+                alt: "the alt"
+              }}
+              title="Survey"
             />
           </div>
-          {this.store.postsList.map((item, i) => {
-            <Link
-              key={i}
-              to={"/blog/" + item.blogName + "/" + item.postId}
-              className="linkbox linkbox-blog-feature"
-            >
-              {item.image && (
-                <div className="content-image">
-                  {item.image && <img src={item.image} alt={item.title} />}
-                </div>
-              )}
-              <div className="content-text">
-                <ul className="list-inline blog-feature-meta">
-                  {/*<li className="blog-author">{item.author}</li>
-                   */}
-                  <li className="blog-date">
-                    {dateToDateTimeString(item.date)}
-                  </li>
-                  <li className="blog-province">
-                    {item.regions
-                      .map(r =>
-                        this.props.intl.formatMessage({ id: `region:${r}` })
-                      )
-                      .join(", ")}
-                  </li>
-                  <li className="blog-language">{item.lang.toUpperCase()}</li>
-                </ul>
-                <h1 title={item.title} className="subheader blog-feature-title">
-                  {item.title}
-                </h1>
-              </div>
-            </Link>;
-          })}
-
-          <div id="blog" className="panel field border">
-            <a href="/blog">
-              <div className="grid">
-                <div className="grid-item small-3">
-                  <img
-                    src="/content_files/micro-regions.webp"
-                    alt="Blog"
-                    className="warning-level-icon"
-                  />
-                </div>
-                <div className="grid-item small-9">
-                  <div className="panel-header">
-                    <h4>Micro Regions</h4>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
         </section>
+        <div className="clearfix" />
+        {this.state.sharable ? (
+          <SmShare />
+        ) : (
+          <div className="section-padding" />
+        )}
       </>
     );
   }
 }
-export default injectIntl(withRouter(observer(LinkTree)));
+export default injectIntl(LinkTree);

@@ -24,6 +24,7 @@ const StationMap = React.lazy(() =>
 import Education from "./../views/education";
 import More from "./../views/more";
 import Archive from "./../views/archive";
+import Linktree from "../views/linkTree.jsx";
 import StaticPage from "./../views/staticPage";
 import Page from "./page";
 import { scroll_init } from "../js/scroll";
@@ -131,6 +132,11 @@ class App extends React.Component {
             component: Archive
           },
           {
+            path: "/more/linktree",
+            exact: true,
+            component: Linktree
+          },
+          {
             path: "/archive",
             exact: true,
             component: () => <Redirect to={"/more/archive"} />
@@ -162,9 +168,7 @@ class App extends React.Component {
       >
         <BrowserRouter basename={config.projectRoot}>
           <ScrollContext shouldUpdateScroll={this.shouldUpdateScroll}>
-            <Suspense fallback={"..."}>
-              {renderRoutes(this.routes())}
-            </Suspense>
+            <Suspense fallback={"..."}>{renderRoutes(this.routes())}</Suspense>
           </ScrollContext>
         </BrowserRouter>
       </IntlProvider>
