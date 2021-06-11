@@ -53,7 +53,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngAfterContentInit() {
-    this.loadObservations({ days: 3 });
+    // TODO for testing
+    this.loadObservations({ days: 20 });
   }
 
   ngAfterViewInit() {
@@ -92,7 +93,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observations.length = 0;
     this.observationsService.startDate = this.dateRange[0];
     this.observationsService.endDate = this.dateRange[1];
-    Object.values(this.mapService.observationLayers).forEach((layer) => layer.clearLayers());
+    Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
     Observable.merge<GenericObservation>(
       this.observationsService.getAvaObs().catch((err) => this.warnAndContinue("Failed fetching AvaObs", err)),
       this.observationsService.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
@@ -119,18 +120,18 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       touchZoom: true,
       center: new LatLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
       zoom: 8,
-      minZoom: 8,
-      maxZoom: 16,
-      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationsMaps.OpenTopoMap, ...Object.values(this.mapService.observationLayers)]
+      minZoom: 4,
+      maxZoom: 17,
+      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationsMaps.OpenTopoMap, ...Object.values(this.mapService.observationSourceLayers)]
     });
 
     Object.keys(ObservationSource).forEach(source => {
-      this.mapService.observationLayers[source].addOnClickListener(function (e, data) {
+      this.mapService.observationSourceLayers[source].addOnClickListener(function (e, data) {
         data[0].data.component.onObservationClick(data[0].data.observation)
       });
     });
 
-    const layers = new Control.Layers(null, this.mapService.observationLayers, { collapsed: false });
+    const layers = new Control.Layers(null, this.mapService.observationSourceLayers, { collapsed: false });
     layers.addTo(map);
 
     // Call the getContainer routine.
@@ -187,7 +188,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     // @ts-ignore
     marker.component = this;
     marker.bindTooltip(observation.locationName)
-      .addTo(this.mapService.observationLayers[observation.$source]);
+      .addTo(this.mapService.observationSourceLayers[observation.$source]);
   }
 
   onObservationClick(observation: GenericObservation): void {

@@ -655,6 +655,7 @@
     "avalancheSize": "Avalanche size",
     "avalancheType": "Avalanche type",
     "avalancheWidth": "Avalanche width",
+    "count": "# observations:",
     "button": {
       "add": "Add observation",
       "save": "Save observation",

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 // @ts-ignore
 /// <reference types="leaflet-sidebar-v2" />
 import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon } from "leaflet";
-import { GenericObservation, ObservationSource } from "app/observations/models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationType } from "app/observations/models/generic-observation.model";
 import { ConstantsService } from "../constants-service/constants.service";
 
 // icons
@@ -32,7 +32,8 @@ declare module "leaflet" {
 export class ObservationsMapService {
   public observationsMap: Map;
   public observationsMaps: Record<string, TileLayer>;
-  public observationLayers: Record<ObservationSource, LayerGroup>;
+  public observationSourceLayers: Record<ObservationSource, LayerGroup>;
+  public observationTypeLayers: Record<ObservationType, LayerGroup>;
 
   public sidebarOptions: SidebarOptions = {
     position: 'right',
@@ -50,9 +51,12 @@ export class ObservationsMapService {
   constructor(
     private constantsService: ConstantsService) {
     this.initMaps();
-    this.observationLayers = {} as any;
+    this.observationSourceLayers = {} as any;
+    this.observationTypeLayers = {} as any;
     // @ts-ignore
-    Object.keys(ObservationSource).forEach(source => this.observationLayers[source] = L.canvasIconLayer({}));
+    Object.keys(ObservationSource).forEach(source => this.observationSourceLayers[source] = L.canvasIconLayer({}));
+    // @ts-ignore
+    Object.keys(ObservationType).forEach(source => this.observationTypeLayers[source] = L.canvasIconLayer({}));
   }
 
   initMaps() {
@@ -111,53 +115,25 @@ export class ObservationsMapService {
 
     const iconColor = observation.$markerColor;
 
-    switch (observation.$source) {
-      case "Albina": {
+    switch (observation.$type) {
+      case "Observation": {
         svg = appCircleAddIcon.data;
         break;
       }
-      case "LwdKipBeobachtung": {
+      case "Incident": {
         svg = appCircleAlertIcon.data;
         break;
       }
-      case "LwdKipLawinenabgang": {
+      case "Profile": {
         svg = appCircleCheckIcon.data;
         break;
       }
-      case "LwdKipSprengerfolg": {
+      case "Avalanche": {
         svg = appCircleDotsHorizontalIcon.data;
         break;
       }
-      case "LawisSnowProfiles": {
+      case "Blasting": {
         svg = appCircleFullIcon.data;
-        break;
-      }
-      case "LawisIncidents": {
-        svg = appCircleMinusIcon.data;
-        break;
-      }
-      case "LoLaSafetySnowProfiles": {
-        svg = appCircleOkayTickIcon.data;
-        break;
-      }
-      case "LoLaSafetyAvalancheReports": {
-        svg = appCirclePlayEmptyIcon.data;
-        break;
-      }
-      case "Natlefs": {
-        svg = appCirclePlayIcon.data;
-        break;
-      }
-      case "AvaObsSnowProfiles": {
-        svg = appCircleStopIcon.data;
-        break;
-      }
-      case "AvaObsObservations": {
-        svg = appCircleStopIcon.data;
-        break;
-      }
-      case "AvaObsSimpleObservations": {
-        svg = appCircleStopIcon.data;
         break;
       }
       default: {

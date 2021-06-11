@@ -1,4 +1,4 @@
-import { GenericObservation, ObservationTableRow, ObservationSource } from "./generic-observation.model";
+import { GenericObservation, ObservationTableRow, ObservationSource, ObservationType } from "./generic-observation.model";
 
 export interface Natlefs {
   snowConditions?: SnowCondition[];
@@ -122,6 +122,7 @@ export function convertNatlefsToGeneric(natlefs: Natlefs): GenericObservation<Na
   return {
     $data: natlefs,
     $source: ObservationSource.Natlefs,
+    $type: ObservationType.Observation,
     $extraDialogRows: (t) => toNatlefsTable(natlefs, t),
     $markerColor: getNatlefsMarkerColor(natlefs),
     $markerRadius: getNatlefsMarkerRadius(natlefs),

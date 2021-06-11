@@ -1,4 +1,4 @@
-import { GenericObservation, ObservationSource, toAspect } from "./generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationType, toAspect } from "./generic-observation.model";
 
 // https://gis.tirol.gv.at/arcgis/rest/services/APPS_DVT/lwdkip/MapServer/layers?f=json
 export interface ArcGisLayer {
@@ -127,6 +127,7 @@ export function convertLwdKipBeobachtung(feature: GeoJSON.Feature<GeoJSON.Point 
         .map((label) => (typeof feature.properties[label] === "string" ? { label, value: feature.properties[label] } : undefined))
         .filter((row) => row !== undefined),
     $source: ObservationSource.LwdKipBeobachtung,
+    $type: ObservationType.Observation,
     $markerColor: getLwdKipBeobachtungMarkerColor(feature),
     $markerRadius: getLwdKipBeobachtungMarkerRadius(feature),
     aspect: undefined,
@@ -171,6 +172,7 @@ export function convertLwdKipSprengerfolg(feature: GeoJSON.Feature<GeoJSON.Point
       { label: t("observations.incline"), number: feature.properties.NEIGUNG }
     ],
     $source: ObservationSource.LwdKipSprengerfolg,
+    $type: ObservationType.Blasting,
     $markerColor: getLwdKipSprengerfolgMarkerColor(feature),
     $markerRadius: getLwdKipSprengerfolgMarkerRadius(feature),
     aspect: toAspect(feature.properties.EXPOSITION),
@@ -221,6 +223,7 @@ export function convertLwdKipLawinenabgang(feature: GeoJSON.Feature<GeoJSON.Line
       { label: t("observations.incline"), number: feature.properties.NEIGUNG }
     ],
     $source: ObservationSource.LwdKipLawinenabgang,
+    $type: ObservationType.Avalanche,
     $markerColor: getLwdKipLawinenabgangMarkerColor(feature),
     $markerRadius: getLwdKipLawinenabgangMarkerRadius(feature),
     aspect: toAspect(feature.properties.EXPOSITION),

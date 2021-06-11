@@ -7,7 +7,7 @@ import { convertNatlefsToGeneric, Natlefs } from "./models/natlefs.model";
 import { convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "./models/avaobs.model";
 import { convertLoLaToGeneric, LoLaSafetyApi } from "./models/lola-safety.model";
 import { Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "./models/lawis.model";
-import { GenericObservation, ObservationSource, toAspect } from "./models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationType, toAspect } from "./models/generic-observation.model";
 import {
   ArcGisLayer,
   convertLwdKipBeobachtung,
@@ -191,6 +191,7 @@ export class ObservationsService {
         $data: lawis,
         $externalURL: web.LawisSnowProfiles.replace("{{id}}", String(lawis.profil_id)),
         $source: ObservationSource.LawisSnowProfiles,
+        $type: ObservationType.Profile,
         $markerColor: this.getLawisProfileMarkerColor(lawis),
         $markerRadius: this.getLawisProfileMarkerRadius(lawis),
         aspect: toAspect(lawis.exposition_id),
@@ -223,6 +224,7 @@ export class ObservationsService {
       .map<Incident, GenericObservation<Incident>>((lawis) => ({
         $data: lawis,
         $source: ObservationSource.LawisIncidents,
+        $type: ObservationType.Incident,
         $markerColor: this.getLawisIncidentMarkerColor(lawis),
         $markerRadius: this.getLawisIncidentMarkerRadius(lawis),
         aspect: toAspect(lawis.aspect_id),
@@ -303,7 +305,7 @@ export class ObservationsService {
 
   getLawisProfileMarkerColor(profile: Profile): string {
     // TODO implement
-    return "yellow";
+    return "orange";
   }
   
   getLawisProfileMarkerRadius(profile: Profile): number {
@@ -313,7 +315,7 @@ export class ObservationsService {
   
   getLawisIncidentMarkerColor(incident: Incident): string {
     // TODO implement
-    return "yellow";
+    return "orange";
   }
   
   getLawisIncidentMarkerRadius(incident: Incident): number {

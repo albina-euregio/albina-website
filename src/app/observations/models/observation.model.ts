@@ -1,4 +1,4 @@
-import { GenericObservation, Aspect, ObservationSource } from "./generic-observation.model";
+import { GenericObservation, Aspect, ObservationSource, ObservationType } from "./generic-observation.model";
 
 export interface Observation {
   aspect: Aspect;
@@ -33,6 +33,7 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
     $data: observation,
     $extraDialogRows: null,
     $source: ObservationSource.Albina,
+    $type: getObservationType(observation),
     $markerColor: getObservationMarkerColor(observation),
     $markerRadius: getObservationMarkerRadius(observation),
     eventDate: observation.eventDate ? new Date(observation.eventDate) : undefined,
@@ -52,4 +53,9 @@ function getObservationMarkerColor(observation: Observation): string {
 function getObservationMarkerRadius(observation: Observation): number {
   // TODO implement
   return 15;
+}
+
+function getObservationType(observation: Observation): ObservationType {
+  // TODO implement
+  return ObservationType.Observation;
 }

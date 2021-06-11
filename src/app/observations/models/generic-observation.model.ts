@@ -7,6 +7,7 @@ export interface GenericObservation<Data = any> {
   $markerColor?: string;
   $markerRadius?: number;
   $source: ObservationSource;
+  $type: ObservationType;
   aspect: Aspect;
   authorName: string;
   content: string;
@@ -32,6 +33,14 @@ export enum ObservationSource {
   AvaObsSnowProfiles = "AvaObsSnowProfiles",
   AvaObsObservations = "AvaObsObservations",
   AvaObsSimpleObservations = "AvaObsSimpleObservations"
+}
+
+export enum ObservationType {
+  Observation = "Observation",
+  Avalanche = "Avalanche",
+  Blasting = "Blasting",
+  Profile = "Profile",
+  Incident = "Incident"
 }
 
 export const ObservationSourceColors: Record<ObservationSource, string> = Object.freeze({

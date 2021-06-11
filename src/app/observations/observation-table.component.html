@@ -9,6 +9,12 @@
           offIcon="fa fa-map-marker"
           [(ngModel)]="showObservationsWithoutCoordinates"
         ></p-toggleButton>
+        <p *ngIf="!showObservationsWithoutCoordinates" style="float: right;">
+          {{ observations.count | translate }} {{ observations.lenght }}
+        </p>
+        <p *ngIf="showObservationsWithoutCoordinates" style="float: right;">
+          {{ observations.count | translate }} {{ observations.filter(hasNoCoordinates).lenght }}
+        </p>
       </td>
     </tr>
     <tr>

@@ -2,7 +2,7 @@
 // https://www.avaobs.info/api/dataexport/observations/:VON/:BIS
 // https://www.avaobs.info/api/dataexport/simpleobservations/:VON/:BIS
 
-import { GenericObservation, ObservationSource } from "./generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationType } from "./generic-observation.model";
 
 // https://www.avaobs.info/api/dataexport/snowprofiles/:VON/:BIS
 export interface AvaObs {
@@ -169,6 +169,7 @@ export function convertAvaObsToGeneric<T extends SimpleObservation>(
     $data: obs,
     $externalURL: urlPrefix ? urlPrefix + obs.uuId : undefined,
     $source,
+    $type: ObservationType.Observation,
     $markerColor: getAvaobsMarkerColor(obs, $source),
     $markerRadius: getAvaobsMarkerRadius(obs, $source),
     aspect: undefined,
