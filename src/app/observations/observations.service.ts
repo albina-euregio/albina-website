@@ -307,21 +307,21 @@ export class ObservationsService {
     // TODO implement
     return "orange";
   }
-  
+
   getLawisProfileMarkerRadius(profile: Profile): number {
     // TODO implement
     return 15;
   }
-  
+
   getLawisIncidentMarkerColor(incident: Incident): string {
     // TODO implement
     return "orange";
   }
-  
+
   getLawisIncidentMarkerRadius(incident: Incident): number {
     // TODO implement
     return 15;
-  }  
+  }
 }
 
 function getISOString(date: Date) {

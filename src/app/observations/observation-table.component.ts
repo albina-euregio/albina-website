@@ -26,9 +26,9 @@ export class ObservationTableComponent {
     } as Observation;
   }
 
-  hasNoCoordinates(element, index, array) { 
-    return (!element.latitude || !element.longitude); 
-  } 
+  hasNoCoordinates(element, index, array) {
+    return (!element.latitude || !element.longitude);
+  }
 
   onClick(observation: GenericObservation) {
     if (isAlbinaObservation(observation)) {

@@ -11,7 +11,7 @@ import { Observable } from "rxjs";
 
 import { Map, LatLng, Control, Icon, Marker } from "leaflet";
 
-import '../../assets/js/leaflet.canvas-markers.js';
+import "../../assets/js/leaflet.canvas-markers.js";
 
 import * as L from "leaflet";
 import { SidebarEvent } from "@runette/ngx-leaflet-sidebar";
@@ -69,11 +69,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   onSidebarChange(e: SidebarEvent) {
-    if (e.type === 'opening') {
+    if (e.type === "opening") {
       this.showTable = false;
-    } 
+    }
   }
-  
+
   newObservation() {
     this.showTable = true;
     this.observationTableComponent.newObservation();
@@ -136,13 +136,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     layers.addTo(map);
 
     // Call the getContainer routine.
-    var htmlObject = layers.getContainer();
+    let htmlObject = layers.getContainer();
     // Get the desired parent node.
-    var a = document.getElementById('sourcesDiv');
+    let a = document.getElementById("sourcesDiv");
 
     // Finally append that node to the new parent, recursively searching out and re-parenting nodes.
-    function setParent(el, newParent)
-    {
+    function setParent(el, newParent) {
         newParent.appendChild(el);
     }
     setParent(htmlObject, a);
@@ -158,9 +157,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     types.addTo(map);
 
     // Call the getContainer routine.
-    var htmlObject = types.getContainer();
+    let htmlObject = types.getContainer();
     // Get the desired parent node.
-    var a = document.getElementById('typesDiv');
+    let a = document.getElementById("typesDiv");
 
     setParent(htmlObject, a);
     this.mapService.observationsMap = map;

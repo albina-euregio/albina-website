@@ -148,8 +148,7 @@ function getAvalancheReportMarkerColor(report: AvalancheReport): string {
   if (report.avalanchePotential.riskAssessment < 20) { return "#CCFF66" } else
   if (report.avalanchePotential.riskAssessment < 40) { return "#FFFF00" } else
   if (report.avalanchePotential.riskAssessment < 60) { return "#FF9900" } else
-  if (report.avalanchePotential.riskAssessment < 80) { return "#FF0000" } else
-  { return "#800000" }
+  if (report.avalanchePotential.riskAssessment < 80) { return "#FF0000" } else { return "#800000" }
 }
 
 function getAvalancheReportMarkerRadius(report: AvalancheReport): number {

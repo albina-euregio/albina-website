@@ -14,8 +14,8 @@ import { SIDEBAR_TOGGLE_DIRECTIVES } from "./shared/sidebar.directive";
 import { AsideToggleDirective } from "./shared/aside.directive";
 import { PasswordMismatchValidatorDirective } from "./shared/password-mismatch.directive";
 import { BreadcrumbsComponent } from "./shared/breadcrumb.component";
-import { NgxSidebarControlModule } from '@runette/ngx-leaflet-sidebar';
-import { LeafletModule} from '@asymmetrik/ngx-leaflet';
+import { NgxSidebarControlModule } from "@runette/ngx-leaflet-sidebar";
+import { LeafletModule} from "@asymmetrik/ngx-leaflet";
 
 import { CatalogOfPhrasesComponent } from "./catalog-of-phrases/catalog-of-phrases.component";
 

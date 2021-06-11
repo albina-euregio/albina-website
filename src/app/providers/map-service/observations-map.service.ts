@@ -18,7 +18,7 @@ import { appCirclePlayIcon } from "../../svg/circle_play";
 import { appCircleStopIcon } from "../../svg/circle_stop";
 
 import * as geojson from "geojson";
-import '../../../assets/js/leaflet.canvas-markers.js';
+import "../../../assets/js/leaflet.canvas-markers.js";
 import * as L from "leaflet";
 
 declare module "leaflet" {
@@ -36,10 +36,10 @@ export class ObservationsMapService {
   public observationTypeLayers: Record<ObservationType, LayerGroup>;
 
   public sidebarOptions: SidebarOptions = {
-    position: 'right',
+    position: "right",
     autopan: false,
     closeButton: false,
-    container: 'sidebar',
+    container: "sidebar",
   }
 
   // This is very important! Use a canvas otherwise the chart is too heavy for the browser when
@@ -99,12 +99,12 @@ export class ObservationsMapService {
   private getIcon(observation: GenericObservation<any>): import("leaflet").Icon<import("leaflet").IconOptions> | import("leaflet").DivIcon {
 
     const iconSize = observation.$markerRadius;
-    const iconUrl = 'data:image/svg+xml;base64,' + btoa(this.getSvg(observation));
+    const iconUrl = "data:image/svg+xml;base64," + btoa(this.getSvg(observation));
 
     const icon = new Icon({
       iconUrl: iconUrl,
       iconSize: [iconSize, iconSize],
-      iconAnchor: [iconSize/2, iconSize/2]
+      iconAnchor: [iconSize / 2, iconSize / 2]
     });
 
     return icon;
