@@ -5,7 +5,7 @@ import { AuthenticationService } from "../providers/authentication-service/authe
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
 import { ObservationsMapService } from "../providers/map-service/observations-map.service";
-import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, toObservationTable } from "./models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, ObservationType, toObservationTable } from "./models/generic-observation.model";
 
 import { Observable } from "rxjs";
 
@@ -125,6 +125,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationsMaps.OpenTopoMap, ...Object.values(this.mapService.observationSourceLayers)]
     });
 
+    // add data source controls
     Object.keys(ObservationSource).forEach(source => {
       this.mapService.observationSourceLayers[source].addOnClickListener(function (e, data) {
         data[0].data.component.onObservationClick(data[0].data.observation)
@@ -146,6 +147,22 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
     setParent(htmlObject, a);
 
+    // add data type controls
+    Object.keys(ObservationType).forEach(type => {
+      this.mapService.observationTypeLayers[type].addOnClickListener(function (e, data) {
+        data[0].data.component.onObservationClick(data[0].data.observation)
+      });
+    });
+
+    const types = new Control.Layers(null, this.mapService.observationTypeLayers, { collapsed: false });
+    types.addTo(map);
+
+    // Call the getContainer routine.
+    var htmlObject = types.getContainer();
+    // Get the desired parent node.
+    var a = document.getElementById('typesDiv');
+
+    setParent(htmlObject, a);
     this.mapService.observationsMap = map;
   }
 
@@ -187,8 +204,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     marker.observation = observation;
     // @ts-ignore
     marker.component = this;
-    marker.bindTooltip(observation.locationName)
-      .addTo(this.mapService.observationSourceLayers[observation.$source]);
+    marker.bindTooltip(observation.locationName);
+    marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
+    marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
   }
 
   onObservationClick(observation: GenericObservation): void {

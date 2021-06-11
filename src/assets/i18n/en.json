@@ -697,8 +697,8 @@
       "sources": {
         "title": "Data Sources"
       },
-      "layers": {
-        "title": "Layers"
+      "views": {
+        "title": "Views"
       },
       "settings": {
         "title": "Settings"
