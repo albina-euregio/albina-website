@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 class LinktreeFeature extends React.Component {
   render() {
     const props = this.props;
-    console.log("LinktreeFeature->render xx101", props);
+    //console.log("LinktreeFeature->render xx101", props);
     const getContent = () => {
       return (
         <>

@@ -21,7 +21,7 @@ class LinkTree extends React.Component {
       title: "Linktree",
       subtitle: "subtitle",
       marginalText: "marginal",
-      sharable: false,
+      sharable: true,
       region: null,
       fd: false
     };
@@ -91,8 +91,7 @@ class LinkTree extends React.Component {
       //console.log("LinkTree->render xx101 new lang ", this.lastLang, this.regionParam);
     }
 
-    let bulletinImageUrl =
-      "https://avalanche.report/albina_files/2021-01-01/fd_albina_thumbnail.webp";
+    let bulletinImageUrl = "https://lawinen.report/content_files/base-map.webp";
 
     const imgFormat = window.config.webp ? ".webp" : ".jpg";
     if (this.state.fd != null) {
@@ -104,8 +103,7 @@ class LinkTree extends React.Component {
         imgFormat;
     }
 
-    let blogImageUrl =
-      "https://avalanche.report/albina_files/2021-01-01/fd_albina_thumbnail.webp";
+    let blogImageUrl = "https://lawinen.report/content_files/base-map.webp";
     let blogUrl = this.props.intl.formatMessage({
       id: "more:linktree:blog:link"
     });
@@ -116,12 +114,12 @@ class LinkTree extends React.Component {
       blogUrl = "/blog/" + firstEntry.blogName + "/" + firstEntry.postId; //firstEntry.url;
       blogTitle = firstEntry.title;
 
-      console.log(
-        "LinkTree->render xx101",
-        firstEntry.image,
-        blogImageUrl,
-        this.store.postsList[0]
-      );
+      // console.log(
+      //   "LinkTree->render xx101",
+      //   firstEntry.image,
+      //   blogImageUrl,
+      //   this.store.postsList[0]
+      // );
     }
 
     return (
