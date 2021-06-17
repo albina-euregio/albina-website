@@ -139,7 +139,7 @@ class LinkTree extends React.Component {
         <section className="section-padding-height section-linktree-features">
           <div className="section-centered">
             <LinkTreeFeature
-              url={"/bulletin/latest" + this.state.region}
+              url={"/bulletin" + this.state.region}
               image={{
                 url: bulletinImageUrl,
                 title: "the image",
