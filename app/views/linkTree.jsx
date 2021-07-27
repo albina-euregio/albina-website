@@ -1,119 +1,190 @@
-import React from "react"; // eslint-disable-line no-unused-vars
-import { withRouter } from "react-router-dom";
+import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
-import BlogPostsList from "../components/blog/blog-posts-list";
+import SmShare from "../components/organisms/sm-share";
+import HTMLHeader from "../components/organisms/html-header";
+import LinkTreeFeature from "../components/organisms/linktree-feature";
+import { injectIntl } from "react-intl";
+import { withRouter } from "react-router-dom";
+import { parseSearchParams } from "../util/searchParams";
+import { dateToISODateString } from "../util/date.js";
 import BlogStore from "../stores/blogStore";
-import { Link } from "react-router-dom";
-import { dateToDateTimeString } from "../util/date.js";
 
+//import { scroll } from "../js/scroll";
+/*
+ * Component to be used for pages with content delivered by CMS API.
+ */
 class LinkTree extends React.Component {
   constructor(props) {
     super(props);
-    this.store = new BlogStore();
+    this.state = {
+      title: "Linktree",
+      subtitle: "subtitle",
+      marginalText: "marginal",
+      sharable: true,
+      region: null,
+      fd: false
+    };
+    this.regionParam = null;
+    this.lastLang = null;
+    this.store = window.bulletinStore;
+    this.onBulletinImageError = this.onBulletinImageError.bind(this);
+
+    const getHistory = () => this.props.history;
+    if (!window["blogStore"]) {
+      window["blogStore"] = new BlogStore(getHistory);
+    }
+
+    /**
+     * @type {BlogStore}
+     */
+    this.store = window["blogStore"];
   }
 
   componentDidMount() {
-    this.store.setRegions(["trentino"]);
-    this.store.setLanguages("de");
-    this.store.update();
-    $("#page-footer").css({ display: "none" });
-    $("#page-header").css({ display: "none" });
+    this.checkRegion();
+  }
+  componentDidUpdate() {
+    this.checkRegion();
   }
 
-  componentWillUnmount() {
-    $("#page-footer").css({ display: "" });
-    $("#page-header").css({ display: "" });
+  checkRegion() {
+    this.regionParam = parseSearchParams().get("region");
+    const region = this.regionParam ? "?region=" + this.regionParam : "";
+    if (region !== this.state.region) this.setState({ region });
+  }
+
+  getLanguage(dateString) {
+    var lang = window["appStore"].language;
+    if (dateString < "2020-12-01") {
+      switch (lang) {
+        case "fr":
+        case "es":
+        case "ca":
+        case "oc":
+          return "en";
+        default:
+          return lang;
+      }
+    } else {
+      return lang;
+    }
+  }
+
+  onBulletinImageError() {
+    if (this.state.fd === null) return;
+    let fd = null;
+    if (this.state.fd) fd = null;
+    if (!this.state.fd) fd = true;
+    this.setState({ fd });
   }
 
   render() {
+    const dateString = dateToISODateString(new Date());
+    const lang = this.getLanguage(dateString);
+
+    if (lang !== this.lastLang) {
+      this.lastLang = lang;
+      this.store.setLanguages(this.lastLang);
+      this.store.setRegions(this.regionParam);
+      this.store.update();
+      //console.log("LinkTree->render xx101 new lang ", this.lastLang, this.regionParam);
+    }
+
+    let bulletinImageUrl = "https://lawinen.report/content_files/base-map.webp";
+
+    const imgFormat = window.config.webp ? ".webp" : ".jpg";
+    if (this.state.fd != null) {
+      bulletinImageUrl =
+        window.config.apis.geo +
+        dateString +
+        "/" +
+        (this.state.fd ? "fd_albina_thumbnail" : "am_albina_thumbnail") +
+        imgFormat;
+    }
+
+    let blogImageUrl = "https://lawinen.report/content_files/base-map.webp";
+    let blogUrl = this.props.intl.formatMessage({
+      id: "more:linktree:blog:link"
+    });
+    let blogTitle = null;
+    if (this.store.postsList[0]) {
+      const firstEntry = this.store.postsList[0];
+      blogImageUrl = firstEntry.image;
+      blogUrl = "/blog/" + firstEntry.blogName + "/" + firstEntry.postId; //firstEntry.url;
+      blogTitle = firstEntry.title;
+
+      // console.log(
+      //   "LinkTree->render xx101",
+      //   firstEntry.image,
+      //   blogImageUrl,
+      //   this.store.postsList[0]
+      // );
+    }
+
     return (
       <>
+        <HTMLHeader title={this.state.title} />
         <PageHeadline
           title={this.props.intl.formatMessage({
-            id: "app:title"
+            id: "more:linktree:title"
+          })}
+          subtitle={this.props.intl.formatMessage({
+            id: "more:linktree:subtitle"
+          })}
+          marginal={this.props.intl.formatMessage({
+            id: "more:linktree:marginal"
           })}
         />
-        <section className="section-centered section-dangerscale">
-          <a href="/bulletin">
-            <div id="report" className="panel field border">
-              <div className="grid">
-                <div className="grid-item small-3">
-                  <img
-                    src="/content_files/base-map.webp"
-                    alt="Base Map"
-                    className="warning-level-icon"
-                  />
-                </div>
-                <div className="grid-item small-9">
-                  <div className="panel-header">
-                    <h4>Report</h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </a>
-
+        <section className="section-padding-height section-linktree-features">
           <div className="section-centered">
-            <BlogPostsList
-              posts={this.store.postsList.slice(0, 1)}
-              loading={this.store.loading}
+            <LinkTreeFeature
+              url={"/bulletin" + this.state.region}
+              image={{
+                url: bulletinImageUrl,
+                title: "the image",
+                alt: "the alt",
+                onError: this.onBulletinImageError
+              }}
+              title={this.props.intl.formatMessage({
+                id: "more:linktree:bulletin:title"
+              })}
+            />
+
+            <LinkTreeFeature
+              url={blogUrl}
+              external={true}
+              image={{
+                url: blogImageUrl,
+                title: blogTitle,
+                alt: blogTitle
+              }}
+              title={this.props.intl.formatMessage({
+                id: "more:linktree:blog:title"
+              })}
+            />
+
+            <LinkTreeFeature
+              external={true}
+              url={this.props.intl.formatMessage({
+                id: "more:linktree:survey:link"
+              })}
+              image={{
+                url:
+                  "https://lawinen.report/content_files/feature_community.jpg",
+                title: "Survey",
+                alt: "Survey Image"
+              }}
+              title="Survey"
             />
           </div>
-          {this.store.postsList.map((item, i) => {
-            <Link
-              key={i}
-              to={"/blog/" + item.blogName + "/" + item.postId}
-              className="linkbox linkbox-blog-feature"
-            >
-              {item.image && (
-                <div className="content-image">
-                  {item.image && <img src={item.image} alt={item.title} />}
-                </div>
-              )}
-              <div className="content-text">
-                <ul className="list-inline blog-feature-meta">
-                  {/*<li className="blog-author">{item.author}</li>
-                   */}
-                  <li className="blog-date">
-                    {dateToDateTimeString(item.date)}
-                  </li>
-                  <li className="blog-province">
-                    {item.regions
-                      .map(r =>
-                        this.props.intl.formatMessage({ id: `region:${r}` })
-                      )
-                      .join(", ")}
-                  </li>
-                  <li className="blog-language">{item.lang.toUpperCase()}</li>
-                </ul>
-                <h1 title={item.title} className="subheader blog-feature-title">
-                  {item.title}
-                </h1>
-              </div>
-            </Link>;
-          })}
-
-          <div id="blog" className="panel field border">
-            <a href="/blog">
-              <div className="grid">
-                <div className="grid-item small-3">
-                  <img
-                    src="/content_files/micro-regions.webp"
-                    alt="Blog"
-                    className="warning-level-icon"
-                  />
-                </div>
-                <div className="grid-item small-9">
-                  <div className="panel-header">
-                    <h4>Micro Regions</h4>
-                  </div>
-                </div>
-              </div>
-            </a>
-          </div>
         </section>
+        <div className="clearfix" />
+        {this.state.sharable ? (
+          <SmShare />
+        ) : (
+          <div className="section-padding" />
+        )}
       </>
     );
   }

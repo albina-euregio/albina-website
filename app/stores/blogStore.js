@@ -470,6 +470,7 @@ export default class BlogStore {
     for (let r in newRegions) {
       newRegions[r] = [r, "all"].includes(region) || !region;
     }
+    //console.log("blogstore->setRegions xx101", newRegions);
     this._regions.set(newRegions);
   }
 
