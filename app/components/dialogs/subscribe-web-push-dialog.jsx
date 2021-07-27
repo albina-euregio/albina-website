@@ -159,7 +159,7 @@ export default function SubscribeWebPushDialog() {
           <ul className="list-inline list-buttongroup">
             <li>
               <ProvinceFilter
-                title={this.props.intl.formatMessage({
+                title={intl.formatMessage({
                   id: "measurements:filter:province"
                 })}
                 className={region && "selectric-changed"}
