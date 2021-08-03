@@ -46,6 +46,7 @@
   },
   "bulletins" : {
     "title" : "Avalanche.report",
+    "loadingPreview" : "Creating PDF preview ...",
     "tooltip" : {
       "publish" : "Publica el butlletí actualitzat immediatament",
       "submit" : "Puja el butlletí",
@@ -56,6 +57,7 @@
       "json" : "Mostra JSON",
       "edit" : "Edita el butlletí (no serà publicat de nou)",
       "create" : "Crea butlletí",
+      "preview" : "Preview bulletin (PDF)",
       "check" : "Comprova el butlletí",
       "info" : "Mostra l'estat de publicació",
       "publishAll" : "Publica totes les regions"
@@ -97,7 +99,7 @@
         "moveDownAvalancheSituation" : "Mou el problema de les allaus cap avall",
         "dangerRatingDirectionUp" : "Estendre el grau de perill d'allaus amunt",
         "dangerRatingDirectionDown" : "Estendre el grau de perill d'allaus avall"
-    },
+      },
       "save" : "Desa",
       "discard" : "Descarta",
       "back" : "Enrera",
@@ -286,6 +288,10 @@
         "message" : "Hi ha hagut un error comprovant els butlletins!",
         "accept" : "D'acord"
       },
+      "previewErrorDialog" : {
+        "message" : "Preview could not be loaded!",
+        "accept" : "D'acord"
+      },
       "checkBulletinsDialog" : {
         "message" : "Comprova el butlletí",
         "missingDangerRating" : "Grau de perill no especificat ",
@@ -408,7 +414,7 @@
         "organization" : "Organization",
         "password" : "Password",
         "password2" : "Repeat password",
-        "role" : "Role",
+        "roles" : "Roles",
         "regions" : "Regions"
       },
       "error" : {
@@ -508,6 +514,12 @@
     "SW" : "SW",
     "W" : "W",
     "NW" : "NW"
+  },
+  "role" : {
+    "ADMIN" : "Administrator",
+    "FORECASTER" : "Forecaster",
+    "FOREMAN" : "Foreman",
+    "OBSERVER" : "Observer"
   },
   "region" : {
     "AT-07" : "Tyrol",

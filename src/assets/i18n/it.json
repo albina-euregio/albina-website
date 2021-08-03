@@ -46,6 +46,7 @@
   },
   "bulletins" : {
     "title" : "Valanghe.report",
+    "loadingPreview" : "Creating PDF preview ...",
     "tooltip" : {
       "publish" : "Pubblicare bollettino valanghe",
       "submit" : "Inviare bollettino valanghe",
@@ -56,6 +57,7 @@
       "json" : "Mostrare JSON",
       "edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)",
       "create" : "Creare bollettino valanghe",
+      "preview" : "Preview bulletin (PDF)",
       "check" : "Controllare bollettino valanghe",
       "info" : "Mostra lo stato della pubblicazione",
       "publishAll" : "Pubblicare tutte le regioni"
@@ -97,7 +99,7 @@
         "moveDownAvalancheSituation" : "Spostare problema valanghivo verso il basso",
         "dangerRatingDirectionUp" : "Estendere la valutazione del pericolo verso l'alto",
         "dangerRatingDirectionDown" : "Estendere la valutazione del grado del pericolo verso il basso"
-    },
+      },
       "save" : " Salva",
       "discard" : " Scarta",
       "back" : " Indietro",
@@ -286,6 +288,10 @@
         "message" : "Errore verficando il bollettino valanghe!",
         "accept" : "Ok"
       },
+      "previewErrorDialog" : {
+        "message" : "Preview could not be loaded!",
+        "accept" : "Ok"
+      },
       "checkBulletinsDialog" : {
         "message" : "Controllare bollettino valanghe",
         "missingDangerRating" : "Grado di pericolo non definato",
@@ -408,7 +414,7 @@
         "organization" : "Organization",
         "password" : "Password",
         "password2" : "Repeat password",
-        "role" : "Role",
+        "roles" : "Roles",
         "regions" : "Regions"
       },
       "error" : {
@@ -508,6 +514,12 @@
     "SW" : "SO",
     "W" : "O",
     "NW" : "NO"
+  },
+  "role" : {
+    "ADMIN" : "Administrator",
+    "FORECASTER" : "Forecaster",
+    "FOREMAN" : "Foreman",
+    "OBSERVER" : "Observer"
   },
   "region" : {
     "AT-07" : "Tirolo",

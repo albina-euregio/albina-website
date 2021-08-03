@@ -46,6 +46,7 @@
   },
   "bulletins" : {
     "title" : "Lawinen.report",
+    "loadingPreview" : "Erzeuge PDF Vorschau ...",
     "tooltip" : {
       "publish" : "Update zur Lawinenvorhersage sofort publizieren",
       "submit" : "Lawinenvorhersage absenden",
@@ -56,6 +57,7 @@
       "json" : "JSON anzeigen",
       "edit" : "Lawinenvorhersage editieren (keine erneute Veröffentlichung)",
       "create" : "Lawinenvorhersage erstellen",
+      "preview" : "Vorschau anzeigen (PDF)",
       "check" : "Lawinenvorhersage prüfen",
       "info" : "Publikationsstatus anzeigen",
       "publishAll" : "Alle Regionen publizieren"
@@ -97,7 +99,7 @@
         "moveDownAvalancheSituation" : "Lawinenproblem nach unten schieben",
         "dangerRatingDirectionUp" : "Erweitere die Gefahrenstufe nach oben",
         "dangerRatingDirectionDown" : "Erweitere die Gefahrenstufe nach unten"
-    },
+      },
       "save" : " Speichern",
       "discard" : " Verwerfen",
       "back" : " Zurück",
@@ -286,6 +288,10 @@
         "message" : "Beim Überprüfen der Lawinenvorhersage ist ein Fehler aufgetreten!",
         "accept" : "Ok"
       },
+      "previewErrorDialog" : {
+        "message" : "Vorschau konnte nicht geladen werden!",
+        "accept" : "Ok"
+      },
       "checkBulletinsDialog" : {
         "message" : "Lawinenvorhersage prüfen",
         "missingDangerRating" : "Gefahrenstufe nicht definiert",
@@ -373,32 +379,32 @@
         "create" : "Benutzer anlegen"
       },
       "tooltip" : {
-        "edit" : "Edit user",
-        "delete" : "Delete user"
+        "edit" : "Benutzer bearbeiten",
+        "delete" : "Benutzer löschen"
       },
       "table" : {
         "name" : "Name",
         "email" : "Email",
         "organization" : "Organisation",
         "regions" : "Regionen",
-        "roles" : "Roles"
+        "roles" : "Rollen"
       },
       "deleteUserModalDialog" : {
-        "message" : "Do you want to delete the user?",
+        "message" : "Willst du den Benutzer löschen?",
         "accept" : "Ja",
         "reject" : "Nein"
       },
       "deleteUser" : {
-        "success" : "User deleted",
-        "error" : "User could not be deleted"
+        "success" : "Benutzer gelöscht",
+        "error" : "Benutzer konnte nicht gelöscht werden"
       },
       "createUser" : {
-        "success" : "User created",
+        "success" : "Benutzer erstellt",
         "error" : "Benutzer konnte nicht angelegt werden"
       },
       "updateUser" : {
-        "success" : "User updated",
-        "error" : "User could not be updated"
+        "success" : "Benutzer aktualisiert",
+        "error" : "Benutzer konnte nicht aktualisiert werden"
       }
     },
     "createUser" : {
@@ -407,27 +413,27 @@
         "email" : "Email",
         "organization" : "Organisation",
         "password" : "Passwort",
-        "password2" : "Repeat password",
-        "role" : "Rolle",
+        "password2" : "Passwort wiederholen",
+        "roles" : "Rollen",
         "regions" : "Regionen"
       },
       "error" : {
         "name" : {
-          "required" : "Please enter a name"
+          "required" : "Bitte Namen eingeben"
         },
         "email" : {
-          "required" : "Please enter an email address",
-          "invalid" : "Email address is invalid"
+          "required" : "Bitte E-Mail Adresse eingeben",
+          "invalid" : "E-Mail Adresse ist ungültig"
         },
         "password" : {
-          "required" : "Please enter a password",
-          "length" : "Password has to be at least 8 characters",
-          "mismatch" : "Passwords do not match"
+          "required" : "Bitte Passwort eingeben",
+          "length" : "Passwort muss mindestens 8 Zeichen lang sein",
+          "mismatch" : "Passwörter stimmen nicht überein"
         }
       },
       "button" : {
         "create" : "Benutzer anlegen",
-        "update" : "Update user",
+        "update" : "Benutzer aktualisieren",
         "cancel" : "Abbrechen"
       }  
     }
@@ -444,20 +450,20 @@
         "placeholder" : "Neues Passwort"
       },
       "newPassword2" : {
-        "label" : "New password (repeat)",
+        "label" : "Neues Passwort (wiederholen)",
         "placeholder" : "Neues Passwort"
       },
       "submit" : "Passwort ändern",
       "passwordChanged" : "Passwort erfolgreich geändert",
       "passwordChangeError" : "Passwort konnte nicht geändert werden",
-      "passwordIncorrect" : "Current password incorrect",
+      "passwordIncorrect" : "Derzeitiges Passwort falsch",
       "error" : {
         "oldPassword" : {
           "required" : "Bitte gib dein derzeitiges Passwort ein"
         },
         "newPassword" : {
           "required" : "Bitte gib ein neues Passwort ein",
-          "mismatch" : "Passwords do not match"
+          "mismatch" : "Passwörter stimmen nicht überein"
         }
       }
     },
@@ -508,6 +514,12 @@
     "SW" : "SW",
     "W" : "W",
     "NW" : "NW"
+  },
+  "role" : {
+    "ADMIN" : "Administrator",
+    "FORECASTER" : "Lawinenwarner",
+    "FOREMAN" : "Vorarbeiter",
+    "OBSERVER" : "Beobachter"
   },
   "region" : {
     "AT-07" : "Tirol",
@@ -690,7 +702,7 @@
     "wetSnow": "Nassschnee",
     "glidingSnow": "Gleitschnee",
     "newSnow": "Neuschnee",
-    "snowpackStructureActive": "Snowpack Structure Active",
+    "snowpackStructureActive": "Schneedeckenaufbau",
     "triggeringProbability": "Auslösewahrscheinlichkeit",
     "avalancheRiskTendency24h": "Tendenz des Lawinenrisikos 24h",
     "avalancheRiskTendency48h": "Tendenz des Lawinenrisikos 48h",

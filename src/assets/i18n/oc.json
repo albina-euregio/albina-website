@@ -46,6 +46,7 @@
   },
   "bulletins" : {
     "title" : "Avalanche.report",
+    "loadingPreview" : "Creating PDF preview ...",
     "tooltip" : {
       "publish" : "Publicar immediataments eth bulletin actualizat",
       "submit" : "Enviar bulletin",
@@ -56,6 +57,7 @@
       "json" : "Mostrar JSON",
       "edit" : "Editar bulletin (non se tornarà a publicar)",
       "create" : "Crear bulletin",
+      "preview" : "Preview bulletin (PDF)",
       "check" : "Verificar bulletin",
       "info" : "Mostrar er estat de publicacion",
       "publishAll" : "Publicar totes es regions"
@@ -97,7 +99,7 @@
         "moveDownAvalancheSituation" : "Botjar eth problèma de lauegi cap enjós",
         "dangerRatingDirectionUp" : "Esténer eth grad de perilh cap ensús",
         "dangerRatingDirectionDown" : "Esténer eth grad de perilh cap enjós"
-    },
+      },
       "save" : "Sauvar",
       "discard" : "Escartar",
       "back" : "Endarrere",
@@ -286,6 +288,10 @@
         "message" : "S'a produsit un error en verificar es bulletins!",
         "accept" : "d'acòrd"
       },
+      "previewErrorDialog" : {
+        "message" : "Preview could not be loaded!",
+        "accept" : "D'acòrd"
+      },
       "checkBulletinsDialog" : {
         "message" : "Verificar eth bulletin",
         "missingDangerRating" : "Grad de perilh non establit",
@@ -408,7 +414,7 @@
         "organization" : "Organization",
         "password" : "Password",
         "password2" : "Repeat password",
-        "role" : "Role",
+        "roles" : "Roles",
         "regions" : "Regions"
       },
       "error" : {
@@ -508,6 +514,12 @@
     "SW" : "SW",
     "W" : "W",
     "NW" : "NW"
+  },
+  "role" : {
+    "ADMIN" : "Administrator",
+    "FORECASTER" : "Forecaster",
+    "FOREMAN" : "Foreman",
+    "OBSERVER" : "Observer"
   },
   "region" : {
     "AT-07" : "Tiròl",

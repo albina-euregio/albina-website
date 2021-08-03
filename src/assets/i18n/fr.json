@@ -46,6 +46,7 @@
   },
   "bulletins" : {
     "title" : "Avalanche.report",
+    "loadingPreview" : "Creating PDF preview ...",
     "tooltip" : {
       "publish" : "Publier le bulletin immédiatement ",
       "submit" : "Soumettre le bulletin",
@@ -56,6 +57,7 @@
       "json" : "Afficher JSON",
       "edit" : "Éditer le bulletin (ne sera plus publié)",
       "create" : "Creer le bulletin",
+      "preview" : "Preview bulletin (PDF)",
       "check" : "Vérifier le bulletin",
       "info" : "Afficher l'état de la publication",
       "publishAll" : "Publier toutes les régions"
@@ -97,7 +99,7 @@
         "moveDownAvalancheSituation" : "Déplacer situation avalancheuse typique en bas",
         "dangerRatingDirectionUp" : "Élargir le degré de danger vers le haut",
         "dangerRatingDirectionDown" : "Élargir le degré de danger vers le bas"
-    },
+      },
       "save" : "Sauvegarder",
       "discard" : "Abandoner",
       "back" : "Retour",
@@ -286,6 +288,10 @@
         "message" : "Il y avait une erreur dans la contrôle des bulletins!",
         "accept" : "Ok"
       },
+      "previewErrorDialog" : {
+        "message" : "Preview could not be loaded!",
+        "accept" : "Ok"
+      },
       "checkBulletinsDialog" : {
         "message" : "Contrôler le bulletin",
         "missingDangerRating" : "Degré de danger indéfini",
@@ -408,7 +414,7 @@
         "organization" : "Organization",
         "password" : "Password",
         "password2" : "Repeat password",
-        "role" : "Role",
+        "roles" : "Roles",
         "regions" : "Regions"
       },
       "error" : {
@@ -508,6 +514,12 @@
     "SW" : "SO",
     "W" : "O",
     "NW" : "NO"
+  },
+  "role" : {
+    "ADMIN" : "Administrator",
+    "FORECASTER" : "Forecaster",
+    "FOREMAN" : "Foreman",
+    "OBSERVER" : "Observer"
   },
   "region" : {
     "AT-07" : "Tyrol",
