@@ -82,6 +82,8 @@
                   <button *ngIf="showInfoButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="showPublicationInfo($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.info' | translate }}"><i class="fa fa-info"></i></button>
                   <!-- copy -->
                   <button *ngIf="showCopyButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="copy($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
+                  <!-- preview -->
+                  <button *ngIf="showPreviewButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="preview($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.preview' | translate }}"><i class="fa fa-eye"></i></button>
                   <!-- paste -->
                   <button *ngIf="showPasteButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="paste($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.paste' | translate }}"><i class="fa fa-paste"></i></button>
                   <!-- submit -->
@@ -115,6 +117,13 @@
   </div>
 </ng-template>
 
+<ng-template #previewErrorTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.table.previewErrorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="previewErrorModalConfirm()">{{ "bulletins.table.previewErrorDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
+
 <ng-template #submitBulletinsErrorTemplate>
   <div class="modal-body text-center">
     <p>{{ "bulletins.table.submitBulletinsErrorDialog.message" | translate }}</p>
@@ -142,3 +151,11 @@
     <button type="button" class="btn btn-primary" (click)="checkBulletinsErrorModalConfirm()">{{ "bulletins.table.checkBulletinsErrorDialog.accept" | translate }}</button>
   </div>
 </ng-template>
+
+<div id="overlay">
+  <span id="nav" *ngIf="loadingPreview">
+    <div class="submit-message" style="display: block; color: #FFFFFF; position: fixed; left: 49.7%; top: 54.5%;">
+      <p>{{ "bulletins.loadingPreview" | translate }}</p>
+    </div>
+  </span>
+</div>

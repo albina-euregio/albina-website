@@ -46,6 +46,7 @@
   },
   "bulletins" : {
     "title" : "Avalanche.report",
+    "loadingPreview" : "Creating PDF preview ...",
     "tooltip" : {
       "publish" : "Publish updated bulletin immediately",
       "submit" : "Submit bulletin",
@@ -56,6 +57,7 @@
       "json" : "Show JSON",
       "edit" : "Edit bulletin (will not be published again)",
       "create" : "Create bulletin",
+      "preview" : "Preview bulletin (PDF)",
       "check" : "Check bulletin",
       "info" : "Show publication status",
       "publishAll" : "Publish all regions"
@@ -97,7 +99,7 @@
         "moveDownAvalancheSituation" : "Move avalanche problem down",
         "dangerRatingDirectionUp" : "Extend the danger rating upwards",
         "dangerRatingDirectionDown" : "Extend the danger rating downwards"
-    },
+      },
       "save" : " Save",
       "discard" : " Discard",
       "back" : " Back",
@@ -284,6 +286,10 @@
       },
       "checkBulletinsErrorDialog" : {
         "message" : "There was an error checking the bulletins!",
+        "accept" : "Ok"
+      },
+      "previewErrorDialog" : {
+        "message" : "Preview could not be loaded!",
         "accept" : "Ok"
       },
       "checkBulletinsDialog" : {

@@ -271,6 +271,14 @@ export class BulletinsService {
     }
   }
 
+  getPreviewPdf(date: Date): Observable<Blob> {
+    const url = this.constantsService.getServerUrl() + "bulletins/preview?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion() + "&lang=" + this.settingsService.getLangString();
+    const headers = this.authenticationService.newAuthHeader("application/pdf");
+    const options = { headers: headers };
+
+    return this.http.get(url, { headers: headers, responseType: 'blob' });
+  }
+
   getStatus(region: string, startDate: Date, endDate: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/status/internal?startDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + "&endDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();
