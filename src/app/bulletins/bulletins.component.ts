@@ -19,7 +19,7 @@ import { ModalPublishComponent } from "./modal-publish.component";
 import { ModalCheckComponent } from "./modal-check.component";
 import { ModalPublicationStatusComponent } from "./modal-publication-status.component";
 import { ModalPublishAllComponent } from "./modal-publish-all.component";
-import { saveAs } from 'file-saver';
+import { saveAs } from "file-saver";
 
 @Component({
   templateUrl: "bulletins.component.html"

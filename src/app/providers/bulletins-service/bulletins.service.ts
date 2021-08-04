@@ -276,7 +276,7 @@ export class BulletinsService {
     const headers = this.authenticationService.newAuthHeader("application/pdf");
     const options = { headers: headers };
 
-    return this.http.get(url, { headers: headers, responseType: 'blob' });
+    return this.http.get(url, { headers: headers, responseType: "blob" });
   }
 
   getStatus(region: string, startDate: Date, endDate: Date): Observable<Response> {
