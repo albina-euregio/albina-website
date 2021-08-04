@@ -350,8 +350,6 @@
         "publishToTelegramChannel" : "Publicar a traués deth canau de Telegram",
         "publishAt5PM" : "Publicar as 5 PM",
         "publishAt8AM" : "Publicar as 8 AM",
-        "localImagesPath" : "Rota cap as imatges locaus",
-        "localFontsPath" : "Rota cap as hònts",
         "publishBulletinsTyrol" : "Publicar prediccion de lauegi entath Tiròl",
         "publishBulletinsSouthTyrol" : "Publicar prediccion de lauegi entath Sud-Tiròl",
         "publishBulletinsTrentino" : "Publicar prediccion de lauegi entath Trentin",
@@ -362,7 +360,6 @@
         "pdfDirectory" : "Directòri entà PDF",
         "htmlDirectory" : "Directòri entà HTML",
         "serverImagesUrl" : "Rota as imatges deth servidor",
-        "serverImagesUrlLocalhost" : "Rota as imatges deth servidor (locau)",
         "mapsPath" : "Rota as mapes",
         "mapProductionUrl" : "URL entara produccion de mapes",
         "scriptsPath" : "Rota as scripts"

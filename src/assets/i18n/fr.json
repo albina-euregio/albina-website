@@ -350,8 +350,6 @@
         "publishToTelegramChannel" : "Publier via les Telegram channel",
         "publishAt5PM" : "Publier à 5PM",
         "publishAt8AM" : "Publier à 8AM",
-        "localImagesPath" : "Chemin vers les images locales",
-        "localFontsPath" : "Chemin vers la police de caractères",
         "publishBulletinsTyrol" : "Publier bulletin d'avalanche pour Tyrol ",
         "publishBulletinsSouthTyrol" : "Publier bulletin d'avalanche pour Tyrol du Sud",
         "publishBulletinsTrentino" : "Publier bulletin d'avalanche pour le Trentin",
@@ -362,7 +360,6 @@
         "pdfDirectory" : "Répertoire pour PDF",
         "htmlDirectory" : "Répertoire pour HTML",
         "serverImagesUrl" : "Chemin vers les images du serveur",
-        "serverImagesUrlLocalhost" : "Chemin vers les images du serveur (localhost)",
         "mapsPath" : "Chemin vers les cartes",
         "mapProductionUrl" : "URL pour la production des cartes",
         "scriptsPath" : "Chemin vers les scripts"

@@ -350,8 +350,6 @@
         "publishToTelegramChannel" : "Publicar a través de canal de Telegram",
         "publishAt5PM" : "Publicar a las 5PM",
         "publishAt8AM" : "Publicar a las 8PM",
-        "localImagesPath" : "Ruta de acceso a imágenes locales",
-        "localFontsPath" : "Ruta de acceso a fuentes",
         "publishBulletinsTyrol" : "Publicar predicción de aludes para el Tyrol",
         "publishBulletinsSouthTyrol" : "Publicar predicción de aludes para el South Tyrol",
         "publishBulletinsTrentino" : "Publicar predicción de aludes para el Trentino",
@@ -362,7 +360,6 @@
         "pdfDirectory" : "Directorio para PDF",
         "htmlDirectory" : "Directorio para HTML",
         "serverImagesUrl" : "Ruta de acceso al servidor de imágenes",
-        "serverImagesUrlLocalhost" : "Ruta de acceso al servidor de imágenes (localhost)",
         "mapsPath" : "Ruta de acceso a mapas",
         "mapProductionUrl" : "URL para producción de mapas",
         "scriptsPath" : "Ruta de acceso a los scripts"

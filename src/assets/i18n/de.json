@@ -350,8 +350,6 @@
         "publishToTelegramChannel" : "Publizieren via Telegram Kanal",
         "publishAt5PM" : "Publizieren um 17:00 Uhr",
         "publishAt8AM" : "Publizieren um 08:00 Uhr",
-        "localImagesPath" : "Pfad zu lokalen Bildern",
-        "localFontsPath" : "Pfad zu Schriften",
         "publishBulletinsTyrol" : "Lawinenvorhersage für Tirol publizieren",
         "publishBulletinsSouthTyrol" : "Lawinenvorhersage für Südtirol publizieren",
         "publishBulletinsTrentino" : "Lawinenvorhersage für das Trentino publizieren",
@@ -362,7 +360,6 @@
         "pdfDirectory" : "Ordner für PDF",
         "htmlDirectory" : "Ordner für HTML",
         "serverImagesUrl" : "Pfad zu Bildern am Server",
-        "serverImagesUrlLocalhost" : "Pfad zu Bildern am Server (localhost)",
         "mapsPath" : "Pfad zu Karten",
         "mapProductionUrl" : "URL zur Kartenproduktion",
         "scriptsPath" : "Pfad zu den Skripten"

@@ -350,8 +350,6 @@
         "publishToTelegramChannel" : "Publica via canal de Telegram",
         "publishAt5PM" : "Publica a les 5 PM",
         "publishAt8AM" : "Publica a les 8 AM",
-        "localImagesPath" : "Adreça de les imatges locals",
-        "localFontsPath" : "Adreça de les fonts",
         "publishBulletinsTyrol" : "Publica la predicció d'allaus per Tirol",
         "publishBulletinsSouthTyrol" : "Publica la predicció d'allaus per Sud-Tirol",
         "publishBulletinsTrentino" : "Publica la predicció d'allaus per Trentino",
@@ -362,7 +360,6 @@
         "pdfDirectory" : "Directori per PDF",
         "htmlDirectory" : "Directori per HTML",
         "serverImagesUrl" : "Adreça de les imatges del servidor",
-        "serverImagesUrlLocalhost" : "Adreça de les imatges del servidor (localhost)",
         "mapsPath" : "Adreça dels mapes",
         "mapProductionUrl" : "URL per la producció dels mapes",
         "scriptsPath" : "Adreça dels scripts"

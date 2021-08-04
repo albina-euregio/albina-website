@@ -350,8 +350,6 @@
         "publishToTelegramChannel" : "Pubblicazione via Telegram channel",
         "publishAt5PM" : "Publicare alle 17:00",
         "publishAt8AM" : "Publicare alle 08:00",
-        "localImagesPath" : "Percoros alle immagini locali",
-        "localFontsPath" : "Percorso dei font",
         "publishBulletinsTyrol" : "Pubblicare bollettino valanghe per il Tirolo",
         "publishBulletinsSouthTyrol" : "Pubblicare bollettino valanghe per l'Alto Adige",
         "publishBulletinsTrentino" : "Pubblicare bollettino valanghe per il Trentino",
@@ -362,7 +360,6 @@
         "pdfDirectory" : "Cartella per PDF",
         "htmlDirectory" : "Cartella per HTML",
         "serverImagesUrl" : "Percorso alle immagini sul server",
-        "serverImagesUrlLocalhost" : "Percorso alle immagini sul server (localhost)",
         "mapsPath" : "Percorso verso le mappe",
         "mapProductionUrl" : "URL per la produzione di mappe",
         "scriptsPath" : "Percorso verso gli script"
