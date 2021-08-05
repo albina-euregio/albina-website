@@ -9,7 +9,9 @@ let loadedRegions = undefined;
  * @return {Promise<GeoJSON.FeatureCollection>}
  */
 async function loadRegions() {
-  const regionsPolyline = await import("./neighbor_micro_regions.polyline.json");
+  const regionsPolyline = await import(
+    /* webpackChunkName: "neighbor_micro_regions" */ "./neighbor_micro_regions.polyline.json"
+  );
   const regions = decodeFeatureCollection(regionsPolyline.default);
   regions.features.push(...(await loadRegionsCH()));
   regions.features = regions.features.map(f => Object.freeze(f));
@@ -98,7 +100,9 @@ function augmentNeighborFeature(feature, bulletins) {
  * @returns{Promise<GeoJSON.Feature[]>}}
  */
 async function loadRegionsCH() {
-  const extraRegionsPolyline = await import("./neighbor_regions.polyline.json");
+  const extraRegionsPolyline = await import(
+    /* webpackChunkName: "neighbor_regions" */ "./neighbor_regions.polyline.json"
+  );
   const extraRegions = decodeFeatureCollection(extraRegionsPolyline.default).features.filter(
     feature => feature.id === "CH" || feature.id === "LI"
   );

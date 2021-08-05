@@ -9,7 +9,9 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
 const BulletinMap = React.lazy(() =>
-  import("../components/bulletin/bulletin-map")
+  import(
+    /* webpackChunkName: "app-bulletin-map" */ "../components/bulletin/bulletin-map"
+  )
 );
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
