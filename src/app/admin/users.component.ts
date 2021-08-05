@@ -1,9 +1,9 @@
 import { AfterContentInit, Component, ViewChild } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ConfigurationService } from "../providers/configuration-service/configuration.service";
-import { AlertComponent, BsModalRef, BsModalService } from "ngx-bootstrap";
+import { AlertComponent } from "ngx-bootstrap/alert";
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { UserService } from "../providers/user-service/user.service";
-import { UserModel } from "../models/user.model";
 import { TemplateRef } from "@angular/core";
 import { CreateUserComponent } from "./create-user.component";
 import { UpdateUserComponent } from "./update-user.component";

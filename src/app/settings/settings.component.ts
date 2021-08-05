@@ -3,7 +3,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
-import { AlertComponent } from "ngx-bootstrap";
+import { AlertComponent } from "ngx-bootstrap/alert";
 import { UserService } from "app/providers/user-service/user.service";
 
 @Component({

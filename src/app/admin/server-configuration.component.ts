@@ -5,7 +5,7 @@ import { ConstantsService } from "../providers/constants-service/constants.servi
 import { ConfigurationService } from "../providers/configuration-service/configuration.service";
 import { SocialmediaService } from "../providers/socialmedia-service/socialmedia.service";
 import * as Enums from "../enums/enums";
-import { AlertComponent } from "ngx-bootstrap";
+import { AlertComponent } from "ngx-bootstrap/alert";
 
 @Component({
   templateUrl: "server-configuration.component.html",

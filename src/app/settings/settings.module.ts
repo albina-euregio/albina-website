@@ -10,7 +10,7 @@ import { TranslateModule } from "@ngx-translate/core";
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
 
-import { AlertModule } from "ngx-bootstrap";
+import { AlertModule } from "ngx-bootstrap/alert";
 import { Password2MismatchValidatorDirective } from "./password2-mismatch.directive";
 
 

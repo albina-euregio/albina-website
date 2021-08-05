@@ -5,6 +5,7 @@ import { CommonModule } from "@angular/common";
 import { AdminComponent } from "./admin.component";
 import { ServerConfigurationComponent } from "./server-configuration.component";
 import { UsersComponent } from "./users.component";
+import { StatisticsComponent } from "./statistics.component";
 
 import { AdminRoutingModule } from "./admin-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
@@ -15,7 +16,8 @@ import { TabViewModule } from "primeng/tabview";
 import { DropdownModule } from "primeng/dropdown";
 import { TableModule } from "primeng/table";
 
-import { AlertModule } from "ngx-bootstrap";
+import { AlertModule } from "ngx-bootstrap/alert";
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   imports: [
@@ -27,12 +29,14 @@ import { AlertModule } from "ngx-bootstrap";
     TabViewModule,
     DropdownModule,
     TableModule,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   declarations: [
     AdminComponent,
     ServerConfigurationComponent,
-    UsersComponent
+    UsersComponent,
+    StatisticsComponent
   ]
 })
 export class AdminModule { }

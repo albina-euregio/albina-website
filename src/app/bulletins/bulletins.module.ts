@@ -26,7 +26,7 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
 
-import { AccordionModule } from "ngx-bootstrap";
+import { AccordionModule } from "ngx-bootstrap/accordion";
 
 
 @NgModule({

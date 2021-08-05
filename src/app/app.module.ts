@@ -28,6 +28,7 @@ import { SimpleLayoutComponent } from "./layouts/simple-layout.component";
 import { AuthenticationService } from "./providers/authentication-service/authentication.service";
 import { UserService } from "./providers/user-service/user.service";
 import { BulletinsService } from "./providers/bulletins-service/bulletins.service";
+import { StatisticsService } from "./providers/statistics-service/statistics.service";
 import { RegionsService } from "./providers/regions-service/regions.service";
 import { ConstantsService } from "./providers/constants-service/constants.service";
 import { SettingsService } from "./providers/settings-service/settings.service";
@@ -52,7 +53,10 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 
 import { HttpClientModule } from "@angular/common/http";
 
-import { BsDropdownModule, TabsModule, ModalModule, AlertModule } from "ngx-bootstrap";
+import { AlertModule } from "ngx-bootstrap/alert";
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
+import { ModalModule } from "ngx-bootstrap/modal";
+import { TabsModule } from "ngx-bootstrap/tabs";
 
 import { ModalSubmitComponent } from "./bulletins/modal-submit.component";
 import { ModalPublishComponent } from "./bulletins/modal-publish.component";
@@ -182,6 +186,7 @@ registerLocaleData(localeOc, "oc");
     ConstantsService,
     SettingsService,
     BulletinsService,
+    StatisticsService,
     RegionsService,
     MapService,
     WsChatService,
