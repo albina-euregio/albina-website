@@ -28,7 +28,6 @@ export class StatisticsComponent {
       document.getElementById("overlay").style.display = "block";
       this.statisticsService.getStatisticsCsv(this.bsRangeValue[0], this.bsRangeValue[1], this.settingsService.getLangString(), this.extended, this.duplicates).subscribe(blob => {
         this.loadingStatistics = false;
-        debugger
         document.getElementById("overlay").style.display = "none";
         const format = "yyyy-MM-dd";
         const locale = "en-US";

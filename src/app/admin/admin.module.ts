@@ -17,7 +17,7 @@ import { DropdownModule } from "primeng/dropdown";
 import { TableModule } from "primeng/table";
 
 import { AlertModule } from "ngx-bootstrap/alert";
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 
 @NgModule({
   imports: [
