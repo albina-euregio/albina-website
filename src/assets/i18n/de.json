@@ -335,6 +335,7 @@
     }
   },
   "admin" : {
+    "loadingStatistics" : "CSV wird erzeugt ...",
     "server-configuration" : {
       "title" : "Server Konfiguration",
       "table" : {
@@ -433,6 +434,17 @@
         "update" : "Benutzer aktualisieren",
         "cancel" : "Abbrechen"
       }  
+    },
+    "statistics" : {
+      "title" : "Statistik",
+      "button" : {
+        "submit" : "Herunterladen"
+      },
+      "label" : {
+        "dateRange" : "Zeitspanne",
+        "extended" : "Erweitert",
+        "duplicates" : "Duplikate"
+      }
     }
   },
   "settings" : {
