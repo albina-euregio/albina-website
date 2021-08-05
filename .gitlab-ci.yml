@@ -28,7 +28,7 @@ cache:
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
     - mkdir -p ~/.ssh && chmod 700 ~/.ssh
     - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-    - npm run deploy-$CI_ENVIRONMENT_NAME
+    - rsync -avz -e 'ssh -p2201' --delete dist/ $SFTP_SERVER
 
 build:dev:
   extends: .build
