@@ -42,9 +42,6 @@ module.exports = (env, argv) => {
     },
     context: __dirname + "/app",
     entry: [
-      "core-js/stable",
-      "regenerator-runtime/runtime",
-      "./polyfill.js",
       "./sentry.js",
       "./main.jsx"
     ],
@@ -72,7 +69,7 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
           use: [
             {
-              loader: "babel-loader"
+              loader: "swc-loader",
             }
           ]
         },
