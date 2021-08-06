@@ -6,7 +6,15 @@ import { convertObservationToGeneric, Observation } from "./models/observation.m
 import { convertNatlefsToGeneric, Natlefs } from "./models/natlefs.model";
 import { convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "./models/avaobs.model";
 import { convertLoLaToGeneric, LoLaSafetyApi } from "./models/lola-safety.model";
-import { Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "./models/lawis.model";
+import {
+  Profile,
+  Incident,
+  IncidentDetails,
+  parseLawisDate,
+  toLawisIncidentTable,
+  ProfileDetails,
+  LAWIS_FETCH_DETAILS
+} from "./models/lawis.model";
 import { GenericObservation, ObservationSource, toAspect } from "./models/generic-observation.model";
 import {
   ArcGisLayer,
@@ -185,55 +193,61 @@ export class ObservationsService {
   getLawisProfiles(): Observable<GenericObservation> {
     const { observationApi: api, observationWeb: web } = this.constantsService;
     return this.http
-      .get<Profile[]>(api.LawisSnowProfiles)
+      .get<Profile[]>(api.LawisSnowProfiles + "?startDate=" + this.startDateString + "&endDate=" + this.endDateString)
       .mergeAll()
       .map<Profile, GenericObservation<Profile>>((lawis) => ({
         $data: lawis,
-        $externalURL: web.LawisSnowProfiles.replace("{{id}}", String(lawis.profil_id)),
+        $externalURL: web.LawisSnowProfiles.replace("{{id}}", String(lawis.id)),
         $source: ObservationSource.LawisSnowProfiles,
-        aspect: toAspect(lawis.exposition_id),
+        aspect: toAspect(lawis.location.aspect.text),
         authorName: "",
         content: "(LAWIS snow profile)",
-        elevation: lawis.seehoehe,
-        eventDate: parseLawisDate(lawis.datum),
-        latitude: lawis.latitude,
-        locationName: lawis.ort,
-        longitude: lawis.longitude,
-        region: String(lawis.subregion_id) // todo
+        elevation: lawis.location.elevation,
+        eventDate: parseLawisDate(lawis.date),
+        latitude: lawis.location.latitude,
+        locationName: lawis.location.name,
+        longitude: lawis.location.longitude,
+        region: lawis.location.region.text
       }))
-      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation))
-      .flatMap((profile) =>
-        Observable.fromPromise(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + profile.$data.profil_id))
+      .filter((observation) => this.inMapBounds(observation))
+      .flatMap((profile) => {
+        if (!LAWIS_FETCH_DETAILS) {
+          return Observable.of(profile);
+        }
+        return Observable.fromPromise(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + "/" + profile.$data.id))
           .map<ProfileDetails, GenericObservation>((lawisDetails) => ({
             ...profile,
             authorName: lawisDetails.name,
             content: lawisDetails.bemerkungen
           }))
-          .catch(() => Observable.of(profile))
-      );
+          .catch(() => Observable.of(profile));
+      });
   }
 
   getLawisIncidents(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
     return this.http
-      .get<Incident[]>(api.LawisIncidents)
+      .get<Incident[]>(api.LawisIncidents + "?startDate=" + this.startDateString + "&endDate=" + this.endDateString)
       .mergeAll()
       .map<Incident, GenericObservation<Incident>>((lawis) => ({
         $data: lawis,
         $source: ObservationSource.LawisIncidents,
-        aspect: toAspect(lawis.aspect_id),
+        aspect: toAspect(lawis.location.aspect.text),
         authorName: "",
         content: "(LAWIS incident)",
-        elevation: lawis.elevation,
-        eventDate: parseLawisDate(lawis.datum),
-        latitude: lawis.latitude,
-        locationName: lawis.ort,
-        longitude: lawis.longitude,
-        region: String(lawis.subregion_id) // todo
+        elevation: lawis.location.elevation,
+        eventDate: parseLawisDate(lawis.date),
+        latitude: lawis.location.latitude,
+        locationName: lawis.location.name,
+        longitude: lawis.location.longitude,
+        region: lawis.location.region.text
       }))
-      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation))
-      .flatMap((incident) =>
-        Observable.fromPromise(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + incident.$data.incident_id))
+      .filter((observation) => this.inMapBounds(observation))
+      .flatMap((incident) => {
+        if (!LAWIS_FETCH_DETAILS) {
+          return Observable.of(incident);
+        }
+        return Observable.fromPromise(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + "/" + incident.$data.id))
           .map<IncidentDetails, GenericObservation>((lawisDetails) => ({
             ...incident,
             $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
@@ -241,8 +255,8 @@ export class ObservationsService {
             content: lawisDetails.comments,
             reportDate: parseLawisDate(lawisDetails.reporting_date)
           }))
-          .catch(() => Observable.of(incident))
-      );
+          .catch(() => Observable.of(incident));
+      });
   }
 
   async getCachedOrFetch<T>(url: string): Promise<T> {
