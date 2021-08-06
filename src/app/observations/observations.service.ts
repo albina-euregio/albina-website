@@ -6,7 +6,15 @@ import { convertObservationToGeneric, Observation } from "./models/observation.m
 import { convertNatlefsToGeneric, Natlefs } from "./models/natlefs.model";
 import { convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "./models/avaobs.model";
 import { convertLoLaToGeneric, LoLaSafetyApi } from "./models/lola-safety.model";
-import { Profile, Incident, IncidentDetails, parseLawisDate, toLawisIncidentTable, ProfileDetails } from "./models/lawis.model";
+import {
+  Profile,
+  Incident,
+  IncidentDetails,
+  parseLawisDate,
+  toLawisIncidentTable,
+  ProfileDetails,
+  LAWIS_FETCH_DETAILS
+} from "./models/lawis.model";
 import { GenericObservation, ObservationSource, toAspect } from "./models/generic-observation.model";
 import {
   ArcGisLayer,
@@ -202,15 +210,16 @@ export class ObservationsService {
         region: String(lawis.subregion_id) // todo
       }))
       .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation))
-      .flatMap((profile) =>
-        Observable.fromPromise(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + profile.$data.profil_id))
+      .flatMap((profile) => {
+        if (!LAWIS_FETCH_DETAILS) return Observable.of(profile);
+        return Observable.fromPromise(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + profile.$data.profil_id))
           .map<ProfileDetails, GenericObservation>((lawisDetails) => ({
             ...profile,
             authorName: lawisDetails.name,
             content: lawisDetails.bemerkungen
           }))
-          .catch(() => Observable.of(profile))
-      );
+          .catch(() => Observable.of(profile));
+      });
   }
 
   getLawisIncidents(): Observable<GenericObservation> {
@@ -232,8 +241,9 @@ export class ObservationsService {
         region: String(lawis.subregion_id) // todo
       }))
       .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation))
-      .flatMap((incident) =>
-        Observable.fromPromise(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + incident.$data.incident_id))
+      .flatMap((incident) => {
+        if (!LAWIS_FETCH_DETAILS) return Observable.of(incident);
+        return Observable.fromPromise(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + incident.$data.incident_id))
           .map<IncidentDetails, GenericObservation>((lawisDetails) => ({
             ...incident,
             $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
@@ -241,8 +251,8 @@ export class ObservationsService {
             content: lawisDetails.comments,
             reportDate: parseLawisDate(lawisDetails.reporting_date)
           }))
-          .catch(() => Observable.of(incident))
-      );
+          .catch(() => Observable.of(incident));
+      });
   }
 
   async getCachedOrFetch<T>(url: string): Promise<T> {

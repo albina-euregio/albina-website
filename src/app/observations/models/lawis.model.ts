@@ -1,6 +1,8 @@
 import * as Enums from "app/enums/enums";
 import { GenericObservation, ObservationTableRow } from "./generic-observation.model";
 
+export const LAWIS_FETCH_DETAILS = false;
+
 export interface Lawis {
   profiles: GenericObservation<Profile>[];
   incidents: GenericObservation<Incident>[];
