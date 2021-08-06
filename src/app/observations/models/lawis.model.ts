@@ -3,6 +3,7 @@ import { GenericObservation, ObservationTableRow } from "./generic-observation.m
 
 export const LAWIS_FETCH_DETAILS = false;
 
+// https://lawis.at/lawis_api/public/swagger/
 export interface Lawis {
   profiles: GenericObservation<Profile>[];
   incidents: GenericObservation<Incident>[];
@@ -10,19 +11,14 @@ export interface Lawis {
 
 // https://lawis.at/lawis_api/normalizer/profile/
 export interface Profile {
-  profil_id: number;
-  datum: string;
-  country_id: number;
-  region_id: number;
-  subregion_id: number;
-  ort: string;
-  seehoehe: number;
-  latitude: number;
-  longitude: number;
-  hangneigung: number;
-  exposition_id: Enums.Aspect | undefined;
-  loggedon: string;
-  revision: number;
+  id: number;
+  href: string;
+  caaml: string;
+  date: string;
+  reported: {
+    date: string;
+  };
+  location: Location;
 }
 
 // https://lawis.at/lawis_api/normalizer/profile/13794?lang=de
@@ -70,27 +66,46 @@ export interface ProfileTest {
   profil_id: number;
 }
 
-// https://lawis.at/lawis_api/normalizer/incident/
+// https://lawis.at/lawis_api/public/incident
 export interface Incident {
-  incident_id: number;
-  datum: string;
-  country_id: number;
-  region_id: number;
-  subregion_id: number;
-  ort: string;
-  elevation?: number;
-  latitude: number;
-  longitude: number;
-  incline?: number;
-  aspect_id: Enums.Aspect;
-  danger_id?: Enums.DangerRating;
-  n_injured?: number;
-  n_dead?: number;
-  n_uninjured?: number;
-  involved_sum?: number;
-  involved: Involved;
   valid_time: boolean;
-  revision: number;
+  id: number;
+  href: string;
+  caaml: string;
+  date: string;
+  danger: Danger;
+  location: Location;
+}
+
+export interface Danger {
+  rating: Rating;
+}
+
+export interface Rating {
+  level: number | null;
+}
+
+export interface Location {
+  name: string;
+  longitude: number;
+  latitude: number;
+  aspect?: Aspect;
+  country: Country;
+  region: Country;
+  subregion: Country;
+  elevation?: number;
+  slope_angle?: number;
+}
+
+export interface Aspect {
+  id: number;
+  text: "N" | "NE" | "E" | "SE" | "S" | "SW" | "W" | "NW";
+}
+
+export interface Country {
+  id: number;
+  code: string;
+  text: string;
 }
 
 export enum Involved {

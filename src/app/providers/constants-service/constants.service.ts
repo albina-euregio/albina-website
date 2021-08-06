@@ -19,8 +19,8 @@ export class ConstantsService {
     [ObservationSource.AvaObsObservations]: "https://admin.avalanche.report/avaobs/dataexport/observations/",
     [ObservationSource.AvaObsSimpleObservations]: "https://admin.avalanche.report/avaobs/dataexport/simpleobservations/",
     [ObservationSource.AvaObsSnowProfiles]: "https://admin.avalanche.report/avaobs/dataexport/snowprofiles/",
-    [ObservationSource.LawisIncidents]: "https://admin.avalanche.report/lawis/normalizer/incident/",
-    [ObservationSource.LawisSnowProfiles]: "https://admin.avalanche.report/lawis/normalizer/profile/",
+    [ObservationSource.LawisIncidents]: "https://admin.avalanche.report/lawis/public/incident",
+    [ObservationSource.LawisSnowProfiles]: "https://admin.avalanche.report/lawis/public/profile",
     [ObservationSource.LoLaSafetyAvalancheReports]: "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
   };
   public observationWeb = {
@@ -28,7 +28,7 @@ export class ConstantsService {
     [ObservationSource.AvaObsSimpleObservations]: "https://www.avaobs.info/simpleObservation/",
     [ObservationSource.AvaObsSnowProfiles]: "https://www.avaobs.info/snowprofile/",
     [ObservationSource.LawisIncidents]: "https://lawis.at/incident/#{{id}}",
-    [ObservationSource.LawisSnowProfiles]: "https://admin.avalanche.report/lawis/normalizer/files/profiles/snowprofile_{{id}}.pdf",
+    [ObservationSource.LawisSnowProfiles]: "https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf",
   };
 
   public osmNominatimApi = "https://nominatim.openstreetmap.org/search";
