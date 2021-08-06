@@ -211,7 +211,9 @@ export class ObservationsService {
       }))
       .filter((observation) => this.inMapBounds(observation))
       .flatMap((profile) => {
-        if (!LAWIS_FETCH_DETAILS) return Observable.of(profile);
+        if (!LAWIS_FETCH_DETAILS) {
+          return Observable.of(profile);
+        }
         return Observable.fromPromise(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + "/" + profile.$data.id))
           .map<ProfileDetails, GenericObservation>((lawisDetails) => ({
             ...profile,
@@ -242,7 +244,9 @@ export class ObservationsService {
       }))
       .filter((observation) => this.inMapBounds(observation))
       .flatMap((incident) => {
-        if (!LAWIS_FETCH_DETAILS) return Observable.of(incident);
+        if (!LAWIS_FETCH_DETAILS) {
+          return Observable.of(incident);
+        }
         return Observable.fromPromise(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + "/" + incident.$data.id))
           .map<IncidentDetails, GenericObservation>((lawisDetails) => ({
             ...incident,
