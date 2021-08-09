@@ -28,6 +28,7 @@ export enum ObservationSource {
   LoLaSafetySnowProfiles = "LoLaSafetySnowProfiles",
   LoLaSafetyAvalancheReports = "LoLaSafetyAvalancheReports",
   Natlefs = "Natlefs",
+  WikisnowECT = "WikisnowECT",
   AvaObsSnowProfiles = "AvaObsSnowProfiles",
   AvaObsObservations = "AvaObsObservations",
   AvaObsSimpleObservations = "AvaObsSimpleObservations"
@@ -43,6 +44,7 @@ export const ObservationSourceColors: Record<ObservationSource, string> = Object
   [ObservationSource.LoLaSafetySnowProfiles]: "#a6d96a",
   [ObservationSource.LoLaSafetyAvalancheReports]: "#1a9641",
   [ObservationSource.Natlefs]: "#000000",
+  [ObservationSource.WikisnowECT]: "#c6e667",
   [ObservationSource.AvaObsSnowProfiles]: "#2c7bb6",
   [ObservationSource.AvaObsObservations]: "#018571",
   [ObservationSource.AvaObsSimpleObservations]: "#80cdc1"

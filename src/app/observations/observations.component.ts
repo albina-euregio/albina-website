@@ -80,6 +80,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       this.observationsService.getLoLaSafety().catch((err) => this.warnAndContinue("Failed fetching LoLa safety observations", err)),
       this.observationsService.getLwdKipObservations().catch((err) => this.warnAndContinue("Failed fetching LWDKIP observations", err)),
       this.observationsService.getNatlefs().catch((err) => this.warnAndContinue("Failed fetching Natlefs observations", err)),
+      this.observationsService.getWikisnowECT().catch((err) => this.warnAndContinue("Failed fetching Wikisnow ECT", err)),
       this.observationsService.getObservations().catch((err) => this.warnAndContinue("Failed fetching observations", err)),
     )
       .forEach((observation) => this.addObservation(observation))

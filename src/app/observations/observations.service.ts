@@ -25,6 +25,7 @@ import {
   LwdKipLawinenabgang,
   LwdKipSprengerfolg
 } from "./models/lwdkip.model";
+import { WikisnowECT } from "./models/wikisnow.model";
 import { TranslateService } from "@ngx-translate/core";
 import { FeatureCollection, Point } from "geojson";
 import { Observable } from "rxjs";
@@ -188,6 +189,27 @@ export class ObservationsService {
       );
       return Observable.merge<GenericObservation>(o1, o2);
     });
+  }
+
+  getWikisnowECT(): Observable<GenericObservation> {
+    const { observationApi: api } = this.constantsService;
+    return this.http
+      .get<WikisnowECT[]>(api.WikisnowECT)
+      .mergeAll()
+      .map<WikisnowECT, GenericObservation>((wikisnow) => ({
+        $data: wikisnow,
+        $source: ObservationSource.WikisnowECT,
+        aspect: toAspect(+wikisnow.exposition / 8),
+        authorName: wikisnow.UserName,
+        content: [wikisnow.ECT_result, wikisnow.propagation, wikisnow.surface, wikisnow.weak_layer, wikisnow.description].join(" // "),
+        elevation: +wikisnow.Sealevel,
+        eventDate: new Date(wikisnow.createDate),
+        latitude: +wikisnow?.latlong?.split(/,\s*/)?.[0],
+        locationName: wikisnow.location,
+        longitude: +wikisnow?.latlong?.split(/,\s*/)?.[1],
+        region: ""
+      }))
+      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation));
   }
 
   getLawisProfiles(): Observable<GenericObservation> {

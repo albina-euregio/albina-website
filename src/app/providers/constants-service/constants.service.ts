@@ -22,6 +22,7 @@ export class ConstantsService {
     [ObservationSource.LawisIncidents]: "https://admin.avalanche.report/lawis/public/incident",
     [ObservationSource.LawisSnowProfiles]: "https://admin.avalanche.report/lawis/public/profile",
     [ObservationSource.LoLaSafetyAvalancheReports]: "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
+    [ObservationSource.WikisnowECT]: "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
   };
   public observationWeb = {
     [ObservationSource.AvaObsObservations]: "https://www.avaobs.info/observation/",
