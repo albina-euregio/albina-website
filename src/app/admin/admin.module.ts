@@ -6,6 +6,8 @@ import { AdminComponent } from "./admin.component";
 import { ServerConfigurationComponent } from "./server-configuration.component";
 import { UsersComponent } from "./users.component";
 import { StatisticsComponent } from "./statistics.component";
+import { ObservationsComponent } from "./observations.component";
+import { ObservationsService } from "../observations/observations.service";
 
 import { AdminRoutingModule } from "./admin-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
@@ -36,7 +38,11 @@ import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
     AdminComponent,
     ServerConfigurationComponent,
     UsersComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    ObservationsComponent
+  ],
+  providers: [
+    ObservationsService
   ]
 })
 export class AdminModule { }

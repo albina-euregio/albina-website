@@ -357,6 +357,13 @@ export class ObservationsService {
     };
     return this.http.get<FeatureCollection<Point, GeocodingProperties>>(osmNominatimApi, { params });
   }
+
+  getCsv(startDate: Date, endDate: Date): Observable<Blob> {
+    const url = this.constantsService.getServerUrl() + "observations/export?startDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + "&endDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate);
+    const headers = this.authenticationService.newAuthHeader("text/csv");
+
+    return this.http.get(url, { headers: headers, responseType: "blob" });
+  }
 }
 
 function getISOString(date: Date) {

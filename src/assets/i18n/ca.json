@@ -445,6 +445,16 @@
         "extended" : "Extended",
         "duplicates" : "Duplicates"
       }
+    },
+    "observations" : {
+      "title" : "Observacions",
+      "button" : {
+        "submit" : "Descarrega"
+      },
+      "label" : {
+        "dateRange" : "Period",
+        "observer" : "Observer"
+      }
     }
   },
   "settings" : {
