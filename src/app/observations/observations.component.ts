@@ -75,6 +75,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     Object.values(this.mapService.observationLayers).forEach((layer) => layer.clearLayers());
     Observable.merge<GenericObservation>(
       this.observationsService.getAvaObs().catch((err) => this.warnAndContinue("Failed fetching AvaObs", err)),
+      this.observationsService.getAvalancheWarningService().catch((err) => this.warnAndContinue("Failed fetching AWS observers", err)),
       this.observationsService.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
       this.observationsService.getLawisProfiles().catch((err) => this.warnAndContinue("Failed fetching lawis profiles", err)),
       this.observationsService.getLoLaSafety().catch((err) => this.warnAndContinue("Failed fetching LoLa safety observations", err)),

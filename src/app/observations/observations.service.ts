@@ -29,6 +29,8 @@ import { WikisnowECT } from "./models/wikisnow.model";
 import { TranslateService } from "@ngx-translate/core";
 import { FeatureCollection, Point } from "geojson";
 import { Observable } from "rxjs";
+import BeobachterAT from "./data/Beobachter-AT.json";
+import BeobachterIT from "./data/Beobachter-IT.json";
 
 @Injectable()
 export class ObservationsService {
@@ -126,6 +128,29 @@ export class ObservationsService {
     const headers = this.authenticationService.newAuthHeader();
     const options = { headers };
     await this.http.delete(url, options).toPromise();
+  }
+
+  getAvalancheWarningService(): Observable<GenericObservation> {
+    const eventDate = new Date();
+    eventDate.setHours(0, 0, 0, 0);
+    return Observable.of(BeobachterAT, BeobachterIT)
+      .mergeAll()
+      .map(
+        (observer): GenericObservation => ({
+          $data: observer,
+          $externalURL: `https://wiski.tirol.gv.at/lawine/grafiken/800/beobachter/${observer["plot.id"]}.png`,
+          $source: ObservationSource.AvalancheWarningService,
+          aspect: undefined,
+          authorName: observer.name,
+          content: "",
+          elevation: undefined,
+          eventDate,
+          latitude: +observer.latitude,
+          locationName: observer.name.replace("Beobachter", "").trim(),
+          longitude: +observer.longitude,
+          region: ""
+        })
+      );
   }
 
   private getNatlefsAuthToken(): Observable<string> {
