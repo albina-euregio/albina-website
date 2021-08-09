@@ -1,0 +1,93 @@
+[
+  {
+    "latitude": "47.160800",
+    "longitude": "12.536100",
+    "name": "Beobachter Felbertauern Nord (seit 1990)",
+    "number": "4307100452",
+    "plot.id": "FelbertauernNord"
+  },
+  {
+    "latitude": "47.207800",
+    "longitude": "11.006700",
+    "name": "Beobachter Kühtai (seit 1990)",
+    "number": "4307052351",
+    "plot.id": "Kuehtai"
+  },
+  {
+    "latitude": "47.284400",
+    "longitude": "10.605000",
+    "name": "Beobachter Boden Lechtal (seit 1960)",
+    "number": "4307010351",
+    "plot.id": "Boden"
+  },
+  {
+    "latitude": "47.118900",
+    "longitude": "12.506100",
+    "name": "Beobachter Felbertauern Süd (seit 1990)",
+    "number": "4307100451",
+    "plot.id": "FelbertauernSued"
+  },
+  {
+    "latitude": "46.873600",
+    "longitude": "10.496400",
+    "name": "Beobachter Nauders (seit 2009)",
+    "number": "4307085451",
+    "plot.id": "Nauders"
+  },
+  {
+    "latitude": "46.867331",
+    "longitude": "11.022812",
+    "name": "Beobachter Obergurgl (seit 1961)",
+    "number": "4307080351",
+    "plot.id": "Obergurgl"
+  },
+  {
+    "latitude": "46.924700",
+    "longitude": "12.424400",
+    "name": "Beobachter St. Veit in Defereggen (seit 1997)",
+    "number": "4307100851",
+    "plot.id": "StVeit"
+  },
+  {
+    "latitude": "47.030800",
+    "longitude": "10.748300",
+    "name": "Beobachter Kaunertal (seit 2000)",
+    "number": "4307051551",
+    "plot.id": "Kaunertal"
+  },
+  {
+    "latitude": "47.306700",
+    "longitude": "11.380300",
+    "name": "Beobachter Nordkette (seit 1973)",
+    "number": "4307020551",
+    "plot.id": "Nordkette"
+  },
+  {
+    "latitude": "47.284400",
+    "longitude": "10.605000",
+    "name": "Beobachter Boden Lechtal (seit 1960)",
+    "number": "4307010351",
+    "plot.id": "BodenNeu"
+  },
+  {
+    "latitude": "46.708300",
+    "longitude": "12.619700",
+    "name": "Beobachter Obertilliach (seit 1961)",
+    "number": "4307120251",
+    "plot.id": "Obertilliach"
+  },
+  {
+    "latitude": "47.251700",
+    "longitude": "10.311700",
+    "name": "Beobachter Steeg (seit 1991)",
+    "number": "4307010551",
+    "plot.id": "Steeg"
+  },
+  {
+    "latitude": "46.790300",
+    "longitude": "12.784200",
+    "name": "Beobachter Dolomitenhütte (seit 1995)",
+    "number": "4307090353",
+    "plot.id": "Dolomitenhuette"
+  }
+]

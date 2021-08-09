@@ -20,6 +20,7 @@ export interface GenericObservation<Data = any> {
 
 export enum ObservationSource {
   Albina = "Albina",
+  AvalancheWarningService = "AvalancheWarningService",
   LwdKipBeobachtung = "LwdKipBeobachtung",
   LwdKipLawinenabgang = "LwdKipLawinenabgang",
   LwdKipSprengerfolg = "LwdKipSprengerfolg",
@@ -36,6 +37,7 @@ export enum ObservationSource {
 
 export const ObservationSourceColors: Record<ObservationSource, string> = Object.freeze({
   [ObservationSource.Albina]: "#ca0020",
+  [ObservationSource.AvalancheWarningService]: "#83e4f0",
   [ObservationSource.LwdKipBeobachtung]: "#f781bf",
   [ObservationSource.LwdKipLawinenabgang]: "#ff7f00",
   [ObservationSource.LwdKipSprengerfolg]: "#a6761d",
