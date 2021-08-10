@@ -845,7 +845,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
     if (this.checkAvalancheSituations()) {
       if (this.activeBulletin) {
-        let bulletin = new BulletinModel(this.activeBulletin);
+        const bulletin = new BulletinModel(this.activeBulletin);
         bulletin.setAdditionalAuthors(new Array<String>());
         bulletin.setSavedRegions(new Array<String>());
         bulletin.setPublishedRegions(new Array<String>());
