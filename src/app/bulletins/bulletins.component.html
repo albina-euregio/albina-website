@@ -86,6 +86,8 @@
                   <button *ngIf="showPreviewButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="preview($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.preview' | translate }}"><i class="fa fa-eye"></i></button>
                   <!-- paste -->
                   <button *ngIf="showPasteButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="paste($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.paste' | translate }}"><i class="fa fa-paste"></i></button>
+                  <!-- cancel -->
+                  <button *ngIf="showPasteButton(date)" type="button" class="btn btn-secondary btn-sm" (click)="cancelCopy($event)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.cancel' | translate }}"><i class="fa fa-close"></i></button>
                   <!-- submit -->
                   <button *ngIf="showSubmitButton(date)" type="button" class="btn btn-primary btn-sm float-right" (click)="submit($event, date)" data-toggle="tooltip" title="{{ 'bulletins.tooltip.submit' | translate }}"><i class="fa fa-send"></i></button>
                   <!-- publish update (not 5PM nor 8AM) -->

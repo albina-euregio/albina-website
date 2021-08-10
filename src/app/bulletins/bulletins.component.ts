@@ -693,9 +693,14 @@ export class BulletinsComponent implements OnInit, OnDestroy {
   @HostListener("document:keydown", ["$event"])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.keyCode === 27 && this.copying) {
-      this.copying = false;
-      this.bulletinsService.setCopyDate(undefined);
+      this.cancelCopy(event);
     }
+  }
+
+  cancelCopy(event) {
+    event.stopPropagation();
+    this.copying = false;
+    this.bulletinsService.setCopyDate(undefined);
   }
 
   openPublishBulletinsModal(template: TemplateRef<any>, message: string, date: Date) {
