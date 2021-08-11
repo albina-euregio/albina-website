@@ -180,7 +180,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     private translateService: TranslateService,
     private settingsService: SettingsService,
     private constantsService: ConstantsService,
-    private copyService: CopyService,
+    public copyService: CopyService,
     private mapService: MapService,
     private applicationRef: ApplicationRef,
     private sanitizer: DomSanitizer,
