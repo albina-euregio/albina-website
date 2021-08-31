@@ -57,7 +57,7 @@ function _parseDatetimeSeconds(dateTimeString) {
 }
 
 function getPublicationTimeString(date) {
-  let pad = function(d) {
+  let pad = function (d) {
     if (d < 10) {
       return "0" + d;
     }
@@ -194,7 +194,7 @@ function dateToShortDateTimeString(date) {
 }
 
 function dateToISODateString(date) {
-  let pad = function(d) {
+  let pad = function (d) {
     if (d < 10) {
       return "0" + d;
     }
@@ -237,7 +237,7 @@ function todayIsTomorrow(todayDate, tomorrowHours, tomorrowMinutes) {
 /* format date utc enabled */
 function dateFormat(date, fstr, utc) {
   utc = utc ? "getUTC" : "get";
-  return fstr.replace(/%[YmdHMS]/g, function(m) {
+  return fstr.replace(/%[YmdHMS]/g, function (m) {
     switch (m) {
       case "%Y":
         return date[utc + "FullYear"](); // no leading zeros required

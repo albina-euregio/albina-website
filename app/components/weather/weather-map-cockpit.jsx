@@ -214,8 +214,8 @@ class WeatherMapCockpit extends React.Component {
       this.props.storeConfig &&
       this.props.storeConfig.domains[this.props.domainId]
     ) {
-      let domainConfig = this.props.storeConfig.domains[this.props.domainId]
-        .item;
+      let domainConfig =
+        this.props.storeConfig.domains[this.props.domainId].item;
 
       let firstNrOnlyTimespan = domainConfig.timeSpans[0].replace(/\D/g, "");
 

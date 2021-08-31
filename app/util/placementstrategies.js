@@ -218,9 +218,9 @@ L.MarkerCluster.include({
         o.distance
       );
     }
-    m.filter(function(a) {
+    m.filter(function (a) {
       return a.noElements;
-    }).map(function(a) {
+    }).map(function (a) {
       return e._createHelpingCircle(d, a.distance);
     });
     return c;
@@ -232,7 +232,7 @@ L.MarkerCluster.include({
   },
   _getOriginalLocations: function a(b, c) {
     var d = [];
-    b.forEach(function(a) {
+    b.forEach(function (a) {
       d.push(c.latLngToLayerPoint(a.getLatLng()));
     });
     return d;

@@ -17,7 +17,7 @@ let scroll_init = () => {
         const href = $.attr(link, "href");
         if (href !== "#") {
           $(link).off("click");
-          $(link).click(function(e) {
+          $(link).click(function (e) {
             e.preventDefault();
             e.stopPropagation();
 

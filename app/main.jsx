@@ -41,7 +41,8 @@ const isWebpSupported = new Promise(resolve => {
  * config.json is not bundled with the app to allow config editing without
  * redeploying the whole app.
  */
-const configUrl = APP_ASSET_PATH + "config.json?" + Math.floor(Date.now() / 3600 / 1000);
+const configUrl =
+  APP_ASSET_PATH + "config.json?" + Math.floor(Date.now() / 3600 / 1000);
 const configRequest = fetchJSON(configUrl);
 Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
   configParsed["projectRoot"] = APP_ASSET_PATH;

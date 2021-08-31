@@ -6,7 +6,7 @@ function tooltip_init() {
   var tooltips = $(".tooltip").not("[data-tippy]");
   var tooltip_delay, tooltip_theme;
   if (tooltips.length) {
-    tooltips.each(function() {
+    tooltips.each(function () {
       if ($(this).hasClass("html")) {
         tooltip_delay = 0;
         tooltip_theme = "custom-html";

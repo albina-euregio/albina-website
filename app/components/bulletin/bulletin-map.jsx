@@ -183,11 +183,8 @@ class BulletinMap extends React.Component {
   getBulletinMapDetails() {
     let res = [];
     let detailsClasses = ["bulletin-map-details", "top-right"];
-    const {
-      activeBulletin,
-      activeNeighbor,
-      activeRegionName
-    } = this.props.store;
+    const { activeBulletin, activeNeighbor, activeRegionName } =
+      this.props.store;
     if (activeBulletin) {
       detailsClasses.push("js-active");
       res.push(

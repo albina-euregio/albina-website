@@ -9,12 +9,12 @@ function navigation_init() {
 
   navigation_trigger.off("click");
 
-  navigation_trigger.click(function(event) {
+  navigation_trigger.click(function (event) {
     event.preventDefault();
     navigation_open_close();
   });
 
-  page_window.keyup(function(event) {
+  page_window.keyup(function (event) {
     if (nav_open == 1 && event.keyCode == 27) {
       navigation_open_close();
     }
@@ -23,7 +23,7 @@ function navigation_init() {
   function navigation_open_close() {
     if (nav_open == 0) {
       window["page_body"].addClass("navigation-open");
-      navigation_li.each(function() {
+      navigation_li.each(function () {
         anime.remove($(this).get(0));
         $(this)
           .css({
@@ -38,8 +38,8 @@ function navigation_init() {
           "margin-top": 0,
           duration: window["scroll_duration"] / 2,
           easing: "easeOutQuint",
-          begin: function() {},
-          complete: function() {}
+          begin: function () {},
+          complete: function () {}
         });
       });
 

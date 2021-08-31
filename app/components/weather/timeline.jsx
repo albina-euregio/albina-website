@@ -50,12 +50,8 @@ class Timeline extends React.Component {
   }
 
   tickWidth() {
-    const posFirstTick = $(".cp-scale-hour-1")
-      .first()
-      .offset();
-    const posSecondTick = $(".cp-scale-hour-2")
-      .first()
-      .offset();
+    const posFirstTick = $(".cp-scale-hour-1").first().offset();
+    const posSecondTick = $(".cp-scale-hour-2").first().offset();
     if (posFirstTick === undefined || posSecondTick === undefined) return 0;
     return posSecondTick.left - posFirstTick.left;
   }

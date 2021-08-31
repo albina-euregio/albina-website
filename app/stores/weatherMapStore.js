@@ -395,7 +395,7 @@ export default class WeatherMapStore_new {
   finds index of arr item closest to needle
 */
   _findClosestIndex(arr, needle) {
-    let foundItem = arr.reduce(function(prev, curr) {
+    let foundItem = arr.reduce(function (prev, curr) {
       return Math.abs(curr - needle) < Math.abs(prev - needle) ? curr : prev;
     });
     return arr.indexOf(foundItem) || 0;
@@ -421,7 +421,7 @@ export default class WeatherMapStore_new {
   /*
     Calculate startdate for current timespan
   */
-  _getStartTimeForSpan = function(initDate) {
+  _getStartTimeForSpan = function (initDate) {
     let currentTime = new Date(initDate);
     //currentTime.setUTCHours(currentTime.getUTCHours() - 6);
     //console.log("_getStartTimeForSpan #1", currentTime.getUTCHours(), isSummerTime(currentTime), currentTime.toUTCString(), this._timeSpan.get());
@@ -466,7 +466,7 @@ export default class WeatherMapStore_new {
   /*
     calc indeces for timespan
   */
-  _setAvailableTimes = function() {
+  _setAvailableTimes = function () {
     //console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
     let indices = [];
     let currentTimespan = this._timeSpan.get();

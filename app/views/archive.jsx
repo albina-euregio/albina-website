@@ -72,7 +72,9 @@ class Archive extends React.Component {
           dates.push(d);
         }
 
-        return dates.filter(d => test(d)).slice(0, window.config.archive.maxResults);
+        return dates
+          .filter(d => test(d))
+          .slice(0, window.config.archive.maxResults);
       }
     }
     return [];
@@ -93,8 +95,13 @@ class Archive extends React.Component {
   render() {
     return (
       <>
-        <HTMLHeader title={this.props.intl.formatMessage({ id: "more:archive:headline" })} />
-        <PageHeadline title={this.props.intl.formatMessage({ id: "more:archive:headline" })} marginal={this.state.headerText} />
+        <HTMLHeader
+          title={this.props.intl.formatMessage({ id: "more:archive:headline" })}
+        />
+        <PageHeadline
+          title={this.props.intl.formatMessage({ id: "more:archive:headline" })}
+          marginal={this.state.headerText}
+        />
         <FilterBar search={false}>
           <YearFilter
             title={this.props.intl.formatMessage({
@@ -114,23 +121,25 @@ class Archive extends React.Component {
             />
           )}
 
-          {/*
+          {
+            /*
               #742 Hide filter parameters in archive
             */
-          false && (
-            <DayFilter
-              title={this.props.intl.formatMessage({
-                id: "archive:filter:day"
-              })}
-              all={this.props.intl.formatMessage({
-                id: "filter:all"
-              })}
-              handleChange={this.handleChangeDay}
-              year={this.store.year}
-              month={this.store.month}
-              value={this.store.day}
-            />
-          )}
+            false && (
+              <DayFilter
+                title={this.props.intl.formatMessage({
+                  id: "archive:filter:day"
+                })}
+                all={this.props.intl.formatMessage({
+                  id: "filter:all"
+                })}
+                handleChange={this.handleChangeDay}
+                year={this.store.year}
+                month={this.store.month}
+                value={this.store.day}
+              />
+            )
+          }
 
           {false && (
             <LanguageFilter

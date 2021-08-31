@@ -6,7 +6,7 @@ function modal_init() {
   //delete modals;
   var modals = $(".modal-trigger");
   if (modals.length) {
-    modals.each(function() {
+    modals.each(function () {
       modal_open($(this));
     });
   }
@@ -15,7 +15,7 @@ function modal_init() {
   //delete modal_galleries;
   var modal_galleries = $(".modal-gallery");
   if (modal_galleries.length) {
-    modal_galleries.each(function() {
+    modal_galleries.each(function () {
       modal_gallery_open($(this));
     });
   }
@@ -49,7 +49,7 @@ function modal_open_by_params(modal, modal_type, modal_url, modal_title) {
 
     image: {
       verticalFit: true,
-      titleSrc: function() {
+      titleSrc: function () {
         return modal_title;
       }
     },
@@ -76,21 +76,21 @@ function modal_open_by_params(modal, modal_type, modal_url, modal_title) {
     autoFocusLast: false,
 
     callbacks: {
-      disableOn: function() {
+      disableOn: function () {
         return window["modalStateStore"].isOpen;
       },
-      beforeOpen: function() {
+      beforeOpen: function () {
         // console.log("beforeOpen", this.st);
 
         window["modalStateStore"].open();
       },
-      open: function() {
+      open: function () {
         //lastPopUpElement = this;
       },
-      ajaxContentAdded: function() {
+      ajaxContentAdded: function () {
         tooltip_init();
       },
-      afterClose: function() {
+      afterClose: function () {
         window["modalStateStore"].close();
       }
     }
@@ -131,15 +131,15 @@ function modal_gallery_open(modal) {
     removalDelay: 250, //mit close animation abzustimmen
 
     callbacks: {
-      disableOn: function() {
+      disableOn: function () {
         return window["modalStateStore"].isOpen;
       },
-      beforeOpen: function() {
+      beforeOpen: function () {
         window["modalStateStore"].open();
       },
-      open: function() {},
-      close: function() {},
-      afterClose: function() {
+      open: function () {},
+      close: function () {},
+      afterClose: function () {
         window["modalStateStore"].close();
       }
     }

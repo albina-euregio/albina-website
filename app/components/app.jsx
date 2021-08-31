@@ -50,7 +50,7 @@ class App extends React.Component {
     scroll_init();
 
     // remove splash screen
-    setTimeout(function() {
+    setTimeout(function () {
       $("html").addClass("page-loaded");
     }, 150);
   }

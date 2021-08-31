@@ -170,8 +170,7 @@ class LinkTree extends React.Component {
                 id: "more:linktree:survey:link"
               })}
               image={{
-                url:
-                  "https://lawinen.report/content_files/feature_community.jpg",
+                url: "https://lawinen.report/content_files/feature_community.jpg",
                 title: "Survey",
                 alt: "Survey Image"
               }}

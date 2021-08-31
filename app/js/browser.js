@@ -1,7 +1,7 @@
 import anime from "animejs";
 
 function orientation_change() {
-  window.addEventListener("orientationchange", function() {
+  window.addEventListener("orientationchange", function () {
     let target = window["page_body"];
     switch (window.orientation) {
       //case -90:200

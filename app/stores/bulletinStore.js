@@ -304,9 +304,8 @@ class BulletinStore {
     if (!this.activeBulletinCollection) {
       return [];
     }
-    const bulletin = this.activeBulletinCollection.getBulletinForRegion(
-      regionId
-    );
+    const bulletin =
+      this.activeBulletinCollection.getBulletinForRegion(regionId);
     if (!bulletin) {
       return [];
     }

@@ -28,5 +28,4 @@ export default class ModalStateStore {
   get data() {
     return this._data.get();
   }
-
 }

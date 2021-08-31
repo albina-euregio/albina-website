@@ -169,58 +169,60 @@ class Weather extends React.Component {
           id="section-weather-map"
           className="section section-weather-map section-weather-map-cockpit"
         >
-          {/*this.store.domainId*/ true && (
-            <div className="section-map">
-              <WeatherMap
-                domainId={wmStore.domainId}
-                domain={wmStore.domain}
-                timeArray={wmStore.availableTimes}
-                currentTime={wmStore.currentTime}
-                startDate={wmStore.startDate}
-                overlay={wmStore.overlayFileName}
-                dataOverlays={wmStore.domainConfig.dataOverlays}
-                stationDataId={
-                  wmStore.domainConfig.timeSpanToDataId[wmStore.timeSpan]
-                }
-                dataOverlaysEnabled={wmStore.currentTime >= wmStore.agl}
-                rgbToValue={wmStore.valueForPixel}
-                item={wmStore.item}
-                debug={wmStore.config.settings.debugModus}
-                grid={wmStore.grid}
-                stations={!wmPlayer.playing && wmStore.stations}
-                playerCB={config.player.onLayerEvent.bind(config.player)}
-                isPlaying={wmPlayer.playing}
-                selectedFeature={wmStore.selectedFeature}
-                onMarkerSelected={this.handleMarkerSelected}
-                onViewportChanged={this.handleMapViewportChanged}
-              />
-              {wmStore.selectedFeature && (
-                <FeatureInfo feature={wmStore.selectedFeature} />
-              )}
-              <WeatherMapCockpit
-                key="cockpit"
-                startDate={wmStore.startDate}
-                agl={wmStore.agl}
-                timeArray={wmStore.availableTimes}
-                storeConfig={wmStore.config}
-                domainId={wmStore.domainId}
-                timeSpan={wmStore.timeSpan}
-                changeCurrentTime={wmStore.changeCurrentTime.bind(wmStore)}
-                player={wmPlayer}
-                currentTime={wmStore.currentTime}
-                eventCallback={this.handleClickCockpitEvent.bind(this)}
-                lastAnalyticTime={wmStore.startDate}
-                nextUpdateTime={wmStore.nextUpdateTime}
-                lastUpdateTime={wmStore.lastUpdateTime}
-                nextTime={() => {
-                  wmStore.changeCurrentTime(wmStore.nextTime);
-                }}
-                previousTime={() => {
-                  wmStore.changeCurrentTime(wmStore.previousTime);
-                }}
-              />
-            </div>
-          )}
+          {
+            /*this.store.domainId*/ true && (
+              <div className="section-map">
+                <WeatherMap
+                  domainId={wmStore.domainId}
+                  domain={wmStore.domain}
+                  timeArray={wmStore.availableTimes}
+                  currentTime={wmStore.currentTime}
+                  startDate={wmStore.startDate}
+                  overlay={wmStore.overlayFileName}
+                  dataOverlays={wmStore.domainConfig.dataOverlays}
+                  stationDataId={
+                    wmStore.domainConfig.timeSpanToDataId[wmStore.timeSpan]
+                  }
+                  dataOverlaysEnabled={wmStore.currentTime >= wmStore.agl}
+                  rgbToValue={wmStore.valueForPixel}
+                  item={wmStore.item}
+                  debug={wmStore.config.settings.debugModus}
+                  grid={wmStore.grid}
+                  stations={!wmPlayer.playing && wmStore.stations}
+                  playerCB={config.player.onLayerEvent.bind(config.player)}
+                  isPlaying={wmPlayer.playing}
+                  selectedFeature={wmStore.selectedFeature}
+                  onMarkerSelected={this.handleMarkerSelected}
+                  onViewportChanged={this.handleMapViewportChanged}
+                />
+                {wmStore.selectedFeature && (
+                  <FeatureInfo feature={wmStore.selectedFeature} />
+                )}
+                <WeatherMapCockpit
+                  key="cockpit"
+                  startDate={wmStore.startDate}
+                  agl={wmStore.agl}
+                  timeArray={wmStore.availableTimes}
+                  storeConfig={wmStore.config}
+                  domainId={wmStore.domainId}
+                  timeSpan={wmStore.timeSpan}
+                  changeCurrentTime={wmStore.changeCurrentTime.bind(wmStore)}
+                  player={wmPlayer}
+                  currentTime={wmStore.currentTime}
+                  eventCallback={this.handleClickCockpitEvent.bind(this)}
+                  lastAnalyticTime={wmStore.startDate}
+                  nextUpdateTime={wmStore.nextUpdateTime}
+                  lastUpdateTime={wmStore.lastUpdateTime}
+                  nextTime={() => {
+                    wmStore.changeCurrentTime(wmStore.nextTime);
+                  }}
+                  previousTime={() => {
+                    wmStore.changeCurrentTime(wmStore.previousTime);
+                  }}
+                />
+              </div>
+            )
+          }
         </section>
         <SmShare />
       </>

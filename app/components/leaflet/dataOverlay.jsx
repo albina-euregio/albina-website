@@ -175,12 +175,9 @@ export default class DataOverlay extends React.Component {
           //console.log("setupDataLayer#3 jjj1", anOverlay.type, self.overlayCanvases[anOverlay.type].loaded);
           let img = new Image();
           img.crossOrigin = "anonymous";
-          self.overlayCanvases[
-            anOverlay.type
-          ].canvas.ctx = self.overlayCanvases[anOverlay.type][
-            "canvas"
-          ].getContext("2d");
-          img.onload = function() {
+          self.overlayCanvases[anOverlay.type].canvas.ctx =
+            self.overlayCanvases[anOverlay.type]["canvas"].getContext("2d");
+          img.onload = function () {
             //console.log("setupDataLayer->onload jjj", anOverlay.type);
             // data files have 1/2 the size
             self.overlayCanvases[anOverlay.type].canvas.width =

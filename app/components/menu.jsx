@@ -20,7 +20,10 @@ class Menu extends React.Component {
     // is active.
     const doTest = (loc, element) => {
       return (
-        matchPath(loc, element.url.split("?")[0]) != null || (recursive && element.children && element.children.some(el => doTest(loc, el)))
+        matchPath(loc, element.url.split("?")[0]) != null ||
+        (recursive &&
+          element.children &&
+          element.children.some(el => doTest(loc, el)))
       );
     };
 
@@ -36,7 +39,9 @@ class Menu extends React.Component {
   }
 
   renderMenuItem(e, activeItem) {
-    const classes = this.props.menuItemClassName ? this.props.menuItemClassName.split(" ") : [];
+    const classes = this.props.menuItemClassName
+      ? this.props.menuItemClassName.split(" ")
+      : [];
     const isActive = activeItem && e == activeItem;
 
     if (isActive) {
@@ -44,7 +49,9 @@ class Menu extends React.Component {
         this.props.onActiveMenuItem(e);
       }
 
-      classes.push(this.props.activeClassName ? this.props.activeClassName : "active");
+      classes.push(
+        this.props.activeClassName ? this.props.activeClassName : "active"
+      );
     }
     if (e.showSub || (e.children && e.children.length > 0)) {
       classes.push("has-sub");
@@ -83,7 +90,9 @@ class Menu extends React.Component {
             className={classes.join(" ")}
           >
             {title}
-            {url === "/blog" && numberNewPosts > 0 && <small className="label blog-new">{numberNewPosts}</small>}
+            {url === "/blog" && numberNewPosts > 0 && (
+              <small className="label blog-new">{numberNewPosts}</small>
+            )}
           </Link>
         )}
         {e.children && e.children.length > 0 && (
@@ -102,13 +111,19 @@ class Menu extends React.Component {
 
   render() {
     if (this.props.entries && this.props.entries.length > 0) {
-      const activeMenuItems = this.props.entries.filter(e => this.testActive(e));
+      const activeMenuItems = this.props.entries.filter(e =>
+        this.testActive(e)
+      );
       const activeItem =
         activeMenuItems.length > 0
           ? activeMenuItems[0] // in case someone messed up the menu
           : null;
 
-      return <ul className={this.props.className}>{this.props.entries.map(e => this.renderMenuItem(e, activeItem))}</ul>;
+      return (
+        <ul className={this.props.className}>
+          {this.props.entries.map(e => this.renderMenuItem(e, activeItem))}
+        </ul>
+      );
     }
     return null;
   }
