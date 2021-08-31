@@ -21,6 +21,9 @@ class Archive extends React.Component {
     if (!window["archiveStore"]) {
       window["archiveStore"] = new ArchiveStore();
     }
+    /**
+     * @type {ArchiveStore}
+     */
     this.store = window["archiveStore"];
 
     if (!this.store.year) {
@@ -69,9 +72,7 @@ class Archive extends React.Component {
           dates.push(d);
         }
 
-        return dates
-          .filter(d => test(d))
-          .slice(0, window.config.archive.maxResults);
+        return dates.filter(d => test(d)).slice(0, window.config.archive.maxResults);
       }
     }
     return [];
@@ -92,13 +93,8 @@ class Archive extends React.Component {
   render() {
     return (
       <>
-        <HTMLHeader
-          title={this.props.intl.formatMessage({ id: "more:archive:headline" })}
-        />
-        <PageHeadline
-          title={this.props.intl.formatMessage({ id: "more:archive:headline" })}
-          marginal={this.state.headerText}
-        />
+        <HTMLHeader title={this.props.intl.formatMessage({ id: "more:archive:headline" })} />
+        <PageHeadline title={this.props.intl.formatMessage({ id: "more:archive:headline" })} marginal={this.state.headerText} />
         <FilterBar search={false}>
           <YearFilter
             title={this.props.intl.formatMessage({
