@@ -37,7 +37,7 @@ class Cluster extends MapLayer {
 
   createLeafletElement() {
     const markerclusters = new L.markerClusterGroup({
-      maxClusterRadius: 40,
+      maxClusterRadius: 11,
       showCoverageOnHover: false,
       iconCreateFunction: this.createClusterIcon.bind(this)
     });
