@@ -4,6 +4,7 @@ import { injectIntl } from "react-intl";
 import { Util } from "leaflet";
 import { dateToDateTimeString } from "../../util/date";
 import Swipe from "react-easy-swipe";
+import { StationData } from "../../stores/stationDataStore";
 
 class WeatherStationDiagrams extends React.Component {
   constructor(props) {
@@ -84,15 +85,6 @@ class WeatherStationDiagrams extends React.Component {
     });
   };
 
-  imageUrl(width, interval, name) {
-    return Util.template(window.config.apis.weather.plots, {
-      width,
-      interval,
-      name,
-      t: this.cacheHash
-    });
-  }
-
   regionName(microRegion) {
     var pieces = microRegion.split(" ");
     var name = this.props.intl.formatMessage({
@@ -104,10 +96,10 @@ class WeatherStationDiagrams extends React.Component {
   render() {
     let stationsData = window["modalStateStore"].data.stationData;
     let rowId = window["modalStateStore"].data.rowId;
-    let self = this;
     if (!stationsData) return <div></div>;
     var stationData = stationsData.find(element => element.id == rowId);
     if (!stationData) return <div></div>;
+    const isStation = stationData instanceof StationData;
     return (
       <Swipe
         onSwipeLeft={this.next}
@@ -116,125 +108,119 @@ class WeatherStationDiagrams extends React.Component {
       >
         <div className="modal-container">
           <div className="modal-weatherstation">
-            {/* <div className="modal-flipper">
-              <div className="flipper-controls">
-                <div className="grid flipper-left-right">
-                  <div className="all-6 grid-item">
-                    <a
-                      href="#"
-                      title="Previous Station"
-                      className="icon-link icon-arrow-left tooltip flipper-left"
-                    ></a>
-                  </div>
-                  <div className="all-6 grid-item">
-                    <a
-                      href="#"
-                      title="Next Station"
-                      className="icon-link icon-arrow-right tooltip flipper-right"
-                    ></a>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
             <div className="modal-header">
-              <p className="caption">
-                {this.props.intl.formatMessage({
-                  id: "dialog:weather-station-diagram:header"
-                })}{" "}
-                ({this.regionName(stationData.microRegion)})
-              </p>
+              {isStation && (
+                <p className="caption">
+                  {this.props.intl.formatMessage({
+                    id: "dialog:weather-station-diagram:header"
+                  })}{" "}
+                  ({this.regionName(stationData.microRegion)})
+                </p>
+              )}
               <h2 className="">
                 <span className="weatherstation-name">{stationData.name} </span>
-                <span className="weatherstation-altitude">
-                  ({stationData.elev}&thinsp;m)
-                </span>
+                {stationData.elev && (
+                  <span className="weatherstation-altitude">
+                    ({stationData.elev}&thinsp;m)
+                  </span>
+                )}
               </h2>
             </div>
 
             <div className="modal-content">
-              <ul className="list-inline weatherstation-info">
-                {stationData.parametersForDialog.map(aInfo => (
-                  <li key={aInfo.type} className={aInfo.type}>
-                    <span className="weatherstation-info-caption">
-                      {this.props.intl.formatMessage({
-                        id: "measurements:table:header:" + aInfo.type
-                      })}
-                      :{" "}
-                    </span>
-                    <span className="weatherstation-info-value">
-                      {this.props.intl.formatNumber(aInfo.value, {
-                        minimumFractionDigits: aInfo.digits,
-                        maximumFractionDigits: aInfo.digits
-                      })}
-                      &thinsp;{aInfo.unit}
-                    </span>
-                  </li>
-                ))}
-                <li>
-                  <small>
-                    (<time>{dateToDateTimeString(stationData.date)}</time>)
-                  </small>
-                </li>
-              </ul>
-
-              <ul className="list-inline filter primary">
-                {Object.keys(self.timeRanges).map(key => {
-                  let classes = ["label"];
-                  if (key == self.state.timeRange) classes.push("js-active");
-                  return (
-                    <li key={key}>
-                      <a
-                        href="#"
-                        onClick={self.handleChangeTimeRange.bind(self, key)}
-                        className={classes.join(" ")}
-                      >
-                        {self.props.intl.formatMessage({
-                          id: "dialog:weather-station-diagram:timerange:" + key
-                        })}
-                      </a>
-                    </li>
-                  );
-                })}
-              </ul>
-
-              {stationData && (
-                <img
-                  alt={stationData.name}
-                  src={this.imageUrl(
-                    this.imageWidths[0],
-                    this.timeRanges[this.state.timeRange],
-                    stationData.plot
-                  )}
-                  srcSet={`${this.imageUrl(
-                    this.imageWidths[0],
-                    this.timeRanges[this.state.timeRange],
-                    stationData.plot
-                  )} 300w,
-                  ${this.imageUrl(
-                    this.imageWidths[1],
-                    this.timeRanges[this.state.timeRange],
-                    stationData.plot
-                  )} 500w,
-                  ${this.imageUrl(
-                    this.imageWidths[2],
-                    this.timeRanges[this.state.timeRange],
-                    stationData.plot
-                  )} 800w`}
-                  className="weatherstation-img"
-                />
-              )}
-
-              <p className="weatherstation-provider">
-                {self.props.intl.formatMessage(
-                  { id: "dialog:weather-station-diagram:operator:caption" },
-                  { operator: stationData.operator }
-                )}
-              </p>
+              {isStation && this.renderMeasurementValues()}
+              {isStation && this.renderTimeRangeButtons()}
+              {this.renderImage(stationData)}
+              {isStation && this.renderOperator()}
             </div>
           </div>
         </div>
       </Swipe>
+    );
+  }
+
+  renderMeasurementValues(stationData) {
+    return (
+      <ul className="list-inline weatherstation-info">
+        {stationData.parametersForDialog.map(aInfo => (
+          <li key={aInfo.type} className={aInfo.type}>
+            <span className="weatherstation-info-caption">
+              {this.props.intl.formatMessage({
+                id: "measurements:table:header:" + aInfo.type
+              })}
+              :{" "}
+            </span>
+            <span className="weatherstation-info-value">
+              {this.props.intl.formatNumber(aInfo.value, {
+                minimumFractionDigits: aInfo.digits,
+                maximumFractionDigits: aInfo.digits
+              })}
+              &thinsp;{aInfo.unit}
+            </span>
+          </li>
+        ))}
+        <li>
+          <small>
+            (<time>{dateToDateTimeString(stationData.date)}</time>)
+          </small>
+        </li>
+      </ul>
+    );
+  }
+
+  renderTimeRangeButtons() {
+    <ul className="list-inline filter primary">
+      {Object.keys(this.timeRanges).map(key => {
+        let classes = ["label"];
+        if (key == this.state.timeRange) classes.push("js-active");
+        return (
+          <li key={key}>
+            <a
+              href="#"
+              onClick={this.handleChangeTimeRange.bind(self, key)}
+              className={classes.join(" ")}
+            >
+              {this.props.intl.formatMessage({
+                id: "dialog:weather-station-diagram:timerange:" + key
+              })}
+            </a>
+          </li>
+        );
+      })}
+    </ul>;
+  }
+
+  renderImage(stationData) {
+    const isStation = stationData instanceof StationData;
+    const template = isStation
+      ? window.config.apis.weather.plots
+      : window.config.apis.weather.observers;
+    const src = this.imageWidths.map(width =>
+      Util.template(template, {
+        width,
+        interval: this.timeRanges[this.state.timeRange],
+        name: stationData.plot,
+        t: this.cacheHash
+      })
+    );
+    return (
+      <img
+        alt={stationData.name}
+        src={src[0]}
+        srcSet={`${src[0]} 300w, ${src[1]} 500w, ${src[2]} 800w`}
+        className="weatherstation-img"
+      />
+    );
+  }
+
+  renderOperator(stationData) {
+    return (
+      <p className="weatherstation-provider">
+        {this.props.intl.formatMessage(
+          { id: "dialog:weather-station-diagram:operator:caption" },
+          { operator: stationData.operator }
+        )}
+      </p>
     );
   }
 }
