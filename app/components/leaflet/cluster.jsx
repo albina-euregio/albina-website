@@ -13,7 +13,7 @@ class Cluster extends MapLayer {
     this.activeCluster = null;
   }
 
-  getActiveMarker = cluster => {
+  getActiveMarker(cluster) {
     const markers = cluster.getAllChildMarkers();
     if (this.props.item.clusterOperation === "none") {
       return markers[0];
@@ -26,16 +26,16 @@ class Cluster extends MapLayer {
         : Math.min(...values);
 
     return markers[values.indexOf(derivedValue)];
-  };
+  }
 
-  createClusterIcon = cluster => {
+  createClusterIcon(cluster) {
     const activeMarker = this.getActiveMarker(cluster);
     // reuse the marker's icon
     return L.divIcon({
       ...activeMarker.options.icon.options,
       className: "leaflet-cluster-marker tooltip"
     });
-  };
+  }
 
   createLeafletElement() {
     const markerclusters = new L.markerClusterGroup({
@@ -60,7 +60,6 @@ class Cluster extends MapLayer {
     });
 
     markerclusters.on("click", e => {
-      //console.log("clusterclick ggg2", e.layer.options.data.id);
       const markerId = e.layer.options.data.id;
       if (this.activeCluster) {
         const activeClusterMarker = this.activeCluster
@@ -68,7 +67,6 @@ class Cluster extends MapLayer {
           .find(m => m.options.data.id == markerId);
 
         if (activeClusterMarker) {
-          //console.log("clusterclick #2 ggg1", activeClusterMarker);
           this.setPositionForActiveMarker(activeClusterMarker);
           // this.props.onMarkerSelected(activeClusterMarker.options.data);
         } else {
@@ -78,10 +76,8 @@ class Cluster extends MapLayer {
     });
 
     markerclusters.on("spiderfied", a => {
-      //console.log("on spiderfied.on ggg", a, activeMarker);
       const activeMarker = this.getActiveMarker(a.cluster);
       if (activeMarker) {
-        //console.log("on spiderfied.on #2 ggg", activeMarker);
         this.setPositionForActiveMarker(activeMarker);
       }
       this.activeCluster = a.cluster;
@@ -91,7 +87,6 @@ class Cluster extends MapLayer {
     });
 
     markerclusters.on("unspiderfied", () => {
-      //console.log("on unspiderfied.on ggg");
       this.activeCluster = null;
       this.props.spiderfiedMarkers(null);
     });
