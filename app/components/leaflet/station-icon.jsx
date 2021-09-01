@@ -110,7 +110,7 @@ export default class StationIcon extends React.Component {
   }
 
   get hasValue() {
-    return isFinite(this.props.value);
+    return typeof this.props.value === "number" && isFinite(this.props.value);
   }
 
   showCircle() {
