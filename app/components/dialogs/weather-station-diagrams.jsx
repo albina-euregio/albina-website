@@ -128,10 +128,10 @@ class WeatherStationDiagrams extends React.Component {
             </div>
 
             <div className="modal-content">
-              {isStation && this.renderMeasurementValues()}
+              {isStation && this.renderMeasurementValues(stationData)}
               {isStation && this.renderTimeRangeButtons()}
               {this.renderImage(stationData)}
-              {isStation && this.renderOperator()}
+              {isStation && this.renderOperator(stationData)}
             </div>
           </div>
         </div>
