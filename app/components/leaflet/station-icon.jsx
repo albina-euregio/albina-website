@@ -40,6 +40,20 @@ export default class StationIcon extends React.Component {
               fill: color || "#fff"
             }}
           />
+          {this.props.type === "station" && (
+            <circle
+              className="station-icon-cluster-circle"
+              cx="11"
+              cy="11"
+              r="8"
+              style={{
+                stroke: analyseStrokeColor,
+                strokeWidth: 1,
+                strokeDasharray: 1.3675,
+                fill: color || "#fff"
+              }}
+            />
+          )}
           {type === "forcast" && (
             <circle
               cx="11"
@@ -110,7 +124,7 @@ export default class StationIcon extends React.Component {
   }
 
   get hasValue() {
-    return isFinite(this.props.value);
+    return typeof this.props.value === "number" && isFinite(this.props.value);
   }
 
   showCircle() {
