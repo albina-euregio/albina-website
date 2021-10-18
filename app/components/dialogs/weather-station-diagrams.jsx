@@ -169,25 +169,27 @@ class WeatherStationDiagrams extends React.Component {
   }
 
   renderTimeRangeButtons() {
-    <ul className="list-inline filter primary">
-      {Object.keys(this.timeRanges).map(key => {
-        let classes = ["label"];
-        if (key == this.state.timeRange) classes.push("js-active");
-        return (
-          <li key={key}>
-            <a
-              href="#"
-              onClick={this.handleChangeTimeRange.bind(self, key)}
-              className={classes.join(" ")}
-            >
-              {this.props.intl.formatMessage({
-                id: "dialog:weather-station-diagram:timerange:" + key
-              })}
-            </a>
-          </li>
-        );
-      })}
-    </ul>;
+    return (
+      <ul className="list-inline filter primary">
+        {Object.keys(this.timeRanges).map(key => {
+          let classes = ["label"];
+          if (key == this.state.timeRange) classes.push("js-active");
+          return (
+            <li key={key}>
+              <a
+                href="#"
+                onClick={this.handleChangeTimeRange.bind(self, key)}
+                className={classes.join(" ")}
+              >
+                {this.props.intl.formatMessage({
+                  id: "dialog:weather-station-diagram:timerange:" + key
+                })}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    );
   }
 
   renderImage(stationData) {
