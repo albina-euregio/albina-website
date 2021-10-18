@@ -62,8 +62,8 @@ class StationMap extends React.Component {
         onMarkerSelected={this.onMarkerSelected.bind(
           this,
           window.stationDataStore.data.sort((f1, f2) =>
-            f1.properties["LWD-Region"].localeCompare(
-              f2.properties["LWD-Region"],
+            (f1.properties["LWD-Region"] || "").localeCompare(
+              (f2.properties["LWD-Region"] || ""),
               "de"
             )
           )
