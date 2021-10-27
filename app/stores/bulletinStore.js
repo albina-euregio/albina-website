@@ -17,6 +17,8 @@ import encodedNeighborRegions from "./neighbor_regions.polyline.json";
 const microRegions = decodeFeatureCollection(encodedMicroRegions);
 const neighborRegions = decodeFeatureCollection(encodedNeighborRegions);
 
+const enableNeighborRegions = true;
+
 class BulletinCollection {
   date;
   status;
@@ -189,7 +191,7 @@ class BulletinStore {
           this.activate(date);
         }
 
-        if (true) {
+        if (enableNeighborRegions) {
           this.settings.neighbors = 0;
           loadNeighborBulletins(date).then(geojson => {
             this.bulletins[date].neighborBulletins = geojson;
