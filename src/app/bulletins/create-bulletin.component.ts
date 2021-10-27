@@ -664,6 +664,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   getOwnBulletins() {
     const result = new Array<BulletinModel>();
     for (const bulletin of this.bulletinsList) {
+      debugger
       if (bulletin.getOwnerRegion().startsWith(this.authenticationService.getActiveRegion())) {
         result.push(bulletin);
       }
@@ -832,7 +833,10 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       this.copyService.resetCopyBulletin();
     } else {
       bulletin = new BulletinModel();
-    }
+      bulletin.setAuthor(this.authenticationService.getAuthor());
+      bulletin.addAdditionalAuthor(this.authenticationService.getAuthor().getName());
+      bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
+  }
 
     this.addBulletin(bulletin);
     this.selectBulletin(bulletin);
