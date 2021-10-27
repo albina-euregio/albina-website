@@ -664,7 +664,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   getOwnBulletins() {
     const result = new Array<BulletinModel>();
     for (const bulletin of this.bulletinsList) {
-      debugger
       if (bulletin.getOwnerRegion().startsWith(this.authenticationService.getActiveRegion())) {
         result.push(bulletin);
       }
