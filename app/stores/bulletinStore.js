@@ -189,11 +189,7 @@ class BulletinStore {
           this.activate(date);
         }
 
-        if (
-          APP_DEV_MODE ||
-          APP_ENVIRONMENT === "beta" ||
-          APP_ENVIRONMENT === "dev"
-        ) {
+        if (true) {
           this.settings.neighbors = 0;
           loadNeighborBulletins(date).then(geojson => {
             this.bulletins[date].neighborBulletins = geojson;
