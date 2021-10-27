@@ -16,7 +16,7 @@ class WeatherStationDiagrams extends React.Component {
       month: "monat",
       winter: "winter"
     };
-    this.imageWidths = ["540", "800", "1100"];
+    this.imageWidths = ["800", "1100"];
     this.state = { timeRange: "threedays" };
     this.keyFunction = this.keyFunction.bind(this);
   }
