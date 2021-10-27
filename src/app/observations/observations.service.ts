@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthenticationService } from "app/providers/authentication-service/authentication.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { convertObservationToGeneric, Observation } from "./models/observation.model";
-import { convertNatlefsToGeneric, Natlefs } from "./models/natlefs.model";
 import { convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "./models/avaobs.model";
 import { convertLoLaToGeneric, LoLaSafetyApi } from "./models/lola-safety.model";
 import {
@@ -37,7 +36,6 @@ export class ObservationsService {
   public startDate = new Date();
   public endDate = new Date();
   private lwdKipLayers: Observable<ArcGisLayer[]>;
-  private natlefsToken: Observable<string>;
 
   constructor(
     public http: HttpClient,
@@ -151,38 +149,6 @@ export class ObservationsService {
           region: ""
         })
       );
-  }
-
-  private getNatlefsAuthToken(): Observable<string> {
-    const username = this.constantsService.getNatlefsUsername();
-    const password = this.constantsService.getNatlefsPassword();
-    const url = this.constantsService.getNatlefsServerUrl() + "authentication";
-    const body = JSON.stringify({ username, password });
-    const headers = new HttpHeaders({
-      "Content-Type": "application/json"
-    });
-    const options = { headers: headers };
-    return this.http.post<{ token: string }>(url, body, options).map((data) => data.token);
-  }
-
-  getNatlefs(): Observable<GenericObservation> {
-    if (!this.natlefsToken) {
-      this.natlefsToken = this.getNatlefsAuthToken();
-    }
-    return this.natlefsToken
-      .last()
-      .flatMap((token) => {
-        const url = this.constantsService.getNatlefsServerUrl() + "quickReports?from=" + this.startDateString;
-        const headers = new HttpHeaders({
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: "Bearer " + token
-        });
-        const options = { headers: headers };
-        return this.http.get<Natlefs[]>(url, options);
-      })
-      .mergeAll()
-      .map((natlefs) => convertNatlefsToGeneric(natlefs));
   }
 
   getAvaObs(): Observable<GenericObservation> {

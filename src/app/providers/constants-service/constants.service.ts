@@ -11,9 +11,6 @@ export class ConstantsService {
 
   public zamgModelsUrl: string = "https://avalanche.report/zamg/";
   public snowpackModelsUrl: string = "https://avalanche.report/alpsolut/";
-  public natlefsServerUrl: string = "https://natlefs.snowobserver.com/snowobserver/api/";
-  public natlefsUsername: string = "norbert.lanzanasto@tirol.gv.at";
-  public natlefsPassword: string = "FRYLjTQ2";
 
   public observationApi = {
     [ObservationSource.AvaObsObservations]: "https://admin.avalanche.report/avaobs/dataexport/observations/",
@@ -264,18 +261,6 @@ export class ConstantsService {
 
   getWsUpdateUrl() {
     return environment.wsBaseUrl + "update/";
-  }
-
-  getNatlefsServerUrl() {
-    return this.natlefsServerUrl;
-  }
-
-  getNatlefsUsername() {
-    return this.natlefsUsername;
-  }
-
-  getNatlefsPassword() {
-    return this.natlefsPassword;
   }
 
   getISOStringWithTimezoneOffsetUrlEncoded(date: Date) {
