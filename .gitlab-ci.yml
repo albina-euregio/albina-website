@@ -3,7 +3,7 @@ image: node:lts
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
-.build-dev:
+.build:
   stage: build
   cache:
     paths:
@@ -16,25 +16,7 @@ variables:
     - npm rebuild node-sass
   script:
     - npm run lint
-    - npm run build-dev
-  artifacts:
-    paths:
-      - dist/
-
-.build-prod:
-  stage: build
-  cache:
-    paths:
-      - node_modules/.cache/
-      - npm_cache/
-  before_script:
-    - npm config set cache npm_cache/
-    - npm ci
-    - npm --no-git-tag-version version $(git describe)
-    - npm rebuild node-sass
-  script:
-    - npm run lint
-    - npm run build-production
+    - npm run build-$CI_ENVIRONMENT_NAME
   artifacts:
     paths:
       - dist/
@@ -52,22 +34,22 @@ variables:
     - rsync -avz -e 'ssh -p2201' --delete dist/ $SFTP_SERVER
 
 build:development:
-  extends: .build-dev
+  extends: .build
   environment:
-    name: development
+    name: dev
 
 deploy:development:
   extends: .deploy
   needs:
     - build:development
   environment:
-    name: development
+    name: dev
   only:
     - master
     - ci
 
 build:production:
-  extends: .build-prod
+  extends: .build
   environment:
     name: production
   only:
