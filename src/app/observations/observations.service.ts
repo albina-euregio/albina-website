@@ -61,7 +61,10 @@ export class ObservationsService {
     }
     const lwdKipLayers = this.lwdKipLayers.last();
     return lwdKipLayers.flatMap((layers) => {
-      const layer = layers.find((l) => l.name === name && l.type === "Feature Layer");
+      const layer = layers.find((l) => l.name.trim() === name && l.type === "Feature Layer");
+      if (!layer) {
+        throw new Error("No LWDKIP layer for " + name);
+      }
       const url = this.constantsService.getServerUrl() + "observations/lwdkip/" + layer.id;
       const headers = this.authenticationService.newAuthHeader();
       return this.http.get<T>(url, { headers, params });
