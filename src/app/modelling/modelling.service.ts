@@ -6,6 +6,27 @@ import { map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
 
+interface MultimodelPointCsv {
+  UID: string;
+  CHARID: string;
+  "SEEHOEHE [m]": string;
+  id: string;
+  MuMo_X: string;
+  MuMo_Y: string;
+  OBJECTID: string;
+  Region: string;
+  regione: string;
+  RegionCode: string;
+  Provinz: string;
+  provincia: string;
+  ProvinzId: string;
+  nome_zona: string;
+  Name_Zone: string;
+  Nr_Zone: string;
+  Shape_Area: string;
+  NameTechel: string;
+}
+
 export interface ZamgFreshSnow {
   hour: number;
   values: number[];
@@ -71,7 +92,7 @@ export class ModellingService {
       .pipe(map(responses => responses.map(r => this.parseCSV(r.toString()))))
       .pipe(
         map(([points, hn110, hn213, hn910, hn990]) =>
-          points.data.map(row => {
+          points.data.map((row: MultimodelPointCsv) => {
             const id = row.UID;
             const regionCode = row.RegionCode;
             const region = this.regionsService.getRegionForId(regionCode);
