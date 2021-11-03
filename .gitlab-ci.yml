@@ -6,17 +6,18 @@ variables:
 .build:
   stage: build
   cache:
+    key:
+      files:
+        - yarn.lock
     paths:
-      - node_modules/.cache/
-      - npm_cache/
+      - .yarn-cache/
   before_script:
-    - npm config set cache npm_cache/
-    - npm ci
+    - yarn --no-progress --frozen-lockfile --cache-folder .yarn-cache/
     - npm --no-git-tag-version version $(git describe)
     - npm rebuild node-sass
   script:
-    - npm run lint
-    - npm run build-$CI_ENVIRONMENT_NAME
+    - yarn lint
+    - yarn build-$CI_ENVIRONMENT_NAME
   artifacts:
     paths:
       - dist/
