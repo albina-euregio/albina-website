@@ -7101,10 +7101,12 @@ primeicons@^2.0.0:
   resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-2.0.0.tgz#ec3e5a8d4d04a09309225a5a57deb911e08dc0d3"
   integrity sha512-GJTCeMSQU8UU1GqbsaDrg/IH+b/vSinJQl52NVpdJ7sShYLZA8Eq6jLF48Ye3N/dQloGrE07i7XsZvxQ9pNbqg==
 
-primeng@^9.0.0:
-  version "9.1.3"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-9.1.3.tgz#c391259cb558614ff969bced5d7f56a7424771d4"
-  integrity sha512-5+XGWrLNYToMIXR/r+sMcGAgz/rSYjo6Ms8rygV5uuLmHNB+mXpaRxMCajKSnmVFLZPeyATtVRm9RcA4Y/VizQ==
+primeng@^10.0.3:
+  version "10.0.3"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-10.0.3.tgz#e9d0ea425b9c5023bc9eef2cb014941939d0c35e"
+  integrity sha512-Nsiwpmy3RlFPBlxabdzeAYxFn4fXEyZjj7iAi1X5J4RRGD7NoB67+NbnOInE1rXTnNVHYxCca91OvaNiHSWWrg==
+  dependencies:
+    tslib "^2.0.0"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"

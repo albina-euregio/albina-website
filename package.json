@@ -55,7 +55,7 @@
     "papaparse": "^5.3.0",
     "primeflex": "^2.0.0",
     "primeicons": "^2.0.0",
-    "primeng": "^9.0.0",
+    "primeng": "^10.0.3",
     "rxjs": "6.5.4",
     "rxjs-compat": "^6.0.0-rc.0",
     "zone.js": "~0.10.2"
