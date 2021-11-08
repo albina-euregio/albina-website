@@ -1,5 +1,3 @@
-import "unfetch/polyfill";
-
 /**
  * @param {RequestInfo} request
  * @param {RequestInit} init

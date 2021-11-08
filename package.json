@@ -46,7 +46,6 @@
     "regenerator-runtime": "^0.13.7",
     "selectric": "lcdsantos/jQuery-Selectric#1335d34ec8ea02cfe3834cae01e2f6c0203c0f45",
     "tippy.js": "^6.3.5",
-    "unfetch": "^4.2.0",
     "url-search-params-polyfill": "^5.1.0",
     "vanilla-tilt": "^1.7.0",
     "window.requestanimationframe": "^1.0.1"
