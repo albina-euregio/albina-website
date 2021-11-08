@@ -133,16 +133,7 @@ export default class StationDataStore {
     };
     this.sortValue = "";
     this.sortDir = "asc";
-    // makeObservable(this, {
-    //   data: observable,
-    //   _activeRegions: observable,
-    //   searchText: observable,
-    //   activeData: observable,
-    //   sortValue: observable,
-    //   sortDir: observable,
-    //   load: action,
-    //   activeRegion: computed
-    // });
+
     makeAutoObservable(this);
   }
 
@@ -212,6 +203,19 @@ export default class StationDataStore {
     });
   }
 
+  setSearchText(searchText) {
+    this.searchText = searchText;
+  }
+
+  toggleActiveData(key) {
+    this.activeData[key] = !this.activeData[key];
+  }
+
+  sortBy(sortValue, sortDir) {
+    this.sortValue = sortValue;
+    this.sortDir = sortDir;
+  }
+
   load(timePrefix) {
     let stationsFile = Util.template(window.config.apis.weather.stations, {
       dateTime: timePrefix
@@ -219,20 +223,22 @@ export default class StationDataStore {
     //console.log("StationDataStore->load", timePrefix, stationsFile);
 
     return fetchJSON(stationsFile)
-      .then(data => {
-        this.data = data.features
-          .filter(el => el.properties.date)
-          .map(feature => new StationData(feature))
-          .sort((f1, f2) =>
-            f1.properties.name.localeCompare(f2.properties.name, "de")
-          );
-        return this.data;
-      })
+      .then(data => this.setDataAfterLoad(data))
       .catch(error => {
         if (error.response.status === 404) {
           //console.log("StationDataStore->load could not load", stationsFile);
           return [];
         } else return Promise.reject(error.response);
       });
+  }
+
+  setDataAfterLoad(data) {
+    this.data = data.features
+      .filter(el => el.properties.date)
+      .map(feature => new StationData(feature))
+      .sort((f1, f2) =>
+        f1.properties.name.localeCompare(f2.properties.name, "de")
+      );
+    return this.data;
   }
 }
