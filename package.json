@@ -45,8 +45,7 @@
     "react-router-scroll-4": "^1.0.0-beta.2",
     "selectric": "lcdsantos/jQuery-Selectric#1335d34ec8ea02cfe3834cae01e2f6c0203c0f45",
     "tippy.js": "^6.3.5",
-    "vanilla-tilt": "^1.7.0",
-    "window.requestanimationframe": "^1.0.1"
+    "vanilla-tilt": "^1.7.0"
   },
   "devDependencies": {
     "@swc/core": "^1.2.107",
