@@ -82,6 +82,9 @@ class StationMeasurements extends React.Component {
         <PageHeadline
           title={this.props.intl.formatMessage({ id: "measurements:headline" })}
           marginal={this.state.headerText}
+          subtitle={this.props.intl.formatMessage({
+            id: "weather:subpages:subtitle"
+          })}
         />
         <FilterBar
           search={true}

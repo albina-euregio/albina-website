@@ -4,16 +4,18 @@ import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import { preprocessContent } from "../util/htmlParser";
 import { video_init } from "../js/video";
+import { injectIntl } from "react-intl";
 
 import { scroll } from "../js/scroll";
 /*
  * Component to be used for pages with content delivered by CMS API.
  */
-export default class StaticPage extends React.Component {
+class StaticPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
+      chapter: "",
       headerText: "",
       content: "",
       sharable: false
@@ -43,6 +45,12 @@ export default class StaticPage extends React.Component {
       window["staticPageStore"].loadPage(site).then(responseParsed => {
         this.setState({
           title: responseParsed.data.attributes.title,
+          chapter: responseParsed.data.attributes.chapter
+            ? this.props.intl.formatMessage({
+                id:
+                  responseParsed.data.attributes.chapter + ":subpages:subtitle"
+              })
+            : "",
           headerText: responseParsed.data.attributes.header_text,
           content: preprocessContent(responseParsed.data.attributes.body),
           sharable: responseParsed.data.attributes.sharable
@@ -59,6 +67,7 @@ export default class StaticPage extends React.Component {
         <PageHeadline
           title={this.state.title}
           marginal={this.state.headerText}
+          subtitle={this.state.chapter}
         />
         {/* <section className="section-centered">{this.state.content}</section> */}
         {this.state.content}
@@ -72,3 +81,5 @@ export default class StaticPage extends React.Component {
     );
   }
 }
+
+export default injectIntl(StaticPage);
