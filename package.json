@@ -21,7 +21,6 @@
     "@sentry/react": "^5.29.0",
     "animejs": "^2.2.0",
     "fluidvids.js": "github:toddmotto/fluidvids",
-    "format-message": "^6.2.3",
     "html-to-react": "^1.4.3",
     "jquery": "^3.5.1",
     "leaflet": "^1.7.1",
