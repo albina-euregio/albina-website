@@ -209,7 +209,7 @@ class WeatherStationDiagrams extends React.Component {
       <img
         alt={stationData.name}
         src={src[0]}
-        srcSet={`${src[0]} 300w, ${src[1]} 500w, ${src[2]} 800w`}
+        srcSet={`${src[0]} 300w, ${src[1]} 800w`}
         className="weatherstation-img"
       />
     );
