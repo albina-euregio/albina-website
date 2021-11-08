@@ -36,6 +36,7 @@ class Archive extends React.Component {
     this.state = {
       title: "",
       headerText: "",
+      chapter: "",
       content: "",
       sharable: false
     };
@@ -101,6 +102,9 @@ class Archive extends React.Component {
         <PageHeadline
           title={this.props.intl.formatMessage({ id: "more:archive:headline" })}
           marginal={this.state.headerText}
+          subtitle={this.props.intl.formatMessage({
+            id: "more:subpages:subtitle"
+          })}
         />
         <FilterBar search={false}>
           <YearFilter

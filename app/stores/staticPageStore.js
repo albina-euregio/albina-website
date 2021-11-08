@@ -3,7 +3,9 @@ import { fetchText } from "../util/fetch";
 export default class StaticPageStore {
   async loadPage(url) {
     const lang = window["appStore"].language;
+    const chapter = url.split("/")[0] || "";
     url = `${APP_ASSET_PATH}content/${url}/${lang}.html`;
+
     const text = await fetchText(url);
     const sharable = true;
     // extract title from first <h1>...</h1>
@@ -12,7 +14,7 @@ export default class StaticPageStore {
     const body = text.replace(titlePattern, "");
     return {
       data: {
-        attributes: { title, body, sharable }
+        attributes: { title, chapter, body, sharable }
       }
     };
   }
