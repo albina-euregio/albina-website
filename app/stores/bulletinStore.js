@@ -1,4 +1,4 @@
-import { observable, action, makeObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import {
   parseDate,
   parseDateSeconds,
@@ -151,18 +151,7 @@ class BulletinStore {
       gliding_snow: { highlighted: false }
     };
 
-    makeObservable(this, {
-      bulletins: observable,
-      latest: observable,
-      settings: observable,
-      problems: observable,
-      _latestBulletinChecker: action,
-      load: action,
-      activate: action,
-      setRegion: action,
-      dimProblem: action,
-      highlightProblem: action
-    });
+    makeAutoObservable(this);
 
     this._latestBulletinChecker();
   }
@@ -173,13 +162,17 @@ class BulletinStore {
     const tomorrow = dateToISODateString(getSuccDate(now));
     const url = this._getBulletinUrl(tomorrow);
     fetchText(url, { method: "head" }).then(
-      () => (this.latest = tomorrow),
-      () => (this.latest = today)
+      () => this._setLatest(tomorrow),
+      () => this._setLatest(today)
     );
     window.setTimeout(
       () => this._latestBulletinChecker(),
       config.bulletin.checkForLatestInterval * 60000
     );
+  }
+
+  _setLatest(latest) {
+    this.latest = latest;
   }
 
   /**
