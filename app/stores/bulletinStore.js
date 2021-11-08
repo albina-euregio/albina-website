@@ -1,4 +1,4 @@
-import { observable, action } from "mobx";
+import { observable, action, makeObservable } from "mobx";
 import {
   parseDate,
   parseDateSeconds,
@@ -128,33 +128,46 @@ class BulletinCollection {
 }
 
 class BulletinStore {
-  /**
-   * @type {Record<date, BulletinCollection>}
-   */
-  @observable bulletins = {};
-  @observable latest = null;
-  @observable settings = {
-    status: "",
-    neighbors: 0,
-    date: "",
-    region: ""
-  };
-  /**
-   * @type {Record<Caaml.AvalancheProblemType, {highlighted: boolean}}
-   */
-  @observable problems = {
-    new_snow: { highlighted: false },
-    wind_drifted_snow: { highlighted: false },
-    persistent_weak_layers: { highlighted: false },
-    wet_snow: { highlighted: false },
-    gliding_snow: { highlighted: false }
-  };
-
   constructor() {
+    /**
+     * @type {Record<date, BulletinCollection>}
+     */
+    this.bulletins = {};
+    this.latest = null;
+    this.settings = {
+      status: "",
+      neighbors: 0,
+      date: "",
+      region: ""
+    };
+    /**
+     * @type {Record<Caaml.AvalancheProblemType, {highlighted: boolean}}
+     */
+    this.problems = {
+      new_snow: { highlighted: false },
+      wind_drifted_snow: { highlighted: false },
+      persistent_weak_layers: { highlighted: false },
+      wet_snow: { highlighted: false },
+      gliding_snow: { highlighted: false }
+    };
+
+    makeObservable(this, {
+      bulletins: observable,
+      latest: observable,
+      settings: observable,
+      problems: observable,
+      _latestBulletinChecker: action,
+      load: action,
+      activate: action,
+      setRegion: action,
+      dimProblem: action,
+      highlightProblem: action
+    });
+
     this._latestBulletinChecker();
   }
 
-  @action _latestBulletinChecker() {
+  _latestBulletinChecker() {
     const now = new Date();
     const today = dateToISODateString(now);
     const tomorrow = dateToISODateString(getSuccDate(now));
@@ -176,7 +189,7 @@ class BulletinStore {
    * @return Void, if the bulletin has already been fetched or a promise object,
    *   if it need to be fetched.
    */
-  @action load(date, activate = true) {
+  load(date, activate = true) {
     // console.log("loading bulletin", { date, activate });
     if (date) {
       if (this.bulletins[date]) {
@@ -215,7 +228,7 @@ class BulletinStore {
    * Activate bulletin collection for a given date.
    * @param date The date in yyyy-mm-dd format.
    */
-  @action activate(date) {
+  activate(date) {
     if (this.bulletins[date]) {
       this.settings.region = "";
       this.settings.date = date;
@@ -235,17 +248,17 @@ class BulletinStore {
     }
   }
 
-  @action setRegion(id) {
+  setRegion(id) {
     this.settings.region = id;
   }
 
-  @action dimProblem(problemId) {
+  dimProblem(problemId) {
     if (typeof this.problems[problemId] !== "undefined") {
       this.problems[problemId].highlighted = false;
     }
   }
 
-  @action highlightProblem(problemId) {
+  highlightProblem(problemId) {
     if (typeof this.problems[problemId] !== "undefined") {
       this.problems[problemId].highlighted = true;
     }

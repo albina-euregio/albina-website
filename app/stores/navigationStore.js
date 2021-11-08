@@ -1,11 +1,12 @@
-import { observable } from "mobx";
+import { observable, makeObservable } from "mobx";
 
 export default class NavigationStore {
-  @observable activeElement;
-  @observable activeTopLevelElement;
-
   constructor() {
     this.activeElement = {};
     this.activeTopLevelElement = {};
+    makeObservable(this, {
+      activeElement: observable,
+      activeTopLevelElement: observable
+    });
   }
 }

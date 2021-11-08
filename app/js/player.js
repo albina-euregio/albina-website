@@ -1,20 +1,18 @@
-import { computed, observable } from "mobx";
+import { computed, observable, makeObservable } from "mobx";
 
 export default class Player {
-  _itemsToLoad;
-  @observable _intervalID = null;
-  _transitionTime;
-  _onTick;
-  _tickOverdue;
-  _owner;
-
   constructor(options) {
     //console.log("PlayerStore->constructor: ", options);
     this._itemsToLoad = [];
+    this._intervalID = null;
     this._owner = options.owner || self;
     this._transitionTime = options.transitionTime || 1000;
     this._onTick = options.onTick || null;
     this._tickOverdue = false;
+    makeObservable(this, {
+      _intervalID: observable,
+      playing: computed
+    });
   }
 
   start() {
@@ -81,7 +79,7 @@ export default class Player {
     this._transitionTime = transitionTime;
   }
 
-  @computed get playing() {
+  get playing() {
     //console.log("playing", this._intervalID, this._intervalID !== null);
     return this._intervalID !== null;
   }

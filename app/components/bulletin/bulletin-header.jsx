@@ -1,5 +1,4 @@
 import React from "react";
-import { computed } from "mobx";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 
@@ -19,11 +18,11 @@ class BulletinHeader extends React.Component {
     super(props);
   }
 
-  @computed get date() {
+  get date() {
     return dateToLongDateString(parseDate(this.props.store.settings.date));
   }
 
-  @computed get statusClass() {
+  get statusClass() {
     const status = this.props.store.settings.status;
     if (status === "pending") {
       return "loading";

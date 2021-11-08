@@ -1,4 +1,4 @@
-import { observable, computed } from "mobx";
+import { observable, computed, makeObservable } from "mobx";
 import {
   parseDate,
   getPredDate,
@@ -10,12 +10,6 @@ import {
 import { fetchJSON } from "../util/fetch.js";
 
 export default class ArchiveStore {
-  archive;
-  _year;
-  _month;
-  _day;
-  _loading;
-
   constructor() {
     this.archive = {};
 
@@ -26,6 +20,11 @@ export default class ArchiveStore {
 
     // loading flag
     this._loading = observable.box(false);
+
+    makeObservable(this, {
+      startDate: computed,
+      endDate: computed
+    });
   }
 
   get loading() {
@@ -103,7 +102,7 @@ export default class ArchiveStore {
     return Promise.resolve();
   }
 
-  @computed get startDate() {
+  get startDate() {
     if (this.year) {
       const y = this.year;
       var m = "";
@@ -128,7 +127,7 @@ export default class ArchiveStore {
     return null;
   }
 
-  @computed get endDate() {
+  get endDate() {
     if (this.year) {
       const y = this.year;
       var m = "";

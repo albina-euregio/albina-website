@@ -1,15 +1,17 @@
-import { observable, action } from "mobx";
+import { observable, action, makeObservable } from "mobx";
 
 export default class MapStore {
-  mapCenter;
-  _mapZoom;
-
   constructor() {
     this.mapCenter = { lat: 47, lon: 12 };
     this._mapZoom = observable.box(9);
+    makeObservable(this, {
+      setMapViewport: action,
+      zoomIn: action,
+      zoomOut: action
+    });
   }
 
-  @action setMapViewport(mapState) {
+  setMapViewport(mapState) {
     if (
       mapState &&
       mapState.center &&
@@ -25,10 +27,10 @@ export default class MapStore {
   /**
    * Increase or decrease the zoom value of the bulletin map.
    */
-  @action zoomIn() {
+  zoomIn() {
     this._mapZoom.set(this._mapZoom.get() + 1);
   }
-  @action zoomOut() {
+  zoomOut() {
     this._mapZoom.set(this._mapZoom.get() - 1);
   }
 

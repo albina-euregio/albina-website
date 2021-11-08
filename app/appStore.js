@@ -1,5 +1,4 @@
-import { observable, action, computed, reaction } from "mobx";
-import React from "react";
+import { observable, action, computed, reaction, makeObservable } from "mobx";
 import { BulletinStore } from "./stores/bulletinStore";
 import CookieStore from "./stores/cookieStore";
 import NavigationStore from "./stores/navigationStore";
@@ -21,26 +20,15 @@ import oc from "./i18n/oc.json";
  */
 const translationLookup = Object.freeze({ ca, en, de, es, fr, it, oc });
 
-class AppStore extends React.Component {
-  @observable
-  keyDown;
-  @observable
-  cookieConsent;
-  navigation;
-  regions;
-  /**
-   * @type {Language}
-   */
-  @observable
-  language;
-  /**
-   * @type {Language[]}
-   */
-  languages;
-
+class AppStore {
   constructor() {
-    super();
+    /**
+     * @type {Language}
+     */
     this.language = "en";
+    /**
+     * @type {Language[]}
+     */
     this.languages = ["ca", "en", "de", "es", "fr", "it", "oc"];
     this.mainLanguages = ["en", "de", "it"];
 
@@ -63,12 +51,17 @@ class AppStore extends React.Component {
           .replace(/language-[a-z]{2}/, "language-" + newLang);
       }
     );
+    makeObservable(this, {
+      cookieConsent: observable,
+      language: observable,
+      messages: computed,
+      setLanguage: action
+    });
   }
 
   /**
    * @returns {Record<string, string>}
    */
-  @computed
   get messages() {
     return translationLookup[this.language];
   }
@@ -76,7 +69,6 @@ class AppStore extends React.Component {
   /**
    * @param {Language} newLanguage
    */
-  @action
   setLanguage(newLanguage) {
     if (this.languages.includes(newLanguage)) {
       if (this.language !== newLanguage) {

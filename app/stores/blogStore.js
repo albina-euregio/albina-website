@@ -1,4 +1,4 @@
-import { observable, action, computed, toJS } from "mobx";
+import { observable, action, computed, toJS, makeObservable } from "mobx";
 import { fetchJSON } from "../util/fetch";
 import { parseDate, getDaysOfMonth } from "../util/date";
 import { parseTags } from "../util/tagging";
@@ -239,8 +239,6 @@ export default class BlogStore {
     this._month = observable.box(initialParameters.month);
     this._problem = observable.box(initialParameters.problem);
 
-    // For Mobx > v4 we have to use an obserable box instead of
-    // @observable loading = ...;
     this._loading = observable.box(false);
     this._searchText = observable.box(initialParameters.searchText);
 
@@ -301,9 +299,35 @@ export default class BlogStore {
       }
     };
     this.update();
+
+    makeObservable(this, {
+      load: action,
+      setPage: action,
+      nextPage: action,
+      previousPage: action,
+      setRegions: action,
+      setLanguages: action,
+      loading: computed,
+      posts: computed,
+      page: computed,
+      maxPages: computed,
+      searchText: computed,
+      problem: computed,
+      year: computed,
+      month: computed,
+      startDate: computed,
+      endDate: computed,
+      languages: computed,
+      regions: computed,
+      languageActive: computed,
+      regionActive: computed,
+      numberOfPosts: computed,
+      numberNewPosts: computed,
+      postsList: computed
+    });
   }
 
-  @action load(forceReload = false) {
+  load(forceReload = false) {
     if (!forceReload && this._posts.length > 0) {
       // don't do a reload if already loaded unless reload is forced
       return;
@@ -358,7 +382,7 @@ export default class BlogStore {
     });
   }
 
-  @computed get loading() {
+  get loading() {
     return this._loading.get();
   }
 
@@ -366,7 +390,7 @@ export default class BlogStore {
     this._loading.set(flag);
   }
 
-  @computed get posts() {
+  get posts() {
     return toJS(this._posts);
   }
 
@@ -375,33 +399,33 @@ export default class BlogStore {
   }
 
   /* actual page in the pagination through blog posts */
-  @computed get page() {
+  get page() {
     return parseInt(toJS(this._page));
   }
   set page(val) {
     this._page.set(parseInt(val));
   }
 
-  @action setPage(newPage) {
+  setPage(newPage) {
     this.page = this.validatePage(newPage);
   }
 
-  @action nextPage() {
+  nextPage() {
     const thisPage = this.page;
     const maxPages = this.maxPages;
     const nextPageNo = thisPage < maxPages ? thisPage + 1 : thisPage;
     this.setPage(nextPageNo);
   }
-  @action previousPage() {
+  previousPage() {
     const thisPage = this.page;
     const previousPageNo = thisPage > 1 ? thisPage - 1 : 1;
     this.setPage(previousPageNo);
   }
-  @computed get maxPages() {
+  get maxPages() {
     return Math.ceil(this.numberOfPosts / this.perPage);
   }
 
-  @computed get searchText() {
+  get searchText() {
     return this._searchText.get();
   }
   set searchText(val) {
@@ -410,28 +434,28 @@ export default class BlogStore {
     }
   }
 
-  @computed get problem() {
+  get problem() {
     return this._problem.get();
   }
   set problem(val) {
     this._problem.set(val);
   }
 
-  @computed get year() {
+  get year() {
     return this._year.get();
   }
   set year(y) {
     this._year.set(y);
   }
 
-  @computed get month() {
+  get month() {
     return this._month.get();
   }
   set month(m) {
     this._month.set(m);
   }
 
-  @computed get startDate() {
+  get startDate() {
     if (this.year) {
       if (this.month) {
         return new Date(this.year, this.month - 1, 1);
@@ -441,7 +465,7 @@ export default class BlogStore {
     return null;
   }
 
-  @computed get endDate() {
+  get endDate() {
     if (this.year) {
       if (this.month) {
         return new Date(
@@ -457,14 +481,14 @@ export default class BlogStore {
     return null;
   }
 
-  @computed get languages() {
+  get languages() {
     return toJS(this._languages);
   }
-  @computed get regions() {
+  get regions() {
     return toJS(this._regions);
   }
 
-  @action setRegions(region) {
+  setRegions(region) {
     const newRegions = this.regions;
     // eslint-disable-next-line no-unused-vars
     for (let r in newRegions) {
@@ -474,7 +498,7 @@ export default class BlogStore {
     this._regions.set(newRegions);
   }
 
-  @action setLanguages(lang) {
+  setLanguages(lang) {
     const newLanguages = this.languages;
     // eslint-disable-next-line no-unused-vars
     for (let l in newLanguages) {
@@ -483,21 +507,21 @@ export default class BlogStore {
     this._languages.set(newLanguages);
   }
 
-  @computed get languageActive() {
+  get languageActive() {
     const active = Object.keys(this.languages).filter(
       lang => this.languages[lang]
     );
     return active.length > 1 ? "all" : active[0];
   }
 
-  @computed get regionActive() {
+  get regionActive() {
     const active = Object.keys(this.regions).filter(
       region => this.regions[region]
     );
     return active.length > 1 ? "all" : active[0];
   }
 
-  @computed get numberOfPosts() {
+  get numberOfPosts() {
     return this.posts
       ? Object.values(this.posts)
           .map(l => l.length)
@@ -505,7 +529,7 @@ export default class BlogStore {
       : 0;
   }
 
-  @computed get numberNewPosts() {
+  get numberNewPosts() {
     const currentDate = new Date().getTime();
     let nrOfNewPosts = 0;
     if (this.posts) {
@@ -519,7 +543,7 @@ export default class BlogStore {
     return nrOfNewPosts;
   }
 
-  @computed get postsList() {
+  get postsList() {
     const start = (this.page - 1) * this.perPage;
     const limit = this.perPage;
     const totalLength = this.numberOfPosts;

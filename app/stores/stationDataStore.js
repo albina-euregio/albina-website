@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { fetchJSON } from "../util/fetch";
 import { Util } from "leaflet";
 import { regionCodes } from "../util/regions";
@@ -114,13 +114,6 @@ export class StationData {
 }
 
 export default class StationDataStore {
-  @observable data;
-  @observable _activeRegions;
-  @observable searchText;
-  @observable activeData;
-  @observable sortValue;
-  @observable sortDir;
-
   constructor() {
     this.data = [];
 
@@ -132,14 +125,25 @@ export default class StationDataStore {
       return regions;
     })();
 
-    this._searchText = observable.box("");
+    this.searchText = "";
     this.activeData = {
       snow: true,
       temp: true,
       wind: true
     };
-    this._sortValue = observable.box("");
-    this._sortDir = observable.box("asc");
+    this.sortValue = "";
+    this.sortDir = "asc";
+    // makeObservable(this, {
+    //   data: observable,
+    //   _activeRegions: observable,
+    //   searchText: observable,
+    //   activeData: observable,
+    //   sortValue: observable,
+    //   sortDir: observable,
+    //   load: action,
+    //   activeRegion: computed
+    // });
+    makeAutoObservable(this);
   }
 
   /**
@@ -186,7 +190,7 @@ export default class StationDataStore {
     return params;
   }
 
-  @computed get activeRegion() {
+  get activeRegion() {
     const actives = Object.keys(this._activeRegions).filter(
       e => this._activeRegions[e]
     );
@@ -208,31 +212,6 @@ export default class StationDataStore {
     });
   }
 
-  get searchText() {
-    return this._searchText.get();
-  }
-
-  set searchText(value) {
-    this._searchText.set(value);
-  }
-
-  get sortValue() {
-    return this._sortValue.get();
-  }
-
-  get sortDir() {
-    return this._sortDir.get();
-  }
-
-  set sortValue(val) {
-    this._sortValue.set(val);
-  }
-
-  set sortDir(dir) {
-    this._sortDir.set(dir);
-  }
-
-  @action
   load(timePrefix) {
     let stationsFile = Util.template(window.config.apis.weather.stations, {
       dateTime: timePrefix
