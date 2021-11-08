@@ -4,8 +4,6 @@ import { observer } from "mobx-react";
 import BlogStore from "../stores/blogStore";
 import { Link } from "react-router-dom";
 
-@withRouter
-@observer
 class Menu extends React.Component {
   constructor(props) {
     super(props);
@@ -129,4 +127,4 @@ class Menu extends React.Component {
   }
 }
 
-export default Menu;
+export default withRouter(observer(Menu));

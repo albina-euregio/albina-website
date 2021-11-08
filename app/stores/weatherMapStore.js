@@ -1,20 +1,9 @@
-import { computed, observable, action } from "mobx";
+import { action, observable, makeAutoObservable } from "mobx";
 import StationDataStore from "./stationDataStore";
 import { fetchJSON } from "../util/fetch";
 import { dateFormat, isSummerTime } from "../util/date";
 
 export default class WeatherMapStore_new {
-  @observable _domainId;
-  @observable _loading;
-  @observable selectedFeature;
-  @observable _timeSpan;
-  @observable _availableTimes;
-  @observable stations;
-  @observable _agl;
-  @observable _dateStart;
-  @observable _lastDataUpdate;
-  @observable config;
-
   constructor(initialDomainId) {
     this.config = config.weathermaps;
     this.stations = null;
@@ -29,6 +18,40 @@ export default class WeatherMapStore_new {
     this.selectedFeature = null;
     this._loading = observable.box(false);
     this._lastCurrentTime = null;
+
+    // makeObservable(this, {
+    //   _domainId: observable,
+    //   _loading: observable,
+    //   selectedFeature: observable,
+    //   _timeSpan: observable,
+    //   _availableTimes: observable,
+    //   stations: observable,
+    //   _agl: observable,
+    //   _dateStart: observable,
+    //   _lastDataUpdate: observable,
+    //   config: observable,
+    //   changeDomain: action,
+    //   _getStartTimeForSpan: action,
+    //   changeTimeSpan: action,
+    //   changeCurrentTime: action,
+    //   _loadDomainData: action,
+    //   lastUpdateTime: computed,
+    //   domainId: computed,
+    //   items: computed,
+    //   currentTime: computed,
+    //   availableTimes: computed,
+    //   timeSpan: computed,
+    //   startDate: computed,
+    //   agl: computed,
+    //   loading: computed,
+    //   overlayFileName: computed,
+    //   previousTime: computed,
+    //   nextTime: computed,
+    //   currentIndex: computed,
+    //   domainConfig: computed,
+    //   nextUpdateTime: computed
+    // });
+    makeAutoObservable(this);
 
     const configDefaultDomainId = Object.keys(this.config.domains).find(
       domainKey => this.config.domains[domainKey].domainDefault
@@ -61,13 +84,13 @@ export default class WeatherMapStore_new {
           this._domainId.get() +
           "/" +
           this.getMetaFile("agl")
-      ).then(date => (this._dateStart = date ?? this._dateStart)),
+      ).then(action(date => (this._dateStart = date ?? this._dateStart))),
       fetchDate(
         config.apis.weather.overlays +
           this._domainId.get() +
           "/" +
           this.getMetaFile("startDate")
-      ).then(date => (this._agl = date ?? this._agl))
+      ).then(action(date => (this._agl = date ?? this._agl)))
     ];
 
     Promise.all(loads)
@@ -111,15 +134,9 @@ export default class WeatherMapStore_new {
       this.currentTime < this._agl
     ) {
       loads.push(
-        new StationDataStore().load(prefix).then(features => {
-          // console.log(
-          //   "WeatherMapStore_new->_loadData aaa: StationDataStore",
-          //   features
-          // );
-          this.stations = {
-            features
-          };
-        })
+        new StationDataStore()
+          .load(prefix)
+          .then(action(features => (this.stations = { features })))
       );
     } else this.stations = [];
     if (this.domainConfig && this.domainConfig.layer.grid) {
@@ -172,7 +189,7 @@ export default class WeatherMapStore_new {
   /*
     returns lastUpdateTime
   */
-  @computed get lastUpdateTime() {
+  get lastUpdateTime() {
     //console.log("get lastUpdateTime kkk", this._lastDataUpdate);
     return this._lastDataUpdate;
   }
@@ -180,7 +197,7 @@ export default class WeatherMapStore_new {
   /*
     returns the active domain id
   */
-  @computed get domainId() {
+  get domainId() {
     return this._domainId.get();
   }
 
@@ -196,14 +213,14 @@ export default class WeatherMapStore_new {
   /*
     returns all items for the active domain in a form of array
   */
-  @computed get items() {
+  get items() {
     return this.domainId ? this.domain.item : false;
   }
 
   /*
     returns current timeIndex
   */
-  @computed get currentTime() {
+  get currentTime() {
     return (
       this._availableTimes &&
       this._timeIndex &&
@@ -214,7 +231,7 @@ export default class WeatherMapStore_new {
   /*
     returns all _availableTimes
   */
-  @computed get availableTimes() {
+  get availableTimes() {
     //console.log("timeIndices GET", this._availableTimes);
     return this._availableTimes;
   }
@@ -222,7 +239,7 @@ export default class WeatherMapStore_new {
   /*
     returns current timespan selection
   */
-  @computed get timeSpan() {
+  get timeSpan() {
     //console.log("timeSpan GET", this._timeSpan);
     return this._timeSpan.get();
   }
@@ -230,21 +247,21 @@ export default class WeatherMapStore_new {
   /*
     returns the start date for history information
   */
-  @computed get startDate() {
+  get startDate() {
     return this._dateStart;
   }
 
   /*
     returns the agl (ausgangslage) date for all calculations
   */
-  @computed get agl() {
+  get agl() {
     return this._agl;
   }
 
   /*
     returns _loading prop
   */
-  @computed get loading() {
+  get loading() {
     return this._loading.get();
   }
 
@@ -257,7 +274,7 @@ export default class WeatherMapStore_new {
   /*
     returns filename for overlay e.g.2020-07-29_06-00_diff-snow_6h
   */
-  @computed get overlayFileName() {
+  get overlayFileName() {
     // console.log(
     //   "weatherMapStore_new overlayFileName: ",
     //   this._domainId.get(),
@@ -300,7 +317,7 @@ export default class WeatherMapStore_new {
   /*
    returns index of active timeIndex decremented by 1
   */
-  @computed get previousTime() {
+  get previousTime() {
     return this._availableTimes[this._timeIndex.get() - 1]
       ? this._availableTimes[this._timeIndex.get() - 1]
       : this._availableTimes[this._availableTimes.length - 1];
@@ -308,7 +325,7 @@ export default class WeatherMapStore_new {
   /*
     returns index of active timeIndex incremented by 1
   */
-  @computed get nextTime() {
+  get nextTime() {
     //console.log("nextTime xxx1", this._availableTimes, this._timeIndex.get());
     return this._availableTimes[this._timeIndex.get() + 1]
       ? this._availableTimes[this._timeIndex.get() + 1]
@@ -318,14 +335,14 @@ export default class WeatherMapStore_new {
   /*
     returns currentIndex
   */
-  @computed get currentIndex() {
+  get currentIndex() {
     return this._timeIndex.get();
   }
 
   /*
     returns currentIndex
   */
-  @computed get domainConfig() {
+  get domainConfig() {
     return this.config.domains && this.domainId
       ? this.config.domains[this.domainId].item
       : null;
@@ -334,7 +351,7 @@ export default class WeatherMapStore_new {
   /*
     returns nextUpdateTime
   */
-  @computed get nextUpdateTime() {
+  get nextUpdateTime() {
     //console.log("nextUpdateTime kkk #0", this.domainConfig);
     if (!this.domainConfig.updateTimesOffset || this._lastDataUpdate === 0)
       return null;
@@ -421,7 +438,7 @@ export default class WeatherMapStore_new {
   /*
     Calculate startdate for current timespan
   */
-  _getStartTimeForSpan = function (initDate) {
+  _getStartTimeForSpan(initDate) {
     let currentTime = new Date(initDate);
     //currentTime.setUTCHours(currentTime.getUTCHours() - 6);
     //console.log("_getStartTimeForSpan #1", currentTime.getUTCHours(), isSummerTime(currentTime), currentTime.toUTCString(), this._timeSpan.get());
@@ -461,12 +478,12 @@ export default class WeatherMapStore_new {
     }
     // console.log("_getStartTimeForSpan #2", ["+24", "+48", "+72"].includes(this._timeSpan.get()), this._timeSpan.get(), this.config.settings.startUTCHourForTimespans, currentTime.getUTCHours(), this.config);
     return currentTime;
-  };
+  }
 
   /*
     calc indeces for timespan
   */
-  _setAvailableTimes = function () {
+  _setAvailableTimes() {
     //console.log("weatherMapStore_new _setTimeIndices: ", this._timeSpan.get());
     let indices = [];
     let currentTimespan = this._timeSpan.get();
@@ -563,7 +580,7 @@ export default class WeatherMapStore_new {
     if (indices.includes(this._lastCurrentTime))
       this._timeIndex.set(indices.indexOf(this._lastCurrentTime));
     else this._timeIndex.set(this._findClosestIndex(indices, new Date()));
-  };
+  }
 
   /*
     control method to check if the domain does exist in the config
@@ -581,7 +598,7 @@ export default class WeatherMapStore_new {
   /*
     setting a new active domain
   */
-  @action changeDomain(domainId) {
+  changeDomain(domainId) {
     //console.log("weatherMapStore_new changeDomain: " + domainId);
     if (this.checkDomainId(domainId) && domainId !== this._domainId.get()) {
       this._lastCurrentTime = this.currentTime;
@@ -617,7 +634,7 @@ export default class WeatherMapStore_new {
   /*
     setting a new active timeSpan
   */
-  @action changeTimeSpan(timeSpan) {
+  changeTimeSpan(timeSpan) {
     // console.log(
     //   "weatherMapStore_new changeTimeSpan: ",
     //   timeSpan,
@@ -639,7 +656,7 @@ export default class WeatherMapStore_new {
   /*
     setting a new timeIndex
   */
-  @action changeCurrentTime(timeIndex) {
+  changeCurrentTime(timeIndex) {
     // console.log(
     //   "weatherMapStore_new: changeCurrentTime hhhh",
     //   this._timeIndex.get(),

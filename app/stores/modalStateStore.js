@@ -1,31 +1,29 @@
-import { observable, action } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 export default class ModalStateStore {
-  _isOpen;
-  _data;
-
   constructor() {
-    this._isOpen = observable.box(false);
-    this._data = observable.box(false);
+    this._isOpen = false;
+    this._data = false;
+    makeAutoObservable(this);
   }
 
-  @action open() {
-    this._isOpen.set(true);
+  open() {
+    this._isOpen = true;
   }
 
-  @action close() {
-    this._isOpen.set(false);
+  close() {
+    this._isOpen = false;
   }
 
-  @action setData(data) {
-    this._data.set(data);
+  setData(data) {
+    this._data = data;
   }
 
   get isOpen() {
-    return this._isOpen.get();
+    return this._isOpen;
   }
 
   get data() {
-    return this._data.get();
+    return this._data;
   }
 }

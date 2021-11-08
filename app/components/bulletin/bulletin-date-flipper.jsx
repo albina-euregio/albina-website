@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { computed } from "mobx";
 import { injectIntl } from "react-intl";
 import {
   parseDate,
@@ -17,11 +16,11 @@ class BulletinDateFlipper extends React.Component {
     super(props);
   }
 
-  @computed get date() {
+  get date() {
     return this.props.date ? parseDate(this.props.date) : null;
   }
 
-  @computed get nextDate() {
+  get nextDate() {
     const d = this.date;
     if (d && this.props.latest) {
       const next = getSuccDate(d);
@@ -35,7 +34,7 @@ class BulletinDateFlipper extends React.Component {
     return undefined;
   }
 
-  @computed get prevDate() {
+  get prevDate() {
     const d = this.date;
     if (d) {
       return getPredDate(d);

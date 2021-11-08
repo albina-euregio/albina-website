@@ -11,7 +11,6 @@ import { injectIntl } from "react-intl";
  *
  * @extends {React.Component<Props>}
  */
-@observer
 class BulletinMapDetails extends React.Component {
   constructor(props) {
     super(props);
@@ -67,4 +66,4 @@ class BulletinMapDetails extends React.Component {
   }
 }
 
-export default injectIntl(BulletinMapDetails);
+export default injectIntl(observer(BulletinMapDetails));

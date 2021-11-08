@@ -40,7 +40,6 @@ const DOMAIN_UNITS = {
 
 const LOOP = false;
 
-@observer
 class WeatherMapCockpit extends React.Component {
   constructor(props) {
     super(props);
@@ -661,4 +660,4 @@ class WeatherMapCockpit extends React.Component {
     );
   }
 }
-export default injectIntl(WeatherMapCockpit);
+export default injectIntl(observer(WeatherMapCockpit));

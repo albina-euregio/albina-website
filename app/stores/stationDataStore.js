@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { fetchJSON } from "../util/fetch";
 import { Util } from "leaflet";
 import { regionCodes } from "../util/regions";
@@ -114,13 +114,6 @@ export class StationData {
 }
 
 export default class StationDataStore {
-  @observable data;
-  @observable _activeRegions;
-  @observable searchText;
-  @observable activeData;
-  @observable sortValue;
-  @observable sortDir;
-
   constructor() {
     this.data = [];
 
@@ -132,14 +125,16 @@ export default class StationDataStore {
       return regions;
     })();
 
-    this._searchText = observable.box("");
+    this.searchText = "";
     this.activeData = {
       snow: true,
       temp: true,
       wind: true
     };
-    this._sortValue = observable.box("");
-    this._sortDir = observable.box("asc");
+    this.sortValue = "";
+    this.sortDir = "asc";
+
+    makeAutoObservable(this);
   }
 
   /**
@@ -186,7 +181,7 @@ export default class StationDataStore {
     return params;
   }
 
-  @computed get activeRegion() {
+  get activeRegion() {
     const actives = Object.keys(this._activeRegions).filter(
       e => this._activeRegions[e]
     );
@@ -208,31 +203,19 @@ export default class StationDataStore {
     });
   }
 
-  get searchText() {
-    return this._searchText.get();
+  setSearchText(searchText) {
+    this.searchText = searchText;
   }
 
-  set searchText(value) {
-    this._searchText.set(value);
+  toggleActiveData(key) {
+    this.activeData[key] = !this.activeData[key];
   }
 
-  get sortValue() {
-    return this._sortValue.get();
+  sortBy(sortValue, sortDir) {
+    this.sortValue = sortValue;
+    this.sortDir = sortDir;
   }
 
-  get sortDir() {
-    return this._sortDir.get();
-  }
-
-  set sortValue(val) {
-    this._sortValue.set(val);
-  }
-
-  set sortDir(dir) {
-    this._sortDir.set(dir);
-  }
-
-  @action
   load(timePrefix) {
     let stationsFile = Util.template(window.config.apis.weather.stations, {
       dateTime: timePrefix
@@ -240,20 +223,22 @@ export default class StationDataStore {
     //console.log("StationDataStore->load", timePrefix, stationsFile);
 
     return fetchJSON(stationsFile)
-      .then(data => {
-        this.data = data.features
-          .filter(el => el.properties.date)
-          .map(feature => new StationData(feature))
-          .sort((f1, f2) =>
-            f1.properties.name.localeCompare(f2.properties.name, "de")
-          );
-        return this.data;
-      })
+      .then(data => this.setDataAfterLoad(data))
       .catch(error => {
         if (error.response.status === 404) {
           //console.log("StationDataStore->load could not load", stationsFile);
           return [];
         } else return Promise.reject(error.response);
       });
+  }
+
+  setDataAfterLoad(data) {
+    this.data = data.features
+      .filter(el => el.properties.date)
+      .map(feature => new StationData(feature))
+      .sort((f1, f2) =>
+        f1.properties.name.localeCompare(f2.properties.name, "de")
+      );
+    return this.data;
   }
 }

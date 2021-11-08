@@ -51,12 +51,12 @@ class StationMeasurements extends React.Component {
   }
 
   handleChangeSearch = val => {
-    this.store.searchText = val;
+    this.store.setSearchText(val);
     this.updateURL();
   };
 
   handleToggleActive = val => {
-    this.store.activeData[val] = !this.store.activeData[val];
+    this.store.toggleActiveData(val);
     this.updateURL();
   };
 
@@ -66,8 +66,7 @@ class StationMeasurements extends React.Component {
   };
 
   handleSort = (id, dir) => {
-    this.store.sortValue = id;
-    this.store.sortDir = dir;
+    this.store.sortBy(id, dir);
     this.updateURL();
   };
 

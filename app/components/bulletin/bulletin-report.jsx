@@ -1,5 +1,4 @@
 import React from "react";
-import { computed } from "mobx";
 import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
@@ -27,12 +26,10 @@ class BulletinReport extends React.Component {
   /**
    * @returns {Caaml.Bulletin}
    */
-  @computed
   get bulletin() {
     return this.props.daytimeBulletin?.forenoon;
   }
 
-  @computed
   get dangerPatterns() {
     return this.bulletin.dangerPatterns || [];
   }

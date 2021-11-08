@@ -1,4 +1,4 @@
-import { observable, computed } from "mobx";
+import { makeAutoObservable } from "mobx";
 import {
   parseDate,
   getPredDate,
@@ -10,59 +10,55 @@ import {
 import { fetchJSON } from "../util/fetch.js";
 
 export default class ArchiveStore {
-  archive;
-  _year;
-  _month;
-  _day;
-  _loading;
-
   constructor() {
     this.archive = {};
 
     // filter values
-    this._year = observable.box("");
-    this._month = observable.box("");
-    this._day = observable.box("");
+    this._year = "";
+    this._month = "";
+    this._day = "";
 
     // loading flag
-    this._loading = observable.box(false);
+    this._loading = false;
+
+    makeAutoObservable(this);
   }
 
   get loading() {
-    return this._loading.get();
+    return this._loading;
   }
 
   set loading(flag) {
-    this._loading.set(flag);
+    this._loading = flag;
   }
 
   get year() {
-    return this._year.get();
+    return this._year;
   }
 
   set year(y) {
-    this._year.set(y);
-    if (!this._month.get()) {
-      this._month.set(1);
+    this._year = y;
+    if (!this._month) {
+      this._month = 1;
     }
     this._load();
   }
 
   get month() {
-    return this._month.get();
+    return this._month;
   }
 
   set month(m) {
-    this._month.set(m);
+    this._month = m;
     this._load();
   }
 
   get day() {
-    return this._day.get();
+    return this._day;
   }
 
   set day(val) {
-    this._day.set(val);
+    this._day = val;
     this._load();
   }
 
@@ -103,7 +99,7 @@ export default class ArchiveStore {
     return Promise.resolve();
   }
 
-  @computed get startDate() {
+  get startDate() {
     if (this.year) {
       const y = this.year;
       var m = "";
@@ -128,7 +124,7 @@ export default class ArchiveStore {
     return null;
   }
 
-  @computed get endDate() {
+  get endDate() {
     if (this.year) {
       const y = this.year;
       var m = "";

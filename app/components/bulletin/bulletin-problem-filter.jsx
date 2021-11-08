@@ -2,7 +2,6 @@ import React from "react";
 import { observer } from "mobx-react";
 import BulletinProblemFilterItem from "./bulletin-problem-filter-item.jsx";
 
-@observer
 class BulletinProblemFilter extends React.Component {
   constructor(props) {
     super(props);
@@ -33,4 +32,4 @@ class BulletinProblemFilter extends React.Component {
   }
 }
 
-export default BulletinProblemFilter;
+export default observer(BulletinProblemFilter);
