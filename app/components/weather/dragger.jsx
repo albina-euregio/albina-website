@@ -97,6 +97,7 @@ class Dragger extends React.Component {
   }
 
   render() {
+    //console.log("dragger->render hhh", this.currentX);
     this.currentX = this.props.left || 0;
     this.currentY = this.props.top || 0;
     return (
