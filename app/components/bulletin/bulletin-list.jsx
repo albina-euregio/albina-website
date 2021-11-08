@@ -9,8 +9,7 @@ import BulletinReport from "./bulletin-report";
  *
  * @extends {React.Component<Props>}
  */
-@observer
-export default class BulletinList extends React.Component {
+export class BulletinList extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -46,3 +45,5 @@ export default class BulletinList extends React.Component {
     );
   }
 }
+
+export default observer(BulletinList);

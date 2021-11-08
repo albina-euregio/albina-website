@@ -12,7 +12,6 @@ import { parseDate, dateToLongDateString } from "../../util/date.js";
  *
  * @extends {React.Component<Props>}
  */
-@observer
 class BulletinHeader extends React.Component {
   constructor(props) {
     super(props);
@@ -57,4 +56,4 @@ class BulletinHeader extends React.Component {
     );
   }
 }
-export default injectIntl(BulletinHeader);
+export default injectIntl(observer(BulletinHeader));

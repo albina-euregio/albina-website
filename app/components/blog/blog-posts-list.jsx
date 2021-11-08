@@ -5,7 +5,6 @@ import { injectIntl } from "react-intl";
 import TagList from "./tag-list";
 import { dateToDateTimeString } from "../../util/date.js";
 
-@observer
 class BlogPostsList extends React.Component {
   constructor(props) {
     super(props);
@@ -56,4 +55,4 @@ class BlogPostsList extends React.Component {
   }
 }
 
-export default injectIntl(BlogPostsList);
+export default injectIntl(observer(BlogPostsList));

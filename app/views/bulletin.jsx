@@ -26,7 +26,6 @@ import { Suspense } from "react";
 
 require("leaflet.sync");
 
-@observer
 class Bulletin extends React.Component {
   constructor(props) {
     super(props);
@@ -267,4 +266,4 @@ class Bulletin extends React.Component {
   }
 }
 
-export default injectIntl(withRouter(Bulletin));
+export default injectIntl(withRouter(observer(Bulletin)));
