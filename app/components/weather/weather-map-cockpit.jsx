@@ -159,8 +159,10 @@ class WeatherMapCockpit extends React.Component {
     //console.log("onTimelineUpdate hhh", tickWidth);
     this.tickWidth = tickWidth;
     this.getClosestTick = getClosestTick;
+    const lastGetLeftForTime = this.getLeftForTime;
     this.getLeftForTime = getLeftForTime;
     this.placeCockpitItems();
+    if (!lastGetLeftForTime) this.redraw();
   }
 
   handleEvent(type, value) {
@@ -316,7 +318,7 @@ class WeatherMapCockpit extends React.Component {
       const timeStart = dateToTimeString(this.props.currentTime);
       let timeEnd = new Date(this.props.currentTime);
       timeEnd.setHours(timeEnd.getHours() + parseInt(nrOnlyTimespan, 10));
-
+      //console.log("weathermapcockpit->gettimeline hhh", this.getLeftForTime, this.props.currentTime);
       const dragSettings = {
         left: this.getLeftForTime
           ? this.getLeftForTime(this.props.currentTime)
