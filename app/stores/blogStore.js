@@ -1,4 +1,4 @@
-import { observable, action, computed, toJS, makeObservable } from "mobx";
+import { toJS, makeAutoObservable } from "mobx";
 import { fetchJSON } from "../util/fetch";
 import { parseDate, getDaysOfMonth } from "../util/date";
 import { parseTags } from "../util/tagging";
@@ -230,17 +230,17 @@ export default class BlogStore {
     // Do not make posts observable, otherwise posts list will be
     // unnecessaryliy rerendered during the filling of this array.
     // Views should only observe the value of the "loading" flag instead.
-    this._posts = observable.box({});
-    this._page = observable.box(initialParameters.page);
+    this._posts = {};
+    this._page = initialParameters.page;
 
-    this._regions = observable.box(initialParameters.regions);
-    this._languages = observable.box(initialParameters.languages);
-    this._year = observable.box(initialParameters.year);
-    this._month = observable.box(initialParameters.month);
-    this._problem = observable.box(initialParameters.problem);
+    this._regions = initialParameters.regions;
+    this._languages = initialParameters.languages;
+    this._year = initialParameters.year;
+    this._month = initialParameters.month;
+    this._problem = initialParameters.problem;
 
-    this._loading = observable.box(false);
-    this._searchText = observable.box(initialParameters.searchText);
+    this._loading = false;
+    this._searchText = initialParameters.searchText;
 
     this.blogProcessor = {
       blogger: {
@@ -300,31 +300,7 @@ export default class BlogStore {
     };
     this.update();
 
-    makeObservable(this, {
-      load: action,
-      setPage: action,
-      nextPage: action,
-      previousPage: action,
-      setRegions: action,
-      setLanguages: action,
-      loading: computed,
-      posts: computed,
-      page: computed,
-      maxPages: computed,
-      searchText: computed,
-      problem: computed,
-      year: computed,
-      month: computed,
-      startDate: computed,
-      endDate: computed,
-      languages: computed,
-      regions: computed,
-      languageActive: computed,
-      regionActive: computed,
-      numberOfPosts: computed,
-      numberNewPosts: computed,
-      postsList: computed
-    });
+    makeAutoObservable(this);
   }
 
   load(forceReload = false) {
@@ -333,7 +309,7 @@ export default class BlogStore {
       return;
     }
 
-    this._loading.set(true);
+    this._loading = true;
 
     const blogsConfig = window.config.blogs;
     const loads = [];
@@ -375,19 +351,21 @@ export default class BlogStore {
     }
 
     //todo: indicate loading error
-    return Promise.all(loads).then(() => {
-      // console.log("posts loaded", newPosts);
-      this.posts = newPosts;
-      this._loading.set(false);
-    });
+    return Promise.all(loads).then(() => this.setPostsLoaded(newPosts));
+  }
+
+  setPostsLoaded(newPosts) {
+    // console.log("posts loaded", newPosts);
+    this.posts = newPosts;
+    this._loading = false;
   }
 
   get loading() {
-    return this._loading.get();
+    return this._loading;
   }
 
   set loading(flag) {
-    this._loading.set(flag);
+    this._loading = flag;
   }
 
   get posts() {
@@ -395,7 +373,7 @@ export default class BlogStore {
   }
 
   set posts(val) {
-    this._posts.set(val);
+    this._posts = val;
   }
 
   /* actual page in the pagination through blog posts */
@@ -403,7 +381,7 @@ export default class BlogStore {
     return parseInt(toJS(this._page));
   }
   set page(val) {
-    this._page.set(parseInt(val));
+    this._page = parseInt(val);
   }
 
   setPage(newPage) {
@@ -426,33 +404,33 @@ export default class BlogStore {
   }
 
   get searchText() {
-    return this._searchText.get();
+    return this._searchText;
   }
   set searchText(val) {
     if (val != this.searchText) {
-      this._searchText.set(val);
+      this._searchText = val;
     }
   }
 
   get problem() {
-    return this._problem.get();
+    return this._problem;
   }
   set problem(val) {
-    this._problem.set(val);
+    this._problem = val;
   }
 
   get year() {
-    return this._year.get();
+    return this._year;
   }
   set year(y) {
-    this._year.set(y);
+    this._year = y;
   }
 
   get month() {
-    return this._month.get();
+    return this._month;
   }
   set month(m) {
-    this._month.set(m);
+    this._month = m;
   }
 
   get startDate() {
@@ -495,7 +473,7 @@ export default class BlogStore {
       newRegions[r] = [r, "all"].includes(region) || !region;
     }
     //console.log("blogstore->setRegions xx101", newRegions);
-    this._regions.set(newRegions);
+    this._regions = newRegions;
   }
 
   setLanguages(lang) {
@@ -504,7 +482,7 @@ export default class BlogStore {
     for (let l in newLanguages) {
       newLanguages[l] = [l, "all"].includes(lang) || !lang;
     }
-    this._languages.set(newLanguages);
+    this._languages = newLanguages;
   }
 
   get languageActive() {
