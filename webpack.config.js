@@ -41,10 +41,7 @@ module.exports = (env, argv) => {
       extensions: [".js", ".jsx"]
     },
     context: __dirname + "/app",
-    entry: [
-      "./sentry.js",
-      "./main.jsx"
-    ],
+    entry: ["./sentry.js", "./main.jsx"],
     devtool: production ? "source-map" : "eval-cheap-module-source-map",
     devServer: {
       historyApiFallback: {
@@ -69,7 +66,8 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
           use: [
             {
-              loader: "swc-loader",
+              loader: "esbuild-loader",
+              options: { loader: "jsx", target: "es2017" }
             }
           ]
         },
