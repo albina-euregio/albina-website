@@ -1,4 +1,4 @@
-import { observable, computed, makeObservable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import {
   parseDate,
   getPredDate,
@@ -14,54 +14,51 @@ export default class ArchiveStore {
     this.archive = {};
 
     // filter values
-    this._year = observable.box("");
-    this._month = observable.box("");
-    this._day = observable.box("");
+    this._year = "";
+    this._month = "";
+    this._day = "";
 
     // loading flag
-    this._loading = observable.box(false);
+    this._loading = false;
 
-    makeObservable(this, {
-      startDate: computed,
-      endDate: computed
-    });
+    makeAutoObservable(this);
   }
 
   get loading() {
-    return this._loading.get();
+    return this._loading;
   }
 
   set loading(flag) {
-    this._loading.set(flag);
+    this._loading = flag;
   }
 
   get year() {
-    return this._year.get();
+    return this._year;
   }
 
   set year(y) {
-    this._year.set(y);
-    if (!this._month.get()) {
-      this._month.set(1);
+    this._year = y;
+    if (!this._month) {
+      this._month = 1;
     }
     this._load();
   }
 
   get month() {
-    return this._month.get();
+    return this._month;
   }
 
   set month(m) {
-    this._month.set(m);
+    this._month = m;
     this._load();
   }
 
   get day() {
-    return this._day.get();
+    return this._day;
   }
 
   set day(val) {
-    this._day.set(val);
+    this._day = val;
     this._load();
   }
 
