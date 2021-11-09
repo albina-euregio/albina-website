@@ -82,7 +82,7 @@ class Page extends React.Component {
     return (
       <>
         <div className="page-loading-screen" />
-        {false && <Jumpnav />}
+        <Jumpnav />
 
         <PageHeader />
         <main id="page-main" className="page-main">
