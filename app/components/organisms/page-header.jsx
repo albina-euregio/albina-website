@@ -68,7 +68,7 @@ class PageHeader extends React.Component {
             </span>
           </Link>
         </div>
-        <div className="page-header-navigation">
+        <div id="navigation" className="page-header-navigation">
           <Menu
             intl={this.props.intl}
             className="list-plain navigation"
