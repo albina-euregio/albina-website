@@ -240,7 +240,7 @@
     "tileLayers": [
       {
         "id": "ALBINA",
-        "url": "https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png",
+        "url": "https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png",
         "maxZoom": 10,
         "minZoom": 7,
         "detectRetina": false,
