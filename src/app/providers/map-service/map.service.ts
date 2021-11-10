@@ -62,14 +62,14 @@ export class MapService {
   initMaps() {
     if (this.authenticationService.isEuregio()) {
       this.baseMaps = {
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
           tms: false,
           attribution: ""
         })
       };
 
       this.afternoonBaseMaps = {
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
           tms: false,
           attribution: ""
         })
@@ -82,7 +82,7 @@ export class MapService {
           maxZoom: 17,
           attribution: "Map data: &copy; <a href=\"http://www.openstreetmap.org/copyright\">OpenStreetMap</a>, <a href=\"http://viewfinderpanoramas.org\">SRTM</a> | Map style: &copy; <a href=\"https://opentopomap.org\">OpenTopoMap</a> (<a href=\"https://creativecommons.org/licenses/by-sa/3.0/\">CC-BY-SA</a>)"
         }),
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
           maxZoom: 12,
           tms: false,
           attribution: ""
@@ -90,7 +90,7 @@ export class MapService {
       };
 
       this.zamgModelsMaps = {
-        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms.dev/{z}/{x}/{y}.png", {
+        AlbinaBaseMap: L.tileLayer("https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png", {
           tms: false,
           attribution: ""
         })
