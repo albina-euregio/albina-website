@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { observable, action, makeObservable } from "mobx";
 import {
   parseDate,
   parseDateSeconds,
@@ -151,7 +151,18 @@ class BulletinStore {
       gliding_snow: { highlighted: false }
     };
 
-    makeAutoObservable(this);
+    makeObservable(this, {
+      bulletins: observable,
+      latest: observable,
+      settings: observable,
+      problems: observable,
+      _latestBulletinChecker: action,
+      load: action,
+      activate: action,
+      setRegion: action,
+      dimProblem: action,
+      highlightProblem: action
+    });
 
     this._latestBulletinChecker();
   }
