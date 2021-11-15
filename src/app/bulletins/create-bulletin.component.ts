@@ -23,7 +23,7 @@ import { environment } from "../../environments/environment";
 
 import { MatDialog, MatDialogRef, MatDialogConfig } from "@angular/material/dialog";
 
-import { DatePipe } from '@angular/common';
+import { DatePipe } from "@angular/common";
 
 import "leaflet";
 import "leaflet.sync";
@@ -445,11 +445,11 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       for (let i = result.length - 1; i >= 0; i--) {
         jsonBulletins.push(result[i].toJson());
       }
-      var sJson = JSON.stringify(jsonBulletins);
-      var element = document.createElement('a');
-      element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(sJson));
-      element.setAttribute('download', this.datePipe.transform(validFrom,"yyyy-MM-dd") + "_report.json");
-      element.style.display = 'none';
+      const sJson = JSON.stringify(jsonBulletins);
+      const element = document.createElement('a');
+      element.setAttribute("href", "data:text/json;charset=UTF-8," + encodeURIComponent(sJson));
+      element.setAttribute("download", this.datePipe.transform(validFrom, "yyyy-MM-dd") + "_report.json");
+      element.style.display = "none";
       document.body.appendChild(element);
       element.click(); // simulate click
       document.body.removeChild(element);
@@ -458,11 +458,11 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   uploadJsonBulletin(event) {
-    var selectedFile = event.target.files[0];
+    const selectedFile = event.target.files[0];
     const fileReader = new FileReader();
     fileReader.readAsText(selectedFile, "UTF-8");
     fileReader.onload = () => {
-      var json = JSON.parse(fileReader.result.toString());
+      const json = JSON.parse(fileReader.result.toString());
 
       this.reset();
       this.copyBulletins(json);
