@@ -2,7 +2,7 @@
   "login" : {
     "title" : " Iniciar Sessió",
     "text" : "Inicia sessió al teu compte",
-    "button" : " Iniciar Sessió",
+    "button" : "Iniciar Sessió",
     "errorDialog" : {
       "message" : "Usuari o contrasenya incorrectes",
       "accept" : "D'acord"
@@ -46,19 +46,19 @@
   },
   "bulletins" : {
     "title" : "Avalanche.report",
-    "loadingPreview" : "Creating PDF preview ...",
+    "loadingPreview" : "S'està creant la previsualització de PDF ...",
     "tooltip" : {
       "publish" : "Publica el butlletí actualitzat immediatament",
       "submit" : "Puja el butlletí",
       "copy" : "Copia el butlletí",
-      "cancel" : "Cancel copy",
+      "cancel" : "Cancel·la la còpia",
       "paste" : "Enganxa el butlletí",
       "update" : "Crea actualització del butlletí",
       "caaml" : "Mostra CAAML",
       "json" : "Mostra JSON",
       "edit" : "Edita el butlletí (no serà publicat de nou)",
       "create" : "Crea butlletí",
-      "preview" : "Preview bulletin (PDF)",
+      "preview" : "Previsualitza el butlletí (PDF)",
       "check" : "Comprova el butlletí",
       "info" : "Mostra l'estat de publicació",
       "publishAll" : "Publica totes les regions"
@@ -75,6 +75,8 @@
         "saveBulletin" : "Guarda el butlletí",
         "discardBulletin" : "Descarta els canvis al butlletí",
         "loadBulletin" : "Carrega el butlletí d'ahir",
+        "uploadJsonBulletin" : "Upload bulletin in JSON format",
+        "downloadJsonBulletin" : "Download bulletin in JSON format",
         "daytimeDependency" : "Dependència de l'hora",
         "treeline" : "Límit del bosc",
         "tendency" : {
@@ -105,8 +107,8 @@
       "discard" : "Descarta",
       "back" : "Enrera",
       "createAggregatedRegion" : "Nova regió",
-      "pasteAggregatedRegion" : " Paste region",
-      "cancelCopyBulletin" : " Cancel",
+      "pasteAggregatedRegion" : "Enganxa la regió",
+      "cancelCopyBulletin" : "Cancel·lar",
       "createAvalancheSituation" : "Nou problema",
       "ownRegions" : "Regions pròpies",
       "foreignRegions": "Regions alienes",
@@ -177,6 +179,10 @@
       },
       "loadingErrorDialog" : {
         "message" : "Hi ha hagut un error llegint els butlletins!",
+        "accept" : "D'acord"
+      },
+      "loadingJsonFileErrorDialog" : {
+        "message" : "There was an error loading the bulletins from the JSON file!",
         "accept" : "D'acord"
       },
       "avalancheSituationErrorDialog" : {
@@ -292,7 +298,7 @@
         "accept" : "D'acord"
       },
       "previewErrorDialog" : {
-        "message" : "Preview could not be loaded!",
+        "message" : "No s'ha pogut carregar la previsualització.",
         "accept" : "D'acord"
       },
       "checkBulletinsDialog" : {
@@ -338,7 +344,7 @@
     }
   },
   "admin" : {
-    "loadingStatistics" : "Creating CSV ...",
+    "loadingStatistics" : "Creant el CSV ...",
     "server-configuration" : {
       "title" : "Configuració del servidor",
       "table" : {
@@ -375,78 +381,78 @@
       "error" : "No es pot guardar la contrasenya"
     },
     "users" : {
-      "title" : "Users",
+      "title" : "Usuaris",
       "button" : {
-        "create" : "Create user"
+        "create" : "Crear usuari"
       },
       "tooltip" : {
-        "edit" : "Edit user",
-        "delete" : "Delete user"
+        "edit" : "Editar usuari",
+        "delete" : "Esborrar usuari"
       },
       "table" : {
-        "name" : "Name",
+        "name" : "Nom",
         "email" : "Email",
-        "organization" : "Organization",
+        "organization" : "Organizació",
         "regions" : "Regions",
-        "roles" : "Roles"
+        "roles" : "Funcions"
       },
       "deleteUserModalDialog" : {
-        "message" : "Do you want to delete the user?",
+        "message" : "Voleu eliminar l’usuari?",
         "accept" : "Si",
         "reject" : "No"
       },
       "deleteUser" : {
-        "success" : "User deleted",
-        "error" : "User could not be deleted"
+        "success" : "S'ha suprimit l'usuari",
+        "error" : "No s'ha pogut suprimir l'usuari"
       },
       "createUser" : {
-        "success" : "User created",
-        "error" : "User could not be created"
+        "success" : "Usuari creat",
+        "error" : "No s'ha pogut crear l'usuari"
       },
       "updateUser" : {
-        "success" : "User updated",
-        "error" : "User could not be updated"
+        "success" : "Usuari actualitzat",
+        "error" : "L'usuari no s'ha pogut actualitzar"
       }
     },
     "createUser" : {
       "table" : {
-        "name" : "Name",
+        "name" : "Nom",
         "email" : "Email",
-        "organization" : "Organization",
-        "password" : "Password",
-        "password2" : "Repeat password",
-        "roles" : "Roles",
+        "organization" : "Organizació",
+        "password" : "Contrasenya",
+        "password2" : "Repetir contrasenya",
+        "roles" : "Funcions",
         "regions" : "Regions"
       },
       "error" : {
         "name" : {
-          "required" : "Please enter a name"
+          "required" : "Introduïu un nom"
         },
         "email" : {
-          "required" : "Please enter an email address",
-          "invalid" : "Email address is invalid"
+          "required" : "Introduïu una adreça de correu electrònic",
+          "invalid" : "L'adreça de correu electrònic no és vàlida"
         },
         "password" : {
-          "required" : "Please enter a password",
-          "length" : "Password has to be at least 8 characters",
-          "mismatch" : "Passwords do not match"
+          "required" : "Introduïu una contrasenya",
+          "length" : "La contrasenya ha de tenir com a mínim 8 caràcters",
+          "mismatch" : "Les contrasenyes no coincideixen"
         }
       },
       "button" : {
-        "create" : "Create user",
-        "update" : "Update user",
+        "create" : "Crear usuari",
+        "update" : "Actualitzar l'usuari",
         "cancel" : "Cancel·la"
       }  
     },
     "statistics" : {
-      "title" : "Statistics",
+      "title" : "Estadístiques",
       "button" : {
         "submit" : "Descarrega"
       },
       "label" : {
-        "dateRange" : "Period",
-        "extended" : "Extended",
-        "duplicates" : "Duplicates"
+        "dateRange" : "Període",
+        "extended" : "Ampliat",
+        "duplicates" : "Duplicats"
       }
     },
     "observations" : {
@@ -455,8 +461,8 @@
         "submit" : "Descarrega"
       },
       "label" : {
-        "dateRange" : "Period",
-        "observer" : "Observer"
+        "dateRange" : "Període",
+        "observer" : "Observador"
       }
     }
   },
@@ -472,20 +478,20 @@
         "placeholder" : "Nova contrasenya"
       },
       "newPassword2" : {
-        "label" : "New password (repeat)",
+        "label" : "Contrasenya nova (repetir)",
         "placeholder" : "Nova contrasenya"
       },
       "submit" : "Canvia la contrasenya",
       "passwordChanged" : "Contrasenya canviada",
       "passwordChangeError" : "No es pot canviar la contraenya",
-      "passwordIncorrect" : "Current password incorrect",
+      "passwordIncorrect" : "La contrasenya actual és incorrecta",
       "error" : {
         "oldPassword" : {
           "required" : "Si us plau introdueix la contrasenya actual"
         },
         "newPassword" : {
           "required" : "Si us plau introdueix la nova contrasenya",
-          "mismatch" : "Passwords do not match"
+          "mismatch" : "Les contrasenyes no coincideixen"
         }
       }
     },
@@ -538,10 +544,10 @@
     "NW" : "NW"
   },
   "role" : {
-    "ADMIN" : "Administrator",
-    "FORECASTER" : "Forecaster",
-    "FOREMAN" : "Foreman",
-    "OBSERVER" : "Observer"
+    "ADMIN" : "Administrador",
+    "FORECASTER" : "Predictor",
+    "FOREMAN" : "Mestre d'obres",
+    "OBSERVER" : "Observador"
   },
   "region" : {
     "AT-07" : "Tyrol",
@@ -748,96 +754,6 @@
     "windDirection": "Direcció del vent",
     "windSpeed": "Velocitat del vent",
     "visibilityConditions": "Condicions de visibilitat"
-  },
-  "natlefs" : {
-    "title" : {
-      "ridingQuality" : "Qualitat d'esquí",
-      "rode" : "Hem esquiat",
-      "avoided" : "Hem evitat",
-      "alarmSignsFrequency" : "Signes d'inestabilitat",
-      "newSnow" : "Neu recent",
-      "driftingSnow" : "Neu ventada",
-      "avalanches" : "Allaus recents",
-      "penetrationDepth" : "Penetració de la neu sense esquí",
-      "surfaceSnowWetness" : "Humitat de la neu en superfície",
-      "avalancheProblems" : "Problemes d'allaus",
-      "tracks" : "Tracks",
-      "comment" : "Comentari"
-    }
-  },
-  "ridingQuality" : {
-    "amazing" : "Increïble",
-    "good" : "Bona",
-    "ok" : "D'acord",
-    "indifferent" : "Indiferent",
-    "terrible" : "Terrible"
-  },
-  "snowConditions" : {
-    "crusty" : "Crosta",
-    "heavy" : "Pesada",
-    "hard" : "Dura",
-    "wet" : "Humida",
-    "powder" : "Pols",
-    "firn" : "Primavera ferma",
-    "windAffected" : "Ventada"
-  },
-  "terrainFeature" : {
-    "moderatelySteepSlopes" : "Vessants moderadament inclinats (< 30°)",
-    "steepSlopes" : "Vessants inclinats (30° - 40°)",
-    "verySteepSlopes" : "Vessants molt inclinats (30° - 40°)",
-    "convexSlopes" : "Vessants convexos",
-    "denseTrees" : "Bosc dens",
-    "openTrees" : "Bosc obert",
-    "sunnySlopes" : "Vessants solans",
-    "shadySlopes" : "Vessants obacs"
-  },
-  "alarmSignsFrequency" : {
-    "none" : "Cap",
-    "occasional" : "Ocasional (1 - 2)",
-    "frequent" : "Freqüent (> 2)"
-  },
-  "newSnow" : {
-    "none" : "Cap",
-    "low" : "< 10 cm",
-    "medium" : "10 - 30 cm",
-    "high" : "> 30 cm"
-  },
-  "driftingSnow" : {
-    "none" : "Cap",
-    "occasional" : "Ocasional",
-    "widespread" : "Generalitzat"
-  },
-  "avalanches" : {
-    "none" : "Cap",
-    "some" : "Algunes (1 - 3)",
-    "many" : "Moltes (> 3)"
-  },
-  "penetrationDepth" : {
-    "little" : "< 5 cm",
-    "medium" : "5 - 30 cm",
-    "much" : "> 30 cm",
-    "spotty" : "irregular"
-  },
-  "surfaceSnowWetness" : {
-    "dry" : "Seca",
-    "sticky" : "enganxosa",
-    "wet" : "Humida"
-  },
-  "avalancheProblemNatlefs" : {
-    "new_snow" : "Neu recent",
-    "wind_drifted_snow" : "Neu ventada",
-    "weak_persistent_layer" : "Capes febles persistents",
-    "wet_snow" : "Neu humida",
-    "gliding_snow" : "Lliscaments",
-    "favourable_situation" : "Situació favorable"
-  },
-  "tracks" : {
-    "none" : "Cap",
-    "some" : "Algunes",
-    "many" : "Moltes"
-  },
-  "location" : {
-    "accuracy" : "Precisió GPS"
   },
   "units" : {
     "cm" : "cm",

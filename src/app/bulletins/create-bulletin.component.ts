@@ -23,6 +23,8 @@ import { environment } from "../../environments/environment";
 
 import { MatDialog, MatDialogRef, MatDialogConfig } from "@angular/material/dialog";
 
+import { DatePipe } from '@angular/common';
+
 import "leaflet";
 import "leaflet.sync";
 
@@ -127,6 +129,9 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public loadingErrorModalRef: BsModalRef;
   @ViewChild("loadingErrorTemplate") loadingErrorTemplate: TemplateRef<any>;
 
+  public loadingJsonFileErrorModalRef: BsModalRef;
+  @ViewChild("loadingJsonFileErrorTemplate") loadingJsonFileErrorTemplate: TemplateRef<any>;
+
   public loadModalRef: BsModalRef;
   @ViewChild("loadTemplate") loadTemplate: TemplateRef<any>;
 
@@ -185,7 +190,8 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     private applicationRef: ApplicationRef,
     private sanitizer: DomSanitizer,
     renderer: Renderer2,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private datePipe: DatePipe
   ) {
     this.loading = true;
     this.showAfternoonMap = false;
@@ -390,6 +396,81 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
     if (this.autoSave && this.autoSave !== undefined) {
       this.autoSave.unsubscribe();
+    }
+  }
+
+  downloadJsonBulletin() {
+    if (this.checkAvalancheSituations()) {
+      this.loading = true;
+
+      this.setTexts();
+
+      this.deselectBulletin();
+
+      const validFrom = new Date(this.bulletinsService.getActiveDate());
+      const validUntil = new Date(this.bulletinsService.getActiveDate());
+      validUntil.setTime(validUntil.getTime() + (24 * 60 * 60 * 1000));
+
+      const result = new Array<BulletinModel>();
+
+      for (const bulletin of this.bulletinsList) {
+        bulletin.setValidFrom(validFrom);
+        bulletin.setValidUntil(validUntil);
+
+
+        // only own regions
+        const saved = new Array<String>();
+        for (const region of bulletin.getSavedRegions()) {
+          if (region.startsWith(this.authenticationService.getActiveRegion())) {
+            saved.push(region);
+          }
+        }
+        for (const region of bulletin.getPublishedRegions()) {
+          if (region.startsWith(this.authenticationService.getActiveRegion())) {
+            saved.push(region);
+          }
+        }
+
+        if (saved.length > 0) {
+          bulletin.setSavedRegions(saved);
+
+          bulletin.setSuggestedRegions(new Array<String>());
+          bulletin.setPublishedRegions(new Array<String>());
+        }
+
+        result.push(bulletin);
+      }
+
+      const jsonBulletins = [];
+      for (let i = result.length - 1; i >= 0; i--) {
+        jsonBulletins.push(result[i].toJson());
+      }
+      var sJson = JSON.stringify(jsonBulletins);
+      var element = document.createElement('a');
+      element.setAttribute('href', "data:text/json;charset=UTF-8," + encodeURIComponent(sJson));
+      element.setAttribute('download', this.datePipe.transform(validFrom,"yyyy-MM-dd") + "_report.json");
+      element.style.display = 'none';
+      document.body.appendChild(element);
+      element.click(); // simulate click
+      document.body.removeChild(element);
+      this.loading = false;
+    }
+  }
+
+  uploadJsonBulletin(event) {
+    var selectedFile = event.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsText(selectedFile, "UTF-8");
+    fileReader.onload = () => {
+      var json = JSON.parse(fileReader.result.toString());
+
+      this.reset();
+      this.copyBulletins(json);
+      console.info("Bulletins loaded from file: " + selectedFile.name);
+    }
+    fileReader.onerror = (error) => {
+      console.error("Bulletins could not be loaded from file: " + error);
+      this.openLoadingJsonFileErrorModal(this.loadingJsonFileErrorTemplate);
     }
   }
 
@@ -1896,6 +1977,14 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   loadingErrorModalConfirm(): void {
     this.loadingErrorModalRef.hide();
     this.goBack();
+  }
+
+  openLoadingJsonFileErrorModal(template: TemplateRef<any>) {
+    this.loadingJsonFileErrorModalRef = this.modalService.show(template, this.config);
+  }
+
+  loadingJsonFileErrorModalConfirm(): void {
+    this.loadingJsonFileErrorModalRef.hide();
   }
 
   openLoadModal(template: TemplateRef<any>) {

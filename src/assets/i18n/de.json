@@ -75,6 +75,8 @@
         "saveBulletin" : "Lawinenvorhersage speichern",
         "discardBulletin" : "Änderungen an der Lawinenvorhersage verwerfen",
         "loadBulletin" : "Lawinenvorhersage vom Vortag laden",
+        "uploadJsonBulletin" : "Upload Bulletin in JSON Format",
+        "downloadJsonBulletin" : "Download Bulletin in JSON Format",
         "daytimeDependency" : "Tageszeitliche Abhängigkeit",
         "treeline" : "Waldgrenze",
         "tendency" : {
@@ -177,6 +179,10 @@
       },
       "loadingErrorDialog" : {
         "message" : "Beim Laden der Lawinenvorhersage ist ein Fehler aufgetreten!",
+        "accept" : "Ok"
+      },
+      "loadingJsonFileErrorDialog" : {
+        "message" : "Beim Laden des Bulletins aus der JSON Datei ist ein Fehler aufgetreten!",
         "accept" : "Ok"
       },
       "avalancheSituationErrorDialog" : {
@@ -748,96 +754,6 @@
     "windDirection": "Wind Richtung",
     "windSpeed": "Wind Geschw.",
     "visibilityConditions": "Sicht"
-  },
-  "natlefs" : {
-    "title" : {
-      "ridingQuality" : "Fahrspaß",
-      "rode" : "Wir fuhren",
-      "avoided" : "Wir hielten uns fern von",
-      "alarmSignsFrequency" : "Alarmzeichen",
-      "newSnow" : "New snow",
-      "driftingSnow" : "Frischer Triebschnee",
-      "avalanches" : "Frische Lawinen",
-      "penetrationDepth" : "Einsinktiefe ohne Ski",
-      "surfaceSnowWetness" : "Feuchtigkeit der Schneeoberfläche",
-      "avalancheProblems" : "Lawinenprobleme",
-      "tracks" : "Spuren",
-      "comment" : "Kommentar"
-    }
-  },
-  "ridingQuality" : {
-    "amazing" : "Sehr gut",
-    "good" : "Gut",
-    "ok" : "Ok",
-    "indifferent" : "Genügend",
-    "terrible" : "Ungenügend"
-  },
-  "snowConditions" : {
-    "crusty" : "Harsch",
-    "heavy" : "Schwer",
-    "hard" : "Hart",
-    "wet" : "Nass",
-    "powder" : "Pulver",
-    "firn" : "Firn",
-    "windAffected" : "Wind beeinflusst"
-  },
-  "terrainFeature" : {
-    "moderatelySteepSlopes" : "Mäßig steile Hänge (< 30°)",
-    "steepSlopes" : "Steile Hänge (30° - 40°)",
-    "verySteepSlopes" : "Extrem steile Hänge (> 40°)",
-    "convexSlopes" : "Konvexe Hänge",
-    "denseTrees" : "Dichter Wald",
-    "openTrees" : "Lichter Wald",
-    "sunnySlopes" : "Sonnige Hänge",
-    "shadySlopes" : "Schattige Hänge"
-  },
-  "alarmSignsFrequency" : {
-    "none" : "Keine",
-    "occasional" : "Vereinzelt (1-2)",
-    "frequent" : "Häufig (>2)"
-  },
-  "newSnow" : {
-    "none" : "Kein",
-    "low" : "< 10 cm",
-    "medium" : "10 - 30 cm",
-    "high" : "> 30 cm"
-  },
-  "driftingSnow" : {
-    "none" : "Keiner",
-    "occasional" : "Vereinzelt",
-    "widespread" : "Verbreitet"
-  },
-  "avalanches" : {
-    "none" : "Keine",
-    "some" : "Wenige (1 - 3)",
-    "many" : "Viele (> 3)"
-  },
-  "penetrationDepth" : {
-    "little" : "< 5 cm",
-    "medium" : "5 - 30 cm",
-    "much" : "> 30 cm",
-    "spotty" : "unregelmäßig"
-  },
-  "surfaceSnowWetness" : {
-    "dry" : "Trocken",
-    "sticky" : "Feucht",
-    "wet" : "Nass"
-  },
-  "avalancheProblemNatlefs" : {
-    "new_snow" : "New snow",
-    "wind_drifted_snow" : "Triebschneeproblem",
-    "weak_persistent_layer" : "Altschneeproblem",
-    "wet_snow" : "Nassschneeproblem",
-    "gliding_snow" : "Gleitschneeproblem",
-    "favourable_situation" : "Günstige Situation"
-  },
-  "tracks" : {
-    "none" : "Keine",
-    "some" : "Wenig",
-    "many" : "Viele"
-  },
-  "location" : {
-    "accuracy" : "GPS Genauigkeit"
   },
   "units" : {
     "cm" : "cm",

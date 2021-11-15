@@ -75,6 +75,8 @@
         "saveBulletin" : "Salva bollettino valanghe",
         "discardBulletin" : "Scarta modifiche del bollettino valanghe",
         "loadBulletin" : "Copia da giorno precedente",
+        "uploadJsonBulletin" : "Carica il bollettino in formato JSON",
+        "downloadJsonBulletin" : "Scarica il bollettino in formato JSON",
         "daytimeDependency" : "Dipendenzza diurna",
         "treeline" : "Limite del bosco",
         "tendency" : {
@@ -177,6 +179,10 @@
       },
       "loadingErrorDialog" : {
         "message" : "Errore durante il caricamento del bollettino valanghe!",
+        "accept" : "Ok"
+      },
+      "loadingJsonFileErrorDialog" : {
+        "message" : "C'è stato un errore nel caricamento dei bollettini dal file JSON!",
         "accept" : "Ok"
       },
       "avalancheSituationErrorDialog" : {
@@ -748,96 +754,6 @@
     "windDirection": "Vento Direzione",
     "windSpeed": "Vento",
     "visibilityConditions": "Visibility Conditions"
-  },
-  "natlefs" : {
-    "title" : {
-      "ridingQuality" : "Godibilitá sugli sci",
-      "rode" : "percorso sciato",
-      "avoided" : "zone evitate",
-      "alarmSignsFrequency" : "Segnali di allamre",
-      "newSnow" : "New snow",
-      "driftingSnow" : "Nuova neve ventata",
-      "avalanches" : "Nuove valanghe",
-      "penetrationDepth" : "Sprofondamento senza sci",
-      "surfaceSnowWetness" : "Umidità della superficie del manto nevoso",
-      "avalancheProblems" : "Problema valanghivo",
-      "tracks" : "Tracce",
-      "comment" : "Commento"
-    }
-  },
-  "ridingQuality" : {
-    "amazing" : "molto buona",
-    "good" : "buona",
-    "ok" : "Ok",
-    "indifferent" : "sufficiente",
-    "terrible" : "insufficiente"
-  },
-  "snowConditions" : {
-    "crusty" : "crostosa",
-    "heavy" : "pesante",
-    "hard" : "dura",
-    "wet" : "bagnata",
-    "powder" : "polvere",
-    "firn" : "firn",
-    "windAffected" : "ventata"
-  },
-  "terrainFeature" : {
-    "moderatelySteepSlopes" : "Pendii poco ripodi (< 30°)",
-    "steepSlopes" : "Pendii ripidi (30° - 40°)",
-    "verySteepSlopes" : "Pendii estremamente ripidi (> 40°)",
-    "convexSlopes" : "Pendii convessi",
-    "denseTrees" : "Bosco denso",
-    "openTrees" : "Bosco rado",
-    "sunnySlopes" : "Pendii soleggiati",
-    "shadySlopes" : "Pendii in ombra"
-  },
-  "alarmSignsFrequency" : {
-    "none" : "nessuno",
-    "occasional" : "occasionali (1 - 2)",
-    "frequent" : "frequenti (> 2)"
-  },
-  "newSnow" : {
-    "none" : "nessuna",
-    "low" : "< 10 cm",
-    "medium" : "10 - 30 cm",
-    "high" : "> 30 cm"
-  },
-  "driftingSnow" : {
-    "none" : "nessuna",
-    "occasional" : "occasionalmente",
-    "widespread" : "diffusa"
-  },
-  "avalanches" : {
-    "none" : "nessuna",
-    "some" : "poche (1 - 3)",
-    "many" : "molte (> 3)"
-  },
-  "penetrationDepth" : {
-    "little" : "< 5 cm",
-    "medium" : "5 - 30 cm",
-    "much" : "> 30 cm",
-    "spotty" : "irregolare"
-  },
-  "surfaceSnowWetness" : {
-    "dry" : "Secca",
-    "sticky" : "Umida",
-    "wet" : "Bagnata"
-  },
-  "avalancheProblemNatlefs" : {
-    "new_snow" : "New snow",
-    "wind_drifted_snow" : "Neve ventata",
-    "weak_persistent_layer" : "Neve vecchia a debole coesione (Strati deboli persistenti)",
-    "wet_snow" : "Neve bagnata",
-    "gliding_snow" : "Neve slittante (Valanghe di slittamento)",
-    "favourable_situation" : "Situazione favorebole"
-  },
-  "tracks" : {
-    "none" : "nessuna",
-    "some" : "poche",
-    "many" : "molte"
-  },
-  "location" : {
-    "accuracy" : "GPS Accuracy"
   },
   "units" : {
     "cm" : "cm",

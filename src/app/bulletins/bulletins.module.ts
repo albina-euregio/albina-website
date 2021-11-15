@@ -25,6 +25,7 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
 
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
+import { DatePipe } from "@angular/common";
 
 import { AccordionModule } from "ngx-bootstrap/accordion";
 
@@ -58,6 +59,7 @@ import { AccordionModule } from "ngx-bootstrap/accordion";
         JsonComponent,
         TabsComponent,
         TabComponent
-    ]
+    ],
+    providers: [DatePipe]
 })
 export class BulletinsModule { }

@@ -75,6 +75,8 @@
         "saveBulletin" : "Save bulletin",
         "discardBulletin" : "Discard bulletin changes",
         "loadBulletin" : "Load bulletin from the day before",
+        "uploadJsonBulletin" : "Upload bulletin in JSON format",
+        "downloadJsonBulletin" : "Download bulletin in JSON format",
         "daytimeDependency" : "Daytime dependency",
         "treeline" : "Treeline",
         "tendency" : {
@@ -177,6 +179,10 @@
       },
       "loadingErrorDialog" : {
         "message" : "There was an error loading the bulletins!",
+        "accept" : "Ok"
+      },
+      "loadingJsonFileErrorDialog" : {
+        "message" : "There was an error loading the bulletins from the JSON file!",
         "accept" : "Ok"
       },
       "avalancheSituationErrorDialog" : {

@@ -8,6 +8,15 @@
         <div class="card-header">
           <strong>{{ bulletinsService.getActiveDate() | localizedDate:'fullDate' }}</strong>
           <div *ngIf="bulletinsService.getIsEditable()" class="float-right">
+            <button *ngIf="!bulletinsService.getIsUpdate()" [disabled]="editRegions || loading" type="button" class="btn btn-sm btn-secondary px-3" (click)="downloadJsonBulletin()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.downloadJsonBulletin' | translate }}"><i class="fa fa-download"></i></button>
+            <button *ngIf="!bulletinsService.getIsUpdate()" [disabled]="editRegions || loading" type="button" class="btn btn-sm btn-secondary px-3" (click)="jsonBulletinUploader.click()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.uploadJsonBulletin' | translate }}"><i class="fa fa-upload"></i></button>
+            <input 
+              hidden 
+              type="file" 
+              accept=".json"
+              #jsonBulletinUploader
+              (change)="uploadJsonBulletin($event)"
+            />
             <button *ngIf="!bulletinsService.getIsUpdate()" [disabled]="editRegions || loading" type="reset" class="btn btn-sm btn-primary px-3" (click)="loadBulletinsFromYesterday()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.loadBulletin' | translate }}"><i class="fa fa-copy"></i></button>
           </div>
 <!--
@@ -847,6 +856,13 @@
   <div class="modal-body text-center">
     <p>{{ "bulletins.create.loadingErrorDialog.message" | translate }}</p>
     <button type="button" class="btn btn-primary" (click)="loadingErrorModalConfirm()">{{ "bulletins.create.loadingErrorDialog.accept" | translate }}</button>
+  </div>
+</ng-template>
+
+<ng-template #loadingJsonFileErrorTemplate>
+  <div class="modal-body text-center">
+    <p>{{ "bulletins.create.loadingJsonFileErrorDialog.message" | translate }}</p>
+    <button type="button" class="btn btn-primary" (click)="loadingJsonFileErrorModalConfirm()">{{ "bulletins.create.loadingJsonFileErrorDialog.accept" | translate }}</button>
   </div>
 </ng-template>
 
