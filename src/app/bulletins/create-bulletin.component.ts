@@ -446,7 +446,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         jsonBulletins.push(result[i].toJson());
       }
       const sJson = JSON.stringify(jsonBulletins);
-      const element = document.createElement('a');
+      const element = document.createElement("a");
       element.setAttribute("href", "data:text/json;charset=UTF-8," + encodeURIComponent(sJson));
       element.setAttribute("download", this.datePipe.transform(validFrom, "yyyy-MM-dd") + "_report.json");
       element.style.display = "none";
