@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const { execSync } = require("child_process");
 const { resolve } = require("path");
 const { readFileSync } = require("fs");
+const { ESBuildMinifyPlugin } = require("esbuild-loader");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
@@ -105,6 +106,14 @@ module.exports = (env, argv) => {
             }
           ]
         }
+      ]
+    },
+    optimization: {
+      minimizer: [
+        new ESBuildMinifyPlugin({
+          target: "es2017",
+          css: true
+        })
       ]
     },
     stats: "errors-only",
