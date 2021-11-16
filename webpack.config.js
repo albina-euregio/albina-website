@@ -1,6 +1,5 @@
 const webpack = require("webpack");
 const { execSync } = require("child_process");
-const { resolve } = require("path");
 const { readFileSync } = require("fs");
 const { ESBuildMinifyPlugin } = require("esbuild-loader");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
@@ -33,12 +32,6 @@ module.exports = (env, argv) => {
   });
   return {
     resolve: {
-      alias: {
-        "react-intl": resolve(
-          __dirname,
-          "node_modules/react-intl/dist/react-intl.js"
-        )
-      },
       extensions: [".js", ".jsx"]
     },
     context: __dirname + "/app",
