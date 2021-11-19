@@ -216,11 +216,19 @@ class WeatherStationDiagrams extends React.Component {
   }
 
   renderOperator(stationData) {
+    const operator = stationData.operator;
+    const link = window.config.links.weatherStationOperators[operator] || "";
     return (
       <p className="weatherstation-provider">
         {this.props.intl.formatMessage(
           { id: "dialog:weather-station-diagram:operator:caption" },
-          { operator: stationData.operator }
+          {
+            operator: (
+              <a href={link} rel="noopener noreferrer" target="_blank">
+                {stationData.operator}
+              </a>
+            )
+          }
         )}
       </p>
     );
