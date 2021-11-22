@@ -43,6 +43,13 @@ deploy:dev:
   only:
     - master
     - ci
+deploy:dev:manual:
+  extends: .deploy
+  environment:
+    name: dev
+  needs:
+    - build:dev
+  when: manual
 
 build:beta:
   extends: .build
@@ -57,6 +64,13 @@ deploy:beta:
   only:
     - master
     - ci
+deploy:beta:manual:
+  extends: .deploy
+  environment:
+    name: beta
+  needs:
+    - build:beta
+  when: manual
 
 build:prod:
   extends: .build

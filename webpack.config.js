@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const { execSync } = require("child_process");
-const { resolve } = require("path");
 const { readFileSync } = require("fs");
+const { ESBuildMinifyPlugin } = require("esbuild-loader");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
@@ -32,22 +32,10 @@ module.exports = (env, argv) => {
   });
   return {
     resolve: {
-      alias: {
-        "react-intl": resolve(
-          __dirname,
-          "node_modules/react-intl/dist/react-intl.js"
-        )
-      },
       extensions: [".js", ".jsx"]
     },
     context: __dirname + "/app",
-    entry: [
-      "core-js/stable",
-      "regenerator-runtime/runtime",
-      "./polyfill.js",
-      "./sentry.js",
-      "./main.jsx"
-    ],
+    entry: ["./sentry.js", "./main.jsx"],
     devtool: production ? "source-map" : "eval-cheap-module-source-map",
     devServer: {
       historyApiFallback: {
@@ -69,10 +57,10 @@ module.exports = (env, argv) => {
       rules: [
         {
           test: /\.js$|\.jsx$/,
-          exclude: /node_modules/,
           use: [
             {
-              loader: "babel-loader"
+              loader: "esbuild-loader",
+              options: { loader: "jsx", target: "es2017" }
             }
           ]
         },
@@ -110,6 +98,14 @@ module.exports = (env, argv) => {
             }
           ]
         }
+      ]
+    },
+    optimization: {
+      minimizer: [
+        new ESBuildMinifyPlugin({
+          target: "es2017",
+          css: true
+        })
       ]
     },
     stats: "errors-only",
