@@ -12,7 +12,9 @@ variables:
     paths:
       - .yarn-cache/
   before_script:
-    - yarn --no-progress --frozen-lockfile --cache-folder .yarn-cache/
+    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
+    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
+    - yarn install --frozen-lockfile --no-progress
     - npm --no-git-tag-version version $(git describe)
     - npm rebuild node-sass
   script:
