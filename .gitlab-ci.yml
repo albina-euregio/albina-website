@@ -67,3 +67,8 @@ deploy:production:
   only:
     - tags
   when: manual
+
+build:aran:
+  extends: .build
+  environment:
+    name: aran

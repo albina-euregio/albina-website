@@ -24,6 +24,7 @@
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
+        "aran": "environments/environment.aran.ts",
         "dev": "environments/environment.dev.ts",
         "prod": "environments/environment.prod.ts",
         "local": "environments/environment.ts"

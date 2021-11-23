@@ -71,6 +71,21 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "aran": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.aran.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": ""
@@ -86,6 +101,9 @@
             },
             "production": {
               "browserTarget": "albina-admin-gui:build:production"
+            },
+            "aran": {
+              "browserTarget": "albina-admin-gui:build:aran"
             }
           }
         },
