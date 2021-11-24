@@ -1,4 +1,4 @@
-const polyline = require("@mapbox/polyline");
+import * as polyline from "@mapbox/polyline";
 
 /**
  * @param {GeoJSON.FeatureCollection<Polygon>} geojson
@@ -20,14 +20,14 @@ function mapFeatureCollection(geojson, geometryMapper) {
 /**
  * @param {GeoJSON.FeatureCollection<Polygon>} geojson
  */
-function encodeFeatureCollection(geojson) {
+export function encodeFeatureCollection(geojson) {
   return mapFeatureCollection(geojson, encodeGeometry);
 }
 
 /**
  * @param {GeoJSON.FeatureCollection<Polygon>} geojson
  */
-function decodeFeatureCollection(geojson) {
+export function decodeFeatureCollection(geojson) {
   return mapFeatureCollection(geojson, decodeGeometry);
 }
 
@@ -71,7 +71,9 @@ function decodeGeometry(geometry) {
   throw "Invalid type " + geometry.type;
 }
 
-module.exports = {
-  encodeFeatureCollection,
-  decodeFeatureCollection
-};
+if (typeof module === "object" && module.exports) {
+  module.exports = {
+    encodeFeatureCollection,
+    decodeFeatureCollection
+  };
+}

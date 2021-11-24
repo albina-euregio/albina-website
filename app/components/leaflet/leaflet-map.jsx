@@ -1,7 +1,7 @@
 import React from "react";
 import L from "leaflet";
-require("leaflet/dist/leaflet.css");
-require("./leaflet-player.css");
+import "leaflet/dist/leaflet.css";
+import "./leaflet-player.css";
 
 import {
   Map,
@@ -13,11 +13,11 @@ import {
 import { injectIntl } from "react-intl";
 import { tooltip_init } from "../../js/tooltip";
 
-require("leaflet-geonames");
-require("leaflet.locatecontrol");
-require("leaflet-gesture-handling");
-require("leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css");
-require("../../css/geonames.css");
+import "leaflet-geonames";
+import "leaflet.locatecontrol";
+import "leaflet-gesture-handling";
+import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
+import "../../css/geonames.css";
 
 class LeafletMap extends React.Component {
   constructor(props) {

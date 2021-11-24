@@ -14,7 +14,7 @@ import SubscribeTelegramDialog from "./dialogs/subscribe-telegram-dialog";
 import SubscribeAppDialog from "./dialogs/subscribe-app-dialog";
 import SubscribeEmailDialog from "./dialogs/subscribe-email-dialog";
 import SubscribeBlogDialog from "./dialogs/subscribe-blog-dialog";
-import CookieConsent from "./dialogs/cookie-consent";
+// import CookieConsent from "./dialogs/cookie-consent";
 import FeedbackDialog from "./dialogs/feedback-dialog";
 import ControlBar from "../components/organisms/control-bar.jsx";
 
@@ -86,7 +86,7 @@ class Page extends React.Component {
 
         <PageHeader />
         <main id="page-main" className="page-main">
-          {APP_ENVIRONMENT === "dev" && (
+          {import.meta.env.BASE_URL === "/dev/" && (
             <ControlBar
               style="yellow"
               message={
@@ -124,7 +124,7 @@ class Page extends React.Component {
         <ModalDialog id="subscribeAppDialog">
           <SubscribeAppDialog />
         </ModalDialog>
-        {config.dialogs.cookieConsent && <CookieConsent />}
+        {/* {config.dialogs.cookieConsent && <CookieConsent />} */}
         {config.dialogs.feedback && <FeedbackDialog />}
       </>
     );

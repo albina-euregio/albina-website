@@ -10,8 +10,10 @@ cache:
 
 .build:
   stage: build
+  variables:
+    COMPRESS_BROTLI: 1
+    COMPRESS_GZIP: 1
   script:
-    - "which cwebp || ( apt-get update -y && apt-get install webp -y )"
     - npm ci --cache .npm --prefer-offline
     - npm run test
     - npm run build-$CI_ENVIRONMENT_NAME
@@ -21,9 +23,9 @@ cache:
 
 .deploy:
   stage: deploy
+  image: alpine:latest
   script:
-    - "which rsync || ( apt-get update -y && apt-get install rsync -y )"
-    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+    - apk add openssh-client rsync
     - eval $(ssh-agent -s)
     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
     - mkdir -p ~/.ssh && chmod 700 ~/.ssh
