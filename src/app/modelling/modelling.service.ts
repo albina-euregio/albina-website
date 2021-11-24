@@ -83,8 +83,7 @@ export class ModellingService {
   private getZamgMultiModelPoints(): Observable<ZamgModelPoint[]> {
     const urls = [
       "MultimodelPointsEuregio_001.csv",
-      "snowgridmultimodel_modprog110_HN.txt",
-      "snowgridmultimodel_modprog213_HN.txt",
+      "snowgridmultimodel_modprog1400_HN.txt",
       "snowgridmultimodel_modprog910_HN.txt",
       "snowgridmultimodel_modprog990_HN.txt"
     ].map(file => this.constantsService.zamgModelsUrl + file);

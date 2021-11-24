@@ -9,7 +9,7 @@ export class ConstantsService {
   public release = [pkg.name, pkg.version].join("@");
   public gitlab = pkg.bugs.url;
 
-  public zamgModelsUrl: string = "https://avalanche.report/zamg/";
+  public zamgModelsUrl: string = "https://avalanche.report/zamg/zamg/";
   public snowpackModelsUrl: string = "https://avalanche.report/alpsolut/";
 
   public observationApi = {
