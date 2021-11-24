@@ -1,5 +1,5 @@
 import React from "react";
-import "selectric/src/jquery.selectric.js";
+import "../js/jquery.selectric";
 import { injectIntl } from "react-intl";
 
 /**

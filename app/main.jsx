@@ -6,9 +6,8 @@ import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
 import { fetchJSON } from "./util/fetch.js";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
-
-/* bower components */
-window["jQuery"] = window["$"] = require("jquery");
+import jQuery from "jquery";
+window["jQuery"] = window["$"] = jQuery;
 
 // TODO: check content API for maintenance mode before starting the app
 window["appStore"] = new AppStore();
@@ -21,7 +20,7 @@ window["tiltySettings"] = {
   "data-tilt-scale": 1.1
 };
 
-require("./js/custom.js");
+import "./js/custom.js";
 
 // detect WebP support
 // test taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/img/webp.js
@@ -42,11 +41,12 @@ const isWebpSupported = new Promise(resolve => {
  * redeploying the whole app.
  */
 const configUrl =
-  APP_ASSET_PATH + "config.json?" + Math.floor(Date.now() / 3600 / 1000);
+  import.meta.env.BASE_URL +
+  "config.json?" +
+  Math.floor(Date.now() / 3600 / 1000);
 const configRequest = fetchJSON(configUrl);
 Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
-  configParsed["projectRoot"] = APP_ASSET_PATH;
-  configParsed["developmentMode"] = APP_DEV_MODE; // included via webpack.DefinePlugin
+  configParsed["projectRoot"] = import.meta.env.BASE_URL;
   configParsed["webp"] = webp;
   if (webp) {
     document.body.className += " webp";
@@ -86,7 +86,7 @@ Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
 
 if (isWebPushSupported()) {
   navigator.serviceWorker
-    .register(APP_ASSET_PATH + "service-worker.js")
+    .register(import.meta.env.BASE_URL + "service-worker.js")
     .then(serviceWorkerRegistration => {
       console.info("Service worker was registered.", {
         serviceWorkerRegistration

@@ -7,7 +7,7 @@
     #NAVIGATION
 \*------------------------------------*/
 
-$page-header-height: calc(3 * #{$body-font-size});
+$page-header-height: calc(3 * $body-font-size);
 
 $page-header-padding-v: 0.5em;
 $page-header-padding-h: 1em;

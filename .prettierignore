@@ -1,8 +1,7 @@
-app/bower_components/
-app/content/**/de.html
-app/content/**/fr.html
-app/content/**/it.html
-app/content/**/fr.html
-app/content/**/es.html
-app/content/**/ca.html
-app/content/**/oc.html
+public/content/**/de.html
+public/content/**/fr.html
+public/content/**/it.html
+public/content/**/fr.html
+public/content/**/es.html
+public/content/**/ca.html
+public/content/**/oc.html

@@ -10,17 +10,11 @@ import { ScrollContext } from "react-router-scroll-4";
 import Bulletin from "./../views/bulletin";
 import BlogOverview from "./../views/blogOverview";
 import BlogPost from "./../views/blogPost";
-const Weather = React.lazy(() =>
-  import(/* webpackChunkName: "app-weather" */ "./../views/weather")
-);
+const Weather = React.lazy(() => import("./../views/weather"));
 const StationMeasurements = React.lazy(() =>
-  import(
-    /* webpackChunkName: "app-stationMeasurements" */ "./../views/stationMeasurements"
-  )
+  import("./../views/stationMeasurements")
 );
-const StationMap = React.lazy(() =>
-  import(/* webpackChunkName: "app-stationMap" */ "./../views/stationMap")
-);
+const StationMap = React.lazy(() => import("./../views/stationMap"));
 import Education from "./../views/education";
 import More from "./../views/more";
 import Archive from "./../views/archive";
@@ -30,8 +24,7 @@ import Page from "./page";
 import { scroll_init } from "../js/scroll";
 import { orientation_change } from "../js/browser";
 
-//require("../css/style.css");
-require("../css/style.scss"); // CSS overrides
+import "../css/style.scss"; // CSS overrides
 
 class App extends React.Component {
   componentDidMount() {

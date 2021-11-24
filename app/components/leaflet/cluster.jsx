@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import { MapLayer } from "react-leaflet";
 import L from "leaflet";
 
-require("leaflet.markercluster");
-require("leaflet.markercluster/dist/MarkerCluster.css");
+import "leaflet.markercluster";
+import "leaflet.markercluster/dist/MarkerCluster.css";
 
 class Cluster extends MapLayer {
   constructor(props) {

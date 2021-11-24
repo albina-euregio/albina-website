@@ -4,7 +4,7 @@ export default class StaticPageStore {
   async loadPage(url) {
     const lang = window["appStore"].language;
     const chapter = url.split("/")[0] || "";
-    url = `${APP_ASSET_PATH}content/${url}/${lang}.html`;
+    url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
 
     const text = await fetchText(url);
     const sharable = true;

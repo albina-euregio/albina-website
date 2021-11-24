@@ -82,7 +82,7 @@
       .page-header-logo,
       .page-header-language,
       .page-header-logo-secondary {
-        top: -$page-header-height;
+        top: calc(-1 * $page-header-height);
         opacity: 0;
       }
       .page-header-navigation {

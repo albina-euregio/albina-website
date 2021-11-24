@@ -1,4 +1,4 @@
-import fluidvids from "fluidvids.js";
+import fluidvids from "../js/fluidvids";
 
 function video_init() {
   setTimeout(() => {

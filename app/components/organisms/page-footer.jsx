@@ -5,19 +5,19 @@ import Menu from "../menu";
 import SmFollow from "./sm-follow.jsx";
 import FooterLogos from "./footer-logos.jsx";
 import { Util } from "leaflet";
-if (!window["tilty"]) window["tilty"] = require("vanilla-tilt");
+import tilty from "vanilla-tilt";
 
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
 
-const license = APP_LICENSE; // included via webpack.DefinePlugin
-const repository = APP_REPOSITORY; // included via webpack.DefinePlugin
-const version = APP_VERSION; // included via webpack.DefinePlugin
-const versionDate = APP_VERSION_DATE; // included via webpack.DefinePlugin
+const license = import.meta.env.APP_LICENSE; // included via vite.config.js
+const repository = import.meta.env.APP_REPOSITORY; // included via vite.config.js
+const version = import.meta.env.APP_VERSION; // included via vite.config.js
+const versionDate = import.meta.env.APP_VERSION_DATE; // included via vite.config.js
 
 class PageFooter extends React.Component {
   componentDidMount() {
-    window["tilty"].init(document.querySelectorAll(".tilt"));
+    tilty.init(document.querySelectorAll(".tilt"));
   }
 
   render() {
@@ -54,11 +54,7 @@ class PageFooter extends React.Component {
                 </p>
               )}
               <p className="page-footer-text">
-                <a
-                  href={repository.url}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
+                <a href={repository} rel="noopener noreferrer" target="_blank">
                   albina-website {version}
                 </a>
                 , {versionDate}, {license}

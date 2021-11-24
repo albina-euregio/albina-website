@@ -12,7 +12,7 @@ class PageHeader extends React.Component {
   // changing language on header language button click
   handleChangeLanguage = newLanguage => {
     console.info("Changing language to " + newLanguage);
-    if (APP_DEV_MODE) {
+    if (import.meta.env.DEV) {
       // since website is served from localhost, just change language in appStore
       window["appStore"].setLanguage(newLanguage);
       return;

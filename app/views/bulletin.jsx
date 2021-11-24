@@ -9,9 +9,7 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
 const BulletinMap = React.lazy(() =>
-  import(
-    /* webpackChunkName: "app-bulletin-map" */ "../components/bulletin/bulletin-map"
-  )
+  import("../components/bulletin/bulletin-map")
 );
 import BulletinLegend from "../components/bulletin/bulletin-legend";
 import BulletinButtonbar from "../components/bulletin/bulletin-buttonbar";
@@ -24,7 +22,7 @@ import BulletinList from "../components/bulletin/bulletin-list";
 import { parseSearchParams } from "../util/searchParams";
 import { Suspense } from "react";
 
-require("leaflet.sync");
+import "leaflet.sync";
 
 class Bulletin extends React.Component {
   constructor(props) {
