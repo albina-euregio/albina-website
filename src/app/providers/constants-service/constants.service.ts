@@ -10,7 +10,7 @@ export class ConstantsService {
   public gitlab = pkg.bugs.url;
 
   public zamgModelsUrl: string = "https://avalanche.report/zamg/zamg/";
-  public snowpackModelsUrl: string = "https://avalanche.report/alpsolut/";
+  public snowpackModelsUrl: string = "https://avalanche.report/alpsolut/html/";
 
   public observationApi = {
     [ObservationSource.AvaObsObservations]: "https://admin.avalanche.report/avaobs/dataexport/observations/",

@@ -203,23 +203,23 @@ export class ModellingService {
 
   getSnowpackMeteoPlots(): string[] {
     return [
-      "new_snow_plot_3day",
-      "new_snow_plot_7day",
-      "new_snow_plot_1month",
-      "new_snow_plot_season",
-      "new_snow_plot_forecast",
-      "wet_snow_plot_3day",
-      "wet_snow_plot_7day",
-      "wet_snow_plot_1month",
-      "wet_snow_plot_season",
-      "wet_snow_plot_forecast",
-      "HS_table_24h",
-      "HS_table_72h",
-      "HS_table_season",
-      "HS_table_forecast",
-      "TA_table_24h",
-      "TA_table_72h",
-      "TA_table_season"
+      "AT-7_new_snow_plot_3day",
+      "AT-7_new_snow_plot_7day",
+      "AT-7_new_snow_plot_1month",
+      "AT-7_new_snow_plot_season",
+      "AT-7_new_snow_plot_forecast",
+      "AT-7_wet_snow_plot_3day",
+      "AT-7_wet_snow_plot_7day",
+      "AT-7_wet_snow_plot_1month",
+      "AT-7_wet_snow_plot_season",
+      "AT-7_wet_snow_plot_forecast",
+      "AT-7_HS_table_24h",
+      "AT-7_HS_table_72h",
+      "AT-7_HS_table_season",
+      "AT-7_HS_table_forecast",
+      "AT-7_TA_table_24h",
+      "AT-7_TA_table_72h",
+      "AT-7_TA_table_season"
     ];
   }
 }
