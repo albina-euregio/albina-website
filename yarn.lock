@@ -5096,17 +5096,17 @@ primeflex@^2.0.0:
   resolved "https://registry.yarnpkg.com/primeflex/-/primeflex-2.0.0.tgz#b4152a97a455bbfad33503b6e10fe73d1f9e2228"
   integrity sha512-t6AG3iRI1rh04uI+9nC4JSlbKfA8PnpRDFtjyqi3rDSLRgdfOuhIiunJbjVQ4alnnCfuQAAbVyde1AKN9QxT/w==
 
-primeicons@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-4.1.0.tgz#19eaef8ef5594b0006358ae64e738d03e167c9bb"
-  integrity sha512-uEv2pSPk1zQCfaB2VgnUfnUxxlGryYi+5rbdxmZBBt5v9S/pscIQYS5YDLxsQZ7D9jn5c76+Tx5wX/2J1nK6sA==
+primeicons@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-5.0.0.tgz#73a0b6028a77c58a9eeb331ad13aaf085e8451ee"
+  integrity sha512-heygWF0X5HFI1otlZE62pp6ye7sZ8om78J9au2BRkg8O7Y8AHTZ9qKMRzchZUHLe8zUAvdi6hZzzm9XxgwIExw==
 
-primeng@^12.2.2:
-  version "12.2.2"
-  resolved "https://registry.yarnpkg.com/primeng/-/primeng-12.2.2.tgz#2e8d687eb3f4475f8e1f1f461def0314670f93c7"
-  integrity sha512-PB2kZzwhAb3M5nQXe1hUfsBGXAbhGcf/NVwg8mp4P5JETJ4nAGgixNPPGjBdmFW6l8QzmlsAVb3nMF+rPaZH4g==
+primeng@^13.0.0:
+  version "13.0.0"
+  resolved "https://registry.yarnpkg.com/primeng/-/primeng-13.0.0.tgz#5bdf7cdca1690d942ecc6385d99b0fff1cec8403"
+  integrity sha512-e11mDjjChRwpMQ/9KTK9VkLXYklyD2GSiaTo8mzyFUV3PtAFCIyZlpdcUm4NtQcsdfF1f23EYI5rV6V1Ggz7og==
   dependencies:
-    tslib "^2.1.0"
+    tslib "^2.3.0"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -5918,7 +5918,7 @@ tree-kill@1.2.2:
   resolved "https://registry.yarnpkg.com/tree-kill/-/tree-kill-1.2.2.tgz#4ca09a9092c88b73a7cdc5e8a01b507b0790a0cc"
   integrity sha512-L0Orpi8qGpRG//Nd+H90vFB+3iHnue1zSSGmNOOCh1GLJ7rUKVwV2HvijphGQS2UmhUZewS9VgvxYIdgr+fG1A==
 
-tslib@2.3.1, tslib@^2.0.0, tslib@^2.1.0, tslib@^2.3.0:
+tslib@2.3.1, tslib@^2.0.0, tslib@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==

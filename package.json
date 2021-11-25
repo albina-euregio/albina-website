@@ -54,8 +54,8 @@
     "ngx-bootstrap": "^5.5.0",
     "papaparse": "^5.3.0",
     "primeflex": "^2.0.0",
-    "primeicons": "^4.1.0",
-    "primeng": "^12.2.2",
+    "primeicons": "^5.0.0",
+    "primeng": "^13.0.0",
     "rxjs": "6.5.4",
     "rxjs-compat": "^6.0.0-rc.0",
     "zone.js": "~0.11.4"
