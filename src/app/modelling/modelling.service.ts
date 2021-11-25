@@ -90,7 +90,7 @@ export class ModellingService {
     return Observable.forkJoin(urls.map(url => this.http.get(url, {responseType: "text"})))
       .pipe(map(responses => responses.map(r => this.parseCSV(r.toString()))))
       .pipe(
-        map(([points, hn110, hn213, hn910, hn990]) =>
+        map(([points, hs1400, hn910, hn990]) =>
           points.data.map((row: MultimodelPointCsv) => {
             const id = row.UID;
             const regionCode = row.RegionCode;
@@ -101,7 +101,7 @@ export class ModellingService {
             const freshSnow: ZamgFreshSnow[] = [];
             try {
               [12, 24, 48, 72].map(hour => {
-                const values = [hn110, hn213, hn910, hn990]
+                const values = [hs1400, hn910, hn990]
                   .map(csv => {
                     const rowIndex = csv.data.findIndex(
                       r => r["-9999.0"] === `${hour}.0`
