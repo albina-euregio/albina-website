@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Parser, ProcessNodeDefinitions } from "html-to-react";
+import htmr from "htmr";
 import { injectIntl } from "react-intl";
 import { withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
@@ -39,72 +39,33 @@ class BlogPost extends React.Component {
   }
 
   _preprocessContent(content) {
-    const defaults = new ProcessNodeDefinitions(React);
-    const htmlParser = new Parser();
-    const isValidNode = () => true;
     const deprecatedAttrs = ["align", "border"];
-
-    const instructions = [
-      {
-        // Turn image links into lightboxes
-        shouldProcessNode: node => {
-          return (
-            node.name == "a" &&
-            node.children &&
-            node.children.reduce((acc, c) => acc || c.name == "img", false)
-          );
-        },
-        processNode: (node, ...args) => {
-          node.attribs.class =
-            (node.attribs.class ? node.attribs.class + " " : "") +
-            "mfp-image modal-trigger img";
-          return defaults.processDefaultNode(node, ...args);
+    return htmr(content, {
+      transform: {
+        _(type, props, children) {
+          if (!props && !children) {
+            return type;
+          } else if (type == "a" && children?.some(c => c.type == "img")) {
+            // Turn image links into lightboxes
+            props.className =
+              (props.className || "") + " mfp-image modal-trigger img";
+          } else if (
+            type == "iframe" &&
+            props?.className?.includes("YOUTUBE-iframe-video")
+          ) {
+            // Use Fitvids for youtube iframes
+            return React.createElement(
+              "div",
+              { className: "fitvids", key: props.src },
+              children
+            );
+          }
+          // Remove deprecated html attributes
+          deprecatedAttrs.forEach(prop => delete props[prop]);
+          return React.createElement(type, props, children);
         }
-      },
-      {
-        // Use Fitvids for youtube iframes
-        shouldProcessNode: node => {
-          return (
-            node.name == "iframe" &&
-            node.attribs.class &&
-            node.attribs.class.indexOf("YOUTUBE-iframe-video") >= 0
-          );
-        },
-        processNode: (node, ...args) => {
-          return React.createElement(
-            "div",
-            { className: "fitvids", key: node.attribs.src },
-            defaults.processDefaultNode(node, ...args)
-          );
-        }
-      },
-      {
-        // Remove deprecated html attributes
-        shouldProcessNode: node => {
-          return (
-            node.attribs &&
-            deprecatedAttrs.reduce(
-              (acc, prop) => acc || node.attribs[prop],
-              false
-            )
-          );
-        },
-        processNode: (node, ...args) => {
-          deprecatedAttrs.forEach(prop => {
-            if (node.attribs[prop]) {
-              delete node.attribs[prop];
-            }
-          });
-          return defaults.processDefaultNode(node, ...args);
-        }
-      },
-      {
-        shouldProcessNode: () => true,
-        processNode: defaults.processDefaultNode
       }
-    ];
-
-    return htmlParser.parseWithInstructions(content, isValidNode, instructions);
+    });
   }
 
   _fetchData(props) {
