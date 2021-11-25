@@ -41,7 +41,7 @@
     "@angular/router": "^13.0.2",
     "@angular/upgrade": "^13.0.2",
     "@auth0/angular-jwt": "^4.0.0",
-    "@ngx-translate/core": "^12.1.2",
+    "@ngx-translate/core": "^14.0.0",
     "@sentry/angular": "^6.15.0",
     "@sentry/tracing": "^6.15.0",
     "@types/geojson": "^7946.0.7",
