@@ -16,6 +16,7 @@ import {
 } from "./models/lawis.model";
 import { GenericObservation, ObservationSource, toAspect } from "./models/generic-observation.model";
 import {
+  ArcGisApi,
   ArcGisLayer,
   convertLwdKipBeobachtung,
   convertLwdKipLawinenabgang,
@@ -56,8 +57,15 @@ export class ObservationsService {
       const url = this.constantsService.getServerUrl() + "observations/lwdkip/layers?f=json";
       const headers = this.authenticationService.newAuthHeader();
       this.lwdKipLayers = this.http
-        .get<{ layers: ArcGisLayer[] }>(url, { headers })
-        .map((data) => data.layers);
+        .get<ArcGisApi>(url, { headers })
+        .map((data) => {
+          if ('error' in data) {
+            throw new Error(data.error?.message);
+          } else if (!data.layers?.length) {
+            throw new Error("No LWDKIP layers found!");
+          }
+          return data.layers;
+        });
     }
     const lwdKipLayers = this.lwdKipLayers.last();
     return lwdKipLayers.flatMap((layers) => {

@@ -1,5 +1,9 @@
 import { GenericObservation, ObservationSource, toAspect } from "./generic-observation.model";
 
+export type ArcGisApi =
+  | { layers: ArcGisLayer[] }
+  | { error: { message: string } };
+
 // https://gis.tirol.gv.at/arcgis/rest/services/APPS_DVT/lwdkip/MapServer/layers?f=json
 export interface ArcGisLayer {
   id: number;
