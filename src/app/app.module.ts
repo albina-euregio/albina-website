@@ -64,8 +64,6 @@ import { ModalCheckComponent } from "./bulletins/modal-check.component";
 import { ModalPublicationStatusComponent } from "./bulletins/modal-publication-status.component";
 import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.component";
 
-import * as Sentry from "@sentry/browser";
-
 import localeDe from "@angular/common/locales/de";
 import localeIt from "@angular/common/locales/it";
 import localeEn from "@angular/common/locales/en";
@@ -83,12 +81,6 @@ import i18nCa from "../assets/i18n/ca.json";
 import i18nOc from "../assets/i18n/oc.json";
 import { CreateUserComponent } from "./admin/create-user.component";
 import { UpdateUserComponent } from "./admin/update-user.component";
-
-const pkg = require("../../package.json");
-Sentry.init({
-  release: [pkg.name, pkg.version].join("@"),
-  dsn: "https://f01d3588732c4ed195093468989a45f2@sentry.io/1828063"
-});
 
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
