@@ -13,7 +13,7 @@ if (environment.production) {
 
   Sentry.init({
     release: [pkg.name, pkg.version].join("@"),
-    dsn: "https://f01d3588732c4ed195093468989a45f2@sentry.io/1828063",
+    dsn: "https://glet_31733ac62aeee70b77494f532cb4f898@gitlab.com/api/v4/error_tracking/collector/2700759",
     integrations: [
       new Integrations.BrowserTracing({
         routingInstrumentation: Sentry.routingInstrumentation,
