@@ -45,44 +45,44 @@ const configUrl =
   "config.json?" +
   Math.floor(Date.now() / 3600 / 1000);
 const configRequest = fetchJSON(configUrl);
-Promise.all([configRequest, isWebpSupported]).then(([configParsed, webp]) => {
-  configParsed["projectRoot"] = import.meta.env.BASE_URL;
-  configParsed["webp"] = webp;
-  if (webp) {
-    document.body.className += " webp";
-    // enable WebP for ALBINA layer
-    configParsed["map"]["tileLayers"]
-      .filter(layer => layer["id"] === "ALBINA")
-      .forEach(
-        layer => (layer["url"] = layer["url"].replace(/\.png/, ".webp"))
-      );
+Promise.all([configRequest, isWebpSupported]).then(
+  async ([configParsed, webp]) => {
+    configParsed["projectRoot"] = import.meta.env.BASE_URL;
+    configParsed["webp"] = webp;
+    if (webp) {
+      document.body.className += " webp";
+      // enable WebP for ALBINA layer
+      configParsed["map"]["tileLayers"]
+        .filter(layer => layer["id"] === "ALBINA")
+        .forEach(
+          layer => (layer["url"] = layer["url"].replace(/\.png/, ".webp"))
+        );
+    }
+
+    const language = configParsed["hostLanguageSettings"][location.host];
+    if (!language && location.host.startsWith("www.")) {
+      location.host = location.host.substring("www.".length);
+    }
+    await window["appStore"].setLanguage(language || "en");
+
+    window.config = configParsed;
+
+    // initially set language-dependent body classes
+    const initialLang = window["appStore"].language;
+    document.body.parentElement.lang = initialLang;
+    document.body.className +=
+      (document.body.className ? " " : "") +
+      "domain-" +
+      initialLang +
+      " language-" +
+      initialLang;
+
+    ReactDOM.render(
+      <App />,
+      document.body.appendChild(document.getElementById("page-all"))
+    );
   }
-
-  const language = configParsed["hostLanguageSettings"][location.host];
-  if (!language && location.host.startsWith("www.")) {
-    location.host = location.host.substring("www.".length);
-  }
-  if (language) {
-    window["appStore"].setLanguage(language);
-  }
-
-  window.config = configParsed;
-
-  // initially set language-dependent body classes
-  const initialLang = window["appStore"].language;
-  document.body.parentElement.lang = initialLang;
-  document.body.className +=
-    (document.body.className ? " " : "") +
-    "domain-" +
-    initialLang +
-    " language-" +
-    initialLang;
-
-  ReactDOM.render(
-    <App />,
-    document.body.appendChild(document.getElementById("page-all"))
-  );
-});
+);
 
 if (isWebPushSupported()) {
   navigator.serviceWorker
