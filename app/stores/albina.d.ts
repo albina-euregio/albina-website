@@ -1,4 +1,4 @@
-namespace Albina {
+declare namespace Albina {
   export interface DaytimeBulletin {
     id: string;
     forenoon: Caaml.Bulletin;

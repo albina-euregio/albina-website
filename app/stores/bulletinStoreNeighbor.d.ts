@@ -1,4 +1,4 @@
-namespace Albina {
+declare namespace Albina {
   export interface NeighborBulletin {
     valid_regions: string[];
     danger_main: DangerMain[];

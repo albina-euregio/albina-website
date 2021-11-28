@@ -7,7 +7,7 @@ import {
 } from "../util/date.js";
 
 import { GeoJSON, Util } from "leaflet";
-import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.js";
+import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.ts";
 import { fetchText } from "../util/fetch.js";
 import { loadNeighborBulletins } from "./bulletinStoreNeighbor.js";
 

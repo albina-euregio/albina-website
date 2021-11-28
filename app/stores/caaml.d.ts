@@ -1,4 +1,4 @@
-namespace Caaml {
+declare namespace Caaml {
   export interface Bulletins {
     metaData?: MetaData[];
     bulletins: Bulletin[];

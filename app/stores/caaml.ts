@@ -1,15 +1,7 @@
 import { getWarnlevelNumber } from "../util/warn-levels";
 
-/**
- * @param {XMLDocument} document
- * @returns {Caaml.Bulletins} caaml
- */
-export function convertCaamlToJson(document) {
-  const json = {};
-
-  /**
-   * @type NamedNodeMap
-   */
+export function convertCaamlToJson<T>(document: Element): Caaml.Bulletins {
+  const json: any = {};
   const attributes = document.attributes || [];
   for (var i = 0; i < attributes.length; i++) {
     const { name, value } = attributes[i];
@@ -79,29 +71,25 @@ export function convertCaamlToJson(document) {
   return json;
 }
 
-/**
- * @param {Caaml.Bulletin[]} bulletins
- * @returns {Albina.DaytimeBulletin[]}
- */
-export function toDaytimeBulletins(bulletins) {
+export function toDaytimeBulletins(
+  bulletins: Caaml.Bulletin[]
+): Albina.DaytimeBulletin[] {
   return bulletins
     .map(forenoon => {
       if (forenoon.id.match(/_PM$/)) return;
-      /**
-       * @type {Albina.DaytimeBulletin}
-       */
-      const albina = {
+      const afternoon = bulletins.find(b => b.id === forenoon.id + "_PM");
+      const albina: Albina.DaytimeBulletin = {
         id: forenoon.id,
-        forenoon: forenoon,
-        afternoon: bulletins.find(b => b.id === forenoon.id + "_PM")
+        forenoon,
+        afternoon,
+        hasDaytimeDependency: !!afternoon,
+        maxWarnlevel: [
+          ...(forenoon?.dangerRatings?.map(r => r.mainValue) || []),
+          ...(afternoon?.dangerRatings?.map(r => r.mainValue) || [])
+        ].reduce((r1, r2) =>
+          getWarnlevelNumber(r1) > getWarnlevelNumber(r2) ? r1 : r2
+        )
       };
-      albina.hasDaytimeDependency = !!albina.afternoon;
-      albina.maxWarnlevel = [
-        ...(albina?.forenoon?.dangerRatings?.map(r => r.mainValue) || []),
-        ...(albina?.afternoon?.dangerRatings?.map(r => r.mainValue) || [])
-      ].reduce((r1, r2) =>
-        getWarnlevelNumber(r1) > getWarnlevelNumber(r2) ? r1 : r2
-      );
       return albina;
     })
     .filter(bulletin => !!bulletin);
