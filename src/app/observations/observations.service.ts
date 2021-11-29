@@ -217,7 +217,15 @@ export class ObservationsService {
   getLawisProfiles(): Observable<GenericObservation> {
     const { observationApi: api, observationWeb: web } = this.constantsService;
     return this.http
-      .get<Profile[]>(api.LawisSnowProfiles + "?startDate=" + this.startDateString + "&endDate=" + this.endDateString)
+      .get<Profile[]>(
+        api.LawisSnowProfiles +
+          "?startDate=" +
+          this.startDateString +
+          "&endDate=" +
+          this.endDateString +
+          "&_=" +
+          nowWithHourPrecision()
+      )
       .mergeAll()
       .map<Profile, GenericObservation<Profile>>((lawis) => ({
         $data: lawis,
@@ -251,7 +259,15 @@ export class ObservationsService {
   getLawisIncidents(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
     return this.http
-      .get<Incident[]>(api.LawisIncidents + "?startDate=" + this.startDateString + "&endDate=" + this.endDateString)
+      .get<Incident[]>(
+        api.LawisIncidents +
+          "?startDate=" +
+          this.startDateString +
+          "&endDate=" +
+          this.endDateString +
+          "&_=" +
+          nowWithHourPrecision()
+      )
       .mergeAll()
       .map<Incident, GenericObservation<Incident>>((lawis) => ({
         $data: lawis,
@@ -361,6 +377,12 @@ function getISOString(date: Date) {
   function pad(number: number): string {
     return number < 10 ? `0${number}` : `${number}`;
   }
+}
+
+function nowWithHourPrecision(): number {
+  const now = new Date();
+  now.setHours(now.getHours(), 0, 0, 0);
+  return +now;
 }
 
 export interface GeocodingProperties {

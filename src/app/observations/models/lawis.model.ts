@@ -1,7 +1,7 @@
 import * as Enums from "app/enums/enums";
 import { GenericObservation, ObservationTableRow } from "./generic-observation.model";
 
-export const LAWIS_FETCH_DETAILS = false;
+export const LAWIS_FETCH_DETAILS = true;
 
 // https://lawis.at/lawis_api/public/swagger/
 export interface Lawis {
