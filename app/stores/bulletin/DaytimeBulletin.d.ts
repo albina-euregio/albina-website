@@ -1,9 +1,9 @@
-declare namespace Albina {
-  export interface DaytimeBulletin {
-    id: string;
-    forenoon: Caaml.Bulletin;
-    afternoon?: Caaml.Bulletin;
-    hasDaytimeDependency: boolean;
-    maxWarnlevel: Caaml.DangerRatingValue;
-  }
+import { Bulletin, DangerRatingValue } from "./CaamlBulletin";
+
+export interface DaytimeBulletin {
+  id: string;
+  forenoon: Bulletin;
+  afternoon?: Bulletin;
+  hasDaytimeDependency: boolean;
+  maxWarnlevel: DangerRatingValue;
 }

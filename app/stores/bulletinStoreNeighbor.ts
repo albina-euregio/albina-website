@@ -1,14 +1,9 @@
 import { decodeFeatureCollection } from "../util/polyline";
+import { NeighborBulletin } from "./bulletin";
 
-/**
- * @type {Promise<GeoJSON.FeatureCollection>}
- */
-let loadedRegions = undefined;
+let loadedRegions: Promise<GeoJSON.FeatureCollection> = undefined;
 
-/**
- * @return {Promise<GeoJSON.FeatureCollection>}
- */
-async function loadRegions() {
+async function loadRegions(): Promise<GeoJSON.FeatureCollection> {
   const regionsPolyline = await import(
     "./neighbor_micro_regions.polyline.json"
   );
@@ -18,10 +13,7 @@ async function loadRegions() {
   return Object.freeze(regions);
 }
 
-/**
- * @type {Promise<Albina.NeighborBulletin[]>}
- */
-async function loadBulletins(date) {
+async function loadBulletins(date: string): Promise<NeighborBulletin[]> {
   const regions = [
     "AT-02",
     "AT-03",
@@ -43,10 +35,9 @@ async function loadBulletins(date) {
   return allBulletins.flat();
 }
 
-/**
- * @returns {Promise<GeoJSON.FeatureCollection>}
- */
-export async function loadNeighborBulletins(date) {
+export async function loadNeighborBulletins(
+  date: string
+): Promise<GeoJSON.FeatureCollection> {
   if (typeof date !== "string") return;
   const bulletins = await loadBulletins(date);
   if (!loadedRegions) loadedRegions = loadRegions();
@@ -74,12 +65,10 @@ const WARNLEVEL_COLORS = [
   "#ff0000"
 ];
 
-/**
- * @param {GeoJSON.Feature} feature
- * @param {Albina.NeighborBulletin[]} bulletins
- * @returns {GeoJSON.Feature}
- */
-function augmentNeighborFeature(feature, bulletins) {
+function augmentNeighborFeature(
+  feature: GeoJSON.Feature,
+  bulletins: NeighborBulletin[]
+): GeoJSON.Feature {
   const region = feature.properties.id;
   const elevation = feature.properties.elevation;
   bulletins = bulletins.filter(bulletin =>
@@ -122,10 +111,7 @@ function augmentNeighborFeature(feature, bulletins) {
   };
 }
 
-/**
- * @returns{Promise<GeoJSON.Feature[]>}}
- */
-async function loadRegionsCH() {
+async function loadRegionsCH(): Promise<GeoJSON.Feature[]> {
   const extraRegionsPolyline = await import("./neighbor_regions.polyline.json");
   const extraRegions = decodeFeatureCollection(
     extraRegionsPolyline.default

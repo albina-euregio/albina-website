@@ -7,9 +7,15 @@ import {
 } from "../util/date.js";
 
 import { GeoJSON, Util } from "leaflet";
-import { convertCaamlToJson, toDaytimeBulletins } from "./caaml.ts";
+import {
+  AvalancheProblemType,
+  Bulletins,
+  convertCaamlToJson,
+  DaytimeBulletin,
+  toDaytimeBulletins
+} from "./bulletin";
 import { fetchText } from "../util/fetch.js";
-import { loadNeighborBulletins } from "./bulletinStoreNeighbor.js";
+import { loadNeighborBulletins } from "./bulletinStoreNeighbor";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import encodedMicroRegions from "./micro_regions.polyline.json";
@@ -19,21 +25,17 @@ const neighborRegions = decodeFeatureCollection(encodedNeighborRegions);
 
 const enableNeighborRegions = true;
 
-class BulletinCollection {
-  date;
-  status;
-  statusMessage;
-  /**
-   * @type {Caaml.Bulletins}
-   */
-  dataRaw;
-  /**
-   * @type {Albina.DaytimeBulletin[]}
-   */
-  daytimeBulletins;
-  neighborBulletins;
+type Status = "pending" | "ok" | "empty" | "n/a";
 
-  constructor(date) {
+class BulletinCollection {
+  date: string;
+  status: Status;
+  statusMessage: string;
+  dataRaw: Bulletins;
+  daytimeBulletins: DaytimeBulletin[];
+  neighborBulletins: GeoJSON.FeatureCollection;
+
+  constructor(date: string) {
     this.date = date;
     this.status = "pending";
     this.statusMessage = "";
@@ -41,11 +43,11 @@ class BulletinCollection {
     this.daytimeBulletins = [];
   }
 
-  get regions() {
+  get regions(): string[] {
     return this.daytimeBulletins.map(el => el.id);
   }
 
-  get publicationDate() {
+  get publicationDate(): Date {
     // return maximum of all publicationDates
     if (this.status == "ok" && this.length > 0) {
       return this.daytimeBulletins
@@ -60,7 +62,7 @@ class BulletinCollection {
     return null;
   }
 
-  get publicationDateSeconds() {
+  get publicationDateSeconds(): Date {
     // return maximum of all publicationDates
     if (this.status == "ok" && this.length > 0) {
       return this.daytimeBulletins
@@ -75,15 +77,15 @@ class BulletinCollection {
     return null;
   }
 
-  get length() {
+  get length(): number {
     return this.daytimeBulletins.length;
   }
 
-  hasDaytimeDependency() {
+  hasDaytimeDependency(): boolean {
     return this.daytimeBulletins.some(b => b.hasDaytimeDependency);
   }
 
-  getBulletinForRegion(regionId) {
+  getBulletinForRegion(regionId: string): DaytimeBulletin {
     return (
       this.daytimeBulletins.find(el => el.id == regionId) ??
       this.daytimeBulletins.find(el =>
@@ -92,14 +94,11 @@ class BulletinCollection {
     );
   }
 
-  getData() {
+  getData(): Bulletins {
     return this.dataRaw;
   }
 
-  /**
-   * @param {string} xmlString
-   */
-  setData(xmlString) {
+  setData(xmlString: string | any[]) {
     if (typeof xmlString !== "string" || xmlString.length == 0) {
       this.dataRaw = undefined;
       this.status = "empty";
@@ -107,7 +106,7 @@ class BulletinCollection {
     }
     const parser = new DOMParser();
     const document = parser.parseFromString(xmlString, "application/xml");
-    this.dataRaw = convertCaamlToJson(document);
+    this.dataRaw = convertCaamlToJson(document.documentElement);
     this.daytimeBulletins = toDaytimeBulletins(this.dataRaw?.bulletins || []);
     // console.log(this.dataRaw);
     this.status =
@@ -128,29 +127,22 @@ class BulletinCollection {
 }
 
 class BulletinStore {
+  bulletins: Record<string, BulletinCollection> = {};
+  latest = null;
+  settings = {
+    status: "",
+    neighbors: 0,
+    date: "",
+    region: ""
+  };
+  problems: Record<AvalancheProblemType, { highlighted: boolean }> = {
+    new_snow: { highlighted: false },
+    wind_drifted_snow: { highlighted: false },
+    persistent_weak_layers: { highlighted: false },
+    wet_snow: { highlighted: false },
+    gliding_snow: { highlighted: false }
+  };
   constructor() {
-    /**
-     * @type {Record<date, BulletinCollection>}
-     */
-    this.bulletins = {};
-    this.latest = null;
-    this.settings = {
-      status: "",
-      neighbors: 0,
-      date: "",
-      region: ""
-    };
-    /**
-     * @type {Record<Caaml.AvalancheProblemType, {highlighted: boolean}}
-     */
-    this.problems = {
-      new_snow: { highlighted: false },
-      wind_drifted_snow: { highlighted: false },
-      persistent_weak_layers: { highlighted: false },
-      wet_snow: { highlighted: false },
-      gliding_snow: { highlighted: false }
-    };
-
     makeObservable(this, {
       bulletins: observable,
       latest: observable,
@@ -193,7 +185,7 @@ class BulletinStore {
    * @return Void, if the bulletin has already been fetched or a promise object,
    *   if it need to be fetched.
    */
-  load(date, activate = true) {
+  load(date: string, activate = true) {
     // console.log("loading bulletin", { date, activate });
     if (date) {
       if (this.bulletins[date]) {
@@ -252,17 +244,17 @@ class BulletinStore {
     }
   }
 
-  setRegion(id) {
+  setRegion(id: string) {
     this.settings.region = id;
   }
 
-  dimProblem(problemId) {
+  dimProblem(problemId: string | number) {
     if (typeof this.problems[problemId] !== "undefined") {
       this.problems[problemId].highlighted = false;
     }
   }
 
-  highlightProblem(problemId) {
+  highlightProblem(problemId: string | number) {
     if (typeof this.problems[problemId] !== "undefined") {
       this.problems[problemId].highlighted = true;
     }
@@ -273,7 +265,7 @@ class BulletinStore {
    * @return {BulletinCollection} A list of bulletins that match the selection of
    *   this.date and this.ampm
    */
-  get activeBulletinCollection() {
+  get activeBulletinCollection(): BulletinCollection {
     if (this.settings.status == "ok") {
       return this.bulletins[this.settings.date];
     }

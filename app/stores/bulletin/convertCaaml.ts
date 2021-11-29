@@ -1,6 +1,7 @@
-import { getWarnlevelNumber } from "../util/warn-levels";
+import { getWarnlevelNumber } from "../../util/warn-levels";
+import { Bulletin, Bulletins, DaytimeBulletin } from ".";
 
-export function convertCaamlToJson<T>(document: Element): Caaml.Bulletins {
+export function convertCaamlToJson<T>(document: Element): Bulletins {
   const json: any = {};
   const attributes = document.attributes || [];
   for (var i = 0; i < attributes.length; i++) {
@@ -71,14 +72,12 @@ export function convertCaamlToJson<T>(document: Element): Caaml.Bulletins {
   return json;
 }
 
-export function toDaytimeBulletins(
-  bulletins: Caaml.Bulletin[]
-): Albina.DaytimeBulletin[] {
+export function toDaytimeBulletins(bulletins: Bulletin[]): DaytimeBulletin[] {
   return bulletins
     .map(forenoon => {
       if (forenoon.id.match(/_PM$/)) return;
       const afternoon = bulletins.find(b => b.id === forenoon.id + "_PM");
-      const albina: Albina.DaytimeBulletin = {
+      const albina: DaytimeBulletin = {
         id: forenoon.id,
         forenoon,
         afternoon,
