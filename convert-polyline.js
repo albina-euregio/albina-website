@@ -2,6 +2,7 @@
 const fs = require("fs");
 
 const polyline = require("@mapbox/polyline");
+const precision = 3;
 
 /**
  * @param {GeoJSON.FeatureCollection<Polygon>} geojson
@@ -34,13 +35,15 @@ function encodeGeometry(geometry) {
   if (geometry.type === "Polygon") {
     return {
       ...geometry,
-      coordinates: geometry.coordinates.map(c => polyline.encode(c)).join("\n")
+      coordinates: geometry.coordinates
+        .map(c => polyline.encode(c, precision))
+        .join("\n")
     };
   } else if (geometry.type === "MultiPolygon") {
     return {
       ...geometry,
       coordinates: geometry.coordinates.map(cc =>
-        cc.map(c => polyline.encode(c)).join("\n")
+        cc.map(c => polyline.encode(c, precision)).join("\n")
       )
     };
   }
