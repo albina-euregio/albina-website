@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import htmr from "htmr";
 import { injectIntl } from "react-intl";
 import { withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
@@ -13,6 +12,7 @@ import { parseTags } from "../util/tagging";
 import { modal_init } from "../js/modal";
 import { video_init } from "../js/video";
 import { fetchJSON } from "../util/fetch";
+import { preprocessContent } from "../util/htmlParser";
 
 class BlogPost extends React.Component {
   constructor(props) {
@@ -36,36 +36,6 @@ class BlogPost extends React.Component {
     if (this.props.location !== prevProps.location) {
       this._fetchData(this.props);
     }
-  }
-
-  _preprocessContent(content) {
-    const deprecatedAttrs = ["align", "border"];
-    return htmr(content, {
-      transform: {
-        _(type, props, children) {
-          if (!props && !children) {
-            return type;
-          } else if (type == "a" && children?.some(c => c.type == "img")) {
-            // Turn image links into lightboxes
-            props.className =
-              (props.className || "") + " mfp-image modal-trigger img";
-          } else if (
-            type == "iframe" &&
-            props?.className?.includes("YOUTUBE-iframe-video")
-          ) {
-            // Use Fitvids for youtube iframes
-            return React.createElement(
-              "div",
-              { className: "fitvids", key: props.src },
-              children
-            );
-          }
-          // Remove deprecated html attributes
-          deprecatedAttrs.forEach(prop => delete props[prop]);
-          return React.createElement(type, props, children);
-        }
-      }
-    });
   }
 
   _fetchData(props) {
@@ -92,7 +62,7 @@ class BlogPost extends React.Component {
             tags: parseTags(b.labels),
             regions: blogConfig.regions,
             language: blogConfig.lang,
-            content: this._preprocessContent(b.content)
+            content: preprocessContent(b.content, true)
           });
         })
         .then(() => {
