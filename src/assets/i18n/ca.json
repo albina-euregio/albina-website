@@ -75,8 +75,8 @@
         "saveBulletin" : "Guarda el butlletí",
         "discardBulletin" : "Descarta els canvis al butlletí",
         "loadBulletin" : "Carrega el butlletí d'ahir",
-        "uploadJsonBulletin" : "Upload bulletin in JSON format",
-        "downloadJsonBulletin" : "Download bulletin in JSON format",
+        "uploadJsonBulletin" : "Carregar el butlletí en format JSON",
+        "downloadJsonBulletin" : "Descarregar el butlletí en format JSON",
         "daytimeDependency" : "Dependència de l'hora",
         "treeline" : "Límit del bosc",
         "tendency" : {
@@ -182,7 +182,7 @@
         "accept" : "D'acord"
       },
       "loadingJsonFileErrorDialog" : {
-        "message" : "There was an error loading the bulletins from the JSON file!",
+        "message" : "S'ha produït un error en carregar els butlletins des del fitxer JSON!",
         "accept" : "D'acord"
       },
       "avalancheSituationErrorDialog" : {

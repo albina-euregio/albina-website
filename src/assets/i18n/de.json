@@ -644,7 +644,7 @@
     "reject" : "Nein"
   },
   "zamg": {
-    "table" : "Table",
+    "table" : "Tabelle",
     "map" : "Karte",
     "region" : "Region",
     "newSnow" : "New snow"
@@ -718,7 +718,7 @@
     "longitude": "Längengrad",
     "reportDate": "Meldedatum",
     "showMap": "Karte",
-    "showTable": "Table"
+    "showTable": "Tabelle"
   },
   "LoLaAvalanchePotential": {
     "riskAssessment": "Risikoeinschätzung",
