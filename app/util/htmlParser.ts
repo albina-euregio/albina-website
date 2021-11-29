@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import htmr from "htmr";
 
-export function preprocessContent(content) {
+export function preprocessContent(content: string) {
   return htmr(content, {
     transform: {
-      _(type, props, children) {
+      _(type, props: any, children) {
         if (!props && !children) {
           return type;
         } else if (type === "style" || type === "script") {
