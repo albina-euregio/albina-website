@@ -916,7 +916,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       bulletin.setAuthor(this.authenticationService.getAuthor());
       bulletin.addAdditionalAuthor(this.authenticationService.getAuthor().getName());
       bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
-  }
+    }
 
     this.addBulletin(bulletin);
     this.selectBulletin(bulletin);

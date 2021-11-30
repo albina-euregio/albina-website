@@ -175,7 +175,7 @@
                               <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="editBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.edit' | translate }}"><i class="fa fa-pencil"></i></button>
                             </td>
                             <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin)">
-                              <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="createBulletin($event, true)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
+                              <button [disabled]="loading" type="reset" class="btn btn-sm btn-primary" (click)="copyBulletin()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
                             </td>
                             <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin) && isCreator(bulletin)">
                               <button [disabled]="loading" type="reset" class="btn btn-sm btn-danger" (click)="deleteBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.delete' | translate }}"><i class="fa fa-trash"></i></button>
