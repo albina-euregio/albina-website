@@ -6,8 +6,9 @@ import {
   dateToISODateString
 } from "../util/date.js";
 
-import { GeoJSON, Util } from "leaflet";
+import { GeoJSON as LeafletGeoJSON, Util } from "leaflet";
 import {
+  AvalancheProblem,
   AvalancheProblemType,
   Bulletins,
   convertCaamlToJson,
@@ -224,7 +225,7 @@ class BulletinStore {
    * Activate bulletin collection for a given date.
    * @param date The date in yyyy-mm-dd format.
    */
-  activate(date) {
+  activate(date: string) {
     if (this.bulletins[date]) {
       this.settings.region = "";
       this.settings.date = date;
@@ -276,25 +277,22 @@ class BulletinStore {
     return this.bulletins[this.settings.date]?.neighborBulletins;
   }
 
-  /**
-   * @returns {string}
-   */
-  get activeRegionName() {
+  get activeRegionName(): string {
     if (!this.settings?.region?.match(config.regionsRegex)) {
       return "";
     }
     const feature = microRegions.features.find(
       f => f.id === this.settings.region
     );
-    return feature?.id;
+    return (feature?.id as string) ?? "";
   }
 
   /**
    * Get the bulletin that is relevant for the currently set region.
-   * @return {Albina.DaytimeBulletin} A bulletin object that matches the selection of
+   * @return A bulletin object that matches the selection of
    *   this.date, this.ampm and this.region
    */
-  get activeBulletin() {
+  get activeBulletin(): DaytimeBulletin {
     if (this.activeBulletinCollection) {
       return this.activeBulletinCollection.getBulletinForRegion(
         this.settings.region
@@ -303,11 +301,11 @@ class BulletinStore {
     return null;
   }
 
-  get activeNeighbor() {
+  get activeNeighbor(): GeoJSON.Feature {
     return neighborRegions.features.find(f => f.id === this.settings.region);
   }
 
-  getProblemsForRegion(regionId, ampm = null) {
+  getProblemsForRegion(regionId: string, ampm = null): AvalancheProblem[] {
     if (!this.activeBulletinCollection) {
       return [];
     }
@@ -321,7 +319,10 @@ class BulletinStore {
     return bulletin[daytime].avalancheProblems || [];
   }
 
-  getRegionState(regionId, ampm = null) {
+  getRegionState(
+    regionId: string,
+    ampm = null
+  ): "selected" | "highlighted" | "dimmed" | "dehighlighted" | "default" {
     if (this.settings?.region === regionId) {
       return "selected";
     }
@@ -333,12 +334,8 @@ class BulletinStore {
       return "dimmed";
     }
 
-    const checkHighlight = rId => {
-      const problems = this.getProblemsForRegion(rId, ampm);
-      return problems.some(p => this.problems?.[p.type]?.highlighted);
-    };
-
-    if (checkHighlight(regionId)) {
+    const problems = this.getProblemsForRegion(regionId, ampm);
+    if (problems.some(p => this.problems?.[p.type]?.highlighted)) {
       return "highlighted";
     }
 
@@ -349,15 +346,15 @@ class BulletinStore {
     return "default";
   }
 
-  get neighborRegions() {
+  get neighborRegions(): GeoJSON.Feature[] {
     return neighborRegions.features.map(f => this._augmentFeature(f));
   }
 
-  _augmentFeature(f, ampm = null) {
+  _augmentFeature(f: GeoJSON.Feature, ampm = null): GeoJSON.Feature {
     if (!f.properties) f.properties = {};
     f.properties.state = this.getRegionState(f.id, ampm);
     if (!f.properties.latlngs) {
-      f.properties.latlngs = GeoJSON.coordsToLatLngs(
+      f.properties.latlngs = LeafletGeoJSON.coordsToLatLngs(
         f.geometry.coordinates,
         f.geometry.type === "Polygon" ? 1 : 2
       );
@@ -366,11 +363,11 @@ class BulletinStore {
   }
 
   // assign states to regions
-  getVectorRegions(ampm = null) {
+  getVectorRegions(ampm = null): GeoJSON.Feature[] {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
-      const regions = microRegions.features.map(f =>
+      const regions: GeoJSON.Feature[] = microRegions.features.map(f =>
         this._augmentFeature(f, ampm)
       );
 
@@ -393,7 +390,7 @@ class BulletinStore {
     }
   }
 
-  _getBulletinUrl(date) {
+  _getBulletinUrl(date: string): string {
     return Util.template(
       config.links.downloads.base + config.links.downloads.xml,
       {
