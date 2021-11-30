@@ -186,38 +186,46 @@ class BulletinStore {
    * @return Void, if the bulletin has already been fetched or a promise object,
    *   if it need to be fetched.
    */
-  load(date: string, activate = true) {
+  async load(date: string, activate = true) {
     // console.log("loading bulletin", { date, activate });
-    if (date) {
-      if (this.bulletins[date]) {
-        if (activate) {
-          this.activate(date);
-        }
-      } else {
-        // create empty bulletin entry
-        this.bulletins[date] = new BulletinCollection(date);
-
-        if (activate) {
-          this.activate(date);
-        }
-
-        if (enableNeighborRegions) {
-          this.settings.neighbors = 0;
-          loadNeighborBulletins(date).then(geojson => {
-            this.bulletins[date].neighborBulletins = geojson;
-            if (activate && this.settings.date == date) {
-              // reactivate to notify status change
-              this.activate(date);
-            }
-          });
-        }
-        return this._loadBulletinData(date).then(() => {
-          if (activate && this.settings.date == date) {
-            // reactivate to notify status change
-            this.activate(date);
-          }
-        });
+    if (typeof date !== "string") return;
+    if (this.bulletins[date]) {
+      if (activate) {
+        this.activate(date);
       }
+      return;
+    }
+    // create empty bulletin entry
+    this.bulletins[date] = new BulletinCollection(date);
+    if (activate) {
+      this.activate(date);
+    }
+
+    const url = this._getBulletinUrl(date);
+    try {
+      const response = await fetchText(url, {});
+      this.bulletins[date].setData(response);
+    } catch (error) {
+      console.error("Cannot load bulletin for date " + date, error);
+      this.bulletins[date].setData(null);
+      return;
+    }
+
+    if (activate && this.settings.date == date) {
+      // reactivate to notify status change
+      this.activate(date);
+    }
+  }
+
+  async loadNeighbors(date: string, activate = true) {
+    if (!enableNeighborRegions) return;
+    if (typeof date !== "string") return;
+    this.settings.neighbors = 0;
+    const geojson = await loadNeighborBulletins(date);
+    this.bulletins[date].neighborBulletins = geojson;
+    if (activate && this.settings.date == date) {
+      // reactivate to notify status change
+      this.activate(date);
     }
   }
 
@@ -396,20 +404,6 @@ class BulletinStore {
       {
         date,
         lang: window["appStore"].language
-      }
-    );
-  }
-
-  _loadBulletinData(date) {
-    const url = this._getBulletinUrl(date);
-    return fetchText(url).then(
-      // query bulletin data
-      response => {
-        this.bulletins[date].setData(response);
-      },
-      error => {
-        console.error("Cannot load bulletin for date " + date, error);
-        this.bulletins[date].setData(null);
       }
     );
   }
