@@ -4,11 +4,17 @@ import { NeighborBulletin } from "./bulletin";
 let loadedRegions: Promise<GeoJSON.FeatureCollection> = undefined;
 
 async function loadRegions(): Promise<GeoJSON.FeatureCollection> {
-  const regionsPolyline = await import(
-    "./neighbor_micro_regions.polyline.json"
+  const polyline = import("./neighbor_micro_regions.polyline.json");
+  const polylineExtra = import("./neighbor_regions.polyline.json");
+  const regions = decodeFeatureCollection((await polyline).default);
+  const extraRegions = decodeFeatureCollection((await polylineExtra).default);
+  const extraFeatures = extraRegions.features.filter(
+    feature => feature.id === "CH" || feature.id === "LI"
   );
-  const regions = decodeFeatureCollection(regionsPolyline.default);
-  regions.features.push(...(await loadRegionsCH()));
+  extraFeatures.forEach(
+    feature => (feature.properties.id = feature.id as string)
+  );
+  regions.features.push(...extraFeatures);
   regions.features = regions.features.map(f => Object.freeze(f));
   return Object.freeze(regions);
 }
@@ -109,13 +115,4 @@ function augmentNeighborFeature(
       style
     }
   };
-}
-
-async function loadRegionsCH(): Promise<GeoJSON.Feature[]> {
-  const extraRegionsPolyline = await import("./neighbor_regions.polyline.json");
-  const extraRegions = decodeFeatureCollection(
-    extraRegionsPolyline.default
-  ).features.filter(feature => feature.id === "CH" || feature.id === "LI");
-  extraRegions.forEach(feature => (feature.properties.id = feature.id));
-  return extraRegions;
 }
