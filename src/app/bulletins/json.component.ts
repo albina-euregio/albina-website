@@ -39,8 +39,8 @@ export class JsonComponent implements OnInit {
         if ((data as any).status === 204) {
           this.openNoJsonModal(this.noJsonTemplate);
         } else {
-          const text = (data as any).text();
-          this.bulletins = text;
+          const text = data as any;
+          this.bulletins = JSON.stringify(text, undefined, 4);
         }
       },
       () => {

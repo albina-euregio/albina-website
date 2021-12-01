@@ -325,12 +325,9 @@ export class BulletinsService {
   }
 
   loadJsonBulletins(date: Date): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "bulletins";
-    const params = {
-      date: this.constantsService.getISOStringWithTimezoneOffset(date),
-    };
+    const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     const headers = this.authenticationService.newAuthHeader();
-    const options = { headers, params };
+    const options = { headers };
 
     return this.http.get<Response>(url, options);
   }
