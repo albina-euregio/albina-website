@@ -19,6 +19,20 @@ async function loadRegions(): Promise<GeoJSON.FeatureCollection> {
   return Object.freeze(regions);
 }
 
+async function loadBulletin(
+  date: string,
+  region: string
+): Promise<NeighborBulletin[]> {
+  try {
+    const url = `https://avalanche.report/albina_neighbors/${date}-${region}.json`;
+    const res = await fetch(url);
+    if (res.ok) {
+      return await res.json();
+    }
+  } catch (ignore) {}
+  return [];
+}
+
 async function loadBulletins(date: string): Promise<NeighborBulletin[]> {
   const regions = [
     "AT-02",
@@ -31,13 +45,9 @@ async function loadBulletins(date: string): Promise<NeighborBulletin[]> {
     "CH",
     "SI"
   ];
-  const responses = regions.map(region =>
-    fetch(`https://avalanche.report/albina_neighbors/${date}-${region}.json`)
+  const allBulletins = await Promise.all(
+    regions.map(region => loadBulletin(date, region))
   );
-  const bulletins = responses.flatMap(response =>
-    response.then(r => (r.ok ? r.json() : [])).catch(() => [])
-  );
-  const allBulletins = await Promise.all(bulletins);
   return allBulletins.flat();
 }
 
