@@ -316,12 +316,12 @@ export class BulletinsService {
     return this.http.get<Response>(url, options);
   }
 
-  loadCaamlBulletins(date: Date): Observable<Response> {
+  loadCaamlBulletins(date: Date): Observable<any> {
     const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&lang=" + this.settingsService.getLangString();
     const headers = this.authenticationService.newAuthHeader("application/xml");
-    const options = { headers: headers };
+    const options : any = { headers: headers, responseType: 'text' as 'text' };
 
-    return this.http.get<Response>(url, options);
+    return this.http.get(url, options);
   }
 
   loadJsonBulletins(date: Date): Observable<Response> {
