@@ -1,9 +1,18 @@
 import { decodeFeatureCollection } from "../util/polyline";
-import { NeighborBulletin } from "./bulletin";
+import { warnlevelNumbers } from "../util/warn-levels";
+import { Bulletin, Bulletins } from "./bulletin/CaamlBulletin2022";
+import { MicroRegionElevationProperties } from "./bulletin";
 
-let loadedRegions: Promise<GeoJSON.FeatureCollection> = undefined;
+type Properties = MicroRegionElevationProperties & { style: L.PathOptions };
+type Feature = GeoJSON.Feature<GeoJSON.Geometry, Properties>;
+type FeatureCollection = GeoJSON.FeatureCollection<
+  GeoJSON.Geometry,
+  Properties
+>;
 
-async function loadRegions(): Promise<GeoJSON.FeatureCollection> {
+let loadedRegions: Promise<FeatureCollection> = undefined;
+
+async function loadRegions(): Promise<FeatureCollection> {
   const polyline = import("./neighbor_micro_regions.polyline.json");
   const polylineExtra = import("./neighbor_regions.polyline.json");
   const regions = decodeFeatureCollection((await polyline).default);
@@ -19,21 +28,19 @@ async function loadRegions(): Promise<GeoJSON.FeatureCollection> {
   return Object.freeze(regions);
 }
 
-async function loadBulletin(
-  date: string,
-  region: string
-): Promise<NeighborBulletin[]> {
+async function loadBulletin(date: string, region: string): Promise<Bulletin[]> {
   try {
-    const url = `https://avalanche.report/albina_neighbors/${date}-${region}.json`;
+    const url = `https://avalanche.report/albina_neighbors.2022/${date}-${region}.json`;
     const res = await fetch(url);
     if (res.ok) {
-      return await res.json();
+      const json: Bulletins = await res.json();
+      return json.bulletins;
     }
   } catch (ignore) {}
   return [];
 }
 
-async function loadBulletins(date: string): Promise<NeighborBulletin[]> {
+async function loadBulletins(date: string): Promise<Bulletin[]> {
   const regions = [
     "AT-02",
     "AT-03",
@@ -48,12 +55,17 @@ async function loadBulletins(date: string): Promise<NeighborBulletin[]> {
   const allBulletins = await Promise.all(
     regions.map(region => loadBulletin(date, region))
   );
+  allBulletins.flat().forEach(b => {
+    // https://gitlab.com/albina-euregio/pyAvaCore/-/issues/20
+    b.avalancheProblems ??= (b as any).avalancheProblem;
+    b.dangerRatings ??= (b as any).dangerRating;
+  });
   return allBulletins.flat();
 }
 
 export async function loadNeighborBulletins(
   date: string
-): Promise<GeoJSON.FeatureCollection> {
+): Promise<FeatureCollection> {
   if (typeof date !== "string") return;
   const bulletins = await loadBulletins(date);
   if (!loadedRegions) loadedRegions = loadRegions();
@@ -68,7 +80,7 @@ export async function loadNeighborBulletins(
         feature => !feature.properties.id.match(window.config.regionsRegex)
       )
       .map(feature => augmentNeighborFeature(feature, bulletins))
-      .filter(feature => feature.properties.bulletin)
+      .filter(feature => feature?.properties?.style)
   });
 }
 
@@ -82,47 +94,31 @@ const WARNLEVEL_COLORS = [
 ];
 
 function augmentNeighborFeature(
-  feature: GeoJSON.Feature,
-  bulletins: NeighborBulletin[]
-): GeoJSON.Feature {
+  feature: Feature,
+  bulletins: Bulletin[]
+): Feature | undefined {
   const region = feature.properties.id;
   const elevation = feature.properties.elevation;
   bulletins = bulletins.filter(bulletin =>
-    bulletin.valid_regions.includes(region)
+    bulletin.regions?.map(r => r.regionID)?.includes(region)
   );
-  const bulletin =
-    bulletins.length &&
-    bulletins.reduce((b1, b2) =>
-      Math.max(...b1.danger_main.map(d => d.main_value)) >=
-      Math.max(...b2.danger_main.map(d => d.main_value))
-        ? b1
-        : b2
-    );
-  const warnlevel = bulletin?.danger_main
+  const dangerRatings = bulletins.flatMap(b => b.dangerRatings);
+  const warnlevel = dangerRatings
     ?.filter(
       danger =>
-        !danger.valid_elevation ||
-        (danger.valid_elevation.charAt(0) === "<" && elevation === "low") ||
-        (danger.valid_elevation.charAt(0) === ">" && elevation === "high")
+        region.match(/^CH-/) ||
+        !danger.elevation ||
+        (danger.elevation.upperBound && elevation === "low") ||
+        (danger.elevation.lowerBound && elevation === "high")
     )
-    .map(danger => danger.main_value)
+    .map(danger => warnlevelNumbers[danger.mainValue])
     .reduce((w1, w2) => Math.max(w1, w2), 0);
-  /**
-   * @type {import("leaflet").PathOptions}
-   */
-  const style = {
+  if (!warnlevel) return;
+  feature.properties.style = {
     stroke: false,
     fillColor: WARNLEVEL_COLORS[warnlevel],
     fillOpacity: 0.5,
     className: "mix-blend-mode-multiply"
   };
-  return {
-    ...feature,
-    properties: {
-      ...feature.properties,
-      bulletin,
-      warnlevel,
-      style
-    }
-  };
+  return feature;
 }
