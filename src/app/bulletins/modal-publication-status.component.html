@@ -9,8 +9,8 @@
 	  <i *ngIf="json.report.pdfCreated" class="fa fa-file-pdf-o" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.pdf.success' | translate }}"></i>
 	  <i *ngIf="!json.report.pdfCreated" class="fa fa-file-pdf-o" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.pdf.failed' | translate }}"></i>
 
-	  <i *ngIf="json.report.htmlCreated" class="fa fa-html5" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.html.success' | translate }}" (click)="createHtml($event)"></i>
-	  <i *ngIf="!json.report.htmlCreated" class="fa fa-html5" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.html.failed' | translate }}" (click)="createHtml($event)"></i>
+	  <i *ngIf="json.report.htmlCreated" class="fa fa-html5" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.html.success' | translate }}"></i>
+	  <i *ngIf="!json.report.htmlCreated" class="fa fa-html5" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.html.failed' | translate }}"></i>
 
 	  <i *ngIf="json.report.staticWidgetCreated" class="fa fa-image" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.staticWidget.success' | translate }}"></i>
 	  <i *ngIf="!json.report.staticWidgetCreated" class="fa fa-image" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.staticWidget.failed' | translate }}"></i>
@@ -43,7 +43,9 @@
 	  <i *ngIf="json.report.telegramChannelSent" class="fa fa-telegram" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.telegramChannel.success' | translate }}" (click)="triggerTelegramChannel($event)"></i>
 	  <i *ngIf="!json.report.telegramChannelSent" class="fa fa-telegram" style="font-size: 32px; margin: 5px; color: #f86c6b" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.telegramChannel.failed' | translate }}" (click)="triggerTelegramChannel($event)"></i>
 	</div>
-  <div>
+	<div *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" style="margin-top: 20px; margin-bottom: 20px;">
+	  <i class="fa fa-envelope" style="font-size: 32px; margin: 5px; color: #4dbd74" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.email.success' | translate }}" (click)="sendTestEmail($event)"></i>
+	<div>
   	<p>
 	  	<b>{{ "bulletins.table.publicationStatusDialog.validFor" | translate }}</b>{{ json.report.date | localizedDate:'fullDate'}}<br>
 	  	<b>{{ "bulletins.table.publicationStatusDialog.publishedBy" | translate }}</b>{{ json.report.user }}<br>

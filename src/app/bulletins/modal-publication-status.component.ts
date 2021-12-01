@@ -89,10 +89,22 @@ export class ModalPublicationStatusComponent {
     event.stopPropagation();
     this.bulletinsService.sendEmail(this.date, this.authenticationService.activeRegion).subscribe(
       data => {
-        console.info("Email sent");
+        console.info("Emails sent");
       },
       error => {
         console.error("Emails could not be sent!");
+      }
+    );
+  }
+
+  sendTestEmail(event) {
+    event.stopPropagation();
+    this.bulletinsService.sendTestEmail(this.date, this.authenticationService.activeRegion).subscribe(
+      data => {
+        console.info("Test emails sent");
+      },
+      error => {
+        console.error("Test emails could not be sent!");
       }
     );
   }
