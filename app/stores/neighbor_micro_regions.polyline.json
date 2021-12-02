@@ -2450,8 +2450,7 @@
       "properties": {
         "id": "BYALL",
         "hoehe": 2,
-        "elevation": "high",
-        "threshold": 1500
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2474,8 +2473,7 @@
       "properties": {
         "id": "BYALL",
         "hoehe": 1,
-        "elevation": "low",
-        "threshold": 1500
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2493,8 +2491,7 @@
       "properties": {
         "id": "BYAMM",
         "hoehe": 2,
-        "elevation": "high",
-        "threshold": 1500
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2514,8 +2511,7 @@
       "properties": {
         "id": "BYAMM",
         "hoehe": 1,
-        "elevation": "low",
-        "threshold": 1500
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2530,8 +2526,7 @@
       "properties": {
         "id": "BYBGD",
         "hoehe": 2,
-        "elevation": "high",
-        "threshold": 1500
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2549,8 +2544,7 @@
       "properties": {
         "id": "BYBGD",
         "hoehe": 1,
-        "elevation": "low",
-        "threshold": 1500
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2567,8 +2561,7 @@
       "properties": {
         "id": "BYBVA",
         "hoehe": 2,
-        "elevation": "high",
-        "threshold": 1500
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2595,8 +2588,7 @@
       "properties": {
         "id": "BYBVA",
         "hoehe": 1,
-        "elevation": "low",
-        "threshold": 1500
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2611,8 +2603,7 @@
       "properties": {
         "id": "BYCHG",
         "hoehe": 2,
-        "elevation": "high",
-        "threshold": 1500
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2629,8 +2620,7 @@
       "properties": {
         "id": "BYCHG",
         "hoehe": 1,
-        "elevation": "low",
-        "threshold": 1500
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2645,8 +2635,7 @@
       "properties": {
         "id": "BYWFK",
         "hoehe": 2,
-        "elevation": "high",
-        "threshold": 1500
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2672,8 +2661,7 @@
       "properties": {
         "id": "BYWFK",
         "hoehe": 1,
-        "elevation": "low",
-        "threshold": 1500
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4752,8 +4740,7 @@
       "type": "Feature",
       "properties": {
         "id": "SI2",
-        "elevation": "high",
-        "threshold": 1400
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4775,8 +4762,7 @@
       "type": "Feature",
       "properties": {
         "id": "SI2",
-        "elevation": "low",
-        "threshold": 1400
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4795,8 +4781,7 @@
       "type": "Feature",
       "properties": {
         "id": "SI3",
-        "elevation": "high",
-        "threshold": 1400
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4821,8 +4806,7 @@
       "type": "Feature",
       "properties": {
         "id": "SI3",
-        "elevation": "low",
-        "threshold": 1400
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4836,8 +4820,7 @@
       "type": "Feature",
       "properties": {
         "id": "SI4",
-        "elevation": "high",
-        "threshold": 1400
+        "elevation": "high"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -4861,8 +4844,7 @@
       "type": "Feature",
       "properties": {
         "id": "SI4",
-        "elevation": "low",
-        "threshold": 1400
+        "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",

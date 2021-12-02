@@ -70,6 +70,12 @@ function encodeFiles(files, output) {
     .concat(...geojsons.map(g => g.features))
     .map(f => ({ id: f.properties?.id, ...f }))
     .sort((f1, f2) => f1.properties.id.localeCompare(f2.properties.id));
+  geojson.features.forEach(({ properties }) => {
+    properties.start_date || delete properties.start_date;
+    properties.end_date || delete properties.end_date;
+    properties.threshold || delete properties.threshold;
+    delete properties["elevation line_visualization"];
+  });
   const polyline = encodeFeatureCollection(geojson);
   fs.writeFileSync(output, JSON.stringify(polyline, undefined, 2));
 }
