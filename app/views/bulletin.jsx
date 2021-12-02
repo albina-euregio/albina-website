@@ -166,9 +166,9 @@ class Bulletin extends React.Component {
           ? this.state.title +
             " | " +
             dateToLongDateString(parseDate(this.store.settings.date))
-          : this.props.intl
-              .formatMessage({ id: "bulletin:header:info-no-data" })
-              .replace(/<\/?a>/g, "")
+          : this.props.intl.formatMessage({
+              id: "bulletin:header:info-no-data"
+            })
         : "";
 
     const shareImage =

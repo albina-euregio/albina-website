@@ -44,9 +44,7 @@ export default class ControllBar extends React.Component {
 
         {/* <!-- default, not for controlbar-big --> */}
         {!props.isBig && (
-          <div className="section-centered">
-            <p className="align-center">{props.message}</p>
-          </div>
+          <div className="section-centered">{props.message}</div>
         )}
 
         {/* <!-- for controlbar-big --> */}
