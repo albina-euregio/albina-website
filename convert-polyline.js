@@ -100,10 +100,13 @@ encodeFiles(
     "eaws-regions/public/outline/CH_outline.geojson.json",
     "eaws-regions/public/outline/DE-BY_outline.geojson.json",
     "eaws-regions/public/outline/FR_outline.geojson.json",
+    "eaws-regions/public/outline/IT-21_outline.geojson.json",
+    "eaws-regions/public/outline/IT-23_outline.geojson.json",
     "eaws-regions/public/outline/IT-25_outline.geojson.json",
     "eaws-regions/public/outline/IT-25-SO-LI_outline.geojson.json",
     "eaws-regions/public/outline/IT-34_outline.geojson.json",
     "eaws-regions/public/outline/IT-36_outline.geojson.json",
+    "eaws-regions/public/outline/IT-57_outline.geojson.json",
     "eaws-regions/public/outline/LI_outline.geojson.json",
     "eaws-regions/public/outline/SI_outline.geojson.json"
   ],
