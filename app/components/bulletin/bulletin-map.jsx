@@ -246,8 +246,7 @@ class BulletinMap extends React.Component {
       (activeNeighbor.properties.aws || []).forEach((aws, index) => {
         const href =
           aws.url.find(url => url[language])?.[language] ||
-          aws.url.find(url => url.de)?.de ||
-          aws.url.find(url => url.en)?.en;
+          Object.values(aws.url[0])[0];
         res.push(
           <a
             tabIndex="-1"

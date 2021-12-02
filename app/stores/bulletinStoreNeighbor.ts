@@ -50,6 +50,7 @@ async function loadBulletins(date: string): Promise<Bulletin[]> {
     "AT-08",
     "BY",
     "CH",
+    "FR",
     "IT-AINEVA",
     "SI"
   ];

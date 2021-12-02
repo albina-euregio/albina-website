@@ -204,6 +204,31 @@
       }
     },
     {
+      "id": "FR",
+      "type": "Feature",
+      "properties": {
+        "id": "FR",
+        "aws": [
+          {
+            "name": "Meteo France",
+            "url": [
+              {
+                "fr": "https://meteofrance.com/meteo-montagne"
+              }
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "_Vo~rA{E_@oCb@oD~AeAq@eOLeC]}IvA{V\\gBXUd@\\nB}BgCuDDmD|AgCReDxBsDjAI~CsAeBgAc@kLfDo@l@EdBaDAcElBqD`Fp@p@_@dAr@DzEXDAhB[@AVW@@j@c@xEoAb@IpAYD@~@FxDVHF`@d@x@~@~@LpAFXIVGl@a@Z_AFEZaAnACbBi@DA????fCa@JE~Ac@B??U???Ac@oAy@SM@G?BAJMdAkApASrG{@bCHL@LL`AlA@Bx@aBt@iAPOj@e@TAl@AlHLBAv@k@`@_AlAg@LAtA?B?@AB??@?@@?BA@?BAB?@?D?@?D?@A@?B?B?@??ADA@AB@B?B@@@B?B@@?B?B?B?@?B?@?@??AB?BC@A?AAA?A@A@ABA@AD?@A@A@A@A@A?ABAB?BA@@@@B@D?B@B?D?@D@?B@@@D@??@@@B??B@?@@BB?@?B?B?@ABA@?@A@CD??A@A@?@AD?@?@?@?@A?A???A@A@?@A@?@A@?@A@A?A@?DABA@??A@A@AB?@A@?@AB?@A@A@?@?B@BCB?B?BA@AB?@ADC@ABC@A@A@A@?B?FABA@?B?@?@?B?B@@?@?B?@ABABAB?BA@?@?@ABCB???@A@A@?BA@?BAB?B?BADA@?@@D?@@BBB?B?@@B?@?BAB@@?B?BABAB?BAB?DADA?CB?BAFADADAF?DAD?BA?C@A?A@CB?@?@ABA@?BABA@?B?@?D@@A@AB?@A@?@?B?@@@???D@@@B@B?B@@?@?D@@?B?@AB@B?B?B?AD?DDBDBF@B@D@FD@@?DA@ABADC@A?A@C@A@A@?B?@B@@B@@@B?BCBCB?@CB?@@B@@B??@@@@@D@B?@@@BB@@@@@@F@@@@D@B@?@A@A?C@ABCBA?C?A?C@A?C?E?C@C@D@@@BBB@D?B@@@@?B@@??@?@@@RNMDY?A@A@C@?@@@?B?@?@A@E??@@@AB?@A@A@A@?@ABC@A?A@C@A@A@?@ABB?B@BB@@?@CBCDCBA?A@A??@A@@B@@B@B@B@@B?B?BCB?@?@?@A?B?D@D?@@BABA@?@?B?FAfCEdDDnCHnEYvBOB?tCm@TGhAXPDl@RxEl@NCjAO\\GJIvBgBZSZSv@Mr@SpBm@nAq@DGDCP^rCfAhBH|ETLIFCx@e@HEdFwCFGDENQIWEK?Uf@k@PSBCB?`APz@PpFO@?^MrBm@z@Wv@Sv@QTMFBvCm@f@OJ@bDk@FDFC[y@yAu@eDGg@TmEiAyFz@gDdDmBPeE{@_AsA_DSkH`AoHRKfAgAFuAc@b@[Wm@aAKiHxAsKZuIfA\ngnBucrAKE??JD",
+          "q{LqbuAkAzDN~An[aAzB_B|IiDy@eAUoCxBiErIkGfA}DnAcAbCHzCx@pGMvEj@|FyCnAuCHyE~DrCtBVrBsEbDQHcA`CJF_@UoDeBoG{A}AmEuB{CeDeBSMgBmIsGg@sDoEm@y@iCuEuEaB_D}De@CiCi@kAoAo@iIiBiIY`MmDf@aAMkA_P_IeFe@sDZ?@@BGLZVVBLFBLGNGDKTW@GTM@UHCBG@IJBDABC@E?CBGDG@ADC@G?GCGBIRHJ?PFJBJXHNVTJAJBDD@FHD@?BB@FNEJI^HD@HZRADDJO`@Q@OLGCg@CE@EDOBm@@KDOCS@JR?LRVMRBLEFF@FBD@NZ?FIHWFII[E]YQCGB@PMFMAYh@G@YRK\\UHOAGBGTQL?FTF@FQPc@H@`@Q^r@L\\^?NEDN\\PH\\?j@LTVLBV?NHd@?LG\\@RVZKX?d@D?FRXGX?RLDFVIZ?d@GFMFN\\e@f@YHMT}@RU@YEGRFLo@`@WAm@MO@m@ZO@DJZPA`@L^EN[LHf@KXFPY`@DH@Nc@Js@@Gn@}@Ag@FGDFD?R]XALK@YJa@DQPm@LAHLJBP\\HHVIRD@@DF?@DZBHJBNED@HNDVGJ@IJBJOJEd@GBEHMF@HHFEVE@AFJH@FFD\\EHRLBBFXL@N\\H^]F?H@ZPHEDFXCFEHHDABHLAPFT?HHMLZH?TF?LFGH^?VFHCFD`@E@LNHKL@DQHHHXBJALFd@HDGCIT@LK^OVCHCPANGTCLLLDDLVJVC\\Kf@JVAL^RDFARL^A?HJNIF@DSJADKDBNQHMACZJHWPABH@BLGHE?CPSCS@{@Am@N@DMZD@Ab@YJEPN\\PN?FGCG@GJLAHPEF?B@TSDU?IDELGAAJa@EBFELMHi@LCFOF[BQNkB@Y]cA\\cA??JODCZ]DFF@JRT?DNDBJWJY\\DDGJDRGHDHMJ?FWTm@HCTGBGTAVv@IRKPEb@FDCHHFKN@ZLJHNAHNAHTVKN@HGLWNBJD@JEND@RTHAHJD?h@f@JELBDVHLCHFJ?JC@LHBDNTDHHIN?ZOXUJ@J]R]FK`@QH_@JEJOFBDVEBHLBLIFFTDFALBCRGFFJEHDHE\\DHJD@HYHKAGFWB@PKRODEHI@CDO@CHIDD^KBGAG@BLEDSE[LALBNEJBLY`@SD?H]Fk@KOBIKO@SDINO?]Fw@`@I?]OGJOBEDQGMZM?GNQFIJS?KKMBK\\QBKNS@OJMGM@QCGBCGUHMCa@?ANWh@UAo@OWLSASLCA@OGE?KYBIAWDWMUAOEEG[GKJO@ICMOQDc@GGE@IOHGCYFQEID]@QQ?KIGBEKKSAiADBTPFBHQNV^MV_@RQXg@XFBPHz@vALPR^`Al@lGUrPeB~DuA",
+          "mzP_iqAyCs@cATe@x@`@fIs@hEjBhIhC{BvCe@b@qCuC{ChD^JSl@_Bk@oA|@mAq@m@lHcG~E}BkA}I}AwB_DaBgDFkEx@dAlB{@r@pAvBkBx@~@tBcB^GZ`@hF"
+        ]
+      }
+    },
+    {
       "id": "IT-25",
       "type": "Feature",
       "properties": {
