@@ -293,8 +293,8 @@ $cp-breakpoint-2: 1024px;
   a {
     position: absolute;
     top: 0;
-    height: 10px;
-    max-height: 10px;
+    height: 15px;
+    max-height: 15px;
 
     font-size: 16px;
     line-height: 10px;
@@ -339,6 +339,10 @@ $cp-breakpoint-2: 1024px;
 
   .cp-scale-day-today & {
     @include font-bold;
+  }
+
+  a {
+    display: block;
   }
 
   span {
@@ -541,6 +545,7 @@ $cp-breakpoint-2: 1024px;
     display: none;
     height: $cp-legend-height;
     &:before {
+      z-index: 2;
       position: absolute;
       left: 0;
       transform: translateX(-50%);
@@ -558,6 +563,9 @@ $cp-breakpoint-2: 1024px;
 }
 .cp-legend-snowdiff {
   @include legend-generator($cp-legend-snowdiff-items, 12);
+}
+.cp-legend-snowline {
+  @include legend-generator($cp-legend-snowline-items, 35);
 }
 .cp-legend-temperature {
   @include legend-generator($cp-legend-temperature-items, 13);
@@ -578,7 +586,7 @@ $cp-breakpoint-2: 1024px;
 
   > span {
     height: $cp-release-height;
-    padding: 0 ($cp-base-unit / 2);
+    padding: 0 ($cp-base-unit * 0.5);
     line-height: $cp-release-height;
     &:first-child {
       padding-left: $cp-base-unit;

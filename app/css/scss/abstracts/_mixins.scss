@@ -34,7 +34,7 @@
   $transition-duration: $transition-duration,
   $ease: ease-out
 ) {
-  transition: $was ($transition-duration / 2) $ease;
+  transition: $was ($transition-duration * 0.5) $ease;
 }
 
 //position
@@ -233,12 +233,6 @@
 @mixin font-monospace {
   font-family: $body-font-family-monospace;
   //font-weight: $body-font-weight-monospace;
-}
-
-@function font-size($sizeValue: $rem-base) {
-  //font-size: $sizeValue + px;
-  //font-size: $sizeValue / $rem-base + rem;
-  @return ($sizeValue / $rem-base + rem);
 }
 
 @mixin letter-spacing($space: 0.05em) {

@@ -12,7 +12,7 @@
   .list-inline {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: $margin-bottom / 2;
+    margin-bottom: $margin-bottom * 0.5;
     //not overview
     &:not(.list-buttongroup-dense) {
       align-items: center;
@@ -31,7 +31,7 @@
     max-width: 30em;
   }
   hr {
-    margin-bottom: $margin-bottom / 2;
+    margin-bottom: $margin-bottom * 0.5;
   }
   .iamok {
     font-size: $small-font-size;
@@ -55,7 +55,7 @@
 }
 
 .app-dl {
-  margin-bottom: $margin-bottom / 2;
+  margin-bottom: $margin-bottom * 0.5;
   border-bottom: $border-width $border-style $border-color;
   &:last-child {
     margin-bottom: 0;
@@ -72,8 +72,8 @@
 
 // messenger-people-plugin
 .messengerpeople-wrapper {
-  margin-left: -($padding / 2);
-  margin-right: -($padding / 2);
+  margin-left: -($padding * 0.5);
+  margin-right: -($padding * 0.5);
   iframe {
     height: 280px;
     width: 500px;

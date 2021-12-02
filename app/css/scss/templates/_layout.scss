@@ -27,7 +27,7 @@
 
 @keyframes slideInFromTop {
   0% {
-    transform: translateY(calc(-1 * $page-header-height));
+    transform: translateY(calc(0 - #{$page-header-height}));
     opacity: 0;
   }
   100% {

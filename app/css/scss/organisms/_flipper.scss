@@ -29,7 +29,7 @@
       &:hover,
       &:active {
         &:before {
-          left: -$padding / 2;
+          left: -$padding * 0.5;
         }
       }
     }
@@ -41,7 +41,7 @@
       &:hover,
       &:active {
         &:before {
-          right: -$padding / 2;
+          right: -$padding * 0.5;
         }
       }
     }
@@ -60,7 +60,7 @@
     &:active {
       span {
         &:before {
-          transform: translateX(-$padding / 2);
+          transform: translateX(-$padding * 0.5);
         }
       }
     }
@@ -70,7 +70,7 @@
     &:active {
       span {
         &:before {
-          transform: translateX($padding / 2);
+          transform: translateX($padding * 0.5);
         }
       }
     }
@@ -109,7 +109,7 @@
 }
 .flipper-caption {
   h2 {
-    margin-bottom: $padding / 2;
+    margin-bottom: $padding * 0.5;
   }
 }
 

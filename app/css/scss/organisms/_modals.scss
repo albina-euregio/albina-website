@@ -42,7 +42,7 @@ $mfp-include-iframe-type: true; // Enable Iframe-type popups
 $mfp-iframe-padding-top: $modal-vertical-margin; // Iframe padding top
 $mfp-iframe-background: $modal-background-color; //Background color of iframes
 $mfp-iframe-max-width: $modal-max-width; //Maximum width of iframes
-$mfp-iframe-ratio: 3/4; //Ratio of iframe (9/16 = widescreen, 3/4 = standard, etc.)
+$mfp-iframe-ratio: 0.75; //Ratio of iframe (9/16 = widescreen, 3/4 = standard, etc.)
 
 // Image-type options
 $mfp-include-image-type: true; // Enable Image-type popups
@@ -162,7 +162,7 @@ button.mfp-arrow {
     top: 0 !important;
     left: 0 !important;
     margin: 0 !important;
-    padding: ($padding / 2) !important;
+    padding: ($padding * 0.5) !important;
     text-indent: 0 !important;
     @include rollout;
   }
@@ -261,10 +261,10 @@ button.mfp-arrow {
 .mfp-bottom-bar {
   position: relative;
   bottom: 0;
-  padding: ($padding / 2) $padding;
+  padding: ($padding * 0.5) $padding;
   line-height: $body-line-height;
   .mfp-title {
-    margin-bottom: $padding / 4;
+    margin-bottom: $padding * 0.25;
     padding: 0;
     text-align: center;
     font-size: $small-font-size; //$body-font-size-small;
@@ -362,7 +362,7 @@ button.mfp-arrow {
   //text-align: center;
   @include last-child;
   .list-inline {
-    margin-bottom: $margin-bottom / 2;
+    margin-bottom: $margin-bottom * 0.5;
   }
 }
 .follow-region {
@@ -380,6 +380,7 @@ button.mfp-arrow {
   }
 }
 
+//weatherstation
 .modal-weatherstation {
   .modal-header {
     padding-bottom: $padding;
@@ -389,6 +390,71 @@ button.mfp-arrow {
     }
     .weatherstation-altitude {
       @include font-normal;
+    }
+  }
+
+  ul.weatherstation-flipper {
+    margin-bottom: $padding;
+    line-height: 1;
+    font-size: $tiny-font-size;
+    @include letter-spacing;
+    li {
+      padding: 0 ($padding * 2) 0 0;
+    }
+    a {
+      span {
+        &:before {
+          top: 0.175em;
+          line-height: 0;
+          @include rollover;
+        }
+      }
+    }
+    .weatherstation-flipper-back {
+      span:before {
+        transform: translateX(0);
+      }
+      a {
+        &:hover,
+        &:active {
+          span {
+            &:before {
+              transform: translateX(-$padding * 0.5);
+            }
+          }
+        }
+      }
+    }
+    .weatherstation-flipper-current {
+    }
+    .weatherstation-flipper-forward {
+      span {
+        &:before {
+          margin-right: 0;
+          transform: translateX(0);
+        }
+      }
+      a {
+        &:hover,
+        &:active {
+          span {
+            &:before {
+              transform: translateX($padding * 0.5);
+            }
+          }
+        }
+      }
+    }
+    .weatherstation-flipper-station {
+      float: right;
+      a {
+        &:hover,
+        &:active {
+          display: inline-block;
+        }
+      }
+      @media #{$tiny-up} {
+      }
     }
   }
 
