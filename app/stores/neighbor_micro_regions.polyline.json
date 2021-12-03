@@ -2449,7 +2449,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYALL",
-        "hoehe": 2,
         "elevation": "high"
       },
       "geometry": {
@@ -2472,7 +2471,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYALL",
-        "hoehe": 1,
         "elevation": "low"
       },
       "geometry": {
@@ -2490,7 +2488,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYAMM",
-        "hoehe": 2,
         "elevation": "high"
       },
       "geometry": {
@@ -2510,7 +2507,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYAMM",
-        "hoehe": 1,
         "elevation": "low"
       },
       "geometry": {
@@ -2525,7 +2521,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYBGD",
-        "hoehe": 2,
         "elevation": "high"
       },
       "geometry": {
@@ -2543,7 +2538,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYBGD",
-        "hoehe": 1,
         "elevation": "low"
       },
       "geometry": {
@@ -2560,7 +2554,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYBVA",
-        "hoehe": 2,
         "elevation": "high"
       },
       "geometry": {
@@ -2587,7 +2580,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYBVA",
-        "hoehe": 1,
         "elevation": "low"
       },
       "geometry": {
@@ -2602,7 +2594,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYCHG",
-        "hoehe": 2,
         "elevation": "high"
       },
       "geometry": {
@@ -2619,7 +2610,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYCHG",
-        "hoehe": 1,
         "elevation": "low"
       },
       "geometry": {
@@ -2634,7 +2624,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYWFK",
-        "hoehe": 2,
         "elevation": "high"
       },
       "geometry": {
@@ -2660,7 +2649,6 @@
       "type": "Feature",
       "properties": {
         "id": "BYWFK",
-        "hoehe": 1,
         "elevation": "low"
       },
       "geometry": {
@@ -4736,16 +4724,124 @@
       }
     },
     {
-      "id": "FR-1",
+      "id": "FR-01",
       "type": "Feature",
       "properties": {
-        "id": "FR-1",
+        "id": "FR-01",
         "elevation": "low"
       },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
           "ehLkryA?@@BGLZVVBLFBLGNGDKTW@GTM@UHCBG@IJBDABC@E?CBGDG@ADC@G?GCGBIRHJ?PFJBJXHNVTJAJBDD@FHD@?BB@FNEJI^HD@HZRADDJO`@Q@OLGCg@CE@EDOBm@@KDOCS@JR?LRVMRBLEFF@FBD@NZ?FIH?@?@hCnE~CJjAv@p@OzBeFnAiA`MmDf@aAMkA_P_IeFe@sDZ"
+        ]
+      }
+    },
+    {
+      "id": "FR-02",
+      "type": "Feature",
+      "properties": {
+        "id": "FR-02",
+        "elevation": "low"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "elKeexARNfGsFrAqDCiCi@kAoAo@iIiBiIYoAhA{BdFdC|BdD~@xAnBrATrCjD"
+        ]
+      }
+    },
+    {
+      "id": "FR-03",
+      "type": "Feature",
+      "properties": {
+        "id": "FR-03",
+        "elevation": "low"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "{lLy|xA?A?AWFII[E]YQCGB@PMFMAYh@G@YRK\\UHOAGBGTQL?FTF@FQPc@H@`@Q^r@L\\^?NEDN\\PH\\?j@LTVLBV?NHd@?LG\\@RVZKX?d@D?FRXGX?RLDFVzB|@zCuA`Hu@eD_AeC}Bq@NkAw@_DKiCoE"
+        ]
+      }
+    },
+    {
+      "id": "FR-04",
+      "type": "Feature",
+      "properties": {
+        "id": "FR-04",
+        "elevation": "low"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": ["qkKudxAxBlBrF~BfDrB`Dx@rE{Gy@iCuEuEaB_D}De@sApDgGrF"]
+      }
+    },
+    {
+      "id": "FR-05",
+      "type": "Feature",
+      "properties": {
+        "id": "FR-05",
+        "elevation": "low"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "gvKwnxAaHt@{CtA^lBaCdBbBzCpG`ArCtChCkDbB_FhBUsCkDsAUyAoB"
+        ]
+      }
+    },
+    {
+      "id": "FR-06",
+      "type": "Feature",
+      "properties": {
+        "id": "FR-06",
+        "elevation": "low"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "uyL{xwAlAhDpF~CBsBzA}CpGwFcB{C`CeB_@mB{B}@IZ?d@GFMFN\\e@f@YHMT}@RU@YEGRFLo@`@WAm@MO@m@ZO@DJZPA`@L^EN[LHf@KXFPY`@DH@Nc@Js@@Gn@}@Ag@FGDh@E"
+        ]
+      }
+    },
+    {
+      "id": "FR-07",
+      "type": "Feature",
+      "properties": {
+        "id": "FR-07",
+        "elevation": "low"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": ["q|IwmwAMgBmIsGg@sDoEm@sEzG~@zDbBpCxC`CvEpA`@DnFeF"]
+      }
+    },
+    {
+      "id": "FR-08",
+      "type": "Feature",
+      "properties": {
+        "id": "FR-08",
+        "elevation": "low"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "ceJwfwAwEqAyCaCcBqC_A{DaDy@gDsBaCt@t@pMvDtC|CTg@bBt@x@n@@zA@xFnC~BK~AqC]wB"
+        ]
+      }
+    },
+    {
+      "id": "FR-09",
+      "type": "Feature",
+      "properties": {
+        "id": "FR-09",
+        "elevation": "low"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "auKgewAzE\\bG{@vAmAXkCu@qM`Cu@sF_CyBmBy@`An@bMwHdGuEx@g@vF?HJNrAyAnDO"
         ]
       }
     },
@@ -4886,20 +4982,6 @@
       }
     },
     {
-      "id": "FR-2",
-      "type": "Feature",
-      "properties": {
-        "id": "FR-2",
-        "elevation": "low"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          "elKeexARNfGsFrAqDCiCi@kAoAo@iIiBiIYoAhA{BdFdC|BdD~@xAnBrATrCjD"
-        ]
-      }
-    },
-    {
       "id": "FR-20",
       "type": "Feature",
       "properties": {
@@ -4954,32 +5036,6 @@
       }
     },
     {
-      "id": "FR-3",
-      "type": "Feature",
-      "properties": {
-        "id": "FR-3",
-        "elevation": "low"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          "{lLy|xA?A?AWFII[E]YQCGB@PMFMAYh@G@YRK\\UHOAGBGTQL?FTF@FQPc@H@`@Q^r@L\\^?NEDN\\PH\\?j@LTVLBV?NHd@?LG\\@RVZKX?d@D?FRXGX?RLDFVzB|@zCuA`Hu@eD_AeC}Bq@NkAw@_DKiCoE"
-        ]
-      }
-    },
-    {
-      "id": "FR-4",
-      "type": "Feature",
-      "properties": {
-        "id": "FR-4",
-        "elevation": "low"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": ["qkKudxAxBlBrF~BfDrB`Dx@rE{Gy@iCuEuEaB_D}De@sApDgGrF"]
-      }
-    },
-    {
       "id": "FR-40",
       "type": "Feature",
       "properties": {
@@ -5004,34 +5060,6 @@
         "type": "MultiPolygon",
         "coordinates": [
           "ctPwdqAkBi@}A}AyCs@cATe@x@`@fIs@hEjBhIhC{BvCe@b@qCuC{ChD^JSl@_Bk@oA|@mAq@m@"
-        ]
-      }
-    },
-    {
-      "id": "FR-5",
-      "type": "Feature",
-      "properties": {
-        "id": "FR-5",
-        "elevation": "low"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          "gvKwnxAaHt@{CtA^lBaCdBbBzCpG`ArCtChCkDbB_FhBUsCkDsAUyAoB"
-        ]
-      }
-    },
-    {
-      "id": "FR-6",
-      "type": "Feature",
-      "properties": {
-        "id": "FR-6",
-        "elevation": "low"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          "uyL{xwAlAhDpF~CBsBzA}CpGwFcB{C`CeB_@mB{B}@IZ?d@GFMFN\\e@f@YHMT}@RU@YEGRFLo@`@WAm@MO@m@ZO@DJZPA`@L^EN[LHf@KXFPY`@DH@Nc@Js@@Gn@}@Ag@FGDh@E"
         ]
       }
     },
@@ -5120,18 +5148,6 @@
       }
     },
     {
-      "id": "FR-7",
-      "type": "Feature",
-      "properties": {
-        "id": "FR-7",
-        "elevation": "low"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": ["q|IwmwAMgBmIsGg@sDoEm@sEzG~@zDbBpCxC`CvEpA`@DnFeF"]
-      }
-    },
-    {
       "id": "FR-70",
       "type": "Feature",
       "properties": {
@@ -5184,34 +5200,6 @@
         "type": "MultiPolygon",
         "coordinates": [
           "eyB{yqAZaAi\\aGaDAcElBqD`Fp@p@_@dAr@DzEXDAhB[@AVW@@j@c@xEoAb@IpAYD@~@FxDVHF`@d@x@~@~@LpAFXIVGl@a@Z_AFE"
-        ]
-      }
-    },
-    {
-      "id": "FR-8",
-      "type": "Feature",
-      "properties": {
-        "id": "FR-8",
-        "elevation": "low"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          "ceJwfwAwEqAyCaCcBqC_A{DaDy@gDsBaCt@t@pMvDtC|CTg@bBt@x@n@@zA@xFnC~BK~AqC]wB"
-        ]
-      }
-    },
-    {
-      "id": "FR-9",
-      "type": "Feature",
-      "properties": {
-        "id": "FR-9",
-        "elevation": "low"
-      },
-      "geometry": {
-        "type": "MultiPolygon",
-        "coordinates": [
-          "auKgewAzE\\bG{@vAmAXkCu@qM`Cu@sF_CyBmBy@`An@bMwHdGuEx@g@vF?HJNrAyAnDO"
         ]
       }
     },
