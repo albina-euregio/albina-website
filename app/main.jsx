@@ -9,7 +9,7 @@ import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dial
 import jQuery from "jquery";
 window["jQuery"] = window["$"] = jQuery;
 
-import "./sentry";
+(() => import("./sentry"))();
 
 // TODO: check content API for maintenance mode before starting the app
 window["appStore"] = new AppStore();
