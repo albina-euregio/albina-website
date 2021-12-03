@@ -109,6 +109,13 @@ function augmentNeighborFeature(
     ?.filter(
       danger =>
         region.match(/^CH-/) ||
+        region.match(/^IT-21/) ||
+        region.match(/^IT-23/) ||
+        region.match(/^IT-25/) ||
+        region.match(/^IT-25/) ||
+        region.match(/^IT-34/) ||
+        region.match(/^IT-36/) ||
+        region.match(/^IT-57/) ||
         !danger.elevation ||
         (danger.elevation.upperBound && elevation === "low") ||
         (danger.elevation.lowerBound && elevation === "high")
