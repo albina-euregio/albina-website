@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import analyze from "rollup-plugin-analyzer";
 import gzipPlugin from "rollup-plugin-gzip";
 
 import { execSync } from "child_process";
@@ -25,6 +26,7 @@ export default defineConfig({
   envPrefix: ["APP_", "VITE_"],
   plugins: [
     react(),
+    analyze(),
     process.env.COMPRESS_GZIP && gzipPlugin(),
     process.env.COMPRESS_BROTLI &&
       gzipPlugin({
