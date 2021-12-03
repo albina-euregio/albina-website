@@ -22,8 +22,6 @@ window["tiltySettings"] = {
   "data-tilt-scale": 1.1
 };
 
-import "./js/custom.js";
-
 // detect WebP support
 // test taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/img/webp.js
 const isWebpSupported = new Promise(resolve => {
