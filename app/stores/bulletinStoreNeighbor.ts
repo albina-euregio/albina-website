@@ -116,6 +116,7 @@ function augmentNeighborFeature(
         region.match(/^IT-34/) ||
         region.match(/^IT-36/) ||
         region.match(/^IT-57/) ||
+        region.match(/^FR-/) ||
         (!danger.elevation.upperBound && !danger.elevation.lowerBound) ||
         (danger.elevation.upperBound && elevation === "low") ||
         (danger.elevation.lowerBound && elevation === "high")
