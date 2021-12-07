@@ -57,11 +57,6 @@ async function loadBulletins(date: string): Promise<Bulletin[]> {
   const allBulletins = await Promise.all(
     regions.map(region => loadBulletin(date, region))
   );
-  allBulletins.flat().forEach(b => {
-    // https://gitlab.com/albina-euregio/pyAvaCore/-/issues/20
-    b.avalancheProblems ??= (b as any).avalancheProblem;
-    b.dangerRatings ??= (b as any).dangerRating;
-  });
   return allBulletins.flat();
 }
 
