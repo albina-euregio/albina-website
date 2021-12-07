@@ -10,22 +10,12 @@ type FeatureCollection = GeoJSON.FeatureCollection<
   Properties
 >;
 
-let loadedRegions: Promise<FeatureCollection> = undefined;
-
-async function loadRegions(): Promise<FeatureCollection> {
-  const polyline = import("./neighbor_micro_regions.polyline.json");
-  const polylineExtra = import("./neighbor_regions.polyline.json");
+async function loadRegions(region: string): Promise<FeatureCollection> {
+  const polyline = import(
+    `./micro-regions_elevation/${region}_micro-regions_elevation.polyline.json`
+  );
   const regions = decodeFeatureCollection((await polyline).default);
-  const extraRegions = decodeFeatureCollection((await polylineExtra).default);
-  const extraFeatures = extraRegions.features.filter(
-    feature => feature.id === "CH" || feature.id === "LI"
-  );
-  extraFeatures.forEach(
-    feature => (feature.properties.id = feature.id as string)
-  );
-  regions.features.push(...extraFeatures);
-  regions.features = regions.features.map(f => Object.freeze(f));
-  return Object.freeze(regions);
+  return regions;
 }
 
 async function loadBulletin(date: string, region: string): Promise<Bulletin[]> {
@@ -40,7 +30,7 @@ async function loadBulletin(date: string, region: string): Promise<Bulletin[]> {
   return [];
 }
 
-async function loadBulletins(date: string): Promise<Bulletin[]> {
+async function loadBulletins(date: string): Promise<Feature[]> {
   const regions = [
     "AT-02",
     "AT-03",
@@ -55,7 +45,15 @@ async function loadBulletins(date: string): Promise<Bulletin[]> {
     "SI"
   ];
   const allBulletins = await Promise.all(
-    regions.map(region => loadBulletin(date, region))
+    regions.map(async region => {
+      const regions$ = loadRegions(region);
+      const bulletins$ = loadBulletin(date, region);
+      const regions = await regions$;
+      const bulletins = await bulletins$;
+      return regions.features
+        .map(feature => augmentNeighborFeature(feature, bulletins))
+        .filter(feature => feature?.properties?.style);
+    })
   );
   return allBulletins.flat();
 }
@@ -65,19 +63,11 @@ export async function loadNeighborBulletins(
 ): Promise<FeatureCollection> {
   if (typeof date !== "string") return;
   const bulletins = await loadBulletins(date);
-  if (!loadedRegions) loadedRegions = loadRegions();
-  const regions = await loadedRegions;
 
   return Object.freeze({
-    ...regions,
+    type: "FeatureCollection",
     name: `neighbor_bulletins_${date}`,
-    features: regions.features
-      .filter(
-        // exclude ALBINA regions
-        feature => !feature.properties.id.match(window.config.regionsRegex)
-      )
-      .map(feature => augmentNeighborFeature(feature, bulletins))
-      .filter(feature => feature?.properties?.style)
+    features: bulletins
   });
 }
 
@@ -94,6 +84,10 @@ function augmentNeighborFeature(
   feature: Feature,
   bulletins: Bulletin[]
 ): Feature | undefined {
+  if (feature.properties.id.match(window.config.regionsRegex)) {
+    // exclude ALBINA regions
+    return;
+  }
   const region = feature.properties.id;
   const elevation = feature.properties.elevation;
   bulletins = bulletins.filter(bulletin =>
