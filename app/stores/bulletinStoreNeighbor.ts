@@ -87,6 +87,8 @@ function augmentNeighborFeature(
   if (feature.properties.id.match(window.config.regionsRegex)) {
     // exclude ALBINA regions
     return;
+  } else if (!bulletins || !bulletins.length) {
+    return;
   }
   const region = feature.properties.id;
   const elevation = feature.properties.elevation;
