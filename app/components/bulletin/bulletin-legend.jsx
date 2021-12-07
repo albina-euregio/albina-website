@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
-import { preprocessContent } from "../../util/htmlParser";
 import { getWarnlevelNumber } from "../../util/warn-levels.js";
 
 class BulletinLegend extends React.Component {
@@ -11,15 +10,6 @@ class BulletinLegend extends React.Component {
   }
 
   render() {
-    // replace the <a> element in bulletin:legend:highlight-regions with a
-    // Link component
-    const msg = this.props.intl.formatHTMLMessage({
-      id: "bulletin:legend:highlight-regions"
-    });
-
-    // split the string at <a> and </a>
-    const parts = msg.match(/^(.*)<a[^>]*>([^<]*)<\/a>(.*)$/);
-
     const warnlevelKeys = [
       "low",
       "moderate",
@@ -40,19 +30,23 @@ class BulletinLegend extends React.Component {
           <div className="grid">
             <div className="normal-6 grid-item">
               <p>
-                {parts.length > 1 && preprocessContent(parts[1])}
-                {parts.length > 2 && (
-                  <Link
-                    to="/education/avalanche-problems"
-                    className="tooltip"
-                    title={this.props.intl.formatMessage({
-                      id: "bulletin:legend:highlight-regions:hover"
-                    })}
-                  >
-                    <strong>{parts[2]}</strong>
-                  </Link>
+                {this.props.intl.formatMessage(
+                  { id: "bulletin:legend:highlight-regions" },
+                  {
+                    strong: msg => <strong>{msg}</strong>,
+                    a: msg => (
+                      <Link
+                        to="/education/avalanche-problems"
+                        className="tooltip"
+                        title={this.props.intl.formatMessage({
+                          id: "bulletin:legend:highlight-regions:hover"
+                        })}
+                      >
+                        <strong>{msg}</strong>
+                      </Link>
+                    )
+                  }
                 )}
-                {parts.length > 3 && preprocessContent(parts[3])}
               </p>
               <BulletinProblemFilter
                 handleSelectRegion={this.props.handleSelectRegion}
