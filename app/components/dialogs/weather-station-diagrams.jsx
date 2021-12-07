@@ -17,7 +17,7 @@ class WeatherStationDiagrams extends React.Component {
       winter: "winter"
     };
     this.imageWidths = ["800", "1100"];
-    this.state = { timeRange: "threedays" };
+    this.state = { timeRange: "threedays", selectedYear: null };
     this.keyFunction = this.keyFunction.bind(this);
   }
 
@@ -93,6 +93,57 @@ class WeatherStationDiagrams extends React.Component {
     return pieces[0] + " " + name;
   }
 
+  yearFlipper() {
+    const curYear = new Date().getFullYear();
+    let nextYear = null;
+    let lastYear = null;
+    let selectedYear = new Date().getFullYear();
+    if (this.state.selectedYear) {
+      selectedYear = this.state.selectedYear;
+      if (selectedYear > 1960) lastYear = selectedYear - 1;
+      if (selectedYear < curYear) nextYear = selectedYear + 1;
+    } else {
+      lastYear = curYear - 1;
+    }
+    return (
+      <>
+        {lastYear && (
+          <li className="weatherstation-flipper-back">
+            <a
+              href="#"
+              onClick={() => {
+                this.setState({ selectedYear: lastYear });
+              }}
+              title="Back"
+              className="tooltip"
+            >
+              <span className="icon-arrow-left"></span>
+              {lastYear}
+            </a>
+          </li>
+        )}
+        <li className="weatherstation-flipper-current">{selectedYear}</li>
+        {nextYear && (
+          <li className="weatherstation-flipper-forward">
+            <a
+              href="#"
+              onClick={() => {
+                this.setState({
+                  selectedYear: curYear === nextYear ? null : nextYear
+                });
+              }}
+              title="Forward"
+              className="tooltip"
+            >
+              {nextYear}
+              <span className="icon-arrow-right"></span>
+            </a>
+          </li>
+        )}
+      </>
+    );
+  }
+
   render() {
     let stationsData = window["modalStateStore"].data.stationData;
     let rowId = window["modalStateStore"].data.rowId;
@@ -126,6 +177,34 @@ class WeatherStationDiagrams extends React.Component {
                 )}
               </h2>
             </div>
+            <ul className="list-inline weatherstation-flipper">
+              {!isStation && this.yearFlipper()}
+              <li className="weatherstation-flipper-station">
+                <ul className="list-inline weatherstation-flipper">
+                  <li className="weatherstation-flipper-back">
+                    <a
+                      href="#"
+                      onClick={this.previous}
+                      title="Prior Station"
+                      className="tooltip"
+                    >
+                      <span className="icon-arrow-left"></span>
+                    </a>
+                  </li>
+                  <li className="weatherstation-flipper-current">Station</li>
+                  <li className="weatherstation-flipper-forward">
+                    <a
+                      href="#"
+                      onClick={this.next}
+                      title="Next Station"
+                      className="tooltip"
+                    >
+                      <span className="icon-arrow-right"></span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
 
             <div className="modal-content">
               {isStation && this.renderMeasurementValues(stationData)}
@@ -202,6 +281,7 @@ class WeatherStationDiagrams extends React.Component {
         width,
         interval: this.timeRanges[this.state.timeRange],
         name: stationData.plot,
+        year: this.state.selectedYear ? "_" + this.state.selectedYear : "",
         t: this.cacheHash
       })
     );
