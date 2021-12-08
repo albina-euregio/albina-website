@@ -1,6 +1,4 @@
 import { decodeFeatureCollection } from "../util/polyline";
-import { warnlevelNumbers } from "../util/warn-levels";
-import { Bulletin, Bulletins } from "./bulletin/CaamlBulletin2022";
 import { MicroRegionElevationProperties } from "./bulletin";
 
 type Properties = MicroRegionElevationProperties & { style: L.PathOptions };
@@ -10,6 +8,13 @@ type FeatureCollection = GeoJSON.FeatureCollection<
   Properties
 >;
 
+type RegionID = string;
+type Elevation = "low" | "high";
+
+export interface DangerRatings {
+  maxDangerRatings: Record<`${RegionID}:${Elevation}`, 1 | 2 | 3 | 4 | 5>;
+}
+
 async function loadRegions(region: string): Promise<FeatureCollection> {
   const polyline = import(
     `./micro-regions_elevation/${region}_micro-regions_elevation.polyline.json`
@@ -18,16 +23,18 @@ async function loadRegions(region: string): Promise<FeatureCollection> {
   return regions;
 }
 
-async function loadBulletin(date: string, region: string): Promise<Bulletin[]> {
+async function loadBulletin(
+  date: string,
+  region: string
+): Promise<DangerRatings> {
   try {
-    const url = `https://avalanche.report/albina_neighbors.2022/${date}-${region}.json`;
+    const url = `https://avalanche.report/albina_neighbors.2022/${date}-${region}.ratings.json`;
     const res = await fetch(url);
     if (res.ok) {
-      const json: Bulletins = await res.json();
-      return json.bulletins;
+      return await res.json();
     }
   } catch (ignore) {}
-  return [];
+  return { maxDangerRatings: {} };
 }
 
 async function loadBulletins(date: string): Promise<Feature[]> {
@@ -77,43 +84,16 @@ const WARNLEVEL_COLORS = [
   "#ffff00",
   "#ff9900",
   "#ff0000",
-  "#ff0000"
+  "#600000" // FIXME color for very_high
 ];
 
 function augmentNeighborFeature(
   feature: Feature,
-  bulletins: Bulletin[]
+  bulletins: DangerRatings
 ): Feature | undefined {
-  if (feature.properties.id.match(window.config.regionsRegex)) {
-    // exclude ALBINA regions
-    return;
-  } else if (!bulletins || !bulletins.length) {
-    return;
-  }
-  const region = feature.properties.id;
-  const elevation = feature.properties.elevation;
-  bulletins = bulletins.filter(bulletin =>
-    bulletin.regions?.map(r => r.regionID)?.includes(region)
-  );
-  const dangerRatings = bulletins.flatMap(b => b.dangerRatings);
-  const warnlevel = dangerRatings
-    ?.filter(
-      danger =>
-        region.match(/^CH-/) ||
-        region.match(/^IT-21/) ||
-        region.match(/^IT-23/) ||
-        region.match(/^IT-25/) ||
-        region.match(/^IT-25/) ||
-        region.match(/^IT-34/) ||
-        region.match(/^IT-36/) ||
-        region.match(/^IT-57/) ||
-        region.match(/^FR-/) ||
-        (!danger.elevation.upperBound && !danger.elevation.lowerBound) ||
-        (danger.elevation.upperBound && elevation === "low") ||
-        (danger.elevation.lowerBound && elevation === "high")
-    )
-    .map(danger => warnlevelNumbers[danger.mainValue])
-    .reduce((w1, w2) => Math.max(w1, w2), 0);
+  const region: RegionID = feature.properties.id;
+  const elevation: Elevation = feature.properties.elevation;
+  const warnlevel = bulletins?.maxDangerRatings?.[`${region}:${elevation}`];
   if (!warnlevel) return;
   feature.properties.style = {
     stroke: false,
