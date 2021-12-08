@@ -9,6 +9,8 @@ import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dial
 import jQuery from "jquery";
 window["jQuery"] = window["$"] = jQuery;
 
+(() => import("./sentry"))();
+
 // TODO: check content API for maintenance mode before starting the app
 window["appStore"] = new AppStore();
 window["staticPageStore"] = new StaticPageStore();
@@ -19,8 +21,6 @@ window["tiltySettings"] = {
   "data-tilt-transition": "false",
   "data-tilt-scale": 1.1
 };
-
-import "./js/custom.js";
 
 // detect WebP support
 // test taken from https://github.com/Modernizr/Modernizr/blob/master/feature-detects/img/webp.js
