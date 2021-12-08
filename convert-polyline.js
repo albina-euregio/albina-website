@@ -112,3 +112,36 @@ encodeFiles(
   ],
   "app/stores/neighbor_regions.polyline.json"
 );
+
+for (const region of [
+  "AT-02",
+  "AT-02",
+  "AT-03",
+  "AT-04",
+  "AT-05",
+  "AT-06",
+  "AT-08",
+  "CH",
+  "DE-BY",
+  "FR",
+  "SI"
+]) {
+  encodeFiles(
+    [
+      `eaws-regions/public/micro-regions_elevation/${region}_micro-regions_elevation.geojson.json`
+    ],
+    `app/stores/micro-regions_elevation/${region}_micro-regions_elevation.polyline.json`
+  );
+}
+
+encodeFiles(
+  [
+    "eaws-regions/public/micro-regions_elevation/IT-21_micro-regions_elevation.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/IT-23_micro-regions_elevation.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/IT-25_micro-regions_elevation.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/IT-34_micro-regions_elevation.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/IT-36_micro-regions_elevation.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/IT-57_micro-regions_elevation.geojson.json"
+  ],
+  "app/stores/micro-regions_elevation/IT-AINEVA_micro-regions_elevation.polyline.json"
+);

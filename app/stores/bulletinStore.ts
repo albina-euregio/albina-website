@@ -15,7 +15,8 @@ import {
   DaytimeBulletin,
   toDaytimeBulletins
 } from "./bulletin";
-import { fetchJSON, fetchText } from "../util/fetch.js";
+import { fetchText } from "../util/fetch.js";
+import { loadNeighborBulletins } from "./bulletinStoreNeighbor";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 
@@ -241,39 +242,8 @@ class BulletinStore {
     if (!enableNeighborRegions) return;
     if (typeof date !== "string") return;
     this.settings.neighbors = 0;
-    const regions = [
-      "AT-02",
-      "AT-03",
-      "AT-04",
-      "AT-05",
-      "AT-06",
-      "AT-08",
-      "DE-BY",
-      "CH",
-      "SI",
-      "FR",
-      "IT-21",
-      "IT-23",
-      "IT-25",
-      "IT-34",
-      "IT-36",
-      "IT-57"
-    ];
-    const allBulletins: GeoJSON.Feature[][] = await Promise.all(
-      regions.map(async (region): Promise<GeoJSON.Feature[]> => {
-        try {
-          const url = `https://avalanche.report/albina_neighbors.2022/${date}-${region}.geojson`;
-          const geojson: GeoJSON.FeatureCollection = await fetchJSON(url, {});
-          return geojson.features.filter(f => f.properties.maxDangerRating > 0);
-        } catch (ignore) {
-          return [];
-        }
-      })
-    );
-    this.bulletins[date].neighborBulletins = {
-      type: "FeatureCollection",
-      features: allBulletins.flat()
-    };
+    const geojson = await loadNeighborBulletins(date);
+    this.bulletins[date].neighborBulletins = geojson;
     if (activate && this.settings.date == date) {
       // reactivate to notify status change
       this.activate(date);
