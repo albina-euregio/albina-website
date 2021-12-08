@@ -151,6 +151,7 @@ class BulletinStore {
       problems: observable,
       _latestBulletinChecker: action,
       load: action,
+      loadNeighbors: action,
       activate: action,
       setRegion: action,
       dimProblem: action,
