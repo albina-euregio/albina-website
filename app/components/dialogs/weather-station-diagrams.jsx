@@ -178,6 +178,7 @@ class WeatherStationDiagrams extends React.Component {
               </h2>
             </div>
             <ul className="list-inline weatherstation-flipper">
+              <li></li>
               {!isStation && this.yearFlipper()}
               <li className="weatherstation-flipper-station">
                 <ul className="list-inline weatherstation-flipper">
