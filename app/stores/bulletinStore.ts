@@ -19,10 +19,6 @@ import { fetchText } from "../util/fetch.js";
 import { loadNeighborBulletins } from "./bulletinStoreNeighbor";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
-import encodedMicroRegions from "./micro_regions.polyline.json";
-import encodedNeighborRegions from "./neighbor_regions.polyline.json";
-const microRegions = decodeFeatureCollection(encodedMicroRegions);
-const neighborRegions = decodeFeatureCollection(encodedNeighborRegions);
 
 const enableNeighborRegions = true;
 
@@ -128,6 +124,16 @@ class BulletinCollection {
 }
 
 class BulletinStore {
+  // not observable
+  _microRegions: GeoJSON.FeatureCollection = {
+    type: "FeatureCollection",
+    features: []
+  };
+  // not observable
+  _neighborRegions: GeoJSON.FeatureCollection = {
+    type: "FeatureCollection",
+    features: []
+  };
   bulletins: Record<string, BulletinCollection> = {};
   latest = null;
   settings = {
@@ -180,6 +186,18 @@ class BulletinStore {
     this.latest = latest;
   }
 
+  async loadMicroRegions() {
+    if (this._microRegions.features.length) return;
+    const polyline = await import("./micro_regions.polyline.json");
+    this._microRegions = decodeFeatureCollection(polyline.default);
+  }
+
+  async loadNeighborRegions() {
+    if (this._neighborRegions.features.length) return;
+    const polyline = await import("./neighbor_regions.polyline.json");
+    this._neighborRegions = decodeFeatureCollection(polyline.default);
+  }
+
   /**
    * Load a bulletin from the APIs and activate it, if desired.
    * @param date The date in YYYY-MM-DD format.
@@ -188,6 +206,8 @@ class BulletinStore {
    *   if it need to be fetched.
    */
   async load(date: string, activate = true) {
+    this.loadMicroRegions();
+    this.loadNeighborRegions();
     // console.log("loading bulletin", { date, activate });
     if (typeof date !== "string") return;
     if (this.bulletins[date]) {
@@ -290,7 +310,7 @@ class BulletinStore {
     if (!this.settings?.region?.match(config.regionsRegex)) {
       return "";
     }
-    const feature = microRegions.features.find(
+    const feature = this._microRegions.features.find(
       f => f.id === this.settings.region
     );
     return (feature?.id as string) ?? "";
@@ -311,7 +331,9 @@ class BulletinStore {
   }
 
   get activeNeighbor(): GeoJSON.Feature {
-    return neighborRegions.features.find(f => f.id === this.settings.region);
+    return this._neighborRegions.features.find(
+      f => f.id === this.settings.region
+    );
   }
 
   getProblemsForRegion(regionId: string, ampm = null): AvalancheProblem[] {
@@ -356,7 +378,7 @@ class BulletinStore {
   }
 
   get neighborRegions(): GeoJSON.Feature[] {
-    return neighborRegions.features.map(f => this._augmentFeature(f));
+    return this._neighborRegions.features.map(f => this._augmentFeature(f));
   }
 
   _augmentFeature(f: GeoJSON.Feature, ampm = null): GeoJSON.Feature {
@@ -376,7 +398,7 @@ class BulletinStore {
     const collection = this.activeBulletinCollection;
 
     if (collection && collection.length > 0) {
-      const regions: GeoJSON.Feature[] = microRegions.features.map(f =>
+      const regions: GeoJSON.Feature[] = this._microRegions.features.map(f =>
         this._augmentFeature(f, ampm)
       );
 
