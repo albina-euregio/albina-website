@@ -121,7 +121,19 @@ class BulletinMap extends React.Component {
           key={`neighbor-bulletins-${activeNeighborBulletins.name}`}
           data={activeNeighborBulletins}
           pane="mapPane"
-          style={feature => feature.properties.style}
+          style={feature => ({
+            stroke: false,
+            fillColor: [
+              undefined,
+              "#ccff66",
+              "#ffff00",
+              "#ff9900",
+              "#ff0000",
+              "#600000" // FIXME color for very_high
+            ][feature.properties.maxDangerRating],
+            fillOpacity: 0.5,
+            className: "mix-blend-mode-multiply"
+          })}
         />
       );
     }
