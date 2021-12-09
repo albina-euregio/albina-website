@@ -4,9 +4,6 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Util } from "leaflet";
 import { regionCodes } from "../../util/regions";
 
-import ProvinceFilter from "../filters/province-filter";
-import PdfModeFilter from "../filters/pdfmode-filter";
-
 class DownloadPdfDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -53,12 +50,18 @@ class DownloadPdfDialog extends React.Component {
       <>
         <label for="input">
           {label}
-          <span class="normal"> in</span>
+          <span class="normal">
+            {" "}
+            <FormattedHTMLMessage id="dialog:download-pdf:in" />
+          </span>
         </label>
         <ul class="list-inline list-buttongroup">
           <li>
             <button
-              href={this.pdfLink(region, false)}
+              type="button"
+              onClick={() => {
+                window.open(this.pdfLink(region, false));
+              }}
               title=""
               class="pure-button"
             >
@@ -68,11 +71,16 @@ class DownloadPdfDialog extends React.Component {
             </button>
           </li>
           <li>
-            <span class="buttongroup-boolean">or</span>
+            <span class="buttongroup-boolean">
+              <FormattedHTMLMessage id="dialog:download-pdf:or" />
+            </span>
           </li>
           <li>
             <button
-              href={this.pdfLink(region, true)}
+              type="button"
+              onClick={() => {
+                window.open(this.pdfLink(region, true));
+              }}
               title=""
               class="inverse pure-button"
             >
@@ -91,11 +99,14 @@ class DownloadPdfDialog extends React.Component {
       <div className="modal-container">
         <div className="modal-subscribe">
           <div class="modal-header">
-            <h2 class="subheader">PDF</h2>
-            <h2>Download Bulletin</h2>
+            <h2 className="subheader">
+              <FormattedHTMLMessage id="dialog:download-pdf:subheading" />
+            </h2>
+            <h2>
+              <FormattedHTMLMessage id="dialog:download-pdf:heading" />
+            </h2>
             <span>
-              Choose your region of interest and get a PDF in color or black
-              &amp; white.
+              <FormattedHTMLMessage id="dialog:download-pdf:description" />
             </span>
           </div>
           <form class="pure-form pure-form-stacked">
