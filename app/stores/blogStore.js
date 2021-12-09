@@ -36,7 +36,7 @@ class BlogPostPreviewItem {
 }
 
 export default class BlogStore {
-  supportedLanguages = ["de", "it", "fr", "en"];
+  supportedLanguages = ["de", "it", "en"];
   _regions;
   _languages;
   _year;
@@ -213,7 +213,6 @@ export default class BlogStore {
       languages: {
         de: ["", "de", "all"].includes(searchLang) || !searchLang,
         it: ["", "it", "all"].includes(searchLang) || !searchLang,
-        fr: ["", "fr", "all"].includes(searchLang) || !searchLang,
         en: ["", "en", "all"].includes(searchLang) || !searchLang
       }
     };
