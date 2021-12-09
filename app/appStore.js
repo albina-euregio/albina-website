@@ -16,6 +16,15 @@ const fr = () => import("./i18n/fr.json");
 const it = () => import("./i18n/it.json");
 const oc = () => import("./i18n/oc.json");
 const translationImports = Object.freeze({ ca, en, de, es, fr, it, oc });
+const regionTranslationImports = Object.freeze({
+  ca: () => import("eaws-regions/public/micro-regions_names/ca.json"),
+  de: () => import("eaws-regions/public/micro-regions_names/de.json"),
+  en: () => import("eaws-regions/public/micro-regions_names/en.json"),
+  es: () => import("eaws-regions/public/micro-regions_names/es.json"),
+  fr: () => import("eaws-regions/public/micro-regions_names/fr.json"),
+  it: () => import("eaws-regions/public/micro-regions_names/it.json"),
+  oc: () => import("eaws-regions/public/micro-regions_names/oc.json")
+});
 
 class AppStore {
   constructor() {
@@ -42,6 +51,7 @@ class AppStore {
       cookieConsent: observable,
       language: observable,
       messages: observable,
+      setMessages: action,
       setLanguage: action
     });
   }
@@ -59,9 +69,9 @@ class AppStore {
     if (window.bulletinStore !== undefined) {
       window.bulletinStore = new BulletinStore(); // bulleting store is language dependent
     }
-    const { default: messages } = await translationImports[newLanguage]();
-    this.messages = messages;
-    // console.log("new language set", newLanguage);
+    const messages = translationImports[newLanguage]();
+    const regions = regionTranslationImports[newLanguage]();
+    this.setMessages((await messages).default, (await regions).default);
     this.language = newLanguage;
     requestAnimationFrame(() => {
       // replace language-dependent body classes on language change.
@@ -70,6 +80,17 @@ class AppStore {
         .replace(/domain-[a-z]{2}/, "domain-" + newLanguage)
         .replace(/language-[a-z]{2}/, "language-" + newLanguage);
     });
+  }
+
+  setMessages(messages, regions) {
+    this.messages = Object.freeze(
+      Object.assign(
+        { ...messages },
+        ...Object.entries(regions).map(([id, name]) => ({
+          [`region:${id}`]: name
+        }))
+      )
+    );
   }
 }
 
