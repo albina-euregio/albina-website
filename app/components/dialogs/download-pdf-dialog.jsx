@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Util } from "leaflet";
+import { regionCodes } from "../../util/regions";
 
 import ProvinceFilter from "../filters/province-filter";
 import PdfModeFilter from "../filters/pdfmode-filter";
@@ -22,11 +23,8 @@ class DownloadPdfDialog extends React.Component {
     this.setState({ mode: newMode });
   };
 
-  pdfLink() {
+  pdfLink(isRegion, isBw) {
     if (window["bulletinStore"] && window["appStore"]) {
-      const isRegion = !!this.state.region;
-      const isBw = this.state.mode === "bw";
-
       const links = config.links.downloads;
       const link =
         links["base"] +
@@ -35,7 +33,7 @@ class DownloadPdfDialog extends React.Component {
       return Util.template(link, {
         date: window["bulletinStore"].settings.date,
         lang: window["appStore"].language,
-        region: this.state.region
+        region: isRegion
       });
     } else {
       // not loaded yet
@@ -43,114 +41,68 @@ class DownloadPdfDialog extends React.Component {
     }
   }
 
+  regionSelector(region) {
+    const label = region
+      ? this.props.intl.formatMessage({
+          id: `region:${region}`
+        })
+      : this.props.intl.formatMessage({
+          id: "dialog:subscribe-email:region-all:button"
+        });
+    return (
+      <>
+        <label for="input">
+          {label}
+          <span class="normal"> in</span>
+        </label>
+        <ul class="list-inline list-buttongroup">
+          <li>
+            <button
+              href={this.pdfLink(region, false)}
+              title=""
+              class="pure-button"
+            >
+              {this.props.intl.formatMessage({
+                id: "dialog:download-pdf:mode:color"
+              })}
+            </button>
+          </li>
+          <li>
+            <span class="buttongroup-boolean">or</span>
+          </li>
+          <li>
+            <button
+              href={this.pdfLink(region, true)}
+              title=""
+              class="inverse pure-button"
+            >
+              {this.props.intl.formatMessage({
+                id: "dialog:download-pdf:mode:bw"
+              })}
+            </button>
+          </li>
+        </ul>
+      </>
+    );
+  }
+
   render() {
     return (
       <div className="modal-container">
         <div className="modal-subscribe">
-          <div
-            className="modal-header"
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center"
-            }}
-          >
-            <h2 className="subheader">
-              <FormattedHTMLMessage id="dialog:download-pdf:heading" />
-            </h2>
+          <div class="modal-header">
+            <h2 class="subheader">PDF</h2>
+            <h2>Download Bulletin</h2>
+            <span>
+              Choose your region of interest and get a PDF in color or black
+              &amp; white.
+            </span>
           </div>
-          <div
-            className="modal mfp-content"
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              textAlign: "center",
-              display: "flex"
-            }}
-          >
-            <div className="modal-container">
-              <div style={{}}>
-                <div>
-                  <label htmlFor="province">
-                    <FormattedHTMLMessage id="dialog:download-pdf:region" />
-                  </label>
-                  <ul
-                    style={{
-                      alignContent: "center",
-                      textAlign: "center"
-                    }}
-                    className="list-inline list-buttongroup"
-                  >
-                    <li style={{ margin: "0 auto" }}>
-                      <ProvinceFilter
-                        title={this.props.intl.formatMessage({
-                          id: "measurements:filter:province"
-                        })}
-                        all={this.props.intl.formatMessage({
-                          id: "dialog:subscribe-email:region-all:button"
-                        })}
-                        handleChange={r => this.handleChangeRegion(r)}
-                        value={this.state.region}
-                      />
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <label htmlFor="mode">
-                    <FormattedHTMLMessage id="dialog:download-pdf:mode" />
-                  </label>
-                  <ul
-                    style={{
-                      alignContent: "center",
-                      textAlign: "center"
-                    }}
-                    className="list-inline list-buttongroup"
-                  >
-                    <li style={{ margin: "0 auto" }}>
-                      {/* mode */}
-                      <PdfModeFilter
-                        title={this.props.intl.formatMessage({
-                          id: "dialog:download-pdf:mode"
-                        })}
-                        name="mode"
-                        onChange={this.handleChangeMode}
-                        value={this.state.mode}
-                        options={[
-                          {
-                            value: "color",
-                            label: this.props.intl.formatMessage({
-                              id: "dialog:download-pdf:mode:color"
-                            })
-                          },
-                          {
-                            value: "bw",
-                            label: this.props.intl.formatMessage({
-                              id: "dialog:download-pdf:mode:bw"
-                            })
-                          }
-                        ]}
-                      />
-                    </li>
-                  </ul>
-                </div>
-                <p>
-                  <a
-                    href={this.pdfLink()}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                    title={this.props.intl.formatMessage({
-                      id: "bulletin:linkbar:pdf:hover"
-                    })}
-                    className="pure-button tooltip"
-                  >
-                    {this.props.intl.formatMessage({
-                      id: "bulletin:linkbar:pdf"
-                    })}
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
+          <form class="pure-form pure-form-stacked">
+            {this.regionSelector()}
+
+            {regionCodes.map(r => this.regionSelector(r))}
+          </form>
         </div>
       </div>
     );
