@@ -3,6 +3,7 @@ const fs = require("fs");
 
 const polyline = require("@mapbox/polyline");
 const precision = 3;
+const today = "2021-10-01";
 
 /**
  * @param {GeoJSON.FeatureCollection<Polygon>} geojson
@@ -69,6 +70,13 @@ function encodeFiles(files, output) {
   geojson.features = geojson.features
     .concat(...geojsons.map(g => g.features))
     .map(f => ({ id: f.properties?.id, ...f }))
+    .filter(
+      ({ properties }) =>
+        !properties.start_date || properties.start_date <= today
+    )
+    .filter(
+      ({ properties }) => !properties.end_date || properties.end_date > today
+    )
     .sort((f1, f2) => f1.properties.id.localeCompare(f2.properties.id));
   geojson.features.forEach(({ properties }) => {
     properties.start_date || delete properties.start_date;
