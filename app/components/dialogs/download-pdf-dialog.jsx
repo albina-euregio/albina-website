@@ -48,14 +48,14 @@ class DownloadPdfDialog extends React.Component {
         });
     return (
       <>
-        <label for="input">
+        <label htmlFor="input">
           {label}
-          <span class="normal">
+          <span className="normal">
             {" "}
             <FormattedHTMLMessage id="dialog:download-pdf:in" />
           </span>
         </label>
-        <ul class="list-inline list-buttongroup">
+        <ul className="list-inline list-buttongroup">
           <li>
             <button
               type="button"
@@ -63,7 +63,7 @@ class DownloadPdfDialog extends React.Component {
                 window.open(this.pdfLink(region, false));
               }}
               title=""
-              class="pure-button"
+              className="pure-button"
             >
               {this.props.intl.formatMessage({
                 id: "dialog:download-pdf:mode:color"
@@ -71,7 +71,7 @@ class DownloadPdfDialog extends React.Component {
             </button>
           </li>
           <li>
-            <span class="buttongroup-boolean">
+            <span className="buttongroup-boolean">
               <FormattedHTMLMessage id="dialog:download-pdf:or" />
             </span>
           </li>
@@ -82,7 +82,7 @@ class DownloadPdfDialog extends React.Component {
                 window.open(this.pdfLink(region, true));
               }}
               title=""
-              class="inverse pure-button"
+              className="inverse pure-button"
             >
               {this.props.intl.formatMessage({
                 id: "dialog:download-pdf:mode:bw"
@@ -98,7 +98,7 @@ class DownloadPdfDialog extends React.Component {
     return (
       <div className="modal-container">
         <div className="modal-subscribe">
-          <div class="modal-header">
+          <div className="modal-header">
             <h2 className="subheader">
               <FormattedHTMLMessage id="dialog:download-pdf:subheading" />
             </h2>
@@ -109,7 +109,7 @@ class DownloadPdfDialog extends React.Component {
               <FormattedHTMLMessage id="dialog:download-pdf:description" />
             </span>
           </div>
-          <form class="pure-form pure-form-stacked">
+          <form className="pure-form pure-form-stacked">
             {this.regionSelector()}
 
             {regionCodes.map(r => this.regionSelector(r))}
