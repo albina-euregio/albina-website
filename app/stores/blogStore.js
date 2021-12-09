@@ -36,6 +36,7 @@ class BlogPostPreviewItem {
 }
 
 export default class BlogStore {
+  supportedLanguages = ["de", "it", "fr", "en"];
   _regions;
   _languages;
   _year;
@@ -107,10 +108,17 @@ export default class BlogStore {
   }
 
   validateLanguage(valueToValidate) {
-    return window["appStore"].languages.includes(valueToValidate) ||
-      valueToValidate === "all"
-      ? valueToValidate
-      : window["appStore"].language;
+    if (valueToValidate === "all") {
+      return valueToValidate;
+    }
+    if (this.supportedLanguages.includes(valueToValidate)) {
+      return valueToValidate;
+    }
+    valueToValidate = window["appStore"].language;
+    if (this.supportedLanguages.includes(valueToValidate)) {
+      return valueToValidate;
+    }
+    return "all";
   }
 
   validateProblem(valueToValidate) {
