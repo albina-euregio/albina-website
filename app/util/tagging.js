@@ -1,8 +1,8 @@
+import { avalancheProblems } from "./avalancheProblems";
+
 function parseTags(tagList) {
   if (Array.isArray(tagList)) {
-    return tagList.filter(
-      l => window["appStore"].avalancheProblems.indexOf(l) >= 0
-    );
+    return tagList.filter(l => avalancheProblems.indexOf(l) >= 0);
   }
   return [];
 }
