@@ -19,7 +19,7 @@ const Education = React.lazy(() => import("./../views/education"));
 const More = React.lazy(() => import("./../views/more"));
 const Archive = React.lazy(() => import("./../views/archive"));
 const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
-const StaticPage = () => import("./../views/staticPage");
+const StaticPage = React.lazy(() => import("./../views/staticPage"));
 import Page from "./page";
 import { scroll_init } from "../js/scroll";
 import { orientation_change } from "../js/browser";
