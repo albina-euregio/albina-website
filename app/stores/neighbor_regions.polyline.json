@@ -6,15 +6,16 @@
       "type": "Feature",
       "properties": {
         "id": "AT-02",
-        "country_id": "AT",
-        "aws_1": "LWD Kärnten",
-        "url_1_en": "https://lawine-kaernten.at/",
-        "url_1_de": "https://lawine-kaernten.at/",
-        "url_1_it": "https://lawine-kaernten.at/",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "aws": [
+          {
+            "name": "LWD Kärnten",
+            "url": [
+              {
+                "de": "https://lawine-kaernten.at"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -28,15 +29,16 @@
       "type": "Feature",
       "properties": {
         "id": "AT-03",
-        "country_id": "AT",
-        "aws_1": "LWD Niederösterreich",
-        "url_1_en": "https://www.lawinenwarndienst-niederoesterreich.at/",
-        "url_1_de": "https://www.lawinenwarndienst-niederoesterreich.at/",
-        "url_1_it": "https://www.lawinenwarndienst-niederoesterreich.at/",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "aws": [
+          {
+            "name": "LWD Niederösterreich",
+            "url": [
+              {
+                "de": "https://www.lawinenwarndienst-niederoesterreich.at"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -50,15 +52,16 @@
       "type": "Feature",
       "properties": {
         "id": "AT-04",
-        "country_id": "AT",
-        "aws_1": "LWD Oberösterreich",
-        "url_1_en": "https://oberoesterreich.avalanche-warnings.eu/",
-        "url_1_de": "https://oberoesterreich.avalanche-warnings.eu/",
-        "url_1_it": "https://oberoesterreich.avalanche-warnings.eu/",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "aws": [
+          {
+            "name": "LWD Oberösterreich",
+            "url": [
+              {
+                "de": "https://oberoesterreich.avalanche-warnings.eu"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -72,15 +75,19 @@
       "type": "Feature",
       "properties": {
         "id": "AT-05",
-        "country_id": "AT",
-        "aws_1": "LWD Salzburg",
-        "url_1_en": "https://lawine.salzburg.at/en/",
-        "url_1_de": "https://lawine.salzburg.at/",
-        "url_1_it": "https://lawine.salzburg.at/en/",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "aws": [
+          {
+            "name": "LWD Salzburg",
+            "url": [
+              {
+                "en": "https://lawine.salzburg.at/en"
+              },
+              {
+                "de": "https://lawine.salzburg.at"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -94,15 +101,16 @@
       "type": "Feature",
       "properties": {
         "id": "AT-06",
-        "country_id": "AT",
-        "aws_1": "LWD Steiermark",
-        "url_1_en": "https://www.lawine-steiermark.at/",
-        "url_1_de": "https://www.lawine-steiermark.at/",
-        "url_1_it": "https://www.lawine-steiermark.at/",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "aws": [
+          {
+            "name": "LWD Steiermark",
+            "url": [
+              {
+                "de": "https://www.lawine-steiermark.at"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -116,20 +124,24 @@
       "type": "Feature",
       "properties": {
         "id": "AT-08",
-        "country_id": "AT",
-        "aws_1": "LWD Vorarlberg",
-        "url_1_en": "https://warndienste.cnv.at/dibos/lawine_en/",
-        "url_1_de": "https://warndienste.cnv.at/dibos/lawine/",
-        "url_1_it": "https://warndienste.cnv.at/dibos/lawine_en/",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "aws": [
+          {
+            "name": "LWD Vorarlberg",
+            "url": [
+              {
+                "en": "https://warndienste.cnv.at/dibos/lawine_en"
+              },
+              {
+                "de": "https://warndienste.cnv.at/dibos/lawine"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
-          "urQmi{AAACCEAIEGEECCGCKACACCAECOIOIOIECCAACCCAGAIEMAGCEEGIIUOIGs@ASEUOEK?M\\OLM?G@I@IBKBG?G?EACCCKIKGNIz@C^YDLL?Ze@d@WBM?GDiAoCTaBN_BUG?GCAGBKAAKOIAA]OC?Ki@a@[BQCi@NMNLPITJPSJg@DQN_@HGUDIIEs@HOTOBc@O_@?CIQEABABDLARBBy@f@LHU\\W@s@MSDMd@UDINc@GEBC^WVRVf@DJJ_@PBJa@lAg@i@k@Po@CECA]YC@GYDIJYD[QQLFDIHV\\NHADZZGFNJUNKPHADLd@RRCL`@API?FJI@{@LM@E@A@A?AB???@DBP?XVSFEFBDGDA^`@XM`@OHHPKFYHTPVB?HKHj@D?P\\?PJHAn@`A?FAX_@DKXV\\RHVLOPm@NIJFNGLZ@HJDHB`@TZVFZTANSR@VWXi@NBLK`@HF`@AFFZDXS@ODC`AAFEAWf@UZ[VD^ENIFQTFNGf@D^ITOJ@p@SFYCQNK[m@MEDW^IBOSGFG\\?r@PtAc@PMhA@HKp@CRGAIRBZKBGF@d@DZCDJVDXERMMQBQM@IIS?AO@SXSY_@PK?YFKJFPAP[b@OZ@QK@]W[^[RIL?]a@fA{@"
+          "ocRw}{Ai@NMPLNITJPSJg@DON_@HGUBGIGs@HOTOBc@O_@?CIQECFDLARBBy@f@LHU\\W@s@MSDMd@UDINc@GEBC^UVPVf@DJJ_@PBJQh@KZCFg@g@]HMDo@CEC?]YC?GYDIJYD[QQLFDIHV\\NH?DJNLJGFPLWLKPHADLd@RRCL`@APC?E?FJc@F]FC?E@G?E@A@A?AB???@DBJ?D?TRBBSF???@EDBB?@??GDA\\?@B@?@\\TM`@OHHPKFYHFFLHVB?D?BA???IHP@XB?P\\?PJ@?FAn@`A?FAX_@DKXV\\RHVLOPm@NIJFNGLZ@@@DD?@????@@DH@N@PTZVFZTANSR@VWXi@NBLK`@HF`@AFFZDXS@OFCf@AV?FEAWf@UZ[VD^ENIFQTFNGf@D^ITOJ@p@SFYCQNK[m@MEDW^IBOSGFE\\Ar@PtAc@PM~@@H?HKp@CRG?IPBZKBGH@d@DXCDJB?RDXERMKO@SM@IIE?M?AO@SBCTOY_@PK?YFIJDPAFKHOb@OZ@OK?]W[??????^[PG@AL?]a@fA{@AA?ACAEAIEGEECCGCKACACCAECMGQIOKECCAACCCAGAIEMAGCEEGIIKGIGIGs@ASEUOEK?M\\OLM?G@I@IDK@G?G?EACCCKIKGNIz@C^YDLL?Ze@d@WBMA?E?E@G@E@IFC@C@E@I@K?I?IAGAGAGAEAGCEECCCCAAEAEAA?A@A??@?@?BBD?@ABABA@A@E@I@C?C?CACAAAACAACACAA?C?A?A?A@CBA@??A?A?EACAEEAAA?GCA?AA??AEAACAGAEAG?G?W@E?E?KAGAKC??CAAAAA@A@CBE@A@ALG@?BC@?@C@C??ACAGBKAAKOIAA]OC?Ki@a@[BQC"
         ]
       }
     },
@@ -138,15 +150,25 @@
       "type": "Feature",
       "properties": {
         "id": "CH",
-        "country_id": "CH",
-        "aws_1": "SLF",
-        "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
-        "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
-        "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "aws": [
+          {
+            "name": "SLF",
+            "url": [
+              {
+                "en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html"
+              },
+              {
+                "de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html"
+              },
+              {
+                "fr": "https://www.slf.ch/fr/bulletin-davalanches-et-situation-nivologique.html"
+              },
+              {
+                "it": "https://www.slf.ch/it/bollettino-valanghe-e-situazione-nivologica.html"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -160,20 +182,109 @@
       "type": "Feature",
       "properties": {
         "id": "DE-BY",
-        "country_id": "DE",
-        "aws_1": "LWD Bayern",
-        "url_1_en": "https://www.lawinenwarndienst-bayern.de/res/lawinenlage/lagebericht_en.php",
-        "url_1_de": "https://www.lawinenwarndienst-bayern.de/res/start_winter.php",
-        "url_1_it": "https://www.lawinenwarndienst-bayern.de/res/lawinenlage/lagebericht_en.php",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "aws": [
+          {
+            "name": "LWD Bayern",
+            "url": [
+              {
+                "en": "https://www.lawinenwarndienst-bayern.de/res/lawinenlage/lagebericht_en.php"
+              },
+              {
+                "de": "https://www.lawinenwarndienst-bayern.de/res/lawinenlage/lagebericht.php"
+              }
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": "i|Wal|AS?O?K?[CIAK@I@IBIDIFKJOHWPMHUPWNULKDBB@B@DABEFEDA@@@@?@@B@??HDNFHBFDHDBB?@@@ABA@A@AB?@?@UA_@@e@DMHe@CC?GBA?A@E@[?c@@????IGECM???GGEGAAAAG?E?QHWFK@ONONIB]NF^ENSP@HKRCFA@BJ^RDFBBFJB@JFQTDFp@DBPOROBt@x@]P?FAH?BAh@h@HNT@@ZVTQCMb@KLT??`AWHCf@Or@a@HQn@IHG??DQ@K??z@@NCFE@?BCPIHQDG@ABEFIMKQOFI_@WKCSBAC\\Qd@W??P???j@e@CE[IEAGODA@@B@BB??B@@?B?@???@???BA@?@?@?@@B@B@??FGDEFIZI`@FHEHCRAVAN@P@HDFDPHBGPALAXFVADF^b@Td@lAITJVJZ?NWp@YZc@?AXMG_@DGTAv@FNBn@JH@TMZ?BABA?C@??A??j@DJ?h@Dj@VJAZYGe@c@k@NSN@j@n@l@TNAVLD?J?T@ADAHAFABEFGJEDEFCBAFADCDEFEFEFEFA@CF?DADAJCHCF?D@D@@B@D@D?F@H?B?D?B@B@BBESBG`@BXFPDT?ZI~@@HEVE@?HCPD??@?PAJALJL?V[v@JFFNCt@D@?H@B???@?@?D?@?@?VAVJN?n@HH@T?BHHZFBZA@GV@p@E`@Ct@Bj@AH?h@?d@Hh@?n@UJTEFB?BABAB?B?B?@?D@@?B?D?@?DAJZXX???Z?F?V\\RB@jAHZCXJNA`@ED?D?r@B?ABC@CBC@C@CHBn@`@DFDF`@PLRUJ]AER?BQRd@GNDXE^FNGd@AJFBNN?TNRAPDBf@PLB@NBH?H?r@?F@FBHCQS????CEOQYQFIx@B\\EFFFBjAJD@b@LR@LJCNNDxB?r@DHGN@RBZCZCNKCYYG@Q@?dBmA??FESMDGn@Er@LZE?]MMUC??y@MBKV@?AZe@fAF\\NNER@N@?Lb@AF@RFFBXKAIJSd@ED?b@?TKX?F]D@B?B@D@@?B@@GrA?PCNKL@XGNRRHANJR??BDP?@CV?t@@r@G??PADC??BCv@QBA?CQOEACCCCCA@SOAEEVEXFj@AJLGLWDKVV|@CPRTIPOTOCUDCHERB\\MRGTd@FDPJBFBRFCFJFEDHPOTLGT?FHh@DNf@x@d@T^EFd@V\\AVJL?ZV^?JJ\\DVNRIB?d@Al@LD?B?@QMa@SBe@SEMI@JQVMQMFGMMMM@EOIW]BCDEGEPMZPXEHKXE?FXB?\\DBn@BLE\\If@f@BGJ[Pi@CK^QKKg@EQWTWB_@DCb@FHOTELe@REr@LVAT]MIx@g@CC?EEAMGA?C?IAMCCCCAQC]GO?EAIACCCAQEIAM?S?[AC?K@IAEAA?KE]EKAUCWGc@ESAM?GBED?@G@G@IBE@CBM@SDOACBE@ICGEk@ACAA?GGECA?AA?AKIGAGAEEMCIAEAAAKCCAOCG@A?O@C?IAG@C@W?OAUGCCIEOCA?U@ACEEEAAAGAGAGCE?MEQASGUAA???CAKCKEE?G@UF[NK?IBGJA@E?G@?@IFA?ECA?C?WFEDA@ODE@WDKBE@IDS@[FC?K?Q@W@S@S?O?GDAAAAC?C?E?C?AACAAAOAE?KESIa@IICAAIEGCIAIAGEUSA?W]SKEAAAGGKKKISIIAG?KCIE????OASA[A]C????KAC?GDUB_@BOBCBEDA?A@A?QAKASCS@K?SKQEE?AAGCIEGAKAi@BUDg@FG?GD]VKJKJE@KBOHMV@JO@IBUHCECECGCGAGACEECEEGEIACAAWUWQIGIAWEOCICOGECSAU?E@CJI^???@???DC@CBC@C@A@?@A@A@GBIBE@C?CAECIEGAGAGCAA?E??AACMGISCGGCAEASOEMAAGM?OAEGCCGOGGKCAECAGCGC?ECKCIEMIECAAKA]AYA]?C?I?EAA?GAEAK?C?GAGCC?E?K@K@E@C?E?GCIECC??CAEAS?G?O@UAQAOACAg@AY?k@A??G@E@QF]HI?OBG?Y@_@BQ?QEa@AMAIAI?C?WDUAo@AICc@K_@GKEM?MBOJMB[Ia@CIAC?I?QGGAKCU?K@QHA?SFM@_@AE?I@GBO?A???SF_@JKLKNEFMRWHUDBQIQHYNONM@????A?CKWIGEKIGWGm@IM@I@G?W?Q?QAE?KAa@C[CI?K?G?GDEDK@A@C@WTG?]OIMQGACAGUEU@ED?@MBKBMDWFSFCBA@GB[JOA_@@QCO?A?IC_@K[EKCUC?A]EQAC?SAM?A?K@G?ME????UAICQEAAI?QQKC@C?AA?U@U?U?KAC?UCIA]?SAO?G?G?MBM@"
+      }
+    },
+    {
+      "id": "FR",
+      "type": "Feature",
+      "properties": {
+        "id": "FR",
+        "aws": [
+          {
+            "name": "Meteo France",
+            "url": [
+              {
+                "fr": "https://meteofrance.com/meteo-montagne"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
-          "anRoz{Ai@Es@Oy@Dk@DqAM{B]m@Ao@HeAVq@?s@[i@Ws@Mg@Ne@E_@O]Ii@Ug@QQEWOu@Ac@L[P]^u@Zs@Jc@AS@i@Hk@Do@BiAAq@O_@c@MI_A]eAe@kAW{@KaACYAe@?MAQEe@Ik@GMCaADk@Ba@TUZUROPQj@w@Ha@]m@Sk@Aa@IIe@Uq@[Aa@^c@Vs@S{@?]M]k@Ym@M[g@g@g@OwACcAAgAQ}CUaAFo@VWTg@T}@Bw@KSQc@Eg@Ak@M]Q]Ic@?]Lc@Dg@Ka@Oa@@cADcAd@O`@URe@HYAGA?e@Hi@[Se@Om@Ue@Gm@DaA?e@K[A]\\[GWSYYSG_@J_@PUHUHWHOLMRm@AS?WCi@Ae@SUUYSg@We@G]K]CS?YDc@Ne@NSHa@G]Ea@@c@Cc@Ee@MWCICU@_@Le@TYVORa@L_@DG?MCMBCLLHBPHFRBJJPXOJIDMHi@CSF}@@OKM?QSM?QHc@H_@^g@RF^ENSP@HQ\\BJ^RRXLDQVDFp@DBPOROBt@x@]P?DAJAl@h@HPVZVRQAMb@KLTjA[f@Or@a@HQn@IHGF]z@@NCLIPIHQRY_@[FI_@WKCSBACp@]PKP?j@e@CEa@KGODADBBBB@@?B?@?@?BA@?@?@?@@B@B@TWZI`@FRIj@C`@Bb@TBG^CXFVAd@j@Td@lAIl@VZ?NWp@YZc@XOG_@DGTAv@FhAPTMZ?FC@G`BLj@VJAZYGe@c@k@NSL@l@n@l@TNAVLf@@ADAHAFABEFGJGDCFCBAFADCDEFEFEDEHA@CF?BAFAJCHCF?D@D@@B@D@D?F@H?B?D?B@FDESBG`@BXFPDT?ZI~@@HGb@GRD\\CLJL?V[v@JFFNCdAFd@AVHN@x@JT?Ld@FBZA@GV@rAIt@B~AAd@Hh@?n@UJTEFJCB?F?F@@?B?D?FAJZXX?z@\\RnAJZCXJp@G|@BDE@CBC@C@CHBl@^LP`@PLRUJ]AEVQRd@GNDXE^FLGf@AJFBNN?TNRAPDBf@PLRDfA?NDHCe@k@YQFIx@B\\ENJnALd@LR@JJANNDxB?r@BHEN@RBv@GNKCYYG@QdBkAHGSMDGn@Er@LZEA]KMoAQBKV?Ze@fAF\\NNEb@B?Lb@Ab@LXKAIJSb@Ej@?TKX?F]D@B?B@D@@?B?@ErA?PCLKN@XGNRRHANNXP?@ClA@dAIHGv@QBA?CSOCAKI@SOAEGVCXFj@AJJGNWDKVV|@CPRTIPOTOCUDI\\B\\MRGTd@FDPf@NCFJFEDHPOTLGT?FHh@DNf@x@d@T^EDd@X\\AVJL?ZV^?JJ\\DVNRIh@Al@LH?@QMa@SBe@SEMI@JQTOOKFG[[@EOIW]HIGEPMZPXEHKXEAFXB@\\DBn@Bj@Qf@h@`@mACK^QKKg@ESWVWB_@DCb@FHOTELe@REr@LVAT]MIx@g@CC@SEM@C"
+          "_Vo~rA{E_@oCb@oD~AeAq@eOLeC]}IvA{V\\gBXUd@\\nB}BgCuDDmD|AgCReDxBsDjAI~CsAeBgAc@kLfDo@l@EdBaDAcElBqD`Fp@p@_@dAr@DzEXDAhB[@AVW@@j@c@xEoAb@IpAYD@~@FxDVHF`@d@x@~@~@LpAFXIVGl@a@Z_AFEZaAnACbBi@DA????fCa@JE~Ac@B??U???Ac@oAy@SM@G?BAJMdAkApASrG{@bCHL@LL`AlA@Bx@aBt@iAPOj@e@TAl@AlHLBAv@k@`@_AlAg@LAtA?B?@AB??@?@@?BA@?BAB?@?D?@?D?@A@?B?B?@??ADA@AB@B?B@@@B?B@@?B?B?B?@?B?@?@??AB?BC@A?AAA?A@A@ABA@AD?@A@A@A@A@A?ABAB?BA@@@@B@D?B@B?D?@D@?B@@@D@??@@@B??B@?@@BB?@?B?B?@ABA@?@A@CD??A@A@?@AD?@?@?@?@A?A???A@A@?@A@?@A@?@A@A?A@?DABA@??A@A@AB?@A@?@AB?@A@A@?@?B@BCB?B?BA@AB?@ADC@ABC@A@A@A@?B?FABA@?B?@?@?B?B@@?@?B?@ABABAB?BA@?@?@ABCB???@A@A@?BA@?BAB?B?BADA@?@@D?@@BBB?B?@@B?@?BAB@@?B?BABAB?BAB?DADA?CB?BAFADADAF?DAD?BA?C@A?A@CB?@?@ABA@?BABA@?B?@?D@@A@AB?@A@?@?B?@@@???D@@@B@B?B@@?@?D@@?B?@AB@B?B?B?AD?DDBDBF@B@D@FD@@?DA@ABADC@A?A@C@A@A@?B?@B@@B@@@B?BCBCB?@CB?@@B@@B??@@@@@D@B?@@@BB@@@@@@F@@@@D@B@?@A@A?C@ABCBA?C?A?C@A?C?E?C@C@D@@@BBB@D?B@@@@?B@@??@?@@@RNMDY?A@A@C@?@@@?B?@?@A@E??@@@AB?@A@A@A@?@ABC@A?A@C@A@A@?@ABB?B@BB@@?@CBCDCBA?A@A??@A@@B@@B@B@B@@B?B?BCB?@?@?@A?B?D@D?@@BABA@?@?B?FAfCEdDDnCHnEYvBOB?tCm@TGhAXPDl@RxEl@NCjAO\\GJIvBgBZSZSv@Mr@SpBm@nAq@DGDCP^rCfAhBH|ETLIFCx@e@HEdFwCFGDENQIWEK?Uf@k@PSBCB?`APz@PpFO@?^MrBm@z@Wv@Sv@QTMFBvCm@f@OJ@bDk@FDFC[y@yAu@eDGg@TmEiAyFz@gDdDmBPeE{@_AsA_DSkH`AoHRKfAgAFuAc@b@[Wm@aAKiHxAsKZuIfA\ngnBucrAKE??JD",
+          "q{LqbuAkAzDN~An[aAzB_B|IiDy@eAUoCxBiErIkGfA}DnAcAbCHzCx@pGMvEj@|FyCnAuCHyE~DrCtBVrBsEbDQHcA`CJF_@UoDeBoG{A}AmEuB{CeDeBSMgBmIsGg@sDoEm@y@iCuEuEaB_D}De@CiCi@kAoAo@iIiBiIY`MmDf@aAMkA_P_IeFe@sDZ?@@BGLZVVBLFBLGNGDKTW@GTM@UHCBG@IJBDABC@E?CBGDG@ADC@G?GCGBIRHJ?PFJBJXHNVTJAJBDD@FHD@?BB@FNEJI^HD@HZRADDJO`@Q@OLGCg@CE@EDOBm@@KDOCS@JR?LRVMRBLEFF@FBD@NZ?FIHWFII[E]YQCGB@PMFMAYh@G@YRK\\UHOAGBGTQL?FTF@FQPc@H@`@Q^r@L\\^?NEDN\\PH\\?j@LTVLBV?NHd@?LG\\@RVZKX?d@D?FRXGX?RLDFVIZ?d@GFMFN\\e@f@YHMT}@RU@YEGRFLo@`@WAm@MO@m@ZO@DJZPA`@L^EN[LHf@KXFPY`@DH@Nc@Js@@Gn@}@Ag@FGDFD?R]XALK@YJa@DQPm@LAHLJBP\\HHVIRD@@DF?@DZBHJBNED@HNDVGJ@IJBJOJEd@GBEHMF@HHFEVE@AFJH@FFD\\EHRLBBFXL@N\\H^]F?H@ZPHEDFXCFEHHDABHLAPFT?HHMLZH?TF?LFGH^?VFHCFD`@E@LNHKL@DQHHHXBJALFd@HDGCIT@LK^OVCHCPANGTCLLLDDLVJVC\\Kf@JVAL^RDFARL^A?HJNIF@DSJADKDBNQHMACZJHWPABH@BLGHE?CPSCS@{@Am@N@DMZD@Ab@YJEPN\\PN?FGCG@GJLAHPEF?B@TSDU?IDELGAAJa@EBFELMHi@LCFOF[BQNkB@Y]cA\\cA??JODCZ]DFF@JRT?DNDBJWJY\\DDGJDRGHDHMJ?FWTm@HCTGBGTAVv@IRKPEb@FDCHHFKN@ZLJHNAHNAHTVKN@HGLWNBJD@JEND@RTHAHJD?h@f@JELBDVHLCHFJ?JC@LHBDNTDHHIN?ZOXUJ@J]R]FK`@QH_@JEJOFBDVEBHLBLIFFTDFALBCRGFFJEHDHE\\DHJD@HYHKAGFWB@PKRODEHI@CDO@CHIDD^KBGAG@BLEDSE[LALBNEJBLY`@SD?H]Fk@KOBIKO@SDINO?]Fw@`@I?]OGJOBEDQGMZM?GNQFIJS?KKMBK\\QBKNS@OJMGM@QCGBCGUHMCa@?ANWh@UAo@OWLSASLCA@OGE?KYBIAWDWMUAOEEG[GKJO@ICMOQDc@GGE@IOHGCYFQEID]@QQ?KIGBEKKSAiADBTPFBHQNV^MV_@RQXg@XFBPHz@vALPR^`Al@lGUrPeB~DuA",
+          "mzP_iqAyCs@cATe@x@`@fIs@hEjBhIhC{BvCe@b@qCuC{ChD^JSl@_Bk@oA|@mAq@m@lHcG~E}BkA}I}AwB_DaBgDFkEx@dAlB{@r@pAvBkBx@~@tBcB^GZ`@hF"
+        ]
+      }
+    },
+    {
+      "id": "IT-21",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-21",
+        "aws": [
+          {
+            "name": "AINEVA",
+            "url": [
+              {
+                "en": "https://www.aineva.it/en/avalanche-danger-bulletin"
+              },
+              {
+                "it": "https://www.aineva.it/bollettini"
+              }
+            ]
+          },
+          {
+            "name": "METEOMONT Carabinieri",
+            "url": [
+              {
+                "it": "https://meteomont.carabinieri.it/home"
+              }
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "a|M{guADDCDHF?JPP\\AHEPDXGFBNIAHFDb@FPELNHBNAJKZFDFNDT@VLVEH@XC?JFDANB@RMR@VMn@NT@Vi@@O`@?LBTIBFFCPBLALFNKRAJOPCJ]LCJJR?HKPGFOL?L[PFDENCFK\\NH?v@a@\\GN?HORENAHJNCj@J\\G?IREXa@CMDKCO@MZMRDDECMFAF@JCE_@HEBINABEHADINEJSAQVCFGJ@XIAIKEEID]EIDIGKFGBSMCG@UEGGMHMCCIWDCENGDK^KPIJa@\\G\\SAKTKNY?[HOIIUEEOICAMKBK?IGMBWICEDMg@K?i@KE@IUIASOEKDEACKVOFMAIJOUW@IIOO@KI[MOAGJIIEBc@GQDSJw@H@WFUFCBUl@IVU?GLKEIFIESFKEEX]VKCKOE?ESUAKGG\\EB[NE?KbA?bA]X\\jBAPOZCNGBGh@MLIDMCG`@D@KF@DMHET?REAYDGIQM@FKFAFB?GQOO]DQXK@c@EAL[AEl@Oz@@RARBBQD?FICMIA@CVQKIB[L@PICOJE@ERKAEHGKO?I_@@SMG@SEM_@W@g@K]JWBWKEMMEMMUBOFQ@IBWB_@NMJUABHEFe@IMGK@YCIIPIAEJMOIAMa@DGEIBWG_@?FIMGG??U[ILMIIU?QGM@CIE@IIGDYBEGID[QIAG?_@\\]IAOYMCGMCIS]DGEAGKI@GDADWIGAILGDIFCDe@NKCKHKKAWFOEAIDECOIK[CAEG?AEEAHSIW]ICQMK@Il@MPQ`@EXKJA@M\\Y?SGEGCMM?S?A??Ka@AE]QKJCBBTJJCHING?CEEGKCm@Fa@BSNSBOEMQACWOEC[IGSAIe@BcAA_@Mg@GE?I@EHABA???I@ICQKKMc@IC??OKCQE[KEECEACCAGGYSUESC_@@YFS@SQ]GYAaAZIHCPA?OC??a@M_@HIDi@Tw@ESCWHIBI?SKOMg@IYOIFKJDJIBDHGHMD@DM?MT@JELFTNH?DJ@KF@FPPFJJPPJHCICEKD?EGDKAE@I`@GAFGBAHQJb@LDDHAKNNLF?BEMMF?RLLK@@@DGDDBI?ADK@?@\\FABBBBABFDCFB@EHDPZGBJB?FLE@CI?EEGMD?HA@ALDJBH@LDH@JDNHX?TG?ELIh@GTOBBEJDJf@@^FPQAPHJJB`ABx@Qh@EZOIJ_@N?Bi@JCAMF_@BUAQD@CWEW?UOK?c@GUDOEQBIT]NRD?JRHJJNBDD[BKAGDV@FFDLHEXT?BDHSDDH?DKB?FFB@CXAEDFBZCLBXCHJB?JNBD@FBDc@CMBHHF@ELDBFA@IZ?BETALEJBHAHEJ?FDD@JC?HMFX@SH@JIJDDJOHEBBRAJGF?CENEBCCAF?BEBBRCDC?MNO@CJCUXFHEDCBGBUHMFCBIFDDODDDCF?DAFDJKLBBVET?b@Fc@?UACBG?G@E?OCFOHEMKDCGWI?DDCH]NECIBCEUGECAKQD@DIDDXCLXL?DGBHV^PCFFJIDI?KSI?EBKCDFELKBCFVFANTAHBAHDFK@ABBBXAL@PMt@KAVOFCNMHABGFO?@HGFMAADK?LRIFJDb@CRGMMHKZGH@BBLA@IPCCIT[D?CF@HH@HLC@@DGB`@J`A@TGFDBELDBEV?DBCDV?R@XALIPAFG\\EFKBBJCf@SRAPDDEX?JBD?h@?THD?B?pABPAjASHG?OJCNPALQFOFS@FDAFG@GBCFSFc@BE?YAI@[Gu@?EBA@IAMFa@FGE_@Fu@BAFA@UDOF[FSFK@MEI@e@?SEU?QBKASAGGUNKd@@JFB?BNABCB@ELTHRIAHBDLAGHRHAFCDGBCIK@BJC?@FKDAFPJCBC@E?@CG??DCIEBGCAGQBMBHLEBHJDDF@NBL?@DG?G@I@KDJNQBADICGBBFJ@CDBBGBGABFK@H@@HD@RO`@DF?J?@HJAAD@DGBCFBBG?@FE@J@FNPCFEDQ@J?DAHAD?H?DG@DJANJDJFRAL?NAHAN?AEMII]@ABG@EFMHAAAD?LKBCLEBGHABGD@RKLAJFRSLEIL@HRHKAk@B]PADG?@DQP?DCACHEAIJLTp@@e@DADIA?NSFAFEB@PKBGDE?@KFACIE@@CE@@MUD@HUAE@?BRB?FD@ADEFGJCB@LEHTAPFLGBIBHGDD@CBCACHJ?CDF@REZ?BKJOVEQFKJFFEHFDP?LBBFTHXDNJH?@CT@BFQ@o@GI@k@Qa@BYHVA?FF??@@JDDG?II[FILAIM@@GODDJQDHHMACFE?FDG@DFO?@DEDNJBFJ@[RDHC@PJWAAJG?DFO@JRKC@HG?CFDFDA@DBE@@HA?FH@AFDDFBBDILG?KFCBCDGFKJEDWNKLKHE@KLM?IDKBFDM@GAMCG?ABE?MAI??BEBCEGDCGCBGBC@CFH@?DHBDD@DFDS?CFECCAEAEAMCE?IAICGEM?EEMCCBFDSDEDENJBFLLPBJX?R@HCRAH?HBBAHCDCHAF@@AL@@CB@NEFFF?JKH?SLNTN@NIB?EFUJ@EQASQMAGDK?G@I@GCGBKBQBBHIB?LGIBMCCWDJDEHDBIJNNT?GJEBGB?EKCEFDBG@?HE?Q@BTZDNHDTLEJGXCZJHLW@BDDAPH@IXBFA^LFABHkALEJGKM@?TGAGD]?ERFAH?BJF?AFZ@?HHB?BNDWBGCGBCEQFWAELGDSB@FF@YDAHHB?BBBF@HHM?@CGAEAEAIE?NK?@I?GOCK@GF?F?B@FI?CEG@BBCJ@FI?DDIHB@DC?Df@JDE?BH@NAD??DOAIF]@[GEBALIDXJPPOG[?SLYDC?BE\\KOKEAACMEMAALGAAOI?IAG?KHMFXHOAG?O?SHE?O@EEAKKEGIK@EFFFHA?HM@UIQBOBKBS?IAM@K?M?KDAFEDDDCDD@C@GEE?CIKIBME?RSUEGHEEC?ADEEGAAEF?@CI?@EGEE@BHICI@?MI?BAGCOFL@BHIGMBEIKBA@E?DHD?JFPTDC@BH?AIF@BFH?AJPPYI?CIJCOGDKEGLBHE@KNKOHM?KCIAAIEKEOCOBI@GBCDO?GD?LEEM?H]B?BGMCCDEHCAI?M@GA@DEAADMIH@AKLEO?C@E?MEIGFA?EIGKJ?FLJ?BF?GHFAFDADDDP@@JCTNRDHQIEGGG@EAY_@SE@?MKCKQI@JPE@K@EMOHFSG?KGADI@EDE?C?OBAMM@ATQB@OGCAKNC?CL??KM@CECFIIIAEIIBHBFFO@FDABHBMLDDQFFHCBMGWPBRF??DE@FPGCCHBNG@BICC@GG@FIEGKE?GCGBE@G@CBEHIHCEINAAKC?EE@IKDAHCCMBBBEJFBGHMFHOGGECMMDIQCBJQE?EKEC@DBCFCBEIGB?EEBIALHAFI??EE@CCKNNHTAED\\HWBKCGBHL?PNJCJFZAF?JH?DJJJ@FBFGP@BFBFHCL?H@D@RLFMJALJHVDFDJDTd@C@Wc@IE_@IGCMQU@E@?G@MHC?EFE?a@AGOEAGDOCGKSKQDQYAODGAI?@EK@AE[XBDADJJTDLJQJBFMLRRBDEFFDIFI@AJI?AJS?EBLXKVFFPPLNZER@MJKC?DEBh@D\\WTEN?RFj@\\ADU@@H]BC^LB^AZIXT\\DJAPSDB`@?NDX@HOJ?PIPCV@`@EJ@XMN?r@WVA^HPNP?JFATPLADK?@HE@?DQT_@C?HXFN^ZA@[CKGCf@YPY^SLWW_@POCIQGCUhAER@DD",
+          "ynOqiyAC@E?G?IBC@E?IVo@Fe@N]@IBIZKLSHCJQDKJIXUBGHYBPT]TCNEDs@AKAC@??URUFOAOLD@EBHDCDFD?HD?G@A\\HFD?DGf@CGGD?DILCDGCJGBBNT@n@IFI?KGEJ?JE?EKGHC?C@BCBHBBDL?HETFF?Q?CB@CKACBOBMHARNFP@NCDFEEOF[AALMMQDMJBHOO]BECODGAOH@B}@DADBBMHBLJDf@?BC@Df@AUNK?@BFDXDGHJJND@BG?PJADL@?FE?JFFN^VCSB@BC?DJBLC@EJLLAFEAGIEKMKC@EEGKEKBOCTCEEFA@BPACOSGJCPDAEJE?B@DE?@BEBFHAHLFXCMPTLJ?@GJECH@Jh@BL??ATBLA@KH?CGL?GSOIA@GCCODID?@DBJH@NJ`@KPCNIFG?MB?BH?FGFKJQBQBQHJRMPFDWBGDBDNCVQVGJ@HCNBDCCEFCN??KJ?JGAIV?FCHEF?\\C^B@ACGBADCDBH@JMHBJ?P?JDT?EERC@IHGIGFUFMIICEEGGSKKGIAIG?CESQHEIA@GFC?Ga@QKAQ@GCSAKCI?SEBCN@P@^?VIJ]DB?Ea@OEGI@CKWOBCXLDBNFV?DEOAHMB[LK?IEG@KCUMSDAAq@DCUIH?ZNTW?PSLFb@HBID?FBDD??DFAGDDDCJBNOZVNXZJIPs@X_@BBF?BI^@@CJBBG?DFH^BXGJDI?WD{@Aq@RSXC\\BNQF?JPVNJH??Br@FH?DABBPC@BT?YBEDC?ADGEKAq@DMLK@CLNHL?MFd@j@RBXKABNBO?CDb@NBD`@BVFLDb@@C@]BSCUIg@@CESAMMe@BBVHLI?BDIDALVDDEJDLAFEHBH?CBDHJ@@C@B`@DHJTFRRLB`@@NBDHRF@D`@F]C]GYOQ@K@GAKAEEWSOGK@IOI@[CEEECOHACQDOCMR@LMAOFUB]HODQA]?EBGCSBSBGFCCMDM@e@?BFIBELDBQDUDHR?LF?EH@FB?AHFHJDIBLXAVL?@EECj@[F?F?FAVE^BPCH@RKONMAKDS?QCSHI@KBGDBFQDELMFVRXNTGQNU?FPG@?BFFDEDJTHS@FFCHDFGDF@CHH??BPCH?@DCAIBC@GBKCMFGBEBCNDFAL@DCLFF?DBJDDBDF?@FNCDBHIH@D@HA@KD?BQ@FF?BFG@EXB@JGCEJQDDLCLJFAJCAQQg@@AFDBC?YQQI@BEIGJ@@DFADDVCFMS]F?CGDQIEN@B?FBR?JOP?AIDAGGAINNHEh@PLALFBELAFGCFOBCFQGODc@OKBELI??FI?EDFJJ?@BCNj@QJFHC^QRDFD@ED@?DXAZPR@NO@A^?B?VBC@KCe@@GN^`@Vh@RRWECGGAQ_@?CMSIACGOEI?UKMA?DHDC?KACEG@@Ge@IYNNLC@BDOB?ISKAFIESFGAMFDBU@BDE@?HEBNDCJZFDJNDO@YIQ@LPGHDF@J@PDFADEFCNF?@DF@B@HCN@BIRALGBADCAMFOAL@DD?CHA@KLMHIF?HCBEH@BDBJBNDBDD@LDP?FERGJGNABBH@DCPA@GFAKPHFF???I?KE@EK@KDACCBGGIDGJE??FJHOAEBAHDDF?EDF@?HBBHCADD?CFL@DBFDH@FDLBNADBBBIBF?@FJB@DNA@BEBCDMBQGEC@AKGOLARJ@PIR?CFH@JHCDBFNIFDBAJ?PDDCJDBJB?B?AKCAGOOC@A@EHCN@JIF@FCHM?CTEGH@LIFHD@@BJDDF?BFRCFBM?MDBFL@UL@BZBFGAIVXH@ZLFCB@@H@FBFHBHJ?DDFDCHBDDDDDFPDH@NHMDNFQ@GFWBJDUHB@HCYP@@RGXIp@YRANGHARA@UXKHSAEf@_@EEPE`@Sq@UA?m@CUDKCOAWDAFGDGA??BKBG???M??GMEIIIKKECQEA???C?E?C????@AAA?GMVMLYRM@SFC??BC?EO]M@??????AA??GI??IOKOCCJMDIFIl@MBARMFG\\i@BEDI@K@a@?KOOLY@CIMEEAACAAOJK@CFk@@G?AAE?A?KBIFOKDQGGKNUCOKG@OKMFO_@K]c@cB@a@EYDW_@U??OIIFMSMWIXs@Y}@i@AUE]As@KKMEWSI_@AMGGKFUAKOSKE?KVQBSLSH[XEHKLEFUNABCVCLKIEAGSIQMQGMSe@Qg@Jc@C[KEBE?YOGSOI@ICISI[AGIQ?@EGGDOCEOCWB_@SWEMQFGCIDIFEJ?\\IQKSWKBUCmAq@QCMBIAO?]M_AIQBILOFGNNNCJDJUTFNKNNPGJEd@LPCN?VTTPBD^XJOV[VIPVRCJ\ngkNg|wA??????",
+          "gpO{mxAG@@EFEEGKAGAAI?AAESCKEL?D?H@D?DBBJD@DAHFBKFBAM@GGGDAFDBA@NF@DCBDF@FCDICGFCGKBAJ?RQK]@GAKCOICGADIMGC_@GJGE?EIAKVKME@?QK@ECCD@f@ME_@PEJIBK\\@HA@AHJCFBCDK@EFDb@KL?FFNXLLHBFDBJAD?KTJD?CE?BGJ?FGTHAAFG_@ELAD?HEFCBEHEGKGACFMAEF"
+        ]
+      }
+    },
+    {
+      "id": "IT-23",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-23",
+        "aws": [
+          {
+            "name": "AINEVA",
+            "url": [
+              {
+                "en": "https://www.aineva.it/en/avalanche-danger-bulletin"
+              },
+              {
+                "it": "https://www.aineva.it/bollettini"
+              }
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "gtM{_xA`@ARBTD@@VPFFB@@BBDDD@@XHPDJB?NB?b@H?@JJPJHBD?BA@???@CDI??HAD?f@F^LbA@d@C@HFTXD@@DBVN@BLPFDF?RCRO`@Cf@EDAFBB?DFBDF???HOBIKKCUBCJK\\P@DJ`@?@?RLLFB??FEf@G|@@Fo@r@Ab@KAOEIXa@GQJYIg@ZMDOM_@@a@[QEKNAl@[NAl@LV@n@a@GMFSXDTA|@SLUXId@g@O]LGFG?e@H[GWME?SFYSY?Ge@EY?[JSW]AMFe@?OIW?MCUWk@M]?QIO]DE?O]_@k@OG@a@REVUHIRYN@HOXa@AYMIKc@KQB?JSLc@HEAKEBKCK]QEIUEWBOEGFG?WQOEQ]OKOF[BEFG@k@EUFIJYFQDGAOIKOSBc@M_@]SCICY?@Y]OM?IKQDQEUHW@KKF[IOGCo@CGDKXq@DSEc@@C?c@IM@WRELc@FUJ@XIJOH[?]_@e@Di@TSPi@S_@H]@K@GNCH???J?@@D?@AFGj@ABKJ@N??B@FF??HLABMXNN?JA`@AJ??EHCD]h@[TC@m@LGHEHKLBBJNHNFH??????@@??????LAN\\?DCB??GBARSLMXWLFL@?@@?AB???D?B???@?PDDBJJDDBBDHFL???L??CFCJ????F@FE@GVEN@JBTEl@B@?p@TL?TRXNb@HRLRJH?HCVIjAJh@WHE^GPFNB??PBBQHIXKf@Of@D^TV?VI"
         ]
       }
     },
@@ -182,22 +293,32 @@
       "type": "Feature",
       "properties": {
         "id": "IT-25",
-        "country_id": "IT",
-        "aws_1": "AINEVA",
-        "url_1_en": "https://www.aineva.it/en/avalanche-danger-bulletin/",
-        "url_1_de": "https://www.aineva.it/en/avalanche-danger-bulletin/",
-        "url_1_it": "https://www.aineva.it/bollettini/",
-        "aws_2": "meteoMont",
-        "url_2_de": "https://meteomont.carabinieri.it/home",
-        "url_2_it": "https://meteomont.carabinieri.it/home",
-        "url_2_en": "https://meteomont.carabinieri.it/home"
+        "aws": [
+          {
+            "name": "AINEVA",
+            "url": [
+              {
+                "en": "https://www.aineva.it/en/avalanche-danger-bulletin"
+              },
+              {
+                "it": "https://www.aineva.it/bollettini"
+              }
+            ]
+          },
+          {
+            "name": "METEOMONT Carabinieri",
+            "url": [
+              {
+                "it": "https://meteomont.carabinieri.it/home"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
-          "ktScjyAGX`@TCVf@^DPHLYTMVJJBTNHIZRt@h@\\VZ`@NZZKHBLGVDLV@ZVAZHJ@Tk@JIFMEGBFl@IHAP_@NANBVVLCFFJWXDZKL?F?NJPMN_@E]JIFB@DDFBF@B@D?B@@@??????????????A@???????????@??A??????@????????????A@??????????????????????????????????A???????????????????A?????????A???A?????????A????????@????????????A????????????????????????????????????@?????????????????????????@????????????????@????????@??????@??????@??????@??????@????EDC@BHa@H]C]GIM_@K[Gi@AIFMEEWKGDUM?_@Ba@OU?QBYIa@BSLKAIIOGg@PcAEBHFHv@TALRPLV?Jp@j@BBCF`@b@h@R^^v@`@\\VB?C?@RdAp@ANDJR@RGPH?FV@`@PTCFUGC?E\\YBJPJCBTLHPCHL@ABP?@DRD?BJCDJ\\FBFLGNCDEGGOA@SJGEGBGXC^H?LI@DLBBJEJ@CLFD?Hr@C^EFEZCVBABJb@J?FJXFVXf@MXMEINMNADBXO@FL?AMLKNCNRj@IAMJUAULINHFA?OFDDABRDBCBD??KEEAIXQGQTAFEFBBAGEVGJKf@YM?][IOCe@d@Y?QDKXULWI[U?i@[AKNEV_@`@ZKHb@FCLJNCDJ?CD^TIb@SNERJh@O^ANPFx@HDAb@BF?HON@VNF?LKFAJD@IZKEIHI?IX@HDZ?HSLCVJ@K^KNM?CNB@RDJNBELH?ZO\\EESLCb@EPPJIHUn@JFNNIBMNEXQFBALBAHLF?BDDEFFP?FB?FF@RSNFPAHED@HEQEOOBEMCGKFMHCCAR@^GJHKNLDENJLATRGB@?AD@LCXWFDFXZAFBTGFMAKLCL?DGN@PTJEDBFQE]ZOZSAAHC?GMEIHE?EBKAKCBEEGQ?IACCHWb@[BWCI^Bf@JFHAPX?NFRU@UHSTICKHCACP_@\\QNQNEVBLa@XCDWE]VQ?a@CATg@?_@HKHA?IIEDOc@WFGMGOQDYVI?GWG?QS[@IHGCAQAi@E?KLKWKg@AAIIE@KIOFOAELBPC`@NLHAFDFTCd@F@RZDJTJ@CDFHA\\EHFXCRb@Z?FRXXF?PIHJDDXKTBF^R\\@LFFFKDAFv@GzAn@EjAY\\NZrAf@HH@LN?JTfAMCGSK?GBKMWSCWQ?KSKAGBARD@GAOPCNE@GPALKX?FCD?F@ESRKGIBUf@MFEACGAAMWAGMO?GIIAFMa@UeBF_Aa@?EPOt@VzAAh@NZYSg@_AWW@_@GAQSW^_AGCCAg@KKIWEI?Wc@k@QEOUCE@U?QOIODKM]KCSGGS@IGAUEG@K?EC@[Ge@KGCOq@c@DWEIQEKSLOKOBWZELS?KOWNOKYBIHMRA\\UD]IE_@GOMBMEUBKOYSAg@KsAAMIUJFPCH]PINg@JYQCYOQq@SI?BD@f@R@@BCBSAETJRA`@Hh@AJIFMj@JL?Lq@ROBYXGZOT]Z]RQGo@Vs@?SJe@Bm@SOAMIWN]DUCGUOQ@MLGQQDOEEQKMAu@\\O?MIa@Ge@MUQc@Eg@@]Sm@OQPG@IFUQ]EM@BHMPk@VS@?NRPHRe@VDHEHNLGPIDw@Jq@RMd@LJ@LNFIFCAGDE?GHE?ABG@WQc@Ck@FYCSIKQk@[EGZ_@@QLE@M^OAC@Cj@STc@AOEUg@SBOCO]O]?GG?YEKJKR@L[VGRBFDPAPJ`@BQQsAOm@IQQK?USW?BSMKYIKWLgA?MTMKUR[MOHQJa@Do@s@PQU[KMXYV^b@G`@ODYIKFYDQV?LC@]D[G[NQKEKSAeAVi@M_@RGF]FIj@a@ZSDQGsBLq@`@o@JCDQVSHHHGNHHAXORKAALn@\\@Hd@Fj@?VPVD?Pj@?HXcB^?X]\\b@\\[NKb@",
-          "whQcqxAEFPFE@KRNHXCBBBp@^Od@JBLPOLF`@?XRXJH@LI@BBA?LJC\\BTJFGF??EHB@A?IJ@@JHDPA?CNBDEP@TGDEFBAHLG@EIEBAECE@ACNACE\\EOA@a@FESEGIN?VRJDBTHGRCJIOAEEFCm@q@@Gu@?_@WAUHe@AQCAHe@CK}@Uc@ASGo@e@a@OYYCFDFKXFNSNSv@Q^y@p@O?q@RQR?LK?",
-          "}uR_gxAFDj@OOUAO_@BEDBd@",
+          "ktScjyAGX`@TCVf@^DPHLYTMVJJBTNHIZRt@h@\\VZ`@NZZKHBLGVDLV@ZVAZHJ@Tk@JIFMEGBFl@IHAP_@NANBVVLCFFJWXDZKL?F?NJPMN_@E]JIFB@DDFBF@B@D?B@@@??????????????A@???????????@??A??????@????????????A@??????????????????????????????????A???????????????????A?????????A???A?????????A????????@????????????A????????????????????????????????????@?????????????????????????@????????????????@????????@??????@??????@??????@??????@????EDC@BHa@H]C]GIM_@K[Gi@AIFMEEWKGDUM?_@Ba@OU?QBYIa@BSLKAIIOGg@PcAE_@JPRd@\\f@v@h@l@n@t@dArAj@l@|@r@b@^t@UR@RGPH?FV@`@PTCFUGC?E\\YBJPJCBTLHPCHL@ABP?@DRD?BJCDJ\\FBFLGNCDEGGOA@SJGEGBGXC^H?LI@DLBBJEJ@CLFD?Hr@C^EFEZCVBABJb@J?FJXFVXf@MXMEINMNADBXO@FL?AMLKNCNRj@IAMJUAULINHFA?OFDDABRDBCBD??KEEAIXQGQTAFEFBBAGEVGJKf@Yp@QPFx@HDAb@BF?HON@VNF?LKFAJD@IZKEIHI?IX@HDZ?HSLCVJ@K^KNM?CNB@RDJNBELH?ZO\\EESLCb@EPPJIHUn@JFNNIBMNEXQFBALBAHLF?BDDEFFP?FB?FF@RSNFPAHED@HEQEOOBEMCGKFMHCCAR@^GJHKNLDENJLATRGB@?AD@LCXWFDFXZAFBTGFMAKLCL?DGN@PTJEDBFQE]ZOZSAAHC?GMEIHE?EBKAKCBEEGQ?IACCHWb@[BWCI^Bf@JFHAPX?NFRU@UHSTIb@?KRNHXCBBBp@^Od@JBLPOLF`@?XRXJH@LI@BBA?LJC\\BTJFGF??EHB@A?IJ@@JHDPA?CNBDEP@TGDEFBAHLG@EIEBAECE@ACNACE\\EOA@a@FESEGIN?VRJDBTHGRCJIxAe@CGSK?GBKMWSCWQ?KSKAGBARD@GAOPCNE@GPALKX?FCD?F@ESRKGIBUf@MFEACGAAMWAGMO?GIIAFMD_@ZYSg@_AWW@_@GAQSW^_AGCCAg@KKIWEI?Wc@k@QEOUCE@U?QOIODKM]KCSGGS@IGAUEG@K?EC@[Ge@KGCOq@c@DWEIQEKSLOKOBWZELS?KOWNOKYBIHMRA\\UD]IE_@GOMBMEUBKOYSAg@KsAAMIUJFPCH]PINg@JYQCYOQq@SI?BD@f@R@@BCBSAETJRA`@Hh@AJIFMj@JL?Lq@ROBYXGZOT]Z]RQGo@Vs@?SJe@Bm@SOAMIWN]DUCGUOQ@MLGQQDOEEQKMAu@\\O?MIa@Ge@MUQc@Eg@@]Sm@OQPG@IFUQ]EM@BHMPk@VS@?NRPHRe@VDHEHNLGPIDw@Jq@RMd@LJ@LNFIFCAGDE?GHE?ABG@WQc@Ck@FYCSIKQk@[EGZ_@@QLE@M^OAC@Cj@STc@AOEUg@SBOCO]O]?GG?YEKJKR@L[VGRBFDPAPJ`@BQQsAOm@IQQK?USW?BSMKYIKWLgA?MTMKUR[MOHQJa@Do@s@PQU[KMXYV^b@G`@ODYIKFYDQV?LC@]D[G[NQKEKSAeAVi@M_@RGF]FIj@a@ZSDQGsBLq@`@o@JCDQVSHHHGNHHAXORKAALn@\\@Hd@Fj@?VPVD?Pj@?HXcB^?X]\\b@\\[NKb@",
           "qbPk`yAm@N]AQIoAn@G?CLALTXPCHF@?E@EBBDDABN@BLJZFXZLd@SEa@BQDCAM?MFQNEDe@V[FSCGFARHTINOLSFGJIH?DBB@FCDOLC\\DFXDAFF?@@EHH?TVFAACBA\\JCNZB?d@HNKBZTSHNHRCVU@ETTPA@GNATQp@An@OPMa@IACBEE?JEACDCPCAEXKMGBQO_@FA\\Bf@GBCECJAEIFKn@DHA@CTFLANDJEFBFH`@IHGJBFKOY]?EENIKM]Ia@WWGAUuAi@MO@KMAKMS?[WGQ@MFO\\MCWHQEMT[[YEOc@CID"
         ]
       }
@@ -207,15 +328,38 @@
       "type": "Feature",
       "properties": {
         "id": "IT-25-SO-LI",
-        "country_id": "IT",
-        "aws_1": "ALPSOLUT",
-        "url_1_en": "https://www.livigno.eu/en/avalanche-bulletin",
-        "url_1_de": "https://www.livigno.eu/de/avalanche-bulletin",
-        "url_1_it": "https://www.livigno.eu/bollettino-valanghe",
-        "aws_2": "AINEVA",
-        "url_2_de": "https://www.aineva.it/bollettini/",
-        "url_2_it": "https://www.aineva.it/bollettini/",
-        "url_2_en": "https://www.aineva.it/bollettini/"
+        "aws": [
+          {
+            "name": "ALPSOLUT",
+            "url": [
+              {
+                "en": "https://www.livigno.eu/en/avalanche-bulletin"
+              },
+              {
+                "it": "https://www.livigno.eu/bollettino-valanghe"
+              }
+            ]
+          },
+          {
+            "name": "AINEVA",
+            "url": [
+              {
+                "en": "https://www.aineva.it/en/avalanche-danger-bulletin"
+              },
+              {
+                "it": "https://www.aineva.it/bollettini"
+              }
+            ]
+          },
+          {
+            "name": "METEOMONT Carabinieri",
+            "url": [
+              {
+                "it": "https://meteomont.carabinieri.it/home"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -229,20 +373,32 @@
       "type": "Feature",
       "properties": {
         "id": "IT-34",
-        "country_id": "IT",
-        "aws_1": "AINEVA",
-        "url_1_en": "https://www.aineva.it/en/avalanche-danger-bulletin/",
-        "url_1_de": "https://www.aineva.it/en/avalanche-danger-bulletin/",
-        "url_1_it": "https://www.aineva.it/bollettini/",
-        "aws_2": "meteoMont",
-        "url_2_de": "https://meteomont.carabinieri.it/home",
-        "url_2_it": "https://meteomont.carabinieri.it/home",
-        "url_2_en": "https://meteomont.carabinieri.it/home"
+        "aws": [
+          {
+            "name": "AINEVA",
+            "url": [
+              {
+                "en": "https://www.aineva.it/en/avalanche-danger-bulletin"
+              },
+              {
+                "it": "https://www.aineva.it/bollettini"
+              }
+            ]
+          },
+          {
+            "name": "METEOMONT Carabinieri",
+            "url": [
+              {
+                "it": "https://meteomont.carabinieri.it/home"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
         "coordinates": [
-          "kpVs`zAWIEa@GGHQEOBQGEq@Tw@`@[DINa@EYFMVYA?ZDXS@W]y@MAOc@ISPWBu@CISe@BOCQNOBq@CGKTQCKq@?i@[[WoAO_@?KGGD[@}@b@c@NOKo@?WAKGW@AHSFa@I_A?SJ[B_@Zf@PJLG`@h@Bn@h@AGRVJAFINF`@x@E`@EJG@CL@TOJKJSHO^B@HBJALKh@EF@JJHF@ARKf@ALEBB@Bj@VDBPOFLADAJAB`@BZT?@?DHH@FIPB@D@JF??BDH@BD@@??DB@@??@DDBHBPGOl@@?RAEH@@HFJ?ZPVGABETDD?@B@@@@BDL@GTDZAJENLL@RJELBB?@FBIZT@@DFDDANF??@BHPBFEXUJ?@@@EPICUFAJKBIAOJE@YII@MCMLJNBBIHg@Eg@BDRGPABF@IB@B@BQFAHOHO@e@NGH??@FEDBFEFBLD@?@@@@@CHBBLZZJD?EBv@XHATTHNHHLBDN@H?@??DD??F@a@ZEd@IRGBB^CRHVGPQBQEKFGEEHO@BLa@NK?VXXGBKTKFKRIZDJE@BBEPJTC\\JHUE?EW^EDGVCHEAFL?DFCH^RNBPKRDHJPB?JMFLFADDJl@i@\\MVBPEBEl@HT?VDDJCFPNFCCCBCLEn@C@Hh@LAFHFH?n@RLCEHHBN?PFLA?HLLEFG@?BNXOFCTH@?DF@RE@BFAH@HKHEPJN@VMRFBGJCXD@QFDCVFFFEJ@DE\\DTGT@TFLNYZJJV?RHR@~@ABLP@BCZP??ED?HMJAPKFCJC??FOTR@@AF@@CVCJQ?KHMTIJKd@SLHPID[IMBI\\[f@WNFJJDKJJJ?HEJJDCTAZSZCLBPNP?LCl@Bb@FIHJRz@FBQr@C@RF@LMHAD]VLCHBDZOCE@ATIH?DHHCH?JHHYYGC@MKBGPHd@DPx@GD?NMHLADDP@^GLIT@DEBn@^T?DNADZRTRNBDIJ^PEBQ\\GEQ?IP?NNJV@?JDB`@BFDXHHDGl@EDLZCHF?NNHQCMTARJBJMT@PF@NBDGD@@CNC?CNAHGXDNCDFAHDB?TDANTHQBYJAHDPz@CTSVXDPCPFEOH@Dc@BKPMLWJ@BFPQTBJALIX@BEISRELQJLGDER?DH?MHBNLIR?HOPELBCDLD?F@EEILFPCHBZAGGK_@QIIa@BIFDTDPMHD?FN@?HRND^THNRGDJBNCHDP@?BHBHTIHBHS@@PB@@EJBHN?PL?FCJ@DCQU_@_@HO?GD@DAEUECWAKE?UQQJGEIHCDD@HLN@HPNRAHDDOD?TJJAHFd@@JKF@POKe@DINGb@HBIGKNEKQGH[]DECENEqAiBUOAMYQIMHC?GWK?MGESg@WIIO[QEc@aA^RNF\\G@MXLDBNPBBRDNVNL\\SD_ABULy@P@BDBDBFBBB@@WRg@JMSUEU_@IFLZG@m@[DWYAGQI?AVo@@UOME[Xk@Tc@EQ@CD[I@KS[}@g@@]GSLo@IAe@FGAPUEG?CJC?WKEGMc@OG[a@OIi@NGUKOBCGLSACQICWCCKB}@AD_@EAKLMCGRw@PEADSUGGQBMCCi@@ASRe@CSMAaCBc@]g@GMQ}AIiALWfASA[JQKQD@LG?e@Ei@@YK??@A?A@ABC??EG@G?AIK^m@HGWU@CJ?HKWQs@A@O`@UHYACBOCISCOF]Uk@EY@GNG@?AAAICIIwA@OK}BQe@]?I_@Y@KQY?Kc@HGC@IWU?Ql@EX_@TM?WYUBCLAZKXFNOKMFUH@^Hr@BT[ASYULOHUl@QFWh@MLK_@S[?[QQPOBB_@EUKc@HKMK@IKKi@@_@SCYBSRK~@Gx@CBOC[WQq@OgAKm@Sk@HSCIO_@Km@AORK?o@s@O_@WMK_@LMOIAK"
+          "kpVs`zAWIEa@GGHQEOBQGEq@Tw@`@[DINa@EYFMVYA?ZDXS@W]y@MAOc@ISPWBu@CISe@BOCQNOBq@CGKTQCKq@?i@[[WoAO_@?KGGD[@}@b@c@NOKo@?WAKGW@AHSFa@I_A?SJ[B_@Zf@PJLG`@h@Bn@h@AGRVJAFINF`@x@E`@EJG@CL@TOJKJSHO^B@HBJALKh@EF@JJHF@ARKf@ALEBB@Bj@VDBPOFLADAJAB`@BZT?@?DHH@FIPB@D@JF??BDH@BD@@??DB@@??@DDBHBPGOl@@?RAEH@@HFJ?ZPVGABETDD?@B@@@@BDL@GTDZAJENLL@RJELBB?@FBIZT@@DFDDANF??@BHPBFEXUJ?@@@EPICUFAJKBIAOJE@YII@MCMLJNBBIHg@Eg@BDRGPABF@IB@B@BQFAHOHO@e@NGH??@FEDBFEFBLD@?@@@@@CHBBLZZJD?EBv@XHATTHNHHLBDN@H?@??DD??F@a@ZEd@IRGBB^CRHVGPQBQEKFGEEHO@BLa@NK?VXXGBKTKFKRIZDJE@BBEPJTC\\JHUE?EW^EDGVCHEAFL?DFCH^RNBPKRDHJPB?JMFLFADDJl@i@\\MVBPEBEl@HT?VDDJCFPNFCCCBCLEn@C@Hh@LAFHFH?n@RLCEHHBN?PFLA?HLLEFG@?BNXOFCTH@?DF@RE@BFAH@HKHEPJN@VMRFBGJCXD@QFDCVFFFEJ@DE\\DTGT@TFLNYZJJV?RHR@~@ABLP@BCZP??ED?HMJAPKFCJC??FOTR@@AF@@CVCJQ?KHMTIJKd@SLHPID[IMBI\\[f@WNFJJDKJJJ?HEJJDCTAZSZCLBPNP?LCl@Bb@FIHJRz@FBQr@C@RF@LMHAD]VLCHBDZOCE@ATIH?DHHCH?JHHYYGC@MKBGPHd@DPx@GD?NMHLADDP@^GLIT@DEBn@^T?DNADZRTRNBDIJ^PEBQ\\GEQ?IP?NNJV@?JDB`@BFDXHHDGl@EDLZCHF?NNHQCMTARJBJMT@PF@NBDGD@@CNC?CNAHGXDNCDFAHDB?TDANTHQBYJAHDPz@CTSVXDPCPFEOH@Dc@BKPMLWJ@BFPQTBJALIX@BEISRELQJLGDER?DH?MHBNLIR?HOPELBCDLD?F@EEILFPCHBZAGGK_@QIIa@BIFDTDPMHD?FN@?HRND^THNRGDJBNCHDP@?BHBHTIHBHS@@PB@@EJBHN?PL?FCJ@DCQU_@_@HO?GD@DAEUECWAKE?UQQJGEIHCDD@HLN@HPNRAHDDOD?TJJAHFd@@JKF@POKe@DINGzDFaBsAk@m@eAsAo@u@i@m@g@w@e@]QSWDaA^RNF\\G@MXLDBNPBBRDNVNL\\SD_ABULy@P@BDBDBFBBB@@WRg@JMSUEU_@IFLZG@m@[DWYAGQI?AVo@@UOME[Xk@Tc@EQ@CD[I@KS[}@g@@]GSLo@IAe@FGAPUEG?CJC?WKEGMc@OG[a@OIi@NGUKOBCGLSACQICWCCKB}@AD_@EAKLMCGRw@PEADSUGGQBMCCi@@ASRe@CSMAaCBc@]g@GMQ}AIiALWfASA[JQKQD@LG?e@Ei@@YK??@A?A@ABC??EG@G?AIK^m@HGWU@CJ?HKWQs@A@O`@UHYACBOCISCOF]Uk@EY@GNG@?AAAICIIwA@OK}BQe@]?I_@Y@KQY?Kc@HGC@IWU?Ql@EX_@TM?WYUBCLAZKXFNOKMFUH@^Hr@BT[ASYULOHUl@QFWh@MLK_@S[?[QQPOBB_@EUKc@HKMK@IKKi@@_@SCYBSRK~@Gx@CBOC[WQq@OgAKm@Sk@HSCIO_@Km@AORK?o@s@O_@WMK_@LMOIAK"
         ]
       }
     },
@@ -251,15 +407,19 @@
       "type": "Feature",
       "properties": {
         "id": "IT-36",
-        "country_id": "IT",
-        "aws_1": "AINEVA",
-        "url_1_en": "https://www.aineva.it/en/avalanche-danger-bulletin/",
-        "url_1_de": "https://www.aineva.it/en/avalanche-danger-bulletin/",
-        "url_1_it": "https://www.aineva.it/bollettini/",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "aws": [
+          {
+            "name": "AINEVA",
+            "url": [
+              {
+                "en": "https://www.aineva.it/en/avalanche-danger-bulletin"
+              },
+              {
+                "it": "https://www.aineva.it/bollettini"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "Polygon",
@@ -267,19 +427,68 @@
       }
     },
     {
+      "id": "IT-57",
+      "type": "Feature",
+      "properties": {
+        "id": "IT-57",
+        "aws": [
+          {
+            "name": "AINEVA",
+            "url": [
+              {
+                "en": "https://www.aineva.it/en/avalanche-danger-bulletin"
+              },
+              {
+                "it": "https://www.aineva.it/bollettini"
+              }
+            ]
+          },
+          {
+            "name": "METEOMONT Carabinieri",
+            "url": [
+              {
+                "it": "https://meteomont.carabinieri.it/home"
+              }
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          "enXgesACLKJ@JKGQ@DPAHMBICC@PFFR?DODEJB\\LXSLGPMP@@SNAIMO?KGBIGI?q@b@KBHQv@}@XICKIEFGQCQBBIEEE??CHAKIAKVi@MAMPM@MAGOCBc@E_ABHFc@FELXFMAO@Bb@UNLFa@A_A[KFUKFIW??BMFMCEBQCMLAHS?SDEAEBMEMFEAABM?BHKDFDGDDPQ@?JKBKCODHNETKH@DEJPJHA?EH@JLCBM@?DRJGF@FCDD?@De@RP^P?@FH?JDETTLJ@BFDACHE?LTEHQDSSKHMACDG?@HNCDDP@@FCDLJQVSFO??BDDa@PCCGFKC]AOBMJOCJ]IAEIGAKJWCS@Rg@AEG@UOIBACQFOKQGGBDCEIDMICR@CGF?NQZIEE@GQ_@YUIHI?OEGB?CE@AGC@GEEBACG@GCEDD@?JGB_@?IL?R[JGR_@IGRIAKFGNCCIDEKO?]TOD@BIA?@cAQ?NCAKF`@@b@JbABHCDDMPTDh@ITFHHABRH?DG@FB@BIBB@N@LH`@CFHNDHGX?TWPAHh@XJ\\d@CZBHEHF@BJPLNBb@G^DJHHVGTDHHCDID?XPVD@DXF\\ODBVAb@Ol@k@LG\\CPSh@AHXJJHGrAIJGZ@CGSUJUCCKEO@OOGAGBSCGVMKBMK[EEI@NIQE@EKMBOHEDWFG?QNWCEPQFZRD?HD?JFZ@TLHGl@JHE?KF?JKHUf@e@LWl@O?GN@PG^a@VJHJRDDFFCX@HUD?BPLFMDGHJAEHNPC@FNHBFCH@DMCQ@GHECGDGKWBEISFCn@CEGBGHAECZGHQRCBDJI\\KCQQKAKf@q@S]OHDMGQPQ?BJGBWOgAKEI@UGSAKISAs@DCNUGIFUDSCOHYWG?MI\niyXm`sA?@???A\nsfYkrrA?DPEJBAH_@HEEFCCEDG",
+          "geWmqtAb@DFAFNH?JHSN?JEDBDBBNAVRb@P?BLCVFPINEB@K_@@QJAAKc@C[OASg@UASS[DGEYWQ]CUGK[Ih@MHJD@JHD?ZKb@@DPH?D",
+          "y`WijtATDFCEYFMGMGEKPCf@",
+          "_cWaitA^BLk@AMG@c@r@",
+          "}{WeftAOBBBEDk@ZMBGJ@Va@FCPFPHAJDF?@KNGDE\\BJHDC?LHFCJHJF?BDMJETMA@NCAk@Ne@RILB@@JLHEXp@NJTX@DGF@DEV@FLZT@NJREDv@GFIP@LGLBBD`@?LRRHEMLKDBFECCLId@Mh@]\\_@p@i@BMRSVMF@DGF@BELCLNEHTGJFNUXS?CHAJHJCFBVTJRADJ@JADEBEGIf@YFFNDFHN?BCF@TKBOLCFIMQI@OCSBEECGWSAIQIEIHE?CJK?MQQ[?MMU`@I@?CUFKROGAODMGEK@GKIHEG]DCEG?@DQOIAGHCEE@MIE@ANOCAHW?CXUACH_@SCMe@??LIBOMWEMAEHCEKAGFIEM?AEQDKGQ@GGM@?ISICOYAEEGFMEQQOCg@X",
+          "kuX}wsA@FG@?JDBEFNDPNABD?@DRHDNJJGHMCABK?VF@JN?@DV?BD`@?FDBJ^@IFBPIN]P?PNPIDADF@ADHHRBBFH?BDXDBPD?CHBJFDCHh@?HITDR?PHL@ZRJSBFCJHBFGNAFBHGR@XEBDL@JUCKBDTALLLFF?@FV?ZM@WLKCKHMKWLCAIZADEF@?E\\OEKOIEYFg@HG?GFIJCBCAEHAHGDURE?Ck@MMII?EC_ADWEMIBCE?@KEIKPWBKGCDWOALK@OLBNQOEA?EEE[CCEC@KGAEG?GE_@FKl@I@?FQEIDOIHABOFC?OGGFGAMFCI?GEFKKABEEGK?MEMBORO?EKEDMAGNKBFFINFVG@IHEJDFED`@X?XXFEIFCPDF`@J@NMT@BGLCVFLHFJCJDJCBCAADJFOBAHEBYDDGKGBIOBIIMBCC@CMC?EC@?KGCAIUMMEOFGCG_@KCGDWMEAGB]QBGD@?OJKGKP?CA@AJ?MQLMACF@JGEEBGYKAKKMK?EDMDa@BUTS?WR"
+        ]
+      }
+    },
+    {
       "id": "LI",
       "type": "Feature",
       "properties": {
         "id": "LI",
-        "country_id": "LI",
-        "aws_1": "SLF",
-        "url_1_en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html#avalanchedanger",
-        "url_1_de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html#lawinengefahr",
-        "url_1_it": "https://www.slf.ch/it/bolletino-valanghe-e-situazione-nivologica.html",
-        "aws_2": null,
-        "url_2_de": null,
-        "url_2_it": null,
-        "url_2_en": null
+        "aws": [
+          {
+            "name": "SLF",
+            "url": [
+              {
+                "en": "https://www.slf.ch/en/avalanche-bulletin-and-snow-situation.html"
+              },
+              {
+                "de": "https://www.slf.ch/de/lawinenbulletin-und-schneesituation.html"
+              },
+              {
+                "fr": "https://www.slf.ch/fr/bulletin-davalanches-et-situation-nivologique.html"
+              },
+              {
+                "it": "https://www.slf.ch/it/bollettino-valanghe-e-situazione-nivologica.html"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -293,11 +502,16 @@
       "type": "Feature",
       "properties": {
         "id": "SI",
-        "country_id": "SI",
-        "aws_1": "ARSO METEO",
-        "url_1_it": "https://meteo.arso.gov.si/met/sl/weather/bulletin/mountain/avalanche/",
-        "url_1_en": "https://meteo.arso.gov.si/met/sl/weather/bulletin/mountain/avalanche/",
-        "url_1_de": "https://meteo.arso.gov.si/met/sl/weather/bulletin/mountain/avalanche/"
+        "aws": [
+          {
+            "name": "ARSO METEO",
+            "url": [
+              {
+                "si": "https://meteo.arso.gov.si/met/sl/weather/bulletin/mountain/avalanche/"
+              }
+            ]
+          }
+        ]
       },
       "geometry": {
         "type": "MultiPolygon",

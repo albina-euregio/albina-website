@@ -2,7 +2,8 @@ import * as polyline from "@mapbox/polyline";
 const precision = 3;
 
 /**
- * @param {GeoJSON.FeatureCollection<Polygon>} geojson
+ * @template T
+ * @param {GeoJSON.FeatureCollection<Polygon, T>} geojson
  * @param {GeoJSON.Polygon => GeoJSON.Polygon} function
  */
 function mapFeatureCollection(geojson, geometryMapper) {
@@ -19,14 +20,16 @@ function mapFeatureCollection(geojson, geometryMapper) {
 }
 
 /**
- * @param {GeoJSON.FeatureCollection<Polygon>} geojson
+ * @template T
+ * @param {GeoJSON.FeatureCollection<Polygon, T>} geojson
  */
 export function encodeFeatureCollection(geojson) {
   return mapFeatureCollection(geojson, encodeGeometry);
 }
 
 /**
- * @param {GeoJSON.FeatureCollection<Polygon>} geojson
+ * @template T
+ * @param {GeoJSON.FeatureCollection<Polygon, T>} geojson
  */
 export function decodeFeatureCollection(geojson) {
   return mapFeatureCollection(geojson, decodeGeometry);
