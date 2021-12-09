@@ -15,7 +15,7 @@ import SubscribeAppDialog from "./dialogs/subscribe-app-dialog";
 import SubscribeEmailDialog from "./dialogs/subscribe-email-dialog";
 import SubscribeBlogDialog from "./dialogs/subscribe-blog-dialog";
 // import CookieConsent from "./dialogs/cookie-consent";
-import FeedbackDialog from "./dialogs/feedback-dialog";
+// import FeedbackDialog from "./dialogs/feedback-dialog";
 import ControlBar from "../components/organisms/control-bar.jsx";
 
 import { renderRoutes } from "react-router-config";
@@ -125,7 +125,7 @@ class Page extends React.Component {
           <SubscribeAppDialog />
         </ModalDialog>
         {/* {config.dialogs.cookieConsent && <CookieConsent />} */}
-        {config.dialogs.feedback && <FeedbackDialog />}
+        {/* {config.dialogs.feedback && <FeedbackDialog />} */}
       </>
     );
   }

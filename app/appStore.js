@@ -1,6 +1,5 @@
 import { observable, action, makeObservable } from "mobx";
 import { BulletinStore } from "./stores/bulletinStore";
-import CookieStore from "./stores/cookieStore";
 import NavigationStore from "./stores/navigationStore";
 
 /**
@@ -41,14 +40,9 @@ class AppStore {
      * @type {Record<string, string>}
      */
     this.messages = {};
-
-    // initial language is changed after config has arrived!!!
-    this.cookieConsent = new CookieStore("cookieConsentAccepted");
-    this.cookieFeedback = new CookieStore("feedbackAccepted");
     this.navigation = new NavigationStore();
 
     makeObservable(this, {
-      cookieConsent: observable,
       language: observable,
       messages: observable,
       setMessages: action,
