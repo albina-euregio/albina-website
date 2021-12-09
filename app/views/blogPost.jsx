@@ -105,6 +105,22 @@ class BlogPost extends React.Component {
         <section className="section-centered ">
           <section className="panel blog-post">{this.state.content}</section>
         </section>
+        <section className="section-padding section-linkbar">
+          <div className="section-centered">
+            <div className="grid linkbar">
+              <div className="normal-4 grid-item">
+                <Link
+                  key="toBlog"
+                  to={"/blog"}
+                  className="icon-link icon-arrow-left"
+                >
+                  {this.props.intl.formatMessage({ id: "blog:all-blog-posts" })}
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <SmShare />
       </>
     );

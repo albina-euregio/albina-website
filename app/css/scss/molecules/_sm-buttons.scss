@@ -12,7 +12,7 @@
   p {
     font-size: $tiny-font-size; //$body-font-size-tiny;
     @include letter-spacing;
-    margin-bottom: $margin-bottom / 2;
+    margin-bottom: $margin-bottom * 0.5;
   }
 }
 
@@ -34,7 +34,7 @@
   &:hover,
   &:active {
     &:before {
-      transform: translateY(-$padding / 2);
+      transform: translateY(-$padding * 0.5);
     }
   }
 

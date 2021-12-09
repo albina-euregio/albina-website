@@ -344,7 +344,7 @@ $anchor-font-color-hover: $brand-dark;
 
 $list-style-position: outside;
 $list-side-margin: $padding * 3;
-$list-side-padding: $padding / 2;
+$list-side-padding: $padding * 0.5;
 
 $list-ordered-side-margin: $list-side-margin;
 $list-ordered-side-padding: $list-side-padding;

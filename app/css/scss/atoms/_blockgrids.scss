@@ -13,11 +13,11 @@
   .grid-item {
     @media #{$tiny-up} {
       // T H E   F U C K I N G   F A L L B A C K
-      width: calc(100% / 2 - #{$grid-gutter} - 0.1px);
+      width: calc(100% * 0.5 - #{$grid-gutter} - 0.1px);
 
       // T H E   G R I D
       @if $grid-activated {
-        grid-column: span ($grid-columns / 2);
+        grid-column: span ($grid-columns * 0.5);
 
         // I F   G R I D   U N D O   T H E   F U C K I N G   F A L L B A C K
         @supports (display: grid) {
@@ -28,30 +28,30 @@
     @media #{$small-up} {
     }
     @media #{$normal-up} {
-      width: calc(100% / 3 - #{$grid-gutter} - 0.1px);
+      width: calc(100% * 0.3333333333 - #{$grid-gutter} - 0.1px);
 
       @if $grid-activated {
-        grid-column: span ($grid-columns / 3);
+        grid-column: span ($grid-columns * 0.3333333333);
         @supports (display: grid) {
           width: auto;
         }
       }
     }
     @media #{$medium-up} {
-      width: calc(100% / 4 - #{$grid-gutter} - 0.1px);
+      width: calc(100% * 0.25 - #{$grid-gutter} - 0.1px);
 
       @if $grid-activated {
-        grid-column: span ($grid-columns / 4);
+        grid-column: span ($grid-columns * 0.25);
         @supports (display: grid) {
           width: auto;
         }
       }
     }
     @media #{$xlarge-up} {
-      width: calc(100% / 6 - #{$grid-gutter} - 0.1px);
+      width: calc(100% * 0, 1666666667 - #{$grid-gutter} - 0.1px);
 
       @if $grid-activated {
-        grid-column: span ($grid-columns / 6);
+        grid-column: span ($grid-columns * 0, 1666666667);
         @supports (display: grid) {
           width: auto;
         }

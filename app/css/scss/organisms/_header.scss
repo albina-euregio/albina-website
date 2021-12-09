@@ -48,8 +48,8 @@
 //bulletin
 .section-bulletin-header {
   @media #{$medium-up} {
-    padding-top: ($medium-v-padding / 2) !important;
-    padding-bottom: ($medium-v-padding / 2) !important;
+    padding-top: ($medium-v-padding * 0.5) !important;
+    padding-bottom: ($medium-v-padding * 0.5) !important;
   }
   .bulletin-datetime-publishing {
   }
@@ -118,7 +118,7 @@ ul.bulletin-flipper {
       &:active {
         span {
           &:before {
-            transform: translateX(-$padding / 2);
+            transform: translateX(-$padding * 0.5);
           }
         }
       }
@@ -138,7 +138,7 @@ ul.bulletin-flipper {
       &:active {
         span {
           &:before {
-            transform: translateX($padding / 2);
+            transform: translateX($padding * 0.5);
           }
         }
       }

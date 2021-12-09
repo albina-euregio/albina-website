@@ -124,7 +124,7 @@ a.icon-link {
     &:hover,
     &:active {
       &:before {
-        left: -$padding / 2;
+        left: -$padding * 0.5;
       }
     }
   }
@@ -132,7 +132,7 @@ a.icon-link {
     &:hover,
     &:active {
       &:before {
-        top: -$padding / 2;
+        top: -$padding * 0.5;
       }
     }
   }
@@ -144,7 +144,7 @@ a.icon-link {
     &:hover,
     &:active {
       &:before {
-        right: -$padding / 2;
+        right: -$padding * 0.5;
       }
     }
   }

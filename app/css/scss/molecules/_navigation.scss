@@ -7,7 +7,7 @@
     #NAVIGATION
 \*------------------------------------*/
 
-$page-header-height: calc(3 * $body-font-size);
+$page-header-height: calc(3 * #{$body-font-size});
 
 $page-header-padding-v: 0.5em;
 $page-header-padding-h: 1em;
@@ -73,7 +73,7 @@ $item-padding: 0.175em;
 
       li {
         &:first-child a {
-          padding-top: $padding / 2;
+          padding-top: $padding * 0.5;
         }
       }
 
@@ -166,7 +166,7 @@ $item-padding: 0.175em;
       box-shadow: none;
 
       a {
-        padding: ($padding / 2) 0;
+        padding: ($padding * 0.5) 0;
         font-size: $body-font-size;
         @include font-normal;
         white-space: normal;
@@ -193,7 +193,7 @@ $item-padding: 0.175em;
 }
 
 .footer-navigation {
-  margin-bottom: $margin-bottom / 2;
+  margin-bottom: $margin-bottom * 0.5;
   @include font-bold;
   line-height: 1;
   @include rollover;
@@ -220,7 +220,7 @@ $item-padding: 0.175em;
   &.footer-navigation-main {
     a {
       padding: $item-padding
-        calc(#{$icon-font-size} + #{$body-font-size-small} / 2);
+        calc(#{$icon-font-size} + #{$body-font-size-small} * 0.5);
       @media #{$normal-up} {
         padding-left: 0;
       }
@@ -248,7 +248,7 @@ $item-padding: 0.175em;
     &:hover,
     &.active {
       &:before {
-        right: -($padding) / 2;
+        right: -($padding) * 0.5;
         color: $anchor-font-color-hover;
       }
     }
