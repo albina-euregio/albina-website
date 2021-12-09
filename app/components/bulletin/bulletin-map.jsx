@@ -9,7 +9,6 @@ import LeafletMap from "../leaflet/leaflet-map";
 import { Util } from "leaflet";
 import BulletinMapDetails from "./bulletin-map-details";
 import BulletinVectorLayer from "./bulletin-vector-layer";
-import MapStore from "../../stores/mapStore";
 import { isBlendingSupported } from "../../util/blendMode";
 import { preprocessContent } from "../../util/htmlParser";
 
@@ -41,9 +40,6 @@ class BulletinMap extends React.Component {
       ok: { message: "", keep: true }
     };
     this.setInfoMessages();
-    if (!window.mapStore) {
-      window.mapStore = new MapStore();
-    }
   }
 
   componentDidUpdate() {

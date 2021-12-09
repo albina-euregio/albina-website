@@ -3,7 +3,7 @@ import { withRouter } from "react-router-dom";
 import { reaction } from "mobx";
 import { observer } from "mobx-react";
 import { BulletinStore } from "../stores/bulletinStore";
-import MapStore from "../stores/mapStore";
+import { MAP_STORE } from "../stores/mapStore";
 
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
@@ -29,9 +29,6 @@ class Bulletin extends React.Component {
     super(props);
     if (typeof window.bulletinStore === "undefined") {
       window.bulletinStore = new BulletinStore();
-    }
-    if (typeof window.mapStore === "undefined") {
-      window.mapStore = new MapStore();
     }
     /**
      * @type {import("../stores/bulletinStore").BulletinStore}
@@ -139,7 +136,7 @@ class Bulletin extends React.Component {
   };
 
   handleMapViewportChanged(map) {
-    window.mapStore.setMapViewport({
+    MAP_STORE.setMapViewport({
       zoom: map.zoom,
       center: map.center
     });

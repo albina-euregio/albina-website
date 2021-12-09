@@ -10,10 +10,10 @@ import HTMLHeader from "../components/organisms/html-header";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
+import { MAP_STORE } from "../stores/mapStore";
 
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 
-import MapStore from "../stores/mapStore";
 import Player from "../js/player";
 
 class Weather extends React.Component {
@@ -53,9 +53,6 @@ class Weather extends React.Component {
       mapCenter: false
     };
 
-    if (!window.mapStore) {
-      window.mapStore = new MapStore();
-    }
     this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
   }
 
@@ -111,7 +108,7 @@ class Weather extends React.Component {
   }
 
   handleMapViewportChanged = map => {
-    mapStore.setMapViewport({
+    MAP_STORE.setMapViewport({
       zoom: map.zoom,
       center: map.center
     });
@@ -130,7 +127,7 @@ class Weather extends React.Component {
       window["modalStateStore"].setData({
         stationData: config.weathermapStore.stations.features.sort((f1, f2) =>
           (f1.properties["LWD-Region"] || "").localeCompare(
-            (f2.properties["LWD-Region"] || ""),
+            f2.properties["LWD-Region"] || "",
             "de"
           )
         ),

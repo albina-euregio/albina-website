@@ -5,7 +5,6 @@ import { modal_open_by_params } from "../js/modal";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import StationDataStore from "../stores/stationDataStore";
-import MapStore from "../stores/mapStore";
 
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
@@ -21,9 +20,6 @@ const observers = [...BeobachterAT, ...BeobachterIT].map(observer => ({
 class StationMap extends React.Component {
   constructor(props) {
     super(props);
-    if (!window.mapStore) {
-      window.mapStore = new MapStore();
-    }
     if (!window.stationDataStore) {
       window.stationDataStore = new StationDataStore();
     }

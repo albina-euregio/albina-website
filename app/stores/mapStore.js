@@ -41,3 +41,5 @@ export default class MapStore {
     return this._mapZoom;
   }
 }
+
+export const MAP_STORE = new MapStore();

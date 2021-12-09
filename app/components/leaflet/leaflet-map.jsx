@@ -12,6 +12,7 @@ import {
 } from "react-leaflet";
 import { injectIntl } from "react-intl";
 import { tooltip_init } from "../../js/tooltip";
+import { MAP_STORE } from "../../stores/mapStore";
 
 import "leaflet-geonames";
 import "leaflet.locatecontrol";
@@ -260,8 +261,8 @@ class LeafletMap extends React.Component {
         gestureHandling
         style={this.mapStyle()}
         zoomControl={false}
-        zoom={window.mapStore.mapZoom}
-        center={window.mapStore.mapCenter}
+        zoom={MAP_STORE.mapZoom}
+        center={MAP_STORE.mapCenter}
         {...mapOptions}
         attributionControl={false}
       >
@@ -282,8 +283,8 @@ class LeafletMap extends React.Component {
         dragging={L.Browser.mobile}
         style={this.mapStyle()}
         zoomControl={false}
-        zoom={window.mapStore.mapZoom}
-        center={window.mapStore.mapCenter}
+        zoom={MAP_STORE.mapZoom}
+        center={MAP_STORE.mapCenter}
         {...mapOptions}
         attributionControl={false}
       >
