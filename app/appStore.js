@@ -1,6 +1,5 @@
 import { observable, action, makeObservable } from "mobx";
 import { BulletinStore } from "./stores/bulletinStore";
-import NavigationStore from "./stores/navigationStore";
 
 /**
  * @typedef {"ca" | "en" | "de" | "es" | "fr" | "it" | "oc"} Language
@@ -40,7 +39,6 @@ class AppStore {
      * @type {Record<string, string>}
      */
     this.messages = {};
-    this.navigation = new NavigationStore();
 
     makeObservable(this, {
       language: observable,

@@ -1,12 +1,13 @@
 import React from "react";
+import { NAVIGATION_STORE } from "../../stores/navigationStore";
 
 export default class PageHeadline extends React.Component {
   render() {
     // if no subtitle is given, take the active first-level header menu entry
     const subtitle = this.props.subtitle
       ? this.props.subtitle
-      : window["appStore"].navigation.activeTopLevelElement
-      ? window["appStore"].navigation.activeTopLevelElement.title
+      : NAVIGATION_STORE.activeTopLevelElement
+      ? NAVIGATION_STORE.activeTopLevelElement.title
       : "";
 
     return (

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import Menu from "./../menu";
+import { NAVIGATION_STORE } from "../../stores/navigationStore";
 import { Util } from "leaflet";
 
 import menuItems from "../../menu.json";
@@ -30,7 +31,7 @@ class PageHeader extends React.Component {
   setActiveMenuItem = e => {
     if (typeof e == "object") {
       Object.keys(e).forEach(k => {
-        window["appStore"].navigation.activeElement[k] = e[k];
+        NAVIGATION_STORE.activeElement[k] = e[k];
       });
     }
   };
@@ -38,7 +39,7 @@ class PageHeader extends React.Component {
   setActiveTopLevelMenuItem = e => {
     if (typeof e == "object") {
       Object.keys(e).forEach(k => {
-        window["appStore"].navigation.activeTopLevelElement[k] = e[k];
+        NAVIGATION_STORE.activeTopLevelElement[k] = e[k];
       });
     }
   };
