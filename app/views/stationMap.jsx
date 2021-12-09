@@ -20,13 +20,11 @@ const observers = [...BeobachterAT, ...BeobachterIT].map(observer => ({
 class StationMap extends React.Component {
   constructor(props) {
     super(props);
-    if (!window.stationDataStore) {
-      window.stationDataStore = new StationDataStore();
-    }
+    this.store = new StationDataStore();
   }
 
   componentDidMount() {
-    window.stationDataStore.load("");
+    this.store.load("");
   }
 
   onMarkerSelected(stationData, feature) {
@@ -57,7 +55,7 @@ class StationMap extends React.Component {
         key={"stations"}
         onMarkerSelected={this.onMarkerSelected.bind(
           this,
-          window.stationDataStore.data
+          this.store.data
             .slice()
             .sort((f1, f2) =>
               (f1.properties["LWD-Region"] || "").localeCompare(
@@ -68,7 +66,7 @@ class StationMap extends React.Component {
         )}
         itemId="any"
         item={item}
-        features={window.stationDataStore.data}
+        features={this.store.data}
       />
     );
   }

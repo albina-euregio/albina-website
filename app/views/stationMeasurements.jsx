@@ -31,13 +31,7 @@ class StationMeasurements extends React.Component {
       sharable: false
     };
 
-    if (!window["stationDataStore"]) {
-      window["stationDataStore"] = new StationDataStore();
-    }
-    /**
-     * @type {StationDataStore}
-     */
-    this.store = window["stationDataStore"];
+    this.store = new StationDataStore();
   }
 
   componentDidMount() {
