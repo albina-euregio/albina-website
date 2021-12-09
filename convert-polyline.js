@@ -59,7 +59,7 @@ function encodeFiles(files, output) {
   /**
    * @type {[GeoJSON.FeatureCollection]}
    */
-  const geojsons = files.map(file => JSON.parse(fs.readFileSync(file)));
+  const geojsons = files.map(file => require(file));
   /**
    * @type {GeoJSON.FeatureCollection}
    */
