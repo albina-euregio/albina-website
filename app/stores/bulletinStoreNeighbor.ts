@@ -48,7 +48,12 @@ async function loadBulletins(date: string): Promise<Feature[]> {
     "CH",
     "DE-BY",
     "FR",
-    "IT-AINEVA",
+    "IT-21",
+    "IT-23",
+    "IT-25",
+    "IT-34",
+    "IT-36",
+    "IT-57",
     "SI"
   ];
   const allBulletins = await Promise.all(

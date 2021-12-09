@@ -124,6 +124,12 @@ for (const region of [
   "CH",
   "DE-BY",
   "FR",
+  "IT-21",
+  "IT-23",
+  "IT-25",
+  "IT-34",
+  "IT-36",
+  "IT-57",
   "SI"
 ]) {
   encodeFiles(
@@ -133,15 +139,3 @@ for (const region of [
     `app/stores/micro-regions_elevation/${region}_micro-regions_elevation.polyline.json`
   );
 }
-
-encodeFiles(
-  [
-    "eaws-regions/public/micro-regions_elevation/IT-21_micro-regions_elevation.geojson.json",
-    "eaws-regions/public/micro-regions_elevation/IT-23_micro-regions_elevation.geojson.json",
-    "eaws-regions/public/micro-regions_elevation/IT-25_micro-regions_elevation.geojson.json",
-    "eaws-regions/public/micro-regions_elevation/IT-34_micro-regions_elevation.geojson.json",
-    "eaws-regions/public/micro-regions_elevation/IT-36_micro-regions_elevation.geojson.json",
-    "eaws-regions/public/micro-regions_elevation/IT-57_micro-regions_elevation.geojson.json"
-  ],
-  "app/stores/micro-regions_elevation/IT-AINEVA_micro-regions_elevation.polyline.json"
-);
