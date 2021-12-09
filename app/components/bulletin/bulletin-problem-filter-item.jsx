@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import ProblemIcon from "../icons/problem-icon.jsx";
+import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
 class BulletinProblemFilterItem extends React.Component {
   constructor(props) {
@@ -18,9 +19,9 @@ class BulletinProblemFilterItem extends React.Component {
     this.props.handleSelectRegion();
 
     if (this.state.active) {
-      window["bulletinStore"].dimProblem(this.state.id);
+      BULLETIN_STORE.dimProblem(this.state.id);
     } else {
-      window["bulletinStore"].highlightProblem(this.state.id);
+      BULLETIN_STORE.highlightProblem(this.state.id);
     }
     this.setState({
       active: !this.state.active

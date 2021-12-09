@@ -156,6 +156,7 @@ class BulletinStore {
       settings: observable,
       problems: observable,
       _latestBulletinChecker: action,
+      _setLatest: action,
       load: action,
       loadNeighbors: action,
       activate: action,
@@ -163,8 +164,24 @@ class BulletinStore {
       dimProblem: action,
       highlightProblem: action
     });
+  }
 
+  init(): this {
+    if (this.latest) {
+      return;
+    }
     this._latestBulletinChecker();
+    return this;
+  }
+
+  clear() {
+    this.bulletins = {};
+    this.settings = {
+      status: "",
+      neighbors: 0,
+      date: "",
+      region: ""
+    };
   }
 
   _latestBulletinChecker() {
@@ -182,7 +199,7 @@ class BulletinStore {
     );
   }
 
-  _setLatest(latest) {
+  _setLatest(latest: string) {
     this.latest = latest;
   }
 
@@ -431,5 +448,7 @@ class BulletinStore {
     );
   }
 }
+
+export const BULLETIN_STORE = new BulletinStore();
 
 export { BulletinStore, BulletinCollection };

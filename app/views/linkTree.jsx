@@ -27,7 +27,6 @@ class LinkTree extends React.Component {
     };
     this.regionParam = null;
     this.lastLang = null;
-    this.store = window.bulletinStore;
     this.onBulletinImageError = this.onBulletinImageError.bind(this);
 
     const getHistory = () => this.props.history;

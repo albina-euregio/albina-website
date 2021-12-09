@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { reaction } from "mobx";
 import { observer } from "mobx-react";
-import { BulletinStore } from "../stores/bulletinStore";
+import { BULLETIN_STORE } from "../stores/bulletinStore";
 import { MAP_STORE } from "../stores/mapStore";
 
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
@@ -27,13 +27,7 @@ import "leaflet.sync";
 class Bulletin extends React.Component {
   constructor(props) {
     super(props);
-    if (typeof window.bulletinStore === "undefined") {
-      window.bulletinStore = new BulletinStore();
-    }
-    /**
-     * @type {import("../stores/bulletinStore").BulletinStore}
-     */
-    this.store = window.bulletinStore;
+    BULLETIN_STORE.init();
     this.state = {
       title: "",
       content: "",
@@ -46,13 +40,13 @@ class Bulletin extends React.Component {
 
   componentDidMount() {
     reaction(
-      () => this.store.settings.status,
+      () => BULLETIN_STORE.settings.status,
       () => {
         window.setTimeout(tooltip_init, 100);
       }
     );
     reaction(
-      () => this.store.settings.region,
+      () => BULLETIN_STORE.settings.region,
       region => {
         if (region) {
           window.setTimeout(tooltip_init, 100);
@@ -61,7 +55,7 @@ class Bulletin extends React.Component {
     );
 
     reaction(
-      () => this.store.latest,
+      () => BULLETIN_STORE.latest,
       () => this.componentDidUpdate({})
     );
     return this._fetchData(this.props);
@@ -73,12 +67,12 @@ class Bulletin extends React.Component {
       // update when date changes to YEAR-MONTH-DAY format
       this.props.location !== prevProps.location &&
         this.props.match.params.date &&
-        this.props.match.params.date != this.store.settings.date,
+        this.props.match.params.date != BULLETIN_STORE.settings.date,
 
       // update when date changes to "latest"
       typeof this.props.match.params.date === "undefined" &&
-        this.store.latest &&
-        this.store.latest != this.store.settings.date
+        BULLETIN_STORE.latest &&
+        BULLETIN_STORE.latest != BULLETIN_STORE.settings.date
     ];
 
     if (updateConditions.reduce((acc, cond) => acc || cond, false)) {
@@ -92,11 +86,11 @@ class Bulletin extends React.Component {
     let startDate =
       props.match.params.date && parseDate(props.match.params.date)
         ? props.match.params.date
-        : this.store.latest;
+        : BULLETIN_STORE.latest;
 
     if (
       !props.match.params.date ||
-      props.match.params.date == this.store.latest
+      props.match.params.date == BULLETIN_STORE.latest
     ) {
       // update URL if necessary
       this.props.history.replace({
@@ -105,16 +99,16 @@ class Bulletin extends React.Component {
       });
     }
 
-    return this.store
-      .load(startDate)
-      .finally(() => this.store.loadNeighbors(startDate));
+    return BULLETIN_STORE.load(startDate).finally(() =>
+      BULLETIN_STORE.loadNeighbors(startDate)
+    );
   }
 
   checkRegion() {
     let urlRegion = parseSearchParams().get("region");
-    const storeRegion = this.store.settings.region;
+    const storeRegion = BULLETIN_STORE.settings.region;
     if (urlRegion !== storeRegion) {
-      this.store.setRegion(urlRegion);
+      BULLETIN_STORE.setRegion(urlRegion);
     }
   }
 
@@ -130,7 +124,7 @@ class Bulletin extends React.Component {
           this.props.history.push({ search });
         }
       }
-    } else if (this.store.settings.region) {
+    } else if (BULLETIN_STORE.settings.region) {
       this.props.history.push({ search: "" });
     }
   };
@@ -156,24 +150,24 @@ class Bulletin extends React.Component {
   render() {
     this.mapRefs = [];
 
-    const collection = this.store.activeBulletinCollection;
-    // console.log("rendering bulletin ", this.store.bulletins);
+    const collection = BULLETIN_STORE.activeBulletinCollection;
+    // console.log("rendering bulletin ", BULLETIN_STORE.bulletins);
 
     const shareDescription =
-      this.state.title && this.store.settings.date
+      this.state.title && BULLETIN_STORE.settings.date
         ? collection
           ? this.state.title +
             " | " +
-            dateToLongDateString(parseDate(this.store.settings.date))
+            dateToLongDateString(parseDate(BULLETIN_STORE.settings.date))
           : this.props.intl.formatMessage({
               id: "bulletin:header:info-no-data"
             })
         : "";
 
     const shareImage =
-      collection && this.store.settings.date
+      collection && BULLETIN_STORE.settings.date
         ? config.apis.geo +
-          this.store.settings.date +
+          BULLETIN_STORE.settings.date +
           "/" +
           (collection.hasDaytimeDependency() ? "am" : "fd") + // FIXME: there should be a way to share "am" AND "pm" map
           "_albina_map.jpg"
@@ -200,11 +194,11 @@ class Bulletin extends React.Component {
             </>
           }
         />
-        <BulletinHeader store={this.store} title={this.state.title} />
+        <BulletinHeader title={this.state.title} />
 
         <Suspense fallback={<div>...</div>}>
-          {this.store.activeBulletinCollection &&
-          this.store.activeBulletinCollection.hasDaytimeDependency() ? (
+          {BULLETIN_STORE.activeBulletinCollection &&
+          BULLETIN_STORE.activeBulletinCollection.hasDaytimeDependency() ? (
             <div className="bulletin-parallel-view">
               {["am", "pm"].map((daytime, index) => (
                 <BulletinMap
@@ -216,9 +210,8 @@ class Bulletin extends React.Component {
                   handleSelectRegion={this.handleSelectRegion.bind(this)}
                   date={this.props.match.params.date}
                   history={this.props.history}
-                  store={this.store}
                   highlightedRegion={this.state.highlightedRegion}
-                  regions={this.store.getVectorRegions(daytime)}
+                  regions={BULLETIN_STORE.getVectorRegions(daytime)}
                   onMapInit={this.handleMapInit.bind(this)}
                   ampm={daytime}
                 />
@@ -233,22 +226,20 @@ class Bulletin extends React.Component {
               handleSelectRegion={this.handleSelectRegion.bind(this)}
               date={this.props.match.params.date}
               history={this.props.history}
-              store={this.store}
               highlightedRegion={this.state.highlightedRegion}
-              regions={this.store.getVectorRegions()}
+              regions={BULLETIN_STORE.getVectorRegions()}
             />
           )}
           <BulletinLegend
             handleSelectRegion={this.handleSelectRegion.bind(this)}
-            problems={this.store.problems}
+            problems={BULLETIN_STORE.problems}
           />
         </Suspense>
-        <BulletinButtonbar store={this.store} />
-        {this.store.activeBulletinCollection && (
+        <BulletinButtonbar />
+        {BULLETIN_STORE.activeBulletinCollection && (
           <BulletinList
-            store={this.store}
             daytimeBulletins={
-              this.store.activeBulletinCollection.daytimeBulletins
+              BULLETIN_STORE.activeBulletinCollection.daytimeBulletins
             }
           />
         )}

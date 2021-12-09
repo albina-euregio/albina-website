@@ -5,24 +5,19 @@ import { injectIntl } from "react-intl";
 import BulletinDateFlipper from "./bulletin-date-flipper.jsx";
 import BulletinStatusLine from "./bulletin-status-line.jsx";
 import { parseDate, dateToLongDateString } from "../../util/date.js";
+import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
-/**
- * @typedef {object} Props
- * @prop {import("../../stores/bulletinStore").BulletinStore} store
- *
- * @extends {React.Component<Props>}
- */
 class BulletinHeader extends React.Component {
   constructor(props) {
     super(props);
   }
 
   get date() {
-    return dateToLongDateString(parseDate(this.props.store.settings.date));
+    return dateToLongDateString(parseDate(BULLETIN_STORE.settings.date));
   }
 
   get statusClass() {
-    const status = this.props.store.settings.status;
+    const status = BULLETIN_STORE.settings.status;
     if (status === "pending") {
       return "loading";
     } else if (status === "n/a") {
@@ -41,15 +36,12 @@ class BulletinHeader extends React.Component {
         className={`section-padding section-header section-bulletin-header bulletin-updated ${this.statusClass}`}
       >
         <header className="section-centered">
-          <BulletinStatusLine
-            store={this.props.store}
-            status={this.props.store.settings.status}
-          />
+          <BulletinStatusLine status={BULLETIN_STORE.settings.status} />
           {/* <h2 className="subheader">{this.props.title}</h2> */}
           <h1 className="bulletin-datetime-validity">{this.date}</h1>
           <BulletinDateFlipper
-            date={this.props.store.settings.date}
-            latest={this.props.store.latest}
+            date={BULLETIN_STORE.settings.date}
+            latest={BULLETIN_STORE.latest}
           />
         </header>
       </section>

@@ -6,20 +6,15 @@ import {
   dateToTimeString,
   getLocalDate
 } from "../../util/date.js";
+import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
-/**
- * @typedef {object} Props
- * @prop {import("../../stores/bulletinStore").BulletinStore} store
- *
- * @extends {React.Component<Props>}
- */
 class BulletinStatusLine extends React.Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    const collection = this.props.store.activeBulletinCollection;
+    const collection = BULLETIN_STORE.activeBulletinCollection;
     let statusText = "";
     let isRepublished = false;
 

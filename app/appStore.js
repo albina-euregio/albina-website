@@ -1,5 +1,5 @@
 import { observable, action, makeObservable } from "mobx";
-import { BulletinStore } from "./stores/bulletinStore";
+import { BULLETIN_STORE } from "./stores/bulletinStore";
 
 /**
  * @typedef {"ca" | "en" | "de" | "es" | "fr" | "it" | "oc"} Language
@@ -58,9 +58,7 @@ class AppStore {
     ) {
       return Promise.resolve();
     }
-    if (window.bulletinStore !== undefined) {
-      window.bulletinStore = new BulletinStore(); // bulleting store is language dependent
-    }
+    BULLETIN_STORE.clear(); // bulleting store is language dependent
     const messages = translationImports[newLanguage]();
     const regions = regionTranslationImports[newLanguage]();
     this.setMessages((await messages).default, (await regions).default);
