@@ -4,7 +4,7 @@ import { reaction } from "mobx";
 import { injectIntl } from "react-intl";
 import SmShare from "../components/organisms/sm-share.jsx";
 import { getSuccDate, dateToISODateString } from "../util/date.js";
-import ArchiveStore from "../stores/archiveStore.js";
+import { ARCHIVE_STORE } from "../stores/archiveStore.js";
 import ArchiveItem from "../components/archive/archive-item.jsx";
 import PageHeadline from "../components/organisms/page-headline.jsx";
 import HTMLHeader from "../components/organisms/html-header";
@@ -18,13 +18,7 @@ import { tooltip_init } from "../js/tooltip";
 class Archive extends React.Component {
   constructor(props) {
     super(props);
-    if (!window["archiveStore"]) {
-      window["archiveStore"] = new ArchiveStore();
-    }
-    /**
-     * @type {ArchiveStore}
-     */
-    this.store = window["archiveStore"];
+    this.store = ARCHIVE_STORE;
 
     if (!this.store.year) {
       const d = new Date();
