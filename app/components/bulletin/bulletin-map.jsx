@@ -221,7 +221,7 @@ class BulletinMap extends React.Component {
     } else if (activeNeighbor) {
       detailsClasses.push("js-active");
       const language = window["appStore"].language;
-      const country = activeNeighbor.properties[`country_id`];
+      const country = activeNeighbor.id.replace(/-.*/, "");
       const region = activeNeighbor.id;
       // res.push(
       //   <p>{this.props.intl.formatMessage({ id: "region:" + country })}</p>
@@ -243,11 +243,10 @@ class BulletinMap extends React.Component {
           </span>
         </p>
       );
-      for (let index = 1; index <= 3; index++) {
-        // aws_1, aws_2, aws_3
-        const label = activeNeighbor.properties[`aws_${index}`];
-        const href = activeNeighbor.properties[`url_${index}_${language}`];
-        if (!label) continue;
+      (activeNeighbor.properties.aws || []).forEach((aws, index) => {
+        const href =
+          aws.url.find(url => url[language])?.[language] ||
+          Object.values(aws.url[0])[0];
         res.push(
           <a
             tabIndex="-1"
@@ -260,10 +259,10 @@ class BulletinMap extends React.Component {
               id: "bulletin:map:info:details:hover"
             })}
           >
-            {label} <span className="icon-arrow-right" />
+            {aws.name} <span className="icon-arrow-right" />
           </a>
         );
-      }
+      });
     }
 
     return (

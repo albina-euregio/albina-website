@@ -7,19 +7,19 @@ import { BrowserRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import { ScrollContext } from "react-router-scroll-4";
 
-import Bulletin from "./../views/bulletin";
-import BlogOverview from "./../views/blogOverview";
-import BlogPost from "./../views/blogPost";
+const Bulletin = React.lazy(() => import("./../views/bulletin"));
+const BlogOverview = React.lazy(() => import("./../views/blogOverview"));
+const BlogPost = React.lazy(() => import("./../views/blogPost"));
 const Weather = React.lazy(() => import("./../views/weather"));
 const StationMeasurements = React.lazy(() =>
   import("./../views/stationMeasurements")
 );
 const StationMap = React.lazy(() => import("./../views/stationMap"));
-import Education from "./../views/education";
-import More from "./../views/more";
-import Archive from "./../views/archive";
-import Linktree from "../views/linkTree.jsx";
-import StaticPage from "./../views/staticPage";
+const Education = React.lazy(() => import("./../views/education"));
+const More = React.lazy(() => import("./../views/more"));
+const Archive = React.lazy(() => import("./../views/archive"));
+const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
+const StaticPage = React.lazy(() => import("./../views/staticPage"));
 import Page from "./page";
 import { scroll_init } from "../js/scroll";
 import { orientation_change } from "../js/browser";

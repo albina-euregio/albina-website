@@ -108,7 +108,9 @@ class Bulletin extends React.Component {
       });
     }
 
-    return this.store.load(startDate);
+    return this.store
+      .load(startDate)
+      .finally(() => this.store.loadNeighbors(startDate));
   }
 
   checkRegion() {

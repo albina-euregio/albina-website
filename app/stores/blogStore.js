@@ -6,6 +6,7 @@ import L from "leaflet";
 import { regionCodes } from "../util/regions";
 import { parseSearchParams } from "../util/searchParams";
 import { clamp } from "../util/clamp";
+import { avalancheProblems } from "../util/avalancheProblems";
 
 class BlogPostPreviewItem {
   constructor(
@@ -122,7 +123,7 @@ export default class BlogStore {
   }
 
   validateProblem(valueToValidate) {
-    return window["appStore"].avalancheProblems.includes(valueToValidate)
+    return avalancheProblems.includes(valueToValidate)
       ? valueToValidate
       : "all";
   }
