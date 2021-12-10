@@ -9,7 +9,7 @@
 
 .section-bulletin {
   .list-labels {
-    margin-bottom: $margin-bottom / 2;
+    margin-bottom: $margin-bottom * 0.5;
   }
 }
 
@@ -26,14 +26,14 @@
   */
 
   &.section-padding {
-    padding-top: $all-v-padding / 2;
+    padding-top: $all-v-padding * 0.5;
     padding-bottom: 0;
   }
   .section-centered > * {
     font-size: $tiny-font-size; //$body-font-size-tiny;
   }
   p {
-    margin-bottom: $padding / 2;
+    margin-bottom: $padding * 0.5;
     font-size: $tiny-font-size; //$body-font-size-tiny;
     @include letter-spacing;
     strong {
@@ -426,7 +426,7 @@
   span {
     display: inline-block;
     &:first-child {
-      padding-right: $grid-gutter / 4;
+      padding-right: $grid-gutter * 0.25;
     }
     &:last-child {
       font-size: $large-font-size;

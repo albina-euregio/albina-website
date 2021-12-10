@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { injectIntl } from "react-intl";
+import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { GeoJSON, ImageOverlay } from "react-leaflet";
 import InfoBar from "../organisms/info-bar";
 import { dateToISODateString, parseDate } from "../../util/date";
@@ -67,9 +67,17 @@ class BulletinMap extends React.Component {
     };
 
     this.infoMessageLevels.empty = {
-      message: this.props.intl.formatMessage(
-        { id: "bulletin:header:info-no-data" },
-        { a: msg => <Link to="/blog">{msg}</Link> }
+      message: (
+        <>
+          <p>
+            <FormattedHTMLMessage id="bulletin:header:info-no-data" />
+          </p>
+          <p>
+            <Link to="/blog" className="secondary pure-button tooltip">
+              BLOG
+            </Link>
+          </p>
+        </>
       )
     };
   }

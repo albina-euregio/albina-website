@@ -50,18 +50,23 @@
   }
 
   //misc
-  audio, object, embed, video,
-	.jumpnav,
-	.bulletin-flipper,
-	.bulletin-map-details,
-	.flipper-controls,
-	.section-linkbar,
-	//.section-context,
-	.section.controlbar,
-	.sm-share-follow,
-	.fitvids,
-	#page-footer,
-	.tippy-popper {
+  audio,
+  object,
+  embed,
+  video,
+  .jumpnav,
+  .bulletin-flipper,
+  .section-bulletin-map,
+  .bulletin-map-details,
+  .section-bulletin-legend,
+  .flipper-controls,
+  .section-linkbar,
+  .section-context,
+  .section.controlbar,
+  .sm-share-follow,
+  .fitvids,
+  #page-footer,
+  .tippy-popper {
     display: none;
   }
 
@@ -180,6 +185,12 @@
       .normal-6.grid-item:last-child {
         @include print-bg;
       }
+    }
+  }
+
+  .section-bulletin-reports {
+    .bulletin-list-item:not(:first-child) {
+      page-break-before: always;
     }
   }
 

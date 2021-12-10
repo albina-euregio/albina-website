@@ -18,11 +18,11 @@ $grid-activated: true;
 
   // T H E   F U C K I N G   F A L L B A C K
   @include clearfix;
-  margin-left: -($grid-gutter-small / 2);
-  margin-right: -($grid-gutter-small / 2);
+  margin-left: -($grid-gutter-small * 0.5);
+  margin-right: -($grid-gutter-small * 0.5);
   @media #{$normal-up} {
-    margin-left: -($grid-gutter / 2);
-    margin-right: -($grid-gutter / 2);
+    margin-left: -($grid-gutter * 0.5);
+    margin-right: -($grid-gutter * 0.5);
   }
 
   // T H E   G R I D
@@ -53,13 +53,13 @@ $grid-activated: true;
   float: left;
   min-height: 1px;
   width: calc(100% - #{$grid-gutter-small});
-  //margin: 0 ($grid-gutter-small / 2) $grid-gutter-small ($grid-gutter-small / 2);
-  margin: 0 ($grid-gutter-small / 2) ($grid-gutter-small / 2)
-    ($grid-gutter-small / 2);
+  //margin: 0 ($grid-gutter-small * 0.5) $grid-gutter-small ($grid-gutter-small * 0.5);
+  margin: 0 ($grid-gutter-small * 0.5) ($grid-gutter-small * 0.5)
+    ($grid-gutter-small * 0.5);
   @media #{$normal-up} {
     width: calc(100% - #{$grid-gutter});
-    //margin: 0 ($grid-gutter / 2) $grid-gutter ($grid-gutter / 2);
-    margin: 0 ($grid-gutter / 2) ($grid-gutter / 2) ($grid-gutter / 2);
+    //margin: 0 ($grid-gutter * 0.5) $grid-gutter ($grid-gutter * 0.5);
+    margin: 0 ($grid-gutter * 0.5) ($grid-gutter * 0.5) ($grid-gutter * 0.5);
   }
 
   // T H E   G R I D

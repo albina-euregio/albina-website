@@ -65,7 +65,7 @@
         display: none;
       }
       .url {
-        margin-left: $padding / 4;
+        margin-left: $padding * 0.25;
       }
     }
   }
@@ -82,7 +82,7 @@
       .page-header-logo,
       .page-header-language,
       .page-header-logo-secondary {
-        top: calc(-1 * $page-header-height);
+        top: calc(0 - #{$page-header-height});
         opacity: 0;
       }
       .page-header-navigation {
@@ -188,12 +188,12 @@ $page-header-logo-width: 3.25em;
     .mark-de {
       background-image: url("../images/pro/logos/logo_mark_de.svg");
       background-size: $logo-mark-de-width $logo-mark-de-height;
-      rotate: 90deg;
+      transform: rotate(90deg); //rotate: 90deg;
     }
     .mark-it {
       background-image: url("../images/pro/logos/logo_mark_it.svg");
       background-size: $logo-mark-it-width $logo-mark-it-height;
-      rotate: 180deg;
+      transform: rotate(180deg); //rotate: 180deg;
     }
     .mark-en {
       opacity: 1;
@@ -268,21 +268,21 @@ $page-header-logo-width: 3.25em;
     transform: scale(1.05);
     .domain-de & {
       .mark-en {
-        rotate: -135deg;
+        transform: rotate(-135deg); //rotate: -135deg;
         opacity: 0;
       }
       .mark-de {
-        rotate: -45deg;
+        transform: rotate(-45deg); //rotate: -45deg;
         opacity: 1;
       }
     }
     .domain-it & {
       .mark-en {
-        rotate: -180deg;
+        transform: rotate(-180deg); //rotate: -180deg;
         opacity: 0;
       }
       .mark-it {
-        rotate: 0deg;
+        transform: rotate(0deg); //rotate: 0deg;
         opacity: 1;
       }
     }
@@ -408,12 +408,12 @@ $page-header-logo-width: 3.25em;
   @include ir;
   position: relative;
   display: block;
-  height: $logo-header-footer-secondary-height / 2;
-  width: $logo-header-footer-secondary-width / 2;
+  height: $logo-header-footer-secondary-height * 0.5;
+  width: $logo-header-footer-secondary-width * 0.5;
   background: transparent
     url("../images/pro/logos/logo_euregio_transparent.png") no-repeat 0 0;
-  background-size: ($logo-header-footer-secondary-width / 2)
-    ($logo-header-footer-secondary-height / 2);
+  background-size: ($logo-header-footer-secondary-width * 0.5)
+    ($logo-header-footer-secondary-height * 0.5);
   filter: grayscale(100%);
 
   &:hover {
@@ -424,15 +424,15 @@ $page-header-logo-width: 3.25em;
 .page-header-logo-secondary {
   align-items: center;
   margin-right: calc(
-    -#{$logo-header-footer-secondary-width} / 3.5 - #{$page-header-padding-h} * 2 -
-      #{$border-width} * 2
+    -#{$logo-header-footer-secondary-width} * 0.2857142857 - #{$page-header-padding-h} *
+      2 - #{$border-width} * 2
   );
 
   .header-footer-logo-secondary {
-    height: $logo-header-footer-secondary-height / 3.5;
-    width: $logo-header-footer-secondary-width / 3.5;
-    background-size: ($logo-header-footer-secondary-width / 3.5)
-      ($logo-header-footer-secondary-height / 3.5);
+    height: $logo-header-footer-secondary-height * 0.2857142857;
+    width: $logo-header-footer-secondary-width * 0.2857142857;
+    background-size: ($logo-header-footer-secondary-width * 0.2857142857)
+      ($logo-header-footer-secondary-height * 0.2857142857);
   }
 }
 

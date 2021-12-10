@@ -29,7 +29,7 @@
   td,
   th {
     text-align: left;
-    padding: ($table-row-padding / 2) $table-row-padding;
+    padding: ($table-row-padding * 0.5) $table-row-padding;
     background-color: transparent;
     border: none;
     &:first-child {

@@ -137,7 +137,7 @@ $search-width-wide: 300px;
 }
 
 .leaflet-tooltip {
-  padding: ($padding / 4) ($padding / 2);
+  padding: ($padding * 0.25) ($padding * 0.5);
   //border: none;
   border-radius: 0;
   color: $text-color;
@@ -273,7 +273,7 @@ $search-width-wide: 300px;
       }
       li {
         cursor: pointer;
-        padding: ($padding / 2) $padding;
+        padding: ($padding * 0.5) $padding;
         font-size: $tiny-font-size;
         line-height: $body-line-height;
         border: none !important;
@@ -637,10 +637,3 @@ a.weather-map-details-button {
 //   right: 10px;
 //   width: 150px;
 //}
-
-.station-icon-cluster-circle {
-  display: none;
-}
-.leaflet-cluster-marker .station-icon-cluster-circle {
-  display: unset;
-}

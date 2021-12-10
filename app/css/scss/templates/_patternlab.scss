@@ -39,5 +39,5 @@
 .global-colors-swatch {
   display: block;
   height: $padding * 2;
-  margin-bottom: $padding / 2;
+  margin-bottom: $padding * 0.5;
 }
