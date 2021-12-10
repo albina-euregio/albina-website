@@ -322,7 +322,7 @@
   "measurements:table:header:wspd": "Wind Geschw.",
   "measurements:table:header:wgus": "Wind Böe",
   "measurements:table:header:rhum": "Luftfeuchtigkeit",
-  "dialog:download-pdf:heading": "PDF herunterladen",
+  "dialog:download-pdf:heading": "Bulletin herunterladen",
   "dialog:download-pdf:subheading": "PDF",
   "dialog:download-pdf:description": "Wähle das PDF für deine Region in Farbe oder schwarz/weiß",
   "dialog:download-pdf:in": "in",
