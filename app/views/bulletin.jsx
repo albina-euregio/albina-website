@@ -209,7 +209,6 @@ class Bulletin extends React.Component {
                   administrateLoadingBar={index === 0}
                   handleSelectRegion={this.handleSelectRegion.bind(this)}
                   date={this.props.match.params.date}
-                  history={this.props.history}
                   highlightedRegion={this.state.highlightedRegion}
                   regions={BULLETIN_STORE.getVectorRegions(daytime)}
                   onMapInit={this.handleMapInit.bind(this)}
@@ -225,7 +224,6 @@ class Bulletin extends React.Component {
               )}
               handleSelectRegion={this.handleSelectRegion.bind(this)}
               date={this.props.match.params.date}
-              history={this.props.history}
               highlightedRegion={this.state.highlightedRegion}
               regions={BULLETIN_STORE.getVectorRegions()}
             />

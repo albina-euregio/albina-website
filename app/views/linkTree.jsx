@@ -8,7 +8,7 @@ import { injectIntl } from "react-intl";
 import { withRouter } from "react-router-dom";
 import { parseSearchParams } from "../util/searchParams";
 import { dateToISODateString } from "../util/date.js";
-import BlogStore from "../stores/blogStore";
+import { BLOG_STORE } from "../stores/blogStore";
 import { APP_STORE } from "../appStore";
 
 //import { scroll } from "../js/scroll";
@@ -29,16 +29,6 @@ class LinkTree extends React.Component {
     this.regionParam = null;
     this.lastLang = null;
     this.onBulletinImageError = this.onBulletinImageError.bind(this);
-
-    const getHistory = () => this.props.history;
-    if (!window["blogStore"]) {
-      window["blogStore"] = new BlogStore(getHistory);
-    }
-
-    /**
-     * @type {BlogStore}
-     */
-    this.store = window["blogStore"];
   }
 
   componentDidMount() {
@@ -85,9 +75,9 @@ class LinkTree extends React.Component {
 
     if (lang !== this.lastLang) {
       this.lastLang = lang;
-      this.store.setLanguages(this.lastLang);
-      this.store.setRegions(this.regionParam);
-      this.store.update();
+      BLOG_STORE.setLanguages(this.lastLang);
+      BLOG_STORE.setRegions(this.regionParam);
+      BLOG_STORE.update();
       //console.log("LinkTree->render xx101 new lang ", this.lastLang, this.regionParam);
     }
 
@@ -108,18 +98,11 @@ class LinkTree extends React.Component {
       id: "more:linktree:blog:link"
     });
     let blogTitle = null;
-    if (this.store.postsList[0]) {
-      const firstEntry = this.store.postsList[0];
+    if (BLOG_STORE.postsList[0]) {
+      const firstEntry = BLOG_STORE.postsList[0];
       blogImageUrl = firstEntry.image;
       blogUrl = "/blog/" + firstEntry.blogName + "/" + firstEntry.postId; //firstEntry.url;
       blogTitle = firstEntry.title;
-
-      // console.log(
-      //   "LinkTree->render xx101",
-      //   firstEntry.image,
-      //   blogImageUrl,
-      //   this.store.postsList[0]
-      // );
     }
 
     return (

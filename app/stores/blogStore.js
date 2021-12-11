@@ -51,13 +51,10 @@ export default class BlogStore {
   _loading;
   _posts;
 
-  updateURL = false;
-
   // show only 5 blog posts when the mobile phone is detected
   perPage = L.Browser.mobile ? 20 : 20;
-  getHistory;
 
-  update() {
+  get searchParams() {
     const languageHostConfig = config.languageHostSettings;
     const l = this.languageActive;
     const searchLang =
@@ -66,19 +63,19 @@ export default class BlogStore {
         ? ""
         : this.languageActive;
 
-    if (this.updateURL) {
-      const params = new URLSearchParams();
-      params.set("year", this.year);
-      if (this.year != "") params.set("month", this.month);
-      params.set("searchLang", searchLang || "");
-      params.set("region", this.regionActive);
-      params.set("problem", this.problem);
-      params.set("page", this.page);
-      params.set("searchText", this.searchText || "");
-      params.forEach((value, key) => value || params.delete(key));
-      this.getHistory().push({ search: params.toString() });
-    }
+    const params = new URLSearchParams();
+    params.set("year", this.year);
+    if (this.year != "") params.set("month", this.month);
+    params.set("searchLang", searchLang || "");
+    params.set("region", this.regionActive);
+    params.set("problem", this.problem);
+    params.set("page", this.page);
+    params.set("searchText", this.searchText || "");
+    params.forEach((value, key) => value || params.delete(key));
+    return params;
+  }
 
+  update() {
     this.load(true);
   }
 
@@ -231,13 +228,11 @@ export default class BlogStore {
     return initialParameters;
   }
 
-  constructor(getHistory) {
-    this.getHistory = getHistory;
-
+  constructor() {
     const initialParameters = this.initialParams();
 
     // Do not make posts observable, otherwise posts list will be
-    // unnecessaryliy rerendered during the filling of this array.
+    // unnecessarily rerendered during the filling of this array.
     // Views should only observe the value of the "loading" flag instead.
     this._posts = {};
     this._page = initialParameters.page;
@@ -307,8 +302,6 @@ export default class BlogStore {
         }
       }
     };
-    this.update();
-
     makeAutoObservable(this);
   }
 
@@ -589,3 +582,5 @@ export default class BlogStore {
     return [];
   }
 }
+
+export const BLOG_STORE = new BlogStore();

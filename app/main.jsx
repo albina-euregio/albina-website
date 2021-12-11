@@ -7,6 +7,7 @@ import StaticPageStore from "./stores/staticPageStore";
 import { fetchJSON } from "./util/fetch.js";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
 import jQuery from "jquery";
+import { BLOG_STORE } from "./stores/blogStore.js";
 window["jQuery"] = window["$"] = jQuery;
 
 (() => import("./sentry"))();
@@ -75,6 +76,8 @@ Promise.all([configRequest, isWebpSupported]).then(
       initialLang +
       " language-" +
       initialLang;
+
+    BLOG_STORE.update();
 
     ReactDOM.render(
       <App />,
