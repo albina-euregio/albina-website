@@ -20,6 +20,7 @@
     "@mapbox/polyline": "^1.1.1",
     "@sentry/react": "^6.15.0",
     "animejs": "^2.2.0",
+    "eaws-regions": "gitlab:eaws/eaws-regions#9be7990485433828b3f50570f8632f624a73877f",
     "fluidvids.js": "github:toddmotto/fluidvids",
     "htmr": "^1.0.1",
     "jquery": "^3.5.1",
