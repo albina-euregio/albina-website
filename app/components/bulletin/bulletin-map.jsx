@@ -73,8 +73,14 @@ class BulletinMap extends React.Component {
             <FormattedHTMLMessage id="bulletin:header:info-no-data" />
           </p>
           <p>
-            <Link to="/blog" className="secondary pure-button tooltip">
-              BLOG
+            <Link
+              to="/blog"
+              title={this.props.intl.formatMessage({
+                id: "bulletin:map:blog:button:title"
+              })}
+              className="secondary pure-button tooltip"
+            >
+              {this.props.intl.formatMessage({ id: "blog:title" })}
             </Link>
           </p>
         </>

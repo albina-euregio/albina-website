@@ -191,6 +191,7 @@
   "bulletin:map:zoom-out:hover": "Zoom out",
   "bulletin:map:info:details": "<span>Click for</span> details",
   "bulletin:map:info:details:hover": "See full Avalanche Forecast",
+  "bulletin:map:blog:button:title": "See all blog entries",
   "bulletin:legend:highlight-regions": "<strong>Highlight regions</strong> with particular <a>Avalanche Problem</a>",
   "bulletin:legend:highlight-regions:hover": "Learn more",
   "bulletin:legend:highlight:hover": "Highlight regions with {problem}",
