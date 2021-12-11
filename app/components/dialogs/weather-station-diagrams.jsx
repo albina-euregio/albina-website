@@ -19,6 +19,9 @@ class WeatherStationDiagrams extends React.Component {
     this.imageWidths = ["800", "1100"];
     this.state = { timeRange: "threedays", selectedYear: null };
     this.keyFunction = this.keyFunction.bind(this);
+
+    this.next = this.next.bind(this);
+    this.previous = this.previous.bind(this);
   }
 
   keyFunction(event) {
@@ -33,21 +36,7 @@ class WeatherStationDiagrams extends React.Component {
     }
   }
 
-  previous() {
-    let stationsData = window["modalStateStore"].data.stationData;
-    let rowId = window["modalStateStore"].data.rowId;
-
-    let index = stationsData.findIndex(element => element.id == rowId);
-    if (index > 0) {
-      index--;
-    }
-    window["modalStateStore"].setData({
-      stationData: stationsData,
-      rowId: stationsData[index].id
-    });
-  }
-
-  next() {
+  getNextStation() {
     let stationsData = window["modalStateStore"].data.stationData;
     let rowId = window["modalStateStore"].data.rowId;
 
@@ -55,10 +44,32 @@ class WeatherStationDiagrams extends React.Component {
     if (index < stationsData.length - 1) {
       index++;
     }
-    window["modalStateStore"].setData({
+    return {
       stationData: stationsData,
       rowId: stationsData[index].id
-    });
+    };
+  }
+
+  getPreviousStation() {
+    let stationsData = window["modalStateStore"].data.stationData;
+    let rowId = window["modalStateStore"].data.rowId;
+
+    let index = stationsData.findIndex(element => element.id == rowId);
+    if (index > 0) {
+      index--;
+    }
+    return {
+      stationData: stationsData,
+      rowId: stationsData[index].id
+    };
+  }
+
+  next() {
+    window["modalStateStore"].setData(this.getNextStation());
+  }
+
+  previous() {
+    window["modalStateStore"].setData(this.getPreviousStation());
   }
 
   componentDidMount() {
@@ -144,6 +155,51 @@ class WeatherStationDiagrams extends React.Component {
     );
   }
 
+  stationFlipper(isStation) {
+    const nextStation = this.getNextStation();
+    const previousStation = this.getPreviousStation();
+
+    let nextStationData = nextStation.stationData.find(
+      element => element.id == nextStation.rowId
+    );
+    let previousStationData = previousStation.stationData.find(
+      element => element.id == previousStation.rowId
+    );
+
+    return (
+      <ul className="list-inline weatherstation-flipper">
+        <li></li>
+        {!isStation && this.yearFlipper()}
+        <li className="weatherstation-flipper-station">
+          <ul className="list-inline weatherstation-flipper">
+            <li className="weatherstation-flipper-back">
+              <a
+                href="#"
+                onClick={this.previous}
+                title="Prior Station"
+                className="tooltip"
+              >
+                <span className="icon-arrow-left"></span>
+                {previousStationData.name}
+              </a>
+            </li>
+            <li className="weatherstation-flipper-forward">
+              <a
+                href="#"
+                onClick={this.next}
+                title="Next Station"
+                className="tooltip"
+              >
+                {nextStationData.name}&nbsp;
+                <span className="icon-arrow-right"></span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    );
+  }
+
   render() {
     let stationsData = window["modalStateStore"].data.stationData;
     let rowId = window["modalStateStore"].data.rowId;
@@ -177,36 +233,7 @@ class WeatherStationDiagrams extends React.Component {
                 )}
               </h2>
             </div>
-            <ul className="list-inline weatherstation-flipper">
-              <li></li>
-              {!isStation && this.yearFlipper()}
-              <li className="weatherstation-flipper-station">
-                <ul className="list-inline weatherstation-flipper">
-                  <li className="weatherstation-flipper-back">
-                    <a
-                      href="#"
-                      onClick={this.previous}
-                      title="Prior Station"
-                      className="tooltip"
-                    >
-                      <span className="icon-arrow-left"></span>
-                    </a>
-                  </li>
-                  <li className="weatherstation-flipper-current">Station</li>
-                  <li className="weatherstation-flipper-forward">
-                    <a
-                      href="#"
-                      onClick={this.next}
-                      title="Next Station"
-                      className="tooltip"
-                    >
-                      <span className="icon-arrow-right"></span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-
+            {this.stationFlipper(isStation)}
             <div className="modal-content">
               {isStation && this.renderMeasurementValues(stationData)}
               {isStation && this.renderTimeRangeButtons()}
