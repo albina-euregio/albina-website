@@ -9,6 +9,7 @@ import tilty from "vanilla-tilt";
 
 import footerMenuMore from "../../menu-footer.json";
 import footerMenuMain from "../../menu-footer-main.json";
+import { APP_STORE } from "../../appStore";
 
 const license = import.meta.env.APP_LICENSE; // included via vite.config.js
 const repository = import.meta.env.APP_REPOSITORY; // included via vite.config.js
@@ -76,7 +77,7 @@ class PageFooter extends React.Component {
               <p className="page-footer-logo-secondary">
                 <a
                   href={Util.template(config.links.interreg, {
-                    lang: window["appStore"].language
+                    lang: APP_STORE.language
                   })}
                   {...window["tiltySettings"]}
                   className="header-footer-logo-secondary tooltip tilt"

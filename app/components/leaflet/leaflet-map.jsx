@@ -19,6 +19,7 @@ import "leaflet.locatecontrol";
 import "leaflet-gesture-handling";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
 import "../../css/geonames.css";
+import { APP_STORE } from "../../appStore";
 
 class LeafletMap extends React.Component {
   constructor(props) {
@@ -91,7 +92,7 @@ class LeafletMap extends React.Component {
 
         L.control
           .geonames({
-            lang: appStore.language,
+            lang: APP_STORE.language,
             title: this.props.intl.formatMessage({
               id: "bulletin:map:search"
             }),

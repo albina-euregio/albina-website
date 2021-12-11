@@ -4,6 +4,7 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Util } from "leaflet";
 import { regionCodes } from "../../util/regions";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import { APP_STORE } from "../../appStore";
 
 class DownloadPdfDialog extends React.Component {
   constructor(props) {
@@ -22,21 +23,16 @@ class DownloadPdfDialog extends React.Component {
   };
 
   pdfLink(isRegion, isBw) {
-    if (window["appStore"]) {
-      const links = config.links.downloads;
-      const link =
-        links["base"] +
-        links["pdf" + (isRegion ? "-region" : "") + (isBw ? "-bw" : "")];
+    const links = config.links.downloads;
+    const link =
+      links["base"] +
+      links["pdf" + (isRegion ? "-region" : "") + (isBw ? "-bw" : "")];
 
-      return Util.template(link, {
-        date: BULLETIN_STORE.settings.date,
-        lang: window["appStore"].language,
-        region: isRegion
-      });
-    } else {
-      // not loaded yet
-      return "";
-    }
+    return Util.template(link, {
+      date: BULLETIN_STORE.settings.date,
+      lang: APP_STORE.language,
+      region: isRegion
+    });
   }
 
   regionSelector(region) {

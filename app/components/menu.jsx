@@ -3,6 +3,7 @@ import { withRouter, matchPath } from "react-router";
 import { observer } from "mobx-react";
 import BlogStore from "../stores/blogStore";
 import { Link } from "react-router-dom";
+import { APP_STORE } from "../appStore";
 
 class Menu extends React.Component {
   constructor(props) {
@@ -59,7 +60,7 @@ class Menu extends React.Component {
       this.props.intl.formatMessage({
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
-    const url = e["url:" + appStore.language] || e["url"];
+    const url = e["url:" + APP_STORE.language] || e["url"];
     const numberNewPosts = window["blogStore"].numberNewPosts;
 
     return (

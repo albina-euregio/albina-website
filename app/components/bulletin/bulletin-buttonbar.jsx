@@ -1,5 +1,6 @@
 import React from "react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { APP_STORE } from "../../appStore";
 import { modal_init } from "../../js/modal";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
@@ -67,7 +68,7 @@ class BulletinButtonbar extends React.Component {
                 {config.dialogs.feedback && (
                   <li>
                     <a
-                      href={config.links.feedback[appStore.language]}
+                      href={config.links.feedback[APP_STORE.language]}
                       title={this.props.intl.formatMessage({
                         id: "bulletin:feedback:hover"
                       })}

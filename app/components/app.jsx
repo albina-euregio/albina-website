@@ -7,6 +7,8 @@ import { BrowserRouter } from "react-router-dom";
 import { renderRoutes } from "react-router-config";
 import { ScrollContext } from "react-router-scroll-4";
 
+import { APP_STORE } from "../appStore";
+
 const Bulletin = React.lazy(() => import("./../views/bulletin"));
 const BlogOverview = React.lazy(() => import("./../views/blogOverview"));
 const BlogPost = React.lazy(() => import("./../views/blogPost"));
@@ -138,7 +140,7 @@ class App extends React.Component {
             path: "/:lang([a-z]{2})",
             component: ({ match }) => {
               const lang = match?.params?.lang;
-              window["appStore"].setLanguage(lang);
+              APP_STORE.setLanguage(lang);
               return <Redirect to={"/"} />;
             }
           },
@@ -155,10 +157,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <IntlProvider
-        locale={window["appStore"].language}
-        messages={window["appStore"].messages}
-      >
+      <IntlProvider locale={APP_STORE.language} messages={APP_STORE.messages}>
         <BrowserRouter basename={config.projectRoot}>
           <ScrollContext shouldUpdateScroll={this.shouldUpdateScroll}>
             <Suspense fallback={"..."}>{renderRoutes(this.routes())}</Suspense>

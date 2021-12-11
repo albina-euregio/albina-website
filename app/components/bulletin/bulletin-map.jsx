@@ -15,6 +15,7 @@ import { preprocessContent } from "../../util/htmlParser";
 import { getPublicationTimeString } from "../../util/date.js";
 import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import { APP_STORE } from "../../appStore";
 
 /**
  * @typedef {object} Props
@@ -51,7 +52,7 @@ class BulletinMap extends React.Component {
       date: this.props.date
         ? dateToISODateString(parseDate(this.props.date))
         : "",
-      lang: window["appStore"].language
+      lang: APP_STORE.language
     });
     this.infoMessageLevels.pending = {
       message: this.props.intl.formatMessage(
@@ -223,7 +224,7 @@ class BulletinMap extends React.Component {
       );
     } else if (activeNeighbor) {
       detailsClasses.push("js-active");
-      const language = window["appStore"].language;
+      const language = APP_STORE.language;
       const country = activeNeighbor.id.replace(/-.*/, "");
       const region = activeNeighbor.id;
       // res.push(

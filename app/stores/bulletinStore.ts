@@ -19,6 +19,7 @@ import { fetchText } from "../util/fetch.js";
 import { loadNeighborBulletins } from "./bulletinStoreNeighbor";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
+import { APP_STORE } from "../appStore";
 
 const enableNeighborRegions = true;
 
@@ -443,7 +444,7 @@ class BulletinStore {
       config.links.downloads.base + config.links.downloads.xml,
       {
         date,
-        lang: window["appStore"].language
+        lang: APP_STORE.language
       }
     );
   }

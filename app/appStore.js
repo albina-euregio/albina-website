@@ -85,3 +85,5 @@ class AppStore {
 }
 
 export default AppStore;
+
+export const APP_STORE = new AppStore();

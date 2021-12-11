@@ -9,6 +9,7 @@ import { withRouter } from "react-router-dom";
 import { parseSearchParams } from "../util/searchParams";
 import { dateToISODateString } from "../util/date.js";
 import BlogStore from "../stores/blogStore";
+import { APP_STORE } from "../appStore";
 
 //import { scroll } from "../js/scroll";
 /*
@@ -54,7 +55,7 @@ class LinkTree extends React.Component {
   }
 
   getLanguage(dateString) {
-    var lang = window["appStore"].language;
+    var lang = APP_STORE.language;
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":

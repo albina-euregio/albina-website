@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import ProvinceFilter from "../filters/province-filter";
 import { fetchText } from "../../util/fetch";
+import { APP_STORE } from "../../appStore";
 
 class SubscribeEmailDialog extends React.Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class SubscribeEmailDialog extends React.Component {
   resetState() {
     this.setState({
       email: "",
-      language: window["appStore"].language,
+      language: APP_STORE.language,
       region: false,
       status: "",
       errorMessage: "",
@@ -155,7 +156,7 @@ class SubscribeEmailDialog extends React.Component {
               <span className="normal" />
             </label>
             <ul className="list-inline list-subscribe-language">
-              {window["appStore"].mainLanguages.map(l => (
+              {APP_STORE.mainLanguages.map(l => (
                 <li key={l}>
                   <label className="pure-checkbox">
                     <input
