@@ -322,7 +322,7 @@
   "more:open-data:text": "Wem gehören die Daten?",
   "more:linktree:title": "Die wichtigsten Links",
   "more:linktree:subtitle": "Linktree",
-  "more:linktree:marginal": "Kurzer, optionaler Text",
+  "more:linktree:marginal": "",
   "more:linktree:bulletin:title": "Aktuellstes Bulletin",
   "more:linktree:bulletin:link": "/bulletin",
   "more:linktree:blog:title": "Aktuellster Blog",
