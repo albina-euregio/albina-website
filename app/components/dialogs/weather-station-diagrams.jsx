@@ -146,8 +146,28 @@ class WeatherStationDiagrams extends React.Component {
               title="Forward"
               className="tooltip"
             >
-              {nextYear}
+              {nextYear}&nbsp;
               <span className="icon-arrow-right"></span>
+            </a>
+          </li>
+        )}
+        {this.state.selectedYear && (
+          <li className="weatherstation-flipper-forward">
+            <a
+              href="#"
+              onClick={() => {
+                this.setState({
+                  selectedYear: null
+                });
+              }}
+              title="Latest"
+              className="tooltip"
+            >
+              <span>
+                {this.props.intl.formatMessage({
+                  id: "dialog:weather-station-diagram:yearFlipper:latest"
+                })}
+              </span>
             </a>
           </li>
         )}
