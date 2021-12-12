@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
-import { GeoJSON, ImageOverlay } from "react-leaflet";
+import { GeoJSON } from "react-leaflet";
 import InfoBar from "../organisms/info-bar";
 import { dateToISODateString, parseDate } from "../../util/date";
 
@@ -9,10 +9,8 @@ import LeafletMap from "../leaflet/leaflet-map";
 import { Util } from "leaflet";
 import BulletinMapDetails from "./bulletin-map-details";
 import BulletinVectorLayer from "./bulletin-vector-layer";
-import { isBlendingSupported } from "../../util/blendMode";
 import { preprocessContent } from "../../util/htmlParser";
 
-import { getPublicationTimeString } from "../../util/date.js";
 import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { APP_STORE } from "../../appStore";
@@ -133,36 +131,15 @@ class BulletinMap extends React.Component {
 
     const b = BULLETIN_STORE.activeBulletinCollection;
     if (b) {
-      const daytime = b.hasDaytimeDependency() ? this.props.ampm : "fd";
-      const imgFormat =
-        window.config.webp && BULLETIN_STORE.settings.date > "2020-12-01"
-          ? ".webp"
-          : ".png";
-
-      const publicationTime =
-        BULLETIN_STORE.settings.date > "2019-05-06"
-          ? getPublicationTimeString(b.publicationDateSeconds) + "/"
-          : "";
-
-      const url =
-        config.apis.geo +
-        BULLETIN_STORE.settings.date +
-        "/" +
-        publicationTime +
-        daytime +
-        "_overlay" +
-        imgFormat +
-        "?" +
-        b.publicationDate.getTime();
-
-      const params = config.map.overlay;
-
       overlays.push(
-        <ImageOverlay
-          key="bulletin-overlay"
-          url={url}
-          {...params}
-          opacity={isBlendingSupported() ? 1 : 0.5}
+        <GeoJSON
+          // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
+          key={`bulletin-regions-${this.props.ampm}-${b.date}-${b.status}`}
+          data={BULLETIN_STORE.microRegionsElevation}
+          pane="mapPane"
+          style={feature =>
+            BULLETIN_STORE.getMicroElevationStyle(feature, this.props.ampm)
+          }
         />
       );
     }

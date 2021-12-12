@@ -6,7 +6,7 @@ import {
   dateToISODateString
 } from "../util/date.js";
 
-import { GeoJSON as LeafletGeoJSON, Util } from "leaflet";
+import { GeoJSON as LeafletGeoJSON, PathOptions, Util } from "leaflet";
 import {
   AvalancheProblem,
   AvalancheProblemType,
@@ -20,6 +20,7 @@ import { loadNeighborBulletins } from "./bulletinStoreNeighbor";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import { APP_STORE } from "../appStore";
+import { warnlevelNumbers, WARNLEVEL_COLORS } from "../util/warn-levels.js";
 
 const enableNeighborRegions = true;
 
@@ -123,6 +124,11 @@ class BulletinStore {
     features: []
   };
   // not observable
+  _microRegionsElevation: GeoJSON.FeatureCollection = {
+    type: "FeatureCollection",
+    features: []
+  };
+  // not observable
   _neighborRegions: GeoJSON.FeatureCollection = {
     type: "FeatureCollection",
     features: []
@@ -202,6 +208,12 @@ class BulletinStore {
     this._microRegions = decodeFeatureCollection(polyline.default);
   }
 
+  async loadMicroRegionsElevation() {
+    if (this._microRegionsElevation.features.length) return;
+    const polyline = await import("./micro-regions_elevation.polyline.json");
+    this._microRegionsElevation = decodeFeatureCollection(polyline.default);
+  }
+
   async loadNeighborRegions() {
     if (this._neighborRegions.features.length) return;
     const polyline = await import("./neighbor_regions.polyline.json");
@@ -217,6 +229,7 @@ class BulletinStore {
    */
   async load(date: string, activate = true) {
     this.loadMicroRegions();
+    this.loadMicroRegionsElevation();
     this.loadNeighborRegions();
     // console.log("loading bulletin", { date, activate });
     if (typeof date !== "string") return;
@@ -385,6 +398,50 @@ class BulletinStore {
       return "dehighlighted";
     }
     return "default";
+  }
+
+  getWarnlevel(ampm: "am" | "pm", regionId: string, elevation: "low" | "high") {
+    const daytimeBulletin =
+      this.activeBulletinCollection.getBulletinForRegion(regionId);
+    const daytime =
+      daytimeBulletin.hasDaytimeDependency && ampm == "pm"
+        ? "afternoon"
+        : "forenoon";
+    console.log({ daytime });
+    const bulletin = daytimeBulletin[daytime];
+    return bulletin?.dangerRatings
+      .filter(
+        danger =>
+          (!danger.elevation.upperBound && !danger.elevation.lowerBound) ||
+          (danger.elevation.upperBound && elevation === "low") ||
+          (danger.elevation.lowerBound && elevation === "high")
+      )
+      .map(danger => warnlevelNumbers[danger.mainValue])
+      .reduce((w1, w2) => Math.max(w1, w2), 0);
+  }
+
+  getMicroElevationStyle(
+    feature: GeoJSON.Feature,
+    ampm: "am" | "pm"
+  ): PathOptions {
+    return {
+      stroke: false,
+      fillColor:
+        WARNLEVEL_COLORS[
+          BULLETIN_STORE.getWarnlevel(
+            ampm,
+            feature.id,
+            feature.properties.elevation
+          )
+        ],
+      fillOpacity: 1.0
+    };
+  }
+
+  get microRegionsElevation(): GeoJSON.Feature[] {
+    return this._microRegionsElevation.features.map(f =>
+      this._augmentFeature(f)
+    );
   }
 
   get neighborRegions(): GeoJSON.Feature[] {
