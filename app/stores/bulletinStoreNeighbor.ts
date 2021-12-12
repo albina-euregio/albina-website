@@ -1,4 +1,5 @@
 import { decodeFeatureCollection } from "../util/polyline";
+import { WARNLEVEL_COLORS } from "../util/warn-levels";
 import { MicroRegionElevationProperties } from "./bulletin";
 
 type Properties = MicroRegionElevationProperties & { style: L.PathOptions };
@@ -82,15 +83,6 @@ export async function loadNeighborBulletins(
     features: bulletins
   });
 }
-
-const WARNLEVEL_COLORS = [
-  undefined,
-  "#ccff66",
-  "#ffff00",
-  "#ff9900",
-  "#ff0000",
-  "#600000" // FIXME color for very_high
-];
 
 function augmentNeighborFeature(
   feature: Feature,

@@ -14,3 +14,12 @@ export function getWarnlevelNumber(id) {
   }
   return 0;
 }
+
+export const WARNLEVEL_COLORS = Object.freeze([
+  undefined,
+  "#ccff66",
+  "#ffff00",
+  "#ff9900",
+  "#ff0000",
+  "#600000" // FIXME color for very_high
+]);
