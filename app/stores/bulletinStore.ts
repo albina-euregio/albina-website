@@ -49,12 +49,8 @@ class BulletinCollection {
     // return maximum of all publicationDates
     if (this.status == "ok" && this.length > 0) {
       return this.daytimeBulletins
-        .map(b => {
-          return parseDate(b.forenoon.publicationTime);
-        })
-        .reduce((acc, d) => {
-          return d > acc ? d : acc;
-        }, new Date(0));
+        .map(b => parseDate(b.forenoon.publicationTime))
+        .reduce((acc, d) => (d > acc ? d : acc), new Date(0));
     }
 
     return null;
@@ -64,12 +60,8 @@ class BulletinCollection {
     // return maximum of all publicationDates
     if (this.status == "ok" && this.length > 0) {
       return this.daytimeBulletins
-        .map(b => {
-          return parseDateSeconds(b.forenoon.publicationTime);
-        })
-        .reduce((acc, d) => {
-          return d > acc ? d : acc;
-        }, new Date(0));
+        .map(b => parseDateSeconds(b.forenoon.publicationTime))
+        .reduce((acc, d) => (d > acc ? d : acc), new Date(0));
     }
 
     return null;
