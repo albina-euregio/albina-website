@@ -15,7 +15,7 @@
     }
   }
   @media #{$normal-up} {
-    .grid-item:last-child {
+    .grid-item + .grid-item:last-child {
       text-align: right;
     }
     .list-buttongroup {
