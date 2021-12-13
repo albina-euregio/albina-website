@@ -74,11 +74,32 @@ class BlogPost extends React.Component {
     }
   }
 
+  renderLinkToBlogOverview() {
+    return (
+      <section className="section-padding section-linkbar">
+        <div className="section-centered">
+          <div className="grid linkbar">
+            <div className="normal-4 grid-item">
+              <Link
+                key="toBlog"
+                to={"/blog"}
+                className="icon-link icon-arrow-left"
+              >
+                {this.props.intl.formatMessage({ id: "blog:all-blog-posts" })}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   /*<li className="blog-author">{this.state.author}</li> */
   render() {
     return (
       <>
         <HTMLHeader title={this.state.title} />
+        {this.renderLinkToBlogOverview()}
         <PageHeadline
           title={this.state.title}
           subtitle={this.props.intl.formatMessage({ id: "blog:subtitle" })}
@@ -105,22 +126,7 @@ class BlogPost extends React.Component {
         <section className="section-centered ">
           <section className="panel blog-post">{this.state.content}</section>
         </section>
-        <section className="section-padding section-linkbar">
-          <div className="section-centered">
-            <div className="grid linkbar">
-              <div className="normal-4 grid-item">
-                <Link
-                  key="toBlog"
-                  to={"/blog"}
-                  className="icon-link icon-arrow-left"
-                >
-                  {this.props.intl.formatMessage({ id: "blog:all-blog-posts" })}
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        {this.renderLinkToBlogOverview()}
         <SmShare />
       </>
     );
