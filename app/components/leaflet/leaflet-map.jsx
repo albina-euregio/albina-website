@@ -12,12 +12,14 @@ import {
 } from "react-leaflet";
 import { injectIntl } from "react-intl";
 import { tooltip_init } from "../../js/tooltip";
+import { MAP_STORE } from "../../stores/mapStore";
 
 import "leaflet-geonames";
 import "leaflet.locatecontrol";
 import "leaflet-gesture-handling";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
 import "../../css/geonames.css";
+import { APP_STORE } from "../../appStore";
 
 class LeafletMap extends React.Component {
   constructor(props) {
@@ -90,7 +92,7 @@ class LeafletMap extends React.Component {
 
         L.control
           .geonames({
-            lang: appStore.language,
+            lang: APP_STORE.language,
             title: this.props.intl.formatMessage({
               id: "bulletin:map:search"
             }),
@@ -260,8 +262,8 @@ class LeafletMap extends React.Component {
         gestureHandling
         style={this.mapStyle()}
         zoomControl={false}
-        zoom={window.mapStore.mapZoom}
-        center={window.mapStore.mapCenter}
+        zoom={MAP_STORE.mapZoom}
+        center={MAP_STORE.mapCenter}
         {...mapOptions}
         attributionControl={false}
       >
@@ -282,8 +284,8 @@ class LeafletMap extends React.Component {
         dragging={L.Browser.mobile}
         style={this.mapStyle()}
         zoomControl={false}
-        zoom={window.mapStore.mapZoom}
-        center={window.mapStore.mapCenter}
+        zoom={MAP_STORE.mapZoom}
+        center={MAP_STORE.mapCenter}
         {...mapOptions}
         attributionControl={false}
       >

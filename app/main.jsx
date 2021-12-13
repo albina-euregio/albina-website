@@ -1,18 +1,18 @@
 import React from "react"; // eslint-disable-line no-unused-vars
 import ReactDOM from "react-dom";
 import App from "./components/app.jsx";
-import AppStore from "./appStore.js";
+import { APP_STORE } from "./appStore";
 import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
 import { fetchJSON } from "./util/fetch.js";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
 import jQuery from "jquery";
+import { BLOG_STORE } from "./stores/blogStore.js";
 window["jQuery"] = window["$"] = jQuery;
 
 (() => import("./sentry"))();
 
 // TODO: check content API for maintenance mode before starting the app
-window["appStore"] = new AppStore();
 window["staticPageStore"] = new StaticPageStore();
 window["modalStateStore"] = new ModalStateStore();
 window["scroll_duration"] = 1000;
@@ -63,12 +63,12 @@ Promise.all([configRequest, isWebpSupported]).then(
     if (!language && location.host.startsWith("www.")) {
       location.host = location.host.substring("www.".length);
     }
-    await window["appStore"].setLanguage(language || "en");
+    await APP_STORE.setLanguage(language || "en");
 
     window.config = configParsed;
 
     // initially set language-dependent body classes
-    const initialLang = window["appStore"].language;
+    const initialLang = APP_STORE.language;
     document.body.parentElement.lang = initialLang;
     document.body.className +=
       (document.body.className ? " " : "") +
@@ -76,6 +76,8 @@ Promise.all([configRequest, isWebpSupported]).then(
       initialLang +
       " language-" +
       initialLang;
+
+    BLOG_STORE.update();
 
     ReactDOM.render(
       <App />,

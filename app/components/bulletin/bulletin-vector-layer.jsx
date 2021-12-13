@@ -1,8 +1,9 @@
 import React from "react";
 import L from "leaflet";
 import { Pane, Polygon, Tooltip } from "react-leaflet";
+import { injectIntl } from "react-intl";
 
-export default class BulletinVectorLayer extends React.Component {
+export class BulletinVectorLayer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -69,7 +70,9 @@ export default class BulletinVectorLayer extends React.Component {
             config.map.regionStyling[state],
             bid === this.state.over ? config.map.regionStyling.mouseOver : {}
           );
-          const tooltip = window["appStore"].messages["region:" + bid];
+          const tooltip = this.props.intl.formatMessage({
+            id: "region:" + bid
+          });
 
           return vector.properties.latlngs.map((geometry, gi) => (
             <Polygon
@@ -94,3 +97,5 @@ export default class BulletinVectorLayer extends React.Component {
     );
   }
 }
+
+export default injectIntl(BulletinVectorLayer);

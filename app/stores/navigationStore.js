@@ -7,3 +7,5 @@ export default class NavigationStore {
     makeAutoObservable(this);
   }
 }
+
+export const NAVIGATION_STORE = new NavigationStore();

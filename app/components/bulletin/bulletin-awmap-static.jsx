@@ -1,5 +1,6 @@
 import React from "react";
 import { injectIntl } from "react-intl";
+import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { getPublicationTimeString, parseDateSeconds } from "../../util/date.js";
 
 /**
@@ -29,9 +30,7 @@ class BulletinAWMapStatic extends React.Component {
       publicationDirectory +
       this.props.region + // possibly contains _PM
       imgFormat;
-    const regions = window["bulletinStore"]?.bulletins[
-      this.props.date
-    ]?.daytimeBulletins
+    const regions = BULLETIN_STORE.bulletins[this.props.date]?.daytimeBulletins
       ?.find(element => element.id == this.props.region.split("_")[0])
       ?.forenoon?.regions?.map(elem => elem.name)
       ?.join(", ");

@@ -1,14 +1,8 @@
 import React from "react";
 import { observer } from "mobx-react";
 import BulletinReport from "./bulletin-report";
+import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
-/**
- * @typedef {object} Props
- * @prop {Albina.DaytimeBulletin[]} daytimeBulletins
- * @prop {import("../../stores/bulletinStore").BulletinStore} store
- *
- * @extends {React.Component<Props>}
- */
 export class BulletinList extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +21,7 @@ export class BulletinList extends React.Component {
               key={daytimeBulletin.id}
               className={
                 "bulletin-list-item" +
-                (daytimeBulletin.id === this.props.store.settings.region
+                (daytimeBulletin.id === BULLETIN_STORE.settings.region
                   ? " selected"
                   : "")
               }
@@ -35,7 +29,7 @@ export class BulletinList extends React.Component {
               {
                 <BulletinReport
                   daytimeBulletin={daytimeBulletin}
-                  date={this.props.store.settings.date}
+                  date={BULLETIN_STORE.settings.date}
                 />
               }
             </li>

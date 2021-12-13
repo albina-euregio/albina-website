@@ -1,18 +1,11 @@
 import React from "react";
 import { withRouter, matchPath } from "react-router";
 import { observer } from "mobx-react";
-import BlogStore from "../stores/blogStore";
+import { BLOG_STORE } from "../stores/blogStore";
 import { Link } from "react-router-dom";
+import { APP_STORE } from "../appStore";
 
 class Menu extends React.Component {
-  constructor(props) {
-    super(props);
-    if (!window["blogStore"]) {
-      const getHistory = () => this.props.history;
-      window["blogStore"] = new BlogStore(getHistory);
-    }
-  }
-
   testActive(e, recursive = true) {
     // Test if element (or any of its child elements, if "recursive" is set)
     // is active.
@@ -59,8 +52,8 @@ class Menu extends React.Component {
       this.props.intl.formatMessage({
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
-    const url = e["url:" + appStore.language] || e["url"];
-    const numberNewPosts = window["blogStore"].numberNewPosts;
+    const url = e["url:" + APP_STORE.language] || e["url"];
+    const numberNewPosts = BLOG_STORE.numberNewPosts;
 
     return (
       <li

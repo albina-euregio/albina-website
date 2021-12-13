@@ -10,10 +10,10 @@ import HTMLHeader from "../components/organisms/html-header";
 import WeatherMap from "../components/weather/weather-map";
 import FeatureInfo from "../components/weather/feature-info";
 import WeatherMapStore from "../stores/weatherMapStore";
+import { MAP_STORE } from "../stores/mapStore";
 
 import WeatherMapCockpit from "../components/weather/weather-map-cockpit";
 
-import MapStore from "../stores/mapStore";
 import Player from "../js/player";
 
 class Weather extends React.Component {
@@ -28,21 +28,19 @@ class Weather extends React.Component {
       });
     }
 
-    if (!config.weathermapStore) {
-      config.weathermapStore = new WeatherMapStore(
-        this.props.match.params.domain
-      );
+    if (!this.store) {
+      this.store = new WeatherMapStore(this.props.match.params.domain);
     } else {
       // console.log(
       //   "rechange domain 777",
       //   this.props.match.params.domain,
       //   this.props.match.params
       // );
-      config.weathermapStore.changeDomain(this.props.match.params.domain);
+      this.store.changeDomain(this.props.match.params.domain);
     }
     //config.player.start();
 
-    //console.log("Weather: Store:", config.weathermapStore);
+    //console.log("Weather: Store:", this.store);
     this.state = {
       title: "",
       headerText: "",
@@ -53,9 +51,6 @@ class Weather extends React.Component {
       mapCenter: false
     };
 
-    if (!window.mapStore) {
-      window.mapStore = new MapStore();
-    }
     this.handleMarkerSelected = this.handleMarkerSelected.bind(this);
   }
 
@@ -71,24 +66,22 @@ class Weather extends React.Component {
   }
 
   onTick() {
-    //console.log("onTick eee", config.weathermapStore.nextTime);
-    config.weathermapStore.changeCurrentTime(config.weathermapStore.nextTime);
+    //console.log("onTick eee", this.store.nextTime);
+    this.store.changeCurrentTime(this.store.nextTime);
   }
 
   componentDidUpdate() {
     if (
-      config.weathermapStore.domainId &&
-      config.weathermapStore.domainId !== this.props.match.params.domain
+      this.store.domainId &&
+      this.store.domainId !== this.props.match.params.domain
     ) {
-      this.props.history.replace(
-        "/weather/map/" + config.weathermapStore.domainId
-      );
+      this.props.history.replace("/weather/map/" + this.store.domainId);
     }
   }
 
   handleClickCockpitEvent(type, value) {
     //console.log("handleClickCockpitEvent 777", type, value);
-    const wmStore = config.weathermapStore;
+    const wmStore = this.store;
     const player = config.player;
 
     switch (type) {
@@ -111,7 +104,7 @@ class Weather extends React.Component {
   }
 
   handleMapViewportChanged = map => {
-    mapStore.setMapViewport({
+    MAP_STORE.setMapViewport({
       zoom: map.zoom,
       center: map.center
     });
@@ -122,15 +115,15 @@ class Weather extends React.Component {
     // console.log(
     //   "handleMarkerSelected ggg1",
     //   feature,
-    //   config.weathermapStore.stations.features.find(
+    //   this.store.stations.features.find(
     //     point => point.id == feature.id
     //   )
     // );
     if (feature.id) {
       window["modalStateStore"].setData({
-        stationData: config.weathermapStore.stations.features.sort((f1, f2) =>
+        stationData: this.store.stations.features.sort((f1, f2) =>
           (f1.properties["LWD-Region"] || "").localeCompare(
-            (f2.properties["LWD-Region"] || ""),
+            f2.properties["LWD-Region"] || "",
             "de"
           )
         ),
@@ -143,14 +136,14 @@ class Weather extends React.Component {
         "weatherStationDiagrams",
         true
       );
-      config.weathermapStore.selectedFeature = null;
+      this.store.selectedFeature = null;
     } else {
-      config.weathermapStore.selectedFeature = feature;
+      this.store.selectedFeature = feature;
     }
   };
 
   render() {
-    const wmStore = config.weathermapStore;
+    const wmStore = this.store;
     const wmPlayer = config.player;
 
     //console.log("Weather->render xxxx1", wmStore);

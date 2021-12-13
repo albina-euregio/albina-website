@@ -1,6 +1,9 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import CookieStore from "../../stores/cookieStore";
+
+const cookieConsent = new CookieStore("cookieConsentAccepted");
 
 class CookieConsent extends React.Component {
   constructor(props) {
@@ -8,12 +11,12 @@ class CookieConsent extends React.Component {
   }
 
   accept = () => {
-    window["appStore"].cookieConsent.active = false;
+    cookieConsent.active = false;
   };
 
   render() {
     return (
-      window["appStore"].cookieConsent.active && (
+      cookieConsent.active && (
         <div className="candybar">
           <h3>
             <FormattedHTMLMessage id="dialog:cookie-consent:header" />

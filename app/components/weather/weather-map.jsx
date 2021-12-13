@@ -6,6 +6,7 @@ import DataOverlay from "../leaflet/dataOverlay";
 
 import GridOverlay from "./grid-overlay";
 import StationOverlay from "./station-overlay";
+import { MAP_STORE } from "../../stores/mapStore";
 
 class WeatherMap extends React.Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class WeatherMap extends React.Component {
         overlays.push(
           <GridOverlay
             key={"grid"}
-            zoom={mapStore.mapZoom}
+            zoom={MAP_STORE.mapZoom}
             item={this.props.item}
             grid={this.props.grid}
             onLoading={() => {
@@ -72,7 +73,7 @@ class WeatherMap extends React.Component {
         overlays.push(
           <StationOverlay
             key={"stations"}
-            zoom={mapStore.mapZoom}
+            zoom={MAP_STORE.mapZoom}
             onMarkerSelected={this.props.onMarkerSelected}
             selectedFeature={this.props.selectedFeature}
             item={this.props.item}

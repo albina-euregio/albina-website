@@ -19,6 +19,7 @@ import { fetchText } from "../util/fetch.js";
 import { loadNeighborBulletins } from "./bulletinStoreNeighbor";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
+import { APP_STORE } from "../appStore";
 
 const enableNeighborRegions = true;
 
@@ -156,6 +157,7 @@ class BulletinStore {
       settings: observable,
       problems: observable,
       _latestBulletinChecker: action,
+      _setLatest: action,
       load: action,
       loadNeighbors: action,
       activate: action,
@@ -163,8 +165,24 @@ class BulletinStore {
       dimProblem: action,
       highlightProblem: action
     });
+  }
 
+  init(): this {
+    if (this.latest) {
+      return;
+    }
     this._latestBulletinChecker();
+    return this;
+  }
+
+  clear() {
+    this.bulletins = {};
+    this.settings = {
+      status: "",
+      neighbors: 0,
+      date: "",
+      region: ""
+    };
   }
 
   _latestBulletinChecker() {
@@ -182,7 +200,7 @@ class BulletinStore {
     );
   }
 
-  _setLatest(latest) {
+  _setLatest(latest: string) {
     this.latest = latest;
   }
 
@@ -426,10 +444,12 @@ class BulletinStore {
       config.links.downloads.base + config.links.downloads.xml,
       {
         date,
-        lang: window["appStore"].language
+        lang: APP_STORE.language
       }
     );
   }
 }
+
+export const BULLETIN_STORE = new BulletinStore();
 
 export { BulletinStore, BulletinCollection };

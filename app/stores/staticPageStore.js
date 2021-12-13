@@ -1,8 +1,9 @@
+import { APP_STORE } from "../appStore";
 import { fetchText } from "../util/fetch";
 
 export default class StaticPageStore {
   async loadPage(url) {
-    const lang = window["appStore"].language;
+    const lang = APP_STORE.language;
     const chapter = url.split("/")[0] || "";
     url = `${import.meta.env.BASE_URL}content/${url}/${lang}.html`;
 

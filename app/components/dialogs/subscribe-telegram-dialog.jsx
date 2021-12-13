@@ -3,6 +3,7 @@ import { observer } from "mobx-react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 
 import ProvinceFilter from "../filters/province-filter";
+import { APP_STORE } from "../../appStore";
 
 class SubscribeTelegramDialog extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class SubscribeTelegramDialog extends React.Component {
 
   resetState() {
     this.setState({
-      language: window["appStore"].language,
+      language: APP_STORE.language,
       region: false,
       status: "",
       errorMessage: ""
@@ -91,7 +92,7 @@ class SubscribeTelegramDialog extends React.Component {
               <span className="normal" />
             </label>
             <ul className="list-inline list-subscribe-language">
-              {window["appStore"].mainLanguages.map(l => (
+              {APP_STORE.mainLanguages.map(l => (
                 <li key={l}>
                   <label className="pure-checkbox">
                     <input

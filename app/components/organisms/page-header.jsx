@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import Menu from "./../menu";
+import { NAVIGATION_STORE } from "../../stores/navigationStore";
 import { Util } from "leaflet";
 
 import menuItems from "../../menu.json";
+import { APP_STORE } from "../../appStore";
 
 class PageHeader extends React.Component {
   // changing language on header language button click
@@ -14,7 +16,7 @@ class PageHeader extends React.Component {
     console.info("Changing language to " + newLanguage);
     if (import.meta.env.DEV) {
       // since website is served from localhost, just change language in appStore
-      window["appStore"].setLanguage(newLanguage);
+      APP_STORE.setLanguage(newLanguage);
       return;
     }
 
@@ -23,14 +25,14 @@ class PageHeader extends React.Component {
       console.info("Changing hostname to " + newHost);
       document.location.hostname = newHost;
     } else {
-      window["appStore"].setLanguage(newLanguage);
+      APP_STORE.setLanguage(newLanguage);
     }
   };
 
   setActiveMenuItem = e => {
     if (typeof e == "object") {
       Object.keys(e).forEach(k => {
-        window["appStore"].navigation.activeElement[k] = e[k];
+        NAVIGATION_STORE.activeElement[k] = e[k];
       });
     }
   };
@@ -38,13 +40,13 @@ class PageHeader extends React.Component {
   setActiveTopLevelMenuItem = e => {
     if (typeof e == "object") {
       Object.keys(e).forEach(k => {
-        window["appStore"].navigation.activeTopLevelElement[k] = e[k];
+        NAVIGATION_STORE.activeTopLevelElement[k] = e[k];
       });
     }
   };
 
   render() {
-    const lang = window["appStore"].language;
+    const lang = APP_STORE.language;
 
     return (
       <div id="page-header" className="page-header" data-scroll-header>

@@ -220,3 +220,5 @@ export default class ArchiveStore {
       });
   }
 }
+
+export const ARCHIVE_STORE = new ArchiveStore();

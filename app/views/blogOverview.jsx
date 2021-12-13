@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
-import BlogStore from "../stores/blogStore";
+import { BLOG_STORE } from "../stores/blogStore";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
 import PageFlipper from "../components/blog/page-flipper";
@@ -19,10 +19,6 @@ class BlogOverview extends React.Component {
   _settingFilters;
   constructor(props) {
     super(props);
-    const getHistory = () => this.props.history;
-    if (!window["blogStore"]) {
-      window["blogStore"] = new BlogStore(getHistory);
-    }
     this.settingFilters = false;
 
     const standaloneLinks = window.config.blogs.map((blog, index) => [
@@ -57,10 +53,7 @@ class BlogOverview extends React.Component {
       ok: { message: "", keep: false }
     };
 
-    /**
-     * @type {BlogStore}
-     */
-    this.store = window["blogStore"];
+    this.store = BLOG_STORE;
     this.state = {
       title: "",
       headerText: "",
@@ -70,14 +63,6 @@ class BlogOverview extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.store.updateURL = true;
-  }
-
-  componentWillUnmount() {
-    this.store.updateURL = false;
-  }
-
   componentDidUpdate() {
     if (!this.settingFilters) {
       this.store.checkUrl();
@@ -85,7 +70,7 @@ class BlogOverview extends React.Component {
   }
 
   doStoreUpdate() {
-    // console.log("doStoreUpdate");
+    this.props.history.push({ search: this.store.searchParams.toString() });
     this.store.update();
     this.settingFilters = false;
   }

@@ -1,3 +1,5 @@
+import { APP_STORE } from "../appStore";
+
 function parseDate(dateString) {
   const dateMatch = dateString.match(/^(\d{4}-\d{2}-\d{2})([T ].*)?$/);
   if (dateMatch) {
@@ -280,7 +282,7 @@ function getDaysOfMonth(year, month) {
 
 function _formatDate(date, options = {}) {
   if (date) {
-    let language = window.appStore.language;
+    let language = APP_STORE.language;
     if (!language) {
       language = "en-GB";
     } else if (language === "en") {

@@ -1,7 +1,5 @@
 import { observable, action, makeObservable } from "mobx";
-import { BulletinStore } from "./stores/bulletinStore";
-import CookieStore from "./stores/cookieStore";
-import NavigationStore from "./stores/navigationStore";
+import { BULLETIN_STORE } from "./stores/bulletinStore";
 
 /**
  * @typedef {"ca" | "en" | "de" | "es" | "fr" | "it" | "oc"} Language
@@ -42,13 +40,7 @@ class AppStore {
      */
     this.messages = {};
 
-    // initial language is changed after config has arrived!!!
-    this.cookieConsent = new CookieStore("cookieConsentAccepted");
-    this.cookieFeedback = new CookieStore("feedbackAccepted");
-    this.navigation = new NavigationStore();
-
     makeObservable(this, {
-      cookieConsent: observable,
       language: observable,
       messages: observable,
       setMessages: action,
@@ -66,9 +58,7 @@ class AppStore {
     ) {
       return Promise.resolve();
     }
-    if (window.bulletinStore !== undefined) {
-      window.bulletinStore = new BulletinStore(); // bulleting store is language dependent
-    }
+    BULLETIN_STORE.clear(); // bulleting store is language dependent
     const messages = translationImports[newLanguage]();
     const regions = regionTranslationImports[newLanguage]();
     this.setMessages((await messages).default, (await regions).default);
@@ -95,3 +85,5 @@ class AppStore {
 }
 
 export default AppStore;
+
+export const APP_STORE = new AppStore();

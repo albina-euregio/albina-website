@@ -5,7 +5,6 @@ import { modal_open_by_params } from "../js/modal";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import StationDataStore from "../stores/stationDataStore";
-import MapStore from "../stores/mapStore";
 
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
@@ -21,16 +20,11 @@ const observers = [...BeobachterAT, ...BeobachterIT].map(observer => ({
 class StationMap extends React.Component {
   constructor(props) {
     super(props);
-    if (!window.mapStore) {
-      window.mapStore = new MapStore();
-    }
-    if (!window.stationDataStore) {
-      window.stationDataStore = new StationDataStore();
-    }
+    this.store = new StationDataStore();
   }
 
   componentDidMount() {
-    window.stationDataStore.load("");
+    this.store.load("");
   }
 
   onMarkerSelected(stationData, feature) {
@@ -61,7 +55,7 @@ class StationMap extends React.Component {
         key={"stations"}
         onMarkerSelected={this.onMarkerSelected.bind(
           this,
-          window.stationDataStore.data
+          this.store.data
             .slice()
             .sort((f1, f2) =>
               (f1.properties["LWD-Region"] || "").localeCompare(
@@ -72,7 +66,7 @@ class StationMap extends React.Component {
         )}
         itemId="any"
         item={item}
-        features={window.stationDataStore.data}
+        features={this.store.data}
       />
     );
   }

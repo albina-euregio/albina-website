@@ -1,13 +1,9 @@
 import React from "react";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { APP_STORE } from "../../appStore";
 import { modal_init } from "../../js/modal";
+import { BULLETIN_STORE } from "../../stores/bulletinStore";
 
-/**
- * @typedef {object} Props
- * @prop {import("../../stores/bulletinStore").BulletinStore} store
- *
- * @extends {React.Component<Props>}
- */
 class BulletinButtonbar extends React.Component {
   constructor(props) {
     super(props);
@@ -39,7 +35,7 @@ class BulletinButtonbar extends React.Component {
             </div>
             <div className="normal-8 grid-item">
               <ul className="list-inline bulletin-buttonbar">
-                {this.props.store.activeBulletinCollection && (
+                {BULLETIN_STORE.activeBulletinCollection && (
                   <li>
                     <a
                       href="#downloadPdfDialog"
@@ -72,7 +68,7 @@ class BulletinButtonbar extends React.Component {
                 {config.dialogs.feedback && (
                   <li>
                     <a
-                      href={config.links.feedback[appStore.language]}
+                      href={config.links.feedback[APP_STORE.language]}
                       title={this.props.intl.formatMessage({
                         id: "bulletin:feedback:hover"
                       })}

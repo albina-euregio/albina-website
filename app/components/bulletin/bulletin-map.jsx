@@ -9,16 +9,16 @@ import LeafletMap from "../leaflet/leaflet-map";
 import { Util } from "leaflet";
 import BulletinMapDetails from "./bulletin-map-details";
 import BulletinVectorLayer from "./bulletin-vector-layer";
-import MapStore from "../../stores/mapStore";
 import { isBlendingSupported } from "../../util/blendMode";
 import { preprocessContent } from "../../util/htmlParser";
 
 import { getPublicationTimeString } from "../../util/date.js";
 import { observer } from "mobx-react";
+import { BULLETIN_STORE } from "../../stores/bulletinStore";
+import { APP_STORE } from "../../appStore";
 
 /**
  * @typedef {object} Props
- * @prop {import("../../stores/bulletinStore").BulletinStore} store
  * @prop {*} date
  * @prop {*} intl
  * ... props
@@ -41,9 +41,6 @@ class BulletinMap extends React.Component {
       ok: { message: "", keep: true }
     };
     this.setInfoMessages();
-    if (!window.mapStore) {
-      window.mapStore = new MapStore();
-    }
   }
 
   componentDidUpdate() {
@@ -55,7 +52,7 @@ class BulletinMap extends React.Component {
       date: this.props.date
         ? dateToISODateString(parseDate(this.props.date))
         : "",
-      lang: window["appStore"].language
+      lang: APP_STORE.language
     });
     this.infoMessageLevels.pending = {
       message: this.props.intl.formatMessage(
@@ -112,23 +109,23 @@ class BulletinMap extends React.Component {
   getMapOverlays() {
     const overlays = [];
 
-    if (this.props.store.neighborRegions) {
+    if (BULLETIN_STORE.neighborRegions) {
       overlays.push(
         <BulletinVectorLayer
           key="neighbor-regions"
-          problems={this.props.store.problems}
-          date={this.props.store.settings.date}
-          activeRegion={this.props.store.settings.region}
-          regions={this.props.store.neighborRegions}
-          bulletin={this.props.store.activeBulletin}
+          problems={BULLETIN_STORE.problems}
+          date={BULLETIN_STORE.settings.date}
+          activeRegion={BULLETIN_STORE.settings.region}
+          regions={BULLETIN_STORE.neighborRegions}
+          bulletin={BULLETIN_STORE.activeBulletin}
           handleSelectRegion={this.props.handleSelectRegion}
           handleCenterToRegion={center => this.map.panTo(center)}
         />
       );
     }
 
-    const { activeNeighborBulletins } = this.props.store;
-    if (this.props.store.settings.neighbors && activeNeighborBulletins) {
+    const { activeNeighborBulletins } = BULLETIN_STORE;
+    if (BULLETIN_STORE.settings.neighbors && activeNeighborBulletins) {
       overlays.push(
         <GeoJSON
           // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
@@ -140,22 +137,22 @@ class BulletinMap extends React.Component {
       );
     }
 
-    const b = this.props.store.activeBulletinCollection;
+    const b = BULLETIN_STORE.activeBulletinCollection;
     if (b) {
       const daytime = b.hasDaytimeDependency() ? this.props.ampm : "fd";
       const imgFormat =
-        window.config.webp && this.props.store.settings.date > "2020-12-01"
+        window.config.webp && BULLETIN_STORE.settings.date > "2020-12-01"
           ? ".webp"
           : ".png";
 
       const publicationTime =
-        this.props.store.settings.date > "2019-05-06"
+        BULLETIN_STORE.settings.date > "2019-05-06"
           ? getPublicationTimeString(b.publicationDateSeconds) + "/"
           : "";
 
       const url =
         config.apis.geo +
-        this.props.store.settings.date +
+        BULLETIN_STORE.settings.date +
         "/" +
         publicationTime +
         daytime +
@@ -180,11 +177,11 @@ class BulletinMap extends React.Component {
       overlays.push(
         <BulletinVectorLayer
           key="bulletin-regions"
-          problems={this.props.store.problems}
-          date={this.props.store.settings.date}
-          activeRegion={this.props.store.settings.region}
+          problems={BULLETIN_STORE.problems}
+          date={BULLETIN_STORE.settings.date}
+          activeRegion={BULLETIN_STORE.settings.region}
           regions={this.props.regions}
-          bulletin={this.props.store.activeBulletin}
+          bulletin={BULLETIN_STORE.activeBulletin}
           handleSelectRegion={this.props.handleSelectRegion}
           handleCenterToRegion={center => this.map.panTo(center)}
         />
@@ -197,8 +194,7 @@ class BulletinMap extends React.Component {
   getBulletinMapDetails() {
     let res = [];
     let detailsClasses = ["bulletin-map-details", "top-right"];
-    const { activeBulletin, activeNeighbor, activeRegionName } =
-      this.props.store;
+    const { activeBulletin, activeNeighbor, activeRegionName } = BULLETIN_STORE;
     if (activeBulletin) {
       detailsClasses.push("js-active");
       res.push(
@@ -234,7 +230,7 @@ class BulletinMap extends React.Component {
       );
     } else if (activeNeighbor) {
       detailsClasses.push("js-active");
-      const language = window["appStore"].language;
+      const language = APP_STORE.language;
       const country = activeNeighbor.id.replace(/-.*/, "");
       const region = activeNeighbor.id;
       // res.push(
@@ -287,11 +283,11 @@ class BulletinMap extends React.Component {
   }
 
   render() {
-    //console.log("bulletin-map->render", this.props.store.settings.status);
+    //console.log("bulletin-map->render", BULLETIN_STORE.settings.status);
 
-    let newLevel = this.props.store.settings.status;
+    let newLevel = BULLETIN_STORE.settings.status;
     // if (this.lastDate != this.props.date) {
-    //   console.log("bulletin-map->render:SET TO INIT #aaa",  this.props.store.settings.status, this.lastDate, this.props.date);
+    //   console.log("bulletin-map->render:SET TO INIT #aaa",  BULLETIN_STORE.settings.status, this.lastDate, this.props.date);
     //   newLevel = "init";
     //   this.lastDate = this.props.date;
     // }

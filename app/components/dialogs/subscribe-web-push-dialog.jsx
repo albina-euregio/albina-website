@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { FormattedHTMLMessage, useIntl } from "react-intl";
+import { APP_STORE } from "../../appStore";
 import ProvinceFilter from "../filters/province-filter";
 
 /**
@@ -49,7 +50,7 @@ export function isWebPushSupported() {
  * @see https://developers.google.com/web/fundamentals/push-notifications
  */
 export default function SubscribeWebPushDialog() {
-  const [language, setLanguage] = useState(window["appStore"].language);
+  const [language, setLanguage] = useState(APP_STORE.language);
   const [region, setRegion] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [isSubscribed, setIsSubscribed] = useState(false);
@@ -176,7 +177,7 @@ export default function SubscribeWebPushDialog() {
             <span className="normal" />
           </label>
           <ul className="list-inline list-subscribe-language">
-            {window["appStore"].mainLanguages.map(l => (
+            {APP_STORE.mainLanguages.map(l => (
               <li key={l}>
                 <label className="pure-checkbox">
                   <input

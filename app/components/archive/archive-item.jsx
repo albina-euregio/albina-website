@@ -4,6 +4,7 @@ import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Util } from "leaflet";
 import { dateToISODateString, dateToDateString } from "../../util/date.js";
 import ArchiveAwmapStatic from "./archive-awmap-static.jsx";
+import { APP_STORE } from "../../appStore";
 
 class ArchiveItem extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class ArchiveItem extends React.Component {
   }
 
   getLanguage(dateString) {
-    var lang = window["appStore"].language;
+    var lang = APP_STORE.language;
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
@@ -29,7 +30,7 @@ class ArchiveItem extends React.Component {
   }
 
   showMap(dateString) {
-    var lang = window["appStore"].language;
+    var lang = APP_STORE.language;
     if (dateString < "2020-12-01") {
       switch (lang) {
         case "fr":
