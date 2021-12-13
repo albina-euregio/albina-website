@@ -99,6 +99,15 @@ encodeFiles(
 
 encodeFiles(
   [
+    "eaws-regions/public/micro-regions_elevation/AT-07_micro-regions_elevation.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/IT-32-BZ_micro-regions_elevation.geojson.json",
+    "eaws-regions/public/micro-regions_elevation/IT-32-TN_micro-regions_elevation.geojson.json"
+  ],
+  "app/stores/micro-regions_elevation.polyline.json"
+);
+
+encodeFiles(
+  [
     "eaws-regions/public/outline/AT-02_outline.geojson.json",
     "eaws-regions/public/outline/AT-03_outline.geojson.json",
     "eaws-regions/public/outline/AT-04_outline.geojson.json",

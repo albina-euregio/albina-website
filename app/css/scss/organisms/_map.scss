@@ -132,6 +132,7 @@ $search-width-wide: 300px;
 
 //overlays
 .leaflet-pane.leaflet-overlay-pane,
+.leaflet-pane svg,
 .leaflet-pane .leaflet-image-layer {
   mix-blend-mode: multiply;
 }

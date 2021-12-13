@@ -82,7 +82,7 @@ class Bulletin extends React.Component {
     this.checkRegion();
   }
 
-  _fetchData(props) {
+  async _fetchData(props) {
     let startDate =
       props.match.params.date && parseDate(props.match.params.date)
         ? props.match.params.date
@@ -99,9 +99,11 @@ class Bulletin extends React.Component {
       });
     }
 
-    return BULLETIN_STORE.load(startDate).finally(() =>
-      BULLETIN_STORE.loadNeighbors(startDate)
-    );
+    try {
+      await BULLETIN_STORE.load(startDate);
+    } finally {
+      await BULLETIN_STORE.loadNeighbors(startDate);
+    }
   }
 
   checkRegion() {
