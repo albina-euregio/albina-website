@@ -407,7 +407,6 @@ class BulletinStore {
       daytimeBulletin.hasDaytimeDependency && ampm == "pm"
         ? "afternoon"
         : "forenoon";
-    console.log({ daytime });
     const bulletin = daytimeBulletin[daytime];
     return bulletin?.dangerRatings
       .filter(
