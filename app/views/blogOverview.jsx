@@ -63,6 +63,10 @@ class BlogOverview extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.store.checkUrl();
+  }
+
   componentDidUpdate() {
     if (!this.settingFilters) {
       this.store.checkUrl();
