@@ -43,72 +43,72 @@ class DownloadPdfDialog extends React.Component {
       : this.props.intl.formatMessage({
           id: "dialog:subscribe-email:region-all:button"
         });
-    return (
-      <>
-        <label htmlFor="input">
-          {label}
-          <span className="normal">
-            {" "}
-            <FormattedHTMLMessage id="dialog:download-pdf:in" />
+    return [
+      <label htmlFor="input" key={(region || "base") + "_label"}>
+        {label}
+        <span className="normal">
+          {" "}
+          <FormattedHTMLMessage id="dialog:download-pdf:in" />
+        </span>
+      </label>,
+      <ul
+        className="list-inline list-buttongroup"
+        key={(region || "base") + "_region"}
+      >
+        <li key={(region || "base") + "_bw"}>
+          <button
+            type="button"
+            onClick={() => {
+              window.open(this.pdfLink(region, false));
+            }}
+            title=""
+            className="pure-button"
+          >
+            {this.props.intl.formatMessage({
+              id: "dialog:download-pdf:mode:color"
+            })}
+          </button>
+        </li>
+        <li key={(region || "base") + "_spacer"}>
+          <span className="buttongroup-boolean">
+            <FormattedHTMLMessage id="dialog:download-pdf:or" />
           </span>
-        </label>
-        <ul className="list-inline list-buttongroup">
-          <li>
-            <button
-              type="button"
-              onClick={() => {
-                window.open(this.pdfLink(region, false));
-              }}
-              title=""
-              className="pure-button"
-            >
-              {this.props.intl.formatMessage({
-                id: "dialog:download-pdf:mode:color"
-              })}
-            </button>
-          </li>
-          <li>
-            <span className="buttongroup-boolean">
-              <FormattedHTMLMessage id="dialog:download-pdf:or" />
-            </span>
-          </li>
-          <li>
-            <button
-              type="button"
-              onClick={() => {
-                window.open(this.pdfLink(region, true));
-              }}
-              title=""
-              className="inverse pure-button"
-            >
-              {this.props.intl.formatMessage({
-                id: "dialog:download-pdf:mode:bw"
-              })}
-            </button>
-          </li>
-        </ul>
-      </>
-    );
+        </li>
+        <li key={(region || "base") + "_color"}>
+          <button
+            type="button"
+            onClick={() => {
+              window.open(this.pdfLink(region, true));
+            }}
+            title=""
+            className="inverse pure-button"
+          >
+            {this.props.intl.formatMessage({
+              id: "dialog:download-pdf:mode:bw"
+            })}
+          </button>
+        </li>
+      </ul>
+    ];
   }
 
   render() {
     return (
-      <div className="modal-container">
-        <div className="modal-subscribe">
-          <div className="modal-header">
-            <h2 className="subheader">
+      <div className="modal-container" key="modal-download-pdf-dialog">
+        <div className="modal-subscribe" key="modal-subscribe">
+          <div className="modal-header" key="modal-header">
+            <h2 key="subheading" className="subheader">
               <FormattedHTMLMessage id="dialog:download-pdf:subheading" />
             </h2>
-            <h2>
+            <h2 key="heading">
               <FormattedHTMLMessage id="dialog:download-pdf:heading" />
             </h2>
-            <span>
+            <span key="description">
               <FormattedHTMLMessage id="dialog:download-pdf:description" />
             </span>
           </div>
-          <form className="pure-form pure-form-stacked">
+          <form className="pure-form pure-form-stacked" key="form">
             {this.regionSelector()}
-
             {regionCodes.map(r => this.regionSelector(r))}
           </form>
         </div>
