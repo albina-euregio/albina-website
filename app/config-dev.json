@@ -1,0 +1,619 @@
+{
+  "regionsRegex": "^(AT-07|IT-32-BZ|IT-32-TN)",
+  "blogs": [
+    {
+      "lang": "de",
+      "name": "lawinenwarndienst.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["AT-07"],
+      "params": {
+        "id": "7062477220886068374"
+      }
+    },
+    {
+      "lang": "en",
+      "name": "avalanche-warning-service-tirol.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["AT-07"],
+      "params": {
+        "id": "2617650030094227041"
+      }
+    },
+    {
+      "lang": "it",
+      "name": "servizio-valanghe-tirolo.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["AT-07"],
+      "params": {
+        "id": "6964779683196470218"
+      }
+    },
+    {
+      "lang": "de",
+      "name": "lawinensuedtirol.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["IT-32-BZ"],
+      "params": {
+        "id": "1263754381945501754"
+      }
+    },
+    {
+      "lang": "it",
+      "name": "valanghealtoadige.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["IT-32-BZ"],
+      "params": {
+        "id": "8922564068473612459"
+      }
+    },
+    {
+      "lang": "it",
+      "name": "trentinovalanghe.blogspot.com",
+      "apiType": "blogger",
+      "regions": ["IT-32-TN"],
+      "params": {
+        "id": "232334535081247038"
+      }
+    }
+  ],
+  "apis": {
+    "bulletin": "https://api.avalanche.report/albina_dev/api/bulletins",
+    "push": "https://api.avalanche.report/albina_dev/api/push",
+    "subscribe": "https://api.avalanche.report/albina_dev/api/email",
+    "geo": "https://avalanche.report/albina_files_dev/",
+    "blogger": "https://api.avalanche.report/blog/",
+    "weather": {
+      "domains": "https://avalanche.report/transfer/data/albina_domains.json",
+      "plots": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
+      "observers": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}",
+      "stations": "https://avalanche.report/albina_stations/{dateTime}stations.geojson",
+      "grid": "https://avalanche.report/transfer/data/albina_grid.json",
+      "overlays": "https://avalanche.report/zamg_meteo/overlays/"
+    }
+  },
+  "apiKeys": {
+    "vapidPublicKey": "BIcUWrlcmeIOMajxtb2CPESjCXypy4AEuEFbGb73PcwWMQFEMXcQhcsTuyDfcAdr0uLBXBDMbJeKGm5XNLQu2WM",
+    "google": "AIzaSyBN0GUcRlTfoVnarVFVpA1hUEnDcDjuXQY"
+  },
+  "links": {
+    "interreg": "http://www.europaregion.info/splash.html",
+    "simple": "https://avalanche.report/simple/{date}/{lang}.html",
+    "downloads": {
+      "base": "https://avalanche.report/albina_files_dev/",
+      "pdf": "{date}/{date}_{lang}.pdf",
+      "pdf-bw": "{date}/{date}_{lang}_bw.pdf",
+      "pdf-region": "{date}/{date}_{region}_{lang}.pdf",
+      "pdf-region-bw": "{date}/{date}_{region}_{lang}_bw.pdf",
+      "xml": "{date}/{date}_{lang}_CAAMLv6.xml"
+    },
+    "weatherStationOperators": {
+      "BOKU": "https://boku.ac.at/",
+      "Bundesforschungszentrum für Wald - BFW": "https://www.bfw.gv.at/",
+      "DIVERSE": "",
+      "E-Werk St. Anton aArlberg": "https://www.ewa-services.at/",
+      "Firma Hella": "https://www.hella.info/",
+      "HD Tirol": "https://wiski.tirol.gv.at/hydro/",
+      "Institut für Interdisziplinäre Gebirgsforschung ÖAW": "https://www.oeaw.ac.at/",
+      "LWD Tirol": "",
+      "LWD Tirol/HD Tirol": "",
+      "LWD Tirol/ÖBB": "",
+      "LWD Tirol/TIWAG": "",
+      "LWD Tirol/WLV": "",
+      "LWD Tirol/ZAMG": "",
+      "Meteomont EI": "http://www.meteomont.org/",
+      "Nationalpark Hohe Tauern": "https://hohetauern.at/",
+      "ÖBB": "https://www.oebb.at/",
+      "Privat": "",
+      "Südtirol - Alto Adige": "https://www.provincia.bz.it/",
+      "Tiroler Wasserkraft AG": "https://www.tiwag.at/",
+      "Trentino": "https://www.meteotrentino.it/",
+      "Universität Innsbruck, Institut für Atmosphären- und Kryosphärenforschung": "https://www.uibk.ac.at/acinn/",
+      "Universität Innsbruck, Institut für Geographie": "https://www.uibk.ac.at/geographie/",
+      "Verbund Hydro Power AG": "https://www.verbund.com/",
+      "Wildbach- und Lawinenverbaung Sektion Tirol": "https://die-wildbach.at/",
+      "ZAMG": "https://www.zamg.ac.at/"
+    },
+    "feedback": {
+      "en": "https://docs.google.com/forms/d/e/1FAIpQLSe-sumwrNqze-TrwIH0AoD54xGNlwcbJ4Wn6AdopDMqZFiDuw/viewform?vc=0&c=0&w=1",
+      "de": "https://docs.google.com/forms/d/e/1FAIpQLSdROxxgmGxSVVqgr75nwI2weHQY8Da-xsUwQuxOO9NFvevuJw/viewform?vc=0&c=0&w=1",
+      "it": "https://docs.google.com/forms/d/e/1FAIpQLSeWSxJNtIvk6ReUPDkAfXpZ4XPAkNIC7LPojv2fXa32PVcQeQ/viewform?vc=0&c=0&w=1"
+    }
+  },
+  "dialogs": {
+    "cookieConsent": false,
+    "feedback": false
+  },
+  "subscribe": {
+    "buttonHidden": false,
+    "telegram": {
+      "AT-07-de": "https://t.me/lawinenwarndienst_tirol",
+      "AT-07-it": "https://t.me/servizio_valanghe_tirolo",
+      "AT-07-en": "https://t.me/avalanche_warning_service_tirol",
+      "IT-32-BZ-de": "https://t.me/lawinenwarndienst_suedtirol",
+      "IT-32-BZ-it": "https://t.me/servizio_valanghe_alto_adige",
+      "IT-32-BZ-en": "https://t.me/aws_south_tyrol",
+      "IT-32-TN-de": "https://t.me/lawinenwarndienst_trentino",
+      "IT-32-TN-it": "https://t.me/servizio_valanghe_trento",
+      "IT-32-TN-en": "https://t.me/avalanche_warning_service_trento"
+    },
+    "socialMedia": [
+      {
+        "id": "facebook",
+        "name": "Facebook",
+        "url": {
+          "AT-07": "http://www.facebook.com/lawinenwarndienst",
+          "IT-32-BZ": "https://www.facebook.com/Lawinenwarndienst-S%C3%BCdtirol-Servizio-Prevenzione-Valanghe-Alto-Adige-577952379288951/",
+          "IT-32-TN": "https://www.facebook.com/Servizio-Prevenzione-Valanghe-Trentino-353994245173831/"
+        }
+      },
+      {
+        "id": "twitter",
+        "name": "Twitter",
+        "url": {
+          "AT-07": false,
+          "IT-32-BZ": false,
+          "IT-32-TN": false
+        }
+      },
+      {
+        "id": "instagram",
+        "name": "Instagram",
+        "url": {
+          "AT-07": "https://www.instagram.com/lawinenwarndienst_tirol",
+          "IT-32-BZ": false,
+          "IT-32-TN": false
+        }
+      },
+      {
+        "id": "youtube",
+        "name": "YouTube",
+        "url": {
+          "AT-07": "https://www.youtube.com/channel/UC3H4Xqv_wfHajvogV3ooYdQ",
+          "IT-32-BZ": false,
+          "IT-32-TN": false
+        }
+      },
+      {
+        "id": "whatsapp",
+        "name": "WhatsApp",
+        "url": {
+          "AT-07": false,
+          "IT-32-BZ": false,
+          "IT-32-TN": false
+        }
+      }
+    ],
+    "apps": [
+      {
+        "id": "lawine-tirol",
+        "logo": "App_Lawine_Tirol_Logo.png",
+        "url": {
+          "android": "https://play.google.com/store/apps/details?id=com.m_pulso.android.lawine",
+          "ios": "https://itunes.apple.com/at/app/lawine-tirol/id776081927"
+        }
+      },
+      {
+        "id": "snowsafe",
+        "logo": "App_SnowSafe_Logo.png",
+        "url": {
+          "android": "https://play.google.com/store/apps/details?id=com.roomfour0four.android.avalanche",
+          "ios": "https://itunes.apple.com/us/app/snowsafe/id585169516"
+        }
+      },
+      {
+        "id": "snowhow",
+        "logo": "App_SnowHow_Logo.png",
+        "url": {
+          "android": "https://play.google.com/store/apps/details?id=info.snowhow",
+          "ios": "https://itunes.apple.com/us/app/snowhow-freeride/id594335976"
+        }
+      }
+    ]
+  },
+  "bulletin": {
+    "checkForLatestInterval": 5,
+    "noBulletinBanner": true
+  },
+  "map": {
+    "attribution": "CC BY avalanche.report",
+    "useWindowWidth": true,
+    "euregioBounds": [
+      [45.6, 9.9],
+      [47.8, 13.1]
+    ],
+    "overlay": {
+      "bounds": [
+        [45.60608, 9.9174],
+        [47.83039, 13.15173]
+      ],
+      "opacity": 1.0
+    },
+    "initOptions": {
+      "maxBounds": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "maxBoundsViscosity": 1,
+      "zoomSnap": 0.25,
+      "zoomDelta": 0.5,
+      "maxZoom": 10,
+      "minZoom": 5
+    },
+    "maxBounds": {
+      "5": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "6": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "7": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "8": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "9": [
+        [33, -16.86],
+        [71.6, 45]
+      ],
+      "10": [
+        [33, -16.86],
+        [71.6, 45]
+      ]
+    },
+    "locateOptions": {
+      "position": "topleft",
+      "flyTo": true
+    },
+    "vectorOptions": {
+      "smoothFactor": 0.8
+    },
+    "tileLayers": [
+      {
+        "id": "ALBINA",
+        "url": "https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png",
+        "maxZoom": 10,
+        "minZoom": 5,
+        "detectRetina": false,
+        "tms": false,
+        "maxBounds": [
+          [45.150876, 7.932124],
+          [48.240084, 15.118646]
+        ]
+      }
+    ],
+    "geonames": {
+      "geonamesURL": "//api.geonames.org/searchJSON",
+      "username": "avalanche.report",
+      "zoomLevel": null,
+      "maxresults": 5,
+      "bbox": { "east": 13.2, "west": 9.5, "north": 48, "south": 45 },
+      "className": "tooltip leaflet-geonames-icon",
+      "workingClass": "leaflet-geonames-icon-working",
+      "featureClasses": ["A", "H", "L", "P", "R", "T", "U", "V"],
+      "baseQuery": "isNameRequired=true",
+      "position": "topleft",
+      "showMarker": true,
+      "showPopup": true,
+      "alwaysOpen": false,
+      "clearOnPopupClose": true,
+      "enablePostalCodes": false
+    },
+    "regionStyling": {
+      "all": {
+        "color": "#aaaaaa",
+        "opacity": 1.0,
+        "weight": 1
+      },
+      "default": {
+        "fillOpacity": 0.0,
+        "fillColor": "white"
+      },
+      "dehighlighted": {
+        "fillColor": "white",
+        "fillOpacity": 0.75
+      },
+      "mouseOver": {
+        "weight": 2.0,
+        "color": "#555555"
+      },
+      "dimmed": {
+        "fillColor": "white",
+        "fillOpacity": 0.5
+      },
+      "selected": {
+        "weight": 2.0,
+        "color": "#555555",
+        "fillColor": "none"
+      },
+      "highlighted": {
+        "fillOpacity": 0.0,
+        "fillColor": "white"
+      }
+    }
+  },
+
+  "footer": {
+    "icons": [
+      {
+        "img": "Landeslogo_Regular_4c",
+        "title": "Tirol",
+        "url": "https://www.tirol.gv.at/"
+      },
+      {
+        "img": "LW-4Z-3sprachig",
+        "title": "Südtirol",
+        "url": "http://wetter.provinz.bz.it/"
+      },
+      {
+        "img": "Stemma_PAT_colore",
+        "title": "Trentino",
+        "url": "https://www.meteotrentino.it/"
+      }
+    ],
+    "iconsHidden": false
+  },
+
+  "archive": {
+    "minYear": 2016,
+    "maxResults": 31
+  },
+  "languageHostSettings": {
+    "en": "avalanche.report",
+    "ca": "ca.avalanche.report",
+    "de": "lawinen.report",
+    "es": "es.avalanche.report",
+    "fr": "fr.avalanche.report",
+    "oc": "oc.avalanche.report",
+    "it": "valanghe.report"
+  },
+  "hostLanguageSettings": {
+    "avalanche.report": "en",
+    "ca.avalanche.report": "ca",
+    "de.avalanche.report": "de",
+    "es.avalanche.report": "es",
+    "fr.avalanche.report": "fr",
+    "it.avalanche.report": "it",
+    "oc.avalanche.report": "oc",
+    "avalanches.report": "en",
+    "lawine.report": "de",
+    "lawinen.report": "de",
+    "valanghe.report": "it"
+  },
+  "defaults": {
+    "language": "auto",
+    "ampm": "am"
+  },
+  "weathermaps": {
+    "settings": {
+      "timeRange": ["-72", "+72"],
+      "startUTCHourForTimespans": 5,
+      "mapOptionsOverride": {
+        "maxZoom": 12,
+        "minZoom": 7
+      },
+      "bbox": [
+        [45.6167, 9.9833],
+        [47.8167, 13.0333]
+      ],
+      "debugModus": true,
+      "metaFiles": {
+        "agl": "agl.ok",
+        "startDate": "startDate.ok"
+      }
+    },
+    "domains": {
+      "snow-height": {
+        "domainDefault": false,
+        "domainIdStart": "-1",
+        "item": {
+          "timeSpans": ["-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": { "-1": "snow" },
+          "updateTimesOffset": { "-1": 1 },
+          "units": "cm",
+          "thresholds": [1, 10, 25, 50, 100, 200, 300, 400],
+          "colors": {
+            "1": [255, 255, 254],
+            "2": [255, 255, 179],
+            "3": [176, 255, 188],
+            "4": [140, 255, 255],
+            "5": [3, 205, 255],
+            "6": [4, 129, 255],
+            "7": [3, 91, 190],
+            "8": [120, 75, 255],
+            "9": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "new-snow": {
+        "domainDefault": true,
+        "domainIdStart": "+6",
+        "item": {
+          "timeSpans": ["+6", "+12", "+24", "+48", "+72"],
+          "defaultTimeSpan": "+12",
+          "timeSpanToDataId": {
+            "+24": "snow24",
+            "+48": "snow48",
+            "+72": "snow72"
+          },
+          "updateTimesOffset": { "*": 12 },
+          "units": "cm",
+          "thresholds": [1, 5, 10, 20, 30, 50, 75, 100],
+          "colors": {
+            "1": [255, 255, 254],
+            "2": [255, 255, 179],
+            "3": [176, 255, 188],
+            "4": [140, 255, 255],
+            "5": [3, 205, 255],
+            "6": [4, 129, 255],
+            "7": [3, 91, 190],
+            "8": [120, 75, 255],
+            "9": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": false,
+            "grid": false
+          },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
+          "displayedItems": ["snow6f"],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "diff-snow": {
+        "domainDefault": false,
+        "domainIdStart": "+6",
+        "item": {
+          "timeSpans": ["-6", "-12", "-24", "-48", "-72"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": {},
+          "updateTimesOffset": { "*": 24, "-6": 6, "-12": 12 },
+          "metaFiles": {
+            "agl": "agl_{timespan}h.ok"
+          },
+          "units": "cm",
+          "thresholds": [-20, -10, -5, 1, 5, 10, 20, 30, 50, 75, 100],
+          "colors": {
+            "1": [255, 100, 100],
+            "2": [255, 160, 160],
+            "3": [255, 210, 210],
+            "4": [255, 255, 254],
+            "5": [255, 255, 179],
+            "6": [176, 255, 188],
+            "7": [140, 255, 255],
+            "8": [3, 205, 255],
+            "9": [4, 129, 255],
+            "10": [3, 91, 190],
+            "11": [120, 75, 255],
+            "12": [204, 12, 232]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": false,
+            "grid": false
+          },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "snowHeight" }],
+          "direction": false,
+          "clusterOperation": "max"
+        }
+      },
+      "temp": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": { "+-1": "temp" },
+          "updateTimesOffset": { "*": 1 },
+          "units": "\u00b0C",
+          "thresholds": [-25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25, 30],
+          "colors": {
+            "1": [159, 128, 255],
+            "2": [120, 75, 255],
+            "3": [3, 91, 190],
+            "4": [4, 129, 255],
+            "5": [3, 205, 255],
+            "6": [140, 255, 255],
+            "7": [176, 255, 188],
+            "8": [255, 255, 103],
+            "9": [255, 190, 130],
+            "10": [255, 154, 53],
+            "11": [255, 85, 54],
+            "12": [255, 5, 5],
+            "13": [250, 55, 150]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [{ "filePostfix": ".png", "type": "temperature" }],
+          "direction": false,
+          "clusterOperation": "min"
+        }
+      },
+      "wind": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": { "+-1": "wspd" },
+          "updateTimesOffset": { "*": 1 },
+          "units": "km/h",
+          "thresholds": [5, 10, 20, 40, 60, 80],
+          "colors": {
+            "1": [255, 255, 100],
+            "2": [200, 255, 100],
+            "3": [150, 255, 150],
+            "4": [50, 200, 255],
+            "5": [100, 150, 255],
+            "6": [150, 100, 255],
+            "7": [255, 50, 50]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [
+            { "filePostfix": ".png", "type": "windSpeed" },
+            { "filePostfix": "-dir.png", "type": "windDirection" }
+          ],
+          "direction": "wdir",
+          "clusterOperation": "max"
+        }
+      },
+      "gust": {
+        "domainDefault": false,
+        "domainIdStart": "+-1",
+        "item": {
+          "timeSpans": ["+-1"],
+          "defaultTimeSpan": null,
+          "timeSpanToDataId": { "+-1": "wgus" },
+          "updateTimesOffset": { "*": 1 },
+          "units": "km/h",
+          "thresholds": [5, 10, 20, 40, 60, 80],
+          "colors": {
+            "1": [255, 255, 100],
+            "2": [200, 255, 100],
+            "3": [150, 255, 150],
+            "4": [50, 200, 255],
+            "5": [100, 150, 255],
+            "6": [150, 100, 255],
+            "7": [255, 50, 50]
+          },
+          "layer": {
+            "overlay": true,
+            "stations": true,
+            "grid": false
+          },
+          "dataOverlays": [
+            { "filePostfix": ".png", "type": "windSpeed" },
+            {
+              "filePostfix": "-dir.png",
+              "type": "windDirection",
+              "fixPath": { "find": "gust", "replace": "wind" }
+            }
+          ],
+          "direction": "wdir",
+          "clusterOperation": "max"
+        }
+      }
+    }
+  }
+}

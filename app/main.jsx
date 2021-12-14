@@ -4,7 +4,6 @@ import App from "./components/app.jsx";
 import { APP_STORE } from "./appStore";
 import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
-import { fetchJSON } from "./util/fetch.js";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
 import jQuery from "jquery";
 import { BLOG_STORE } from "./stores/blogStore.js";
@@ -40,13 +39,13 @@ const isWebpSupported = new Promise(resolve => {
  * config.json is not bundled with the app to allow config editing without
  * redeploying the whole app.
  */
-const configUrl =
-  import.meta.env.BASE_URL +
-  "config.json?" +
-  Math.floor(Date.now() / 3600 / 1000);
-const configRequest = fetchJSON(configUrl);
+const configRequest =
+  import.meta.env.BASE_URL === "/dev/"
+    ? import("./config-dev.json")
+    : import("./config.json");
 Promise.all([configRequest, isWebpSupported]).then(
   async ([configParsed, webp]) => {
+    configParsed = { ...configParsed };
     configParsed["projectRoot"] = import.meta.env.BASE_URL;
     configParsed["webp"] = webp;
     if (webp) {
