@@ -60,18 +60,6 @@ class Page extends React.Component {
   }
 
   _didUpdate() {
-    // if the actual bulletin is active, change path to /latest
-    if (
-      this.props.location.pathname === "" ||
-      this.props.location.pathname === "/" ||
-      this.props.location.pathname === "/bulletin"
-    ) {
-      this.props.history.replace({
-        pathname: "/bulletin/latest",
-        search: document.location.search.substring(1)
-      });
-    }
-
     modal_init();
     tooltip_init();
     navigation_init();

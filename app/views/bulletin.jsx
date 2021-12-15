@@ -88,17 +88,6 @@ class Bulletin extends React.Component {
         ? props.match.params.date
         : BULLETIN_STORE.latest;
 
-    if (
-      !props.match.params.date ||
-      props.match.params.date == BULLETIN_STORE.latest
-    ) {
-      // update URL if necessary
-      this.props.history.replace({
-        pathname: "/bulletin/latest",
-        search: document.location.search.substring(1)
-      });
-    }
-
     try {
       await BULLETIN_STORE.load(startDate);
     } finally {

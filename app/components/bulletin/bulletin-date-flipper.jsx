@@ -44,9 +44,10 @@ class BulletinDateFlipper extends React.Component {
 
   render() {
     const prevLink = dateToISODateString(this.prevDate);
-    const nextLink = dateToISODateString(this.nextDate);
-
-    const latestLink = this.props.latest ? this.props.latest : "";
+    let nextLink = dateToISODateString(this.nextDate);
+    if (nextLink === this.props.latest) {
+      nextLink = "latest";
+    }
 
     const prevDate = this.prevDate ? dateToShortDateString(this.prevDate) : "";
     const nextDate = this.nextDate ? dateToShortDateString(this.nextDate) : "";
@@ -83,7 +84,7 @@ class BulletinDateFlipper extends React.Component {
         {this.nextDate && (
           <li className="bulletin-flipper-latest">
             <Link
-              to={"/bulletin/" + latestLink}
+              to={"/bulletin/latest"}
               title={this.props.intl.formatMessage({
                 id: "bulletin:header:dateflipper:latest:hover"
               })}

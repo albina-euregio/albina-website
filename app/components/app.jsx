@@ -70,10 +70,17 @@ class App extends React.Component {
       {
         path: "/",
         component: Page,
-        indexRoute: {
-          component: Bulletin
-        },
         routes: [
+          {
+            path: "/",
+            exact: true,
+            component: () => <Redirect to={"/bulletin/latest"} />
+          },
+          {
+            path: "/bulletin",
+            exact: true,
+            component: () => <Redirect to={"/bulletin/latest"} />
+          },
           {
             path: "/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})?",
             component: Bulletin
