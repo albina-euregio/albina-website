@@ -54,14 +54,6 @@ class App extends React.Component {
     if (!prevRouterProps) {
       return true;
     }
-
-    if (
-      location.pathname.match(/weather\/map/) &&
-      prevRouterProps.location.pathname.match(/weather\/map/)
-    ) {
-      return false;
-    }
-
     return location.pathname !== prevRouterProps.location.pathname;
   };
 

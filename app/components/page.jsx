@@ -26,36 +26,11 @@ import { navigation_init } from "../js/navigation";
 import { scroll_init } from "../js/scroll";
 
 class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.hash = false;
-  }
-
   componentDidMount() {
     this._didUpdate();
   }
 
   componentDidUpdate() {
-    if (this.props && this.props.location && this.props.location.hash) {
-      if (this.hash !== this.props.location.hash) {
-        this.hash = this.props.location.hash;
-      }
-    } else {
-      this.hash = false;
-    }
-
-    if (
-      this.props.location !== this.props.location &&
-      this.props.history.action === "PUSH" &&
-      !this.props.location.hash
-    ) {
-      // do not scroll if bulletin region was clicked
-      if (!this.props.location.pathname.split("/").includes("bulletin")) {
-        window.scrollTo(0, 0);
-      }
-      // scroll to top on forward page change (if no hash is set)
-      // see https://github.com/ReactTraining/react-router/issues/2019
-    }
     this._didUpdate();
   }
 
