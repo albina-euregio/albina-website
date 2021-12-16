@@ -14,7 +14,7 @@
   },
   "sidebar" : {
     "bulletins" : "Valanghe.report",
-    "observations" : "Osservazzioni",
+    "observations" : "Osservazioni",
     "modellingZamg": "Multi modelli ZAMG ",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "Modello SNOWPACK",
@@ -46,19 +46,19 @@
   },
   "bulletins" : {
     "title" : "Valanghe.report",
-    "loadingPreview" : "Creating PDF preview ...",
+    "loadingPreview" : "Creare un'anteprima in PDF ...",
     "tooltip" : {
       "publish" : "Pubblicare bollettino valanghe",
       "submit" : "Inviare bollettino valanghe",
       "copy" : "Copiare bollettino valanghe",
-      "cancel" : "Cancel copy",
+      "cancel" : "Annullare la copia",
       "paste" : "Incollare bollettino valanghe",
       "update" : "Update bollettino valanghe",
       "caaml" : "Mostrare CAAML",
       "json" : "Mostrare JSON",
       "edit" : "Modificare bollettino valanghe (senza pubblicare nuovamente)",
       "create" : "Creare bollettino valanghe",
-      "preview" : "Preview bulletin (PDF)",
+      "preview" : "Anteprima del bollettino (PDF)",
       "check" : "Controllare bollettino valanghe",
       "info" : "Mostra lo stato della pubblicazione",
       "publishAll" : "Pubblicare tutte le regioni"
@@ -107,7 +107,7 @@
       "discard" : " Scarta",
       "back" : " Indietro",
       "createAggregatedRegion" : " Nuova regione",
-      "pasteAggregatedRegion" : " Paste region",
+      "pasteAggregatedRegion" : "Incollare la regione",
       "cancelCopyBulletin" : "Stornare",
       "createAvalancheSituation" : "Nuovo problema valanghivo",
       "ownRegions" : "Propria provincia",
@@ -298,7 +298,7 @@
         "accept" : "Ok"
       },
       "previewErrorDialog" : {
-        "message" : "Preview could not be loaded!",
+        "message" : "L'anteprima non può essere caricata!",
         "accept" : "Ok"
       },
       "checkBulletinsDialog" : {
@@ -344,7 +344,7 @@
     }
   },
   "admin" : {
-    "loadingStatistics" : "Creating CSV ...",
+    "loadingStatistics" : "Creare CSV ...",
     "server-configuration" : {
       "title" : "Configurazione Server",
       "table" : {
@@ -381,78 +381,78 @@
       "error" : "Configurazione non salvata"
     },
     "users" : {
-      "title" : "Users",
+      "title" : "Utenti",
       "button" : {
-        "create" : "Create user"
+        "create" : "Creare utente"
       },
       "tooltip" : {
-        "edit" : "Edit user",
-        "delete" : "Delete user"
+        "edit" : "Modificare utente",
+        "delete" : "Cancellare utente"
       },
       "table" : {
-        "name" : "Name",
+        "name" : "Nome",
         "email" : "E-mail",
-        "organization" : "Organization",
-        "regions" : "Regions",
-        "roles" : "Roles"
+        "organization" : "Organizzazione",
+        "regions" : "Regioni",
+        "roles" : "Ruoli"
       },
       "deleteUserModalDialog" : {
-        "message" : "Do you want to delete the user?",
+        "message" : "Voi cancellare questo utente?",
         "accept" : "Sì",
         "reject" : "No"
       },
       "deleteUser" : {
-        "success" : "User deleted",
-        "error" : "User could not be deleted"
+        "success" : "Utente cancellato",
+        "error" : "L'utente non può essere cancellato"
       },
       "createUser" : {
-        "success" : "User created",
-        "error" : "User could not be created"
+        "success" : "Utente creato",
+        "error" : "L'utente non può essere creato"
       },
       "updateUser" : {
-        "success" : "User updated",
-        "error" : "User could not be updated"
+        "success" : "Utente aggiornato",
+        "error" : "L'utente non può essere aggiornato"
       }
     },
     "createUser" : {
       "table" : {
-        "name" : "Name",
+        "name" : "Nome",
         "email" : "E-mail",
-        "organization" : "Organization",
+        "organization" : "Organizazzione",
         "password" : "Password",
-        "password2" : "Repeat password",
-        "roles" : "Roles",
-        "regions" : "Regions"
+        "password2" : "Ripeti la password",
+        "roles" : "Ruoli",
+        "regions" : "Regioni"
       },
       "error" : {
         "name" : {
-          "required" : "Please enter a name"
+          "required" : "Inserire un nome"
         },
         "email" : {
-          "required" : "Please enter an email address",
-          "invalid" : "Email address is invalid"
+          "required" : "Inserire un indirizzo E-mail",
+          "invalid" : "L'indirizzo e-mail non è valido"
         },
         "password" : {
-          "required" : "Please enter a password",
-          "length" : "Password has to be at least 8 characters",
-          "mismatch" : "Passwords do not match"
+          "required" : "Inserisci una password",
+          "length" : "La password deve essere di almeno 8 caratteri",
+          "mismatch" : "Le password non corrispondono"
         }
       },
       "button" : {
-        "create" : "Create user",
-        "update" : "Update user",
+        "create" : "Creare utente",
+        "update" : "Aggiornare utente",
         "cancel" : "Stornare"
       }  
     },
     "statistics" : {
-      "title" : "Statistics",
+      "title" : "Statistiche",
       "button" : {
         "submit" : "Scarica"
       },
       "label" : {
-        "dateRange" : "Period",
-        "extended" : "Extended",
-        "duplicates" : "Duplicates"
+        "dateRange" : "Periodo",
+        "extended" : "Esteso",
+        "duplicates" : "Doppiete"
       }
     },
     "observations" : {
@@ -461,8 +461,8 @@
         "submit" : "Scarica"
       },
       "label" : {
-        "dateRange" : "Period",
-        "observer" : "Observer"
+        "dateRange" : "Periodo",
+        "observer" : "Osservatore"
       }
     }
   },
@@ -478,20 +478,20 @@
         "placeholder" : "Password nuovo"
       },
       "newPassword2" : {
-        "label" : "New password (repeat)",
+        "label" : "Nuova password (ripetere)",
         "placeholder" : "Password nuovo"
       },
       "submit" : "Cambia password",
       "passwordChanged" : "Password modificata con sucesso",
       "passwordChangeError" : "Password non modificabile",
-      "passwordIncorrect" : "Current password incorrect",
+      "passwordIncorrect" : "Password attuale non corretta",
       "error" : {
         "oldPassword" : {
           "required" : "Inserire password attuale"
         },
         "newPassword" : {
           "required" : "Inserire password nuovo",
-          "mismatch" : "Passwords do not match"
+          "mismatch" : "Le password non corrispondono"
         }
       }
     },
@@ -544,10 +544,10 @@
     "NW" : "NO"
   },
   "role" : {
-    "ADMIN" : "Administrator",
-    "FORECASTER" : "Forecaster",
+    "ADMIN" : "Amministratore",
+    "FORECASTER" : "Previsore",
     "FOREMAN" : "Foreman",
-    "OBSERVER" : "Observer"
+    "OBSERVER" : "Osservatore"
   },
   "region" : {
     "AT-07" : "Tirolo",
@@ -683,31 +683,31 @@
   },
   "observations": {
     "aspect": "Esposizione",
-    "authorName": "Author name",
-    "avalancheLength": "Avalanche length",
+    "authorName": "Nome dell'autore",
+    "avalancheLength": "Lunghezza della valanga",
     "avalancheProblem": "Problemi valanghivi",
-    "avalancheSize": "Avalanche size",
-    "avalancheType": "Avalanche type",
-    "avalancheWidth": "Avalanche width",
+    "avalancheSize": "Dimension della valanga",
+    "avalancheType": "Tipologia della valanga",
+    "avalancheWidth": "Larghezza della valanga",
     "button": {
-      "add": "Add observation",
-      "save": "Save observation",
-      "delete": "Delete observation",
-      "deleteConfirm": "Delete observation?",
+      "add": "Aggiungere osservazione",
+      "save": "Salvare l'osservazione",
+      "delete": "Cancellare l'osservazione",
+      "deleteConfirm": "Cancellare l'osservazione?",
       "discard": "Scarta"
     },
     "comment": "Commento",
-    "content": "Content",
+    "content": "Contenuto",
     "dangerRating": "Grado pericolo valanghe",
     "elevation": "Elevazione",
-    "eventDate": "Event date",
-    "eventType": "Event type",
+    "eventDate": "Data dell'evento",
+    "eventType": "Tipologia dell'evento",
     "eventTypes": {
-      "IMPORTANT": "Important event",
-      "NORMAL": "Normal event",
-      "PERSON_DEAD": "Event involving persons (dead)",
-      "PERSON_INJURED": "Event involving persons (injured)",
-      "PERSON_NO": "Event not involving persons",
+      "IMPORTANT": "Evento importante",
+      "NORMAL": "Evento normale",
+      "PERSON_DEAD": "Evento con persone coinvolte (vittime)",
+      "PERSON_INJURED": "Evento con persone coinvolte (feriti)",
+      "PERSON_NO": "Evento senza coinvolgimento persone",
       "PERSON_UNINJURED": "Event involving persons (uninjured)"
     },
     "fractureDepth": "Fracture depth",
