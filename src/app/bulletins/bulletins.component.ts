@@ -318,7 +318,11 @@ export class BulletinsComponent implements OnInit, OnDestroy {
         this.bulletinsService.getUserRegionStatus(date) === this.bulletinStatus.republished
       ) &&
       !this.copying &&
-      this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster)) {
+      (
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleForecaster) ||
+        this.authenticationService.isCurrentUserInRole(this.constantsService.roleAdmin)
+      )
+    ) {
       return true;
     } else {
       return false;
