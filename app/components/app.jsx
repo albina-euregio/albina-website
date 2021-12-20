@@ -17,6 +17,7 @@ const StationMeasurements = React.lazy(() =>
   import("./../views/stationMeasurements")
 );
 const StationMap = React.lazy(() => import("./../views/stationMap"));
+const SnowProfileMap = React.lazy(() => import("./../views/snowProfileMap"));
 const Education = React.lazy(() => import("./../views/education"));
 const More = React.lazy(() => import("./../views/more"));
 const Archive = React.lazy(() => import("./../views/archive"));
@@ -96,6 +97,11 @@ class App extends React.Component {
             path: "/weather/stations",
             exact: true,
             component: StationMap
+          },
+          {
+            path: "/weather/snow-profiles",
+            exact: true,
+            component: SnowProfileMap
           },
           {
             path: "/weather",

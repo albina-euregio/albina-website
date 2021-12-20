@@ -12,8 +12,7 @@
       },
       {
         "key": "lawis:profile",
-        "url": "https://www.lawis.at/profile?lang=en",
-        "url:de": "https://www.lawis.at/profile?lang=de"
+        "url": "/weather/snow-profiles"
       },
       { "key": "webcam", "url": "https://www.foto-webcam.eu" }
     ]
