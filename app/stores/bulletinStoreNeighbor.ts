@@ -1,3 +1,4 @@
+import { Util } from "leaflet";
 import { decodeFeatureCollection } from "../util/polyline";
 import { WARNLEVEL_COLORS } from "../util/warn-levels";
 import { MicroRegionElevationProperties } from "./bulletin";
@@ -29,7 +30,7 @@ async function loadBulletin(
   region: string
 ): Promise<DangerRatings> {
   try {
-    const url = `https://avalanche.report/albina_neighbors.2022/${date}-${region}.ratings.json`;
+    const url = Util.template(config.apis.bulletin.eaws, { date, region });
     const res = await fetch(url);
     if (res.ok) {
       return await res.json();

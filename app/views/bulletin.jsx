@@ -23,6 +23,7 @@ import { parseSearchParams } from "../util/searchParams";
 import { Suspense } from "react";
 
 import "leaflet.sync";
+import { Util } from "leaflet";
 
 class Bulletin extends React.Component {
   constructor(props) {
@@ -168,11 +169,13 @@ class Bulletin extends React.Component {
 
     const shareImage =
       collection && BULLETIN_STORE.settings.date
-        ? config.apis.geo +
-          BULLETIN_STORE.settings.date +
-          "/" +
-          (collection.hasDaytimeDependency() ? "am" : "fd") + // FIXME: there should be a way to share "am" AND "pm" map
-          "_albina_map.jpg"
+        ? Util.template(config.apis.bulletin.map, {
+            date: BULLETIN_STORE.settings.date,
+            publication: ".",
+            file:
+              (collection.hasDaytimeDependency() ? "am" : "fd") + "_albina_map",
+            format: ".jpg"
+          })
         : "";
 
     return (

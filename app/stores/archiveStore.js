@@ -174,7 +174,7 @@ export default class ArchiveStore {
     params.set("startDate", prevDay(startDate) + timeFormatStart);
     params.set("endDate", prevDay(endDate) + timeFormatEnd);
 
-    return fetchJSON(config.apis.bulletin + "/status?" + params)
+    return fetchJSON(config.apis.bulletin.status + "?" + params)
       .then(
         // query status data
         values => {

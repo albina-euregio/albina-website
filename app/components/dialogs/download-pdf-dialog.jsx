@@ -22,16 +22,11 @@ class DownloadPdfDialog extends React.Component {
     this.setState({ mode: newMode });
   };
 
-  pdfLink(isRegion, isBw) {
-    const links = config.links.downloads;
-    const link =
-      links["base"] +
-      links["pdf" + (isRegion ? "-region" : "") + (isBw ? "-bw" : "")];
-
-    return Util.template(link, {
+  pdfLink(region, isBw) {
+    return Util.template(config.apis.bulletin.pdf, {
       date: BULLETIN_STORE.settings.date,
-      lang: APP_STORE.language,
-      region: isRegion
+      file:
+        (region ? `${region}_` : "") + APP_STORE.language + (isBw ? "_bw" : "")
     });
   }
 

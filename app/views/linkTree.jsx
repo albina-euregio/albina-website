@@ -10,6 +10,7 @@ import { parseSearchParams } from "../util/searchParams";
 import { dateToISODateString } from "../util/date.js";
 import { BLOG_STORE } from "../stores/blogStore";
 import { APP_STORE } from "../appStore";
+import { Util } from "leaflet";
 
 //import { scroll } from "../js/scroll";
 /*
@@ -85,12 +86,12 @@ class LinkTree extends React.Component {
 
     const imgFormat = window.config.webp ? ".webp" : ".jpg";
     if (this.state.fd != null) {
-      bulletinImageUrl =
-        window.config.apis.geo +
-        dateString +
-        "/" +
-        (this.state.fd ? "fd_albina_thumbnail" : "am_albina_thumbnail") +
-        imgFormat;
+      bulletinImageUrl = Util.template(config.apis.bulletin.map, {
+        date: dateString,
+        publication: ".",
+        file: this.state.fd ? "fd_albina_thumbnail" : "am_albina_thumbnail",
+        format: imgFormat
+      });
     }
 
     let blogImageUrl = "https://lawinen.report/content_files/base-map.webp";

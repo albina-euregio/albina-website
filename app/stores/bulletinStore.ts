@@ -488,13 +488,10 @@ class BulletinStore {
   }
 
   _getBulletinUrl(date: string): string {
-    return Util.template(
-      config.links.downloads.base + config.links.downloads.xml,
-      {
-        date,
-        lang: APP_STORE.language
-      }
-    );
+    return Util.template(config.apis.bulletin.xml, {
+      date,
+      lang: APP_STORE.language
+    });
   }
 }
 
