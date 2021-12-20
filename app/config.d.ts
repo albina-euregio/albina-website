@@ -1,5 +1,5 @@
-declare var config: typeof import("../public/config.json");
+declare var config: typeof import("./config.json");
 
 interface Window {
-  config: typeof import("../public/config.json");
+  config: typeof import("./config.json");
 }
