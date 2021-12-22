@@ -6,6 +6,7 @@ import { fetchJSON } from "../util/fetch";
 export interface SnowProfile {
   $date: Date;
   $color: string;
+  $img: string;
   $latlng: LatLngExpression;
   $tooltip: string;
   id: number;
@@ -43,6 +44,7 @@ export interface Country {
 
 export default class SnowProfileStore {
   profiles: SnowProfile[] = [];
+  activeProfile: SnowProfile | undefined;
   constructor() {
     makeAutoObservable(this);
   }
@@ -63,14 +65,10 @@ export default class SnowProfileStore {
         ...profile,
         $date,
         $color,
+        $img: `https://lawis.at/lawis_api/normalizer/files/profiles/snowprofile_${profile.id}.png`,
         $latlng: [profile.location.latitude, profile.location.longitude],
         $tooltip: `${dateToDateString($date)}: ${profile.location.name}`
       });
     });
-  }
-
-  openProfile(profile: SnowProfile, format = "png") {
-    const url = `https://lawis.at/lawis_api/normalizer/files/profiles/snowprofile_${profile.id}.${format}`;
-    window.open(url, undefined, "noopener");
   }
 }
