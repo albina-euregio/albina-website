@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
-import SnowProfileStore from "../stores/snowProfileStore";
+import SnowProfileStore, { SnowProfile } from "../stores/snowProfileStore";
 import LeafletMap from "../components/leaflet/leaflet-map";
 import ModalDialog from "../components/modal-dialog";
 import StationMarker from "../components/leaflet/station-marker";
@@ -9,24 +9,20 @@ import { AttributionControl } from "react-leaflet";
 import { modal_open_by_params } from "../js/modal";
 
 class SnowProfileMap extends React.Component {
-  constructor(props) {
-    super(props);
-    this.store = new SnowProfileStore();
-    this.state = { profile: undefined };
-  }
+  store = new SnowProfileStore();
+  state = { profile: undefined as SnowProfile | undefined };
 
   componentDidMount() {
     this.store.load();
   }
 
-  onProfileClick(profile) {
+  onProfileClick(profile: SnowProfile) {
     this.setState({ profile });
     modal_open_by_params(
       null,
       "inline",
       "#snowProfileDialog",
-      "snowProfileDialog",
-      true
+      "snowProfileDialog"
     );
   }
 
