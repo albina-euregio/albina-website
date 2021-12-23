@@ -27,7 +27,6 @@ class SnowProfileMap extends React.Component {
   }
 
   render() {
-    const { mapOptionsOverride } = config.weathermaps.settings;
     const overlays = this.store.profiles.map(profile => {
       return (
         <StationMarker
@@ -54,8 +53,6 @@ class SnowProfileMap extends React.Component {
               controls={<AttributionControl prefix="lawis.at/profile" />}
               gestureHandling={false}
               onViewportChanged={() => {}}
-              mapConfigOverride={mapOptionsOverride}
-              tileLayerConfigOverride={mapOptionsOverride}
               overlays={overlays}
             />
           </div>
