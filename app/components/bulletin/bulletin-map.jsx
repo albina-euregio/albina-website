@@ -36,7 +36,7 @@ class BulletinMap extends React.Component {
         message: "",
         iconOn: true
       },
-      ok: { message: "", keep: true }
+      ok: { message: "", keep: false }
     };
     this.setInfoMessages();
   }
@@ -79,7 +79,8 @@ class BulletinMap extends React.Component {
             </Link>
           </p>
         </>
-      )
+      ),
+      keep: false
     };
   }
 
