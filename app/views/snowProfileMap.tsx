@@ -62,7 +62,24 @@ class SnowProfileMap extends React.Component {
             <div className="modal-container">
               <div className="modal-weatherstation">
                 <div className="modal-header">
-                  <p className="caption">{this.state.profile?.$tooltip}</p>
+                  <p className="caption">
+                    {this.state.profile?.location?.country?.text}
+                    {" – "}
+                    {this.state.profile?.location?.region?.text}
+                    {" – "}
+                    {this.state.profile?.location?.subregion?.text}
+                  </p>
+                  <h2 className="">
+                    <span className="weatherstation-name">
+                      {this.state.profile?.$tooltip}{" "}
+                    </span>
+                    {this.state.profile?.location?.elevation && (
+                      <span className="weatherstation-altitude">
+                        ({this.state.profile?.location?.elevation}&thinsp;m){" "}
+                        {this.state.profile?.location?.aspect?.text}
+                      </span>
+                    )}
+                  </h2>
                 </div>
                 <div className="modal-content">
                   <img
