@@ -37,7 +37,7 @@ class SnowProfileMap extends React.Component {
           itemId="any"
           key={`profile-${profile.id}`}
           onClick={() => this.onProfileClick(profile)}
-          stationName={profile.$tooltip}
+          tooltip={profile.$tooltip}
         />
       );
     });

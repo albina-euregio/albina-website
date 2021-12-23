@@ -53,6 +53,10 @@ class StationMarker extends MapLayer {
       icon: this.createStationIcon()
     });
 
+    if (this.props.tooltip) {
+      marker.bindTooltip(this.props.tooltip);
+    }
+
     if (this.props.onClick)
       marker.on("click", e => {
         // console.log(
