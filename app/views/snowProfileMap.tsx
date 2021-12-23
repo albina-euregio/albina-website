@@ -52,6 +52,7 @@ class SnowProfileMap extends React.Component {
             <LeafletMap
               loaded={this.store.profiles.length}
               controls={<AttributionControl prefix="lawis.at/profile" />}
+              gestureHandling={false}
               onViewportChanged={() => {}}
               mapConfigOverride={mapOptionsOverride}
               tileLayerConfigOverride={mapOptionsOverride}

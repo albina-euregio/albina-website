@@ -259,7 +259,7 @@ class LeafletMap extends React.Component {
         onZoomEnd={this._zoomend.bind(this)}
         className="map-disabled"
         ref={map => (this.mapDisabledRef = map)}
-        gestureHandling
+        gestureHandling={this.props.gestureHandling}
         style={this.mapStyle()}
         zoomControl={false}
         zoom={MAP_STORE.mapZoom}
