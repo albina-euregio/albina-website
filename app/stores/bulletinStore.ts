@@ -411,9 +411,9 @@ class BulletinStore {
     return bulletin?.dangerRatings
       .filter(
         danger =>
-          (!danger.elevation.upperBound && !danger.elevation.lowerBound) ||
-          (danger.elevation.upperBound && elevation === "low") ||
-          (danger.elevation.lowerBound && elevation === "high")
+          (!danger?.elevation?.upperBound && !danger?.elevation?.lowerBound) ||
+          (danger?.elevation?.upperBound && elevation === "low") ||
+          (danger?.elevation?.lowerBound && elevation === "high")
       )
       .map(danger => warnlevelNumbers[danger.mainValue])
       .reduce((w1, w2) => Math.max(w1, w2), 0);
