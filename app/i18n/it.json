@@ -15,6 +15,7 @@
   "menu:weather:map:": "Carte Meteo",
   "menu:weather:measurements": "Dati di Stazioni Meteo",
   "menu:lawis:station": "Stazioni Meteorologiche",
+  "menu:lawis:incident": "Incidents",
   "menu:lawis:profile": "Profili Manto Nevoso",
   "menu:webcam": "Webcams",
   "menu:education:danger-scale": "Scala del Pericolo",

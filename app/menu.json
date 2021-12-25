@@ -11,6 +11,10 @@
         "url": "/weather/stations"
       },
       {
+        "key": "lawis:incident",
+        "url": "/weather/incidents"
+      },
+      {
         "key": "lawis:profile",
         "url": "/weather/snow-profiles"
       },

@@ -7,6 +7,7 @@ export interface SnowProfile {
   $date: Date;
   $color: string;
   $img: string;
+  $url: never;
   $latlng: LatLngExpression;
   $tooltip: string;
   id: number;

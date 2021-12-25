@@ -4,7 +4,7 @@ import { IntlProvider } from "react-intl";
 
 import { Redirect } from "react-router";
 import { BrowserRouter } from "react-router-dom";
-import { renderRoutes } from "react-router-config";
+import { renderRoutes } from "react-router-config/es";
 import { ScrollContext } from "react-router-scroll-4";
 
 import { APP_STORE } from "../appStore";
@@ -100,6 +100,11 @@ class App extends React.Component {
           },
           {
             path: "/weather/snow-profiles",
+            exact: true,
+            component: SnowProfileMap
+          },
+          {
+            path: "/weather/incidents",
             exact: true,
             component: SnowProfileMap
           },

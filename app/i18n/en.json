@@ -15,6 +15,7 @@
   "menu:weather:map:": "Weather Maps",
   "menu:weather:measurements": "Station Measurements",
   "menu:lawis:station": "Weather Stations",
+  "menu:lawis:incident": "Incidents",
   "menu:lawis:profile": "Snow Profiles",
   "menu:webcam": "Webcams",
   "menu:education:danger-scale": "Danger Scale",
