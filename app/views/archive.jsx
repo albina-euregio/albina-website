@@ -192,7 +192,7 @@ class Archive extends React.Component {
               <li>
                 <a
                   className="secondary pure-button"
-                  href="https://avalanche.report/albina_files/archive/tyrol/"
+                  href={config.apis.bulletin.archiveTyrol}
                   rel="noopener noreferrer"
                   target="_blank"
                 >

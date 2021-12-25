@@ -1,3 +1,4 @@
+import { Util } from "leaflet";
 import React from "react";
 import { injectIntl } from "react-intl";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
@@ -19,17 +20,16 @@ class BulletinAWMapStatic extends React.Component {
     const { publicationTime } = this.props;
     const publicationDirectory =
       publicationTime && this.props.date > "2019-05-06"
-        ? getPublicationTimeString(parseDateSeconds(publicationTime)) + "/"
+        ? getPublicationTimeString(parseDateSeconds(publicationTime))
         : "";
     const imgFormat =
       window.config.webp && this.props.date > "2020-12-01" ? ".webp" : ".jpg";
-    const url =
-      window.config.apis.geo +
-      this.props.date +
-      "/" +
-      publicationDirectory +
-      this.props.region + // possibly contains _PM
-      imgFormat;
+    const url = Util.template(config.apis.bulletin.map, {
+      date: this.props.date,
+      publication: publicationDirectory,
+      file: this.props.region, // possibly contains _PM
+      format: imgFormat
+    });
     const regions = BULLETIN_STORE.bulletins[this.props.date]?.daytimeBulletins
       ?.find(element => element.id == this.props.region.split("_")[0])
       ?.forenoon?.regions?.map(elem => elem.name)

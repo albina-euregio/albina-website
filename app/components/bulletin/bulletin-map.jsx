@@ -46,7 +46,7 @@ class BulletinMap extends React.Component {
   }
 
   setInfoMessages() {
-    const simple = Util.template(window.config.links.simple, {
+    const simple = Util.template(window.config.apis.bulletin.simple, {
       date: this.props.date
         ? dateToISODateString(parseDate(this.props.date))
         : "",

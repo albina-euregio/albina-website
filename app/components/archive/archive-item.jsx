@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import { Util } from "leaflet";
 import { dateToISODateString, dateToDateString } from "../../util/date.js";
-import ArchiveAwmapStatic from "./archive-awmap-static.jsx";
+import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static.jsx";
 import { APP_STORE } from "../../appStore";
 
 class ArchiveItem extends React.Component {
@@ -50,7 +50,6 @@ class ArchiveItem extends React.Component {
     const dateString = dateToISODateString(this.props.date);
     const lang = this.getLanguage(dateString);
 
-    const baseLink = config.links.downloads["base"];
     return (
       <tr>
         <td>
@@ -60,13 +59,10 @@ class ArchiveItem extends React.Component {
           <ul className="list-inline list-download">
             <li>
               <a
-                href={
-                  baseLink +
-                  Util.template(config.links.downloads.pdf, {
-                    date: dateString,
-                    lang
-                  })
-                }
+                href={Util.template(config.apis.bulletin.pdf, {
+                  date: dateString,
+                  file: lang
+                })}
                 rel="noopener noreferrer"
                 target="_blank"
                 title={this.props.intl.formatMessage({
@@ -79,13 +75,10 @@ class ArchiveItem extends React.Component {
             </li>
             <li>
               <a
-                href={
-                  baseLink +
-                  Util.template(config.links.downloads.xml, {
-                    date: dateString,
-                    lang
-                  })
-                }
+                href={Util.template(config.apis.bulletin.xml, {
+                  date: dateString,
+                  lang
+                })}
                 title={this.props.intl.formatMessage({
                   id: "archive:download-xml:hover"
                 })}

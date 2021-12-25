@@ -57,18 +57,25 @@
     }
   ],
   "apis": {
-    "bulletin": "https://api.avalanche.report/albina_dev/api/bulletins",
+    "bulletin": {
+      "status": "https://api.avalanche.report/albina_dev/api/bulletins/status",
+      "simple": "https://static.avalanche.report/simple_dev/{date}/{lang}.html",
+      "eaws": "https://static.avalanche.report/eaws_bulletins/{date}-{region}.ratings.json",
+      "map": "https://static.avalanche.report/bulletins_dev/{date}/{publication}/{file}{format}",
+      "pdf": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{file}.pdf",
+      "xml": "https://static.avalanche.report/bulletins_dev/{date}/{date}_{lang}_CAAMLv6.xml",
+      "archiveTyrol": "https://static.avalanche.report/bulletins/archive/tyrol/"
+    },
     "push": "https://api.avalanche.report/albina_dev/api/push",
     "subscribe": "https://api.avalanche.report/albina_dev/api/email",
-    "geo": "https://avalanche.report/albina_files_dev/",
     "blogger": "https://api.avalanche.report/blog/",
     "weather": {
       "domains": "https://avalanche.report/transfer/data/albina_domains.json",
       "plots": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/standard/{interval}/{name}.png?{t}",
       "observers": "https://wiski.tirol.gv.at/lawine/grafiken/{width}/beobachter/{name}{year}.png?{t}",
-      "stations": "https://avalanche.report/albina_stations/{dateTime}stations.geojson",
+      "stations": "https://static.avalanche.report/weather_stations/{dateTime}stations.geojson",
       "grid": "https://avalanche.report/transfer/data/albina_grid.json",
-      "overlays": "https://avalanche.report/zamg_meteo/overlays/"
+      "overlays": "https://static.avalanche.report/zamg_meteo/overlays/"
     }
   },
   "apiKeys": {
@@ -76,16 +83,7 @@
     "google": "AIzaSyBN0GUcRlTfoVnarVFVpA1hUEnDcDjuXQY"
   },
   "links": {
-    "interreg": "http://www.europaregion.info/splash.html",
-    "simple": "https://avalanche.report/simple/{date}/{lang}.html",
-    "downloads": {
-      "base": "https://avalanche.report/albina_files_dev/",
-      "pdf": "{date}/{date}_{lang}.pdf",
-      "pdf-bw": "{date}/{date}_{lang}_bw.pdf",
-      "pdf-region": "{date}/{date}_{region}_{lang}.pdf",
-      "pdf-region-bw": "{date}/{date}_{region}_{lang}_bw.pdf",
-      "xml": "{date}/{date}_{lang}_CAAMLv6.xml"
-    },
+    "interreg": "http://www.europaregion.info/",
     "weatherStationOperators": {
       "BOKU": "https://boku.ac.at/",
       "Bundesforschungszentrum für Wald - BFW": "https://www.bfw.gv.at/",
@@ -275,7 +273,7 @@
     "tileLayers": [
       {
         "id": "ALBINA",
-        "url": "https://avalanche.report/avalanche_report_tms/{z}/{x}/{y}.png",
+        "url": "https://static.avalanche.report/tms/{z}/{x}/{y}.png",
         "maxZoom": 10,
         "minZoom": 5,
         "detectRetina": false,
