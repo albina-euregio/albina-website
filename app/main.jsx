@@ -6,7 +6,7 @@ import ModalStateStore from "./stores/modalStateStore";
 import StaticPageStore from "./stores/staticPageStore";
 import { isWebPushSupported } from "./components/dialogs/subscribe-web-push-dialog.jsx";
 import jQuery from "jquery";
-import { BLOG_STORE } from "./stores/blogStore.js";
+import { BLOG_STORE } from "./stores/blogStore";
 window["jQuery"] = window["$"] = jQuery;
 
 (() => import("./sentry"))();
@@ -76,6 +76,7 @@ Promise.all([configRequest, isWebpSupported]).then(
       " language-" +
       initialLang;
 
+    BLOG_STORE.initLanguage();
     BLOG_STORE.update();
 
     ReactDOM.render(
