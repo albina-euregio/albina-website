@@ -314,6 +314,11 @@ export default class BlogStore {
     makeAutoObservable(this);
   }
 
+  initLanguage() {
+    const initialParameters = this.initialParams();
+    this._languages = initialParameters.languages;
+  }
+
   async load(forceReload = false) {
     if (!forceReload && this._posts.length > 0) {
       // don't do a reload if already loaded unless reload is forced

@@ -76,6 +76,7 @@ Promise.all([configRequest, isWebpSupported]).then(
       " language-" +
       initialLang;
 
+    BLOG_STORE.initLanguage();
     BLOG_STORE.update();
 
     ReactDOM.render(
