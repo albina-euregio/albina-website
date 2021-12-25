@@ -9,50 +9,54 @@ import { clamp } from "../util/clamp";
 import { avalancheProblems } from "../util/avalancheProblems";
 import { APP_STORE } from "../appStore";
 
+type BlogConfig = {
+  lang: string;
+  name: string;
+  apiType: string;
+  regions: string[];
+  params: {
+    id: string;
+  };
+};
+
 class BlogPostPreviewItem {
   constructor(
-    blogName,
-    postId,
-    url,
-    author,
-    date,
-    title,
-    lang,
-    regions = [],
-    image = null,
-    tags = [],
-    newUntil
-  ) {
-    this.blogName = blogName;
-    this.postId = postId;
-    this.url = url;
-    this.author = author;
-    this.date = date;
-    this.title = title;
-    this.lang = lang;
-    this.regions = regions;
-    this.image = image;
-    this.tags = tags;
-    this.newUntil = newUntil;
-  }
+    public blogName: string,
+    public postId: string,
+    public url: string,
+    public author: string,
+    public date: Date,
+    public title: string,
+    public lang: string,
+    public regions: string[] = [],
+    public image = null,
+    public tags = [],
+    public newUntil: number
+  ) {}
 }
 
 export default class BlogStore {
   supportedLanguages = ["de", "it", "en"];
-  _regions;
-  _languages;
-  _year;
-  _month;
-  _problem;
-  _searchText;
+  _regions: {};
+  _languages: { de: boolean; it: boolean; en: boolean };
+  _year: number | "";
+  _month: number | "";
+  _problem: string;
+  _searchText: string;
 
-  _page;
+  _page: number;
 
-  _loading;
-  _posts;
+  _loading: boolean;
+  _posts: Record<string, BlogPostPreviewItem[]>;
 
   // show only 5 blog posts when the mobile phone is detected
   perPage = L.Browser.mobile ? 20 : 20;
+  blogProcessor: {
+    blogger: {
+      createUrl: (config: BlogConfig) => string;
+      process: (response: any, config: BlogConfig) => BlogPostPreviewItem[];
+    };
+  };
 
   get searchParams() {
     const languageHostConfig = config.languageHostSettings;
@@ -64,12 +68,12 @@ export default class BlogStore {
         : this.languageActive;
 
     const params = new URLSearchParams();
-    params.set("year", this.year);
-    if (this.year != "") params.set("month", this.month);
+    params.set("year", String(this.year));
+    if (this.year != "") params.set("month", String(this.month));
     params.set("searchLang", searchLang || "");
     params.set("region", this.regionActive);
     params.set("problem", this.problem);
-    params.set("page", this.page);
+    params.set("page", String(this.page));
     params.set("searchText", this.searchText || "");
     params.forEach((value, key) => value || params.delete(key));
     return params;
@@ -79,12 +83,13 @@ export default class BlogStore {
     this.load(true);
   }
 
-  validatePage(valueToValidate) {
+  validatePage(page: string | number): number {
+    const parsed = typeof page === "string" ? parseInt(page) : page;
     const maxPages = this.maxPages;
-    return clamp(valueToValidate, 1, maxPages);
+    return clamp(parsed, 1, maxPages);
   }
 
-  validateMonth(valueToValidate) {
+  validateMonth(valueToValidate: string): number | "" {
     const parsed = parseInt(valueToValidate);
     if (parsed) {
       return clamp(parsed, 1, 12);
@@ -93,7 +98,7 @@ export default class BlogStore {
     }
   }
 
-  validateYear(valueToValidate) {
+  validateYear(valueToValidate: string): number | "" {
     const parsed = parseInt(valueToValidate);
     if (parsed) {
       return clamp(parsed, config.archive.minYear, new Date().getFullYear());
@@ -102,11 +107,11 @@ export default class BlogStore {
     }
   }
 
-  validateRegion(valueToValidate) {
+  validateRegion(valueToValidate: string): string {
     return regionCodes.includes(valueToValidate) ? valueToValidate : "all";
   }
 
-  validateLanguage(valueToValidate) {
+  validateLanguage(valueToValidate: string): string {
     if (valueToValidate === "all") {
       return valueToValidate;
     }
@@ -120,14 +125,14 @@ export default class BlogStore {
     return "all";
   }
 
-  validateProblem(valueToValidate) {
+  validateProblem(valueToValidate: string): string {
     return avalancheProblems.includes(valueToValidate)
       ? valueToValidate
       : "all";
   }
 
   // checking if the url has been changed and applying new values
-  checkUrl() {
+  checkUrl(): void {
     let needLoad = false;
 
     const search = parseSearchParams();
@@ -189,7 +194,10 @@ export default class BlogStore {
     }
   }
 
-  getNewUntil(labels, published) {
+  getNewUntil(
+    labels: string | string[],
+    published: string | number | Date
+  ): number {
     let newUntil = new Date(published);
     //newUntil.setMonth(newUntil.getMonth() + 12);
     if (labels.includes("valid_72h"))
@@ -213,7 +221,8 @@ export default class BlogStore {
         de: ["", "de", "all"].includes(searchLang) || !searchLang,
         it: ["", "it", "all"].includes(searchLang) || !searchLang,
         en: ["", "en", "all"].includes(searchLang) || !searchLang
-      }
+      },
+      regions: {}
     };
 
     // get all regions from appStore and activate them
@@ -253,9 +262,9 @@ export default class BlogStore {
             window.config.apis.blogger + config.params.id + "/posts";
 
           const params = {
-            maxResults: 500,
-            fetchBodies: false,
-            fetchImages: true,
+            maxResults: String(500),
+            fetchBodies: String(false),
+            fetchImages: String(true),
             status: "live",
             key: window.config.apiKeys.google
           };
@@ -305,7 +314,7 @@ export default class BlogStore {
     makeAutoObservable(this);
   }
 
-  load(forceReload = false) {
+  async load(forceReload = false) {
     if (!forceReload && this._posts.length > 0) {
       // don't do a reload if already loaded unless reload is forced
       return;
@@ -313,7 +322,7 @@ export default class BlogStore {
 
     this._loading = true;
 
-    const blogsConfig = window.config.blogs;
+    const blogsConfig: BlogConfig[] = window.config.blogs;
     const loads = [];
 
     const newPosts = {};
@@ -330,7 +339,7 @@ export default class BlogStore {
             const url = p.createUrl(cfg);
 
             loads.push(
-              fetchJSON(url).then(
+              fetchJSON(url, { headers: { Accept: "application/json" } }).then(
                 data => {
                   p.process(data, cfg).forEach(i => {
                     newPosts[cfg.name].push(i);
@@ -353,10 +362,11 @@ export default class BlogStore {
     }
 
     //todo: indicate loading error
-    return Promise.all(loads).then(() => this.setPostsLoaded(newPosts));
+    await Promise.all(loads);
+    return this.setPostsLoaded(newPosts);
   }
 
-  setPostsLoaded(newPosts) {
+  setPostsLoaded(newPosts: Record<string, BlogPostPreviewItem[]>) {
     // console.log("posts loaded", newPosts);
     this.posts = newPosts;
     this._loading = false;
@@ -379,14 +389,14 @@ export default class BlogStore {
   }
 
   /* actual page in the pagination through blog posts */
-  get page() {
-    return parseInt(toJS(this._page));
+  get page(): number {
+    return toJS(this._page);
   }
-  set page(val) {
-    this._page = parseInt(val);
+  set page(val: number | string) {
+    this._page = typeof val === "string" ? parseInt(val) : val;
   }
 
-  setPage(newPage) {
+  setPage(newPage: number) {
     this.page = this.validatePage(newPage);
   }
 
@@ -468,7 +478,7 @@ export default class BlogStore {
     return toJS(this._regions);
   }
 
-  setRegions(region) {
+  setRegions(region: string) {
     const newRegions = this.regions;
     // eslint-disable-next-line no-unused-vars
     for (let r in newRegions) {
@@ -478,7 +488,7 @@ export default class BlogStore {
     this._regions = newRegions;
   }
 
-  setLanguages(lang) {
+  setLanguages(lang: string) {
     const newLanguages = this.languages;
     // eslint-disable-next-line no-unused-vars
     for (let l in newLanguages) {
