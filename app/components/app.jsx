@@ -104,6 +104,11 @@ class App extends React.Component {
             component: SnowProfileMap
           },
           {
+            path: "/weather/incidents",
+            exact: true,
+            component: SnowProfileMap
+          },
+          {
             path: "/weather",
             exact: true,
             component: () => <Redirect to={"/weather/map"} />

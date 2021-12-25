@@ -7,17 +7,23 @@ import ModalDialog from "../components/modal-dialog";
 import StationMarker from "../components/leaflet/station-marker";
 import { AttributionControl } from "react-leaflet";
 import { modal_open_by_params } from "../js/modal";
+import IncidentStore, { Incident } from "../stores/incidentStore";
 
 class SnowProfileMap extends React.Component {
-  store = new SnowProfileStore();
-  state = { profile: undefined as SnowProfile | undefined };
+  snowProfileStore = new SnowProfileStore();
+  incidentStore = new IncidentStore();
+  state = { active: undefined as SnowProfile | Incident | undefined };
 
-  componentDidMount() {
-    this.store.load();
+  get isIncident(): boolean {
+    return /incident/.test(location.pathname);
   }
 
-  onProfileClick(profile: SnowProfile) {
-    this.setState({ profile });
+  componentDidMount() {
+    this.isIncident ? this.incidentStore.load() : this.snowProfileStore.load();
+  }
+
+  onMarkerClick(active: SnowProfile | Incident) {
+    this.setState({ active });
     modal_open_by_params(
       null,
       "inline",
@@ -26,18 +32,30 @@ class SnowProfileMap extends React.Component {
     );
   }
 
+  get attribution(): string {
+    return this.isIncident
+      ? `<a href="https://lawis.at/incident/" rel="noopener noreferrer" target="_blank">lawis.at/incident</a>`
+      : `<a href="https://lawis.at/profile/" rel="noopener noreferrer" target="_blank">lawis.at/profile</a>`;
+  }
+
+  get entries(): (SnowProfile | Incident)[] {
+    return this.isIncident
+      ? this.incidentStore.incidents
+      : this.snowProfileStore.profiles;
+  }
+
   render() {
-    const overlays = this.store.profiles.map(profile => {
+    const overlays = this.entries.map(entry => {
       return (
         <StationMarker
           className="tooltip"
-          color={profile.$color}
-          coordinates={profile.$latlng}
+          color={entry.$color}
+          coordinates={entry.$latlng}
           iconAnchor={[12.5, 12.5]}
           itemId="any"
-          key={`profile-${profile.id}`}
-          onClick={() => this.onProfileClick(profile)}
-          tooltip={profile.$tooltip}
+          key={`profile-${entry.id}`}
+          onClick={() => this.onMarkerClick(entry)}
+          tooltip={entry.$tooltip}
         />
       );
     });
@@ -49,8 +67,8 @@ class SnowProfileMap extends React.Component {
         >
           <div className="section-map">
             <LeafletMap
-              loaded={this.store.profiles.length}
-              controls={<AttributionControl prefix="lawis.at/profile" />}
+              loaded={this.entries.length > 0}
+              controls={<AttributionControl prefix={this.attribution} />}
               gestureHandling={false}
               onViewportChanged={() => {}}
               overlays={overlays}
@@ -61,30 +79,42 @@ class SnowProfileMap extends React.Component {
               <div className="modal-weatherstation">
                 <div className="modal-header">
                   <p className="caption">
-                    {this.state.profile?.location?.country?.text}
+                    {this.state.active?.location?.country?.text}
                     {" – "}
-                    {this.state.profile?.location?.region?.text}
+                    {this.state.active?.location?.region?.text}
                     {" – "}
-                    {this.state.profile?.location?.subregion?.text}
+                    {this.state.active?.location?.subregion?.text}
                   </p>
                   <h2 className="">
                     <span className="weatherstation-name">
-                      {this.state.profile?.$tooltip}{" "}
+                      {this.state.active?.$tooltip}{" "}
                     </span>
-                    {this.state.profile?.location?.elevation && (
+                    {this.state.active?.location?.elevation && (
                       <span className="weatherstation-altitude">
-                        ({this.state.profile?.location?.elevation}&thinsp;m){" "}
-                        {this.state.profile?.location?.aspect?.text}
+                        ({this.state.active?.location?.elevation}&thinsp;m){" "}
+                        {this.state.active?.location?.aspect?.text}
                       </span>
                     )}
                   </h2>
                 </div>
                 <div className="modal-content">
-                  <img
-                    alt={this.state.profile?.$tooltip}
-                    src={this.state.profile?.$img}
-                    className="weatherstation-img"
-                  />
+                  {this.state.active?.$img && (
+                    <img
+                      alt={this.state.active?.$tooltip}
+                      src={this.state.active?.$img}
+                      className="weatherstation-img"
+                    />
+                  )}
+                  {this.state.active?.$url && (
+                    <button
+                      type="button"
+                      onClick={() => window.open(this.state.active?.$url)}
+                      title={this.state.active?.$tooltip}
+                      className="pure-button"
+                    >
+                      LAWIS.AT
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
