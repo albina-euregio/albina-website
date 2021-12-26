@@ -3,9 +3,38 @@ import { fetchJSON } from "../util/fetch";
 import { Util } from "leaflet";
 import { regionCodes } from "../util/regions";
 
+interface FeatureProperties {
+  "LWD-Region": string;
+  date?: Date;
+  GS_O?: number;
+  GS_U?: number;
+  HS?: number;
+  HSD24?: number;
+  HSD48?: number;
+  HSD72?: number;
+  LD?: number;
+  LT_MAX?: number;
+  LT_MIN?: number;
+  LT?: number;
+  name: string;
+  OFT?: number;
+  operator: string;
+  plot: string;
+  RH?: number;
+  TD?: number;
+  WG_BOE?: number;
+  WG?: number;
+  WR?: number;
+}
+
 export class StationData {
-  constructor(object) {
-    Object.assign(this, object);
+  id: string;
+  geometry: GeoJSON.Point;
+  properties: FeatureProperties;
+  constructor(object: GeoJSON.Feature<GeoJSON.Point, FeatureProperties>) {
+    this.id = object.id as string;
+    this.geometry = object.geometry;
+    this.properties = object.properties;
   }
   get lon() {
     return this.geometry.coordinates[0];
@@ -102,7 +131,7 @@ export class StationData {
       }));
   }
 
-  round(value, digits = 0) {
+  round(value: number, digits = 0) {
     if (typeof value === "number") {
       return +value.toFixed(digits);
     } else if (value === undefined) {
@@ -114,33 +143,23 @@ export class StationData {
 }
 
 export default class StationDataStore {
+  data: StationData[] = [];
+  _activeRegions: Record<string, boolean> = {};
+  searchText = "";
+  activeData = {
+    snow: true,
+    temp: true,
+    wind: true
+  };
+  sortValue = "";
+  sortDir: "asc" | "desc" = "asc";
+
   constructor() {
-    this.data = [];
-
-    this._activeRegions = (() => {
-      let regions = {};
-      regionCodes.forEach(r => {
-        regions[r] = true;
-      });
-      return regions;
-    })();
-
-    this.searchText = "";
-    this.activeData = {
-      snow: true,
-      temp: true,
-      wind: true
-    };
-    this.sortValue = "";
-    this.sortDir = "asc";
-
+    regionCodes.forEach(r => (this._activeRegions[r] = true));
     makeAutoObservable(this);
   }
 
-  /**
-   * @param {URLSearchParams} params
-   */
-  fromURLSearchParams(params) {
+  fromURLSearchParams(params: URLSearchParams) {
     if (params.has("searchText")) {
       this.searchText = params.get("searchText");
     }
@@ -151,17 +170,14 @@ export default class StationDataStore {
       this.sortValue = params.get("sortValue");
     }
     if (params.has("sortDir")) {
-      this.sortDir = params.get("sortDir");
+      this.sortDir = params.get("sortDir") as "asc" | "desc";
     }
     Object.keys(this.activeData).filter(
       key => (this.activeData[key] = params.get(key) !== "false")
     );
   }
 
-  /**
-   * @returns {URLSearchParams}
-   */
-  toURLSearchParams() {
+  toURLSearchParams(): URLSearchParams {
     const params = new URLSearchParams();
     if (this.searchText) {
       params.set("searchText", this.searchText);
@@ -203,26 +219,26 @@ export default class StationDataStore {
     });
   }
 
-  setSearchText(searchText) {
+  setSearchText(searchText: string) {
     this.searchText = searchText;
   }
 
-  toggleActiveData(key) {
+  toggleActiveData(key: string | number) {
     this.activeData[key] = !this.activeData[key];
   }
 
-  sortBy(sortValue, sortDir) {
+  sortBy(sortValue: string, sortDir: "asc" | "desc") {
     this.sortValue = sortValue;
     this.sortDir = sortDir;
   }
 
-  load(timePrefix) {
+  load(timePrefix: any) {
     let stationsFile = Util.template(window.config.apis.weather.stations, {
       dateTime: timePrefix
     });
     //console.log("StationDataStore->load", timePrefix, stationsFile);
 
-    return fetchJSON(stationsFile)
+    return fetchJSON(stationsFile, {})
       .then(data => this.setDataAfterLoad(data))
       .catch(error => {
         if (error.response.status === 404) {
@@ -232,7 +248,9 @@ export default class StationDataStore {
       });
   }
 
-  setDataAfterLoad(data) {
+  setDataAfterLoad(
+    data: GeoJSON.FeatureCollection<GeoJSON.Point, FeatureProperties>
+  ) {
     this.data = data.features
       .filter(el => el.properties.date)
       .map(feature => new StationData(feature))
