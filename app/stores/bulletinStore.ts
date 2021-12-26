@@ -16,13 +16,13 @@ import {
   toDaytimeBulletins
 } from "./bulletin";
 import { fetchText } from "../util/fetch.js";
-import { loadNeighborBulletins } from "./bulletinStoreNeighbor";
+import { loadEawsBulletins } from "./bulletinStoreEaws";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import { APP_STORE } from "../appStore";
 import { warnlevelNumbers, WARNLEVEL_COLORS } from "../util/warn-levels.js";
 
-const enableNeighborRegions = true;
+const enableEawsRegions = true;
 
 type Status = "pending" | "ok" | "empty" | "n/a";
 
@@ -32,7 +32,7 @@ class BulletinCollection {
   statusMessage: string;
   dataRaw: Bulletins;
   daytimeBulletins: DaytimeBulletin[];
-  neighborBulletins: GeoJSON.FeatureCollection;
+  eawsBulletins: GeoJSON.FeatureCollection;
 
   constructor(date: string) {
     this.date = date;
@@ -129,7 +129,7 @@ class BulletinStore {
     features: []
   };
   // not observable
-  _neighborRegions: GeoJSON.FeatureCollection = {
+  _eawsRegions: GeoJSON.FeatureCollection = {
     type: "FeatureCollection",
     features: []
   };
@@ -137,7 +137,7 @@ class BulletinStore {
   latest = null;
   settings = {
     status: "",
-    neighbors: 0,
+    eawsCount: 0,
     date: "",
     region: ""
   };
@@ -157,7 +157,7 @@ class BulletinStore {
       _latestBulletinChecker: action,
       _setLatest: action,
       load: action,
-      loadNeighbors: action,
+      loadEawss: action,
       activate: action,
       setRegion: action,
       dimProblem: action,
@@ -177,7 +177,7 @@ class BulletinStore {
     this.bulletins = {};
     this.settings = {
       status: "",
-      neighbors: 0,
+      eawsCount: 0,
       date: "",
       region: ""
     };
@@ -214,10 +214,10 @@ class BulletinStore {
     this._microRegionsElevation = decodeFeatureCollection(polyline.default);
   }
 
-  async loadNeighborRegions() {
-    if (this._neighborRegions.features.length) return;
-    const polyline = await import("./neighbor_regions.polyline.json");
-    this._neighborRegions = decodeFeatureCollection(polyline.default);
+  async loadEawsRegions() {
+    if (this._eawsRegions.features.length) return;
+    const polyline = await import("./eaws_regions.polyline.json");
+    this._eawsRegions = decodeFeatureCollection(polyline.default);
   }
 
   /**
@@ -230,7 +230,7 @@ class BulletinStore {
   async load(date: string, activate = true) {
     this.loadMicroRegions();
     this.loadMicroRegionsElevation();
-    this.loadNeighborRegions();
+    this.loadEawsRegions();
     // console.log("loading bulletin", { date, activate });
     if (typeof date !== "string") return;
     if (this.bulletins[date]) {
@@ -261,12 +261,12 @@ class BulletinStore {
     }
   }
 
-  async loadNeighbors(date: string, activate = true) {
-    if (!enableNeighborRegions) return;
+  async loadEawss(date: string, activate = true) {
+    if (!enableEawsRegions) return;
     if (typeof date !== "string") return;
-    this.settings.neighbors = 0;
-    const geojson = await loadNeighborBulletins(date);
-    this.bulletins[date].neighborBulletins = geojson;
+    this.settings.eawsCount = 0;
+    const geojson = await loadEawsBulletins(date);
+    this.bulletins[date].eawsBulletins = geojson;
     if (activate && this.settings.date == date) {
       // reactivate to notify status change
       this.activate(date);
@@ -282,8 +282,8 @@ class BulletinStore {
       this.settings.region = "";
       this.settings.date = date;
       this.settings.status = this.bulletins[date].status;
-      this.settings.neighbors =
-        this.bulletins[date].neighborBulletins?.features?.length ?? 0;
+      this.settings.eawsCount =
+        this.bulletins[date].eawsBulletins?.features?.length ?? 0;
 
       /*
       if (this.bulletins[date].length === 1) {
@@ -325,8 +325,8 @@ class BulletinStore {
     return null;
   }
 
-  get activeNeighborBulletins() {
-    return this.bulletins[this.settings.date]?.neighborBulletins;
+  get activeEawsBulletins() {
+    return this.bulletins[this.settings.date]?.eawsBulletins;
   }
 
   get activeRegionName(): string {
@@ -353,10 +353,8 @@ class BulletinStore {
     return null;
   }
 
-  get activeNeighbor(): GeoJSON.Feature {
-    return this._neighborRegions.features.find(
-      f => f.id === this.settings.region
-    );
+  get activeEaws(): GeoJSON.Feature {
+    return this._eawsRegions.features.find(f => f.id === this.settings.region);
   }
 
   getProblemsForRegion(regionId: string, ampm = null): AvalancheProblem[] {
@@ -443,8 +441,8 @@ class BulletinStore {
     );
   }
 
-  get neighborRegions(): GeoJSON.Feature[] {
-    return this._neighborRegions.features.map(f => this._augmentFeature(f));
+  get eawsRegions(): GeoJSON.Feature[] {
+    return this._eawsRegions.features.map(f => this._augmentFeature(f));
   }
 
   _augmentFeature(f: GeoJSON.Feature, ampm = null): GeoJSON.Feature {

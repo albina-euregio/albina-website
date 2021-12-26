@@ -127,7 +127,7 @@ encodeFiles(
     "eaws-regions/public/outline/LI_outline.geojson.json",
     "eaws-regions/public/outline/SI_outline.geojson.json"
   ],
-  "app/stores/neighbor_regions.polyline.json"
+  "app/stores/eaws_regions.polyline.json"
 );
 
 for (const region of [

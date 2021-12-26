@@ -108,14 +108,14 @@ class BulletinMap extends React.Component {
   getMapOverlays() {
     const overlays = [];
 
-    if (BULLETIN_STORE.neighborRegions) {
+    if (BULLETIN_STORE.eawsRegions) {
       overlays.push(
         <BulletinVectorLayer
-          key="neighbor-regions"
+          key="eaws-regions"
           problems={BULLETIN_STORE.problems}
           date={BULLETIN_STORE.settings.date}
           activeRegion={BULLETIN_STORE.settings.region}
-          regions={BULLETIN_STORE.neighborRegions}
+          regions={BULLETIN_STORE.eawsRegions}
           bulletin={BULLETIN_STORE.activeBulletin}
           handleSelectRegion={this.props.handleSelectRegion}
           handleCenterToRegion={center => this.map.panTo(center)}
@@ -123,13 +123,13 @@ class BulletinMap extends React.Component {
       );
     }
 
-    const { activeNeighborBulletins } = BULLETIN_STORE;
-    if (BULLETIN_STORE.settings.neighbors && activeNeighborBulletins) {
+    const { activeEawsBulletins } = BULLETIN_STORE;
+    if (BULLETIN_STORE.settings.eawsCount && activeEawsBulletins) {
       overlays.push(
         <GeoJSON
           // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
-          key={`neighbor-bulletins-${activeNeighborBulletins.name}`}
-          data={activeNeighborBulletins}
+          key={`eaws-bulletins-${activeEawsBulletins.name}`}
+          data={activeEawsBulletins}
           pane="mapPane"
           style={feature => feature.properties.style}
         />
@@ -172,7 +172,7 @@ class BulletinMap extends React.Component {
   getBulletinMapDetails() {
     let res = [];
     let detailsClasses = ["bulletin-map-details", "top-right"];
-    const { activeBulletin, activeNeighbor, activeRegionName } = BULLETIN_STORE;
+    const { activeBulletin, activeEaws, activeRegionName } = BULLETIN_STORE;
     if (activeBulletin) {
       detailsClasses.push("js-active");
       res.push(
@@ -206,11 +206,11 @@ class BulletinMap extends React.Component {
           </a>
         )
       );
-    } else if (activeNeighbor) {
+    } else if (activeEaws) {
       detailsClasses.push("js-active");
       const language = APP_STORE.language;
-      const country = activeNeighbor.id.replace(/-.*/, "");
-      const region = activeNeighbor.id;
+      const country = activeEaws.id.replace(/-.*/, "");
+      const region = activeEaws.id;
       // res.push(
       //   <p>{this.props.intl.formatMessage({ id: "region:" + country })}</p>
       // );
@@ -218,10 +218,7 @@ class BulletinMap extends React.Component {
       //   <p>{this.props.intl.formatMessage({ id: "region:" + region })}</p>
       // );
       res.push(
-        <p
-          key={`neighbor-name-${country}`}
-          className="bulletin-report-region-name"
-        >
+        <p key={`eaws-name-${country}`} className="bulletin-report-region-name">
           <span className="bulletin-report-region-name-country">
             {this.props.intl.formatMessage({ id: "region:" + country })}
           </span>
@@ -231,14 +228,14 @@ class BulletinMap extends React.Component {
           </span>
         </p>
       );
-      (activeNeighbor.properties.aws || []).forEach((aws, index) => {
+      (activeEaws.properties.aws || []).forEach((aws, index) => {
         const href =
           aws.url.find(url => url[language])?.[language] ||
           Object.values(aws.url[0])[0];
         res.push(
           <a
             tabIndex="-1"
-            key={`neighbor-link-${index}`}
+            key={`eaws-link-${index}`}
             href={href}
             rel="noopener noreferrer"
             target="_blank"
