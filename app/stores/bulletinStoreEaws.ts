@@ -65,14 +65,14 @@ async function loadBulletins(date: string): Promise<Feature[]> {
       const regions = await regions$;
       const bulletins = await bulletins$;
       return regions.features
-        .map(feature => augmentNeighborFeature(feature, bulletins))
+        .map(feature => augmentFeature(feature, bulletins))
         .filter(feature => feature?.properties?.style);
     })
   );
   return allBulletins.flat();
 }
 
-export async function loadNeighborBulletins(
+export async function loadEawsBulletins(
   date: string
 ): Promise<FeatureCollection> {
   if (typeof date !== "string") return;
@@ -80,12 +80,12 @@ export async function loadNeighborBulletins(
 
   return Object.freeze({
     type: "FeatureCollection",
-    name: `neighbor_bulletins_${date}`,
+    name: `eaws_bulletins_${date}`,
     features: bulletins
   });
 }
 
-function augmentNeighborFeature(
+function augmentFeature(
   feature: Feature,
   bulletins: DangerRatings
 ): Feature | undefined {

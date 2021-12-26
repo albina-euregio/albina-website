@@ -103,7 +103,7 @@ class Bulletin extends React.Component {
     try {
       await BULLETIN_STORE.load(startDate);
     } finally {
-      await BULLETIN_STORE.loadNeighbors(startDate);
+      await BULLETIN_STORE.loadEawss(startDate);
     }
   }
 
