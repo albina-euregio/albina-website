@@ -49,6 +49,13 @@ deploy:development:
   only:
     - master
     - ci
+deploy:development:manual:
+  extends: .deploy
+  needs:
+    - build:development
+  environment:
+    name: dev
+  when: manual
 
 build:production:
   extends: .build
