@@ -5,7 +5,7 @@ import { AuthenticationService } from "../providers/authentication-service/authe
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
 import { MapService } from "../providers/map-service/map.service";
-import { GenericObservation, ObservationSourceColors, ObservationTableRow, toObservationTable } from "./models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, toObservationTable } from "./models/generic-observation.model";
 
 import { Observable } from "rxjs";
 import * as L from "leaflet";
@@ -26,6 +26,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     table: ObservationTableRow[];
     iframe: SafeResourceUrl;
   };
+  public activeSources: Record<ObservationSource, boolean> = {} as any;
+  public readonly observationColors = ObservationSourceColors;
   public readonly allRegions: RegionProperties[];
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
@@ -38,6 +40,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private regionsService: RegionsService,
     private mapService: MapService
   ) {
+    Object.keys(ObservationSource).forEach(source => this.activeSources[source] = true);
     this.allRegions = this.regionsService
       .getRegionsEuregio()
       .features.map((f) => f.properties)
@@ -128,6 +131,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       observation.region = this.regionsService.getRegionForLatLng(ll)?.id;
     }
     if (
+      !this.activeSources[observation.$source] ||
       !this.observationsService.inDateRange(observation) ||
       !this.observationsService.inMapBounds(observation) ||
       !this.inRegions(observation) ||
