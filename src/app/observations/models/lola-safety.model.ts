@@ -1,5 +1,9 @@
-import { SnowProfile } from "./avaobs.model";
-import { GenericObservation, ObservationTableRow, ObservationSource } from "./generic-observation.model";
+import { convertLoLaToGeneric, LolaSnowProfile as SnowProfile } from "./lola-kronos.model";
+import {
+  GenericObservation,
+  ObservationTableRow,
+  ObservationSource,
+} from "./generic-observation.model";
 
 export interface LoLaSafetyApi {
   snowProfiles: SnowProfile[];
@@ -89,7 +93,18 @@ export interface Weather {
   visibilityConditions: string;
 }
 
-export function convertLoLaToGeneric(report: AvalancheReport): GenericObservation<AvalancheReport> {
+export function convertLoLaSafety(lola: LoLaSafetyApi): GenericObservation[] {
+  return [
+    ...lola.avalancheReports.map((obs) => convertAvalancheReport(obs)),
+    ...lola.snowProfiles.map((obs) =>
+      convertLoLaToGeneric(obs, ObservationSource.LoLaSafetySnowProfiles, "https://www.lola-safety.info/snowProfile/")
+    ),
+  ];
+}
+
+function convertAvalancheReport(
+  report: AvalancheReport
+): GenericObservation<AvalancheReport> {
   return {
     $data: report,
     $extraDialogRows: (t) => toLoLaTable(report, t),

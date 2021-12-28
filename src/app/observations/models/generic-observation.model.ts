@@ -28,10 +28,19 @@ export enum ObservationSource {
   LawisIncidents = "LawisIncidents",
   LoLaSafetySnowProfiles = "LoLaSafetySnowProfiles",
   LoLaSafetyAvalancheReports = "LoLaSafetyAvalancheReports",
+  AvaObsAvalancheEvent = "AvaObsAvalancheEvent",
+  AvaObsEvaluation = "AvaObsEvaluation",
+  AvaObsSimpleObservation = "AvaObsSimpleObservation",
+  AvaObsSnowProfile = "AvaObsSnowProfile",
+  KipLiveAvalancheEvent = "KipLiveAvalancheEvent",
+  KipLiveEvaluation = "KipLiveEvaluation",
+  KipLiveSimpleObservation = "KipLiveSimpleObservation",
+  KipLiveSnowProfile = "KipLiveSnowProfile",
+  NatlefsAvalancheEvent = "NatlefsAvalancheEvent",
+  NatlefsEvaluation = "NatlefsEvaluation",
+  NatlefsSimpleObservation = "NatlefsSimpleObservation",
+  NatlefsSnowProfile = "NatlefsSnowProfile",
   WikisnowECT = "WikisnowECT",
-  AvaObsSnowProfiles = "AvaObsSnowProfiles",
-  AvaObsObservations = "AvaObsObservations",
-  AvaObsSimpleObservations = "AvaObsSimpleObservations"
 }
 
 export const ObservationSourceColors: Record<ObservationSource, string> = Object.freeze({
@@ -44,10 +53,19 @@ export const ObservationSourceColors: Record<ObservationSource, string> = Object
   [ObservationSource.LawisIncidents]: "#b76bd9",
   [ObservationSource.LoLaSafetySnowProfiles]: "#a6d96a",
   [ObservationSource.LoLaSafetyAvalancheReports]: "#1a9641",
+  [ObservationSource.AvaObsAvalancheEvent]: "#6a3d9a",
+  [ObservationSource.AvaObsEvaluation]: "#018571",
+  [ObservationSource.AvaObsSimpleObservation]: "#80cdc1",
+  [ObservationSource.AvaObsSnowProfile]: "#2c7bb6",
+  [ObservationSource.KipLiveAvalancheEvent]: "#6a3d9a",
+  [ObservationSource.KipLiveEvaluation]: "#018571",
+  [ObservationSource.KipLiveSimpleObservation]: "#80cdc1",
+  [ObservationSource.KipLiveSnowProfile]: "#2c7bb6",
+  [ObservationSource.NatlefsAvalancheEvent]: "#6a3d9a",
+  [ObservationSource.NatlefsEvaluation]: "#018571",
+  [ObservationSource.NatlefsSimpleObservation]: "#80cdc1",
+  [ObservationSource.NatlefsSnowProfile]: "#2c7bb6",
   [ObservationSource.WikisnowECT]: "#c6e667",
-  [ObservationSource.AvaObsSnowProfiles]: "#2c7bb6",
-  [ObservationSource.AvaObsObservations]: "#018571",
-  [ObservationSource.AvaObsSimpleObservations]: "#80cdc1"
 });
 
 export enum Aspect {
@@ -66,6 +84,7 @@ export interface ObservationTableRow {
   date?: Date;
   number?: number;
   boolean?: boolean;
+  url?: string;
   value?: string;
 }
 
