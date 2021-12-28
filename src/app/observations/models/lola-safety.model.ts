@@ -97,7 +97,16 @@ export function convertLoLaSafety(lola: LoLaSafetyApi): GenericObservation[] {
   return [
     ...lola.avalancheReports.map((obs) => convertAvalancheReport(obs)),
     ...lola.snowProfiles.map((obs) =>
-      convertLoLaToGeneric(obs, ObservationSource.LoLaSafetySnowProfiles, "https://www.lola-safety.info/snowProfile/")
+      convertLoLaToGeneric(
+        obs,
+        ObservationSource.LoLaSafetySnowProfiles,
+        () => [
+          {
+            label: "URL",
+            url: "https://www.lola-kronos.info/snowProfile/" + obs.uuId,
+          },
+        ]
+      )
     ),
   ];
 }

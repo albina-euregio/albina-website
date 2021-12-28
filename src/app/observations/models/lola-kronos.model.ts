@@ -2,6 +2,7 @@ import {
   Aspect,
   GenericObservation,
   ObservationSource,
+  ObservationTableRow,
 } from "./generic-observation.model";
 
 export interface LolaKronosApi {
@@ -291,9 +292,7 @@ export interface Temperature {
   position: number;
 }
 
-export function convertLoLaKronos(
-  kronos: LolaKronosApi
-): GenericObservation[] {
+export function convertLoLaKronos(kronos: LolaKronosApi): GenericObservation[] {
   return [
     ...kronos.lolaAvalancheEvent.map((obs) =>
       convertLoLaToGeneric(
@@ -305,7 +304,12 @@ export function convertLoLaKronos(
           : obs.lolaApplication === "natlefs"
           ? ObservationSource.NatlefsAvalancheEvent
           : undefined,
-        "https://www.lola-kronos.info/avalancheEvent/"
+        () => [
+          {
+            label: "URL",
+            url: "https://www.lola-kronos.info/avalancheEvent/" + obs.uuId,
+          },
+        ]
       )
     ),
     ...kronos.lolaEvaluation.map((obs) =>
@@ -318,14 +322,19 @@ export function convertLoLaKronos(
           : obs.lolaApplication === "natlefs"
           ? ObservationSource.NatlefsEvaluation
           : undefined,
-        "https://www.lola-kronos.info/evaluation/"
+        (t) => toLoLaEvaluationTable(obs, t)
       )
     ),
     ...kronos.lolaSimpleObservation.map((obs) =>
       convertLoLaToGeneric(
         obs,
         ObservationSource.AvaObsSimpleObservation, // FIXME
-        "https://www.lola-kronos.info/simpleObservation/"
+        () => [
+          {
+            label: "URL",
+            url: "https://www.lola-kronos.info/simpleObservation/" + obs.uuId,
+          },
+        ]
       )
     ),
     ...kronos.lolaSnowProfile.map((obs) =>
@@ -338,7 +347,12 @@ export function convertLoLaKronos(
           : obs.lolaApplication === "natlefs"
           ? ObservationSource.NatlefsSnowProfile
           : undefined,
-        "https://www.lola-kronos.info/snowProfile/"
+        () => [
+          {
+            label: "URL",
+            url: "https://www.lola-kronos.info/snowProfile/" + obs.uuId,
+          },
+        ]
       )
     ),
   ];
@@ -351,14 +365,11 @@ export function convertLoLaToGeneric(
     | LolaSnowProfile
     | LolaEvaluation,
   $source: ObservationSource,
-  urlPrefix: string
+  $extraDialogRows?: (t: (key: string) => string) => ObservationTableRow[]
 ): GenericObservation {
   return {
     $data: obs,
-    $extraDialogRows: () => [
-      { label: "URL", url: urlPrefix + obs.uuId },
-      // ...Object.entries(obs).map(([label, value]) => ({ label, value })),
-    ],
+    $extraDialogRows,
     $source,
     aspect: (obs as LolaSnowProfile).aspects?.[0],
     authorName: obs.firstName + " " + obs.lastName,
@@ -378,4 +389,134 @@ export function convertLoLaToGeneric(
     ).lng,
     region: obs.regionName,
   };
+}
+
+export function toLoLaEvaluationTable(
+  obs: LolaEvaluation,
+  t: (key: string) => string
+): ObservationTableRow[] {
+  return [
+    {
+      label: "URL",
+      url: "https://www.lola-kronos.info/evaluation/" + obs.uuId,
+    },
+    {
+      label: "avalanchePotential",
+      value: obs.avalanchePotential,
+    },
+    {
+      label: "dangerPatterns",
+      value: obs.dangerPatterns.join(),
+    },
+    {
+      label: "dangerSigns",
+      value: obs.dangerSigns.join(),
+    },
+    {
+      label: "firstAssessment",
+      value: obs.firstAssessment,
+    },
+    {
+      label: "freshSnowProblem",
+      value: formatProblem(obs.freshSnowProblem),
+    },
+    {
+      label: "glidingAvalanche",
+      value: formatAvalanche(obs.glidingAvalanche),
+    },
+    {
+      label: "glidingSnowProblem",
+      value: formatProblem(obs.glidingSnowProblem),
+    },
+    {
+      label: "latency",
+      value: obs.latency,
+    },
+    {
+      label: "loadCapacity",
+      value: obs.loadCapacity,
+    },
+    {
+      label: "looseSnowAvalanche",
+      value: formatAvalanche(obs.looseSnowAvalanche),
+    },
+    {
+      label: "measures",
+      value: obs.measures.join(),
+    },
+    {
+      label: "measuresComment",
+      value: obs.measuresComment,
+    },
+    {
+      label: "persistentWeakLayersProblem",
+      value: formatProblem(obs.persistentWeakLayersProblem),
+    },
+    {
+      label: "personsObjectsInDanger",
+      value: obs.personsObjectsInDanger,
+    },
+    {
+      label: "slabAvalanche",
+      value: formatAvalanche(obs.slabAvalanche),
+    },
+    {
+      label: "snowQualitySkifun",
+      value: obs.snowQualitySkifun,
+    },
+    {
+      label: "snowStabilityTests",
+      value: formatSnowStabilityTests(obs.snowStabilityTests),
+    },
+    {
+      label: "snowSurface",
+      value: obs.snowSurface.join(),
+    },
+    {
+      label: "snowSurfaceTemperatur",
+      value: obs.snowSurfaceTemperatur,
+    },
+    {
+      label: "surfaceCharacteristic",
+      value: obs.surfaceCharacteristic,
+    },
+    {
+      label: "surfaceWetness",
+      value: obs.surfaceWetness,
+    },
+    {
+      label: "traces",
+      value: obs.traces,
+    },
+    {
+      label: "weather",
+      value: formatWeather(obs.weather),
+    },
+    {
+      label: "wetSnowProblem",
+      value: formatProblem(obs.wetSnowProblem),
+    },
+    {
+      label: "windDriftetSnowProblem",
+      value: formatProblem(obs.windDriftetSnowProblem),
+    },
+  ].filter(
+    ({ url, value }) => url || (value && value !== "null" && value !== "n/a" && value !== "[]")
+  );
+}
+
+function formatAvalanche(avalanche: Avalanche) {
+  return JSON.stringify(avalanche, undefined, 2);
+}
+
+function formatProblem(problem: Problem) {
+  return JSON.stringify(problem, undefined, 2);
+}
+
+function formatSnowStabilityTests(snowStabilityTests: SnowStabilityTest[]) {
+  return JSON.stringify(snowStabilityTests, undefined, 2);
+}
+
+function formatWeather(weather: Weather) {
+  return JSON.stringify(weather, undefined, 2);
 }
