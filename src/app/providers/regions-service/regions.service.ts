@@ -37,10 +37,23 @@ import { isMarkerInsidePolygon } from "./isMarkerInsidePolygon";
 export class RegionsService {
   euregioGeoJSON: L.GeoJSON;
 
+  // TODO define level 1 regions
+  level1: string[] = ["IT-32-BZ-01", "IT-32-BZ-02", "IT-32-BZ-03", "IT-32-BZ-04", "IT-32-BZ-05", "IT-32-BZ-06"]; 
+  // TODO define level 2 regions
+  level2: string[] = ["IT-32-BZ-01", "IT-32-BZ-02", "IT-32-BZ-03", "IT-32-BZ-04", "IT-32-BZ-05", "IT-32-BZ-06", "IT-32-BZ-07", "IT-32-BZ-08", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-11"]; 
+
   constructor(private translateService: TranslateService) {
     this.translateAllNames();
     this.translateService.onLangChange.subscribe(() => this.translateAllNames());
     this.euregioGeoJSON = L.geoJSON(this.getRegionsEuregio());
+  }
+
+  getLevel1Regions(id) {
+    return this.level1;
+  }
+
+  getLevel2Regions(id) {
+    return this.level2;
   }
 
   getRegionsEuregio(): FeatureCollection<MultiPolygon, RegionProperties> {

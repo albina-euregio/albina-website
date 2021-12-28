@@ -107,7 +107,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: L.geoJSON(this.regionsService.getRegionsEuregio(), {
-          onEachFeature: this.onEachFeature
+          onEachFeature: this.onEachFeatureClosure(this.overlayMaps, this.regionsService)
         }),
 
         // overlay to show aggregated regions
@@ -125,7 +125,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: L.geoJSON(this.regionsService.getRegionsEuregio(), {
-          onEachFeature: this.onEachFeature
+          onEachFeature: this.onEachFeatureClosure(this.overlayMaps, this.regionsService)
         }),
 
         // overlay to show aggregated regions
@@ -171,7 +171,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: L.geoJSON(this.regionsService.getRegionsAran(), {
-          onEachFeature: this.onEachFeature
+          onEachFeature: this.onEachFeatureClosure(this.overlayMaps, this.regionsService)
         }),
 
         // overlay to show aggregated regions
@@ -189,7 +189,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: L.geoJSON(this.regionsService.getRegionsAran(), {
-          onEachFeature: this.onEachFeature
+          onEachFeature: this.onEachFeatureClosure(this.overlayMaps, this.regionsService)
         }),
 
         // overlay to show aggregated regions
@@ -461,6 +461,8 @@ export class MapService {
 
     this.map.addLayer(this.overlayMaps.editSelection);
 
+    // TODO: add buttons for Level 1 and Level 2
+
     for (const entry of this.overlayMaps.editSelection.getLayers()) {
       for (const region of bulletin.savedRegions) {
         if (entry.feature.properties.id === region) {
@@ -576,41 +578,72 @@ export class MapService {
     }
   }
 
-  private onEachFeature(feature, layer) {
-    layer.on({
-      click: function(e) {
-        if (feature.properties.selected && feature.properties.selected === true) {
-          feature.properties.selected = false;
-          // TODO use constantsService
-          layer.setStyle({ fillColor: "#000000", fillOpacity: 0.0 });
-        } else {
-          feature.properties.selected = true;
-          // TODO use constantsService
-          layer.setStyle({ fillColor: "#3852A4", fillOpacity: 0.5 });
+  private onEachFeatureClosure(overlayMaps, regionsService) {
+    return function onEachFeature(feature, layer) {
+      layer.on({
+        click: function(e) {
+          if (feature.properties.selected && feature.properties.selected === true) {
+            if (e.originalEvent.shiftKey) {
+              const regions = regionsService.getLevel1Regions(feature.properties.id);
+              for (const entry of overlayMaps.editSelection.getLayers()) {
+                if (regions.includes(entry.feature.properties.id)) {
+                  console.log(entry);
+                  debugger
+                  entry.feature.properties.selected = false;
+                  entry.setStyle({ fillColor: "#000000", fillOpacity: 0.0 });
+                }
+              }
+            } else if (e.originalEvent.altKey) {
+              const regions = regionsService.getLevel2Regions(feature.properties.id);
+              for (const entry of overlayMaps.editSelection.getLayers()) {
+                debugger
+                if (regions.includes(entry.feature.properties.id)) {
+                  console.log(entry);
+                  debugger
+                  entry.feature.properties.selected = false;
+                  entry.setStyle({ fillColor: "#000000", fillOpacity: 0.0 });
+                }
+              }
+            } else {
+              feature.properties.selected = false;
+            }
+            // TODO use constantsService
+            layer.setStyle({ fillColor: "#000000", fillOpacity: 0.0 });
+            console.log("SHIFT: " + e.originalEvent.shiftKey);
+            console.log("CTRL: " + e.originalEvent.ctrlKey);
+            console.log("ALT: " + e.originalEvent.altKey);
+          } else {
+            feature.properties.selected = true;
+            // TODO use constantsService
+            layer.setStyle({ fillColor: "#3852A4", fillOpacity: 0.5 });
+            console.log("SHIFT: " + e.originalEvent.shiftKey);
+            console.log("CTRL: " + e.originalEvent.ctrlKey);
+            console.log("ALT: " + e.originalEvent.altKey);
+          }
+        },
+        mouseover: function(e) {
+          // TODO get current language
+           e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
+          const l = e.target;
+          l.setStyle({
+            weight: 3
+          });
+          if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
+            l.bringToFront();
+          }
+        },
+        mouseout: function(e) {
+          e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = " ";
+          const l = e.target;
+          l.setStyle({
+            weight: 1
+          });
+          if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
+            l.bringToFront();
+          }
         }
-      },
-      mouseover: function(e) {
-        // TODO get current language
-         e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
-        const l = e.target;
-        l.setStyle({
-          weight: 3
-        });
-        if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
-          l.bringToFront();
-        }
-      },
-      mouseout: function(e) {
-        e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = " ";
-        const l = e.target;
-        l.setStyle({
-          weight: 1
-        });
-        if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
-          l.bringToFront();
-        }
-      }
-    });
+      });
+    }
   }
 
   private onEachAggregatedRegionsFeatureAM(feature, layer) {
