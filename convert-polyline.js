@@ -117,7 +117,7 @@ const eawsRegions = [
   "DE-BY",
   "ES-CT-L",
   "FR",
-  // "GB",
+  "GB",
   "IT-21",
   "IT-23",
   "IT-25",
@@ -140,7 +140,9 @@ encodeFiles(
 eawsRegions.forEach(region =>
   encodeFiles(
     [
-      `eaws-regions/public/micro-regions_elevation/${region}_micro-regions_elevation.geojson.json`
+      region === "GB"
+        ? `eaws-regions/public/micro-regions/${region}_micro-regions.geojson.json`
+        : `eaws-regions/public/micro-regions_elevation/${region}_micro-regions_elevation.geojson.json`
     ],
     `app/stores/micro-regions_elevation/${region}_micro-regions_elevation.polyline.json`
   )
