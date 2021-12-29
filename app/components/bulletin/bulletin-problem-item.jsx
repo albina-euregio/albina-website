@@ -20,7 +20,86 @@ class BulletinProblemItem extends React.Component {
   getElevationIcon() {
     const lowerBound = this.props.problem?.dangerRating?.elevation?.lowerBound;
     const upperBound = this.props.problem?.dangerRating?.elevation?.upperBound;
-    if (lowerBound === "treeline") {
+
+    if (lowerBound && upperBound) {
+      if (lowerBound === "treeline") {
+        if (upperBound === "treeline") {
+          // from treeline to treeline, should not happen
+          return (
+            <ElevationIcon
+              elevation={[]}
+              text={this.props.intl.formatMessage({
+                id: "bulletin:report:problem:elevation:between:treeline-treeline"
+              })}
+              where={"middle"}
+              title={this.props.intl.formatMessage({
+                id: "bulletin:report:problem:elevation:between:treeline-treeline:hover"
+              })}
+            />
+          );
+        } else {
+          // from treeline to upper
+          return (
+            <ElevationIcon
+              elevation={[]}
+              text={this.props.intl.formatMessage(
+                { id: "bulletin:report:problem:elevation:between:treeline-m" },
+                {
+                  elevationHigh: upperBound
+                }
+              )}
+              where={"middle"}
+              title={this.props.intl.formatMessage(
+                {
+                  id: "bulletin:report:problem:elevation:between:treeline-m:hover"
+                },
+                {
+                  elevationHigh: upperBound
+                }
+              )}
+            />
+          );
+        }
+      } else if (upperBound === "treeline") {
+        // from lower to treeline
+        return (
+          <ElevationIcon
+            elevation={[]}
+            text={this.props.intl.formatMessage(
+              { id: "bulletin:report:problem:elevation:between:m-treeline" },
+              {
+                elevationLow: lowerBound
+              }
+            )}
+            where={"middle"}
+            title={this.props.intl.formatMessage(
+              {
+                id: "bulletin:report:problem:elevation:between:m-treeline:hover"
+              },
+              {
+                elevationLow: lowerBound
+              }
+            )}
+          />
+        );
+      } else {
+        // from lower to upper
+        return (
+          <ElevationIcon
+            elevation={[lowerBound, upperBound]}
+            text={`${lowerBound}–${upperBound}m`}
+            where={"middle"}
+            title={this.props.intl.formatMessage(
+              { id: "bulletin:report:problem:elevation:between:m-m:hover" },
+              {
+                elevationLow: lowerBound,
+                elevationHigh: upperBound
+              }
+            )}
+          />
+        );
+      }
+    } else if (lowerBound === "treeline") {
       return (
         <ElevationIcon
           elevation={[]}
@@ -29,7 +108,7 @@ class BulletinProblemItem extends React.Component {
           })}
           where={"above"}
           title={this.props.intl.formatMessage({
-            id: "bulletin:report:problem-treeline:hover"
+            id: "bulletin:report:problem:elevation:above:treeline:hover"
           })}
         />
       );
@@ -42,23 +121,8 @@ class BulletinProblemItem extends React.Component {
           })}
           where={"below"}
           title={this.props.intl.formatMessage({
-            id: "bulletin:report:problem-treeline-below:hover"
+            id: "bulletin:report:problem:elevation:below:treeline:hover"
           })}
-        />
-      );
-    } else if (lowerBound && upperBound) {
-      return (
-        <ElevationIcon
-          elevation={[lowerBound, upperBound]}
-          text={`${lowerBound}–${upperBound}m`}
-          where={"middle"}
-          title={this.props.intl.formatMessage(
-            { id: "bulletin:report:problem-at:hover" },
-            {
-              elevLow: lowerBound,
-              elevHigh: upperBound
-            }
-          )}
         />
       );
     } else if (lowerBound) {
@@ -68,8 +132,8 @@ class BulletinProblemItem extends React.Component {
           text={`${lowerBound}m`}
           where={"above"}
           title={this.props.intl.formatMessage(
-            { id: "bulletin:report:problem-above:hover" },
-            { elev: lowerBound }
+            { id: "bulletin:report:problem:elevation:above:m:hover" },
+            { elevationLow: lowerBound }
           )}
         />
       );
@@ -80,8 +144,8 @@ class BulletinProblemItem extends React.Component {
           text={`${upperBound}m`}
           where={"below"}
           title={this.props.intl.formatMessage(
-            { id: "bulletin:report:problem-below:hover" },
-            { elev: upperBound }
+            { id: "bulletin:report:problem:elevation:below:m:hover" },
+            { elevationHigh: upperBound }
           )}
         />
       );
@@ -92,7 +156,7 @@ class BulletinProblemItem extends React.Component {
           text={this.elevationText}
           where={"all"}
           title={this.props.intl.formatMessage({
-            id: "bulletin:report:problem-all-elevations:hover"
+            id: "bulletin:report:problem:elevation:all:hover"
           })}
         />
       );
