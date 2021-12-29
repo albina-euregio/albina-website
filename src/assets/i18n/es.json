@@ -46,19 +46,19 @@
   },
   "bulletins" : {
     "title" : "Avalanche.report",
-    "loadingPreview" : "Creating PDF preview ...",
+    "loadingPreview" : "Creando vista previa en PDF ...",
     "tooltip" : {
       "publish" : "Publicar y actualizar el boletín de inmediato",
       "submit" : "Enviar boletín",
       "copy" : "Copiar boletín",
-      "cancel" : "Cancel copy",
+      "cancel" : "Cancelar copia",
       "paste" : "Pegar boletín",
       "update" : "Crear actualización de boletín",
       "caaml" : "Muestra CAAML",
       "json" : "Muestra JSON",
       "edit" : "Edita boletín (no se publicará de nuevo)",
       "create" : "Crea boletín",
-      "preview" : "Preview bulletin (PDF)",
+      "preview" : "Vista previa del boletín (PDF)",
       "check" : "Comprobar boletín",
       "info" : "Muestra estado de la publicación",
       "publishAll" : "Publicar todas las regiones"
@@ -75,8 +75,8 @@
         "saveBulletin" : "Guarda el boletín",
         "discardBulletin" : "Descarta los cambios del boletín",
         "loadBulletin" : "Carga el boletín del día anterior",
-        "uploadJsonBulletin" : "Upload bulletin in JSON format",
-        "downloadJsonBulletin" : "Download bulletin in JSON format",
+        "uploadJsonBulletin" : "Subir el boletín en formato JSON",
+        "downloadJsonBulletin" : "Descargar el boletín en formato JSON",
         "daytimeDependency" : "Dependencia diurna",
         "treeline" : "Límite superior del bosque",
         "tendency" : {
@@ -107,8 +107,8 @@
       "discard" : "Descartar",
       "back" : "Volver",
       "createAggregatedRegion" : "Nueva región",
-      "pasteAggregatedRegion" : " Paste region",
-      "cancelCopyBulletin" : " Cancel",
+      "pasteAggregatedRegion" : "Pegar región",
+      "cancelCopyBulletin" : " Cancelar",
       "createAvalancheSituation" : "Nuevo problema",
       "ownRegions" : "Regiones propias",
       "foreignRegions": "Regiones extranjeras",
@@ -182,7 +182,7 @@
         "accept" : "De acuerdo"
       },
       "loadingJsonFileErrorDialog" : {
-        "message" : "There was an error loading the bulletins from the JSON file!",
+        "message" : "¡Hubo un error al cargar los boletines desde el archivo JSON!",
         "accept" : "De acuerdo"
       },
       "avalancheSituationErrorDialog" : {
@@ -298,7 +298,7 @@
         "accept" : "De acuerdo"
       },
       "previewErrorDialog" : {
-        "message" : "Preview could not be loaded!",
+        "message" : "¡No se pudo cargar la vista previa!",
         "accept" : "De acuerdo"
       },
       "checkBulletinsDialog" : {
@@ -344,7 +344,7 @@
     }
   },
   "admin" : {
-    "loadingStatistics" : "Creating CSV ...",
+    "loadingStatistics" : "Creando CSV ...",
     "server-configuration" : {
       "title" : "Configuración del servidor",
       "table" : {
@@ -381,78 +381,78 @@
       "error" : "No se puede guardar la configuración"
     },
     "users" : {
-      "title" : "Users",
+      "title" : "Usuarios",
       "button" : {
-        "create" : "Create user"
+        "create" : "Crear usuario"
       },
       "tooltip" : {
-        "edit" : "Edit user",
-        "delete" : "Delete user"
+        "edit" : "Editar usuario",
+        "delete" : "Eliminar usuario"
       },
       "table" : {
-        "name" : "Name",
+        "name" : "Nombre",
         "email" : "Email",
-        "organization" : "Organization",
-        "regions" : "Regions",
+        "organization" : "Organización",
+        "regions" : "Regiones",
         "roles" : "Roles"
       },
       "deleteUserModalDialog" : {
-        "message" : "Do you want to delete the user?",
+        "message" : "¿Quieres eliminar al usuario?",
         "accept" : "Si",
         "reject" : "No"
       },
       "deleteUser" : {
-        "success" : "User deleted",
-        "error" : "User could not be deleted"
+        "success" : "Usuario eliminado",
+        "error" : "El usuario no pudo ser eliminado"
       },
       "createUser" : {
-        "success" : "User created",
-        "error" : "User could not be created"
+        "success" : "Usuario creado",
+        "error" : "No se pudo crear el usuario"
       },
       "updateUser" : {
-        "success" : "User updated",
-        "error" : "User could not be updated"
+        "success" : "Usuario actualizado",
+        "error" : "El usuario no pudo ser actualizado"
       }
     },
     "createUser" : {
       "table" : {
-        "name" : "Name",
+        "name" : "Nombre",
         "email" : "Email",
-        "organization" : "Organization",
+        "organization" : "Organización",
         "password" : "Password",
-        "password2" : "Repeat password",
+        "password2" : "Repetir password",
         "roles" : "Roles",
-        "regions" : "Regions"
+        "regions" : "Regiones"
       },
       "error" : {
         "name" : {
-          "required" : "Please enter a name"
+          "required" : "Por favor ingrese un nombre"
         },
         "email" : {
-          "required" : "Please enter an email address",
-          "invalid" : "Email address is invalid"
+          "required" : "Por favor introduzca una dirección de correo eléctronico",
+          "invalid" : "La dirección de correo electrónico es inválida"
         },
         "password" : {
-          "required" : "Please enter a password",
-          "length" : "Password has to be at least 8 characters",
-          "mismatch" : "Passwords do not match"
+          "required" : "Por favor introduzca un password",
+          "length" : "La contraseña debe tener al menos 8 caracteres",
+          "mismatch" : "Las contraseñas no coinciden"
         }
       },
       "button" : {
-        "create" : "Create user",
-        "update" : "Update user",
+        "create" : "Crear usuario",
+        "update" : "Actualizar usuario",
         "cancel" : "Cancelar"
       }  
     },
     "statistics" : {
-      "title" : "Statistics",
+      "title" : "Estadisticas",
       "button" : {
         "submit" : "Descargar"
       },
       "label" : {
-        "dateRange" : "Period",
-        "extended" : "Extended",
-        "duplicates" : "Duplicates"
+        "dateRange" : "Periodo",
+        "extended" : "Extensión",
+        "duplicates" : "Duplicados"
       }
     },
     "observations" : {
@@ -461,8 +461,8 @@
         "submit" : "Descargar"
       },
       "label" : {
-        "dateRange" : "Period",
-        "observer" : "Observer"
+        "dateRange" : "Periodo",
+        "observer" : "Observador"
       }
     }
   },
@@ -478,20 +478,20 @@
         "placeholder" : "Nueva contraseña"
       },
       "newPassword2" : {
-        "label" : "New password (repeat)",
+        "label" : "Nuevo password (repetir)",
         "placeholder" : "Nueva contraseña"
       },
       "submit" : "Canvia la contraseña",
       "passwordChanged" : "Contraseña cambiada con éxito",
       "passwordChangeError" : "La contraseña no se ha podido cambiar",
-      "passwordIncorrect" : "Current password incorrect",
+      "passwordIncorrect" : "Contraseña actual incorrecta",
       "error" : {
         "oldPassword" : {
           "required" : "Por favor, introduce tu contraseña actual"
         },
         "newPassword" : {
           "required" : "Por favor, introduce una nueva contraseña",
-          "mismatch" : "Passwords do not match"
+          "mismatch" : "Las contraseñas no coinciden"
         }
       }
     },
@@ -544,10 +544,10 @@
     "NW" : "NW"
   },
   "role" : {
-    "ADMIN" : "Administrator",
-    "FORECASTER" : "Forecaster",
-    "FOREMAN" : "Foreman",
-    "OBSERVER" : "Observer"
+    "ADMIN" : "Administrador",
+    "FORECASTER" : "Predictor",
+    "FOREMAN" : "Jefe",
+    "OBSERVER" : "Observador"
   },
   "region" : {
     "AT-07" : "Tyrol",

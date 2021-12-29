@@ -46,19 +46,19 @@
   },
   "bulletins" : {
     "title" : "Avalanche.report",
-    "loadingPreview" : "Creating PDF preview ...",
+    "loadingPreview" : "Creant ua vista prèvia de PDF...",
     "tooltip" : {
       "publish" : "Publicar immediataments eth bulletin actualizat",
       "submit" : "Enviar bulletin",
       "copy" : "Copiar bulletin",
-      "cancel" : "Cancel copy",
+      "cancel" : "Cancelar copia",
       "paste" : "Colar bulletin",
       "update" : "Crear actualizacion deth bulletin",
       "caaml" : "Mostrar CAAML",
       "json" : "Mostrar JSON",
       "edit" : "Editar bulletin (non se tornarà a publicar)",
       "create" : "Crear bulletin",
-      "preview" : "Preview bulletin (PDF)",
+      "preview" : "Vista previa deth bulletin (PDF)",
       "check" : "Verificar bulletin",
       "info" : "Mostrar er estat de publicacion",
       "publishAll" : "Publicar totes es regions"
@@ -75,8 +75,8 @@
         "saveBulletin" : "Sauvar bulletin",
         "discardBulletin" : "Escartar cambiaments deth bulletin",
         "loadBulletin" : "Cargar bulletin deth dia anterior",
-        "uploadJsonBulletin" : "Upload bulletin in JSON format",
-        "downloadJsonBulletin" : "Download bulletin in JSON format",
+        "uploadJsonBulletin" : "Cargar eth bulletin en format JSON",
+        "downloadJsonBulletin" : "Descargar eth bulletin en format JSON",
         "daytimeDependency" : "Dependéncia ora deth dia",
         "treeline" : "Limit deth bòsc",
         "tendency" : {
@@ -107,8 +107,8 @@
       "discard" : "Escartar",
       "back" : "Endarrere",
       "createAggregatedRegion" : "Naua region",
-      "pasteAggregatedRegion" : " Paste region",
-      "cancelCopyBulletin" : " Cancel",
+      "pasteAggregatedRegion" : "Enganchar era region",
+      "cancelCopyBulletin" : " Cancelar",
       "createAvalancheSituation" : "Nau problèma",
       "ownRegions" : "Regions pròprias",
       "foreignRegions": "Regions estrangères",
@@ -182,7 +182,7 @@
         "accept" : "D'acòrd"
       },
       "loadingJsonFileErrorDialog" : {
-        "message" : "There was an error loading the bulletins from the JSON file!",
+        "message" : "S'a produsit un error en cargar es bulletins dempús deth fichèr JSON!",
         "accept" : "D'acòrd"
       },
       "avalancheSituationErrorDialog" : {
@@ -298,7 +298,7 @@
         "accept" : "d'acòrd"
       },
       "previewErrorDialog" : {
-        "message" : "Preview could not be loaded!",
+        "message" : "Non s'a pogut cargar era vista prèvia!",
         "accept" : "D'acòrd"
       },
       "checkBulletinsDialog" : {
@@ -344,7 +344,7 @@
     }
   },
   "admin" : {
-    "loadingStatistics" : "Creating CSV ...",
+    "loadingStatistics" : "Creant eth CSV ...",
     "server-configuration" : {
       "title" : "Configuracion deth servidor",
       "table" : {
@@ -381,78 +381,78 @@
       "error" : "Non s'a pogut sauvar era configuracion"
     },
     "users" : {
-      "title" : "Users",
+      "title" : "Usuaris",
       "button" : {
-        "create" : "Create user"
+        "create" : "Crear usuari"
       },
       "tooltip" : {
-        "edit" : "Edit user",
-        "delete" : "Delete user"
+        "edit" : "Editar usuari",
+        "delete" : "Eliminar usuari"
       },
       "table" : {
-        "name" : "Name",
+        "name" : "Nòm",
         "email" : "Corrèu electronic",
-        "organization" : "Organization",
+        "organization" : "Organizacion",
         "regions" : "Regions",
-        "roles" : "Roles"
+        "roles" : "Ròtles"
       },
       "deleteUserModalDialog" : {
-        "message" : "Do you want to delete the user?",
+        "message" : "Voletz eliminar er usatgèr?",
         "accept" : "Òc",
         "reject" : "Non"
       },
       "deleteUser" : {
-        "success" : "User deleted",
-        "error" : "User could not be deleted"
+        "success" : "Usatgèr eliminat",
+        "error" : "Er usatgèr non a pogut èster eliminat"
       },
       "createUser" : {
-        "success" : "User created",
-        "error" : "User could not be created"
+        "success" : "Usatgèr creat",
+        "error" : "Non s'a pogut crear er usatgèr"
       },
       "updateUser" : {
-        "success" : "User updated",
-        "error" : "User could not be updated"
+        "success" : "Usatgèr actualizat",
+        "error" : "Er usatgèr non s'a pogut actualizar"
       }
     },
     "createUser" : {
       "table" : {
-        "name" : "Name",
+        "name" : "Nòm",
         "email" : "Corrèu electronic",
-        "organization" : "Organization",
+        "organization" : "Organizacion",
         "password" : "Password",
-        "password2" : "Repeat password",
-        "roles" : "Roles",
+        "password2" : "Repetir password",
+        "roles" : "Ròtles",
         "regions" : "Regions"
       },
       "error" : {
         "name" : {
-          "required" : "Please enter a name"
+          "required" : "Introduir un nòm"
         },
         "email" : {
-          "required" : "Please enter an email address",
-          "invalid" : "Email address is invalid"
+          "required" : "Introduir ua adreça de corrèu electronic",
+          "invalid" : "Era adreça electronica non ei valida"
         },
         "password" : {
-          "required" : "Please enter a password",
-          "length" : "Password has to be at least 8 characters",
-          "mismatch" : "Passwords do not match"
+          "required" : "Introduir ua contrasenha",
+          "length" : "Era contrasenha a d'auer aumens 8 caracters",
+          "mismatch" : "Es contrasenhes non coïncidissen"
         }
       },
       "button" : {
-        "create" : "Create user",
-        "update" : "Update user",
+        "create" : "Crear usuari",
+        "update" : "Actualizar usatgèr",
         "cancel" : "Anullar"
       }  
     },
     "statistics" : {
-      "title" : "Statistics",
+      "title" : "Estadístiques",
       "button" : {
         "submit" : "Descargar"
       },
       "label" : {
-        "dateRange" : "Period",
-        "extended" : "Extended",
-        "duplicates" : "Duplicates"
+        "dateRange" : "Periòde",
+        "extended" : "Estenuda",
+        "duplicates" : "Duplicats"
       }
     },
     "observations" : {
@@ -461,8 +461,8 @@
         "submit" : "Descargar"
       },
       "label" : {
-        "dateRange" : "Period",
-        "observer" : "Observer"
+        "dateRange" : "Periòde",
+        "observer" : "Observador"
       }
     }
   },
@@ -478,20 +478,20 @@
         "placeholder" : "Naua contrasenya"
       },
       "newPassword2" : {
-        "label" : "New password (repeat)",
+        "label" : "Contrasenha naua (repetir)",
         "placeholder" : "Naua contrasenya"
       },
       "submit" : "Cambiar contrasenya",
       "passwordChanged" : "Contrasenya cambiada corrèctaments",
       "passwordChangeError" : "Non s'a pogut cambiar era contrasenya",
-      "passwordIncorrect" : "Current password incorrect",
+      "passwordIncorrect" : "Era contrasenha actuau ei incorrècta",
       "error" : {
         "oldPassword" : {
           "required" : "Se te platz, entre era tua contrasenya actuau"
         },
         "newPassword" : {
           "required" : "Se te platz, entre ua naua contrasenya",
-          "mismatch" : "Passwords do not match"
+          "mismatch" : "Es contrasenhes non coïncidissen"
         }
       }
     },
@@ -544,10 +544,10 @@
     "NW" : "NW"
   },
   "role" : {
-    "ADMIN" : "Administrator",
-    "FORECASTER" : "Forecaster",
-    "FOREMAN" : "Foreman",
-    "OBSERVER" : "Observer"
+    "ADMIN" : "Administrador",
+    "FORECASTER" : "Predictor",
+    "FOREMAN" : "Cap",
+    "OBSERVER" : "Observador"
   },
   "region" : {
     "AT-07" : "Tiròl",
