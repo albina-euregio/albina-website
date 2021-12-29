@@ -634,3 +634,10 @@ a.weather-map-details-button {
 //   right: 10px;
 //   width: 150px;
 //}
+
+.station-icon-cluster-circle {
+  display: none;
+}
+.leaflet-cluster-marker .station-icon-cluster-circle {
+  display: unset;
+}
