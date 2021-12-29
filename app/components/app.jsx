@@ -28,6 +28,7 @@ import { scroll_init } from "../js/scroll";
 import { orientation_change } from "../js/browser";
 
 import "../css/style.scss"; // CSS overrides
+import "tippy.js/dist/tippy.css";
 
 class App extends React.Component {
   componentDidMount() {

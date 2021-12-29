@@ -1,41 +1,31 @@
 import React from "react";
 
-export default class ElevationIcon extends React.Component {
-  imgRoot;
-  icons;
+export default React.forwardRef(function ElevationIcon(props, ref) {
+  const imgRoot = window.config.projectRoot + "images/pro/warning-pictos/";
+  const imgFormat = window.config.webp ? ".webp" : ".png";
+  const icons = {
+    above: "levels_above" + imgFormat,
+    below: "levels_below" + imgFormat,
+    all: "levels_all" + imgFormat,
+    middle: "levels_middle" + imgFormat
+  };
+  const classes = [
+    "bulletin-report-picto",
+    "problem-altitude",
+    "tooltip",
+    "problem-" + props.where
+  ];
+  const src = imgRoot + icons[props.where];
 
-  constructor(props) {
-    super(props);
-
-    this.imgRoot = window.config.projectRoot + "images/pro/warning-pictos/";
-    this.imgFormat = window.config.webp ? ".webp" : ".png";
-    this.icons = {
-      above: "levels_above" + this.imgFormat,
-      below: "levels_below" + this.imgFormat,
-      all: "levels_all" + this.imgFormat,
-      middle: "levels_middle" + this.imgFormat
-    };
-  }
-
-  render() {
-    const classes = [
-      "bulletin-report-picto",
-      "problem-altitude",
-      "tooltip",
-      "problem-" + this.props.where
-    ];
-    const src = this.imgRoot + this.icons[this.props.where];
-
-    return (
-      <div className={classes.join(" ")} title={this.props.title}>
-        <img src={src} alt={this.props.title} />
-        {this.props.where != "all" && (
-          <span>
-            {this.props.text}
-            <i className="icon" />
-          </span>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div ref={ref} className={classes.join(" ")} title={props.title}>
+      <img src={src} alt={props.title} />
+      {props.where != "all" && (
+        <span>
+          {props.text}
+          <i className="icon" />
+        </span>
+      )}
+    </div>
+  );
+});
