@@ -2,7 +2,6 @@ import React from "react";
 import Cluster from "../leaflet/cluster";
 import StationMarker from "../leaflet/station-marker";
 import ClusterSelectedMarker from "../leaflet/cluster-selected-marker";
-import { tooltip_init } from "../../js/tooltip";
 
 class StationOverlay extends React.Component {
   constructor(props) {
@@ -97,8 +96,7 @@ class StationOverlay extends React.Component {
         itemId={this.props.itemId}
         data={markerData}
         stationId={data.id}
-        stationName={data.name}
-        className="tooltip"
+        tooltip={data.name}
         coordinates={coordinates}
         iconAnchor={[12.5, 12.5]}
         value={value}
@@ -131,22 +129,14 @@ class StationOverlay extends React.Component {
     );
   }
 
-  init_tooltip() {
-    window.setTimeout(() => {
-      tooltip_init();
-    }, 100);
-  }
-
   componentDidMount() {
     //console.log("StationOverlay->componentDidMount ddd", this.props.onLoad);
     if (this.props.onLoad) this.props.onLoad();
-    this.init_tooltip();
   }
 
   componentDidUpdate() {
     //console.log("StationOverlay->componentDidUpdate ggg", this.props.onLoad);
     if (this.props.onLoad) this.props.onLoad();
-    this.init_tooltip();
   }
 
   render() {
@@ -167,6 +157,7 @@ class StationOverlay extends React.Component {
       <div>
         <Cluster
           item={this.props.item}
+          tooltip={true}
           spiderfiedMarkers={this.handleSpiderfiedMarkers}
           onActiveMarkerPositionUpdate={this.handleActiveMarkerPositionUpdate}
           // onMarkerSelected={this.props.onMarkerSelected}
