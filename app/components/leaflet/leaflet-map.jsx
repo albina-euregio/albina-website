@@ -140,12 +140,6 @@ class LeafletMap extends React.Component {
   _init_tooltip() {
     window.setTimeout(() => {
       // console.log("leaflet-map ggg1 update tooltip");
-      $(".leaflet-cluster-marker").prop(
-        "title",
-        this.props.intl.formatMessage({
-          id: "station-overlay:cluster:title"
-        })
-      );
       $(".leaflet-control-zoom a").addClass("tooltip");
       $(".leaflet-control-zoom a").addClass("tooltip");
       $(".leaflet-control-locate a").addClass("tooltip");

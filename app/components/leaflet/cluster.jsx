@@ -29,9 +29,17 @@ class Cluster extends MapLayer {
   createClusterIcon(cluster) {
     const activeMarker = this.getActiveMarker(cluster);
     // reuse the marker's icon
+    if (this.props.tooltip) {
+      cluster.bindTooltip(
+        cluster
+          .getAllChildMarkers()
+          .map(marker => marker?.getTooltip?.()?.getContent?.())
+          .join("<br>")
+      );
+    }
     return L.divIcon({
       ...activeMarker.options.icon.options,
-      className: "leaflet-cluster-marker tooltip"
+      className: "leaflet-cluster-marker"
     });
   }
 
