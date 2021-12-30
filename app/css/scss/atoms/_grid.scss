@@ -16,7 +16,7 @@ $grid-activated: true;
   position: relative;
   margin-bottom: $margin-bottom;
 
-  // T H E   F U C K I N G   F A L L B A C K
+  // T H E   F A L L B A C K
   @include clearfix;
   margin-left: -($grid-gutter-small * 0.5);
   margin-right: -($grid-gutter-small * 0.5);
@@ -36,7 +36,7 @@ $grid-activated: true;
     }
     grid-auto-flow: row;
 
-    // I F   G R I D   U N D O   T H E   F U C K I N G   F A L L B A C K
+    // I F   G R I D   U N D O   T H E   F A L L B A C K
     @supports (display: grid) {
       @include clearfix-undo;
       margin-left: 0;
@@ -49,7 +49,7 @@ $grid-activated: true;
   transition: all ($transition-duration * 2) ease-in-out;
   @include last-child();
 
-  // T H E   F U C K I N G   F A L L B A C K
+  // T H E   F A L L B A C K
   float: left;
   min-height: 1px;
   width: calc(100% - #{$grid-gutter-small});
@@ -66,7 +66,7 @@ $grid-activated: true;
   @if $grid-activated {
     grid-column: span $grid-columns;
 
-    // I F   G R I D   U N D O   T H E   F U C K I N G   F A L L B A C K
+    // I F   G R I D   U N D O   T H E   F A L L B A C K
     @supports (display: grid) {
       float: none;
       min-height: none;
@@ -80,15 +80,15 @@ $grid-activated: true;
   $i: 1;
   @for $i from 1 through $grid-columns {
     .#{$query}-#{$i} {
-      // T H E   F U C K I N G   F A L L B A C K
+      // T H E   F A L L B A C K
       width: calc(
         100% / 12 * #{$i} - #{$grid-gutter-small} - 0.1px
-      ); // - 0.1px because of another fucking IE bug
+      ); // - 0.1px because of another IE bug
 
       @media #{$normal-up} {
         width: calc(
           100% / 12 * #{$i} - #{$grid-gutter} - 0.1px
-        ); // - 0.1px because of another fucking IE bug
+        ); // - 0.1px because of another IE bug
       }
 
       // T H E   G R I D
