@@ -64,10 +64,10 @@ $search-width-wide: 300px;
   width: 100vw;
   overflow: hidden;
   //transition: none !important;
-  .scrolling-down.s-weathermap-2020 & {
-    top: 0;
-    height: $map-height-weather;
-  }
+  // .scrolling-down.s-weathermap-2020 & {
+  //   top: 0;
+  //   height: $map-height-weather;
+  // }
 }
 
 //the maps themselves
@@ -88,9 +88,9 @@ $search-width-wide: 300px;
   .section-weather-map & {
     height: $map-height-weather-when-menu;
     @include rollout;
-    .scrolling-down.s-weathermap-2020 & {
-      height: $map-height-weather;
-    }
+    // .scrolling-down.s-weathermap-2020 & {
+    //   height: $map-height-weather;
+    // }
   }
 }
 
@@ -132,8 +132,8 @@ $search-width-wide: 300px;
 
 //overlays
 .leaflet-pane.leaflet-overlay-pane,
-.leaflet-pane svg,
-.leaflet-pane .leaflet-image-layer {
+.leaflet-pane .leaflet-image-layer,
+.leaflet-pane svg {
   mix-blend-mode: multiply;
 }
 
@@ -554,6 +554,10 @@ $search-width-wide: 300px;
     border: none;
   }
 
+  // .leaflet-marker-pane {
+  //   z-index: 700;
+  // }
+
   .station,
   .gridpoint {
     .direction {
@@ -568,6 +572,14 @@ $search-width-wide: 300px;
   .gridpoint text {
     @include font-bold;
     font-size: 10px;
+  }
+}
+
+//added 202112
+.station-icon-cluster-circle {
+  display: none;
+  .leaflet-cluster-marker & {
+    display: unset;
   }
 }
 
@@ -634,10 +646,3 @@ a.weather-map-details-button {
 //   right: 10px;
 //   width: 150px;
 //}
-
-.station-icon-cluster-circle {
-  display: none;
-}
-.leaflet-cluster-marker .station-icon-cluster-circle {
-  display: unset;
-}
