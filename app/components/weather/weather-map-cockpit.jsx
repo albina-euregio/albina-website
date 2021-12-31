@@ -16,8 +16,9 @@ const DOMAIN_ICON_CLASSES = {
   "snow-height": "icon-snow",
   "new-snow": "icon-snow-new",
   "diff-snow": "icon-snow-diff",
-  wind: "icon-wind",
-  gust: "icon-wind-gust"
+  "snow-line": "icon-snow-drop",
+  wind: "icon-wind"
+  //gust: "icon-wind-gust"
 };
 
 const DOMAIN_LEGEND_CLASSES = {
@@ -25,17 +26,19 @@ const DOMAIN_LEGEND_CLASSES = {
   "snow-height": "cp-legend-snow",
   "new-snow": "cp-legend-snownew",
   "diff-snow": "cp-legend-snowdiff",
-  wind: "cp-legend-wind",
-  gust: "cp-legend-windgust"
+  "snow-line": "cp-legend-snowline",
+  wind: "cp-legend-wind"
+  //gust: "cp-legend-windgust"
 };
 
 const DOMAIN_UNITS = {
   "snow-height": "cm",
   "new-snow": "cm",
   "diff-snow": "cm",
+  "snow-line": "m",
   temp: "°C",
-  wind: "km/h",
-  gust: "km/h"
+  wind: "km/h"
+  //gust: "km/h"
 };
 
 const LOOP = false;
@@ -510,6 +513,19 @@ class WeatherMapCockpit extends React.Component {
     );
   }
 
+  legendItems(amount) {
+    let items = [];
+    for (let i = 1; i <= amount; i++) {
+      items.push(
+        <span
+          key={"cp-legend-item-" + i}
+          className={"cp-legend-item-" + i}
+        ></span>
+      );
+    }
+    return items;
+  }
+
   getLegend() {
     let divClasses = ["cp-legend-items"];
     if (DOMAIN_LEGEND_CLASSES[this.props.domainId])
@@ -517,19 +533,7 @@ class WeatherMapCockpit extends React.Component {
     return (
       <div key="cp-legend" className="cp-legend">
         <div key="cp-legend-items" className={divClasses.join(" ")}>
-          <span key="cp-legend-item-1" className="cp-legend-item-1"></span>
-          <span key="cp-legend-item-2" className="cp-legend-item-2"></span>
-          <span key="cp-legend-item-3" className="cp-legend-item-3"></span>
-          <span key="cp-legend-item-4" className="cp-legend-item-4"></span>
-          <span key="cp-legend-item-5" className="cp-legend-item-5"></span>
-          <span key="cp-legend-item-6" className="cp-legend-item-6"></span>
-          <span key="cp-legend-item-7" className="cp-legend-item-7"></span>
-          <span key="cp-legend-item-8" className="cp-legend-item-8"></span>
-          <span key="cp-legend-item-9" className="cp-legend-item-9"></span>
-          <span key="cp-legend-item-10" className="cp-legend-item-10"></span>
-          <span key="cp-legend-item-11" className="cp-legend-item-11"></span>
-          <span key="cp-legend-item-12" className="cp-legend-item-12"></span>
-          <span key="cp-legend-item-13" className="cp-legend-item-13"></span>
+          {this.legendItems(35)}
         </div>
       </div>
     );

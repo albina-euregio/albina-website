@@ -84,7 +84,12 @@ export default class DataOverlay extends React.Component {
           b: p.data[2]
         });
 
-        //console.log("pixelData", anOverlay.type, p.data, self.overlayCanvases[anOverlay.type]);
+        console.log(
+          "pixelData",
+          anOverlay.type,
+          p.data,
+          self.overlayCanvases[anOverlay.type]
+        );
 
         // if (self.props.debug) {
         //   for (var y = 0; y < p.height; y++) {
@@ -110,7 +115,11 @@ export default class DataOverlay extends React.Component {
     });
 
     return {
-      value: values.temperature ?? values.windSpeed ?? values.snowHeight,
+      value:
+        values.temperature ??
+        values.windSpeed ??
+        values.snowHeight ??
+        values.snowLine,
       direction: values.windDirection
     };
   }

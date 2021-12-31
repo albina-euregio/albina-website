@@ -176,7 +176,10 @@ class Weather extends React.Component {
                   stationDataId={
                     wmStore.domainConfig.timeSpanToDataId[wmStore.timeSpan]
                   }
-                  dataOverlaysEnabled={wmStore.currentTime >= wmStore.agl}
+                  dataOverlaysEnabled={
+                    !wmStore.domainConfig.layer.stations ||
+                    wmStore.currentTime >= wmStore.agl
+                  }
                   rgbToValue={wmStore.valueForPixel}
                   item={wmStore.item}
                   debug={wmStore.config.settings.debugModus}
