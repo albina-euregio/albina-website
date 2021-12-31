@@ -394,7 +394,7 @@ export default class WeatherMapStore_new {
         else res = pixelRGB.r;
         break;
       case "snowLine":
-        console.log("valueForPixel", pixelRGB, pixelRGB.r * 50);
+        // console.log("valueForPixel", pixelRGB, pixelRGB.r * 50);
         if (pixelRGB.r < 0 || pixelRGB.r >= 100) res = null;
         else res = pixelRGB.r * 50;
         break;

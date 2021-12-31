@@ -84,12 +84,12 @@ export default class DataOverlay extends React.Component {
           b: p.data[2]
         });
 
-        console.log(
+        /* console.log(
           "pixelData",
           anOverlay.type,
           p.data,
           self.overlayCanvases[anOverlay.type]
-        );
+        ); */
 
         // if (self.props.debug) {
         //   for (var y = 0; y < p.height; y++) {
