@@ -2,13 +2,11 @@ import tippy, { animateFill } from "tippy.js";
 import "tippy.js/animations/shift-away-subtle.css";
 
 function tooltip_init() {
-  //delete tooltips;
-  console.log("tooltip_init");
+  //delete tooltips
   var tooltips = $(".tooltip").not("[data-tippy]");
   var tooltip_delay, tooltip_theme;
   if (tooltips.length) {
     tooltips.each(function () {
-      console.log("tooltip_init Item", $(this).get(0));
       if ($(this).hasClass("html")) {
         tooltip_delay = 0;
         tooltip_theme = "albina-html"; //"custom-html";
