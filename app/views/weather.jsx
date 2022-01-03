@@ -56,13 +56,10 @@ class Weather extends React.Component {
 
   componentDidMount() {
     $("#page-footer").css({ display: "none" });
-    $("body").addClass("s-weathermap-2020");
-    $("body").addClass("scrolling-down");
   }
 
   componentWillUnmount() {
     $("#page-footer").css({ display: "" });
-    $("body").removeClass("s-weathermap-2020");
   }
 
   onTick() {
