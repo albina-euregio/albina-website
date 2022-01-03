@@ -154,11 +154,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   onObservationClick(observation: GenericObservation): void {
-    const extraRows = observation.$extraDialogRows ? observation.$extraDialogRows((key) => this.translateService.instant(key)) : [];
-    const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
-    const table = [...rows, ...extraRows];
-    const iframe = observation.$externalURL ? this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL) : undefined;
-    this.observationPopup = { observation, table, iframe };
+    if (observation.$externalURL) {
+      const iframe = this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL);
+      this.observationPopup = { observation, table: [], iframe };
+    } else {
+      const extraRows = observation.$extraDialogRows ? observation.$extraDialogRows((key) => this.translateService.instant(key)) : [];
+      const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
+      const table = [...rows, ...extraRows];
+      this.observationPopup = { observation, table, iframe: undefined };
+    }
   }
 
   private inRegions({ region }: GenericObservation) {
