@@ -40,14 +40,6 @@
         <option *ngFor="let region of allRegions" [value]="region.id">{{region.id}} {{region.name}}</option>
     </select>
     </div>
-    <div style="float: left; margin-right: 10px; background: white">
-      <label *ngFor="let source of activeSources | keyvalue" class="form-check-label">
-        <input class="form-check-input" type="checkbox" [(ngModel)]="activeSources[source.key]">
-        <span [style]="{ color: observationColors[source.key] }">█</span>
-        {{source.key}}
-        &mdash;
-      </label>
-    </div>
     <div style="float: right">
       <button
         type="button"
@@ -56,6 +48,14 @@
         (click)="loadObservations()"
         [icon]="loading ? 'pi pi-spin pi-spinner' : 'pi pi-refresh'"
       ></button>
+    </div>
+    <div style="float: left; margin-right: 10px; background: white">
+      <label *ngFor="let source of activeSources | keyvalue" class="form-check-label">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="activeSources[source.key]">
+        <span [style]="{ color: observationColors[source.key] }">█</span>
+        {{source.key}}
+        &mdash;
+      </label>
     </div>
   </div>
 </div>
