@@ -85,7 +85,7 @@ export interface ObservationTableRow {
   number?: number;
   boolean?: boolean;
   url?: string;
-  value?: string | number;
+  value?: string;
 }
 
 export function toObservationTable(observation: GenericObservation, t: (key: string) => string): ObservationTableRow[] {
