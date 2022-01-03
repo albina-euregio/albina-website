@@ -242,14 +242,6 @@
                 "it": "https://www.aineva.it/bollettini"
               }
             ]
-          },
-          {
-            "name": "METEOMONT Carabinieri",
-            "url": [
-              {
-                "it": "https://meteomont.carabinieri.it/home"
-              }
-            ]
           }
         ]
       },
@@ -304,14 +296,6 @@
                 "it": "https://www.aineva.it/bollettini"
               }
             ]
-          },
-          {
-            "name": "METEOMONT Carabinieri",
-            "url": [
-              {
-                "it": "https://meteomont.carabinieri.it/home"
-              }
-            ]
           }
         ]
       },
@@ -330,17 +314,6 @@
         "id": "IT-25-SO-LI",
         "aws": [
           {
-            "name": "ALPSOLUT",
-            "url": [
-              {
-                "en": "https://www.livigno.eu/en/avalanche-bulletin"
-              },
-              {
-                "it": "https://www.livigno.eu/bollettino-valanghe"
-              }
-            ]
-          },
-          {
             "name": "AINEVA",
             "url": [
               {
@@ -348,14 +321,6 @@
               },
               {
                 "it": "https://www.aineva.it/bollettini"
-              }
-            ]
-          },
-          {
-            "name": "METEOMONT Carabinieri",
-            "url": [
-              {
-                "it": "https://meteomont.carabinieri.it/home"
               }
             ]
           }
@@ -382,14 +347,6 @@
               },
               {
                 "it": "https://www.aineva.it/bollettini"
-              }
-            ]
-          },
-          {
-            "name": "METEOMONT Carabinieri",
-            "url": [
-              {
-                "it": "https://meteomont.carabinieri.it/home"
               }
             ]
           }
@@ -440,14 +397,6 @@
               },
               {
                 "it": "https://www.aineva.it/bollettini"
-              }
-            ]
-          },
-          {
-            "name": "METEOMONT Carabinieri",
-            "url": [
-              {
-                "it": "https://meteomont.carabinieri.it/home"
               }
             ]
           }
