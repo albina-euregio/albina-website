@@ -355,10 +355,7 @@ export function convertLoLaToGeneric(
 ): GenericObservation {
   return {
     $data: obs,
-    $extraDialogRows: () => [
-      { label: "URL", url: urlPrefix + obs.uuId },
-      // ...Object.entries(obs).map(([label, value]) => ({ label, value })),
-    ],
+    $externalURL: urlPrefix + obs.uuId,
     $source,
     aspect: (obs as LolaSnowProfile).aspects?.[0],
     authorName: obs.firstName + " " + obs.lastName,
