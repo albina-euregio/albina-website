@@ -106,32 +106,7 @@ encodeFiles(
   "app/stores/micro-regions_elevation.polyline.json"
 );
 
-encodeFiles(
-  [
-    "eaws-regions/public/outline/AT-02_outline.geojson.json",
-    "eaws-regions/public/outline/AT-03_outline.geojson.json",
-    "eaws-regions/public/outline/AT-04_outline.geojson.json",
-    "eaws-regions/public/outline/AT-05_outline.geojson.json",
-    "eaws-regions/public/outline/AT-06_outline.geojson.json",
-    "eaws-regions/public/outline/AT-08_outline.geojson.json",
-    "eaws-regions/public/outline/CH_outline.geojson.json",
-    "eaws-regions/public/outline/DE-BY_outline.geojson.json",
-    "eaws-regions/public/outline/FR_outline.geojson.json",
-    "eaws-regions/public/outline/IT-21_outline.geojson.json",
-    "eaws-regions/public/outline/IT-23_outline.geojson.json",
-    "eaws-regions/public/outline/IT-25_outline.geojson.json",
-    "eaws-regions/public/outline/IT-25-SO-LI_outline.geojson.json",
-    "eaws-regions/public/outline/IT-34_outline.geojson.json",
-    "eaws-regions/public/outline/IT-36_outline.geojson.json",
-    "eaws-regions/public/outline/IT-57_outline.geojson.json",
-    "eaws-regions/public/outline/LI_outline.geojson.json",
-    "eaws-regions/public/outline/SI_outline.geojson.json"
-  ],
-  "app/stores/eaws_regions.polyline.json"
-);
-
-for (const region of [
-  "AT-02",
+const eawsRegions = [
   "AT-02",
   "AT-03",
   "AT-04",
@@ -140,19 +115,35 @@ for (const region of [
   "AT-08",
   "CH",
   "DE-BY",
+  "ES-CT-L",
   "FR",
+  "GB",
   "IT-21",
   "IT-23",
   "IT-25",
   "IT-34",
   "IT-36",
   "IT-57",
+  "NO",
   "SI"
-]) {
+];
+
+encodeFiles(
+  [...eawsRegions, "LI", "IT-25-SO-LI"]
+    .sort()
+    .map(
+      region => `eaws-regions/public/outline/${region}_outline.geojson.json`
+    ),
+  "app/stores/eaws_regions.polyline.json"
+);
+
+eawsRegions.forEach(region =>
   encodeFiles(
     [
-      `eaws-regions/public/micro-regions_elevation/${region}_micro-regions_elevation.geojson.json`
+      region === "GB"
+        ? `eaws-regions/public/micro-regions/${region}_micro-regions.geojson.json`
+        : `eaws-regions/public/micro-regions_elevation/${region}_micro-regions_elevation.geojson.json`
     ],
     `app/stores/micro-regions_elevation/${region}_micro-regions_elevation.polyline.json`
-  );
-}
+  )
+);

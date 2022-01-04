@@ -49,13 +49,16 @@ async function loadBulletins(date: string): Promise<Feature[]> {
     "AT-08",
     "CH",
     "DE-BY",
+    "ES-CT-L",
     "FR",
+    "GB",
     "IT-21",
     "IT-23",
     "IT-25",
     "IT-34",
     "IT-36",
     "IT-57",
+    "NO",
     "SI"
   ];
   const allBulletins = await Promise.all(
@@ -91,7 +94,13 @@ function augmentFeature(
 ): Feature | undefined {
   const region: RegionID = feature.properties.id;
   const elevation: Elevation = feature.properties.elevation;
-  const warnlevel = bulletins?.maxDangerRatings?.[`${region}:${elevation}`];
+  let warnlevel = bulletins?.maxDangerRatings?.[`${region}:${elevation}`];
+  if (/^GB/.test(region)) {
+    warnlevel ??= Math.max(
+      bulletins?.maxDangerRatings?.[`${region}:low`],
+      bulletins?.maxDangerRatings?.[`${region}:high`]
+    ) as 1 | 2 | 3 | 4 | 5;
+  }
   if (!warnlevel) return;
   feature.properties.style = {
     stroke: false,
