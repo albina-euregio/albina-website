@@ -402,10 +402,10 @@ class BulletinStore {
     const daytimeBulletin =
       this.activeBulletinCollection.getBulletinForRegion(regionId);
     const daytime =
-      daytimeBulletin.hasDaytimeDependency && ampm == "pm"
+      daytimeBulletin?.hasDaytimeDependency && ampm == "pm"
         ? "afternoon"
         : "forenoon";
-    const bulletin = daytimeBulletin[daytime];
+    const bulletin = daytimeBulletin?.[daytime];
     return bulletin?.dangerRatings
       .filter(
         danger =>
