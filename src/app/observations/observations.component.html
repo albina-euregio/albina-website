@@ -79,7 +79,7 @@
   </div>
 </div>
 
-<p-dialog [(visible)]="observationPopupVisible" [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true" [maximizable]="true">
+<p-dialog #observationDialog (onShow)="observationDialog.maximize()" [(visible)]="observationPopupVisible" [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true" [maximizable]="true">
   <p-header>
     <span [style]="{ color: observationPopup?.observation?.$markerColor }" [title]="observationPopup?.observation?.$source">█</span>
     {{ observationPopup?.observation?.locationName }}
