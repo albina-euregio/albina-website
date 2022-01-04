@@ -20,7 +20,7 @@ import { loadEawsBulletins } from "./bulletinStoreEaws";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import { APP_STORE } from "../appStore";
-import { warnlevelNumbers, WARNLEVEL_COLORS } from "../util/warn-levels.js";
+import { warnlevelNumbers, WARNLEVEL_COLORS } from "../util/warn-levels";
 
 const enableEawsRegions = true;
 

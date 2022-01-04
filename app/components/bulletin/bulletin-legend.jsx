@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { injectIntl, FormattedHTMLMessage } from "react-intl";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
-import { getWarnlevelNumber } from "../../util/warn-levels.js";
+import { getWarnlevelNumber } from "../../util/warn-levels";
 
 class BulletinLegend extends React.Component {
   constructor(props) {

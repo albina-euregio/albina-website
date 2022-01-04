@@ -8,7 +8,7 @@ export const warnlevelNumbers = Object.freeze({
   no_rating: 0
 });
 
-export function getWarnlevelNumber(id) {
+export function getWarnlevelNumber(id: string): WarnLevelNumber {
   if (warnlevelNumbers[id]) {
     return warnlevelNumbers[id];
   }
