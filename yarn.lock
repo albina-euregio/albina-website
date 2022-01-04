@@ -3010,6 +3010,10 @@ domutils@^2.6.0:
     domelementtype "^2.2.0"
     domhandler "^4.2.0"
 
+"eaws-regions@https://gitlab.com/eaws/eaws-regions/-/archive/4a76022f10d1ffb38789427f997b738f527bd4e0/eaws-regions-4a76022f10d1ffb38789427f997b738f527bd4e0.tar.gz":
+  version "0.0.0"
+  resolved "https://gitlab.com/eaws/eaws-regions/-/archive/4a76022f10d1ffb38789427f997b738f527bd4e0/eaws-regions-4a76022f10d1ffb38789427f997b738f527bd4e0.tar.gz#d72c62c09941d6759477429dfb338bcdcaadcbfa"
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
