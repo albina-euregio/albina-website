@@ -1,6 +1,6 @@
 import { Util } from "leaflet";
 import { decodeFeatureCollection } from "../util/polyline";
-import { WARNLEVEL_COLORS } from "../util/warn-levels";
+import { WarnLevelNumber, WARNLEVEL_COLORS } from "../util/warn-levels";
 import { MicroRegionElevationProperties } from "./bulletin";
 
 type Properties = MicroRegionElevationProperties & { style: L.PathOptions };
@@ -14,7 +14,7 @@ type RegionID = string;
 type Elevation = "low" | "high";
 
 export interface DangerRatings {
-  maxDangerRatings: Record<`${RegionID}:${Elevation}`, 1 | 2 | 3 | 4 | 5>;
+  maxDangerRatings: Record<`${RegionID}:${Elevation}`, WarnLevelNumber>;
 }
 
 async function loadRegions(region: string): Promise<FeatureCollection> {

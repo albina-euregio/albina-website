@@ -20,7 +20,11 @@ import { loadEawsBulletins } from "./bulletinStoreEaws";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import { APP_STORE } from "../appStore";
-import { warnlevelNumbers, WARNLEVEL_COLORS } from "../util/warn-levels";
+import {
+  WarnLevelNumber,
+  warnlevelNumbers,
+  WARNLEVEL_COLORS
+} from "../util/warn-levels";
 
 const enableEawsRegions = true;
 
@@ -398,7 +402,11 @@ class BulletinStore {
     return "default";
   }
 
-  getWarnlevel(ampm: "am" | "pm", regionId: string, elevation: "low" | "high") {
+  getWarnlevel(
+    ampm: "am" | "pm",
+    regionId: string,
+    elevation: "low" | "high"
+  ): WarnLevelNumber {
     const daytimeBulletin =
       this.activeBulletinCollection.getBulletinForRegion(regionId);
     const daytime =
