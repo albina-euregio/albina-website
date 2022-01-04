@@ -359,7 +359,7 @@ export function convertLoLaToGeneric(
     $source,
     aspect: (obs as LolaSnowProfile).aspects?.[0],
     authorName: obs.firstName + " " + obs.lastName,
-    content: obs.comment,
+    content: obs.comment + (obs?.images?.length ? ` 📷 ${obs.images.length}` : ""),
     elevation: (obs as LolaSnowProfile).altitude,
     eventDate: new Date(obs.time),
     latitude: (
