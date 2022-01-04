@@ -37,10 +37,27 @@ import { isMarkerInsidePolygon } from "./isMarkerInsidePolygon";
 export class RegionsService {
   euregioGeoJSON: L.GeoJSON;
 
-  // TODO define level 1 regions
-  level1: string[] = ["IT-32-BZ-01", "IT-32-BZ-02", "IT-32-BZ-03", "IT-32-BZ-04", "IT-32-BZ-05", "IT-32-BZ-06"]; 
-  // TODO define level 2 regions
-  level2: string[] = ["IT-32-BZ-01", "IT-32-BZ-02", "IT-32-BZ-03", "IT-32-BZ-04", "IT-32-BZ-05", "IT-32-BZ-06", "IT-32-BZ-07", "IT-32-BZ-08", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-11"]; 
+  // Level 1 regions: parts of provinces
+  level1: string[][] = [
+    ["AT-07-01", "AT-07-02", "AT-07-07", "AT-07-08", "AT-07-10", "AT-07-11", "AT-07-12"], // west
+    ["AT-07-03", "AT-07-04", "AT-07-05"], // north
+    ["AT-07-06", "AT-07-17", "AT-07-18"], // east
+    ["AT-07-09", "AT-07-13", "AT-07-14", "AT-07-15", "AT-07-16"], // center
+    ["AT-07-19", "AT-07-20", "AT-07-21", "AT-07-22", "AT-07-23", "AT-07-24"], // AHK
+    ["AT-07-25", "AT-07-26", "AT-07-27", "AT-07-28", "AT-07-29"], // east tyrol
+    ["IT-32-BZ-01", "IT-32-BZ-02", "IT-32-BZ-03", "IT-32-BZ-04", "IT-32-BZ-05", "IT-32-BZ-06", "IT-32-BZ-07", "IT-32-BZ-11"], // AHK
+    ["IT-32-BZ-14", "IT-32-BZ-15"], // west
+    ["IT-32-BZ-08", "IT-32-BZ-08", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-12", "IT-32-BZ-13", "IT-32-BZ-16", "IT-32-BZ-17", "IT-32-BZ-18", "IT-32-BZ-19", "IT-32-BZ-20"], // east
+    ["IT-32-TN-01", "IT-32-TN-02", "IT-32-TN-19", "IT-32-TN-20", "IT-32-TN-04", "IT-32-TN-05"], // west
+    ["IT-32-TN-18", "IT-32-TN-12", "IT-32-TN-03", "IT-32-TN-11", "IT-32-TN-17", "IT-32-TN-15"], // center
+    ["IT-32-TN-14", "IT-32-TN-06", "IT-32-TN-10", "IT-32-TN-21", "IT-32-TN-08", "IT-32-TN-07", "IT-32-TN-09", "IT-32-TN-16", "IT-32-TN-13"] // east
+  ]; 
+  // Level 2 regions: provinces
+  level2: string[][] = [
+    ["AT-07-01", "AT-07-02", "AT-07-03", "AT-07-04", "AT-07-05", "AT-07-06", "AT-07-07", "AT-07-08", "AT-07-09", "AT-07-10", "AT-07-11", "AT-07-12", "AT-07-13", "AT-07-14", "AT-07-15", "AT-07-16", "AT-07-17", "AT-07-18", "AT-07-19", "AT-07-20", "AT-07-21", "AT-07-22", "AT-07-23", "AT-07-24", "AT-07-25", "AT-07-26", "AT-07-27", "AT-07-28", "AT-07-29"],
+    ["IT-32-BZ-01", "IT-32-BZ-02", "IT-32-BZ-03", "IT-32-BZ-04", "IT-32-BZ-05", "IT-32-BZ-06", "IT-32-BZ-07", "IT-32-BZ-08", "IT-32-BZ-09", "IT-32-BZ-10", "IT-32-BZ-11", "IT-32-BZ-12", "IT-32-BZ-13", "IT-32-BZ-14", "IT-32-BZ-15", "IT-32-BZ-16", "IT-32-BZ-17", "IT-32-BZ-18", "IT-32-BZ-19", "IT-32-BZ-20"],
+    ["IT-32-TN-01", "IT-32-TN-02", "IT-32-TN-03", "IT-32-TN-04", "IT-32-TN-05", "IT-32-TN-06", "IT-32-TN-07", "IT-32-TN-08", "IT-32-TN-09", "IT-32-TN-10", "IT-32-TN-11", "IT-32-TN-12", "IT-32-TN-13", "IT-32-TN-14", "IT-32-TN-15", "IT-32-TN-16", "IT-32-TN-17", "IT-32-TN-18", "IT-32-TN-19", "IT-32-TN-20", "IT-32-TN-21"]
+  ]; 
 
   constructor(private translateService: TranslateService) {
     this.translateAllNames();
@@ -49,11 +66,21 @@ export class RegionsService {
   }
 
   getLevel1Regions(id) {
-    return this.level1;
+    for (let i = 0; i < this.level1.length; i++) {
+      if (this.level1[i].includes(id)) {
+        return this.level1[i];
+      }
+    }
+    return [];
   }
 
   getLevel2Regions(id) {
-    return this.level2;
+    for (let i = 0; i < this.level2.length; i++) {
+      if (this.level2[i].includes(id)) {
+        return this.level2[i];
+      }
+    }
+    return [];
   }
 
   getRegionsEuregio(): FeatureCollection<MultiPolygon, RegionProperties> {

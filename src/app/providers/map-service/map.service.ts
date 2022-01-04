@@ -107,7 +107,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: L.geoJSON(this.regionsService.getRegionsEuregio(), {
-          onEachFeature: this.onEachFeatureClosure(this.overlayMaps, this.regionsService)
+          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
@@ -125,7 +125,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: L.geoJSON(this.regionsService.getRegionsEuregio(), {
-          onEachFeature: this.onEachFeatureClosure(this.overlayMaps, this.regionsService)
+          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
@@ -171,7 +171,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: L.geoJSON(this.regionsService.getRegionsAran(), {
-          onEachFeature: this.onEachFeatureClosure(this.overlayMaps, this.regionsService)
+          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
@@ -189,7 +189,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: L.geoJSON(this.regionsService.getRegionsAran(), {
-          onEachFeature: this.onEachFeatureClosure(this.overlayMaps, this.regionsService)
+          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
@@ -578,48 +578,58 @@ export class MapService {
     }
   }
 
-  private onEachFeatureClosure(overlayMaps, regionsService) {
+  updateEditSelection() {
+    for (const entry of this.overlayMaps.editSelection.getLayers()) {
+      if (entry.feature.properties.selected) {
+        entry.setStyle({ fillColor: "#3852A4", fillOpacity: 0.5 });
+      } else {
+        entry.setStyle({ fillColor: "#000000", fillOpacity: 0.0 });
+      }
+    }
+  }
+
+  private onEachFeatureClosure(mapService, regionsService, overlayMaps) {
     return function onEachFeature(feature, layer) {
       layer.on({
         click: function(e) {
           if (feature.properties.selected && feature.properties.selected === true) {
-            if (e.originalEvent.shiftKey) {
+            if (e.originalEvent.ctrlKey) {
               const regions = regionsService.getLevel1Regions(feature.properties.id);
               for (const entry of overlayMaps.editSelection.getLayers()) {
                 if (regions.includes(entry.feature.properties.id)) {
-                  console.log(entry);
-                  debugger
                   entry.feature.properties.selected = false;
-                  entry.setStyle({ fillColor: "#000000", fillOpacity: 0.0 });
                 }
               }
             } else if (e.originalEvent.altKey) {
               const regions = regionsService.getLevel2Regions(feature.properties.id);
               for (const entry of overlayMaps.editSelection.getLayers()) {
-                debugger
                 if (regions.includes(entry.feature.properties.id)) {
-                  console.log(entry);
-                  debugger
                   entry.feature.properties.selected = false;
-                  entry.setStyle({ fillColor: "#000000", fillOpacity: 0.0 });
                 }
               }
             } else {
               feature.properties.selected = false;
             }
-            // TODO use constantsService
-            layer.setStyle({ fillColor: "#000000", fillOpacity: 0.0 });
-            console.log("SHIFT: " + e.originalEvent.shiftKey);
-            console.log("CTRL: " + e.originalEvent.ctrlKey);
-            console.log("ALT: " + e.originalEvent.altKey);
           } else {
-            feature.properties.selected = true;
-            // TODO use constantsService
-            layer.setStyle({ fillColor: "#3852A4", fillOpacity: 0.5 });
-            console.log("SHIFT: " + e.originalEvent.shiftKey);
-            console.log("CTRL: " + e.originalEvent.ctrlKey);
-            console.log("ALT: " + e.originalEvent.altKey);
+            if (e.originalEvent.ctrlKey) {
+              const regions = regionsService.getLevel1Regions(feature.properties.id);
+              for (const entry of overlayMaps.editSelection.getLayers()) {
+                if (regions.includes(entry.feature.properties.id)) {
+                  entry.feature.properties.selected = true;
+                }
+              }
+            } else if (e.originalEvent.altKey) {
+              const regions = regionsService.getLevel2Regions(feature.properties.id);
+              for (const entry of overlayMaps.editSelection.getLayers()) {
+                if (regions.includes(entry.feature.properties.id)) {
+                  entry.feature.properties.selected = true;
+                }
+              }
+            } else {
+              feature.properties.selected = true;
+            }
           }
+          mapService.updateEditSelection();
         },
         mouseover: function(e) {
           // TODO get current language
