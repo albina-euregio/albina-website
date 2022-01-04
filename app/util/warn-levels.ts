@@ -18,7 +18,7 @@ export function getWarnlevelNumber(id: string): WarnLevelNumber {
 }
 
 export const WARNLEVEL_COLORS = Object.freeze([
-  undefined,
+  "#ffffff",
   "#ccff66",
   "#ffff00",
   "#ff9900",
