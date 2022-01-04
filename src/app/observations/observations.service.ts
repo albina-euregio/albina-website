@@ -27,7 +27,7 @@ import {
   LwdKipSperren,
   LwdKipSprengerfolg
 } from "./models/lwdkip.model";
-import { WikisnowECT } from "./models/wikisnow.model";
+import { ApiWikisnowECT, WikisnowECT } from "./models/wikisnow.model";
 import { TranslateService } from "@ngx-translate/core";
 import { FeatureCollection, Point } from "geojson";
 import { Observable } from "rxjs";
@@ -189,12 +189,12 @@ export class ObservationsService {
   getWikisnowECT(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
     return this.http
-      .get<WikisnowECT[]>(api.WikisnowECT)
-      .mergeAll()
+      .get<ApiWikisnowECT>(api.WikisnowECT)
+      .flatMap(api => api.data)
       .map<WikisnowECT, GenericObservation>((wikisnow) => ({
         $data: wikisnow,
         $source: ObservationSource.WikisnowECT,
-        aspect: toAspect(+wikisnow.exposition / 8),
+        aspect: toAspect(+wikisnow.exposition / 45),
         authorName: wikisnow.UserName,
         content: [wikisnow.ECT_result, wikisnow.propagation, wikisnow.surface, wikisnow.weak_layer, wikisnow.description].join(" // "),
         elevation: +wikisnow.Sealevel,
