@@ -77,10 +77,10 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationsService.endDate = this.dateRange[1];
     Object.values(this.mapService.observationLayers).forEach((layer) => layer.clearLayers());
     Observable.merge<GenericObservation>(
-      this.observationsService.getAvaObs().catch((err) => this.warnAndContinue("Failed fetching AvaObs", err)),
       this.observationsService.getAvalancheWarningService().catch((err) => this.warnAndContinue("Failed fetching AWS observers", err)),
       this.observationsService.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
       this.observationsService.getLawisProfiles().catch((err) => this.warnAndContinue("Failed fetching lawis profiles", err)),
+      this.observationsService.getLoLaKronos().catch((err) => this.warnAndContinue("Failed fetching LoLaKronos", err)),
       this.observationsService.getLoLaSafety().catch((err) => this.warnAndContinue("Failed fetching LoLa safety observations", err)),
       this.observationsService.getLwdKipObservations().catch((err) => this.warnAndContinue("Failed fetching LWDKIP observations", err)),
       this.observationsService.getWikisnowECT().catch((err) => this.warnAndContinue("Failed fetching Wikisnow ECT", err)),
@@ -126,6 +126,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   private addObservation(observation: GenericObservation): void {
+    observation.$markerColor = ObservationSourceColors[observation.$source];
     const ll = observation.latitude && observation.longitude ? L.latLng(observation.latitude, observation.longitude) : undefined;
     if (ll) {
       observation.region = this.regionsService.getRegionForLatLng(ll)?.id;
@@ -146,7 +147,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     if (!ll) {
       return;
     }
-    observation.$markerColor = ObservationSourceColors[observation.$source];
     L.circleMarker(ll, this.mapService.createObservationMarkerOptions(observation.$markerColor))
       .bindTooltip(observation.locationName)
       .on({ click: () => this.onObservationClick(observation) })
@@ -154,11 +154,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   onObservationClick(observation: GenericObservation): void {
-    const extraRows = observation.$extraDialogRows ? observation.$extraDialogRows((key) => this.translateService.instant(key)) : [];
-    const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
-    const table = [...rows, ...extraRows];
-    const iframe = observation.$externalURL ? this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL) : undefined;
-    this.observationPopup = { observation, table, iframe };
+    if (observation.$externalURL) {
+      const iframe = this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL);
+      this.observationPopup = { observation, table: [], iframe };
+    } else {
+      const extraRows = observation.$extraDialogRows ? observation.$extraDialogRows((key) => this.translateService.instant(key)) : [];
+      const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
+      const table = [...rows, ...extraRows];
+      this.observationPopup = { observation, table, iframe: undefined };
+    }
   }
 
   private inRegions({ region }: GenericObservation) {

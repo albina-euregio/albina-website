@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { AuthenticationService } from "app/providers/authentication-service/authentication.service";
 import { ConstantsService } from "app/providers/constants-service/constants.service";
 import { convertObservationToGeneric, Observation } from "./models/observation.model";
-import { convertAvaObsToGeneric, Observation as AvaObservation, SimpleObservation, SnowProfile } from "./models/avaobs.model";
-import { convertLoLaToGeneric, LoLaSafetyApi } from "./models/lola-safety.model";
+import { convertLoLaKronos, LolaKronosApi } from "./models/lola-kronos.model";
+import { convertLoLaSafety, LoLaSafetyApi } from "./models/lola-safety.model";
 import {
   Profile,
   Incident,
@@ -162,35 +162,20 @@ export class ObservationsService {
       );
   }
 
-  getAvaObs(): Observable<GenericObservation> {
-    const { observationApi: api, observationWeb: web } = this.constantsService;
+  getLoLaKronos(): Observable<GenericObservation> {
+    const { lolaKronosApi } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    const observations = this.http
-      .get<AvaObservation[]>(api.AvaObsObservations + timeframe)
-      .mergeAll()
-      .map((obs) => convertAvaObsToGeneric(obs, ObservationSource.AvaObsObservations, web.AvaObsObservations));
-    const simpleObservations = this.http
-      .get<SimpleObservation[]>(api.AvaObsSimpleObservations + timeframe)
-      .mergeAll()
-      .map((obs) => convertAvaObsToGeneric(obs, ObservationSource.AvaObsSimpleObservations, web.AvaObsSimpleObservations));
-    const snowProfiles = this.http
-      .get<SnowProfile[]>(api.AvaObsSnowProfiles + timeframe)
-      .mergeAll()
-      .map((obs) => convertAvaObsToGeneric(obs, ObservationSource.AvaObsSnowProfiles, web.AvaObsSnowProfiles));
-    return Observable.merge(observations, simpleObservations, snowProfiles);
+    return this.http
+      .get<LolaKronosApi>(lolaKronosApi + timeframe)
+      .flatMap((kronos) => convertLoLaKronos(kronos));
   }
 
   getLoLaSafety(): Observable<GenericObservation> {
     const { observationApi: api } = this.constantsService;
     const timeframe = this.startDateString + "/" + this.endDateString;
-    const data = this.http.get<LoLaSafetyApi>(api.LoLaSafetyAvalancheReports + timeframe);
-    return data.flatMap(({ avalancheReports, snowProfiles }) => {
-      const o1 = Observable.from(avalancheReports).map((report) => convertLoLaToGeneric(report));
-      const o2 = Observable.from(snowProfiles).map((obs) =>
-        convertAvaObsToGeneric(obs, ObservationSource.LoLaSafetySnowProfiles)
-      );
-      return Observable.merge<GenericObservation>(o1, o2);
-    });
+    return this.http
+      .get<LoLaSafetyApi>(api.LoLaSafetyAvalancheReports + timeframe)
+      .flatMap(lola => convertLoLaSafety(lola));
   }
 
   getWikisnowECT(): Observable<GenericObservation> {

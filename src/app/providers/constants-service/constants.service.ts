@@ -12,19 +12,14 @@ export class ConstantsService {
   public zamgModelsUrl: string = "https://avalanche.report/zamg/zamg/";
   public snowpackModelsUrl: string = "https://avalanche.report/alpsolut/html/";
 
+  public lolaKronosApi = "https://admin.avalanche.report/lola-kronos/dataexport/dataFromToken/"
   public observationApi = {
-    [ObservationSource.AvaObsObservations]: "https://admin.avalanche.report/avaobs/dataexport/observations/",
-    [ObservationSource.AvaObsSimpleObservations]: "https://admin.avalanche.report/avaobs/dataexport/simpleobservations/",
-    [ObservationSource.AvaObsSnowProfiles]: "https://admin.avalanche.report/avaobs/dataexport/snowprofiles/",
     [ObservationSource.LawisIncidents]: "https://admin.avalanche.report/lawis/public/incident",
     [ObservationSource.LawisSnowProfiles]: "https://admin.avalanche.report/lawis/public/profile",
     [ObservationSource.LoLaSafetyAvalancheReports]: "https://admin.avalanche.report/lola-safety/dataexport/avalancheCommissions/",
     [ObservationSource.WikisnowECT]: "https://admin.avalanche.report/wikisnow/ect/ect-json.json",
   };
   public observationWeb = {
-    [ObservationSource.AvaObsObservations]: "https://www.avaobs.info/observation/",
-    [ObservationSource.AvaObsSimpleObservations]: "https://www.avaobs.info/simpleObservation/",
-    [ObservationSource.AvaObsSnowProfiles]: "https://www.avaobs.info/snowprofile/",
     [ObservationSource.LawisIncidents]: "https://lawis.at/incident/#{{id}}",
     [ObservationSource.LawisSnowProfiles]: "https://lawis.at/lawis_api/v2_2/files/profiles/snowprofile_{{id}}.pdf",
   };
