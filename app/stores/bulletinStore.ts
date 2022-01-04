@@ -425,11 +425,7 @@ class BulletinStore {
       stroke: false,
       fillColor:
         WARNLEVEL_COLORS[
-          BULLETIN_STORE.getWarnlevel(
-            ampm,
-            feature.id,
-            feature.properties.elevation
-          )
+          this.getWarnlevel(ampm, feature.id, feature.properties.elevation)
         ],
       fillOpacity: 1.0
     };
