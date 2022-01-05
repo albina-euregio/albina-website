@@ -383,7 +383,7 @@
     "users" : {
       "title" : "Users",
       "button" : {
-        "create" : "Create user"
+        "create" : " Create user"
       },
       "tooltip" : {
         "edit" : "Edit user",
