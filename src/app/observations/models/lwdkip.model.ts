@@ -239,3 +239,37 @@ export function convertLwdKipLawinenabgang(feature: GeoJSON.Feature<GeoJSON.Line
     region: undefined
   };
 }
+
+export interface SperreProperties {
+  TKOMMISSIONSEQ: number;
+  BEZEICHNUNG: string;
+  SPERRETYP: string;
+  SPERREBEREICH: null | string;
+  OBJECTID: number;
+  TSTAMMSPERRORTESEQ: number;
+  MANDANTSEQ: number;
+  BEGINN: number;
+  ENDE: null;
+}
+
+export type LwdKipSperren = GeoJSON.FeatureCollection<GeoJSON.LineString, SperreProperties>;
+
+export function convertLwdKipSperren(
+  feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>
+): GenericObservation {
+  return {
+    $data: feature.properties,
+    $source: ObservationSource.LwdKipSperre,
+    aspect: undefined,
+    authorName: undefined,
+    content: [feature.properties.SPERRETYP, feature.properties.SPERREBEREICH]
+      .filter((s) => !!s)
+      .join(" – "),
+    elevation: undefined,
+    eventDate: new Date(feature.properties.BEGINN),
+    latitude: feature.geometry?.coordinates?.[0]?.[1],
+    locationName: feature.properties.BEZEICHNUNG,
+    longitude: feature.geometry?.coordinates?.[0]?.[0],
+    region: undefined,
+  };
+}

@@ -20,9 +20,11 @@ import {
   ArcGisLayer,
   convertLwdKipBeobachtung,
   convertLwdKipLawinenabgang,
+  convertLwdKipSperren,
   convertLwdKipSprengerfolg,
   LwdKipBeobachtung,
   LwdKipLawinenabgang,
+  LwdKipSperren,
   LwdKipSprengerfolg
 } from "./models/lwdkip.model";
 import { WikisnowECT } from "./models/wikisnow.model";
@@ -93,10 +95,16 @@ export class ObservationsService {
     const o1 = this.getLwdKipLayer<LwdKipSprengerfolg>("Sprengerfolg", params)
       .flatMap((featureCollection) => featureCollection.features)
       .map((feature) => convertLwdKipSprengerfolg(feature));
-    const o2 = this.getLwdKipLayer<LwdKipLawinenabgang>("Lawinenabgänge", params)
+      const o2 = this.getLwdKipLayer<LwdKipLawinenabgang>("Lawinenabgänge", params)
       .flatMap((featureCollection) => featureCollection.features)
       .map((feature) => convertLwdKipLawinenabgang(feature));
-    return Observable.merge(o0, o1, o2);
+      const o3 = this.getLwdKipLayer<LwdKipSperren>("aktive_Sperren", {
+        ...params,
+        where: "1=1",
+      })
+        .flatMap((featureCollection) => featureCollection.features)
+        .map((feature) => convertLwdKipSperren(feature));
+    return Observable.merge(o0, o1, o2, o3);
   }
 
   getObservations(): Observable<GenericObservation<Observation>> {
@@ -311,7 +319,8 @@ export class ObservationsService {
     return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.endDate);
   }
 
-  inDateRange({ eventDate }: GenericObservation): boolean {
+  inDateRange({ $source, eventDate }: GenericObservation): boolean {
+    if ($source === ObservationSource.LwdKipSperre) return true;
     return this.startDate <= eventDate && eventDate <= this.endDate;
   }
 
