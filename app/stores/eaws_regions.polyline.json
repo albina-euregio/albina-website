@@ -232,22 +232,6 @@
                 "de": "https://lauegi.report/de"
               }
             ]
-          },
-          {
-            "name": "ICGC",
-            "url": [
-              {
-                "es": "https://www.icgc.cat/Ciutada/Explora-Catalunya/Allaus/Butlleti-de-Perill-d-Allaus-BPA"
-              }
-            ]
-          },
-          {
-            "name": "AEMET",
-            "url": [
-              {
-                "es": "http://www.aemet.es/documentos/es/eltiempo/prediccion/montana/boletin_peligro_aludes/BPA_Pirineo_Cat.pdf"
-              }
-            ]
           }
         ]
       },
