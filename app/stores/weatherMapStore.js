@@ -393,6 +393,11 @@ export default class WeatherMapStore_new {
         if (pixelRGB.r < 0 || pixelRGB.r >= 255) res = null;
         else res = pixelRGB.r;
         break;
+      case "snowLine":
+        // console.log("valueForPixel", pixelRGB, pixelRGB.r * 50);
+        if (pixelRGB.r < 0 || pixelRGB.r >= 100) res = null;
+        else res = pixelRGB.r * 50;
+        break;
       case "snowHeight":
         //console.log("snowHeight", pixelRGB);
         if (pixelRGB.r + pixelRGB.g + pixelRGB.g === 0) res = 0;

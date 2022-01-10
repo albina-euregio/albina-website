@@ -20,7 +20,11 @@ import { loadEawsBulletins } from "./bulletinStoreEaws";
 
 import { decodeFeatureCollection } from "../util/polyline.js";
 import { APP_STORE } from "../appStore";
-import { warnlevelNumbers, WARNLEVEL_COLORS } from "../util/warn-levels.js";
+import {
+  WarnLevelNumber,
+  warnlevelNumbers,
+  WARNLEVEL_COLORS
+} from "../util/warn-levels";
 
 const enableEawsRegions = true;
 
@@ -398,14 +402,18 @@ class BulletinStore {
     return "default";
   }
 
-  getWarnlevel(ampm: "am" | "pm", regionId: string, elevation: "low" | "high") {
+  getWarnlevel(
+    ampm: "am" | "pm",
+    regionId: string,
+    elevation: "low" | "high"
+  ): WarnLevelNumber {
     const daytimeBulletin =
       this.activeBulletinCollection.getBulletinForRegion(regionId);
     const daytime =
-      daytimeBulletin.hasDaytimeDependency && ampm == "pm"
+      daytimeBulletin?.hasDaytimeDependency && ampm == "pm"
         ? "afternoon"
         : "forenoon";
-    const bulletin = daytimeBulletin[daytime];
+    const bulletin = daytimeBulletin?.[daytime];
     return bulletin?.dangerRatings
       .filter(
         danger =>
@@ -425,11 +433,7 @@ class BulletinStore {
       stroke: false,
       fillColor:
         WARNLEVEL_COLORS[
-          BULLETIN_STORE.getWarnlevel(
-            ampm,
-            feature.id,
-            feature.properties.elevation
-          )
+          this.getWarnlevel(ampm, feature.id, feature.properties.elevation) ?? 0
         ],
       fillOpacity: 1.0
     };

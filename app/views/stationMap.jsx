@@ -4,10 +4,12 @@ import { injectIntl } from "react-intl";
 import { modal_open_by_params } from "../js/modal";
 import StationOverlay from "../components/weather/station-overlay";
 import LeafletMap from "../components/leaflet/leaflet-map";
+import HTMLHeader from "../components/organisms/html-header";
 import StationDataStore from "../stores/stationDataStore";
 
 import BeobachterAT from "../stores/Beobachter-AT.json";
 import BeobachterIT from "../stores/Beobachter-IT.json";
+
 const observers = [...BeobachterAT, ...BeobachterIT].map(observer => ({
   geometry: {
     coordinates: [+observer.longitude, +observer.latitude]
@@ -93,6 +95,9 @@ class StationMap extends React.Component {
     const overlays = [this.stationOverlay, this.observerOverlay];
     return (
       <>
+        <HTMLHeader
+          title={this.props.intl.formatMessage({ id: "menu:lawis:station" })}
+        />
         <section
           id="section-weather-map"
           className="section section-weather-map"

@@ -1,6 +1,6 @@
 import { Util } from "leaflet";
 import { decodeFeatureCollection } from "../util/polyline";
-import { WARNLEVEL_COLORS } from "../util/warn-levels";
+import { WarnLevelNumber, WARNLEVEL_COLORS } from "../util/warn-levels";
 import { MicroRegionElevationProperties } from "./bulletin";
 
 type Properties = MicroRegionElevationProperties & { style: L.PathOptions };
@@ -14,7 +14,7 @@ type RegionID = string;
 type Elevation = "low" | "high";
 
 export interface DangerRatings {
-  maxDangerRatings: Record<`${RegionID}:${Elevation}`, 1 | 2 | 3 | 4 | 5>;
+  maxDangerRatings: Record<`${RegionID}:${Elevation}`, WarnLevelNumber>;
 }
 
 async function loadRegions(region: string): Promise<FeatureCollection> {
@@ -49,13 +49,16 @@ async function loadBulletins(date: string): Promise<Feature[]> {
     "AT-08",
     "CH",
     "DE-BY",
+    "ES-CT-L",
     "FR",
+    "GB",
     "IT-21",
     "IT-23",
     "IT-25",
     "IT-34",
     "IT-36",
     "IT-57",
+    "NO",
     "SI"
   ];
   const allBulletins = await Promise.all(
@@ -91,7 +94,13 @@ function augmentFeature(
 ): Feature | undefined {
   const region: RegionID = feature.properties.id;
   const elevation: Elevation = feature.properties.elevation;
-  const warnlevel = bulletins?.maxDangerRatings?.[`${region}:${elevation}`];
+  let warnlevel = bulletins?.maxDangerRatings?.[`${region}:${elevation}`];
+  if (/^GB/.test(region)) {
+    warnlevel ??= Math.max(
+      bulletins?.maxDangerRatings?.[`${region}:low`],
+      bulletins?.maxDangerRatings?.[`${region}:high`]
+    ) as 1 | 2 | 3 | 4 | 5;
+  }
   if (!warnlevel) return;
   feature.properties.style = {
     stroke: false,
