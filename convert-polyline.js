@@ -4,6 +4,7 @@ const fs = require("fs");
 const polyline = require("@mapbox/polyline");
 const precision = 3;
 const today = "2021-10-01";
+const excludeAws = ["AEMET", "ALPSOLUT", "ICGC", "METEOMONT Carabinieri"];
 
 /**
  * @param {GeoJSON.FeatureCollection<Polygon>} geojson
@@ -79,6 +80,11 @@ function encodeFiles(files, output) {
     )
     .sort((f1, f2) => f1.properties.id.localeCompare(f2.properties.id));
   geojson.features.forEach(({ properties }) => {
+    if (properties.aws) {
+      properties.aws = properties.aws.filter(
+        aws => !excludeAws.includes(aws.name)
+      );
+    }
     properties.start_date || delete properties.start_date;
     properties.end_date || delete properties.end_date;
     properties.threshold || delete properties.threshold;
