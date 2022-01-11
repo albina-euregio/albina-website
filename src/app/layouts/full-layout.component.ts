@@ -16,7 +16,7 @@ import { DomSanitizer } from "@angular/platform-browser";
   selector: "app-dashboard",
   templateUrl: "./full-layout.component.html"
 })
-export class FullLayoutComponent implements OnInit {
+export class FullLayoutComponent {
 
   public disabled: boolean = false;
   public status: { isopen: boolean } = { isopen: false };
@@ -79,8 +79,6 @@ export class FullLayoutComponent implements OnInit {
     this.authenticationService.logout();
     this.chatService.disconnect();
   }
-
-  ngOnInit(): void { }
 
   sendChatMessage(region?: string) {
     this.chatService.resetNewMessageCount(region);
