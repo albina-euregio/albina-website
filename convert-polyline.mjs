@@ -1,7 +1,10 @@
 /* eslint-env node */
-const fs = require("fs");
+import { writeFileSync } from "fs";
+import polyline from "@mapbox/polyline";
+import { default as filterFeature } from "eaws-regions/filterFeature.mjs";
+import { createRequire } from "module";
 
-const polyline = require("@mapbox/polyline");
+const require = createRequire(import.meta.url);
 const precision = 3;
 const today = "2021-10-01";
 const excludeAws = ["AEMET", "ALPSOLUT", "ICGC", "METEOMONT Carabinieri"];
@@ -71,13 +74,7 @@ function encodeFiles(files, output) {
   geojson.features = geojson.features
     .concat(...geojsons.map(g => g.features))
     .map(f => ({ id: f.properties?.id, ...f }))
-    .filter(
-      ({ properties }) =>
-        !properties.start_date || properties.start_date <= today
-    )
-    .filter(
-      ({ properties }) => !properties.end_date || properties.end_date > today
-    )
+    .filter(feature => filterFeature(feature, today))
     .sort((f1, f2) => f1.properties.id.localeCompare(f2.properties.id));
   geojson.features.forEach(({ properties }) => {
     if (properties.aws) {
@@ -91,7 +88,7 @@ function encodeFiles(files, output) {
     delete properties["elevation line_visualization"];
   });
   const polyline = encodeFeatureCollection(geojson);
-  fs.writeFileSync(output, JSON.stringify(polyline, undefined, 2));
+  writeFileSync(output, JSON.stringify(polyline, undefined, 2));
 }
 
 encodeFiles(
