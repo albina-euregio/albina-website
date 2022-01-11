@@ -18,7 +18,7 @@ variables:
     - npm --no-git-tag-version version $(git describe)
     - npm rebuild node-sass
   script:
-    - yarn lint || true
+    - yarn lint
     - yarn build-$CI_ENVIRONMENT_NAME
   artifacts:
     paths:
