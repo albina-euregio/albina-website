@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import CookieStore from "../../stores/cookieStore";
 
 const cookieFeedback = new CookieStore("feedbackAccepted");
@@ -27,10 +27,10 @@ class FeedbackDialog extends React.Component {
       cookieFeedback.active && (
         <div className="candybar">
           <h3>
-            <FormattedHTMLMessage id="dialog:feedback:header" />
+            <FormattedMessage id="dialog:feedback:header" />
           </h3>
           <p>
-            <FormattedHTMLMessage id="dialog:feedback:text" />
+            <FormattedMessage id="dialog:feedback:text" />
           </p>
           <p>
             <a

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import { GeoJSON } from "react-leaflet";
 import InfoBar from "../organisms/info-bar";
 import { dateToISODateString, parseDate } from "../../util/date";
@@ -66,7 +66,7 @@ class BulletinMap extends React.Component {
       message: (
         <>
           <p>
-            <FormattedHTMLMessage id="bulletin:header:info-no-data" />
+            <FormattedMessage id="bulletin:header:info-no-data" />
           </p>
           <p>
             <Link
@@ -205,7 +205,7 @@ class BulletinMap extends React.Component {
             data-scroll=""
           >
             {preprocessContent(
-              this.props.intl.formatHTMLMessage({
+              this.props.intl.formatMessage({
                 id: "bulletin:map:info:details"
               })
             )}

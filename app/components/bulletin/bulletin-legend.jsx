@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import BulletinProblemFilter from "./bulletin-problem-filter.jsx";
 import { getWarnlevelNumber } from "../../util/warn-levels";
 
@@ -62,7 +62,12 @@ class BulletinLegend extends React.Component {
                     id: "bulletin:legend:danger-levels:hover"
                   })}
                 >
-                  <FormattedHTMLMessage id="bulletin:legend:danger-levels" />
+                  <FormattedMessage
+                    id="bulletin:legend:danger-levels"
+                    values={{
+                      strong: (...msg) => <strong>{msg}</strong>
+                    }}
+                  />
                 </Link>
               </p>
               <ul className="list-inline list-legend">

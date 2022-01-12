@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import TendencyIcon from "../icons/tendency-icon.jsx";
 import BulletinDangerRating from "./bulletin-danger-rating.jsx";
 import BulletinProblemItem from "./bulletin-problem-item.jsx";
@@ -54,7 +54,7 @@ class BulletinDaytimeReport extends React.Component {
       <div>
         {this.props.ampm && (
           <h2 className="subheader">
-            <FormattedHTMLMessage
+            <FormattedMessage
               id={"bulletin:report:daytime:" + this.props.ampm}
             />
           </h2>
@@ -87,14 +87,25 @@ class BulletinDaytimeReport extends React.Component {
                   id: "bulletin:report:tendency:hover"
                 })}
               >
-                <FormattedHTMLMessage
-                  id="bulletin:report:tendency"
-                  values={{
-                    tendency: tendencyTitle,
-                    daytime: "", // ampmId ? this.props.intl.formatMessage({id: 'bulletin:report:tendency:daytime:' + ampmId}) : '',
-                    date: tendencyDate
-                  }}
-                />
+                <span>
+                  <FormattedMessage
+                    id="bulletin:report:tendency"
+                    values={{
+                      strong: (...msg) => (
+                        <strong className="heavy">{msg}</strong>
+                      ),
+                      br: (...msg) => (
+                        <>
+                          <br />
+                          {msg}
+                        </>
+                      ),
+                      tendency: tendencyTitle,
+                      daytime: "", // ampmId ? this.props.intl.formatMessage({id: 'bulletin:report:tendency:daytime:' + ampmId}) : '',
+                      date: tendencyDate
+                    }}
+                  />
+                </span>
                 <TendencyIcon tendency={tendency} />
               </div>
             </li>

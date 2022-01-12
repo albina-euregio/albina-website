@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import { Util } from "leaflet";
 import { regionCodes } from "../../util/regions";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
@@ -43,7 +43,7 @@ class DownloadPdfDialog extends React.Component {
         {label}
         <span className="normal">
           {" "}
-          <FormattedHTMLMessage id="dialog:download-pdf:in" />
+          <FormattedMessage id="dialog:download-pdf:in" />
         </span>
       </label>,
       <ul
@@ -66,7 +66,7 @@ class DownloadPdfDialog extends React.Component {
         </li>
         <li key={(region || "base") + "_spacer"}>
           <span className="buttongroup-boolean">
-            <FormattedHTMLMessage id="dialog:download-pdf:or" />
+            <FormattedMessage id="dialog:download-pdf:or" />
           </span>
         </li>
         <li key={(region || "base") + "_color"}>
@@ -93,13 +93,13 @@ class DownloadPdfDialog extends React.Component {
         <div className="modal-subscribe" key="modal-subscribe">
           <div className="modal-header" key="modal-header">
             <h2 key="subheading" className="subheader">
-              <FormattedHTMLMessage id="dialog:download-pdf:subheading" />
+              <FormattedMessage id="dialog:download-pdf:subheading" />
             </h2>
             <h2 key="heading">
-              <FormattedHTMLMessage id="dialog:download-pdf:heading" />
+              <FormattedMessage id="dialog:download-pdf:heading" />
             </h2>
             <span key="description">
-              <FormattedHTMLMessage id="dialog:download-pdf:description" />
+              <FormattedMessage id="dialog:download-pdf:description" />
             </span>
           </div>
           <form className="pure-form pure-form-stacked" key="form">

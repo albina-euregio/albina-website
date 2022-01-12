@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import DangerPatternItem from "./danger-pattern-item";
 import BulletinDaytimeReport from "./bulletin-daytime-report";
 import { dateToLongDateString, parseDate } from "../../util/date";
@@ -72,28 +72,33 @@ class BulletinReport extends React.Component {
           <div className={classes}>
             <header className="bulletin-report-header">
               <p className="bulletin-report-header-meta">
-                <FormattedHTMLMessage
-                  id="bulletin:report:headline"
-                  values={{
-                    date: dateToLongDateString(parseDate(this.props.date)),
-                    daytime: ""
-                  }}
-                />
+                <span>
+                  <FormattedMessage
+                    id="bulletin:report:headline"
+                    values={{
+                      strong: (...msg) => <strong>{msg}</strong>,
+                      date: dateToLongDateString(parseDate(this.props.date)),
+                      daytime: ""
+                    }}
+                  />
+                </span>
               </p>
               <h1 className="bulletin-report-header-danger-level">
-                <FormattedHTMLMessage
-                  id={
-                    maxWarnlevel.number == 0
-                      ? "bulletin:report:headline2:level0"
-                      : "bulletin:report:headline2"
-                  }
-                  values={{
-                    number: maxWarnlevel.number,
-                    text: this.props.intl.formatMessage({
-                      id: "danger-level:" + maxWarnlevel.id
-                    })
-                  }}
-                />
+                <span>
+                  <FormattedMessage
+                    id={
+                      maxWarnlevel.number == 0
+                        ? "bulletin:report:headline2:level0"
+                        : "bulletin:report:headline2"
+                    }
+                    values={{
+                      number: maxWarnlevel.number,
+                      text: this.props.intl.formatMessage({
+                        id: "danger-level:" + maxWarnlevel.id
+                      })
+                    }}
+                  />
+                </span>
               </h1>
             </header>
             {daytimeBulletin.hasDaytimeDependency ? (
@@ -142,13 +147,13 @@ class BulletinReport extends React.Component {
                 bulletin.snowpackStructureComment) && (
                 <div>
                   <h2 className="subheader">
-                    <FormattedHTMLMessage id="bulletin:report:snowpack-structure:headline" />
+                    <FormattedMessage id="bulletin:report:snowpack-structure:headline" />
                   </h2>
                   {this.dangerPatterns.length > 0 && (
                     <ul className="list-inline list-labels">
                       <li>
                         <span className="tiny heavy letterspace">
-                          <FormattedHTMLMessage id="bulletin:report:danger-patterns" />
+                          <FormattedMessage id="bulletin:report:danger-patterns" />
                         </span>
                       </li>
                       {this.dangerPatterns.map((dp, index) => (
@@ -167,14 +172,14 @@ class BulletinReport extends React.Component {
                 this.getLocalizedText(bulletin.tendencyComment) && (
                   <div>
                     <h2 className="subheader">
-                      <FormattedHTMLMessage id="bulletin:report:tendency:headline" />
+                      <FormattedMessage id="bulletin:report:tendency:headline" />
                     </h2>
                     <p>{this.getLocalizedText(bulletin.tendencyComment)}</p>
                   </div>
                 )}
               {/*
             <p className="bulletin-author">
-              <FormattedHTMLMessage id="bulletin:report:author" />
+              <FormattedMessage id="bulletin:report:author" />
               :&nbsp;
               {bulletin.author &&
                 bulletin.author.name && (
@@ -198,7 +203,7 @@ class BulletinReport extends React.Component {
               className="icon-link icon-arrow-up tooltip"
               data-scroll=""
             >
-              <FormattedHTMLMessage id="bulletin:linkbar:back-to-map" />
+              <FormattedMessage id="bulletin:linkbar:back-to-map" />
             </a>
           </div>
         </section>

@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import { Link } from "react-router-dom";
 
 import ProvinceFilter from "../filters/province-filter";
@@ -105,7 +105,7 @@ class SubscribeEmailDialog extends React.Component {
       <div className="modal-subscribe-email">
         <div className="modal-header">
           <h2>
-            <FormattedHTMLMessage id="dialog:subscribe-email:subheader" />
+            <FormattedMessage id="dialog:subscribe-email:subheader" />
           </h2>
         </div>
 
@@ -115,7 +115,12 @@ class SubscribeEmailDialog extends React.Component {
             onSubmit={this.handleSubmit}
           >
             <label htmlFor="province">
-              <FormattedHTMLMessage id="dialog:subscribe-email:region" />
+              <FormattedMessage
+                id="dialog:subscribe-email:region"
+                values={{
+                  strong: (...msg) => <strong>{msg}</strong>
+                }}
+              />
             </label>
             <ul className="list-inline list-buttongroup">
               <li>
@@ -137,7 +142,7 @@ class SubscribeEmailDialog extends React.Component {
 
             <p>
               <label htmlFor="email">
-                <FormattedHTMLMessage id="dialog:subscribe-email:email" />
+                <FormattedMessage id="dialog:subscribe-email:email" />
                 <span className="normal" />
               </label>
               <input
@@ -152,7 +157,7 @@ class SubscribeEmailDialog extends React.Component {
               />
             </p>
             <label htmlFor="language">
-              <FormattedHTMLMessage id="dialog:subscribe-email:language" />
+              <FormattedMessage id="dialog:subscribe-email:language" />
               <span className="normal" />
             </label>
             <ul className="list-inline list-subscribe-language">
@@ -219,7 +224,7 @@ class SubscribeEmailDialog extends React.Component {
           <div className="field-2 panel">
             {this.state.status && (
               <p className="status-message">
-                <FormattedHTMLMessage
+                <FormattedMessage
                   id={"dialog:subscribe-email:status:" + this.state.status}
                 />
               </p>

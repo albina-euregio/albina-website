@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { FormattedHTMLMessage, useIntl } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { APP_STORE } from "../../appStore";
 import ProvinceFilter from "../filters/province-filter";
 
@@ -129,7 +129,7 @@ export default function SubscribeWebPushDialog() {
     <div className="modal-subscribe-telegram">
       <div className="modal-header">
         <h2>
-          <FormattedHTMLMessage id="dialog:subscribe-telegram:subheader" />
+          <FormattedMessage id="dialog:subscribe-telegram:subheader" />
         </h2>
       </div>
 
@@ -155,7 +155,7 @@ export default function SubscribeWebPushDialog() {
           }}
         >
           <label htmlFor="province">
-            <FormattedHTMLMessage id="dialog:subscribe-telegram:region" />
+            <FormattedMessage id="dialog:subscribe-telegram:region" />
           </label>
           <ul className="list-inline list-buttongroup">
             <li>
@@ -173,7 +173,7 @@ export default function SubscribeWebPushDialog() {
             </li>
           </ul>
           <label htmlFor="language">
-            <FormattedHTMLMessage id="dialog:subscribe-telegram:language" />
+            <FormattedMessage id="dialog:subscribe-telegram:language" />
             <span className="normal" />
           </label>
           <ul className="list-inline list-subscribe-language">

@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import SubscribeAppDialog from "./subscribe-app-dialog";
 import SubscribeEmailDialog from "./subscribe-email-dialog";
 import SubscribeTelegramDialog from "./subscribe-telegram-dialog";
@@ -14,15 +14,15 @@ class SubscribeDialog extends React.Component {
   }
 
   selectDialog(e, selection) {
-    //console.log("selectDialog", e, selection);
-    e.preventDefault();
+    console.log("selectDialog", e, selection);
+    //e.preventDefault();
     this.setState({ selectedDialog: selection });
   }
 
   render() {
     //const self = this;
 
-    //console.log("render", this.state.selectedDialog);
+    console.log("SubscribeDialog->render", this.state.selectedDialog);
     const dialogTypes = isWebPushSupported()
       ? ["WebPush", "Telegram", "Email", "App"]
       : ["Telegram", "Email", "App"];
@@ -33,17 +33,22 @@ class SubscribeDialog extends React.Component {
             <div className="modal-subscribe-overview">
               <div className="modal-header">
                 <h2 className="subheader">
-                  <FormattedHTMLMessage id="dialog:subscribe:header" />
+                  <FormattedMessage id="dialog:subscribe:header" />
                 </h2>
                 <h2>
-                  <FormattedHTMLMessage id="dialog:subscribe:subheader" />
+                  <FormattedMessage id="dialog:subscribe:subheader" />
                 </h2>
-                <FormattedHTMLMessage id="dialog:subscribe:description" />
+                <FormattedMessage id="dialog:subscribe:description" />
               </div>
 
               <form className="pure-form pure-form-stacked">
                 <label htmlFor="input">
-                  <FormattedHTMLMessage id="dialog:subscribe:select-subscription" />
+                  <FormattedMessage
+                    id="dialog:subscribe:select-subscription"
+                    values={{
+                      span: (...msg) => <span className="normal">{msg}</span>
+                    }}
+                  />
                 </label>
                 <ul className="list-inline list-buttongroup-dense">
                   {dialogTypes.map(type => (
@@ -55,7 +60,7 @@ class SubscribeDialog extends React.Component {
                             ? "pure-button"
                             : "inverse pure-button"
                         }
-                        onClick={e => this.selectDialog(e, type)}
+                        onClick={e => this.selectDialog.bind(this, e, type)}
                       >
                         {this.props.intl.formatMessage({
                           id:

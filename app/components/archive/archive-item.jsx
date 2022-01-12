@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import { Util } from "leaflet";
 import { dateToISODateString, dateToLongDateString } from "../../util/date.js";
 import ArchiveAwmapStatic from "../bulletin/bulletin-awmap-static.jsx";
@@ -70,7 +70,7 @@ class ArchiveItem extends React.Component {
                 })}
                 className="small secondary pure-button tooltip"
               >
-                <FormattedHTMLMessage id="archive:download-pdf" />
+                <FormattedMessage id="archive:download-pdf" />
               </a>
             </li>
             <li>
@@ -86,7 +86,7 @@ class ArchiveItem extends React.Component {
                 target="_blank"
                 className="small secondary pure-button tooltip"
               >
-                <FormattedHTMLMessage id="archive:download-xml" />
+                <FormattedMessage id="archive:download-xml" />
               </a>
             </li>
           </ul>

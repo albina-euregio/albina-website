@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import { regionCodes } from "../../util/regions";
 
 class FollowDialog extends React.Component {
@@ -28,7 +28,7 @@ class FollowDialog extends React.Component {
         <div className="modal-follow">
           <div className="modal-header">
             <h2 className="subheader">
-              <FormattedHTMLMessage id="dialog:follow:header" />
+              <FormattedMessage id="dialog:follow:header" />
             </h2>
           </div>
 

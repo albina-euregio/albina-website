@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import { APP_STORE } from "../../appStore";
 import { modal_init } from "../../js/modal";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
@@ -30,7 +30,7 @@ class BulletinButtonbar extends React.Component {
                 className="icon-link icon-arrow-up tooltip"
                 data-scroll=""
               >
-                <FormattedHTMLMessage id="bulletin:linkbar:back-to-map" />
+                <FormattedMessage id="bulletin:linkbar:back-to-map" />
               </a>
             </div>
             <div className="normal-8 grid-item">

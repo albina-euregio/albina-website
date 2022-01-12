@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 
 class SmFollow extends React.Component {
   render() {
@@ -11,7 +11,12 @@ class SmFollow extends React.Component {
     return (
       <section className="section section-padding sm-share-follow">
         <p>
-          <FormattedHTMLMessage id="footer:follow-us" />
+          <FormattedMessage
+            id="footer:follow-us"
+            values={{
+              strong: (...msg) => <strong>{msg}</strong>
+            }}
+          />
         </p>
         <ul className="list-inline sm-buttons">
           {accounts.map((a, i) => (

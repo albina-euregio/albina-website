@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 
 import ProvinceFilter from "../filters/province-filter";
 import { APP_STORE } from "../../appStore";
@@ -60,7 +60,7 @@ class SubscribeTelegramDialog extends React.Component {
       <div className="modal-subscribe-telegram">
         <div className="modal-header">
           <h2>
-            <FormattedHTMLMessage id="dialog:subscribe-telegram:subheader" />
+            <FormattedMessage id="dialog:subscribe-telegram:subheader" />
           </h2>
         </div>
 
@@ -70,7 +70,7 @@ class SubscribeTelegramDialog extends React.Component {
             onSubmit={this.handleSubmit}
           >
             <label htmlFor="province">
-              <FormattedHTMLMessage id="dialog:subscribe-telegram:region" />
+              <FormattedMessage id="dialog:subscribe-telegram:region" />
             </label>
             <ul className="list-inline list-buttongroup">
               <li>
@@ -88,7 +88,7 @@ class SubscribeTelegramDialog extends React.Component {
               </li>
             </ul>
             <label htmlFor="language">
-              <FormattedHTMLMessage id="dialog:subscribe-telegram:language" />
+              <FormattedMessage id="dialog:subscribe-telegram:language" />
               <span className="normal" />
             </label>
             <ul className="list-inline list-subscribe-language">
@@ -125,7 +125,7 @@ class SubscribeTelegramDialog extends React.Component {
           <div className="field-2 panel">
             {this.state.status && (
               <p className="status-message">
-                <FormattedHTMLMessage
+                <FormattedMessage
                   id={"dialog:subscribe-telegram:status:" + this.state.status}
                 />
               </p>

@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 
 class SubscribeAppDialog extends React.Component {
   constructor(props) {
@@ -36,7 +36,7 @@ class SubscribeAppDialog extends React.Component {
       <div className="modal-subscribe-apps">
         <div className="modal-header">
           <h2>
-            <FormattedHTMLMessage id="dialog:subscribe-app:subheader" />
+            <FormattedMessage id="dialog:subscribe-app:subheader" />
           </h2>
         </div>
 
@@ -53,7 +53,7 @@ class SubscribeAppDialog extends React.Component {
               })}
             />
             <h2 className="subheader">
-              <FormattedHTMLMessage
+              <FormattedMessage
                 id={"dialog:subscribe-app:" + a.id + ":title"}
               />
             </h2>

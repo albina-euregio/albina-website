@@ -5,7 +5,7 @@ import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../stores/bulletinStore";
 import { MAP_STORE } from "../stores/mapStore";
 
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 import BulletinHeader from "../components/bulletin/bulletin-header";
 import BulletinFooter from "../components/bulletin/bulletin-footer";
 const BulletinMap = React.lazy(() =>
@@ -194,8 +194,29 @@ class Bulletin extends React.Component {
           backgroundImage="/content_files/ava_size5-2560.jpg"
           message={
             <>
-              <FormattedHTMLMessage id="bulletin:control-bar:community:text" />
-              <FormattedHTMLMessage id="bulletin:control-bar:community:link" />
+              <FormattedMessage
+                id="bulletin:control-bar:community:text"
+                values={{
+                  a: (...msg) => (
+                    <a
+                      href="https://en.euregio.avalancheresearch.ca"
+                      target="_blank"
+                    >
+                      <strong>{msg}</strong>
+                    </a>
+                  )
+                }}
+              />
+              <FormattedMessage
+                id="bulletin:control-bar:community:link"
+                values={{
+                  a: (...msg) => (
+                    <a href="education/community" target="_blank">
+                      {msg}
+                    </a>
+                  )
+                }}
+              />
             </>
           }
         />

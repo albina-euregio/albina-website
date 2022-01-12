@@ -1,5 +1,5 @@
 import React from "react";
-import { injectIntl, FormattedHTMLMessage } from "react-intl";
+import { injectIntl, FormattedMessage } from "react-intl";
 
 class SmShare extends React.Component {
   getShareUrl(type) {
@@ -43,7 +43,12 @@ class SmShare extends React.Component {
     return (
       <section className="section section-padding sm-share-follow">
         <p>
-          <FormattedHTMLMessage id="main:share-this" />
+          <FormattedMessage
+            id="main:share-this"
+            values={{
+              strong: (...msg) => <strong>{msg}</strong>
+            }}
+          />
         </p>
         <ul className="list-inline sm-buttons">
           <li>
