@@ -265,6 +265,10 @@
           "telegramChannel" : {
             "success" : "Avalanche forecast sent via Telegram channel",
             "failed" : "Avalanche forecast could not be sent via Telegram channel"
+          },
+          "pushNotifications" : {
+            "success" : "Avalanche forecast sent via push notifications",
+            "failed" : "Avalanche forecast could not be sent via push notifications"
           }
         },
         "accept" : "Ok"

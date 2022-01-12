@@ -120,4 +120,16 @@ export class ModalPublicationStatusComponent {
       }
     );
   }
+
+  triggerPushNotifications(event) {
+    event.stopPropagation();
+    this.bulletinsService.triggerPushNotifications(this.date, this.authenticationService.activeRegion).subscribe(
+      data => {
+        console.info("Push notifications triggered");
+      },
+      error => {
+        console.error("Push notifications could not be triggered!");
+      }
+    );
+  }
 }
