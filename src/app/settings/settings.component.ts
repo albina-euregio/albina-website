@@ -9,7 +9,7 @@ import { UserService } from "app/providers/user-service/user.service";
 @Component({
   templateUrl: "settings.component.html"
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
 
   public changePasswordLoading: boolean;
 
@@ -26,9 +26,6 @@ export class SettingsComponent implements OnInit {
     private settingsService: SettingsService,
     private constantsService: ConstantsService) {
     this.changePasswordLoading = false;
-  }
-
-  ngOnInit() {
   }
 
   changePassword() {

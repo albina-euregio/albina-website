@@ -1,9 +1,14 @@
+export interface ApiWikisnowECT {
+  $schema: object;
+  data: WikisnowECT[];
+}
+
 export interface WikisnowECT {
   id: string;
   images: string;
   images_url: string;
   UserName: string;
-  location: string,
+  location: string;
   createDate: string;
   latlong: string;
   Sealevel: string;
