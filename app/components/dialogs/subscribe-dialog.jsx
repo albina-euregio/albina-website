@@ -14,7 +14,7 @@ class SubscribeDialog extends React.Component {
   }
 
   selectDialog(e, selection) {
-    console.log("selectDialog", e, selection);
+    //console.log("selectDialog", e, selection);
     //e.preventDefault();
     this.setState({ selectedDialog: selection });
   }
@@ -22,7 +22,7 @@ class SubscribeDialog extends React.Component {
   render() {
     //const self = this;
 
-    console.log("SubscribeDialog->render", this.state.selectedDialog);
+    //console.log("SubscribeDialog->render", this.state.selectedDialog);
     const dialogTypes = isWebPushSupported()
       ? ["WebPush", "Telegram", "Email", "App"]
       : ["Telegram", "Email", "App"];
@@ -60,7 +60,7 @@ class SubscribeDialog extends React.Component {
                             ? "pure-button"
                             : "inverse pure-button"
                         }
-                        onClick={e => this.selectDialog.bind(this, e, type)}
+                        onClick={e => this.selectDialog(e, type)}
                       >
                         {this.props.intl.formatMessage({
                           id:
