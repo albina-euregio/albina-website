@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import htmr from "htmr";
+import BulletinGlossary from "../components/bulletin/bulletin-glossary";
 
 export function preprocessContent(content: string, blogMode = false) {
   return htmr(content, {
@@ -45,6 +46,8 @@ export function preprocessContent(content: string, blogMode = false) {
             { className: "fitvids", key: props.src },
             children
           );
+        } else if (/BulletinGlossary/i.exec(type)) {
+          return React.createElement(BulletinGlossary, props, children);
         }
         // Remove deprecated html attributes
         ["align", "border"].forEach(prop => delete props[prop]);
