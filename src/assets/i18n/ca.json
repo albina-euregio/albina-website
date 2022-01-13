@@ -234,38 +234,40 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
+        "headline" : "Publication Status",
         "publishedBy" : "Publicat per:",
         "publishedAt" : "Publicat a les:",
         "validFor" : "Vàlid per:",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "Arxiu CAAML creat",
-            "failed" : "No es pot crear l'arxiu CAAML"
-          },
-          "map" : {
-            "success" : "Mapes creats",
-            "failed" : "No es poden crear els mapes"
-          },
-          "pdf" : {
-            "success" : "PDF creat",
-            "failed" : "No es pot crear el PDF"
-          },
-          "staticWidget" : {
-            "success" : "Widget estàtic creat",
-            "failed" : "No es pot crear el widget estàtic"
-          },
-          "html" : {
-            "success" : "HTML creat",
-            "failed" : "No es pot creat el HTML"
-          },
-          "email" : {
-            "success" : "Correus enviats",
-            "failed" : "No es poden enviar els correus"
-          },
-          "telegramChannel" : {
-            "success" : "Predicció d'allaus enviada  via Telegram",
-            "failed" : "No es pot enviar la predicció d'allaus via Telegram"
+        "title" : {
+          "prod" : "Serious stuff",
+          "test" : "Just testing",
+          "task" : "Task",
+          "language" : {
+            "all" : "ALL",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
+        },
+        "label" : {
+          "caaml" : "CAAML Files",
+          "map" : "Maps",
+          "pdf" : "PDFs",
+          "staticWidget" : "Static Widgets",
+          "html" : "Simple HTML",
+          "email" : "Emails",
+          "telegram" : "Telegram Messages",
+          "push" : "Push Notifications"
+        },
+        "tooltip" : {
+          "caaml" : "Create CAAML Files",
+          "map" : "Create Maps",
+          "pdf" : "Crea PDF",
+          "staticWidget" : "Create Static widget",
+          "html" : "Create Simple HTML",
+          "email" : "Send Emails",
+          "telegram" : "Send via Telegram Channel",
+          "push" : "Send via Push Notifications"
         },
         "accept" : "D'acord"
       },
@@ -383,7 +385,7 @@
     "users" : {
       "title" : "Usuaris",
       "button" : {
-        "create" : "Crear usuari"
+        "create" : " Create user"
       },
       "tooltip" : {
         "edit" : "Editar usuari",
@@ -719,41 +721,6 @@
     "reportDate": "Data de l'informe",
     "showMap": "Mapa",
     "showTable": "Taula"
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Avaluació de risc",
-    "snowpackStructure": "Estructura del mantell de neu",
-    "avalanchePotentialValue": "Valor potencial d'allau",
-    "avalancheCharacteristicString": "Característiques de l'allau",
-    "windDriftedSnow": "Neu ventada",
-    "persistentWeakLayer": "Capa feble persistent",
-    "wetSnow": "Neu humida",
-    "glidingSnow": "Lliscament basal",
-    "newSnow": "Neu recent",
-    "snowpackStructureActive": "Estructura del mantell de neu activa",
-    "triggeringProbability": "Probabilitat de desencadenament",
-    "avalancheRiskTendency24h": "Tendència risc d'allau 24h",
-    "avalancheRiskTendency48h": "Tendència risc d'allau 48h",
-    "oldSnowFloatingSnow": "Neu vella",
-    "oldSnowSleet": "Neu vella",
-    "oldSnowWeakLayers": "Capes febles de neu vella",
-    "wetSnowRain": "Aiguaneu humida",
-    "wetSnowTemperatureIncrease": "Augment de la temperatura de la neu humida",
-    "wetSnowHighRadiation": "Radiació elevada de la neu humida"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Nuvolositat",
-    "freshSnowAmount": "Quantitat neu recent",
-    "officialAvalancheReport": "Butlletí d'allaus oficial",
-    "precipitationIntensity": "Intensitat de precipitació",
-    "precipitationType": "Tipus de precipitació",
-    "temperaturePeak": "Pic de temperatura",
-    "temperatureTreeline": "Temperatura del límit del bosc",
-    "temperatureValley": "Temperatura de la vall",
-    "weatherTendency": "Tendència del temps",
-    "windDirection": "Direcció del vent",
-    "windSpeed": "Velocitat del vent",
-    "visibilityConditions": "Condicions de visibilitat"
   },
   "units" : {
     "cm" : "cm",

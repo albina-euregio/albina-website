@@ -234,38 +234,40 @@
         "reject" : "Non"
       },
       "publicationStatusDialog" : {
+        "headline" : "Publication Status",
         "publishedBy" : "Publicat per:",
         "publishedAt" : "Publicat a les:",
         "validFor" : "Valid per:",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "S'a creat eth fichèr CAAML",
-            "failed" : "Eth fichèr CAAML non s'a pogut crear"
-          },
-          "map" : {
-            "success" : "Mapes creadi",
-            "failed" : "Non s'an pogut crear es mapes"
-          },
-          "pdf" : {
-            "success" : "PDF creat",
-            "failed" : "Non s'a pogut crear eth PDF"
-          },
-          "staticWidget" : {
-            "success" : "S'a creat un widget estàtic",
-            "failed" : "Non s'a pogut crear un widget estàtic"
-          },
-          "html" : {
-            "success" : "HTML creat",
-            "failed" : "Non s'a pogut crear eth HTML"
-          },
-          "email" : {
-            "success" : "Corrèus electronics enviadi",
-            "failed" : "Non s'an pogut enviar es corrèus electronics"
-          },
-          "telegramChannel" : {
-            "success" : "Prediccion de lauegi enviada a traués deth canau de Telegram",
-            "failed" : "Non s'a pogut enviar era prediccion de lauegi a traués deth canau de Telegram"
+        "title" : {
+          "prod" : "Serious stuff",
+          "test" : "Just testing",
+          "task" : "Task",
+          "language" : {
+            "all" : "ALL",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
+        },
+        "label" : {
+          "caaml" : "CAAML Files",
+          "map" : "Maps",
+          "pdf" : "PDFs",
+          "staticWidget" : "Static Widgets",
+          "html" : "Simple HTML",
+          "email" : "Emails",
+          "telegram" : "Telegram Messages",
+          "push" : "Push Notifications"
+        },
+        "tooltip" : {
+          "caaml" : "Create CAAML Files",
+          "map" : "Create Maps",
+          "pdf" : "Crear PDF",
+          "staticWidget" : "Create Static widget",
+          "html" : "Create Simple HTML",
+          "email" : "Send Emails",
+          "telegram" : "Send via Telegram Channel",
+          "push" : "Send via Push Notifications"
         },
         "accept" : "d'acòrd"
       },
@@ -383,7 +385,7 @@
     "users" : {
       "title" : "Usuaris",
       "button" : {
-        "create" : "Crear usuari"
+        "create" : " Create user"
       },
       "tooltip" : {
         "edit" : "Editar usuari",
@@ -719,41 +721,6 @@
     "reportDate": "Data der infòrme",
     "showMap": "Mapa",
     "showTable": "Taula"
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Avaloracion deth risc",
-    "snowpackStructure": "Estructura deth celh de nhèu",
-    "avalanchePotentialValue": "Valor potenciau de lauet",
-    "avalancheCharacteristicString": "Característiques des lauegi",
-    "windDriftedSnow": "Nhèu ventada",
-    "persistentWeakLayer": "Coches fèbles persistentes",
-    "wetSnow": "Nhèu umida",
-    "glidingSnow": "Esguitlament basau",
-    "newSnow": "Nhèu recenta",
-    "snowpackStructureActive": "Estructura de celh de nhèu actiua",
-    "triggeringProbability": "Probabilitat de desencadenament",
-    "avalancheRiskTendency24h": "Tendéncia risc de lauegi 24h",
-    "avalancheRiskTendency48h": "Tendéncia risc de lauegi 48h",
-    "oldSnowFloatingSnow": "Nhèu vielha",
-    "oldSnowSleet": "Nhèu vielha",
-    "oldSnowWeakLayers": "Coches fèbles de nhèu vielha",
-    "wetSnowRain": "Aiguanhèu umida",
-    "wetSnowTemperatureIncrease": "Aument de temperatura de nhèu umida",
-    "wetSnowHighRadiation": "Radiacion elevada de nhèu umida"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Nivolositat",
-    "freshSnowAmount": "Quantitat nhèu recenta",
-    "officialAvalancheReport": "Bulletin de lauegi oficiau",
-    "precipitationIntensity": "Intensitat de precipitacion ",
-    "precipitationType": "Tipe precipitacion",
-    "temperaturePeak": "Pic de temperatura",
-    "temperatureTreeline": "Temperatura en límit deth bòsc",
-    "temperatureValley": "Temperatura dera val",
-    "weatherTendency": "Tendéncia deth temps",
-    "windDirection": "Direccion vent",
-    "windSpeed": "Velocitat vent",
-    "visibilityConditions": "Condicions de visibilitat"
   },
   "units" : {
     "cm" : "cm",

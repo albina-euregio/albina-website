@@ -234,38 +234,40 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
+        "headline" : "Publication Status",
         "publishedBy" : "Publicado por:",
         "publishedAt" : "Publicado a las:",
         "validFor" : "Válido para:",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "Fichero CAAML creado",
-            "failed" : "No se pudo crear el fichero CAAML"
-          },
-          "map" : {
-            "success" : "Mapas creados",
-            "failed" : "No se han podido crear los mapas"
-          },
-          "pdf" : {
-            "success" : "PDF creado",
-            "failed" : "No se pudo crear el PDF"
-          },
-          "staticWidget" : {
-            "success" : "Widget estático creado",
-            "failed" : "No se pudo crear el witget estático"
-          },
-          "html" : {
-            "success" : "HTML creado",
-            "failed" : "No se pudo drear el HTML"
-          },
-          "email" : {
-            "success" : "Correos enviados",
-            "failed" : "No se han podido enviar los correos"
-          },
-          "telegramChannel" : {
-            "success" : "Predicción de aludes enviada a través de canal de Telegram",
-            "failed" : "No se ha podido enviar la predicción de aludes a través de canal de Telegram"
+        "title" : {
+          "prod" : "Serious stuff",
+          "test" : "Just testing",
+          "task" : "Task",
+          "language" : {
+            "all" : "ALL",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
+        },
+        "label" : {
+          "caaml" : "CAAML Files",
+          "map" : "Maps",
+          "pdf" : "PDFs",
+          "staticWidget" : "Static Widgets",
+          "html" : "Simple HTML",
+          "email" : "Emails",
+          "telegram" : "Telegram Messages",
+          "push" : "Push Notifications"
+        },
+        "tooltip" : {
+          "caaml" : "Create CAAML Files",
+          "map" : "Create Maps",
+          "pdf" : "Crear PDF",
+          "staticWidget" : "Create Static widget",
+          "html" : "Create Simple HTML",
+          "email" : "Send Emails",
+          "telegram" : "Send via Telegram Channel",
+          "push" : "Send via Push Notifications"
         },
         "accept" : "De acuerdo"
       },
@@ -383,7 +385,7 @@
     "users" : {
       "title" : "Usuarios",
       "button" : {
-        "create" : "Crear usuario"
+        "create" : " Create user"
       },
       "tooltip" : {
         "edit" : "Editar usuario",
@@ -719,41 +721,6 @@
     "reportDate": "Fecha del informe",
     "showMap": "Mapa",
     "showTable": "Tabla"
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Evaluación del riesgo",
-    "snowpackStructure": "Estructura del manto de nieve",
-    "avalanchePotentialValue": "Valor potencial del alud",
-    "avalancheCharacteristicString": "Características del alud",
-    "windDriftedSnow": "Nieve venteada",
-    "persistentWeakLayer": "Capa débil persistente",
-    "wetSnow": "Nieve húmeda",
-    "glidingSnow": "Deslizamiento basal",
-    "newSnow": "Nieve reciente",
-    "snowpackStructureActive": "Estructura de manto de nieve activa",
-    "triggeringProbability": "Probabilidad de desencadenamiento",
-    "avalancheRiskTendency24h": "Tendencia riesgo de alud 24h",
-    "avalancheRiskTendency48h": "Tendencia riesgo de alud 48h",
-    "oldSnowFloatingSnow": "Nieve vieja",
-    "oldSnowSleet": "Nieve vieja",
-    "oldSnowWeakLayers": "Capas débiles de nieve vieja",
-    "wetSnowRain": "Agua-nieve húmeda",
-    "wetSnowTemperatureIncrease": "Incremento de temperatura de la nieve húmeda",
-    "wetSnowHighRadiation": "Radiación alta de la nieve húmeda"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Nubolosidad",
-    "freshSnowAmount": "Cantidad nieve reciente",
-    "officialAvalancheReport": "Boletín de aludes oficial",
-    "precipitationIntensity": "Intensidad de precipitación",
-    "precipitationType": "Tipo de precipitación",
-    "temperaturePeak": "Pico de temperatura",
-    "temperatureTreeline": "Temperatura en el límite del bosque",
-    "temperatureValley": "Temperatura en el valle",
-    "weatherTendency": "Tendencia del tiempo",
-    "windDirection": "Dirección del viento",
-    "windSpeed": "Velocidad del viento",
-    "visibilityConditions": "Condiciones de visibilidad"
   },
   "units" : {
     "cm" : "cm",

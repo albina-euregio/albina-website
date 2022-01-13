@@ -107,9 +107,9 @@
       "discard" : " Verwerfen",
       "back" : " Zurück",
       "createAggregatedRegion" : " Neue Region",
-      "pasteAggregatedRegion" : "Region einfügen",
-      "cancelCopyBulletin" : "Abbrechen",
-      "createAvalancheSituation" : "Neues Lawinenproblem",
+      "pasteAggregatedRegion" : " Region einfügen",
+      "cancelCopyBulletin" : " Abbrechen",
+      "createAvalancheSituation" : " Neues Lawinenproblem",
       "ownRegions" : "Eigene Regionen",
       "foreignRegions": "Fremde Regionen",
       "label" : {
@@ -234,38 +234,40 @@
         "reject" : "Nein"
       },
       "publicationStatusDialog" : {
+        "headline" : "Status der Publikation",
         "publishedBy" : "Publiziert von: ",
         "publishedAt" : "Publiziert um: ",
         "validFor" : "Gültig für: ",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "CAAML Datei wurde erstellt",
-            "failed" : "CAAML Datei konnte nicht erstellt werden"
-          },
-          "map" : {
-            "success" : "Karten wurden erstellt",
-            "failed" : "Karten konnten nicht erstellt werden"
-          },
-          "pdf" : {
-            "success" : "PDF wurde erstellt",
-            "failed" : "PDF konnte nicht erstellt werden"
-          },
-          "staticWidget" : {
-            "success" : "Statisches Widget wurde erstellt",
-            "failed" : "Statisches Widget konnte nicht erstellt werden"
-          },
-          "html" : {
-            "success" : "HTML wurde erstellt",
-            "failed" : "HTML konnte nicht erstellt werden"
-          },
-          "email" : {
-            "success" : "Emails wurden versandt",
-            "failed" : "Emails konnten nicht versandt werden"
-          },
-          "telegramChannel" : {
-            "success" : "Lawinenvorhersage wurde via Telegram Kanal versandt",
-            "failed" : "Lawinenvorhersage konnte nicht via Telegram Kanal versandt werden"
+        "title" : {
+          "prod" : "Produktives System",
+          "test" : "Test System",
+          "task" : "Vorgang",
+          "language" : {
+            "all" : "ALLE",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
+        },
+        "label" : {
+          "caaml" : "CAAML Dateien",
+          "map" : "Karten",
+          "pdf" : "PDFs",
+          "staticWidget" : "Statische Widgets",
+          "html" : "Einfaches HTML",
+          "email" : "E-Mails",
+          "telegram" : "Telegram Nachrichten",
+          "push" : "Push Nachrichten"
+        },
+        "tooltip" : {
+          "caaml" : "CAAML Dateien erzeugen",
+          "map" : "Karten erzeugen",
+          "pdf" : "PDF erzeugen",
+          "staticWidget" : "Statische Widgets erzeugen",
+          "html" : "Einfaches HTML erzeugen",
+          "email" : "E-Mails versenden",
+          "telegram" : "Publizieren via Telegram Kanal",
+          "push" : "Push Nachrichten verschicken"
         },
         "accept" : "Ok"
       },
@@ -719,41 +721,6 @@
     "reportDate": "Meldedatum",
     "showMap": "Karte",
     "showTable": "Tabelle"
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Risikoeinschätzung",
-    "snowpackStructure": "Schneedeckenaufbau",
-    "avalanchePotentialValue": "Lawinenpotenzial",
-    "avalancheCharacteristicString": "Lawinencharakteristik",
-    "windDriftedSnow": "Triebschnee",
-    "persistentWeakLayer": "Altschnee",
-    "wetSnow": "Nassschnee",
-    "glidingSnow": "Gleitschnee",
-    "newSnow": "Neuschnee",
-    "snowpackStructureActive": "Schneedeckenaufbau",
-    "triggeringProbability": "Auslösewahrscheinlichkeit",
-    "avalancheRiskTendency24h": "Tendenz des Lawinenrisikos 24h",
-    "avalancheRiskTendency48h": "Tendenz des Lawinenrisikos 48h",
-    "oldSnowFloatingSnow": "Schwimmschnee / Tiefenreif",
-    "oldSnowSleet": "Graupel",
-    "oldSnowWeakLayers": "schwache Zwischenschichten",
-    "wetSnowRain": "Regen",
-    "wetSnowTemperatureIncrease": "Erwärmung",
-    "wetSnowHighRadiation": "Strahlung"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Bewölkung",
-    "freshSnowAmount": "Neuschneesumme",
-    "officialAvalancheReport": "Offizieller Lawinen Report",
-    "precipitationIntensity": "Niederschlagsintensität",
-    "precipitationType": "Niederschlagsart",
-    "temperaturePeak": "Temperatur Gipfel",
-    "temperatureTreeline": "Temperatur Waldgrenze",
-    "temperatureValley": "Temperatur Tal",
-    "weatherTendency": "Tendenz Wetter",
-    "windDirection": "Wind Richtung",
-    "windSpeed": "Wind Geschw.",
-    "visibilityConditions": "Sicht"
   },
   "units" : {
     "cm" : "cm",
