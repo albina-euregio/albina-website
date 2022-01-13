@@ -1,8 +1,6 @@
 import Tippy from "@tippyjs/react";
 import React from "react";
 
-import "tippy.js/dist/tippy.css";
-
 import { preprocessContent } from "../../util/htmlParser";
 import GLOSSARY_LINKS from "./bulletin-glossary-links.json";
 import GLOSSARY_CONTENT from "./bulletin-glossary-content.json";
@@ -34,7 +32,7 @@ export default class BulletinGlossary extends React.Component<Props> {
     const text = GLOSSARY_CONTENT[glossary]?.text;
     const content = text ? preprocessContent(text) : "???";
     return (
-      <Tippy content={content}>
+      <Tippy content={content} className="tippy-tooltip custom-html-theme">
         <a
           className="glossary"
           href={`https://www.avalanches.org/glossary/?lang=de#${glossary}`}
