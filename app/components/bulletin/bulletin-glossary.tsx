@@ -4,6 +4,10 @@ import React from "react";
 import { preprocessContent } from "../../util/htmlParser";
 import GLOSSARY_LINKS from "./bulletin-glossary-links.json";
 import GLOSSARY_CONTENT from "./bulletin-glossary-content.json";
+const GLOSSARY_REGEX = new RegExp(
+  "\\b(" + Object.keys(GLOSSARY_LINKS).join("|") + ")\\b",
+  "g"
+);
 
 console.warn(
   "Missing glossary",
@@ -13,13 +17,10 @@ console.warn(
 );
 
 export function findGlossaryStrings(text: string): string {
-  return Object.entries(GLOSSARY_LINKS).reduce((e, [re, glossary]) => {
-    if (!e.includes(re)) return e;
-    return e.replace(
-      new RegExp(`\\b${re}\\b`),
-      `<BulletinGlossary glossary="${glossary}">$&</BulletinGlossary>`
-    );
-  }, text);
+  return text.replace(GLOSSARY_REGEX, substring => {
+    const glossary = GLOSSARY_LINKS[substring];
+    return `<BulletinGlossary glossary="${glossary}">${substring}</BulletinGlossary>`;
+  });
 }
 
 type Props = {
