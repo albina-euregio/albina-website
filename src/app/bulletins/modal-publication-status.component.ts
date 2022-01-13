@@ -85,51 +85,53 @@ export class ModalPublicationStatusComponent {
     );
   }
 
-  sendEmail(event) {
+  sendEmail(event, language: string = "") {
     event.stopPropagation();
-    this.bulletinsService.sendEmail(this.date, this.authenticationService.activeRegion).subscribe(
+    this.bulletinsService.sendEmail(this.date, this.authenticationService.activeRegion, language).subscribe(
       data => {
-        console.info("Emails sent");
+        console.info("Emails sent for %s in %s", this.authenticationService.activeRegion, language);
       },
       error => {
-        console.error("Emails could not be sent!");
+        console.error("Emails could not be sent for %s in %s!", this.authenticationService.activeRegion, language);
       }
     );
   }
 
-  sendTestEmail(event) {
+  sendTestEmail(event, language: string = "") {
     event.stopPropagation();
-    this.bulletinsService.sendTestEmail(this.date, this.authenticationService.activeRegion).subscribe(
+    this.bulletinsService.sendTestEmail(this.date, this.authenticationService.activeRegion, language).subscribe(
       data => {
-        console.info("Test emails sent");
+        console.info("Test emails sent for %s in %s", this.authenticationService.activeRegion, language);
       },
       error => {
-        console.error("Test emails could not be sent!");
+        console.error("Test emails could not be sent for %s in %s!", this.authenticationService.activeRegion, language);
       }
     );
   }
 
-  triggerTelegramChannel(event) {
+  triggerTelegramChannel(event, language: string = "") {
     event.stopPropagation();
-    this.bulletinsService.triggerTelegramChannel(this.date, this.authenticationService.activeRegion).subscribe(
+    this.bulletinsService.triggerTelegramChannel(this.date, this.authenticationService.activeRegion, language).subscribe(
       data => {
-        console.info("Telegram channel triggered");
+        console.info("Telegram channel triggered for %s in %s", this.authenticationService.activeRegion, language);
       },
       error => {
-        console.error("Telegram channel could not be triggered!");
+        console.error("Telegram channel could not be triggered for %s in %s!", this.authenticationService.activeRegion, language);
       }
     );
   }
 
-  triggerPushNotifications(event) {
+  triggerPushNotifications(event, language: string = "") {
     event.stopPropagation();
-    this.bulletinsService.triggerPushNotifications(this.date, this.authenticationService.activeRegion).subscribe(
+
+    this.bulletinsService.triggerPushNotifications(this.date, this.authenticationService.activeRegion, language).subscribe(
       data => {
-        console.info("Push notifications triggered");
+        console.info("Push notifications triggered for %s in %s", this.authenticationService.activeRegion, language);
       },
       error => {
-        console.error("Push notifications could not be triggered!");
+        console.error("Push notifications could not be triggered for %s in %s!", this.authenticationService.activeRegion, language);
       }
     );
   }
+
 }

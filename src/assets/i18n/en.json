@@ -234,42 +234,40 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
+        "headline" : "Publication Status",
         "publishedBy" : "Published by: ",
         "publishedAt" : "Published at: ",
         "validFor" : "Valid for: ",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "CAAML file created",
-            "failed" : "CAAML file could not be created"
-          },
-          "map" : {
-            "success" : "Maps created",
-            "failed" : "Maps could not be created"
-          },
-          "pdf" : {
-            "success" : "PDF created",
-            "failed" : "PDF could not be created"
-          },
-          "staticWidget" : {
-            "success" : "Static widget created",
-            "failed" : "Static widget could not be created"
-          },
-          "html" : {
-            "success" : "HTML created",
-            "failed" : "HTML could not be created"
-          },
-          "email" : {
-            "success" : "Emails sent",
-            "failed" : "Emails could not be sent"
-          },
-          "telegramChannel" : {
-            "success" : "Avalanche forecast sent via Telegram channel",
-            "failed" : "Avalanche forecast could not be sent via Telegram channel"
-          },
-          "pushNotifications" : {
-            "success" : "Avalanche forecast sent via push notifications",
-            "failed" : "Avalanche forecast could not be sent via push notifications"
+        "title" : {
+          "prod" : "Serious stuff",
+          "test" : "Just testing",
+          "task" : "Task",
+          "language" : {
+            "all" : "ALL",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
+        },
+        "label" : {
+          "caaml" : "CAAML Files",
+          "map" : "Maps",
+          "pdf" : "PDFs",
+          "staticWidget" : "Static Widgets",
+          "html" : "Simple HTML",
+          "email" : "Emails",
+          "telegram" : "Telegram Messages",
+          "push" : "Push Notifications"
+        },
+        "tooltip" : {
+          "caaml" : "Create CAAML Files",
+          "map" : "Create Maps",
+          "pdf" : "Create PDF",
+          "staticWidget" : "Create Static widget",
+          "html" : "Create Simple HTML",
+          "email" : "Send Emails",
+          "telegram" : "Send via Telegram Channel",
+          "push" : "Send via Push Notifications"
         },
         "accept" : "Ok"
       },
