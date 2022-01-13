@@ -39,8 +39,13 @@ class BulletinReport extends React.Component {
     // bulletins are loaded in correct language
     if (!elem) return "";
     elem = elem.replace(/&lt;br\/&gt;/g, "<br/>");
-    elem = findGlossaryStrings(elem);
-    return preprocessContent(elem);
+    const withGlossary = findGlossaryStrings(elem);
+    try {
+      return preprocessContent(withGlossary);
+    } catch (e) {
+      console.warn(e, { elem, withGlossary });
+      return preprocessContent(elem);
+    }
   }
 
   render() {
