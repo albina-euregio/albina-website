@@ -121,6 +121,18 @@ export class ModalPublicationStatusComponent {
     );
   }
 
+  triggerTestTelegramChannel(event, language: string = "") {
+    event.stopPropagation();
+    this.bulletinsService.triggerTestTelegramChannel(this.date, this.authenticationService.activeRegion, language).subscribe(
+      data => {
+        console.info("Test telegram channel triggered for %s in %s", this.authenticationService.activeRegion, language);
+      },
+      error => {
+        console.error("Test telegram channel could not be triggered for %s in %s!", this.authenticationService.activeRegion, language);
+      }
+    );
+  }
+
   triggerPushNotifications(event, language: string = "") {
     event.stopPropagation();
 
@@ -134,4 +146,16 @@ export class ModalPublicationStatusComponent {
     );
   }
 
+  triggerTestPushNotifications(event, language: string = "") {
+    event.stopPropagation();
+
+    this.bulletinsService.triggerTestPushNotifications(this.date, this.authenticationService.activeRegion, language).subscribe(
+      data => {
+        console.info("Test push notifications triggered for %s in %s", this.authenticationService.activeRegion, language);
+      },
+      error => {
+        console.error("Test push notifications could not be triggered for %s in %s!", this.authenticationService.activeRegion, language);
+      }
+    );
+  }
 }

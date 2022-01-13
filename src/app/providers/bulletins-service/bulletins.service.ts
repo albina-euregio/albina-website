@@ -472,12 +472,40 @@ export class BulletinsService {
     return this.http.post<Response>(url, body, options);
   }
 
+  triggerTestTelegramChannel(date: Date, region: string, language: string): Observable<Response> {
+    var url;
+    if (language && language !== "") {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/telegram/test?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region + "&lang=" + language;
+    } else {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/telegram/test?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    }
+    const headers = this.authenticationService.newAuthHeader();
+    const body = JSON.stringify("");
+    const options = { headers: headers };
+
+    return this.http.post<Response>(url, body, options);
+  }
+
   triggerPushNotifications(date: Date, region: string, language: string): Observable<Response> {
     var url;
     if (language && language !== "") {
       url = this.constantsService.getServerUrl() + "bulletins/publish/push?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region + "&lang=" + language;
     } else {
       url = this.constantsService.getServerUrl() + "bulletins/publish/push?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    }
+    const headers = this.authenticationService.newAuthHeader();
+    const body = JSON.stringify("");
+    const options = { headers: headers };
+
+    return this.http.post<Response>(url, body, options);
+  }
+
+  triggerTestPushNotifications(date: Date, region: string, language: string): Observable<Response> {
+    var url;
+    if (language && language !== "") {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/push/test?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region + "&lang=" + language;
+    } else {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/push/test?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
     }
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");

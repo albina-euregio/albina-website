@@ -92,6 +92,20 @@
 					<td><button type="button" class="btn btn-secondary btn-sm" (click)="sendTestEmail($event, 'it')" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.email' | translate }}"><i class="fa fa-envelope"></i></button></td>
 					<td><button type="button" class="btn btn-secondary btn-sm" (click)="sendTestEmail($event, 'en')" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.email' | translate }}"><i class="fa fa-envelope"></i></button></td>
 				  </tr>
+				  <tr>
+					<td><label class="col-form-label">{{ "bulletins.table.publicationStatusDialog.label.telegram" | translate }}</label></td>
+					<td><button type="button" class="btn btn-secondary btn-sm" (click)="triggerTestTelegramChannel($event)" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.telegram' | translate }}"><i class="fa fa-telegram"></i></button></td>
+					<td><button type="button" class="btn btn-secondary btn-sm" (click)="triggerTestTelegramChannel($event, 'de')" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.telegram' | translate }}"><i class="fa fa-telegram"></i></button></td>
+					<td><button type="button" class="btn btn-secondary btn-sm" (click)="triggerTestTelegramChannel($event, 'it')" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.telegram' | translate }}"><i class="fa fa-telegram"></i></button></td>
+					<td><button type="button" class="btn btn-secondary btn-sm" (click)="triggerTestTelegramChannel($event, 'en')" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.telegram' | translate }}"><i class="fa fa-telegram"></i></button></td>
+				  </tr>
+				  <tr>
+					<td><label class="col-form-label">{{ "bulletins.table.publicationStatusDialog.label.push" | translate }}</label></td>
+					<td><button type="button" class="btn btn-secondary btn-sm" (click)="triggerTestPushNotifications($event)" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.push' | translate }}"><i class="fa fa-bell"></i></button></td>
+					<td><button type="button" class="btn btn-secondary btn-sm" (click)="triggerTestPushNotifications($event, 'de')" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.push' | translate }}"><i class="fa fa-bell"></i></button></td>
+					<td><button type="button" class="btn btn-secondary btn-sm" (click)="triggerTestPushNotifications($event, 'it')" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.push' | translate }}"><i class="fa fa-bell"></i></button></td>
+					<td><button type="button" class="btn btn-secondary btn-sm" (click)="triggerTestPushNotifications($event, 'en')" data-toggle="tooltip" title="{{ 'bulletins.table.publicationStatusDialog.tooltip.push' | translate }}"><i class="fa fa-bell"></i></button></td>
+				  </tr>
 				</tbody>
 			  </table>
 		  </div>
