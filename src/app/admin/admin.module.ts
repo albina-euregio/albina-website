@@ -8,6 +8,7 @@ import { UsersComponent } from "./users.component";
 import { StatisticsComponent } from "./statistics.component";
 import { ObservationsComponent } from "./observations.component";
 import { ObservationsService } from "../observations/observations.service";
+import { BlogComponent } from "./blog.component";
 
 import { AdminRoutingModule } from "./admin-routing.module";
 import { TranslateModule } from "@ngx-translate/core";
@@ -39,7 +40,8 @@ import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
     ServerConfigurationComponent,
     UsersComponent,
     StatisticsComponent,
-    ObservationsComponent
+    ObservationsComponent,
+    BlogComponent
   ],
   providers: [
     ObservationsService

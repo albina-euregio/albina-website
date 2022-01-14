@@ -466,6 +466,30 @@
         "dateRange" : "Period",
         "observer" : "Observer"
       }
+    },
+    "blog" : {
+      "title" : "Blog",
+      "language" : {
+        "title" : "Language",
+        "de" : "DE",
+        "it" : "IT",
+        "en" : "EN"
+      },
+      "email" : {
+        "tooltip" : "Send Emails",
+        "success" : "Email successfully sent!",
+        "error" : "Email could not be sent!"
+      },
+      "telegram" : {
+        "tooltip" : "Send via Telegram Channel",
+        "success" : "Telegram successfully sent!",
+        "error" : "Telegram could not be sent!"
+      },
+      "push" : {
+        "tooltip" : "Send via Push Notifications",
+        "success" : "Push successfully sent!",
+        "error" : "Push could not be sent!"
+      }
     }
   },
   "settings" : {

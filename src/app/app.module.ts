@@ -42,6 +42,7 @@ import { LocalStorageService } from "./providers/local-storage-service/local-sto
 import { ConfigurationService } from "./providers/configuration-service/configuration.service";
 import { SocialmediaService } from "./providers/socialmedia-service/socialmedia.service";
 import { CopyService } from "./providers/copy-service/copy.service";
+import { BlogService } from "./providers/blog-service/blog.service";
 import { ConfirmationService } from "primeng/api";
 
 // Pipes
@@ -190,7 +191,8 @@ registerLocaleData(localeOc, "oc");
     ConfigurationService,
     ConfirmationService,
     SocialmediaService,
-    CopyService
+    CopyService,
+    BlogService
   ],
   bootstrap: [AppComponent],
   exports: [
