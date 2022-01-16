@@ -14,16 +14,16 @@
   },
   "sidebar" : {
     "bulletins" : "Lawinen.report",
-    "observations" : "Rückmeldungen",
+    "observations" : "Beobachtungen",
     "modellingZamg": "ZAMG Multimodel",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
-    "modellingSnowpack": "SNOWPACK Model",
+    "modellingSnowpack": "SNOWPACK Modell",
     "modellingSnowpackMeteo": "Modellierte Meteodaten SNOWPACK"
   },
   "menu" : {
     "logout" : "Logout",
     "language" : "Sprache",
-    "en" : "English",
+    "en" : "Englisch",
     "de" : "Deutsch",
     "fr" : "Französisch",
     "it" : "Italienisch",
@@ -253,50 +253,50 @@
         "caaml" : {
           "label" : "CAAML Dateien",
           "tooltip" : "CAAML Dateien erzeugen",
-          "success" : "{{prefix}}CAAML Files successfully created!",
-          "error" : "{{prefix}}CAAML Files could not be created!"
+          "success" : "{{prefix}}CAAML Dateien erfolgreich erstellt!",
+          "error" : "{{prefix}}CAAML Dateien konnten nicht erstellt werden!"
         },
         "map" : {
           "label" : "Karten",
           "tooltip" : "Karten erzeugen",
-          "success" : "{{prefix}}Maps successfully created!",
-          "error" : "{{prefix}}Maps could not be created!"
+          "success" : "{{prefix}}Karten erfolgreich erstellt!",
+          "error" : "{{prefix}}Karten konnten nicht erstellt werden!"
         },
         "pdf" : {
           "label" : "PDFs",
-          "tooltip" : "Create PDFs",
-          "success" : "{{prefix}}PDFs successfully created!",
-          "error" : "{{prefix}}PDFs could not be created!"
+          "tooltip" : "PDFs erstellen",
+          "success" : "{{prefix}}PDFs erfolgreich erstellt!",
+          "error" : "{{prefix}}PDFs konnten nicht erstellt werden!"
         },
         "staticWidget" : {
           "label" : "Statische Widgets",
-          "tooltip" : "Create Static Widgets",
-          "success" : "{{prefix}}Static Widgets successfully created!",
-          "error" : "{{prefix}}Static Widgets could not be created!"
+          "tooltip" : "Statische Widgets erzeugen",
+          "success" : "{{prefix}}Statische Widgets erfolgreich erstellt!",
+          "error" : "{{prefix}}Statische Widgets konnten nicht erstellt werden!"
         },
         "html" : {
-          "label" : "Simple HTMLs",
-          "tooltip" : "Create Simple HTML Files",
-          "success" : "{{prefix}}Simple HTML Files successfully created!",
-          "error" : "{{prefix}}Simple HTML Files could not be created!"
+          "label" : "Einfache HTML Dateien",
+          "tooltip" : "Einfache HTML Dateien erstellen",
+          "success" : "{{prefix}}Einfache HTML Dateien erfolgreich erstellt!",
+          "error" : "{{prefix}}Einfache HTML Dateien konnte nicht erstellt werden!"
         },
         "email" : {
           "label" : "E-Mails",
           "tooltip" : "E-Mails versenden",
-          "success" : "{{prefix}}Emails successfully sent!",
-          "error" : "{{prefix}}Emails could not be sent!"
+          "success" : "{{prefix}}Emails erfolgreich verschickt!",
+          "error" : "{{prefix}}Emails konnten nicht verschickt werden!"
         },
         "telegram" : {
           "label" : "Telegram Nachrichten",
-          "tooltip" : "Send Telegram Messages",
-          "success" : "{{prefix}}Telegram Messages successfully sent!",
-          "error" : "{{prefix}}Telegram Messages could not be sent!"
+          "tooltip" : "Telegram Nachrichten verschicken",
+          "success" : "{{prefix}}Telegram Nachrichten erfolgreich verschickt!",
+          "error" : "{{prefix}}Telegram Nachrichten konnten nicht verschickt werden!"
         },
         "push" : {
           "label" : "Push Nachrichten",
-          "tooltip" : "Send Push Notifications",
-          "success" : "{{prefix}}Push Notifications successfully sent!",
-          "error" : "{{prefix}}Push Notifications could not be sent!"
+          "tooltip" : "Push Nachrichten verschicken",
+          "success" : "{{prefix}}Push Nachrichten erfolgreich verschickt!",
+          "error" : "{{prefix}}Push Nachrichten konnten nicht verschickt werden!"
         },
         "accept" : "Ok"
       },
@@ -505,24 +505,24 @@
         "en" : "EN"
       },
       "all" : {
-        "tooltip" : "Send Emails, Telegram and Push",
-        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
-        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
+        "tooltip" : "Emails, Telegram Nachrichten und Push Nachrichten verschicken",
+        "success" : "{{prefix}}Email, Telegram Nachrichten und Push Nachrichten erfolgreich verschickt!",
+        "error" : "{{prefix}}Email, Telegram Nachrichten und Push Nachrichten konnten nicht verschickt werden!"
       },
       "email" : {
         "tooltip" : "E-Mails versenden",
-        "success" : "{{prefix}}Email successfully sent!",
-        "error" : "{{prefix}}Email could not be sent!"
+        "success" : "{{prefix}}Emails erfolgreich verschickt!",
+        "error" : "{{prefix}}Emails konnten nicht verschickt werden!"
       },
       "telegram" : {
         "tooltip" : "Publizieren via Telegram Kanal",
-        "success" : "{{prefix}}Telegram successfully sent!",
-        "error" : "{{prefix}}Telegram could not be sent!"
+        "success" : "{{prefix}}Telegram Nachrichten erfolgreich verschickt!",
+        "error" : "{{prefix}}Telegram Nachrichten konnten nicht verschickt werden!"
       },
       "push" : {
         "tooltip" : "Push Nachrichten verschicken",
-        "success" : "{{prefix}}Push successfully sent!",
-        "error" : "{{prefix}}Push could not be sent!"
+        "success" : "{{prefix}}Push Nachrichten erfolgreich verschickt!",
+        "error" : "{{prefix}}Push Nachrichten konnten nicht verschickt werden!"
       }
     }
   },
