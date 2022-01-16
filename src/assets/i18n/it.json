@@ -249,25 +249,54 @@
             "en" : "EN"
           }
         },
-        "label" : {
-          "caaml" : "CAAML Files",
-          "map" : "Mappe",
-          "pdf" : "PDFs",
-          "staticWidget" : "Widget statici",
-          "html" : "Simplice HTML",
-          "email" : "Emails",
-          "telegram" : "Telegram channel",
-          "push" : "Push Notifications"
+
+        "caaml" : {
+          "label" : "CAAML Files",
+          "tooltip" : "Creare CAAML",
+          "success" : "{{prefix}}CAAML Files successfully created!",
+          "error" : "{{prefix}}CAAML Files could not be created!"
         },
-        "tooltip" : {
-          "caaml" : "Creare CAAML",
-          "map" : "Creare mappe",
-          "pdf" : "Creare pdf",
-          "staticWidget" : "Creare widget statici",
-          "html" : "Creare simplice HTML",
-          "email" : "Inviare e-mail",
-          "telegram" : "Pubblicazione via Telegram channel",
-          "push" : "Send via Push Notifications"
+        "map" : {
+          "label" : "Mappe",
+          "tooltip" : "Creare mappe",
+          "success" : "{{prefix}}Maps successfully created!",
+          "error" : "{{prefix}}Maps could not be created!"
+        },
+        "pdf" : {
+          "label" : "PDFs",
+          "tooltip" : "Create PDFs",
+          "success" : "{{prefix}}PDFs successfully created!",
+          "error" : "{{prefix}}PDFs could not be created!"
+        },
+        "staticWidget" : {
+          "label" : "Widget statici",
+          "tooltip" : "Create Static Widgets",
+          "success" : "{{prefix}}Static Widgets successfully created!",
+          "error" : "{{prefix}}Static Widgets could not be created!"
+        },
+        "html" : {
+          "label" : "Simple HTMLs",
+          "tooltip" : "Create Simple HTML Files",
+          "success" : "{{prefix}}Simple HTML Files successfully created!",
+          "error" : "{{prefix}}Simple HTML Files could not be created!"
+        },
+        "email" : {
+          "label" : "Emails",
+          "tooltip" : "Inviare e-mail",
+          "success" : "{{prefix}}Emails successfully sent!",
+          "error" : "{{prefix}}Emails could not be sent!"
+        },
+        "telegram" : {
+          "label" : "Telegram channel",
+          "tooltip" : "Send Telegram Messages",
+          "success" : "{{prefix}}Telegram Messages successfully sent!",
+          "error" : "{{prefix}}Telegram Messages could not be sent!"
+        },
+        "push" : {
+          "label" : "Push Notifications",
+          "tooltip" : "Send Push Notifications",
+          "success" : "{{prefix}}Push Notifications successfully sent!",
+          "error" : "{{prefix}}Push Notifications could not be sent!"
         },
         "accept" : "Ok"
       },
@@ -465,6 +494,35 @@
       "label" : {
         "dateRange" : "Periodo",
         "observer" : "Osservatore"
+      }
+    },
+    "blog" : {
+      "title" : "Blog",
+      "language" : {
+        "title" : "Lingua",
+        "de" : "DE",
+        "it" : "IT",
+        "en" : "EN"
+      },
+      "all" : {
+        "tooltip" : "Send Emails, Telegram and Push",
+        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
+        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
+      },
+      "email" : {
+        "tooltip" : "Inviare e-mail",
+        "success" : "{{prefix}}Email successfully sent!",
+        "error" : "{{prefix}}Email could not be sent!"
+      },
+      "telegram" : {
+        "tooltip" : "Pubblicazione via Telegram channel",
+        "success" : "{{prefix}}Telegram successfully sent!",
+        "error" : "{{prefix}}Telegram could not be sent!"
+      },
+      "push" : {
+        "tooltip" : "Send via Push Notifications",
+        "success" : "{{prefix}}Push successfully sent!",
+        "error" : "{{prefix}}Push could not be sent!"
       }
     }
   },
