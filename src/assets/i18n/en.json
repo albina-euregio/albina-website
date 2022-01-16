@@ -477,23 +477,23 @@
       },
       "all" : {
         "tooltip" : "Send Emails, Telegram and Push",
-        "success" : "Email, Telegram and Push successfully sent!",
-        "error" : "Email, Telegram and Push could not be sent!"
+        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
+        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
       },
       "email" : {
         "tooltip" : "Send Emails",
-        "success" : "Email successfully sent!",
-        "error" : "Email could not be sent!"
+        "success" : "{{prefix}}Email successfully sent!",
+        "error" : "{{prefix}}Email could not be sent!"
       },
       "telegram" : {
         "tooltip" : "Send via Telegram Channel",
-        "success" : "Telegram successfully sent!",
-        "error" : "Telegram could not be sent!"
+        "success" : "{{prefix}}Telegram successfully sent!",
+        "error" : "{{prefix}}Telegram could not be sent!"
       },
       "push" : {
         "tooltip" : "Send via Push Notifications",
-        "success" : "Push successfully sent!",
-        "error" : "Push could not be sent!"
+        "success" : "{{prefix}}Push successfully sent!",
+        "error" : "{{prefix}}Push could not be sent!"
       }
     }
   },

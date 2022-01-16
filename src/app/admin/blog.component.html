@@ -1,4 +1,7 @@
 <div class="card">
+  <div *ngFor="let alert of alerts">
+    <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+  </div>
   <div class="card-header">
     <i class="fa fa-warning"></i>{{ "bulletins.table.publicationStatusDialog.title.prod" | translate }}
   </div>
