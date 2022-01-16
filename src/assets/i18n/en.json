@@ -475,6 +475,11 @@
         "it" : "IT",
         "en" : "EN"
       },
+      "all" : {
+        "tooltip" : "Send Emails, Telegram and Push",
+        "success" : "Email, Telegram and Push successfully sent!",
+        "error" : "Email, Telegram and Push could not be sent!"
+      },
       "email" : {
         "tooltip" : "Send Emails",
         "success" : "Email successfully sent!",

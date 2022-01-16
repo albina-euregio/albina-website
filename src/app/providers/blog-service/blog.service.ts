@@ -13,7 +13,21 @@ export class BlogService {
     private authenticationService: AuthenticationService) {
   }
 
-  sendEmail(region: string, language: string, test: boolean): Observable<Response> {
+  sendLatestBlogPost(region: string, language: string, test: boolean): Observable<Response> {
+    var url;
+    if (test) {
+      url = this.constantsService.getServerUrl() + "blogs/publish/latest/test?&region=" + region + "&lang=" + language;
+    } else {
+      url = this.constantsService.getServerUrl() + "blogs/publish/latest?&region=" + region + "&lang=" + language;
+    }
+    const headers = this.authenticationService.newAuthHeader();
+    const body = JSON.stringify("");
+    const options = { headers: headers };
+
+    return this.http.post<Response>(url, body, options);
+  }
+
+  sendLatestBlogPostEmail(region: string, language: string, test: boolean): Observable<Response> {
     var url;
     if (test) {
       url = this.constantsService.getServerUrl() + "blogs/publish/latest/email/test?&region=" + region + "&lang=" + language;
@@ -27,7 +41,7 @@ export class BlogService {
     return this.http.post<Response>(url, body, options);
   }
 
-  sendTelegram(region: string, language: string, test: boolean): Observable<Response> {
+  sendLatestBlogPostTelegram(region: string, language: string, test: boolean): Observable<Response> {
     var url;
     if (test) {
       url = this.constantsService.getServerUrl() + "blogs/publish/latest/telegram/test?&region=" + region + "&lang=" + language;
@@ -41,7 +55,7 @@ export class BlogService {
     return this.http.post<Response>(url, body, options);
   }
 
-  sendPush(region: string, language: string, test: boolean): Observable<Response> {
+  sendLatestBlogPostPush(region: string, language: string, test: boolean): Observable<Response> {
     var url;
     if (test) {
       url = this.constantsService.getServerUrl() + "blogs/publish/latest/push/test?&region=" + region + "&lang=" + language;

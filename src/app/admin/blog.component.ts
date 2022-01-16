@@ -16,9 +16,33 @@ export class BlogComponent {
     public translateService: TranslateService) {
   }
 
+  sendLatestBlogPost(event, region, language, test) {
+    event.stopPropagation();
+    this.blogService.sendLatestBlogPost(region, language, test).subscribe(
+      data => {
+        console.debug("Email, telegram and push sent!");
+        window.scrollTo(0, 0);
+        this.alerts.push({
+          type: "success",
+          msg: this.translateService.instant("admin.blog.all.success"),
+          timeout: 5000
+        });
+      },
+      error => {
+        console.error("Email, telegram and push could not be sent!");
+        window.scrollTo(0, 0);
+        this.alerts.push({
+          type: "danger",
+          msg: this.translateService.instant("admin.blog.all.error"),
+          timeout: 5000
+        });
+      }
+    );
+  }
+
   sendLatestBlogPostEmail(event, region, language, test) {
     event.stopPropagation();
-    this.blogService.sendEmail(region, language, test).subscribe(
+    this.blogService.sendLatestBlogPostEmail(region, language, test).subscribe(
       data => {
         console.debug("Email sent!");
         window.scrollTo(0, 0);
@@ -42,7 +66,7 @@ export class BlogComponent {
 
   sendLatestBlogPostTelegram(event, region, language, test) {
     event.stopPropagation();
-    this.blogService.sendTelegram(region, language, test).subscribe(
+    this.blogService.sendLatestBlogPostTelegram(region, language, test).subscribe(
     data => {
       console.debug("Telegram sent!");
       window.scrollTo(0, 0);
@@ -66,7 +90,7 @@ export class BlogComponent {
 
   sendLatestBlogPostPush(event, region, language, test) {
     event.stopPropagation();
-    this.blogService.sendPush(region, language, test).subscribe(
+    this.blogService.sendLatestBlogPostPush(region, language, test).subscribe(
     data => {
       console.debug("Push sent!");
       window.scrollTo(0, 0);
