@@ -80,7 +80,7 @@
                             <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin)">
                               <button [disabled]="loading" type="reset" class="btn btn-sm btn-secondary" (click)="editBulletin($event, bulletin)" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.edit' | translate }}"><i class="fa fa-pencil"></i></button>
                             </td>
-                            <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin) && !copyService.isCopyBulletin()">
+                            <td *ngIf="!editRegions && !hasSuggestions(bulletin) && !copyService.isCopyBulletin()">
                               <button [disabled]="loading" type="reset" class="btn btn-sm btn-secondary" (click)="copyBulletin()" data-toggle="tooltip" title="{{ 'bulletins.create.tooltip.copy' | translate }}"><i class="fa fa-copy"></i></button>
                             </td>
                             <td *ngIf="bulletinsService.getIsEditable() && !editRegions && !hasSuggestions(bulletin) && isCreator(bulletin)">
