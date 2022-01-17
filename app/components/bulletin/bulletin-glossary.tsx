@@ -30,8 +30,11 @@ type Props = {
 export default class BulletinGlossary extends React.Component<Props> {
   render() {
     const glossary = this.props.glossary;
-    const text = GLOSSARY_CONTENT[glossary]?.text;
-    const content = text ? preprocessContent(text) : "???";
+    if (!GLOSSARY_CONTENT[glossary]) {
+      return <span>{this.props.children}</span>;
+    }
+    const { text, img } = GLOSSARY_CONTENT[glossary];
+    const content = preprocessContent(text + (img ?? ""));
     return (
       <Tippy
         content={content}
