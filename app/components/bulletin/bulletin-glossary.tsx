@@ -33,7 +33,11 @@ export default class BulletinGlossary extends React.Component<Props> {
     const text = GLOSSARY_CONTENT[glossary]?.text;
     const content = text ? preprocessContent(text) : "???";
     return (
-      <Tippy content={content} className="tippy-tooltip custom-html-theme">
+      <Tippy
+        content={content}
+        delay={700}
+        className="tippy-tooltip custom-html-theme"
+      >
         <a
           className="glossary"
           href={`https://www.avalanches.org/glossary/?lang=de#${glossary}`}
