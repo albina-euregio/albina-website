@@ -108,6 +108,7 @@ class SnowProfileMap extends React.Component<{ intl: IntlShape }> {
                 <div className="modal-content">
                   {this.state.active?.$img && (
                     <img
+                      title={this.state.active?.$tooltip}
                       alt={this.state.active?.$tooltip}
                       src={this.state.active?.$img}
                       className="weatherstation-img"

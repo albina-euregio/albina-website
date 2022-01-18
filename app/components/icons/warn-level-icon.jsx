@@ -85,7 +85,7 @@ class WarnLevelIcon extends React.Component {
 
     return (
       <Link to={link} title={title} className="tooltip" tabIndex="-1">
-        <img src={img} alt={title} />
+        <img src={img} alt={title} title={title} />
         {this.props.above != this.props.below && <span>{elevationText}</span>}
       </Link>
     );

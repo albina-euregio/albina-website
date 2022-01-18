@@ -34,7 +34,14 @@ class BulletinAWMapStatic extends React.Component {
       ?.find(element => element.id == this.props.region.split("_")[0])
       ?.forenoon?.regions?.map(elem => elem.name)
       ?.join(", ");
-    return <img src={url} alt={regions} onError={this.props.onError} />;
+    return (
+      <img
+        src={url}
+        alt={regions}
+        title={regions}
+        onError={this.props.onError}
+      />
+    );
   }
 }
 

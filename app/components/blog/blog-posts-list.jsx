@@ -23,7 +23,9 @@ class BlogPostsList extends React.Component {
             >
               {havePictures && (
                 <div className="content-image">
-                  {item.image && <img src={item.image} alt={item.title} />}
+                  {item.image && (
+                    <img src={item.image} alt={item.title} title={item.title} />
+                  )}
                 </div>
               )}
               <div className="content-text">

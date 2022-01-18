@@ -28,7 +28,7 @@ export default class ElevationIcon extends React.Component {
 
     return (
       <div className={classes.join(" ")} title={this.props.title}>
-        <img src={src} alt={this.props.title} />
+        <img src={src} alt={this.props.title} title={this.props.title} />
         {this.props.where != "all" && (
           <span>
             {this.props.text}
