@@ -18,7 +18,8 @@
     "modellingZamg": "ZAMG multi model",
     "modellingZamgECMWF": "ZAMG ECMWF-EPS",
     "modellingSnowpack": "SNOWPACK model",
-    "modellingSnowpackMeteo": "SNOWPACK modelled meteo"
+    "modellingSnowpackMeteo": "SNOWPACK modelled meteo",
+    "education": "Education"
   },
   "menu" : {
     "logout" : "Logout",
@@ -43,6 +44,9 @@
     "AT-07" : "Tirol ",
     "IT-32-BZ" : "South Tyrol ",
     "IT-32-TN" : "Trentino "
+  },
+  "education" : {
+    "title" : "Education"
   },
   "bulletins" : {
     "title" : "Avalanche.report",

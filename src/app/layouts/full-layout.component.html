@@ -26,6 +26,9 @@
     <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']">{{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
     </li>
+    <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
+      <a class="nav-link" routerLinkActive="active" [routerLink]="['/education']">{{ "sidebar.education" | translate }}</a>
+    </li>
   </ul>
 
   <ul class="nav navbar-nav ml-auto">
@@ -99,6 +102,9 @@
         </li>
         <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']"><i class="fa fa-bar-chart"></i> {{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
+        </li>
+        <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
+          <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/education']"><i class="fa fa-bar-chart"></i> {{ "sidebar.education" | translate }}</a>
         </li>
       </ul>
     </nav>
