@@ -32,6 +32,12 @@ export const routes: Routes = [
     loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule)
   },
   {
+    path: "education",
+    component: FullLayoutComponent,
+    canActivate: [AuthGuard],
+    loadChildren: () => import("./education/education.module").then(m => m.EducationModule)
+  },
+  {
     path: "modelling",
     component: FullLayoutComponent,
     canActivate: [AuthGuard],
