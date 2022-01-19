@@ -1,11 +1,15 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { observer } from "mobx-react";
 import { IntlProvider } from "react-intl";
 
-import { Redirect } from "react-router";
-import { BrowserRouter } from "react-router-dom";
-import { renderRoutes } from "react-router-config/es";
-import { ScrollContext } from "react-router-scroll-4";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useParams
+} from "react-router-dom";
+//import { ScrollContext } from "react-router-scroll";
 
 import { APP_STORE } from "../appStore";
 
@@ -29,8 +33,120 @@ import { orientation_change } from "../js/browser";
 
 import "../css/style.scss"; // CSS overrides
 
-class App extends React.Component {
-  componentDidMount() {
+// const App = props => {
+//   const params = useParams();
+//   let routes = useRoutes([
+//     {
+//       path: "/",
+//       element: <Bulletin />,
+//       indexRoute: {
+//         element: <Bulletin />
+//       },
+//       routes: [
+//         {
+//           path: "/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})?",
+//           element: <Bulletin />
+//         },
+//         {
+//           path: "/bulletin/latest?",
+//           element: <Bulletin />
+//         },
+//         {
+//           path: "/weather/map/:domain?",
+//           exact: true,
+//           element: <Weather />
+//         },
+//         {
+//           path: "/weather/measurements",
+//           exact: true,
+//           element: <StationMeasurements />
+//         },
+//         {
+//           path: "/weather/stations",
+//           exact: true,
+//           element: <StationMap />
+//         },
+//         {
+//           path: "/weather/snow-profiles",
+//           exact: true,
+//           element: <SnowProfileMap />
+//         },
+//         {
+//           path: "/weather/incidents",
+//           exact: true,
+//           element: <SnowProfileMap />
+//         },
+//         {
+//           path: "/weather",
+//           exact: true,
+//           element: <Navigate replace to="/weather/map" />
+//         },
+//         {
+//           path: "/education",
+//           exact: true,
+//           element: <Education />
+//         },
+//         {
+//           path: "/blog/:blogName/:postId",
+//           element: <BlogPost />
+//         },
+//         {
+//           path: "/blog",
+//           exact: true,
+//           element: <BlogOverview />
+//         },
+//         {
+//           path: "/more",
+//           exact: true,
+//           element: <More />
+//         },
+//         {
+//           path: "/more/archive",
+//           exact: true,
+//           element: <Archive />
+//         },
+//         {
+//           path: "/more/linktree",
+//           exact: true,
+//           element: <Linktree />
+//         },
+//         {
+//           path: "/archive",
+//           exact: true,
+//           element: <Navigate replace to="/more/archive" />
+//         },
+//         {
+//           path: "/:lang([a-z]{2})",
+//           component: ({ match }) => {
+//             const lang = params?.lang;
+//             APP_STORE.setLanguage(lang);
+//             return <Navigate replace to="/" />;
+//           }
+//         },
+//         {
+//           // NOTE: 404 error will be handled by StaticPage, since we do not
+//           // know which pages reside on the CMS in this router config
+//           path: "/:name",
+//           element: <StaticPage />
+//         }
+//       ]
+//     }
+//   ]);
+
+//   return routes;
+// };
+
+const SwtichLang = () => {
+  const params = useParams();
+  console.log("SwtichLang", params);
+  useEffect(() => {
+    if ((lang = params?.lang)) APP_STORE.setLanguage(lang);
+  });
+  return <Navigate replace to="/" />;
+};
+
+const AppWrapper = () => {
+  useEffect(() => {
     window["page_html"] = $("html");
     window["page_body"] = $("body");
     window["page_loading_screen"] = $(".page-loading-screen");
@@ -49,134 +165,139 @@ class App extends React.Component {
     setTimeout(function () {
       $("html").addClass("page-loaded");
     }, 150);
-  }
+  });
 
-  shouldUpdateScroll = (prevRouterProps, { location }) => {
-    if (!prevRouterProps) {
-      return true;
-    }
+  console.log("Appwrapper", config);
+  return (
+    <IntlProvider locale={APP_STORE.language} messages={APP_STORE.messages}>
+      <BrowserRouter basename={config.projectRoot}>
+        <Suspense fallback={"..."}>
+          <Routes>
+            <Route path="/" element={<Page></Page>}>
+              <Route index element={<Page></Page>} />
+              <Route
+                path="/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})"
+                element={
+                  <Page>
+                    <Bulletin />
+                  </Page>
+                }
+              />
+              <Route
+                path="/bulletin/latest"
+                element={
+                  <Page>
+                    <Bulletin />
+                  </Page>
+                }
+              />
+              <Route
+                path="/weather/map/:domain"
+                element={
+                  <Page>
+                    <Weather />
+                  </Page>
+                }
+              />
+              <Route
+                path="/weather/measurements"
+                element={
+                  <Page>
+                    <StationMeasurements />
+                  </Page>
+                }
+              />
+              <Route
+                path="/weather/stations"
+                element={
+                  <Page>
+                    <StationMap />
+                  </Page>
+                }
+              />
+              <Route
+                path="/weather/snow-profiles"
+                element={
+                  <Page>
+                    <SnowProfileMap />
+                  </Page>
+                }
+              />
+              <Route path="/weather" element={<Navigate to="/weather/map" />} />
+              <Route
+                path="/education"
+                element={
+                  <Page>
+                    <Education />
+                  </Page>
+                }
+              />
+              <Route
+                path="/blog/:blogName/:postId"
+                element={
+                  <Page>
+                    <BlogPost />
+                  </Page>
+                }
+              />
+              <Route
+                path="/blog"
+                element={
+                  <Page>
+                    <BlogOverview />
+                  </Page>
+                }
+              />
+              <Route
+                path="/more"
+                element={
+                  <Page>
+                    <More />
+                  </Page>
+                }
+              />
+              <Route
+                path="/more/archive"
+                element={
+                  <Page>
+                    <Archive />
+                  </Page>
+                }
+              />
+              <Route
+                path="/more/linktree"
+                element={
+                  <Page>
+                    <Linktree />
+                  </Page>
+                }
+              />
+              <Route
+                path="/archive"
+                element={<Navigate to="/more/archive" />}
+              />
+              <Route
+                path="/:lang([a-z]{2})"
+                element={
+                  <Page>
+                    <SwtichLang />
+                  </Page>
+                }
+              />
+              <Route
+                path="/:name"
+                element={
+                  <Page>
+                    <StaticPage />
+                  </Page>
+                }
+              />
+            </Route>
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </IntlProvider>
+  );
+};
 
-    if (
-      location.pathname.match(/weather\/map/) &&
-      prevRouterProps.location.pathname.match(/weather\/map/)
-    ) {
-      return false;
-    }
-
-    return location.pathname !== prevRouterProps.location.pathname;
-  };
-
-  routes() {
-    return [
-      {
-        path: "/",
-        component: Page,
-        indexRoute: {
-          component: Bulletin
-        },
-        routes: [
-          {
-            path: "/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})?",
-            component: Bulletin
-          },
-          {
-            path: "/bulletin/latest?",
-            component: Bulletin
-          },
-          {
-            path: "/weather/map/:domain?",
-            exact: true,
-            component: Weather
-          },
-          {
-            path: "/weather/measurements",
-            exact: true,
-            component: StationMeasurements
-          },
-          {
-            path: "/weather/stations",
-            exact: true,
-            component: StationMap
-          },
-          {
-            path: "/weather/snow-profiles",
-            exact: true,
-            component: SnowProfileMap
-          },
-          {
-            path: "/weather/incidents",
-            exact: true,
-            component: SnowProfileMap
-          },
-          {
-            path: "/weather",
-            exact: true,
-            component: () => <Redirect to={"/weather/map"} />
-          },
-          {
-            path: "/education",
-            exact: true,
-            component: Education
-          },
-          {
-            path: "/blog/:blogName/:postId",
-            component: BlogPost
-          },
-          {
-            path: "/blog",
-            exact: true,
-            component: BlogOverview
-          },
-          {
-            path: "/more",
-            exact: true,
-            component: More
-          },
-          {
-            path: "/more/archive",
-            exact: true,
-            component: Archive
-          },
-          {
-            path: "/more/linktree",
-            exact: true,
-            component: Linktree
-          },
-          {
-            path: "/archive",
-            exact: true,
-            component: () => <Redirect to={"/more/archive"} />
-          },
-          {
-            path: "/:lang([a-z]{2})",
-            component: ({ match }) => {
-              const lang = match?.params?.lang;
-              APP_STORE.setLanguage(lang);
-              return <Redirect to={"/"} />;
-            }
-          },
-          {
-            // NOTE: 404 error will be handled by StaticPage, since we do not
-            // know which pages reside on the CMS in this router config
-            path: "/:name",
-            component: StaticPage
-          }
-        ]
-      }
-    ];
-  }
-
-  render() {
-    return (
-      <IntlProvider locale={APP_STORE.language} messages={APP_STORE.messages}>
-        <BrowserRouter basename={config.projectRoot}>
-          <ScrollContext shouldUpdateScroll={this.shouldUpdateScroll}>
-            <Suspense fallback={"..."}>{renderRoutes(this.routes())}</Suspense>
-          </ScrollContext>
-        </BrowserRouter>
-      </IntlProvider>
-    );
-  }
-}
-
-export default observer(App);
+export default observer(AppWrapper);

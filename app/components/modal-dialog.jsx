@@ -1,43 +1,43 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import ReactDOM from "react-dom";
 
 const modalRoot = document.body;
 
-class ModalDialog extends React.Component {
-  constructor(props) {
-    super(props);
-    this.el = document.createElement("div");
-    this.el.id = props.id;
-    this.el.className = "mfp-hide";
-  }
+const ModalDialog = ({ children, id }) => {
+  const modalElementRef = useRef(null);
+  const location = useLocation();
+  let lastLocation = useRef(null);
 
-  componentDidMount() {
-    // The portal element is inserted in the DOM tree after
-    // the Modal's children are mounted, meaning that children
-    // will be mounted on a detached DOM node. If a child
-    // component requires to be attached to the DOM tree
-    // immediately when mounted, for example to measure a
-    // DOM node, or uses 'autoFocus' in a descendant, add
-    // state to Modal and only render the children when Modal
-    // is inserted in the DOM tree.
-    modalRoot.appendChild(this.el);
-  }
+  const didMountRef = useRef(false);
 
-  componentWillUnmount() {
-    modalRoot.removeChild(this.el);
-  }
-
-  // closeDialog on locationChange
-  componentDidUpdate(prevProps) {
-    if (this.props.location.pathname !== prevProps.location.pathname) {
-      $(".mfp-close").trigger("click");
+  const getModalElement = id => {
+    if (!modalElementRef.current) {
+      modalElementRef.current = document.createElement("div");
+      modalElementRef.current.id = id;
+      modalElementRef.current.className = "mfp-hide";
     }
-  }
+    return modalElementRef.current;
+  };
 
-  render() {
-    return ReactDOM.createPortal(this.props.children, this.el);
-  }
-}
+  useEffect(() => {
+    if (didMountRef.current) {
+      console.log("ModalDialog->useeffect mount", modalElementRef.current);
+      if (location.pathname !== lastLocation.currrent?.pathname) {
+        $(".mfp-close").trigger("click");
+      }
+    } else {
+      modalRoot.appendChild(modalElementRef.current);
+    }
+    lastLocation.current = location;
 
-export default withRouter(ModalDialog);
+    return () => {
+      modalElementRef.current.remove();
+    };
+  });
+
+  console.log("ModalDialog->render", getModalElement(id));
+  return ReactDOM.createPortal(children, getModalElement(id));
+};
+
+export default ModalDialog;

@@ -26,6 +26,7 @@ const regionTranslationImports = Object.freeze({
 
 class AppStore {
   constructor() {
+    console.log("AppStore");
     /**
      * @type {Language}
      */

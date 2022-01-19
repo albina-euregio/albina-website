@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./leaflet-player.css";
@@ -55,13 +55,19 @@ const LeafletMap = props => {
     keyboard: true
   };
 
+  const didMountRef = useRef(false);
+  useEffect(() => {
+    if (didMountRef.current) {
+    } else didMountRef.current = true;
+  });
+
   const updateMaps = (map, disabled) => {
     //console.log("updateMaps xyy");
     if (disabled) {
       L.Util.setOptions(map, { gestureHandling: false });
     }
 
-    if (1 == 1) {
+    if (didMountRef.current) {
       //console.log("updateMaps xyz", map, disabled);
       if (props.onInit) {
         props.onInit(map);

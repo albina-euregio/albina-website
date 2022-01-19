@@ -5,7 +5,7 @@ import SmShare from "../components/organisms/sm-share";
 import HTMLHeader from "../components/organisms/html-header";
 import LinkTreeFeature from "../components/organisms/linktree-feature";
 import { injectIntl } from "react-intl";
-import { withRouter } from "react-router-dom";
+
 import { parseSearchParams } from "../util/searchParams";
 import { dateToISODateString } from "../util/date.js";
 import { BLOG_STORE } from "../stores/blogStore";
@@ -172,4 +172,4 @@ class LinkTree extends React.Component {
     );
   }
 }
-export default injectIntl(withRouter(observer(LinkTree)));
+export default injectIntl(observer(LinkTree));

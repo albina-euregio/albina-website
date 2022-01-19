@@ -74,6 +74,7 @@ class BlogOverview extends React.Component {
   }
 
   doStoreUpdate() {
+    console.log("blogOverview navigate #1", this.store.searchParams.toString());
     this.props.history.push({ search: this.store.searchParams.toString() });
     this.store.update();
     this.settingFilters = false;

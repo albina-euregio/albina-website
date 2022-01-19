@@ -1,5 +1,5 @@
 import React from "react"; // eslint-disable-line no-unused-vars
-import { withRouter } from "react-router-dom";
+
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
@@ -290,4 +290,4 @@ class Education extends React.Component {
     );
   }
 }
-export default injectIntl(withRouter(observer(Education)));
+export default injectIntl(observer(Education));

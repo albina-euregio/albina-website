@@ -1,12 +1,14 @@
 import React from "react";
-import { withRouter, matchPath } from "react-router";
+import { useLocation, matchPath } from "react-router";
 import { observer } from "mobx-react";
 import { BLOG_STORE } from "../stores/blogStore";
 import { Link } from "react-router-dom";
 import { APP_STORE } from "../appStore";
 
-class Menu extends React.Component {
-  testActive(e, recursive = true) {
+const Menu = props => {
+  const location = useLocation();
+
+  const testActive = (e, recursive = true) => {
     // Test if element (or any of its child elements, if "recursive" is set)
     // is active.
     const doTest = (loc, element) => {
@@ -18,38 +20,36 @@ class Menu extends React.Component {
       );
     };
 
-    if (this.props.location && this.props.location.pathname) {
-      return doTest(this.props.location.pathname, e);
+    if (location && location.pathname) {
+      return doTest(location.pathname, e);
     }
     return false;
-  }
+  };
 
-  onLinkClick(e, hasSubs) {
+  const onLinkClick = (e, hasSubs) => {
     //console.log("onLinkClick jjj", window.IS_TOUCHING_DEVICE, hasSubs);
     if (hasSubs && window.IS_TOUCHING_DEVICE) e.preventDefault();
-  }
+  };
 
-  renderMenuItem(e, activeItem) {
-    const classes = this.props.menuItemClassName
-      ? this.props.menuItemClassName.split(" ")
+  const renderMenuItem = (e, activeItem) => {
+    const classes = props.menuItemClassName
+      ? props.menuItemClassName.split(" ")
       : [];
     const isActive = activeItem && e == activeItem;
 
     if (isActive) {
-      if (this.props.onActiveMenuItem) {
-        this.props.onActiveMenuItem(e);
+      if (props.onActiveMenuItem) {
+        props.onActiveMenuItem(e);
       }
 
-      classes.push(
-        this.props.activeClassName ? this.props.activeClassName : "active"
-      );
+      classes.push(props.activeClassName ? props.activeClassName : "active");
     }
     if (e.showSub || (e.children && e.children.length > 0)) {
       classes.push("has-sub");
     }
     const title =
       e.title ||
-      this.props.intl.formatMessage({
+      props.intl.formatMessage({
         id: e.key ? `menu:${e.key}` : `menu${e.url.replace(/[/]/g, ":")}`
       });
     const url = e["url:" + APP_STORE.language] || e["url"];
@@ -60,8 +60,8 @@ class Menu extends React.Component {
         key={url}
         onClick={event => {
           event.stopPropagation();
-          if (typeof this.props.onSelect === "function") {
-            this.props.onSelect(e);
+          if (typeof props.onSelect === "function") {
+            props.onSelect(e);
           }
         }}
       >
@@ -75,7 +75,7 @@ class Menu extends React.Component {
               if (window.innerWidth > 1024) window.IS_TOUCHING_DEVICE = true;
             }}
             onClick={e => {
-              this.onLinkClick(e, classes.includes("has-sub"));
+              onLinkClick(e, classes.includes("has-sub"));
             }}
             to={url}
             className={classes.join(" ")}
@@ -88,36 +88,32 @@ class Menu extends React.Component {
         )}
         {e.children && e.children.length > 0 && (
           <Menu
-            intl={this.props.intl}
-            className={this.props.childClassName}
+            intl={props.intl}
+            className={props.childClassName}
             entries={e.children}
-            location={this.props.location}
-            onSelect={this.props.onSelect}
-            onActiveMenuItem={this.props.onActiveChildMenuItem}
+            location={location}
+            onSelect={props.onSelect}
+            onActiveMenuItem={props.onActiveChildMenuItem}
           />
         )}
       </li>
     );
+  };
+
+  if (props.entries && props.entries.length > 0) {
+    const activeMenuItems = props.entries.filter(e => testActive(e));
+    const activeItem =
+      activeMenuItems.length > 0
+        ? activeMenuItems[0] // in case someone messed up the menu
+        : null;
+
+    return (
+      <ul className={props.className}>
+        {props.entries.map(e => renderMenuItem(e, activeItem))}
+      </ul>
+    );
   }
+  return null;
+};
 
-  render() {
-    if (this.props.entries && this.props.entries.length > 0) {
-      const activeMenuItems = this.props.entries.filter(e =>
-        this.testActive(e)
-      );
-      const activeItem =
-        activeMenuItems.length > 0
-          ? activeMenuItems[0] // in case someone messed up the menu
-          : null;
-
-      return (
-        <ul className={this.props.className}>
-          {this.props.entries.map(e => this.renderMenuItem(e, activeItem))}
-        </ul>
-      );
-    }
-    return null;
-  }
-}
-
-export default withRouter(observer(Menu));
+export default observer(Menu);

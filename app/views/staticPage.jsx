@@ -26,8 +26,8 @@ class StaticPage extends React.Component {
     if (this.props?.location?.pathname !== prevProps?.location?.pathname) {
       this._fetchData();
     }
-    if (this.props.location.hash) {
-      scroll(this.props.location.hash, 2000);
+    if (this.location.hash) {
+      scroll(this.location.hash, 2000);
     }
   }
 
@@ -37,7 +37,7 @@ class StaticPage extends React.Component {
 
   _fetchData() {
     // remove projectRoot from the URL
-    const site = this.props.location.pathname
+    const site = this.location.pathname
       .substr(config.projectRoot)
       .replace(/^\//, "");
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+
 import { observer } from "mobx-react";
 import { modal_open_by_params } from "../js/modal";
 import { injectIntl } from "react-intl";
@@ -72,6 +72,7 @@ class Weather extends React.Component {
       this.store.domainId &&
       this.store.domainId !== this.props.match.params.domain
     ) {
+      console.log("weather navigate #1", this.store.domainId);
       this.props.history.replace("/weather/map/" + this.store.domainId);
     }
   }
@@ -222,4 +223,4 @@ class Weather extends React.Component {
     );
   }
 }
-export default injectIntl(withRouter(observer(Weather)));
+export default injectIntl(observer(Weather));

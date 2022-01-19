@@ -1,5 +1,5 @@
 import React from "react"; // eslint-disable-line no-unused-vars
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import PageHeadline from "../components/organisms/page-headline";
@@ -257,4 +257,4 @@ class More extends React.Component {
     );
   }
 }
-export default injectIntl(withRouter(observer(More)));
+export default injectIntl(observer(More));

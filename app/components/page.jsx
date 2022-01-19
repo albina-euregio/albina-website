@@ -1,5 +1,6 @@
-import React from "react";
-import { withRouter } from "react-router";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router";
+import { useNavigate, createSearchParams } from "react-router-dom";
 import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
@@ -18,55 +19,44 @@ import SubscribeBlogDialog from "./dialogs/subscribe-blog-dialog";
 // import FeedbackDialog from "./dialogs/feedback-dialog";
 import ControlBar from "../components/organisms/control-bar.jsx";
 
-import { renderRoutes } from "react-router-config";
 import { modal_init } from "../js/modal";
 import { tooltip_init } from "../js/tooltip";
 import { navigation_init } from "../js/navigation";
 
 import { scroll_init } from "../js/scroll";
 
-class Page extends React.Component {
-  constructor(props) {
-    super(props);
-    this.hash = false;
-  }
+const Page = props => {
+  let hash = false;
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  componentDidMount() {
-    this._didUpdate();
-  }
-
-  componentDidUpdate() {
-    if (this.props && this.props.location && this.props.location.hash) {
-      if (this.hash !== this.props.location.hash) {
-        this.hash = this.props.location.hash;
+  useEffect(() => {
+    console.log("Page->useEffect", props, location, document.location);
+    if (props && location && location.hash) {
+      if (hash !== location.hash) {
+        hash = location.hash;
       }
     } else {
-      this.hash = false;
+      hash = false;
     }
 
-    if (
-      this.props.location !== this.props.location &&
-      this.props.history.action === "PUSH" &&
-      !this.props.location.hash
-    ) {
+    if (location !== location && !location.hash) {
       // do not scroll if bulletin region was clicked
-      if (!this.props.location.pathname.split("/").includes("bulletin")) {
+      if (!location.pathname.split("/").includes("bulletin")) {
         window.scrollTo(0, 0);
       }
       // scroll to top on forward page change (if no hash is set)
       // see https://github.com/ReactTraining/react-router/issues/2019
     }
-    this._didUpdate();
-  }
 
-  _didUpdate() {
     // if the actual bulletin is active, change path to /latest
     if (
-      this.props.location.pathname === "" ||
-      this.props.location.pathname === "/" ||
-      this.props.location.pathname === "/bulletin"
+      location.pathname === "" ||
+      location.pathname === "/" ||
+      location.pathname === "/bulletin"
     ) {
-      this.props.history.replace({
+      console.log("Page navigate", location.path);
+      navigate({
         pathname: "/bulletin/latest",
         search: document.location.search.substring(1)
       });
@@ -76,59 +66,57 @@ class Page extends React.Component {
     tooltip_init();
     navigation_init();
     scroll_init();
-  }
+  });
+  console.log("page->render", props.children);
+  return (
+    <>
+      <div className="page-loading-screen" />
+      <Jumpnav />
 
-  render() {
-    return (
-      <>
-        <div className="page-loading-screen" />
-        <Jumpnav />
+      <PageHeader />
+      <main id="page-main" className="page-main">
+        {import.meta.env.BASE_URL === "/dev/" && (
+          <ControlBar
+            style="yellow"
+            message={
+              <>
+                This is a development version –{" "}
+                <strong>no real data is shown!</strong>
+              </>
+            }
+          />
+        )}
+        {props.children}
+      </main>
+      <PageFooter />
+      <ModalDialog id="weatherStationDiagrams">
+        <WeatherStationDiagrams />
+      </ModalDialog>
+      <ModalDialog id="subscribeDialog">
+        <SubscribeDialog />
+      </ModalDialog>
+      <ModalDialog id="downloadPdfDialog">
+        <DownloadPdfDialog />
+      </ModalDialog>
+      <ModalDialog id="followDialog">
+        <FollowDialog />
+      </ModalDialog>
+      <ModalDialog id="subscribeEmailDialog">
+        <SubscribeEmailDialog />
+      </ModalDialog>
+      <ModalDialog id="subscribeBlogDialog">
+        <SubscribeBlogDialog />
+      </ModalDialog>
+      <ModalDialog id="subscribeTelegramDialog">
+        <SubscribeTelegramDialog />
+      </ModalDialog>
+      <ModalDialog id="subscribeAppDialog">
+        <SubscribeAppDialog />
+      </ModalDialog>
+      {/* {config.dialogs.cookieConsent && <CookieConsent />} */}
+      {/* {config.dialogs.feedback && <FeedbackDialog />} */}
+    </>
+  );
+};
 
-        <PageHeader />
-        <main id="page-main" className="page-main">
-          {import.meta.env.BASE_URL === "/dev/" && (
-            <ControlBar
-              style="yellow"
-              message={
-                <>
-                  This is a development version –{" "}
-                  <strong>no real data is shown!</strong>
-                </>
-              }
-            />
-          )}
-          {renderRoutes(this.props.route.routes)}
-        </main>
-        <PageFooter />
-        <ModalDialog id="weatherStationDiagrams">
-          <WeatherStationDiagrams />
-        </ModalDialog>
-        <ModalDialog id="subscribeDialog">
-          <SubscribeDialog />
-        </ModalDialog>
-        <ModalDialog id="downloadPdfDialog">
-          <DownloadPdfDialog />
-        </ModalDialog>
-        <ModalDialog id="followDialog">
-          <FollowDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeEmailDialog">
-          <SubscribeEmailDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeBlogDialog">
-          <SubscribeBlogDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeTelegramDialog">
-          <SubscribeTelegramDialog />
-        </ModalDialog>
-        <ModalDialog id="subscribeAppDialog">
-          <SubscribeAppDialog />
-        </ModalDialog>
-        {/* {config.dialogs.cookieConsent && <CookieConsent />} */}
-        {/* {config.dialogs.feedback && <FeedbackDialog />} */}
-      </>
-    );
-  }
-}
-
-export default injectIntl(withRouter(Page));
+export default injectIntl(Page);

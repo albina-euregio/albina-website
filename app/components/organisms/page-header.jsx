@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router";
 import { Link } from "react-router-dom";
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
@@ -219,4 +218,4 @@ class PageHeader extends React.Component {
   }
 }
 
-export default injectIntl(withRouter(observer(PageHeader)));
+export default injectIntl(observer(PageHeader));

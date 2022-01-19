@@ -2,6 +2,7 @@ import tippy, { animateFill } from "tippy.js";
 import "tippy.js/animations/shift-away-subtle.css";
 
 function tooltip_init() {
+  return;
   //delete tooltips
   var tooltips = $(".tooltip").not("[data-tippy]");
   var tooltip_delay, tooltip_theme;

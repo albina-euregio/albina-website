@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { injectIntl } from "react-intl";
-import { withRouter } from "react-router-dom";
 import { observer } from "mobx-react";
 import PageHeadline from "../components/organisms/page-headline";
 import SmShare from "../components/organisms/sm-share";
@@ -33,7 +32,7 @@ class BlogPost extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
+    if (this.location !== prevProps.location) {
       this._fetchData(this.props);
     }
   }
@@ -132,4 +131,4 @@ class BlogPost extends React.Component {
     );
   }
 }
-export default injectIntl(withRouter(observer(BlogPost)));
+export default injectIntl(observer(BlogPost));

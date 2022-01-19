@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+
 import { observer } from "mobx-react";
 import { injectIntl } from "react-intl";
 import StationDataStore from "../stores/stationDataStore";
@@ -41,6 +41,10 @@ class StationMeasurements extends React.Component {
 
   updateURL() {
     const search = this.store.toURLSearchParams().toString();
+    console.log(
+      "stationMeasurements navigate #1",
+      this.store.toURLSearchParams().toString()
+    );
     this.props.history.replace({ search });
   }
 
@@ -191,4 +195,4 @@ class StationMeasurements extends React.Component {
     );
   }
 }
-export default injectIntl(withRouter(observer(StationMeasurements)));
+export default injectIntl(observer(StationMeasurements));
