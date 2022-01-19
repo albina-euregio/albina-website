@@ -1,35 +1,53 @@
-import PropTypes from "prop-types";
-import { MapLayer } from "react-leaflet";
+import React from "react"; // eslint-disable-line no-unused-vars
+import { useLeafletContext } from "@react-leaflet/core";
 import L from "leaflet";
-
+import MarkerClusterGroup from "react-leaflet-markercluster";
 import "leaflet.markercluster";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 
-class Cluster extends MapLayer {
-  constructor(props) {
-    super(props);
-    this.activeCluster = null;
-  }
+const Cluster = props => {
+  const context = useLeafletContext();
+  let activeCluster = null;
 
-  getActiveMarker(cluster) {
-    const markers = cluster.getAllChildMarkers();
-    if (this.props.item.clusterOperation === "none") {
-      return markers[0];
+  const onClick = e => {
+    //console.log("ClusterItem->onclick", e);
+    if (e.layer.options?.data?.id) {
+      const markerId = e.layer.options.data.id;
+      if (activeCluster) {
+        const activeClusterMarker = activeCluster
+          .getAllChildMarkers()
+          .find(m => m.options.data.id == markerId);
+
+        if (activeClusterMarker) {
+          setPositionForActiveMarker(activeClusterMarker);
+          // props.onMarkerSelected(activeClusterMarker.options.data);
+        } else {
+          activeCluster.unspiderfy();
+        }
+      }
     }
-    const values = markers.map(marker => marker.options.data.value);
+  };
 
-    const derivedValue =
-      this.props.item.clusterOperation == "max"
-        ? Math.max(...values)
-        : Math.min(...values);
+  const onSpiderfied = a => {
+    const activeMarker = getActiveMarker(a.cluster);
+    if (activeMarker) {
+      setPositionForActiveMarker(activeMarker);
+    }
+    activeCluster = a.cluster;
+    props.spiderfiedMarkers(
+      activeCluster.getAllChildMarkers().map(m => m.options.data.id)
+    );
+  };
 
-    return markers[values.indexOf(derivedValue)];
-  }
+  const onUnspiderfied = () => {
+    activeCluster = null;
+    props.spiderfiedMarkers(null);
+  };
 
-  createClusterIcon(cluster) {
-    const activeMarker = this.getActiveMarker(cluster);
+  const createClusterIcon = cluster => {
+    const activeMarker = getActiveMarker(cluster);
     // reuse the marker's icon
-    if (this.props.tooltip) {
+    if (props.tooltip) {
       cluster.bindTooltip(
         cluster
           .getAllChildMarkers()
@@ -41,78 +59,43 @@ class Cluster extends MapLayer {
       ...activeMarker.options.icon.options,
       className: "leaflet-cluster-marker"
     });
-  }
+  };
 
-  createLeafletElement() {
-    const markerclusters = new L.markerClusterGroup({
-      maxClusterRadius: 11,
-      showCoverageOnHover: false,
-      iconCreateFunction: this.createClusterIcon.bind(this)
-    });
+  const getActiveMarker = cluster => {
+    const markers = cluster.getAllChildMarkers();
+    if (props.item.clusterOperation === "none") {
+      return markers[0];
+    }
+    const values = markers.map(marker => marker.options.data.value);
 
-    markerclusters.on("click", e => {
-      const markerId = e.layer.options.data.id;
-      if (this.activeCluster) {
-        const activeClusterMarker = this.activeCluster
-          .getAllChildMarkers()
-          .find(m => m.options.data.id == markerId);
+    const derivedValue =
+      props.item.clusterOperation == "max"
+        ? Math.max(...values)
+        : Math.min(...values);
 
-        if (activeClusterMarker) {
-          this.setPositionForActiveMarker(activeClusterMarker);
-          // this.props.onMarkerSelected(activeClusterMarker.options.data);
-        } else {
-          this.activeCluster.unspiderfy();
-        }
-      }
-    });
+    return markers[values.indexOf(derivedValue)];
+  };
 
-    markerclusters.on("spiderfied", a => {
-      const activeMarker = this.getActiveMarker(a.cluster);
-      if (activeMarker) {
-        this.setPositionForActiveMarker(activeMarker);
-      }
-      this.activeCluster = a.cluster;
-      this.props.spiderfiedMarkers(
-        this.activeCluster.getAllChildMarkers().map(m => m.options.data.id)
-      );
-    });
-
-    markerclusters.on("unspiderfied", () => {
-      this.activeCluster = null;
-      this.props.spiderfiedMarkers(null);
-    });
-
-    this.leafletElement = markerclusters;
-
-    return markerclusters;
-  }
-
-  setPositionForActiveMarker(marker) {
+  const setPositionForActiveMarker = marker => {
     const activePos = this.leafletElement.getVisibleParent(marker);
     if (activePos) {
       this.props.onActiveMarkerPositionUpdate(activePos.getLatLng());
     }
-  }
+  };
 
-  getLeafletElement() {
-    return this.leafletElement;
-  }
-
-  // react-leaflet custom-component methods
-  // https://react-leaflet.js.org/docs/en/custom-components.html
-  getChildContext() {
-    return {
-      layerContainer: this.leafletElement
-    };
-  }
-}
-
-Cluster.childContextTypes = {
-  layerContainer: PropTypes.object
-};
-
-Cluster.propTypes = {
-  children: PropTypes.node
+  //console.log("cluster->render");
+  return (
+    <MarkerClusterGroup
+      maxClusterRadius="11"
+      showCoverageOnHover={true}
+      iconCreateFunction={createClusterIcon}
+      onClick={onClick}
+      onSpiderfied={onSpiderfied}
+      onUnspiderfied={onUnspiderfied}
+    >
+      {props.children}
+    </MarkerClusterGroup>
+  );
 };
 
 export default Cluster;

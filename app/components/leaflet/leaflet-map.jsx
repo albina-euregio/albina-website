@@ -1,16 +1,19 @@
-import React from "react";
+import React, { Fragment, useEffect } from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./leaflet-player.css";
 
 import {
-  Map,
+  MapContainer,
+  MapConsumer,
   TileLayer,
+  Marker,
+  Popup,
   LayersControl,
   AttributionControl,
   ScaleControl
 } from "react-leaflet";
-import { injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { tooltip_init } from "../../js/tooltip";
 import { MAP_STORE } from "../../stores/mapStore";
 
@@ -22,73 +25,65 @@ import "../../css/geonames.css";
 import { APP_STORE } from "../../appStore";
 import { parseSearchParams } from "../../util/searchParams";
 
-class LeafletMap extends React.Component {
-  constructor(props) {
-    super(props);
-    /**
-     * @type L.Map
-     */
-    this.map = undefined;
-    this.mapRef;
-    this.mapDisabledRef;
-    this._layers = [];
-  }
+const LeafletMap = props => {
+  const intl = useIntl();
 
-  // onTick(){
-  //   console.log("onTick xxx", this.playerStore.currentTime.get());
-  //   this.test = this.props.currentTime.get();
-  // }
+  let _layers = [];
 
-  mapStyle() {
-    return {
-      width: "100%",
-      height: "100%",
-      zIndex: 1,
-      opacity: 1
-    };
-  }
+  const mapStyle = {
+    width: "100%",
+    height: "100%",
+    zIndex: 1,
+    opacity: 1
+  };
 
-  componentDidMount() {
-    this.updateMaps();
-  }
+  const _disabledMapProps = {
+    dragging: false,
+    touchZoom: false,
+    doubleClickZoom: false,
+    scrollWheelZoom: false,
+    boxZoom: false,
+    keyboard: false
+  };
 
-  componentDidUpdate() {
-    this.updateMaps();
-  }
+  const _enabledMapProps = {
+    dragging: true,
+    touchZoom: true,
+    doubleClickZoom: true,
+    scrollWheelZoom: true,
+    boxZoom: true,
+    keyboard: true
+  };
 
-  updateMaps() {
+  const updateMaps = (map, disabled) => {
     //console.log("updateMaps xyy");
-    if (this.mapDisabledRef && !this.mapDisabled) {
-      this.mapDisabled = this.mapDisabledRef.leafletElement;
-      L.Util.setOptions(this.mapDisabled, { gestureHandling: false });
+    if (disabled) {
+      L.Util.setOptions(map, { gestureHandling: false });
     }
 
-    if (this.mapRef && !this.map) {
-      this.map = this.mapRef.leafletElement;
-      //window.currMap = this.map;
-      //console.log("updateMaps xyz", L);
-      if (this.props.onInit) {
-        this.props.onInit(this.map);
+    if (1 == 1) {
+      //console.log("updateMaps xyz", map, disabled);
+      if (props.onInit) {
+        props.onInit(map);
       }
 
-      if (this.props.gestureHandling)
-        L.Util.setOptions(this.map, { gestureHandling: true });
+      if (props.gestureHandling)
+        L.Util.setOptions(map, { gestureHandling: true });
 
       const province = parseSearchParams().get("province");
       this.map.fitBounds(
         config.map[`${province}.bounds`] ?? config.map.euregioBounds
       );
 
-      const map = this.map;
-      //console.log("this.map", this.map);
+      //console.log("map", map);
       window.setTimeout(() => {
         L.control
           .zoom({
             position: "topleft",
-            zoomInTitle: this.props.intl.formatMessage({
+            zoomInTitle: intl.formatMessage({
               id: "bulletin:map:zoom-in:hover"
             }),
-            zoomOutTitle: this.props.intl.formatMessage({
+            zoomOutTitle: intl.formatMessage({
               id: "bulletin:map:zoom-out:hover"
             })
           })
@@ -97,10 +92,10 @@ class LeafletMap extends React.Component {
         L.control
           .geonames({
             lang: APP_STORE.language,
-            title: this.props.intl.formatMessage({
+            title: intl.formatMessage({
               id: "bulletin:map:search"
             }),
-            placeholder: this.props.intl.formatMessage({
+            placeholder: intl.formatMessage({
               id: "bulletin:map:search:hover"
             }),
             ...config.map.geonames
@@ -112,13 +107,13 @@ class LeafletMap extends React.Component {
             icon: "icon-geolocate",
             iconLoading: "icon-geolocate",
             strings: {
-              title: this.props.intl.formatMessage({
+              title: intl.formatMessage({
                 id: "bulletin:map:locate:title"
               }),
-              metersUnit: this.props.intl.formatMessage({
+              metersUnit: intl.formatMessage({
                 id: "bulletin:map:locate:metersUnit"
               }),
-              popup: this.props.intl.formatMessage(
+              popup: intl.formatMessage(
                 {
                   id: "bulletin:map:locate:popup"
                 },
@@ -128,7 +123,7 @@ class LeafletMap extends React.Component {
                   unit: "{unit}"
                 }
               ),
-              outsideMapBoundsMsg: this.props.intl.formatMessage({
+              outsideMapBoundsMsg: intl.formatMessage({
                 id: "bulletin:map:locate:outside"
               })
             }
@@ -136,12 +131,12 @@ class LeafletMap extends React.Component {
           .addTo(map);
       }, 50);
 
-      this._init_tooltip();
-      this._init_aria();
+      _init_tooltip();
+      _init_aria();
     }
-  }
+  };
 
-  _init_tooltip() {
+  const _init_tooltip = () => {
     window.setTimeout(() => {
       // console.log("leaflet-map ggg1 update tooltip");
       $(".leaflet-control-zoom a").addClass("tooltip");
@@ -149,9 +144,9 @@ class LeafletMap extends React.Component {
       $(".leaflet-control-locate a").addClass("tooltip");
       tooltip_init();
     }, 100);
-  }
+  };
 
-  _init_aria() {
+  const _init_aria = () => {
     window.setTimeout(() => {
       $(".leaflet-control-zoom a").attr("tabIndex", "-1");
       $(".leaflet-control-zoom a").attr("tabIndex", "-1");
@@ -159,17 +154,17 @@ class LeafletMap extends React.Component {
       $(".leaflet-geonames-search a").attr("tabIndex", "-1");
       $(".leaflet-touch-zoom").attr("tabIndex", "-1");
     }, 100);
-  }
+  };
 
-  _zoomend() {
-    const map = this.map;
+  const _zoomend = () => {
+    const map = map;
     const newZoom = Math.round(map.getZoom());
     //console.log("leaflet-map->_zoomend newZoom", newZoom);
     map.setMaxBounds(config.map.maxBounds[newZoom]);
-    this._init_tooltip();
-  }
+    _init_tooltip();
+  };
 
-  get tileLayers() {
+  const tileLayers = () => {
     const tileLayerConfig = config.map.tileLayers;
     let tileLayers = "";
     if (tileLayerConfig.length == 1) {
@@ -179,7 +174,7 @@ class LeafletMap extends React.Component {
           {...Object.assign(
             {},
             tileLayerConfig[0],
-            this.props.tileLayerConfigOverride
+            props.tileLayerConfigOverride
           )}
         />
       );
@@ -198,7 +193,7 @@ class LeafletMap extends React.Component {
                 {...Object.assign(
                   {},
                   layerProps,
-                  this.props.tileLayerConfigOverride
+                  props.tileLayerConfigOverride
                 )}
               />
             </LayersControl.BaseLayer>
@@ -207,58 +202,15 @@ class LeafletMap extends React.Component {
       );
     }
     return tileLayers;
-  }
+  };
 
-  _disabledMapProps() {
-    return {
-      dragging: false,
-      touchZoom: false,
-      doubleClickZoom: false,
-      scrollWheelZoom: false,
-      boxZoom: false,
-      keyboard: false
-    };
-  }
-  _enabledMapProps() {
-    return {
-      dragging: true,
-      touchZoom: true,
-      doubleClickZoom: true,
-      scrollWheelZoom: true,
-      boxZoom: true,
-      keyboard: true
-    };
-  }
-
-  connectLayers(map) {
-    //console.log("connectLayers", map);
-    if (map) {
-      this.mapRef = map;
-    }
-  }
-
-  render() {
-    const mapProps = config.map.initOptions;
-    const mapOptions = Object.assign(
-      {},
-      this.props.loaded ? this._enabledMapProps() : this._disabledMapProps(),
-      mapProps,
-      this.props.mapConfigOverride
-    );
-
-    return this.props.loaded
-      ? this.renderLoadedMap(mapOptions)
-      : this.renderDisabledMap(mapOptions);
-  }
-
-  renderDisabledMap(mapOptions) {
+  const renderDisabledMap = mapOptions => {
     return (
-      <Map
-        onZoomEnd={this._zoomend.bind(this)}
+      <MapContainer
+        onZoomEnd={_zoomend.bind(this)}
         className="map-disabled"
-        ref={map => (this.mapDisabledRef = map)}
-        gestureHandling={this.props.gestureHandling}
-        style={this.mapStyle()}
+        gestureHandling={props.gestureHandling}
+        style={mapStyle}
         zoomControl={false}
         zoom={MAP_STORE.mapZoom}
         center={MAP_STORE.mapCenter}
@@ -266,34 +218,62 @@ class LeafletMap extends React.Component {
         attributionControl={false}
       >
         <AttributionControl prefix={config.map.attribution} />
-        {this.tileLayers}
-      </Map>
+        <MapConsumer>
+          {map => {
+            updateMaps(map, true);
+          }}
+        </MapConsumer>
+        {tileLayers()}
+      </MapContainer>
     );
-  }
+  };
 
-  renderLoadedMap(mapOptions) {
+  const renderLoadedMap = mapOptions => {
     return (
-      <Map
-        onZoomEnd={this._zoomend.bind(this)}
-        onViewportChanged={this.props.onViewportChanged.bind(this.map)}
+      <MapContainer
+        onZoomEnd={_zoomend.bind(this)}
+        onViewportChanged={props.onViewportChanged}
         useFlyTo
-        ref={map => (this.mapRef = map)}
-        gestureHandling={this.props.gestureHandling}
+        gestureHandling={props.gestureHandling}
         dragging={L.Browser.mobile}
-        style={this.mapStyle()}
+        style={mapStyle}
         zoomControl={false}
         zoom={MAP_STORE.mapZoom}
         center={MAP_STORE.mapCenter}
         {...mapOptions}
         attributionControl={false}
+        whenCreated={map => {
+          updateMaps(map, false);
+        }}
       >
         <AttributionControl prefix={config.map.attribution} />
         <ScaleControl imperial={false} position="bottomleft" />
-        {this.props.controls}
-        {this.tileLayers}
-        {this.props.overlays}
-      </Map>
+        {props.controls}
+        {tileLayers()}
+        {props.overlays}
+      </MapContainer>
     );
-  }
-}
-export default injectIntl(LeafletMap);
+  };
+
+  // connectLayers(map) {
+  //   //console.log("connectLayers", map);
+  //   if (map) {
+  //     mapRef = map;
+  //   }
+  // }
+
+  const mapProps = config.map.initOptions;
+  const mapOptions = Object.assign(
+    {},
+    props.loaded ? _enabledMapProps : _disabledMapProps,
+    mapProps,
+    props.mapConfigOverride
+  );
+  const map = props.loaded
+    ? renderLoadedMap(mapOptions)
+    : renderDisabledMap(mapOptions);
+  //console.log("render->useEffect", map, props.loaded);
+
+  return map;
+};
+export default LeafletMap;

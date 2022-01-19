@@ -1,92 +1,68 @@
-import React from "react"; // eslint-disable-line no-unused-vars
-import PropTypes from "prop-types";
+import React, { useEffect } from "react"; // eslint-disable-line no-unused-vars
+import { useLeafletContext } from "@react-leaflet/core";
+import L from "leaflet";
 import ReactDOMServer from "react-dom/server";
 import StationIcon from "./station-icon";
-import { MapLayer } from "react-leaflet";
-import L from "leaflet";
 
-class StationMarker extends MapLayer {
-  constructor(props) {
-    super(props);
-  }
+const StationMarker = props => {
+  const context = useLeafletContext();
 
-  createStationIcon() {
-    //console.log("StationMarker->createStationIcon jjj", this.props);
-    const icon = (
-      <StationIcon
-        itemId={this.props.itemId}
-        type={this.props.type}
-        color={this.props.color}
-        dataType={this.props.dataType || "analyse"}
-        selected={this.props.selected}
-        value={isFinite(this.props.value) ? this.props.value : ""}
-        direction={this.props.direction}
-      />
-    );
-
-    const divIcon = L.divIcon({
-      iconAnchor: this.props.iconAnchor || [12.5, 12.5],
-      html: ReactDOMServer.renderToStaticMarkup(icon),
-      className: this.props.className
-    });
-    //console.log("StationMarker->createStationIcon eee", divIcon);
-    return divIcon;
-  }
-
-  updateLeafletElement() {
-    //console.log("StationMarker->updateLeafletElement qqq !!!!", this.props.stationName,  this.props.value);
-    //this.layerContainer.removeLayer(this.leafletElement);
-    //this.leafletElement = this.createElement();
-    //this.layerContainer.addLayer(this.leafletElement);
-  }
-
-  createLeafletElement() {
-    this.leafletElement = this.createElement();
-    return this.leafletElement;
-  }
-
-  createElement() {
-    //console.log("StationMarker->createElement ggg", this.props);
-    const marker = L.marker(this.props.coordinates, {
-      data: this.props.data,
-      title: this.props.stationName,
-      icon: this.createStationIcon()
+  useEffect(() => {
+    const marker = L.marker(props.coordinates, {
+      data: props.data,
+      title: props.stationName,
+      icon: createStationIcon(),
+      bubblingMouseEvents: false
     });
 
-    if (this.props.tooltip) {
-      marker.bindTooltip(this.props.tooltip);
+    if (props.tooltip) {
+      marker.bindTooltip(props.tooltip);
     }
 
-    if (this.props.onClick)
+    if (props.onClick)
       marker.on("click", e => {
         // console.log(
         //   "marker.on(click) ggg",
-        //   this.props.onClick,
+        //   props.onClick,
         //   e.target.options.data
         // );
         L.DomEvent.stopPropagation(e);
 
-        this.props.onClick(e.target.options.data);
+        props.onClick(e.target.options.data);
       });
 
-    return marker;
-  }
+    const container = context.layerContainer || context.map;
 
-  getLeafletElement() {
-    return this.leafletElement;
-  }
+    container.addLayer(marker);
 
-  // react-leaflet custom-component methods
-  // https://react-leaflet.js.org/docs/en/custom-components.html
-  getChildContext() {
-    return {
-      layerContainer: this.leafletElement
+    return () => {
+      container.removeLayer(marker);
     };
-  }
-}
+  });
 
-StationMarker.childContextTypes = {
-  layerContainer: PropTypes.object
+  const createStationIcon = () => {
+    //console.log("StationMarker->createStationIcon jjj", props);
+    const icon = (
+      <StationIcon
+        itemId={props.itemId}
+        type={props.type}
+        color={props.color}
+        dataType={props.dataType || "analyse"}
+        selected={props.selected}
+        value={isFinite(props.value) ? props.value : ""}
+        direction={props.direction}
+      />
+    );
+    const divIcon = L.divIcon({
+      iconAnchor: props.iconAnchor || [12.5, 12.5],
+      html: ReactDOMServer.renderToStaticMarkup(icon),
+      className: props.className
+    });
+    //console.log("StationMarker->createStationIcon eee", divIcon);
+    return divIcon;
+  };
+
+  return null;
 };
 
 export default StationMarker;

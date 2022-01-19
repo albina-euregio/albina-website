@@ -1,15 +1,10 @@
-import React from "react"; // eslint-disable-line no-unused-vars
-import { MapLayer } from "react-leaflet";
+import React, { useEffect } from "react"; // eslint-disable-line no-unused-vars
 import L from "leaflet";
 import ReactDOMServer from "react-dom/server";
 import CircleIcon from "./circle-icon";
 
-export default class ClusterSelectedMarker extends MapLayer {
-  constructor(props) {
-    super(props);
-  }
-
-  createLeafletElement() {
+const ClusterSelectedMarker = props => {
+  useEffect(() => {
     const icon = L.divIcon({
       iconAnchor: [12.5, 12.5],
       html: ReactDOMServer.renderToStaticMarkup(
@@ -17,8 +12,16 @@ export default class ClusterSelectedMarker extends MapLayer {
       )
     });
 
-    return L.marker(this.props.coordinates, {
+    const marker = L.marker(this.props.coordinates, {
       icon: icon
     });
-  }
-}
+    const container = context.layerContainer || context.map;
+
+    container.addLayer(marker);
+
+    return () => {
+      container.removeLayer(marker);
+    };
+  });
+};
+export default ClusterSelectedMarker;

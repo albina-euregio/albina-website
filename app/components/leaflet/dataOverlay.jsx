@@ -162,6 +162,7 @@ export default class DataOverlay extends React.Component {
             color={this.getColor(pixelData.value)}
             value={pixelData.value}
             direction={pixelData.direction}
+            layerContainer={e.target._map}
           />
         )
       });
