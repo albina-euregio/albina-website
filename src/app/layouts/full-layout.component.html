@@ -26,9 +26,6 @@
     <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
       <a class="nav-link" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']">{{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
     </li>
-    <li *ngIf="authenticationService.isEuregio()" class="nav-item px-1">
-      <a class="nav-link" routerLinkActive="active" [routerLink]="['/education']">{{ "sidebar.education" | translate }}</a>
-    </li>
   </ul>
 
   <ul class="nav navbar-nav ml-auto">
@@ -37,21 +34,6 @@
       <a class="nav-link" href="#"><i class="fa fa-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
     </li>
 -->
-    <li class="nav-item dropdown" dropdown (onToggle)="toggled()" style="padding-right: 10px">
-      <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
-        <i class="fa fa-globe"></i>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-        <div class="dropdown-header text-center"><strong>{{ "menu.language" | translate }}</strong></div>
-        <a class="dropdown-item" (click)='settingsService.setLangString("it")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.it" | translate }}<i *ngIf="settingsService.getLangString()==='it'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("de")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.de" | translate }}<i *ngIf="settingsService.getLangString()==='de'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("en")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.en" | translate }}<i *ngIf="settingsService.getLangString()==='en'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("fr")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.fr" | translate }}<i *ngIf="settingsService.getLangString()==='fr'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("es")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.es" | translate }}<i *ngIf="settingsService.getLangString()==='es'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("ca")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.ca" | translate }}<i *ngIf="settingsService.getLangString()==='ca'" class="fa fa-check float-right"></i></a>
-        <a class="dropdown-item" (click)='settingsService.setLangString("oc")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.oc" | translate }}<i *ngIf="settingsService.getLangString()==='oc'" class="fa fa-check float-right"></i></a>
-      </div>
-    </li>
     <li class="nav-item dropdown" dropdown (onToggle)="toggled()" style="padding-right: 10px">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
         <img src="{{ authenticationService.getUserImageSanitized() }}" class="img-avatar">
@@ -64,11 +46,30 @@
           <a class="dropdown-item" (click)='changeRegion(region)'><i class="fa fa-globe"></i>&nbsp;{{ "region." + region | translate }}<i *ngIf="authenticationService.getActiveRegion()===region" class="fa fa-check float-right"></i></a>
         </div>
 
+        <div class="dropdown-header text-center"><strong>{{ "menu.education" | translate }}</strong></div>
+        
+        <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/education']"><i class="fa fa-graduation-cap"></i> {{ "menu.education" | translate }}</a>
+
         <div class="dropdown-header text-center"><strong>{{ "menu.settings" | translate }}</strong></div>
         
         <a class="dropdown-item" routerLinkActive="active" [routerLink]="['/settings']"><i class="fa fa-gear"></i> {{ "menu.settings" | translate }}</a>
         <a *ngIf="authenticationService.isCurrentUserInRole(constantsService.roleAdmin)" class="dropdown-item" routerLinkActive="active" [routerLink]="['/admin']"><i class="fa fa-user-secret"></i>{{ "menu.admin" | translate }}</a>
         <a class="dropdown-item" href="#" routerLink="/pages/login" (click)="logout()"><i class="fa fa-sign-out"></i> {{ "menu.logout" | translate }}</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown" dropdown (onToggle)="toggled()" style="padding-right: 10px">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+        <i class="fa fa-language"></i>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+        <div class="dropdown-header text-center"><strong>{{ "menu.language" | translate }}</strong></div>
+        <a class="dropdown-item" (click)='settingsService.setLangString("it")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.it" | translate }}<i *ngIf="settingsService.getLangString()==='it'" class="fa fa-check float-right"></i></a>
+        <a class="dropdown-item" (click)='settingsService.setLangString("de")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.de" | translate }}<i *ngIf="settingsService.getLangString()==='de'" class="fa fa-check float-right"></i></a>
+        <a class="dropdown-item" (click)='settingsService.setLangString("en")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.en" | translate }}<i *ngIf="settingsService.getLangString()==='en'" class="fa fa-check float-right"></i></a>
+        <a class="dropdown-item" (click)='settingsService.setLangString("fr")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.fr" | translate }}<i *ngIf="settingsService.getLangString()==='fr'" class="fa fa-check float-right"></i></a>
+        <a class="dropdown-item" (click)='settingsService.setLangString("es")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.es" | translate }}<i *ngIf="settingsService.getLangString()==='es'" class="fa fa-check float-right"></i></a>
+        <a class="dropdown-item" (click)='settingsService.setLangString("ca")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.ca" | translate }}<i *ngIf="settingsService.getLangString()==='ca'" class="fa fa-check float-right"></i></a>
+        <a class="dropdown-item" (click)='settingsService.setLangString("oc")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.oc" | translate }}<i *ngIf="settingsService.getLangString()==='oc'" class="fa fa-check float-right"></i></a>
       </div>
     </li>
     <li *ngIf="showChat && authenticationService.isEuregio()" class="nav-item">
@@ -107,9 +108,6 @@
         </li>
         <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
           <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/modelling/snowpackMeteo']"><i class="fa fa-bar-chart"></i> {{ "sidebar.modellingSnowpackMeteo" | translate }}</a>
-        </li>
-        <li *ngIf="authenticationService.isEuregio()" class="nav-item nav-dropdown" routerLinkActive="open">
-          <a class="nav-link mobile-sidebar-toggler" routerLinkActive="active" [routerLink]="['/education']"><i class="fa fa-bar-school"></i> {{ "sidebar.education" | translate }}</a>
         </li>
       </ul>
     </nav>
