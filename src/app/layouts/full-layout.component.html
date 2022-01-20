@@ -39,12 +39,10 @@
 -->
     <li class="nav-item dropdown" dropdown (onToggle)="toggled()" style="padding-right: 10px">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
-        <img src="{{ authenticationService.getUserImageSanitized() }}" class="img-avatar">
-        <span class="hidden-md-down">{{ authenticationService.getUsername() }}</span>
+        <i class="fa fa-globe"></i>
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
         <div class="dropdown-header text-center"><strong>{{ "menu.language" | translate }}</strong></div>
-
         <a class="dropdown-item" (click)='settingsService.setLangString("it")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.it" | translate }}<i *ngIf="settingsService.getLangString()==='it'" class="fa fa-check float-right"></i></a>
         <a class="dropdown-item" (click)='settingsService.setLangString("de")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.de" | translate }}<i *ngIf="settingsService.getLangString()==='de'" class="fa fa-check float-right"></i></a>
         <a class="dropdown-item" (click)='settingsService.setLangString("en")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.en" | translate }}<i *ngIf="settingsService.getLangString()==='en'" class="fa fa-check float-right"></i></a>
@@ -52,7 +50,14 @@
         <a class="dropdown-item" (click)='settingsService.setLangString("es")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.es" | translate }}<i *ngIf="settingsService.getLangString()==='es'" class="fa fa-check float-right"></i></a>
         <a class="dropdown-item" (click)='settingsService.setLangString("ca")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.ca" | translate }}<i *ngIf="settingsService.getLangString()==='ca'" class="fa fa-check float-right"></i></a>
         <a class="dropdown-item" (click)='settingsService.setLangString("oc")'><i class="fa fa-comment"></i>&nbsp;{{ "menu.oc" | translate }}<i *ngIf="settingsService.getLangString()==='oc'" class="fa fa-check float-right"></i></a>
-
+      </div>
+    </li>
+    <li class="nav-item dropdown" dropdown (onToggle)="toggled()" style="padding-right: 10px">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle>
+        <img src="{{ authenticationService.getUserImageSanitized() }}" class="img-avatar">
+        <span class="hidden-md-down">{{ authenticationService.getUsername() }}</span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
         <div class="dropdown-header text-center"><strong>{{ "menu.region" | translate }}</strong></div>
 
         <div *ngFor="let region of authenticationService.getCurrentAuthorRegions()">
