@@ -33,7 +33,8 @@
     "fullscreen" : "Fullscreen",
     "settings" : "Paramètres",
     "admin" : "Admin",
-    "region" : "Région"
+    "region" : "Région",
+    "education" : "Pédagogie"
   },
   "chat" : {
     "placeholder" : "Écrivez ici ...",
@@ -43,6 +44,9 @@
     "AT-07" : "Tyrol",
     "IT-32-BZ" : "Tyrol du Sud",
     "IT-32-TN" : "Trentin"
+  },
+  "education" : {
+    "title" : "Pédagogie"
   },
   "bulletins" : {
     "title" : "Avalanche.report",

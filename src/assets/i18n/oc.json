@@ -33,7 +33,8 @@
     "fullscreen" : "Pantalha complèta",
     "settings" : "Configuracion",
     "admin" : "Administrador",
-    "region" : "Region"
+    "region" : "Region",
+    "education" : "Educacion"
   },
   "chat" : {
     "placeholder" : "Escriu ací ...",
@@ -43,6 +44,9 @@
     "AT-07" : "Tiròl",
     "IT-32-BZ" : "Sud-Tiròl",
     "IT-32-TN" : "Trentin"
+  },
+  "education" : {
+    "title" : "Educacion"
   },
   "bulletins" : {
     "title" : "Avalanche.report",

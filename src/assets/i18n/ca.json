@@ -33,7 +33,8 @@
     "fullscreen" : "Pantalla completa",
     "settings" : "Configuració",
     "admin" : "Admin",
-    "region" : "Regió"
+    "region" : "Regió",
+    "education" : "Educació"
   },
   "chat" : {
     "placeholder" : "Escriu aquí...",
@@ -43,6 +44,9 @@
     "AT-07" : "Tirol ",
     "IT-32-BZ" : "South Tyrol ",
     "IT-32-TN" : "Trentino "
+  },
+  "education" : {
+    "title" : "Educació"
   },
   "bulletins" : {
     "title" : "Avalanche.report",

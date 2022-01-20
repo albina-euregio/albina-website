@@ -33,7 +33,8 @@
     "fullscreen" : "A schermo pieno ",
     "settings" : "Impostazioni",
     "admin" : "Admin",
-    "region" : "Regione"
+    "region" : "Regione",
+    "education" : "Educazione"
   },
   "chat" : {
     "placeholder" : "Scrivi ...",
@@ -43,6 +44,9 @@
     "AT-07" : "Tirolo ",
     "IT-32-BZ" : "Alto Adige ",
     "IT-32-TN" : "Trentino "
+  },
+  "education" : {
+    "title" : "Educazione"
   },
   "bulletins" : {
     "title" : "Valanghe.report",

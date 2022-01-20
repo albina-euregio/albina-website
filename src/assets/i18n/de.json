@@ -33,7 +33,8 @@
     "fullscreen" : "Vollbildschirm",
     "settings" : "Einstellungen",
     "admin" : "Admin",
-    "region" : "Region"
+    "region" : "Region",
+    "education" : "Ausbildung"
   },
   "chat" : {
     "placeholder" : "Schreib hier ...",
@@ -43,6 +44,9 @@
     "AT-07" : "Tirol ",
     "IT-32-BZ" : "Südtirol ",
     "IT-32-TN" : "Trentino "
+  },
+  "education" : {
+    "title" : "Ausbildung"
   },
   "bulletins" : {
     "title" : "Lawinen.report",
