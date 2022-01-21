@@ -120,7 +120,10 @@ const App = () => {
                   </Page>
                 }
               />
-              <Route path="/weather" element={<Navigate to="/weather/map" />} />
+              <Route
+                path="/weather"
+                element={<Navigate replace to="/weather/map" />}
+              />
               <Route
                 path="/education"
                 element={
@@ -171,13 +174,21 @@ const App = () => {
               />
               <Route
                 path="/archive"
-                element={<Navigate to="/more/archive" />}
+                element={<Navigate replace to="/more/archive" />}
               />
               <Route
                 path="/:lang([a-z]{2})"
                 element={
                   <Page>
                     <SwtichLang />
+                  </Page>
+                }
+              />
+              <Route
+                path="/education/*"
+                element={
+                  <Page>
+                    <StaticPage />
                   </Page>
                 }
               />
