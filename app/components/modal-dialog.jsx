@@ -7,7 +7,6 @@ const modalRoot = document.body;
 const ModalDialog = ({ children, id }) => {
   const modalElementRef = useRef(null);
   const location = useLocation();
-  let lastLocation = useRef(null);
 
   const didMountRef = useRef(false);
 
@@ -21,22 +20,20 @@ const ModalDialog = ({ children, id }) => {
   };
 
   useEffect(() => {
-    if (didMountRef.current) {
-      console.log("ModalDialog->useeffect mount", modalElementRef.current);
-      if (location.pathname !== lastLocation.currrent?.pathname) {
-        $(".mfp-close").trigger("click");
-      }
-    } else {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
       modalRoot.appendChild(modalElementRef.current);
     }
-    lastLocation.current = location;
-
     return () => {
       modalElementRef.current.remove();
     };
   });
 
-  console.log("ModalDialog->render", getModalElement(id));
+  useEffect(() => {
+    $(".mfp-close").trigger("click");
+  }, [location.pathname]);
+
+  //console.log("ModalDialog->render", id, getModalElement(id), children);
   return ReactDOM.createPortal(children, getModalElement(id));
 };
 
