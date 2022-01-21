@@ -33,109 +33,6 @@ import { orientation_change } from "../js/browser";
 
 import "../css/style.scss"; // CSS overrides
 
-// const App = props => {
-//   const params = useParams();
-//   let routes = useRoutes([
-//     {
-//       path: "/",
-//       element: <Bulletin />,
-//       indexRoute: {
-//         element: <Bulletin />
-//       },
-//       routes: [
-//         {
-//           path: "/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})?",
-//           element: <Bulletin />
-//         },
-//         {
-//           path: "/bulletin/latest?",
-//           element: <Bulletin />
-//         },
-//         {
-//           path: "/weather/map/:domain?",
-//           exact: true,
-//           element: <Weather />
-//         },
-//         {
-//           path: "/weather/measurements",
-//           exact: true,
-//           element: <StationMeasurements />
-//         },
-//         {
-//           path: "/weather/stations",
-//           exact: true,
-//           element: <StationMap />
-//         },
-//         {
-//           path: "/weather/snow-profiles",
-//           exact: true,
-//           element: <SnowProfileMap />
-//         },
-//         {
-//           path: "/weather/incidents",
-//           exact: true,
-//           element: <SnowProfileMap />
-//         },
-//         {
-//           path: "/weather",
-//           exact: true,
-//           element: <Navigate replace to="/weather/map" />
-//         },
-//         {
-//           path: "/education",
-//           exact: true,
-//           element: <Education />
-//         },
-//         {
-//           path: "/blog/:blogName/:postId",
-//           element: <BlogPost />
-//         },
-//         {
-//           path: "/blog",
-//           exact: true,
-//           element: <BlogOverview />
-//         },
-//         {
-//           path: "/more",
-//           exact: true,
-//           element: <More />
-//         },
-//         {
-//           path: "/more/archive",
-//           exact: true,
-//           element: <Archive />
-//         },
-//         {
-//           path: "/more/linktree",
-//           exact: true,
-//           element: <Linktree />
-//         },
-//         {
-//           path: "/archive",
-//           exact: true,
-//           element: <Navigate replace to="/more/archive" />
-//         },
-//         {
-//           path: "/:lang([a-z]{2})",
-//           component: ({ match }) => {
-//             const lang = params?.lang;
-//             APP_STORE.setLanguage(lang);
-//             return <Navigate replace to="/" />;
-//           }
-//         },
-//         {
-//           // NOTE: 404 error will be handled by StaticPage, since we do not
-//           // know which pages reside on the CMS in this router config
-//           path: "/:name",
-//           element: <StaticPage />
-//         }
-//       ]
-//     }
-//   ]);
-
-//   return routes;
-// };
-
 const SwtichLang = () => {
   const params = useParams();
   console.log("SwtichLang", params);
@@ -145,7 +42,7 @@ const SwtichLang = () => {
   return <Navigate replace to="/" />;
 };
 
-const AppWrapper = () => {
+const App = () => {
   useEffect(() => {
     window["page_html"] = $("html");
     window["page_body"] = $("body");
@@ -167,13 +64,13 @@ const AppWrapper = () => {
     }, 150);
   });
 
-  console.log("Appwrapper", config);
+  console.log("App", config);
   return (
     <IntlProvider locale={APP_STORE.language} messages={APP_STORE.messages}>
       <BrowserRouter basename={config.projectRoot}>
         <Suspense fallback={"..."}>
           <Routes>
-            <Route path="/" element={<Page></Page>}>
+            <Route path="/">
               <Route index element={<Page></Page>} />
               <Route
                 path="/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})"
@@ -300,4 +197,4 @@ const AppWrapper = () => {
   );
 };
 
-export default observer(AppWrapper);
+export default observer(App);
