@@ -55,11 +55,11 @@ const LeafletMap = props => {
     keyboard: true
   };
 
-  const didMountRef = useRef(false);
-  useEffect(() => {
-    if (didMountRef.current) {
-    } else didMountRef.current = true;
-  });
+  // const didMountRef = useRef(false);
+  // useEffect(() => {
+  //   if (didMountRef.current) {
+  //   } else didMountRef.current = true;
+  // });
 
   const updateMaps = (map, disabled) => {
     //console.log("updateMaps xyy");
