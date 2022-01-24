@@ -34,7 +34,7 @@ import "../css/style.scss"; // CSS overrides
 
 const SwtichLang = () => {
   const params = useParams();
-  console.log("SwtichLang", params);
+  //console.log("SwtichLang", params);
   useEffect(() => {
     if (params?.lang) APP_STORE.setLanguage(params.lang);
   });
@@ -62,7 +62,6 @@ const App = () => {
     }, 150);
   });
 
-  console.log("App", config);
   return (
     <IntlProvider locale={APP_STORE.language} messages={APP_STORE.messages}>
       <BrowserRouter basename={config.projectRoot}>
