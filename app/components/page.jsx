@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate, createSearchParams, useLocation } from "react-router-dom";
 import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
@@ -28,27 +28,17 @@ const Page = props => {
   let hash = false;
   const location = useLocation();
   const navigate = useNavigate();
+  const didMountRef = useRef(false);
 
   useEffect(() => {
-    console.log("Page->useEffect", props, location, document.location);
-    if (props && location && location.hash) {
-      if (hash !== location.hash) {
-        hash = location.hash;
-      }
-    } else {
-      hash = false;
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      navigation_init();
+      scroll_init();
     }
+  });
 
-    if (location !== location && !location.hash) {
-      // do not scroll if bulletin region was clicked
-      if (!location.pathname.split("/").includes("bulletin")) {
-        window.scrollTo(0, 0);
-      }
-      // scroll to top on forward page change (if no hash is set)
-      // see https://github.com/ReactTraining/react-router/issues/2019
-    }
-
-    // if the actual bulletin is active, change path to /latest
+  useEffect(() => {
     if (
       location.pathname === "" ||
       location.pathname === "/" ||
@@ -59,13 +49,18 @@ const Page = props => {
         pathname: "/bulletin/latest",
         search: document.location.search.substring(1)
       });
+    } else {
+      modal_init();
+      tooltip_init();
     }
+  }, [location.pathname]);
 
-    modal_init();
-    tooltip_init();
-    navigation_init();
-    scroll_init();
-  });
+  useEffect(() => {
+    if (!location.pathname.split("/").includes("bulletin")) {
+      window.scrollTo(0, 0);
+    }
+  }, [location.hash]);
+
   console.log("page->render", props.children);
   return (
     <>
