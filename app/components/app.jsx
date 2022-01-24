@@ -37,7 +37,7 @@ const SwtichLang = () => {
   const params = useParams();
   console.log("SwtichLang", params);
   useEffect(() => {
-    if ((lang = params?.lang)) APP_STORE.setLanguage(lang);
+    if (params?.lang) APP_STORE.setLanguage(params.lang);
   });
   return <Navigate replace to="/" />;
 };
