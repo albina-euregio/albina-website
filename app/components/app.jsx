@@ -28,7 +28,6 @@ const Archive = React.lazy(() => import("./../views/archive"));
 const Linktree = React.lazy(() => import("../views/linkTree.jsx"));
 const StaticPage = React.lazy(() => import("./../views/staticPage"));
 import Page from "./page";
-import { scroll_init } from "../js/scroll";
 import { orientation_change } from "../js/browser";
 
 import "../css/style.scss"; // CSS overrides
@@ -56,7 +55,6 @@ const App = () => {
     }
 
     orientation_change();
-    scroll_init();
 
     // remove splash screen
     setTimeout(function () {

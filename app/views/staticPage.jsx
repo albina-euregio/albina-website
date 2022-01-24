@@ -22,16 +22,19 @@ const StaticPage = props => {
   const [isShareable, setIsShareable] = useState(false);
 
   useEffect(() => {
-    //console.log("StaticPage->useEffect", location, lastLocation);
+    console.log("StaticPage->useEffect", location.hash);
+    //if(location.hash) scroll(location.hash, 2000);
+  }, [location.hash]);
+
+  useEffect(() => {
+    console.log("StaticPage->useEffect", location.pathname);
 
     const site = location.pathname
       .substring(config.projectRoot)
       .replace(/^\//, "");
 
     _fetchData(site);
-    if (location.hash) {
-      scroll(hash, 2000);
-    }
+    //if(!location.hash) scroll(location.hash || "#page-main", 500);
   }, [location.pathname]);
 
   const _fetchData = site => {

@@ -22,7 +22,7 @@ import { modal_init } from "../js/modal";
 import { tooltip_init } from "../js/tooltip";
 import { navigation_init } from "../js/navigation";
 
-import { scroll_init } from "../js/scroll";
+import { scroll_init, scroll } from "../js/scroll";
 
 const Page = props => {
   let hash = false;
@@ -34,7 +34,6 @@ const Page = props => {
     if (!didMountRef.current) {
       didMountRef.current = true;
       navigation_init();
-      scroll_init();
     }
   });
 
@@ -50,14 +49,22 @@ const Page = props => {
         search: document.location.search.substring(1)
       });
     } else {
+      scroll_init();
       modal_init();
       tooltip_init();
     }
   }, [location.pathname]);
 
   useEffect(() => {
+    //console.log("Page->useEffect hash #1", location.hash, location.pathname);
     if (!location.pathname.split("/").includes("bulletin")) {
-      window.scrollTo(0, 0);
+      if (!location.hash) {
+        console.log("Page->useEffect hast #2", location.hash);
+        window.scrollTo(0, 0);
+      } else {
+        console.log("Page->useEffect hast #3", location.hash);
+        scroll(location.hash, 2000);
+      }
     }
   }, [location.hash]);
 
