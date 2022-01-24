@@ -1,66 +1,54 @@
 import React from "react";
-import { observer } from "mobx-react";
-import { injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
-class BlogPageFlipper extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const BlogPageFlipper = props => {
+  const intl = useIntl();
+  let { curPage, maxPages } = props;
+  //console.log("PageFlipper", curPage, maxPages);
 
-  isNextPage() {
-    return this.store.page < this.store.maxPages;
-  }
-
-  isPreviousPage() {
-    return this.store.page != 1;
-  }
-
-  render() {
-    this.store = this.props.store;
-    const pageTranslation = this.props.intl.formatMessage({
-      id: "blog:page-flipper:page"
-    });
-    return (
-      <ul className="list-inline bulletin-flipper">
-        {this.isPreviousPage() && (
-          <li className="bulletin-flipper-back">
-            <a
-              role="button"
-              tabIndex="0"
-              onClick={() => this.props.handlePreviousPage()}
-              title={this.props.intl.formatMessage({
-                id: "bulletin:header:dateflipper:back"
-              })}
-              className="tooltip"
-            >
-              <span className="icon-arrow-left"></span>
-              {pageTranslation} {this.store.page - 1}
-            </a>
-          </li>
-        )}
-
-        <li className="bulletin-flipper-separator">
-          {this.store.page}/{this.store.maxPages}
+  const pageTranslation = intl.formatMessage({
+    id: "blog:page-flipper:page"
+  });
+  return (
+    <ul className="list-inline bulletin-flipper">
+      {curPage != 1 && (
+        <li className="bulletin-flipper-back">
+          <a
+            role="button"
+            tabIndex="0"
+            onClick={props.handlePreviousPage}
+            title={intl.formatMessage({
+              id: "bulletin:header:dateflipper:back"
+            })}
+            className="tooltip"
+          >
+            <span className="icon-arrow-left"></span>
+            {pageTranslation} {curPage}
+          </a>
         </li>
-        {this.isNextPage() && (
-          <li className="bulletin-flipper-forward">
-            <a
-              role="button"
-              tabIndex="0"
-              onClick={() => this.props.handleNextPage()}
-              title={this.props.intl.formatMessage({
-                id: "bulletin:header:dateflipper:forward"
-              })}
-              className="tooltip"
-            >
-              {pageTranslation} {this.store.page + 1}{" "}
-              <span className="icon-arrow-right" />
-            </a>
-          </li>
-        )}
-      </ul>
-    );
-  }
-}
+      )}
 
-export default injectIntl(observer(BlogPageFlipper));
+      <li className="bulletin-flipper-separator">
+        {curPage}/{maxPages}
+      </li>
+      {curPage < maxPages && (
+        <li className="bulletin-flipper-forward">
+          <a
+            role="button"
+            tabIndex="0"
+            onClick={props.handleNextPage}
+            title={intl.formatMessage({
+              id: "bulletin:header:dateflipper:forward"
+            })}
+            className="tooltip"
+          >
+            {pageTranslation} {curPage + 1}{" "}
+            <span className="icon-arrow-right" />
+          </a>
+        </li>
+      )}
+    </ul>
+  );
+};
+
+export default BlogPageFlipper;

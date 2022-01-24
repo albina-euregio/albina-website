@@ -170,6 +170,7 @@ export default class BlogStore {
 
     // region
     if (urlValues.region != this.regionActive) {
+      console.log("blogStore->setRegion");
       this.setRegions(urlValues.region);
       needLoad = true;
     }
@@ -493,7 +494,7 @@ export default class BlogStore {
     for (let r in newRegions) {
       newRegions[r] = [r, "all"].includes(region) || !region;
     }
-    //console.log("blogstore->setRegions xx101", newRegions);
+    console.log("blogstore->setRegions xx101", region, newRegions);
     this._regions = newRegions;
   }
 
