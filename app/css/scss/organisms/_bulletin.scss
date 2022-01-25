@@ -510,3 +510,12 @@
     @include font-heavy;
   }
 }
+
+.bulletin-list a.glossary {
+  color: inherit;
+  text-decoration: underline dotted $brand;
+}
+
+.bulletin-list a.glossary:hover {
+  color: $brand;
+}

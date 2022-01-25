@@ -6,6 +6,7 @@ import BulletinDaytimeReport from "./bulletin-daytime-report";
 import { dateToLongDateString, parseDate } from "../../util/date";
 import { preprocessContent } from "../../util/htmlParser";
 import { getWarnlevelNumber } from "../../util/warn-levels";
+import { findGlossaryStrings } from "./bulletin-glossary";
 
 /**
  * This component shows the detailed bulletin report including all icons and
@@ -37,7 +38,16 @@ class BulletinReport extends React.Component {
   getLocalizedText(elem) {
     // bulletins are loaded in correct language
     if (!elem) return "";
-    return preprocessContent(elem.replace(/&lt;br\/&gt;/g, "<br/>"));
+    elem = elem.replace(/&lt;br\/&gt;/g, "<br/>");
+    if (import.meta.env.DEV || import.meta.env.BASE_URL === "/beta/") {
+      const withGlossary = findGlossaryStrings(elem);
+      try {
+        return preprocessContent(withGlossary);
+      } catch (e) {
+        console.warn(e, { elem, withGlossary });
+      }
+    }
+    return preprocessContent(elem);
   }
 
   render() {
