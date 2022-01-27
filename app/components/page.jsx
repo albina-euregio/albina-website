@@ -52,6 +52,7 @@ const Page = props => {
       scroll_init();
       modal_init();
       tooltip_init();
+      window.scrollTo(0, 0);
     }
   }, [location.pathname]);
 
