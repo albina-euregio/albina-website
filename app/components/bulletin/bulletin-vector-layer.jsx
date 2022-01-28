@@ -61,7 +61,7 @@ const BulletinVectorLayer = props => {
       {props.regions.map((vector, vi) => {
         const bid = vector.id;
         const state = vector.properties.state;
-        //console.log("bulletin-vector-layer", vector.properties);
+        //console.log("bulletin-vector-layer", bid, vector.properties.state);
         // setting the style for each region
         const style = Object.assign(
           {},
@@ -69,31 +69,38 @@ const BulletinVectorLayer = props => {
           config.map.regionStyling[state],
           bid === over ? config.map.regionStyling.mouseOver : {}
         );
-        const active = bid === over;
+
         const tooltip = intl.formatMessage({
           id: "region:" + bid
         });
-
-        return vector.properties.latlngs.map((geometry, gi) => (
-          <Polygon
-            key={`${vi}${gi}${bid}${active}`}
-            bid={bid}
-            eventHandlers={{
-              click: handleClickRegion.bind(this, bid, state),
-              mousemove: handleMouseMove,
-              mouseout: handleMouseOut.bind(this, bid)
-            }}
-            positions={geometry}
-            {...style}
-            {...config.map.vectorOptions}
-          >
-            {tooltip && (
-              <Tooltip>
-                <div>{tooltip}</div>
-              </Tooltip>
-            )}
-          </Polygon>
-        ));
+        const pathOptions = { ...style, ...config.map.vectorOptions };
+        console.log(
+          "bulletin-vector-layer",
+          bid,
+          vector.properties.state,
+          pathOptions
+        );
+        return vector.properties.latlngs.map((geometry, gi) => {
+          return (
+            <Polygon
+              key={`${vi}${gi}${bid}`}
+              bid={bid}
+              eventHandlers={{
+                click: handleClickRegion.bind(this, bid, state),
+                mousemove: handleMouseMove,
+                mouseout: handleMouseOut.bind(this, bid)
+              }}
+              positions={geometry}
+              pathOptions={pathOptions}
+            >
+              {tooltip && (
+                <Tooltip>
+                  <div>{tooltip}</div>
+                </Tooltip>
+              )}
+            </Polygon>
+          );
+        });
       })}
     </Pane>
   );
