@@ -32,13 +32,23 @@ import { orientation_change } from "../js/browser";
 
 import "../css/style.scss"; // CSS overrides
 
-const SwtichLang = () => {
+const RouteStaticPage = () => {
   const params = useParams();
   //console.log("SwtichLang", params);
-  useEffect(() => {
-    if (params?.lang) APP_STORE.setLanguage(params.lang);
-  });
-  return <Navigate replace to="/" />;
+
+  if (params?.name && /^([a-z]{2})$/.test(params?.name)) {
+    APP_STORE.setLanguage(params.name);
+    return <Navigate replace to="/" />;
+  }
+  return <StaticPage />;
+};
+
+const RouteBulletin = () => {
+  const params = useParams();
+
+  if (params?.date && /^([0-9]{4}-[0-9]{2}-[0-9]{2})$/.test(params?.date))
+    return <Bulletin />;
+  else return <Navigate replace to="/bulletin/latest" />;
 };
 
 const App = () => {
@@ -70,10 +80,10 @@ const App = () => {
             <Route path="/">
               <Route index element={<Page></Page>} />
               <Route
-                path="/bulletin/:date([0-9]{4}-[0-9]{2}-[0-9]{2})"
+                path="/bulletin/:date"
                 element={
                   <Page>
-                    <Bulletin />
+                    <RouteBulletin />
                   </Page>
                 }
               />
@@ -174,14 +184,6 @@ const App = () => {
                 element={<Navigate replace to="/more/archive" />}
               />
               <Route
-                path="/:lang([a-z]{2})"
-                element={
-                  <Page>
-                    <SwtichLang />
-                  </Page>
-                }
-              />
-              <Route
                 path="/education/*"
                 element={
                   <Page>
@@ -193,7 +195,7 @@ const App = () => {
                 path="/:name"
                 element={
                   <Page>
-                    <StaticPage />
+                    <RouteStaticPage />
                   </Page>
                 }
               />

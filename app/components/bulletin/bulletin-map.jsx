@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { injectIntl, FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { GeoJSON } from "react-leaflet";
 import InfoBar from "../organisms/info-bar";
 import { dateToISODateString, parseDate } from "../../util/date";
@@ -22,39 +22,27 @@ import { APP_STORE } from "../../appStore";
  * @prop {"am" | "pm" | undefined} ampm
  * ... props
  *
- * @extends {React.Component<Props>}
  */
-class BulletinMap extends React.Component {
-  constructor(props) {
-    super(props);
-    /**
-     * @type L.Map
-     */
-    this.map = false;
-    this.lastDate;
-    this.infoMessageLevels = {
+const BulletinMap = props => {
+  const intl = useIntl();
+  const [map, setMap] = useState(null);
+
+  const setInfoMessages = () => {
+    const simple = Util.template(window.config.apis.bulletin.simple, {
+      date: props.date ? dateToISODateString(parseDate(props.date)) : "",
+      lang: APP_STORE.language
+    });
+
+    let infoMessageLevels = {
       init: {
         message: "",
         iconOn: true
       },
       ok: { message: "", keep: false }
     };
-    this.setInfoMessages();
-  }
 
-  componentDidUpdate() {
-    this.setInfoMessages();
-  }
-
-  setInfoMessages() {
-    const simple = Util.template(window.config.apis.bulletin.simple, {
-      date: this.props.date
-        ? dateToISODateString(parseDate(this.props.date))
-        : "",
-      lang: APP_STORE.language
-    });
-    this.infoMessageLevels.pending = {
-      message: this.props.intl.formatMessage(
+    infoMessageLevels.pending = {
+      message: intl.formatMessage(
         { id: "bulletin:header:info-loading-data-slow" },
         { a: msg => <a href={simple}>{msg}</a> }
       ),
@@ -62,7 +50,7 @@ class BulletinMap extends React.Component {
       delay: 5000
     };
 
-    this.infoMessageLevels.empty = {
+    infoMessageLevels.empty = {
       message: (
         <>
           <p>
@@ -71,42 +59,44 @@ class BulletinMap extends React.Component {
           <p>
             <Link
               to="/blog"
-              title={this.props.intl.formatMessage({
+              title={intl.formatMessage({
                 id: "bulletin:map:blog:button:title"
               })}
               className="secondary pure-button tooltip"
             >
-              {this.props.intl.formatMessage({ id: "blog:title" })}
+              {intl.formatMessage({ id: "blog:title" })}
             </Link>
           </p>
         </>
       ),
       keep: false
     };
-  }
+  };
+  const infoMessageLevels = useMemo(setInfoMessages, [props.date]);
 
-  handleMapInit = map => {
-    this.map = map;
+  const handleMapInit = map => {
+    setMap(map);
 
-    this.map.on("click", this._click, this);
-    this.map.on("unload", () => map.off("click", this._click, this));
+    map.on("click", _click, this);
+    map.on("unload", () => map.off("click", _click, this));
 
-    if (typeof this.props.onMapInit === "function") {
-      this.props.onMapInit(map);
+    if (typeof props.onMapInit === "function") {
+      props.onMapInit(map);
     }
   };
 
-  _click() {
-    this.props.handleSelectRegion(null);
-  }
+  const _click = () => {
+    //console.log("Bulletin-map->_click");
+    props.handleSelectRegion(null);
+  };
 
-  styleOverMap() {
+  const styleOverMap = () => {
     return {
       zIndex: 1000
     };
-  }
+  };
 
-  getMapOverlays() {
+  const getMapOverlays = () => {
     const overlays = [];
 
     if (BULLETIN_STORE.eawsRegions) {
@@ -118,8 +108,8 @@ class BulletinMap extends React.Component {
           activeRegion={BULLETIN_STORE.settings.region}
           regions={BULLETIN_STORE.eawsRegions}
           bulletin={BULLETIN_STORE.activeBulletin}
-          handleSelectRegion={this.props.handleSelectRegion}
-          handleCenterToRegion={center => this.map.panTo(center)}
+          handleSelectRegion={props.handleSelectRegion}
+          handleCenterToRegion={center => map.panTo(center)}
         />
       );
     }
@@ -148,35 +138,34 @@ class BulletinMap extends React.Component {
       overlays.push(
         <GeoJSON
           // only a different key triggers layer update, see https://github.com/PaulLeCam/react-leaflet/issues/332
-          key={`bulletin-regions-${this.props.ampm}-${b.date}-${b.status}`}
+          key={`bulletin-regions-${props.ampm}-${b.date}-${b.status}`}
           data={BULLETIN_STORE.microRegionsElevation}
           pane="mapPane"
           style={feature =>
-            BULLETIN_STORE.getMicroElevationStyle(feature, this.props.ampm)
+            BULLETIN_STORE.getMicroElevationStyle(feature, props.ampm)
           }
         />
       );
     }
 
-    if (this.props.regions) {
+    if (props.regions) {
       overlays.push(
         <BulletinVectorLayer
           key="bulletin-regions"
           problems={BULLETIN_STORE.problems}
           date={BULLETIN_STORE.settings.date}
           activeRegion={BULLETIN_STORE.settings.region}
-          regions={this.props.regions}
+          regions={props.regions}
           bulletin={BULLETIN_STORE.activeBulletin}
-          handleSelectRegion={this.props.handleSelectRegion}
-          handleCenterToRegion={center => this.map.panTo(center)}
+          handleSelectRegion={props.handleSelectRegion}
+          handleCenterToRegion={center => map.panTo(center)}
         />
       );
     }
-
     return overlays;
-  }
+  };
 
-  getBulletinMapDetails() {
+  const getBulletinMapDetails = () => {
     let res = [];
     let detailsClasses = ["bulletin-map-details", "top-right"];
     const { activeBulletin, activeEaws, activeRegionName } = BULLETIN_STORE;
@@ -186,10 +175,10 @@ class BulletinMap extends React.Component {
         <BulletinMapDetails
           key="details"
           bulletin={activeBulletin}
-          region={this.props.intl.formatMessage({
+          region={intl.formatMessage({
             id: "region:" + activeRegionName
           })}
-          ampm={this.props.ampm}
+          ampm={props.ampm}
         />
       );
       res.push(
@@ -199,13 +188,13 @@ class BulletinMap extends React.Component {
             key="link"
             href={"#" + activeBulletin?.id}
             className="pure-button tooltip"
-            title={this.props.intl.formatMessage({
+            title={intl.formatMessage({
               id: "bulletin:map:info:details:hover"
             })}
             data-scroll=""
           >
             {preprocessContent(
-              this.props.intl.formatMessage({
+              intl.formatMessage({
                 id: "bulletin:map:info:details"
               })
             )}
@@ -219,19 +208,19 @@ class BulletinMap extends React.Component {
       const country = activeEaws.id.replace(/-.*/, "");
       const region = activeEaws.id;
       // res.push(
-      //   <p>{this.props.intl.formatMessage({ id: "region:" + country })}</p>
+      //   <p>{intl.formatMessage({ id: "region:" + country })}</p>
       // );
       // res.push(
-      //   <p>{this.props.intl.formatMessage({ id: "region:" + region })}</p>
+      //   <p>{intl.formatMessage({ id: "region:" + region })}</p>
       // );
       res.push(
         <p key={`eaws-name-${country}`} className="bulletin-report-region-name">
           <span className="bulletin-report-region-name-country">
-            {this.props.intl.formatMessage({ id: "region:" + country })}
+            {intl.formatMessage({ id: "region:" + country })}
           </span>
           <span>&nbsp;/ </span>
           <span className="bulletin-report-region-name-region">
-            {this.props.intl.formatMessage({ id: "region:" + region })}
+            {intl.formatMessage({ id: "region:" + region })}
           </span>
         </p>
       );
@@ -247,7 +236,7 @@ class BulletinMap extends React.Component {
             rel="noopener noreferrer"
             target="_blank"
             className="pure-button tooltip"
-            title={this.props.intl.formatMessage({
+            title={intl.formatMessage({
               id: "bulletin:map:info:details:hover"
             })}
           >
@@ -258,89 +247,86 @@ class BulletinMap extends React.Component {
     }
 
     return (
-      <div style={this.styleOverMap()} className={detailsClasses.join(" ")}>
+      <div style={styleOverMap()} className={detailsClasses.join(" ")}>
         {res}
       </div>
     );
-  }
+  };
 
-  render() {
-    //console.log("bulletin-map->render", BULLETIN_STORE.settings.status);
+  //console.log("bulletin-map->render", BULLETIN_STORE.settings.status);
 
-    let newLevel = BULLETIN_STORE.settings.status;
-    // if (this.lastDate != this.props.date) {
-    //   console.log("bulletin-map->render:SET TO INIT #aaa",  BULLETIN_STORE.settings.status, this.lastDate, this.props.date);
-    //   newLevel = "init";
-    //   this.lastDate = this.props.date;
-    // }
+  let newLevel = BULLETIN_STORE.settings.status;
+  // if (lastDate != props.date) {
+  //   console.log("bulletin-map->render:SET TO INIT #aaa",  BULLETIN_STORE.settings.status, lastDate, props.date);
+  //   newLevel = "init";
+  //   lastDate = props.date;
+  // }
 
-    return (
-      <section
-        id="section-bulletin-map"
-        className="section section-bulletin-map"
-        aria-hidden
+  return (
+    <section
+      id="section-bulletin-map"
+      className="section section-bulletin-map"
+      aria-hidden
+    >
+      {props.administrateLoadingBar && (
+        <InfoBar level={newLevel} levels={infoMessageLevels} />
+      )}
+      <div
+        className={
+          "section-map" + (config.map.useWindowWidth ? "" : " section-centered")
+        }
       >
-        {this.props.administrateLoadingBar && (
-          <InfoBar level={newLevel} levels={this.infoMessageLevels} />
-        )}
-        <div
-          className={
-            "section-map" +
-            (config.map.useWindowWidth ? "" : " section-centered")
-          }
-        >
-          <LeafletMap
-            loaded={this.props.regions}
-            onViewportChanged={this.props.handleMapViewportChanged}
-            overlays={this.getMapOverlays()}
-            mapConfigOverride={{}}
-            tileLayerConfigOverride={{}}
-            gestureHandling={true}
-            onInit={this.handleMapInit}
-          />
-          {false /* hide map search */ && (
-            <div style={this.styleOverMap()} className="bulletin-map-search">
-              <div className="pure-form pure-form-search">
-                <input
-                  tabIndex="-1"
-                  type="text"
-                  id="input"
-                  className="tooltip"
-                  placeholder={this.props.intl.formatMessage({
-                    id: "bulletin:map:search"
-                  })}
-                  title={this.props.intl.formatMessage({
-                    id: "bulletin:map:search:hover"
-                  })}
-                />
-                <button
-                  tabIndex="-1"
-                  href="#"
-                  title={this.props.intl.formatMessage({
-                    id: "bulletin:map:search:label"
-                  })}
-                  className="pure-button pure-button-icon icon-search"
-                >
-                  <span>&nbsp;</span>
-                </button>
-              </div>
-            </div>
-          )}
-          {this.getBulletinMapDetails()}
-
-          {this.props.ampm && (
-            <p className="bulletin-map-daytime">
-              <span className="primary label">
-                {this.props.intl.formatMessage({
-                  id: "bulletin:header:" + this.props.ampm
+        <LeafletMap
+          loaded={props.regions}
+          onViewportChanged={props.handleMapViewportChanged}
+          overlays={getMapOverlays()}
+          mapConfigOverride={{}}
+          tileLayerConfigOverride={{}}
+          gestureHandling={true}
+          onInit={handleMapInit}
+        />
+        {false /* hide map search */ && (
+          <div style={styleOverMap()} className="bulletin-map-search">
+            <div className="pure-form pure-form-search">
+              <input
+                tabIndex="-1"
+                type="text"
+                id="input"
+                className="tooltip"
+                placeholder={intl.formatMessage({
+                  id: "bulletin:map:search"
                 })}
-              </span>
-            </p>
-          )}
-        </div>
-      </section>
-    );
-  }
-}
+                title={intl.formatMessage({
+                  id: "bulletin:map:search:hover"
+                })}
+              />
+              <button
+                tabIndex="-1"
+                href="#"
+                title={intl.formatMessage({
+                  id: "bulletin:map:search:label"
+                })}
+                className="pure-button pure-button-icon icon-search"
+              >
+                <span>&nbsp;</span>
+              </button>
+            </div>
+          </div>
+        )}
+        {getBulletinMapDetails()}
 
-export default injectIntl(observer(BulletinMap));
+        {props.ampm && (
+          <p className="bulletin-map-daytime">
+            <span className="primary label">
+              {intl.formatMessage({
+                id: "bulletin:header:" + props.ampm
+              })}
+            </span>
+          </p>
+        )}
+      </div>
+    </section>
+  );
+};
+
+export default observer(BulletinMap);

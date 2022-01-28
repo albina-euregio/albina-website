@@ -38,6 +38,7 @@ const Bulletin = props => {
   BULLETIN_STORE.init();
 
   useEffect(() => {
+    console.log("Bulletin->useEffect[]");
     reaction(
       () => BULLETIN_STORE.settings.status,
       () => {
@@ -60,10 +61,12 @@ const Bulletin = props => {
   }, []);
 
   useEffect(() => {
+    console.log("Bulletin->useEffect");
     didUpdate();
   });
 
   const didUpdate = () => {
+    //console.log("Bulletin->didUpdate", params.date, BULLETIN_STORE.settings.date);
     const updateConditions = [
       // update when date changes to YEAR-MONTH-DAY format
       location !== lastLocationRef.current?.location &&
@@ -90,11 +93,12 @@ const Bulletin = props => {
         ? params.date
         : BULLETIN_STORE.latest;
 
+    //console.log("Bulletin->_fetchData",startDate);
     if (!params.date || params.date == BULLETIN_STORE.latest) {
       // update URL if necessary
-      console.log("bulletin navigate #1", params);
+      //console.log("bulletin navigate #1", params, location.hash);
       navigate({
-        pathname: "/bulletin/latest",
+        pathname: "/bulletin/latest" + (location.hash ? location.hash : ""),
         search: document.location.search.substring(1)
       });
     }
@@ -118,22 +122,22 @@ const Bulletin = props => {
     if (id) {
       const oldRegion = parseSearchParams().get("region");
       if (oldRegion !== id) {
-        const search = "region=" + encodeURIComponent(id);
+        const search = "?region=" + encodeURIComponent(id);
         if (oldRegion) {
           // replace history when a (different) region was selected previously to avoid polluting browser history
-          console.log("bulletin navigate #2", oldRegion);
+          //.log("bulletin navigate #2", oldRegion);
           //todo: trans
-          //navigate({pathname: state, search });
+          navigate({ pathname: location.pathname, search, replace: true });
         } else {
-          console.log("bulletin navigate #3", oldRegion);
+          //console.log("bulletin navigate #3", oldRegion);
           //todo: trans
-          //navigate({pathname: state, search });
+          navigate({ pathname: location.pathname, search });
         }
       }
     } else if (BULLETIN_STORE.settings.region) {
       console.log("bulletin navigate #4", BULLETIN_STORE.settings.region);
       //todo: trans
-      navigate({ pathname: state, search: "" });
+      navigate({ pathname: location.pathname, search: "" });
     }
   };
 

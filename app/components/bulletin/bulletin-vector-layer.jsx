@@ -1,46 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import L from "leaflet";
 import { Pane, Polygon, Tooltip } from "react-leaflet";
-import { injectIntl } from "react-intl";
+import { useIntl } from "react-intl";
 
-export class BulletinVectorLayer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      over: false
-    };
-  }
+const BulletinVectorLayer = props => {
+  const intl = useIntl();
+  const [over, setOver] = useState(false);
 
-  handleClickRegion(bid, state, e) {
+  const handleClickRegion = (bid, state, e) => {
+    //console.log("BulletinVectorLayer->handleClickRegion", bid, state, e);
     L.DomEvent.stopPropagation(e);
     if (state !== "hidden") {
       if (L.Browser.mobile) {
         const polygon = e.target;
         const center = polygon.getCenter();
-        this.props.handleCenterToRegion(center);
+        props.handleCenterToRegion(center);
       }
-      this.props.handleSelectRegion(bid);
+      props.handleSelectRegion(bid);
     }
-  }
+  };
 
-  handleMouseOut(e) {
-    const bid = e.target.options.bid;
-    if (!L.Browser.mobile && bid === this.state.over) {
-      this.setState({ over: false });
+  const handleMouseOut = bid => {
+    //const bid = e.target.options.bid;
+    if (!L.Browser.mobile && bid === over) {
+      setOver(false);
     }
-  }
-  handleMouseMove(e) {
+  };
+  const handleMouseMove = e => {
+    //console.log("bulletin-vector-layer->handleMouseMove",over,  e.target.options.bid);
     const bid = e.target.options.bid;
     if (
       //e.target._containsPoint(e.containerPoint) &&
       !L.Browser.mobile &&
-      bid !== this.state.over
+      bid !== over
     ) {
-      this.setState({ over: bid });
+      setOver(bid);
     }
-  }
+  };
 
-  get uniqueKey() {
+  const uniqueKey = () => {
     // A unique key is needed for <GeoJSON> component to indicate the need
     // for rerendering. We use the selected date and region as well as a hash
     // of the settings of avalancheproblems.
@@ -49,53 +47,56 @@ export class BulletinVectorLayer extends React.Component {
     // binary string are determined by the (lexicographical) order of the
     // problem ids (since neither Object.values nor for .. in loops are
     // guaranteed to preserve order).
-    const problemKeys = Object.keys(this.props.problems).sort();
+    const problemKeys = Object.keys(props.problems).sort();
     const problemHash = problemKeys.reduce((acc, p) => {
-      return acc * 2 + (this.props.problems[p].active ? 1 : 0);
+      return acc * 2 + (props.problems[p].active ? 1 : 0);
     }, 0);
 
-    return this.props.date + this.props.activeRegion + problemHash;
-  }
+    return props.date + props.activeRegion + problemHash;
+  };
 
-  render() {
-    return (
-      <Pane key={this.uniqueKey}>
-        {this.props.regions.map((vector, vi) => {
-          const bid = vector.id;
-          const state = vector.properties.state;
-          // setting the style for each region
-          const style = Object.assign(
-            {},
-            config.map.regionStyling.all,
-            config.map.regionStyling[state],
-            bid === this.state.over ? config.map.regionStyling.mouseOver : {}
-          );
-          const tooltip = this.props.intl.formatMessage({
-            id: "region:" + bid
-          });
+  //console.log("BulletinVectorLayer->render", uniqueKey(), over, props.activeRegion, config.map.regionStyling.mouseOver);
+  return (
+    <Pane key={uniqueKey()}>
+      {props.regions.map((vector, vi) => {
+        const bid = vector.id;
+        const state = vector.properties.state;
+        //console.log("bulletin-vector-layer", vector.properties);
+        // setting the style for each region
+        const style = Object.assign(
+          {},
+          config.map.regionStyling.all,
+          config.map.regionStyling[state],
+          bid === over ? config.map.regionStyling.mouseOver : {}
+        );
+        const active = bid === over;
+        const tooltip = intl.formatMessage({
+          id: "region:" + bid
+        });
 
-          return vector.properties.latlngs.map((geometry, gi) => (
-            <Polygon
-              key={`${vi}${gi}${bid}`}
-              onClick={this.handleClickRegion.bind(this, bid, state)}
-              bid={bid}
-              onMouseMove={this.handleMouseMove.bind(this)}
-              onMouseOut={this.handleMouseOut.bind(this)}
-              positions={geometry}
-              {...style}
-              {...config.map.vectorOptions}
-            >
-              {tooltip && (
-                <Tooltip>
-                  <div>{tooltip}</div>
-                </Tooltip>
-              )}
-            </Polygon>
-          ));
-        })}
-      </Pane>
-    );
-  }
-}
+        return vector.properties.latlngs.map((geometry, gi) => (
+          <Polygon
+            key={`${vi}${gi}${bid}${active}`}
+            bid={bid}
+            eventHandlers={{
+              click: handleClickRegion.bind(this, bid, state),
+              mousemove: handleMouseMove,
+              mouseout: handleMouseOut.bind(this, bid)
+            }}
+            positions={geometry}
+            {...style}
+            {...config.map.vectorOptions}
+          >
+            {tooltip && (
+              <Tooltip>
+                <div>{tooltip}</div>
+              </Tooltip>
+            )}
+          </Polygon>
+        ));
+      })}
+    </Pane>
+  );
+};
 
-export default injectIntl(BulletinVectorLayer);
+export default BulletinVectorLayer;

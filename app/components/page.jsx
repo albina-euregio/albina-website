@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useNavigate, createSearchParams, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
@@ -43,7 +43,7 @@ const Page = props => {
       location.pathname === "/" ||
       location.pathname === "/bulletin"
     ) {
-      console.log("Page navigate", location.path);
+      console.log("Page->useEffect[location.pathname]", location.path);
       navigate({
         pathname: "/bulletin/latest",
         search: document.location.search.substring(1)
@@ -57,13 +57,13 @@ const Page = props => {
   }, [location.pathname]);
 
   useEffect(() => {
-    //console.log("Page->useEffect hash #1", location.hash, location.pathname);
+    console.log("Page->useEffect hash #1", location.hash, location.pathname);
     if (!location.pathname.split("/").includes("bulletin")) {
       if (!location.hash) {
-        console.log("Page->useEffect hast #2", location.hash);
+        console.log("Page->useEffect hash #2", location.hash);
         window.scrollTo(0, 0);
       } else {
-        console.log("Page->useEffect hast #3", location.hash);
+        console.log("Page->useEffect hash #3", location.hash);
         scroll(location.hash, 2000);
       }
     }

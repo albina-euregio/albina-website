@@ -267,6 +267,8 @@ const LeafletMap = props => {
   //   }
   // }
 
+  //console.log("leaflet-map->render", props.overlays);
+
   const mapProps = config.map.initOptions;
   const mapOptions = Object.assign(
     {},
