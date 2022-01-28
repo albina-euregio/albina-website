@@ -37,33 +37,30 @@ const Bulletin = props => {
   const [highlightedRegion, setHighlightedRegion] = useState(null);
   BULLETIN_STORE.init();
 
-  const didMountRef = useRef(false);
   useEffect(() => {
-    if (didMountRef.current) {
-      reaction(
-        () => BULLETIN_STORE.settings.status,
-        () => {
+    reaction(
+      () => BULLETIN_STORE.settings.status,
+      () => {
+        window.setTimeout(tooltip_init, 100);
+      }
+    );
+    reaction(
+      () => BULLETIN_STORE.settings.region,
+      region => {
+        if (region) {
           window.setTimeout(tooltip_init, 100);
         }
-      );
-      reaction(
-        () => BULLETIN_STORE.settings.region,
-        region => {
-          if (region) {
-            window.setTimeout(tooltip_init, 100);
-          }
-        }
-      );
+      }
+    );
+    reaction(
+      () => BULLETIN_STORE.latest,
+      () => didUpdate()
+    );
+    _fetchData(props);
+  }, []);
 
-      reaction(
-        () => BULLETIN_STORE.latest,
-        () => didUpdate()
-      );
-      _fetchData(props);
-    } else {
-      didMountRef.current = true;
-      didUpdate();
-    }
+  useEffect(() => {
+    didUpdate();
   });
 
   const didUpdate = () => {
