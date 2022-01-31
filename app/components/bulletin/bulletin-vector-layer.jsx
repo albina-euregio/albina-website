@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import L from "leaflet";
 import { Pane, Polygon, Tooltip } from "react-leaflet";
 import { useIntl } from "react-intl";
@@ -8,7 +8,7 @@ const BulletinVectorLayer = props => {
   const [over, setOver] = useState(false);
 
   const handleClickRegion = (bid, state, e) => {
-    //console.log("BulletinVectorLayer->handleClickRegion", bid, state, e);
+    console.log("BulletinVectorLayer->handleClickRegion", bid, state, e);
     L.DomEvent.stopPropagation(e);
     if (state !== "hidden") {
       if (L.Browser.mobile) {
@@ -20,15 +20,16 @@ const BulletinVectorLayer = props => {
     }
   };
 
-  const handleMouseOut = bid => {
-    //const bid = e.target.options.bid;
+  const handleMouseOut = e => {
+    const bid = e.target.options.bid;
+    console.log("bulletin-vector-layer->handleMouseOut", bid);
     if (!L.Browser.mobile && bid === over) {
       setOver(false);
     }
   };
-  const handleMouseMove = e => {
-    //console.log("bulletin-vector-layer->handleMouseMove",over,  e.target.options.bid);
+  const handleMouseOver = e => {
     const bid = e.target.options.bid;
+    console.log("bulletin-vector-layer->handleMouseOver", bid);
     if (
       //e.target._containsPoint(e.containerPoint) &&
       !L.Browser.mobile &&
@@ -55,13 +56,13 @@ const BulletinVectorLayer = props => {
     return props.date + props.activeRegion + problemHash;
   };
 
-  //console.log("BulletinVectorLayer->render", uniqueKey(), over, props.activeRegion, config.map.regionStyling.mouseOver);
+  //console.log("BulletinVectorLayer->render xx01", props.name, uniqueKey(), props.regions);
   return (
-    <Pane key={uniqueKey()}>
+    <Pane key={uniqueKey()} name={props.name}>
       {props.regions.map((vector, vi) => {
         const bid = vector.id;
         const state = vector.properties.state;
-        //console.log("bulletin-vector-layer", bid, vector.properties.state);
+        console.log("bulletin-vector-layer", vector.id, over);
         // setting the style for each region
         const style = Object.assign(
           {},
@@ -74,21 +75,25 @@ const BulletinVectorLayer = props => {
           id: "region:" + bid
         });
         const pathOptions = { ...style, ...config.map.vectorOptions };
-        console.log(
-          "bulletin-vector-layer",
-          bid,
-          vector.properties.state,
-          pathOptions
-        );
+        // if(["IT-32-TN-08", "AT-07-02"].includes(bid)) console.log(
+        //   "bulletin-vector-layer",
+        //   bid,
+        //   vector.properties.state,
+        //   pathOptions
+        // );
         return vector.properties.latlngs.map((geometry, gi) => {
+          // if(["IT-32-TN-08", "AT-07-02"].includes(bid)) console.log(
+          //   "bulletin-vector-layer #2", gi,
+          //   geometry
+          // );
           return (
             <Polygon
               key={`${vi}${gi}${bid}`}
               bid={bid}
               eventHandlers={{
                 click: handleClickRegion.bind(this, bid, state),
-                mousemove: handleMouseMove,
-                mouseout: handleMouseOut.bind(this, bid)
+                mouseover: handleMouseOver,
+                mouseout: handleMouseOut
               }}
               positions={geometry}
               pathOptions={pathOptions}

@@ -103,6 +103,7 @@ const BulletinMap = props => {
       overlays.push(
         <BulletinVectorLayer
           key="eaws-regions"
+          name="eaws-regions"
           problems={BULLETIN_STORE.problems}
           date={BULLETIN_STORE.settings.date}
           activeRegion={BULLETIN_STORE.settings.region}
@@ -149,9 +150,11 @@ const BulletinMap = props => {
     }
 
     if (props.regions) {
+      console.log("bulletin-map push Vector xx01", "eaws-regions");
       overlays.push(
         <BulletinVectorLayer
           key="bulletin-regions"
+          name="bulletin-regions"
           problems={BULLETIN_STORE.problems}
           date={BULLETIN_STORE.settings.date}
           activeRegion={BULLETIN_STORE.settings.region}
