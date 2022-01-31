@@ -82,12 +82,12 @@ class PageFooter extends React.Component {
                   {...window["tiltySettings"]}
                   className="header-footer-logo-secondary tooltip tilt"
                   title={this.props.intl.formatMessage({
-                    id: "footer:euregio:hover"
+                    id: "footer:interreg:hover"
                   })}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <span>Euregio</span>
+                  <span>Interreg</span>
                 </a>
               </p>
             </div>

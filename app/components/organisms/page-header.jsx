@@ -206,12 +206,12 @@ class PageHeader extends React.Component {
             })}
             className="header-footer-logo-secondary tooltip"
             title={this.props.intl.formatMessage({
-              id: "header:euregio:hover"
+              id: "header:interreg:hover"
             })}
             rel="noopener noreferrer"
             target="_blank"
           >
-            <span>Euregio</span>
+            <span>Interreg</span>
           </a>
         </div>
       </div>
