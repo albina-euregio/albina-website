@@ -63,14 +63,14 @@ class PageFooter extends React.Component {
 
               <p className="page-footer-logo-tertiary">
                 <a
-                  href="https://www.interreg.net/de/default.asp"
+                  href="https://www.avalanches.org/"
                   {...window["tiltySettings"]}
                   className="footer-logo-tertiary tooltip tilt"
-                  title="INTERREG"
+                  title="EAWS"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <span>INTERREG</span>
+                  <span>EAWS</span>
                 </a>
               </p>
 
