@@ -78,6 +78,8 @@ class SnowProfileMap extends React.Component<{ intl: IntlShape }> {
               loaded={this.entries.length > 0}
               controls={<AttributionControl prefix={this.attribution} />}
               gestureHandling={false}
+              mapConfigOverride={{ maxZoom: 12 }}
+              tileLayerConfigOverride={{ maxZoom: 12 }}
               onViewportChanged={() => {}}
               overlays={overlays}
             />
