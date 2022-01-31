@@ -5,8 +5,7 @@
       "id": "NO-3003",
       "type": "Feature",
       "properties": {
-        "id": "NO-3003",
-        "elevation": "low"
+        "id": "NO-3003"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19,8 +18,7 @@
       "id": "NO-3009",
       "type": "Feature",
       "properties": {
-        "id": "NO-3009",
-        "elevation": "low"
+        "id": "NO-3009"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -43,8 +41,7 @@
       "id": "NO-3010",
       "type": "Feature",
       "properties": {
-        "id": "NO-3010",
-        "elevation": "low"
+        "id": "NO-3010"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -58,8 +55,7 @@
       "id": "NO-3011",
       "type": "Feature",
       "properties": {
-        "id": "NO-3011",
-        "elevation": "low"
+        "id": "NO-3011"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -81,8 +77,7 @@
       "id": "NO-3012",
       "type": "Feature",
       "properties": {
-        "id": "NO-3012",
-        "elevation": "low"
+        "id": "NO-3012"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -101,8 +96,7 @@
       "id": "NO-3013",
       "type": "Feature",
       "properties": {
-        "id": "NO-3013",
-        "elevation": "low"
+        "id": "NO-3013"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -115,8 +109,7 @@
       "id": "NO-3014",
       "type": "Feature",
       "properties": {
-        "id": "NO-3014",
-        "elevation": "low"
+        "id": "NO-3014"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -136,8 +129,7 @@
       "id": "NO-3015",
       "type": "Feature",
       "properties": {
-        "id": "NO-3015",
-        "elevation": "low"
+        "id": "NO-3015"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -154,8 +146,7 @@
       "id": "NO-3016",
       "type": "Feature",
       "properties": {
-        "id": "NO-3016",
-        "elevation": "low"
+        "id": "NO-3016"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -170,8 +161,7 @@
       "id": "NO-3017",
       "type": "Feature",
       "properties": {
-        "id": "NO-3017",
-        "elevation": "low"
+        "id": "NO-3017"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -185,8 +175,7 @@
       "id": "NO-3022",
       "type": "Feature",
       "properties": {
-        "id": "NO-3022",
-        "elevation": "low"
+        "id": "NO-3022"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -199,8 +188,7 @@
       "id": "NO-3023",
       "type": "Feature",
       "properties": {
-        "id": "NO-3023",
-        "elevation": "low"
+        "id": "NO-3023"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -214,8 +202,7 @@
       "id": "NO-3024",
       "type": "Feature",
       "properties": {
-        "id": "NO-3024",
-        "elevation": "low"
+        "id": "NO-3024"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -231,8 +218,7 @@
       "id": "NO-3027",
       "type": "Feature",
       "properties": {
-        "id": "NO-3027",
-        "elevation": "low"
+        "id": "NO-3027"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -245,8 +231,7 @@
       "id": "NO-3028",
       "type": "Feature",
       "properties": {
-        "id": "NO-3028",
-        "elevation": "low"
+        "id": "NO-3028"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -259,8 +244,7 @@
       "id": "NO-3029",
       "type": "Feature",
       "properties": {
-        "id": "NO-3029",
-        "elevation": "low"
+        "id": "NO-3029"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -274,8 +258,7 @@
       "id": "NO-3031",
       "type": "Feature",
       "properties": {
-        "id": "NO-3031",
-        "elevation": "low"
+        "id": "NO-3031"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -294,8 +277,7 @@
       "id": "NO-3032",
       "type": "Feature",
       "properties": {
-        "id": "NO-3032",
-        "elevation": "low"
+        "id": "NO-3032"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -308,8 +290,7 @@
       "id": "NO-3034",
       "type": "Feature",
       "properties": {
-        "id": "NO-3034",
-        "elevation": "low"
+        "id": "NO-3034"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -323,8 +304,7 @@
       "id": "NO-3035",
       "type": "Feature",
       "properties": {
-        "id": "NO-3035",
-        "elevation": "low"
+        "id": "NO-3035"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -337,8 +317,7 @@
       "id": "NO-3037",
       "type": "Feature",
       "properties": {
-        "id": "NO-3037",
-        "elevation": "low"
+        "id": "NO-3037"
       },
       "geometry": {
         "type": "MultiPolygon",

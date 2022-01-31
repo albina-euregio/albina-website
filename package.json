@@ -21,7 +21,7 @@
     "@sentry/react": "^6.15.0",
     "@tippyjs/react": "^4.2.6",
     "animejs": "^2.2.0",
-    "eaws-regions": "gitlab:eaws/eaws-regions#833349c565e346faba56924f600661e60e88ffd6",
+    "eaws-regions": "gitlab:eaws/eaws-regions#aba202adc7b55abd5506e3e941f2139c2fb8ae61",
     "fluidvids.js": "github:toddmotto/fluidvids",
     "htmr": "^1.0.1",
     "jquery": "^3.5.1",

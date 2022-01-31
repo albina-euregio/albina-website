@@ -5,8 +5,7 @@
       "id": "CH-1111",
       "type": "Feature",
       "properties": {
-        "id": "CH-1111",
-        "elevation": "low"
+        "id": "CH-1111"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -17,8 +16,7 @@
       "id": "CH-1112",
       "type": "Feature",
       "properties": {
-        "id": "CH-1112",
-        "elevation": "low"
+        "id": "CH-1112"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -31,8 +29,7 @@
       "id": "CH-1113",
       "type": "Feature",
       "properties": {
-        "id": "CH-1113",
-        "elevation": "low"
+        "id": "CH-1113"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -45,8 +42,7 @@
       "id": "CH-1114",
       "type": "Feature",
       "properties": {
-        "id": "CH-1114",
-        "elevation": "low"
+        "id": "CH-1114"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -59,8 +55,7 @@
       "id": "CH-1121",
       "type": "Feature",
       "properties": {
-        "id": "CH-1121",
-        "elevation": "low"
+        "id": "CH-1121"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -73,8 +68,7 @@
       "id": "CH-1122",
       "type": "Feature",
       "properties": {
-        "id": "CH-1122",
-        "elevation": "low"
+        "id": "CH-1122"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -87,8 +81,7 @@
       "id": "CH-1211",
       "type": "Feature",
       "properties": {
-        "id": "CH-1211",
-        "elevation": "low"
+        "id": "CH-1211"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -101,8 +94,7 @@
       "id": "CH-1212",
       "type": "Feature",
       "properties": {
-        "id": "CH-1212",
-        "elevation": "low"
+        "id": "CH-1212"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -115,8 +107,7 @@
       "id": "CH-1213",
       "type": "Feature",
       "properties": {
-        "id": "CH-1213",
-        "elevation": "low"
+        "id": "CH-1213"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -129,8 +120,7 @@
       "id": "CH-1221",
       "type": "Feature",
       "properties": {
-        "id": "CH-1221",
-        "elevation": "low"
+        "id": "CH-1221"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -143,8 +133,7 @@
       "id": "CH-1222",
       "type": "Feature",
       "properties": {
-        "id": "CH-1222",
-        "elevation": "low"
+        "id": "CH-1222"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -157,8 +146,7 @@
       "id": "CH-1223",
       "type": "Feature",
       "properties": {
-        "id": "CH-1223",
-        "elevation": "low"
+        "id": "CH-1223"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -169,8 +157,7 @@
       "id": "CH-1224",
       "type": "Feature",
       "properties": {
-        "id": "CH-1224",
-        "elevation": "low"
+        "id": "CH-1224"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -183,8 +170,7 @@
       "id": "CH-1225",
       "type": "Feature",
       "properties": {
-        "id": "CH-1225",
-        "elevation": "low"
+        "id": "CH-1225"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -197,8 +183,7 @@
       "id": "CH-1226",
       "type": "Feature",
       "properties": {
-        "id": "CH-1226",
-        "elevation": "low"
+        "id": "CH-1226"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -211,8 +196,7 @@
       "id": "CH-1227",
       "type": "Feature",
       "properties": {
-        "id": "CH-1227",
-        "elevation": "low"
+        "id": "CH-1227"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -223,8 +207,7 @@
       "id": "CH-1228",
       "type": "Feature",
       "properties": {
-        "id": "CH-1228",
-        "elevation": "low"
+        "id": "CH-1228"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -237,8 +220,7 @@
       "id": "CH-1231",
       "type": "Feature",
       "properties": {
-        "id": "CH-1231",
-        "elevation": "low"
+        "id": "CH-1231"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -251,8 +233,7 @@
       "id": "CH-1232",
       "type": "Feature",
       "properties": {
-        "id": "CH-1232",
-        "elevation": "low"
+        "id": "CH-1232"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -265,8 +246,7 @@
       "id": "CH-1233",
       "type": "Feature",
       "properties": {
-        "id": "CH-1233",
-        "elevation": "low"
+        "id": "CH-1233"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -279,8 +259,7 @@
       "id": "CH-1234",
       "type": "Feature",
       "properties": {
-        "id": "CH-1234",
-        "elevation": "low"
+        "id": "CH-1234"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -293,8 +272,7 @@
       "id": "CH-1241",
       "type": "Feature",
       "properties": {
-        "id": "CH-1241",
-        "elevation": "low"
+        "id": "CH-1241"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -307,8 +285,7 @@
       "id": "CH-1242",
       "type": "Feature",
       "properties": {
-        "id": "CH-1242",
-        "elevation": "low"
+        "id": "CH-1242"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -321,8 +298,7 @@
       "id": "CH-1243",
       "type": "Feature",
       "properties": {
-        "id": "CH-1243",
-        "elevation": "low"
+        "id": "CH-1243"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -335,8 +311,7 @@
       "id": "CH-1244",
       "type": "Feature",
       "properties": {
-        "id": "CH-1244",
-        "elevation": "low"
+        "id": "CH-1244"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -349,8 +324,7 @@
       "id": "CH-1245",
       "type": "Feature",
       "properties": {
-        "id": "CH-1245",
-        "elevation": "low"
+        "id": "CH-1245"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -361,8 +335,7 @@
       "id": "CH-1246",
       "type": "Feature",
       "properties": {
-        "id": "CH-1246",
-        "elevation": "low"
+        "id": "CH-1246"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -375,8 +348,7 @@
       "id": "CH-1247",
       "type": "Feature",
       "properties": {
-        "id": "CH-1247",
-        "elevation": "low"
+        "id": "CH-1247"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -389,8 +361,7 @@
       "id": "CH-1311",
       "type": "Feature",
       "properties": {
-        "id": "CH-1311",
-        "elevation": "low"
+        "id": "CH-1311"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -403,8 +374,7 @@
       "id": "CH-1312",
       "type": "Feature",
       "properties": {
-        "id": "CH-1312",
-        "elevation": "low"
+        "id": "CH-1312"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -417,8 +387,7 @@
       "id": "CH-2111",
       "type": "Feature",
       "properties": {
-        "id": "CH-2111",
-        "elevation": "low"
+        "id": "CH-2111"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -431,8 +400,7 @@
       "id": "CH-2112",
       "type": "Feature",
       "properties": {
-        "id": "CH-2112",
-        "elevation": "low"
+        "id": "CH-2112"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -445,8 +413,7 @@
       "id": "CH-2121",
       "type": "Feature",
       "properties": {
-        "id": "CH-2121",
-        "elevation": "low"
+        "id": "CH-2121"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -459,8 +426,7 @@
       "id": "CH-2122",
       "type": "Feature",
       "properties": {
-        "id": "CH-2122",
-        "elevation": "low"
+        "id": "CH-2122"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -473,8 +439,7 @@
       "id": "CH-2123",
       "type": "Feature",
       "properties": {
-        "id": "CH-2123",
-        "elevation": "low"
+        "id": "CH-2123"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -487,8 +452,7 @@
       "id": "CH-2124",
       "type": "Feature",
       "properties": {
-        "id": "CH-2124",
-        "elevation": "low"
+        "id": "CH-2124"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -501,8 +465,7 @@
       "id": "CH-2131",
       "type": "Feature",
       "properties": {
-        "id": "CH-2131",
-        "elevation": "low"
+        "id": "CH-2131"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -515,8 +478,7 @@
       "id": "CH-2132",
       "type": "Feature",
       "properties": {
-        "id": "CH-2132",
-        "elevation": "low"
+        "id": "CH-2132"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -529,8 +491,7 @@
       "id": "CH-2133",
       "type": "Feature",
       "properties": {
-        "id": "CH-2133",
-        "elevation": "low"
+        "id": "CH-2133"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -541,8 +502,7 @@
       "id": "CH-2134",
       "type": "Feature",
       "properties": {
-        "id": "CH-2134",
-        "elevation": "low"
+        "id": "CH-2134"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -555,8 +515,7 @@
       "id": "CH-2211",
       "type": "Feature",
       "properties": {
-        "id": "CH-2211",
-        "elevation": "low"
+        "id": "CH-2211"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -569,8 +528,7 @@
       "id": "CH-2212",
       "type": "Feature",
       "properties": {
-        "id": "CH-2212",
-        "elevation": "low"
+        "id": "CH-2212"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -583,8 +541,7 @@
       "id": "CH-2221",
       "type": "Feature",
       "properties": {
-        "id": "CH-2221",
-        "elevation": "low"
+        "id": "CH-2221"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -597,8 +554,7 @@
       "id": "CH-2222",
       "type": "Feature",
       "properties": {
-        "id": "CH-2222",
-        "elevation": "low"
+        "id": "CH-2222"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -609,8 +565,7 @@
       "id": "CH-2223",
       "type": "Feature",
       "properties": {
-        "id": "CH-2223",
-        "elevation": "low"
+        "id": "CH-2223"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -623,8 +578,7 @@
       "id": "CH-2224",
       "type": "Feature",
       "properties": {
-        "id": "CH-2224",
-        "elevation": "low"
+        "id": "CH-2224"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -637,8 +591,7 @@
       "id": "CH-3111",
       "type": "Feature",
       "properties": {
-        "id": "CH-3111",
-        "elevation": "low"
+        "id": "CH-3111"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -651,8 +604,7 @@
       "id": "CH-3112",
       "type": "Feature",
       "properties": {
-        "id": "CH-3112",
-        "elevation": "low"
+        "id": "CH-3112"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -665,8 +617,7 @@
       "id": "CH-3113",
       "type": "Feature",
       "properties": {
-        "id": "CH-3113",
-        "elevation": "low"
+        "id": "CH-3113"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -679,8 +630,7 @@
       "id": "CH-3114",
       "type": "Feature",
       "properties": {
-        "id": "CH-3114",
-        "elevation": "low"
+        "id": "CH-3114"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -693,8 +643,7 @@
       "id": "CH-3211",
       "type": "Feature",
       "properties": {
-        "id": "CH-3211",
-        "elevation": "low"
+        "id": "CH-3211"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -707,8 +656,7 @@
       "id": "CH-3221",
       "type": "Feature",
       "properties": {
-        "id": "CH-3221",
-        "elevation": "low"
+        "id": "CH-3221"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -721,8 +669,7 @@
       "id": "CH-3222",
       "type": "Feature",
       "properties": {
-        "id": "CH-3222",
-        "elevation": "low"
+        "id": "CH-3222"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -735,8 +682,7 @@
       "id": "CH-3223",
       "type": "Feature",
       "properties": {
-        "id": "CH-3223",
-        "elevation": "low"
+        "id": "CH-3223"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -749,8 +695,7 @@
       "id": "CH-3224",
       "type": "Feature",
       "properties": {
-        "id": "CH-3224",
-        "elevation": "low"
+        "id": "CH-3224"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -763,8 +708,7 @@
       "id": "CH-3311",
       "type": "Feature",
       "properties": {
-        "id": "CH-3311",
-        "elevation": "low"
+        "id": "CH-3311"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -777,8 +721,7 @@
       "id": "CH-4111",
       "type": "Feature",
       "properties": {
-        "id": "CH-4111",
-        "elevation": "low"
+        "id": "CH-4111"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -791,8 +734,7 @@
       "id": "CH-4112",
       "type": "Feature",
       "properties": {
-        "id": "CH-4112",
-        "elevation": "low"
+        "id": "CH-4112"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -805,8 +747,7 @@
       "id": "CH-4113",
       "type": "Feature",
       "properties": {
-        "id": "CH-4113",
-        "elevation": "low"
+        "id": "CH-4113"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -819,8 +760,7 @@
       "id": "CH-4114",
       "type": "Feature",
       "properties": {
-        "id": "CH-4114",
-        "elevation": "low"
+        "id": "CH-4114"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -833,8 +773,7 @@
       "id": "CH-4115",
       "type": "Feature",
       "properties": {
-        "id": "CH-4115",
-        "elevation": "low"
+        "id": "CH-4115"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -847,8 +786,7 @@
       "id": "CH-4116",
       "type": "Feature",
       "properties": {
-        "id": "CH-4116",
-        "elevation": "low"
+        "id": "CH-4116"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -861,8 +799,7 @@
       "id": "CH-4121",
       "type": "Feature",
       "properties": {
-        "id": "CH-4121",
-        "elevation": "low"
+        "id": "CH-4121"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -875,8 +812,7 @@
       "id": "CH-4122",
       "type": "Feature",
       "properties": {
-        "id": "CH-4122",
-        "elevation": "low"
+        "id": "CH-4122"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -889,8 +825,7 @@
       "id": "CH-4123",
       "type": "Feature",
       "properties": {
-        "id": "CH-4123",
-        "elevation": "low"
+        "id": "CH-4123"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -903,8 +838,7 @@
       "id": "CH-4124",
       "type": "Feature",
       "properties": {
-        "id": "CH-4124",
-        "elevation": "low"
+        "id": "CH-4124"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -917,8 +851,7 @@
       "id": "CH-4125",
       "type": "Feature",
       "properties": {
-        "id": "CH-4125",
-        "elevation": "low"
+        "id": "CH-4125"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -929,8 +862,7 @@
       "id": "CH-4211",
       "type": "Feature",
       "properties": {
-        "id": "CH-4211",
-        "elevation": "low"
+        "id": "CH-4211"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -943,8 +875,7 @@
       "id": "CH-4212",
       "type": "Feature",
       "properties": {
-        "id": "CH-4212",
-        "elevation": "low"
+        "id": "CH-4212"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -957,8 +888,7 @@
       "id": "CH-4213",
       "type": "Feature",
       "properties": {
-        "id": "CH-4213",
-        "elevation": "low"
+        "id": "CH-4213"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -971,8 +901,7 @@
       "id": "CH-4214",
       "type": "Feature",
       "properties": {
-        "id": "CH-4214",
-        "elevation": "low"
+        "id": "CH-4214"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -985,8 +914,7 @@
       "id": "CH-4215",
       "type": "Feature",
       "properties": {
-        "id": "CH-4215",
-        "elevation": "low"
+        "id": "CH-4215"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -999,8 +927,7 @@
       "id": "CH-4221",
       "type": "Feature",
       "properties": {
-        "id": "CH-4221",
-        "elevation": "low"
+        "id": "CH-4221"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1013,8 +940,7 @@
       "id": "CH-4222",
       "type": "Feature",
       "properties": {
-        "id": "CH-4222",
-        "elevation": "low"
+        "id": "CH-4222"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1027,8 +953,7 @@
       "id": "CH-4223",
       "type": "Feature",
       "properties": {
-        "id": "CH-4223",
-        "elevation": "low"
+        "id": "CH-4223"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1041,8 +966,7 @@
       "id": "CH-4224",
       "type": "Feature",
       "properties": {
-        "id": "CH-4224",
-        "elevation": "low"
+        "id": "CH-4224"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1055,8 +979,7 @@
       "id": "CH-4225",
       "type": "Feature",
       "properties": {
-        "id": "CH-4225",
-        "elevation": "low"
+        "id": "CH-4225"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1069,8 +992,7 @@
       "id": "CH-4231",
       "type": "Feature",
       "properties": {
-        "id": "CH-4231",
-        "elevation": "low"
+        "id": "CH-4231"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1083,8 +1005,7 @@
       "id": "CH-4232",
       "type": "Feature",
       "properties": {
-        "id": "CH-4232",
-        "elevation": "low"
+        "id": "CH-4232"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1097,8 +1018,7 @@
       "id": "CH-4241",
       "type": "Feature",
       "properties": {
-        "id": "CH-4241",
-        "elevation": "low"
+        "id": "CH-4241"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1109,8 +1029,7 @@
       "id": "CH-4242",
       "type": "Feature",
       "properties": {
-        "id": "CH-4242",
-        "elevation": "low"
+        "id": "CH-4242"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1123,8 +1042,7 @@
       "id": "CH-4243",
       "type": "Feature",
       "properties": {
-        "id": "CH-4243",
-        "elevation": "low"
+        "id": "CH-4243"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1137,8 +1055,7 @@
       "id": "CH-4244",
       "type": "Feature",
       "properties": {
-        "id": "CH-4244",
-        "elevation": "low"
+        "id": "CH-4244"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1151,8 +1068,7 @@
       "id": "CH-5111",
       "type": "Feature",
       "properties": {
-        "id": "CH-5111",
-        "elevation": "low"
+        "id": "CH-5111"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1165,8 +1081,7 @@
       "id": "CH-5112",
       "type": "Feature",
       "properties": {
-        "id": "CH-5112",
-        "elevation": "low"
+        "id": "CH-5112"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1179,8 +1094,7 @@
       "id": "CH-5113",
       "type": "Feature",
       "properties": {
-        "id": "CH-5113",
-        "elevation": "low"
+        "id": "CH-5113"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1193,8 +1107,7 @@
       "id": "CH-5121",
       "type": "Feature",
       "properties": {
-        "id": "CH-5121",
-        "elevation": "low"
+        "id": "CH-5121"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1207,8 +1120,7 @@
       "id": "CH-5122",
       "type": "Feature",
       "properties": {
-        "id": "CH-5122",
-        "elevation": "low"
+        "id": "CH-5122"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1221,8 +1133,7 @@
       "id": "CH-5123",
       "type": "Feature",
       "properties": {
-        "id": "CH-5123",
-        "elevation": "low"
+        "id": "CH-5123"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1235,8 +1146,7 @@
       "id": "CH-5124",
       "type": "Feature",
       "properties": {
-        "id": "CH-5124",
-        "elevation": "low"
+        "id": "CH-5124"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1249,8 +1159,7 @@
       "id": "CH-5211",
       "type": "Feature",
       "properties": {
-        "id": "CH-5211",
-        "elevation": "low"
+        "id": "CH-5211"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1263,8 +1172,7 @@
       "id": "CH-5212",
       "type": "Feature",
       "properties": {
-        "id": "CH-5212",
-        "elevation": "low"
+        "id": "CH-5212"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1277,8 +1185,7 @@
       "id": "CH-5214",
       "type": "Feature",
       "properties": {
-        "id": "CH-5214",
-        "elevation": "low"
+        "id": "CH-5214"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1291,8 +1198,7 @@
       "id": "CH-5215",
       "type": "Feature",
       "properties": {
-        "id": "CH-5215",
-        "elevation": "low"
+        "id": "CH-5215"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1303,8 +1209,7 @@
       "id": "CH-5216",
       "type": "Feature",
       "properties": {
-        "id": "CH-5216",
-        "elevation": "low"
+        "id": "CH-5216"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1317,8 +1222,7 @@
       "id": "CH-5221",
       "type": "Feature",
       "properties": {
-        "id": "CH-5221",
-        "elevation": "low"
+        "id": "CH-5221"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1331,8 +1235,7 @@
       "id": "CH-5222",
       "type": "Feature",
       "properties": {
-        "id": "CH-5222",
-        "elevation": "low"
+        "id": "CH-5222"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1345,8 +1248,7 @@
       "id": "CH-5223",
       "type": "Feature",
       "properties": {
-        "id": "CH-5223",
-        "elevation": "low"
+        "id": "CH-5223"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1359,8 +1261,7 @@
       "id": "CH-5231",
       "type": "Feature",
       "properties": {
-        "id": "CH-5231",
-        "elevation": "low"
+        "id": "CH-5231"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1373,8 +1274,7 @@
       "id": "CH-5232",
       "type": "Feature",
       "properties": {
-        "id": "CH-5232",
-        "elevation": "low"
+        "id": "CH-5232"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1387,8 +1287,7 @@
       "id": "CH-5233",
       "type": "Feature",
       "properties": {
-        "id": "CH-5233",
-        "elevation": "low"
+        "id": "CH-5233"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1401,8 +1300,7 @@
       "id": "CH-5234",
       "type": "Feature",
       "properties": {
-        "id": "CH-5234",
-        "elevation": "low"
+        "id": "CH-5234"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1415,8 +1313,7 @@
       "id": "CH-6111",
       "type": "Feature",
       "properties": {
-        "id": "CH-6111",
-        "elevation": "low"
+        "id": "CH-6111"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1429,8 +1326,7 @@
       "id": "CH-6112",
       "type": "Feature",
       "properties": {
-        "id": "CH-6112",
-        "elevation": "low"
+        "id": "CH-6112"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1441,8 +1337,7 @@
       "id": "CH-6113",
       "type": "Feature",
       "properties": {
-        "id": "CH-6113",
-        "elevation": "low"
+        "id": "CH-6113"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1455,8 +1350,7 @@
       "id": "CH-6114",
       "type": "Feature",
       "properties": {
-        "id": "CH-6114",
-        "elevation": "low"
+        "id": "CH-6114"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1469,8 +1363,7 @@
       "id": "CH-6115",
       "type": "Feature",
       "properties": {
-        "id": "CH-6115",
-        "elevation": "low"
+        "id": "CH-6115"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1483,8 +1376,7 @@
       "id": "CH-6121",
       "type": "Feature",
       "properties": {
-        "id": "CH-6121",
-        "elevation": "low"
+        "id": "CH-6121"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1497,8 +1389,7 @@
       "id": "CH-6122",
       "type": "Feature",
       "properties": {
-        "id": "CH-6122",
-        "elevation": "low"
+        "id": "CH-6122"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1511,8 +1402,7 @@
       "id": "CH-6131",
       "type": "Feature",
       "properties": {
-        "id": "CH-6131",
-        "elevation": "low"
+        "id": "CH-6131"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1525,8 +1415,7 @@
       "id": "CH-6132",
       "type": "Feature",
       "properties": {
-        "id": "CH-6132",
-        "elevation": "low"
+        "id": "CH-6132"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1539,8 +1428,7 @@
       "id": "CH-6211",
       "type": "Feature",
       "properties": {
-        "id": "CH-6211",
-        "elevation": "low"
+        "id": "CH-6211"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1553,8 +1441,7 @@
       "id": "CH-6212",
       "type": "Feature",
       "properties": {
-        "id": "CH-6212",
-        "elevation": "low"
+        "id": "CH-6212"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1567,8 +1454,7 @@
       "id": "CH-7111",
       "type": "Feature",
       "properties": {
-        "id": "CH-7111",
-        "elevation": "low"
+        "id": "CH-7111"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1581,8 +1467,7 @@
       "id": "CH-7112",
       "type": "Feature",
       "properties": {
-        "id": "CH-7112",
-        "elevation": "low"
+        "id": "CH-7112"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1595,8 +1480,7 @@
       "id": "CH-7113",
       "type": "Feature",
       "properties": {
-        "id": "CH-7113",
-        "elevation": "low"
+        "id": "CH-7113"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1609,8 +1493,7 @@
       "id": "CH-7114",
       "type": "Feature",
       "properties": {
-        "id": "CH-7114",
-        "elevation": "low"
+        "id": "CH-7114"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1623,8 +1506,7 @@
       "id": "CH-7115",
       "type": "Feature",
       "properties": {
-        "id": "CH-7115",
-        "elevation": "low"
+        "id": "CH-7115"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1637,8 +1519,7 @@
       "id": "CH-7121",
       "type": "Feature",
       "properties": {
-        "id": "CH-7121",
-        "elevation": "low"
+        "id": "CH-7121"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1651,8 +1532,7 @@
       "id": "CH-7122",
       "type": "Feature",
       "properties": {
-        "id": "CH-7122",
-        "elevation": "low"
+        "id": "CH-7122"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1663,8 +1543,7 @@
       "id": "CH-7123",
       "type": "Feature",
       "properties": {
-        "id": "CH-7123",
-        "elevation": "low"
+        "id": "CH-7123"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1677,8 +1556,7 @@
       "id": "CH-7124",
       "type": "Feature",
       "properties": {
-        "id": "CH-7124",
-        "elevation": "low"
+        "id": "CH-7124"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1691,8 +1569,7 @@
       "id": "CH-7125",
       "type": "Feature",
       "properties": {
-        "id": "CH-7125",
-        "elevation": "low"
+        "id": "CH-7125"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1705,8 +1582,7 @@
       "id": "CH-7126",
       "type": "Feature",
       "properties": {
-        "id": "CH-7126",
-        "elevation": "low"
+        "id": "CH-7126"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1719,8 +1595,7 @@
       "id": "CH-7211",
       "type": "Feature",
       "properties": {
-        "id": "CH-7211",
-        "elevation": "low"
+        "id": "CH-7211"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1733,8 +1608,7 @@
       "id": "CH-7221",
       "type": "Feature",
       "properties": {
-        "id": "CH-7221",
-        "elevation": "low"
+        "id": "CH-7221"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1747,8 +1621,7 @@
       "id": "CH-7222",
       "type": "Feature",
       "properties": {
-        "id": "CH-7222",
-        "elevation": "low"
+        "id": "CH-7222"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1761,8 +1634,7 @@
       "id": "CH-7231",
       "type": "Feature",
       "properties": {
-        "id": "CH-7231",
-        "elevation": "low"
+        "id": "CH-7231"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1775,8 +1647,7 @@
       "id": "CH-8111",
       "type": "Feature",
       "properties": {
-        "id": "CH-8111",
-        "elevation": "low"
+        "id": "CH-8111"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1789,8 +1660,7 @@
       "id": "CH-8112",
       "type": "Feature",
       "properties": {
-        "id": "CH-8112",
-        "elevation": "low"
+        "id": "CH-8112"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1803,8 +1673,7 @@
       "id": "CH-8113",
       "type": "Feature",
       "properties": {
-        "id": "CH-8113",
-        "elevation": "low"
+        "id": "CH-8113"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1817,8 +1686,7 @@
       "id": "CH-8114",
       "type": "Feature",
       "properties": {
-        "id": "CH-8114",
-        "elevation": "low"
+        "id": "CH-8114"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1831,8 +1699,7 @@
       "id": "CH-8211",
       "type": "Feature",
       "properties": {
-        "id": "CH-8211",
-        "elevation": "low"
+        "id": "CH-8211"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1845,8 +1712,7 @@
       "id": "CH-8212",
       "type": "Feature",
       "properties": {
-        "id": "CH-8212",
-        "elevation": "low"
+        "id": "CH-8212"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1859,8 +1725,7 @@
       "id": "CH-8213",
       "type": "Feature",
       "properties": {
-        "id": "CH-8213",
-        "elevation": "low"
+        "id": "CH-8213"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1873,8 +1738,7 @@
       "id": "CH-8214",
       "type": "Feature",
       "properties": {
-        "id": "CH-8214",
-        "elevation": "low"
+        "id": "CH-8214"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1887,8 +1751,7 @@
       "id": "CH-8215",
       "type": "Feature",
       "properties": {
-        "id": "CH-8215",
-        "elevation": "low"
+        "id": "CH-8215"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1901,8 +1764,7 @@
       "id": "CH-8216",
       "type": "Feature",
       "properties": {
-        "id": "CH-8216",
-        "elevation": "low"
+        "id": "CH-8216"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1915,8 +1777,7 @@
       "id": "CH-8221",
       "type": "Feature",
       "properties": {
-        "id": "CH-8221",
-        "elevation": "low"
+        "id": "CH-8221"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1929,8 +1790,7 @@
       "id": "CH-8222",
       "type": "Feature",
       "properties": {
-        "id": "CH-8222",
-        "elevation": "low"
+        "id": "CH-8222"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1943,8 +1803,7 @@
       "id": "CH-8223",
       "type": "Feature",
       "properties": {
-        "id": "CH-8223",
-        "elevation": "low"
+        "id": "CH-8223"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1957,8 +1816,7 @@
       "id": "CH-8224",
       "type": "Feature",
       "properties": {
-        "id": "CH-8224",
-        "elevation": "low"
+        "id": "CH-8224"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1971,8 +1829,7 @@
       "id": "CH-8225",
       "type": "Feature",
       "properties": {
-        "id": "CH-8225",
-        "elevation": "low"
+        "id": "CH-8225"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1985,8 +1842,7 @@
       "id": "CH-8226",
       "type": "Feature",
       "properties": {
-        "id": "CH-8226",
-        "elevation": "low"
+        "id": "CH-8226"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -1999,8 +1855,7 @@
       "id": "CH-8227",
       "type": "Feature",
       "properties": {
-        "id": "CH-8227",
-        "elevation": "low"
+        "id": "CH-8227"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2013,8 +1868,7 @@
       "id": "CH-8228",
       "type": "Feature",
       "properties": {
-        "id": "CH-8228",
-        "elevation": "low"
+        "id": "CH-8228"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2027,8 +1881,7 @@
       "id": "CH-9111",
       "type": "Feature",
       "properties": {
-        "id": "CH-9111",
-        "elevation": "low"
+        "id": "CH-9111"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2041,8 +1894,7 @@
       "id": "CH-9211",
       "type": "Feature",
       "properties": {
-        "id": "CH-9211",
-        "elevation": "low"
+        "id": "CH-9211"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -2055,8 +1907,7 @@
       "id": "CH-9311",
       "type": "Feature",
       "properties": {
-        "id": "CH-9311",
-        "elevation": "low"
+        "id": "CH-9311"
       },
       "geometry": {
         "type": "MultiPolygon",
