@@ -143,7 +143,7 @@ encodeFiles(
 eawsRegions.forEach(region =>
   encodeFiles(
     [
-      region === "GB"
+      ["CH", "CZ", "FI", "FR", "GB", "IS", "NO", "PL"].includes(region)
         ? `eaws-regions/public/micro-regions/${region}_micro-regions.geojson.json`
         : `eaws-regions/public/micro-regions_elevation/${region}_micro-regions_elevation.geojson.json`
     ],

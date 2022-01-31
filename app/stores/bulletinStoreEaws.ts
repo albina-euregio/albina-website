@@ -93,11 +93,10 @@ function augmentFeature(
   bulletins: DangerRatings
 ): Feature | undefined {
   const region: RegionID = feature.properties.id;
-  const elevation: Elevation = feature.properties.elevation;
-  let warnlevel = bulletins?.maxDangerRatings?.[`${region}:${elevation}`];
-  if (/^GB/.test(region) || /^FR/.test(region)) {
-    warnlevel = bulletins?.maxDangerRatings?.[`${region}`];
-  }
+  const elevation: Elevation | undefined = feature.properties.elevation;
+  const warnlevel = elevation
+    ? bulletins?.maxDangerRatings?.[`${region}:${elevation}`]
+    : bulletins?.maxDangerRatings?.[`${region}`];
   if (!warnlevel) return;
   feature.properties.style = {
     stroke: false,

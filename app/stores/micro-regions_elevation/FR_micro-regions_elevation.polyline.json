@@ -5,8 +5,7 @@
       "id": "FR-01",
       "type": "Feature",
       "properties": {
-        "id": "FR-01",
-        "elevation": "low"
+        "id": "FR-01"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -19,8 +18,7 @@
       "id": "FR-02",
       "type": "Feature",
       "properties": {
-        "id": "FR-02",
-        "elevation": "low"
+        "id": "FR-02"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -33,8 +31,7 @@
       "id": "FR-03",
       "type": "Feature",
       "properties": {
-        "id": "FR-03",
-        "elevation": "low"
+        "id": "FR-03"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -47,8 +44,7 @@
       "id": "FR-04",
       "type": "Feature",
       "properties": {
-        "id": "FR-04",
-        "elevation": "low"
+        "id": "FR-04"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -59,8 +55,7 @@
       "id": "FR-05",
       "type": "Feature",
       "properties": {
-        "id": "FR-05",
-        "elevation": "low"
+        "id": "FR-05"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -73,8 +68,7 @@
       "id": "FR-06",
       "type": "Feature",
       "properties": {
-        "id": "FR-06",
-        "elevation": "low"
+        "id": "FR-06"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -87,8 +81,7 @@
       "id": "FR-07",
       "type": "Feature",
       "properties": {
-        "id": "FR-07",
-        "elevation": "low"
+        "id": "FR-07"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -99,8 +92,7 @@
       "id": "FR-08",
       "type": "Feature",
       "properties": {
-        "id": "FR-08",
-        "elevation": "low"
+        "id": "FR-08"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -113,8 +105,7 @@
       "id": "FR-09",
       "type": "Feature",
       "properties": {
-        "id": "FR-09",
-        "elevation": "low"
+        "id": "FR-09"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -127,8 +118,7 @@
       "id": "FR-10",
       "type": "Feature",
       "properties": {
-        "id": "FR-10",
-        "elevation": "low"
+        "id": "FR-10"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -141,8 +131,7 @@
       "id": "FR-11",
       "type": "Feature",
       "properties": {
-        "id": "FR-11",
-        "elevation": "low"
+        "id": "FR-11"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -155,8 +144,7 @@
       "id": "FR-12",
       "type": "Feature",
       "properties": {
-        "id": "FR-12",
-        "elevation": "low"
+        "id": "FR-12"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -169,8 +157,7 @@
       "id": "FR-13",
       "type": "Feature",
       "properties": {
-        "id": "FR-13",
-        "elevation": "low"
+        "id": "FR-13"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -183,8 +170,7 @@
       "id": "FR-14",
       "type": "Feature",
       "properties": {
-        "id": "FR-14",
-        "elevation": "low"
+        "id": "FR-14"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -197,8 +183,7 @@
       "id": "FR-15",
       "type": "Feature",
       "properties": {
-        "id": "FR-15",
-        "elevation": "low"
+        "id": "FR-15"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -211,8 +196,7 @@
       "id": "FR-16",
       "type": "Feature",
       "properties": {
-        "id": "FR-16",
-        "elevation": "low"
+        "id": "FR-16"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -223,8 +207,7 @@
       "id": "FR-17",
       "type": "Feature",
       "properties": {
-        "id": "FR-17",
-        "elevation": "low"
+        "id": "FR-17"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -237,8 +220,7 @@
       "id": "FR-18",
       "type": "Feature",
       "properties": {
-        "id": "FR-18",
-        "elevation": "low"
+        "id": "FR-18"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -251,8 +233,7 @@
       "id": "FR-19",
       "type": "Feature",
       "properties": {
-        "id": "FR-19",
-        "elevation": "low"
+        "id": "FR-19"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -263,8 +244,7 @@
       "id": "FR-20",
       "type": "Feature",
       "properties": {
-        "id": "FR-20",
-        "elevation": "low"
+        "id": "FR-20"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -275,8 +255,7 @@
       "id": "FR-21",
       "type": "Feature",
       "properties": {
-        "id": "FR-21",
-        "elevation": "low"
+        "id": "FR-21"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -289,8 +268,7 @@
       "id": "FR-22",
       "type": "Feature",
       "properties": {
-        "id": "FR-22",
-        "elevation": "low"
+        "id": "FR-22"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -303,8 +281,7 @@
       "id": "FR-23",
       "type": "Feature",
       "properties": {
-        "id": "FR-23",
-        "elevation": "low"
+        "id": "FR-23"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -317,8 +294,7 @@
       "id": "FR-40",
       "type": "Feature",
       "properties": {
-        "id": "FR-40",
-        "elevation": "low"
+        "id": "FR-40"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -331,8 +307,7 @@
       "id": "FR-41",
       "type": "Feature",
       "properties": {
-        "id": "FR-41",
-        "elevation": "low"
+        "id": "FR-41"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -345,8 +320,7 @@
       "id": "FR-64",
       "type": "Feature",
       "properties": {
-        "id": "FR-64",
-        "elevation": "low"
+        "id": "FR-64"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -359,8 +333,7 @@
       "id": "FR-65",
       "type": "Feature",
       "properties": {
-        "id": "FR-65",
-        "elevation": "low"
+        "id": "FR-65"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -373,8 +346,7 @@
       "id": "FR-66",
       "type": "Feature",
       "properties": {
-        "id": "FR-66",
-        "elevation": "low"
+        "id": "FR-66"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -387,8 +359,7 @@
       "id": "FR-67",
       "type": "Feature",
       "properties": {
-        "id": "FR-67",
-        "elevation": "low"
+        "id": "FR-67"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -401,8 +372,7 @@
       "id": "FR-68",
       "type": "Feature",
       "properties": {
-        "id": "FR-68",
-        "elevation": "low"
+        "id": "FR-68"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -415,8 +385,7 @@
       "id": "FR-69",
       "type": "Feature",
       "properties": {
-        "id": "FR-69",
-        "elevation": "low"
+        "id": "FR-69"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -429,8 +398,7 @@
       "id": "FR-70",
       "type": "Feature",
       "properties": {
-        "id": "FR-70",
-        "elevation": "low"
+        "id": "FR-70"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -443,8 +411,7 @@
       "id": "FR-72",
       "type": "Feature",
       "properties": {
-        "id": "FR-72",
-        "elevation": "low"
+        "id": "FR-72"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -457,8 +424,7 @@
       "id": "FR-73",
       "type": "Feature",
       "properties": {
-        "id": "FR-73",
-        "elevation": "low"
+        "id": "FR-73"
       },
       "geometry": {
         "type": "MultiPolygon",
@@ -471,8 +437,7 @@
       "id": "FR-74",
       "type": "Feature",
       "properties": {
-        "id": "FR-74",
-        "elevation": "low"
+        "id": "FR-74"
       },
       "geometry": {
         "type": "MultiPolygon",
