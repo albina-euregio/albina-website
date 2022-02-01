@@ -43,12 +43,13 @@ const Page = props => {
       location.pathname === "/" ||
       location.pathname === "/bulletin"
     ) {
-      console.log("Page->useEffect[location.pathname]", location.path);
+      //console.log("Page->useEffect[location.pathname]", location.path);
       navigate({
         pathname: "/bulletin/latest",
         search: document.location.search.substring(1)
       });
     } else {
+      console.log("Page->useEffect[location.pathname]", location.path);
       scroll_init();
       modal_init();
       tooltip_init();

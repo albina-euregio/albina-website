@@ -24,6 +24,7 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import "leaflet.sync";
 import { Util } from "leaflet";
+import { scroll_init } from "../js/scroll";
 
 const Bulletin = props => {
   let lastLocationRef = useRef(null);
@@ -59,6 +60,12 @@ const Bulletin = props => {
     );
     _fetchData(props);
   }, []);
+
+  // useEffect(() => {
+  //   console.log("Bulletin->useEffect[BULLETIN_STORE.activeBulletinCollection.daytimeBulletins] xx03");
+  //   scroll_init();
+
+  // }, [BULLETIN_STORE?.activeBulletinCollection?.daytimeBulletins]);
 
   useEffect(() => {
     console.log("Bulletin->useEffect");

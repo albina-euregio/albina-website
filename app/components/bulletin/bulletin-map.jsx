@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
 import { GeoJSON } from "react-leaflet";
@@ -14,7 +14,7 @@ import { preprocessContent } from "../../util/htmlParser";
 import { observer } from "mobx-react";
 import { BULLETIN_STORE } from "../../stores/bulletinStore";
 import { APP_STORE } from "../../appStore";
-
+import { scroll_init } from "../../js/scroll";
 /**
  * @typedef {object} Props
  * @prop {*} date
@@ -26,6 +26,11 @@ import { APP_STORE } from "../../appStore";
 const BulletinMap = props => {
   const intl = useIntl();
   const [map, setMap] = useState(null);
+
+  useEffect(() => {
+    //console.log("BulletinMap->useEffect[props.regions] xx03");
+    scroll_init();
+  }, [props.regions]);
 
   const infoMessageLevels = useMemo(() => {
     const simple = Util.template(window.config.apis.bulletin.simple, {
