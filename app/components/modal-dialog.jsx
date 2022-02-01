@@ -8,8 +8,6 @@ const ModalDialog = ({ children, id }) => {
   const modalElementRef = useRef(null);
   const location = useLocation();
 
-  const didMountRef = useRef(false);
-
   const getModalElement = id => {
     if (!modalElementRef.current) {
       modalElementRef.current = document.createElement("div");
@@ -20,14 +18,11 @@ const ModalDialog = ({ children, id }) => {
   };
 
   useEffect(() => {
-    if (!didMountRef.current) {
-      didMountRef.current = true;
-      modalRoot.appendChild(modalElementRef.current);
-    }
+    modalRoot.appendChild(modalElementRef.current);
     return () => {
       modalElementRef.current.remove();
     };
-  });
+  }, []);
 
   useEffect(() => {
     $(".mfp-close").trigger("click");
