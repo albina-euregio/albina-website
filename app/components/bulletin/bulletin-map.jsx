@@ -27,13 +27,13 @@ const BulletinMap = props => {
   const intl = useIntl();
   const [map, setMap] = useState(null);
 
-  const setInfoMessages = () => {
+  const infoMessageLevels = useMemo(() => {
     const simple = Util.template(window.config.apis.bulletin.simple, {
       date: props.date ? dateToISODateString(parseDate(props.date)) : "",
       lang: APP_STORE.language
     });
 
-    let infoMessageLevels = {
+    let levels = {
       init: {
         message: "",
         iconOn: true
@@ -41,7 +41,7 @@ const BulletinMap = props => {
       ok: { message: "", keep: false }
     };
 
-    infoMessageLevels.pending = {
+    levels.pending = {
       message: intl.formatMessage(
         { id: "bulletin:header:info-loading-data-slow" },
         { a: msg => <a href={simple}>{msg}</a> }
@@ -50,7 +50,7 @@ const BulletinMap = props => {
       delay: 5000
     };
 
-    infoMessageLevels.empty = {
+    levels.empty = {
       message: (
         <>
           <p>
@@ -71,8 +71,8 @@ const BulletinMap = props => {
       ),
       keep: false
     };
-  };
-  const infoMessageLevels = useMemo(setInfoMessages, [props.date]);
+    return levels;
+  }, [props.date]);
 
   const handleMapInit = map => {
     setMap(map);
@@ -258,7 +258,6 @@ const BulletinMap = props => {
 
   //console.log("bulletin-map->render", BULLETIN_STORE.settings.status);
 
-  let newLevel = BULLETIN_STORE.settings.status;
   // if (lastDate != props.date) {
   //   console.log("bulletin-map->render:SET TO INIT #aaa",  BULLETIN_STORE.settings.status, lastDate, props.date);
   //   newLevel = "init";
@@ -272,7 +271,10 @@ const BulletinMap = props => {
       aria-hidden
     >
       {props.administrateLoadingBar && (
-        <InfoBar level={newLevel} levels={infoMessageLevels} />
+        <InfoBar
+          level={BULLETIN_STORE.settings.status}
+          levels={infoMessageLevels}
+        />
       )}
       <div
         className={
