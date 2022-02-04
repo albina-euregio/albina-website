@@ -157,6 +157,14 @@
       margin-bottom: 0;
     }
   }
+  a.glossary {
+    color: inherit;
+    text-decoration: underline dotted $brand;
+    &:hover {
+      // color: $brand;
+      text-decoration: underline solid $brand;
+    }
+  }
 }
 
 //from alien app.scss
