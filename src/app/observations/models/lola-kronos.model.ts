@@ -365,14 +365,14 @@ export function convertLoLaToGeneric(
     latitude: (
       (obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ??
       (obs as LolaSnowProfile | LolaEvaluation).position
-    ).lat,
+    )?.lat,
     locationName:
       (obs as LolaSimpleObservation | LolaAvalancheEvent).locationDescription ??
       (obs as LolaSnowProfile | LolaEvaluation).placeDescription,
     longitude: (
       (obs as LolaSimpleObservation | LolaAvalancheEvent).gpsPoint ??
       (obs as LolaSnowProfile | LolaEvaluation).position
-    ).lng,
+    )?.lng,
     region: obs.regionName,
   };
 }
