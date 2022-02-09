@@ -9,7 +9,7 @@ export interface Lawis {
   incidents: GenericObservation<Incident>[];
 }
 
-// https://lawis.at/lawis_api/normalizer/profile/
+// https://lawis.at/lawis_api/public/profile/
 export interface Profile {
   id: number;
   href: string;
@@ -21,49 +21,60 @@ export interface Profile {
   location: Location;
 }
 
-// https://lawis.at/lawis_api/normalizer/profile/13794?lang=de
+// https://lawis.at/lawis_api/public/profile/13794?lang=de&format=json
 export interface ProfileDetails {
   id: number;
-  name: string;
-  profildatum: string;
-  loggedon: string;
-  country_id: string;
-  region_id: string;
-  subregion_id: string;
-  ort: string;
-  seehoehe: number;
-  latitude: number;
-  longitude: number;
-  hangneigung: number;
-  exposition_id: string;
-  windgeschwindigkeit_id: string;
-  windrichtung_id: null;
-  lufttemperatur: number;
-  niederschlag_id: string;
-  intensity_id: null;
-  bewoelkung_id: string;
-  bemerkungen: string;
-  active: number;
-  email: string;
-  obfuscate_email: boolean;
-  revision: number;
   files: Files;
+  date: Date;
+  reported: {
+    date: string;
+    name: string;
+    email: string;
+  };
+  comments: string;
+  location: Location;
+  weather: any;
+  profile: ProfilePart[];
+  temperatures: Temperature[];
+  stability_tests: StabilityTest[];
+}
+
+export interface ProfilePart {
+  id: number;
+  height: {
+    min: number;
+    max: number;
+  };
+  water_content: Aspect;
+  grain: {
+    size: {
+      min: number;
+      max: number;
+    };
+    shape1: Aspect;
+    shape2: Aspect;
+  };
+  hardness: Aspect;
+}
+
+export interface Temperature {
+  id: number;
+  height: number;
+  temperature: number;
+}
+
+export interface StabilityTest {
+  id: number;
+  type: Aspect;
+  height: number;
+  step: number;
+  result: Aspect;
 }
 
 export interface Files {
   pdf: string;
   png: string;
   thumbnail: string;
-}
-
-// https://www.lawis.at/lawis_api/normalizer/profile/13794/tests?lang=de
-export interface ProfileTest {
-  id: number;
-  height: string;
-  belastungsst: number;
-  testprocedureend: string;
-  test_id: string;
-  profil_id: number;
 }
 
 // https://lawis.at/lawis_api/public/incident
@@ -78,11 +89,8 @@ export interface Incident {
 }
 
 export interface Danger {
-  rating: Rating;
-}
-
-export interface Rating {
-  level: number | null;
+  rating: IdText;
+  problem: IdText;
 }
 
 export interface Location {
@@ -108,67 +116,45 @@ export interface Country {
   text: string;
 }
 
-export enum Involved {
-  None = "none",
-  Unknown = "unknown",
-  Yes = "yes"
-}
-
+// https://lawis.at/lawis_api/public/incident/10333?lang=de&format=json
 export interface IncidentDetails {
-  incident_id: number;
-  datum: string;
-  country_id: number;
-  region_id: number;
-  subregion_id: number;
-  ort: string;
-  elevation: number;
-  latitude: number;
-  longitude: number;
-  incline: number;
-  aspect_id: Enums.Aspect;
-  comments: string;
-  extent_x: number;
-  extent_y: number;
-  breakheight: number;
-  involved_id: number;
-  dead: number;
-  injured: number;
-  uninjured: number;
-  sweeped: number;
-  buried_total: number;
-  buried_partial: number;
-  type_id: AvalancheType;
-  size_id: AvalancheSize;
-  danger_id: Enums.DangerRating;
-  reporting_date: string;
-  name: string;
-  active: number;
-  email: string;
-  obfuscate_email: boolean;
+  id: number;
+  not_buried: number;
   valid_time: boolean;
-  av_humidity: string;
-  av_humidity_extra: number;
-  asc_desc: string;
-  asc_desc_extra: number;
-  equipment: string;
-  equipment_extra: number;
-  lvs: string;
-  lvs_extra: number;
-  airbag: string;
-  airbag_extra: number;
-  av_problem: string;
-  av_problem_extra: number;
-  av_release: string;
-  av_release_extra: number;
-  revision: number;
-  images: Image[];
+  date: string;
+  reported: {
+    date: string;
+    name: string;
+    email: string;
+  };
+  involved: Involved;
+  danger: Danger;
+  avalanche: Avalanche;
+  comments: string;
+  location: Location;
 }
 
-export interface Image {
-  url: string;
-  size: number;
-  caption: null;
-  comment: string;
+export interface Involved {
+  dead: any;
+  injured: any;
+  uninjured: any;
+  sweeped: any;
+  buried_partial: any;
+  buried_total: any;
+  equipment: any;
+  ascent_descent: any;
+}
+
+export interface Avalanche {
+  extent: {
+    length: number;
+    width: number;
+  };
+  breakheight: number;
+  type: IdText;
+  size: IdText;
+  release: IdText;
+  humidity: IdText;
 }
 
 export enum AvalancheType {
@@ -187,20 +173,24 @@ export enum AvalancheSize {
   extreme = 5
 }
 
+export interface IdText {
+  id: number;
+  text: string;
+}
+
 export function toLawisIncidentTable(incident: IncidentDetails, t: (key: string) => string): ObservationTableRow[] {
-  const dangerRating = Enums.DangerRating[Enums.DangerRating[incident.danger_id]];
-  const avalancheType = AvalancheType[AvalancheType[incident.type_id]];
-  const avalancheSize = AvalancheSize[AvalancheSize[incident.size_id]];
+  const dangerRating = Enums.DangerRating[Enums.DangerRating[incident.danger?.rating?.id]];
+  const avalancheType = AvalancheType[AvalancheType[incident.avalanche?.type?.id]];
+  const avalancheSize = AvalancheSize[AvalancheSize[incident.avalanche.size.id]];
   return [
     { label: t("observations.dangerRating"), value: t("dangerRating." + dangerRating) },
-    { label: t("observations.avalancheProblem"), value: incident.av_problem },
-    { label: t("observations.incline"), number: incident.incline },
+    { label: t("observations.avalancheProblem"), value: incident.danger?.problem?.id },
+    { label: t("observations.incline"), number: incident.location?.slope_angle },
     { label: t("observations.avalancheType"), value: avalancheType },
     { label: t("observations.avalancheSize"), value: avalancheSize },
-    { label: t("observations.avalancheLength"), number: incident.extent_x },
-    { label: t("observations.avalancheWidth"), number: incident.extent_y },
-    { label: t("observations.fractureDepth"), number: incident.breakheight },
-    { label: "URL", value: "https://lawis.at/incident/#" + incident.incident_id }
+    { label: t("observations.avalancheLength"), number: incident.avalanche?.extent?.length },
+    { label: t("observations.avalancheWidth"), number: incident.avalanche?.extent?.width },
+    { label: t("observations.fractureDepth"), number: incident.avalanche?.breakheight }
   ];
 }
 

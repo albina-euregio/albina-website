@@ -242,8 +242,8 @@ export class ObservationsService {
         return Observable.fromPromise(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + "/" + profile.$data.id))
           .map<ProfileDetails, GenericObservation>((lawisDetails) => ({
             ...profile,
-            authorName: lawisDetails.name,
-            content: lawisDetails.bemerkungen
+            authorName: lawisDetails.reported?.name,
+            content: lawisDetails.comments
           }))
           .catch(() => Observable.of(profile));
       });
@@ -285,9 +285,9 @@ export class ObservationsService {
           .map<IncidentDetails, GenericObservation>((lawisDetails) => ({
             ...incident,
             $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
-            authorName: lawisDetails.name,
+            authorName: lawisDetails.reported?.name,
             content: lawisDetails.comments,
-            reportDate: parseLawisDate(lawisDetails.reporting_date)
+            reportDate: parseLawisDate(lawisDetails.reported?.date)
           }))
           .catch(() => Observable.of(incident));
       });
