@@ -46,23 +46,28 @@ deploy:development:
     - build:development
   environment:
     name: dev
-  only:
-    - master
-    - ci
-deploy:development:manual:
-  extends: .deploy
-  needs:
-    - build:development
-  environment:
-    name: dev
-  when: manual
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+    - when: manual
 
 build:production:
   extends: .build
   environment:
     name: production
-  only:
-    - tags
+  rules:
+    - if: "$CI_COMMIT_TAG"
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+    - when: manual
+
+deploy:beta:
+  extends: .deploy
+  needs:
+    - build:production
+  environment:
+    name: beta
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+    - when: manual
 
 deploy:production:
   extends: .deploy
@@ -70,9 +75,9 @@ deploy:production:
     - build:production
   environment:
     name: production
-  only:
-    - tags
-  when: manual
+  rules:
+    - if: "$CI_COMMIT_TAG"
+      when: manual
 
 build:aran:
   extends: .build
