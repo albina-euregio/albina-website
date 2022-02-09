@@ -250,7 +250,7 @@ export class ObservationsService {
   }
 
   getLawisIncidents(): Observable<GenericObservation> {
-    const { observationApi: api } = this.constantsService;
+    const { observationApi: api, observationWeb: web } = this.constantsService;
     return this.http
       .get<Incident[]>(
         api.LawisIncidents +
@@ -264,6 +264,7 @@ export class ObservationsService {
       .mergeAll()
       .map<Incident, GenericObservation<Incident>>((lawis) => ({
         $data: lawis,
+        $externalURL: web.LawisIncidents.replace("{{id}}", String(lawis.id)),
         $source: ObservationSource.LawisIncidents,
         aspect: toAspect(lawis.location.aspect.text),
         authorName: "",
