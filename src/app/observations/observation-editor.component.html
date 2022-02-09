@@ -49,6 +49,6 @@
   </div>
   <div class="p-field p-col-12">
     <label for="content"><i class="fa fa-comment"></i> {{ "observations.content" | translate }}</label>
-    <textarea id="content" required [(ngModel)]="observation.content" type="text" rows="8" pInputTextarea></textarea>
+    <textarea id="content" required [(ngModel)]="observation.content" (paste)="parseContent($event)" type="text" rows="8" pInputTextarea></textarea>
   </div>
 </div>
