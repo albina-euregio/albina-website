@@ -6,7 +6,7 @@ export interface GenericObservation<Data = any> {
   $extraDialogRows?: (t: (key: string) => string) => ObservationTableRow[];
   $markerColor?: string;
   $source: ObservationSource;
-  aspect: Aspect;
+  aspect?: Aspect;
   authorName: string;
   content: string;
   elevation: number;
@@ -102,7 +102,7 @@ export function toObservationTable(observation: GenericObservation, t: (key: str
   ];
 }
 
-export function toAspect(aspect: Enums.Aspect | string): Aspect {
+export function toAspect(aspect: Enums.Aspect | string | undefined): Aspect | undefined {
   if (typeof aspect === "number") {
     const string = Enums.Aspect[aspect];
     return Aspect[string];
