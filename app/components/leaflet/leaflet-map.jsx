@@ -101,7 +101,7 @@ const LeafletMap = props => {
     return tileLayers;
   };
 
-  console.log("leaflet-map->render xx02", props);
+  //console.log("leaflet-map->render xx02", props);
   const displayMap = useMemo(
     () => (
       <MapContainer
@@ -121,11 +121,12 @@ const LeafletMap = props => {
         )}
         {props.loaded && props.controls}
         {tileLayers()}
-        {props.loaded && props.overlays}
+
+        {props.overlays}
         <LeafletMapControls {...props} />
       </MapContainer>
     ),
-    [props.loaded]
+    [props.loaded, props.overlays]
   );
 
   // const displayActiveMap = useMemo(

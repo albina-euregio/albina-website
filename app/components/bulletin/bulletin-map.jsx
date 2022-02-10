@@ -155,7 +155,7 @@ const BulletinMap = props => {
     }
 
     if (props.regions) {
-      console.log("bulletin-map push Vector xx01", "eaws-regions");
+      //console.log("bulletin-map push Vector xx01", "eaws-regions");
       overlays.push(
         <BulletinVectorLayer
           key="bulletin-regions"

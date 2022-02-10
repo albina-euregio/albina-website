@@ -49,7 +49,7 @@ const LeafletMapControls = props => {
   };
 
   const updateControls = () => {
-    console.log("LeafletMapControls->updateControls xx02", parentMap, props);
+    //("LeafletMapControls->updateControls xx02", parentMap, props);
 
     //console.log("updateMaps xyz", map, disabled);
     if (props.onInit) {

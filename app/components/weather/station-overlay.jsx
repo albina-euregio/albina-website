@@ -1,9 +1,13 @@
-import React, { useEffect } from "react"; // eslint-disable-line no-unused-vars
+import React, { useEffect, useState } from "react"; // eslint-disable-line no-unused-vars
 import Cluster from "../leaflet/cluster";
 import StationMarker from "../leaflet/station-marker";
 import ClusterSelectedMarker from "../leaflet/cluster-selected-marker";
 
 const StationOverlay = props => {
+  const [activeMarkerPos, setActiveMarkerPos] = useState(null);
+  // eslint-disable-next-line no-unused-vars
+  const [spiderfiedMarkers, setSpiderfiedMarkers] = useState(null);
+
   useEffect(() => {
     if (props.onLoad) props.onLoad();
     else if (props.onLoading) props.onLoading();
@@ -26,21 +30,20 @@ const StationOverlay = props => {
 
   const handleActiveMarkerPositionUpdate = pos => {
     //console.log("handleActiveMarkerPositionUpdate qqq3", pos);
-    setState({ activeMarkerPos: pos });
+    setActiveMarkerPos(pos);
   };
 
   const handleSpiderfiedMarkers = list => {
     //console.log("handleSpiderfiedMarkers ggg3", list);
     if (Array.isArray(list) && list.length > 0) {
-      setState({ spiderfiedMarkers: list });
+      setSpiderfiedMarkers(list);
     } else {
-      setState({
-        spiderfiedMarkers: null,
-        activeMarkerPos: null
-      });
+      setSpiderfiedMarkers(null);
+      activeMarkerPos(null);
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const renderPositionMarker = data => {
     const coordinates = [
       data.geometry.coordinates[1],

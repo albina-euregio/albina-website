@@ -326,7 +326,7 @@ export default class WeatherMapStore_new {
     returns index of active timeIndex incremented by 1
   */
   get nextTime() {
-    //console.log("nextTime xxx1", this._availableTimes, this._timeIndex.get());
+    console.log("nextTime xxx1", this._availableTimes, this._timeIndex.get());
     return this._availableTimes[this._timeIndex.get() + 1]
       ? this._availableTimes[this._timeIndex.get() + 1]
       : this._availableTimes[0];

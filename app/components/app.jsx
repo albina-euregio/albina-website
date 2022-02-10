@@ -104,6 +104,14 @@ const App = () => {
                 }
               />
               <Route
+                path="/weather/map/"
+                element={
+                  <Page>
+                    <Weather />
+                  </Page>
+                }
+              />
+              <Route
                 path="/weather/measurements"
                 element={
                   <Page>

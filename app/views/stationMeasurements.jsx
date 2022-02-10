@@ -41,10 +41,10 @@ class StationMeasurements extends React.Component {
 
   updateURL() {
     const search = this.store.toURLSearchParams().toString();
-    console.log(
-      "stationMeasurements navigate #1",
-      this.store.toURLSearchParams().toString()
-    );
+    // console.log(
+    //   "stationMeasurements navigate #1",
+    //   this.store.toURLSearchParams().toString()
+    // );
     this.props.history.replace({ search });
   }
 

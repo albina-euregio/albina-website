@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Jumpnav from "./organisms/jumpnav.jsx";
 import PageHeader from "./organisms/page-header.jsx";
 import PageFooter from "./organisms/page-footer.jsx";
-import { injectIntl } from "react-intl";
 
 import ModalDialog from "./modal-dialog";
 import FollowDialog from "./dialogs/follow-dialog";
@@ -25,7 +24,6 @@ import { navigation_init } from "../js/navigation";
 import { scroll_init, scroll } from "../js/scroll";
 
 const Page = props => {
-  let hash = false;
   const location = useLocation();
   const navigate = useNavigate();
   const didMountRef = useRef(false);
@@ -49,7 +47,7 @@ const Page = props => {
         search: document.location.search.substring(1)
       });
     } else {
-      console.log("Page->useEffect[location.pathname]", location.path);
+      //console.log("Page->useEffect[location.pathname]", location.path);
       scroll_init();
       modal_init();
       tooltip_init();
@@ -58,19 +56,19 @@ const Page = props => {
   }, [location.pathname]);
 
   useEffect(() => {
-    console.log("Page->useEffect hash #1", location.hash, location.pathname);
+    //console.log("Page->useEffect hash #1", location.hash, location.pathname);
     if (!location.pathname.split("/").includes("bulletin")) {
       if (!location.hash) {
-        console.log("Page->useEffect hash #2", location.hash);
+        //console.log("Page->useEffect hash #2", location.hash);
         window.scrollTo(0, 0);
       } else {
-        console.log("Page->useEffect hash #3", location.hash);
+        //console.log("Page->useEffect hash #3", location.hash);
         scroll(location.hash, 2000);
       }
     }
   }, [location.hash]);
 
-  console.log("page->render", props.children);
+  //console.log("page->render", props.children);
   return (
     <>
       <div className="page-loading-screen" />
@@ -122,4 +120,4 @@ const Page = props => {
   );
 };
 
-export default injectIntl(Page);
+export default Page;

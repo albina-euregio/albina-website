@@ -1,9 +1,13 @@
 import React, { useEffect } from "react"; // eslint-disable-line no-unused-vars
 import L from "leaflet";
+import { useLeafletContext } from "@react-leaflet/core";
 import ReactDOMServer from "react-dom/server";
 import CircleIcon from "./circle-icon";
 
+// eslint-disable-next-line no-unused-vars
 const ClusterSelectedMarker = props => {
+  const context = useLeafletContext();
+
   useEffect(() => {
     const icon = L.divIcon({
       iconAnchor: [12.5, 12.5],

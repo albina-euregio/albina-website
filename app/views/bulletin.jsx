@@ -39,7 +39,7 @@ const Bulletin = props => {
   BULLETIN_STORE.init();
 
   useEffect(() => {
-    console.log("Bulletin->useEffect[]");
+    //("Bulletin->useEffect[]");
     reaction(
       () => BULLETIN_STORE.settings.status,
       () => {
@@ -68,7 +68,7 @@ const Bulletin = props => {
   // }, [BULLETIN_STORE?.activeBulletinCollection?.daytimeBulletins]);
 
   useEffect(() => {
-    console.log("Bulletin->useEffect");
+    //console.log("Bulletin->useEffect");
     didUpdate();
   });
 
