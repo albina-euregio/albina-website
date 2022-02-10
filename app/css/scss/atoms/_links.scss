@@ -150,18 +150,28 @@ a.icon-link {
   }
 }
 
-//from app.scss
-a[target*="_blank"]:not([class*="pure-button"]):not([class*="sm-button"]):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not([class*="avoid-external-icon"]) {
+// from 202202
+a[href^="http"][target*="_blank"]:not([class*="pure-button"]):not([class*="sm-button"]):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not([class*="avoid-external-icon"]) {
   position: relative;
-  padding-right: 1.25em;
-  &:before {
-    //@mixin icon($type, $size: auto, $margin: auto, $color: auto, $top: auto, $shadow: none)
-    @include icon(external, $icon-font-size, 0, auto, 0, none);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 0;
-    width: 0.5em;
-    line-height: 0.5em;
-  }
+  padding-right: 1em;
+  background: url("../images/pro/global/icon_external-link.svg") no-repeat 100%
+    0;
+  background-size: 0.75em 0.75em;
 }
+
+//from app.scss, until 202202
+// a[href^="http"][target*="_blank"]:not([class*="pure-button"]):not([class*="sm-button"]):not([class*="logo"]):not([class*="internal"]):not([class*="linkbox"]):not([class*="avoid-external-icon"]) {
+//   // display: block;
+//   position: relative;
+//   padding-right: 1.25em;
+//   &:before {
+//     // @mixin icon($type, $size: auto, $margin: auto, $color: auto, $top: auto, $shadow: none)
+//     @include icon(external, $icon-font-size, 0, auto, 0, none);
+//     position: absolute;
+//     top: 50%;
+//     transform: translateY(-50%);
+//     right: 0;
+//     width: 0.5em;
+//     line-height: 0.5em;
+//   }
+// }
