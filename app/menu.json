@@ -12,11 +12,13 @@
       },
       {
         "key": "lawis:incident",
-        "url": "/weather/incidents"
+        "url": "https://www.lawis.at/incident?lang=en",
+        "url:de": "https://www.lawis.at/incident?lang=de"
       },
       {
         "key": "lawis:profile",
-        "url": "/weather/snow-profiles"
+        "url": "https://www.lawis.at/profile?lang=en",
+        "url:de": "https://www.lawis.at/profile?lang=de"
       },
       { "key": "webcam", "url": "https://www.foto-webcam.eu" }
     ]
