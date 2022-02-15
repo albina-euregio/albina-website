@@ -48,6 +48,9 @@ export class FullLayoutComponent {
     this.message = "";
     this.tmpRegion = undefined;
     this.showChat = environment.showChat;
+    if (this.showChat && this.authenticationService.isUserLoggedIn()) {
+      this.chatService.connect();
+    }
   }
 
   getStyle() {
