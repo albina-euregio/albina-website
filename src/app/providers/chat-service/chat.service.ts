@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs/Rx";
+import { Observable } from "rxjs/Rx";
+import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import { HttpClient } from "@angular/common/http";
-import { WsChatService } from "../ws-chat-service/ws-chat.service";
 import { ChatMessageModel } from "../../models/chat-message.model";
 import { AuthenticationService } from "../authentication-service/authentication.service";
 import { ConstantsService } from "../constants-service/constants.service";
 
 @Injectable()
 export class ChatService {
-  public messages: Subject<ChatMessageModel>;
+  public messages: WebSocketSubject<object>;
 
   public activeUsers: string[];
   public chatMessages0: ChatMessageModel[];
@@ -24,7 +24,7 @@ export class ChatService {
     public http: HttpClient,
     public constantsService: ConstantsService,
     public authenticationService: AuthenticationService,
-    public wsChatService: WsChatService) {
+    ) {
     this.chatMessages0 = new Array<ChatMessageModel>();
     this.chatMessages1 = new Array<ChatMessageModel>();
     this.chatMessages2 = new Array<ChatMessageModel>();
@@ -38,25 +38,20 @@ export class ChatService {
 
 
   public connect() {
-    this.messages = <Subject<ChatMessageModel>>this.wsChatService
-      .connect(this.constantsService.getWsChatUrl() + this.authenticationService.getUsername())
-      .map((response: any): ChatMessageModel => {
-        const data = JSON.parse(response.data);
-        const message = ChatMessageModel.createFromJson(data);
-        this.addChatMessage(message, true);
-        console.log("Chat message received: " + message.getText());
-        return message;
-      });
-
+    const url = this.constantsService.getWsChatUrl() + this.authenticationService.getUsername();
+    this.messages = webSocket(url);
     this.messages.subscribe(
-      () => {
-        console.log("Message sent!");
+      (data) => {
+        const message = ChatMessageModel.createFromJson(data);
+        console.log("Chat message received: " + message.getText());
+        this.addChatMessage(message, true);
       },
-      error => {
-        console.error("Message could not be sent!");
-        console.error(error);
+      (error) => {
+        console.error("Message could not be sent!", error);
       }
     );
+
+    console.debug("Successfully connected: " + url);
 
     if (this.authenticationService.getActiveRegion() && this.authenticationService.getActiveRegion() !== undefined) {
       this.getMessages().subscribe(
@@ -95,7 +90,7 @@ export class ChatService {
   }
 
   public disconnect() {
-    // TODO implement
+    this.messages.unsubscribe();
   }
 
   sendMessage(text: string, region?: string) {

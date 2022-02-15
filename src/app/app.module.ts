@@ -36,7 +36,6 @@ import { MapService } from "./providers/map-service/map.service";
 import { WsBulletinService } from "./providers/ws-bulletin-service/ws-bulletin.service";
 import { WsUpdateService } from "./providers/ws-update-service/ws-update.service";
 import { WsRegionService } from "./providers/ws-region-service/ws-region.service";
-import { WsChatService } from "./providers/ws-chat-service/ws-chat.service";
 import { ChatService } from "./providers/chat-service/chat.service";
 import { LocalStorageService } from "./providers/local-storage-service/local-storage.service";
 import { ConfigurationService } from "./providers/configuration-service/configuration.service";
@@ -182,7 +181,6 @@ registerLocaleData(localeOc, "oc");
     StatisticsService,
     RegionsService,
     MapService,
-    WsChatService,
     WsRegionService,
     WsUpdateService,
     WsBulletinService,
