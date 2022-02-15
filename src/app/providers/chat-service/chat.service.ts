@@ -37,7 +37,7 @@ export class ChatService {
   }
 
 
-  public connect() {
+  public connect(): void {
     const url = this.constantsService.getWsChatUrl() + this.authenticationService.getUsername();
     this.messages = webSocket(url);
     this.messages.subscribe(
@@ -89,11 +89,11 @@ export class ChatService {
     }
   }
 
-  public disconnect() {
+  public disconnect(): void {
     this.messages.unsubscribe();
   }
 
-  sendMessage(text: string, region?: string) {
+  sendMessage(text: string, region?: string): void {
     const message = new ChatMessageModel();
     message.setUsername(this.authenticationService.getUsername());
     message.setTime(new Date());
@@ -105,7 +105,7 @@ export class ChatService {
     console.log("Chat message sent: " + message.getText());
   }
 
-  private addChatMessage(message, update) {
+  private addChatMessage(message: ChatMessageModel, update: boolean): void {
     switch (message.chatId) {
       case 0:
         this.chatMessages0.push(message);
@@ -195,16 +195,16 @@ export class ChatService {
     }
   */
 
-  getNumberOfActiveUsers() {
+  getNumberOfActiveUsers(): number {
     return this.activeUsers.length;
   }
 
-  getActiveUsers() {
+  getActiveUsers(): string[] {
     return this.activeUsers;
   }
 
   // region
-  getNewMessageCountSum(region: string) {
+  getNewMessageCountSum(region: string): number {
     switch (region) {
       case this.constantsService.codeTyrol:
         return this.newMessageCount0 + this.newMessageCount1 + this.newMessageCount2;
@@ -218,7 +218,7 @@ export class ChatService {
     }
   }
 
-  getNewMessageCount(region?: string) {
+  getNewMessageCount(region?: string): number {
     switch (this.authenticationService.getChatId(region)) {
       case 0:
         return this.newMessageCount0;
@@ -234,7 +234,7 @@ export class ChatService {
     }
   }
 
-  resetNewMessageCount(region?: string) {
+  resetNewMessageCount(region?: string): void {
     switch (this.authenticationService.getChatId(region)) {
       case 0:
         this.newMessageCount0 = 0;
@@ -254,7 +254,7 @@ export class ChatService {
     }
   }
 
-  getChatMessages(region?: string) {
+  getChatMessages(region?: string): ChatMessageModel[] {
     switch (this.authenticationService.getChatId(region)) {
       case 0:
         return this.chatMessages0;
