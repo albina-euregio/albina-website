@@ -43,6 +43,7 @@ import { ConfigurationService } from "./providers/configuration-service/configur
 import { SocialmediaService } from "./providers/socialmedia-service/socialmedia.service";
 import { CopyService } from "./providers/copy-service/copy.service";
 import { BlogService } from "./providers/blog-service/blog.service";
+import { MediaFileService } from "./providers/media-file-service/media-file.service";
 import { ConfirmationService } from "primeng/api";
 
 // Pipes
@@ -64,6 +65,7 @@ import { ModalPublishComponent } from "./bulletins/modal-publish.component";
 import { ModalCheckComponent } from "./bulletins/modal-check.component";
 import { ModalPublicationStatusComponent } from "./bulletins/modal-publication-status.component";
 import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.component";
+import { ModalMediaFileComponent } from "./bulletins/modal-media-file.component";
 
 import localeDe from "@angular/common/locales/de";
 import localeIt from "@angular/common/locales/it";
@@ -160,6 +162,7 @@ registerLocaleData(localeOc, "oc");
     ModalCheckComponent,
     ModalPublicationStatusComponent,
     ModalPublishAllComponent,
+    ModalMediaFileComponent,
     CatalogOfPhrasesComponent,
     CreateUserComponent,
     UpdateUserComponent
@@ -192,7 +195,8 @@ registerLocaleData(localeOc, "oc");
     ConfirmationService,
     SocialmediaService,
     CopyService,
-    BlogService
+    BlogService,
+    MediaFileService
   ],
   bootstrap: [AppComponent],
   exports: [
