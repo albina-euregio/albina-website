@@ -768,11 +768,14 @@
     "eventType": "Event type",
     "eventTypes": {
       "IMPORTANT": "Important event",
+      "NEIGHBOR_REGION": "Neighbour region",
       "NORMAL": "Normal event",
       "PERSON_DEAD": "Event involving persons (dead)",
       "PERSON_INJURED": "Event involving persons (injured)",
       "PERSON_NO": "Event not involving persons",
-      "PERSON_UNINJURED": "Event involving persons (uninjured)"
+      "PERSON_UNINJURED": "Event involving persons (uninjured)",
+      "PERSON_UNKNOWN": "Event (unknown)",
+      "TRAFFIC": "Traffic"
     },
     "fractureDepth": "Fracture depth",
     "hasCoordinates": "Has coordinates",
