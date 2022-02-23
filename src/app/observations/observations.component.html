@@ -42,6 +42,15 @@
     </div>
     <div style="float: right">
       <button
+      type="button"
+      pButton
+      class="ui-button-success"
+      (click)="exportObservations()"
+      style="margin-right: 10px"
+>
+        Export ({{observations.length}})
+      </button>
+      <button
         type="button"
         pButton
         class="ui-button-success"
