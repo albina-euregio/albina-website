@@ -9,6 +9,7 @@ import { GenericObservation, ObservationSource, ObservationSourceColors, Observa
 
 import { Observable } from "rxjs";
 import * as L from "leaflet";
+import { saveAs } from "file-saver";
 
 @Component({
   templateUrl: "observations.component.html"
@@ -88,6 +89,30 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     )
       .forEach((observation) => this.addObservation(observation))
       .finally(() => (this.loading = false));
+  }
+
+  exportObservations() {
+    const features = this.observations.map(
+      (o): GeoJSON.Feature => ({
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [o.longitude ?? 0.0, o.latitude ?? 0.0, o.elevation ?? 0.0]
+        },
+        properties: {
+          ...o,
+          ...(o.$data || {}),
+          $data: undefined
+        }
+      })
+    );
+    const collection: GeoJSON.FeatureCollection = {
+      type: "FeatureCollection",
+      features
+    };
+    const json = JSON.stringify(collection, undefined, 2);
+    const blob = new Blob([json], {type: 'application/geo+json'});
+    saveAs(blob, "observations.geojson");
   }
 
   private warnAndContinue(message: string, err: any): Observable<GenericObservation> {
