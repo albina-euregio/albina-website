@@ -3,7 +3,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { Observation, EventType } from "./models/observation.model";
 import { Feature, Point } from "geojson";
 import { SelectItem } from "primeng/api";
-import { GeocodingProperties, ObservationsService } from "./observations.service";
+import { GeocodingProperties, GeocodingService } from "./geocoding.service";
 import { geocoders } from 'leaflet-control-geocoder'
 
 @Component({
@@ -11,7 +11,7 @@ import { geocoders } from 'leaflet-control-geocoder'
   templateUrl: "observation-editor.component.html"
 })
 export class ObservationEditorComponent {
-  constructor(private translate: TranslateService, private observationsService: ObservationsService) {}
+  constructor(private translate: TranslateService, private geocodingService: GeocodingService) {}
 
   @Input() observation: Observation;
   eventTypes: SelectItem[] = Object.values(EventType).map((value) => ({
@@ -21,7 +21,7 @@ export class ObservationEditorComponent {
   locationResults: Feature<Point, GeocodingProperties>[] = [];
 
   searchLocation($event: { originalEvent: Event; query: string }) {
-    this.observationsService.searchLocation($event.query).subscribe((collection) => (this.locationResults = collection.features));
+    this.geocodingService.searchLocation($event.query).subscribe((collection) => (this.locationResults = collection.features));
   }
 
   selectLocation(feature: Feature<Point, GeocodingProperties>): void {

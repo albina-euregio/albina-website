@@ -31,7 +31,6 @@ import {
 } from "./models/lwdkip.model";
 import { ApiWikisnowECT, convertWikisnow, WikisnowECT } from "./models/wikisnow.model";
 import { TranslateService } from "@ngx-translate/core";
-import { FeatureCollection, Point } from "geojson";
 import { Observable } from "rxjs";
 import BeobachterAT from "./data/Beobachter-AT.json";
 import BeobachterIT from "./data/Beobachter-IT.json";
@@ -308,19 +307,6 @@ export class ObservationsService {
     return mapBoundaryS < latitude && latitude < mapBoundaryN && mapBoundaryW < longitude && longitude < mapBoundaryE;
   }
 
-  searchLocation(query: string, limit = 8): Observable<FeatureCollection<Point, GeocodingProperties>> {
-    // https://nominatim.org/release-docs/develop/api/Search/
-    const { osmNominatimApi, osmNominatimCountries } = this.constantsService;
-    const params: Record<string, string> = {
-      "accept-language": this.translateService.currentLang,
-      countrycodes: osmNominatimCountries,
-      format: "geojson",
-      limit: String(limit),
-      q: query
-    };
-    return this.http.get<FeatureCollection<Point, GeocodingProperties>>(osmNominatimApi, { params });
-  }
-
   getCsv(startDate: Date, endDate: Date): Observable<Blob> {
     const url = this.constantsService.getServerUrl() + "observations/export?startDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + "&endDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate);
     const headers = this.authenticationService.newAuthHeader("text/csv");
@@ -353,15 +339,4 @@ function nowWithHourPrecision(): number {
   const now = new Date();
   now.setHours(now.getHours(), 0, 0, 0);
   return +now;
-}
-
-export interface GeocodingProperties {
-  place_id: number;
-  osm_type: string;
-  osm_id: number;
-  display_name: string;
-  place_rank: number;
-  category: string;
-  type: string;
-  importance: number;
 }
