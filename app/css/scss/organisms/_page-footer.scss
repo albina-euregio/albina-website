@@ -117,9 +117,6 @@
         display: block;
       }
       img {
-        //IE7-8 need help adjusting responsive images
-        width: auto;
-        //Part 2: Scale the height according to the width, otherwise you get stretching
         height: 64px;
         margin: 0;
       }
