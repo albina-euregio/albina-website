@@ -40,7 +40,7 @@
     "@angular/platform-browser-dynamic": "^13.0.2",
     "@angular/router": "^13.0.2",
     "@angular/upgrade": "^13.0.2",
-    "@asymmetrik/ngx-leaflet": "^8.1.0",
+    "@asymmetrik/ngx-leaflet": "^13.0.2",
     "@auth0/angular-jwt": "^5.0.2",
     "@ngx-translate/core": "^14.0.0",
     "@sentry/angular": "^6.15.0",
