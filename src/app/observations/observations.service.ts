@@ -9,10 +9,12 @@ import {
   Profile,
   Incident,
   IncidentDetails,
-  parseLawisDate,
-  toLawisIncidentTable,
   ProfileDetails,
-  LAWIS_FETCH_DETAILS
+  LAWIS_FETCH_DETAILS,
+  toLawisIncident,
+  toLawisIncidentDetails,
+  toLawisProfileDetails,
+  toLawisProfile
 } from "./models/lawis.model";
 import { GenericObservation, ObservationSource, ObservationType, toAspect } from "./models/generic-observation.model";
 import {
@@ -222,34 +224,14 @@ export class ObservationsService {
           nowWithHourPrecision()
       )
       .mergeAll()
-      .map<Profile, GenericObservation<Profile>>((lawis) => ({
-        $data: lawis,
-        $externalURL: web.LawisSnowProfiles.replace("{{id}}", String(lawis.id)),
-        $source: ObservationSource.LawisSnowProfiles,
-        $type: ObservationType.Profile,
-        $markerColor: this.getLawisProfileMarkerColor(lawis),
-        $markerRadius: this.getLawisProfileMarkerRadius(lawis),
-        aspect: toAspect(lawis.location.aspect?.text),
-        authorName: "",
-        content: "(LAWIS snow profile)",
-        elevation: lawis.location.elevation,
-        eventDate: parseLawisDate(lawis.date),
-        latitude: lawis.location.latitude,
-        locationName: lawis.location.name,
-        longitude: lawis.location.longitude,
-        region: lawis.location.region.text
-      }))
+      .map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web.LawisSnowProfiles))
       .filter((observation) => this.inMapBounds(observation))
       .flatMap((profile) => {
         if (!LAWIS_FETCH_DETAILS) {
           return Observable.of(profile);
         }
         return Observable.fromPromise(this.getCachedOrFetch<ProfileDetails>(api.LawisSnowProfiles + "/" + profile.$data.id))
-          .map<ProfileDetails, GenericObservation>((lawisDetails) => ({
-            ...profile,
-            authorName: lawisDetails.reported?.name,
-            content: lawisDetails.comments
-          }))
+          .map<ProfileDetails, GenericObservation>((lawisDetails) => toLawisProfileDetails(profile, lawisDetails))
           .catch(() => Observable.of(profile));
       });
   }
@@ -267,36 +249,14 @@ export class ObservationsService {
           nowWithHourPrecision()
       )
       .mergeAll()
-      .map<Incident, GenericObservation<Incident>>((lawis) => ({
-        $data: lawis,
-        $externalURL: web.LawisIncidents.replace("{{id}}", String(lawis.id)),
-        $source: ObservationSource.LawisIncidents,
-        $type: ObservationType.Incident,
-        $markerColor: this.getLawisIncidentMarkerColor(lawis),
-        $markerRadius: this.getLawisIncidentMarkerRadius(lawis),
-        aspect: toAspect(lawis.location.aspect?.text),
-        authorName: "",
-        content: "(LAWIS incident)",
-        elevation: lawis.location.elevation,
-        eventDate: parseLawisDate(lawis.date),
-        latitude: lawis.location.latitude,
-        locationName: lawis.location.name,
-        longitude: lawis.location.longitude,
-        region: lawis.location.region.text
-      }))
+      .map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web.LawisIncidents))
       .filter((observation) => this.inMapBounds(observation))
       .flatMap((incident) => {
         if (!LAWIS_FETCH_DETAILS) {
           return Observable.of(incident);
         }
         return Observable.fromPromise(this.getCachedOrFetch<IncidentDetails>(api.LawisIncidents + "/" + incident.$data.id))
-          .map<IncidentDetails, GenericObservation>((lawisDetails) => ({
-            ...incident,
-            $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
-            authorName: lawisDetails.reported?.name,
-            content: lawisDetails.comments,
-            reportDate: parseLawisDate(lawisDetails.reported?.date)
-          }))
+          .map<IncidentDetails, GenericObservation>((lawisDetails) => toLawisIncidentDetails(incident, lawisDetails))
           .catch(() => Observable.of(incident));
       });
   }
@@ -352,26 +312,6 @@ export class ObservationsService {
       q: query
     };
     return this.http.get<FeatureCollection<Point, GeocodingProperties>>(osmNominatimApi, { params });
-  }
-
-  getLawisProfileMarkerColor(profile: Profile): string {
-    // TODO implement
-    return "orange";
-  }
-
-  getLawisProfileMarkerRadius(profile: Profile): number {
-    // TODO implement
-    return 15;
-  }
-
-  getLawisIncidentMarkerColor(incident: Incident): string {
-    // TODO implement
-    return "orange";
-  }
-
-  getLawisIncidentMarkerRadius(incident: Incident): number {
-    // TODO implement
-    return 15;
   }
 
   getCsv(startDate: Date, endDate: Date): Observable<Blob> {

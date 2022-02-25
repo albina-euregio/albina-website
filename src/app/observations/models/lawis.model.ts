@@ -1,5 +1,5 @@
 import * as Enums from "app/enums/enums";
-import { GenericObservation, ObservationTableRow } from "./generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationTableRow, ObservationType, toAspect } from "./generic-observation.model";
 
 export const LAWIS_FETCH_DETAILS = true;
 
@@ -178,6 +178,67 @@ export interface IdText {
   text: string;
 }
 
+export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObservation<Profile> {
+  return {
+    $data: lawis,
+    $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
+    $source: ObservationSource.LawisSnowProfiles,
+    $type: ObservationType.Profile,
+    $markerColor: getLawisProfileMarkerColor(lawis),
+    $markerRadius: getLawisProfileMarkerRadius(lawis),
+    aspect: toAspect(lawis.location.aspect?.text),
+    authorName: "",
+    content: "(LAWIS snow profile)",
+    elevation: lawis.location.elevation,
+    eventDate: parseLawisDate(lawis.date),
+    latitude: lawis.location.latitude,
+    locationName: lawis.location.name,
+    longitude: lawis.location.longitude,
+    region: lawis.location.region.text
+  };
+}
+
+export function toLawisProfileDetails(profile: GenericObservation<Profile>, lawisDetails: ProfileDetails): GenericObservation<Profile> {
+  return {
+    ...profile,
+    authorName: lawisDetails.reported?.name,
+    content: lawisDetails.comments
+  };
+}
+
+export function toLawisIncident(lawis: Incident, urlPattern: string): GenericObservation<Incident> {
+  return {
+    $data: lawis,
+    $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
+    $source: ObservationSource.LawisIncidents,
+    $type: ObservationType.Incident,
+    $markerColor: getLawisIncidentMarkerColor(lawis),
+    $markerRadius: getLawisIncidentMarkerRadius(lawis),
+    aspect: toAspect(lawis.location.aspect?.text),
+    authorName: "",
+    content: "(LAWIS incident)",
+    elevation: lawis.location.elevation,
+    eventDate: parseLawisDate(lawis.date),
+    latitude: lawis.location.latitude,
+    locationName: lawis.location.name,
+    longitude: lawis.location.longitude,
+    region: lawis.location.region.text
+  };
+}
+
+export function toLawisIncidentDetails(
+  incident: GenericObservation<Incident>,
+  lawisDetails: IncidentDetails
+): GenericObservation<Incident> {
+  return {
+    ...incident,
+    $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
+    authorName: lawisDetails.reported?.name,
+    content: lawisDetails.comments,
+    reportDate: parseLawisDate(lawisDetails.reported?.date)
+  };
+}
+
 export function toLawisIncidentTable(incident: IncidentDetails, t: (key: string) => string): ObservationTableRow[] {
   const dangerRating = Enums.DangerRating[Enums.DangerRating[incident.danger?.rating?.id]];
   const avalancheType = AvalancheType[AvalancheType[incident.avalanche?.type?.id]];
@@ -196,4 +257,24 @@ export function toLawisIncidentTable(incident: IncidentDetails, t: (key: string)
 
 export function parseLawisDate(datum: string): Date {
   return new Date(datum.replace(/ /, "T"));
+}
+
+function getLawisProfileMarkerColor(profile: Profile): string {
+  // TODO implement
+  return "orange";
+}
+
+function getLawisProfileMarkerRadius(profile: Profile): number {
+  // TODO implement
+  return 15;
+}
+
+function getLawisIncidentMarkerColor(incident: Incident): string {
+  // TODO implement
+  return "orange";
+}
+
+function getLawisIncidentMarkerRadius(incident: Incident): number {
+  // TODO implement
+  return 15;
 }
