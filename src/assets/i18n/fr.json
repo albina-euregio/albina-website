@@ -2,13 +2,13 @@
   "login" : {
     "title" : "Se connecter",
     "text" : "Connectez-vous à votre compte",
-    "button" : "Login",
+    "button" : "Se connecter",
     "errorDialog" : {
-      "message" : "L’identifiant ou le mot de passe est incorrect",
+      "message" : "Identifiant ou mot de passe incorrect",
       "accept" : "Ok"
     },
     "placeholder" : {
-      "username" : "Veuillez entrer votre nom d'utilisateur",
+      "username" : "Veuillez entrer votre identifiant",
       "password" : "Veuillez saisir votre mot de passe"
     }
   },
@@ -21,9 +21,9 @@
     "modellingSnowpackMeteo": "SNOWPACK modelled meteo"
   },
   "menu" : {
-    "logout" : "Logout",
+    "logout" : "Se déconnecter",
     "language" : "Langue",
-    "en" : "English",
+    "en" : "Anglais",
     "de" : "Allemand",
     "fr" : "Français",
     "it" : "Italien",
@@ -33,29 +33,36 @@
     "fullscreen" : "Fullscreen",
     "settings" : "Paramètres",
     "admin" : "Admin",
-    "region" : "Région"
+    "region" : "Région",
+    "education" : "Pédagogie"
   },
   "chat" : {
     "placeholder" : "Écrivez ici ...",
     "send" : "Envoyer",
-    "activeUsers" : "Qui est en ligne?",
+    "activeUsers" : "Qui est en ligne ?",
     "all" : "Tous",
     "AT-07" : "Tyrol",
     "IT-32-BZ" : "Tyrol du Sud",
     "IT-32-TN" : "Trentin"
   },
+  "education" : {
+    "title" : "Pédagogie"
+  },
   "bulletins" : {
     "title" : "Avalanche.report",
+    "loadingPreview" : "Créer un aperçu PDF",
     "tooltip" : {
       "publish" : "Publier le bulletin immédiatement ",
       "submit" : "Soumettre le bulletin",
       "copy" : "Copier le bulletin",
+      "cancel" : "Cancel copy",
       "paste" : "Coller le bulletin",
       "update" : "Créer une mise à jour du bulletin",
       "caaml" : "Afficher CAAML",
       "json" : "Afficher JSON",
       "edit" : "Éditer le bulletin (ne sera plus publié)",
-      "create" : "Creer le bulletin",
+      "create" : "Créer le bulletin",
+      "preview" : "Aperçu du bulletin (PDF)",
       "check" : "Vérifier le bulletin",
       "info" : "Afficher l'état de la publication",
       "publishAll" : "Publier toutes les régions"
@@ -69,9 +76,11 @@
         "rejectSuggestion" : "Refuser les régions proposées",
         "saveChanges" : "Sauvegarder les modifications",
         "discardChanges" : "Abandoner les modifications",
-        "saveBulletin" : "Sauvegarder le bulletin",
+        "saveBulletin" : "Enregistrer le bulletin",
         "discardBulletin" : "Abandoner les modifications de bulletin",
         "loadBulletin" : "Téléchargement du bulletin de la veille",
+        "uploadJsonBulletin" : "Mettre en ligne au format JSON",
+        "downloadJsonBulletin" : "Télécharger au format JSON",
         "daytimeDependency" : "Dépendance diurne",
         "treeline" : "Limite de la forêt",
         "tendency" : {
@@ -97,11 +106,13 @@
         "moveDownAvalancheSituation" : "Déplacer situation avalancheuse typique en bas",
         "dangerRatingDirectionUp" : "Élargir le degré de danger vers le haut",
         "dangerRatingDirectionDown" : "Élargir le degré de danger vers le bas"
-    },
+      },
       "save" : "Sauvegarder",
       "discard" : "Abandoner",
       "back" : "Retour",
       "createAggregatedRegion" : "Nouvelle région",
+      "pasteAggregatedRegion" : "Coller région",
+      "cancelCopyBulletin" : "Annuler",
       "createAvalancheSituation" : "Situation avalancheuse typique nouvelle",
       "ownRegions" : "Mes régions",
       "foreignRegions": "Régions étrangères",
@@ -144,7 +155,7 @@
         "reject" : "Non"
       },
       "deleteAggregatedRegionDialog" : {
-        "message" : "Effacer la région?",
+        "message" : "Effacer la région ?",
         "accept" : "Oui",
         "reject" : "Non"
       },
@@ -172,6 +183,10 @@
       },
       "loadingErrorDialog" : {
         "message" : "Il y avait une erreur en téléchargant les bulletins!",
+        "accept" : "Ok"
+      },
+      "loadingJsonFileErrorDialog" : {
+        "message" : "Erreur de chargement des bulletins du fichier JSON",
         "accept" : "Ok"
       },
       "avalancheSituationErrorDialog" : {
@@ -209,7 +224,7 @@
         "republished" : "publié à nouveau"
       },
       "publishBulletinsDialog" : {
-        "message" : "Publier le bulletin?",
+        "message" : "Publier le bulletin ?",
         "missingDangerRating" : "Degré de danger indéfini",
         "missingRegion" : "Régions pas notées",
         "duplicateRegion" : "Régions notées plusieurs fois",
@@ -223,38 +238,69 @@
         "reject" : "Non"
       },
       "publicationStatusDialog" : {
-        "publishedBy" : "Publié par:",
-        "publishedAt" : "Publié à:",
+        "headline" : "Publication Status",
+        "publishedBy" : "Publié par :",
+        "publishedAt" : "Publié à :",
         "validFor" : "Valide pour:",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "fichier CAAML créé",
-            "failed" : "fichier CAAML ne pouvait pas être créé"
-          },
-          "map" : {
-            "success" : "Cartes créées",
-            "failed" : "Cartes ne pouvaient pas être créées"
-          },
-          "pdf" : {
-            "success" : "PDF créé",
-            "failed" : "PDF ne pouvait pas être créé"
-          },
-          "staticWidget" : {
-            "success" : "Widget statique créé",
-            "failed" : "Widget statique ne pouvait pas être créé"
-          },
-          "html" : {
-            "success" : "HTML créé",
-            "failed" : "HTML ne pouvait pas être créé"
-          },
-          "email" : {
-            "success" : "Emails envoyés",
-            "failed" : "Emails ne pouvaient pas être envoyés"
-          },
-          "telegramChannel" : {
-            "success" : "Bulletin d'avalanche envoyé via chaîne de Telegram",
-            "failed" : "Bulletin d'avalanche ne pouvait pas être envoyer via chaîne de Telegram"
+        "title" : {
+          "prod" : "Serious stuff",
+          "test" : "Just testing",
+          "task" : "Task",
+          "language" : {
+            "all" : "ALL",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
+        },
+
+        "caaml" : {
+          "label" : "CAAML Files",
+          "tooltip" : "Create CAAML Files",
+          "success" : "{{prefix}}CAAML Files successfully created!",
+          "error" : "{{prefix}}CAAML Files could not be created!"
+        },
+        "map" : {
+          "label" : "Maps",
+          "tooltip" : "Create Maps",
+          "success" : "{{prefix}}Maps successfully created!",
+          "error" : "{{prefix}}Maps could not be created!"
+        },
+        "pdf" : {
+          "label" : "PDFs",
+          "tooltip" : "Create PDFs",
+          "success" : "{{prefix}}PDFs successfully created!",
+          "error" : "{{prefix}}PDFs could not be created!"
+        },
+        "staticWidget" : {
+          "label" : "Static Widgets",
+          "tooltip" : "Create Static Widgets",
+          "success" : "{{prefix}}Static Widgets successfully created!",
+          "error" : "{{prefix}}Static Widgets could not be created!"
+        },
+        "html" : {
+          "label" : "Simple HTMLs",
+          "tooltip" : "Create Simple HTML Files",
+          "success" : "{{prefix}}Simple HTML Files successfully created!",
+          "error" : "{{prefix}}Simple HTML Files could not be created!"
+        },
+        "email" : {
+          "label" : "Emails",
+          "tooltip" : "Send Emails",
+          "success" : "{{prefix}}Emails successfully sent!",
+          "error" : "{{prefix}}Emails could not be sent!"
+        },
+        "telegram" : {
+          "label" : "Telegram Messages",
+          "tooltip" : "Send Telegram Messages",
+          "success" : "{{prefix}}Telegram Messages successfully sent!",
+          "error" : "{{prefix}}Telegram Messages could not be sent!"
+        },
+        "push" : {
+          "label" : "Push Notifications",
+          "tooltip" : "Send Push Notifications",
+          "success" : "{{prefix}}Push Notifications successfully sent!",
+          "error" : "{{prefix}}Push Notifications could not be sent!"
         },
         "accept" : "Ok"
       },
@@ -286,6 +332,10 @@
         "message" : "Il y avait une erreur dans la contrôle des bulletins!",
         "accept" : "Ok"
       },
+      "previewErrorDialog" : {
+        "message" : "Impossible de charger l'aperçu",
+        "accept" : "Ok"
+      },
       "checkBulletinsDialog" : {
         "message" : "Contrôler le bulletin",
         "missingDangerRating" : "Degré de danger indéfini",
@@ -300,7 +350,7 @@
         "accept" : "Ok"
       },
       "publishAllDialog" : {
-        "message" : "Publier tous les régions?",
+        "message" : "Publier toutes les régions ?",
         "accept" : "Oui",
         "reject" : "Non"
       }
@@ -329,6 +379,7 @@
     }
   },
   "admin" : {
+    "loadingStatistics" : "CSV en cours de création...",
     "server-configuration" : {
       "title" : "Configuration du serveur",
       "table" : {
@@ -336,16 +387,14 @@
           "key" : "Paramètre",
           "value" : "Valeur"
         },
-        "createMaps" : "Creer cartes",
-        "createPdf" : "Creer PDF",
+        "createMaps" : "Créer cartes",
+        "createPdf" : "Créer PDF",
         "createStaticWidget" : "Creer widgets statiques",
         "createSimpleHtml" : "Creer HTML simple",
         "sendEmails" : "Envoyer les emails",
         "publishToTelegramChannel" : "Publier via les Telegram channel",
         "publishAt5PM" : "Publier à 5PM",
         "publishAt8AM" : "Publier à 8AM",
-        "localImagesPath" : "Chemin vers les images locales",
-        "localFontsPath" : "Chemin vers la police de caractères",
         "publishBulletinsTyrol" : "Publier bulletin d'avalanche pour Tyrol ",
         "publishBulletinsSouthTyrol" : "Publier bulletin d'avalanche pour Tyrol du Sud",
         "publishBulletinsTrentino" : "Publier bulletin d'avalanche pour le Trentin",
@@ -356,7 +405,6 @@
         "pdfDirectory" : "Répertoire pour PDF",
         "htmlDirectory" : "Répertoire pour HTML",
         "serverImagesUrl" : "Chemin vers les images du serveur",
-        "serverImagesUrlLocalhost" : "Chemin vers les images du serveur (localhost)",
         "mapsPath" : "Chemin vers les cartes",
         "mapProductionUrl" : "URL pour la production des cartes",
         "scriptsPath" : "Chemin vers les scripts"
@@ -368,68 +416,118 @@
       "error" : "Configuration ne pouvait pas être enregistrer"
     },
     "users" : {
-      "title" : "Users",
+      "title" : "Utilisateurs",
       "button" : {
-        "create" : "Create user"
+        "create" : " Create user"
       },
       "tooltip" : {
-        "edit" : "Edit user",
-        "delete" : "Delete user"
+        "edit" : "Editer utilisateur",
+        "delete" : "Supprimer utilisateur"
       },
       "table" : {
-        "name" : "Name",
+        "name" : "Nom",
         "email" : "Email",
-        "organization" : "Organization",
-        "regions" : "Regions",
-        "roles" : "Roles"
+        "organization" : "Organisation",
+        "regions" : "Régions",
+        "roles" : "Fonctions"
       },
       "deleteUserModalDialog" : {
-        "message" : "Do you want to delete the user?",
+        "message" : "Voulez-vous supprimer l'utilisateur ?",
         "accept" : "Oui",
         "reject" : "Non"
       },
       "deleteUser" : {
-        "success" : "User deleted",
-        "error" : "User could not be deleted"
+        "success" : "Utilisateur supprimé",
+        "error" : "Impossible de supprimer l'utilisateur"
       },
       "createUser" : {
-        "success" : "User created",
-        "error" : "User could not be created"
+        "success" : "Utilisateur créé",
+        "error" : "Impossible de créer l'utilisateur"
       },
       "updateUser" : {
-        "success" : "User updated",
-        "error" : "User could not be updated"
+        "success" : "Utilisateur mis à jour",
+        "error" : "Mise à jour utilisateur impossible"
       }
     },
     "createUser" : {
       "table" : {
-        "name" : "Name",
+        "name" : "Nom",
         "email" : "Email",
-        "organization" : "Organization",
-        "password" : "Password",
-        "password2" : "Repeat password",
-        "role" : "Role",
-        "regions" : "Regions"
+        "organization" : "Organisation",
+        "password" : "Mot de passe",
+        "password2" : "Répéter le mot de passe",
+        "roles" : "Fonctions",
+        "regions" : "Régions"
       },
       "error" : {
         "name" : {
-          "required" : "Please enter a name"
+          "required" : "Veuillez saisir un nom"
         },
         "email" : {
-          "required" : "Please enter an email address",
-          "invalid" : "Email address is invalid"
+          "required" : "Veuillez saisir une adresse mail",
+          "invalid" : "Adresse mail invalide"
         },
         "password" : {
-          "required" : "Please enter a password",
-          "length" : "Password has to be at least 8 characters",
-          "mismatch" : "Passwords do not match"
+          "required" : "Veuillez saisir le mot de passe",
+          "length" : "Le mot de passe doit contenir au moins 8 caractères",
+          "mismatch" : "Les mots de passe ne sont pas identiques"
         }
       },
       "button" : {
-        "create" : "Create user",
-        "update" : "Update user",
+        "create" : "Créer utilisateur",
+        "update" : "Mettre à jour l'utilisateur",
         "cancel" : "Annuler"
       }  
+    },
+    "statistics" : {
+      "title" : "Statistiques",
+      "button" : {
+        "submit" : "Télécharger"
+      },
+      "label" : {
+        "dateRange" : "Période",
+        "extended" : "Extended",
+        "duplicates" : "Doublons"
+      }
+    },
+    "observations" : {
+      "title" : "Observations",
+      "button" : {
+        "submit" : "Télécharger"
+      },
+      "label" : {
+        "dateRange" : "Période",
+        "observer" : "Observateur"
+      }
+    },
+    "blog" : {
+      "title" : "Blog",
+      "language" : {
+        "title" : "Langue",
+        "de" : "DE",
+        "it" : "IT",
+        "en" : "EN"
+      },
+      "all" : {
+        "tooltip" : "Send Emails, Telegram and Push",
+        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
+        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
+      },
+      "email" : {
+        "tooltip" : "Send Emails",
+        "success" : "{{prefix}}Email successfully sent!",
+        "error" : "{{prefix}}Email could not be sent!"
+      },
+      "telegram" : {
+        "tooltip" : "Send via Telegram Channel",
+        "success" : "{{prefix}}Telegram successfully sent!",
+        "error" : "{{prefix}}Telegram could not be sent!"
+      },
+      "push" : {
+        "tooltip" : "Send via Push Notifications",
+        "success" : "{{prefix}}Push successfully sent!",
+        "error" : "{{prefix}}Push could not be sent!"
+      }
     }
   },
   "settings" : {
@@ -444,20 +542,20 @@
         "placeholder" : "Nouveau mot de passe"
       },
       "newPassword2" : {
-        "label" : "New password (repeat)",
+        "label" : "Nouveau mot de passe (répéter)",
         "placeholder" : "Nouveau mot de passe"
       },
       "submit" : "Modifier le mot de passe",
       "passwordChanged" : "Mot de passe changé avec succès",
-      "passwordChangeError" : "Mot de passe ne pouvait pas être changé",
-      "passwordIncorrect" : "Current password incorrect",
+      "passwordChangeError" : "Impossible de changer le mot de passe",
+      "passwordIncorrect" : "Mot de passe actuel incorrect",
       "error" : {
         "oldPassword" : {
           "required" : "Saisissez votre mot de passe actuel"
         },
         "newPassword" : {
-          "required" : "Saisissez nouveau mot de passe ",
-          "mismatch" : "Passwords do not match"
+          "required" : "Saisissez votre nouveau mot de passe ",
+          "mismatch" : "Les mots de passe ne sont pas identiques"
         }
       }
     },
@@ -508,6 +606,12 @@
     "SW" : "SO",
     "W" : "O",
     "NW" : "NO"
+  },
+  "role" : {
+    "ADMIN" : "Administrateur",
+    "FORECASTER" : "Prévisionniste",
+    "FOREMAN" : "Foreman",
+    "OBSERVER" : "Observateur"
   },
   "region" : {
     "AT-07" : "Tyrol",
@@ -606,7 +710,7 @@
   "zamg": {
     "table" : "Table",
     "map" : "Carte",
-    "region" : "Region",
+    "region" : "Région",
     "newSnow" : "Neige fraîche"
   },
   "snowpack" : {
@@ -643,167 +747,42 @@
   },
   "observations": {
     "aspect": "Exposition",
-    "authorName": "Author name",
-    "avalancheLength": "Avalanche length",
+    "authorName": "Nom de l'auteur",
+    "avalancheLength": "Longueur d'avalanche",
     "avalancheProblem": "Situation avalancheuse typique",
-    "avalancheSize": "Avalanche size",
-    "avalancheType": "Avalanche type",
+    "avalancheSize": "Taille d'avalanche",
+    "avalancheType": "Type d'avalanche",
     "avalancheWidth": "Avalanche width",
     "button": {
-      "add": "Add observation",
-      "save": "Save observation",
-      "delete": "Delete observation",
-      "deleteConfirm": "Delete observation?",
+      "add": "Ajouter une observation",
+      "save": "Enregistrer l'observation",
+      "delete": "Supprimer l'observation",
+      "deleteConfirm": "Supprimer l'observation ?",
       "discard": "Abandoner"
     },
-    "comment": "Comment",
-    "content": "Content",
+    "comment": "Commentaire",
+    "content": "Contenu",
     "dangerRating": "Degré de danger",
     "elevation": "Altitude",
-    "eventDate": "Event date",
-    "eventType": "Event type",
+    "eventDate": "Date de l'événement",
+    "eventType": "Type d'événement",
     "eventTypes": {
-      "IMPORTANT": "Important event",
-      "NORMAL": "Normal event",
-      "PERSON_DEAD": "Event involving persons (dead)",
-      "PERSON_INJURED": "Event involving persons (injured)",
-      "PERSON_NO": "Event not involving persons",
-      "PERSON_UNINJURED": "Event involving persons (uninjured)"
+      "IMPORTANT": "Événement important",
+      "NORMAL": "Événement normal",
+      "PERSON_DEAD": "Personnes emportées (décès)",
+      "PERSON_INJURED": "Personnes emportées (blessures)",
+      "PERSON_NO": "Pas de personnes emportées",
+      "PERSON_UNINJURED": "Personnes emportées (aucun blessé)"
     },
-    "fractureDepth": "Fracture depth",
+    "fractureDepth": "Épaisseur de la cassure",
     "hasCoordinates": "Has coordinates",
     "incline": "Incline",
     "latitude": "Latitude",
-    "locationName": "Location",
+    "locationName": "Localisation",
     "longitude": "Longitude",
-    "reportDate": "Report date",
+    "reportDate": "Date du rapport",
     "showMap": "Carte",
     "showTable": "Table"
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Risk Assessment",
-    "snowpackStructure": "Snowpack Structure",
-    "avalanchePotentialValue": "Avalanche Potential Value",
-    "avalancheCharacteristicString": "Avalanche Characteristic String",
-    "windDriftedSnow": "Wind Drifted Snow",
-    "persistentWeakLayer": "Persistent Weak Layer",
-    "wetSnow": "Wet Snow",
-    "glidingSnow": "Gliding Snow",
-    "newSnow": "Neige fraîche",
-    "snowpackStructureActive": "Snowpack Structure Active",
-    "triggeringProbability": "Triggering Probability",
-    "avalancheRiskTendency24h": "Avalanche Risk Tendency 24h",
-    "avalancheRiskTendency48h": "Avalanche Risk Tendency 48h",
-    "oldSnowFloatingSnow": "Old Snow Floating Snow",
-    "oldSnowSleet": "Old Snow Sleet",
-    "oldSnowWeakLayers": "Old Snow Weak Layers",
-    "wetSnowRain": "Wet Snow Rain",
-    "wetSnowTemperatureIncrease": "Wet Snow Temperature Increase",
-    "wetSnowHighRadiation": "Wet Snow High Radiation"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Cloudiness",
-    "freshSnowAmount": "Fresh Snow Amount",
-    "officialAvalancheReport": "Official Avalanche Report",
-    "precipitationIntensity": "Precipitation Intensity",
-    "precipitationType": "Precipitation Type",
-    "temperaturePeak": "Temperature Peak",
-    "temperatureTreeline": "Temperature Treeline",
-    "temperatureValley": "Temperature Valley",
-    "weatherTendency": "Weather Tendency",
-    "windDirection": "Diréction du vent",
-    "windSpeed": "Vitesse du vent",
-    "visibilityConditions": "Visibility Conditions"
-  },
-  "natlefs" : {
-    "title" : {
-      "ridingQuality" : "Riding quality",
-      "rode" : "We rode",
-      "avoided" : "We stayed away from",
-      "alarmSignsFrequency" : "Signs of instability",
-      "newSnow" : "Neige fraîche",
-      "driftingSnow" : "Fresh drifting snow",
-      "avalanches" : "Fresh avalanches",
-      "penetrationDepth" : "Penetration depth without ski",
-      "surfaceSnowWetness" : "Surface snow wetness",
-      "avalancheProblems" : "Avalanche problems",
-      "tracks" : "Tracks",
-      "comment" : "Comment"
-    }
-  },
-  "ridingQuality" : {
-    "amazing" : "Amazing",
-    "good" : "Good",
-    "ok" : "Ok",
-    "indifferent" : "Indifferent",
-    "terrible" : "Terrible"
-  },
-  "snowConditions" : {
-    "crusty" : "Crusty",
-    "heavy" : "Heavy",
-    "hard" : "Hard",
-    "wet" : "Wet",
-    "powder" : "Powder",
-    "firn" : "Firn",
-    "windAffected" : "Wind affected"
-  },
-  "terrainFeature" : {
-    "moderatelySteepSlopes" : "Moderately steep slopes (< 30°)",
-    "steepSlopes" : "Steep slopes (30° - 40°)",
-    "verySteepSlopes" : "Very steep slopes (> 40°)",
-    "convexSlopes" : "Convex slopes",
-    "denseTrees" : "Dense trees",
-    "openTrees" : "Open trees",
-    "sunnySlopes" : "Sunny slopes",
-    "shadySlopes" : "Shady slopes"
-  },
-  "alarmSignsFrequency" : {
-    "none" : "None",
-    "occasional" : "Occasional (1 - 2)",
-    "frequent" : "Frequent (> 2)"
-  },
-  "newSnow" : {
-    "none" : "None",
-    "low" : "< 10 cm",
-    "medium" : "10 - 30 cm",
-    "high" : "> 30 cm"
-  },
-  "driftingSnow" : {
-    "none" : "None",
-    "occasional" : "Occasional",
-    "widespread" : "Widespread"
-  },
-  "avalanches" : {
-    "none" : "None",
-    "some" : "Some (1 - 3)",
-    "many" : "Many (> 3)"
-  },
-  "penetrationDepth" : {
-    "little" : "< 5 cm",
-    "medium" : "5 - 30 cm",
-    "much" : "> 30 cm",
-    "spotty" : "spotty"
-  },
-  "surfaceSnowWetness" : {
-    "dry" : "Dry",
-    "sticky" : "Sticky",
-    "wet" : "Wet"
-  },
-  "avalancheProblemNatlefs" : {
-    "new_snow" : "Neige fraîche",
-    "wind_drifted_snow" : "Neige soufflée (Neige ventée)",
-    "weak_persistent_layer" : "Neige ancienne (Sous-couche fragile persistante)",
-    "wet_snow" : "Avalanches mouillées (Neige humide)",
-    "gliding_snow" : "Avalanches de glissement (Avalanches de fond)",
-    "favourable_situation" : "Situation favorable"
-  },
-  "tracks" : {
-    "none" : "None",
-    "some" : "Some",
-    "many" : "Many"
-  },
-  "location" : {
-    "accuracy" : "GPS Accuracy"
   },
   "units" : {
     "cm" : "cm",

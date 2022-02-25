@@ -5,7 +5,7 @@ import { ConstantsService } from "../providers/constants-service/constants.servi
 import { ConfigurationService } from "../providers/configuration-service/configuration.service";
 import { SocialmediaService } from "../providers/socialmedia-service/socialmedia.service";
 import * as Enums from "../enums/enums";
-import { AlertComponent } from "ngx-bootstrap";
+import { AlertComponent } from "ngx-bootstrap/alert";
 
 @Component({
   templateUrl: "server-configuration.component.html",
@@ -27,8 +27,6 @@ export class ServerConfigurationComponent implements AfterContentInit {
   public publishToTelegramChannel: boolean;
   public publishAt5PM: boolean;
   public publishAt8AM: boolean;
-  public localImagesPath: string;
-  public localFontsPath: string;
   public publishBulletinsTyrol: boolean;
   public publishBulletinsSouthTyrol: boolean;
   public publishBulletinsTrentino: boolean;
@@ -39,7 +37,6 @@ export class ServerConfigurationComponent implements AfterContentInit {
   public pdfDirectory: string;
   public htmlDirectory: string;
   public serverImagesUrl: string;
-  public serverImagesUrlLocalhost: string;
   public mapsPath: string;
   public mapProductionUrl: string;
   public scriptsPath: string;
@@ -66,8 +63,6 @@ export class ServerConfigurationComponent implements AfterContentInit {
           this.publishToTelegramChannel = (data as any).publishToTelegramChannel;
           this.publishAt5PM = (data as any).publishAt5PM;
           this.publishAt8AM = (data as any).publishAt8AM;
-          this.localImagesPath = (data as any).localImagesPath;
-          this.localFontsPath = (data as any).localFontsPath;
           this.publishBulletinsTyrol = (data as any).publishBulletinsTyrol;
           this.publishBulletinsSouthTyrol = (data as any).publishBulletinsSouthTyrol;
           this.publishBulletinsTrentino = (data as any).publishBulletinsTrentino;
@@ -78,7 +73,6 @@ export class ServerConfigurationComponent implements AfterContentInit {
           this.pdfDirectory = (data as any).pdfDirectory;
           this.htmlDirectory = (data as any).htmlDirectory;
           this.serverImagesUrl = (data as any).serverImagesUrl;
-          this.serverImagesUrlLocalhost = (data as any).serverImagesUrlLocalhost;
           this.mapsPath = (data as any).mapsPath;
           this.mapProductionUrl = (data as any).mapProductionUrl;
           this.scriptsPath = (data as any).scriptsPath;
@@ -103,8 +97,6 @@ export class ServerConfigurationComponent implements AfterContentInit {
     json["publishToTelegramChannel"] = this.publishToTelegramChannel;
     json["publishAt5PM"] = this.publishAt5PM;
     json["publishAt8AM"] = this.publishAt8AM;
-    json["localImagesPath"] = this.localImagesPath;
-    json["localFontsPath"] = this.localFontsPath;
     json["publishBulletinsTyrol"] = this.publishBulletinsTyrol;
     json["publishBulletinsSouthTyrol"] = this.publishBulletinsSouthTyrol;
     json["publishBulletinsTrentino"] = this.publishBulletinsTrentino;
@@ -115,7 +107,6 @@ export class ServerConfigurationComponent implements AfterContentInit {
     json["pdfDirectory"] = this.pdfDirectory;
     json["htmlDirectory"] = this.htmlDirectory;
     json["serverImagesUrl"] = this.serverImagesUrl;
-    json["serverImagesUrlLocalhost"] = this.serverImagesUrlLocalhost;
     json["mapsPath"] = this.mapsPath;
     json["mapProductionUrl"] = this.mapProductionUrl;
     json["scriptsPath"] = this.scriptsPath;

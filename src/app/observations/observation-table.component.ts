@@ -40,11 +40,17 @@ export class ObservationTableComponent {
 
   async editObservation(observation: Observation) {
     this.observation = (await this.observationsService.getObservation(observation.id).toPromise()).$data;
+    if (typeof this.observation?.eventDate === "object") {
+      this.observation.eventDate = this.observation.eventDate.toISOString();
+    }
     if (typeof this.observation?.eventDate === "string") {
-      this.observation.eventDate = new Date(this.observation.eventDate);
+      this.observation.eventDate = this.observation.eventDate.slice(0, "2006-01-02T15:04".length);
+    }
+    if (typeof this.observation?.reportDate === "object") {
+      this.observation.reportDate = this.observation.reportDate.toISOString();
     }
     if (typeof this.observation?.reportDate === "string") {
-      this.observation.reportDate = new Date(this.observation.reportDate);
+      this.observation.reportDate = this.observation.reportDate.slice(0, "2006-01-02T15:04".length);
     }
   }
 

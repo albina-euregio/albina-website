@@ -17,32 +17,24 @@
       "mobile": false,
       "styles": [
         "../node_modules/primeng/resources/primeng.min.css",
-        "../node_modules/primeng/resources/themes/nova-light/theme.css",
+        "../node_modules/primeng/resources/themes/nova/theme.css",
         "../node_modules/primeicons/primeicons.css",
         "scss/style.scss",
         "assets/css/font-awesome.min.css"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
+        "aran": "environments/environment.aran.ts",
         "dev": "environments/environment.dev.ts",
         "prod": "environments/environment.prod.ts",
         "local": "environments/environment.ts"
       }
     }
   ],
-  "e2e": {
-    "protractor": {
-      "config": "./protractor.conf.js"
-    }
-  },
   "lint": [
     {
       "files": "src/**/*.ts",
       "project": "src/tsconfig.json"
-    },
-    {
-      "files": "e2e/**/*.ts",
-      "project": "e2e/tsconfig.json"
     }
   ],
   "test": {

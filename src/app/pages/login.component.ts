@@ -1,6 +1,5 @@
 import { Component, OnInit, HostListener, TemplateRef, ViewChild } from "@angular/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
-import { ChatService } from "../providers/chat-service/chat.service";
 import { Router } from "@angular/router";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { environment } from "../../environments/environment";
@@ -30,7 +29,6 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     public constantsService: ConstantsService,
     private modalService: BsModalService,
-    private chatService: ChatService,
     private sanitizer: DomSanitizer) {
     this.loading = false;
   }
@@ -57,7 +55,6 @@ export class LoginComponent implements OnInit {
       data => {
         if (data === true) {
           console.debug("[" + this.username + "] Logged in!");
-          this.chatService.connect();
           console.debug("Navigate to " + this.returnUrl);
           this.router.navigate([this.returnUrl]);
           this.loading = false;

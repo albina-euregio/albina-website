@@ -6,6 +6,27 @@ import { map } from "rxjs/operators";
 import * as Papa from "papaparse";
 import { RegionsService } from "app/providers/regions-service/regions.service";
 
+interface MultimodelPointCsv {
+  UID: string;
+  CHARID: string;
+  "SEEHOEHE [m]": string;
+  id: string;
+  MuMo_X: string;
+  MuMo_Y: string;
+  OBJECTID: string;
+  Region: string;
+  regione: string;
+  RegionCode: string;
+  Provinz: string;
+  provincia: string;
+  ProvinzId: string;
+  nome_zona: string;
+  Name_Zone: string;
+  Nr_Zone: string;
+  Shape_Area: string;
+  NameTechel: string;
+}
+
 export interface ZamgFreshSnow {
   hour: number;
   values: number[];
@@ -62,16 +83,15 @@ export class ModellingService {
   private getZamgMultiModelPoints(): Observable<ZamgModelPoint[]> {
     const urls = [
       "MultimodelPointsEuregio_001.csv",
-      "snowgridmultimodel_modprog110_HN.txt",
-      "snowgridmultimodel_modprog213_HN.txt",
+      "snowgridmultimodel_modprog1400_HN.txt",
       "snowgridmultimodel_modprog910_HN.txt",
       "snowgridmultimodel_modprog990_HN.txt"
     ].map(file => this.constantsService.zamgModelsUrl + file);
     return Observable.forkJoin(urls.map(url => this.http.get(url, {responseType: "text"})))
       .pipe(map(responses => responses.map(r => this.parseCSV(r.toString()))))
       .pipe(
-        map(([points, hn110, hn213, hn910, hn990]) =>
-          points.data.map(row => {
+        map(([points, hs1400, hn910, hn990]) =>
+          points.data.map((row: MultimodelPointCsv) => {
             const id = row.UID;
             const regionCode = row.RegionCode;
             const region = this.regionsService.getRegionForId(regionCode);
@@ -81,7 +101,7 @@ export class ModellingService {
             const freshSnow: ZamgFreshSnow[] = [];
             try {
               [12, 24, 48, 72].map(hour => {
-                const values = [hn110, hn213, hn910, hn990]
+                const values = [hs1400, hn910, hn990]
                   .map(csv => {
                     const rowIndex = csv.data.findIndex(
                       r => r["-9999.0"] === `${hour}.0`
@@ -183,23 +203,23 @@ export class ModellingService {
 
   getSnowpackMeteoPlots(): string[] {
     return [
-      "new_snow_plot_3day",
-      "new_snow_plot_7day",
-      "new_snow_plot_1month",
-      "new_snow_plot_season",
-      "new_snow_plot_forecast",
-      "wet_snow_plot_3day",
-      "wet_snow_plot_7day",
-      "wet_snow_plot_1month",
-      "wet_snow_plot_season",
-      "wet_snow_plot_forecast",
-      "HS_table_24h",
-      "HS_table_72h",
-      "HS_table_season",
-      "HS_table_forecast",
-      "TA_table_24h",
-      "TA_table_72h",
-      "TA_table_season"
+      "AT-7_new_snow_plot_3day",
+      "AT-7_new_snow_plot_7day",
+      "AT-7_new_snow_plot_1month",
+      "AT-7_new_snow_plot_season",
+      "AT-7_new_snow_plot_forecast",
+      "AT-7_wet_snow_plot_3day",
+      "AT-7_wet_snow_plot_7day",
+      "AT-7_wet_snow_plot_1month",
+      "AT-7_wet_snow_plot_season",
+      "AT-7_wet_snow_plot_forecast",
+      "AT-7_HS_table_24h",
+      "AT-7_HS_table_72h",
+      "AT-7_HS_table_season",
+      "AT-7_HS_table_forecast",
+      "AT-7_TA_table_24h",
+      "AT-7_TA_table_72h",
+      "AT-7_TA_table_season"
     ];
   }
 }

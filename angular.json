@@ -11,7 +11,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "aot": true,
             "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -23,15 +22,22 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/themes/nova/theme.css",
               "node_modules/primeicons/primeicons.css",
               "node_modules/primeflex/primeflex.css",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "src/scss/style.scss",
               "src/assets/css/font-awesome.min.css",
               "node_modules/leaflet/dist/leaflet.css",
               "node_modules/leaflet-sidebar-v2/css/leaflet-sidebar.min.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "dev": {
@@ -58,9 +64,7 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": false,
@@ -70,8 +74,24 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "aran": {
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.aran.ts"
+                }
+              ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -84,6 +104,9 @@
             },
             "production": {
               "browserTarget": "albina-admin-gui:build:production"
+            },
+            "aran": {
+              "browserTarget": "albina-admin-gui:build:aran"
             }
           }
         },
@@ -103,7 +126,7 @@
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/primeng/resources/themes/nova-light/theme.css",
+              "node_modules/primeng/resources/themes/nova/theme.css",
               "node_modules/primeicons/primeicons.css",
               "src/scss/style.scss",
               "src/assets/css/font-awesome.min.css"
@@ -114,35 +137,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.json"
-            ],
-            "exclude": []
-          }
-        }
-      }
-    },
-    "albina-admin-gui-e2e": {
-      "root": "e2e",
-      "sourceRoot": "e2e",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "albina-admin-gui:serve"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "e2e/tsconfig.json"
-            ],
-            "exclude": []
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
@@ -157,5 +157,8 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
+  },
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
   }
 }

@@ -1,75 +1,91 @@
-image: node:lts
+workflow:
+  # https://docs.gitlab.com/ee/ci/yaml/#workflowrules
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
-cache:
-  paths:
-    - node_modules/.cache/
-    - npm_cache/
+.build:
+  stage: build
+  image: node:lts
+  cache:
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - .yarn-cache/
+  before_script:
+    - echo 'yarn-offline-mirror ".yarn-cache/"' >> .yarnrc
+    - echo 'yarn-offline-mirror-pruning true' >> .yarnrc
+    - yarn install --frozen-lockfile --no-progress
+    - npm --no-git-tag-version version $(git describe)
+    - npm rebuild node-sass
+  script:
+    - yarn lint
+    - yarn build-$CI_ENVIRONMENT_NAME
+  artifacts:
+    paths:
+      - dist/
 
-before_script:
-  - npm config set cache npm_cache/
-  - npm ci
-  - npm --no-git-tag-version version $(git describe)
-  - npm rebuild node-sass
+.deploy:
+  stage: deploy
+  image: alpine:latest
+  script:
+    - apk add openssh-client rsync
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - rsync -avz -e 'ssh -p2201' --delete dist/ $SFTP_SERVER
 
 build:development:
-  stage: build
-  script:
-    - npm run lint
-    - npm run build-dev
-  artifacts:
-    paths:
-      - dist/
+  extends: .build
   environment:
-    name: development
+    name: dev
 
 deploy:development:
-  stage: deploy
+  extends: .deploy
   needs:
     - build:development
-  script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
-    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-    - ssh -o "$SSH_PROXY_COMMAND" "$SSH_SERVER" 'rm --recursive /opt/tomcat/webapps/dev/*'
-    - tar --create --verbose dist/ | ssh -o "$SSH_PROXY_COMMAND" "$SSH_SERVER" 'tar --directory=/opt/tomcat/webapps/dev --extract --strip-components=1'
   environment:
-    name: development
-  only:
-    - master
-    - ci
+    name: dev
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+    - when: manual
 
 build:production:
-  stage: build
-  script:
-    - npm run lint
-    - npm run build-production
-  artifacts:
-    paths:
-      - dist/
+  extends: .build
   environment:
     name: production
-  only:
-    - tags
+  rules:
+    - if: "$CI_COMMIT_TAG"
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+    - when: manual
 
-deploy:production:
-  stage: deploy
+deploy:beta:
+  extends: .deploy
   needs:
     - build:production
-  script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
-    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
-    - ssh -o "$SSH_PROXY_COMMAND" "$SSH_SERVER" 'rm --recursive /opt/tomcat/webapps/ROOT/*'
-    - tar --create --verbose dist/ | ssh -o "$SSH_PROXY_COMMAND" "$SSH_SERVER" 'tar --directory=/opt/tomcat/webapps/ROOT --extract --strip-components=1'
+  environment:
+    name: beta
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+    - when: manual
+
+deploy:production:
+  extends: .deploy
+  needs:
+    - build:production
   environment:
     name: production
-  only:
-    - tags
+  rules:
+    - if: "$CI_COMMIT_TAG"
+      when: manual
+
+build:aran:
+  extends: .build
+  environment:
+    name: aran
   when: manual

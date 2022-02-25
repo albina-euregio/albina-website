@@ -6,6 +6,7 @@ import { AuthenticationService } from "../authentication-service/authentication.
 import { ConstantsService } from "../constants-service/constants.service";
 import * as Enums from "../../enums/enums";
 
+import * as L from "leaflet";
 import * as geojson from "geojson";
 
 declare module "leaflet" {
@@ -72,7 +73,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
-          onEachFeature: this.onEachFeature
+          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
@@ -90,7 +91,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: new GeoJSON(this.regionsService.getRegionsEuregio(), {
-          onEachFeature: this.onEachFeature
+          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
@@ -122,7 +123,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: new GeoJSON(this.regionsService.getRegionsAran(), {
-          onEachFeature: this.onEachFeature
+          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
@@ -140,7 +141,7 @@ export class MapService {
 
         // overlay to select regions (when editing an aggregated region)
         editSelection: new GeoJSON(this.regionsService.getRegionsAran(), {
-          onEachFeature: this.onEachFeature
+          onEachFeature: this.onEachFeatureClosure(this, this.regionsService, this.overlayMaps)
         }),
 
         // overlay to show aggregated regions
@@ -390,6 +391,8 @@ export class MapService {
 
     this.map.addLayer(this.overlayMaps.editSelection);
 
+    // TODO: add buttons for Level 1 and Level 2
+
     for (const entry of this.overlayMaps.editSelection.getLayers()) {
       for (const region of bulletin.savedRegions) {
         if (entry.feature.properties.id === region) {
@@ -505,40 +508,82 @@ export class MapService {
     }
   }
 
-  private onEachFeature(feature, layer) {
-    layer.on({
-      click: function(e) {
-        if (feature.properties.selected && feature.properties.selected === true) {
-          feature.properties.selected = false;
-          // TODO use constantsService
-          layer.setStyle({ fillColor: "#000000", fillOpacity: 0.0 });
-        } else {
-          feature.properties.selected = true;
-          // TODO use constantsService
-          layer.setStyle({ fillColor: "#3852A4", fillOpacity: 0.5 });
-        }
-      },
-      mouseover: function(e) {
-         e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
-        const l = e.target;
-        l.setStyle({
-          weight: 3
-        });
-        if (!Browser.ie && !Browser.opera12 && !Browser.edge) {
-          l.bringToFront();
-        }
-      },
-      mouseout: function(e) {
-        e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = " ";
-        const l = e.target;
-        l.setStyle({
-          weight: 1
-        });
-        if (!Browser.ie && !Browser.opera12 && !Browser.edge) {
-          l.bringToFront();
-        }
+  updateEditSelection() {
+    for (const entry of this.overlayMaps.editSelection.getLayers()) {
+      if (entry.feature.properties.selected) {
+        entry.setStyle({ fillColor: "#3852A4", fillOpacity: 0.5 });
+      } else {
+        entry.setStyle({ fillColor: "#000000", fillOpacity: 0.0 });
       }
-    });
+    }
+  }
+
+  private onEachFeatureClosure(mapService, regionsService, overlayMaps) {
+    return function onEachFeature(feature, layer) {
+      layer.on({
+        click: function(e) {
+          if (feature.properties.selected && feature.properties.selected === true) {
+            if (e.originalEvent.ctrlKey) {
+              const regions = regionsService.getLevel1Regions(feature.properties.id);
+              for (const entry of overlayMaps.editSelection.getLayers()) {
+                if (regions.includes(entry.feature.properties.id)) {
+                  entry.feature.properties.selected = false;
+                }
+              }
+            } else if (e.originalEvent.altKey) {
+              const regions = regionsService.getLevel2Regions(feature.properties.id);
+              for (const entry of overlayMaps.editSelection.getLayers()) {
+                if (regions.includes(entry.feature.properties.id)) {
+                  entry.feature.properties.selected = false;
+                }
+              }
+            } else {
+              feature.properties.selected = false;
+            }
+          } else {
+            if (e.originalEvent.ctrlKey) {
+              const regions = regionsService.getLevel1Regions(feature.properties.id);
+              for (const entry of overlayMaps.editSelection.getLayers()) {
+                if (regions.includes(entry.feature.properties.id)) {
+                  entry.feature.properties.selected = true;
+                }
+              }
+            } else if (e.originalEvent.altKey) {
+              const regions = regionsService.getLevel2Regions(feature.properties.id);
+              for (const entry of overlayMaps.editSelection.getLayers()) {
+                if (regions.includes(entry.feature.properties.id)) {
+                  entry.feature.properties.selected = true;
+                }
+              }
+            } else {
+              feature.properties.selected = true;
+            }
+          }
+          mapService.updateEditSelection();
+        },
+        mouseover: function(e) {
+          // TODO get current language
+           e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = e.target.feature.properties.name;
+          const l = e.target;
+          l.setStyle({
+            weight: 3
+          });
+          if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
+            l.bringToFront();
+          }
+        },
+        mouseout: function(e) {
+          e.originalEvent.currentTarget.children[1].childNodes[1].children[0].innerHTML = " ";
+          const l = e.target;
+          l.setStyle({
+            weight: 1
+          });
+          if (!L.Browser.ie && !L.Browser.opera12 && !L.Browser.edge) {
+            l.bringToFront();
+          }
+        }
+      });
+    }
   }
 
   private onEachAggregatedRegionsFeatureAM(feature, layer) {

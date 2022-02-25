@@ -2,7 +2,7 @@
   "login" : {
     "title" : " Iniciar Sessió",
     "text" : "Inicia sessió al teu compte",
-    "button" : " Iniciar Sessió",
+    "button" : "Iniciar Sessió",
     "errorDialog" : {
       "message" : "Usuari o contrasenya incorrectes",
       "accept" : "D'acord"
@@ -33,7 +33,8 @@
     "fullscreen" : "Pantalla completa",
     "settings" : "Configuració",
     "admin" : "Admin",
-    "region" : "Regió"
+    "region" : "Regió",
+    "education" : "Educació"
   },
   "chat" : {
     "placeholder" : "Escriu aquí...",
@@ -44,18 +45,24 @@
     "IT-32-BZ" : "South Tyrol ",
     "IT-32-TN" : "Trentino "
   },
+  "education" : {
+    "title" : "Educació"
+  },
   "bulletins" : {
     "title" : "Avalanche.report",
+    "loadingPreview" : "S'està creant la previsualització de PDF ...",
     "tooltip" : {
       "publish" : "Publica el butlletí actualitzat immediatament",
       "submit" : "Puja el butlletí",
       "copy" : "Copia el butlletí",
+      "cancel" : "Cancel·la la còpia",
       "paste" : "Enganxa el butlletí",
       "update" : "Crea actualització del butlletí",
       "caaml" : "Mostra CAAML",
       "json" : "Mostra JSON",
       "edit" : "Edita el butlletí (no serà publicat de nou)",
       "create" : "Crea butlletí",
+      "preview" : "Previsualitza el butlletí (PDF)",
       "check" : "Comprova el butlletí",
       "info" : "Mostra l'estat de publicació",
       "publishAll" : "Publica totes les regions"
@@ -72,6 +79,8 @@
         "saveBulletin" : "Guarda el butlletí",
         "discardBulletin" : "Descarta els canvis al butlletí",
         "loadBulletin" : "Carrega el butlletí d'ahir",
+        "uploadJsonBulletin" : "Carregar el butlletí en format JSON",
+        "downloadJsonBulletin" : "Descarregar el butlletí en format JSON",
         "daytimeDependency" : "Dependència de l'hora",
         "treeline" : "Límit del bosc",
         "tendency" : {
@@ -97,11 +106,13 @@
         "moveDownAvalancheSituation" : "Mou el problema de les allaus cap avall",
         "dangerRatingDirectionUp" : "Estendre el grau de perill d'allaus amunt",
         "dangerRatingDirectionDown" : "Estendre el grau de perill d'allaus avall"
-    },
+      },
       "save" : "Desa",
       "discard" : "Descarta",
       "back" : "Enrera",
       "createAggregatedRegion" : "Nova regió",
+      "pasteAggregatedRegion" : "Enganxa la regió",
+      "cancelCopyBulletin" : "Cancel·lar",
       "createAvalancheSituation" : "Nou problema",
       "ownRegions" : "Regions pròpies",
       "foreignRegions": "Regions alienes",
@@ -174,6 +185,10 @@
         "message" : "Hi ha hagut un error llegint els butlletins!",
         "accept" : "D'acord"
       },
+      "loadingJsonFileErrorDialog" : {
+        "message" : "S'ha produït un error en carregar els butlletins des del fitxer JSON!",
+        "accept" : "D'acord"
+      },
       "avalancheSituationErrorDialog" : {
         "message" : "Falta un tipus de problema d’allaus, orientacions i/o valoració del perill per almenys un problema d’allau",
         "accept" : "D'acord"
@@ -223,38 +238,69 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
+        "headline" : "Publication Status",
         "publishedBy" : "Publicat per:",
         "publishedAt" : "Publicat a les:",
         "validFor" : "Vàlid per:",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "Arxiu CAAML creat",
-            "failed" : "No es pot crear l'arxiu CAAML"
-          },
-          "map" : {
-            "success" : "Mapes creats",
-            "failed" : "No es poden crear els mapes"
-          },
-          "pdf" : {
-            "success" : "PDF creat",
-            "failed" : "No es pot crear el PDF"
-          },
-          "staticWidget" : {
-            "success" : "Widget estàtic creat",
-            "failed" : "No es pot crear el widget estàtic"
-          },
-          "html" : {
-            "success" : "HTML creat",
-            "failed" : "No es pot creat el HTML"
-          },
-          "email" : {
-            "success" : "Correus enviats",
-            "failed" : "No es poden enviar els correus"
-          },
-          "telegramChannel" : {
-            "success" : "Predicció d'allaus enviada  via Telegram",
-            "failed" : "No es pot enviar la predicció d'allaus via Telegram"
+        "title" : {
+          "prod" : "Serious stuff",
+          "test" : "Just testing",
+          "task" : "Task",
+          "language" : {
+            "all" : "ALL",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
+        },
+
+        "caaml" : {
+          "label" : "CAAML Files",
+          "tooltip" : "Create CAAML Files",
+          "success" : "{{prefix}}CAAML Files successfully created!",
+          "error" : "{{prefix}}CAAML Files could not be created!"
+        },
+        "map" : {
+          "label" : "Maps",
+          "tooltip" : "Create Maps",
+          "success" : "{{prefix}}Maps successfully created!",
+          "error" : "{{prefix}}Maps could not be created!"
+        },
+        "pdf" : {
+          "label" : "PDFs",
+          "tooltip" : "Create PDFs",
+          "success" : "{{prefix}}PDFs successfully created!",
+          "error" : "{{prefix}}PDFs could not be created!"
+        },
+        "staticWidget" : {
+          "label" : "Static Widgets",
+          "tooltip" : "Create Static Widgets",
+          "success" : "{{prefix}}Static Widgets successfully created!",
+          "error" : "{{prefix}}Static Widgets could not be created!"
+        },
+        "html" : {
+          "label" : "Simple HTMLs",
+          "tooltip" : "Create Simple HTML Files",
+          "success" : "{{prefix}}Simple HTML Files successfully created!",
+          "error" : "{{prefix}}Simple HTML Files could not be created!"
+        },
+        "email" : {
+          "label" : "Emails",
+          "tooltip" : "Send Emails",
+          "success" : "{{prefix}}Emails successfully sent!",
+          "error" : "{{prefix}}Emails could not be sent!"
+        },
+        "telegram" : {
+          "label" : "Telegram Messages",
+          "tooltip" : "Send Telegram Messages",
+          "success" : "{{prefix}}Telegram Messages successfully sent!",
+          "error" : "{{prefix}}Telegram Messages could not be sent!"
+        },
+        "push" : {
+          "label" : "Push Notifications",
+          "tooltip" : "Send Push Notifications",
+          "success" : "{{prefix}}Push Notifications successfully sent!",
+          "error" : "{{prefix}}Push Notifications could not be sent!"
         },
         "accept" : "D'acord"
       },
@@ -284,6 +330,10 @@
       },
       "checkBulletinsErrorDialog" : {
         "message" : "Hi ha hagut un error comprovant els butlletins!",
+        "accept" : "D'acord"
+      },
+      "previewErrorDialog" : {
+        "message" : "No s'ha pogut carregar la previsualització.",
         "accept" : "D'acord"
       },
       "checkBulletinsDialog" : {
@@ -329,6 +379,7 @@
     }
   },
   "admin" : {
+    "loadingStatistics" : "Creant el CSV ...",
     "server-configuration" : {
       "title" : "Configuració del servidor",
       "table" : {
@@ -344,8 +395,6 @@
         "publishToTelegramChannel" : "Publica via canal de Telegram",
         "publishAt5PM" : "Publica a les 5 PM",
         "publishAt8AM" : "Publica a les 8 AM",
-        "localImagesPath" : "Adreça de les imatges locals",
-        "localFontsPath" : "Adreça de les fonts",
         "publishBulletinsTyrol" : "Publica la predicció d'allaus per Tirol",
         "publishBulletinsSouthTyrol" : "Publica la predicció d'allaus per Sud-Tirol",
         "publishBulletinsTrentino" : "Publica la predicció d'allaus per Trentino",
@@ -356,7 +405,6 @@
         "pdfDirectory" : "Directori per PDF",
         "htmlDirectory" : "Directori per HTML",
         "serverImagesUrl" : "Adreça de les imatges del servidor",
-        "serverImagesUrlLocalhost" : "Adreça de les imatges del servidor (localhost)",
         "mapsPath" : "Adreça dels mapes",
         "mapProductionUrl" : "URL per la producció dels mapes",
         "scriptsPath" : "Adreça dels scripts"
@@ -368,68 +416,118 @@
       "error" : "No es pot guardar la contrasenya"
     },
     "users" : {
-      "title" : "Users",
+      "title" : "Usuaris",
       "button" : {
-        "create" : "Create user"
+        "create" : " Create user"
       },
       "tooltip" : {
-        "edit" : "Edit user",
-        "delete" : "Delete user"
+        "edit" : "Editar usuari",
+        "delete" : "Esborrar usuari"
       },
       "table" : {
-        "name" : "Name",
+        "name" : "Nom",
         "email" : "Email",
-        "organization" : "Organization",
+        "organization" : "Organizació",
         "regions" : "Regions",
-        "roles" : "Roles"
+        "roles" : "Funcions"
       },
       "deleteUserModalDialog" : {
-        "message" : "Do you want to delete the user?",
+        "message" : "Voleu eliminar l’usuari?",
         "accept" : "Si",
         "reject" : "No"
       },
       "deleteUser" : {
-        "success" : "User deleted",
-        "error" : "User could not be deleted"
+        "success" : "S'ha suprimit l'usuari",
+        "error" : "No s'ha pogut suprimir l'usuari"
       },
       "createUser" : {
-        "success" : "User created",
-        "error" : "User could not be created"
+        "success" : "Usuari creat",
+        "error" : "No s'ha pogut crear l'usuari"
       },
       "updateUser" : {
-        "success" : "User updated",
-        "error" : "User could not be updated"
+        "success" : "Usuari actualitzat",
+        "error" : "L'usuari no s'ha pogut actualitzar"
       }
     },
     "createUser" : {
       "table" : {
-        "name" : "Name",
+        "name" : "Nom",
         "email" : "Email",
-        "organization" : "Organization",
-        "password" : "Password",
-        "password2" : "Repeat password",
-        "role" : "Role",
+        "organization" : "Organizació",
+        "password" : "Contrasenya",
+        "password2" : "Repetir contrasenya",
+        "roles" : "Funcions",
         "regions" : "Regions"
       },
       "error" : {
         "name" : {
-          "required" : "Please enter a name"
+          "required" : "Introduïu un nom"
         },
         "email" : {
-          "required" : "Please enter an email address",
-          "invalid" : "Email address is invalid"
+          "required" : "Introduïu una adreça de correu electrònic",
+          "invalid" : "L'adreça de correu electrònic no és vàlida"
         },
         "password" : {
-          "required" : "Please enter a password",
-          "length" : "Password has to be at least 8 characters",
-          "mismatch" : "Passwords do not match"
+          "required" : "Introduïu una contrasenya",
+          "length" : "La contrasenya ha de tenir com a mínim 8 caràcters",
+          "mismatch" : "Les contrasenyes no coincideixen"
         }
       },
       "button" : {
-        "create" : "Create user",
-        "update" : "Update user",
+        "create" : "Crear usuari",
+        "update" : "Actualitzar l'usuari",
         "cancel" : "Cancel·la"
       }  
+    },
+    "statistics" : {
+      "title" : "Estadístiques",
+      "button" : {
+        "submit" : "Descarrega"
+      },
+      "label" : {
+        "dateRange" : "Període",
+        "extended" : "Ampliat",
+        "duplicates" : "Duplicats"
+      }
+    },
+    "observations" : {
+      "title" : "Observacions",
+      "button" : {
+        "submit" : "Descarrega"
+      },
+      "label" : {
+        "dateRange" : "Període",
+        "observer" : "Observador"
+      }
+    },
+    "blog" : {
+      "title" : "Blog",
+      "language" : {
+        "title" : "Idioma",
+        "de" : "DE",
+        "it" : "IT",
+        "en" : "EN"
+      },
+      "all" : {
+        "tooltip" : "Send Emails, Telegram and Push",
+        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
+        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
+      },
+      "email" : {
+        "tooltip" : "Send Emails",
+        "success" : "{{prefix}}Email successfully sent!",
+        "error" : "{{prefix}}Email could not be sent!"
+      },
+      "telegram" : {
+        "tooltip" : "Send via Telegram Channel",
+        "success" : "{{prefix}}Telegram successfully sent!",
+        "error" : "{{prefix}}Telegram could not be sent!"
+      },
+      "push" : {
+        "tooltip" : "Send via Push Notifications",
+        "success" : "{{prefix}}Push successfully sent!",
+        "error" : "{{prefix}}Push could not be sent!"
+      }
     }
   },
   "settings" : {
@@ -444,20 +542,20 @@
         "placeholder" : "Nova contrasenya"
       },
       "newPassword2" : {
-        "label" : "New password (repeat)",
+        "label" : "Contrasenya nova (repetir)",
         "placeholder" : "Nova contrasenya"
       },
       "submit" : "Canvia la contrasenya",
       "passwordChanged" : "Contrasenya canviada",
       "passwordChangeError" : "No es pot canviar la contraenya",
-      "passwordIncorrect" : "Current password incorrect",
+      "passwordIncorrect" : "La contrasenya actual és incorrecta",
       "error" : {
         "oldPassword" : {
           "required" : "Si us plau introdueix la contrasenya actual"
         },
         "newPassword" : {
           "required" : "Si us plau introdueix la nova contrasenya",
-          "mismatch" : "Passwords do not match"
+          "mismatch" : "Les contrasenyes no coincideixen"
         }
       }
     },
@@ -508,6 +606,12 @@
     "SW" : "SW",
     "W" : "W",
     "NW" : "NW"
+  },
+  "role" : {
+    "ADMIN" : "Administrador",
+    "FORECASTER" : "Predictor",
+    "FOREMAN" : "Mestre d'obres",
+    "OBSERVER" : "Observador"
   },
   "region" : {
     "AT-07" : "Tyrol",
@@ -679,131 +783,6 @@
     "reportDate": "Data de l'informe",
     "showMap": "Mapa",
     "showTable": "Taula"
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Avaluació de risc",
-    "snowpackStructure": "Estructura del mantell de neu",
-    "avalanchePotentialValue": "Valor potencial d'allau",
-    "avalancheCharacteristicString": "Característiques de l'allau",
-    "windDriftedSnow": "Neu ventada",
-    "persistentWeakLayer": "Capa feble persistent",
-    "wetSnow": "Neu humida",
-    "glidingSnow": "Lliscament basal",
-    "newSnow": "Neu recent",
-    "snowpackStructureActive": "Estructura del mantell de neu activa",
-    "triggeringProbability": "Probabilitat de desencadenament",
-    "avalancheRiskTendency24h": "Tendència risc d'allau 24h",
-    "avalancheRiskTendency48h": "Tendència risc d'allau 48h",
-    "oldSnowFloatingSnow": "Neu vella",
-    "oldSnowSleet": "Neu vella",
-    "oldSnowWeakLayers": "Capes febles de neu vella",
-    "wetSnowRain": "Aiguaneu humida",
-    "wetSnowTemperatureIncrease": "Augment de la temperatura de la neu humida",
-    "wetSnowHighRadiation": "Radiació elevada de la neu humida"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Nuvolositat",
-    "freshSnowAmount": "Quantitat neu recent",
-    "officialAvalancheReport": "Butlletí d'allaus oficial",
-    "precipitationIntensity": "Intensitat de precipitació",
-    "precipitationType": "Tipus de precipitació",
-    "temperaturePeak": "Pic de temperatura",
-    "temperatureTreeline": "Temperatura del límit del bosc",
-    "temperatureValley": "Temperatura de la vall",
-    "weatherTendency": "Tendència del temps",
-    "windDirection": "Direcció del vent",
-    "windSpeed": "Velocitat del vent",
-    "visibilityConditions": "Condicions de visibilitat"
-  },
-  "natlefs" : {
-    "title" : {
-      "ridingQuality" : "Qualitat d'esquí",
-      "rode" : "Hem esquiat",
-      "avoided" : "Hem evitat",
-      "alarmSignsFrequency" : "Signes d'inestabilitat",
-      "newSnow" : "Neu recent",
-      "driftingSnow" : "Neu ventada",
-      "avalanches" : "Allaus recents",
-      "penetrationDepth" : "Penetració de la neu sense esquí",
-      "surfaceSnowWetness" : "Humitat de la neu en superfície",
-      "avalancheProblems" : "Problemes d'allaus",
-      "tracks" : "Tracks",
-      "comment" : "Comentari"
-    }
-  },
-  "ridingQuality" : {
-    "amazing" : "Increïble",
-    "good" : "Bona",
-    "ok" : "D'acord",
-    "indifferent" : "Indiferent",
-    "terrible" : "Terrible"
-  },
-  "snowConditions" : {
-    "crusty" : "Crosta",
-    "heavy" : "Pesada",
-    "hard" : "Dura",
-    "wet" : "Humida",
-    "powder" : "Pols",
-    "firn" : "Primavera ferma",
-    "windAffected" : "Ventada"
-  },
-  "terrainFeature" : {
-    "moderatelySteepSlopes" : "Vessants moderadament inclinats (< 30°)",
-    "steepSlopes" : "Vessants inclinats (30° - 40°)",
-    "verySteepSlopes" : "Vessants molt inclinats (30° - 40°)",
-    "convexSlopes" : "Vessants convexos",
-    "denseTrees" : "Bosc dens",
-    "openTrees" : "Bosc obert",
-    "sunnySlopes" : "Vessants solans",
-    "shadySlopes" : "Vessants obacs"
-  },
-  "alarmSignsFrequency" : {
-    "none" : "Cap",
-    "occasional" : "Ocasional (1 - 2)",
-    "frequent" : "Freqüent (> 2)"
-  },
-  "newSnow" : {
-    "none" : "Cap",
-    "low" : "< 10 cm",
-    "medium" : "10 - 30 cm",
-    "high" : "> 30 cm"
-  },
-  "driftingSnow" : {
-    "none" : "Cap",
-    "occasional" : "Ocasional",
-    "widespread" : "Generalitzat"
-  },
-  "avalanches" : {
-    "none" : "Cap",
-    "some" : "Algunes (1 - 3)",
-    "many" : "Moltes (> 3)"
-  },
-  "penetrationDepth" : {
-    "little" : "< 5 cm",
-    "medium" : "5 - 30 cm",
-    "much" : "> 30 cm",
-    "spotty" : "irregular"
-  },
-  "surfaceSnowWetness" : {
-    "dry" : "Seca",
-    "sticky" : "enganxosa",
-    "wet" : "Humida"
-  },
-  "avalancheProblemNatlefs" : {
-    "new_snow" : "Neu recent",
-    "wind_drifted_snow" : "Neu ventada",
-    "weak_persistent_layer" : "Capes febles persistents",
-    "wet_snow" : "Neu humida",
-    "gliding_snow" : "Lliscaments",
-    "favourable_situation" : "Situació favorable"
-  },
-  "tracks" : {
-    "none" : "Cap",
-    "some" : "Algunes",
-    "many" : "Moltes"
-  },
-  "location" : {
-    "accuracy" : "Precisió GPS"
   },
   "units" : {
     "cm" : "cm",

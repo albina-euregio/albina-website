@@ -3,13 +3,13 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
-import { AlertComponent } from "ngx-bootstrap";
+import { AlertComponent } from "ngx-bootstrap/alert";
 import { UserService } from "app/providers/user-service/user.service";
 
 @Component({
   templateUrl: "settings.component.html"
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
 
   public changePasswordLoading: boolean;
 
@@ -26,9 +26,6 @@ export class SettingsComponent implements OnInit {
     private settingsService: SettingsService,
     private constantsService: ConstantsService) {
     this.changePasswordLoading = false;
-  }
-
-  ngOnInit() {
   }
 
   changePassword() {

@@ -8,7 +8,7 @@ export interface GenericObservation<Data = any> {
   $markerRadius?: number;
   $source: ObservationSource;
   $type: ObservationType;
-  aspect: Aspect;
+  aspect?: Aspect;
   authorName: string;
   content: string;
   elevation: number;
@@ -22,17 +22,28 @@ export interface GenericObservation<Data = any> {
 
 export enum ObservationSource {
   Albina = "Albina",
+  AvalancheWarningService = "AvalancheWarningService",
   LwdKipBeobachtung = "LwdKipBeobachtung",
   LwdKipLawinenabgang = "LwdKipLawinenabgang",
+  LwdKipSperre = "LwdKipSperre",
   LwdKipSprengerfolg = "LwdKipSprengerfolg",
   LawisSnowProfiles = "LawisSnowProfiles",
   LawisIncidents = "LawisIncidents",
   LoLaSafetySnowProfiles = "LoLaSafetySnowProfiles",
   LoLaSafetyAvalancheReports = "LoLaSafetyAvalancheReports",
-  Natlefs = "Natlefs",
-  AvaObsSnowProfiles = "AvaObsSnowProfiles",
-  AvaObsObservations = "AvaObsObservations",
-  AvaObsSimpleObservations = "AvaObsSimpleObservations"
+  AvaObsAvalancheEvent = "AvaObsAvalancheEvent",
+  AvaObsEvaluation = "AvaObsEvaluation",
+  AvaObsSimpleObservation = "AvaObsSimpleObservation",
+  AvaObsSnowProfile = "AvaObsSnowProfile",
+  KipLiveAvalancheEvent = "KipLiveAvalancheEvent",
+  KipLiveEvaluation = "KipLiveEvaluation",
+  KipLiveSimpleObservation = "KipLiveSimpleObservation",
+  KipLiveSnowProfile = "KipLiveSnowProfile",
+  NatlefsAvalancheEvent = "NatlefsAvalancheEvent",
+  NatlefsEvaluation = "NatlefsEvaluation",
+  NatlefsSimpleObservation = "NatlefsSimpleObservation",
+  NatlefsSnowProfile = "NatlefsSnowProfile",
+  WikisnowECT = "WikisnowECT",
 }
 
 export enum ObservationType {
@@ -45,17 +56,28 @@ export enum ObservationType {
 
 export const ObservationSourceColors: Record<ObservationSource, string> = Object.freeze({
   [ObservationSource.Albina]: "#ca0020",
+  [ObservationSource.AvalancheWarningService]: "#83e4f0",
   [ObservationSource.LwdKipBeobachtung]: "#f781bf",
   [ObservationSource.LwdKipLawinenabgang]: "#ff7f00",
+  [ObservationSource.LwdKipSperre]: "#455132",
   [ObservationSource.LwdKipSprengerfolg]: "#a6761d",
   [ObservationSource.LawisSnowProfiles]: "#44a9db",
   [ObservationSource.LawisIncidents]: "#b76bd9",
   [ObservationSource.LoLaSafetySnowProfiles]: "#a6d96a",
   [ObservationSource.LoLaSafetyAvalancheReports]: "#1a9641",
-  [ObservationSource.Natlefs]: "#000000",
-  [ObservationSource.AvaObsSnowProfiles]: "#2c7bb6",
-  [ObservationSource.AvaObsObservations]: "#018571",
-  [ObservationSource.AvaObsSimpleObservations]: "#80cdc1"
+  [ObservationSource.AvaObsAvalancheEvent]: "#6a3d9a",
+  [ObservationSource.AvaObsEvaluation]: "#018571",
+  [ObservationSource.AvaObsSimpleObservation]: "#80cdc1",
+  [ObservationSource.AvaObsSnowProfile]: "#2c7bb6",
+  [ObservationSource.KipLiveAvalancheEvent]: "#6a3d9a",
+  [ObservationSource.KipLiveEvaluation]: "#018571",
+  [ObservationSource.KipLiveSimpleObservation]: "#80cdc1",
+  [ObservationSource.KipLiveSnowProfile]: "#2c7bb6",
+  [ObservationSource.NatlefsAvalancheEvent]: "#6a3d9a",
+  [ObservationSource.NatlefsEvaluation]: "#018571",
+  [ObservationSource.NatlefsSimpleObservation]: "#80cdc1",
+  [ObservationSource.NatlefsSnowProfile]: "#2c7bb6",
+  [ObservationSource.WikisnowECT]: "#c6e667",
 });
 
 export enum Aspect {
@@ -74,6 +96,7 @@ export interface ObservationTableRow {
   date?: Date;
   number?: number;
   boolean?: boolean;
+  url?: string;
   value?: string;
 }
 
@@ -89,7 +112,7 @@ export function toObservationTable(observation: GenericObservation, t: (key: str
   ];
 }
 
-export function toAspect(aspect: Enums.Aspect | string): Aspect {
+export function toAspect(aspect: Enums.Aspect | string | undefined): Aspect | undefined {
   if (typeof aspect === "number") {
     const string = Enums.Aspect[aspect];
     return Aspect[string];

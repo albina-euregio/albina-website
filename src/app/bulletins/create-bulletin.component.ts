@@ -23,6 +23,8 @@ import { environment } from "../../environments/environment";
 
 import { MatDialog, MatDialogRef, MatDialogConfig } from "@angular/material/dialog";
 
+import { DatePipe } from "@angular/common";
+
 import "leaflet";
 import "leaflet.sync";
 
@@ -127,6 +129,9 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   public loadingErrorModalRef: BsModalRef;
   @ViewChild("loadingErrorTemplate") loadingErrorTemplate: TemplateRef<any>;
 
+  public loadingJsonFileErrorModalRef: BsModalRef;
+  @ViewChild("loadingJsonFileErrorTemplate") loadingJsonFileErrorTemplate: TemplateRef<any>;
+
   public loadModalRef: BsModalRef;
   @ViewChild("loadTemplate") loadTemplate: TemplateRef<any>;
 
@@ -180,12 +185,13 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     private translateService: TranslateService,
     private settingsService: SettingsService,
     private constantsService: ConstantsService,
-    private copyService: CopyService,
+    public copyService: CopyService,
     private mapService: MapService,
     private applicationRef: ApplicationRef,
     private sanitizer: DomSanitizer,
     renderer: Renderer2,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private datePipe: DatePipe
   ) {
     this.loading = true;
     this.showAfternoonMap = false;
@@ -291,8 +297,6 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.showTranslationsAvActivityComment = false;
     this.showTranslationsSnowpackStructureComment = false;
     this.showTranslationsTendencyComment = false;
-
-    this.copyService.resetCopying();
   }
 
   private getTextcatUrl(): SafeUrl {
@@ -392,6 +396,81 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
 
     if (this.autoSave && this.autoSave !== undefined) {
       this.autoSave.unsubscribe();
+    }
+  }
+
+  downloadJsonBulletin() {
+    if (this.checkAvalancheSituations()) {
+      this.loading = true;
+
+      this.setTexts();
+
+      this.deselectBulletin();
+
+      const validFrom = new Date(this.bulletinsService.getActiveDate());
+      const validUntil = new Date(this.bulletinsService.getActiveDate());
+      validUntil.setTime(validUntil.getTime() + (24 * 60 * 60 * 1000));
+
+      const result = new Array<BulletinModel>();
+
+      for (const bulletin of this.bulletinsList) {
+        bulletin.setValidFrom(validFrom);
+        bulletin.setValidUntil(validUntil);
+
+
+        // only own regions
+        const saved = new Array<String>();
+        for (const region of bulletin.getSavedRegions()) {
+          if (region.startsWith(this.authenticationService.getActiveRegion())) {
+            saved.push(region);
+          }
+        }
+        for (const region of bulletin.getPublishedRegions()) {
+          if (region.startsWith(this.authenticationService.getActiveRegion())) {
+            saved.push(region);
+          }
+        }
+
+        if (saved.length > 0) {
+          bulletin.setSavedRegions(saved);
+
+          bulletin.setSuggestedRegions(new Array<String>());
+          bulletin.setPublishedRegions(new Array<String>());
+        }
+
+        result.push(bulletin);
+      }
+
+      const jsonBulletins = [];
+      for (let i = result.length - 1; i >= 0; i--) {
+        jsonBulletins.push(result[i].toJson());
+      }
+      const sJson = JSON.stringify(jsonBulletins);
+      const element = document.createElement("a");
+      element.setAttribute("href", "data:text/json;charset=UTF-8," + encodeURIComponent(sJson));
+      element.setAttribute("download", this.datePipe.transform(validFrom, "yyyy-MM-dd") + "_report.json");
+      element.style.display = "none";
+      document.body.appendChild(element);
+      element.click(); // simulate click
+      document.body.removeChild(element);
+      this.loading = false;
+    }
+  }
+
+  uploadJsonBulletin(event) {
+    const selectedFile = event.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.readAsText(selectedFile, "UTF-8");
+    fileReader.onload = () => {
+      const json = JSON.parse(fileReader.result.toString());
+
+      this.reset();
+      this.copyBulletins(json);
+      console.info("Bulletins loaded from file: " + selectedFile.name);
+    }
+    fileReader.onerror = (error) => {
+      console.error("Bulletins could not be loaded from file: " + error);
+      this.openLoadingJsonFileErrorModal(this.loadingJsonFileErrorTemplate);
     }
   }
 
@@ -828,29 +907,40 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     // TODO websocket: unlock bulletin
     // TODO websocket: lock bulletin
 
+    let bulletin: BulletinModel;
+    if (copy && this.copyService.getBulletin()) {
+      bulletin = this.copyService.getBulletin();
+      this.copyService.resetCopyBulletin();
+    } else {
+      bulletin = new BulletinModel();
+      bulletin.setAuthor(this.authenticationService.getAuthor());
+      bulletin.addAdditionalAuthor(this.authenticationService.getAuthor().getName());
+      bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
+    }
+
+    this.addBulletin(bulletin);
+    this.selectBulletin(bulletin);
+    this.mapService.selectAggregatedRegion(bulletin);
+    this.editBulletinRegions();
+  }
+
+  copyBulletin() {
     this.setTexts();
 
     if (this.checkAvalancheSituations()) {
-      let bulletin: BulletinModel;
-
-      if (copy && this.activeBulletin) {
-        bulletin = new BulletinModel(this.activeBulletin);
+      if (this.activeBulletin) {
+        const bulletin = new BulletinModel(this.activeBulletin);
         bulletin.setAdditionalAuthors(new Array<String>());
         bulletin.setSavedRegions(new Array<String>());
         bulletin.setPublishedRegions(new Array<String>());
         bulletin.setSuggestedRegions(new Array<String>());
-      } else {
-        bulletin = new BulletinModel();
+
+        bulletin.setAuthor(this.authenticationService.getAuthor());
+        bulletin.addAdditionalAuthor(this.authenticationService.getAuthor().getName());
+        bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
+        this.copyService.setCopyBulletin(true);
+        this.copyService.setBulletin(bulletin);
       }
-
-      bulletin.setAuthor(this.authenticationService.getAuthor());
-      bulletin.addAdditionalAuthor(this.authenticationService.getAuthor().getName());
-      bulletin.setOwnerRegion(this.authenticationService.getActiveRegion());
-
-      this.addBulletin(bulletin);
-      this.selectBulletin(bulletin);
-      this.mapService.selectAggregatedRegion(bulletin);
-      this.editBulletinRegions();
     }
   }
 
@@ -1455,13 +1545,14 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.keyCode === 27 && this.editRegions) {
       this.discardBulletin(event);
-    } else if (event.keyCode === 27 && this.copyService.isCopying()) {
-      this.copyService.resetCopying();
+    } else if (event.keyCode === 27 && (this.copyService.isCopyTextcat() || this.copyService.isCopyBulletin())) {
+      this.copyService.resetCopyTextcat();
+      this.copyService.resetCopyBulletin();
     }
   }
 
   openTextcat($event, field, l, textDef) {
-    this.copyService.resetCopying();
+    this.copyService.resetCopyTextcat();
     $event.preventDefault();
 
     // make Json to send to pm
@@ -1479,7 +1570,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
     this.setTexts();
     switch (field) {
       case "highlights":
-        this.copyService.setCopying(true);
+        this.copyService.setCopyTextcat(true);
         this.copyService.setTextTextcat(this.activeBulletin.getHighlightsTextcat());
         this.copyService.setTextDe(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.de));
         this.copyService.setTextIt(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.it));
@@ -1490,7 +1581,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.copyService.setTextOc(this.activeBulletin.getHighlightsIn(Enums.LanguageCode.oc));
         break;
       case "avActivityHighlights":
-        this.copyService.setCopying(true);
+        this.copyService.setCopyTextcat(true);
         this.copyService.setTextTextcat(this.activeBulletin.getAvActivityHighlightsTextcat());
         this.copyService.setTextDe(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.de));
         this.copyService.setTextIt(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.it));
@@ -1501,7 +1592,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.copyService.setTextOc(this.activeBulletin.getAvActivityHighlightsIn(Enums.LanguageCode.oc));
         break;
       case "avActivityComment":
-        this.copyService.setCopying(true);
+        this.copyService.setCopyTextcat(true);
         this.copyService.setTextTextcat(this.activeBulletin.getAvActivityCommentTextcat());
         this.copyService.setTextDe(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.de));
         this.copyService.setTextIt(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.it));
@@ -1512,7 +1603,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.copyService.setTextOc(this.activeBulletin.getAvActivityCommentIn(Enums.LanguageCode.oc));
         break;
       case "snowpackStructureComment":
-        this.copyService.setCopying(true);
+        this.copyService.setCopyTextcat(true);
         this.copyService.setTextTextcat(this.activeBulletin.getSnowpackStructureCommentTextcat());
         this.copyService.setTextDe(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.de));
         this.copyService.setTextIt(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.it));
@@ -1523,7 +1614,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
         this.copyService.setTextOc(this.activeBulletin.getSnowpackStructureCommentIn(Enums.LanguageCode.oc));
         break;
       case "tendencyComment":
-        this.copyService.setCopying(true);
+        this.copyService.setCopyTextcat(true);
         this.copyService.setTextTextcat(this.activeBulletin.getTendencyCommentTextcat());
         this.copyService.setTextDe(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.de));
         this.copyService.setTextIt(this.activeBulletin.getTendencyCommentIn(Enums.LanguageCode.it));
@@ -1757,7 +1848,7 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
       default:
         break;
     }
-    this.copyService.resetCopying();
+    this.copyService.resetCopyTextcat();
   }
 
   deleteTextcat(event, field) {
@@ -1886,6 +1977,14 @@ export class CreateBulletinComponent implements OnInit, OnDestroy, AfterViewInit
   loadingErrorModalConfirm(): void {
     this.loadingErrorModalRef.hide();
     this.goBack();
+  }
+
+  openLoadingJsonFileErrorModal(template: TemplateRef<any>) {
+    this.loadingJsonFileErrorModalRef = this.modalService.show(template, this.config);
+  }
+
+  loadingJsonFileErrorModalConfirm(): void {
+    this.loadingJsonFileErrorModalRef.hide();
   }
 
   openLoadModal(template: TemplateRef<any>) {

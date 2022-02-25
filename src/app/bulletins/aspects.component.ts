@@ -31,7 +31,7 @@ export class AspectsComponent {
   selectAspect(aspect: Enums.Aspect) {
     if (!this.disabled) {
       if (this.aspects?.length === 1) {
-        let a: Enums.Aspect = Enums.Aspect[this.aspects[0]];
+        let a: number = Enums.Aspect[this.aspects[0]];
         if (a === aspect) {
           this.aspects = []
         } else {

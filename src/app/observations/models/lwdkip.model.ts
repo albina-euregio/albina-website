@@ -1,5 +1,9 @@
 import { GenericObservation, ObservationSource, ObservationType, toAspect } from "./generic-observation.model";
 
+export type ArcGisApi =
+  | { layers: ArcGisLayer[] }
+  | { error: { message: string } };
+
 // https://gis.tirol.gv.at/arcgis/rest/services/APPS_DVT/lwdkip/MapServer/layers?f=json
 export interface ArcGisLayer {
   id: number;
@@ -242,6 +246,41 @@ export function convertLwdKipLawinenabgang(feature: GeoJSON.Feature<GeoJSON.Line
     locationName: feature.properties.BEZEICHNUNG,
     longitude: feature.geometry?.coordinates?.[0]?.[0],
     region: undefined
+  };
+}
+
+export interface SperreProperties {
+  TKOMMISSIONSEQ: number;
+  BEZEICHNUNG: string;
+  SPERRETYP: string;
+  SPERREBEREICH: null | string;
+  OBJECTID: number;
+  TSTAMMSPERRORTESEQ: number;
+  MANDANTSEQ: number;
+  BEGINN: number;
+  ENDE: null;
+}
+
+export type LwdKipSperren = GeoJSON.FeatureCollection<GeoJSON.LineString, SperreProperties>;
+
+export function convertLwdKipSperren(
+  feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>
+): GenericObservation {
+  return {
+    $data: feature.properties,
+    $source: ObservationSource.LwdKipSperre,
+    $type: ObservationType.Observation,
+    aspect: undefined,
+    authorName: undefined,
+    content: [feature.properties.SPERRETYP, feature.properties.SPERREBEREICH]
+      .filter((s) => !!s)
+      .join(" – "),
+    elevation: undefined,
+    eventDate: new Date(feature.properties.BEGINN),
+    latitude: feature.geometry?.coordinates?.[0]?.[1],
+    locationName: feature.properties.BEZEICHNUNG,
+    longitude: feature.geometry?.coordinates?.[0]?.[0],
+    region: undefined,
   };
 }
 

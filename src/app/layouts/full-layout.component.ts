@@ -3,7 +3,6 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { BulletinsService } from "../providers/bulletins-service/bulletins.service";
 import { SettingsService } from "../providers/settings-service/settings.service";
-import { WsChatService } from "../providers/ws-chat-service/ws-chat.service";
 import { ConstantsService } from "../providers/constants-service/constants.service";
 import { ChatService } from "../providers/chat-service/chat.service";
 import { Router } from "@angular/router";
@@ -16,7 +15,7 @@ import { DomSanitizer } from "@angular/platform-browser";
   selector: "app-dashboard",
   templateUrl: "./full-layout.component.html"
 })
-export class FullLayoutComponent implements OnInit {
+export class FullLayoutComponent {
 
   public disabled: boolean = false;
   public status: { isopen: boolean } = { isopen: false };
@@ -38,7 +37,6 @@ export class FullLayoutComponent implements OnInit {
     public translateService: TranslateService,
     public authenticationService: AuthenticationService,
     public bulletinsService: BulletinsService,
-    public wsChatService: WsChatService,
     public chatService: ChatService,
     public settingsService: SettingsService,
     public constantsService: ConstantsService,
@@ -48,6 +46,9 @@ export class FullLayoutComponent implements OnInit {
     this.message = "";
     this.tmpRegion = undefined;
     this.showChat = environment.showChat;
+    if (this.showChat && this.authenticationService.isUserLoggedIn()) {
+      this.chatService.connect();
+    }
   }
 
   getStyle() {
@@ -79,8 +80,6 @@ export class FullLayoutComponent implements OnInit {
     this.authenticationService.logout();
     this.chatService.disconnect();
   }
-
-  ngOnInit(): void { }
 
   sendChatMessage(region?: string) {
     this.chatService.resetNewMessageCount(region);

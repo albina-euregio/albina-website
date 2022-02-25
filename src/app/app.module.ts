@@ -30,6 +30,7 @@ import { SimpleLayoutComponent } from "./layouts/simple-layout.component";
 import { AuthenticationService } from "./providers/authentication-service/authentication.service";
 import { UserService } from "./providers/user-service/user.service";
 import { BulletinsService } from "./providers/bulletins-service/bulletins.service";
+import { StatisticsService } from "./providers/statistics-service/statistics.service";
 import { RegionsService } from "./providers/regions-service/regions.service";
 import { ConstantsService } from "./providers/constants-service/constants.service";
 import { SettingsService } from "./providers/settings-service/settings.service";
@@ -39,12 +40,12 @@ import { ZamgModelsMapService } from "./providers/map-service/zamg-models-map.se
 import { WsBulletinService } from "./providers/ws-bulletin-service/ws-bulletin.service";
 import { WsUpdateService } from "./providers/ws-update-service/ws-update.service";
 import { WsRegionService } from "./providers/ws-region-service/ws-region.service";
-import { WsChatService } from "./providers/ws-chat-service/ws-chat.service";
 import { ChatService } from "./providers/chat-service/chat.service";
 import { LocalStorageService } from "./providers/local-storage-service/local-storage.service";
 import { ConfigurationService } from "./providers/configuration-service/configuration.service";
 import { SocialmediaService } from "./providers/socialmedia-service/socialmedia.service";
 import { CopyService } from "./providers/copy-service/copy.service";
+import { BlogService } from "./providers/blog-service/blog.service";
 import { ConfirmationService } from "primeng/api";
 
 // Pipes
@@ -56,15 +57,16 @@ import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 
 import { HttpClientModule } from "@angular/common/http";
 
-import { BsDropdownModule, TabsModule, ModalModule, AlertModule } from "ngx-bootstrap";
+import { AlertModule } from "ngx-bootstrap/alert";
+import { BsDropdownModule } from "ngx-bootstrap/dropdown";
+import { ModalModule } from "ngx-bootstrap/modal";
+import { TabsModule } from "ngx-bootstrap/tabs";
 
 import { ModalSubmitComponent } from "./bulletins/modal-submit.component";
 import { ModalPublishComponent } from "./bulletins/modal-publish.component";
 import { ModalCheckComponent } from "./bulletins/modal-check.component";
 import { ModalPublicationStatusComponent } from "./bulletins/modal-publication-status.component";
 import { ModalPublishAllComponent } from "./bulletins/modal-publish-all.component";
-
-import * as Sentry from "@sentry/browser";
 
 import localeDe from "@angular/common/locales/de";
 import localeIt from "@angular/common/locales/it";
@@ -83,12 +85,6 @@ import i18nCa from "../assets/i18n/ca.json";
 import i18nOc from "../assets/i18n/oc.json";
 import { CreateUserComponent } from "./admin/create-user.component";
 import { UpdateUserComponent } from "./admin/update-user.component";
-
-const pkg = require("../../package.json");
-Sentry.init({
-  release: [pkg.name, pkg.version].join("@"),
-  dsn: "https://f01d3588732c4ed195093468989a45f2@sentry.io/1828063"
-});
 
 @Injectable()
 export class SentryErrorHandler implements ErrorHandler {
@@ -188,11 +184,11 @@ registerLocaleData(localeOc, "oc");
     ConstantsService,
     SettingsService,
     BulletinsService,
+    StatisticsService,
     RegionsService,
     MapService,
     ObservationsMapService,
     ZamgModelsMapService,
-    WsChatService,
     WsRegionService,
     WsUpdateService,
     WsBulletinService,
@@ -201,7 +197,8 @@ registerLocaleData(localeOc, "oc");
     ConfigurationService,
     ConfirmationService,
     SocialmediaService,
-    CopyService
+    CopyService,
+    BlogService
   ],
   bootstrap: [AppComponent],
   exports: [

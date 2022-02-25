@@ -8,13 +8,12 @@ import { ObservationsMapService } from "../providers/map-service/observations-ma
 import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, ObservationType, toObservationTable } from "./models/generic-observation.model";
 
 import { Observable } from "rxjs";
+import { saveAs } from "file-saver";
 
-import { Map, LatLng, Control, Icon, Marker } from "leaflet";
+import { Map, LatLng, Control, Marker } from "leaflet";
 
 import "../../assets/js/leaflet.canvas-markers.js";
 
-import * as L from "leaflet";
-import { SidebarEvent } from "@runette/ngx-leaflet-sidebar";
 import { ObservationTableComponent } from "./observation-table.component";
 @Component({
   templateUrl: "observations.component.html"
@@ -33,6 +32,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     table: ObservationTableRow[];
     iframe: SafeResourceUrl;
   };
+  public activeSources: Record<ObservationSource, boolean> = {} as any;
+  public readonly observationColors = ObservationSourceColors;
   public readonly allRegions: RegionProperties[];
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
@@ -44,8 +45,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     private authenticationService: AuthenticationService,
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
-    private mapService: ObservationsMapService
+    public mapService: ObservationsMapService
   ) {
+    Object.keys(ObservationSource).forEach(source => this.activeSources[source] = true);
     this.allRegions = this.regionsService
       .getRegionsEuregio()
       .features.map((f) => f.properties)
@@ -68,7 +70,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
-  onSidebarChange(e: SidebarEvent) {
+  onSidebarChange(e: Event) {
     if (e.type === "opening") {
       this.showTable = false;
     }
@@ -95,16 +97,41 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationsService.endDate = this.dateRange[1];
     Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
     Observable.merge<GenericObservation>(
-      this.observationsService.getAvaObs().catch((err) => this.warnAndContinue("Failed fetching AvaObs", err)),
+      this.observationsService.getAvalancheWarningService().catch((err) => this.warnAndContinue("Failed fetching AWS observers", err)),
       this.observationsService.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
       this.observationsService.getLawisProfiles().catch((err) => this.warnAndContinue("Failed fetching lawis profiles", err)),
+      this.observationsService.getLoLaKronos().catch((err) => this.warnAndContinue("Failed fetching LoLaKronos", err)),
       this.observationsService.getLoLaSafety().catch((err) => this.warnAndContinue("Failed fetching LoLa safety observations", err)),
       this.observationsService.getLwdKipObservations().catch((err) => this.warnAndContinue("Failed fetching LWDKIP observations", err)),
-      this.observationsService.getNatlefs().catch((err) => this.warnAndContinue("Failed fetching Natlefs observations", err)),
+      this.observationsService.getWikisnowECT().catch((err) => this.warnAndContinue("Failed fetching Wikisnow ECT", err)),
       this.observationsService.getObservations().catch((err) => this.warnAndContinue("Failed fetching observations", err)),
     )
       .forEach((observation) => this.addObservation(observation))
       .finally(() => (this.loading = false));
+  }
+
+  exportObservations() {
+    const features = this.observations.map(
+      (o): GeoJSON.Feature => ({
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [o.longitude ?? 0.0, o.latitude ?? 0.0, o.elevation ?? 0.0]
+        },
+        properties: {
+          ...o,
+          ...(o.$data || {}),
+          $data: undefined
+        }
+      })
+    );
+    const collection: GeoJSON.FeatureCollection = {
+      type: "FeatureCollection",
+      features
+    };
+    const json = JSON.stringify(collection, undefined, 2);
+    const blob = new Blob([json], {type: 'application/geo+json'});
+    saveAs(blob, "observations.geojson");
   }
 
   private warnAndContinue(message: string, err: any): Observable<GenericObservation> {
@@ -157,9 +184,9 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     types.addTo(map);
 
     // Call the getContainer routine.
-    let htmlObject = types.getContainer();
+    htmlObject = types.getContainer();
     // Get the desired parent node.
-    let a = document.getElementById("typesDiv");
+    a = document.getElementById("typesDiv");
 
     setParent(htmlObject, a);
     this.mapService.observationsMap = map;
@@ -182,6 +209,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       observation.region = this.regionsService.getRegionForLatLng(ll)?.id;
     }
     if (
+      !this.activeSources[observation.$source] ||
       !this.observationsService.inDateRange(observation) ||
       !this.observationsService.inMapBounds(observation) ||
       !this.inRegions(observation) ||
@@ -209,11 +237,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   onObservationClick(observation: GenericObservation): void {
-    const extraRows = observation.$extraDialogRows ? observation.$extraDialogRows((key) => this.translateService.instant(key)) : [];
-    const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
-    const table = [...rows, ...extraRows];
-    const iframe = observation.$externalURL ? this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL) : undefined;
-    this.observationPopup = { observation, table, iframe };
+    if (observation.$externalURL) {
+      const iframe = this.sanitizer.bypassSecurityTrustResourceUrl(observation.$externalURL);
+      this.observationPopup = { observation, table: [], iframe };
+    } else {
+      const extraRows = observation.$extraDialogRows ? observation.$extraDialogRows((key) => this.translateService.instant(key)) : [];
+      const rows = toObservationTable(observation, (key) => this.translateService.instant(key)); // call toObservationTable after $extraDialogRows
+      const table = [...rows, ...extraRows];
+      this.observationPopup = { observation, table, iframe: undefined };
+    }
   }
 
   private inRegions({ region }: GenericObservation) {

@@ -1,10 +1,12 @@
 import { Injectable } from "@angular/core";
+import { BulletinModel } from "app/models/bulletin.model";
 import { ConstantsService } from "../constants-service/constants.service";
 
 @Injectable()
 export class CopyService {
 
-  private copying: boolean;
+  private copyTextcat: boolean;
+  private copyBulletin: boolean;
 
   private textTextcat: string;
   // lang
@@ -16,18 +18,21 @@ export class CopyService {
   private textCa: string;
   private textOc: string;
 
+  private bulletin: BulletinModel;
+
   constructor(
     public constantsService: ConstantsService) {
-    this.copying = false;
+    this.copyTextcat = false;
+    this.copyBulletin = false;
   }
 
 
-  isCopying(): boolean {
-    return this.copying;
+  isCopyTextcat(): boolean {
+    return this.copyTextcat;
   }
 
-  setCopying(copying: boolean) {
-    this.copying = copying;
+  setCopyTextcat(copyTextcat: boolean) {
+    this.copyTextcat = copyTextcat;
   }
 
   getTextTextcat(): string {
@@ -94,8 +99,8 @@ export class CopyService {
     this.textOc = textOc;
   }
 
-  resetCopying() {
-    this.copying = false;
+  resetCopyTextcat() {
+    this.copyTextcat = false;
     this.textTextcat = undefined;
     this.textDe = undefined;
     this.textIt = undefined;
@@ -104,5 +109,26 @@ export class CopyService {
     this.textEs = undefined;
     this.textCa = undefined;
     this.textOc = undefined;
+  }
+
+  isCopyBulletin(): boolean {
+    return this.copyBulletin;
+  }
+
+  setCopyBulletin(copyBulletin: boolean) {
+    this.copyBulletin = copyBulletin;
+  }
+
+  getBulletin(): BulletinModel {
+    return this.bulletin;
+  }
+
+  setBulletin(bulletin: BulletinModel) {
+    this.bulletin = bulletin;
+  }
+
+  resetCopyBulletin() {
+    this.copyBulletin = false;
+    this.bulletin = undefined;
   }
 }

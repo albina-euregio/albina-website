@@ -5,12 +5,9 @@ import { AuthenticationService } from "../authentication-service/authentication.
 import { Observable } from "rxjs/Observable";
 
 export interface Configuration {
-  localImagesPath: string;
-  localFontsPath: string;
   pdfDirectory: string;
   htmlDirectory: string;
   serverImagesUrl: string;
-  serverImagesUrlLocalhost: string;
   mapsPath: string;
   mapProductionUrl: string;
   scriptsPath: string;

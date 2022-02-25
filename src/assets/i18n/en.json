@@ -33,7 +33,8 @@
     "fullscreen" : "Fullscreen",
     "settings" : "Settings",
     "admin" : "Admin",
-    "region" : "Region"
+    "region" : "Region",
+    "education" : "Education"
   },
   "chat" : {
     "placeholder" : "Write here ...",
@@ -44,18 +45,24 @@
     "IT-32-BZ" : "South Tyrol ",
     "IT-32-TN" : "Trentino "
   },
+  "education" : {
+    "title" : "Education"
+  },
   "bulletins" : {
     "title" : "Avalanche.report",
+    "loadingPreview" : "Creating PDF preview ...",
     "tooltip" : {
       "publish" : "Publish updated bulletin immediately",
       "submit" : "Submit bulletin",
       "copy" : "Copy bulletin",
+      "cancel" : "Cancel copy",
       "paste" : "Paste bulletin",
       "update" : "Create update of bulletin",
       "caaml" : "Show CAAML",
       "json" : "Show JSON",
       "edit" : "Edit bulletin (will not be published again)",
       "create" : "Create bulletin",
+      "preview" : "Preview bulletin (PDF)",
       "check" : "Check bulletin",
       "info" : "Show publication status",
       "publishAll" : "Publish all regions"
@@ -72,6 +79,8 @@
         "saveBulletin" : "Save bulletin",
         "discardBulletin" : "Discard bulletin changes",
         "loadBulletin" : "Load bulletin from the day before",
+        "uploadJsonBulletin" : "Upload bulletin in JSON format",
+        "downloadJsonBulletin" : "Download bulletin in JSON format",
         "daytimeDependency" : "Daytime dependency",
         "treeline" : "Treeline",
         "tendency" : {
@@ -97,11 +106,13 @@
         "moveDownAvalancheSituation" : "Move avalanche problem down",
         "dangerRatingDirectionUp" : "Extend the danger rating upwards",
         "dangerRatingDirectionDown" : "Extend the danger rating downwards"
-    },
+      },
       "save" : " Save",
       "discard" : " Discard",
       "back" : " Back",
       "createAggregatedRegion" : " New region",
+      "pasteAggregatedRegion" : " Paste region",
+      "cancelCopyBulletin" : " Cancel",
       "createAvalancheSituation" : " New problem",
       "ownRegions" : "Own regions",
       "foreignRegions": "Foreign regions",
@@ -174,6 +185,10 @@
         "message" : "There was an error loading the bulletins!",
         "accept" : "Ok"
       },
+      "loadingJsonFileErrorDialog" : {
+        "message" : "There was an error loading the bulletins from the JSON file!",
+        "accept" : "Ok"
+      },
       "avalancheSituationErrorDialog" : {
         "message" : "Avalanche problem type, aspects and/or danger rating is missing for at least one Avalanche Problem",
         "accept" : "Ok"
@@ -223,38 +238,69 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
+        "headline" : "Publication Status",
         "publishedBy" : "Published by: ",
         "publishedAt" : "Published at: ",
         "validFor" : "Valid for: ",
-        "tooltip" : {
-          "caaml" : {
-            "success" : "CAAML file created",
-            "failed" : "CAAML file could not be created"
-          },
-          "map" : {
-            "success" : "Maps created",
-            "failed" : "Maps could not be created"
-          },
-          "pdf" : {
-            "success" : "PDF created",
-            "failed" : "PDF could not be created"
-          },
-          "staticWidget" : {
-            "success" : "Static widget created",
-            "failed" : "Static widget could not be created"
-          },
-          "html" : {
-            "success" : "HTML created",
-            "failed" : "HTML could not be created"
-          },
-          "email" : {
-            "success" : "Emails sent",
-            "failed" : "Emails could not be sent"
-          },
-          "telegramChannel" : {
-            "success" : "Avalanche forecast sent via Telegram channel",
-            "failed" : "Avalanche forecast could not be sent via Telegram channel"
+        "title" : {
+          "prod" : "Serious stuff",
+          "test" : "Just testing",
+          "task" : "Task",
+          "language" : {
+            "all" : "ALL",
+            "de" : "DE",
+            "it" : "IT",
+            "en" : "EN"
           }
+        },
+
+        "caaml" : {
+          "label" : "CAAML Files",
+          "tooltip" : "Create CAAML Files",
+          "success" : "{{prefix}}CAAML Files successfully created!",
+          "error" : "{{prefix}}CAAML Files could not be created!"
+        },
+        "map" : {
+          "label" : "Maps",
+          "tooltip" : "Create Maps",
+          "success" : "{{prefix}}Maps successfully created!",
+          "error" : "{{prefix}}Maps could not be created!"
+        },
+        "pdf" : {
+          "label" : "PDFs",
+          "tooltip" : "Create PDFs",
+          "success" : "{{prefix}}PDFs successfully created!",
+          "error" : "{{prefix}}PDFs could not be created!"
+        },
+        "staticWidget" : {
+          "label" : "Static Widgets",
+          "tooltip" : "Create Static Widgets",
+          "success" : "{{prefix}}Static Widgets successfully created!",
+          "error" : "{{prefix}}Static Widgets could not be created!"
+        },
+        "html" : {
+          "label" : "Simple HTMLs",
+          "tooltip" : "Create Simple HTML Files",
+          "success" : "{{prefix}}Simple HTML Files successfully created!",
+          "error" : "{{prefix}}Simple HTML Files could not be created!"
+        },
+        "email" : {
+          "label" : "Emails",
+          "tooltip" : "Send Emails",
+          "success" : "{{prefix}}Emails successfully sent!",
+          "error" : "{{prefix}}Emails could not be sent!"
+        },
+        "telegram" : {
+          "label" : "Telegram Messages",
+          "tooltip" : "Send Telegram Messages",
+          "success" : "{{prefix}}Telegram Messages successfully sent!",
+          "error" : "{{prefix}}Telegram Messages could not be sent!"
+        },
+        "push" : {
+          "label" : "Push Notifications",
+          "tooltip" : "Send Push Notifications",
+          "success" : "{{prefix}}Push Notifications successfully sent!",
+          "error" : "{{prefix}}Push Notifications could not be sent!"
         },
         "accept" : "Ok"
       },
@@ -284,6 +330,10 @@
       },
       "checkBulletinsErrorDialog" : {
         "message" : "There was an error checking the bulletins!",
+        "accept" : "Ok"
+      },
+      "previewErrorDialog" : {
+        "message" : "Preview could not be loaded!",
         "accept" : "Ok"
       },
       "checkBulletinsDialog" : {
@@ -329,6 +379,7 @@
     }
   },
   "admin" : {
+    "loadingStatistics" : "Creating CSV ...",
     "server-configuration" : {
       "title" : "Server Configuration",
       "table" : {
@@ -344,8 +395,6 @@
         "publishToTelegramChannel" : "Publish via Telegram channel",
         "publishAt5PM" : "Publish at 5PM",
         "publishAt8AM" : "Publish at 8AM",
-        "localImagesPath" : "Path to local images",
-        "localFontsPath" : "Path to fonts",
         "publishBulletinsTyrol" : "Publish avalanche forecast for Tirol",
         "publishBulletinsSouthTyrol" : "Publish avalanche forecast for South Tyrol",
         "publishBulletinsTrentino" : "Publish avalanche forecast for Trentino",
@@ -356,7 +405,6 @@
         "pdfDirectory" : "Directory for PDF",
         "htmlDirectory" : "Directory for HTML",
         "serverImagesUrl" : "Path to server images",
-        "serverImagesUrlLocalhost" : "Path to server images (localhost)",
         "mapsPath" : "Path to maps",
         "mapProductionUrl" : "URL for map production",
         "scriptsPath" : "Path to scripts"
@@ -370,7 +418,7 @@
     "users" : {
       "title" : "Users",
       "button" : {
-        "create" : "Create user"
+        "create" : " Create user"
       },
       "tooltip" : {
         "edit" : "Edit user",
@@ -430,6 +478,56 @@
         "update" : "Update user",
         "cancel" : "Cancel"
       }  
+    },
+    "statistics" : {
+      "title" : "Statistics",
+      "button" : {
+        "submit" : "Download"
+      },
+      "label" : {
+        "dateRange" : "Period",
+        "extended" : "Extended",
+        "duplicates" : "Duplicates"
+      }
+    },
+    "observations" : {
+      "title" : "Observations",
+      "button" : {
+        "submit" : "Download"
+      },
+      "label" : {
+        "dateRange" : "Period",
+        "observer" : "Observer"
+      }
+    },
+    "blog" : {
+      "title" : "Blog",
+      "language" : {
+        "title" : "Language",
+        "de" : "DE",
+        "it" : "IT",
+        "en" : "EN"
+      },
+      "all" : {
+        "tooltip" : "Send Emails, Telegram and Push",
+        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
+        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
+      },
+      "email" : {
+        "tooltip" : "Send Emails",
+        "success" : "{{prefix}}Email successfully sent!",
+        "error" : "{{prefix}}Email could not be sent!"
+      },
+      "telegram" : {
+        "tooltip" : "Send via Telegram Channel",
+        "success" : "{{prefix}}Telegram successfully sent!",
+        "error" : "{{prefix}}Telegram could not be sent!"
+      },
+      "push" : {
+        "tooltip" : "Send via Push Notifications",
+        "success" : "{{prefix}}Push successfully sent!",
+        "error" : "{{prefix}}Push could not be sent!"
+      }
     }
   },
   "settings" : {
@@ -671,11 +769,14 @@
     "eventType": "Event type",
     "eventTypes": {
       "IMPORTANT": "Important event",
+      "NEIGHBOR_REGION": "Neighbour region",
       "NORMAL": "Normal event",
       "PERSON_DEAD": "Event involving persons (dead)",
       "PERSON_INJURED": "Event involving persons (injured)",
       "PERSON_NO": "Event not involving persons",
-      "PERSON_UNINJURED": "Event involving persons (uninjured)"
+      "PERSON_UNINJURED": "Event involving persons (uninjured)",
+      "PERSON_UNKNOWN": "Event (unknown)",
+      "TRAFFIC": "Traffic"
     },
     "fractureDepth": "Fracture depth",
     "hasCoordinates": "Has coordinates",
@@ -704,131 +805,6 @@
         "title": "Settings"
       }
     }
-  },
-  "LoLaAvalanchePotential": {
-    "riskAssessment": "Risk Assessment",
-    "snowpackStructure": "Snowpack Structure",
-    "avalanchePotentialValue": "Avalanche Potential Value",
-    "avalancheCharacteristicString": "Avalanche Characteristic String",
-    "windDriftedSnow": "Wind Drifted Snow",
-    "persistentWeakLayer": "Persistent Weak Layer",
-    "wetSnow": "Wet Snow",
-    "glidingSnow": "Gliding Snow",
-    "newSnow": "New Snow",
-    "snowpackStructureActive": "Snowpack Structure Active",
-    "triggeringProbability": "Triggering Probability",
-    "avalancheRiskTendency24h": "Avalanche Risk Tendency 24h",
-    "avalancheRiskTendency48h": "Avalanche Risk Tendency 48h",
-    "oldSnowFloatingSnow": "Old Snow Floating Snow",
-    "oldSnowSleet": "Old Snow Sleet",
-    "oldSnowWeakLayers": "Old Snow Weak Layers",
-    "wetSnowRain": "Wet Snow Rain",
-    "wetSnowTemperatureIncrease": "Wet Snow Temperature Increase",
-    "wetSnowHighRadiation": "Wet Snow High Radiation"
-  },
-  "LoLaWeather": {
-    "cloudiness": "Cloudiness",
-    "freshSnowAmount": "Fresh Snow Amount",
-    "officialAvalancheReport": "Official Avalanche Report",
-    "precipitationIntensity": "Precipitation Intensity",
-    "precipitationType": "Precipitation Type",
-    "temperaturePeak": "Temperature Peak",
-    "temperatureTreeline": "Temperature Treeline",
-    "temperatureValley": "Temperature Valley",
-    "weatherTendency": "Weather Tendency",
-    "windDirection": "Wind Direction",
-    "windSpeed": "Wind Speed",
-    "visibilityConditions": "Visibility Conditions"
-  },
-  "natlefs" : {
-    "title" : {
-      "ridingQuality" : "Riding quality",
-      "rode" : "We rode",
-      "avoided" : "We stayed away from",
-      "alarmSignsFrequency" : "Signs of instability",
-      "newSnow" : "New snow",
-      "driftingSnow" : "Fresh drifting snow",
-      "avalanches" : "Fresh avalanches",
-      "penetrationDepth" : "Penetration depth without ski",
-      "surfaceSnowWetness" : "Surface snow wetness",
-      "avalancheProblems" : "Avalanche problems",
-      "tracks" : "Tracks",
-      "comment" : "Comment"
-    }
-  },
-  "ridingQuality" : {
-    "amazing" : "Amazing",
-    "good" : "Good",
-    "ok" : "Ok",
-    "indifferent" : "Indifferent",
-    "terrible" : "Terrible"
-  },
-  "snowConditions" : {
-    "crusty" : "Crusty",
-    "heavy" : "Heavy",
-    "hard" : "Hard",
-    "wet" : "Wet",
-    "powder" : "Powder",
-    "firn" : "Firn",
-    "windAffected" : "Wind affected"
-  },
-  "terrainFeature" : {
-    "moderatelySteepSlopes" : "Moderately steep slopes (< 30°)",
-    "steepSlopes" : "Steep slopes (30° - 40°)",
-    "verySteepSlopes" : "Very steep slopes (> 40°)",
-    "convexSlopes" : "Convex slopes",
-    "denseTrees" : "Dense trees",
-    "openTrees" : "Open trees",
-    "sunnySlopes" : "Sunny slopes",
-    "shadySlopes" : "Shady slopes"
-  },
-  "alarmSignsFrequency" : {
-    "none" : "None",
-    "occasional" : "Occasional (1 - 2)",
-    "frequent" : "Frequent (> 2)"
-  },
-  "newSnow" : {
-    "none" : "None",
-    "low" : "< 10 cm",
-    "medium" : "10 - 30 cm",
-    "high" : "> 30 cm"
-  },
-  "driftingSnow" : {
-    "none" : "None",
-    "occasional" : "Occasional",
-    "widespread" : "Widespread"
-  },
-  "avalanches" : {
-    "none" : "None",
-    "some" : "Some (1 - 3)",
-    "many" : "Many (> 3)"
-  },
-  "penetrationDepth" : {
-    "little" : "< 5 cm",
-    "medium" : "5 - 30 cm",
-    "much" : "> 30 cm",
-    "spotty" : "spotty"
-  },
-  "surfaceSnowWetness" : {
-    "dry" : "Dry",
-    "sticky" : "Sticky",
-    "wet" : "Wet"
-  },
-  "avalancheProblemNatlefs" : {
-    "new_snow" : "New snow",
-    "wind_drifted_snow" : "Wind-drifted snow",
-    "weak_persistent_layer" : "Persistent weak layers",
-    "wet_snow" : "Wet snow",
-    "gliding_snow" : "Gliding snow",
-    "favourable_situation" : "Favourable situation"
-  },
-  "tracks" : {
-    "none" : "None",
-    "some" : "Some",
-    "many" : "Many"
-  },
-  "location" : {
-    "accuracy" : "GPS Accuracy"
   },
   "units" : {
     "cm" : "cm",

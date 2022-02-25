@@ -39,7 +39,7 @@ export class CaamlComponent implements OnInit {
         if ((data as any).status === 204) {
           this.openNoCaamlModal(this.noCaamlTemplate);
         } else {
-          const text = (data as any).text();
+          const text = data as any;
           this.bulletins = text;
         }
       },

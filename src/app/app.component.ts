@@ -4,7 +4,7 @@ import { SettingsService } from "./providers/settings-service/settings.service";
 
 
 @Component({
-  // tslint:disable-next-line
+  // eslint-disable-next-line
   selector: 'body',
   template: "<router-outlet></router-outlet>"
 })

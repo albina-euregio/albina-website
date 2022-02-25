@@ -271,6 +271,14 @@ export class BulletinsService {
     }
   }
 
+  getPreviewPdf(date: Date): Observable<Blob> {
+    const url = this.constantsService.getServerUrl() + "bulletins/preview?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + this.authenticationService.getActiveRegion() + "&lang=" + this.settingsService.getLangString();
+    const headers = this.authenticationService.newAuthHeader("application/pdf");
+    const options = { headers: headers };
+
+    return this.http.get(url, { headers: headers, responseType: "blob" });
+  }
+
   getStatus(region: string, startDate: Date, endDate: Date): Observable<Response> {
     const url = this.constantsService.getServerUrl() + "bulletins/status/internal?startDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(startDate) + "&endDate=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(endDate) + "&region=" + region;
     const headers = this.authenticationService.newAuthHeader();
@@ -308,21 +316,18 @@ export class BulletinsService {
     return this.http.get<Response>(url, options);
   }
 
-  loadCaamlBulletins(date: Date): Observable<Response> {
+  loadCaamlBulletins(date: Date): Observable<any> {
     const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&lang=" + this.settingsService.getLangString();
     const headers = this.authenticationService.newAuthHeader("application/xml");
-    const options = { headers: headers };
+    const options : any = { headers: headers, responseType: 'text' as 'text' };
 
-    return this.http.get<Response>(url, options);
+    return this.http.get(url, options);
   }
 
   loadJsonBulletins(date: Date): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "bulletins";
-    const params = {
-      date: this.constantsService.getISOStringWithTimezoneOffset(date),
-    };
+    const url = this.constantsService.getServerUrl() + "bulletins?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date);
     const headers = this.authenticationService.newAuthHeader();
-    const options = { headers, params };
+    const options = { headers };
 
     return this.http.get<Response>(url, options);
   }
@@ -425,8 +430,13 @@ export class BulletinsService {
     return this.http.post<Response>(url, body, options);
   }
 
-  sendEmail(date: Date, region: string): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "bulletins/publish/email?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+  sendEmail(date: Date, region: string, language: string): Observable<Response> {
+    var url;
+    if (language && language !== "") {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/email?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region + "&lang=" + language;
+    } else {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/email?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    }
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = { headers: headers };
@@ -434,8 +444,69 @@ export class BulletinsService {
     return this.http.post<Response>(url, body, options);
   }
 
-  triggerTelegramChannel(date: Date, region: string): Observable<Response> {
-    const url = this.constantsService.getServerUrl() + "bulletins/publish/telegram?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+  sendTestEmail(date: Date, region: string, language: string): Observable<Response> {
+    var url;
+    if (language && language !== "") {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/email/test?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region + "&lang=" + language;
+    } else {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/email/test?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    }
+    const headers = this.authenticationService.newAuthHeader();
+    const body = JSON.stringify("");
+    const options = { headers: headers };
+
+    return this.http.post<Response>(url, body, options);
+  }
+
+  triggerTelegramChannel(date: Date, region: string, language: string): Observable<Response> {
+    var url;
+    if (language && language !== "") {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/telegram?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region + "&lang=" + language;
+    } else {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/telegram?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    }
+    const headers = this.authenticationService.newAuthHeader();
+    const body = JSON.stringify("");
+    const options = { headers: headers };
+
+    return this.http.post<Response>(url, body, options);
+  }
+
+  triggerTestTelegramChannel(date: Date, region: string, language: string): Observable<Response> {
+    var url;
+    if (language && language !== "") {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/telegram/test?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region + "&lang=" + language;
+    } else {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/telegram/test?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    }
+    const headers = this.authenticationService.newAuthHeader();
+    const body = JSON.stringify("");
+    const options = { headers: headers };
+
+    return this.http.post<Response>(url, body, options);
+  }
+
+  triggerPushNotifications(date: Date, region: string, language: string): Observable<Response> {
+    var url;
+    if (language && language !== "") {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/push?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region + "&lang=" + language;
+    } else {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/push?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    }
+    const headers = this.authenticationService.newAuthHeader();
+    const body = JSON.stringify("");
+    const options = { headers: headers };
+
+    return this.http.post<Response>(url, body, options);
+  }
+
+  triggerTestPushNotifications(date: Date, region: string, language: string): Observable<Response> {
+    var url;
+    if (language && language !== "") {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/push/test?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region + "&lang=" + language;
+    } else {
+      url = this.constantsService.getServerUrl() + "bulletins/publish/push/test?date=" + this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(date) + "&region=" + region;
+    }
     const headers = this.authenticationService.newAuthHeader();
     const body = JSON.stringify("");
     const options = { headers: headers };
