@@ -54,9 +54,9 @@ export class ObservationsMapService {
     this.observationSourceLayers = {} as any;
     this.observationTypeLayers = {} as any;
     // @ts-ignore
-    Object.keys(ObservationSource).forEach(source => this.observationSourceLayers[source] = L.canvasIconLayer({}));
+    Object.keys(ObservationSource).forEach(source => this.observationSourceLayers[source] = new L.CanvasIconLayer({}));
     // @ts-ignore
-    Object.keys(ObservationType).forEach(type => this.observationTypeLayers[type] = L.canvasIconLayer({}));
+    Object.keys(ObservationType).forEach(type => this.observationTypeLayers[type] = new L.CanvasIconLayer({}));
   }
 
   initMaps() {
