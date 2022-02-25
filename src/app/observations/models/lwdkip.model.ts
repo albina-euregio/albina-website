@@ -270,6 +270,8 @@ export function convertLwdKipSperren(
     $data: feature.properties,
     $source: ObservationSource.LwdKipSperre,
     $type: ObservationType.Observation,
+    $markerColor: getLwdKipSperreMarkerColor(feature),
+    $markerRadius: getLwdKipSperreMarkerRadius(feature),
     aspect: undefined,
     authorName: undefined,
     content: [feature.properties.SPERRETYP, feature.properties.SPERREBEREICH]
@@ -285,31 +287,45 @@ export function convertLwdKipSperren(
 }
 
 function getLwdKipBeobachtungMarkerColor(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): string {
-  // TODO implement
-  return "red";
+  return "gray";
 }
 
 function getLwdKipBeobachtungMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): number {
-  // TODO implement
   return 15;
 }
 
 function getLwdKipSprengerfolgMarkerColor(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): string {
-  // TODO implement
-  return "red";
+  switch (feature.properties.SPRENGERFOLG || "") {
+    case 'kein Erfolg': return 'green';
+    case 'mäßiger Erfolg': return 'orange';
+    case 'guter Erfolg': return 'red';
+    case 'sehr guter Erfolg': return 'red';
+    default: return 'gray';
+  }
 }
 
 function getLwdKipSprengerfolgMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): number {
-  // TODO implement
-  return 15;
+  switch (feature.properties.SPRENGERFOLG || "") {
+    case 'kein Erfolg': return 5;
+    case 'mäßiger Erfolg': return 10;
+    case 'guter Erfolg': return 15;
+    case 'sehr guter Erfolg': return 15;
+    default: return 5;
+  }
 }
 
 function getLwdKipLawinenabgangMarkerColor(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): string {
-  // TODO implement
   return "red";
 }
 
 function getLwdKipLawinenabgangMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): number {
-  // TODO implement
   return 15;
+}
+
+function getLwdKipSperreMarkerColor(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): string {
+  return "orange";
+}
+
+function getLwdKipSperreMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): number {
+  return 10;
 }

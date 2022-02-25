@@ -65,7 +65,7 @@ export interface Temperature {
 
 export interface StabilityTest {
   id: number;
-  type: Aspect;
+  type: IdText;
   height: number;
   step: number;
   result: Aspect;
@@ -184,8 +184,6 @@ export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObser
     $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
     $source: ObservationSource.LawisSnowProfiles,
     $type: ObservationType.Profile,
-    $markerColor: getLawisProfileMarkerColor(lawis),
-    $markerRadius: getLawisProfileMarkerRadius(lawis),
     aspect: toAspect(lawis.location.aspect?.text),
     authorName: "",
     content: "(LAWIS snow profile)",
@@ -201,6 +199,8 @@ export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObser
 export function toLawisProfileDetails(profile: GenericObservation<Profile>, lawisDetails: ProfileDetails): GenericObservation<Profile> {
   return {
     ...profile,
+    $markerColor: getLawisProfileMarkerColor(lawisDetails),
+    $markerRadius: getLawisProfileMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
     content: lawisDetails.comments
   };
@@ -212,8 +212,6 @@ export function toLawisIncident(lawis: Incident, urlPattern: string): GenericObs
     $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
     $source: ObservationSource.LawisIncidents,
     $type: ObservationType.Incident,
-    $markerColor: getLawisIncidentMarkerColor(lawis),
-    $markerRadius: getLawisIncidentMarkerRadius(lawis),
     aspect: toAspect(lawis.location.aspect?.text),
     authorName: "",
     content: "(LAWIS incident)",
@@ -233,6 +231,8 @@ export function toLawisIncidentDetails(
   return {
     ...incident,
     $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
+    $markerColor: getLawisIncidentMarkerColor(lawisDetails),
+    $markerRadius: getLawisIncidentMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
     content: lawisDetails.comments,
     reportDate: parseLawisDate(lawisDetails.reported?.date)
@@ -259,22 +259,55 @@ export function parseLawisDate(datum: string): Date {
   return new Date(datum.replace(/ /, "T"));
 }
 
-function getLawisProfileMarkerColor(profile: Profile): string {
-  // TODO implement
-  return "orange";
+function getLawisProfileMarkerColor(profile: ProfileDetails): string {
+  // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
+  const ect_tests = profile.stability_tests.filter((t) => t.type.text === "ECT") || [];
+  const colors = ect_tests.map((t) => getECTestMarkerColor(t.step, t.result.text));
+  if (colors.includes("red")) {
+    return "red";
+  } else if (colors.includes("orange")) {
+    return "red";
+  } else if (colors.includes("green")) {
+    return "green";
+  }
+  return "gray";
 }
 
-function getLawisProfileMarkerRadius(profile: Profile): number {
-  // TODO implement
+export function getECTestMarkerColor(step: number, propagation: string) {
+  // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
+  const propagation1 = /\bP\b/.test(propagation);
+  const propagation0 = /\bN\b/.test(propagation);
+  if (step <= 13 && propagation1) {
+    // sehr schwach
+    return "red";
+  } else if (step <= 22 && propagation1) {
+    // schwach
+    return "red";
+  } else if (step <= 30 && propagation1) {
+    // mittel
+    return "orange";
+  } else if (step <= 10 && propagation0) {
+    // mittel
+    return "orange";
+  } else if (step <= 30 && propagation0) {
+    return "green";
+  } else if (step === 31) {
+    return "green";
+  }
+  return "gray";
+}
+
+function getLawisProfileMarkerRadius(profile: ProfileDetails): number {
   return 15;
 }
 
-function getLawisIncidentMarkerColor(incident: Incident): string {
-  // TODO implement
-  return "orange";
+function getLawisIncidentMarkerColor(incident: IncidentDetails): string {
+  return incident.involved?.dead || incident.involved?.injured || incident.involved?.buried_partial || incident.involved?.buried_total
+    ? "red"
+    : "orange";
 }
 
-function getLawisIncidentMarkerRadius(incident: Incident): number {
-  // TODO implement
-  return 15;
+function getLawisIncidentMarkerRadius(incident: IncidentDetails): number {
+  const size_id = incident.avalanche?.size?.id;
+  return size_id && size_id >= 1 && size_id <= 5 ? size_id * 10 : 10;
 }

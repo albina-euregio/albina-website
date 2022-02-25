@@ -1,4 +1,5 @@
 import { GenericObservation, ObservationSource, ObservationType, toAspect } from "./generic-observation.model";
+import { getECTestMarkerColor } from "./lawis.model";
 
 export interface ApiWikisnowECT {
   $schema: object;
@@ -38,6 +39,7 @@ export function convertWikisnow(wikisnow: WikisnowECT): GenericObservation<Wikis
     $data: wikisnow,
     $source: ObservationSource.WikisnowECT,
     $type: ObservationType.Profile,
+    $markerColor: getECTestMarkerColor(+wikisnow.hits, wikisnow.propagation),
     aspect: toAspect(+wikisnow.exposition / 45),
     authorName: wikisnow.UserName,
     content: [wikisnow.ECT_result, wikisnow.propagation, wikisnow.surface, wikisnow.weak_layer, wikisnow.description].join(" // "),

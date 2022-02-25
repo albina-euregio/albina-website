@@ -46,16 +46,37 @@ export function isAlbinaObservation(observation: GenericObservation): observatio
 }
 
 function getObservationMarkerColor(observation: Observation): string {
-  // TODO implement
-  return "blue";
+  switch (observation.eventType ?? EventType.Normal) {
+    case EventType.PersonDead:
+      return "red";
+    case EventType.PersonInjured:
+      return "red";
+    case EventType.PersonUninjured:
+      return "red";
+    case EventType.PersonNo:
+      return "red";
+    case EventType.Important:
+      return "orange";
+    default:
+      return "gray";
+  }
 }
 
 function getObservationMarkerRadius(observation: Observation): number {
-  // TODO implement
   return 15;
 }
 
 function getObservationType(observation: Observation): ObservationType {
-  // TODO implement
-  return ObservationType.Observation;
+  switch (observation.eventType ?? EventType.Normal) {
+    case EventType.PersonDead:
+      return ObservationType.Avalanche;
+    case EventType.PersonInjured:
+      return ObservationType.Avalanche;
+    case EventType.PersonUninjured:
+      return ObservationType.Avalanche;
+    case EventType.PersonNo:
+      return ObservationType.Avalanche;
+    default:
+      return ObservationType.Observation;
+  }
 }
