@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { NgxSidebarControlModule } from "@runette/ngx-leaflet-sidebar";
 import { LeafletModule} from "@asymmetrik/ngx-leaflet";
 
+import { NgxSidebarControlComponent } from "./ngx-sidebar-control.component";
 import { ObservationsComponent } from "./observations.component";
 import { ObservationEditorComponent } from "./observation-editor.component";
 import { ObservationTableComponent } from "./observation-table.component";
@@ -43,7 +43,6 @@ import { ObservationsService } from "./observations.service";
     ToggleButtonModule,
     InputTextModule,
     InputTextareaModule,
-    NgxSidebarControlModule,
     LeafletModule,
     DropdownModule,
     MessagesModule,
@@ -52,6 +51,7 @@ import { ObservationsService } from "./observations.service";
     PipeModule.forRoot()
   ],
   declarations: [
+    NgxSidebarControlComponent,
     ObservationsComponent,
     ObservationEditorComponent,
     ObservationTableComponent

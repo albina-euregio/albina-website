@@ -1558,14 +1558,6 @@
     tslib "^2.3.0"
     yargs-parser "20.0.0"
 
-"@runette/ngx-leaflet-sidebar@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@runette/ngx-leaflet-sidebar/-/ngx-leaflet-sidebar-1.0.3.tgz#31dbf03ab1c1783141fde4d577c81d8ebd19a249"
-  integrity sha512-U0E1YnqxFajopmoNmCOokGOz5C3RCEOUriP76Kl9+yyVA3Oo1HiRwQO/qNXw9oZRjemH7rqWJw9NlBwbL3GfnQ==
-  dependencies:
-    leaflet-sidebar-v2 "^3.2.2"
-    tslib "^1.9.0"
-
 "@schematics/angular@13.0.3":
   version "13.0.3"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-13.0.3.tgz#08c5511b0e72a9934ac84545d3e49e05bd0dbf6c"
@@ -4378,7 +4370,7 @@ leaflet-control-geocoder@^2.4.0:
   optionalDependencies:
     open-location-code "^1.0.0"
 
-leaflet-sidebar-v2@^3.2.2:
+leaflet-sidebar-v2@^3.2.3:
   version "3.2.3"
   resolved "https://registry.yarnpkg.com/leaflet-sidebar-v2/-/leaflet-sidebar-v2-3.2.3.tgz#73bb949d7d4f51f22cbda875806b9aa804d31717"
   integrity sha512-narzdn81Y/8YpgHR3jhs93LhrLq0AGSRo7CXHEICHfMeK6IHSbtFOF9CTSfueaumRK0TgvHkiiYJb9dTKta6ZQ==

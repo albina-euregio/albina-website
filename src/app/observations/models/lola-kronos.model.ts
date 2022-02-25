@@ -306,8 +306,8 @@ export function convertLoLaKronos(
           : obs.lolaApplication === "natlefs"
           ? ObservationSource.NatlefsAvalancheEvent
           : undefined,
-        ObservationType.Avalanche,
-        "https://www.lola-kronos.info/avalancheEvent/"
+          ObservationType.Avalanche,
+          "https://www.lola-kronos.info/avalancheEvent/"
       )
     ),
     ...kronos.lolaEvaluation.map((obs) =>
@@ -320,8 +320,8 @@ export function convertLoLaKronos(
           : obs.lolaApplication === "natlefs"
           ? ObservationSource.NatlefsEvaluation
           : undefined,
-        ObservationType.Observation,
-        "https://www.lola-kronos.info/evaluation/"
+          ObservationType.Observation,
+          "https://www.lola-kronos.info/evaluation/"
       )
     ),
     ...kronos.lolaSimpleObservation.map((obs) =>
