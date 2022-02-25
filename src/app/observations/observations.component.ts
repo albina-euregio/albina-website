@@ -12,8 +12,6 @@ import { saveAs } from "file-saver";
 
 import { Map, LatLng, Control, Marker } from "leaflet";
 
-import "../../assets/js/leaflet.canvas-markers.js";
-
 import { ObservationTableComponent } from "./observation-table.component";
 @Component({
   templateUrl: "observations.component.html"

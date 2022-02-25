@@ -17,9 +17,8 @@ import { appCirclePlayEmptyIcon } from "../../svg/circle_play_empty";
 import { appCirclePlayIcon } from "../../svg/circle_play";
 import { appCircleStopIcon } from "../../svg/circle_stop";
 
+import {CanvasIconLayer} from './leaflet.canvas-markers';
 import * as geojson from "geojson";
-import "../../../assets/js/leaflet.canvas-markers.js";
-import * as L from "leaflet";
 
 declare module "leaflet" {
   interface GeoJSON<P = any> {
@@ -53,10 +52,8 @@ export class ObservationsMapService {
     this.initMaps();
     this.observationSourceLayers = {} as any;
     this.observationTypeLayers = {} as any;
-    // @ts-ignore
-    Object.keys(ObservationSource).forEach(source => this.observationSourceLayers[source] = new L.CanvasIconLayer({}));
-    // @ts-ignore
-    Object.keys(ObservationType).forEach(type => this.observationTypeLayers[type] = new L.CanvasIconLayer({}));
+    Object.keys(ObservationSource).forEach(source => this.observationSourceLayers[source] = new CanvasIconLayer());
+    Object.keys(ObservationType).forEach(type => this.observationTypeLayers[type] = new CanvasIconLayer());
   }
 
   initMaps() {
