@@ -152,6 +152,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     // add data source controls
     Object.keys(ObservationSource).forEach(source => {
+      if (!this.mapService.USE_CANVAS_LAYER) return;
       this.mapService.observationSourceLayers[source].addOnClickListener(function (e, data) {
         data[0].data.component.onObservationClick(data[0].data.observation)
       });
@@ -173,6 +174,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
     // add data type controls
     Object.keys(ObservationType).forEach(type => {
+      if (!this.mapService.USE_CANVAS_LAYER) return;
       this.mapService.observationTypeLayers[type].addOnClickListener(function (e, data) {
         data[0].data.component.onObservationClick(data[0].data.observation)
       });
@@ -225,11 +227,14 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
 
     const marker = new Marker(ll, this.mapService.style(observation));
-    // @ts-ignore
-    marker.observation = observation;
-    // @ts-ignore
-    marker.component = this;
+    if (this.mapService.USE_CANVAS_LAYER) {
+      // @ts-ignore
+      marker.observation = observation;
+      // @ts-ignore
+      marker.component = this;
+    }
     marker.bindTooltip(observation.locationName);
+    marker.on("click", () => this.onObservationClick(observation));
     marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
     marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
   }
