@@ -20,6 +20,11 @@ export class ObservationTableComponent {
 
   constructor(private observationsService: ObservationsService, private translate: TranslateService) {}
 
+  get shownObservations(): GenericObservation[] {
+    const observations = this.observations || [];
+    return this.showObservationsWithoutCoordinates ? observations.filter(this.hasNoCoordinates) : observations;
+  }
+
   newObservation() {
     this.observation = {
       eventType: EventType.Normal

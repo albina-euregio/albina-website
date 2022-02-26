@@ -25,20 +25,8 @@
       <th><i class="fa fa-comment"></i> {{ "observations.content" | translate }}</th>
     </tr>
   </thead>
-  <tbody *ngIf="!showObservationsWithoutCoordinates">
-    <tr *ngFor="let observation of observations || []" (click)="onClick(observation)" style="cursor: pointer" [ngStyle]="getTableRowStyle(observation)">
-      <td [style]="{ color: observation.$markerColor }" [title]="observation.$source">█</td>
-      <td style="white-space: nowrap">{{ observation.eventDate | localizedDate: "dd.MM.yyyy HH:mm" }}</td>
-      <td>{{ observation.authorName }}</td>
-      <td>
-        {{ observation.locationName }}
-        <i *ngIf="observation.latitude && observation.longitude" class="fa fa-map-marker" title="{{ 'observations.hasCoordinates' | translate }}"></i>
-      </td>
-      <td>{{ observation.content }}</td>
-    </tr>
-  </tbody>
-  <tbody *ngIf="showObservationsWithoutCoordinates">
-    <tr *ngFor="let observation of observations.filter(hasNoCoordinates) || []" (click)="onClick(observation)" style="cursor: pointer" [ngStyle]="getTableRowStyle(observation)">
+  <tbody>
+    <tr *ngFor="let observation of shownObservations" (click)="onClick(observation)" style="cursor: pointer" [ngStyle]="getTableRowStyle(observation)">
       <td [style]="{ color: observation.$markerColor }" [title]="observation.$source">█</td>
       <td style="white-space: nowrap">{{ observation.eventDate | localizedDate: "dd.MM.yyyy HH:mm" }}</td>
       <td>{{ observation.authorName }}</td>
