@@ -151,6 +151,6 @@ export class ObservationsMapService {
       }
     }
 
-    return svg.replace(/{color}/g, iconColor);
+    return svg.replace(/currentcolor/g, iconColor);
   }
 }
