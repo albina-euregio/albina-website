@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { EventType, isAlbinaObservation, Observation } from "./models/observation.model";
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
-import { GenericObservation } from "./models/generic-observation.model";
+import { GenericObservation, ObservationTypeIcons } from "./models/generic-observation.model";
 
 @Component({
   selector: "app-observation-table",
@@ -17,6 +17,7 @@ export class ObservationTableComponent {
   saving = false;
   messages: Message[] = [];
   showObservationsWithoutCoordinates: boolean = false;
+  ObservationTypeIcons = ObservationTypeIcons;
 
   constructor(private observationsService: ObservationsService, private translate: TranslateService) {}
 
