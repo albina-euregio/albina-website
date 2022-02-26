@@ -2,19 +2,10 @@ import { Injectable } from "@angular/core";
 // @ts-ignore
 /// <reference types="leaflet-sidebar-v2" />
 import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon, DivIcon } from "leaflet";
-import { GenericObservation, ObservationSource, ObservationType } from "app/observations/models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationType, ObservationTypeIcons } from "app/observations/models/generic-observation.model";
 import { ConstantsService } from "../constants-service/constants.service";
 
 // icons
-import { appCircleAddIcon } from "../../svg/circle_add";
-import { appCircleAlertIcon } from "../../svg/circle_alert";
-import { appCircleCheckIcon } from "../../svg/circle_check";
-import { appCircleDotsHorizontalIcon } from "../../svg/circle_dots_horizontal";
-import { appCircleFullIcon } from "../../svg/circle_full";
-import { appCircleMinusIcon } from "../../svg/circle_minus";
-import { appCircleOkayTickIcon } from "../../svg/circle_okay_tick";
-import { appCirclePlayEmptyIcon } from "../../svg/circle_play_empty";
-import { appCirclePlayIcon } from "../../svg/circle_play";
 import { appCircleStopIcon } from "../../svg/circle_stop";
 
 import {CanvasIconLayer} from './leaflet.canvas-markers';
@@ -120,37 +111,8 @@ export class ObservationsMapService {
   }
 
   private getSvg(observation: GenericObservation<any>) {
-    let svg: string;
-
     const iconColor = observation.$markerColor;
-
-    switch (observation.$type) {
-      case "Observation": {
-        svg = appCircleAddIcon.data;
-        break;
-      }
-      case "Incident": {
-        svg = appCircleAlertIcon.data;
-        break;
-      }
-      case "Profile": {
-        svg = appCircleCheckIcon.data;
-        break;
-      }
-      case "Avalanche": {
-        svg = appCircleDotsHorizontalIcon.data;
-        break;
-      }
-      case "Blasting": {
-        svg = appCircleFullIcon.data;
-        break;
-      }
-      default: {
-        svg = appCircleStopIcon.data;
-        break;
-      }
-    }
-
+    const svg = ObservationTypeIcons[observation.$type] ?? appCircleStopIcon.data
     return svg.replace(/currentcolor/g, iconColor);
   }
 }

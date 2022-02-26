@@ -1,5 +1,17 @@
 import * as Enums from "app/enums/enums";
 
+// icons
+import { appCircleAddIcon } from "../../svg/circle_add";
+import { appCircleAlertIcon } from "../../svg/circle_alert";
+import { appCircleCheckIcon } from "../../svg/circle_check";
+import { appCircleDotsHorizontalIcon } from "../../svg/circle_dots_horizontal";
+import { appCircleFullIcon } from "../../svg/circle_full";
+import { appCircleMinusIcon } from "../../svg/circle_minus";
+import { appCircleOkayTickIcon } from "../../svg/circle_okay_tick";
+import { appCirclePlayEmptyIcon } from "../../svg/circle_play_empty";
+import { appCirclePlayIcon } from "../../svg/circle_play";
+import { appCircleStopIcon } from "../../svg/circle_stop";
+
 export interface GenericObservation<Data = any> {
   $data: Data;
   $externalURL?: string;
@@ -78,6 +90,14 @@ export const ObservationSourceColors: Record<ObservationSource, string> = Object
   [ObservationSource.NatlefsSimpleObservation]: "#80cdc1",
   [ObservationSource.NatlefsSnowProfile]: "#2c7bb6",
   [ObservationSource.WikisnowECT]: "#c6e667",
+});
+
+export const ObservationTypeIcons: Record<ObservationType, string> = Object.freeze({
+   [ObservationType.Observation]: appCircleAddIcon.data,
+   [ObservationType.Incident]: appCircleAlertIcon.data,
+   [ObservationType.Profile]: appCircleCheckIcon.data,
+   [ObservationType.Avalanche]: appCircleDotsHorizontalIcon.data,
+   [ObservationType.Blasting]: appCircleFullIcon.data,
 });
 
 export enum Aspect {
