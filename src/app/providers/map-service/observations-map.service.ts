@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 // @ts-ignore
 /// <reference types="leaflet-sidebar-v2" />
-import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon, DivIcon } from "leaflet";
+import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon, DivIcon, MarkerOptions, CircleMarkerOptions } from "leaflet";
 import { GenericObservation, ObservationSource, ObservationType, ObservationTypeIcons } from "app/observations/models/generic-observation.model";
 import { ConstantsService } from "../constants-service/constants.service";
 
@@ -65,7 +65,7 @@ export class ObservationsMapService {
     };
   }
 
-  style(observation: GenericObservation) {
+  style(observation: GenericObservation): MarkerOptions | CircleMarkerOptions {
     return {
         icon: this.getIcon(observation),
         radius: observation.$markerRadius,
@@ -75,7 +75,7 @@ export class ObservationsMapService {
     };
   }
 
-  highlightStyle(observation: GenericObservation) {
+  highlightStyle(observation: GenericObservation): MarkerOptions | CircleMarkerOptions {
     return {
         icon: this.getIcon(observation),
         radius: observation.$markerRadius,
