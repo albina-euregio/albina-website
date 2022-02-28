@@ -122,6 +122,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
 
   private initMaps() {
     const map = new Map(this.mapDiv.nativeElement, {
+      zoomAnimation: false,
       zoomControl: false,
       doubleClickZoom: true,
       scrollWheelZoom: true,
