@@ -98,7 +98,18 @@ export class ObservationsService {
       }
       const url = this.constantsService.getServerUrl() + "observations/lwdkip/" + layer.id;
       const headers = this.authenticationService.newAuthHeader();
-      return this.http.get<T>(url, { headers, params });
+      return this.http
+        .get<T | { error: { message: string } }>(url, { headers, params })
+        .map((data) => {
+          if ("error" in data) {
+            console.error(
+              "Failed fetching LWDKIP " + name,
+              new Error(data.error?.message)
+            );
+            return { features: [] };
+          }
+          return data;
+        });
     });
   }
 
