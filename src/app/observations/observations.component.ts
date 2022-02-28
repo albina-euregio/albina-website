@@ -9,7 +9,7 @@ import { GenericObservation, ObservationSource, ObservationSourceColors, Observa
 
 import { saveAs } from "file-saver";
 
-import { Map, LatLng, Control, Marker } from "leaflet";
+import { Map, LatLng, Control, Marker, LayerGroup } from "leaflet";
 
 import { ObservationTableComponent } from "./observation-table.component";
 @Component({
@@ -52,12 +52,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngAfterContentInit() {
-    // TODO for testing
-    this.loadObservations({ days: 20 });
+    this.days = 7;
   }
 
   ngAfterViewInit() {
     this.initMaps();
+    this.loadObservations();
   }
 
   ngOnDestroy() {
@@ -78,21 +78,27 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationTableComponent.newObservation();
   }
 
+  set days(days: number) {
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - (days - 1));
+    startDate.setHours(0, 0, 0, 0);
+    const endDate = new Date();
+    endDate.setHours(23, 59, 0, 0);
+    this.dateRange = [startDate, endDate];
+  }
+
   loadObservations({ days }: { days?: number } = {}) {
     this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
-      const startDate = new Date();
-      startDate.setDate(startDate.getDate() - (days - 1));
-      startDate.setHours(0, 0, 0, 0);
-      const endDate = new Date();
-      endDate.setHours(23, 59, 0, 0);
-      this.dateRange = [startDate, endDate];
+      this.days = days;
     }
     this.loading = true;
     this.observations.length = 0;
-    Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
+    // Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
+    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
     this.observationsService.loadAll(this.dateRange[0], this.dateRange[1])
       .forEach((observation) => this.addObservation(observation))
+      .catch((e) => console.error(e))
       .finally(() => (this.loading = false));
   }
 
@@ -131,7 +137,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       zoom: 8,
       minZoom: 4,
       maxZoom: 17,
-      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationsMaps.OpenTopoMap, ...Object.values(this.mapService.observationSourceLayers)]
+      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationsMaps.OpenTopoMap, ...Object.values(this.mapService.observationTypeLayers)]
     });
 
     // add data source controls
@@ -216,10 +222,11 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       marker.observation = observation;
       // @ts-ignore
       marker.component = this;
+    } else {
+      marker.on("click", () => this.onObservationClick(observation));
     }
     marker.bindTooltip(observation.locationName);
-    marker.on("click", () => this.onObservationClick(observation));
-    marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
+    // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
     marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
   }
 

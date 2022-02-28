@@ -20,7 +20,7 @@ declare module "leaflet" {
 
 @Injectable()
 export class ObservationsMapService {
-  public USE_CANVAS_LAYER = false
+  public USE_CANVAS_LAYER = true;
   public observationsMap: Map;
   public observationsMaps: Record<string, TileLayer>;
   public observationSourceLayers: Record<ObservationSource, LayerGroup>;
