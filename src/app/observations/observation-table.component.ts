@@ -4,7 +4,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { EventType, isAlbinaObservation, Observation } from "./models/observation.model";
 import { ObservationsService } from "./observations.service";
 import { Message } from "primeng/api";
-import { GenericObservation, ObservationTypeIcons } from "./models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationTypeIcons } from "./models/generic-observation.model";
 
 @Component({
   selector: "app-observation-table",
@@ -22,7 +22,9 @@ export class ObservationTableComponent {
   constructor(private observationsService: ObservationsService, private translate: TranslateService) {}
 
   get shownObservations(): GenericObservation[] {
-    const observations = this.observations || [];
+    const observations = (this.observations || []).filter(
+      (o) => o.$source !== ObservationSource.AvalancheWarningService
+    );
     return this.showObservationsWithoutCoordinates ? observations.filter(this.hasNoCoordinates) : observations;
   }
 
