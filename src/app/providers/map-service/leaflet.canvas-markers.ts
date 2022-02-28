@@ -49,7 +49,7 @@ export const CanvasIconLayer = (L.Layer ? L.Layer : L.Class).extend({
   addMarker: function (marker) {
     var self = this;
     var latlng = marker.getLatLng();
-    var isDisplaying = self._map.getBounds().contains(latlng);
+    var isDisplaying = self._map?.getBounds()?.contains(latlng);
     var dat = self._addMarker(marker, latlng, isDisplaying);
 
     //Only add to Point Lookup if we are on map

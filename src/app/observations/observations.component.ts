@@ -137,49 +137,35 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       zoom: 8,
       minZoom: 4,
       maxZoom: 17,
-      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationsMaps.OpenTopoMap, ...Object.values(this.mapService.observationTypeLayers)]
+      layers: [
+        ...Object.values(this.mapService.observationsMaps),
+        ...Object.values(this.mapService.observationTypeLayers)
+      ]
     });
 
-    // add data source controls
-    Object.keys(ObservationSource).forEach(source => {
-      if (!this.mapService.USE_CANVAS_LAYER) return;
-      this.mapService.observationSourceLayers[source].addOnClickListener(function (e, data) {
-        data[0].data.component.onObservationClick(data[0].data.observation)
-      });
-    });
+    // this.initLayer(map, this.mapService.observationSourceLayers);
+    this.initLayer(map, this.mapService.observationTypeLayers);
+    this.mapService.observationsMap = map;
+  }
 
-    const layers = new Control.Layers(null, this.mapService.observationSourceLayers, { collapsed: false });
+  private initLayer(map: Map, layersObj: Record<string, LayerGroup<any>>) {
+    if (this.mapService.USE_CANVAS_LAYER) {
+      Object.values(layersObj).forEach((l: any) =>
+        l.addOnClickListener((e, data) =>
+          this.onObservationClick(data[0].data.observation)
+        )
+      );
+    }
+
+    const layers = new Control.Layers(null, layersObj, { collapsed: false });
     layers.addTo(map);
 
     // Call the getContainer routine.
     let htmlObject = layers.getContainer();
     // Get the desired parent node.
-    let a = document.getElementById("sourcesDiv");
-
+    let sidebar = document.getElementById("sourcesDiv");
     // Finally append that node to the new parent, recursively searching out and re-parenting nodes.
-    function setParent(el, newParent) {
-        newParent.appendChild(el);
-    }
-    setParent(htmlObject, a);
-
-    // add data type controls
-    Object.keys(ObservationType).forEach(type => {
-      if (!this.mapService.USE_CANVAS_LAYER) return;
-      this.mapService.observationTypeLayers[type].addOnClickListener(function (e, data) {
-        data[0].data.component.onObservationClick(data[0].data.observation)
-      });
-    });
-
-    const types = new Control.Layers(null, this.mapService.observationTypeLayers, { collapsed: false });
-    types.addTo(map);
-
-    // Call the getContainer routine.
-    htmlObject = types.getContainer();
-    // Get the desired parent node.
-    a = document.getElementById("typesDiv");
-
-    setParent(htmlObject, a);
-    this.mapService.observationsMap = map;
+    sidebar.appendChild(htmlObject);
   }
 
   get observationPopupVisible(): boolean {
@@ -220,8 +206,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     if (this.mapService.USE_CANVAS_LAYER) {
       // @ts-ignore
       marker.observation = observation;
-      // @ts-ignore
-      marker.component = this;
     } else {
       marker.on("click", () => this.onObservationClick(observation));
     }
