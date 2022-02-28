@@ -140,3 +140,7 @@ export function toAspect(aspect: Enums.Aspect | string | undefined): Aspect | un
     return Aspect[aspect];
   }
 }
+
+export function imageCountString(images: any[] | undefined) {
+  return images?.length ? ` 📷 ${images.length}` : "";
+}

@@ -1,5 +1,5 @@
 import * as Enums from "app/enums/enums";
-import { GenericObservation, ObservationSource, ObservationTableRow, ObservationType, toAspect } from "./generic-observation.model";
+import { GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, toAspect } from "./generic-observation.model";
 
 export const LAWIS_FETCH_DETAILS = true;
 
@@ -121,6 +121,7 @@ export interface IncidentDetails {
   id: number;
   not_buried: number;
   valid_time: boolean;
+  images: string[];
   date: string;
   reported: {
     date: string;
@@ -234,7 +235,7 @@ export function toLawisIncidentDetails(
     $markerColor: getLawisIncidentMarkerColor(lawisDetails),
     $markerRadius: getLawisIncidentMarkerRadius(lawisDetails),
     authorName: lawisDetails.reported?.name,
-    content: lawisDetails.comments,
+    content: (lawisDetails.comments || "") + imageCountString(lawisDetails.images),
     reportDate: parseLawisDate(lawisDetails.reported?.date)
   };
 }

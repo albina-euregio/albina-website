@@ -1,6 +1,7 @@
 import {
   Aspect,
   GenericObservation,
+  imageCountString,
   ObservationSource,
   ObservationType,
 } from "./generic-observation.model";
@@ -369,7 +370,7 @@ export function convertLoLaToGeneric(
     $markerRadius: undefined,
     aspect: (obs as LolaSnowProfile).aspects?.[0],
     authorName: obs.firstName + " " + obs.lastName,
-    content: obs.comment + (obs?.images?.length ? ` 📷 ${obs.images.length}` : ""),
+    content: obs.comment + imageCountString(obs.images),
     elevation: (obs as LolaSnowProfile).altitude,
     eventDate: new Date(obs.time),
     latitude: (
