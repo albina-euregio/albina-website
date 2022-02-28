@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 // @ts-ignore
 /// <reference types="leaflet-sidebar-v2" />
-import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon, DivIcon, MarkerOptions, CircleMarkerOptions } from "leaflet";
+import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon, DivIcon, MarkerOptions, CircleMarkerOptions, Browser } from "leaflet";
 import { GenericObservation, ObservationSource, ObservationType, ObservationTypeIcons } from "app/observations/models/generic-observation.model";
 import { ConstantsService } from "../constants-service/constants.service";
 
@@ -99,7 +99,10 @@ export class ObservationsMapService {
       });
     }
 
-    const iconUrl = "data:image/svg+xml;base64," + btoa(this.getSvg(observation));
+    // FIXME Firefox does not support SVG via Canvas?
+    const iconUrl = Browser.gecko 
+      ? 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png' 
+      : "data:image/svg+xml;base64," + btoa(this.getSvg(observation));
 
     const icon = new Icon({
       iconUrl: iconUrl,
