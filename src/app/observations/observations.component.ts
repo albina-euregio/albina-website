@@ -5,7 +5,7 @@ import { AuthenticationService } from "../providers/authentication-service/authe
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
 import { ObservationsMapService } from "../providers/map-service/observations-map.service";
-import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, ObservationType, toObservationTable } from "./models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, toGeoJSON, toObservationTable } from "./models/generic-observation.model";
 
 import { saveAs } from "file-saver";
 
@@ -103,24 +103,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   exportObservations() {
-    const features = this.observations.map(
-      (o): GeoJSON.Feature => ({
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [o.longitude ?? 0.0, o.latitude ?? 0.0, o.elevation ?? 0.0]
-        },
-        properties: {
-          ...o,
-          ...(o.$data || {}),
-          $data: undefined
-        }
-      })
-    );
-    const collection: GeoJSON.FeatureCollection = {
-      type: "FeatureCollection",
-      features
-    };
+    const collection: GeoJSON.FeatureCollection = toGeoJSON(this.observations);
     const json = JSON.stringify(collection, undefined, 2);
     const blob = new Blob([json], {type: 'application/geo+json'});
     saveAs(blob, "observations.geojson");
