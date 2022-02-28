@@ -38,8 +38,8 @@ import BeobachterIT from "./data/Beobachter-IT.json";
 
 @Injectable()
 export class ObservationsService {
-  public startDate = new Date();
-  public endDate = new Date();
+  private startDate = new Date();
+  private endDate = new Date();
   private lwdKipLayers: Observable<ArcGisLayer[]>;
 
   constructor(
@@ -48,6 +48,26 @@ export class ObservationsService {
     public translateService: TranslateService,
     public constantsService: ConstantsService
   ) {}
+
+  loadAll(startDate: Date, endDate: Date): Observable<GenericObservation<any>> {
+    this.startDate = startDate;
+    this.endDate = endDate;
+    return Observable.merge<GenericObservation>(
+      this.getAvalancheWarningService().catch((err) => this.warnAndContinue("Failed fetching AWS observers", err)),
+      this.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
+      this.getLawisProfiles().catch((err) => this.warnAndContinue("Failed fetching lawis profiles", err)),
+      this.getLoLaKronos().catch((err) => this.warnAndContinue("Failed fetching LoLaKronos", err)),
+      this.getLoLaSafety().catch((err) => this.warnAndContinue("Failed fetching LoLa safety observations", err)),
+      this.getLwdKipObservations().catch((err) => this.warnAndContinue("Failed fetching LWDKIP observations", err)),
+      this.getWikisnowECT().catch((err) => this.warnAndContinue("Failed fetching Wikisnow ECT", err)),
+      this.getObservations().catch((err) => this.warnAndContinue("Failed fetching observations", err)),
+    )
+  }
+
+  private warnAndContinue(message: string, err: any): Observable<GenericObservation> {
+    console.error(message, err);
+    return Observable.of();
+  }
 
   getObservation(id: number): Observable<GenericObservation<Observation>> {
     const url = this.constantsService.getServerUrl() + "observations/" + id;

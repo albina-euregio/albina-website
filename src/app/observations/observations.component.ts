@@ -7,7 +7,6 @@ import { RegionsService, RegionProperties } from "../providers/regions-service/r
 import { ObservationsMapService } from "../providers/map-service/observations-map.service";
 import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, ObservationType, toObservationTable } from "./models/generic-observation.model";
 
-import { Observable } from "rxjs";
 import { saveAs } from "file-saver";
 
 import { Map, LatLng, Control, Marker } from "leaflet";
@@ -91,19 +90,8 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
     this.loading = true;
     this.observations.length = 0;
-    this.observationsService.startDate = this.dateRange[0];
-    this.observationsService.endDate = this.dateRange[1];
     Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
-    Observable.merge<GenericObservation>(
-      this.observationsService.getAvalancheWarningService().catch((err) => this.warnAndContinue("Failed fetching AWS observers", err)),
-      this.observationsService.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
-      this.observationsService.getLawisProfiles().catch((err) => this.warnAndContinue("Failed fetching lawis profiles", err)),
-      this.observationsService.getLoLaKronos().catch((err) => this.warnAndContinue("Failed fetching LoLaKronos", err)),
-      this.observationsService.getLoLaSafety().catch((err) => this.warnAndContinue("Failed fetching LoLa safety observations", err)),
-      this.observationsService.getLwdKipObservations().catch((err) => this.warnAndContinue("Failed fetching LWDKIP observations", err)),
-      this.observationsService.getWikisnowECT().catch((err) => this.warnAndContinue("Failed fetching Wikisnow ECT", err)),
-      this.observationsService.getObservations().catch((err) => this.warnAndContinue("Failed fetching observations", err)),
-    )
+    this.observationsService.loadAll(this.dateRange[0], this.dateRange[1])
       .forEach((observation) => this.addObservation(observation))
       .finally(() => (this.loading = false));
   }
@@ -130,11 +118,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     const json = JSON.stringify(collection, undefined, 2);
     const blob = new Blob([json], {type: 'application/geo+json'});
     saveAs(blob, "observations.geojson");
-  }
-
-  private warnAndContinue(message: string, err: any): Observable<GenericObservation> {
-    console.error(message, err);
-    return Observable.of();
   }
 
   private initMaps() {
