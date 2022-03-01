@@ -138,9 +138,10 @@ export class ObservationsMapService {
       });
     }
 
-    // FIXME Firefox does not support SVG via Canvas?
-    const iconUrl = Browser.gecko 
-      ? 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png' 
+    // 700533 - drawImage() fails silently when drawing an SVG image without @width or @height
+    // https://bugzilla.mozilla.org/show_bug.cgi?id=700533
+    const iconUrl = Browser.gecko
+      ? "data:image/svg+xml;base64," + btoa(this.getSvg(observation).replace(/<svg/, '<svg width="20" height="20"'))
       : "data:image/svg+xml;base64," + btoa(this.getSvg(observation));
 
     const icon = new Icon({
