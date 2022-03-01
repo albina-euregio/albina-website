@@ -1,15 +1,15 @@
 import { Injectable } from "@angular/core";
 // @ts-ignore
 /// <reference types="leaflet-sidebar-v2" />
-import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon, DivIcon, MarkerOptions, CircleMarkerOptions, Browser } from "leaflet";
+import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon, DivIcon, MarkerOptions, CircleMarkerOptions, Browser, Control, LatLng } from "leaflet";
 import { GenericObservation, ObservationSource, ObservationType, ObservationTypeIcons } from "app/observations/models/generic-observation.model";
-import { ConstantsService } from "../constants-service/constants.service";
 
 // icons
 import { appCircleStopIcon } from "../../svg/circle_stop";
 
 import {CanvasIconLayer} from './leaflet.canvas-markers';
 import * as geojson from "geojson";
+import { AuthenticationService } from "../authentication-service/authentication.service";
 
 declare module "leaflet" {
   interface GeoJSON<P = any> {
@@ -40,15 +40,14 @@ export class ObservationsMapService {
   });
 
   constructor(
-    private constantsService: ConstantsService) {
-    this.initMaps();
+    private authenticationService: AuthenticationService) {
     this.observationSourceLayers = {} as any;
     this.observationTypeLayers = {} as any;
     Object.keys(ObservationSource).forEach(source => this.observationSourceLayers[source] = this.USE_CANVAS_LAYER ? new CanvasIconLayer() : new LayerGroup());
     Object.keys(ObservationType).forEach(type => this.observationTypeLayers[type] = this.USE_CANVAS_LAYER ? new CanvasIconLayer() : new LayerGroup());
   }
 
-  initMaps() {
+  initMaps(el: HTMLElement, onObservationClick: (o: GenericObservation) => void) {
     this.observationsMaps = {
       OpenTopoMap: new TileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
         className: "leaflet-layer-grayscale",
@@ -63,6 +62,46 @@ export class ObservationsMapService {
         attribution: ""
       })
     };
+
+    const map = new Map(el, {
+      zoomAnimation: false,
+      zoomControl: false,
+      doubleClickZoom: true,
+      scrollWheelZoom: true,
+      touchZoom: true,
+      center: new LatLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
+      zoom: 8,
+      minZoom: 4,
+      maxZoom: 17,
+      layers: [
+        ...Object.values(this.observationsMaps),
+        ...Object.values(this.observationTypeLayers)
+      ]
+    });
+
+    // this.initLayer(map, this.observationSourceLayers, onObservationClick);
+    this.initLayer(map, this.observationTypeLayers, onObservationClick);
+    this.observationsMap = map;
+  }
+
+  private initLayer(map: Map, layersObj: Record<string, LayerGroup<any>>, onObservationClick: (o: GenericObservation) => void) {
+    if (this.USE_CANVAS_LAYER) {
+      Object.values(layersObj).forEach((l: any) =>
+        l.addOnClickListener((e, data) =>
+          onObservationClick(data[0].data.observation)
+        )
+      );
+    }
+
+    const layers = new Control.Layers(null, layersObj, { collapsed: false });
+    layers.addTo(map);
+
+    // Call the getContainer routine.
+    let htmlObject = layers.getContainer();
+    // Get the desired parent node.
+    let sidebar = document.getElementById("typesDiv");
+    // Finally append that node to the new parent, recursively searching out and re-parenting nodes.
+    sidebar.appendChild(htmlObject);
   }
 
   style(observation: GenericObservation): MarkerOptions | CircleMarkerOptions {

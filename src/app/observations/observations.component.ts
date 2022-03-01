@@ -37,7 +37,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     public filter: ObservationFilterService,
     private translateService: TranslateService,
     private observationsService: ObservationsService,
-    private authenticationService: AuthenticationService,
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
     public mapService: ObservationsMapService
@@ -54,7 +53,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngAfterViewInit() {
-    this.initMaps();
+    this.mapService.initMaps(this.mapDiv.nativeElement, o => this.onObservationClick(o));
     this.loadObservations();
   }
 
@@ -96,48 +95,6 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     const json = JSON.stringify(collection, undefined, 2);
     const blob = new Blob([json], {type: 'application/geo+json'});
     saveAs(blob, "observations.geojson");
-  }
-
-  private initMaps() {
-    const map = new Map(this.mapDiv.nativeElement, {
-      zoomAnimation: false,
-      zoomControl: false,
-      doubleClickZoom: true,
-      scrollWheelZoom: true,
-      touchZoom: true,
-      center: new LatLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
-      zoom: 8,
-      minZoom: 4,
-      maxZoom: 17,
-      layers: [
-        ...Object.values(this.mapService.observationsMaps),
-        ...Object.values(this.mapService.observationTypeLayers)
-      ]
-    });
-
-    // this.initLayer(map, this.mapService.observationSourceLayers);
-    this.initLayer(map, this.mapService.observationTypeLayers);
-    this.mapService.observationsMap = map;
-  }
-
-  private initLayer(map: Map, layersObj: Record<string, LayerGroup<any>>) {
-    if (this.mapService.USE_CANVAS_LAYER) {
-      Object.values(layersObj).forEach((l: any) =>
-        l.addOnClickListener((e, data) =>
-          this.onObservationClick(data[0].data.observation)
-        )
-      );
-    }
-
-    const layers = new Control.Layers(null, layersObj, { collapsed: false });
-    layers.addTo(map);
-
-    // Call the getContainer routine.
-    let htmlObject = layers.getContainer();
-    // Get the desired parent node.
-    let sidebar = document.getElementById("sourcesDiv");
-    // Finally append that node to the new parent, recursively searching out and re-parenting nodes.
-    sidebar.appendChild(htmlObject);
   }
 
   get observationPopupVisible(): boolean {
