@@ -28,6 +28,7 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 import { PipeModule } from "../pipes/pipes.module";
 
 import { GeocodingService } from "./geocoding.service";
+import { ObservationFilterService } from "./observation-filter.service";
 import { ObservationsService } from "./observations.service";
 
 
@@ -59,6 +60,7 @@ import { ObservationsService } from "./observations.service";
   ],
   providers: [
     GeocodingService,
+    ObservationFilterService,
     ObservationsService
   ]
 })

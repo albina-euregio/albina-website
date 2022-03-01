@@ -34,23 +34,21 @@ import { TranslateService } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 import BeobachterAT from "./data/Beobachter-AT.json";
 import BeobachterIT from "./data/Beobachter-IT.json";
+import { ObservationFilterService } from "./observation-filter.service";
 
 @Injectable()
 export class ObservationsService {
-  private startDate = new Date();
-  private endDate = new Date();
   private lwdKipLayers: Observable<ArcGisLayer[]>;
 
   constructor(
     public http: HttpClient,
+    public filter: ObservationFilterService,
     public authenticationService: AuthenticationService,
     public translateService: TranslateService,
     public constantsService: ConstantsService
   ) {}
 
-  loadAll(startDate: Date, endDate: Date): Observable<GenericObservation<any>> {
-    this.startDate = startDate;
-    this.endDate = endDate;
+  loadAll(): Observable<GenericObservation<any>> {
     return Observable.merge<GenericObservation>(
       this.getAvalancheWarningService().catch((err) => this.warnAndContinue("Failed fetching AWS observers", err)),
       this.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
@@ -114,7 +112,7 @@ export class ObservationsService {
   }
 
   getLwdKipObservations(): Observable<GenericObservation> {
-    const days = Math.ceil((Date.now() - this.startDate.getTime()) / 24 / 60 / 60 / 1000);
+    const days = Math.ceil((Date.now() - this.filter.startDate.getTime()) / 24 / 60 / 60 / 1000);
     const params: Record<string, string> = {
       where: "BEOBDATUM > (SYSDATE - " + days + ")",
       outFields: "*",
@@ -225,7 +223,7 @@ export class ObservationsService {
       .get<ApiWikisnowECT>(api.WikisnowECT)
       .flatMap(api => api.data)
       .map<WikisnowECT, GenericObservation>((wikisnow) => convertWikisnow(wikisnow))
-      .filter((observation) => this.inDateRange(observation) && this.inMapBounds(observation));
+      .filter((observation) => this.filter.inDateRange(observation) && this.filter.inMapBounds(observation));
   }
 
   getLawisProfiles(): Observable<GenericObservation> {
@@ -242,7 +240,7 @@ export class ObservationsService {
       )
       .mergeAll()
       .map<Profile, GenericObservation<Profile>>((lawis) => toLawisProfile(lawis, web.LawisSnowProfiles))
-      .filter((observation) => this.inMapBounds(observation))
+      .filter((observation) => this.filter.inMapBounds(observation))
       .flatMap((profile) => {
         if (!LAWIS_FETCH_DETAILS) {
           return Observable.of(profile);
@@ -267,7 +265,7 @@ export class ObservationsService {
       )
       .mergeAll()
       .map<Incident, GenericObservation<Incident>>((lawis) => toLawisIncident(lawis, web.LawisIncidents))
-      .filter((observation) => this.inMapBounds(observation))
+      .filter((observation) => this.filter.inMapBounds(observation))
       .flatMap((incident) => {
         if (!LAWIS_FETCH_DETAILS) {
           return Observable.of(incident);
@@ -298,24 +296,11 @@ export class ObservationsService {
   }
 
   private get startDateString(): string {
-    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.startDate);
+    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.filter.startDate);
   }
 
   private get endDateString(): string {
-    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.endDate);
-  }
-
-  inDateRange({ $source, eventDate }: GenericObservation): boolean {
-    if ($source === ObservationSource.LwdKipSperre) return true;
-    return this.startDate <= eventDate && eventDate <= this.endDate;
-  }
-
-  inMapBounds({ latitude, longitude }: GenericObservation): boolean {
-    if (!latitude || !longitude) {
-      return true;
-    }
-    const { mapBoundaryS, mapBoundaryN, mapBoundaryW, mapBoundaryE } = this.constantsService;
-    return mapBoundaryS < latitude && latitude < mapBoundaryN && mapBoundaryW < longitude && longitude < mapBoundaryE;
+    return this.constantsService.getISOStringWithTimezoneOffsetUrlEncoded(this.filter.endDate);
   }
 
   getCsv(startDate: Date, endDate: Date): Observable<Blob> {

@@ -12,16 +12,13 @@ import { saveAs } from "file-saver";
 import { Map, LatLng, Control, Marker, LayerGroup } from "leaflet";
 
 import { ObservationTableComponent } from "./observation-table.component";
+import { ObservationFilterService } from "./observation-filter.service";
 @Component({
   templateUrl: "observations.component.html"
 })
 export class ObservationsComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   public loading = false;
   public showTable = false;
-  public dateRange: Date[] = [];
-  public elevationRange = [200, 4000];
-  public regions: string[] = [];
-  public aspects: string[] = [];
   public observations: GenericObservation[] = [];
   public observationsWithoutCoordinates: number = 0;
   public observationPopup: {
@@ -37,6 +34,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
 
   constructor(
+    public filter: ObservationFilterService,
     private translateService: TranslateService,
     private observationsService: ObservationsService,
     private authenticationService: AuthenticationService,
@@ -52,7 +50,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngAfterContentInit() {
-    this.days = 7;
+    this.filter.days = 7;
   }
 
   ngAfterViewInit() {
@@ -78,25 +76,16 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observationTableComponent.newObservation();
   }
 
-  set days(days: number) {
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - (days - 1));
-    startDate.setHours(0, 0, 0, 0);
-    const endDate = new Date();
-    endDate.setHours(23, 59, 0, 0);
-    this.dateRange = [startDate, endDate];
-  }
-
   loadObservations({ days }: { days?: number } = {}) {
     this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
-      this.days = days;
+      this.filter.days = days;
     }
     this.loading = true;
     this.observations.length = 0;
     // Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
     Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
-    this.observationsService.loadAll(this.dateRange[0], this.dateRange[1])
+    this.observationsService.loadAll()
       .forEach((observation) => this.addObservation(observation))
       .catch((e) => console.error(e))
       .finally(() => (this.loading = false));
@@ -169,11 +158,7 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
     if (
       !this.activeSources[observation.$source] ||
-      !this.observationsService.inDateRange(observation) ||
-      !this.observationsService.inMapBounds(observation) ||
-      !this.inRegions(observation) ||
-      !this.inElevationRange(observation) ||
-      !this.inAspects(observation)
+      !this.filter.test(observation)
     ) {
       return;
     }
@@ -207,17 +192,5 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       const table = [...rows, ...extraRows];
       this.observationPopup = { observation, table, iframe: undefined };
     }
-  }
-
-  private inRegions({ region }: GenericObservation) {
-    return !this.regions.length || (typeof region === "string" && this.regions.includes(region));
-  }
-
-  private inElevationRange({ elevation }: GenericObservation) {
-    return elevation === undefined || (this.elevationRange[0] <= elevation && elevation <= this.elevationRange[1]);
-  }
-
-  private inAspects({ aspect }: GenericObservation) {
-    return !this.aspects.length || (typeof aspect === "string" && this.aspects.includes(aspect.toUpperCase()));
   }
 }

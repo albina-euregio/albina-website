@@ -76,7 +76,7 @@
         {{ "observations.sidebar.filter.title" | translate }}
       </h1>
       <div style="margin: 10px 0">
-        <p-calendar [(ngModel)]="dateRange" selectionMode="range" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
+        <p-calendar [(ngModel)]="filter.dateRange" selectionMode="range" [showIcon]="true" dateFormat="dd.mm.yy"></p-calendar>
         <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 1})" label="1d"></button>
         <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 2})" label="2d"></button>
         <button type="button" pButton class="ui-button-secondary" (click)="loadObservations({days: 3})" label="3d"></button>
@@ -85,17 +85,17 @@
       <div style="margin: 10px 0">
         <div class="ui-inputgroup">
           <span class="ui-inputgroup-addon"><i class="fa fa-arrows-v"></i></span>
-          <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText [(ngModel)]="elevationRange[0]" />
+          <input style="width: 50px" type="text" step="100" min="0" max="9000" pInputText [(ngModel)]="filter.elevationRange[0]" />
           <span class="ui-inputgroup-addon">&mdash;</span>
-          <input style="width: 50px" type="text" pInputText [(ngModel)]="elevationRange[1]" />
+          <input style="width: 50px" type="text" pInputText [(ngModel)]="filter.elevationRange[1]" />
           <span class="ui-inputgroup-addon">m</span>
         </div>
       </div>
       <div style="margin: 10px 0">
-        <app-aspects [(aspects)]="aspects" [size]="100"></app-aspects>
+        <app-aspects [(aspects)]="filter.aspects" [size]="100"></app-aspects>
       </div>
       <div style="margin: 10px 0">
-        <select [(ngModel)]="regions" [multiple]="true" [size]="5" style="max-width: 100%;">
+        <select [(ngModel)]="filter.regions" [multiple]="true" [size]="5" style="max-width: 100%;">
           <option *ngFor="let region of allRegions" [value]="region.id">{{region.id}} {{region.name}}</option>
       </select>
       </div>
