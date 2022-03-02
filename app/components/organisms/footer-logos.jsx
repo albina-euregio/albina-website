@@ -5,7 +5,7 @@ class FooterLogos extends React.Component {
   render() {
     const icons = config.footer.icons;
     const imgRoot = window.config.projectRoot + "images/pro/footer/";
-    const imgFormat = window.config.webp ? ".webp" : ".png";
+    const imgFormat = ".png"; //window.config.webp ? ".webp" : ".png";
 
     return (
       <section className="section section-padding page-footer-images">
