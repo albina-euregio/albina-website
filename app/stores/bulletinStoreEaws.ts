@@ -58,6 +58,7 @@ async function loadBulletins(date: string): Promise<Feature[]> {
     "IT-34",
     "IT-36",
     "IT-57",
+    "IS",
     "NO",
     "SI"
   ];

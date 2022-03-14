@@ -121,6 +121,7 @@ const eawsRegions = [
   "ES-CT-L",
   "FR",
   "GB",
+  "IS",
   "IT-21",
   "IT-23",
   "IT-25",
