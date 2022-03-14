@@ -16,7 +16,7 @@ export interface GenericObservation<Data = any> {
   $data: Data;
   $externalURL?: string;
   $extraDialogRows?: (t: (key: string) => string) => ObservationTableRow[];
-  $markerColor?: string;
+  stability?: Stability;
   $markerRadius?: number;
   $source: ObservationSource;
   $type: ObservationType;
@@ -31,6 +31,8 @@ export interface GenericObservation<Data = any> {
   region: string;
   reportDate?: Date;
 }
+
+export type Stability = "good" | "medium" | "weak" | "unknown";
 
 export enum ObservationSource {
   Albina = "Albina",

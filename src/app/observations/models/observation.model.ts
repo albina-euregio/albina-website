@@ -1,4 +1,4 @@
-import { GenericObservation, Aspect, ObservationSource, ObservationType } from "./generic-observation.model";
+import { GenericObservation, Aspect, ObservationSource, ObservationType, Stability } from "./generic-observation.model";
 
 export interface Observation {
   aspect: Aspect;
@@ -34,7 +34,7 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
     $extraDialogRows: null,
     $source: ObservationSource.Albina,
     $type: getObservationType(observation),
-    $markerColor: getObservationMarkerColor(observation),
+    stability: getObservationStability(observation),
     $markerRadius: getObservationMarkerRadius(observation),
     eventDate: observation.eventDate ? new Date(observation.eventDate) : undefined,
     reportDate: observation.reportDate ? new Date(observation.reportDate) : undefined
@@ -45,20 +45,20 @@ export function isAlbinaObservation(observation: GenericObservation): observatio
   return observation.$source === ObservationSource.Albina;
 }
 
-function getObservationMarkerColor(observation: Observation): string {
+function getObservationStability(observation: Observation): Stability {
   switch (observation.eventType ?? EventType.Normal) {
     case EventType.PersonDead:
-      return "red";
+      return "weak";
     case EventType.PersonInjured:
-      return "red";
+      return "weak";
     case EventType.PersonUninjured:
-      return "red";
+      return "weak";
     case EventType.PersonNo:
-      return "red";
+      return "weak";
     case EventType.Important:
-      return "orange";
+      return "medium";
     default:
-      return "gray";
+      return "unknown";
   }
 }
 

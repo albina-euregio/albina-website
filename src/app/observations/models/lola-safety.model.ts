@@ -3,6 +3,7 @@ import {
   GenericObservation,
   ObservationSource,
   ObservationType,
+  Stability,
 } from "./generic-observation.model";
 
 export interface LoLaSafetyApi {
@@ -117,7 +118,7 @@ function convertAvalancheReport(
       (report.detailedPdf ?? report.publicPdf),
     $source: ObservationSource.LoLaSafetyAvalancheReports,
     $type: ObservationType.Observation,
-    $markerColor: getAvalancheReportMarkerColor(report),
+    stability: getAvalancheReportStability(report),
     $markerRadius: getAvalancheReportMarkerRadius(report),
     aspect: undefined,
     authorName: report.firstName + " " + report.lastName,
@@ -131,11 +132,14 @@ function convertAvalancheReport(
   };
 }
 
-function getAvalancheReportMarkerColor(report: AvalancheReport): string {
-  if (report.avalanchePotential.riskAssessment < 20) { return "#CCFF66" } else
-  if (report.avalanchePotential.riskAssessment < 40) { return "#FFFF00" } else
-  if (report.avalanchePotential.riskAssessment < 60) { return "#FF9900" } else
-  if (report.avalanchePotential.riskAssessment < 80) { return "#FF0000" } else { return "#800000" }
+function getAvalancheReportStability(report: AvalancheReport): Stability {
+  if (report.avalanchePotential.riskAssessment < 30) {
+    return "good";
+  } else if (report.avalanchePotential.riskAssessment < 60) {
+    return "medium";
+  } else {
+    return "weak";
+  }
 }
 
 function getAvalancheReportMarkerRadius(report: AvalancheReport): number {

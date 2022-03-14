@@ -366,7 +366,7 @@ export function convertLoLaToGeneric(
     $source,
     $type,
     // TODO implement,
-    $markerColor: undefined,
+    stability: undefined,
     $markerRadius: undefined,
     aspect: (obs as LolaSnowProfile).aspects?.[0],
     authorName: obs.firstName + " " + obs.lastName,

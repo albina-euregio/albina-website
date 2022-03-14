@@ -1,4 +1,4 @@
-import { GenericObservation, ObservationSource, ObservationType, toAspect } from "./generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationType, Stability, toAspect } from "./generic-observation.model";
 
 export type ArcGisApi =
   | { layers: ArcGisLayer[] }
@@ -132,7 +132,7 @@ export function convertLwdKipBeobachtung(feature: GeoJSON.Feature<GeoJSON.Point 
         .filter((row) => row !== undefined),
     $source: ObservationSource.LwdKipBeobachtung,
     $type: ObservationType.Observation,
-    $markerColor: getLwdKipBeobachtungMarkerColor(feature),
+    stability: getLwdKipBeobachtungStability(feature),
     $markerRadius: getLwdKipBeobachtungMarkerRadius(feature),
     aspect: undefined,
     authorName: feature.properties.BEZEICHNUNG,
@@ -177,7 +177,7 @@ export function convertLwdKipSprengerfolg(feature: GeoJSON.Feature<GeoJSON.Point
     ],
     $source: ObservationSource.LwdKipSprengerfolg,
     $type: ObservationType.Blasting,
-    $markerColor: getLwdKipSprengerfolgMarkerColor(feature),
+    stability: getLwdKipSprengerfolgStability(feature),
     $markerRadius: getLwdKipSprengerfolgMarkerRadius(feature),
     aspect: toAspect(feature.properties.EXPOSITION),
     authorName: undefined,
@@ -228,7 +228,7 @@ export function convertLwdKipLawinenabgang(feature: GeoJSON.Feature<GeoJSON.Line
     ],
     $source: ObservationSource.LwdKipLawinenabgang,
     $type: ObservationType.Avalanche,
-    $markerColor: getLwdKipLawinenabgangMarkerColor(feature),
+    stability: getLwdKipLawinenabgangStability(feature),
     $markerRadius: getLwdKipLawinenabgangMarkerRadius(feature),
     aspect: toAspect(feature.properties.EXPOSITION),
     authorName: undefined,
@@ -270,7 +270,7 @@ export function convertLwdKipSperren(
     $data: feature.properties,
     $source: ObservationSource.LwdKipSperre,
     $type: ObservationType.Observation,
-    $markerColor: getLwdKipSperreMarkerColor(feature),
+    stability: getLwdKipSperreStability(feature),
     $markerRadius: getLwdKipSperreMarkerRadius(feature),
     aspect: undefined,
     authorName: undefined,
@@ -286,21 +286,26 @@ export function convertLwdKipSperren(
   };
 }
 
-function getLwdKipBeobachtungMarkerColor(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): string {
-  return "gray";
+function getLwdKipBeobachtungStability(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): Stability {
+  return "unknown";
 }
 
 function getLwdKipBeobachtungMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Point, BeobachtungProperties>): number {
   return 15;
 }
 
-function getLwdKipSprengerfolgMarkerColor(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): string {
+function getLwdKipSprengerfolgStability(feature: GeoJSON.Feature<GeoJSON.Point, SprengerfolgProperties>): Stability {
   switch (feature.properties.SPRENGERFOLG || "") {
-    case 'kein Erfolg': return 'green';
-    case 'mäßiger Erfolg': return 'orange';
-    case 'guter Erfolg': return 'red';
-    case 'sehr guter Erfolg': return 'red';
-    default: return 'gray';
+    case "kein Erfolg":
+      return "good";
+    case "mäßiger Erfolg":
+      return "medium";
+    case "guter Erfolg":
+      return "weak";
+    case "sehr guter Erfolg":
+      return "weak";
+    default:
+      return "unknown";
   }
 }
 
@@ -314,16 +319,16 @@ function getLwdKipSprengerfolgMarkerRadius(feature: GeoJSON.Feature<GeoJSON.Poin
   }
 }
 
-function getLwdKipLawinenabgangMarkerColor(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): string {
-  return "red";
+function getLwdKipLawinenabgangStability(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): Stability {
+  return "weak";
 }
 
 function getLwdKipLawinenabgangMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, LawinenabgangProperties>): number {
   return 15;
 }
 
-function getLwdKipSperreMarkerColor(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): string {
-  return "orange";
+function getLwdKipSperreStability(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): Stability {
+  return "medium";
 }
 
 function getLwdKipSperreMarkerRadius(feature: GeoJSON.Feature<GeoJSON.LineString, SperreProperties>): number {
