@@ -79,12 +79,12 @@ export class ObservationsMapService {
       ]
     });
 
-    // this.initLayer(map, this.observationSourceLayers, onObservationClick);
-    this.initLayer(map, this.observationTypeLayers, onObservationClick);
+    this.initLayer(map, this.observationSourceLayers, document.getElementById("sourcesDiv"), onObservationClick);
+    this.initLayer(map, this.observationTypeLayers, document.getElementById("typesDiv"), onObservationClick);
     this.observationsMap = map;
   }
 
-  private initLayer(map: Map, layersObj: Record<string, LayerGroup<any>>, onObservationClick: (o: GenericObservation) => void) {
+  private initLayer(map: Map, layersObj: Record<string, LayerGroup<any>>, sidebar: HTMLElement, onObservationClick: (o: GenericObservation) => void) {
     if (this.USE_CANVAS_LAYER) {
       Object.values(layersObj).forEach((l: any) =>
         l.addOnClickListener((e, data) =>
@@ -96,11 +96,7 @@ export class ObservationsMapService {
     const layers = new Control.Layers(null, layersObj, { collapsed: false });
     layers.addTo(map);
 
-    // Call the getContainer routine.
-    let htmlObject = layers.getContainer();
-    // Get the desired parent node.
-    let sidebar = document.getElementById("typesDiv");
-    // Finally append that node to the new parent, recursively searching out and re-parenting nodes.
+    const htmlObject = layers.getContainer();
     sidebar.appendChild(htmlObject);
   }
 
