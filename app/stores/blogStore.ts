@@ -101,7 +101,11 @@ export default class BlogStore {
   validateYear(valueToValidate: string): number | "" {
     const parsed = parseInt(valueToValidate);
     if (parsed) {
-      return clamp(parsed, config.archive.minYear, new Date().getFullYear());
+      return clamp(
+        parsed,
+        window.config?.archive?.minYear ?? 2016,
+        new Date().getFullYear()
+      );
     } else {
       return "";
     }
