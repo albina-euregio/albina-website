@@ -20,6 +20,7 @@ import "leaflet-gesture-handling";
 import "leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css";
 import "../../css/geonames.css";
 import { APP_STORE } from "../../appStore";
+import { parseSearchParams } from "../../util/searchParams";
 
 class LeafletMap extends React.Component {
   constructor(props) {
@@ -73,7 +74,10 @@ class LeafletMap extends React.Component {
       if (this.props.gestureHandling)
         L.Util.setOptions(this.map, { gestureHandling: true });
 
-      this.map.fitBounds(config.map.euregioBounds);
+      const province = parseSearchParams().get("province");
+      this.map.fitBounds(
+        config.map[`${province}.bounds`] ?? config.map.euregioBounds
+      );
 
       const map = this.map;
       //console.log("this.map", this.map);
