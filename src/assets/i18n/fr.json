@@ -65,7 +65,8 @@
       "preview" : "Aperçu du bulletin (PDF)",
       "check" : "Vérifier le bulletin",
       "info" : "Afficher l'état de la publication",
-      "publishAll" : "Publier toutes les régions"
+      "publishAll" : "Publier toutes les régions",
+      "mediaFile" : "Upload media file"
     },
     "create" : {
       "tooltip" : {
@@ -303,6 +304,14 @@
           "error" : "{{prefix}}Push Notifications could not be sent!"
         },
         "accept" : "Ok"
+      },
+      "mediaFileDialog" : {
+        "headline" : "Media File",
+        "missingText" : "Text is missing!",
+        "missingFile" : "No file selected!",
+        "uploadError" : "Upload failed!",
+        "accept" : "Sauvegarder",
+        "reject" : "Annuler"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "Il y avait une erreur dans la publication des bulletins!",

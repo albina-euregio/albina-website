@@ -65,7 +65,8 @@
       "preview" : "Vista previa deth bulletin (PDF)",
       "check" : "Verificar bulletin",
       "info" : "Mostrar er estat de publicacion",
-      "publishAll" : "Publicar totes es regions"
+      "publishAll" : "Publicar totes es regions",
+      "mediaFile" : "Cargar un fichèr multimèdia"
     },
     "create" : {
       "tooltip" : {
@@ -238,16 +239,16 @@
         "reject" : "Non"
       },
       "publicationStatusDialog" : {
-        "headline" : "Publication Status",
+        "headline" : "Estat dera publicacion",
         "publishedBy" : "Publicat per:",
         "publishedAt" : "Publicat a les:",
         "validFor" : "Valid per:",
         "title" : {
-          "prod" : "Serious stuff",
-          "test" : "Just testing",
-          "task" : "Task",
+          "prod" : "Causes serioses",
+          "test" : "Solament en tot provar",
+          "task" : "Prètzhèt",
           "language" : {
-            "all" : "ALL",
+            "all" : "TOTI",
             "de" : "DE",
             "it" : "IT",
             "en" : "EN"
@@ -255,54 +256,62 @@
         },
 
         "caaml" : {
-          "label" : "CAAML Files",
-          "tooltip" : "Create CAAML Files",
-          "success" : "{{prefix}}CAAML Files successfully created!",
-          "error" : "{{prefix}}CAAML Files could not be created!"
+          "label" : "Fichèrs CAAML",
+          "tooltip" : "Crear fichèrs CAAML",
+          "success" : "{{prefix}}Es fichèrs CAAML s'an creat corrèctaments!",
+          "error" : "{{prefix}}Es fichèrs CAAML non s'an pogut crear!"
         },
         "map" : {
-          "label" : "Maps",
-          "tooltip" : "Create Maps",
-          "success" : "{{prefix}}Maps successfully created!",
-          "error" : "{{prefix}}Maps could not be created!"
+          "label" : "Mapes",
+          "tooltip" : "Crear Mapes",
+          "success" : "{{prefix}}Mapes creadi corrèctaments!",
+          "error" : "{{prefix}}Non s'an pogut crear es mapes!"
         },
         "pdf" : {
           "label" : "PDFs",
-          "tooltip" : "Create PDFs",
-          "success" : "{{prefix}}PDFs successfully created!",
-          "error" : "{{prefix}}PDFs could not be created!"
+          "tooltip" : "Crear PDFs",
+          "success" : "{{prefix}}Els PDF s'han creat correctament!",
+          "error" : "{{prefix}}No s'han pogut crear els PDF!"
         },
         "staticWidget" : {
-          "label" : "Static Widgets",
-          "tooltip" : "Create Static Widgets",
-          "success" : "{{prefix}}Static Widgets successfully created!",
-          "error" : "{{prefix}}Static Widgets could not be created!"
+          "label" : "Widgets estàtics",
+          "tooltip" : "Crear widgets estàtics",
+          "success" : "{{prefix}}Es widgets estàtics s'an creat corrèctaments!",
+          "error" : "{{prefix}}Es widgets estàtics non s'an pogut crear!"
         },
         "html" : {
-          "label" : "Simple HTMLs",
-          "tooltip" : "Create Simple HTML Files",
-          "success" : "{{prefix}}Simple HTML Files successfully created!",
-          "error" : "{{prefix}}Simple HTML Files could not be created!"
+          "label" : "HTMLs simples",
+          "tooltip" : "Creatz fichèrs HTML simples",
+          "success" : "{{prefix}}S'an creat fichèrs HTML simples corrèctaments!",
+          "error" : "{{prefix}}Non s'an pogut crear fichèrs HTML simples!"
         },
         "email" : {
           "label" : "Emails",
-          "tooltip" : "Send Emails",
-          "success" : "{{prefix}}Emails successfully sent!",
-          "error" : "{{prefix}}Emails could not be sent!"
+          "tooltip" : "Enviar Emails",
+          "success" : "{{prefix}}Corrèus electronics enviadi corrèctaments!",
+          "error" : "{{prefix}}Non s'an pogut enviar es corrèus electronics!"
         },
         "telegram" : {
-          "label" : "Telegram Messages",
-          "tooltip" : "Send Telegram Messages",
-          "success" : "{{prefix}}Telegram Messages successfully sent!",
-          "error" : "{{prefix}}Telegram Messages could not be sent!"
+          "label" : "Messatges de Telegram",
+          "tooltip" : "Enviar messatges de Telegram",
+          "success" : "{{prefix}}Messatges de Telegram enviadi corrèctaments!",
+          "error" : "{{prefix}}Non s'an pogut enviar es messatges de Telegram!"
         },
         "push" : {
-          "label" : "Push Notifications",
-          "tooltip" : "Send Push Notifications",
-          "success" : "{{prefix}}Push Notifications successfully sent!",
-          "error" : "{{prefix}}Push Notifications could not be sent!"
+          "label" : "Notificacions Push",
+          "tooltip" : "Enviar notificacions Push",
+          "success" : "{{prefix}}Notificacions push enviades correctament!",
+          "error" : "{{prefix}}Non s'an pogut enviar es notificacions push!"
         },
         "accept" : "d'acòrd"
+      },
+      "mediaFileDialog" : {
+        "headline" : "Fichèr multimèdia",
+        "missingText" : "Manque eth tèxte!",
+        "missingFile" : "Non s'a pas seleccionat cap fichèr!",
+        "uploadError" : "Era carga a mancat!",
+        "accept" : "Sauvar",
+        "reject" : "Anullar"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "S'a produsit un error en publicar bulletins!",
@@ -418,7 +427,7 @@
     "users" : {
       "title" : "Usuaris",
       "button" : {
-        "create" : " Create user"
+        "create" : " Crear usatgèr"
       },
       "tooltip" : {
         "edit" : "Editar usuari",
@@ -509,24 +518,24 @@
         "en" : "EN"
       },
       "all" : {
-        "tooltip" : "Send Emails, Telegram and Push",
-        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
-        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
+        "tooltip" : "Enviar corrèus electronics, Telegram e Push",
+        "success" : "{{prefix}}Corrèus electronics, Telegram e Push enviadi corrèctaments!",
+        "error" : "{{prefix}}Non s'an pogut enviar es corrèus electronics, Telegram e Push!"
       },
       "email" : {
-        "tooltip" : "Send Emails",
-        "success" : "{{prefix}}Email successfully sent!",
-        "error" : "{{prefix}}Email could not be sent!"
+        "tooltip" : "Enviar corrèus electronics",
+        "success" : "{{prefix}}Corrèus electronics enviadi corrèctaments!",
+        "error" : "{{prefix}}Non s'an pogut enviar es corrèus electronics!"
       },
       "telegram" : {
-        "tooltip" : "Send via Telegram Channel",
-        "success" : "{{prefix}}Telegram successfully sent!",
-        "error" : "{{prefix}}Telegram could not be sent!"
+        "tooltip" : "Enviat per canau de Telegram",
+        "success" : "{{prefix}}Telegram enviat corrèctaments!",
+        "error" : "{{prefix}}Non s'a pogut enviar eth Telegram!"
       },
       "push" : {
-        "tooltip" : "Send via Push Notifications",
-        "success" : "{{prefix}}Push successfully sent!",
-        "error" : "{{prefix}}Push could not be sent!"
+        "tooltip" : "Enviar per Notificacions Push",
+        "success" : "{{prefix}}Push enviat corrèctaments!",
+        "error" : "{{prefix}}Non s'a pogut enviar eth Push!"
       }
     }
   },

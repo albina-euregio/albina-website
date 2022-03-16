@@ -65,7 +65,8 @@
       "preview" : "Vista previa del boletín (PDF)",
       "check" : "Comprobar boletín",
       "info" : "Muestra estado de la publicación",
-      "publishAll" : "Publicar todas las regiones"
+      "publishAll" : "Publicar todas las regiones",
+      "mediaFile" : "Subir archivo multimedia"
     },
     "create" : {
       "tooltip" : {
@@ -238,16 +239,16 @@
         "reject" : "No"
       },
       "publicationStatusDialog" : {
-        "headline" : "Publication Status",
+        "headline" : "Estado de publicación",
         "publishedBy" : "Publicado por:",
         "publishedAt" : "Publicado a las:",
         "validFor" : "Válido para:",
         "title" : {
-          "prod" : "Serious stuff",
-          "test" : "Just testing",
-          "task" : "Task",
+          "prod" : "Cosas serias",
+          "test" : "Solo probando",
+          "task" : "Tarea",
           "language" : {
-            "all" : "ALL",
+            "all" : "TODOS",
             "de" : "DE",
             "it" : "IT",
             "en" : "EN"
@@ -255,54 +256,62 @@
         },
 
         "caaml" : {
-          "label" : "CAAML Files",
-          "tooltip" : "Create CAAML Files",
-          "success" : "{{prefix}}CAAML Files successfully created!",
-          "error" : "{{prefix}}CAAML Files could not be created!"
+          "label" : "Ficheros CAAML",
+          "tooltip" : "Crear ficheros CAAML",
+          "success" : "{{prefix}}¡Archivos CAAML creados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron crear los archivos CAAML!"
         },
         "map" : {
-          "label" : "Maps",
-          "tooltip" : "Create Maps",
-          "success" : "{{prefix}}Maps successfully created!",
-          "error" : "{{prefix}}Maps could not be created!"
+          "label" : "Mapas",
+          "tooltip" : "Crear mapas",
+          "success" : "{{prefix}}¡Mapas creados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron crear los mapas!"
         },
         "pdf" : {
           "label" : "PDFs",
-          "tooltip" : "Create PDFs",
-          "success" : "{{prefix}}PDFs successfully created!",
-          "error" : "{{prefix}}PDFs could not be created!"
+          "tooltip" : "Crear PDFs",
+          "success" : "{{prefix}}¡PDFs creados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron crear archivos PDF!"
         },
         "staticWidget" : {
-          "label" : "Static Widgets",
-          "tooltip" : "Create Static Widgets",
-          "success" : "{{prefix}}Static Widgets successfully created!",
-          "error" : "{{prefix}}Static Widgets could not be created!"
+          "label" : "Widgets estáticos",
+          "tooltip" : "Crear widgets estáticos",
+          "success" : "{{prefix}}¡Widgets estáticos creados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron crear widgets estáticos!"
         },
         "html" : {
-          "label" : "Simple HTMLs",
-          "tooltip" : "Create Simple HTML Files",
-          "success" : "{{prefix}}Simple HTML Files successfully created!",
-          "error" : "{{prefix}}Simple HTML Files could not be created!"
+          "label" : "HTMLs simples",
+          "tooltip" : "Crear archivos HTML simples",
+          "success" : "{{prefix}}¡Archivos HTML simples creados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron crear archivos HTML simples!"
         },
         "email" : {
-          "label" : "Emails",
-          "tooltip" : "Send Emails",
-          "success" : "{{prefix}}Emails successfully sent!",
-          "error" : "{{prefix}}Emails could not be sent!"
+          "label" : "Correos electrónicos",
+          "tooltip" : "Enviar correos electrónicos",
+          "success" : "{{prefix}}¡Correos electrónicos enviados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron enviar los correos electrónicos!"
         },
         "telegram" : {
-          "label" : "Telegram Messages",
-          "tooltip" : "Send Telegram Messages",
-          "success" : "{{prefix}}Telegram Messages successfully sent!",
-          "error" : "{{prefix}}Telegram Messages could not be sent!"
+          "label" : "Mensajes de Telegram",
+          "tooltip" : "Enviar mensajes de Telegram",
+          "success" : "{{prefix}}¡Mensajes de Telegram enviados con éxito!",
+          "error" : "{{prefix}}¡No se pudieron enviar los mensajes de Telegram!"
         },
         "push" : {
-          "label" : "Push Notifications",
-          "tooltip" : "Send Push Notifications",
-          "success" : "{{prefix}}Push Notifications successfully sent!",
-          "error" : "{{prefix}}Push Notifications could not be sent!"
+          "label" : "Notificaciones push",
+          "tooltip" : "Enviar notificaciones push",
+          "success" : "{{prefix}}¡Notificaciones push enviadas con éxito!",
+          "error" : "{{prefix}}¡No se pudieron enviar notificaciones push!"
         },
         "accept" : "De acuerdo"
+      },
+      "mediaFileDialog" : {
+        "headline" : "Archivo multimedia",
+        "missingText" : "¡Falta el texto!",
+        "missingFile" : "¡Ningún archivo seleccionado!",
+        "uploadError" : "¡Subida fallida!",
+        "accept" : "Guardar",
+        "reject" : "Cancelar"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "¡Se ha producido un error publicando los boletines!",
@@ -418,7 +427,7 @@
     "users" : {
       "title" : "Usuarios",
       "button" : {
-        "create" : " Create user"
+        "create" : "Crear usuario"
       },
       "tooltip" : {
         "edit" : "Editar usuario",
@@ -509,24 +518,24 @@
         "en" : "EN"
       },
       "all" : {
-        "tooltip" : "Send Emails, Telegram and Push",
-        "success" : "{{prefix}}Email, Telegram and Push successfully sent!",
-        "error" : "{{prefix}}Email, Telegram and Push could not be sent!"
+        "tooltip" : "Enviar correos electrónicos, Telegram y Push",
+        "success" : "{{prefix}}¡Correos electrónicos, Telegram y Push enviados con éxito!",
+        "error" : "{{prefix}}¡No se pudo enviar el correo electrónico, Telegram y Push!"
       },
       "email" : {
-        "tooltip" : "Send Emails",
-        "success" : "{{prefix}}Email successfully sent!",
-        "error" : "{{prefix}}Email could not be sent!"
+        "tooltip" : "Enviar correos electrónicos",
+        "success" : "{{prefix}}Correo electrónico enviado con éxito!",
+        "error" : "{{prefix}}¡El correo electrónico no pudo ser enviado!"
       },
       "telegram" : {
-        "tooltip" : "Send via Telegram Channel",
-        "success" : "{{prefix}}Telegram successfully sent!",
-        "error" : "{{prefix}}Telegram could not be sent!"
+        "tooltip" : "Enviar a través del canal de Telegram",
+        "success" : "{{prefix}}¡Telegram enviado con éxito!",
+        "error" : "{{prefix}}¡No se pudo enviar el Telegram!"
       },
       "push" : {
-        "tooltip" : "Send via Push Notifications",
-        "success" : "{{prefix}}Push successfully sent!",
-        "error" : "{{prefix}}Push could not be sent!"
+        "tooltip" : "Enviar a través de notificaciones push",
+        "success" : "{{prefix}}¡Push enviado con éxito!",
+        "error" : "{{prefix}}¡No se pudo enviar el push!"
       }
     }
   },

@@ -65,7 +65,8 @@
       "preview" : "Anteprima del bollettino (PDF)",
       "check" : "Controllare bollettino valanghe",
       "info" : "Mostra lo stato della pubblicazione",
-      "publishAll" : "Pubblicare tutte le regioni"
+      "publishAll" : "Pubblicare tutte le regioni",
+      "mediaFile" : "Upload media file"
     },
     "create" : {
       "tooltip" : {
@@ -303,6 +304,14 @@
           "error" : "{{prefix}}Push Notifications could not be sent!"
         },
         "accept" : "Ok"
+      },
+      "mediaFileDialog" : {
+        "headline" : "Media File",
+        "missingText" : "Text is missing!",
+        "missingFile" : "No file selected!",
+        "uploadError" : "Upload failed!",
+        "accept" : "Salva",
+        "reject" : "Stornare"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "Errore pubblicando il bollettino valanghe!",

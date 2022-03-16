@@ -65,7 +65,8 @@
       "preview" : "Vorschau anzeigen (PDF)",
       "check" : "Lawinenvorhersage prüfen",
       "info" : "Publikationsstatus anzeigen",
-      "publishAll" : "Alle Regionen publizieren"
+      "publishAll" : "Alle Regionen publizieren",
+      "mediaFile" : "Mediendatei hochladen"
     },
     "create" : {
       "tooltip" : {
@@ -303,6 +304,14 @@
           "error" : "{{prefix}}Push Nachrichten konnten nicht verschickt werden!"
         },
         "accept" : "Ok"
+      },
+      "mediaFileDialog" : {
+        "headline" : "Mediendatei",
+        "missingText" : "Text fehlt!",
+        "missingFile" : "Keine Datei ausgewählt!",
+        "uploadError" : "Upload fehlgeschlagen!",
+        "accept" : "Speichern",
+        "reject" : "Abbrechen"
       },
       "publishBulletinsErrorDialog" : {
         "message" : "Beim Publizieren der Lawinenvorhersage ist ein Fehler aufgetreten!",
