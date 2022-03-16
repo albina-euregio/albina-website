@@ -19,6 +19,7 @@ import { APP_STORE } from "../../appStore";
  * @typedef {object} Props
  * @prop {*} date
  * @prop {*} intl
+ * @prop {"am" | "pm" | undefined} ampm
  * ... props
  *
  * @extends {React.Component<Props>}
@@ -131,7 +132,13 @@ class BulletinMap extends React.Component {
           key={`eaws-bulletins-${activeEawsBulletins.name}`}
           data={activeEawsBulletins}
           pane="mapPane"
-          style={feature => feature.properties.style}
+          style={feature =>
+            this.props.ampm === "am"
+              ? feature.properties.amStyle
+              : this.props.ampm === "pm"
+              ? feature.properties.pmStyle
+              : feature.properties.style
+          }
         />
       );
     }
