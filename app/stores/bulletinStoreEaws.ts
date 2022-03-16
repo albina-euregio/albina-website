@@ -3,7 +3,11 @@ import { decodeFeatureCollection } from "../util/polyline";
 import { WarnLevelNumber, WARNLEVEL_COLORS } from "../util/warn-levels";
 import { MicroRegionElevationProperties } from "./bulletin";
 
-type Properties = MicroRegionElevationProperties & { style: L.PathOptions };
+type Properties = MicroRegionElevationProperties & {
+  style: L.PathOptions;
+  amStyle: L.PathOptions;
+  pmStyle: L.PathOptions;
+};
 type Feature = GeoJSON.Feature<GeoJSON.Geometry, Properties>;
 type FeatureCollection = GeoJSON.FeatureCollection<
   GeoJSON.Geometry,
@@ -69,7 +73,13 @@ async function loadBulletins(date: string): Promise<Feature[]> {
       const regions = await regions$;
       const bulletins = await bulletins$;
       return regions.features
-        .map(feature => augmentFeature(feature, bulletins))
+        .map(feature => {
+          const properties = feature.properties;
+          properties.style = getMicroElevationStyle("", feature, bulletins);
+          properties.amStyle = getMicroElevationStyle("am", feature, bulletins);
+          properties.pmStyle = getMicroElevationStyle("pm", feature, bulletins);
+          return feature;
+        })
         .filter(feature => feature?.properties?.style);
     })
   );
@@ -89,21 +99,26 @@ export async function loadEawsBulletins(
   });
 }
 
-function augmentFeature(
+function getMicroElevationStyle(
+  ampm: "am" | "pm" | "",
   feature: Feature,
   bulletins: DangerRatings
-): Feature | undefined {
+): L.PathOptions | undefined {
   const region: RegionID = feature.properties.id;
   const elevation: Elevation | undefined = feature.properties.elevation;
-  const warnlevel = elevation
-    ? bulletins?.maxDangerRatings?.[`${region}:${elevation}`]
-    : bulletins?.maxDangerRatings?.[`${region}`];
+  const warnlevel =
+    elevation && ampm
+      ? bulletins?.maxDangerRatings?.[`${region}:${elevation}:${ampm}`]
+      : elevation
+      ? bulletins?.maxDangerRatings?.[`${region}:${elevation}`]
+      : ampm
+      ? bulletins?.maxDangerRatings?.[`${region}:${ampm}`]
+      : bulletins?.maxDangerRatings?.[`${region}`];
   if (!warnlevel) return;
-  feature.properties.style = {
+  return {
     stroke: false,
     fillColor: WARNLEVEL_COLORS[warnlevel],
     fillOpacity: 0.5,
     className: "mix-blend-mode-multiply"
   };
-  return feature;
 }
