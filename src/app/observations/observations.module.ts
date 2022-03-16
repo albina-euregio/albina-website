@@ -1,7 +1,9 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { LeafletModule} from "@asymmetrik/ngx-leaflet";
 
+import { NgxSidebarControlComponent } from "./ngx-sidebar-control.component";
 import { ObservationsComponent } from "./observations.component";
 import { ObservationEditorComponent } from "./observation-editor.component";
 import { ObservationTableComponent } from "./observation-table.component";
@@ -24,6 +26,9 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 
 // Pipes
 import { PipeModule } from "../pipes/pipes.module";
+
+import { GeocodingService } from "./geocoding.service";
+import { ObservationFilterService } from "./observation-filter.service";
 import { ObservationsService } from "./observations.service";
 
 
@@ -40,6 +45,7 @@ import { ObservationsService } from "./observations.service";
     ToggleButtonModule,
     InputTextModule,
     InputTextareaModule,
+    LeafletModule,
     DropdownModule,
     MessagesModule,
     MessageModule,
@@ -47,11 +53,14 @@ import { ObservationsService } from "./observations.service";
     PipeModule.forRoot()
   ],
   declarations: [
+    NgxSidebarControlComponent,
     ObservationsComponent,
     ObservationEditorComponent,
     ObservationTableComponent
   ],
   providers: [
+    GeocodingService,
+    ObservationFilterService,
     ObservationsService
   ]
 })

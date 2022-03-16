@@ -4,24 +4,23 @@ import { TranslateService } from "@ngx-translate/core";
 import { AuthenticationService } from "../providers/authentication-service/authentication.service";
 import { ObservationsService } from "./observations.service";
 import { RegionsService, RegionProperties } from "../providers/regions-service/regions.service";
-import { MapService } from "../providers/map-service/map.service";
-import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, toObservationTable } from "./models/generic-observation.model";
+import { ObservationsMapService } from "../providers/map-service/observations-map.service";
+import { GenericObservation, ObservationSource, ObservationSourceColors, ObservationTableRow, toGeoJSON, toObservationTable } from "./models/generic-observation.model";
 
-import { Observable } from "rxjs";
-import * as L from "leaflet";
 import { saveAs } from "file-saver";
 
+import { Map, LatLng, Control, Marker, LayerGroup } from "leaflet";
+
+import { ObservationTableComponent } from "./observation-table.component";
+import { ObservationFilterService } from "./observation-filter.service";
 @Component({
   templateUrl: "observations.component.html"
 })
 export class ObservationsComponent implements AfterContentInit, AfterViewInit, OnDestroy {
   public loading = false;
   public showTable = false;
-  public dateRange: Date[] = [];
-  public elevationRange = [200, 4000];
-  public regions: string[] = [];
-  public aspects: string[] = [];
   public observations: GenericObservation[] = [];
+  public observationsWithoutCoordinates: number = 0;
   public observationPopup: {
     observation: GenericObservation;
     table: ObservationTableRow[];
@@ -32,14 +31,15 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   public readonly allRegions: RegionProperties[];
 
   @ViewChild("observationsMap") mapDiv: ElementRef<HTMLDivElement>;
+  @ViewChild("observationTable") observationTableComponent: ObservationTableComponent;
 
   constructor(
+    public filter: ObservationFilterService,
     private translateService: TranslateService,
     private observationsService: ObservationsService,
-    private authenticationService: AuthenticationService,
     private sanitizer: DomSanitizer,
     private regionsService: RegionsService,
-    private mapService: MapService
+    public mapService: ObservationsMapService
   ) {
     Object.keys(ObservationSource).forEach(source => this.activeSources[source] = true);
     this.allRegions = this.regionsService
@@ -49,11 +49,12 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   ngAfterContentInit() {
-    this.loadObservations({ days: 3 });
+    this.filter.days = 7;
   }
 
   ngAfterViewInit() {
-    this.initMaps();
+    this.mapService.initMaps(this.mapDiv.nativeElement, o => this.onObservationClick(o));
+    this.loadObservations();
   }
 
   ngOnDestroy() {
@@ -63,80 +64,37 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     }
   }
 
+  onSidebarChange(e: Event) {
+    if (e.type === "opening") {
+      this.showTable = false;
+    }
+  }
+
+  newObservation() {
+    this.showTable = true;
+    this.observationTableComponent.newObservation();
+  }
+
   loadObservations({ days }: { days?: number } = {}) {
+    this.observationsWithoutCoordinates = 0;
     if (typeof days === "number") {
-      const startDate = new Date();
-      startDate.setDate(startDate.getDate() - (days - 1));
-      startDate.setHours(0, 0, 0, 0);
-      const endDate = new Date();
-      endDate.setHours(23, 59, 0, 0);
-      this.dateRange = [startDate, endDate];
+      this.filter.days = days;
     }
     this.loading = true;
     this.observations.length = 0;
-    this.observationsService.startDate = this.dateRange[0];
-    this.observationsService.endDate = this.dateRange[1];
-    Object.values(this.mapService.observationLayers).forEach((layer) => layer.clearLayers());
-    Observable.merge<GenericObservation>(
-      this.observationsService.getAvalancheWarningService().catch((err) => this.warnAndContinue("Failed fetching AWS observers", err)),
-      this.observationsService.getLawisIncidents().catch((err) => this.warnAndContinue("Failed fetching lawis incidents", err)),
-      this.observationsService.getLawisProfiles().catch((err) => this.warnAndContinue("Failed fetching lawis profiles", err)),
-      this.observationsService.getLoLaKronos().catch((err) => this.warnAndContinue("Failed fetching LoLaKronos", err)),
-      this.observationsService.getLoLaSafety().catch((err) => this.warnAndContinue("Failed fetching LoLa safety observations", err)),
-      this.observationsService.getLwdKipObservations().catch((err) => this.warnAndContinue("Failed fetching LWDKIP observations", err)),
-      this.observationsService.getWikisnowECT().catch((err) => this.warnAndContinue("Failed fetching Wikisnow ECT", err)),
-      this.observationsService.getObservations().catch((err) => this.warnAndContinue("Failed fetching observations", err)),
-    )
+    // Object.values(this.mapService.observationSourceLayers).forEach((layer) => layer.clearLayers());
+    Object.values(this.mapService.observationTypeLayers).forEach((layer) => layer.clearLayers());
+    this.observationsService.loadAll()
       .forEach((observation) => this.addObservation(observation))
+      .catch((e) => console.error(e))
       .finally(() => (this.loading = false));
   }
 
   exportObservations() {
-    const features = this.observations.map(
-      (o): GeoJSON.Feature => ({
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [o.longitude ?? 0.0, o.latitude ?? 0.0, o.elevation ?? 0.0]
-        },
-        properties: {
-          ...o,
-          ...(o.$data || {}),
-          $data: undefined
-        }
-      })
-    );
-    const collection: GeoJSON.FeatureCollection = {
-      type: "FeatureCollection",
-      features
-    };
+    const collection: GeoJSON.FeatureCollection = toGeoJSON(this.observations);
     const json = JSON.stringify(collection, undefined, 2);
     const blob = new Blob([json], {type: 'application/geo+json'});
     saveAs(blob, "observations.geojson");
-  }
-
-  private warnAndContinue(message: string, err: any): Observable<GenericObservation> {
-    console.error(message, err);
-    return Observable.of();
-  }
-
-  private initMaps() {
-    const map = L.map(this.mapDiv.nativeElement, {
-      zoomControl: false,
-      doubleClickZoom: true,
-      scrollWheelZoom: true,
-      touchZoom: true,
-      center: L.latLng(this.authenticationService.getUserLat(), this.authenticationService.getUserLng()),
-      zoom: 8,
-      minZoom: 8,
-      maxZoom: 16,
-      layers: [this.mapService.observationsMaps.AlbinaBaseMap, this.mapService.observationsMaps.OpenTopoMap, ...Object.values(this.mapService.observationLayers)]
-    });
-
-    L.control.scale().addTo(map);
-    L.control.layers(this.mapService.observationsMaps, this.mapService.observationLayers, { position: "bottomright" }).addTo(map);
-
-    this.mapService.observationsMap = map;
   }
 
   get observationPopupVisible(): boolean {
@@ -151,18 +109,13 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
   }
 
   private addObservation(observation: GenericObservation): void {
-    observation.$markerColor = ObservationSourceColors[observation.$source];
-    const ll = observation.latitude && observation.longitude ? L.latLng(observation.latitude, observation.longitude) : undefined;
+    const ll = observation.latitude && observation.longitude ? new LatLng(observation.latitude, observation.longitude) : undefined;
     if (ll) {
       observation.region = this.regionsService.getRegionForLatLng(ll)?.id;
     }
     if (
       !this.activeSources[observation.$source] ||
-      !this.observationsService.inDateRange(observation) ||
-      !this.observationsService.inMapBounds(observation) ||
-      !this.inRegions(observation) ||
-      !this.inElevationRange(observation) ||
-      !this.inAspects(observation)
+      !this.filter.test(observation)
     ) {
       return;
     }
@@ -170,12 +123,20 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
     this.observations.sort((o1, o2) => (+o1.eventDate === +o2.eventDate ? 0 : +o1.eventDate < +o2.eventDate ? 1 : -1));
 
     if (!ll) {
+      this.observationsWithoutCoordinates++;
       return;
     }
-    L.circleMarker(ll, this.mapService.createObservationMarkerOptions(observation.$markerColor))
-      .bindTooltip(observation.locationName)
-      .on({ click: () => this.onObservationClick(observation) })
-      .addTo(this.mapService.observationLayers[observation.$source]);
+
+    const marker = new Marker(ll, this.mapService.style(observation));
+    if (this.mapService.USE_CANVAS_LAYER) {
+      // @ts-ignore
+      marker.observation = observation;
+    } else {
+      marker.on("click", () => this.onObservationClick(observation));
+    }
+    marker.bindTooltip(observation.locationName);
+    // marker.addTo(this.mapService.observationSourceLayers[observation.$source]);
+    marker.addTo(this.mapService.observationTypeLayers[observation.$type]);
   }
 
   onObservationClick(observation: GenericObservation): void {
@@ -188,25 +149,5 @@ export class ObservationsComponent implements AfterContentInit, AfterViewInit, O
       const table = [...rows, ...extraRows];
       this.observationPopup = { observation, table, iframe: undefined };
     }
-  }
-
-  private inRegions({ region }: GenericObservation) {
-    return !this.regions.length || (typeof region === "string" && this.regions.includes(region));
-  }
-
-  private inElevationRange({ elevation }: GenericObservation) {
-    return elevation === undefined || (this.elevationRange[0] <= elevation && elevation <= this.elevationRange[1]);
-  }
-
-  private inAspects({ aspect }: GenericObservation) {
-    return !this.aspects.length || (typeof aspect === "string" && this.aspects.includes(aspect.toUpperCase()));
-  }
-
-  get showMap(): boolean {
-    return !this.showTable;
-  }
-
-  set showMap(value: boolean) {
-    this.showTable = !value;
   }
 }

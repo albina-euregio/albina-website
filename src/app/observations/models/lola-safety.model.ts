@@ -2,6 +2,8 @@ import { convertLoLaToGeneric, LolaSnowProfile as SnowProfile } from "./lola-kro
 import {
   GenericObservation,
   ObservationSource,
+  ObservationType,
+  Stability,
 } from "./generic-observation.model";
 
 export interface LoLaSafetyApi {
@@ -101,7 +103,7 @@ export function convertLoLaSafety(lola: LoLaSafetyApi): GenericObservation[] {
   return [
     ...lola.avalancheReports.map((obs) => convertAvalancheReport(obs)),
     ...lola.snowProfiles.map((obs) =>
-      convertLoLaToGeneric(obs, ObservationSource.LoLaSafetySnowProfiles, "https://www.lola-safety.info/snowProfile/")
+      convertLoLaToGeneric(obs, ObservationSource.LoLaSafetySnowProfiles, ObservationType.Profile, "https://www.lola-safety.info/snowProfile/")
     ),
   ];
 }
@@ -115,6 +117,9 @@ function convertAvalancheReport(
       "https://www.lola-safety.info/api/file/avalancheReport/" +
       (report.detailedPdf ?? report.publicPdf),
     $source: ObservationSource.LoLaSafetyAvalancheReports,
+    $type: ObservationType.Observation,
+    stability: getAvalancheReportStability(report),
+    $markerRadius: getAvalancheReportMarkerRadius(report),
     aspect: undefined,
     authorName: report.firstName + " " + report.lastName,
     content: report.headlineGerman + " " + report.headlineEnglish,
@@ -125,4 +130,18 @@ function convertAvalancheReport(
     longitude: report.longitude,
     region: undefined
   };
+}
+
+function getAvalancheReportStability(report: AvalancheReport): Stability {
+  if (report.avalanchePotential.riskAssessment < 30) {
+    return "good";
+  } else if (report.avalanchePotential.riskAssessment < 60) {
+    return "medium";
+  } else {
+    return "weak";
+  }
+}
+
+function getAvalancheReportMarkerRadius(report: AvalancheReport): number {
+  return 15;
 }

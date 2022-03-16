@@ -1,4 +1,4 @@
-import { GenericObservation, Aspect, ObservationSource } from "./generic-observation.model";
+import { GenericObservation, Aspect, ObservationSource, ObservationType, Stability } from "./generic-observation.model";
 
 export interface Observation {
   aspect: Aspect;
@@ -33,6 +33,9 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
     $data: observation,
     $extraDialogRows: null,
     $source: ObservationSource.Albina,
+    $type: getObservationType(observation),
+    stability: getObservationStability(observation),
+    $markerRadius: getObservationMarkerRadius(observation),
     eventDate: observation.eventDate ? new Date(observation.eventDate) : undefined,
     reportDate: observation.reportDate ? new Date(observation.reportDate) : undefined
   };
@@ -40,4 +43,40 @@ export function convertObservationToGeneric(observation: Observation): GenericOb
 
 export function isAlbinaObservation(observation: GenericObservation): observation is GenericObservation<Observation> {
   return observation.$source === ObservationSource.Albina;
+}
+
+function getObservationStability(observation: Observation): Stability {
+  switch (observation.eventType ?? EventType.Normal) {
+    case EventType.PersonDead:
+      return "weak";
+    case EventType.PersonInjured:
+      return "weak";
+    case EventType.PersonUninjured:
+      return "weak";
+    case EventType.PersonNo:
+      return "weak";
+    case EventType.Important:
+      return "medium";
+    default:
+      return "unknown";
+  }
+}
+
+function getObservationMarkerRadius(observation: Observation): number {
+  return 15;
+}
+
+function getObservationType(observation: Observation): ObservationType {
+  switch (observation.eventType ?? EventType.Normal) {
+    case EventType.PersonDead:
+      return ObservationType.Avalanche;
+    case EventType.PersonInjured:
+      return ObservationType.Avalanche;
+    case EventType.PersonUninjured:
+      return ObservationType.Avalanche;
+    case EventType.PersonNo:
+      return ObservationType.Avalanche;
+    default:
+      return ObservationType.Observation;
+  }
 }

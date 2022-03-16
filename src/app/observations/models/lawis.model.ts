@@ -1,5 +1,5 @@
 import * as Enums from "app/enums/enums";
-import { GenericObservation, ObservationTableRow } from "./generic-observation.model";
+import { GenericObservation, imageCountString, ObservationSource, ObservationTableRow, ObservationType, Stability, toAspect } from "./generic-observation.model";
 
 export const LAWIS_FETCH_DETAILS = true;
 
@@ -65,7 +65,7 @@ export interface Temperature {
 
 export interface StabilityTest {
   id: number;
-  type: Aspect;
+  type: IdText;
   height: number;
   step: number;
   result: Aspect;
@@ -121,6 +121,7 @@ export interface IncidentDetails {
   id: number;
   not_buried: number;
   valid_time: boolean;
+  images: string[];
   date: string;
   reported: {
     date: string;
@@ -178,6 +179,67 @@ export interface IdText {
   text: string;
 }
 
+export function toLawisProfile(lawis: Profile, urlPattern: string): GenericObservation<Profile> {
+  return {
+    $data: lawis,
+    $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
+    $source: ObservationSource.LawisSnowProfiles,
+    $type: ObservationType.Profile,
+    aspect: toAspect(lawis.location.aspect?.text),
+    authorName: "",
+    content: "(LAWIS snow profile)",
+    elevation: lawis.location.elevation,
+    eventDate: parseLawisDate(lawis.date),
+    latitude: lawis.location.latitude,
+    locationName: lawis.location.name,
+    longitude: lawis.location.longitude,
+    region: lawis.location.region.text
+  };
+}
+
+export function toLawisProfileDetails(profile: GenericObservation<Profile>, lawisDetails: ProfileDetails): GenericObservation<Profile> {
+  return {
+    ...profile,
+    stability: getLawisProfileStability(lawisDetails),
+    $markerRadius: getLawisProfileMarkerRadius(lawisDetails),
+    authorName: lawisDetails.reported?.name,
+    content: lawisDetails.comments
+  };
+}
+
+export function toLawisIncident(lawis: Incident, urlPattern: string): GenericObservation<Incident> {
+  return {
+    $data: lawis,
+    $externalURL: urlPattern.replace("{{id}}", String(lawis.id)),
+    $source: ObservationSource.LawisIncidents,
+    $type: ObservationType.Incident,
+    aspect: toAspect(lawis.location.aspect?.text),
+    authorName: "",
+    content: "(LAWIS incident)",
+    elevation: lawis.location.elevation,
+    eventDate: parseLawisDate(lawis.date),
+    latitude: lawis.location.latitude,
+    locationName: lawis.location.name,
+    longitude: lawis.location.longitude,
+    region: lawis.location.region.text
+  };
+}
+
+export function toLawisIncidentDetails(
+  incident: GenericObservation<Incident>,
+  lawisDetails: IncidentDetails
+): GenericObservation<Incident> {
+  return {
+    ...incident,
+    $extraDialogRows: (t) => toLawisIncidentTable(lawisDetails, t),
+    stability: getLawisIncidentStability(lawisDetails),
+    $markerRadius: getLawisIncidentMarkerRadius(lawisDetails),
+    authorName: lawisDetails.reported?.name,
+    content: (lawisDetails.comments || "") + imageCountString(lawisDetails.images),
+    reportDate: parseLawisDate(lawisDetails.reported?.date)
+  };
+}
+
 export function toLawisIncidentTable(incident: IncidentDetails, t: (key: string) => string): ObservationTableRow[] {
   const dangerRating = Enums.DangerRating[Enums.DangerRating[incident.danger?.rating?.id]];
   const avalancheType = AvalancheType[AvalancheType[incident.avalanche?.type?.id]];
@@ -196,4 +258,57 @@ export function toLawisIncidentTable(incident: IncidentDetails, t: (key: string)
 
 export function parseLawisDate(datum: string): Date {
   return new Date(datum.replace(/ /, "T"));
+}
+
+function getLawisProfileStability(profile: ProfileDetails): Stability {
+  // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
+  const ect_tests = profile.stability_tests.filter((t) => t.type.text === "ECT") || [];
+  const colors = ect_tests.map((t) => getECTestStability(t.step, t.result.text));
+  if (colors.includes("weak")) {
+    return "weak";
+  } else if (colors.includes("medium")) {
+    return "medium";
+  } else if (colors.includes("good")) {
+    return "good";
+  }
+  return "unknown";
+}
+
+export function getECTestStability(step: number, propagation: string): Stability {
+  // Ausbildungshandbuch, 6. Auflage, Seiten 170/171
+  const propagation1 = /\bP\b/.test(propagation);
+  const propagation0 = /\bN\b/.test(propagation);
+  if (step <= 13 && propagation1) {
+    // sehr schwach
+    return "weak";
+  } else if (step <= 22 && propagation1) {
+    // schwach
+    return "weak";
+  } else if (step <= 30 && propagation1) {
+    // mittel
+    return "medium";
+  } else if (step <= 10 && propagation0) {
+    // mittel
+    return "medium";
+  } else if (step <= 30 && propagation0) {
+    return "good";
+  } else if (step === 31) {
+    return "good";
+  }
+  return "unknown";
+}
+
+function getLawisProfileMarkerRadius(profile: ProfileDetails): number {
+  return 15;
+}
+
+function getLawisIncidentStability(incident: IncidentDetails): Stability {
+  return incident.involved?.dead || incident.involved?.injured || incident.involved?.buried_partial || incident.involved?.buried_total
+    ? "weak"
+    : "medium";
+}
+
+function getLawisIncidentMarkerRadius(incident: IncidentDetails): number {
+  const size_id = incident.avalanche?.size?.id;
+  return size_id && size_id >= 1 && size_id <= 5 ? size_id * 10 : 10;
 }

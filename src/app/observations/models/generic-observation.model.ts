@@ -1,11 +1,25 @@
 import * as Enums from "app/enums/enums";
 
+// icons
+import { appCircleAddIcon } from "../../svg/circle_add";
+import { appCircleAlertIcon } from "../../svg/circle_alert";
+import { appCircleCheckIcon } from "../../svg/circle_check";
+import { appCircleDotsHorizontalIcon } from "../../svg/circle_dots_horizontal";
+import { appCircleFullIcon } from "../../svg/circle_full";
+import { appCircleMinusIcon } from "../../svg/circle_minus";
+import { appCircleOkayTickIcon } from "../../svg/circle_okay_tick";
+import { appCirclePlayEmptyIcon } from "../../svg/circle_play_empty";
+import { appCirclePlayIcon } from "../../svg/circle_play";
+import { appCircleStopIcon } from "../../svg/circle_stop";
+
 export interface GenericObservation<Data = any> {
   $data: Data;
   $externalURL?: string;
   $extraDialogRows?: (t: (key: string) => string) => ObservationTableRow[];
-  $markerColor?: string;
+  stability?: Stability;
+  $markerRadius?: number;
   $source: ObservationSource;
+  $type: ObservationType;
   aspect?: Aspect;
   authorName: string;
   content: string;
@@ -16,7 +30,11 @@ export interface GenericObservation<Data = any> {
   longitude: number;
   region: string;
   reportDate?: Date;
+  avalancheSituation?: Enums.AvalancheSituation;
+  dangerPattern?: Enums.DangerPattern;
 }
+
+export type Stability = "good" | "medium" | "weak" | "unknown";
 
 export enum ObservationSource {
   Albina = "Albina",
@@ -44,6 +62,14 @@ export enum ObservationSource {
   WikisnowECT = "WikisnowECT",
 }
 
+export enum ObservationType {
+  Observation = "Observation",
+  Avalanche = "Avalanche",
+  Blasting = "Blasting",
+  Profile = "Profile",
+  Incident = "Incident"
+}
+
 export const ObservationSourceColors: Record<ObservationSource, string> = Object.freeze({
   [ObservationSource.Albina]: "#ca0020",
   [ObservationSource.AvalancheWarningService]: "#83e4f0",
@@ -68,6 +94,14 @@ export const ObservationSourceColors: Record<ObservationSource, string> = Object
   [ObservationSource.NatlefsSimpleObservation]: "#80cdc1",
   [ObservationSource.NatlefsSnowProfile]: "#2c7bb6",
   [ObservationSource.WikisnowECT]: "#c6e667",
+});
+
+export const ObservationTypeIcons: Record<ObservationType, string> = Object.freeze({
+   [ObservationType.Observation]: appCircleAddIcon.data,
+   [ObservationType.Incident]: appCircleAlertIcon.data,
+   [ObservationType.Profile]: appCircleCheckIcon.data,
+   [ObservationType.Avalanche]: appCircleDotsHorizontalIcon.data,
+   [ObservationType.Blasting]: appCircleFullIcon.data,
 });
 
 export enum Aspect {
@@ -109,4 +143,34 @@ export function toAspect(aspect: Enums.Aspect | string | undefined): Aspect | un
   } else if (typeof aspect === "string") {
     return Aspect[aspect];
   }
+}
+
+export function imageCountString(images: any[] | undefined) {
+  return images?.length ? ` 📷 ${images.length}` : "";
+}
+
+export function toGeoJSON(observations: GenericObservation[]) {
+  const features = observations.map(
+    (o): GeoJSON.Feature => ({
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [
+          o.longitude ?? 0.0,
+          o.latitude ?? 0.0,
+          o.elevation ?? 0.0,
+        ],
+      },
+      properties: {
+        ...o,
+        ...(o.$data || {}),
+        $data: undefined,
+      },
+    })
+  );
+  const collection: GeoJSON.FeatureCollection = {
+    type: "FeatureCollection",
+    features,
+  };
+  return collection;
 }

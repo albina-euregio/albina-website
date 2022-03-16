@@ -60,6 +60,8 @@ export class ConstantsService {
     [this.codeAran, ["ES-CT-L-01", "ES-CT-L-02", "ES-CT-L-03"]]
   ]);
 
+  public colorBrand = "#19ABFF";
+
   // danger rating (color)
   public colorDangerRatingLow = "#CCFF66";
   public colorDangerRatingModerate = "#FFFF00";

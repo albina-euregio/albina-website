@@ -753,6 +753,7 @@
     "avalancheSize": "Avalanche size",
     "avalancheType": "Avalanche type",
     "avalancheWidth": "Avalanche width",
+    "count": "# observations:",
     "button": {
       "add": "Add observation",
       "save": "Save observation",
@@ -785,7 +786,25 @@
     "longitude": "Longitude",
     "reportDate": "Report date",
     "showMap": "Map",
-    "showTable": "Table"
+    "showTable": "Table",
+    "withoutCoordinates": "Observations without coordinates:",
+    "sidebar": {
+      "filter": {
+        "title": "Filter"
+      },
+      "legend": {
+        "title": "Legend"
+      },
+      "sources": {
+        "title": "Data Sources"
+      },
+      "views": {
+        "title": "Views"
+      },
+      "settings": {
+        "title": "Settings"
+      }
+    }
   },
   "units" : {
     "cm" : "cm",
