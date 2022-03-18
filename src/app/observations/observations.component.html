@@ -132,7 +132,7 @@
 
 <p-dialog #observationDialog (onShow)="observationDialog.maximize()" [(visible)]="observationPopupVisible" [modal]="true" [style]="{ width: '80vw' }" [closeOnEscape]="true" [dismissableMask]="true" [maximizable]="true">
   <p-header>
-    <span [style]="{ color: observationPopup?.observation?.$markerColor }" [title]="observationPopup?.observation?.$source">█</span>
+    <span [style]="{ color: toMarkerColor(observationPopup?.observation) }" [title]="observationPopup?.observation?.$source">█</span>
     {{ observationPopup?.observation?.locationName }}
   </p-header>
   <table *ngIf="observationPopup" class="table table-sm">

@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 // @ts-ignore
 /// <reference types="leaflet-sidebar-v2" />
 import { Map, Canvas, LayerGroup, TileLayer, SidebarOptions, Icon, DivIcon, MarkerOptions, CircleMarkerOptions, Browser, Control, LatLng } from "leaflet";
-import { GenericObservation, ObservationSource, ObservationType, ObservationTypeIcons, Stability } from "app/observations/models/generic-observation.model";
+import { GenericObservation, ObservationSource, ObservationType, ObservationTypeIcons, Stability, toMarkerColor } from "app/observations/models/generic-observation.model";
 
 // icons
 import { appCircleStopIcon } from "../../svg/circle_stop";
@@ -150,13 +150,7 @@ export class ObservationsMapService {
   }
 
   private getSvg(observation: GenericObservation<any>) {
-    const colors: Record<Stability, string> = {
-      good: "green",
-      medium: "orange",
-      weak: "red",
-      unknown: "gray"
-    };
-    const iconColor = colors[observation.stability ?? "unknown"] ?? colors.unknown;
+    const iconColor = toMarkerColor(observation);
     const svg = ObservationTypeIcons[observation.$type] ?? appCircleStopIcon.data;
     return svg.replace(/currentcolor/g, iconColor);
   }
